@@ -121,9 +121,7 @@ const SwitchButton = styled.button<SwitchButtonProps>`
   ${props => {
     if (props.disabled) {
       return css`
-        background-color: ${props.checked
-          ? get('colors.switchTrack.checked.disabledBg')
-          : get('colors.switchTrack.disabledBg')};
+        background-color: ${get('colors.switchTrack.disabledBg')};
         border-color: transparent;
         cursor: not-allowed;
         transition-property: none;
@@ -171,8 +169,7 @@ const ToggleKnob = styled.div<{checked?: boolean; disabled?: boolean}>`
   background-color: ${get('colors.switchKnob.bg')};
   border-width: 1px;
   border-style: solid;
-  border-color: ${props =>
-    props.disabled ? get('colors.switchKnob.disabledBorder') : get('colors.switchKnob.border')};
+  border-color: ${props => (props.disabled ? get('colors.switchTrack.disabledBg') : get('colors.switchKnob.border'))};
   border-radius: calc(${get('radii.2')} - 1px); /* -1px to account for 1px border around the control */
   width: 50%;
   position: absolute;
@@ -191,9 +188,7 @@ const ToggleKnob = styled.div<{checked?: boolean; disabled?: boolean}>`
   ${props => {
     if (props.disabled) {
       return css`
-        border-color: ${
-          props.checked ? get('colors.switchKnob.checked.disabledBorder') : get('colors.switchKnob.disabledBorder')
-        };
+        border-color: ${get('colors.switchTrack.disabledBg')};
       };
       `
     }
