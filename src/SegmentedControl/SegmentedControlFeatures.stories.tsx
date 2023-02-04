@@ -132,7 +132,7 @@ IconOnly.storyName = 'Icon only'
 export const AssociatedWithALabelAndCaption = () => (
   <Box
     display="flex"
-    sx={(theme: any) => ({
+    sx={theme => ({
       flexDirection: 'column',
       gap: theme.space[1],
       [`@media screen and (min-width: ${theme.breakpoints[1]})`]: {
