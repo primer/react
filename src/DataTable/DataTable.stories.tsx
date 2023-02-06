@@ -1,6 +1,6 @@
 import {Meta, ComponentStory} from '@storybook/react'
 import React from 'react'
-import {DataTable} from '../DataTable'
+import {DataTable, TableContainer, TableTitle, TableSubtitle} from '../DataTable'
 import Label from '../Label'
 import LabelGroup from '../LabelGroup'
 import RelativeTime from '../RelativeTime'
