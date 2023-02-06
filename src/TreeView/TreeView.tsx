@@ -537,7 +537,7 @@ const SubTree: React.FC<TreeViewSubTreeProps> = ({count, state, children}) => {
       }
 
       // Move focus to the first child if the loading indicator
-      // was focused when the async items were done loading
+      // was focused when the async items finished loading
       if (loadingFocused) {
         const firstChild = getFirstChildElement(parentElement)
 
