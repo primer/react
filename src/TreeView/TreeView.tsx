@@ -689,13 +689,11 @@ type LoadingItemProps = {
 }
 
 const LoadingItem = React.forwardRef<HTMLElement, LoadingItemProps>(({count}, ref) => {
-  // const itemId = useId()
-  const {itemId} = React.useContext(ItemContext)
-  const loadingItemId = `${itemId}_loading`
+  const itemId = useId()
 
   if (count) {
     return (
-      <Item id={loadingItemId} ref={ref}>
+      <Item id={itemId} ref={ref}>
         {Array.from({length: count}).map((_, i) => {
           return <SkeletonItem aria-hidden={true} key={i} />
         })}
@@ -705,7 +703,7 @@ const LoadingItem = React.forwardRef<HTMLElement, LoadingItemProps>(({count}, re
   }
 
   return (
-    <Item id={loadingItemId} ref={ref}>
+    <Item id={itemId} ref={ref}>
       <LeadingVisual>
         <Spinner size="small" />
       </LeadingVisual>
