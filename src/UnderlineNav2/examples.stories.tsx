@@ -128,7 +128,7 @@ export const ProfilePage = () => {
 
           {/* Edit Profile / Profile details */}
           <Box sx={{display: 'flex', flexDirection: 'column', color: 'fg.onEmphasis'}}>
-            <Button sx={{width: '100%'}}>Edit Profile</Button>
+            <Button block>Edit Profile</Button>
 
             <Box sx={{display: 'flex', flexDirection: 'row', alignItems: 'center', marginTop: 3}}>
               <StyledOcticon icon={PeopleIcon} size={16} sx={{marginRight: 1}} />
