@@ -10,7 +10,6 @@ import styled, {keyframes} from 'styled-components'
 import {get} from '../constants'
 import {ConfirmationDialog} from '../Dialog/ConfirmationDialog'
 import {useControllableState} from '../hooks/useControllableState'
-import useSafeTimeout from '../hooks/useSafeTimeout'
 import {useId} from '../hooks/useId'
 import Spinner from '../Spinner'
 import sx, {SxProp} from '../sx'
@@ -20,7 +19,6 @@ import VisuallyHidden from '../_VisuallyHidden'
 import {getAccessibleName} from './shared'
 import {getFirstChildElement, useRovingTabIndex} from './useRovingTabIndex'
 import {useTypeahead} from './useTypeahead'
-
 // ----------------------------------------------------------------------------
 // Context
 
@@ -504,17 +502,10 @@ export type TreeViewSubTreeProps = {
 const SubTree: React.FC<TreeViewSubTreeProps> = ({count, state, children}) => {
   const {announceUpdate} = React.useContext(RootContext)
   const {itemId, isExpanded, isSubTreeEmpty, setIsSubTreeEmpty} = React.useContext(ItemContext)
-  const [isLoadingItemVisible, setIsLoadingItemVisible] = React.useState(false)
-  const {safeSetTimeout} = useSafeTimeout()
   const loadingItemRef = React.useRef<HTMLElement>(null)
   const ref = React.useRef<HTMLElement>(null)
-  const [isPending, setPending] = React.useState(state === 'loading')
-
-  React.useEffect(() => {
-    if (state === 'loading') {
-      setPending(true)
-    }
-  }, [state])
+  const [loadingFocused, setLoadingFocused] = React.useState(false)
+  const previousState = usePreviousValue(state)
 
   React.useEffect(() => {
     // If `state` is undefined, we're working in a synchronous context and need
@@ -530,61 +521,65 @@ const SubTree: React.FC<TreeViewSubTreeProps> = ({count, state, children}) => {
     }
   }, [state, isSubTreeEmpty, setIsSubTreeEmpty, children])
 
-  // If a consumer sets state="done" without having a previous state (like `loading`),
-  // then it would announce on the first render. Using isPending is to only
-  // announce being "loaded" when the state has changed from `loading` --> `done`.
+  // Handle transition from loading to done state
   React.useEffect(() => {
-    if (isPending && state === 'done') {
-      const parentItem = document.getElementById(itemId)
+    if (previousState === 'loading' && state === 'done') {
+      const parentElement = document.getElementById(itemId)
+      if (!parentElement) return
 
-      if (!parentItem) return
+      // Announce update to screen readers
+      const parentName = getAccessibleName(parentElement)
+      if (children) {
+        announceUpdate(`${parentName} content loaded`)
+      } else {
+        announceUpdate(`${parentName} is empty`)
+      }
 
-      const {current: node} = ref
-      const parentName = getAccessibleName(parentItem)
+      // Move focus to the first child if the loading indicator
+      // was focused when the async items were done loading
+      if (loadingFocused) {
+        const firstChild = getFirstChildElement(parentElement)
 
-      safeSetTimeout(() => {
-        if (node && node.childElementCount > 0) {
-          announceUpdate(`${parentName} content loaded`)
+        if (firstChild) {
+          firstChild.focus()
         } else {
-          announceUpdate(`${parentName} is empty`)
+          parentElement.focus()
         }
-      })
 
-      setPending(false)
-    }
-  }, [state, itemId, announceUpdate, safeSetTimeout, isPending])
-
-  // Manage loading indicator state
-  React.useEffect(() => {
-    // If we're in the loading state, but not showing the loading indicator yet,
-    // show the loading indicator
-    if (state === 'loading' && !isLoadingItemVisible) {
-      setIsLoadingItemVisible(true)
-    }
-
-    // If we're not in the loading state, but we're still showing a loading indicator,
-    // hide the loading indicator and move focus if necessary
-    if (state !== 'loading' && isLoadingItemVisible) {
-      const isLoadingItemFocused = document.activeElement === loadingItemRef.current
-
-      setIsLoadingItemVisible(false)
-
-      if (isLoadingItemFocused) {
-        safeSetTimeout(() => {
-          const parentElement = document.getElementById(itemId)
-          if (!parentElement) return
-
-          const firstChild = getFirstChildElement(parentElement)
-
-          if (firstChild) {
-            firstChild.focus()
-          } else {
-            parentElement.focus()
-          }
-        })
+        setLoadingFocused(false)
       }
     }
-  }, [state, safeSetTimeout, isLoadingItemVisible, itemId])
+  }, [loadingFocused, previousState, state, itemId, announceUpdate, children])
+
+  // Track focus on the loading indicator
+  React.useEffect(() => {
+    function handleFocus() {
+      setLoadingFocused(true)
+    }
+
+    function handleBlur(event: FocusEvent) {
+      // Skip blur events that are caused by the element being removed from the DOM.
+      // This can happen when the loading indicator is focused when async items are
+      // done loading and the loading indicator is removed from the DOM.
+      // If `loadingFocused` is `true` when `state` is `"done"` then the loading indicator
+      // was focused when the async items were done loading and we need to move focus to the
+      // first child.
+      if (!event.relatedTarget) return
+
+      setLoadingFocused(false)
+    }
+
+    const loadingElement = loadingItemRef.current
+    if (!loadingElement) return
+
+    loadingElement.addEventListener('focus', handleFocus)
+    loadingElement.addEventListener('blur', handleBlur)
+
+    return () => {
+      loadingElement.removeEventListener('focus', handleFocus)
+      loadingElement.removeEventListener('blur', handleBlur)
+    }
+  }, [loadingItemRef, state])
 
   if (!isExpanded) {
     return null
@@ -601,12 +596,22 @@ const SubTree: React.FC<TreeViewSubTreeProps> = ({count, state, children}) => {
       // @ts-ignore Box doesn't have type support for `ref` used in combination with `as`
       ref={ref}
     >
-      {isLoadingItemVisible ? <LoadingItem ref={loadingItemRef} count={count} /> : children}
+      {state === 'loading' ? <LoadingItem ref={loadingItemRef} count={count} /> : children}
     </ul>
   )
 }
 
 SubTree.displayName = 'TreeView.SubTree'
+
+function usePreviousValue<T>(value: T): T {
+  const ref = React.useRef(value)
+
+  React.useEffect(() => {
+    ref.current = value
+  }, [value])
+
+  return ref.current
+}
 
 const shimmer = keyframes`
   from { mask-position: 200%; }
@@ -683,11 +688,13 @@ type LoadingItemProps = {
 }
 
 const LoadingItem = React.forwardRef<HTMLElement, LoadingItemProps>(({count}, ref) => {
-  const itemId = useId()
+  // const itemId = useId()
+  const {itemId} = React.useContext(ItemContext)
+  const loadingItemId = `${itemId}_loading`
 
   if (count) {
     return (
-      <Item id={itemId} ref={ref}>
+      <Item id={loadingItemId} ref={ref}>
         {Array.from({length: count}).map((_, i) => {
           return <SkeletonItem aria-hidden={true} key={i} />
         })}
@@ -697,7 +704,7 @@ const LoadingItem = React.forwardRef<HTMLElement, LoadingItemProps>(({count}, re
   }
 
   return (
-    <Item id={itemId} ref={ref}>
+    <Item id={loadingItemId} ref={ref}>
       <LeadingVisual>
         <Spinner size="small" />
       </LeadingVisual>
