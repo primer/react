@@ -12,6 +12,8 @@ export type VariantType = 'default' | 'primary' | 'invisible' | 'danger' | 'outl
 
 export type Size = 'small' | 'medium' | 'large'
 
+export type AlignContent = 'start' | 'center'
+
 type ButtonA11yProps =
   | {'aria-label': string; 'aria-labelledby'?: undefined}
   | {'aria-label'?: undefined; 'aria-labelledby': string}
@@ -29,10 +31,18 @@ export type ButtonBaseProps = {
    * Items that are disabled can not be clicked, selected, or navigated through.
    */
   disabled?: boolean
+  /**
+   * Allow button width to fill its container.
+   */
+  block?: boolean
 } & SxProp &
   React.ButtonHTMLAttributes<HTMLButtonElement>
 
 export type ButtonProps = {
+  /**
+   * The icon for the IconButton
+   */
+  icon?: React.ComponentType | null | undefined
   /**
    * The leading icon comes before button content
    */
@@ -41,7 +51,15 @@ export type ButtonProps = {
    * The trailing icon comes after button content
    */
   trailingIcon?: React.ComponentType | null | undefined
+  /**
+   * Trailing action appears to the right of the trailing visual and is always locked to the end
+   */
+  trailingAction?: React.ComponentType | null | undefined
   children: React.ReactNode
+  /**
+   * Content alignment for when visuals are present
+   */
+  alignContent?: AlignContent
 } & ButtonBaseProps
 
 export type IconButtonProps = ButtonA11yProps & {
