@@ -2586,6 +2586,116 @@
       ],
       "subcomponents": []
     },
+    "data_table": {
+      "id": "data_table",
+      "name": "DataTable",
+      "status": "draft",
+      "a11yReviewed": false,
+      "stories": [],
+      "props": [
+        {
+          "name": "aria-describedby",
+          "type": "string",
+          "description": "Provide an id to an element which uniquely describes this table"
+        },
+        {
+          "name": "aria-labelledby",
+          "type": "string",
+          "description": "Provide an id to an element which uniquely labels this table"
+        },
+        {
+          "name": "data",
+          "type": "Array<Data>",
+          "description": "Provide a collection of the rows which will be rendered inside of the table"
+        },
+        {
+          "name": "columns",
+          "type": "Array<Column<Data>>",
+          "description": "Provide the columns for the table and the fields in `data` to which they correspond"
+        },
+        {
+          "name": "cellPadding",
+          "type": "'condensed' | 'normal' | 'spacious'",
+          "description": "Specify the amount of space that should be available around the contents of a cell"
+        }
+      ],
+      "subcomponents": [
+        {
+          "name": "Table",
+          "props": [
+            {
+              "name": "aria-describedby",
+              "type": "string",
+              "description": "Provide an id to an element which uniquely describes this table"
+            },
+            {
+              "name": "aria-labelledby",
+              "type": "string",
+              "description": "Provide an id to an element which uniquely labels this table"
+            },
+            {
+              "name": "children",
+              "type": "React.ReactNode"
+            },
+            {
+              "name": "cellPadding",
+              "type": "'condensed' | 'normal' | 'spacious'",
+              "description": "Specify the amount of space that should be available around the contents of a cell"
+            }
+          ]
+        },
+        {
+          "name": "TableHead",
+          "props": [
+            {
+              "name": "children",
+              "type": "React.ReactNode"
+            }
+          ]
+        },
+        {
+          "name": "TableBody",
+          "props": [
+            {
+              "name": "children",
+              "type": "React.ReactNode"
+            }
+          ]
+        },
+        {
+          "name": "TableRow",
+          "props": [
+            {
+              "name": "children",
+              "type": "React.ReactNode"
+            }
+          ]
+        },
+        {
+          "name": "TableHeader",
+          "props": [
+            {
+              "name": "children",
+              "type": "React.ReactNode"
+            }
+          ]
+        },
+        {
+          "name": "TableCell",
+          "props": [
+            {
+              "name": "children",
+              "type": "React.ReactNode"
+            },
+            {
+              "name": "scope",
+              "type": "string",
+              "description": "Provide the scope for a table cell, useful for defining a row header using `scope=\"row\"`"
+            }
+          ]
+        }
+      ]
+    },
     "drafts_dialog": {
       "id": "drafts_dialog",
       "name": "Dialog",
