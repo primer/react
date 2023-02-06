@@ -19,6 +19,7 @@ import VisuallyHidden from '../_VisuallyHidden'
 import {getAccessibleName} from './shared'
 import {getFirstChildElement, useRovingTabIndex} from './useRovingTabIndex'
 import {useTypeahead} from './useTypeahead'
+
 // ----------------------------------------------------------------------------
 // Context
 
