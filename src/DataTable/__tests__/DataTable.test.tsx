@@ -1,6 +1,6 @@
-import React from 'react'
-import {DataTable} from '..'
 import {render, screen} from '@testing-library/react'
+import React from 'react'
+import {DataTable, TableContainer, TableTitle, TableSubtitle} from '..'
 
 describe('DataTable', () => {
   it('should render a semantic <table> through `data` and `columns`', () => {
@@ -109,6 +109,38 @@ describe('DataTable', () => {
     expect(screen.getByRole('table', {name: 'custom-title'})).toBeInTheDocument()
   })
 
+  it('should support custom labeling through `aria-labelledby` and `TableTitle`', () => {
+    const columns = [
+      {
+        header: 'Name',
+        field: 'name',
+      },
+    ]
+    const data = [
+      {
+        id: 1,
+        name: 'one',
+      },
+      {
+        id: 2,
+        name: 'two',
+      },
+      {
+        id: 3,
+        name: 'three',
+      },
+    ]
+    render(
+      <TableContainer>
+        <TableTitle as="h2" id="custom-title">
+          custom-title
+        </TableTitle>
+        <DataTable data={data} columns={columns} aria-labelledby="custom-title" />
+      </TableContainer>,
+    )
+    expect(screen.getByRole('table', {name: 'custom-title'})).toBeInTheDocument()
+  })
+
   it('should support custom descriptions through `aria-describedby`', () => {
     const columns = [
       {
@@ -135,6 +167,38 @@ describe('DataTable', () => {
         <p id="custom-description">custom-description</p>
         <DataTable data={data} columns={columns} aria-describedby="custom-description" />
       </>,
+    )
+    expect(screen.getByRole('table', {description: 'custom-description'})).toBeInTheDocument()
+  })
+
+  it('should support custom descriptions through `aria-describedby` and `TableSubtitle`', () => {
+    const columns = [
+      {
+        header: 'Name',
+        field: 'name',
+      },
+    ]
+    const data = [
+      {
+        id: 1,
+        name: 'one',
+      },
+      {
+        id: 2,
+        name: 'two',
+      },
+      {
+        id: 3,
+        name: 'three',
+      },
+    ]
+    render(
+      <TableContainer>
+        <TableSubtitle as="p" id="custom-description">
+          custom-description
+        </TableSubtitle>
+        <DataTable data={data} columns={columns} aria-describedby="custom-description" />
+      </TableContainer>,
     )
     expect(screen.getByRole('table', {description: 'custom-description'})).toBeInTheDocument()
   })

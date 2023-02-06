@@ -118,55 +118,65 @@ function uppercase(input: string): string {
 
 export const Playground: ComponentStory<typeof DataTable> = args => {
   return (
-    <DataTable
-      {...args}
-      data={data}
-      columns={[
-        {
-          header: 'Repository',
-          field: 'name',
-          rowHeader: true,
-        },
-        {
-          header: 'Type',
-          field: 'type',
-          renderCell: row => {
-            return <Label>{uppercase(row.type)}</Label>
+    <TableContainer>
+      <TableTitle as="h2" id="repositories">
+        Repositories
+      </TableTitle>
+      <TableSubtitle as="p" id="repositories-subtitle">
+        A subtitle could appear here to give extra context to the data.
+      </TableSubtitle>
+      <DataTable
+        {...args}
+        aria-labelledby="repositories"
+        aria-describedby="repositories-subtitle"
+        data={data}
+        columns={[
+          {
+            header: 'Repository',
+            field: 'name',
+            rowHeader: true,
           },
-        },
-        {
-          header: 'Updated',
-          field: 'updatedAt',
-          renderCell: row => {
-            return <RelativeTime date={new Date(row.updatedAt)} />
+          {
+            header: 'Type',
+            field: 'type',
+            renderCell: row => {
+              return <Label>{uppercase(row.type)}</Label>
+            },
           },
-        },
-        {
-          header: 'Dependabot',
-          renderCell: row => {
-            return row.securityFeatures.dependabot.length > 0 ? (
-              <LabelGroup>
-                {row.securityFeatures.dependabot.map(feature => {
-                  return <Label key={feature}>{uppercase(feature)}</Label>
-                })}
-              </LabelGroup>
-            ) : null
+          {
+            header: 'Updated',
+            field: 'updatedAt',
+            renderCell: row => {
+              return <RelativeTime date={new Date(row.updatedAt)} />
+            },
           },
-        },
-        {
-          header: 'Code scanning',
-          renderCell: row => {
-            return row.securityFeatures.codeScanning.length > 0 ? (
-              <LabelGroup>
-                {row.securityFeatures.codeScanning.map(feature => {
-                  return <Label key={feature}>{uppercase(feature)}</Label>
-                })}
-              </LabelGroup>
-            ) : null
+          {
+            header: 'Dependabot',
+            renderCell: row => {
+              return row.securityFeatures.dependabot.length > 0 ? (
+                <LabelGroup>
+                  {row.securityFeatures.dependabot.map(feature => {
+                    return <Label key={feature}>{uppercase(feature)}</Label>
+                  })}
+                </LabelGroup>
+              ) : null
+            },
           },
-        },
-      ]}
-    />
+          {
+            header: 'Code scanning',
+            renderCell: row => {
+              return row.securityFeatures.codeScanning.length > 0 ? (
+                <LabelGroup>
+                  {row.securityFeatures.codeScanning.map(feature => {
+                    return <Label key={feature}>{uppercase(feature)}</Label>
+                  })}
+                </LabelGroup>
+              ) : null
+            },
+          },
+        ]}
+      />
+    </TableContainer>
   )
 }
 

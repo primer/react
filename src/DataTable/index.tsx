@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import Box from '../Box'
 import {get} from '../constants'
 
 // ----------------------------------------------------------------------------
@@ -227,11 +228,23 @@ const StyledTable = styled.table<React.ComponentPropsWithoutRef<'table'>>`
     border-top: 1px solid ${get('colors.border.default')};
   }
 
+  /* TableRow */
+  .TableRow:hover .TableCell {
+    /* TODO: update this token when the new primitive tokens are released */
+    background-color: ${get('colors.actionListItem.default.hoverBg')};
+  }
+
   /* TableCell */
   .TableCell[scope='row'] {
     color: ${get('colors.fg.default')};
     font-weight: 600;
     text-align: start;
+  }
+
+  /* Spacing if table details are present */
+  .TableTitle + &,
+  .TableSubtitle + & {
+    margin-top: ${get('space.2')};
   }
 `
 
@@ -331,4 +344,98 @@ function TableCell({children, scope}: TableCellProps) {
   )
 }
 
-export {DataTable, Table, TableHead, TableBody, TableRow, TableHeader, TableCell}
+// ----------------------------------------------------------------------------
+// TableContainer
+// ----------------------------------------------------------------------------
+interface TableContainerProps {
+  children?: React.ReactNode | undefined
+}
+
+function TableContainer({children}: TableContainerProps) {
+  return <Box>{children}</Box>
+}
+
+interface TableTitleProps {
+  /**
+   * Provide an alternate element or component to use as the container for
+   * `TableSubtitle`. This is useful when specifying markup that is more
+   * semantic for your use-case, such as a heading tag.
+   */
+  as?: keyof JSX.IntrinsicElements | React.ComponentType
+
+  children?: React.ReactNode | undefined
+
+  /**
+   * Provide a unique id for the table subtitle. This should be used along with
+   * `aria-labelledby` on `DataTable`
+   */
+  id: string
+}
+
+function TableTitle({as, children, id}: TableTitleProps) {
+  return (
+    <Box
+      as={as}
+      className="TableTitle"
+      id={id}
+      sx={{
+        color: 'fg.default',
+        fontWeight: 'bold',
+        fontSize: 1,
+        lineHeight: 'calc(20 / 14)',
+        margin: 0,
+      }}
+    >
+      {children}
+    </Box>
+  )
+}
+
+interface TableSubtitleProps {
+  /**
+   * Provide an alternate element or component to use as the container for
+   * `TableSubtitle`. This is useful when specifying markup that is more
+   * semantic for your use-case
+   */
+  as?: keyof JSX.IntrinsicElements | React.ComponentType
+
+  children?: React.ReactNode | undefined
+
+  /**
+   * Provide a unique id for the table subtitle. This should be used along with
+   * `aria-describedby` on `DataTable`
+   */
+  id: string
+}
+
+function TableSubtitle({as, children, id}: TableSubtitleProps) {
+  return (
+    <Box
+      as={as}
+      className="TableSubtitle"
+      id={id}
+      sx={{
+        color: 'fg.default',
+        fontWeight: 'normal',
+        fontSize: 0,
+        lineHeight: 'default',
+        margin: 0,
+      }}
+    >
+      {children}
+    </Box>
+  )
+}
+
+export {
+  DataTable,
+  Table,
+  TableHead,
+  TableBody,
+  TableRow,
+  TableHeader,
+  TableCell,
+  TableContainer,
+  TableTitle,
+  TableSubtitle,
+}
