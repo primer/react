@@ -1,6 +1,6 @@
 import {Meta, ComponentStory} from '@storybook/react'
 import React from 'react'
-import {DataTable, Table, TableHead, TableBody, TableRow, TableHeader, TableCell} from '../DataTable'
+import {DataTable} from '../DataTable'
 import Label from '../Label'
 import LabelGroup from '../LabelGroup'
 import RelativeTime from '../RelativeTime'
@@ -8,14 +8,6 @@ import RelativeTime from '../RelativeTime'
 export default {
   title: 'Drafts/Components/DataTable',
   component: DataTable,
-  subcomponents: {
-    Table,
-    TableHead,
-    TableBody,
-    TableRow,
-    TableHeader,
-    TableCell,
-  },
 } as Meta<typeof DataTable>
 
 const now = Date.now()
