@@ -17,6 +17,7 @@ const smallVariantLinkStyles = {
 const defaultVariantLinkStyles = {
   fontSize: 1,
   paddingX: 2,
+  paddingY: 'calc((2rem - 1.25rem) / 2)'
 }
 
 export const counterStyles = {
@@ -47,7 +48,6 @@ export const ulStyles = {
   alignItems: 'center',
   gap: `${GAP}px`,
   position: 'relative',
-  height: '100%',
 }
 
 export const getDividerStyle = (theme?: Theme) => ({
@@ -84,7 +84,7 @@ export const getLinkStyles = (
   color: 'fg.default',
   textAlign: 'center',
   textDecoration: 'none',
-  lineHeight: '30px',
+  lineHeight: 'calc(20/14)',
   borderRadius: 2,
   ...(props?.variant === 'small' ? smallVariantLinkStyles : defaultVariantLinkStyles),
   '@media (hover:hover)': {
@@ -119,7 +119,7 @@ export const getLinkStyles = (
   '&::after': {
     position: 'absolute',
     right: '50%',
-    bottom: 'calc(50% - 25px)',
+    bottom: 'calc(50% - 25px)', // 48px total height / 2 (24px) + 1px
     width: '100%',
     height: 2,
     content: '""',
