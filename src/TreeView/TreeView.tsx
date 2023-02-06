@@ -563,7 +563,7 @@ const SubTree: React.FC<TreeViewSubTreeProps> = ({count, state, children}) => {
       // This can happen when the loading indicator is focused when async items are
       // done loading and the loading indicator is removed from the DOM.
       // If `loadingFocused` is `true` when `state` is `"done"` then the loading indicator
-      // was focused when the async items were done loading and we need to move focus to the
+      // was focused when the async items finished loading and we need to move focus to the
       // first child.
       if (!event.relatedTarget) return
 
