@@ -374,8 +374,8 @@ function TableTitle({as, children, id}: TableTitleProps) {
       id={id}
       sx={{
         color: 'fg.default',
-        fontWeight: 600,
-        fontSize: '0.875rem',
+        fontWeight: 'bold',
+        fontSize: 1,
         lineHeight: 'calc(20 / 14)',
         margin: 0,
       }}
@@ -410,9 +410,9 @@ function TableSubtitle({as, children, id}: TableSubtitleProps) {
       id={id}
       sx={{
         color: 'fg.default',
-        fontWeight: 400,
-        fontSize: '0.75rem',
-        lineHeight: 'calc(18 / 12)',
+        fontWeight: 'normal',
+        fontSize: 0,
+        lineHeight: 'default',
         margin: 0,
       }}
     >
