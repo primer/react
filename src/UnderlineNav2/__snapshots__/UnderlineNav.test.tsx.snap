@@ -46,11 +46,13 @@ exports[`UnderlineNav renders consistently 1`] = `
   text-align: center;
   -webkit-text-decoration: none;
   text-decoration: none;
-  line-height: 30px;
+  line-height: calc(20/14);
   border-radius: 6px;
   font-size: 14px;
   padding-left: 8px;
   padding-right: 8px;
+  padding-top: calc((2rem - 1.25rem) / 2);
+  padding-bottom: calc((2rem - 1.25rem) / 2);
 }
 
 .c4:focus {
@@ -163,7 +165,6 @@ exports[`UnderlineNav renders consistently 1`] = `
   align-items: center;
   gap: 8px;
   position: relative;
-  height: 100%;
 }
 
 @media (hover:hover) {

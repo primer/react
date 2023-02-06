@@ -17,7 +17,7 @@ const smallVariantLinkStyles = {
 const defaultVariantLinkStyles = {
   fontSize: 1,
   paddingX: 2,
-  paddingY: 'calc((2rem - 1.25rem) / 2)'
+  paddingY: 'calc((2rem - 1.25rem) / 2)',
 }
 
 export const counterStyles = {
