@@ -144,7 +144,7 @@ The terms "color mode" and "color scheme" are often used interchangeably. Howeve
 
 The "color mode" of an application can be either `day`, `night`, or `auto` (i.e. synced with the operating system).
 
-A "color scheme", on the other hand, is a collection of colors that can be associated with a color mode. The [default theme](/theme-reference) includes three color schemes: `light`, `dark`, and `dark_dimmed`. By default, the `light` scheme is displayed when the application is in `day` mode and the `dark` scheme is displayed in `night` mode.
+A "color scheme", on the other hand, is a collection of colors that can be associated with a color mode. The [default theme](/theme-reference) includes several color schemes, including `light`, `dark`, and `dark_dimmed`. By default, the `light` scheme is displayed when the application is in `day` mode and the `dark` scheme is displayed in `night` mode.
 
 ### Setting the color mode
 
