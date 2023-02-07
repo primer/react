@@ -114,6 +114,14 @@ jobs:
           script: |
             const fs = require('fs');
             const { ISSUE_NUMBER, LABEL_NAME, OWNER, REPO } = process.env;
+            
+            // This job may be run after pull-request is skipped above.
+            // If so, this job will not have an issue number and can safely
+            // return early
+            if (isNaN(ISSUE_NUMBER)) {
+              return;
+            }
+
             const { data: labels } = await github.rest.issues.listLabelsOnIssue({
               owner: OWNER,
               repo: REPO,
