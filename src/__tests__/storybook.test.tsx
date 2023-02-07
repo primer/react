@@ -4,7 +4,7 @@ import groupBy from 'lodash.groupby'
 
 const ROOT_DIRECTORY = path.resolve(__dirname, '..', '..')
 // Components opted into the new story format
-const allowlist = ['ActionList', 'Button', 'IconButton', 'FilteredActionList', 'TreeView']
+const allowlist = ['ActionList', 'Button', 'IconButton', 'FilteredActionList', 'TabNav', 'TreeView']
 const stories = glob
   .sync('src/**/*.stories.tsx', {
     cwd: ROOT_DIRECTORY,

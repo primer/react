@@ -1,11 +1,11 @@
 import React from 'react'
-import {TabNav} from '..'
-import {behavesAsComponent, checkExports} from '../utils/testing'
+import TabNav from '..'
+import {behavesAsComponent, checkExports} from '../../utils/testing'
 import {fireEvent, render as HTMLRender} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import {axe} from 'jest-axe'
-import {Button} from '../Button'
-import Box from '../Box'
+import {Button} from '../../Button'
+import Box from '../../Box'
 
 describe('TabNav', () => {
   const tabNavMarkup = (

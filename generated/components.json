@@ -1435,48 +1435,6 @@
         }
       ]
     },
-    "tab_nav": {
-      "id": "tab_nav",
-      "name": "TabNav",
-      "status": "alpha",
-      "a11yReviewed": false,
-      "stories": [],
-      "props": [
-        {
-          "name": "aria-label",
-          "type": "string",
-          "description": "Used to set the `aria-label` on the top level `<nav>` element."
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject"
-        }
-      ],
-      "subcomponents": [
-        {
-          "name": "TabNav.Link",
-          "props": [
-            {
-              "name": "as",
-              "type": "React.ElementType",
-              "defaultValue": "'a'"
-            },
-            {
-              "name": "href",
-              "type": "string"
-            },
-            {
-              "name": "selected",
-              "type": "boolean"
-            },
-            {
-              "name": "sx",
-              "type": "SystemStyleObject"
-            }
-          ]
-        }
-      ]
-    },
     "text": {
       "id": "text",
       "name": "Text",
@@ -4104,6 +4062,48 @@
               "type": "| boolean | { narrow?: boolean regular?: boolean wide?: boolean }",
               "defaultValue": "false",
               "description": "Whether the footer is hidden."
+            },
+            {
+              "name": "sx",
+              "type": "SystemStyleObject"
+            }
+          ]
+        }
+      ]
+    },
+    "tab_nav": {
+      "id": "tab_nav",
+      "name": "TabNav",
+      "status": "alpha",
+      "a11yReviewed": false,
+      "stories": [],
+      "props": [
+        {
+          "name": "aria-label",
+          "type": "string",
+          "description": "Used to set the `aria-label` on the top level `<nav>` element."
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ],
+      "subcomponents": [
+        {
+          "name": "TabNav.Link",
+          "props": [
+            {
+              "name": "as",
+              "type": "React.ElementType",
+              "defaultValue": "'a'"
+            },
+            {
+              "name": "href",
+              "type": "string"
+            },
+            {
+              "name": "selected",
+              "type": "boolean"
             },
             {
               "name": "sx",
