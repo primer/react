@@ -29,6 +29,9 @@ export const parameters = {
     root: '#html-addon-root',
     removeEmptyComments: true,
   },
+  controls: {
+    hideNoControlsWarning: true,
+  },
   options: {
     storySort: (a, b) => {
       const defaultOrder = [
