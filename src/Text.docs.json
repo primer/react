@@ -8,7 +8,8 @@
     {
       "name": "as",
       "defaultValue": "'span'",
-      "type": "React.ElementType"
+      "type": "'span' | 'p' | 'b' | 'i' | 'em' | 'small' | 'strong' | 'u' | 'code' | 'q' | 's' | 'label' | 'ins' | 'del' | 'mark' | 'kbd' | 'abbr'",
+      "description": "Semantic inline HTML element to render text with."
     },
     {
       "name": "sx",
