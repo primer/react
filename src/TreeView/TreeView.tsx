@@ -396,7 +396,7 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
         <li
           className="PRIVATE_TreeView-item"
           ref={ref as React.ForwardedRef<HTMLLIElement>}
-          tabIndex={0}
+          tabIndex={isCurrentItem ? 0 : -1}
           id={itemId}
           role="treeitem"
           aria-labelledby={labelId}
