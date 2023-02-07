@@ -630,11 +630,12 @@ exports[`TextInput renders large 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
+  --inner-action-size: 28px;
   padding-left: 8px;
   padding-right: 8px;
   padding-top: 10px;
   padding-bottom: 10px;
-  font-size: 20px;
+  height: 40px;
   background-repeat: no-repeat;
   background-position: right 8px center;
   padding-left: 0;
@@ -1142,6 +1143,7 @@ exports[`TextInput renders small 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
+  --inner-action-size: 20px;
   min-height: 28px;
   padding-left: 8px;
   padding-right: 8px;
@@ -1251,22 +1253,18 @@ exports[`TextInput renders small 1`] = `
 
 exports[`TextInput renders trailingAction icon button 1`] = `
 .c2 {
-  margin: 4px;
-}
-
-.c4 {
-  display: inline-block;
+  margin-left: 4px;
+  margin-right: 4px;
+  line-height: 0;
 }
 
 .c3 {
   border-radius: 6px;
-  border: 0;
-  border-color: rgba(27,31,36,0.15);
+  border: 1px solid;
+  border-color: transparent;
   font-family: inherit;
-  font-weight: 600;
-  line-height: 20px;
-  white-space: nowrap;
-  vertical-align: middle;
+  font-weight: 500;
+  font-size: 14px;
   cursor: pointer;
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -1278,15 +1276,31 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   -webkit-text-decoration: none;
   text-decoration: none;
   text-align: center;
-  padding-top: 2px;
-  padding-bottom: 2px;
-  padding-left: 4px;
-  padding-right: 4px;
-  font-size: 14px;
-  color: #24292f;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  height: 32px;
+  padding: 0 12px;
+  gap: 8px;
+  min-width: -webkit-max-content;
+  min-width: -moz-max-content;
+  min-width: max-content;
+  -webkit-transition: 80ms cubic-bezier(0.65,0,0.35,1);
+  transition: 80ms cubic-bezier(0.65,0,0.35,1);
+  -webkit-transition-property: color,fill,background-color,border-color;
+  transition-property: color,fill,background-color,border-color;
+  color: #0969da;
   background-color: transparent;
   box-shadow: none;
-  position: relative;
 }
 
 .c3:focus:not(:disabled) {
@@ -1305,420 +1319,31 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   outline-offset: -2px;
 }
 
-.c3:disabled {
-  cursor: default;
-  color: #8c959f;
-}
-
-.c3:disabled [data-component=ButtonCounter] {
-  color: inherit;
-}
-
-.c3:disabled svg {
-  opacity: 0.6;
-}
-
-.c3 [data-component=ButtonCounter] {
-  font-size: 14px;
-}
-
-.c3:hover:not([disabled]) {
-  background-color: #f3f4f6;
-}
-
-.c3:active:not([disabled]) {
-  background-color: hsla(220,14%,94%,1);
-}
-
-.c3[aria-expanded=true] {
-  background-color: hsla(220,14%,94%,1);
-}
-
-.c0 {
-  font-size: 14px;
-  line-height: 20px;
-  color: #24292f;
-  vertical-align: middle;
-  background-color: #ffffff;
-  border: 1px solid #d0d7de;
-  border-radius: 6px;
-  outline: none;
-  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
+.c3[href] {
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
   display: inline-flex;
-  -webkit-align-items: stretch;
-  -webkit-box-align: stretch;
-  -ms-flex-align: stretch;
-  align-items: stretch;
-  min-height: 32px;
-  background-repeat: no-repeat;
-  background-position: right 8px center;
-  padding-left: 0;
-  padding-right: 0;
 }
 
-.c0 input,
-.c0 textarea {
-  cursor: text;
-}
-
-.c0 select {
-  cursor: pointer;
-}
-
-.c0::-webkit-input-placeholder {
-  color: #6e7781;
-}
-
-.c0::-moz-placeholder {
-  color: #6e7781;
-}
-
-.c0:-ms-input-placeholder {
-  color: #6e7781;
-}
-
-.c0::placeholder {
-  color: #6e7781;
-}
-
-.c0 > textarea {
-  padding: 12px;
-}
-
-.c0 >:not(:last-child) {
-  margin-right: 8px;
-}
-
-.c0 .TextInput-icon,
-.c0 .TextInput-action {
-  -webkit-align-self: center;
-  -ms-flex-item-align: center;
-  align-self: center;
-  color: #57606a;
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
-}
-
-.c0 > input,
-.c0 > select {
-  padding-left: 12px;
-  padding-right: 0;
-}
-
-.c1 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-}
-
-.c1:focus {
-  outline: 0;
-}
-
-.c5.c5.c5 {
-  border: none;
-  overflow: hidden;
-  margin: 0;
-  position: fixed;
-  background: transparent;
-  top: 0;
-  left: 0;
-  display: none;
-  opacity: 0;
-  padding: 0;
-  --width: 0;
-  --height: 0;
-  --anchor-width: 0;
-  -webkit-animation-name: tooltip-appear;
-  animation-name: tooltip-appear;
-  -webkit-animation-duration: 0.1s;
-  animation-duration: 0.1s;
-  -webkit-animation-fill-mode: forwards;
-  animation-fill-mode: forwards;
-  -webkit-animation-timing-function: ease-in;
-  animation-timing-function: ease-in;
-  -webkit-animation-delay: 0.4s;
-  animation-delay: 0.4s;
-}
-
-.c5.c5.c5.tooltipped-no-delay {
-  -webkit-animation-delay: 0s;
-  animation-delay: 0s;
-}
-
-.c5.c5.c5.\\:open {
-  display: block;
-}
-
-.c5.c5.c5:open {
-  display: block;
-}
-
-.c5.c5.c5::before {
-  position: relative;
-  padding: 0.5em 0.75em;
-  border-radius: 3px;
-  font: normal normal 11px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
-  background: #24292f;
-  color: #ffffff;
-  content: attr(aria-label);
-  word-wrap: break-word;
-  text-align: center;
-  display: block;
-}
-
-.c5.c5.c5::after {
-  position: absolute;
-  content: '';
-  right: 50%;
-  margin-right: -6px;
-  width: 0;
-  height: 0;
-  border: 6px solid transparent;
-}
-
-.c5.c5.c5.tooltipped-n,
-.c5.c5.c5.tooltipped-ne,
-.c5.c5.c5.tooltipped-nw {
-  padding-bottom: 10px;
-}
-
-.c5.c5.c5.tooltipped-n::after,
-.c5.c5.c5.tooltipped-ne::after,
-.c5.c5.c5.tooltipped-nw::after {
-  top: calc(var(--height) - 12px);
-  border-top-color: #24292f;
-}
-
-.c5.c5.c5.tooltipped-nw::after {
-  right: 0.5em;
-}
-
-.c5.c5.c5.tooltipped-ne::after {
-  left: 0.5em;
-}
-
-.c5.c5.c5.tooltipped-sw {
-  padding-top: 10px;
-}
-
-.c5.c5.c5.tooltipped-sw::after {
-  right: 0.5em;
-  top: 0;
-  border-bottom-color: #24292f;
-}
-
-.c5.c5.c5.tooltipped-se {
-  padding-top: 10px;
-}
-
-.c5.c5.c5.tooltipped-se::after {
-  left: 0.5em;
-  top: 0;
-  border-bottom-color: #24292f;
-}
-
-.c5.c5.c5.tooltipped-s {
-  padding-top: 10px;
-}
-
-.c5.c5.c5.tooltipped-s::after {
-  top: 0;
-  border-bottom-color: #24292f;
-}
-
-.c5.c5.c5.tooltipped-e {
-  padding-left: 10px;
-}
-
-.c5.c5.c5.tooltipped-e:after {
-  top: calc(var(--height) / 2 - 5px);
-  right: calc(var(--width) - 5px);
-  border-right-color: #24292f;
-}
-
-.c5.c5.c5.tooltipped-w {
-  padding-right: 10px;
-}
-
-.c5.c5.c5.tooltipped-w::after {
-  top: calc(var(--height) / 2 - 5px);
-  right: 4px;
-  border-left-color: #24292f;
-}
-
-.c5.c5.c5.tooltipped-multiline::before {
-  width: -webkit-max-content;
-  width: -moz-max-content;
-  width: max-content;
-  max-width: 250px;
-  word-wrap: break-word;
-  white-space: pre-line;
-  border-collapse: separate;
-}
-
-@media (forced-colors:active) {
-  .c3:focus {
-    outline: solid 1px transparent;
-  }
-}
-
-@media (pointer:coarse) {
-  .c3:after {
-    content: "";
-    position: absolute;
-    left: 0;
-    right: 0;
-    -webkit-transform: translateY(-50%);
-    -ms-transform: translateY(-50%);
-    transform: translateY(-50%);
-    top: 50%;
-    min-height: 44px;
-  }
-}
-
-@media (min-width:768px) {
-  .c0 {
-    font-size: 14px;
-  }
-}
-
-<span
-  aria-busy={false}
-  aria-live="polite"
-  className="c0 TextInput-wrapper"
-  onClick={[Function]}
->
-  <input
-    className="c1"
-    data-component="input"
-    name="search"
-    onBlur={[Function]}
-    onFocus={[Function]}
-    placeholder="Search"
-    type="text"
-  />
-  <span
-    className="c2 TextInput-action"
-  >
-    <span
-      onBlur={[Function]}
-      onFocus={[Function]}
-      onPointerEnter={[Function]}
-      onPointerLeave={[Function]}
-      style={
-        {
-          "display": "inline-block",
-        }
-      }
-    >
-      <button
-        aria-label="iconLabel"
-        className="c3"
-        onClick={[MockFunction]}
-        type="button"
-      >
-        <span
-          className="c4"
-        >
-          <svg
-            aria-hidden="true"
-            className="octicon octicon-search"
-            fill="currentColor"
-            focusable="false"
-            height={16}
-            role="img"
-            style={
-              {
-                "display": "inline-block",
-                "overflow": "visible",
-                "userSelect": "none",
-                "verticalAlign": "text-bottom",
-              }
-            }
-            viewBox="0 0 16 16"
-            width={16}
-          >
-            <path
-              d="M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z"
-              fillRule="evenodd"
-            />
-          </svg>
-        </span>
-      </button>
-      <span
-        aria-label="iconLabel"
-        className="c5 tooltipped-n"
-      />
-    </span>
-  </span>
-</span>
-`;
-
-exports[`TextInput renders trailingAction text button 1`] = `
-.c2 {
-  margin: 4px;
-}
-
-.c3 {
-  border-radius: 6px;
-  border: 0;
-  border-color: rgba(27,31,36,0.15);
-  font-family: inherit;
-  font-weight: 600;
-  line-height: 20px;
-  white-space: nowrap;
-  vertical-align: middle;
-  cursor: pointer;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
+.c3[href]:hover {
   -webkit-text-decoration: none;
   text-decoration: none;
-  text-align: center;
-  display: grid;
-  grid-template-areas: "leadingIcon text trailingIcon";
-  padding-top: 2px;
-  padding-bottom: 2px;
-  padding-left: 4px;
-  padding-right: 4px;
-  font-size: 12px;
-  color: #24292f;
-  background-color: transparent;
-  box-shadow: none;
-  position: relative;
 }
 
-.c3:focus:not(:disabled) {
-  box-shadow: none;
-  outline: 2px solid #0969da;
-  outline-offset: -2px;
+.c3:hover {
+  -webkit-transition-duration: 80ms;
+  transition-duration: 80ms;
 }
 
-.c3:focus:not(:disabled):not(:focus-visible) {
-  outline: solid 1px transparent;
-}
-
-.c3:focus-visible:not(:disabled) {
-  box-shadow: none;
-  outline: 2px solid #0969da;
-  outline-offset: -2px;
+.c3:active {
+  -webkit-transition: none;
+  transition: none;
 }
 
 .c3:disabled {
-  cursor: default;
+  cursor: not-allowed;
+  box-shadow: none;
   color: #8c959f;
 }
 
@@ -1726,275 +1351,97 @@ exports[`TextInput renders trailingAction text button 1`] = `
   color: inherit;
 }
 
-.c3:disabled svg {
-  opacity: 0.6;
-}
-
-.c3 > :not(:last-child) {
-  margin-right: 8px;
-}
-
-.c3 [data-component="leadingIcon"] {
-  grid-area: leadingIcon;
-}
-
-.c3 [data-component="text"] {
-  grid-area: text;
-}
-
-.c3 [data-component="trailingIcon"] {
-  grid-area: trailingIcon;
-}
-
 .c3 [data-component=ButtonCounter] {
-  font-size: 12px;
-}
-
-.c3:hover:not([disabled]) {
-  background-color: #f3f4f6;
-}
-
-.c3:active:not([disabled]) {
-  background-color: hsla(220,14%,94%,1);
-}
-
-.c3[aria-expanded=true] {
-  background-color: hsla(220,14%,94%,1);
-}
-
-.c0 {
   font-size: 14px;
-  line-height: 20px;
-  color: #24292f;
-  vertical-align: middle;
-  background-color: #ffffff;
-  border: 1px solid #d0d7de;
-  border-radius: 6px;
-  outline: none;
-  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-align-items: stretch;
-  -webkit-box-align: stretch;
-  -ms-flex-align: stretch;
-  align-items: stretch;
-  min-height: 32px;
-  background-repeat: no-repeat;
-  background-position: right 8px center;
-  padding-left: 0;
-  padding-right: 0;
 }
 
-.c0 input,
-.c0 textarea {
-  cursor: text;
+.c3[data-component=IconButton] {
+  display: inline-grid;
+  padding: unset;
+  place-content: center;
+  width: 32px;
+  min-width: unset;
 }
 
-.c0 select {
-  cursor: pointer;
+.c3[data-size="small"] {
+  padding: 0 8px;
+  height: 28px;
+  gap: 4px;
+  font-size: 12px;
 }
 
-.c0::-webkit-input-placeholder {
-  color: #6e7781;
+.c3[data-size="small"] [data-component="text"] {
+  line-height: calc(20 / 12);
 }
 
-.c0::-moz-placeholder {
-  color: #6e7781;
+.c3[data-size="small"] [data-component=ButtonCounter] {
+  font-size: 12px;
 }
 
-.c0:-ms-input-placeholder {
-  color: #6e7781;
+.c3[data-size="small"] [data-component="buttonContent"] > :not(:last-child) {
+  margin-right: 4px;
 }
 
-.c0::placeholder {
-  color: #6e7781;
+.c3[data-size="small"][data-component=IconButton] {
+  width: 28px;
+  padding: unset;
 }
 
-.c0 > textarea {
-  padding: 12px;
+.c3[data-size="large"] {
+  padding: 0 16px;
+  height: 40px;
+  gap: 8px;
 }
 
-.c0 >:not(:last-child) {
+.c3[data-size="large"] [data-component="buttonContent"] > :not(:last-child) {
   margin-right: 8px;
 }
 
-.c0 .TextInput-icon,
-.c0 .TextInput-action {
-  -webkit-align-self: center;
-  -ms-flex-item-align: center;
-  align-self: center;
-  color: #57606a;
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
+.c3[data-size="large"][data-component=IconButton] {
+  width: 40px;
+  padding: unset;
 }
 
-.c0 > input,
-.c0 > select {
-  padding-left: 12px;
-  padding-right: 0;
-}
-
-.c1 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
+.c3[data-block="block"] {
   width: 100%;
 }
 
-.c1:focus {
-  outline: 0;
-}
-
-@media (forced-colors:active) {
-  .c3:focus {
-    outline: solid 1px transparent;
-  }
-}
-
-@media (pointer:coarse) {
-  .c3:after {
-    content: "";
-    position: absolute;
-    left: 0;
-    right: 0;
-    -webkit-transform: translateY(-50%);
-    -ms-transform: translateY(-50%);
-    transform: translateY(-50%);
-    top: 50%;
-    min-height: 44px;
-  }
-}
-
-@media (min-width:768px) {
-  .c0 {
-    font-size: 14px;
-  }
-}
-
-<span
-  aria-busy={false}
-  aria-live="polite"
-  className="c0 TextInput-wrapper"
-  onClick={[Function]}
->
-  <input
-    className="c1"
-    data-component="input"
-    name="search"
-    onBlur={[Function]}
-    onFocus={[Function]}
-    placeholder="Search"
-    type="text"
-  />
-  <span
-    className="c2 TextInput-action"
-  >
-    <button
-      className="c3"
-      onClick={[MockFunction]}
-      type="button"
-    >
-      <span
-        data-component="text"
-      >
-        Clear
-      </span>
-    </button>
-  </span>
-</span>
-`;
-
-exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
-.c2 {
-  margin: 4px;
-}
-
-.c3 {
-  border-radius: 6px;
-  border: 0;
-  border-color: rgba(27,31,36,0.15);
-  font-family: inherit;
-  font-weight: 600;
-  line-height: 20px;
-  white-space: nowrap;
-  vertical-align: middle;
-  cursor: pointer;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  text-align: center;
-  display: grid;
-  grid-template-areas: "leadingIcon text trailingIcon";
-  padding-top: 2px;
-  padding-bottom: 2px;
-  padding-left: 4px;
-  padding-right: 4px;
-  font-size: 12px;
-  color: #24292f;
-  background-color: transparent;
-  box-shadow: none;
-  position: relative;
-}
-
-.c3:focus:not(:disabled) {
-  box-shadow: none;
-  outline: 2px solid #0969da;
-  outline-offset: -2px;
-}
-
-.c3:focus:not(:disabled):not(:focus-visible) {
-  outline: solid 1px transparent;
-}
-
-.c3:focus-visible:not(:disabled) {
-  box-shadow: none;
-  outline: 2px solid #0969da;
-  outline-offset: -2px;
-}
-
-.c3:disabled {
-  cursor: default;
-  color: #8c959f;
-}
-
-.c3:disabled [data-component=ButtonCounter] {
-  color: inherit;
-}
-
-.c3:disabled svg {
-  opacity: 0.6;
-}
-
-.c3 > :not(:last-child) {
-  margin-right: 8px;
-}
-
-.c3 [data-component="leadingIcon"] {
-  grid-area: leadingIcon;
+.c3 [data-component="leadingVisual"] {
+  grid-area: leadingVisual;
 }
 
 .c3 [data-component="text"] {
   grid-area: text;
+  line-height: calc(20/14);
+  white-space: nowrap;
 }
 
-.c3 [data-component="trailingIcon"] {
-  grid-area: trailingIcon;
+.c3 [data-component="trailingVisual"] {
+  grid-area: trailingVisual;
 }
 
-.c3 [data-component=ButtonCounter] {
-  font-size: 12px;
+.c3 [data-component="trailingAction"] {
+  margin-right: -4px;
+}
+
+.c3 [data-component="buttonContent"] {
+  -webkit-flex: 1 0 auto;
+  -ms-flex: 1 0 auto;
+  flex: 1 0 auto;
+  display: grid;
+  grid-template-areas: "leadingVisual text trailingVisual";
+  grid-template-columns: min-content minmax(0,auto) min-content;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-align-content: center;
+  -ms-flex-line-pack: center;
+  align-content: center;
+}
+
+.c3 [data-component="buttonContent"] > :not(:last-child) {
+  margin-right: 8px;
 }
 
 .c3:hover:not([disabled]) {
@@ -2007,6 +1454,31 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
 
 .c3[aria-expanded=true] {
   background-color: hsla(220,14%,94%,1);
+}
+
+.c3 svg {
+  color: #57606a;
+}
+
+.c3[data-no-visuals] {
+  color: #0969da;
+}
+
+.c3:has([data-component="ButtonCounter"]) {
+  color: #0969da;
+}
+
+.c3[data-size="small"][data-no-visuals="true"] {
+  padding-top: 2px;
+  padding-right: 4px;
+  padding-bottom: 2px;
+  padding-left: 4px;
+  position: relative;
+}
+
+.c3[data-size="small"][data-no-visuals="true"][data-component="IconButton"] {
+  width: var(--inner-action-size);
+  height: var(--inner-action-size);
 }
 
 .c0 {
@@ -2122,7 +1594,6 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   animation-timing-function: ease-in;
   -webkit-animation-delay: 0.4s;
   animation-delay: 0.4s;
-  display: inline-block;
 }
 
 .c4.c4.c4.tooltipped-no-delay {
@@ -2248,7 +1719,966 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
 }
 
 @media (pointer:coarse) {
-  .c3:after {
+  .c3[data-size="small"][data-no-visuals="true"]:after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    top: 50%;
+    min-height: 44px;
+  }
+}
+
+@media (min-width:768px) {
+  .c0 {
+    font-size: 14px;
+  }
+}
+
+<span
+  aria-busy={false}
+  aria-live="polite"
+  className="c0 TextInput-wrapper"
+  onClick={[Function]}
+>
+  <input
+    className="c1"
+    data-component="input"
+    name="search"
+    onBlur={[Function]}
+    onFocus={[Function]}
+    placeholder="Search"
+    type="text"
+  />
+  <span
+    className="c2 TextInput-action"
+  >
+    <span
+      onBlur={[Function]}
+      onFocus={[Function]}
+      onPointerEnter={[Function]}
+      onPointerLeave={[Function]}
+      style={
+        {
+          "display": "inline-block",
+        }
+      }
+    >
+      <button
+        aria-label="iconLabel"
+        className="c3"
+        data-block={null}
+        data-component="IconButton"
+        data-no-visuals={true}
+        data-size="small"
+        onClick={[MockFunction]}
+        type="button"
+      >
+        <svg
+          aria-hidden="true"
+          className="octicon octicon-search"
+          fill="currentColor"
+          focusable="false"
+          height={16}
+          role="img"
+          style={
+            {
+              "display": "inline-block",
+              "overflow": "visible",
+              "userSelect": "none",
+              "verticalAlign": "text-bottom",
+            }
+          }
+          viewBox="0 0 16 16"
+          width={16}
+        >
+          <path
+            d="M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z"
+            fillRule="evenodd"
+          />
+        </svg>
+      </button>
+      <span
+        aria-label="iconLabel"
+        className="c4 tooltipped-n"
+      />
+    </span>
+  </span>
+</span>
+`;
+
+exports[`TextInput renders trailingAction text button 1`] = `
+.c2 {
+  margin-left: 4px;
+  margin-right: 4px;
+  line-height: 0;
+}
+
+.c4 {
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+.c3 {
+  border-radius: 6px;
+  border: 1px solid;
+  border-color: transparent;
+  font-family: inherit;
+  font-weight: 500;
+  font-size: 14px;
+  cursor: pointer;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  text-align: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  height: 32px;
+  padding: 0 12px;
+  gap: 8px;
+  min-width: -webkit-max-content;
+  min-width: -moz-max-content;
+  min-width: max-content;
+  -webkit-transition: 80ms cubic-bezier(0.65,0,0.35,1);
+  transition: 80ms cubic-bezier(0.65,0,0.35,1);
+  -webkit-transition-property: color,fill,background-color,border-color;
+  transition-property: color,fill,background-color,border-color;
+  color: #0969da;
+  background-color: transparent;
+  box-shadow: none;
+}
+
+.c3:focus:not(:disabled) {
+  box-shadow: none;
+  outline: 2px solid #0969da;
+  outline-offset: -2px;
+}
+
+.c3:focus:not(:disabled):not(:focus-visible) {
+  outline: solid 1px transparent;
+}
+
+.c3:focus-visible:not(:disabled) {
+  box-shadow: none;
+  outline: 2px solid #0969da;
+  outline-offset: -2px;
+}
+
+.c3[href] {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+}
+
+.c3[href]:hover {
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c3:hover {
+  -webkit-transition-duration: 80ms;
+  transition-duration: 80ms;
+}
+
+.c3:active {
+  -webkit-transition: none;
+  transition: none;
+}
+
+.c3:disabled {
+  cursor: not-allowed;
+  box-shadow: none;
+  color: #8c959f;
+}
+
+.c3:disabled [data-component=ButtonCounter] {
+  color: inherit;
+}
+
+.c3 [data-component=ButtonCounter] {
+  font-size: 14px;
+}
+
+.c3[data-component=IconButton] {
+  display: inline-grid;
+  padding: unset;
+  place-content: center;
+  width: 32px;
+  min-width: unset;
+}
+
+.c3[data-size="small"] {
+  padding: 0 8px;
+  height: 28px;
+  gap: 4px;
+  font-size: 12px;
+}
+
+.c3[data-size="small"] [data-component="text"] {
+  line-height: calc(20 / 12);
+}
+
+.c3[data-size="small"] [data-component=ButtonCounter] {
+  font-size: 12px;
+}
+
+.c3[data-size="small"] [data-component="buttonContent"] > :not(:last-child) {
+  margin-right: 4px;
+}
+
+.c3[data-size="small"][data-component=IconButton] {
+  width: 28px;
+  padding: unset;
+}
+
+.c3[data-size="large"] {
+  padding: 0 16px;
+  height: 40px;
+  gap: 8px;
+}
+
+.c3[data-size="large"] [data-component="buttonContent"] > :not(:last-child) {
+  margin-right: 8px;
+}
+
+.c3[data-size="large"][data-component=IconButton] {
+  width: 40px;
+  padding: unset;
+}
+
+.c3[data-block="block"] {
+  width: 100%;
+}
+
+.c3 [data-component="leadingVisual"] {
+  grid-area: leadingVisual;
+}
+
+.c3 [data-component="text"] {
+  grid-area: text;
+  line-height: calc(20/14);
+  white-space: nowrap;
+}
+
+.c3 [data-component="trailingVisual"] {
+  grid-area: trailingVisual;
+}
+
+.c3 [data-component="trailingAction"] {
+  margin-right: -4px;
+}
+
+.c3 [data-component="buttonContent"] {
+  -webkit-flex: 1 0 auto;
+  -ms-flex: 1 0 auto;
+  flex: 1 0 auto;
+  display: grid;
+  grid-template-areas: "leadingVisual text trailingVisual";
+  grid-template-columns: min-content minmax(0,auto) min-content;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-align-content: center;
+  -ms-flex-line-pack: center;
+  align-content: center;
+}
+
+.c3 [data-component="buttonContent"] > :not(:last-child) {
+  margin-right: 8px;
+}
+
+.c3:hover:not([disabled]) {
+  background-color: #f3f4f6;
+}
+
+.c3:active:not([disabled]) {
+  background-color: hsla(220,14%,94%,1);
+}
+
+.c3[aria-expanded=true] {
+  background-color: hsla(220,14%,94%,1);
+}
+
+.c3 svg {
+  color: #57606a;
+}
+
+.c3[data-no-visuals] {
+  color: #0969da;
+}
+
+.c3:has([data-component="ButtonCounter"]) {
+  color: #0969da;
+}
+
+.c3[data-no-visuals="true"] {
+  padding-top: 2px;
+  padding-right: 4px;
+  padding-bottom: 2px;
+  padding-left: 4px;
+  position: relative;
+}
+
+.c3[data-no-visuals="true"][data-component="IconButton"] {
+  width: var(--inner-action-size);
+  height: var(--inner-action-size);
+}
+
+.c0 {
+  font-size: 14px;
+  line-height: 20px;
+  color: #24292f;
+  vertical-align: middle;
+  background-color: #ffffff;
+  border: 1px solid #d0d7de;
+  border-radius: 6px;
+  outline: none;
+  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: stretch;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  min-height: 32px;
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
+}
+
+.c0::-webkit-input-placeholder {
+  color: #6e7781;
+}
+
+.c0::-moz-placeholder {
+  color: #6e7781;
+}
+
+.c0:-ms-input-placeholder {
+  color: #6e7781;
+}
+
+.c0::placeholder {
+  color: #6e7781;
+}
+
+.c0 > textarea {
+  padding: 12px;
+}
+
+.c0 >:not(:last-child) {
+  margin-right: 8px;
+}
+
+.c0 .TextInput-icon,
+.c0 .TextInput-action {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  color: #57606a;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+}
+
+.c0 > input,
+.c0 > select {
+  padding-left: 12px;
+  padding-right: 0;
+}
+
+.c1 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c1:focus {
+  outline: 0;
+}
+
+@media (forced-colors:active) {
+  .c3:focus {
+    outline: solid 1px transparent;
+  }
+}
+
+@media (pointer:coarse) {
+  .c3[data-no-visuals="true"]:after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    top: 50%;
+    min-height: 44px;
+  }
+}
+
+@media (min-width:768px) {
+  .c0 {
+    font-size: 14px;
+  }
+}
+
+<span
+  aria-busy={false}
+  aria-live="polite"
+  className="c0 TextInput-wrapper"
+  onClick={[Function]}
+>
+  <input
+    className="c1"
+    data-component="input"
+    name="search"
+    onBlur={[Function]}
+    onFocus={[Function]}
+    placeholder="Search"
+    type="text"
+  />
+  <span
+    className="c2 TextInput-action"
+  >
+    <button
+      className="c3"
+      data-block={null}
+      data-no-visuals={true}
+      onClick={[MockFunction]}
+      type="button"
+    >
+      <span
+        className="c4"
+        data-component="buttonContent"
+      >
+        <span
+          data-component="text"
+        >
+          Clear
+        </span>
+      </span>
+    </button>
+  </span>
+</span>
+`;
+
+exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
+.c2 {
+  margin-left: 4px;
+  margin-right: 4px;
+  line-height: 0;
+}
+
+.c4 {
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+.c3 {
+  border-radius: 6px;
+  border: 1px solid;
+  border-color: transparent;
+  font-family: inherit;
+  font-weight: 500;
+  font-size: 14px;
+  cursor: pointer;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  text-align: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  height: 32px;
+  padding: 0 12px;
+  gap: 8px;
+  min-width: -webkit-max-content;
+  min-width: -moz-max-content;
+  min-width: max-content;
+  -webkit-transition: 80ms cubic-bezier(0.65,0,0.35,1);
+  transition: 80ms cubic-bezier(0.65,0,0.35,1);
+  -webkit-transition-property: color,fill,background-color,border-color;
+  transition-property: color,fill,background-color,border-color;
+  color: #0969da;
+  background-color: transparent;
+  box-shadow: none;
+}
+
+.c3:focus:not(:disabled) {
+  box-shadow: none;
+  outline: 2px solid #0969da;
+  outline-offset: -2px;
+}
+
+.c3:focus:not(:disabled):not(:focus-visible) {
+  outline: solid 1px transparent;
+}
+
+.c3:focus-visible:not(:disabled) {
+  box-shadow: none;
+  outline: 2px solid #0969da;
+  outline-offset: -2px;
+}
+
+.c3[href] {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+}
+
+.c3[href]:hover {
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c3:hover {
+  -webkit-transition-duration: 80ms;
+  transition-duration: 80ms;
+}
+
+.c3:active {
+  -webkit-transition: none;
+  transition: none;
+}
+
+.c3:disabled {
+  cursor: not-allowed;
+  box-shadow: none;
+  color: #8c959f;
+}
+
+.c3:disabled [data-component=ButtonCounter] {
+  color: inherit;
+}
+
+.c3 [data-component=ButtonCounter] {
+  font-size: 14px;
+}
+
+.c3[data-component=IconButton] {
+  display: inline-grid;
+  padding: unset;
+  place-content: center;
+  width: 32px;
+  min-width: unset;
+}
+
+.c3[data-size="small"] {
+  padding: 0 8px;
+  height: 28px;
+  gap: 4px;
+  font-size: 12px;
+}
+
+.c3[data-size="small"] [data-component="text"] {
+  line-height: calc(20 / 12);
+}
+
+.c3[data-size="small"] [data-component=ButtonCounter] {
+  font-size: 12px;
+}
+
+.c3[data-size="small"] [data-component="buttonContent"] > :not(:last-child) {
+  margin-right: 4px;
+}
+
+.c3[data-size="small"][data-component=IconButton] {
+  width: 28px;
+  padding: unset;
+}
+
+.c3[data-size="large"] {
+  padding: 0 16px;
+  height: 40px;
+  gap: 8px;
+}
+
+.c3[data-size="large"] [data-component="buttonContent"] > :not(:last-child) {
+  margin-right: 8px;
+}
+
+.c3[data-size="large"][data-component=IconButton] {
+  width: 40px;
+  padding: unset;
+}
+
+.c3[data-block="block"] {
+  width: 100%;
+}
+
+.c3 [data-component="leadingVisual"] {
+  grid-area: leadingVisual;
+}
+
+.c3 [data-component="text"] {
+  grid-area: text;
+  line-height: calc(20/14);
+  white-space: nowrap;
+}
+
+.c3 [data-component="trailingVisual"] {
+  grid-area: trailingVisual;
+}
+
+.c3 [data-component="trailingAction"] {
+  margin-right: -4px;
+}
+
+.c3 [data-component="buttonContent"] {
+  -webkit-flex: 1 0 auto;
+  -ms-flex: 1 0 auto;
+  flex: 1 0 auto;
+  display: grid;
+  grid-template-areas: "leadingVisual text trailingVisual";
+  grid-template-columns: min-content minmax(0,auto) min-content;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-align-content: center;
+  -ms-flex-line-pack: center;
+  align-content: center;
+}
+
+.c3 [data-component="buttonContent"] > :not(:last-child) {
+  margin-right: 8px;
+}
+
+.c3:hover:not([disabled]) {
+  background-color: #f3f4f6;
+}
+
+.c3:active:not([disabled]) {
+  background-color: hsla(220,14%,94%,1);
+}
+
+.c3[aria-expanded=true] {
+  background-color: hsla(220,14%,94%,1);
+}
+
+.c3 svg {
+  color: #57606a;
+}
+
+.c3[data-no-visuals] {
+  color: #0969da;
+}
+
+.c3:has([data-component="ButtonCounter"]) {
+  color: #0969da;
+}
+
+.c3[data-no-visuals="true"] {
+  padding-top: 2px;
+  padding-right: 4px;
+  padding-bottom: 2px;
+  padding-left: 4px;
+  position: relative;
+}
+
+.c3[data-no-visuals="true"][data-component="IconButton"] {
+  width: var(--inner-action-size);
+  height: var(--inner-action-size);
+}
+
+.c0 {
+  font-size: 14px;
+  line-height: 20px;
+  color: #24292f;
+  vertical-align: middle;
+  background-color: #ffffff;
+  border: 1px solid #d0d7de;
+  border-radius: 6px;
+  outline: none;
+  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: stretch;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  min-height: 32px;
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
+}
+
+.c0::-webkit-input-placeholder {
+  color: #6e7781;
+}
+
+.c0::-moz-placeholder {
+  color: #6e7781;
+}
+
+.c0:-ms-input-placeholder {
+  color: #6e7781;
+}
+
+.c0::placeholder {
+  color: #6e7781;
+}
+
+.c0 > textarea {
+  padding: 12px;
+}
+
+.c0 >:not(:last-child) {
+  margin-right: 8px;
+}
+
+.c0 .TextInput-icon,
+.c0 .TextInput-action {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  color: #57606a;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+}
+
+.c0 > input,
+.c0 > select {
+  padding-left: 12px;
+  padding-right: 0;
+}
+
+.c1 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c1:focus {
+  outline: 0;
+}
+
+.c5.c5.c5 {
+  border: none;
+  overflow: hidden;
+  margin: 0;
+  position: fixed;
+  background: transparent;
+  top: 0;
+  left: 0;
+  display: none;
+  opacity: 0;
+  padding: 0;
+  --width: 0;
+  --height: 0;
+  --anchor-width: 0;
+  -webkit-animation-name: tooltip-appear;
+  animation-name: tooltip-appear;
+  -webkit-animation-duration: 0.1s;
+  animation-duration: 0.1s;
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+  -webkit-animation-timing-function: ease-in;
+  animation-timing-function: ease-in;
+  -webkit-animation-delay: 0.4s;
+  animation-delay: 0.4s;
+  display: inline-block;
+}
+
+.c5.c5.c5.tooltipped-no-delay {
+  -webkit-animation-delay: 0s;
+  animation-delay: 0s;
+}
+
+.c5.c5.c5.\\:open {
+  display: block;
+}
+
+.c5.c5.c5:open {
+  display: block;
+}
+
+.c5.c5.c5::before {
+  position: relative;
+  padding: 0.5em 0.75em;
+  border-radius: 3px;
+  font: normal normal 11px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
+  background: #24292f;
+  color: #ffffff;
+  content: attr(aria-label);
+  word-wrap: break-word;
+  text-align: center;
+  display: block;
+}
+
+.c5.c5.c5::after {
+  position: absolute;
+  content: '';
+  right: 50%;
+  margin-right: -6px;
+  width: 0;
+  height: 0;
+  border: 6px solid transparent;
+}
+
+.c5.c5.c5.tooltipped-n,
+.c5.c5.c5.tooltipped-ne,
+.c5.c5.c5.tooltipped-nw {
+  padding-bottom: 10px;
+}
+
+.c5.c5.c5.tooltipped-n::after,
+.c5.c5.c5.tooltipped-ne::after,
+.c5.c5.c5.tooltipped-nw::after {
+  top: calc(var(--height) - 12px);
+  border-top-color: #24292f;
+}
+
+.c5.c5.c5.tooltipped-nw::after {
+  right: 0.5em;
+}
+
+.c5.c5.c5.tooltipped-ne::after {
+  left: 0.5em;
+}
+
+.c5.c5.c5.tooltipped-sw {
+  padding-top: 10px;
+}
+
+.c5.c5.c5.tooltipped-sw::after {
+  right: 0.5em;
+  top: 0;
+  border-bottom-color: #24292f;
+}
+
+.c5.c5.c5.tooltipped-se {
+  padding-top: 10px;
+}
+
+.c5.c5.c5.tooltipped-se::after {
+  left: 0.5em;
+  top: 0;
+  border-bottom-color: #24292f;
+}
+
+.c5.c5.c5.tooltipped-s {
+  padding-top: 10px;
+}
+
+.c5.c5.c5.tooltipped-s::after {
+  top: 0;
+  border-bottom-color: #24292f;
+}
+
+.c5.c5.c5.tooltipped-e {
+  padding-left: 10px;
+}
+
+.c5.c5.c5.tooltipped-e:after {
+  top: calc(var(--height) / 2 - 5px);
+  right: calc(var(--width) - 5px);
+  border-right-color: #24292f;
+}
+
+.c5.c5.c5.tooltipped-w {
+  padding-right: 10px;
+}
+
+.c5.c5.c5.tooltipped-w::after {
+  top: calc(var(--height) / 2 - 5px);
+  right: 4px;
+  border-left-color: #24292f;
+}
+
+.c5.c5.c5.tooltipped-multiline::before {
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+  max-width: 250px;
+  word-wrap: break-word;
+  white-space: pre-line;
+  border-collapse: separate;
+}
+
+@media (forced-colors:active) {
+  .c3:focus {
+    outline: solid 1px transparent;
+  }
+}
+
+@media (pointer:coarse) {
+  .c3[data-no-visuals="true"]:after {
     content: "";
     position: absolute;
     left: 0;
@@ -2298,18 +2728,25 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
     >
       <button
         className="c3"
+        data-block={null}
+        data-no-visuals={true}
         onClick={[MockFunction]}
         type="button"
       >
         <span
-          data-component="text"
+          className="c4"
+          data-component="buttonContent"
         >
-          Clear
+          <span
+            data-component="text"
+          >
+            Clear
+          </span>
         </span>
       </button>
       <span
         aria-label="Clear input"
-        className="c4 tooltipped-n"
+        className="c5 tooltipped-n"
       />
     </span>
   </span>
@@ -4617,6 +5054,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
+  --inner-action-size: 20px;
   min-height: 28px;
   padding-left: 8px;
   padding-right: 8px;
@@ -5211,11 +5649,12 @@ exports[`TextInput renders with a loading indicator 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
+  --inner-action-size: 28px;
   padding-left: 8px;
   padding-right: 8px;
   padding-top: 10px;
   padding-bottom: 10px;
-  font-size: 20px;
+  height: 40px;
   background-repeat: no-repeat;
   background-position: right 8px center;
   padding-left: 12px;

@@ -29,7 +29,6 @@ describe('Link', () => {
 
   it('respects the "sx" prop', () => {
     expect(render(<Link sx={{fontStyle: 'italic'}} />)).toHaveStyleRule('font-style', 'italic')
-    expect(render(<Link as="i" sx={{fontStyle: 'normal'}} />)).toHaveStyleRule('font-style', 'normal')
   })
 
   it('applies button styles when rendering a button element', () => {
@@ -42,5 +41,14 @@ describe('Link', () => {
 
   it('respects the  "sx" prop when "muted" prop is also passed', () => {
     expect(render(<Link muted sx={{color: 'fg.onEmphasis'}} />)).toMatchSnapshot()
+  })
+
+  it('logs a warning when trying to render invalid "as" prop', () => {
+    const consoleSpy = jest.spyOn(global.console, 'error').mockImplementation()
+
+    HTMLRender(<Link as="i" />)
+    expect(consoleSpy).toHaveBeenCalled()
+
+    consoleSpy.mockRestore()
   })
 })
