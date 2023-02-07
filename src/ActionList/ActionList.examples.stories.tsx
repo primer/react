@@ -445,4 +445,3 @@ export function AllCombinations(): JSX.Element {
     </>
   )
 }
-AllCombinations.storyName = 'All Combinations'

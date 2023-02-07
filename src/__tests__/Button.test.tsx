@@ -7,7 +7,7 @@ import {SearchIcon} from '@primer/octicons-react'
 expect.extend(toHaveNoViolations)
 
 describe('Button', () => {
-  behavesAsComponent({Component: Button})
+  behavesAsComponent({Component: Button, options: {skipSx: true}})
 
   it('renders a <button>', () => {
     const container = render(<Button>Default</Button>)
@@ -29,10 +29,10 @@ describe('Button', () => {
     expect(onClick).toHaveBeenCalledTimes(1)
   })
 
-  it('respects width props', () => {
-    const container = render(<Button sx={{width: 200}}>Block</Button>)
+  it('respects block prop', () => {
+    const container = render(<Button block>Block</Button>)
     const button = container.getByRole('button')
-    expect(button).toHaveStyleRule('width', '200px')
+    expect(button).toMatchSnapshot()
   })
 
   it('respects the "disabled" prop', () => {
@@ -48,20 +48,16 @@ describe('Button', () => {
     expect(onClick).toHaveBeenCalledTimes(0)
   })
 
-  it('respects the "variant" prop', () => {
+  it('respects the small size prop', () => {
     const container = render(<Button size="small">Smol</Button>)
     const button = container.getByRole('button')
-    expect(button).toHaveStyleRule('font-size', '12px')
+    expect(button).toMatchSnapshot()
   })
 
-  it('respects the "fontSize" prop over the "variant" prop', () => {
-    const container = render(
-      <Button size="small" sx={{fontSize: 20}}>
-        Big Smol
-      </Button>,
-    )
+  it('respects the large size prop', () => {
+    const container = render(<Button size="large">Smol</Button>)
     const button = container.getByRole('button')
-    expect(button).toHaveStyleRule('font-size', '20px')
+    expect(button).toMatchSnapshot()
   })
 
   it('styles primary button appropriately', () => {
@@ -82,22 +78,15 @@ describe('Button', () => {
     expect(button).toMatchSnapshot()
   })
 
-  it('styles outline button appropriately', () => {
-    const container = render(<Button variant="outline">Outline</Button>)
-    const button = container.getByRole('button')
-    expect(button).toMatchSnapshot()
-  })
-
-  it('styles icon only button to make it a square', () => {
-    const container = render(<IconButton icon={SearchIcon} aria-label="Search button" />)
-    const IconOnlyButton = container.getByRole('button')
-    expect(IconOnlyButton).toHaveStyleRule('padding-right', '8px')
-    expect(IconOnlyButton).toMatchSnapshot()
-  })
-
   it('makes sure icon button has an aria-label', () => {
     const container = render(<IconButton icon={SearchIcon} aria-label="Search button" />)
     const IconOnlyButton = container.getByLabelText('Search button')
     expect(IconOnlyButton).toBeTruthy()
+  })
+
+  it('respects the alignContent prop', () => {
+    const container = render(<Button alignContent="start">Align start</Button>)
+    const button = container.getByRole('button')
+    expect(button).toMatchSnapshot()
   })
 })

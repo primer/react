@@ -89,7 +89,7 @@ export function SingleSelection(): JSX.Element {
       <p>This pattern has a single section with the selected value shown in the button</p>
 
       <ActionMenu>
-        <ActionMenu.Button aria-label="Field type" leadingIcon={selectedType.icon}>
+        <ActionMenu.Button aria-label="Field type" leadingIcon={selectedType.icon} alignContent="start">
           {selectedType.name}
         </ActionMenu.Button>
         <ActionMenu.Overlay width="medium">
@@ -122,7 +122,7 @@ export function SingleSelectionWithPlaceholder(): JSX.Element {
       <p>This pattern has a placeholder in menu button when no value is selected yet</p>
 
       <ActionMenu>
-        <ActionMenu.Button aria-label="Field type" leadingIcon={selectedType.icon}>
+        <ActionMenu.Button aria-label="Field type" leadingIcon={selectedType.icon} alignContent="start">
           {selectedType.name || 'Pick a field type'}
         </ActionMenu.Button>
         <ActionMenu.Overlay width="medium">
@@ -159,14 +159,6 @@ export function GroupsAndDescription(): JSX.Element {
             aria-describedby="selected-milestone"
             variant="invisible"
             trailingIcon={GearIcon}
-            sx={{
-              color: 'fg.muted',
-              width: '100%',
-              paddingX: 0,
-              gridTemplateColumns: 'min-content 1fr min-content',
-              textAlign: 'left',
-              ':hover, :focus, &[aria-expanded=true]': {background: 'none !important', color: 'accent.fg'},
-            }}
           >
             Milestone
           </ActionMenu.Button>
@@ -251,25 +243,14 @@ export function MultipleSelection(): JSX.Element {
 
       <Box sx={{width: 200}}>
         <ActionMenu>
-          <ActionMenu.Button
-            aria-label="Assignees"
-            variant="invisible"
-            trailingIcon={GearIcon}
-            sx={{
-              color: 'fg.muted',
-              width: '100%',
-              paddingX: 0,
-              gridTemplateColumns: 'min-content 1fr min-content',
-              textAlign: 'left',
-              ':hover, :focus, &[aria-expanded=true]': {background: 'none !important', color: 'accent.fg'},
-            }}
-          >
+          <ActionMenu.Button variant="invisible" trailingIcon={GearIcon}>
             Assignees
           </ActionMenu.Button>
           <ActionMenu.Overlay>
             <ActionList selectionVariant="multiple" showDividers>
               {users.map(user => (
                 <ActionList.Item
+                  aria-label="Assignees"
                   key={user.login}
                   selected={Boolean(assignees.find(assignee => assignee.login === user.login))}
                   onSelect={() => toggleAssignee(user)}
