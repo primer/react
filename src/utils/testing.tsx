@@ -1,6 +1,6 @@
 import React from 'react'
 import {promisify} from 'util'
-import renderer from 'react-test-renderer'
+import renderer, {ReactTestRendererJSON} from 'react-test-renderer'
 import {render as HTMLRender} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
 import type {Story as StoryType} from '@storybook/react'
@@ -78,10 +78,13 @@ export function renderClasses(component: React.ReactElement): string {
  */
 export function childRenderClasses(component: React.ReactElement, childIndex: number): string {
   const {children} = render(component)
-  const {
-    props: {className},
-  } = children.at(childIndex)
-  return className ? className.trim().split(' ') : []
+  if (children !== null) {
+    const {
+      props: {className},
+    } = children.at(childIndex) as ReactTestRendererJSON
+    return className ? className.trim().split(' ') : ''
+  }
+  return ''
 }
 
 /**

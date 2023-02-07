@@ -6,10 +6,9 @@ import sx, {SxProp} from './sx'
 import {ComponentProps} from './utils/types'
 import classNames from 'classnames'
 
-interface PopoverProps extends SxProp, React.PropsWithChildren {
-  popover: 'auto'
-  id: string
-}
+type PopoverProps = {
+  popover?: 'auto'
+} & SxProp
 
 const TooltipBase = styled('span')
   .withConfig({

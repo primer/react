@@ -1,5 +1,6 @@
 import React from 'react'
 import Tooltip, {TooltipProps} from '../Tooltip'
+import {ReactTestRendererJSON} from 'react-test-renderer'
 import {render, childRenderClasses, childRendersClass, behavesAsComponent, checkExports} from '../utils/testing'
 import {render as HTMLRender} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
@@ -41,7 +42,9 @@ describe('Tooltip', () => {
   })
 
   it('respects the "text" prop', () => {
-    expect(render(<Tooltip text="hi" />).children.at(-1).props['aria-label']).toEqual('hi')
+    const tooltip = render(<Tooltip text="hi" />) as ReactTestRendererJSON
+    const child = tooltip.children?.at(-1) as ReactTestRendererJSON
+    expect(child.props['aria-label']).toEqual('hi')
   })
 
   it('respects the "wrap" prop', () => {
