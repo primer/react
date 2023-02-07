@@ -8,7 +8,7 @@ import {axe, toHaveNoViolations} from 'jest-axe'
 expect.extend(toHaveNoViolations)
 
 describe('Text', () => {
-  behavesAsComponent({Component: Text})
+  behavesAsComponent({Component: Text, options: {skipAs: true}})
 
   checkExports('Text', {
     default: Text,
@@ -73,5 +73,15 @@ describe('Text', () => {
   it('respects other values for fontSize', () => {
     expect(render(<Text fontSize="2em" />)).toHaveStyleRule('font-size', '2em')
     expect(render(<Text fontSize={100} />)).toHaveStyleRule('font-size', '100px')
+  })
+
+  it('should log an error if invalid "as" value is used', () => {
+    const spy = jest.spyOn(console, 'warn').mockImplementationOnce(() => {})
+
+    // @ts-expect-error
+    render(<Text as="button" />)
+
+    expect(spy).toHaveBeenCalled()
+    spy.mockRestore()
   })
 })

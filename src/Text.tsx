@@ -53,4 +53,6 @@ const Text = React.forwardRef(({children, as = 'span', ...rest}, forwardedRef) =
   )
 }) as PolymorphicForwardRefComponent<'span', TextProps>
 
+Text.displayName = 'Text'
+
 export default Text
