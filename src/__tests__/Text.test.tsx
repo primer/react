@@ -78,7 +78,7 @@ describe('Text', () => {
   it('should log an error if invalid "as" value is used', () => {
     const spy = jest.spyOn(console, 'warn').mockImplementationOnce(() => {})
 
-    // @ts-expect-error
+    // @ts-expect-error ignores invalid usage of "as" to test console.warn usage.
     render(<Text as="button" />)
 
     expect(spy).toHaveBeenCalled()
