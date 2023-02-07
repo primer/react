@@ -142,14 +142,6 @@ exports[`SplitPageLayout renders default layout 1`] = `
   margin-bottom: 0;
 }
 
-@media screen and (min-width:544px) {
-
-}
-
-@media screen and (min-width:768px) {
-
-}
-
 @media screen and (min-width:1012px) {
   .c7 {
     padding: 24px;
@@ -179,10 +171,6 @@ exports[`SplitPageLayout renders default layout 1`] = `
   }
 }
 
-@media screen and (min-width:544px) {
-
-}
-
 @media screen and (min-width:768px) {
   .c11 {
     width: 256px;
@@ -201,14 +189,6 @@ exports[`SplitPageLayout renders default layout 1`] = `
   .c11 {
     --pane-max-width-diff: 959px;
   }
-}
-
-@media screen and (min-width:544px) {
-
-}
-
-@media screen and (min-width:768px) {
-
 }
 
 @media screen and (min-width:1012px) {

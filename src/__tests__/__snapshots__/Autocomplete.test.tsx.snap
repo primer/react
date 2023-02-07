@@ -21,6 +21,10 @@ exports[`snapshots renders a custom empty state message 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  padding-left: 0;
+  padding-right: 0;
 }
 
 .c0 input,
@@ -58,19 +62,12 @@ exports[`snapshots renders a custom empty state message 1`] = `
   padding: 12px;
 }
 
-.c1 {
-  background-repeat: no-repeat;
-  background-position: right 8px center;
-  padding-left: 0;
-  padding-right: 0;
-}
-
-.c1 >:not(:last-child) {
+.c0 >:not(:last-child) {
   margin-right: 8px;
 }
 
-.c1 .TextInput-icon,
-.c1 .TextInput-action {
+.c0 .TextInput-icon,
+.c0 .TextInput-action {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
@@ -80,13 +77,13 @@ exports[`snapshots renders a custom empty state message 1`] = `
   flex-shrink: 0;
 }
 
-.c1 > input,
-.c1 > select {
+.c0 > input,
+.c0 > select {
   padding-left: 12px;
   padding-right: 12px;
 }
 
-.c2 {
+.c1 {
   border: 0;
   font-size: inherit;
   font-family: inherit;
@@ -96,7 +93,7 @@ exports[`snapshots renders a custom empty state message 1`] = `
   width: 100%;
 }
 
-.c2:focus {
+.c1:focus {
   outline: 0;
 }
 
@@ -109,7 +106,7 @@ exports[`snapshots renders a custom empty state message 1`] = `
 <span
     aria-busy={false}
     aria-live="polite"
-    className="c0 c1 TextInput-wrapper"
+    className="c0 TextInput-wrapper"
     onClick={[Function]}
   >
     <input
@@ -119,7 +116,7 @@ exports[`snapshots renders a custom empty state message 1`] = `
       aria-haspopup="listbox"
       aria-owns="autocompleteId-listbox"
       autoComplete="off"
-      className="c2"
+      className="c1"
       data-component="input"
       id="autocompleteId"
       onBlur={[Function]}
@@ -147,10 +144,6 @@ exports[`snapshots renders a custom empty state message 1`] = `
   clip: rect(0,0,0,0);
   white-space: nowrap;
   border-width: 0;
-}
-
-@media (min-width:768px) {
-
 }
 
 <span
@@ -188,6 +181,10 @@ exports[`snapshots renders a loading state 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  padding-left: 0;
+  padding-right: 0;
 }
 
 .c0 input,
@@ -225,19 +222,12 @@ exports[`snapshots renders a loading state 1`] = `
   padding: 12px;
 }
 
-.c1 {
-  background-repeat: no-repeat;
-  background-position: right 8px center;
-  padding-left: 0;
-  padding-right: 0;
-}
-
-.c1 >:not(:last-child) {
+.c0 >:not(:last-child) {
   margin-right: 8px;
 }
 
-.c1 .TextInput-icon,
-.c1 .TextInput-action {
+.c0 .TextInput-icon,
+.c0 .TextInput-action {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
@@ -247,13 +237,13 @@ exports[`snapshots renders a loading state 1`] = `
   flex-shrink: 0;
 }
 
-.c1 > input,
-.c1 > select {
+.c0 > input,
+.c0 > select {
   padding-left: 12px;
   padding-right: 12px;
 }
 
-.c2 {
+.c1 {
   border: 0;
   font-size: inherit;
   font-family: inherit;
@@ -263,7 +253,7 @@ exports[`snapshots renders a loading state 1`] = `
   width: 100%;
 }
 
-.c2:focus {
+.c1:focus {
   outline: 0;
 }
 
@@ -276,7 +266,7 @@ exports[`snapshots renders a loading state 1`] = `
 <span
     aria-busy={false}
     aria-live="polite"
-    className="c0 c1 TextInput-wrapper"
+    className="c0 TextInput-wrapper"
     onClick={[Function]}
   >
     <input
@@ -286,7 +276,7 @@ exports[`snapshots renders a loading state 1`] = `
       aria-haspopup="listbox"
       aria-owns="autocompleteId-listbox"
       autoComplete="off"
-      className="c2"
+      className="c1"
       data-component="input"
       id="autocompleteId"
       onBlur={[Function]}
@@ -327,10 +317,6 @@ exports[`snapshots renders a loading state 1`] = `
 .c2 {
   -webkit-animation: rotate-keyframes 1s linear infinite;
   animation: rotate-keyframes 1s linear infinite;
-}
-
-@media (min-width:768px) {
-
 }
 
 <span
@@ -390,6 +376,10 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  padding-left: 0;
+  padding-right: 0;
 }
 
 .c0 input,
@@ -427,19 +417,12 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
   padding: 12px;
 }
 
-.c1 {
-  background-repeat: no-repeat;
-  background-position: right 8px center;
-  padding-left: 0;
-  padding-right: 0;
-}
-
-.c1 >:not(:last-child) {
+.c0 >:not(:last-child) {
   margin-right: 8px;
 }
 
-.c1 .TextInput-icon,
-.c1 .TextInput-action {
+.c0 .TextInput-icon,
+.c0 .TextInput-action {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
@@ -449,13 +432,13 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
   flex-shrink: 0;
 }
 
-.c1 > input,
-.c1 > select {
+.c0 > input,
+.c0 > select {
   padding-left: 12px;
   padding-right: 12px;
 }
 
-.c2 {
+.c1 {
   border: 0;
   font-size: inherit;
   font-family: inherit;
@@ -465,7 +448,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
   width: 100%;
 }
 
-.c2:focus {
+.c1:focus {
   outline: 0;
 }
 
@@ -475,14 +458,10 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
   }
 }
 
-@media (hover:hover) and (pointer:fine) {
-
-}
-
 <span
     aria-busy={false}
     aria-live="polite"
-    className="c0 c1 TextInput-wrapper"
+    className="c0 TextInput-wrapper"
     onClick={[Function]}
   >
     <input
@@ -492,7 +471,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
       aria-haspopup="listbox"
       aria-owns="autocompleteId-listbox"
       autoComplete="off"
-      className="c2"
+      className="c1"
       data-component="input"
       id="autocompleteId"
       onBlur={[Function]}
@@ -571,11 +550,11 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
   margin-right: 8px;
 }
 
-.c4:not(:first-of-type):not(.Divider__StyledDivider-sc-1s7tlfq-0 + .c3):not(.Header__StyledHeader-sc-cjezay-0 + .c3) {
+.c4:not(:first-of-type):not(.c12 + .c3):not(.c11 + .c3) {
   margin-top: 0;
 }
 
-.c4:not(:first-of-type):not(.Divider__StyledDivider-sc-1s7tlfq-0 + .c3):not(.Header__StyledHeader-sc-cjezay-0 + .c3) .c7::before {
+.c4:not(:first-of-type):not(.c12 + .c3):not(.c11 + .c3) .c7::before {
   content: ' ';
   display: block;
   position: absolute;
@@ -635,12 +614,25 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
   flex-shrink: 0;
 }
 
-.c10 svg {
-  fill: #57606a;
-  font-size: 12px;
-}
-
-.c11 {
+.c10 {
+  height: 20px;
+  width: 16px;
+  margin-right: 8px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -652,6 +644,11 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
+}
+
+.c10 svg {
+  fill: #57606a;
+  font-size: 12px;
 }
 
 .c6 rect {
@@ -674,10 +671,6 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
 .c1:focus-within {
   --item-hover-bg-override: none;
   --item-hover-divider-border-color-override: hsla(210,18%,87%,1);
-}
-
-@media (min-width:768px) {
-
 }
 
 @media (hover:hover) and (pointer:fine) {
@@ -1268,7 +1261,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
             tabIndex={-1}
           >
             <div
-              className="c5 c10 c11"
+              className="c10"
             >
               <svg
                 aria-hidden="true"
@@ -1342,6 +1335,10 @@ exports[`snapshots renders a multiselect input 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  padding-left: 0;
+  padding-right: 0;
 }
 
 .c0 input,
@@ -1379,19 +1376,12 @@ exports[`snapshots renders a multiselect input 1`] = `
   padding: 12px;
 }
 
-.c1 {
-  background-repeat: no-repeat;
-  background-position: right 8px center;
-  padding-left: 0;
-  padding-right: 0;
-}
-
-.c1 >:not(:last-child) {
+.c0 >:not(:last-child) {
   margin-right: 8px;
 }
 
-.c1 .TextInput-icon,
-.c1 .TextInput-action {
+.c0 .TextInput-icon,
+.c0 .TextInput-action {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
@@ -1401,13 +1391,13 @@ exports[`snapshots renders a multiselect input 1`] = `
   flex-shrink: 0;
 }
 
-.c1 > input,
-.c1 > select {
+.c0 > input,
+.c0 > select {
   padding-left: 12px;
   padding-right: 12px;
 }
 
-.c2 {
+.c1 {
   border: 0;
   font-size: inherit;
   font-family: inherit;
@@ -1417,7 +1407,7 @@ exports[`snapshots renders a multiselect input 1`] = `
   width: 100%;
 }
 
-.c2:focus {
+.c1:focus {
   outline: 0;
 }
 
@@ -1427,14 +1417,10 @@ exports[`snapshots renders a multiselect input 1`] = `
   }
 }
 
-@media (hover:hover) and (pointer:fine) {
-
-}
-
 <span
     aria-busy={false}
     aria-live="polite"
-    className="c0 c1 TextInput-wrapper"
+    className="c0 TextInput-wrapper"
     onClick={[Function]}
   >
     <input
@@ -1444,7 +1430,7 @@ exports[`snapshots renders a multiselect input 1`] = `
       aria-haspopup="listbox"
       aria-owns="autocompleteId-listbox"
       autoComplete="off"
-      className="c2"
+      className="c1"
       data-component="input"
       id="autocompleteId"
       onBlur={[Function]}
@@ -1523,11 +1509,11 @@ exports[`snapshots renders a multiselect input 1`] = `
   margin-right: 8px;
 }
 
-.c4:not(:first-of-type):not(.Divider__StyledDivider-sc-1s7tlfq-0 + .c3):not(.Header__StyledHeader-sc-cjezay-0 + .c3) {
+.c4:not(:first-of-type):not(.c11 + .c3):not(.c10 + .c3) {
   margin-top: 0;
 }
 
-.c4:not(:first-of-type):not(.Divider__StyledDivider-sc-1s7tlfq-0 + .c3):not(.Header__StyledHeader-sc-cjezay-0 + .c3) .c7::before {
+.c4:not(:first-of-type):not(.c11 + .c3):not(.c10 + .c3) .c7::before {
   content: ' ';
   display: block;
   position: absolute;
@@ -1607,10 +1593,6 @@ exports[`snapshots renders a multiselect input 1`] = `
 .c1:focus-within {
   --item-hover-bg-override: none;
   --item-hover-divider-border-color-override: hsla(210,18%,87%,1);
-}
-
-@media (min-width:768px) {
-
 }
 
 @media (hover:hover) and (pointer:fine) {
@@ -2221,6 +2203,10 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  padding-left: 0;
+  padding-right: 0;
 }
 
 .c0 input,
@@ -2258,19 +2244,12 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
   padding: 12px;
 }
 
-.c1 {
-  background-repeat: no-repeat;
-  background-position: right 8px center;
-  padding-left: 0;
-  padding-right: 0;
-}
-
-.c1 >:not(:last-child) {
+.c0 >:not(:last-child) {
   margin-right: 8px;
 }
 
-.c1 .TextInput-icon,
-.c1 .TextInput-action {
+.c0 .TextInput-icon,
+.c0 .TextInput-action {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
@@ -2280,13 +2259,13 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
   flex-shrink: 0;
 }
 
-.c1 > input,
-.c1 > select {
+.c0 > input,
+.c0 > select {
   padding-left: 12px;
   padding-right: 12px;
 }
 
-.c2 {
+.c1 {
   border: 0;
   font-size: inherit;
   font-family: inherit;
@@ -2296,7 +2275,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
   width: 100%;
 }
 
-.c2:focus {
+.c1:focus {
   outline: 0;
 }
 
@@ -2306,14 +2285,10 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
   }
 }
 
-@media (hover:hover) and (pointer:fine) {
-
-}
-
 <span
     aria-busy={false}
     aria-live="polite"
-    className="c0 c1 TextInput-wrapper"
+    className="c0 TextInput-wrapper"
     onClick={[Function]}
   >
     <input
@@ -2323,7 +2298,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
       aria-haspopup="listbox"
       aria-owns="autocompleteId-listbox"
       autoComplete="off"
-      className="c2"
+      className="c1"
       data-component="input"
       id="autocompleteId"
       onBlur={[Function]}
@@ -2402,11 +2377,11 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
   margin-right: 8px;
 }
 
-.c4:not(:first-of-type):not(.Divider__StyledDivider-sc-1s7tlfq-0 + .c3):not(.Header__StyledHeader-sc-cjezay-0 + .c3) {
+.c4:not(:first-of-type):not(.c12 + .c3):not(.c11 + .c3) {
   margin-top: 0;
 }
 
-.c4:not(:first-of-type):not(.Divider__StyledDivider-sc-1s7tlfq-0 + .c3):not(.Header__StyledHeader-sc-cjezay-0 + .c3) .c7::before {
+.c4:not(:first-of-type):not(.c12 + .c3):not(.c11 + .c3) .c7::before {
   content: ' ';
   display: block;
   position: absolute;
@@ -2466,17 +2441,6 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
   flex-shrink: 0;
 }
 
-.c6 rect {
-  fill: #0969da;
-  stroke: #0969da;
-  shape-rendering: auto;
-}
-
-.c6 path {
-  fill: #ffffff;
-  opacity: 1;
-}
-
 .c10 rect {
   fill: #ffffff;
   stroke: #d0d7de;
@@ -2488,6 +2452,17 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
   opacity: 0;
 }
 
+.c6 rect {
+  fill: #0969da;
+  stroke: #0969da;
+  shape-rendering: auto;
+}
+
+.c6 path {
+  fill: #ffffff;
+  opacity: 1;
+}
+
 .c1 {
   font-size: 14px;
   line-height: 20px;
@@ -2497,10 +2472,6 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
 .c1:focus-within {
   --item-hover-bg-override: none;
   --item-hover-divider-border-color-override: hsla(210,18%,87%,1);
-}
-
-@media (min-width:768px) {
-
 }
 
 @media (hover:hover) and (pointer:fine) {
@@ -3111,6 +3082,10 @@ exports[`snapshots renders a single select input 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  padding-left: 0;
+  padding-right: 0;
 }
 
 .c0 input,
@@ -3148,19 +3123,12 @@ exports[`snapshots renders a single select input 1`] = `
   padding: 12px;
 }
 
-.c1 {
-  background-repeat: no-repeat;
-  background-position: right 8px center;
-  padding-left: 0;
-  padding-right: 0;
-}
-
-.c1 >:not(:last-child) {
+.c0 >:not(:last-child) {
   margin-right: 8px;
 }
 
-.c1 .TextInput-icon,
-.c1 .TextInput-action {
+.c0 .TextInput-icon,
+.c0 .TextInput-action {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
@@ -3170,13 +3138,13 @@ exports[`snapshots renders a single select input 1`] = `
   flex-shrink: 0;
 }
 
-.c1 > input,
-.c1 > select {
+.c0 > input,
+.c0 > select {
   padding-left: 12px;
   padding-right: 12px;
 }
 
-.c2 {
+.c1 {
   border: 0;
   font-size: inherit;
   font-family: inherit;
@@ -3186,7 +3154,7 @@ exports[`snapshots renders a single select input 1`] = `
   width: 100%;
 }
 
-.c2:focus {
+.c1:focus {
   outline: 0;
 }
 
@@ -3196,14 +3164,10 @@ exports[`snapshots renders a single select input 1`] = `
   }
 }
 
-@media (hover:hover) and (pointer:fine) {
-
-}
-
 <span
     aria-busy={false}
     aria-live="polite"
-    className="c0 c1 TextInput-wrapper"
+    className="c0 TextInput-wrapper"
     onClick={[Function]}
   >
     <input
@@ -3213,7 +3177,7 @@ exports[`snapshots renders a single select input 1`] = `
       aria-haspopup="listbox"
       aria-owns="autocompleteId-listbox"
       autoComplete="off"
-      className="c2"
+      className="c1"
       data-component="input"
       id="autocompleteId"
       onBlur={[Function]}
@@ -3292,11 +3256,11 @@ exports[`snapshots renders a single select input 1`] = `
   margin-right: 8px;
 }
 
-.c4:not(:first-of-type):not(.Divider__StyledDivider-sc-1s7tlfq-0 + .c3):not(.Header__StyledHeader-sc-cjezay-0 + .c3) {
+.c4:not(:first-of-type):not(.c9 + .c3):not(.c8 + .c3) {
   margin-top: 0;
 }
 
-.c4:not(:first-of-type):not(.Divider__StyledDivider-sc-1s7tlfq-0 + .c3):not(.Header__StyledHeader-sc-cjezay-0 + .c3) .c5::before {
+.c4:not(:first-of-type):not(.c9 + .c3):not(.c8 + .c3) .c5::before {
   content: ' ';
   display: block;
   position: absolute;
@@ -3344,10 +3308,6 @@ exports[`snapshots renders a single select input 1`] = `
 .c1:focus-within {
   --item-hover-bg-override: none;
   --item-hover-divider-border-color-override: hsla(210,18%,87%,1);
-}
-
-@media (min-width:768px) {
-
 }
 
 @media (hover:hover) and (pointer:fine) {
@@ -3669,11 +3629,7 @@ exports[`snapshots renders a single select input 1`] = `
 
 exports[`snapshots renders with a custom text input component 1`] = `
 [
-  @media (hover:hover) and (pointer:fine) {
-
-}
-
-<input
+  <input
     id="customInput"
     type="text"
   />,
@@ -3743,11 +3699,11 @@ exports[`snapshots renders with a custom text input component 1`] = `
   margin-right: 8px;
 }
 
-.c4:not(:first-of-type):not(.Divider__StyledDivider-sc-1s7tlfq-0 + .c3):not(.Header__StyledHeader-sc-cjezay-0 + .c3) {
+.c4:not(:first-of-type):not(.c9 + .c3):not(.c8 + .c3) {
   margin-top: 0;
 }
 
-.c4:not(:first-of-type):not(.Divider__StyledDivider-sc-1s7tlfq-0 + .c3):not(.Header__StyledHeader-sc-cjezay-0 + .c3) .c5::before {
+.c4:not(:first-of-type):not(.c9 + .c3):not(.c8 + .c3) .c5::before {
   content: ' ';
   display: block;
   position: absolute;
@@ -4135,6 +4091,10 @@ exports[`snapshots renders with an input value 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  padding-left: 0;
+  padding-right: 0;
 }
 
 .c0 input,
@@ -4172,19 +4132,12 @@ exports[`snapshots renders with an input value 1`] = `
   padding: 12px;
 }
 
-.c1 {
-  background-repeat: no-repeat;
-  background-position: right 8px center;
-  padding-left: 0;
-  padding-right: 0;
-}
-
-.c1 >:not(:last-child) {
+.c0 >:not(:last-child) {
   margin-right: 8px;
 }
 
-.c1 .TextInput-icon,
-.c1 .TextInput-action {
+.c0 .TextInput-icon,
+.c0 .TextInput-action {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
@@ -4194,13 +4147,13 @@ exports[`snapshots renders with an input value 1`] = `
   flex-shrink: 0;
 }
 
-.c1 > input,
-.c1 > select {
+.c0 > input,
+.c0 > select {
   padding-left: 12px;
   padding-right: 12px;
 }
 
-.c2 {
+.c1 {
   border: 0;
   font-size: inherit;
   font-family: inherit;
@@ -4210,7 +4163,7 @@ exports[`snapshots renders with an input value 1`] = `
   width: 100%;
 }
 
-.c2:focus {
+.c1:focus {
   outline: 0;
 }
 
@@ -4220,14 +4173,10 @@ exports[`snapshots renders with an input value 1`] = `
   }
 }
 
-@media (hover:hover) and (pointer:fine) {
-
-}
-
 <span
     aria-busy={false}
     aria-live="polite"
-    className="c0 c1 TextInput-wrapper"
+    className="c0 TextInput-wrapper"
     onClick={[Function]}
   >
     <input
@@ -4237,7 +4186,7 @@ exports[`snapshots renders with an input value 1`] = `
       aria-haspopup="listbox"
       aria-owns="autocompleteId-listbox"
       autoComplete="off"
-      className="c2"
+      className="c1"
       data-component="input"
       id="autocompleteId"
       onBlur={[Function]}
@@ -4265,14 +4214,6 @@ exports[`snapshots renders with an input value 1`] = `
   clip: rect(0,0,0,0);
   white-space: nowrap;
   border-width: 0;
-}
-
-@media (min-width:768px) {
-
-}
-
-@media (hover:hover) and (pointer:fine) {
-
 }
 
 <span
