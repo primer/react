@@ -340,6 +340,17 @@ const components = new Map([
     },
   ],
   [
+    'TabNav',
+    {
+      stories: [
+        {
+          id: 'components-tabnav--default',
+          name: 'Default',
+        },
+      ],
+    },
+  ],
+  [
     'TreeView',
     {
       stories: [
