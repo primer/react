@@ -1,6 +1,6 @@
 import React from 'react'
 import {Meta} from '@storybook/react'
-import {ThemeProvider, BaseStyles, Box, Text, Avatar, ActionMenu, ActionList} from '../..'
+import {ThemeProvider, BaseStyles, Box, Avatar, ActionMenu, ActionList} from '../..'
 import {
   GearIcon,
   MilestoneIcon,
@@ -210,13 +210,13 @@ export function GroupsAndDescription(): JSX.Element {
           </ActionMenu.Overlay>
         </ActionMenu>
         {selectedMilestone ? (
-          <Text as="div" id="selected-milestone" color="fg.muted" sx={{fontSize: 1, mt: 2}}>
+          <Box id="selected-milestone" color="fg.muted" sx={{fontSize: 1, mt: 2}}>
             {selectedMilestone.name}
-          </Text>
+          </Box>
         ) : (
-          <Text as="div" id="selected-milestone" color="fg.muted" sx={{fontSize: 1, mt: 2}}>
+          <Box id="selected-milestone" color="fg.muted" sx={{fontSize: 1, mt: 2}}>
             No milestone
-          </Text>
+          </Box>
         )}
       </Box>
     </>
