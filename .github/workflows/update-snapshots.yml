@@ -84,19 +84,33 @@ jobs:
                repo: context.repo.repo,
                run_id: ${{ github.event.workflow_run.id }},
             });
-            const artifact = artifacts.data.artifacts.find((artifact) => {
-              return artifact.name == 'snapshots'
+            const SNAPSHOT_NAME_REGEX = /snapshots-[\d]+/g;
+            const snapshotArtifacts = artifacts.data.artifacts.filter((artifact) => {
+              return artifact.name.match(SNAPSHOT_NAME_REGEX)
             });
-            const download = await github.rest.actions.downloadArtifact({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              artifact_id: artifact.id,
-              archive_format: 'zip',
-            });
-            fs.writeFileSync('${{github.workspace}}/snapshots.zip', Buffer.from(download.data));
+
+            for (let i = 0; i < snapshotArtifacts.length; i++) {
+              const artifact = snapshotArtifacts[i];
+              const download = await github.rest.actions.downloadArtifact({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                artifact_id: artifact.id,
+                archive_format: 'zip',
+              });
+              const filepath = path.format({
+                dir: '${{github.workspace}}',
+                name: `snapshots-${i}`,
+                ext: 'zip',
+              });
+
+              fs.writeFileSync(filepath, Buffer.from(download.data));
+            }
       - run: |
-          unzip -o snapshots.zip -d .playwright/snapshots
-          rm snapshots.zip
+          for filepath in snapshots-*.zip
+          do
+            unzip -o $filepath -d .playwright/snapshots
+            rm $filepath
+          end
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: 'test(vrt): update snapshots'
