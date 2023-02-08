@@ -72,6 +72,17 @@ const components = new Map([
     },
   ],
   [
+    'BranchName',
+    {
+      stories: [
+        {
+          id: 'components-branchname--default',
+          name: 'Default',
+        },
+      ],
+    },
+  ],
+  [
     'Button',
     {
       stories: [
@@ -235,6 +246,25 @@ const components = new Map([
     },
   ],
   [
+    'Link',
+    {
+      stories: [
+        {
+          id: 'components-link--default',
+          name: 'Default',
+        },
+        {
+          id: 'components-link-features--muted',
+          name: 'Muted',
+        },
+        {
+          id: 'components-link-features--underline',
+          name: 'Underline',
+        },
+      ],
+    },
+  ],
+  [
     'LinkButton',
     {
       stories: [
@@ -335,6 +365,17 @@ const components = new Map([
         {
           id: 'drafts-components-underlinenav-features--with-icons',
           name: 'With Icons',
+        },
+      ],
+    },
+  ],
+  [
+    'TabNav',
+    {
+      stories: [
+        {
+          id: 'components-tabnav--default',
+          name: 'Default',
         },
       ],
     },
