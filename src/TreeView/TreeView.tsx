@@ -335,6 +335,7 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
     const {level} = React.useContext(ItemContext)
     const {hasSubTree, subTree, childrenWithoutSubTree} = useSubTree(children)
     const [isSubTreeEmpty, setIsSubTreeEmpty] = React.useState(!hasSubTree)
+    const [isFocused, setIsFocused] = React.useState(false)
 
     // Set the expanded state and cache it
     const setIsExpandedWithCache = React.useCallback(
@@ -404,14 +405,19 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
           aria-level={level}
           aria-expanded={isSubTreeEmpty ? undefined : isExpanded}
           aria-current={isCurrentItem ? 'true' : undefined}
+          aria-selected={isFocused ? 'true' : 'false'}
           onKeyDown={handleKeyDown}
           onFocus={event => {
             // Scroll the first child into view when the item receives focus
             event.currentTarget.firstElementChild?.scrollIntoView({block: 'nearest', inline: 'nearest'})
 
+            // Set the focused state
+            setIsFocused(true)
+
             // Prevent focus event from bubbling up to parent items
             event.stopPropagation()
           }}
+          onBlur={() => setIsFocused(false)}
         >
           {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions */}
           <div

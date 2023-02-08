@@ -72,6 +72,17 @@ const components = new Map([
     },
   ],
   [
+    'BranchName',
+    {
+      stories: [
+        {
+          id: 'components-branchname--default',
+          name: 'Default',
+        },
+      ],
+    },
+  ],
+  [
     'Button',
     {
       stories: [
@@ -230,6 +241,25 @@ const components = new Map([
         {
           id: 'components-label-features--success',
           name: 'Success',
+        },
+      ],
+    },
+  ],
+  [
+    'Link',
+    {
+      stories: [
+        {
+          id: 'components-link--default',
+          name: 'Default',
+        },
+        {
+          id: 'components-link-features--muted',
+          name: 'Muted',
+        },
+        {
+          id: 'components-link-features--underline',
+          name: 'Underline',
         },
       ],
     },
