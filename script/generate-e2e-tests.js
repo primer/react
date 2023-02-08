@@ -235,6 +235,25 @@ const components = new Map([
     },
   ],
   [
+    'Link',
+    {
+      stories: [
+        {
+          id: 'components-link--default',
+          name: 'Default',
+        },
+        {
+          id: 'components-link-features--muted',
+          name: 'Muted',
+        },
+        {
+          id: 'components-link-features--underline',
+          name: 'Underline',
+        },
+      ],
+    },
+  ],
+  [
     'LinkButton',
     {
       stories: [

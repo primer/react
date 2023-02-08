@@ -9,9 +9,29 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  upload-snapshots:
+  update-snapshots:
     if: contains(github.event.pull_request.labels.*.name, 'update snapshots')
     runs-on: ubuntu-latest
+    steps:
+      - name: Save Pull Request info
+        run: |
+          mkdir PR
+          echo $NUMBER > ./PR/number
+        env:
+          NUMBER: ${{ github.event.number }}
+      - uses: actions/upload-artifact@v3
+        with:
+          name: pull-request
+          path: ./PR
+          retention-days: 1
+
+  upload-snapshots:
+    needs: update-snapshots
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: true
+      matrix:
+        shard: [1, 2]
     steps:
       - uses: actions/checkout@v3
       - name: Set up Node.js
@@ -36,24 +56,13 @@ jobs:
           echo "pid=$pid" >> $GITHUB_OUTPUT
           sleep 5
       - name: Run VRT
-        run: npx playwright test --grep @vrt --update-snapshots
+        run: npx playwright test --grep @vrt --update-snapshots --shard="${{ matrix.shard }}/${{ strategy.job-total }}"
       - name: Stop storybook
         if: ${{ always() }}
         run: kill ${{ steps.storybook.outputs.pid }}
       - name: Upload snapshots
         uses: actions/upload-artifact@v3
         with:
-          name: snapshots
+          name: snapshots-${{ matrix.shard }}
           path: .playwright/snapshots
-          retention-days: 1
-      - name: Save Pull Request info
-        run: |
-          mkdir PR
-          echo $NUMBER > ./PR/number
-        env:
-          NUMBER: ${{ github.event.number }}
-      - uses: actions/upload-artifact@v3
-        with:
-          name: pull-request
-          path: ./PR
           retention-days: 1
