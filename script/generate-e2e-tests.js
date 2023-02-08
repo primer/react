@@ -72,6 +72,17 @@ const components = new Map([
     },
   ],
   [
+    'BranchName',
+    {
+      stories: [
+        {
+          id: 'components-branchname--default',
+          name: 'Default',
+        },
+      ],
+    },
+  ],
+  [
     'Button',
     {
       stories: [
