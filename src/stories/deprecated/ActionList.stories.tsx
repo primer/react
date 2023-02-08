@@ -320,7 +320,6 @@ export function CustomItemChildren(): JSX.Element {
     </>
   )
 }
-CustomItemChildren.storyName = 'Custom Item Children'
 
 export function SizeStressTestingStory(): JSX.Element {
   return (

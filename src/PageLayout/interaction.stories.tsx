@@ -368,7 +368,7 @@ StickyPane.play = async ({canvasElement}: {canvasElement: HTMLElement}) => {
   content3.scrollIntoView()
   const paragraph0 = await canvas.getByTestId('paragraph0')
   const paragraphRect = paragraph0.getBoundingClientRect()
-  expect(isInViewPort(paragraphRect)).toBe(true)
+  await expect(isInViewPort(paragraphRect)).toBe(true)
 }
 
 const NonStickyPane = StickyPane.bind({})
@@ -397,7 +397,7 @@ NonStickyPane.play = async ({canvasElement}: {canvasElement: HTMLElement}) => {
   content3.scrollIntoView()
   const paragraph0 = await canvas.getByTestId('paragraph0')
   const paragraphRect = paragraph0.getBoundingClientRect()
-  expect(isInViewPort(paragraphRect)).toBe(false)
+  await expect(isInViewPort(paragraphRect)).toBe(false)
 }
 
 CustomStickyHeader.args = {
@@ -431,8 +431,8 @@ CustomStickyHeader.play = async ({canvasElement}: {canvasElement: HTMLElement}) 
   const paragraphBoundaries = stickyPaneFirstParagraph.getBoundingClientRect()
   const stickyHeader = await canvas.getByTestId('sticky-header')
   const stickyHeaderBoundaries = stickyHeader.getBoundingClientRect()
-  expect(isInViewPort(paragraphBoundaries)).toBe(true)
-  expect(isInViewPort(stickyHeaderBoundaries)).toBe(true)
+  await expect(isInViewPort(paragraphBoundaries)).toBe(true)
+  await expect(isInViewPort(stickyHeaderBoundaries)).toBe(true)
 }
 export default meta
 export {StickyPane, NonStickyPane, CustomStickyHeader}

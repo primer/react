@@ -302,6 +302,7 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
             role={role}
             aria-labelledby={dialogLabelId}
             aria-describedby={dialogDescriptionId}
+            aria-modal
             sx={sx}
           >
             {header}

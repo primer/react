@@ -1,0 +1,13 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Generate e2e tests",
+      "command": "node",
+      "type": "shell",
+      "args": [
+        "script/generate-e2e-tests.js"
+      ],
+    }
+  ]
+}
