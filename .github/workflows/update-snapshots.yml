@@ -90,7 +90,7 @@ jobs:
               return artifact.name.match(SNAPSHOT_NAME_REGEX)
             });
             
-            github.core.info(`Found: ${snapshotArtifacts.length} snapshot artifacts`);
+            core.info(`Found: ${snapshotArtifacts.length} snapshot artifacts`);
 
             for (let i = 0; i < snapshotArtifacts.length; i++) {
               const artifact = snapshotArtifacts[i];
@@ -106,7 +106,7 @@ jobs:
                 ext: 'zip',
               });
 
-              github.core.info('Writing snapshot artifact to: ${filepath}');
+              core.info('Writing snapshot artifact to: ${filepath}');
               fs.writeFileSync(filepath, Buffer.from(download.data));
             }
       - run: unzip -o 'snapshots-*.zip' -d .playwright/snapshots
