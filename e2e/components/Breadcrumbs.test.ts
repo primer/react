@@ -18,7 +18,7 @@ test.describe('Breadcrumbs', () => {
           expect(await page.screenshot()).toMatchSnapshot(`Breadcrumbs.Default.${theme}.png`)
 
           // Hover state
-          await page.getByRole('link').hover()
+          await page.getByRole('link', {name: 'Home'}).hover()
           expect(await page.screenshot()).toMatchSnapshot(`Breadcrumbs.Default.${theme}.hover.png`)
 
           // Focus state
