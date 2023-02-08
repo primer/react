@@ -73,10 +73,7 @@ export const WithInlineLinks = () => (
         <Link href="#" sx={{fontWeight: 'bold', color: 'fg.default', mr: 1}} muted>
           Monalisa
         </Link>
-        enabled auto-merge (squash){' '}
-        <Link href="#" color="fg.muted" muted>
-          Just now
-        </Link>
+        enabled auto-merge (squash)
       </Timeline.Body>
     </Timeline.Item>
   </Timeline>
