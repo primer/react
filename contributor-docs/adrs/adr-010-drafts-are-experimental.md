@@ -58,4 +58,4 @@ We should create a new parallel import path for `@primer/react/experimental`.
 + import { UnderlineNav } from '@primer/react/experimental'
 ```
 
-We would need to keep `@primer/react/drafts` in the short term as well for backward compatibility.
+We would need to keep `@primer/react/drafts` in the short term as well for backwards compatibility.
