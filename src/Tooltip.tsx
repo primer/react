@@ -1,10 +1,14 @@
 import React from 'react'
-import '@oddbird/popover-polyfill'
 import styled from 'styled-components'
 import {get} from './constants'
 import sx, {SxProp} from './sx'
 import {ComponentProps} from './utils/types'
 import classNames from 'classnames'
+import {canUseDOM} from './utils/environment'
+
+if (canUseDOM) {
+  require('@oddbird/popover-polyfill')
+}
 
 type PopoverProps = {
   popover?: 'auto'
