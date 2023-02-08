@@ -1,8 +1,8 @@
 import styled from 'styled-components'
 import {variant} from 'styled-system'
-import {get} from './constants'
-import sx, {SxProp} from './sx'
-import {ComponentProps} from './utils/types'
+import {get} from '../constants'
+import sx, {SxProp} from '../sx'
+import {ComponentProps} from '../utils/types'
 
 const variants = variant({
   variants: {
