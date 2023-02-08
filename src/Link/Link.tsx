@@ -1,11 +1,11 @@
 import React, {forwardRef, useEffect} from 'react'
 import styled from 'styled-components'
 import {system} from 'styled-system'
-import {get} from './constants'
-import {useRefObjectAsForwardedRef} from './hooks'
-import sx, {SxProp} from './sx'
-import {ComponentProps} from './utils/types'
-import {ForwardRefComponent as PolymorphicForwardRefComponent} from './utils/polymorphic'
+import {get} from '../constants'
+import {useRefObjectAsForwardedRef} from '../hooks'
+import sx, {SxProp} from '../sx'
+import {ComponentProps} from '../utils/types'
+import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 
 type StyledLinkProps = {
   hoverColor?: string
