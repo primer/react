@@ -785,7 +785,9 @@ describe('Keyboard interactions', () => {
       act(() => {
         // Focus first item
         parent1.focus()
+      })
 
+      act(() => {
         // Press End
         fireEvent.keyDown(document.activeElement || document.body, {key: 'End'})
       })
@@ -796,7 +798,9 @@ describe('Keyboard interactions', () => {
       act(() => {
         // Press → to expand parent 3
         fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowRight'})
+      })
 
+      act(() => {
         // Press End
         fireEvent.keyDown(document.activeElement || document.body, {key: 'End'})
       })
@@ -1185,10 +1189,10 @@ describe('Asyncronous loading', () => {
     // Live region should be empty
     expect(liveRegion).toHaveTextContent('')
 
-    act(() => {
-      // Click done button to mimic the completion of async loading
-      fireEvent.click(doneButton)
+    // Click done button to mimic the completion of async loading
+    fireEvent.click(doneButton)
 
+    act(() => {
       jest.runAllTimers()
     })
 
