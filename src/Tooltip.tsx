@@ -4,20 +4,7 @@ import {get} from './constants'
 import sx, {SxProp} from './sx'
 import {ComponentProps} from './utils/types'
 import classNames from 'classnames'
-import {canUseDOM} from './utils/environment'
-
-// Polyfill popover is conditionally loaded to not break in NodeJS execution environments.
-// Need to add `showPopover` and `hidePopover` methods so this file type-checks.
-declare global {
-  interface HTMLElement {
-    showPopover(): void
-    hidePopover(): void
-  }
-}
-
-if (canUseDOM) {
-  require('@oddbird/popover-polyfill')
-}
+import '@oddbird/popover-polyfill'
 
 type PopoverProps = {
   popover?: 'auto'
