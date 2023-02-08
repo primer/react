@@ -102,7 +102,12 @@ jobs:
 
               fs.writeFileSync(`${{github.workspace}}/snapshots-${i}.zip`, Buffer.from(download.data));
             }
-      - run: unzip -o 'snapshots-*.zip' -d .playwright/snapshots
+      - run: |
+          for filepath in snapshots-*.zip
+          do
+            unzip -o $filepath -d .playwright/snapshots
+            rm $filepath
+          done
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: 'test(vrt): update snapshots'
