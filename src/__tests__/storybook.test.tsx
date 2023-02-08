@@ -1,9 +1,11 @@
-import path from 'node:path'
 import glob from 'fast-glob'
 import groupBy from 'lodash.groupby'
+import fs from 'node:fs'
+import path from 'node:path'
 
 const ROOT_DIRECTORY = path.resolve(__dirname, '..', '..')
 // Components opted into the new story format
+// TODO: Remove this allowlist when all components use the new story format
 const allowlist = ['ActionList', 'Button', 'IconButton', 'FilteredActionList', 'TabNav', 'TreeView']
 const stories = glob
   .sync('src/**/*.stories.tsx', {
@@ -72,4 +74,21 @@ describe.each(components)('%s', (_component, stories) => {
       }
     })
   }
+})
+
+const jsonFiles = glob
+  .sync('src/**/*.docs.json', {
+    cwd: ROOT_DIRECTORY,
+  })
+  .filter(filepath => {
+    const name = path.basename(filepath, '.docs.json')
+    return allowlist.includes(name)
+  })
+
+// eslint-disable-next-line jest/no-identical-title
+describe.each(jsonFiles)('%s', filepath => {
+  test('has a corresponding .stories.tsx file', () => {
+    const storyFilepath = path.join(ROOT_DIRECTORY, filepath.replace('.docs.json', '.stories.tsx'))
+    expect(fs.existsSync(storyFilepath)).toBe(true)
+  })
 })
