@@ -111,7 +111,7 @@ jobs:
           do
             unzip -o $filepath -d .playwright/snapshots
             rm $filepath
-          end
+          done
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: 'test(vrt): update snapshots'
