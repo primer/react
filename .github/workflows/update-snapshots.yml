@@ -79,7 +79,6 @@ jobs:
         with:
           script: |
             const fs = require('fs');
-            const path = require('path');
             const artifacts = await github.rest.actions.listWorkflowRunArtifacts({
                owner: context.repo.owner,
                repo: context.repo.repo,
@@ -100,14 +99,8 @@ jobs:
                 artifact_id: artifact.id,
                 archive_format: 'zip',
               });
-              const filepath = path.format({
-                dir: '${{github.workspace}}',
-                name: `snapshots-${i}`,
-                ext: 'zip',
-              });
 
-              core.info('Writing snapshot artifact to: ${filepath}');
-              fs.writeFileSync(filepath, Buffer.from(download.data));
+              fs.writeFileSync(`${{github.workspace}}/snapshots-${i}.zip`, Buffer.from(download.data));
             }
       - run: unzip -o 'snapshots-*.zip' -d .playwright/snapshots
       - uses: stefanzweifel/git-auto-commit-action@v4
