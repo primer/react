@@ -118,6 +118,16 @@ const SwitchButton = styled.button<SwitchButtonProps>`
     }
   }
 
+  &:hover,
+  &:focus:focus-visible {
+    background-color: ${get('colors.switchTrack.hoverBg')};
+  }
+
+  &:active,
+  &:active:focus-visible {
+    background-color: ${get('colors.switchTrack.activeBg')};
+  }
+
   ${props => {
     if (props.disabled) {
       return css`
@@ -147,13 +157,6 @@ const SwitchButton = styled.button<SwitchButtonProps>`
       return css`
         background-color: ${get('colors.switchTrack.bg')};
         border-color: transparent;
-
-        &:hover,
-        &:focus:focus-visible {
-          .Toggle-knob {
-            background-color: ${get('colors.switchKnob.hoverBg')};
-          }
-        }
 
         &:active {
           background-color: ${get('colors.switchTrack.activeBg')};
@@ -302,7 +305,7 @@ const Switch: React.FC<React.PropsWithChildren<SwitchProps>> = ({
             <CircleIcon size={size} />
           </Box>
         </Box>
-        <ToggleKnob aria-hidden="true" className="Toggle-knob" disabled={!acceptsInteraction} checked={isOn} />
+        <ToggleKnob aria-hidden="true" disabled={!acceptsInteraction} checked={isOn} />
       </SwitchButton>
     </Box>
   )

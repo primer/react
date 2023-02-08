@@ -274,7 +274,7 @@ exports[`renders consistently 1`] = `
     <div
       aria-hidden="true"
       checked={false}
-      className="c9 Toggle-knob"
+      className="c9"
       disabled={false}
     />
   </button>
