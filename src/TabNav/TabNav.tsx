@@ -31,34 +31,40 @@ export type TabNavProps = ComponentProps<typeof TabNavBase>
 
 function TabNav({children, 'aria-label': ariaLabel, ...rest}: TabNavProps) {
   const customContainerRef = useRef<HTMLElement>(null)
-  // TODO: revert tracking when `initialFocus` is set. This is a fix when TabNav
-  // is nested within another focus zone. This flag is used to indicate when
-  // focus has been initially set, this is useful for including the
-  // `aria-selected="true"` tab as the first interactive item.
-  //
-  // When set to `true`, this changes the behavior in `useFocusZone` to use
-  // the `'previous'` strategy which allows the tab to participate in nested
-  // focus zones without conflict
-  const [initialFocus, setInitialFocus] = useState(false)
-  const customStrategy = React.useCallback(() => {
+
+  // Detect if the TabNav is inside an ActionMenu.
+  const [isInsideMenu, setIsInsideMenu] = useState(false)
+  React.useEffect(() => {
     if (customContainerRef.current) {
-      const tabs = Array.from(
-        customContainerRef.current.querySelectorAll<HTMLElement>('[role=tab][aria-selected=true]'),
-      )
-      setInitialFocus(true)
-      return tabs[0]
+      const menu = customContainerRef.current.closest<HTMLElement>('[role=menu]')
+      if (menu) {
+        setIsInsideMenu(true)
+      }
     }
   }, [customContainerRef])
+
+  const customStrategy = React.useCallback(() => {
+    const selectedTab = customContainerRef.current?.querySelector<HTMLElement>('[role=tab][aria-selected=true]')
+    const firstTab = customContainerRef.current?.querySelector<HTMLElement>('[role=tab]')
+    return selectedTab ?? firstTab ?? undefined
+  }, [customContainerRef])
+
   const {containerRef: navRef} = useFocusZone(
     {
       containerRef: customContainerRef,
       bindKeys: FocusKeys.ArrowHorizontal | FocusKeys.HomeAndEnd,
       focusOutBehavior: 'wrap',
-      focusInStrategy: initialFocus ? 'previous' : customStrategy,
+      // Use 'previous' strategy when inside an ActionMenu to avoid
+      // conflicting with the ActionMenu's focus zone.
+      //
+      // WARNING: We don't recommend using TabNav inside an ActionMenu.
+      // This is a workaround to avoid breaking existing code.
+      focusInStrategy: isInsideMenu ? 'previous' : customStrategy,
       focusableElementFilter: element => element.getAttribute('role') === 'tab',
     },
-    [initialFocus],
+    [isInsideMenu],
   )
+
   return (
     <TabNavBase {...rest} ref={navRef as React.RefObject<HTMLDivElement>}>
       <TabNavNav aria-label={ariaLabel}>
