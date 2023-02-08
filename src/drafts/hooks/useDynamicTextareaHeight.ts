@@ -1,12 +1,12 @@
-import {useLayoutEffect, useState} from 'react'
+import {RefObject, useLayoutEffect, useState} from 'react'
 
 import {SxProp} from '../../sx'
 import {getCharacterCoordinates} from '../utils/character-coordinates'
 
 type UseDynamicTextareaHeightSettings = {
-  minHeightLines: number
-  maxHeightLines: number
-  element: HTMLTextAreaElement | null
+  minHeightLines?: number
+  maxHeightLines?: number
+  elementRef: RefObject<HTMLTextAreaElement | null>
   /** The current value of the input. */
   value: string
 }
@@ -16,7 +16,8 @@ type UseDynamicTextareaHeightSettings = {
  * resizing it as the user types. If the user manually resizes the textarea, their setting
  * will be respected.
  *
- * Returns an object to spread to the component's `sx` prop.
+ * Returns an object to spread to the component's `sx` prop. If you are using `Textarea`,
+ * apply this to the child `textarea` element: `<Textarea sx={{'& textarea': resultOfThisHook}} />`.
  *
  * NOTE: for the most accurate results, be sure that the `lineHeight` of the element is
  * explicitly set in CSS.
@@ -24,7 +25,7 @@ type UseDynamicTextareaHeightSettings = {
 export const useDynamicTextareaHeight = ({
   minHeightLines,
   maxHeightLines,
-  element,
+  elementRef,
   value,
 }: UseDynamicTextareaHeightSettings): SxProp['sx'] => {
   const [height, setHeight] = useState<string | undefined>(undefined)
@@ -32,16 +33,19 @@ export const useDynamicTextareaHeight = ({
   const [maxHeight, setMaxHeight] = useState<string | undefined>(undefined)
 
   useLayoutEffect(() => {
+    const element = elementRef.current
     if (!element) return
 
     const computedStyles = getComputedStyle(element)
     const pt = computedStyles.paddingTop
-    const lastCharacterCoords = getCharacterCoordinates(element, element.value.length)
 
     // The calculator gives us the distance from the top border to the bottom of the caret, including
     // any top padding, so we need to delete the top padding to accurately get the height
     // We could also parse and subtract the top padding, but this is more reliable (no chance of NaN)
     element.style.paddingTop = '0'
+
+    const lastCharacterCoords = getCharacterCoordinates(element, element.value.length)
+
     // Somehow we come up 1 pixel too short and the scrollbar appears, so just add one
     setHeight(`${lastCharacterCoords.top + lastCharacterCoords.height + 1}px`)
     element.style.paddingTop = pt
@@ -49,10 +53,10 @@ export const useDynamicTextareaHeight = ({
     const lineHeight =
       computedStyles.lineHeight === 'normal' ? `1.2 * ${computedStyles.fontSize}` : computedStyles.lineHeight
     // Using CSS calculations is fast and prevents us from having to parse anything
-    setMinHeight(`calc(${minHeightLines} * ${lineHeight})`)
-    setMaxHeight(`calc(${maxHeightLines} * ${lineHeight})`)
+    if (minHeightLines !== undefined) setMinHeight(`calc(${minHeightLines} * ${lineHeight})`)
+    if (maxHeightLines !== undefined) setMaxHeight(`calc(${maxHeightLines} * ${lineHeight})`)
     // `value` is an unnecessary dependency but it enables us to recalculate as the user types
-  }, [minHeightLines, maxHeightLines, element, value])
+  }, [minHeightLines, maxHeightLines, value, elementRef])
 
   return {height, minHeight, maxHeight, boxSizing: 'content-box'}
 }
