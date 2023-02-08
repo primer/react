@@ -9,7 +9,6 @@ import {Button, ButtonProps} from './Button'
 import {useId} from './hooks/useId'
 import {MandateProps} from './utils/types'
 import {ForwardRefComponent as PolymorphicForwardRefComponent} from './utils/polymorphic'
-import {merge, BetterSystemStyleObject} from './sx'
 
 export type MenuContextProps = Pick<
   AnchoredOverlayProps,
@@ -75,21 +74,10 @@ const Anchor = React.forwardRef<HTMLElement, ActionMenuAnchorProps>(({children, 
 
 /** this component is syntactical sugar 🍭 */
 export type ActionMenuButtonProps = ButtonProps
-const MenuButton = React.forwardRef(({sx: sxProp = {}, ...props}, anchorRef) => {
+const MenuButton = React.forwardRef(({...props}, anchorRef) => {
   return (
     <Anchor ref={anchorRef}>
-      <Button
-        type="button"
-        trailingIcon={TriangleDownIcon}
-        sx={merge<BetterSystemStyleObject>(
-          {
-            // override the margin on caret for optical alignment
-            '[data-component=trailingIcon]': {marginX: -1},
-          },
-          sxProp,
-        )}
-        {...props}
-      />
+      <Button type="button" trailingAction={TriangleDownIcon} {...props} />
     </Anchor>
   )
 }) as PolymorphicForwardRefComponent<'button', ActionMenuButtonProps>
