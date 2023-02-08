@@ -420,6 +420,10 @@ exports[`NavList renders with groups 1`] = `
 }
 
 .c3 {
+  padding-inline-start: 0;
+}
+
+.c4 {
   padding-top: 6px;
   padding-bottom: 6px;
   padding-left: 16px;
@@ -427,10 +431,7 @@ exports[`NavList renders with groups 1`] = `
   font-size: 12px;
   font-weight: 600;
   color: #57606a;
-}
-
-.c4 {
-  padding-inline-start: 0;
+  list-style: none;
 }
 
 .c0 {
@@ -722,21 +723,21 @@ exports[`NavList renders with groups 1`] = `
       <li
         class="c2"
       >
-        <div
-          aria-hidden="true"
-          class="c3"
-          role="presentation"
-        >
-          <span
-            id="react-aria-1"
-          >
-            Overview
-          </span>
-        </div>
         <ul
           aria-labelledby="react-aria-1"
-          class="c4"
+          class="c3"
         >
+          <li
+            aria-hidden="true"
+            class="c4"
+            role="presentation"
+          >
+            <span
+              id="react-aria-1"
+            >
+              Overview
+            </span>
+          </li>
           <li
             class="c5 c6"
           >
@@ -770,21 +771,21 @@ exports[`NavList renders with groups 1`] = `
       <li
         class="c2"
       >
-        <div
-          aria-hidden="true"
-          class="c3"
-          role="presentation"
-        >
-          <span
-            id="react-aria-5"
-          >
-            Components
-          </span>
-        </div>
         <ul
           aria-labelledby="react-aria-5"
-          class="c4"
+          class="c3"
         >
+          <li
+            aria-hidden="true"
+            class="c4"
+            role="presentation"
+          >
+            <span
+              id="react-aria-5"
+            >
+              Components
+            </span>
+          </li>
           <li
             class="c5 c10"
           >
