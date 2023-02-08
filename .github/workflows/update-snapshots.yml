@@ -89,7 +89,7 @@ jobs:
             const snapshotArtifacts = artifacts.data.artifacts.filter((artifact) => {
               return artifact.name.match(SNAPSHOT_NAME_REGEX)
             });
-            
+
             core.info(`Found: ${snapshotArtifacts.length} snapshot artifacts`);
 
             for (let i = 0; i < snapshotArtifacts.length; i++) {
