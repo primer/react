@@ -13,15 +13,13 @@ When a change is detected to a snapshot, the test will fail with a diff between 
 A common practice is to snapshot a React component which will capture the HTML output of rendering a component. For example:
 
 ```jsx
-import renderer from 'react-test-renderer';
-import Link from '../Link';
+import renderer from 'react-test-renderer'
+import Link from '../Link'
 
 it('renders correctly', () => {
-  const tree = renderer
-    .create(<Link page="http://www.facebook.com">Facebook</Link>)
-    .toJSON();
-  expect(tree).toMatchSnapshot();
-});
+  const tree = renderer.create(<Link page="http://www.facebook.com">Facebook</Link>).toJSON()
+  expect(tree).toMatchSnapshot()
+})
 ```
 
 ```js
@@ -34,15 +32,15 @@ exports[`renders correctly 1`] = `
 >
   Facebook
 </a>
-`;
+`
 ```
 
 [Source](https://jestjs.io/docs/snapshot-testing#snapshot-testing-with-jest)
 
 As the number of snapshots within a project grows, there are a couple of challenges that emerge:
 
-- Components with large or deep trees emit large snapshots
-- Debugging what change lead to a broken snapshots can be difficult
+- Components with wide or deep trees emit large snapshots
+- Debugging what change lead to a broken snapshot can be difficult
 - It is unclear what the intent may be of a snapshot test when something does fail, in other words it does not always answer the question: what is this testing?
 
 ## Decision
@@ -57,26 +55,31 @@ As the number of snapshots within a project grows, there are a couple of challen
 <thead><tr><th>Unpreferred</th><th>Preferred</th></tr></thead>
 <tbody>
 <tr><td>
-  
+
 ```tsx
 it('renders correctly', () => {
-  const tree = renderer
-    .create(<Link page="http://www.github.com">GitHub</Link>)
-    .toJSON();
-  expect(tree).toMatchSnapshot();
-});
+  const tree = renderer.create(<Link page="http://www.github.com">GitHub</Link>).toJSON()
+  expect(tree).toMatchSnapshot()
+})
 ```
-  
+
 </td><td>
-  
+
 ```tsx
 it('renders an element with role="link"', () => {
-  render(<Link page="http://www.github.com">GitHub</Link>);
-  expect(screen.getByRole('link', { name: 'GitHub' })).toBeInTheDocument();
-});
+  render(<Link page="http://www.github.com">GitHub</Link>)
+  expect(screen.getByRole('link', {name: 'GitHub'})).toBeInTheDocument()
+})
 ```
-  
+
 </td></tr>
 </tbody></table>
 
+### Impact
 
+This decision will impact our test suite in two ways:
+
+- Tests with calls to `toMatchSnapshot()` may need to be removed if the snapshot
+  test is capturing the render tree
+- The `behavesAsComponent` helper, which uses `toMatchSnapshot` under-the-hood,
+  will need to be updated to no longer include a snapshot test
