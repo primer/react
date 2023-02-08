@@ -1,10 +1,8 @@
 import React from 'react'
-import {BranchName} from '..'
-import {render, behavesAsComponent, checkExports} from '../utils/testing'
+import BranchName from '../BranchName'
+import {render, behavesAsComponent, checkExports} from '../../utils/testing'
 import {render as HTMLRender} from '@testing-library/react'
-import {axe, toHaveNoViolations} from 'jest-axe'
-
-expect.extend(toHaveNoViolations)
+import {axe} from 'jest-axe'
 
 describe('BranchName', () => {
   behavesAsComponent({Component: BranchName})
