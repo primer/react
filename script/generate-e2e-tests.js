@@ -142,6 +142,17 @@ const components = new Map([
     },
   ],
   [
+    'Breadcrumbs',
+    {
+      stories: [
+        {
+          id: 'components-breadcrumbs--default',
+          name: 'Default',
+        },
+      ],
+    },
+  ],
+  [
     'IconButton',
     {
       stories: [

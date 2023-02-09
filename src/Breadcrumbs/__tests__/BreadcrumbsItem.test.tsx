@@ -1,9 +1,8 @@
 import {render as HTMLRender} from '@testing-library/react'
-import {axe, toHaveNoViolations} from 'jest-axe'
+import {axe} from 'jest-axe'
 import React from 'react'
-import {Breadcrumbs} from '..'
-import {behavesAsComponent, render} from '../utils/testing'
-expect.extend(toHaveNoViolations)
+import Breadcrumbs from '..'
+import {behavesAsComponent, render} from '../../utils/testing'
 
 describe('Breadcrumbs.Item', () => {
   behavesAsComponent({Component: Breadcrumbs.Item})
