@@ -1,12 +1,11 @@
 import React from 'react'
-import {Meta} from '@storybook/react'
-import {ComponentProps} from '../utils/types'
+import {ComponentMeta} from '@storybook/react'
 import Flash from './Flash'
 
 export default {
   title: 'Components/Flash/Features',
   component: Flash,
-} as Meta<ComponentProps<typeof Flash>>
+} as ComponentMeta<typeof Flash>
 
 export const Success = () => <Flash variant="success">Success</Flash>
 
