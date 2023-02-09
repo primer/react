@@ -1674,67 +1674,6 @@
       ],
       "subcomponents": []
     },
-    "timeline": {
-      "id": "timeline",
-      "name": "Timeline",
-      "status": "alpha",
-      "a11yReviewed": false,
-      "stories": [],
-      "props": [
-        {
-          "name": "clipSidebar",
-          "type": "boolean",
-          "description": "Hides the sidebar above the first Timeline.Item and below the last Timeline.Item."
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject"
-        }
-      ],
-      "subcomponents": [
-        {
-          "name": "Timeline.Item",
-          "props": [
-            {
-              "name": "condensed",
-              "type": "boolean",
-              "description": "Reduces vertical padding and removes background from an item's badge."
-            },
-            {
-              "name": "sx",
-              "type": "SystemStyleObject"
-            }
-          ]
-        },
-        {
-          "name": "Timeline.Badge",
-          "props": [
-            {
-              "name": "sx",
-              "type": "SystemStyleObject"
-            }
-          ]
-        },
-        {
-          "name": "Timeline.Body",
-          "props": [
-            {
-              "name": "sx",
-              "type": "SystemStyleObject"
-            }
-          ]
-        },
-        {
-          "name": "Timeline.Break",
-          "props": [
-            {
-              "name": "sx",
-              "type": "SystemStyleObject"
-            }
-          ]
-        }
-      ]
-    },
     "toggle_switch": {
       "id": "toggle_switch",
       "name": "ToggleSwitch",
@@ -4105,6 +4044,67 @@
               "name": "selected",
               "type": "boolean"
             },
+            {
+              "name": "sx",
+              "type": "SystemStyleObject"
+            }
+          ]
+        }
+      ]
+    },
+    "timeline": {
+      "id": "timeline",
+      "name": "Timeline",
+      "status": "alpha",
+      "a11yReviewed": false,
+      "stories": [],
+      "props": [
+        {
+          "name": "clipSidebar",
+          "type": "boolean",
+          "description": "Hides the sidebar above the first Timeline.Item and below the last Timeline.Item."
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ],
+      "subcomponents": [
+        {
+          "name": "Timeline.Item",
+          "props": [
+            {
+              "name": "condensed",
+              "type": "boolean",
+              "description": "Reduces vertical padding and removes background from an item's badge."
+            },
+            {
+              "name": "sx",
+              "type": "SystemStyleObject"
+            }
+          ]
+        },
+        {
+          "name": "Timeline.Badge",
+          "props": [
+            {
+              "name": "sx",
+              "type": "SystemStyleObject"
+            }
+          ]
+        },
+        {
+          "name": "Timeline.Body",
+          "props": [
+            {
+              "name": "sx",
+              "type": "SystemStyleObject"
+            }
+          ]
+        },
+        {
+          "name": "Timeline.Break",
+          "props": [
             {
               "name": "sx",
               "type": "SystemStyleObject"

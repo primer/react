@@ -1,10 +1,10 @@
 import classnames from 'classnames'
 import React from 'react'
 import styled, {css} from 'styled-components'
-import Box from './Box'
-import {get} from './constants'
-import sx, {SxProp} from './sx'
-import {ComponentProps} from './utils/types'
+import Box from '../Box'
+import {get} from '../constants'
+import sx, {SxProp} from '../sx'
+import {ComponentProps} from '../utils/types'
 
 const Timeline = styled.div<{clipSidebar?: boolean} & SxProp>`
   display: flex;

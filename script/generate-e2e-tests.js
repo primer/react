@@ -381,6 +381,33 @@ const components = new Map([
     },
   ],
   [
+    'Timeline',
+    {
+      stories: [
+        {
+          id: 'components-timeline--default',
+          name: 'Default',
+        },
+        {
+          id: 'components-timeline-features--clip-sidebar',
+          name: 'Clip Sidebar',
+        },
+        {
+          id: 'components-timeline-features--condensed-items',
+          name: 'Condensed Items',
+        },
+        {
+          id: 'components-timeline-features--timeline-break',
+          name: 'Timeline Break',
+        },
+        {
+          id: 'components-timeline-features--with-inline-links',
+          name: 'With Inline Links',
+        },
+      ],
+    },
+  ],
+  [
     'TreeView',
     {
       stories: [
