@@ -119,6 +119,7 @@ export default [
     ...baseConfig,
     external: dependencies.map(createPackageRegex),
     output: {
+      interop: 'auto',
       dir: 'lib-esm',
       format: 'esm',
       preserveModules: true,
@@ -131,6 +132,7 @@ export default [
     ...baseConfig,
     external: dependencies.filter(name => !ESM_ONLY.has(name)).map(createPackageRegex),
     output: {
+      interop: 'auto',
       dir: 'lib',
       format: 'commonjs',
       preserveModules: true,
@@ -154,6 +156,7 @@ export default [
       visualizer({sourcemap: true}),
     ],
     output: ['esm', 'umd'].map(format => ({
+      interop: 'auto',
       file: `dist/browser.${format}.js`,
       format,
       sourcemap: true,
