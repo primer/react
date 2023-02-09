@@ -1,5 +1,5 @@
 import React from 'react'
-import {default as Breadcrumbs, Breadcrumb} from '..'
+import Breadcrumbs, {Breadcrumb} from '..'
 import {render, behavesAsComponent, checkExports} from '../../utils/testing'
 import {render as HTMLRender} from '@testing-library/react'
 import {axe} from 'jest-axe'
