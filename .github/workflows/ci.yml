@@ -20,6 +20,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 16
+          cache: 'npm'
       - name: Install dependencies
         run: npm ci
       - name: Check for unformatted files
@@ -35,6 +36,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 16
+          cache: 'npm'
 
       - name: Install dependencies
         run: npm ci
@@ -59,6 +61,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 16
+          cache: 'npm'
 
       - name: Set React version
         run: node script/set-react-version.js ${{ matrix.react }}
@@ -93,6 +96,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 16
+          cache: 'npm'
 
       - name: Set React version
         run: node script/set-react-version.js ${{ matrix.react }}
@@ -118,6 +122,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 16
+          cache: 'npm'
 
       - name: Install dependencies
         run: npm ci
@@ -142,6 +147,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 16
+          cache: 'npm'
       - name: Install dependencies
         run: npm ci
       - name: Build storybook
@@ -164,6 +170,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '16.x'
+          cache: 'npm'
       - name: Install dependencies
         run: npm ci
       - name: Install browsers
@@ -208,6 +215,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '16.x'
+          cache: 'npm'
       - name: Install dependencies
         run: npm ci
       - name: Install browsers
@@ -252,6 +260,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '16.x'
+          cache: 'npm'
       - name: Install dependencies
         run: npm ci
       - name: Build components.json
@@ -269,6 +278,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 16
+          cache: 'npm'
       - name: Install dependencies
         run: npm ci
       - name: Build
