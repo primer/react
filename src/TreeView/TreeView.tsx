@@ -530,7 +530,8 @@ const SubTree: React.FC<TreeViewSubTreeProps> = ({count, state, children}) => {
 
       // Announce update to screen readers
       const parentName = getAccessibleName(parentElement)
-      if (children) {
+
+      if (ref.current?.childElementCount) {
         announceUpdate(`${parentName} content loaded`)
       } else {
         announceUpdate(`${parentName} is empty`)
@@ -550,7 +551,7 @@ const SubTree: React.FC<TreeViewSubTreeProps> = ({count, state, children}) => {
         setLoadingFocused(false)
       }
     }
-  }, [loadingFocused, previousState, state, itemId, announceUpdate, children])
+  }, [loadingFocused, previousState, state, itemId, announceUpdate, ref])
 
   // Track focus on the loading indicator
   React.useEffect(() => {
