@@ -1,10 +1,9 @@
 import {render as HTMLRender} from '@testing-library/react'
-import {axe, toHaveNoViolations} from 'jest-axe'
-import {render, rendersClass, behavesAsComponent, checkExports} from '../utils/testing'
+import {axe} from 'jest-axe'
+import {render, rendersClass, behavesAsComponent, checkExports} from '../../utils/testing'
 
 import React from 'react'
-import {Timeline} from '..'
-expect.extend(toHaveNoViolations)
+import Timeline from '..'
 
 describe('Timeline', () => {
   behavesAsComponent({Component: Timeline})
