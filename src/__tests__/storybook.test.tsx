@@ -8,6 +8,7 @@ const ROOT_DIRECTORY = path.resolve(__dirname, '..', '..')
 // TODO: Remove this allowlist when all components use the new story format
 const allowlist = [
   'ActionList',
+  'Breadcrumbs',
   'BranchName',
   'Button',
   'Flash',
@@ -16,6 +17,7 @@ const allowlist = [
   'Link',
   'TabNav',
   'TreeView',
+  'Timeline',
 ]
 const stories = glob
   .sync('src/**/*.stories.tsx', {
