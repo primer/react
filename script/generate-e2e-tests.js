@@ -176,6 +176,8 @@ const components = new Map([
           id: 'components-flash-features--warning',
           name: 'Warning',
         },
+      ],
+    },
   ],
   [
     'IconButton',
