@@ -60,6 +60,7 @@ export type ButtonProps = {
    * Content alignment for when visuals are present
    */
   alignContent?: AlignContent
+  trailingVisualCount?: number
 } & ButtonBaseProps
 
 export type IconButtonProps = ButtonA11yProps & {
