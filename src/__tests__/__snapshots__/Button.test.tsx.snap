@@ -1621,10 +1621,6 @@ exports[`Button styles invisible button appropriately 1`] = `
   color: accent.fg;
 }
 
-.c0:has([data-component="ButtonCounter"]) {
-  color: accent.fg;
-}
-
 @media (forced-colors:active) {
   .c0:focus {
     outline: solid 1px transparent;
