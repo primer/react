@@ -126,7 +126,11 @@ function saveResult(result: AxeResults) {
     path.join(
       resultsDir,
       path.format({
-        name: testInfo.titlePath.slice(1).join('-').replace(/ /g, '-'),
+        name: testInfo.titlePath
+          .slice(1)
+          .join('-')
+          .replace(/ /g, '-')
+          .replace(/[\[\]":<>|*?\r\n]/g, ''),
         ext: '.json',
       }),
     ),
