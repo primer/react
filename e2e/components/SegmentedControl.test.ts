@@ -17,7 +17,7 @@ test.describe('SegmentedControl', () => {
     })
   })
 
-  test.describe('[Example] Associated with a label and caption', () => {
+  test.describe('Associated with a label and caption', () => {
     test('axe @aat', async ({page}) => {
       await visit(page, {
         id: 'components-segmentedcontrol-features--associated-with-a-label-and-caption',
@@ -32,7 +32,7 @@ test.describe('SegmentedControl', () => {
     })
   })
 
-  test.describe('[fullWidth: narrow]', () => {
+  test.describe('fullWidth: narrow', () => {
     test('axe @aat', async ({page}) => {
       await visit(page, {
         id: 'components-segmentedcontrol-features--fullwidth-narrow',
@@ -47,7 +47,7 @@ test.describe('SegmentedControl', () => {
     })
   })
 
-  test.describe('[fullWidth: regular]', () => {
+  test.describe('fullWidth: regular', () => {
     test('axe @aat', async ({page}) => {
       await visit(page, {
         id: 'components-segmentedcontrol-features--fullwidth-regular',
@@ -62,7 +62,7 @@ test.describe('SegmentedControl', () => {
     })
   })
 
-  test.describe('[variant: narrow] Action menu', () => {
+  test.describe('variant: narrow Action menu', () => {
     test('axe @aat', async ({page}) => {
       await visit(page, {
         id: 'components-segmentedcontrol-features--variant-narrow-action-menu',
@@ -77,7 +77,7 @@ test.describe('SegmentedControl', () => {
     })
   })
 
-  test.describe('[variant: narrow] Hide labels', () => {
+  test.describe('variant: narrow Hide labels', () => {
     test('axe @aat', async ({page}) => {
       await visit(page, {
         id: 'components-segmentedcontrol-features--variant-narrow-hide-labels',
