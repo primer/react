@@ -11,6 +11,7 @@ const allowlist = [
   'Breadcrumbs',
   'BranchName',
   'Button',
+  'Flash',
   'IconButton',
   'FilteredActionList',
   'Link',

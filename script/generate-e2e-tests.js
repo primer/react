@@ -153,6 +153,33 @@ const components = new Map([
     },
   ],
   [
+    'Flash',
+    {
+      stories: [
+        {
+          id: 'components-flash--default',
+          name: 'Default',
+        },
+        {
+          id: 'components-flash-features--danger',
+          name: 'Danger',
+        },
+        {
+          id: 'components-flash-features--full',
+          name: 'Full',
+        },
+        {
+          id: 'components-flash-features--success',
+          name: 'Success',
+        },
+        {
+          id: 'components-flash-features--warning',
+          name: 'Warning',
+        },
+      ],
+    },
+  ],
+  [
     'IconButton',
     {
       stories: [
