@@ -11,7 +11,7 @@ export const InvisibleVariants = () => {
   return (
     <div style={{display: 'flex', flexDirection: 'row', gap: '1rem'}}>
       <Button variant="invisible">Button</Button>
-      <Button variant="invisible" leadingIcon={SearchIcon}>
+      <Button variant="invisible" leadingVisual={SearchIcon}>
         Button
       </Button>
       <Button variant="invisible" trailingAction={TriangleDownIcon}>
@@ -21,11 +21,11 @@ export const InvisibleVariants = () => {
         Button
         <Button.Counter>{count}</Button.Counter>
       </Button>
-      <Button variant="invisible" leadingIcon={EyeIcon}>
+      <Button variant="invisible" leadingVisual={EyeIcon}>
         Button
         <Button.Counter>{count}</Button.Counter>
       </Button>
-      <Button variant="invisible" leadingIcon={EyeIcon} trailingAction={TriangleDownIcon}>
+      <Button variant="invisible" leadingVisual={EyeIcon} trailingAction={TriangleDownIcon}>
         Button
         <Button.Counter>{count}</Button.Counter>
       </Button>
@@ -58,7 +58,7 @@ export const TestSxProp = () => {
       >
         Pink
       </Button>
-      <Button leadingIcon={SearchIcon} variant="invisible" sx={{color: 'deeppink'}}>
+      <Button leadingVisual={SearchIcon} variant="invisible" sx={{color: 'deeppink'}}>
         Pink
       </Button>
       <Button

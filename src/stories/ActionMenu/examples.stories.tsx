@@ -89,7 +89,7 @@ export function SingleSelection(): JSX.Element {
       <p>This pattern has a single section with the selected value shown in the button</p>
 
       <ActionMenu>
-        <ActionMenu.Button aria-label="Field type" leadingIcon={selectedType.icon} alignContent="start">
+        <ActionMenu.Button aria-label="Field type" leadingVisual={selectedType.icon} alignContent="start">
           {selectedType.name}
         </ActionMenu.Button>
         <ActionMenu.Overlay width="medium">
@@ -122,7 +122,7 @@ export function SingleSelectionWithPlaceholder(): JSX.Element {
       <p>This pattern has a placeholder in menu button when no value is selected yet</p>
 
       <ActionMenu>
-        <ActionMenu.Button aria-label="Field type" leadingIcon={selectedType.icon} alignContent="start">
+        <ActionMenu.Button aria-label="Field type" leadingVisual={selectedType.icon} alignContent="start">
           {selectedType.name || 'Pick a field type'}
         </ActionMenu.Button>
         <ActionMenu.Overlay width="medium">
@@ -158,7 +158,7 @@ export function GroupsAndDescription(): JSX.Element {
             aria-label="Milestone"
             aria-describedby="selected-milestone"
             variant="invisible"
-            trailingIcon={GearIcon}
+            trailingVisual={GearIcon}
           >
             Milestone
           </ActionMenu.Button>
@@ -243,7 +243,7 @@ export function MultipleSelection(): JSX.Element {
 
       <Box sx={{width: 200}}>
         <ActionMenu>
-          <ActionMenu.Button variant="invisible" trailingIcon={GearIcon}>
+          <ActionMenu.Button variant="invisible" trailingVisual={GearIcon}>
             Assignees
           </ActionMenu.Button>
           <ActionMenu.Overlay>
@@ -294,7 +294,7 @@ export function MixedSelection(): JSX.Element {
       </p>
 
       <ActionMenu>
-        <ActionMenu.Button aria-label="Group by" leadingIcon={selectedOption ? selectedOption.icon : undefined}>
+        <ActionMenu.Button aria-label="Group by" leadingVisual={selectedOption ? selectedOption.icon : undefined}>
           {selectedOption ? `Group by ${selectedOption.text}` : 'Group items by'}
         </ActionMenu.Button>
         <ActionMenu.Overlay width="medium">

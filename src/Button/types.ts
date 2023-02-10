@@ -8,7 +8,7 @@ export const StyledButton = styled.button<SxProp>`
   ${sx};
 `
 
-export type VariantType = 'default' | 'primary' | 'invisible' | 'danger' | 'outline'
+export type VariantType = 'default' | 'primary' | 'invisible' | 'danger'
 
 export type Size = 'small' | 'medium' | 'large'
 
@@ -46,11 +46,11 @@ export type ButtonProps = {
   /**
    * The leading icon comes before button content
    */
-  leadingIcon?: React.ComponentType | null | undefined
+  leadingVisual?: React.ComponentType | null | undefined
   /**
    * The trailing icon comes after button content
    */
-  trailingIcon?: React.ComponentType | null | undefined
+  trailingVisual?: React.ComponentType | null | undefined
   /**
    * Trailing action appears to the right of the trailing visual and is always locked to the end
    */

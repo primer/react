@@ -31,13 +31,13 @@ export const Outline = () => (
 )
 
 export const LeadingVisual = () => (
-  <Button as="a" href="/" leadingIcon={HeartIcon}>
+  <Button as="a" href="/" leadingVisual={HeartIcon}>
     Leading visual
   </Button>
 )
 
 export const TrailingVisual = () => (
-  <Button as="a" href="/" trailingIcon={EyeIcon}>
+  <Button as="a" href="/" trailingVisual={EyeIcon}>
     Trailing visual
   </Button>
 )

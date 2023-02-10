@@ -35,8 +35,8 @@ export default {
         type: 'boolean',
       },
     },
-    leadingIcon: OcticonArgType([EyeClosedIcon, EyeIcon, SearchIcon, XIcon, HeartIcon]),
-    trailingIcon: OcticonArgType([EyeClosedIcon, EyeIcon, SearchIcon, XIcon, HeartIcon]),
+    leadingVisual: OcticonArgType([EyeClosedIcon, EyeIcon, SearchIcon, XIcon, HeartIcon]),
+    trailingVisual: OcticonArgType([EyeClosedIcon, EyeIcon, SearchIcon, XIcon, HeartIcon]),
     trailingAction: OcticonArgType([TriangleDownIcon]),
     trailingVisualCount: {
       control: {
@@ -50,8 +50,8 @@ export default {
     disabled: false,
     variant: 'default',
     alignContent: 'center',
-    trailingIcon: null,
-    leadingIcon: null,
+    trailingVisual: null,
+    leadingVisual: null,
     trailingAction: null,
     trailingVisualCount: undefined,
   },

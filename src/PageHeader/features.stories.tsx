@@ -170,7 +170,7 @@ export const WithParentLinkAndActionsOfContextArea = () => (
         <PageHeader.ParentLink href="http://github.com">Parent Link</PageHeader.ParentLink>
 
         <PageHeader.ContextAreaActions>
-          <Button size="small" leadingIcon={GitBranchIcon}>
+          <Button size="small" leadingVisual={GitBranchIcon}>
             Main
           </Button>
           <IconButton size="small" aria-label="More Options" icon={KebabHorizontalIcon} />
@@ -205,7 +205,7 @@ export const WithContextBarAndActionsOfContextArea = () => (
         </PageHeader.ContextBar>
 
         <PageHeader.ContextAreaActions>
-          <Button size="small" leadingIcon={GitBranchIcon}>
+          <Button size="small" leadingVisual={GitBranchIcon}>
             Main
           </Button>
           <IconButton size="small" aria-label="More Options" icon={KebabHorizontalIcon} />

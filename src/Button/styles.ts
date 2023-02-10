@@ -127,52 +127,6 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
       '&[data-no-visuals]': {
         color: 'accent.fg',
       },
-      '&:has([data-component="ButtonCounter"])': {
-        color: 'accent.fg',
-      },
-    },
-    outline: {
-      color: 'btn.outline.text',
-      boxShadow: `${theme?.shadows.btn.shadow}`,
-      borderColor: 'btn.border',
-      backgroundColor: 'btn.bg',
-
-      '&:hover:not([disabled])': {
-        color: 'btn.outline.hoverText',
-        backgroundColor: 'btn.outline.hoverBg',
-        borderColor: 'btn.outline.hoverBorder',
-        boxShadow: `${theme?.shadows.btn.outline.hoverShadow}`,
-        '[data-component=ButtonCounter]': {
-          backgroundColor: 'btn.outline.hoverCounterBg',
-          color: 'inherit',
-        },
-      },
-      '&:active:not([disabled])': {
-        color: 'btn.outline.selectedText',
-        backgroundColor: 'btn.outline.selectedBg',
-        boxShadow: `${theme?.shadows.btn.outline.selectedShadow}`,
-        borderColor: 'btn.outline.selectedBorder',
-      },
-
-      '&:disabled': {
-        color: 'btn.outline.disabledText',
-        backgroundColor: 'btn.outline.disabledBg',
-        borderColor: 'btn.border',
-        '[data-component=ButtonCounter]': {
-          backgroundColor: 'btn.outline.disabledCounterBg',
-          color: 'inherit',
-        },
-      },
-      '[data-component=ButtonCounter]': {
-        backgroundColor: 'btn.outline.counterBg',
-        color: 'btn.outline.text',
-      },
-      '&[aria-expanded=true]': {
-        color: 'btn.outline.selectedText',
-        backgroundColor: 'btn.outline.selectedBg',
-        boxShadow: `${theme?.shadows.btn.outline.selectedShadow}`,
-        borderColor: 'btn.outline.selectedBorder',
-      },
     },
   }
   return style[variant]
