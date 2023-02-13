@@ -182,78 +182,6 @@
       ],
       "subcomponents": []
     },
-    "branch_name": {
-      "id": "branch_name",
-      "name": "BranchName",
-      "status": "alpha",
-      "a11yReviewed": false,
-      "stories": [],
-      "props": [
-        {
-          "name": "ref",
-          "type": "React.RefObject<HTMLAnchorElement>"
-        },
-        {
-          "name": "as",
-          "type": "React.ElementType",
-          "defaultValue": "\"a\""
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject"
-        }
-      ],
-      "subcomponents": []
-    },
-    "breadcrumbs": {
-      "id": "breadcrumbs",
-      "name": "Breadcrumbs",
-      "status": "alpha",
-      "a11yReviewed": false,
-      "stories": [],
-      "props": [
-        {
-          "name": "children",
-          "type": "Breadcrumbs.Item[]",
-          "defaultValue": "",
-          "description": ""
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject"
-        }
-      ],
-      "subcomponents": [
-        {
-          "name": "Breadcrumbs.Item",
-          "props": [
-            {
-              "name": "selected",
-              "type": "boolean",
-              "defaultValue": "false",
-              "description": ""
-            },
-            {
-              "name": "ref",
-              "type": "React.RefObject<HTMLAnchorElement>"
-            },
-            {
-              "name": "as",
-              "type": "React.ElementType",
-              "defaultValue": "\"a\""
-            },
-            {
-              "name": "sx",
-              "type": "SystemStyleObject"
-            }
-          ],
-          "passthrough": {
-            "element": "a",
-            "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#Attributes"
-          }
-        }
-      ]
-    },
     "button_group": {
       "id": "button_group",
       "name": "ButtonGroup",
@@ -669,41 +597,6 @@
       ],
       "subcomponents": []
     },
-    "flash": {
-      "id": "flash",
-      "name": "Flash",
-      "status": "alpha",
-      "a11yReviewed": false,
-      "stories": [],
-      "props": [
-        {
-          "name": "full",
-          "type": "boolean",
-          "defaultValue": "false",
-          "description": "Creates a full width Flash component"
-        },
-        {
-          "name": "variant",
-          "type": "'default' | 'success' | 'warning' | 'danger'",
-          "defaultValue": "'default'",
-          "description": "Sets the background color and border"
-        },
-        {
-          "name": "ref",
-          "type": "React.RefObject<HTMLDivElement>"
-        },
-        {
-          "name": "as",
-          "type": "React.ElementType",
-          "defaultValue": "\"div\""
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject"
-        }
-      ],
-      "subcomponents": []
-    },
     "header": {
       "id": "header",
       "name": "Header",
@@ -783,53 +676,6 @@
       "a11yReviewed": false,
       "stories": [],
       "props": [
-        {
-          "name": "sx",
-          "type": "SystemStyleObject"
-        }
-      ],
-      "subcomponents": []
-    },
-    "link": {
-      "id": "link",
-      "name": "Link",
-      "status": "alpha",
-      "a11yReviewed": false,
-      "stories": [],
-      "props": [
-        {
-          "name": "href",
-          "type": "string",
-          "defaultValue": "",
-          "description": "URL to be used for the Link. (The `href` is passed to the underlying `<a>` element. If `as` is specified, the link behavior may need different props)."
-        },
-        {
-          "name": "muted",
-          "type": "boolean",
-          "defaultValue": "false",
-          "description": "Uses a less prominent shade for Link color, and the default link shade on hover"
-        },
-        {
-          "name": "underline",
-          "type": "boolean",
-          "defaultValue": "false",
-          "description": "Adds underline to the Link"
-        },
-        {
-          "name": "hoverColor",
-          "type": "string",
-          "defaultValue": "",
-          "description": "Color used when hovering over link"
-        },
-        {
-          "name": "ref",
-          "type": "React.RefObject<HTMLAnchorElement>"
-        },
-        {
-          "name": "as",
-          "type": "React.ElementType",
-          "defaultValue": "\"a\""
-        },
         {
           "name": "sx",
           "type": "SystemStyleObject"
@@ -1744,67 +1590,6 @@
       ],
       "subcomponents": []
     },
-    "timeline": {
-      "id": "timeline",
-      "name": "Timeline",
-      "status": "alpha",
-      "a11yReviewed": false,
-      "stories": [],
-      "props": [
-        {
-          "name": "clipSidebar",
-          "type": "boolean",
-          "description": "Hides the sidebar above the first Timeline.Item and below the last Timeline.Item."
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject"
-        }
-      ],
-      "subcomponents": [
-        {
-          "name": "Timeline.Item",
-          "props": [
-            {
-              "name": "condensed",
-              "type": "boolean",
-              "description": "Reduces vertical padding and removes background from an item's badge."
-            },
-            {
-              "name": "sx",
-              "type": "SystemStyleObject"
-            }
-          ]
-        },
-        {
-          "name": "Timeline.Badge",
-          "props": [
-            {
-              "name": "sx",
-              "type": "SystemStyleObject"
-            }
-          ]
-        },
-        {
-          "name": "Timeline.Body",
-          "props": [
-            {
-              "name": "sx",
-              "type": "SystemStyleObject"
-            }
-          ]
-        },
-        {
-          "name": "Timeline.Break",
-          "props": [
-            {
-              "name": "sx",
-              "type": "SystemStyleObject"
-            }
-          ]
-        }
-      ]
-    },
     "toggle_switch": {
       "id": "toggle_switch",
       "name": "ToggleSwitch",
@@ -2435,6 +2220,78 @@
         }
       ]
     },
+    "branch_name": {
+      "id": "branch_name",
+      "name": "BranchName",
+      "status": "alpha",
+      "a11yReviewed": false,
+      "stories": [],
+      "props": [
+        {
+          "name": "ref",
+          "type": "React.RefObject<HTMLAnchorElement>"
+        },
+        {
+          "name": "as",
+          "type": "React.ElementType",
+          "defaultValue": "\"a\""
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ],
+      "subcomponents": []
+    },
+    "breadcrumbs": {
+      "id": "breadcrumbs",
+      "name": "Breadcrumbs",
+      "status": "alpha",
+      "a11yReviewed": false,
+      "stories": [],
+      "props": [
+        {
+          "name": "children",
+          "type": "Breadcrumbs.Item[]",
+          "defaultValue": "",
+          "description": ""
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ],
+      "subcomponents": [
+        {
+          "name": "Breadcrumbs.Item",
+          "props": [
+            {
+              "name": "selected",
+              "type": "boolean",
+              "defaultValue": "false",
+              "description": ""
+            },
+            {
+              "name": "ref",
+              "type": "React.RefObject<HTMLAnchorElement>"
+            },
+            {
+              "name": "as",
+              "type": "React.ElementType",
+              "defaultValue": "\"a\""
+            },
+            {
+              "name": "sx",
+              "type": "SystemStyleObject"
+            }
+          ],
+          "passthrough": {
+            "element": "a",
+            "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#Attributes"
+          }
+        }
+      ]
+    },
     "button": {
       "id": "button",
       "name": "Button",
@@ -2749,6 +2606,41 @@
       ],
       "subcomponents": []
     },
+    "flash": {
+      "id": "flash",
+      "name": "Flash",
+      "status": "alpha",
+      "a11yReviewed": false,
+      "stories": [],
+      "props": [
+        {
+          "name": "full",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "Creates a full width Flash component"
+        },
+        {
+          "name": "variant",
+          "type": "'default' | 'success' | 'warning' | 'danger'",
+          "defaultValue": "'default'",
+          "description": "Sets the background color and border"
+        },
+        {
+          "name": "ref",
+          "type": "React.RefObject<HTMLDivElement>"
+        },
+        {
+          "name": "as",
+          "type": "React.ElementType",
+          "defaultValue": "\"div\""
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ],
+      "subcomponents": []
+    },
     "form_control": {
       "id": "form_control",
       "name": "FormControl",
@@ -2894,6 +2786,53 @@
           "type": "'small' | 'large'",
           "defaultValue": "'small'",
           "description": "How large the label is rendered"
+        }
+      ],
+      "subcomponents": []
+    },
+    "link": {
+      "id": "link",
+      "name": "Link",
+      "status": "alpha",
+      "a11yReviewed": false,
+      "stories": [],
+      "props": [
+        {
+          "name": "href",
+          "type": "string",
+          "defaultValue": "",
+          "description": "URL to be used for the Link. (The `href` is passed to the underlying `<a>` element. If `as` is specified, the link behavior may need different props)."
+        },
+        {
+          "name": "muted",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "Uses a less prominent shade for Link color, and the default link shade on hover"
+        },
+        {
+          "name": "underline",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "Adds underline to the Link"
+        },
+        {
+          "name": "hoverColor",
+          "type": "string",
+          "defaultValue": "",
+          "description": "Color used when hovering over link"
+        },
+        {
+          "name": "ref",
+          "type": "React.RefObject<HTMLAnchorElement>"
+        },
+        {
+          "name": "as",
+          "type": "React.ElementType",
+          "defaultValue": "\"a\""
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
         }
       ],
       "subcomponents": []
@@ -4105,6 +4044,67 @@
               "name": "selected",
               "type": "boolean"
             },
+            {
+              "name": "sx",
+              "type": "SystemStyleObject"
+            }
+          ]
+        }
+      ]
+    },
+    "timeline": {
+      "id": "timeline",
+      "name": "Timeline",
+      "status": "alpha",
+      "a11yReviewed": false,
+      "stories": [],
+      "props": [
+        {
+          "name": "clipSidebar",
+          "type": "boolean",
+          "description": "Hides the sidebar above the first Timeline.Item and below the last Timeline.Item."
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ],
+      "subcomponents": [
+        {
+          "name": "Timeline.Item",
+          "props": [
+            {
+              "name": "condensed",
+              "type": "boolean",
+              "description": "Reduces vertical padding and removes background from an item's badge."
+            },
+            {
+              "name": "sx",
+              "type": "SystemStyleObject"
+            }
+          ]
+        },
+        {
+          "name": "Timeline.Badge",
+          "props": [
+            {
+              "name": "sx",
+              "type": "SystemStyleObject"
+            }
+          ]
+        },
+        {
+          "name": "Timeline.Body",
+          "props": [
+            {
+              "name": "sx",
+              "type": "SystemStyleObject"
+            }
+          ]
+        },
+        {
+          "name": "Timeline.Break",
+          "props": [
             {
               "name": "sx",
               "type": "SystemStyleObject"
