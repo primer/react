@@ -438,7 +438,7 @@ const Description: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({chil
 }
 
 // PageHeader.Navigation: The local navigation area of the header. Visible on all viewports
-const Navigation: React.FC<React.PropsWithChildren<PageHeaderProps>> = ({children, sx = {}, hidden = false}) => {
+const Navigation: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({children, sx = {}, hidden = false}) => {
   return (
     <Box
       sx={merge<BetterSystemStyleObject>(
