@@ -219,6 +219,34 @@ describe('Markup', () => {
     const parentItem = getByLabelText(/Parent/)
     expect(parentItem).toBeInTheDocument()
   })
+
+  it('should move focus to current treeitem by default', async () => {
+    const user = userEvent.setup({delay: null})
+    const {getByRole} = renderWithTheme(
+      <div>
+        <button>Focusable element</button>
+        <TreeView aria-label="Test tree">
+          <TreeView.Item id="item-1">Item 1</TreeView.Item>
+          <TreeView.Item id="item-2" current>
+            Item 2
+          </TreeView.Item>
+          <TreeView.Item id="item-3">Item 3</TreeView.Item>
+        </TreeView>
+      </div>,
+    )
+
+    // Focus button
+    const button = getByRole('button', {name: /Focusable element/})
+    await user.click(button)
+    expect(button).toHaveFocus()
+
+    // Move focus to tree
+    await user.tab()
+
+    // Focus should be on current treeitem
+    const item2 = getByRole('treeitem', {name: /Item 2/})
+    expect(item2).toHaveFocus()
+  })
 })
 
 describe('Keyboard interactions', () => {
