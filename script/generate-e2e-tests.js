@@ -142,6 +142,44 @@ const components = new Map([
     },
   ],
   [
+    'Breadcrumbs',
+    {
+      stories: [
+        {
+          id: 'components-breadcrumbs--default',
+          name: 'Default',
+        },
+      ],
+    },
+  ],
+  [
+    'Flash',
+    {
+      stories: [
+        {
+          id: 'components-flash--default',
+          name: 'Default',
+        },
+        {
+          id: 'components-flash-features--danger',
+          name: 'Danger',
+        },
+        {
+          id: 'components-flash-features--full',
+          name: 'Full',
+        },
+        {
+          id: 'components-flash-features--success',
+          name: 'Success',
+        },
+        {
+          id: 'components-flash-features--warning',
+          name: 'Warning',
+        },
+      ],
+    },
+  ],
+  [
     'IconButton',
     {
       stories: [
@@ -376,6 +414,33 @@ const components = new Map([
         {
           id: 'components-tabnav--default',
           name: 'Default',
+        },
+      ],
+    },
+  ],
+  [
+    'Timeline',
+    {
+      stories: [
+        {
+          id: 'components-timeline--default',
+          name: 'Default',
+        },
+        {
+          id: 'components-timeline-features--clip-sidebar',
+          name: 'Clip Sidebar',
+        },
+        {
+          id: 'components-timeline-features--condensed-items',
+          name: 'Condensed Items',
+        },
+        {
+          id: 'components-timeline-features--timeline-break',
+          name: 'Timeline Break',
+        },
+        {
+          id: 'components-timeline-features--with-inline-links',
+          name: 'With Inline Links',
         },
       ],
     },
