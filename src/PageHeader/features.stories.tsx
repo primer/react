@@ -147,6 +147,28 @@ export const WithNavigationSlot = () => (
   </Box>
 )
 
+export const WithCustomNavigation = () => (
+  <Box sx={{padding: 3}}>
+    <PageHeader>
+      <PageHeader.TitleArea>
+        <PageHeader.Title>Pull request title</PageHeader.Title>
+      </PageHeader.TitleArea>
+      <PageHeader.Navigation as="nav" aria-label="Item list">
+        <ul>
+          <li>
+            <Link href="#" aria-current="page">
+              Item 1
+            </Link>
+          </li>
+          <li>
+            <Link href="#">Item 2</Link>
+          </li>
+        </ul>
+      </PageHeader.Navigation>
+    </PageHeader>
+  </Box>
+)
+
 export const WithLeadingAndTrailingActions = () => (
   <Box sx={{padding: 3}}>
     <PageHeader>
