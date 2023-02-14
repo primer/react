@@ -1,8 +1,8 @@
-# ADR XXX: Snapshot tests
+# ADR 011: Snapshot tests
 
 ## Status
 
-Proposed
+Approved
 
 ## Context
 
@@ -46,9 +46,6 @@ As the number of snapshots within a project grows, there are a couple of challen
 ## Decision
 
 - Avoid using "catch-all" snapshot tests for React components
-- Prefer explicit snapshots, in particular for:
-  - A specific part of a component
-  - Intentional error or warning logs for developers
 - Snapshots may be used for static objects which have a clear signal as to what to do if they are modified (such as the exports of a package)
 
 <table>
