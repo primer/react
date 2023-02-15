@@ -2,7 +2,7 @@
 componentId: box
 title: Box
 status: Beta
-description: A low-level utility component that accepts styled system props to enable custom theme-aware styling
+description: A low-level utility component that accepts styles to enable custom theme-aware styling
 source: https://github.com/primer/react/blob/main/src/Box.tsx
 ---
 
@@ -17,17 +17,13 @@ import {Box} from '@primer/react'
 ### Border on all sides
 
 ```jsx live
-<Box borderColor="border.default" borderWidth={1} borderStyle="solid" p={3}>
-  Hello
-</Box>
+<Box sx={{borderWidth: 1, borderStyle: 'solid', borderColor: 'border.default', p: 3}}>Hello</Box>
 ```
 
 ### Border on one side
 
 ```jsx live
-<Box borderColor="border.default" borderBottomWidth={1} borderBottomStyle="solid" pb={3}>
-  Hello
-</Box>
+<Box sx={{borderBottomWidth: 1, borderBottomStyle: 'solid', borderColor: 'border.default', pb: 3}}>Hello</Box>
 ```
 
 ### Flexbox
@@ -35,16 +31,10 @@ import {Box} from '@primer/react'
 Use Box to create [flexbox](https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Flexbox) layouts.
 
 ```jsx live
-<Box display="flex">
-  <Box p={3} borderColor="border.default" borderWidth={1} borderStyle="solid">
-    1
-  </Box>
-  <Box flexGrow={1} p={3} borderColor="border.default" borderWidth={1} borderStyle="solid">
-    2
-  </Box>
-  <Box p={3} borderColor="border.default" borderWidth={1} borderStyle="solid">
-    3
-  </Box>
+<Box sx={{display: 'flex'}}>
+  <Box sx={{p: 3, borderWidth: 1, borderStyle: 'solid', borderColor: 'border.default'}}>1</Box>
+  <Box sx={{flexGrow: 1, p: 3, borderWidth: 1, borderStyle: 'solid', borderColor: 'border.default'}}>2</Box>
+  <Box sx={{p: 3, borderWidth: 1, borderStyle: 'solid', borderColor: 'border.default'}}>3</Box>
 </Box>
 ```
 
@@ -53,16 +43,10 @@ Use Box to create [flexbox](https://developer.mozilla.org/en-US/docs/Learn/CSS/C
 Use Box to create [grid](https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Grids) layouts.
 
 ```jsx live
-<Box display="grid" gridTemplateColumns="1fr 1fr" gridGap={3}>
-  <Box p={3} borderColor="border.default" borderWidth={1} borderStyle="solid">
-    1
-  </Box>
-  <Box p={3} borderColor="border.default" borderWidth={1} borderStyle="solid">
-    2
-  </Box>
-  <Box p={3} borderColor="border.default" borderWidth={1} borderStyle="solid">
-    3
-  </Box>
+<Box sx={{display: 'grid', gridTemplateColumns: '1fr 1fr', gridGap: 3}}>
+  <Box sx={{p: 3, borderWidth: 1, borderStyle: 'solid', borderColor: 'border.default'}}>1</Box>
+  <Box sx={{p: 3, borderWidth: 1, borderStyle: 'solid', borderColor: 'border.default'}}>2</Box>
+  <Box sx={{p: 3, borderWidth: 1, borderStyle: 'solid', borderColor: 'border.default'}}>3</Box>
 </Box>
 ```
 
