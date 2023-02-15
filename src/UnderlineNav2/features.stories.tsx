@@ -30,7 +30,7 @@ export const Default = () => {
   )
 }
 
-export const withIcons = () => {
+export const WithIcons = () => {
   return (
     <UnderlineNav aria-label="Repository with icons">
       <UnderlineNav.Item icon={CodeIcon}>Code</UnderlineNav.Item>
@@ -48,7 +48,7 @@ export const withIcons = () => {
   )
 }
 
-export const withCounterLabels = () => {
+export const WithCounterLabels = () => {
   return (
     <UnderlineNav aria-label="Repository with counters">
       <UnderlineNav.Item aria-current="page" icon={CodeIcon} counter="11K">

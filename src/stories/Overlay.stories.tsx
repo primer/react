@@ -5,6 +5,7 @@ import {
   Overlay,
   ButtonGroup,
   Button,
+  IconButton,
   Text,
   Box,
   Checkbox,
@@ -195,14 +196,12 @@ export const MemexNestedOverlays = () => {
     <div>
       <ButtonGroup>
         <Button>Add iteration</Button>
-        <Button
+        <IconButton
           aria-label="Add custom iteration"
           ref={buttonRef}
           onClick={() => setOverlayOpen(!overlayOpen)}
-          sx={{paddingX: 2}}
-        >
-          <TriangleDownIcon />
-        </Button>
+          icon={TriangleDownIcon}
+        />
       </ButtonGroup>
       {overlayOpen && (
         <Overlay
@@ -269,14 +268,12 @@ export const NestedOverlays = () => {
       </div>
       <ButtonGroup>
         <Button>Star</Button>
-        <Button
+        <IconButton
           aria-label="Add this repository to a list"
           ref={buttonRef}
           onClick={() => setListOverlayOpen(!listOverlayOpen)}
-          sx={{paddingX: 2}}
-        >
-          <TriangleDownIcon />
-        </Button>
+          icon={TriangleDownIcon}
+        />
       </ButtonGroup>
       {listOverlayOpen && (
         <Overlay
@@ -448,5 +445,88 @@ export const MemexIssueOverlay = () => {
         </Overlay>
       )}
     </>
+  )
+}
+
+export const PositionedOverlays = ({right}: {right?: boolean}) => {
+  const [isOpen, setIsOpen] = useState(false)
+  const [direction, setDirection] = useState<'left' | 'right'>(right ? 'right' : 'left')
+  const buttonRef = useRef<HTMLButtonElement>(null)
+  const confirmButtonRef = useRef<HTMLButtonElement>(null)
+  const anchorRef = useRef<HTMLDivElement>(null)
+  const closeOverlay = () => setIsOpen(false)
+  return (
+    <Box ref={anchorRef}>
+      <Button
+        ref={buttonRef}
+        onClick={() => {
+          setIsOpen(!isOpen)
+          setDirection('left')
+        }}
+      >
+        Open left overlay
+      </Button>
+      <Button
+        ref={buttonRef}
+        onClick={() => {
+          setIsOpen(!isOpen)
+          setDirection('right')
+        }}
+        sx={{
+          mt: 2,
+        }}
+      >
+        Open right overlay
+      </Button>
+      {isOpen ? (
+        direction === 'left' ? (
+          <Overlay
+            initialFocusRef={confirmButtonRef}
+            returnFocusRef={buttonRef}
+            ignoreClickRefs={[buttonRef]}
+            onEscape={closeOverlay}
+            onClickOutside={closeOverlay}
+            width="auto"
+            anchorSide="inside-right"
+          >
+            <Box
+              sx={{
+                height: '100vh',
+                width: '500px',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+            >
+              <Text>Look! left aligned</Text>
+            </Box>
+          </Overlay>
+        ) : (
+          <Overlay
+            initialFocusRef={confirmButtonRef}
+            returnFocusRef={buttonRef}
+            ignoreClickRefs={[buttonRef]}
+            onEscape={closeOverlay}
+            onClickOutside={closeOverlay}
+            width="auto"
+            anchorSide={'inside-left'}
+            right={0}
+            position="fixed"
+          >
+            <Box
+              sx={{
+                height: '100vh',
+                width: '500px',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+            >
+              <Text>Look! right aligned</Text>
+            </Box>
+          </Overlay>
+        )
+      ) : null}
+    </Box>
   )
 }

@@ -72,6 +72,17 @@ const components = new Map([
     },
   ],
   [
+    'BranchName',
+    {
+      stories: [
+        {
+          id: 'components-branchname--default',
+          name: 'Default',
+        },
+      ],
+    },
+  ],
+  [
     'Button',
     {
       stories: [
@@ -84,7 +95,7 @@ const components = new Map([
           name: 'Danger',
         },
         {
-          id: 'components-button-features--default',
+          id: 'components-button--default',
           name: 'Default',
         },
         {
@@ -131,6 +142,44 @@ const components = new Map([
     },
   ],
   [
+    'Breadcrumbs',
+    {
+      stories: [
+        {
+          id: 'components-breadcrumbs--default',
+          name: 'Default',
+        },
+      ],
+    },
+  ],
+  [
+    'Flash',
+    {
+      stories: [
+        {
+          id: 'components-flash--default',
+          name: 'Default',
+        },
+        {
+          id: 'components-flash-features--danger',
+          name: 'Danger',
+        },
+        {
+          id: 'components-flash-features--full',
+          name: 'Full',
+        },
+        {
+          id: 'components-flash-features--success',
+          name: 'Success',
+        },
+        {
+          id: 'components-flash-features--warning',
+          name: 'Warning',
+        },
+      ],
+    },
+  ],
+  [
     'IconButton',
     {
       stories: [
@@ -143,7 +192,7 @@ const components = new Map([
           name: 'Danger',
         },
         {
-          id: 'components-iconbutton-features--default',
+          id: 'components-iconbutton--default',
           name: 'Default',
         },
         {
@@ -174,6 +223,86 @@ const components = new Map([
     },
   ],
   [
+    'Label',
+    {
+      stories: [
+        {
+          id: 'components-label--default',
+          name: 'Default',
+          importPath: './src/Label/Label.stories.tsx',
+        },
+        {
+          id: 'components-label--playground',
+          name: 'Playground',
+          importPath: './src/Label/Label.stories.tsx',
+        },
+        {
+          id: 'components-label-features--accent',
+          name: 'Accent',
+        },
+        {
+          id: 'components-label-features--attention',
+          name: 'Attention',
+        },
+        {
+          id: 'components-label-features--danger',
+          name: 'Danger',
+        },
+        {
+          id: 'components-label-features--done',
+          name: 'Done',
+        },
+        {
+          id: 'components-label-features--primary',
+          name: 'Primary',
+        },
+        {
+          id: 'components-label-features--secondary',
+          name: 'Secondary',
+        },
+        {
+          id: 'components-label-features--severe',
+          name: 'Severe',
+        },
+        {
+          id: 'components-label-features--size-large',
+          name: 'Size Large',
+        },
+        {
+          id: 'components-label-features--size-small',
+          name: 'Size Small',
+        },
+        {
+          id: 'components-label-features--sponsors',
+          name: 'Sponsors',
+        },
+        {
+          id: 'components-label-features--success',
+          name: 'Success',
+        },
+      ],
+    },
+  ],
+  [
+    'Link',
+    {
+      stories: [
+        {
+          id: 'components-link--default',
+          name: 'Default',
+        },
+        {
+          id: 'components-link-features--muted',
+          name: 'Muted',
+        },
+        {
+          id: 'components-link-features--underline',
+          name: 'Underline',
+        },
+      ],
+    },
+  ],
+  [
     'LinkButton',
     {
       stories: [
@@ -186,7 +315,7 @@ const components = new Map([
           name: 'Danger',
         },
         {
-          id: 'components-linkbutton-features--default',
+          id: 'components-linkbutton--default',
           name: 'Default',
         },
         {
@@ -274,6 +403,44 @@ const components = new Map([
         {
           id: 'drafts-components-underlinenav-features--with-icons',
           name: 'With Icons',
+        },
+      ],
+    },
+  ],
+  [
+    'TabNav',
+    {
+      stories: [
+        {
+          id: 'components-tabnav--default',
+          name: 'Default',
+        },
+      ],
+    },
+  ],
+  [
+    'Timeline',
+    {
+      stories: [
+        {
+          id: 'components-timeline--default',
+          name: 'Default',
+        },
+        {
+          id: 'components-timeline-features--clip-sidebar',
+          name: 'Clip Sidebar',
+        },
+        {
+          id: 'components-timeline-features--condensed-items',
+          name: 'Condensed Items',
+        },
+        {
+          id: 'components-timeline-features--timeline-break',
+          name: 'Timeline Break',
+        },
+        {
+          id: 'components-timeline-features--with-inline-links',
+          name: 'With Inline Links',
         },
       ],
     },

@@ -1,28 +1,22 @@
 import React, {forwardRef} from 'react'
-import {merge, BetterSystemStyleObject} from '../sx'
-import {useTheme} from '../ThemeProvider'
-import Box from '../Box'
-import {IconButtonProps, StyledButton} from './types'
-import {getBaseStyles, getSizeStyles, getVariantStyles} from './styles'
+import {IconButtonProps} from './types'
 import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
+import {ButtonBase} from './ButtonBase'
 import {defaultSxProp} from '../utils/defaultSxProp'
+import {generateCustomSxProp} from './Button'
 
-const IconButton = forwardRef((props, forwardedRef): JSX.Element => {
-  const {variant = 'default', size = 'medium', sx: sxProp = defaultSxProp, icon: Icon, ...rest} = props
-  const {theme} = useTheme()
-  const sxStyles = merge.all<BetterSystemStyleObject>([
-    getBaseStyles(theme),
-    getSizeStyles(size, variant, true),
-    getVariantStyles(variant, theme),
-    sxProp,
-  ])
+const IconButton = forwardRef(({sx: sxProp = defaultSxProp, icon: Icon, ...props}, forwardedRef): JSX.Element => {
+  let sxStyles = sxProp
+  // grap the button props that have associated data attributes in the styles
+  const {size} = props
+
+  if (sxProp !== null && Object.keys(sxProp).length > 0) {
+    sxStyles = generateCustomSxProp({size}, sxProp)
+  }
+
   return (
     // @ts-expect-error StyledButton wants both Anchor and Button refs
-    <StyledButton sx={sxStyles} {...rest} ref={forwardedRef}>
-      <Box as="span" sx={{display: 'inline-block'}}>
-        <Icon />
-      </Box>
-    </StyledButton>
+    <ButtonBase icon={Icon} data-component="IconButton" sx={sxStyles} {...props} ref={forwardedRef} />
   )
 }) as PolymorphicForwardRefComponent<'button' | 'a', IconButtonProps>
 

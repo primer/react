@@ -4,7 +4,8 @@ import {useResponsiveValue, ResponsiveValue} from '../hooks/useResponsiveValue'
 import {SxProp, merge, BetterSystemStyleObject} from '../sx'
 import Heading from '../Heading'
 import {ArrowLeftIcon} from '@primer/octicons-react'
-import Link from '../Link'
+import Link, {LinkProps as BaseLinkProps} from '../Link'
+
 import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import {getBreakpointDeclarations} from '../utils/getBreakpointDeclarations'
 const REGION_ORDER = {
@@ -29,8 +30,8 @@ const TITLE_AREA_REGION_ORDER = {
   Actions: 5,
 }
 
-// Types that are shared between sub components
-export type sharedPropTypes = {
+// Types that are shared between PageHeader children components
+export type ChildrenPropTypes = {
   hidden?: boolean | ResponsiveValue<boolean>
 } & SxProp
 
@@ -53,7 +54,7 @@ const hiddenOnNarrow = {
 export type PageHeaderProps = {
   'aria-label'?: React.AriaAttributes['aria-label']
   as?: React.ElementType | 'header' | 'div'
-} & sharedPropTypes
+} & SxProp
 
 const Root: React.FC<React.PropsWithChildren<PageHeaderProps>> = ({children, sx = {}, as = 'div'}) => {
   const rootStyles = {
@@ -73,7 +74,7 @@ const Root: React.FC<React.PropsWithChildren<PageHeaderProps>> = ({children, sx 
 // to manage their custom visibility but consumers should be careful if they choose to hide this on narrow viewports.
 // PageHeader.ContextArea Sub Components: PageHeader.ParentLink, PageHeader.ContextBar, PageHeader.ContextAreaActions
 // ---------------------------------------------------------------------
-const ContextArea: React.FC<React.PropsWithChildren<PageHeaderProps>> = ({
+const ContextArea: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
   children,
   hidden = hiddenOnRegularAndWide,
   sx = {},
@@ -92,10 +93,12 @@ const ContextArea: React.FC<React.PropsWithChildren<PageHeaderProps>> = ({
   return <Box sx={merge<BetterSystemStyleObject>(contentNavStyles, sx)}>{children}</Box>
 }
 type LinkProps = Pick<
-  React.AnchorHTMLAttributes<HTMLAnchorElement>,
-  'download' | 'href' | 'hrefLang' | 'media' | 'ping' | 'rel' | 'target' | 'type' | 'referrerPolicy'
->
-export type ParentLinkProps = React.PropsWithChildren<PageHeaderProps & LinkProps>
+  React.AnchorHTMLAttributes<HTMLAnchorElement> & BaseLinkProps,
+  'download' | 'href' | 'hrefLang' | 'media' | 'ping' | 'rel' | 'target' | 'type' | 'referrerPolicy' | 'as'
+> & {
+  'aria-label'?: React.AriaAttributes['aria-label']
+}
+export type ParentLinkProps = React.PropsWithChildren<ChildrenPropTypes & LinkProps>
 
 const ParentLink = React.forwardRef<HTMLAnchorElement, ParentLinkProps>(
   (
@@ -142,7 +145,7 @@ const ParentLink = React.forwardRef<HTMLAnchorElement, ParentLinkProps>(
 // Generic slot for any component above the title region. Use it for custom breadcrumbs and other navigation elements instead of ParentLink.
 // ---------------------------------------------------------------------
 
-const ContextBar: React.FC<React.PropsWithChildren<PageHeaderProps>> = ({
+const ContextBar: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
   children,
   sx = {},
   hidden = hiddenOnRegularAndWide,
@@ -167,7 +170,7 @@ const ContextBar: React.FC<React.PropsWithChildren<PageHeaderProps>> = ({
 
 // ContextAreaActions
 // ---------------------------------------------------------------------
-const ContextAreaActions: React.FC<React.PropsWithChildren<PageHeaderProps>> = ({
+const ContextAreaActions: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
   children,
   sx = {},
   hidden = hiddenOnRegularAndWide,
@@ -208,7 +211,7 @@ const TitleAreaContext = React.createContext<{
 
 type TitleAreaProps = {
   variant?: 'subtitle' | 'medium' | 'large' | ResponsiveValue<'subtitle' | 'medium' | 'large'>
-} & PageHeaderProps
+} & ChildrenPropTypes
 // PageHeader.TitleArea: The main title area of the page. Visible on all viewports.
 // PageHeader.TitleArea Sub Components: PageHeader.LeadingAction, PageHeader.LeadingVisual, PageHeader.Title, PageTitle.TrailingVisual, PageHeader.TrailingAction, PageHeader.Actions
 // PageHeader.LeadingAction and PageHeader.TrailingAction are only visible on regular viewports therefore they come as visible on narrow viewports and their visibility can be managed by their exposed `visible` prop
@@ -245,7 +248,7 @@ const TitleArea: React.FC<React.PropsWithChildren<TitleAreaProps>> = ({
   )
 }
 
-const LeadingAction: React.FC<React.PropsWithChildren<PageHeaderProps>> = ({
+const LeadingAction: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
   children,
   sx = {},
   hidden = hiddenOnNarrow,
@@ -272,7 +275,7 @@ const LeadingAction: React.FC<React.PropsWithChildren<PageHeaderProps>> = ({
   )
 }
 
-const LeadingVisual: React.FC<React.PropsWithChildren<PageHeaderProps>> = ({children, sx = {}, hidden = false}) => {
+const LeadingVisual: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({children, sx = {}, hidden = false}) => {
   const {titleAreaHeight} = React.useContext(TitleAreaContext)
   return (
     <Box
@@ -297,7 +300,7 @@ const LeadingVisual: React.FC<React.PropsWithChildren<PageHeaderProps>> = ({chil
 export type TitleProps = {
   // Check if we need responsive values for heading is so should we update as prop's type for Heading component?
   as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
-} & PageHeaderProps
+} & ChildrenPropTypes
 
 const Title: React.FC<React.PropsWithChildren<TitleProps>> = ({children, sx = {}, hidden = false, as = 'h3'}) => {
   const {titleVariant} = React.useContext(TitleAreaContext)
@@ -335,7 +338,7 @@ const Title: React.FC<React.PropsWithChildren<TitleProps>> = ({children, sx = {}
     </Heading>
   )
 }
-const TrailingVisual: React.FC<React.PropsWithChildren<PageHeaderProps>> = ({children, sx = {}, hidden = false}) => {
+const TrailingVisual: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({children, sx = {}, hidden = false}) => {
   const {titleAreaHeight} = React.useContext(TitleAreaContext)
 
   return (
@@ -358,7 +361,7 @@ const TrailingVisual: React.FC<React.PropsWithChildren<PageHeaderProps>> = ({chi
   )
 }
 
-const TrailingAction: React.FC<React.PropsWithChildren<PageHeaderProps>> = ({
+const TrailingAction: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
   children,
   sx = {},
   hidden = hiddenOnNarrow,
@@ -385,7 +388,7 @@ const TrailingAction: React.FC<React.PropsWithChildren<PageHeaderProps>> = ({
   )
 }
 
-const Actions: React.FC<React.PropsWithChildren<PageHeaderProps>> = ({children, sx = {}, hidden = false}) => {
+const Actions: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({children, sx = {}, hidden = false}) => {
   const {titleAreaHeight} = React.useContext(TitleAreaContext)
   return (
     <Box
@@ -412,7 +415,7 @@ const Actions: React.FC<React.PropsWithChildren<PageHeaderProps>> = ({children, 
 }
 
 // PageHeader.Description: The description area of the header. Visible on all viewports
-const Description: React.FC<React.PropsWithChildren<PageHeaderProps>> = ({children, sx = {}, hidden = false}) => {
+const Description: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({children, sx = {}, hidden = false}) => {
   return (
     <Box
       sx={merge<BetterSystemStyleObject>(
@@ -435,7 +438,7 @@ const Description: React.FC<React.PropsWithChildren<PageHeaderProps>> = ({childr
 }
 
 // PageHeader.Navigation: The local navigation area of the header. Visible on all viewports
-const Navigation: React.FC<React.PropsWithChildren<PageHeaderProps>> = ({children, sx = {}, hidden = false}) => {
+const Navigation: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({children, sx = {}, hidden = false}) => {
   return (
     <Box
       sx={merge<BetterSystemStyleObject>(

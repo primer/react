@@ -97,7 +97,6 @@ export const useCombobox = <T>({
         if (!list.getAttribute('role')) list.setAttribute('role', 'listbox')
 
         const cb = new Combobox(input, list, {tabInsertsSuggestions, defaultFirstOption})
-        if (isOpenRef.current) cb.start()
 
         // By using state instead of a ref here, we trigger the toggleKeyboardEventHandling
         // effect. Otherwise we'd have to depend on isOpen in this effect to start the instance
@@ -116,7 +115,9 @@ export const useCombobox = <T>({
   useEffect(
     function toggleKeyboardEventHandling() {
       const wasOpen = isOpenRef.current
-      isOpenRef.current = isOpen
+
+      // It cannot be open if the instance hasn't yet been initialized
+      isOpenRef.current = isOpen && comboboxInstance !== null
 
       if (isOpen === wasOpen || !comboboxInstance) return
 

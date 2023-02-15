@@ -1,0 +1,85 @@
+---
+componentId: sub_nav
+title: SubNav
+status: Alpha
+---
+
+import data from '../../src/SubNav.docs.json'
+
+Use the SubNav component for navigation on a dashboard-type interface with another set of navigation components above it. This helps distinguish navigation hierarchy.
+
+To use SubNav with [react-router](https://github.com/ReactTraining/react-router) or
+[react-router-dom](https://www.npmjs.com/package/react-router-dom), pass
+`as={NavLink}` and omit the `selected` prop.
+This ensures that the NavLink gets `activeClassName='selected'`
+
+**Attention:** Make sure to properly label your `SubNav` with an `aria-label` to provide context about the type of navigation contained in `SubNav`.
+
+## Examples
+
+### Default
+
+```jsx live
+<SubNav aria-label="Main">
+  <SubNav.Links>
+    <SubNav.Link href="#home" selected>
+      Home
+    </SubNav.Link>
+    <SubNav.Link href="#documentation">Documentation</SubNav.Link>
+    <SubNav.Link href="#support">Support</SubNav.Link>
+  </SubNav.Links>
+</SubNav>
+```
+
+### SubNav with search
+
+```jsx live
+<SubNav aria-label="Main">
+  <SubNav.Links>
+    <SubNav.Link href="#home" selected>
+      Home
+    </SubNav.Link>
+    <SubNav.Link href="#documentation">Documentation</SubNav.Link>
+    <SubNav.Link href="#support">Support</SubNav.Link>
+  </SubNav.Links>
+
+  <TextInput type="search" leadingVisual={SearchIcon} sx={{width: 320}} />
+</SubNav>
+```
+
+### SubNav with filtered search
+
+```jsx live
+<SubNav aria-label="Main">
+  <FilteredSearch>
+    <ActionMenu>
+      <ActionMenu.Button>Filter</ActionMenu.Button>
+      <ActionMenu.Overlay>
+        <ActionList direction="sw">
+          <ActionList.Item>
+            <a href="#">Item 1</a>
+          </ActionList.Item>
+          <ActionList.Item>
+            <a href="#">Item 2</a>
+          </ActionList.Item>
+          <ActionList.Item>
+            <a href="#">Item 3</a>
+          </ActionList.Item>
+        </ActionList>
+      </ActionMenu.Overlay>
+    </ActionMenu>
+    <TextInput type="search" leadingVisual={SearchIcon} width={320} />
+  </FilteredSearch>
+  <SubNav.Links>
+    <SubNav.Link href="#home" selected>
+      Home
+    </SubNav.Link>
+    <SubNav.Link href="#documentation">Documentation</SubNav.Link>
+    <SubNav.Link href="#support">Support</SubNav.Link>
+  </SubNav.Links>
+</SubNav>
+```
+
+## Props
+
+<ComponentProps data={data} />

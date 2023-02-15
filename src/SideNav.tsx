@@ -18,7 +18,7 @@ type SideNavBaseProps = {
   'aria-label'?: string
 }
 
-function SideNavBase({variant, className, bordered, children, 'aria-label': ariaLabel}: SideNavBaseProps) {
+function SideNavBase({variant = 'normal', className, bordered, children, 'aria-label': ariaLabel}: SideNavBaseProps) {
   const variantClassName = variant === 'lightweight' ? 'lightweight' : 'normal'
   const newClassName = classnames(className, `variant-${variantClassName}`)
 
@@ -171,14 +171,6 @@ const SideNavLink = styled(Link).attrs<StyledSideNavLinkProps>(props => {
 
   ${sx};
 `
-
-SideNav.defaultProps = {
-  variant: 'normal',
-}
-
-SideNavLink.defaultProps = {
-  variant: 'normal',
-}
 
 SideNavLink.displayName = 'SideNav.Link'
 

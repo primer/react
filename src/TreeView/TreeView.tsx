@@ -75,7 +75,7 @@ const UlBox = styled.ul<SxProp>`
    * We define styles for the tree items at the root level of the tree
    * to avoid recomputing the styles for each item when the tree updates.
    * We're sacraficing maintainability for performance because TreeView
-   * needs to be performant enough to handle large trees (thousands of items). 
+   * needs to be performant enough to handle large trees (thousands of items).
    *
    * This is intended to be a temporary solution until we can improve the
    * performance of our styling patterns.
@@ -335,6 +335,7 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
     const {level} = React.useContext(ItemContext)
     const {hasSubTree, subTree, childrenWithoutSubTree} = useSubTree(children)
     const [isSubTreeEmpty, setIsSubTreeEmpty] = React.useState(!hasSubTree)
+    const [isFocused, setIsFocused] = React.useState(false)
 
     // Set the expanded state and cache it
     const setIsExpandedWithCache = React.useCallback(
@@ -404,14 +405,19 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
           aria-level={level}
           aria-expanded={isSubTreeEmpty ? undefined : isExpanded}
           aria-current={isCurrentItem ? 'true' : undefined}
+          aria-selected={isFocused ? 'true' : 'false'}
           onKeyDown={handleKeyDown}
           onFocus={event => {
             // Scroll the first child into view when the item receives focus
             event.currentTarget.firstElementChild?.scrollIntoView({block: 'nearest', inline: 'nearest'})
 
+            // Set the focused state
+            setIsFocused(true)
+
             // Prevent focus event from bubbling up to parent items
             event.stopPropagation()
           }}
+          onBlur={() => setIsFocused(false)}
         >
           {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions */}
           <div
@@ -508,6 +514,13 @@ const SubTree: React.FC<TreeViewSubTreeProps> = ({count, state, children}) => {
   const {safeSetTimeout} = useSafeTimeout()
   const loadingItemRef = React.useRef<HTMLElement>(null)
   const ref = React.useRef<HTMLElement>(null)
+  const [isPending, setPending] = React.useState(state === 'loading')
+
+  React.useEffect(() => {
+    if (state === 'loading') {
+      setPending(true)
+    }
+  }, [state])
 
   React.useEffect(() => {
     // If `state` is undefined, we're working in a synchronous context and need
@@ -523,9 +536,11 @@ const SubTree: React.FC<TreeViewSubTreeProps> = ({count, state, children}) => {
     }
   }, [state, isSubTreeEmpty, setIsSubTreeEmpty, children])
 
-  // Announce when content has loaded
+  // If a consumer sets state="done" without having a previous state (like `loading`),
+  // then it would announce on the first render. Using isPending is to only
+  // announce being "loaded" when the state has changed from `loading` --> `done`.
   React.useEffect(() => {
-    if (state === 'done') {
+    if (isPending && state === 'done') {
       const parentItem = document.getElementById(itemId)
 
       if (!parentItem) return
@@ -540,8 +555,10 @@ const SubTree: React.FC<TreeViewSubTreeProps> = ({count, state, children}) => {
           announceUpdate(`${parentName} is empty`)
         }
       })
+
+      setPending(false)
     }
-  }, [state, itemId, announceUpdate, safeSetTimeout])
+  }, [state, itemId, announceUpdate, safeSetTimeout, isPending])
 
   // Manage loading indicator state
   React.useEffect(() => {

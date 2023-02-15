@@ -1,0 +1,92 @@
+---
+title: DataTable
+componentId: data_table
+status: Draft
+---
+
+import data from '../../../src/DataTable/DataTable.docs.json'
+
+## Examples
+
+```jsx
+<DataTable
+  title="Repositories"
+  data={[
+    {
+      id: 1,
+      name: 'codeql-dca-worker',
+      type: 'internal',
+      securityFeatures: {
+        dependabot: ['alerts', 'security updates'],
+      },
+    },
+    {
+      id: 2,
+      name: 'aegir',
+      type: 'public',
+      securityFeatures: {
+        dependabot: ['alerts'],
+      },
+    },
+    {
+      id: 3,
+      name: 'strapi',
+      type: 'public',
+      securityFeatures: {
+        dependabot: [],
+      },
+    },
+  ]}
+  columns={[
+    {
+      header: 'Repository',
+      field: 'name',
+      rowHeader: true,
+    },
+    {
+      header: 'Type',
+      field: 'type',
+      renderCell: row => {
+        return <Label>{uppercase(row.type)}</Label>
+      },
+    },
+    {
+      header: 'Dependabot',
+      renderCell: row => {
+        return row.securityFeatures.dependabot.length > 0 ? (
+          <LabelGroup>
+            {row.securityFeatures.dependabot.map(feature => {
+              return <Label key={feature}>{uppercase(feature)}</Label>
+            })}
+          </LabelGroup>
+        ) : null
+      },
+    },
+  ]}
+/>
+```
+
+## Props
+
+<ComponentProps data={data} />
+
+## Status
+
+<ComponentChecklist
+  items={{
+    propsDocumented: false,
+    noUnnecessaryDeps: false,
+    adaptsToThemes: false,
+    adaptsToScreenSizes: false,
+    fullTestCoverage: false,
+    usedInProduction: false,
+    usageExamplesDocumented: false,
+    hasStorybookStories: false,
+    designReviewed: false,
+    a11yReviewed: false,
+    stableApi: false,
+    addressedApiFeedback: false,
+    hasDesignGuidelines: false,
+    hasFigmaComponent: false,
+  }}
+/>

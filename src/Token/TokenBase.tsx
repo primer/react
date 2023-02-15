@@ -76,8 +76,6 @@ const variants = variant<
     lineHeight: string
     paddingLeft: number
     paddingRight: number
-    paddingTop: number
-    paddingBottom: number
   },
   TokenSizeKeys
 >({
@@ -90,10 +88,6 @@ const variants = variant<
       lineHeight: tokenSizes.small,
       paddingLeft: 1,
       paddingRight: 1,
-      // need to explicitly set padding top and bottom to "0" to override default `<button>` element styles
-      // without setting these, the "x" appears vertically mis-aligned
-      paddingTop: 0,
-      paddingBottom: 0,
     },
     medium: {
       fontSize: 0,
@@ -101,8 +95,6 @@ const variants = variant<
       lineHeight: tokenSizes.medium,
       paddingLeft: 2,
       paddingRight: 2,
-      paddingTop: 0,
-      paddingBottom: 0,
     },
     large: {
       fontSize: 0,
@@ -110,15 +102,17 @@ const variants = variant<
       lineHeight: tokenSizes.large,
       paddingLeft: 2,
       paddingRight: 2,
-      paddingTop: 0,
-      paddingBottom: 0,
     },
     extralarge: xlargeVariantStyles,
     xlarge: xlargeVariantStyles,
   },
 })
 
-const StyledTokenBase = styled.span<SxProp>`
+const StyledTokenBase = styled.span<
+  {
+    size?: TokenSizeKeys
+  } & SxProp
+>`
   align-items: center;
   border-radius: 999px;
   cursor: ${props => (isTokenInteractive(props) ? 'pointer' : 'auto')};
@@ -132,27 +126,25 @@ const StyledTokenBase = styled.span<SxProp>`
   ${sx}
 `
 
-const TokenBase = React.forwardRef(({text, onRemove, onKeyDown, id, ...rest}, forwardedRef) => {
-  return (
-    <StyledTokenBase
-      onKeyDown={(event: KeyboardEvent<HTMLSpanElement & HTMLAnchorElement & HTMLButtonElement>) => {
-        onKeyDown && onKeyDown(event)
+const TokenBase = React.forwardRef(
+  ({text, onRemove, onKeyDown, id, size = defaultTokenSize, ...rest}, forwardedRef) => {
+    return (
+      <StyledTokenBase
+        onKeyDown={(event: KeyboardEvent<HTMLSpanElement & HTMLAnchorElement & HTMLButtonElement>) => {
+          onKeyDown && onKeyDown(event)
 
-        if ((event.key === 'Backspace' || event.key === 'Delete') && onRemove) {
-          onRemove()
-        }
-      }}
-      aria-label={onRemove ? `${text}, press backspace or delete to remove` : undefined}
-      id={id?.toString()}
-      {...rest}
-      ref={forwardedRef}
-    />
-  )
-}) as PolymorphicForwardRefComponent<'span' | 'a' | 'button', TokenBaseProps & SxProp>
-
-TokenBase.defaultProps = {
-  as: 'span',
-  size: defaultTokenSize,
-}
+          if ((event.key === 'Backspace' || event.key === 'Delete') && onRemove) {
+            onRemove()
+          }
+        }}
+        aria-label={onRemove ? `${text}, press backspace or delete to remove` : undefined}
+        id={id?.toString()}
+        size={size}
+        {...rest}
+        ref={forwardedRef}
+      />
+    )
+  },
+) as PolymorphicForwardRefComponent<'span' | 'a' | 'button', TokenBaseProps & SxProp>
 
 export default TokenBase

@@ -1,7 +1,6 @@
-import {fireEvent, render, waitFor} from '@testing-library/react'
+import {fireEvent, render, act, waitFor} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import React from 'react'
-import {act} from 'react-dom/test-utils'
 import {ThemeProvider} from '../ThemeProvider'
 import {SubTreeState, TreeView} from './TreeView'
 
@@ -220,6 +219,34 @@ describe('Markup', () => {
     const parentItem = getByLabelText(/Parent/)
     expect(parentItem).toBeInTheDocument()
   })
+
+  it('should move focus to current treeitem by default', async () => {
+    const user = userEvent.setup({delay: null})
+    const {getByRole} = renderWithTheme(
+      <div>
+        <button>Focusable element</button>
+        <TreeView aria-label="Test tree">
+          <TreeView.Item id="item-1">Item 1</TreeView.Item>
+          <TreeView.Item id="item-2" current>
+            Item 2
+          </TreeView.Item>
+          <TreeView.Item id="item-3">Item 3</TreeView.Item>
+        </TreeView>
+      </div>,
+    )
+
+    // Focus button
+    const button = getByRole('button', {name: /Focusable element/})
+    await user.click(button)
+    expect(button).toHaveFocus()
+
+    // Move focus to tree
+    await user.tab()
+
+    // Focus should be on current treeitem
+    const item2 = getByRole('treeitem', {name: /Item 2/})
+    expect(item2).toHaveFocus()
+  })
 })
 
 describe('Keyboard interactions', () => {
@@ -249,29 +276,37 @@ describe('Keyboard interactions', () => {
       const item2 = getByRole('treeitem', {name: 'Item 2'})
       const item3 = getByRole('treeitem', {name: 'Item 3'})
 
-      // Focus first item
-      item1.focus()
+      act(() => {
+        // Focus first item
+        item1.focus()
 
-      // Press ↓
-      fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowDown'})
+        // Press ↓
+        fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowDown'})
+      })
 
       // item 1.1 should be focused
       expect(item11).toHaveFocus()
 
-      // Press ↓
-      fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowDown'})
+      act(() => {
+        // Press ↓
+        fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowDown'})
+      })
 
       // item 2 should be focused
       expect(item2).toHaveFocus()
 
-      // Press ↓
-      fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowDown'})
+      act(() => {
+        // Press ↓
+        fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowDown'})
+      })
 
       // item 3 should have focus (skips item 2.1 and item 2.2 because they are hidden)
       expect(item3).toHaveFocus()
 
-      // Press ↓
-      fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowDown'})
+      act(() => {
+        // Press ↓
+        fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowDown'})
+      })
 
       // focus should not change (item 3 is the last visible treeitem)
       expect(item3).toHaveFocus()
@@ -304,38 +339,47 @@ describe('Keyboard interactions', () => {
       const item2 = getByRole('treeitem', {name: 'Item 2'})
       const item3 = getByRole('treeitem', {name: 'Item 3'})
 
-      // Focus first item
-      item1.focus()
-
-      // Press ↓ 4 times to move aria-activedescendant to item 3
-      fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowDown'})
-      fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowDown'})
-      fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowDown'})
-      fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowDown'})
+      act(() => {
+        // Focus first item
+        item1.focus()
+        // Press ↓ 4 times to move aria-activedescendant to item 3
+        fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowDown'})
+        fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowDown'})
+        fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowDown'})
+        fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowDown'})
+      })
 
       // item 3 should be focused
       expect(item3).toHaveFocus()
 
-      // Press ↑
-      fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowUp'})
+      act(() => {
+        // Press ↑
+        fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowUp'})
+      })
 
       // Item 2 should have focus (skips item 2.1 and item 2.2 because they are hidden)
       expect(item2).toHaveFocus()
 
-      // Press ↑
-      fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowUp'})
+      act(() => {
+        // Press ↑
+        fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowUp'})
+      })
 
       // Item 1.1 should be focused
       expect(item11).toHaveFocus()
 
-      // Press ↑
-      fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowUp'})
+      act(() => {
+        // Press ↑
+        fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowUp'})
+      })
 
       // Item 1 should be focused
       expect(item1).toHaveFocus()
 
-      // Press ↑
-      fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowUp'})
+      act(() => {
+        // Press ↑
+        fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowUp'})
+      })
 
       // Focus should not change (item 1 is the first visible treeitem)
       expect(item1).toHaveFocus()
@@ -364,11 +408,13 @@ describe('Keyboard interactions', () => {
       // Subtree should be visible
       expect(subtree).toBeVisible()
 
-      // Focus first item
-      parentItem.focus()
+      act(() => {
+        // Focus first item
+        parentItem.focus()
 
-      // Press ←
-      fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowLeft'})
+        // Press ←
+        fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowLeft'})
+      })
 
       // aria-expanded should now be false
       expect(parentItem).toHaveAttribute('aria-expanded', 'false')
@@ -399,11 +445,13 @@ describe('Keyboard interactions', () => {
       // aria-expanded should be false by default
       expect(parentItem).toHaveAttribute('aria-expanded', 'false')
 
-      // Focus first item
-      parentItem.focus()
+      act(() => {
+        // Focus first item
+        parentItem.focus()
 
-      // Press ←
-      fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowLeft'})
+        // Press ←
+        fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowLeft'})
+      })
 
       // aria-expanded should still be false
       expect(parentItem).toHaveAttribute('aria-expanded', 'false')
@@ -421,11 +469,13 @@ describe('Keyboard interactions', () => {
 
       const item = getByRole('treeitem', {name: 'Item'})
 
-      // Focus first item
-      item.focus()
+      act(() => {
+        // Focus first item
+        item.focus()
 
-      // Press ←
-      fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowLeft'})
+        // Press ←
+        fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowLeft'})
+      })
 
       // Focus should not change
       expect(item).toHaveFocus()
@@ -447,18 +497,22 @@ describe('Keyboard interactions', () => {
       const parentItem = getByRole('treeitem', {name: 'Parent'})
       const child2 = getByRole('treeitem', {name: 'Child 2'})
 
-      // Focus fist item
-      parentItem.focus()
+      act(() => {
+        // Focus fist item
+        parentItem.focus()
 
-      // Press ↓ 2 times to move focus to child 2
-      fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowDown'})
-      fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowDown'})
+        // Press ↓ 2 times to move focus to child 2
+        fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowDown'})
+        fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowDown'})
+      })
 
       // Child 2 should be focused
       expect(child2).toHaveFocus()
 
-      // Press ←
-      fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowLeft'})
+      act(() => {
+        // Press ←
+        fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowLeft'})
+      })
 
       // Parent item should be focused
       expect(parentItem).toHaveFocus()
@@ -485,18 +539,22 @@ describe('Keyboard interactions', () => {
       const parentItem = getByRole('treeitem', {name: 'Parent'})
       const nestedParentItem = getByRole('treeitem', {name: 'Nested parent'})
 
-      // Focus first item
-      parentItem.focus()
+      act(() => {
+        // Focus first item
+        parentItem.focus()
 
-      // Press ↓ 2 times to move focus to nested parent
-      fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowDown'})
-      fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowDown'})
+        // Press ↓ 2 times to move focus to nested parent
+        fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowDown'})
+        fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowDown'})
+      })
 
       // Nested parent item should be focused
       expect(nestedParentItem).toHaveFocus()
 
-      // Press ←
-      fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowLeft'})
+      act(() => {
+        // Press ←
+        fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowLeft'})
+      })
 
       // Parent item should be focused
       expect(parentItem).toHaveFocus()
@@ -521,11 +579,13 @@ describe('Keyboard interactions', () => {
       // aria-expanded should be false by default
       expect(parentItem).toHaveAttribute('aria-expanded', 'false')
 
-      // Focus first item
-      parentItem.focus()
+      act(() => {
+        // Focus first item
+        parentItem.focus()
 
-      // Press →
-      fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowRight'})
+        // Press →
+        fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowRight'})
+      })
 
       // aria-expanded should now be true
       expect(parentItem).toHaveAttribute('aria-expanded', 'true')
@@ -556,11 +616,13 @@ describe('Keyboard interactions', () => {
       // aria-expanded should be true
       expect(parentItem).toHaveAttribute('aria-expanded', 'true')
 
-      // Focus first item
-      parentItem.focus()
+      act(() => {
+        // Focus first item
+        parentItem.focus()
 
-      // Press →
-      fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowRight'})
+        // Press →
+        fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowRight'})
+      })
 
       const childItem = getByRole('treeitem', {name: 'Child'})
 
@@ -587,17 +649,21 @@ describe('Keyboard interactions', () => {
       const parentItem = getByRole('treeitem', {name: 'Parent'})
       const child1 = getByRole('treeitem', {name: 'Child 1'})
 
-      // Focus first item
-      parentItem.focus()
+      act(() => {
+        // Focus first item
+        parentItem.focus()
 
-      // Press ↓ to move focus to child 1
-      fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowDown'})
+        // Press ↓ to move focus to child 1
+        fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowDown'})
+      })
 
       // Child 1 should be focused
       expect(child1).toHaveFocus()
 
-      // Press →
-      fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowRight'})
+      act(() => {
+        // Press →
+        fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowRight'})
+      })
 
       // Focus should not change
       expect(child1).toHaveFocus()
@@ -619,10 +685,13 @@ describe('Keyboard interactions', () => {
 
       const parentItem = getByRole('treeitem', {name: 'Parent'})
       const child = getByRole('treeitem', {name: 'Child'})
-      child.focus()
 
-      // Press Backspace
-      fireEvent.keyDown(document.activeElement || document.body, {key: 'Backspace'})
+      act(() => {
+        child.focus()
+
+        // Press Backspace
+        fireEvent.keyDown(document.activeElement || document.body, {key: 'Backspace'})
+      })
 
       expect(parentItem).toHaveFocus()
     })
@@ -648,11 +717,13 @@ describe('Keyboard interactions', () => {
       // Subtree should be visible
       expect(subtree).toBeVisible()
 
-      // Focus first item
-      parentItem.focus()
+      act(() => {
+        // Focus first item
+        parentItem.focus()
 
-      // Press Backspace
-      fireEvent.keyDown(document.activeElement || document.body, {key: 'Backspace'})
+        // Press Backspace
+        fireEvent.keyDown(document.activeElement || document.body, {key: 'Backspace'})
+      })
 
       // aria-expanded should stay set as true
       expect(parentItem).toHaveAttribute('aria-expanded', 'true')
@@ -690,17 +761,21 @@ describe('Keyboard interactions', () => {
       const parent1 = getByRole('treeitem', {name: 'Parent 1'})
       const parent3 = getByRole('treeitem', {name: 'Parent 2'})
 
-      // Focus first item
-      parent1.focus()
+      act(() => {
+        // Focus first item
+        parent1.focus()
 
-      // Press ↓ 2 times to move focus to parent 3
-      fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowDown'})
+        // Press ↓ 2 times to move focus to parent 3
+        fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowDown'})
+      })
 
       // Parent 3 should be focused
       expect(parent3).toHaveFocus()
 
-      // Press Home
-      fireEvent.keyDown(document.activeElement || document.body, {key: 'Home'})
+      act(() => {
+        // Press Home
+        fireEvent.keyDown(document.activeElement || document.body, {key: 'Home'})
+      })
 
       // Parent 1 should be focused
       expect(parent1).toHaveFocus()
@@ -735,20 +810,28 @@ describe('Keyboard interactions', () => {
       const parent1 = getByRole('treeitem', {name: 'Parent 1'})
       const parent3 = getByRole('treeitem', {name: 'Parent 3'})
 
-      // Focus first item
-      parent1.focus()
+      act(() => {
+        // Focus first item
+        parent1.focus()
+      })
 
-      // Press End
-      fireEvent.keyDown(document.activeElement || document.body, {key: 'End'})
+      act(() => {
+        // Press End
+        fireEvent.keyDown(document.activeElement || document.body, {key: 'End'})
+      })
 
       // Parent 3 should be focused
       expect(parent3).toHaveFocus()
 
-      // Press → to expand parent 3
-      fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowRight'})
+      act(() => {
+        // Press → to expand parent 3
+        fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowRight'})
+      })
 
-      // Press End
-      fireEvent.keyDown(document.activeElement || document.body, {key: 'End'})
+      act(() => {
+        // Press End
+        fireEvent.keyDown(document.activeElement || document.body, {key: 'End'})
+      })
 
       const child3 = getByRole('treeitem', {name: 'Child 3'})
 
@@ -770,18 +853,23 @@ describe('Keyboard interactions', () => {
 
       const item = getByRole('treeitem')
 
-      // Focus first item
-      item.focus()
+      act(() => {
+        // Focus first item
+        item.focus()
 
-      // Press Enter
-      fireEvent.keyDown(document.activeElement || document.body, {key: 'Enter'})
+        // Press Enter
+        fireEvent.keyDown(document.activeElement || document.body, {key: 'Enter'})
+      })
 
       // onSelect should have been called
       expect(onSelect).toHaveBeenCalledTimes(1)
 
       onSelect.mockClear()
-      // Press middle click
-      fireEvent.click(document.activeElement?.firstChild || document.body, {button: 1})
+
+      act(() => {
+        // Press middle click
+        fireEvent.click(document.activeElement?.firstChild || document.body, {button: 1})
+      })
 
       // onSelect should have been called
       expect(onSelect).toHaveBeenCalledTimes(1)
@@ -802,14 +890,18 @@ describe('Keyboard interactions', () => {
 
       const parent = getByRole('treeitem', {name: 'Parent'})
 
-      // Focus first item
-      parent.focus()
+      act(() => {
+        // Focus first item
+        parent.focus()
+      })
 
       // aria-expanded should be false
       expect(parent).toHaveAttribute('aria-expanded', 'false')
 
-      // Press Enter
-      fireEvent.keyDown(document.activeElement || document.body, {key: 'Enter'})
+      act(() => {
+        // Press Enter
+        fireEvent.keyDown(document.activeElement || document.body, {key: 'Enter'})
+      })
 
       // aria-expanded should now be true
       expect(parent).toHaveAttribute('aria-expanded', 'true')
@@ -817,8 +909,10 @@ describe('Keyboard interactions', () => {
       // Subtree should be visible
       expect(queryByRole('group')).toBeVisible()
 
-      // Press Enter
-      fireEvent.keyDown(document.activeElement || document.body, {key: 'Enter'})
+      act(() => {
+        // Press Enter
+        fireEvent.keyDown(document.activeElement || document.body, {key: 'Enter'})
+      })
 
       // aria-expanded should now be false
       expect(parent).toHaveAttribute('aria-expanded', 'false')
@@ -847,11 +941,13 @@ describe('Keyboard interactions', () => {
       const apple = getByRole('treeitem', {name: 'Apple'})
       const cherry = getByRole('treeitem', {name: 'Cherry'})
 
-      // Focus first item
-      apple.focus()
+      act(() => {
+        // Focus first item
+        apple.focus()
 
-      // Press C
-      fireEvent.keyDown(document.activeElement || document.body, {key: 'c'})
+        // Press C
+        fireEvent.keyDown(document.activeElement || document.body, {key: 'c'})
+      })
 
       // Cherry should be focused
       expect(cherry).toHaveFocus()
@@ -872,14 +968,18 @@ describe('Keyboard interactions', () => {
 
       const apple = getByRole('treeitem', {name: 'Apple'})
 
-      // Focus first item
-      apple.focus()
+      act(() => {
+        // Focus first item
+        apple.focus()
+      })
 
       // Apple should be focused
       expect(apple).toHaveFocus()
 
-      // Press Z
-      fireEvent.keyDown(document.activeElement || document.body, {key: 'z'})
+      act(() => {
+        // Press Z
+        fireEvent.keyDown(document.activeElement || document.body, {key: 'z'})
+      })
 
       // Apple should still be focused
       expect(apple).toHaveFocus()
@@ -899,13 +999,15 @@ describe('Keyboard interactions', () => {
       const apple = getByRole('treeitem', {name: 'Apple'})
       const cantalope = getByRole('treeitem', {name: 'Cantalope 1'})
 
-      // Focus first item
-      apple.focus()
+      act(() => {
+        // Focus first item
+        apple.focus()
 
-      // Press C + A + N
-      fireEvent.keyDown(document.activeElement || document.body, {key: 'c'})
-      fireEvent.keyDown(document.activeElement || document.body, {key: 'a'})
-      fireEvent.keyDown(document.activeElement || document.body, {key: 'n'})
+        // Press C + A + N
+        fireEvent.keyDown(document.activeElement || document.body, {key: 'c'})
+        fireEvent.keyDown(document.activeElement || document.body, {key: 'a'})
+        fireEvent.keyDown(document.activeElement || document.body, {key: 'n'})
+      })
 
       // Cantalope should be focused
       expect(cantalope).toHaveFocus()
@@ -926,17 +1028,21 @@ describe('Keyboard interactions', () => {
       const cherry = getByRole('treeitem', {name: 'Cherry'})
       const cantalope = getByRole('treeitem', {name: 'Cantalope'})
 
-      // Focus first item
-      cucumber.focus()
+      act(() => {
+        // Focus first item
+        cucumber.focus()
 
-      // Press ↓ to move focus to cherry
-      fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowDown'})
+        // Press ↓ to move focus to cherry
+        fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowDown'})
+      })
 
       // Cherry should be focused
       expect(cherry).toHaveFocus()
 
-      // Press C
-      fireEvent.keyDown(document.activeElement || document.body, {key: 'c'})
+      act(() => {
+        // Press C
+        fireEvent.keyDown(document.activeElement || document.body, {key: 'c'})
+      })
 
       // Cantalope should be focused
       expect(cantalope).toHaveFocus()
@@ -957,18 +1063,22 @@ describe('Keyboard interactions', () => {
       const cantalope = getByRole('treeitem', {name: 'Cantalope'})
       const cucumber = getByRole('treeitem', {name: 'Cucumber'})
 
-      // Focus first item
-      cucumber.focus()
+      act(() => {
+        // Focus first item
+        cucumber.focus()
 
-      // Press ↓ 2 times to move focus to cantalope
-      fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowDown'})
-      fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowDown'})
+        // Press ↓ 2 times to move focus to cantalope
+        fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowDown'})
+        fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowDown'})
+      })
 
       // Cantalope should be focused
       expect(cantalope).toHaveFocus()
 
-      // Press C
-      fireEvent.keyDown(document.activeElement || document.body, {key: 'c'})
+      act(() => {
+        // Press C
+        fireEvent.keyDown(document.activeElement || document.body, {key: 'c'})
+      })
 
       // Cucumber should be focused
       expect(cucumber).toHaveFocus()
@@ -1000,26 +1110,32 @@ describe('State', () => {
     // Item 2 should be collapsed by default
     expect(item2).toHaveAttribute('aria-expanded', 'false')
 
-    // Focus item 2
-    item2.focus()
+    act(() => {
+      // Focus item 2
+      item2.focus()
 
-    // Press Enter to expand item 2
-    fireEvent.keyDown(document.activeElement || document.body, {key: 'Enter'})
+      // Press Enter to expand item 2
+      fireEvent.keyDown(document.activeElement || document.body, {key: 'Enter'})
+    })
 
     // Item 2 should be expanded
     expect(item2).toHaveAttribute('aria-expanded', 'true')
 
-    // Press ↑ to move focus to item 1
-    fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowUp'})
+    act(() => {
+      // Press ↑ to move focus to item 1
+      fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowUp'})
 
-    // Press Enter to collapse item 1
-    fireEvent.keyDown(document.activeElement || document.body, {key: 'Enter'})
+      // Press Enter to collapse item 1
+      fireEvent.keyDown(document.activeElement || document.body, {key: 'Enter'})
+    })
 
     // Item 1 should be collapsed
     expect(item1).toHaveAttribute('aria-expanded', 'false')
 
-    // Press Enter again to expand item 1
-    fireEvent.keyDown(document.activeElement || document.body, {key: 'Enter'})
+    act(() => {
+      // Press Enter again to expand item 1
+      fireEvent.keyDown(document.activeElement || document.body, {key: 'Enter'})
+    })
 
     // Item 1 should be expanded
     expect(item1).toHaveAttribute('aria-expanded', 'true')
@@ -1052,11 +1168,13 @@ describe('State', () => {
     expect(parent).toHaveAttribute('aria-expanded', 'true')
     expect(child).toBeVisible()
 
-    // Focus first item
-    parent.focus()
+    act(() => {
+      // Focus first item
+      parent.focus()
 
-    // Press ← to collapse the parent
-    fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowLeft'})
+      // Press ← to collapse the parent
+      fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowLeft'})
+    })
 
     // Parent should be collapsed
     expect(parent).toHaveAttribute('aria-expanded', 'false')
@@ -1077,7 +1195,14 @@ describe('Asyncronous loading', () => {
             <TreeView.Item id="parent" defaultExpanded>
               Parent
               <TreeView.SubTree state={state}>
-                <TreeView.Item id="child">Child</TreeView.Item>
+                <TreeView.Item id="child-item">Child Item</TreeView.Item>
+                <TreeView.Item id="child-subtree">
+                  Child Subtree
+                  <TreeView.SubTree state={'done'}>
+                    <TreeView.Item id="child-subtree-1">Child 1</TreeView.Item>
+                    <TreeView.Item id="child-subtree-2">Child 2</TreeView.Item>
+                  </TreeView.SubTree>
+                </TreeView.Item>
               </TreeView.SubTree>
             </TreeView.Item>
           </TreeView>
@@ -1100,6 +1225,7 @@ describe('Asyncronous loading', () => {
     })
 
     // Live region should be updated
+    expect(liveRegion).not.toHaveTextContent('Child 2 is empty')
     expect(liveRegion).toHaveTextContent('Parent content loaded')
   })
 
@@ -1130,11 +1256,13 @@ describe('Asyncronous loading', () => {
     const parentItem = getByRole('treeitem', {name: 'Parent'})
     const loadingItem = await findByRole('treeitem', {name: 'Loading...'})
 
-    // Focus first item
-    parentItem.focus()
+    act(() => {
+      // Focus first item
+      parentItem.focus()
 
-    // Press ↓ to move focus to loading item
-    fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowDown'})
+      // Press ↓ to move focus to loading item
+      fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowDown'})
+    })
 
     // Loading item should be focused
     expect(loadingItem).toHaveFocus()
@@ -1186,8 +1314,10 @@ describe('Asyncronous loading', () => {
     // Dialog should be visible
     expect(dialog).toBeVisible()
 
-    // Press esc to close error dialog
-    fireEvent.keyDown(document.activeElement || document.body, {key: 'Escape'})
+    act(() => {
+      // Press esc to close error dialog
+      fireEvent.keyDown(document.activeElement || document.body, {key: 'Escape'})
+    })
 
     // Dialog should not be visible
     expect(dialog).not.toBeVisible()
@@ -1215,9 +1345,6 @@ describe('Asyncronous loading', () => {
 
     // Parent item should be expanded
     expect(parentItem).toHaveAttribute('aria-expanded', 'true')
-
-    // Focus first item
-    parentItem.focus()
 
     // Press ←
     fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowLeft'})
@@ -1271,8 +1398,8 @@ describe('Asyncronous loading', () => {
 
     const treeitem = getByLabelText(/Item 1/)
     expect(treeitem).toHaveAttribute('aria-expanded', 'false')
-
     await user.click(getByText(/Item 1/))
+
     expect(treeitem).toHaveAttribute('aria-expanded', 'true')
 
     act(() => {

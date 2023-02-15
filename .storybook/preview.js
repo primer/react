@@ -29,6 +29,9 @@ export const parameters = {
     root: '#html-addon-root',
     removeEmptyComments: true,
   },
+  controls: {
+    hideNoControlsWarning: true,
+  },
   options: {
     storySort: (a, b) => {
       const defaultOrder = [
@@ -149,7 +152,6 @@ export const parameters = {
       return compare(getHierarchy(a), getHierarchy(b))
     },
   },
-
   viewport: {
     viewports: {
       ...storybookViewports,

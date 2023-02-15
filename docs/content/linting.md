@@ -1,6 +1,6 @@
 ---
 title: Linting
-description: Primer React offers an ESLint plugin to enforce best practices and fix common problems. 
+description: Primer React offers an ESLint plugin to enforce best practices and fix common problems.
 ---
 
 <Note variant="warning">
@@ -17,7 +17,7 @@ description: Primer React offers an ESLint plugin to enforce best practices and 
    npm install --save-dev eslint-plugin-primer-react
 
    # or
-   
+
    yarn add --dev eslint-plugin-primer-react
    ```
 
