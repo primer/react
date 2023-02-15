@@ -219,6 +219,34 @@ describe('Markup', () => {
     const parentItem = getByLabelText(/Parent/)
     expect(parentItem).toBeInTheDocument()
   })
+
+  it('should move focus to current treeitem by default', async () => {
+    const user = userEvent.setup({delay: null})
+    const {getByRole} = renderWithTheme(
+      <div>
+        <button>Focusable element</button>
+        <TreeView aria-label="Test tree">
+          <TreeView.Item id="item-1">Item 1</TreeView.Item>
+          <TreeView.Item id="item-2" current>
+            Item 2
+          </TreeView.Item>
+          <TreeView.Item id="item-3">Item 3</TreeView.Item>
+        </TreeView>
+      </div>,
+    )
+
+    // Focus button
+    const button = getByRole('button', {name: /Focusable element/})
+    await user.click(button)
+    expect(button).toHaveFocus()
+
+    // Move focus to tree
+    await user.tab()
+
+    // Focus should be on current treeitem
+    const item2 = getByRole('treeitem', {name: /Item 2/})
+    expect(item2).toHaveFocus()
+  })
 })
 
 describe('Keyboard interactions', () => {
@@ -1202,6 +1230,11 @@ describe('Asyncronous loading', () => {
   })
 
   it('moves focus from loading item to first child', async () => {
+    // We get a focus zone warning in this test that doesn't
+    // happen in the browser. We're not sure why, so we're
+    // suppressing it for now.
+    jest.spyOn(console, 'warn').mockImplementation()
+
     function TestTree() {
       const [state, setState] = React.useState<SubTreeState>('loading')
 
@@ -1231,20 +1264,20 @@ describe('Asyncronous loading', () => {
     act(() => {
       // Focus first item
       parentItem.focus()
-
-      // Press ↓ to move focus to loading item
-      fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowDown'})
     })
+
+    // Press ↓ to move focus to loading item
+    fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowDown'})
 
     // Loading item should be focused
     expect(loadingItem).toHaveFocus()
 
-    // Wait for async loading to complete
-    const firstChild = await findByRole('treeitem', {name: 'Child 1'})
-
     act(() => {
       jest.runAllTimers()
     })
+
+    // Wait for async loading to complete
+    const firstChild = await findByRole('treeitem', {name: 'Child 1'})
 
     // First child should be focused
     expect(firstChild).toHaveFocus()
