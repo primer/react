@@ -442,6 +442,15 @@ const Navigation: React.FC<React.PropsWithChildren<NavigationProps>> = ({
   'aria-label': ariaLabel,
   'aria-labelledby': ariaLabelledBy,
 }) => {
+  // TODO: use warning utility function when it is merged https://github.com/primer/react/pull/2901/
+  if (__DEV__) {
+    if (as === 'nav' && !ariaLabel && !ariaLabelledBy) {
+      // eslint-disable-next-line no-console
+      console.warn(
+        'Use `aria-label` or `aria-labelledby` prop to provide an accessible label to the `nav` landmark for assistive technology',
+      )
+    }
+  }
   return (
     <Box
       as={as}
