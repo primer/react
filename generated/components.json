@@ -4287,8 +4287,8 @@
     "tree_view": {
       "id": "tree_view",
       "name": "TreeView",
-      "status": "draft",
-      "a11yReviewed": false,
+      "status": "beta",
+      "a11yReviewed": true,
       "stories": [
         "components-treeview-features--files",
         "components-treeview-features--files-changed"
