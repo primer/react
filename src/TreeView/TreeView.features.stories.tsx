@@ -773,6 +773,20 @@ export const ContainIntrinsicSize: Story = () => {
   )
 }
 
+export const InitialFocus: Story = () => (
+  <div>
+    <Button>Focusable element before TreeView</Button>
+    <TreeView aria-label="Test tree">
+      <TreeView.Item id="item-1">Item 1</TreeView.Item>
+      <TreeView.Item id="item-2" current>
+        Item 2
+      </TreeView.Item>
+      <TreeView.Item id="item-3">Item 3</TreeView.Item>
+    </TreeView>
+    <Button>Focusable element after TreeView</Button>
+  </div>
+)
+
 ContainIntrinsicSize.parameters = {
   chromatic: {disableSnapshot: true},
 }

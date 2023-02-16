@@ -179,6 +179,15 @@ export type {CheckboxProps} from './Checkbox'
 export {default as Textarea} from './Textarea'
 export type {TextareaProps} from './Textarea'
 
+export {TreeView} from './TreeView'
+export type {
+  TreeViewProps,
+  TreeViewItemProps,
+  TreeViewSubTreeProps,
+  TreeViewVisualProps,
+  TreeViewErrorDialogProps,
+} from './TreeView'
+
 export {UnderlineNav as UnderlineNav2} from './UnderlineNav2'
 
 export {SSRProvider, useSSRSafeId} from './utils/ssr'
