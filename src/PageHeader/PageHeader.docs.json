@@ -44,7 +44,7 @@
       ]
     },
     {
-      "name": "PageHeader.ContextArea Children",
+      "name": "PageHeader.ParentLink",
       "props": [
         {
           "name": "href",
@@ -65,7 +65,7 @@
       ]
     },
     {
-      "name": "PageHeader.ContextArea Children",
+      "name": "PageHeader.ContextBar",
       "props": [
         {
           "name": "hidden",
@@ -80,7 +80,7 @@
       ]
     },
     {
-      "name": "PageHeader.ContextArea Children",
+      "name": "PageHeader.ContextAreaActions",
       "props": [
         {
           "name": "hidden",
@@ -116,7 +116,7 @@
       ]
     },
     {
-      "name": "PageHeader.TitleArea Children",
+      "name": "PageHeader.LeadingAction",
       "props": [
         {
           "name": "hidden",
@@ -131,7 +131,7 @@
       ]
     },
     {
-      "name": "PageHeader.TitleArea Children",
+      "name": "PageHeader.LeadingVisual",
       "props": [
         {
           "name": "hidden",
@@ -146,7 +146,7 @@
       ]
     },
     {
-      "name": "PageHeader.TitleArea Children",
+      "name": "PageHeader.Title",
       "props": [
         {
           "name": "hidden",
@@ -166,7 +166,7 @@
       ]
     },
     {
-      "name": "PageHeader.TitleArea Children",
+      "name": "PageHeader.TrailingVisual",
       "props": [
         {
           "name": "hidden",
@@ -181,7 +181,7 @@
       ]
     },
     {
-      "name": "PageHeader.TitleArea Children",
+      "name": "PageHeader.TrailingAction",
       "props": [
         {
           "name": "hidden",
@@ -196,7 +196,7 @@
       ]
     },
     {
-      "name": "PageHeader.TitleArea Children",
+      "name": "PageHeader.Actions",
       "props": [
         {
           "name": "hidden",
@@ -228,6 +228,22 @@
     {
       "name": "PageHeader.Navigation",
       "props": [
+        {
+          "name": "aria-label",
+          "type": "string",
+          "description": "The aria-label attribute for the navigaton component when it is rendered as a \"nav\" element."
+        },
+        {
+          "name": "aria-labelledby",
+          "type": "string",
+          "description": "The aria-labelledby attribute for the navigaton component when it is rendered as a \"nav\" element."
+        },
+        {
+          "name": "as",
+          "type": "div | nav",
+          "defaultValue": "\"div\"",
+          "description": "The HTML element used to render the navigation."
+        },
         {
           "name": "hidden",
           "type": "| boolean | { narrow?: boolean regular?: boolean wide?: boolean }",
