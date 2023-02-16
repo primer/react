@@ -109,7 +109,7 @@ const Root: React.FC<React.PropsWithChildren<SegmentedControlProps>> = ({
   return responsiveVariant === 'dropdown' ? (
     // Render the 'dropdown' variant of the SegmentedControlButton or SegmentedControlIconButton
     <ActionMenu>
-      <ActionMenu.Button leadingIcon={getChildIcon(selectedChild)}>{getChildText(selectedChild)}</ActionMenu.Button>
+      <ActionMenu.Button leadingVisual={getChildIcon(selectedChild)}>{getChildText(selectedChild)}</ActionMenu.Button>
       <ActionMenu.Overlay>
         <ActionList selectionVariant="single">
           {React.Children.map(children, (child, index) => {
