@@ -154,7 +154,7 @@ export const WithCustomNavigation = () => (
         <PageHeader.Title>Pull request title</PageHeader.Title>
       </PageHeader.TitleArea>
       <PageHeader.Navigation as="nav" aria-label="Item list">
-        <ul>
+        <Box as="ul" sx={{display: 'flex', gap: '8px', listStyle: 'none', paddingY: 0, paddingX: 3}} role="list">
           <li>
             <Link href="#" aria-current="page">
               Item 1
@@ -163,7 +163,7 @@ export const WithCustomNavigation = () => (
           <li>
             <Link href="#">Item 2</Link>
           </li>
-        </ul>
+        </Box>
       </PageHeader.Navigation>
     </PageHeader>
   </Box>
