@@ -24,10 +24,10 @@ export function ComponentChecklist({items}) {
           Component has robust unit test coverage (100% where achievable).
         </Checklist.Item>
         <Checklist.Item checked={items.visualRegressionCoverage}>
-          The component has visual regression coverage of its default and interactive states.
+          Component has visual regression coverage of its default and interactive states.
         </Checklist.Item>
         <Checklist.Item checked={items.noAxeViolations}>
-          The component does not introduce any axe violations.
+          Component does not introduce any axe violations.
         </Checklist.Item>
         <Checklist.Item checked={items.a11yReviewed}>
           Component has been manually reviewed by the accessibility team and any resulting issues have been addressed.

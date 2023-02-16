@@ -1230,6 +1230,11 @@ describe('Asyncronous loading', () => {
   })
 
   it('moves focus from loading item to first child', async () => {
+    // We get a focus zone warning in this test that doesn't
+    // happen in the browser. We're not sure why, so we're
+    // suppressing it for now.
+    jest.spyOn(console, 'warn').mockImplementation()
+
     function TestTree() {
       const [state, setState] = React.useState<SubTreeState>('loading')
 
@@ -1259,20 +1264,20 @@ describe('Asyncronous loading', () => {
     act(() => {
       // Focus first item
       parentItem.focus()
-
-      // Press ↓ to move focus to loading item
-      fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowDown'})
     })
+
+    // Press ↓ to move focus to loading item
+    fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowDown'})
 
     // Loading item should be focused
     expect(loadingItem).toHaveFocus()
 
-    // Wait for async loading to complete
-    const firstChild = await findByRole('treeitem', {name: 'Child 1'})
-
     act(() => {
       jest.runAllTimers()
     })
+
+    // Wait for async loading to complete
+    const firstChild = await findByRole('treeitem', {name: 'Child 1'})
 
     // First child should be focused
     expect(firstChild).toHaveFocus()
