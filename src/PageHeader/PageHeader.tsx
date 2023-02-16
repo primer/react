@@ -101,17 +101,7 @@ type LinkProps = Pick<
 export type ParentLinkProps = React.PropsWithChildren<ChildrenPropTypes & LinkProps>
 
 const ParentLink = React.forwardRef<HTMLAnchorElement, ParentLinkProps>(
-  (
-    {
-      children,
-      sx = {},
-      href,
-      'aria-label': ariaLabel = `Back to ${children}`,
-      as = 'a',
-      hidden = hiddenOnRegularAndWide,
-    },
-    ref,
-  ) => {
+  ({children, sx = {}, href, 'aria-label': ariaLabel, as = 'a', hidden = hiddenOnRegularAndWide}, ref) => {
     return (
       <>
         <Link
@@ -437,10 +427,36 @@ const Description: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({chil
   )
 }
 
+export type NavigationProps = {
+  as?: 'nav' | 'div'
+  'aria-label'?: React.AriaAttributes['aria-label']
+  'aria-labelledby'?: React.AriaAttributes['aria-labelledby']
+} & ChildrenPropTypes
+
 // PageHeader.Navigation: The local navigation area of the header. Visible on all viewports
-const Navigation: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({children, sx = {}, hidden = false}) => {
+const Navigation: React.FC<React.PropsWithChildren<NavigationProps>> = ({
+  children,
+  sx = {},
+  hidden = false,
+  as,
+  'aria-label': ariaLabel,
+  'aria-labelledby': ariaLabelledBy,
+}) => {
+  // TODO: use warning utility function when it is merged https://github.com/primer/react/pull/2901/
+  if (__DEV__) {
+    if (as === 'nav' && !ariaLabel && !ariaLabelledBy) {
+      // eslint-disable-next-line no-console
+      console.warn(
+        'Use `aria-label` or `aria-labelledby` prop to provide an accessible label to the `nav` landmark for assistive technology',
+      )
+    }
+  }
   return (
     <Box
+      as={as}
+      // Render `aria-label` and `aria-labelledby` only on `nav` elements
+      aria-label={as === 'nav' ? ariaLabel : undefined}
+      aria-labelledby={as === 'nav' ? ariaLabelledBy : undefined}
       sx={merge<BetterSystemStyleObject>(
         {
           display: 'flex',
