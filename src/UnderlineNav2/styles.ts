@@ -10,20 +10,14 @@ export const iconWrapStyles = {
   marginRight: 2,
 }
 
-export const wrapperStyles = {
-  display: 'inline-flex',
-  paddingY: 1,
-  paddingX: 2,
-  borderRadius: 2,
-}
-
 const smallVariantLinkStyles = {
-  paddingY: 1,
+  paddingX: 1,
   fontSize: 0,
 }
 const defaultVariantLinkStyles = {
-  paddingY: 2,
   fontSize: 1,
+  paddingX: 2,
+  paddingY: 'calc((2rem - 1.25rem) / 2)',
 }
 
 export const counterStyles = {
@@ -40,6 +34,7 @@ export const getNavStyles = (theme?: Theme, props?: Partial<Pick<UnderlineNavPro
   borderBottomColor: `${theme?.colors.border.muted}`,
   align: 'row',
   alignItems: 'center',
+  minHeight: '48px',
 })
 
 export const ulStyles = {
@@ -89,24 +84,26 @@ export const getLinkStyles = (
   color: 'fg.default',
   textAlign: 'center',
   textDecoration: 'none',
+  lineHeight: 'calc(20/14)',
+  borderRadius: 2,
   ...(props?.variant === 'small' ? smallVariantLinkStyles : defaultVariantLinkStyles),
   '@media (hover:hover)': {
-    '&:hover > div[data-component="wrapper"] ': {
+    '&:hover ': {
       backgroundColor: theme?.colors.neutral.muted,
       transition: 'background .12s ease-out',
     },
   },
   '&:focus': {
     outline: 0,
-    '& > div[data-component="wrapper"]': {
+    '&': {
       boxShadow: `inset 0 0 0 2px ${theme?.colors.accent.fg}`,
     },
     // where focus-visible is supported, remove the focus box-shadow
-    '&:not(:focus-visible) > div[data-component="wrapper"]': {
+    '&:not(:focus-visible)': {
       boxShadow: 'none',
     },
   },
-  '&:focus-visible > div[data-component="wrapper"]': {
+  '&:focus-visible': {
     boxShadow: `inset 0 0 0 2px ${theme?.colors.accent.fg}`,
   },
   // renders a visibly hidden "copy" of the label in bold, reserving box space for when label becomes bold on selected
@@ -122,7 +119,7 @@ export const getLinkStyles = (
   '&::after': {
     position: 'absolute',
     right: '50%',
-    bottom: 0,
+    bottom: 'calc(50% - 25px)', // 48px total height / 2 (24px) + 1px
     width: '100%',
     height: 2,
     content: '""',

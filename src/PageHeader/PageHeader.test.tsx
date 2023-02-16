@@ -178,6 +178,36 @@ describe('PageHeader', () => {
     expect(getByText('Trailing Action')).toHaveStyle('height: 3rem')
     // add actions here
   })
+  it('renders "aria-label" prop when Navigation is rendered as "nav" landmark', () => {
+    const {getByLabelText, getByText} = render(
+      <PageHeader>
+        <PageHeader.Navigation as="nav" aria-label="Custom">
+          Navigation
+        </PageHeader.Navigation>
+      </PageHeader>,
+    )
+    expect(getByLabelText('Custom')).toBeInTheDocument()
+    expect(getByText('Navigation')).toHaveAttribute('aria-label', 'Custom')
+  })
+  it('does not renders "aria-label" prop when Navigation is rendered as "div"', () => {
+    const {getByText} = render(
+      <PageHeader>
+        <PageHeader.Navigation aria-label="Custom">Navigation</PageHeader.Navigation>
+      </PageHeader>,
+    )
+    expect(getByText('Navigation')).not.toHaveAttribute('aria-label')
+  })
+  it('logs a warning when the Navigation component is rendered as "nav" but no "aria-label" or "aria-labelledby" prop is provided', () => {
+    const consoleSpy = jest.spyOn(global.console, 'warn').mockImplementation()
+    render(
+      <PageHeader>
+        <PageHeader.Navigation as="nav">Navigation</PageHeader.Navigation>
+      </PageHeader>,
+    )
+    expect(consoleSpy).toHaveBeenCalled()
+
+    consoleSpy.mockRestore()
+  })
 })
 
 checkStoriesForAxeViolations('examples', '../PageHeader/')
