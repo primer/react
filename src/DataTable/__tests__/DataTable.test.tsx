@@ -526,9 +526,5 @@ describe('DataTable', () => {
         [1, 3],
       ])
     })
-
-    it(`should sort by the column's sort strategy`, () => {
-      //
-    })
   })
 })

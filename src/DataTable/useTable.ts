@@ -207,11 +207,14 @@ export function useTable<Data extends UniqueRow>({
   }
 }
 
-function get<ObjectType extends object, Path extends string>(
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function get<ObjectType extends Record<string, any>, Path extends string>(
   object: ObjectType,
   path: Path,
 ): ObjectPathValue<ObjectType, Path> {
   return path.split('.').reduce<ObjectPathValue<ObjectType, Path>>((value, key) => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return (value as any)[key]
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   }, object as any)
 }
