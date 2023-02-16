@@ -94,7 +94,7 @@ const SwitchButton = styled.button<SwitchButtonProps>`
   display: block;
   height: 32px;
   width: 64px;
-  outline-offset: 2px;
+  outline-offset: 3px;
   position: relative;
   overflow: hidden;
 

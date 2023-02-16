@@ -92,8 +92,8 @@ exports[`SegmentedControl renders consistently 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  background-color: segmentedControl.button.bg;
-  border-color: #6e7781;
+  background-color: #ffffff;
+  border-color: #8c959f;
   border-style: solid;
   border-width: 1px;
   border-radius: var(--segmented-control-outer-radius);
