@@ -1,6 +1,6 @@
-import {ObjectPaths, ObjectPathValue} from './utils'
+import {ObjectPaths} from './utils'
 import {UniqueRow} from './row'
-import {SortStrategies, SortStrategy} from './sorting'
+import {SortStrategies} from './sorting'
 
 export interface Column<Data extends UniqueRow> {
   id?: string | undefined
