@@ -37,7 +37,7 @@ export interface Column<Data extends UniqueRow> {
    * Specify if the table should sort by this column and, if applicable, a
    * specific sort strategy or custom sort strategy
    */
-  sortBy?: boolean | SortStrategies | SortStrategy<ObjectPathValue<Data, ObjectPaths<Data>>>
+  sortBy?: boolean | SortStrategies
 }
 
 export function createColumnHelper<T extends UniqueRow>() {

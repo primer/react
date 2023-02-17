@@ -24,10 +24,6 @@ export function transition(direction: Exclude<SortDirection, 'NONE'>): Exclude<S
   return SortDirection.ASC
 }
 
-export interface SortStrategy<T> {
-  (a: T, b: T): number
-}
-
 export function basic<T>(a: T, b: T) {
   return a === b ? 0 : a < b ? 1 : -1
 }
