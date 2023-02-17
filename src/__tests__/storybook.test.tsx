@@ -9,6 +9,8 @@ const ROOT_DIRECTORY = path.resolve(__dirname, '..', '..')
 const allowlist = [
   'ActionList',
   'Avatar',
+  'AvatarStack',
+  'AvatarPair',
   'Breadcrumbs',
   'BranchName',
   'Button',
