@@ -67,6 +67,24 @@ import {PageHeader} from '@primer/react/drafts'
 </PageHeader>
 ```
 
+### Component as Title
+
+```jsx live drafts
+<PageHeader>
+  <PageHeader.TitleArea>
+    <Breadcrumbs>
+      <Breadcrumbs.Item href="#">...</Breadcrumbs.Item>
+      <Breadcrumbs.Item href="#">primer</Breadcrumbs.Item>
+      <Breadcrumbs.Item href="#">react</Breadcrumbs.Item>
+      <Breadcrumbs.Item href="#">src</Breadcrumbs.Item>
+      <Breadcrumbs.Item href="#">PageHeader</Breadcrumbs.Item>
+      <Breadcrumbs.Item href="#">PageHeader.tsx</Breadcrumbs.Item>
+    </Breadcrumbs>
+    <h2 className="visually-hidden">Visually Hidden Title</h2>
+  </PageHeader.TitleArea>
+</PageHeader>
+```
+
 ### With leading and trailing actions
 
 ```jsx live drafts

@@ -65,6 +65,24 @@ export const WithLeadingAndTrailingVisuals = () => (
   </Box>
 )
 
+export const WithComponentAsATitle = () => (
+  <Box sx={{padding: 3}}>
+    <PageHeader>
+      <PageHeader.TitleArea>
+        <Breadcrumbs>
+          <Breadcrumbs.Item href="#">...</Breadcrumbs.Item>
+          <Breadcrumbs.Item href="#">primer</Breadcrumbs.Item>
+          <Breadcrumbs.Item href="#">react</Breadcrumbs.Item>
+          <Breadcrumbs.Item href="#">src</Breadcrumbs.Item>
+          <Breadcrumbs.Item href="#">PageHeader</Breadcrumbs.Item>
+          <Breadcrumbs.Item href="#">PageHeader.tsx</Breadcrumbs.Item>
+        </Breadcrumbs>
+        <h2 className="visually-hidden">Visually Hidden Title</h2>
+      </PageHeader.TitleArea>
+    </PageHeader>
+  </Box>
+)
+
 export const WithLeadingVisualHiddenOnRegularViewport = () => (
   <Box sx={{padding: 3}}>
     <PageHeader>
