@@ -91,6 +91,29 @@ const components = new Map([
     },
   ],
   [
+    'AvatarStack',
+    {
+      stories: [
+        {
+          id: 'components-avatarstack--default',
+          name: 'Default',
+        },
+        {
+          id: 'components-avatarstack--playground',
+          name: 'Playground',
+        },
+        {
+          id: 'components-avatarstack-features--align-left',
+          name: 'Align Left',
+        },
+        {
+          id: 'components-avatarstack-features--align-right',
+          name: 'Align Right',
+        },
+      ],
+    },
+  ],
+  [
     'AvatarPair',
     {
       stories: [
