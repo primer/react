@@ -288,11 +288,10 @@ const LeadingVisual: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({ch
 }
 
 export type TitleProps = {
-  // Check if we need responsive values for heading is so should we update as prop's type for Heading component?
   as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
 } & ChildrenPropTypes
 
-const Title: React.FC<React.PropsWithChildren<TitleProps>> = ({children, sx = {}, hidden = false, as = 'h3'}) => {
+const Title: React.FC<React.PropsWithChildren<TitleProps>> = ({children, sx = {}, hidden = false, as = 'h2'}) => {
   const {titleVariant} = React.useContext(TitleAreaContext)
   return (
     <Heading
