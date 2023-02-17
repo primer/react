@@ -87,26 +87,6 @@
         }
       ]
     },
-    "avatar_pair": {
-      "id": "avatar_pair",
-      "name": "AvatarPair",
-      "status": "alpha",
-      "a11yReviewed": false,
-      "stories": [],
-      "props": [
-        {
-          "name": "children",
-          "type": "Avatar[]",
-          "defaultValue": "",
-          "description": ""
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject"
-        }
-      ],
-      "subcomponents": []
-    },
     "box": {
       "id": "box",
       "name": "Box",
@@ -2200,6 +2180,26 @@
       ],
       "subcomponents": []
     },
+    "avatar_pair": {
+      "id": "avatar_pair",
+      "name": "AvatarPair",
+      "status": "alpha",
+      "a11yReviewed": false,
+      "stories": [],
+      "props": [
+        {
+          "name": "children",
+          "type": "Avatar[]",
+          "defaultValue": "",
+          "description": ""
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ],
+      "subcomponents": []
+    },    
     "avatar_stack": {
       "id": "avatar_stack",
       "name": "AvatarStack",
@@ -2219,7 +2219,7 @@
         }
       ],
       "subcomponents": []
-    },
+    },    
     "branch_name": {
       "id": "branch_name",
       "name": "BranchName",

@@ -10,6 +10,7 @@ const allowlist = [
   'ActionList',
   'Avatar',
   'AvatarStack',
+  'AvatarPair',
   'Breadcrumbs',
   'BranchName',
   'Button',
