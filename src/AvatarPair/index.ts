@@ -1,1 +1,1 @@
-export * from './AvatarPair'
+export {default, AvatarPairProps} from './AvatarPair'
