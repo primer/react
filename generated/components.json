@@ -87,38 +87,6 @@
         }
       ]
     },
-    "avatar": {
-      "id": "avatar",
-      "name": "Avatar",
-      "status": "alpha",
-      "a11yReviewed": false,
-      "stories": [],
-      "props": [
-        {
-          "name": "alt",
-          "type": "string",
-          "defaultValue": "''",
-          "description": "Provide alt text when the avatar is used without a name next to it."
-        },
-        {
-          "name": "size",
-          "type": "number",
-          "defaultValue": "20",
-          "description": "The size of the avatar in pixels."
-        },
-        {
-          "name": "square",
-          "type": "boolean",
-          "defaultValue": "false",
-          "description": "If true, the avatar will be square instead of circular."
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject"
-        }
-      ],
-      "subcomponents": []
-    },
     "avatar_pair": {
       "id": "avatar_pair",
       "name": "AvatarPair",
@@ -181,78 +149,6 @@
         }
       ],
       "subcomponents": []
-    },
-    "branch_name": {
-      "id": "branch_name",
-      "name": "BranchName",
-      "status": "alpha",
-      "a11yReviewed": false,
-      "stories": [],
-      "props": [
-        {
-          "name": "ref",
-          "type": "React.RefObject<HTMLAnchorElement>"
-        },
-        {
-          "name": "as",
-          "type": "React.ElementType",
-          "defaultValue": "\"a\""
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject"
-        }
-      ],
-      "subcomponents": []
-    },
-    "breadcrumbs": {
-      "id": "breadcrumbs",
-      "name": "Breadcrumbs",
-      "status": "alpha",
-      "a11yReviewed": false,
-      "stories": [],
-      "props": [
-        {
-          "name": "children",
-          "type": "Breadcrumbs.Item[]",
-          "defaultValue": "",
-          "description": ""
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject"
-        }
-      ],
-      "subcomponents": [
-        {
-          "name": "Breadcrumbs.Item",
-          "props": [
-            {
-              "name": "selected",
-              "type": "boolean",
-              "defaultValue": "false",
-              "description": ""
-            },
-            {
-              "name": "ref",
-              "type": "React.RefObject<HTMLAnchorElement>"
-            },
-            {
-              "name": "as",
-              "type": "React.ElementType",
-              "defaultValue": "\"a\""
-            },
-            {
-              "name": "sx",
-              "type": "SystemStyleObject"
-            }
-          ],
-          "passthrough": {
-            "element": "a",
-            "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#Attributes"
-          }
-        }
-      ]
     },
     "button_group": {
       "id": "button_group",
@@ -669,41 +565,6 @@
       ],
       "subcomponents": []
     },
-    "flash": {
-      "id": "flash",
-      "name": "Flash",
-      "status": "alpha",
-      "a11yReviewed": false,
-      "stories": [],
-      "props": [
-        {
-          "name": "full",
-          "type": "boolean",
-          "defaultValue": "false",
-          "description": "Creates a full width Flash component"
-        },
-        {
-          "name": "variant",
-          "type": "'default' | 'success' | 'warning' | 'danger'",
-          "defaultValue": "'default'",
-          "description": "Sets the background color and border"
-        },
-        {
-          "name": "ref",
-          "type": "React.RefObject<HTMLDivElement>"
-        },
-        {
-          "name": "as",
-          "type": "React.ElementType",
-          "defaultValue": "\"div\""
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject"
-        }
-      ],
-      "subcomponents": []
-    },
     "header": {
       "id": "header",
       "name": "Header",
@@ -783,53 +644,6 @@
       "a11yReviewed": false,
       "stories": [],
       "props": [
-        {
-          "name": "sx",
-          "type": "SystemStyleObject"
-        }
-      ],
-      "subcomponents": []
-    },
-    "link": {
-      "id": "link",
-      "name": "Link",
-      "status": "alpha",
-      "a11yReviewed": false,
-      "stories": [],
-      "props": [
-        {
-          "name": "href",
-          "type": "string",
-          "defaultValue": "",
-          "description": "URL to be used for the Link. (The `href` is passed to the underlying `<a>` element. If `as` is specified, the link behavior may need different props)."
-        },
-        {
-          "name": "muted",
-          "type": "boolean",
-          "defaultValue": "false",
-          "description": "Uses a less prominent shade for Link color, and the default link shade on hover"
-        },
-        {
-          "name": "underline",
-          "type": "boolean",
-          "defaultValue": "false",
-          "description": "Adds underline to the Link"
-        },
-        {
-          "name": "hoverColor",
-          "type": "string",
-          "defaultValue": "",
-          "description": "Color used when hovering over link"
-        },
-        {
-          "name": "ref",
-          "type": "React.RefObject<HTMLAnchorElement>"
-        },
-        {
-          "name": "as",
-          "type": "React.ElementType",
-          "defaultValue": "\"a\""
-        },
         {
           "name": "sx",
           "type": "SystemStyleObject"
@@ -1435,48 +1249,6 @@
         }
       ]
     },
-    "tab_nav": {
-      "id": "tab_nav",
-      "name": "TabNav",
-      "status": "alpha",
-      "a11yReviewed": false,
-      "stories": [],
-      "props": [
-        {
-          "name": "aria-label",
-          "type": "string",
-          "description": "Used to set the `aria-label` on the top level `<nav>` element."
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject"
-        }
-      ],
-      "subcomponents": [
-        {
-          "name": "TabNav.Link",
-          "props": [
-            {
-              "name": "as",
-              "type": "React.ElementType",
-              "defaultValue": "'a'"
-            },
-            {
-              "name": "href",
-              "type": "string"
-            },
-            {
-              "name": "selected",
-              "type": "boolean"
-            },
-            {
-              "name": "sx",
-              "type": "SystemStyleObject"
-            }
-          ]
-        }
-      ]
-    },
     "text": {
       "id": "text",
       "name": "Text",
@@ -1785,67 +1557,6 @@
         }
       ],
       "subcomponents": []
-    },
-    "timeline": {
-      "id": "timeline",
-      "name": "Timeline",
-      "status": "alpha",
-      "a11yReviewed": false,
-      "stories": [],
-      "props": [
-        {
-          "name": "clipSidebar",
-          "type": "boolean",
-          "description": "Hides the sidebar above the first Timeline.Item and below the last Timeline.Item."
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject"
-        }
-      ],
-      "subcomponents": [
-        {
-          "name": "Timeline.Item",
-          "props": [
-            {
-              "name": "condensed",
-              "type": "boolean",
-              "description": "Reduces vertical padding and removes background from an item's badge."
-            },
-            {
-              "name": "sx",
-              "type": "SystemStyleObject"
-            }
-          ]
-        },
-        {
-          "name": "Timeline.Badge",
-          "props": [
-            {
-              "name": "sx",
-              "type": "SystemStyleObject"
-            }
-          ]
-        },
-        {
-          "name": "Timeline.Body",
-          "props": [
-            {
-              "name": "sx",
-              "type": "SystemStyleObject"
-            }
-          ]
-        },
-        {
-          "name": "Timeline.Break",
-          "props": [
-            {
-              "name": "sx",
-              "type": "SystemStyleObject"
-            }
-          ]
-        }
-      ]
     },
     "toggle_switch": {
       "id": "toggle_switch",
@@ -2477,6 +2188,110 @@
         }
       ]
     },
+    "avatar": {
+      "id": "avatar",
+      "name": "Avatar",
+      "status": "alpha",
+      "a11yReviewed": false,
+      "stories": [],
+      "props": [
+        {
+          "name": "alt",
+          "type": "string",
+          "defaultValue": "''",
+          "description": "Provide alt text when the avatar is used without a name next to it."
+        },
+        {
+          "name": "size",
+          "type": "number",
+          "defaultValue": "20",
+          "description": "The size of the avatar in pixels."
+        },
+        {
+          "name": "square",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "If true, the avatar will be square instead of circular."
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ],
+      "subcomponents": []
+    },
+    "branch_name": {
+      "id": "branch_name",
+      "name": "BranchName",
+      "status": "alpha",
+      "a11yReviewed": false,
+      "stories": [],
+      "props": [
+        {
+          "name": "ref",
+          "type": "React.RefObject<HTMLAnchorElement>"
+        },
+        {
+          "name": "as",
+          "type": "React.ElementType",
+          "defaultValue": "\"a\""
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ],
+      "subcomponents": []
+    },
+    "breadcrumbs": {
+      "id": "breadcrumbs",
+      "name": "Breadcrumbs",
+      "status": "alpha",
+      "a11yReviewed": false,
+      "stories": [],
+      "props": [
+        {
+          "name": "children",
+          "type": "Breadcrumbs.Item[]",
+          "defaultValue": "",
+          "description": ""
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ],
+      "subcomponents": [
+        {
+          "name": "Breadcrumbs.Item",
+          "props": [
+            {
+              "name": "selected",
+              "type": "boolean",
+              "defaultValue": "false",
+              "description": ""
+            },
+            {
+              "name": "ref",
+              "type": "React.RefObject<HTMLAnchorElement>"
+            },
+            {
+              "name": "as",
+              "type": "React.ElementType",
+              "defaultValue": "\"a\""
+            },
+            {
+              "name": "sx",
+              "type": "SystemStyleObject"
+            }
+          ],
+          "passthrough": {
+            "element": "a",
+            "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#Attributes"
+          }
+        }
+      ]
+    },
     "button": {
       "id": "button",
       "name": "Button",
@@ -2586,6 +2401,153 @@
       ],
       "subcomponents": []
     },
+    "data_table": {
+      "id": "data_table",
+      "name": "DataTable",
+      "status": "draft",
+      "a11yReviewed": false,
+      "stories": [],
+      "props": [
+        {
+          "name": "aria-describedby",
+          "type": "string",
+          "description": "Provide an id to an element which uniquely describes this table"
+        },
+        {
+          "name": "aria-labelledby",
+          "type": "string",
+          "description": "Provide an id to an element which uniquely labels this table"
+        },
+        {
+          "name": "data",
+          "type": "Array<Data>",
+          "description": "Provide a collection of the rows which will be rendered inside of the table"
+        },
+        {
+          "name": "columns",
+          "type": "Array<Column<Data>>",
+          "description": "Provide the columns for the table and the fields in `data` to which they correspond"
+        },
+        {
+          "name": "cellPadding",
+          "type": "'condensed' | 'normal' | 'spacious'",
+          "description": "Specify the amount of space that should be available around the contents of a cell"
+        }
+      ],
+      "subcomponents": [
+        {
+          "name": "Table",
+          "props": [
+            {
+              "name": "aria-describedby",
+              "type": "string",
+              "description": "Provide an id to an element which uniquely describes this table"
+            },
+            {
+              "name": "aria-labelledby",
+              "type": "string",
+              "description": "Provide an id to an element which uniquely labels this table"
+            },
+            {
+              "name": "children",
+              "type": "React.ReactNode"
+            },
+            {
+              "name": "cellPadding",
+              "type": "'condensed' | 'normal' | 'spacious'",
+              "description": "Specify the amount of space that should be available around the contents of a cell"
+            }
+          ]
+        },
+        {
+          "name": "TableHead",
+          "props": [
+            {
+              "name": "children",
+              "type": "React.ReactNode"
+            }
+          ]
+        },
+        {
+          "name": "TableBody",
+          "props": [
+            {
+              "name": "children",
+              "type": "React.ReactNode"
+            }
+          ]
+        },
+        {
+          "name": "TableRow",
+          "props": [
+            {
+              "name": "children",
+              "type": "React.ReactNode"
+            }
+          ]
+        },
+        {
+          "name": "TableHeader",
+          "props": [
+            {
+              "name": "children",
+              "type": "React.ReactNode"
+            }
+          ]
+        },
+        {
+          "name": "TableCell",
+          "props": [
+            {
+              "name": "children",
+              "type": "React.ReactNode"
+            },
+            {
+              "name": "scope",
+              "type": "string",
+              "description": "Provide the scope for a table cell, useful for defining a row header using `scope=\"row\"`"
+            }
+          ]
+        },
+        {
+          "name": "TableContainer",
+          "props": [
+            {
+              "name": "children",
+              "type": "React.ReactNode"
+            }
+          ]
+        },
+        {
+          "name": "TableTitle",
+          "props": [
+            {
+              "name": "children",
+              "type": "React.ReactNode"
+            },
+            {
+              "name": "id",
+              "type": "string",
+              "required": true
+            }
+          ]
+        },
+        {
+          "name": "TableSubtitle",
+          "props": [
+            {
+              "name": "children",
+              "type": "React.ReactNode"
+            },
+            {
+              "name": "id",
+              "type": "string",
+              "required": true
+            }
+          ]
+        }
+      ]
+    },
     "drafts_dialog": {
       "id": "drafts_dialog",
       "name": "Dialog",
@@ -2640,6 +2602,41 @@
         {
           "name": "height",
           "type": "'small' | 'large' | 'auto'"
+        }
+      ],
+      "subcomponents": []
+    },
+    "flash": {
+      "id": "flash",
+      "name": "Flash",
+      "status": "alpha",
+      "a11yReviewed": false,
+      "stories": [],
+      "props": [
+        {
+          "name": "full",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "Creates a full width Flash component"
+        },
+        {
+          "name": "variant",
+          "type": "'default' | 'success' | 'warning' | 'danger'",
+          "defaultValue": "'default'",
+          "description": "Sets the background color and border"
+        },
+        {
+          "name": "ref",
+          "type": "React.RefObject<HTMLDivElement>"
+        },
+        {
+          "name": "as",
+          "type": "React.ElementType",
+          "defaultValue": "\"div\""
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
         }
       ],
       "subcomponents": []
@@ -2789,6 +2786,53 @@
           "type": "'small' | 'large'",
           "defaultValue": "'small'",
           "description": "How large the label is rendered"
+        }
+      ],
+      "subcomponents": []
+    },
+    "link": {
+      "id": "link",
+      "name": "Link",
+      "status": "alpha",
+      "a11yReviewed": false,
+      "stories": [],
+      "props": [
+        {
+          "name": "href",
+          "type": "string",
+          "defaultValue": "",
+          "description": "URL to be used for the Link. (The `href` is passed to the underlying `<a>` element. If `as` is specified, the link behavior may need different props)."
+        },
+        {
+          "name": "muted",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "Uses a less prominent shade for Link color, and the default link shade on hover"
+        },
+        {
+          "name": "underline",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "Adds underline to the Link"
+        },
+        {
+          "name": "hoverColor",
+          "type": "string",
+          "defaultValue": "",
+          "description": "Color used when hovering over link"
+        },
+        {
+          "name": "ref",
+          "type": "React.RefObject<HTMLAnchorElement>"
+        },
+        {
+          "name": "as",
+          "type": "React.ElementType",
+          "defaultValue": "\"a\""
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
         }
       ],
       "subcomponents": []
@@ -2974,7 +3018,7 @@
           ]
         },
         {
-          "name": "PageHeader.ContextArea Children",
+          "name": "PageHeader.ParentLink",
           "props": [
             {
               "name": "href",
@@ -2995,7 +3039,7 @@
           ]
         },
         {
-          "name": "PageHeader.ContextArea Children",
+          "name": "PageHeader.ContextBar",
           "props": [
             {
               "name": "hidden",
@@ -3010,7 +3054,7 @@
           ]
         },
         {
-          "name": "PageHeader.ContextArea Children",
+          "name": "PageHeader.ContextAreaActions",
           "props": [
             {
               "name": "hidden",
@@ -3046,7 +3090,7 @@
           ]
         },
         {
-          "name": "PageHeader.TitleArea Children",
+          "name": "PageHeader.LeadingAction",
           "props": [
             {
               "name": "hidden",
@@ -3061,7 +3105,7 @@
           ]
         },
         {
-          "name": "PageHeader.TitleArea Children",
+          "name": "PageHeader.LeadingVisual",
           "props": [
             {
               "name": "hidden",
@@ -3076,7 +3120,7 @@
           ]
         },
         {
-          "name": "PageHeader.TitleArea Children",
+          "name": "PageHeader.Title",
           "props": [
             {
               "name": "hidden",
@@ -3096,7 +3140,7 @@
           ]
         },
         {
-          "name": "PageHeader.TitleArea Children",
+          "name": "PageHeader.TrailingVisual",
           "props": [
             {
               "name": "hidden",
@@ -3111,7 +3155,7 @@
           ]
         },
         {
-          "name": "PageHeader.TitleArea Children",
+          "name": "PageHeader.TrailingAction",
           "props": [
             {
               "name": "hidden",
@@ -3126,7 +3170,7 @@
           ]
         },
         {
-          "name": "PageHeader.TitleArea Children",
+          "name": "PageHeader.Actions",
           "props": [
             {
               "name": "hidden",
@@ -3158,6 +3202,22 @@
         {
           "name": "PageHeader.Navigation",
           "props": [
+            {
+              "name": "aria-label",
+              "type": "string",
+              "description": "The aria-label attribute for the navigaton component when it is rendered as a \"nav\" element."
+            },
+            {
+              "name": "aria-labelledby",
+              "type": "string",
+              "description": "The aria-labelledby attribute for the navigaton component when it is rendered as a \"nav\" element."
+            },
+            {
+              "name": "as",
+              "type": "div | nav",
+              "defaultValue": "\"div\"",
+              "description": "The HTML element used to render the navigation."
+            },
             {
               "name": "hidden",
               "type": "| boolean | { narrow?: boolean regular?: boolean wide?: boolean }",
@@ -3966,6 +4026,109 @@
         }
       ]
     },
+    "tab_nav": {
+      "id": "tab_nav",
+      "name": "TabNav",
+      "status": "alpha",
+      "a11yReviewed": false,
+      "stories": [],
+      "props": [
+        {
+          "name": "aria-label",
+          "type": "string",
+          "description": "Used to set the `aria-label` on the top level `<nav>` element."
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ],
+      "subcomponents": [
+        {
+          "name": "TabNav.Link",
+          "props": [
+            {
+              "name": "as",
+              "type": "React.ElementType",
+              "defaultValue": "'a'"
+            },
+            {
+              "name": "href",
+              "type": "string"
+            },
+            {
+              "name": "selected",
+              "type": "boolean"
+            },
+            {
+              "name": "sx",
+              "type": "SystemStyleObject"
+            }
+          ]
+        }
+      ]
+    },
+    "timeline": {
+      "id": "timeline",
+      "name": "Timeline",
+      "status": "alpha",
+      "a11yReviewed": false,
+      "stories": [],
+      "props": [
+        {
+          "name": "clipSidebar",
+          "type": "boolean",
+          "description": "Hides the sidebar above the first Timeline.Item and below the last Timeline.Item."
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ],
+      "subcomponents": [
+        {
+          "name": "Timeline.Item",
+          "props": [
+            {
+              "name": "condensed",
+              "type": "boolean",
+              "description": "Reduces vertical padding and removes background from an item's badge."
+            },
+            {
+              "name": "sx",
+              "type": "SystemStyleObject"
+            }
+          ]
+        },
+        {
+          "name": "Timeline.Badge",
+          "props": [
+            {
+              "name": "sx",
+              "type": "SystemStyleObject"
+            }
+          ]
+        },
+        {
+          "name": "Timeline.Body",
+          "props": [
+            {
+              "name": "sx",
+              "type": "SystemStyleObject"
+            }
+          ]
+        },
+        {
+          "name": "Timeline.Break",
+          "props": [
+            {
+              "name": "sx",
+              "type": "SystemStyleObject"
+            }
+          ]
+        }
+      ]
+    },
     "token": {
       "id": "token",
       "name": "Token",
@@ -4124,8 +4287,8 @@
     "tree_view": {
       "id": "tree_view",
       "name": "TreeView",
-      "status": "draft",
-      "a11yReviewed": false,
+      "status": "beta",
+      "a11yReviewed": true,
       "stories": [
         "components-treeview-features--files",
         "components-treeview-features--files-changed"

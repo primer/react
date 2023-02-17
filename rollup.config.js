@@ -2,9 +2,9 @@ import commonjs from '@rollup/plugin-commonjs'
 import resolve from '@rollup/plugin-node-resolve'
 import babel from '@rollup/plugin-babel'
 import replace from '@rollup/plugin-replace'
+import terser from '@rollup/plugin-terser'
 import glob from 'fast-glob'
-import {terser} from 'rollup-plugin-terser'
-import visualizer from 'rollup-plugin-visualizer'
+import {visualizer} from 'rollup-plugin-visualizer'
 import packageJson from './package.json'
 
 const input = new Set([
@@ -119,6 +119,7 @@ export default [
     ...baseConfig,
     external: dependencies.map(createPackageRegex),
     output: {
+      interop: 'auto',
       dir: 'lib-esm',
       format: 'esm',
       preserveModules: true,
@@ -131,6 +132,7 @@ export default [
     ...baseConfig,
     external: dependencies.filter(name => !ESM_ONLY.has(name)).map(createPackageRegex),
     output: {
+      interop: 'auto',
       dir: 'lib',
       format: 'commonjs',
       preserveModules: true,
@@ -154,6 +156,7 @@ export default [
       visualizer({sourcemap: true}),
     ],
     output: ['esm', 'umd'].map(format => ({
+      interop: 'auto',
       file: `dist/browser.${format}.js`,
       format,
       sourcemap: true,

@@ -72,6 +72,36 @@ const components = new Map([
     },
   ],
   [
+    'Avatar',
+    {
+      stories: [
+        {
+          id: 'components-avatar--default',
+          name: 'Default',
+        },
+        {
+          id: 'components-avatar-features--size',
+          name: 'Size',
+        },
+        {
+          id: 'components-avatar-features--square',
+          name: 'Square',
+        },
+      ],
+    },
+  ],
+  [
+    'BranchName',
+    {
+      stories: [
+        {
+          id: 'components-branchname--default',
+          name: 'Default',
+        },
+      ],
+    },
+  ],
+  [
     'Button',
     {
       stories: [
@@ -126,6 +156,44 @@ const components = new Map([
         {
           id: 'components-button-features--trailing-visual',
           name: 'Trailing Visual',
+        },
+      ],
+    },
+  ],
+  [
+    'Breadcrumbs',
+    {
+      stories: [
+        {
+          id: 'components-breadcrumbs--default',
+          name: 'Default',
+        },
+      ],
+    },
+  ],
+  [
+    'Flash',
+    {
+      stories: [
+        {
+          id: 'components-flash--default',
+          name: 'Default',
+        },
+        {
+          id: 'components-flash-features--danger',
+          name: 'Danger',
+        },
+        {
+          id: 'components-flash-features--full',
+          name: 'Full',
+        },
+        {
+          id: 'components-flash-features--success',
+          name: 'Success',
+        },
+        {
+          id: 'components-flash-features--warning',
+          name: 'Warning',
         },
       ],
     },
@@ -235,6 +303,25 @@ const components = new Map([
     },
   ],
   [
+    'Link',
+    {
+      stories: [
+        {
+          id: 'components-link--default',
+          name: 'Default',
+        },
+        {
+          id: 'components-link-features--muted',
+          name: 'Muted',
+        },
+        {
+          id: 'components-link-features--underline',
+          name: 'Underline',
+        },
+      ],
+    },
+  ],
+  [
     'LinkButton',
     {
       stories: [
@@ -335,6 +422,44 @@ const components = new Map([
         {
           id: 'drafts-components-underlinenav-features--with-icons',
           name: 'With Icons',
+        },
+      ],
+    },
+  ],
+  [
+    'TabNav',
+    {
+      stories: [
+        {
+          id: 'components-tabnav--default',
+          name: 'Default',
+        },
+      ],
+    },
+  ],
+  [
+    'Timeline',
+    {
+      stories: [
+        {
+          id: 'components-timeline--default',
+          name: 'Default',
+        },
+        {
+          id: 'components-timeline-features--clip-sidebar',
+          name: 'Clip Sidebar',
+        },
+        {
+          id: 'components-timeline-features--condensed-items',
+          name: 'Condensed Items',
+        },
+        {
+          id: 'components-timeline-features--timeline-break',
+          name: 'Timeline Break',
+        },
+        {
+          id: 'components-timeline-features--with-inline-links',
+          name: 'With Inline Links',
         },
       ],
     },

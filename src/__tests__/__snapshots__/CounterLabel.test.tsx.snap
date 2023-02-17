@@ -37,8 +37,8 @@ exports[`CounterLabel renders consistently 1`] = `
 <span
     className="c0"
   >
-     
-    (undefined)
+     (
+    )
   </span>,
 ]
 `;
@@ -82,8 +82,9 @@ exports[`CounterLabel renders with secondary scheme when no "scheme" prop is pro
   <span
     class="c1"
   >
-     
-    (1234)
+     (
+    1234
+    )
   </span>
 </div>
 `;
@@ -127,8 +128,9 @@ exports[`CounterLabel respects the primary "scheme" prop 1`] = `
   <span
     class="c1"
   >
-     
-    (1234)
+     (
+    1234
+    )
   </span>
 </div>
 `;

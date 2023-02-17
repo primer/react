@@ -1,14 +1,17 @@
 ---
 title: TreeView
 componentId: tree_view
-status: Draft
+status: Beta
 description: A hierarchical list of items where nested items can be expanded and collapsed.
+a11yReviewed: true
+source: https://github.com/primer/react/tree/main/src/TreeView
+storybook: '/react/storybook?path=/story/components-treeview'
 ---
 
 import data from '../../src/TreeView/TreeView.docs.json'
 
 ```js
-import {TreeView} from '@primer/react/drafts'
+import {TreeView} from '@primer/react'
 ```
 
 ## Examples
@@ -280,15 +283,18 @@ See [Storybook](https://primer.style/react/storybook?path=/story/components-tree
 <ComponentChecklist
   items={{
     propsDocumented: true,
-    noUnnecessaryDeps: false,
-    adaptsToThemes: false,
-    adaptsToScreenSizes: false,
-    fullTestCoverage: false,
-    usedInProduction: false,
-    usageExamplesDocumented: false,
-    hasStorybookStories: false,
-    designReviewed: false,
-    a11yReviewed: false,
+    noUnnecessaryDeps: true,
+    adaptsToThemes: true,
+    adaptsToScreenSizes: true,
+    fullTestCoverage: true,
+    visualRegressionCoverage: true,
+    noAxeViolations: true,
+    usedInProduction: true,
+    usageExamplesDocumented: true,
+    hasStorybookStories: true,
+    designReviewed: true,
+    a11yReviewed: true,
+    noPerfRegression: true,
     stableApi: false,
     addressedApiFeedback: false,
     hasDesignGuidelines: false,
