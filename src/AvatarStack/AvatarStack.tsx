@@ -1,9 +1,9 @@
 import classnames from 'classnames'
 import React from 'react'
 import styled from 'styled-components'
-import {get} from './constants'
-import Box from './Box'
-import sx, {SxProp} from './sx'
+import {get} from '../constants'
+import Box from '../Box'
+import sx, {SxProp} from '../sx'
 
 type StyledAvatarStackWrapperProps = {
   count?: number
