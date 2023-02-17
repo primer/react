@@ -45,11 +45,27 @@ describe('SegmentedControl', () => {
     SegmentedControl,
   })
 
-  it('renders with a selected segment', () => {
+  it('renders with a selected segment - controlled', () => {
     const {getByText} = render(
       <SegmentedControl aria-label="File view">
         {segmentData.map(({label}, index) => (
           <SegmentedControl.Button selected={index === 1} key={label}>
+            {label}
+          </SegmentedControl.Button>
+        ))}
+      </SegmentedControl>,
+    )
+
+    const selectedButton = getByText('Raw').closest('button')
+
+    expect(selectedButton?.getAttribute('aria-current')).toBe('true')
+  })
+
+  it('renders with a selected segment - uncontrolled', () => {
+    const {getByText} = render(
+      <SegmentedControl aria-label="File view">
+        {segmentData.map(({label}, index) => (
+          <SegmentedControl.Button defaultSelected={index === 1} key={label}>
             {label}
           </SegmentedControl.Button>
         ))}
