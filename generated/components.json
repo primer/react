@@ -87,26 +87,6 @@
         }
       ]
     },
-    "avatar_pair": {
-      "id": "avatar_pair",
-      "name": "AvatarPair",
-      "status": "alpha",
-      "a11yReviewed": false,
-      "stories": [],
-      "props": [
-        {
-          "name": "children",
-          "type": "Avatar[]",
-          "defaultValue": "",
-          "description": ""
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject"
-        }
-      ],
-      "subcomponents": []
-    },
     "avatar_stack": {
       "id": "avatar_stack",
       "name": "AvatarStack",
@@ -2212,6 +2192,26 @@
           "type": "boolean",
           "defaultValue": "false",
           "description": "If true, the avatar will be square instead of circular."
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ],
+      "subcomponents": []
+    },
+    "avatar_pair": {
+      "id": "avatar_pair",
+      "name": "AvatarPair",
+      "status": "alpha",
+      "a11yReviewed": false,
+      "stories": [],
+      "props": [
+        {
+          "name": "children",
+          "type": "Avatar[]",
+          "defaultValue": "",
+          "description": ""
         },
         {
           "name": "sx",
