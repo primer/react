@@ -72,6 +72,25 @@ const components = new Map([
     },
   ],
   [
+    'Avatar',
+    {
+      stories: [
+        {
+          id: 'components-avatar--default',
+          name: 'Default',
+        },
+        {
+          id: 'components-avatar-features--size',
+          name: 'Size',
+        },
+        {
+          id: 'components-avatar-features--square',
+          name: 'Square',
+        },
+      ],
+    },
+  ],
+  [
     'BranchName',
     {
       stories: [
