@@ -2199,7 +2199,7 @@
         }
       ],
       "subcomponents": []
-    },    
+    },
     "avatar_stack": {
       "id": "avatar_stack",
       "name": "AvatarStack",
@@ -2219,7 +2219,7 @@
         }
       ],
       "subcomponents": []
-    },    
+    },
     "branch_name": {
       "id": "branch_name",
       "name": "BranchName",
