@@ -17,17 +17,14 @@ export const InvisibleVariants = () => {
       <Button variant="invisible" trailingAction={TriangleDownIcon}>
         Button
       </Button>
-      <Button variant="primary">
+      <Button variant="primary" trailingVisualCount={count}>
         Button
-        <Button.Counter>{count}</Button.Counter>
       </Button>
-      <Button variant="invisible" leadingVisual={EyeIcon}>
+      <Button variant="invisible" leadingVisual={EyeIcon} trailingVisualCount={count}>
         Button
-        <Button.Counter>{count}</Button.Counter>
       </Button>
-      <Button variant="invisible" leadingVisual={EyeIcon} trailingAction={TriangleDownIcon}>
+      <Button variant="invisible" leadingVisual={EyeIcon} trailingAction={TriangleDownIcon} trailingVisualCount={count}>
         Button
-        <Button.Counter>{count}</Button.Counter>
       </Button>
     </div>
   )
@@ -80,9 +77,8 @@ export const TestSxProp = () => {
       <Button size="small" block variant="invisible" sx={{width: 320}}>
         Overriden Block
       </Button>
-      <Button>
+      <Button sx={{fontSize: 32}} trailingVisualCount={count}>
         Watch
-        <Button.Counter sx={{fontSize: 32}}>{count}</Button.Counter>
       </Button>
     </div>
   )

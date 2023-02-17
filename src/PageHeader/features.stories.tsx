@@ -95,7 +95,7 @@ export const WithActions = () => (
         <PageHeader.Actions>
           <IconButton aria-label="Workflows" icon={WorkflowIcon} />
           <IconButton aria-label="Insights" icon={GraphIcon} />
-          <Button variant="primary" trailingIcon={TriangleDownIcon}>
+          <Button variant="primary" trailingVisual={TriangleDownIcon}>
             Add Item
           </Button>
           <IconButton aria-label="Settings" icon={GearIcon} />
