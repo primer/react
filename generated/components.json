@@ -87,38 +87,6 @@
         }
       ]
     },
-    "avatar": {
-      "id": "avatar",
-      "name": "Avatar",
-      "status": "alpha",
-      "a11yReviewed": false,
-      "stories": [],
-      "props": [
-        {
-          "name": "alt",
-          "type": "string",
-          "defaultValue": "''",
-          "description": "Provide alt text when the avatar is used without a name next to it."
-        },
-        {
-          "name": "size",
-          "type": "number",
-          "defaultValue": "20",
-          "description": "The size of the avatar in pixels."
-        },
-        {
-          "name": "square",
-          "type": "boolean",
-          "defaultValue": "false",
-          "description": "If true, the avatar will be square instead of circular."
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject"
-        }
-      ],
-      "subcomponents": []
-    },
     "avatar_pair": {
       "id": "avatar_pair",
       "name": "AvatarPair",
@@ -2220,6 +2188,38 @@
         }
       ]
     },
+    "avatar": {
+      "id": "avatar",
+      "name": "Avatar",
+      "status": "alpha",
+      "a11yReviewed": false,
+      "stories": [],
+      "props": [
+        {
+          "name": "alt",
+          "type": "string",
+          "defaultValue": "''",
+          "description": "Provide alt text when the avatar is used without a name next to it."
+        },
+        {
+          "name": "size",
+          "type": "number",
+          "defaultValue": "20",
+          "description": "The size of the avatar in pixels."
+        },
+        {
+          "name": "square",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "If true, the avatar will be square instead of circular."
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ],
+      "subcomponents": []
+    },
     "branch_name": {
       "id": "branch_name",
       "name": "BranchName",
@@ -4293,8 +4293,8 @@
     "tree_view": {
       "id": "tree_view",
       "name": "TreeView",
-      "status": "draft",
-      "a11yReviewed": false,
+      "status": "beta",
+      "a11yReviewed": true,
       "stories": [
         "components-treeview-features--files",
         "components-treeview-features--files-changed"

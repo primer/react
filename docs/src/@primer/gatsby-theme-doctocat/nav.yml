@@ -150,6 +150,8 @@
       url: /Token
     - title: Tooltip
       url: /Tooltip
+    - title: TreeView
+      url: /TreeView
     - title: Truncate
       url: /Truncate
     - title: UnderlineNav
@@ -164,8 +166,6 @@
       url: /drafts/MarkdownEditor
     - title: MarkdownViewer
       url: /drafts/MarkdownViewer
-    - title: TreeView
-      url: /TreeView
     - title: UnderlineNav v2
       url: /drafts/UnderlineNav2
     - title: PageHeader
