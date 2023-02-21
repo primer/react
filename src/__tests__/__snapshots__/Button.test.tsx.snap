@@ -1579,6 +1579,7 @@ exports[`Button styles invisible button appropriately 1`] = `
 
 .c0 [data-component="trailingAction"] {
   margin-right: -4px;
+  color: fg.muted;
 }
 
 .c0 [data-component="buttonContent"] {
@@ -1613,7 +1614,7 @@ exports[`Button styles invisible button appropriately 1`] = `
   background-color: btn.selectedBg;
 }
 
-.c0 svg {
+.c0[data-component="IconButton"][data-no-visuals] {
   color: fg.muted;
 }
 

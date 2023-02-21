@@ -1422,6 +1422,7 @@ exports[`TextInput renders trailingAction icon button 1`] = `
 
 .c4 [data-component="trailingAction"] {
   margin-right: -4px;
+  color: #57606a;
 }
 
 .c4 [data-component="buttonContent"] {
@@ -1456,7 +1457,7 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   background-color: hsla(220,14%,94%,1);
 }
 
-.c4 svg {
+.c4[data-component="IconButton"][data-no-visuals] {
   color: #57606a;
 }
 
@@ -2060,6 +2061,7 @@ exports[`TextInput renders trailingAction text button 1`] = `
 
 .c3 [data-component="trailingAction"] {
   margin-right: -4px;
+  color: #57606a;
 }
 
 .c3 [data-component="buttonContent"] {
@@ -2094,7 +2096,7 @@ exports[`TextInput renders trailingAction text button 1`] = `
   background-color: hsla(220,14%,94%,1);
 }
 
-.c3 svg {
+.c3[data-component="IconButton"][data-no-visuals] {
   color: #57606a;
 }
 
@@ -2452,6 +2454,7 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
 
 .c4 [data-component="trailingAction"] {
   margin-right: -4px;
+  color: #57606a;
 }
 
 .c4 [data-component="buttonContent"] {
@@ -2486,7 +2489,7 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   background-color: hsla(220,14%,94%,1);
 }
 
-.c4 svg {
+.c4[data-component="IconButton"][data-no-visuals] {
   color: #57606a;
 }
 
