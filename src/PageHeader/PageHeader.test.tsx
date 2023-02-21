@@ -210,4 +210,4 @@ describe('PageHeader', () => {
   })
 })
 
-checkStoriesForAxeViolations('examples', '../PageHeader/')
+checkStoriesForAxeViolations('PageHeader.examples', '../PageHeader/')
