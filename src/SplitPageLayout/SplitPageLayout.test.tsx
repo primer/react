@@ -27,6 +27,21 @@ describe('SplitPageLayout', () => {
         </SplitPageLayout>
       </ThemeProvider>,
     )
+
     expect(container).toMatchSnapshot()
+  })
+
+  it('renders with a custom ID', () => {
+    const {getByText} = render(
+      <ThemeProvider>
+        <SplitPageLayout>
+          <SplitPageLayout.Pane id="customId">Pane</SplitPageLayout.Pane>
+        </SplitPageLayout>
+      </ThemeProvider>,
+    )
+
+    const pane = getByText('Pane')
+
+    expect(pane.getAttribute('id')).toBe('customId')
   })
 })
