@@ -19,14 +19,14 @@ This example demonstrates applying a bottom border to `Heading`, a component tha
 
 ```jsx live
 <>
-  <Heading pb={2}>Heading</Heading>
+  <Heading sx={{paddingBottom: 2}}>Heading</Heading>
 
   <Heading
-    pb={2}
     sx={{
+      paddingBottom: 2,
       borderBottomWidth: 1,
       borderBottomColor: 'border.default',
-      borderBottomStyle: 'solid'
+      borderBottomStyle: 'solid',
     }}
   >
     Heading with bottom border
@@ -40,13 +40,13 @@ Just like [values passed to system props](https://styled-system.com/responsive-s
 
 ```jsx live
 <Box
-  borderWidth="1px"
-  borderStyle="solid"
-  borderColor="border.default"
-  borderRadius={2}
-  p={2}
   sx={{
-    bg: ['neutral.subtle', 'accent.subtle', 'success.subtle', 'attention.subtle', 'danger.subtle']
+    backgroundColor: ['neutral.subtle', 'accent.subtle', 'success.subtle'],
+    borderWidth: '1px',
+    borderStyle: 'solid',
+    borderColor: 'border.default',
+    borderRadius: 2,
+    p: 2,
   }}
 >
   Responsive background color
@@ -67,12 +67,12 @@ The `sx` prop also allows for declaring styles based on media queries, pseudo-cl
       borderBottomWidth: 0,
       padding: 2,
       ':last-child': {
-        borderBottomWidth: 1
+        borderBottomWidth: 1,
       },
       ':hover': {
-        bg: 'neutral.muted'
-      }
-    }
+        bg: 'neutral.muted',
+      },
+    },
   }}
 >
   <Box>First</Box>
