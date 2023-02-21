@@ -1408,6 +1408,7 @@ exports[`TextInput renders trailingAction icon button 1`] = `
 
 .c4 [data-component="leadingVisual"] {
   grid-area: leadingVisual;
+  color: #57606a;
 }
 
 .c4 [data-component="text"] {
@@ -2047,6 +2048,7 @@ exports[`TextInput renders trailingAction text button 1`] = `
 
 .c3 [data-component="leadingVisual"] {
   grid-area: leadingVisual;
+  color: #57606a;
 }
 
 .c3 [data-component="text"] {
@@ -2440,6 +2442,7 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
 
 .c4 [data-component="leadingVisual"] {
   grid-area: leadingVisual;
+  color: #57606a;
 }
 
 .c4 [data-component="text"] {

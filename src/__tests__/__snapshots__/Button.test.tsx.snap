@@ -1565,6 +1565,7 @@ exports[`Button styles invisible button appropriately 1`] = `
 
 .c0 [data-component="leadingVisual"] {
   grid-area: leadingVisual;
+  color: fg.muted;
 }
 
 .c0 [data-component="text"] {
