@@ -21,7 +21,7 @@ const allowlist = [
   'TabNav',
   'TreeView',
   'Timeline',
-  'UnderlineNav',
+  'UnderlineNav2',
 ]
 const stories = glob
   .sync('src/**/*.stories.tsx', {
