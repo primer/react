@@ -1,5 +1,55 @@
 # @primer/components
 
+## 35.20.0
+
+### Minor Changes
+
+- [`5967b0a9`](https://github.com/primer/react/commit/5967b0a9b71b0d2296eada7031ff6c82ad1b17a4) Thanks [@broccolinisoup](https://github.com/broccolinisoup)! - Issue a deprecation notice for UnderlineNav v1
+
+- [#2815](https://github.com/primer/react/pull/2815) [`74df59c4`](https://github.com/primer/react/commit/74df59c4e0df580dce7dd5c426fe44143d586b77) Thanks [@mperrotti](https://github.com/mperrotti)! - Addresses feedback from the accessibility team about our SegmentedControl component. These changes include an update to ActionMenu that allows u to specify the ID of the DOM node that labels the menu.
+
+- [#2768](https://github.com/primer/react/pull/2768) [`5055b91b`](https://github.com/primer/react/commit/5055b91b9cf40e163b9b19fa4a5bcc707adae329) Thanks [@green6erry](https://github.com/green6erry)! - Confine Heading as prop to header element types
+
+- [#2903](https://github.com/primer/react/pull/2903) [`13651ba1`](https://github.com/primer/react/commit/13651ba1ec73533900dc36501af307266d3a63c7) Thanks [@colebemis](https://github.com/colebemis)! - TreeView promoted to [beta](https://primer.style/contribute/component-lifecycle#beta) status. You can now import it from the main bundle instead of `/drafts`:
+
+  ```diff
+  - import {TreeView} from '@primer/react/drafts'
+  + import {TreeView} from '@primer/react'
+  ```
+
+### Patch Changes
+
+- [#2792](https://github.com/primer/react/pull/2792) [`03b470b0`](https://github.com/primer/react/commit/03b470b0eebc97a9c74483914ab638ae9cf11436) Thanks [@broccolinisoup](https://github.com/broccolinisoup)! - - Add a block prop for full width
+
+  - Add alignContent prop to align content to center or start for full width buttons
+  - Use control sizing CSS variable values (not using CSS vars just yet)
+  - Use height over padding for more control over sizing
+  - Adjust invisible button variant to match new design using ActionList colors
+
+- [#2868](https://github.com/primer/react/pull/2868) [`03ebf41b`](https://github.com/primer/react/commit/03ebf41b0ae4681841455217661e768ef2237686) Thanks [@colebemis](https://github.com/colebemis)! - TreeView: Reliably move focus from loading item to first asynchronously loaded item
+
+- [#2845](https://github.com/primer/react/pull/2845) [`c31314c8`](https://github.com/primer/react/commit/c31314c84186999ed6d7d905c04c5aa67057d3b3) Thanks [@colebemis](https://github.com/colebemis)! - TreeView: When moving focus to TreeView, the current item will be focused by default.
+
+- [#2770](https://github.com/primer/react/pull/2770) [`3bf1b0e3`](https://github.com/primer/react/commit/3bf1b0e368df10180291de205573df6c85434343) Thanks [@broccolinisoup](https://github.com/broccolinisoup)! - UnderlineNav2: Handle the case when container is too small to render any items
+
+- [`d8f18435`](https://github.com/primer/react/commit/d8f184351f01092ac144b736fd694da07ae9254d) Thanks [@iansan5653](https://github.com/iansan5653)! - Add `aria-modal` attribute to `Dialog` (V2) element
+
+- [`3127e104`](https://github.com/primer/react/commit/3127e104c6f165e76866c1b834a9d092ca4ca19a) Thanks [@jbrown1618](https://github.com/jbrown1618)! - Upgrade primer/behaviors from 1.3.1 to 1.3.2
+
+- [`2a00aab6`](https://github.com/primer/react/commit/2a00aab6a5424ff72f7cffcc75bc8a2fc9ecbc54) Thanks [@colebemis](https://github.com/colebemis)! - TreeView: Set aria-selected=true on focused item
+
+- [`ca7398df`](https://github.com/primer/react/commit/ca7398dfdda698c2eff9c3ed3744d7b7fee387ad) Thanks [@broccolinisoup](https://github.com/broccolinisoup)! - CounterLabel: Do not parse children to string for visually hidden content
+
+- [#2900](https://github.com/primer/react/pull/2900) [`3768cd7d`](https://github.com/primer/react/commit/3768cd7d3458081b07c8a21ec6a85cd59d286c39) Thanks [@broccolinisoup](https://github.com/broccolinisoup)! - PageHeader: A11y eng review remediations
+
+- [`8bce9740`](https://github.com/primer/react/commit/8bce974010967ab203e348a063ae2f2cdf996fe3) Thanks [@broccolinisoup](https://github.com/broccolinisoup)! - UnderlineNav2: Update total height of the navigation to `48px`
+
+- [`196a7929`](https://github.com/primer/react/commit/196a792964867c92b3beeaab6bbe4681aa10e1a4) Thanks [@iansan5653](https://github.com/iansan5653)! - Fix `useDynamicTextareaHeight` not taking into account top padding of `textarea`
+
+  Also makes the hook accept a `RefObject` instead of an element instance
+
+- [#2845](https://github.com/primer/react/pull/2845) [`c31314c8`](https://github.com/primer/react/commit/c31314c84186999ed6d7d905c04c5aa67057d3b3) Thanks [@colebemis](https://github.com/colebemis)! - TabNav: Re-focusing a TabNav will focus the selected tab
+
 ## 35.19.0
 
 ### Minor Changes
