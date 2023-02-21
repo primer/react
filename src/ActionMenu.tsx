@@ -9,7 +9,6 @@ import {Button, ButtonProps} from './Button'
 import {useId} from './hooks/useId'
 import {MandateProps} from './utils/types'
 import {ForwardRefComponent as PolymorphicForwardRefComponent} from './utils/polymorphic'
-import {merge, BetterSystemStyleObject} from './sx'
 
 export type MenuContextProps = Pick<
   AnchoredOverlayProps,
@@ -75,21 +74,10 @@ const Anchor = React.forwardRef<HTMLElement, ActionMenuAnchorProps>(({children, 
 
 /** this component is syntactical sugar 🍭 */
 export type ActionMenuButtonProps = ButtonProps
-const MenuButton = React.forwardRef(({sx: sxProp = {}, ...props}, anchorRef) => {
+const MenuButton = React.forwardRef(({...props}, anchorRef) => {
   return (
     <Anchor ref={anchorRef}>
-      <Button
-        type="button"
-        trailingIcon={TriangleDownIcon}
-        sx={merge<BetterSystemStyleObject>(
-          {
-            // override the margin on caret for optical alignment
-            '[data-component=trailingIcon]': {marginX: -1},
-          },
-          sxProp,
-        )}
-        {...props}
-      />
+      <Button type="button" trailingAction={TriangleDownIcon} {...props} />
     </Anchor>
   )
 }) as PolymorphicForwardRefComponent<'button', ActionMenuButtonProps>
@@ -101,7 +89,12 @@ type MenuOverlayProps = Partial<OverlayProps> &
      */
     children: React.ReactNode
   }
-const Overlay: React.FC<React.PropsWithChildren<MenuOverlayProps>> = ({children, align = 'start', ...overlayProps}) => {
+const Overlay: React.FC<React.PropsWithChildren<MenuOverlayProps>> = ({
+  children,
+  align = 'start',
+  'aria-labelledby': ariaLabelledby,
+  ...overlayProps
+}) => {
   // we typecast anchorRef as required instead of optional
   // because we know that we're setting it in context in Menu
   const {anchorRef, renderAnchor, anchorId, open, onOpen, onClose} = React.useContext(MenuContext) as MandateProps<
@@ -129,7 +122,7 @@ const Overlay: React.FC<React.PropsWithChildren<MenuOverlayProps>> = ({children,
           value={{
             container: 'ActionMenu',
             listRole: 'menu',
-            listLabelledBy: anchorId,
+            listLabelledBy: ariaLabelledby || anchorId,
             selectionAttribute: 'aria-checked', // Should this be here?
             afterSelect: onClose,
           }}

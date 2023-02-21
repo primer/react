@@ -14,9 +14,5 @@ const StyledOcticon = styled(Octicon)<SxProp>`
   ${({color, sx: sxProp}) => sx({sx: {color, ...sxProp}})}
 `
 
-StyledOcticon.defaultProps = {
-  size: 16,
-}
-
 export type StyledOcticonProps = ComponentProps<typeof StyledOcticon>
 export default StyledOcticon

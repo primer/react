@@ -609,6 +609,84 @@ export const EmptyDirectories: Story = () => {
   )
 }
 
+export const NestedTrees: Story = () => {
+  const [isLoading, setIsLoading] = React.useState(false)
+  const [asyncItems, setAsyncItems] = React.useState<string[]>([])
+
+  let state: SubTreeState = 'initial'
+
+  if (isLoading) {
+    state = 'loading'
+  } else if (asyncItems.length > 0) {
+    state = 'done'
+  }
+
+  return (
+    <nav aria-label="Files">
+      <TreeView aria-label="Files">
+        <TreeView.Item id="file-1">
+          <TreeView.LeadingVisual>
+            <FileIcon />
+          </TreeView.LeadingVisual>
+          Some file
+        </TreeView.Item>
+        <TreeView.Item
+          id="async-directory"
+          onExpandedChange={async isExpanded => {
+            if (asyncItems.length === 0 && isExpanded) {
+              setIsLoading(true)
+
+              // Load items
+              const items = await loadItems(1000)
+
+              setIsLoading(false)
+              setAsyncItems(items)
+            }
+          }}
+        >
+          <TreeView.LeadingVisual>
+            <TreeView.DirectoryIcon />
+          </TreeView.LeadingVisual>
+          Directory with async items
+          <TreeView.SubTree state={state}>
+            {asyncItems.map(item => (
+              <TreeView.Item id={`item-${item}`} key={item}>
+                <TreeView.LeadingVisual>
+                  <FileIcon />
+                </TreeView.LeadingVisual>
+                {item}
+              </TreeView.Item>
+            ))}
+            <TreeView.Item id="nested-directory">
+              Nested Sub-tree
+              <TreeView.SubTree state="done">
+                <TreeView.Item id="nested-directory/file-1">
+                  <TreeView.LeadingVisual>
+                    <FileIcon />
+                  </TreeView.LeadingVisual>
+                  Some file
+                </TreeView.Item>
+                <TreeView.Item id="nested-directory/another-file">
+                  <TreeView.LeadingVisual>
+                    <FileIcon />
+                  </TreeView.LeadingVisual>
+                  Another file
+                </TreeView.Item>
+              </TreeView.SubTree>
+            </TreeView.Item>
+          </TreeView.SubTree>
+        </TreeView.Item>
+        <TreeView.Item id="another-file">
+          <TreeView.LeadingVisual>
+            <FileIcon />
+          </TreeView.LeadingVisual>
+          Another file
+        </TreeView.Item>
+      </TreeView>
+    </nav>
+  )
+}
+
 export const NestedScrollContainer: Story = () => {
   return (
     <Box sx={{maxHeight: '50vh', overflow: 'auto'}}>
@@ -694,6 +772,20 @@ export const ContainIntrinsicSize: Story = () => {
     </TreeView>
   )
 }
+
+export const InitialFocus: Story = () => (
+  <div>
+    <Button>Focusable element before TreeView</Button>
+    <TreeView aria-label="Test tree">
+      <TreeView.Item id="item-1">Item 1</TreeView.Item>
+      <TreeView.Item id="item-2" current>
+        Item 2
+      </TreeView.Item>
+      <TreeView.Item id="item-3">Item 3</TreeView.Item>
+    </TreeView>
+    <Button>Focusable element after TreeView</Button>
+  </div>
+)
 
 ContainIntrinsicSize.parameters = {
   chromatic: {disableSnapshot: true},

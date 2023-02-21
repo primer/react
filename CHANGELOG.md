@@ -1,5 +1,37 @@
 # @primer/components
 
+## 35.19.0
+
+### Minor Changes
+
+- [#2807](https://github.com/primer/react/pull/2807) [`81447a10`](https://github.com/primer/react/commit/81447a10c7795e268f6c62535ca24c166bb0d630) Thanks [@joshblack](https://github.com/joshblack)! - Add default `type="button"` for `Button`. This removes the implicit `type="submit"` for a `<button>` and requires an explicit `type` to change.
+
+- [#2789](https://github.com/primer/react/pull/2789) [`44f66cb9`](https://github.com/primer/react/commit/44f66cb976c4be496733f3f85a3fc23dbb6023c7) Thanks [@green6erry](https://github.com/green6erry)! - warn user if link `as` prop is not <a> or <button>
+
+### Patch Changes
+
+- [#2818](https://github.com/primer/react/pull/2818) [`7403a47f`](https://github.com/primer/react/commit/7403a47f4230bbde600d64eb678cef5c3ee14c2b) Thanks [@iansan5653](https://github.com/iansan5653)! - Improve initial `useCombobox` initialization process to avoid race conditions
+
+## 35.18.0
+
+### Minor Changes
+
+- [#2715](https://github.com/primer/react/pull/2715) [`8bd40de2`](https://github.com/primer/react/commit/8bd40de25536bce68f3ac238063243a6c70bee0a) Thanks [@ajhenry](https://github.com/ajhenry)! - Overlay: Add `position`, `right`, and `bottom` props
+
+### Patch Changes
+
+- [#2732](https://github.com/primer/react/pull/2732) [`3f70b2e6`](https://github.com/primer/react/commit/3f70b2e6d283667b0f09d97423563fdba0721ba9) Thanks [@renbaoshuo](https://github.com/renbaoshuo)! - Prevent automatic batching updates in ThemeProvider to ensure client use right colorMode
+
+- [#2701](https://github.com/primer/react/pull/2701) [`73dbefdb`](https://github.com/primer/react/commit/73dbefdbe145c240c3f6a1ac3a21e9e02084d6bd) Thanks [@mperrotti](https://github.com/mperrotti)! - Updates visual design of the Checkbox and Radio component to match the new direction defined by design.
+
+- [#2729](https://github.com/primer/react/pull/2729) [`4dcf658c`](https://github.com/primer/react/commit/4dcf658cf6155d44bac4b79556b38dcbe954f344) Thanks [@broccolinisoup](https://github.com/broccolinisoup)! - PageHeader: Add visual ordering for layout enforcement
+
+- [#2710](https://github.com/primer/react/pull/2710) [`ac0abd17`](https://github.com/primer/react/commit/ac0abd179598ab3a3e5439a38bdde6aeacaf8b6a) Thanks [@green6erry](https://github.com/green6erry)! - TreeView: aria status description is now accurate
+
+- [#2729](https://github.com/primer/react/pull/2729) [`4dcf658c`](https://github.com/primer/react/commit/4dcf658cf6155d44bac4b79556b38dcbe954f344) Thanks [@broccolinisoup](https://github.com/broccolinisoup)! - Hidden: Refactor Hidden component to use `getBreakpointsDeclarations` util function to reduce layout shifts
+
+- [#2759](https://github.com/primer/react/pull/2759) [`693ce68c`](https://github.com/primer/react/commit/693ce68c9e47c37fb36a334f7f524e688d31bccd) Thanks [@manuelpuyol](https://github.com/manuelpuyol)! - Update defaultProps to be JS function defaults
+
 ## 35.17.0
 
 ### Minor Changes

@@ -36,21 +36,16 @@ const Base = styled.div<SystemTypographyProps & SystemCommonProps>`
 export type BaseStylesProps = ComponentProps<typeof Base>
 
 function BaseStyles(props: BaseStylesProps) {
-  const {children, ...rest} = props
+  const {children, color = 'fg.default', fontFamily = 'normal', lineHeight = 'default', ...rest} = props
+
   const {colorScheme} = useTheme()
 
   return (
-    <Base {...rest} data-portal-root>
+    <Base {...rest} color={color} fontFamily={fontFamily} lineHeight={lineHeight} data-portal-root>
       <GlobalStyle colorScheme={colorScheme?.includes('dark') ? 'dark' : 'light'} />
       {children}
     </Base>
   )
-}
-
-BaseStyles.defaultProps = {
-  color: 'fg.default',
-  fontFamily: 'normal',
-  lineHeight: 'default',
 }
 
 export default BaseStyles

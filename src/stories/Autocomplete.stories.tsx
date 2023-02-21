@@ -53,7 +53,8 @@ const getArgsByChildComponent = ({
   preventTokenWrapping,
   size: tokenSize,
   visibleTokenCount,
-}: AutocompleteArgs) => {
+}: // eslint-disable-next-line @typescript-eslint/no-explicit-any
+any) => {
   const textInputArgs = {
     block,
     contrast,

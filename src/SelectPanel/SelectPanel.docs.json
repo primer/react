@@ -1,0 +1,59 @@
+{
+  "id": "select_panel",
+  "name": "SelectPanel",
+  "status": "alpha",
+  "a11yReviewed": false,
+  "stories": [],
+  "props": [
+    {
+      "name": "onOpenChange",
+      "type": "( open: boolean, gesture: | 'anchor-click' | 'anchor-key-press' | 'click-outside' | 'escape' | 'selection' ) => void",
+      "defaultValue": "",
+      "required": true,
+      "description": ""
+    },
+    {
+      "name": "placeholder",
+      "type": "string",
+      "defaultValue": "",
+      "description": ""
+    },
+    {
+      "name": "overlayProps",
+      "type": "Partial<OverlayProps>",
+      "defaultValue": "",
+      "description": "See [Overlay props](/react/Overlay#props)."
+    },
+    {
+      "name": "title",
+      "type": "string",
+      "defaultValue": "",
+      "description": ""
+    },
+    {
+      "name": "inputLabel",
+      "type": "string",
+      "defaultValue": "",
+      "description": ""
+    },
+    {
+      "name": "inputPlaceholder",
+      "type": "string",
+      "defaultValue": "",
+      "description": ""
+    },
+    {
+      "name": "selected",
+      "type": "ItemInput | ItemInput[] | undefined",
+      "defaultValue": "",
+      "description": "Specify the selected item(s)"
+    },
+    {
+      "name": "onSelectedChange",
+      "type": "(selected: ItemInput | ItemInput[]) => void",
+      "defaultValue": "",
+      "description": "Provide a callback called when the selected item(s) change"
+    }
+  ],
+  "subcomponents": []
+}

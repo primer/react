@@ -1,12 +1,10 @@
-import {EyeIcon, HeartIcon} from '@primer/octicons-react'
+import {EyeIcon, TriangleDownIcon, HeartIcon} from '@primer/octicons-react'
 import React, {useState} from 'react'
 import {Button} from '.'
 
 export default {
   title: 'Components/Button/Features',
 }
-
-export const Default = () => <Button>Default</Button>
 
 export const Primary = () => <Button variant="primary">Primary</Button>
 
@@ -29,6 +27,10 @@ export const TrailingCounter = () => {
     </Button>
   )
 }
+
+export const TrailingAction = () => <Button trailingAction={TriangleDownIcon}>Trailing action</Button>
+
+export const Block = () => <Button block>Default</Button>
 
 export const Disabled = () => <Button disabled>Default</Button>
 

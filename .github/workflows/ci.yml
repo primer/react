@@ -4,12 +4,32 @@ on:
     branches:
       - main
   pull_request:
+  merge_group:
+    branches:
+      - main
+    types:
+      - checks_requested
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
+  format:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: 'npm'
+      - name: Install dependencies
+        run: npm ci
+      - name: Check for unformatted files
+        run: npm run format:diff
+
   lint:
     runs-on: ubuntu-latest
     steps:
@@ -20,6 +40,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 16
+          cache: 'npm'
 
       - name: Install dependencies
         run: npm ci
@@ -29,6 +50,7 @@ jobs:
 
       - name: Lint markdown
         run: npm run lint:md
+
   test:
     strategy:
       fail-fast: false
@@ -43,6 +65,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 16
+          cache: 'npm'
 
       - name: Set React version
         run: node script/set-react-version.js ${{ matrix.react }}
@@ -77,6 +100,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 16
+          cache: 'npm'
 
       - name: Set React version
         run: node script/set-react-version.js ${{ matrix.react }}
@@ -102,6 +126,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 16
+          cache: 'npm'
 
       - name: Install dependencies
         run: npm ci
@@ -126,6 +151,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 16
+          cache: 'npm'
       - name: Install dependencies
         run: npm ci
       - name: Build storybook
@@ -148,6 +174,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '16.x'
+          cache: 'npm'
       - name: Install dependencies
         run: npm ci
       - name: Install browsers
@@ -184,7 +211,7 @@ jobs:
         run: exit 1
 
   aat:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest-8-cores
     needs: storybook
     steps:
       - uses: actions/checkout@v3
@@ -192,6 +219,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '16.x'
+          cache: 'npm'
       - name: Install dependencies
         run: npm ci
       - name: Install browsers
@@ -211,6 +239,12 @@ jobs:
         run: npx playwright test --grep @aat
       - name: Stop storybook
         run: kill ${{ steps.storybook.outputs.pid }}
+      - name: Upload axe reports
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v3
+        with:
+          name: axe
+          path: .playwright/axe
       - name: Upload report
         if: ${{ always() }}
         uses: actions/upload-artifact@v3
@@ -236,6 +270,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '16.x'
+          cache: 'npm'
       - name: Install dependencies
         run: npm ci
       - name: Build components.json
@@ -253,6 +288,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 16
+          cache: 'npm'
       - name: Install dependencies
         run: npm ci
       - name: Build
