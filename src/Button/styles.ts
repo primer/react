@@ -127,6 +127,9 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
       '[data-component="trailingAction"]': {
         color: 'fg.muted',
       },
+      '[data-component="leadingVisual"]': {
+        color: 'fg.muted',
+      },
       '&[data-no-visuals]': {
         color: 'accent.fg',
       },
