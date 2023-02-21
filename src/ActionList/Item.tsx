@@ -6,7 +6,6 @@ import sx, {BetterSystemStyleObject, merge, SxProp} from '../sx'
 import {useTheme} from '../ThemeProvider'
 import {useId} from '../hooks/useId'
 import {ActionListContainerContext} from './ActionListContainerContext'
-import {ActionListGroupProps, GroupContext} from './Group'
 import {ActionListProps, ListContext} from './List'
 import {Selection} from './Selection'
 import {ActionListItemProps, Slots, TEXT_ROW_HEIGHT, getVariantStyles} from './shared'
@@ -31,12 +30,9 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
     forwardedRef,
   ): JSX.Element => {
     const {variant: listVariant, showDividers, selectionVariant: listSelectionVariant} = React.useContext(ListContext)
-    const {selectionVariant: groupSelectionVariant} = React.useContext(GroupContext)
     const {container, afterSelect, selectionAttribute} = React.useContext(ActionListContainerContext)
 
-    let selectionVariant: ActionListProps['selectionVariant'] | ActionListGroupProps['selectionVariant']
-    if (typeof groupSelectionVariant !== 'undefined') selectionVariant = groupSelectionVariant
-    else selectionVariant = listSelectionVariant
+    const selectionVariant: ActionListProps['selectionVariant'] = listSelectionVariant
 
     /** Infer item role based on the container */
     let itemRole: ActionListItemProps['role']

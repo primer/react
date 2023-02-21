@@ -1,9 +1,9 @@
 import React from 'react'
 import {Story, Meta} from '@storybook/react'
-import {ActionList, ActionListProps, ActionListGroupProps} from '.'
+import {ActionList, ActionListProps} from '.'
 import {Item} from './Item'
 import {LinkItem} from './LinkItem'
-import {Group} from './Group'
+import {Heading} from './Heading'
 import {Divider} from './Divider'
 import {Description} from './Description'
 import {TypographyIcon, VersionsIcon, SearchIcon, ArrowRightIcon, ArrowLeftIcon} from '@primer/octicons-react'
@@ -11,7 +11,7 @@ import {TypographyIcon, VersionsIcon, SearchIcon, ArrowRightIcon, ArrowLeftIcon}
 export default {
   title: 'Components/ActionList',
   component: ActionList,
-  subcomponents: {Item, LinkItem, Group, Divider, Description},
+  subcomponents: {Item, LinkItem, Heading, Divider, Description},
 } as Meta<typeof ActionList>
 
 export const Default = () => (
@@ -241,35 +241,17 @@ LinkItemPlayground.argTypes = {
     type: 'string',
   },
 }
-
-export const GroupPlayground: Story<ActionListGroupProps> = args => (
-  <ActionList>
-    <ActionList.Group {...args}>
-      <ActionList.Item>Item 1</ActionList.Item>
-      <ActionList.Item>Item 2</ActionList.Item>
-    </ActionList.Group>
+export const HeadingPlayground: Story<ActionListProps> = args => (
+  <ActionList heading={<ActionList.Heading title="Group title" />} {...args}>
+    <ActionList.Item>Copy link</ActionList.Item>
+    <ActionList.Item>Quote reply</ActionList.Item>
+    <ActionList.Item>Edit comment</ActionList.Item>
   </ActionList>
 )
-GroupPlayground.argTypes = {
-  variant: {
-    control: {
-      type: 'radio',
-    },
-    options: ['subtle', 'filled'],
-  },
-  role: {
-    type: 'string',
-  },
-  title: {
-    type: 'string',
-  },
-  auxiliaryText: {
-    type: 'string',
-  },
-}
-GroupPlayground.args = {
-  variant: 'subtle',
+
+HeadingPlayground.args = {
+  showDividers: false,
+  selectionVariant: undefined,
+  variant: 'inset',
   role: 'listbox',
-  title: 'Group title',
-  auxiliaryText: '',
 }

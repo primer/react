@@ -5,6 +5,7 @@ import sx, {SxProp, merge} from '../sx'
 import {AriaRole} from '../utils/types'
 import {ActionListContainerContext} from './ActionListContainerContext'
 import {defaultSxProp} from '../utils/defaultSxProp'
+import {Heading} from './Heading'
 
 export type ActionListProps = React.PropsWithChildren<{
   /**
@@ -23,6 +24,10 @@ export type ActionListProps = React.PropsWithChildren<{
    * The ARIA role describing the function of `List` component. `listbox` or `menu` are a common values.
    */
   role?: AriaRole
+  /**
+   * Optional heading title to display at top of the list.
+   */
+  heading?: typeof Heading
 }> &
   SxProp
 
@@ -33,13 +38,13 @@ const ListBox = styled.ul<SxProp>(sx)
 
 export const List = React.forwardRef<HTMLUListElement, ActionListProps>(
   (
-    {variant = 'inset', selectionVariant, showDividers = false, role, sx: sxProp = defaultSxProp, ...props},
+    {variant = 'inset', selectionVariant, showDividers = false, role, heading, sx: sxProp = defaultSxProp, ...props},
     forwardedRef,
   ): JSX.Element => {
     const styles = {
       margin: 0,
       paddingInlineStart: 0, // reset ul styles
-      paddingY: variant === 'inset' ? 2 : 0,
+      paddingY: 0,
     }
 
     /** if list is inside a Menu, it will get a role from the Menu */
@@ -50,24 +55,27 @@ export const List = React.forwardRef<HTMLUListElement, ActionListProps>(
     } = React.useContext(ActionListContainerContext)
 
     return (
-      <ListBox
-        sx={merge(styles, sxProp as SxProp)}
-        role={role || listRole}
-        aria-labelledby={listLabelledBy}
-        {...props}
-        ref={forwardedRef}
-      >
-        <ListContext.Provider
-          value={{
-            variant,
-            selectionVariant: selectionVariant || containerSelectionVariant,
-            showDividers,
-            role: role || listRole,
-          }}
+      <>
+        {heading}
+        <ListBox
+          sx={merge(styles, sxProp as SxProp)}
+          role={role || listRole}
+          aria-labelledby={listLabelledBy}
+          {...props}
+          ref={forwardedRef}
         >
-          {props.children}
-        </ListContext.Provider>
-      </ListBox>
+          <ListContext.Provider
+            value={{
+              variant,
+              selectionVariant: selectionVariant || containerSelectionVariant,
+              showDividers,
+              role: role || listRole,
+            }}
+          >
+            {props.children}
+          </ListContext.Provider>
+        </ListBox>
+      </>
     )
   },
 ) as PolymorphicForwardRefComponent<'ul', ActionListProps>

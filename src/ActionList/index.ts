@@ -1,5 +1,5 @@
 import {List} from './List'
-import {Group} from './Group'
+import {Heading} from './Heading'
 import {Item} from './Item'
 import {LinkItem} from './LinkItem'
 import {Divider} from './Divider'
@@ -7,7 +7,7 @@ import {Description} from './Description'
 import {LeadingVisual, TrailingVisual} from './Visuals'
 
 export type {ActionListProps} from './List'
-export type {ActionListGroupProps} from './Group'
+export type {ActionListHeadingProps} from './Heading'
 export type {ActionListItemProps} from './shared'
 export type {ActionListLinkItemProps} from './LinkItem'
 export type {ActionListDividerProps} from './Divider'
@@ -18,8 +18,8 @@ export type {ActionListLeadingVisualProps, ActionListTrailingVisualProps} from '
  * Collection of list-related components.
  */
 export const ActionList = Object.assign(List, {
-  /** Collects related `Items` in an `ActionList`. */
-  Group,
+  /** Provides label for items in list`. */
+  Heading,
 
   /** An actionable or selectable `Item` */
   Item,
