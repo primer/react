@@ -1259,10 +1259,10 @@ describe('Asyncronous loading', () => {
     act(() => {
       // Focus first item
       parentItem.focus()
-
-      // Press ↓ to move focus to loading item
-      fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowDown'})
     })
+
+    // Press ↓ to move focus to loading item
+    fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowDown'})
 
     // Loading item should be focused
     expect(loadingItem).toHaveFocus()
