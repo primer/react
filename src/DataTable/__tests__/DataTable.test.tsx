@@ -320,6 +320,100 @@ describe('DataTable', () => {
       expect(rows).toEqual(['1', '2', '3'])
     })
 
+    it('should set the default sort state of the first sortable column if only `initialSortDirection` is provided', () => {
+      render(
+        <DataTable
+          data={[
+            {
+              id: 1,
+              fieldOne: 'a',
+              fieldTwo: 'c',
+            },
+            {
+              id: 2,
+              fieldOne: 'b',
+              fieldTwo: 'b',
+            },
+            {
+              id: 3,
+              fieldOne: 'c',
+              fieldTwo: 'a',
+            },
+          ]}
+          columns={[
+            {
+              header: 'Field One',
+              field: 'fieldOne',
+            },
+            {
+              header: 'Field Two',
+              field: 'fieldTwo',
+              sortBy: true,
+            },
+          ]}
+          initialSortDirection="ASC"
+        />,
+      )
+
+      const header = screen.getByRole('columnheader', {
+        name: 'Field Two',
+      })
+      expect(header).toHaveAttribute('aria-sort', 'ascending')
+
+      const body = screen.getByRole('table').querySelector('tbody')!
+      const rows = queryAllByRole(body, 'row').map(row => {
+        const cells = queryAllByRole(row, 'cell').map(cell => {
+          return cell.textContent
+        })
+        return cells
+      })
+      expect(rows).toEqual([
+        ['a', 'c'],
+        ['b', 'b'],
+        ['c', 'a'],
+      ])
+    })
+
+    it('should not set a default sort state if `initialSortDirection` is provided but no columns are sortable', () => {
+      render(
+        <DataTable
+          data={[
+            {
+              id: 1,
+              fieldOne: 'a',
+              fieldTwo: 'c',
+            },
+            {
+              id: 2,
+              fieldOne: 'b',
+              fieldTwo: 'b',
+            },
+            {
+              id: 3,
+              fieldOne: 'c',
+              fieldTwo: 'a',
+            },
+          ]}
+          columns={[
+            {
+              header: 'Field One',
+              field: 'fieldOne',
+            },
+            {
+              header: 'Field Two',
+              field: 'fieldTwo',
+            },
+          ]}
+          initialSortDirection="ASC"
+        />,
+      )
+
+      const headers = screen.getAllByRole('columnheader')
+      for (const header of headers) {
+        expect(header).not.toHaveAttribute('aria-sort')
+      }
+    })
+
     it('should change the sort direction on mouse click', async () => {
       const user = userEvent.setup()
       render(
