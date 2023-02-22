@@ -9,7 +9,7 @@ Proposed
 There are situations where we would like to provide warnings to developers who
 use `@primer/react` that something may be deprecated, unsupported, etc. Often,
 these will be emitted using `console.warn()`. When using `console.warn()` by
-itself, we run into a situation where code that is only be meant for development
+itself, we run into a situation where code that is only meant for development
 is included in production code. As a result, it would be helpful to establish
 patterns around how to provide warnings to developers in order to make sure
 that:
@@ -20,7 +20,7 @@ that:
 
 ## Decision
 
-Code that is meant for development-only warnings **must** be wrapped within a
+Code that is meant for development-only warnings or checks **must** be wrapped within a
 `__DEV__` block.
 
 ```tsx
@@ -32,7 +32,7 @@ function ExampleComponent() {
 ```
 
 Under-the-hood, the `__DEV__` block will be compiled to a `NODE_ENV` check so
-that it is stripped when `NODE_ENV` is `production`.
+that it is stripped when `NODE_ENV` is set to `'production'`.
 
 > **Note**
 > Contributors may wrap hooks within a `__DEV__` block even though hooks are not
@@ -48,7 +48,8 @@ warning(condition, 'This is the message that is logged when condition is false-y
 ```
 
 This helper allows you to provide a `condition`. When the condition is false-y
-it will emit the message provided.
+it will emit the message provided. This helper is automatically wrapped in a
+`__DEV__` block and will be removed from production builds.
 
 For more complex conditions, a contributor may combine `console.warn()` with
 `__DEV__` when `warning()` does not suffice.
