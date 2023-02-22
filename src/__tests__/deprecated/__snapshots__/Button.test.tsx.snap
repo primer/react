@@ -301,6 +301,7 @@ exports[`ButtonGroup renders consistently 1`] = `
   display: -ms-inline-flexbox;
   display: inline-flex;
   vertical-align: middle;
+  isolation: isolate;
 }
 
 .c0.c0 > * {
