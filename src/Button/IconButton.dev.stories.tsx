@@ -21,3 +21,7 @@ export const CustomSizeWithMedia = () => {
     />
   )
 }
+
+export const CustomIconColor = () => (
+  <IconButton aria-label="Expand" variant="invisible" size="small" icon={ChevronDownIcon} sx={{color: 'red'}} />
+)

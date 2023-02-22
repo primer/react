@@ -1,6 +1,6 @@
 import React from 'react'
 import {SxProp} from '../sx'
-import InputLabel from '../_InputLabel'
+import InputLabel, {LegendOrSpanProps, LabelProps} from '../_InputLabel'
 import {FormControlContext} from './FormControl'
 import {Slot} from './slots'
 
@@ -9,15 +9,12 @@ export type Props = {
    * Whether the label should be visually hidden
    */
   visuallyHidden?: boolean
+  id?: string
 } & SxProp
 
-const FormControlLabel: React.FC<React.PropsWithChildren<{htmlFor?: string; id?: string} & Props>> = ({
-  children,
-  htmlFor,
-  id,
-  visuallyHidden,
-  sx,
-}) => (
+const FormControlLabel: React.FC<
+  React.PropsWithChildren<{htmlFor?: string} & (LegendOrSpanProps | LabelProps) & Props>
+> = ({children, htmlFor, id, visuallyHidden, sx}) => (
   <Slot name="Label">
     {({disabled, id: formControlId, required}: FormControlContext) => (
       <InputLabel

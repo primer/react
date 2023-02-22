@@ -11,6 +11,7 @@ import {get} from '../constants'
 import {ConfirmationDialog} from '../Dialog/ConfirmationDialog'
 import {useControllableState} from '../hooks/useControllableState'
 import {useId} from '../hooks/useId'
+import useSafeTimeout from '../hooks/useSafeTimeout'
 import Spinner from '../Spinner'
 import sx, {SxProp} from '../sx'
 import Text from '../Text'
@@ -513,6 +514,7 @@ const SubTree: React.FC<TreeViewSubTreeProps> = ({count, state, children}) => {
   const ref = React.useRef<HTMLElement>(null)
   const [loadingFocused, setLoadingFocused] = React.useState(false)
   const previousState = usePreviousValue(state)
+  const {safeSetTimeout} = useSafeTimeout()
 
   React.useEffect(() => {
     // If `state` is undefined, we're working in a synchronous context and need
@@ -549,15 +551,19 @@ const SubTree: React.FC<TreeViewSubTreeProps> = ({count, state, children}) => {
         const firstChild = getFirstChildElement(parentElement)
 
         if (firstChild) {
-          firstChild.focus()
+          safeSetTimeout(() => {
+            firstChild.focus()
+          })
         } else {
-          parentElement.focus()
+          safeSetTimeout(() => {
+            parentElement.focus()
+          })
         }
 
         setLoadingFocused(false)
       }
     }
-  }, [loadingFocused, previousState, state, itemId, announceUpdate, ref])
+  }, [loadingFocused, previousState, state, itemId, announceUpdate, ref, safeSetTimeout])
 
   // Track focus on the loading indicator
   React.useEffect(() => {

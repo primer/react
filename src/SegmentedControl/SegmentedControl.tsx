@@ -68,7 +68,7 @@ const Root: React.FC<React.PropsWithChildren<SegmentedControlProps>> = ({
   const selectedSegments = React.Children.toArray(children).map(
     child =>
       React.isValidElement<SegmentedControlButtonProps | SegmentedControlIconButtonProps>(child) &&
-      child.props.selected,
+      (child.props.defaultSelected || child.props.selected),
   )
   const hasSelectedButton = selectedSegments.some(isSelected => isSelected)
   const selectedIndexExternal = hasSelectedButton ? selectedSegments.indexOf(true) : 0
@@ -102,40 +102,48 @@ const Root: React.FC<React.PropsWithChildren<SegmentedControlProps>> = ({
   if (!ariaLabel && !ariaLabelledby) {
     // eslint-disable-next-line no-console
     console.warn(
-      'Use the `aria-label` or `aria-labelledby` prop to provide an accessible label for assistive technology',
+      'Use the `aria-label` or `aria-labelledby` prop to provide an accessible label for assistive technologies',
     )
   }
 
   return responsiveVariant === 'dropdown' ? (
     // Render the 'dropdown' variant of the SegmentedControlButton or SegmentedControlIconButton
-    <ActionMenu>
-      <ActionMenu.Button leadingIcon={getChildIcon(selectedChild)}>{getChildText(selectedChild)}</ActionMenu.Button>
-      <ActionMenu.Overlay>
-        <ActionList selectionVariant="single">
-          {React.Children.map(children, (child, index) => {
-            const ChildIcon = getChildIcon(child)
-            // Not a valid child element - skip rendering
-            if (!React.isValidElement<SegmentedControlButtonProps | SegmentedControlIconButtonProps>(child)) {
-              return null
-            }
+    <>
+      <ActionMenu>
+        {/*
+          The aria-label is only provided as a backup when the designer or engineer neglects to show a label for the SegmentedControl.
+          The best thing to do is to have a visual label who's id is referenced using the `aria-labelledby` prop.
+        */}
+        <ActionMenu.Button aria-label={ariaLabel} leadingIcon={getChildIcon(selectedChild)}>
+          {getChildText(selectedChild)}
+        </ActionMenu.Button>
+        <ActionMenu.Overlay aria-labelledby={ariaLabelledby}>
+          <ActionList selectionVariant="single">
+            {React.Children.map(children, (child, index) => {
+              const ChildIcon = getChildIcon(child)
+              // Not a valid child element - skip rendering
+              if (!React.isValidElement<SegmentedControlButtonProps | SegmentedControlIconButtonProps>(child)) {
+                return null
+              }
 
-            return (
-              <ActionList.Item
-                key={`segmented-control-action-btn-${index}`}
-                selected={index === selectedIndex}
-                onSelect={(event: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement>) => {
-                  isUncontrolled && setSelectedIndexInternalState(index)
-                  onChange && onChange(index)
-                  child.props.onClick && child.props.onClick(event as React.MouseEvent<HTMLLIElement>)
-                }}
-              >
-                {ChildIcon && <ChildIcon />} {getChildText(child)}
-              </ActionList.Item>
-            )
-          })}
-        </ActionList>
-      </ActionMenu.Overlay>
-    </ActionMenu>
+              return (
+                <ActionList.Item
+                  key={`segmented-control-action-btn-${index}`}
+                  selected={index === selectedIndex}
+                  onSelect={(event: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement>) => {
+                    isUncontrolled && setSelectedIndexInternalState(index)
+                    onChange && onChange(index)
+                    child.props.onClick && child.props.onClick(event as React.MouseEvent<HTMLLIElement>)
+                  }}
+                >
+                  {ChildIcon && <ChildIcon />} {getChildText(child)}
+                </ActionList.Item>
+              )
+            })}
+          </ActionList>
+        </ActionMenu.Overlay>
+      </ActionMenu>
+    </>
   ) : (
     // Render a segmented control
     <SegmentedControlList
