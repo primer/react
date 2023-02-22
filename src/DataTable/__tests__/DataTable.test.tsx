@@ -360,7 +360,7 @@ describe('DataTable', () => {
       })
       expect(header).toHaveAttribute('aria-sort', 'ascending')
 
-      const body = screen.getByRole('table').querySelector('tbody')!
+      const body = screen.getByRole('table').querySelector('tbody') as HTMLTableSectionElement
       const rows = queryAllByRole(body, 'row').map(row => {
         const cells = queryAllByRole(row, 'cell').map(cell => {
           return cell.textContent
