@@ -80,7 +80,22 @@ import {PageHeader} from '@primer/react/drafts'
       <Breadcrumbs.Item href="#">PageHeader</Breadcrumbs.Item>
       <Breadcrumbs.Item href="#">PageHeader.tsx</Breadcrumbs.Item>
     </Breadcrumbs>
-    <h2 className="visually-hidden">Visually Hidden Title</h2>
+    <Heading
+      as="h2"
+      sx={{
+        position: 'absolute',
+        width: '1px',
+        height: '1px',
+        padding: 0,
+        margin: '-1px',
+        overflow: 'hidden',
+        clip: 'rect(0, 0, 0, 0)',
+        whiteSpace: 'nowrap',
+        borderWidth: 0,
+      }}
+    >
+      Visually Hidden Title
+    </Heading>
   </PageHeader.TitleArea>
 </PageHeader>
 ```

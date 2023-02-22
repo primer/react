@@ -16,6 +16,7 @@ import {
   GitBranchIcon,
   KebabHorizontalIcon,
 } from '@primer/octicons-react'
+import VisuallyHidden from '../_VisuallyHidden'
 
 import {PageHeader} from './PageHeader'
 import Hidden from '../Hidden'
@@ -77,7 +78,7 @@ export const WithComponentAsATitle = () => (
           <Breadcrumbs.Item href="#">PageHeader</Breadcrumbs.Item>
           <Breadcrumbs.Item href="#">PageHeader.tsx</Breadcrumbs.Item>
         </Breadcrumbs>
-        <h2 className="visually-hidden">Visually Hidden Title</h2>
+        <VisuallyHidden as="h2">Visually Hidden Title</VisuallyHidden>
       </PageHeader.TitleArea>
     </PageHeader>
   </Box>
