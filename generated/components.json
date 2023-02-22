@@ -2998,7 +2998,7 @@
         {
           "name": "as",
           "type": "React.ElementType",
-          "defaultValue": "\"header\""
+          "defaultValue": "\"div\""
         }
       ],
       "subcomponents": [
