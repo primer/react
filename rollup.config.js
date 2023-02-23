@@ -6,6 +6,8 @@ import terser from '@rollup/plugin-terser'
 import glob from 'fast-glob'
 import {visualizer} from 'rollup-plugin-visualizer'
 import packageJson from './package.json'
+import CSSoutJS from './src/babel-plugin-compile/index.js'
+import scss from 'rollup-plugin-scss'
 
 const input = new Set([
   // "exports"
@@ -13,40 +15,38 @@ const input = new Set([
   'src/index.ts',
 
   // "./drafts"
-  'src/drafts/index.ts',
+  // 'src/drafts/index.ts',
 
   // "./deprecated"
-  'src/deprecated/index.ts',
+  // 'src/deprecated/index.ts',
 
   // Make sure all members are exported
-  'src/constants.ts',
+  // 'src/constants.ts',
 
-  ...glob.sync(
-    [
-      // "./lib-esm/hooks/*"
-      'src/hooks/*',
+  // ...glob.sync(
+  //   [
+  //     "./lib-esm/hooks/*"
+  //     'src/hooks/*',
+  //     "./lib-esm/polyfills/*"
+  //     'src/polyfills/*',
+  //     "./lib-esm/utils/*"
+  //     'src/utils/*',
+  //   ],
+  //   {
+  //     cwd: __dirname,
+  //     ignore: [
+  //       '**/__tests__/**',
+  //       '*.stories.tsx',
 
-      // "./lib-esm/polyfills/*"
-      'src/polyfills/*',
+  //       // File currently imports from package.json
+  //       'src/utils/test-deprecations.tsx',
 
-      // "./lib-esm/utils/*"
-      'src/utils/*',
-    ],
-    {
-      cwd: __dirname,
-      ignore: [
-        '**/__tests__/**',
-        '*.stories.tsx',
-
-        // File currently imports from package.json
-        'src/utils/test-deprecations.tsx',
-
-        // Files use dependencies which are not listed by package
-        'src/utils/testing.tsx',
-        'src/utils/test-matchers.tsx',
-      ],
-    },
-  ),
+  //       // Files use dependencies which are not listed by package
+  //       'src/utils/testing.tsx',
+  //       'src/utils/test-matchers.tsx',
+  //     ],
+  //   },
+  // ),
 ])
 
 const extensions = ['.js', '.jsx', '.ts', '.tsx']
@@ -94,6 +94,7 @@ const baseConfig = {
         'babel-plugin-styled-components',
         '@babel/plugin-proposal-nullish-coalescing-operator',
         '@babel/plugin-proposal-optional-chaining',
+        [CSSoutJS, {dist: 'lib-esm'}],
         [
           'babel-plugin-transform-replace-expressions',
           {
@@ -110,6 +111,7 @@ const baseConfig = {
     resolve({
       extensions,
     }),
+    scss(),
   ],
 }
 
@@ -128,44 +130,44 @@ export default [
   },
 
   // CommonJS
-  {
-    ...baseConfig,
-    external: dependencies.filter(name => !ESM_ONLY.has(name)).map(createPackageRegex),
-    output: {
-      interop: 'auto',
-      dir: 'lib',
-      format: 'commonjs',
-      preserveModules: true,
-      preserveModulesRoot: 'src',
-      exports: 'auto',
-    },
-  },
+  // {
+  //   ...baseConfig,
+  //   external: dependencies.filter(name => !ESM_ONLY.has(name)).map(createPackageRegex),
+  //   output: {
+  //     interop: 'auto',
+  //     dir: 'lib',
+  //     format: 'commonjs',
+  //     preserveModules: true,
+  //     preserveModulesRoot: 'src',
+  //     exports: 'auto',
+  //   },
+  // },
 
-  // Bundles
-  {
-    ...baseConfig,
-    input: 'src/index.ts',
-    external: ['styled-components', 'react', 'react-dom'],
-    plugins: [
-      replace({
-        'process.env.NODE_ENV': JSON.stringify('production'),
-        preventAssignment: true,
-      }),
-      ...baseConfig.plugins,
-      terser(),
-      visualizer({sourcemap: true}),
-    ],
-    output: ['esm', 'umd'].map(format => ({
-      interop: 'auto',
-      file: `dist/browser.${format}.js`,
-      format,
-      sourcemap: true,
-      name: 'primer',
-      globals: {
-        react: 'React',
-        'react-dom': 'ReactDOM',
-        'styled-components': 'styled',
-      },
-    })),
-  },
+  // // Bundles
+  // {
+  //   ...baseConfig,
+  //   input: 'src/index.ts',
+  //   external: ['styled-components', 'react', 'react-dom'],
+  //   plugins: [
+  //     replace({
+  //       'process.env.NODE_ENV': JSON.stringify('production'),
+  //       preventAssignment: true,
+  //     }),
+  //     ...baseConfig.plugins,
+  //     terser(),
+  //     visualizer({sourcemap: true}),
+  //   ],
+  //   output: ['esm', 'umd'].map(format => ({
+  //     interop: 'auto',
+  //     file: `dist/browser.${format}.js`,
+  //     format,
+  //     sourcemap: true,
+  //     name: 'primer',
+  //     globals: {
+  //       react: 'React',
+  //       'react-dom': 'ReactDOM',
+  //       'styled-components': 'styled',
+  //     },
+  //   })),
+  // },
 ]

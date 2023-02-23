@@ -196,12 +196,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
           const wrapperProps = _PrivateItemWrapper ? menuItemProps : {}
 
           return (
-            <LiBox
-              ref={forwardedRef}
-              sx={merge<BetterSystemStyleObject>(styles, sxProp)}
-              {...containerProps}
-              {...props}
-            >
+            <LiBox ref={forwardedRef} {...containerProps} {...props}>
               <ItemWrapper {...wrapperProps}>
                 <Selection selected={selected} />
                 {slots.LeadingVisual}
