@@ -67,7 +67,7 @@ export function generateCustomSxProp(
   providedSx: BetterSystemStyleObject,
 ) {
   // Possible data attributes: data-size, data-block, data-no-visuals
-  const size = props.size ? `[data-size="${props.size}"]` : ''
+  const size = props.size && props.size !== 'medium' ? `[data-size="${props.size}"]` : '' // medium is a default size therefore it doesn't have a data attribute that used for styling
   const block = props.block ? `[data-block="block"]` : ''
   const noVisuals = props.leadingIcon || props.trailingIcon || props.trailingAction ? '' : '[data-no-visuals="true"]'
 
