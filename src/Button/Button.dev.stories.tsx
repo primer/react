@@ -39,6 +39,14 @@ export const TestSxProp = () => {
   return (
     <div style={{display: 'flex', flexDirection: 'row', gap: '1rem'}}>
       <Button
+        size="medium"
+        sx={{
+          color: 'deeppink',
+        }}
+      >
+        Medium Pink
+      </Button>
+      <Button
         size="small"
         sx={{
           ':hover': {
