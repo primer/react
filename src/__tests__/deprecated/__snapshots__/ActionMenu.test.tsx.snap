@@ -57,7 +57,6 @@ exports[`ActionMenu renders consistently 1`] = `
 
 .c0:active {
   background-color: hsla(220,14%,94%,1);
-  box-shadow: inset 0 0.15em 0.3em rgba(27,31,36,0.15);
 }
 
 .c0:disabled {
