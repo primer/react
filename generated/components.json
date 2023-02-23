@@ -3004,7 +3004,7 @@
         {
           "name": "as",
           "type": "React.ElementType",
-          "defaultValue": "\"header\""
+          "defaultValue": "\"div\""
         }
       ],
       "subcomponents": [
@@ -3141,7 +3141,7 @@
             {
               "name": "as",
               "type": "React.ElementType",
-              "defaultValue": "\"h3\""
+              "defaultValue": "\"h2\""
             }
           ]
         },
