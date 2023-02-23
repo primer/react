@@ -2,11 +2,9 @@ import React from 'react'
 import {ComponentStory, ComponentMeta} from '@storybook/react'
 import CounterLabel from './CounterLabel'
 
-const meta: ComponentMeta<typeof CounterLabel> = {
+export default {
   title: 'Components/CounterLabel/Features',
   component: CounterLabel,
-}
-
-export default meta
+} as ComponentMeta<typeof CounterLabel>
 // eslint-disable-next-line storybook/prefer-pascal-case
-export const primaryTheme: ComponentStory<typeof CounterLabel> = () => <CounterLabel scheme="primary">12</CounterLabel>
+export const PrimaryTheme: ComponentStory<typeof CounterLabel> = () => <CounterLabel scheme="primary">12</CounterLabel>
