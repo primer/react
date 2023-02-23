@@ -10,17 +10,17 @@ type BaseProps = SxProp & {
   id?: string
 }
 
-type LabelProps = BaseProps & {
+export type LabelProps = BaseProps & {
   htmlFor?: string
   as?: 'label'
 }
 
-type LegendProps = BaseProps & {
-  as: 'legend'
+export type LegendOrSpanProps = BaseProps & {
+  as: 'legend' | 'span'
   htmlFor?: undefined
 }
 
-type Props = LabelProps | LegendProps
+type Props = LabelProps | LegendOrSpanProps
 
 const InputLabel: React.FC<React.PropsWithChildren<Props>> = ({
   children,

@@ -6,6 +6,7 @@ import {ComponentProps} from './utils/types'
 const ButtonGroup = styled.div`
   display: inline-flex;
   vertical-align: middle;
+  isolation: isolate;
 
   && > * {
     position: relative;
