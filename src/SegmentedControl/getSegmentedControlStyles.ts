@@ -115,5 +115,9 @@ export const getSegmentedControlListItemStyles = () => ({
   marginTop: '-1px',
   marginBottom: '-1px',
   ':not(:last-child)': borderedSegment,
+  // Needed to hide the segment border when the button is focused. Without this, the segment border overlaps the focus outline.
+  ':focus-within:has(:focus-visible)': {
+    '--separator-color': 'transparent',
+  },
   ...directChildLayoutAdjustments,
 })

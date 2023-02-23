@@ -87,78 +87,6 @@
         }
       ]
     },
-    "avatar": {
-      "id": "avatar",
-      "name": "Avatar",
-      "status": "alpha",
-      "a11yReviewed": false,
-      "stories": [],
-      "props": [
-        {
-          "name": "alt",
-          "type": "string",
-          "defaultValue": "''",
-          "description": "Provide alt text when the avatar is used without a name next to it."
-        },
-        {
-          "name": "size",
-          "type": "number",
-          "defaultValue": "20",
-          "description": "The size of the avatar in pixels."
-        },
-        {
-          "name": "square",
-          "type": "boolean",
-          "defaultValue": "false",
-          "description": "If true, the avatar will be square instead of circular."
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject"
-        }
-      ],
-      "subcomponents": []
-    },
-    "avatar_pair": {
-      "id": "avatar_pair",
-      "name": "AvatarPair",
-      "status": "alpha",
-      "a11yReviewed": false,
-      "stories": [],
-      "props": [
-        {
-          "name": "children",
-          "type": "Avatar[]",
-          "defaultValue": "",
-          "description": ""
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject"
-        }
-      ],
-      "subcomponents": []
-    },
-    "avatar_stack": {
-      "id": "avatar_stack",
-      "name": "AvatarStack",
-      "status": "alpha",
-      "a11yReviewed": false,
-      "stories": [],
-      "props": [
-        {
-          "name": "alignRight",
-          "type": "boolean",
-          "defaultValue": "false",
-          "description": "Align the avatars to the right"
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject"
-        }
-      ],
-      "subcomponents": []
-    },
     "box": {
       "id": "box",
       "name": "Box",
@@ -2220,6 +2148,78 @@
         }
       ]
     },
+    "avatar": {
+      "id": "avatar",
+      "name": "Avatar",
+      "status": "alpha",
+      "a11yReviewed": false,
+      "stories": [],
+      "props": [
+        {
+          "name": "alt",
+          "type": "string",
+          "defaultValue": "''",
+          "description": "Provide alt text when the avatar is used without a name next to it."
+        },
+        {
+          "name": "size",
+          "type": "number",
+          "defaultValue": "20",
+          "description": "The size of the avatar in pixels."
+        },
+        {
+          "name": "square",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "If true, the avatar will be square instead of circular."
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ],
+      "subcomponents": []
+    },
+    "avatar_pair": {
+      "id": "avatar_pair",
+      "name": "AvatarPair",
+      "status": "alpha",
+      "a11yReviewed": false,
+      "stories": [],
+      "props": [
+        {
+          "name": "children",
+          "type": "Avatar[]",
+          "defaultValue": "",
+          "description": ""
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ],
+      "subcomponents": []
+    },
+    "avatar_stack": {
+      "id": "avatar_stack",
+      "name": "AvatarStack",
+      "status": "alpha",
+      "a11yReviewed": false,
+      "stories": [],
+      "props": [
+        {
+          "name": "alignRight",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "Align the avatars to the right"
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ],
+      "subcomponents": []
+    },
     "branch_name": {
       "id": "branch_name",
       "name": "BranchName",
@@ -2691,6 +2691,12 @@
               "type": "boolean",
               "defaultValue": "false",
               "description": "Whether the label should be visually hidden"
+            },
+            {
+              "name": "as",
+              "type": "'label' | 'legend' | 'span'",
+              "defaultValue": "'label'",
+              "description": "The label element can be changed to a 'legend' when it's being used to label a fieldset, or a 'span' when it's being used to label an element that is not a form input. For example: when using a FormControl to render a labeled SegementedControl, the label should be a 'span'"
             },
             {
               "name": "sx",

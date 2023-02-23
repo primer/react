@@ -189,4 +189,4 @@ describe('Keyboard Navigation', () => {
   })
 })
 
-checkStoriesForAxeViolations('examples', '../UnderlineNav2/')
+checkStoriesForAxeViolations('UnderlineNav2.examples', '../UnderlineNav2/')

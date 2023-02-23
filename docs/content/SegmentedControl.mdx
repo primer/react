@@ -9,16 +9,48 @@ storybook: '/react/storybook/?path=/story/components-segmentedcontrol'
 
 import data from '../../src/SegmentedControl/SegmentedControl.docs.json'
 
+<Note variant="warning">
+
+A `SegmentedControl` should not be used in a form as a replacement for something like a [RadioGroup](/RadioGroup) or [Select](/Select). See the [Accessibility section](https://primer.style/design/components/segmented-control#accessibility) of the SegmentedControl interface guidelines for more details.
+
+</Note>
+
 ## Examples
 
-### Uncontrolled (default)
+### With a label above and caption below
 
 ```jsx live
-<SegmentedControl aria-label="File view">
-  <SegmentedControl.Button defaultSelected>Preview</SegmentedControl.Button>
-  <SegmentedControl.Button>Raw</SegmentedControl.Button>
-  <SegmentedControl.Button>Blame</SegmentedControl.Button>
-</SegmentedControl>
+<FormControl>
+  <FormControl.Label id="scLabel-horiz" as="span">
+    File view
+  </FormControl.Label>
+  <SegmentedControl aria-labelledby="scLabel-horiz" aria-describedby="scCaption-horiz">
+    <SegmentedControl.Button defaultSelected>Preview</SegmentedControl.Button>
+    <SegmentedControl.Button>Raw</SegmentedControl.Button>
+    <SegmentedControl.Button>Blame</SegmentedControl.Button>
+  </SegmentedControl>
+  <FormControl.Caption id="scCaption-horiz">Change the way the file is viewed</FormControl.Caption>
+</FormControl>
+```
+
+### With a label and caption on the left
+
+```jsx live
+<Box display="flex">
+  <Box flexGrow={1}>
+    <Text fontSize={2} fontWeight="bold" id="scLabel-vert" display="block">
+      File view
+    </Text>
+    <Text color="fg.subtle" fontSize={1} id="scCaption-vert" display="block">
+      Change the way the file is viewed
+    </Text>
+  </Box>
+  <SegmentedControl aria-labelledby="scLabel-vert" aria-describedby="scCaption-vert">
+    <SegmentedControl.Button defaultSelected>Preview</SegmentedControl.Button>
+    <SegmentedControl.Button>Raw</SegmentedControl.Button>
+    <SegmentedControl.Button>Blame</SegmentedControl.Button>
+  </SegmentedControl>
+</Box>
 ```
 
 ### Controlled
@@ -107,40 +139,6 @@ render(Controlled)
   <SegmentedControl.Button>Raw</SegmentedControl.Button>
   <SegmentedControl.Button>Blame</SegmentedControl.Button>
 </SegmentedControl>
-```
-
-### With a label and caption on the left
-
-```jsx live
-<Box display="flex">
-  <Box flexGrow={1}>
-    <Text fontSize={2} fontWeight="bold" id="scLabel-vert" display="block">
-      File view
-    </Text>
-    <Text color="fg.subtle" fontSize={1} id="scCaption-vert" display="block">
-      Change the way the file is viewed
-    </Text>
-  </Box>
-  <SegmentedControl aria-labelledby="scLabel-vert" aria-describedby="scCaption-vert">
-    <SegmentedControl.Button defaultSelected>Preview</SegmentedControl.Button>
-    <SegmentedControl.Button>Raw</SegmentedControl.Button>
-    <SegmentedControl.Button>Blame</SegmentedControl.Button>
-  </SegmentedControl>
-</Box>
-```
-
-### With a label above and caption below
-
-```jsx live
-<FormControl>
-  <FormControl.Label id="scLabel-horiz">File view</FormControl.Label>
-  <SegmentedControl aria-labelledby="scLabel-horiz" aria-describedby="scCaption-horiz">
-    <SegmentedControl.Button defaultSelected>Preview</SegmentedControl.Button>
-    <SegmentedControl.Button>Raw</SegmentedControl.Button>
-    <SegmentedControl.Button>Blame</SegmentedControl.Button>
-  </SegmentedControl>
-  <FormControl.Caption id="scCaption-horiz">Change the way the file is viewed</FormControl.Caption>
-</FormControl>
 ```
 
 ### With something besides the first option selected
