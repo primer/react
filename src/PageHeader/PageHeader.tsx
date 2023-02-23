@@ -100,6 +100,7 @@ type LinkProps = Pick<
 }
 export type ParentLinkProps = React.PropsWithChildren<ChildrenPropTypes & LinkProps>
 
+// PageHeader.ParentLink : Only visible on narrow viewports by default to let users navigate up in the hierarchy.
 const ParentLink = React.forwardRef<HTMLAnchorElement, ParentLinkProps>(
   ({children, sx = {}, href, 'aria-label': ariaLabel, as = 'a', hidden = hiddenOnRegularAndWide}, ref) => {
     return (
@@ -203,8 +204,8 @@ type TitleAreaProps = {
   variant?: 'subtitle' | 'medium' | 'large' | ResponsiveValue<'subtitle' | 'medium' | 'large'>
 } & ChildrenPropTypes
 // PageHeader.TitleArea: The main title area of the page. Visible on all viewports.
-// PageHeader.TitleArea Sub Components: PageHeader.LeadingAction, PageHeader.LeadingVisual, PageHeader.Title, PageTitle.TrailingVisual, PageHeader.TrailingAction, PageHeader.Actions
-// PageHeader.LeadingAction and PageHeader.TrailingAction are only visible on regular viewports therefore they come as visible on narrow viewports and their visibility can be managed by their exposed `visible` prop
+// PageHeader.TitleArea Sub Components: PageHeader.LeadingAction, PageHeader.LeadingVisual,
+// PageHeader.Title, PageTitle.TrailingVisual, PageHeader.TrailingAction, PageHeader.Actions
 // ---------------------------------------------------------------------
 
 const TitleArea: React.FC<React.PropsWithChildren<TitleAreaProps>> = ({
@@ -238,6 +239,8 @@ const TitleArea: React.FC<React.PropsWithChildren<TitleAreaProps>> = ({
   )
 }
 
+// PageHeader.LeadingAction and PageHeader.TrailingAction should only be visible on regular viewports.
+// So they come as hidden on narrow viewports by default and their visibility can be managed by their `hidden` prop.
 const LeadingAction: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
   children,
   sx = {},
@@ -265,6 +268,7 @@ const LeadingAction: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
   )
 }
 
+// PageHeader.LeadingVisual and PageHeader.TrailingVisual should remain visible on narrow viewports.
 const LeadingVisual: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({children, sx = {}, hidden = false}) => {
   const {titleAreaHeight} = React.useContext(TitleAreaContext)
   return (
@@ -288,11 +292,10 @@ const LeadingVisual: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({ch
 }
 
 export type TitleProps = {
-  // Check if we need responsive values for heading is so should we update as prop's type for Heading component?
   as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
 } & ChildrenPropTypes
 
-const Title: React.FC<React.PropsWithChildren<TitleProps>> = ({children, sx = {}, hidden = false, as = 'h3'}) => {
+const Title: React.FC<React.PropsWithChildren<TitleProps>> = ({children, sx = {}, hidden = false, as = 'h2'}) => {
   const {titleVariant} = React.useContext(TitleAreaContext)
   return (
     <Heading
@@ -328,6 +331,8 @@ const Title: React.FC<React.PropsWithChildren<TitleProps>> = ({children, sx = {}
     </Heading>
   )
 }
+
+// PageHeader.LeadingVisual and PageHeader.TrailingVisual should remain visible on narrow viewports.
 const TrailingVisual: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({children, sx = {}, hidden = false}) => {
   const {titleAreaHeight} = React.useContext(TitleAreaContext)
 
