@@ -316,18 +316,6 @@ exports[`ButtonGroup renders consistently 1`] = `
 }
 
 .c0.c0 > *:focus,
-.c0.c0 > *:active,
-.c0.c0 > *:hover {
-  border-right-width: 1px;
-}
-
-.c0.c0 > *:focus + *,
-.c0.c0 > *:active + *,
-.c0.c0 > *:hover + * {
-  border-left-width: 0;
-}
-
-.c0.c0 > *:focus,
 .c0.c0 > *:active {
   z-index: 1;
 }
