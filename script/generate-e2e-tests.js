@@ -214,6 +214,21 @@ const components = new Map([
     },
   ],
   [
+    'CounterLabel',
+    {
+      stories: [
+        {
+          id: 'components-counterlabel--default',
+          name: 'Default',
+        },
+        {
+          id: 'components-counterlabel-features--primary-theme',
+          name: 'Primary Theme',
+        },
+      ],
+    },
+  ],
+  [
     'Flash',
     {
       stories: [
