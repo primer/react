@@ -1,7 +1,8 @@
 import React from 'react'
 import {Story, Meta} from '@storybook/react'
 import ButtonGroup from '../ButtonGroup'
-import {Button, ButtonProps} from '../Button'
+import {Button, ButtonProps, IconButton} from '../Button'
+import {PlusIcon, DashIcon} from '@primer/octicons-react'
 
 export default {
   title: 'Components/ButtonGroup',
@@ -47,3 +48,10 @@ Playground.argTypes = {
     },
   },
 }
+
+export const IconButtons = () => (
+  <ButtonGroup>
+    <IconButton icon={PlusIcon} aria-label="Add" />
+    <IconButton icon={DashIcon} aria-label="Subtract" />
+  </ButtonGroup>
+)
