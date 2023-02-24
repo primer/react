@@ -5,7 +5,7 @@ exports[`snapshot theme-preval.js 1`] = `
 
 // this file was prevaled
 // This file needs to be a JavaScript file using CommonJS to be compatible with preval
-// Cache bust: 2022-10-17 12:00:00 GMT (This file is cached by our deployment tooling, update this timestamp to rebuild this file)
+// Cache bust: 2023-02-23 12:00:00 GMT (This file is cached by our deployment tooling, update this timestamp to rebuild this file)
 var themePreval = {
   "animation": {
     "easeOutCubic": "cubic-bezier(0.33, 1, 0.68, 1)"
@@ -217,6 +217,11 @@ var themePreval = {
             "bg": "#1b1f23"
           }
         },
+        "control": {
+          "borderColor": {
+            "emphasis": "#858F99"
+          }
+        },
         "avatar": {
           "bg": "#ffffff",
           "border": "rgba(27,31,36,0.15)",
@@ -284,8 +289,6 @@ var themePreval = {
           "activeBg": "hsla(220,14%,93%,1)",
           "activeBorder": "rgba(27,31,36,0.15)",
           "selectedBg": "hsla(220,14%,94%,1)",
-          "focusBg": "#f6f8fa",
-          "focusBorder": "rgba(27,31,36,0.15)",
           "counterBg": "rgba(27,31,36,0.08)",
           "primary": {
             "text": "#ffffff",
@@ -297,8 +300,6 @@ var themePreval = {
             "disabledText": "rgba(255,255,255,0.8)",
             "disabledBg": "#94d3a2",
             "disabledBorder": "rgba(27,31,36,0.15)",
-            "focusBg": "#2da44e",
-            "focusBorder": "rgba(27,31,36,0.15)",
             "icon": "rgba(255,255,255,0.8)",
             "counterBg": "rgba(255,255,255,0.2)"
           },
@@ -314,7 +315,6 @@ var themePreval = {
             "disabledText": "rgba(9,105,218,0.5)",
             "disabledBg": "#f6f8fa",
             "disabledCounterBg": "rgba(9,105,218,0.05)",
-            "focusBorder": "rgba(27,31,36,0.15)",
             "counterBg": "rgba(9,105,218,0.1)"
           },
           "danger": {
@@ -329,7 +329,6 @@ var themePreval = {
             "disabledText": "rgba(207,34,46,0.5)",
             "disabledBg": "#f6f8fa",
             "disabledCounterBg": "rgba(207,34,46,0.05)",
-            "focusBorder": "rgba(27,31,36,0.15)",
             "counterBg": "rgba(207,34,46,0.1)",
             "icon": "#cf222e",
             "hoverIcon": "#ffffff"
@@ -356,23 +355,35 @@ var themePreval = {
         },
         "switchTrack": {
           "bg": "#eaeef2",
-          "border": "#afb8c1",
+          "hoverBg": "hsla(210,24%,90%,1)",
+          "activeBg": "hsla(210,24%,88%,1)",
+          "disabledBg": "#8c959f",
+          "fg": "#57606a",
+          "disabledFg": "#ffffff",
+          "border": "rgba(0,0,0,0)",
           "checked": {
-            "bg": "#ddf4ff",
-            "hoverBg": "#b6e3ff",
-            "activeBg": "#80ccff",
-            "border": "#54aeff"
+            "bg": "#0969da",
+            "hoverBg": "#0860CA",
+            "activeBg": "#0757BA",
+            "fg": "#ffffff",
+            "disabledFg": "#ffffff",
+            "border": "rgba(0,0,0,0)"
           }
         },
         "switchKnob": {
+          "bg": "#ffffff",
+          "disabledBg": "#f6f8fa",
+          "border": "#858F99",
           "checked": {
-            "bg": "#0969da",
-            "disabledBg": "#6e7781"
+            "bg": "#ffffff",
+            "disabledBg": "#f6f8fa",
+            "border": "#0969da"
           }
         },
         "segmentedControl": {
           "bg": "#eaeef2",
           "button": {
+            "bg": "#ffffff",
             "hover": {
               "bg": "rgba(175,184,193,0.2)"
             },
@@ -380,7 +391,7 @@ var themePreval = {
               "bg": "rgba(175,184,193,0.4)"
             },
             "selected": {
-              "border": "#6e7781"
+              "border": "#8c959f"
             }
           }
         },
@@ -503,26 +514,20 @@ var themePreval = {
         "btn": {
           "shadow": "0 1px 0 rgba(27,31,36,0.04)",
           "insetShadow": "inset 0 1px 0 rgba(255,255,255,0.25)",
-          "focusShadow": "0 0 0 3px rgba(9,105,218,0.3)",
-          "shadowActive": "inset 0 0.15em 0.3em rgba(27,31,36,0.15)",
-          "shadowInputFocus": "0 0 0 0.2em rgba(9,105,218,0.3)",
           "primary": {
             "shadow": "0 1px 0 rgba(27,31,36,0.1)",
             "insetShadow": "inset 0 1px 0 rgba(255,255,255,0.03)",
-            "selectedShadow": "inset 0 1px 0 rgba(0,45,17,0.2)",
-            "focusShadow": "0 0 0 3px rgba(45,164,78,0.4)"
+            "selectedShadow": "inset 0 1px 0 rgba(0,45,17,0.2)"
           },
           "outline": {
             "hoverShadow": "0 1px 0 rgba(27,31,36,0.1)",
             "hoverInsetShadow": "inset 0 1px 0 rgba(255,255,255,0.03)",
-            "selectedShadow": "inset 0 1px 0 rgba(0,33,85,0.2)",
-            "focusShadow": "0 0 0 3px rgba(5,80,174,0.4)"
+            "selectedShadow": "inset 0 1px 0 rgba(0,33,85,0.2)"
           },
           "danger": {
             "hoverShadow": "0 1px 0 rgba(27,31,36,0.1)",
             "hoverInsetShadow": "inset 0 1px 0 rgba(255,255,255,0.03)",
-            "selectedShadow": "inset 0 1px 0 rgba(76,0,20,0.2)",
-            "focusShadow": "0 0 0 3px rgba(164,14,38,0.4)"
+            "selectedShadow": "inset 0 1px 0 rgba(76,0,20,0.2)"
           }
         },
         "shadow": {
@@ -534,8 +539,7 @@ var themePreval = {
         "primer": {
           "shadow": {
             "highlight": "inset 0 1px 0 rgba(255,255,255,0.25)",
-            "inset": "inset 0 1px 0 rgba(208,215,222,0.2)",
-            "focus": "0 0 0 3px rgba(9,105,218,0.3)"
+            "inset": "inset 0 1px 0 rgba(208,215,222,0.2)"
           }
         }
       }
@@ -720,6 +724,11 @@ var themePreval = {
             "bg": "#1b1f23"
           }
         },
+        "control": {
+          "borderColor": {
+            "emphasis": "#20252c"
+          }
+        },
         "avatar": {
           "bg": "#ffffff",
           "border": "rgba(1,4,9,0.8)",
@@ -787,8 +796,6 @@ var themePreval = {
           "activeBg": "#acb6c0",
           "activeBorder": "rgba(1,4,9,0.8)",
           "selectedBg": "#acb6c0",
-          "focusBg": "#ced5dc",
-          "focusBorder": "rgba(1,4,9,0.8)",
           "counterBg": "rgba(1,4,9,0.08)",
           "primary": {
             "text": "#ffffff",
@@ -800,8 +807,6 @@ var themePreval = {
             "disabledText": "rgba(255,255,255,0.8)",
             "disabledBg": "#94d3a2",
             "disabledBorder": "rgba(1,4,9,0.8)",
-            "focusBg": "#013d14",
-            "focusBorder": "#013d14",
             "icon": "rgba(255,255,255,0.8)",
             "counterBg": "rgba(255,255,255,0.2)"
           },
@@ -817,7 +822,6 @@ var themePreval = {
             "disabledText": "rgba(3,73,180,0.5)",
             "disabledBg": "#e7ecf0",
             "disabledCounterBg": "rgba(3,73,180,0.05)",
-            "focusBorder": "#022f7a",
             "counterBg": "rgba(3,73,180,0.1)"
           },
           "danger": {
@@ -832,7 +836,6 @@ var themePreval = {
             "disabledText": "rgba(160,17,31,0.5)",
             "disabledBg": "#e7ecf0",
             "disabledCounterBg": "rgba(160,17,31,0.05)",
-            "focusBorder": "#6e011a",
             "counterBg": "rgba(160,17,31,0.1)",
             "icon": "#86061d",
             "hoverIcon": "#ffffff"
@@ -858,24 +861,36 @@ var themePreval = {
           }
         },
         "switchTrack": {
-          "bg": "#ffffff",
-          "border": "#20252c",
+          "bg": "#66707b",
+          "hoverBg": "hsla(211,9%,47%,1)",
+          "activeBg": "hsla(211,9%,49%,1)",
+          "disabledBg": "#88929d",
+          "fg": "#ffffff",
+          "disabledFg": "#ffffff",
+          "border": "rgba(0,0,0,0)",
           "checked": {
-            "bg": "#dff7ff",
-            "hoverBg": "#9cd7ff",
-            "activeBg": "#67b3fd",
-            "border": "#0349b4"
+            "bg": "#0349b4",
+            "hoverBg": "#0860CA",
+            "activeBg": "#0757BA",
+            "fg": "#ffffff",
+            "disabledFg": "#ffffff",
+            "border": "rgba(0,0,0,0)"
           }
         },
         "switchKnob": {
+          "bg": "#ffffff",
+          "disabledBg": "#e7ecf0",
+          "border": "#20252c",
           "checked": {
-            "bg": "#0349b4",
-            "disabledBg": "#66707b"
+            "bg": "#ffffff",
+            "disabledBg": "#e7ecf0",
+            "border": "#0349b4"
           }
         },
         "segmentedControl": {
           "bg": "#e7ecf0",
           "button": {
+            "bg": "#ffffff",
             "hover": {
               "bg": "rgba(172,182,192,0.2)"
             },
@@ -883,7 +898,7 @@ var themePreval = {
               "bg": "rgba(172,182,192,0.4)"
             },
             "selected": {
-              "border": "#66707b"
+              "border": "#88929d"
             }
           }
         },
@@ -1006,26 +1021,20 @@ var themePreval = {
         "btn": {
           "shadow": "0 1px 0 rgba(1,4,9,0.04)",
           "insetShadow": "inset 0 1px 0 rgba(255,255,255,0.25)",
-          "focusShadow": "0 0 0 3px rgba(3,73,180,0.3)",
-          "shadowActive": "inset 0 0.15em 0.3em rgba(1,4,9,0.15)",
-          "shadowInputFocus": "0 0 0 0.2em rgba(3,73,180,0.3)",
           "primary": {
             "shadow": "0 1px 0 rgba(1,4,9,0.1)",
             "insetShadow": "inset 0 1px 0 rgba(255,255,255,0.03)",
-            "selectedShadow": "inset 0 1px 0 rgba(0,35,11,0.2)",
-            "focusShadow": "0 0 0 3px rgba(1,61,20,0.4)"
+            "selectedShadow": "inset 0 1px 0 rgba(0,35,11,0.2)"
           },
           "outline": {
             "hoverShadow": "0 1px 0 rgba(1,4,9,0.1)",
             "hoverInsetShadow": "inset 0 1px 0 rgba(255,255,255,0.03)",
-            "selectedShadow": "inset 0 1px 0 rgba(2,26,74,0.2)",
-            "focusShadow": "0 0 0 3px rgba(2,59,149,0.4)"
+            "selectedShadow": "inset 0 1px 0 rgba(2,26,74,0.2)"
           },
           "danger": {
             "hoverShadow": "0 1px 0 rgba(1,4,9,0.1)",
             "hoverInsetShadow": "inset 0 1px 0 rgba(255,255,255,0.03)",
-            "selectedShadow": "inset 0 1px 0 rgba(67,0,17,0.2)",
-            "focusShadow": "0 0 0 3px rgba(134,6,29,0.4)"
+            "selectedShadow": "inset 0 1px 0 rgba(67,0,17,0.2)"
           }
         },
         "shadow": {
@@ -1037,8 +1046,7 @@ var themePreval = {
         "primer": {
           "shadow": {
             "highlight": "inset 0 1px 0 rgba(255,255,255,0.25)",
-            "inset": "inset 0 1px 0 rgba(206,213,220,0.2)",
-            "focus": "0 0 0 3px rgba(3,73,180,0.3)"
+            "inset": "inset 0 1px 0 rgba(206,213,220,0.2)"
           }
         }
       }
@@ -1223,6 +1231,11 @@ var themePreval = {
             "bg": "#1b1f23"
           }
         },
+        "control": {
+          "borderColor": {
+            "emphasis": "#858F99"
+          }
+        },
         "avatar": {
           "bg": "#ffffff",
           "border": "rgba(27,31,36,0.15)",
@@ -1290,8 +1303,6 @@ var themePreval = {
           "activeBg": "hsla(220,14%,93%,1)",
           "activeBorder": "rgba(27,31,36,0.15)",
           "selectedBg": "hsla(220,14%,94%,1)",
-          "focusBg": "#f6f8fa",
-          "focusBorder": "rgba(27,31,36,0.15)",
           "counterBg": "rgba(27,31,36,0.08)",
           "primary": {
             "text": "#ffffff",
@@ -1303,8 +1314,6 @@ var themePreval = {
             "disabledText": "rgba(255,255,255,0.8)",
             "disabledBg": "#80ccff",
             "disabledBorder": "rgba(27,31,36,0.15)",
-            "focusBg": "#218bff",
-            "focusBorder": "rgba(27,31,36,0.15)",
             "icon": "rgba(255,255,255,0.8)",
             "counterBg": "rgba(255,255,255,0.2)"
           },
@@ -1320,7 +1329,6 @@ var themePreval = {
             "disabledText": "rgba(9,105,218,0.5)",
             "disabledBg": "#f6f8fa",
             "disabledCounterBg": "rgba(9,105,218,0.05)",
-            "focusBorder": "rgba(27,31,36,0.15)",
             "counterBg": "rgba(9,105,218,0.1)"
           },
           "danger": {
@@ -1335,7 +1343,6 @@ var themePreval = {
             "disabledText": "rgba(179,89,0,0.5)",
             "disabledBg": "#f6f8fa",
             "disabledCounterBg": "rgba(179,89,0,0.05)",
-            "focusBorder": "rgba(27,31,36,0.15)",
             "counterBg": "rgba(179,89,0,0.1)",
             "icon": "#b35900",
             "hoverIcon": "#ffffff"
@@ -1362,23 +1369,35 @@ var themePreval = {
         },
         "switchTrack": {
           "bg": "#eaeef2",
-          "border": "#afb8c1",
+          "hoverBg": "hsla(210,24%,90%,1)",
+          "activeBg": "hsla(210,24%,88%,1)",
+          "disabledBg": "#8c959f",
+          "fg": "#57606a",
+          "disabledFg": "#ffffff",
+          "border": "rgba(0,0,0,0)",
           "checked": {
-            "bg": "#ddf4ff",
-            "hoverBg": "#b6e3ff",
-            "activeBg": "#80ccff",
-            "border": "#54aeff"
+            "bg": "#0969da",
+            "hoverBg": "#0860CA",
+            "activeBg": "#0757BA",
+            "fg": "#ffffff",
+            "disabledFg": "#ffffff",
+            "border": "rgba(0,0,0,0)"
           }
         },
         "switchKnob": {
+          "bg": "#ffffff",
+          "disabledBg": "#f6f8fa",
+          "border": "#858F99",
           "checked": {
-            "bg": "#0969da",
-            "disabledBg": "#6e7781"
+            "bg": "#ffffff",
+            "disabledBg": "#f6f8fa",
+            "border": "#0969da"
           }
         },
         "segmentedControl": {
           "bg": "#eaeef2",
           "button": {
+            "bg": "#ffffff",
             "hover": {
               "bg": "rgba(175,184,193,0.2)"
             },
@@ -1386,7 +1405,7 @@ var themePreval = {
               "bg": "rgba(175,184,193,0.4)"
             },
             "selected": {
-              "border": "#6e7781"
+              "border": "#8c959f"
             }
           }
         },
@@ -1509,26 +1528,20 @@ var themePreval = {
         "btn": {
           "shadow": "0 1px 0 rgba(27,31,36,0.04)",
           "insetShadow": "inset 0 1px 0 rgba(255,255,255,0.25)",
-          "focusShadow": "0 0 0 3px rgba(9,105,218,0.3)",
-          "shadowActive": "inset 0 0.15em 0.3em rgba(27,31,36,0.15)",
-          "shadowInputFocus": "0 0 0 0.2em rgba(9,105,218,0.3)",
           "primary": {
             "shadow": "0 1px 0 rgba(27,31,36,0.1)",
             "insetShadow": "inset 0 1px 0 rgba(255,255,255,0.03)",
-            "selectedShadow": "inset 0 1px 0 rgba(0,33,85,0.2)",
-            "focusShadow": "0 0 0 3px rgba(33,139,255,0.4)"
+            "selectedShadow": "inset 0 1px 0 rgba(0,33,85,0.2)"
           },
           "outline": {
             "hoverShadow": "0 1px 0 rgba(27,31,36,0.1)",
             "hoverInsetShadow": "inset 0 1px 0 rgba(255,255,255,0.03)",
-            "selectedShadow": "inset 0 1px 0 rgba(0,33,85,0.2)",
-            "focusShadow": "0 0 0 3px rgba(5,80,174,0.4)"
+            "selectedShadow": "inset 0 1px 0 rgba(0,33,85,0.2)"
           },
           "danger": {
             "hoverShadow": "0 1px 0 rgba(27,31,36,0.1)",
             "hoverInsetShadow": "inset 0 1px 0 rgba(255,255,255,0.03)",
-            "selectedShadow": "inset 0 1px 0 rgba(65,32,0,0.2)",
-            "focusShadow": "0 0 0 3px rgba(138,70,0,0.4)"
+            "selectedShadow": "inset 0 1px 0 rgba(65,32,0,0.2)"
           }
         },
         "shadow": {
@@ -1540,8 +1553,7 @@ var themePreval = {
         "primer": {
           "shadow": {
             "highlight": "inset 0 1px 0 rgba(255,255,255,0.25)",
-            "inset": "inset 0 1px 0 rgba(208,215,222,0.2)",
-            "focus": "0 0 0 3px rgba(9,105,218,0.3)"
+            "inset": "inset 0 1px 0 rgba(208,215,222,0.2)"
           }
         }
       }
@@ -1726,6 +1738,11 @@ var themePreval = {
             "bg": "#1b1f23"
           }
         },
+        "control": {
+          "borderColor": {
+            "emphasis": "#858F99"
+          }
+        },
         "avatar": {
           "bg": "#ffffff",
           "border": "rgba(27,31,36,0.15)",
@@ -1793,8 +1810,6 @@ var themePreval = {
           "activeBg": "hsla(220,14%,93%,1)",
           "activeBorder": "rgba(27,31,36,0.15)",
           "selectedBg": "hsla(220,14%,94%,1)",
-          "focusBg": "#f6f8fa",
-          "focusBorder": "rgba(27,31,36,0.15)",
           "counterBg": "rgba(27,31,36,0.08)",
           "primary": {
             "text": "#ffffff",
@@ -1806,8 +1821,6 @@ var themePreval = {
             "disabledText": "rgba(255,255,255,0.8)",
             "disabledBg": "#80ccff",
             "disabledBorder": "rgba(27,31,36,0.15)",
-            "focusBg": "#218bff",
-            "focusBorder": "rgba(27,31,36,0.15)",
             "icon": "rgba(255,255,255,0.8)",
             "counterBg": "rgba(255,255,255,0.2)"
           },
@@ -1823,7 +1836,6 @@ var themePreval = {
             "disabledText": "rgba(9,105,218,0.5)",
             "disabledBg": "#f6f8fa",
             "disabledCounterBg": "rgba(9,105,218,0.05)",
-            "focusBorder": "rgba(27,31,36,0.15)",
             "counterBg": "rgba(9,105,218,0.1)"
           },
           "danger": {
@@ -1838,7 +1850,6 @@ var themePreval = {
             "disabledText": "rgba(207,34,46,0.5)",
             "disabledBg": "#f6f8fa",
             "disabledCounterBg": "rgba(207,34,46,0.05)",
-            "focusBorder": "rgba(27,31,36,0.15)",
             "counterBg": "rgba(207,34,46,0.1)",
             "icon": "#cf222e",
             "hoverIcon": "#ffffff"
@@ -1865,23 +1876,35 @@ var themePreval = {
         },
         "switchTrack": {
           "bg": "#eaeef2",
-          "border": "#afb8c1",
+          "hoverBg": "hsla(210,24%,90%,1)",
+          "activeBg": "hsla(210,24%,88%,1)",
+          "disabledBg": "#8c959f",
+          "fg": "#57606a",
+          "disabledFg": "#ffffff",
+          "border": "rgba(0,0,0,0)",
           "checked": {
-            "bg": "#ddf4ff",
-            "hoverBg": "#b6e3ff",
-            "activeBg": "#80ccff",
-            "border": "#54aeff"
+            "bg": "#0969da",
+            "hoverBg": "#0860CA",
+            "activeBg": "#0757BA",
+            "fg": "#ffffff",
+            "disabledFg": "#ffffff",
+            "border": "rgba(0,0,0,0)"
           }
         },
         "switchKnob": {
+          "bg": "#ffffff",
+          "disabledBg": "#f6f8fa",
+          "border": "#858F99",
           "checked": {
-            "bg": "#0969da",
-            "disabledBg": "#6e7781"
+            "bg": "#ffffff",
+            "disabledBg": "#f6f8fa",
+            "border": "#0969da"
           }
         },
         "segmentedControl": {
           "bg": "#eaeef2",
           "button": {
+            "bg": "#ffffff",
             "hover": {
               "bg": "rgba(175,184,193,0.2)"
             },
@@ -1889,7 +1912,7 @@ var themePreval = {
               "bg": "rgba(175,184,193,0.4)"
             },
             "selected": {
-              "border": "#6e7781"
+              "border": "#8c959f"
             }
           }
         },
@@ -2012,26 +2035,20 @@ var themePreval = {
         "btn": {
           "shadow": "0 1px 0 rgba(27,31,36,0.04)",
           "insetShadow": "inset 0 1px 0 rgba(255,255,255,0.25)",
-          "focusShadow": "0 0 0 3px rgba(9,105,218,0.3)",
-          "shadowActive": "inset 0 0.15em 0.3em rgba(27,31,36,0.15)",
-          "shadowInputFocus": "0 0 0 0.2em rgba(9,105,218,0.3)",
           "primary": {
             "shadow": "0 1px 0 rgba(27,31,36,0.1)",
             "insetShadow": "inset 0 1px 0 rgba(255,255,255,0.03)",
-            "selectedShadow": "inset 0 1px 0 rgba(0,33,85,0.2)",
-            "focusShadow": "0 0 0 3px rgba(33,139,255,0.4)"
+            "selectedShadow": "inset 0 1px 0 rgba(0,33,85,0.2)"
           },
           "outline": {
             "hoverShadow": "0 1px 0 rgba(27,31,36,0.1)",
             "hoverInsetShadow": "inset 0 1px 0 rgba(255,255,255,0.03)",
-            "selectedShadow": "inset 0 1px 0 rgba(0,33,85,0.2)",
-            "focusShadow": "0 0 0 3px rgba(5,80,174,0.4)"
+            "selectedShadow": "inset 0 1px 0 rgba(0,33,85,0.2)"
           },
           "danger": {
             "hoverShadow": "0 1px 0 rgba(27,31,36,0.1)",
             "hoverInsetShadow": "inset 0 1px 0 rgba(255,255,255,0.03)",
-            "selectedShadow": "inset 0 1px 0 rgba(76,0,20,0.2)",
-            "focusShadow": "0 0 0 3px rgba(164,14,38,0.4)"
+            "selectedShadow": "inset 0 1px 0 rgba(76,0,20,0.2)"
           }
         },
         "shadow": {
@@ -2043,8 +2060,7 @@ var themePreval = {
         "primer": {
           "shadow": {
             "highlight": "inset 0 1px 0 rgba(255,255,255,0.25)",
-            "inset": "inset 0 1px 0 rgba(208,215,222,0.2)",
-            "focus": "0 0 0 3px rgba(9,105,218,0.3)"
+            "inset": "inset 0 1px 0 rgba(208,215,222,0.2)"
           }
         }
       }
@@ -2229,6 +2245,11 @@ var themePreval = {
             "bg": "#f6f8fa"
           }
         },
+        "control": {
+          "borderColor": {
+            "emphasis": "#606771"
+          }
+        },
         "avatar": {
           "bg": "rgba(255,255,255,0.1)",
           "border": "rgba(240,246,252,0.1)",
@@ -2296,8 +2317,6 @@ var themePreval = {
           "activeBg": "hsla(212,12%,18%,1)",
           "activeBorder": "#6e7681",
           "selectedBg": "#161b22",
-          "focusBg": "#21262d",
-          "focusBorder": "#8b949e",
           "counterBg": "#30363d",
           "primary": {
             "text": "#ffffff",
@@ -2309,8 +2328,6 @@ var themePreval = {
             "disabledText": "rgba(255,255,255,0.5)",
             "disabledBg": "rgba(35,134,54,0.6)",
             "disabledBorder": "rgba(240,246,252,0.1)",
-            "focusBg": "#238636",
-            "focusBorder": "rgba(240,246,252,0.1)",
             "icon": "#ffffff",
             "counterBg": "rgba(255,255,255,0.2)"
           },
@@ -2326,7 +2343,6 @@ var themePreval = {
             "disabledText": "rgba(88,166,255,0.5)",
             "disabledBg": "#0d1117",
             "disabledCounterBg": "rgba(31,111,235,0.05)",
-            "focusBorder": "rgba(240,246,252,0.1)",
             "counterBg": "rgba(31,111,235,0.1)"
           },
           "danger": {
@@ -2342,7 +2358,6 @@ var themePreval = {
             "disabledText": "rgba(248,81,73,0.5)",
             "disabledBg": "#0d1117",
             "disabledCounterBg": "rgba(218,54,51,0.05)",
-            "focusBorder": "#f85149",
             "counterBg": "rgba(218,54,51,0.1)",
             "icon": "#f85149"
           }
@@ -2367,24 +2382,36 @@ var themePreval = {
           }
         },
         "switchTrack": {
-          "bg": "#010409",
-          "border": "#6e7681",
+          "bg": "rgba(110,118,129,0.1)",
+          "hoverBg": "hsla(215,8%,72%,0.1)",
+          "activeBg": "rgba(110,118,129,0.4)",
+          "disabledBg": "#21262d",
+          "fg": "#8b949e",
+          "disabledFg": "#010409",
+          "border": "rgba(0,0,0,0)",
           "checked": {
             "bg": "rgba(31,111,235,0.35)",
             "hoverBg": "rgba(31,111,235,0.5)",
             "activeBg": "rgba(31,111,235,0.65)",
-            "border": "#58a6ff"
+            "fg": "#ffffff",
+            "disabledFg": "#010409",
+            "border": "rgba(0,0,0,0)"
           }
         },
         "switchKnob": {
+          "bg": "#0d1117",
+          "border": "#606771",
+          "disabledBg": "#161b22",
           "checked": {
-            "bg": "#1f6feb",
-            "disabledBg": "#484f58"
+            "bg": "#0d1117",
+            "disabledBg": "#161b22",
+            "border": "rgba(31,111,235,0.35)"
           }
         },
         "segmentedControl": {
-          "bg": "#161b22",
+          "bg": "rgba(110,118,129,0.1)",
           "button": {
+            "bg": "#0d1117",
             "hover": {
               "bg": "#30363d"
             },
@@ -2518,26 +2545,20 @@ var themePreval = {
         "btn": {
           "shadow": "0 0 transparent",
           "insetShadow": "0 0 transparent",
-          "focusShadow": "0 0 0 3px rgba(139,148,158,0.3)",
-          "shadowActive": "inset 0 0.15em 0.3em rgba(1,4,9,0.15)",
-          "shadowInputFocus": "0 0 0 0.2em rgba(31,111,235,0.3)",
           "primary": {
             "shadow": "0 0 transparent",
             "insetShadow": "0 0 transparent",
-            "selectedShadow": "0 0 transparent",
-            "focusShadow": "0 0 0 3px rgba(46,164,79,0.4)"
+            "selectedShadow": "0 0 transparent"
           },
           "outline": {
             "hoverShadow": "0 1px 0 rgba(1,4,9,0.1)",
             "hoverInsetShadow": "inset 0 1px 0 rgba(255,255,255,0.03)",
-            "selectedShadow": "0 0 transparent",
-            "focusShadow": "0 0 0 3px rgba(17,88,199,0.4)"
+            "selectedShadow": "0 0 transparent"
           },
           "danger": {
             "hoverShadow": "0 0 transparent",
             "hoverInsetShadow": "0 0 transparent",
-            "selectedShadow": "0 0 transparent",
-            "focusShadow": "0 0 0 3px rgba(248,81,73,0.4)"
+            "selectedShadow": "0 0 transparent"
           }
         },
         "shadow": {
@@ -2549,8 +2570,7 @@ var themePreval = {
         "primer": {
           "shadow": {
             "highlight": "0 0 transparent",
-            "inset": "0 0 transparent",
-            "focus": "0 0 0 3px #0c2d6b"
+            "inset": "0 0 transparent"
           }
         }
       }
@@ -2735,6 +2755,11 @@ var themePreval = {
             "bg": "#f6f8fa"
           }
         },
+        "control": {
+          "borderColor": {
+            "emphasis": "#606771"
+          }
+        },
         "avatar": {
           "bg": "rgba(205,217,229,0.1)",
           "border": "rgba(205,217,229,0.1)",
@@ -2802,8 +2827,6 @@ var themePreval = {
           "activeBg": "hsla(213,12%,27%,1)",
           "activeBorder": "#636e7b",
           "selectedBg": "#2d333b",
-          "focusBg": "#373e47",
-          "focusBorder": "#768390",
           "counterBg": "#444c56",
           "primary": {
             "text": "#ffffff",
@@ -2815,8 +2838,6 @@ var themePreval = {
             "disabledText": "rgba(205,217,229,0.5)",
             "disabledBg": "rgba(52,125,57,0.6)",
             "disabledBorder": "rgba(205,217,229,0.1)",
-            "focusBg": "#347d39",
-            "focusBorder": "rgba(205,217,229,0.1)",
             "icon": "#cdd9e5",
             "counterBg": "rgba(205,217,229,0.2)"
           },
@@ -2832,7 +2853,6 @@ var themePreval = {
             "disabledText": "rgba(83,155,245,0.5)",
             "disabledBg": "#22272e",
             "disabledCounterBg": "rgba(49,109,202,0.05)",
-            "focusBorder": "rgba(205,217,229,0.1)",
             "counterBg": "rgba(49,109,202,0.1)"
           },
           "danger": {
@@ -2848,7 +2868,6 @@ var themePreval = {
             "disabledText": "rgba(229,83,75,0.5)",
             "disabledBg": "#22272e",
             "disabledCounterBg": "rgba(201,60,55,0.05)",
-            "focusBorder": "#e5534b",
             "counterBg": "rgba(201,60,55,0.1)",
             "icon": "#e5534b"
           }
@@ -2873,24 +2892,36 @@ var themePreval = {
           }
         },
         "switchTrack": {
-          "bg": "#1c2128",
-          "border": "#636e7b",
+          "bg": "rgba(99,110,123,0.1)",
+          "hoverBg": "hsla(213,11%,69%,0.1)",
+          "activeBg": "rgba(99,110,123,0.4)",
+          "disabledBg": "#373e47",
+          "fg": "#768390",
+          "disabledFg": "#1c2128",
+          "border": "rgba(0,0,0,0)",
           "checked": {
             "bg": "rgba(49,109,202,0.35)",
             "hoverBg": "rgba(49,109,202,0.5)",
             "activeBg": "rgba(49,109,202,0.65)",
-            "border": "#539bf5"
+            "fg": "#cdd9e5",
+            "disabledFg": "#1c2128",
+            "border": "rgba(0,0,0,0)"
           }
         },
         "switchKnob": {
+          "bg": "#22272e",
+          "border": "#606771",
+          "disabledBg": "#2d333b",
           "checked": {
-            "bg": "#316dca",
-            "disabledBg": "#545d68"
+            "bg": "#22272e",
+            "disabledBg": "#2d333b",
+            "border": "rgba(49,109,202,0.35)"
           }
         },
         "segmentedControl": {
-          "bg": "#2d333b",
+          "bg": "rgba(99,110,123,0.1)",
           "button": {
+            "bg": "#22272e",
             "hover": {
               "bg": "#444c56"
             },
@@ -3024,26 +3055,20 @@ var themePreval = {
         "btn": {
           "shadow": "0 0 transparent",
           "insetShadow": "0 0 transparent",
-          "focusShadow": "0 0 0 3px rgba(118,131,144,0.3)",
-          "shadowActive": "inset 0 0.15em 0.3em rgba(28,33,40,0.15)",
-          "shadowInputFocus": "0 0 0 0.2em rgba(49,109,202,0.3)",
           "primary": {
             "shadow": "0 0 transparent",
             "insetShadow": "0 0 transparent",
-            "selectedShadow": "0 0 transparent",
-            "focusShadow": "0 0 0 3px rgba(46,164,79,0.4)"
+            "selectedShadow": "0 0 transparent"
           },
           "outline": {
             "hoverShadow": "0 1px 0 rgba(28,33,40,0.1)",
             "hoverInsetShadow": "inset 0 1px 0 rgba(205,217,229,0.03)",
-            "selectedShadow": "0 0 transparent",
-            "focusShadow": "0 0 0 3px rgba(37,90,178,0.4)"
+            "selectedShadow": "0 0 transparent"
           },
           "danger": {
             "hoverShadow": "0 0 transparent",
             "hoverInsetShadow": "0 0 transparent",
-            "selectedShadow": "0 0 transparent",
-            "focusShadow": "0 0 0 3px rgba(229,83,75,0.4)"
+            "selectedShadow": "0 0 transparent"
           }
         },
         "shadow": {
@@ -3055,8 +3080,7 @@ var themePreval = {
         "primer": {
           "shadow": {
             "highlight": "0 0 transparent",
-            "inset": "0 0 transparent",
-            "focus": "0 0 0 3px #143d79"
+            "inset": "0 0 transparent"
           }
         }
       }
@@ -3241,6 +3265,11 @@ var themePreval = {
             "bg": "#f6f8fa"
           }
         },
+        "control": {
+          "borderColor": {
+            "emphasis": "#9ea7b3"
+          }
+        },
         "avatar": {
           "bg": "rgba(255,255,255,0.1)",
           "border": "rgba(255,255,255,0.9)",
@@ -3308,8 +3337,6 @@ var themePreval = {
           "activeBg": "hsla(217,10%,33%,1)",
           "activeBorder": "#9ea7b3",
           "selectedBg": "rgba(82,89,100,0.9)",
-          "focusBg": "#272b33",
-          "focusBorder": "#bdc4cc",
           "counterBg": "#525964",
           "primary": {
             "text": "#0a0c10",
@@ -3321,8 +3348,6 @@ var themePreval = {
             "disabledText": "rgba(10,12,16,0.5)",
             "disabledBg": "rgba(9,180,58,0.6)",
             "disabledBorder": "rgba(74,225,104,0.4)",
-            "focusBg": "#09b43a",
-            "focusBorder": "#7a828e",
             "icon": "#0a0c10",
             "counterBg": "rgba(1,4,9,0.15)"
           },
@@ -3338,7 +3363,6 @@ var themePreval = {
             "disabledText": "rgba(113,183,255,0.5)",
             "disabledBg": "#0a0c10",
             "disabledCounterBg": "rgba(64,158,255,0.05)",
-            "focusBorder": "#7a828e",
             "counterBg": "rgba(64,158,255,0.1)"
           },
           "danger": {
@@ -3354,7 +3378,6 @@ var themePreval = {
             "disabledText": "rgba(255,106,105,0.5)",
             "disabledBg": "#0a0c10",
             "disabledCounterBg": "rgba(255,106,105,0.05)",
-            "focusBorder": "#ff6a69",
             "counterBg": "rgba(1,4,9,0.15)",
             "icon": "#ff6a69"
           }
@@ -3379,24 +3402,36 @@ var themePreval = {
           }
         },
         "switchTrack": {
-          "bg": "#010409",
-          "border": "#7a828e",
+          "bg": "#9ea7b3",
+          "hoverBg": "hsla(214,12%,61%,1)",
+          "activeBg": "hsla(214,12%,58%,1)",
+          "disabledBg": "#272b33",
+          "fg": "#0a0c10",
+          "disabledFg": "#010409",
+          "border": "rgba(0,0,0,0)",
           "checked": {
-            "bg": "rgba(64,158,255,0.35)",
+            "bg": "#409eff",
             "hoverBg": "rgba(64,158,255,0.5)",
             "activeBg": "rgba(64,158,255,0.65)",
-            "border": "#409eff"
+            "fg": "#0a0c10",
+            "disabledFg": "#010409",
+            "border": "rgba(0,0,0,0)"
           }
         },
         "switchKnob": {
+          "bg": "#0a0c10",
+          "border": "#9ea7b3",
+          "disabledBg": "#272b33",
           "checked": {
-            "bg": "#409eff",
-            "disabledBg": "#7a828e"
+            "bg": "#0a0c10",
+            "disabledBg": "#272b33",
+            "border": "#409eff"
           }
         },
         "segmentedControl": {
-          "bg": "#272b33",
+          "bg": "rgba(158,167,179,0.1)",
           "button": {
+            "bg": "#0a0c10",
             "hover": {
               "bg": "#525964"
             },
@@ -3530,26 +3565,20 @@ var themePreval = {
         "btn": {
           "shadow": "0 0 transparent",
           "insetShadow": "0 0 transparent",
-          "focusShadow": "0 0 0 3px rgba(189,196,204,0.3)",
-          "shadowActive": "inset 0 0.15em 0.3em rgba(1,4,9,0.15)",
-          "shadowInputFocus": "0 0 0 0.2em rgba(64,158,255,0.3)",
           "primary": {
             "shadow": "0 0 transparent",
             "insetShadow": "0 0 transparent",
-            "selectedShadow": "0 0 transparent",
-            "focusShadow": "0 0 0 3px rgba(46,164,79,0.4)"
+            "selectedShadow": "0 0 transparent"
           },
           "outline": {
             "hoverShadow": "0 1px 0 rgba(1,4,9,0.1)",
             "hoverInsetShadow": "inset 0 1px 0 rgba(255,255,255,0.03)",
-            "selectedShadow": "0 0 transparent",
-            "focusShadow": "0 0 0 3px rgba(49,139,248,0.4)"
+            "selectedShadow": "0 0 transparent"
           },
           "danger": {
             "hoverShadow": "0 0 transparent",
             "hoverInsetShadow": "0 0 transparent",
-            "selectedShadow": "0 0 transparent",
-            "focusShadow": "0 0 0 3px rgba(255,106,105,0.4)"
+            "selectedShadow": "0 0 transparent"
           }
         },
         "shadow": {
@@ -3561,8 +3590,7 @@ var themePreval = {
         "primer": {
           "shadow": {
             "highlight": "0 0 transparent",
-            "inset": "0 0 transparent",
-            "focus": "0 0 0 3px #1e60d5"
+            "inset": "0 0 transparent"
           }
         }
       }
@@ -3747,6 +3775,11 @@ var themePreval = {
             "bg": "#f6f8fa"
           }
         },
+        "control": {
+          "borderColor": {
+            "emphasis": "#606771"
+          }
+        },
         "avatar": {
           "bg": "rgba(255,255,255,0.1)",
           "border": "rgba(240,246,252,0.1)",
@@ -3814,8 +3847,6 @@ var themePreval = {
           "activeBg": "hsla(212,12%,18%,1)",
           "activeBorder": "#6e7681",
           "selectedBg": "#161b22",
-          "focusBg": "#21262d",
-          "focusBorder": "#8b949e",
           "counterBg": "#30363d",
           "primary": {
             "text": "#ffffff",
@@ -3827,8 +3858,6 @@ var themePreval = {
             "disabledText": "rgba(255,255,255,0.5)",
             "disabledBg": "rgba(31,111,235,0.6)",
             "disabledBorder": "rgba(240,246,252,0.1)",
-            "focusBg": "#1f6feb",
-            "focusBorder": "rgba(240,246,252,0.1)",
             "icon": "#ffffff",
             "counterBg": "rgba(255,255,255,0.2)"
           },
@@ -3844,7 +3873,6 @@ var themePreval = {
             "disabledText": "rgba(88,166,255,0.5)",
             "disabledBg": "#0d1117",
             "disabledCounterBg": "rgba(31,111,235,0.05)",
-            "focusBorder": "rgba(240,246,252,0.1)",
             "counterBg": "rgba(31,111,235,0.1)"
           },
           "danger": {
@@ -3860,7 +3888,6 @@ var themePreval = {
             "disabledText": "rgba(212,118,22,0.5)",
             "disabledBg": "#0d1117",
             "disabledCounterBg": "rgba(183,97,0,0.05)",
-            "focusBorder": "#d47616",
             "counterBg": "rgba(183,97,0,0.1)",
             "icon": "#d47616"
           }
@@ -3885,24 +3912,36 @@ var themePreval = {
           }
         },
         "switchTrack": {
-          "bg": "#010409",
-          "border": "#6e7681",
+          "bg": "rgba(110,118,129,0.1)",
+          "hoverBg": "hsla(215,8%,72%,0.1)",
+          "activeBg": "rgba(110,118,129,0.4)",
+          "disabledBg": "#21262d",
+          "fg": "#8b949e",
+          "disabledFg": "#010409",
+          "border": "rgba(0,0,0,0)",
           "checked": {
             "bg": "rgba(31,111,235,0.35)",
             "hoverBg": "rgba(31,111,235,0.5)",
             "activeBg": "rgba(31,111,235,0.65)",
-            "border": "#58a6ff"
+            "fg": "#ffffff",
+            "disabledFg": "#010409",
+            "border": "rgba(0,0,0,0)"
           }
         },
         "switchKnob": {
+          "bg": "#0d1117",
+          "border": "#606771",
+          "disabledBg": "#161b22",
           "checked": {
-            "bg": "#1f6feb",
-            "disabledBg": "#484f58"
+            "bg": "#0d1117",
+            "disabledBg": "#161b22",
+            "border": "rgba(31,111,235,0.35)"
           }
         },
         "segmentedControl": {
-          "bg": "#161b22",
+          "bg": "rgba(110,118,129,0.1)",
           "button": {
+            "bg": "#0d1117",
             "hover": {
               "bg": "#30363d"
             },
@@ -4036,26 +4075,20 @@ var themePreval = {
         "btn": {
           "shadow": "0 0 transparent",
           "insetShadow": "0 0 transparent",
-          "focusShadow": "0 0 0 3px rgba(139,148,158,0.3)",
-          "shadowActive": "inset 0 0.15em 0.3em rgba(1,4,9,0.15)",
-          "shadowInputFocus": "0 0 0 0.2em rgba(31,111,235,0.3)",
           "primary": {
             "shadow": "0 0 transparent",
             "insetShadow": "0 0 transparent",
-            "selectedShadow": "0 0 transparent",
-            "focusShadow": "0 0 0 3px rgba(46,164,79,0.4)"
+            "selectedShadow": "0 0 transparent"
           },
           "outline": {
             "hoverShadow": "0 1px 0 rgba(1,4,9,0.1)",
             "hoverInsetShadow": "inset 0 1px 0 rgba(255,255,255,0.03)",
-            "selectedShadow": "0 0 transparent",
-            "focusShadow": "0 0 0 3px rgba(17,88,199,0.4)"
+            "selectedShadow": "0 0 transparent"
           },
           "danger": {
             "hoverShadow": "0 0 transparent",
             "hoverInsetShadow": "0 0 transparent",
-            "selectedShadow": "0 0 transparent",
-            "focusShadow": "0 0 0 3px rgba(212,118,22,0.4)"
+            "selectedShadow": "0 0 transparent"
           }
         },
         "shadow": {
@@ -4067,8 +4100,7 @@ var themePreval = {
         "primer": {
           "shadow": {
             "highlight": "0 0 transparent",
-            "inset": "0 0 transparent",
-            "focus": "0 0 0 3px #0c2d6b"
+            "inset": "0 0 transparent"
           }
         }
       }
@@ -4253,6 +4285,11 @@ var themePreval = {
             "bg": "#f6f8fa"
           }
         },
+        "control": {
+          "borderColor": {
+            "emphasis": "#606771"
+          }
+        },
         "avatar": {
           "bg": "rgba(255,255,255,0.1)",
           "border": "rgba(240,246,252,0.1)",
@@ -4320,8 +4357,6 @@ var themePreval = {
           "activeBg": "hsla(212,12%,18%,1)",
           "activeBorder": "#6e7681",
           "selectedBg": "#161b22",
-          "focusBg": "#21262d",
-          "focusBorder": "#8b949e",
           "counterBg": "#30363d",
           "primary": {
             "text": "#ffffff",
@@ -4333,8 +4368,6 @@ var themePreval = {
             "disabledText": "rgba(255,255,255,0.5)",
             "disabledBg": "rgba(31,111,235,0.6)",
             "disabledBorder": "rgba(240,246,252,0.1)",
-            "focusBg": "#1f6feb",
-            "focusBorder": "rgba(240,246,252,0.1)",
             "icon": "#ffffff",
             "counterBg": "rgba(255,255,255,0.2)"
           },
@@ -4350,7 +4383,6 @@ var themePreval = {
             "disabledText": "rgba(88,166,255,0.5)",
             "disabledBg": "#0d1117",
             "disabledCounterBg": "rgba(31,111,235,0.05)",
-            "focusBorder": "rgba(240,246,252,0.1)",
             "counterBg": "rgba(31,111,235,0.1)"
           },
           "danger": {
@@ -4366,7 +4398,6 @@ var themePreval = {
             "disabledText": "rgba(248,81,73,0.5)",
             "disabledBg": "#0d1117",
             "disabledCounterBg": "rgba(218,54,51,0.05)",
-            "focusBorder": "#f85149",
             "counterBg": "rgba(218,54,51,0.1)",
             "icon": "#f85149"
           }
@@ -4391,24 +4422,36 @@ var themePreval = {
           }
         },
         "switchTrack": {
-          "bg": "#010409",
-          "border": "#6e7681",
+          "bg": "rgba(110,118,129,0.1)",
+          "hoverBg": "hsla(215,8%,72%,0.1)",
+          "activeBg": "rgba(110,118,129,0.4)",
+          "disabledBg": "#21262d",
+          "fg": "#8b949e",
+          "disabledFg": "#010409",
+          "border": "rgba(0,0,0,0)",
           "checked": {
             "bg": "rgba(31,111,235,0.35)",
             "hoverBg": "rgba(31,111,235,0.5)",
             "activeBg": "rgba(31,111,235,0.65)",
-            "border": "#58a6ff"
+            "fg": "#ffffff",
+            "disabledFg": "#010409",
+            "border": "rgba(0,0,0,0)"
           }
         },
         "switchKnob": {
+          "bg": "#0d1117",
+          "border": "#606771",
+          "disabledBg": "#161b22",
           "checked": {
-            "bg": "#1f6feb",
-            "disabledBg": "#484f58"
+            "bg": "#0d1117",
+            "disabledBg": "#161b22",
+            "border": "rgba(31,111,235,0.35)"
           }
         },
         "segmentedControl": {
-          "bg": "#161b22",
+          "bg": "rgba(110,118,129,0.1)",
           "button": {
+            "bg": "#0d1117",
             "hover": {
               "bg": "#30363d"
             },
@@ -4542,26 +4585,20 @@ var themePreval = {
         "btn": {
           "shadow": "0 0 transparent",
           "insetShadow": "0 0 transparent",
-          "focusShadow": "0 0 0 3px rgba(139,148,158,0.3)",
-          "shadowActive": "inset 0 0.15em 0.3em rgba(1,4,9,0.15)",
-          "shadowInputFocus": "0 0 0 0.2em rgba(31,111,235,0.3)",
           "primary": {
             "shadow": "0 0 transparent",
             "insetShadow": "0 0 transparent",
-            "selectedShadow": "0 0 transparent",
-            "focusShadow": "0 0 0 3px rgba(46,164,79,0.4)"
+            "selectedShadow": "0 0 transparent"
           },
           "outline": {
             "hoverShadow": "0 1px 0 rgba(1,4,9,0.1)",
             "hoverInsetShadow": "inset 0 1px 0 rgba(255,255,255,0.03)",
-            "selectedShadow": "0 0 transparent",
-            "focusShadow": "0 0 0 3px rgba(17,88,199,0.4)"
+            "selectedShadow": "0 0 transparent"
           },
           "danger": {
             "hoverShadow": "0 0 transparent",
             "hoverInsetShadow": "0 0 transparent",
-            "selectedShadow": "0 0 transparent",
-            "focusShadow": "0 0 0 3px rgba(248,81,73,0.4)"
+            "selectedShadow": "0 0 transparent"
           }
         },
         "shadow": {
@@ -4573,8 +4610,7 @@ var themePreval = {
         "primer": {
           "shadow": {
             "highlight": "0 0 transparent",
-            "inset": "0 0 transparent",
-            "focus": "0 0 0 3px #0c2d6b"
+            "inset": "0 0 transparent"
           }
         }
       }
