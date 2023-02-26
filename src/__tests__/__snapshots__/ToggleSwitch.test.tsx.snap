@@ -26,7 +26,7 @@ exports[`renders consistently 1`] = `
 }
 
 .c7 {
-  color: #0969da;
+  color: #ffffff;
   line-height: 0;
   -webkit-box-flex: 1;
   -webkit-flex-grow: 1;
@@ -49,7 +49,7 @@ exports[`renders consistently 1`] = `
 }
 
 .c8 {
-  color: #24292f;
+  color: #57606a;
   line-height: 0;
   -webkit-box-flex: 1;
   -webkit-flex-grow: 1;
@@ -131,34 +131,37 @@ exports[`renders consistently 1`] = `
   display: block;
   height: 32px;
   width: 64px;
-  outline-offset: 2px;
+  outline-offset: 3px;
   position: relative;
   overflow: hidden;
   background-color: #eaeef2;
-  border-color: #afb8c1;
+  border-color: transparent;
 }
 
-.c4:hover .Toggle-knob,
-.c4:focus:focus-visible .Toggle-knob {
-  background-color: #f3f4f6;
+.c4:hover,
+.c4:focus:focus-visible {
+  background-color: hsla(210,24%,90%,1);
 }
 
-.c4:active .Toggle-knob,
-.c4:active:focus-visible .Toggle-knob {
-  background-color: hsla(220,14%,93%,1);
+.c4:active,
+.c4:active:focus-visible {
+  background-color: hsla(210,24%,88%,1);
+}
+
+.c4:active {
+  background-color: hsla(210,24%,88%,1);
 }
 
 .c9 {
-  background-color: #f6f8fa;
+  background-color: #ffffff;
   border-width: 1px;
   border-style: solid;
-  border-color: #afb8c1;
+  border-color: #858F99;
   border-radius: calc(6px - 1px);
-  box-shadow: 0 3px 6px rgba(140,149,159,0.15),inset 0 1px 0 rgba(255,255,255,0.25);
   width: 50%;
   position: absolute;
-  top: -1px;
-  bottom: -1px;
+  top: 0;
+  bottom: 0;
   -webkit-transition-property: -webkit-transform;
   -webkit-transition-property: transform;
   transition-property: transform;
@@ -166,9 +169,9 @@ exports[`renders consistently 1`] = `
   transition-duration: 80ms;
   -webkit-transition-timing-function: cubic-bezier(0.5,1,0.89,1);
   transition-timing-function: cubic-bezier(0.5,1,0.89,1);
-  -webkit-transform: translateX(-1px);
-  -ms-transform: translateX(-1px);
-  transform: translateX(-1px);
+  -webkit-transform: translateX(0px);
+  -ms-transform: translateX(0px);
+  transform: translateX(0px);
   z-index: 1;
 }
 
@@ -251,7 +254,7 @@ exports[`renders consistently 1`] = `
     >
       <div
         className="c7"
-        color="accent.fg"
+        color="switchTrack.checked.fg"
       >
         <svg
           fill="currentColor"
@@ -268,7 +271,7 @@ exports[`renders consistently 1`] = `
       </div>
       <div
         className="c8"
-        color="fg.default"
+        color="switchTrack.fg"
       >
         <svg
           fill="currentColor"
@@ -287,7 +290,7 @@ exports[`renders consistently 1`] = `
     <div
       aria-hidden="true"
       checked={false}
-      className="c9 Toggle-knob"
+      className="c9"
       disabled={false}
     />
   </button>
