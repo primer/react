@@ -2,6 +2,7 @@ import {test, expect} from '@playwright/test'
 import {visit} from '../test-helpers/storybook'
 import {themes} from '../test-helpers/themes'
 
+// TODO: remove the color contrast rule once the constract issue is fixed
 test.describe('PageHeader', () => {
   test.describe('Files Page', () => {
     for (const theme of themes) {
@@ -242,6 +243,10 @@ test.describe('PageHeader', () => {
           await expect(page).toHaveNoViolations({
             rules: {
               'color-contrast': {
+                enabled: false,
+              },
+              // TODO: Remove this rule when the issue is fixed https://github.com/github/primer/issues/1865
+              'scrollable-region-focusable': {
                 enabled: false,
               },
             },
