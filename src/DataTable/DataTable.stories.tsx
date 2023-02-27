@@ -152,6 +152,7 @@ export const Playground: ComponentStory<typeof DataTable> = args => {
           },
           {
             header: 'Dependabot',
+            field: 'securityFeatures.dependabot',
             renderCell: row => {
               return row.securityFeatures.dependabot.length > 0 ? (
                 <LabelGroup>
@@ -164,6 +165,7 @@ export const Playground: ComponentStory<typeof DataTable> = args => {
           },
           {
             header: 'Code scanning',
+            field: 'securityFeatures.codeScanning',
             renderCell: row => {
               return row.securityFeatures.codeScanning.length > 0 ? (
                 <LabelGroup>

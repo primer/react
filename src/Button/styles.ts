@@ -121,7 +121,13 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
       '&[aria-expanded=true]': {
         backgroundColor: 'btn.selectedBg',
       },
-      svg: {
+      '&[data-component="IconButton"][data-no-visuals]': {
+        color: 'fg.muted',
+      },
+      '[data-component="trailingAction"]': {
+        color: 'fg.muted',
+      },
+      '[data-component="leadingVisual"]': {
         color: 'fg.muted',
       },
       '&[data-no-visuals]': {
