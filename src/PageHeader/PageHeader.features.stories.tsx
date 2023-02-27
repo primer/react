@@ -16,6 +16,7 @@ import {
   GitBranchIcon,
   KebabHorizontalIcon,
 } from '@primer/octicons-react'
+import VisuallyHidden from '../_VisuallyHidden'
 
 import {PageHeader} from './PageHeader'
 import Hidden from '../Hidden'
@@ -60,6 +61,24 @@ export const WithLeadingAndTrailingVisuals = () => (
         <PageHeader.TrailingVisual>
           <Label>Beta</Label>
         </PageHeader.TrailingVisual>
+      </PageHeader.TitleArea>
+    </PageHeader>
+  </Box>
+)
+
+export const WithComponentAsATitle = () => (
+  <Box sx={{padding: 3}}>
+    <PageHeader>
+      <PageHeader.TitleArea>
+        <Breadcrumbs>
+          <Breadcrumbs.Item href="#">...</Breadcrumbs.Item>
+          <Breadcrumbs.Item href="#">primer</Breadcrumbs.Item>
+          <Breadcrumbs.Item href="#">react</Breadcrumbs.Item>
+          <Breadcrumbs.Item href="#">src</Breadcrumbs.Item>
+          <Breadcrumbs.Item href="#">PageHeader</Breadcrumbs.Item>
+          <Breadcrumbs.Item href="#">PageHeader.tsx</Breadcrumbs.Item>
+        </Breadcrumbs>
+        <VisuallyHidden as="h2">Visually Hidden Title</VisuallyHidden>
       </PageHeader.TitleArea>
     </PageHeader>
   </Box>

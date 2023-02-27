@@ -2,7 +2,7 @@ import React from 'react'
 import {Meta} from '@storybook/react'
 import {within, userEvent} from '@storybook/testing-library'
 import {expect} from '@storybook/jest'
-import {OverflowTemplate} from './features.stories'
+import {OverflowTemplate} from './UnderlineNav2.features.stories'
 
 export default {
   title: 'Drafts/Components/UnderlineNav/Interactions',

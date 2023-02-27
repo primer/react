@@ -45,7 +45,7 @@ export const getSegmentedControlButtonStyles = (
 
   '.segmentedControl-content': {
     alignItems: 'center',
-    backgroundColor: props?.selected ? 'btn.bg' : 'transparent',
+    backgroundColor: props?.selected ? 'segmentedControl.button.bg' : 'transparent',
     borderColor: props?.selected ? 'segmentedControl.button.selected.border' : 'transparent',
     borderStyle: 'solid',
     borderWidth: 1,

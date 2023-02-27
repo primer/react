@@ -172,6 +172,7 @@ export const Default = () => (
         },
         {
           header: 'Dependabot',
+          field: 'securityFeatures.dependabot',
           renderCell: row => {
             return row.securityFeatures.dependabot.length > 0 ? (
               <LabelGroup>
@@ -184,6 +185,7 @@ export const Default = () => (
         },
         {
           header: 'Code scanning',
+          field: 'securityFeatures.codeScanning',
           renderCell: row => {
             return row.securityFeatures.codeScanning.length > 0 ? (
               <LabelGroup>
@@ -230,6 +232,7 @@ export const WithTitle = () => (
         },
         {
           header: 'Dependabot',
+          field: 'securityFeatures.dependabot',
           renderCell: row => {
             return row.securityFeatures.dependabot.length > 0 ? (
               <LabelGroup>
@@ -242,6 +245,7 @@ export const WithTitle = () => (
         },
         {
           header: 'Code scanning',
+          field: 'securityFeatures.codeScanning',
           renderCell: row => {
             return row.securityFeatures.codeScanning.length > 0 ? (
               <LabelGroup>
@@ -291,6 +295,7 @@ export const WithTitleAndSubtitle = () => (
         },
         {
           header: 'Dependabot',
+          field: 'securityFeatures.dependabot',
           renderCell: row => {
             return row.securityFeatures.dependabot.length > 0 ? (
               <LabelGroup>
@@ -303,6 +308,7 @@ export const WithTitleAndSubtitle = () => (
         },
         {
           header: 'Code scanning',
+          field: 'securityFeatures.codeScanning',
           renderCell: row => {
             return row.securityFeatures.codeScanning.length > 0 ? (
               <LabelGroup>
@@ -317,3 +323,75 @@ export const WithTitleAndSubtitle = () => (
     />
   </TableContainer>
 )
+
+export const WithSorting = () => {
+  const rows = Array.from(data).sort((a, b) => {
+    return b.updatedAt - a.updatedAt
+  })
+  return (
+    <TableContainer>
+      <TableTitle as="h2" id="repositories">
+        Repositories
+      </TableTitle>
+      <TableSubtitle as="p" id="repositories-subtitle">
+        A subtitle could appear here to give extra context to the data.
+      </TableSubtitle>
+      <DataTable
+        aria-labelledby="repositories"
+        aria-describedby="repositories-subtitle"
+        data={rows}
+        columns={[
+          {
+            header: 'Repository',
+            field: 'name',
+            rowHeader: true,
+            sortBy: true,
+          },
+          {
+            header: 'Type',
+            field: 'type',
+            renderCell: row => {
+              return <Label>{uppercase(row.type)}</Label>
+            },
+          },
+          {
+            header: 'Updated',
+            field: 'updatedAt',
+            sortBy: true,
+            renderCell: row => {
+              return <RelativeTime date={new Date(row.updatedAt)} />
+            },
+          },
+          {
+            header: 'Dependabot',
+            field: 'securityFeatures.dependabot',
+            renderCell: row => {
+              return row.securityFeatures.dependabot.length > 0 ? (
+                <LabelGroup>
+                  {row.securityFeatures.dependabot.map(feature => {
+                    return <Label key={feature}>{uppercase(feature)}</Label>
+                  })}
+                </LabelGroup>
+              ) : null
+            },
+          },
+          {
+            header: 'Code scanning',
+            field: 'securityFeatures.codeScanning',
+            renderCell: row => {
+              return row.securityFeatures.codeScanning.length > 0 ? (
+                <LabelGroup>
+                  {row.securityFeatures.codeScanning.map(feature => {
+                    return <Label key={feature}>{uppercase(feature)}</Label>
+                  })}
+                </LabelGroup>
+              ) : null
+            },
+          },
+        ]}
+        initialSortColumn="updatedAt"
+        initialSortDirection="DESC"
+      />
+    </TableContainer>
+  )
+}
