@@ -57,6 +57,7 @@ exports[`Button renders consistently 1`] = `
 
 .c0:active {
   background-color: hsla(220,14%,94%,1);
+  box-shadow: inset 0 0.15em 0.3em rgba(27,31,36,0.15);
 }
 
 .c0:disabled {
@@ -127,6 +128,7 @@ exports[`Button respects the "disabled" prop 1`] = `
 
 .c0:active {
   background-color: hsla(220,14%,94%,1);
+  box-shadow: inset 0 0.15em 0.3em rgba(27,31,36,0.15);
 }
 
 .c0:disabled {
@@ -192,6 +194,11 @@ exports[`ButtonDanger renders consistently 1`] = `
   background-color: #a40e26;
   border-color: rgba(27,31,36,0.15);
   box-shadow: 0 1px 0 rgba(27,31,36,0.1);
+}
+
+.c0:focus {
+  border-color: rgba(27,31,36,0.15);
+  box-shadow: 0 0 0 3px rgba(164,14,38,0.4);
 }
 
 .c0:active {
@@ -262,6 +269,11 @@ exports[`ButtonDanger renders correct disabled styles 1`] = `
   background-color: #a40e26;
   border-color: rgba(27,31,36,0.15);
   box-shadow: 0 1px 0 rgba(27,31,36,0.1);
+}
+
+.c0:focus {
+  border-color: rgba(27,31,36,0.15);
+  box-shadow: 0 0 0 3px rgba(164,14,38,0.4);
 }
 
 .c0:active {
@@ -376,6 +388,11 @@ exports[`ButtonInvisible renders consistently 1`] = `
   background-color: #0969da;
   border-color: rgba(27,31,36,0.15);
   box-shadow: 0 1px 0 rgba(27,31,36,0.1);
+}
+
+.c0:focus {
+  border-color: rgba(27,31,36,0.15);
+  box-shadow: 0 0 0 3px rgba(5,80,174,0.4);
 }
 
 .c0:active {
@@ -518,6 +535,11 @@ exports[`ButtonOutline renders consistently 1`] = `
   box-shadow: 0 1px 0 rgba(27,31,36,0.1);
 }
 
+.c0:focus {
+  border-color: rgba(27,31,36,0.15);
+  box-shadow: 0 0 0 3px rgba(5,80,174,0.4);
+}
+
 .c0:active {
   color: #ffffff;
   background-color: hsla(212,92%,42%,1);
@@ -587,6 +609,11 @@ exports[`ButtonOutline renders correct disabled styles 1`] = `
   background-color: #0969da;
   border-color: rgba(27,31,36,0.15);
   box-shadow: 0 1px 0 rgba(27,31,36,0.1);
+}
+
+.c0:focus {
+  border-color: rgba(27,31,36,0.15);
+  box-shadow: 0 0 0 3px rgba(5,80,174,0.4);
 }
 
 .c0:active {
@@ -659,6 +686,11 @@ exports[`ButtonPrimary renders consistently 1`] = `
   border-color: rgba(27,31,36,0.15);
 }
 
+.c0:focus {
+  border-color: rgba(27,31,36,0.15);
+  box-shadow: 0 0 0 3px rgba(45,164,78,0.4);
+}
+
 .c0:active {
   background-color: hsla(137,55%,36%,1);
   box-shadow: inset 0 1px 0 rgba(0,45,17,0.2);
@@ -724,6 +756,11 @@ exports[`ButtonPrimary renders correct disabled styles 1`] = `
 .c0:hover {
   background-color: #2c974b;
   border-color: rgba(27,31,36,0.15);
+}
+
+.c0:focus {
+  border-color: rgba(27,31,36,0.15);
+  box-shadow: 0 0 0 3px rgba(45,164,78,0.4);
 }
 
 .c0:active {
