@@ -226,7 +226,7 @@
     "react-dom": "18.2.0",
     "react-test-renderer": "18.2.0",
     "recast": "0.22.0",
-    "rimraf": "3.0.2",
+    "rimraf": "4.1.2",
     "rollup": "3.12.1",
     "rollup-plugin-visualizer": "5.9.0",
     "semver": "7.3.8",
