@@ -242,7 +242,7 @@ LinkItemPlayground.argTypes = {
   },
 }
 export const HeadingPlayground: Story<ActionListProps> = args => (
-  <ActionList heading={<ActionList.Heading title="Group title" />} {...args}>
+  <ActionList headingProps={{title: 'Group title'}} {...args}>
     <ActionList.Item>Copy link</ActionList.Item>
     <ActionList.Item>Quote reply</ActionList.Item>
     <ActionList.Item>Edit comment</ActionList.Item>
