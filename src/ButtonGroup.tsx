@@ -31,15 +31,6 @@ const ButtonGroup = styled.div`
     }
 
     :focus,
-    :active,
-    :hover {
-      border-right-width: 1px;
-      + * {
-        border-left-width: 0;
-      }
-    }
-
-    :focus,
     :active {
       z-index: 1;
     }

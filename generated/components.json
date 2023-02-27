@@ -377,22 +377,6 @@
       ],
       "subcomponents": []
     },
-    "counter_label": {
-      "id": "counter_label",
-      "name": "CounterLabel",
-      "status": "alpha",
-      "a11yReviewed": false,
-      "stories": [],
-      "props": [
-        {
-          "name": "scheme",
-          "type": "'primary' | 'secondary'",
-          "defaultValue": "",
-          "description": "Pass in 'primary' for a darker background and inverse text, or 'secondary' for a lighter background and primary text. Omitting the scheme prop renders the default counter scheme"
-        }
-      ],
-      "subcomponents": []
-    },
     "details": {
       "id": "details",
       "name": "Details",
@@ -2401,6 +2385,22 @@
       ],
       "subcomponents": []
     },
+    "counter_label": {
+      "id": "counter_label",
+      "name": "CounterLabel",
+      "status": "alpha",
+      "a11yReviewed": false,
+      "stories": [],
+      "props": [
+        {
+          "name": "scheme",
+          "type": "'primary' | 'secondary'",
+          "defaultValue": "",
+          "description": "Pass in 'primary' for a darker background and inverse text, or 'secondary' for a lighter background and primary text. Omitting the scheme prop renders the default counter scheme"
+        }
+      ],
+      "subcomponents": []
+    },
     "data_table": {
       "id": "data_table",
       "name": "DataTable",
@@ -3004,7 +3004,7 @@
         {
           "name": "as",
           "type": "React.ElementType",
-          "defaultValue": "\"header\""
+          "defaultValue": "\"div\""
         }
       ],
       "subcomponents": [
@@ -3141,7 +3141,7 @@
             {
               "name": "as",
               "type": "React.ElementType",
-              "defaultValue": "\"h3\""
+              "defaultValue": "\"h2\""
             }
           ]
         },

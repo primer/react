@@ -1,22 +1,19 @@
+import {SortAscIcon, SortDescIcon} from '@primer/octicons-react'
 import React from 'react'
 import styled from 'styled-components'
 import Box from '../Box'
 import {get} from '../constants'
+import {Column} from './column'
+import {useTable} from './useTable'
+import {SortDirection} from './sorting'
+import {UniqueRow} from './row'
+import {ObjectPaths} from './utils'
 
 // ----------------------------------------------------------------------------
 // DataTable
 // ----------------------------------------------------------------------------
-interface Row {
-  /**
-   * Provide a value that uniquely identifies the row
-   */
-  id: string | number
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  [key: string]: any
-}
-
-export interface DataTableProps<Data extends Row> {
+export interface DataTableProps<Data extends UniqueRow> {
   /**
    * Provide an id to an element which uniquely describes this table
    */
@@ -43,84 +40,70 @@ export interface DataTableProps<Data extends Row> {
    * correspond
    */
   columns: Array<Column<Data>>
+
+  /**
+   * Provide the id or field of the column by which the table is sorted. When
+   * using this `prop`, the input data must be sorted by this column in
+   * ascending order
+   */
+  initialSortColumn?: ObjectPaths<Data> | string | undefined
+
+  /**
+   * Provide the sort direction that the table should be sorted by on the
+   * currently sorted column
+   */
+  initialSortDirection?: Exclude<SortDirection, 'NONE'> | undefined
 }
 
-interface Column<Data extends Row> {
-  /**
-   * Provide the name of the column. This will be rendered as a table header
-   * within the table itself
-   */
-  header: string
-
-  /**
-   * Optionally provide a field to render for this column. This may be the key
-   * of the object or a string that accesses nested objects through `.`. For
-   * exmaple: `field: a.b.c`
-   *
-   * Alternatively, you may provide a `renderCell` for this column to render the
-   * field in a row
-   */
-  field?: string | undefined
-
-  /**
-   * Provide a custom component or render prop to render the data for this
-   * column in a row
-   */
-  renderCell?: ((data: Data) => React.ReactNode) | undefined
-
-  /**
-   * Specify if the value of this column for a row should be treated as a row
-   * header
-   */
-  rowHeader?: boolean | undefined
-}
-
-function DataTable<Data extends Row>({
+function DataTable<Data extends UniqueRow>({
   'aria-labelledby': labelledby,
   'aria-describedby': describedby,
   cellPadding,
   columns,
   data,
+  initialSortColumn,
+  initialSortDirection,
 }: DataTableProps<Data>) {
+  const {headers, rows, actions} = useTable({
+    data,
+    columns,
+    initialSortColumn,
+    initialSortDirection,
+  })
   return (
     <Table aria-labelledby={labelledby} aria-describedby={describedby} cellPadding={cellPadding}>
       <TableHead>
         <TableRow>
-          {columns.map(column => {
-            return <TableHeader key={column.header}>{column.header}</TableHeader>
+          {headers.map(header => {
+            if (header.isSortable()) {
+              return (
+                <TableSortHeader
+                  key={header.id}
+                  direction={header.getSortDirection()}
+                  onToggleSort={() => {
+                    actions.sortBy(header)
+                  }}
+                >
+                  {header.column.header}
+                </TableSortHeader>
+              )
+            }
+            return <TableHeader key={header.id}>{header.column.header}</TableHeader>
           })}
         </TableRow>
       </TableHead>
       <TableBody>
-        {data.map(row => {
+        {rows.map(row => {
           return (
             <TableRow key={row.id}>
-              {columns.map(column => {
-                const columnProps = {
-                  scope: column.rowHeader ? 'row' : undefined,
-                }
-
-                if (column.renderCell) {
-                  return (
-                    <TableCell key={column.header} {...columnProps}>
-                      {column.renderCell(row)}
-                    </TableCell>
-                  )
-                }
-
-                if (column.field) {
-                  const value = row[column.field]
-
-                  if (typeof value === 'string' || typeof value === 'number' || React.isValidElement(value)) {
-                    return (
-                      <TableCell key={column.header} {...columnProps}>
-                        {value}
-                      </TableCell>
-                    )
-                  }
-                }
-
-                return null
+              {row.getCells().map(cell => {
+                return (
+                  <TableCell key={cell.id} scope={cell.rowHeader ? 'row' : undefined}>
+                    {cell.column.renderCell
+                      ? cell.column.renderCell(row.getValue())
+                      : (cell.getValue() as React.ReactNode)}
+                  </TableCell>
+                )
               })}
             </TableRow>
           )
@@ -228,6 +211,28 @@ const StyledTable = styled.table<React.ComponentPropsWithoutRef<'table'>>`
     border-top: 1px solid ${get('colors.border.default')};
   }
 
+  .TableHeader[aria-sort='descending'],
+  .TableHeader[aria-sort='ascending'] {
+    color: ${get('colors.fg.default')};
+  }
+
+  /* Control visibility of sort icons */
+  .TableSortIcon {
+    visibility: hidden;
+  }
+
+  /* The ASC icon is visible if the header is sortable and is hovered or focused */
+  .TableHeader:hover .TableSortIcon--ascending,
+  .TableHeader button:focus .TableSortIcon--ascending {
+    visibility: visible;
+  }
+
+  /* Each sort icon is visible if the TableHeader is currently in the corresponding sort state */
+  .TableHeader[aria-sort='ascending'] .TableSortIcon--ascending,
+  .TableHeader[aria-sort='descending'] .TableSortIcon--descending {
+    visibility: visible;
+  }
+
   /* TableRow */
   .TableRow:hover .TableCell {
     /* TODO: update this token when the new primitive tokens are released */
@@ -304,8 +309,45 @@ interface TableHeaderProps extends React.ComponentPropsWithoutRef<'th'> {
   children?: React.ReactNode
 }
 
-function TableHeader({children}: TableHeaderProps) {
-  return <th className="TableHeader">{children}</th>
+function TableHeader({children, ...rest}: TableHeaderProps) {
+  return (
+    <th {...rest} className="TableHeader" scope="col">
+      {children}
+    </th>
+  )
+}
+
+interface TableSortHeaderProps extends TableHeaderProps {
+  /**
+   * Specify the sort direction for the TableHeader
+   */
+  direction: SortDirection
+
+  /**
+   * Provide a handler that is called when the sortable TableHeader is
+   * interacted with via a click or keyboard interaction
+   */
+  onToggleSort: () => void
+}
+
+function TableSortHeader({children, direction, onToggleSort, ...rest}: TableSortHeaderProps) {
+  const ariaSort = direction === 'DESC' ? 'descending' : direction === 'ASC' ? 'ascending' : undefined
+  return (
+    <TableHeader {...rest} aria-sort={ariaSort}>
+      <Button
+        type="button"
+        onClick={() => {
+          onToggleSort()
+        }}
+      >
+        {children}
+        {direction === SortDirection.NONE || direction === SortDirection.ASC ? (
+          <SortAscIcon className="TableSortIcon TableSortIcon--ascending" />
+        ) : null}
+        {direction === SortDirection.DESC ? <SortDescIcon className="TableSortIcon TableSortIcon--descending" /> : null}
+      </Button>
+    </TableHeader>
+  )
 }
 
 // ----------------------------------------------------------------------------
@@ -316,8 +358,12 @@ interface TableRowProps extends React.ComponentPropsWithoutRef<'tr'> {
   children?: React.ReactNode
 }
 
-function TableRow({children}: TableRowProps) {
-  return <tr className="TableRow">{children}</tr>
+function TableRow({children, ...rest}: TableRowProps) {
+  return (
+    <tr {...rest} className="TableRow">
+      {children}
+    </tr>
+  )
 }
 
 // ----------------------------------------------------------------------------
@@ -334,11 +380,11 @@ interface TableCellProps extends React.ComponentPropsWithoutRef<'td'> {
   scope?: string | undefined
 }
 
-function TableCell({children, scope}: TableCellProps) {
+function TableCell({children, scope, ...rest}: TableCellProps) {
   const BaseComponent = scope ? 'th' : 'td'
 
   return (
-    <BaseComponent className="TableCell" scope={scope}>
+    <BaseComponent {...rest} className="TableCell" scope={scope}>
       {children}
     </BaseComponent>
   )
@@ -426,6 +472,32 @@ function TableSubtitle({as, children, id}: TableSubtitleProps) {
     </Box>
   )
 }
+
+// ----------------------------------------------------------------------------
+// Utilities
+// ----------------------------------------------------------------------------
+
+// Button "reset" component that provides an unstyled <button> element for use
+// in the table
+const Button = styled.button`
+  padding: 0;
+  border: 0;
+  margin: 0;
+  display: inline-flex;
+  padding: 0;
+  border: 0;
+  appearance: none;
+  background: none;
+  cursor: pointer;
+  text-align: start;
+  font: inherit;
+  color: inherit;
+  column-gap: 0.5rem;
+  align-items: center;
+  &::-moz-focus-inner {
+    border: 0;
+  }
+`
 
 export {
   DataTable,
