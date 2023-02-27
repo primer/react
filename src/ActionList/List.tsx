@@ -5,7 +5,8 @@ import sx, {SxProp, merge} from '../sx'
 import {AriaRole} from '../utils/types'
 import {ActionListContainerContext} from './ActionListContainerContext'
 import {defaultSxProp} from '../utils/defaultSxProp'
-import {Heading} from './Heading'
+import {useId} from '../hooks/useId'
+import {Heading, ActionListHeadingProps} from './Heading'
 
 export type ActionListProps = React.PropsWithChildren<{
   /**
@@ -27,7 +28,7 @@ export type ActionListProps = React.PropsWithChildren<{
   /**
    * Optional heading title to display at top of the list.
    */
-  heading?: typeof Heading
+  headingProps?: ActionListHeadingProps
 }> &
   SxProp
 
@@ -38,7 +39,15 @@ const ListBox = styled.ul<SxProp>(sx)
 
 export const List = React.forwardRef<HTMLUListElement, ActionListProps>(
   (
-    {variant = 'inset', selectionVariant, showDividers = false, role, heading, sx: sxProp = defaultSxProp, ...props},
+    {
+      variant = 'inset',
+      selectionVariant,
+      showDividers = false,
+      role,
+      headingProps,
+      sx: sxProp = defaultSxProp,
+      ...props
+    },
     forwardedRef,
   ): JSX.Element => {
     const styles = {
@@ -54,13 +63,18 @@ export const List = React.forwardRef<HTMLUListElement, ActionListProps>(
       selectionVariant: containerSelectionVariant, // TODO: Remove after DropdownMenu2 deprecation
     } = React.useContext(ActionListContainerContext)
 
+    const id = useId()
+    if (headingProps) {
+      headingProps.id = id
+    }
+
     return (
       <>
-        {heading}
+        {headingProps && <Heading {...headingProps} />}
         <ListBox
           sx={merge(styles, sxProp as SxProp)}
           role={role || listRole}
-          aria-labelledby={listLabelledBy}
+          aria-labelledby={headingProps ? id : listLabelledBy}
           {...props}
           ref={forwardedRef}
         >

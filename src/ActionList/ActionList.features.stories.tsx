@@ -426,23 +426,22 @@ export const GroupWithSubtleTitle = () => {
 
   return (
     <ActionList selectionVariant="multiple" role="menu" showDividers aria-label="Reviewers">
-      <ActionList.Group title="Everyone">
-        {users.slice(2).map(user => (
-          <ActionList.Item
-            role="menuitemcheckbox"
-            key={user.login}
-            selected={Boolean(assignees.find(assignee => assignee.login === user.login))}
-            aria-checked={Boolean(assignees.find(assignee => assignee.login === user.login))}
-            onSelect={() => toggleAssignee(user)}
-          >
-            <ActionList.LeadingVisual>
-              <Avatar src={`https://github.com/${user.login}.png`} />
-            </ActionList.LeadingVisual>
-            {user.login}
-            <ActionList.Description>{user.name}</ActionList.Description>
-          </ActionList.Item>
-        ))}
-      </ActionList.Group>
+      <ActionList.Heading title="Everyone" />
+      {users.slice(2).map(user => (
+        <ActionList.Item
+          role="menuitemcheckbox"
+          key={user.login}
+          selected={Boolean(assignees.find(assignee => assignee.login === user.login))}
+          aria-checked={Boolean(assignees.find(assignee => assignee.login === user.login))}
+          onSelect={() => toggleAssignee(user)}
+        >
+          <ActionList.LeadingVisual>
+            <Avatar src={`https://github.com/${user.login}.png`} />
+          </ActionList.LeadingVisual>
+          {user.login}
+          <ActionList.Description>{user.name}</ActionList.Description>
+        </ActionList.Item>
+      ))}
     </ActionList>
   )
 }
@@ -459,23 +458,22 @@ export const GroupWithFilledTitle = () => {
 
   return (
     <ActionList selectionVariant="multiple" role="menu" showDividers aria-label="Reviewers">
-      <ActionList.Group title="Everyone" variant="filled">
-        {users.slice(2).map(user => (
-          <ActionList.Item
-            role="menuitemcheckbox"
-            key={user.login}
-            selected={Boolean(assignees.find(assignee => assignee.login === user.login))}
-            aria-checked={Boolean(assignees.find(assignee => assignee.login === user.login))}
-            onSelect={() => toggleAssignee(user)}
-          >
-            <ActionList.LeadingVisual>
-              <Avatar src={`https://github.com/${user.login}.png`} />
-            </ActionList.LeadingVisual>
-            {user.login}
-            <ActionList.Description>{user.name}</ActionList.Description>
-          </ActionList.Item>
-        ))}
-      </ActionList.Group>
+      <ActionList.Heading title="Everyone" variant="filled" />
+      {users.slice(2).map(user => (
+        <ActionList.Item
+          role="menuitemcheckbox"
+          key={user.login}
+          selected={Boolean(assignees.find(assignee => assignee.login === user.login))}
+          aria-checked={Boolean(assignees.find(assignee => assignee.login === user.login))}
+          onSelect={() => toggleAssignee(user)}
+        >
+          <ActionList.LeadingVisual>
+            <Avatar src={`https://github.com/${user.login}.png`} />
+          </ActionList.LeadingVisual>
+          {user.login}
+          <ActionList.Description>{user.name}</ActionList.Description>
+        </ActionList.Item>
+      ))}
     </ActionList>
   )
 }

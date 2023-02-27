@@ -26,8 +26,8 @@ exports[`NavList renders a simple list 1`] = `
 .c0 {
   margin: 0;
   padding-inline-start: 0;
-  padding-top: 8px;
-  padding-bottom: 8px;
+  padding-top: 0;
+  padding-bottom: 0;
 }
 
 .c2 {
@@ -309,7 +309,7 @@ exports[`NavList renders a simple list 1`] = `
       >
         <a
           aria-current="page"
-          aria-labelledby="react-aria-1 "
+          aria-labelledby="react-aria-2 "
           class="c3"
           href="/"
           tabindex="0"
@@ -320,7 +320,7 @@ exports[`NavList renders a simple list 1`] = `
           >
             <span
               class="c5"
-              id="react-aria-1"
+              id="react-aria-2"
             >
               Home
             </span>
@@ -331,7 +331,7 @@ exports[`NavList renders a simple list 1`] = `
         class="c1 c6"
       >
         <a
-          aria-labelledby="react-aria-4 "
+          aria-labelledby="react-aria-5 "
           class="c3"
           href="/about"
           tabindex="0"
@@ -342,7 +342,7 @@ exports[`NavList renders a simple list 1`] = `
           >
             <span
               class="c5"
-              id="react-aria-4"
+              id="react-aria-5"
             >
               About
             </span>
@@ -353,7 +353,7 @@ exports[`NavList renders a simple list 1`] = `
         class="c1 c6"
       >
         <a
-          aria-labelledby="react-aria-7 "
+          aria-labelledby="react-aria-8 "
           class="c3"
           href="/contact"
           tabindex="0"
@@ -364,7 +364,7 @@ exports[`NavList renders a simple list 1`] = `
           >
             <span
               class="c5"
-              id="react-aria-7"
+              id="react-aria-8"
             >
               Contact
             </span>
@@ -412,18 +412,6 @@ exports[`NavList renders with groups 1`] = `
 }
 
 .c2 {
-  list-style: none;
-}
-
-.c2:not(:first-child) {
-  margin-top: 8px;
-}
-
-.c3 {
-  padding-inline-start: 0;
-}
-
-.c4 {
   padding-top: 6px;
   padding-bottom: 6px;
   padding-left: 16px;
@@ -434,11 +422,15 @@ exports[`NavList renders with groups 1`] = `
   list-style: none;
 }
 
+.c4 {
+  padding-inline-start: 0;
+}
+
 .c0 {
   margin: 0;
   padding-inline-start: 0;
-  padding-top: 8px;
-  padding-bottom: 8px;
+  padding-top: 0;
+  padding-bottom: 0;
 }
 
 .c6 {
@@ -644,6 +636,14 @@ exports[`NavList renders with groups 1`] = `
   text-decoration: none;
 }
 
+.c3 {
+  color: #57606a;
+  font-size: 12px;
+  font-weight: 500;
+  margin-bottom: 0;
+  margin-top: 0;
+}
+
 @media (hover:hover) and (pointer:fine) {
   .c6:hover:not([aria-disabled]) {
     background-color: rgba(208,215,222,0.32);
@@ -716,28 +716,27 @@ exports[`NavList renders with groups 1`] = `
       class="c0"
     >
       <li
-        aria-hidden="true"
-        class="c1"
-        data-component="ActionList.Divider"
-      />
-      <li
-        class="c2"
+        class=""
       >
-        <ul
-          aria-labelledby="react-aria-1"
-          class="c3"
+        <div
+          aria-hidden="true"
+          class="c1"
+          data-component="ActionList.Divider"
+        />
+        <div
+          aria-hidden="true"
+          class="c2"
+          role="presentation"
         >
-          <li
-            aria-hidden="true"
-            class="c4"
-            role="presentation"
+          <h3
+            class="c3"
           >
-            <span
-              id="react-aria-1"
-            >
-              Overview
-            </span>
-          </li>
+            Overview
+          </h3>
+        </div>
+        <ul
+          class="c4"
+        >
           <li
             class="c5 c6"
           >
@@ -764,33 +763,32 @@ exports[`NavList renders with groups 1`] = `
         </ul>
       </li>
       <li
-        aria-hidden="true"
-        class="c1"
-        data-component="ActionList.Divider"
-      />
-      <li
-        class="c2"
+        class=""
       >
-        <ul
-          aria-labelledby="react-aria-5"
-          class="c3"
+        <div
+          aria-hidden="true"
+          class="c1"
+          data-component="ActionList.Divider"
+        />
+        <div
+          aria-hidden="true"
+          class="c2"
+          role="presentation"
         >
-          <li
-            aria-hidden="true"
-            class="c4"
-            role="presentation"
+          <h3
+            class="c3"
           >
-            <span
-              id="react-aria-5"
-            >
-              Components
-            </span>
-          </li>
+            Components
+          </h3>
+        </div>
+        <ul
+          class="c4"
+        >
           <li
             class="c5 c10"
           >
             <a
-              aria-labelledby="react-aria-6 "
+              aria-labelledby="react-aria-5 "
               class="c7"
               href="/Avatar"
               tabindex="0"
@@ -801,7 +799,7 @@ exports[`NavList renders with groups 1`] = `
               >
                 <span
                   class="c9"
-                  id="react-aria-6"
+                  id="react-aria-5"
                 >
                   Avatar
                 </span>
@@ -878,8 +876,8 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
 .c0 {
   margin: 0;
   padding-inline-start: 0;
-  padding-top: 8px;
-  padding-bottom: 8px;
+  padding-top: 0;
+  padding-bottom: 0;
 }
 
 .c10 {
@@ -1208,13 +1206,13 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
       class="c0"
     >
       <li
-        aria-labelledby="react-aria-1"
+        aria-labelledby="react-aria-2"
         class="c1"
       >
         <button
-          aria-controls="react-aria-2"
+          aria-controls="react-aria-3"
           aria-expanded="true"
-          aria-labelledby="react-aria-1 "
+          aria-labelledby="react-aria-2 "
           class="c2 c3"
           tabindex="0"
         >
@@ -1227,7 +1225,7 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
             >
               <span
                 class="c6"
-                id="react-aria-1"
+                id="react-aria-2"
               >
                 Item
               </span>
@@ -1256,16 +1254,16 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
         </button>
         <div>
           <ul
-            aria-labelledby="react-aria-1"
+            aria-labelledby="react-aria-2"
             class="c9"
-            id="react-aria-2"
+            id="react-aria-3"
           >
             <li
               class="c2 c10"
             >
               <a
                 aria-current="page"
-                aria-labelledby="react-aria-3 "
+                aria-labelledby="react-aria-4 "
                 class="c11"
                 href="#"
                 tabindex="0"
@@ -1276,7 +1274,7 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
                 >
                   <span
                     class="c6"
-                    id="react-aria-3"
+                    id="react-aria-4"
                   >
                     Sub Item
                   </span>
@@ -1354,8 +1352,8 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
 .c0 {
   margin: 0;
   padding-inline-start: 0;
-  padding-top: 8px;
-  padding-bottom: 8px;
+  padding-top: 0;
+  padding-bottom: 0;
 }
 
 .c10 {
@@ -1696,13 +1694,13 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
       class="c0"
     >
       <li
-        aria-labelledby="react-aria-1"
+        aria-labelledby="react-aria-2"
         class="c1"
       >
         <button
-          aria-controls="react-aria-2"
+          aria-controls="react-aria-3"
           aria-expanded="false"
-          aria-labelledby="react-aria-1 "
+          aria-labelledby="react-aria-2 "
           class="c2 c3"
           tabindex="0"
         >
@@ -1715,7 +1713,7 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
             >
               <span
                 class="c6"
-                id="react-aria-1"
+                id="react-aria-2"
               >
                 Item
               </span>
@@ -1744,16 +1742,16 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
         </button>
         <div>
           <ul
-            aria-labelledby="react-aria-1"
+            aria-labelledby="react-aria-2"
             class="c9"
-            id="react-aria-2"
+            id="react-aria-3"
           >
             <li
               class="c2 c10"
             >
               <a
                 aria-current="page"
-                aria-labelledby="react-aria-3 "
+                aria-labelledby="react-aria-4 "
                 class="c11"
                 href="#"
                 tabindex="0"
@@ -1764,7 +1762,7 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
                 >
                   <span
                     class="c6"
-                    id="react-aria-3"
+                    id="react-aria-4"
                   >
                     Sub Item
                   </span>

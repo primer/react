@@ -164,40 +164,40 @@ export function GroupsAndDescription(): JSX.Element {
           </ActionMenu.Button>
           <ActionMenu.Overlay width="medium">
             <ActionList selectionVariant="single" showDividers>
-              <ActionList.Group title="Open">
-                {milestones
-                  .filter(milestone => !milestone.name.includes('21'))
-                  .map((milestone, index) => (
-                    <ActionList.Item
-                      key={index}
-                      selected={milestone.name === selectedMilestone?.name}
-                      onSelect={() => setSelectedMilestone(milestone)}
-                    >
-                      <ActionList.LeadingVisual>
-                        <MilestoneIcon />
-                      </ActionList.LeadingVisual>
-                      {milestone.name}
-                      <ActionList.Description variant="block">Due by {milestone.due}</ActionList.Description>
-                    </ActionList.Item>
-                  ))}
-              </ActionList.Group>
-              <ActionList.Group title="Closed">
-                {milestones
-                  .filter(milestone => milestone.name.includes('21'))
-                  .map((milestone, index) => (
-                    <ActionList.Item
-                      key={index}
-                      selected={milestone.name === selectedMilestone?.name}
-                      onSelect={() => setSelectedMilestone(milestone)}
-                    >
-                      <ActionList.LeadingVisual>
-                        <MilestoneIcon />
-                      </ActionList.LeadingVisual>
-                      {milestone.name}
-                      <ActionList.Description variant="block">Due by {milestone.due}</ActionList.Description>
-                    </ActionList.Item>
-                  ))}
-              </ActionList.Group>
+              <ActionList.Heading title="open" />
+              {milestones
+                .filter(milestone => !milestone.name.includes('21'))
+                .map((milestone, index) => (
+                  <ActionList.Item
+                    key={index}
+                    selected={milestone.name === selectedMilestone?.name}
+                    onSelect={() => setSelectedMilestone(milestone)}
+                  >
+                    <ActionList.LeadingVisual>
+                      <MilestoneIcon />
+                    </ActionList.LeadingVisual>
+                    {milestone.name}
+                    <ActionList.Description variant="block">Due by {milestone.due}</ActionList.Description>
+                  </ActionList.Item>
+                ))}
+            </ActionList>
+            <ActionList selectionVariant="single" showDividers>
+              <ActionList.Heading title="Closed" />
+              {milestones
+                .filter(milestone => milestone.name.includes('21'))
+                .map((milestone, index) => (
+                  <ActionList.Item
+                    key={index}
+                    selected={milestone.name === selectedMilestone?.name}
+                    onSelect={() => setSelectedMilestone(milestone)}
+                  >
+                    <ActionList.LeadingVisual>
+                      <MilestoneIcon />
+                    </ActionList.LeadingVisual>
+                    {milestone.name}
+                    <ActionList.Description variant="block">Due by {milestone.due}</ActionList.Description>
+                  </ActionList.Item>
+                ))}
             </ActionList>
           </ActionMenu.Overlay>
         </ActionMenu>
@@ -298,33 +298,28 @@ export function MixedSelection(): JSX.Element {
           {selectedOption ? `Group by ${selectedOption.text}` : 'Group items by'}
         </ActionMenu.Button>
         <ActionMenu.Overlay width="medium">
-          <ActionList>
-            <ActionList.Group selectionVariant="single" title="Group by">
-              {options.map((option, index) => (
-                <ActionList.Item
-                  key={index}
-                  selected={index === selectedIndex}
-                  onSelect={() => setSelectedIndex(index)}
-                >
-                  <ActionList.LeadingVisual>
-                    <option.icon />
-                  </ActionList.LeadingVisual>
-                  {option.text}
-                </ActionList.Item>
-              ))}
-            </ActionList.Group>
-            {typeof selectedIndex === 'number' && (
-              <ActionList.Group>
-                <ActionList.Divider />
-                <ActionList.Item onSelect={() => setSelectedIndex(null)}>
-                  <ActionList.LeadingVisual>
-                    <XIcon />
-                  </ActionList.LeadingVisual>
-                  Clear Group by
-                </ActionList.Item>
-              </ActionList.Group>
-            )}
+          <ActionList selectionVariant="single">
+            <ActionList.Heading title="Group by" />
+            {options.map((option, index) => (
+              <ActionList.Item key={index} selected={index === selectedIndex} onSelect={() => setSelectedIndex(index)}>
+                <ActionList.LeadingVisual>
+                  <option.icon />
+                </ActionList.LeadingVisual>
+                {option.text}
+              </ActionList.Item>
+            ))}
           </ActionList>
+          {typeof selectedIndex === 'number' && (
+            <ActionList>
+              <ActionList.Divider />
+              <ActionList.Item onSelect={() => setSelectedIndex(null)}>
+                <ActionList.LeadingVisual>
+                  <XIcon />
+                </ActionList.LeadingVisual>
+                Clear Group by
+              </ActionList.Item>
+            </ActionList>
+          )}
         </ActionMenu.Overlay>
       </ActionMenu>
     </>

@@ -9,6 +9,7 @@ export type ActionListHeadingProps = {
   title: string
   subtitle?: string
   headingLevel?: 1 | 2 | 3 | 4 | 5 | 6
+  id?: string
 }
 
 /**
@@ -21,6 +22,7 @@ export const Heading: React.FC<React.PropsWithChildren<ActionListHeadingProps>> 
   title,
   subtitle,
   headingLevel = 3,
+  id,
   ...props
 }) => {
   const {variant: listVariant} = React.useContext(ListContext)
@@ -60,7 +62,7 @@ export const Heading: React.FC<React.PropsWithChildren<ActionListHeadingProps>> 
 
   return (
     <Box as="div" sx={styles} role="presentation" aria-hidden="true" {...props}>
-      <Title>{title}</Title>
+      <Title id={id}>{title}</Title>
       {subtitle && <Subtitle>{subtitle}</Subtitle>}
     </Box>
   )

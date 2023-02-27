@@ -427,46 +427,46 @@ export function MemexViewOptionsMenu(): JSX.Element {
 
           <ActionMenu.Overlay width="medium">
             <ActionList>
-              <ActionList.Group title="Layout">
-                <li style={{listStyle: 'none'}}>
-                  <Box sx={{mx: 3, display: 'flex'}}>
-                    <LayoutToggleItem selected Icon={TableIcon}>
-                      Table
-                    </LayoutToggleItem>
-                    <LayoutToggleItem selected={false} Icon={ProjectIcon}>
-                      Board
-                    </LayoutToggleItem>
-                  </Box>
-                </li>
-              </ActionList.Group>
+              <ActionList.Heading title="Layout" />
+              <li style={{listStyle: 'none'}}>
+                <Box sx={{mx: 3, display: 'flex'}}>
+                  <LayoutToggleItem selected Icon={TableIcon}>
+                    Table
+                  </LayoutToggleItem>
+                  <LayoutToggleItem selected={false} Icon={ProjectIcon}>
+                    Board
+                  </LayoutToggleItem>
+                </Box>
+              </li>
               <ActionList.Divider />
+            </ActionList>
 
-              <ActionList.Group title="Configuration">
-                <ActionList.Item>
-                  <ActionList.LeadingVisual>
-                    <ListUnorderedIcon />
-                  </ActionList.LeadingVisual>
-                  Title, Assignees, Status, Labels, Repositories
-                </ActionList.Item>
-                <ActionList.Item>
-                  <ActionList.LeadingVisual>
-                    <ListUnorderedIcon />
-                  </ActionList.LeadingVisual>
-                  group: none
-                </ActionList.Item>
-                <ActionList.Item>
-                  <ActionList.LeadingVisual>
-                    <ArrowDownIcon />
-                  </ActionList.LeadingVisual>
-                  sort: manual
-                </ActionList.Item>
-                <ActionList.Item>
-                  <ActionList.LeadingVisual>
-                    <SearchIcon />
-                  </ActionList.LeadingVisual>
-                  Search or filter this view
-                </ActionList.Item>
-              </ActionList.Group>
+            <ActionList>
+              <ActionList.Heading title="Configuration" />
+              <ActionList.Item>
+                <ActionList.LeadingVisual>
+                  <ListUnorderedIcon />
+                </ActionList.LeadingVisual>
+                Title, Assignees, Status, Labels, Repositories
+              </ActionList.Item>
+              <ActionList.Item>
+                <ActionList.LeadingVisual>
+                  <ListUnorderedIcon />
+                </ActionList.LeadingVisual>
+                group: none
+              </ActionList.Item>
+              <ActionList.Item>
+                <ActionList.LeadingVisual>
+                  <ArrowDownIcon />
+                </ActionList.LeadingVisual>
+                sort: manual
+              </ActionList.Item>
+              <ActionList.Item>
+                <ActionList.LeadingVisual>
+                  <SearchIcon />
+                </ActionList.LeadingVisual>
+                Search or filter this view
+              </ActionList.Item>
               <ActionList.Divider />
               <ActionList.Item>
                 <ActionList.LeadingVisual>
@@ -700,11 +700,12 @@ export function MnemonicsTest(): JSX.Element {
         <ActionMenu.Button>Menu</ActionMenu.Button>
         <ActionMenu.Overlay>
           <ActionList>
-            <ActionList.Group title="Sorting">
-              <ActionList.Item>Sort by A</ActionList.Item>
-              <ActionList.Item>Sort by B</ActionList.Item>
-              <ActionList.Item>Sort by C</ActionList.Item>
-            </ActionList.Group>
+            <ActionList.Heading title="Sorting" />
+            <ActionList.Item>Sort by A</ActionList.Item>
+            <ActionList.Item>Sort by B</ActionList.Item>
+            <ActionList.Item>Sort by C</ActionList.Item>
+          </ActionList>
+          <ActionList>
             <ActionList.Item>Order</ActionList.Item>
             <ActionList.Item>Group</ActionList.Item>
             <ActionList.Item aria-keyshortcuts="e">
