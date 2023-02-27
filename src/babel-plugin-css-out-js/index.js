@@ -1,28 +1,36 @@
-import * as fs from 'fs-extra';
-import * as path from 'path';
-import hash from '@emotion/hash';
+/* eslint-disable no-console */
+/* eslint-disable github/array-foreach */
+import { ensureFileSync, writeFileSync } from 'fs-extra';
+import { join, relative } from 'path';
+import { default as hash } from '@emotion/hash';
 // @ts-ignore, there are no types for this library
-import { string as stylesToString } from 'to-style';
-var CLASS_COUNT = 0;
-export default function (_a) {
+import { string as stylesObjectToString } from 'to-style';
+var COMPILED_TAG = '__COMPILED__';
+var classNamePrefix = 'sx';
+// TODO: remove styled-components import if all styles are compiled out
+export default function plugin(_a) {
     var types = _a.types;
     var visitor = {
         Program: {
-            enter: function (nodePath, state) {
+            enter: function (_nodePath, state) {
                 var _a;
                 // @ts-ignore not typed, dist is relative to root
-                var dist = path.join(state.cwd, state.opts.dist || '');
-                var relativeFilePath = path.relative(state.cwd, state.file.opts.filename);
-                var outFilePath = path.join(dist, relativeFilePath.replace('src/', 'css/').replace('.tsx', '.css'));
+                var dist = join(state.cwd, state.opts.dist || '');
+                // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+                var relativeFilePath = relative(state.cwd, state.filename);
+                // TODO: this should be .scss to allow nesting
+                var outFilePath = join(dist, relativeFilePath.replace('src/', '').replace('.tsx', '.css'));
                 state.set('outFilePath', outFilePath);
+                state.set('moduleSpecifier', relativeFilePath);
                 state.set('debug', (_a = state.file.opts.filename) === null || _a === void 0 ? void 0 : _a.includes('src/ActionList/Item'));
             },
             exit: function (nodePath, state) {
                 if (!state.get('cssInjected'))
                     return;
-                var moduleSpecifier = state.get('outFilePath');
+                // add css file import
+                var moduleSpecifier = './Item.css';
                 var importDeclaration = types.importDeclaration([], types.stringLiteral(moduleSpecifier));
-                nodePath.unshiftContainer('body', importDeclaration);
+                nodePath.node.body.unshift(importDeclaration);
             }
         },
         JSXAttribute: function (path, state) {
@@ -67,7 +75,8 @@ export default function (_a) {
                         // ConditionalExpression (9) | MemberExpression (7) | CallExpression (1) | ObjectExpression (3)
                         if (types.isNumericLiteral(property.value) || types.isStringLiteral(property.value)) {
                             styles[property.key.name] = property.value.value;
-                            // TODO: remove property from object after inserting in styles
+                            // tag property name as compiled, so it can be removed later
+                            property.key = types.identifier(COMPILED_TAG);
                         }
                         else {
                             // TODO
@@ -77,6 +86,19 @@ export default function (_a) {
                         }
                     }
                 });
+                // Remove compiled properties from properties
+                expression.properties = expression.properties.filter(function (property) {
+                    if (types.isObjectProperty(property) &&
+                        types.isIdentifier(property.key) &&
+                        property.key.name === COMPILED_TAG) {
+                        return false;
+                    }
+                    else
+                        return true;
+                });
+                // if expression object is empty now, it's safe to remove it
+                if (expression.properties.length === 0)
+                    path.remove();
             }
             else if (types.isExpression(expression)) {
                 // external variable sx={styles}
@@ -87,20 +109,55 @@ export default function (_a) {
             else {
                 // can safely ignore, types narrowed to JSXEmptyExpression | never
             }
-            var stringifiedStyles = stylesToString(styles);
-            // Write css into outFile
+            // nothing could be compiled
+            if (Object.keys(styles).length === 0)
+                return;
+            /**
+             * Step 2: Write css into outFile
+             */
+            // TODO: need to interpolate these for theme
+            var stringifiedStyles = stylesObjectToString(styles);
+            // @ts-ignore TODO: i don't understand
+            var uniqueHash = hash["default"](stringifiedStyles);
+            /**
+             * Step 2.1: Create a good class name
+             */
             var parentNode = path.parent;
+            // if available, get component name for prettier classname
             var componentName;
-            var functionParent = path.getFunctionParent();
-            console.log(functionParent.type);
-            console.log(functionParent.parent.type);
-            // if (types.isArrowFunctionExpression(functionParent)) componentName = functionParent.parent.id.name
-            // else if (types.isFunctionDeclaration(functionParent)) componentName = functionParent.node.id.name
-            // @ts-ignore ugh so silly
-            var className = 'prc-' + componentName + '-' + parentNode.name.name + '-' + hash["default"](stringifiedStyles);
+            var componentParent = path.findParent(function (parent) { return types.isVariableDeclarator(parent); });
+            if (componentParent &&
+                types.isVariableDeclarator(componentParent.node) &&
+                types.isIdentifier(componentParent.node.id)) {
+                componentName = componentParent.node.id.name;
+            }
+            // if available, get data-component
+            var dataComponentName = '';
+            var dataComponentAttribute = parentNode.attributes.find(function (attribute) {
+                return (types.isJSXAttribute(attribute) &&
+                    attribute.name.name === 'data-component' &&
+                    types.isStringLiteral(attribute.value));
+            });
+            if (dataComponentAttribute &&
+                types.isJSXAttribute(dataComponentAttribute) &&
+                types.isStringLiteral(dataComponentAttribute.value)) {
+                dataComponentName = dataComponentAttribute.value.value;
+            }
+            // @ts-ignore expecting parentNode.name to be a JSXIdentifier, not JSXMemberExpression
+            var JSXOpeningElementName = parentNode.name.name;
+            var className = [classNamePrefix, componentName, JSXOpeningElementName, dataComponentName, uniqueHash]
+                .filter(Boolean)
+                .map(function (part) { return part.replaceAll('.', '_'); })
+                .join('-');
+            /**
+             * Step 2.2: Write css into file
+             */
             var outFilePath = state.get('outFilePath');
             appendCSS({ outFilePath: outFilePath, className: className, stringifiedStyles: stringifiedStyles });
             state.set('cssInjected', true);
+            /**
+             * Step 2.3: Put generated class name on JSXElement
+             */
             // add classname to JSXOpeningElement
             var classNameAttribute = parentNode.attributes.find(function (attribute) {
                 if (types.isJSXSpreadAttribute(attribute))
@@ -109,7 +166,7 @@ export default function (_a) {
                     return true;
             });
             if (classNameAttribute) {
-                // if it already exists, add to it
+                // TODO: if it already exists, add to it
                 // JSXAttribute | JSXSpreadAttribute
             }
             else {
@@ -132,11 +189,15 @@ var appendCSS = function (_a) {
         contents += "\n.".concat(key, " {\n  ").concat(value, "\n}");
     });
     // flush
-    fs.ensureFileSync(outFilePath);
-    fs.writeFileSync(outFilePath, contents);
+    ensureFileSync(outFilePath);
+    writeFileSync(outFilePath, contents);
 };
 // @ts-ignore only debugging
 var printNode = function (state, pathNode) {
+    if (!pathNode.start) {
+        console.log("start + end not found, can print source");
+        return;
+    }
     console.log(state.file.code.slice(pathNode.start, pathNode.end));
     console.log("".concat(state.file.opts.filename, ":").concat(pathNode.loc.start.line));
     console.log('---');

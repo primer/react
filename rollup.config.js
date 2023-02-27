@@ -6,8 +6,8 @@ import terser from '@rollup/plugin-terser'
 import glob from 'fast-glob'
 import {visualizer} from 'rollup-plugin-visualizer'
 import packageJson from './package.json'
-import CSSoutJS from './src/babel-plugin-compile/index.js'
-import scss from 'rollup-plugin-scss'
+import CSSoutJS from './src/babel-plugin-css-out-js/index.js'
+import postcss from 'rollup-plugin-postcss'
 
 const input = new Set([
   // "exports"
@@ -15,38 +15,38 @@ const input = new Set([
   'src/index.ts',
 
   // "./drafts"
-  // 'src/drafts/index.ts',
+  'src/drafts/index.ts',
 
   // "./deprecated"
-  // 'src/deprecated/index.ts',
+  'src/deprecated/index.ts',
 
   // Make sure all members are exported
-  // 'src/constants.ts',
+  'src/constants.ts',
 
-  // ...glob.sync(
-  //   [
-  //     "./lib-esm/hooks/*"
-  //     'src/hooks/*',
-  //     "./lib-esm/polyfills/*"
-  //     'src/polyfills/*',
-  //     "./lib-esm/utils/*"
-  //     'src/utils/*',
-  //   ],
-  //   {
-  //     cwd: __dirname,
-  //     ignore: [
-  //       '**/__tests__/**',
-  //       '*.stories.tsx',
+  ...glob.sync(
+    [
+      // "./lib-esm/hooks/*"
+      'src/hooks/*',
+      // "./lib-esm/polyfills/*"
+      'src/polyfills/*',
+      // "./lib-esm/utils/*"
+      'src/utils/*',
+    ],
+    {
+      cwd: __dirname,
+      ignore: [
+        '**/__tests__/**',
+        '*.stories.tsx',
 
-  //       // File currently imports from package.json
-  //       'src/utils/test-deprecations.tsx',
+        // File currently imports from package.json
+        'src/utils/test-deprecations.tsx',
 
-  //       // Files use dependencies which are not listed by package
-  //       'src/utils/testing.tsx',
-  //       'src/utils/test-matchers.tsx',
-  //     ],
-  //   },
-  // ),
+        // Files use dependencies which are not listed by package
+        'src/utils/testing.tsx',
+        'src/utils/test-matchers.tsx',
+      ],
+    },
+  ),
 ])
 
 const extensions = ['.js', '.jsx', '.ts', '.tsx']
@@ -69,6 +69,7 @@ function createPackageRegex(name) {
 
 const baseConfig = {
   input: Array.from(input),
+  external: [/\.css$/u],
   plugins: [
     // Note: it's important that the babel-plugin-preval is loaded first
     // to work as-intended
@@ -94,7 +95,7 @@ const baseConfig = {
         'babel-plugin-styled-components',
         '@babel/plugin-proposal-nullish-coalescing-operator',
         '@babel/plugin-proposal-optional-chaining',
-        [CSSoutJS, {dist: 'lib-esm'}],
+        [CSSoutJS, {dist: 'lib-esm' /** need to customise this or absorb this in */}],
         [
           'babel-plugin-transform-replace-expressions',
           {
@@ -111,7 +112,7 @@ const baseConfig = {
     resolve({
       extensions,
     }),
-    scss(),
+    postcss({inject: false}),
   ],
 }
 
@@ -119,20 +120,21 @@ export default [
   // ESM
   {
     ...baseConfig,
-    external: dependencies.map(createPackageRegex),
+    external: [...baseConfig.external, ...dependencies.map(createPackageRegex)],
     output: {
       interop: 'auto',
       dir: 'lib-esm',
       format: 'esm',
       preserveModules: true,
       preserveModulesRoot: 'src',
+      assetFileNames: '[name]-[hash][extname]',
     },
   },
 
-  // CommonJS
+  // // CommonJS
   // {
   //   ...baseConfig,
-  //   external: dependencies.filter(name => !ESM_ONLY.has(name)).map(createPackageRegex),
+  //   external: [...baseConfig.external, ...dependencies.filter(name => !ESM_ONLY.has(name)).map(createPackageRegex)],
   //   output: {
   //     interop: 'auto',
   //     dir: 'lib',
@@ -147,7 +149,7 @@ export default [
   // {
   //   ...baseConfig,
   //   input: 'src/index.ts',
-  //   external: ['styled-components', 'react', 'react-dom'],
+  //   external: [...baseConfig.external, 'styled-components', 'react', 'react-dom'],
   //   plugins: [
   //     replace({
   //       'process.env.NODE_ENV': JSON.stringify('production'),

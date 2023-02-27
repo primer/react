@@ -1,32 +1,45 @@
-import * as fs from 'fs-extra'
-import * as path from 'path'
-import * as babel from '@babel/core'
+/* eslint-disable no-console */
+/* eslint-disable github/array-foreach */
+
+import {ensureFileSync, writeFileSync} from 'fs-extra'
+import {join, relative} from 'path'
 import {PluginObj} from '@babel/core'
-import hash from '@emotion/hash'
-
+import {default as hash} from '@emotion/hash'
+// eslint-disable-next-line import/no-namespace
+import * as babel from '@babel/core'
 // @ts-ignore, there are no types for this library
-import {string as stylesToString} from 'to-style'
+import {string as stylesObjectToString} from 'to-style'
 
-let CLASS_COUNT = 0
+const COMPILED_TAG = '__COMPILED__'
+const classNamePrefix = 'sx'
 
-export default function ({types}: typeof babel): PluginObj {
+// TODO: remove styled-components import if all styles are compiled out
+
+export default function plugin({types}: typeof babel): PluginObj {
   const visitor: PluginObj['visitor'] = {
     Program: {
-      enter(nodePath, state) {
+      enter(_nodePath, state) {
         // @ts-ignore not typed, dist is relative to root
-        const dist = path.join(state.cwd, state.opts.dist || '')
+        const dist = join(state.cwd, state.opts.dist || '')
 
-        const relativeFilePath = path.relative(state.cwd, state.file.opts.filename!)
-        const outFilePath = path.join(dist, relativeFilePath.replace('src/', 'css/').replace('.tsx', '.css'))
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        const relativeFilePath = relative(state.cwd, state.filename!)
+
+        // TODO: this should be .scss to allow nesting
+        const outFilePath = join(dist, relativeFilePath.replace('src/', '').replace('.tsx', '.css'))
 
         state.set('outFilePath', outFilePath)
+        state.set('moduleSpecifier', relativeFilePath)
         state.set('debug', state.file.opts.filename?.includes('src/ActionList/Item'))
       },
       exit(nodePath, state) {
         if (!state.get('cssInjected')) return
-        const moduleSpecifier = state.get('outFilePath')
+
+        // add css file import
+        const moduleSpecifier = './Item.css'
+
         const importDeclaration = types.importDeclaration([], types.stringLiteral(moduleSpecifier))
-        nodePath.unshiftContainer('body', importDeclaration)
+        nodePath.node.body.unshift(importDeclaration)
       },
     },
 
@@ -74,7 +87,8 @@ export default function ({types}: typeof babel): PluginObj {
 
             if (types.isNumericLiteral(property.value) || types.isStringLiteral(property.value)) {
               styles[property.key.name] = property.value.value
-              // TODO: remove property from object after inserting in styles
+              // tag property name as compiled, so it can be removed later
+              property.key = types.identifier(COMPILED_TAG)
             } else {
               // TODO
               // console.log(`Can not compile ${property.value.type} yet.`)
@@ -83,6 +97,20 @@ export default function ({types}: typeof babel): PluginObj {
             }
           }
         })
+
+        // Remove compiled properties from properties
+        expression.properties = expression.properties.filter(property => {
+          if (
+            types.isObjectProperty(property) &&
+            types.isIdentifier(property.key) &&
+            property.key.name === COMPILED_TAG
+          ) {
+            return false
+          } else return true
+        })
+
+        // if expression object is empty now, it's safe to remove it
+        if (expression.properties.length === 0) path.remove()
       } else if (types.isExpression(expression)) {
         // external variable sx={styles}
       } else if (types.isCallExpression(expression)) {
@@ -91,37 +119,80 @@ export default function ({types}: typeof babel): PluginObj {
         // can safely ignore, types narrowed to JSXEmptyExpression | never
       }
 
-      const stringifiedStyles = stylesToString(styles)
+      // nothing could be compiled
+      if (Object.keys(styles).length === 0) return
 
-      // Write css into outFile
+      /**
+       * Step 2: Write css into outFile
+       */
 
+      // TODO: need to interpolate these for theme
+      const stringifiedStyles = stylesObjectToString(styles)
+      // @ts-ignore TODO: i don't understand
+      const uniqueHash = hash.default(stringifiedStyles)
+
+      /**
+       * Step 2.1: Create a good class name
+       */
       const parentNode = path.parent as babel.types.JSXOpeningElement
 
-      // get component name for prettier classname
+      // if available, get component name for prettier classname
       let componentName
-      const functionParent = path.getFunctionParent()
-      console.log(functionParent.type)
-      console.log(functionParent.parent.type)
+      const componentParent = path.findParent(parent => types.isVariableDeclarator(parent))
 
-      // if (types.isArrowFunctionExpression(functionParent)) componentName = functionParent.parent.id.name
-      // else if (types.isFunctionDeclaration(functionParent)) componentName = functionParent.node.id.name
+      if (
+        componentParent &&
+        types.isVariableDeclarator(componentParent.node) &&
+        types.isIdentifier(componentParent.node.id)
+      ) {
+        componentName = componentParent.node.id.name
+      }
 
-      // @ts-ignore ugh so silly
-      const className = 'prc-' + componentName + '-' + parentNode.name.name + '-' + hash.default(stringifiedStyles)
+      // if available, get data-component
+      let dataComponentName = ''
+      const dataComponentAttribute = parentNode.attributes.find(attribute => {
+        return (
+          types.isJSXAttribute(attribute) &&
+          attribute.name.name === 'data-component' &&
+          types.isStringLiteral(attribute.value)
+        )
+      })
+      if (
+        dataComponentAttribute &&
+        types.isJSXAttribute(dataComponentAttribute) &&
+        types.isStringLiteral(dataComponentAttribute.value)
+      ) {
+        dataComponentName = dataComponentAttribute.value.value
+      }
+
+      // @ts-ignore expecting parentNode.name to be a JSXIdentifier, not JSXMemberExpression
+      const JSXOpeningElementName = parentNode.name.name
+
+      const className = [classNamePrefix, componentName, JSXOpeningElementName, dataComponentName, uniqueHash]
+        .filter(Boolean)
+        .map(part => part.replaceAll('.', '_'))
+        .join('-')
+
+      /**
+       * Step 2.2: Write css into file
+       */
 
       const outFilePath = state.get('outFilePath')
       appendCSS({outFilePath, className, stringifiedStyles})
       state.set('cssInjected', true)
 
-      // add classname to JSXOpeningElement
+      /**
+       * Step 2.3: Put generated class name on JSXElement
+       */
 
+      // add classname to JSXOpeningElement
       const classNameAttribute = parentNode.attributes.find(attribute => {
         if (types.isJSXSpreadAttribute(attribute)) return false
         if (attribute.name.name === 'className') return true
       })
 
       if (classNameAttribute) {
-        // if it already exists, add to it
+        // TODO: if it already exists, add to it
         // JSXAttribute | JSXSpreadAttribute
       } else {
         // add className attribute
@@ -161,12 +232,17 @@ const appendCSS = ({
   })
 
   // flush
-  fs.ensureFileSync(outFilePath)
-  fs.writeFileSync(outFilePath, contents)
+  ensureFileSync(outFilePath)
+  writeFileSync(outFilePath, contents)
 }
 
 // @ts-ignore only debugging
 const printNode = (state: babel.PluginPass, pathNode) => {
+  if (!pathNode.start) {
+    console.log(`start + end not found, can print source`)
+    return
+  }
+
   console.log(state.file.code.slice(pathNode.start, pathNode.end))
   console.log(`${state.file.opts.filename}:${pathNode.loc.start.line}`)
   console.log('---')
