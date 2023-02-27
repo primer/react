@@ -163,7 +163,7 @@ export const WithTrailingAction = (args: FormControlArgs<TextInputProps>) => {
 }
 
 export const WithLoadingIndicator = (args: FormControlArgs<TextInputProps>) => {
-  const {parentArgs, labelArgs, captionArgs, validationArgs} = getFormControlArgsByChildComponent(args)
+  const {parentArgs, labelArgs} = getFormControlArgsByChildComponent(args)
   return (
     <Box as="form" sx={{padding: 3}}>
       <h3>No visual</h3>
