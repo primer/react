@@ -7,7 +7,7 @@
   "props": [
     {
       "name": "children",
-      "type": "ActionList.Item[] | ActionList.LinkItem[] | ActionList.Divider[]",
+      "type": "ActionList.Heading | ActionList.Item[] | ActionList.LinkItem[] | ActionList.Divider[]",
       "defaultValue": "",
       "required": true,
       "description": ""
@@ -208,8 +208,8 @@
         },
         {
           "name": "headingLevel",
-          "type": "1 | 2 | 3 | 4 | 5 | 6",
-          "defaultValue": 3,
+          "type": "'1' | '2' | '3' | '4' | '5' | '6'",
+          "defaultValue": "3",
           "required": false,
           "description": ""
         }
