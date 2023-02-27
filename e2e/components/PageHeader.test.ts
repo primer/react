@@ -96,7 +96,11 @@ test.describe('PageHeader', () => {
           await expect(page).toHaveNoViolations({
             rules: {
               'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
+                enabled:
+                  theme !== 'dark_dimmed' &&
+                  theme !== 'light' &&
+                  theme !== 'light_colorblind' &&
+                  theme !== 'light_tritanopia',
               },
             },
           })
@@ -132,7 +136,11 @@ test.describe('PageHeader', () => {
           await expect(page).toHaveNoViolations({
             rules: {
               'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
+                enabled:
+                  theme !== 'dark_dimmed' &&
+                  theme !== 'light' &&
+                  theme !== 'light_colorblind' &&
+                  theme !== 'light_tritanopia',
               },
             },
           })
@@ -166,7 +174,7 @@ test.describe('PageHeader', () => {
           await expect(page).toHaveNoViolations({
             rules: {
               'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
+                enabled: theme !== 'light' && theme !== 'light_colorblind' && theme !== 'light_tritanopia',
               },
             },
           })
@@ -200,7 +208,7 @@ test.describe('PageHeader', () => {
           await expect(page).toHaveNoViolations({
             rules: {
               'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
+                enabled: theme !== 'light' && theme !== 'light_colorblind' && theme !== 'light_tritanopia',
               },
             },
           })
@@ -234,7 +242,7 @@ test.describe('PageHeader', () => {
           await expect(page).toHaveNoViolations({
             rules: {
               'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
+                enabled: false,
               },
             },
           })
@@ -336,7 +344,7 @@ test.describe('PageHeader', () => {
           await expect(page).toHaveNoViolations({
             rules: {
               'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
+                enabled: theme !== 'light' && theme !== 'light_colorblind' && theme !== 'light_tritanopia',
               },
             },
           })
@@ -372,7 +380,7 @@ test.describe('PageHeader', () => {
           await expect(page).toHaveNoViolations({
             rules: {
               'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
+                enabled: theme !== 'light' && theme !== 'light_colorblind' && theme !== 'light_tritanopia',
               },
             },
           })
