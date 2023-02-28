@@ -117,7 +117,7 @@ describe('ActionMenu', () => {
         <SingleSelect />
       </ThemeProvider>,
     )
-    const button = component.getByRole('button')
+    const button = component.getByLabelText(/^options/i)
 
     const user = userEvent.setup()
     await user.click(button)
