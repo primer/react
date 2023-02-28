@@ -1,5 +1,11 @@
 /* eslint-disable no-console */
 /* eslint-disable github/array-foreach */
+/**
+ * next steps:
+ * expand beyond ActionList/Item.tsx
+ * expand types supported
+ * calculate % of types compiled
+ */
 import { ensureFileSync, writeFileSync } from 'fs-extra';
 import { join, relative } from 'path';
 import { default as hash } from '@emotion/hash';
@@ -33,19 +39,19 @@ export default function plugin(_a) {
                 nodePath.node.body.unshift(importDeclaration);
             }
         },
-        JSXAttribute: function (path, state) {
+        JSXAttribute: function (JSXAttributePath, state) {
             if (state.get('debug') !== true)
                 return;
-            if (path.node.name.name !== 'sx')
+            if (JSXAttributePath.node.name.name !== 'sx')
                 return;
-            if (!path.node.value)
+            if (!JSXAttributePath.node.value)
                 return;
-            if (!types.isJSXExpressionContainer(path.node.value)) {
+            if (!types.isJSXExpressionContainer(JSXAttributePath.node.value)) {
                 console.log('This is invalid usage, needs to be fixed manually');
-                printNode(state, path.node.value);
+                printNode(state, JSXAttributePath.node.value);
                 return;
             }
-            var expression = path.node.value.expression;
+            var expression = JSXAttributePath.node.value.expression;
             var styles = {};
             if (types.isObjectExpression(expression)) {
                 expression.properties.forEach(function (property) {
@@ -78,10 +84,32 @@ export default function plugin(_a) {
                             // tag property name as compiled, so it can be removed later
                             property.key = types.identifier(COMPILED_TAG);
                         }
+                        else if (types.isIdentifier(property.value) || types.isExpression(property.value)) {
+                            // value is set with a variable or expression
+                            // example: sx={{flexGrow: props.InlineDescription ? 0 : 1}}
+                            var cssVariable = "--".concat(property.key.name);
+                            styles[property.key.name] = "var(".concat(cssVariable, ")");
+                            // set variable on runtime via style attribute
+                            // here
+                            var jsxOpeningElement = JSXAttributePath.parent;
+                            var styleAttribute = jsxOpeningElement.attributes.find(function (attr) {
+                                return types.isJSXAttribute(attr) && attr.name.name === 'style';
+                            });
+                            if (styleAttribute) {
+                                // TODO: add variable into existing styles object
+                            }
+                            else {
+                                // add style attribute
+                                var keyVal = types.objectProperty(types.stringLiteral(cssVariable), property.value);
+                                jsxOpeningElement.attributes.push(types.jsxAttribute(types.jsxIdentifier('style'), types.jsxExpressionContainer(types.objectExpression([keyVal]))));
+                                // tag property name as compiled, so it can be removed later
+                                property.key = types.identifier(COMPILED_TAG);
+                            }
+                        }
                         else {
                             // TODO
-                            // console.log(`Can not compile ${property.value.type} yet.`)
-                            // printNode(state, property)
+                            console.log("Can not compile ".concat(property.value.type, " yet."));
+                            printNode(state, property);
                             return;
                         }
                     }
@@ -98,7 +126,7 @@ export default function plugin(_a) {
                 });
                 // if expression object is empty now, it's safe to remove it
                 if (expression.properties.length === 0)
-                    path.remove();
+                    JSXAttributePath.remove();
             }
             else if (types.isExpression(expression)) {
                 // external variable sx={styles}
@@ -122,10 +150,10 @@ export default function plugin(_a) {
             /**
              * Step 2.1: Create a good class name
              */
-            var parentNode = path.parent;
+            var parentNode = JSXAttributePath.parent;
             // if available, get component name for prettier classname
             var componentName;
-            var componentParent = path.findParent(function (parent) { return types.isVariableDeclarator(parent); });
+            var componentParent = JSXAttributePath.findParent(function (parent) { return types.isVariableDeclarator(parent); });
             if (componentParent &&
                 types.isVariableDeclarator(componentParent.node) &&
                 types.isIdentifier(componentParent.node.id)) {

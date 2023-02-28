@@ -50,19 +50,19 @@ export default function plugin({types}: typeof babel): PluginObj {
       },
     },
 
-    JSXAttribute(path, state) {
+    JSXAttribute(JSXAttributePath, state) {
       if (state.get('debug') !== true) return
 
-      if (path.node.name.name !== 'sx') return
-      if (!path.node.value) return
+      if (JSXAttributePath.node.name.name !== 'sx') return
+      if (!JSXAttributePath.node.value) return
 
-      if (!types.isJSXExpressionContainer(path.node.value)) {
+      if (!types.isJSXExpressionContainer(JSXAttributePath.node.value)) {
         console.log('This is invalid usage, needs to be fixed manually')
-        printNode(state, path.node.value)
+        printNode(state, JSXAttributePath.node.value)
         return
       }
 
-      const expression = path.node.value.expression
+      const expression = JSXAttributePath.node.value.expression
       const styles: {[key: string]: unknown} = {}
 
       if (types.isObjectExpression(expression)) {
@@ -96,10 +96,41 @@ export default function plugin({types}: typeof babel): PluginObj {
               styles[property.key.name] = property.value.value
               // tag property name as compiled, so it can be removed later
               property.key = types.identifier(COMPILED_TAG)
+            } else if (types.isIdentifier(property.value) || types.isExpression(property.value)) {
+              // value is set with a variable or expression
+              // example: sx={{flexGrow: props.InlineDescription ? 0 : 1}}
+
+              const cssVariable = `--${property.key.name}`
+              styles[property.key.name] = `var(${cssVariable})`
+
+              // set variable on runtime via style attribute
+              // here
+
+              const jsxOpeningElement = JSXAttributePath.parent as babel.types.JSXOpeningElement
+
+              const styleAttribute = jsxOpeningElement.attributes.find(attr => {
+                return types.isJSXAttribute(attr) && attr.name.name === 'style'
+              }) as babel.types.JSXAttribute | undefined
+
+              if (styleAttribute) {
+                // TODO: add variable into existing styles object
+              } else {
+                // add style attribute
+                const keyVal = types.objectProperty(types.stringLiteral(cssVariable), property.value)
+                jsxOpeningElement.attributes.push(
+                  types.jsxAttribute(
+                    types.jsxIdentifier('style'),
+                    types.jsxExpressionContainer(types.objectExpression([keyVal])),
+                  ),
+                )
+
+                // tag property name as compiled, so it can be removed later
+                property.key = types.identifier(COMPILED_TAG)
+              }
             } else {
               // TODO
-              // console.log(`Can not compile ${property.value.type} yet.`)
-              // printNode(state, property)
+              console.log(`Can not compile ${property.value.type} yet.`)
+              printNode(state, property)
               return
             }
           }
@@ -117,7 +148,7 @@ export default function plugin({types}: typeof babel): PluginObj {
         })
 
         // if expression object is empty now, it's safe to remove it
-        if (expression.properties.length === 0) path.remove()
+        if (expression.properties.length === 0) JSXAttributePath.remove()
       } else if (types.isExpression(expression)) {
         // external variable sx={styles}
       } else if (types.isCallExpression(expression)) {
@@ -141,11 +172,11 @@ export default function plugin({types}: typeof babel): PluginObj {
       /**
        * Step 2.1: Create a good class name
        */
-      const parentNode = path.parent as babel.types.JSXOpeningElement
+      const parentNode = JSXAttributePath.parent as babel.types.JSXOpeningElement
 
       // if available, get component name for prettier classname
       let componentName
-      const componentParent = path.findParent(parent => types.isVariableDeclarator(parent))
+      const componentParent = JSXAttributePath.findParent(parent => types.isVariableDeclarator(parent))
 
       if (
         componentParent &&
