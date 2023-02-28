@@ -131,45 +131,45 @@ export default [
     },
   },
 
-  // // CommonJS
-  // {
-  //   ...baseConfig,
-  //   external: [...baseConfig.external, ...dependencies.filter(name => !ESM_ONLY.has(name)).map(createPackageRegex)],
-  //   output: {
-  //     interop: 'auto',
-  //     dir: 'lib',
-  //     format: 'commonjs',
-  //     preserveModules: true,
-  //     preserveModulesRoot: 'src',
-  //     exports: 'auto',
-  //   },
-  // },
+  // CommonJS
+  {
+    ...baseConfig,
+    external: [...baseConfig.external, ...dependencies.filter(name => !ESM_ONLY.has(name)).map(createPackageRegex)],
+    output: {
+      interop: 'auto',
+      dir: 'lib',
+      format: 'commonjs',
+      preserveModules: true,
+      preserveModulesRoot: 'src',
+      exports: 'auto',
+    },
+  },
 
-  // // Bundles
-  // {
-  //   ...baseConfig,
-  //   input: 'src/index.ts',
-  //   external: [...baseConfig.external, 'styled-components', 'react', 'react-dom'],
-  //   plugins: [
-  //     replace({
-  //       'process.env.NODE_ENV': JSON.stringify('production'),
-  //       preventAssignment: true,
-  //     }),
-  //     ...baseConfig.plugins,
-  //     terser(),
-  //     visualizer({sourcemap: true}),
-  //   ],
-  //   output: ['esm', 'umd'].map(format => ({
-  //     interop: 'auto',
-  //     file: `dist/browser.${format}.js`,
-  //     format,
-  //     sourcemap: true,
-  //     name: 'primer',
-  //     globals: {
-  //       react: 'React',
-  //       'react-dom': 'ReactDOM',
-  //       'styled-components': 'styled',
-  //     },
-  //   })),
-  // },
+  // Bundles
+  {
+    ...baseConfig,
+    input: 'src/index.ts',
+    external: [...baseConfig.external, 'styled-components', 'react', 'react-dom'],
+    plugins: [
+      replace({
+        'process.env.NODE_ENV': JSON.stringify('production'),
+        preventAssignment: true,
+      }),
+      ...baseConfig.plugins,
+      terser(),
+      visualizer({sourcemap: true}),
+    ],
+    output: ['esm', 'umd'].map(format => ({
+      interop: 'auto',
+      file: `dist/browser.${format}.js`,
+      format,
+      sourcemap: true,
+      name: 'primer',
+      globals: {
+        react: 'React',
+        'react-dom': 'ReactDOM',
+        'styled-components': 'styled',
+      },
+    })),
+  },
 ]
