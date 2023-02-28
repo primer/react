@@ -605,6 +605,53 @@ const components = new Map([
     },
   ],
   [
+    'ToggleSwitch',
+    {
+      stories: [
+        {
+          id: 'components-toggleswitch--default',
+          name: 'Default',
+        },
+        {
+          id: 'components-toggleswitch--playground',
+          name: 'Playground',
+        },
+        {
+          id: 'components-toggleswitch-features--checked',
+          name: 'Checked',
+        },
+        {
+          id: 'components-toggleswitch-features--checked-disabled',
+          name: 'Checked Disabled',
+        },
+        {
+          id: 'components-toggleswitch-features--controlled',
+          name: 'Controlled',
+        },
+        {
+          id: 'components-toggleswitch-features--disabled',
+          name: 'Disabled',
+        },
+        {
+          id: 'components-toggleswitch-features--label-end',
+          name: 'Label End',
+        },
+        {
+          id: 'components-toggleswitch-features--loading',
+          name: 'Loading',
+        },
+        {
+          id: 'components-toggleswitch-features--small',
+          name: 'Small',
+        },
+        {
+          id: 'components-toggleswitch-features--with-caption',
+          name: 'With Caption',
+        },
+      ],
+    },
+  ],
+  [
     'TreeView',
     {
       stories: [
