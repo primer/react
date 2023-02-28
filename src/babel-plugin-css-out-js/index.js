@@ -2,24 +2,45 @@
 /* eslint-disable github/array-foreach */
 /**
  * next steps:
- * expand beyond ActionList/Item.tsx
- * expand types supported
+ * 1 nested objects
+ * 2 abstract object styles
+ * 3 track identifiers
+ * 4 spread
+ * 5 break merge into parts
+ *
+ * fill in css variables
+ * replace short syntax with long (like paddingY)
+ * expand beyond ActionList
  * calculate % of types compiled
+ * remove styled-components import if all styles are compiled out
+ * debug: why flex-grow gets default unit of 1px, to-style doesn't support it?
+ * run validator through generated css to find errors
+ *
+ * merge
+ *  - can have an identifier
+ *  - can have an object
+ *
  */
-import { ensureFileSync, writeFileSync } from 'fs-extra';
-import { join, relative } from 'path';
+import { ensureFileSync, writeFileSync, removeSync } from 'fs-extra';
+import { join, relative, parse } from 'path';
 import { default as hash } from '@emotion/hash';
 // @ts-ignore, there are no types for this library
 import { string as stylesObjectToString } from 'to-style';
 var COMPILED_TAG = '__COMPILED__';
 var classNamePrefix = 'sx';
-// TODO: remove styled-components import if all styles are compiled out
+var LOG_FILENAME = 'css-out-js.log.md';
+var STATS_FILENAME = 'css-out-js.stats.md';
+removeSync(LOG_FILENAME);
+removeSync(STATS_FILENAME);
 export default function plugin(_a) {
     var types = _a.types;
     var visitor = {
         Program: {
             enter: function (_nodePath, state) {
                 var _a;
+                state.set('debug', (_a = state.file.opts.filename) === null || _a === void 0 ? void 0 : _a.includes('src/ActionList/'));
+                if (state.get('debug') !== true)
+                    return;
                 // @ts-ignore not typed, dist is relative to root
                 var dist = join(state.cwd, state.opts.dist || '');
                 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
@@ -28,15 +49,18 @@ export default function plugin(_a) {
                 var outFilePath = join(dist, relativeFilePath.replace('src/', '').replace('.tsx', '.css'));
                 state.set('outFilePath', outFilePath);
                 state.set('moduleSpecifier', relativeFilePath);
-                state.set('debug', (_a = state.file.opts.filename) === null || _a === void 0 ? void 0 : _a.includes('src/ActionList/Item'));
+                state.set('stats.sxProps', 0);
+                state.set('stats.sxPropsCompiledOut', 0);
             },
             exit: function (nodePath, state) {
                 if (!state.get('cssInjected'))
                     return;
                 // add css file import
-                var moduleSpecifier = './Item.css';
+                // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+                var moduleSpecifier = "./".concat(parse(state.filename).name, ".css");
                 var importDeclaration = types.importDeclaration([], types.stringLiteral(moduleSpecifier));
                 nodePath.node.body.unshift(importDeclaration);
+                logStats(state);
             }
         },
         JSXAttribute: function (JSXAttributePath, state) {
@@ -46,9 +70,9 @@ export default function plugin(_a) {
                 return;
             if (!JSXAttributePath.node.value)
                 return;
+            state.set('stats.sxProps', state.get('stats.sxProps') + 1);
             if (!types.isJSXExpressionContainer(JSXAttributePath.node.value)) {
-                console.log('This is invalid usage, needs to be fixed manually');
-                printNode(state, JSXAttributePath.node.value);
+                notSupported(state, JSXAttributePath.node.value, 'This is invalid usage, needs to be fixed manually. NS1');
                 return;
             }
             var expression = JSXAttributePath.node.value.expression;
@@ -61,6 +85,9 @@ export default function plugin(_a) {
                         // TODO
                         // example: {...styles} or even sx={{position: 'relative', ...props.sx }}
                         // https://github.com/primer/react/blob/main/src/TextInputWithTokens.tsx#L269
+                        // idea: can we trace ...sxProp back to props and then remove it because it would
+                        // be compiled out independently?
+                        notSupported(state, property, "Can not compile property of type ".concat(property.type, " yet. NS2"));
                     }
                     else if (types.isObjectProperty(property)) {
                         // property.key.type (# of instances in primer/react)
@@ -70,8 +97,7 @@ export default function plugin(_a) {
                             // TODO
                             // example, ConditionalExpression: sx={{[position === 'end' ? 'marginBottom' : 'marginTop']: 2}}
                             // example, StringLiteral: sx={{'&:hover': {}}}
-                            console.log("Can not compile ".concat(property.key.type, " yet."));
-                            printNode(state, property);
+                            notSupported(state, property, "Can not compile key of type ".concat(property.key.type, " yet. NS3"));
                             return;
                         }
                         else
@@ -84,13 +110,12 @@ export default function plugin(_a) {
                             // tag property name as compiled, so it can be removed later
                             property.key = types.identifier(COMPILED_TAG);
                         }
-                        else if (types.isIdentifier(property.value) || types.isExpression(property.value)) {
+                        else if (types.isIdentifier(property.value) || types.isConditionalExpression(property.value)) {
                             // value is set with a variable or expression
                             // example: sx={{flexGrow: props.InlineDescription ? 0 : 1}}
                             var cssVariable = "--".concat(property.key.name);
                             styles[property.key.name] = "var(".concat(cssVariable, ")");
                             // set variable on runtime via style attribute
-                            // here
                             var jsxOpeningElement = JSXAttributePath.parent;
                             var styleAttribute = jsxOpeningElement.attributes.find(function (attr) {
                                 return types.isJSXAttribute(attr) && attr.name.name === 'style';
@@ -106,10 +131,19 @@ export default function plugin(_a) {
                                 property.key = types.identifier(COMPILED_TAG);
                             }
                         }
+                        else if (types.isObjectExpression(property.value)) {
+                            // TODO: nested styles
+                            // example: src/ActionList/Selection.tsx:44
+                            // sx={{ rect: {...}, path: {...} }}
+                            notSupported(state, property, "Can not compile value of type ".concat(property.value.type, " yet. NS3.5"));
+                            styles[property.key.name] = {
+                                display: 'wut'
+                            };
+                            return;
+                        }
                         else {
                             // TODO
-                            console.log("Can not compile ".concat(property.value.type, " yet."));
-                            printNode(state, property);
+                            notSupported(state, property, "Can not compile value of type ".concat(property.value.type, " yet. NS4"));
                             return;
                         }
                     }
@@ -125,14 +159,19 @@ export default function plugin(_a) {
                         return true;
                 });
                 // if expression object is empty now, it's safe to remove it
-                if (expression.properties.length === 0)
+                if (expression.properties.length === 0) {
+                    state.set('stats.sxPropsCompiledOut', state.get('stats.sxPropsCompiledOut') + 1);
                     JSXAttributePath.remove();
-            }
-            else if (types.isExpression(expression)) {
-                // external variable sx={styles}
+                }
             }
             else if (types.isCallExpression(expression)) {
                 // function call like sx={getStyles()} or even sx={merge(styles,props.sx)}
+                // TODO: follow first variable and compile that
+                notSupported(state, expression, "Can not compile expression of type ".concat(expression.type, " yet. NS5"));
+            }
+            else if (types.isExpression(expression)) {
+                // external variable sx={styles}
+                notSupported(state, expression, "Can not compile expression of type ".concat(expression.type, " yet. NS6"));
             }
             else {
                 // can safely ignore, types narrowed to JSXEmptyExpression | never
@@ -220,13 +259,32 @@ var appendCSS = function (_a) {
     ensureFileSync(outFilePath);
     writeFileSync(outFilePath, contents);
 };
-// @ts-ignore only debugging
+// @ts-ignore only for debugging
 var printNode = function (state, pathNode) {
     if (!pathNode.start) {
-        console.log("start + end not found, can print source");
+        log("start + end not found, can print source");
         return;
     }
-    console.log(state.file.code.slice(pathNode.start, pathNode.end));
-    console.log("".concat(state.file.opts.filename, ":").concat(pathNode.loc.start.line));
-    console.log('---');
+    log("".concat(state.file.opts.filename, ":").concat(pathNode.loc.start.line));
+    log('\n```tsx');
+    log(state.file.code.slice(pathNode.start, pathNode.end));
+    log('```\n');
+};
+var notSupported = function (state, pathNode, message) {
+    log("\nNot supported: ".concat(message));
+    printNode(state, pathNode);
+};
+var log = function () {
+    var messages = [];
+    for (var _i = 0; _i < arguments.length; _i++) {
+        messages[_i] = arguments[_i];
+    }
+    writeFileSync(LOG_FILENAME, messages.join(' '), { flag: 'a+' });
+    writeFileSync(LOG_FILENAME, '\n', { flag: 'a+' });
+};
+var logStats = function (state) {
+    writeFileSync(STATS_FILENAME, "### ".concat(state.filename), { flag: 'a+' });
+    var table = "\n| stat                    | value |\n| ----------------------- | ----- |\n| sx props                | ".concat(state.get('stats.sxProps'), "     |\n| sx props compiled out   | ").concat(state.get('stats.sxPropsCompiledOut'), "     |\n  ");
+    writeFileSync(STATS_FILENAME, table, { flag: 'a+' });
+    writeFileSync(STATS_FILENAME, '\n', { flag: 'a+' });
 };
