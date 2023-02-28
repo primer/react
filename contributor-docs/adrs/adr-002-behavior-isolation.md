@@ -2,7 +2,8 @@
 
 ## Status
 
-Approved 2021-02-04
+~~Approved 2021-02-04~~
+Superseded by [ADR 010](./adr-010-behavior-isolation.md) (2023-01-31)
 
 ## Related documents
 
