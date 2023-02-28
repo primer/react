@@ -1,0 +1,16 @@
+{
+    "feature-story-template": {
+        "prefix": "feature-story-template",
+        "body": [
+            "import React from 'react'",
+            "import ComponentName from './ComponentName'",
+            "",
+            "export default {",
+            "  title: 'Components/ComponentName/Features',",
+            "}",
+            "",
+            "export const SomeFeature = () => <ComponentName></ComponentName>"
+        ],
+        "description": "Generate a feature story file"
+    }
+}
