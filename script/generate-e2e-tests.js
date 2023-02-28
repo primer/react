@@ -434,6 +434,89 @@ const components = new Map([
     },
   ],
   [
+    'PageHeader',
+    {
+      stories: [
+        {
+          id: 'drafts-components-pageheader-examples--files-page',
+          name: 'Files Page',
+        },
+        {
+          id: 'drafts-components-pageheader-examples--files-page-on-narrow-viewport',
+          name: 'Files Page on Narrow Viewport',
+        },
+        {
+          id: 'drafts-components-pageheader-examples--pull-request-page',
+          name: 'Pull Request Page',
+        },
+        {
+          id: 'drafts-components-pageheader-examples--pull-request-page-on-narrow-viewport',
+          name: 'Pull Request Page on Narrow Viewport',
+        },
+        {
+          id: 'drafts-components-pageheader-examples--webhooks',
+          name: 'Webhooks',
+        },
+        {
+          id: 'drafts-components-pageheader-examples--webhooks-on-narrow-viewport',
+          name: 'Webhooks on Narrow Viewport',
+        },
+        {
+          id: 'drafts-components-pageheader-examples--with-page-layout',
+          name: 'With Page Layout',
+        },
+        {
+          id: 'drafts-components-pageheader-features--has-large-title',
+          name: 'Has Large Title',
+        },
+        {
+          id: 'drafts-components-pageheader-features--has-title-only',
+          name: 'Has Title Only',
+        },
+        {
+          id: 'drafts-components-pageheader-features--with-actions',
+          name: 'With Actions',
+        },
+        {
+          id: 'drafts-components-pageheader-features--with-actions-that-have-responsive-content',
+          name: 'With Actions that have Responsive Content',
+        },
+        {
+          id: 'drafts-components-pageheader-features--with-context-bar-and-actions-of-context-area',
+          name: 'With Context Bar and Actions of Context Area',
+        },
+        {
+          id: 'drafts-components-pageheader-features--with-custom-navigation',
+          name: 'With Custom Navigation',
+        },
+        {
+          id: 'drafts-components-pageheader-features--with-description-slot',
+          name: 'With Description Slot',
+        },
+        {
+          id: 'drafts-components-pageheader-features--with-leading-and-trailing-actions',
+          name: 'With Leading and Trailing Actions',
+        },
+        {
+          id: 'drafts-components-pageheader-features--with-leading-and-trailing-visuals',
+          name: 'With Leading and Trailing Visuals',
+        },
+        {
+          id: 'drafts-components-pageheader-features--with-leading-visual-hidden-on-regular-viewport',
+          name: 'With Leading Visual Hidden on Regular Viewport',
+        },
+        {
+          id: 'drafts-components-pageheader-features--with-navigation-slot',
+          name: 'With Navigation Slot',
+        },
+        {
+          id: 'drafts-components-pageheader-features--with-parent-link-and-actions-of-context-area',
+          name: 'With Parent Link and Actions of Context Area',
+        },
+      ],
+    },
+  ],
+  [
     'RadioGroup',
     {
       stories: [

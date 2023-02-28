@@ -162,66 +162,111 @@ export const WithTrailingAction = (args: FormControlArgs<TextInputProps>) => {
   )
 }
 
-export const WithLoadingIndicator = (args: FormControlArgs<TextInputProps>) => (
-  <Box as="form" sx={{p: 3}}>
-    <h3>No visual</h3>
-    <Box mb={2}>
-      <TextInput value="auto" {...args} />
-    </Box>
-    <Box mb={2}>
-      <TextInput value="leading" {...args} loaderPosition="leading" />
-    </Box>
-    <Box mb={5}>
-      <TextInput value="trailing" {...args} loaderPosition="trailing" />
-    </Box>
+export const WithLoadingIndicator = (args: FormControlArgs<TextInputProps>) => {
+  const {parentArgs, labelArgs} = getFormControlArgsByChildComponent(args)
+  return (
+    <Box as="form" sx={{padding: 3}}>
+      <h3>No visual</h3>
 
-    <h3>Leading visual</h3>
-    <Box mb={2}>
-      <TextInput leadingVisual={CalendarIcon} {...args} value="auto" />
-    </Box>
-    <Box mb={2}>
-      <TextInput leadingVisual={CalendarIcon} {...args} loaderPosition="leading" value="leading" />
-    </Box>
-    <Box mb={5}>
-      <TextInput leadingVisual={CalendarIcon} {...args} loaderPosition="trailing" value="trailing" />
-    </Box>
+      <Box mb={2}>
+        <FormControl {...parentArgs}>
+          <FormControl.Label {...labelArgs} />
+          <TextInput value="auto" {...args} />
+        </FormControl>
+      </Box>
+      <Box mb={2}>
+        <FormControl {...parentArgs}>
+          <FormControl.Label {...labelArgs} />
+          <TextInput value="leading" {...args} loaderPosition="leading" />
+        </FormControl>
+      </Box>
+      <Box mb={5}>
+        <FormControl {...parentArgs}>
+          <FormControl.Label {...labelArgs} />
+          <FormControl.Label {...labelArgs} />
+          <TextInput value="trailing" {...args} loaderPosition="trailing" />
+        </FormControl>
+      </Box>
 
-    <h3>Trailing visual</h3>
-    <Box mb={2}>
-      <TextInput trailingVisual={CalendarIcon} {...args} value="auto" />
-    </Box>
-    <Box mb={2}>
-      <TextInput trailingVisual={CalendarIcon} {...args} loaderPosition="leading" value="leading" />
-    </Box>
-    <Box mb={5}>
-      <TextInput trailingVisual={CalendarIcon} {...args} loaderPosition="trailing" value="trailing" />
-    </Box>
+      <h3>Leading visual</h3>
 
-    <h3>Both visuals</h3>
-    <Box mb={2}>
-      <TextInput size="small" leadingVisual={CalendarIcon} trailingVisual={CalendarIcon} {...args} value="auto" />
+      <Box mb={2}>
+        <FormControl {...parentArgs}>
+          <FormControl.Label {...labelArgs} />
+          <TextInput leadingVisual={CalendarIcon} {...args} value="auto" />
+        </FormControl>
+      </Box>
+      <Box mb={2}>
+        <FormControl {...parentArgs}>
+          <FormControl.Label {...labelArgs} />
+          <TextInput leadingVisual={CalendarIcon} {...args} loaderPosition="leading" value="leading" />
+        </FormControl>
+      </Box>
+      <Box mb={5}>
+        <FormControl {...parentArgs}>
+          <FormControl.Label {...labelArgs} />
+          <TextInput leadingVisual={CalendarIcon} {...args} loaderPosition="trailing" value="trailing" />
+        </FormControl>
+      </Box>
+
+      <h3>Trailing visual</h3>
+      <FormControl {...parentArgs}>
+        <Box mb={2}>
+          <FormControl {...parentArgs}>
+            <FormControl.Label {...labelArgs} />
+            <TextInput trailingVisual={CalendarIcon} {...args} value="auto" />
+          </FormControl>
+        </Box>
+        <Box mb={2}>
+          <FormControl {...parentArgs}>
+            <FormControl.Label {...labelArgs} />
+            <TextInput trailingVisual={CalendarIcon} {...args} loaderPosition="leading" value="leading" />
+          </FormControl>
+        </Box>
+        <Box mb={5}>
+          <FormControl {...parentArgs}>
+            <FormControl.Label {...labelArgs} />
+            <TextInput trailingVisual={CalendarIcon} {...args} loaderPosition="trailing" value="trailing" />
+          </FormControl>
+        </Box>
+      </FormControl>
+
+      <h3>Both visuals</h3>
+
+      <Box mb={2}>
+        <FormControl {...parentArgs}>
+          <FormControl.Label {...labelArgs} />
+          <TextInput size="small" leadingVisual={CalendarIcon} trailingVisual={CalendarIcon} {...args} value="auto" />
+        </FormControl>
+      </Box>
+      <Box mb={2}>
+        <FormControl {...parentArgs}>
+          <FormControl.Label {...labelArgs} />
+          <TextInput
+            leadingVisual={CalendarIcon}
+            trailingVisual={CalendarIcon}
+            {...args}
+            loaderPosition="leading"
+            value="leading"
+          />
+        </FormControl>
+      </Box>
+      <Box mb={2}>
+        <FormControl {...parentArgs}>
+          <FormControl.Label {...labelArgs} />
+          <TextInput
+            size="large"
+            leadingVisual={CalendarIcon}
+            trailingVisual={CalendarIcon}
+            {...args}
+            loaderPosition="trailing"
+            value="trailing"
+          />
+        </FormControl>
+      </Box>
     </Box>
-    <Box mb={2}>
-      <TextInput
-        leadingVisual={CalendarIcon}
-        trailingVisual={CalendarIcon}
-        {...args}
-        loaderPosition="leading"
-        value="leading"
-      />
-    </Box>
-    <Box mb={2}>
-      <TextInput
-        size="large"
-        leadingVisual={CalendarIcon}
-        trailingVisual={CalendarIcon}
-        {...args}
-        loaderPosition="trailing"
-        value="trailing"
-      />
-    </Box>
-  </Box>
-)
+  )
+}
 
 WithLoadingIndicator.args = {
   loading: true,
