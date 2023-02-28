@@ -139,6 +139,7 @@ function getStorySourceCode(filepath: string) {
           parser: 'typescript',
           singleQuote: true,
           trailingComma: 'all',
+          semi: false,
         })
         .trim()
         .replace(/;$/, '')
