@@ -146,6 +146,7 @@ function getStorySourceCode(filepath: string) {
         })
         .trim()
         .replace(/;$/, '')
+        .replace(/^;/, '')
 
       stories[name] = code
     },
