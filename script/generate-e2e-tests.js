@@ -528,6 +528,49 @@ const components = new Map([
     },
   ],
   [
+    'StateLabel',
+    {
+      stories: [
+        {
+          id: 'components-statelabel-features--draft',
+          name: 'Draft',
+        },
+        {
+          id: 'components-statelabel-features--issue-closed',
+          name: 'Issue Closed',
+        },
+        {
+          id: 'components-statelabel-features--issue-closed-not-planned',
+          name: 'Issue Closed Not Planned',
+        },
+        {
+          id: 'components-statelabel-features--issue-draft',
+          name: 'Issue Draft',
+        },
+        {
+          id: 'components-statelabel-features--issue-opened',
+          name: 'Issue Opened',
+        },
+        {
+          id: 'components-statelabel-features--pull-closed',
+          name: 'Pull Closed',
+        },
+        {
+          id: 'components-statelabel-features--pull-merged',
+          name: 'Pull Merged',
+        },
+        {
+          id: 'components-statelabel-features--pull-opened',
+          name: 'Pull Opened',
+        },
+        {
+          id: 'components-statelabel-features--small',
+          name: 'Small',
+        },
+      ],
+    },
+  ],
+  [
     'UnderlineNav',
     {
       stories: [
