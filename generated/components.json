@@ -3043,7 +3043,12 @@
       "name": "PageHeader",
       "status": "draft",
       "a11yReviewed": false,
-      "stories": [],
+      "stories": [
+        {
+          "id": "components-pageheader--default",
+          "code": "() => (\n  <Box\n    sx={{\n      padding: 3,\n    }}\n  >\n    <PageHeader>\n      <PageHeader.TitleArea>\n        <PageHeader.Title>Title</PageHeader.Title>\n      </PageHeader.TitleArea>\n    </PageHeader>\n  </Box>\n)"
+        }
+      ],
       "props": [
         {
           "name": "aria-label",
