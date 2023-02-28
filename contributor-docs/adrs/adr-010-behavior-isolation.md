@@ -8,9 +8,9 @@ Accepted
 
 While [ADR 002](https://github.com/primer/react/blob/main/contributor-docs/adrs/adr-002-behavior-isolation.md) landed on the decision to:
 
- - Share JavaScript behaviour as "vanilla" functions which can be used between Primer View Components (PVC) and Primer React (PRC), consumed via React Hooks in PRC.
- - Not use Custom Elements to drive behaviour of components.
- 
+- Share JavaScript behaviour as "vanilla" functions which can be used between Primer View Components (PVC) and Primer React (PRC), consumed via React Hooks in PRC.
+- Not use Custom Elements to drive behaviour of components.
+
 Our perspective on the ADR has changed since its approval and this document will address those changes.
 
 ## Updates on Findings
@@ -21,16 +21,16 @@ Currently, we share some behaviours across PVC and PRC as JavaScript functions. 
 
 The drawbacks to using JavaScript functions that we can currently see, is that they:
 
- - Do not have standard invocation pattern, they are called like functions but the arguments they take can become complex quickly.
- - They need to be "wired in" manually into our components, requiring the passing of containing elements and other state.
- - They're difficult for engineers to use as they do not apply the standard component pattern of each of the respective frameworks. For example an engineer cannot add a `FocusTrap` component to an element to make it trap focus, instead an engineer must create their own component which calls into this behaviour.
- 
+- Do not have standard invocation pattern, they are called like functions but the arguments they take can become complex quickly.
+- They need to be "wired in" manually into our components, requiring the passing of containing elements and other state.
+- They're difficult for engineers to use as they do not apply the standard component pattern of each of the respective frameworks. For example an engineer cannot add a `FocusTrap` component to an element to make it trap focus, instead an engineer must create their own component which calls into this behaviour.
+
 This complexity bears the biggest weight in Primer React, as we add abstractions of these behaviours out into Hooks, which creates another layer of complexity and indirection. If we remodelled these as Web Components, we'd vastly simplify a lot of this:
 
- - Web Components have a standard invocation pattern and can be adopted into the component model of each respective framework (see below).
- - Web Components do not need to be wired in manually, as they are part of the tree that they share association with. This means they can manage their own internal state and be driven by other components far more easily.
- - Engineers _can_ easily drop a Web Component into their tree to add the desired behavior. For example an engineer can add a `<focus-trap>` element into their tree to make it trap focus. This does not require additional components or hooks to deliver the functionality.
- 
+- Web Components have a standard invocation pattern and can be adopted into the component model of each respective framework (see below).
+- Web Components do not need to be wired in manually, as they are part of the tree that they share association with. This means they can manage their own internal state and be driven by other components far more easily.
+- Engineers _can_ easily drop a Web Component into their tree to add the desired behavior. For example an engineer can add a `<focus-trap>` element into their tree to make it trap focus. This does not require additional components or hooks to deliver the functionality.
+
 Taking a closer look at an example behaviour can clarify this. Looking at `focusTrap` as an example, we can see for it to work it needs a container element. It also needs to know where the initial focus is (another element), and we need to able to manage the lifecycle of how Focus Trap works, so it gets an abort signal too. These are all passed in as arguments into the `focusTrap` function.
 
 In React, to make this slightly easier, we create a [~100LOC `useFocusTrap` hook](https://github.com/primer/react/blob/a0db832302702b869aa22b0c4049ad9305ef631f/src/hooks/useFocusTrap.ts). However this hook can only really solve the issue of state management, and so it simplifies the creation of React refs and the Abort Controller, but the refs still need to be managed inside of component code.
@@ -49,13 +49,13 @@ While `focusTrap` has been used as an example, it should be noted this is not ex
 
 Were these behaviours Web Components, then they would be their own container, they would have lifecycle hooks to manage internal state, and they would have a standard invocation pattern. We'd simply drop `<focus-trap active={isActive}>` into a component. The element would manage lifecycle thanks to the hooks the browser provides, and interactive state could be managed via React (or in the case of VC, another WC).
 
-By modelling these behaviours as Web Components we simplify their application for engineers. Instead of requiring engineers to understand another hook, this would fit transparently into the already understood concept of components. 
+By modelling these behaviours as Web Components we simplify their application for engineers. Instead of requiring engineers to understand another hook, this would fit transparently into the already understood concept of components.
 
 Specifically for behaviours like `focusZone` and `focusTrap` it makes understanding of the component far simpler too: by having the component existing within a tree of other components, an engineer can more easily understand the relationship of _what elements this component would affect_. This is currently opaque with the current functions, as they are not part of the tree.
 
 ### ShadowDOM
 
-ShadowDOM is the preferred way for Custom Elements to mutate HTML, as their shadow root is encapsulated from the rest of the document. This means that a Custom Element is free to mutate HTML within the ShadowDOM wihout disrupting reconcilers (such as React's Virtual DOM implementation) or observers (such as MutationObservers on the document). Any mutations within the ShadowDOM are private to that element. Frameworks like React can still interact with light DOM nodes as they normally would. 
+ShadowDOM is the preferred way for Custom Elements to mutate HTML, as their shadow root is encapsulated from the rest of the document. This means that a Custom Element is free to mutate HTML within the ShadowDOM wihout disrupting reconcilers (such as React's Virtual DOM implementation) or observers (such as MutationObservers on the document). Any mutations within the ShadowDOM are private to that element. Frameworks like React can still interact with light DOM nodes as they normally would.
 
 ShadowDOM exists in browsers today, and powers some built in elements, like `<input>`, `<textarea>`, `<button>`, `<video>` and so on. The browser can build these elements out of many other elements which can be toggled off and on. For example, in Chrome, an `<input>` has an underlying ShadowDOM of:
 
@@ -125,9 +125,9 @@ ADR 002 claimed that some custom elements (citing examples such as `details-dial
 
 It is generally good practice for Custom Elements to be flexible with regards to their children. But there are three common patterns which we see where these are restricted:
 
- - Custom Elements (and built in elements) can have a strict association with children via manual slot assignment. They are able to render only direct child nodes that match a set criteria. Creating Portals around these elements will not work.
- - Custom Elements may rely on event propagation from children. While Portals will capture events and redistribute them in accordance with the React tree, they do so using React's synthetic event system, and so creating Portals around children of Custom Elements may cause issues here.
- - Custom Elements (and built in elements) may rely on the "IDRef" pattern, where the custom element is pointed to the ID of another element via attribute (for example the `from` attribute). This pattern can work well with React Portals, as the Custom Element has a unique pointer to search for a single element within the entire DOM tree, not just its children. However due to the way React may add and remove elements from Portals during ts lifecycle, careful attention needs to be paid within the Custom Element to ensure it observes when its idref element is attached/detached from the document.
+- Custom Elements (and built in elements) can have a strict association with children via manual slot assignment. They are able to render only direct child nodes that match a set criteria. Creating Portals around these elements will not work.
+- Custom Elements may rely on event propagation from children. While Portals will capture events and redistribute them in accordance with the React tree, they do so using React's synthetic event system, and so creating Portals around children of Custom Elements may cause issues here.
+- Custom Elements (and built in elements) may rely on the "IDRef" pattern, where the custom element is pointed to the ID of another element via attribute (for example the `from` attribute). This pattern can work well with React Portals, as the Custom Element has a unique pointer to search for a single element within the entire DOM tree, not just its children. However due to the way React may add and remove elements from Portals during ts lifecycle, careful attention needs to be paid within the Custom Element to ensure it observes when its idref element is attached/detached from the document.
 
 For many Custom Elements, this will simply not be an issue, but these three patterns may cause issues.
 
@@ -161,12 +161,11 @@ const RelativeTime = styled(createComponent(React, 'relative-time', RelativeTime
 
 While React 18 and below require a small library like `@lit-labs/react`, due to the [lack of support for Custom Element](https://custom-elements-everywhere.com/libraries/react/results/results.html), React 19 [will likely need no such library](https://custom-elements-everywhere.com/libraries/react-experimental/results/results.html).
 
-
 ### Organizational overhead
 
 One consideration around sharing code between one or more implementations of primer is the organisational overhead of doing so.
 
-ADR 002 enumerates concerns around development, including the issue of developing against multiple repositories and handling depdencies with `npm link`. It also enumerates concerns around orchestrating releases. Again, this is mostly a concern around the available tooling across multiple repositories and out of scope. 
+ADR 002 enumerates concerns around development, including the issue of developing against multiple repositories and handling depdencies with `npm link`. It also enumerates concerns around orchestrating releases. Again, this is mostly a concern around the available tooling across multiple repositories and out of scope.
 
 These issues are not intrinsic to the use of shared code, however. For example sharing of code can be done within a monorepo. This is out of scope of the discussion of this ADR.
 
