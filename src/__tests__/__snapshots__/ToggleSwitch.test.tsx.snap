@@ -26,7 +26,7 @@ exports[`renders consistently 1`] = `
 }
 
 .c7 {
-  color: switchTrack.checked.fg;
+  color: #ffffff;
   line-height: 0;
   -webkit-box-flex: 1;
   -webkit-flex-grow: 1;
@@ -49,7 +49,7 @@ exports[`renders consistently 1`] = `
 }
 
 .c8 {
-  color: switchTrack.fg;
+  color: #57606a;
   line-height: 0;
   -webkit-box-flex: 1;
   -webkit-flex-grow: 1;
@@ -138,9 +138,25 @@ exports[`renders consistently 1`] = `
   border-color: transparent;
 }
 
+.c4:hover,
+.c4:focus:focus-visible {
+  background-color: hsla(210,24%,90%,1);
+}
+
+.c4:active,
+.c4:active:focus-visible {
+  background-color: hsla(210,24%,88%,1);
+}
+
+.c4:active {
+  background-color: hsla(210,24%,88%,1);
+}
+
 .c9 {
+  background-color: #ffffff;
   border-width: 1px;
   border-style: solid;
+  border-color: #858F99;
   border-radius: calc(6px - 1px);
   width: 50%;
   position: absolute;
