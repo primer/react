@@ -117,7 +117,7 @@ describe('ActionMenu', () => {
         <SingleSelect />
       </ThemeProvider>,
     )
-    const button = component.getByLabelText('Field type')
+    const button = component.getByRole('button')
 
     const user = userEvent.setup()
     await user.click(button)
@@ -242,6 +242,6 @@ describe('ActionMenu', () => {
     expect(results).toHaveNoViolations()
   })
 
-  checkStoriesForAxeViolations('ActionMenu/fixtures')
-  checkStoriesForAxeViolations('ActionMenu/examples')
+  checkStoriesForAxeViolations('ActionMenu.features', '../ActionMenu/')
+  checkStoriesForAxeViolations('ActionMenu.examples', '../ActionMenu/')
 })
