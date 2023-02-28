@@ -10,7 +10,7 @@ import {Table, TableHead, TableBody, TableRow, TableHeader, TableSortHeader, Tab
 // DataTable
 // ----------------------------------------------------------------------------
 
-export interface DataTableProps<Data extends UniqueRow> {
+export type DataTableProps<Data extends UniqueRow> = {
   /**
    * Provide an id to an element which uniquely describes this table
    */
