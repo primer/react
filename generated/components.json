@@ -4094,7 +4094,12 @@
       "name": "StateLabel",
       "status": "alpha",
       "a11yReviewed": false,
-      "stories": [],
+      "stories": [
+        {
+          "id": "components-statelabel--default",
+          "code": "() => <StateLabel status=\"issueOpened\">Open</StateLabel>"
+        }
+      ],
       "props": [
         {
           "name": "variant",
