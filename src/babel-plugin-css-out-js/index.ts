@@ -1,6 +1,13 @@
 /* eslint-disable no-console */
 /* eslint-disable github/array-foreach */
 
+/**
+ * next steps:
+ * expand beyond ActionList/Item.tsx
+ * expand types supported
+ * calculate % of types compiled
+ */
+
 import {ensureFileSync, writeFileSync} from 'fs-extra'
 import {join, relative} from 'path'
 import {PluginObj} from '@babel/core'
