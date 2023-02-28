@@ -50,6 +50,12 @@
           "description": "Whether the label should be visually hidden"
         },
         {
+          "name": "as",
+          "type": "'label' | 'legend' | 'span'",
+          "defaultValue": "'label'",
+          "description": "The label element can be changed to a 'legend' when it's being used to label a fieldset, or a 'span' when it's being used to label an element that is not a form input. For example: when using a FormControl to render a labeled SegementedControl, the label should be a 'span'"
+        },
+        {
           "name": "sx",
           "type": "SystemStyleObject"
         }

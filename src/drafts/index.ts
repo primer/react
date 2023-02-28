@@ -30,9 +30,8 @@ export {default as Hidden} from '../Hidden'
 
 export * from './hooks'
 
-export * from '../TreeView'
-
 // TODO: Remove these components from the drafts bundle in the next major release
+export * from '../TreeView'
 export * from '../NavList'
 export * from '../SegmentedControl'
 export * from '../SplitPageLayout'

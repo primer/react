@@ -72,6 +72,67 @@ const components = new Map([
     },
   ],
   [
+    'Avatar',
+    {
+      stories: [
+        {
+          id: 'components-avatar--default',
+          name: 'Default',
+        },
+        {
+          id: 'components-avatar-features--size',
+          name: 'Size',
+        },
+        {
+          id: 'components-avatar-features--square',
+          name: 'Square',
+        },
+      ],
+    },
+  ],
+  [
+    'AvatarStack',
+    {
+      stories: [
+        {
+          id: 'components-avatarstack--default',
+          name: 'Default',
+        },
+        {
+          id: 'components-avatarstack--playground',
+          name: 'Playground',
+        },
+        {
+          id: 'components-avatarstack-features--align-left',
+          name: 'Align Left',
+        },
+        {
+          id: 'components-avatarstack-features--align-right',
+          name: 'Align Right',
+        },
+      ],
+    },
+  ],
+  [
+    'AvatarPair',
+    {
+      stories: [
+        {
+          id: 'components-avatarpair--default',
+          name: 'Default',
+        },
+        {
+          id: 'components-avatarpair-features--parent-circle',
+          name: 'Parent Circle',
+        },
+        {
+          id: 'components-avatarpair-features--parent-square',
+          name: 'Parent Square',
+        },
+      ],
+    },
+  ],
+  [
     'BranchName',
     {
       stories: [
@@ -137,6 +198,59 @@ const components = new Map([
         {
           id: 'components-button-features--trailing-visual',
           name: 'Trailing Visual',
+        },
+      ],
+    },
+  ],
+  [
+    'Breadcrumbs',
+    {
+      stories: [
+        {
+          id: 'components-breadcrumbs--default',
+          name: 'Default',
+        },
+      ],
+    },
+  ],
+  [
+    'CounterLabel',
+    {
+      stories: [
+        {
+          id: 'components-counterlabel--default',
+          name: 'Default',
+        },
+        {
+          id: 'components-counterlabel-features--primary-theme',
+          name: 'Primary Theme',
+        },
+      ],
+    },
+  ],
+  [
+    'Flash',
+    {
+      stories: [
+        {
+          id: 'components-flash--default',
+          name: 'Default',
+        },
+        {
+          id: 'components-flash-features--danger',
+          name: 'Danger',
+        },
+        {
+          id: 'components-flash-features--full',
+          name: 'Full',
+        },
+        {
+          id: 'components-flash-features--success',
+          name: 'Success',
+        },
+        {
+          id: 'components-flash-features--warning',
+          name: 'Warning',
         },
       ],
     },
@@ -320,6 +434,89 @@ const components = new Map([
     },
   ],
   [
+    'PageHeader',
+    {
+      stories: [
+        {
+          id: 'drafts-components-pageheader-examples--files-page',
+          name: 'Files Page',
+        },
+        {
+          id: 'drafts-components-pageheader-examples--files-page-on-narrow-viewport',
+          name: 'Files Page on Narrow Viewport',
+        },
+        {
+          id: 'drafts-components-pageheader-examples--pull-request-page',
+          name: 'Pull Request Page',
+        },
+        {
+          id: 'drafts-components-pageheader-examples--pull-request-page-on-narrow-viewport',
+          name: 'Pull Request Page on Narrow Viewport',
+        },
+        {
+          id: 'drafts-components-pageheader-examples--webhooks',
+          name: 'Webhooks',
+        },
+        {
+          id: 'drafts-components-pageheader-examples--webhooks-on-narrow-viewport',
+          name: 'Webhooks on Narrow Viewport',
+        },
+        {
+          id: 'drafts-components-pageheader-examples--with-page-layout',
+          name: 'With Page Layout',
+        },
+        {
+          id: 'drafts-components-pageheader-features--has-large-title',
+          name: 'Has Large Title',
+        },
+        {
+          id: 'drafts-components-pageheader-features--has-title-only',
+          name: 'Has Title Only',
+        },
+        {
+          id: 'drafts-components-pageheader-features--with-actions',
+          name: 'With Actions',
+        },
+        {
+          id: 'drafts-components-pageheader-features--with-actions-that-have-responsive-content',
+          name: 'With Actions that have Responsive Content',
+        },
+        {
+          id: 'drafts-components-pageheader-features--with-context-bar-and-actions-of-context-area',
+          name: 'With Context Bar and Actions of Context Area',
+        },
+        {
+          id: 'drafts-components-pageheader-features--with-custom-navigation',
+          name: 'With Custom Navigation',
+        },
+        {
+          id: 'drafts-components-pageheader-features--with-description-slot',
+          name: 'With Description Slot',
+        },
+        {
+          id: 'drafts-components-pageheader-features--with-leading-and-trailing-actions',
+          name: 'With Leading and Trailing Actions',
+        },
+        {
+          id: 'drafts-components-pageheader-features--with-leading-and-trailing-visuals',
+          name: 'With Leading and Trailing Visuals',
+        },
+        {
+          id: 'drafts-components-pageheader-features--with-leading-visual-hidden-on-regular-viewport',
+          name: 'With Leading Visual Hidden on Regular Viewport',
+        },
+        {
+          id: 'drafts-components-pageheader-features--with-navigation-slot',
+          name: 'With Navigation Slot',
+        },
+        {
+          id: 'drafts-components-pageheader-features--with-parent-link-and-actions-of-context-area',
+          name: 'With Parent Link and Actions of Context Area',
+        },
+      ],
+    },
+  ],
+  [
     'RadioGroup',
     {
       stories: [
@@ -419,6 +616,33 @@ const components = new Map([
         {
           id: 'components-tabnav--default',
           name: 'Default',
+        },
+      ],
+    },
+  ],
+  [
+    'Timeline',
+    {
+      stories: [
+        {
+          id: 'components-timeline--default',
+          name: 'Default',
+        },
+        {
+          id: 'components-timeline-features--clip-sidebar',
+          name: 'Clip Sidebar',
+        },
+        {
+          id: 'components-timeline-features--condensed-items',
+          name: 'Condensed Items',
+        },
+        {
+          id: 'components-timeline-features--timeline-break',
+          name: 'Timeline Break',
+        },
+        {
+          id: 'components-timeline-features--with-inline-links',
+          name: 'With Inline Links',
         },
       ],
     },

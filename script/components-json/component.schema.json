@@ -73,7 +73,19 @@
       "type": "array",
       "description": "An array of Storybook story IDs to embed in the docs.",
       "items": {
-        "type": "string"
+        "type": "object",
+        "required": ["id"],
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "The Storybook story ID (e.g. \"components-treeview--default\")."
+          },
+          "code": {
+            "type": "string",
+            "description": "The source code of the story. This will be automatically populated during build time."
+          }
+        }
       }
     },
     "props": {

@@ -69,7 +69,7 @@ export const TextareaStory = (args: FormControlArgs<TextareaProps>) => {
     <Box as="form" sx={{p: 3}}>
       <FormControl {...parentArgs}>
         <FormControl.Label {...labelArgs} />
-        <Textarea id="textarea" {...args} />
+        <Textarea {...args} />
         {captionArgs.children && <FormControl.Caption {...captionArgs} />}
         {validationArgs.children && validationArgs.variant && (
           <FormControl.Validation {...validationArgs} variant={validationArgs.variant} />

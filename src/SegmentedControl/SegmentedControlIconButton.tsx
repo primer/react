@@ -47,7 +47,7 @@ export const SegmentedControlIconButton: React.FC<React.PropsWithChildren<Segmen
     <Box as="li" sx={mergedSx}>
       <Tooltip text={ariaLabel}>
         <SegmentedControlIconButtonStyled
-          aria-pressed={selected}
+          aria-current={selected}
           sx={getSegmentedControlButtonStyles({selected, isIconOnly: true})}
           {...rest}
         >
