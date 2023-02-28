@@ -54,14 +54,17 @@ const components = docsFiles.map(docsFilepath => {
   const featureStories = docs.stories
     // Filter out the default story
     .filter(({id}) => id !== defaultStoryId)
-    .map(({id, code}) => {
+    .map(({id}) => {
       const storyName = getStoryName(id)
+      const code = featureStorySourceCode[storyName]
 
-      return {
-        id,
-        // Use the code from the docs file if it exists, otherwise use the source code
-        code: code || featureStorySourceCode[storyName],
+      if (!code) {
+        throw new Error(
+          `Invalid story id "${id}" in ${docsFilepath}. No story named "${storyName}" found in ${featureStoryFilepath}`,
+        )
       }
+
+      return {id, code}
     })
 
   // Replace the stories array with the new array that includes source code
