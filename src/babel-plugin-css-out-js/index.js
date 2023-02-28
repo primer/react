@@ -113,7 +113,7 @@ export default function plugin(_a) {
                         else if (types.isIdentifier(property.value) || types.isConditionalExpression(property.value)) {
                             // value is set with a variable or expression
                             // example: sx={{flexGrow: props.InlineDescription ? 0 : 1}}
-                            var cssVariable = "--".concat(property.key.name);
+                            var cssVariable = "--sx-".concat(property.key.name);
                             styles[property.key.name] = "var(".concat(cssVariable, ")");
                             // set variable on runtime via style attribute
                             var jsxOpeningElement = JSXAttributePath.parent;
@@ -135,10 +135,7 @@ export default function plugin(_a) {
                             // TODO: nested styles
                             // example: src/ActionList/Selection.tsx:44
                             // sx={{ rect: {...}, path: {...} }}
-                            notSupported(state, property, "Can not compile value of type ".concat(property.value.type, " yet. NS3.5"));
-                            styles[property.key.name] = {
-                                display: 'wut'
-                            };
+                            notSupported(state, property, "Can not compile value of type ".concat(property.value.type, " yet. NS Nested styles"));
                             return;
                         }
                         else {

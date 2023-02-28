@@ -133,7 +133,7 @@ export default function plugin({types}: typeof babel): PluginObj {
               // value is set with a variable or expression
               // example: sx={{flexGrow: props.InlineDescription ? 0 : 1}}
 
-              const cssVariable = `--${property.key.name}`
+              const cssVariable = `--sx-${property.key.name}`
               styles[property.key.name] = `var(${cssVariable})`
 
               // set variable on runtime via style attribute
@@ -163,11 +163,11 @@ export default function plugin({types}: typeof babel): PluginObj {
               // TODO: nested styles
               // example: src/ActionList/Selection.tsx:44
               // sx={{ rect: {...}, path: {...} }}
-              notSupported(state, property, `Can not compile value of type ${property.value.type} yet. NS3.5`)
-              styles[property.key.name] = {
-                display: 'wut',
-              }
-
+              notSupported(
+                state,
+                property,
+                `Can not compile value of type ${property.value.type} yet. NS Nested styles`,
+              )
               return
             } else {
               // TODO
