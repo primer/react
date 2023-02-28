@@ -3,7 +3,14 @@
   "name": "TreeView",
   "status": "beta",
   "a11yReviewed": true,
-  "stories": ["components-treeview-features--files", "components-treeview-features--files-changed"],
+  "stories": [
+    {"id": "components-treeview-features--files"},
+    {"id": "components-treeview-features--files-changed"},
+    {"id": "components-treeview-features--async-success"},
+    {"id": "components-treeview-features--async-error"},
+    {"id": "components-treeview-features--async-with-count"},
+    {"id": "components-treeview-features--controlled"}
+  ],
   "props": [
     {
       "name": "children",
