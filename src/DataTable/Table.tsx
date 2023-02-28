@@ -396,9 +396,7 @@ function TableSubtitle({as, children, id}: TableSubtitleProps) {
   )
 }
 
-type TableDividerProps = {}
-
-function TableDivider(_props: TableDividerProps) {
+function TableDivider() {
   return (
     <Box
       className="TableDivider"
