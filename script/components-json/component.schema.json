@@ -83,7 +83,7 @@
           },
           "code": {
             "type": "string",
-            "description": "The source code of the story. This will automatically be populated if not provided."
+            "description": "The source code of the story. This will be automatically populated during build time."
           }
         }
       }
