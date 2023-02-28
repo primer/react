@@ -1,6 +1,6 @@
 import {Meta, ComponentStory} from '@storybook/react'
 import React from 'react'
-import {DataTable, TableContainer, TableTitle, TableSubtitle} from '../DataTable'
+import {DataTable, Table} from '../DataTable'
 import Label from '../Label'
 import LabelGroup from '../LabelGroup'
 import RelativeTime from '../RelativeTime'
@@ -118,13 +118,13 @@ function uppercase(input: string): string {
 
 export const Playground: ComponentStory<typeof DataTable> = args => {
   return (
-    <TableContainer>
-      <TableTitle as="h2" id="repositories">
+    <Table.Container>
+      <Table.Title as="h2" id="repositories">
         Repositories
-      </TableTitle>
-      <TableSubtitle as="p" id="repositories-subtitle">
+      </Table.Title>
+      <Table.Subtitle as="p" id="repositories-subtitle">
         A subtitle could appear here to give extra context to the data.
-      </TableSubtitle>
+      </Table.Subtitle>
       <DataTable
         {...args}
         aria-labelledby="repositories"
@@ -178,7 +178,7 @@ export const Playground: ComponentStory<typeof DataTable> = args => {
           },
         ]}
       />
-    </TableContainer>
+    </Table.Container>
   )
 }
 
