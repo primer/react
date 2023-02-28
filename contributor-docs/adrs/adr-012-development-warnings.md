@@ -2,7 +2,7 @@
 
 ## Status
 
-Proposed
+Accepted
 
 ## Context
 
@@ -44,10 +44,10 @@ When a contributor would like to communicate a warning to a developer, they
 should use the `warning()` helper.
 
 ```ts
-warning(condition, 'This is the message that is logged when condition is false-y')
+warning(condition, 'This is the message that is logged when condition is truth-y')
 ```
 
-This helper allows you to provide a `condition`. When the condition is false-y
+This helper allows you to provide a `condition`. When the condition is truth-y
 it will emit the message provided. This helper is automatically wrapped in a
 `__DEV__` block and will be removed from production builds.
 
