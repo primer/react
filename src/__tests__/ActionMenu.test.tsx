@@ -5,7 +5,8 @@ import React from 'react'
 import theme from '../theme'
 import {ActionMenu, ActionList, BaseStyles, ThemeProvider, SSRProvider} from '..'
 import {behavesAsComponent, checkExports, checkStoriesForAxeViolations} from '../utils/testing'
-import {SingleSelection, MixedSelection} from '../ActionMenu/examples.stories'
+import {SingleSelect} from '../ActionMenu/ActionMenu.features.stories'
+import {MixedSelection} from '../ActionMenu/ActionMenu.examples.stories'
 expect.extend(toHaveNoViolations)
 
 function Example(): JSX.Element {
@@ -113,7 +114,7 @@ describe('ActionMenu', () => {
   it('should be able to select an Item with selectionVariant', async () => {
     const component = HTMLRender(
       <ThemeProvider theme={theme}>
-        <SingleSelection />
+        <SingleSelect />
       </ThemeProvider>,
     )
     const button = component.getByLabelText('Field type')

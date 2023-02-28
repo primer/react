@@ -1,6 +1,17 @@
 import React from 'react'
 import {Box, ActionMenu, ActionList, Button} from '../'
-import {GearIcon, MilestoneIcon, KebabHorizontalIcon} from '@primer/octicons-react'
+import {
+  GearIcon,
+  MilestoneIcon,
+  KebabHorizontalIcon,
+  IssueOpenedIcon,
+  TableIcon,
+  PeopleIcon,
+  TypographyIcon,
+  NumberIcon,
+  CalendarIcon,
+  XIcon,
+} from '@primer/octicons-react'
 
 export default {
   title: 'Components/ActionMenu/Examples',
@@ -182,3 +193,51 @@ export const CustomAnchor = () => (
     </ActionMenu.Overlay>
   </ActionMenu>
 )
+
+export const MixedSelection = () => {
+  const [selectedIndex, setSelectedIndex] = React.useState<number | null>(1)
+
+  const options = [
+    {text: 'Status', icon: IssueOpenedIcon},
+    {text: 'Stage', icon: TableIcon},
+    {text: 'Assignee', icon: PeopleIcon},
+    {text: 'Team', icon: TypographyIcon},
+    {text: 'Estimate', icon: NumberIcon},
+    {text: 'Due Date', icon: CalendarIcon},
+  ]
+
+  const selectedOption = selectedIndex !== null && options[selectedIndex]
+
+  return (
+    <ActionMenu>
+      <ActionMenu.Button aria-label="Group by" leadingIcon={selectedOption ? selectedOption.icon : undefined}>
+        {selectedOption ? `Group by ${selectedOption.text}` : 'Group items by'}
+      </ActionMenu.Button>
+      <ActionMenu.Overlay width="medium">
+        <ActionList>
+          <ActionList.Group selectionVariant="single" title="Group by">
+            {options.map((option, index) => (
+              <ActionList.Item key={index} selected={index === selectedIndex} onSelect={() => setSelectedIndex(index)}>
+                <ActionList.LeadingVisual>
+                  <option.icon />
+                </ActionList.LeadingVisual>
+                {option.text}
+              </ActionList.Item>
+            ))}
+          </ActionList.Group>
+          {typeof selectedIndex === 'number' && (
+            <ActionList.Group>
+              <ActionList.Divider />
+              <ActionList.Item onSelect={() => setSelectedIndex(null)}>
+                <ActionList.LeadingVisual>
+                  <XIcon />
+                </ActionList.LeadingVisual>
+                Clear Group by
+              </ActionList.Item>
+            </ActionList.Group>
+          )}
+        </ActionList>
+      </ActionMenu.Overlay>
+    </ActionMenu>
+  )
+}
