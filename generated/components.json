@@ -1713,7 +1713,7 @@
       "stories": [
         {
           "id": "components-actionlist--default",
-          "code": ";() => (\n  <ActionList>\n    <ActionList.Item>Copy link</ActionList.Item>\n    <ActionList.Item>Quote reply</ActionList.Item>\n    <ActionList.Item>Edit comment</ActionList.Item>\n  </ActionList>\n)"
+          "code": "() => (\n  <ActionList>\n    <ActionList.Item>Copy link</ActionList.Item>\n    <ActionList.Item>Quote reply</ActionList.Item>\n    <ActionList.Item>Edit comment</ActionList.Item>\n  </ActionList>\n)"
         }
       ],
       "props": [
@@ -2145,7 +2145,7 @@
       "stories": [
         {
           "id": "components-avatar--default",
-          "code": ";() => <Avatar src=\"https://avatars.githubusercontent.com/u/92997159?v=4\" />"
+          "code": "() => <Avatar src=\"https://avatars.githubusercontent.com/u/92997159?v=4\" />"
         }
       ],
       "props": [
@@ -2182,7 +2182,7 @@
       "stories": [
         {
           "id": "components-avatarpair--default",
-          "code": ";() => (\n  <AvatarPair>\n    <Avatar src=\"https://avatars.githubusercontent.com/u/92997159?v=4\" />\n    <Avatar src=\"https://avatars.githubusercontent.com/primer\" />\n  </AvatarPair>\n)"
+          "code": "() => (\n  <AvatarPair>\n    <Avatar src=\"https://avatars.githubusercontent.com/u/92997159?v=4\" />\n    <Avatar src=\"https://avatars.githubusercontent.com/primer\" />\n  </AvatarPair>\n)"
         }
       ],
       "props": [
@@ -2207,7 +2207,7 @@
       "stories": [
         {
           "id": "components-avatarstack--default",
-          "code": ";() => (\n  <AvatarStack>\n    <Avatar\n      alt=\"Primer logo\"\n      src=\"https://avatars.githubusercontent.com/primer\"\n    />\n    <Avatar\n      alt=\"GitHub logo\"\n      src=\"https://avatars.githubusercontent.com/github\"\n    />\n    <Avatar alt=\"Atom logo\" src=\"https://avatars.githubusercontent.com/atom\" />\n    <Avatar\n      alt=\"GitHub Desktop logo\"\n      src=\"https://avatars.githubusercontent.com/desktop\"\n    />\n  </AvatarStack>\n)"
+          "code": "() => (\n  <AvatarStack>\n    <Avatar\n      alt=\"Primer logo\"\n      src=\"https://avatars.githubusercontent.com/primer\"\n    />\n    <Avatar\n      alt=\"GitHub logo\"\n      src=\"https://avatars.githubusercontent.com/github\"\n    />\n    <Avatar alt=\"Atom logo\" src=\"https://avatars.githubusercontent.com/atom\" />\n    <Avatar\n      alt=\"GitHub Desktop logo\"\n      src=\"https://avatars.githubusercontent.com/desktop\"\n    />\n  </AvatarStack>\n)"
         }
       ],
       "props": [
@@ -2232,7 +2232,7 @@
       "stories": [
         {
           "id": "components-branchname--default",
-          "code": ";() => <BranchName href=\"#\">branch_name</BranchName>"
+          "code": "() => <BranchName href=\"#\">branch_name</BranchName>"
         }
       ],
       "props": [
@@ -2260,7 +2260,7 @@
       "stories": [
         {
           "id": "components-breadcrumbs--default",
-          "code": ";() => (\n  <Breadcrumbs>\n    <Breadcrumbs.Item href=\"#\">Home</Breadcrumbs.Item>\n    <Breadcrumbs.Item href=\"#\">About</Breadcrumbs.Item>\n    <Breadcrumbs.Item href=\"#\" selected>\n      Team\n    </Breadcrumbs.Item>\n  </Breadcrumbs>\n)"
+          "code": "() => (\n  <Breadcrumbs>\n    <Breadcrumbs.Item href=\"#\">Home</Breadcrumbs.Item>\n    <Breadcrumbs.Item href=\"#\">About</Breadcrumbs.Item>\n    <Breadcrumbs.Item href=\"#\" selected>\n      Team\n    </Breadcrumbs.Item>\n  </Breadcrumbs>\n)"
         }
       ],
       "props": [
@@ -2314,7 +2314,7 @@
       "stories": [
         {
           "id": "components-button--default",
-          "code": ";() => <Button>Default</Button>"
+          "code": "() => <Button>Default</Button>"
         }
       ],
       "props": [
@@ -2389,7 +2389,7 @@
       "stories": [
         {
           "id": "components-iconbutton--default",
-          "code": ";() => <IconButton icon={HeartIcon} aria-label=\"Default\" />"
+          "code": "() => <IconButton icon={HeartIcon} aria-label=\"Default\" />"
         }
       ],
       "props": [
@@ -2433,7 +2433,7 @@
       "stories": [
         {
           "id": "components-counterlabel--default",
-          "code": ";() => <CounterLabel>12</CounterLabel>"
+          "code": "() => <CounterLabel>12</CounterLabel>"
         }
       ],
       "props": [
@@ -2659,7 +2659,7 @@
       "stories": [
         {
           "id": "components-flash--default",
-          "code": ";() => <Flash>Default</Flash>"
+          "code": "() => <Flash>Default</Flash>"
         }
       ],
       "props": [
@@ -2832,7 +2832,7 @@
       "stories": [
         {
           "id": "components-label--default",
-          "code": ";() => <Label>Default</Label>"
+          "code": "() => <Label>Default</Label>"
         }
       ],
       "props": [
@@ -2859,7 +2859,7 @@
       "stories": [
         {
           "id": "components-link--default",
-          "code": ";() => <Link href=\"#\">Link</Link>"
+          "code": "() => <Link href=\"#\">Link</Link>"
         }
       ],
       "props": [
@@ -3046,7 +3046,7 @@
       "stories": [
         {
           "id": "components-pageheader--default",
-          "code": ";() => (\n  <Box\n    sx={{\n      padding: 3,\n    }}\n  >\n    <PageHeader>\n      <PageHeader.TitleArea>\n        <PageHeader.Title>Title</PageHeader.Title>\n      </PageHeader.TitleArea>\n    </PageHeader>\n  </Box>\n)"
+          "code": "() => (\n  <Box\n    sx={{\n      padding: 3,\n    }}\n  >\n    <PageHeader>\n      <PageHeader.TitleArea>\n        <PageHeader.Title>Title</PageHeader.Title>\n      </PageHeader.TitleArea>\n    </PageHeader>\n  </Box>\n)"
         }
       ],
       "props": [
@@ -3647,7 +3647,7 @@
       "stories": [
         {
           "id": "components-relativetime--default",
-          "code": ";(args) => {\n  const { date, ...rest } = args\n  return <RelativeTime {...rest} date={new Date(date)} />\n}"
+          "code": "(args) => {\n  const { date, ...rest } = args\n  return <RelativeTime {...rest} date={new Date(date)} />\n}"
         }
       ],
       "props": [
@@ -4120,7 +4120,7 @@
       "stories": [
         {
           "id": "components-tabnav--default",
-          "code": ";() => (\n  <TabNav aria-label=\"Main\">\n    <TabNav.Link href=\"#\" selected>\n      Home\n    </TabNav.Link>\n    <TabNav.Link href=\"#\">Documentation</TabNav.Link>\n    <TabNav.Link href=\"#\">Support</TabNav.Link>\n  </TabNav>\n)"
+          "code": "() => (\n  <TabNav aria-label=\"Main\">\n    <TabNav.Link href=\"#\" selected>\n      Home\n    </TabNav.Link>\n    <TabNav.Link href=\"#\">Documentation</TabNav.Link>\n    <TabNav.Link href=\"#\">Support</TabNav.Link>\n  </TabNav>\n)"
         }
       ],
       "props": [
@@ -4167,7 +4167,7 @@
       "stories": [
         {
           "id": "components-timeline--default",
-          "code": ";() => (\n  <Timeline>\n    <Timeline.Item>\n      <Timeline.Badge>\n        <StyledOcticon icon={GitCommitIcon} />\n      </Timeline.Badge>\n      <Timeline.Body>This is a message</Timeline.Body>\n    </Timeline.Item>\n    <Timeline.Item>\n      <Timeline.Badge>\n        <StyledOcticon icon={GitCommitIcon} />\n      </Timeline.Badge>\n      <Timeline.Body>This is a message</Timeline.Body>\n    </Timeline.Item>\n    <Timeline.Item>\n      <Timeline.Badge>\n        <StyledOcticon icon={GitCommitIcon} />\n      </Timeline.Badge>\n      <Timeline.Body>This is a message</Timeline.Body>\n    </Timeline.Item>\n  </Timeline>\n)"
+          "code": "() => (\n  <Timeline>\n    <Timeline.Item>\n      <Timeline.Badge>\n        <StyledOcticon icon={GitCommitIcon} />\n      </Timeline.Badge>\n      <Timeline.Body>This is a message</Timeline.Body>\n    </Timeline.Item>\n    <Timeline.Item>\n      <Timeline.Badge>\n        <StyledOcticon icon={GitCommitIcon} />\n      </Timeline.Badge>\n      <Timeline.Body>This is a message</Timeline.Body>\n    </Timeline.Item>\n    <Timeline.Item>\n      <Timeline.Badge>\n        <StyledOcticon icon={GitCommitIcon} />\n      </Timeline.Badge>\n      <Timeline.Body>This is a message</Timeline.Body>\n    </Timeline.Item>\n  </Timeline>\n)"
         }
       ],
       "props": [
@@ -4388,23 +4388,23 @@
       "stories": [
         {
           "id": "components-treeview--default",
-          "code": ";() => (\n  <nav aria-label=\"Files changed\">\n    <TreeView aria-label=\"Files changed\">\n      <TreeView.Item id=\"src\" defaultExpanded>\n        <TreeView.LeadingVisual>\n          <TreeView.DirectoryIcon />\n        </TreeView.LeadingVisual>\n        src\n        <TreeView.SubTree>\n          <TreeView.Item id=\"src/Avatar.tsx\">\n            <TreeView.LeadingVisual>\n              <FileIcon />\n            </TreeView.LeadingVisual>\n            Avatar.tsx\n            <TreeView.TrailingVisual>\n              <StyledOcticon\n                icon={DiffAddedIcon}\n                color=\"success.fg\"\n                aria-label=\"added\"\n              />\n            </TreeView.TrailingVisual>\n          </TreeView.Item>\n          <TreeView.Item id=\"src/Button.tsx\" current>\n            <TreeView.LeadingVisual>\n              <FileIcon />\n            </TreeView.LeadingVisual>\n            Button.tsx\n            <TreeView.TrailingVisual>\n              <StyledOcticon\n                icon={DiffModifiedIcon}\n                color=\"attention.fg\"\n                aria-label=\"modified\"\n              />\n            </TreeView.TrailingVisual>\n          </TreeView.Item>\n        </TreeView.SubTree>\n      </TreeView.Item>\n      <TreeView.Item id=\"package.json\">\n        <TreeView.LeadingVisual>\n          <FileIcon />\n        </TreeView.LeadingVisual>\n        package.json\n        <TreeView.TrailingVisual>\n          <StyledOcticon\n            icon={DiffModifiedIcon}\n            color=\"attention.fg\"\n            aria-label=\"modified\"\n          />\n        </TreeView.TrailingVisual>\n      </TreeView.Item>\n    </TreeView>\n  </nav>\n)"
+          "code": "() => (\n  <nav aria-label=\"Files changed\">\n    <TreeView aria-label=\"Files changed\">\n      <TreeView.Item id=\"src\" defaultExpanded>\n        <TreeView.LeadingVisual>\n          <TreeView.DirectoryIcon />\n        </TreeView.LeadingVisual>\n        src\n        <TreeView.SubTree>\n          <TreeView.Item id=\"src/Avatar.tsx\">\n            <TreeView.LeadingVisual>\n              <FileIcon />\n            </TreeView.LeadingVisual>\n            Avatar.tsx\n            <TreeView.TrailingVisual>\n              <StyledOcticon\n                icon={DiffAddedIcon}\n                color=\"success.fg\"\n                aria-label=\"added\"\n              />\n            </TreeView.TrailingVisual>\n          </TreeView.Item>\n          <TreeView.Item id=\"src/Button.tsx\" current>\n            <TreeView.LeadingVisual>\n              <FileIcon />\n            </TreeView.LeadingVisual>\n            Button.tsx\n            <TreeView.TrailingVisual>\n              <StyledOcticon\n                icon={DiffModifiedIcon}\n                color=\"attention.fg\"\n                aria-label=\"modified\"\n              />\n            </TreeView.TrailingVisual>\n          </TreeView.Item>\n        </TreeView.SubTree>\n      </TreeView.Item>\n      <TreeView.Item id=\"package.json\">\n        <TreeView.LeadingVisual>\n          <FileIcon />\n        </TreeView.LeadingVisual>\n        package.json\n        <TreeView.TrailingVisual>\n          <StyledOcticon\n            icon={DiffModifiedIcon}\n            color=\"attention.fg\"\n            aria-label=\"modified\"\n          />\n        </TreeView.TrailingVisual>\n      </TreeView.Item>\n    </TreeView>\n  </nav>\n)"
         },
         {
           "id": "components-treeview-features--files",
-          "code": ";() => (\n  <nav aria-label=\"Files\">\n    <TreeView aria-label=\"Files\">\n      <TreeView.Item id=\"src\" defaultExpanded>\n        <TreeView.LeadingVisual>\n          <TreeView.DirectoryIcon />\n        </TreeView.LeadingVisual>\n        src\n        <TreeView.SubTree>\n          <TreeView.Item id=\"src/Avatar.tsx\">\n            <TreeView.LeadingVisual>\n              <FileIcon />\n            </TreeView.LeadingVisual>\n            Avatar.tsx\n          </TreeView.Item>\n          <TreeView.Item id=\"src/Button\" current>\n            <TreeView.LeadingVisual>\n              <TreeView.DirectoryIcon />\n            </TreeView.LeadingVisual>\n            Button\n            <TreeView.SubTree>\n              <TreeView.Item id=\"src/Button/Button.tsx\">\n                <TreeView.LeadingVisual>\n                  <FileIcon />\n                </TreeView.LeadingVisual>\n                Button.tsx\n              </TreeView.Item>\n              <TreeView.Item id=\"src/Button/Button.test.tsx\">\n                <TreeView.LeadingVisual>\n                  <FileIcon />\n                </TreeView.LeadingVisual>\n                Button.test.tsx\n              </TreeView.Item>\n            </TreeView.SubTree>\n          </TreeView.Item>\n          <TreeView.Item id=\"src/ReallyLongFileNameThatShouldBeTruncated.tsx\">\n            <TreeView.LeadingVisual>\n              <FileIcon />\n            </TreeView.LeadingVisual>\n            ReallyLongFileNameThatShouldBeTruncated.tsx\n          </TreeView.Item>\n        </TreeView.SubTree>\n      </TreeView.Item>\n      <TreeView.Item\n        id=\"public\"\n        // eslint-disable-next-line no-console\n        onExpandedChange={(isExpanded) =>\n          console.log(\n            `${isExpanded ? 'Expanded' : 'Collapsed'} \"public\" folder `,\n          )\n        }\n      >\n        <TreeView.LeadingVisual>\n          <TreeView.DirectoryIcon />\n        </TreeView.LeadingVisual>\n        public\n        <TreeView.SubTree>\n          <TreeView.Item id=\"public/index.html\">\n            <TreeView.LeadingVisual>\n              <FileIcon />\n            </TreeView.LeadingVisual>\n            index.html\n          </TreeView.Item>\n          <TreeView.Item id=\"public/favicon.ico\">\n            <TreeView.LeadingVisual>\n              <FileIcon />\n            </TreeView.LeadingVisual>\n            favicon.ico\n          </TreeView.Item>\n        </TreeView.SubTree>\n      </TreeView.Item>\n      <TreeView.Item id=\"package.json\">\n        <TreeView.LeadingVisual>\n          <FileIcon />\n        </TreeView.LeadingVisual>\n        package.json\n      </TreeView.Item>\n    </TreeView>\n  </nav>\n)"
+          "code": "() => (\n  <nav aria-label=\"Files\">\n    <TreeView aria-label=\"Files\">\n      <TreeView.Item id=\"src\" defaultExpanded>\n        <TreeView.LeadingVisual>\n          <TreeView.DirectoryIcon />\n        </TreeView.LeadingVisual>\n        src\n        <TreeView.SubTree>\n          <TreeView.Item id=\"src/Avatar.tsx\">\n            <TreeView.LeadingVisual>\n              <FileIcon />\n            </TreeView.LeadingVisual>\n            Avatar.tsx\n          </TreeView.Item>\n          <TreeView.Item id=\"src/Button\" current>\n            <TreeView.LeadingVisual>\n              <TreeView.DirectoryIcon />\n            </TreeView.LeadingVisual>\n            Button\n            <TreeView.SubTree>\n              <TreeView.Item id=\"src/Button/Button.tsx\">\n                <TreeView.LeadingVisual>\n                  <FileIcon />\n                </TreeView.LeadingVisual>\n                Button.tsx\n              </TreeView.Item>\n              <TreeView.Item id=\"src/Button/Button.test.tsx\">\n                <TreeView.LeadingVisual>\n                  <FileIcon />\n                </TreeView.LeadingVisual>\n                Button.test.tsx\n              </TreeView.Item>\n            </TreeView.SubTree>\n          </TreeView.Item>\n          <TreeView.Item id=\"src/ReallyLongFileNameThatShouldBeTruncated.tsx\">\n            <TreeView.LeadingVisual>\n              <FileIcon />\n            </TreeView.LeadingVisual>\n            ReallyLongFileNameThatShouldBeTruncated.tsx\n          </TreeView.Item>\n        </TreeView.SubTree>\n      </TreeView.Item>\n      <TreeView.Item\n        id=\"public\"\n        // eslint-disable-next-line no-console\n        onExpandedChange={(isExpanded) =>\n          console.log(\n            `${isExpanded ? 'Expanded' : 'Collapsed'} \"public\" folder `,\n          )\n        }\n      >\n        <TreeView.LeadingVisual>\n          <TreeView.DirectoryIcon />\n        </TreeView.LeadingVisual>\n        public\n        <TreeView.SubTree>\n          <TreeView.Item id=\"public/index.html\">\n            <TreeView.LeadingVisual>\n              <FileIcon />\n            </TreeView.LeadingVisual>\n            index.html\n          </TreeView.Item>\n          <TreeView.Item id=\"public/favicon.ico\">\n            <TreeView.LeadingVisual>\n              <FileIcon />\n            </TreeView.LeadingVisual>\n            favicon.ico\n          </TreeView.Item>\n        </TreeView.SubTree>\n      </TreeView.Item>\n      <TreeView.Item id=\"package.json\">\n        <TreeView.LeadingVisual>\n          <FileIcon />\n        </TreeView.LeadingVisual>\n        package.json\n      </TreeView.Item>\n    </TreeView>\n  </nav>\n)"
         },
         {
           "id": "components-treeview-features--files-changed",
-          "code": ";() => {\n  return (\n    <nav aria-label=\"Files\">\n      <TreeView aria-label=\"Files\">\n        <TreeView.Item id=\"src\" defaultExpanded>\n          <TreeView.LeadingVisual>\n            <TreeView.DirectoryIcon />\n          </TreeView.LeadingVisual>\n          src\n          <TreeView.SubTree>\n            <TreeView.Item id=\"src/Avatar.tsx\">\n              <TreeView.LeadingVisual>\n                <FileIcon />\n              </TreeView.LeadingVisual>\n              Avatar.tsx\n              <TreeView.TrailingVisual label=\"added\">\n                <StyledOcticon icon={DiffAddedIcon} color=\"success.fg\" />\n              </TreeView.TrailingVisual>\n            </TreeView.Item>\n            <TreeView.Item id=\"src/Button\" defaultExpanded>\n              <TreeView.LeadingVisual>\n                <TreeView.DirectoryIcon />\n              </TreeView.LeadingVisual>\n              Button\n              <TreeView.SubTree>\n                <TreeView.Item id=\"src/Button/Button.tsx\" current>\n                  <TreeView.LeadingVisual>\n                    <FileIcon />\n                  </TreeView.LeadingVisual>\n                  Button.tsx\n                  <TreeView.TrailingVisual label=\"modified\">\n                    <StyledOcticon\n                      icon={DiffModifiedIcon}\n                      color=\"attention.fg\"\n                    />\n                  </TreeView.TrailingVisual>\n                </TreeView.Item>\n                <TreeView.Item id=\"src/Button/Button.test.tsx\">\n                  <TreeView.LeadingVisual>\n                    <FileIcon />\n                  </TreeView.LeadingVisual>\n                  Button.test.tsx\n                  <TreeView.TrailingVisual label=\"modified\">\n                    <StyledOcticon\n                      icon={DiffModifiedIcon}\n                      color=\"attention.fg\"\n                    />\n                  </TreeView.TrailingVisual>\n                </TreeView.Item>\n              </TreeView.SubTree>\n            </TreeView.Item>\n            <TreeView.Item id=\"src/ReallyLongFileNameThatShouldBeTruncated.tsx\">\n              <TreeView.LeadingVisual>\n                <FileIcon />\n              </TreeView.LeadingVisual>\n              ReallyLongFileNameThatShouldBeTruncated.tsx\n              <TreeView.TrailingVisual label=\"modified\">\n                <StyledOcticon icon={DiffModifiedIcon} color=\"attention.fg\" />\n              </TreeView.TrailingVisual>\n            </TreeView.Item>\n          </TreeView.SubTree>\n        </TreeView.Item>\n        <TreeView.Item id=\"public\" defaultExpanded>\n          <TreeView.LeadingVisual>\n            <TreeView.DirectoryIcon />\n          </TreeView.LeadingVisual>\n          public\n          <TreeView.SubTree>\n            <TreeView.Item id=\"public/index.html\">\n              <TreeView.LeadingVisual>\n                <FileIcon />\n              </TreeView.LeadingVisual>\n              index.html\n              <TreeView.TrailingVisual label=\"renamed\">\n                <StyledOcticon icon={DiffRenamedIcon} />\n              </TreeView.TrailingVisual>\n            </TreeView.Item>\n            <TreeView.Item id=\"public/favicon.ico\">\n              <TreeView.LeadingVisual>\n                <FileIcon />\n              </TreeView.LeadingVisual>\n              favicon.ico\n              <TreeView.TrailingVisual label=\"removed\">\n                <StyledOcticon icon={DiffRemovedIcon} color=\"danger.fg\" />\n              </TreeView.TrailingVisual>\n            </TreeView.Item>\n          </TreeView.SubTree>\n        </TreeView.Item>\n      </TreeView>\n    </nav>\n  )\n}"
+          "code": "() => {\n  return (\n    <nav aria-label=\"Files\">\n      <TreeView aria-label=\"Files\">\n        <TreeView.Item id=\"src\" defaultExpanded>\n          <TreeView.LeadingVisual>\n            <TreeView.DirectoryIcon />\n          </TreeView.LeadingVisual>\n          src\n          <TreeView.SubTree>\n            <TreeView.Item id=\"src/Avatar.tsx\">\n              <TreeView.LeadingVisual>\n                <FileIcon />\n              </TreeView.LeadingVisual>\n              Avatar.tsx\n              <TreeView.TrailingVisual label=\"added\">\n                <StyledOcticon icon={DiffAddedIcon} color=\"success.fg\" />\n              </TreeView.TrailingVisual>\n            </TreeView.Item>\n            <TreeView.Item id=\"src/Button\" defaultExpanded>\n              <TreeView.LeadingVisual>\n                <TreeView.DirectoryIcon />\n              </TreeView.LeadingVisual>\n              Button\n              <TreeView.SubTree>\n                <TreeView.Item id=\"src/Button/Button.tsx\" current>\n                  <TreeView.LeadingVisual>\n                    <FileIcon />\n                  </TreeView.LeadingVisual>\n                  Button.tsx\n                  <TreeView.TrailingVisual label=\"modified\">\n                    <StyledOcticon\n                      icon={DiffModifiedIcon}\n                      color=\"attention.fg\"\n                    />\n                  </TreeView.TrailingVisual>\n                </TreeView.Item>\n                <TreeView.Item id=\"src/Button/Button.test.tsx\">\n                  <TreeView.LeadingVisual>\n                    <FileIcon />\n                  </TreeView.LeadingVisual>\n                  Button.test.tsx\n                  <TreeView.TrailingVisual label=\"modified\">\n                    <StyledOcticon\n                      icon={DiffModifiedIcon}\n                      color=\"attention.fg\"\n                    />\n                  </TreeView.TrailingVisual>\n                </TreeView.Item>\n              </TreeView.SubTree>\n            </TreeView.Item>\n            <TreeView.Item id=\"src/ReallyLongFileNameThatShouldBeTruncated.tsx\">\n              <TreeView.LeadingVisual>\n                <FileIcon />\n              </TreeView.LeadingVisual>\n              ReallyLongFileNameThatShouldBeTruncated.tsx\n              <TreeView.TrailingVisual label=\"modified\">\n                <StyledOcticon icon={DiffModifiedIcon} color=\"attention.fg\" />\n              </TreeView.TrailingVisual>\n            </TreeView.Item>\n          </TreeView.SubTree>\n        </TreeView.Item>\n        <TreeView.Item id=\"public\" defaultExpanded>\n          <TreeView.LeadingVisual>\n            <TreeView.DirectoryIcon />\n          </TreeView.LeadingVisual>\n          public\n          <TreeView.SubTree>\n            <TreeView.Item id=\"public/index.html\">\n              <TreeView.LeadingVisual>\n                <FileIcon />\n              </TreeView.LeadingVisual>\n              index.html\n              <TreeView.TrailingVisual label=\"renamed\">\n                <StyledOcticon icon={DiffRenamedIcon} />\n              </TreeView.TrailingVisual>\n            </TreeView.Item>\n            <TreeView.Item id=\"public/favicon.ico\">\n              <TreeView.LeadingVisual>\n                <FileIcon />\n              </TreeView.LeadingVisual>\n              favicon.ico\n              <TreeView.TrailingVisual label=\"removed\">\n                <StyledOcticon icon={DiffRemovedIcon} color=\"danger.fg\" />\n              </TreeView.TrailingVisual>\n            </TreeView.Item>\n          </TreeView.SubTree>\n        </TreeView.Item>\n      </TreeView>\n    </nav>\n  )\n}"
         },
         {
           "id": "components-treeview-features--async-success",
-          "code": ";(args) => {\n  const [isLoading, setIsLoading] = React.useState(false)\n  const [asyncItems, setAsyncItems] = React.useState<string[]>([])\n  let state: SubTreeState = 'initial'\n  if (isLoading) {\n    state = 'loading'\n  } else if (asyncItems.length > 0) {\n    state = 'done'\n  }\n  return (\n    <nav aria-label=\"Files\">\n      <TreeView aria-label=\"Files\">\n        <TreeView.Item id=\"file-1\">\n          <TreeView.LeadingVisual>\n            <FileIcon />\n          </TreeView.LeadingVisual>\n          Some file\n        </TreeView.Item>\n        <TreeView.Item\n          id=\"async-directory\"\n          onExpandedChange={async (isExpanded) => {\n            if (asyncItems.length === 0 && isExpanded) {\n              setIsLoading(true)\n\n              // Load items\n              const items = await loadItems(args.responseTime)\n              setIsLoading(false)\n              setAsyncItems(items)\n            }\n          }}\n        >\n          <TreeView.LeadingVisual>\n            <TreeView.DirectoryIcon />\n          </TreeView.LeadingVisual>\n          Directory with async items\n          <TreeView.SubTree state={state}>\n            {asyncItems.map((item) => (\n              <TreeView.Item id={`item-${item}`} key={item}>\n                <TreeView.LeadingVisual>\n                  <FileIcon />\n                </TreeView.LeadingVisual>\n                {item}\n              </TreeView.Item>\n            ))}\n          </TreeView.SubTree>\n        </TreeView.Item>\n        <TreeView.Item id=\"another-file\">\n          <TreeView.LeadingVisual>\n            <FileIcon />\n          </TreeView.LeadingVisual>\n          Another file\n        </TreeView.Item>\n      </TreeView>\n    </nav>\n  )\n}"
+          "code": "(args) => {\n  const [isLoading, setIsLoading] = React.useState(false)\n  const [asyncItems, setAsyncItems] = React.useState<string[]>([])\n  let state: SubTreeState = 'initial'\n  if (isLoading) {\n    state = 'loading'\n  } else if (asyncItems.length > 0) {\n    state = 'done'\n  }\n  return (\n    <nav aria-label=\"Files\">\n      <TreeView aria-label=\"Files\">\n        <TreeView.Item id=\"file-1\">\n          <TreeView.LeadingVisual>\n            <FileIcon />\n          </TreeView.LeadingVisual>\n          Some file\n        </TreeView.Item>\n        <TreeView.Item\n          id=\"async-directory\"\n          onExpandedChange={async (isExpanded) => {\n            if (asyncItems.length === 0 && isExpanded) {\n              setIsLoading(true)\n\n              // Load items\n              const items = await loadItems(args.responseTime)\n              setIsLoading(false)\n              setAsyncItems(items)\n            }\n          }}\n        >\n          <TreeView.LeadingVisual>\n            <TreeView.DirectoryIcon />\n          </TreeView.LeadingVisual>\n          Directory with async items\n          <TreeView.SubTree state={state}>\n            {asyncItems.map((item) => (\n              <TreeView.Item id={`item-${item}`} key={item}>\n                <TreeView.LeadingVisual>\n                  <FileIcon />\n                </TreeView.LeadingVisual>\n                {item}\n              </TreeView.Item>\n            ))}\n          </TreeView.SubTree>\n        </TreeView.Item>\n        <TreeView.Item id=\"another-file\">\n          <TreeView.LeadingVisual>\n            <FileIcon />\n          </TreeView.LeadingVisual>\n          Another file\n        </TreeView.Item>\n      </TreeView>\n    </nav>\n  )\n}"
         },
         {
           "id": "components-treeview-features--async-error",
-          "code": ";(args) => {\n  const [isLoading, setIsLoading] = React.useState(false)\n  const [asyncItems, setAsyncItems] = React.useState<string[]>([])\n  const [error, setError] = React.useState<Error | null>(null)\n  let state: SubTreeState = 'initial'\n  if (isLoading) {\n    state = 'loading'\n  } else if (error) {\n    state = 'error'\n  } else if (asyncItems.length > 0) {\n    state = 'done'\n  }\n  async function loadItems() {\n    if (asyncItems.length === 0) {\n      setIsLoading(true)\n      try {\n        // Try to load items\n        const items = await alwaysFails(args.responseTime)\n        setAsyncItems(items)\n      } catch (error) {\n        setError(error as Error)\n      } finally {\n        setIsLoading(false)\n      }\n    }\n  }\n  return (\n    <TreeView aria-label=\"Files\">\n      <TreeView.Item id=\"some-file\">\n        <TreeView.LeadingVisual>\n          <FileIcon />\n        </TreeView.LeadingVisual>\n        Some file\n      </TreeView.Item>\n      <TreeView.Item\n        id=\"async-directory\"\n        onExpandedChange={(isExpanded) => {\n          if (isExpanded) {\n            loadItems()\n          }\n        }}\n      >\n        <TreeView.LeadingVisual>\n          <TreeView.DirectoryIcon />\n        </TreeView.LeadingVisual>\n        Directory with async items\n        <TreeView.SubTree state={state}>\n          {error ? (\n            <TreeView.ErrorDialog\n              onRetry={() => {\n                setError(null)\n                loadItems()\n              }}\n              onDismiss={() => {\n                setError(null)\n              }}\n            >\n              {error.message}\n            </TreeView.ErrorDialog>\n          ) : null}\n          {asyncItems.map((item) => (\n            <TreeView.Item key={item} id={`item-${item}`}>\n              <TreeView.LeadingVisual>\n                <FileIcon />\n              </TreeView.LeadingVisual>\n              {item}\n            </TreeView.Item>\n          ))}\n        </TreeView.SubTree>\n      </TreeView.Item>\n      <TreeView.Item id=\"another-file\">\n        <TreeView.LeadingVisual>\n          <FileIcon />\n        </TreeView.LeadingVisual>\n        Another file\n      </TreeView.Item>\n    </TreeView>\n  )\n}"
+          "code": "(args) => {\n  const [isLoading, setIsLoading] = React.useState(false)\n  const [asyncItems, setAsyncItems] = React.useState<string[]>([])\n  const [error, setError] = React.useState<Error | null>(null)\n  let state: SubTreeState = 'initial'\n  if (isLoading) {\n    state = 'loading'\n  } else if (error) {\n    state = 'error'\n  } else if (asyncItems.length > 0) {\n    state = 'done'\n  }\n  async function loadItems() {\n    if (asyncItems.length === 0) {\n      setIsLoading(true)\n      try {\n        // Try to load items\n        const items = await alwaysFails(args.responseTime)\n        setAsyncItems(items)\n      } catch (error) {\n        setError(error as Error)\n      } finally {\n        setIsLoading(false)\n      }\n    }\n  }\n  return (\n    <TreeView aria-label=\"Files\">\n      <TreeView.Item id=\"some-file\">\n        <TreeView.LeadingVisual>\n          <FileIcon />\n        </TreeView.LeadingVisual>\n        Some file\n      </TreeView.Item>\n      <TreeView.Item\n        id=\"async-directory\"\n        onExpandedChange={(isExpanded) => {\n          if (isExpanded) {\n            loadItems()\n          }\n        }}\n      >\n        <TreeView.LeadingVisual>\n          <TreeView.DirectoryIcon />\n        </TreeView.LeadingVisual>\n        Directory with async items\n        <TreeView.SubTree state={state}>\n          {error ? (\n            <TreeView.ErrorDialog\n              onRetry={() => {\n                setError(null)\n                loadItems()\n              }}\n              onDismiss={() => {\n                setError(null)\n              }}\n            >\n              {error.message}\n            </TreeView.ErrorDialog>\n          ) : null}\n          {asyncItems.map((item) => (\n            <TreeView.Item key={item} id={`item-${item}`}>\n              <TreeView.LeadingVisual>\n                <FileIcon />\n              </TreeView.LeadingVisual>\n              {item}\n            </TreeView.Item>\n          ))}\n        </TreeView.SubTree>\n      </TreeView.Item>\n      <TreeView.Item id=\"another-file\">\n        <TreeView.LeadingVisual>\n          <FileIcon />\n        </TreeView.LeadingVisual>\n        Another file\n      </TreeView.Item>\n    </TreeView>\n  )\n}"
         }
       ],
       "props": [
@@ -4555,7 +4555,7 @@
       "stories": [
         {
           "id": "components-underlinenav--default",
-          "code": ";() => {\n  const children = ['Code', 'Pull requests', 'Actions', 'Projects', 'Wiki']\n  return (\n    <UnderlineNav>\n      {children.map((child: string, index: number) => (\n        <UnderlineNavItem\n          key={index}\n          href=\"#\"\n          aria-current={index === 0 ? 'page' : undefined}\n        >\n          {child}\n        </UnderlineNavItem>\n      ))}\n    </UnderlineNav>\n  )\n}"
+          "code": "() => {\n  const children = ['Code', 'Pull requests', 'Actions', 'Projects', 'Wiki']\n  return (\n    <UnderlineNav>\n      {children.map((child: string, index: number) => (\n        <UnderlineNavItem\n          key={index}\n          href=\"#\"\n          aria-current={index === 0 ? 'page' : undefined}\n        >\n          {child}\n        </UnderlineNavItem>\n      ))}\n    </UnderlineNav>\n  )\n}"
         }
       ],
       "props": [
@@ -4653,7 +4653,7 @@
       "stories": [
         {
           "id": "components-inlineautocomplete--default",
-          "code": ";({ loading, tabInserts }: ArgProps) => {\n  const [suggestions, setSuggestions] = useState<Suggestions | null>(null)\n  const onShowSuggestions = (event: ShowSuggestionsEvent) => {\n    if (loading) {\n      setSuggestions('loading')\n      return\n    }\n    setSuggestions(filteredUsers(event.query).map((user) => user.login))\n  }\n  return (\n    <FormControl>\n      <FormControl.Label>Inline Autocomplete Demo</FormControl.Label>\n      <FormControl.Caption>\n        Try typing &apos;@&apos; to show user suggestions.\n      </FormControl.Caption>\n      <InlineAutocomplete\n        triggers={[\n          {\n            triggerChar: '@',\n          },\n        ]}\n        suggestions={suggestions}\n        onShowSuggestions={onShowSuggestions}\n        onHideSuggestions={() => setSuggestions(null)}\n        tabInsertsSuggestions={tabInserts}\n      >\n        <Textarea />\n      </InlineAutocomplete>\n    </FormControl>\n  )\n}"
+          "code": "({ loading, tabInserts }: ArgProps) => {\n  const [suggestions, setSuggestions] = useState<Suggestions | null>(null)\n  const onShowSuggestions = (event: ShowSuggestionsEvent) => {\n    if (loading) {\n      setSuggestions('loading')\n      return\n    }\n    setSuggestions(filteredUsers(event.query).map((user) => user.login))\n  }\n  return (\n    <FormControl>\n      <FormControl.Label>Inline Autocomplete Demo</FormControl.Label>\n      <FormControl.Caption>\n        Try typing &apos;@&apos; to show user suggestions.\n      </FormControl.Caption>\n      <InlineAutocomplete\n        triggers={[\n          {\n            triggerChar: '@',\n          },\n        ]}\n        suggestions={suggestions}\n        onShowSuggestions={onShowSuggestions}\n        onHideSuggestions={() => setSuggestions(null)}\n        tabInsertsSuggestions={tabInserts}\n      >\n        <Textarea />\n      </InlineAutocomplete>\n    </FormControl>\n  )\n}"
         }
       ],
       "props": [
@@ -4713,7 +4713,7 @@
       "stories": [
         {
           "id": "components-markdowneditor--default",
-          "code": ";({\n  disabled,\n  fullHeight,\n  monospace,\n  minHeightLines,\n  maxHeightLines,\n  hideLabel,\n  required,\n  fileUploadsEnabled,\n  onSubmit,\n  savedRepliesEnabled,\n  pasteUrlsAsPlainText,\n}: ArgProps) => {\n  const [value, setValue] = useState('')\n  return (\n    <>\n      <MarkdownEditor\n        value={value}\n        onChange={setValue}\n        onPrimaryAction={onSubmit}\n        disabled={disabled}\n        fullHeight={fullHeight}\n        monospace={monospace}\n        minHeightLines={minHeightLines}\n        maxHeightLines={maxHeightLines}\n        placeholder=\"Enter some Markdown...\"\n        onRenderPreview={renderPreview}\n        onUploadFile={fileUploadsEnabled ? onUploadFile : undefined}\n        emojiSuggestions={emojis}\n        mentionSuggestions={mentionables}\n        referenceSuggestions={references}\n        savedReplies={savedRepliesEnabled ? savedReplies : undefined}\n        required={required}\n        pasteUrlsAsPlainText={pasteUrlsAsPlainText}\n      >\n        <MarkdownEditor.Label visuallyHidden={hideLabel}>\n          Markdown Editor Example\n        </MarkdownEditor.Label>\n      </MarkdownEditor>\n      <p>\n        Note: for demo purposes, files starting with &quot;A&quot; will be\n        rejected.\n      </p>\n    </>\n  )\n}"
+          "code": "({\n  disabled,\n  fullHeight,\n  monospace,\n  minHeightLines,\n  maxHeightLines,\n  hideLabel,\n  required,\n  fileUploadsEnabled,\n  onSubmit,\n  savedRepliesEnabled,\n  pasteUrlsAsPlainText,\n}: ArgProps) => {\n  const [value, setValue] = useState('')\n  return (\n    <>\n      <MarkdownEditor\n        value={value}\n        onChange={setValue}\n        onPrimaryAction={onSubmit}\n        disabled={disabled}\n        fullHeight={fullHeight}\n        monospace={monospace}\n        minHeightLines={minHeightLines}\n        maxHeightLines={maxHeightLines}\n        placeholder=\"Enter some Markdown...\"\n        onRenderPreview={renderPreview}\n        onUploadFile={fileUploadsEnabled ? onUploadFile : undefined}\n        emojiSuggestions={emojis}\n        mentionSuggestions={mentionables}\n        referenceSuggestions={references}\n        savedReplies={savedRepliesEnabled ? savedReplies : undefined}\n        required={required}\n        pasteUrlsAsPlainText={pasteUrlsAsPlainText}\n      >\n        <MarkdownEditor.Label visuallyHidden={hideLabel}>\n          Markdown Editor Example\n        </MarkdownEditor.Label>\n      </MarkdownEditor>\n      <p>\n        Note: for demo purposes, files starting with &quot;A&quot; will be\n        rejected.\n      </p>\n    </>\n  )\n}"
         }
       ],
       "props": [
@@ -4837,7 +4837,7 @@
       "stories": [
         {
           "id": "components-markdownviewer--default",
-          "code": ";({ loading, linksInNewTab }: ArgProps) => (\n  <MarkdownViewer\n    loading={loading}\n    openLinksInNewTab={linksInNewTab}\n    dangerousRenderedHTML={htmlObject}\n  />\n)"
+          "code": "({ loading, linksInNewTab }: ArgProps) => (\n  <MarkdownViewer\n    loading={loading}\n    openLinksInNewTab={linksInNewTab}\n    dangerousRenderedHTML={htmlObject}\n  />\n)"
         }
       ],
       "props": [
