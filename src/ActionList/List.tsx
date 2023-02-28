@@ -53,7 +53,7 @@ export const List = React.forwardRef<HTMLUListElement, ActionListProps>(
     const styles = {
       margin: 0,
       paddingInlineStart: 0, // reset ul styles
-      paddingY: 0,
+      paddingY: variant === 'inset' ? 2 : 0,
     }
 
     /** if list is inside a Menu, it will get a role from the Menu */

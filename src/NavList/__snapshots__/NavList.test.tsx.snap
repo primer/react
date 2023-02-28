@@ -26,8 +26,8 @@ exports[`NavList renders a simple list 1`] = `
 .c0 {
   margin: 0;
   padding-inline-start: 0;
-  padding-top: 0;
-  padding-bottom: 0;
+  padding-top: 8px;
+  padding-bottom: 8px;
 }
 
 .c2 {
@@ -429,8 +429,8 @@ exports[`NavList renders with groups 1`] = `
 .c0 {
   margin: 0;
   padding-inline-start: 0;
-  padding-top: 0;
-  padding-bottom: 0;
+  padding-top: 8px;
+  padding-bottom: 8px;
 }
 
 .c6 {
@@ -876,8 +876,8 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
 .c0 {
   margin: 0;
   padding-inline-start: 0;
-  padding-top: 0;
-  padding-bottom: 0;
+  padding-top: 8px;
+  padding-bottom: 8px;
 }
 
 .c10 {
@@ -1352,8 +1352,8 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
 .c0 {
   margin: 0;
   padding-inline-start: 0;
-  padding-top: 0;
-  padding-bottom: 0;
+  padding-top: 8px;
+  padding-bottom: 8px;
 }
 
 .c10 {
