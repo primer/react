@@ -1,8 +1,8 @@
-# ADR XXX: File structure
+# ADR 12: File structure
 
 ## Status
 
-Proposed
+Accepted
 
 ## Context
 
@@ -36,6 +36,6 @@ primer-react/
 
 ## Implementation
 
-- [ ] Migrate components into this structure
+- [ ] Migrate components into this structure (as part of [Storybook refactor work](https://github.com/github/primer/issues/1488))
 - [ ] Set up tests for the component structure
 - [ ] Mark this ADR as adopted

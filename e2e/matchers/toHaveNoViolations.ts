@@ -44,13 +44,73 @@ expect.extend({
       // @ts-ignore `axe` is a global variable defined by page.evaluate() above
       const axe = window.axe
 
+      const interactiveElements = ['a[href]', 'button', 'summary', 'select', 'input:not([type=hidden])', 'textarea']
+      const focusableElements = interactiveElements.concat(['[tabindex]'])
+
       axe.configure({
         rules: [
+          {
+            id: 'menuitem-should-be-interactive',
+            excludeHidden: true,
+            selector:
+              'div[role="menuitem"], span[role="menuitem"], div[role="menuitemradio"], span[role="menuitemradio"], div[role="menuitemcheckbox"], span[role="menuitemcheckbox"]',
+            all: ['menuitem-should-be-interactive_0'],
+            any: [],
+            metadata: {
+              help: 'Menu items must be focusable. Use <button>, <a>, or <label tabindex="0">',
+              helpUrl: '',
+            },
+            tags: ['custom-github-rule'],
+          },
+          {
+            id: 'empty-summary',
+            excludeHidden: true,
+            selector: 'summary',
+            all: [],
+            any: [
+              'has-visible-text',
+              'aria-label',
+              'aria-labelledby',
+              'role-presentation',
+              'role-none',
+              'non-empty-title',
+            ],
+            metadata: {
+              help: 'Details summary element must have visible text',
+              helpUrl: '',
+            },
+            tags: ['custom-github-rule'],
+          },
+          {
+            id: 'submit-reset-button-must-be-in-form',
+            excludeHidden: true,
+            selector: 'button[type="submit"], button[type="reset"], input[type="submit"], input[type="reset"]',
+            all: ['submit-reset-button-must-be-in-form_0'],
+            any: [],
+            metadata: {
+              help: 'Submit and reset buttons must be in a form',
+              helpUrl: '',
+            },
+            tags: ['custom-github-rule'],
+          },
+          {
+            id: 'nested-forms',
+            excludeHidden: true,
+            selector: 'form',
+            all: ['nested-forms_0'],
+            any: [],
+            metadata: {
+              help: 'Nested form is invalid HTML and should be avoided',
+              helpUrl:
+                'https://html.spec.whatwg.org/multipage/forms.html#the-form-element:concept-element-content-model',
+            },
+            tags: ['custom-github-rule'],
+          },
           {
             id: 'avoid-both-disabled-and-aria-disabled',
             excludeHidden: true,
             selector: 'button, fieldset, input, optgroup, option, select, textarea',
-            all: ['check-avoid-both-disabled-and-aria-disabled'],
+            all: ['avoid-both-disabled-and-aria-disabled_0'],
             any: [],
             metadata: {
               help: '[aria-disabled] may be used in place of native HTML [disabled] to allow tab-focus on an otherwise ignored element. Setting both attributes is contradictory.',
@@ -61,7 +121,31 @@ expect.extend({
         ],
         checks: [
           {
-            id: 'check-avoid-both-disabled-and-aria-disabled',
+            id: 'menuitem-should-be-interactive_0',
+            evaluate: (el: Element) => focusableElements.filter(s => el.matches(s)).length > 0,
+            metadata: {
+              impact: 'critical',
+            },
+          },
+          {
+            id: 'submit-reset-button-must-be-in-form_0',
+            evaluate: (el: Element) => {
+              const formId = el.getAttribute('form')
+              return !!el.closest('form') || !!(formId && document.getElementById(formId))
+            },
+            metadata: {
+              impact: 'critical',
+            },
+          },
+          {
+            id: 'nested-forms_0',
+            evaluate: (el: Element) => !(el.parentElement && el.parentElement.closest('form')),
+            metadata: {
+              impact: 'critical',
+            },
+          },
+          {
+            id: 'avoid-both-disabled-and-aria-disabled_0',
             /**
              * Check an element with native `disabled` support doesn't have both `disabled` and `aria-disabled` set.
              */

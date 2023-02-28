@@ -22,7 +22,7 @@ import {OcticonArgType} from '../utils/story-helpers'
 import {PageHeader} from './PageHeader'
 import Hidden from '../Hidden'
 
-const meta: Meta = {
+export default {
   title: 'Drafts/Components/PageHeader',
   parameters: {
     layout: 'fullscreen',
@@ -181,9 +181,9 @@ const meta: Meta = {
       description: 'Description region/slot',
     },
   },
-}
+} as Meta
 
-const Template: Story = args => (
+export const Playground: Story = args => (
   <Box sx={{padding: 3}}>
     <PageHeader>
       <PageHeader.ContextArea hidden={!args.hasContextArea}>
@@ -279,6 +279,12 @@ const Template: Story = args => (
   </Box>
 )
 
-export const Playground = Template.bind({})
-
-export default meta
+export const Default = () => (
+  <Box sx={{padding: 3}}>
+    <PageHeader>
+      <PageHeader.TitleArea>
+        <PageHeader.Title>Title</PageHeader.Title>
+      </PageHeader.TitleArea>
+    </PageHeader>
+  </Box>
+)
