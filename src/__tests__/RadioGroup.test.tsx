@@ -162,5 +162,4 @@ describe('RadioGroup', () => {
   })
 })
 
-checkStoriesForAxeViolations('RadioGroup/fixtures')
-checkStoriesForAxeViolations('RadioGroup/examples')
+checkStoriesForAxeViolations('RadioGroup.features', '../RadioGroup/')

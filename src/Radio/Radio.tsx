@@ -1,11 +1,11 @@
 import styled from 'styled-components'
 import React, {ChangeEventHandler, InputHTMLAttributes, ReactElement, useContext} from 'react'
-import sx, {SxProp} from './sx'
-import {FormValidationStatus} from './utils/types/FormValidationStatus'
-import {RadioGroupContext} from './RadioGroup'
-import getGlobalFocusStyles from './_getGlobalFocusStyles'
-import {get} from './constants'
-import {sharedCheckboxAndRadioStyles} from './_sharedCheckboxAndRadioStyles'
+import sx, {SxProp} from '../sx'
+import {FormValidationStatus} from '../utils/types/FormValidationStatus'
+import {RadioGroupContext} from '../RadioGroup/RadioGroup'
+import getGlobalFocusStyles from '../_getGlobalFocusStyles'
+import {get} from '../constants'
+import {sharedCheckboxAndRadioStyles} from '../_sharedCheckboxAndRadioStyles'
 
 export type RadioProps = {
   /**
