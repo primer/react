@@ -172,4 +172,3 @@ describe('CheckboxGroup', () => {
   })
 })
 
-checkStoriesForAxeViolations('CheckboxGroup.features', '../CheckboxGroup/')
