@@ -46,7 +46,7 @@ const IssueLabelToken = React.forwardRef((props, forwardedRef) => {
 
   const labelStyles: CSSObject = React.useMemo(() => {
     // Parse label color into hue, saturation, lightness using HSLUV
-    const {h} = hexToHsluv(fillColor)
+    const {h, s} = hexToHsluv(fillColor)
 
     // Initialize color variables
     let bgColor = ''
@@ -56,16 +56,16 @@ const IssueLabelToken = React.forwardRef((props, forwardedRef) => {
     // Set color variables based on current color mode
     switch (colorMode) {
       case 'light': {
-        bgColor = hsluvToHex({h, s: 90, l: 97})
-        textColor = minContrast(hsluvToHex({h, s: 85, l: 45}), bgColor, 4.5)
-        borderColor = hsluvToHex({h, s: 70, l: 82})
+        bgColor = hsluvToHex({h, s: Math.min(s, 90), l: 97})
+        textColor = minContrast(hsluvToHex({h, s: Math.min(s, 85), l: 45}), bgColor, 4.5)
+        borderColor = hsluvToHex({h, s: Math.min(s, 70), l: 82})
         break
       }
 
       case 'dark': {
-        bgColor = hsluvToHex({h, s: 90, l: 8})
-        textColor = minContrast(hsluvToHex({h, s: 50, l: 70}), bgColor, 4.5)
-        borderColor = hsluvToHex({h, s: 80, l: 20})
+        bgColor = hsluvToHex({h, s: Math.min(s, 90), l: 8})
+        textColor = minContrast(hsluvToHex({h, s: Math.min(s, 50), l: 70}), bgColor, 4.5)
+        borderColor = hsluvToHex({h, s: Math.min(s, 80), l: 20})
         break
       }
     }
