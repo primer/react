@@ -5,7 +5,7 @@
   "properties": {
     "schemaVersion": {
       "type": "number",
-      "enum": [1],
+      "enum": [2],
       "description": "The version of the schema. We increment this when we make breaking changes to the schema."
     },
     "components": {
