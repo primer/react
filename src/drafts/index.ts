@@ -6,7 +6,20 @@
  * example: import {ActionList} from '@primer/react/drafts
  */
 
-export {DataTable, Table} from '../DataTable'
+export {
+  DataTable,
+  DataTableProps,
+  Table,
+  TableProps,
+  TableHeadProps,
+  TableBodyProps,
+  TableRowProps,
+  TableHeaderProps,
+  TableCellProps,
+  TableContainerProps,
+  TableTitleProps,
+  TableSubtitleProps,
+} from '../DataTable'
 export * from '../Dialog/Dialog'
 
 export * from '../Hidden'
