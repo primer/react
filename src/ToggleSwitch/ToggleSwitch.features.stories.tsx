@@ -10,7 +10,7 @@ export default {
 export const Small = () => (
   <Box
     display="grid"
-    gridTemplateColumns={'max-content auto'}
+    gridTemplateColumns="max-content auto"
     maxWidth={'20rem'}
     alignItems={'center'}
     justifyContent={'space-between'}
