@@ -9,12 +9,16 @@ import {
   TableContainer,
   TableTitle,
   TableSubtitle,
+  TableActions,
+  TableDivider,
 } from './Table'
 
 const Table = Object.assign(TableImpl, {
   Container: TableContainer,
   Title: TableTitle,
   Subtitle: TableSubtitle,
+  Actions: TableActions,
+  Divider: TableDivider,
   Head: TableHead,
   Body: TableBody,
   Header: TableHeader,
@@ -34,4 +38,5 @@ export type {
   TableContainerProps,
   TableTitleProps,
   TableSubtitleProps,
+  TableActionsProps,
 } from './Table'
