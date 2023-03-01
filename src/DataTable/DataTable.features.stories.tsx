@@ -1,17 +1,6 @@
 import {Meta} from '@storybook/react'
 import React from 'react'
-import {
-  DataTable,
-  Table,
-  TableHead,
-  TableBody,
-  TableRow,
-  TableHeader,
-  TableCell,
-  TableContainer,
-  TableTitle,
-  TableSubtitle,
-} from '../DataTable'
+import {DataTable, Table} from '../DataTable'
 import Label from '../Label'
 import LabelGroup from '../LabelGroup'
 import RelativeTime from '../RelativeTime'
@@ -19,17 +8,6 @@ import RelativeTime from '../RelativeTime'
 export default {
   title: 'Drafts/Components/DataTable/Features',
   component: DataTable,
-  subcomponents: {
-    Table,
-    TableHead,
-    TableBody,
-    TableRow,
-    TableHeader,
-    TableCell,
-    TableContainer,
-    TableTitle,
-    TableSubtitle,
-  },
 } as Meta<typeof DataTable>
 
 const now = Date.now()
@@ -139,13 +117,13 @@ function uppercase(input: string): string {
 }
 
 export const Default = () => (
-  <TableContainer>
-    <TableTitle as="h2" id="repositories">
+  <Table.Container>
+    <Table.Title as="h2" id="repositories">
       Repositories
-    </TableTitle>
-    <TableSubtitle as="p" id="repositories-subtitle">
+    </Table.Title>
+    <Table.Subtitle as="p" id="repositories-subtitle">
       A subtitle could appear here to give extra context to the data.
-    </TableSubtitle>
+    </Table.Subtitle>
     <DataTable
       aria-labelledby="repositories"
       aria-describedby="repositories-subtitle"
@@ -198,14 +176,14 @@ export const Default = () => (
         },
       ]}
     />
-  </TableContainer>
+  </Table.Container>
 )
 
 export const WithTitle = () => (
-  <TableContainer>
-    <TableTitle as="h2" id="repositories">
+  <Table.Container>
+    <Table.Title as="h2" id="repositories">
       Repositories
-    </TableTitle>
+    </Table.Title>
     <DataTable
       aria-labelledby="repositories"
       aria-describedby="repositories-subtitle"
@@ -258,17 +236,17 @@ export const WithTitle = () => (
         },
       ]}
     />
-  </TableContainer>
+  </Table.Container>
 )
 
 export const WithTitleAndSubtitle = () => (
-  <TableContainer>
-    <TableTitle as="h2" id="repositories">
+  <Table.Container>
+    <Table.Title as="h2" id="repositories">
       Repositories
-    </TableTitle>
-    <TableSubtitle as="p" id="repositories-subtitle">
+    </Table.Title>
+    <Table.Subtitle as="p" id="repositories-subtitle">
       A subtitle could appear here to give extra context to the data.
-    </TableSubtitle>
+    </Table.Subtitle>
     <DataTable
       aria-labelledby="repositories"
       aria-describedby="repositories-subtitle"
@@ -321,7 +299,7 @@ export const WithTitleAndSubtitle = () => (
         },
       ]}
     />
-  </TableContainer>
+  </Table.Container>
 )
 
 export const WithSorting = () => {
@@ -329,13 +307,13 @@ export const WithSorting = () => {
     return b.updatedAt - a.updatedAt
   })
   return (
-    <TableContainer>
-      <TableTitle as="h2" id="repositories">
+    <Table.Container>
+      <Table.Title as="h2" id="repositories">
         Repositories
-      </TableTitle>
-      <TableSubtitle as="p" id="repositories-subtitle">
+      </Table.Title>
+      <Table.Subtitle as="p" id="repositories-subtitle">
         A subtitle could appear here to give extra context to the data.
-      </TableSubtitle>
+      </Table.Subtitle>
       <DataTable
         aria-labelledby="repositories"
         aria-describedby="repositories-subtitle"
@@ -392,6 +370,6 @@ export const WithSorting = () => {
         initialSortColumn="updatedAt"
         initialSortDirection="DESC"
       />
-    </TableContainer>
+    </Table.Container>
   )
 }

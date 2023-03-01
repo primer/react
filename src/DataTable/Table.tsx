@@ -3,115 +3,8 @@ import React from 'react'
 import styled from 'styled-components'
 import Box from '../Box'
 import {get} from '../constants'
-import {Column} from './column'
-import {useTable} from './useTable'
+import {SxProp} from '../sx'
 import {SortDirection} from './sorting'
-import {UniqueRow} from './row'
-import {ObjectPaths} from './utils'
-
-// ----------------------------------------------------------------------------
-// DataTable
-// ----------------------------------------------------------------------------
-
-export interface DataTableProps<Data extends UniqueRow> {
-  /**
-   * Provide an id to an element which uniquely describes this table
-   */
-  'aria-describedby'?: string | undefined
-
-  /**
-   * Provide an id to an element which uniquely labels this table
-   */
-  'aria-labelledby'?: string | undefined
-
-  /**
-   * Specify the amount of space that should be available around the contents of
-   * a cell
-   */
-  cellPadding?: 'condensed' | 'normal' | 'spacious' | undefined
-
-  /**
-   * Provide a collection of the rows which will be rendered inside of the table
-   */
-  data: Array<Data>
-
-  /**
-   * Provide the columns for the table and the fields in `data` to which they
-   * correspond
-   */
-  columns: Array<Column<Data>>
-
-  /**
-   * Provide the id or field of the column by which the table is sorted. When
-   * using this `prop`, the input data must be sorted by this column in
-   * ascending order
-   */
-  initialSortColumn?: ObjectPaths<Data> | string | undefined
-
-  /**
-   * Provide the sort direction that the table should be sorted by on the
-   * currently sorted column
-   */
-  initialSortDirection?: Exclude<SortDirection, 'NONE'> | undefined
-}
-
-function DataTable<Data extends UniqueRow>({
-  'aria-labelledby': labelledby,
-  'aria-describedby': describedby,
-  cellPadding,
-  columns,
-  data,
-  initialSortColumn,
-  initialSortDirection,
-}: DataTableProps<Data>) {
-  const {headers, rows, actions} = useTable({
-    data,
-    columns,
-    initialSortColumn,
-    initialSortDirection,
-  })
-  return (
-    <Table aria-labelledby={labelledby} aria-describedby={describedby} cellPadding={cellPadding}>
-      <TableHead>
-        <TableRow>
-          {headers.map(header => {
-            if (header.isSortable()) {
-              return (
-                <TableSortHeader
-                  key={header.id}
-                  direction={header.getSortDirection()}
-                  onToggleSort={() => {
-                    actions.sortBy(header)
-                  }}
-                >
-                  {header.column.header}
-                </TableSortHeader>
-              )
-            }
-            return <TableHeader key={header.id}>{header.column.header}</TableHeader>
-          })}
-        </TableRow>
-      </TableHead>
-      <TableBody>
-        {rows.map(row => {
-          return (
-            <TableRow key={row.id}>
-              {row.getCells().map(cell => {
-                return (
-                  <TableCell key={cell.id} scope={cell.rowHeader ? 'row' : undefined}>
-                    {cell.column.renderCell
-                      ? cell.column.renderCell(row.getValue())
-                      : (cell.getValue() as React.ReactNode)}
-                  </TableCell>
-                )
-              })}
-            </TableRow>
-          )
-        })}
-      </TableBody>
-    </Table>
-  )
-}
 
 // ----------------------------------------------------------------------------
 // Table
@@ -253,7 +146,7 @@ const StyledTable = styled.table<React.ComponentPropsWithoutRef<'table'>>`
   }
 `
 
-interface TableProps extends React.ComponentPropsWithoutRef<'table'> {
+export type TableProps = React.ComponentPropsWithoutRef<'table'> & {
   /**
    * Provide an id to an element which uniquely describes this table
    */
@@ -263,8 +156,6 @@ interface TableProps extends React.ComponentPropsWithoutRef<'table'> {
    * Provide an id to an element which uniquely labels this table
    */
   'aria-labelledby'?: string | undefined
-
-  children?: React.ReactNode
 
   /**
    * Specify the amount of space that should be available around the contents of
@@ -281,9 +172,7 @@ const Table = React.forwardRef<HTMLTableElement, TableProps>(function Table({cel
 // TableHead
 // ----------------------------------------------------------------------------
 
-interface TableHeadProps extends React.ComponentPropsWithoutRef<'thead'> {
-  children?: React.ReactNode
-}
+export type TableHeadProps = React.ComponentPropsWithoutRef<'thead'>
 
 function TableHead({children}: TableHeadProps) {
   return <thead className="TableHead">{children}</thead>
@@ -293,9 +182,7 @@ function TableHead({children}: TableHeadProps) {
 // TableBody
 // ----------------------------------------------------------------------------
 
-interface TableBodyProps extends React.ComponentPropsWithoutRef<'tbody'> {
-  children?: React.ReactNode
-}
+export type TableBodyProps = React.ComponentPropsWithoutRef<'tbody'>
 
 function TableBody({children}: TableBodyProps) {
   return <tbody className="TableBody">{children}</tbody>
@@ -305,19 +192,17 @@ function TableBody({children}: TableBodyProps) {
 // TableHeader
 // ----------------------------------------------------------------------------
 
-interface TableHeaderProps extends React.ComponentPropsWithoutRef<'th'> {
-  children?: React.ReactNode
-}
+export type TableHeaderProps = React.ComponentPropsWithoutRef<'th'>
 
 function TableHeader({children, ...rest}: TableHeaderProps) {
   return (
-    <th {...rest} className="TableHeader" scope="col">
+    <th {...rest} className="TableHeader" role="columnheader" scope="col">
       {children}
     </th>
   )
 }
 
-interface TableSortHeaderProps extends TableHeaderProps {
+type TableSortHeaderProps = TableHeaderProps & {
   /**
    * Specify the sort direction for the TableHeader
    */
@@ -354,13 +239,11 @@ function TableSortHeader({children, direction, onToggleSort, ...rest}: TableSort
 // TableRow
 // ----------------------------------------------------------------------------
 
-interface TableRowProps extends React.ComponentPropsWithoutRef<'tr'> {
-  children?: React.ReactNode
-}
+export type TableRowProps = React.ComponentPropsWithoutRef<'tr'>
 
 function TableRow({children, ...rest}: TableRowProps) {
   return (
-    <tr {...rest} className="TableRow">
+    <tr {...rest} className="TableRow" role="row">
       {children}
     </tr>
   )
@@ -370,21 +253,20 @@ function TableRow({children, ...rest}: TableRowProps) {
 // TableCell
 // ----------------------------------------------------------------------------
 
-interface TableCellProps extends React.ComponentPropsWithoutRef<'td'> {
-  children?: React.ReactNode
-
+export type TableCellProps = React.ComponentPropsWithoutRef<'td'> & {
   /**
    * Provide the scope for a table cell, useful for defining a row header using
    * `scope="row"`
    */
-  scope?: string | undefined
+  scope?: 'row' | undefined
 }
 
 function TableCell({children, scope, ...rest}: TableCellProps) {
   const BaseComponent = scope ? 'th' : 'td'
+  const role = scope ? 'rowheader' : 'cell'
 
   return (
-    <BaseComponent {...rest} className="TableCell" scope={scope}>
+    <BaseComponent {...rest} className="TableCell" scope={scope} role={role}>
       {children}
     </BaseComponent>
   )
@@ -393,15 +275,13 @@ function TableCell({children, scope, ...rest}: TableCellProps) {
 // ----------------------------------------------------------------------------
 // TableContainer
 // ----------------------------------------------------------------------------
-interface TableContainerProps {
-  children?: React.ReactNode | undefined
+export type TableContainerProps = React.PropsWithChildren<SxProp>
+
+function TableContainer({children, sx}: TableContainerProps) {
+  return <Box sx={sx}>{children}</Box>
 }
 
-function TableContainer({children}: TableContainerProps) {
-  return <Box>{children}</Box>
-}
-
-interface TableTitleProps {
+export type TableTitleProps = React.PropsWithChildren<{
   /**
    * Provide an alternate element or component to use as the container for
    * `TableSubtitle`. This is useful when specifying markup that is more
@@ -409,16 +289,14 @@ interface TableTitleProps {
    */
   as?: keyof JSX.IntrinsicElements | React.ComponentType
 
-  children?: React.ReactNode | undefined
-
   /**
    * Provide a unique id for the table subtitle. This should be used along with
    * `aria-labelledby` on `DataTable`
    */
   id: string
-}
+}>
 
-function TableTitle({as, children, id}: TableTitleProps) {
+function TableTitle({as = 'h2', children, id}: TableTitleProps) {
   return (
     <Box
       as={as}
@@ -437,7 +315,7 @@ function TableTitle({as, children, id}: TableTitleProps) {
   )
 }
 
-interface TableSubtitleProps {
+export type TableSubtitleProps = React.PropsWithChildren<{
   /**
    * Provide an alternate element or component to use as the container for
    * `TableSubtitle`. This is useful when specifying markup that is more
@@ -445,14 +323,12 @@ interface TableSubtitleProps {
    */
   as?: keyof JSX.IntrinsicElements | React.ComponentType
 
-  children?: React.ReactNode | undefined
-
   /**
    * Provide a unique id for the table subtitle. This should be used along with
    * `aria-describedby` on `DataTable`
    */
   id: string
-}
+}>
 
 function TableSubtitle({as, children, id}: TableSubtitleProps) {
   return (
@@ -500,7 +376,6 @@ const Button = styled.button`
 `
 
 export {
-  DataTable,
   Table,
   TableHead,
   TableBody,
@@ -510,4 +385,5 @@ export {
   TableContainer,
   TableTitle,
   TableSubtitle,
+  TableSortHeader,
 }
