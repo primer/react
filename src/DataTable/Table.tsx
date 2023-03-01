@@ -3,7 +3,7 @@ import React from 'react'
 import styled from 'styled-components'
 import Box from '../Box'
 import {get} from '../constants'
-import {SxProp} from '../sx'
+import sx, {SxProp} from '../sx'
 import {SortDirection} from './sorting'
 
 // ----------------------------------------------------------------------------
@@ -138,12 +138,6 @@ const StyledTable = styled.table<React.ComponentPropsWithoutRef<'table'>>`
     font-weight: 600;
     text-align: start;
   }
-
-  /* Spacing if table details are present */
-  .TableTitle + &,
-  .TableSubtitle + & {
-    margin-top: ${get('space.2')};
-  }
 `
 
 export type TableProps = React.ComponentPropsWithoutRef<'table'> & {
@@ -165,7 +159,7 @@ export type TableProps = React.ComponentPropsWithoutRef<'table'> & {
 }
 
 const Table = React.forwardRef<HTMLTableElement, TableProps>(function Table({cellPadding = 'normal', ...rest}, ref) {
-  return <StyledTable {...rest} data-cell-padding={cellPadding} ref={ref} />
+  return <StyledTable {...rest} data-cell-padding={cellPadding} className="Table" ref={ref} />
 })
 
 // ----------------------------------------------------------------------------
@@ -275,10 +269,64 @@ function TableCell({children, scope, ...rest}: TableCellProps) {
 // ----------------------------------------------------------------------------
 // TableContainer
 // ----------------------------------------------------------------------------
+const StyledTableContainer = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas:
+    'title actions'
+    'divider divider'
+    'subtitle subtitle'
+    'filter filter'
+    'table table'
+    'footer footer';
+  column-gap: ${get('space.2')};
+
+  ${sx}
+
+  /* TableTitle */
+  .TableTitle {
+    grid-area: title;
+    align-self: center;
+  }
+
+  /* TableSubtitle */
+  .TableSubtitle {
+    grid-area: subtitle;
+  }
+
+  /* TableActions */
+  .TableActions {
+    display: flex;
+    column-gap: ${get('space.2')};
+    align-items: center;
+    grid-area: actions;
+    justify-self: end;
+  }
+
+  /* TableDivider */
+  .TableDivider {
+    grid-area: divider;
+    margin-top: ${get('space.3')};
+    margin-bottom: ${get('space.2')};
+  }
+
+  /* Table */
+  .Table {
+    grid-area: table;
+  }
+
+  /* Spacing before the table */
+  .TableTitle + .Table,
+  .TableSubtitle + .Table,
+  .TableActions + .Table {
+    margin-top: ${get('space.2')};
+  }
+`
+
 export type TableContainerProps = React.PropsWithChildren<SxProp>
 
 function TableContainer({children, sx}: TableContainerProps) {
-  return <Box sx={sx}>{children}</Box>
+  return <StyledTableContainer sx={sx}>{children}</StyledTableContainer>
 }
 
 export type TableTitleProps = React.PropsWithChildren<{
@@ -349,6 +397,26 @@ function TableSubtitle({as, children, id}: TableSubtitleProps) {
   )
 }
 
+function TableDivider() {
+  return (
+    <Box
+      className="TableDivider"
+      role="presentation"
+      sx={{
+        backgroundColor: 'border.default',
+        width: '100%',
+        height: 1,
+      }}
+    />
+  )
+}
+
+export type TableActionsProps = React.PropsWithChildren
+
+function TableActions({children}: TableActionsProps) {
+  return <div className="TableActions">{children}</div>
+}
+
 // ----------------------------------------------------------------------------
 // Utilities
 // ----------------------------------------------------------------------------
@@ -376,14 +444,16 @@ const Button = styled.button`
 `
 
 export {
+  TableContainer,
+  TableTitle,
+  TableSubtitle,
+  TableActions,
+  TableDivider,
   Table,
   TableHead,
   TableBody,
   TableRow,
   TableHeader,
-  TableCell,
-  TableContainer,
-  TableTitle,
-  TableSubtitle,
   TableSortHeader,
+  TableCell,
 }

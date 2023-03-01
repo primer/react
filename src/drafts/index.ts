@@ -18,6 +18,7 @@ export type {
   TableContainerProps,
   TableTitleProps,
   TableSubtitleProps,
+  TableActionsProps,
 } from '../DataTable'
 
 export * from '../Dialog/Dialog'
