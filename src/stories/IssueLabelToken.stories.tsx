@@ -21,6 +21,11 @@ export default {
         type: 'color',
       },
     },
+    isSelected: {
+      control: {
+        type: 'boolean',
+      },
+    },
   },
   decorators: [
     Story => {
