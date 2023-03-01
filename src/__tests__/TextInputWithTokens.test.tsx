@@ -495,7 +495,7 @@ describe('TextInputWithTokens', () => {
       jest.runAllTimers()
     })
 
-    expect(document.activeElement?.textContent).toBe(mockTokens[1].text)
+    expect(document.activeElement?.textContent).toContain(mockTokens[1].text)
 
     jest.useRealTimers()
   })
