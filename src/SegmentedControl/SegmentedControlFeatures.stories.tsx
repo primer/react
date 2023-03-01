@@ -9,14 +9,6 @@ export default {
   component: SegmentedControl,
 } as Meta<typeof SegmentedControl>
 
-export const Default = () => (
-  <SegmentedControl aria-label="File view">
-    <SegmentedControl.Button defaultSelected>Preview</SegmentedControl.Button>
-    <SegmentedControl.Button>Raw</SegmentedControl.Button>
-    <SegmentedControl.Button>Blame</SegmentedControl.Button>
-  </SegmentedControl>
-)
-
 export const WithIcons = () => (
   <SegmentedControl aria-label="File view">
     <SegmentedControl.Button defaultSelected aria-label={'Preview'} leadingIcon={EyeIcon}>
