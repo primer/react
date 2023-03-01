@@ -214,6 +214,60 @@ const components = new Map([
     },
   ],
   [
+    'Checkbox',
+    {
+      stories: [
+        {
+          id: 'components-checkbox--default',
+          name: 'Default',
+        },
+        {
+          id: 'components-checkbox-features--disabled',
+          name: 'Disabled',
+        },
+        {
+          id: 'components-checkbox-features--with-caption',
+          name: 'With Caption',
+        },
+        {
+          id: 'components-checkbox-features--with-leading-visual',
+          name: 'With Leading Visual',
+        },
+      ],
+    },
+  ],
+  [
+    'CheckboxGroup',
+    {
+      stories: [
+        {
+          id: 'components-checkboxgroup--default',
+          name: 'Default',
+        },
+        {
+          id: 'components-checkboxgroup-features--caption',
+          name: 'Caption',
+        },
+        {
+          id: 'components-checkboxgroup-features--error',
+          name: 'Error',
+        },
+        {
+          id: 'components-checkboxgroup-features--success',
+          name: 'Success',
+        },
+        {
+          id: 'components-checkboxgroup-features--visually-hidden-label',
+          name: 'Visually Hidden Label',
+        },
+        {
+          id: 'components-checkboxgroup-features--warning',
+          name: 'Warning',
+        },
+      ],
+    },
+  ],
+  [
     'CounterLabel',
     {
       stories: [
