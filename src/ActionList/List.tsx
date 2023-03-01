@@ -69,7 +69,7 @@ export const List = React.forwardRef<HTMLUListElement, ActionListProps>(
     }
 
     return (
-      <>
+      <div>
         {headingProps && <Heading {...headingProps} />}
         <ListBox
           sx={merge(styles, sxProp as SxProp)}
@@ -89,7 +89,7 @@ export const List = React.forwardRef<HTMLUListElement, ActionListProps>(
             {props.children}
           </ListContext.Provider>
         </ListBox>
-      </>
+      </div>
     )
   },
 ) as PolymorphicForwardRefComponent<'ul', ActionListProps>

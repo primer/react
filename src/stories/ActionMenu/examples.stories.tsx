@@ -163,8 +163,7 @@ export function GroupsAndDescription(): JSX.Element {
             Milestone
           </ActionMenu.Button>
           <ActionMenu.Overlay width="medium">
-            <ActionList selectionVariant="single" showDividers>
-              <ActionList.Heading title="open" />
+            <ActionList selectionVariant="single" showDividers headingProps={{title: 'open'}}>
               {milestones
                 .filter(milestone => !milestone.name.includes('21'))
                 .map((milestone, index) => (
@@ -181,8 +180,7 @@ export function GroupsAndDescription(): JSX.Element {
                   </ActionList.Item>
                 ))}
             </ActionList>
-            <ActionList selectionVariant="single" showDividers>
-              <ActionList.Heading title="Closed" />
+            <ActionList selectionVariant="single" showDividers headingProps={{title: 'Closed'}}>
               {milestones
                 .filter(milestone => milestone.name.includes('21'))
                 .map((milestone, index) => (
@@ -298,8 +296,7 @@ export function MixedSelection(): JSX.Element {
           {selectedOption ? `Group by ${selectedOption.text}` : 'Group items by'}
         </ActionMenu.Button>
         <ActionMenu.Overlay width="medium">
-          <ActionList selectionVariant="single">
-            <ActionList.Heading title="Group by" />
+          <ActionList selectionVariant="single" headingProps={{title: 'Group by'}}>
             {options.map((option, index) => (
               <ActionList.Item key={index} selected={index === selectedIndex} onSelect={() => setSelectedIndex(index)}>
                 <ActionList.LeadingVisual>

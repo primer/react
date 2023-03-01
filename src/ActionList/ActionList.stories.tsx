@@ -33,7 +33,7 @@ Playground.args = {
   showDividers: false,
   selectionVariant: undefined,
   variant: 'inset',
-  role: 'listbox',
+  role: 'list',
 }
 Playground.argTypes = {
   showDividers: {
@@ -253,5 +253,5 @@ HeadingPlayground.args = {
   showDividers: false,
   selectionVariant: undefined,
   variant: 'inset',
-  role: 'listbox',
+  role: 'list',
 }
