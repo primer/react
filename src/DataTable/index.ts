@@ -27,3 +27,16 @@ const Table = Object.assign(TableImpl, {
 })
 
 export {DataTable, Table}
+export type {DataTableProps} from './DataTable'
+export type {
+  TableProps,
+  TableHeadProps,
+  TableBodyProps,
+  TableRowProps,
+  TableHeaderProps,
+  TableCellProps,
+  TableContainerProps,
+  TableTitleProps,
+  TableSubtitleProps,
+  TableActionsProps,
+} from './Table'

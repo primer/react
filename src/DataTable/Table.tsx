@@ -166,7 +166,7 @@ const Table = React.forwardRef<HTMLTableElement, TableProps>(function Table({cel
 // TableHead
 // ----------------------------------------------------------------------------
 
-type TableHeadProps = React.ComponentPropsWithoutRef<'thead'>
+export type TableHeadProps = React.ComponentPropsWithoutRef<'thead'>
 
 function TableHead({children}: TableHeadProps) {
   return <thead className="TableHead">{children}</thead>
@@ -176,7 +176,7 @@ function TableHead({children}: TableHeadProps) {
 // TableBody
 // ----------------------------------------------------------------------------
 
-type TableBodyProps = React.ComponentPropsWithoutRef<'tbody'>
+export type TableBodyProps = React.ComponentPropsWithoutRef<'tbody'>
 
 function TableBody({children}: TableBodyProps) {
   return <tbody className="TableBody">{children}</tbody>
@@ -186,7 +186,7 @@ function TableBody({children}: TableBodyProps) {
 // TableHeader
 // ----------------------------------------------------------------------------
 
-type TableHeaderProps = React.ComponentPropsWithoutRef<'th'>
+export type TableHeaderProps = React.ComponentPropsWithoutRef<'th'>
 
 function TableHeader({children, ...rest}: TableHeaderProps) {
   return (
@@ -233,7 +233,7 @@ function TableSortHeader({children, direction, onToggleSort, ...rest}: TableSort
 // TableRow
 // ----------------------------------------------------------------------------
 
-type TableRowProps = React.ComponentPropsWithoutRef<'tr'>
+export type TableRowProps = React.ComponentPropsWithoutRef<'tr'>
 
 function TableRow({children, ...rest}: TableRowProps) {
   return (
@@ -247,7 +247,7 @@ function TableRow({children, ...rest}: TableRowProps) {
 // TableCell
 // ----------------------------------------------------------------------------
 
-type TableCellProps = React.ComponentPropsWithoutRef<'td'> & {
+export type TableCellProps = React.ComponentPropsWithoutRef<'td'> & {
   /**
    * Provide the scope for a table cell, useful for defining a row header using
    * `scope="row"`
@@ -323,13 +323,13 @@ const StyledTableContainer = styled.div`
   }
 `
 
-type TableContainerProps = React.PropsWithChildren<SxProp>
+export type TableContainerProps = React.PropsWithChildren<SxProp>
 
 function TableContainer({children, sx}: TableContainerProps) {
   return <StyledTableContainer sx={sx}>{children}</StyledTableContainer>
 }
 
-type TableTitleProps = React.PropsWithChildren<{
+export type TableTitleProps = React.PropsWithChildren<{
   /**
    * Provide an alternate element or component to use as the container for
    * `TableSubtitle`. This is useful when specifying markup that is more
@@ -363,7 +363,7 @@ function TableTitle({as = 'h2', children, id}: TableTitleProps) {
   )
 }
 
-type TableSubtitleProps = React.PropsWithChildren<{
+export type TableSubtitleProps = React.PropsWithChildren<{
   /**
    * Provide an alternate element or component to use as the container for
    * `TableSubtitle`. This is useful when specifying markup that is more
@@ -411,7 +411,7 @@ function TableDivider() {
   )
 }
 
-type TableActionsProps = React.PropsWithChildren
+export type TableActionsProps = React.PropsWithChildren
 
 function TableActions({children}: TableActionsProps) {
   return <div className="TableActions">{children}</div>
@@ -454,6 +454,6 @@ export {
   TableBody,
   TableRow,
   TableHeader,
-  TableCell,
   TableSortHeader,
+  TableCell,
 }

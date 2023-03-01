@@ -7,6 +7,19 @@
  */
 
 export {DataTable, Table} from '../DataTable'
+export type {
+  DataTableProps,
+  TableProps,
+  TableHeadProps,
+  TableBodyProps,
+  TableRowProps,
+  TableHeaderProps,
+  TableCellProps,
+  TableContainerProps,
+  TableTitleProps,
+  TableSubtitleProps,
+} from '../DataTable'
+
 export * from '../Dialog/Dialog'
 
 export * from '../Hidden'
