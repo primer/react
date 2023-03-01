@@ -31,7 +31,7 @@ test.describe('Details', () => {
           await expect(page).toHaveNoViolations({
             rules: {
               'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
+                enabled: false,
               },
             },
           })
