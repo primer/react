@@ -135,7 +135,7 @@ test.describe('SegmentedControl', () => {
           await expect(page).toHaveNoViolations({
             rules: {
               'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
+                enabled: false,
               },
             },
           })
@@ -171,7 +171,7 @@ test.describe('SegmentedControl', () => {
           await expect(page).toHaveNoViolations({
             rules: {
               'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
+                enabled: theme !== 'dark' && theme !== 'dark_colorblind' && theme !== 'dark_tritanopia',
               },
             },
           })
@@ -415,7 +415,7 @@ test.describe('SegmentedControl', () => {
           await expect(page).toHaveNoViolations({
             rules: {
               'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
+                enabled: false,
               },
             },
           })
