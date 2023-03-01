@@ -17,6 +17,22 @@ test.describe('CheckboxGroup', () => {
           // Default state
           expect(await page.screenshot()).toMatchSnapshot(`CheckboxGroup.Default.${theme}.png`)
         })
+
+        test('axe @aat', async ({page}) => {
+          await visit(page, {
+            id: 'components-checkboxgroup--default',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+          await expect(page).toHaveNoViolations({
+            rules: {
+              'color-contrast': {
+                enabled: theme !== 'dark_dimmed',
+              },
+            },
+          })
+        })
       })
     }
   })
@@ -34,6 +50,22 @@ test.describe('CheckboxGroup', () => {
 
           // Default state
           expect(await page.screenshot()).toMatchSnapshot(`CheckboxGroup.Caption.${theme}.png`)
+        })
+
+        test('axe @aat', async ({page}) => {
+          await visit(page, {
+            id: 'components-checkboxgroup-features--caption',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+          await expect(page).toHaveNoViolations({
+            rules: {
+              'color-contrast': {
+                enabled: theme !== 'dark_dimmed',
+              },
+            },
+          })
         })
       })
     }
@@ -53,6 +85,22 @@ test.describe('CheckboxGroup', () => {
           // Default state
           expect(await page.screenshot()).toMatchSnapshot(`CheckboxGroup.Error.${theme}.png`)
         })
+
+        test('axe @aat', async ({page}) => {
+          await visit(page, {
+            id: 'components-checkboxgroup-features--error',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+          await expect(page).toHaveNoViolations({
+            rules: {
+              'color-contrast': {
+                enabled: theme !== 'dark_dimmed',
+              },
+            },
+          })
+        })
       })
     }
   })
@@ -70,6 +118,22 @@ test.describe('CheckboxGroup', () => {
 
           // Default state
           expect(await page.screenshot()).toMatchSnapshot(`CheckboxGroup.Success.${theme}.png`)
+        })
+
+        test('axe @aat', async ({page}) => {
+          await visit(page, {
+            id: 'components-checkboxgroup-features--success',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+          await expect(page).toHaveNoViolations({
+            rules: {
+              'color-contrast': {
+                enabled: theme !== 'dark_dimmed',
+              },
+            },
+          })
         })
       })
     }
@@ -89,6 +153,22 @@ test.describe('CheckboxGroup', () => {
           // Default state
           expect(await page.screenshot()).toMatchSnapshot(`CheckboxGroup.Visually Hidden Label.${theme}.png`)
         })
+
+        test('axe @aat', async ({page}) => {
+          await visit(page, {
+            id: 'components-checkboxgroup-features--visually-hidden-label',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+          await expect(page).toHaveNoViolations({
+            rules: {
+              'color-contrast': {
+                enabled: theme !== 'dark_dimmed',
+              },
+            },
+          })
+        })
       })
     }
   })
@@ -106,6 +186,22 @@ test.describe('CheckboxGroup', () => {
 
           // Default state
           expect(await page.screenshot()).toMatchSnapshot(`CheckboxGroup.Warning.${theme}.png`)
+        })
+
+        test('axe @aat', async ({page}) => {
+          await visit(page, {
+            id: 'components-checkboxgroup-features--warning',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+          await expect(page).toHaveNoViolations({
+            rules: {
+              'color-contrast': {
+                enabled: theme !== 'dark_dimmed',
+              },
+            },
+          })
         })
       })
     }
