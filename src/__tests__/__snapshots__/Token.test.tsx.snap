@@ -1584,24 +1584,11 @@ exports[`Token components IssueLabelToken renders all sizes 1`] = `
   line-height: 16px;
   padding-left: 4px;
   padding-right: 4px;
-  --label-r: 153;
-  --label-g: 153;
-  --label-b: 153;
-  --label-h: 0;
-  --label-s: 0;
-  --label-l: 60;
-  --perceived-lightness: calc(((var(--label-r) * 0.2126) + (var(--label-g) * 0.7152) + (var(--label-b) * 0.0722)) / 255);
-  --lightness-switch: max(0,min(calc((var(--perceived-lightness) - var(--lightness-threshold)) * -1000),1));
-  padding-right: 0;
   position: relative;
-  --lightness-threshold: 0.453;
-  --border-threshold: 0.96;
-  --border-alpha: max(0,min(calc((var(--perceived-lightness) - var(--border-threshold)) * 100),1));
-  background: rgb(var(--label-r),var(--label-g),var(--label-b));
-  color: hsl(0,0%,calc(var(--lightness-switch) * 100%));
-  border-width: 1px;
-  border-style: solid;
-  border-color: hsla(var(--label-h),calc(var(--label-s) * 1%),calc((var(--label-l) - 25) * 1%),var(--border-alpha));
+  color: #6a6a6a;
+  background: #f6f6f6;
+  border: 1px solid #cccccc;
+  padding-right: 0;
 }
 
 .c2 {
@@ -1759,24 +1746,11 @@ exports[`Token components IssueLabelToken renders all sizes 2`] = `
   line-height: 20px;
   padding-left: 8px;
   padding-right: 8px;
-  --label-r: 153;
-  --label-g: 153;
-  --label-b: 153;
-  --label-h: 0;
-  --label-s: 0;
-  --label-l: 60;
-  --perceived-lightness: calc(((var(--label-r) * 0.2126) + (var(--label-g) * 0.7152) + (var(--label-b) * 0.0722)) / 255);
-  --lightness-switch: max(0,min(calc((var(--perceived-lightness) - var(--lightness-threshold)) * -1000),1));
-  padding-right: 0;
   position: relative;
-  --lightness-threshold: 0.453;
-  --border-threshold: 0.96;
-  --border-alpha: max(0,min(calc((var(--perceived-lightness) - var(--border-threshold)) * 100),1));
-  background: rgb(var(--label-r),var(--label-g),var(--label-b));
-  color: hsl(0,0%,calc(var(--lightness-switch) * 100%));
-  border-width: 1px;
-  border-style: solid;
-  border-color: hsla(var(--label-h),calc(var(--label-s) * 1%),calc((var(--label-l) - 25) * 1%),var(--border-alpha));
+  color: #6a6a6a;
+  background: #f6f6f6;
+  border: 1px solid #cccccc;
+  padding-right: 0;
 }
 
 .c2 {
@@ -1934,24 +1908,11 @@ exports[`Token components IssueLabelToken renders all sizes 3`] = `
   line-height: 24px;
   padding-left: 8px;
   padding-right: 8px;
-  --label-r: 153;
-  --label-g: 153;
-  --label-b: 153;
-  --label-h: 0;
-  --label-s: 0;
-  --label-l: 60;
-  --perceived-lightness: calc(((var(--label-r) * 0.2126) + (var(--label-g) * 0.7152) + (var(--label-b) * 0.0722)) / 255);
-  --lightness-switch: max(0,min(calc((var(--perceived-lightness) - var(--lightness-threshold)) * -1000),1));
-  padding-right: 0;
   position: relative;
-  --lightness-threshold: 0.453;
-  --border-threshold: 0.96;
-  --border-alpha: max(0,min(calc((var(--perceived-lightness) - var(--border-threshold)) * 100),1));
-  background: rgb(var(--label-r),var(--label-g),var(--label-b));
-  color: hsl(0,0%,calc(var(--lightness-switch) * 100%));
-  border-width: 1px;
-  border-style: solid;
-  border-color: hsla(var(--label-h),calc(var(--label-s) * 1%),calc((var(--label-l) - 25) * 1%),var(--border-alpha));
+  color: #6a6a6a;
+  background: #f6f6f6;
+  border: 1px solid #cccccc;
+  padding-right: 0;
 }
 
 .c2 {
@@ -2111,24 +2072,11 @@ exports[`Token components IssueLabelToken renders all sizes 4`] = `
   padding-right: 16px;
   padding-top: 0;
   padding-bottom: 0;
-  --label-r: 153;
-  --label-g: 153;
-  --label-b: 153;
-  --label-h: 0;
-  --label-s: 0;
-  --label-l: 60;
-  --perceived-lightness: calc(((var(--label-r) * 0.2126) + (var(--label-g) * 0.7152) + (var(--label-b) * 0.0722)) / 255);
-  --lightness-switch: max(0,min(calc((var(--perceived-lightness) - var(--lightness-threshold)) * -1000),1));
-  padding-right: 0;
   position: relative;
-  --lightness-threshold: 0.453;
-  --border-threshold: 0.96;
-  --border-alpha: max(0,min(calc((var(--perceived-lightness) - var(--border-threshold)) * 100),1));
-  background: rgb(var(--label-r),var(--label-g),var(--label-b));
-  color: hsl(0,0%,calc(var(--lightness-switch) * 100%));
-  border-width: 1px;
-  border-style: solid;
-  border-color: hsla(var(--label-h),calc(var(--label-s) * 1%),calc((var(--label-l) - 25) * 1%),var(--border-alpha));
+  color: #6a6a6a;
+  background: #f6f6f6;
+  border: 1px solid #cccccc;
+  padding-right: 0;
 }
 
 .c2 {
@@ -2288,24 +2236,11 @@ exports[`Token components IssueLabelToken renders all sizes 5`] = `
   padding-right: 16px;
   padding-top: 0;
   padding-bottom: 0;
-  --label-r: 153;
-  --label-g: 153;
-  --label-b: 153;
-  --label-h: 0;
-  --label-s: 0;
-  --label-l: 60;
-  --perceived-lightness: calc(((var(--label-r) * 0.2126) + (var(--label-g) * 0.7152) + (var(--label-b) * 0.0722)) / 255);
-  --lightness-switch: max(0,min(calc((var(--perceived-lightness) - var(--lightness-threshold)) * -1000),1));
-  padding-right: 0;
   position: relative;
-  --lightness-threshold: 0.453;
-  --border-threshold: 0.96;
-  --border-alpha: max(0,min(calc((var(--perceived-lightness) - var(--border-threshold)) * 100),1));
-  background: rgb(var(--label-r),var(--label-g),var(--label-b));
-  color: hsl(0,0%,calc(var(--lightness-switch) * 100%));
-  border-width: 1px;
-  border-style: solid;
-  border-color: hsla(var(--label-h),calc(var(--label-s) * 1%),calc((var(--label-l) - 25) * 1%),var(--border-alpha));
+  color: #6a6a6a;
+  background: #f6f6f6;
+  border: 1px solid #cccccc;
+  padding-right: 0;
 }
 
 .c2 {
@@ -2544,24 +2479,11 @@ exports[`Token components IssueLabelToken renders custom fill color 1`] = `
   line-height: 20px;
   padding-left: 8px;
   padding-right: 8px;
-  --label-r: 3;
-  --label-g: 102;
-  --label-b: 214;
-  --label-h: 212;
-  --label-s: 97;
-  --label-l: 43;
-  --perceived-lightness: calc(((var(--label-r) * 0.2126) + (var(--label-g) * 0.7152) + (var(--label-b) * 0.0722)) / 255);
-  --lightness-switch: max(0,min(calc((var(--perceived-lightness) - var(--lightness-threshold)) * -1000),1));
-  padding-right: 0;
   position: relative;
-  --lightness-threshold: 0.453;
-  --border-threshold: 0.96;
-  --border-alpha: max(0,min(calc((var(--perceived-lightness) - var(--border-threshold)) * 100),1));
-  background: rgb(var(--label-r),var(--label-g),var(--label-b));
-  color: hsl(0,0%,calc(var(--lightness-switch) * 100%));
-  border-width: 1px;
-  border-style: solid;
-  border-color: hsla(var(--label-h),calc(var(--label-s) * 1%),calc((var(--label-l) - 25) * 1%),var(--border-alpha));
+  color: #3267c6;
+  background: #f4f6fe;
+  border: 1px solid #c0cbf0;
+  padding-right: 0;
 }
 
 .c2 {
@@ -2719,24 +2641,11 @@ exports[`Token components IssueLabelToken renders default fill color 1`] = `
   line-height: 20px;
   padding-left: 8px;
   padding-right: 8px;
-  --label-r: 153;
-  --label-g: 153;
-  --label-b: 153;
-  --label-h: 0;
-  --label-s: 0;
-  --label-l: 60;
-  --perceived-lightness: calc(((var(--label-r) * 0.2126) + (var(--label-g) * 0.7152) + (var(--label-b) * 0.0722)) / 255);
-  --lightness-switch: max(0,min(calc((var(--perceived-lightness) - var(--lightness-threshold)) * -1000),1));
-  padding-right: 0;
   position: relative;
-  --lightness-threshold: 0.453;
-  --border-threshold: 0.96;
-  --border-alpha: max(0,min(calc((var(--perceived-lightness) - var(--border-threshold)) * 100),1));
-  background: rgb(var(--label-r),var(--label-g),var(--label-b));
-  color: hsl(0,0%,calc(var(--lightness-switch) * 100%));
-  border-width: 1px;
-  border-style: solid;
-  border-color: hsla(var(--label-h),calc(var(--label-s) * 1%),calc((var(--label-l) - 25) * 1%),var(--border-alpha));
+  color: #6a6a6a;
+  background: #f6f6f6;
+  border: 1px solid #cccccc;
+  padding-right: 0;
 }
 
 .c2 {
@@ -2894,23 +2803,10 @@ exports[`Token components IssueLabelToken renders isSelected 1`] = `
   line-height: 20px;
   padding-left: 8px;
   padding-right: 8px;
-  --label-r: 153;
-  --label-g: 153;
-  --label-b: 153;
-  --label-h: 0;
-  --label-s: 0;
-  --label-l: 60;
-  --perceived-lightness: calc(((var(--label-r) * 0.2126) + (var(--label-g) * 0.7152) + (var(--label-b) * 0.0722)) / 255);
-  --lightness-switch: max(0,min(calc((var(--perceived-lightness) - var(--lightness-threshold)) * -1000),1));
   position: relative;
-  --lightness-threshold: 0.453;
-  --border-threshold: 0.96;
-  --border-alpha: max(0,min(calc((var(--perceived-lightness) - var(--border-threshold)) * 100),1));
-  background: hsl(var(--label-h),calc(var(--label-s) * 1%),calc((var(--label-l) - 5) * 1%));
-  color: hsl(0,0%,calc(var(--lightness-switch) * 100%));
-  border-width: 1px;
-  border-style: solid;
-  border-color: hsla(var(--label-h),calc(var(--label-s) * 1%),calc((var(--label-l) - 25) * 1%),var(--border-alpha));
+  color: #6a6a6a;
+  background: #f6f6f6;
+  border: 1px solid #cccccc;
 }
 
 .c0:focus {
@@ -2927,7 +2823,7 @@ exports[`Token components IssueLabelToken renders isSelected 1`] = `
   left: -2px;
   display: block;
   pointer-events: none;
-  box-shadow: 0 0 0 2px rgb(var(--label-r),var(--label-g),var(--label-b));
+  box-shadow: 0 0 0 2px #6a6a6a;
   border-radius: 999px;
 }
 
@@ -3006,24 +2902,11 @@ exports[`Token components IssueLabelToken renders with a remove button 1`] = `
   line-height: 20px;
   padding-left: 8px;
   padding-right: 8px;
-  --label-r: 153;
-  --label-g: 153;
-  --label-b: 153;
-  --label-h: 0;
-  --label-s: 0;
-  --label-l: 60;
-  --perceived-lightness: calc(((var(--label-r) * 0.2126) + (var(--label-g) * 0.7152) + (var(--label-b) * 0.0722)) / 255);
-  --lightness-switch: max(0,min(calc((var(--perceived-lightness) - var(--lightness-threshold)) * -1000),1));
-  padding-right: 0;
   position: relative;
-  --lightness-threshold: 0.453;
-  --border-threshold: 0.96;
-  --border-alpha: max(0,min(calc((var(--perceived-lightness) - var(--border-threshold)) * 100),1));
-  background: rgb(var(--label-r),var(--label-g),var(--label-b));
-  color: hsl(0,0%,calc(var(--lightness-switch) * 100%));
-  border-width: 1px;
-  border-style: solid;
-  border-color: hsla(var(--label-h),calc(var(--label-s) * 1%),calc((var(--label-l) - 25) * 1%),var(--border-alpha));
+  color: #6a6a6a;
+  background: #f6f6f6;
+  border: 1px solid #cccccc;
+  padding-right: 0;
 }
 
 .c2 {
