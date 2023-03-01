@@ -8,7 +8,9 @@ exports[`ActionList renders consistently 1`] = `
   padding-bottom: 8px;
 }
 
-<ul
-  className="c0"
-/>
+<div>
+  <ul
+    className="c0"
+  />
+</div>
 `;
