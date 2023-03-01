@@ -326,6 +326,21 @@ const components = new Map([
     },
   ],
   [
+    'Dialog',
+    {
+      stories: [
+        {
+          id: 'components-dialog--default',
+          name: 'Default',
+        },
+        {
+          id: 'components-dialog-features--basic-dialog',
+          name: 'Basic Dialog',
+        },
+      ],
+    },
+  ],
+  [
     'Flash',
     {
       stories: [

@@ -3,10 +3,10 @@ import {Meta} from '@storybook/react'
 
 import {BaseStyles, ThemeProvider, Box} from '..'
 import {Button} from '../Button'
-import {Dialog, DialogProps, DialogWidth, DialogHeight} from '../Dialog/Dialog'
+import {Dialog, DialogProps, DialogWidth, DialogHeight} from './Dialog'
 
 export default {
-  title: 'Components/Dialog',
+  title: 'Components/Dialog/Features',
   component: Dialog,
   decorators: [
     Story => {
@@ -105,6 +105,7 @@ interface DialogStoryProps {
   height: DialogHeight
   subtitle: boolean
 }
+
 export const BasicDialog = ({width, height, subtitle}: DialogStoryProps) => {
   const [isOpen, setIsOpen] = useState(false)
   const [secondOpen, setSecondOpen] = useState(false)
