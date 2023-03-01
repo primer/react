@@ -142,7 +142,7 @@ export default IssueLabelToken
 function useColorMode(): 'light' | 'dark' {
   const {theme} = useTheme()
   // Determine color mode by luminance
-  const colorMode = getLuminance(get('colors.canvas.default')({theme})) > 0.5 ? 'light' : 'dark'
+  const colorMode = getLuminance(get('colors.canvas.default')({theme}) || '#fff') > 0.5 ? 'light' : 'dark'
   return colorMode
 }
 
