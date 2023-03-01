@@ -17,6 +17,7 @@ const allowlist = [
   'CounterLabel',
   'Details',
   'Flash',
+  'Heading',
   'IconButton',
   'FilteredActionList',
   'Link',
