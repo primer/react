@@ -256,6 +256,17 @@ const components = new Map([
     },
   ],
   [
+    'Heading',
+    {
+      stories: [
+        {
+          id: 'components-heading--default',
+          name: 'Default',
+        },
+      ],
+    },
+  ],
+  [
     'IconButton',
     {
       stories: [

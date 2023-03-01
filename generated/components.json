@@ -563,24 +563,6 @@
         }
       ]
     },
-    "heading": {
-      "id": "heading",
-      "name": "Heading",
-      "status": "alpha",
-      "a11yReviewed": false,
-      "stories": [],
-      "props": [
-        {
-          "name": "sx",
-          "type": "SystemStyleObject"
-        },
-        {
-          "name": "as",
-          "type": "React.ElementType",
-          "defaultValue": "\"h2\""
-        }
-      ]
-    },
     "label_group": {
       "id": "label_group",
       "name": "LabelGroup",
@@ -2787,6 +2769,29 @@
               "type": "SystemStyleObject"
             }
           ]
+        }
+      ]
+    },
+    "heading": {
+      "id": "heading",
+      "name": "Heading",
+      "status": "alpha",
+      "a11yReviewed": false,
+      "stories": [
+        {
+          "id": "components-heading--default",
+          "code": "() => <Heading>Default H2 Heading</Heading>"
+        }
+      ],
+      "props": [
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        },
+        {
+          "name": "as",
+          "type": "React.ElementType",
+          "defaultValue": "\"h2\""
         }
       ]
     },

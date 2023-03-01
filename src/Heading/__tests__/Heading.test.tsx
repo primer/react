@@ -1,9 +1,9 @@
 import React from 'react'
-import {Heading} from '..'
-import {render, behavesAsComponent, checkExports} from '../utils/testing'
+import {Heading} from '../..'
+import {render, behavesAsComponent, checkExports} from '../../utils/testing'
 import {render as HTMLRender} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
-import ThemeProvider from '../ThemeProvider'
+import ThemeProvider from '../../ThemeProvider'
 expect.extend(toHaveNoViolations)
 
 const theme = {
