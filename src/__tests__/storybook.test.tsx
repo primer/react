@@ -15,6 +15,7 @@ const allowlist = [
   'BranchName',
   'Button',
   'CounterLabel',
+  'Details',
   'Flash',
   'IconButton',
   'FilteredActionList',
