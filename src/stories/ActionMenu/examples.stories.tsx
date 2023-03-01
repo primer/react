@@ -163,7 +163,7 @@ export function GroupsAndDescription(): JSX.Element {
             Milestone
           </ActionMenu.Button>
           <ActionMenu.Overlay width="medium">
-            <ActionList selectionVariant="single" showDividers headingProps={{title: 'open'}}>
+            <ActionList selectionVariant="single" showDividers headingProps={{title: 'Open'}}>
               {milestones
                 .filter(milestone => !milestone.name.includes('21'))
                 .map((milestone, index) => (
@@ -287,8 +287,9 @@ export function MixedSelection(): JSX.Element {
       <h1>List with mixed selection</h1>
 
       <p>
-        In this list, there is a ActionList.Group with single selection for picking one option, followed by a Item that
-        is an action. This pattern appears inside a ActionMenu for selection view options in Memex
+        In this list, there is a ActionList with single selection for picking one option, followed by another ActionList
+        with a single Item that is an action. This pattern appears inside a ActionMenu for selection view options in
+        Memex.
       </p>
 
       <ActionMenu>

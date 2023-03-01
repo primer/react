@@ -7,7 +7,7 @@
   "props": [
     {
       "name": "children",
-      "type": "ActionList.Heading | ActionList.Item[] | ActionList.LinkItem[] | ActionList.Divider[]",
+      "type": "ActionList.Item[] | ActionList.LinkItem[] | ActionList.Divider[]",
       "defaultValue": "",
       "required": true,
       "description": ""
@@ -35,6 +35,12 @@
       "type": "AriaRole",
       "defaultValue": "",
       "description": "ARIA role describing the function of the list. `listbox` and `menu` are a common values."
+    },
+    {
+      "name": "headingProps",
+      "type": "object",
+      "defaultValue": "{}",
+      "description": "Properties used to render a heading for an ActionList."
     },
     {
       "name": "sx",

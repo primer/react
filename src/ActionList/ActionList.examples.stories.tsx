@@ -132,8 +132,8 @@ export function MixedSelection(): JSX.Element {
       <h1>List with mixed selection</h1>
 
       <p>
-        In this list, there is a ActionList.Group with single selection for picking one option, followed by a Item that
-        is an action. This pattern appears inside a menu for selection view options in Memex
+        In this list, there is a ActionList with single selection for picking one option, followed by another ActionList
+        with a single Item that is an action. This pattern appears inside a menu for selection view options in Memex.
       </p>
 
       <ActionList headingProps={{title: 'Group by'}} selectionVariant="single" role="listbox">

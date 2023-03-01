@@ -21,7 +21,7 @@ export const Selection: React.FC<React.PropsWithChildren<SelectionProps>> = ({se
     // fail loudly instead of silently ignoring
     if (selected) {
       throw new Error(
-        'For Item to be selected, ActionList or ActionList.Group needs to have a selectionVariant defined',
+        'For Item to be selected, ActionList needs to have a selectionVariant defined',
       )
     } else {
       return null
