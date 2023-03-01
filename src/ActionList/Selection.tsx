@@ -20,9 +20,7 @@ export const Selection: React.FC<React.PropsWithChildren<SelectionProps>> = ({se
     // if selectionVariant is not set on List, but Item is selected
     // fail loudly instead of silently ignoring
     if (selected) {
-      throw new Error(
-        'For Item to be selected, ActionList needs to have a selectionVariant defined',
-      )
+      throw new Error('For Item to be selected, ActionList needs to have a selectionVariant defined')
     } else {
       return null
     }
