@@ -6,6 +6,7 @@ import {ComponentProps} from './utils/types'
 const ButtonGroup = styled.div`
   display: inline-flex;
   vertical-align: middle;
+  isolation: isolate;
 
   && > * {
     position: relative;
@@ -27,15 +28,6 @@ const ButtonGroup = styled.div`
       border-right-width: 1px;
       border-top-right-radius: ${get('radii.2')};
       border-bottom-right-radius: ${get('radii.2')};
-    }
-
-    :focus,
-    :active,
-    :hover {
-      border-right-width: 1px;
-      + * {
-        border-left-width: 0;
-      }
     }
 
     :focus,

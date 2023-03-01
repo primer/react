@@ -134,3 +134,12 @@ Of course, customize the array based on the `@types/` packages you have installe
 ## Silencing warnings
 
 Like React, Primer React emits warnings to the JavaScript console under certain conditions, like using deprecated components or props. Similar to React, you can silence these warnings by setting the `NODE_ENV` environment variable to `production` during bundling.
+
+## Testing
+
+Testing your application with Primer React is no different than testing your application with any other React library. Depending on your test environment and the testing libraries you use, you may need polyfills. For example if you are using `jest`, it runs via Node runtime and uses [JSDOM](https://github.com/jsdom/jsdom) as a DOM implementation, so you will need to mock some browser APIs. We have [helpers](https://github.com/primer/react/blob/main/src/utils/test-helpers.tsx) that you can utilize to mock some of these APIs. You can import the helpers in your test setup file like so:
+
+```js
+import '@primer/react/lib-esm/utils/test-helpers' // For ESM
+import '@primer/react/lib/utils/test-helpers' // For CommonJS
+```

@@ -45,7 +45,7 @@ export const getSegmentedControlButtonStyles = (
 
   '.segmentedControl-content': {
     alignItems: 'center',
-    backgroundColor: props?.selected ? 'btn.bg' : 'transparent',
+    backgroundColor: props?.selected ? 'segmentedControl.button.bg' : 'transparent',
     borderColor: props?.selected ? 'segmentedControl.button.selected.border' : 'transparent',
     borderStyle: 'solid',
     borderWidth: 1,
@@ -115,5 +115,9 @@ export const getSegmentedControlListItemStyles = () => ({
   marginTop: '-1px',
   marginBottom: '-1px',
   ':not(:last-child)': borderedSegment,
+  // Needed to hide the segment border when the button is focused. Without this, the segment border overlaps the focus outline.
+  ':focus-within:has(:focus-visible)': {
+    '--separator-color': 'transparent',
+  },
   ...directChildLayoutAdjustments,
 })
