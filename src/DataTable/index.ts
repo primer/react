@@ -1,4 +1,4 @@
-import {DataTable, DataTableProps} from './DataTable'
+import {DataTable} from './DataTable'
 import {
   Table as TableImpl,
   TableHead,
@@ -9,15 +9,6 @@ import {
   TableContainer,
   TableTitle,
   TableSubtitle,
-  TableProps,
-  TableHeadProps,
-  TableBodyProps,
-  TableRowProps,
-  TableHeaderProps,
-  TableCellProps,
-  TableContainerProps,
-  TableTitleProps,
-  TableSubtitleProps,
 } from './Table'
 
 const Table = Object.assign(TableImpl, {
@@ -31,10 +22,9 @@ const Table = Object.assign(TableImpl, {
   Cell: TableCell,
 })
 
-export {
-  DataTable,
-  DataTableProps,
-  Table,
+export {DataTable, Table}
+export type {DataTableProps} from './DataTable'
+export type {
   TableProps,
   TableHeadProps,
   TableBodyProps,
@@ -44,4 +34,4 @@ export {
   TableContainerProps,
   TableTitleProps,
   TableSubtitleProps,
-}
+} from './Table'
