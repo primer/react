@@ -172,5 +172,4 @@ describe('CheckboxGroup', () => {
   })
 })
 
-checkStoriesForAxeViolations('CheckboxGroup/fixtures')
-checkStoriesForAxeViolations('CheckboxGroup/examples')
+checkStoriesForAxeViolations('CheckboxGroup.features', '../CheckboxGroup/')
