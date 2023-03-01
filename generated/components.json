@@ -2238,7 +2238,12 @@
       "name": "Checkbox",
       "status": "alpha",
       "a11yReviewed": false,
-      "stories": [],
+      "stories": [
+        {
+          "id": "components-checkbox--default",
+          "code": "() => (\n  <Box as=\"form\">\n    <FormControl>\n      <Checkbox value=\"default\" />\n      <FormControl.Label>Default label</FormControl.Label>\n    </FormControl>\n  </Box>\n)"
+        }
+      ],
       "props": [
         {
           "name": "checked",
@@ -2303,7 +2308,12 @@
       "name": "CheckboxGroup",
       "status": "alpha",
       "a11yReviewed": false,
-      "stories": [],
+      "stories": [
+        {
+          "id": "components-checkboxgroup--default",
+          "code": "() => (\n  <CheckboxGroup>\n    <CheckboxGroup.Label>Choices</CheckboxGroup.Label>\n    <FormControl>\n      <Checkbox value=\"one\" defaultChecked />\n      <FormControl.Label>Choice one</FormControl.Label>\n    </FormControl>\n    <FormControl>\n      <Checkbox value=\"two\" defaultChecked />\n      <FormControl.Label>Choice two</FormControl.Label>\n    </FormControl>\n    <FormControl>\n      <Checkbox value=\"three\" />\n      <FormControl.Label>Choice three</FormControl.Label>\n    </FormControl>\n  </CheckboxGroup>\n)"
+        }
+      ],
       "props": [
         {
           "name": "aria-labelledby",
