@@ -1060,29 +1060,6 @@
       ],
       "subcomponents": []
     },
-    "state_label": {
-      "id": "state_label",
-      "name": "StateLabel",
-      "status": "alpha",
-      "a11yReviewed": false,
-      "stories": [],
-      "props": [
-        {
-          "name": "variant",
-          "type": "'small' | 'normal'",
-          "defaultValue": "'normal'"
-        },
-        {
-          "name": "status",
-          "type": "'issueOpened' | 'issueClosed' | 'issueClosedNotPlanned' | 'pullOpened' | 'pullClosed' | 'pullMerged' | 'draft' | 'issueDraft'"
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject"
-        }
-      ],
-      "subcomponents": []
-    },
     "styled_octicon": {
       "id": "styled_octicon",
       "name": "StyledOcticon",
@@ -4111,6 +4088,34 @@
           ]
         }
       ]
+    },
+    "state_label": {
+      "id": "state_label",
+      "name": "StateLabel",
+      "status": "alpha",
+      "a11yReviewed": false,
+      "stories": [
+        {
+          "id": "components-statelabel--default",
+          "code": "() => <StateLabel status=\"issueOpened\">Open</StateLabel>"
+        }
+      ],
+      "props": [
+        {
+          "name": "variant",
+          "type": "'small' | 'normal'",
+          "defaultValue": "'normal'"
+        },
+        {
+          "name": "status",
+          "type": "'issueOpened' | 'issueClosed' | 'issueClosedNotPlanned' | 'pullOpened' | 'pullClosed' | 'pullMerged' | 'draft' | 'issueDraft'"
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ],
+      "subcomponents": []
     },
     "tab_nav": {
       "id": "tab_nav",
