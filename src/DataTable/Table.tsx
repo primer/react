@@ -286,6 +286,7 @@ const StyledTableContainer = styled.div`
   /* TableTitle */
   .TableTitle {
     grid-area: title;
+    align-self: center;
   }
 
   /* TableSubtitle */
