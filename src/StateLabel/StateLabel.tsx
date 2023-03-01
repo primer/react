@@ -10,10 +10,10 @@ import {
 import React from 'react'
 import styled from 'styled-components'
 import {variant} from 'styled-system'
-import {get} from './constants'
-import StyledOcticon from './StyledOcticon'
-import sx, {SxProp} from './sx'
-import {ComponentProps} from './utils/types'
+import {get} from '../constants'
+import StyledOcticon from '../StyledOcticon'
+import sx, {SxProp} from '../sx'
+import {ComponentProps} from '../utils/types'
 
 const octiconMap = {
   issueOpened: IssueOpenedIcon,

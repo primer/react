@@ -19,6 +19,7 @@ const allowlist = [
   'IconButton',
   'FilteredActionList',
   'Link',
+  'StateLabel',
   'TabNav',
   'TreeView',
   'Timeline',
