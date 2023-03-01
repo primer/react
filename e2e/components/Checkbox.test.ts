@@ -15,7 +15,7 @@ test.describe('Checkbox', () => {
           })
 
           // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`Checkbox.Default.${theme}.png`)
+          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(`Checkbox.Default.${theme}.png`)
         })
 
         test('axe @aat', async ({page}) => {
@@ -49,7 +49,7 @@ test.describe('Checkbox', () => {
           })
 
           // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`Checkbox.Disabled.${theme}.png`)
+          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(`Checkbox.Disabled.${theme}.png`)
         })
 
         test('axe @aat', async ({page}) => {
@@ -83,7 +83,7 @@ test.describe('Checkbox', () => {
           })
 
           // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`Checkbox.With Caption.${theme}.png`)
+          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(`Checkbox.With Caption.${theme}.png`)
         })
 
         test('axe @aat', async ({page}) => {
@@ -117,7 +117,9 @@ test.describe('Checkbox', () => {
           })
 
           // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`Checkbox.With Leading Visual.${theme}.png`)
+          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
+            `Checkbox.With Leading Visual.${theme}.png`,
+          )
         })
 
         test('axe @aat', async ({page}) => {
