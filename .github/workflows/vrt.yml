@@ -31,7 +31,7 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        shard: [1, 2]
+        shard: [1, 2, 3, 4]
     steps:
       - uses: actions/checkout@v3
       - name: Set up Node.js
