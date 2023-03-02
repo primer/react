@@ -253,7 +253,7 @@ test.describe('ToggleSwitch', () => {
           })
 
           // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`ToggleSwitch.Loading.${theme}.png`)
+          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(`ToggleSwitch.Loading.${theme}.png`)
         })
 
         test('axe @aat', async ({page}) => {
