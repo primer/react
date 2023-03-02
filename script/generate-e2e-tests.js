@@ -72,6 +72,49 @@ const components = new Map([
     },
   ],
   [
+    'ActionMenu',
+    {
+      stories: [
+        {
+          id: 'components-actionmenu--default',
+          name: 'Default',
+        },
+        {
+          id: 'components-actionmenu-features--links-and-actions',
+          name: 'Links And Actions',
+        },
+        {
+          id: 'components-actionmenu-features--multi-select',
+          name: 'Multi Select',
+        },
+        {
+          id: 'components-actionmenu-features--single-select',
+          name: 'Single Select',
+        },
+        {
+          id: 'components-actionmenu-examples--controlled-menu',
+          name: 'Controlled Menu',
+        },
+        {
+          id: 'components-actionmenu-examples--custom-anchor',
+          name: 'Custom Anchor',
+        },
+        {
+          id: 'components-actionmenu-examples--custom-overlay-props',
+          name: 'Custom Overlay Props',
+        },
+        {
+          id: 'components-actionmenu-examples--groups-and-descriptions',
+          name: 'Groups And Descriptions',
+        },
+        {
+          id: 'components-actionmenu-examples--multiple-sections',
+          name: 'Multiple Sections',
+        },
+      ],
+    },
+  ],
+  [
     'Avatar',
     {
       stories: [

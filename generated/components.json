@@ -1,92 +1,6 @@
 {
   "schemaVersion": 2,
   "components": {
-    "action_menu": {
-      "id": "action_menu",
-      "name": "ActionMenu",
-      "status": "beta",
-      "a11yReviewed": true,
-      "stories": [],
-      "props": [
-        {
-          "name": "children",
-          "type": "React.ReactElement[]",
-          "defaultValue": "",
-          "required": true,
-          "description": "Recommended: `ActionMenu.Button` or `ActionMenu.Anchor` with `ActionMenu.Overlay`"
-        },
-        {
-          "name": "open",
-          "type": "boolean",
-          "defaultValue": "false",
-          "description": "If defined, will control the open/closed state of the overlay. Must be used in conjuction with `onOpenChange`."
-        },
-        {
-          "name": "onOpenChange",
-          "type": "(open: boolean) => void",
-          "defaultValue": "",
-          "description": "If defined, will control the open/closed state of the overlay. Must be used in conjuction with `open`."
-        },
-        {
-          "name": "anchorRef",
-          "type": "React.RefObject<HTMLElement>",
-          "defaultValue": "",
-          "description": "Useful for defining an external anchor"
-        }
-      ],
-      "subcomponents": [
-        {
-          "name": "ActionMenu.Button",
-          "props": [
-            {
-              "name": "children",
-              "type": "React.ReactElement",
-              "defaultValue": "",
-              "required": true,
-              "description": ""
-            }
-          ],
-          "passthrough": {
-            "element": "Button",
-            "url": "/react/Button"
-          }
-        },
-        {
-          "name": "ActionMenu.Anchor",
-          "props": [
-            {
-              "name": "children",
-              "type": "React.ReactElement",
-              "defaultValue": "",
-              "required": true,
-              "description": "Accepts a single child element"
-            }
-          ]
-        },
-        {
-          "name": "ActionMenu.Overlay",
-          "props": [
-            {
-              "name": "children",
-              "type": "React.ReactNode",
-              "defaultValue": "",
-              "required": true,
-              "description": ""
-            },
-            {
-              "name": "align",
-              "type": "start | center | end",
-              "defaultValue": "start",
-              "description": ""
-            }
-          ],
-          "passthrough": {
-            "element": "Overlay",
-            "url": "/react/Overlay"
-          }
-        }
-      ]
-    },
     "box": {
       "id": "box",
       "name": "Box",
@@ -1659,6 +1573,97 @@
               "type": "SystemStyleObject"
             }
           ]
+        }
+      ]
+    },
+    "action_menu": {
+      "id": "action_menu",
+      "name": "ActionMenu",
+      "status": "beta",
+      "a11yReviewed": true,
+      "stories": [
+        {
+          "id": "components-actionmenu--default",
+          "code": "() => (\n  <ActionMenu>\n    <ActionMenu.Button>Open menu</ActionMenu.Button>\n    <ActionMenu.Overlay width=\"medium\">\n      <ActionList>\n        <ActionList.Item onSelect={() => alert('Copy link clicked')}>\n          Copy link\n          <ActionList.TrailingVisual>⌘C</ActionList.TrailingVisual>\n        </ActionList.Item>\n        <ActionList.Item onSelect={() => alert('Quote reply clicked')}>\n          Quote reply\n          <ActionList.TrailingVisual>⌘Q</ActionList.TrailingVisual>\n        </ActionList.Item>\n        <ActionList.Item onSelect={() => alert('Edit comment clicked')}>\n          Edit comment\n          <ActionList.TrailingVisual>⌘E</ActionList.TrailingVisual>\n        </ActionList.Item>\n        <ActionList.Divider />\n        <ActionList.Item\n          variant=\"danger\"\n          onSelect={() => alert('Delete file clicked')}\n        >\n          Delete file\n          <ActionList.TrailingVisual>⌘D</ActionList.TrailingVisual>\n        </ActionList.Item>\n      </ActionList>\n    </ActionMenu.Overlay>\n  </ActionMenu>\n)"
+        }
+      ],
+      "props": [
+        {
+          "name": "children",
+          "type": "React.ReactElement[]",
+          "defaultValue": "",
+          "required": true,
+          "description": "Recommended: `ActionMenu.Button` or `ActionMenu.Anchor` with `ActionMenu.Overlay`"
+        },
+        {
+          "name": "open",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "If defined, will control the open/closed state of the overlay. Must be used in conjuction with `onOpenChange`."
+        },
+        {
+          "name": "onOpenChange",
+          "type": "(open: boolean) => void",
+          "defaultValue": "",
+          "description": "If defined, will control the open/closed state of the overlay. Must be used in conjuction with `open`."
+        },
+        {
+          "name": "anchorRef",
+          "type": "React.RefObject<HTMLElement>",
+          "defaultValue": "",
+          "description": "Useful for defining an external anchor"
+        }
+      ],
+      "subcomponents": [
+        {
+          "name": "ActionMenu.Button",
+          "props": [
+            {
+              "name": "children",
+              "type": "React.ReactElement",
+              "defaultValue": "",
+              "required": true,
+              "description": ""
+            }
+          ],
+          "passthrough": {
+            "element": "Button",
+            "url": "/react/Button"
+          }
+        },
+        {
+          "name": "ActionMenu.Anchor",
+          "props": [
+            {
+              "name": "children",
+              "type": "React.ReactElement",
+              "defaultValue": "",
+              "required": true,
+              "description": "Accepts a single child element"
+            }
+          ]
+        },
+        {
+          "name": "ActionMenu.Overlay",
+          "props": [
+            {
+              "name": "children",
+              "type": "React.ReactNode",
+              "defaultValue": "",
+              "required": true,
+              "description": ""
+            },
+            {
+              "name": "align",
+              "type": "start | center | end",
+              "defaultValue": "start",
+              "description": ""
+            }
+          ],
+          "passthrough": {
+            "element": "Overlay",
+            "url": "/react/Overlay"
+          }
         }
       ]
     },
