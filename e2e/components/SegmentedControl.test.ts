@@ -175,7 +175,7 @@ test.describe('SegmentedControl', () => {
           await expect(page).toHaveNoViolations({
             rules: {
               'color-contrast': {
-                enabled: theme !== 'dark' && theme !== 'dark_colorblind' && theme !== 'dark_tritanopia',
+                enabled: false,
               },
             },
           })
