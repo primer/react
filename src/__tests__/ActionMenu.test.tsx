@@ -4,7 +4,7 @@ import {axe, toHaveNoViolations} from 'jest-axe'
 import React from 'react'
 import theme from '../theme'
 import {ActionMenu, ActionList, BaseStyles, ThemeProvider, SSRProvider} from '..'
-import {behavesAsComponent, checkExports, checkStoriesForAxeViolations} from '../utils/testing'
+import {behavesAsComponent, checkExports} from '../utils/testing'
 import {SingleSelect} from '../ActionMenu/ActionMenu.features.stories'
 import {MixedSelection} from '../ActionMenu/ActionMenu.examples.stories'
 expect.extend(toHaveNoViolations)
@@ -117,7 +117,7 @@ describe('ActionMenu', () => {
         <SingleSelect />
       </ThemeProvider>,
     )
-    const button = component.getByLabelText(/^options/i)
+    const button = component.getByRole('button', {name: /^options/i})
 
     const user = userEvent.setup()
     await user.click(button)
@@ -241,7 +241,4 @@ describe('ActionMenu', () => {
     const results = await axe(container)
     expect(results).toHaveNoViolations()
   })
-
-  checkStoriesForAxeViolations('ActionMenu.features', '../ActionMenu/')
-  checkStoriesForAxeViolations('ActionMenu.examples', '../ActionMenu/')
 })

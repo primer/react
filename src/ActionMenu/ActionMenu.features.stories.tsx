@@ -7,7 +7,7 @@ export default {
 }
 
 export const LinksAndActions = () => (
-  <ActionMenu open>
+  <ActionMenu>
     <ActionMenu.Button>Open menu</ActionMenu.Button>
     <ActionMenu.Overlay width="auto">
       <ActionList>
@@ -74,7 +74,7 @@ export const SingleSelect = () => {
   const selectedType = options[selectedIndex]
 
   return (
-    <ActionMenu open>
+    <ActionMenu>
       <ActionMenu.Button>Options: {selectedType.name}</ActionMenu.Button>
       <ActionMenu.Overlay width="auto">
         <ActionList selectionVariant="single">
@@ -108,7 +108,7 @@ export const MultiSelect = () => {
   }
 
   return (
-    <ActionMenu open>
+    <ActionMenu>
       <ActionMenu.Button>Display</ActionMenu.Button>
       <ActionMenu.Overlay width="auto">
         <ActionList selectionVariant="multiple">
