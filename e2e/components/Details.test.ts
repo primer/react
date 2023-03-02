@@ -18,8 +18,9 @@ test.describe('Details', () => {
           expect(await page.screenshot()).toMatchSnapshot(`Details.Default.${theme}.png`)
           // Click the summary to open
           await page.getByText('See Details').click()
+          await page.getByText('This is some content').waitFor()
           // Open state
-          expect(await page.screenshot()).toMatchSnapshot(`Details.Default.${theme}.png`)
+          expect(await page.screenshot()).toMatchSnapshot(`Details.Default.${theme}.open.png`)
         })
 
         test('axe @aat', async ({page}) => {
