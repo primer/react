@@ -968,7 +968,6 @@ exports[`ChoiceFieldset renders a list with selected items 1`] = `
           >
             <input
               aria-checked="true"
-              aria-disabled="false"
               aria-invalid="false"
               aria-required="false"
               checked={true}
@@ -1003,7 +1002,6 @@ exports[`ChoiceFieldset renders a list with selected items 1`] = `
           >
             <input
               aria-checked="true"
-              aria-disabled="false"
               aria-invalid="false"
               aria-required="false"
               checked={true}
@@ -1038,7 +1036,6 @@ exports[`ChoiceFieldset renders a list with selected items 1`] = `
           >
             <input
               aria-checked="false"
-              aria-disabled="false"
               aria-invalid="false"
               aria-required="false"
               checked={false}

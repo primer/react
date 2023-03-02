@@ -157,7 +157,6 @@ const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
       <StyledCheckbox
         type="checkbox"
         disabled={disabled}
-        aria-disabled={disabled ? 'true' : 'false'}
         ref={ref || checkboxRef}
         checked={indeterminate ? false : checked}
         aria-checked={indeterminate ? 'mixed' : checked ? 'true' : 'false'}

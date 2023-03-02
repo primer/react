@@ -27,7 +27,7 @@ jobs:
 
   upload-snapshots:
     needs: update-snapshots
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest-8-cores
     strategy:
       fail-fast: true
       matrix:
