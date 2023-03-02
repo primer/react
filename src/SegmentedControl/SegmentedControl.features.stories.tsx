@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import {Meta} from '@storybook/react'
 import {SegmentedControl} from '.'
 import {EyeIcon, FileCodeIcon, PeopleIcon} from '@primer/octicons-react'
-import {Box, Text} from '../'
+import {Box, Text} from '..'
 
 export default {
   title: 'Components/SegmentedControl/Features',
