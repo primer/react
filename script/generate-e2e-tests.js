@@ -253,6 +253,60 @@ const components = new Map([
     },
   ],
   [
+    'Checkbox',
+    {
+      stories: [
+        {
+          id: 'components-checkbox--default',
+          name: 'Default',
+        },
+        {
+          id: 'components-checkbox-features--disabled',
+          name: 'Disabled',
+        },
+        {
+          id: 'components-checkbox-features--with-caption',
+          name: 'With Caption',
+        },
+        {
+          id: 'components-checkbox-features--with-leading-visual',
+          name: 'With Leading Visual',
+        },
+      ],
+    },
+  ],
+  [
+    'CheckboxGroup',
+    {
+      stories: [
+        {
+          id: 'components-checkboxgroup--default',
+          name: 'Default',
+        },
+        {
+          id: 'components-checkboxgroup-features--caption',
+          name: 'Caption',
+        },
+        {
+          id: 'components-checkboxgroup-features--error',
+          name: 'Error',
+        },
+        {
+          id: 'components-checkboxgroup-features--success',
+          name: 'Success',
+        },
+        {
+          id: 'components-checkboxgroup-features--visually-hidden-label',
+          name: 'Visually Hidden Label',
+        },
+        {
+          id: 'components-checkboxgroup-features--warning',
+          name: 'Warning',
+        },
+      ],
+    },
+  ],
+  [
     'CounterLabel',
     {
       stories: [
@@ -290,6 +344,17 @@ const components = new Map([
         {
           id: 'components-flash-features--warning',
           name: 'Warning',
+        },
+      ],
+    },
+  ],
+  [
+    'Heading',
+    {
+      stories: [
+        {
+          id: 'components-heading--default',
+          name: 'Default',
         },
       ],
     },
@@ -562,6 +627,49 @@ const components = new Map([
         {
           id: 'components-forms-radiogroup-examples--default',
           name: 'Default',
+        },
+      ],
+    },
+  ],
+  [
+    'StateLabel',
+    {
+      stories: [
+        {
+          id: 'components-statelabel-features--draft',
+          name: 'Draft',
+        },
+        {
+          id: 'components-statelabel-features--issue-closed',
+          name: 'Issue Closed',
+        },
+        {
+          id: 'components-statelabel-features--issue-closed-not-planned',
+          name: 'Issue Closed Not Planned',
+        },
+        {
+          id: 'components-statelabel-features--issue-draft',
+          name: 'Issue Draft',
+        },
+        {
+          id: 'components-statelabel-features--issue-opened',
+          name: 'Issue Opened',
+        },
+        {
+          id: 'components-statelabel-features--pull-closed',
+          name: 'Pull Closed',
+        },
+        {
+          id: 'components-statelabel-features--pull-merged',
+          name: 'Pull Merged',
+        },
+        {
+          id: 'components-statelabel-features--pull-opened',
+          name: 'Pull Opened',
+        },
+        {
+          id: 'components-statelabel-features--small',
+          name: 'Small',
         },
       ],
     },
