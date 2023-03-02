@@ -1,7 +1,6 @@
 import React from 'react'
 import {Meta} from '@storybook/react'
-
-import {BaseStyles, Box, FormControl, Textarea, TextareaProps, ThemeProvider} from '..'
+import {Box, FormControl, Textarea, TextareaProps} from '..'
 import {DEFAULT_TEXTAREA_COLS, DEFAULT_TEXTAREA_RESIZE, DEFAULT_TEXTAREA_ROWS} from '../Textarea'
 import {
   FormControlArgs,
@@ -11,62 +10,14 @@ import {
 } from '../utils/story-helpers'
 
 export default {
-  title: 'Components/Forms/Textarea',
+  title: 'Components/Textarea',
   component: Textarea,
-  decorators: [
-    Story => {
-      return (
-        <ThemeProvider>
-          <BaseStyles>
-            <Box paddingTop={5}>{Story()}</Box>
-          </BaseStyles>
-        </ThemeProvider>
-      )
-    },
-  ],
-  args: {
-    ...formControlArgs,
-    block: false,
-    cols: DEFAULT_TEXTAREA_COLS,
-    disabled: false,
-    resize: DEFAULT_TEXTAREA_RESIZE,
-    rows: DEFAULT_TEXTAREA_ROWS,
-    validationStatus: undefined,
-  },
-  argTypes: {
-    block: {
-      control: {type: 'boolean'},
-    },
-    cols: {
-      control: {type: 'number'},
-    },
-    disabled: {
-      control: {type: 'boolean'},
-    },
-    resize: {
-      options: ['none', 'both', 'horizontal', 'vertical'],
-      control: {type: 'radio'},
-    },
-    rows: {
-      control: {type: 'number'},
-    },
-    sx: {
-      table: {
-        disable: true,
-      },
-    },
-    validationStatus: {
-      options: ['error', 'success', 'warning'],
-      control: {type: 'radio'},
-    },
-    ...formControlArgTypes,
-  },
 } as Meta
 
-export const TextareaStory = (args: FormControlArgs<TextareaProps>) => {
+export const Playground = (args: FormControlArgs<TextareaProps>) => {
   const {parentArgs, labelArgs, captionArgs, validationArgs} = getFormControlArgsByChildComponent(args)
   return (
-    <Box as="form" sx={{p: 3}}>
+    <Box as="form">
       <FormControl {...parentArgs}>
         <FormControl.Label {...labelArgs} />
         <Textarea {...args} />
@@ -78,5 +29,49 @@ export const TextareaStory = (args: FormControlArgs<TextareaProps>) => {
     </Box>
   )
 }
+Playground.args = {
+  ...formControlArgs,
+  block: false,
+  cols: DEFAULT_TEXTAREA_COLS,
+  disabled: false,
+  resize: DEFAULT_TEXTAREA_RESIZE,
+  rows: DEFAULT_TEXTAREA_ROWS,
+  validationStatus: undefined,
+}
+Playground.argTypes = {
+  block: {
+    control: {type: 'boolean'},
+  },
+  cols: {
+    control: {type: 'number'},
+  },
+  disabled: {
+    control: {type: 'boolean'},
+  },
+  resize: {
+    options: ['none', 'both', 'horizontal', 'vertical'],
+    control: {type: 'radio'},
+  },
+  rows: {
+    control: {type: 'number'},
+  },
+  sx: {
+    table: {
+      disable: true,
+    },
+  },
+  validationStatus: {
+    options: ['error', 'success', 'warning'],
+    control: {type: 'radio'},
+  },
+  ...formControlArgTypes,
+}
 
-TextareaStory.storyName = 'Textarea'
+export const Default = () => (
+  <Box as="form">
+    <FormControl>
+      <FormControl.Label>Default label</FormControl.Label>
+      <Textarea />
+    </FormControl>
+  </Box>
+)
