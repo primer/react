@@ -652,7 +652,12 @@
       "name": "Select",
       "status": "alpha",
       "a11yReviewed": true,
-      "stories": [],
+      "stories": [
+        {
+          "id": "components-select--default",
+          "code": "() => (\n  <Box as=\"form\">\n    <FormControl>\n      <FormControl.Label>Default label</FormControl.Label>\n      <Select>\n        <Select.Option value=\"one\">Choice one</Select.Option>\n        <Select.Option value=\"two\">Choice two</Select.Option>\n        <Select.Option value=\"three\">Choice three</Select.Option>\n        <Select.Option value=\"four\">Choice four</Select.Option>\n        <Select.Option value=\"five\">Choice five</Select.Option>\n        <Select.Option value=\"six\">Choice six</Select.Option>\n      </Select>\n    </FormControl>\n  </Box>\n)"
+        }
+      ],
       "props": [
         {
           "name": "block",
@@ -836,7 +841,12 @@
       "name": "TextInput",
       "status": "alpha",
       "a11yReviewed": false,
-      "stories": [],
+      "stories": [
+        {
+          "id": "components-textinput--default",
+          "code": "() => (\n  <Box as=\"form\">\n    <FormControl>\n      <FormControl.Label>Default label</FormControl.Label>\n      <TextInput />\n    </FormControl>\n  </Box>\n)"
+        }
+      ],
       "props": [
         {
           "name": "aria-label",
