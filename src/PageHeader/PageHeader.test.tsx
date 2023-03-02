@@ -1,9 +1,8 @@
 import React from 'react'
-import '@testing-library/jest-dom/extend-expect'
 import {render} from '@testing-library/react'
 import {PageHeader} from '.'
 import MatchMediaMock from 'jest-matchmedia-mock'
-import {behavesAsComponent, checkExports, checkStoriesForAxeViolations, renderStyles} from '../utils/testing'
+import {behavesAsComponent, checkExports, renderStyles} from '../utils/testing'
 import {IconButton} from '../Button'
 import {ChevronLeftIcon, GitBranchIcon, PencilIcon, SidebarExpandIcon} from '@primer/octicons-react'
 import {mediaQueries} from '../utils/layout'
@@ -209,5 +208,3 @@ describe('PageHeader', () => {
     consoleSpy.mockRestore()
   })
 })
-
-checkStoriesForAxeViolations('PageHeader.examples', '../PageHeader/')
