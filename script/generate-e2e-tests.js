@@ -107,6 +107,10 @@ const components = new Map([
           id: 'components-actionmenu-examples--groups-and-descriptions',
           name: 'Groups And Descriptions',
         },
+        {
+          id: 'components-actionmenu-examples--multiple-sections',
+          name: 'Multiple Sections',
+        },
       ],
     },
   ],

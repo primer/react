@@ -1,5 +1,5 @@
 import React from 'react'
-import {Box, ActionMenu, ActionList, Button} from '../'
+import {Box, ActionMenu, ActionList, Button, IconButton} from '../'
 import {
   GearIcon,
   MilestoneIcon,
@@ -166,9 +166,7 @@ export const ControlledMenu = () => {
 export const CustomAnchor = () => (
   <ActionMenu>
     <ActionMenu.Anchor>
-      <button aria-label="Open menu">
-        <KebabHorizontalIcon />
-      </button>
+      <IconButton icon={KebabHorizontalIcon} aria-label="Open menu" />
     </ActionMenu.Anchor>
     <ActionMenu.Overlay width="medium">
       <ActionList>
@@ -236,6 +234,49 @@ export const MixedSelection = () => {
               </ActionList.Item>
             </ActionList.Group>
           )}
+        </ActionList>
+      </ActionMenu.Overlay>
+    </ActionMenu>
+  )
+}
+
+export const MultipleSections = () => {
+  const items = [{name: 'Show code folding buttons'}, {name: 'Wrap lines'}, {name: 'Center content'}]
+
+  const [selectedMilestone, setSelectedMilestone] = React.useState<typeof items[0] | undefined>()
+
+  return (
+    <ActionMenu open>
+      <ActionMenu.Anchor>
+        <IconButton icon={KebabHorizontalIcon} aria-label="Open menu" />
+      </ActionMenu.Anchor>
+      <ActionMenu.Overlay width="small">
+        <ActionList>
+          <ActionList.Group title="Raw file content">
+            <ActionList.Item onSelect={() => alert('Workflows clicked')}>Download</ActionList.Item>
+            <ActionList.Divider />
+            <ActionList.Item onSelect={() => alert('Workflows clicked')}>Jump to line</ActionList.Item>
+            <ActionList.Item onSelect={() => alert('Workflows clicked')}>Find in file</ActionList.Item>
+            <ActionList.Divider />
+            <ActionList.Item onSelect={() => alert('Workflows clicked')}>Copy path</ActionList.Item>
+            <ActionList.Item onSelect={() => alert('Workflows clicked')}>Copy permalink</ActionList.Item>
+          </ActionList.Group>
+          <ActionList.Divider />
+          <ActionList.Group title="View options" selectionVariant="multiple">
+            {items.map((item, index) => (
+              <ActionList.Item
+                key={index}
+                selected={item.name === selectedMilestone?.name}
+                onSelect={() => setSelectedMilestone(item)}
+              >
+                {item.name}
+              </ActionList.Item>
+            ))}
+          </ActionList.Group>
+          <ActionList.Divider />
+          <ActionList.Item onSelect={() => alert('Delete file')} variant="danger">
+            Delete file
+          </ActionList.Item>
         </ActionList>
       </ActionMenu.Overlay>
     </ActionMenu>
