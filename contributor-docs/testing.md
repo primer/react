@@ -89,6 +89,11 @@ npm run test -- -u
 
 After running that command, make sure to update the cache-busting timestamp in [src/theme-preval.js](https://github.com/primer/react/blob/main/src/theme-preval.js)
 
+```diff
+- // Cache bust: 2022-02-23 12:00:00 GMT (This file is cached by our deployment tooling, update this timestamp to rebuild this file)
++ // Cache bust: 2023-02-24 12:00:00 GMT (This file is cached by our deployment tooling, update this timestamp to rebuild this file)
+```
+
 ### Running Tests
 
 | Task                | Command                  |
