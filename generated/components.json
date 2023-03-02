@@ -3694,7 +3694,12 @@
       "name": "SegmentedControl",
       "status": "alpha",
       "a11yReviewed": false,
-      "stories": [],
+      "stories": [
+        {
+          "id": "components-segmentedcontrol--default",
+          "code": "() => (\n  <SegmentedControl aria-label=\"File view\">\n    <SegmentedControl.Button defaultSelected>Preview</SegmentedControl.Button>\n    <SegmentedControl.Button>Raw</SegmentedControl.Button>\n    <SegmentedControl.Button>Blame</SegmentedControl.Button>\n  </SegmentedControl>\n)"
+        }
+      ],
       "props": [
         {
           "name": "aria-label",
