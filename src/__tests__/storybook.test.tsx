@@ -28,6 +28,7 @@ const allowlist = [
   'StateLabel',
   'TabNav',
   'TextInput',
+  'TextInputWithTokens',
   'TreeView',
   'Timeline',
   'UnderlineNav2',

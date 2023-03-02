@@ -795,6 +795,25 @@ const components = new Map([
     },
   ],
   [
+    'TextInputWithTokens',
+    {
+      stories: [
+        {
+          id: 'components-textinputwithtokens--default',
+          name: 'Default',
+        },
+        {
+          id: 'components-textinputwithtokens-features--with-leading-visual',
+          name: 'With Leading Visual',
+        },
+        {
+          id: 'components-textinputwithtokens-features--with-trailing-visual',
+          name: 'With Trailing Visual',
+        },
+      ],
+    },
+  ],
+  [
     'UnderlineNav',
     {
       stories: [
