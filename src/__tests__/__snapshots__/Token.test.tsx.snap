@@ -9,6 +9,19 @@ exports[`Token components AvatarToken renders all sizes 1`] = `
   margin-right: 4px;
 }
 
+.c5 {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  -webkit-clip: rect(0,0,0,0);
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
 .c3 {
   display: inline-block;
   overflow: hidden;
@@ -52,7 +65,7 @@ exports[`Token components AvatarToken renders all sizes 1`] = `
   padding-left: 4px;
 }
 
-.c5 {
+.c6 {
   background-color: transparent;
   font-family: inherit;
   color: currentColor;
@@ -92,12 +105,12 @@ exports[`Token components AvatarToken renders all sizes 1`] = `
   width: 16px;
 }
 
-.c5:hover,
-.c5:focus {
+.c6:hover,
+.c6:focus {
   background-color: rgba(175,184,193,0.2);
 }
 
-.c5:active {
+.c6:active {
   background-color: rgba(234,238,242,0.5);
 }
 
@@ -148,7 +161,6 @@ exports[`Token components AvatarToken renders all sizes 1`] = `
 }
 
 <span
-  aria-label="token, press backspace or delete to remove"
   className="c0"
   onKeyDown={[Function]}
   size="small"
@@ -174,10 +186,15 @@ exports[`Token components AvatarToken renders all sizes 1`] = `
   >
     token
   </span>
+  <span
+    className="c5"
+  >
+     (press backspace or delete to remove)
+  </span>
   <button
     aria-hidden="false"
     aria-label="Remove token"
-    className="c5"
+    className="c6"
     onClick={[Function]}
     size="small"
   >
@@ -215,6 +232,19 @@ exports[`Token components AvatarToken renders all sizes 2`] = `
   flex-shrink: 0;
   line-height: 0;
   margin-right: 4px;
+}
+
+.c5 {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  -webkit-clip: rect(0,0,0,0);
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border-width: 0;
 }
 
 .c3 {
@@ -260,7 +290,7 @@ exports[`Token components AvatarToken renders all sizes 2`] = `
   padding-left: 4px;
 }
 
-.c5 {
+.c6 {
   background-color: transparent;
   font-family: inherit;
   color: currentColor;
@@ -300,12 +330,12 @@ exports[`Token components AvatarToken renders all sizes 2`] = `
   width: 20px;
 }
 
-.c5:hover,
-.c5:focus {
+.c6:hover,
+.c6:focus {
   background-color: rgba(175,184,193,0.2);
 }
 
-.c5:active {
+.c6:active {
   background-color: rgba(234,238,242,0.5);
 }
 
@@ -356,7 +386,6 @@ exports[`Token components AvatarToken renders all sizes 2`] = `
 }
 
 <span
-  aria-label="token, press backspace or delete to remove"
   className="c0"
   onKeyDown={[Function]}
   size="medium"
@@ -382,10 +411,15 @@ exports[`Token components AvatarToken renders all sizes 2`] = `
   >
     token
   </span>
+  <span
+    className="c5"
+  >
+     (press backspace or delete to remove)
+  </span>
   <button
     aria-hidden="false"
     aria-label="Remove token"
-    className="c5"
+    className="c6"
     onClick={[Function]}
     size="medium"
   >
@@ -423,6 +457,19 @@ exports[`Token components AvatarToken renders all sizes 3`] = `
   flex-shrink: 0;
   line-height: 0;
   margin-right: 8px;
+}
+
+.c5 {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  -webkit-clip: rect(0,0,0,0);
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border-width: 0;
 }
 
 .c3 {
@@ -468,7 +515,7 @@ exports[`Token components AvatarToken renders all sizes 3`] = `
   padding-left: 4px;
 }
 
-.c5 {
+.c6 {
   background-color: transparent;
   font-family: inherit;
   color: currentColor;
@@ -508,12 +555,12 @@ exports[`Token components AvatarToken renders all sizes 3`] = `
   width: 24px;
 }
 
-.c5:hover,
-.c5:focus {
+.c6:hover,
+.c6:focus {
   background-color: rgba(175,184,193,0.2);
 }
 
-.c5:active {
+.c6:active {
   background-color: rgba(234,238,242,0.5);
 }
 
@@ -564,7 +611,6 @@ exports[`Token components AvatarToken renders all sizes 3`] = `
 }
 
 <span
-  aria-label="token, press backspace or delete to remove"
   className="c0"
   onKeyDown={[Function]}
   size="large"
@@ -590,10 +636,15 @@ exports[`Token components AvatarToken renders all sizes 3`] = `
   >
     token
   </span>
+  <span
+    className="c5"
+  >
+     (press backspace or delete to remove)
+  </span>
   <button
     aria-hidden="false"
     aria-label="Remove token"
-    className="c5"
+    className="c6"
     onClick={[Function]}
     size="large"
   >
@@ -633,6 +684,19 @@ exports[`Token components AvatarToken renders all sizes 4`] = `
   margin-right: 8px;
 }
 
+.c5 {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  -webkit-clip: rect(0,0,0,0);
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
 .c3 {
   display: inline-block;
   overflow: hidden;
@@ -678,7 +742,7 @@ exports[`Token components AvatarToken renders all sizes 4`] = `
   padding-left: 4px;
 }
 
-.c5 {
+.c6 {
   background-color: transparent;
   font-family: inherit;
   color: currentColor;
@@ -718,12 +782,12 @@ exports[`Token components AvatarToken renders all sizes 4`] = `
   width: 32px;
 }
 
-.c5:hover,
-.c5:focus {
+.c6:hover,
+.c6:focus {
   background-color: rgba(175,184,193,0.2);
 }
 
-.c5:active {
+.c6:active {
   background-color: rgba(234,238,242,0.5);
 }
 
@@ -774,7 +838,6 @@ exports[`Token components AvatarToken renders all sizes 4`] = `
 }
 
 <span
-  aria-label="token, press backspace or delete to remove"
   className="c0"
   onKeyDown={[Function]}
   size="extralarge"
@@ -800,10 +863,15 @@ exports[`Token components AvatarToken renders all sizes 4`] = `
   >
     token
   </span>
+  <span
+    className="c5"
+  >
+     (press backspace or delete to remove)
+  </span>
   <button
     aria-hidden="false"
     aria-label="Remove token"
-    className="c5"
+    className="c6"
     onClick={[Function]}
     size="extralarge"
   >
@@ -843,6 +911,19 @@ exports[`Token components AvatarToken renders all sizes 5`] = `
   margin-right: 8px;
 }
 
+.c5 {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  -webkit-clip: rect(0,0,0,0);
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
 .c3 {
   display: inline-block;
   overflow: hidden;
@@ -888,7 +969,7 @@ exports[`Token components AvatarToken renders all sizes 5`] = `
   padding-left: 4px;
 }
 
-.c5 {
+.c6 {
   background-color: transparent;
   font-family: inherit;
   color: currentColor;
@@ -928,12 +1009,12 @@ exports[`Token components AvatarToken renders all sizes 5`] = `
   width: 32px;
 }
 
-.c5:hover,
-.c5:focus {
+.c6:hover,
+.c6:focus {
   background-color: rgba(175,184,193,0.2);
 }
 
-.c5:active {
+.c6:active {
   background-color: rgba(234,238,242,0.5);
 }
 
@@ -984,7 +1065,6 @@ exports[`Token components AvatarToken renders all sizes 5`] = `
 }
 
 <span
-  aria-label="token, press backspace or delete to remove"
   className="c0"
   onKeyDown={[Function]}
   size="xlarge"
@@ -1010,10 +1090,15 @@ exports[`Token components AvatarToken renders all sizes 5`] = `
   >
     token
   </span>
+  <span
+    className="c5"
+  >
+     (press backspace or delete to remove)
+  </span>
   <button
     aria-hidden="false"
     aria-label="Remove token"
-    className="c5"
+    className="c6"
     onClick={[Function]}
     size="xlarge"
   >
@@ -1260,6 +1345,19 @@ exports[`Token components AvatarToken renders with a remove button 1`] = `
   margin-right: 4px;
 }
 
+.c5 {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  -webkit-clip: rect(0,0,0,0);
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
 .c3 {
   display: inline-block;
   overflow: hidden;
@@ -1303,7 +1401,7 @@ exports[`Token components AvatarToken renders with a remove button 1`] = `
   padding-left: 4px;
 }
 
-.c5 {
+.c6 {
   background-color: transparent;
   font-family: inherit;
   color: currentColor;
@@ -1343,12 +1441,12 @@ exports[`Token components AvatarToken renders with a remove button 1`] = `
   width: 20px;
 }
 
-.c5:hover,
-.c5:focus {
+.c6:hover,
+.c6:focus {
   background-color: rgba(175,184,193,0.2);
 }
 
-.c5:active {
+.c6:active {
   background-color: rgba(234,238,242,0.5);
 }
 
@@ -1399,7 +1497,6 @@ exports[`Token components AvatarToken renders with a remove button 1`] = `
 }
 
 <span
-  aria-label="token, press backspace or delete to remove"
   className="c0"
   onKeyDown={[Function]}
   size="medium"
@@ -1425,10 +1522,15 @@ exports[`Token components AvatarToken renders with a remove button 1`] = `
   >
     token
   </span>
+  <span
+    className="c5"
+  >
+     (press backspace or delete to remove)
+  </span>
   <button
     aria-hidden="false"
     aria-label="Remove token"
-    className="c5"
+    className="c6"
     onClick={[Function]}
     size="medium"
   >
@@ -1591,7 +1693,6 @@ exports[`Token components IssueLabelToken renders all sizes 1`] = `
 }
 
 <span
-  aria-label="token, press backspace or delete to remove"
   className="c0"
   onKeyDown={[Function]}
   size="small"
@@ -1767,7 +1868,6 @@ exports[`Token components IssueLabelToken renders all sizes 2`] = `
 }
 
 <span
-  aria-label="token, press backspace or delete to remove"
   className="c0"
   onKeyDown={[Function]}
   size="medium"
@@ -1943,7 +2043,6 @@ exports[`Token components IssueLabelToken renders all sizes 3`] = `
 }
 
 <span
-  aria-label="token, press backspace or delete to remove"
   className="c0"
   onKeyDown={[Function]}
   size="large"
@@ -2121,7 +2220,6 @@ exports[`Token components IssueLabelToken renders all sizes 4`] = `
 }
 
 <span
-  aria-label="token, press backspace or delete to remove"
   className="c0"
   onKeyDown={[Function]}
   size="extralarge"
@@ -2299,7 +2397,6 @@ exports[`Token components IssueLabelToken renders all sizes 5`] = `
 }
 
 <span
-  aria-label="token, press backspace or delete to remove"
   className="c0"
   onKeyDown={[Function]}
   size="xlarge"
@@ -2556,7 +2653,6 @@ exports[`Token components IssueLabelToken renders custom fill color 1`] = `
 }
 
 <span
-  aria-label="token, press backspace or delete to remove"
   className="c0"
   onKeyDown={[Function]}
   size="medium"
@@ -2732,7 +2828,6 @@ exports[`Token components IssueLabelToken renders default fill color 1`] = `
 }
 
 <span
-  aria-label="token, press backspace or delete to remove"
   className="c0"
   onKeyDown={[Function]}
   size="medium"
@@ -3020,7 +3115,6 @@ exports[`Token components IssueLabelToken renders with a remove button 1`] = `
 }
 
 <span
-  aria-label="token, press backspace or delete to remove"
   className="c0"
   onKeyDown={[Function]}
   size="medium"
@@ -3065,6 +3159,19 @@ exports[`Token components IssueLabelToken renders with a remove button 1`] = `
 `;
 
 exports[`Token components Token renders all sizes 1`] = `
+.c2 {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  -webkit-clip: rect(0,0,0,0);
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
 .c0 {
   -webkit-align-items: center;
   -webkit-box-align: center;
@@ -3096,7 +3203,7 @@ exports[`Token components Token renders all sizes 1`] = `
   padding-right: 0;
 }
 
-.c2 {
+.c3 {
   background-color: transparent;
   font-family: inherit;
   color: currentColor;
@@ -3136,12 +3243,12 @@ exports[`Token components Token renders all sizes 1`] = `
   width: 16px;
 }
 
-.c2:hover,
-.c2:focus {
+.c3:hover,
+.c3:focus {
   background-color: rgba(175,184,193,0.2);
 }
 
-.c2:active {
+.c3:active {
   background-color: rgba(234,238,242,0.5);
 }
 
@@ -3185,7 +3292,6 @@ exports[`Token components Token renders all sizes 1`] = `
 }
 
 <span
-  aria-label="token, press backspace or delete to remove"
   className="c0"
   onKeyDown={[Function]}
   size="small"
@@ -3195,10 +3301,15 @@ exports[`Token components Token renders all sizes 1`] = `
   >
     token
   </span>
+  <span
+    className="c2"
+  >
+     (press backspace or delete to remove)
+  </span>
   <button
     aria-hidden="false"
     aria-label="Remove token"
-    className="c2"
+    className="c3"
     onClick={[Function]}
     size="small"
   >
@@ -3230,6 +3341,19 @@ exports[`Token components Token renders all sizes 1`] = `
 `;
 
 exports[`Token components Token renders all sizes 2`] = `
+.c2 {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  -webkit-clip: rect(0,0,0,0);
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
 .c0 {
   -webkit-align-items: center;
   -webkit-box-align: center;
@@ -3261,7 +3385,7 @@ exports[`Token components Token renders all sizes 2`] = `
   padding-right: 0;
 }
 
-.c2 {
+.c3 {
   background-color: transparent;
   font-family: inherit;
   color: currentColor;
@@ -3301,12 +3425,12 @@ exports[`Token components Token renders all sizes 2`] = `
   width: 20px;
 }
 
-.c2:hover,
-.c2:focus {
+.c3:hover,
+.c3:focus {
   background-color: rgba(175,184,193,0.2);
 }
 
-.c2:active {
+.c3:active {
   background-color: rgba(234,238,242,0.5);
 }
 
@@ -3350,7 +3474,6 @@ exports[`Token components Token renders all sizes 2`] = `
 }
 
 <span
-  aria-label="token, press backspace or delete to remove"
   className="c0"
   onKeyDown={[Function]}
   size="medium"
@@ -3360,10 +3483,15 @@ exports[`Token components Token renders all sizes 2`] = `
   >
     token
   </span>
+  <span
+    className="c2"
+  >
+     (press backspace or delete to remove)
+  </span>
   <button
     aria-hidden="false"
     aria-label="Remove token"
-    className="c2"
+    className="c3"
     onClick={[Function]}
     size="medium"
   >
@@ -3395,6 +3523,19 @@ exports[`Token components Token renders all sizes 2`] = `
 `;
 
 exports[`Token components Token renders all sizes 3`] = `
+.c2 {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  -webkit-clip: rect(0,0,0,0);
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
 .c0 {
   -webkit-align-items: center;
   -webkit-box-align: center;
@@ -3426,7 +3567,7 @@ exports[`Token components Token renders all sizes 3`] = `
   padding-right: 0;
 }
 
-.c2 {
+.c3 {
   background-color: transparent;
   font-family: inherit;
   color: currentColor;
@@ -3466,12 +3607,12 @@ exports[`Token components Token renders all sizes 3`] = `
   width: 24px;
 }
 
-.c2:hover,
-.c2:focus {
+.c3:hover,
+.c3:focus {
   background-color: rgba(175,184,193,0.2);
 }
 
-.c2:active {
+.c3:active {
   background-color: rgba(234,238,242,0.5);
 }
 
@@ -3515,7 +3656,6 @@ exports[`Token components Token renders all sizes 3`] = `
 }
 
 <span
-  aria-label="token, press backspace or delete to remove"
   className="c0"
   onKeyDown={[Function]}
   size="large"
@@ -3525,10 +3665,15 @@ exports[`Token components Token renders all sizes 3`] = `
   >
     token
   </span>
+  <span
+    className="c2"
+  >
+     (press backspace or delete to remove)
+  </span>
   <button
     aria-hidden="false"
     aria-label="Remove token"
-    className="c2"
+    className="c3"
     onClick={[Function]}
     size="large"
   >
@@ -3560,6 +3705,19 @@ exports[`Token components Token renders all sizes 3`] = `
 `;
 
 exports[`Token components Token renders all sizes 4`] = `
+.c2 {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  -webkit-clip: rect(0,0,0,0);
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
 .c0 {
   -webkit-align-items: center;
   -webkit-box-align: center;
@@ -3593,7 +3751,7 @@ exports[`Token components Token renders all sizes 4`] = `
   padding-right: 0;
 }
 
-.c2 {
+.c3 {
   background-color: transparent;
   font-family: inherit;
   color: currentColor;
@@ -3633,12 +3791,12 @@ exports[`Token components Token renders all sizes 4`] = `
   width: 32px;
 }
 
-.c2:hover,
-.c2:focus {
+.c3:hover,
+.c3:focus {
   background-color: rgba(175,184,193,0.2);
 }
 
-.c2:active {
+.c3:active {
   background-color: rgba(234,238,242,0.5);
 }
 
@@ -3682,7 +3840,6 @@ exports[`Token components Token renders all sizes 4`] = `
 }
 
 <span
-  aria-label="token, press backspace or delete to remove"
   className="c0"
   onKeyDown={[Function]}
   size="extralarge"
@@ -3692,10 +3849,15 @@ exports[`Token components Token renders all sizes 4`] = `
   >
     token
   </span>
+  <span
+    className="c2"
+  >
+     (press backspace or delete to remove)
+  </span>
   <button
     aria-hidden="false"
     aria-label="Remove token"
-    className="c2"
+    className="c3"
     onClick={[Function]}
     size="extralarge"
   >
@@ -3727,6 +3889,19 @@ exports[`Token components Token renders all sizes 4`] = `
 `;
 
 exports[`Token components Token renders all sizes 5`] = `
+.c2 {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  -webkit-clip: rect(0,0,0,0);
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
 .c0 {
   -webkit-align-items: center;
   -webkit-box-align: center;
@@ -3760,7 +3935,7 @@ exports[`Token components Token renders all sizes 5`] = `
   padding-right: 0;
 }
 
-.c2 {
+.c3 {
   background-color: transparent;
   font-family: inherit;
   color: currentColor;
@@ -3800,12 +3975,12 @@ exports[`Token components Token renders all sizes 5`] = `
   width: 32px;
 }
 
-.c2:hover,
-.c2:focus {
+.c3:hover,
+.c3:focus {
   background-color: rgba(175,184,193,0.2);
 }
 
-.c2:active {
+.c3:active {
   background-color: rgba(234,238,242,0.5);
 }
 
@@ -3849,7 +4024,6 @@ exports[`Token components Token renders all sizes 5`] = `
 }
 
 <span
-  aria-label="token, press backspace or delete to remove"
   className="c0"
   onKeyDown={[Function]}
   size="xlarge"
@@ -3859,10 +4033,15 @@ exports[`Token components Token renders all sizes 5`] = `
   >
     token
   </span>
+  <span
+    className="c2"
+  >
+     (press backspace or delete to remove)
+  </span>
   <button
     aria-hidden="false"
     aria-label="Remove token"
-    className="c2"
+    className="c3"
     onClick={[Function]}
     size="xlarge"
   >
@@ -4160,6 +4339,19 @@ exports[`Token components Token renders with a leadingVisual 1`] = `
 `;
 
 exports[`Token components Token renders with a remove button 1`] = `
+.c2 {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  -webkit-clip: rect(0,0,0,0);
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
 .c0 {
   -webkit-align-items: center;
   -webkit-box-align: center;
@@ -4191,7 +4383,7 @@ exports[`Token components Token renders with a remove button 1`] = `
   padding-right: 0;
 }
 
-.c2 {
+.c3 {
   background-color: transparent;
   font-family: inherit;
   color: currentColor;
@@ -4231,12 +4423,12 @@ exports[`Token components Token renders with a remove button 1`] = `
   width: 20px;
 }
 
-.c2:hover,
-.c2:focus {
+.c3:hover,
+.c3:focus {
   background-color: rgba(175,184,193,0.2);
 }
 
-.c2:active {
+.c3:active {
   background-color: rgba(234,238,242,0.5);
 }
 
@@ -4280,7 +4472,6 @@ exports[`Token components Token renders with a remove button 1`] = `
 }
 
 <span
-  aria-label="token, press backspace or delete to remove"
   className="c0"
   onKeyDown={[Function]}
   size="medium"
@@ -4290,10 +4481,15 @@ exports[`Token components Token renders with a remove button 1`] = `
   >
     token
   </span>
+  <span
+    className="c2"
+  >
+     (press backspace or delete to remove)
+  </span>
   <button
     aria-hidden="false"
     aria-label="Remove token"
-    className="c2"
+    className="c3"
     onClick={[Function]}
     size="medium"
   >

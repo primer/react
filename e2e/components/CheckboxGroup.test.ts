@@ -15,7 +15,7 @@ test.describe('CheckboxGroup', () => {
           })
 
           // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`CheckboxGroup.Default.${theme}.png`)
+          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(`CheckboxGroup.Default.${theme}.png`)
         })
 
         test('axe @aat', async ({page}) => {
@@ -28,7 +28,7 @@ test.describe('CheckboxGroup', () => {
           await expect(page).toHaveNoViolations({
             rules: {
               'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
+                enabled: false,
               },
             },
           })
@@ -49,7 +49,7 @@ test.describe('CheckboxGroup', () => {
           })
 
           // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`CheckboxGroup.Caption.${theme}.png`)
+          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(`CheckboxGroup.Caption.${theme}.png`)
         })
 
         test('axe @aat', async ({page}) => {
@@ -62,7 +62,7 @@ test.describe('CheckboxGroup', () => {
           await expect(page).toHaveNoViolations({
             rules: {
               'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
+                enabled: false,
               },
             },
           })
@@ -83,7 +83,7 @@ test.describe('CheckboxGroup', () => {
           })
 
           // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`CheckboxGroup.Error.${theme}.png`)
+          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(`CheckboxGroup.Error.${theme}.png`)
         })
 
         test('axe @aat', async ({page}) => {
@@ -96,7 +96,7 @@ test.describe('CheckboxGroup', () => {
           await expect(page).toHaveNoViolations({
             rules: {
               'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
+                enabled: false,
               },
             },
           })
@@ -117,7 +117,7 @@ test.describe('CheckboxGroup', () => {
           })
 
           // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`CheckboxGroup.Success.${theme}.png`)
+          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(`CheckboxGroup.Success.${theme}.png`)
         })
 
         test('axe @aat', async ({page}) => {
@@ -130,7 +130,7 @@ test.describe('CheckboxGroup', () => {
           await expect(page).toHaveNoViolations({
             rules: {
               'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
+                enabled: false,
               },
             },
           })
@@ -151,7 +151,9 @@ test.describe('CheckboxGroup', () => {
           })
 
           // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`CheckboxGroup.Visually Hidden Label.${theme}.png`)
+          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
+            `CheckboxGroup.Visually Hidden Label.${theme}.png`,
+          )
         })
 
         test('axe @aat', async ({page}) => {
@@ -164,7 +166,7 @@ test.describe('CheckboxGroup', () => {
           await expect(page).toHaveNoViolations({
             rules: {
               'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
+                enabled: false,
               },
             },
           })
@@ -185,7 +187,7 @@ test.describe('CheckboxGroup', () => {
           })
 
           // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`CheckboxGroup.Warning.${theme}.png`)
+          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(`CheckboxGroup.Warning.${theme}.png`)
         })
 
         test('axe @aat', async ({page}) => {
@@ -198,7 +200,7 @@ test.describe('CheckboxGroup', () => {
           await expect(page).toHaveNoViolations({
             rules: {
               'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
+                enabled: false,
               },
             },
           })

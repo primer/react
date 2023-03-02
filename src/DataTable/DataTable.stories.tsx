@@ -1,6 +1,6 @@
 import {Meta, ComponentStory} from '@storybook/react'
 import React from 'react'
-import {DataTable, TableContainer, TableTitle, TableSubtitle} from '../DataTable'
+import {DataTable, Table} from '../DataTable'
 import Label from '../Label'
 import LabelGroup from '../LabelGroup'
 import RelativeTime from '../RelativeTime'
@@ -116,15 +116,78 @@ function uppercase(input: string): string {
   return input[0].toUpperCase() + input.slice(1)
 }
 
+export const Default = () => (
+  <Table.Container>
+    <Table.Title as="h2" id="repositories">
+      Repositories
+    </Table.Title>
+    <Table.Subtitle as="p" id="repositories-subtitle">
+      A subtitle could appear here to give extra context to the data.
+    </Table.Subtitle>
+    <DataTable
+      aria-labelledby="repositories"
+      aria-describedby="repositories-subtitle"
+      data={data}
+      columns={[
+        {
+          header: 'Repository',
+          field: 'name',
+          rowHeader: true,
+        },
+        {
+          header: 'Type',
+          field: 'type',
+          renderCell: row => {
+            return <Label>{uppercase(row.type)}</Label>
+          },
+        },
+        {
+          header: 'Updated',
+          field: 'updatedAt',
+          renderCell: row => {
+            return <RelativeTime date={new Date(row.updatedAt)} />
+          },
+        },
+        {
+          header: 'Dependabot',
+          field: 'securityFeatures.dependabot',
+          renderCell: row => {
+            return row.securityFeatures.dependabot.length > 0 ? (
+              <LabelGroup>
+                {row.securityFeatures.dependabot.map(feature => {
+                  return <Label key={feature}>{uppercase(feature)}</Label>
+                })}
+              </LabelGroup>
+            ) : null
+          },
+        },
+        {
+          header: 'Code scanning',
+          field: 'securityFeatures.codeScanning',
+          renderCell: row => {
+            return row.securityFeatures.codeScanning.length > 0 ? (
+              <LabelGroup>
+                {row.securityFeatures.codeScanning.map(feature => {
+                  return <Label key={feature}>{uppercase(feature)}</Label>
+                })}
+              </LabelGroup>
+            ) : null
+          },
+        },
+      ]}
+    />
+  </Table.Container>
+)
+
 export const Playground: ComponentStory<typeof DataTable> = args => {
   return (
-    <TableContainer>
-      <TableTitle as="h2" id="repositories">
+    <Table.Container>
+      <Table.Title as="h2" id="repositories">
         Repositories
-      </TableTitle>
-      <TableSubtitle as="p" id="repositories-subtitle">
+      </Table.Title>
+      <Table.Subtitle as="p" id="repositories-subtitle">
         A subtitle could appear here to give extra context to the data.
-      </TableSubtitle>
+      </Table.Subtitle>
       <DataTable
         {...args}
         aria-labelledby="repositories"
@@ -178,7 +241,7 @@ export const Playground: ComponentStory<typeof DataTable> = args => {
           },
         ]}
       />
-    </TableContainer>
+    </Table.Container>
   )
 }
 
