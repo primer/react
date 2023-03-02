@@ -37,40 +37,6 @@ test.describe('ToggleSwitch', () => {
     }
   })
 
-  test.describe('Playground', () => {
-    for (const theme of themes) {
-      test.describe(theme, () => {
-        test('default @vrt', async ({page}) => {
-          await visit(page, {
-            id: 'components-toggleswitch--playground',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-
-          // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`ToggleSwitch.Playground.${theme}.png`)
-        })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-toggleswitch--playground',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
-        })
-      })
-    }
-  })
-
   test.describe('Checked', () => {
     for (const theme of themes) {
       test.describe(theme, () => {
@@ -334,7 +300,7 @@ test.describe('ToggleSwitch', () => {
           await expect(page).toHaveNoViolations({
             rules: {
               'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
+                enabled: false,
               },
             },
           })

@@ -721,10 +721,6 @@ const components = new Map([
           name: 'Default',
         },
         {
-          id: 'components-toggleswitch--playground',
-          name: 'Playground',
-        },
-        {
           id: 'components-toggleswitch-features--checked',
           name: 'Checked',
         },
