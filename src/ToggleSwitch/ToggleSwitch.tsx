@@ -12,7 +12,7 @@ import VisuallyHidden from '../_VisuallyHidden'
 const TRANSITION_DURATION = '80ms'
 const EASE_OUT_QUAD_CURVE = 'cubic-bezier(0.5, 1, 0.89, 1)'
 
-type SwitchProps = {
+export type ToggleSwitchProps = {
   /** The id of the DOM node that describes the switch */
   ['aria-describedby']?: string
   /** The id of the DOM node that labels the switch */
@@ -26,7 +26,7 @@ type SwitchProps = {
   /** Whether the switch is turned on */
   checked?: boolean
   /** The callback that is called when the switch is toggled on or off */
-  onChange?: (on: boolean) => void
+  onChange?: (checked: boolean) => void
   /** The callback that is called when the switch is clicked */
   onClick?: MouseEventHandler
   /** Size of the switch */
@@ -50,10 +50,10 @@ const sizeVariants = variant({
 type SwitchButtonProps = {
   disabled?: boolean
   checked?: boolean
-  size?: SwitchProps['size']
+  size?: ToggleSwitchProps['size']
 } & SxProp
 
-type InnerIconProps = {size?: SwitchProps['size']}
+type InnerIconProps = {size?: ToggleSwitchProps['size']}
 
 const CircleIcon: React.FC<React.PropsWithChildren<InnerIconProps>> = ({size}) => (
   <svg
@@ -192,7 +192,6 @@ const ToggleKnob = styled.div<{checked?: boolean; disabled?: boolean}>`
     if (props.disabled) {
       return css`
         border-color: ${get('colors.switchTrack.disabledBg')};
-      };
       `
     }
 
@@ -209,7 +208,7 @@ const hiddenTextStyles: BetterSystemStyleObject = {
   height: 0,
 }
 
-const Switch: React.FC<React.PropsWithChildren<SwitchProps>> = ({
+const ToggleSwitch: React.FC<React.PropsWithChildren<ToggleSwitchProps>> = ({
   'aria-labelledby': ariaLabelledby,
   'aria-describedby': ariaDescribedby,
   defaultChecked,
@@ -311,4 +310,4 @@ const Switch: React.FC<React.PropsWithChildren<SwitchProps>> = ({
   )
 }
 
-export default Switch
+export default ToggleSwitch

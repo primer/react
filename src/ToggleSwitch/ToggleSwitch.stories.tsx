@@ -1,5 +1,5 @@
 import React from 'react'
-import {Meta, Story} from '@storybook/react'
+import {Meta, ComponentStory} from '@storybook/react'
 import {ComponentProps} from '../utils/types'
 import {Box, Text} from '../'
 import ToggleSwitch from './ToggleSwitch'
@@ -9,7 +9,7 @@ export default {
   component: ToggleSwitch,
 } as Meta<ComponentProps<typeof ToggleSwitch>>
 
-export const Playground: Story<ComponentProps<typeof ToggleSwitch>> = args => (
+export const Playground: ComponentStory<typeof ToggleSwitch> = args => (
   <Box
     display="grid"
     gridTemplateColumns={'max-content auto'}
@@ -25,13 +25,13 @@ export const Playground: Story<ComponentProps<typeof ToggleSwitch>> = args => (
 )
 
 Playground.args = {
-  on: undefined,
+  checked: undefined,
   disabled: false,
   loading: false,
   size: 'medium',
 }
 Playground.argTypes = {
-  on: {
+  checked: {
     control: {
       type: 'boolean',
     },
