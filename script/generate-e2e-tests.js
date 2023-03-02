@@ -735,6 +735,66 @@ const components = new Map([
     },
   ],
   [
+    'TextInput',
+    {
+      stories: [
+        {
+          id: 'components-textinput--default',
+          name: 'Default',
+        },
+        {
+          id: 'components-textinput-features--block',
+          name: 'Block',
+        },
+        {
+          id: 'components-textinput-features--disabled',
+          name: 'Disabled',
+        },
+        {
+          id: 'components-textinput-features--error',
+          name: 'Error',
+        },
+        {
+          id: 'components-textinput-features--large',
+          name: 'Large',
+        },
+        {
+          id: 'components-textinput-features--small',
+          name: 'Small',
+        },
+        {
+          id: 'components-textinput-features--success',
+          name: 'Success',
+        },
+        {
+          id: 'components-textinput-features--visually-hidden-label',
+          name: 'Visually Hidden Label',
+        },
+        {
+          id: 'components-textinput-features--warning',
+          name: 'Warning',
+        },
+        {
+          id: 'components-textinput-features--with-caption',
+          name: 'With Caption',
+        },
+        {
+          id: 'components-textinput-features--with-leading-visual',
+          name: 'With Leading Visual',
+        },
+
+        {
+          id: 'components-textinput-features--with-trailing-action',
+          name: 'With Trailing Action',
+        },
+        {
+          id: 'components-textinput-features--with-trailing-icon',
+          name: 'With Trailing Icon',
+        },
+      ],
+    },
+  ],
+  [
     'UnderlineNav',
     {
       stories: [
