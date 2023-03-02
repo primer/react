@@ -16,7 +16,8 @@ test.describe('Details', () => {
 
           // Default state - closed
           expect(await page.screenshot()).toMatchSnapshot(`Details.Default.${theme}.png`)
-          await page.getByRole('button', {name: 'See Details'}).click()
+          // Click the summary to open
+          await page.getByText('See Details').click()
           // Open state
           expect(await page.screenshot()).toMatchSnapshot(`Details.Default.${theme}.png`)
         })
