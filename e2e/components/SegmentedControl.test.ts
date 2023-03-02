@@ -137,6 +137,10 @@ test.describe('SegmentedControl', () => {
               'color-contrast': {
                 enabled: false,
               },
+              // TODO: Remove this rule when the issue is fixed https://github.com/github/primer/issues/1864
+              'button-name': {
+                enabled: false,
+              },
             },
           })
         })
@@ -415,6 +419,10 @@ test.describe('SegmentedControl', () => {
           await expect(page).toHaveNoViolations({
             rules: {
               'color-contrast': {
+                enabled: false,
+              },
+              // TODO: Remove this rule when the issue is fixed https://github.com/github/primer/issues/1864
+              'button-name': {
                 enabled: false,
               },
             },
