@@ -1010,7 +1010,7 @@
       "stories": [
         {
           "id": "components-textinputwithtokens--default",
-          "code": "(args: FormControlArgs<TextInputWithTokensProps>) => {\n  const { parentArgs, labelArgs, captionArgs, validationArgs } =\n    getFormControlArgsByChildComponent(args)\n  const [tokens, setTokens] = useState([...mockTokens].slice(0, 3))\n  const onTokenRemove: (tokenId: string | number) => void = (tokenId) => {\n    setTokens(tokens.filter((token) => token.id !== tokenId))\n  }\n  return (\n    <FormControl {...parentArgs}>\n      <FormControl.Label {...labelArgs} />\n      <TextInputWithTokens\n        {...args}\n        tokens={tokens}\n        onTokenRemove={onTokenRemove}\n      />\n      {captionArgs.children && <FormControl.Caption {...captionArgs} />}\n      {validationArgs.children && validationArgs.variant && (\n        <FormControl.Validation\n          {...validationArgs}\n          variant={validationArgs.variant}\n        />\n      )}\n    </FormControl>\n  )\n}"
+          "code": "() => {\n  const [tokens, setTokens] = useState([...mockTokens].slice(0, 3))\n  const onTokenRemove: (tokenId: string | number) => void = (tokenId) => {\n    setTokens(tokens.filter((token) => token.id !== tokenId))\n  }\n  return (\n    <FormControl>\n      <FormControl.Label>Default label</FormControl.Label>\n      <TextInputWithTokens tokens={tokens} onTokenRemove={onTokenRemove} />\n    </FormControl>\n  )\n}"
         }
       ],
       "props": [
