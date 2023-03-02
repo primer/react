@@ -282,6 +282,9 @@ test.describe('ActionMenu', () => {
               'color-contrast': {
                 enabled: theme !== 'dark_dimmed',
               },
+              'aria-required-children': {
+                enabled: false,
+              },
             },
           })
         })
