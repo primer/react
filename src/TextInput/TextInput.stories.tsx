@@ -2,7 +2,6 @@ import React, {useState} from 'react'
 import {Meta} from '@storybook/react'
 import {Box, FormControl} from '..'
 import TextInput, {TextInputProps} from '../TextInput'
-import {CalendarIcon, CheckIcon, XCircleFillIcon} from '@primer/octicons-react'
 import {
   FormControlArgs,
   formControlArgs,
