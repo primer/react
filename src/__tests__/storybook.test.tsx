@@ -26,6 +26,7 @@ const allowlist = [
   'TabNav',
   'TreeView',
   'Timeline',
+  'ToggleSwitch',
   'UnderlineNav2',
 ]
 const stories = glob
