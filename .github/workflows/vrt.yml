@@ -43,10 +43,6 @@ jobs:
         run: npm ci
       - name: Build storybook
         run: npx build-storybook
-      - uses: actions/upload-artifact@v3
-        with:
-          name: storybook
-          path: storybook-static
       - name: Install browsers
         run: npx playwright install --with-deps
       - name: Run storybook
