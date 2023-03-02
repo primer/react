@@ -1847,11 +1847,12 @@ exports[`TextInput renders trailingAction icon button 1`] = `
     >
       <button
         aria-label="iconLabel"
-        className="c4"
+        className="c4 prc-Button"
         data-block={null}
         data-component="IconButton"
         data-no-visuals={true}
         data-size="small"
+        data-variant="invisible"
         onClick={[MockFunction]}
         type="button"
       >
@@ -2257,9 +2258,10 @@ exports[`TextInput renders trailingAction text button 1`] = `
     className="c2 TextInput-action"
   >
     <button
-      className="c3"
+      className="c3 prc-Button"
       data-block={null}
       data-no-visuals={true}
+      data-variant="invisible"
       onClick={[MockFunction]}
       type="button"
     >
@@ -2881,9 +2883,10 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
       role="tooltip"
     >
       <button
-        className="c4"
+        className="c4 prc-Button"
         data-block={null}
         data-no-visuals={true}
+        data-variant="invisible"
         onClick={[MockFunction]}
         type="button"
       >

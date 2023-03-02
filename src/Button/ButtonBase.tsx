@@ -9,7 +9,10 @@ import {useRefObjectAsForwardedRef} from '../hooks/useRefObjectAsForwardedRef'
 import {defaultSxProp} from '../utils/defaultSxProp'
 
 const ButtonBase = forwardRef(
-  ({children, as: Component = 'button', sx: sxProp = defaultSxProp, ...props}, forwardedRef): JSX.Element => {
+  (
+    {children, as: Component = 'button', sx: sxProp = defaultSxProp, className, ...props},
+    forwardedRef,
+  ): JSX.Element => {
     const {
       leadingIcon: LeadingIcon,
       trailingIcon: TrailingIcon,
@@ -66,6 +69,8 @@ const ButtonBase = forwardRef(
         data-block={block ? 'block' : null}
         data-size={size === 'small' || size === 'large' ? size : undefined}
         data-no-visuals={!LeadingIcon && !TrailingIcon && !TrailingAction ? true : undefined}
+        className={className ? `prc-Button ${className}` : 'prc-Button'}
+        data-variant={variant}
       >
         {Icon ? (
           <Icon />

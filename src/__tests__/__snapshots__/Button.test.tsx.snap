@@ -216,9 +216,10 @@ exports[`Button renders consistently 1`] = `
 }
 
 <button
-  className="c0"
+  className="c0 prc-Button"
   data-block={null}
   data-no-visuals={true}
+  data-variant="default"
   type="button"
 >
   <span
@@ -443,9 +444,10 @@ exports[`Button respects block prop 1`] = `
 }
 
 <button
-  class="c0"
+  class="c0 prc-Button"
   data-block="block"
   data-no-visuals="true"
+  data-variant="default"
   type="button"
 >
   <span
@@ -676,8 +678,9 @@ exports[`Button respects the alignContent prop 1`] = `
 }
 
 <button
-  class="c0"
+  class="c0 prc-Button"
   data-no-visuals="true"
+  data-variant="default"
   type="button"
 >
   <span
@@ -908,9 +911,10 @@ exports[`Button respects the large size prop 1`] = `
 }
 
 <button
-  class="c0"
+  class="c0 prc-Button"
   data-no-visuals="true"
   data-size="large"
+  data-variant="default"
   type="button"
 >
   <span
@@ -1141,9 +1145,10 @@ exports[`Button respects the small size prop 1`] = `
 }
 
 <button
-  class="c0"
+  class="c0 prc-Button"
   data-no-visuals="true"
   data-size="small"
+  data-variant="default"
   type="button"
 >
   <span
@@ -1390,8 +1395,9 @@ exports[`Button styles danger button appropriately 1`] = `
 }
 
 <button
-  class="c0"
+  class="c0 prc-Button"
   data-no-visuals="true"
+  data-variant="danger"
   type="button"
 >
   <span
@@ -1634,8 +1640,9 @@ exports[`Button styles invisible button appropriately 1`] = `
 }
 
 <button
-  class="c0"
+  class="c0 prc-Button"
   data-no-visuals="true"
+  data-variant="invisible"
   type="button"
 >
   <span
@@ -1878,8 +1885,9 @@ exports[`Button styles primary button appropriately 1`] = `
 }
 
 <button
-  class="c0"
+  class="c0 prc-Button"
   data-no-visuals="true"
+  data-variant="primary"
   type="button"
 >
   <span

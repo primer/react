@@ -237,8 +237,9 @@ exports[`ActionMenu renders consistently 1`] = `
 >
   <button
     aria-haspopup="true"
-    className="c1"
+    className="c1 prc-Button"
     data-block={null}
+    data-variant="default"
     id="react-aria-1"
     onClick={[Function]}
     onKeyDown={[Function]}
