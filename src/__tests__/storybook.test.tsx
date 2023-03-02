@@ -25,6 +25,7 @@ const allowlist = [
   'Link',
   'Radio',
   'RadioGroup',
+  'SegmentedControl',
   'StateLabel',
   'TabNav',
   'TreeView',
