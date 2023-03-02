@@ -369,6 +369,7 @@ test.describe('UnderlineNav', () => {
             width: 600,
             height: 480,
           })
+          await page.locator('button', {hasText: 'More Repository Items'}).waitFor()
           // Current state
           expect(await page.screenshot()).toMatchSnapshot()
         })
