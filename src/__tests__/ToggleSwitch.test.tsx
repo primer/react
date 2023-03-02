@@ -46,7 +46,6 @@ it('renders a switch that is disabled', async () => {
   )
   const toggleSwitch = getByLabelText(SWITCH_LABEL_TEXT)
 
-  expect(toggleSwitch).toHaveAttribute('aria-disabled', 'true')
   expect(toggleSwitch).toHaveAttribute('aria-checked', 'false')
   await user.click(toggleSwitch)
   expect(toggleSwitch).toHaveAttribute('aria-checked', 'false')
@@ -63,7 +62,6 @@ it("renders a switch who's state is loading", async () => {
   const loadingSpinner = container.querySelector('svg')
 
   expect(loadingSpinner).toBeDefined()
-  expect(toggleSwitch).toHaveAttribute('aria-disabled', 'true')
   expect(toggleSwitch).toHaveAttribute('aria-checked', 'false')
   await user.click(toggleSwitch)
   expect(toggleSwitch).toHaveAttribute('aria-checked', 'false')

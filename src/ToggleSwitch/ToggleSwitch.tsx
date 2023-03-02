@@ -267,7 +267,6 @@ const ToggleSwitch: React.FC<React.PropsWithChildren<ToggleSwitchProps>> = ({
         aria-labelledby={ariaLabelledby}
         aria-describedby={ariaDescribedby}
         aria-checked={isOn}
-        aria-disabled={!acceptsInteraction}
         role="switch"
         checked={isOn}
         size={size}
