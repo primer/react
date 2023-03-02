@@ -16,7 +16,7 @@ import Spinner from '../Spinner'
 import sx, {SxProp} from '../sx'
 import Text from '../Text'
 import createSlots from '../utils/create-slots'
-import VisuallyHidden from '../_VisuallyHidden'
+import ToggleVisibility from '../_ToggleVisibility'
 import {getAccessibleName} from './shared'
 import {getFirstChildElement, useRovingTabIndex} from './useRovingTabIndex'
 import {useTypeahead} from './useTypeahead'
@@ -275,9 +275,9 @@ const Root: React.FC<TreeViewProps> = ({'aria-label': ariaLabel, 'aria-labelledb
       }}
     >
       <>
-        <VisuallyHidden role="status" aria-live="polite" aria-atomic="true">
+        <ToggleVisibility role="status" aria-live="polite" aria-atomic="true">
           {ariaLiveMessage}
-        </VisuallyHidden>
+        </ToggleVisibility>
         <UlBox ref={containerRef} role="tree" aria-label={ariaLabel} aria-labelledby={ariaLabelledby}>
           {children}
         </UlBox>

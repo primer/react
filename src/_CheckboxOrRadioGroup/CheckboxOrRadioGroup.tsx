@@ -9,7 +9,7 @@ import {Slots} from './slots'
 import styled from 'styled-components'
 import {get} from '../constants'
 import CheckboxOrRadioGroupContext from './_CheckboxOrRadioGroupContext'
-import VisuallyHidden from '../_VisuallyHidden'
+import ToggleVisibility from '../_ToggleVisibility'
 import {SxProp} from '../sx'
 
 export type CheckboxOrRadioGroupProps = {
@@ -114,7 +114,7 @@ const CheckboxOrRadioGroup: React.FC<React.PropsWithChildren<CheckboxOrRadioGrou
                     {slots.Label}
                     {slots.Caption}
                     {React.isValidElement(slots.Validation) && slots.Validation.props.children && (
-                      <VisuallyHidden>{slots.Validation.props.children}</VisuallyHidden>
+                      <ToggleVisibility>{slots.Validation.props.children}</ToggleVisibility>
                     )}
                   </Box>
                 ) : (

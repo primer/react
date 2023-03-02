@@ -1,6 +1,6 @@
 import React from 'react'
 import {Box} from '../..'
-import VisuallyHidden from '../../_VisuallyHidden'
+import VisuallyHidden from '../../_ToggleVisibility'
 import {ChoiceFieldsetContext, Slot} from './ChoiceFieldset'
 
 export interface ChoiceFieldsetLegendProps {
@@ -16,7 +16,7 @@ const ChoiceFieldsetLegend: React.FC<React.PropsWithChildren<ChoiceFieldsetLegen
 }) => (
   <Slot name="Legend">
     {({required, disabled}: ChoiceFieldsetContext) => (
-      <VisuallyHidden
+      <ToggleVisibility
         as="legend"
         isVisible={!visuallyHidden}
         title={required ? 'required field' : undefined}
@@ -34,7 +34,7 @@ const ChoiceFieldsetLegend: React.FC<React.PropsWithChildren<ChoiceFieldsetLegen
         ) : (
           children
         )}
-      </VisuallyHidden>
+      </ToggleVisibility>
     )}
   </Slot>
 )

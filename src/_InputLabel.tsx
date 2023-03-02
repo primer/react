@@ -1,7 +1,7 @@
 import React from 'react'
 import Box from './Box'
 import {SxProp} from './sx'
-import VisuallyHidden from './_VisuallyHidden'
+import ToggleVisibility from './_ToggleVisibility'
 
 type BaseProps = SxProp & {
   disabled?: boolean
@@ -33,7 +33,7 @@ const InputLabel: React.FC<React.PropsWithChildren<Props>> = ({
   as = 'label',
 }) => {
   return (
-    <VisuallyHidden
+    <ToggleVisibility
       isVisible={!visuallyHidden}
       as={
         as as 'label' /* This assertion is clearly wrong, but it's the only way TS will allow the htmlFor prop to be possibly defined */
@@ -58,7 +58,7 @@ const InputLabel: React.FC<React.PropsWithChildren<Props>> = ({
       ) : (
         children
       )}
-    </VisuallyHidden>
+    </ToggleVisibility>
   )
 }
 

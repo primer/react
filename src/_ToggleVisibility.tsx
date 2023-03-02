@@ -5,7 +5,7 @@ interface Props {
   isVisible?: boolean
 }
 
-const VisuallyHidden = styled.span<Props & SxProp>`
+const ToggleVisibility = styled.span<Props & SxProp>`
   ${({isVisible = false}) => {
     if (isVisible) {
       return sx
@@ -25,4 +25,4 @@ const VisuallyHidden = styled.span<Props & SxProp>`
   }}
 `
 
-export default VisuallyHidden
+export default ToggleVisibility

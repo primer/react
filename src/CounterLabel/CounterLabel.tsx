@@ -1,7 +1,7 @@
 import React from 'react'
 import Box from '../Box'
 import {BetterSystemStyleObject, SxProp, merge} from '../sx'
-import VisuallyHidden from '../_VisuallyHidden'
+import ToggleVisibility from '../_ToggleVisibility'
 
 export type CounterLabelProps = {
   scheme?: 'primary' | 'secondary'
@@ -38,7 +38,7 @@ const CounterLabel: React.FC<React.PropsWithChildren<CounterLabelProps>> = ({
       >
         {children}
       </Box>
-      <VisuallyHidden>&nbsp;({children})</VisuallyHidden>
+      <ToggleVisibility>&nbsp;({children})</ToggleVisibility>
     </>
   )
 }

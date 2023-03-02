@@ -6,7 +6,7 @@ import {useResizeObserver, ResizeObserverEntry} from '../hooks/useResizeObserver
 import CounterLabel from '../CounterLabel'
 import {useTheme} from '../ThemeProvider'
 import {ChildWidthArray, ResponsiveProps, ChildSize} from './types'
-import VisuallyHidden from '../_VisuallyHidden'
+import ToggleVisibility from '../_ToggleVisibility'
 import {moreBtnStyles, getDividerStyle, getNavStyles, ulStyles, menuStyles, menuItemStyles, GAP} from './styles'
 import styled from 'styled-components'
 import {LoadingCounter} from './LoadingCounter'
@@ -332,7 +332,7 @@ export const UnderlineNav = forwardRef(
           iconsVisible,
         }}
       >
-        {ariaLabel && <VisuallyHidden as="h2">{`${ariaLabel} navigation`}</VisuallyHidden>}
+        {ariaLabel && <ToggleVisibility as="h2">{`${ariaLabel} navigation`}</ToggleVisibility>}
         <Box
           as={as}
           sx={merge<BetterSystemStyleObject>(getNavStyles(theme, {align}), sxProp)}
@@ -355,11 +355,11 @@ export const UnderlineNav = forwardRef(
                   <Box as="span">
                     {onlyMenuVisible ? (
                       <>
-                        <VisuallyHidden as="span">{`${ariaLabel}`}&nbsp;</VisuallyHidden>Menu
+                        <ToggleVisibility as="span">{`${ariaLabel}`}&nbsp;</ToggleVisibility>Menu
                       </>
                     ) : (
                       <>
-                        More<VisuallyHidden as="span">&nbsp;{`${ariaLabel} items`}</VisuallyHidden>
+                        More<ToggleVisibility as="span">&nbsp;{`${ariaLabel} items`}</ToggleVisibility>
                       </>
                     )}
                   </Box>

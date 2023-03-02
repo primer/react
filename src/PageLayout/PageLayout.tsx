@@ -10,7 +10,7 @@ import {Theme} from '../ThemeProvider'
 import {canUseDOM} from '../utils/environment'
 import {invariant} from '../utils/invariant'
 import {useOverflow} from '../utils/useOverflow'
-import VisuallyHidden from '../_VisuallyHidden'
+import ToggleVisibility from '../_ToggleVisibility'
 import {useStickyPaneHeight} from './useStickyPaneHeight'
 
 const REGION_ORDER = {
@@ -754,7 +754,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
           {...(id && {id: paneId})}
         >
           {resizable && (
-            <VisuallyHidden>
+            <ToggleVisibility>
               <form onSubmit={handleWidthFormSubmit}>
                 {/* eslint-disable-next-line jsx-a11y/label-has-for */}
                 <label htmlFor={`${paneId}-width-input`}>Pane width</label>
@@ -777,7 +777,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
                 />
                 <button type="submit">Change width</button>
               </form>
-            </VisuallyHidden>
+            </ToggleVisibility>
           )}
           {children}
         </Box>

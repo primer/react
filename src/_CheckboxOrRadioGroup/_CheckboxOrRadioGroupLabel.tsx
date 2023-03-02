@@ -1,7 +1,7 @@
 import React from 'react'
 import Box from '../Box'
 import {SxProp} from '../sx'
-import VisuallyHidden from '../_VisuallyHidden'
+import ToggleVisibility from '../_ToggleVisibility'
 import {CheckboxOrRadioGroupContext} from './CheckboxOrRadioGroup'
 import {Slot} from './slots'
 
@@ -19,7 +19,7 @@ const CheckboxOrRadioGroupLabel: React.FC<React.PropsWithChildren<CheckboxOrRadi
 }) => (
   <Slot name="Label">
     {({required, disabled}: CheckboxOrRadioGroupContext) => (
-      <VisuallyHidden
+      <ToggleVisibility
         isVisible={!visuallyHidden}
         title={required ? 'required field' : undefined}
         sx={{
@@ -37,7 +37,7 @@ const CheckboxOrRadioGroupLabel: React.FC<React.PropsWithChildren<CheckboxOrRadi
         ) : (
           children
         )}
-      </VisuallyHidden>
+      </ToggleVisibility>
     )}
   </Slot>
 )

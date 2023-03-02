@@ -9,7 +9,7 @@ import Spinner from '../Spinner'
 import {useSSRSafeId} from '../utils/ssr'
 import {AutocompleteContext} from './AutocompleteContext'
 import {PlusIcon} from '@primer/octicons-react'
-import VisuallyHidden from '../_VisuallyHidden'
+import ToggleVisibility from '../_ToggleVisibility'
 
 type OnSelectedChange<T> = (item: T | T[]) => void
 type AutocompleteMenuItem = MandateProps<ItemProps, 'id'>
@@ -300,7 +300,7 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
   }, [selectedItemIds, setSelectedItemLength])
 
   return (
-    <VisuallyHidden isVisible={showMenu}>
+    <ToggleVisibility isVisible={showMenu}>
       {loading ? (
         <Box p={3} display="flex" justifyContent="center">
           <Spinner />
@@ -322,7 +322,7 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
           )}
         </div>
       )}
-    </VisuallyHidden>
+    </ToggleVisibility>
   )
 }
 

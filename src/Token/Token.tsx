@@ -6,7 +6,7 @@ import TokenBase, {defaultTokenSize, isTokenInteractive, TokenBaseProps} from '.
 import RemoveTokenButton from './_RemoveTokenButton'
 import TokenTextContainer from './_TokenTextContainer'
 import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
-import VisuallyHidden from '../_VisuallyHidden'
+import ToggleVisibility from '../_ToggleVisibility'
 
 // Omitting onResize and onResizeCapture because seems like React 18 types includes these menthod in the expansion but React 17 doesn't.
 // TODO: This is a temporary solution until we figure out why these methods are causing type errors.
@@ -95,7 +95,7 @@ const Token = forwardRef((props, forwardedRef) => {
         </LeadingVisualContainer>
       ) : null}
       <TokenTextContainer {...(hasMultipleActionTargets ? interactiveTokenProps : {})}>{text}</TokenTextContainer>
-      {onRemove && <VisuallyHidden> (press backspace or delete to remove)</VisuallyHidden>}
+      {onRemove && <ToggleVisibility> (press backspace or delete to remove)</ToggleVisibility>}
       {!hideRemoveButton && onRemove ? (
         <RemoveTokenButton
           borderOffset={tokenBorderWidthPx}

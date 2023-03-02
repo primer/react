@@ -7,7 +7,7 @@ import Text from '../Text'
 import {get} from '../constants'
 import {useProvidedStateOrCreate} from '../hooks'
 import sx, {BetterSystemStyleObject, SxProp} from '../sx'
-import VisuallyHidden from '../_VisuallyHidden'
+import ToggleVisibility from '../_ToggleVisibility'
 
 const TRANSITION_DURATION = '80ms'
 const EASE_OUT_QUAD_CURVE = 'cubic-bezier(0.5, 1, 0.89, 1)'
@@ -272,7 +272,7 @@ const ToggleSwitch: React.FC<React.PropsWithChildren<ToggleSwitchProps>> = ({
         size={size}
         disabled={!acceptsInteraction}
       >
-        <VisuallyHidden>{isOn ? 'On' : 'Off'}</VisuallyHidden>
+        <ToggleVisibility>{isOn ? 'On' : 'Off'}</ToggleVisibility>
         <Box aria-hidden="true" display="flex" alignItems="center" width="100%" height="100%" overflow="hidden">
           <Box
             flexGrow={1}

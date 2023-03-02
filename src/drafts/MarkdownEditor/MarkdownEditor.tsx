@@ -17,7 +17,7 @@ import {useSyntheticChange} from '../hooks/useSyntheticChange'
 import MarkdownViewer from '../MarkdownViewer'
 import {SxProp} from '../../sx'
 import createSlots from '../../utils/create-slots'
-import VisuallyHidden from '../../_VisuallyHidden'
+import VisuallyHidden from '../../_ToggleVisibility'
 import {FormattingTools} from './_FormattingTools'
 import {MarkdownEditorContext} from './_MarkdownEditorContext'
 import {CoreToolbar, DefaultToolbarButtons} from './Toolbar'
@@ -385,10 +385,10 @@ const MarkdownEditor = forwardRef<MarkdownEditorHandle, MarkdownEditorProps>(
                 }}
                 ref={containerRef}
               >
-                <VisuallyHidden id={descriptionId} aria-live="polite">
+                <ToggleVisibility id={descriptionId} aria-live="polite">
                   Markdown input:
                   {view === 'preview' ? ' preview mode selected.' : ' edit mode selected.'}
-                </VisuallyHidden>
+                </ToggleVisibility>
 
                 <Box sx={{display: 'flex', pb: 2, gap: 2, justifyContent: 'space-between'}} as="header">
                   <ViewSwitch
