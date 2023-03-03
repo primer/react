@@ -168,6 +168,10 @@ export function useTable<Data extends UniqueRow>({
 
     setRowOrder(rowOrder => {
       return rowOrder.slice().sort((a, b) => {
+        if (header.column.field === null || header.column.field === undefined) {
+          return 0
+        }
+
         const valueA = get(a, header.column.field)
         const valueB = get(b, header.column.field)
 
