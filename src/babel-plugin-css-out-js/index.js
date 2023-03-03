@@ -4,14 +4,15 @@
  * next steps:
  * 1 nested objects
  * 2 abstract object styles
- * 3 track identifiers
  * 4 spread
  * 5 break merge into parts
+ * 6 responsive array syntax
+ * UnaryExpression negative values, MemberExpression color: props[color]
  *
  * fill in css variables
  * replace short syntax with long (like paddingY)
  * expand beyond ActionList
- * calculate % of types compiled
+ * use styled-components (or glamor or jss) to convert objects to css?
  * remove styled-components import if all styles are compiled out
  * debug: why flex-grow gets default unit of 1px, to-style doesn't support it?
  * run validator through generated css to find errors
@@ -26,6 +27,7 @@ import { join, relative, parse } from 'path';
 import { default as hash } from '@emotion/hash';
 // @ts-ignore, there are no types for this library
 import { string as stylesObjectToString } from 'to-style';
+import chalk from 'chalk';
 var COMPILED_TAG = '__COMPILED__';
 var classNamePrefix = 'sx';
 var LOG_FILENAME = 'css-out-js.log.md';
@@ -38,7 +40,8 @@ export default function plugin(_a) {
         Program: {
             enter: function (_nodePath, state) {
                 var _a;
-                state.set('debug', (_a = state.file.opts.filename) === null || _a === void 0 ? void 0 : _a.includes('src/ActionList/'));
+                state.set('debug', (_a = state.file.opts.filename) === null || _a === void 0 ? void 0 : _a.includes('src/ActionList'));
+                // state.set('debug', true)
                 if (state.get('debug') !== true)
                     return;
                 // @ts-ignore not typed, dist is relative to root
@@ -53,6 +56,10 @@ export default function plugin(_a) {
                 state.set('stats.sxPropsCompiledOut', 0);
             },
             exit: function (nodePath, state) {
+                if (state.get('debug') !== true)
+                    return;
+                if (state.get('stats.sxProps') !== 0)
+                    logStats(state);
                 if (!state.get('cssInjected'))
                     return;
                 // add css file import
@@ -60,7 +67,6 @@ export default function plugin(_a) {
                 var moduleSpecifier = "./".concat(parse(state.filename).name, ".css");
                 var importDeclaration = types.importDeclaration([], types.stringLiteral(moduleSpecifier));
                 nodePath.node.body.unshift(importDeclaration);
-                logStats(state);
             }
         },
         JSXAttribute: function (JSXAttributePath, state) {
@@ -78,87 +84,26 @@ export default function plugin(_a) {
             var expression = JSXAttributePath.node.value.expression;
             var styles = {};
             if (types.isObjectExpression(expression)) {
-                expression.properties.forEach(function (property) {
-                    // property.type with # of instances in primer/react
-                    // ObjectProperty 119 | SpreadElement 20 | ObjectMethod 0
-                    if (types.isObjectMethod(property) || types.isSpreadElement(property)) {
-                        // TODO
-                        // example: {...styles} or even sx={{position: 'relative', ...props.sx }}
-                        // https://github.com/primer/react/blob/main/src/TextInputWithTokens.tsx#L269
-                        // idea: can we trace ...sxProp back to props and then remove it because it would
-                        // be compiled out independently?
-                        notSupported(state, property, "Can not compile property of type ".concat(property.type, " yet. NS2"));
-                    }
-                    else if (types.isObjectProperty(property)) {
-                        // property.key.type (# of instances in primer/react)
-                        // Identifier (108) | StringLiteral (7) | ConditionalExpression (2)
-                        // (0) Expression | NumericLiteral | BigIntLiteral | DecimalLiteral | PrivateName
-                        if (!types.isIdentifier(property.key)) {
-                            // TODO
-                            // example, ConditionalExpression: sx={{[position === 'end' ? 'marginBottom' : 'marginTop']: 2}}
-                            // example, StringLiteral: sx={{'&:hover': {}}}
-                            notSupported(state, property, "Can not compile key of type ".concat(property.key.type, " yet. NS3"));
-                            return;
-                        }
-                        else
-                            ; // Identifier, continue
-                        // property.value.type (# of instances in primer/react)
-                        // StringLiteral (59) | NumericLiteral (21) | Identifier (5) | TemplateLiteral (3) |
-                        // ConditionalExpression (9) | MemberExpression (7) | CallExpression (1) | ObjectExpression (3)
-                        if (types.isNumericLiteral(property.value) || types.isStringLiteral(property.value)) {
-                            styles[property.key.name] = property.value.value;
-                            // tag property name as compiled, so it can be removed later
-                            property.key = types.identifier(COMPILED_TAG);
-                        }
-                        else if (types.isIdentifier(property.value) || types.isConditionalExpression(property.value)) {
-                            // value is set with a variable or expression
-                            // example: sx={{flexGrow: props.InlineDescription ? 0 : 1}}
-                            var cssVariable = "--sx-".concat(property.key.name);
-                            styles[property.key.name] = "var(".concat(cssVariable, ")");
-                            // set variable on runtime via style attribute
-                            var jsxOpeningElement = JSXAttributePath.parent;
-                            var styleAttribute = jsxOpeningElement.attributes.find(function (attr) {
-                                return types.isJSXAttribute(attr) && attr.name.name === 'style';
-                            });
-                            if (styleAttribute) {
-                                // TODO: add variable into existing styles object
-                            }
-                            else {
-                                // add style attribute
-                                var keyVal = types.objectProperty(types.stringLiteral(cssVariable), property.value);
-                                jsxOpeningElement.attributes.push(types.jsxAttribute(types.jsxIdentifier('style'), types.jsxExpressionContainer(types.objectExpression([keyVal]))));
-                                // tag property name as compiled, so it can be removed later
-                                property.key = types.identifier(COMPILED_TAG);
-                            }
-                        }
-                        else if (types.isObjectExpression(property.value)) {
-                            // TODO: nested styles
-                            // example: src/ActionList/Selection.tsx:44
-                            // sx={{ rect: {...}, path: {...} }}
-                            notSupported(state, property, "Can not compile value of type ".concat(property.value.type, " yet. NS Nested styles"));
-                            return;
-                        }
-                        else {
-                            // TODO
-                            notSupported(state, property, "Can not compile value of type ".concat(property.value.type, " yet. NS4"));
-                            return;
-                        }
-                    }
-                });
-                // Remove compiled properties from properties
-                expression.properties = expression.properties.filter(function (property) {
-                    if (types.isObjectProperty(property) &&
-                        types.isIdentifier(property.key) &&
-                        property.key.name === COMPILED_TAG) {
-                        return false;
-                    }
-                    else
-                        return true;
-                });
-                // if expression object is empty now, it's safe to remove it
-                if (expression.properties.length === 0) {
-                    state.set('stats.sxPropsCompiledOut', state.get('stats.sxPropsCompiledOut') + 1);
-                    JSXAttributePath.remove();
+                styles = compileObjectExpression(expression, JSXAttributePath, state, types);
+            }
+            else if (types.isIdentifier(expression)) {
+                // TODO here: Can we find the identifier by binding?
+                // continue here
+                var identifierName = expression.name;
+                var binding = JSXAttributePath.scope.getBinding(identifierName);
+                /**
+                 * possible types:
+                 * VariableDeclarator: defined in the same file
+                 * ObjectPattern: coming from an object, possibly props.sx
+                 * ImportSpecifier: coming from a different file
+                 */
+                var definitionNode = binding === null || binding === void 0 ? void 0 : binding.path.node;
+                if (types.isVariableDeclarator(definitionNode) && types.isObjectExpression(definitionNode.init)) {
+                    var styleObject = definitionNode.init;
+                    styles = compileObjectExpression(styleObject, JSXAttributePath, state, types);
+                }
+                else {
+                    notSupported(state, expression, "Can not compile expression of type ".concat(expression.type, " yet. NS6.1"));
                 }
             }
             else if (types.isCallExpression(expression)) {
@@ -172,6 +117,7 @@ export default function plugin(_a) {
             }
             else {
                 // can safely ignore, types narrowed to JSXEmptyExpression | never
+                notSupported(state, expression, "Can not compile expression of type ".concat(expression.type, " yet. NS7"));
             }
             // nothing could be compiled
             if (Object.keys(styles).length === 0)
@@ -266,10 +212,21 @@ var printNode = function (state, pathNode) {
     log('\n```tsx');
     log(state.file.code.slice(pathNode.start, pathNode.end));
     log('```\n');
+    // @ts-ignore state.opts are not typed
+    if (state.opts.warn) {
+        console.log("".concat(state.file.opts.filename, ":").concat(pathNode.loc.start.line));
+        console.log('\n```tsx');
+        console.log(state.file.code.slice(pathNode.start, pathNode.end));
+        console.log('```\n');
+    }
 };
 var notSupported = function (state, pathNode, message) {
     log("\nNot supported: ".concat(message));
     printNode(state, pathNode);
+    // @ts-ignore state.opts are not typed
+    if (state.opts.warn) {
+        console.log(chalk.yellow("\nNot supported: ".concat(message)));
+    }
 };
 var log = function () {
     var messages = [];
@@ -284,4 +241,88 @@ var logStats = function (state) {
     var table = "\n| stat                    | value |\n| ----------------------- | ----- |\n| sx props                | ".concat(state.get('stats.sxProps'), "     |\n| sx props compiled out   | ").concat(state.get('stats.sxPropsCompiledOut'), "     |\n  ");
     writeFileSync(STATS_FILENAME, table, { flag: 'a+' });
     writeFileSync(STATS_FILENAME, '\n', { flag: 'a+' });
+};
+var compileObjectExpression = function (expression, JSXAttributePath, state, types) {
+    var styles = {};
+    expression.properties.forEach(function (property) {
+        // property.type with # of instances in primer/react
+        // ObjectProperty 119 | SpreadElement 20 | ObjectMethod 0
+        if (types.isObjectMethod(property) || types.isSpreadElement(property)) {
+            // TODO
+            // example: {...styles} or even sx={{position: 'relative', ...props.sx }}
+            // https://github.com/primer/react/blob/main/src/TextInputWithTokens.tsx#L269
+            // idea: can we trace ...sxProp back to props and then remove it because it would
+            // be compiled out independently?
+            notSupported(state, property, "Can not compile property of type ".concat(property.type, " yet. NS2"));
+        }
+        else if (types.isObjectProperty(property)) {
+            // property.key.type (# of instances in primer/react)
+            // Identifier (108) | StringLiteral (7) | ConditionalExpression (2)
+            // (0) Expression | NumericLiteral | BigIntLiteral | DecimalLiteral | PrivateName
+            if (!types.isIdentifier(property.key)) {
+                // TODO
+                // example, ConditionalExpression: sx={{[position === 'end' ? 'marginBottom' : 'marginTop']: 2}}
+                // example, StringLiteral: sx={{'&:hover': {}}}
+                notSupported(state, property, "Can not compile key of type ".concat(property.key.type, " yet. NS3"));
+                return;
+            }
+            else
+                ; // Identifier, continue
+            // property.value.type (# of instances in primer/react)
+            // StringLiteral (59) | NumericLiteral (21) | Identifier (5) | TemplateLiteral (3) |
+            // ConditionalExpression (9) | MemberExpression (7) | CallExpression (1) | ObjectExpression (3)
+            if (types.isNumericLiteral(property.value) || types.isStringLiteral(property.value)) {
+                styles[property.key.name] = property.value.value;
+                // tag property name as compiled, so it can be removed later
+                property.key = types.identifier(COMPILED_TAG);
+            }
+            else if (types.isIdentifier(property.value) || types.isConditionalExpression(property.value)) {
+                // value is set with a variable or expression
+                // example: sx={{flexGrow: props.InlineDescription ? 0 : 1}}
+                var cssVariable = "--sx-".concat(property.key.name);
+                styles[property.key.name] = "var(".concat(cssVariable, ")");
+                // set variable on runtime via style attribute
+                var jsxOpeningElement = JSXAttributePath.parent;
+                var styleAttribute = jsxOpeningElement.attributes.find(function (attr) {
+                    return types.isJSXAttribute(attr) && attr.name.name === 'style';
+                });
+                if (styleAttribute) {
+                    // TODO: add variable into existing styles object
+                }
+                else {
+                    // add style attribute
+                    var keyVal = types.objectProperty(types.stringLiteral(cssVariable), property.value);
+                    jsxOpeningElement.attributes.push(types.jsxAttribute(types.jsxIdentifier('style'), types.jsxExpressionContainer(types.objectExpression([keyVal]))));
+                    // tag property name as compiled, so it can be removed later
+                    property.key = types.identifier(COMPILED_TAG);
+                }
+            }
+            else if (types.isObjectExpression(property.value)) {
+                // TODO: nested styles
+                // example: src/ActionList/Selection.tsx:44
+                // sx={{ rect: {...}, path: {...} }}
+                notSupported(state, property, "Can not compile value of type ".concat(property.value.type, " yet. NS Nested styles"));
+                return;
+            }
+            else {
+                // TODO
+                notSupported(state, property, "Can not compile value of type ".concat(property.value.type, " yet. NS4"));
+                return;
+            }
+        }
+    });
+    // Remove compiled properties from properties
+    expression.properties = expression.properties.filter(function (property) {
+        if (types.isObjectProperty(property) && types.isIdentifier(property.key) && property.key.name === COMPILED_TAG) {
+            return false;
+        }
+        else
+            return true;
+    });
+    // if expression object is empty now, it's safe to remove it
+    if (expression.properties.length === 0) {
+        state.set('stats.sxPropsCompiledOut', state.get('stats.sxPropsCompiledOut') + 1);
+        JSXAttributePath.remove();
+    }
+    return styles;
 };
