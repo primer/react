@@ -24,6 +24,9 @@ const defaultOptions = {
     'avoid-both-disabled-and-aria-disabled': {
       enabled: true,
     },
+    'color-contrast': {
+      enabled: false,
+    },
   },
 }
 

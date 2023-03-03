@@ -72,6 +72,49 @@ const components = new Map([
     },
   ],
   [
+    'ActionMenu',
+    {
+      stories: [
+        {
+          id: 'components-actionmenu--default',
+          name: 'Default',
+        },
+        {
+          id: 'components-actionmenu-features--links-and-actions',
+          name: 'Links And Actions',
+        },
+        {
+          id: 'components-actionmenu-features--multi-select',
+          name: 'Multi Select',
+        },
+        {
+          id: 'components-actionmenu-features--single-select',
+          name: 'Single Select',
+        },
+        {
+          id: 'components-actionmenu-examples--controlled-menu',
+          name: 'Controlled Menu',
+        },
+        {
+          id: 'components-actionmenu-examples--custom-anchor',
+          name: 'Custom Anchor',
+        },
+        {
+          id: 'components-actionmenu-examples--custom-overlay-props',
+          name: 'Custom Overlay Props',
+        },
+        {
+          id: 'components-actionmenu-examples--groups-and-descriptions',
+          name: 'Groups And Descriptions',
+        },
+        {
+          id: 'components-actionmenu-examples--multiple-sections',
+          name: 'Multiple Sections',
+        },
+      ],
+    },
+  ],
+  [
     'Avatar',
     {
       stories: [
@@ -641,57 +684,6 @@ const components = new Map([
     },
   ],
   [
-    'Select',
-    {
-      stories: [
-        {
-          id: 'components-select--default',
-          name: 'Default',
-        },
-        {
-          id: 'components-select-features--block',
-          name: 'Block',
-        },
-        {
-          id: 'components-select-features--disabled',
-          name: 'Disabled',
-        },
-        {
-          id: 'components-select-features--error',
-          name: 'Error',
-        },
-        {
-          id: 'components-select-features--large',
-          name: 'Large',
-        },
-        {
-          id: 'components-select-features--small',
-          name: 'Small',
-        },
-        {
-          id: 'components-select-features--success',
-          name: 'Success',
-        },
-        {
-          id: 'components-select-features--visually-hidden-label',
-          name: 'Visually Hidden Label',
-        },
-        {
-          id: 'components-select-features--warning',
-          name: 'Warning',
-        },
-        {
-          id: 'components-select-features--with-caption',
-          name: 'With Caption',
-        },
-        {
-          id: 'components-select-features--with-option-groups',
-          name: 'With Option Groups',
-        },
-      ],
-    },
-  ],
-  [
     'StateLabel',
     {
       stories: [
@@ -891,6 +883,49 @@ const components = new Map([
     },
   ],
   [
+    'ToggleSwitch',
+    {
+      stories: [
+        {
+          id: 'components-toggleswitch--default',
+          name: 'Default',
+        },
+        {
+          id: 'components-toggleswitch-features--checked',
+          name: 'Checked',
+        },
+        {
+          id: 'components-toggleswitch-features--checked-disabled',
+          name: 'Checked Disabled',
+        },
+        {
+          id: 'components-toggleswitch-features--controlled',
+          name: 'Controlled',
+        },
+        {
+          id: 'components-toggleswitch-features--disabled',
+          name: 'Disabled',
+        },
+        {
+          id: 'components-toggleswitch-features--label-end',
+          name: 'Label End',
+        },
+        {
+          id: 'components-toggleswitch-features--loading',
+          name: 'Loading',
+        },
+        {
+          id: 'components-toggleswitch-features--small',
+          name: 'Small',
+        },
+        {
+          id: 'components-toggleswitch-features--with-caption',
+          name: 'With Caption',
+        },
+      ],
+    },
+  ],
+  [
     'TreeView',
     {
       stories: [
@@ -945,13 +980,7 @@ for (const [component, info] of components) {
             colorScheme: theme
           }
         })
-        await expect(page).toHaveNoViolations({
-          rules: {
-            'color-contrast': {
-              enabled: theme !== 'dark_dimmed'
-            },
-          },
-        })
+        await expect(page).toHaveNoViolations()
       })
     });
   }

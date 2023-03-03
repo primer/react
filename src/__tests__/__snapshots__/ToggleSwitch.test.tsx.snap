@@ -231,7 +231,6 @@ exports[`renders consistently 1`] = `
   </span>
   <button
     aria-checked={false}
-    aria-disabled={false}
     checked={false}
     className="c4"
     disabled={false}
