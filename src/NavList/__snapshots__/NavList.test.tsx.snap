@@ -1232,10 +1232,40 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
                   class="c6"
                   id="react-aria-2"
                 >
+<<<<<<< HEAD
                   Item
                 </span>
                 <span
                   class="c7"
+=======
+                  <path
+                    d="M12.78 5.22a.749.749 0 0 1 0 1.06l-4.25 4.25a.749.749 0 0 1-1.06 0L3.22 6.28a.749.749 0 1 1 1.06-1.06L8 8.939l3.72-3.719a.749.749 0 0 1 1.06 0Z"
+                  />
+                </svg>
+              </span>
+            </div>
+          </div>
+        </button>
+        <div>
+          <ul
+            aria-labelledby="react-aria-1"
+            class="c9"
+            id="react-aria-2"
+          >
+            <li
+              class="c2 c10"
+            >
+              <a
+                aria-current="page"
+                aria-labelledby="react-aria-3 "
+                class="c11"
+                href="#"
+                tabindex="0"
+              >
+                <div
+                  class="c4"
+                  data-component="ActionList.Item--DividerContainer"
+>>>>>>> 25ceea439f26ed2a6dcfebb5c5945e7ed6eee59f
                 >
                   <svg
                     aria-hidden="true"
@@ -1722,10 +1752,40 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
                   class="c6"
                   id="react-aria-2"
                 >
+<<<<<<< HEAD
                   Item
                 </span>
                 <span
                   class="c7"
+=======
+                  <path
+                    d="M12.78 5.22a.749.749 0 0 1 0 1.06l-4.25 4.25a.749.749 0 0 1-1.06 0L3.22 6.28a.749.749 0 1 1 1.06-1.06L8 8.939l3.72-3.719a.749.749 0 0 1 1.06 0Z"
+                  />
+                </svg>
+              </span>
+            </div>
+          </div>
+        </button>
+        <div>
+          <ul
+            aria-labelledby="react-aria-1"
+            class="c9"
+            id="react-aria-2"
+          >
+            <li
+              class="c2 c10"
+            >
+              <a
+                aria-current="page"
+                aria-labelledby="react-aria-3 "
+                class="c11"
+                href="#"
+                tabindex="0"
+              >
+                <div
+                  class="c4"
+                  data-component="ActionList.Item--DividerContainer"
+>>>>>>> 25ceea439f26ed2a6dcfebb5c5945e7ed6eee59f
                 >
                   <svg
                     aria-hidden="true"

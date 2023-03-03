@@ -74,6 +74,26 @@ To make assertions about the elements we use [Jest](https://jestjs.io/) and [jes
 
 \*: Read about the [differences between `fireEvent` and `UserEvent`](https://testing-library.com/docs/user-event/intro/#differences-from-fireevent).
 
+### Snapshots
+
+We are slowly moving away from using `Jest` snapshots as a way to test visual changes of our components. You can read more about the decision in this [ADR](https://github.com/primer/react/blob/main/contributor-docs/adrs/adr-011-snapshot-tests.md). We are in the proces of migrating our existing snapshot tests to use [Playwright](https://playwright.dev/) for visual regression testing. If you are writing a new test and you need to test the visual changes of the component, please refer to the [Visual Regression Tests](#visual-regression-tests) section.
+
+#### Updating `theme-preval` snapshots
+
+If you need to update the `theme-preval` snapshots, you will need to run the following commands:
+
+```sh
+npm run build
+npm run test -- -u
+```
+
+After running that command, make sure to update the cache-busting timestamp in [src/theme-preval.js](https://github.com/primer/react/blob/main/src/theme-preval.js)
+
+```diff
+- // Cache bust: 2022-02-23 12:00:00 GMT (This file is cached by our deployment tooling, update this timestamp to rebuild this file)
++ // Cache bust: 2023-02-24 12:00:00 GMT (This file is cached by our deployment tooling, update this timestamp to rebuild this file)
+```
+
 ### Running Tests
 
 | Task                | Command                  |
@@ -214,3 +234,9 @@ and downloading the relevant report.
 The browser executables need to be installed so that playwright can run tests
 inside chromium, firefox, etc. They can be installed by running
 `npx playwright install --with-deps`
+
+<!-- theme preval snapshots are poping up but I didn't change anything theme related -->
+
+### Why do I see the `theme-preval` snapshots being updated when I run `npm test -- -u` even though I didn't change anything theme related?
+
+It is likely that you are using the previous version of the theme values. To fix this, you can run `npm run build` to re-build the components with the latest theme values.
