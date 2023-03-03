@@ -72,6 +72,49 @@ const components = new Map([
     },
   ],
   [
+    'ActionMenu',
+    {
+      stories: [
+        {
+          id: 'components-actionmenu--default',
+          name: 'Default',
+        },
+        {
+          id: 'components-actionmenu-features--links-and-actions',
+          name: 'Links And Actions',
+        },
+        {
+          id: 'components-actionmenu-features--multi-select',
+          name: 'Multi Select',
+        },
+        {
+          id: 'components-actionmenu-features--single-select',
+          name: 'Single Select',
+        },
+        {
+          id: 'components-actionmenu-examples--controlled-menu',
+          name: 'Controlled Menu',
+        },
+        {
+          id: 'components-actionmenu-examples--custom-anchor',
+          name: 'Custom Anchor',
+        },
+        {
+          id: 'components-actionmenu-examples--custom-overlay-props',
+          name: 'Custom Overlay Props',
+        },
+        {
+          id: 'components-actionmenu-examples--groups-and-descriptions',
+          name: 'Groups And Descriptions',
+        },
+        {
+          id: 'components-actionmenu-examples--multiple-sections',
+          name: 'Multiple Sections',
+        },
+      ],
+    },
+  ],
+  [
     'Avatar',
     {
       stories: [
@@ -735,6 +778,65 @@ const components = new Map([
     },
   ],
   [
+    'SegmentedControl',
+    {
+      stories: [
+        {
+          id: 'components-segmentedcontrol--default',
+          name: 'Default',
+        },
+        {
+          id: 'components-segmentedcontrol--playground',
+          name: 'Playground',
+        },
+        {
+          id: 'components-segmentedcontrol-segmentedcontrol-button--playground',
+          name: 'SegmentedControlButton Playground',
+        },
+        {
+          id: 'components-segmentedcontrol-segmentedcontrol-iconbutton--playground',
+          name: 'SegmentedControlIconButton Playground',
+        },
+        {
+          id: 'components-segmentedcontrol-features--associated-with-a-label-and-caption',
+          name: 'Associated with a Label and Caption',
+        },
+        {
+          id: 'components-segmentedcontrol-features--fullwidth-narrow',
+          name: 'Fullwidth Narrow',
+        },
+        {
+          id: 'components-segmentedcontrol-features--fullwidth-regular',
+          name: 'Fullwidth Regular',
+        },
+        {
+          id: 'components-segmentedcontrol-features--variant-narrow-action-menu',
+          name: 'Variant Narrow Action Menu',
+        },
+        {
+          id: 'components-segmentedcontrol-features--variant-narrow-hide-labels',
+          name: 'Variant Narrow Hide Labels',
+        },
+        {
+          id: 'components-segmentedcontrol-features--controlled',
+          name: 'Controlled',
+        },
+        {
+          id: 'components-segmentedcontrol-features--fullwidth-all',
+          name: 'Fullwidth',
+        },
+        {
+          id: 'components-segmentedcontrol-features--icon-only',
+          name: 'Icon Only',
+        },
+        {
+          id: 'components-segmentedcontrol-features--with-icons',
+          name: 'With Icons',
+        },
+      ],
+    },
+  ],
+  [
     'UnderlineNav',
     {
       stories: [
@@ -812,6 +914,49 @@ const components = new Map([
     },
   ],
   [
+    'ToggleSwitch',
+    {
+      stories: [
+        {
+          id: 'components-toggleswitch--default',
+          name: 'Default',
+        },
+        {
+          id: 'components-toggleswitch-features--checked',
+          name: 'Checked',
+        },
+        {
+          id: 'components-toggleswitch-features--checked-disabled',
+          name: 'Checked Disabled',
+        },
+        {
+          id: 'components-toggleswitch-features--controlled',
+          name: 'Controlled',
+        },
+        {
+          id: 'components-toggleswitch-features--disabled',
+          name: 'Disabled',
+        },
+        {
+          id: 'components-toggleswitch-features--label-end',
+          name: 'Label End',
+        },
+        {
+          id: 'components-toggleswitch-features--loading',
+          name: 'Loading',
+        },
+        {
+          id: 'components-toggleswitch-features--small',
+          name: 'Small',
+        },
+        {
+          id: 'components-toggleswitch-features--with-caption',
+          name: 'With Caption',
+        },
+      ],
+    },
+  ],
+  [
     'TreeView',
     {
       stories: [
@@ -866,13 +1011,7 @@ for (const [component, info] of components) {
             colorScheme: theme
           }
         })
-        await expect(page).toHaveNoViolations({
-          rules: {
-            'color-contrast': {
-              enabled: theme !== 'dark_dimmed'
-            },
-          },
-        })
+        await expect(page).toHaveNoViolations()
       })
     });
   }
