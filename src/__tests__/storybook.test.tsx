@@ -23,6 +23,8 @@ const allowlist = [
   'IconButton',
   'FilteredActionList',
   'Link',
+  'Radio',
+  'RadioGroup',
   'SegmentedControl',
   'StateLabel',
   'TabNav',

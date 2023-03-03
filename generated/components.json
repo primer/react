@@ -561,177 +561,6 @@
       ],
       "subcomponents": []
     },
-    "radio": {
-      "id": "radio",
-      "name": "Radio",
-      "status": "alpha",
-      "a11yReviewed": false,
-      "stories": [],
-      "props": [
-        {
-          "name": "value",
-          "type": "string",
-          "defaultValue": "",
-          "required": true,
-          "description": "A unique value that is never shown to the user"
-        },
-        {
-          "name": "name",
-          "type": "string",
-          "defaultValue": "",
-          "description": "Required for grouping multiple radios"
-        },
-        {
-          "name": "checked",
-          "type": "boolean",
-          "defaultValue": "",
-          "description": "Modifies true/false value of the native radio"
-        },
-        {
-          "name": "defaultChecked",
-          "type": "boolean",
-          "defaultValue": "",
-          "description": "Selects the radio by default in uncontrolled mode"
-        },
-        {
-          "name": "onChange",
-          "type": "(event: React.ChangeEvent) => void",
-          "defaultValue": "",
-          "description": "A callback function that is triggered when the input state has been changed"
-        },
-        {
-          "name": "disabled",
-          "type": "boolean",
-          "defaultValue": "",
-          "description": "Modifies the native disabled state of the native checkbox"
-        },
-        {
-          "name": "ref",
-          "type": "React.RefObject<HTMLInputElement>"
-        },
-        {
-          "name": "as",
-          "type": "React.ElementType",
-          "defaultValue": "\"input\""
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject"
-        }
-      ],
-      "subcomponents": []
-    },
-    "radio_group": {
-      "id": "radio_group",
-      "name": "RadioGroup",
-      "status": "alpha",
-      "a11yReviewed": false,
-      "stories": [],
-      "props": [
-        {
-          "name": "aria-labelledby",
-          "type": "string",
-          "defaultValue": "",
-          "description": "Used when associating the input group with a label other than RadioGroup.Label"
-        },
-        {
-          "name": "children",
-          "type": "RadioGroup.Label | RadioGroup.Caption | RadioGroup.Validation | FormControl",
-          "defaultValue": "",
-          "required": true,
-          "description": ""
-        },
-        {
-          "name": "disabled",
-          "type": "boolean",
-          "defaultValue": "false",
-          "description": "Whether the input group allows user input"
-        },
-        {
-          "name": "id",
-          "type": "string",
-          "defaultValue": "A generated string",
-          "description": "<span> The unique identifier for this input group. Used to associate the label, validation text, and caption text. <br /> You may want a custom ID to make it easier to select elements in integration tests. </span>"
-        },
-        {
-          "name": "name",
-          "type": "string",
-          "defaultValue": "",
-          "required": true,
-          "description": "The name used to identify this group of radios"
-        },
-        {
-          "name": "onChange",
-          "type": "(selected: string | null, e?: ChangeEvent<HTMLInputElement>) => void",
-          "defaultValue": "",
-          "description": "An onChange handler that gets called when the selection changes"
-        },
-        {
-          "name": "required",
-          "type": "boolean",
-          "defaultValue": "false",
-          "description": "If true, the user must make a selection before the owning form can be submitted"
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject"
-        }
-      ],
-      "subcomponents": [
-        {
-          "name": "RadioGroup.Label",
-          "props": [
-            {
-              "name": "visuallyHidden",
-              "type": "boolean",
-              "defaultValue": "false",
-              "description": "If true, the fieldset legend will be visually hidden"
-            },
-            {
-              "name": "sx",
-              "type": "SystemStyleObject"
-            }
-          ]
-        },
-        {
-          "name": "RadioGroup.Description",
-          "props": [
-            {
-              "name": "children",
-              "type": "React.ReactNode",
-              "defaultValue": "",
-              "description": "The caption content"
-            },
-            {
-              "name": "sx",
-              "type": "SystemStyleObject"
-            }
-          ]
-        },
-        {
-          "name": "RadioGroup.Validation",
-          "props": [
-            {
-              "name": "children",
-              "type": "React.ReactNode",
-              "defaultValue": "",
-              "description": "The validation message"
-            },
-            {
-              "name": "variant",
-              "type": "'error' | 'success' | 'warning'",
-              "defaultValue": "",
-              "required": true,
-              "description": "Changes the visual style to match the validation status"
-            },
-            {
-              "name": "sx",
-              "type": "SystemStyleObject"
-            }
-          ]
-        }
-      ]
-    },
     "select": {
       "id": "select",
       "name": "Select",
@@ -3569,6 +3398,187 @@
         }
       ],
       "subcomponents": []
+    },
+    "radio": {
+      "id": "radio",
+      "name": "Radio",
+      "status": "alpha",
+      "a11yReviewed": false,
+      "stories": [
+        {
+          "id": "components-radio--default",
+          "code": "() => (\n  <Box as=\"form\">\n    <FormControl>\n      <Radio name=\"default-radio-name\" value=\"default\" />\n      <FormControl.Label>Label</FormControl.Label>\n    </FormControl>\n  </Box>\n)"
+        }
+      ],
+      "props": [
+        {
+          "name": "value",
+          "type": "string",
+          "defaultValue": "",
+          "required": true,
+          "description": "A unique value that is never shown to the user"
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "defaultValue": "",
+          "description": "Required for grouping multiple radios"
+        },
+        {
+          "name": "checked",
+          "type": "boolean",
+          "defaultValue": "",
+          "description": "Modifies true/false value of the native radio"
+        },
+        {
+          "name": "defaultChecked",
+          "type": "boolean",
+          "defaultValue": "",
+          "description": "Selects the radio by default in uncontrolled mode"
+        },
+        {
+          "name": "onChange",
+          "type": "(event: React.ChangeEvent) => void",
+          "defaultValue": "",
+          "description": "A callback function that is triggered when the input state has been changed"
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "defaultValue": "",
+          "description": "Modifies the native disabled state of the native checkbox"
+        },
+        {
+          "name": "ref",
+          "type": "React.RefObject<HTMLInputElement>"
+        },
+        {
+          "name": "as",
+          "type": "React.ElementType",
+          "defaultValue": "\"input\""
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ],
+      "subcomponents": []
+    },
+    "radio_group": {
+      "id": "radio_group",
+      "name": "RadioGroup",
+      "status": "alpha",
+      "a11yReviewed": false,
+      "stories": [
+        {
+          "id": "components-radiogroup--default",
+          "code": "() => (\n  <RadioGroup name=\"defaultRadioGroup\">\n    <RadioGroup.Label>Choices</RadioGroup.Label>\n    <FormControl>\n      <Radio value=\"one\" />\n      <FormControl.Label>Choice one</FormControl.Label>\n    </FormControl>\n    <FormControl>\n      <Radio value=\"two\" defaultChecked />\n      <FormControl.Label>Choice two</FormControl.Label>\n    </FormControl>\n    <FormControl>\n      <Radio value=\"three\" />\n      <FormControl.Label>Choice three</FormControl.Label>\n    </FormControl>\n  </RadioGroup>\n)"
+        }
+      ],
+      "props": [
+        {
+          "name": "aria-labelledby",
+          "type": "string",
+          "defaultValue": "",
+          "description": "Used when associating the input group with a label other than RadioGroup.Label"
+        },
+        {
+          "name": "children",
+          "type": "RadioGroup.Label | RadioGroup.Caption | RadioGroup.Validation | FormControl",
+          "defaultValue": "",
+          "required": true,
+          "description": ""
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "Whether the input group allows user input"
+        },
+        {
+          "name": "id",
+          "type": "string",
+          "defaultValue": "A generated string",
+          "description": "<span> The unique identifier for this input group. Used to associate the label, validation text, and caption text. <br /> You may want a custom ID to make it easier to select elements in integration tests. </span>"
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "defaultValue": "",
+          "required": true,
+          "description": "The name used to identify this group of radios"
+        },
+        {
+          "name": "onChange",
+          "type": "(selected: string | null, e?: ChangeEvent<HTMLInputElement>) => void",
+          "defaultValue": "",
+          "description": "An onChange handler that gets called when the selection changes"
+        },
+        {
+          "name": "required",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "If true, the user must make a selection before the owning form can be submitted"
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ],
+      "subcomponents": [
+        {
+          "name": "RadioGroup.Label",
+          "props": [
+            {
+              "name": "visuallyHidden",
+              "type": "boolean",
+              "defaultValue": "false",
+              "description": "If true, the fieldset legend will be visually hidden"
+            },
+            {
+              "name": "sx",
+              "type": "SystemStyleObject"
+            }
+          ]
+        },
+        {
+          "name": "RadioGroup.Description",
+          "props": [
+            {
+              "name": "children",
+              "type": "React.ReactNode",
+              "defaultValue": "",
+              "description": "The caption content"
+            },
+            {
+              "name": "sx",
+              "type": "SystemStyleObject"
+            }
+          ]
+        },
+        {
+          "name": "RadioGroup.Validation",
+          "props": [
+            {
+              "name": "children",
+              "type": "React.ReactNode",
+              "defaultValue": "",
+              "description": "The validation message"
+            },
+            {
+              "name": "variant",
+              "type": "'error' | 'success' | 'warning'",
+              "defaultValue": "",
+              "required": true,
+              "description": "Changes the visual style to match the validation status"
+            },
+            {
+              "name": "sx",
+              "type": "SystemStyleObject"
+            }
+          ]
+        }
+      ]
     },
     "relative_time": {
       "id": "relative_time",
