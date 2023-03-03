@@ -2,20 +2,12 @@ import React, {useState} from 'react'
 import {Meta} from '@storybook/react'
 import {SegmentedControl} from '.'
 import {EyeIcon, FileCodeIcon, PeopleIcon} from '@primer/octicons-react'
-import {Box, Text} from '../'
+import {Box, Text} from '..'
 
 export default {
   title: 'Components/SegmentedControl/Features',
   component: SegmentedControl,
 } as Meta<typeof SegmentedControl>
-
-export const Default = () => (
-  <SegmentedControl aria-label="File view">
-    <SegmentedControl.Button defaultSelected>Preview</SegmentedControl.Button>
-    <SegmentedControl.Button>Raw</SegmentedControl.Button>
-    <SegmentedControl.Button>Blame</SegmentedControl.Button>
-  </SegmentedControl>
-)
 
 export const WithIcons = () => (
   <SegmentedControl aria-label="File view">
