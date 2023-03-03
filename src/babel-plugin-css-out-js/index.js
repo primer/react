@@ -39,9 +39,8 @@ export default function plugin(_a) {
     var visitor = {
         Program: {
             enter: function (_nodePath, state) {
-                var _a;
-                state.set('debug', (_a = state.file.opts.filename) === null || _a === void 0 ? void 0 : _a.includes('src/ActionList'));
-                // state.set('debug', true)
+                // state.set('debug', state.file.opts.filename?.includes('src/ActionList'))
+                state.set('debug', true);
                 if (state.get('debug') !== true)
                     return;
                 // @ts-ignore not typed, dist is relative to root

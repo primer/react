@@ -46,8 +46,8 @@ export default function plugin({types}: typeof babel): PluginObj {
   const visitor: PluginObj['visitor'] = {
     Program: {
       enter(_nodePath, state) {
-        state.set('debug', state.file.opts.filename?.includes('src/ActionList'))
-        // state.set('debug', true)
+        // state.set('debug', state.file.opts.filename?.includes('src/ActionList'))
+        state.set('debug', true)
         if (state.get('debug') !== true) return
 
         // @ts-ignore not typed, dist is relative to root
