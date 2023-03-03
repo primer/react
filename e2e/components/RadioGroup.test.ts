@@ -71,7 +71,7 @@ test.describe('RadioGroup', () => {
           })
 
           // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`RadioGroup.Error.${theme}.png`)
+          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(`RadioGroup.Error.${theme}.png`)
         })
 
         test('axe @aat', async ({page}) => {
@@ -99,7 +99,7 @@ test.describe('RadioGroup', () => {
           })
 
           // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`RadioGroup.Success.${theme}.png`)
+          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(`RadioGroup.Success.${theme}.png`)
         })
 
         test('axe @aat', async ({page}) => {
@@ -155,7 +155,7 @@ test.describe('RadioGroup', () => {
           })
 
           // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`RadioGroup.Warning.${theme}.png`)
+          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(`RadioGroup.Warning.${theme}.png`)
         })
 
         test('axe @aat', async ({page}) => {
