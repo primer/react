@@ -122,20 +122,6 @@
       ],
       "subcomponents": []
     },
-    "details": {
-      "id": "details",
-      "name": "Details",
-      "status": "alpha",
-      "a11yReviewed": false,
-      "stories": [],
-      "props": [
-        {
-          "name": "sx",
-          "type": "SystemStyleObject"
-        }
-      ],
-      "subcomponents": []
-    },
     "dialog": {
       "id": "dialog",
       "name": "Dialog",
@@ -2329,6 +2315,25 @@
           ]
         }
       ]
+    },
+    "details": {
+      "id": "details",
+      "name": "Details",
+      "status": "alpha",
+      "a11yReviewed": false,
+      "stories": [
+        {
+          "id": "components-details--default",
+          "code": "() => {\n  const { getDetailsProps } = useDetails({\n    closeOnOutsideClick: true,\n  })\n  return (\n    <Details {...getDetailsProps()}>\n      <Button as=\"summary\">See Details</Button>\n      This is some content\n    </Details>\n  )\n}"
+        }
+      ],
+      "props": [
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ],
+      "subcomponents": []
     },
     "drafts_dialog": {
       "id": "drafts_dialog",

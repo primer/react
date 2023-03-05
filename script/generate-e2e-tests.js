@@ -326,6 +326,17 @@ const components = new Map([
     },
   ],
   [
+    'Details',
+    {
+      stories: [
+        {
+          id: 'components-details--default',
+          name: 'Default',
+        },
+      ],
+    },
+  ],
+  [
     'Flash',
     {
       stories: [

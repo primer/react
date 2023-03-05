@@ -1,5 +1,5 @@
 import React from 'react'
-import Details from '../Details'
+import Details from '..'
 
 export function shouldAcceptCallWithNoProps() {
   return <Details />

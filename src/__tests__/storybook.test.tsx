@@ -18,6 +18,7 @@ const allowlist = [
   'Checkbox',
   'CheckboxGroup',
   'CounterLabel',
+  'Details',
   'Flash',
   'Heading',
   'IconButton',

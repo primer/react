@@ -1,10 +1,10 @@
 import {render} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import React from 'react'
-import {Details, useDetails, Box} from '..'
-import {Button, ButtonPrimary} from '../deprecated'
-import {ButtonProps} from '../deprecated/Button/Button'
-import {behavesAsComponent, checkExports} from '../utils/testing'
+import {Details, useDetails, Box} from '../..'
+import {Button, ButtonPrimary} from '../../deprecated'
+import {ButtonProps} from '../../deprecated/Button/Button'
+import {behavesAsComponent, checkExports} from '../../utils/testing'
 import {axe} from 'jest-axe'
 
 describe('Details', () => {
