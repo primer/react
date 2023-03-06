@@ -326,6 +326,17 @@ const components = new Map([
     },
   ],
   [
+    'Details',
+    {
+      stories: [
+        {
+          id: 'components-details--default',
+          name: 'Default',
+        },
+      ],
+    },
+  ],
+  [
     'Flash',
     {
       stories: [
@@ -625,12 +636,111 @@ const components = new Map([
     },
   ],
   [
+    'Radio',
+    {
+      stories: [
+        {
+          id: 'components-radio--default',
+          name: 'Default',
+        },
+        {
+          id: 'components-radio-features--disabled',
+
+          name: 'Disabled',
+        },
+        {
+          id: 'components-radio-features--with-caption',
+          name: 'With Caption',
+        },
+        {
+          id: 'components-radio-features--with-leading-visual',
+          name: 'With Leading Visual',
+        },
+      ],
+    },
+  ],
+  [
     'RadioGroup',
     {
       stories: [
         {
-          id: 'components-forms-radiogroup-examples--default',
+          id: 'components-radiogroup--default',
           name: 'Default',
+        },
+        {
+          id: 'components-radiogroup-features--caption',
+          name: 'Caption',
+        },
+        {
+          id: 'components-radiogroup-features--error',
+          name: 'Error',
+        },
+        {
+          id: 'components-radiogroup-features--success',
+          name: 'Success',
+        },
+        {
+          id: 'components-radiogroup-features--visually-hidden-label',
+          name: 'Visually Hidden Label',
+        },
+        {
+          id: 'components-radiogroup-features--warning',
+          name: 'Warning',
+        },
+        {
+          id: 'components-radiogroup-features--with-external-label',
+          name: 'With External Label',
+        },
+      ],
+    },
+  ],
+  [
+    'Select',
+    {
+      stories: [
+        {
+          id: 'components-select--default',
+          name: 'Default',
+        },
+        {
+          id: 'components-select-features--block',
+          name: 'Block',
+        },
+        {
+          id: 'components-select-features--disabled',
+          name: 'Disabled',
+        },
+        {
+          id: 'components-select-features--error',
+          name: 'Error',
+        },
+        {
+          id: 'components-select-features--large',
+          name: 'Large',
+        },
+        {
+          id: 'components-select-features--small',
+          name: 'Small',
+        },
+        {
+          id: 'components-select-features--success',
+          name: 'Success',
+        },
+        {
+          id: 'components-select-features--visually-hidden-label',
+          name: 'Visually Hidden Label',
+        },
+        {
+          id: 'components-select-features--warning',
+          name: 'Warning',
+        },
+        {
+          id: 'components-select-features--with-caption',
+          name: 'With Caption',
+        },
+        {
+          id: 'components-select-features--with-option-groups',
+          name: 'With Option Groups',
         },
       ],
     },
