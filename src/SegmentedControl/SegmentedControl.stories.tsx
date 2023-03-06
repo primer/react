@@ -123,3 +123,11 @@ export const Playground: Story<Args> = args => (
     </SegmentedControl.Button>
   </SegmentedControl>
 )
+
+export const Default = () => (
+  <SegmentedControl aria-label="File view">
+    <SegmentedControl.Button defaultSelected>Preview</SegmentedControl.Button>
+    <SegmentedControl.Button>Raw</SegmentedControl.Button>
+    <SegmentedControl.Button>Blame</SegmentedControl.Button>
+  </SegmentedControl>
+)
