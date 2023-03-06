@@ -159,7 +159,7 @@
 - title: Drafts
   children:
     - title: Dialog v2
-      url: /drafts/Dialog
+      url: /drafts/Dialog2
     - title: InlineAutocomplete
       url: /drafts/InlineAutocomplete
     - title: MarkdownEditor

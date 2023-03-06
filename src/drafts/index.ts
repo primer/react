@@ -21,7 +21,7 @@ export type {
   TableActionsProps,
 } from '../DataTable'
 
-export * from '../Dialogv2'
+export * from '../Dialog2'
 
 export * from '../Hidden'
 
