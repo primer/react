@@ -8,7 +8,6 @@ import {defaultSxProp} from '../utils/defaultSxProp'
 import {useId} from '../hooks/useId'
 import {Heading, ActionListHeadingProps} from './Heading'
 import Box from '../Box'
-import { argv0 } from 'process'
 
 export type ActionListProps = React.PropsWithChildren<{
   /**
@@ -53,7 +52,7 @@ export const List = React.forwardRef<HTMLUListElement, ActionListProps>(
     forwardedRef,
   ): JSX.Element => {
     const outerStyles = {
-      paddingY: variant === 'inset' ? 2 : 0
+      paddingY: variant === 'inset' ? 2 : 0,
     }
 
     const innerStyles = {
