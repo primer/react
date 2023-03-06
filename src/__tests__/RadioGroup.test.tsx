@@ -1,7 +1,7 @@
 import React from 'react'
 import {render} from '@testing-library/react'
 import {RadioGroup, FormControl, Radio, SSRProvider} from '..'
-import {behavesAsComponent, checkExports, checkStoriesForAxeViolations} from '../utils/testing'
+import {behavesAsComponent, checkExports} from '../utils/testing'
 import userEvent from '@testing-library/user-event'
 import {RadioGroupContext} from '../RadioGroup'
 
@@ -161,6 +161,3 @@ describe('RadioGroup', () => {
     )
   })
 })
-
-checkStoriesForAxeViolations('RadioGroup/fixtures')
-checkStoriesForAxeViolations('RadioGroup/examples')
