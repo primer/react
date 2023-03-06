@@ -1,92 +1,6 @@
 {
   "schemaVersion": 2,
   "components": {
-    "action_menu": {
-      "id": "action_menu",
-      "name": "ActionMenu",
-      "status": "beta",
-      "a11yReviewed": true,
-      "stories": [],
-      "props": [
-        {
-          "name": "children",
-          "type": "React.ReactElement[]",
-          "defaultValue": "",
-          "required": true,
-          "description": "Recommended: `ActionMenu.Button` or `ActionMenu.Anchor` with `ActionMenu.Overlay`"
-        },
-        {
-          "name": "open",
-          "type": "boolean",
-          "defaultValue": "false",
-          "description": "If defined, will control the open/closed state of the overlay. Must be used in conjuction with `onOpenChange`."
-        },
-        {
-          "name": "onOpenChange",
-          "type": "(open: boolean) => void",
-          "defaultValue": "",
-          "description": "If defined, will control the open/closed state of the overlay. Must be used in conjuction with `open`."
-        },
-        {
-          "name": "anchorRef",
-          "type": "React.RefObject<HTMLElement>",
-          "defaultValue": "",
-          "description": "Useful for defining an external anchor"
-        }
-      ],
-      "subcomponents": [
-        {
-          "name": "ActionMenu.Button",
-          "props": [
-            {
-              "name": "children",
-              "type": "React.ReactElement",
-              "defaultValue": "",
-              "required": true,
-              "description": ""
-            }
-          ],
-          "passthrough": {
-            "element": "Button",
-            "url": "/react/Button"
-          }
-        },
-        {
-          "name": "ActionMenu.Anchor",
-          "props": [
-            {
-              "name": "children",
-              "type": "React.ReactElement",
-              "defaultValue": "",
-              "required": true,
-              "description": "Accepts a single child element"
-            }
-          ]
-        },
-        {
-          "name": "ActionMenu.Overlay",
-          "props": [
-            {
-              "name": "children",
-              "type": "React.ReactNode",
-              "defaultValue": "",
-              "required": true,
-              "description": ""
-            },
-            {
-              "name": "align",
-              "type": "start | center | end",
-              "defaultValue": "start",
-              "description": ""
-            }
-          ],
-          "passthrough": {
-            "element": "Overlay",
-            "url": "/react/Overlay"
-          }
-        }
-      ]
-    },
     "box": {
       "id": "box",
       "name": "Box",
@@ -201,20 +115,6 @@
           "type": "number",
           "description": "Set the width and height of the icon in pixels."
         },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject"
-        }
-      ],
-      "subcomponents": []
-    },
-    "details": {
-      "id": "details",
-      "name": "Details",
-      "status": "alpha",
-      "a11yReviewed": false,
-      "stories": [],
-      "props": [
         {
           "name": "sx",
           "type": "SystemStyleObject"
@@ -647,51 +547,6 @@
       ],
       "subcomponents": []
     },
-    "select": {
-      "id": "select",
-      "name": "Select",
-      "status": "alpha",
-      "a11yReviewed": true,
-      "stories": [
-        {
-          "id": "components-select--default",
-          "code": "() => (\n  <Box as=\"form\">\n    <FormControl>\n      <FormControl.Label>Default label</FormControl.Label>\n      <Select>\n        <Select.Option value=\"one\">Choice one</Select.Option>\n        <Select.Option value=\"two\">Choice two</Select.Option>\n        <Select.Option value=\"three\">Choice three</Select.Option>\n        <Select.Option value=\"four\">Choice four</Select.Option>\n        <Select.Option value=\"five\">Choice five</Select.Option>\n        <Select.Option value=\"six\">Choice six</Select.Option>\n      </Select>\n    </FormControl>\n  </Box>\n)"
-        }
-      ],
-      "props": [
-        {
-          "name": "block",
-          "type": "boolean",
-          "defaultValue": "false",
-          "description": "Creates a full width input element"
-        },
-        {
-          "name": "contrast",
-          "type": "boolean",
-          "defaultValue": "false",
-          "description": "Changes background color to a higher contrast color"
-        },
-        {
-          "name": "placeholder",
-          "type": "string",
-          "defaultValue": "",
-          "description": "Placeholder text to show when no option is selected. <br /> This option is hidden from the dropdown menu when the 'required' prop is set"
-        },
-        {
-          "name": "size",
-          "type": "'small' | 'medium' | 'large'",
-          "defaultValue": "",
-          "description": "Creates a smaller or larger input than the default."
-        },
-        {
-          "name": "validationStatus",
-          "type": "'error' | 'success' | 'warning'",
-          "defaultValue": "",
-          "description": "Style the input to match the status"
-        }
-      ],
-      "subcomponents": []
-    },
     "spinner": {
       "id": "spinner",
       "name": "Spinner",
@@ -836,243 +691,6 @@
       ],
       "subcomponents": []
     },
-    "text_input": {
-      "id": "text_input",
-      "name": "TextInput",
-      "status": "alpha",
-      "a11yReviewed": false,
-      "stories": [
-        {
-          "id": "components-textinput--default",
-          "code": "() => (\n  <Box as=\"form\">\n    <FormControl>\n      <FormControl.Label>Default label</FormControl.Label>\n      <TextInput />\n    </FormControl>\n  </Box>\n)"
-        }
-      ],
-      "props": [
-        {
-          "name": "aria-label",
-          "type": "string",
-          "defaultValue": "",
-          "description": "Allows input to be accessible."
-        },
-        {
-          "name": "block",
-          "type": "boolean",
-          "defaultValue": "false",
-          "description": "Creates a full-width input element"
-        },
-        {
-          "name": "contrast",
-          "type": "boolean",
-          "defaultValue": "false",
-          "description": "Changes background color to a higher contrast color"
-        },
-        {
-          "name": "size",
-          "type": "'small' | 'medium' | 'large'",
-          "defaultValue": "",
-          "description": "Creates a smaller or larger input than the default."
-        },
-        {
-          "name": "loading",
-          "type": "boolean",
-          "defaultValue": "",
-          "description": "Whether to show a loading indicator in the input"
-        },
-        {
-          "name": "loaderPosition",
-          "type": "'auto' | 'leading' | 'trailing'",
-          "defaultValue": "",
-          "description": "<div>Which position to render the loading indicator</div> <ul> <li> 'auto' (default): at the end of the input, unless a `leadingVisual` is passed. Then, it will render at the beginning </li> <li>'leading': at the beginning of the input</li> <li>'trailing': at the end of the input</li> </ul>"
-        },
-        {
-          "name": "leadingVisual",
-          "type": "string | React.ComponentType",
-          "defaultValue": "",
-          "description": "Visual positioned on the left edge inside the input"
-        },
-        {
-          "name": "monospace",
-          "type": "boolean",
-          "defaultValue": "false",
-          "description": "Shows input in monospace font"
-        },
-        {
-          "name": "trailingVisual",
-          "type": "string | React.ComponentType",
-          "defaultValue": "",
-          "description": "Visual positioned on the right edge inside the input"
-        },
-        {
-          "name": "trailingAction",
-          "type": "React.ReactElement<HTMLProps<HTMLButtonElement>>",
-          "defaultValue": "",
-          "description": "A visual that renders inside the input after the typing area"
-        },
-        {
-          "name": "validationStatus",
-          "type": "'error' | 'success' | 'warning'",
-          "defaultValue": "",
-          "description": "Style the input to match the status"
-        },
-        {
-          "name": "variant",
-          "type": "'small' | 'medium' | 'large'",
-          "defaultValue": "",
-          "deprecated": true,
-          "description": "(Use size) Creates a smaller or larger input than the default."
-        },
-        {
-          "name": "width",
-          "type": "string | number | Array<string | number>",
-          "defaultValue": "",
-          "deprecated": true,
-          "description": "(Use sx prop) Set the width of the input"
-        },
-        {
-          "name": "maxWidth",
-          "type": "string | number | Array<string | number>",
-          "defaultValue": "",
-          "deprecated": true,
-          "description": "(Use sx prop) Set the maximum width of the input"
-        },
-        {
-          "name": "minWidth",
-          "type": "string | number | Array<string | number>",
-          "defaultValue": "",
-          "deprecated": true,
-          "description": "(Use sx prop) Set the minimum width of the input"
-        },
-        {
-          "name": "icon",
-          "type": "React.ComponentType",
-          "defaultValue": "",
-          "deprecated": true,
-          "description": "(Use leadingVisual or trailingVisual) An Octicon React component. To be used inside of input. Positioned on the left edge."
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject"
-        },
-        {
-          "name": "ref",
-          "type": "React.RefObject<HTMLInputElement>"
-        }
-      ],
-      "subcomponents": [
-        {
-          "name": "TextInput.Action",
-          "props": [
-            {
-              "name": "aria-label",
-              "type": "string",
-              "defaultValue": "",
-              "description": "Text that appears in a tooltip. If an icon is passed, this is also used as the label used by assistive technologies."
-            },
-            {
-              "name": "icon",
-              "type": "React.FunctionComponent",
-              "defaultValue": "",
-              "description": "The icon to render inside the button"
-            },
-            {
-              "name": "variant",
-              "type": "'default' | 'primary' | 'invisible' | 'danger'",
-              "defaultValue": "",
-              "deprecated": true,
-              "description": "(Deprecated so that only the 'invisible' variant is used) Determine's the styles on a button"
-            },
-            {
-              "name": "ref",
-              "type": "React.RefObject<HTMLButtonElement>"
-            },
-            {
-              "name": "as",
-              "type": "React.ElementType",
-              "defaultValue": "\"button\""
-            },
-            {
-              "name": "sx",
-              "type": "SystemStyleObject"
-            }
-          ],
-          "passthrough": {
-            "element": "button",
-            "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#attributes"
-          }
-        }
-      ]
-    },
-    "text_input_with_tokens": {
-      "id": "text_input_with_tokens",
-      "name": "TextInputWithTokens",
-      "status": "alpha",
-      "a11yReviewed": false,
-      "stories": [
-        {
-          "id": "components-textinputwithtokens--default",
-          "code": "(args: FormControlArgs<TextInputWithTokensProps>) => {\n  const { parentArgs, labelArgs, captionArgs, validationArgs } =\n    getFormControlArgsByChildComponent(args)\n  const [tokens, setTokens] = useState([...mockTokens].slice(0, 3))\n  const onTokenRemove: (tokenId: string | number) => void = (tokenId) => {\n    setTokens(tokens.filter((token) => token.id !== tokenId))\n  }\n  return (\n    <FormControl {...parentArgs}>\n      <FormControl.Label {...labelArgs} />\n      <TextInputWithTokens\n        {...args}\n        tokens={tokens}\n        onTokenRemove={onTokenRemove}\n      />\n      {captionArgs.children && <FormControl.Caption {...captionArgs} />}\n      {validationArgs.children && validationArgs.variant && (\n        <FormControl.Validation\n          {...validationArgs}\n          variant={validationArgs.variant}\n        />\n      )}\n    </FormControl>\n  )\n}"
-        }
-      ],
-      "props": [
-        {
-          "name": "tokens",
-          "type": "TokenProps[]",
-          "defaultValue": "",
-          "required": true,
-          "description": "The array of tokens to render"
-        },
-        {
-          "name": "onTokenRemove",
-          "type": "(tokenId: string|number) => void",
-          "defaultValue": "",
-          "required": true,
-          "description": "The function that gets called when a token is removed"
-        },
-        {
-          "name": "tokenComponent",
-          "type": "React.ComponentType<any>",
-          "defaultValue": "Token",
-          "description": "The component used to render each token"
-        },
-        {
-          "name": "maxHeight",
-          "type": "React.CSSProperties['maxHeight']",
-          "defaultValue": "",
-          "description": "The maximum height of the component. If the content in the input exceeds this height, it will scroll vertically"
-        },
-        {
-          "name": "preventTokenWrapping",
-          "type": "boolean",
-          "defaultValue": "false",
-          "description": "Whether tokens should render inline horizontally. By default, tokens wrap to new lines"
-        },
-        {
-          "name": "size",
-          "type": "'small' | 'medium' | 'large' | 'xlarge'",
-          "defaultValue": "xlarge",
-          "description": "The size of the tokens and text input"
-        },
-        {
-          "name": "hideTokenRemoveButtons",
-          "type": "boolean",
-          "defaultValue": "false",
-          "description": "Whether the remove buttons should be rendered in the tokens"
-        },
-        {
-          "name": "validationStatus",
-          "type": "'error' | 'success' | 'warning'",
-          "defaultValue": "",
-          "description": "Style the input to match the status"
-        },
-        {
-          "name": "visibleTokenCount",
-          "type": "number",
-          "defaultValue": "",
-          "description": "The number of tokens to display before truncating"
-        }
-      ],
-      "subcomponents": []
-    },
     "textarea": {
       "id": "textarea",
       "name": "Textarea",
@@ -1132,77 +750,6 @@
         {
           "name": "sx",
           "type": "SystemStyleObject"
-        }
-      ],
-      "subcomponents": []
-    },
-    "toggle_switch": {
-      "id": "toggle_switch",
-      "name": "ToggleSwitch",
-      "status": "alpha",
-      "a11yReviewed": false,
-      "stories": [],
-      "props": [
-        {
-          "name": "aria-describedby",
-          "type": "string",
-          "defaultValue": "",
-          "description": "The id of the DOM node that describes the switch"
-        },
-        {
-          "name": "aria-labelledby",
-          "type": "string",
-          "defaultValue": "",
-          "required": true,
-          "description": "The id of the DOM node that labels the switch"
-        },
-        {
-          "name": "defaultChecked",
-          "type": "boolean",
-          "defaultValue": "",
-          "description": "Uncontrolled - whether the switch is turned on"
-        },
-        {
-          "name": "disabled",
-          "type": "boolean",
-          "defaultValue": "",
-          "description": "Whether the switch is ready for user input"
-        },
-        {
-          "name": "loading",
-          "type": "boolean",
-          "defaultValue": "",
-          "description": "Whether the switch's value is being calculated"
-        },
-        {
-          "name": "checked",
-          "type": "boolean",
-          "defaultValue": "",
-          "description": "Whether the switch is turned on"
-        },
-        {
-          "name": "onChange",
-          "type": "(on: boolean) => void",
-          "defaultValue": "",
-          "description": "The callback that is called when the switch is toggled on or off"
-        },
-        {
-          "name": "onClick",
-          "type": "(e: MouseEvent) => void",
-          "defaultValue": "",
-          "description": "The callback that is called when the switch is clicked"
-        },
-        {
-          "name": "size",
-          "type": "'small' | 'medium'",
-          "defaultValue": "'medium'",
-          "description": "Size of the switch"
-        },
-        {
-          "name": "statusLabelPosition",
-          "type": "'start' | 'end'",
-          "defaultValue": "'start'",
-          "description": "<div>Whether the \"on\" and \"off\" labels should appear before or after the switch.</div> <div> <Text fontWeight=\"bold\">This should only be changed when the switch's alignment needs to be adjusted.</Text> For example: It needs to be left-aligned because the label appears above it and the caption appears below it. </div>"
         }
       ],
       "subcomponents": []
@@ -1574,6 +1121,97 @@
               "type": "SystemStyleObject"
             }
           ]
+        }
+      ]
+    },
+    "action_menu": {
+      "id": "action_menu",
+      "name": "ActionMenu",
+      "status": "beta",
+      "a11yReviewed": true,
+      "stories": [
+        {
+          "id": "components-actionmenu--default",
+          "code": "() => (\n  <ActionMenu>\n    <ActionMenu.Button>Open menu</ActionMenu.Button>\n    <ActionMenu.Overlay width=\"medium\">\n      <ActionList>\n        <ActionList.Item onSelect={() => alert('Copy link clicked')}>\n          Copy link\n          <ActionList.TrailingVisual>⌘C</ActionList.TrailingVisual>\n        </ActionList.Item>\n        <ActionList.Item onSelect={() => alert('Quote reply clicked')}>\n          Quote reply\n          <ActionList.TrailingVisual>⌘Q</ActionList.TrailingVisual>\n        </ActionList.Item>\n        <ActionList.Item onSelect={() => alert('Edit comment clicked')}>\n          Edit comment\n          <ActionList.TrailingVisual>⌘E</ActionList.TrailingVisual>\n        </ActionList.Item>\n        <ActionList.Divider />\n        <ActionList.Item\n          variant=\"danger\"\n          onSelect={() => alert('Delete file clicked')}\n        >\n          Delete file\n          <ActionList.TrailingVisual>⌘D</ActionList.TrailingVisual>\n        </ActionList.Item>\n      </ActionList>\n    </ActionMenu.Overlay>\n  </ActionMenu>\n)"
+        }
+      ],
+      "props": [
+        {
+          "name": "children",
+          "type": "React.ReactElement[]",
+          "defaultValue": "",
+          "required": true,
+          "description": "Recommended: `ActionMenu.Button` or `ActionMenu.Anchor` with `ActionMenu.Overlay`"
+        },
+        {
+          "name": "open",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "If defined, will control the open/closed state of the overlay. Must be used in conjuction with `onOpenChange`."
+        },
+        {
+          "name": "onOpenChange",
+          "type": "(open: boolean) => void",
+          "defaultValue": "",
+          "description": "If defined, will control the open/closed state of the overlay. Must be used in conjuction with `open`."
+        },
+        {
+          "name": "anchorRef",
+          "type": "React.RefObject<HTMLElement>",
+          "defaultValue": "",
+          "description": "Useful for defining an external anchor"
+        }
+      ],
+      "subcomponents": [
+        {
+          "name": "ActionMenu.Button",
+          "props": [
+            {
+              "name": "children",
+              "type": "React.ReactElement",
+              "defaultValue": "",
+              "required": true,
+              "description": ""
+            }
+          ],
+          "passthrough": {
+            "element": "Button",
+            "url": "/react/Button"
+          }
+        },
+        {
+          "name": "ActionMenu.Anchor",
+          "props": [
+            {
+              "name": "children",
+              "type": "React.ReactElement",
+              "defaultValue": "",
+              "required": true,
+              "description": "Accepts a single child element"
+            }
+          ]
+        },
+        {
+          "name": "ActionMenu.Overlay",
+          "props": [
+            {
+              "name": "children",
+              "type": "React.ReactNode",
+              "defaultValue": "",
+              "required": true,
+              "description": ""
+            },
+            {
+              "name": "align",
+              "type": "start | center | end",
+              "defaultValue": "start",
+              "description": ""
+            }
+          ],
+          "passthrough": {
+            "element": "Overlay",
+            "url": "/react/Overlay"
+          }
         }
       ]
     },
@@ -2410,6 +2048,25 @@
           ]
         }
       ]
+    },
+    "details": {
+      "id": "details",
+      "name": "Details",
+      "status": "alpha",
+      "a11yReviewed": false,
+      "stories": [
+        {
+          "id": "components-details--default",
+          "code": "() => {\n  const { getDetailsProps } = useDetails({\n    closeOnOutsideClick: true,\n  })\n  return (\n    <Details {...getDetailsProps()}>\n      <Button as=\"summary\">See Details</Button>\n      This is some content\n    </Details>\n  )\n}"
+        }
+      ],
+      "props": [
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ],
+      "subcomponents": []
     },
     "drafts_dialog": {
       "id": "drafts_dialog",
@@ -3785,7 +3442,12 @@
       "name": "SegmentedControl",
       "status": "alpha",
       "a11yReviewed": false,
-      "stories": [],
+      "stories": [
+        {
+          "id": "components-segmentedcontrol--default",
+          "code": "() => (\n  <SegmentedControl aria-label=\"File view\">\n    <SegmentedControl.Button defaultSelected>Preview</SegmentedControl.Button>\n    <SegmentedControl.Button>Raw</SegmentedControl.Button>\n    <SegmentedControl.Button>Blame</SegmentedControl.Button>\n  </SegmentedControl>\n)"
+        }
+      ],
       "props": [
         {
           "name": "aria-label",
@@ -3910,6 +3572,51 @@
           ]
         }
       ]
+    },
+    "select": {
+      "id": "select",
+      "name": "Select",
+      "status": "alpha",
+      "a11yReviewed": true,
+      "stories": [
+        {
+          "id": "components-select--default",
+          "code": "() => (\n  <Box as=\"form\">\n    <FormControl>\n      <FormControl.Label>Default label</FormControl.Label>\n      <Select>\n        <Select.Option value=\"one\">Choice one</Select.Option>\n        <Select.Option value=\"two\">Choice two</Select.Option>\n        <Select.Option value=\"three\">Choice three</Select.Option>\n        <Select.Option value=\"four\">Choice four</Select.Option>\n        <Select.Option value=\"five\">Choice five</Select.Option>\n        <Select.Option value=\"six\">Choice six</Select.Option>\n      </Select>\n    </FormControl>\n  </Box>\n)"
+        }
+      ],
+      "props": [
+        {
+          "name": "block",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "Creates a full width input element"
+        },
+        {
+          "name": "contrast",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "Changes background color to a higher contrast color"
+        },
+        {
+          "name": "placeholder",
+          "type": "string",
+          "defaultValue": "",
+          "description": "Placeholder text to show when no option is selected. <br /> This option is hidden from the dropdown menu when the 'required' prop is set"
+        },
+        {
+          "name": "size",
+          "type": "'small' | 'medium' | 'large'",
+          "defaultValue": "",
+          "description": "Creates a smaller or larger input than the default."
+        },
+        {
+          "name": "validationStatus",
+          "type": "'error' | 'success' | 'warning'",
+          "defaultValue": "",
+          "description": "Style the input to match the status"
+        }
+      ],
+      "subcomponents": []
     },
     "select_panel": {
       "id": "select_panel",
@@ -4209,6 +3916,243 @@
         }
       ]
     },
+    "text_input": {
+      "id": "text_input",
+      "name": "TextInput",
+      "status": "alpha",
+      "a11yReviewed": false,
+      "stories": [
+        {
+          "id": "components-textinput--default",
+          "code": "() => (\n  <Box as=\"form\">\n    <FormControl>\n      <FormControl.Label>Default label</FormControl.Label>\n      <TextInput />\n    </FormControl>\n  </Box>\n)"
+        }
+      ],
+      "props": [
+        {
+          "name": "aria-label",
+          "type": "string",
+          "defaultValue": "",
+          "description": "Allows input to be accessible."
+        },
+        {
+          "name": "block",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "Creates a full-width input element"
+        },
+        {
+          "name": "contrast",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "Changes background color to a higher contrast color"
+        },
+        {
+          "name": "size",
+          "type": "'small' | 'medium' | 'large'",
+          "defaultValue": "",
+          "description": "Creates a smaller or larger input than the default."
+        },
+        {
+          "name": "loading",
+          "type": "boolean",
+          "defaultValue": "",
+          "description": "Whether to show a loading indicator in the input"
+        },
+        {
+          "name": "loaderPosition",
+          "type": "'auto' | 'leading' | 'trailing'",
+          "defaultValue": "",
+          "description": "<div>Which position to render the loading indicator</div> <ul> <li> 'auto' (default): at the end of the input, unless a `leadingVisual` is passed. Then, it will render at the beginning </li> <li>'leading': at the beginning of the input</li> <li>'trailing': at the end of the input</li> </ul>"
+        },
+        {
+          "name": "leadingVisual",
+          "type": "string | React.ComponentType",
+          "defaultValue": "",
+          "description": "Visual positioned on the left edge inside the input"
+        },
+        {
+          "name": "monospace",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "Shows input in monospace font"
+        },
+        {
+          "name": "trailingVisual",
+          "type": "string | React.ComponentType",
+          "defaultValue": "",
+          "description": "Visual positioned on the right edge inside the input"
+        },
+        {
+          "name": "trailingAction",
+          "type": "React.ReactElement<HTMLProps<HTMLButtonElement>>",
+          "defaultValue": "",
+          "description": "A visual that renders inside the input after the typing area"
+        },
+        {
+          "name": "validationStatus",
+          "type": "'error' | 'success' | 'warning'",
+          "defaultValue": "",
+          "description": "Style the input to match the status"
+        },
+        {
+          "name": "variant",
+          "type": "'small' | 'medium' | 'large'",
+          "defaultValue": "",
+          "deprecated": true,
+          "description": "(Use size) Creates a smaller or larger input than the default."
+        },
+        {
+          "name": "width",
+          "type": "string | number | Array<string | number>",
+          "defaultValue": "",
+          "deprecated": true,
+          "description": "(Use sx prop) Set the width of the input"
+        },
+        {
+          "name": "maxWidth",
+          "type": "string | number | Array<string | number>",
+          "defaultValue": "",
+          "deprecated": true,
+          "description": "(Use sx prop) Set the maximum width of the input"
+        },
+        {
+          "name": "minWidth",
+          "type": "string | number | Array<string | number>",
+          "defaultValue": "",
+          "deprecated": true,
+          "description": "(Use sx prop) Set the minimum width of the input"
+        },
+        {
+          "name": "icon",
+          "type": "React.ComponentType",
+          "defaultValue": "",
+          "deprecated": true,
+          "description": "(Use leadingVisual or trailingVisual) An Octicon React component. To be used inside of input. Positioned on the left edge."
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        },
+        {
+          "name": "ref",
+          "type": "React.RefObject<HTMLInputElement>"
+        }
+      ],
+      "subcomponents": [
+        {
+          "name": "TextInput.Action",
+          "props": [
+            {
+              "name": "aria-label",
+              "type": "string",
+              "defaultValue": "",
+              "description": "Text that appears in a tooltip. If an icon is passed, this is also used as the label used by assistive technologies."
+            },
+            {
+              "name": "icon",
+              "type": "React.FunctionComponent",
+              "defaultValue": "",
+              "description": "The icon to render inside the button"
+            },
+            {
+              "name": "variant",
+              "type": "'default' | 'primary' | 'invisible' | 'danger'",
+              "defaultValue": "",
+              "deprecated": true,
+              "description": "(Deprecated so that only the 'invisible' variant is used) Determine's the styles on a button"
+            },
+            {
+              "name": "ref",
+              "type": "React.RefObject<HTMLButtonElement>"
+            },
+            {
+              "name": "as",
+              "type": "React.ElementType",
+              "defaultValue": "\"button\""
+            },
+            {
+              "name": "sx",
+              "type": "SystemStyleObject"
+            }
+          ],
+          "passthrough": {
+            "element": "button",
+            "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#attributes"
+          }
+        }
+      ]
+    },
+    "text_input_with_tokens": {
+      "id": "text_input_with_tokens",
+      "name": "TextInputWithTokens",
+      "status": "alpha",
+      "a11yReviewed": false,
+      "stories": [
+        {
+          "id": "components-textinputwithtokens--default",
+          "code": "() => {\n  const [tokens, setTokens] = useState([...mockTokens].slice(0, 3))\n  const onTokenRemove: (tokenId: string | number) => void = (tokenId) => {\n    setTokens(tokens.filter((token) => token.id !== tokenId))\n  }\n  return (\n    <FormControl>\n      <FormControl.Label>Default label</FormControl.Label>\n      <TextInputWithTokens tokens={tokens} onTokenRemove={onTokenRemove} />\n    </FormControl>\n  )\n}"
+        }
+      ],
+      "props": [
+        {
+          "name": "tokens",
+          "type": "TokenProps[]",
+          "defaultValue": "",
+          "required": true,
+          "description": "The array of tokens to render"
+        },
+        {
+          "name": "onTokenRemove",
+          "type": "(tokenId: string|number) => void",
+          "defaultValue": "",
+          "required": true,
+          "description": "The function that gets called when a token is removed"
+        },
+        {
+          "name": "tokenComponent",
+          "type": "React.ComponentType<any>",
+          "defaultValue": "Token",
+          "description": "The component used to render each token"
+        },
+        {
+          "name": "maxHeight",
+          "type": "React.CSSProperties['maxHeight']",
+          "defaultValue": "",
+          "description": "The maximum height of the component. If the content in the input exceeds this height, it will scroll vertically"
+        },
+        {
+          "name": "preventTokenWrapping",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "Whether tokens should render inline horizontally. By default, tokens wrap to new lines"
+        },
+        {
+          "name": "size",
+          "type": "'small' | 'medium' | 'large' | 'xlarge'",
+          "defaultValue": "xlarge",
+          "description": "The size of the tokens and text input"
+        },
+        {
+          "name": "hideTokenRemoveButtons",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "Whether the remove buttons should be rendered in the tokens"
+        },
+        {
+          "name": "validationStatus",
+          "type": "'error' | 'success' | 'warning'",
+          "defaultValue": "",
+          "description": "Style the input to match the status"
+        },
+        {
+          "name": "visibleTokenCount",
+          "type": "number",
+          "defaultValue": "",
+          "description": "The number of tokens to display before truncating"
+        }
+      ],
+      "subcomponents": []
+    },
     "timeline": {
       "id": "timeline",
       "name": "Timeline",
@@ -4274,6 +4218,82 @@
           ]
         }
       ]
+    },
+    "toggle_switch": {
+      "id": "toggle_switch",
+      "name": "ToggleSwitch",
+      "status": "alpha",
+      "a11yReviewed": false,
+      "stories": [
+        {
+          "id": "components-toggleswitch--default",
+          "code": "<Box\n  display=\"grid\"\n  gridTemplateColumns={'max-content auto'}\n  maxWidth={'20rem'}\n  alignItems={'center'}\n  justifyContent={'space-between'}\n>\n  <Text id=\"toggle\" fontWeight={'bold'} fontSize={2}>\n    Toggle label\n  </Text>\n  <ToggleSwitch aria-labelledby=\"toggle\" />\n</Box>"
+        }
+      ],
+      "props": [
+        {
+          "name": "aria-describedby",
+          "type": "string",
+          "defaultValue": "",
+          "description": "The id of the DOM node that describes the switch"
+        },
+        {
+          "name": "aria-labelledby",
+          "type": "string",
+          "defaultValue": "",
+          "required": true,
+          "description": "The id of the DOM node that labels the switch"
+        },
+        {
+          "name": "defaultChecked",
+          "type": "boolean",
+          "defaultValue": "",
+          "description": "Uncontrolled - whether the switch is turned on"
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "defaultValue": "",
+          "description": "Whether the switch is ready for user input"
+        },
+        {
+          "name": "loading",
+          "type": "boolean",
+          "defaultValue": "",
+          "description": "Whether the switch's value is being calculated"
+        },
+        {
+          "name": "checked",
+          "type": "boolean",
+          "defaultValue": "",
+          "description": "Whether the switch is turned on"
+        },
+        {
+          "name": "onChange",
+          "type": "(on: boolean) => void",
+          "defaultValue": "",
+          "description": "The callback that is called when the switch is toggled on or off"
+        },
+        {
+          "name": "onClick",
+          "type": "(e: MouseEvent) => void",
+          "defaultValue": "",
+          "description": "The callback that is called when the switch is clicked"
+        },
+        {
+          "name": "size",
+          "type": "'small' | 'medium'",
+          "defaultValue": "'medium'",
+          "description": "Size of the switch"
+        },
+        {
+          "name": "statusLabelPosition",
+          "type": "'start' | 'end'",
+          "defaultValue": "'start'",
+          "description": "<div>Whether the \"on\" and \"off\" labels should appear before or after the switch.</div> <div> <Text fontWeight=\"bold\">This should only be changed when the switch's alignment needs to be adjusted.</Text> For example: It needs to be left-aligned because the label appears above it and the caption appears below it. </div>"
+        }
+      ],
+      "subcomponents": []
     },
     "token": {
       "id": "token",

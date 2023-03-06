@@ -25,13 +25,7 @@ test.describe('TextInput', () => {
               colorScheme: theme,
             },
           })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
+          await expect(page).toHaveNoViolations()
         })
       })
     }
@@ -59,13 +53,7 @@ test.describe('TextInput', () => {
               colorScheme: theme,
             },
           })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
+          await expect(page).toHaveNoViolations()
         })
       })
     }
@@ -93,13 +81,7 @@ test.describe('TextInput', () => {
               colorScheme: theme,
             },
           })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
+          await expect(page).toHaveNoViolations()
         })
       })
     }
@@ -117,7 +99,7 @@ test.describe('TextInput', () => {
           })
 
           // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`TextInput.Error.${theme}.png`)
+          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(`TextInput.Error.${theme}.png`)
         })
 
         test('axe @aat', async ({page}) => {
@@ -127,13 +109,7 @@ test.describe('TextInput', () => {
               colorScheme: theme,
             },
           })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
+          await expect(page).toHaveNoViolations()
         })
       })
     }
@@ -161,13 +137,7 @@ test.describe('TextInput', () => {
               colorScheme: theme,
             },
           })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
+          await expect(page).toHaveNoViolations()
         })
       })
     }
@@ -195,13 +165,7 @@ test.describe('TextInput', () => {
               colorScheme: theme,
             },
           })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
+          await expect(page).toHaveNoViolations()
         })
       })
     }
@@ -219,7 +183,7 @@ test.describe('TextInput', () => {
           })
 
           // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`TextInput.Success.${theme}.png`)
+          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(`TextInput.Success.${theme}.png`)
         })
 
         test('axe @aat', async ({page}) => {
@@ -229,13 +193,7 @@ test.describe('TextInput', () => {
               colorScheme: theme,
             },
           })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
+          await expect(page).toHaveNoViolations()
         })
       })
     }
@@ -263,13 +221,7 @@ test.describe('TextInput', () => {
               colorScheme: theme,
             },
           })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
+          await expect(page).toHaveNoViolations()
         })
       })
     }
@@ -287,7 +239,7 @@ test.describe('TextInput', () => {
           })
 
           // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`TextInput.Warning.${theme}.png`)
+          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(`TextInput.Warning.${theme}.png`)
         })
 
         test('axe @aat', async ({page}) => {
@@ -297,13 +249,7 @@ test.describe('TextInput', () => {
               colorScheme: theme,
             },
           })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
+          await expect(page).toHaveNoViolations()
         })
       })
     }
@@ -331,13 +277,7 @@ test.describe('TextInput', () => {
               colorScheme: theme,
             },
           })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
+          await expect(page).toHaveNoViolations()
         })
       })
     }
@@ -365,13 +305,7 @@ test.describe('TextInput', () => {
               colorScheme: theme,
             },
           })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
+          await expect(page).toHaveNoViolations()
         })
       })
     }
@@ -399,13 +333,7 @@ test.describe('TextInput', () => {
               colorScheme: theme,
             },
           })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
+          await expect(page).toHaveNoViolations()
         })
       })
     }
@@ -433,13 +361,7 @@ test.describe('TextInput', () => {
               colorScheme: theme,
             },
           })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
+          await expect(page).toHaveNoViolations()
         })
       })
     }
