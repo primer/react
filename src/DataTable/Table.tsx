@@ -19,7 +19,9 @@ const StyledTable = styled.table<React.ComponentPropsWithoutRef<'table'>>`
   background-color: ${get('colors.canvas.default')};
   border-spacing: 0;
   border-collapse: separate;
+  display: grid;
   font-size: var(--table-font-size);
+  grid-template-columns: var(--grid-template-columns);
   line-height: calc(20 / var(--table-font-size));
   width: 100%;
   overflow-x: auto;
@@ -138,6 +140,19 @@ const StyledTable = styled.table<React.ComponentPropsWithoutRef<'table'>>`
     font-weight: 600;
     text-align: start;
   }
+
+  /* Grid layout */
+  .TableHead,
+  .TableBody,
+  .TableRow {
+    display: contents;
+  }
+
+  @supports (grid-template-columns: subgrid) {
+    display: grid;
+    grid-template-columns: subgrid;
+    grid-column: -1 /1;
+  }
 `
 
 export type TableProps = React.ComponentPropsWithoutRef<'table'> & {
@@ -156,10 +171,26 @@ export type TableProps = React.ComponentPropsWithoutRef<'table'> & {
    * a cell
    */
   cellPadding?: 'condensed' | 'normal' | 'spacious' | undefined
+
+  /**
+   * Column width definitions
+   */
+  gridTemplateColumns?: React.CSSProperties['gridTemplateColumns'] | undefined
 }
 
-const Table = React.forwardRef<HTMLTableElement, TableProps>(function Table({cellPadding = 'normal', ...rest}, ref) {
-  return <StyledTable {...rest} data-cell-padding={cellPadding} className="Table" ref={ref} />
+const Table = React.forwardRef<HTMLTableElement, TableProps>(function Table(
+  {cellPadding = 'normal', gridTemplateColumns, ...rest},
+  ref,
+) {
+  return (
+    <StyledTable
+      {...rest}
+      data-cell-padding={cellPadding}
+      style={{'--grid-template-columns': gridTemplateColumns}}
+      className="Table"
+      ref={ref}
+    />
+  )
 })
 
 // ----------------------------------------------------------------------------

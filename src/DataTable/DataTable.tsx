@@ -61,14 +61,19 @@ function DataTable<Data extends UniqueRow>({
   initialSortColumn,
   initialSortDirection,
 }: DataTableProps<Data>) {
-  const {headers, rows, actions} = useTable({
+  const {headers, rows, actions, gridTemplateColumns} = useTable({
     data,
     columns,
     initialSortColumn,
     initialSortDirection,
   })
   return (
-    <Table aria-labelledby={labelledby} aria-describedby={describedby} cellPadding={cellPadding}>
+    <Table
+      aria-labelledby={labelledby}
+      aria-describedby={describedby}
+      cellPadding={cellPadding}
+      gridTemplateColumns={gridTemplateColumns}
+    >
       <TableHead>
         <TableRow>
           {headers.map(header => {

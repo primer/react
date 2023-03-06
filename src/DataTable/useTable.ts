@@ -17,6 +17,7 @@ interface Table<Data extends UniqueRow> {
   actions: {
     sortBy: (header: Header<Data>) => void
   }
+  gridTemplateColumns: React.CSSProperties['gridTemplateColumns']
 }
 
 interface Header<Data extends UniqueRow> {
@@ -179,6 +180,52 @@ export function useTable<Data extends UniqueRow>({
     })
   }
 
+  const gridColumnWidths = columns.map(column => {
+    const columnWidth = column.width ?? 'grow'
+    let minWidth = 'auto'
+    let maxWidth = '1fr'
+
+    if (columnWidth === 'auto') {
+      maxWidth = 'auto'
+
+      // If the column is sized to auto and there's no min-width, we don't need to use `minmax()`,
+      // so we can just return 'auto'.
+      if (!column.minWidth) {
+        return 'auto'
+      }
+    }
+
+    // Setting a min-width of 'max-content' ensures that the column will grow to fit the widest cell's content.
+    // However, If the column has a max width, we can't set the min width to `max-content` because
+    // the widest cell's content might overflow the container.
+    if (columnWidth === 'grow' && !column.maxWidth) {
+      minWidth = 'max-content'
+    }
+
+    // Column widths set to "shrink" don't need a min width unless one is explicitly provided.
+    if (columnWidth === 'shrink') {
+      minWidth = '0'
+    }
+
+    // If a consumer passes `minWidth` or `maxWidth`, we need to override whatever we set above.
+    if (column.minWidth) {
+      minWidth = typeof column.minWidth === 'number' ? `${column.minWidth}px` : column.minWidth
+    }
+
+    if (column.maxWidth) {
+      maxWidth = typeof column.maxWidth === 'number' ? `${column.maxWidth}px` : column.maxWidth
+    }
+
+    // If a consumer is passing one of the shorthand widths or doesn't pass a width at all, we use the
+    // min and max width calculated above to create a minmax() column template value.
+    if (typeof columnWidth !== 'number' && ['grow', 'shrink', 'auto'].includes(columnWidth)) {
+      return `minmax(${minWidth}, ${maxWidth})`
+    }
+
+    // If we reach this point, the consumer is passing an explicit width value.
+    return typeof columnWidth === 'number' ? `${columnWidth}px` : columnWidth
+  })
+
   return {
     headers,
     rows: rowOrder.map(row => {
@@ -204,6 +251,7 @@ export function useTable<Data extends UniqueRow>({
     actions: {
       sortBy,
     },
+    gridTemplateColumns: gridColumnWidths.join(' '),
   }
 }
 
