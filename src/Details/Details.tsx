@@ -1,6 +1,6 @@
 import styled from 'styled-components'
-import sx, {SxProp} from './sx'
-import {ComponentProps} from './utils/types'
+import sx, {SxProp} from '../sx'
+import {ComponentProps} from '../utils/types'
 
 const Details = styled.details<SxProp>`
   & > summary {

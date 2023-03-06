@@ -117,7 +117,7 @@ test.describe('Select', () => {
           })
 
           // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`Select.Error.${theme}.png`)
+          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(`Select.Error.${theme}.png`)
         })
 
         test('axe @aat', async ({page}) => {
@@ -219,7 +219,7 @@ test.describe('Select', () => {
           })
 
           // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`Select.Success.${theme}.png`)
+          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(`Select.Success.${theme}.png`)
         })
 
         test('axe @aat', async ({page}) => {
@@ -287,7 +287,7 @@ test.describe('Select', () => {
           })
 
           // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`Select.Warning.${theme}.png`)
+          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(`Select.Warning.${theme}.png`)
         })
 
         test('axe @aat', async ({page}) => {
