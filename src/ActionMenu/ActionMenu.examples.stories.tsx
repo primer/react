@@ -49,7 +49,7 @@ export const GroupsAndDescriptions = () => {
               </ActionList.Item>
             ))}
         </ActionList>
-        <ActionList headingProps={{title: 'Closed'}}>
+        <ActionList headingProps={{title: 'Closed'}} selectionVariant="single">
           {milestones
             .filter(milestone => milestone.name.includes('21'))
             .map((milestone, index) => (
