@@ -5,9 +5,6 @@
   "a11yReviewed": false,
   "stories": [
     {
-      "id": "drafts-components-datatable--default"
-    },
-    {
       "id": "drafts-components-datatable--with-title"
     },
     {
