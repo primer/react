@@ -1,5 +1,5 @@
 ---
-"@primer/react": minor
+"@primer/react": major
 ---
 
 Update PRC ActionList implementation to have similar semantics to PVC.
