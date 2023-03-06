@@ -188,6 +188,7 @@ const Table = React.forwardRef<HTMLTableElement, TableProps>(function Table(
       data-cell-padding={cellPadding}
       style={{'--grid-template-columns': gridTemplateColumns}}
       className="Table"
+      role="table"
       ref={ref}
     />
   )
@@ -200,7 +201,14 @@ const Table = React.forwardRef<HTMLTableElement, TableProps>(function Table(
 export type TableHeadProps = React.ComponentPropsWithoutRef<'thead'>
 
 function TableHead({children}: TableHeadProps) {
-  return <thead className="TableHead">{children}</thead>
+  return (
+    // We need to explicitly pass this role because some ATs and browsers drop table semantics
+    // when we use `display: contents` or `display: grid` in the table
+    // eslint-disable-next-line jsx-a11y/no-redundant-roles
+    <thead className="TableHead" role="rowgroup">
+      {children}
+    </thead>
+  )
 }
 
 // ----------------------------------------------------------------------------
@@ -210,7 +218,14 @@ function TableHead({children}: TableHeadProps) {
 export type TableBodyProps = React.ComponentPropsWithoutRef<'tbody'>
 
 function TableBody({children}: TableBodyProps) {
-  return <tbody className="TableBody">{children}</tbody>
+  return (
+    // We need to explicitly pass this role because some ATs and browsers drop table semantics
+    // when we use `display: contents` or `display: grid` in the table
+    // eslint-disable-next-line jsx-a11y/no-redundant-roles
+    <tbody className="TableBody" role="rowgroup">
+      {children}
+    </tbody>
+  )
 }
 
 // ----------------------------------------------------------------------------
