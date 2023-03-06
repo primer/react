@@ -789,6 +789,45 @@ const components = new Map([
     },
   ],
   [
+    'Textarea',
+    {
+      stories: [
+        {
+          id: 'components-textarea--default',
+          name: 'Default',
+        },
+        {
+          id: 'components-textarea-features--block',
+          name: 'Block',
+        },
+        {
+          id: 'components-textarea-features--disabled',
+          name: 'Disabled',
+        },
+        {
+          id: 'components-textarea-features--error',
+          name: 'Error',
+        },
+        {
+          id: 'components-textarea-features--success',
+          name: 'Success',
+        },
+        {
+          id: 'components-textarea-features--visually-hidden-label',
+          name: 'Visually Hidden Label',
+        },
+        {
+          id: 'components-textarea-features--warning',
+          name: 'Warning',
+        },
+        {
+          id: 'components-textarea-features--with-caption',
+          name: 'With Caption',
+        },
+      ],
+    },
+  ],
+  [
     'TextInput',
     {
       stories: [
