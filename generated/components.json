@@ -547,46 +547,6 @@
       ],
       "subcomponents": []
     },
-    "select": {
-      "id": "select",
-      "name": "Select",
-      "status": "alpha",
-      "a11yReviewed": true,
-      "stories": [],
-      "props": [
-        {
-          "name": "block",
-          "type": "boolean",
-          "defaultValue": "false",
-          "description": "Creates a full width input element"
-        },
-        {
-          "name": "contrast",
-          "type": "boolean",
-          "defaultValue": "false",
-          "description": "Changes background color to a higher contrast color"
-        },
-        {
-          "name": "placeholder",
-          "type": "string",
-          "defaultValue": "",
-          "description": "Placeholder text to show when no option is selected. <br /> This option is hidden from the dropdown menu when the 'required' prop is set"
-        },
-        {
-          "name": "size",
-          "type": "'small' | 'medium' | 'large'",
-          "defaultValue": "",
-          "description": "Creates a smaller or larger input than the default."
-        },
-        {
-          "name": "validationStatus",
-          "type": "'error' | 'success' | 'warning'",
-          "defaultValue": "",
-          "description": "Style the input to match the status"
-        }
-      ],
-      "subcomponents": []
-    },
     "spinner": {
       "id": "spinner",
       "name": "Spinner",
@@ -3839,6 +3799,51 @@
           ]
         }
       ]
+    },
+    "select": {
+      "id": "select",
+      "name": "Select",
+      "status": "alpha",
+      "a11yReviewed": true,
+      "stories": [
+        {
+          "id": "components-select--default",
+          "code": "() => (\n  <Box as=\"form\">\n    <FormControl>\n      <FormControl.Label>Default label</FormControl.Label>\n      <Select>\n        <Select.Option value=\"one\">Choice one</Select.Option>\n        <Select.Option value=\"two\">Choice two</Select.Option>\n        <Select.Option value=\"three\">Choice three</Select.Option>\n        <Select.Option value=\"four\">Choice four</Select.Option>\n        <Select.Option value=\"five\">Choice five</Select.Option>\n        <Select.Option value=\"six\">Choice six</Select.Option>\n      </Select>\n    </FormControl>\n  </Box>\n)"
+        }
+      ],
+      "props": [
+        {
+          "name": "block",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "Creates a full width input element"
+        },
+        {
+          "name": "contrast",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "Changes background color to a higher contrast color"
+        },
+        {
+          "name": "placeholder",
+          "type": "string",
+          "defaultValue": "",
+          "description": "Placeholder text to show when no option is selected. <br /> This option is hidden from the dropdown menu when the 'required' prop is set"
+        },
+        {
+          "name": "size",
+          "type": "'small' | 'medium' | 'large'",
+          "defaultValue": "",
+          "description": "Creates a smaller or larger input than the default."
+        },
+        {
+          "name": "validationStatus",
+          "type": "'error' | 'success' | 'warning'",
+          "defaultValue": "",
+          "description": "Style the input to match the status"
+        }
+      ],
+      "subcomponents": []
     },
     "select_panel": {
       "id": "select_panel",

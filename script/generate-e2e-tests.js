@@ -695,6 +695,57 @@ const components = new Map([
     },
   ],
   [
+    'Select',
+    {
+      stories: [
+        {
+          id: 'components-select--default',
+          name: 'Default',
+        },
+        {
+          id: 'components-select-features--block',
+          name: 'Block',
+        },
+        {
+          id: 'components-select-features--disabled',
+          name: 'Disabled',
+        },
+        {
+          id: 'components-select-features--error',
+          name: 'Error',
+        },
+        {
+          id: 'components-select-features--large',
+          name: 'Large',
+        },
+        {
+          id: 'components-select-features--small',
+          name: 'Small',
+        },
+        {
+          id: 'components-select-features--success',
+          name: 'Success',
+        },
+        {
+          id: 'components-select-features--visually-hidden-label',
+          name: 'Visually Hidden Label',
+        },
+        {
+          id: 'components-select-features--warning',
+          name: 'Warning',
+        },
+        {
+          id: 'components-select-features--with-caption',
+          name: 'With Caption',
+        },
+        {
+          id: 'components-select-features--with-option-groups',
+          name: 'With Option Groups',
+        },
+      ],
+    },
+  ],
+  [
     'StateLabel',
     {
       stories: [
