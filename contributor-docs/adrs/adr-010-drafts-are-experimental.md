@@ -4,6 +4,8 @@
 
 Approved 2023-02-16
 
+Not adopted
+
 ## Context
 
 `Drafts` were introduced in [ADR-006](./adrs/adr-006-drafts.md) as a way of creating components outside of the root bundle of `@primer/react`. This helps us create, test and maintain multiple versions of the same component in parallel.
