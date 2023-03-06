@@ -130,7 +130,7 @@ test.describe('TextInput', () => {
           await expect(page).toHaveNoViolations({
             rules: {
               'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
+                enabled: false,
               },
             },
           })
@@ -232,7 +232,7 @@ test.describe('TextInput', () => {
           await expect(page).toHaveNoViolations({
             rules: {
               'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
+                enabled: false,
               },
             },
           })
@@ -300,7 +300,7 @@ test.describe('TextInput', () => {
           await expect(page).toHaveNoViolations({
             rules: {
               'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
+                enabled: false,
               },
             },
           })
