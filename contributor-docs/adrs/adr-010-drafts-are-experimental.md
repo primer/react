@@ -2,9 +2,10 @@
 
 ## Status
 
-Approved 2023-02-16
-
-Not adopted
+| Stage    | Status |
+| -------- | ------ |
+| Approved | ✅     |
+| Adopted  | ❌     |
 
 ## Context
 
