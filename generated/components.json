@@ -691,233 +691,6 @@
       ],
       "subcomponents": []
     },
-    "text_input": {
-      "id": "text_input",
-      "name": "TextInput",
-      "status": "alpha",
-      "a11yReviewed": false,
-      "stories": [],
-      "props": [
-        {
-          "name": "aria-label",
-          "type": "string",
-          "defaultValue": "",
-          "description": "Allows input to be accessible."
-        },
-        {
-          "name": "block",
-          "type": "boolean",
-          "defaultValue": "false",
-          "description": "Creates a full-width input element"
-        },
-        {
-          "name": "contrast",
-          "type": "boolean",
-          "defaultValue": "false",
-          "description": "Changes background color to a higher contrast color"
-        },
-        {
-          "name": "size",
-          "type": "'small' | 'medium' | 'large'",
-          "defaultValue": "",
-          "description": "Creates a smaller or larger input than the default."
-        },
-        {
-          "name": "loading",
-          "type": "boolean",
-          "defaultValue": "",
-          "description": "Whether to show a loading indicator in the input"
-        },
-        {
-          "name": "loaderPosition",
-          "type": "'auto' | 'leading' | 'trailing'",
-          "defaultValue": "",
-          "description": "<div>Which position to render the loading indicator</div> <ul> <li> 'auto' (default): at the end of the input, unless a `leadingVisual` is passed. Then, it will render at the beginning </li> <li>'leading': at the beginning of the input</li> <li>'trailing': at the end of the input</li> </ul>"
-        },
-        {
-          "name": "leadingVisual",
-          "type": "string | React.ComponentType",
-          "defaultValue": "",
-          "description": "Visual positioned on the left edge inside the input"
-        },
-        {
-          "name": "monospace",
-          "type": "boolean",
-          "defaultValue": "false",
-          "description": "Shows input in monospace font"
-        },
-        {
-          "name": "trailingVisual",
-          "type": "string | React.ComponentType",
-          "defaultValue": "",
-          "description": "Visual positioned on the right edge inside the input"
-        },
-        {
-          "name": "trailingAction",
-          "type": "React.ReactElement<HTMLProps<HTMLButtonElement>>",
-          "defaultValue": "",
-          "description": "A visual that renders inside the input after the typing area"
-        },
-        {
-          "name": "validationStatus",
-          "type": "'error' | 'success' | 'warning'",
-          "defaultValue": "",
-          "description": "Style the input to match the status"
-        },
-        {
-          "name": "variant",
-          "type": "'small' | 'medium' | 'large'",
-          "defaultValue": "",
-          "deprecated": true,
-          "description": "(Use size) Creates a smaller or larger input than the default."
-        },
-        {
-          "name": "width",
-          "type": "string | number | Array<string | number>",
-          "defaultValue": "",
-          "deprecated": true,
-          "description": "(Use sx prop) Set the width of the input"
-        },
-        {
-          "name": "maxWidth",
-          "type": "string | number | Array<string | number>",
-          "defaultValue": "",
-          "deprecated": true,
-          "description": "(Use sx prop) Set the maximum width of the input"
-        },
-        {
-          "name": "minWidth",
-          "type": "string | number | Array<string | number>",
-          "defaultValue": "",
-          "deprecated": true,
-          "description": "(Use sx prop) Set the minimum width of the input"
-        },
-        {
-          "name": "icon",
-          "type": "React.ComponentType",
-          "defaultValue": "",
-          "deprecated": true,
-          "description": "(Use leadingVisual or trailingVisual) An Octicon React component. To be used inside of input. Positioned on the left edge."
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject"
-        },
-        {
-          "name": "ref",
-          "type": "React.RefObject<HTMLInputElement>"
-        }
-      ],
-      "subcomponents": [
-        {
-          "name": "TextInput.Action",
-          "props": [
-            {
-              "name": "aria-label",
-              "type": "string",
-              "defaultValue": "",
-              "description": "Text that appears in a tooltip. If an icon is passed, this is also used as the label used by assistive technologies."
-            },
-            {
-              "name": "icon",
-              "type": "React.FunctionComponent",
-              "defaultValue": "",
-              "description": "The icon to render inside the button"
-            },
-            {
-              "name": "variant",
-              "type": "'default' | 'primary' | 'invisible' | 'danger'",
-              "defaultValue": "",
-              "deprecated": true,
-              "description": "(Deprecated so that only the 'invisible' variant is used) Determine's the styles on a button"
-            },
-            {
-              "name": "ref",
-              "type": "React.RefObject<HTMLButtonElement>"
-            },
-            {
-              "name": "as",
-              "type": "React.ElementType",
-              "defaultValue": "\"button\""
-            },
-            {
-              "name": "sx",
-              "type": "SystemStyleObject"
-            }
-          ],
-          "passthrough": {
-            "element": "button",
-            "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#attributes"
-          }
-        }
-      ]
-    },
-    "text_input_with_tokens": {
-      "id": "text_input_with_tokens",
-      "name": "TextInputWithTokens",
-      "status": "alpha",
-      "a11yReviewed": false,
-      "stories": [],
-      "props": [
-        {
-          "name": "tokens",
-          "type": "TokenProps[]",
-          "defaultValue": "",
-          "required": true,
-          "description": "The array of tokens to render"
-        },
-        {
-          "name": "onTokenRemove",
-          "type": "(tokenId: string|number) => void",
-          "defaultValue": "",
-          "required": true,
-          "description": "The function that gets called when a token is removed"
-        },
-        {
-          "name": "tokenComponent",
-          "type": "React.ComponentType<any>",
-          "defaultValue": "Token",
-          "description": "The component used to render each token"
-        },
-        {
-          "name": "maxHeight",
-          "type": "React.CSSProperties['maxHeight']",
-          "defaultValue": "",
-          "description": "The maximum height of the component. If the content in the input exceeds this height, it will scroll vertically"
-        },
-        {
-          "name": "preventTokenWrapping",
-          "type": "boolean",
-          "defaultValue": "false",
-          "description": "Whether tokens should render inline horizontally. By default, tokens wrap to new lines"
-        },
-        {
-          "name": "size",
-          "type": "'small' | 'medium' | 'large' | 'xlarge'",
-          "defaultValue": "xlarge",
-          "description": "The size of the tokens and text input"
-        },
-        {
-          "name": "hideTokenRemoveButtons",
-          "type": "boolean",
-          "defaultValue": "false",
-          "description": "Whether the remove buttons should be rendered in the tokens"
-        },
-        {
-          "name": "validationStatus",
-          "type": "'error' | 'success' | 'warning'",
-          "defaultValue": "",
-          "description": "Style the input to match the status"
-        },
-        {
-          "name": "visibleTokenCount",
-          "type": "number",
-          "defaultValue": "",
-          "description": "The number of tokens to display before truncating"
-        }
-      ],
-      "subcomponents": []
-    },
     "textarea": {
       "id": "textarea",
       "name": "Textarea",
@@ -4142,6 +3915,243 @@
           ]
         }
       ]
+    },
+    "text_input": {
+      "id": "text_input",
+      "name": "TextInput",
+      "status": "alpha",
+      "a11yReviewed": false,
+      "stories": [
+        {
+          "id": "components-textinput--default",
+          "code": "() => (\n  <Box as=\"form\">\n    <FormControl>\n      <FormControl.Label>Default label</FormControl.Label>\n      <TextInput />\n    </FormControl>\n  </Box>\n)"
+        }
+      ],
+      "props": [
+        {
+          "name": "aria-label",
+          "type": "string",
+          "defaultValue": "",
+          "description": "Allows input to be accessible."
+        },
+        {
+          "name": "block",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "Creates a full-width input element"
+        },
+        {
+          "name": "contrast",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "Changes background color to a higher contrast color"
+        },
+        {
+          "name": "size",
+          "type": "'small' | 'medium' | 'large'",
+          "defaultValue": "",
+          "description": "Creates a smaller or larger input than the default."
+        },
+        {
+          "name": "loading",
+          "type": "boolean",
+          "defaultValue": "",
+          "description": "Whether to show a loading indicator in the input"
+        },
+        {
+          "name": "loaderPosition",
+          "type": "'auto' | 'leading' | 'trailing'",
+          "defaultValue": "",
+          "description": "<div>Which position to render the loading indicator</div> <ul> <li> 'auto' (default): at the end of the input, unless a `leadingVisual` is passed. Then, it will render at the beginning </li> <li>'leading': at the beginning of the input</li> <li>'trailing': at the end of the input</li> </ul>"
+        },
+        {
+          "name": "leadingVisual",
+          "type": "string | React.ComponentType",
+          "defaultValue": "",
+          "description": "Visual positioned on the left edge inside the input"
+        },
+        {
+          "name": "monospace",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "Shows input in monospace font"
+        },
+        {
+          "name": "trailingVisual",
+          "type": "string | React.ComponentType",
+          "defaultValue": "",
+          "description": "Visual positioned on the right edge inside the input"
+        },
+        {
+          "name": "trailingAction",
+          "type": "React.ReactElement<HTMLProps<HTMLButtonElement>>",
+          "defaultValue": "",
+          "description": "A visual that renders inside the input after the typing area"
+        },
+        {
+          "name": "validationStatus",
+          "type": "'error' | 'success' | 'warning'",
+          "defaultValue": "",
+          "description": "Style the input to match the status"
+        },
+        {
+          "name": "variant",
+          "type": "'small' | 'medium' | 'large'",
+          "defaultValue": "",
+          "deprecated": true,
+          "description": "(Use size) Creates a smaller or larger input than the default."
+        },
+        {
+          "name": "width",
+          "type": "string | number | Array<string | number>",
+          "defaultValue": "",
+          "deprecated": true,
+          "description": "(Use sx prop) Set the width of the input"
+        },
+        {
+          "name": "maxWidth",
+          "type": "string | number | Array<string | number>",
+          "defaultValue": "",
+          "deprecated": true,
+          "description": "(Use sx prop) Set the maximum width of the input"
+        },
+        {
+          "name": "minWidth",
+          "type": "string | number | Array<string | number>",
+          "defaultValue": "",
+          "deprecated": true,
+          "description": "(Use sx prop) Set the minimum width of the input"
+        },
+        {
+          "name": "icon",
+          "type": "React.ComponentType",
+          "defaultValue": "",
+          "deprecated": true,
+          "description": "(Use leadingVisual or trailingVisual) An Octicon React component. To be used inside of input. Positioned on the left edge."
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        },
+        {
+          "name": "ref",
+          "type": "React.RefObject<HTMLInputElement>"
+        }
+      ],
+      "subcomponents": [
+        {
+          "name": "TextInput.Action",
+          "props": [
+            {
+              "name": "aria-label",
+              "type": "string",
+              "defaultValue": "",
+              "description": "Text that appears in a tooltip. If an icon is passed, this is also used as the label used by assistive technologies."
+            },
+            {
+              "name": "icon",
+              "type": "React.FunctionComponent",
+              "defaultValue": "",
+              "description": "The icon to render inside the button"
+            },
+            {
+              "name": "variant",
+              "type": "'default' | 'primary' | 'invisible' | 'danger'",
+              "defaultValue": "",
+              "deprecated": true,
+              "description": "(Deprecated so that only the 'invisible' variant is used) Determine's the styles on a button"
+            },
+            {
+              "name": "ref",
+              "type": "React.RefObject<HTMLButtonElement>"
+            },
+            {
+              "name": "as",
+              "type": "React.ElementType",
+              "defaultValue": "\"button\""
+            },
+            {
+              "name": "sx",
+              "type": "SystemStyleObject"
+            }
+          ],
+          "passthrough": {
+            "element": "button",
+            "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#attributes"
+          }
+        }
+      ]
+    },
+    "text_input_with_tokens": {
+      "id": "text_input_with_tokens",
+      "name": "TextInputWithTokens",
+      "status": "alpha",
+      "a11yReviewed": false,
+      "stories": [
+        {
+          "id": "components-textinputwithtokens--default",
+          "code": "() => {\n  const [tokens, setTokens] = useState([...mockTokens].slice(0, 3))\n  const onTokenRemove: (tokenId: string | number) => void = (tokenId) => {\n    setTokens(tokens.filter((token) => token.id !== tokenId))\n  }\n  return (\n    <FormControl>\n      <FormControl.Label>Default label</FormControl.Label>\n      <TextInputWithTokens tokens={tokens} onTokenRemove={onTokenRemove} />\n    </FormControl>\n  )\n}"
+        }
+      ],
+      "props": [
+        {
+          "name": "tokens",
+          "type": "TokenProps[]",
+          "defaultValue": "",
+          "required": true,
+          "description": "The array of tokens to render"
+        },
+        {
+          "name": "onTokenRemove",
+          "type": "(tokenId: string|number) => void",
+          "defaultValue": "",
+          "required": true,
+          "description": "The function that gets called when a token is removed"
+        },
+        {
+          "name": "tokenComponent",
+          "type": "React.ComponentType<any>",
+          "defaultValue": "Token",
+          "description": "The component used to render each token"
+        },
+        {
+          "name": "maxHeight",
+          "type": "React.CSSProperties['maxHeight']",
+          "defaultValue": "",
+          "description": "The maximum height of the component. If the content in the input exceeds this height, it will scroll vertically"
+        },
+        {
+          "name": "preventTokenWrapping",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "Whether tokens should render inline horizontally. By default, tokens wrap to new lines"
+        },
+        {
+          "name": "size",
+          "type": "'small' | 'medium' | 'large' | 'xlarge'",
+          "defaultValue": "xlarge",
+          "description": "The size of the tokens and text input"
+        },
+        {
+          "name": "hideTokenRemoveButtons",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "Whether the remove buttons should be rendered in the tokens"
+        },
+        {
+          "name": "validationStatus",
+          "type": "'error' | 'success' | 'warning'",
+          "defaultValue": "",
+          "description": "Style the input to match the status"
+        },
+        {
+          "name": "visibleTokenCount",
+          "type": "number",
+          "defaultValue": "",
+          "description": "The number of tokens to display before truncating"
+        }
+      ],
+      "subcomponents": []
     },
     "timeline": {
       "id": "timeline",

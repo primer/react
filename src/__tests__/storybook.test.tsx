@@ -30,6 +30,8 @@ const allowlist = [
   'SegmentedControl',
   'StateLabel',
   'TabNav',
+  'TextInput',
+  'TextInputWithTokens',
   'TreeView',
   'Timeline',
   'ToggleSwitch',
