@@ -696,7 +696,12 @@
       "name": "Textarea",
       "status": "alpha",
       "a11yReviewed": false,
-      "stories": [],
+      "stories": [
+        {
+          "id": "components-textarea--default",
+          "code": "() => (\n  <Box as=\"form\">\n    <FormControl>\n      <FormControl.Label>Default label</FormControl.Label>\n      <Textarea />\n    </FormControl>\n  </Box>\n)"
+        }
+      ],
       "props": [
         {
           "name": "required",
