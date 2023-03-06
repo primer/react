@@ -159,6 +159,11 @@ const meta: Meta = {
       control: {type: 'radio'},
       table: {category: 'Pane props'},
     },
+    'Pane.id': {
+      type: 'string',
+      defaultValue: 'customId',
+      table: {category: 'Pane props'},
+    },
     'Pane.position.narrow': {
       type: {
         name: 'enum',
@@ -351,6 +356,7 @@ const Template: Story = args => (
           regular: args['Pane.hidden.regular'],
           wide: args['Pane.hidden.wide'],
         }}
+        id={args['Pane.id']}
       >
         <Placeholder height={args['Pane placeholder height']} label="Pane" />
       </SplitPageLayout.Pane>
