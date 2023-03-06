@@ -4,7 +4,7 @@ import {Button, Link, Text, StateLabel, BranchName, Box} from '..'
 import {ArrowRightIcon} from '@primer/octicons-react'
 
 import {PageHeader} from '../PageHeader'
-import Hidden from '../Hidden'
+import Hidden from '.'
 
 export default {
   title: 'Drafts/Components/Hidden/Examples',
@@ -30,11 +30,11 @@ export const Webhooks = () => (
         <PageHeader.Title as="h2">Webhooks</PageHeader.Title>
 
         <PageHeader.Actions>
-          <Hidden on={['narrow']}>
+          <Hidden when={['narrow']}>
             <Button variant="primary">New webhook</Button>
           </Hidden>
 
-          <Hidden on={['regular', 'wide']}>
+          <Hidden when={['regular', 'wide']}>
             <Button variant="primary">New</Button>
           </Hidden>
         </PageHeader.Actions>
@@ -60,7 +60,7 @@ export const PullRequestPage = () => (
       </PageHeader.TitleArea>
       <PageHeader.Description>
         <StateLabel status="pullOpened">Open</StateLabel>
-        <Hidden on={['narrow']}>
+        <Hidden when={['narrow']}>
           <Text sx={{fontSize: 1, color: 'fg.muted'}}>
             <Link href="#" muted sx={{fontWeight: 'bold'}}>
               broccolinisoup
@@ -69,7 +69,7 @@ export const PullRequestPage = () => (
             <BranchName href="#">broccolinisoup/add-hidden-component</BranchName>
           </Text>
         </Hidden>
-        <Hidden on={['regular', 'wide']}>
+        <Hidden when={['regular', 'wide']}>
           <Text sx={{fontSize: 1, color: 'fg.muted'}}>
             <BranchName href="#">main</BranchName>
             <ArrowRightIcon />

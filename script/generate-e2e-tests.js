@@ -375,6 +375,17 @@ const components = new Map([
     },
   ],
   [
+    'Hidden',
+    {
+      stories: [
+        {
+          id: 'drafts-components-hidden--default',
+          name: 'Default',
+        },
+      ],
+    },
+  ],
+  [
     'IconButton',
     {
       stories: [

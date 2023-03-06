@@ -40,11 +40,11 @@ export const Webhooks = () => (
         <PageHeader.Title as="h2">Webhooks</PageHeader.Title>
 
         <PageHeader.Actions>
-          <Hidden on={['narrow']}>
+          <Hidden when={['narrow']}>
             <Button variant="primary">New webhook</Button>
           </Hidden>
 
-          <Hidden on={['regular', 'wide']}>
+          <Hidden when={['regular', 'wide']}>
             <Button variant="primary">New</Button>
           </Hidden>
         </PageHeader.Actions>
@@ -70,12 +70,12 @@ export const PullRequestPage = () => (
           PageHeader component initial layout explorations extra long pull request title
         </PageHeader.Title>
         <PageHeader.Actions>
-          <Hidden on={['regular', 'wide']}>
+          <Hidden when={['regular', 'wide']}>
             <IconButton aria-label="More" icon={KebabHorizontalIcon} />
             {/* Pop up actions */}
           </Hidden>
 
-          <Hidden on={['narrow']}>
+          <Hidden when={['narrow']}>
             <Box sx={{display: 'flex', gap: 2}}>
               <Button>Edit</Button>
               <Button leadingIcon={CodeIcon}>Code</Button>
@@ -85,7 +85,7 @@ export const PullRequestPage = () => (
       </PageHeader.TitleArea>
       <PageHeader.Description>
         <StateLabel status="pullOpened">Open</StateLabel>
-        <Hidden on={['narrow']}>
+        <Hidden when={['narrow']}>
           <Text sx={{fontSize: 1, color: 'fg.muted'}}>
             <Link href="#" muted sx={{fontWeight: 'bold'}}>
               broccolinisoup
@@ -94,7 +94,7 @@ export const PullRequestPage = () => (
             <BranchName href="#">broccolinisoup/switch-to-new-underlineNav</BranchName>
           </Text>
         </Hidden>
-        <Hidden on={['regular', 'wide']}>
+        <Hidden when={['regular', 'wide']}>
           <Text sx={{fontSize: 1, color: 'fg.muted'}}>
             <BranchName href="#">main</BranchName>
             <ArrowRightIcon />
@@ -172,12 +172,12 @@ export const WithPageLayout = () => {
               <Text sx={{color: 'fg.muted', fontWeight: 'light'}}>#1831</Text>
             </PageHeader.Title>
             <PageHeader.Actions>
-              <Hidden on={['regular', 'wide']}>
+              <Hidden when={['regular', 'wide']}>
                 <IconButton aria-label="More" icon={KebabHorizontalIcon} />
                 {/* Pop up actions */}
               </Hidden>
 
-              <Hidden on={['narrow']}>
+              <Hidden when={['narrow']}>
                 <Box sx={{display: 'flex'}}>
                   <Button>Edit</Button>
                   <Button leadingIcon={CodeIcon}>Code</Button>
@@ -187,7 +187,7 @@ export const WithPageLayout = () => {
           </PageHeader.TitleArea>
           <PageHeader.Description>
             <StateLabel status="pullOpened">Open</StateLabel>
-            <Hidden on={['narrow']}>
+            <Hidden when={['narrow']}>
               <Text sx={{fontSize: 1, color: 'fg.muted'}}>
                 <Link href="#" muted sx={{fontWeight: 'bold'}}>
                   broccolinisoup
@@ -196,7 +196,7 @@ export const WithPageLayout = () => {
                 <BranchName href="#">broccolinisoup/switch-to-new-underlineNav</BranchName>
               </Text>
             </Hidden>
-            <Hidden on={['regular', 'wide']}>
+            <Hidden when={['regular', 'wide']}>
               <Text sx={{fontSize: 1, color: 'fg.muted'}}>
                 <BranchName href="#">main</BranchName>
                 <ArrowRightIcon />
