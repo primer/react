@@ -25,13 +25,7 @@ test.describe('TextInput', () => {
               colorScheme: theme,
             },
           })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
+          await expect(page).toHaveNoViolations()
         })
       })
     }
@@ -59,13 +53,7 @@ test.describe('TextInput', () => {
               colorScheme: theme,
             },
           })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
+          await expect(page).toHaveNoViolations()
         })
       })
     }
@@ -93,13 +81,7 @@ test.describe('TextInput', () => {
               colorScheme: theme,
             },
           })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
+          await expect(page).toHaveNoViolations()
         })
       })
     }
@@ -127,13 +109,7 @@ test.describe('TextInput', () => {
               colorScheme: theme,
             },
           })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: false,
-              },
-            },
-          })
+          await expect(page).toHaveNoViolations()
         })
       })
     }
@@ -161,13 +137,7 @@ test.describe('TextInput', () => {
               colorScheme: theme,
             },
           })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
+          await expect(page).toHaveNoViolations()
         })
       })
     }
@@ -195,13 +165,7 @@ test.describe('TextInput', () => {
               colorScheme: theme,
             },
           })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
+          await expect(page).toHaveNoViolations()
         })
       })
     }
@@ -229,13 +193,7 @@ test.describe('TextInput', () => {
               colorScheme: theme,
             },
           })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: false,
-              },
-            },
-          })
+          await expect(page).toHaveNoViolations()
         })
       })
     }
@@ -263,13 +221,7 @@ test.describe('TextInput', () => {
               colorScheme: theme,
             },
           })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
+          await expect(page).toHaveNoViolations()
         })
       })
     }
@@ -297,13 +249,7 @@ test.describe('TextInput', () => {
               colorScheme: theme,
             },
           })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: false,
-              },
-            },
-          })
+          await expect(page).toHaveNoViolations()
         })
       })
     }
@@ -331,13 +277,7 @@ test.describe('TextInput', () => {
               colorScheme: theme,
             },
           })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
+          await expect(page).toHaveNoViolations()
         })
       })
     }
@@ -365,13 +305,7 @@ test.describe('TextInput', () => {
               colorScheme: theme,
             },
           })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
+          await expect(page).toHaveNoViolations()
         })
       })
     }
@@ -399,13 +333,7 @@ test.describe('TextInput', () => {
               colorScheme: theme,
             },
           })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
+          await expect(page).toHaveNoViolations()
         })
       })
     }
@@ -433,13 +361,7 @@ test.describe('TextInput', () => {
               colorScheme: theme,
             },
           })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
+          await expect(page).toHaveNoViolations()
         })
       })
     }
