@@ -7,6 +7,8 @@ import {ActionListContainerContext} from './ActionListContainerContext'
 import {defaultSxProp} from '../utils/defaultSxProp'
 import {useId} from '../hooks/useId'
 import {Heading, ActionListHeadingProps} from './Heading'
+import Box from '../Box'
+import { argv0 } from 'process'
 
 export type ActionListProps = React.PropsWithChildren<{
   /**
@@ -50,10 +52,13 @@ export const List = React.forwardRef<HTMLUListElement, ActionListProps>(
     },
     forwardedRef,
   ): JSX.Element => {
-    const styles = {
+    const outerStyles = {
+      paddingY: variant === 'inset' ? 2 : 0
+    }
+
+    const innerStyles = {
       margin: 0,
       paddingInlineStart: 0, // reset ul styles
-      paddingY: variant === 'inset' ? 2 : 0,
     }
 
     /** if list is inside a Menu, it will get a role from the Menu */
@@ -69,10 +74,10 @@ export const List = React.forwardRef<HTMLUListElement, ActionListProps>(
     }
 
     return (
-      <div>
+      <Box sx={outerStyles}>
         {headingProps && <Heading {...headingProps} />}
         <ListBox
-          sx={merge(styles, sxProp as SxProp)}
+          sx={merge(innerStyles, sxProp as SxProp)}
           role={role || listRole}
           aria-labelledby={headingProps ? id : listLabelledBy}
           {...props}
@@ -89,7 +94,7 @@ export const List = React.forwardRef<HTMLUListElement, ActionListProps>(
             {props.children}
           </ListContext.Provider>
         </ListBox>
-      </div>
+      </Box>
     )
   },
 ) as PolymorphicForwardRefComponent<'ul', ActionListProps>
