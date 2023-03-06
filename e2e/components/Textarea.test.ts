@@ -25,13 +25,7 @@ test.describe('Textarea', () => {
               colorScheme: theme,
             },
           })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
+          await expect(page).toHaveNoViolations()
         })
       })
     }
@@ -59,13 +53,7 @@ test.describe('Textarea', () => {
               colorScheme: theme,
             },
           })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
+          await expect(page).toHaveNoViolations()
         })
       })
     }
@@ -93,13 +81,7 @@ test.describe('Textarea', () => {
               colorScheme: theme,
             },
           })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
+          await expect(page).toHaveNoViolations()
         })
       })
     }
@@ -117,7 +99,7 @@ test.describe('Textarea', () => {
           })
 
           // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`Textarea.Error.${theme}.png`)
+          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(`Textarea.Error.${theme}.png`)
         })
 
         test('axe @aat', async ({page}) => {
@@ -127,13 +109,7 @@ test.describe('Textarea', () => {
               colorScheme: theme,
             },
           })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
+          await expect(page).toHaveNoViolations()
         })
       })
     }
@@ -151,7 +127,7 @@ test.describe('Textarea', () => {
           })
 
           // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`Textarea.Success.${theme}.png`)
+          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(`Textarea.Success.${theme}.png`)
         })
 
         test('axe @aat', async ({page}) => {
@@ -161,13 +137,7 @@ test.describe('Textarea', () => {
               colorScheme: theme,
             },
           })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
+          await expect(page).toHaveNoViolations()
         })
       })
     }
@@ -195,13 +165,7 @@ test.describe('Textarea', () => {
               colorScheme: theme,
             },
           })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
+          await expect(page).toHaveNoViolations()
         })
       })
     }
@@ -219,7 +183,7 @@ test.describe('Textarea', () => {
           })
 
           // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`Textarea.Warning.${theme}.png`)
+          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(`Textarea.Warning.${theme}.png`)
         })
 
         test('axe @aat', async ({page}) => {
@@ -229,13 +193,7 @@ test.describe('Textarea', () => {
               colorScheme: theme,
             },
           })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
+          await expect(page).toHaveNoViolations()
         })
       })
     }
@@ -263,13 +221,7 @@ test.describe('Textarea', () => {
               colorScheme: theme,
             },
           })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
+          await expect(page).toHaveNoViolations()
         })
       })
     }
