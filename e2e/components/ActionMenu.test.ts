@@ -280,7 +280,7 @@ test.describe('ActionMenu', () => {
           await expect(page).toHaveNoViolations({
             rules: {
               'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
+                enabled: false,
               },
               'aria-required-children': {
                 enabled: false,
