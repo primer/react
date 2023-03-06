@@ -28,7 +28,10 @@
     "examples/nextjs/**",
     // Note: this file is inlined from an external dependency
     "src/utils/polymorphic.ts",
-    "storybook-static"
+    "storybook-static",
+    "src/babel-plugin-css-out-js",
+    "css-out-js.log.md",
+    "css-out-js.stats.md"
   ],
   "globals": {
     "__DEV__": "readonly"
@@ -45,8 +48,10 @@
       "version": "detect"
     }
   },
+  "plugins": ["eslint-plugin-local-rules"],
   // rules which apply to JS, TS, etc.
   "rules": {
+    "local-rules/css-out-js": 1,
     "no-shadow": 0,
     "react/prop-types": 0,
     "react/display-name": 0,
@@ -81,6 +86,7 @@
       }
     },
     // rules which apply only to TS
+
     {
       "parserOptions": {
         "project": "tsconfig.json"
