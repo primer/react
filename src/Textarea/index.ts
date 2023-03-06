@@ -1,1 +1,1 @@
-export {default, TextareaProps} from './Textarea'
+export {default, TextareaProps, DEFAULT_TEXTAREA_COLS, DEFAULT_TEXTAREA_RESIZE, DEFAULT_TEXTAREA_ROWS} from './Textarea'
