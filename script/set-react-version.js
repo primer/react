@@ -34,7 +34,7 @@ const versions = new Map([
       devDependencies: [
         {
           name: '@types/react',
-          version: '18.0.26',
+          version: '18.0.28',
         },
         {
           name: '@types/react-dom',
