@@ -19,7 +19,7 @@ test.describe('DialogV2', () => {
           // Open Dialog
           await page.getByRole('button', {name: 'Show dialog'}).click()
           // wait for dialog to open
-          page.getByRole('dialog').waitFor()
+          await page.getByRole('dialog').waitFor()
           // Open state
           expect(await page.screenshot()).toMatchSnapshot(`DialogV2.Default.${theme}.open.png`)
         })
@@ -53,7 +53,7 @@ test.describe('DialogV2', () => {
           // Open Dialog
           await page.getByRole('button', {name: 'Show dialog'}).click()
           // wait for dialog to open
-          page.getByRole('dialog').waitFor()
+          await page.getByRole('dialog').waitFor()
           // Open state
           expect(await page.screenshot()).toMatchSnapshot(`DialogV2.Basic Dialog.${theme}.open.png`)
         })
@@ -87,7 +87,7 @@ test.describe('DialogV2', () => {
           // Open Dialog
           await page.getByRole('button', {name: 'Show dialog'}).click()
           // wait for dialog to open
-          page.getByRole('dialog').waitFor()
+          await page.getByRole('dialog').waitFor()
           // Open state
           expect(await page.screenshot()).toMatchSnapshot(`DialogV2.Basic Confirmation Dialog.${theme}.open.png`)
         })
