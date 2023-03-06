@@ -337,6 +337,25 @@ const components = new Map([
     },
   ],
   [
+    'DialogV2',
+    {
+      stories: [
+        {
+          id: 'drafts-components-dialog--default',
+          name: 'Default',
+        },
+        {
+          id: 'drafts-components-dialog-features--basic-dialog',
+          name: 'Basic Dialog',
+        },
+        {
+          id: 'drafts-components-dialog-features--basic-confirmation-dialog',
+          name: 'Basic Confirmation Dialog',
+        },
+      ],
+    },
+  ],
+  [
     'Flash',
     {
       stories: [
