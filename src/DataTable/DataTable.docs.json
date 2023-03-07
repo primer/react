@@ -3,7 +3,23 @@
   "name": "DataTable",
   "status": "draft",
   "a11yReviewed": false,
-  "stories": [],
+  "stories": [
+    {
+      "id": "drafts-components-datatable--with-title"
+    },
+    {
+      "id": "drafts-components-datatable--with-title-and-subtitle"
+    },
+    {
+      "id": "drafts-components-datatable--with-sorting"
+    },
+    {
+      "id": "drafts-components-datatable--with-actions"
+    },
+    {
+      "id": "drafts-components-datatable--with-action"
+    }
+  ],
   "props": [
     {
       "name": "aria-describedby",
@@ -101,7 +117,7 @@
         },
         {
           "name": "scope",
-          "type": "string",
+          "type": "'row'",
           "description": "Provide the scope for a table cell, useful for defining a row header using `scope=\"row\"`"
         }
       ]

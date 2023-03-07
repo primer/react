@@ -6,7 +6,7 @@ import {SortStrategies} from './sorting'
 
 export type ColumnWidth = 'grow' | 'shrink' | 'auto' | React.CSSProperties['width']
 export interface Column<Data extends UniqueRow> {
-  id?: string | undefined
+  id?: string
 
   /**
    * Provide the name of the column. This will be rendered as a table header
@@ -40,13 +40,13 @@ export interface Column<Data extends UniqueRow> {
    * Provide a custom component or render prop to render the data for this
    * column in a row
    */
-  renderCell?: ((data: Data) => React.ReactNode) | undefined
+  renderCell?: (data: Data) => React.ReactNode
 
   /**
    * Specify if the value of this column for a row should be treated as a row
    * header
    */
-  rowHeader?: boolean | undefined
+  rowHeader?: boolean
 
   /**
    * Specify if the table should sort by this column and, if applicable, a

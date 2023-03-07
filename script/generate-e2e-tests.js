@@ -326,6 +326,17 @@ const components = new Map([
     },
   ],
   [
+    'Details',
+    {
+      stories: [
+        {
+          id: 'components-details--default',
+          name: 'Default',
+        },
+      ],
+    },
+  ],
+  [
     'Flash',
     {
       stories: [
@@ -625,12 +636,111 @@ const components = new Map([
     },
   ],
   [
+    'Radio',
+    {
+      stories: [
+        {
+          id: 'components-radio--default',
+          name: 'Default',
+        },
+        {
+          id: 'components-radio-features--disabled',
+
+          name: 'Disabled',
+        },
+        {
+          id: 'components-radio-features--with-caption',
+          name: 'With Caption',
+        },
+        {
+          id: 'components-radio-features--with-leading-visual',
+          name: 'With Leading Visual',
+        },
+      ],
+    },
+  ],
+  [
     'RadioGroup',
     {
       stories: [
         {
-          id: 'components-forms-radiogroup-examples--default',
+          id: 'components-radiogroup--default',
           name: 'Default',
+        },
+        {
+          id: 'components-radiogroup-features--caption',
+          name: 'Caption',
+        },
+        {
+          id: 'components-radiogroup-features--error',
+          name: 'Error',
+        },
+        {
+          id: 'components-radiogroup-features--success',
+          name: 'Success',
+        },
+        {
+          id: 'components-radiogroup-features--visually-hidden-label',
+          name: 'Visually Hidden Label',
+        },
+        {
+          id: 'components-radiogroup-features--warning',
+          name: 'Warning',
+        },
+        {
+          id: 'components-radiogroup-features--with-external-label',
+          name: 'With External Label',
+        },
+      ],
+    },
+  ],
+  [
+    'Select',
+    {
+      stories: [
+        {
+          id: 'components-select--default',
+          name: 'Default',
+        },
+        {
+          id: 'components-select-features--block',
+          name: 'Block',
+        },
+        {
+          id: 'components-select-features--disabled',
+          name: 'Disabled',
+        },
+        {
+          id: 'components-select-features--error',
+          name: 'Error',
+        },
+        {
+          id: 'components-select-features--large',
+          name: 'Large',
+        },
+        {
+          id: 'components-select-features--small',
+          name: 'Small',
+        },
+        {
+          id: 'components-select-features--success',
+          name: 'Success',
+        },
+        {
+          id: 'components-select-features--visually-hidden-label',
+          name: 'Visually Hidden Label',
+        },
+        {
+          id: 'components-select-features--warning',
+          name: 'Warning',
+        },
+        {
+          id: 'components-select-features--with-caption',
+          name: 'With Caption',
+        },
+        {
+          id: 'components-select-features--with-option-groups',
+          name: 'With Option Groups',
         },
       ],
     },
@@ -679,60 +789,119 @@ const components = new Map([
     },
   ],
   [
-    'SegmentedControl',
+    'Textarea',
     {
       stories: [
         {
-          id: 'components-segmentedcontrol--default',
+          id: 'components-textarea--default',
           name: 'Default',
         },
         {
-          id: 'components-segmentedcontrol--playground',
-          name: 'Playground',
+          id: 'components-textarea-features--block',
+          name: 'Block',
         },
         {
-          id: 'components-segmentedcontrol-segmentedcontrol-button--playground',
-          name: 'SegmentedControlButton Playground',
+          id: 'components-textarea-features--disabled',
+          name: 'Disabled',
         },
         {
-          id: 'components-segmentedcontrol-segmentedcontrol-iconbutton--playground',
-          name: 'SegmentedControlIconButton Playground',
+          id: 'components-textarea-features--error',
+          name: 'Error',
         },
         {
-          id: 'components-segmentedcontrol-features--associated-with-a-label-and-caption',
-          name: 'Associated with a Label and Caption',
+          id: 'components-textarea-features--success',
+          name: 'Success',
         },
         {
-          id: 'components-segmentedcontrol-features--fullwidth-narrow',
-          name: 'Fullwidth Narrow',
+          id: 'components-textarea-features--visually-hidden-label',
+          name: 'Visually Hidden Label',
         },
         {
-          id: 'components-segmentedcontrol-features--fullwidth-regular',
-          name: 'Fullwidth Regular',
+          id: 'components-textarea-features--warning',
+          name: 'Warning',
         },
         {
-          id: 'components-segmentedcontrol-features--variant-narrow-action-menu',
-          name: 'Variant Narrow Action Menu',
+          id: 'components-textarea-features--with-caption',
+          name: 'With Caption',
+        },
+      ],
+    },
+  ],
+  [
+    'TextInput',
+    {
+      stories: [
+        {
+          id: 'components-textinput--default',
+          name: 'Default',
         },
         {
-          id: 'components-segmentedcontrol-features--variant-narrow-hide-labels',
-          name: 'Variant Narrow Hide Labels',
+          id: 'components-textinput-features--block',
+          name: 'Block',
         },
         {
-          id: 'components-segmentedcontrol-features--controlled',
-          name: 'Controlled',
+          id: 'components-textinput-features--disabled',
+          name: 'Disabled',
         },
         {
-          id: 'components-segmentedcontrol-features--fullwidth-all',
-          name: 'Fullwidth',
+          id: 'components-textinput-features--error',
+          name: 'Error',
         },
         {
-          id: 'components-segmentedcontrol-features--icon-only',
-          name: 'Icon Only',
+          id: 'components-textinput-features--large',
+          name: 'Large',
         },
         {
-          id: 'components-segmentedcontrol-features--with-icons',
-          name: 'With Icons',
+          id: 'components-textinput-features--small',
+          name: 'Small',
+        },
+        {
+          id: 'components-textinput-features--success',
+          name: 'Success',
+        },
+        {
+          id: 'components-textinput-features--visually-hidden-label',
+          name: 'Visually Hidden Label',
+        },
+        {
+          id: 'components-textinput-features--warning',
+          name: 'Warning',
+        },
+        {
+          id: 'components-textinput-features--with-caption',
+          name: 'With Caption',
+        },
+        {
+          id: 'components-textinput-features--with-leading-visual',
+          name: 'With Leading Visual',
+        },
+
+        {
+          id: 'components-textinput-features--with-trailing-action',
+          name: 'With Trailing Action',
+        },
+        {
+          id: 'components-textinput-features--with-trailing-icon',
+          name: 'With Trailing Icon',
+        },
+      ],
+    },
+  ],
+  [
+    'TextInputWithTokens',
+    {
+      stories: [
+        {
+          id: 'components-textinputwithtokens--default',
+          name: 'Default',
+        },
+        {
+          id: 'components-textinputwithtokens-features--with-leading-visual',
+          name: 'With Leading Visual',
+        },
+        {
+          id: 'components-textinputwithtokens-features--with-trailing-visual',
+          name: 'With Trailing Visual',
         },
       ],
     },

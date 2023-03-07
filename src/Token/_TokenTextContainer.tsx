@@ -14,13 +14,12 @@ const TokenTextContainer = styled('span')<Partial<TokenBaseProps>>`
   color: inherit;
   font: inherit;
   margin: 0;
-  overflow: visible;
   padding: 0;
   width: auto;
   -webkit-font-smoothing: inherit;
   -moz-osx-font-smoothing: inherit;
   -webkit-appearance: none;
-  line-height: 1;
+  line-height: normal;
 
   // reset anchor styles
   color: currentColor;

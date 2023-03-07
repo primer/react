@@ -7,8 +7,8 @@ import {ObjectPathValue} from './utils'
 interface TableConfig<Data extends UniqueRow> {
   columns: Array<Column<Data>>
   data: Array<Data>
-  initialSortColumn?: string | undefined
-  initialSortDirection?: Exclude<SortDirection, 'NONE'> | undefined
+  initialSortColumn?: string
+  initialSortDirection?: Exclude<SortDirection, 'NONE'>
 }
 
 interface Table<Data extends UniqueRow> {

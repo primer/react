@@ -159,23 +159,23 @@ export type TableProps = React.ComponentPropsWithoutRef<'table'> & {
   /**
    * Provide an id to an element which uniquely describes this table
    */
-  'aria-describedby'?: string | undefined
+  'aria-describedby'?: string
 
   /**
    * Provide an id to an element which uniquely labels this table
    */
-  'aria-labelledby'?: string | undefined
+  'aria-labelledby'?: string
+
+  /**
+   * Column width definitions
+   */
+  gridTemplateColumns?: React.CSSProperties['gridTemplateColumns']
 
   /**
    * Specify the amount of space that should be available around the contents of
    * a cell
    */
-  cellPadding?: 'condensed' | 'normal' | 'spacious' | undefined
-
-  /**
-   * Column width definitions
-   */
-  gridTemplateColumns?: React.CSSProperties['gridTemplateColumns'] | undefined
+  cellPadding?: 'condensed' | 'normal' | 'spacious'
 }
 
 const Table = React.forwardRef<HTMLTableElement, TableProps>(function Table(
@@ -298,7 +298,7 @@ export type TableCellProps = React.ComponentPropsWithoutRef<'td'> & {
    * Provide the scope for a table cell, useful for defining a row header using
    * `scope="row"`
    */
-  scope?: 'row' | undefined
+  scope?: 'row'
 }
 
 function TableCell({children, scope, ...rest}: TableCellProps) {

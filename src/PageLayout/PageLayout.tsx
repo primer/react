@@ -736,6 +736,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
               '--pane-max-width-diff': '959px',
             },
           })}
+          {...(id && {id: paneId})}
         >
           {resizable && (
             <VisuallyHidden>
