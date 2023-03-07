@@ -73,10 +73,10 @@ export const List = React.forwardRef<HTMLUListElement, ActionListProps>(
     }
 
     return (
-      <Box sx={outerStyles}>
+      <Box sx={merge(outerStyles, sxProp as SxProp)}>
         {headingProps && <Heading {...headingProps} />}
         <ListBox
-          sx={merge(innerStyles, sxProp as SxProp)}
+          sx={innerStyles}
           role={role || listRole}
           aria-labelledby={headingProps ? id : listLabelledBy}
           {...props}
