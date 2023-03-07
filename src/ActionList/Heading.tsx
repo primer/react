@@ -52,7 +52,6 @@ export const Heading: React.FC<React.PropsWithChildren<ActionListHeadingProps>> 
     font-weight: ${get('fontWeights.semibold')};
     margin-bottom: 0;
     margin-top: 0;
-    font-weight: bold;
   `
 
   const Subtitle = styled.span`
