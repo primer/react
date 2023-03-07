@@ -250,7 +250,10 @@ export const MultipleSections = () => {
         <IconButton icon={KebabHorizontalIcon} aria-label="Open menu" />
       </ActionMenu.Anchor>
       <ActionMenu.Overlay width="small">
-        <ActionList sx={{paddingY: 0}} headingProps={{title: 'Raw file content', sx: {paddingBottom: 3}}}>
+        <ActionList
+          sx={{paddingY: 0}}
+          headingProps={{title: 'Raw file content', sx: {paddingBottom: 2, marginBottom: 2}}}
+        >
           <ActionList.Item onSelect={() => alert('Workflows clicked')}>Download</ActionList.Item>
           <ActionList.Divider />
           <ActionList.Item onSelect={() => alert('Workflows clicked')}>Jump to line</ActionList.Item>
@@ -259,7 +262,10 @@ export const MultipleSections = () => {
           <ActionList.Item onSelect={() => alert('Workflows clicked')}>Copy path</ActionList.Item>
           <ActionList.Item onSelect={() => alert('Workflows clicked')}>Copy permalink</ActionList.Item>
         </ActionList>
-        <ActionList selectionVariant="multiple" headingProps={{title: 'View options', sx: {paddingBottom: 3}}}>
+        <ActionList
+          selectionVariant="multiple"
+          headingProps={{title: 'View options', sx: {paddingBottom: 2, marginBottom: 2}}}
+        >
           {items.map((item, index) => (
             <ActionList.Item
               key={index}
