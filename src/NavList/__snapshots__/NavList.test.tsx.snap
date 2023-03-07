@@ -652,7 +652,6 @@ exports[`NavList renders with groups 1`] = `
   font-weight: 500;
   margin-bottom: 0;
   margin-top: 0;
-  font-weight: bold;
 }
 
 @media (hover:hover) and (pointer:fine) {
