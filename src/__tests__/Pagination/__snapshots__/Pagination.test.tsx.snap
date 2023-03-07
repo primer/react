@@ -8,9 +8,10 @@ exports[`Pagination renders consistently 1`] = `
 .c2 {
   display: inline-block;
   min-width: 32px;
-  padding: 5px 10px;
+  height: 32px;
+  padding: 0.5rem calc((2rem - 1.25rem) / 2);
   font-style: normal;
-  line-height: 20px;
+  line-height: 1;
   color: #24292f;
   text-align: center;
   white-space: nowrap;
@@ -23,10 +24,10 @@ exports[`Pagination renders consistently 1`] = `
   -webkit-text-decoration: none;
   text-decoration: none;
   margin-right: 4px;
-  border: 1px solid transparent;
+  background-color: transparent;
   border-radius: 6px;
-  -webkit-transition: border-color 0.2s cubic-bezier(0.3,0,0.5,1);
-  transition: border-color 0.2s cubic-bezier(0.3,0,0.5,1);
+  -webkit-transition: background-color 0.2s cubic-bezier(0.3,0,0.5,1);
+  transition: background-color 0.2s cubic-bezier(0.3,0,0.5,1);
 }
 
 .c2:last-child {
@@ -37,7 +38,7 @@ exports[`Pagination renders consistently 1`] = `
 .c2:focus {
   -webkit-text-decoration: none;
   text-decoration: none;
-  border-color: #d0d7de;
+  background-color: rgba(208,215,222,0.32);
   outline: 0;
   -webkit-transition-duration: 0.1s;
   transition-duration: 0.1s;
@@ -76,10 +77,12 @@ exports[`Pagination renders consistently 1`] = `
 }
 
 .c2[aria-disabled],
-.c2[aria-disabled]:hover {
+.c2[aria-disabled]:hover,
+.c2[role='presentation'],
+.c2[role='presentation']:hover {
   color: #8c959f;
   cursor: default;
-  border-color: transparent;
+  background-color: transparent;
 }
 
 .c0 {
@@ -173,8 +176,8 @@ exports[`Pagination renders consistently 1`] = `
       6
     </a>
     <span
-      aria-disabled={true}
       className="c2"
+      role="presentation"
     >
       …
     </span>
