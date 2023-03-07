@@ -1,0 +1,23 @@
+  {
+    "default-story-template": {
+    "prefix": "default-story-template",
+    "body": [
+      "import React from 'react'",
+      "import {Meta, Story} from '@storybook/react'",
+      "import {ComponentProps} from '../utils/types'",
+      "import ComponentName from './ComponentName'",
+      "",
+      "export default {",
+      "\ttitle: 'Components/ComponentName',",
+      "\tcomponent: ComponentName,",
+      "} as Meta<ComponentProps<typeof ComponentName>>",
+      "",
+      "export const Playground: Story<ComponentProps<typeof ComponentName>> = args => <ComponentName {...args}></ComponentName>",
+      "",
+      "Playground.args = {}",
+      "Playground.argTypes = {}",
+      "export const Default = <ComponentName></ComponentName>"
+    ],
+    "description": "Generate a default/playground story file"
+  }
+}

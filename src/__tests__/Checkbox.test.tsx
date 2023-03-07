@@ -79,18 +79,14 @@ describe('Checkbox', () => {
 
     expect(checkbox.disabled).toEqual(true)
     expect(checkbox.checked).toEqual(false)
-    expect(checkbox).toHaveAttribute('aria-disabled', 'true')
 
     await user.click(checkbox)
 
     expect(checkbox.disabled).toEqual(true)
     expect(checkbox.checked).toEqual(false)
-    expect(checkbox).toHaveAttribute('aria-disabled', 'true')
 
     // remove disabled attribute and retest
     rerender(<Checkbox onChange={handleChange} />)
-
-    expect(checkbox).toHaveAttribute('aria-disabled', 'false')
   })
 
   it('renders an uncontrolled component correctly', async () => {

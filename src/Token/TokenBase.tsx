@@ -40,7 +40,7 @@ export interface TokenBaseProps
   /**
    * The text label inside the token
    */
-  text: string
+  text: React.ReactNode
   /**
    * A unique identifier that can be associated with the token
    */
@@ -126,25 +126,22 @@ const StyledTokenBase = styled.span<
   ${sx}
 `
 
-const TokenBase = React.forwardRef(
-  ({text, onRemove, onKeyDown, id, size = defaultTokenSize, ...rest}, forwardedRef) => {
-    return (
-      <StyledTokenBase
-        onKeyDown={(event: KeyboardEvent<HTMLSpanElement & HTMLAnchorElement & HTMLButtonElement>) => {
-          onKeyDown && onKeyDown(event)
+const TokenBase = React.forwardRef(({onRemove, onKeyDown, id, size = defaultTokenSize, ...rest}, forwardedRef) => {
+  return (
+    <StyledTokenBase
+      onKeyDown={(event: KeyboardEvent<HTMLSpanElement & HTMLAnchorElement & HTMLButtonElement>) => {
+        onKeyDown && onKeyDown(event)
 
-          if ((event.key === 'Backspace' || event.key === 'Delete') && onRemove) {
-            onRemove()
-          }
-        }}
-        aria-label={onRemove ? `${text}, press backspace or delete to remove` : undefined}
-        id={id?.toString()}
-        size={size}
-        {...rest}
-        ref={forwardedRef}
-      />
-    )
-  },
-) as PolymorphicForwardRefComponent<'span' | 'a' | 'button', TokenBaseProps & SxProp>
+        if ((event.key === 'Backspace' || event.key === 'Delete') && onRemove) {
+          onRemove()
+        }
+      }}
+      id={id?.toString()}
+      size={size}
+      {...rest}
+      ref={forwardedRef}
+    />
+  )
+}) as PolymorphicForwardRefComponent<'span' | 'a' | 'button', TokenBaseProps & SxProp>
 
 export default TokenBase
