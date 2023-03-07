@@ -15,7 +15,11 @@ test.describe('DialogV2', () => {
           })
 
           // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`DialogV2.Default.${theme}.png`)
+          expect(
+            await page.screenshot({
+              animations: 'disabled',
+            }),
+          ).toMatchSnapshot(`DialogV2.Default.${theme}.png`)
           // Open Dialog
           await page.getByRole('button', {name: 'Show dialog'}).click()
           // wait for dialog to open
@@ -53,7 +57,11 @@ test.describe('DialogV2', () => {
           })
 
           // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`DialogV2.Basic Dialog.${theme}.png`)
+          expect(
+            await page.screenshot({
+              animations: 'disabled',
+            }),
+          ).toMatchSnapshot(`DialogV2.Basic Dialog.${theme}.png`)
           // Open Dialog
           await page.getByRole('button', {name: 'Show dialog'}).click()
           // wait for dialog to open
@@ -91,7 +99,11 @@ test.describe('DialogV2', () => {
           })
 
           // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`DialogV2.Basic Confirmation Dialog.${theme}.png`)
+          expect(
+            await page.screenshot({
+              animations: 'disabled',
+            }),
+          ).toMatchSnapshot(`DialogV2.Basic Confirmation Dialog.${theme}.png`)
           // Open Dialog
           await page.getByRole('button', {name: 'Show dialog'}).click()
           // wait for dialog to open
