@@ -28,13 +28,13 @@ export interface Column<Data extends UniqueRow> {
    * The minimum width the column can shrink to
    */
   // TODO: uncomment ResponsiveValue<T> when I'm ready to implement the responsive part
-  maxWidth?: React.CSSProperties['maxWidth'] /*| ResponsiveValue<React.CSSProperties['maxWidth']>*/ | undefined
+  maxWidth?: React.CSSProperties['maxWidth'] /*| ResponsiveValue<React.CSSProperties['maxWidth']>*/
 
   /**
    * The maximum width the column can grow to
    */
   // TODO: uncomment ResponsiveValue<T> when I'm ready to implement the responsive part
-  minWidth?: React.CSSProperties['minWidth'] /*| ResponsiveValue<React.CSSProperties['minWidth']>*/ | undefined
+  minWidth?: React.CSSProperties['minWidth'] /*| ResponsiveValue<React.CSSProperties['minWidth']>*/
 
   /**
    * Provide a custom component or render prop to render the data for this
@@ -62,11 +62,9 @@ export interface Column<Data extends UniqueRow> {
    * - explicit width: Will be exactly that width and will not grow or shrink to fill the parent
    * @default 'grow'
    */
-  width?:
-    | ColumnWidth
-    // TODO: uncomment ResponsiveValue<T> when I'm ready to implement the responsive part
-    // | ResponsiveValue<ColumnWidth>
-    | undefined
+  width?: ColumnWidth
+  // TODO: uncomment ResponsiveValue<T> when I'm ready to implement the responsive part
+  // | ResponsiveValue<ColumnWidth>
 }
 
 export function createColumnHelper<T extends UniqueRow>() {
