@@ -4,7 +4,7 @@ import Box from '../Box'
 import styled from 'styled-components'
 import {get} from '../constants'
 import {SxProp} from '../sx'
-import { merge } from 'lodash'
+import {merge} from 'lodash'
 
 export type ActionListHeadingProps = {
   variant?: 'subtle' | 'filled'

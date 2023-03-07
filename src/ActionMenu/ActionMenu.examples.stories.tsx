@@ -259,10 +259,7 @@ export const MultipleSections = () => {
           <ActionList.Item onSelect={() => alert('Workflows clicked')}>Copy path</ActionList.Item>
           <ActionList.Item onSelect={() => alert('Workflows clicked')}>Copy permalink</ActionList.Item>
         </ActionList>
-        <ActionList
-          selectionVariant="multiple"
-          headingProps={{title: 'View options', sx: {paddingBottom: 3}}}
-        >
+        <ActionList selectionVariant="multiple" headingProps={{title: 'View options', sx: {paddingBottom: 3}}}>
           {items.map((item, index) => (
             <ActionList.Item
               key={index}
