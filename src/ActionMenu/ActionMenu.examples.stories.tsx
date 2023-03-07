@@ -32,7 +32,7 @@ export const GroupsAndDescriptions = () => {
         Milestone
       </ActionMenu.Button>
       <ActionMenu.Overlay width="medium">
-        <ActionList selectionVariant="single" showDividers headingProps={{title: 'Open'}}>
+        <ActionList selectionVariant="single" showDividers headingProps={{title: 'Open', sx: {fontWeight: 'bold'}}}>
           {milestones
             .filter(milestone => !milestone.name.includes('21'))
             .map((milestone, index) => (
@@ -49,7 +49,11 @@ export const GroupsAndDescriptions = () => {
               </ActionList.Item>
             ))}
         </ActionList>
-        <ActionList sx={{paddingTop: 0}} headingProps={{title: 'Closed'}} selectionVariant="single">
+        <ActionList
+          sx={{paddingTop: 0}}
+          headingProps={{title: 'Closed', sx: {fontWeight: 'bold'}}}
+          selectionVariant="single"
+        >
           {milestones
             .filter(milestone => milestone.name.includes('21'))
             .map((milestone, index) => (
@@ -246,7 +250,7 @@ export const MultipleSections = () => {
         <IconButton icon={KebabHorizontalIcon} aria-label="Open menu" />
       </ActionMenu.Anchor>
       <ActionMenu.Overlay width="small">
-        <ActionList headingProps={{title: 'Raw file content'}}>
+        <ActionList sx={{paddingY: 0}} headingProps={{title: 'Raw file content', sx: {paddingBottom: 2}}}>
           <ActionList.Item onSelect={() => alert('Workflows clicked')}>Download</ActionList.Item>
           <ActionList.Divider />
           <ActionList.Item onSelect={() => alert('Workflows clicked')}>Jump to line</ActionList.Item>
@@ -255,7 +259,11 @@ export const MultipleSections = () => {
           <ActionList.Item onSelect={() => alert('Workflows clicked')}>Copy path</ActionList.Item>
           <ActionList.Item onSelect={() => alert('Workflows clicked')}>Copy permalink</ActionList.Item>
         </ActionList>
-        <ActionList selectionVariant="multiple" headingProps={{title: 'View options'}}>
+        <ActionList
+          sx={{paddingY: 0}}
+          selectionVariant="multiple"
+          headingProps={{title: 'View options', sx: {paddingBottom: 2}}}
+        >
           {items.map((item, index) => (
             <ActionList.Item
               key={index}

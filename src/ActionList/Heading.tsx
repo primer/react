@@ -3,6 +3,7 @@ import {ListContext} from './List'
 import Box from '../Box'
 import styled from 'styled-components'
 import {get} from '../constants'
+import {SxProp} from '../sx'
 
 export type ActionListHeadingProps = {
   variant?: 'subtle' | 'filled'
@@ -10,7 +11,7 @@ export type ActionListHeadingProps = {
   subtitle?: string
   headingLevel?: 1 | 2 | 3 | 4 | 5 | 6
   id?: string
-}
+} & SxProp
 
 /**
  * Displays the name and description of the ActionList.
@@ -23,6 +24,7 @@ export const Heading: React.FC<React.PropsWithChildren<ActionListHeadingProps>> 
   subtitle,
   headingLevel = 3,
   id,
+  sx,
   ...props
 }) => {
   const {variant: listVariant} = React.useContext(ListContext)
@@ -62,7 +64,9 @@ export const Heading: React.FC<React.PropsWithChildren<ActionListHeadingProps>> 
 
   return (
     <Box as="div" sx={styles} role="presentation" aria-hidden="true" {...props}>
-      <Title id={id}>{title}</Title>
+      <Title sx={sx} id={id}>
+        {title}
+      </Title>
       {subtitle && <Subtitle>{subtitle}</Subtitle>}
     </Box>
   )
