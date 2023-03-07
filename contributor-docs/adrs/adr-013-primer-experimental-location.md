@@ -2,7 +2,7 @@
 
 ## Status
 
-❌ Not Adopted, <issue with implementation details goes here>
+❌ Not Adopted, `<issue with implementation details goes here>`
 
 &nbsp;
 
