@@ -67,6 +67,39 @@ import {PageHeader} from '@primer/react/drafts'
 </PageHeader>
 ```
 
+### Component as Title
+
+```jsx live drafts
+<PageHeader>
+  <PageHeader.TitleArea>
+    <Breadcrumbs>
+      <Breadcrumbs.Item href="#">...</Breadcrumbs.Item>
+      <Breadcrumbs.Item href="#">primer</Breadcrumbs.Item>
+      <Breadcrumbs.Item href="#">react</Breadcrumbs.Item>
+      <Breadcrumbs.Item href="#">src</Breadcrumbs.Item>
+      <Breadcrumbs.Item href="#">PageHeader</Breadcrumbs.Item>
+      <Breadcrumbs.Item href="#">PageHeader.tsx</Breadcrumbs.Item>
+    </Breadcrumbs>
+    <Heading
+      as="h2"
+      sx={{
+        position: 'absolute',
+        width: '1px',
+        height: '1px',
+        padding: 0,
+        margin: '-1px',
+        overflow: 'hidden',
+        clip: 'rect(0, 0, 0, 0)',
+        whiteSpace: 'nowrap',
+        borderWidth: 0,
+      }}
+    >
+      Visually Hidden Title
+    </Heading>
+  </PageHeader.TitleArea>
+</PageHeader>
+```
+
 ### With leading and trailing actions
 
 ```jsx live drafts
@@ -121,6 +154,8 @@ import {PageHeader} from '@primer/react/drafts'
 
 ### With navigation slot
 
+#### Utilizing a Navigation component
+
 ```jsx live drafts
 <PageHeader>
   <PageHeader.TitleArea>
@@ -141,6 +176,28 @@ import {PageHeader} from '@primer/react/drafts'
         Files Changes
       </UnderlineNav2.Item>
     </UnderlineNav2>
+  </PageHeader.Navigation>
+</PageHeader>
+```
+
+#### Utilizing a custom navigation
+
+```jsx live drafts
+<PageHeader>
+  <PageHeader.TitleArea>
+    <PageHeader.Title>Page Title</PageHeader.Title>
+  </PageHeader.TitleArea>
+  <PageHeader.Navigation as="nav" aria-label="Item list">
+    <Box as="ul" sx={{display: 'flex', gap: '8px', listStyle: 'none', paddingY: 0, paddingX: 3}} role="list">
+      <li>
+        <Link href="#" aria-current="page">
+          Item 1
+        </Link>
+      </li>
+      <li>
+        <Link href="#">Item 2</Link>
+      </li>
+    </Box>
   </PageHeader.Navigation>
 </PageHeader>
 ```

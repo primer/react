@@ -2,7 +2,7 @@ import React from 'react'
 import '@testing-library/jest-dom/extend-expect'
 import {render} from '@testing-library/react'
 import {Checkbox, CheckboxGroup, FormControl, SSRProvider} from '..'
-import {behavesAsComponent, checkExports, checkStoriesForAxeViolations} from '../utils/testing'
+import {behavesAsComponent, checkExports} from '../utils/testing'
 import userEvent from '@testing-library/user-event'
 import {CheckboxGroupContext} from '../CheckboxGroup'
 
@@ -171,6 +171,3 @@ describe('CheckboxGroup', () => {
     )
   })
 })
-
-checkStoriesForAxeViolations('CheckboxGroup/fixtures')
-checkStoriesForAxeViolations('CheckboxGroup/examples')

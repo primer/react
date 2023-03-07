@@ -1,5 +1,5 @@
 import React from 'react'
-import {Meta, Story} from '@storybook/react'
+import {ComponentMeta, ComponentStory} from '@storybook/react'
 import {UnderlineNav} from './index'
 import {UnderlineNavItem} from './UnderlineNavItem'
 
@@ -33,9 +33,22 @@ export default {
     'aria-label': 'Repository',
     loadingCounters: false,
   },
-} as Meta<typeof UnderlineNav>
+} as ComponentMeta<typeof UnderlineNav>
 
-export const Playground: Story = args => {
+export const Default: ComponentStory<typeof UnderlineNav> = () => {
+  const children = ['Code', 'Pull requests', 'Actions', 'Projects', 'Wiki']
+  return (
+    <UnderlineNav>
+      {children.map((child: string, index: number) => (
+        <UnderlineNavItem key={index} href="#" aria-current={index === 0 ? 'page' : undefined}>
+          {child}
+        </UnderlineNavItem>
+      ))}
+    </UnderlineNav>
+  )
+}
+
+export const Playground: ComponentStory<typeof UnderlineNav> = args => {
   const children = ['Code', 'Pull requests', 'Actions', 'Projects', 'Wiki']
   return (
     <UnderlineNav {...args}>

@@ -29,7 +29,7 @@ export type CheckboxOrRadioGroupArgs = CheckboxOrRadioGroupWrapperArgs &
   CheckboxOrRadioGroupValidationMessageArgs
 
 type FormControlParentArgs = Pick<ComponentProps<typeof FormControl>, 'required' | 'disabled'>
-type FormControlLabelArgs = ComponentProps<typeof FormControl.Label> & {labelChildren?: React.ReactNode}
+type FormControlLabelArgs = Omit<ComponentProps<typeof FormControl.Label>, 'as'> & {labelChildren?: React.ReactNode}
 type FormControlCaptionArgs = ComponentProps<typeof FormControl.Caption> & {captionChildren?: React.ReactNode}
 type FormControlValidationMessageArgs = ComponentProps<typeof FormControl.Validation> & {
   validationChildren?: React.ReactNode

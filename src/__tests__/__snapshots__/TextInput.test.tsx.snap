@@ -866,8 +866,7 @@ exports[`TextInput renders leadingVisual 1`] = `
       width={16}
     >
       <path
-        d="M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z"
-        fillRule="evenodd"
+        d="M10.68 11.74a6 6 0 0 1-7.922-8.982 6 6 0 0 1 8.982 7.922l3.04 3.04a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215ZM11.5 7a4.499 4.499 0 1 0-8.997 0A4.499 4.499 0 0 0 11.5 7Z"
       />
     </svg>
   </span>
@@ -1408,6 +1407,7 @@ exports[`TextInput renders trailingAction icon button 1`] = `
 
 .c4 [data-component="leadingVisual"] {
   grid-area: leadingVisual;
+  color: #57606a;
 }
 
 .c4 [data-component="text"] {
@@ -1422,6 +1422,7 @@ exports[`TextInput renders trailingAction icon button 1`] = `
 
 .c4 [data-component="trailingAction"] {
   margin-right: -4px;
+  color: #57606a;
 }
 
 .c4 [data-component="buttonContent"] {
@@ -1456,7 +1457,7 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   background-color: hsla(220,14%,94%,1);
 }
 
-.c4 svg {
+.c4[data-component="IconButton"][data-no-visuals] {
   color: #57606a;
 }
 
@@ -1872,8 +1873,7 @@ exports[`TextInput renders trailingAction icon button 1`] = `
           width={16}
         >
           <path
-            d="M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z"
-            fillRule="evenodd"
+            d="M10.68 11.74a6 6 0 0 1-7.922-8.982 6 6 0 0 1 8.982 7.922l3.04 3.04a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215ZM11.5 7a4.499 4.499 0 1 0-8.997 0A4.499 4.499 0 0 0 11.5 7Z"
           />
         </svg>
       </button>
@@ -2046,6 +2046,7 @@ exports[`TextInput renders trailingAction text button 1`] = `
 
 .c3 [data-component="leadingVisual"] {
   grid-area: leadingVisual;
+  color: #57606a;
 }
 
 .c3 [data-component="text"] {
@@ -2060,6 +2061,7 @@ exports[`TextInput renders trailingAction text button 1`] = `
 
 .c3 [data-component="trailingAction"] {
   margin-right: -4px;
+  color: #57606a;
 }
 
 .c3 [data-component="buttonContent"] {
@@ -2094,7 +2096,7 @@ exports[`TextInput renders trailingAction text button 1`] = `
   background-color: hsla(220,14%,94%,1);
 }
 
-.c3 svg {
+.c3[data-component="IconButton"][data-no-visuals] {
   color: #57606a;
 }
 
@@ -2438,6 +2440,7 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
 
 .c4 [data-component="leadingVisual"] {
   grid-area: leadingVisual;
+  color: #57606a;
 }
 
 .c4 [data-component="text"] {
@@ -2452,6 +2455,7 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
 
 .c4 [data-component="trailingAction"] {
   margin-right: -4px;
+  color: #57606a;
 }
 
 .c4 [data-component="buttonContent"] {
@@ -2486,7 +2490,7 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   background-color: hsla(220,14%,94%,1);
 }
 
-.c4 svg {
+.c4[data-component="IconButton"][data-no-visuals] {
   color: #57606a;
 }
 
@@ -3036,8 +3040,7 @@ exports[`TextInput renders trailingVisual 1`] = `
       width={16}
     >
       <path
-        d="M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z"
-        fillRule="evenodd"
+        d="M10.68 11.74a6 6 0 0 1-7.922-8.982 6 6 0 0 1 8.982 7.922l3.04 3.04a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215ZM11.5 7a4.499 4.499 0 1 0-8.997 0A4.499 4.499 0 0 0 11.5 7Z"
       />
     </svg>
   </span>
@@ -3882,8 +3885,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
             width={16}
           >
             <path
-              d="M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z"
-              fillRule="evenodd"
+              d="M10.68 11.74a6 6 0 0 1-7.922-8.982 6 6 0 0 1 8.982 7.922l3.04 3.04a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215ZM11.5 7a4.499 4.499 0 1 0-8.997 0A4.499 4.499 0 0 0 11.5 7Z"
             />
           </svg>
         </div>
@@ -4134,8 +4136,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
             width={16}
           >
             <path
-              d="M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z"
-              fillRule="evenodd"
+              d="M10.68 11.74a6 6 0 0 1-7.922-8.982 6 6 0 0 1 8.982 7.922l3.04 3.04a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215ZM11.5 7a4.499 4.499 0 1 0-8.997 0A4.499 4.499 0 0 0 11.5 7Z"
             />
           </svg>
         </div>
@@ -4386,8 +4387,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
             width={16}
           >
             <path
-              d="M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z"
-              fillRule="evenodd"
+              d="M10.68 11.74a6 6 0 0 1-7.922-8.982 6 6 0 0 1 8.982 7.922l3.04 3.04a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215ZM11.5 7a4.499 4.499 0 1 0-8.997 0A4.499 4.499 0 0 0 11.5 7Z"
             />
           </svg>
         </div>
@@ -4639,8 +4639,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
             width={16}
           >
             <path
-              d="M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z"
-              fillRule="evenodd"
+              d="M10.68 11.74a6 6 0 0 1-7.922-8.982 6 6 0 0 1 8.982 7.922l3.04 3.04a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215ZM11.5 7a4.499 4.499 0 1 0-8.997 0A4.499 4.499 0 0 0 11.5 7Z"
             />
           </svg>
         </div>
@@ -4891,8 +4890,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
             width={16}
           >
             <path
-              d="M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z"
-              fillRule="evenodd"
+              d="M10.68 11.74a6 6 0 0 1-7.922-8.982 6 6 0 0 1 8.982 7.922l3.04 3.04a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215ZM11.5 7a4.499 4.499 0 1 0-8.997 0A4.499 4.499 0 0 0 11.5 7Z"
             />
           </svg>
         </div>
@@ -5099,8 +5097,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
             width={16}
           >
             <path
-              d="M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z"
-              fillRule="evenodd"
+              d="M10.68 11.74a6 6 0 0 1-7.922-8.982 6 6 0 0 1 8.982 7.922l3.04 3.04a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215ZM11.5 7a4.499 4.499 0 1 0-8.997 0A4.499 4.499 0 0 0 11.5 7Z"
             />
           </svg>
         </div>
@@ -5324,8 +5321,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
             width={16}
           >
             <path
-              d="M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z"
-              fillRule="evenodd"
+              d="M10.68 11.74a6 6 0 0 1-7.922-8.982 6 6 0 0 1 8.982 7.922l3.04 3.04a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215ZM11.5 7a4.499 4.499 0 1 0-8.997 0A4.499 4.499 0 0 0 11.5 7Z"
             />
           </svg>
         </div>
@@ -5401,8 +5397,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
             width={16}
           >
             <path
-              d="M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z"
-              fillRule="evenodd"
+              d="M10.68 11.74a6 6 0 0 1-7.922-8.982 6 6 0 0 1 8.982 7.922l3.04 3.04a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215ZM11.5 7a4.499 4.499 0 1 0-8.997 0A4.499 4.499 0 0 0 11.5 7Z"
             />
           </svg>
         </div>
@@ -5617,8 +5612,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
             width={16}
           >
             <path
-              d="M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z"
-              fillRule="evenodd"
+              d="M10.68 11.74a6 6 0 0 1-7.922-8.982 6 6 0 0 1 8.982 7.922l3.04 3.04a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215ZM11.5 7a4.499 4.499 0 1 0-8.997 0A4.499 4.499 0 0 0 11.5 7Z"
             />
           </svg>
         </div>
@@ -5694,8 +5688,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
             width={16}
           >
             <path
-              d="M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z"
-              fillRule="evenodd"
+              d="M10.68 11.74a6 6 0 0 1-7.922-8.982 6 6 0 0 1 8.982 7.922l3.04 3.04a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215ZM11.5 7a4.499 4.499 0 1 0-8.997 0A4.499 4.499 0 0 0 11.5 7Z"
             />
           </svg>
         </div>
@@ -5917,8 +5910,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
             width={16}
           >
             <path
-              d="M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z"
-              fillRule="evenodd"
+              d="M10.68 11.74a6 6 0 0 1-7.922-8.982 6 6 0 0 1 8.982 7.922l3.04 3.04a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215ZM11.5 7a4.499 4.499 0 1 0-8.997 0A4.499 4.499 0 0 0 11.5 7Z"
             />
           </svg>
         </div>
@@ -5994,8 +5986,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
             width={16}
           >
             <path
-              d="M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z"
-              fillRule="evenodd"
+              d="M10.68 11.74a6 6 0 0 1-7.922-8.982 6 6 0 0 1 8.982 7.922l3.04 3.04a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215ZM11.5 7a4.499 4.499 0 1 0-8.997 0A4.499 4.499 0 0 0 11.5 7Z"
             />
           </svg>
         </div>

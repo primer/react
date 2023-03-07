@@ -112,7 +112,7 @@ export const Playground: Story<Args> = args => (
     variant={parseVariantFromArgs(args)}
     size={args.size}
   >
-    <SegmentedControl.Button selected aria-label={'Preview'} leadingIcon={EyeIcon}>
+    <SegmentedControl.Button defaultSelected aria-label={'Preview'} leadingIcon={EyeIcon}>
       Preview
     </SegmentedControl.Button>
     <SegmentedControl.Button aria-label={'Raw'} leadingIcon={FileCodeIcon}>
@@ -121,5 +121,13 @@ export const Playground: Story<Args> = args => (
     <SegmentedControl.Button aria-label={'Blame'} leadingIcon={PeopleIcon}>
       Blame
     </SegmentedControl.Button>
+  </SegmentedControl>
+)
+
+export const Default = () => (
+  <SegmentedControl aria-label="File view">
+    <SegmentedControl.Button defaultSelected>Preview</SegmentedControl.Button>
+    <SegmentedControl.Button>Raw</SegmentedControl.Button>
+    <SegmentedControl.Button>Blame</SegmentedControl.Button>
   </SegmentedControl>
 )

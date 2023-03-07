@@ -1,6 +1,6 @@
 import {SearchIcon, TriangleDownIcon, EyeIcon} from '@primer/octicons-react'
 import React from 'react'
-import {Button} from '.'
+import {Button, IconButton} from '.'
 
 export default {
   title: 'Components/Button/DevOnly',
@@ -29,6 +29,7 @@ export const InvisibleVariants = () => {
         Button
         <Button.Counter>{count}</Button.Counter>
       </Button>
+      <IconButton icon={TriangleDownIcon} variant="invisible" aria-label="Invisible" />
     </div>
   )
 }
@@ -37,6 +38,14 @@ export const TestSxProp = () => {
   const count = 4
   return (
     <div style={{display: 'flex', flexDirection: 'row', gap: '1rem'}}>
+      <Button
+        size="medium"
+        sx={{
+          color: 'deeppink',
+        }}
+      >
+        Medium Pink
+      </Button>
       <Button
         size="small"
         sx={{
