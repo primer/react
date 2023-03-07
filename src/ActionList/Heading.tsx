@@ -4,6 +4,7 @@ import Box from '../Box'
 import styled from 'styled-components'
 import {get} from '../constants'
 import {SxProp} from '../sx'
+import { merge } from 'lodash'
 
 export type ActionListHeadingProps = {
   variant?: 'subtle' | 'filled'
@@ -63,8 +64,8 @@ export const Heading: React.FC<React.PropsWithChildren<ActionListHeadingProps>> 
   `
 
   return (
-    <Box as="div" sx={styles} role="presentation" aria-hidden="true" {...props}>
-      <Title sx={sx} id={id}>
+    <Box as="div" sx={merge(styles, sx as SxProp)} role="presentation" aria-hidden="true" {...props}>
+      <Title sx={sx as SxProp} id={id}>
         {title}
       </Title>
       {subtitle && <Subtitle>{subtitle}</Subtitle>}
