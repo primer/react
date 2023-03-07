@@ -2,10 +2,9 @@
 
 ## Status
 
-| Stage    | Status |
-| -------- | :----: |
-| Accepted |   ❌   |
-| Adopted  |   ❌   |
+❌ Not Adopted, <issue with implementation details goes here>
+
+&nbsp;
 
 ## Context: Experimental components (or drafts) in primer/react
 
