@@ -650,7 +650,7 @@ exports[`NavList renders with groups 1`] = `
 .c4 {
   color: #57606a;
   font-size: 12px;
-  font-weight: 500;
+  font-weight: 600;
   margin-bottom: 0;
   margin-top: 0;
 }

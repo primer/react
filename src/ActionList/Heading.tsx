@@ -52,7 +52,7 @@ export const Heading: React.FC<React.PropsWithChildren<ActionListHeadingProps>> 
   const Title = styled(tag)`
     color: ${get('colors.fg.muted')};
     font-size: ${get('fontSizes.0')};
-    font-weight: ${get('fontWeights.semibold')};
+    font-weight: ${get('fontWeights.bold')};
     margin-bottom: 0;
     margin-top: 0;
   `

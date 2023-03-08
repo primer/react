@@ -32,7 +32,7 @@ export const GroupsAndDescriptions = () => {
         Milestone
       </ActionMenu.Button>
       <ActionMenu.Overlay width="medium">
-        <ActionList selectionVariant="single" showDividers headingProps={{title: 'Open', sx: {fontWeight: 'bold'}}}>
+        <ActionList selectionVariant="single" showDividers headingProps={{title: 'Open'}}>
           {milestones
             .filter(milestone => !milestone.name.includes('21'))
             .map((milestone, index) => (
@@ -49,11 +49,7 @@ export const GroupsAndDescriptions = () => {
               </ActionList.Item>
             ))}
         </ActionList>
-        <ActionList
-          sx={{paddingTop: 0}}
-          headingProps={{title: 'Closed', sx: {fontWeight: 'bold'}}}
-          selectionVariant="single"
-        >
+        <ActionList sx={{paddingTop: 0}} headingProps={{title: 'Closed'}} selectionVariant="single">
           {milestones
             .filter(milestone => milestone.name.includes('21'))
             .map((milestone, index) => (
