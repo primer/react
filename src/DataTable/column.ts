@@ -14,7 +14,7 @@ export interface Column<Data extends UniqueRow> {
   /**
    * Optionally provide a field to render for this column. This may be the key
    * of the object or a string that accesses nested objects through `.`. For
-   * exmaple: `field: a.b.c`
+   * example: `field: a.b.c`
    *
    * Alternatively, you may provide a `renderCell` for this column to render the
    * field in a row

@@ -159,23 +159,36 @@ export function useTable<Data extends UniqueRow>({
       throw new Error(`The column for this header is not sortable`)
     }
 
-    // const sortMethod =
-    // header.column.sortBy === true
-    // ? strategies.basic
-    // : typeof header.column.sortBy === 'string'
-    // ? strategies[header.column.sortBy]
-    // : header.column.sortBy
+    const sortMethod =
+      header.column.sortBy === true
+        ? strategies.basic
+        : typeof header.column.sortBy === 'string'
+        ? strategies[header.column.sortBy]
+        : header.column.sortBy
 
-    // setRowOrder(rowOrder => {
-    // return rowOrder.slice().sort((a, b) => {
-    // if (state.direction === SortDirection.ASC) {
-    // const valueA = get(a, header.column.field)
-    // const valueB = get(b, header.column.field)
-    // return sortMethod(valueA, valueB)
-    // }
-    // return sortMethod(valueB, valueA)
-    // })
-    // })
+    setRowOrder(rowOrder => {
+      return rowOrder.slice().sort((a, b) => {
+        // Custom sort functions operate on the row versus the field
+        if (typeof header.column.sortBy === 'function') {
+          if (state.direction === SortDirection.ASC) {
+            // @ts-ignore todo
+            return sortMethod(a, b)
+          }
+          // @ts-ignore todo
+          return sortMethod(b, a)
+        }
+
+        const valueA = get(a, header.column.field)
+        const valueB = get(b, header.column.field)
+
+        if (state.direction === SortDirection.ASC) {
+          // @ts-ignore todo
+          return sortMethod(valueA, valueB)
+        }
+        // @ts-ignore todo
+        return sortMethod(valueB, valueA)
+      })
+    })
   }
 
   return {
@@ -206,7 +219,8 @@ export function useTable<Data extends UniqueRow>({
   }
 }
 
-function get<ObjectType extends Record<string, ObjectPathValue<ObjectType, Path>>, Path extends string>(
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function get<ObjectType extends Record<string, any>, Path extends string>(
   object: ObjectType,
   path: Path,
 ): ObjectPathValue<ObjectType, Path> {
