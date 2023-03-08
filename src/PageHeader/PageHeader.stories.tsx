@@ -230,11 +230,11 @@ export const Playground: Story = args => (
           <IconButton aria-label="Edit" icon={PencilIcon} variant="invisible" />
         </PageHeader.TrailingAction>
         <PageHeader.Actions hidden={!args.hasActions}>
-          <Hidden on={['narrow']}>
+          <Hidden when={['narrow']}>
             <Button variant="primary">New Branch</Button>
           </Hidden>
 
-          <Hidden on={['regular', 'wide', 'narrow']}>
+          <Hidden when={['regular', 'wide', 'narrow']}>
             <Button variant="primary">New</Button>
           </Hidden>
           <IconButton aria-label="More" icon={KebabHorizontalIcon} />
@@ -242,7 +242,7 @@ export const Playground: Story = args => (
       </PageHeader.TitleArea>
       <PageHeader.Description hidden={!args.hasDescription}>
         <StateLabel status="pullOpened">Open</StateLabel>
-        <Hidden on={['narrow']}>
+        <Hidden when={['narrow']}>
           <Text sx={{fontSize: 1, color: 'fg.muted'}}>
             <Link href="#" muted sx={{fontWeight: 'bold'}}>
               broccolinisoup
@@ -251,7 +251,7 @@ export const Playground: Story = args => (
             <BranchName href="#">broccolinisoup/switch-to-new-underlineNav</BranchName>
           </Text>
         </Hidden>
-        <Hidden on={['regular', 'wide']}>
+        <Hidden when={['regular', 'wide']}>
           <Text sx={{fontSize: 1, color: 'fg.muted'}}>
             <BranchName href="#">main</BranchName>
             <ArrowRightIcon />
