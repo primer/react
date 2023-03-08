@@ -691,296 +691,6 @@
       ],
       "subcomponents": []
     },
-    "text_input": {
-      "id": "text_input",
-      "name": "TextInput",
-      "status": "alpha",
-      "a11yReviewed": false,
-      "stories": [],
-      "props": [
-        {
-          "name": "aria-label",
-          "type": "string",
-          "defaultValue": "",
-          "description": "Allows input to be accessible."
-        },
-        {
-          "name": "block",
-          "type": "boolean",
-          "defaultValue": "false",
-          "description": "Creates a full-width input element"
-        },
-        {
-          "name": "contrast",
-          "type": "boolean",
-          "defaultValue": "false",
-          "description": "Changes background color to a higher contrast color"
-        },
-        {
-          "name": "size",
-          "type": "'small' | 'medium' | 'large'",
-          "defaultValue": "",
-          "description": "Creates a smaller or larger input than the default."
-        },
-        {
-          "name": "loading",
-          "type": "boolean",
-          "defaultValue": "",
-          "description": "Whether to show a loading indicator in the input"
-        },
-        {
-          "name": "loaderPosition",
-          "type": "'auto' | 'leading' | 'trailing'",
-          "defaultValue": "",
-          "description": "<div>Which position to render the loading indicator</div> <ul> <li> 'auto' (default): at the end of the input, unless a `leadingVisual` is passed. Then, it will render at the beginning </li> <li>'leading': at the beginning of the input</li> <li>'trailing': at the end of the input</li> </ul>"
-        },
-        {
-          "name": "leadingVisual",
-          "type": "string | React.ComponentType",
-          "defaultValue": "",
-          "description": "Visual positioned on the left edge inside the input"
-        },
-        {
-          "name": "monospace",
-          "type": "boolean",
-          "defaultValue": "false",
-          "description": "Shows input in monospace font"
-        },
-        {
-          "name": "trailingVisual",
-          "type": "string | React.ComponentType",
-          "defaultValue": "",
-          "description": "Visual positioned on the right edge inside the input"
-        },
-        {
-          "name": "trailingAction",
-          "type": "React.ReactElement<HTMLProps<HTMLButtonElement>>",
-          "defaultValue": "",
-          "description": "A visual that renders inside the input after the typing area"
-        },
-        {
-          "name": "validationStatus",
-          "type": "'error' | 'success' | 'warning'",
-          "defaultValue": "",
-          "description": "Style the input to match the status"
-        },
-        {
-          "name": "variant",
-          "type": "'small' | 'medium' | 'large'",
-          "defaultValue": "",
-          "deprecated": true,
-          "description": "(Use size) Creates a smaller or larger input than the default."
-        },
-        {
-          "name": "width",
-          "type": "string | number | Array<string | number>",
-          "defaultValue": "",
-          "deprecated": true,
-          "description": "(Use sx prop) Set the width of the input"
-        },
-        {
-          "name": "maxWidth",
-          "type": "string | number | Array<string | number>",
-          "defaultValue": "",
-          "deprecated": true,
-          "description": "(Use sx prop) Set the maximum width of the input"
-        },
-        {
-          "name": "minWidth",
-          "type": "string | number | Array<string | number>",
-          "defaultValue": "",
-          "deprecated": true,
-          "description": "(Use sx prop) Set the minimum width of the input"
-        },
-        {
-          "name": "icon",
-          "type": "React.ComponentType",
-          "defaultValue": "",
-          "deprecated": true,
-          "description": "(Use leadingVisual or trailingVisual) An Octicon React component. To be used inside of input. Positioned on the left edge."
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject"
-        },
-        {
-          "name": "ref",
-          "type": "React.RefObject<HTMLInputElement>"
-        }
-      ],
-      "subcomponents": [
-        {
-          "name": "TextInput.Action",
-          "props": [
-            {
-              "name": "aria-label",
-              "type": "string",
-              "defaultValue": "",
-              "description": "Text that appears in a tooltip. If an icon is passed, this is also used as the label used by assistive technologies."
-            },
-            {
-              "name": "icon",
-              "type": "React.FunctionComponent",
-              "defaultValue": "",
-              "description": "The icon to render inside the button"
-            },
-            {
-              "name": "variant",
-              "type": "'default' | 'primary' | 'invisible' | 'danger'",
-              "defaultValue": "",
-              "deprecated": true,
-              "description": "(Deprecated so that only the 'invisible' variant is used) Determine's the styles on a button"
-            },
-            {
-              "name": "ref",
-              "type": "React.RefObject<HTMLButtonElement>"
-            },
-            {
-              "name": "as",
-              "type": "React.ElementType",
-              "defaultValue": "\"button\""
-            },
-            {
-              "name": "sx",
-              "type": "SystemStyleObject"
-            }
-          ],
-          "passthrough": {
-            "element": "button",
-            "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#attributes"
-          }
-        }
-      ]
-    },
-    "text_input_with_tokens": {
-      "id": "text_input_with_tokens",
-      "name": "TextInputWithTokens",
-      "status": "alpha",
-      "a11yReviewed": false,
-      "stories": [],
-      "props": [
-        {
-          "name": "tokens",
-          "type": "TokenProps[]",
-          "defaultValue": "",
-          "required": true,
-          "description": "The array of tokens to render"
-        },
-        {
-          "name": "onTokenRemove",
-          "type": "(tokenId: string|number) => void",
-          "defaultValue": "",
-          "required": true,
-          "description": "The function that gets called when a token is removed"
-        },
-        {
-          "name": "tokenComponent",
-          "type": "React.ComponentType<any>",
-          "defaultValue": "Token",
-          "description": "The component used to render each token"
-        },
-        {
-          "name": "maxHeight",
-          "type": "React.CSSProperties['maxHeight']",
-          "defaultValue": "",
-          "description": "The maximum height of the component. If the content in the input exceeds this height, it will scroll vertically"
-        },
-        {
-          "name": "preventTokenWrapping",
-          "type": "boolean",
-          "defaultValue": "false",
-          "description": "Whether tokens should render inline horizontally. By default, tokens wrap to new lines"
-        },
-        {
-          "name": "size",
-          "type": "'small' | 'medium' | 'large' | 'xlarge'",
-          "defaultValue": "xlarge",
-          "description": "The size of the tokens and text input"
-        },
-        {
-          "name": "hideTokenRemoveButtons",
-          "type": "boolean",
-          "defaultValue": "false",
-          "description": "Whether the remove buttons should be rendered in the tokens"
-        },
-        {
-          "name": "validationStatus",
-          "type": "'error' | 'success' | 'warning'",
-          "defaultValue": "",
-          "description": "Style the input to match the status"
-        },
-        {
-          "name": "visibleTokenCount",
-          "type": "number",
-          "defaultValue": "",
-          "description": "The number of tokens to display before truncating"
-        }
-      ],
-      "subcomponents": []
-    },
-    "textarea": {
-      "id": "textarea",
-      "name": "Textarea",
-      "status": "alpha",
-      "a11yReviewed": false,
-      "stories": [],
-      "props": [
-        {
-          "name": "required",
-          "type": "boolean",
-          "defaultValue": "",
-          "description": "Indicates to the user and assistive technologies that the field value is required"
-        },
-        {
-          "name": "cols",
-          "type": "number",
-          "defaultValue": "",
-          "description": "Specifies the visible width of a text area."
-        },
-        {
-          "name": "rows",
-          "type": "number",
-          "defaultValue": "",
-          "description": "Specifies the visible height of a text area."
-        },
-        {
-          "name": "block",
-          "type": "boolean",
-          "defaultValue": "false",
-          "description": "Expands with width of the component to fill the parent elements"
-        },
-        {
-          "name": "resize",
-          "type": "'both' | 'horizontal' | 'vertical' | 'none'",
-          "defaultValue": "'both'",
-          "description": "Changes background color to a higher contrast color"
-        },
-        {
-          "name": "validationStatus",
-          "type": "'success' | 'error' | undefined",
-          "defaultValue": "",
-          "description": "Style the textarea to match the current form validation status"
-        },
-        {
-          "name": "ref",
-          "type": "React.RefObject<HTMLTextAreaElement>"
-        },
-        {
-          "name": "ref",
-          "type": "React.RefObject<HTMLTextareaElement>"
-        },
-        {
-          "name": "as",
-          "type": "React.ElementType",
-          "defaultValue": "\"input\""
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject"
-        }
-      ],
-      "subcomponents": []
-    },
     "tooltip": {
       "id": "tooltip",
       "name": "Tooltip",
@@ -2133,6 +1843,26 @@
         {
           "id": "components-datatable--default",
           "code": "() => (\n  <Table.Container>\n    <Table.Title as=\"h2\" id=\"repositories\">\n      Repositories\n    </Table.Title>\n    <Table.Subtitle as=\"p\" id=\"repositories-subtitle\">\n      A subtitle could appear here to give extra context to the data.\n    </Table.Subtitle>\n    <DataTable\n      aria-labelledby=\"repositories\"\n      aria-describedby=\"repositories-subtitle\"\n      data={data}\n      columns={[\n        {\n          header: 'Repository',\n          field: 'name',\n          rowHeader: true,\n        },\n        {\n          header: 'Type',\n          field: 'type',\n          renderCell: (row) => {\n            return <Label>{uppercase(row.type)}</Label>\n          },\n        },\n        {\n          header: 'Updated',\n          field: 'updatedAt',\n          renderCell: (row) => {\n            return <RelativeTime date={new Date(row.updatedAt)} />\n          },\n        },\n        {\n          header: 'Dependabot',\n          field: 'securityFeatures.dependabot',\n          renderCell: (row) => {\n            return row.securityFeatures.dependabot.length > 0 ? (\n              <LabelGroup>\n                {row.securityFeatures.dependabot.map((feature) => {\n                  return <Label key={feature}>{uppercase(feature)}</Label>\n                })}\n              </LabelGroup>\n            ) : null\n          },\n        },\n        {\n          header: 'Code scanning',\n          field: 'securityFeatures.codeScanning',\n          renderCell: (row) => {\n            return row.securityFeatures.codeScanning.length > 0 ? (\n              <LabelGroup>\n                {row.securityFeatures.codeScanning.map((feature) => {\n                  return <Label key={feature}>{uppercase(feature)}</Label>\n                })}\n              </LabelGroup>\n            ) : null\n          },\n        },\n      ]}\n    />\n  </Table.Container>\n)"
+        },
+        {
+          "id": "drafts-components-datatable--with-title",
+          "code": "() => (\n  <Table.Container>\n    <Table.Title as=\"h2\" id=\"repositories\">\n      Repositories\n    </Table.Title>\n    <DataTable\n      aria-labelledby=\"repositories\"\n      aria-describedby=\"repositories-subtitle\"\n      data={data}\n      columns={[\n        {\n          header: 'Repository',\n          field: 'name',\n          rowHeader: true,\n        },\n        {\n          header: 'Type',\n          field: 'type',\n          renderCell: (row) => {\n            return <Label>{uppercase(row.type)}</Label>\n          },\n        },\n        {\n          header: 'Updated',\n          field: 'updatedAt',\n          renderCell: (row) => {\n            return <RelativeTime date={new Date(row.updatedAt)} />\n          },\n        },\n        {\n          header: 'Dependabot',\n          field: 'securityFeatures.dependabot',\n          renderCell: (row) => {\n            return row.securityFeatures.dependabot.length > 0 ? (\n              <LabelGroup>\n                {row.securityFeatures.dependabot.map((feature) => {\n                  return <Label key={feature}>{uppercase(feature)}</Label>\n                })}\n              </LabelGroup>\n            ) : null\n          },\n        },\n        {\n          header: 'Code scanning',\n          field: 'securityFeatures.codeScanning',\n          renderCell: (row) => {\n            return row.securityFeatures.codeScanning.length > 0 ? (\n              <LabelGroup>\n                {row.securityFeatures.codeScanning.map((feature) => {\n                  return <Label key={feature}>{uppercase(feature)}</Label>\n                })}\n              </LabelGroup>\n            ) : null\n          },\n        },\n      ]}\n    />\n  </Table.Container>\n)"
+        },
+        {
+          "id": "drafts-components-datatable--with-title-and-subtitle",
+          "code": "() => (\n  <Table.Container>\n    <Table.Title as=\"h2\" id=\"repositories\">\n      Repositories\n    </Table.Title>\n    <Table.Subtitle as=\"p\" id=\"repositories-subtitle\">\n      A subtitle could appear here to give extra context to the data.\n    </Table.Subtitle>\n    <DataTable\n      aria-labelledby=\"repositories\"\n      aria-describedby=\"repositories-subtitle\"\n      data={data}\n      columns={[\n        {\n          header: 'Repository',\n          field: 'name',\n          rowHeader: true,\n        },\n        {\n          header: 'Type',\n          field: 'type',\n          renderCell: (row) => {\n            return <Label>{uppercase(row.type)}</Label>\n          },\n        },\n        {\n          header: 'Updated',\n          field: 'updatedAt',\n          renderCell: (row) => {\n            return <RelativeTime date={new Date(row.updatedAt)} />\n          },\n        },\n        {\n          header: 'Dependabot',\n          field: 'securityFeatures.dependabot',\n          renderCell: (row) => {\n            return row.securityFeatures.dependabot.length > 0 ? (\n              <LabelGroup>\n                {row.securityFeatures.dependabot.map((feature) => {\n                  return <Label key={feature}>{uppercase(feature)}</Label>\n                })}\n              </LabelGroup>\n            ) : null\n          },\n        },\n        {\n          header: 'Code scanning',\n          field: 'securityFeatures.codeScanning',\n          renderCell: (row) => {\n            return row.securityFeatures.codeScanning.length > 0 ? (\n              <LabelGroup>\n                {row.securityFeatures.codeScanning.map((feature) => {\n                  return <Label key={feature}>{uppercase(feature)}</Label>\n                })}\n              </LabelGroup>\n            ) : null\n          },\n        },\n      ]}\n    />\n  </Table.Container>\n)"
+        },
+        {
+          "id": "drafts-components-datatable--with-sorting",
+          "code": "() => {\n  const rows = Array.from(data).sort((a, b) => {\n    return b.updatedAt - a.updatedAt\n  })\n  return (\n    <Table.Container>\n      <Table.Title as=\"h2\" id=\"repositories\">\n        Repositories\n      </Table.Title>\n      <Table.Subtitle as=\"p\" id=\"repositories-subtitle\">\n        A subtitle could appear here to give extra context to the data.\n      </Table.Subtitle>\n      <DataTable\n        aria-labelledby=\"repositories\"\n        aria-describedby=\"repositories-subtitle\"\n        data={rows}\n        columns={[\n          {\n            header: 'Repository',\n            field: 'name',\n            rowHeader: true,\n            sortBy: true,\n          },\n          {\n            header: 'Type',\n            field: 'type',\n            renderCell: (row) => {\n              return <Label>{uppercase(row.type)}</Label>\n            },\n          },\n          {\n            header: 'Updated',\n            field: 'updatedAt',\n            sortBy: true,\n            renderCell: (row) => {\n              return <RelativeTime date={new Date(row.updatedAt)} />\n            },\n          },\n          {\n            header: 'Dependabot',\n            field: 'securityFeatures.dependabot',\n            renderCell: (row) => {\n              return row.securityFeatures.dependabot.length > 0 ? (\n                <LabelGroup>\n                  {row.securityFeatures.dependabot.map((feature) => {\n                    return <Label key={feature}>{uppercase(feature)}</Label>\n                  })}\n                </LabelGroup>\n              ) : null\n            },\n          },\n          {\n            header: 'Code scanning',\n            field: 'securityFeatures.codeScanning',\n            renderCell: (row) => {\n              return row.securityFeatures.codeScanning.length > 0 ? (\n                <LabelGroup>\n                  {row.securityFeatures.codeScanning.map((feature) => {\n                    return <Label key={feature}>{uppercase(feature)}</Label>\n                  })}\n                </LabelGroup>\n              ) : null\n            },\n          },\n        ]}\n        initialSortColumn=\"updatedAt\"\n        initialSortDirection=\"DESC\"\n      />\n    </Table.Container>\n  )\n}"
+        },
+        {
+          "id": "drafts-components-datatable--with-actions",
+          "code": "() => (\n  <Table.Container>\n    <Table.Title as=\"h2\" id=\"repositories\">\n      Repositories\n    </Table.Title>\n    <Table.Actions>\n      <IconButton\n        aria-label=\"Download\"\n        icon={DownloadIcon}\n        variant=\"invisible\"\n      />\n      <IconButton aria-label=\"Add row\" icon={PlusIcon} variant=\"invisible\" />\n    </Table.Actions>\n    <Table.Divider />\n    <Table.Subtitle as=\"p\" id=\"repositories-subtitle\">\n      A subtitle could appear here to give extra context to the data.\n    </Table.Subtitle>\n    <DataTable\n      aria-labelledby=\"repositories\"\n      aria-describedby=\"repositories-subtitle\"\n      data={data}\n      columns={[\n        {\n          header: 'Repository',\n          field: 'name',\n          rowHeader: true,\n        },\n        {\n          header: 'Type',\n          field: 'type',\n          renderCell: (row) => {\n            return <Label>{uppercase(row.type)}</Label>\n          },\n        },\n        {\n          header: 'Updated',\n          field: 'updatedAt',\n          renderCell: (row) => {\n            return <RelativeTime date={new Date(row.updatedAt)} />\n          },\n        },\n        {\n          header: 'Dependabot',\n          field: 'securityFeatures.dependabot',\n          renderCell: (row) => {\n            return row.securityFeatures.dependabot.length > 0 ? (\n              <LabelGroup>\n                {row.securityFeatures.dependabot.map((feature) => {\n                  return <Label key={feature}>{uppercase(feature)}</Label>\n                })}\n              </LabelGroup>\n            ) : null\n          },\n        },\n        {\n          header: 'Code scanning',\n          field: 'securityFeatures.codeScanning',\n          renderCell: (row) => {\n            return row.securityFeatures.codeScanning.length > 0 ? (\n              <LabelGroup>\n                {row.securityFeatures.codeScanning.map((feature) => {\n                  return <Label key={feature}>{uppercase(feature)}</Label>\n                })}\n              </LabelGroup>\n            ) : null\n          },\n        },\n      ]}\n    />\n  </Table.Container>\n)"
+        },
+        {
+          "id": "drafts-components-datatable--with-action",
+          "code": "() => (\n  <Table.Container>\n    <Table.Title as=\"h2\" id=\"repositories\">\n      Repositories\n    </Table.Title>\n    <Table.Actions>\n      <Button>Action</Button>\n    </Table.Actions>\n    <Table.Divider />\n    <Table.Subtitle as=\"p\" id=\"repositories-subtitle\">\n      A subtitle could appear here to give extra context to the data.\n    </Table.Subtitle>\n    <DataTable\n      aria-labelledby=\"repositories\"\n      aria-describedby=\"repositories-subtitle\"\n      data={data}\n      columns={[\n        {\n          header: 'Repository',\n          field: 'name',\n          rowHeader: true,\n        },\n        {\n          header: 'Type',\n          field: 'type',\n          renderCell: (row) => {\n            return <Label>{uppercase(row.type)}</Label>\n          },\n        },\n        {\n          header: 'Updated',\n          field: 'updatedAt',\n          renderCell: (row) => {\n            return <RelativeTime date={new Date(row.updatedAt)} />\n          },\n        },\n        {\n          header: 'Dependabot',\n          field: 'securityFeatures.dependabot',\n          renderCell: (row) => {\n            return row.securityFeatures.dependabot.length > 0 ? (\n              <LabelGroup>\n                {row.securityFeatures.dependabot.map((feature) => {\n                  return <Label key={feature}>{uppercase(feature)}</Label>\n                })}\n              </LabelGroup>\n            ) : null\n          },\n        },\n        {\n          header: 'Code scanning',\n          field: 'securityFeatures.codeScanning',\n          renderCell: (row) => {\n            return row.securityFeatures.codeScanning.length > 0 ? (\n              <LabelGroup>\n                {row.securityFeatures.codeScanning.map((feature) => {\n                  return <Label key={feature}>{uppercase(feature)}</Label>\n                })}\n              </LabelGroup>\n            ) : null\n          },\n        },\n      ]}\n    />\n  </Table.Container>\n)"
         }
       ],
       "props": [
@@ -2232,7 +1962,7 @@
             },
             {
               "name": "scope",
-              "type": "string",
+              "type": "'row'",
               "description": "Provide the scope for a table cell, useful for defining a row header using `scope=\"row\"`"
             }
           ]
@@ -4147,6 +3877,311 @@
           ]
         }
       ]
+    },
+    "text_input": {
+      "id": "text_input",
+      "name": "TextInput",
+      "status": "alpha",
+      "a11yReviewed": false,
+      "stories": [
+        {
+          "id": "components-textinput--default",
+          "code": "() => (\n  <Box as=\"form\">\n    <FormControl>\n      <FormControl.Label>Default label</FormControl.Label>\n      <TextInput />\n    </FormControl>\n  </Box>\n)"
+        }
+      ],
+      "props": [
+        {
+          "name": "aria-label",
+          "type": "string",
+          "defaultValue": "",
+          "description": "Allows input to be accessible."
+        },
+        {
+          "name": "block",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "Creates a full-width input element"
+        },
+        {
+          "name": "contrast",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "Changes background color to a higher contrast color"
+        },
+        {
+          "name": "size",
+          "type": "'small' | 'medium' | 'large'",
+          "defaultValue": "",
+          "description": "Creates a smaller or larger input than the default."
+        },
+        {
+          "name": "loading",
+          "type": "boolean",
+          "defaultValue": "",
+          "description": "Whether to show a loading indicator in the input"
+        },
+        {
+          "name": "loaderPosition",
+          "type": "'auto' | 'leading' | 'trailing'",
+          "defaultValue": "",
+          "description": "<div>Which position to render the loading indicator</div> <ul> <li> 'auto' (default): at the end of the input, unless a `leadingVisual` is passed. Then, it will render at the beginning </li> <li>'leading': at the beginning of the input</li> <li>'trailing': at the end of the input</li> </ul>"
+        },
+        {
+          "name": "leadingVisual",
+          "type": "string | React.ComponentType",
+          "defaultValue": "",
+          "description": "Visual positioned on the left edge inside the input"
+        },
+        {
+          "name": "monospace",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "Shows input in monospace font"
+        },
+        {
+          "name": "trailingVisual",
+          "type": "string | React.ComponentType",
+          "defaultValue": "",
+          "description": "Visual positioned on the right edge inside the input"
+        },
+        {
+          "name": "trailingAction",
+          "type": "React.ReactElement<HTMLProps<HTMLButtonElement>>",
+          "defaultValue": "",
+          "description": "A visual that renders inside the input after the typing area"
+        },
+        {
+          "name": "validationStatus",
+          "type": "'error' | 'success' | 'warning'",
+          "defaultValue": "",
+          "description": "Style the input to match the status"
+        },
+        {
+          "name": "variant",
+          "type": "'small' | 'medium' | 'large'",
+          "defaultValue": "",
+          "deprecated": true,
+          "description": "(Use size) Creates a smaller or larger input than the default."
+        },
+        {
+          "name": "width",
+          "type": "string | number | Array<string | number>",
+          "defaultValue": "",
+          "deprecated": true,
+          "description": "(Use sx prop) Set the width of the input"
+        },
+        {
+          "name": "maxWidth",
+          "type": "string | number | Array<string | number>",
+          "defaultValue": "",
+          "deprecated": true,
+          "description": "(Use sx prop) Set the maximum width of the input"
+        },
+        {
+          "name": "minWidth",
+          "type": "string | number | Array<string | number>",
+          "defaultValue": "",
+          "deprecated": true,
+          "description": "(Use sx prop) Set the minimum width of the input"
+        },
+        {
+          "name": "icon",
+          "type": "React.ComponentType",
+          "defaultValue": "",
+          "deprecated": true,
+          "description": "(Use leadingVisual or trailingVisual) An Octicon React component. To be used inside of input. Positioned on the left edge."
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        },
+        {
+          "name": "ref",
+          "type": "React.RefObject<HTMLInputElement>"
+        }
+      ],
+      "subcomponents": [
+        {
+          "name": "TextInput.Action",
+          "props": [
+            {
+              "name": "aria-label",
+              "type": "string",
+              "defaultValue": "",
+              "description": "Text that appears in a tooltip. If an icon is passed, this is also used as the label used by assistive technologies."
+            },
+            {
+              "name": "icon",
+              "type": "React.FunctionComponent",
+              "defaultValue": "",
+              "description": "The icon to render inside the button"
+            },
+            {
+              "name": "variant",
+              "type": "'default' | 'primary' | 'invisible' | 'danger'",
+              "defaultValue": "",
+              "deprecated": true,
+              "description": "(Deprecated so that only the 'invisible' variant is used) Determine's the styles on a button"
+            },
+            {
+              "name": "ref",
+              "type": "React.RefObject<HTMLButtonElement>"
+            },
+            {
+              "name": "as",
+              "type": "React.ElementType",
+              "defaultValue": "\"button\""
+            },
+            {
+              "name": "sx",
+              "type": "SystemStyleObject"
+            }
+          ],
+          "passthrough": {
+            "element": "button",
+            "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#attributes"
+          }
+        }
+      ]
+    },
+    "text_input_with_tokens": {
+      "id": "text_input_with_tokens",
+      "name": "TextInputWithTokens",
+      "status": "alpha",
+      "a11yReviewed": false,
+      "stories": [
+        {
+          "id": "components-textinputwithtokens--default",
+          "code": "() => {\n  const [tokens, setTokens] = useState([...mockTokens].slice(0, 3))\n  const onTokenRemove: (tokenId: string | number) => void = (tokenId) => {\n    setTokens(tokens.filter((token) => token.id !== tokenId))\n  }\n  return (\n    <FormControl>\n      <FormControl.Label>Default label</FormControl.Label>\n      <TextInputWithTokens tokens={tokens} onTokenRemove={onTokenRemove} />\n    </FormControl>\n  )\n}"
+        }
+      ],
+      "props": [
+        {
+          "name": "tokens",
+          "type": "TokenProps[]",
+          "defaultValue": "",
+          "required": true,
+          "description": "The array of tokens to render"
+        },
+        {
+          "name": "onTokenRemove",
+          "type": "(tokenId: string|number) => void",
+          "defaultValue": "",
+          "required": true,
+          "description": "The function that gets called when a token is removed"
+        },
+        {
+          "name": "tokenComponent",
+          "type": "React.ComponentType<any>",
+          "defaultValue": "Token",
+          "description": "The component used to render each token"
+        },
+        {
+          "name": "maxHeight",
+          "type": "React.CSSProperties['maxHeight']",
+          "defaultValue": "",
+          "description": "The maximum height of the component. If the content in the input exceeds this height, it will scroll vertically"
+        },
+        {
+          "name": "preventTokenWrapping",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "Whether tokens should render inline horizontally. By default, tokens wrap to new lines"
+        },
+        {
+          "name": "size",
+          "type": "'small' | 'medium' | 'large' | 'xlarge'",
+          "defaultValue": "xlarge",
+          "description": "The size of the tokens and text input"
+        },
+        {
+          "name": "hideTokenRemoveButtons",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "Whether the remove buttons should be rendered in the tokens"
+        },
+        {
+          "name": "validationStatus",
+          "type": "'error' | 'success' | 'warning'",
+          "defaultValue": "",
+          "description": "Style the input to match the status"
+        },
+        {
+          "name": "visibleTokenCount",
+          "type": "number",
+          "defaultValue": "",
+          "description": "The number of tokens to display before truncating"
+        }
+      ],
+      "subcomponents": []
+    },
+    "textarea": {
+      "id": "textarea",
+      "name": "Textarea",
+      "status": "alpha",
+      "a11yReviewed": false,
+      "stories": [
+        {
+          "id": "components-textarea--default",
+          "code": "() => (\n  <Box as=\"form\">\n    <FormControl>\n      <FormControl.Label>Default label</FormControl.Label>\n      <Textarea />\n    </FormControl>\n  </Box>\n)"
+        }
+      ],
+      "props": [
+        {
+          "name": "required",
+          "type": "boolean",
+          "defaultValue": "",
+          "description": "Indicates to the user and assistive technologies that the field value is required"
+        },
+        {
+          "name": "cols",
+          "type": "number",
+          "defaultValue": "",
+          "description": "Specifies the visible width of a text area."
+        },
+        {
+          "name": "rows",
+          "type": "number",
+          "defaultValue": "",
+          "description": "Specifies the visible height of a text area."
+        },
+        {
+          "name": "block",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "Expands with width of the component to fill the parent elements"
+        },
+        {
+          "name": "resize",
+          "type": "'both' | 'horizontal' | 'vertical' | 'none'",
+          "defaultValue": "'both'",
+          "description": "Changes background color to a higher contrast color"
+        },
+        {
+          "name": "validationStatus",
+          "type": "'success' | 'error' | undefined",
+          "defaultValue": "",
+          "description": "Style the textarea to match the current form validation status"
+        },
+        {
+          "name": "ref",
+          "type": "React.RefObject<HTMLTextAreaElement>"
+        },
+        {
+          "name": "ref",
+          "type": "React.RefObject<HTMLTextareaElement>"
+        },
+        {
+          "name": "as",
+          "type": "React.ElementType",
+          "defaultValue": "\"input\""
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ],
+      "subcomponents": []
     },
     "timeline": {
       "id": "timeline",
