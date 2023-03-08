@@ -620,5 +620,9 @@ describe('DataTable', () => {
         [1, 3],
       ])
     })
+
+    // SSR
+    // Pre-sorted versus not
+    // Async vs sync
   })
 })

@@ -263,7 +263,7 @@ export const WithSorting = () => {
             header: 'Repository',
             field: 'name',
             rowHeader: true,
-            sortBy: true,
+            sortBy: 'alphanumeric',
           },
           {
             header: 'Type',
@@ -275,7 +275,7 @@ export const WithSorting = () => {
           {
             header: 'Updated',
             field: 'updatedAt',
-            sortBy: true,
+            sortBy: 'datetime',
             renderCell: row => {
               return <RelativeTime date={new Date(row.updatedAt)} />
             },

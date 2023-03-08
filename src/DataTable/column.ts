@@ -1,6 +1,6 @@
 import {ObjectPaths} from './utils'
 import {UniqueRow} from './row'
-import {SortStrategies} from './sorting'
+import {SortStrategy, CustomSortStrategy} from './sorting'
 
 export interface Column<Data extends UniqueRow> {
   id?: string | undefined
@@ -37,7 +37,7 @@ export interface Column<Data extends UniqueRow> {
    * Specify if the table should sort by this column and, if applicable, a
    * specific sort strategy or custom sort strategy
    */
-  sortBy?: boolean | SortStrategies
+  sortBy?: boolean | SortStrategy | CustomSortStrategy<Data>
 }
 
 export function createColumnHelper<T extends UniqueRow>() {
