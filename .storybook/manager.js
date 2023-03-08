@@ -1,9 +1,10 @@
-import {addons, types} from '@storybook/addons'
+import {addons, types} from '@storybook/manager-api'
 import {Tool, TOOL_ID, ADDON_ID} from './src/accessibility-tool'
 import theme from './theme'
 
 addons.setConfig({
   theme,
+  enableShortcuts: false,
 })
 
 addons.register(ADDON_ID, () => {
