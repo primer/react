@@ -23,7 +23,7 @@ test.describe('DialogV2', () => {
           // Open Dialog
           await page.getByRole('button', {name: 'Show dialog'}).click()
           // wait for dialog to open
-          await page.getByRole('dialog').waitFor()
+          await page.getByRole('dialog', {name: 'Dialog'}).waitFor()
           // Open state
           expect(
             await page.screenshot({
@@ -65,7 +65,7 @@ test.describe('DialogV2', () => {
           // Open Dialog
           await page.getByRole('button', {name: 'Show dialog'}).click()
           // wait for dialog to open
-          await page.getByRole('dialog').waitFor()
+          await page.getByRole('dialog', {name: 'Dialog'}).waitFor()
           // Open state
           expect(
             await page.screenshot({
@@ -107,7 +107,7 @@ test.describe('DialogV2', () => {
           // Open Dialog
           await page.getByRole('button', {name: 'Show dialog'}).click()
           // wait for dialog to open
-          await page.getByRole('dialog').waitFor()
+          await page.getByRole('alertdialog').waitFor()
           // Open state
           expect(
             await page.screenshot({
