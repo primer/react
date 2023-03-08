@@ -69,8 +69,12 @@ export function useTable<Data extends UniqueRow>({
         return column.sortBy
       })
       if (defaultSortColumn) {
+        const id = defaultSortColumn.id ?? defaultSortColumn.field
+        if (!id) {
+          throw new Error(`Expected either an \`id\` or \`field\` to be defined for a Column`)
+        }
         return {
-          id: defaultSortColumn.id ?? defaultSortColumn.field,
+          id,
           direction: initialSortDirection,
         }
       }
@@ -80,8 +84,12 @@ export function useTable<Data extends UniqueRow>({
       return column.sortBy
     })
     if (sortableColumn) {
+      const id = sortableColumn.id ?? sortableColumn.field
+      if (!id) {
+        throw new Error(`Expected either an \`id\` or \`field\` to be defined for a Column`)
+      }
       return {
-        id: sortableColumn.id ?? sortableColumn.field,
+        id,
         direction: DEFAULT_SORT_DIRECTION,
       }
     }
@@ -115,6 +123,10 @@ export function useTable<Data extends UniqueRow>({
 
   const headers = columns.map(column => {
     const id = column.id ?? column.field
+    if (id === undefined) {
+      throw new Error(`Expected either an \`id\` or \`field\` to be defined for a Column`)
+    }
+
     const sortable = column.sortBy !== undefined && column.sortBy !== false
     return {
       id,
@@ -168,7 +180,7 @@ export function useTable<Data extends UniqueRow>({
 
     setRowOrder(rowOrder => {
       return rowOrder.slice().sort((a, b) => {
-        if (header.column.field === null || header.column.field === undefined) {
+        if (header.column.field === undefined) {
           return 0
         }
 
@@ -198,7 +210,10 @@ export function useTable<Data extends UniqueRow>({
               column: header.column,
               rowHeader: header.column.rowHeader ?? false,
               getValue() {
-                return get(row, header.column.field)
+                if (header.column.field !== undefined) {
+                  return get(row, header.column.field)
+                }
+                throw new Error(`Unable to get value for column header ${header.id}`)
               },
             }
           })
