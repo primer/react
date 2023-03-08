@@ -789,60 +789,119 @@ const components = new Map([
     },
   ],
   [
-    'SegmentedControl',
+    'Textarea',
     {
       stories: [
         {
-          id: 'components-segmentedcontrol--default',
+          id: 'components-textarea--default',
           name: 'Default',
         },
         {
-          id: 'components-segmentedcontrol--playground',
-          name: 'Playground',
+          id: 'components-textarea-features--block',
+          name: 'Block',
         },
         {
-          id: 'components-segmentedcontrol-segmentedcontrol-button--playground',
-          name: 'SegmentedControlButton Playground',
+          id: 'components-textarea-features--disabled',
+          name: 'Disabled',
         },
         {
-          id: 'components-segmentedcontrol-segmentedcontrol-iconbutton--playground',
-          name: 'SegmentedControlIconButton Playground',
+          id: 'components-textarea-features--error',
+          name: 'Error',
         },
         {
-          id: 'components-segmentedcontrol-features--associated-with-a-label-and-caption',
-          name: 'Associated with a Label and Caption',
+          id: 'components-textarea-features--success',
+          name: 'Success',
         },
         {
-          id: 'components-segmentedcontrol-features--fullwidth-narrow',
-          name: 'Fullwidth Narrow',
+          id: 'components-textarea-features--visually-hidden-label',
+          name: 'Visually Hidden Label',
         },
         {
-          id: 'components-segmentedcontrol-features--fullwidth-regular',
-          name: 'Fullwidth Regular',
+          id: 'components-textarea-features--warning',
+          name: 'Warning',
         },
         {
-          id: 'components-segmentedcontrol-features--variant-narrow-action-menu',
-          name: 'Variant Narrow Action Menu',
+          id: 'components-textarea-features--with-caption',
+          name: 'With Caption',
+        },
+      ],
+    },
+  ],
+  [
+    'TextInput',
+    {
+      stories: [
+        {
+          id: 'components-textinput--default',
+          name: 'Default',
         },
         {
-          id: 'components-segmentedcontrol-features--variant-narrow-hide-labels',
-          name: 'Variant Narrow Hide Labels',
+          id: 'components-textinput-features--block',
+          name: 'Block',
         },
         {
-          id: 'components-segmentedcontrol-features--controlled',
-          name: 'Controlled',
+          id: 'components-textinput-features--disabled',
+          name: 'Disabled',
         },
         {
-          id: 'components-segmentedcontrol-features--fullwidth-all',
-          name: 'Fullwidth',
+          id: 'components-textinput-features--error',
+          name: 'Error',
         },
         {
-          id: 'components-segmentedcontrol-features--icon-only',
-          name: 'Icon Only',
+          id: 'components-textinput-features--large',
+          name: 'Large',
         },
         {
-          id: 'components-segmentedcontrol-features--with-icons',
-          name: 'With Icons',
+          id: 'components-textinput-features--small',
+          name: 'Small',
+        },
+        {
+          id: 'components-textinput-features--success',
+          name: 'Success',
+        },
+        {
+          id: 'components-textinput-features--visually-hidden-label',
+          name: 'Visually Hidden Label',
+        },
+        {
+          id: 'components-textinput-features--warning',
+          name: 'Warning',
+        },
+        {
+          id: 'components-textinput-features--with-caption',
+          name: 'With Caption',
+        },
+        {
+          id: 'components-textinput-features--with-leading-visual',
+          name: 'With Leading Visual',
+        },
+
+        {
+          id: 'components-textinput-features--with-trailing-action',
+          name: 'With Trailing Action',
+        },
+        {
+          id: 'components-textinput-features--with-trailing-icon',
+          name: 'With Trailing Icon',
+        },
+      ],
+    },
+  ],
+  [
+    'TextInputWithTokens',
+    {
+      stories: [
+        {
+          id: 'components-textinputwithtokens--default',
+          name: 'Default',
+        },
+        {
+          id: 'components-textinputwithtokens-features--with-leading-visual',
+          name: 'With Leading Visual',
+        },
+        {
+          id: 'components-textinputwithtokens-features--with-trailing-visual',
+          name: 'With Trailing Visual',
         },
       ],
     },
