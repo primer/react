@@ -2271,7 +2271,7 @@
       "stories": [
         {
           "id": "components-hidden--default",
-          "code": "() => (\n  <Hidden when=\"narrow\">\n    The content is visible when the viewport is regular or wide but hidden when\n    narrow\n  </Hidden>\n)"
+          "code": "() => (\n  <>\n    <Text>\n      The below content is visible when the viewport is regular or wide but\n      hidden when narrow:\n    </Text>\n    <Hidden when=\"narrow\">\n      This is the said content and it is visible when the viewport is regular or\n      wide but hidden when narrow\n    </Hidden>\n  </>\n)"
         }
       ],
       "props": [
