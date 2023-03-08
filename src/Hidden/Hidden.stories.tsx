@@ -2,6 +2,7 @@ import React from 'react'
 import {ComponentMeta, ComponentStory} from '@storybook/react'
 
 import Hidden from '.'
+import Text from '../Text'
 
 export default {
   title: 'Drafts/Components/Hidden',
@@ -26,7 +27,12 @@ export default {
 } as ComponentMeta<typeof Hidden>
 
 export const Default = () => (
-  <Hidden when="narrow">The content is visible when the viewport is regular or wide but hidden when narrow</Hidden>
+  <>
+    <Text>The below content is visible when the viewport is regular or wide but hidden when narrow:</Text>
+    <Hidden when="narrow">
+      This is the said content and it is visible when the viewport is regular or wide but hidden when narrow
+    </Hidden>
+  </>
 )
 
 export const Playground: ComponentStory<typeof Hidden> = args => (

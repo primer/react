@@ -15,17 +15,24 @@ test.describe('Hidden', () => {
             },
           })
 
-          // Default state
+          // Regular size viewport
           await page.setViewportSize({width: viewports['primer.breakpoint.md'], height: 768})
           await page
-            .getByText('The content is visible when the viewport is regular or wide but hidden when narrow.')
+            .getByText('The below content is visible when the viewport is regular or wide but hidden when narrow:')
             .waitFor()
           expect(await page.screenshot()).toMatchSnapshot(`Hidden.Default.medium.${theme}.png`)
+          // Wide size viewport
           await page.setViewportSize({width: viewports['primer.breakpoint.lg'], height: 768})
           await page
-            .getByText('The content is visible when the viewport is regular or wide but hidden when narrow.')
+            .getByText('The below content is visible when the viewport is regular or wide but hidden when narrow:')
             .waitFor()
           expect(await page.screenshot()).toMatchSnapshot(`Hidden.Default.wide.${theme}.png`)
+          // Narrow size viewport
+          await page.setViewportSize({width: viewports['primer.breakpoint.xs'], height: 768})
+          await page
+            .getByText('The below content is visible when the viewport is regular or wide but hidden when narrow:')
+            .waitFor()
+          expect(await page.screenshot()).toMatchSnapshot(`Hidden.Default.narrow.${theme}.png`)
         })
 
         test('axe @aat', async ({page}) => {
