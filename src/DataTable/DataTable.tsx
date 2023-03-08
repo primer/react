@@ -14,18 +14,18 @@ export type DataTableProps<Data extends UniqueRow> = {
   /**
    * Provide an id to an element which uniquely describes this table
    */
-  'aria-describedby'?: string | undefined
+  'aria-describedby'?: string
 
   /**
    * Provide an id to an element which uniquely labels this table
    */
-  'aria-labelledby'?: string | undefined
+  'aria-labelledby'?: string
 
   /**
    * Specify the amount of space that should be available around the contents of
    * a cell
    */
-  cellPadding?: 'condensed' | 'normal' | 'spacious' | undefined
+  cellPadding?: 'condensed' | 'normal' | 'spacious'
 
   /**
    * Provide a collection of the rows which will be rendered inside of the table
@@ -43,13 +43,13 @@ export type DataTableProps<Data extends UniqueRow> = {
    * using this `prop`, the input data must be sorted by this column in
    * ascending order
    */
-  initialSortColumn?: ObjectPaths<Data> | string | undefined
+  initialSortColumn?: ObjectPaths<Data> | string
 
   /**
    * Provide the sort direction that the table should be sorted by on the
    * currently sorted column
    */
-  initialSortDirection?: Exclude<SortDirection, 'NONE'> | undefined
+  initialSortDirection?: Exclude<SortDirection, 'NONE'>
 }
 
 function DataTable<Data extends UniqueRow>({
