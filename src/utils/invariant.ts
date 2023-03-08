@@ -4,7 +4,7 @@ function emptyFunction() {}
 // @see https://github.com/facebook/fbjs/blob/main/packages/fbjs/src/__forks__/invariant.js
 const invariant = __DEV__
   ? // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    function invariant(condition: any, format: string, ...args: Array<any>) {
+    function invariant(condition: any, format?: string, ...args: Array<any>) {
       if (!condition) {
         let error
 
