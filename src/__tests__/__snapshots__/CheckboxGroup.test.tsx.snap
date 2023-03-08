@@ -215,7 +215,6 @@ exports[`CheckboxGroup renders consistently 1`] = `
         >
           <input
             aria-checked="false"
-            aria-disabled="false"
             aria-invalid="false"
             aria-required="false"
             className="c6"
@@ -247,7 +246,6 @@ exports[`CheckboxGroup renders consistently 1`] = `
         >
           <input
             aria-checked="false"
-            aria-disabled="false"
             aria-invalid="false"
             aria-required="false"
             className="c6"
@@ -279,7 +277,6 @@ exports[`CheckboxGroup renders consistently 1`] = `
         >
           <input
             aria-checked="false"
-            aria-disabled="false"
             aria-invalid="false"
             aria-required="false"
             className="c6"

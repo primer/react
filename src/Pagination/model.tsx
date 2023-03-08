@@ -179,7 +179,7 @@ export function buildComponentData(
     case 'BREAK': {
       key = `page-${page.num}-break`
       content = '…'
-      Object.assign(props, {as: 'span', 'aria-disabled': true})
+      Object.assign(props, {as: 'span', role: 'presentation'})
     }
   }
 
