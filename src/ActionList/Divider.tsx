@@ -16,6 +16,7 @@ export const Divider: React.FC<React.PropsWithChildren<ActionListDividerProps>> 
     <Box
       as={as}
       aria-hidden="true"
+      role="separator"
       sx={merge(
         {
           height: 1,
