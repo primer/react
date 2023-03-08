@@ -15,6 +15,7 @@ exports[`ActionList renders consistently 1`] = `
   className="c0"
 >
   <ul
+    aria-busy="true"
     className="c1"
   />
 </div>
