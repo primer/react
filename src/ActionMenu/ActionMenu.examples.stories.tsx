@@ -251,12 +251,8 @@ export const MultipleSections = () => {
       </ActionMenu.Anchor>
       <ActionMenu.Overlay width="small">
         <ActionList
-          sx={{paddingY: 0}}
           headingProps={{
             title: 'Raw file content',
-            sx: {
-              paddingBottom: 3,
-            },
           }}
         >
           <ActionList.Item onSelect={() => alert('Workflows clicked')}>Download</ActionList.Item>
@@ -267,7 +263,8 @@ export const MultipleSections = () => {
           <ActionList.Item onSelect={() => alert('Workflows clicked')}>Copy path</ActionList.Item>
           <ActionList.Item onSelect={() => alert('Workflows clicked')}>Copy permalink</ActionList.Item>
         </ActionList>
-        <ActionList selectionVariant="multiple" headingProps={{title: 'View options', sx: {paddingBottom: 3}}}>
+        <ActionList.Divider sx={{marginBottom: 0}} />
+        <ActionList selectionVariant="multiple" headingProps={{title: 'View options'}}>
           {items.map((item, index) => (
             <ActionList.Item
               key={index}
@@ -278,6 +275,7 @@ export const MultipleSections = () => {
             </ActionList.Item>
           ))}
         </ActionList>
+        <ActionList.Divider sx={{marginBottom: 0}} />
         <ActionList>
           <ActionList.Item onSelect={() => alert('Delete file')} variant="danger">
             Delete file
