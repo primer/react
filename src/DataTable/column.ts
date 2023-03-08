@@ -19,7 +19,7 @@ export interface Column<Data extends UniqueRow> {
    * Alternatively, you may provide a `renderCell` for this column to render the
    * field in a row
    */
-  field?: ObjectPaths<Data> | undefined
+  field?: ObjectPaths<Data>
 
   /**
    * Provide a custom component or render prop to render the data for this
