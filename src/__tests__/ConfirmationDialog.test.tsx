@@ -140,9 +140,7 @@ describe('ConfirmationDialog', () => {
     // REACT_VERSION_LATEST should be treated as a constant for the test
     // environment
     if (REACT_VERSION_LATEST) {
-      // eslint-disable-next-line jest/no-conditional-expect
       expect(spy).toHaveBeenCalledTimes(1)
-      // eslint-disable-next-line jest/no-conditional-expect
       expect(spy).toHaveBeenCalledWith(
         expect.stringContaining('Warning: ReactDOM.render is no longer supported in React 18'),
       )

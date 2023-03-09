@@ -122,6 +122,17 @@ module.exports = {
         ],
       },
     },
+    // Tests
+    {
+      files: ['src/**/*.test.{ts,tsx}'],
+      extends: ['plugin:jest/recommended'],
+      rules: {
+        '@typescript-eslint/no-non-null-assertion': 'off',
+        'jest/expect-expect': 'off',
+        'jest/no-conditional-expect': 'off',
+        'jest/no-disabled-tests': 'off',
+      },
+    },
     // Stories
     {
       files: ['**/*.stories.{ts,tsx}'],
