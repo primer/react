@@ -184,6 +184,7 @@ function getInitialSortState<Data extends UniqueRow>(
 
     if (column === undefined) {
       if (__DEV__) {
+        // eslint-disable-next-line no-console
         console.warn(
           `Warning: Unable to find a column with id or field set to: ${initialSortColumn}. Please provide a value to \`initialSortColumn\` which corresponds to a \`id\` or \`field\` value in a column.`,
         )
@@ -193,6 +194,7 @@ function getInitialSortState<Data extends UniqueRow>(
 
     if (column.sortBy === false || column.sortBy === undefined) {
       if (__DEV__) {
+        // eslint-disable-next-line no-console
         console.warn(
           `Warning: The column specified by initialSortColumn={${initialSortColumn}} is not sortable. Please set \`sortBy\` to true or provide a sort strategy.`,
         )
@@ -213,6 +215,7 @@ function getInitialSortState<Data extends UniqueRow>(
 
     if (!column) {
       if (__DEV__) {
+        // eslint-disable-next-line no-console
         console.warn(
           `Warning: An initialSortDirection value was provided but no columns are sortable. Please set \`sortBy\` to true or provide a sort strategy to a column.`,
         )
