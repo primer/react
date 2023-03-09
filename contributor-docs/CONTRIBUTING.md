@@ -5,6 +5,7 @@
 3. [Discussing non-public features or products](#discussing-non-public-features-or-products)
 4. [Developing Components](#developing-components)
    - [Tools we use](#tools-we-use)
+   - [File Structure](#file-structure)
    - [Component patterns](#component-patterns)
    - [Adding the sx prop](#adding-the-sx-prop)
    - [Linting](#linting)
@@ -12,12 +13,11 @@
    - [Additional resources](#additional-resources)
 5. [Writing documentation](#writing-documentation)
 6. [Creating a pull request](#creating-a-pull-request)
+   - [Adding changeset to your pull request](#adding-changeset-to-your-pull-request)
    - [What to expect after opening a pull request](#what-to-expect-after-opening-a-pull-request)
-   - [What we look for in reviews](#what-we-look-for-in-reviews)
+     - [What we look for in reviews](#what-we-look-for-in-reviews)
    - [Previewing your changes](#previewing-your-changes)
-7. [Deploying & publishing](#deploying-and-publishing)
-   - [Deploying](#deploying)
-   - [Publishing](#publishing)
+7. [Deploying](#deploying)
 8. [Troubleshooting](#troubleshooting)
 
 ## Roadmap
@@ -89,7 +89,7 @@ primer-react/
 │  │  ├─ Breadcrumbs.docs.json                // Component metadata to be used in docs
 ```
 
-Please review the related docs and ADSs below for more information on how to structure your component and the best practices we follow:
+Please review the related docs and ADRs below for more information on how to structure your component and the best practices we follow:
 
 - [ADR 1: File structure](https://github.com/primer/react/blob/main/contributor-docs/adrs/adr-012-file-structure.md)
 - [ADR 2: Snapshot tests](https://github.com/primer/react/blob/main/contributor-docs/adrs/adr-011-snapshot-tests.md)
@@ -100,7 +100,7 @@ Please review the related docs and ADSs below for more information on how to str
 
 Here's an example of a basic component written in the style of Primer react components:
 
-```jsx
+```tsx
 import React from 'react'
 import Box from '../Box'
 import {BetterSystemStyleObject, SxProp, merge} from '../sx'
@@ -116,17 +116,18 @@ const Component: React.FC<React.PropsWithChildren<ComponentProps>> = ({
   ...props
 }) => {
   return (
-      <Box
-        as="nav"
-        sx={merge<BetterSystemStyleObject>( {
+    <Box
+      as="nav"
+      sx={merge<BetterSystemStyleObject>(
+        {
           // additional styles
-        }
-          sx,
-        )}
-        {...props}
-      >
-        {children}
-      </Box>
+        },
+        sx,
+      )}
+      {...props}
+    >
+      {children}
+    </Box>
   )
 }
 
@@ -217,7 +218,7 @@ import data from '../../../src/Component/Component.docs.json'
 
 When creating a new pull request, please follow the guidelines in the auto-populated pull request template. Be sure to add screenshots of any relevant work, including their alt texts and a thoughtful description.
 
-### Adding changesets to your pull request
+### Adding changeset to your pull request
 
 We use [changesets](https://github.com/changesets) to manage our releases. When creating a new pull request, `changeset-bot` will remind you to add a changeset if your change should trigger a new version number for the package.
 
@@ -244,11 +245,11 @@ After opening a pull request, you should be receiving a response from Primer tea
 
 If everything looks great, the reviewer will approve the pull request and and feel free to merge it afterwards. Minor and patch changes are released weekly, and we bundle up breaking changes and release a major version of `@primer/react` twice a year. If your pull request is time-sensitive, please let Primer team know.
 
-#### Previewing your changes
+### Previewing your changes
 
 We have a GitHub Action that creates a preview of the docs site and the storybook everytime you commit code to a branch. To view the preview site and the preview storybook, navigate to the PR and find the comment from the `github-actions` bot for storybook and `primer` bot for the docs preview. This will include a link to the preview site and the storybook for your branch.
 
-### Deploying
+## Deploying
 
 All of our documentation sites use GitHub Pages to deploy documentation changes whenever code is merged into main.
 Once you merge your branch into main, any changes to the docs and the storybook will automatically deploy. No further action is necessary.
