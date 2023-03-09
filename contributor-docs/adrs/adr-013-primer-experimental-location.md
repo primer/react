@@ -39,10 +39,11 @@ In the case of multiple teams working on the monolith, this can mean finding bre
 
 3. The source code for all experimental components should continue to live in the same repository ([primer/react](https://github.com/primer/react)).
 
-### Tradeoffs
+### Tradeoffs / Risks
 
 1. The responsibility of using compatible versions of experimental components and primer/react is shifted to the consumer.
 2. This would result in lots of new packages in the `@primer` scope on npm, creating some clutter.
+3. When, both primer/react and dotcom include an experimental component in their dependencies, it's easy to end up with 2 major versions of an experimental package. This should be okay as long as they don't conflict. (for example, PageLayout might use an experimental Stack or ActionList might use an experimental implementation of slots)
 
 &nbsp;
 
