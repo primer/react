@@ -1,5 +1,5 @@
 import {BookIcon} from '@primer/octicons-react'
-import {Meta, Story, StoryFn} from '@storybook/react'
+import {Meta, Story} from '@storybook/react'
 import * as React from 'react'
 import {Blankslate} from '../Blankslate'
 import {ComponentProps} from '../utils/types'

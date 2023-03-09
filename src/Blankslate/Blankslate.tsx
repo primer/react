@@ -37,22 +37,22 @@ const StyledBlankslate = styled.div`
   }
 `
 
-export interface BlankslateProps extends React.PropsWithChildren {
+export type BlankslateProps = React.PropsWithChildren<{
   /**
    * Add a border around this component
    */
-  border?: boolean | undefined
+  border?: boolean
 
   /**
    * Constrain the maximum width of this component
    */
-  narrow?: boolean | undefined
+  narrow?: boolean
 
   /**
    * Increase the padding of this component
    */
-  spacious?: boolean | undefined
-}
+  spacious?: boolean
+}>
 
 function Blankslate({border, children, narrow, spacious}: BlankslateProps) {
   return (
@@ -62,15 +62,15 @@ function Blankslate({border, children, narrow, spacious}: BlankslateProps) {
   )
 }
 
-export interface VisualProps extends React.PropsWithChildren {}
+export type VisualProps = React.PropsWithChildren
 
 function Visual({children}: VisualProps) {
   return <Box sx={{color: 'fg.muted', mb: 3}}>{children}</Box>
 }
 
-export interface HeadingProps extends React.PropsWithChildren {
+export type HeadingProps = React.PropsWithChildren<{
   as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | undefined
-}
+}>
 
 function Heading({as = 'h2', children}: HeadingProps) {
   return (
@@ -80,7 +80,7 @@ function Heading({as = 'h2', children}: HeadingProps) {
   )
 }
 
-export interface DescriptionProps extends React.PropsWithChildren {}
+export type DescriptionProps = React.PropsWithChildren
 
 function Description({children}: DescriptionProps) {
   return (
@@ -90,9 +90,9 @@ function Description({children}: DescriptionProps) {
   )
 }
 
-export interface PrimaryActionProps extends React.PropsWithChildren {
+export type PrimaryActionProps = React.PropsWithChildren<{
   href: string
-}
+}>
 
 function PrimaryAction({children, href}: PrimaryActionProps) {
   return (
@@ -104,9 +104,9 @@ function PrimaryAction({children, href}: PrimaryActionProps) {
   )
 }
 
-export interface SecondaryActionProps extends React.PropsWithChildren {
+export type SecondaryActionProps = React.PropsWithChildren<{
   href: string
-}
+}>
 
 function SecondaryAction({children, href}: SecondaryActionProps) {
   return (
