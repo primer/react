@@ -7,15 +7,15 @@ module.exports = {
       jsx: true,
     },
   },
-  extends: [
-    'plugin:react/recommended',
-    'plugin:jsx-a11y/recommended',
-    'plugin:react-hooks/recommended',
-    'plugin:prettier/recommended',
-    'plugin:github/recommended',
-    'plugin:github/browser',
-    'plugin:primer-react/recommended',
-  ],
+  settings: {
+    react: {
+      version: 'detect',
+    },
+    'import/resolver': {
+      node: true,
+      typescript: true,
+    },
+  },
   ignorePatterns: [
     'node_modules',
     '.cache',
@@ -31,6 +31,7 @@ module.exports = {
     // Note: this file is inlined from an external dependency
     'src/utils/polymorphic.ts',
     'storybook-static',
+    'CHANGELOG.md',
   ],
   globals: {
     __DEV__: 'readonly',
@@ -42,11 +43,16 @@ module.exports = {
     jest: true,
     node: true,
   },
-  settings: {
-    react: {
-      version: 'detect',
-    },
-  },
+  extends: [
+    'plugin:react/recommended',
+    'plugin:jsx-a11y/recommended',
+    'plugin:react-hooks/recommended',
+    'plugin:prettier/recommended',
+    'plugin:github/recommended',
+    'plugin:github/browser',
+    'plugin:primer-react/recommended',
+    'plugin:import/typescript',
+  ],
   // rules which apply to JS, TS, etc.
   rules: {
     'no-shadow': 'off',
@@ -74,6 +80,8 @@ module.exports = {
       rules: {
         'eslint-comments/no-use': 'off',
         'import/no-namespace': 'off',
+        'import/no-named-as-default': 'off',
+        'import/no-named-as-default-member': 'off',
         'no-unused-vars': [
           'error',
           {
@@ -82,6 +90,7 @@ module.exports = {
         ],
       },
     },
+
     // rules which apply only to TS
     {
       parserOptions: {
@@ -107,6 +116,10 @@ module.exports = {
             'ts-ignore': 'allow-with-description',
           },
         ],
+        'import/default': 'off',
+        'import/no-deprecated': 'off',
+        'import/no-named-as-default': 'off',
+        'import/no-named-as-default-member': 'off',
         'no-restricted-imports': [
           'error',
           {
@@ -122,6 +135,7 @@ module.exports = {
         ],
       },
     },
+
     // Tests
     {
       files: ['src/**/*.test.{ts,tsx}'],
@@ -133,12 +147,25 @@ module.exports = {
         'jest/no-disabled-tests': 'off',
       },
     },
+
     // Stories
     {
       files: ['**/*.stories.{ts,tsx}'],
       extends: ['plugin:storybook/recommended'],
       rules: {},
     },
+
+    // e2e tests
+    {
+      files: ['playwright.config.ts', 'e2e/**/*.{ts,tsx}'],
+      parserOptions: {
+        project: 'tsconfig.json',
+      },
+      rules: {
+        'github/array-foreach': 'off',
+      },
+    },
+
     // rules which apply only to Markdown
     {
       files: ['**/*.{md,mdx}'],
@@ -148,14 +175,13 @@ module.exports = {
       },
       rules: {
         'prettier/prettier': 'off',
+        'react/jsx-no-undef': 'off',
       },
     },
+
     // rules which apply only to Markdown code blocks
     {
       files: ['**/*.{md,mdx}/**'],
-      parserOptions: {
-        project: false,
-      },
       rules: {
         camelcase: 'off',
         'no-constant-condition': 'off',
@@ -178,15 +204,6 @@ module.exports = {
         '@typescript-eslint/no-unused-vars': 'off',
         'primer-react/no-deprecated-colors': ['error', {skipImportCheck: true}],
         'no-redeclare': 'off',
-      },
-    },
-    {
-      parserOptions: {
-        project: 'tsconfig.json',
-      },
-      files: ['playwright.config.ts', 'e2e/**/*.{ts,tsx}'],
-      rules: {
-        'github/array-foreach': 'off',
       },
     },
   ],
