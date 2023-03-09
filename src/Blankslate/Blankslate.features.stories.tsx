@@ -1,5 +1,5 @@
 import {BookIcon} from '@primer/octicons-react'
-import * as React from 'react'
+import React from 'react'
 import {Blankslate} from '../Blankslate'
 
 export default {
