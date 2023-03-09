@@ -263,5 +263,3 @@ Make sure to run `npm install` from inside the `docs/` subfolder _as well as_ th
 **`npm start` fails with a different error**
 
 Ensure you are using the latest minor of Node.js for the major version specified in the `.nvmrc` file. For example, if `.nvmrc` contains `8`, make sure you're using the latest version of Node.js with the major version of 8.
-
-[primer.style]: https://primer.style
