@@ -4330,7 +4330,12 @@
       "name": "Token",
       "status": "alpha",
       "a11yReviewed": false,
-      "stories": [],
+      "stories": [
+        {
+          "id": "components-token--default",
+          "code": "() => <Token text=\"token\" />"
+        }
+      ],
       "props": [
         {
           "name": "leadingVisual",

@@ -1,7 +1,7 @@
 import React from 'react'
 import Token from '../Token'
-import AvatarToken from '../Token/AvatarToken'
-import IssueLabelToken from '../Token/IssueLabelToken'
+import AvatarToken from '../AvatarToken'
+import IssueLabelToken from '../IssueLabelToken'
 import {CheckIcon} from '@primer/octicons-react'
 
 export function requiresAtLeastaTextProp() {
