@@ -186,7 +186,7 @@ describe('MarkdownEditor', () => {
     const {getInput, user} = await render(<UncontrolledEditor onPrimaryAction={onPrimaryAction} />)
 
     await user.type(getInput(), `{Control>}{Enter}{/Control}`)
-    expect(onPrimaryAction).toBeCalled()
+    expect(onPrimaryAction).toHaveBeenCalled()
   })
 
   it('forwards imperative handle ref', async () => {
