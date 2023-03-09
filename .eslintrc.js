@@ -49,9 +49,9 @@ module.exports = {
   },
   // rules which apply to JS, TS, etc.
   rules: {
-    'no-shadow': 0,
-    'react/prop-types': 0,
-    'react/display-name': 0,
+    'no-shadow': 'off',
+    'react/prop-types': 'off',
+    'react/display-name': 'off',
     'react-hooks/exhaustive-deps': 'error',
     'jsx-a11y/label-has-for': [
       2,
@@ -72,8 +72,8 @@ module.exports = {
     {
       files: ['**/*.{js,jsx}'],
       rules: {
-        'eslint-comments/no-use': 0,
-        'import/no-namespace': 0,
+        'eslint-comments/no-use': 'off',
+        'import/no-namespace': 'off',
         'no-unused-vars': [
           'error',
           {
@@ -92,15 +92,15 @@ module.exports = {
       rules: {
         '@typescript-eslint/no-explicit-any': 2,
         '@typescript-eslint/no-unnecessary-condition': 2,
-        '@typescript-eslint/explicit-module-boundary-types': 0,
+        '@typescript-eslint/explicit-module-boundary-types': 'off',
         '@typescript-eslint/no-unused-vars': [
           'error',
           {
             argsIgnorePattern: '^_',
           },
         ],
-        '@typscript-eslint/no-shadow': 0,
-        '@typescript-eslint/no-empty-function': 0,
+        '@typscript-eslint/no-shadow': 'off',
+        '@typescript-eslint/no-empty-function': 'off',
         '@typescript-eslint/ban-ts-comment': [
           'error',
           {
@@ -136,7 +136,7 @@ module.exports = {
         'mdx/code-blocks': true,
       },
       rules: {
-        'prettier/prettier': 0,
+        'prettier/prettier': 'off',
       },
     },
     // rules which apply only to Markdown code blocks
@@ -146,27 +146,27 @@ module.exports = {
         project: false,
       },
       rules: {
-        camelcase: 0,
-        'no-constant-condition': 0,
-        'no-console': 0,
-        'no-empty-pattern': 0,
-        'no-unused-vars': 0,
-        'no-undef': 0,
-        'react/no-unescaped-entities': 0,
-        'react/react-in-jsx-scope': 0,
-        'react/jsx-no-undef': 0,
-        'react/jsx-key': 0,
-        'react/jsx-no-comment-textnodes': 0,
-        'import/no-anonymous-default-export': 0,
-        'prettier/prettier': 0,
+        camelcase: 'off',
+        'no-constant-condition': 'off',
+        'no-console': 'off',
+        'no-empty-pattern': 'off',
+        'no-unused-vars': 'off',
+        'no-undef': 'off',
+        'react/no-unescaped-entities': 'off',
+        'react/react-in-jsx-scope': 'off',
+        'react/jsx-no-undef': 'off',
+        'react/jsx-key': 'off',
+        'react/jsx-no-comment-textnodes': 'off',
+        'import/no-anonymous-default-export': 'off',
+        'prettier/prettier': 'off',
         // These a11y rules should eventually be re-enabled
-        'jsx-a11y/anchor-is-valid': 0,
-        'jsx-a11y/accessible-emoji': 0,
-        'jsx-a11y/label-has-for': 0,
-        '@typescript-eslint/no-unnecessary-condition': 0,
-        '@typescript-eslint/no-unused-vars': 0,
+        'jsx-a11y/anchor-is-valid': 'off',
+        'jsx-a11y/accessible-emoji': 'off',
+        'jsx-a11y/label-has-for': 'off',
+        '@typescript-eslint/no-unnecessary-condition': 'off',
+        '@typescript-eslint/no-unused-vars': 'off',
         'primer-react/no-deprecated-colors': ['error', {skipImportCheck: true}],
-        'no-redeclare': 0,
+        'no-redeclare': 'off',
       },
     },
     {
