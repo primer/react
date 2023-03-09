@@ -4,7 +4,7 @@ import userEvent from '@testing-library/user-event'
 import {UserEvent} from '@testing-library/user-event/dist/types/setup/setup'
 import React, {forwardRef, useRef, useState} from 'react'
 import {act} from 'react-dom/test-utils'
-import MarkdownEditor, {Emoji, MarkdownEditorHandle, MarkdownEditorProps, Mentionable, Reference, SavedReply} from '.'
+import MarkdownEditor, {MarkdownEditorHandle, MarkdownEditorProps, Mentionable, Reference, SavedReply} from '.'
 import ThemeProvider from '../../ThemeProvider'
 
 declare const REACT_VERSION_LATEST: boolean
@@ -866,12 +866,13 @@ describe('MarkdownEditor', () => {
   })
 
   describe('suggestions', () => {
-    const emojis: Emoji[] = [
+    const emojis = [
       {name: '+1', character: '👍'},
       {name: '-1', character: '👎'},
       {name: 'heart', character: '❤️'},
       {name: 'wave', character: '👋'},
       {name: 'raised_hands', character: '🙌'},
+      {name: 'octocat', url: 'https://github.githubassets.com/images/icons/emoji/octocat.png'},
     ]
 
     const mentionables: Mentionable[] = [
@@ -1075,6 +1076,17 @@ describe('MarkdownEditor', () => {
       expect(getAllSuggestions()).toHaveLength(2)
       expect(getAllSuggestions()[0]).toHaveTextContent('+1')
       expect(getAllSuggestions()[1]).toHaveTextContent('-1')
+    })
+
+    it('inserts shortcode for custom emojis', async () => {
+      const {queryForSuggestionsList, getAllSuggestions, getInput, user} = await render(<EditorWithSuggestions />)
+
+      const input = getInput()
+      await user.type(input, `Mona Lisa :octo`)
+      await user.click(getAllSuggestions()[0])
+
+      expect(input.value).toBe(`Mona Lisa :octocat: `)
+      expect(queryForSuggestionsList()).not.toBeInTheDocument()
     })
   })
 
