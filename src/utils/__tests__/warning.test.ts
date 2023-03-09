@@ -6,7 +6,7 @@ test('emits a message to console.warn() when the condition is `false`', () => {
   warning(true, 'test')
 
   expect(spy).toHaveBeenCalled()
-  expect(spy).toHaveBeenCalledWith('Warning: test')
+  expect(spy).toHaveBeenCalledWith('Warning:', 'test')
   spy.mockRestore()
 })
 
@@ -25,6 +25,6 @@ test('formats arguments into warning string', () => {
   warning(true, 'test %s %s %s', 1, 2, 3)
 
   expect(spy).toHaveBeenCalled()
-  expect(spy).toHaveBeenCalledWith('Warning: test 1 2 3')
+  expect(spy).toHaveBeenCalledWith('Warning:', 'test 1 2 3')
   spy.mockRestore()
 })
