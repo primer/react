@@ -4,8 +4,9 @@ import {axe, toHaveNoViolations} from 'jest-axe'
 import React from 'react'
 import theme from '../theme'
 import {ActionMenu, ActionList, BaseStyles, ThemeProvider, SSRProvider} from '..'
-import {behavesAsComponent, checkExports, checkStoriesForAxeViolations} from '../utils/testing'
-import {SingleSelection, MixedSelection} from '../stories/ActionMenu/examples.stories'
+import {behavesAsComponent, checkExports} from '../utils/testing'
+import {SingleSelect} from '../ActionMenu/ActionMenu.features.stories'
+import {MixedSelection} from '../ActionMenu/ActionMenu.examples.stories'
 expect.extend(toHaveNoViolations)
 
 function Example(): JSX.Element {
@@ -113,10 +114,10 @@ describe('ActionMenu', () => {
   it('should be able to select an Item with selectionVariant', async () => {
     const component = HTMLRender(
       <ThemeProvider theme={theme}>
-        <SingleSelection />
+        <SingleSelect />
       </ThemeProvider>,
     )
-    const button = component.getByLabelText('Field type')
+    const button = component.getByRole('button', {name: /^options/i})
 
     const user = userEvent.setup()
     await user.click(button)
@@ -240,7 +241,4 @@ describe('ActionMenu', () => {
     const results = await axe(container)
     expect(results).toHaveNoViolations()
   })
-
-  checkStoriesForAxeViolations('ActionMenu/fixtures')
-  checkStoriesForAxeViolations('ActionMenu/examples')
 })

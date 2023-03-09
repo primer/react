@@ -6,10 +6,10 @@ import Box from '../Box'
 type Viewport = 'narrow' | 'regular' | 'wide'
 
 export type HiddenProps = {
-  on: Array<Viewport> | Viewport
+  when: Array<Viewport> | Viewport
   children: React.ReactNode
 }
-/* Normalize the value that is received from the prop `on`.
+/* Normalize the value that is received from the prop `when`.
  * For array types : ['narrow', 'wide'] -> {narrow: true, wide: true}
  * For string types: 'narrow' -> {narrow: true}
  */
@@ -30,9 +30,9 @@ function normalize(hiddenViewports: Array<Viewport> | Viewport): ResponsiveValue
   }
 }
 
-export const Hidden = ({on, children}: HiddenProps) => {
+export const Hidden = ({when, children}: HiddenProps) => {
   // Get breakpoint declarations for the normalized ResponsiveValue object
-  const styles = getBreakpointDeclarations(normalize(on), 'display', () => 'none')
+  const styles = getBreakpointDeclarations(normalize(when), 'display', () => 'none')
   // Render the children with the styles
   return styles ? <Box sx={styles}>{children}</Box> : null
 }
