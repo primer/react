@@ -4,7 +4,7 @@ import userEvent from '@testing-library/user-event'
 import {UserEvent} from '@testing-library/user-event/dist/types/setup/setup'
 import React, {forwardRef, useRef, useState} from 'react'
 import {act} from 'react-dom/test-utils'
-import MarkdownEditor, {Emoji, MarkdownEditorHandle, MarkdownEditorProps, Mentionable, Reference, SavedReply} from '.'
+import MarkdownEditor, {MarkdownEditorHandle, MarkdownEditorProps, Mentionable, Reference, SavedReply} from '.'
 import ThemeProvider from '../../ThemeProvider'
 
 declare const REACT_VERSION_LATEST: boolean
@@ -873,7 +873,7 @@ describe('MarkdownEditor', () => {
       {name: 'wave', character: '👋'},
       {name: 'raised_hands', character: '🙌'},
       {name: 'octocat', url: 'https://github.githubassets.com/images/icons/emoji/octocat.png'},
-    ] satisfies Emoji[]
+    ]
 
     const mentionables: Mentionable[] = [
       {identifier: 'monalisa', description: 'Monalisa Octocat'},
