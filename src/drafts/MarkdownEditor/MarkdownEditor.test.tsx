@@ -866,13 +866,14 @@ describe('MarkdownEditor', () => {
   })
 
   describe('suggestions', () => {
-    const emojis: Emoji[] = [
+    const emojis = [
       {name: '+1', character: '👍'},
       {name: '-1', character: '👎'},
       {name: 'heart', character: '❤️'},
       {name: 'wave', character: '👋'},
       {name: 'raised_hands', character: '🙌'},
-    ]
+      {name: 'octocat', url: 'https://github.githubassets.com/images/icons/emoji/octocat.png'},
+    ] satisfies Emoji[]
 
     const mentionables: Mentionable[] = [
       {identifier: 'monalisa', description: 'Monalisa Octocat'},
@@ -1075,6 +1076,17 @@ describe('MarkdownEditor', () => {
       expect(getAllSuggestions()).toHaveLength(2)
       expect(getAllSuggestions()[0]).toHaveTextContent('+1')
       expect(getAllSuggestions()[1]).toHaveTextContent('-1')
+    })
+
+    it('inserts shortcode for custom emojis', async () => {
+      const {queryForSuggestionsList, getAllSuggestions, getInput, user} = await render(<EditorWithSuggestions />)
+
+      const input = getInput()
+      await user.type(input, `Mona Lisa :octo`)
+      await user.click(getAllSuggestions()[0])
+
+      expect(input.value).toBe(`Mona Lisa :octocat: `)
+      expect(queryForSuggestionsList()).not.toBeInTheDocument()
     })
   })
 
