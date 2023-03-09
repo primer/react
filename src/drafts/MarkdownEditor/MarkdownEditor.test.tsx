@@ -41,7 +41,7 @@ const UncontrolledEditor = forwardRef<MarkdownEditorHandle, UncontrolledEditorPr
   )
 })
 
-const assertNotNull: <T extends unknown>(t: T | null) => asserts t is T = t => expect(t).not.toBeNull()
+const assertNotNull: <T>(t: T | null) => asserts t is T = t => expect(t).not.toBeNull()
 
 const render = async (ui: React.ReactElement) => {
   const result = _render(ui)
