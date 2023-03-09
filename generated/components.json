@@ -1438,7 +1438,12 @@
       "name": "Blankslate",
       "status": "alpha",
       "a11yReviewed": false,
-      "stories": [],
+      "stories": [
+        {
+          "id": "components-blankslate--default",
+          "code": "(args) => (\n  <Blankslate {...args}>\n    <Blankslate.Visual>\n      <BookIcon size=\"medium\" />\n    </Blankslate.Visual>\n    <Blankslate.Heading>Welcome to the mona wiki!</Blankslate.Heading>\n    <Blankslate.Description>\n      Wikis provide a place in your repository to lay out the roadmap of your\n      project, show the current status, and document software better, together.\n    </Blankslate.Description>\n    <Blankslate.PrimaryAction href=\"#\">\n      Create the first page\n    </Blankslate.PrimaryAction>\n    <Blankslate.SecondaryAction href=\"#\">\n      Learn more about wikis\n    </Blankslate.SecondaryAction>\n  </Blankslate>\n)"
+        }
+      ],
       "props": [
         {
           "name": "border",
