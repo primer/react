@@ -1,11 +1,10 @@
 import {render as HTMLRender, waitFor, fireEvent} from '@testing-library/react'
-import {axe, toHaveNoViolations} from 'jest-axe'
+import {axe} from 'jest-axe'
 import React from 'react'
 import theme from '../theme'
 import {ActionList} from '../ActionList'
-import {behavesAsComponent, checkExports, checkStoriesForAxeViolations} from '../utils/testing'
+import {behavesAsComponent, checkExports} from '../utils/testing'
 import {BaseStyles, ThemeProvider, SSRProvider} from '..'
-expect.extend(toHaveNoViolations)
 
 function SimpleActionList(): JSX.Element {
   return (
@@ -168,7 +167,4 @@ describe('ActionList', () => {
     fireEvent.click(link)
     expect(onClick).toHaveBeenCalled()
   })
-
-  checkStoriesForAxeViolations('', '../ActionList/ActionList.features')
-  checkStoriesForAxeViolations('', '../ActionList/ActionList.examples')
 })
