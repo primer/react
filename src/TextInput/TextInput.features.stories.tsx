@@ -137,6 +137,7 @@ export const WithTrailingAction = () => {
               }}
               icon={XCircleFillIcon}
               aria-label="Clear input"
+              tooltip-direction="nw"
               sx={{color: 'fg.subtle'}}
             />
           }
