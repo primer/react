@@ -116,4 +116,10 @@ function SecondaryAction({children, href}: SecondaryActionProps) {
   )
 }
 
-export {Blankslate, Visual, Heading, Description, PrimaryAction, SecondaryAction}
+export default Object.assign(Blankslate, {
+  Visual,
+  Heading,
+  Description,
+  PrimaryAction,
+  SecondaryAction,
+})

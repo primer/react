@@ -16,7 +16,22 @@ export default {
   },
 } as Meta<typeof Blankslate>
 
-export const Default: Story<ComponentProps<typeof Blankslate>> = args => (
+export const Default = () => (
+  <Blankslate>
+    <Blankslate.Visual>
+      <BookIcon size="medium" />
+    </Blankslate.Visual>
+    <Blankslate.Heading>Welcome to the mona wiki!</Blankslate.Heading>
+    <Blankslate.Description>
+      Wikis provide a place in your repository to lay out the roadmap of your project, show the current status, and
+      document software better, together.
+    </Blankslate.Description>
+    <Blankslate.PrimaryAction href="#">Create the first page</Blankslate.PrimaryAction>
+    <Blankslate.SecondaryAction href="#">Learn more about wikis</Blankslate.SecondaryAction>
+  </Blankslate>
+)
+
+export const Playground: Story<ComponentProps<typeof Blankslate>> = args => (
   <Blankslate {...args}>
     <Blankslate.Visual>
       <BookIcon size="medium" />
@@ -31,7 +46,7 @@ export const Default: Story<ComponentProps<typeof Blankslate>> = args => (
   </Blankslate>
 )
 
-Default.args = {
+Playground.args = {
   border: false,
   narrow: false,
   spacious: false,
