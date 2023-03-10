@@ -3,7 +3,7 @@ import {axe} from 'jest-axe'
 import React from 'react'
 import theme from '../theme'
 import {ActionList} from '../ActionList'
-import {behavesAsComponent, checkExports, checkStoriesForAxeViolations} from '../utils/testing'
+import {behavesAsComponent, checkExports} from '../utils/testing'
 import {BaseStyles, ThemeProvider, SSRProvider} from '..'
 
 function SimpleActionList(): JSX.Element {
