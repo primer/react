@@ -69,7 +69,7 @@ function Visual({children}: VisualProps) {
 }
 
 export type HeadingProps = React.PropsWithChildren<{
-  as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | undefined
+  as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
 }>
 
 function Heading({as = 'h2', children}: HeadingProps) {
