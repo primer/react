@@ -66,12 +66,12 @@ SelectMenu.MenuContext is a [context object](https://reactjs.org/docs/context.ht
 import {SelectMenu, Button} from '@primer/react'
 import React, {useContext} from 'react'
 
-const MyMenu = () => {
-  ;<SelectMenu>
+const MyMenu = () => (
+  <SelectMenu>
     <MyButton />
     <SelectMenu.Modal>content</SelectMenu.Modal>
   </SelectMenu>
-}
+)
 
 // note that we can only use the context in components that are already wrapped by SelectMenu (and thus the Context.Provider)
 const MyButton = () => {
