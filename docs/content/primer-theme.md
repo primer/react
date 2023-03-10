@@ -56,9 +56,8 @@ There are two ways to change the theme of Primer components:
    const App = props => {
      return (
        <div>
+         {/* matching keys in customTheme will override keys in the Primer theme */}
          <ThemeProvider theme={Object.assign({}, theme, customTheme)}>
-           {' '}
-           // matching keys in customTheme will override keys in the Primer theme
            <div>your app here</div>
          </ThemeProvider>
        </div>
