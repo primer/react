@@ -7,9 +7,23 @@ module.exports = {
       jsx: true,
     },
   },
+  extends: [
+    'plugin:react/recommended',
+    'plugin:jsx-a11y/recommended',
+    'plugin:react-hooks/recommended',
+    'plugin:prettier/recommended',
+    'plugin:github/recommended',
+    'plugin:github/browser',
+    'plugin:primer-react/recommended',
+    'plugin:import/typescript',
+  ],
   settings: {
     react: {
       version: 'detect',
+    },
+    'import/parsers': {
+      '@typescript-eslint/parser': ['.js', '.jsx', '.ts', '.tsx'],
+      'eslint-mdx': ['.mdx'],
     },
     'import/resolver': {
       node: true,
@@ -43,16 +57,6 @@ module.exports = {
     jest: true,
     node: true,
   },
-  extends: [
-    'plugin:react/recommended',
-    'plugin:jsx-a11y/recommended',
-    'plugin:react-hooks/recommended',
-    'plugin:prettier/recommended',
-    'plugin:github/recommended',
-    'plugin:github/browser',
-    'plugin:primer-react/recommended',
-    'plugin:import/typescript',
-  ],
   // rules which apply to JS, TS, etc.
   rules: {
     'no-shadow': 'off',
@@ -72,6 +76,19 @@ module.exports = {
       },
     ],
     'primer-react/no-deprecated-colors': ['warn', {checkAllStrings: true}],
+
+    // Overrides from updating plugin:github
+    'filenames/match-regex': 'off',
+    'import/extensions': 'off',
+    'import/namespace': 'off',
+    'import/no-commonjs': 'off',
+    'import/no-nodejs-modules': 'off',
+    'import/no-dynamic-require': 'off',
+    'import/no-unresolved': 'off',
+    'i18n-text/no-en': 'off',
+    'github/no-inner-html': 'off',
+    'github/role-supports-aria-props': 'off',
+    'no-restricted-syntax': 'off',
   },
   overrides: [
     // rules which apply only to JS
@@ -174,6 +191,7 @@ module.exports = {
         'mdx/code-blocks': true,
       },
       rules: {
+        'no-unused-vars': 'off',
         'prettier/prettier': 'off',
         'react/jsx-no-undef': 'off',
       },
@@ -182,6 +200,9 @@ module.exports = {
     // rules which apply only to Markdown code blocks
     {
       files: ['**/*.{md,mdx}/**'],
+      parserOptions: {
+        project: false,
+      },
       rules: {
         camelcase: 'off',
         'no-constant-condition': 'off',
