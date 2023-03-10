@@ -1,5 +1,49 @@
 # @primer/components
 
+## 35.21.0
+
+### Minor Changes
+
+- [#2953](https://github.com/primer/react/pull/2953) [`91688a41`](https://github.com/primer/react/commit/91688a4110b2b1c2208fc3ea257a40b61fa022bb) Thanks [@joshblack](https://github.com/joshblack)! - Add Table.Divider and Table.Actions components for Table
+
+- [#2985](https://github.com/primer/react/pull/2985) [`38ac17a6`](https://github.com/primer/react/commit/38ac17a6da12230c2037124776e55d165a6c1ee6) Thanks [@broccolinisoup](https://github.com/broccolinisoup)! - Hidden: rename prop 'on' -> 'when'
+
+- [#2951](https://github.com/primer/react/pull/2951) [`eff43b07`](https://github.com/primer/react/commit/eff43b0789afea74078b4024d7f35d4723b7055b) Thanks [@joshblack](https://github.com/joshblack)! - Add DataTable, Table to drafts entrypoint
+
+### Patch Changes
+
+- [#2929](https://github.com/primer/react/pull/2929) [`ee4b76f8`](https://github.com/primer/react/commit/ee4b76f8ff2b711f72efb0cf790113c67bdd08e6) Thanks [@broccolinisoup](https://github.com/broccolinisoup)! - Button: Fixes the style override issue when size is explicitly specified as medium
+
+- [#2933](https://github.com/primer/react/pull/2933) [`81ed5403`](https://github.com/primer/react/commit/81ed5403688129809957bd0224cce68d4087ad36) Thanks [@langermank](https://github.com/langermank)! - Bug fix: ButtonGroup hover state causes buttons to shift horizontally
+
+- [#2948](https://github.com/primer/react/pull/2948) [`0215c969`](https://github.com/primer/react/commit/0215c96905969f514326621eb1fef84e09ef3af0) Thanks [@colebemis](https://github.com/colebemis)! - Include story source code in `generated/components.json`
+
+- [#2905](https://github.com/primer/react/pull/2905) [`6bf9e677`](https://github.com/primer/react/commit/6bf9e6772608a639da8b7db5f6f13248b7b186cf) Thanks [@broccolinisoup](https://github.com/broccolinisoup)! - PageHeader: Make default heading level `h2`
+
+- [#2973](https://github.com/primer/react/pull/2973) [`3a25597a`](https://github.com/primer/react/commit/3a25597a093edf96601d05f3353c4c1277a06005) Thanks [@colebemis](https://github.com/colebemis)! - Upgrade @primer/octicons-react dependency to `^18.0.0`
+
+- [#2910](https://github.com/primer/react/pull/2910) [`0c701920`](https://github.com/primer/react/commit/0c7019201084c0f39ff3b4cb51d4f57f0e3d65d1) Thanks [@iansan5653](https://github.com/iansan5653)! - Add `isolation:isolate` to `ButtonGroup` container
+
+- [#2843](https://github.com/primer/react/pull/2843) [`533f0b4a`](https://github.com/primer/react/commit/533f0b4aaa762938f61c9fad03de1b2660fd1cb9) Thanks [@mperrotti](https://github.com/mperrotti)! - Updates the ToggleSwitch styles to be more minimal and less dimensional
+
+- [#2702](https://github.com/primer/react/pull/2702) [`0121c0f5`](https://github.com/primer/react/commit/0121c0f5ce3a0ceb9dc61b40a102847fb9795abc) Thanks [@mperrotti](https://github.com/mperrotti)! - Pagination design updates:
+
+  - Updates spacing inside of the buttons to match the "medium" control metrics: https://primer.style/primitives/spacing#medium
+  - Updates hover style to align with ActionList items and other elements that may appear on any background color
+  - Updates ARIA markup to improve assistive technology experience
+
+- [#2974](https://github.com/primer/react/pull/2974) [`6a795da6`](https://github.com/primer/react/commit/6a795da6d223692734fb679e31336de7a63f757a) Thanks [@iansan5653](https://github.com/iansan5653)! - Fix ellipsis truncation in `Token`
+
+- [#2925](https://github.com/primer/react/pull/2925) [`6f50b156`](https://github.com/primer/react/commit/6f50b1569ac4024672fa19bc3a916528e2308566) Thanks [@langermank](https://github.com/langermank)! - Decrease `invisible` button icon CSS specifity
+
+- [#2922](https://github.com/primer/react/pull/2922) [`7140ac8f`](https://github.com/primer/react/commit/7140ac8f14f309e879b1cc98742b92b1c2d78961) Thanks [@green6erry](https://github.com/green6erry)! - Updated PageLayout.Pane to conditionally include id prop
+
+- [#2702](https://github.com/primer/react/pull/2702) [`0121c0f5`](https://github.com/primer/react/commit/0121c0f5ce3a0ceb9dc61b40a102847fb9795abc) Thanks [@mperrotti](https://github.com/mperrotti)! - Updates the visual design of the Pagination component to align with the latest design token usage patterns. Also improves ARIA markup to hide the "..." from assistive technologies.
+
+- [#2954](https://github.com/primer/react/pull/2954) [`041dd150`](https://github.com/primer/react/commit/041dd150d6a85b0e60a3802dc59b00da63aeedd1) Thanks [@iansan5653](https://github.com/iansan5653)! - Allow `React.ReactNode` as `Token` content
+
+- [#3004](https://github.com/primer/react/pull/3004) [`45107bc5`](https://github.com/primer/react/commit/45107bc56e54da883ce134b2b1c9637935e9f6e3) Thanks [@iansan5653](https://github.com/iansan5653)! - Add support for custom emojis and a declarative "loading" state in `MarkdownEditor` suggestions
+
 ## 35.20.0
 
 ### Minor Changes
