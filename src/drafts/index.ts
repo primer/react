@@ -23,7 +23,7 @@ export type {
 
 export * from '../Dialog/Dialog'
 
-export {default as Hidden, HiddenProps} from '../Hidden'
+export {default as Hidden, type HiddenProps} from '../Hidden'
 
 export {default as InlineAutocomplete} from './InlineAutocomplete'
 export type {
