@@ -1,6 +1,7 @@
 import React from 'react'
+import '@testing-library/jest-dom/extend-expect'
 import {render} from '@testing-library/react'
-import {Hidden} from './Hidden'
+import {Hidden} from '.'
 import MatchMediaMock from 'jest-matchmedia-mock'
 import {behavesAsComponent, checkExports, renderStyles, checkStoriesForAxeViolations} from '../utils/testing'
 import {mediaQueries} from '../utils/layout'
