@@ -149,9 +149,12 @@ const StyledTable = styled.table<React.ComponentPropsWithoutRef<'table'>>`
   }
 
   @supports (grid-template-columns: subgrid) {
-    display: grid;
-    grid-template-columns: subgrid;
-    grid-column: -1 /1;
+    .TableHead,
+    .TableBody,
+    .TableRow {
+      display: grid;
+      grid-template-columns: subgrid;
+      grid-column: -1 /1;
   }
 `
 
