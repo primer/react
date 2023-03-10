@@ -43,7 +43,7 @@ export type DataTableProps<Data extends UniqueRow> = {
    * using this `prop`, the input data must be sorted by this column in
    * ascending order
    */
-  initialSortColumn?: ObjectPaths<Data> | string
+  initialSortColumn?: ObjectPaths<Data> | string | number
 
   /**
    * Provide the sort direction that the table should be sorted by on the

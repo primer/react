@@ -37,6 +37,7 @@ const allowlist = [
   'TreeView',
   'Timeline',
   'ToggleSwitch',
+  'Token',
   'UnderlineNav2',
 ]
 const stories = glob
