@@ -129,7 +129,7 @@
           "name": "tooltip-direction",
           "type": "'n' | 'ne' | 'e' | 'se' | 's' | 'sw' | 'w' | 'nw'",
           "defaultValue": "n",
-          "description": "Sets where the tooltip renders in relation to the target.."
+          "description": "Sets where the tooltip renders in relation to the target."
         },
         {
           "name": "icon",
