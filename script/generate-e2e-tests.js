@@ -375,6 +375,17 @@ const components = new Map([
     },
   ],
   [
+    'Hidden',
+    {
+      stories: [
+        {
+          id: 'drafts-components-hidden--default',
+          name: 'Default',
+        },
+      ],
+    },
+  ],
+  [
     'IconButton',
     {
       stories: [
@@ -1045,6 +1056,45 @@ const components = new Map([
         {
           id: 'components-treeview-features--files-changed',
           name: 'Files Changed',
+        },
+      ],
+    },
+  ],
+  [
+    'Token',
+    {
+      stories: [
+        {
+          id: 'components-token--default',
+          name: 'Default',
+        },
+        {
+          id: 'components-token-features--small-token',
+          name: 'Small Token',
+        },
+        {
+          id: 'components-token-features--large-token',
+          name: 'Large Token',
+        },
+        {
+          id: 'components-token-features--x-large-token',
+          name: 'Xlarge Token',
+        },
+        {
+          id: 'components-token-features--token-with-leading-visual',
+          name: 'Token With Leading Visual',
+        },
+        {
+          id: 'components-token-features--token-with-on-remove-fn',
+          name: 'Token With On Remove Fn',
+        },
+        {
+          id: 'components-token-features--default-issue-label-token',
+          name: 'Default Issue Label Token',
+        },
+        {
+          id: 'components-token-features--issue-label-token-with-on-remove-fn',
+          name: 'Issue Label Token With On Remove Fn',
         },
       ],
     },
