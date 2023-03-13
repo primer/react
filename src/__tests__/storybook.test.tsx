@@ -119,7 +119,6 @@ const jsonFiles = glob
     return allowlist.includes(name)
   })
 
-// eslint-disable-next-line jest/no-identical-title
 describe.each(jsonFiles)('%s', filepath => {
   test('has a corresponding .stories.tsx file', () => {
     const storyFilepath = path.join(ROOT_DIRECTORY, filepath.replace('.docs.json', '.stories.tsx'))

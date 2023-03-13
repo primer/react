@@ -13,7 +13,7 @@ import {
 } from '@primer/octicons-react'
 
 import {PageHeader} from './PageHeader'
-import Hidden from '../Hidden'
+import {Hidden} from '../Hidden'
 import {UnderlineNav} from '../UnderlineNav2'
 
 const meta: Meta = {
