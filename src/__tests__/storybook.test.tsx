@@ -20,6 +20,7 @@ const allowlist = [
   'CounterLabel',
   'DataTable',
   'Details',
+  'Dialog2',
   'Flash',
   'Heading',
   'IconButton',
@@ -37,6 +38,7 @@ const allowlist = [
   'TreeView',
   'Timeline',
   'ToggleSwitch',
+  'Token',
   'UnderlineNav2',
 ]
 const stories = glob
