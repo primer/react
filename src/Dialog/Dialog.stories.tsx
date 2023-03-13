@@ -1,4 +1,4 @@
-import React, {useCallback, useRef, useState} from 'react'
+import React, {useState} from 'react'
 import {Meta} from '@storybook/react'
 
 import {BaseStyles, ThemeProvider} from '..'
