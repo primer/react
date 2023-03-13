@@ -1,12 +1,15 @@
 import React, {useState, useRef, useCallback} from 'react'
 import {Meta} from '@storybook/react'
-
-import {BaseStyles, ThemeProvider, Box} from '..'
+import {BaseStyles, ThemeProvider, Box, useTheme} from '..'
 import {Button} from '../Button'
-import {Dialog, DialogProps, DialogWidth, DialogHeight} from '../Dialog/Dialog'
+import {ActionMenu} from '../ActionMenu'
+import {ActionList} from '../ActionList'
+import {ConfirmationDialog, useConfirm} from './ConfirmationDialog'
+
+import {Dialog, DialogProps, DialogWidth, DialogHeight} from './Dialog'
 
 export default {
-  title: 'Components/Dialog',
+  title: 'Drafts/Components/Dialog/Features',
   component: Dialog,
   decorators: [
     Story => {
@@ -105,6 +108,43 @@ interface DialogStoryProps {
   height: DialogHeight
   subtitle: boolean
 }
+
+function CustomHeader({
+  title,
+  subtitle,
+  dialogLabelId,
+  dialogDescriptionId,
+  onClose,
+}: React.PropsWithChildren<DialogProps & {dialogLabelId: string; dialogDescriptionId: string}>) {
+  const onCloseClick = useCallback(() => {
+    onClose('close-button')
+  }, [onClose])
+  if (typeof title === 'string' && typeof subtitle === 'string') {
+    return (
+      <Dialog.Header>
+        <Box sx={{display: 'flex', justifyContent: 'space-between'}}>
+          <Box display="flex" flexDirection="column" flexGrow={1}>
+            <h1 id={dialogLabelId}>{title}</h1>
+            {subtitle && <h2 id={dialogDescriptionId}>{subtitle}</h2>}
+          </Box>
+          <Dialog.CloseButton onClose={onCloseClick} />
+        </Box>
+      </Dialog.Header>
+    )
+  }
+  return null
+}
+function CustomBody({children}: React.PropsWithChildren<DialogProps>) {
+  return <Dialog.Body sx={{bg: 'danger.subtle'}}>{children}</Dialog.Body>
+}
+function CustomFooter({footerButtons}: React.PropsWithChildren<DialogProps>) {
+  return (
+    <Dialog.Footer sx={{backgroundColor: 'attention.subtle'}}>
+      {footerButtons ? <Dialog.Buttons buttons={footerButtons} /> : null}
+    </Dialog.Footer>
+  )
+}
+
 export const BasicDialog = ({width, height, subtitle}: DialogStoryProps) => {
   const [isOpen, setIsOpen] = useState(false)
   const [secondOpen, setSecondOpen] = useState(false)
@@ -140,39 +180,7 @@ export const BasicDialog = ({width, height, subtitle}: DialogStoryProps) => {
     </>
   )
 }
-
-function CustomHeader({
-  title,
-  subtitle,
-  dialogLabelId,
-  dialogDescriptionId,
-  onClose,
-}: React.PropsWithChildren<DialogProps & {dialogLabelId: string; dialogDescriptionId: string}>) {
-  const onCloseClick = useCallback(() => {
-    onClose('close-button')
-  }, [onClose])
-  if (typeof title === 'string' && typeof subtitle === 'string') {
-    return (
-      <Box bg="accent.subtle">
-        <h1 id={dialogLabelId}>{title.toUpperCase()}</h1>
-        <h2 id={dialogDescriptionId}>{subtitle.toLowerCase()}</h2>
-        <Dialog.CloseButton onClose={onCloseClick} />
-      </Box>
-    )
-  }
-  return null
-}
-function CustomBody({children}: React.PropsWithChildren<DialogProps>) {
-  return <Dialog.Body sx={{bg: 'danger.subtle'}}>{children}</Dialog.Body>
-}
-function CustomFooter({footerButtons}: React.PropsWithChildren<DialogProps>) {
-  return (
-    <Dialog.Footer sx={{bg: 'attention.subtle'}}>
-      {footerButtons ? <Dialog.Buttons buttons={footerButtons} /> : null}
-    </Dialog.Footer>
-  )
-}
-export const WithCustomRenderers = ({width, height, subtitle}: DialogStoryProps) => {
+export const DialogWithCustomRenderers = ({width, height, subtitle}: DialogStoryProps) => {
   const [isOpen, setIsOpen] = useState(false)
   const onDialogClose = useCallback(() => setIsOpen(false), [])
   return (
@@ -200,7 +208,7 @@ export const WithCustomRenderers = ({width, height, subtitle}: DialogStoryProps)
   )
 }
 
-export const StressTest = ({width, height, subtitle}: DialogStoryProps) => {
+export const DialogWithStressTest = ({width, height, subtitle}: DialogStoryProps) => {
   const [isOpen, setIsOpen] = useState(false)
   const [secondOpen, setSecondOpen] = useState(false)
   const buttonRef = useRef<HTMLButtonElement>(null)
@@ -239,5 +247,86 @@ export const StressTest = ({width, height, subtitle}: DialogStoryProps) => {
         </Dialog>
       )}
     </>
+  )
+}
+
+export const BasicConfirmationDialog = () => {
+  const [isOpen, setIsOpen] = useState(false)
+  const buttonRef = useRef<HTMLButtonElement>(null)
+  const onDialogClose = useCallback(() => setIsOpen(false), [])
+  return (
+    <>
+      <Button ref={buttonRef} onClick={() => setIsOpen(!isOpen)}>
+        Show dialog
+      </Button>
+      {isOpen && (
+        <ConfirmationDialog
+          title="Delete universe?"
+          onClose={onDialogClose}
+          confirmButtonContent="Delete it!"
+          confirmButtonType="danger"
+        >
+          Deleting the universe could have disastrous effects, including but not limited to destroying all life on
+          Earth.
+        </ConfirmationDialog>
+      )}
+    </>
+  )
+}
+
+export const ConfirmationDialogWithShorthandHook = () => {
+  const confirm = useConfirm()
+  const {theme} = useTheme()
+  const onButtonClick = useCallback(
+    async (event: React.MouseEvent) => {
+      if (
+        (await confirm({title: 'Are you sure?', content: 'Do you really want to turn this button green?'})) &&
+        event.target instanceof HTMLElement
+      ) {
+        event.target.style.color = theme?.colors.success.fg ?? 'green'
+        event.target.textContent = "I'm green!"
+      }
+    },
+    [confirm, theme],
+  )
+  return (
+    <Box display="flex" flexDirection="column" alignItems="flex-start">
+      <Button onClick={onButtonClick} sx={{mb: 2}}>
+        Turn me green!
+      </Button>
+      <Button onClick={onButtonClick} sx={{mb: 2}}>
+        Turn me green!
+      </Button>
+      <Button onClick={onButtonClick} sx={{mb: 2}}>
+        Turn me green!
+      </Button>
+      <Button onClick={onButtonClick} sx={{mb: 2}}>
+        Turn me green!
+      </Button>
+    </Box>
+  )
+}
+
+export const ConfirmationDialogWithShorthandHookFromActionMenu = () => {
+  const confirm = useConfirm()
+  const [text, setText] = useState('open me')
+  const onButtonClick = useCallback(async () => {
+    if (await confirm({title: 'Are you sure?', content: 'Do you really want to do a trick?'})) {
+      setText('tada!')
+    }
+  }, [confirm])
+
+  return (
+    <Box display="flex" flexDirection="column" alignItems="flex-start">
+      <ActionMenu>
+        <ActionMenu.Button>{text}</ActionMenu.Button>
+
+        <ActionMenu.Overlay>
+          <ActionList>
+            <ActionList.Item onSelect={onButtonClick}>Do a trick!</ActionList.Item>
+          </ActionList>
+        </ActionMenu.Overlay>
+      </ActionMenu>
+    </Box>
   )
 }
