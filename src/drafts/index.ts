@@ -23,8 +23,6 @@ export type {
 
 export * from '../Dialog/Dialog'
 
-export {default as Hidden, type HiddenProps} from '../Hidden'
-
 export {default as InlineAutocomplete} from './InlineAutocomplete'
 export type {
   InlineAutocompleteProps,
@@ -43,6 +41,8 @@ export * from './MarkdownEditor'
 export * from '../UnderlineNav2'
 
 export * from '../PageHeader'
+
+export * from '../Hidden'
 
 export * from './hooks'
 
