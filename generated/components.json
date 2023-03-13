@@ -2030,7 +2030,12 @@
       "name": "Dialog",
       "status": "draft",
       "a11yReviewed": false,
-      "stories": [],
+      "stories": [
+        {
+          "id": "components-dialog--default",
+          "code": "() => {\n  const [isOpen, setIsOpen] = useState(false)\n  const buttonRef = useRef<HTMLButtonElement>(null)\n  const onDialogClose = useCallback(() => setIsOpen(false), [])\n  return (\n    <>\n      <Button ref={buttonRef} onClick={() => setIsOpen(!isOpen)}>\n        Show dialog\n      </Button>\n      {isOpen && <Dialog onClose={onDialogClose}>Dialog Content</Dialog>}\n    </>\n  )\n}"
+        }
+      ],
       "props": [
         {
           "name": "title",
