@@ -19,7 +19,7 @@ import {
 import VisuallyHidden from '../_VisuallyHidden'
 
 import {PageHeader} from './PageHeader'
-import Hidden from '../Hidden'
+import {Hidden} from '../Hidden'
 
 const meta: Meta = {
   title: 'Drafts/Components/PageHeader/Features',
