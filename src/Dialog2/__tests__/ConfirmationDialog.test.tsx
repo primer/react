@@ -2,15 +2,15 @@ import {render as HTMLRender, act, fireEvent} from '@testing-library/react'
 import {axe} from 'jest-axe'
 import React, {useCallback, useRef, useState} from 'react'
 
-import {ActionMenu} from '../deprecated/ActionMenu'
-import BaseStyles from '../BaseStyles'
-import Box from '../Box'
-import Button from '../deprecated/Button/Button'
-import {ConfirmationDialog, useConfirm} from '../Dialog/ConfirmationDialog'
-import theme from '../theme'
-import {ThemeProvider} from '../ThemeProvider'
-import {SSRProvider} from '../utils/ssr'
-import {behavesAsComponent, checkExports} from '../utils/testing'
+import {ActionMenu} from '../../deprecated/ActionMenu'
+import BaseStyles from '../../BaseStyles'
+import Box from '../../Box'
+import Button from '../../deprecated/Button/Button'
+import {ConfirmationDialog, useConfirm} from '../ConfirmationDialog'
+import theme from '../../theme'
+import {ThemeProvider} from '../../ThemeProvider'
+import {SSRProvider} from '../../utils/ssr'
+import {behavesAsComponent, checkExports} from '../../utils/testing'
 
 declare const REACT_VERSION_LATEST: boolean
 
@@ -80,7 +80,7 @@ describe('ConfirmationDialog', () => {
     options: {skipAs: true, skipSx: true},
   })
 
-  checkExports('Dialog/ConfirmationDialog', {
+  checkExports('Dialog2/ConfirmationDialog', {
     default: undefined,
     useConfirm,
     ConfirmationDialog,
@@ -140,9 +140,7 @@ describe('ConfirmationDialog', () => {
     // REACT_VERSION_LATEST should be treated as a constant for the test
     // environment
     if (REACT_VERSION_LATEST) {
-      // eslint-disable-next-line jest/no-conditional-expect
       expect(spy).toHaveBeenCalledTimes(1)
-      // eslint-disable-next-line jest/no-conditional-expect
       expect(spy).toHaveBeenCalledWith(
         expect.stringContaining('Warning: ReactDOM.render is no longer supported in React 18'),
       )
