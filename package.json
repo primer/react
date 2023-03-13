@@ -206,7 +206,7 @@
     "jest-matchmedia-mock": "1.1.0",
     "jest-styled-components": "6.3.4",
     "jest-watch-typeahead": "2.1.1",
-    "jscodeshift": "0.13.0",
+    "jscodeshift": "0.14.0",
     "lint-staged": "13.1.0",
     "lodash.groupby": "4.6.0",
     "lodash.isempty": "4.4.0",
