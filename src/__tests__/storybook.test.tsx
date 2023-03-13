@@ -20,6 +20,7 @@ const allowlist = [
   'CounterLabel',
   'DataTable',
   'Details',
+  'Dialog2',
   'Flash',
   'Heading',
   'IconButton',
