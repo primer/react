@@ -5,22 +5,22 @@
   "a11yReviewed": false,
   "stories": [
     {
-      "id": "drafts-components-datatable-features--with-title"
+      "id": "components-datatable-features--with-title"
     },
     {
-      "id": "drafts-components-datatable-features--with-title-and-subtitle"
+      "id": "components-datatable-features--with-title-and-subtitle"
     },
     {
-      "id": "drafts-components-datatable-features--with-sorting"
+      "id": "components-datatable-features--with-sorting"
     },
     {
-      "id": "drafts-components-datatable-features--with-actions"
+      "id": "components-datatable-features--with-actions"
     },
     {
-      "id": "drafts-components-datatable-features--with-action"
+      "id": "components-datatable-features--with-action"
     },
     {
-      "id": "drafts-components-datatable-features--with-custom-heading"
+      "id": "components-datatable-features--with-custom-heading"
     }
   ],
   "props": [
