@@ -5,7 +5,7 @@
 | Stage    | Status |
 | -------- | ------ |
 | Approved | ✅     |
-| Adopted  | ❓     |
+| Adopted  | 🚧     |
 
 ## Context
 
