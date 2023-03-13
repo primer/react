@@ -308,7 +308,6 @@ exports[`NavList renders a simple list 1`] = `
       class="c0"
     >
       <ul
-        aria-busy="true"
         class="c1"
       >
         <li
@@ -727,7 +726,6 @@ exports[`NavList renders with groups 1`] = `
       class="c0"
     >
       <ul
-        aria-busy="true"
         class="c1"
       >
         <li
@@ -1227,7 +1225,6 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
       class="c0"
     >
       <ul
-        aria-busy="true"
         class="c1"
       >
         <li
@@ -1722,7 +1719,6 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
       class="c0"
     >
       <ul
-        aria-busy="true"
         class="c1"
       >
         <li
