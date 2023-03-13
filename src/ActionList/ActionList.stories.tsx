@@ -241,8 +241,13 @@ LinkItemPlayground.argTypes = {
     type: 'string',
   },
 }
-export const HeadingPlayground: Story<ActionListProps> = args => (
-  <ActionList headingProps={{title: 'Group title'}} {...args}>
+
+type HeadingProps = {
+  headingVariant?: 'subtle' | 'filled'
+}
+
+export const HeadingPlayground: Story<ActionListProps & HeadingProps> = args => (
+  <ActionList headingProps={{title: 'Group title', variant: args.headingVariant}} {...args}>
     <ActionList.Item>Copy link</ActionList.Item>
     <ActionList.Item>Quote reply</ActionList.Item>
     <ActionList.Item>Edit comment</ActionList.Item>
@@ -253,5 +258,37 @@ HeadingPlayground.args = {
   showDividers: false,
   selectionVariant: undefined,
   variant: 'inset',
+  headingVariant: 'subtle',
   role: 'list',
+}
+
+HeadingPlayground.argTypes = {
+  showDividers: {
+    control: {
+      type: 'boolean',
+    },
+  },
+  variant: {
+    control: {
+      type: 'radio',
+    },
+    options: ['inset', 'full'],
+  },
+  selectionVariant: {
+    control: {
+      type: 'radio',
+      labels: ['single', 'multiple', 'unset'],
+    },
+    options: [0, 1, 2],
+    mapping: ['single', 'multiple', null],
+  },
+  role: {
+    type: 'string',
+  },
+  headingVariant: {
+    control: {
+      type: 'radio',
+    },
+    options: ['subtle', 'filled'],
+  },
 }
