@@ -26,7 +26,7 @@ describe('Hidden', () => {
   })
 
   checkExports('Hidden', {
-    default: undefined,
+    default: Hidden,
     Hidden,
   })
 
