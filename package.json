@@ -114,7 +114,7 @@
   },
   "devDependencies": {
     "@actions/core": "1.10.0",
-    "@babel/cli": "7.19.3",
+    "@babel/cli": "7.21.0",
     "@babel/core": "7.21.0",
     "@babel/eslint-parser": "7.19.1",
     "@babel/plugin-proposal-nullish-coalescing-operator": "7.18.6",
