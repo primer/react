@@ -247,6 +247,7 @@ export const MultipleSections = () => {
       </ActionMenu.Anchor>
       <ActionMenu.Overlay width="small">
         <ActionList
+          aria-busy="true"
           headingProps={{
             title: 'Raw file content',
           }}

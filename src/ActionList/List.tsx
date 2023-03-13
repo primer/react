@@ -79,7 +79,6 @@ export const List = React.forwardRef<HTMLUListElement, ActionListProps>(
           sx={innerStyles}
           role={role || listRole}
           aria-labelledby={headingProps ? id : listLabelledBy}
-          aria-busy="true"
           {...props}
           ref={forwardedRef}
         >
