@@ -4,7 +4,7 @@ import Box from './Box'
 
 export default {
   title: 'Components/Box/Features',
-  component: Box
+  component: Box,
 } as ComponentMeta<typeof Box>
 
 export const Border = () => (

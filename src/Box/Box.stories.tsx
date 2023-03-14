@@ -4,7 +4,7 @@ import Box from './Box'
 
 export default {
   title: 'Components/Box',
-  component: Box
+  component: Box,
 } as Meta<typeof Box>
 
 export const Default = () => <Box>Default Box</Box>
@@ -17,27 +17,27 @@ Playground.args = {
     borderWidth: 1,
     borderStyle: 'solid',
     borderColor: 'border.default',
-    p: 3
-  }
+    p: 3,
+  },
 }
 
 Playground.argTypes = {
   forwardedAs: {
     controls: false,
     table: {
-      disable: true
-    }
+      disable: true,
+    },
   },
   ref: {
     controls: false,
     table: {
-      disable: true
-    }
+      disable: true,
+    },
   },
   theme: {
     controls: false,
     table: {
-      disable: true
-    }
-  }
+      disable: true,
+    },
+  },
 }
