@@ -30,6 +30,9 @@
     },
     {
       "id": "components-datatable-features--with-custom-heading"
+    },
+    {
+      "id": "components-datatable-features--with-no-content"
     }
   ],
   "props": [
