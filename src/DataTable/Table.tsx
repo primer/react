@@ -5,10 +5,15 @@ import Box from '../Box'
 import {get} from '../constants'
 import sx, {SxProp} from '../sx'
 import {SortDirection} from './sorting'
+import {useOverflow} from '../hooks/useOverflow'
 
 // ----------------------------------------------------------------------------
 // Table
 // ----------------------------------------------------------------------------
+
+const TableContext = React.createContext({
+  hasOverflow: false,
+})
 
 const StyledTable = styled.table<React.ComponentPropsWithoutRef<'table'>>`
   /* Default table styles */
@@ -22,7 +27,6 @@ const StyledTable = styled.table<React.ComponentPropsWithoutRef<'table'>>`
   font-size: var(--table-font-size);
   line-height: calc(20 / var(--table-font-size));
   width: 100%;
-  overflow-x: auto;
 
   /* Density modes: condensed, normal, spacious */
   &[data-cell-padding='condensed'] {
@@ -158,8 +162,24 @@ export type TableProps = React.ComponentPropsWithoutRef<'table'> & {
   cellPadding?: 'condensed' | 'normal' | 'spacious'
 }
 
-const Table = React.forwardRef<HTMLTableElement, TableProps>(function Table({cellPadding = 'normal', ...rest}, ref) {
-  return <StyledTable {...rest} data-cell-padding={cellPadding} className="Table" ref={ref} />
+const Table = React.forwardRef<HTMLTableElement, TableProps>(function Table(
+  {'aria-labelledby': labelledby, cellPadding = 'normal', ...rest},
+  ref,
+) {
+  const tableContext = React.useContext(TableContext)
+  if (tableContext.hasOverflow === false) {
+    return (
+      <StyledTable {...rest} aria-labelledby={labelledby} data-cell-padding={cellPadding} className="Table" ref={ref} />
+    )
+  }
+  return (
+    // The scrollable region should be focusable and requires a tabindex to be
+    // present
+    // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
+    <div aria-labelledby={labelledby} className="TableOverflowWrapper" role="region" tabIndex={0}>
+      <StyledTable {...rest} aria-labelledby={labelledby} data-cell-padding={cellPadding} className="Table" ref={ref} />
+    </div>
+  )
 })
 
 // ----------------------------------------------------------------------------
@@ -280,6 +300,7 @@ const StyledTableContainer = styled.div`
     'table table'
     'footer footer';
   column-gap: ${get('space.2')};
+  overflow-x: auto;
 
   ${sx}
 
@@ -321,12 +342,30 @@ const StyledTableContainer = styled.div`
   .TableActions + .Table {
     margin-top: ${get('space.2')};
   }
+
+  .TableOverflowWrapper {
+    grid-area: table;
+  }
 `
 
 export type TableContainerProps = React.PropsWithChildren<SxProp>
 
 function TableContainer({children, sx}: TableContainerProps) {
-  return <StyledTableContainer sx={sx}>{children}</StyledTableContainer>
+  const ref = React.useRef(null)
+  const hasOverflow = useOverflow(ref)
+  const value = React.useMemo(() => {
+    return {
+      hasOverflow,
+    }
+  }, [hasOverflow])
+
+  return (
+    <TableContext.Provider value={value}>
+      <StyledTableContainer ref={ref} sx={sx}>
+        {children}
+      </StyledTableContainer>
+    </TableContext.Provider>
+  )
 }
 
 export type TableTitleProps = React.PropsWithChildren<{
