@@ -757,5 +757,56 @@ describe('DataTable', () => {
         [1, 3],
       ])
     })
+
+    it('should support a custom sort function', async () => {
+      const user = userEvent.setup()
+      const customSortFn = jest.fn().mockImplementation((a, b) => {
+        return a.value - b.value
+      })
+
+      render(
+        <DataTable
+          data={[
+            {
+              id: 1,
+              value: 1,
+            },
+            {
+              id: 2,
+              value: 2,
+            },
+            {
+              id: 3,
+              value: 3,
+            },
+          ]}
+          columns={[
+            {
+              header: 'Value',
+              field: 'value',
+              sortBy: customSortFn,
+            },
+          ]}
+          initialSortColumn="value"
+          initialSortDirection="ASC"
+        />,
+      )
+
+      function getRowOrder() {
+        return screen
+          .getAllByRole('row')
+          .filter(row => {
+            return queryByRole(row, 'cell')
+          })
+          .map(row => {
+            const cell = getByRole(row, 'cell')
+            return cell.textContent
+          })
+      }
+
+      await user.click(screen.getByText('Value'))
+      expect(customSortFn).toHaveBeenCalled()
+      expect(getRowOrder()).toEqual(['3', '2', '1'])
+    })
   })
 })

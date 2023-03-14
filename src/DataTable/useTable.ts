@@ -141,13 +141,25 @@ export function useTable<Data extends UniqueRow>({
           return 0
         }
 
+        // Custom sort functions operate on the row versus the field
+        if (typeof header.column.sortBy === 'function') {
+          if (state.direction === SortDirection.ASC) {
+            // @ts-ignore todo
+            return sortMethod(a, b)
+          }
+          // @ts-ignore todo
+          return sortMethod(b, a)
+        }
+
         const valueA = get(a, header.column.field)
         const valueB = get(b, header.column.field)
 
         if (state.direction === SortDirection.ASC) {
-          return sortMethod(valueB, valueA)
+          // @ts-ignore todo
+          return sortMethod(valueA, valueB)
         }
-        return sortMethod(valueA, valueB)
+        // @ts-ignore todo
+        return sortMethod(valueB, valueA)
       })
     })
   }
