@@ -14,6 +14,7 @@ const allowlist = [
   'AvatarPair',
   'Breadcrumbs',
   'BranchName',
+  'Blankslate',
   'Button',
   'Checkbox',
   'CheckboxGroup',
