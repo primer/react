@@ -1,5 +1,5 @@
 ---
-'@primer/react': minor
+'@primer/react': patch
 ---
 
-Add 'tooltip-direction' property to the TextInputAction
+Add the `tooltip-direction` property to the `TextInput.Action` component to make the tooltip position flexible.
