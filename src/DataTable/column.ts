@@ -9,7 +9,7 @@ export interface Column<Data extends UniqueRow> {
    * Provide the name of the column. This will be rendered as a table header
    * within the table itself
    */
-  header: string
+  header: string | (() => React.ReactNode)
 
   /**
    * Optionally provide a field to render for this column. This may be the key
@@ -19,7 +19,7 @@ export interface Column<Data extends UniqueRow> {
    * Alternatively, you may provide a `renderCell` for this column to render the
    * field in a row
    */
-  field: ObjectPaths<Data>
+  field?: ObjectPaths<Data>
 
   /**
    * Provide a custom component or render prop to render the data for this

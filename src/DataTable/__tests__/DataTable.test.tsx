@@ -274,144 +274,280 @@ describe('DataTable', () => {
   })
 
   describe('sorting', () => {
-    it('should set the default sort state of a sortable table', () => {
-      render(
-        <DataTable
-          data={[
-            {
-              id: 1,
-              value: 1,
-            },
-            {
-              id: 2,
-              value: 2,
-            },
-            {
-              id: 3,
-              value: 3,
-            },
-          ]}
-          columns={[
-            {
-              header: 'Value',
-              field: 'value',
-              sortBy: true,
-            },
-          ]}
-          initialSortColumn="value"
-          initialSortDirection="ASC"
-        />,
-      )
+    describe('initial state', () => {
+      it('should set the default sort state of a sortable table', () => {
+        render(
+          <DataTable
+            data={[
+              {
+                id: 1,
+                value: 1,
+              },
+              {
+                id: 2,
+                value: 2,
+              },
+              {
+                id: 3,
+                value: 3,
+              },
+            ]}
+            columns={[
+              {
+                header: 'Value',
+                field: 'value',
+                sortBy: true,
+              },
+            ]}
+            initialSortColumn="value"
+            initialSortDirection="ASC"
+          />,
+        )
 
-      const header = screen.getByRole('columnheader', {
-        name: 'Value',
-      })
-      expect(header).toHaveAttribute('aria-sort', 'ascending')
-
-      const rows = screen
-        .getAllByRole('row')
-        .filter(row => {
-          return queryByRole(row, 'cell')
+        const header = screen.getByRole('columnheader', {
+          name: 'Value',
         })
-        .map(row => {
-          const cell = getByRole(row, 'cell')
-          return cell.textContent
-        })
-      expect(rows).toEqual(['1', '2', '3'])
-    })
+        expect(header).toHaveAttribute('aria-sort', 'ascending')
 
-    it('should set the default sort state of the first sortable column if only `initialSortDirection` is provided', () => {
-      render(
-        <DataTable
-          data={[
-            {
-              id: 1,
-              fieldOne: 'a',
-              fieldTwo: 'c',
-            },
-            {
-              id: 2,
-              fieldOne: 'b',
-              fieldTwo: 'b',
-            },
-            {
-              id: 3,
-              fieldOne: 'c',
-              fieldTwo: 'a',
-            },
-          ]}
-          columns={[
-            {
-              header: 'Field One',
-              field: 'fieldOne',
-            },
-            {
-              header: 'Field Two',
-              field: 'fieldTwo',
-              sortBy: true,
-            },
-          ]}
-          initialSortDirection="ASC"
-        />,
-      )
-
-      const header = screen.getByRole('columnheader', {
-        name: 'Field Two',
+        const rows = screen
+          .getAllByRole('row')
+          .filter(row => {
+            return queryByRole(row, 'cell')
+          })
+          .map(row => {
+            const cell = getByRole(row, 'cell')
+            return cell.textContent
+          })
+        expect(rows).toEqual(['1', '2', '3'])
       })
-      expect(header).toHaveAttribute('aria-sort', 'ascending')
 
-      const body = screen.getByRole('table').querySelector('tbody') as HTMLTableSectionElement
-      const rows = queryAllByRole(body, 'row').map(row => {
-        const cells = queryAllByRole(row, 'cell').map(cell => {
-          return cell.textContent
+      it('should set the default sort state if `initialSortColumn` is provided', () => {
+        render(
+          <DataTable
+            data={[
+              {
+                id: 1,
+                fieldOne: 'a',
+                fieldTwo: 'c',
+              },
+              {
+                id: 2,
+                fieldOne: 'b',
+                fieldTwo: 'b',
+              },
+              {
+                id: 3,
+                fieldOne: 'c',
+                fieldTwo: 'a',
+              },
+            ]}
+            columns={[
+              {
+                header: 'Field One',
+                field: 'fieldOne',
+                sortBy: true,
+              },
+              {
+                header: 'Field Two',
+                field: 'fieldTwo',
+              },
+            ]}
+            initialSortColumn="fieldOne"
+          />,
+        )
+
+        const header = screen.getByRole('columnheader', {
+          name: 'Field One',
         })
-        return cells
+        expect(header).toHaveAttribute('aria-sort', 'ascending')
       })
-      expect(rows).toEqual([
-        ['a', 'c'],
-        ['b', 'b'],
-        ['c', 'a'],
-      ])
-    })
 
-    it('should not set a default sort state if `initialSortDirection` is provided but no columns are sortable', () => {
-      render(
-        <DataTable
-          data={[
-            {
-              id: 1,
-              fieldOne: 'a',
-              fieldTwo: 'c',
-            },
-            {
-              id: 2,
-              fieldOne: 'b',
-              fieldTwo: 'b',
-            },
-            {
-              id: 3,
-              fieldOne: 'c',
-              fieldTwo: 'a',
-            },
-          ]}
-          columns={[
-            {
-              header: 'Field One',
-              field: 'fieldOne',
-            },
-            {
-              header: 'Field Two',
-              field: 'fieldTwo',
-            },
-          ]}
-          initialSortDirection="ASC"
-        />,
-      )
+      it('should not set a default sort state if `initialSortColumn` is provided but no columns are sortable', () => {
+        const spy = jest.spyOn(console, 'warn').mockImplementationOnce(() => {})
 
-      const headers = screen.getAllByRole('columnheader')
-      for (const header of headers) {
-        expect(header).not.toHaveAttribute('aria-sort')
-      }
+        render(
+          <DataTable
+            data={[
+              {
+                id: 1,
+                fieldOne: 'a',
+                fieldTwo: 'c',
+              },
+              {
+                id: 2,
+                fieldOne: 'b',
+                fieldTwo: 'b',
+              },
+              {
+                id: 3,
+                fieldOne: 'c',
+                fieldTwo: 'a',
+              },
+            ]}
+            columns={[
+              {
+                header: 'Field One',
+                field: 'fieldOne',
+              },
+              {
+                header: 'Field Two',
+                field: 'fieldTwo',
+              },
+            ]}
+            initialSortColumn={1}
+          />,
+        )
+
+        const headers = screen.getAllByRole('columnheader')
+        for (const header of headers) {
+          expect(header).not.toHaveAttribute('aria-sort')
+        }
+
+        expect(spy).toHaveBeenCalled()
+        spy.mockRestore()
+      })
+
+      it('should not set a default sort state if `initialSortColumn` is provided but does not correspond to a column', () => {
+        const spy = jest.spyOn(console, 'warn').mockImplementationOnce(() => {})
+        render(
+          <DataTable
+            data={[
+              {
+                id: 1,
+                fieldOne: 'a',
+                fieldTwo: 'c',
+              },
+              {
+                id: 2,
+                fieldOne: 'b',
+                fieldTwo: 'b',
+              },
+              {
+                id: 3,
+                fieldOne: 'c',
+                fieldTwo: 'a',
+              },
+            ]}
+            columns={[
+              {
+                header: 'Field One',
+                field: 'fieldOne',
+              },
+              {
+                header: 'Field Two',
+                field: 'fieldTwo',
+              },
+            ]}
+            initialSortColumn={100}
+          />,
+        )
+
+        const headers = screen.getAllByRole('columnheader')
+        for (const header of headers) {
+          expect(header).not.toHaveAttribute('aria-sort')
+        }
+
+        expect(spy).toHaveBeenCalled()
+        spy.mockRestore()
+      })
+
+      it('should set the default sort state of the first sortable column if only `initialSortDirection` is provided', () => {
+        render(
+          <DataTable
+            data={[
+              {
+                id: 1,
+                fieldOne: 'a',
+                fieldTwo: 'c',
+              },
+              {
+                id: 2,
+                fieldOne: 'b',
+                fieldTwo: 'b',
+              },
+              {
+                id: 3,
+                fieldOne: 'c',
+                fieldTwo: 'a',
+              },
+            ]}
+            columns={[
+              {
+                header: 'Field One',
+                field: 'fieldOne',
+              },
+              {
+                header: 'Field Two',
+                field: 'fieldTwo',
+                sortBy: true,
+              },
+            ]}
+            initialSortDirection="ASC"
+          />,
+        )
+
+        const header = screen.getByRole('columnheader', {
+          name: 'Field Two',
+        })
+        expect(header).toHaveAttribute('aria-sort', 'ascending')
+
+        const body = screen.getByRole('table').querySelector('tbody') as HTMLTableSectionElement
+        const rows = queryAllByRole(body, 'row').map(row => {
+          const cells = queryAllByRole(row, 'cell').map(cell => {
+            return cell.textContent
+          })
+          return cells
+        })
+        expect(rows).toEqual([
+          ['a', 'c'],
+          ['b', 'b'],
+          ['c', 'a'],
+        ])
+      })
+
+      it('should not set a default sort state if `initialSortDirection` is provided but no columns are sortable', () => {
+        const spy = jest.spyOn(console, 'warn').mockImplementationOnce(() => {})
+        render(
+          <DataTable
+            data={[
+              {
+                id: 1,
+                fieldOne: 'a',
+                fieldTwo: 'c',
+              },
+              {
+                id: 2,
+                fieldOne: 'b',
+                fieldTwo: 'b',
+              },
+              {
+                id: 3,
+                fieldOne: 'c',
+                fieldTwo: 'a',
+              },
+            ]}
+            columns={[
+              {
+                header: 'Field One',
+                field: 'fieldOne',
+              },
+              {
+                header: 'Field Two',
+                field: 'fieldTwo',
+              },
+            ]}
+            initialSortDirection="ASC"
+          />,
+        )
+
+        const headers = screen.getAllByRole('columnheader')
+        for (const header of headers) {
+          expect(header).not.toHaveAttribute('aria-sort')
+        }
+
+        expect(spy).toHaveBeenCalled()
+        spy.mockRestore()
+      })
     })
 
     it('should change the sort direction on mouse click', async () => {
@@ -575,6 +711,7 @@ describe('DataTable', () => {
               sortBy: true,
             },
           ]}
+          initialSortColumn="columnA"
         />,
       )
 

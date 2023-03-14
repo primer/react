@@ -350,10 +350,8 @@ describe('TextInputWithTokens', () => {
       for (const tokenLabel of allTokenLabels) {
         const tokenNode = getByText(tokenLabel)
         if (allTokenLabels.indexOf(tokenLabel) > visibleTokenCount) {
-          // eslint-disable-next-line jest/no-conditional-expect
           expect(tokenNode).toBeDefined()
         } else {
-          // eslint-disable-next-line jest/no-conditional-expect
           expect(tokenNode).not.toBeDefined()
         }
       }

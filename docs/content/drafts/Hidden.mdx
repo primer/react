@@ -18,7 +18,7 @@ The `Hidden` component is a utility component that will help you hide or show co
 ### Single viewport value provided
 
 ```jsx live drafts
-<Hidden on="narrow">
+<Hidden when="narrow">
   <Placeholder height="80px" label="This is not visible in narrow viewport" />
 </Hidden>
 ```
@@ -26,7 +26,7 @@ The `Hidden` component is a utility component that will help you hide or show co
 ### Multiple viewport values provided
 
 ```jsx live drafts
-<Hidden on={['narrow', 'wide']}>
+<Hidden when={['narrow', 'wide']}>
   <Placeholder height="80px" label="This is not visible in narrow and wide viewport" />
 </Hidden>
 ```

@@ -6,7 +6,7 @@ import LabelGroup from '../LabelGroup'
 import RelativeTime from '../RelativeTime'
 
 export default {
-  title: 'Drafts/Components/DataTable',
+  title: 'Components/DataTable',
   component: DataTable,
 } as Meta<typeof DataTable>
 

@@ -1,5 +1,6 @@
 import React, {createContext, useContext, useState, useEffect} from 'react'
 import {canUseDOM} from '../utils/environment'
+import {warning} from '../utils/warning'
 
 /**
  * `useMedia` will use the given `mediaQueryString` with `matchMedia` to
@@ -31,12 +32,10 @@ export function useMedia(mediaQueryString: string, defaultState?: boolean) {
     }
 
     // A default value has not been provided, and you are rendering on the server, warn of a possible hydration mismatch when defaulting to false.
-    if (process.env.NODE_ENV !== 'production') {
-      // eslint-disable-next-line no-console
-      console.warn(
-        '`useMedia` When server side rendering, defaultState should be defined to prevent a hydration mismatches.',
-      )
-    }
+    warning(
+      true,
+      '`useMedia` When server side rendering, defaultState should be defined to prevent a hydration mismatches.',
+    )
 
     return false
   })
