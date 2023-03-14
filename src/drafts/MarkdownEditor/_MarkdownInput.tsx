@@ -30,6 +30,8 @@ interface MarkdownInputProps extends Omit<TextareaProps, 'onChange'> {
   visible: boolean
 }
 
+const emptyArray: [] = [] // constant reference to avoid re-running effects
+
 export const MarkdownInput = forwardRef<HTMLTextAreaElement, MarkdownInputProps>(
   (
     {
@@ -58,13 +60,13 @@ export const MarkdownInput = forwardRef<HTMLTextAreaElement, MarkdownInputProps>
     const [event, setEvent] = useState<ShowSuggestionsEvent | null>(null)
 
     const {trigger: emojiTrigger, calculateSuggestions: calculateEmojiSuggestions} = useEmojiSuggestions(
-      emojiSuggestions ?? [],
+      emojiSuggestions ?? emptyArray,
     )
     const {trigger: mentionsTrigger, calculateSuggestions: calculateMentionSuggestions} = useMentionSuggestions(
-      mentionSuggestions ?? [],
+      mentionSuggestions ?? emptyArray,
     )
     const {trigger: referencesTrigger, calculateSuggestions: calculateReferenceSuggestions} = useReferenceSuggestions(
-      referenceSuggestions ?? [],
+      referenceSuggestions ?? emptyArray,
     )
 
     const triggers = useMemo(
