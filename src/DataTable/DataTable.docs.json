@@ -5,19 +5,22 @@
   "a11yReviewed": false,
   "stories": [
     {
-      "id": "drafts-components-datatable--with-title"
+      "id": "components-datatable-features--with-title"
     },
     {
-      "id": "drafts-components-datatable--with-title-and-subtitle"
+      "id": "components-datatable-features--with-title-and-subtitle"
     },
     {
-      "id": "drafts-components-datatable--with-sorting"
+      "id": "components-datatable-features--with-sorting"
     },
     {
-      "id": "drafts-components-datatable--with-actions"
+      "id": "components-datatable-features--with-actions"
     },
     {
-      "id": "drafts-components-datatable--with-action"
+      "id": "components-datatable-features--with-action"
+    },
+    {
+      "id": "components-datatable-features--with-custom-heading"
     }
   ],
   "props": [
@@ -73,7 +76,7 @@
       ]
     },
     {
-      "name": "TableHead",
+      "name": "Table.Head",
       "props": [
         {
           "name": "children",
@@ -82,7 +85,7 @@
       ]
     },
     {
-      "name": "TableBody",
+      "name": "Table.Body",
       "props": [
         {
           "name": "children",
@@ -91,7 +94,7 @@
       ]
     },
     {
-      "name": "TableRow",
+      "name": "Table.Row",
       "props": [
         {
           "name": "children",
@@ -100,7 +103,7 @@
       ]
     },
     {
-      "name": "TableHeader",
+      "name": "Table.Header",
       "props": [
         {
           "name": "children",
@@ -109,7 +112,7 @@
       ]
     },
     {
-      "name": "TableCell",
+      "name": "Table.Cell",
       "props": [
         {
           "name": "children",
@@ -123,7 +126,7 @@
       ]
     },
     {
-      "name": "TableContainer",
+      "name": "Table.Container",
       "props": [
         {
           "name": "children",
@@ -132,7 +135,7 @@
       ]
     },
     {
-      "name": "TableTitle",
+      "name": "Table.Title",
       "props": [
         {
           "name": "children",
@@ -146,7 +149,7 @@
       ]
     },
     {
-      "name": "TableSubtitle",
+      "name": "Table.Subtitle",
       "props": [
         {
           "name": "children",

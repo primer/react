@@ -337,6 +337,25 @@ const components = new Map([
     },
   ],
   [
+    'DialogV2',
+    {
+      stories: [
+        {
+          id: 'drafts-components-dialog--default',
+          name: 'Default',
+        },
+        {
+          id: 'drafts-components-dialog-features--basic-dialog',
+          name: 'Basic Dialog',
+        },
+        {
+          id: 'drafts-components-dialog-features--basic-confirmation-dialog',
+          name: 'Basic Confirmation Dialog',
+        },
+      ],
+    },
+  ],
+  [
     'Flash',
     {
       stories: [
@@ -369,6 +388,17 @@ const components = new Map([
       stories: [
         {
           id: 'components-heading--default',
+          name: 'Default',
+        },
+      ],
+    },
+  ],
+  [
+    'Hidden',
+    {
+      stories: [
+        {
+          id: 'drafts-components-hidden--default',
           name: 'Default',
         },
       ],
@@ -789,6 +819,45 @@ const components = new Map([
     },
   ],
   [
+    'Textarea',
+    {
+      stories: [
+        {
+          id: 'components-textarea--default',
+          name: 'Default',
+        },
+        {
+          id: 'components-textarea-features--block',
+          name: 'Block',
+        },
+        {
+          id: 'components-textarea-features--disabled',
+          name: 'Disabled',
+        },
+        {
+          id: 'components-textarea-features--error',
+          name: 'Error',
+        },
+        {
+          id: 'components-textarea-features--success',
+          name: 'Success',
+        },
+        {
+          id: 'components-textarea-features--visually-hidden-label',
+          name: 'Visually Hidden Label',
+        },
+        {
+          id: 'components-textarea-features--warning',
+          name: 'Warning',
+        },
+        {
+          id: 'components-textarea-features--with-caption',
+          name: 'With Caption',
+        },
+      ],
+    },
+  ],
+  [
     'TextInput',
     {
       stories: [
@@ -1006,6 +1075,45 @@ const components = new Map([
         {
           id: 'components-treeview-features--files-changed',
           name: 'Files Changed',
+        },
+      ],
+    },
+  ],
+  [
+    'Token',
+    {
+      stories: [
+        {
+          id: 'components-token--default',
+          name: 'Default',
+        },
+        {
+          id: 'components-token-features--small-token',
+          name: 'Small Token',
+        },
+        {
+          id: 'components-token-features--large-token',
+          name: 'Large Token',
+        },
+        {
+          id: 'components-token-features--x-large-token',
+          name: 'Xlarge Token',
+        },
+        {
+          id: 'components-token-features--token-with-leading-visual',
+          name: 'Token With Leading Visual',
+        },
+        {
+          id: 'components-token-features--token-with-on-remove-fn',
+          name: 'Token With On Remove Fn',
+        },
+        {
+          id: 'components-token-features--default-issue-label-token',
+          name: 'Default Issue Label Token',
+        },
+        {
+          id: 'components-token-features--issue-label-token-with-on-remove-fn',
+          name: 'Issue Label Token With On Remove Fn',
         },
       ],
     },

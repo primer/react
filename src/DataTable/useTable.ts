@@ -7,7 +7,7 @@ import {ObjectPathValue} from './utils'
 interface TableConfig<Data extends UniqueRow> {
   columns: Array<Column<Data>>
   data: Array<Data>
-  initialSortColumn?: string
+  initialSortColumn?: string | number
   initialSortDirection?: Exclude<SortDirection, 'NONE'>
 }
 
@@ -39,7 +39,7 @@ interface Cell<Data extends UniqueRow> {
   rowHeader: boolean
 }
 
-type ColumnSortState = {id: string; direction: Exclude<SortDirection, 'NONE'>} | null
+type ColumnSortState = {id: string | number; direction: Exclude<SortDirection, 'NONE'>} | null
 
 export function useTable<Data extends UniqueRow>({
   columns,
@@ -51,42 +51,7 @@ export function useTable<Data extends UniqueRow>({
   const [prevData, setPrevData] = useState(data)
   const [prevColumns, setPrevColumns] = useState(columns)
   const [sortByColumn, setSortByColumn] = useState<ColumnSortState>(() => {
-    if (initialSortColumn) {
-      if (initialSortDirection) {
-        return {
-          id: initialSortColumn,
-          direction: initialSortDirection,
-        }
-      }
-      return {
-        id: initialSortColumn,
-        direction: DEFAULT_SORT_DIRECTION,
-      }
-    }
-
-    if (initialSortDirection) {
-      const defaultSortColumn = columns.find(column => {
-        return column.sortBy
-      })
-      if (defaultSortColumn) {
-        return {
-          id: defaultSortColumn.id ?? defaultSortColumn.field,
-          direction: initialSortDirection,
-        }
-      }
-    }
-
-    const sortableColumn = columns.find(column => {
-      return column.sortBy
-    })
-    if (sortableColumn) {
-      return {
-        id: sortableColumn.id ?? sortableColumn.field,
-        direction: DEFAULT_SORT_DIRECTION,
-      }
-    }
-
-    return null
+    return getInitialSortState(columns, initialSortColumn, initialSortDirection)
   })
 
   // Reset the `sortByColumn` state if the columns change and that column is no
@@ -205,6 +170,66 @@ export function useTable<Data extends UniqueRow>({
       sortBy,
     },
   }
+}
+
+function getInitialSortState<Data extends UniqueRow>(
+  columns: Array<Column<Data>>,
+  initialSortColumn?: string | number,
+  initialSortDirection?: Exclude<SortDirection, 'NONE'>,
+) {
+  if (initialSortColumn !== undefined) {
+    const column = columns.find(column => {
+      return column.id === initialSortColumn || column.field === initialSortColumn
+    })
+
+    if (column === undefined) {
+      if (__DEV__) {
+        // eslint-disable-next-line no-console
+        console.warn(
+          `Warning: Unable to find a column with id or field set to: ${initialSortColumn}. Please provide a value to \`initialSortColumn\` which corresponds to a \`id\` or \`field\` value in a column.`,
+        )
+      }
+      return null
+    }
+
+    if (column.sortBy === false || column.sortBy === undefined) {
+      if (__DEV__) {
+        // eslint-disable-next-line no-console
+        console.warn(
+          `Warning: The column specified by initialSortColumn={${initialSortColumn}} is not sortable. Please set \`sortBy\` to true or provide a sort strategy.`,
+        )
+      }
+      return null
+    }
+
+    return {
+      id: initialSortColumn,
+      direction: initialSortDirection ?? DEFAULT_SORT_DIRECTION,
+    }
+  }
+
+  if (initialSortDirection !== undefined) {
+    const column = columns.find(column => {
+      return column.sortBy !== false && column.sortBy !== undefined
+    })
+
+    if (!column) {
+      if (__DEV__) {
+        // eslint-disable-next-line no-console
+        console.warn(
+          `Warning: An initialSortDirection value was provided but no columns are sortable. Please set \`sortBy\` to true or provide a sort strategy to a column.`,
+        )
+      }
+      return null
+    }
+
+    return {
+      id: column.id ?? column.field,
+      direction: initialSortDirection,
+    }
+  }
+
+  return null
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
