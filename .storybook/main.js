@@ -2,9 +2,14 @@
  * @type {import('@storybook/core-common').StorybookConfig}
  */
 module.exports = {
-  stories: ['../src/**/*.stories.mdx', '../src/**/*.stories.@(js|jsx|ts|tsx)'],
+  stories: ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|ts|tsx)'],
   addons: [
-    {name: '@storybook/addon-essentials', options: {backgrounds: false}},
+    {
+      name: '@storybook/addon-essentials',
+      options: {
+        backgrounds: false,
+      },
+    },
     '@storybook/addon-storysource',
     '@storybook/addon-interactions',
     '@storybook/addon-a11y',
@@ -15,23 +20,24 @@ module.exports = {
         optimizationLevel: 2,
       },
     },
+    '@storybook/addon-mdx-gfm',
   ],
-  core: {
-    builder: {
-      name: 'webpack5',
-      options: {
-        fsCache: true,
-      },
-    },
-  },
   features: {
     interactionsDebugger: true,
     storyStoreV7: true,
     buildStoriesJson: true,
   },
-  framework: '@storybook/react',
-  reactOptions: {
-    fastRefresh: true,
-    strictMode: true,
+  framework: {
+    name: '@storybook/react-webpack5',
+    options: {
+      fastRefresh: true,
+      strictMode: true,
+      builder: {
+        fsCache: true,
+      },
+    },
+  },
+  docs: {
+    autodocs: true,
   },
 }
