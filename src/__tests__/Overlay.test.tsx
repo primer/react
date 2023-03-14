@@ -244,7 +244,6 @@ describe('Overlay', () => {
   })
 
   // https://github.com/primer/react/issues/1802
-  // eslint-disable-next-line jest/no-disabled-tests
   it.skip('memex repro: should not leak overlay events to the document', async () => {
     const user = userEvent.setup()
     const mockHandler = jest.fn()

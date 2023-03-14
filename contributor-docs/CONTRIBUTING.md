@@ -5,6 +5,7 @@
 3. [Discussing non-public features or products](#discussing-non-public-features-or-products)
 4. [Developing Components](#developing-components)
    - [Tools we use](#tools-we-use)
+   - [File Structure](#file-structure)
    - [Component patterns](#component-patterns)
    - [Adding the sx prop](#adding-the-sx-prop)
    - [Linting](#linting)
@@ -12,17 +13,16 @@
    - [Additional resources](#additional-resources)
 5. [Writing documentation](#writing-documentation)
 6. [Creating a pull request](#creating-a-pull-request)
+   - [Adding changeset to your pull request](#adding-changeset-to-your-pull-request)
    - [What to expect after opening a pull request](#what-to-expect-after-opening-a-pull-request)
-   - [What we look for in reviews](#what-we-look-for-in-reviews)
-7. [Deploying & publishing](#deploying-and-publishing)
-   - [Deploying](#deploying)
-   - [Path aliasing](#path-aliasing)
-   - [Publishing](#publishing)
+     - [What we look for in reviews](#what-we-look-for-in-reviews)
+   - [Previewing your changes](#previewing-your-changes)
+7. [Deploying](#deploying)
 8. [Troubleshooting](#troubleshooting)
 
 ## Roadmap
 
-If you're looking for something to work on, a great place to start is our issues labeled [up for grabs](https://github.com/primer/react/issues?q=is%3Aopen+is%3Aissue+label%3A%22up+for+grabs%22)! If you've got a feature that you'd like to implement, be sure to check out our [Primer Components Roadmap](https://github.com/primer/react/projects/3) to make sure it hasn't already been started on.
+If you're looking for ways to contribute, a great place to start is our issues labeled [good first issue](https://github.com/primer/react/issues?q=is%3Aissue+is%3Aclosed+label%3A%22good+first+issue%22)! If you've got a feature that you'd like to implement, be sure to check out our [Primer Roadmap](https://github.com/orgs/github/projects/2759) (GitHub staff only) to make sure it hasn't already been started on.
 
 ## Before Getting Started
 
@@ -32,61 +32,106 @@ A common question asked about Primer Components is how to know what should be ad
 
 - Does the proposed component get used in more than one or two places across GitHub UI? A component that's only meant to be used in one place and doesn't have potential to be reused in many places probably should exist as a local component. An example of something like this might be a component that renders content specific to a single GitHub product.
 
-**In general, we tend to be pretty excited about 99% of feature proposals and contributions!** If you would like to get started with a component proposal, open an issue using the [component proposal template](https://github.com/primer/react/issues/new?template=new_component_proposal_template.md).
+### Proposing new components
+
+If you would like to propose an idea for a new component, the best way to get started, especially if your proposal is in its early stages, is to [open a pattern proposal](https://github.com/github/primer/discussions/categories/design-patterns) (GitHub staff only). If you're more certain about what you need, please [open a pattern request issue](https://github.com/github/primer/issues/new?assignees=&labels=needs+triage&template=01-request.md&title=%5BProposal%5D+) (GitHub staff only). We will get back to you after our weekly backlog triaging session.
 
 ## Discussing non-public features or products
 
-As this is a public repo, please be careful not to include details or screenshots from unreleased GitHub products or features. In most cases, a good bug report, feature request, or pull request should be able to describe the work without including business logic or feature details, but if you must discuss context relating to an unreleased feature, please open an issue in the private [Design Systems repo](https://github.com/github/design-systems/issues/new/choose) and link to it in your issue or pull request.
+As this is a public repo, please be careful not to include details or screenshots from unreleased GitHub products or features. In most cases, a good bug report, feature request, or pull request should be able to describe the work without including business logic or feature details, but if you must discuss context relating to an unreleased feature, please open an issue in the private [Primer repo](https://github.com/github/primer/issues) (GitHub staff only) and link to it in your issue or pull request.
 
 ## Developing components
 
-We primarily use our documentation site as a workspace to develop new components or make changes to existing components (stay tuned for a better development environment coming soon!).
+We primarily use [Storybook](https://storybook.js.org/) as a workspace to develop new components or make changes to existing components.
 
-Before running the documentation site locally, make sure to install [Node.js](https://nodejs.org/en/) v16 (we recommend using [nvm](https://github.com/nvm-sh/nvm)). Next, run the following command to setup your environment:
+Before running storybook locally, make sure to install [Node.js](https://nodejs.org/en/) v16 (we recommend using [nvm](https://github.com/nvm-sh/nvm)). Next, run the following command to setup your environment:
 
 ```sh
 npm run setup
 ```
 
-Afterwards, you can run the following command to start up the docs site and
+Afterwards, you can run the following command to start up the
 storybook environment:
 
 ```sh
 npm start
 ```
 
-Navigate to http://localhost:8000/ to see the site in your browser ✨
+Navigate to http://localhost:6006/ to see Primer react components in your browser ✨
 
 ### Tools we use
 
-1. We use [styled-components](https://www.styled-components.com/) to style our components.
-2. We use style functions from [styled-system](https://styled-system.com/) whenever possible, and styled-systems' `style()` function to create new ones.
+- [React](https://reactjs.org/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Jest](https://jestjs.io/)
+- [Storybook](https://storybook.js.org/)
+- [Prettier](https://prettier.io/)
+- [ESLint](https://eslint.org/)
+- [Playwright](https://playwright.dev/)
+
+### File structure
+
+```
+primer-react/
+├─ src/
+│  ├─ Breadcrumbs/
+│  │  ├─ index.ts                             // Exporting the component
+│  │  ├─ Breadcrumbs.tsx                      // Primary component file
+│  │  ├─ BreadcrumbsItem.tsx                  // Subcomponent (include parent component name to increase findability in most IDEs)
+│  │  ├─ Breadcrumbs.stories.tsx              // Storybook stories (Default and Playground)
+│  │  ├─ Breadcrumbs.features.stories.tsx     // Storybook feature stories
+│  │  ├─ Breadcrumbs.examples.stories.tsx     // Storybook examples
+│  │  ├─ __tests__/                           // If you have a single test file, no need for a folder
+|  |  |  ├─ Breadcrumbs.test.tsx              // Unit tests
+│  │  |  ├─ Breadcrumbs.types.test.tsx        // Type tests
+│  │  |  ├─ __snapshots__/                    // Snapshots
+│  │  |  |  ├─ Breadcrumbs.test.tsx.snap
+│  │  ├─ Breadcrumbs.docs.json                // Component metadata to be used in docs
+```
+
+Please review the related docs and ADRs below for more information on how to structure your component and the best practices we follow:
+
+- [ADR 1: File structure](https://github.com/primer/react/blob/main/contributor-docs/adrs/adr-012-file-structure.md)
+- [ADR 2: Snapshot tests](https://github.com/primer/react/blob/main/contributor-docs/adrs/adr-011-snapshot-tests.md)
+- [ADR 3: Storybook formatting](https://github.com/github/primer/blob/main/adrs/2022-10-07-storybook-lookbook-story-format.md)
+- [Testing docs](https://github.com/primer/react/blob/main/contributor-docs/testing.md)
 
 ### Component patterns
 
-With a couple of exceptions, all components should be created with the `styled` function from [styled-components] and should have the appropriate groups of system props attached.
-
-Default values for system props can be set in `Component.defaultProps`.
-
-⚠️ **Do not set the default `theme` prop! This can sometimes override the theme provided by the ThemeProvider and cause unexpected theming issues.**
-
-Additionally, every component should support [the `sx` prop](https://primer.style/components/overriding-styles); remember to add `${sx}` to the style literal.
-
-Here's an example of a basic component written in the style of Primer Components:
+Here's an example of a basic component written in the style of Primer react components:
 
 ```tsx
-import sx, {SxProp} from './sx'
+import React from 'react'
+import Box from '../Box'
+import {BetterSystemStyleObject, SxProp, merge} from '../sx'
 
-const Component = styled.div<SxProp>`
-  // additional styles here
+export type ComponentProps = {
+  prop?: 'value1' | 'value2'
+} & SxProp
 
-  ${sx};
-`
-
-Component.defaultProps = {
-  m: 0,
-  fontSize: 5,
+const Component: React.FC<React.PropsWithChildren<ComponentProps>> = ({
+  prop = 'value1',
+  sx = {},
+  children,
+  ...props
+}) => {
+  return (
+    <Box
+      as="nav"
+      sx={merge<BetterSystemStyleObject>(
+        {
+          // additional styles
+        },
+        sx,
+      )}
+      {...props}
+    >
+      {children}
+    </Box>
+  )
 }
+
+Component.displayName = 'Component'
 
 export default Component
 ```
@@ -111,7 +156,7 @@ const Component = styled.div<SxProp>`
 
 #### ESLint
 
-We use the [React configuration](https://github.com/github/eslint-plugin-github/blob/master/lib/configs/react.js) from [GitHub's eslint plugin](https://github.com/github/eslint-plugin-github) to lint our JavaScript. To check your work before pushing, run:
+We use the [React configuration](https://github.com/github/eslint-plugin-github/blob/master/lib/configs/react.js) from [GitHub's eslint plugin](https://github.com/github/eslint-plugin-github) to lint our code. To check your work before pushing, run:
 
 ```sh
 npm run lint
@@ -120,8 +165,7 @@ npm run lint
 Or, you can use [npx] to run eslint on one or more specific files:
 
 ```sh
-# lint the component and the tests in src/__tests__
-npx eslint src/**/MyComponent.js
+npx eslint src/**/MyComponent.tsx
 ```
 
 **Protip:** The [eslint `--fix` flag](https://eslint.org/docs/user-guide/command-line-interface#--fix) can automatically fix most linting errors, such as those involving whitespace or incorrect ordering of object keys and imports. You can fix those issues across the entire project with:
@@ -152,65 +196,63 @@ npm run test:type-check
 
 - [Primer Components Philosophy](https://primer.style/components/philosophy)
 - [Primer Components Core Concepts](https://primer.style/components/core-concepts)
-- [Styled Components docs](https://styled-components.com/)
-- [Styled System docs](https://styled-system.com/)
 
 ## Writing documentation
 
-We use [Doctocat](https://github.com/primer/doctocat) to power our documentation site at [https://primer.style/components](https://primer.style/components/).
+We use [Doctocat](https://github.com/primer/doctocat) to power our documentation site at [https://primer.style/react](https://primer.style/react/).
 
-To add a new component to our documentation site, create a new file with the `.md` extension for your component in `docs/content` (e.g. `docs/content/Button.md`).
+To add a new component to our documentation site, create a new file with the `.mdx` extension for your component in `docs/content` (e.g. `docs/content/Component.mdx`) and make sure to import the component's metadata from the component's `docs.json` file:
+
+```
+primer-react/
+├─ docs/
+│  ├─ content/
+│  │  ├─ Component.mdx
+```
+
+```
+import data from '../../../src/Component/Component.docs.json'
+```
 
 ## Creating a pull request
 
-When creating a new pull request, please follow the guidelines in the auto-populated pull request template. Be sure to add screenshots of any relevant work and a thoughtful description.
+When creating a new pull request, please follow the guidelines in the auto-populated pull request template. Be sure to add screenshots of any relevant work, including their alt texts and a thoughtful description.
+
+### Adding changeset to your pull request
+
+We use [changesets](https://github.com/changesets) to manage our releases. When creating a new pull request, `changeset-bot` will remind you to add a changeset if your change should trigger a new version number for the package.
+
+To create a new changeset on your local machine, run `npx changeset` and answer the prompts. Please refer to our [versioning docs](https://github.com/primer/react/blob/37cfd07fb1eef4c0655157a0c9025cec94abaed5/contributor-docs/versioning.md) if you are not sure what kind of change you are making.
+
+If you are introducing multiple features in the PR, add a separate changeset for each.
+
+Push your new changes along with the changeset file to your PR; changeset-bot will show that there are valid changesets in the PR.
 
 ### What to expect after opening a pull request
 
-After opening a pull request, a member of the design systems team will add the appropriate labels (major, minor, patch release labels) and update the base branch to the correct release branch. Usually, you'll receive a response from the design systems team within a day or two. The design systems team member will review the pull request keeping the following items in mind:
+After opening a pull request, you should be receiving a response from Primer team within a day or two. A contributor of Primer React will review the pull request keeping the following items in mind:
 
-### What we look for in reviews
+#### What we look for in reviews
 
-- If it's a new component, does the component make sense to add to Primer Components? (Ideally this is discussed before the pull request stage, please reach out to a DS member if you aren't sure if a component should be added to Primer Components!)
 - Does the component follow our [Primer Components code style](#component-patterns)?
 - Does the component use theme values for most CSS values?
 - Is the component API intuitive?
 - Does the component have the appropriate [type definitions in `index.d.ts`](#typescript-support)?
 - Is the component documented accurately?
-- Does the component have appropriate tests?
+- Does the component have sufficient tests?
 - Does the pull request increase the bundle size significantly?
+- Does all the checks pass?
 
-If everything looks great, the design systems team member will approve the pull request and merge when appropriate. Minor and patch changes are released frequently, and we try to bundle up breaking changes and avoid shipping major versions too often. If your pull request is time-sensitive, please let a design systems team member know. You do not need to worry about merging pull requests on your own, we'll take care of that for you :)
+If everything looks great, the reviewer will approve the pull request and and feel free to merge it afterwards. Minor and patch changes are released weekly, and we bundle up breaking changes and release a major version of `@primer/react` twice a year. If your pull request is time-sensitive, please let Primer team know.
 
-## Deploying and publishing
+### Previewing your changes
 
-### Deploying
+We have a GitHub Action that creates a preview of the docs site and the storybook everytime you commit code to a branch. To view the preview site and the preview storybook, navigate to the PR and find the comment from the `github-actions` bot for storybook and `primer` bot for the docs preview. This will include a link to the preview site and the storybook for your branch.
 
-All of our documentation sites use GitHub Pages to deploy documentation changes whenever code is merged into main. The integration also creates a preview site every time you commit code to a branch. To view the preview site, navigate to the PR and find the comment from the `GitHub Actions` bot. This will include a link to the preview site for your branch.
+## Deploying
 
-Once you merge your branch into main, any changes to the docs will automatically deploy. No further action is necessary.
-
-### Path aliasing
-
-This site is served as a subdirectory of [primer.style] using a [path alias](https://zeit.co/docs/features/path-aliases) configured in that repo's [`rules.json`](https://github.com/primer/primer.style/tree/master/rules.json). If you change the production deployment URL for this app, you will also need to change it there and re-deploy that app; otherwise, Now will automatically route requests from [primer.style/components](https://primer.style/components/) to the new deployment whenever you alias this one to `https://primer.github.io/react/`.
-
-### Publishing
-
-We use [changesets](https://github.com/atlassian/changesets) to managing versioning, publishing, and release notes. Here's how it works:
-
-#### Using changesets to prepare and publish a release
-
-1. When creating a new PR, changeset-bot will remind you to add a changeset if your change should trigger a new version number for the package.
-2. To create a new changeset on your local machine, run `npx changeset` and answer the prompts. If you are introducing multiple features in the PR, add a separate changeset for each.
-3. Push your new changes along with the changeset file to your PR; changeset-bot will show that there are valid changesets in the PR.
-4. When the PR is ready, merge it to the main branch.
-5. The changeset action will automatically create a new PR that bumps the version number appropriately, creates or updates `CHANGELOG.md`, and shows the release notes that will be used in the GitHub Release notes.
-6. If you want to release more features, merge them into the main branch and changesets will update the release PR. Note that it does this via force-pushing, so you should not edit the release PR yourself.
-7. When you're ready to release, merge the release PR into the main branch and changesets will publish the new version to npm and create a GitHub Release.
-
-#### Flowchart
-
-[![changesets flowchart](https://user-images.githubusercontent.com/4608155/163011963-9de3e8a7-c4af-47ef-91d5-7c534f5066d7.png)](https://www.figma.com/file/UKFvby7MMwBWa7p9aly5JG/Next-major-release-workflow)
+All of our documentation sites use GitHub Pages to deploy documentation changes whenever code is merged into main.
+Once you merge your branch into main, any changes to the docs and the storybook will automatically deploy. No further action is necessary.
 
 ## Troubleshooting
 
@@ -221,5 +263,3 @@ Make sure to run `npm install` from inside the `docs/` subfolder _as well as_ th
 **`npm start` fails with a different error**
 
 Ensure you are using the latest minor of Node.js for the major version specified in the `.nvmrc` file. For example, if `.nvmrc` contains `8`, make sure you're using the latest version of Node.js with the major version of 8.
-
-[primer.style]: https://primer.style

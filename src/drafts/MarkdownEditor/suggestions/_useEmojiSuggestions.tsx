@@ -3,12 +3,22 @@ import {suggestionsCalculator, UseSuggestionsHook} from '.'
 import {ActionList} from '../../../ActionList'
 import {Suggestion, Trigger} from '../../InlineAutocomplete'
 
-export type Emoji = {
+type BaseEmoji = {
   /** Name (shortcode) of the emoji. Do not include the wrapping `:` symbols. */
   name: string
+}
+
+type UnicodeEmoji = BaseEmoji & {
   /** Unicode representation of the emoji. */
   character: string
 }
+
+type CustomEmoji = BaseEmoji & {
+  /** URL to an image of the emoji. */
+  url: string
+}
+
+export type Emoji = UnicodeEmoji | CustomEmoji
 
 const trigger: Trigger = {
   triggerChar: ':',
@@ -16,11 +26,17 @@ const trigger: Trigger = {
 }
 
 const emojiToSugggestion = (emoji: Emoji): Suggestion => ({
-  value: emoji.character,
-  key: emoji.name, // emoji characters may not be unique - ie haircut and haircut_man both have the same emoji codepoint. But names are guarunteed to be unique.
+  value: 'character' in emoji ? emoji.character : `:${emoji.name}:`,
+  key: emoji.name, // emoji characters may not be unique - ie haircut and haircut_man both have the same emoji codepoint. But names are guaranteed to be unique.
   render: props => (
     <ActionList.Item {...props}>
-      <ActionList.LeadingVisual>{emoji.character}</ActionList.LeadingVisual>
+      <ActionList.LeadingVisual>
+        {'character' in emoji ? (
+          emoji.character
+        ) : (
+          <img src={emoji.url} alt={`${emoji.name} emoji`} height="16" width="16" />
+        )}
+      </ActionList.LeadingVisual>
       {emoji.name}
     </ActionList.Item>
   ),
