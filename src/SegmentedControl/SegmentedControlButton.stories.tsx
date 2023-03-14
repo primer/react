@@ -12,7 +12,7 @@ export default {
   component: SegmentedControlButton,
   args: {
     children: 'Option',
-    leadingIcon: null,
+    leadingIcon: undefined,
     selected: false,
     defaultSelected: false,
   },

@@ -51,7 +51,7 @@ export default {
   },
 } as Meta<typeof Button>
 
-export const Playground: Story<typeof Button> = args => (
+export const Playground: Story<Omit<typeof Button<'a'>, 'as'>> = args => (
   <Button as="a" {...args}>
     Default
   </Button>

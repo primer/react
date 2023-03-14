@@ -11,7 +11,6 @@ export default {
   title: 'Components/SegmentedControl/SegmentedControl.IconButton',
   component: SegmentedControlIconButton,
   args: {
-    icon: 'FileCodeIcon',
     selected: false,
     defaultSelected: false,
   },
@@ -22,6 +21,7 @@ export default {
         options: Object.keys(icons),
       },
       mapping: icons,
+      defaultValue: 'FileCodeIcon',
     },
     selected: {
       type: 'boolean',
