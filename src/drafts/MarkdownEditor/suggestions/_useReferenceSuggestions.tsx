@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useMemo} from 'react'
 import {suggestionsCalculator, UseSuggestionsHook} from '.'
 import {ActionList} from '../../../ActionList'
 import {Suggestion, Trigger} from '../../InlineAutocomplete'
@@ -51,10 +51,16 @@ const scoreSuggestion = (query: string, reference: Reference): number => {
   return fzyScore === Infinity ? -Infinity : fzyScore
 }
 
-export const useReferenceSuggestions: UseSuggestionsHook<Reference> = references => ({
-  calculateSuggestions: async (query: string) => {
-    if (/^\d+\s/.test(query)) return [] // don't return anything if the query is in the form #123 ..., assuming they already have the number they want
-    return suggestionsCalculator(references, scoreSuggestion, referenceToSuggestion)(query)
-  },
-  trigger,
-})
+export const useReferenceSuggestions: UseSuggestionsHook<Reference> = references => {
+  const calculateSuggestions = useMemo(() => {
+    const calculator = suggestionsCalculator(references, scoreSuggestion, referenceToSuggestion)
+    return async (query: string) => {
+      if (/^\d+\s/.test(query)) return [] // don't return anything if the query is in the form #123 ..., assuming they already have the number they want
+      return calculator(query)
+    }
+  }, [references])
+  return {
+    calculateSuggestions,
+    trigger,
+  }
+}
