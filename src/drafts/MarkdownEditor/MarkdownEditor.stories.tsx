@@ -163,6 +163,7 @@ const emojis: Emoji[] = [
   {name: 'raised_hand', character: '✋'},
   {name: 'thumbsup', character: '👍'},
   {name: 'thumbsdown', character: '👎'},
+  {name: 'octocat', url: 'https://github.githubassets.com/images/icons/emoji/octocat.png'},
 ]
 
 const references: Reference[] = [

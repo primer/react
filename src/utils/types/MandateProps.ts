@@ -13,6 +13,6 @@ where 'id' and 'label' required:
   type DatumWithRequiredIdAndLabel = MandateProps<Datum, 'id' | 'label'>
 */
 
-export type MandateProps<T extends unknown, K extends keyof T> = Omit<T, K> & {
+export type MandateProps<T, K extends keyof T> = Omit<T, K> & {
   [MK in K]-?: NonNullable<T[MK]>
 }

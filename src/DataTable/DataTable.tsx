@@ -43,7 +43,7 @@ export type DataTableProps<Data extends UniqueRow> = {
    * using this `prop`, the input data must be sorted by this column in
    * ascending order
    */
-  initialSortColumn?: ObjectPaths<Data> | string
+  initialSortColumn?: ObjectPaths<Data> | string | number
 
   /**
    * Provide the sort direction that the table should be sorted by on the
@@ -81,11 +81,15 @@ function DataTable<Data extends UniqueRow>({
                     actions.sortBy(header)
                   }}
                 >
-                  {header.column.header}
+                  {typeof header.column.header === 'string' ? header.column.header : header.column.header()}
                 </TableSortHeader>
               )
             }
-            return <TableHeader key={header.id}>{header.column.header}</TableHeader>
+            return (
+              <TableHeader key={header.id}>
+                {typeof header.column.header === 'string' ? header.column.header : header.column.header()}
+              </TableHeader>
+            )
           })}
         </TableRow>
       </TableHead>
