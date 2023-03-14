@@ -1,29 +1,6 @@
 {
   "schemaVersion": 2,
   "components": {
-    "box": {
-      "id": "box",
-      "name": "Box",
-      "status": "beta",
-      "a11yReviewed": false,
-      "stories": [],
-      "props": [
-        {
-          "name": "ref",
-          "type": "React.RefObject<HTMLDivElement>"
-        },
-        {
-          "name": "as",
-          "type": "React.ElementType",
-          "defaultValue": "\"div\""
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject"
-        }
-      ],
-      "subcomponents": []
-    },
     "button_group": {
       "id": "button_group",
       "name": "ButtonGroup",
@@ -1371,6 +1348,34 @@
           "type": "boolean",
           "defaultValue": "false",
           "description": "Align the avatars to the right"
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ],
+      "subcomponents": []
+    },
+    "box": {
+      "id": "box",
+      "name": "Box",
+      "status": "beta",
+      "a11yReviewed": false,
+      "stories": [
+        {
+          "id": "components-box--default",
+          "code": "() => <Box>Default Box</Box>"
+        }
+      ],
+      "props": [
+        {
+          "name": "ref",
+          "type": "React.RefObject<HTMLDivElement>"
+        },
+        {
+          "name": "as",
+          "type": "React.ElementType",
+          "defaultValue": "\"div\""
         },
         {
           "name": "sx",
