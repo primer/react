@@ -1379,6 +1379,72 @@
       ],
       "subcomponents": []
     },
+    "blankslate": {
+      "id": "blankslate",
+      "name": "Blankslate",
+      "status": "alpha",
+      "a11yReviewed": false,
+      "stories": [
+        {
+          "id": "components-blankslate--default",
+          "code": "() => (\n  <Blankslate>\n    <Blankslate.Visual>\n      <BookIcon size=\"medium\" />\n    </Blankslate.Visual>\n    <Blankslate.Heading>Welcome to the mona wiki!</Blankslate.Heading>\n    <Blankslate.Description>\n      Wikis provide a place in your repository to lay out the roadmap of your\n      project, show the current status, and document software better, together.\n    </Blankslate.Description>\n    <Blankslate.PrimaryAction href=\"#\">\n      Create the first page\n    </Blankslate.PrimaryAction>\n    <Blankslate.SecondaryAction href=\"#\">\n      Learn more about wikis\n    </Blankslate.SecondaryAction>\n  </Blankslate>\n)"
+        }
+      ],
+      "props": [
+        {
+          "name": "border",
+          "type": "boolean",
+          "description": ""
+        },
+        {
+          "name": "narrow",
+          "type": "boolean",
+          "description": ""
+        },
+        {
+          "name": "spacious",
+          "type": "boolean",
+          "description": ""
+        }
+      ],
+      "subcomponents": [
+        {
+          "name": "Blankslate.Visual",
+          "props": []
+        },
+        {
+          "name": "Blankslate.Heading",
+          "props": [
+            {
+              "name": "as",
+              "type": "'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'"
+            }
+          ]
+        },
+        {
+          "name": "Blankslate.Description",
+          "props": []
+        },
+        {
+          "name": "Blankslate.PrimaryAction",
+          "props": [
+            {
+              "name": "href",
+              "type": "string"
+            }
+          ]
+        },
+        {
+          "name": "Blankslate.SecondaryAction",
+          "props": [
+            {
+              "name": "href",
+              "type": "string"
+            }
+          ]
+        }
+      ]
+    },
     "branch_name": {
       "id": "branch_name",
       "name": "BranchName",
