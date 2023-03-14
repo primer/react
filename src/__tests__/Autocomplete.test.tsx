@@ -325,9 +325,9 @@ describe('Autocomplete', () => {
     it('throws errors when Autocomplete context is null', () => {
       const spy = jest.spyOn(console, 'error').mockImplementation(() => {})
 
-      expect(() => HTMLRender(<Autocomplete.Overlay />)).toThrowError('AutocompleteContext returned null values')
-      expect(() => HTMLRender(<Autocomplete.Input />)).toThrowError('AutocompleteContext returned null values')
-      expect(() => HTMLRender(<Autocomplete.Menu items={mockItems} selectedItemIds={[]} />)).toThrowError(
+      expect(() => HTMLRender(<Autocomplete.Overlay />)).toThrow('AutocompleteContext returned null values')
+      expect(() => HTMLRender(<Autocomplete.Input />)).toThrow('AutocompleteContext returned null values')
+      expect(() => HTMLRender(<Autocomplete.Menu items={mockItems} selectedItemIds={[]} />)).toThrow(
         'AutocompleteContext returned null values',
       )
 

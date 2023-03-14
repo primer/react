@@ -9,7 +9,7 @@ import LabelGroup from '../LabelGroup'
 import RelativeTime from '../RelativeTime'
 
 export default {
-  title: 'Drafts/Components/DataTable/Features',
+  title: 'Components/DataTable/Features',
   component: DataTable,
 } as Meta<typeof DataTable>
 

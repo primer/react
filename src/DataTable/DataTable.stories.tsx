@@ -8,7 +8,7 @@ import {UniqueRow} from './row'
 import {getColumnWidthArgTypes, ColWidthArgTypes} from './storyHelpers'
 
 export default {
-  title: 'Drafts/Components/DataTable',
+  title: 'Components/DataTable',
   component: DataTable,
   argTypes: getColumnWidthArgTypes(5),
 } as Meta<typeof DataTable>
