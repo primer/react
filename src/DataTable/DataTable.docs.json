@@ -20,6 +20,15 @@
       "id": "components-datatable-features--with-action"
     },
     {
+      "id": "components-datatable-features--with-row-action"
+    },
+    {
+      "id": "components-datatable-features--with-row-actions"
+    },
+    {
+      "id": "components-datatable-features--with-row-action-menu"
+    },
+    {
       "id": "components-datatable-features--with-custom-heading"
     }
   ],
