@@ -3,6 +3,7 @@
  */
 module.exports = {
   stories: ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|ts|tsx)'],
+  staticDirs: [process.env.STORYBOOK_STATIC_DIR].filter(Boolean),
   addons: [
     {
       name: '@storybook/addon-essentials',

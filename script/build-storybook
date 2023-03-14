@@ -9,7 +9,11 @@ else
 fi
 
 # Build storybook inside docs
-STORYBOOK=true npx storybook build -o docs/public/storybook -s docs/public/static
+# STORYBOOK_STATIC_DIR is a workaround for the following issue:
+# https://github.com/storybookjs/storybook/issues/21564
+#
+# It can be replaced by the `-s` flag once this issue is addressed and published
+STORYBOOK=true STORYBOOK_STATIC_DIR='docs/public/static' npx storybook build -o docs/public/storybook
 
 # Remove manager-head after build to not interfere with dev builds
 rm .storybook/manager-head.html
