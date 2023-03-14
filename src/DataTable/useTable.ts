@@ -80,6 +80,10 @@ export function useTable<Data extends UniqueRow>({
 
   const headers = columns.map(column => {
     const id = column.id ?? column.field
+    if (id === undefined) {
+      throw new Error(`Expected either an \`id\` or \`field\` to be defined for a Column`)
+    }
+
     const sortable = column.sortBy !== undefined && column.sortBy !== false
     return {
       id,
@@ -133,6 +137,10 @@ export function useTable<Data extends UniqueRow>({
 
     setRowOrder(rowOrder => {
       return rowOrder.slice().sort((a, b) => {
+        if (header.column.field === undefined) {
+          return 0
+        }
+
         const valueA = get(a, header.column.field)
         const valueB = get(b, header.column.field)
 
@@ -159,7 +167,10 @@ export function useTable<Data extends UniqueRow>({
               column: header.column,
               rowHeader: header.column.rowHeader ?? false,
               getValue() {
-                return get(row, header.column.field)
+                if (header.column.field !== undefined) {
+                  return get(row, header.column.field)
+                }
+                throw new Error(`Unable to get value for column header ${header.id}`)
               },
             }
           })
@@ -203,7 +214,7 @@ function getInitialSortState<Data extends UniqueRow>(
     }
 
     return {
-      id: initialSortColumn,
+      id: `${initialSortColumn}`,
       direction: initialSortDirection ?? DEFAULT_SORT_DIRECTION,
     }
   }
@@ -223,8 +234,19 @@ function getInitialSortState<Data extends UniqueRow>(
       return null
     }
 
+    const id = column.id ?? column.field
+    if (id === undefined) {
+      if (__DEV__) {
+        // eslint-disable-next-line no-console
+        console.warn(
+          `Warning: Unable to find an \`id\` or \`field\` for the column: ${column}. Please set one of these properties on the column.`,
+        )
+      }
+      return null
+    }
+
     return {
-      id: column.id ?? column.field,
+      id,
       direction: initialSortDirection,
     }
   }
