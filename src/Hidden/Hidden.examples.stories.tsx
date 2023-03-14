@@ -4,7 +4,7 @@ import {Button, Link, Text, StateLabel, BranchName, Box} from '..'
 import {ArrowRightIcon} from '@primer/octicons-react'
 
 import {PageHeader} from '../PageHeader'
-import Hidden from '.'
+import {Hidden} from '.'
 
 export default {
   title: 'Drafts/Components/Hidden/Examples',
