@@ -84,7 +84,7 @@ export function buildPaginationModel(
           type: 'NUM',
           num,
           selected,
-          preceedsBreak,
+          precedesBreak,
         })
       } else {
         if (lastDelta === 1) {
@@ -92,7 +92,7 @@ export function buildPaginationModel(
             type: 'NUM',
             num,
             selected,
-            preceedsBreak,
+            precedesBreak,
           })
         } else {
           // We skipped some, so add a break
@@ -104,7 +104,7 @@ export function buildPaginationModel(
             type: 'NUM',
             num,
             selected,
-            preceedsBreak: false,
+            precedesBreak: false,
           })
         }
       }
@@ -131,7 +131,7 @@ type PageType = {
   num: number
   disabled?: boolean
   selected?: boolean
-  preceedsBreak?: boolean
+  precedesBreak?: boolean
 }
 
 export function buildComponentData(
@@ -182,7 +182,7 @@ export function buildComponentData(
         // We append "..." to the aria-label for pages that preceed a break because screen readers will
         // change the tone the text is read in.
         // This is a slightly nicer experience than skipping a bunch of numbers unexpectedly.
-        'aria-label': `Page ${page.num}${page.preceedsBreak ? '...' : ''}`,
+        'aria-label': `Page ${page.num}${page.precedesBreak ? '...' : ''}`,
         onClick,
         'aria-current': page.selected ? 'page' : undefined,
       })
