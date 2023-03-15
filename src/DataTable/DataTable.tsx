@@ -81,11 +81,15 @@ function DataTable<Data extends UniqueRow>({
                     actions.sortBy(header)
                   }}
                 >
-                  {header.column.header}
+                  {typeof header.column.header === 'string' ? header.column.header : header.column.header()}
                 </TableSortHeader>
               )
             }
-            return <TableHeader key={header.id}>{header.column.header}</TableHeader>
+            return (
+              <TableHeader key={header.id}>
+                {typeof header.column.header === 'string' ? header.column.header : header.column.header()}
+              </TableHeader>
+            )
           })}
         </TableRow>
       </TableHead>
