@@ -32,6 +32,7 @@ const allowlist = [
   'RadioGroup',
   'Select',
   'SegmentedControl',
+  'Spinner',
   'StateLabel',
   'TabNav',
   'Textarea',
