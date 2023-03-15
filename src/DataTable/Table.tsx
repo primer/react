@@ -11,10 +11,6 @@ import {useOverflow} from '../hooks/useOverflow'
 // Table
 // ----------------------------------------------------------------------------
 
-const TableContext = React.createContext({
-  hasOverflow: false,
-})
-
 const StyledTable = styled.table<React.ComponentPropsWithoutRef<'table'>>`
   /* Default table styles */
   --table-border-radius: 0.375rem;
@@ -166,19 +162,10 @@ const Table = React.forwardRef<HTMLTableElement, TableProps>(function Table(
   {'aria-labelledby': labelledby, cellPadding = 'normal', ...rest},
   ref,
 ) {
-  const tableContext = React.useContext(TableContext)
-  if (tableContext.hasOverflow === false) {
-    return (
-      <StyledTable {...rest} aria-labelledby={labelledby} data-cell-padding={cellPadding} className="Table" ref={ref} />
-    )
-  }
   return (
-    // The scrollable region should be focusable and requires a tabindex to be
-    // present
-    // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
-    <div aria-labelledby={labelledby} className="TableOverflowWrapper" role="region" tabIndex={0}>
+    <ScrollableRegion aria-labelledby={labelledby} className="TableOverflowWrapper">
       <StyledTable {...rest} aria-labelledby={labelledby} data-cell-padding={cellPadding} className="Table" ref={ref} />
-    </div>
+    </ScrollableRegion>
   )
 })
 
@@ -300,7 +287,6 @@ const StyledTableContainer = styled.div`
     'table table'
     'footer footer';
   column-gap: ${get('space.2')};
-  overflow-x: auto;
 
   ${sx}
 
@@ -351,21 +337,7 @@ const StyledTableContainer = styled.div`
 export type TableContainerProps = React.PropsWithChildren<SxProp>
 
 function TableContainer({children, sx}: TableContainerProps) {
-  const ref = React.useRef(null)
-  const hasOverflow = useOverflow(ref)
-  const value = React.useMemo(() => {
-    return {
-      hasOverflow,
-    }
-  }, [hasOverflow])
-
-  return (
-    <TableContext.Provider value={value}>
-      <StyledTableContainer ref={ref} sx={sx}>
-        {children}
-      </StyledTableContainer>
-    </TableContext.Provider>
-  )
+  return <StyledTableContainer sx={sx}>{children}</StyledTableContainer>
 }
 
 export type TableTitleProps = React.PropsWithChildren<{
@@ -481,6 +453,36 @@ const Button = styled.button`
     border: 0;
   }
 `
+
+type ScrollableRegionProps = React.PropsWithChildren<{
+  'aria-labelledby'?: string
+  'aria-label'?: string
+  className?: string
+}>
+
+function ScrollableRegion({
+  'aria-labelledby': labelledby,
+  'aria-label': label,
+  children,
+  ...rest
+}: ScrollableRegionProps) {
+  const ref = React.useRef(null)
+  const hasOverflow = useOverflow(ref)
+  const regionProps = hasOverflow
+    ? {
+        'aria-labelledby': labelledby,
+        'aria-label': label,
+        role: 'region',
+        tabIndex: 0,
+      }
+    : {}
+
+  return (
+    <Box {...rest} {...regionProps} ref={ref} sx={{overflow: 'auto'}}>
+      {children}
+    </Box>
+  )
+}
 
 export {
   TableContainer,
