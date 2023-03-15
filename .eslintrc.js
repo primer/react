@@ -156,12 +156,32 @@ module.exports = {
     // Tests
     {
       files: ['src/**/*.test.{ts,tsx}'],
-      extends: ['plugin:jest/recommended'],
+      extends: ['plugin:jest/recommended', 'plugin:testing-library/react'],
       rules: {
         '@typescript-eslint/no-non-null-assertion': 'off',
         'jest/expect-expect': 'off',
         'jest/no-conditional-expect': 'off',
         'jest/no-disabled-tests': 'off',
+        // 1160 -> 519 = 641
+        'testing-library/prefer-screen-queries': 'off',
+        // 519 -> 239 = 280
+        'testing-library/no-node-access': 'off',
+        // 239 -> 180 = 59
+        'testing-library/no-container': 'off',
+        // 180 -> 101 = 79
+        'testing-library/render-result-naming-convention': 'off',
+        // 101 -> 29 = 72
+        'testing-library/no-unnecessary-act': 'off',
+        // 29 -> 20 = 9
+        'testing-library/prefer-presence-queries': 'off',
+        // 20 -> 8 = 12
+        'testing-library/prefer-find-by': 'off',
+        // 8 -> 5 = 3
+        'testing-library/no-await-sync-query': 'off',
+        // 5 -> 2 = 3
+        'testing-library/no-wait-for-multiple-assertions': 'off',
+        // 2 -> 0 = 2
+        'testing-library/await-async-query': 'off',
       },
     },
 
