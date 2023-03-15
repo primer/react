@@ -247,10 +247,7 @@ type HeadingProps = {
 }
 
 export const HeadingPlayground: Story<ActionListProps & HeadingProps> = args => (
-  <ActionList headingProps={{title: 'Group title', variant: args.headingVariant}} {...args}>
-    <ActionList.Item>Copy link</ActionList.Item>
-    <ActionList.Item>Quote reply</ActionList.Item>
-    <ActionList.Item>Edit comment</ActionList.Item>
+  <ActionList headingProps={{title: args.title, variant: args.variant, subtitle: args.subTitle, headingLevel: args.headingLevel}} {...args}>
   </ActionList>
 )
 
