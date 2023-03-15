@@ -89,6 +89,7 @@ exports[`@primer/react should not update exports without a semver change 1`] = `
   "useOpenAndCloseFocus",
   "useOverlay",
   "useRefObjectAsForwardedRef",
+  "useResizeObserver",
   "useSSRSafeId",
   "useSafeTimeout",
   "useTheme",
