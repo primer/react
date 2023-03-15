@@ -2,15 +2,15 @@ import {render as HTMLRender, act, fireEvent} from '@testing-library/react'
 import {axe} from 'jest-axe'
 import React, {useCallback, useRef, useState} from 'react'
 
-import {ActionMenu} from '../../deprecated/ActionMenu'
-import BaseStyles from '../../BaseStyles'
-import Box from '../../Box'
-import Button from '../../deprecated/Button/Button'
-import {ConfirmationDialog, useConfirm} from '../ConfirmationDialog'
-import theme from '../../theme'
-import {ThemeProvider} from '../../ThemeProvider'
-import {SSRProvider} from '../../utils/ssr'
-import {behavesAsComponent, checkExports} from '../../utils/testing'
+import {ActionMenu} from '../deprecated/ActionMenu'
+import BaseStyles from '../BaseStyles'
+import Box from '../Box'
+import Button from '../deprecated/Button/Button'
+import {ConfirmationDialog, useConfirm} from '../Dialog/ConfirmationDialog'
+import theme from '../theme'
+import {ThemeProvider} from '../ThemeProvider'
+import {SSRProvider} from '../utils/ssr'
+import {behavesAsComponent, checkExports} from '../utils/testing'
 
 declare const REACT_VERSION_LATEST: boolean
 
@@ -80,7 +80,7 @@ describe('ConfirmationDialog', () => {
     options: {skipAs: true, skipSx: true},
   })
 
-  checkExports('Dialog2/ConfirmationDialog', {
+  checkExports('Dialog/ConfirmationDialog', {
     default: undefined,
     useConfirm,
     ConfirmationDialog,

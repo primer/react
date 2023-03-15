@@ -1,5 +1,5 @@
 import React from 'react'
-import {Dialog} from '../Dialog'
+import {Dialog} from '../Dialog/Dialog'
 
 export function shouldAcceptCallWithNoProps() {
   return <Dialog onClose={() => null} />
