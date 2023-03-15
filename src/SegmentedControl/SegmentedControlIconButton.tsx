@@ -3,7 +3,6 @@ import {IconProps} from '@primer/octicons-react'
 import styled from 'styled-components'
 import sx, {merge, SxProp} from '../sx'
 import {getSegmentedControlButtonStyles, getSegmentedControlListItemStyles} from './getSegmentedControlStyles'
-import Tooltip from '../Tooltip'
 import Box from '../Box'
 import {defaultSxProp} from '../utils/defaultSxProp'
 
@@ -45,17 +44,17 @@ export const SegmentedControlIconButton: React.FC<React.PropsWithChildren<Segmen
 
   return (
     <Box as="li" sx={mergedSx}>
-      <Tooltip text={ariaLabel}>
-        <SegmentedControlIconButtonStyled
-          aria-current={selected}
-          sx={getSegmentedControlButtonStyles({selected, isIconOnly: true})}
-          {...rest}
-        >
-          <span className="segmentedControl-content">
-            <Icon />
-          </span>
-        </SegmentedControlIconButtonStyled>
-      </Tooltip>
+      {/* TODO: Once the tooltip remediations are resolved (especially https://github.com/github/primer/issues/1909) - bring it back */}
+      <SegmentedControlIconButtonStyled
+        aria-label={ariaLabel}
+        aria-current={selected}
+        sx={getSegmentedControlButtonStyles({selected, isIconOnly: true})}
+        {...rest}
+      >
+        <span className="segmentedControl-content">
+          <Icon />
+        </span>
+      </SegmentedControlIconButtonStyled>
     </Box>
   )
 }

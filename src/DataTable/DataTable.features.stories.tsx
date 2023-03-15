@@ -1,15 +1,19 @@
-import {DownloadIcon, PlusIcon} from '@primer/octicons-react'
+import {DownloadIcon, KebabHorizontalIcon, PencilIcon, PlusIcon, TrashIcon} from '@primer/octicons-react'
+import {action} from '@storybook/addon-actions'
 import {Meta} from '@storybook/react'
 import React from 'react'
+import {ActionList} from '../ActionList'
+import {ActionMenu} from '../ActionMenu'
 import {Button, IconButton} from '../Button'
 import {DataTable, Table} from '../DataTable'
 import Heading from '../Heading'
 import Label from '../Label'
 import LabelGroup from '../LabelGroup'
 import RelativeTime from '../RelativeTime'
+import VisuallyHidden from '../_VisuallyHidden'
 
 export default {
-  title: 'Drafts/Components/DataTable/Features',
+  title: 'Components/DataTable/Features',
   component: DataTable,
 } as Meta<typeof DataTable>
 
@@ -263,7 +267,7 @@ export const WithSorting = () => {
             header: 'Repository',
             field: 'name',
             rowHeader: true,
-            sortBy: true,
+            sortBy: 'alphanumeric',
           },
           {
             header: 'Type',
@@ -275,7 +279,7 @@ export const WithSorting = () => {
           {
             header: 'Updated',
             field: 'updatedAt',
-            sortBy: true,
+            sortBy: 'datetime',
             renderCell: row => {
               return <RelativeTime date={new Date(row.updatedAt)} />
             },
@@ -292,6 +296,87 @@ export const WithSorting = () => {
                 </LabelGroup>
               ) : null
             },
+          },
+          {
+            header: 'Code scanning',
+            field: 'securityFeatures.codeScanning',
+            renderCell: row => {
+              return row.securityFeatures.codeScanning.length > 0 ? (
+                <LabelGroup>
+                  {row.securityFeatures.codeScanning.map(feature => {
+                    return <Label key={feature}>{uppercase(feature)}</Label>
+                  })}
+                </LabelGroup>
+              ) : null
+            },
+          },
+        ]}
+        initialSortColumn="updatedAt"
+        initialSortDirection="DESC"
+      />
+    </Table.Container>
+  )
+}
+
+export const WithCustomSorting = () => {
+  const rows = Array.from(data).sort((a, b) => {
+    return b.updatedAt - a.updatedAt
+  })
+  const sortByDependabotFeatures = (a: Repo, b: Repo): number => {
+    if (a.securityFeatures.dependabot.length > b.securityFeatures.dependabot.length) {
+      return -1
+    } else if (b.securityFeatures.dependabot.length < a.securityFeatures.dependabot.length) {
+      return 1
+    }
+    return 0
+  }
+  return (
+    <Table.Container>
+      <Table.Title as="h2" id="repositories">
+        Repositories
+      </Table.Title>
+      <Table.Subtitle as="p" id="repositories-subtitle">
+        A subtitle could appear here to give extra context to the data.
+      </Table.Subtitle>
+      <DataTable
+        aria-labelledby="repositories"
+        aria-describedby="repositories-subtitle"
+        data={rows}
+        columns={[
+          {
+            header: 'Repository',
+            field: 'name',
+            rowHeader: true,
+            sortBy: 'alphanumeric',
+          },
+          {
+            header: 'Type',
+            field: 'type',
+            renderCell: row => {
+              return <Label>{uppercase(row.type)}</Label>
+            },
+          },
+          {
+            header: 'Updated',
+            field: 'updatedAt',
+            sortBy: 'datetime',
+            renderCell: row => {
+              return <RelativeTime date={new Date(row.updatedAt)} />
+            },
+          },
+          {
+            header: 'Dependabot',
+            field: 'securityFeatures.dependabot',
+            renderCell: row => {
+              return row.securityFeatures.dependabot.length > 0 ? (
+                <LabelGroup>
+                  {row.securityFeatures.dependabot.map(feature => {
+                    return <Label key={feature}>{uppercase(feature)}</Label>
+                  })}
+                </LabelGroup>
+              ) : null
+            },
+            sortBy: sortByDependabotFeatures,
           },
           {
             header: 'Code scanning',
@@ -843,72 +928,6 @@ export const WithRowActionMenu = () => (
       ]}
     />
   </Table.Container>
-)
-
-export const WithCustomHeading = () => (
-  <>
-    <Heading as="h2" id="repositories">
-      Security coverage
-    </Heading>
-    <p id="repositories-subtitle">
-      Organization members can only see data for the most recently-updated repositories. To see all repositories, talk
-      to your organization administrator about becoming a security manager.
-    </p>
-    <Table.Container>
-      <DataTable
-        aria-labelledby="repositories"
-        aria-describedby="repositories-subtitle"
-        data={data}
-        columns={[
-          {
-            header: 'Repository',
-            field: 'name',
-            rowHeader: true,
-          },
-          {
-            header: 'Type',
-            field: 'type',
-            renderCell: row => {
-              return <Label>{uppercase(row.type)}</Label>
-            },
-          },
-          {
-            header: 'Updated',
-            field: 'updatedAt',
-            renderCell: row => {
-              return <RelativeTime date={new Date(row.updatedAt)} />
-            },
-          },
-          {
-            header: 'Dependabot',
-            field: 'securityFeatures.dependabot',
-            renderCell: row => {
-              return row.securityFeatures.dependabot.length > 0 ? (
-                <LabelGroup>
-                  {row.securityFeatures.dependabot.map(feature => {
-                    return <Label key={feature}>{uppercase(feature)}</Label>
-                  })}
-                </LabelGroup>
-              ) : null
-            },
-          },
-          {
-            header: 'Code scanning',
-            field: 'securityFeatures.codeScanning',
-            renderCell: row => {
-              return row.securityFeatures.codeScanning.length > 0 ? (
-                <LabelGroup>
-                  {row.securityFeatures.codeScanning.map(feature => {
-                    return <Label key={feature}>{uppercase(feature)}</Label>
-                  })}
-                </LabelGroup>
-              ) : null
-            },
-          },
-        ]}
-      />
-    </Table.Container>
-  </>
 )
 
 export const MixedColumnWidths = () => (

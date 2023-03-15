@@ -1,8 +1,6 @@
 import {ObjectPaths} from './utils'
 import {UniqueRow} from './row'
-import {SortStrategies} from './sorting'
-// TODO: uncomment ResponsiveValue<T> when I'm ready to implement the responsive part
-// import {ResponsiveValue} from '../hooks/useResponsiveValue'
+import {SortStrategy, CustomSortStrategy} from './sorting'
 
 export type ColumnWidth = 'grow' | 'shrink' | 'auto' | React.CSSProperties['width']
 export interface Column<Data extends UniqueRow> {
@@ -12,17 +10,17 @@ export interface Column<Data extends UniqueRow> {
    * Provide the name of the column. This will be rendered as a table header
    * within the table itself
    */
-  header: string
+  header: string | (() => React.ReactNode)
 
   /**
    * Optionally provide a field to render for this column. This may be the key
    * of the object or a string that accesses nested objects through `.`. For
-   * exmaple: `field: a.b.c`
+   * example: `field: a.b.c`
    *
    * Alternatively, you may provide a `renderCell` for this column to render the
    * field in a row
    */
-  field: ObjectPaths<Data>
+  field?: ObjectPaths<Data>
 
   /**
    * The minimum width the column can shrink to
@@ -52,7 +50,7 @@ export interface Column<Data extends UniqueRow> {
    * Specify if the table should sort by this column and, if applicable, a
    * specific sort strategy or custom sort strategy
    */
-  sortBy?: boolean | SortStrategies
+  sortBy?: boolean | SortStrategy | CustomSortStrategy<Data>
 
   /**
    * Controls the width of the column.
@@ -63,8 +61,6 @@ export interface Column<Data extends UniqueRow> {
    * @default 'grow'
    */
   width?: ColumnWidth
-  // TODO: uncomment ResponsiveValue<T> when I'm ready to implement the responsive part
-  // | ResponsiveValue<ColumnWidth>
 }
 
 export function createColumnHelper<T extends UniqueRow>() {
