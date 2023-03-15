@@ -189,7 +189,7 @@ const Table = React.forwardRef<HTMLTableElement, TableProps>(function Table(
     <StyledTable
       {...rest}
       data-cell-padding={cellPadding}
-      style={{'--grid-template-columns': gridTemplateColumns}}
+      style={{'--grid-template-columns': gridTemplateColumns} as React.CSSProperties}
       className="Table"
       role="table"
       ref={ref}
