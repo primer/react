@@ -2,7 +2,8 @@ import userEvent from '@testing-library/user-event'
 import {render, screen, getByRole, queryByRole, queryAllByRole} from '@testing-library/react'
 import React from 'react'
 import {DataTable, Table} from '../../DataTable'
-import {createColumnHelper} from '../column'
+import {Column, createColumnHelper} from '../column'
+import {getGridTemplateFromColumns} from '../useTable'
 
 describe('DataTable', () => {
   it('should render a semantic <table> through `data` and `columns`', () => {
@@ -807,6 +808,176 @@ describe('DataTable', () => {
       await user.click(screen.getByText('Value'))
       expect(customSortFn).toHaveBeenCalled()
       expect(getRowOrder()).toEqual(['3', '2', '1'])
+    })
+  })
+
+  describe('column widths', () => {
+    it('correctly sets the column width to "grow" when width is undefined', () => {
+      const columnHelper = createColumnHelper<{id: number; name: string}>()
+      const columns = [
+        columnHelper.column({
+          header: 'Name',
+          field: 'name',
+        }),
+      ]
+
+      expect(getGridTemplateFromColumns(columns)).toEqual(['minmax(max-content, 1fr)'])
+    })
+    it('correctly sets the column width when width === "grow"', () => {
+      const columnHelper = createColumnHelper<{id: number; name: string}>()
+      const columns = [
+        columnHelper.column({
+          header: 'Name',
+          field: 'name',
+          width: 'grow',
+        }),
+      ]
+
+      expect(getGridTemplateFromColumns(columns)).toEqual(['minmax(max-content, 1fr)'])
+    })
+    it('correctly sets the column width when width === "shrink"', () => {
+      const columnHelper = createColumnHelper<{id: number; name: string}>()
+      const columns = [
+        columnHelper.column({
+          header: 'Name',
+          field: 'name',
+          width: 'shrink',
+        }),
+      ]
+
+      expect(getGridTemplateFromColumns(columns)).toEqual(['minmax(0, 1fr)'])
+    })
+    it('correctly sets the column width when width === "auto"', () => {
+      const columnHelper = createColumnHelper<{id: number; name: string}>()
+      const columns = [
+        columnHelper.column({
+          header: 'Name',
+          field: 'name',
+          width: 'auto',
+        }),
+      ]
+
+      expect(getGridTemplateFromColumns(columns)).toEqual(['auto'])
+    })
+    it('correctly sets the column width when width is a CSS width string', () => {
+      const columnHelper = createColumnHelper<{id: number; name: string}>()
+      const columns = [
+        columnHelper.column({
+          header: 'Name',
+          field: 'name',
+          width: '42ch',
+        }),
+      ]
+
+      expect(getGridTemplateFromColumns(columns)).toEqual(['42ch'])
+    })
+    it('correctly sets the column width when width is a number', () => {
+      const columnHelper = createColumnHelper<{id: number; name: string}>()
+      const columns = [
+        columnHelper.column({
+          header: 'Name',
+          field: 'name',
+          width: 200,
+        }),
+      ]
+
+      expect(getGridTemplateFromColumns(columns)).toEqual(['200px'])
+    })
+    it('correctly sets min-widths for the column', () => {
+      const columnHelper = createColumnHelper<{id: number; name: string}>()
+      const columns: Record<string, Column<{id: number; name: string}>[]> = {
+        grow: [
+          columnHelper.column({
+            header: 'Name',
+            field: 'name',
+            width: 'grow',
+            minWidth: '42ch',
+          }),
+        ],
+        shrink: [
+          columnHelper.column({
+            header: 'Name',
+            field: 'name',
+            width: 'shrink',
+            minWidth: '42ch',
+          }),
+        ],
+        auto: [
+          columnHelper.column({
+            header: 'Name',
+            field: 'name',
+            width: 'auto',
+            minWidth: '42ch',
+          }),
+        ],
+      }
+      const expectedWidths: Record<string, string> = {
+        grow: 'minmax(42ch, 1fr)',
+        shrink: 'minmax(42ch, 1fr)',
+        auto: 'minmax(42ch, auto)',
+      }
+
+      for (const widthOpt in columns) {
+        expect(getGridTemplateFromColumns(columns[widthOpt])).toEqual([expectedWidths[widthOpt]])
+      }
+    })
+    it('correctly sets max-widths for the column', () => {
+      const columnHelper = createColumnHelper<{id: number; name: string}>()
+      const columns: Record<string, Column<{id: number; name: string}>[]> = {
+        grow: [
+          columnHelper.column({
+            header: 'Name',
+            field: 'name',
+            width: 'grow',
+            maxWidth: '42ch',
+          }),
+        ],
+        shrink: [
+          columnHelper.column({
+            header: 'Name',
+            field: 'name',
+            width: 'shrink',
+            maxWidth: '42ch',
+          }),
+        ],
+        auto: [
+          columnHelper.column({
+            header: 'Name',
+            field: 'name',
+            width: 'auto',
+            maxWidth: '42ch',
+          }),
+        ],
+      }
+      const expectedWidths: Record<string, string> = {
+        grow: 'minmax(auto, 42ch)',
+        shrink: 'minmax(0, 42ch)',
+        auto: 'minmax(auto, 42ch)',
+      }
+
+      for (const widthOpt in columns) {
+        expect(getGridTemplateFromColumns(columns[widthOpt])).toEqual([expectedWidths[widthOpt]])
+      }
+    })
+    it('sets a custom property style to define the column grid template', () => {
+      const columnHelper = createColumnHelper<{id: number; name: string}>()
+      const columns = [
+        columnHelper.column({
+          header: 'Name',
+          field: 'name',
+        }),
+      ]
+      const data = [
+        {
+          id: 1,
+          name: 'one',
+        },
+      ]
+      render(<DataTable data={data} columns={columns} />)
+
+      expect(screen.getByRole('table')).toHaveStyle({
+        '--grid-template-columns': 'minmax(max-content, 1fr)',
+      })
     })
   })
 })
