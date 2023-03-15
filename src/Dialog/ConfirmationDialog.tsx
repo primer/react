@@ -5,7 +5,7 @@ import Box from '../Box'
 import {ThemeProvider, useTheme, ThemeProviderProps} from '../ThemeProvider'
 import {FocusKeys} from '@primer/behaviors'
 import {get} from '../constants'
-import {Dialog, DialogProps, DialogHeaderProps, DialogButtonProps} from './Dialog'
+import {Dialog, DialogProps, DialogHeaderProps, DialogButtonProps} from '../Dialog/Dialog'
 import {useFocusZone} from '../hooks/useFocusZone'
 
 /**
