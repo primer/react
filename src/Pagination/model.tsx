@@ -69,7 +69,7 @@ export function buildPaginationModel(
       const next = sorted[idx + 1]
       const lastDelta = num - last
       const nextDelta = num - next
-      const preceedsBreak = nextDelta !== -1
+      const precedesBreak = nextDelta !== -1
 
       if (idx === 0) {
         if (num !== 1) {
