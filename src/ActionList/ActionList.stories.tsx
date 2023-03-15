@@ -3,7 +3,7 @@ import {Story, Meta} from '@storybook/react'
 import {ActionList, ActionListProps} from '.'
 import {Item} from './Item'
 import {LinkItem} from './LinkItem'
-import {Heading} from './Heading'
+import {Heading, ActionListHeadingProps} from './Heading'
 import {Divider} from './Divider'
 import {Description} from './Description'
 import {TypographyIcon, VersionsIcon, SearchIcon, ArrowRightIcon, ArrowLeftIcon} from '@primer/octicons-react'
@@ -242,47 +242,35 @@ LinkItemPlayground.argTypes = {
   },
 }
 
-type HeadingProps = {
-  headingVariant?: 'subtle' | 'filled'
-}
-
-export const HeadingPlayground: Story<ActionListProps & HeadingProps> = args => (
-  <ActionList headingProps={{title: args.title, variant: args.variant, subtitle: args.subTitle, headingLevel: args.headingLevel}} {...args}>
-  </ActionList>
+export const HeadingPlayground: Story<ActionListProps & ActionListHeadingProps> = args => (
+  <ActionList
+    headingProps={{title: args.title, variant: args.variant, subtitle: args.subtitle, headingLevel: args.headingLevel}}
+    {...args}
+  ></ActionList>
 )
 
 HeadingPlayground.args = {
-  variant: 'subtle',
-  title: 'Group title'
+  title: 'Group title',
 }
 
 HeadingPlayground.argTypes = {
-  showDividers: {
-    control: {
-      type: 'boolean',
-    },
-  },
   variant: {
-    control: {
-      type: 'radio',
-    },
-    options: ['inset', 'full'],
-  },
-  selectionVariant: {
-    control: {
-      type: 'radio',
-      labels: ['single', 'multiple', 'unset'],
-    },
-    options: [0, 1, 2],
-    mapping: ['single', 'multiple', null],
-  },
-  role: {
     type: 'string',
-  },
-  headingVariant: {
     control: {
       type: 'radio',
     },
     options: ['subtle', 'filled'],
+  },
+  title: {
+    type: 'string',
+  },
+  subtitle: {
+    type: 'string',
+  },
+  headingLevel: {
+    control: {
+      type: 'radio',
+    },
+    options: [1, 2, 3, 4, 5, 6],
   },
 }
