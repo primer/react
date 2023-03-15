@@ -62,8 +62,7 @@ export const Tooltip2IconButtonWithDescription = () => (
 export const MultipleChildren = () => (
   <Box sx={{p: 5}}>
     <Tooltip2 text="This is a supplementary text" type="description">
-      <button>one button</button>
-      <button>two button</button>
+      <span>one button</span>
     </Tooltip2>
   </Box>
 )

@@ -11,9 +11,11 @@ export type Tooltip2Props = {
   align?: 'left' | 'right'
   wrap?: boolean
   type?: 'label' | 'description'
+  //   Only allow interactive elements ?? How would that work with PropsWithChildren??
+  children: React.ReactElement<React.HTMLAttributes<HTMLButtonElement>> // how can I type it with native HTML elements?
 } & SxProp
 
-const tooltipClasses = ({direction, noDelay, align, wrap}: Omit<Tooltip2Props, 'type' | 'text'>) => ({
+const tooltipClasses = ({direction, noDelay, align, wrap}: Omit<Tooltip2Props, 'type' | 'text' | 'children'>) => ({
   position: 'relative',
   display: 'inline-block',
   '& > span': {
@@ -66,7 +68,7 @@ const Tooltip2: React.FC<React.PropsWithChildren<Tooltip2Props>> = ({
   ...props
 }) => {
   children && Children.only(children) // make sure there is only one child
-  const isInteractive = React.isValidElement(children) && (children.type === Button || children.type === IconButton)
+  const isInteractive = React.isValidElement(children) //&& (children.type === Button || children.type === IconButton)
   if (!isInteractive) {
     // eslint-disable-next-line no-console
     console.error('Tooltip trigger must be an interactive React element (e.g. Button)')
@@ -79,19 +81,18 @@ const Tooltip2: React.FC<React.PropsWithChildren<Tooltip2Props>> = ({
       'aria-label'?: string
     }>,
     {
-      // use aria-describedby if the type is description
+      // if it is a type description, we use tooltip to describe the trigger
       'aria-describedby': type === 'description' ? 'tooltip-id-random-id' : undefined,
-      // use aria-label if the child is a button
-      'aria-labelledby': type === 'description' ? undefined : 'tooltip-id-random-id',
-      // remove aria-label if the child has an aria-labelledby
-      'aria-label': type === 'label' ? undefined : (children as React.ReactElement).props['aria-label'],
+      // If it is a type description, we should keep the aria label if it exists, otherwise we remove it because we will use aria-labelledby
+      'aria-label': type === 'description' ? (children as React.ReactElement).props['aria-label'] : undefined,
+      //   If it is a label type, we use tooltip to label the trigger
+      'aria-labelledby': type === 'label' ? 'tooltip-id-random-id' : undefined,
     },
   )
 
   return (
     <Box sx={merge<BetterSystemStyleObject>(tooltipClasses({direction, noDelay, align, wrap}), sx)} {...props}>
       {isInteractive && child}
-
       <Box
         as="span"
         // Only need tooltip role if the tooltip is a description for supplementary information
