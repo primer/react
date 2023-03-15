@@ -3,7 +3,6 @@ import {Meta} from '@storybook/react'
 import {ActionList} from '.'
 import {Item} from './Item'
 import {LinkItem} from './LinkItem'
-import {Group} from './Group'
 import {Divider} from './Divider'
 import {Description} from './Description'
 import Avatar from '../Avatar'
@@ -28,7 +27,7 @@ import {
 export default {
   title: 'Components/ActionList/Features',
   component: ActionList,
-  subcomponents: {Item, LinkItem, Group, Divider, Description},
+  subcomponents: {Item, LinkItem, Divider, Description},
 } as Meta<typeof ActionList>
 
 export const SimpleList = () => (
