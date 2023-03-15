@@ -26,7 +26,7 @@ export const Flexbox = () => (
 )
 
 export const Grid = () => (
-  <Box sx={{display: 'grid', gridTemplateColumns: '1fr 1fr', gridGap: 3}}>
+  <Box sx={{display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 3}}>
     <Box sx={{p: 3, borderWidth: 1, borderStyle: 'solid', borderColor: 'border.default'}}>1</Box>
     <Box sx={{p: 3, borderWidth: 1, borderStyle: 'solid', borderColor: 'border.default'}}>2</Box>
     <Box sx={{p: 3, borderWidth: 1, borderStyle: 'solid', borderColor: 'border.default'}}>3</Box>
