@@ -6,7 +6,7 @@ source: https://github.com/primer/react/blob/main/src/Pagehead.tsx
 status: Alpha
 ---
 
-import data from '../../src/Pagehead.docs.json'
+import data from '../../src/Pagehead/Pagehead.docs.json'
 
 ```js
 import {Pagehead} from '@primer/react'
