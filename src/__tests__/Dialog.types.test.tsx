@@ -1,5 +1,5 @@
 import React from 'react'
-import Dialog from '..'
+import Dialog from '../Dialog'
 
 export function shouldAcceptCallWithNoProps() {
   return <Dialog />
