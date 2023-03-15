@@ -20,7 +20,9 @@ const StyledTable = styled.table<React.ComponentPropsWithoutRef<'table'>>`
   background-color: ${get('colors.canvas.default')};
   border-spacing: 0;
   border-collapse: separate;
+  display: grid;
   font-size: var(--table-font-size);
+  grid-template-columns: var(--grid-template-columns);
   line-height: calc(20 / var(--table-font-size));
   width: 100%;
 
@@ -138,6 +140,22 @@ const StyledTable = styled.table<React.ComponentPropsWithoutRef<'table'>>`
     font-weight: 600;
     text-align: start;
   }
+
+  /* Grid layout */
+  .TableHead,
+  .TableBody,
+  .TableRow {
+    display: contents;
+  }
+
+  @supports (grid-template-columns: subgrid) {
+    .TableHead,
+    .TableBody,
+    .TableRow {
+      display: grid;
+      grid-template-columns: subgrid;
+      grid-column: -1 /1;
+  }
 `
 
 export type TableProps = React.ComponentPropsWithoutRef<'table'> & {
@@ -152,6 +170,11 @@ export type TableProps = React.ComponentPropsWithoutRef<'table'> & {
   'aria-labelledby'?: string
 
   /**
+   * Column width definitions
+   */
+  gridTemplateColumns?: React.CSSProperties['gridTemplateColumns']
+
+  /**
    * Specify the amount of space that should be available around the contents of
    * a cell
    */
@@ -159,12 +182,20 @@ export type TableProps = React.ComponentPropsWithoutRef<'table'> & {
 }
 
 const Table = React.forwardRef<HTMLTableElement, TableProps>(function Table(
-  {'aria-labelledby': labelledby, cellPadding = 'normal', ...rest},
+  {'aria-labelledby': labelledby, cellPadding = 'normal', gridTemplateColumns, ...rest},
   ref,
 ) {
   return (
     <ScrollableRegion aria-labelledby={labelledby} className="TableOverflowWrapper">
-      <StyledTable {...rest} aria-labelledby={labelledby} data-cell-padding={cellPadding} className="Table" ref={ref} />
+      <StyledTable
+        {...rest}
+        aria-labelledby={labelledby}
+        data-cell-padding={cellPadding}
+        className="Table"
+        role="table"
+        ref={ref}
+        style={{'--grid-template-columns': gridTemplateColumns} as React.CSSProperties}
+      />
     </ScrollableRegion>
   )
 })
@@ -176,7 +207,14 @@ const Table = React.forwardRef<HTMLTableElement, TableProps>(function Table(
 export type TableHeadProps = React.ComponentPropsWithoutRef<'thead'>
 
 function TableHead({children}: TableHeadProps) {
-  return <thead className="TableHead">{children}</thead>
+  return (
+    // We need to explicitly pass this role because some ATs and browsers drop table semantics
+    // when we use `display: contents` or `display: grid` in the table
+    // eslint-disable-next-line jsx-a11y/no-redundant-roles
+    <thead className="TableHead" role="rowgroup">
+      {children}
+    </thead>
+  )
 }
 
 // ----------------------------------------------------------------------------
@@ -186,7 +224,14 @@ function TableHead({children}: TableHeadProps) {
 export type TableBodyProps = React.ComponentPropsWithoutRef<'tbody'>
 
 function TableBody({children}: TableBodyProps) {
-  return <tbody className="TableBody">{children}</tbody>
+  return (
+    // We need to explicitly pass this role because some ATs and browsers drop table semantics
+    // when we use `display: contents` or `display: grid` in the table
+    // eslint-disable-next-line jsx-a11y/no-redundant-roles
+    <tbody className="TableBody" role="rowgroup">
+      {children}
+    </tbody>
+  )
 }
 
 // ----------------------------------------------------------------------------
@@ -456,22 +501,15 @@ const Button = styled.button`
 
 type ScrollableRegionProps = React.PropsWithChildren<{
   'aria-labelledby'?: string
-  'aria-label'?: string
   className?: string
 }>
 
-function ScrollableRegion({
-  'aria-labelledby': labelledby,
-  'aria-label': label,
-  children,
-  ...rest
-}: ScrollableRegionProps) {
+function ScrollableRegion({'aria-labelledby': labelledby, children, ...rest}: ScrollableRegionProps) {
   const ref = React.useRef(null)
   const hasOverflow = useOverflow(ref)
   const regionProps = hasOverflow
     ? {
         'aria-labelledby': labelledby,
-        'aria-label': label,
         role: 'region',
         tabIndex: 0,
       }

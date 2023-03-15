@@ -267,7 +267,7 @@ export const WithSorting = () => {
             header: 'Repository',
             field: 'name',
             rowHeader: true,
-            sortBy: true,
+            sortBy: 'alphanumeric',
           },
           {
             header: 'Type',
@@ -279,7 +279,7 @@ export const WithSorting = () => {
           {
             header: 'Updated',
             field: 'updatedAt',
-            sortBy: true,
+            sortBy: 'datetime',
             renderCell: row => {
               return <RelativeTime date={new Date(row.updatedAt)} />
             },
@@ -296,6 +296,87 @@ export const WithSorting = () => {
                 </LabelGroup>
               ) : null
             },
+          },
+          {
+            header: 'Code scanning',
+            field: 'securityFeatures.codeScanning',
+            renderCell: row => {
+              return row.securityFeatures.codeScanning.length > 0 ? (
+                <LabelGroup>
+                  {row.securityFeatures.codeScanning.map(feature => {
+                    return <Label key={feature}>{uppercase(feature)}</Label>
+                  })}
+                </LabelGroup>
+              ) : null
+            },
+          },
+        ]}
+        initialSortColumn="updatedAt"
+        initialSortDirection="DESC"
+      />
+    </Table.Container>
+  )
+}
+
+export const WithCustomSorting = () => {
+  const rows = Array.from(data).sort((a, b) => {
+    return b.updatedAt - a.updatedAt
+  })
+  const sortByDependabotFeatures = (a: Repo, b: Repo): number => {
+    if (a.securityFeatures.dependabot.length > b.securityFeatures.dependabot.length) {
+      return -1
+    } else if (b.securityFeatures.dependabot.length < a.securityFeatures.dependabot.length) {
+      return 1
+    }
+    return 0
+  }
+  return (
+    <Table.Container>
+      <Table.Title as="h2" id="repositories">
+        Repositories
+      </Table.Title>
+      <Table.Subtitle as="p" id="repositories-subtitle">
+        A subtitle could appear here to give extra context to the data.
+      </Table.Subtitle>
+      <DataTable
+        aria-labelledby="repositories"
+        aria-describedby="repositories-subtitle"
+        data={rows}
+        columns={[
+          {
+            header: 'Repository',
+            field: 'name',
+            rowHeader: true,
+            sortBy: 'alphanumeric',
+          },
+          {
+            header: 'Type',
+            field: 'type',
+            renderCell: row => {
+              return <Label>{uppercase(row.type)}</Label>
+            },
+          },
+          {
+            header: 'Updated',
+            field: 'updatedAt',
+            sortBy: 'datetime',
+            renderCell: row => {
+              return <RelativeTime date={new Date(row.updatedAt)} />
+            },
+          },
+          {
+            header: 'Dependabot',
+            field: 'securityFeatures.dependabot',
+            renderCell: row => {
+              return row.securityFeatures.dependabot.length > 0 ? (
+                <LabelGroup>
+                  {row.securityFeatures.dependabot.map(feature => {
+                    return <Label key={feature}>{uppercase(feature)}</Label>
+                  })}
+                </LabelGroup>
+              ) : null
+            },
+            sortBy: sortByDependabotFeatures,
           },
           {
             header: 'Code scanning',
@@ -842,6 +923,72 @@ export const WithRowActionMenu = () => (
                 </ActionMenu.Overlay>
               </ActionMenu>
             )
+          },
+        },
+      ]}
+    />
+  </Table.Container>
+)
+
+export const MixedColumnWidths = () => (
+  <Table.Container>
+    <Table.Title as="h2" id="repositories">
+      Repositories
+    </Table.Title>
+    <DataTable
+      aria-labelledby="repositories"
+      aria-describedby="repositories-subtitle"
+      data={data}
+      columns={[
+        {
+          header: 'grow w/ 200px max',
+          field: 'name',
+          rowHeader: true,
+          width: 'grow',
+          maxWidth: '200px',
+        },
+        {
+          header: 'shrink w/ 100px min',
+          field: 'type',
+          renderCell: row => {
+            return <Label>{uppercase(row.type)}</Label>
+          },
+          width: 'shrink',
+          minWidth: '100px',
+        },
+        {
+          header: 'auto',
+          field: 'updatedAt',
+          renderCell: row => {
+            return <RelativeTime date={new Date(row.updatedAt)} />
+          },
+          width: 'auto',
+        },
+        {
+          header: '200px',
+          field: 'securityFeatures.dependabot',
+          renderCell: row => {
+            return row.securityFeatures.dependabot.length > 0 ? (
+              <LabelGroup>
+                {row.securityFeatures.dependabot.map(feature => {
+                  return <Label key={feature}>{uppercase(feature)}</Label>
+                })}
+              </LabelGroup>
+            ) : null
+          },
+          width: '200px',
+        },
+        {
+          header: 'undefined (defaults to grow)',
+          field: 'securityFeatures.codeScanning',
+          renderCell: row => {
+            return row.securityFeatures.codeScanning.length > 0 ? (
+              <LabelGroup>
+                {row.securityFeatures.codeScanning.map(feature => {
+                  return <Label key={feature}>{uppercase(feature)}</Label>
+                })}
+              </LabelGroup>
+            ) : null
           },
         },
       ]}
