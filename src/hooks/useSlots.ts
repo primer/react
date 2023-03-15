@@ -11,8 +11,7 @@ type SlotElements<Type extends SlotConfig> = {
  * allowing us to implement components with SSR-compatible slot APIs.
  * Note: We can only extract direct children, not nested ones.
  */
-// eslint-disable-next-line camelcase
-export function unstable_useSlots<T extends SlotConfig>(
+export function useSlots<T extends SlotConfig>(
   children: React.ReactNode,
   config: T,
 ): [Partial<SlotElements<T>>, React.ReactNode[]] {

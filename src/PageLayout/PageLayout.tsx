@@ -1,8 +1,7 @@
 import React from 'react'
 import {createGlobalStyle} from 'styled-components'
 import Box from '../Box'
-// eslint-disable-next-line camelcase
-import {unstable_useSlots} from '../hooks/unstable_useSlots'
+import {useSlots} from '../hooks/useSlots'
 import {useId} from '../hooks/useId'
 import {useRefObjectAsForwardedRef} from '../hooks/useRefObjectAsForwardedRef'
 import {isResponsiveValue, ResponsiveValue, useResponsiveValue} from '../hooks/useResponsiveValue'
@@ -71,7 +70,7 @@ const Root: React.FC<React.PropsWithChildren<PageLayoutProps>> = ({
   const {rootRef, enableStickyPane, disableStickyPane, contentTopRef, contentBottomRef, stickyPaneHeight} =
     useStickyPaneHeight()
 
-  const [slots, rest] = unstable_useSlots(children, {
+  const [slots, rest] = useSlots(children, {
     header: Header,
     footer: Footer,
   })

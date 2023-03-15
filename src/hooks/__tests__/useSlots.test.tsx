@@ -1,7 +1,6 @@
 import React from 'react'
 import {renderHook} from '@testing-library/react'
-// eslint-disable-next-line camelcase
-import {unstable_useSlots} from '../unstable_useSlots'
+import {useSlots} from '../useSlots'
 
 function TestComponentA(props: React.PropsWithChildren<unknown>) {
   return <div {...props} />
@@ -17,7 +16,7 @@ test('extracts elements based on config object', () => {
     a: TestComponentA,
     b: TestComponentB,
   }
-  const {result} = renderHook(() => unstable_useSlots(children, slotsConfig))
+  const {result} = renderHook(() => useSlots(children, slotsConfig))
   expect(result.current).toMatchInlineSnapshot(`
     [
       {
@@ -36,7 +35,7 @@ test('extracts elements based on config object', () => {
 test('handles empty config object', () => {
   const children = [<TestComponentA key="a" />, <TestComponentB key="b" />, <div key="hello">Hello World</div>]
   const slotsConfig = {}
-  const {result} = renderHook(() => unstable_useSlots(children, slotsConfig))
+  const {result} = renderHook(() => useSlots(children, slotsConfig))
   expect(result.current).toMatchInlineSnapshot(`
     [
       {},
@@ -57,7 +56,7 @@ test('handles empty children', () => {
     a: TestComponentA,
     b: TestComponentB,
   }
-  const {result} = renderHook(() => unstable_useSlots(children, slotsConfig))
+  const {result} = renderHook(() => useSlots(children, slotsConfig))
   expect(result.current).toMatchInlineSnapshot(`
     [
       {
@@ -80,7 +79,7 @@ test('ignores nested slots', () => {
     a: TestComponentA,
     b: TestComponentB,
   }
-  const {result} = renderHook(() => unstable_useSlots(children, slotsConfig))
+  const {result} = renderHook(() => useSlots(children, slotsConfig))
   expect(result.current).toMatchInlineSnapshot(`
     [
       {
@@ -101,7 +100,7 @@ test('ignores duplicate slots', () => {
   const slotsConfig = {
     a: TestComponentA,
   }
-  const {result} = renderHook(() => unstable_useSlots(children, slotsConfig))
+  const {result} = renderHook(() => useSlots(children, slotsConfig))
   expect(result.current).toMatchInlineSnapshot(`
     [
       {
