@@ -137,6 +137,35 @@ export const WithTrailingAction = () => {
               }}
               icon={XCircleFillIcon}
               aria-label="Clear input"
+              sx={{color: 'fg.subtle'}}
+            />
+          }
+          value={value}
+          onChange={handleChange}
+        />
+      </FormControl>
+    </Box>
+  )
+}
+
+export const WithTooltipDirection = () => {
+  const [value, setValue] = useState('')
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setValue(event.target.value)
+  }
+  return (
+    <Box as="form">
+      <FormControl>
+        <FormControl.Label>Default label</FormControl.Label>
+        <TextInput
+          trailingAction={
+            <TextInput.Action
+              onClick={() => {
+                setValue('')
+              }}
+              icon={XCircleFillIcon}
+              aria-label="Clear input"
               tooltip-direction="nw"
               sx={{color: 'fg.subtle'}}
             />
