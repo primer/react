@@ -635,7 +635,7 @@ export const CustomStickyHeader: Story = args => (
     </Box>
     <PageLayout rowGap="none" columnGap="none" padding="none" containerWidth="full">
       <PageLayout.Content padding="normal" width="large">
-        <Box sx={{display: 'grid', gap: 3}} data-testid="scrollContainer" tabIndex={0}>
+        <Box sx={{display: 'grid', gap: 3}} data-testid="scrollContainer">
           {Array.from({length: args.numParagraphsInContent}).map((_, i) => {
             const testId = `content${i}`
             return (
@@ -654,8 +654,15 @@ export const CustomStickyHeader: Story = args => (
           })}
         </Box>
       </PageLayout.Content>
-      <PageLayout.Pane position="start" padding="normal" divider="line" sticky offsetHeader={args.offsetHeader}>
-        <Box sx={{display: 'grid', gap: 3}} tabIndex={0}>
+      <PageLayout.Pane
+        position="start"
+        padding="normal"
+        divider="line"
+        aria-label="Aside pane"
+        sticky
+        offsetHeader={args.offsetHeader}
+      >
+        <Box sx={{display: 'grid', gap: 3}}>
           {Array.from({length: args.numParagraphsInPane}).map((_, i) => {
             const testId = `paragraph${i}`
             return (
