@@ -32,13 +32,19 @@ export function unstable_useSlots<T extends SlotConfig>(
     // Check if the child is a slot
     const slotKey = getKeyByValue(config, child.type)
 
-    if (slotKey && !slots[slotKey]) {
+    if (slotKey && slots[slotKey]) {
+      // If slot is already filled, ignore duplicates
+      return
+    }
+
+    if (slotKey) {
       // If the child is a slot, add it to the `slots` object
       slots[slotKey] = child
-    } else {
-      // If the child is not a slot, add it to the `rest` array
-      rest.push(child)
+      return
     }
+
+    // If the child is not a slot, add it to the `rest` array
+    rest.push(child)
   })
 
   return [slots, rest]
