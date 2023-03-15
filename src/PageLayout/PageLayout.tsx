@@ -1,10 +1,10 @@
 import React from 'react'
 import {createGlobalStyle} from 'styled-components'
 import Box from '../Box'
-import {useSlots} from '../hooks/useSlots'
 import {useId} from '../hooks/useId'
 import {useRefObjectAsForwardedRef} from '../hooks/useRefObjectAsForwardedRef'
 import {isResponsiveValue, ResponsiveValue, useResponsiveValue} from '../hooks/useResponsiveValue'
+import {useSlots} from '../hooks/useSlots'
 import {BetterSystemStyleObject, merge, SxProp} from '../sx'
 import {Theme} from '../ThemeProvider'
 import {canUseDOM} from '../utils/environment'
@@ -49,6 +49,9 @@ export type PageLayoutProps = {
   padding?: keyof typeof SPACING_MAP
   rowGap?: keyof typeof SPACING_MAP
   columnGap?: keyof typeof SPACING_MAP
+
+  /** Private prop to allow SplitPageLayout to customize slot components */
+  _slotsConfig?: Record<'header' | 'footer', React.ComponentType>
 } & SxProp
 
 const containerWidths = {
@@ -66,14 +69,12 @@ const Root: React.FC<React.PropsWithChildren<PageLayoutProps>> = ({
   columnGap = 'normal',
   children,
   sx = {},
+  _slotsConfig: slotsConfig,
 }) => {
   const {rootRef, enableStickyPane, disableStickyPane, contentTopRef, contentBottomRef, stickyPaneHeight} =
     useStickyPaneHeight()
 
-  const [slots, rest] = useSlots(children, {
-    header: Header,
-    footer: Footer,
-  })
+  const [slots, rest] = useSlots(children, slotsConfig ?? {header: Header, footer: Footer})
 
   return (
     <PageLayoutContext.Provider

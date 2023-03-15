@@ -1,6 +1,6 @@
 import React from 'react'
 
-type SlotConfig = Record<string, React.ComponentType>
+export type SlotConfig = Record<string, React.ComponentType>
 
 type SlotElements<Type extends SlotConfig> = {
   [Property in keyof Type]: React.ReactElement
