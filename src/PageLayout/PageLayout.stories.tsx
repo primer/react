@@ -515,7 +515,14 @@ export const StickyPane: Story = args => (
         })}
       </Box>
     </PageLayout.Content>
-    <PageLayout.Pane position="start" resizable padding="normal" divider="line" sticky={args.sticky}>
+    <PageLayout.Pane
+      position="start"
+      resizable
+      padding="normal"
+      divider="line"
+      sticky={args.sticky}
+      aria-label="Side pane"
+    >
       <Box sx={{display: 'grid', gap: 3}}>
         {Array.from({length: args.numParagraphsInPane}).map((_, i) => {
           const testId = `paragraph${i}`
@@ -578,7 +585,7 @@ export const NestedScrollContainer: Story = args => (
             ))}
           </Box>
         </PageLayout.Content>
-        <PageLayout.Pane position="start" padding="normal" divider="line" sticky>
+        <PageLayout.Pane position="start" padding="normal" divider="line" sticky aria-label="Side pane">
           <Box sx={{display: 'grid', gap: 3}}>
             {Array.from({length: args.numParagraphsInPane}).map((_, i) => (
               <Box key={i} as="p" sx={{margin: 0}}>
