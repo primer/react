@@ -255,11 +255,8 @@ export const HeadingPlayground: Story<ActionListProps & HeadingProps> = args => 
 )
 
 HeadingPlayground.args = {
-  showDividers: false,
-  selectionVariant: undefined,
-  variant: 'inset',
-  headingVariant: 'subtle',
-  role: 'list',
+  variant: 'subtle',
+  title: 'Group title'
 }
 
 HeadingPlayground.argTypes = {
