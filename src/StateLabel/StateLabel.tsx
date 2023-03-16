@@ -82,7 +82,7 @@ const sizeVariants = variant({
 
 type StyledStateLabelBaseProps = {
   variant?: 'small' | 'normal'
-  status?: keyof typeof octiconMap
+  status: keyof typeof octiconMap
 } & SxProp
 
 const StateLabelBase = styled.span<StyledStateLabelBaseProps>`
