@@ -57,15 +57,15 @@ jobs:
       - name: Stop storybook
         if: ${{ always() }}
         run: kill ${{ steps.storybook.outputs.pid }}
-      - name: Create snapshots folder
+      - name: Create snapshots.zip
         run: |
-          mkdir updated-snapshots
           if [[ ! -z  $(git ls-files --others --exclude-standard --modified) ]]; then
-            cp $(git ls-files --others --exclude-standard --modified) updated-snapshots
+            git ls-files --others --exclude-standard --modified | zip snapshots -@
           fi
       - name: Upload snapshots
         uses: actions/upload-artifact@v3
         with:
           name: snapshots-${{ matrix.shard }}
-          path: updated-snapshots
+          path: snapshots.zip
           retention-days: 1
+          if-no-files-found: ignore
