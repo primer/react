@@ -105,7 +105,7 @@ jobs:
       - run: |
           for filepath in snapshots-*.zip
           do
-            unzip -o $filepath -d .playwright/snapshots
+            unzip -o $filepath
             rm $filepath
           done
       - uses: stefanzweifel/git-auto-commit-action@v4
