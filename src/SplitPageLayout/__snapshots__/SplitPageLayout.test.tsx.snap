@@ -19,6 +19,24 @@ exports[`SplitPageLayout renders default layout 1`] = `
 }
 
 .c2 {
+  width: 100%;
+  margin-bottom: 0;
+}
+
+.c3 {
+  padding: 16px;
+}
+
+.c4 {
+  margin-left: 0;
+  margin-right: 0;
+  display: block;
+  height: 1px;
+  background-color: #d0d7de;
+  margin-top: 0;
+}
+
+.c5 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -30,24 +48,6 @@ exports[`SplitPageLayout renders default layout 1`] = `
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
   max-width: 100%;
-}
-
-.c3 {
-  width: 100%;
-  margin-bottom: 0;
-}
-
-.c4 {
-  padding: 16px;
-}
-
-.c5 {
-  margin-left: 0;
-  margin-right: 0;
-  display: block;
-  height: 1px;
-  background-color: #d0d7de;
-  margin-top: 0;
 }
 
 .c6 {
@@ -143,13 +143,13 @@ exports[`SplitPageLayout renders default layout 1`] = `
 }
 
 @media screen and (min-width:1012px) {
-  .c4 {
+  .c3 {
     padding: 24px;
   }
 }
 
 @media screen and (min-width:768px) {
-  .c5 {
+  .c4 {
     margin-left: 0 !important;
     margin-right: 0 !important;
   }
@@ -219,21 +219,21 @@ exports[`SplitPageLayout renders default layout 1`] = `
     <div
       class="c1"
     >
-      <div
+      <header
         class="c2"
       >
-        <header
+        <div
           class="c3"
         >
-          <div
-            class="c4"
-          >
-            Header
-          </div>
-          <div
-            class="c5"
-          />
-        </header>
+          Header
+        </div>
+        <div
+          class="c4"
+        />
+      </header>
+      <div
+        class="c5"
+      >
         <main
           class="c6"
         >
@@ -265,19 +265,19 @@ exports[`SplitPageLayout renders default layout 1`] = `
             Pane
           </div>
         </div>
-        <footer
-          class="c12"
-        >
-          <div
-            class="c13"
-          />
-          <div
-            class="c4"
-          >
-            Footer
-          </div>
-        </footer>
       </div>
+      <footer
+        class="c12"
+      >
+        <div
+          class="c13"
+        />
+        <div
+          class="c3"
+        >
+          Footer
+        </div>
+      </footer>
     </div>
   </div>
 </div>
