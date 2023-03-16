@@ -106,6 +106,8 @@ jobs:
           for filepath in snapshots-*.zip
           do
             unzip -o $filepath
+            unzip -o snapshots.zip
+            rm snapshots.zip
             rm $filepath
           done
       - uses: stefanzweifel/git-auto-commit-action@v4
