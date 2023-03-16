@@ -40,6 +40,15 @@ export const Tooltip2LabelTypeTooltip = () => (
   </Box>
 )
 
+// As a label for an IconButton
+export const Tooltip2CustomIcon = () => (
+  <Box sx={{p: 5}}>
+    <Tooltip2 text="Label">
+      <button>🥦</button>
+    </Tooltip2>
+  </Box>
+)
+
 // As a supplementary description for a button
 export const Tooltip2DescriptionTypeTooltip = () => (
   <Box sx={{p: 5}}>
