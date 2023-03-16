@@ -19,7 +19,9 @@ const StyledTable = styled.table<React.ComponentPropsWithoutRef<'table'>>`
   background-color: ${get('colors.canvas.default')};
   border-spacing: 0;
   border-collapse: separate;
+  display: grid;
   font-size: var(--table-font-size);
+  grid-template-columns: var(--grid-template-columns);
   line-height: calc(20 / var(--table-font-size));
   width: 100%;
   overflow-x: auto;
@@ -138,6 +140,22 @@ const StyledTable = styled.table<React.ComponentPropsWithoutRef<'table'>>`
     font-weight: 600;
     text-align: start;
   }
+
+  /* Grid layout */
+  .TableHead,
+  .TableBody,
+  .TableRow {
+    display: contents;
+  }
+
+  @supports (grid-template-columns: subgrid) {
+    .TableHead,
+    .TableBody,
+    .TableRow {
+      display: grid;
+      grid-template-columns: subgrid;
+      grid-column: -1 /1;
+  }
 `
 
 export type TableProps = React.ComponentPropsWithoutRef<'table'> & {
@@ -152,14 +170,31 @@ export type TableProps = React.ComponentPropsWithoutRef<'table'> & {
   'aria-labelledby'?: string
 
   /**
+   * Column width definitions
+   */
+  gridTemplateColumns?: React.CSSProperties['gridTemplateColumns']
+
+  /**
    * Specify the amount of space that should be available around the contents of
    * a cell
    */
   cellPadding?: 'condensed' | 'normal' | 'spacious'
 }
 
-const Table = React.forwardRef<HTMLTableElement, TableProps>(function Table({cellPadding = 'normal', ...rest}, ref) {
-  return <StyledTable {...rest} data-cell-padding={cellPadding} className="Table" ref={ref} />
+const Table = React.forwardRef<HTMLTableElement, TableProps>(function Table(
+  {cellPadding = 'normal', gridTemplateColumns, ...rest},
+  ref,
+) {
+  return (
+    <StyledTable
+      {...rest}
+      data-cell-padding={cellPadding}
+      style={{'--grid-template-columns': gridTemplateColumns} as React.CSSProperties}
+      className="Table"
+      role="table"
+      ref={ref}
+    />
+  )
 })
 
 // ----------------------------------------------------------------------------
@@ -169,7 +204,14 @@ const Table = React.forwardRef<HTMLTableElement, TableProps>(function Table({cel
 export type TableHeadProps = React.ComponentPropsWithoutRef<'thead'>
 
 function TableHead({children}: TableHeadProps) {
-  return <thead className="TableHead">{children}</thead>
+  return (
+    // We need to explicitly pass this role because some ATs and browsers drop table semantics
+    // when we use `display: contents` or `display: grid` in the table
+    // eslint-disable-next-line jsx-a11y/no-redundant-roles
+    <thead className="TableHead" role="rowgroup">
+      {children}
+    </thead>
+  )
 }
 
 // ----------------------------------------------------------------------------
@@ -179,7 +221,14 @@ function TableHead({children}: TableHeadProps) {
 export type TableBodyProps = React.ComponentPropsWithoutRef<'tbody'>
 
 function TableBody({children}: TableBodyProps) {
-  return <tbody className="TableBody">{children}</tbody>
+  return (
+    // We need to explicitly pass this role because some ATs and browsers drop table semantics
+    // when we use `display: contents` or `display: grid` in the table
+    // eslint-disable-next-line jsx-a11y/no-redundant-roles
+    <tbody className="TableBody" role="rowgroup">
+      {children}
+    </tbody>
+  )
 }
 
 // ----------------------------------------------------------------------------
