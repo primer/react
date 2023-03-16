@@ -1,5 +1,5 @@
+import {renderHook} from '@testing-library/react-hooks'
 import React from 'react'
-import {renderHook} from '@testing-library/react'
 import {useSlots} from '../useSlots'
 
 function TestComponentA(props: React.PropsWithChildren<unknown>) {
