@@ -60,7 +60,9 @@ jobs:
       - name: Create snapshots folder
         run: |
           mkdir updated-snapshots
-          cp $(git ls-files --others --exclude-standard --modified) updated-snapshots
+          if [[ ! -z  $(git ls-files --others --exclude-standard --modified) ]]; then
+            cp $(git ls-files --others --exclude-standard --modified) updated-snapshots
+          fi
       - name: Upload snapshots
         uses: actions/upload-artifact@v3
         with:
