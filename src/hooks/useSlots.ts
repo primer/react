@@ -1,4 +1,5 @@
 import React from 'react'
+import {warning} from '../utils/warning'
 
 export type SlotConfig = Record<string, React.ComponentType>
 
@@ -21,8 +22,8 @@ export function useSlots<T extends SlotConfig>(
   // Array of elements that are not slots
   const rest: React.ReactNode[] = []
 
-  const keys = Object.keys(config) as Array<keyof T>;
-  const values = Object.values(config);
+  const keys = Object.keys(config) as Array<keyof T>
+  const values = Object.values(config)
 
   // eslint-disable-next-line github/array-foreach
   React.Children.forEach(children, child => {
@@ -32,19 +33,21 @@ export function useSlots<T extends SlotConfig>(
     }
 
     const index = values.findIndex(value => {
-      return child.type === value;
-    });
+      return child.type === value
+    })
 
     // If the child is not a slot, add it to the `rest` array
     if (index === -1) {
       rest.push(child)
+      return
     }
 
-    const slotKey = keys[index];
+    const slotKey = keys[index]
 
     // If slot is already filled, ignore duplicates
     if (slots[slotKey]) {
-      return;
+      warning(true, `Found duplicate "${String(slotKey)}" slot. Only the first will be rendered.`)
+      return
     }
 
     // If the child is a slot, add it to the `slots` object

@@ -95,7 +95,8 @@ test('ignores nested slots', () => {
   `)
 })
 
-test('ignores duplicate slots', () => {
+test('warns about duplicate slots', () => {
+  const warnSpy = jest.spyOn(console, 'warn').mockImplementation(() => {})
   const children = [<TestComponentA key="a1">A1</TestComponentA>, <TestComponentA key="a2">A2</TestComponentA>]
   const slotsConfig = {
     a: TestComponentA,
@@ -111,4 +112,5 @@ test('ignores duplicate slots', () => {
       [],
     ]
   `)
+  expect(warnSpy).toHaveBeenCalledTimes(1)
 })
