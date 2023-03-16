@@ -21,6 +21,9 @@ export function useSlots<T extends SlotConfig>(
   // Array of elements that are not slots
   const rest: React.ReactNode[] = []
 
+  const keys = Object.keys(config) as Array<keyof T>;
+  const values = Object.values(config);
+
   // eslint-disable-next-line github/array-foreach
   React.Children.forEach(children, child => {
     if (!React.isValidElement(child)) {
@@ -28,22 +31,24 @@ export function useSlots<T extends SlotConfig>(
       return
     }
 
-    // Check if the child is a slot
-    const slotKey = getKeyByValue(config, child.type)
-
-    if (slotKey && slots[slotKey]) {
-      // If slot is already filled, ignore duplicates
-      return
-    }
-
-    if (slotKey) {
-      // If the child is a slot, add it to the `slots` object
-      slots[slotKey] = child
-      return
-    }
+    const index = values.findIndex(value => {
+      return child.type === value;
+    });
 
     // If the child is not a slot, add it to the `rest` array
-    rest.push(child)
+    if (index === -1) {
+      rest.push(child)
+    }
+
+    const slotKey = keys[index];
+
+    // If slot is already filled, ignore duplicates
+    if (slots[slotKey]) {
+      return;
+    }
+
+    // If the child is a slot, add it to the `slots` object
+    slots[slotKey] = child
   })
 
   return [slots, rest]
@@ -55,10 +60,4 @@ function mapValues<T extends Record<string, unknown>, V>(obj: T, fn: (value: T[k
     result[key] = fn(obj[key])
     return result
   }, {} as Record<keyof T, V>)
-}
-
-/** Get the key of an object by its value */
-function getKeyByValue<T extends Record<string, unknown>>(object: T, value: unknown): keyof T | undefined {
-  const keys = Object.keys(object) as (keyof T)[]
-  return keys.find(key => object[key] === value)
 }
