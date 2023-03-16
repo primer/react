@@ -547,21 +547,6 @@
       ],
       "subcomponents": []
     },
-    "spinner": {
-      "id": "spinner",
-      "name": "Spinner",
-      "status": "alpha",
-      "a11yReviewed": false,
-      "stories": [],
-      "props": [
-        {
-          "name": "size",
-          "type": "'small' | 'medium' | 'large'",
-          "description": "Sets the width and height of the spinner."
-        }
-      ],
-      "subcomponents": []
-    },
     "styled_octicon": {
       "id": "styled_octicon",
       "name": "StyledOcticon",
@@ -3717,6 +3702,26 @@
           "type": "(selected: ItemInput | ItemInput[]) => void",
           "defaultValue": "",
           "description": "Provide a callback called when the selected item(s) change"
+        }
+      ],
+      "subcomponents": []
+    },
+    "spinner": {
+      "id": "spinner",
+      "name": "Spinner",
+      "status": "alpha",
+      "a11yReviewed": false,
+      "stories": [
+        {
+          "id": "components-spinner--default",
+          "code": "() => <Spinner />"
+        }
+      ],
+      "props": [
+        {
+          "name": "size",
+          "type": "'small' | 'medium' | 'large'",
+          "description": "Sets the width and height of the spinner."
         }
       ],
       "subcomponents": []
