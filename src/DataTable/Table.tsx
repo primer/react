@@ -368,9 +368,9 @@ const StyledTableContainer = styled.div`
   }
 
   /* Spacing before the table */
-  .TableTitle + .Table,
-  .TableSubtitle + .Table,
-  .TableActions + .Table {
+  .TableTitle + .TableOverflowWrapper,
+  .TableSubtitle + .TableOverflowWrapper,
+  .TableActions + .TableOverflowWrapper {
     margin-top: ${get('space.2')};
   }
 
