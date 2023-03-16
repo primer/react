@@ -583,6 +583,17 @@ const components = new Map([
     },
   ],
   [
+    'Pagehead',
+    {
+      stories: [
+        {
+          id: 'components-pagehead--default',
+          name: 'Default',
+        },
+      ],
+    },
+  ],
+  [
     'PageHeader',
     {
       stories: [
