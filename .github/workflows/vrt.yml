@@ -57,9 +57,13 @@ jobs:
       - name: Stop storybook
         if: ${{ always() }}
         run: kill ${{ steps.storybook.outputs.pid }}
+      - name: Create snapshots folder
+        run: |
+          mkdir updated-snapshots
+          cp $(git ls-files --others --exclude-standard --modified) updated-snapshots
       - name: Upload snapshots
         uses: actions/upload-artifact@v3
         with:
           name: snapshots-${{ matrix.shard }}
-          path: .playwright/snapshots
+          path: updated-snapshots
           retention-days: 1
