@@ -930,6 +930,72 @@ export const WithRowActionMenu = () => (
   </Table.Container>
 )
 
+export const MixedColumnWidths = () => (
+  <Table.Container>
+    <Table.Title as="h2" id="repositories">
+      Repositories
+    </Table.Title>
+    <DataTable
+      aria-labelledby="repositories"
+      aria-describedby="repositories-subtitle"
+      data={data}
+      columns={[
+        {
+          header: 'grow w/ 200px max',
+          field: 'name',
+          rowHeader: true,
+          width: 'grow',
+          maxWidth: '200px',
+        },
+        {
+          header: 'shrink w/ 100px min',
+          field: 'type',
+          renderCell: row => {
+            return <Label>{uppercase(row.type)}</Label>
+          },
+          width: 'shrink',
+          minWidth: '100px',
+        },
+        {
+          header: 'auto',
+          field: 'updatedAt',
+          renderCell: row => {
+            return <RelativeTime date={new Date(row.updatedAt)} />
+          },
+          width: 'auto',
+        },
+        {
+          header: '200px',
+          field: 'securityFeatures.dependabot',
+          renderCell: row => {
+            return row.securityFeatures.dependabot.length > 0 ? (
+              <LabelGroup>
+                {row.securityFeatures.dependabot.map(feature => {
+                  return <Label key={feature}>{uppercase(feature)}</Label>
+                })}
+              </LabelGroup>
+            ) : null
+          },
+          width: '200px',
+        },
+        {
+          header: 'undefined (defaults to grow)',
+          field: 'securityFeatures.codeScanning',
+          renderCell: row => {
+            return row.securityFeatures.codeScanning.length > 0 ? (
+              <LabelGroup>
+                {row.securityFeatures.codeScanning.map(feature => {
+                  return <Label key={feature}>{uppercase(feature)}</Label>
+                })}
+              </LabelGroup>
+            ) : null
+          },
+        },
+      ]}
+    />
+  </Table.Container>
+)
+
 export const WithCustomHeading = () => (
   <>
     <Heading as="h2" id="repositories">
