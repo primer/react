@@ -658,6 +658,45 @@ const components = new Map([
     },
   ],
   [
+    'ProgressBar',
+    {
+      stories: [
+        {
+          id: 'components-progressbar--default',
+          name: 'Default',
+        },
+        {
+          id: 'components-progressbar--progress-zero',
+          name: 'Progress Zero',
+        },
+        {
+          id: 'components-progressbar--progress-half',
+          name: 'Progress Half',
+        },
+        {
+          id: 'components-progressbar--progress-done',
+          name: 'Progress Done',
+        },
+        {
+          id: 'components-progressbar--size-small',
+          name: 'Size Small',
+        },
+        {
+          id: 'components-progressbar--size-large',
+          name: 'Size Large',
+        },
+        {
+          id: 'components-progressbar--inline',
+          name: 'Inline',
+        },
+        {
+          id: 'components-progressbar--color',
+          name: 'Color',
+        },
+      ],
+    },
+  ],
+  [
     'Radio',
     {
       stories: [
