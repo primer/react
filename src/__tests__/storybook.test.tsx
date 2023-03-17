@@ -27,6 +27,7 @@ const allowlist = [
   'FilteredActionList',
   'Link',
   'Pagehead',
+  'ProgressBar',
   'Radio',
   'RadioGroup',
   'Select',
