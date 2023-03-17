@@ -419,26 +419,6 @@
       ],
       "subcomponents": []
     },
-    "pagehead": {
-      "id": "pagehead",
-      "name": "Pagehead",
-      "status": "alpha",
-      "a11yReviewed": false,
-      "stories": [],
-      "props": [
-        {
-          "name": "as",
-          "type": "string",
-          "defaultValue": "div",
-          "description": "Sets the underlying HTML tag for the component"
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject"
-        }
-      ],
-      "subcomponents": []
-    },
     "pointer_box": {
       "id": "pointer_box",
       "name": "PointerBox",
@@ -3085,6 +3065,31 @@
           ]
         }
       ]
+    },
+    "pagehead": {
+      "id": "pagehead",
+      "name": "Pagehead",
+      "status": "alpha",
+      "a11yReviewed": false,
+      "stories": [
+        {
+          "id": "components-pagehead--default",
+          "code": "() => <Pagehead>Pagehead</Pagehead>"
+        }
+      ],
+      "props": [
+        {
+          "name": "as",
+          "type": "string",
+          "defaultValue": "div",
+          "description": "Sets the underlying HTML tag for the component"
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ],
+      "subcomponents": []
     },
     "pagination": {
       "id": "pagination",

@@ -26,6 +26,7 @@ const allowlist = [
   'IconButton',
   'FilteredActionList',
   'Link',
+  'Pagehead',
   'Radio',
   'RadioGroup',
   'Select',
