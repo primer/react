@@ -9,7 +9,9 @@ export default {
 
 export const Default = () => <ProgressBar />
 
-export const Playground: ComponentStory<typeof ProgressBar> = args => <ProgressBar {...args} />
+export const Playground: ComponentStory<typeof ProgressBar> = args => (
+  <ProgressBar {...args} sx={args.inline ? {width: '100px'} : {}} />
+)
 
 Playground.args = {
   progress: 66,
