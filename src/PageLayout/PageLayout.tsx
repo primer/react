@@ -8,6 +8,8 @@ import {useSlots} from '../hooks/useSlots'
 import {BetterSystemStyleObject, merge, SxProp} from '../sx'
 import {Theme} from '../ThemeProvider'
 import {canUseDOM} from '../utils/environment'
+import {invariant} from '../utils/invariant'
+import {useOverflow} from '../utils/useOverflow'
 import VisuallyHidden from '../_VisuallyHidden'
 import {useStickyPaneHeight} from './useStickyPaneHeight'
 
@@ -416,6 +418,7 @@ const Content: React.FC<React.PropsWithChildren<PageLayoutContentProps>> = ({
 }) => {
   const isHidden = useResponsiveValue(hidden, false)
   const {contentTopRef, contentBottomRef} = React.useContext(PageLayoutContext)
+
   return (
     <Box
       as="main"
@@ -479,6 +482,8 @@ export type PageLayoutPaneProps = {
    * position={{regular: 'start', narrow: 'end'}}
    * ```
    */
+  'aria-labelledby'?: string
+  'aria-label'?: string
   positionWhenNarrow?: 'inherit' | keyof typeof panePositions
   width?: keyof typeof paneWidths
   resizable?: boolean
@@ -522,6 +527,8 @@ const defaultPaneWidth = {small: 256, medium: 296, large: 320}
 const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayoutPaneProps>>(
   (
     {
+      'aria-label': label,
+      'aria-labelledby': labelledBy,
       position: responsivePosition = 'end',
       positionWhenNarrow = 'inherit',
       width = 'medium',
@@ -599,6 +606,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
     const MIN_PANE_WIDTH = 256 // 256px, related to `--pane-min-width CSS var.
     const [minPercent, setMinPercent] = React.useState(0)
     const [maxPercent, setMaxPercent] = React.useState(0)
+    const hasOverflow = useOverflow(paneRef)
 
     const measuredRef = React.useCallback(() => {
       if (paneRef.current !== null) {
@@ -643,6 +651,16 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
     }
 
     const paneId = useId(id)
+
+    let labelProp = undefined
+    if (hasOverflow) {
+      invariant(label !== undefined || labelledBy !== undefined)
+      if (labelledBy) {
+        labelProp = {'aria-labelledby': labelledBy}
+      } else {
+        labelProp = {'aria-label': label}
+      }
+    }
 
     return (
       <Box
@@ -731,6 +749,8 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
               '--pane-max-width-diff': '959px',
             },
           })}
+          {...(hasOverflow && {tabIndex: 0, role: 'region'})}
+          {...labelProp}
           {...(id && {id: paneId})}
         >
           {resizable && (

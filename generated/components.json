@@ -2941,6 +2941,16 @@
           "name": "PageLayout.Pane",
           "props": [
             {
+              "name": "aria-label",
+              "type": "string | undefined",
+              "description": "Label for the pane. Required if the pane overflows and doesn't have aria-labelledby."
+            },
+            {
+              "name": "aria-labelledby",
+              "type": "string | undefined",
+              "description": "Id of an element that acts as a label for the pane. Required if the pane overflows and doesn't have aria-label."
+            },
+            {
               "name": "position",
               "type": "| 'start' | 'end' | { narrow?: | 'start' | 'end' regular?: | 'start' | 'end' wide?: | 'start' | 'end' }",
               "defaultValue": "'end'",
