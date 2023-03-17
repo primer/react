@@ -8,6 +8,8 @@ import {useSlots} from '../hooks/useSlots'
 import {BetterSystemStyleObject, merge, SxProp} from '../sx'
 import {Theme} from '../ThemeProvider'
 import {canUseDOM} from '../utils/environment'
+import {invariant} from '../utils/invariant'
+import {useOverflow} from '../utils/useOverflow'
 import VisuallyHidden from '../_VisuallyHidden'
 import {useStickyPaneHeight} from './useStickyPaneHeight'
 
@@ -604,7 +606,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
     const MIN_PANE_WIDTH = 256 // 256px, related to `--pane-min-width CSS var.
     const [minPercent, setMinPercent] = React.useState(0)
     const [maxPercent, setMaxPercent] = React.useState(0)
-    const [overflow, setOverflow] = React.useState(false)
+    const hasOverflow = useOverflow(paneRef)
 
     const measuredRef = React.useCallback(() => {
       if (paneRef.current !== null) {
@@ -624,11 +626,6 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
 
         const widthPercent = Math.round((100 * paneWidth) / viewportWidth)
         setWidthPercent(widthPercent.toString())
-
-        const hasOverflow =
-          paneRef.current.scrollHeight > paneRef.current.offsetHeight ||
-          paneRef.current.scrollWidth > paneRef.current.offsetWidth
-        setOverflow(hasOverflow)
       }
     }, [paneRef])
 
@@ -656,15 +653,12 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
     const paneId = useId(id)
 
     let labelProp = undefined
-    if (overflow) {
+    if (hasOverflow) {
+      invariant(label !== undefined || labelledBy !== undefined)
       if (labelledBy) {
         labelProp = {'aria-labelledby': labelledBy}
       } else {
         labelProp = {'aria-label': label}
-      }
-
-      if (labelProp['aria-label'] === undefined) {
-        throw new Error('PageLayout.Pane must have either `aria-labelledby` or `aria-label` when overflow is active.')
       }
     }
 
@@ -755,7 +749,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
               '--pane-max-width-diff': '959px',
             },
           })}
-          {...(overflow && {tabIndex: 0, role: 'region'})}
+          {...(hasOverflow && {tabIndex: 0, role: 'region'})}
           {...labelProp}
           {...(id && {id: paneId})}
         >

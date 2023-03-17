@@ -736,7 +736,7 @@ export const ScrollContainerWithinPageLayoutPane: Story = () => (
     <Box sx={{overflow: 'auto'}}>
       <Placeholder label="Above inner scroll container" height={120} />
       <PageLayout rowGap="none" columnGap="none" padding="none" containerWidth="full">
-        <PageLayout.Pane position="start" padding="normal" divider="line" sticky>
+        <PageLayout.Pane position="start" padding="normal" divider="line" sticky aria-label="Sticky pane">
           <Box sx={{overflow: 'auto'}}>
             <PageLayout.Pane padding="normal">
               <Placeholder label="Inner scroll container" height={800} />
