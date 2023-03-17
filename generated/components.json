@@ -3106,7 +3106,12 @@
       "name": "Pagination",
       "status": "alpha",
       "a11yReviewed": false,
-      "stories": [],
+      "stories": [
+        {
+          "id": "components-pagination--default",
+          "code": "() => (\n  <Pagination\n    pageCount={15}\n    currentPage={2}\n    onPageChange={(e) => e.preventDefault()}\n  />\n)"
+        }
+      ],
       "props": [
         {
           "name": "currentPage",
