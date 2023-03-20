@@ -1,5 +1,29 @@
 # @primer/components
 
+## 35.22.0
+
+### Minor Changes
+
+- [#2901](https://github.com/primer/react/pull/2901) [`992f1acd`](https://github.com/primer/react/commit/992f1acd14e6425c1f12879d142f2171c131d416) Thanks [@joshblack](https://github.com/joshblack)! - Add babel-plugin-dev-expression to transform warning calls in package bundle
+
+- [#3027](https://github.com/primer/react/pull/3027) [`3153c810`](https://github.com/primer/react/commit/3153c8106cbfcdd2890461c2ff8845b8fb131920) Thanks [@talum](https://github.com/talum)! - Export `useResizeObserver` hook
+
+### Patch Changes
+
+- [#2996](https://github.com/primer/react/pull/2996) [`baa63958`](https://github.com/primer/react/commit/baa6395821caada57a9d4a662cf3fa1bd27c07ec) Thanks [@mperrotti](https://github.com/mperrotti)! - Implements column width features for the DataTable
+
+- [#3036](https://github.com/primer/react/pull/3036) [`51a2cc94`](https://github.com/primer/react/commit/51a2cc9484a6b9b822d61b3ea2e1f8af5ed1bca2) Thanks [@colebemis](https://github.com/colebemis)! - `PageLayout` and `SplitPageLayout` are now SSR-compatible.
+
+  Warning: In this new implementation, `PageLayout.Header` and `PageLayout.Footer` must be direct children of `PageLayout`. The same applies to `SplitPageLayout`
+
+- [#3029](https://github.com/primer/react/pull/3029) [`bb9f1561`](https://github.com/primer/react/commit/bb9f1561c847e9b6f64027060ecf0b45303b8f40) Thanks [@mperrotti](https://github.com/mperrotti)! - Adds new a11y improvements to Pagination.
+
+- [#2993](https://github.com/primer/react/pull/2993) [`6aa9205e`](https://github.com/primer/react/commit/6aa9205e37197b6ab05650c4a33f6cd7246f771c) Thanks [@mperrotti](https://github.com/mperrotti)! - Makes StateLabel's 'status' prop required
+
+- [#3009](https://github.com/primer/react/pull/3009) [`cc4e2bc5`](https://github.com/primer/react/commit/cc4e2bc5b6dffdbbb367d130e6f08683f28c20f1) Thanks [@iansan5653](https://github.com/iansan5653)! - Recalculate autocomplete suggestions if the input data changes while the menu is open
+
+- [#3010](https://github.com/primer/react/pull/3010) [`022d449c`](https://github.com/primer/react/commit/022d449c61457377f516617814488a03def5fc32) Thanks [@broccolinisoup](https://github.com/broccolinisoup)! - SegmentedControl: Resolve axe-violation by adding a discernible text to the icon button and removing the tooltip until it is marked as accessible
+
 ## 35.21.0
 
 ### Minor Changes
