@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useMemo} from 'react'
 import {suggestionsCalculator, UseSuggestionsHook} from '.'
 import {ActionList} from '../../../ActionList'
 import {Suggestion, Trigger} from '../../InlineAutocomplete'
@@ -56,7 +56,13 @@ const scoreSuggestion = (query: string, emoji: Emoji): number => {
   return score
 }
 
-export const useEmojiSuggestions: UseSuggestionsHook<Emoji> = emojis => ({
-  calculateSuggestions: suggestionsCalculator(emojis, scoreSuggestion, emojiToSugggestion),
-  trigger,
-})
+export const useEmojiSuggestions: UseSuggestionsHook<Emoji> = emojis => {
+  const calculateSuggestions = useMemo(
+    () => suggestionsCalculator(emojis, scoreSuggestion, emojiToSugggestion),
+    [emojis],
+  )
+  return {
+    calculateSuggestions,
+    trigger,
+  }
+}

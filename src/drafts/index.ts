@@ -21,7 +21,7 @@ export type {
   TableActionsProps,
 } from '../DataTable'
 
-export * from '../Dialog2'
+export * from '../Dialog/Dialog'
 
 export {default as InlineAutocomplete} from './InlineAutocomplete'
 export type {

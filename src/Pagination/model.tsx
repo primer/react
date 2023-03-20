@@ -65,6 +65,12 @@ export function buildPaginationModel(
     for (let idx = 0; idx < sorted.length; idx++) {
       const num = sorted[idx]
       const selected = num === currentPage
+      const last = sorted[idx - 1]
+      const next = sorted[idx + 1]
+      const lastDelta = num - last
+      const nextDelta = num - next
+      const precedesBreak = nextDelta !== -1
+
       if (idx === 0) {
         if (num !== 1) {
           // If the first page isn't page one,
@@ -78,15 +84,15 @@ export function buildPaginationModel(
           type: 'NUM',
           num,
           selected,
+          precedesBreak,
         })
       } else {
-        const last = sorted[idx - 1]
-        const delta = num - last
-        if (delta === 1) {
+        if (lastDelta === 1) {
           pages.push({
             type: 'NUM',
             num,
             selected,
+            precedesBreak,
           })
         } else {
           // We skipped some, so add a break
@@ -98,6 +104,7 @@ export function buildPaginationModel(
             type: 'NUM',
             num,
             selected,
+            precedesBreak: false,
           })
         }
       }
@@ -124,6 +131,7 @@ type PageType = {
   num: number
   disabled?: boolean
   selected?: boolean
+  precedesBreak?: boolean
 }
 
 export function buildComponentData(
@@ -169,11 +177,15 @@ export function buildComponentData(
     case 'NUM': {
       key = `page-${page.num}`
       content = String(page.num)
-      if (page.selected) {
-        Object.assign(props, {as: 'em', 'aria-current': 'page'})
-      } else {
-        Object.assign(props, {href: hrefBuilder(page.num), 'aria-label': `Page ${page.num}`, onClick})
-      }
+      Object.assign(props, {
+        href: hrefBuilder(page.num),
+        // We append "..." to the aria-label for pages that preceed a break because screen readers will
+        // change the tone the text is read in.
+        // This is a slightly nicer experience than skipping a bunch of numbers unexpectedly.
+        'aria-label': `Page ${page.num}${page.precedesBreak ? '...' : ''}`,
+        onClick,
+        'aria-current': page.selected ? 'page' : undefined,
+      })
       break
     }
     case 'BREAK': {
