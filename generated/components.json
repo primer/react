@@ -122,6 +122,60 @@
       ],
       "subcomponents": []
     },
+    "dialog": {
+      "id": "dialog",
+      "name": "Dialog",
+      "status": "alpha",
+      "a11yReviewed": false,
+      "stories": [],
+      "props": [
+        {
+          "name": "isOpen",
+          "type": "boolean",
+          "description": "Whether or not the dialog is open"
+        },
+        {
+          "name": "onDismiss",
+          "type": "() => void",
+          "description": "Function that will be called when the dialog is closed"
+        },
+        {
+          "name": "returnFocusRef",
+          "type": " React.RefObject<HTMLElement>",
+          "description": "The element to restore focus back to after the `Dialog` is closed"
+        },
+        {
+          "name": "initialFocusRef",
+          "type": " React.RefObject<HTMLElement>",
+          "description": "Element inside of the `Dialog` you'd like to be focused when the Dialog is opened. If nothing is passed to `initialFocusRef` the close button is focused."
+        },
+        {
+          "name": "aria-labelledby",
+          "type": "string",
+          "description": "Pass an id to use for the aria-label. Use either a `aria-label` or an `aria-labelledby` but not both."
+        },
+        {
+          "name": "aria-label",
+          "type": "string",
+          "description": "Pass a label to be used to describe the Dialog. Use either a `aria-label` or an `aria-labelledby` but not both."
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ],
+      "subcomponents": [
+        {
+          "name": "Dialog.Header",
+          "props": [
+            {
+              "name": "sx",
+              "type": "SystemStyleObject"
+            }
+          ]
+        }
+      ]
+    },
     "filter_list": {
       "id": "filter_list",
       "name": "FilterList",
@@ -365,26 +419,6 @@
       ],
       "subcomponents": []
     },
-    "pagehead": {
-      "id": "pagehead",
-      "name": "Pagehead",
-      "status": "alpha",
-      "a11yReviewed": false,
-      "stories": [],
-      "props": [
-        {
-          "name": "as",
-          "type": "string",
-          "defaultValue": "div",
-          "description": "Sets the underlying HTML tag for the component"
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject"
-        }
-      ],
-      "subcomponents": []
-    },
     "pointer_box": {
       "id": "pointer_box",
       "name": "PointerBox",
@@ -489,21 +523,6 @@
         {
           "name": "sx",
           "type": "SystemStyleObject"
-        }
-      ],
-      "subcomponents": []
-    },
-    "spinner": {
-      "id": "spinner",
-      "name": "Spinner",
-      "status": "alpha",
-      "a11yReviewed": false,
-      "stories": [],
-      "props": [
-        {
-          "name": "size",
-          "type": "'small' | 'medium' | 'large'",
-          "description": "Sets the width and height of the spinner."
         }
       ],
       "subcomponents": []
@@ -2053,76 +2072,12 @@
       ],
       "subcomponents": []
     },
-    "dialog": {
-      "id": "dialog",
-      "name": "Dialog",
-      "status": "alpha",
-      "a11yReviewed": false,
-      "stories": [
-        {
-          "id": "components-dialog--default",
-          "code": "() => {\n  const [isOpen, setIsOpen] = useState(false)\n  const returnFocusRef = React.useRef(null)\n  return (\n    <>\n      <Button ref={returnFocusRef} onClick={() => setIsOpen(true)}>\n        Open\n      </Button>\n      <Dialog\n        returnFocusRef={returnFocusRef}\n        isOpen={isOpen}\n        onDismiss={() => setIsOpen(false)}\n        aria-labelledby=\"header-id\"\n      >\n        <Dialog.Header id=\"header-id\">Title</Dialog.Header>\n        some content\n      </Dialog>\n    </>\n  )\n}"
-        }
-      ],
-      "props": [
-        {
-          "name": "isOpen",
-          "type": "boolean",
-          "description": "Whether or not the dialog is open"
-        },
-        {
-          "name": "onDismiss",
-          "type": "() => void",
-          "description": "Function that will be called when the dialog is closed"
-        },
-        {
-          "name": "returnFocusRef",
-          "type": " React.RefObject<HTMLElement>",
-          "description": "The element to restore focus back to after the `Dialog` is closed"
-        },
-        {
-          "name": "initialFocusRef",
-          "type": " React.RefObject<HTMLElement>",
-          "description": "Element inside of the `Dialog` you'd like to be focused when the Dialog is opened. If nothing is passed to `initialFocusRef` the close button is focused."
-        },
-        {
-          "name": "aria-labelledby",
-          "type": "string",
-          "description": "Pass an id to use for the aria-label. Use either a `aria-label` or an `aria-labelledby` but not both."
-        },
-        {
-          "name": "aria-label",
-          "type": "string",
-          "description": "Pass a label to be used to describe the Dialog. Use either a `aria-label` or an `aria-labelledby` but not both."
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject"
-        }
-      ],
-      "subcomponents": [
-        {
-          "name": "Dialog.Header",
-          "props": [
-            {
-              "name": "sx",
-              "type": "SystemStyleObject"
-            }
-          ]
-        }
-      ]
-    },
     "drafts_dialog": {
       "id": "drafts_dialog",
       "name": "Dialog",
       "status": "draft",
       "a11yReviewed": false,
-      "stories": [
-        {
-          "id": "components-dialog--default",
-          "code": "() => {\n  const [isOpen, setIsOpen] = useState(false)\n  const buttonRef = useRef<HTMLButtonElement>(null)\n  const onDialogClose = useCallback(() => setIsOpen(false), [])\n  return (\n    <>\n      <Button ref={buttonRef} onClick={() => setIsOpen(!isOpen)}>\n        Show dialog\n      </Button>\n      {isOpen && <Dialog onClose={onDialogClose}>Dialog Content</Dialog>}\n    </>\n  )\n}"
-        }
-      ],
+      "stories": [],
       "props": [
         {
           "name": "title",
@@ -2986,6 +2941,16 @@
           "name": "PageLayout.Pane",
           "props": [
             {
+              "name": "aria-label",
+              "type": "string | undefined",
+              "description": "Label for the pane. Required if the pane overflows and doesn't have aria-labelledby."
+            },
+            {
+              "name": "aria-labelledby",
+              "type": "string | undefined",
+              "description": "Id of an element that acts as a label for the pane. Required if the pane overflows and doesn't have aria-label."
+            },
+            {
               "name": "position",
               "type": "| 'start' | 'end' | { narrow?: | 'start' | 'end' regular?: | 'start' | 'end' wide?: | 'start' | 'end' }",
               "defaultValue": "'end'",
@@ -3111,12 +3076,42 @@
         }
       ]
     },
+    "pagehead": {
+      "id": "pagehead",
+      "name": "Pagehead",
+      "status": "alpha",
+      "a11yReviewed": false,
+      "stories": [
+        {
+          "id": "components-pagehead--default",
+          "code": "() => <Pagehead>Pagehead</Pagehead>"
+        }
+      ],
+      "props": [
+        {
+          "name": "as",
+          "type": "string",
+          "defaultValue": "div",
+          "description": "Sets the underlying HTML tag for the component"
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ],
+      "subcomponents": []
+    },
     "pagination": {
       "id": "pagination",
       "name": "Pagination",
       "status": "alpha",
       "a11yReviewed": false,
-      "stories": [],
+      "stories": [
+        {
+          "id": "components-pagination--default",
+          "code": "() => (\n  <Pagination\n    pageCount={15}\n    currentPage={2}\n    onPageChange={(e) => e.preventDefault()}\n  />\n)"
+        }
+      ],
       "props": [
         {
           "name": "currentPage",
@@ -3731,6 +3726,26 @@
       ],
       "subcomponents": []
     },
+    "spinner": {
+      "id": "spinner",
+      "name": "Spinner",
+      "status": "alpha",
+      "a11yReviewed": false,
+      "stories": [
+        {
+          "id": "components-spinner--default",
+          "code": "() => <Spinner />"
+        }
+      ],
+      "props": [
+        {
+          "name": "size",
+          "type": "'small' | 'medium' | 'large'",
+          "description": "Sets the width and height of the spinner."
+        }
+      ],
+      "subcomponents": []
+    },
     "split_page_layout": {
       "id": "split_page_layout",
       "name": "SplitPageLayout",
@@ -3914,7 +3929,8 @@
         },
         {
           "name": "status",
-          "type": "'issueOpened' | 'issueClosed' | 'issueClosedNotPlanned' | 'pullOpened' | 'pullClosed' | 'pullMerged' | 'draft' | 'issueDraft'"
+          "type": "'issueOpened' | 'issueClosed' | 'issueClosedNotPlanned' | 'pullOpened' | 'pullClosed' | 'pullMerged' | 'draft' | 'issueDraft'",
+          "required": true
         },
         {
           "name": "sx",

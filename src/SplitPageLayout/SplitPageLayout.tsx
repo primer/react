@@ -14,7 +14,19 @@ import {
 export type SplitPageLayoutProps = SxProp
 
 export const Root: React.FC<React.PropsWithChildren<SplitPageLayoutProps>> = props => {
-  return <PageLayout containerWidth="full" padding="none" columnGap="none" rowGap="none" {...props} />
+  return (
+    <PageLayout
+      containerWidth="full"
+      padding="none"
+      columnGap="none"
+      rowGap="none"
+      _slotsConfig={{
+        header: Header,
+        footer: Footer,
+      }}
+      {...props}
+    />
+  )
 }
 
 Root.displayName = 'SplitPageLayout'
