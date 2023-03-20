@@ -89,7 +89,7 @@ describe('DropdownMenu', () => {
     })
     portalRoot = menu.baseElement.querySelector('#__primerPortalRoot__')
     expect(portalRoot).toBeTruthy()
-    const menuItem = await menu.queryByText('Baz')
+    const menuItem = menu.queryByText('Baz')
     act(() => {
       fireEvent.click(menuItem as Element)
     })
@@ -107,7 +107,7 @@ describe('DropdownMenu', () => {
     })
     portalRoot = menu.baseElement.querySelector('#__primerPortalRoot__')
     expect(portalRoot).toBeTruthy()
-    const menuItem = await menu.queryByText('Baz')
+    const menuItem = menu.queryByText('Baz')
     act(() => {
       fireEvent.click(menuItem as Element)
     })

@@ -169,7 +169,6 @@ module.exports = {
         'testing-library/no-unnecessary-act': 'off',
         'testing-library/prefer-presence-queries': 'off',
         'testing-library/prefer-find-by': 'off',
-        'testing-library/no-await-sync-query': 'off',
         'testing-library/no-wait-for-multiple-assertions': 'off',
       },
     },
