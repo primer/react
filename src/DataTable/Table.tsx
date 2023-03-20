@@ -10,6 +10,7 @@ import {Column} from './column'
 import {UniqueRow} from './row'
 import {SortDirection} from './sorting'
 import {useTableLayout} from './useTable'
+import {useOverflow} from '../hooks/useOverflow'
 
 // ----------------------------------------------------------------------------
 // Table
@@ -29,7 +30,6 @@ const StyledTable = styled.table<React.ComponentPropsWithoutRef<'table'>>`
   grid-template-columns: var(--grid-template-columns);
   line-height: calc(20 / var(--table-font-size));
   width: 100%;
-  overflow-x: auto;
 
   /* Density modes: condensed, normal, spacious */
   &[data-cell-padding='condensed'] {
@@ -217,18 +217,21 @@ export type TableProps = React.ComponentPropsWithoutRef<'table'> & {
 }
 
 const Table = React.forwardRef<HTMLTableElement, TableProps>(function Table(
-  {cellPadding = 'normal', className, gridTemplateColumns, ...rest},
+  {'aria-labelledby': labelledby, cellPadding = 'normal', className, gridTemplateColumns, ...rest},
   ref,
 ) {
   return (
-    <StyledTable
-      {...rest}
-      data-cell-padding={cellPadding}
-      style={{'--grid-template-columns': gridTemplateColumns} as React.CSSProperties}
-      className={cx('Table', className)}
-      role="table"
-      ref={ref}
-    />
+    <ScrollableRegion aria-labelledby={labelledby} className="TableOverflowWrapper">
+      <StyledTable
+        {...rest}
+        aria-labelledby={labelledby}
+        data-cell-padding={cellPadding}
+        className={cx('Table', className)}
+        role="table"
+        ref={ref}
+        style={{'--grid-template-columns': gridTemplateColumns} as React.CSSProperties}
+      />
+    </ScrollableRegion>
   )
 })
 
@@ -400,10 +403,14 @@ const StyledTableContainer = styled.div`
   }
 
   /* Spacing before the table */
-  .TableTitle + .Table,
-  .TableSubtitle + .Table,
-  .TableActions + .Table {
+  .TableTitle + .TableOverflowWrapper,
+  .TableSubtitle + .TableOverflowWrapper,
+  .TableActions + .TableOverflowWrapper {
     margin-top: ${get('space.2')};
+  }
+
+  .TableOverflowWrapper {
+    grid-area: table;
   }
 `
 
@@ -569,6 +576,29 @@ const Button = styled.button`
     border: 0;
   }
 `
+
+type ScrollableRegionProps = React.PropsWithChildren<{
+  'aria-labelledby'?: string
+  className?: string
+}>
+
+function ScrollableRegion({'aria-labelledby': labelledby, children, ...rest}: ScrollableRegionProps) {
+  const ref = React.useRef(null)
+  const hasOverflow = useOverflow(ref)
+  const regionProps = hasOverflow
+    ? {
+        'aria-labelledby': labelledby,
+        role: 'region',
+        tabIndex: 0,
+      }
+    : {}
+
+  return (
+    <Box {...rest} {...regionProps} ref={ref} sx={{overflow: 'auto'}}>
+      {children}
+    </Box>
+  )
+}
 
 export {
   TableContainer,
