@@ -478,4 +478,39 @@ test.describe('ActionList', () => {
       })
     }
   })
+
+  test.describe('All combinations', () => {
+    for (const theme of themes) {
+      test.describe(theme, () => {
+        test('default @vrt', async ({page}) => {
+          await visit(page, {
+            id: 'components-actionlist-examples--all-combinations',
+          })
+
+          // Default state
+          expect(await page.screenshot()).toMatchSnapshot(`ActionList.All combinations.${theme}.png`)
+
+          // Hover state
+          await page.getByLabel('Danger inline description').hover()
+          expect(await page.screenshot()).toMatchSnapshot(`ActionList.All combinations.${theme}.hover.png`)
+        })
+
+        test('axe @aat', async ({page}) => {
+          await visit(page, {
+            id: 'components-actionlist-features--all-combinations',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+          await expect(page).toHaveNoViolations({
+            rules: {
+              'color-contrast': {
+                enabled: theme !== 'dark_dimmed',
+              },
+            },
+          })
+        })
+      })
+    }
+  })
 })

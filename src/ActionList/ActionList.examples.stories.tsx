@@ -444,7 +444,7 @@ export function AllCombinations(): JSX.Element {
             <ActionList.LeadingVisual>
               <StarIcon />
             </ActionList.LeadingVisual>
-            I + B + T<ActionList.Description variant="inline">inline description</ActionList.Description>
+            Danger<ActionList.Description variant="inline">inline description</ActionList.Description>
             <ActionList.Description variant="block">Block description</ActionList.Description>
             <ActionList.TrailingVisual>
               <StarIcon />
