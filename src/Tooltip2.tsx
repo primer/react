@@ -1,4 +1,4 @@
-import React, {Children, useEffect, useRef} from 'react'
+import React, {Children, useEffect, useRef, useState} from 'react'
 import Box from './Box'
 import {BetterSystemStyleObject, merge, SxProp} from './sx'
 import {useId} from './hooks/useId'
@@ -17,14 +17,25 @@ export type TriggerPropsType = {
   'aria-describedby'?: string
   'aria-labelledby'?: string
   'aria-label'?: string
+  onFocus?: (event: React.FocusEventHandler<HTMLElement>) => void
+  onBlur?: (event: React.FocusEventHandler<HTMLElement>) => void
+  onMouseEnter?: (event: React.MouseEvent<HTMLElement>) => void
+  onMouseLeave?: (event: React.MouseEvent<HTMLElement>) => void
+  onKeyDown?: (event: React.KeyboardEvent<HTMLElement>) => void
 }
 
 const TOOLTIP_ARROW_EDGE_OFFSET = '16'
 
-const tooltipClasses = ({direction, noDelay, align, wrap}: Omit<Tooltip2Props, 'type' | 'text' | 'children'>) => ({
+const tooltipStyle = ({
+  direction,
+  noDelay,
+  align,
+  wrap,
+  open,
+}: Pick<Tooltip2Props, 'direction' | 'noDelay' | 'align' | 'wrap'> & {open: boolean}) => ({
   position: 'relative',
   display: 'inline-block',
-  // The caret
+
   '&::before': {
     position: 'absolute',
     zIndex: '1000001',
@@ -38,6 +49,47 @@ const tooltipClasses = ({direction, noDelay, align, wrap}: Omit<Tooltip2Props, '
     borderWidth: '6px',
     borderColor: 'transparent',
     opacity: 0,
+    ...(open && {
+      display: 'inline-block',
+      textDecoration: 'none',
+      //   conditionally render styles depending on direction
+      ...((direction === 'n' || direction === 'ne' || direction === 'nw') && {
+        borderTopColor: 'neutral.emphasisPlus',
+        top: '-7px',
+        bottom: 'auto',
+        right: '50%',
+        marginRight: '-6px',
+      }),
+      ...((direction === 's' || direction === 'se' || direction === 'sw') && {
+        borderBottomColor: 'neutral.emphasisPlus',
+        top: 'auto',
+        bottom: '-7px',
+        right: '50%',
+        marginRight: '-6px',
+      }),
+      ...(direction === 'e' && {
+        borderRightColor: 'neutral.emphasisPlus',
+        top: '50%',
+        right: '-7px',
+        bottom: '50%',
+        marginTop: '-6px',
+      }),
+      ...(direction === 'w' && {
+        borderLeftColor: 'neutral.emphasisPlus',
+        top: '50%',
+        bottom: '50%',
+        left: '-7px',
+        marginTop: '-6px',
+      }),
+      // Left align tooltips with align prop
+      ...(align === 'left' && {
+        left: '10px',
+      }),
+      // Right align tooltips with align prop
+      ...(align === 'right' && {
+        right: '15px',
+      }),
+    }),
   },
   // popover
   '& > span': {
@@ -60,28 +112,7 @@ const tooltipClasses = ({direction, noDelay, align, wrap}: Omit<Tooltip2Props, '
     backgroundColor: 'neutral.emphasisPlus',
     borderRadius: '3px', // radii.2
     opacity: 0,
-  },
-  '&:hover, &:active, &:focus, &:focus-within': {
-    '&::before, & > span': {
-      display: 'inline-block',
-      textDecoration: 'none',
-      animationName: 'tooltip-appear',
-      animationDuration: '0.1s',
-      animationFillMode: 'forwards',
-      animationTimingFunction: 'ease-in',
-      animationDelay: noDelay ? '0s' : '0.4s',
-    },
-    '& > span': {
-      // Left align tooltips with align prop
-      ...(align === 'left' && {
-        left: '0',
-        marginLeft: '0',
-      }),
-      // Right align tooltips with align prop
-      ...(align === 'right' && {
-        right: '0',
-        marginRight: '0',
-      }),
+    ...(open && {
       //   conditionally render styles depending on direction
       ...((direction === 'n' || direction === 'ne' || direction === 'nw') && {
         right: '50%',
@@ -125,6 +156,16 @@ const tooltipClasses = ({direction, noDelay, align, wrap}: Omit<Tooltip2Props, '
       ...((direction === 'n' || direction === 's') && {
         transform: 'translateX(50%)',
       }),
+      // Left align tooltips with align prop
+      ...(align === 'left' && {
+        right: '100%',
+        marginLeft: '0',
+      }),
+      // Right align tooltips with align prop
+      ...(align === 'right' && {
+        right: '0',
+        marginRight: '0',
+      }),
       // Multiline tooltips with wrap prop
       ...(wrap && {
         display: 'table-cell',
@@ -145,48 +186,19 @@ const tooltipClasses = ({direction, noDelay, align, wrap}: Omit<Tooltip2Props, '
         (direction === 'w' || direction === 'e') && {
           right: '100%',
         }),
-    },
-    '&::before': {
+    }),
+  },
+
+  '&::before, & > span': {
+    ...(open && {
       display: 'inline-block',
       textDecoration: 'none',
-      // Left align tooltips with align prop
-      ...(align === 'left' && {
-        left: '10px',
-      }),
-      // Right align tooltips with align prop
-      ...(align === 'right' && {
-        right: '15px',
-      }),
-      //   conditionally render styles depending on direction
-      ...((direction === 'n' || direction === 'ne' || direction === 'nw') && {
-        borderTopColor: 'neutral.emphasisPlus',
-        top: '-7px',
-        bottom: 'auto',
-        right: '50%',
-        marginRight: '-6px',
-      }),
-      ...((direction === 's' || direction === 'se' || direction === 'sw') && {
-        borderBottomColor: 'neutral.emphasisPlus',
-        top: 'auto',
-        bottom: '-7px',
-        right: '50%',
-        marginRight: '-6px',
-      }),
-      ...(direction === 'e' && {
-        borderRightColor: 'neutral.emphasisPlus',
-        top: '50%',
-        right: '-7px',
-        bottom: '50%',
-        marginTop: '-6px',
-      }),
-      ...(direction === 'w' && {
-        borderLeftColor: 'neutral.emphasisPlus',
-        top: '50%',
-        bottom: '50%',
-        left: '-7px',
-        marginTop: '-6px',
-      }),
-    },
+      animationName: 'tooltip-appear',
+      animationDuration: '0.1s',
+      animationFillMode: 'forwards',
+      animationTimingFunction: 'ease-in',
+      animationDelay: noDelay ? '0s' : '0.4s',
+    }),
   },
 })
 
@@ -204,6 +216,7 @@ const Tooltip2: React.FC<React.PropsWithChildren<Tooltip2Props>> = ({
   const id = useId()
   const tooltipRef = useRef<HTMLDivElement>(null)
   const child = Children.only(children) // make sure there is only one child
+  const [open, setOpen] = useState(false)
 
   // we need this check for every render
   useEffect(() => {
@@ -222,6 +235,7 @@ const Tooltip2: React.FC<React.PropsWithChildren<Tooltip2Props>> = ({
     //   If it is a label type, we use tooltip to label the trigger
     'aria-labelledby': type === 'label' ? id : undefined,
   }
+
   // Only need tooltip role if the tooltip is a description for supplementary information
   const role = type === 'description' ? 'tooltip' : undefined
   // aria-hidden true only if the tooltip is a label type
@@ -242,10 +256,31 @@ const Tooltip2: React.FC<React.PropsWithChildren<Tooltip2Props>> = ({
       </style>
       <Box
         ref={tooltipRef}
-        sx={merge<BetterSystemStyleObject>(tooltipClasses({direction, noDelay, align, wrap}), sx)}
+        sx={merge<BetterSystemStyleObject>(tooltipStyle({direction, noDelay, align, wrap, open}), sx)}
         {...props}
       >
-        {React.cloneElement(child as React.ReactElement<TriggerPropsType>, triggerProps)}
+        {React.cloneElement(child as React.ReactElement<TriggerPropsType>, {
+          ...triggerProps,
+          // Optimise this?
+          onFocus: () => {
+            setOpen(true)
+          },
+          // onBlur: () => {
+          //   setOpen(false)
+          // },
+          onMouseEnter: () => {
+            setOpen(true)
+          },
+          // onMouseLeave: () => {
+          //   setOpen(false)
+          // },
+          onKeyDown: (e: React.KeyboardEvent) => {
+            if (open && e.key === 'Escape') {
+              e.stopPropagation()
+              setOpen(false)
+            }
+          },
+        })}
         <Box as="span" role={role} aria-hidden={ariaHidden} id={id}>
           {text || (child as React.ReactElement).props['aria-label']}
         </Box>
