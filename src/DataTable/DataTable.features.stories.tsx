@@ -1132,8 +1132,6 @@ export const WithOverflow = () => (
   </div>
 )
 
-const loading = true
-
 export const WithLoading = () => {
   const columnHelper = createColumnHelper<Repo>()
   const columns = [
@@ -1183,6 +1181,7 @@ export const WithLoading = () => {
       },
     }),
   ]
+  const [loading] = React.useState(true)
 
   return (
     <Table.Container>
