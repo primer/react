@@ -19,28 +19,12 @@ export type TriggerPropsType = {
   'aria-label'?: string
 }
 
+const TOOLTIP_ARROW_EDGE_OFFSET = '16'
+
 const tooltipClasses = ({direction, noDelay, align, wrap}: Omit<Tooltip2Props, 'type' | 'text' | 'children'>) => ({
   position: 'relative',
   display: 'inline-block',
-  '& > span': {
-    position: 'absolute',
-    zIndex: '1000001',
-    display: 'none',
-    padding: '0.5em 0.75em',
-    fontSize: 0,
-    color: 'fg.onEmphasis',
-    textAlign: 'center',
-    textDecoration: 'none',
-    textShadow: 'none',
-    textTransform: 'none',
-    letterSpacing: 'normal',
-    wordWrap: 'break-word',
-    whiteSpace: 'pre',
-    pointerEvents: 'none',
-    backgroundColor: 'neutral.emphasisPlus',
-    borderRadius: '3px', // use theme value radii.1'
-    opacity: 0,
-  },
+  // The caret
   '&::before': {
     position: 'absolute',
     zIndex: '1000001',
@@ -55,26 +39,124 @@ const tooltipClasses = ({direction, noDelay, align, wrap}: Omit<Tooltip2Props, '
     borderColor: 'transparent',
     opacity: 0,
   },
-  '&:hover, &:focus, &:active, &:focus-within': {
-    '& > span': {
+  // popover
+  '& > span': {
+    position: 'absolute',
+    zIndex: '1000001',
+    display: 'none',
+    padding: '0.5em 0.75em',
+    fontSize: 0,
+    // font: normal normal 11px/1.5 ${get('fonts.normal')};
+    // -webkit-font-smoothing: subpixel-antialiased;
+    color: 'fg.onEmphasis',
+    textAlign: 'center',
+    textDecoration: 'none',
+    textShadow: 'none',
+    textTransform: 'none',
+    letterSpacing: 'normal',
+    wordWrap: 'break-word',
+    whiteSpace: 'pre',
+    pointerEvents: 'none',
+    backgroundColor: 'neutral.emphasisPlus',
+    borderRadius: '3px', // radii.2
+    opacity: 0,
+  },
+  '&:hover, &:active, &:focus, &:focus-within': {
+    '&::before, & > span': {
       display: 'inline-block',
-      opacity: 1,
+      textDecoration: 'none',
+      animationName: 'tooltip-appear',
+      animationDuration: '0.1s',
+      animationFillMode: 'forwards',
+      animationTimingFunction: 'ease-in',
+      animationDelay: noDelay ? '0s' : '0.4s',
+    },
+    '& > span': {
+      // Left align tooltips with align prop
+      ...(align === 'left' && {
+        left: '0',
+        marginLeft: '0',
+      }),
+      // Right align tooltips with align prop
+      ...(align === 'right' && {
+        right: '0',
+        marginRight: '0',
+      }),
       //   conditionally render styles depending on direction
       ...((direction === 'n' || direction === 'ne' || direction === 'nw') && {
         right: '50%',
         bottom: '100%',
         marginBottom: '6px',
       }),
-      // only for n direction
-      ...(direction === 'n' && {
+      ...(direction === 'ne' && {
+        right: 'auto',
+        left: '50%',
+        marginLeft: `-${TOOLTIP_ARROW_EDGE_OFFSET}px`, // space.3?
+      }),
+      ...(direction === 'nw' && {
+        marginRight: `-${TOOLTIP_ARROW_EDGE_OFFSET}px`, // space.3?
+      }),
+      ...((direction === 's' || direction === 'se' || direction === 'sw') && {
+        top: '100%',
+        right: '50%',
+        marginTop: '6px',
+      }),
+      ...(direction === 'se' && {
+        right: 'auto',
+        left: '50%',
+        marginLeft: `-${TOOLTIP_ARROW_EDGE_OFFSET}px`, // space.3?
+      }),
+      ...(direction === 'sw' && {
+        marginRight: `-${TOOLTIP_ARROW_EDGE_OFFSET}px`, // space.3?
+      }),
+      ...(direction === 'e' && {
+        left: '100%',
+        bottom: '50%',
+        marginLeft: '6px',
+        transform: 'translateY(50%)',
+      }),
+      ...(direction === 'w' && {
+        right: '100%',
+        bottom: '50%',
+        marginRight: '6px',
+        transform: 'translateY(50%)',
+      }),
+      // only for s and n direction to move the popover bovy to the center of the trigger
+      ...((direction === 'n' || direction === 's') && {
         transform: 'translateX(50%)',
       }),
-      ...((direction === 's' || direction === 'se' || direction === 'sw') && {}),
+      // Multiline tooltips with wrap prop
+      ...(wrap && {
+        display: 'table-cell',
+        width: 'max-content',
+        maxWidth: '250px',
+        wordWrap: 'break-word',
+        whiteSpace: 'pre-line',
+        borderCollapse: 'separate',
+      }),
+      // Some styles of the directions need to be overriden when wrap is true
+      ...(wrap &&
+        (direction === 's' || direction === 'n') && {
+          right: 'auto',
+          left: '50%',
+          transform: 'translateX(-50%)',
+        }),
+      ...(wrap &&
+        (direction === 'w' || direction === 'e') && {
+          right: '100%',
+        }),
     },
     '&::before': {
       display: 'inline-block',
       textDecoration: 'none',
-      opacity: 1,
+      // Left align tooltips with align prop
+      ...(align === 'left' && {
+        left: '10px',
+      }),
+      // Right align tooltips with align prop
+      ...(align === 'right' && {
+        right: '15px',
+      }),
       //   conditionally render styles depending on direction
       ...((direction === 'n' || direction === 'ne' || direction === 'nw') && {
         borderTopColor: 'neutral.emphasisPlus',
@@ -82,6 +164,27 @@ const tooltipClasses = ({direction, noDelay, align, wrap}: Omit<Tooltip2Props, '
         bottom: 'auto',
         right: '50%',
         marginRight: '-6px',
+      }),
+      ...((direction === 's' || direction === 'se' || direction === 'sw') && {
+        borderBottomColor: 'neutral.emphasisPlus',
+        top: 'auto',
+        bottom: '-7px',
+        right: '50%',
+        marginRight: '-6px',
+      }),
+      ...(direction === 'e' && {
+        borderRightColor: 'neutral.emphasisPlus',
+        top: '50%',
+        right: '-7px',
+        bottom: '50%',
+        marginTop: '-6px',
+      }),
+      ...(direction === 'w' && {
+        borderLeftColor: 'neutral.emphasisPlus',
+        top: '50%',
+        bottom: '50%',
+        left: '-7px',
+        marginTop: '-6px',
       }),
     },
   },
@@ -125,16 +228,29 @@ const Tooltip2: React.FC<React.PropsWithChildren<Tooltip2Props>> = ({
   const ariaHidden = type === 'label' ? true : undefined
 
   return (
-    <Box
-      ref={tooltipRef}
-      sx={merge<BetterSystemStyleObject>(tooltipClasses({direction, noDelay, align, wrap}), sx)}
-      {...props}
-    >
-      {React.cloneElement(child as React.ReactElement<TriggerPropsType>, triggerProps)}
-      <Box as="span" role={role} aria-hidden={ariaHidden} id={id}>
-        {text || (child as React.ReactElement).props['aria-label']}
+    <>
+      <style>
+        {`@keyframes tooltip-appear {
+            from {
+              opacity: 0;
+            }
+        
+            to {
+              opacity: 1;
+            }
+          }`}
+      </style>
+      <Box
+        ref={tooltipRef}
+        sx={merge<BetterSystemStyleObject>(tooltipClasses({direction, noDelay, align, wrap}), sx)}
+        {...props}
+      >
+        {React.cloneElement(child as React.ReactElement<TriggerPropsType>, triggerProps)}
+        <Box as="span" role={role} aria-hidden={ariaHidden} id={id}>
+          {text || (child as React.ReactElement).props['aria-label']}
+        </Box>
       </Box>
-    </Box>
+    </>
   )
 }
 

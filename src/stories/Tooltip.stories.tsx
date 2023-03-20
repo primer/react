@@ -77,7 +77,61 @@ export const MultipleChildren = () => (
   </Box>
 )
 
-export const WithDirection = () => (
+export const CurrentTooltipVariations = () => (
+  <Box>
+    <Box sx={{padding: 5, display: 'flex', gap: '8px'}}>
+      <Tooltip direction="n" text="Supplementary text">
+        <Button>North</Button>
+      </Tooltip>
+      <Tooltip direction="s" text="Supplementary text">
+        <Button>South</Button>
+      </Tooltip>
+      <Tooltip direction="e" text="Supplementary text">
+        <Button>East</Button>
+      </Tooltip>
+      <Tooltip direction="w" text="Supplementary text">
+        <Button>West</Button>
+      </Tooltip>
+      <Tooltip direction="ne" text="Supplementary text">
+        <Button>North East</Button>
+      </Tooltip>
+      <Tooltip direction="nw" text="Supplementary text">
+        <Button>North West</Button>
+      </Tooltip>
+      <Tooltip direction="se" text="Supplementary text">
+        <Button>Southeast</Button>
+      </Tooltip>
+      <Tooltip direction="sw" text="Supplementary text">
+        <Button>Southwest</Button>
+      </Tooltip>
+    </Box>
+    <Box sx={{padding: 5, display: 'flex', gap: '8px'}}>
+      <Tooltip
+        direction="e"
+        wrap
+        text="Random long text that needs to be wrapped and be multipline and have some paddings around"
+      >
+        <Button>Multiline e</Button>
+      </Tooltip>
+      <Tooltip
+        direction="sw"
+        wrap
+        text="Random long text that needs to be wrapped and be multipline and have some paddings around"
+      >
+        <Button>Multiline sw</Button>
+      </Tooltip>
+      {/* Align left seems to be broken */}
+      <Tooltip align="left" text="Supplemetary text">
+        <Button>Align Left</Button>
+      </Tooltip>
+      <Tooltip align="right" text="Supplemetary text">
+        <Button>Align Right</Button>
+      </Tooltip>
+    </Box>
+  </Box>
+)
+
+export const Tooltip2WithDirection = () => (
   <Box sx={{padding: 5, display: 'flex', gap: '8px'}}>
     <Tooltip2 direction="n" text="Supplementary text" type="description">
       <Button>North</Button>
@@ -102,6 +156,46 @@ export const WithDirection = () => (
     </Tooltip2>
     <Tooltip2 direction="sw" text="Supplementary text" type="description">
       <Button>Southwest</Button>
+    </Tooltip2>
+    <Tooltip2
+      direction="n"
+      wrap
+      text="Random long text that needs to be wrapped and be multipline and have some paddings around"
+      type="description"
+    >
+      <Button>Multiline</Button>
+    </Tooltip2>
+  </Box>
+)
+
+export const Tooltip2WithAlign = () => (
+  <Box sx={{padding: 5, display: 'flex', gap: '8px'}}>
+    <Tooltip2 align="left" text="Supplemetary text" type="description">
+      <Button>Align Left</Button>
+    </Tooltip2>
+    <Tooltip2 align="right" text="Supplemetary text" type="description">
+      <Button>Align Right</Button>
+    </Tooltip2>
+  </Box>
+)
+
+export const Tooltip2WithWrap = () => (
+  <Box sx={{padding: 5, display: 'flex', gap: '8px'}}>
+    <Tooltip2
+      direction="e"
+      wrap
+      text="Random long text that needs to be wrapped and be multipline and have some paddings around"
+      type="description"
+    >
+      <Button>Multiline e</Button>
+    </Tooltip2>
+    <Tooltip2
+      direction="se"
+      wrap
+      text="Random long text that needs to be wrapped and be multipline and have some paddings around"
+      type="description"
+    >
+      <Button>Multiline se</Button>
     </Tooltip2>
   </Box>
 )
