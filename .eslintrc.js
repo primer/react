@@ -166,7 +166,6 @@ module.exports = {
         'testing-library/no-node-access': 'off',
         'testing-library/no-container': 'off',
         'testing-library/render-result-naming-convention': 'off',
-        'testing-library/no-unnecessary-act': 'off',
         'testing-library/prefer-presence-queries': 'off',
         'testing-library/prefer-find-by': 'off',
         'testing-library/no-wait-for-multiple-assertions': 'off',

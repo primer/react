@@ -1,4 +1,4 @@
-import {render as HTMLRender, act, fireEvent} from '@testing-library/react'
+import {render as HTMLRender, fireEvent} from '@testing-library/react'
 import {axe} from 'jest-axe'
 import React, {useCallback, useRef, useState} from 'react'
 
@@ -96,27 +96,21 @@ describe('ConfirmationDialog', () => {
 
   it('focuses the primary action when opened and the confirmButtonType is not set', async () => {
     const {getByText} = HTMLRender(<Basic />)
-    act(() => {
-      fireEvent.click(getByText('Show dialog'))
-    })
+    fireEvent.click(getByText('Show dialog'))
     expect(getByText('Primary')).toEqual(document.activeElement)
     expect(getByText('Secondary')).not.toEqual(document.activeElement)
   })
 
   it('focuses the primary action when opened and the confirmButtonType is not danger', async () => {
     const {getByText} = HTMLRender(<Basic confirmButtonType="primary" />)
-    act(() => {
-      fireEvent.click(getByText('Show dialog'))
-    })
+    fireEvent.click(getByText('Show dialog'))
     expect(getByText('Primary')).toEqual(document.activeElement)
     expect(getByText('Secondary')).not.toEqual(document.activeElement)
   })
 
   it('focuses the secondary action when opened and the confirmButtonType is danger', async () => {
     const {getByText} = HTMLRender(<Basic confirmButtonType="danger" />)
-    act(() => {
-      fireEvent.click(getByText('Show dialog'))
-    })
+    fireEvent.click(getByText('Show dialog'))
     expect(getByText('Primary')).not.toEqual(document.activeElement)
     expect(getByText('Secondary')).toEqual(document.activeElement)
   })
@@ -126,13 +120,8 @@ describe('ConfirmationDialog', () => {
 
     const {getByText} = HTMLRender(<ShorthandHookFromActionMenu />)
 
-    act(() => {
-      fireEvent.click(getByText('Show menu'))
-    })
-
-    act(() => {
-      fireEvent.click(getByText('Show dialog'))
-    })
+    fireEvent.click(getByText('Show menu'))
+    fireEvent.click(getByText('Show dialog'))
 
     expect(getByText('Primary')).toEqual(document.activeElement)
     expect(getByText('Secondary')).not.toEqual(document.activeElement)

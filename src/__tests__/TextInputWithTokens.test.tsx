@@ -324,6 +324,7 @@ describe('TextInputWithTokens', () => {
     const allTokenLabels = mockTokens.map(token => token.text)
     const truncatedTokenCountNode = getByText('+6')
 
+    // eslint-disable-next-line testing-library/no-unnecessary-act
     act(() => {
       jest.runAllTimers()
       fireEvent.focus(inputNode)
@@ -336,6 +337,7 @@ describe('TextInputWithTokens', () => {
       }
     }, 0)
 
+    // eslint-disable-next-line testing-library/no-unnecessary-act
     act(() => {
       jest.runAllTimers()
       // onBlur isn't called on input unless we specifically fire the "blur" event
@@ -378,10 +380,8 @@ describe('TextInputWithTokens', () => {
     const allTokenLabels = mockTokens.map(token => token.text)
     const truncatedTokenCountNode = getByText('+6')
 
-    act(() => {
-      fireEvent.focus(inputNode)
-      fireEvent.focus(firstTokenNode)
-    })
+    fireEvent.focus(inputNode)
+    fireEvent.focus(firstTokenNode)
 
     expect(truncatedTokenCountNode).toBeDefined()
 
