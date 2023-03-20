@@ -18,6 +18,24 @@ exports[`SplitPageLayout renders default layout 1`] = `
   flex-wrap: wrap;
 }
 
+.c2 {
+  width: 100%;
+  margin-bottom: 0;
+}
+
+.c3 {
+  padding: 16px;
+}
+
+.c4 {
+  margin-left: 0;
+  margin-right: 0;
+  display: block;
+  height: 1px;
+  background-color: #d0d7de;
+  margin-top: 0;
+}
+
 .c5 {
   display: -webkit-box;
   display: -webkit-flex;
@@ -107,24 +125,6 @@ exports[`SplitPageLayout renders default layout 1`] = `
   padding: 16px;
 }
 
-.c2 {
-  width: 100%;
-  margin-bottom: 0;
-}
-
-.c3 {
-  padding: 16px;
-}
-
-.c4 {
-  margin-left: 0;
-  margin-right: 0;
-  display: block;
-  height: 1px;
-  background-color: #d0d7de;
-  margin-top: 0;
-}
-
 .c12 {
   -webkit-order: 4;
   -ms-flex-order: 4;
@@ -140,6 +140,19 @@ exports[`SplitPageLayout renders default layout 1`] = `
   height: 1px;
   background-color: #d0d7de;
   margin-bottom: 0;
+}
+
+@media screen and (min-width:1012px) {
+  .c3 {
+    padding: 24px;
+  }
+}
+
+@media screen and (min-width:768px) {
+  .c4 {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
 }
 
 @media screen and (min-width:1012px) {
@@ -188,19 +201,6 @@ exports[`SplitPageLayout renders default layout 1`] = `
 @media screen and (min-width:1280px) {
   .c11 {
     --pane-max-width-diff: 959px;
-  }
-}
-
-@media screen and (min-width:1012px) {
-  .c3 {
-    padding: 24px;
-  }
-}
-
-@media screen and (min-width:768px) {
-  .c4 {
-    margin-left: 0 !important;
-    margin-right: 0 !important;
   }
 }
 
