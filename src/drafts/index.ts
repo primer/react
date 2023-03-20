@@ -21,9 +21,7 @@ export type {
   TableActionsProps,
 } from '../DataTable'
 
-export * from '../Dialog2'
-
-export * from '../Hidden'
+export * from '../Dialog/Dialog'
 
 export {default as InlineAutocomplete} from './InlineAutocomplete'
 export type {
@@ -43,7 +41,8 @@ export * from './MarkdownEditor'
 export * from '../UnderlineNav2'
 
 export * from '../PageHeader'
-export {default as Hidden} from '../Hidden'
+
+export * from '../Hidden'
 
 export * from './hooks'
 

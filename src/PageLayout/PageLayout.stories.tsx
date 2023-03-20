@@ -515,7 +515,14 @@ export const StickyPane: Story = args => (
         })}
       </Box>
     </PageLayout.Content>
-    <PageLayout.Pane position="start" resizable padding="normal" divider="line" sticky={args.sticky}>
+    <PageLayout.Pane
+      position="start"
+      resizable
+      padding="normal"
+      divider="line"
+      sticky={args.sticky}
+      aria-label="Side pane"
+    >
       <Box sx={{display: 'grid', gap: 3}}>
         {Array.from({length: args.numParagraphsInPane}).map((_, i) => {
           const testId = `paragraph${i}`
@@ -578,7 +585,7 @@ export const NestedScrollContainer: Story = args => (
             ))}
           </Box>
         </PageLayout.Content>
-        <PageLayout.Pane position="start" padding="normal" divider="line" sticky>
+        <PageLayout.Pane position="start" padding="normal" divider="line" sticky aria-label="Side pane">
           <Box sx={{display: 'grid', gap: 3}}>
             {Array.from({length: args.numParagraphsInPane}).map((_, i) => (
               <Box key={i} as="p" sx={{margin: 0}}>
@@ -654,7 +661,14 @@ export const CustomStickyHeader: Story = args => (
           })}
         </Box>
       </PageLayout.Content>
-      <PageLayout.Pane position="start" padding="normal" divider="line" sticky offsetHeader={args.offsetHeader}>
+      <PageLayout.Pane
+        position="start"
+        padding="normal"
+        divider="line"
+        aria-label="Aside pane"
+        sticky
+        offsetHeader={args.offsetHeader}
+      >
         <Box sx={{display: 'grid', gap: 3}}>
           {Array.from({length: args.numParagraphsInPane}).map((_, i) => {
             const testId = `paragraph${i}`
@@ -722,7 +736,7 @@ export const ScrollContainerWithinPageLayoutPane: Story = () => (
     <Box sx={{overflow: 'auto'}}>
       <Placeholder label="Above inner scroll container" height={120} />
       <PageLayout rowGap="none" columnGap="none" padding="none" containerWidth="full">
-        <PageLayout.Pane position="start" padding="normal" divider="line" sticky>
+        <PageLayout.Pane position="start" padding="normal" divider="line" sticky aria-label="Sticky pane">
           <Box sx={{overflow: 'auto'}}>
             <PageLayout.Pane padding="normal">
               <Placeholder label="Inner scroll container" height={800} />

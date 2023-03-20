@@ -61,14 +61,19 @@ function DataTable<Data extends UniqueRow>({
   initialSortColumn,
   initialSortDirection,
 }: DataTableProps<Data>) {
-  const {headers, rows, actions} = useTable({
+  const {headers, rows, actions, gridTemplateColumns} = useTable({
     data,
     columns,
     initialSortColumn,
     initialSortDirection,
   })
   return (
-    <Table aria-labelledby={labelledby} aria-describedby={describedby} cellPadding={cellPadding}>
+    <Table
+      aria-labelledby={labelledby}
+      aria-describedby={describedby}
+      cellPadding={cellPadding}
+      gridTemplateColumns={gridTemplateColumns}
+    >
       <TableHead>
         <TableRow>
           {headers.map(header => {
@@ -81,11 +86,15 @@ function DataTable<Data extends UniqueRow>({
                     actions.sortBy(header)
                   }}
                 >
-                  {header.column.header}
+                  {typeof header.column.header === 'string' ? header.column.header : header.column.header()}
                 </TableSortHeader>
               )
             }
-            return <TableHeader key={header.id}>{header.column.header}</TableHeader>
+            return (
+              <TableHeader key={header.id}>
+                {typeof header.column.header === 'string' ? header.column.header : header.column.header()}
+              </TableHeader>
+            )
           })}
         </TableRow>
       </TableHead>
