@@ -166,23 +166,23 @@ const StyledTable = styled.table<React.ComponentPropsWithoutRef<'table'>>`
     padding: var(--table-cell-padding);
 
     &:nth-of-type(5n + 1) {
-      --skeleton-item-width: 67%;
+      --skeleton-item-width: 85%;
     }
 
     &:nth-of-type(5n + 2) {
-      --skeleton-item-width: 47%;
+      --skeleton-item-width: 67.5%;
     }
 
     &:nth-of-type(5n + 3) {
-      --skeleton-item-width: 73%;
+      --skeleton-item-width: 80%;
     }
 
     &:nth-of-type(5n + 4) {
-      --skeleton-item-width: 64%;
+      --skeleton-item-width: 60%;
     }
 
     &:nth-of-type(5n + 5) {
-      --skeleton-item-width: 50%;
+      --skeleton-item-width: 75%;
     }
   }
 
