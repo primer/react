@@ -178,11 +178,11 @@ test.describe('DataTable', () => {
       const tabIndex = await region.getAttribute('tabindex')
       const labelledby = await region.getAttribute('aria-labelledby')
 
-      expect(region).toBeVisible()
+      await expect(region).toBeVisible()
       expect(tabIndex).toBe('0')
       expect(labelledby).toBe(headingId)
 
-      expect(table).toBeVisible()
+      await expect(table).toBeVisible()
       expect(labelledby).toBe(headingId)
     })
 
