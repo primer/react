@@ -1,7 +1,7 @@
 import {SortAscIcon, SortDescIcon} from '@primer/octicons-react'
 import cx from 'classnames'
 import React from 'react'
-import styled from 'styled-components'
+import styled, {keyframes} from 'styled-components'
 import Box from '../Box'
 import {get} from '../constants'
 import sx, {SxProp} from '../sx'
@@ -16,6 +16,10 @@ import {useOverflow} from '../hooks/useOverflow'
 // Table
 // ----------------------------------------------------------------------------
 
+const shimmer = keyframes`
+  from { mask-position: 200%; }
+  to { mask-position: 0%; }
+`
 const StyledTable = styled.table<React.ComponentPropsWithoutRef<'table'>>`
   /* Default table styles */
   --table-border-radius: 0.375rem;
@@ -160,6 +164,26 @@ const StyledTable = styled.table<React.ComponentPropsWithoutRef<'table'>>`
 
   .TableCellSkeletonItem {
     padding: var(--table-cell-padding);
+
+    &:nth-of-type(5n + 1) {
+      --skeleton-item-width: 67%;
+    }
+
+    &:nth-of-type(5n + 2) {
+      --skeleton-item-width: 47%;
+    }
+
+    &:nth-of-type(5n + 3) {
+      --skeleton-item-width: 73%;
+    }
+
+    &:nth-of-type(5n + 4) {
+      --skeleton-item-width: 64%;
+    }
+
+    &:nth-of-type(5n + 5) {
+      --skeleton-item-width: 50%;
+    }
   }
 
   .TableCellSkeletonItem:not(:last-of-type) {
@@ -169,11 +193,18 @@ const StyledTable = styled.table<React.ComponentPropsWithoutRef<'table'>>`
   .TableCellSkeletonItem::before {
     display: block;
     content: '';
-    width: 100%;
     height: 1rem;
-    width: 100%;
+    width: var(--skeleton-item-width, 67%);
     background-color: ${get('colors.canvas.subtle')};
     border-radius: 3px;
+
+    @media (prefers-reduced-motion: no-preference) {
+      mask-image: linear-gradient(75deg, #000 30%, rgba(0, 0, 0, 0.65) 80%);
+      mask-size: 200%;
+      animation: ${shimmer};
+      animation-duration: 1s;
+      animation-iteration-count: infinite;
+    }
   }
 
   /* Grid layout */
