@@ -508,14 +508,7 @@ test.describe('ActionList', () => {
               colorScheme: theme,
             },
           })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
-        })
+          await expect(page).toHaveNoViolations()
       })
     }
   })
