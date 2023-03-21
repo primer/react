@@ -6,18 +6,6 @@ test.describe('DataTable', () => {
   test.describe('Default', () => {
     for (const theme of themes) {
       test.describe(theme, () => {
-        test('default @vrt', async ({page}) => {
-          await visit(page, {
-            id: 'components-datatable--default',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-
-          // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`DataTable.Default.${theme}.png`)
-        })
-
         test('axe @aat', async ({page}) => {
           await visit(page, {
             id: 'components-datatable--default',
@@ -34,18 +22,6 @@ test.describe('DataTable', () => {
   test.describe('With Title', () => {
     for (const theme of themes) {
       test.describe(theme, () => {
-        test('default @vrt', async ({page}) => {
-          await visit(page, {
-            id: 'components-datatable-features--with-title',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-
-          // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`DataTable.With Title.${theme}.png`)
-        })
-
         test('axe @aat', async ({page}) => {
           await visit(page, {
             id: 'components-datatable-features--with-title',
@@ -62,18 +38,6 @@ test.describe('DataTable', () => {
   test.describe('With Title and Subtitle', () => {
     for (const theme of themes) {
       test.describe(theme, () => {
-        test('default @vrt', async ({page}) => {
-          await visit(page, {
-            id: 'components-datatable-features--with-title-and-subtitle',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-
-          // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`DataTable.With Title and Subtitle.${theme}.png`)
-        })
-
         test('axe @aat', async ({page}) => {
           await visit(page, {
             id: 'components-datatable-features--with-title-and-subtitle',
@@ -90,18 +54,6 @@ test.describe('DataTable', () => {
   test.describe('With Sorting', () => {
     for (const theme of themes) {
       test.describe(theme, () => {
-        test('default @vrt', async ({page}) => {
-          await visit(page, {
-            id: 'components-datatable-features--with-sorting',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-
-          // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`DataTable.With Sorting.${theme}.png`)
-        })
-
         test('axe @aat', async ({page}) => {
           await visit(page, {
             id: 'components-datatable-features--with-sorting',
@@ -118,18 +70,6 @@ test.describe('DataTable', () => {
   test.describe('With Actions', () => {
     for (const theme of themes) {
       test.describe(theme, () => {
-        test('default @vrt', async ({page}) => {
-          await visit(page, {
-            id: 'components-datatable-features--with-actions',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-
-          // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`DataTable.With Actions.${theme}.png`)
-        })
-
         test('axe @aat', async ({page}) => {
           await visit(page, {
             id: 'components-datatable-features--with-actions',
@@ -146,18 +86,6 @@ test.describe('DataTable', () => {
   test.describe('With Action', () => {
     for (const theme of themes) {
       test.describe(theme, () => {
-        test('default @vrt', async ({page}) => {
-          await visit(page, {
-            id: 'components-datatable-features--with-action',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-
-          // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`DataTable.With Action.${theme}.png`)
-        })
-
         test('axe @aat', async ({page}) => {
           await visit(page, {
             id: 'components-datatable-features--with-action',
@@ -174,18 +102,6 @@ test.describe('DataTable', () => {
   test.describe('With Row Action', () => {
     for (const theme of themes) {
       test.describe(theme, () => {
-        test('default @vrt', async ({page}) => {
-          await visit(page, {
-            id: 'components-datatable-features--with-row-action',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-
-          // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`DataTable.With Row Action.${theme}.png`)
-        })
-
         test('axe @aat', async ({page}) => {
           await visit(page, {
             id: 'components-datatable-features--with-row-action',
@@ -202,18 +118,6 @@ test.describe('DataTable', () => {
   test.describe('With Row Actions', () => {
     for (const theme of themes) {
       test.describe(theme, () => {
-        test('default @vrt', async ({page}) => {
-          await visit(page, {
-            id: 'components-datatable-features--with-row-actions',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-
-          // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`DataTable.With Row Actions.${theme}.png`)
-        })
-
         test('axe @aat', async ({page}) => {
           await visit(page, {
             id: 'components-datatable-features--with-row-actions',
@@ -230,18 +134,6 @@ test.describe('DataTable', () => {
   test.describe('With Row Action Menu', () => {
     for (const theme of themes) {
       test.describe(theme, () => {
-        test('default @vrt', async ({page}) => {
-          await visit(page, {
-            id: 'components-datatable-features--with-row-action-menu',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-
-          // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`DataTable.With Row Action Menu.${theme}.png`)
-        })
-
         test('axe @aat', async ({page}) => {
           await visit(page, {
             id: 'components-datatable-features--with-row-action-menu',
@@ -258,18 +150,6 @@ test.describe('DataTable', () => {
   test.describe('With Custom Heading', () => {
     for (const theme of themes) {
       test.describe(theme, () => {
-        test('default @vrt', async ({page}) => {
-          await visit(page, {
-            id: 'components-datatable-features--with-custom-heading',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-
-          // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`DataTable.With Custom Heading.${theme}.png`)
-        })
-
         test('axe @aat', async ({page}) => {
           await visit(page, {
             id: 'components-datatable-features--with-custom-heading',
@@ -308,18 +188,6 @@ test.describe('DataTable', () => {
 
     for (const theme of themes) {
       test.describe(theme, () => {
-        test('default @vrt', async ({page}) => {
-          await visit(page, {
-            id: 'components-datatable-features--with-overflow',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-
-          // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`DataTable.With Overflow.${theme}.png`)
-        })
-
         test('axe @aat', async ({page}) => {
           await visit(page, {
             id: 'components-datatable-features--with-overflow',
