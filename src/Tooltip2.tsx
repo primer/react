@@ -3,6 +3,7 @@ import Box from './Box'
 import {BetterSystemStyleObject, merge, SxProp} from './sx'
 import {useId} from './hooks/useId'
 import {isFocusable} from '@primer/behaviors/utils'
+import {invariant} from './utils/invariant'
 
 export type Tooltip2Props = {
   direction?: 'n' | 'ne' | 'e' | 'se' | 's' | 'sw' | 'w' | 'nw'
@@ -11,17 +12,13 @@ export type Tooltip2Props = {
   align?: 'left' | 'right'
   wrap?: boolean
   type?: 'label' | 'description'
+  'aria-label'?: React.AriaAttributes['aria-label']
 } & SxProp
 
 export type TriggerPropsType = {
   'aria-describedby'?: string
   'aria-labelledby'?: string
   'aria-label'?: string
-  onFocus?: (event: React.FocusEventHandler<HTMLElement>) => void
-  onBlur?: (event: React.FocusEventHandler<HTMLElement>) => void
-  onMouseEnter?: (event: React.MouseEvent<HTMLElement>) => void
-  onMouseLeave?: (event: React.MouseEvent<HTMLElement>) => void
-  onKeyDown?: (event: React.KeyboardEvent<HTMLElement>) => void
 }
 
 const TOOLTIP_ARROW_EDGE_OFFSET = '16'
@@ -204,7 +201,10 @@ const tooltipStyle = ({
 
 const Tooltip2: React.FC<React.PropsWithChildren<Tooltip2Props>> = ({
   direction = 'n',
+  // used for description type
   text,
+  // used for label type
+  'aria-label': label,
   noDelay,
   align,
   wrap,
@@ -219,27 +219,66 @@ const Tooltip2: React.FC<React.PropsWithChildren<Tooltip2Props>> = ({
   const [open, setOpen] = useState(false)
 
   // we need this check for every render
-  useEffect(() => {
-    if (tooltipRef.current) {
-      const childNode = tooltipRef.current.children[0] // For now, I assume it has one node but that is not true
-      if (!isFocusable(childNode as HTMLElement)) {
-        throw new Error('Tooltip2: The child element must be focusable')
+  if (__DEV__) {
+    // Practically, this is not a conditional hook, it is a compile time check
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    useEffect(() => {
+      if (tooltipRef.current) {
+        const childNode = tooltipRef.current.children[0] // For now, I assume it has one node but that is not true
+        invariant(
+          isFocusable(childNode as HTMLElement),
+          'The `Tooltip2` component expects a single React element that contains interactive content. Consider using a `<button>` or equivalent interactive element instead.',
+        )
       }
-    }
-  })
-  const triggerProps = {
-    // if it is a type description, we use tooltip to describe the trigger
-    'aria-describedby': type === 'description' ? id : undefined,
-    // If it is a type description, we should keep the aria label if it exists, otherwise we remove it because we will use aria-labelledby
-    'aria-label': type === 'description' ? (children as React.ReactElement).props['aria-label'] : undefined,
-    //   If it is a label type, we use tooltip to label the trigger
-    'aria-labelledby': type === 'label' ? id : undefined,
+    })
   }
 
-  // Only need tooltip role if the tooltip is a description for supplementary information
-  const role = type === 'description' ? 'tooltip' : undefined
-  // aria-hidden true only if the tooltip is a label type
-  const ariaHidden = type === 'label' ? true : undefined
+  const triggerEvtHandlers = {
+    onFocus: () => setOpen(true),
+    onBlur: () => setOpen(false),
+    onMouseEnter: () => setOpen(true),
+    onMouseLeave: () => setOpen(false),
+    onKeyDown: (e: React.KeyboardEvent) => {
+      if (open && e.key === 'Escape') {
+        e.stopPropagation()
+        setOpen(false)
+      }
+    },
+  }
+
+  // Make sure to compose the default event handlers for tooltip trigger with the ones that are passed in
+  function composeEventHandlers(child: React.ReactElement) {
+    const {
+      onBlur: _onBlur,
+      onFocus: _onFocus,
+      onMouseEnter: _onMouseEnter,
+      onMouseLeave: _onMouseLeave,
+      onKeyDown: _onKeyDown,
+    } = child.props
+
+    return {
+      onBlur: () => {
+        _onBlur && _onBlur()
+        triggerEvtHandlers.onBlur()
+      },
+      onFocus: () => {
+        _onFocus && _onFocus()
+        triggerEvtHandlers.onFocus()
+      },
+      onMouseEnter: () => {
+        _onMouseEnter && _onMouseEnter()
+        triggerEvtHandlers.onMouseEnter()
+      },
+      onMouseLeave: () => {
+        _onMouseLeave && _onMouseLeave()
+        triggerEvtHandlers.onMouseLeave()
+      },
+      onKeyDown: (evt: React.KeyboardEvent) => {
+        _onKeyDown && _onKeyDown()
+        triggerEvtHandlers.onKeyDown(evt)
+      },
+    }
+  }
 
   return (
     <>
@@ -260,29 +299,25 @@ const Tooltip2: React.FC<React.PropsWithChildren<Tooltip2Props>> = ({
         {...props}
       >
         {React.cloneElement(child as React.ReactElement<TriggerPropsType>, {
-          ...triggerProps,
-          // Optimise this?
-          onFocus: () => {
-            setOpen(true)
+          ...{
+            // if it is a type description, we use tooltip to describe the trigger
+            'aria-describedby': type === 'description' ? id : undefined,
+            // If it is a type description, we should keep the aria label if it exists, otherwise we remove it because we will use aria-labelledby
+            // 'aria-label': type === 'description' ? (children as React.ReactElement).props['aria-label'] : undefined,
+            //   If it is a label type, we use tooltip to label the trigger
+            'aria-labelledby': type === 'label' ? id : undefined,
           },
-          // onBlur: () => {
-          //   setOpen(false)
-          // },
-          onMouseEnter: () => {
-            setOpen(true)
-          },
-          // onMouseLeave: () => {
-          //   setOpen(false)
-          // },
-          onKeyDown: (e: React.KeyboardEvent) => {
-            if (open && e.key === 'Escape') {
-              e.stopPropagation()
-              setOpen(false)
-            }
-          },
+          ...composeEventHandlers(child as React.ReactElement<TriggerPropsType>),
         })}
-        <Box as="span" role={role} aria-hidden={ariaHidden} id={id}>
-          {text || (child as React.ReactElement).props['aria-label']}
+        <Box
+          as="span"
+          // Only need tooltip role if the tooltip is a description for supplementary information
+          role={type === 'description' ? 'tooltip' : undefined}
+          // stop AT from announcing the tooltip twice when it is a label type because it will be announced with "aria-labelledby"
+          aria-hidden={type === 'label' ? true : undefined}
+          id={id}
+        >
+          {text || label}
         </Box>
       </Box>
     </>

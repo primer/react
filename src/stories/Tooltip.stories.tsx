@@ -34,8 +34,8 @@ export const CurrentTooltip = () => (
 // As a label for an IconButton
 export const Tooltip2LabelTypeTooltip = () => (
   <Box sx={{p: 5}}>
-    <Tooltip2>
-      <IconButton icon={SearchIcon} aria-label="Search" />
+    <Tooltip2 aria-label="Search tooltip">
+      <IconButton icon={SearchIcon} aria-label="Search button itself" />
     </Tooltip2>
   </Box>
 )
@@ -43,7 +43,7 @@ export const Tooltip2LabelTypeTooltip = () => (
 // As a label for an IconButton
 export const Tooltip2CustomIcon = () => (
   <Box sx={{p: 5}}>
-    <Tooltip2 text="Label">
+    <Tooltip2 aria-label="Broccoli icon to filter vegetarian options">
       <button>🥦</button>
     </Tooltip2>
   </Box>
@@ -166,6 +166,12 @@ export const Tooltip2WithDirection = () => (
       <Button>Multiline</Button>
     </Tooltip2>
   </Box>
+)
+
+export const Tooltip2Single = () => (
+  <Tooltip2 text="Supplemetary text" type="description" direction="se">
+    <Button>Button</Button>
+  </Tooltip2>
 )
 
 export const Tooltip2WithAlign = () => (
