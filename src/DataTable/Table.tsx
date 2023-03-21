@@ -205,6 +205,11 @@ const StyledTable = styled.table<React.ComponentPropsWithoutRef<'table'>>`
       animation-duration: 1s;
       animation-iteration-count: infinite;
     }
+
+    @media (forced-colors: active) {
+      outline: 1px solid transparent;
+      outline-offset: -1px;
+    }
   }
 
   /* Grid layout */
