@@ -365,7 +365,7 @@ export const ChildWithSideEffects = () => {
       return () => window.clearInterval(interval)
     }, [])
 
-    return <ActionList.Description>{seconds} seconds passed</ActionList.Description>
+    return <>{seconds} seconds passed</>
   }
 
   return (
@@ -375,7 +375,9 @@ export const ChildWithSideEffects = () => {
           <Avatar src={`https://avatars.githubusercontent.com/${user.login}`} />
         </ActionList.LeadingVisual>
         {user.login}
-        <SideEffectDescription />
+        <ActionList.Description>
+          <SideEffectDescription />
+        </ActionList.Description>
       </ActionList.Item>
     </ActionList>
   )
