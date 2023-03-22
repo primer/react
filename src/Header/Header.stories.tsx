@@ -40,12 +40,3 @@ export const Playground: ComponentStory<typeof Avatar> = args => (
     </Header.Item>
   </Header>
 )
-
-Playground.argTypes = {
-  sx: {
-    controls: false,
-    table: {
-      disable: true,
-    },
-  },
-}

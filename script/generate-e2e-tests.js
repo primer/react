@@ -415,6 +415,17 @@ const components = new Map([
     },
   ],
   [
+    'Header',
+    {
+      stories: [
+        {
+          id: 'components-header--default',
+          name: 'Default',
+        },
+      ],
+    },
+  ],
+  [
     'Heading',
     {
       stories: [
