@@ -3,8 +3,15 @@ import {UniqueRow} from './row'
 import {SortStrategy, CustomSortStrategy} from './sorting'
 
 export type ColumnWidth = 'grow' | 'shrink' | 'auto' | React.CSSProperties['width']
+
+export type CellAlignment = 'start' | 'end' | undefined
 export interface Column<Data extends UniqueRow> {
   id?: string
+
+  /**
+   * The horizontal alignment of the column's content
+   */
+  align?: CellAlignment
 
   /**
    * Provide the name of the column. This will be rendered as a table header
