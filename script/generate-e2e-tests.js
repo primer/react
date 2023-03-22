@@ -326,31 +326,63 @@ const components = new Map([
     },
   ],
   [
+    'DataTable',
+    {
+      stories: [
+        {
+          id: 'components-datatable--default',
+          name: 'Default',
+        },
+        {
+          id: 'components-datatable-features--with-title',
+          name: 'With Title',
+        },
+        {
+          id: 'components-datatable-features--with-title-and-subtitle',
+          name: 'With Title and Subtitle',
+        },
+        {
+          id: 'components-datatable-features--with-sorting',
+          name: 'With Sorting',
+        },
+        {
+          id: 'components-datatable-features--with-actions',
+          name: 'With Actions',
+        },
+        {
+          id: 'components-datatable-features--with-action',
+          name: 'With Action',
+        },
+        {
+          id: 'components-datatable-features--with-row-action',
+          name: 'With Row Action',
+        },
+        {
+          id: 'components-datatable-features--with-row-actions',
+          name: 'With Row Actions',
+        },
+        {
+          id: 'components-datatable-features--with-row-action-menu',
+          name: 'With Row Action Menu',
+        },
+        {
+          id: 'components-datatable-features--with-custom-heading',
+          name: 'With Custom Heading',
+        },
+        {
+          id: 'components-datatable-features--with-overflow',
+          name: 'With Overflow',
+        },
+      ],
+    },
+  ],
+  [
     'Details',
     {
       stories: [
         {
           id: 'components-details--default',
           name: 'Default',
-        },
-      ],
-    },
-  ],
-  [
-    'DialogV2',
-    {
-      stories: [
-        {
-          id: 'drafts-components-dialog--default',
-          name: 'Default',
-        },
-        {
-          id: 'drafts-components-dialog-features--basic-dialog',
-          name: 'Basic Dialog',
-        },
-        {
-          id: 'drafts-components-dialog-features--basic-confirmation-dialog',
-          name: 'Basic Confirmation Dialog',
         },
       ],
     },
@@ -578,6 +610,17 @@ const components = new Map([
         {
           id: 'components-linkbutton-features--with-react-router',
           name: 'With React Router',
+        },
+      ],
+    },
+  ],
+  [
+    'Pagehead',
+    {
+      stories: [
+        {
+          id: 'components-pagehead--default',
+          name: 'Default',
         },
       ],
     },

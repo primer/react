@@ -4,14 +4,14 @@ import Box from '../Box'
 import {useId} from '../hooks/useId'
 import {useRefObjectAsForwardedRef} from '../hooks/useRefObjectAsForwardedRef'
 import {isResponsiveValue, ResponsiveValue, useResponsiveValue} from '../hooks/useResponsiveValue'
+import {useSlots} from '../hooks/useSlots'
 import {BetterSystemStyleObject, merge, SxProp} from '../sx'
 import {Theme} from '../ThemeProvider'
-import createSlots from '../utils/create-slots'
 import {canUseDOM} from '../utils/environment'
+import {invariant} from '../utils/invariant'
+import {useOverflow} from '../utils/useOverflow'
 import VisuallyHidden from '../_VisuallyHidden'
 import {useStickyPaneHeight} from './useStickyPaneHeight'
-
-const {Slots, Slot} = createSlots(['Header', 'Footer'])
 
 const REGION_ORDER = {
   header: 0,
@@ -51,6 +51,9 @@ export type PageLayoutProps = {
   padding?: keyof typeof SPACING_MAP
   rowGap?: keyof typeof SPACING_MAP
   columnGap?: keyof typeof SPACING_MAP
+
+  /** Private prop to allow SplitPageLayout to customize slot components */
+  _slotsConfig?: Record<'header' | 'footer', React.ComponentType>
 } & SxProp
 
 const containerWidths = {
@@ -68,9 +71,13 @@ const Root: React.FC<React.PropsWithChildren<PageLayoutProps>> = ({
   columnGap = 'normal',
   children,
   sx = {},
+  _slotsConfig: slotsConfig,
 }) => {
   const {rootRef, enableStickyPane, disableStickyPane, contentTopRef, contentBottomRef, stickyPaneHeight} =
     useStickyPaneHeight()
+
+  const [slots, rest] = useSlots(children, slotsConfig ?? {header: Header, footer: Footer})
+
   return (
     <PageLayoutContext.Provider
       value={{
@@ -99,17 +106,9 @@ const Root: React.FC<React.PropsWithChildren<PageLayoutProps>> = ({
             flexWrap: 'wrap',
           }}
         >
-          <Slots>
-            {slots => {
-              return (
-                <>
-                  {slots.Header}
-                  <Box sx={{display: 'flex', flex: '1 1 100%', flexWrap: 'wrap', maxWidth: '100%'}}>{children}</Box>
-                  {slots.Footer}
-                </>
-              )
-            }}
-          </Slots>
+          {slots.header}
+          <Box sx={{display: 'flex', flex: '1 1 100%', flexWrap: 'wrap', maxWidth: '100%'}}>{rest}</Box>
+          {slots.footer}
         </Box>
       </Box>
     </PageLayoutContext.Provider>
@@ -361,24 +360,22 @@ const Header: React.FC<React.PropsWithChildren<PageLayoutHeaderProps>> = ({
   const isHidden = useResponsiveValue(hidden, false)
   const {rowGap} = React.useContext(PageLayoutContext)
   return (
-    <Slot name="Header">
-      <Box
-        as="header"
-        aria-label={label}
-        aria-labelledby={labelledBy}
-        hidden={isHidden}
-        sx={merge<BetterSystemStyleObject>(
-          {
-            width: '100%',
-            marginBottom: SPACING_MAP[rowGap],
-          },
-          sx,
-        )}
-      >
-        <Box sx={{padding: SPACING_MAP[padding]}}>{children}</Box>
-        <HorizontalDivider variant={dividerVariant} sx={{marginTop: SPACING_MAP[rowGap]}} />
-      </Box>
-    </Slot>
+    <Box
+      as="header"
+      aria-label={label}
+      aria-labelledby={labelledBy}
+      hidden={isHidden}
+      sx={merge<BetterSystemStyleObject>(
+        {
+          width: '100%',
+          marginBottom: SPACING_MAP[rowGap],
+        },
+        sx,
+      )}
+    >
+      <Box sx={{padding: SPACING_MAP[padding]}}>{children}</Box>
+      <HorizontalDivider variant={dividerVariant} sx={{marginTop: SPACING_MAP[rowGap]}} />
+    </Box>
   )
 }
 
@@ -421,6 +418,7 @@ const Content: React.FC<React.PropsWithChildren<PageLayoutContentProps>> = ({
 }) => {
   const isHidden = useResponsiveValue(hidden, false)
   const {contentTopRef, contentBottomRef} = React.useContext(PageLayoutContext)
+
   return (
     <Box
       as="main"
@@ -484,6 +482,8 @@ export type PageLayoutPaneProps = {
    * position={{regular: 'start', narrow: 'end'}}
    * ```
    */
+  'aria-labelledby'?: string
+  'aria-label'?: string
   positionWhenNarrow?: 'inherit' | keyof typeof panePositions
   width?: keyof typeof paneWidths
   resizable?: boolean
@@ -527,6 +527,8 @@ const defaultPaneWidth = {small: 256, medium: 296, large: 320}
 const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayoutPaneProps>>(
   (
     {
+      'aria-label': label,
+      'aria-labelledby': labelledBy,
       position: responsivePosition = 'end',
       positionWhenNarrow = 'inherit',
       width = 'medium',
@@ -604,6 +606,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
     const MIN_PANE_WIDTH = 256 // 256px, related to `--pane-min-width CSS var.
     const [minPercent, setMinPercent] = React.useState(0)
     const [maxPercent, setMaxPercent] = React.useState(0)
+    const hasOverflow = useOverflow(paneRef)
 
     const measuredRef = React.useCallback(() => {
       if (paneRef.current !== null) {
@@ -648,6 +651,16 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
     }
 
     const paneId = useId(id)
+
+    let labelProp = undefined
+    if (hasOverflow) {
+      invariant(label !== undefined || labelledBy !== undefined)
+      if (labelledBy) {
+        labelProp = {'aria-labelledby': labelledBy}
+      } else {
+        labelProp = {'aria-label': label}
+      }
+    }
 
     return (
       <Box
@@ -736,6 +749,8 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
               '--pane-max-width-diff': '959px',
             },
           })}
+          {...(hasOverflow && {tabIndex: 0, role: 'region'})}
+          {...labelProp}
           {...(id && {id: paneId})}
         >
           {resizable && (
@@ -826,25 +841,23 @@ const Footer: React.FC<React.PropsWithChildren<PageLayoutFooterProps>> = ({
   const isHidden = useResponsiveValue(hidden, false)
   const {rowGap} = React.useContext(PageLayoutContext)
   return (
-    <Slot name="Footer">
-      <Box
-        as="footer"
-        aria-label={label}
-        aria-labelledby={labelledBy}
-        hidden={isHidden}
-        sx={merge<BetterSystemStyleObject>(
-          {
-            order: REGION_ORDER.footer,
-            width: '100%',
-            marginTop: SPACING_MAP[rowGap],
-          },
-          sx,
-        )}
-      >
-        <HorizontalDivider variant={dividerVariant} sx={{marginBottom: SPACING_MAP[rowGap]}} />
-        <Box sx={{padding: SPACING_MAP[padding]}}>{children}</Box>
-      </Box>
-    </Slot>
+    <Box
+      as="footer"
+      aria-label={label}
+      aria-labelledby={labelledBy}
+      hidden={isHidden}
+      sx={merge<BetterSystemStyleObject>(
+        {
+          order: REGION_ORDER.footer,
+          width: '100%',
+          marginTop: SPACING_MAP[rowGap],
+        },
+        sx,
+      )}
+    >
+      <HorizontalDivider variant={dividerVariant} sx={{marginBottom: SPACING_MAP[rowGap]}} />
+      <Box sx={{padding: SPACING_MAP[padding]}}>{children}</Box>
+    </Box>
   )
 }
 

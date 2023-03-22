@@ -30,6 +30,8 @@ interface MarkdownInputProps extends Omit<TextareaProps, 'onChange'> {
   visible: boolean
 }
 
+const emptyArray: [] = [] // constant reference to avoid re-running effects
+
 export const MarkdownInput = forwardRef<HTMLTextAreaElement, MarkdownInputProps>(
   (
     {
@@ -55,15 +57,16 @@ export const MarkdownInput = forwardRef<HTMLTextAreaElement, MarkdownInputProps>
     forwardedRef,
   ) => {
     const [suggestions, setSuggestions] = useState<Suggestions | null>(null)
+    const [event, setEvent] = useState<ShowSuggestionsEvent | null>(null)
 
     const {trigger: emojiTrigger, calculateSuggestions: calculateEmojiSuggestions} = useEmojiSuggestions(
-      emojiSuggestions ?? [],
+      emojiSuggestions ?? emptyArray,
     )
     const {trigger: mentionsTrigger, calculateSuggestions: calculateMentionSuggestions} = useMentionSuggestions(
-      mentionSuggestions ?? [],
+      mentionSuggestions ?? emptyArray,
     )
     const {trigger: referencesTrigger, calculateSuggestions: calculateReferenceSuggestions} = useReferenceSuggestions(
-      referenceSuggestions ?? [],
+      referenceSuggestions ?? emptyArray,
     )
 
     const triggers = useMemo(
@@ -71,16 +74,44 @@ export const MarkdownInput = forwardRef<HTMLTextAreaElement, MarkdownInputProps>
       [mentionsTrigger, referencesTrigger, emojiTrigger],
     )
 
-    const onShowSuggestions = async (event: ShowSuggestionsEvent) => {
-      setSuggestions('loading')
-      if (event.trigger.triggerChar === emojiTrigger.triggerChar) {
-        setSuggestions(await calculateEmojiSuggestions(event.query))
-      } else if (event.trigger.triggerChar === mentionsTrigger.triggerChar) {
-        setSuggestions(await calculateMentionSuggestions(event.query))
-      } else if (event.trigger.triggerChar === referencesTrigger.triggerChar) {
-        setSuggestions(await calculateReferenceSuggestions(event.query))
-      }
+    const lastEventRef = useRef<ShowSuggestionsEvent | null>(null)
+
+    const onHideSuggestions = () => {
+      setEvent(null)
+      setSuggestions(null) // the effect would do this anyway, but this allows React to batch the update
     }
+
+    // running the calculation in an effect (rather than in the onShowSuggestions handler) allows us
+    // to automatically recalculate if the suggestions change while the menu is open
+    useEffect(() => {
+      if (!event) {
+        setSuggestions(null)
+        return
+      }
+
+      // (prettier vs. eslint conflict)
+      // eslint-disable-next-line @typescript-eslint/no-extra-semi
+      ;(async function () {
+        lastEventRef.current = event
+        setSuggestions('loading')
+        if (event.trigger.triggerChar === emojiTrigger.triggerChar) {
+          setSuggestions(await calculateEmojiSuggestions(event.query))
+        } else if (event.trigger.triggerChar === mentionsTrigger.triggerChar) {
+          setSuggestions(await calculateMentionSuggestions(event.query))
+        } else if (event.trigger.triggerChar === referencesTrigger.triggerChar) {
+          setSuggestions(await calculateReferenceSuggestions(event.query))
+        }
+      })()
+    }, [
+      event,
+      calculateEmojiSuggestions,
+      calculateMentionSuggestions,
+      calculateReferenceSuggestions,
+      // The triggers never actually change because they are statically defined
+      emojiTrigger,
+      mentionsTrigger,
+      referencesTrigger,
+    ])
 
     const ref = useRef<HTMLTextAreaElement>(null)
     useRefObjectAsForwardedRef(forwardedRef, ref)
@@ -99,8 +130,8 @@ export const MarkdownInput = forwardRef<HTMLTextAreaElement, MarkdownInputProps>
       <InlineAutocomplete
         triggers={triggers}
         suggestions={suggestions}
-        onShowSuggestions={e => onShowSuggestions(e)}
-        onHideSuggestions={() => setSuggestions(null)}
+        onShowSuggestions={setEvent}
+        onHideSuggestions={onHideSuggestions}
         sx={{flex: 'auto'}}
         tabInsertsSuggestions
       >
