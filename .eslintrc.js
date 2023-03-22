@@ -178,9 +178,8 @@ module.exports = {
       parserOptions: {
         project: 'tsconfig.json',
       },
-      rules: {
-        'github/array-foreach': 'off',
-      },
+      extends: ['plugin:playwright/jest-playwright'],
+      rules: {},
     },
 
     // rules which apply only to Markdown
