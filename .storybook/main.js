@@ -10,6 +10,10 @@ module.exports = {
     '@storybook/addon-a11y',
     '@storybook/addon-links',
     {
+      name: 'storybook-css-modules',
+      options: {cssModulesLoaderOptions: {modules: {localIdentName: 'prc_[local]-[hash:base64:5]'}}},
+    },
+    {
       name: 'storybook-addon-turbo-build',
       options: {
         optimizationLevel: 2,
