@@ -1,0 +1,168 @@
+.prc-button {
+  border: 1px solid;
+  border-color: var(--color-btn-border);
+  border-radius: var(--primer-borderRadius-medium);
+
+  font-weight: var(--base-text-weight-semibold);
+  font-family: inherit;
+  cursor: pointer;
+  appearance: none;
+  user-select: none;
+  text-decoration: none;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: max-content;
+  transition: 80ms cubic-bezier(0.65, 0, 0.35, 1);
+  transition-property: color, fill, background-color, border-color;
+}
+
+.prc-button:hover {
+  text-decoration: none;
+}
+.prc-button:disabled,
+.prc-button.disabled,
+.prc-button[aria-disabled='true'] {
+  cursor: default;
+}
+
+/* size */
+.prc-button[data-size='small'] {
+  height: var(--base-size-28);
+  padding: 0 var(--base-size-8);
+  font-size: var(--font-size-small);
+}
+
+.prc-button[data-size='medium'] {
+  height: var(--base-size-32);
+  padding: 0 var(--base-size-12);
+  font-size: var(--body-font-size);
+}
+
+.prc-button[data-size='large'] {
+  padding: 0 var(--base-size-16);
+  height: var(--base-size-40);
+  font-size: var(--body-font-size);
+}
+
+/* block */
+.prc-button[data-block='true'] {
+  width: 100%;
+}
+
+/* variants */
+.prc-button {
+  color: var(--prc-btn-text);
+  background-color: var(--prc-btn-bg);
+  border-color: var(--prc-btn-border);
+  box-shadow: var(--prc-btn-shadow);
+}
+.prc-button:hover:not([disabled]),
+.prc-button:focus,
+.prc-button:focus-visible {
+  color: var(--prc-btn-hover-text, var(--prc-btn-text));
+  background-color: var(--prc-btn-hover-bg, var(--prc-btn-bg));
+  border-color: var(--prc-btn-hover-border, var(--prc-btn-border));
+  box-shadow: var(--prc-btn-active-shadow, var(--prc-btn-shadow));
+}
+.prc-button:active:not([disabled]) {
+  color: var(--prc-btn-active-text, var(--prc-btn-hover-text, var(--prc-btn-text)));
+  background-color: var(--prc-btn-active-bg, var(--prc-btn-hover-bg, var(--prc-btn-bg)));
+  border-color: var(--prc-btn-active-border, var(--prc-btn-hover-border, var(--prc-btn-border)));
+  box-shadow: var(--prc-btn-active-shadow, var(--prc-btn-active-shadow, var(--prc-btn-shadow)));
+}
+.prc-button:disabled {
+  color: var(--prc-btn-disabled-text, var(--prc-btn-text));
+  background-color: var(--prc-btn-disabled-bg, var(--prc-btn-bg));
+  border-color: var(--prc-btn-disabled-border, var(--prc-btn-border));
+}
+
+.prc-button[data-variant='default'] {
+  --prc-btn-text: var(--color-btn-text);
+  --prc-btn-bg: var(--color-btn-bg);
+  --prc-btn-border: var(--color-btn-border);
+  --prc-btn-shadow: var(--color-btn-shadow) var(--color-btn-inset-shadow);
+
+  --prc-btn-hover-bg: var(--color-btn-hover-bg);
+  --prc-btn-hover-border: var(--color-btn-hover-border);
+
+  --prc-btn-active-bg: var(--color-btn-active-bg);
+  --prc-btn-active-border: var(--color-btn-active-border);
+
+  --prc-btn-disabled-text: var(--color-primer-fg-disabled);
+}
+
+.prc-button[data-variant='primary'] {
+  --prc-btn-text: var(--color-btn-primary-text);
+  --prc-btn-bg: var(--color-btn-primary-bg);
+  --prc-btn-border: var(--color-btn-primary-border);
+  --prc-btn-shadow: var(--color-btn-primary-shadow) var(--color-btn-primary-inset-shadow);
+
+  --prc-btn-hover-bg: var(--color-btn-primary-hover-bg);
+  --prc-btn-hover-border: var(--color-btn-primary-hover-border);
+
+  --prc-btn-active-bg: var(--color-btn-primary-selected-bg);
+  --prc-btn-active-shadow: var(--color-btn-primary-selected-shadow);
+
+  --prc-btn-disabled-text: var(--color-btn-primary-disabled-text);
+  --prc-btn-disabled-bg: var(--color-btn-primary-disabled-bg);
+  --prc-btn-disabled-border: var(--color-btn-primary-disabled-border);
+}
+
+.prc-button[data-variant='danger'] {
+  --prc-btn-text: var(--color-btn-danger-text);
+  --prc-btn-bg: var(--color-btn-bg);
+  --prc-btn-border: var(--color-btn-border);
+  --prc-btn-shadow: var(--color-btn-shadow) var(--color-btn-inset-shadow);
+
+  --prc-btn-hover-text: var(--color-btn-danger-hover-text);
+  --prc-btn-hover-bg: var(--color-btn-danger-hover-bg);
+  --prc-btn-hover-border: var(--color-btn-danger-hover-border);
+  --prc-btn-hover-shadow: var(--color-btn-danger-hover-shadow) var(--color-btn-danger-hover-inset-shadow);
+
+  --prc-btn-hover-color: var(--color-btn-danger-hover-text);
+  --prc-btn-hover-bg: var(--color-btn-danger-hover-bg);
+  --prc-btn-hover-border: var(--color-btn-danger-hover-border);
+  --prc-btn-hover-shadow: var(--color-btn-danger-hover-shadow) var(--color-btn-danger-hover-inset-shadow);
+
+  --prc-btn-active-text: var(--color-btn-danger-selected-text);
+  --prc-btn-active-bg: var(--color-btn-danger-selected-bg);
+  --prc-btn-active-border: var(--color-btn-danger-selected-border);
+  --prc-btn-active-shadow: var(--color-btn-danger-selected-shadow);
+
+  --prc-btn-disabled-text: var(--color-btn-danger-disabled-text);
+  --prc-btn-disabled-bg: var(--color-btn-danger-disabled-bg);
+}
+
+.prc-button[data-variant='invisible'] {
+  --prc-btn-text: var(--color-accent-fg);
+  --prc-btn-bg: transparent;
+  --prc-btn-border: transparent;
+  --prc-btn-shadow: none;
+
+  --prc-btn-hover-bg: var(--color-btn-hover-bg);
+  --prc-btn-active-bg: var(--color-btn-selected-bg);
+
+  --prc-btn-disabled-text: var(--color-primer-fg-disabled);
+}
+
+.prc-button[data-variant='outline'] {
+  --prc-btn-text: var(--color-btn-outline-text);
+  --prc-btn-bg: var(--color-btn-bg);
+  --prc-btn-border: var(--color-btn-border);
+  --prc-btn-shadow: var(--color-btn-shadow) var(--color-btn-inset-shadow);
+
+  --prc-btn-hover-text: var(--color-btn-outline-hover-text);
+  --prc-btn-hover-bg: var(--color-btn-outline-hover-bg);
+  --prc-btn-hover-border: var(--color-btn-outline-hover-border);
+  --prc-btn-hover-shadow: var(--color-btn-outline-hover-shadow) var(--color-btn-outline-hover-inset-shadow);
+
+  --prc-btn-active-text: var(--color-btn-outline-selected-text);
+  --prc-btn-active-bg: var(--color-btn-outline-selected-bg);
+  --prc-btn-active-border: var(--color-btn-outline-selected-border);
+  --prc-btn-active-shadow: var(--color-btn-outline-selected-shadow);
+
+  --prc-btn-disabled-text: var(--color-btn-outline-disabled-text);
+  --prc-btn-disabled-bg: var(--color-btn-outline-disabled-bg);
+}

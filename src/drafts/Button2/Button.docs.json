@@ -1,0 +1,43 @@
+{
+  "id": "button",
+  "name": "Button",
+  "status": "alpha",
+  "a11yReviewed": false,
+  "stories": [],
+  "props": [
+    {
+      "name": "children",
+      "required": true,
+      "type": "React.ReactNode",
+      "description": "The content of the button."
+    },
+    {
+      "name": "variant",
+      "type": "| 'default'\n| 'primary'\n| 'danger'\n| 'outline'\n| 'invisible'",
+      "defaultValue": "'default'",
+      "description": "Change the visual style of the button."
+    },
+    {
+      "name": "size",
+      "type": "| 'small'\n| 'medium'\n| 'large'",
+      "defaultValue": "'medium'"
+    },
+    {
+      "name": "as",
+      "type": "React.ElementType",
+      "defaultValue": "'button'"
+    },
+    {
+      "name": "sx",
+      "type": "SystemStyleObject"
+    },
+    {
+      "name": "ref",
+      "type": "React.RefObject<HTMLButtonElement>"
+    }
+  ],
+  "passthrough": {
+    "element": "button",
+    "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#attributes"
+  }
+}
