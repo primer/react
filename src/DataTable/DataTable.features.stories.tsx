@@ -1192,7 +1192,12 @@ export const WithLoading = () => {
         A subtitle could appear here to give extra context to the data.
       </Table.Subtitle>
       {loading ? (
-        <Table.Skeleton columns={columns} rows={10} />
+        <Table.Skeleton
+          aria-labelledby="repositories"
+          aria-describedby="repositories-subtitle"
+          columns={columns}
+          rows={10}
+        />
       ) : (
         <DataTable
           aria-labelledby="repositories"
