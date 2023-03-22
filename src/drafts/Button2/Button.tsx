@@ -2,7 +2,8 @@ import React from 'react'
 import styled from 'styled-components'
 import sx, {SxProp} from '../../sx'
 import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../../utils/polymorphic'
-import './Button.css'
+
+import classNames from './Button.css'
 
 // keep styled.button underneath to support sx prop
 const StyledButton = styled.button<SxProp>(sx)
@@ -33,7 +34,7 @@ export const Button = React.forwardRef(
     return (
       <StyledButton
         type="button"
-        className="prc-button"
+        className={classNames.button}
         data-variant={variant}
         data-size={size}
         data-block={block}
