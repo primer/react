@@ -32,7 +32,7 @@ const TooltipBase = styled.div<Tooltip2Props>`
   &::before {
     position: absolute;
     z-index: 1000001;
-    display: none;
+    
     width: 0px;
     height: 0px;
     color: ${get('colors.neutral.emphasisPlus')};
@@ -45,7 +45,7 @@ const TooltipBase = styled.div<Tooltip2Props>`
   & > span {
     position: absolute;
     z-index: 1000000;
-    display: none;
+    
     padding: 0.5em 0.75em;
     font: normal normal 11px/1.5 ${get('fonts.normal')};
     -webkit-font-smoothing: subpixel-antialiased;
@@ -393,25 +393,14 @@ const Tooltip2: React.FC<React.PropsWithChildren<Tooltip2Props>> = ({
   const triggerEvtHandlers = {
     onFocus: () => setOpen(true),
     onBlur: () => setOpen(false),
-    onMouseEnter: () => setOpen(true),
-    onMouseLeave: () => setOpen(false),
-    onKeyDown: (e: React.KeyboardEvent) => {
-      if (open && e.key === 'Escape') {
-        e.stopPropagation()
-        setOpen(false)
-      }
+    onMouseEnter: () => {
+      setOpen(true)
     },
   }
 
   // Make sure to compose the default event handlers for tooltip trigger with the ones that are passed in
   function composeEventHandlers(child: React.ReactElement) {
-    const {
-      onBlur: _onBlur,
-      onFocus: _onFocus,
-      onMouseEnter: _onMouseEnter,
-      onMouseLeave: _onMouseLeave,
-      onKeyDown: _onKeyDown,
-    } = child.props
+    const {onBlur: _onBlur, onFocus: _onFocus, onMouseEnter: _onMouseEnter} = child.props
 
     return {
       onBlur: () => {
@@ -426,19 +415,25 @@ const Tooltip2: React.FC<React.PropsWithChildren<Tooltip2Props>> = ({
         _onMouseEnter && _onMouseEnter()
         triggerEvtHandlers.onMouseEnter()
       },
-      onMouseLeave: () => {
-        _onMouseLeave && _onMouseLeave()
-        triggerEvtHandlers.onMouseLeave()
-      },
-      onKeyDown: (evt: React.KeyboardEvent) => {
-        _onKeyDown && _onKeyDown()
-        triggerEvtHandlers.onKeyDown(evt)
-      },
+    }
+  }
+
+  function onKeyDown(e: React.KeyboardEvent) {
+    if (open && e.key === 'Escape') {
+      e.stopPropagation()
+      setOpen(false)
     }
   }
 
   return (
-    <TooltipBase ref={tooltipRef} data-direction={direction} data-state={open ? 'open' : undefined} {...rest}>
+    <TooltipBase
+      ref={tooltipRef}
+      data-direction={direction}
+      data-state={open ? 'open' : undefined}
+      onMouseLeave={() => setOpen(false)}
+      onKeyDown={onKeyDown}
+      {...rest}
+    >
       {React.cloneElement(child as React.ReactElement<TriggerPropsType>, {
         ...{
           // if it is a type description, we use tooltip to describe the trigger
