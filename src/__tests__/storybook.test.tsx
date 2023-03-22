@@ -15,6 +15,7 @@ const allowlist = [
   'Breadcrumbs',
   'BranchName',
   'Blankslate',
+  'Box',
   'Button',
   'Checkbox',
   'CheckboxGroup',
