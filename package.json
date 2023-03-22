@@ -56,7 +56,8 @@
     "test:type-check": "tsc --noEmit",
     "release": "npm run build && changeset publish",
     "size": "size-limit",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "postinstall": "patch-package"
   },
   "repository": "primer/react",
   "keywords": [
@@ -223,6 +224,7 @@
     "mdast-util-to-string": "3.1.1",
     "micromark-extension-frontmatter": "1.0.0",
     "micromark-extension-mdxjs": "1.0.0",
+    "patch-package": "6.5.1",
     "prettier": "2.8.1",
     "react": "18.2.0",
     "react-dnd": "14.0.4",
@@ -232,6 +234,7 @@
     "recast": "0.22.0",
     "rimraf": "4.1.2",
     "rollup": "3.12.1",
+    "rollup-plugin-lib-style": "1.2.10",
     "rollup-plugin-postcss": "4.0.2",
     "rollup-plugin-visualizer": "5.9.0",
     "semver": "7.3.8",

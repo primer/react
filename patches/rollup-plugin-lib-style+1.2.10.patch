@@ -1,0 +1,13 @@
+diff --git a/node_modules/rollup-plugin-lib-style/lib/index.js b/node_modules/rollup-plugin-lib-style/lib/index.js
+index 6a3823c..a055bb6 100644
+--- a/node_modules/rollup-plugin-lib-style/lib/index.js
++++ b/node_modules/rollup-plugin-lib-style/lib/index.js
+@@ -96,7 +96,7 @@ const defaultLoaders = [
+   },
+ ];
+ 
+-const replaceMagicPath = (fileContent) => fileContent.replace(MAGIC_PATH_REGEX, ".");
++const replaceMagicPath = (fileContent) => fileContent.replace(MAGIC_PATH_REGEX, "..");
+ 
+ const libStylePlugin = (options = {}) => {
+   const {loaders, include, exclude, importCSS = true, ...postCssOptions} = options;

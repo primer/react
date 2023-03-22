@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
-import sx, {SxProp} from '../../sx'
-import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../../utils/polymorphic'
+import sx, {SxProp} from '../sx'
+import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import classNames from './Button.module.css'
 
 // keep styled.button underneath to support sx prop
