@@ -36,7 +36,7 @@ test.describe('ProgressBar', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'components-progressbar--progress-zero',
+            id: 'components-progressbar-features--progress-zero',
             globals: {
               colorScheme: theme,
             },
@@ -48,7 +48,7 @@ test.describe('ProgressBar', () => {
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'components-progressbar--progress-zero',
+            id: 'components-progressbar-features--progress-zero',
             globals: {
               colorScheme: theme,
             },
@@ -64,7 +64,7 @@ test.describe('ProgressBar', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'components-progressbar--progress-half',
+            id: 'components-progressbar-features--progress-half',
             globals: {
               colorScheme: theme,
             },
@@ -76,7 +76,7 @@ test.describe('ProgressBar', () => {
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'components-progressbar--progress-half',
+            id: 'components-progressbar-features--progress-half',
             globals: {
               colorScheme: theme,
             },
@@ -92,7 +92,7 @@ test.describe('ProgressBar', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'components-progressbar--progress-done',
+            id: 'components-progressbar-features--progress-done',
             globals: {
               colorScheme: theme,
             },
@@ -104,7 +104,7 @@ test.describe('ProgressBar', () => {
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'components-progressbar--progress-done',
+            id: 'components-progressbar-features--progress-done',
             globals: {
               colorScheme: theme,
             },
@@ -120,7 +120,7 @@ test.describe('ProgressBar', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'components-progressbar--size-small',
+            id: 'components-progressbar-features--size-small',
             globals: {
               colorScheme: theme,
             },
@@ -132,7 +132,7 @@ test.describe('ProgressBar', () => {
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'components-progressbar--size-small',
+            id: 'components-progressbar-features--size-small',
             globals: {
               colorScheme: theme,
             },
@@ -148,7 +148,7 @@ test.describe('ProgressBar', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'components-progressbar--size-large',
+            id: 'components-progressbar-features--size-large',
             globals: {
               colorScheme: theme,
             },
@@ -160,7 +160,7 @@ test.describe('ProgressBar', () => {
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'components-progressbar--size-large',
+            id: 'components-progressbar-features--size-large',
             globals: {
               colorScheme: theme,
             },
@@ -176,7 +176,7 @@ test.describe('ProgressBar', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'components-progressbar--inline',
+            id: 'components-progressbar-features--inline',
             globals: {
               colorScheme: theme,
             },
@@ -188,7 +188,7 @@ test.describe('ProgressBar', () => {
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'components-progressbar--inline',
+            id: 'components-progressbar-features--inline',
             globals: {
               colorScheme: theme,
             },
@@ -204,7 +204,7 @@ test.describe('ProgressBar', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'components-progressbar--color',
+            id: 'components-progressbar-features--color',
             globals: {
               colorScheme: theme,
             },
@@ -216,7 +216,7 @@ test.describe('ProgressBar', () => {
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'components-progressbar--color',
+            id: 'components-progressbar-features--color',
             globals: {
               colorScheme: theme,
             },
