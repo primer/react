@@ -547,24 +547,41 @@ function TableActions({children}: TableActionsProps) {
 // ----------------------------------------------------------------------------
 // TableSkeleton
 // ----------------------------------------------------------------------------
-export type TableSkeletonProps<Data extends UniqueRow> = {
+export type TableSkeletonProps<Data extends UniqueRow> = React.ComponentPropsWithoutRef<'table'> & {
+  /**
+   * Specify the amount of space that should be available around the contents of
+   * a cell
+   */
+  cellPadding?: 'condensed' | 'normal' | 'spacious'
+
+  /**
+   * Provide an array of columns for the table. Columns will render as the headers
+   * of the table.
+   */
   columns: Array<Column<Data>>
+
+  /**
+   * Optionally specify the number of rows which should be included in the
+   * skeleton state of the component
+   */
   rows?: number
 }
 
-function TableSkeleton<Data extends UniqueRow>({columns, rows = 7}: TableSkeletonProps<Data>) {
+function TableSkeleton<Data extends UniqueRow>({cellPadding, columns, rows = 10, ...rest}: TableSkeletonProps<Data>) {
   const {gridTemplateColumns} = useTableLayout(columns)
   return (
-    <Table gridTemplateColumns={gridTemplateColumns}>
+    <Table {...rest} cellPadding={cellPadding} gridTemplateColumns={gridTemplateColumns}>
       <TableHead>
         <TableRow>
-          {columns.map(column => {
-            return (
-              <TableHeader key={column.id ?? column.field}>
-                {typeof column.header === 'string' ? column.header : column.header()}
-              </TableHeader>
-            )
-          })}
+          {Array.isArray(columns)
+            ? columns.map((column, i) => {
+                return (
+                  <TableHeader key={i}>
+                    {typeof column.header === 'string' ? column.header : column.header()}
+                  </TableHeader>
+                )
+              })
+            : null}
         </TableRow>
       </TableHead>
       <TableBody>

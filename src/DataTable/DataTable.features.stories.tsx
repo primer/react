@@ -1132,57 +1132,57 @@ export const WithOverflow = () => (
   </div>
 )
 
-export const WithLoading = () => {
-  const columnHelper = createColumnHelper<Repo>()
-  const columns = [
-    columnHelper.column({
-      header: 'Repository',
-      field: 'name',
-      rowHeader: true,
-    }),
-    columnHelper.column({
-      header: 'Type',
-      field: 'type',
-      renderCell: row => {
-        return <Label>{uppercase(row.type)}</Label>
-      },
-    }),
-    columnHelper.column({
-      header: 'Updated',
-      field: 'updatedAt',
-      renderCell: row => {
-        return <RelativeTime date={new Date(row.updatedAt)} />
-      },
-    }),
-    columnHelper.column({
-      header: 'Dependabot',
-      field: 'securityFeatures.dependabot',
-      renderCell: row => {
-        return row.securityFeatures.dependabot.length > 0 ? (
-          <LabelGroup>
-            {row.securityFeatures.dependabot.map(feature => {
-              return <Label key={feature}>{uppercase(feature)}</Label>
-            })}
-          </LabelGroup>
-        ) : null
-      },
-    }),
-    columnHelper.column({
-      header: 'Code scanning',
-      field: 'securityFeatures.codeScanning',
-      renderCell: row => {
-        return row.securityFeatures.codeScanning.length > 0 ? (
-          <LabelGroup>
-            {row.securityFeatures.codeScanning.map(feature => {
-              return <Label key={feature}>{uppercase(feature)}</Label>
-            })}
-          </LabelGroup>
-        ) : null
-      },
-    }),
-  ]
-  const [loading] = React.useState(true)
+const columnHelper = createColumnHelper<Repo>()
+const columns = [
+  columnHelper.column({
+    header: 'Repository',
+    field: 'name',
+    rowHeader: true,
+  }),
+  columnHelper.column({
+    header: 'Type',
+    field: 'type',
+    renderCell: row => {
+      return <Label>{uppercase(row.type)}</Label>
+    },
+  }),
+  columnHelper.column({
+    header: 'Updated',
+    field: 'updatedAt',
+    renderCell: row => {
+      return <RelativeTime date={new Date(row.updatedAt)} />
+    },
+  }),
+  columnHelper.column({
+    header: 'Dependabot',
+    field: 'securityFeatures.dependabot',
+    renderCell: row => {
+      return row.securityFeatures.dependabot.length > 0 ? (
+        <LabelGroup>
+          {row.securityFeatures.dependabot.map(feature => {
+            return <Label key={feature}>{uppercase(feature)}</Label>
+          })}
+        </LabelGroup>
+      ) : null
+    },
+  }),
+  columnHelper.column({
+    header: 'Code scanning',
+    field: 'securityFeatures.codeScanning',
+    renderCell: row => {
+      return row.securityFeatures.codeScanning.length > 0 ? (
+        <LabelGroup>
+          {row.securityFeatures.codeScanning.map(feature => {
+            return <Label key={feature}>{uppercase(feature)}</Label>
+          })}
+        </LabelGroup>
+      ) : null
+    },
+  }),
+]
 
+export const WithLoading = () => {
+  const [loading] = React.useState(true)
   return (
     <Table.Container>
       <Table.Title as="h2" id="repositories">
