@@ -190,7 +190,6 @@ describe('CheckboxOrRadioGroup', () => {
 
     render(
       <CheckboxOrRadioGroup>
-        <FormControl.Label>{INPUT_GROUP_LABEL}</FormControl.Label>
         <FormControl>
           <FormControl.Label>Choice one</FormControl.Label>
           <TextInput />
