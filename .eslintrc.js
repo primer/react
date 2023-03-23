@@ -99,6 +99,7 @@ module.exports = {
         'import/no-namespace': 'off',
         'import/no-named-as-default': 'off',
         'import/no-named-as-default-member': 'off',
+        'primer-react/direct-slot-children': ['error', {skipImportCheck: true}],
         'no-unused-vars': [
           'error',
           {
@@ -137,6 +138,7 @@ module.exports = {
         'import/no-deprecated': 'off',
         'import/no-named-as-default': 'off',
         'import/no-named-as-default-member': 'off',
+        'primer-react/direct-slot-children': ['error', {skipImportCheck: true}],
         'no-restricted-imports': [
           'error',
           {
