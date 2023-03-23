@@ -67,7 +67,7 @@ const StyledTable = styled.table<React.ComponentPropsWithoutRef<'table'>>`
     justify-content: flex-end;
   }
 
-  .TableHeader[data-cell-align='end'] > button {
+  .TableHeader[data-cell-align='end'] .TableSortButton {
     display: flex;
     flex-direction: row-reverse;
   }
@@ -131,7 +131,7 @@ const StyledTable = styled.table<React.ComponentPropsWithoutRef<'table'>>`
 
   /* The ASC icon is visible if the header is sortable and is hovered or focused */
   .TableHeader:hover .TableSortIcon--ascending,
-  .TableHeader button:focus .TableSortIcon--ascending {
+  .TableHeader .TableSortButton:focus .TableSortIcon--ascending {
     visibility: visible;
   }
 
@@ -285,6 +285,7 @@ function TableSortHeader({align, children, direction, onToggleSort, ...rest}: Ta
     <TableHeader {...rest} aria-sort={ariaSort} align={align}>
       <Button
         type="button"
+        className="TableSortButton"
         onClick={() => {
           onToggleSort()
         }}
