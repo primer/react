@@ -18,6 +18,8 @@ import TextInput from '../TextInput'
 import Spinner from '../Spinner'
 import Box from '../Box'
 import Text from '../Text'
+import Tooltip from '../Tooltip'
+import {IconButton} from '../Button'
 
 const meta: Meta = {
   title: 'Components/ActionList/Examples',
@@ -438,6 +440,32 @@ export function AllCombinations(): JSX.Element {
             <ActionList.Description variant="block">Block description</ActionList.Description>
             <ActionList.TrailingVisual>
               <StarIcon />
+            </ActionList.TrailingVisual>
+          </ActionList.Item>
+          <ActionList.Item>
+            trailing with tooltip<ActionList.Description variant="inline">buggy</ActionList.Description>
+            {/* <ActionList.Description variant="block">Block description</ActionList.Description> */}
+            <ActionList.TrailingVisual>
+              <Tooltip aria-label="star this repo">
+                <IconButton icon={StarIcon} aria-label="star this repo" />
+              </Tooltip>
+            </ActionList.TrailingVisual>
+          </ActionList.Item>
+          <ActionList.Item>
+            trailing with tooltip<ActionList.Description variant="inline">fixed with sx</ActionList.Description>
+            <ActionList.TrailingVisual sx={{height: 'fit-content'}}>
+              <Tooltip aria-label="star this repo">
+                <IconButton icon={StarIcon} aria-label="star this repo" />
+              </Tooltip>
+            </ActionList.TrailingVisual>
+          </ActionList.Item>
+          <ActionList.Item>
+            trailing with tooltip<ActionList.Description variant="inline">inline description</ActionList.Description>
+            <ActionList.Description variant="block">works like a charm</ActionList.Description>
+            <ActionList.TrailingVisual>
+              <Tooltip aria-label="star this repo">
+                <IconButton icon={StarIcon} aria-label="star this repo" />
+              </Tooltip>
             </ActionList.TrailingVisual>
           </ActionList.Item>
         </ActionList>
