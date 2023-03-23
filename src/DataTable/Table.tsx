@@ -2,6 +2,7 @@ import {SortAscIcon, SortDescIcon} from '@primer/octicons-react'
 import React from 'react'
 import styled from 'styled-components'
 import Box from '../Box'
+import Text from '../Text'
 import {get} from '../constants'
 import sx, {SxProp} from '../sx'
 import {SortDirection} from './sorting'
@@ -318,6 +319,10 @@ function TableCell({children, scope, ...rest}: TableCellProps) {
   )
 }
 
+function TableCellPlaceholder({children}: TableCellProps) {
+  return <Text color="fg.subtle">{children}</Text>
+}
+
 // ----------------------------------------------------------------------------
 // TableContainer
 // ----------------------------------------------------------------------------
@@ -535,4 +540,5 @@ export {
   TableHeader,
   TableSortHeader,
   TableCell,
+  TableCellPlaceholder,
 }
