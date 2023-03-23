@@ -84,10 +84,15 @@ const TooltipBase = styled.div<Tooltip2Props>`
       animation-duration: 0.1s;
       animation-fill-mode: forwards;
       animation-timing-function: ease-in;
-      animation-delay: ${props => (props.noDelay ? '0s' : '0.4s')};
-      
+      animation-delay: 0.4s;
     }
 
+    &[data-delay='true'] {
+      &::before,
+      & > span {
+        animation-delay: 0s;
+      }
+    }
     &[data-direction='s'],
     &[data-direction='se'],
     &[data-direction='sw'] {
@@ -180,185 +185,54 @@ const TooltipBase = styled.div<Tooltip2Props>`
         border-left-color: ${get('colors.neutral.emphasisPlus')};
       }
     }
+    &[data-align='left'] {
+      & > span {
+        right: 100%;
+        margin-left: 0;
+      }
+      &::before {
+        left: 10px;
+      }
+    }
+    &[data-align='right'] {
+      & > span {
+        right: 0;
+        margin-right: 0;
+      }
+      &::before {
+        right: 15px;
+      }
+    }
+    &[data-wrap='true'] {
+      & > span {
+        display: table-cell;
+        width: max-content;
+        max-width: 250px;
+        word-wrap: break-word;
+        white-space: pre-line;
+        border-collapse: separate;
+      }
+    }
+
+    &[data-wrap='true'][data-direction='n'],
+    &[data-wrap='true'][data-direction='s']{
+      & > span {
+        transform: translateX(-50%);
+        right: auto;
+        left: 50%;
+      }
+    }
+
+    &[data-wrap='true'][data-direction='w'],
+    &[data-wrap='true'][data-direction='e']{
+      & > span {
+        right: 100%;
+        
+      }
+    }
 
   ${sx};
 `
-
-const tooltipStyle = ({
-  direction,
-  noDelay,
-  align,
-  wrap,
-  open,
-}: Pick<Tooltip2Props, 'direction' | 'noDelay' | 'align' | 'wrap'> & {open: boolean}) => ({
-  position: 'relative',
-  display: 'inline-block',
-
-  '&::before': {
-    position: 'absolute',
-    zIndex: '1000001',
-    display: 'none',
-    content: '""',
-    width: 0,
-    height: 0,
-    color: 'neutral.onEmphasis',
-    pointerEvents: 'none',
-    borderStyle: 'solid',
-    borderWidth: '6px',
-    borderColor: 'transparent',
-    opacity: 0,
-    ...(open && {
-      display: 'inline-block',
-      textDecoration: 'none',
-      //   conditionally render styles depending on direction
-      ...((direction === 'n' || direction === 'ne' || direction === 'nw') && {
-        borderTopColor: 'neutral.emphasisPlus',
-        top: '-7px',
-        bottom: 'auto',
-        right: '50%',
-        marginRight: '-6px',
-      }),
-      ...((direction === 's' || direction === 'se' || direction === 'sw') && {
-        borderBottomColor: 'neutral.emphasisPlus',
-        top: 'auto',
-        bottom: '-7px',
-        right: '50%',
-        marginRight: '-6px',
-      }),
-      ...(direction === 'e' && {
-        borderRightColor: 'neutral.emphasisPlus',
-        top: '50%',
-        right: '-7px',
-        bottom: '50%',
-        marginTop: '-6px',
-      }),
-      ...(direction === 'w' && {
-        borderLeftColor: 'neutral.emphasisPlus',
-        top: '50%',
-        bottom: '50%',
-        left: '-7px',
-        marginTop: '-6px',
-      }),
-      // Left align tooltips with align prop
-      ...(align === 'left' && {
-        left: '10px',
-      }),
-      // Right align tooltips with align prop
-      ...(align === 'right' && {
-        right: '15px',
-      }),
-    }),
-  },
-  // popover
-  '& > span': {
-    position: 'absolute',
-    zIndex: '1000001',
-    display: 'none',
-    padding: '0.5em 0.75em',
-    fontSize: 0,
-    // font: normal normal 11px/1.5 ${get('fonts.normal')};
-    // -webkit-font-smoothing: subpixel-antialiased;
-    color: 'fg.onEmphasis',
-    textAlign: 'center',
-    textDecoration: 'none',
-    textShadow: 'none',
-    textTransform: 'none',
-    letterSpacing: 'normal',
-    wordWrap: 'break-word',
-    whiteSpace: 'pre',
-    pointerEvents: 'none',
-    backgroundColor: 'neutral.emphasisPlus',
-    borderRadius: '3px', // radii.2
-    opacity: 0,
-    ...(open && {
-      //   conditionally render styles depending on direction
-      ...((direction === 'n' || direction === 'ne' || direction === 'nw') && {
-        right: '50%',
-        bottom: '100%',
-        marginBottom: '6px',
-      }),
-      ...(direction === 'ne' && {
-        right: 'auto',
-        left: '50%',
-        marginLeft: `-${TOOLTIP_ARROW_EDGE_OFFSET}px`, // space.3?
-      }),
-      ...(direction === 'nw' && {
-        marginRight: `-${TOOLTIP_ARROW_EDGE_OFFSET}px`, // space.3?
-      }),
-      ...((direction === 's' || direction === 'se' || direction === 'sw') && {
-        top: '100%',
-        right: '50%',
-        marginTop: '6px',
-      }),
-      ...(direction === 'se' && {
-        right: 'auto',
-        left: '50%',
-        marginLeft: `-${TOOLTIP_ARROW_EDGE_OFFSET}px`, // space.3?
-      }),
-      ...(direction === 'sw' && {
-        marginRight: `-${TOOLTIP_ARROW_EDGE_OFFSET}px`, // space.3?
-      }),
-      ...(direction === 'e' && {
-        left: '100%',
-        bottom: '50%',
-        marginLeft: '6px',
-        transform: 'translateY(50%)',
-      }),
-      ...(direction === 'w' && {
-        right: '100%',
-        bottom: '50%',
-        marginRight: '6px',
-        transform: 'translateY(50%)',
-      }),
-      // only for s and n direction to move the popover bovy to the center of the trigger
-      ...((direction === 'n' || direction === 's') && {
-        transform: 'translateX(50%)',
-      }),
-      // Left align tooltips with align prop
-      ...(align === 'left' && {
-        right: '100%',
-        marginLeft: '0',
-      }),
-      // Right align tooltips with align prop
-      ...(align === 'right' && {
-        right: '0',
-        marginRight: '0',
-      }),
-      // Multiline tooltips with wrap prop
-      ...(wrap && {
-        display: 'table-cell',
-        width: 'max-content',
-        maxWidth: '250px',
-        wordWrap: 'break-word',
-        whiteSpace: 'pre-line',
-        borderCollapse: 'separate',
-      }),
-      // Some styles of the directions need to be overriden when wrap is true
-      ...(wrap &&
-        (direction === 's' || direction === 'n') && {
-          right: 'auto',
-          left: '50%',
-          transform: 'translateX(-50%)',
-        }),
-      ...(wrap &&
-        (direction === 'w' || direction === 'e') && {
-          right: '100%',
-        }),
-    }),
-  },
-
-  '&::before, & > span': {
-    ...(open && {
-      display: 'inline-block',
-      textDecoration: 'none',
-      animationName: 'tooltip-appear',
-      animationDuration: '0.1s',
-      animationFillMode: 'forwards',
-      animationTimingFunction: 'ease-in',
-      animationDelay: noDelay ? '0s' : '0.4s',
-    }),
-  },
-})
 
 const Tooltip2: React.FC<React.PropsWithChildren<Tooltip2Props>> = ({
   direction = 'n',
@@ -366,8 +240,11 @@ const Tooltip2: React.FC<React.PropsWithChildren<Tooltip2Props>> = ({
   text,
   // used for label type
   'aria-label': label,
-  children,
+  align,
+  wrap,
+  noDelay,
   type = 'label',
+  children,
   ...rest
 }) => {
   const id = useId()
@@ -430,6 +307,9 @@ const Tooltip2: React.FC<React.PropsWithChildren<Tooltip2Props>> = ({
       ref={tooltipRef}
       data-direction={direction}
       data-state={open ? 'open' : undefined}
+      data-align={align}
+      data-wrap={wrap}
+      data-delay={noDelay}
       onMouseLeave={() => setOpen(false)}
       onKeyDown={onKeyDown}
       {...rest}

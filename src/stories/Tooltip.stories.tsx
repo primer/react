@@ -80,7 +80,7 @@ export const MultipleChildren = () => (
 export const CurrentTooltipVariations = () => (
   <Box>
     <Box sx={{padding: 5, display: 'flex', gap: '8px'}}>
-      <Tooltip direction="n" text="Supplementary text">
+      <Tooltip direction="n" aria-label="Supplementary text">
         <Button>North</Button>
       </Tooltip>
       <Tooltip direction="s" text="Supplementary text">
@@ -168,8 +168,8 @@ export const Tooltip2WithDirection = () => (
   </Box>
 )
 
-export const Tooltip2Single = () => (
-  <Tooltip2 text="Supplemetary text" type="description" direction="se">
+export const Tooltip2NoDelay = () => (
+  <Tooltip2 noDelay text="Supplemetary text" type="description" direction="se">
     <Button>Button</Button>
   </Tooltip2>
 )
