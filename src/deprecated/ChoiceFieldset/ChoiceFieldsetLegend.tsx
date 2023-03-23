@@ -1,6 +1,6 @@
 import React from 'react'
 import {Box} from '../..'
-import VisuallyHidden from '../../_ToggleVisibility'
+import ToggleVisibility from '../../_ToggleVisibility'
 import {ChoiceFieldsetContext, Slot} from './ChoiceFieldset'
 
 export interface ChoiceFieldsetLegendProps {
