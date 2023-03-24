@@ -466,44 +466,6 @@
         }
       ]
     },
-    "progress_bar": {
-      "id": "progress_bar",
-      "name": "ProgressBar",
-      "status": "alpha",
-      "a11yReviewed": false,
-      "stories": [],
-      "props": [
-        {
-          "name": "progress",
-          "type": "number",
-          "defaultValue": "0",
-          "description": "Used to set the size of the green bar"
-        },
-        {
-          "name": "barSize",
-          "type": "| 'small' | 'large' | 'default'",
-          "defaultValue": "'default'",
-          "description": "Controls the height of the progress bar. If omitted, height is set to the default height."
-        },
-        {
-          "name": "inline",
-          "type": "boolean",
-          "defaultValue": "false",
-          "description": "Styles the progress bar inline"
-        },
-        {
-          "name": "bg",
-          "type": "string",
-          "defaultValue": "'bg.successInverse'",
-          "description": "Set the progress bar color"
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject"
-        }
-      ],
-      "subcomponents": []
-    },
     "styled_octicon": {
       "id": "styled_octicon",
       "name": "StyledOcticon",
@@ -3187,6 +3149,49 @@
           "type": "string",
           "defaultValue": "",
           "description": "Renders the portal children into the container registered with the given name. If omitted, children are rendered into the default portal root."
+        }
+      ],
+      "subcomponents": []
+    },
+    "progress_bar": {
+      "id": "progress_bar",
+      "name": "ProgressBar",
+      "status": "alpha",
+      "a11yReviewed": false,
+      "stories": [
+        {
+          "id": "components-progressbar--default",
+          "code": "() => <ProgressBar />"
+        }
+      ],
+      "props": [
+        {
+          "name": "progress",
+          "type": "number",
+          "defaultValue": "0",
+          "description": "Used to set the size of the green bar"
+        },
+        {
+          "name": "barSize",
+          "type": "| 'small' | 'large' | 'default'",
+          "defaultValue": "'default'",
+          "description": "Controls the height of the progress bar. If omitted, height is set to the default height."
+        },
+        {
+          "name": "inline",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "Styles the progress bar inline"
+        },
+        {
+          "name": "bg",
+          "type": "string",
+          "defaultValue": "'bg.successInverse'",
+          "description": "Set the progress bar color"
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
         }
       ],
       "subcomponents": []

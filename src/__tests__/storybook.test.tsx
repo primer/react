@@ -29,6 +29,7 @@ const allowlist = [
   'Link',
   'Pagehead',
   'Pagination',
+  'ProgressBar',
   'Radio',
   'RadioGroup',
   'Select',
