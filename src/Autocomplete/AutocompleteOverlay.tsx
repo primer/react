@@ -49,6 +49,8 @@ function AutocompleteOverlay({
     return null
   }
 
+  if (!showMenu) return null
+
   return (
     <Overlay
       returnFocusRef={inputRef}

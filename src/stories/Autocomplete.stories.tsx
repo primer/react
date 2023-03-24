@@ -1,7 +1,7 @@
 import React, {ChangeEventHandler, RefObject, useCallback, useRef, useState} from 'react'
 import {Meta} from '@storybook/react'
 
-import {BaseStyles, Box, ThemeProvider} from '..'
+import {BaseStyles, Box, TextInput, ThemeProvider} from '..'
 import TextInputTokens from '../TextInputWithTokens'
 import Autocomplete from '../Autocomplete/Autocomplete'
 import {AnchoredOverlay} from '../AnchoredOverlay'
@@ -737,6 +737,54 @@ export const InOverlayWithCustomScrollContainerRef = (args: FormControlArgs<Auto
         </Autocomplete>
       </AnchoredOverlay>
     </Box>
+  )
+}
+
+export const NestedInsideOverlay = (args: FormControlArgs<AutocompleteArgs>) => {
+  const {menuArgs, overlayArgs, textInputArgs} = getArgsByChildComponent(args)
+  const scrollContainerRef = useRef<HTMLElement>(null)
+
+  const [isOverlayOpen, setIsOverlayOpen] = useState(false)
+
+  return (
+    <AnchoredOverlay
+      open={isOverlayOpen}
+      onOpen={() => setIsOverlayOpen(true)}
+      onClose={() => setIsOverlayOpen(false)}
+      width="large"
+      height="small"
+      side="inside-top"
+      renderAnchor={props => <Button {...props}>open overlay</Button>}
+      // overlayProps={{
+      //   onEscape: () => {
+      //     alert('parent escape')
+      //     setIsOverlayOpen(false)
+      //   },
+      // }}
+    >
+      <Box sx={{padding: 10}}>
+        <TextInput placeholder="text input 1" />
+        <TextInput placeholder="text input 2" />
+
+        <Autocomplete>
+          <Autocomplete.Input
+            {...textInputArgs}
+            placeholder="auto complete input"
+            size={textInputArgs.inputSize}
+            block
+          />
+          <Autocomplete.Overlay {...overlayArgs}>
+            <Autocomplete.Menu
+              items={items}
+              selectedItemIds={[]}
+              customScrollContainerRef={scrollContainerRef}
+              aria-labelledby="autocompleteLabel"
+              {...menuArgs}
+            />
+          </Autocomplete.Overlay>
+        </Autocomplete>
+      </Box>
+    </AnchoredOverlay>
   )
 }
 
