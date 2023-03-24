@@ -23,8 +23,6 @@ export type TriggerPropsType = {
   'aria-label'?: string
 }
 
-const TOOLTIP_ARROW_EDGE_OFFSET = '16'
-
 const TooltipBase = styled.div<Tooltip2Props>`
   position: relative;
   display: inline-block;
