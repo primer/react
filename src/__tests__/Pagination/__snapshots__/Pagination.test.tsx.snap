@@ -129,12 +129,15 @@ exports[`Pagination renders consistently 1`] = `
     >
       Previous
     </span>
-    <em
+    <a
       aria-current="page"
+      aria-label="Page 1"
       className="c2"
+      href="#1"
+      onClick={[Function]}
     >
       1
-    </em>
+    </a>
     <a
       aria-label="Page 2"
       className="c2"
@@ -168,7 +171,7 @@ exports[`Pagination renders consistently 1`] = `
       5
     </a>
     <a
-      aria-label="Page 6"
+      aria-label="Page 6..."
       className="c2"
       href="#6"
       onClick={[Function]}

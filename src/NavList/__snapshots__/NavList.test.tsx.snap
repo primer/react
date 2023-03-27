@@ -242,15 +242,8 @@ exports[`NavList renders a simple list 1`] = `
     color: #24292f;
   }
 
-  .c3:focus:not([data-focus-visible-added]),
-  .c3 > a:focus:not([data-focus-visible-added]) {
-    background-color: rgba(208,215,222,0.24);
-    color: #24292f;
-    outline: none;
-  }
-
-  .c3[data-focus-visible-added],
-  .c3 > a[data-focus-visible-added] {
+  .c3:focus-visible,
+  .c3 > a:focus-visible {
     outline: none;
     border: 2 solid;
     box-shadow: 0 0 0 2px #0969da;
@@ -274,15 +267,8 @@ exports[`NavList renders a simple list 1`] = `
     color: #24292f;
   }
 
-  .c7:focus:not([data-focus-visible-added]),
-  .c7 > a:focus:not([data-focus-visible-added]) {
-    background-color: rgba(208,215,222,0.24);
-    color: #24292f;
-    outline: none;
-  }
-
-  .c7[data-focus-visible-added],
-  .c7 > a[data-focus-visible-added] {
+  .c7:focus-visible,
+  .c7 > a:focus-visible {
     outline: none;
     border: 2 solid;
     box-shadow: 0 0 0 2px #0969da;
@@ -660,15 +646,8 @@ exports[`NavList renders with groups 1`] = `
     color: #24292f;
   }
 
-  .c7:focus:not([data-focus-visible-added]),
-  .c7 > a:focus:not([data-focus-visible-added]) {
-    background-color: rgba(208,215,222,0.24);
-    color: #24292f;
-    outline: none;
-  }
-
-  .c7[data-focus-visible-added],
-  .c7 > a[data-focus-visible-added] {
+  .c7:focus-visible,
+  .c7 > a:focus-visible {
     outline: none;
     border: 2 solid;
     box-shadow: 0 0 0 2px #0969da;
@@ -692,15 +671,8 @@ exports[`NavList renders with groups 1`] = `
     color: #24292f;
   }
 
-  .c11:focus:not([data-focus-visible-added]),
-  .c11 > a:focus:not([data-focus-visible-added]) {
-    background-color: rgba(208,215,222,0.24);
-    color: #24292f;
-    outline: none;
-  }
-
-  .c11[data-focus-visible-added],
-  .c11 > a[data-focus-visible-added] {
+  .c11:focus-visible,
+  .c11 > a:focus-visible {
     outline: none;
     border: 2 solid;
     box-shadow: 0 0 0 2px #0969da;
@@ -1159,15 +1131,8 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
     color: #24292f;
   }
 
-  .c11:focus:not([data-focus-visible-added]),
-  .c11 > a:focus:not([data-focus-visible-added]) {
-    background-color: rgba(208,215,222,0.24);
-    color: #24292f;
-    outline: none;
-  }
-
-  .c11[data-focus-visible-added],
-  .c11 > a[data-focus-visible-added] {
+  .c11:focus-visible,
+  .c11 > a:focus-visible {
     outline: none;
     border: 2 solid;
     box-shadow: 0 0 0 2px #0969da;
@@ -1191,15 +1156,8 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
     color: #24292f;
   }
 
-  .c4:focus:not([data-focus-visible-added]),
-  .c4 > a:focus:not([data-focus-visible-added]) {
-    background-color: rgba(208,215,222,0.24);
-    color: #24292f;
-    outline: none;
-  }
-
-  .c4[data-focus-visible-added],
-  .c4 > a[data-focus-visible-added] {
+  .c4:focus-visible,
+  .c4 > a:focus-visible {
     outline: none;
     border: 2 solid;
     box-shadow: 0 0 0 2px #0969da;
@@ -1653,15 +1611,8 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
     color: #24292f;
   }
 
-  .c11:focus:not([data-focus-visible-added]),
-  .c11 > a:focus:not([data-focus-visible-added]) {
-    background-color: rgba(208,215,222,0.24);
-    color: #24292f;
-    outline: none;
-  }
-
-  .c11[data-focus-visible-added],
-  .c11 > a[data-focus-visible-added] {
+  .c11:focus-visible,
+  .c11 > a:focus-visible {
     outline: none;
     border: 2 solid;
     box-shadow: 0 0 0 2px #0969da;
@@ -1685,15 +1636,8 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
     color: #24292f;
   }
 
-  .c4:focus:not([data-focus-visible-added]),
-  .c4 > a:focus:not([data-focus-visible-added]) {
-    background-color: rgba(208,215,222,0.24);
-    color: #24292f;
-    outline: none;
-  }
-
-  .c4[data-focus-visible-added],
-  .c4 > a[data-focus-visible-added] {
+  .c4:focus-visible,
+  .c4 > a:focus-visible {
     outline: none;
     border: 2 solid;
     box-shadow: 0 0 0 2px #0969da;

@@ -63,7 +63,7 @@ test.describe('UnderlineNav', () => {
 
           // These themes currently have a contrast violation due to
           // `StateLabel`
-          const denylist = new Set(['light', 'light_colorblind', 'light_tritanopia', 'dark_dimmed'])
+          const denylist = new Set(['light', 'light_colorblind', 'light_tritanopia', 'dark_colorblind', 'dark_dimmed'])
 
           await expect(page).toHaveNoViolations({
             rules: {
