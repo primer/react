@@ -54,7 +54,7 @@ const versions = new Map([
         },
         {
           name: '@testing-library/react',
-          version: '13.4.0',
+          version: '14.0.0',
         },
       ],
     },
