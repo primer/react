@@ -160,7 +160,7 @@
     "@types/lodash.isempty": "4.4.7",
     "@types/lodash.isobject": "3.0.7",
     "@types/lodash.keyby": "4.6.7",
-    "@types/node": "16.11.11",
+    "@types/node": "18.15.10",
     "@types/react": "18.0.28",
     "@types/react-dom": "18.0.9",
     "@typescript-eslint/eslint-plugin": "5.54.1",
