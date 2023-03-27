@@ -6,7 +6,7 @@ Please ensure these items are checked before merging.
 
 - [ ] All CI checks pass
 - [ ] Docs and Storybook open in a browser
-- [ ] Successful integration test with GitHub Projects as a primary consumer of Primer React
+- [ ] Successful integration test with github/github as a primary consumer of Primer React ([automated pull request](https://github.com/github/github/pulls?q=is%3Apr+is%3Aopen+Integration+tests+for+%40primer%2Freact+label%3Adependencies))
   - [ ] Install the Release Candidate
   - [ ] Verify no new build errors appear
   - [ ] Verify no new linting errors appear
