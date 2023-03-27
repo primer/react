@@ -709,9 +709,7 @@ exports[`NavList renders with groups 1`] = `
             role="separator"
           />
           <div
-            aria-hidden="true"
             class="c3"
-            role="presentation"
           >
             <h3
               class="c4"
@@ -757,9 +755,7 @@ exports[`NavList renders with groups 1`] = `
             role="separator"
           />
           <div
-            aria-hidden="true"
             class="c3"
-            role="presentation"
           >
             <h3
               class="c4"
