@@ -217,60 +217,6 @@
       ],
       "subcomponents": []
     },
-    "header": {
-      "id": "header",
-      "name": "Header",
-      "status": "alpha",
-      "a11yReviewed": false,
-      "stories": [],
-      "props": [
-        {
-          "name": "sx",
-          "type": "SystemStyleObject"
-        }
-      ],
-      "subcomponents": [
-        {
-          "name": "Header.Item",
-          "props": [
-            {
-              "name": "full",
-              "type": "string",
-              "defaultValue": "",
-              "description": "Stretches item to fill the available space"
-            },
-            {
-              "name": "sx",
-              "type": "SystemStyleObject"
-            }
-          ]
-        },
-        {
-          "name": "Header.Link",
-          "props": [
-            {
-              "name": "href",
-              "type": "string",
-              "defaultValue": "",
-              "description": "URL to be used for the Link"
-            },
-            {
-              "name": "as",
-              "type": "React.ElementType",
-              "defaultValue": "\"a\""
-            },
-            {
-              "name": "sx",
-              "type": "SystemStyleObject"
-            }
-          ],
-          "passthrough": {
-            "element": "a",
-            "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attributes"
-          }
-        }
-      ]
-    },
     "label_group": {
       "id": "label_group",
       "name": "LabelGroup",
@@ -2251,6 +2197,65 @@
               "type": "SystemStyleObject"
             }
           ]
+        }
+      ]
+    },
+    "header": {
+      "id": "header",
+      "name": "Header",
+      "status": "alpha",
+      "a11yReviewed": false,
+      "stories": [
+        {
+          "id": "components-header--default",
+          "code": "() => (\n  <Header>\n    <Header.Item>\n      <Header.Link\n        href=\"#\"\n        sx={{\n          fontSize: 2,\n        }}\n      >\n        <StyledOcticon\n          icon={MarkGithubIcon}\n          size={32}\n          sx={{\n            mr: 2,\n          }}\n        />\n        <span>GitHub</span>\n      </Header.Link>\n    </Header.Item>\n    <Header.Item full>Menu</Header.Item>\n    <Header.Item\n      sx={{\n        mr: 0,\n      }}\n    >\n      <Avatar\n        src=\"https://github.com/octocat.png\"\n        size={20}\n        square\n        alt=\"@octocat\"\n      />\n    </Header.Item>\n  </Header>\n)"
+        }
+      ],
+      "props": [
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ],
+      "subcomponents": [
+        {
+          "name": "Header.Item",
+          "props": [
+            {
+              "name": "full",
+              "type": "string",
+              "defaultValue": "",
+              "description": "Stretches item to fill the available space"
+            },
+            {
+              "name": "sx",
+              "type": "SystemStyleObject"
+            }
+          ]
+        },
+        {
+          "name": "Header.Link",
+          "props": [
+            {
+              "name": "href",
+              "type": "string",
+              "defaultValue": "",
+              "description": "URL to be used for the Link"
+            },
+            {
+              "name": "as",
+              "type": "React.ElementType",
+              "defaultValue": "\"a\""
+            },
+            {
+              "name": "sx",
+              "type": "SystemStyleObject"
+            }
+          ],
+          "passthrough": {
+            "element": "a",
+            "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attributes"
+          }
         }
       ]
     },
