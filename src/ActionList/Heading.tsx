@@ -1,7 +1,6 @@
 import React from 'react'
 import {ListContext} from './List'
 import Box from '../Box'
-import styled from 'styled-components'
 import {get} from '../constants'
 import {SxProp} from '../sx'
 import {merge} from 'lodash'
@@ -49,26 +48,39 @@ export const Heading: React.FC<React.PropsWithChildren<ActionListHeadingProps>> 
 
   const tag = `h${headingLevel}` as keyof JSX.IntrinsicElements
 
-  const Title = styled(tag)`
-    color: ${get('colors.fg.muted')};
-    font-size: ${get('fontSizes.0')};
-    font-weight: ${get('fontWeights.bold')};
-    margin-bottom: 0;
-    margin-top: 0;
-  `
+  const Title = (
+    <Box
+      as={tag}
+      sx={{
+        color: get('colors.fg.muted'),
+        fontSize: get('fontSizes.0'),
+        fontWeight: get('fontWeights.bold'),
+        marginBottom: 0,
+        marginTop: 0,
+      }}
+      id={id}
+    >
+      {title}
+    </Box>
+  )
 
-  const Subtitle = styled.span`
-    color: ${get('colors.fg.muted')};
-    font-size: ${get('fontSizes.0')};
-    font-weight: ${get('fontWeights.normal')};
-  `
+  const Subtitle = (
+    <Box
+      as="span"
+      sx={{
+        color: get('colors.fg.muted'),
+        fontSize: get('fontSizes.0'),
+        fontWeight: get('fontWeights.normal'),
+      }}
+    >
+      {subtitle}
+    </Box>
+  )
 
   return (
     <Box as="div" sx={merge(styles, sx as SxProp)} role="presentation" aria-hidden="true" {...props}>
-      <Title sx={sx as SxProp} id={id}>
-        {title}
-      </Title>
-      {subtitle && <Subtitle>{subtitle}</Subtitle>}
+      {Title}
+      {subtitle && Subtitle}
     </Box>
   )
 }

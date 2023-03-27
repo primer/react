@@ -420,6 +420,13 @@ exports[`NavList renders with groups 1`] = `
   list-style: none;
 }
 
+.c4 {
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 0;
+  margin-top: 0;
+}
+
 .c5 {
   padding-inline-start: 0;
 }
@@ -630,14 +637,6 @@ exports[`NavList renders with groups 1`] = `
   color: inherit;
   -webkit-text-decoration: none;
   text-decoration: none;
-}
-
-.c4 {
-  color: #57606a;
-  font-size: 12px;
-  font-weight: 600;
-  margin-bottom: 0;
-  margin-top: 0;
 }
 
 @media (hover:hover) and (pointer:fine) {
