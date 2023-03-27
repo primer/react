@@ -78,7 +78,7 @@ export const Heading: React.FC<React.PropsWithChildren<ActionListHeadingProps>> 
   )
 
   return (
-    <Box as="div" sx={merge(styles, sx as SxProp)} role="presentation" aria-hidden="true" {...props}>
+    <Box as="div" sx={merge(styles, sx as SxProp)} {...props}>
       {Title}
       {subtitle && Subtitle}
     </Box>
