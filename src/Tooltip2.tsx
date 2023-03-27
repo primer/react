@@ -6,6 +6,7 @@ import {isFocusable} from '@primer/behaviors/utils'
 import {invariant} from './utils/invariant'
 import styled from 'styled-components'
 import {get} from './constants'
+import VisuallyHidden from './_VisuallyHidden'
 
 export type Tooltip2Props = {
   direction?: 'n' | 'ne' | 'e' | 'se' | 's' | 'sw' | 'w' | 'nw'
@@ -23,43 +24,44 @@ export type TriggerPropsType = {
   'aria-label'?: string
 }
 
-const TooltipBase = styled.div<Tooltip2Props>`
-  position: relative;
-  display: inline-block;
+const Tooltip = styled.div<Tooltip2Props>`
+  // tooltip element itself
+  position: absolute;
+  z-index: 1000000;
+  padding: 0.5em 0.75em;
+  font: normal normal 11px/1.5 ${get('fonts.normal')};
+  -webkit-font-smoothing: subpixel-antialiased;
+  color: ${get('colors.fg.onEmphasis')};
+  text-align: center;
+  text-decoration: none;
+  text-shadow: none;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: break-word;
+  white-space: normal;
+  background: ${get('colors.neutral.emphasisPlus')};
+  border-radius: ${get('radii.1')};
+  width: max-content;
+  opacity: 0;
 
+  // the caret
   &::before {
     position: absolute;
     z-index: 1000001;
-    
-    width: 0px;
-    height: 0px;
     color: ${get('colors.neutral.emphasisPlus')};
-    pointer-events: none;
     content: '';
     border: 6px solid transparent;
     opacity: 0;
   }
 
-  & > span {
+  // This is needed to keep the tooltip open when the user leaves the trigger element to hover tooltip
+  &::after {
     position: absolute;
-    z-index: 1000000;
-    
-    padding: 0.5em 0.75em;
-    font: normal normal 11px/1.5 ${get('fonts.normal')};
-    -webkit-font-smoothing: subpixel-antialiased;
-    color: ${get('colors.fg.onEmphasis')};
-    text-align: center;
-    text-decoration: none;
-    text-shadow: none;
-    text-transform: none;
-    letter-spacing: normal;
-    word-wrap: break-word;
-    white-space: pre;
-    pointer-events: none;
-    content: attr(aria-label);
-    background: ${get('colors.neutral.emphasisPlus')};
-    border-radius: ${get('radii.1')};
-    opacity: 0;
+    display: block;
+    right: 0;
+    left: 0;
+    height: 8px;
+    content: '';
   }
 
   // delay animation for tooltip
@@ -67,167 +69,171 @@ const TooltipBase = styled.div<Tooltip2Props>`
     from {
       opacity: 0;
     }
-
     to {
       opacity: 1;
     }
   }
 
-  &[data-state='open'] {
-    &::before,
-    & > span {
-      display: inline-block;
-      text-decoration: none;
-      animation-name: tooltip-appear;
-      animation-duration: 0.1s;
-      animation-fill-mode: forwards;
-      animation-timing-function: ease-in;
-      animation-delay: 0.4s;
-    }
+  &[data-state='open'],
+  &[data-state='open']::before {
+    animation-name: tooltip-appear;
+    animation-duration: 0.1s;
+    animation-fill-mode: forwards;
+    animation-timing-function: ease-in;
+    animation-delay: 0.4s;
+  }
 
-    &[data-delay='true'] {
-      &::before,
-      & > span {
-        animation-delay: 0s;
-      }
+  &[data-direction='n']:before,
+  &[data-direction='s']:before {
+    right: 50%;
+    margin-right: -6px;
+  }
+
+  &[data-direction='s']::before,
+  &[data-direction='se']::before,
+  &[data-direction='sw']::before {
+    bottom: 100%;
+    border-bottom-color: ${get('colors.neutral.emphasisPlus')};
+  }
+
+  &[data-direction='s']::after,
+  &[data-direction='se']::after,
+  &[data-direction='sw']::after {
+    bottom: 100%;
+  }
+
+  &[data-direction='n']::before,
+  &[data-direction='ne']::before,
+  &[data-direction='nw']::before {
+    top: 100%;
+    border-top-color: ${get('colors.neutral.emphasisPlus')};
+  }
+
+  &[data-direction='n']::after,
+  &[data-direction='ne']::after,
+  &[data-direction='nw']::after {
+    top: 100%;
+  }
+
+  &[data-direction='se']::before,
+  &[data-direction='ne']::before {
+    left: 0;
+    margin-left: 6px;
+  }
+
+  &[data-direction='sw']::before,
+  &[data-direction='nw']::before {
+    right: 0;
+    margin-right: 6px;
+  }
+
+  &[data-direction='w']::before {
+    top: 50%;
+    bottom: 50%;
+    left: 100%;
+    margin-top: -6px;
+    border-left-color: ${get('colors.neutral.emphasisPlus')};
+  }
+
+  &[data-direction='e']::before {
+    top: 50%;
+    bottom: 50%;
+    right: 100%;
+    margin-top: -6px;
+    border-right-color: ${get('colors.neutral.emphasisPlus')};
+  }
+
+  &[data-state='open'] {
+    &[data-delay='true'],
+    &[data-delay='true']::before {
+      animation-delay: 0s;
     }
     &[data-direction='s'],
     &[data-direction='se'],
     &[data-direction='sw'] {
-      & > span {
-        top: 100%;
-        right: 50%;
-        margin-top: 6px;
-      }
-      &::before {
-        top: auto;
-        right: 50%;
-        bottom: -7px;
-        margin-right: -6px;
-        border-bottom-color: ${get('colors.neutral.emphasisPlus')};
-      }
-    }
-    &[data-direction='se'] > span {
-      right: auto;
-      left: 50%;
-      margin-left: -${get('space.3')};
-    }
-
-    &[data-direction='sw'] > span {
-      margin-right: -${get('space.3')};
+      top: 100%;
+      right: 50%;
+      margin-top: 6px;
     }
 
     &[data-direction='n'],
     &[data-direction='ne'],
     &[data-direction='nw'] {
-      & > span {
-        right: 50%;
-        bottom: 100%;
-        margin-bottom: 6px;
-      }
-      &::before {
-        top: -7px;
-        right: 50%;
-        bottom: auto;
-        margin-right: -6px;
-        border-top-color: ${get('colors.neutral.emphasisPlus')};
-      }
+      bottom: 100%;
+      margin-bottom: 6px;
+      right: 50%;
     }
 
-    &[data-direction='ne'] > span {
+    &[data-direction='n'],
+    &[data-direction='s'] {
+      transform: translateX(50%);
+    }
+
+    &[data-direction='se'] {
+      right: auto;
+      left: 50%;
+      margin-left: -${get('space.3')};
+    }
+    &[data-direction='ne'] {
       right: auto;
       left: 50%;
       margin-left: -${get('space.3')};
     }
 
-    &[data-direction='nw'] > span {
+    &[data-direction='sw'] {
       margin-right: -${get('space.3')};
     }
 
-    &[data-direction='n'],
-    &[data-direction='s'] {
-      & > span {
-        transform: translateX(50%);
-      }
-    }
-
     &[data-direction='e'] {
-      & > span {
-        bottom: 50%;
-        left: 100%;
-        margin-left: 6px;
-        transform: translateY(50%);
-      }
-      &::before {
-        top: 50%;
-        right: -7px;
-        bottom: 50%;
-        margin-top: -6px;
-        border-right-color: ${get('colors.neutral.emphasisPlus')};
-      }
+      bottom: 50%;
+      left: 100%;
+      margin-left: 6px;
+      transform: translateY(50%);
     }
 
     &[data-direction='w'] {
-      & > span {
-        right: 100%;
-        bottom: 50%;
-        margin-right: 6px;
-        transform: translateY(50%);
-      }
-  
-      &::before {
-        top: 50%;
-        bottom: 50%;
-        left: -7px;
-        margin-top: -6px;
-        border-left-color: ${get('colors.neutral.emphasisPlus')};
-      }
+      bottom: 50%;
+      right: 100%;
+      margin-right: 6px;
+      transform: translateY(50%);
     }
+
     &[data-align='left'] {
-      & > span {
-        right: 100%;
-        margin-left: 0;
-      }
-      &::before {
-        left: 10px;
-      }
+      right: 100%;
+      margin-left: 0;
+    }
+    &[data-align='left']::before {
+      right: 40px;
     }
     &[data-align='right'] {
-      & > span {
-        right: 0;
-        margin-right: 0;
-      }
-      &::before {
-        right: 15px;
-      }
+      right: 0;
+      margin-right: 0;
     }
+    &[data-align='right']::before {
+      right: 72px;
+    }
+
     &[data-wrap='true'] {
-      & > span {
-        display: table-cell;
-        width: max-content;
-        max-width: 250px;
-        word-wrap: break-word;
-        white-space: pre-line;
-        border-collapse: separate;
-      }
+      display: table-cell;
+      width: max-content;
+      max-width: 250px;
+      word-wrap: break-word;
+      white-space: pre-line;
+      border-collapse: separate;
     }
 
     &[data-wrap='true'][data-direction='n'],
-    &[data-wrap='true'][data-direction='s']{
-      & > span {
-        transform: translateX(-50%);
-        right: auto;
-        left: 50%;
-      }
+    &[data-wrap='true'][data-direction='s'] {
+      transform: translateX(-50%);
+      right: auto;
+      left: 50%;
     }
 
     &[data-wrap='true'][data-direction='w'],
-    &[data-wrap='true'][data-direction='e']{
-      & > span {
-        right: 100%;
-        
-      }
+    &[data-wrap='true'][data-direction='e'] {
+      right: 100%;
     }
+  }
 
   ${sx};
 `
@@ -267,7 +273,9 @@ const Tooltip2: React.FC<React.PropsWithChildren<Tooltip2Props>> = ({
 
   const triggerEvtHandlers = {
     onFocus: () => setOpen(true),
-    onBlur: () => setOpen(false),
+    onBlur: () => {
+      setOpen(false)
+    },
     onMouseEnter: () => {
       setOpen(true)
     },
@@ -301,16 +309,13 @@ const Tooltip2: React.FC<React.PropsWithChildren<Tooltip2Props>> = ({
   }
 
   return (
-    <TooltipBase
+    <Box
       ref={tooltipRef}
-      data-direction={direction}
-      data-state={open ? 'open' : undefined}
-      data-align={align}
-      data-wrap={wrap}
-      data-delay={noDelay}
-      onMouseLeave={() => setOpen(false)}
+      sx={{position: 'relative', display: 'inline-block'}}
       onKeyDown={onKeyDown}
-      {...rest}
+      onMouseLeave={() => {
+        setOpen(false)
+      }}
     >
       {React.cloneElement(child as React.ReactElement<TriggerPropsType>, {
         ...{
@@ -323,17 +328,25 @@ const Tooltip2: React.FC<React.PropsWithChildren<Tooltip2Props>> = ({
         },
         ...composeEventHandlers(child as React.ReactElement<TriggerPropsType>),
       })}
-      <Box
-        as="span"
-        // Only need tooltip role if the tooltip is a description for supplementary information
-        role={type === 'description' ? 'tooltip' : undefined}
-        // stop AT from announcing the tooltip twice when it is a label type because it will be announced with "aria-labelledby"
-        aria-hidden={type === 'label' ? true : undefined}
-        id={id}
-      >
-        {text || label}
-      </Box>
-    </TooltipBase>
+      {/* Render the tooltip component visually hidden when it is not open*/}
+      <VisuallyHidden isVisible={open}>
+        <Tooltip
+          data-direction={direction}
+          data-state={open ? 'open' : undefined}
+          data-align={align}
+          data-wrap={wrap}
+          data-delay={noDelay}
+          {...rest}
+          // Only need tooltip role if the tooltip is a description for supplementary information
+          role={type === 'description' ? 'tooltip' : undefined}
+          // stop AT from announcing the tooltip twice when it is a label type because it will be announced with "aria-labelledby"
+          aria-hidden={type === 'label' ? true : undefined}
+          id={id}
+        >
+          {text || label}
+        </Tooltip>
+      </VisuallyHidden>
+    </Box>
   )
 }
 
