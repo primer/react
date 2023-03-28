@@ -1,9 +1,10 @@
-import {DownloadIcon, KebabHorizontalIcon, PencilIcon, PlusIcon, TrashIcon} from '@primer/octicons-react'
+import {DownloadIcon, KebabHorizontalIcon, PencilIcon, PlusIcon, RepoIcon, TrashIcon} from '@primer/octicons-react'
 import {action} from '@storybook/addon-actions'
 import {Meta} from '@storybook/react'
 import React from 'react'
 import {ActionList} from '../ActionList'
 import {ActionMenu} from '../ActionMenu'
+import Box from '../Box'
 import {Button, IconButton} from '../Button'
 import {DataTable, Table} from '../DataTable'
 import Heading from '../Heading'
@@ -1130,3 +1131,85 @@ export const WithOverflow = () => (
     </Table.Container>
   </div>
 )
+
+export const WithRightAlignedColumns = () => {
+  const rows = Array.from(data).sort((a, b) => {
+    return b.updatedAt - a.updatedAt
+  })
+  return (
+    <Table.Container>
+      <Table.Title as="h2" id="repositories">
+        Repositories
+      </Table.Title>
+      <Table.Subtitle as="p" id="repositories-subtitle">
+        A subtitle could appear here to give extra context to the data.
+      </Table.Subtitle>
+      <DataTable
+        aria-labelledby="repositories"
+        aria-describedby="repositories-subtitle"
+        data={rows}
+        columns={[
+          {
+            header: () => (
+              <Box display="flex" alignItems="center" sx={{gap: 1}}>
+                <RepoIcon size={16} />
+                Repository
+              </Box>
+            ),
+            field: 'name',
+            rowHeader: true,
+            sortBy: 'alphanumeric',
+            align: 'end',
+          },
+          {
+            header: 'Type',
+            field: 'type',
+            renderCell: row => {
+              return <Label>{uppercase(row.type)}</Label>
+            },
+            align: 'end',
+          },
+          {
+            header: 'Updated',
+            field: 'updatedAt',
+            sortBy: 'datetime',
+            renderCell: row => {
+              return <RelativeTime date={new Date(row.updatedAt)} />
+            },
+            align: 'end',
+          },
+          {
+            header: 'Dependabot',
+            field: 'securityFeatures.dependabot',
+            renderCell: row => {
+              return row.securityFeatures.dependabot.length > 0 ? (
+                <LabelGroup>
+                  {row.securityFeatures.dependabot.map(feature => {
+                    return <Label key={feature}>{uppercase(feature)}</Label>
+                  })}
+                </LabelGroup>
+              ) : null
+            },
+            align: 'end',
+          },
+          {
+            header: 'Code scanning',
+            field: 'securityFeatures.codeScanning',
+            renderCell: row => {
+              return row.securityFeatures.codeScanning.length > 0 ? (
+                <LabelGroup>
+                  {row.securityFeatures.codeScanning.map(feature => {
+                    return <Label key={feature}>{uppercase(feature)}</Label>
+                  })}
+                </LabelGroup>
+              ) : null
+            },
+            align: 'end',
+          },
+        ]}
+        initialSortColumn="updatedAt"
+        initialSortDirection="DESC"
+      />
+    </Table.Container>
+  )
+}
