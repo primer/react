@@ -2,7 +2,7 @@
   "id": "text",
   "name": "Text",
   "status": "alpha",
-  "a11yReviewed": false,
+  "a11yReviewed": true,
   "stories": [],
   "props": [
     {
