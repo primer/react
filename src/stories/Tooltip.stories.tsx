@@ -193,7 +193,7 @@ export const Tooltip2WithWrap = () => (
       text="Random long text that needs to be wrapped and be multipline and have some paddings around"
       type="description"
     >
-      <Button>Multiline e</Button>
+      <Button>Multiline East</Button>
     </Tooltip2>
     <Tooltip2
       direction="se"
@@ -201,7 +201,7 @@ export const Tooltip2WithWrap = () => (
       text="Random long text that needs to be wrapped and be multipline and have some paddings around"
       type="description"
     >
-      <Button>Multiline se</Button>
+      <Button>Multiline Southeast</Button>
     </Tooltip2>
   </Box>
 )

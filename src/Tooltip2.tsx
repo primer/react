@@ -6,7 +6,6 @@ import {isFocusable} from '@primer/behaviors/utils'
 import {invariant} from './utils/invariant'
 import styled from 'styled-components'
 import {get} from './constants'
-import VisuallyHidden from './_VisuallyHidden'
 
 export type Tooltip2Props = {
   direction?: 'n' | 'ne' | 'e' | 'se' | 's' | 'sw' | 'w' | 'nw'
@@ -43,6 +42,20 @@ const Tooltip = styled.div<Tooltip2Props>`
   border-radius: ${get('radii.1')};
   width: max-content;
   opacity: 0;
+  max-width: 250px;
+
+  /* tooltip element should be rendered visually hidden when it is not opened.  */
+  &:not([data-state='open']) {
+    /* Visually hidden styles */
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+  }
 
   // the caret
   &::before {
@@ -74,19 +87,13 @@ const Tooltip = styled.div<Tooltip2Props>`
     }
   }
 
-  &[data-state='open'],
-  &[data-state='open']::before {
-    animation-name: tooltip-appear;
-    animation-duration: 0.1s;
-    animation-fill-mode: forwards;
-    animation-timing-function: ease-in;
-    animation-delay: 0.4s;
-  }
+  /* South, East, Southeast, Southwest before */
 
-  &[data-direction='n']:before,
-  &[data-direction='s']:before {
-    right: 50%;
-    margin-right: -6px;
+  &[data-direction='n']::before,
+  &[data-direction='ne']::before,
+  &[data-direction='nw']::before {
+    top: 100%;
+    border-top-color: ${get('colors.neutral.emphasisPlus')};
   }
 
   &[data-direction='s']::before,
@@ -96,27 +103,14 @@ const Tooltip = styled.div<Tooltip2Props>`
     border-bottom-color: ${get('colors.neutral.emphasisPlus')};
   }
 
-  &[data-direction='s']::after,
-  &[data-direction='se']::after,
-  &[data-direction='sw']::after {
-    bottom: 100%;
+  &[data-direction='n']:before,
+  &[data-direction='s']:before {
+    right: 50%;
+    margin-right: -6px;
   }
 
-  &[data-direction='n']::before,
   &[data-direction='ne']::before,
-  &[data-direction='nw']::before {
-    top: 100%;
-    border-top-color: ${get('colors.neutral.emphasisPlus')};
-  }
-
-  &[data-direction='n']::after,
-  &[data-direction='ne']::after,
-  &[data-direction='nw']::after {
-    top: 100%;
-  }
-
-  &[data-direction='se']::before,
-  &[data-direction='ne']::before {
+  &[data-direction='se']::before {
     left: 0;
     margin-left: 6px;
   }
@@ -127,12 +121,51 @@ const Tooltip = styled.div<Tooltip2Props>`
     margin-right: 6px;
   }
 
+  /* South, East, Southeast, Southwest after */
+
+  &[data-direction='n']::after,
+  &[data-direction='ne']::after,
+  &[data-direction='nw']::after {
+    top: 100%;
+  }
+
+  &[data-direction='s']::after,
+  &[data-direction='se']::after,
+  &[data-direction='sw']::after {
+    bottom: 100%;
+  }
+
+  /* West before and after */
+
   &[data-direction='w']::before {
     top: 50%;
     bottom: 50%;
     left: 100%;
     margin-top: -6px;
     border-left-color: ${get('colors.neutral.emphasisPlus')};
+  }
+
+  &[data-direction='w']::after {
+    position: absolute;
+    display: block;
+    height: 100%;
+    width: 8px;
+    content: '';
+    bottom: 0;
+    left: 100%;
+  }
+
+  /* East before and after */
+
+  &[data-direction='e']::after {
+    position: absolute;
+    display: block;
+    height: 100%;
+    width: 8px;
+    content: '';
+    bottom: 0;
+    right: 100%;
+    margin-left: -8px;
   }
 
   &[data-direction='e']::before {
@@ -142,6 +175,19 @@ const Tooltip = styled.div<Tooltip2Props>`
     margin-top: -6px;
     border-right-color: ${get('colors.neutral.emphasisPlus')};
   }
+
+  /* Animation styles */
+
+  &[data-state='open'],
+  &[data-state='open']::before {
+    animation-name: tooltip-appear;
+    animation-duration: 0.1s;
+    animation-fill-mode: forwards;
+    animation-timing-function: ease-in;
+    animation-delay: 0.4s;
+  }
+
+  /* Position of the tooltip element when it is opened. */
 
   &[data-state='open'] {
     &[data-delay='true'],
@@ -198,6 +244,8 @@ const Tooltip = styled.div<Tooltip2Props>`
       transform: translateY(50%);
     }
 
+    /* Align and wrap styles */
+
     &[data-align='left'] {
       right: 100%;
       margin-left: 0;
@@ -252,7 +300,7 @@ const Tooltip2: React.FC<React.PropsWithChildren<Tooltip2Props>> = ({
   ...rest
 }) => {
   const id = useId()
-  const tooltipRef = useRef<HTMLDivElement>(null)
+  const containerRef = useRef<HTMLDivElement>(null)
   const child = Children.only(children) // make sure there is only one child
   const [open, setOpen] = useState(false)
 
@@ -261,10 +309,15 @@ const Tooltip2: React.FC<React.PropsWithChildren<Tooltip2Props>> = ({
     // Practically, this is not a conditional hook, it is a compile time check
     // eslint-disable-next-line react-hooks/rules-of-hooks
     useEffect(() => {
-      if (tooltipRef.current) {
-        const childNode = tooltipRef.current.children[0] // For now, I assume it has one node but that is not true
+      if (containerRef.current) {
+        // First child is the trigger element
+        const triggerEl = containerRef.current.children[0]
+        const triggerChildren = triggerEl.childNodes
+        const isTriggerInteractive = isFocusable(triggerEl as HTMLElement)
+        // Has trigger element or any of its children interactive elements?
+        const hasInteractiveChild = Array.from(triggerChildren).some(child => isFocusable(child as HTMLElement))
         invariant(
-          isFocusable(childNode as HTMLElement),
+          isTriggerInteractive || hasInteractiveChild,
           'The `Tooltip2` component expects a single React element that contains interactive content. Consider using a `<button>` or equivalent interactive element instead.',
         )
       }
@@ -310,12 +363,10 @@ const Tooltip2: React.FC<React.PropsWithChildren<Tooltip2Props>> = ({
 
   return (
     <Box
-      ref={tooltipRef}
+      ref={containerRef}
       sx={{position: 'relative', display: 'inline-block'}}
       onKeyDown={onKeyDown}
-      onMouseLeave={() => {
-        setOpen(false)
-      }}
+      onMouseLeave={() => setOpen(false)}
     >
       {React.cloneElement(child as React.ReactElement<TriggerPropsType>, {
         ...{
@@ -328,24 +379,22 @@ const Tooltip2: React.FC<React.PropsWithChildren<Tooltip2Props>> = ({
         },
         ...composeEventHandlers(child as React.ReactElement<TriggerPropsType>),
       })}
-      {/* Render the tooltip component visually hidden when it is not open*/}
-      <VisuallyHidden isVisible={open}>
-        <Tooltip
-          data-direction={direction}
-          data-state={open ? 'open' : undefined}
-          data-align={align}
-          data-wrap={wrap}
-          data-delay={noDelay}
-          {...rest}
-          // Only need tooltip role if the tooltip is a description for supplementary information
-          role={type === 'description' ? 'tooltip' : undefined}
-          // stop AT from announcing the tooltip twice when it is a label type because it will be announced with "aria-labelledby"
-          aria-hidden={type === 'label' ? true : undefined}
-          id={id}
-        >
-          {text || label}
-        </Tooltip>
-      </VisuallyHidden>
+
+      <Tooltip
+        data-direction={direction}
+        data-state={open ? 'open' : undefined}
+        data-align={align}
+        data-wrap={wrap}
+        data-delay={noDelay}
+        {...rest}
+        // Only need tooltip role if the tooltip is a description for supplementary information
+        role={type === 'description' ? 'tooltip' : undefined}
+        // stop AT from announcing the tooltip twice when it is a label type because it will be announced with "aria-labelledby"
+        aria-hidden={type === 'label' ? true : undefined}
+        id={id}
+      >
+        {text || label}
+      </Tooltip>
     </Box>
   )
 }
