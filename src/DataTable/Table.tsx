@@ -319,7 +319,7 @@ function TableCell({children, scope, ...rest}: TableCellProps) {
   )
 }
 
-type TableCellPlaceholderProps = React.ChildrenWithProps<{}>;
+type TableCellPlaceholderProps = React.PropsWithChildren<{}>;
 
 function TableCellPlaceholder({children}: TableCellPlaceholderProps) {
   return <Text color="fg.subtle">{children}</Text>
