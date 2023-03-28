@@ -13,7 +13,7 @@ export const getColumnWidthArgTypes = (colCount: number) => {
         type: 'radio',
       },
       defaultValue: 'grow',
-      options: ['grow', 'shrink', 'auto', 'explicit width'],
+      options: ['grow', 'growCollapse', 'auto', 'explicit width'],
       table: {
         category: 'Column widths',
       },
