@@ -22,6 +22,10 @@ const versions = new Map([
           version: '17.0.2',
         },
         {
+          name: '@testing-library/dom',
+          version: '^8.0.0',
+        },
+        {
           name: '@testing-library/react',
           version: '12.1.5',
         },
