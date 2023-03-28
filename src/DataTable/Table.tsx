@@ -6,6 +6,7 @@ import {get} from '../constants'
 import sx, {SxProp} from '../sx'
 import {SortDirection} from './sorting'
 import {useOverflow} from '../hooks/useOverflow'
+import {CellAlignment} from './column'
 
 // ----------------------------------------------------------------------------
 // Table
@@ -55,7 +56,20 @@ const StyledTable = styled.table<React.ComponentPropsWithoutRef<'table'>>`
 
   .TableHeader,
   .TableCell {
+    text-align: start;
     border-bottom: 1px solid ${get('colors.border.default')};
+  }
+
+  .TableHeader[data-cell-align='end'],
+  .TableCell[data-cell-align='end'] {
+    text-align: end;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .TableHeader[data-cell-align='end'] .TableSortButton {
+    display: flex;
+    flex-direction: row-reverse;
   }
 
   .TableHead .TableRow:first-of-type .TableHeader {
@@ -102,7 +116,6 @@ const StyledTable = styled.table<React.ComponentPropsWithoutRef<'table'>>`
     background-color: ${get('colors.canvas.subtle')};
     color: ${get('colors.fg.muted')};
     font-weight: 600;
-    text-align: start;
     border-top: 1px solid ${get('colors.border.default')};
   }
 
@@ -118,7 +131,7 @@ const StyledTable = styled.table<React.ComponentPropsWithoutRef<'table'>>`
 
   /* The ASC icon is visible if the header is sortable and is hovered or focused */
   .TableHeader:hover .TableSortIcon--ascending,
-  .TableHeader button:focus .TableSortIcon--ascending {
+  .TableHeader .TableSortButton:focus .TableSortIcon--ascending {
     visibility: visible;
   }
 
@@ -138,7 +151,6 @@ const StyledTable = styled.table<React.ComponentPropsWithoutRef<'table'>>`
   .TableCell[scope='row'] {
     color: ${get('colors.fg.default')};
     font-weight: 600;
-    text-align: start;
   }
 
   /* Grid layout */
@@ -238,11 +250,16 @@ function TableBody({children}: TableBodyProps) {
 // TableHeader
 // ----------------------------------------------------------------------------
 
-export type TableHeaderProps = React.ComponentPropsWithoutRef<'th'>
+export type TableHeaderProps = Omit<React.ComponentPropsWithoutRef<'th'>, 'align'> & {
+  /**
+   * The horizontal alignment of the cell's content
+   */
+  align?: CellAlignment
+}
 
-function TableHeader({children, ...rest}: TableHeaderProps) {
+function TableHeader({align, children, ...rest}: TableHeaderProps) {
   return (
-    <th {...rest} className="TableHeader" role="columnheader" scope="col">
+    <th {...rest} className="TableHeader" role="columnheader" scope="col" data-cell-align={align}>
       {children}
     </th>
   )
@@ -261,12 +278,14 @@ type TableSortHeaderProps = TableHeaderProps & {
   onToggleSort: () => void
 }
 
-function TableSortHeader({children, direction, onToggleSort, ...rest}: TableSortHeaderProps) {
+function TableSortHeader({align, children, direction, onToggleSort, ...rest}: TableSortHeaderProps) {
   const ariaSort = direction === 'DESC' ? 'descending' : direction === 'ASC' ? 'ascending' : undefined
+
   return (
-    <TableHeader {...rest} aria-sort={ariaSort}>
+    <TableHeader {...rest} aria-sort={ariaSort} align={align}>
       <Button
         type="button"
+        className="TableSortButton"
         onClick={() => {
           onToggleSort()
         }}
@@ -299,7 +318,12 @@ function TableRow({children, ...rest}: TableRowProps) {
 // TableCell
 // ----------------------------------------------------------------------------
 
-export type TableCellProps = React.ComponentPropsWithoutRef<'td'> & {
+export type TableCellProps = Omit<React.ComponentPropsWithoutRef<'td'>, 'align'> & {
+  /**
+   * The horizontal alignment of the cell's content
+   */
+  align?: CellAlignment
+
   /**
    * Provide the scope for a table cell, useful for defining a row header using
    * `scope="row"`
@@ -307,12 +331,12 @@ export type TableCellProps = React.ComponentPropsWithoutRef<'td'> & {
   scope?: 'row'
 }
 
-function TableCell({children, scope, ...rest}: TableCellProps) {
+function TableCell({align, children, scope, ...rest}: TableCellProps) {
   const BaseComponent = scope ? 'th' : 'td'
   const role = scope ? 'rowheader' : 'cell'
 
   return (
-    <BaseComponent {...rest} className="TableCell" scope={scope} role={role}>
+    <BaseComponent {...rest} className="TableCell" scope={scope} role={role} data-cell-align={align}>
       {children}
     </BaseComponent>
   )
