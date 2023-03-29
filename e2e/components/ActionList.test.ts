@@ -509,6 +509,7 @@ test.describe('ActionList', () => {
             },
           })
           await expect(page).toHaveNoViolations()
+        })
       })
     }
   })
