@@ -301,7 +301,7 @@ const Tooltip2: React.FC<React.PropsWithChildren<Tooltip2Props>> = ({
 }) => {
   const id = useId()
   const containerRef = useRef<HTMLDivElement>(null)
-  const child = Children.only(children) // make sure there is only one child
+  const child = Children.only(children)
   const [open, setOpen] = useState(false)
 
   // we need this check for every render
@@ -369,14 +369,12 @@ const Tooltip2: React.FC<React.PropsWithChildren<Tooltip2Props>> = ({
       onMouseLeave={() => setOpen(false)}
     >
       {React.cloneElement(child as React.ReactElement<TriggerPropsType>, {
-        ...{
-          // if it is a type description, we use tooltip to describe the trigger
-          'aria-describedby': type === 'description' ? id : undefined,
-          // If it is a type description, we should keep the aria label if it exists, otherwise we remove it because we will use aria-labelledby
-          'aria-label': type === 'description' ? (children as React.ReactElement).props['aria-label'] : undefined,
-          //   If it is a label type, we use tooltip to label the trigger
-          'aria-labelledby': type === 'label' ? id : undefined,
-        },
+        // if it is a type description, we use tooltip to describe the trigger
+        'aria-describedby': type === 'description' ? id : undefined,
+        // If it is a type description, we should keep the aria label if it exists, otherwise we remove it because we will use aria-labelledby
+        'aria-label': type === 'description' ? (children as React.ReactElement).props['aria-label'] : undefined,
+        //   If it is a label type, we use tooltip to label the trigger
+        'aria-labelledby': type === 'label' ? id : undefined,
         ...composeEventHandlers(child as React.ReactElement<TriggerPropsType>),
       })}
 
@@ -393,7 +391,7 @@ const Tooltip2: React.FC<React.PropsWithChildren<Tooltip2Props>> = ({
         aria-hidden={type === 'label' ? true : undefined}
         id={id}
       >
-        {text || label}
+        {text ?? label}
       </Tooltip>
     </Box>
   )
