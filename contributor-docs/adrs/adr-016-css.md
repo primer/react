@@ -13,7 +13,7 @@ Reasons for change: Performance, utilise css variables
 
 The main reason for changing our styling architecture is to remove performance issues for applications:
 
-Relevant parts from [primer/discussions#1928](https://github.com/github/primer/discussions/1928#reasons):
+Relevant parts from [primer/discussions#1928](https://github.com/github/primer/discussions/1928#reasons)(Hubbers only link):
 
 1. Initial page loads take longer
 
@@ -100,4 +100,4 @@ Methodologies and guidelines on how to author CSS are not part of this ADR/decis
 
    We benefit from type-safety while authoring components, compiled to .css files with a babel plugin before shipping.
 
-   We are not not chosing this option to have more control on the output by keeping the authored and shipped code similar.
+   We are not choosing this option to have more control on the output by keeping the authored and shipped code similar.
