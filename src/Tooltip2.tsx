@@ -21,6 +21,9 @@ export type TriggerPropsType = {
   'aria-describedby'?: string
   'aria-labelledby'?: string
   'aria-label'?: string
+  onBlur?: React.FocusEventHandler
+  onFocus?: React.FocusEventHandler
+  onMouseEnter?: React.MouseEventHandler
 }
 
 const Tooltip = styled.div<Tooltip2Props>`
@@ -324,36 +327,6 @@ const Tooltip2: React.FC<React.PropsWithChildren<Tooltip2Props>> = ({
     })
   }
 
-  const triggerEvtHandlers = {
-    onFocus: () => setOpen(true),
-    onBlur: () => {
-      setOpen(false)
-    },
-    onMouseEnter: () => {
-      setOpen(true)
-    },
-  }
-
-  // Make sure to compose the default event handlers for tooltip trigger with the ones that are passed in
-  function composeEventHandlers(child: React.ReactElement) {
-    const {onBlur: _onBlur, onFocus: _onFocus, onMouseEnter: _onMouseEnter} = child.props
-
-    return {
-      onBlur: () => {
-        _onBlur && _onBlur()
-        triggerEvtHandlers.onBlur()
-      },
-      onFocus: () => {
-        _onFocus && _onFocus()
-        triggerEvtHandlers.onFocus()
-      },
-      onMouseEnter: () => {
-        _onMouseEnter && _onMouseEnter()
-        triggerEvtHandlers.onMouseEnter()
-      },
-    }
-  }
-
   function onKeyDown(e: React.KeyboardEvent) {
     if (open && e.key === 'Escape') {
       e.stopPropagation()
@@ -368,15 +341,27 @@ const Tooltip2: React.FC<React.PropsWithChildren<Tooltip2Props>> = ({
       onKeyDown={onKeyDown}
       onMouseLeave={() => setOpen(false)}
     >
-      {React.cloneElement(child as React.ReactElement<TriggerPropsType>, {
-        // if it is a type description, we use tooltip to describe the trigger
-        'aria-describedby': type === 'description' ? id : undefined,
-        // If it is a type description, we should keep the aria label if it exists, otherwise we remove it because we will use aria-labelledby
-        'aria-label': type === 'description' ? (children as React.ReactElement).props['aria-label'] : undefined,
-        //   If it is a label type, we use tooltip to label the trigger
-        'aria-labelledby': type === 'label' ? id : undefined,
-        ...composeEventHandlers(child as React.ReactElement<TriggerPropsType>),
-      })}
+      {React.isValidElement(child) &&
+        React.cloneElement(child as React.ReactElement<TriggerPropsType>, {
+          // if it is a type description, we use tooltip to describe the trigger
+          'aria-describedby': type === 'description' ? id : undefined,
+          // If it is a type description, we should keep the aria label if it exists, otherwise we remove it because we will use aria-labelledby
+          'aria-label': type === 'description' ? (children as React.ReactElement).props['aria-label'] : undefined,
+          //   If it is a label type, we use tooltip to label the trigger
+          'aria-labelledby': type === 'label' ? id : undefined,
+          onBlur: (event: React.FocusEvent) => {
+            setOpen(false)
+            child.props.onBlur?.(event)
+          },
+          onFocus: (event: React.FocusEvent) => {
+            setOpen(true)
+            child.props.onFocus?.(event)
+          },
+          onMouseEnter: (event: React.MouseEvent) => {
+            setOpen(true)
+            child.props.onMouseEnter?.(event)
+          },
+        })}
 
       <Tooltip
         data-direction={direction}
