@@ -4656,7 +4656,7 @@
           "required": true
         },
         {
-          "name": "preventIndents",
+          "name": "flat",
           "type": "boolean",
           "description": "Prevents the tree from indenting items. This should only be used when the tree is used to display a flat list of items."
         }
