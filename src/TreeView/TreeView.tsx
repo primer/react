@@ -62,7 +62,7 @@ export type TreeViewProps = {
   'aria-label'?: React.AriaAttributes['aria-label']
   'aria-labelledby'?: React.AriaAttributes['aria-labelledby']
   children: React.ReactNode
-  preventIndents?: boolean
+  flat?: boolean
 }
 
 const UlBox = styled.ul<SxProp>`
@@ -253,7 +253,7 @@ const Root: React.FC<TreeViewProps> = ({
   'aria-label': ariaLabel,
   'aria-labelledby': ariaLabelledby,
   children,
-  preventIndents,
+  flat,
 }) => {
   const containerRef = React.useRef<HTMLUListElement>(null)
   const [ariaLiveMessage, setAriaLiveMessage] = React.useState('')
@@ -293,7 +293,7 @@ const Root: React.FC<TreeViewProps> = ({
           role="tree"
           aria-label={ariaLabel}
           aria-labelledby={ariaLabelledby}
-          data-omit-spacer={preventIndents}
+          data-omit-spacer={flat}
         >
           {children}
         </UlBox>

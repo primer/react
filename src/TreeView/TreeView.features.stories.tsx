@@ -793,7 +793,7 @@ ContainIntrinsicSize.parameters = {
 
 export const WithoutIndentation: Story = () => (
   <nav aria-label="Files changed">
-    <TreeView aria-label="Files changed" preventIndents>
+    <TreeView aria-label="Files changed" flat>
       <TreeView.Item id="src" defaultExpanded>
         <TreeView.LeadingVisual>
           <TreeView.DirectoryIcon />
