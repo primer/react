@@ -17828,11 +17828,24 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
   padding-right: 16px;
   padding-top: 0;
   padding-bottom: 0;
-  position: relative;
-  color: #6a6a6a;
-  background: #f6f6f6;
-  border: 1px solid #cccccc;
+  --label-r: 153;
+  --label-g: 153;
+  --label-b: 153;
+  --label-h: 0;
+  --label-s: 0;
+  --label-l: 60;
+  --perceived-lightness: calc(((var(--label-r) * 0.2126) + (var(--label-g) * 0.7152) + (var(--label-b) * 0.0722)) / 255);
+  --lightness-switch: max(0,min(calc((var(--perceived-lightness) - var(--lightness-threshold)) * -1000),1));
   padding-right: 0;
+  position: relative;
+  --lightness-threshold: 0.453;
+  --border-threshold: 0.96;
+  --border-alpha: max(0,min(calc((var(--perceived-lightness) - var(--border-threshold)) * 100),1));
+  background: rgb(var(--label-r),var(--label-g),var(--label-b));
+  color: hsl(0,0%,calc(var(--lightness-switch) * 100%));
+  border-width: 1px;
+  border-style: solid;
+  border-color: hsla(var(--label-h),calc(var(--label-s) * 1%),calc((var(--label-l) - 25) * 1%),var(--border-alpha));
 }
 
 .c6 {
