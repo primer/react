@@ -949,12 +949,12 @@ export const MixedColumnWidths = () => (
           maxWidth: '200px',
         },
         {
-          header: 'shrink w/ 100px min',
+          header: 'growCollapse w/ 100px min',
           field: 'type',
           renderCell: row => {
             return <Label>{uppercase(row.type)}</Label>
           },
-          width: 'shrink',
+          width: 'growCollapse',
           minWidth: '100px',
         },
         {

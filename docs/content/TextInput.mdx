@@ -131,6 +131,27 @@ render(<WithIconAndLoadingIndicator />)
 </FormControl>
 ```
 
+### With tooltip direction
+
+```jsx live
+<FormControl>
+  <FormControl.Label>Icon action</FormControl.Label>
+  <TextInput
+    trailingAction={
+      <TextInput.Action
+        onClick={() => {
+          alert('clear input')
+        }}
+        icon={XIcon}
+        aria-label="Clear input"
+        tooltip-direction="nw"
+        sx={{color: 'fg.subtle'}}
+      />
+    }
+  />
+</FormControl>
+```
+
 ### With error and warning states
 
 ```jsx live
