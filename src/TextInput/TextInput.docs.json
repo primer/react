@@ -126,6 +126,12 @@
           "description": "Text that appears in a tooltip. If an icon is passed, this is also used as the label used by assistive technologies."
         },
         {
+          "name": "tooltip-direction",
+          "type": "'n' | 'ne' | 'e' | 'se' | 's' | 'sw' | 'w' | 'nw'",
+          "defaultValue": "n",
+          "description": "Sets where the tooltip renders in relation to the target."
+        },
+        {
           "name": "icon",
           "type": "React.FunctionComponent",
           "defaultValue": "",
