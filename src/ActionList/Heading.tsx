@@ -9,7 +9,7 @@ export type ActionListHeadingProps = {
   variant?: 'subtle' | 'filled'
   title: string
   subtitle?: string
-  headingLevel?: 1 | 2 | 3 | 4 | 5 | 6
+  as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
   id?: string
 } & SxProp
 
@@ -22,7 +22,7 @@ export const Heading: React.FC<React.PropsWithChildren<ActionListHeadingProps>> 
   variant,
   title,
   subtitle,
-  headingLevel = 3,
+  as = 'h3',
   id,
   sx,
   ...props
@@ -46,11 +46,9 @@ export const Heading: React.FC<React.PropsWithChildren<ActionListHeadingProps>> 
     }),
   }
 
-  const tag = `h${headingLevel}` as keyof JSX.IntrinsicElements
-
   const Title = (
     <Box
-      as={tag}
+      as={as}
       sx={{
         color: get('colors.fg.muted'),
         fontSize: get('fontSizes.0'),
