@@ -19,7 +19,7 @@ import {
 import VisuallyHidden from '../_VisuallyHidden'
 
 import {PageHeader} from './PageHeader'
-import Hidden from '../Hidden'
+import {Hidden} from '../Hidden'
 
 const meta: Meta = {
   title: 'Drafts/Components/PageHeader/Features',
@@ -270,10 +270,10 @@ export const WithActionsThatHaveResponsiveContent = () => (
       <PageHeader.TitleArea>
         <PageHeader.Title as="h2">Webhooks</PageHeader.Title>
         <PageHeader.Actions>
-          <Hidden on={['narrow']}>
+          <Hidden when={['narrow']}>
             <Button variant="primary">New webhook</Button>
           </Hidden>
-          <Hidden on={['regular', 'wide']}>
+          <Hidden when={['regular', 'wide']}>
             <Button variant="primary">New</Button>
           </Hidden>
         </PageHeader.Actions>

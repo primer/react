@@ -31,7 +31,7 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        shard: [1, 2]
+        shard: [1, 2, 3, 4]
     steps:
       - uses: actions/checkout@v3
       - name: Set up Node.js
@@ -43,10 +43,6 @@ jobs:
         run: npm ci
       - name: Build storybook
         run: npx build-storybook
-      - uses: actions/upload-artifact@v3
-        with:
-          name: storybook
-          path: storybook-static
       - name: Install browsers
         run: npx playwright install --with-deps
       - name: Run storybook
@@ -61,9 +57,15 @@ jobs:
       - name: Stop storybook
         if: ${{ always() }}
         run: kill ${{ steps.storybook.outputs.pid }}
+      - name: Create snapshots.zip
+        run: |
+          if [[ ! -z  $(git ls-files --others --exclude-standard --modified) ]]; then
+            git ls-files --others --exclude-standard --modified | zip snapshots -@
+          fi
       - name: Upload snapshots
         uses: actions/upload-artifact@v3
         with:
           name: snapshots-${{ matrix.shard }}
-          path: .playwright/snapshots
+          path: snapshots.zip
           retention-days: 1
+          if-no-files-found: ignore

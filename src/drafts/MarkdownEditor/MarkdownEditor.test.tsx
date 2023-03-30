@@ -4,7 +4,7 @@ import userEvent from '@testing-library/user-event'
 import {UserEvent} from '@testing-library/user-event/dist/types/setup/setup'
 import React, {forwardRef, useRef, useState} from 'react'
 import {act} from 'react-dom/test-utils'
-import MarkdownEditor, {Emoji, MarkdownEditorHandle, MarkdownEditorProps, Mentionable, Reference, SavedReply} from '.'
+import MarkdownEditor, {MarkdownEditorHandle, MarkdownEditorProps, Mentionable, Reference, SavedReply} from '.'
 import ThemeProvider from '../../ThemeProvider'
 
 declare const REACT_VERSION_LATEST: boolean
@@ -41,7 +41,7 @@ const UncontrolledEditor = forwardRef<MarkdownEditorHandle, UncontrolledEditorPr
   )
 })
 
-const assertNotNull: <T extends unknown>(t: T | null) => asserts t is T = t => expect(t).not.toBeNull()
+const assertNotNull: <T>(t: T | null) => asserts t is T = t => expect(t).not.toBeNull()
 
 const render = async (ui: React.ReactElement) => {
   const result = _render(ui)
@@ -186,7 +186,7 @@ describe('MarkdownEditor', () => {
     const {getInput, user} = await render(<UncontrolledEditor onPrimaryAction={onPrimaryAction} />)
 
     await user.type(getInput(), `{Control>}{Enter}{/Control}`)
-    expect(onPrimaryAction).toBeCalled()
+    expect(onPrimaryAction).toHaveBeenCalled()
   })
 
   it('forwards imperative handle ref', async () => {
@@ -716,8 +716,8 @@ describe('MarkdownEditor', () => {
       const {getViewSwitch, queryForPreview} = await render(
         <UncontrolledEditor viewMode="edit" onChangeViewMode={onViewModeChange} />,
       )
+      fireEvent.click(getViewSwitch())
       await act(async () => {
-        fireEvent.click(getViewSwitch())
         await new Promise(process.nextTick)
       })
       expect(onViewModeChange).toHaveBeenCalledWith('preview')
@@ -734,8 +734,8 @@ describe('MarkdownEditor', () => {
         const renderPreviewMock = jest.fn()
         const {getViewSwitch} = await render(<UncontrolledEditor onRenderPreview={renderPreviewMock} />)
 
+        fireEvent.focus(getViewSwitch())
         await act(async () => {
-          fireEvent.focus(getViewSwitch())
           await new Promise(process.nextTick)
         })
 
@@ -765,14 +765,14 @@ describe('MarkdownEditor', () => {
         const renderPreviewMock = jest.fn()
         const {rerender} = await render(<UncontrolledEditor onRenderPreview={renderPreviewMock} viewMode="edit" />)
 
+        rerender(<UncontrolledEditor onRenderPreview={renderPreviewMock} viewMode="preview" />)
         await act(async () => {
-          rerender(<UncontrolledEditor onRenderPreview={renderPreviewMock} viewMode="preview" />)
           await new Promise(process.nextTick)
         })
         expect(renderPreviewMock).toHaveBeenCalledTimes(1)
 
+        rerender(<UncontrolledEditor onRenderPreview={renderPreviewMock} viewMode="edit" />)
         await act(async () => {
-          rerender(<UncontrolledEditor onRenderPreview={renderPreviewMock} viewMode="edit" />)
           await new Promise(process.nextTick)
         })
         expect(renderPreviewMock).toHaveBeenCalledTimes(1)
@@ -842,8 +842,8 @@ describe('MarkdownEditor', () => {
       const {getEditorContainer, rerender} = await render(<UncontrolledEditor viewMode="edit" />)
       expect(getEditorContainer()).toHaveAccessibleDescription('Markdown input: edit mode selected.')
 
+      rerender(<UncontrolledEditor viewMode="preview" />)
       await act(async () => {
-        rerender(<UncontrolledEditor viewMode="preview" />)
         // Wait one tick as this switch triggers a promise that is resolved
         // within `MarkdownEditor` from `useSafeAsyncCallback`
         await new Promise(process.nextTick)
@@ -866,12 +866,13 @@ describe('MarkdownEditor', () => {
   })
 
   describe('suggestions', () => {
-    const emojis: Emoji[] = [
+    const emojis = [
       {name: '+1', character: '👍'},
       {name: '-1', character: '👎'},
       {name: 'heart', character: '❤️'},
       {name: 'wave', character: '👋'},
       {name: 'raised_hands', character: '🙌'},
+      {name: 'octocat', url: 'https://github.githubassets.com/images/icons/emoji/octocat.png'},
     ]
 
     const mentionables: Mentionable[] = [
@@ -1075,6 +1076,17 @@ describe('MarkdownEditor', () => {
       expect(getAllSuggestions()).toHaveLength(2)
       expect(getAllSuggestions()[0]).toHaveTextContent('+1')
       expect(getAllSuggestions()[1]).toHaveTextContent('-1')
+    })
+
+    it('inserts shortcode for custom emojis', async () => {
+      const {queryForSuggestionsList, getAllSuggestions, getInput, user} = await render(<EditorWithSuggestions />)
+
+      const input = getInput()
+      await user.type(input, `Mona Lisa :octo`)
+      await user.click(getAllSuggestions()[0])
+
+      expect(input.value).toBe(`Mona Lisa :octocat: `)
+      expect(queryForSuggestionsList()).not.toBeInTheDocument()
     })
   })
 

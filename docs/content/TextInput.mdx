@@ -6,7 +6,7 @@ source: https://github.com/primer/react/blob/main/src/TextInput.tsx
 storybook: '/react/storybook?path=/story/components-forms-textinput--default'
 ---
 
-import data from '../../src/TextInput.docs.json'
+import data from '../../src/TextInput/TextInput.docs.json'
 
 TextInput is a form component to add default styling to the native text input.
 
@@ -124,6 +124,27 @@ render(<WithIconAndLoadingIndicator />)
         }}
         icon={XIcon}
         aria-label="Clear input"
+        sx={{color: 'fg.subtle'}}
+      />
+    }
+  />
+</FormControl>
+```
+
+### With tooltip direction
+
+```jsx live
+<FormControl>
+  <FormControl.Label>Icon action</FormControl.Label>
+  <TextInput
+    trailingAction={
+      <TextInput.Action
+        onClick={() => {
+          alert('clear input')
+        }}
+        icon={XIcon}
+        aria-label="Clear input"
+        tooltip-direction="nw"
         sx={{color: 'fg.subtle'}}
       />
     }

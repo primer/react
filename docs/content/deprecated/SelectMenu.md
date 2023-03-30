@@ -63,25 +63,21 @@ SelectMenu.MenuContext is a [context object](https://reactjs.org/docs/context.ht
 ### Example Usage
 
 ```jsx deprecated
-import {SelectMenu, Button} from `@primer/react`
+import {SelectMenu, Button} from '@primer/react'
 import React, {useContext} from 'react'
 
-const MyMenu = () => {
+const MyMenu = () => (
   <SelectMenu>
     <MyButton />
-    <SelectMenu.Modal>
-      content
-    </SelectMenu.Modal>
+    <SelectMenu.Modal>content</SelectMenu.Modal>
   </SelectMenu>
-}
+)
 
 // note that we can only use the context in components that are already wrapped by SelectMenu (and thus the Context.Provider)
 const MyButton = () => {
-  const menuContext = useContext(SelectMenu.MenuContext);
+  const menuContext = useContext(SelectMenu.MenuContext)
 
-  return (
-    <Button as="summary">{menuContext.open ? 'Open' : 'Closed'}</Button>
-  )
+  return <Button as="summary">{menuContext.open ? 'Open' : 'Closed'}</Button>
 }
 ```
 

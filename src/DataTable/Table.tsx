@@ -2,9 +2,12 @@ import {SortAscIcon, SortDescIcon} from '@primer/octicons-react'
 import React from 'react'
 import styled from 'styled-components'
 import Box from '../Box'
+import Text from '../Text'
 import {get} from '../constants'
 import sx, {SxProp} from '../sx'
 import {SortDirection} from './sorting'
+import {useOverflow} from '../hooks/useOverflow'
+import {CellAlignment} from './column'
 
 // ----------------------------------------------------------------------------
 // Table
@@ -19,10 +22,11 @@ const StyledTable = styled.table<React.ComponentPropsWithoutRef<'table'>>`
   background-color: ${get('colors.canvas.default')};
   border-spacing: 0;
   border-collapse: separate;
+  display: grid;
   font-size: var(--table-font-size);
+  grid-template-columns: var(--grid-template-columns);
   line-height: calc(20 / var(--table-font-size));
   width: 100%;
-  overflow-x: auto;
 
   /* Density modes: condensed, normal, spacious */
   &[data-cell-padding='condensed'] {
@@ -53,7 +57,20 @@ const StyledTable = styled.table<React.ComponentPropsWithoutRef<'table'>>`
 
   .TableHeader,
   .TableCell {
+    text-align: start;
     border-bottom: 1px solid ${get('colors.border.default')};
+  }
+
+  .TableHeader[data-cell-align='end'],
+  .TableCell[data-cell-align='end'] {
+    text-align: end;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .TableHeader[data-cell-align='end'] .TableSortButton {
+    display: flex;
+    flex-direction: row-reverse;
   }
 
   .TableHead .TableRow:first-of-type .TableHeader {
@@ -100,7 +117,6 @@ const StyledTable = styled.table<React.ComponentPropsWithoutRef<'table'>>`
     background-color: ${get('colors.canvas.subtle')};
     color: ${get('colors.fg.muted')};
     font-weight: 600;
-    text-align: start;
     border-top: 1px solid ${get('colors.border.default')};
   }
 
@@ -116,7 +132,7 @@ const StyledTable = styled.table<React.ComponentPropsWithoutRef<'table'>>`
 
   /* The ASC icon is visible if the header is sortable and is hovered or focused */
   .TableHeader:hover .TableSortIcon--ascending,
-  .TableHeader button:focus .TableSortIcon--ascending {
+  .TableHeader .TableSortButton:focus .TableSortIcon--ascending {
     visibility: visible;
   }
 
@@ -136,7 +152,22 @@ const StyledTable = styled.table<React.ComponentPropsWithoutRef<'table'>>`
   .TableCell[scope='row'] {
     color: ${get('colors.fg.default')};
     font-weight: 600;
-    text-align: start;
+  }
+
+  /* Grid layout */
+  .TableHead,
+  .TableBody,
+  .TableRow {
+    display: contents;
+  }
+
+  @supports (grid-template-columns: subgrid) {
+    .TableHead,
+    .TableBody,
+    .TableRow {
+      display: grid;
+      grid-template-columns: subgrid;
+      grid-column: -1 /1;
   }
 `
 
@@ -144,22 +175,42 @@ export type TableProps = React.ComponentPropsWithoutRef<'table'> & {
   /**
    * Provide an id to an element which uniquely describes this table
    */
-  'aria-describedby'?: string | undefined
+  'aria-describedby'?: string
 
   /**
    * Provide an id to an element which uniquely labels this table
    */
-  'aria-labelledby'?: string | undefined
+  'aria-labelledby'?: string
+
+  /**
+   * Column width definitions
+   */
+  gridTemplateColumns?: React.CSSProperties['gridTemplateColumns']
 
   /**
    * Specify the amount of space that should be available around the contents of
    * a cell
    */
-  cellPadding?: 'condensed' | 'normal' | 'spacious' | undefined
+  cellPadding?: 'condensed' | 'normal' | 'spacious'
 }
 
-const Table = React.forwardRef<HTMLTableElement, TableProps>(function Table({cellPadding = 'normal', ...rest}, ref) {
-  return <StyledTable {...rest} data-cell-padding={cellPadding} className="Table" ref={ref} />
+const Table = React.forwardRef<HTMLTableElement, TableProps>(function Table(
+  {'aria-labelledby': labelledby, cellPadding = 'normal', gridTemplateColumns, ...rest},
+  ref,
+) {
+  return (
+    <ScrollableRegion aria-labelledby={labelledby} className="TableOverflowWrapper">
+      <StyledTable
+        {...rest}
+        aria-labelledby={labelledby}
+        data-cell-padding={cellPadding}
+        className="Table"
+        role="table"
+        ref={ref}
+        style={{'--grid-template-columns': gridTemplateColumns} as React.CSSProperties}
+      />
+    </ScrollableRegion>
+  )
 })
 
 // ----------------------------------------------------------------------------
@@ -169,7 +220,14 @@ const Table = React.forwardRef<HTMLTableElement, TableProps>(function Table({cel
 export type TableHeadProps = React.ComponentPropsWithoutRef<'thead'>
 
 function TableHead({children}: TableHeadProps) {
-  return <thead className="TableHead">{children}</thead>
+  return (
+    // We need to explicitly pass this role because some ATs and browsers drop table semantics
+    // when we use `display: contents` or `display: grid` in the table
+    // eslint-disable-next-line jsx-a11y/no-redundant-roles
+    <thead className="TableHead" role="rowgroup">
+      {children}
+    </thead>
+  )
 }
 
 // ----------------------------------------------------------------------------
@@ -179,18 +237,30 @@ function TableHead({children}: TableHeadProps) {
 export type TableBodyProps = React.ComponentPropsWithoutRef<'tbody'>
 
 function TableBody({children}: TableBodyProps) {
-  return <tbody className="TableBody">{children}</tbody>
+  return (
+    // We need to explicitly pass this role because some ATs and browsers drop table semantics
+    // when we use `display: contents` or `display: grid` in the table
+    // eslint-disable-next-line jsx-a11y/no-redundant-roles
+    <tbody className="TableBody" role="rowgroup">
+      {children}
+    </tbody>
+  )
 }
 
 // ----------------------------------------------------------------------------
 // TableHeader
 // ----------------------------------------------------------------------------
 
-export type TableHeaderProps = React.ComponentPropsWithoutRef<'th'>
+export type TableHeaderProps = Omit<React.ComponentPropsWithoutRef<'th'>, 'align'> & {
+  /**
+   * The horizontal alignment of the cell's content
+   */
+  align?: CellAlignment
+}
 
-function TableHeader({children, ...rest}: TableHeaderProps) {
+function TableHeader({align, children, ...rest}: TableHeaderProps) {
   return (
-    <th {...rest} className="TableHeader" role="columnheader" scope="col">
+    <th {...rest} className="TableHeader" role="columnheader" scope="col" data-cell-align={align}>
       {children}
     </th>
   )
@@ -209,12 +279,14 @@ type TableSortHeaderProps = TableHeaderProps & {
   onToggleSort: () => void
 }
 
-function TableSortHeader({children, direction, onToggleSort, ...rest}: TableSortHeaderProps) {
+function TableSortHeader({align, children, direction, onToggleSort, ...rest}: TableSortHeaderProps) {
   const ariaSort = direction === 'DESC' ? 'descending' : direction === 'ASC' ? 'ascending' : undefined
+
   return (
-    <TableHeader {...rest} aria-sort={ariaSort}>
+    <TableHeader {...rest} aria-sort={ariaSort} align={align}>
       <Button
         type="button"
+        className="TableSortButton"
         onClick={() => {
           onToggleSort()
         }}
@@ -247,23 +319,34 @@ function TableRow({children, ...rest}: TableRowProps) {
 // TableCell
 // ----------------------------------------------------------------------------
 
-export type TableCellProps = React.ComponentPropsWithoutRef<'td'> & {
+export type TableCellProps = Omit<React.ComponentPropsWithoutRef<'td'>, 'align'> & {
+  /**
+   * The horizontal alignment of the cell's content
+   */
+  align?: CellAlignment
+
   /**
    * Provide the scope for a table cell, useful for defining a row header using
    * `scope="row"`
    */
-  scope?: 'row' | undefined
+  scope?: 'row'
 }
 
-function TableCell({children, scope, ...rest}: TableCellProps) {
+function TableCell({align, children, scope, ...rest}: TableCellProps) {
   const BaseComponent = scope ? 'th' : 'td'
   const role = scope ? 'rowheader' : 'cell'
 
   return (
-    <BaseComponent {...rest} className="TableCell" scope={scope} role={role}>
+    <BaseComponent {...rest} className="TableCell" scope={scope} role={role} data-cell-align={align}>
       {children}
     </BaseComponent>
   )
+}
+
+type TableCellPlaceholderProps = React.PropsWithChildren
+
+function TableCellPlaceholder({children}: TableCellPlaceholderProps) {
+  return <Text color="fg.subtle">{children}</Text>
 }
 
 // ----------------------------------------------------------------------------
@@ -316,10 +399,14 @@ const StyledTableContainer = styled.div`
   }
 
   /* Spacing before the table */
-  .TableTitle + .Table,
-  .TableSubtitle + .Table,
-  .TableActions + .Table {
+  .TableTitle + .TableOverflowWrapper,
+  .TableSubtitle + .TableOverflowWrapper,
+  .TableActions + .TableOverflowWrapper {
     margin-top: ${get('space.2')};
+  }
+
+  .TableOverflowWrapper {
+    grid-area: table;
   }
 `
 
@@ -443,6 +530,29 @@ const Button = styled.button`
   }
 `
 
+type ScrollableRegionProps = React.PropsWithChildren<{
+  'aria-labelledby'?: string
+  className?: string
+}>
+
+function ScrollableRegion({'aria-labelledby': labelledby, children, ...rest}: ScrollableRegionProps) {
+  const ref = React.useRef(null)
+  const hasOverflow = useOverflow(ref)
+  const regionProps = hasOverflow
+    ? {
+        'aria-labelledby': labelledby,
+        role: 'region',
+        tabIndex: 0,
+      }
+    : {}
+
+  return (
+    <Box {...rest} {...regionProps} ref={ref} sx={{overflow: 'auto'}}>
+      {children}
+    </Box>
+  )
+}
+
 export {
   TableContainer,
   TableTitle,
@@ -456,4 +566,5 @@ export {
   TableHeader,
   TableSortHeader,
   TableCell,
+  TableCellPlaceholder,
 }

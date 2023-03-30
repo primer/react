@@ -5,11 +5,16 @@ import {Button, IconButton, ButtonProps} from './Button'
 import Tooltip from './Tooltip'
 import {BetterSystemStyleObject, merge, SxProp} from './sx'
 
-type TextInputActionProps = Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'aria-label' | 'size'> & {
+type TextInputActionProps = Omit<
+  React.ButtonHTMLAttributes<HTMLButtonElement>,
+  'aria-label' | 'size' | 'tooltip-direction'
+> & {
   /** @deprecated Text input action buttons should only use icon buttons */
   children?: React.ReactNode
   /** Text that appears in a tooltip. If an icon is passed, this is also used as the label used by assistive technologies. */
   ['aria-label']?: string
+  /** Position of tooltip. If no position is passed or defaults to "n" */
+  ['tooltip-direction']?: 'n' | 'ne' | 'e' | 'se' | 's' | 'sw' | 'w' | 'nw'
   /** The icon to render inside the button */
   icon?: React.FunctionComponent<React.PropsWithChildren<IconProps>>
   /**
@@ -47,13 +52,15 @@ const invisibleButtonStyleOverrides = {
 const ConditionalTooltip: React.FC<
   React.PropsWithChildren<{
     ['aria-label']?: string
+    ['tooltip-direction']?: 'n' | 'ne' | 'e' | 'se' | 's' | 'sw' | 'w' | 'nw'
     children: React.ReactNode
   }>
-> = ({'aria-label': ariaLabel, children}) => (
+> = ({'aria-label': ariaLabel, children, 'tooltip-direction': tooltipDirection}) => (
   <>
     {ariaLabel ? (
       <Tooltip
         aria-label={ariaLabel}
+        direction={tooltipDirection}
         sx={{
           /* inline-block is used to ensure the tooltip dimensions don't
              collapse when being used with `grid` or `inline` children */
@@ -69,7 +76,18 @@ const ConditionalTooltip: React.FC<
 )
 
 const TextInputAction = forwardRef<HTMLButtonElement, TextInputActionProps>(
-  ({'aria-label': ariaLabel, children, icon, sx: sxProp, variant = 'invisible', ...rest}, forwardedRef) => {
+  (
+    {
+      'aria-label': ariaLabel,
+      'tooltip-direction': tooltipDirection,
+      children,
+      icon,
+      sx: sxProp,
+      variant = 'invisible',
+      ...rest
+    },
+    forwardedRef,
+  ) => {
     const sx =
       variant === 'invisible'
         ? merge<BetterSystemStyleObject>(invisibleButtonStyleOverrides, sxProp || {})
@@ -83,7 +101,7 @@ const TextInputAction = forwardRef<HTMLButtonElement, TextInputActionProps>(
     return (
       <Box as="span" className="TextInput-action" marginLeft={1} marginRight={1} lineHeight="0">
         {icon && !children ? (
-          <Tooltip aria-label={ariaLabel}>
+          <Tooltip direction={tooltipDirection} aria-label={ariaLabel}>
             <IconButton
               variant={variant}
               type="button"

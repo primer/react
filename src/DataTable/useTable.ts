@@ -7,8 +7,8 @@ import {ObjectPathValue} from './utils'
 interface TableConfig<Data extends UniqueRow> {
   columns: Array<Column<Data>>
   data: Array<Data>
-  initialSortColumn?: string | undefined
-  initialSortDirection?: Exclude<SortDirection, 'NONE'> | undefined
+  initialSortColumn?: string | number
+  initialSortDirection?: Exclude<SortDirection, 'NONE'>
 }
 
 interface Table<Data extends UniqueRow> {
@@ -17,6 +17,7 @@ interface Table<Data extends UniqueRow> {
   actions: {
     sortBy: (header: Header<Data>) => void
   }
+  gridTemplateColumns: React.CSSProperties['gridTemplateColumns']
 }
 
 interface Header<Data extends UniqueRow> {
@@ -39,7 +40,49 @@ interface Cell<Data extends UniqueRow> {
   rowHeader: boolean
 }
 
-type ColumnSortState = {id: string; direction: Exclude<SortDirection, 'NONE'>} | null
+type ColumnSortState = {id: string | number; direction: Exclude<SortDirection, 'NONE'>} | null
+
+export function getGridTemplateFromColumns<Data extends UniqueRow>(columns: Array<Column<Data>>): string[] {
+  return columns.map(column => {
+    const columnWidth = column.width ?? 'grow'
+    let minWidth = 'auto'
+    let maxWidth = '1fr'
+
+    if (columnWidth === 'auto') {
+      maxWidth = 'auto'
+    }
+
+    // Setting a min-width of 'max-content' ensures that the column will grow to fit the widest cell's content.
+    // However, If the column has a max width, we can't set the min width to `max-content` because
+    // the widest cell's content might overflow the container.
+    if (columnWidth === 'grow' && !column.maxWidth) {
+      minWidth = 'max-content'
+    }
+
+    // Column widths set to "growCollapse" don't need a min width unless one is explicitly provided.
+    if (columnWidth === 'growCollapse') {
+      minWidth = '0'
+    }
+
+    // If a consumer passes `minWidth` or `maxWidth`, we need to override whatever we set above.
+    if (column.minWidth) {
+      minWidth = typeof column.minWidth === 'number' ? `${column.minWidth}px` : column.minWidth
+    }
+
+    if (column.maxWidth) {
+      maxWidth = typeof column.maxWidth === 'number' ? `${column.maxWidth}px` : column.maxWidth
+    }
+
+    // If a consumer is passing one of the shorthand widths or doesn't pass a width at all, we use the
+    // min and max width calculated above to create a minmax() column template value.
+    if (typeof columnWidth !== 'number' && ['grow', 'growCollapse', 'auto'].includes(columnWidth)) {
+      return minWidth === maxWidth ? minWidth : `minmax(${minWidth}, ${maxWidth})`
+    }
+
+    // If we reach this point, the consumer is passing an explicit width value.
+    return typeof columnWidth === 'number' ? `${columnWidth}px` : columnWidth
+  })
+}
 
 export function useTable<Data extends UniqueRow>({
   columns,
@@ -51,42 +94,7 @@ export function useTable<Data extends UniqueRow>({
   const [prevData, setPrevData] = useState(data)
   const [prevColumns, setPrevColumns] = useState(columns)
   const [sortByColumn, setSortByColumn] = useState<ColumnSortState>(() => {
-    if (initialSortColumn) {
-      if (initialSortDirection) {
-        return {
-          id: initialSortColumn,
-          direction: initialSortDirection,
-        }
-      }
-      return {
-        id: initialSortColumn,
-        direction: DEFAULT_SORT_DIRECTION,
-      }
-    }
-
-    if (initialSortDirection) {
-      const defaultSortColumn = columns.find(column => {
-        return column.sortBy
-      })
-      if (defaultSortColumn) {
-        return {
-          id: defaultSortColumn.id ?? defaultSortColumn.field,
-          direction: initialSortDirection,
-        }
-      }
-    }
-
-    const sortableColumn = columns.find(column => {
-      return column.sortBy
-    })
-    if (sortableColumn) {
-      return {
-        id: sortableColumn.id ?? sortableColumn.field,
-        direction: DEFAULT_SORT_DIRECTION,
-      }
-    }
-
-    return null
+    return getInitialSortState(columns, initialSortColumn, initialSortDirection)
   })
 
   // Reset the `sortByColumn` state if the columns change and that column is no
@@ -115,6 +123,10 @@ export function useTable<Data extends UniqueRow>({
 
   const headers = columns.map(column => {
     const id = column.id ?? column.field
+    if (id === undefined) {
+      throw new Error(`Expected either an \`id\` or \`field\` to be defined for a Column`)
+    }
+
     const sortable = column.sortBy !== undefined && column.sortBy !== false
     return {
       id,
@@ -168,13 +180,29 @@ export function useTable<Data extends UniqueRow>({
 
     setRowOrder(rowOrder => {
       return rowOrder.slice().sort((a, b) => {
+        if (header.column.field === undefined) {
+          return 0
+        }
+
+        // Custom sort functions operate on the row versus the field
+        if (typeof header.column.sortBy === 'function') {
+          if (state.direction === SortDirection.ASC) {
+            // @ts-ignore todo
+            return sortMethod(a, b)
+          }
+          // @ts-ignore todo
+          return sortMethod(b, a)
+        }
+
         const valueA = get(a, header.column.field)
         const valueB = get(b, header.column.field)
 
         if (state.direction === SortDirection.ASC) {
-          return sortMethod(valueB, valueA)
+          // @ts-ignore todo
+          return sortMethod(valueA, valueB)
         }
-        return sortMethod(valueA, valueB)
+        // @ts-ignore todo
+        return sortMethod(valueB, valueA)
       })
     })
   }
@@ -194,7 +222,10 @@ export function useTable<Data extends UniqueRow>({
               column: header.column,
               rowHeader: header.column.rowHeader ?? false,
               getValue() {
-                return get(row, header.column.field)
+                if (header.column.field !== undefined) {
+                  return get(row, header.column.field)
+                }
+                throw new Error(`Unable to get value for column header ${header.id}`)
               },
             }
           })
@@ -204,7 +235,79 @@ export function useTable<Data extends UniqueRow>({
     actions: {
       sortBy,
     },
+    gridTemplateColumns: getGridTemplateFromColumns(columns).join(' '),
   }
+}
+
+function getInitialSortState<Data extends UniqueRow>(
+  columns: Array<Column<Data>>,
+  initialSortColumn?: string | number,
+  initialSortDirection?: Exclude<SortDirection, 'NONE'>,
+) {
+  if (initialSortColumn !== undefined) {
+    const column = columns.find(column => {
+      return column.id === initialSortColumn || column.field === initialSortColumn
+    })
+
+    if (column === undefined) {
+      if (__DEV__) {
+        // eslint-disable-next-line no-console
+        console.warn(
+          `Warning: Unable to find a column with id or field set to: ${initialSortColumn}. Please provide a value to \`initialSortColumn\` which corresponds to a \`id\` or \`field\` value in a column.`,
+        )
+      }
+      return null
+    }
+
+    if (column.sortBy === false || column.sortBy === undefined) {
+      if (__DEV__) {
+        // eslint-disable-next-line no-console
+        console.warn(
+          `Warning: The column specified by initialSortColumn={${initialSortColumn}} is not sortable. Please set \`sortBy\` to true or provide a sort strategy.`,
+        )
+      }
+      return null
+    }
+
+    return {
+      id: `${initialSortColumn}`,
+      direction: initialSortDirection ?? DEFAULT_SORT_DIRECTION,
+    }
+  }
+
+  if (initialSortDirection !== undefined) {
+    const column = columns.find(column => {
+      return column.sortBy !== false && column.sortBy !== undefined
+    })
+
+    if (!column) {
+      if (__DEV__) {
+        // eslint-disable-next-line no-console
+        console.warn(
+          `Warning: An initialSortDirection value was provided but no columns are sortable. Please set \`sortBy\` to true or provide a sort strategy to a column.`,
+        )
+      }
+      return null
+    }
+
+    const id = column.id ?? column.field
+    if (id === undefined) {
+      if (__DEV__) {
+        // eslint-disable-next-line no-console
+        console.warn(
+          `Warning: Unable to find an \`id\` or \`field\` for the column: ${column}. Please set one of these properties on the column.`,
+        )
+      }
+      return null
+    }
+
+    return {
+      id,
+      direction: initialSortDirection,
+    }
+  }
+
+  return null
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

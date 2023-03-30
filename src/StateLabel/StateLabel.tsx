@@ -38,7 +38,7 @@ const colorVariants = variant({
       color: 'fg.onEmphasis',
     },
     pullClosed: {
-      backgroundColor: 'danger.emphasis',
+      backgroundColor: 'closed.emphasis',
       color: 'fg.onEmphasis',
     },
     pullMerged: {
@@ -46,11 +46,11 @@ const colorVariants = variant({
       color: 'fg.onEmphasis',
     },
     issueOpened: {
-      backgroundColor: 'success.emphasis',
+      backgroundColor: 'open.emphasis',
       color: 'fg.onEmphasis',
     },
     pullOpened: {
-      backgroundColor: 'success.emphasis',
+      backgroundColor: 'open.emphasis',
       color: 'fg.onEmphasis',
     },
     draft: {
@@ -82,7 +82,7 @@ const sizeVariants = variant({
 
 type StyledStateLabelBaseProps = {
   variant?: 'small' | 'normal'
-  status?: keyof typeof octiconMap
+  status: keyof typeof octiconMap
 } & SxProp
 
 const StateLabelBase = styled.span<StyledStateLabelBaseProps>`
