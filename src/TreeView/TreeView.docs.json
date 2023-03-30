@@ -16,6 +16,11 @@
       "name": "children",
       "type": "React.ReactNode",
       "required": true
+    },
+    {
+      "name": "preventIndents",
+      "type": "boolean",
+      "description": "Prevents the tree from indenting items. This should only be used when the tree is used to display a flat list of items."
     }
   ],
   "subcomponents": [
