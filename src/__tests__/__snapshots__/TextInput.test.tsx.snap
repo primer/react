@@ -3071,7 +3071,7 @@ exports[`TextInput renders warning 1`] = `
   background-position: right 8px center;
   padding-left: 0;
   padding-right: 0;
-  border-color: #bf8700;
+  border-color: #9a6700;
 }
 
 .c0 input,
