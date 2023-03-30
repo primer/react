@@ -24,10 +24,11 @@ export type PointerBoxProps = {
 
 function PointerBox(props: PointerBoxProps) {
   // don't destructure these, just grab them
+  const themeContext = React.useContext(ThemeContext)
   const {bg, border, borderColor, theme: themeProp, sx} = props
   const {caret, children, ...boxProps} = props
   const {bg: sxBg, backgroundColor, ...sxRest} = sx || {}
-  const theme = themeProp || React.useContext(ThemeContext)
+  const theme = themeProp || themeContext
   const customBackground = bg || sxBg || backgroundColor
 
   const caretProps = {
