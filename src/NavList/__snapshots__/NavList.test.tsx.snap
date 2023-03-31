@@ -713,6 +713,7 @@ exports[`NavList renders with groups 1`] = `
           >
             <h3
               class="c4"
+              id="react-aria-1"
             >
               Overview
             </h3>
@@ -759,6 +760,7 @@ exports[`NavList renders with groups 1`] = `
           >
             <h3
               class="c4"
+              id="react-aria-1"
             >
               Components
             </h3>

@@ -4,13 +4,13 @@ import Box from '../Box'
 import {get} from '../constants'
 import {SxProp} from '../sx'
 import {merge} from 'lodash'
+import {useId} from '../hooks/useId'
 
 export type ActionListHeadingProps = {
   variant?: 'subtle' | 'filled'
   title: string
   subtitle?: string
   as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
-  id?: string
 } & SxProp
 
 /**
@@ -23,11 +23,10 @@ export const Heading: React.FC<React.PropsWithChildren<ActionListHeadingProps>> 
   title,
   subtitle,
   as = 'h3',
-  id,
   sx,
   ...props
 }) => {
-  const {variant: listVariant} = React.useContext(ListContext)
+  const {variant: listVariant, headingId: headingId} = React.useContext(ListContext)
 
   const styles = {
     paddingY: '6px',
@@ -45,6 +44,8 @@ export const Heading: React.FC<React.PropsWithChildren<ActionListHeadingProps>> 
       borderColor: 'neutral.muted',
     }),
   }
+
+  const id = useId(headingId)
 
   const Title = (
     <Box

@@ -5,9 +5,10 @@ import sx, {SxProp, merge} from '../sx'
 import {AriaRole} from '../utils/types'
 import {ActionListContainerContext} from './ActionListContainerContext'
 import {defaultSxProp} from '../utils/defaultSxProp'
-import {useId} from '../hooks/useId'
-import {Heading, ActionListHeadingProps} from './Heading'
+import {Heading} from './Heading'
 import Box from '../Box'
+import {useSlots} from '../hooks/useSlots'
+import {useId} from '../hooks/useId'
 
 export type ActionListProps = React.PropsWithChildren<{
   /**
@@ -26,14 +27,13 @@ export type ActionListProps = React.PropsWithChildren<{
    * The ARIA role describing the function of `List` component. `listbox` or `menu` are a common values.
    */
   role?: AriaRole
-  /**
-   * Optional heading title to display at top of the list.
-   */
-  headingProps?: ActionListHeadingProps
 }> &
   SxProp
 
-type ContextProps = Pick<ActionListProps, 'variant' | 'selectionVariant' | 'showDividers' | 'role'>
+type ContextProps = Pick<ActionListProps, 'variant' | 'selectionVariant' | 'showDividers' | 'role'> & {
+  headingId?: string
+}
+
 export const ListContext = React.createContext<ContextProps>({})
 
 const ListBox = styled.ul<SxProp>(sx)
@@ -45,7 +45,6 @@ export const List = React.forwardRef<HTMLUListElement, ActionListProps>(
       selectionVariant,
       showDividers = false,
       role,
-      headingProps,
       sx: sxProp = defaultSxProp,
       ...props
     },
@@ -67,32 +66,32 @@ export const List = React.forwardRef<HTMLUListElement, ActionListProps>(
       selectionVariant: containerSelectionVariant, // TODO: Remove after DropdownMenu2 deprecation
     } = React.useContext(ActionListContainerContext)
 
-    const id = useId()
-    if (headingProps) {
-      headingProps.id = id
-    }
+    const [slots, rest] = useSlots(props.children, {heading: Heading})
+
+    const headingId = useId()
 
     return (
       <Box sx={merge(outerStyles, sxProp as SxProp)}>
-        {headingProps && <Heading {...headingProps} />}
-        <ListBox
-          sx={innerStyles}
-          role={role || listRole}
-          aria-labelledby={headingProps ? id : listLabelledBy}
-          {...props}
-          ref={forwardedRef}
+        <ListContext.Provider
+          value={{
+            variant,
+            selectionVariant: selectionVariant || containerSelectionVariant,
+            showDividers,
+            role: role || listRole,
+            headingId,
+          }}
         >
-          <ListContext.Provider
-            value={{
-              variant,
-              selectionVariant: selectionVariant || containerSelectionVariant,
-              showDividers,
-              role: role || listRole,
-            }}
+          {slots.heading}
+          <ListBox
+            sx={innerStyles}
+            role={role || listRole}
+            aria-labelledby={slots.heading ? headingId : listLabelledBy}
+            {...props}
+            ref={forwardedRef}
           >
-            {props.children}
-          </ListContext.Provider>
-        </ListBox>
+            {rest}
+          </ListBox>
+        </ListContext.Provider>
       </Box>
     )
   },

@@ -243,10 +243,9 @@ LinkItemPlayground.argTypes = {
 }
 
 export const HeadingPlayground: Story<ActionListProps & ActionListHeadingProps> = args => (
-  <ActionList
-    headingProps={{title: args.title, variant: args.variant, subtitle: args.subtitle, headingLevel: args.headingLevel}}
-    {...args}
-  ></ActionList>
+  <ActionList>
+    <ActionList.Heading title={args.title} subtitle={args.subtitle} variant={args.variant} as={args.as} />
+  </ActionList>
 )
 
 HeadingPlayground.args = {
@@ -267,10 +266,10 @@ HeadingPlayground.argTypes = {
   subtitle: {
     type: 'string',
   },
-  headingLevel: {
+  as: {
     control: {
       type: 'radio',
     },
-    options: [1, 2, 3, 4, 5, 6],
+    options: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'],
   },
 }
