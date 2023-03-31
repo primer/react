@@ -7,14 +7,14 @@ import {BetterSystemStyleObject, merge, SxProp} from './sx'
 
 type TextInputActionProps = Omit<
   React.ButtonHTMLAttributes<HTMLButtonElement>,
-  'aria-label' | 'size' | 'tooltip-direction'
+  'aria-label' | 'size' | 'tooltipDirection'
 > & {
   /** @deprecated Text input action buttons should only use icon buttons */
   children?: React.ReactNode
   /** Text that appears in a tooltip. If an icon is passed, this is also used as the label used by assistive technologies. */
   ['aria-label']?: string
   /** Position of tooltip. If no position is passed or defaults to "n" */
-  ['tooltip-direction']?: 'n' | 'ne' | 'e' | 'se' | 's' | 'sw' | 'w' | 'nw'
+  tooltipDirection?: 'n' | 'ne' | 'e' | 'se' | 's' | 'sw' | 'w' | 'nw'
   /** The icon to render inside the button */
   icon?: React.FunctionComponent<React.PropsWithChildren<IconProps>>
   /**
@@ -52,10 +52,10 @@ const invisibleButtonStyleOverrides = {
 const ConditionalTooltip: React.FC<
   React.PropsWithChildren<{
     ['aria-label']?: string
-    ['tooltip-direction']?: 'n' | 'ne' | 'e' | 'se' | 's' | 'sw' | 'w' | 'nw'
+    tooltipDirection?: 'n' | 'ne' | 'e' | 'se' | 's' | 'sw' | 'w' | 'nw'
     children: React.ReactNode
   }>
-> = ({'aria-label': ariaLabel, children, 'tooltip-direction': tooltipDirection}) => (
+> = ({'aria-label': ariaLabel, children, tooltipDirection}) => (
   <>
     {ariaLabel ? (
       <Tooltip
@@ -77,15 +77,7 @@ const ConditionalTooltip: React.FC<
 
 const TextInputAction = forwardRef<HTMLButtonElement, TextInputActionProps>(
   (
-    {
-      'aria-label': ariaLabel,
-      'tooltip-direction': tooltipDirection,
-      children,
-      icon,
-      sx: sxProp,
-      variant = 'invisible',
-      ...rest
-    },
+    {'aria-label': ariaLabel, tooltipDirection, children, icon, sx: sxProp, variant = 'invisible', ...rest},
     forwardedRef,
   ) => {
     const sx =

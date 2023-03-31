@@ -1132,6 +1132,73 @@ export const WithOverflow = () => (
   </div>
 )
 
+export const WithPlaceholderCells = () => (
+  <Table.Container>
+    <Table.Title as="h2" id="repositories">
+      Repositories
+    </Table.Title>
+    <Table.Subtitle as="p" id="repositories-subtitle">
+      A subtitle could appear here to give extra context to the data.
+    </Table.Subtitle>
+    <DataTable
+      aria-labelledby="repositories"
+      aria-describedby="repositories-subtitle"
+      data={data}
+      columns={[
+        {
+          header: 'Repository',
+          field: 'name',
+          rowHeader: true,
+        },
+        {
+          header: 'Type',
+          field: 'type',
+          renderCell: row => {
+            return <Label>{uppercase(row.type)}</Label>
+          },
+        },
+        {
+          header: 'Updated',
+          field: 'updatedAt',
+          renderCell: row => {
+            return <RelativeTime date={new Date(row.updatedAt)} />
+          },
+        },
+        {
+          header: 'Dependabot',
+          field: 'securityFeatures.dependabot',
+          renderCell: row => {
+            return row.securityFeatures.dependabot.length > 0 ? (
+              <LabelGroup>
+                {row.securityFeatures.dependabot.map(feature => {
+                  return <Label key={feature}>{uppercase(feature)}</Label>
+                })}
+              </LabelGroup>
+            ) : (
+              <Table.CellPlaceholder>Not configured</Table.CellPlaceholder>
+            )
+          },
+        },
+        {
+          header: 'Code scanning',
+          field: 'securityFeatures.codeScanning',
+          renderCell: row => {
+            return row.securityFeatures.codeScanning.length > 0 ? (
+              <LabelGroup>
+                {row.securityFeatures.codeScanning.map(feature => {
+                  return <Label key={feature}>{uppercase(feature)}</Label>
+                })}
+              </LabelGroup>
+            ) : (
+              <Table.CellPlaceholder>Not configured</Table.CellPlaceholder>
+            )
+          },
+        },
+      ]}
+    />
+  </Table.Container>
+)
+
 export const WithRightAlignedColumns = () => {
   const rows = Array.from(data).sort((a, b) => {
     return b.updatedAt - a.updatedAt
