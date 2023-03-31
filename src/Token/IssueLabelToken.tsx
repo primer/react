@@ -1,11 +1,11 @@
 import React, {forwardRef, MouseEventHandler, useMemo} from 'react'
 import {CSSObject} from '@styled-system/css'
-import TokenBase, {defaultTokenSize, isTokenInteractive, TokenBaseProps} from './TokenBase'
-import RemoveTokenButton from './_RemoveTokenButton'
 import {parseToHsla, parseToRgba} from 'color2k'
 import {useTheme} from '../ThemeProvider'
-import TokenTextContainer from './_TokenTextContainer'
 import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
+import RemoveTokenButton from './_RemoveTokenButton'
+import TokenTextContainer from './_TokenTextContainer'
+import TokenBase, {defaultTokenSize, isTokenInteractive, TokenBaseProps} from './TokenBase'
 
 export interface IssueLabelTokenProps extends TokenBaseProps {
   /**
@@ -59,7 +59,7 @@ const IssueLabelToken = forwardRef((props, forwardedRef) => {
     href,
     onClick,
   }
-  const {colorScheme} = useTheme()
+  const colorMode = useColorMode()
   const hasMultipleActionTargets = isTokenInteractive(props) && Boolean(onRemove) && !hideRemoveButton
   const onRemoveClick: MouseEventHandler = e => {
     e.stopPropagation()
@@ -83,11 +83,11 @@ const IssueLabelToken = forwardRef((props, forwardedRef) => {
       '--lightness-switch': 'max(0, min(calc((var(--perceived-lightness) - var(--lightness-threshold)) * -1000), 1))',
       paddingRight: hideRemoveButton || !onRemove ? undefined : 0,
       position: 'relative',
-      ...(colorScheme === 'light' ? lightModeStyles : darkModeStyles),
+      ...(colorMode === 'light' ? lightModeStyles : darkModeStyles),
       ...(isSelected
         ? {
             background:
-              colorScheme === 'light'
+              colorMode === 'light'
                 ? 'hsl(var(--label-h), calc(var(--label-s) * 1%), calc((var(--label-l) - 5) * 1%))'
                 : darkModeStyles.background,
             ':focus': {
@@ -104,7 +104,7 @@ const IssueLabelToken = forwardRef((props, forwardedRef) => {
               display: 'block',
               pointerEvents: 'none',
               boxShadow: `0 0 0 ${tokenBorderWidthPx * 2}px ${
-                colorScheme === 'light'
+                colorMode === 'light'
                   ? 'rgb(var(--label-r), var(--label-g), var(--label-b))'
                   : 'hsl(var(--label-h), calc(var(--label-s) * 1%), calc((var(--label-l) + var(--lighten-by)) * 1%))'
               }`,
@@ -113,7 +113,7 @@ const IssueLabelToken = forwardRef((props, forwardedRef) => {
           }
         : {}),
     }
-  }, [colorScheme, fillColor, isSelected, hideRemoveButton, onRemove])
+  }, [colorMode, fillColor, isSelected, hideRemoveButton, onRemove])
 
   return (
     <TokenBase
@@ -152,3 +152,9 @@ const IssueLabelToken = forwardRef((props, forwardedRef) => {
 IssueLabelToken.displayName = 'IssueLabelToken'
 
 export default IssueLabelToken
+
+function useColorMode(): 'light' | 'dark' {
+  const {colorScheme} = useTheme()
+  const colorMode = useMemo(() => (colorScheme?.startsWith('dark') ? 'dark' : 'light'), [colorScheme])
+  return colorMode
+}
