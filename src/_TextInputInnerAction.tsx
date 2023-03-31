@@ -77,15 +77,7 @@ const ConditionalTooltip: React.FC<
 
 const TextInputAction = forwardRef<HTMLButtonElement, TextInputActionProps>(
   (
-    {
-      'aria-label': ariaLabel,
-      tooltipDirection,
-      children,
-      icon,
-      sx: sxProp,
-      variant = 'invisible',
-      ...rest
-    },
+    {'aria-label': ariaLabel, tooltipDirection, children, icon, sx: sxProp, variant = 'invisible', ...rest},
     forwardedRef,
   ) => {
     const sx =
