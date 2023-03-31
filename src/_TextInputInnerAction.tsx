@@ -52,10 +52,10 @@ const invisibleButtonStyleOverrides = {
 const ConditionalTooltip: React.FC<
   React.PropsWithChildren<{
     ['aria-label']?: string
-    ['tooltipDirection']?: 'n' | 'ne' | 'e' | 'se' | 's' | 'sw' | 'w' | 'nw'
+    tooltipDirection?: 'n' | 'ne' | 'e' | 'se' | 's' | 'sw' | 'w' | 'nw'
     children: React.ReactNode
   }>
-> = ({'aria-label': ariaLabel, children, tooltipDirection: tooltipDirection}) => (
+> = ({'aria-label': ariaLabel, children, tooltipDirection}) => (
   <>
     {ariaLabel ? (
       <Tooltip
@@ -77,15 +77,7 @@ const ConditionalTooltip: React.FC<
 
 const TextInputAction = forwardRef<HTMLButtonElement, TextInputActionProps>(
   (
-    {
-      'aria-label': ariaLabel,
-      tooltipDirection: tooltipDirection,
-      children,
-      icon,
-      sx: sxProp,
-      variant = 'invisible',
-      ...rest
-    },
+    {'aria-label': ariaLabel, tooltipDirection, children, icon, sx: sxProp, variant = 'invisible', ...rest},
     forwardedRef,
   ) => {
     const sx =
