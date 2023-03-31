@@ -113,7 +113,7 @@ const IssueLabelToken = forwardRef((props, forwardedRef) => {
           }
         : {}),
     }
-  }, [colorScheme, fillColor, isSelected, hideRemoveButton, onRemove])
+  }, [fillColor, resolvedColorMode, hideRemoveButton, onRemove, isSelected])
 
   return (
     <TokenBase
