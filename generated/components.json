@@ -4126,6 +4126,12 @@
               "description": "Text that appears in a tooltip. If an icon is passed, this is also used as the label used by assistive technologies."
             },
             {
+              "name": "tooltipDirection",
+              "type": "'n' | 'ne' | 'e' | 'se' | 's' | 'sw' | 'w' | 'nw'",
+              "defaultValue": "n",
+              "description": "Sets where the tooltip renders in relation to the target."
+            },
+            {
               "name": "icon",
               "type": "React.FunctionComponent",
               "defaultValue": "",
@@ -4640,6 +4646,11 @@
           "name": "children",
           "type": "React.ReactNode",
           "required": true
+        },
+        {
+          "name": "flat",
+          "type": "boolean",
+          "description": "Prevents the tree from indenting items. This should only be used when the tree is used to display a flat list of items."
         }
       ],
       "subcomponents": [

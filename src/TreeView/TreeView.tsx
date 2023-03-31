@@ -62,6 +62,7 @@ export type TreeViewProps = {
   'aria-label'?: React.AriaAttributes['aria-label']
   'aria-labelledby'?: React.AriaAttributes['aria-labelledby']
   children: React.ReactNode
+  flat?: boolean
 }
 
 const UlBox = styled.ul<SxProp>`
@@ -132,6 +133,10 @@ const UlBox = styled.ul<SxProp>`
         outline: none;
       }
     }
+  }
+
+  &[data-omit-spacer='true'] .PRIVATE_TreeView-item-container {
+    grid-template-columns: 0 0 1fr;
   }
 
   .PRIVATE_TreeView-item[aria-current='true'] > .PRIVATE_TreeView-item-container {
@@ -244,7 +249,12 @@ const UlBox = styled.ul<SxProp>`
   ${sx}
 `
 
-const Root: React.FC<TreeViewProps> = ({'aria-label': ariaLabel, 'aria-labelledby': ariaLabelledby, children}) => {
+const Root: React.FC<TreeViewProps> = ({
+  'aria-label': ariaLabel,
+  'aria-labelledby': ariaLabelledby,
+  children,
+  flat,
+}) => {
   const containerRef = React.useRef<HTMLUListElement>(null)
   const [ariaLiveMessage, setAriaLiveMessage] = React.useState('')
   const announceUpdate = React.useCallback((message: string) => {
@@ -278,7 +288,13 @@ const Root: React.FC<TreeViewProps> = ({'aria-label': ariaLabel, 'aria-labelledb
         <VisuallyHidden role="status" aria-live="polite" aria-atomic="true">
           {ariaLiveMessage}
         </VisuallyHidden>
-        <UlBox ref={containerRef} role="tree" aria-label={ariaLabel} aria-labelledby={ariaLabelledby}>
+        <UlBox
+          ref={containerRef}
+          role="tree"
+          aria-label={ariaLabel}
+          aria-labelledby={ariaLabelledby}
+          data-omit-spacer={flat}
+        >
           {children}
         </UlBox>
       </>
