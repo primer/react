@@ -7,16 +7,16 @@ import {
 import classnames from 'classnames'
 import React from 'react'
 import styled, {keyframes} from 'styled-components'
-import {get} from '../constants'
 import {ConfirmationDialog} from '../Dialog/ConfirmationDialog'
+import Spinner from '../Spinner'
+import Text from '../Text'
+import VisuallyHidden from '../_VisuallyHidden'
+import {get} from '../constants'
 import {useControllableState} from '../hooks/useControllableState'
 import {useId} from '../hooks/useId'
 import useSafeTimeout from '../hooks/useSafeTimeout'
-import Spinner from '../Spinner'
+import {useSlots} from '../hooks/useSlots'
 import sx, {SxProp} from '../sx'
-import Text from '../Text'
-import createSlots from '../utils/create-slots'
-import VisuallyHidden from '../_VisuallyHidden'
 import {getAccessibleName} from './shared'
 import {getFirstChildElement, useRovingTabIndex} from './useRovingTabIndex'
 import {useTypeahead} from './useTypeahead'
@@ -318,8 +318,6 @@ export type TreeViewItemProps = {
   onSelect?: (event: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>) => void
 }
 
-const {Slots, Slot} = createSlots(['LeadingVisual', 'TrailingVisual'])
-
 const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
   (
     {
@@ -334,6 +332,7 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
     },
     ref,
   ) => {
+    const [slots, rest] = useSlots(children, {leadingVisual: LeadingVisual, trailingVisual: TrailingVisual})
     const {expandedStateCache} = React.useContext(RootContext)
     const labelId = useId()
     const leadingVisualId = useId()
@@ -349,7 +348,7 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
       onChange: onExpandedChange,
     })
     const {level} = React.useContext(ItemContext)
-    const {hasSubTree, subTree, childrenWithoutSubTree} = useSubTree(children)
+    const {hasSubTree, subTree, childrenWithoutSubTree} = useSubTree(rest)
     const [isSubTreeEmpty, setIsSubTreeEmpty] = React.useState(!hasSubTree)
     const [isFocused, setIsFocused] = React.useState(false)
 
@@ -478,15 +477,9 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
               </div>
             ) : null}
             <div id={labelId} className="PRIVATE_TreeView-item-content">
-              <Slots>
-                {slots => (
-                  <>
-                    {slots.LeadingVisual}
-                    <span className="PRIVATE_TreeView-item-content-text">{childrenWithoutSubTree}</span>
-                    {slots.TrailingVisual}
-                  </>
-                )}
-              </Slots>
+              {slots.leadingVisual}
+              <span className="PRIVATE_TreeView-item-content-text">{childrenWithoutSubTree}</span>
+              {slots.trailingVisual}
             </div>
           </div>
           {subTree}
@@ -773,14 +766,14 @@ const LeadingVisual: React.FC<TreeViewVisualProps> = props => {
   const {isExpanded, leadingVisualId} = React.useContext(ItemContext)
   const children = typeof props.children === 'function' ? props.children({isExpanded}) : props.children
   return (
-    <Slot name="LeadingVisual">
+    <>
       <div className="PRIVATE_VisuallyHidden" aria-hidden={true} id={leadingVisualId}>
         {props.label}
       </div>
       <div className="PRIVATE_TreeView-item-visual" aria-hidden={true}>
         {children}
       </div>
-    </Slot>
+    </>
   )
 }
 
@@ -790,14 +783,14 @@ const TrailingVisual: React.FC<TreeViewVisualProps> = props => {
   const {isExpanded, trailingVisualId} = React.useContext(ItemContext)
   const children = typeof props.children === 'function' ? props.children({isExpanded}) : props.children
   return (
-    <Slot name="TrailingVisual">
+    <>
       <div className="PRIVATE_VisuallyHidden" aria-hidden={true} id={trailingVisualId}>
         {props.label}
       </div>
       <div className="PRIVATE_TreeView-item-visual" aria-hidden={true}>
         {children}
       </div>
-    </Slot>
+    </>
   )
 }
 
