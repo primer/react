@@ -59,8 +59,8 @@ export function getGridTemplateFromColumns<Data extends UniqueRow>(columns: Arra
       minWidth = 'max-content'
     }
 
-    // Column widths set to "shrink" don't need a min width unless one is explicitly provided.
-    if (columnWidth === 'shrink') {
+    // Column widths set to "growCollapse" don't need a min width unless one is explicitly provided.
+    if (columnWidth === 'growCollapse') {
       minWidth = '0'
     }
 
@@ -75,7 +75,7 @@ export function getGridTemplateFromColumns<Data extends UniqueRow>(columns: Arra
 
     // If a consumer is passing one of the shorthand widths or doesn't pass a width at all, we use the
     // min and max width calculated above to create a minmax() column template value.
-    if (typeof columnWidth !== 'number' && ['grow', 'shrink', 'auto'].includes(columnWidth)) {
+    if (typeof columnWidth !== 'number' && ['grow', 'growCollapse', 'auto'].includes(columnWidth)) {
       return minWidth === maxWidth ? minWidth : `minmax(${minWidth}, ${maxWidth})`
     }
 
