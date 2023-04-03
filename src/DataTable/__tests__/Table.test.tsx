@@ -1,6 +1,7 @@
 import {render, screen} from '@testing-library/react'
 import React from 'react'
 import {Table} from '../../DataTable'
+import {createColumnHelper} from '../column'
 import {TableProps} from '../Table'
 
 function createTable({columns, rows}: {columns: Array<string>; rows: Array<Array<string>>}) {
@@ -228,6 +229,38 @@ describe('Table', () => {
         </Table>,
       )
       expect(screen.getByRole('rowheader', {name: 'Cell'})).toBeInTheDocument()
+    })
+  })
+
+  describe('Table.Skeleton', () => {
+    it('should render a table with columns and loading content', () => {
+      const columnHelper = createColumnHelper()
+      const columns = [
+        columnHelper.column({
+          header: 'Column A',
+        }),
+        columnHelper.column({
+          header: 'Column B',
+        }),
+        columnHelper.column({
+          header: 'Column C',
+        }),
+      ]
+      render(
+        <>
+          <h2 id="test">Test</h2>
+          <Table.Skeleton aria-labelledby="test" columns={columns} />
+        </>,
+      )
+
+      expect(screen.getByRole('table', {name: 'Test'})).toBeInTheDocument()
+      for (const column of columns) {
+        expect(screen.getByRole('columnheader', {name: column.header as string})).toBeInTheDocument()
+      }
+
+      for (const cell of screen.getAllByRole('cell')) {
+        expect(cell).toHaveTextContent('Loading')
+      }
     })
   })
 })
