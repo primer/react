@@ -1,7 +1,9 @@
 import React from 'react'
-import Box, {BoxProps} from './Box'
-import Caret, {CaretProps} from './Caret'
-import {SxProp} from './sx'
+import {ThemeContext} from 'styled-components'
+import Box, {BoxProps} from '../Box'
+import Caret, {CaretProps} from '../Caret'
+import {get} from '../constants'
+import {SxProp} from '../sx'
 
 // FIXME: Make this work with BetterStyledSystem types
 type MutatedSxProps = {
@@ -22,8 +24,12 @@ export type PointerBoxProps = {
 
 function PointerBox(props: PointerBoxProps) {
   // don't destructure these, just grab them
-  const {bg, border, borderColor, theme, sx} = props
+  const themeContext = React.useContext(ThemeContext)
+  const {bg, border, borderColor, theme: themeProp, sx} = props
   const {caret, children, ...boxProps} = props
+  const {bg: sxBg, backgroundColor, ...sxRest} = sx || {}
+  const theme = themeProp || themeContext
+  const customBackground = bg || sxBg || backgroundColor
 
   const caretProps = {
     bg: bg || sx?.bg || sx?.backgroundColor,
@@ -36,7 +42,18 @@ function PointerBox(props: PointerBoxProps) {
   const defaultBoxProps = {borderWidth: '1px', borderStyle: 'solid', borderColor: 'border.default', borderRadius: 2}
 
   return (
-    <Box {...defaultBoxProps} {...boxProps} sx={{...sx, position: 'relative'}}>
+    <Box
+      {...defaultBoxProps}
+      {...boxProps}
+      sx={{
+        ...sxRest,
+        '--custom-bg': get(`colors.${customBackground}`)({theme}),
+        backgroundImage: customBackground
+          ? `linear-gradient(var(--custom-bg), var(--custom-bg)), linear-gradient(${theme.colors.canvas.default}, ${theme.colors.canvas.default})`
+          : undefined,
+        position: 'relative',
+      }}
+    >
       {children}
       <Caret {...caretProps} />
     </Box>
