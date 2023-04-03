@@ -196,8 +196,8 @@ const Tooltip = styled.div<Tooltip2Props>`
   /* Position of the tooltip element when it is opened. */
 
   &[data-state='open'] {
-    &[data-delay='true'],
-    &[data-delay='true']::before {
+    &[data-no-delay='true'],
+    &[data-no-delay='true']::before {
       animation-delay: 0s;
     }
     &[data-direction='s'],
@@ -371,7 +371,7 @@ const Tooltip2: React.FC<React.PropsWithChildren<Tooltip2Props>> = ({
         data-state={open ? 'open' : undefined}
         data-align={align}
         data-wrap={wrap}
-        data-delay={noDelay}
+        data-no-delay={noDelay}
         {...rest}
         // Only need tooltip role if the tooltip is a description for supplementary information
         role={type === 'description' ? 'tooltip' : undefined}
