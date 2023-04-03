@@ -46,6 +46,9 @@ const Tooltip = styled.div<Tooltip2Props>`
   width: max-content;
   opacity: 0;
   max-width: 250px;
+  @media (forced-colors: active) {
+    outline: 1px solid transparent;
+  }
 
   /* tooltip element should be rendered visually hidden when it is not opened.  */
   &:not([data-state='open']) {
