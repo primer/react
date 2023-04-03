@@ -39,9 +39,15 @@ const ProgressContainer = styled.span<StyledProgressContainerProps>`
 
 export type ProgressBarProps = React.PropsWithChildren & {bg?: string} & StyledProgressContainerProps & ProgressProp
 
-export const ProgressBar = ({progress, bg = 'success.emphasis', barSize = 'default', children, ...rest}: ProgressBarProps) => {
+export const ProgressBar = ({
+  progress,
+  bg = 'success.emphasis',
+  barSize = 'default',
+  children,
+  ...rest
+}: ProgressBarProps) => {
   if (children && progress) {
-    throw new Error("You should pass `progress` or children, not both.")
+    throw new Error('You should pass `progress` or children, not both.')
   }
 
   if (!children) {

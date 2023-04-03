@@ -1,6 +1,6 @@
 import React from 'react'
 import {ComponentMeta} from '@storybook/react'
-import ProgressBar, {Segment} from './ProgressBar'
+import {ProgressBar} from '..'
 
 export default {
   title: 'Components/ProgressBar/Features',
@@ -20,8 +20,8 @@ export const Color = () => <ProgressBar progress="66" bg="done.emphasis" />
 
 export const MultipleSegments = () => (
   <ProgressBar>
-    <Segment progress={33} />
-    <Segment progress={23} sx={{bg: 'danger.emphasis'}} />
-    <Segment progress={14} sx={{bg: 'severe.emphasis'}} />
+    <ProgressBar.Segment progress={33} />
+    <ProgressBar.Segment progress={23} sx={{bg: 'danger.emphasis'}} />
+    <ProgressBar.Segment progress={14} sx={{bg: 'severe.emphasis'}} />
   </ProgressBar>
 )
