@@ -36,7 +36,8 @@ export const LinksAndActions = () => (
           </ActionList.LeadingVisual>
         </ActionList.Item>
       </ActionList>
-      <ActionList headingProps={{title: 'Github projects'}}>
+      <ActionList>
+        <ActionList.Heading title="Github projects" />
         <ActionList.LinkItem href="/">
           What&apos;s new
           <ActionList.LeadingVisual>

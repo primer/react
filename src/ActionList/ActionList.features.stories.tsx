@@ -426,13 +426,8 @@ export const GroupWithSubtleTitle = () => {
   }
 
   return (
-    <ActionList
-      selectionVariant="multiple"
-      role="menu"
-      showDividers
-      aria-label="Reviewers"
-      headingProps={{title: 'Everyone'}}
-    >
+    <ActionList selectionVariant="multiple" role="menu" showDividers aria-label="Reviewers">
+      <ActionList.Heading title="Everyone" />
       {users.slice(2).map(user => (
         <ActionList.Item
           role="menuitemcheckbox"
@@ -463,13 +458,8 @@ export const GroupWithFilledTitle = () => {
   }
 
   return (
-    <ActionList
-      selectionVariant="multiple"
-      role="menu"
-      showDividers
-      aria-label="Reviewers"
-      headingProps={{title: 'Everyone', variant: 'filled'}}
-    >
+    <ActionList selectionVariant="multiple" role="menu" showDividers aria-label="Reviewers">
+      <ActionList.Heading title="Everyone" variant="filled" />
       {users.slice(2).map(user => (
         <ActionList.Item
           role="menuitemcheckbox"

@@ -32,7 +32,8 @@ export const GroupsAndDescriptions = () => {
         Milestone
       </ActionMenu.Button>
       <ActionMenu.Overlay width="medium">
-        <ActionList selectionVariant="single" showDividers headingProps={{title: 'Open'}}>
+        <ActionList selectionVariant="single" showDividers>
+          <ActionList.Heading title="Open" />
           {milestones
             .filter(milestone => !milestone.name.includes('21'))
             .map((milestone, index) => (
@@ -49,7 +50,8 @@ export const GroupsAndDescriptions = () => {
               </ActionList.Item>
             ))}
         </ActionList>
-        <ActionList sx={{paddingTop: 0}} headingProps={{title: 'Closed'}} selectionVariant="single">
+        <ActionList sx={{paddingTop: 0}} selectionVariant="single">
+          <ActionList.Heading title="Closed" />
           {milestones
             .filter(milestone => milestone.name.includes('21'))
             .map((milestone, index) => (
@@ -210,7 +212,8 @@ export const MixedSelection = () => {
         {selectedOption ? `Group by ${selectedOption.text}` : 'Group items by'}
       </ActionMenu.Button>
       <ActionMenu.Overlay width="medium">
-        <ActionList selectionVariant="single" headingProps={{title: 'Group by'}}>
+        <ActionList selectionVariant="single">
+          <ActionList.Heading title="Group by" />
           {options.map((option, index) => (
             <ActionList.Item key={index} selected={index === selectedIndex} onSelect={() => setSelectedIndex(index)}>
               <ActionList.LeadingVisual>
@@ -246,12 +249,8 @@ export const MultipleSections = () => {
         <IconButton icon={KebabHorizontalIcon} aria-label="Open menu" />
       </ActionMenu.Anchor>
       <ActionMenu.Overlay width="small">
-        <ActionList
-          aria-busy="true"
-          headingProps={{
-            title: 'Raw file content',
-          }}
-        >
+        <ActionList aria-busy="true">
+          <ActionList.Heading title="Raw file content" />
           <ActionList.Item onSelect={() => alert('Workflows clicked')}>Download</ActionList.Item>
           <ActionList.Divider />
           <ActionList.Item onSelect={() => alert('Workflows clicked')}>Jump to line</ActionList.Item>
@@ -261,7 +260,8 @@ export const MultipleSections = () => {
           <ActionList.Item onSelect={() => alert('Workflows clicked')}>Copy permalink</ActionList.Item>
         </ActionList>
         <ActionList.Divider sx={{marginBottom: 0}} />
-        <ActionList selectionVariant="multiple" headingProps={{title: 'View options'}}>
+        <ActionList selectionVariant="multiple">
+          <ActionList.Heading title="View options" />
           {items.map((item, index) => (
             <ActionList.Item
               key={index}

@@ -136,7 +136,8 @@ export function MixedSelection(): JSX.Element {
         with a single Item that is an action. This pattern appears inside a menu for selection view options in Memex.
       </p>
 
-      <ActionList headingProps={{title: 'Group by'}} selectionVariant="single" role="listbox">
+      <ActionList selectionVariant="single" role="listbox">
+        <ActionList.Heading title="Group by" />
         {options.map((option, index) => (
           <ActionList.Item
             key={index}
@@ -247,7 +248,8 @@ export function MemexSortable(): JSX.Element {
   return (
     // @ts-ignore react-dnd needs to be updated to support React 18
     <DndProvider backend={HTML5Backend}>
-      <ActionList selectionVariant="multiple" role="menu" headingProps={{title: 'Visible fields (can be reordered)'}}>
+      <ActionList selectionVariant="multiple" role="menu">
+        <ActionList.Heading title="Visible fields (can be reordered)" />
         {visibleOptions.map(option => (
           <SortableItem
             key={option.text}
@@ -261,8 +263,8 @@ export function MemexSortable(): JSX.Element {
       <ActionList
         selectionVariant={hiddenOptions.length ? 'multiple' : undefined}
         role="menu"
-        headingProps={{title: 'Hidden fields'}}
       >
+        <ActionList.Heading title="Hidden fields" />
         {hiddenOptions.map((option, index) => (
           <ActionList.Item
             key={index}
