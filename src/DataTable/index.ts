@@ -6,6 +6,7 @@ import {
   TableRow,
   TableHeader,
   TableCell,
+  TableCellPlaceholder,
   TableContainer,
   TableTitle,
   TableSubtitle,
@@ -26,6 +27,7 @@ const Table = Object.assign(TableImpl, {
   Header: TableHeader,
   Row: TableRow,
   Cell: TableCell,
+  CellPlaceholder: TableCellPlaceholder,
 })
 
 export {DataTable, Table}

@@ -1,5 +1,37 @@
 # @primer/components
 
+## 35.24.0
+
+### Minor Changes
+
+- [#3071](https://github.com/primer/react/pull/3071) [`681e2271`](https://github.com/primer/react/commit/681e2271ecc90bde2920887c50c0d44b121005f1) Thanks [@mperrotti](https://github.com/mperrotti)! - Adds a helper component for rendering placeholder text to explain why a DataTable cell has no content.
+
+- [#3089](https://github.com/primer/react/pull/3089) [`4a6a9f73`](https://github.com/primer/react/commit/4a6a9f7326d5bf1e476a040d7f2f4f61e4d5bd05) Thanks [@mperrotti](https://github.com/mperrotti)! - Adds the ability to exclose indentation for flat tree views.
+
+- [#3011](https://github.com/primer/react/pull/3011) [`f8132d8e`](https://github.com/primer/react/commit/f8132d8ef653e1bd5a16203ab47f6006a871f662) Thanks [@edersonlucas](https://github.com/edersonlucas)! - Add the `tooltipDirection` property to the `TextInput.Action` component to make the tooltip position flexible.
+
+### Patch Changes
+
+- [#3085](https://github.com/primer/react/pull/3085) [`bf8c73b4`](https://github.com/primer/react/commit/bf8c73b4c36422fdd70b56f9ba677b6d6b961e87) Thanks [@mperrotti](https://github.com/mperrotti)! - Renames DataTable 'shrink' column width to 'growCollapse'
+
+- [#3104](https://github.com/primer/react/pull/3104) [`e46e33b8`](https://github.com/primer/react/commit/e46e33b8be0d553b838887d70893734923bb27d8) Thanks [@iansan5653](https://github.com/iansan5653)! - Fix `IssueLabelToken` treating alternative light schemes as dark
+
+## 35.23.0
+
+### Minor Changes
+
+- [#3068](https://github.com/primer/react/pull/3068) [`09e11335`](https://github.com/primer/react/commit/09e11335f5a415459e18feabe2686511adb51fe4) Thanks [@mperrotti](https://github.com/mperrotti)! - Adds text alignment option to columns
+
+- [#3012](https://github.com/primer/react/pull/3012) [`04d9db02`](https://github.com/primer/react/commit/04d9db02c0ba6ddca13a0b2bd0f4ada3e00991e7) Thanks [@radglob](https://github.com/radglob)! - Adds `tabIndex` and `role="region"` to `PageLayout.Pane` when overflow is detected (scrollHeight > clientHeight). Also requires either `aria-labelledby` or `aria-label` when overflow is detected, and throws an error if neither is defined.
+
+### Patch Changes
+
+- [#3056](https://github.com/primer/react/pull/3056) [`7e4f7714`](https://github.com/primer/react/commit/7e4f7714f4839b0bd304770da1e64aa247a68d7b) Thanks [@langermank](https://github.com/langermank)! - Remove incorrect focus styles on ActionList items
+
+- [#3061](https://github.com/primer/react/pull/3061) [`b71cb1fb`](https://github.com/primer/react/commit/b71cb1fb2240b08a816278af0dd94ac4e2e1246d) Thanks [@broccolinisoup](https://github.com/broccolinisoup)! - Stop rendering `activeClassName` when there is no `to` prop is passed for react-router (TabNav, SubNav, BreadCrumb, UnderlineNav v1)
+
+- [#3041](https://github.com/primer/react/pull/3041) [`e5f13300`](https://github.com/primer/react/commit/e5f133004721426a63c8647e22f987dddd716442) Thanks [@simurai](https://github.com/simurai)! - Use open/closed colors for `StateLabel`
+
 ## 35.22.0
 
 ### Minor Changes

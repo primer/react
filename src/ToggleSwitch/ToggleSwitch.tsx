@@ -8,6 +8,7 @@ import {get} from '../constants'
 import {useProvidedStateOrCreate} from '../hooks'
 import sx, {BetterSystemStyleObject, SxProp} from '../sx'
 import VisuallyHidden from '../_VisuallyHidden'
+import {CellAlignment} from '../DataTable/column'
 
 const TRANSITION_DURATION = '80ms'
 const EASE_OUT_QUAD_CURVE = 'cubic-bezier(0.5, 1, 0.89, 1)'
@@ -34,7 +35,7 @@ export type ToggleSwitchProps = {
   /** Whether the "on" and "off" labels should appear before or after the switch.
    * **This should only be changed when the switch's alignment needs to be adjusted.** For example: It needs to be left-aligned because the label appears above it and the caption appears below it.
    */
-  statusLabelPosition?: 'start' | 'end'
+  statusLabelPosition?: CellAlignment
 } & SxProp
 
 const sizeVariants = variant({

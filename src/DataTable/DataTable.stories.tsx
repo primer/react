@@ -4,6 +4,7 @@ import {DataTable, DataTableProps, Table} from '../DataTable'
 import Label from '../Label'
 import LabelGroup from '../LabelGroup'
 import RelativeTime from '../RelativeTime'
+import {CellAlignment} from './column'
 import {UniqueRow} from './row'
 import {getColumnWidthArgTypes, ColWidthArgTypes} from './storyHelpers'
 
@@ -190,6 +191,9 @@ export const Playground = (args: DataTableProps<UniqueRow> & ColWidthArgTypes) =
       ? args[`explicitColWidth${colIndex}`]
       : 'grow'
   }
+
+  const align = args.align as CellAlignment
+
   return (
     <Table.Container>
       <Table.Title as="h2" id="repositories">
@@ -211,6 +215,7 @@ export const Playground = (args: DataTableProps<UniqueRow> & ColWidthArgTypes) =
             width: getColWidth(0),
             minWidth: args.minColWidth0,
             maxWidth: args.maxColWidth0,
+            align,
           },
           {
             header: 'Type',
@@ -221,6 +226,7 @@ export const Playground = (args: DataTableProps<UniqueRow> & ColWidthArgTypes) =
             width: getColWidth(1),
             minWidth: args.minColWidth1,
             maxWidth: args.maxColWidth1,
+            align,
           },
           {
             header: 'Updated',
@@ -231,6 +237,7 @@ export const Playground = (args: DataTableProps<UniqueRow> & ColWidthArgTypes) =
             width: getColWidth(2),
             minWidth: args.minColWidth2,
             maxWidth: args.maxColWidth2,
+            align,
           },
           {
             header: 'Dependabot',
@@ -247,6 +254,7 @@ export const Playground = (args: DataTableProps<UniqueRow> & ColWidthArgTypes) =
             width: getColWidth(3),
             minWidth: args.minColWidth3,
             maxWidth: args.maxColWidth3,
+            align,
           },
           {
             header: 'Code scanning',
@@ -263,6 +271,7 @@ export const Playground = (args: DataTableProps<UniqueRow> & ColWidthArgTypes) =
             width: getColWidth(4),
             minWidth: args.minColWidth4,
             maxWidth: args.maxColWidth4,
+            align,
           },
         ]}
       />
@@ -275,6 +284,15 @@ Playground.args = {
 }
 
 Playground.argTypes = {
+  align: {
+    control: {
+      type: 'radio',
+    },
+    type: {
+      name: 'enum',
+      value: ['start', 'end'],
+    },
+  },
   'aria-describedby': {
     control: false,
     table: {
