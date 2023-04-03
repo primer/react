@@ -342,22 +342,6 @@
       ],
       "subcomponents": []
     },
-    "pointer_box": {
-      "id": "pointer_box",
-      "name": "PointerBox",
-      "status": "alpha",
-      "a11yReviewed": false,
-      "stories": [],
-      "props": [
-        {
-          "name": "caret",
-          "type": "| 'top' | 'top-left' | 'top-right' | 'right' | 'right-top' | 'right-bottom' | 'bottom' | 'bottom-left' | 'bottom-right' | 'left' | 'left-top' | 'left-bottom'",
-          "defaultValue": "'bottom'",
-          "description": "Sets the location of the caret. The format is [edge]-[position on edge]. For example, right-top will position the caret on the top of the right edge of the box. Use top"
-        }
-      ],
-      "subcomponents": []
-    },
     "popover": {
       "id": "popover",
       "name": "Popover",
@@ -3132,6 +3116,27 @@
         {
           "name": "sx",
           "type": "SystemStyleObject"
+        }
+      ],
+      "subcomponents": []
+    },
+    "pointer_box": {
+      "id": "pointer_box",
+      "name": "PointerBox",
+      "status": "alpha",
+      "a11yReviewed": false,
+      "stories": [
+        {
+          "id": "components-pointerbox--default",
+          "code": "() => <PointerBox>Pointer box content</PointerBox>"
+        }
+      ],
+      "props": [
+        {
+          "name": "caret",
+          "type": "| 'top' | 'top-left' | 'top-right' | 'right' | 'right-top' | 'right-bottom' | 'bottom' | 'bottom-left' | 'bottom-right' | 'left' | 'left-top' | 'left-bottom'",
+          "defaultValue": "'bottom'",
+          "description": "Sets the location of the caret. The format is [edge]-[position on edge]. For example, right-top will position the caret on the top of the right edge of the box. Use top"
         }
       ],
       "subcomponents": []

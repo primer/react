@@ -106,8 +106,10 @@ function Caret(props: CaretProps) {
         // then we don't need an offset margin
         [`margin${perp}`]: align ? null : -size,
       }}
+      role="presentation"
     >
       <g transform={transform}>
+        <path d={triangle} fill={theme?.colors.canvas.default} />
         <path d={triangle} fill={bg} />
         <path d={line} fill="none" stroke={borderColor} strokeWidth={borderWidth} />
       </g>
