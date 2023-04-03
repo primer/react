@@ -114,3 +114,19 @@ IssueLabelTokenWithOnRemoveFn.storyName = 'IssueLabelToken with onRemove fn'
 export const SmallToken = () => <Token text="token" size="small" />
 export const LargeToken = () => <Token text="token" size="xlarge" />
 export const XLargeToken = () => <Token text="token" size="xlarge" />
+
+export const IssueLabelTokenCustomColors = () => {
+  return (
+    <Box
+      display="flex"
+      sx={{
+        alignItems: 'start',
+        gap: get('space.2'),
+      }}
+    >
+      <IssueLabelToken as="a" href="http://google.com/" text="Link" fillColor="#0366d6" />
+      <IssueLabelToken as="button" onClick={action('clicked')} text="Button" fillColor="deeppink" />
+      <IssueLabelToken as="span" tabIndex={0} onFocus={action('focused')} text="Focusable Span" fillColor="coral" />
+    </Box>
+  )
+}

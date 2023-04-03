@@ -112,6 +112,19 @@ const IssueLabelToken = forwardRef((props, forwardedRef) => {
             },
           }
         : {}),
+      ...(isTokenInteractive(props)
+        ? {
+            '&:hover': {
+              background: isLightScheme
+                ? 'color-mix(in srgb, rgb(var(--label-r),var(--label-g),var(--label-b)), black 10%);'
+                : 'color-mix(in srgb, rgba(var(--label-r), var(--label-g), var(--label-b), var(--background-alpha)), white 10%);',
+              color:
+                !isLightScheme &&
+                'hsl(var(--label-h), calc(var(--label-s) * 1%), calc((var(--label-l) + calc(((0.7 - var(--perceived-lightness)) * 100) * var(--lightness-switch))) * 1%))',
+              boxShadow: 'shadow.medium',
+            },
+          }
+        : {}),
     }
   }, [fillColor, resolvedColorScheme, hideRemoveButton, onRemove, isSelected])
 
