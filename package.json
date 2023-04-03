@@ -135,7 +135,7 @@
     "@rollup/plugin-typescript": "11.0.0",
     "@rollup/plugin-virtual": "3.0.1",
     "@size-limit/preset-big-lib": "8.2.4",
-    "@storybook/addon-a11y": "6.5.14",
+    "@storybook/addon-a11y": "6.5.16",
     "@storybook/addon-actions": "6.5.16",
     "@storybook/addon-essentials": "6.5.16",
     "@storybook/addon-interactions": "6.5.14",
