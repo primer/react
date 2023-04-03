@@ -45,7 +45,7 @@ export function isResponsiveValue(value: any): value is ResponsiveValue<any> {
  * const value = useResponsiveValue({regular: 'foo', narrow: 'bar'})
  * console.log(value) // 'bar'
  */
-// TODO: Improve SRR support
+// TODO: Improve SSR support
 export function useResponsiveValue<T, F>(value: T, fallback: F): FlattenResponsiveValue<T> | F {
   // Check viewport size
   // TODO: What is the performance cost of creating media query listeners in this hook?
