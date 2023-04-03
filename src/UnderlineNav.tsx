@@ -70,7 +70,7 @@ type StyledUnderlineNavLinkProps = {
 } & SxProp
 
 const UnderlineNavLink = styled.a.attrs<StyledUnderlineNavLinkProps>(props => ({
-  activeClassName: typeof props.to === 'string' ? 'selected' : '',
+  activeClassName: typeof props.to === 'string' ? 'selected' : undefined,
   className: classnames(ITEM_CLASS, props.selected && SELECTED_CLASS, props.className),
 }))<StyledUnderlineNavLinkProps>`
   padding: ${get('space.3')} ${get('space.2')};

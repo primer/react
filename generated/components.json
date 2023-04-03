@@ -1,29 +1,6 @@
 {
   "schemaVersion": 2,
   "components": {
-    "box": {
-      "id": "box",
-      "name": "Box",
-      "status": "beta",
-      "a11yReviewed": false,
-      "stories": [],
-      "props": [
-        {
-          "name": "ref",
-          "type": "React.RefObject<HTMLDivElement>"
-        },
-        {
-          "name": "as",
-          "type": "React.ElementType",
-          "defaultValue": "\"div\""
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject"
-        }
-      ],
-      "subcomponents": []
-    },
     "button_group": {
       "id": "button_group",
       "name": "ButtonGroup",
@@ -240,60 +217,6 @@
       ],
       "subcomponents": []
     },
-    "header": {
-      "id": "header",
-      "name": "Header",
-      "status": "alpha",
-      "a11yReviewed": false,
-      "stories": [],
-      "props": [
-        {
-          "name": "sx",
-          "type": "SystemStyleObject"
-        }
-      ],
-      "subcomponents": [
-        {
-          "name": "Header.Item",
-          "props": [
-            {
-              "name": "full",
-              "type": "string",
-              "defaultValue": "",
-              "description": "Stretches item to fill the available space"
-            },
-            {
-              "name": "sx",
-              "type": "SystemStyleObject"
-            }
-          ]
-        },
-        {
-          "name": "Header.Link",
-          "props": [
-            {
-              "name": "href",
-              "type": "string",
-              "defaultValue": "",
-              "description": "URL to be used for the Link"
-            },
-            {
-              "name": "as",
-              "type": "React.ElementType",
-              "defaultValue": "\"a\""
-            },
-            {
-              "name": "sx",
-              "type": "SystemStyleObject"
-            }
-          ],
-          "passthrough": {
-            "element": "a",
-            "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attributes"
-          }
-        }
-      ]
-    },
     "label_group": {
       "id": "label_group",
       "name": "LabelGroup",
@@ -489,44 +412,6 @@
         }
       ]
     },
-    "progress_bar": {
-      "id": "progress_bar",
-      "name": "ProgressBar",
-      "status": "alpha",
-      "a11yReviewed": false,
-      "stories": [],
-      "props": [
-        {
-          "name": "progress",
-          "type": "number",
-          "defaultValue": "0",
-          "description": "Used to set the size of the green bar"
-        },
-        {
-          "name": "barSize",
-          "type": "| 'small' | 'large' | 'default'",
-          "defaultValue": "'default'",
-          "description": "Controls the height of the progress bar. If omitted, height is set to the default height."
-        },
-        {
-          "name": "inline",
-          "type": "boolean",
-          "defaultValue": "false",
-          "description": "Styles the progress bar inline"
-        },
-        {
-          "name": "bg",
-          "type": "string",
-          "defaultValue": "'bg.successInverse'",
-          "description": "Set the progress bar color"
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject"
-        }
-      ],
-      "subcomponents": []
-    },
     "styled_octicon": {
       "id": "styled_octicon",
       "name": "StyledOcticon",
@@ -641,7 +526,7 @@
       "id": "text",
       "name": "Text",
       "status": "alpha",
-      "a11yReviewed": false,
+      "a11yReviewed": true,
       "stories": [],
       "props": [
         {
@@ -1464,6 +1349,34 @@
         }
       ]
     },
+    "box": {
+      "id": "box",
+      "name": "Box",
+      "status": "beta",
+      "a11yReviewed": false,
+      "stories": [
+        {
+          "id": "components-box--default",
+          "code": "() => <Box>Default Box</Box>"
+        }
+      ],
+      "props": [
+        {
+          "name": "ref",
+          "type": "React.RefObject<HTMLDivElement>"
+        },
+        {
+          "name": "as",
+          "type": "React.ElementType",
+          "defaultValue": "\"div\""
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ],
+      "subcomponents": []
+    },
     "branch_name": {
       "id": "branch_name",
       "name": "BranchName",
@@ -2284,6 +2197,65 @@
               "type": "SystemStyleObject"
             }
           ]
+        }
+      ]
+    },
+    "header": {
+      "id": "header",
+      "name": "Header",
+      "status": "alpha",
+      "a11yReviewed": false,
+      "stories": [
+        {
+          "id": "components-header--default",
+          "code": "() => (\n  <Header>\n    <Header.Item>\n      <Header.Link\n        href=\"#\"\n        sx={{\n          fontSize: 2,\n        }}\n      >\n        <StyledOcticon\n          icon={MarkGithubIcon}\n          size={32}\n          sx={{\n            mr: 2,\n          }}\n        />\n        <span>GitHub</span>\n      </Header.Link>\n    </Header.Item>\n    <Header.Item full>Menu</Header.Item>\n    <Header.Item\n      sx={{\n        mr: 0,\n      }}\n    >\n      <Avatar\n        src=\"https://github.com/octocat.png\"\n        size={20}\n        square\n        alt=\"@octocat\"\n      />\n    </Header.Item>\n  </Header>\n)"
+        }
+      ],
+      "props": [
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ],
+      "subcomponents": [
+        {
+          "name": "Header.Item",
+          "props": [
+            {
+              "name": "full",
+              "type": "string",
+              "defaultValue": "",
+              "description": "Stretches item to fill the available space"
+            },
+            {
+              "name": "sx",
+              "type": "SystemStyleObject"
+            }
+          ]
+        },
+        {
+          "name": "Header.Link",
+          "props": [
+            {
+              "name": "href",
+              "type": "string",
+              "defaultValue": "",
+              "description": "URL to be used for the Link"
+            },
+            {
+              "name": "as",
+              "type": "React.ElementType",
+              "defaultValue": "\"a\""
+            },
+            {
+              "name": "sx",
+              "type": "SystemStyleObject"
+            }
+          ],
+          "passthrough": {
+            "element": "a",
+            "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attributes"
+          }
         }
       ]
     },
@@ -3182,6 +3154,49 @@
           "type": "string",
           "defaultValue": "",
           "description": "Renders the portal children into the container registered with the given name. If omitted, children are rendered into the default portal root."
+        }
+      ],
+      "subcomponents": []
+    },
+    "progress_bar": {
+      "id": "progress_bar",
+      "name": "ProgressBar",
+      "status": "alpha",
+      "a11yReviewed": false,
+      "stories": [
+        {
+          "id": "components-progressbar--default",
+          "code": "() => <ProgressBar />"
+        }
+      ],
+      "props": [
+        {
+          "name": "progress",
+          "type": "number",
+          "defaultValue": "0",
+          "description": "Used to set the size of the green bar"
+        },
+        {
+          "name": "barSize",
+          "type": "| 'small' | 'large' | 'default'",
+          "defaultValue": "'default'",
+          "description": "Controls the height of the progress bar. If omitted, height is set to the default height."
+        },
+        {
+          "name": "inline",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "Styles the progress bar inline"
+        },
+        {
+          "name": "bg",
+          "type": "string",
+          "defaultValue": "'bg.successInverse'",
+          "description": "Set the progress bar color"
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
         }
       ],
       "subcomponents": []
@@ -4119,6 +4134,12 @@
               "description": "Text that appears in a tooltip. If an icon is passed, this is also used as the label used by assistive technologies."
             },
             {
+              "name": "tooltipDirection",
+              "type": "'n' | 'ne' | 'e' | 'se' | 's' | 'sw' | 'w' | 'nw'",
+              "defaultValue": "n",
+              "description": "Sets where the tooltip renders in relation to the target."
+            },
+            {
               "name": "icon",
               "type": "React.FunctionComponent",
               "defaultValue": "",
@@ -4633,6 +4654,11 @@
           "name": "children",
           "type": "React.ReactNode",
           "required": true
+        },
+        {
+          "name": "flat",
+          "type": "boolean",
+          "description": "Prevents the tree from indenting items. This should only be used when the tree is used to display a flat list of items."
         }
       ],
       "subcomponents": [

@@ -716,8 +716,8 @@ describe('MarkdownEditor', () => {
       const {getViewSwitch, queryForPreview} = await render(
         <UncontrolledEditor viewMode="edit" onChangeViewMode={onViewModeChange} />,
       )
+      fireEvent.click(getViewSwitch())
       await act(async () => {
-        fireEvent.click(getViewSwitch())
         await new Promise(process.nextTick)
       })
       expect(onViewModeChange).toHaveBeenCalledWith('preview')
@@ -734,8 +734,8 @@ describe('MarkdownEditor', () => {
         const renderPreviewMock = jest.fn()
         const {getViewSwitch} = await render(<UncontrolledEditor onRenderPreview={renderPreviewMock} />)
 
+        fireEvent.focus(getViewSwitch())
         await act(async () => {
-          fireEvent.focus(getViewSwitch())
           await new Promise(process.nextTick)
         })
 
@@ -765,14 +765,14 @@ describe('MarkdownEditor', () => {
         const renderPreviewMock = jest.fn()
         const {rerender} = await render(<UncontrolledEditor onRenderPreview={renderPreviewMock} viewMode="edit" />)
 
+        rerender(<UncontrolledEditor onRenderPreview={renderPreviewMock} viewMode="preview" />)
         await act(async () => {
-          rerender(<UncontrolledEditor onRenderPreview={renderPreviewMock} viewMode="preview" />)
           await new Promise(process.nextTick)
         })
         expect(renderPreviewMock).toHaveBeenCalledTimes(1)
 
+        rerender(<UncontrolledEditor onRenderPreview={renderPreviewMock} viewMode="edit" />)
         await act(async () => {
-          rerender(<UncontrolledEditor onRenderPreview={renderPreviewMock} viewMode="edit" />)
           await new Promise(process.nextTick)
         })
         expect(renderPreviewMock).toHaveBeenCalledTimes(1)
@@ -842,8 +842,8 @@ describe('MarkdownEditor', () => {
       const {getEditorContainer, rerender} = await render(<UncontrolledEditor viewMode="edit" />)
       expect(getEditorContainer()).toHaveAccessibleDescription('Markdown input: edit mode selected.')
 
+      rerender(<UncontrolledEditor viewMode="preview" />)
       await act(async () => {
-        rerender(<UncontrolledEditor viewMode="preview" />)
         // Wait one tick as this switch triggers a promise that is resolved
         // within `MarkdownEditor` from `useSafeAsyncCallback`
         await new Promise(process.nextTick)
