@@ -35,6 +35,9 @@ export type ActionListGroupProps = {
 type ContextProps = Pick<ActionListGroupProps, 'selectionVariant'>
 export const GroupContext = React.createContext<ContextProps>({})
 
+/**
+ * @deprecated ActionList.Group is deprecated. Use ActionList with ActionList.Heading instead.
+ */
 export const Group: React.FC<React.PropsWithChildren<ActionListGroupProps>> = ({
   title,
   variant = 'subtle',
