@@ -12,6 +12,8 @@ export const Segment = styled.span<ProgressProp & SxProp>`
   ${sx};
 `
 
+Segment.displayName = 'ProgressBar.Segment'
+
 const sizeMap = {
   small: '5px',
   large: '10px',
@@ -37,7 +39,7 @@ const ProgressContainer = styled.span<StyledProgressContainerProps>`
 
 export type ProgressBarProps = React.PropsWithChildren & {bg?: string} & StyledProgressContainerProps & ProgressProp
 
-function ProgressBar({progress, bg = 'success.emphasis', barSize = 'default', children, ...rest}: ProgressBarProps) {
+export const ProgressBar = ({progress, bg = 'success.emphasis', barSize = 'default', children, ...rest}: ProgressBarProps) => {
   if (children && progress) {
     throw new Error("You should pass `progress` or children, not both.")
   }
@@ -56,5 +58,3 @@ function ProgressBar({progress, bg = 'success.emphasis', barSize = 'default', ch
     </ProgressContainer>
   )
 }
-
-export default ProgressBar
