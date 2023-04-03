@@ -260,10 +260,7 @@ export function MemexSortable(): JSX.Element {
           />
         ))}
       </ActionList>
-      <ActionList
-        selectionVariant={hiddenOptions.length ? 'multiple' : undefined}
-        role="menu"
-      >
+      <ActionList selectionVariant={hiddenOptions.length ? 'multiple' : undefined} role="menu">
         <ActionList.Heading title="Hidden fields" />
         {hiddenOptions.map((option, index) => (
           <ActionList.Item
