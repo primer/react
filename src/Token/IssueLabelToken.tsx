@@ -118,9 +118,9 @@ const IssueLabelToken = forwardRef((props, forwardedRef) => {
               background: isLightScheme
                 ? 'color-mix(in srgb, rgb(var(--label-r),var(--label-g),var(--label-b)), black 10%);'
                 : 'color-mix(in srgb, rgba(var(--label-r), var(--label-g), var(--label-b), var(--background-alpha)), white 10%);',
-              color:
-                !isLightScheme &&
-                'hsl(var(--label-h), calc(var(--label-s) * 1%), calc((var(--label-l) + calc(((0.7 - var(--perceived-lightness)) * 100) * var(--lightness-switch))) * 1%))',
+              backgroundImage: isLightScheme
+                ? 'linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)), linear-gradient(rgb(var(--label-r),var(--label-g),var(--label-b)), rgb(var(--label-r),var(--label-g),var(--label-b)))'
+                : 'linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.1)), linear-gradient(rgba(var(--label-r), var(--label-g), var(--label-b), var(--background-alpha)), rgba(var(--label-r), var(--label-g), var(--label-b), var(--background-alpha)))',
               boxShadow: 'shadow.medium',
             },
           }
