@@ -1,18 +1,26 @@
 import {SortAscIcon, SortDescIcon} from '@primer/octicons-react'
+import cx from 'classnames'
 import React from 'react'
-import styled from 'styled-components'
+import styled, {keyframes} from 'styled-components'
 import Box from '../Box'
 import Text from '../Text'
 import {get} from '../constants'
 import sx, {SxProp} from '../sx'
+import VisuallyHidden from '../_VisuallyHidden'
+import {Column, CellAlignment} from './column'
+import {UniqueRow} from './row'
 import {SortDirection} from './sorting'
+import {useTableLayout} from './useTable'
 import {useOverflow} from '../hooks/useOverflow'
-import {CellAlignment} from './column'
 
 // ----------------------------------------------------------------------------
 // Table
 // ----------------------------------------------------------------------------
 
+const shimmer = keyframes`
+  from { mask-position: 200%; }
+  to { mask-position: 0%; }
+`
 const StyledTable = styled.table<React.ComponentPropsWithoutRef<'table'>>`
   /* Default table styles */
   --table-border-radius: 0.375rem;
@@ -104,11 +112,13 @@ const StyledTable = styled.table<React.ComponentPropsWithoutRef<'table'>>`
    * Offset padding to make sure type aligns regardless of cell padding
    * selection
    */
-  .TableRow > *:first-child {
+  .TableRow > *:first-child:not(.TableCellSkeleton),
+  .TableRow > *:first-child .TableCellSkeletonItem {
     padding-inline-start: 1rem;
   }
 
-  .TableRow > *:last-child {
+  .TableRow > *:last-child:not(.TableCellSkeleton),
+  .TableRow > *:last-child .TableCellSkeletonItem {
     padding-inline-end: 1rem;
   }
 
@@ -143,7 +153,7 @@ const StyledTable = styled.table<React.ComponentPropsWithoutRef<'table'>>`
   }
 
   /* TableRow */
-  .TableRow:hover .TableCell {
+  .TableRow:hover .TableCell:not(.TableCellSkeleton) {
     /* TODO: update this token when the new primitive tokens are released */
     background-color: ${get('colors.actionListItem.default.hoverBg')};
   }
@@ -152,6 +162,66 @@ const StyledTable = styled.table<React.ComponentPropsWithoutRef<'table'>>`
   .TableCell[scope='row'] {
     color: ${get('colors.fg.default')};
     font-weight: 600;
+  }
+
+  /* TableCellSkeleton */
+  .TableCellSkeleton {
+    padding: 0;
+  }
+
+  .TableCellSkeletonItems {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .TableCellSkeletonItem {
+    padding: var(--table-cell-padding);
+
+    &:nth-of-type(5n + 1) {
+      --skeleton-item-width: 85%;
+    }
+
+    &:nth-of-type(5n + 2) {
+      --skeleton-item-width: 67.5%;
+    }
+
+    &:nth-of-type(5n + 3) {
+      --skeleton-item-width: 80%;
+    }
+
+    &:nth-of-type(5n + 4) {
+      --skeleton-item-width: 60%;
+    }
+
+    &:nth-of-type(5n + 5) {
+      --skeleton-item-width: 75%;
+    }
+  }
+
+  .TableCellSkeletonItem:not(:last-of-type) {
+    border-bottom: 1px solid ${get('colors.border.default')};
+  }
+
+  .TableCellSkeletonItem::before {
+    display: block;
+    content: '';
+    height: 1rem;
+    width: var(--skeleton-item-width, 67%);
+    background-color: ${get('colors.canvas.subtle')};
+    border-radius: 3px;
+
+    @media (prefers-reduced-motion: no-preference) {
+      mask-image: linear-gradient(75deg, #000 30%, rgba(0, 0, 0, 0.65) 80%);
+      mask-size: 200%;
+      animation: ${shimmer};
+      animation-duration: 1s;
+      animation-iteration-count: infinite;
+    }
+
+    @media (forced-colors: active) {
+      outline: 1px solid transparent;
+      outline-offset: -1px;
+    }
   }
 
   /* Grid layout */
@@ -195,7 +265,7 @@ export type TableProps = React.ComponentPropsWithoutRef<'table'> & {
 }
 
 const Table = React.forwardRef<HTMLTableElement, TableProps>(function Table(
-  {'aria-labelledby': labelledby, cellPadding = 'normal', gridTemplateColumns, ...rest},
+  {'aria-labelledby': labelledby, cellPadding = 'normal', className, gridTemplateColumns, ...rest},
   ref,
 ) {
   return (
@@ -204,7 +274,7 @@ const Table = React.forwardRef<HTMLTableElement, TableProps>(function Table(
         {...rest}
         aria-labelledby={labelledby}
         data-cell-padding={cellPadding}
-        className="Table"
+        className={cx('Table', className)}
         role="table"
         ref={ref}
         style={{'--grid-template-columns': gridTemplateColumns} as React.CSSProperties}
@@ -332,12 +402,12 @@ export type TableCellProps = Omit<React.ComponentPropsWithoutRef<'td'>, 'align'>
   scope?: 'row'
 }
 
-function TableCell({align, children, scope, ...rest}: TableCellProps) {
+function TableCell({align, className, children, scope, ...rest}: TableCellProps) {
   const BaseComponent = scope ? 'th' : 'td'
   const role = scope ? 'rowheader' : 'cell'
 
   return (
-    <BaseComponent {...rest} className="TableCell" scope={scope} role={role} data-cell-align={align}>
+    <BaseComponent {...rest} className={cx('TableCell', className)} scope={scope} role={role} data-cell-align={align}>
       {children}
     </BaseComponent>
   )
@@ -505,6 +575,66 @@ function TableActions({children}: TableActionsProps) {
 }
 
 // ----------------------------------------------------------------------------
+// TableSkeleton
+// ----------------------------------------------------------------------------
+export type TableSkeletonProps<Data extends UniqueRow> = React.ComponentPropsWithoutRef<'table'> & {
+  /**
+   * Specify the amount of space that should be available around the contents of
+   * a cell
+   */
+  cellPadding?: 'condensed' | 'normal' | 'spacious'
+
+  /**
+   * Provide an array of columns for the table. Columns will render as the headers
+   * of the table.
+   */
+  columns: Array<Column<Data>>
+
+  /**
+   * Optionally specify the number of rows which should be included in the
+   * skeleton state of the component
+   */
+  rows?: number
+}
+
+function TableSkeleton<Data extends UniqueRow>({cellPadding, columns, rows = 10, ...rest}: TableSkeletonProps<Data>) {
+  const {gridTemplateColumns} = useTableLayout(columns)
+  return (
+    <Table {...rest} cellPadding={cellPadding} gridTemplateColumns={gridTemplateColumns}>
+      <TableHead>
+        <TableRow>
+          {Array.isArray(columns)
+            ? columns.map((column, i) => {
+                return (
+                  <TableHeader key={i}>
+                    {typeof column.header === 'string' ? column.header : column.header()}
+                  </TableHeader>
+                )
+              })
+            : null}
+        </TableRow>
+      </TableHead>
+      <TableBody>
+        <TableRow>
+          {Array.from({length: columns.length}).map((_, i) => {
+            return (
+              <TableCell key={i} className="TableCellSkeleton">
+                <VisuallyHidden>Loading</VisuallyHidden>
+                <div className="TableCellSkeletonItems">
+                  {Array.from({length: rows}).map((_, i) => {
+                    return <div key={i} className="TableCellSkeletonItem" />
+                  })}
+                </div>
+              </TableCell>
+            )
+          })}
+        </TableRow>
+      </TableBody>
+    </Table>
+  )
+}
+
+// ----------------------------------------------------------------------------
 // Utilities
 // ----------------------------------------------------------------------------
 
@@ -567,4 +697,5 @@ export {
   TableSortHeader,
   TableCell,
   TableCellPlaceholder,
+  TableSkeleton,
 }

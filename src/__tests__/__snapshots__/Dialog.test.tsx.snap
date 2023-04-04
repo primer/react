@@ -5,7 +5,7 @@ exports[`Dialog Dialog.Header renders consistently 1`] = `
   font-size: 14px;
   font-weight: 600;
   font-family: sans-serif;
-  color: #24292f;
+  color: #1F2328;
 }
 
 .c0 {
@@ -51,7 +51,7 @@ exports[`Dialog renders consistently 1`] = `
   content: ' ';
   background: transparent;
   z-index: 99;
-  background: rgba(27,31,36,0.5);
+  background: rgba(31,35,40,0.5);
 }
 
 <span
@@ -67,7 +67,7 @@ exports[`Dialog renders consistently 1`] = `
   background: transparent;
   cursor: pointer;
   border-radius: 6px;
-  color: #57606a;
+  color: #656d76;
   position: absolute;
   top: 16px;
   right: 16px;
@@ -85,7 +85,7 @@ exports[`Dialog renders consistently 1`] = `
   font-size: 14px;
   font-weight: 600;
   font-family: sans-serif;
-  color: #24292f;
+  color: #1F2328;
 }
 
 .c5 {
