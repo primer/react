@@ -6,13 +6,13 @@ import sx, {SxProp} from '../sx'
 
 type ProgressProp = {progress?: string | number}
 
-export const Segment = styled.span<ProgressProp & SxProp>`
+export const Item = styled.span<ProgressProp & SxProp>`
   width: ${props => (props.progress ? `${props.progress}%` : 0)};
   background-color: ${get('colors.success.emphasis')};
   ${sx};
 `
 
-Segment.displayName = 'ProgressBar.Segment'
+Item.displayName = 'ProgressBar.Item'
 
 const sizeMap = {
   small: '5px',
@@ -53,7 +53,7 @@ export const ProgressBar = ({
   if (!children) {
     return (
       <ProgressContainer barSize={barSize} {...rest}>
-        <Segment progress={progress} sx={{bg}} />
+        <Item progress={progress} sx={{bg}} />
       </ProgressContainer>
     )
   }

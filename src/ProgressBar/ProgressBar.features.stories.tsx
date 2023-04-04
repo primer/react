@@ -18,10 +18,10 @@ export const Inline = () => <ProgressBar inline progress="66" sx={{width: '100px
 
 export const Color = () => <ProgressBar progress="66" bg="done.emphasis" />
 
-export const MultipleSegments = () => (
+export const MultipleItems = () => (
   <ProgressBar>
-    <ProgressBar.Segment progress={33} />
-    <ProgressBar.Segment progress={23} sx={{bg: 'danger.emphasis'}} />
-    <ProgressBar.Segment progress={14} sx={{bg: 'severe.emphasis'}} />
+    <ProgressBar.Item progress={33} />
+    <ProgressBar.Item progress={23} sx={{bg: 'danger.emphasis'}} />
+    <ProgressBar.Item progress={14} sx={{bg: 'severe.emphasis'}} />
   </ProgressBar>
 )

@@ -28,15 +28,15 @@ If you'd like to use ProgressBar inline, pass the `inline` boolean prop & **be s
 </>
 ```
 
-### Segments
+### Multiple Segments
 
-If you want to show multiple segments in a ProgressBar, pass segments as children **instead** of a `progress` value.
+If you want to show multiple segments in a ProgressBar, pass separate `Item`s as children **instead** of a `progress` value.
 
 ```jsx live
 <>
   <ProgressBar>
-    <ProgressBar.Segment progress={33} />
-    <ProgressBar.Segment progress={33} sx={{bg: 'danger.emphasis'}} />
+    <ProgressBar.Item progress={33} />
+    <ProgressBar.Item progress={33} sx={{bg: 'danger.emphasis'}} />
   </ProgressBar>
 </>
 ```
