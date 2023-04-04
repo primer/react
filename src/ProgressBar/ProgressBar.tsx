@@ -50,17 +50,9 @@ export const ProgressBar = ({
     throw new Error('You should pass `progress` or children, not both.')
   }
 
-  if (!children) {
-    return (
-      <ProgressContainer barSize={barSize} {...rest}>
-        <Item progress={progress} sx={{bg}} />
-      </ProgressContainer>
-    )
-  }
-
   return (
     <ProgressContainer barSize={barSize} {...rest}>
-      {children}
+      {children ?? <Item progress={progress} sx={{backgroundColor: bg}} />}
     </ProgressContainer>
   )
 }

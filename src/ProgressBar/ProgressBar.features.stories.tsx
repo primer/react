@@ -21,7 +21,7 @@ export const Color = () => <ProgressBar progress="66" bg="done.emphasis" />
 export const MultipleItems = () => (
   <ProgressBar>
     <ProgressBar.Item progress={33} />
-    <ProgressBar.Item progress={23} sx={{bg: 'danger.emphasis'}} />
-    <ProgressBar.Item progress={14} sx={{bg: 'severe.emphasis'}} />
+    <ProgressBar.Item progress={23} sx={{backgroundColor: 'danger.emphasis'}} />
+    <ProgressBar.Item progress={14} sx={{backgroundColor: 'severe.emphasis'}} />
   </ProgressBar>
 )
