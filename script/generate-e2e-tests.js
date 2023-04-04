@@ -246,6 +246,25 @@ const components = new Map([
     },
   ],
   [
+    'ButtonGroup',
+    {
+      stories: [
+        {
+          id: 'components-buttongroup--default',
+          name: 'Default',
+        },
+        {
+          id: 'components-buttongroup--playground',
+          name: 'Playground',
+        },
+        {
+          id: 'components-buttongroup-features--icon-buttons',
+          name: 'Icon Buttons',
+        },
+      ],
+    },
+  ],
+  [
     'Breadcrumbs',
     {
       stories: [
