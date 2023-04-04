@@ -3,6 +3,7 @@
 exports[`Caret renders cardinal directions 1`] = `
 <svg
   height={16}
+  role="presentation"
   style={
     {
       "bottom": "100%",
@@ -17,6 +18,10 @@ exports[`Caret renders cardinal directions 1`] = `
   <g
     transform="translate(8,16) rotate(180)"
   >
+    <path
+      d="M-8,0L0,8L8,0L-8,0Z"
+      fill="#ffffff"
+    />
     <path
       d="M-8,0L0,8L8,0L-8,0Z"
       fill="#ffffff"
@@ -34,6 +39,7 @@ exports[`Caret renders cardinal directions 1`] = `
 exports[`Caret renders cardinal directions 2`] = `
 <svg
   height={16}
+  role="presentation"
   style={
     {
       "left": "100%",
@@ -53,6 +59,10 @@ exports[`Caret renders cardinal directions 2`] = `
       fill="#ffffff"
     />
     <path
+      d="M-8,0L0,8L8,0L-8,0Z"
+      fill="#ffffff"
+    />
+    <path
       d="M-8,0L0,8L8,0"
       fill="none"
       stroke="#d0d7de"
@@ -65,6 +75,7 @@ exports[`Caret renders cardinal directions 2`] = `
 exports[`Caret renders cardinal directions 3`] = `
 <svg
   height={16}
+  role="presentation"
   style={
     {
       "left": "50%",
@@ -84,6 +95,10 @@ exports[`Caret renders cardinal directions 3`] = `
       fill="#ffffff"
     />
     <path
+      d="M-8,0L0,8L8,0L-8,0Z"
+      fill="#ffffff"
+    />
+    <path
       d="M-8,0L0,8L8,0"
       fill="none"
       stroke="#d0d7de"
@@ -96,6 +111,7 @@ exports[`Caret renders cardinal directions 3`] = `
 exports[`Caret renders cardinal directions 4`] = `
 <svg
   height={16}
+  role="presentation"
   style={
     {
       "marginTop": -8,
@@ -115,6 +131,10 @@ exports[`Caret renders cardinal directions 4`] = `
       fill="#ffffff"
     />
     <path
+      d="M-8,0L0,8L8,0L-8,0Z"
+      fill="#ffffff"
+    />
+    <path
       d="M-8,0L0,8L8,0"
       fill="none"
       stroke="#d0d7de"
@@ -127,6 +147,7 @@ exports[`Caret renders cardinal directions 4`] = `
 exports[`Caret renders cardinal directions 5`] = `
 <svg
   height={16}
+  role="presentation"
   style={
     {
       "bottom": "100%",
@@ -141,6 +162,10 @@ exports[`Caret renders cardinal directions 5`] = `
   <g
     transform="translate(8,16) rotate(180)"
   >
+    <path
+      d="M-8,0L0,8L8,0L-8,0Z"
+      fill="#ffffff"
+    />
     <path
       d="M-8,0L0,8L8,0L-8,0Z"
       fill="#ffffff"
@@ -158,6 +183,7 @@ exports[`Caret renders cardinal directions 5`] = `
 exports[`Caret renders cardinal directions 6`] = `
 <svg
   height={16}
+  role="presentation"
   style={
     {
       "bottom": "100%",
@@ -177,6 +203,10 @@ exports[`Caret renders cardinal directions 6`] = `
       fill="#ffffff"
     />
     <path
+      d="M-8,0L0,8L8,0L-8,0Z"
+      fill="#ffffff"
+    />
+    <path
       d="M-8,0L0,8L8,0"
       fill="none"
       stroke="#d0d7de"
@@ -189,6 +219,7 @@ exports[`Caret renders cardinal directions 6`] = `
 exports[`Caret renders cardinal directions 7`] = `
 <svg
   height={16}
+  role="presentation"
   style={
     {
       "left": 8,
@@ -208,6 +239,10 @@ exports[`Caret renders cardinal directions 7`] = `
       fill="#ffffff"
     />
     <path
+      d="M-8,0L0,8L8,0L-8,0Z"
+      fill="#ffffff"
+    />
+    <path
       d="M-8,0L0,8L8,0"
       fill="none"
       stroke="#d0d7de"
@@ -220,6 +255,7 @@ exports[`Caret renders cardinal directions 7`] = `
 exports[`Caret renders cardinal directions 8`] = `
 <svg
   height={16}
+  role="presentation"
   style={
     {
       "marginLeft": null,
@@ -239,6 +275,10 @@ exports[`Caret renders cardinal directions 8`] = `
       fill="#ffffff"
     />
     <path
+      d="M-8,0L0,8L8,0L-8,0Z"
+      fill="#ffffff"
+    />
+    <path
       d="M-8,0L0,8L8,0"
       fill="none"
       stroke="#d0d7de"
@@ -251,6 +291,7 @@ exports[`Caret renders cardinal directions 8`] = `
 exports[`Caret renders cardinal directions 9`] = `
 <svg
   height={16}
+  role="presentation"
   style={
     {
       "marginTop": null,
@@ -265,6 +306,10 @@ exports[`Caret renders cardinal directions 9`] = `
   <g
     transform="translate(16,8) rotate(90)"
   >
+    <path
+      d="M-8,0L0,8L8,0L-8,0Z"
+      fill="#ffffff"
+    />
     <path
       d="M-8,0L0,8L8,0L-8,0Z"
       fill="#ffffff"
@@ -282,6 +327,7 @@ exports[`Caret renders cardinal directions 9`] = `
 exports[`Caret renders cardinal directions 10`] = `
 <svg
   height={16}
+  role="presentation"
   style={
     {
       "bottom": 8,
@@ -301,6 +347,10 @@ exports[`Caret renders cardinal directions 10`] = `
       fill="#ffffff"
     />
     <path
+      d="M-8,0L0,8L8,0L-8,0Z"
+      fill="#ffffff"
+    />
+    <path
       d="M-8,0L0,8L8,0"
       fill="none"
       stroke="#d0d7de"
@@ -313,6 +363,7 @@ exports[`Caret renders cardinal directions 10`] = `
 exports[`Caret renders cardinal directions 11`] = `
 <svg
   height={16}
+  role="presentation"
   style={
     {
       "left": "100%",
@@ -332,6 +383,10 @@ exports[`Caret renders cardinal directions 11`] = `
       fill="#ffffff"
     />
     <path
+      d="M-8,0L0,8L8,0L-8,0Z"
+      fill="#ffffff"
+    />
+    <path
       d="M-8,0L0,8L8,0"
       fill="none"
       stroke="#d0d7de"
@@ -344,6 +399,7 @@ exports[`Caret renders cardinal directions 11`] = `
 exports[`Caret renders cardinal directions 12`] = `
 <svg
   height={16}
+  role="presentation"
   style={
     {
       "bottom": 8,
@@ -358,6 +414,10 @@ exports[`Caret renders cardinal directions 12`] = `
   <g
     transform="translate(0,8) rotate(-90)"
   >
+    <path
+      d="M-8,0L0,8L8,0L-8,0Z"
+      fill="#ffffff"
+    />
     <path
       d="M-8,0L0,8L8,0L-8,0Z"
       fill="#ffffff"

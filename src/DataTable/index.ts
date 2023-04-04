@@ -12,6 +12,7 @@ import {
   TableSubtitle,
   TableActions,
   TableDivider,
+  TableSkeleton,
 } from './Table'
 
 const Table = Object.assign(TableImpl, {
@@ -20,6 +21,7 @@ const Table = Object.assign(TableImpl, {
   Subtitle: TableSubtitle,
   Actions: TableActions,
   Divider: TableDivider,
+  Skeleton: TableSkeleton,
   Head: TableHead,
   Body: TableBody,
   Header: TableHeader,
@@ -41,4 +43,5 @@ export type {
   TableTitleProps,
   TableSubtitleProps,
   TableActionsProps,
+  TableSkeletonProps,
 } from './Table'
