@@ -368,8 +368,8 @@ const Footer = styled.div<SxProp>`
 
 const Buttons: React.FC<React.PropsWithChildren<{buttons: DialogButtonProps[]}>> = ({buttons}) => {
   const autoFocusRef = useProvidedRefOrCreate<HTMLButtonElement>(buttons.find(button => button.autoFocus)?.ref)
-  let autoFocusCount = -1
-  const [hasRendered, setHasRendered] = useState(-1)
+  let autoFocusCount = 0
+  const [hasRendered, setHasRendered] = useState(0)
   useEffect(() => {
     // hack to work around dialogs originating from other focus traps.
     if (hasRendered === 1) {
