@@ -311,6 +311,21 @@ const components = new Map([
     },
   ],
   [
+    'CircleBadge',
+    {
+      stories: [
+        {
+          id: 'components-circlebadge--default',
+          name: 'Default',
+        },
+        {
+          id: 'components-circlebadge--playground',
+          name: 'Playground',
+        },
+      ],
+    },
+  ],
+  [
     'CounterLabel',
     {
       stories: [
