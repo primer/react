@@ -59,7 +59,7 @@ const IssueLabelToken = forwardRef((props, forwardedRef) => {
     href,
     onClick,
   }
-  const {colorScheme} = useTheme()
+  const {resolvedColorScheme} = useTheme()
   const hasMultipleActionTargets = isTokenInteractive(props) && Boolean(onRemove) && !hideRemoveButton
   const onRemoveClick: MouseEventHandler = e => {
     e.stopPropagation()
@@ -68,6 +68,7 @@ const IssueLabelToken = forwardRef((props, forwardedRef) => {
   const labelStyles: CSSObject = useMemo(() => {
     const [r, g, b] = parseToRgba(fillColor)
     const [h, s, l] = parseToHsla(fillColor)
+    const isLightScheme = !resolvedColorScheme?.startsWith('dark') // fall back to light colors for unknown schemes
 
     // label hack taken from https://github.com/github/github/blob/master/app/assets/stylesheets/hacks/hx_primer-labels.scss#L43-L108
     // this logic should eventually live in primer/components. Also worthy of note is that the dotcom hack code will be moving to primer/css soon.
@@ -83,13 +84,12 @@ const IssueLabelToken = forwardRef((props, forwardedRef) => {
       '--lightness-switch': 'max(0, min(calc((var(--perceived-lightness) - var(--lightness-threshold)) * -1000), 1))',
       paddingRight: hideRemoveButton || !onRemove ? undefined : 0,
       position: 'relative',
-      ...(colorScheme === 'light' ? lightModeStyles : darkModeStyles),
+      ...(isLightScheme ? lightModeStyles : darkModeStyles),
       ...(isSelected
         ? {
-            background:
-              colorScheme === 'light'
-                ? 'hsl(var(--label-h), calc(var(--label-s) * 1%), calc((var(--label-l) - 5) * 1%))'
-                : darkModeStyles.background,
+            background: isLightScheme
+              ? 'hsl(var(--label-h), calc(var(--label-s) * 1%), calc((var(--label-l) - 5) * 1%))'
+              : darkModeStyles.background,
             ':focus': {
               outline: 'none',
             },
@@ -104,7 +104,7 @@ const IssueLabelToken = forwardRef((props, forwardedRef) => {
               display: 'block',
               pointerEvents: 'none',
               boxShadow: `0 0 0 ${tokenBorderWidthPx * 2}px ${
-                colorScheme === 'light'
+                isLightScheme
                   ? 'rgb(var(--label-r), var(--label-g), var(--label-b))'
                   : 'hsl(var(--label-h), calc(var(--label-s) * 1%), calc((var(--label-l) + var(--lighten-by)) * 1%))'
               }`,
@@ -113,7 +113,7 @@ const IssueLabelToken = forwardRef((props, forwardedRef) => {
           }
         : {}),
     }
-  }, [colorScheme, fillColor, isSelected, hideRemoveButton, onRemove])
+  }, [fillColor, resolvedColorScheme, hideRemoveButton, onRemove, isSelected])
 
   return (
     <TokenBase
