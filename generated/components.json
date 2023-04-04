@@ -20,6 +20,7 @@
       "subcomponents": []
     },
 <<<<<<< HEAD
+<<<<<<< HEAD
     "circle_badge": {
       "id": "circle_badge",
       "name": "CircleBadge",
@@ -28,11 +29,17 @@
       "id": "circle_octicon",
       "name": "CircleOcticon",
 >>>>>>> 7eaad1600 (refactor(CircleBadge): move files into folder, add e2e tests. (#3118))
+=======
+    "circle_octicon": {
+      "id": "circle_octicon",
+      "name": "CircleOcticon",
+>>>>>>> 7eaad160075827a79ac35a64f9a76dc460f4dd3a
       "status": "alpha",
       "a11yReviewed": false,
       "stories": [],
       "props": [
         {
+<<<<<<< HEAD
 <<<<<<< HEAD
           "name": "variant",
           "type": "'small' | 'medium' | 'large'",
@@ -60,6 +67,8 @@
           "type": "React.ElementType",
           "defaultValue": "\"div\""
 =======
+=======
+>>>>>>> 7eaad160075827a79ac35a64f9a76dc460f4dd3a
           "name": "icon",
           "type": "Octicon"
         },
@@ -68,13 +77,17 @@
           "defaultValue": "32",
           "type": "number",
           "description": "Set the width and height of the icon in pixels."
+<<<<<<< HEAD
 >>>>>>> 7eaad1600 (refactor(CircleBadge): move files into folder, add e2e tests. (#3118))
+=======
+>>>>>>> 7eaad160075827a79ac35a64f9a76dc460f4dd3a
         },
         {
           "name": "sx",
           "type": "SystemStyleObject"
         }
       ],
+<<<<<<< HEAD
 <<<<<<< HEAD
       "subcomponents": [
         {
@@ -93,6 +106,8 @@
         }
       ]
 =======
+=======
+>>>>>>> 7eaad160075827a79ac35a64f9a76dc460f4dd3a
       "subcomponents": []
 >>>>>>> 7eaad1600 (refactor(CircleBadge): move files into folder, add e2e tests. (#3118))
     },
@@ -1739,6 +1754,7 @@
       ]
     },
 <<<<<<< HEAD
+<<<<<<< HEAD
     "circle_octicon": {
       "id": "circle_octicon",
       "name": "CircleOcticon",
@@ -1747,10 +1763,16 @@
       "id": "circle_badge",
       "name": "CircleBadge",
 >>>>>>> 7eaad1600 (refactor(CircleBadge): move files into folder, add e2e tests. (#3118))
+=======
+    "circle_badge": {
+      "id": "circle_badge",
+      "name": "CircleBadge",
+>>>>>>> 7eaad160075827a79ac35a64f9a76dc460f4dd3a
       "status": "alpha",
       "a11yReviewed": false,
       "stories": [
         {
+<<<<<<< HEAD
 <<<<<<< HEAD
           "id": "components-circleocticon--default",
           "code": "() => (\n  <CircleOcticon\n    icon={CheckIcon}\n    size={32}\n    sx={{\n      backgroundColor: 'success.fg',\n      color: 'fg.onEmphasis',\n    }}\n  />\n)"
@@ -1758,10 +1780,15 @@
           "id": "components-circlebadge--default",
           "code": "() => (\n  <CircleBadge>\n    <CircleBadge.Icon icon={ZapIcon} />\n  </CircleBadge>\n)"
 >>>>>>> 7eaad1600 (refactor(CircleBadge): move files into folder, add e2e tests. (#3118))
+=======
+          "id": "components-circlebadge--default",
+          "code": "() => (\n  <CircleBadge>\n    <CircleBadge.Icon icon={ZapIcon} />\n  </CircleBadge>\n)"
+>>>>>>> 7eaad160075827a79ac35a64f9a76dc460f4dd3a
         }
       ],
       "props": [
         {
+<<<<<<< HEAD
 <<<<<<< HEAD
           "name": "icon",
           "type": "Octicon"
@@ -1772,6 +1799,8 @@
           "type": "number",
           "description": "Set the width and height of the icon in pixels."
 =======
+=======
+>>>>>>> 7eaad160075827a79ac35a64f9a76dc460f4dd3a
           "name": "variant",
           "type": "'small' | 'medium' | 'large'",
           "defaultValue": "'medium'",
@@ -1797,7 +1826,10 @@
           "name": "as",
           "type": "React.ElementType",
           "defaultValue": "\"div\""
+<<<<<<< HEAD
 >>>>>>> 7eaad1600 (refactor(CircleBadge): move files into folder, add e2e tests. (#3118))
+=======
+>>>>>>> 7eaad160075827a79ac35a64f9a76dc460f4dd3a
         },
         {
           "name": "sx",
@@ -1805,8 +1837,11 @@
         }
       ],
 <<<<<<< HEAD
+<<<<<<< HEAD
       "subcomponents": []
 =======
+=======
+>>>>>>> 7eaad160075827a79ac35a64f9a76dc460f4dd3a
       "subcomponents": [
         {
           "name": "CircleBadge.Icon",
@@ -1823,7 +1858,10 @@
           }
         }
       ]
+<<<<<<< HEAD
 >>>>>>> 7eaad1600 (refactor(CircleBadge): move files into folder, add e2e tests. (#3118))
+=======
+>>>>>>> 7eaad160075827a79ac35a64f9a76dc460f4dd3a
     },
     "counter_label": {
       "id": "counter_label",
