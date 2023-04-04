@@ -4,7 +4,7 @@ exports[`ActionMenu renders consistently 1`] = `
 .c0 {
   font-family: -apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
   line-height: 1.5;
-  color: #24292f;
+  color: #1F2328;
 }
 
 .c2 {
@@ -25,7 +25,7 @@ exports[`ActionMenu renders consistently 1`] = `
 .c1 {
   border-radius: 6px;
   border: 1px solid;
-  border-color: rgba(27,31,36,0.15);
+  border-color: rgba(31,35,40,0.15);
   font-family: inherit;
   font-weight: 500;
   font-size: 14px;
@@ -64,7 +64,7 @@ exports[`ActionMenu renders consistently 1`] = `
   transition-property: color,fill,background-color,border-color;
   color: #24292f;
   background-color: #f6f8fa;
-  box-shadow: 0 1px 0 rgba(27,31,36,0.04),inset 0 1px 0 rgba(255,255,255,0.25);
+  box-shadow: 0 1px 0 rgba(31,35,40,0.04),inset 0 1px 0 rgba(255,255,255,0.25);
 }
 
 .c1:focus:not(:disabled) {
@@ -210,17 +210,17 @@ exports[`ActionMenu renders consistently 1`] = `
 
 .c1:hover:not([disabled]) {
   background-color: #f3f4f6;
-  border-color: rgba(27,31,36,0.15);
+  border-color: rgba(31,35,40,0.15);
 }
 
 .c1:active:not([disabled]) {
   background-color: hsla(220,14%,93%,1);
-  border-color: rgba(27,31,36,0.15);
+  border-color: rgba(31,35,40,0.15);
 }
 
 .c1[aria-expanded=true] {
   background-color: hsla(220,14%,93%,1);
-  border-color: rgba(27,31,36,0.15);
+  border-color: rgba(31,35,40,0.15);
 }
 
 @media (forced-colors:active) {

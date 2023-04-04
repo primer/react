@@ -823,6 +823,7 @@ describe('DataTable', () => {
 
       expect(getGridTemplateFromColumns(columns)).toEqual(['minmax(max-content, 1fr)'])
     })
+
     it('correctly sets the column width when width === "grow"', () => {
       const columnHelper = createColumnHelper<{id: number; name: string}>()
       const columns = [
@@ -835,6 +836,7 @@ describe('DataTable', () => {
 
       expect(getGridTemplateFromColumns(columns)).toEqual(['minmax(max-content, 1fr)'])
     })
+
     it('correctly sets the column width when width === "growCollapse"', () => {
       const columnHelper = createColumnHelper<{id: number; name: string}>()
       const columns = [
@@ -847,6 +849,7 @@ describe('DataTable', () => {
 
       expect(getGridTemplateFromColumns(columns)).toEqual(['minmax(0, 1fr)'])
     })
+
     it('correctly sets the column width when width === "auto"', () => {
       const columnHelper = createColumnHelper<{id: number; name: string}>()
       const columns = [
@@ -859,6 +862,7 @@ describe('DataTable', () => {
 
       expect(getGridTemplateFromColumns(columns)).toEqual(['auto'])
     })
+
     it('correctly sets the column width when width is a CSS width string', () => {
       const columnHelper = createColumnHelper<{id: number; name: string}>()
       const columns = [
@@ -871,6 +875,7 @@ describe('DataTable', () => {
 
       expect(getGridTemplateFromColumns(columns)).toEqual(['42ch'])
     })
+
     it('correctly sets the column width when width is a number', () => {
       const columnHelper = createColumnHelper<{id: number; name: string}>()
       const columns = [
@@ -883,6 +888,7 @@ describe('DataTable', () => {
 
       expect(getGridTemplateFromColumns(columns)).toEqual(['200px'])
     })
+
     it('correctly sets min-widths for the column', () => {
       const columnHelper = createColumnHelper<{id: number; name: string}>()
       const columns: Record<string, Column<{id: number; name: string}>[]> = {
@@ -921,6 +927,7 @@ describe('DataTable', () => {
         expect(getGridTemplateFromColumns(columns[widthOpt])).toEqual([expectedWidths[widthOpt]])
       }
     })
+
     it('correctly sets max-widths for the column', () => {
       const columnHelper = createColumnHelper<{id: number; name: string}>()
       const columns: Record<string, Column<{id: number; name: string}>[]> = {
@@ -959,6 +966,7 @@ describe('DataTable', () => {
         expect(getGridTemplateFromColumns(columns[widthOpt])).toEqual([expectedWidths[widthOpt]])
       }
     })
+
     it('sets a custom property style to define the column grid template', () => {
       const columnHelper = createColumnHelper<{id: number; name: string}>()
       const columns = [
