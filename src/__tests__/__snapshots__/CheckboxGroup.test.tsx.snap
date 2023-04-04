@@ -44,7 +44,7 @@ exports[`CheckboxGroup renders consistently 1`] = `
   font-weight: 600;
   font-size: 14px;
   display: block;
-  color: #24292f;
+  color: #1F2328;
   cursor: pointer;
   -webkit-align-self: flex-start;
   -ms-flex-item-align: start;
@@ -132,8 +132,8 @@ exports[`CheckboxGroup renders consistently 1`] = `
 
 .c6:checked:disabled {
   cursor: not-allowed;
-  background-color: #57606a;
-  border-color: #57606a;
+  background-color: #656d76;
+  border-color: #656d76;
   opacity: 1;
 }
 

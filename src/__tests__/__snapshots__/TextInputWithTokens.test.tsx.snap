@@ -55,7 +55,7 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #24292f;
+  color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -128,7 +128,7 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #57606a;
+  color: #656d76;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -180,10 +180,10 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
   padding-top: 0;
   padding-bottom: 0;
   background-color: rgba(234,238,242,0.5);
-  border-color: rgba(27,31,36,0.15);
+  border-color: rgba(31,35,40,0.15);
   border-style: solid;
   border-width: 1px;
-  color: #57606a;
+  color: #656d76;
   max-width: 100%;
   padding-right: 0;
 }
@@ -191,7 +191,7 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
 .c4:hover {
   background-color: rgba(175,184,193,0.2);
   box-shadow: 0 3px 6px rgba(140,149,159,0.15);
-  color: #24292f;
+  color: #1F2328;
 }
 
 .c7 {
@@ -826,13 +826,13 @@ exports[`TextInputWithTokens renders a truncated set of tokens 1`] = `
 
 .c8 {
   font-size: 16px;
-  color: #57606a;
+  color: #656d76;
 }
 
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #24292f;
+  color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -905,7 +905,7 @@ exports[`TextInputWithTokens renders a truncated set of tokens 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #57606a;
+  color: #656d76;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -957,10 +957,10 @@ exports[`TextInputWithTokens renders a truncated set of tokens 1`] = `
   padding-top: 0;
   padding-bottom: 0;
   background-color: rgba(234,238,242,0.5);
-  border-color: rgba(27,31,36,0.15);
+  border-color: rgba(31,35,40,0.15);
   border-style: solid;
   border-width: 1px;
-  color: #57606a;
+  color: #656d76;
   max-width: 100%;
   padding-right: 0;
 }
@@ -968,7 +968,7 @@ exports[`TextInputWithTokens renders a truncated set of tokens 1`] = `
 .c4:hover {
   background-color: rgba(175,184,193,0.2);
   box-shadow: 0 3px 6px rgba(140,149,159,0.15);
-  color: #24292f;
+  color: #1F2328;
 }
 
 .c7 {
@@ -1241,7 +1241,7 @@ exports[`TextInputWithTokens renders as block layout 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #24292f;
+  color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -1332,7 +1332,7 @@ exports[`TextInputWithTokens renders as block layout 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #57606a;
+  color: #656d76;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -1445,7 +1445,7 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #24292f;
+  color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -1522,7 +1522,7 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #57606a;
+  color: #656d76;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -1574,10 +1574,10 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
   padding-top: 0;
   padding-bottom: 0;
   background-color: rgba(234,238,242,0.5);
-  border-color: rgba(27,31,36,0.15);
+  border-color: rgba(31,35,40,0.15);
   border-style: solid;
   border-width: 1px;
-  color: #57606a;
+  color: #656d76;
   max-width: 100%;
   padding-right: 0;
 }
@@ -1585,7 +1585,7 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
 .c4:hover {
   background-color: rgba(175,184,193,0.2);
   box-shadow: 0 3px 6px rgba(140,149,159,0.15);
-  color: #24292f;
+  color: #1F2328;
 }
 
 .c7 {
@@ -2169,7 +2169,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #24292f;
+  color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -2249,7 +2249,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #57606a;
+  color: #656d76;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -2299,10 +2299,10 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
   padding-left: 4px;
   padding-right: 4px;
   background-color: rgba(234,238,242,0.5);
-  border-color: rgba(27,31,36,0.15);
+  border-color: rgba(31,35,40,0.15);
   border-style: solid;
   border-width: 1px;
-  color: #57606a;
+  color: #656d76;
   max-width: 100%;
   padding-right: 0;
 }
@@ -2310,7 +2310,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
 .c4:hover {
   background-color: rgba(175,184,193,0.2);
   box-shadow: 0 3px 6px rgba(140,149,159,0.15);
-  color: #24292f;
+  color: #1F2328;
 }
 
 .c7 {
@@ -2894,7 +2894,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #24292f;
+  color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -2974,7 +2974,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #57606a;
+  color: #656d76;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -3024,10 +3024,10 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
   padding-left: 8px;
   padding-right: 8px;
   background-color: rgba(234,238,242,0.5);
-  border-color: rgba(27,31,36,0.15);
+  border-color: rgba(31,35,40,0.15);
   border-style: solid;
   border-width: 1px;
-  color: #57606a;
+  color: #656d76;
   max-width: 100%;
   padding-right: 0;
 }
@@ -3035,7 +3035,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
 .c4:hover {
   background-color: rgba(175,184,193,0.2);
   box-shadow: 0 3px 6px rgba(140,149,159,0.15);
-  color: #24292f;
+  color: #1F2328;
 }
 
 .c7 {
@@ -3619,7 +3619,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #24292f;
+  color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -3692,7 +3692,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #57606a;
+  color: #656d76;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -3742,10 +3742,10 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
   padding-left: 8px;
   padding-right: 8px;
   background-color: rgba(234,238,242,0.5);
-  border-color: rgba(27,31,36,0.15);
+  border-color: rgba(31,35,40,0.15);
   border-style: solid;
   border-width: 1px;
-  color: #57606a;
+  color: #656d76;
   max-width: 100%;
   padding-right: 0;
 }
@@ -3753,7 +3753,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
 .c4:hover {
   background-color: rgba(175,184,193,0.2);
   box-shadow: 0 3px 6px rgba(140,149,159,0.15);
-  color: #24292f;
+  color: #1F2328;
 }
 
 .c7 {
@@ -4337,7 +4337,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #24292f;
+  color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -4410,7 +4410,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #57606a;
+  color: #656d76;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -4462,10 +4462,10 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
   padding-top: 0;
   padding-bottom: 0;
   background-color: rgba(234,238,242,0.5);
-  border-color: rgba(27,31,36,0.15);
+  border-color: rgba(31,35,40,0.15);
   border-style: solid;
   border-width: 1px;
-  color: #57606a;
+  color: #656d76;
   max-width: 100%;
   padding-right: 0;
 }
@@ -4473,7 +4473,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
 .c4:hover {
   background-color: rgba(175,184,193,0.2);
   box-shadow: 0 3px 6px rgba(140,149,159,0.15);
-  color: #24292f;
+  color: #1F2328;
 }
 
 .c7 {
@@ -5057,7 +5057,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 5`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #24292f;
+  color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -5130,7 +5130,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 5`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #57606a;
+  color: #656d76;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -5182,10 +5182,10 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 5`] = `
   padding-top: 0;
   padding-bottom: 0;
   background-color: rgba(234,238,242,0.5);
-  border-color: rgba(27,31,36,0.15);
+  border-color: rgba(31,35,40,0.15);
   border-style: solid;
   border-width: 1px;
-  color: #57606a;
+  color: #656d76;
   max-width: 100%;
   padding-right: 0;
 }
@@ -5193,7 +5193,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 5`] = `
 .c4:hover {
   background-color: rgba(175,184,193,0.2);
   box-shadow: 0 3px 6px rgba(140,149,159,0.15);
-  color: #24292f;
+  color: #1F2328;
 }
 
 .c7 {
@@ -5777,7 +5777,7 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #24292f;
+  color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -5852,7 +5852,7 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #57606a;
+  color: #656d76;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -5904,10 +5904,10 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
   padding-top: 0;
   padding-bottom: 0;
   background-color: rgba(234,238,242,0.5);
-  border-color: rgba(27,31,36,0.15);
+  border-color: rgba(31,35,40,0.15);
   border-style: solid;
   border-width: 1px;
-  color: #57606a;
+  color: #656d76;
   max-width: 100%;
   padding-right: 0;
 }
@@ -5915,7 +5915,7 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
 .c4:hover {
   background-color: rgba(175,184,193,0.2);
   box-shadow: 0 3px 6px rgba(140,149,159,0.15);
-  color: #24292f;
+  color: #1F2328;
 }
 
 .c7 {
@@ -6499,7 +6499,7 @@ exports[`TextInputWithTokens renders tokens without a remove button when specifi
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #24292f;
+  color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -6572,7 +6572,7 @@ exports[`TextInputWithTokens renders tokens without a remove button when specifi
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #57606a;
+  color: #656d76;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -6624,17 +6624,17 @@ exports[`TextInputWithTokens renders tokens without a remove button when specifi
   padding-top: 0;
   padding-bottom: 0;
   background-color: rgba(234,238,242,0.5);
-  border-color: rgba(27,31,36,0.15);
+  border-color: rgba(31,35,40,0.15);
   border-style: solid;
   border-width: 1px;
-  color: #57606a;
+  color: #656d76;
   max-width: 100%;
 }
 
 .c4:hover {
   background-color: rgba(175,184,193,0.2);
   box-shadow: 0 3px 6px rgba(140,149,159,0.15);
-  color: #24292f;
+  color: #1F2328;
 }
 
 .c5 {
@@ -6944,7 +6944,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #24292f;
+  color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -7017,7 +7017,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #57606a;
+  color: #656d76;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -7069,10 +7069,10 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   padding-top: 0;
   padding-bottom: 0;
   background-color: rgba(234,238,242,0.5);
-  border-color: rgba(27,31,36,0.15);
+  border-color: rgba(31,35,40,0.15);
   border-style: solid;
   border-width: 1px;
-  color: #57606a;
+  color: #656d76;
   max-width: 100%;
   padding-right: 0;
 }
@@ -7080,7 +7080,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 .c4:hover {
   background-color: rgba(175,184,193,0.2);
   box-shadow: 0 3px 6px rgba(140,149,159,0.15);
-  color: #24292f;
+  color: #1F2328;
 }
 
 .c7 {
@@ -7719,7 +7719,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #24292f;
+  color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -7792,7 +7792,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #57606a;
+  color: #656d76;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -7844,10 +7844,10 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   padding-top: 0;
   padding-bottom: 0;
   background-color: rgba(234,238,242,0.5);
-  border-color: rgba(27,31,36,0.15);
+  border-color: rgba(31,35,40,0.15);
   border-style: solid;
   border-width: 1px;
-  color: #57606a;
+  color: #656d76;
   max-width: 100%;
   padding-right: 0;
 }
@@ -7855,7 +7855,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 .c6:hover {
   background-color: rgba(175,184,193,0.2);
   box-shadow: 0 3px 6px rgba(140,149,159,0.15);
-  color: #24292f;
+  color: #1F2328;
 }
 
 .c9 {
@@ -8526,7 +8526,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #24292f;
+  color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -8599,7 +8599,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #57606a;
+  color: #656d76;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -8651,10 +8651,10 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   padding-top: 0;
   padding-bottom: 0;
   background-color: rgba(234,238,242,0.5);
-  border-color: rgba(27,31,36,0.15);
+  border-color: rgba(31,35,40,0.15);
   border-style: solid;
   border-width: 1px;
-  color: #57606a;
+  color: #656d76;
   max-width: 100%;
   padding-right: 0;
 }
@@ -8662,7 +8662,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 .c4:hover {
   background-color: rgba(175,184,193,0.2);
   box-shadow: 0 3px 6px rgba(140,149,159,0.15);
-  color: #24292f;
+  color: #1F2328;
 }
 
 .c7 {
@@ -9310,7 +9310,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #24292f;
+  color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -9383,7 +9383,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #57606a;
+  color: #656d76;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -9435,10 +9435,10 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   padding-top: 0;
   padding-bottom: 0;
   background-color: rgba(234,238,242,0.5);
-  border-color: rgba(27,31,36,0.15);
+  border-color: rgba(31,35,40,0.15);
   border-style: solid;
   border-width: 1px;
-  color: #57606a;
+  color: #656d76;
   max-width: 100%;
   padding-right: 0;
 }
@@ -9446,7 +9446,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 .c7:hover {
   background-color: rgba(175,184,193,0.2);
   box-shadow: 0 3px 6px rgba(140,149,159,0.15);
-  color: #24292f;
+  color: #1F2328;
 }
 
 .c10 {
@@ -10163,7 +10163,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #24292f;
+  color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -10236,7 +10236,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #57606a;
+  color: #656d76;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -10288,10 +10288,10 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   padding-top: 0;
   padding-bottom: 0;
   background-color: rgba(234,238,242,0.5);
-  border-color: rgba(27,31,36,0.15);
+  border-color: rgba(31,35,40,0.15);
   border-style: solid;
   border-width: 1px;
-  color: #57606a;
+  color: #656d76;
   max-width: 100%;
   padding-right: 0;
 }
@@ -10299,7 +10299,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 .c7:hover {
   background-color: rgba(175,184,193,0.2);
   box-shadow: 0 3px 6px rgba(140,149,159,0.15);
-  color: #24292f;
+  color: #1F2328;
 }
 
 .c10 {
@@ -11016,7 +11016,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #24292f;
+  color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -11089,7 +11089,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #57606a;
+  color: #656d76;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -11141,10 +11141,10 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   padding-top: 0;
   padding-bottom: 0;
   background-color: rgba(234,238,242,0.5);
-  border-color: rgba(27,31,36,0.15);
+  border-color: rgba(31,35,40,0.15);
   border-style: solid;
   border-width: 1px;
-  color: #57606a;
+  color: #656d76;
   max-width: 100%;
   padding-right: 0;
 }
@@ -11152,7 +11152,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 .c7:hover {
   background-color: rgba(175,184,193,0.2);
   box-shadow: 0 3px 6px rgba(140,149,159,0.15);
-  color: #24292f;
+  color: #1F2328;
 }
 
 .c10 {
@@ -11863,7 +11863,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #24292f;
+  color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -11936,7 +11936,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #57606a;
+  color: #656d76;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -11988,10 +11988,10 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   padding-top: 0;
   padding-bottom: 0;
   background-color: rgba(234,238,242,0.5);
-  border-color: rgba(27,31,36,0.15);
+  border-color: rgba(31,35,40,0.15);
   border-style: solid;
   border-width: 1px;
-  color: #57606a;
+  color: #656d76;
   max-width: 100%;
   padding-right: 0;
 }
@@ -11999,7 +11999,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 .c4:hover {
   background-color: rgba(175,184,193,0.2);
   box-shadow: 0 3px 6px rgba(140,149,159,0.15);
-  color: #24292f;
+  color: #1F2328;
 }
 
 .c7 {
@@ -12678,7 +12678,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #24292f;
+  color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -12751,7 +12751,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #57606a;
+  color: #656d76;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -12803,10 +12803,10 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   padding-top: 0;
   padding-bottom: 0;
   background-color: rgba(234,238,242,0.5);
-  border-color: rgba(27,31,36,0.15);
+  border-color: rgba(31,35,40,0.15);
   border-style: solid;
   border-width: 1px;
-  color: #57606a;
+  color: #656d76;
   max-width: 100%;
   padding-right: 0;
 }
@@ -12814,7 +12814,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 .c6:hover {
   background-color: rgba(175,184,193,0.2);
   box-shadow: 0 3px 6px rgba(140,149,159,0.15);
-  color: #24292f;
+  color: #1F2328;
 }
 
 .c9 {
@@ -13525,7 +13525,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #24292f;
+  color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -13598,7 +13598,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #57606a;
+  color: #656d76;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -13650,10 +13650,10 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   padding-top: 0;
   padding-bottom: 0;
   background-color: rgba(234,238,242,0.5);
-  border-color: rgba(27,31,36,0.15);
+  border-color: rgba(31,35,40,0.15);
   border-style: solid;
   border-width: 1px;
-  color: #57606a;
+  color: #656d76;
   max-width: 100%;
   padding-right: 0;
 }
@@ -13661,7 +13661,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 .c4:hover {
   background-color: rgba(175,184,193,0.2);
   box-shadow: 0 3px 6px rgba(140,149,159,0.15);
-  color: #24292f;
+  color: #1F2328;
 }
 
 .c7 {
@@ -14349,7 +14349,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #24292f;
+  color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -14429,7 +14429,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #57606a;
+  color: #656d76;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -14479,10 +14479,10 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   padding-left: 4px;
   padding-right: 4px;
   background-color: rgba(234,238,242,0.5);
-  border-color: rgba(27,31,36,0.15);
+  border-color: rgba(31,35,40,0.15);
   border-style: solid;
   border-width: 1px;
-  color: #57606a;
+  color: #656d76;
   max-width: 100%;
   padding-right: 0;
 }
@@ -14490,7 +14490,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 .c7:hover {
   background-color: rgba(175,184,193,0.2);
   box-shadow: 0 3px 6px rgba(140,149,159,0.15);
-  color: #24292f;
+  color: #1F2328;
 }
 
 .c10 {
@@ -15247,7 +15247,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #24292f;
+  color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -15320,7 +15320,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #57606a;
+  color: #656d76;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -15372,10 +15372,10 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   padding-top: 0;
   padding-bottom: 0;
   background-color: rgba(234,238,242,0.5);
-  border-color: rgba(27,31,36,0.15);
+  border-color: rgba(31,35,40,0.15);
   border-style: solid;
   border-width: 1px;
-  color: #57606a;
+  color: #656d76;
   max-width: 100%;
   padding-right: 0;
 }
@@ -15383,7 +15383,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 .c7:hover {
   background-color: rgba(175,184,193,0.2);
   box-shadow: 0 3px 6px rgba(140,149,159,0.15);
-  color: #24292f;
+  color: #1F2328;
 }
 
 .c10 {
@@ -16140,7 +16140,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #24292f;
+  color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -16213,7 +16213,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #57606a;
+  color: #656d76;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -16263,10 +16263,10 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   padding-left: 8px;
   padding-right: 8px;
   background-color: rgba(234,238,242,0.5);
-  border-color: rgba(27,31,36,0.15);
+  border-color: rgba(31,35,40,0.15);
   border-style: solid;
   border-width: 1px;
-  color: #57606a;
+  color: #656d76;
   max-width: 100%;
   padding-right: 0;
 }
@@ -16274,7 +16274,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 .c7:hover {
   background-color: rgba(175,184,193,0.2);
   box-shadow: 0 3px 6px rgba(140,149,159,0.15);
-  color: #24292f;
+  color: #1F2328;
 }
 
 .c10 {
@@ -16997,7 +16997,7 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #24292f;
+  color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -17070,7 +17070,7 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #57606a;
+  color: #656d76;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -17122,10 +17122,10 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
   padding-top: 0;
   padding-bottom: 0;
   background-color: rgba(234,238,242,0.5);
-  border-color: rgba(27,31,36,0.15);
+  border-color: rgba(31,35,40,0.15);
   border-style: solid;
   border-width: 1px;
-  color: #57606a;
+  color: #656d76;
   max-width: 100%;
   padding-right: 0;
 }
@@ -17133,7 +17133,7 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
 .c4:hover {
   background-color: rgba(175,184,193,0.2);
   box-shadow: 0 3px 6px rgba(140,149,159,0.15);
-  color: #24292f;
+  color: #1F2328;
 }
 
 .c7 {
@@ -17704,7 +17704,7 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #24292f;
+  color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -17777,7 +17777,7 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #57606a;
+  color: #656d76;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -18378,7 +18378,7 @@ exports[`TextInputWithTokens renders without tokens 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #24292f;
+  color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -18451,7 +18451,7 @@ exports[`TextInputWithTokens renders without tokens 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #57606a;
+  color: #656d76;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
