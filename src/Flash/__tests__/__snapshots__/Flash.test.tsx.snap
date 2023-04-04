@@ -3,13 +3,13 @@
 exports[`Flash renders consistently 1`] = `
 .c0 {
   position: relative;
-  color: #1F2328;
+  color: #24292f;
   padding: 16px;
   border-style: solid;
   border-width: 1px;
   border-radius: 6px;
   margin-top: 0;
-  color: #1F2328;
+  color: #24292f;
   background-color: #ddf4ff;
   border-color: rgba(84,174,255,0.4);
 }
