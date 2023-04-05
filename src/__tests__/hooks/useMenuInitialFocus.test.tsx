@@ -6,8 +6,8 @@ const Component = () => {
   const [open, setOpen] = React.useState(false)
   const onOpen = () => setOpen(!open)
 
-  const containerRef = React.createRef<HTMLDivElement>()
-  const anchorRef = React.createRef<HTMLButtonElement>()
+  const containerRef = React.useRef<HTMLDivElement>(null)
+  const anchorRef = React.useRef<HTMLButtonElement>(null)
   useMenuInitialFocus(open, containerRef, anchorRef)
 
   return (
