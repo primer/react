@@ -24,6 +24,7 @@ export type TriggerPropsType = {
   onBlur?: React.FocusEventHandler
   onFocus?: React.FocusEventHandler
   onMouseEnter?: React.MouseEventHandler
+  ref?: React.RefObject<HTMLElement>
 }
 
 const Tooltip = styled.div<Tooltip2Props>`
@@ -306,7 +307,7 @@ const Tooltip2: React.FC<React.PropsWithChildren<Tooltip2Props>> = ({
   ...rest
 }) => {
   const id = useId()
-  const containerRef = useRef<HTMLDivElement>(null)
+  const triggerRef = useRef<HTMLElement>(null)
   const child = Children.only(children)
   const [open, setOpen] = useState(false)
 
@@ -315,17 +316,28 @@ const Tooltip2: React.FC<React.PropsWithChildren<Tooltip2Props>> = ({
     // Practically, this is not a conditional hook, it is a compile time check
     // eslint-disable-next-line react-hooks/rules-of-hooks
     useEffect(() => {
-      if (containerRef.current) {
-        // First child is the trigger element
-        const triggerEl = containerRef.current.children[0]
-        const triggerChildren = triggerEl.childNodes
-        const isTriggerInteractive = isFocusable(triggerEl as HTMLElement)
+      if (triggerRef.current) {
         // Has trigger element or any of its children interactive elements?
-        const hasInteractiveChild = Array.from(triggerChildren).some(child => isFocusable(child as HTMLElement))
+        const isTriggerInteractive = isFocusable(triggerRef.current)
+        const triggerChildren = triggerRef.current.childNodes
+        const hasInteractiveChild = Array.from(triggerChildren).some(child => {
+          return child instanceof HTMLElement && isFocusable(child)
+        })
         invariant(
           isTriggerInteractive || hasInteractiveChild,
-          'The `Tooltip2` component expects a single React element that contains interactive content. Consider using a `<button>` or equivalent interactive element instead.',
+          'The `Tooltip` component expects a single React element that contains interactive content. Consider using a `<button>` or equivalent interactive element instead.',
         )
+        // If the tooltip is used for labelling the interactive element, the trigger element or any of its children should not have aria-label
+        if (type === 'label') {
+          const hasAriaLabel = triggerRef.current.hasAttribute('aria-label')
+          const hasAriaLabelInChildren = Array.from(triggerRef.current.childNodes).some(
+            child => child instanceof HTMLElement && child.hasAttribute('aria-label'),
+          )
+          invariant(
+            !hasAriaLabel && !hasAriaLabelInChildren,
+            'The label type `Tooltip` is going to be used here to label the trigger element. Please remove the aria-label from the trigger element.',
+          )
+        }
       }
     })
   }
@@ -338,19 +350,13 @@ const Tooltip2: React.FC<React.PropsWithChildren<Tooltip2Props>> = ({
   }
 
   return (
-    <Box
-      ref={containerRef}
-      sx={{position: 'relative', display: 'inline-block'}}
-      onKeyDown={onKeyDown}
-      onMouseLeave={() => setOpen(false)}
-    >
+    <Box sx={{position: 'relative', display: 'inline-block'}} onKeyDown={onKeyDown} onMouseLeave={() => setOpen(false)}>
       {React.isValidElement(child) &&
         React.cloneElement(child as React.ReactElement<TriggerPropsType>, {
-          // if it is a type description, we use tooltip to describe the trigger
+          ref: triggerRef,
+          // If it is a type description, we use tooltip to describe the trigger
           'aria-describedby': type === 'description' ? id : undefined,
-          // If it is a type description, we should keep the aria label if it exists, otherwise we remove it because we will use aria-labelledby
-          'aria-label': type === 'description' ? (children as React.ReactElement).props['aria-label'] : undefined,
-          //   If it is a label type, we use tooltip to label the trigger
+          // If it is a label type, we use tooltip to label the trigger
           'aria-labelledby': type === 'label' ? id : undefined,
           onBlur: (event: React.FocusEvent) => {
             setOpen(false)
@@ -365,7 +371,6 @@ const Tooltip2: React.FC<React.PropsWithChildren<Tooltip2Props>> = ({
             child.props.onMouseEnter?.(event)
           },
         })}
-
       <Tooltip
         data-direction={direction}
         data-state={open ? 'open' : undefined}

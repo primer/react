@@ -34,16 +34,16 @@ export const CurrentTooltip = () => (
 // As a label for an IconButton
 export const Tooltip2LabelTypeTooltip = () => (
   <Box sx={{p: 5}}>
-    <Tooltip2 aria-label="Search tooltip">
-      <IconButton icon={SearchIcon} aria-label="Search button itself" />
+    <Tooltip2 aria-label="Broccoli icon to filter vegetarian options" direction="e">
+      <Button>🥦</Button>
     </Tooltip2>
   </Box>
 )
 
 // As a label for an IconButton
-export const Tooltip2CustomIcon = () => (
+export const Tooltip2NativeHTMLButton = () => (
   <Box sx={{p: 5}}>
-    <Tooltip2 aria-label="Broccoli icon to filter vegetarian options">
+    <Tooltip2 aria-label="Broccoli icon to filter vegetarian options" direction="e">
       <button>🥦</button>
     </Tooltip2>
   </Box>
@@ -63,16 +63,6 @@ export const Tooltip2IconButtonWithDescription = () => (
   <Box sx={{p: 5}}>
     <Tooltip2 text="Supplementary text" type="description">
       <IconButton icon={SearchIcon} aria-label="Search" />
-    </Tooltip2>
-  </Box>
-)
-
-// As a supplementary description for a button
-export const MultipleChildren = () => (
-  <Box sx={{p: 5}}>
-    <Tooltip2 text="Supplementary text" type="description">
-      <Button>Save</Button>
-      <Button>Cancel</Button>
     </Tooltip2>
   </Box>
 )
