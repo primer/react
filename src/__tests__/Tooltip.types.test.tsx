@@ -1,5 +1,5 @@
 import React from 'react'
-import Tooltip from '../Tooltip'
+import {Tooltip} from '../Tooltip'
 
 export function shouldAcceptCallWithNoProps() {
   return <Tooltip />
