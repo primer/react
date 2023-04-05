@@ -6,6 +6,7 @@ import {isFocusable} from '@primer/behaviors/utils'
 import {invariant} from './utils/invariant'
 import styled from 'styled-components'
 import {get} from './constants'
+import {useOnEscapePress} from './hooks/useOnEscapePress'
 
 export type Tooltip2Props = {
   direction?: 'n' | 'ne' | 'e' | 'se' | 's' | 'sw' | 'w' | 'nw'
@@ -342,15 +343,19 @@ const Tooltip2: React.FC<React.PropsWithChildren<Tooltip2Props>> = ({
     })
   }
 
-  function onKeyDown(e: React.KeyboardEvent) {
-    if (open && e.key === 'Escape') {
-      e.stopPropagation()
-      setOpen(false)
-    }
-  }
+  // Opting in using useOnEscapePress hook instead of onKeydown event to be able to close the tooltip when the mouse is hovering on the trigger element
+  useOnEscapePress(
+    (e: KeyboardEvent) => {
+      if (open) {
+        e.stopPropagation()
+        setOpen(false)
+      }
+    },
+    [open],
+  )
 
   return (
-    <Box sx={{position: 'relative', display: 'inline-block'}} onKeyDown={onKeyDown} onMouseLeave={() => setOpen(false)}>
+    <Box sx={{position: 'relative', display: 'inline-block'}} onMouseLeave={() => setOpen(false)}>
       {React.isValidElement(child) &&
         React.cloneElement(child as React.ReactElement<TriggerPropsType>, {
           ref: triggerRef,
