@@ -2044,7 +2044,7 @@
       "stories": [
         {
           "id": "components-filteredsearch--default",
-          "code": "() => (\n  <FilteredSearch>\n    <ActionMenu>\n      <ActionMenu.Button as=\"summary\">Filter</ActionMenu.Button>\n      <ActionMenu.Overlay>\n        <ActionList>\n          <ActionList.Item>Item 1</ActionList.Item>\n          <ActionList.Item>Item 2</ActionList.Item>\n          <ActionList.Item>Item 3</ActionList.Item>\n        </ActionList>\n      </ActionMenu.Overlay>\n    </ActionMenu>\n    <TextInput leadingVisual={SearchIcon} />\n  </FilteredSearch>\n)"
+          "code": "() => (\n  <FilteredSearch>\n    <ActionMenu>\n      <ActionMenu.Button as=\"summary\">Filter</ActionMenu.Button>\n      <ActionMenu.Overlay>\n        <ActionList>\n          <ActionList.Item>Item 1</ActionList.Item>\n          <ActionList.Item>Item 2</ActionList.Item>\n          <ActionList.Item>Item 3</ActionList.Item>\n        </ActionList>\n      </ActionMenu.Overlay>\n    </ActionMenu>\n    <TextInput aria-label=\"filtered-search\" leadingVisual={SearchIcon} />\n  </FilteredSearch>\n)"
         }
       ],
       "props": [
