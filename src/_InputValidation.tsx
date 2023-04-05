@@ -34,7 +34,7 @@ const InputValidation: React.FC<React.PropsWithChildren<Props>> = ({children, id
       sx={{
         fontSize: 0,
         fontWeight: 'bold',
-        alignItems: 'center',
+        alignItems: 'baseline',
         color: fgColor,
         display: 'flex',
         a: {
@@ -45,7 +45,7 @@ const InputValidation: React.FC<React.PropsWithChildren<Props>> = ({children, id
       }}
     >
       {IconComponent && (
-        <Box as="span" mr={1} sx={{display: 'flex'}} aria-hidden="true">
+        <Box as="span" display="flex" mr={1} sx={{transform: 'translateY(2px)'}} aria-hidden="true">
           <IconComponent size={12} fill="currentColor" />
         </Box>
       )}
