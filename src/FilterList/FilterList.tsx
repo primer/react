@@ -1,8 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
-import {get} from './constants'
-import sx, {SxProp} from './sx'
-import {ComponentProps} from './utils/types'
+import {get} from '../constants'
+import sx, {SxProp} from '../sx'
+import {ComponentProps} from '../utils/types'
 
 const FilterListBase = styled.ul<SxProp>`
   list-style-type: none;
@@ -57,7 +57,7 @@ const FilterListItemBase = styled.a<StyledFilterListItemBaseProps>`
 
 export type FilterListItemProps = {count?: number} & ComponentProps<typeof FilterListItemBase>
 
-function FilterListItem({children, count, ...rest}: React.PropsWithChildren<FilterListItemProps>) {
+const FilterListItem = ({children, count, ...rest}: React.PropsWithChildren<FilterListItemProps>) => {
   return (
     <FilterListItemBase {...rest}>
       {count && (

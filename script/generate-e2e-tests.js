@@ -403,6 +403,21 @@ const components = new Map([
     },
   ],
   [
+    'FilterList',
+    {
+      stories: [
+        {
+          id: 'components-filterlist--default',
+          name: 'Default',
+        },
+        {
+          id: 'components-filterlist--playground',
+          name: 'Playground',
+        },
+      ],
+    },
+  ],
+  [
     'Flash',
     {
       stories: [
