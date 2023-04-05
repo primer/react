@@ -4,7 +4,7 @@ exports[`TextInput renders 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #1F2328;
+  color: #24292f;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -70,7 +70,7 @@ exports[`TextInput renders 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #656d76;
+  color: #57606a;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -123,7 +123,7 @@ exports[`TextInput renders block 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #1F2328;
+  color: #24292f;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -197,7 +197,7 @@ exports[`TextInput renders block 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #656d76;
+  color: #57606a;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -250,7 +250,7 @@ exports[`TextInput renders consistently 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #1F2328;
+  color: #24292f;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -316,7 +316,7 @@ exports[`TextInput renders consistently 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #656d76;
+  color: #57606a;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -368,7 +368,7 @@ exports[`TextInput renders contrast 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #1F2328;
+  color: #24292f;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -435,7 +435,7 @@ exports[`TextInput renders contrast 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #656d76;
+  color: #57606a;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -488,7 +488,7 @@ exports[`TextInput renders error 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #1F2328;
+  color: #24292f;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -561,7 +561,7 @@ exports[`TextInput renders error 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #656d76;
+  color: #57606a;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -614,7 +614,7 @@ exports[`TextInput renders large 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #1F2328;
+  color: #24292f;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -686,7 +686,7 @@ exports[`TextInput renders large 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #656d76;
+  color: #57606a;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -740,7 +740,7 @@ exports[`TextInput renders leadingVisual 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #1F2328;
+  color: #24292f;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -806,7 +806,7 @@ exports[`TextInput renders leadingVisual 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #656d76;
+  color: #57606a;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -886,7 +886,7 @@ exports[`TextInput renders monospace 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #1F2328;
+  color: #24292f;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -953,7 +953,7 @@ exports[`TextInput renders monospace 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #656d76;
+  color: #57606a;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -1006,7 +1006,7 @@ exports[`TextInput renders placeholder 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #1F2328;
+  color: #24292f;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -1072,7 +1072,7 @@ exports[`TextInput renders placeholder 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #656d76;
+  color: #57606a;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -1126,7 +1126,7 @@ exports[`TextInput renders small 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #1F2328;
+  color: #24292f;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -1200,7 +1200,7 @@ exports[`TextInput renders small 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #656d76;
+  color: #57606a;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -1255,6 +1255,11 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   margin-left: 4px;
   margin-right: 4px;
   line-height: 0;
+}
+
+.c3 {
+  position: relative;
+  display: inline-block;
 }
 
 .c4 {
@@ -1407,7 +1412,7 @@ exports[`TextInput renders trailingAction icon button 1`] = `
 
 .c4 [data-component="leadingVisual"] {
   grid-area: leadingVisual;
-  color: #656d76;
+  color: #57606a;
 }
 
 .c4 [data-component="text"] {
@@ -1422,7 +1427,7 @@ exports[`TextInput renders trailingAction icon button 1`] = `
 
 .c4 [data-component="trailingAction"] {
   margin-right: -4px;
-  color: #656d76;
+  color: #57606a;
 }
 
 .c4 [data-component="buttonContent"] {
@@ -1458,7 +1463,7 @@ exports[`TextInput renders trailingAction icon button 1`] = `
 }
 
 .c4[data-component="IconButton"][data-no-visuals] {
-  color: #656d76;
+  color: #57606a;
 }
 
 .c4[data-no-visuals] {
@@ -1485,7 +1490,7 @@ exports[`TextInput renders trailingAction icon button 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #1F2328;
+  color: #24292f;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -1545,7 +1550,7 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #656d76;
+  color: #57606a;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -1571,27 +1576,9 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   outline: 0;
 }
 
-.c3 {
-  position: relative;
-}
-
-.c3::before {
-  position: absolute;
-  z-index: 1000001;
-  display: none;
-  width: 0px;
-  height: 0px;
-  color: #24292f;
-  pointer-events: none;
-  content: '';
-  border: 6px solid transparent;
-  opacity: 0;
-}
-
-.c3::after {
+.c5 {
   position: absolute;
   z-index: 1000000;
-  display: none;
   padding: 0.5em 0.75em;
   font: normal normal 11px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
   -webkit-font-smoothing: subpixel-antialiased;
@@ -1606,25 +1593,129 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   -ms-letter-spacing: normal;
   letter-spacing: normal;
   word-wrap: break-word;
-  white-space: pre;
-  pointer-events: none;
-  content: attr(aria-label);
+  white-space: normal;
   background: #24292f;
   border-radius: 3px;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+  opacity: 0;
+  max-width: 250px;
+}
+
+.c5:not([data-state='open']) {
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  -webkit-clip: rect(0,0,0,0);
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+.c5::before {
+  position: absolute;
+  z-index: 1000001;
+  color: #24292f;
+  content: '';
+  border: 6px solid transparent;
   opacity: 0;
 }
 
-.c3:hover::before,
-.c3:active::before,
-.c3:focus::before,
-.c3:focus-within::before,
-.c3:hover::after,
-.c3:active::after,
-.c3:focus::after,
-.c3:focus-within::after {
-  display: inline-block;
-  -webkit-text-decoration: none;
-  text-decoration: none;
+.c5::after {
+  position: absolute;
+  display: block;
+  right: 0;
+  left: 0;
+  height: 8px;
+  content: '';
+}
+
+.c5[data-direction='n']::before,
+.c5[data-direction='ne']::before,
+.c5[data-direction='nw']::before {
+  top: 100%;
+  border-top-color: #24292f;
+}
+
+.c5[data-direction='s']::before,
+.c5[data-direction='se']::before,
+.c5[data-direction='sw']::before {
+  bottom: 100%;
+  border-bottom-color: #24292f;
+}
+
+.c5[data-direction='n']:before,
+.c5[data-direction='s']:before {
+  right: 50%;
+  margin-right: -6px;
+}
+
+.c5[data-direction='ne']::before,
+.c5[data-direction='se']::before {
+  left: 0;
+  margin-left: 6px;
+}
+
+.c5[data-direction='sw']::before,
+.c5[data-direction='nw']::before {
+  right: 0;
+  margin-right: 6px;
+}
+
+.c5[data-direction='n']::after,
+.c5[data-direction='ne']::after,
+.c5[data-direction='nw']::after {
+  top: 100%;
+}
+
+.c5[data-direction='s']::after,
+.c5[data-direction='se']::after,
+.c5[data-direction='sw']::after {
+  bottom: 100%;
+}
+
+.c5[data-direction='w']::before {
+  top: 50%;
+  bottom: 50%;
+  left: 100%;
+  margin-top: -6px;
+  border-left-color: #24292f;
+}
+
+.c5[data-direction='w']::after {
+  position: absolute;
+  display: block;
+  height: 100%;
+  width: 8px;
+  content: '';
+  bottom: 0;
+  left: 100%;
+}
+
+.c5[data-direction='e']::after {
+  position: absolute;
+  display: block;
+  height: 100%;
+  width: 8px;
+  content: '';
+  bottom: 0;
+  right: 100%;
+  margin-left: -8px;
+}
+
+.c5[data-direction='e']::before {
+  top: 50%;
+  bottom: 50%;
+  right: 100%;
+  margin-top: -6px;
+  border-right-color: #24292f;
+}
+
+.c5[data-state='open'],
+.c5[data-state='open']::before {
   -webkit-animation-name: tooltip-appear;
   animation-name: tooltip-appear;
   -webkit-animation-duration: 0.1s;
@@ -1637,106 +1728,52 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   animation-delay: 0.4s;
 }
 
-.c3.tooltipped-no-delay:hover::before,
-.c3.tooltipped-no-delay:active::before,
-.c3.tooltipped-no-delay:focus::before,
-.c3.tooltipped-no-delay:focus-within::before,
-.c3.tooltipped-no-delay:hover::after,
-.c3.tooltipped-no-delay:active::after,
-.c3.tooltipped-no-delay:focus::after,
-.c3.tooltipped-no-delay:focus-within::after {
+.c5[data-state='open'][data-no-delay='true'],
+.c5[data-state='open'][data-no-delay='true']::before {
   -webkit-animation-delay: 0s;
   animation-delay: 0s;
 }
 
-.c3.tooltipped-multiline:hover::after,
-.c3.tooltipped-multiline:active::after,
-.c3.tooltipped-multiline:focus::after,
-.c3.tooltipped-multiline:focus-within::after {
-  display: table-cell;
-}
-
-.c3.tooltipped-s::after,
-.c3.tooltipped-se::after,
-.c3.tooltipped-sw::after {
+.c5[data-state='open'][data-direction='s'],
+.c5[data-state='open'][data-direction='se'],
+.c5[data-state='open'][data-direction='sw'] {
   top: 100%;
   right: 50%;
   margin-top: 6px;
 }
 
-.c3.tooltipped-s::before,
-.c3.tooltipped-se::before,
-.c3.tooltipped-sw::before {
-  top: auto;
-  right: 50%;
-  bottom: -7px;
-  margin-right: -6px;
-  border-bottom-color: #24292f;
-}
-
-.c3.tooltipped-se::after {
-  right: auto;
-  left: 50%;
-  margin-left: -16px;
-}
-
-.c3.tooltipped-sw::after {
-  margin-right: -16px;
-}
-
-.c3.tooltipped-n::after,
-.c3.tooltipped-ne::after,
-.c3.tooltipped-nw::after {
-  right: 50%;
+.c5[data-state='open'][data-direction='n'],
+.c5[data-state='open'][data-direction='ne'],
+.c5[data-state='open'][data-direction='nw'] {
   bottom: 100%;
   margin-bottom: 6px;
-}
-
-.c3.tooltipped-n::before,
-.c3.tooltipped-ne::before,
-.c3.tooltipped-nw::before {
-  top: -7px;
   right: 50%;
-  bottom: auto;
-  margin-right: -6px;
-  border-top-color: #24292f;
 }
 
-.c3.tooltipped-ne::after {
-  right: auto;
-  left: 50%;
-  margin-left: -16px;
-}
-
-.c3.tooltipped-nw::after {
-  margin-right: -16px;
-}
-
-.c3.tooltipped-s::after,
-.c3.tooltipped-n::after {
+.c5[data-state='open'][data-direction='n'],
+.c5[data-state='open'][data-direction='s'] {
   -webkit-transform: translateX(50%);
   -ms-transform: translateX(50%);
   transform: translateX(50%);
 }
 
-.c3.tooltipped-w::after {
-  right: 100%;
-  bottom: 50%;
-  margin-right: 6px;
-  -webkit-transform: translateY(50%);
-  -ms-transform: translateY(50%);
-  transform: translateY(50%);
+.c5[data-state='open'][data-direction='se'] {
+  right: auto;
+  left: 50%;
+  margin-left: -16px;
 }
 
-.c3.tooltipped-w::before {
-  top: 50%;
-  bottom: 50%;
-  left: -7px;
-  margin-top: -6px;
-  border-left-color: #24292f;
+.c5[data-state='open'][data-direction='ne'] {
+  right: auto;
+  left: 50%;
+  margin-left: -16px;
 }
 
-.c3.tooltipped-e::after {
+.c5[data-state='open'][data-direction='sw'] {
+  margin-right: -16px;
+}
+
+.c5[data-state='open'][data-direction='e'] {
   bottom: 50%;
   left: 100%;
   margin-left: 6px;
@@ -1745,15 +1782,35 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   transform: translateY(50%);
 }
 
-.c3.tooltipped-e::before {
-  top: 50%;
-  right: -7px;
+.c5[data-state='open'][data-direction='w'] {
   bottom: 50%;
-  margin-top: -6px;
-  border-right-color: #24292f;
+  right: 100%;
+  margin-right: 6px;
+  -webkit-transform: translateY(50%);
+  -ms-transform: translateY(50%);
+  transform: translateY(50%);
 }
 
-.c3.tooltipped-multiline::after {
+.c5[data-state='open'][data-align='left'] {
+  right: 100%;
+  margin-left: 0;
+}
+
+.c5[data-state='open'][data-align='left']::before {
+  right: 40px;
+}
+
+.c5[data-state='open'][data-align='right'] {
+  right: 0;
+  margin-right: 0;
+}
+
+.c5[data-state='open'][data-align='right']::before {
+  right: 72px;
+}
+
+.c5[data-state='open'][data-wrap='true'] {
+  display: table-cell;
   width: -webkit-max-content;
   width: -moz-max-content;
   width: max-content;
@@ -1763,36 +1820,18 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   border-collapse: separate;
 }
 
-.c3.tooltipped-multiline.tooltipped-s::after,
-.c3.tooltipped-multiline.tooltipped-n::after {
-  right: auto;
-  left: 50%;
+.c5[data-state='open'][data-wrap='true'][data-direction='n'],
+.c5[data-state='open'][data-wrap='true'][data-direction='s'] {
   -webkit-transform: translateX(-50%);
   -ms-transform: translateX(-50%);
   transform: translateX(-50%);
+  right: auto;
+  left: 50%;
 }
 
-.c3.tooltipped-multiline.tooltipped-w::after,
-.c3.tooltipped-multiline.tooltipped-e::after {
+.c5[data-state='open'][data-wrap='true'][data-direction='w'],
+.c5[data-state='open'][data-wrap='true'][data-direction='e'] {
   right: 100%;
-}
-
-.c3.tooltipped-align-right-2::after {
-  right: 0;
-  margin-right: 0;
-}
-
-.c3.tooltipped-align-right-2::before {
-  right: 15px;
-}
-
-.c3.tooltipped-align-left-2::after {
-  left: 0;
-  margin-left: 0;
-}
-
-.c3.tooltipped-align-left-2::before {
-  left: 10px;
 }
 
 @media (forced-colors:active) {
@@ -1821,6 +1860,12 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   }
 }
 
+@media (forced-colors:active) {
+  .c5 {
+    outline: 1px solid transparent;
+  }
+}
+
 <span
   aria-busy={false}
   aria-live="polite"
@@ -1839,19 +1884,22 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   <span
     className="c2 TextInput-action"
   >
-    <span
-      aria-label="iconLabel"
-      className="c3 tooltipped-n"
-      role="tooltip"
+    <div
+      className="c3"
+      onMouseLeave={[Function]}
     >
       <button
         aria-label="iconLabel"
+        aria-labelledby="react-aria1299193909-2"
         className="c4"
         data-block={null}
         data-component="IconButton"
         data-no-visuals={true}
         data-size="small"
+        onBlur={[Function]}
         onClick={[MockFunction]}
+        onFocus={[Function]}
+        onMouseEnter={[Function]}
         type="button"
       >
         <svg
@@ -1877,7 +1925,15 @@ exports[`TextInput renders trailingAction icon button 1`] = `
           />
         </svg>
       </button>
-    </span>
+      <div
+        aria-hidden={true}
+        className="c5"
+        data-direction="n"
+        id="react-aria1299193909-2"
+      >
+        iconLabel
+      </div>
+    </div>
   </span>
 </span>
 `;
@@ -2046,7 +2102,7 @@ exports[`TextInput renders trailingAction text button 1`] = `
 
 .c3 [data-component="leadingVisual"] {
   grid-area: leadingVisual;
-  color: #656d76;
+  color: #57606a;
 }
 
 .c3 [data-component="text"] {
@@ -2061,7 +2117,7 @@ exports[`TextInput renders trailingAction text button 1`] = `
 
 .c3 [data-component="trailingAction"] {
   margin-right: -4px;
-  color: #656d76;
+  color: #57606a;
 }
 
 .c3 [data-component="buttonContent"] {
@@ -2097,7 +2153,7 @@ exports[`TextInput renders trailingAction text button 1`] = `
 }
 
 .c3[data-component="IconButton"][data-no-visuals] {
-  color: #656d76;
+  color: #57606a;
 }
 
 .c3[data-no-visuals] {
@@ -2124,7 +2180,7 @@ exports[`TextInput renders trailingAction text button 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #1F2328;
+  color: #24292f;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -2184,7 +2240,7 @@ exports[`TextInput renders trailingAction text button 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #656d76;
+  color: #57606a;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -2288,6 +2344,11 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
+}
+
+.c3 {
+  position: relative;
+  display: inline-block;
 }
 
 .c4 {
@@ -2440,7 +2501,7 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
 
 .c4 [data-component="leadingVisual"] {
   grid-area: leadingVisual;
-  color: #656d76;
+  color: #57606a;
 }
 
 .c4 [data-component="text"] {
@@ -2455,7 +2516,7 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
 
 .c4 [data-component="trailingAction"] {
   margin-right: -4px;
-  color: #656d76;
+  color: #57606a;
 }
 
 .c4 [data-component="buttonContent"] {
@@ -2491,7 +2552,7 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
 }
 
 .c4[data-component="IconButton"][data-no-visuals] {
-  color: #656d76;
+  color: #57606a;
 }
 
 .c4[data-no-visuals] {
@@ -2518,7 +2579,7 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #1F2328;
+  color: #24292f;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -2578,7 +2639,7 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #656d76;
+  color: #57606a;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -2604,28 +2665,9 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   outline: 0;
 }
 
-.c3 {
-  position: relative;
-  display: inline-block;
-}
-
-.c3::before {
-  position: absolute;
-  z-index: 1000001;
-  display: none;
-  width: 0px;
-  height: 0px;
-  color: #24292f;
-  pointer-events: none;
-  content: '';
-  border: 6px solid transparent;
-  opacity: 0;
-}
-
-.c3::after {
+.c6 {
   position: absolute;
   z-index: 1000000;
-  display: none;
   padding: 0.5em 0.75em;
   font: normal normal 11px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
   -webkit-font-smoothing: subpixel-antialiased;
@@ -2640,25 +2682,130 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   -ms-letter-spacing: normal;
   letter-spacing: normal;
   word-wrap: break-word;
-  white-space: pre;
-  pointer-events: none;
-  content: attr(aria-label);
+  white-space: normal;
   background: #24292f;
   border-radius: 3px;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+  opacity: 0;
+  max-width: 250px;
+  display: inline-block;
+}
+
+.c6:not([data-state='open']) {
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  -webkit-clip: rect(0,0,0,0);
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+.c6::before {
+  position: absolute;
+  z-index: 1000001;
+  color: #24292f;
+  content: '';
+  border: 6px solid transparent;
   opacity: 0;
 }
 
-.c3:hover::before,
-.c3:active::before,
-.c3:focus::before,
-.c3:focus-within::before,
-.c3:hover::after,
-.c3:active::after,
-.c3:focus::after,
-.c3:focus-within::after {
-  display: inline-block;
-  -webkit-text-decoration: none;
-  text-decoration: none;
+.c6::after {
+  position: absolute;
+  display: block;
+  right: 0;
+  left: 0;
+  height: 8px;
+  content: '';
+}
+
+.c6[data-direction='n']::before,
+.c6[data-direction='ne']::before,
+.c6[data-direction='nw']::before {
+  top: 100%;
+  border-top-color: #24292f;
+}
+
+.c6[data-direction='s']::before,
+.c6[data-direction='se']::before,
+.c6[data-direction='sw']::before {
+  bottom: 100%;
+  border-bottom-color: #24292f;
+}
+
+.c6[data-direction='n']:before,
+.c6[data-direction='s']:before {
+  right: 50%;
+  margin-right: -6px;
+}
+
+.c6[data-direction='ne']::before,
+.c6[data-direction='se']::before {
+  left: 0;
+  margin-left: 6px;
+}
+
+.c6[data-direction='sw']::before,
+.c6[data-direction='nw']::before {
+  right: 0;
+  margin-right: 6px;
+}
+
+.c6[data-direction='n']::after,
+.c6[data-direction='ne']::after,
+.c6[data-direction='nw']::after {
+  top: 100%;
+}
+
+.c6[data-direction='s']::after,
+.c6[data-direction='se']::after,
+.c6[data-direction='sw']::after {
+  bottom: 100%;
+}
+
+.c6[data-direction='w']::before {
+  top: 50%;
+  bottom: 50%;
+  left: 100%;
+  margin-top: -6px;
+  border-left-color: #24292f;
+}
+
+.c6[data-direction='w']::after {
+  position: absolute;
+  display: block;
+  height: 100%;
+  width: 8px;
+  content: '';
+  bottom: 0;
+  left: 100%;
+}
+
+.c6[data-direction='e']::after {
+  position: absolute;
+  display: block;
+  height: 100%;
+  width: 8px;
+  content: '';
+  bottom: 0;
+  right: 100%;
+  margin-left: -8px;
+}
+
+.c6[data-direction='e']::before {
+  top: 50%;
+  bottom: 50%;
+  right: 100%;
+  margin-top: -6px;
+  border-right-color: #24292f;
+}
+
+.c6[data-state='open'],
+.c6[data-state='open']::before {
   -webkit-animation-name: tooltip-appear;
   animation-name: tooltip-appear;
   -webkit-animation-duration: 0.1s;
@@ -2671,106 +2818,52 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   animation-delay: 0.4s;
 }
 
-.c3.tooltipped-no-delay:hover::before,
-.c3.tooltipped-no-delay:active::before,
-.c3.tooltipped-no-delay:focus::before,
-.c3.tooltipped-no-delay:focus-within::before,
-.c3.tooltipped-no-delay:hover::after,
-.c3.tooltipped-no-delay:active::after,
-.c3.tooltipped-no-delay:focus::after,
-.c3.tooltipped-no-delay:focus-within::after {
+.c6[data-state='open'][data-no-delay='true'],
+.c6[data-state='open'][data-no-delay='true']::before {
   -webkit-animation-delay: 0s;
   animation-delay: 0s;
 }
 
-.c3.tooltipped-multiline:hover::after,
-.c3.tooltipped-multiline:active::after,
-.c3.tooltipped-multiline:focus::after,
-.c3.tooltipped-multiline:focus-within::after {
-  display: table-cell;
-}
-
-.c3.tooltipped-s::after,
-.c3.tooltipped-se::after,
-.c3.tooltipped-sw::after {
+.c6[data-state='open'][data-direction='s'],
+.c6[data-state='open'][data-direction='se'],
+.c6[data-state='open'][data-direction='sw'] {
   top: 100%;
   right: 50%;
   margin-top: 6px;
 }
 
-.c3.tooltipped-s::before,
-.c3.tooltipped-se::before,
-.c3.tooltipped-sw::before {
-  top: auto;
-  right: 50%;
-  bottom: -7px;
-  margin-right: -6px;
-  border-bottom-color: #24292f;
-}
-
-.c3.tooltipped-se::after {
-  right: auto;
-  left: 50%;
-  margin-left: -16px;
-}
-
-.c3.tooltipped-sw::after {
-  margin-right: -16px;
-}
-
-.c3.tooltipped-n::after,
-.c3.tooltipped-ne::after,
-.c3.tooltipped-nw::after {
-  right: 50%;
+.c6[data-state='open'][data-direction='n'],
+.c6[data-state='open'][data-direction='ne'],
+.c6[data-state='open'][data-direction='nw'] {
   bottom: 100%;
   margin-bottom: 6px;
-}
-
-.c3.tooltipped-n::before,
-.c3.tooltipped-ne::before,
-.c3.tooltipped-nw::before {
-  top: -7px;
   right: 50%;
-  bottom: auto;
-  margin-right: -6px;
-  border-top-color: #24292f;
 }
 
-.c3.tooltipped-ne::after {
-  right: auto;
-  left: 50%;
-  margin-left: -16px;
-}
-
-.c3.tooltipped-nw::after {
-  margin-right: -16px;
-}
-
-.c3.tooltipped-s::after,
-.c3.tooltipped-n::after {
+.c6[data-state='open'][data-direction='n'],
+.c6[data-state='open'][data-direction='s'] {
   -webkit-transform: translateX(50%);
   -ms-transform: translateX(50%);
   transform: translateX(50%);
 }
 
-.c3.tooltipped-w::after {
-  right: 100%;
-  bottom: 50%;
-  margin-right: 6px;
-  -webkit-transform: translateY(50%);
-  -ms-transform: translateY(50%);
-  transform: translateY(50%);
+.c6[data-state='open'][data-direction='se'] {
+  right: auto;
+  left: 50%;
+  margin-left: -16px;
 }
 
-.c3.tooltipped-w::before {
-  top: 50%;
-  bottom: 50%;
-  left: -7px;
-  margin-top: -6px;
-  border-left-color: #24292f;
+.c6[data-state='open'][data-direction='ne'] {
+  right: auto;
+  left: 50%;
+  margin-left: -16px;
 }
 
-.c3.tooltipped-e::after {
+.c6[data-state='open'][data-direction='sw'] {
+  margin-right: -16px;
+}
+
+.c6[data-state='open'][data-direction='e'] {
   bottom: 50%;
   left: 100%;
   margin-left: 6px;
@@ -2779,15 +2872,35 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   transform: translateY(50%);
 }
 
-.c3.tooltipped-e::before {
-  top: 50%;
-  right: -7px;
+.c6[data-state='open'][data-direction='w'] {
   bottom: 50%;
-  margin-top: -6px;
-  border-right-color: #24292f;
+  right: 100%;
+  margin-right: 6px;
+  -webkit-transform: translateY(50%);
+  -ms-transform: translateY(50%);
+  transform: translateY(50%);
 }
 
-.c3.tooltipped-multiline::after {
+.c6[data-state='open'][data-align='left'] {
+  right: 100%;
+  margin-left: 0;
+}
+
+.c6[data-state='open'][data-align='left']::before {
+  right: 40px;
+}
+
+.c6[data-state='open'][data-align='right'] {
+  right: 0;
+  margin-right: 0;
+}
+
+.c6[data-state='open'][data-align='right']::before {
+  right: 72px;
+}
+
+.c6[data-state='open'][data-wrap='true'] {
+  display: table-cell;
   width: -webkit-max-content;
   width: -moz-max-content;
   width: max-content;
@@ -2797,36 +2910,18 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   border-collapse: separate;
 }
 
-.c3.tooltipped-multiline.tooltipped-s::after,
-.c3.tooltipped-multiline.tooltipped-n::after {
-  right: auto;
-  left: 50%;
+.c6[data-state='open'][data-wrap='true'][data-direction='n'],
+.c6[data-state='open'][data-wrap='true'][data-direction='s'] {
   -webkit-transform: translateX(-50%);
   -ms-transform: translateX(-50%);
   transform: translateX(-50%);
+  right: auto;
+  left: 50%;
 }
 
-.c3.tooltipped-multiline.tooltipped-w::after,
-.c3.tooltipped-multiline.tooltipped-e::after {
+.c6[data-state='open'][data-wrap='true'][data-direction='w'],
+.c6[data-state='open'][data-wrap='true'][data-direction='e'] {
   right: 100%;
-}
-
-.c3.tooltipped-align-right-2::after {
-  right: 0;
-  margin-right: 0;
-}
-
-.c3.tooltipped-align-right-2::before {
-  right: 15px;
-}
-
-.c3.tooltipped-align-left-2::after {
-  left: 0;
-  margin-left: 0;
-}
-
-.c3.tooltipped-align-left-2::before {
-  left: 10px;
 }
 
 @media (forced-colors:active) {
@@ -2855,6 +2950,12 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   }
 }
 
+@media (forced-colors:active) {
+  .c6 {
+    outline: 1px solid transparent;
+  }
+}
+
 <span
   aria-busy={false}
   aria-live="polite"
@@ -2873,16 +2974,19 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   <span
     className="c2 TextInput-action"
   >
-    <span
-      aria-label="Clear input"
-      className="c3 tooltipped-n"
-      role="tooltip"
+    <div
+      className="c3"
+      onMouseLeave={[Function]}
     >
       <button
+        aria-labelledby="react-aria1299193909-1"
         className="c4"
         data-block={null}
         data-no-visuals={true}
+        onBlur={[Function]}
         onClick={[MockFunction]}
+        onFocus={[Function]}
+        onMouseEnter={[Function]}
         type="button"
       >
         <span
@@ -2896,7 +3000,15 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
           </span>
         </span>
       </button>
-    </span>
+      <div
+        aria-hidden={true}
+        className="c6"
+        data-direction="n"
+        id="react-aria1299193909-1"
+      >
+        Clear input
+      </div>
+    </div>
   </span>
 </span>
 `;
@@ -2905,7 +3017,7 @@ exports[`TextInput renders trailingVisual 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #1F2328;
+  color: #24292f;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -2971,7 +3083,7 @@ exports[`TextInput renders trailingVisual 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #656d76;
+  color: #57606a;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -3051,7 +3163,7 @@ exports[`TextInput renders warning 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #1F2328;
+  color: #24292f;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -3071,7 +3183,7 @@ exports[`TextInput renders warning 1`] = `
   background-position: right 8px center;
   padding-left: 0;
   padding-right: 0;
-  border-color: #9a6700;
+  border-color: #bf8700;
 }
 
 .c0 input,
@@ -3118,7 +3230,7 @@ exports[`TextInput renders warning 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #656d76;
+  color: #57606a;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -3192,7 +3304,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #1F2328;
+  color: #24292f;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -3258,7 +3370,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #656d76;
+  color: #57606a;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -3365,7 +3477,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #1F2328;
+  color: #24292f;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -3431,7 +3543,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #656d76;
+  color: #57606a;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -3570,7 +3682,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #1F2328;
+  color: #24292f;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -3636,7 +3748,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #656d76;
+  color: #57606a;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -3752,7 +3864,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #1F2328;
+  color: #24292f;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -3818,7 +3930,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #656d76;
+  color: #57606a;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -4003,7 +4115,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #1F2328;
+  color: #24292f;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -4069,7 +4181,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #656d76;
+  color: #57606a;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -4254,7 +4366,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #1F2328;
+  color: #24292f;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -4320,7 +4432,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #656d76;
+  color: #57606a;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -4499,7 +4611,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #1F2328;
+  color: #24292f;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -4565,7 +4677,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #656d76;
+  color: #57606a;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -4712,7 +4824,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #1F2328;
+  color: #24292f;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -4778,7 +4890,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #656d76;
+  color: #57606a;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -4957,7 +5069,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #1F2328;
+  color: #24292f;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -5023,7 +5135,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #656d76;
+  color: #57606a;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -5179,7 +5291,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #1F2328;
+  color: #24292f;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -5253,7 +5365,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #656d76;
+  color: #57606a;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -5479,7 +5591,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #1F2328;
+  color: #24292f;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -5545,7 +5657,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #656d76;
+  color: #57606a;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -5770,7 +5882,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #1F2328;
+  color: #24292f;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -5842,7 +5954,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #656d76;
+  color: #57606a;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -6034,7 +6146,7 @@ exports[`TextInput should render a password input 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #1F2328;
+  color: #24292f;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -6100,7 +6212,7 @@ exports[`TextInput should render a password input 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #656d76;
+  color: #57606a;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
