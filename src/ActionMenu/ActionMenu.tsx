@@ -97,7 +97,7 @@ const Overlay: React.FC<React.PropsWithChildren<MenuOverlayProps>> = ({children,
     'anchorRef'
   >
 
-  const containerRef = React.createRef<HTMLDivElement>()
+  const containerRef = React.useRef<HTMLDivElement>(null)
   useMenuKeyboardNavigation(open, onClose, containerRef, anchorRef)
 
   return (
