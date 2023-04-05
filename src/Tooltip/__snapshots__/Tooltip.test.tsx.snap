@@ -489,7 +489,7 @@ exports[`Tooltip renders consistently 1`] = `
   onMouseLeave={[Function]}
 >
   <button
-    aria-labelledby="react-aria4679546217-1"
+    aria-labelledby="react-aria7769040419-1"
     className="c1"
     data-block={null}
     data-no-visuals={true}
@@ -534,7 +534,7 @@ exports[`Tooltip renders consistently 1`] = `
     aria-hidden={true}
     className="c3"
     data-direction="n"
-    id="react-aria4679546217-1"
+    id="react-aria7769040419-1"
   >
     label type tooltip
   </div>
