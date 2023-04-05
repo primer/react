@@ -222,7 +222,7 @@ To create an anchor outside of the menu, you need to switch to controlled mode f
 ```javascript live noinline
 const Example = () => {
   const [open, setOpen] = React.useState(false)
-  const anchorRef = React.createRef()
+  const anchorRef = React.useRef(null)
 
   return (
     <>
