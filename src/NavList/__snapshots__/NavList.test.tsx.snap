@@ -51,7 +51,7 @@ exports[`NavList renders a simple list 1`] = `
   border-radius: 6px;
   -webkit-transition: background 33.333ms linear;
   transition: background 33.333ms linear;
-  color: #24292f;
+  color: #1F2328;
   cursor: pointer;
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -135,7 +135,7 @@ exports[`NavList renders a simple list 1`] = `
   border-radius: 6px;
   -webkit-transition: background 33.333ms linear;
   transition: background 33.333ms linear;
-  color: #24292f;
+  color: #1F2328;
   cursor: pointer;
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -239,7 +239,7 @@ exports[`NavList renders a simple list 1`] = `
 @media (hover:hover) and (pointer:fine) {
   .c3:hover:not([aria-disabled]) {
     background-color: rgba(208,215,222,0.32);
-    color: #24292f;
+    color: #1F2328;
   }
 
   .c3:focus-visible,
@@ -251,7 +251,7 @@ exports[`NavList renders a simple list 1`] = `
 
   .c3:active:not([aria-disabled]) {
     background-color: rgba(208,215,222,0.48);
-    color: #24292f;
+    color: #1F2328;
   }
 }
 
@@ -264,7 +264,7 @@ exports[`NavList renders a simple list 1`] = `
 @media (hover:hover) and (pointer:fine) {
   .c7:hover:not([aria-disabled]) {
     background-color: rgba(208,215,222,0.32);
-    color: #24292f;
+    color: #1F2328;
   }
 
   .c7:focus-visible,
@@ -276,7 +276,7 @@ exports[`NavList renders a simple list 1`] = `
 
   .c7:active:not([aria-disabled]) {
     background-color: rgba(208,215,222,0.48);
-    color: #24292f;
+    color: #1F2328;
   }
 }
 
@@ -416,7 +416,7 @@ exports[`NavList renders with groups 1`] = `
   padding-right: 16px;
   font-size: 12px;
   font-weight: 600;
-  color: #57606a;
+  color: #656d76;
   list-style: none;
 }
 
@@ -454,7 +454,7 @@ exports[`NavList renders with groups 1`] = `
   border-radius: 6px;
   -webkit-transition: background 33.333ms linear;
   transition: background 33.333ms linear;
-  color: #24292f;
+  color: #1F2328;
   cursor: pointer;
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -538,7 +538,7 @@ exports[`NavList renders with groups 1`] = `
   border-radius: 6px;
   -webkit-transition: background 33.333ms linear;
   transition: background 33.333ms linear;
-  color: #24292f;
+  color: #1F2328;
   cursor: pointer;
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -642,7 +642,7 @@ exports[`NavList renders with groups 1`] = `
 @media (hover:hover) and (pointer:fine) {
   .c7:hover:not([aria-disabled]) {
     background-color: rgba(208,215,222,0.32);
-    color: #24292f;
+    color: #1F2328;
   }
 
   .c7:focus-visible,
@@ -654,7 +654,7 @@ exports[`NavList renders with groups 1`] = `
 
   .c7:active:not([aria-disabled]) {
     background-color: rgba(208,215,222,0.48);
-    color: #24292f;
+    color: #1F2328;
   }
 }
 
@@ -667,7 +667,7 @@ exports[`NavList renders with groups 1`] = `
 @media (hover:hover) and (pointer:fine) {
   .c11:hover:not([aria-disabled]) {
     background-color: rgba(208,215,222,0.32);
-    color: #24292f;
+    color: #1F2328;
   }
 
   .c11:focus-visible,
@@ -679,7 +679,7 @@ exports[`NavList renders with groups 1`] = `
 
   .c11:active:not([aria-disabled]) {
     background-color: rgba(208,215,222,0.48);
-    color: #24292f;
+    color: #1F2328;
   }
 }
 
@@ -852,7 +852,7 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
-  color: #57606a;
+  color: #656d76;
   margin-left: 8px;
   font-weight: initial;
 }
@@ -886,7 +886,7 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   border-radius: 6px;
   -webkit-transition: background 33.333ms linear;
   transition: background 33.333ms linear;
-  color: #24292f;
+  color: #1F2328;
   cursor: pointer;
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -1012,7 +1012,7 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   border-radius: 6px;
   -webkit-transition: background 33.333ms linear;
   transition: background 33.333ms linear;
-  color: #24292f;
+  color: #1F2328;
   cursor: pointer;
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -1125,7 +1125,7 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
 @media (hover:hover) and (pointer:fine) {
   .c11:hover:not([aria-disabled]) {
     background-color: rgba(208,215,222,0.32);
-    color: #24292f;
+    color: #1F2328;
   }
 
   .c11:focus-visible,
@@ -1137,7 +1137,7 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
 
   .c11:active:not([aria-disabled]) {
     background-color: rgba(208,215,222,0.48);
-    color: #24292f;
+    color: #1F2328;
   }
 }
 
@@ -1150,7 +1150,7 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
 @media (hover:hover) and (pointer:fine) {
   .c4:hover:not([aria-disabled]) {
     background-color: rgba(208,215,222,0.32);
-    color: #24292f;
+    color: #1F2328;
   }
 
   .c4:focus-visible,
@@ -1162,7 +1162,7 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
 
   .c4:active:not([aria-disabled]) {
     background-color: rgba(208,215,222,0.48);
-    color: #24292f;
+    color: #1F2328;
   }
 }
 
@@ -1320,7 +1320,7 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
-  color: #57606a;
+  color: #656d76;
   margin-left: 8px;
   font-weight: initial;
 }
@@ -1354,7 +1354,7 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   border-radius: 6px;
   -webkit-transition: background 33.333ms linear;
   transition: background 33.333ms linear;
-  color: #24292f;
+  color: #1F2328;
   cursor: pointer;
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -1486,7 +1486,7 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   border-radius: 6px;
   -webkit-transition: background 33.333ms linear;
   transition: background 33.333ms linear;
-  color: #24292f;
+  color: #1F2328;
   cursor: pointer;
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -1605,7 +1605,7 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
 @media (hover:hover) and (pointer:fine) {
   .c11:hover:not([aria-disabled]) {
     background-color: rgba(208,215,222,0.32);
-    color: #24292f;
+    color: #1F2328;
   }
 
   .c11:focus-visible,
@@ -1617,7 +1617,7 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
 
   .c11:active:not([aria-disabled]) {
     background-color: rgba(208,215,222,0.48);
-    color: #24292f;
+    color: #1F2328;
   }
 }
 
@@ -1630,7 +1630,7 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
 @media (hover:hover) and (pointer:fine) {
   .c4:hover:not([aria-disabled]) {
     background-color: rgba(208,215,222,0.32);
-    color: #24292f;
+    color: #1F2328;
   }
 
   .c4:focus-visible,
@@ -1642,7 +1642,7 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
 
   .c4:active:not([aria-disabled]) {
     background-color: rgba(208,215,222,0.48);
-    color: #24292f;
+    color: #1F2328;
   }
 }
 
