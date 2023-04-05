@@ -4,9 +4,9 @@ import Tooltip2, {Tooltip2Props} from '../Tooltip2'
 import {render, renderClasses, rendersClass, behavesAsComponent, checkExports} from '../utils/testing'
 import {render as HTMLRender, act} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
-import {IconButton} from '../Button'
+import {Button} from '../Button'
 import {SearchIcon} from '@primer/octicons-react'
-import {userEvent} from '@storybook/testing-library'
+import userEvent from '@testing-library/user-event'
 
 expect.extend(toHaveNoViolations)
 
@@ -56,7 +56,9 @@ describe('Tooltip', () => {
 
 const TooltipComponent = (props: Tooltip2Props) => (
   <Tooltip2 aria-label="label type tooltip" {...props}>
-    <IconButton icon={SearchIcon} aria-label="Search button" />
+    <Button>
+      <SearchIcon />
+    </Button>
   </Tooltip2>
 )
 
@@ -107,10 +109,11 @@ describe('Tooltip2', () => {
     )
     expect(getByText('This is description for the trigger element')).toHaveAttribute('role', 'tooltip')
   })
-  it('should display the tooltip when the trigger element is hovered', () => {
+  it('should display the tooltip when the trigger element is hovered', async () => {
     const {getByRole, getByText} = HTMLRender(<TooltipComponent />)
     const triggerEL = getByRole('button')
-    userEvent.hover(triggerEL)
+    const user = userEvent.setup()
+    await user.hover(triggerEL)
     expect(getByText('label type tooltip')).toHaveAttribute('data-state', 'open')
   })
   it('should display the tooltip when the trigger element is focused', () => {
@@ -121,22 +124,24 @@ describe('Tooltip2', () => {
     })
     expect(getByText('label type tooltip')).toHaveAttribute('data-state', 'open')
   })
-  it('should hide the tooltip when the trigger element is blurred', () => {
+  it('should hide the tooltip when the trigger element is blurred', async () => {
     const {getByRole, getByText} = HTMLRender(<TooltipComponent />)
     const triggerEL = getByRole('button')
+    const user = userEvent.setup()
     act(() => {
       triggerEL.focus()
     })
-    userEvent.tab()
+    await user.keyboard('{TAB}')
     expect(getByText('label type tooltip')).not.toHaveAttribute('data-state', 'open')
   })
-  it('should hide the tooltip when the ESC key is pressed', () => {
+  it('should hide the tooltip when the ESC key is pressed', async () => {
     const {getByRole, getByText} = HTMLRender(<TooltipComponent />)
     const triggerEL = getByRole('button')
+    const user = userEvent.setup()
     act(() => {
       triggerEL.focus()
     })
-    userEvent.type(triggerEL, '{esc}')
+    await user.keyboard('{Escape}')
     expect(getByText('label type tooltip')).not.toHaveAttribute('data-state', 'open')
   })
 })
