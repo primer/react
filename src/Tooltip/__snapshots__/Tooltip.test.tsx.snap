@@ -1,0 +1,542 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Tooltip renders consistently 1`] = `
+.c0 {
+  position: relative;
+  display: inline-block;
+}
+
+.c2 {
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+.c1 {
+  border-radius: 6px;
+  border: 1px solid;
+  border-color: rgba(27,31,36,0.15);
+  font-family: inherit;
+  font-weight: 500;
+  font-size: 14px;
+  cursor: pointer;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  text-align: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  height: 32px;
+  padding: 0 12px;
+  gap: 8px;
+  min-width: -webkit-max-content;
+  min-width: -moz-max-content;
+  min-width: max-content;
+  -webkit-transition: 80ms cubic-bezier(0.65,0,0.35,1);
+  transition: 80ms cubic-bezier(0.65,0,0.35,1);
+  -webkit-transition-property: color,fill,background-color,border-color;
+  transition-property: color,fill,background-color,border-color;
+  color: #24292f;
+  background-color: #f6f8fa;
+  box-shadow: 0 1px 0 rgba(27,31,36,0.04),inset 0 1px 0 rgba(255,255,255,0.25);
+}
+
+.c1:focus:not(:disabled) {
+  box-shadow: none;
+  outline: 2px solid #0969da;
+  outline-offset: -2px;
+}
+
+.c1:focus:not(:disabled):not(:focus-visible) {
+  outline: solid 1px transparent;
+}
+
+.c1:focus-visible:not(:disabled) {
+  box-shadow: none;
+  outline: 2px solid #0969da;
+  outline-offset: -2px;
+}
+
+.c1[href] {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+}
+
+.c1[href]:hover {
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c1:hover {
+  -webkit-transition-duration: 80ms;
+  transition-duration: 80ms;
+}
+
+.c1:active {
+  -webkit-transition: none;
+  transition: none;
+}
+
+.c1:disabled {
+  cursor: not-allowed;
+  box-shadow: none;
+  color: #8c959f;
+}
+
+.c1:disabled [data-component=ButtonCounter] {
+  color: inherit;
+}
+
+.c1 [data-component=ButtonCounter] {
+  font-size: 14px;
+}
+
+.c1[data-component=IconButton] {
+  display: inline-grid;
+  padding: unset;
+  place-content: center;
+  width: 32px;
+  min-width: unset;
+}
+
+.c1[data-size="small"] {
+  padding: 0 8px;
+  height: 28px;
+  gap: 4px;
+  font-size: 12px;
+}
+
+.c1[data-size="small"] [data-component="text"] {
+  line-height: calc(20 / 12);
+}
+
+.c1[data-size="small"] [data-component=ButtonCounter] {
+  font-size: 12px;
+}
+
+.c1[data-size="small"] [data-component="buttonContent"] > :not(:last-child) {
+  margin-right: 4px;
+}
+
+.c1[data-size="small"][data-component=IconButton] {
+  width: 28px;
+  padding: unset;
+}
+
+.c1[data-size="large"] {
+  padding: 0 16px;
+  height: 40px;
+  gap: 8px;
+}
+
+.c1[data-size="large"] [data-component="buttonContent"] > :not(:last-child) {
+  margin-right: 8px;
+}
+
+.c1[data-size="large"][data-component=IconButton] {
+  width: 40px;
+  padding: unset;
+}
+
+.c1[data-block="block"] {
+  width: 100%;
+}
+
+.c1 [data-component="leadingVisual"] {
+  grid-area: leadingVisual;
+}
+
+.c1 [data-component="text"] {
+  grid-area: text;
+  line-height: calc(20/14);
+  white-space: nowrap;
+}
+
+.c1 [data-component="trailingVisual"] {
+  grid-area: trailingVisual;
+}
+
+.c1 [data-component="trailingAction"] {
+  margin-right: -4px;
+}
+
+.c1 [data-component="buttonContent"] {
+  -webkit-flex: 1 0 auto;
+  -ms-flex: 1 0 auto;
+  flex: 1 0 auto;
+  display: grid;
+  grid-template-areas: "leadingVisual text trailingVisual";
+  grid-template-columns: min-content minmax(0,auto) min-content;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-align-content: center;
+  -ms-flex-line-pack: center;
+  align-content: center;
+}
+
+.c1 [data-component="buttonContent"] > :not(:last-child) {
+  margin-right: 8px;
+}
+
+.c1:hover:not([disabled]) {
+  background-color: #f3f4f6;
+  border-color: rgba(27,31,36,0.15);
+}
+
+.c1:active:not([disabled]) {
+  background-color: hsla(220,14%,93%,1);
+  border-color: rgba(27,31,36,0.15);
+}
+
+.c1[aria-expanded=true] {
+  background-color: hsla(220,14%,93%,1);
+  border-color: rgba(27,31,36,0.15);
+}
+
+.c3 {
+  position: absolute;
+  z-index: 1000000;
+  padding: 0.5em 0.75em;
+  font: normal normal 11px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
+  -webkit-font-smoothing: subpixel-antialiased;
+  color: #ffffff;
+  text-align: center;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  text-shadow: none;
+  text-transform: none;
+  -webkit-letter-spacing: normal;
+  -moz-letter-spacing: normal;
+  -ms-letter-spacing: normal;
+  letter-spacing: normal;
+  word-wrap: break-word;
+  white-space: normal;
+  background: #24292f;
+  border-radius: 3px;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+  opacity: 0;
+  max-width: 250px;
+}
+
+.c3:not([data-state='open']) {
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  -webkit-clip: rect(0,0,0,0);
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+.c3::before {
+  position: absolute;
+  z-index: 1000001;
+  color: #24292f;
+  content: '';
+  border: 6px solid transparent;
+  opacity: 0;
+}
+
+.c3::after {
+  position: absolute;
+  display: block;
+  right: 0;
+  left: 0;
+  height: 8px;
+  content: '';
+}
+
+.c3[data-direction='n']::before,
+.c3[data-direction='ne']::before,
+.c3[data-direction='nw']::before {
+  top: 100%;
+  border-top-color: #24292f;
+}
+
+.c3[data-direction='s']::before,
+.c3[data-direction='se']::before,
+.c3[data-direction='sw']::before {
+  bottom: 100%;
+  border-bottom-color: #24292f;
+}
+
+.c3[data-direction='n']:before,
+.c3[data-direction='s']:before {
+  right: 50%;
+  margin-right: -6px;
+}
+
+.c3[data-direction='ne']::before,
+.c3[data-direction='se']::before {
+  left: 0;
+  margin-left: 6px;
+}
+
+.c3[data-direction='sw']::before,
+.c3[data-direction='nw']::before {
+  right: 0;
+  margin-right: 6px;
+}
+
+.c3[data-direction='n']::after,
+.c3[data-direction='ne']::after,
+.c3[data-direction='nw']::after {
+  top: 100%;
+}
+
+.c3[data-direction='s']::after,
+.c3[data-direction='se']::after,
+.c3[data-direction='sw']::after {
+  bottom: 100%;
+}
+
+.c3[data-direction='w']::before {
+  top: 50%;
+  bottom: 50%;
+  left: 100%;
+  margin-top: -6px;
+  border-left-color: #24292f;
+}
+
+.c3[data-direction='w']::after {
+  position: absolute;
+  display: block;
+  height: 100%;
+  width: 8px;
+  content: '';
+  bottom: 0;
+  left: 100%;
+}
+
+.c3[data-direction='e']::after {
+  position: absolute;
+  display: block;
+  height: 100%;
+  width: 8px;
+  content: '';
+  bottom: 0;
+  right: 100%;
+  margin-left: -8px;
+}
+
+.c3[data-direction='e']::before {
+  top: 50%;
+  bottom: 50%;
+  right: 100%;
+  margin-top: -6px;
+  border-right-color: #24292f;
+}
+
+.c3[data-state='open'],
+.c3[data-state='open']::before {
+  -webkit-animation-name: tooltip-appear;
+  animation-name: tooltip-appear;
+  -webkit-animation-duration: 0.1s;
+  animation-duration: 0.1s;
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+  -webkit-animation-timing-function: ease-in;
+  animation-timing-function: ease-in;
+  -webkit-animation-delay: 0.4s;
+  animation-delay: 0.4s;
+}
+
+.c3[data-state='open'][data-no-delay='true'],
+.c3[data-state='open'][data-no-delay='true']::before {
+  -webkit-animation-delay: 0s;
+  animation-delay: 0s;
+}
+
+.c3[data-state='open'][data-direction='s'],
+.c3[data-state='open'][data-direction='se'],
+.c3[data-state='open'][data-direction='sw'] {
+  top: 100%;
+  right: 50%;
+  margin-top: 6px;
+}
+
+.c3[data-state='open'][data-direction='n'],
+.c3[data-state='open'][data-direction='ne'],
+.c3[data-state='open'][data-direction='nw'] {
+  bottom: 100%;
+  margin-bottom: 6px;
+  right: 50%;
+}
+
+.c3[data-state='open'][data-direction='n'],
+.c3[data-state='open'][data-direction='s'] {
+  -webkit-transform: translateX(50%);
+  -ms-transform: translateX(50%);
+  transform: translateX(50%);
+}
+
+.c3[data-state='open'][data-direction='se'] {
+  right: auto;
+  left: 50%;
+  margin-left: -16px;
+}
+
+.c3[data-state='open'][data-direction='ne'] {
+  right: auto;
+  left: 50%;
+  margin-left: -16px;
+}
+
+.c3[data-state='open'][data-direction='sw'] {
+  margin-right: -16px;
+}
+
+.c3[data-state='open'][data-direction='e'] {
+  bottom: 50%;
+  left: 100%;
+  margin-left: 6px;
+  -webkit-transform: translateY(50%);
+  -ms-transform: translateY(50%);
+  transform: translateY(50%);
+}
+
+.c3[data-state='open'][data-direction='w'] {
+  bottom: 50%;
+  right: 100%;
+  margin-right: 6px;
+  -webkit-transform: translateY(50%);
+  -ms-transform: translateY(50%);
+  transform: translateY(50%);
+}
+
+.c3[data-state='open'][data-align='left'] {
+  right: 100%;
+  margin-left: 0;
+}
+
+.c3[data-state='open'][data-align='left']::before {
+  right: 40px;
+}
+
+.c3[data-state='open'][data-align='right'] {
+  right: 0;
+  margin-right: 0;
+}
+
+.c3[data-state='open'][data-align='right']::before {
+  right: 72px;
+}
+
+.c3[data-state='open'][data-wrap='true'] {
+  display: table-cell;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+  max-width: 250px;
+  word-wrap: break-word;
+  white-space: pre-line;
+  border-collapse: separate;
+}
+
+.c3[data-state='open'][data-wrap='true'][data-direction='n'],
+.c3[data-state='open'][data-wrap='true'][data-direction='s'] {
+  -webkit-transform: translateX(-50%);
+  -ms-transform: translateX(-50%);
+  transform: translateX(-50%);
+  right: auto;
+  left: 50%;
+}
+
+.c3[data-state='open'][data-wrap='true'][data-direction='w'],
+.c3[data-state='open'][data-wrap='true'][data-direction='e'] {
+  right: 100%;
+}
+
+@media (forced-colors:active) {
+  .c1:focus {
+    outline: solid 1px transparent;
+  }
+}
+
+@media (forced-colors:active) {
+  .c3 {
+    outline: 1px solid transparent;
+  }
+}
+
+<div
+  className="c0"
+  onMouseLeave={[Function]}
+>
+  <button
+    aria-labelledby="react-aria4679546217-1"
+    className="c1"
+    data-block={null}
+    data-no-visuals={true}
+    onBlur={[Function]}
+    onFocus={[Function]}
+    onMouseEnter={[Function]}
+    type="button"
+  >
+    <span
+      className="c2"
+      data-component="buttonContent"
+    >
+      <span
+        data-component="text"
+      >
+        <svg
+          aria-hidden="true"
+          className="octicon octicon-search"
+          fill="currentColor"
+          focusable="false"
+          height={16}
+          role="img"
+          style={
+            {
+              "display": "inline-block",
+              "overflow": "visible",
+              "userSelect": "none",
+              "verticalAlign": "text-bottom",
+            }
+          }
+          viewBox="0 0 16 16"
+          width={16}
+        >
+          <path
+            d="M10.68 11.74a6 6 0 0 1-7.922-8.982 6 6 0 0 1 8.982 7.922l3.04 3.04a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215ZM11.5 7a4.499 4.499 0 1 0-8.997 0A4.499 4.499 0 0 0 11.5 7Z"
+          />
+        </svg>
+      </span>
+    </span>
+  </button>
+  <div
+    aria-hidden={true}
+    className="c3"
+    data-direction="n"
+    id="react-aria4679546217-1"
+  >
+    label type tooltip
+  </div>
+</div>
+`;

@@ -1,14 +1,14 @@
 import React, {Children, useEffect, useRef, useState} from 'react'
-import Box from './Box'
-import sx, {SxProp} from './sx'
-import {useId} from './hooks/useId'
+import Box from '../Box'
+import sx, {SxProp} from '../sx'
+import {useId} from '../hooks/useId'
 import {isFocusable} from '@primer/behaviors/utils'
-import {invariant} from './utils/invariant'
+import {invariant} from '../utils/invariant'
 import styled from 'styled-components'
-import {get} from './constants'
-import {useOnEscapePress} from './hooks/useOnEscapePress'
+import {get} from '../constants'
+import {useOnEscapePress} from '../hooks/useOnEscapePress'
 
-export type Tooltip2Props = {
+export type TooltipProps = {
   direction?: 'n' | 'ne' | 'e' | 'se' | 's' | 'sw' | 'w' | 'nw'
   text?: string
   noDelay?: boolean
@@ -28,7 +28,7 @@ export type TriggerPropsType = {
   ref?: React.RefObject<HTMLElement>
 }
 
-const Tooltip = styled.div<Tooltip2Props>`
+const TooltipEL = styled.div<TooltipProps>`
   // tooltip element itself
   position: absolute;
   z-index: 1000000;
@@ -294,7 +294,7 @@ const Tooltip = styled.div<Tooltip2Props>`
   ${sx};
 `
 
-const Tooltip2: React.FC<React.PropsWithChildren<Tooltip2Props>> = ({
+export const Tooltip: React.FC<React.PropsWithChildren<TooltipProps>> = ({
   direction = 'n',
   // used for description type
   text,
@@ -376,7 +376,7 @@ const Tooltip2: React.FC<React.PropsWithChildren<Tooltip2Props>> = ({
             child.props.onMouseEnter?.(event)
           },
         })}
-      <Tooltip
+      <TooltipEL
         data-direction={direction}
         data-state={open ? 'open' : undefined}
         data-align={align}
@@ -390,9 +390,7 @@ const Tooltip2: React.FC<React.PropsWithChildren<Tooltip2Props>> = ({
         id={id}
       >
         {text ?? label}
-      </Tooltip>
+      </TooltipEL>
     </Box>
   )
 }
-
-export default Tooltip2

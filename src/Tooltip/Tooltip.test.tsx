@@ -1,68 +1,33 @@
 import React from 'react'
-import Tooltip, {TooltipProps} from '../Tooltip'
-import Tooltip2, {Tooltip2Props} from '../Tooltip2'
-import {render, renderClasses, rendersClass, behavesAsComponent, checkExports} from '../utils/testing'
+import {Tooltip, TooltipProps} from '.'
+import {checkStoriesForAxeViolations, behavesAsComponent, checkExports} from '../utils/testing'
 import {render as HTMLRender, act} from '@testing-library/react'
-import {axe, toHaveNoViolations} from 'jest-axe'
 import {Button} from '../Button'
 import {SearchIcon} from '@primer/octicons-react'
 import userEvent from '@testing-library/user-event'
 
-expect.extend(toHaveNoViolations)
-
-describe('Tooltip', () => {
-  behavesAsComponent({Component: Tooltip})
-
-  checkExports('Tooltip', {
-    default: Tooltip,
-  })
-
-  it('should have no axe violations', async () => {
-    const {container} = HTMLRender(<Tooltip text="hi" />)
-    const results = await axe(container)
-    expect(results).toHaveNoViolations()
-  })
-
-  it('renders a <span> with the "tooltipped" class', () => {
-    expect(render(<Tooltip />).type).toEqual('span')
-    expect(renderClasses(<Tooltip />)).toContain('tooltipped-n')
-  })
-
-  it('respects the "align" prop', () => {
-    expect(rendersClass(<Tooltip align="left" />, 'tooltipped-align-left-2')).toBe(true)
-    expect(rendersClass(<Tooltip align="right" />, 'tooltipped-align-right-2')).toBe(true)
-  })
-
-  it('respects the "direction" prop', () => {
-    for (const direction of Tooltip.directions) {
-      expect(
-        rendersClass(<Tooltip direction={direction as TooltipProps['direction']} />, `tooltipped-${direction}`),
-      ).toBe(true)
-    }
-  })
-
-  it('respects the "noDelay" prop', () => {
-    expect(rendersClass(<Tooltip noDelay />, 'tooltipped-no-delay')).toBe(true)
-  })
-
-  it('respects the "text" prop', () => {
-    expect(render(<Tooltip text="hi" />).props['aria-label']).toEqual('hi')
-  })
-
-  it('respects the "wrap" prop', () => {
-    expect(rendersClass(<Tooltip wrap />, 'tooltipped-multiline')).toBe(true)
-  })
-})
-
-const TooltipComponent = (props: Tooltip2Props) => (
-  <Tooltip2 aria-label="label type tooltip" {...props}>
+const TooltipComponent = (props: TooltipProps) => (
+  <Tooltip aria-label="label type tooltip" {...props}>
     <Button>
       <SearchIcon />
     </Button>
-  </Tooltip2>
+  </Tooltip>
 )
 
-describe('Tooltip2', () => {
+describe('Tooltip', () => {
+  behavesAsComponent({
+    Component: Tooltip,
+    options: {skipAs: true, skipSx: true},
+    toRender: () => <TooltipComponent />,
+  })
+
+  checkExports('Tooltip', {
+    default: undefined,
+    Tooltip,
+  })
+
+  checkStoriesForAxeViolations('Tooltip.features', '../Tooltip/')
+
   it('renders `data-direction="n"` by default', () => {
     const {getByText} = HTMLRender(<TooltipComponent />)
     expect(getByText('label type tooltip')).toHaveAttribute('data-direction', 'n')
