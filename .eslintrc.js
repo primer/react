@@ -148,6 +148,11 @@ module.exports = {
                 importNames: ['useSSRSafeId'],
                 message: 'Please use the `useId` hook from `src/hooks/useId.ts` instead',
               },
+              {
+                name: '@testing-library/react-hooks',
+                importNames: ['renderHook'],
+                message: 'Please use `renderHook` from `@testing-library/react` instead',
+              },
             ],
             patterns: [],
           },
