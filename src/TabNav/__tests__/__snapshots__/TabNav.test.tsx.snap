@@ -5,7 +5,7 @@ exports[`TabNav TabNav.Link renders consistently 1`] = `
   padding: 8px 12px;
   font-size: 14px;
   line-height: 20px;
-  color: #24292f;
+  color: #1F2328;
   -webkit-text-decoration: none;
   text-decoration: none;
   background-color: transparent;
@@ -31,13 +31,13 @@ exports[`TabNav TabNav.Link renders consistently 1`] = `
 
 .c0:hover,
 .c0:focus {
-  color: #24292f;
+  color: #1F2328;
   -webkit-text-decoration: none;
   text-decoration: none;
 }
 
 .c0.selected {
-  color: #24292f;
+  color: #1F2328;
   border-color: #d0d7de;
   border-top-right-radius: 6px;
   border-top-left-radius: 6px;

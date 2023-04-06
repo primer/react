@@ -1,4 +1,4 @@
-import {render as HTMLRender, act, fireEvent} from '@testing-library/react'
+import {render as HTMLRender, fireEvent} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
 import React from 'react'
 import theme from '../../theme'
@@ -64,9 +64,7 @@ describe('DropdownMenu', () => {
     let portalRoot = menu.baseElement.querySelector('#__primerPortalRoot__')
     expect(portalRoot).toBeNull()
     const anchor = await menu.findByText('Select an Option')
-    act(() => {
-      fireEvent.click(anchor)
-    })
+    fireEvent.click(anchor)
     portalRoot = menu.baseElement.querySelector('#__primerPortalRoot__')
     expect(portalRoot).toBeTruthy()
     const itemText = items
@@ -84,15 +82,11 @@ describe('DropdownMenu', () => {
     let portalRoot = await menu.baseElement.querySelector('#__primerPortalRoot__')
     expect(portalRoot).toBeNull()
     const anchor = await menu.findByText('Select an Option')
-    act(() => {
-      fireEvent.click(anchor)
-    })
+    fireEvent.click(anchor)
     portalRoot = menu.baseElement.querySelector('#__primerPortalRoot__')
     expect(portalRoot).toBeTruthy()
-    const menuItem = await menu.queryByText('Baz')
-    act(() => {
-      fireEvent.click(menuItem as Element)
-    })
+    const menuItem = menu.queryByText('Baz')
+    fireEvent.click(menuItem as Element)
     // portal is closed after click
     expect(portalRoot?.textContent).toEqual('') // menu items are hidden
   })
@@ -102,15 +96,11 @@ describe('DropdownMenu', () => {
     let portalRoot = await menu.baseElement.querySelector('#__primerPortalRoot__')
     expect(portalRoot).toBeNull()
     const anchor = await menu.findByText('Select an Option')
-    act(() => {
-      fireEvent.click(anchor)
-    })
+    fireEvent.click(anchor)
     portalRoot = menu.baseElement.querySelector('#__primerPortalRoot__')
     expect(portalRoot).toBeTruthy()
-    const menuItem = await menu.queryByText('Baz')
-    act(() => {
-      fireEvent.click(menuItem as Element)
-    })
+    const menuItem = menu.queryByText('Baz')
+    fireEvent.click(menuItem as Element)
     expect(anchor.textContent).toEqual('Baz')
   })
 
@@ -119,15 +109,11 @@ describe('DropdownMenu', () => {
     let portalRoot = await menu.baseElement.querySelector('#__primerPortalRoot__')
     expect(portalRoot).toBeNull()
     const anchor = await menu.findByText('Select an Option')
-    act(() => {
-      fireEvent.click(anchor)
-    })
+    fireEvent.click(anchor)
     portalRoot = menu.baseElement.querySelector('#__primerPortalRoot__')
     expect(portalRoot).toBeTruthy()
     const somethingElse = (await menu.baseElement.querySelector('#something-else')) as HTMLElement
-    act(() => {
-      fireEvent.mouseDown(somethingElse)
-    })
+    fireEvent.mouseDown(somethingElse)
     // portal is closed after click
     expect(portalRoot?.textContent).toEqual('') // menu items are hidden
   })

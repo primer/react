@@ -22,15 +22,13 @@ const getLeadingVisual = property => {
   const propertyStr = property.toString()
   if (isColor(propertyStr)) {
     return (
-      <TreeView.LeadingVisual>
-        <Box
-          bg={`${propertyStr}`}
-          width={16}
-          height={16}
-          borderRadius={1}
-          boxShadow="inset 0px 0px 0px 1px rgba(0,0,0,0.125)"
-        />
-      </TreeView.LeadingVisual>
+      <Box
+        bg={`${propertyStr}`}
+        width={16}
+        height={16}
+        borderRadius={1}
+        boxShadow="inset 0px 0px 0px 1px rgba(0,0,0,0.125)"
+      />
     )
   } else {
     return null
@@ -55,7 +53,7 @@ function RecursiveTree({property, propertyName, isRootTreeItem = false}) {
     if (isLeafItem) {
       return (
         <TreeView.Item>
-          {getLeadingVisual(property)}
+          <TreeView.LeadingVisual>{getLeadingVisual(property)}</TreeView.LeadingVisual>
           <Text fontWeight="bold">{propertyName}</Text> : <Text>{property && property.toString()}</Text>
         </TreeView.Item>
       )

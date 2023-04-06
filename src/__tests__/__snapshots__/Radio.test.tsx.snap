@@ -33,7 +33,7 @@ exports[`Radio renders consistently 1`] = `
 
 .c0:checked:disabled {
   cursor: not-allowed;
-  border-color: #57606a;
+  border-color: #656d76;
 }
 
 .c0:focus:not(:disabled) {

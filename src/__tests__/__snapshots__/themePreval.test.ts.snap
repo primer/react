@@ -5,7 +5,7 @@ exports[`snapshot theme-preval.js 1`] = `
 
 // this file was prevaled
 // This file needs to be a JavaScript file using CommonJS to be compatible with preval
-// Cache bust: 2023-02-23 12:00:00 GMT (This file is cached by our deployment tooling, update this timestamp to rebuild this file)
+// Cache bust: 2023-03-30 12:00:00 GMT (This file is cached by our deployment tooling, update this timestamp to rebuild this file)
 var themePreval = {
   "animation": {
     "easeOutCubic": "cubic-bezier(0.33, 1, 0.68, 1)"
@@ -47,15 +47,15 @@ var themePreval = {
         },
         "diffBlob": {
           "addition": {
-            "numText": "#24292f",
-            "fg": "#24292f",
+            "numText": "#1F2328",
+            "fg": "#1F2328",
             "numBg": "#ccffd8",
             "lineBg": "#e6ffec",
             "wordBg": "#abf2bc"
           },
           "deletion": {
-            "numText": "#24292f",
-            "fg": "#24292f",
+            "numText": "#1F2328",
+            "fg": "#1F2328",
             "numBg": "#ffd7d5",
             "lineBg": "#ffebe9",
             "wordBg": "rgba(255,129,130,0.4)"
@@ -64,13 +64,13 @@ var themePreval = {
             "numBg": "rgba(84,174,255,0.4)"
           },
           "expander": {
-            "icon": "#57606a"
+            "icon": "#656d76"
           }
         },
         "diffstat": {
-          "deletionBorder": "rgba(27,31,36,0.15)",
-          "additionBorder": "rgba(27,31,36,0.15)",
-          "additionBg": "#2da44e"
+          "deletionBorder": "rgba(31,35,40,0.15)",
+          "additionBorder": "rgba(31,35,40,0.15)",
+          "additionBg": "#1f883d"
         },
         "searchKeyword": {
           "hl": "#fff8c5"
@@ -110,16 +110,16 @@ var themePreval = {
           }
         },
         "codemirror": {
-          "text": "#24292f",
+          "text": "#1F2328",
           "bg": "#ffffff",
           "guttersBg": "#ffffff",
           "guttermarkerText": "#ffffff",
           "guttermarkerSubtleText": "#6e7781",
-          "linenumberText": "#57606a",
-          "cursor": "#24292f",
+          "linenumberText": "#656d76",
+          "cursor": "#1F2328",
           "selectionBg": "rgba(84,174,255,0.4)",
           "activelineBg": "rgba(234,238,242,0.5)",
-          "matchingbracketText": "#24292f",
+          "matchingbracketText": "#1F2328",
           "linesBg": "#ffffff",
           "syntax": {
             "comment": "#24292f",
@@ -146,12 +146,12 @@ var themePreval = {
           "inputBg": "#32383f",
           "donutError": "#fa4549",
           "donutPending": "#bf8700",
-          "donutSuccess": "#2da44e",
+          "donutSuccess": "#1f883d",
           "donutNeutral": "#afb8c1",
           "dropdownText": "#afb8c1",
           "dropdownBg": "#32383f",
           "dropdownBorder": "#424a53",
-          "dropdownShadow": "rgba(27,31,36,0.3)",
+          "dropdownShadow": "rgba(31,35,40,0.3)",
           "dropdownHoverText": "#f6f8fa",
           "dropdownHoverBg": "#424a53",
           "dropdownBtnHoverText": "#f6f8fa",
@@ -224,7 +224,7 @@ var themePreval = {
         },
         "avatar": {
           "bg": "#ffffff",
-          "border": "rgba(27,31,36,0.15)",
+          "border": "rgba(31,35,40,0.15)",
           "stackFade": "#afb8c1",
           "stackFadeMore": "#d0d7de"
         },
@@ -283,23 +283,23 @@ var themePreval = {
         "btn": {
           "text": "#24292f",
           "bg": "#f6f8fa",
-          "border": "rgba(27,31,36,0.15)",
+          "border": "rgba(31,35,40,0.15)",
           "hoverBg": "#f3f4f6",
-          "hoverBorder": "rgba(27,31,36,0.15)",
+          "hoverBorder": "rgba(31,35,40,0.15)",
           "activeBg": "hsla(220,14%,93%,1)",
-          "activeBorder": "rgba(27,31,36,0.15)",
+          "activeBorder": "rgba(31,35,40,0.15)",
           "selectedBg": "hsla(220,14%,94%,1)",
-          "counterBg": "rgba(27,31,36,0.08)",
+          "counterBg": "rgba(31,35,40,0.08)",
           "primary": {
             "text": "#ffffff",
-            "bg": "#2da44e",
-            "border": "rgba(27,31,36,0.15)",
-            "hoverBg": "#2c974b",
-            "hoverBorder": "rgba(27,31,36,0.15)",
-            "selectedBg": "hsla(137,55%,36%,1)",
+            "bg": "#1f883d",
+            "border": "rgba(31,35,40,0.15)",
+            "hoverBg": "#1a7f37",
+            "hoverBorder": "rgba(31,35,40,0.15)",
+            "selectedBg": "hsla(137,66%,28%,1)",
             "disabledText": "rgba(255,255,255,0.8)",
             "disabledBg": "#94d3a2",
-            "disabledBorder": "rgba(27,31,36,0.15)",
+            "disabledBorder": "rgba(31,35,40,0.15)",
             "icon": "rgba(255,255,255,0.8)",
             "counterBg": "rgba(255,255,255,0.2)"
           },
@@ -307,11 +307,11 @@ var themePreval = {
             "text": "#0969da",
             "hoverText": "#ffffff",
             "hoverBg": "#0969da",
-            "hoverBorder": "rgba(27,31,36,0.15)",
+            "hoverBorder": "rgba(31,35,40,0.15)",
             "hoverCounterBg": "rgba(255,255,255,0.2)",
             "selectedText": "#ffffff",
             "selectedBg": "hsla(212,92%,42%,1)",
-            "selectedBorder": "rgba(27,31,36,0.15)",
+            "selectedBorder": "rgba(31,35,40,0.15)",
             "disabledText": "rgba(9,105,218,0.5)",
             "disabledBg": "#f6f8fa",
             "disabledCounterBg": "rgba(9,105,218,0.05)",
@@ -321,11 +321,11 @@ var themePreval = {
             "text": "#cf222e",
             "hoverText": "#ffffff",
             "hoverBg": "#a40e26",
-            "hoverBorder": "rgba(27,31,36,0.15)",
+            "hoverBorder": "rgba(31,35,40,0.15)",
             "hoverCounterBg": "rgba(255,255,255,0.2)",
             "selectedText": "#ffffff",
             "selectedBg": "hsla(356,72%,44%,1)",
-            "selectedBorder": "rgba(27,31,36,0.15)",
+            "selectedBorder": "rgba(31,35,40,0.15)",
             "disabledText": "rgba(207,34,46,0.5)",
             "disabledBg": "#f6f8fa",
             "disabledCounterBg": "rgba(207,34,46,0.05)",
@@ -350,7 +350,7 @@ var themePreval = {
           "danger": {
             "hoverBg": "rgba(255,235,233,0.64)",
             "activeBg": "#ffebe9",
-            "hoverText": "#cf222e"
+            "hoverText": "#d1242f"
           }
         },
         "switchTrack": {
@@ -358,7 +358,7 @@ var themePreval = {
           "hoverBg": "hsla(210,24%,90%,1)",
           "activeBg": "hsla(210,24%,88%,1)",
           "disabledBg": "#8c959f",
-          "fg": "#57606a",
+          "fg": "#656d76",
           "disabledFg": "#ffffff",
           "border": "rgba(0,0,0,0)",
           "checked": {
@@ -404,8 +404,8 @@ var themePreval = {
           }
         },
         "fg": {
-          "default": "#24292f",
-          "muted": "#57606a",
+          "default": "#1F2328",
+          "muted": "#656d76",
           "subtle": "#6e7781",
           "onEmphasis": "#ffffff"
         },
@@ -418,7 +418,7 @@ var themePreval = {
         "border": {
           "default": "#d0d7de",
           "muted": "hsla(210,18%,87%,1)",
-          "subtle": "rgba(27,31,36,0.15)"
+          "subtle": "rgba(31,35,40,0.15)"
         },
         "neutral": {
           "emphasisPlus": "#24292f",
@@ -434,13 +434,13 @@ var themePreval = {
         },
         "success": {
           "fg": "#1a7f37",
-          "emphasis": "#2da44e",
+          "emphasis": "#1f883d",
           "muted": "rgba(74,194,107,0.4)",
           "subtle": "#dafbe1"
         },
         "attention": {
           "fg": "#9a6700",
-          "emphasis": "#bf8700",
+          "emphasis": "#9a6700",
           "muted": "rgba(212,167,44,0.4)",
           "subtle": "#fff8c5"
         },
@@ -451,19 +451,19 @@ var themePreval = {
           "subtle": "#fff1e5"
         },
         "danger": {
-          "fg": "#cf222e",
+          "fg": "#d1242f",
           "emphasis": "#cf222e",
           "muted": "rgba(255,129,130,0.4)",
           "subtle": "#ffebe9"
         },
         "open": {
           "fg": "#1a7f37",
-          "emphasis": "#2da44e",
+          "emphasis": "#1f883d",
           "muted": "rgba(74,194,107,0.4)",
           "subtle": "#dafbe1"
         },
         "closed": {
-          "fg": "#cf222e",
+          "fg": "#d1242f",
           "emphasis": "#cf222e",
           "muted": "rgba(255,129,130,0.4)",
           "subtle": "#ffebe9"
@@ -485,12 +485,12 @@ var themePreval = {
             "disabled": "#8c959f"
           },
           "canvas": {
-            "backdrop": "rgba(27,31,36,0.5)",
+            "backdrop": "rgba(31,35,40,0.5)",
             "sticky": "rgba(255,255,255,0.95)"
           },
           "border": {
             "active": "#fd8c73",
-            "contrast": "rgba(27,31,36,0.1)"
+            "contrast": "rgba(31,35,40,0.1)"
           }
         }
       },
@@ -506,32 +506,32 @@ var themePreval = {
           }
         },
         "avatar": {
-          "childShadow": "-2px -2px 0 rgba(255,255,255,0.8)"
+          "childShadow": "0 0 0 2px rgba(255,255,255,0.8)"
         },
         "overlay": {
-          "shadow": "0 1px 3px rgba(27,31,36,0.12), 0 8px 24px rgba(66,74,83,0.12)"
+          "shadow": "0 1px 3px rgba(31,35,40,0.12), 0 8px 24px rgba(66,74,83,0.12)"
         },
         "btn": {
-          "shadow": "0 1px 0 rgba(27,31,36,0.04)",
+          "shadow": "0 1px 0 rgba(31,35,40,0.04)",
           "insetShadow": "inset 0 1px 0 rgba(255,255,255,0.25)",
           "primary": {
-            "shadow": "0 1px 0 rgba(27,31,36,0.1)",
+            "shadow": "0 1px 0 rgba(31,35,40,0.1)",
             "insetShadow": "inset 0 1px 0 rgba(255,255,255,0.03)",
             "selectedShadow": "inset 0 1px 0 rgba(0,45,17,0.2)"
           },
           "outline": {
-            "hoverShadow": "0 1px 0 rgba(27,31,36,0.1)",
+            "hoverShadow": "0 1px 0 rgba(31,35,40,0.1)",
             "hoverInsetShadow": "inset 0 1px 0 rgba(255,255,255,0.03)",
             "selectedShadow": "inset 0 1px 0 rgba(0,33,85,0.2)"
           },
           "danger": {
-            "hoverShadow": "0 1px 0 rgba(27,31,36,0.1)",
+            "hoverShadow": "0 1px 0 rgba(31,35,40,0.1)",
             "hoverInsetShadow": "inset 0 1px 0 rgba(255,255,255,0.03)",
             "selectedShadow": "inset 0 1px 0 rgba(76,0,20,0.2)"
           }
         },
         "shadow": {
-          "small": "0 1px 0 rgba(27,31,36,0.04)",
+          "small": "0 1px 0 rgba(31,35,40,0.04)",
           "medium": "0 3px 6px rgba(140,149,159,0.15)",
           "large": "0 8px 24px rgba(140,149,159,0.2)",
           "extraLarge": "0 12px 28px rgba(140,149,159,0.3)"
@@ -554,14 +554,14 @@ var themePreval = {
         },
         "diffBlob": {
           "addition": {
-            "numText": "#0e1116",
+            "numText": "#010409",
             "fg": "#ffffff",
             "numBg": "#ccffd8",
             "lineBg": "#e6ffec",
             "wordBg": "#055d20"
           },
           "deletion": {
-            "numText": "#0e1116",
+            "numText": "#010409",
             "fg": "#ffffff",
             "numBg": "#ffd7d5",
             "lineBg": "#fff0ee",
@@ -577,7 +577,7 @@ var themePreval = {
         "diffstat": {
           "deletionBorder": "rgba(1,4,9,0.8)",
           "additionBorder": "rgba(1,4,9,0.8)",
-          "additionBg": "#117f32"
+          "additionBg": "#055d20"
         },
         "searchKeyword": {
           "hl": "#fcf7be"
@@ -617,16 +617,16 @@ var themePreval = {
           }
         },
         "codemirror": {
-          "text": "#0e1116",
+          "text": "#010409",
           "bg": "#ffffff",
           "guttersBg": "#ffffff",
           "guttermarkerText": "#ffffff",
           "guttermarkerSubtleText": "#66707b",
           "linenumberText": "#0e1116",
-          "cursor": "#0e1116",
+          "cursor": "#010409",
           "selectionBg": "#368cf9",
           "activelineBg": "#e7ecf0",
-          "matchingbracketText": "#0e1116",
+          "matchingbracketText": "#010409",
           "linesBg": "#ffffff",
           "syntax": {
             "comment": "#0e1116",
@@ -653,7 +653,7 @@ var themePreval = {
           "inputBg": "#20252c",
           "donutError": "#d5232c",
           "donutPending": "#956400",
-          "donutSuccess": "#117f32",
+          "donutSuccess": "#055d20",
           "donutNeutral": "#acb6c0",
           "dropdownText": "#acb6c0",
           "dropdownBg": "#20252c",
@@ -911,7 +911,7 @@ var themePreval = {
           }
         },
         "fg": {
-          "default": "#0e1116",
+          "default": "#010409",
           "muted": "#0e1116",
           "subtle": "#66707b",
           "onEmphasis": "#ffffff"
@@ -958,19 +958,19 @@ var themePreval = {
           "subtle": "#fff2d5"
         },
         "danger": {
-          "fg": "#a0111f",
+          "fg": "#d1242f",
           "emphasis": "#a0111f",
           "muted": "#ee5a5d",
           "subtle": "#fff0ee"
         },
         "open": {
           "fg": "#055d20",
-          "emphasis": "#117f32",
+          "emphasis": "#055d20",
           "muted": "rgba(38,161,72,0.4)",
           "subtle": "#d2fedb"
         },
         "closed": {
-          "fg": "#a0111f",
+          "fg": "#d1242f",
           "emphasis": "#a0111f",
           "muted": "rgba(238,90,93,0.4)",
           "subtle": "#fff0ee"
@@ -1013,7 +1013,7 @@ var themePreval = {
           }
         },
         "avatar": {
-          "childShadow": "-2px -2px 0 rgba(255,255,255,0.8)"
+          "childShadow": "0 0 0 2px rgba(255,255,255,0.8)"
         },
         "overlay": {
           "shadow": "0 1px 3px rgba(1,4,9,0.12), 0 8px 24px rgba(52,59,67,0.12)"
@@ -1061,15 +1061,15 @@ var themePreval = {
         },
         "diffBlob": {
           "addition": {
-            "numText": "#24292f",
-            "fg": "#24292f",
+            "numText": "#1b1f24",
+            "fg": "#1b1f24",
             "numBg": "rgba(84,174,255,0.4)",
             "lineBg": "rgba(221,244,255,0.5)",
             "wordBg": "rgba(84,174,255,0.4)"
           },
           "deletion": {
-            "numText": "#24292f",
-            "fg": "#24292f",
+            "numText": "#1b1f24",
+            "fg": "#1b1f24",
             "numBg": "rgba(247,153,57,0.4)",
             "lineBg": "rgba(255,245,232,0.5)",
             "wordBg": "rgba(255,188,109,0.5)"
@@ -1078,13 +1078,13 @@ var themePreval = {
             "numBg": "rgba(84,174,255,0.4)"
           },
           "expander": {
-            "icon": "#57606a"
+            "icon": "#656d76"
           }
         },
         "diffstat": {
           "deletionBorder": "rgba(27,31,36,0.15)",
           "additionBorder": "rgba(27,31,36,0.15)",
-          "additionBg": "#218bff"
+          "additionBg": "#1f883d"
         },
         "searchKeyword": {
           "hl": "#fff8c5"
@@ -1124,16 +1124,16 @@ var themePreval = {
           }
         },
         "codemirror": {
-          "text": "#24292f",
+          "text": "#1b1f24",
           "bg": "#ffffff",
           "guttersBg": "#ffffff",
           "guttermarkerText": "#ffffff",
           "guttermarkerSubtleText": "#6e7781",
-          "linenumberText": "#57606a",
-          "cursor": "#24292f",
+          "linenumberText": "#656d76",
+          "cursor": "#1b1f24",
           "selectionBg": "rgba(84,174,255,0.4)",
           "activelineBg": "rgba(234,238,242,0.5)",
-          "matchingbracketText": "#24292f",
+          "matchingbracketText": "#1b1f24",
           "linesBg": "#ffffff",
           "syntax": {
             "comment": "#24292f",
@@ -1160,7 +1160,7 @@ var themePreval = {
           "inputBg": "#32383f",
           "donutError": "#dd7815",
           "donutPending": "#bf8700",
-          "donutSuccess": "#218bff",
+          "donutSuccess": "#1f883d",
           "donutNeutral": "#afb8c1",
           "dropdownText": "#afb8c1",
           "dropdownBg": "#32383f",
@@ -1306,7 +1306,7 @@ var themePreval = {
           "counterBg": "rgba(27,31,36,0.08)",
           "primary": {
             "text": "#ffffff",
-            "bg": "#218bff",
+            "bg": "#1f883d",
             "border": "rgba(27,31,36,0.15)",
             "hoverBg": "#0969da",
             "hoverBorder": "rgba(27,31,36,0.15)",
@@ -1364,7 +1364,7 @@ var themePreval = {
           "danger": {
             "hoverBg": "rgba(255,245,232,0.64)",
             "activeBg": "#fff5e8",
-            "hoverText": "#b35900"
+            "hoverText": "#d1242f"
           }
         },
         "switchTrack": {
@@ -1372,7 +1372,7 @@ var themePreval = {
           "hoverBg": "hsla(210,24%,90%,1)",
           "activeBg": "hsla(210,24%,88%,1)",
           "disabledBg": "#8c959f",
-          "fg": "#57606a",
+          "fg": "#656d76",
           "disabledFg": "#ffffff",
           "border": "rgba(0,0,0,0)",
           "checked": {
@@ -1418,8 +1418,8 @@ var themePreval = {
           }
         },
         "fg": {
-          "default": "#24292f",
-          "muted": "#57606a",
+          "default": "#1b1f24",
+          "muted": "#656d76",
           "subtle": "#6e7781",
           "onEmphasis": "#ffffff"
         },
@@ -1448,13 +1448,13 @@ var themePreval = {
         },
         "success": {
           "fg": "#0969da",
-          "emphasis": "#218bff",
+          "emphasis": "#1f883d",
           "muted": "rgba(84,174,255,0.4)",
           "subtle": "#ddf4ff"
         },
         "attention": {
           "fg": "#9a6700",
-          "emphasis": "#bf8700",
+          "emphasis": "#9a6700",
           "muted": "rgba(212,167,44,0.4)",
           "subtle": "#fff8c5"
         },
@@ -1465,7 +1465,7 @@ var themePreval = {
           "subtle": "#fff5e8"
         },
         "danger": {
-          "fg": "#b35900",
+          "fg": "#d1242f",
           "emphasis": "#b35900",
           "muted": "rgba(247,153,57,0.4)",
           "subtle": "#fff5e8"
@@ -1520,7 +1520,7 @@ var themePreval = {
           }
         },
         "avatar": {
-          "childShadow": "-2px -2px 0 rgba(255,255,255,0.8)"
+          "childShadow": "0 0 0 2px rgba(255,255,255,0.8)"
         },
         "overlay": {
           "shadow": "0 1px 3px rgba(27,31,36,0.12), 0 8px 24px rgba(66,74,83,0.12)"
@@ -1568,15 +1568,15 @@ var themePreval = {
         },
         "diffBlob": {
           "addition": {
-            "numText": "#24292f",
-            "fg": "#24292f",
+            "numText": "#1b1f24",
+            "fg": "#1b1f24",
             "numBg": "rgba(84,174,255,0.4)",
             "lineBg": "rgba(221,244,255,0.5)",
             "wordBg": "rgba(84,174,255,0.4)"
           },
           "deletion": {
-            "numText": "#24292f",
-            "fg": "#24292f",
+            "numText": "#1b1f24",
+            "fg": "#1b1f24",
             "numBg": "rgba(255,129,130,0.4)",
             "lineBg": "rgba(255,235,233,0.5)",
             "wordBg": "rgba(255,171,168,0.5)"
@@ -1585,13 +1585,13 @@ var themePreval = {
             "numBg": "rgba(84,174,255,0.4)"
           },
           "expander": {
-            "icon": "#57606a"
+            "icon": "#656d76"
           }
         },
         "diffstat": {
           "deletionBorder": "rgba(27,31,36,0.15)",
           "additionBorder": "rgba(27,31,36,0.15)",
-          "additionBg": "#218bff"
+          "additionBg": "#1f883d"
         },
         "searchKeyword": {
           "hl": "#fff8c5"
@@ -1631,16 +1631,16 @@ var themePreval = {
           }
         },
         "codemirror": {
-          "text": "#24292f",
+          "text": "#1b1f24",
           "bg": "#ffffff",
           "guttersBg": "#ffffff",
           "guttermarkerText": "#ffffff",
           "guttermarkerSubtleText": "#6e7781",
-          "linenumberText": "#57606a",
-          "cursor": "#24292f",
+          "linenumberText": "#656d76",
+          "cursor": "#1b1f24",
           "selectionBg": "rgba(84,174,255,0.4)",
           "activelineBg": "rgba(234,238,242,0.5)",
-          "matchingbracketText": "#24292f",
+          "matchingbracketText": "#1b1f24",
           "linesBg": "#ffffff",
           "syntax": {
             "comment": "#24292f",
@@ -1667,7 +1667,7 @@ var themePreval = {
           "inputBg": "#32383f",
           "donutError": "#fa4549",
           "donutPending": "#bf8700",
-          "donutSuccess": "#218bff",
+          "donutSuccess": "#1f883d",
           "donutNeutral": "#afb8c1",
           "dropdownText": "#afb8c1",
           "dropdownBg": "#32383f",
@@ -1813,7 +1813,7 @@ var themePreval = {
           "counterBg": "rgba(27,31,36,0.08)",
           "primary": {
             "text": "#ffffff",
-            "bg": "#218bff",
+            "bg": "#1f883d",
             "border": "rgba(27,31,36,0.15)",
             "hoverBg": "#0969da",
             "hoverBorder": "rgba(27,31,36,0.15)",
@@ -1871,7 +1871,7 @@ var themePreval = {
           "danger": {
             "hoverBg": "rgba(255,235,233,0.64)",
             "activeBg": "#ffebe9",
-            "hoverText": "#cf222e"
+            "hoverText": "#d1242f"
           }
         },
         "switchTrack": {
@@ -1879,7 +1879,7 @@ var themePreval = {
           "hoverBg": "hsla(210,24%,90%,1)",
           "activeBg": "hsla(210,24%,88%,1)",
           "disabledBg": "#8c959f",
-          "fg": "#57606a",
+          "fg": "#656d76",
           "disabledFg": "#ffffff",
           "border": "rgba(0,0,0,0)",
           "checked": {
@@ -1925,8 +1925,8 @@ var themePreval = {
           }
         },
         "fg": {
-          "default": "#24292f",
-          "muted": "#57606a",
+          "default": "#1b1f24",
+          "muted": "#656d76",
           "subtle": "#6e7781",
           "onEmphasis": "#ffffff"
         },
@@ -1955,13 +1955,13 @@ var themePreval = {
         },
         "success": {
           "fg": "#0969da",
-          "emphasis": "#218bff",
+          "emphasis": "#1f883d",
           "muted": "rgba(84,174,255,0.4)",
           "subtle": "#ddf4ff"
         },
         "attention": {
           "fg": "#9a6700",
-          "emphasis": "#bf8700",
+          "emphasis": "#9a6700",
           "muted": "rgba(212,167,44,0.4)",
           "subtle": "#fff8c5"
         },
@@ -1972,7 +1972,7 @@ var themePreval = {
           "subtle": "#ffebe9"
         },
         "danger": {
-          "fg": "#cf222e",
+          "fg": "#d1242f",
           "emphasis": "#cf222e",
           "muted": "rgba(255,129,130,0.4)",
           "subtle": "#ffebe9"
@@ -2027,7 +2027,7 @@ var themePreval = {
           }
         },
         "avatar": {
-          "childShadow": "-2px -2px 0 rgba(255,255,255,0.8)"
+          "childShadow": "0 0 0 2px rgba(255,255,255,0.8)"
         },
         "overlay": {
           "shadow": "0 1px 3px rgba(27,31,36,0.12), 0 8px 24px rgba(66,74,83,0.12)"
@@ -2075,24 +2075,24 @@ var themePreval = {
         },
         "diffBlob": {
           "addition": {
-            "numText": "#c9d1d9",
-            "fg": "#c9d1d9",
+            "numText": "#e6edf3",
+            "fg": "#e6edf3",
             "numBg": "rgba(63,185,80,0.3)",
             "lineBg": "rgba(46,160,67,0.15)",
             "wordBg": "rgba(46,160,67,0.4)"
           },
           "deletion": {
-            "numText": "#c9d1d9",
-            "fg": "#c9d1d9",
+            "numText": "#e6edf3",
+            "fg": "#e6edf3",
             "numBg": "rgba(248,81,73,0.3)",
-            "lineBg": "rgba(248,81,73,0.15)",
+            "lineBg": "rgba(248,81,73,0.1)",
             "wordBg": "rgba(248,81,73,0.4)"
           },
           "hunk": {
             "numBg": "rgba(56,139,253,0.4)"
           },
           "expander": {
-            "icon": "#8b949e"
+            "icon": "#7d8590"
           }
         },
         "diffstat": {
@@ -2138,16 +2138,16 @@ var themePreval = {
           }
         },
         "codemirror": {
-          "text": "#c9d1d9",
+          "text": "#e6edf3",
           "bg": "#0d1117",
           "guttersBg": "#0d1117",
           "guttermarkerText": "#0d1117",
           "guttermarkerSubtleText": "#6e7681",
-          "linenumberText": "#8b949e",
-          "cursor": "#c9d1d9",
+          "linenumberText": "#7d8590",
+          "cursor": "#e6edf3",
           "selectionBg": "rgba(56,139,253,0.4)",
           "activelineBg": "rgba(110,118,129,0.1)",
-          "matchingbracketText": "#c9d1d9",
+          "matchingbracketText": "#e6edf3",
           "linesBg": "#0d1117",
           "syntax": {
             "comment": "#8b949e",
@@ -2162,57 +2162,57 @@ var themePreval = {
         },
         "checks": {
           "bg": "#010409",
-          "textPrimary": "#c9d1d9",
-          "textSecondary": "#8b949e",
-          "textLink": "#58a6ff",
-          "btnIcon": "#8b949e",
-          "btnHoverIcon": "#c9d1d9",
+          "textPrimary": "#e6edf3",
+          "textSecondary": "#7d8590",
+          "textLink": "#2f81f7",
+          "btnIcon": "#7d8590",
+          "btnHoverIcon": "#e6edf3",
           "btnHoverBg": "rgba(110,118,129,0.1)",
-          "inputText": "#8b949e",
+          "inputText": "#7d8590",
           "inputPlaceholderText": "#6e7681",
-          "inputFocusText": "#c9d1d9",
+          "inputFocusText": "#e6edf3",
           "inputBg": "#161b22",
           "donutError": "#f85149",
           "donutPending": "#d29922",
           "donutSuccess": "#2ea043",
           "donutNeutral": "#8b949e",
-          "dropdownText": "#c9d1d9",
+          "dropdownText": "#e6edf3",
           "dropdownBg": "#161b22",
           "dropdownBorder": "#30363d",
           "dropdownShadow": "rgba(1,4,9,0.3)",
-          "dropdownHoverText": "#c9d1d9",
+          "dropdownHoverText": "#e6edf3",
           "dropdownHoverBg": "rgba(110,118,129,0.1)",
-          "dropdownBtnHoverText": "#c9d1d9",
+          "dropdownBtnHoverText": "#e6edf3",
           "dropdownBtnHoverBg": "rgba(110,118,129,0.1)",
           "scrollbarThumbBg": "rgba(110,118,129,0.4)",
-          "headerLabelText": "#8b949e",
-          "headerLabelOpenText": "#c9d1d9",
+          "headerLabelText": "#7d8590",
+          "headerLabelOpenText": "#e6edf3",
           "headerBorder": "#21262d",
-          "headerIcon": "#8b949e",
-          "lineText": "#8b949e",
+          "headerIcon": "#7d8590",
+          "lineText": "#7d8590",
           "lineNumText": "#6e7681",
           "lineTimestampText": "#6e7681",
           "lineHoverBg": "rgba(110,118,129,0.1)",
-          "lineSelectedBg": "rgba(56,139,253,0.15)",
-          "lineSelectedNumText": "#58a6ff",
+          "lineSelectedBg": "rgba(56,139,253,0.1)",
+          "lineSelectedNumText": "#2f81f7",
           "lineDtFmText": "#ffffff",
           "lineDtFmBg": "#9e6a03",
           "gateBg": "rgba(187,128,9,0.15)",
-          "gateText": "#8b949e",
+          "gateText": "#7d8590",
           "gateWaitingText": "#d29922",
           "stepHeaderOpenBg": "#161b22",
           "stepErrorText": "#f85149",
           "stepWarningText": "#d29922",
-          "loglineText": "#8b949e",
+          "loglineText": "#7d8590",
           "loglineNumText": "#6e7681",
           "loglineDebugText": "#a371f7",
-          "loglineErrorText": "#8b949e",
+          "loglineErrorText": "#7d8590",
           "loglineErrorNumText": "#6e7681",
-          "loglineErrorBg": "rgba(248,81,73,0.15)",
-          "loglineWarningText": "#8b949e",
+          "loglineErrorBg": "rgba(248,81,73,0.1)",
+          "loglineWarningText": "#7d8590",
           "loglineWarningNumText": "#d29922",
           "loglineWarningBg": "rgba(187,128,9,0.15)",
-          "loglineCommandText": "#58a6ff",
+          "loglineCommandText": "#2f81f7",
           "loglineSectionText": "#3fb950",
           "ansi": {
             "black": "#0d1117",
@@ -2386,7 +2386,7 @@ var themePreval = {
           "hoverBg": "hsla(215,8%,72%,0.1)",
           "activeBg": "rgba(110,118,129,0.4)",
           "disabledBg": "#21262d",
-          "fg": "#8b949e",
+          "fg": "#7d8590",
           "disabledFg": "#010409",
           "border": "rgba(0,0,0,0)",
           "checked": {
@@ -2428,12 +2428,12 @@ var themePreval = {
             "hoverBg": "rgba(177,186,196,0.12)"
           },
           "directory": {
-            "fill": "#8b949e"
+            "fill": "#7d8590"
           }
         },
         "fg": {
-          "default": "#c9d1d9",
-          "muted": "#8b949e",
+          "default": "#e6edf3",
+          "muted": "#7d8590",
           "subtle": "#6e7681",
           "onEmphasis": "#ffffff"
         },
@@ -2455,10 +2455,10 @@ var themePreval = {
           "subtle": "rgba(110,118,129,0.1)"
         },
         "accent": {
-          "fg": "#58a6ff",
+          "fg": "#2f81f7",
           "emphasis": "#1f6feb",
           "muted": "rgba(56,139,253,0.4)",
-          "subtle": "rgba(56,139,253,0.15)"
+          "subtle": "rgba(56,139,253,0.1)"
         },
         "success": {
           "fg": "#3fb950",
@@ -2476,13 +2476,13 @@ var themePreval = {
           "fg": "#db6d28",
           "emphasis": "#bd561d",
           "muted": "rgba(219,109,40,0.4)",
-          "subtle": "rgba(219,109,40,0.15)"
+          "subtle": "rgba(219,109,40,0.1)"
         },
         "danger": {
           "fg": "#f85149",
           "emphasis": "#da3633",
           "muted": "rgba(248,81,73,0.4)",
-          "subtle": "rgba(248,81,73,0.15)"
+          "subtle": "rgba(248,81,73,0.1)"
         },
         "open": {
           "fg": "#3fb950",
@@ -2500,13 +2500,13 @@ var themePreval = {
           "fg": "#a371f7",
           "emphasis": "#8957e5",
           "muted": "rgba(163,113,247,0.4)",
-          "subtle": "rgba(163,113,247,0.15)"
+          "subtle": "rgba(163,113,247,0.1)"
         },
         "sponsors": {
           "fg": "#db61a2",
           "emphasis": "#bf4b8a",
           "muted": "rgba(219,97,162,0.4)",
-          "subtle": "rgba(219,97,162,0.15)"
+          "subtle": "rgba(219,97,162,0.1)"
         },
         "primer": {
           "fg": {
@@ -2537,7 +2537,7 @@ var themePreval = {
           }
         },
         "avatar": {
-          "childShadow": "-2px -2px 0 #0d1117"
+          "childShadow": "0 0 0 2px #0d1117"
         },
         "overlay": {
           "shadow": "0 0 0 1px #30363d, 0 16px 32px rgba(1,4,9,0.85)"
@@ -2585,24 +2585,24 @@ var themePreval = {
         },
         "diffBlob": {
           "addition": {
-            "numText": "#adbac7",
-            "fg": "#adbac7",
+            "numText": "#e6edf3",
+            "fg": "#e6edf3",
             "numBg": "rgba(87,171,90,0.3)",
             "lineBg": "rgba(70,149,74,0.15)",
             "wordBg": "rgba(70,149,74,0.4)"
           },
           "deletion": {
-            "numText": "#adbac7",
-            "fg": "#adbac7",
+            "numText": "#e6edf3",
+            "fg": "#e6edf3",
             "numBg": "rgba(229,83,75,0.3)",
-            "lineBg": "rgba(229,83,75,0.15)",
+            "lineBg": "rgba(229,83,75,0.1)",
             "wordBg": "rgba(229,83,75,0.4)"
           },
           "hunk": {
             "numBg": "rgba(65,132,228,0.4)"
           },
           "expander": {
-            "icon": "#768390"
+            "icon": "#7d8590"
           }
         },
         "diffstat": {
@@ -2648,16 +2648,16 @@ var themePreval = {
           }
         },
         "codemirror": {
-          "text": "#adbac7",
+          "text": "#e6edf3",
           "bg": "#22272e",
           "guttersBg": "#22272e",
           "guttermarkerText": "#22272e",
           "guttermarkerSubtleText": "#636e7b",
-          "linenumberText": "#768390",
-          "cursor": "#adbac7",
+          "linenumberText": "#7d8590",
+          "cursor": "#e6edf3",
           "selectionBg": "rgba(65,132,228,0.4)",
           "activelineBg": "rgba(99,110,123,0.1)",
-          "matchingbracketText": "#adbac7",
+          "matchingbracketText": "#e6edf3",
           "linesBg": "#22272e",
           "syntax": {
             "comment": "#768390",
@@ -2672,57 +2672,57 @@ var themePreval = {
         },
         "checks": {
           "bg": "#1c2128",
-          "textPrimary": "#adbac7",
-          "textSecondary": "#768390",
-          "textLink": "#539bf5",
-          "btnIcon": "#768390",
-          "btnHoverIcon": "#adbac7",
+          "textPrimary": "#e6edf3",
+          "textSecondary": "#7d8590",
+          "textLink": "#2f81f7",
+          "btnIcon": "#7d8590",
+          "btnHoverIcon": "#e6edf3",
           "btnHoverBg": "rgba(99,110,123,0.1)",
-          "inputText": "#768390",
+          "inputText": "#7d8590",
           "inputPlaceholderText": "#636e7b",
-          "inputFocusText": "#adbac7",
+          "inputFocusText": "#e6edf3",
           "inputBg": "#2d333b",
           "donutError": "#e5534b",
           "donutPending": "#c69026",
           "donutSuccess": "#46954a",
           "donutNeutral": "#768390",
-          "dropdownText": "#adbac7",
+          "dropdownText": "#e6edf3",
           "dropdownBg": "#2d333b",
           "dropdownBorder": "#444c56",
           "dropdownShadow": "rgba(28,33,40,0.3)",
-          "dropdownHoverText": "#adbac7",
+          "dropdownHoverText": "#e6edf3",
           "dropdownHoverBg": "rgba(99,110,123,0.1)",
-          "dropdownBtnHoverText": "#adbac7",
+          "dropdownBtnHoverText": "#e6edf3",
           "dropdownBtnHoverBg": "rgba(99,110,123,0.1)",
           "scrollbarThumbBg": "rgba(99,110,123,0.4)",
-          "headerLabelText": "#768390",
-          "headerLabelOpenText": "#adbac7",
+          "headerLabelText": "#7d8590",
+          "headerLabelOpenText": "#e6edf3",
           "headerBorder": "#373e47",
-          "headerIcon": "#768390",
-          "lineText": "#768390",
+          "headerIcon": "#7d8590",
+          "lineText": "#7d8590",
           "lineNumText": "#636e7b",
           "lineTimestampText": "#636e7b",
           "lineHoverBg": "rgba(99,110,123,0.1)",
-          "lineSelectedBg": "rgba(65,132,228,0.15)",
-          "lineSelectedNumText": "#539bf5",
+          "lineSelectedBg": "rgba(65,132,228,0.1)",
+          "lineSelectedNumText": "#2f81f7",
           "lineDtFmText": "#cdd9e5",
           "lineDtFmBg": "#966600",
           "gateBg": "rgba(174,124,20,0.15)",
-          "gateText": "#768390",
+          "gateText": "#7d8590",
           "gateWaitingText": "#c69026",
           "stepHeaderOpenBg": "#2d333b",
           "stepErrorText": "#e5534b",
           "stepWarningText": "#c69026",
-          "loglineText": "#768390",
+          "loglineText": "#7d8590",
           "loglineNumText": "#636e7b",
           "loglineDebugText": "#986ee2",
-          "loglineErrorText": "#768390",
+          "loglineErrorText": "#7d8590",
           "loglineErrorNumText": "#636e7b",
-          "loglineErrorBg": "rgba(229,83,75,0.15)",
-          "loglineWarningText": "#768390",
+          "loglineErrorBg": "rgba(229,83,75,0.1)",
+          "loglineWarningText": "#7d8590",
           "loglineWarningNumText": "#c69026",
           "loglineWarningBg": "rgba(174,124,20,0.15)",
-          "loglineCommandText": "#539bf5",
+          "loglineCommandText": "#2f81f7",
           "loglineSectionText": "#57ab5a",
           "ansi": {
             "black": "#22272e",
@@ -2896,7 +2896,7 @@ var themePreval = {
           "hoverBg": "hsla(213,11%,69%,0.1)",
           "activeBg": "rgba(99,110,123,0.4)",
           "disabledBg": "#373e47",
-          "fg": "#768390",
+          "fg": "#7d8590",
           "disabledFg": "#1c2128",
           "border": "rgba(0,0,0,0)",
           "checked": {
@@ -2938,12 +2938,12 @@ var themePreval = {
             "hoverBg": "rgba(144,157,171,0.12)"
           },
           "directory": {
-            "fill": "#768390"
+            "fill": "#7d8590"
           }
         },
         "fg": {
-          "default": "#adbac7",
-          "muted": "#768390",
+          "default": "#e6edf3",
+          "muted": "#7d8590",
           "subtle": "#636e7b",
           "onEmphasis": "#cdd9e5"
         },
@@ -2965,10 +2965,10 @@ var themePreval = {
           "subtle": "rgba(99,110,123,0.1)"
         },
         "accent": {
-          "fg": "#539bf5",
+          "fg": "#2f81f7",
           "emphasis": "#316dca",
           "muted": "rgba(65,132,228,0.4)",
-          "subtle": "rgba(65,132,228,0.15)"
+          "subtle": "rgba(65,132,228,0.1)"
         },
         "success": {
           "fg": "#57ab5a",
@@ -2986,13 +2986,13 @@ var themePreval = {
           "fg": "#cc6b2c",
           "emphasis": "#ae5622",
           "muted": "rgba(204,107,44,0.4)",
-          "subtle": "rgba(204,107,44,0.15)"
+          "subtle": "rgba(204,107,44,0.1)"
         },
         "danger": {
           "fg": "#e5534b",
           "emphasis": "#c93c37",
           "muted": "rgba(229,83,75,0.4)",
-          "subtle": "rgba(229,83,75,0.15)"
+          "subtle": "rgba(229,83,75,0.1)"
         },
         "open": {
           "fg": "#57ab5a",
@@ -3010,13 +3010,13 @@ var themePreval = {
           "fg": "#986ee2",
           "emphasis": "#8256d0",
           "muted": "rgba(152,110,226,0.4)",
-          "subtle": "rgba(152,110,226,0.15)"
+          "subtle": "rgba(152,110,226,0.1)"
         },
         "sponsors": {
           "fg": "#c96198",
           "emphasis": "#ae4c82",
           "muted": "rgba(201,97,152,0.4)",
-          "subtle": "rgba(201,97,152,0.15)"
+          "subtle": "rgba(201,97,152,0.1)"
         },
         "primer": {
           "fg": {
@@ -3047,7 +3047,7 @@ var themePreval = {
           }
         },
         "avatar": {
-          "childShadow": "-2px -2px 0 #22272e"
+          "childShadow": "0 0 0 2px #22272e"
         },
         "overlay": {
           "shadow": "0 0 0 1px #444c56, 0 16px 32px rgba(28,33,40,0.85)"
@@ -3095,24 +3095,24 @@ var themePreval = {
         },
         "diffBlob": {
           "addition": {
-            "numText": "#f0f3f6",
+            "numText": "#e6edf3",
             "fg": "#0a0c10",
             "numBg": "rgba(38,205,77,0.3)",
             "lineBg": "rgba(9,180,58,0.15)",
             "wordBg": "#09b43a"
           },
           "deletion": {
-            "numText": "#f0f3f6",
+            "numText": "#e6edf3",
             "fg": "#0a0c10",
             "numBg": "rgba(255,106,105,0.3)",
-            "lineBg": "rgba(255,106,105,0.15)",
+            "lineBg": "rgba(255,106,105,0.1)",
             "wordBg": "#ff6a69"
           },
           "hunk": {
             "numBg": "rgba(64,158,255,0.4)"
           },
           "expander": {
-            "icon": "#f0f3f6"
+            "icon": "#e6edf3"
           }
         },
         "diffstat": {
@@ -3158,16 +3158,16 @@ var themePreval = {
           }
         },
         "codemirror": {
-          "text": "#f0f3f6",
+          "text": "#e6edf3",
           "bg": "#0a0c10",
           "guttersBg": "#0a0c10",
           "guttermarkerText": "#0a0c10",
           "guttermarkerSubtleText": "#9ea7b3",
           "linenumberText": "#f0f3f6",
-          "cursor": "#f0f3f6",
+          "cursor": "#e6edf3",
           "selectionBg": "rgba(64,158,255,0.4)",
           "activelineBg": "rgba(158,167,179,0.1)",
-          "matchingbracketText": "#f0f3f6",
+          "matchingbracketText": "#e6edf3",
           "linesBg": "#0a0c10",
           "syntax": {
             "comment": "#bdc4cc",
@@ -3182,39 +3182,39 @@ var themePreval = {
         },
         "checks": {
           "bg": "#010409",
-          "textPrimary": "#f0f3f6",
+          "textPrimary": "#e6edf3",
           "textSecondary": "#f0f3f6",
-          "textLink": "#71b7ff",
+          "textLink": "#2f81f7",
           "btnIcon": "#f0f3f6",
-          "btnHoverIcon": "#f0f3f6",
+          "btnHoverIcon": "#e6edf3",
           "btnHoverBg": "rgba(158,167,179,0.1)",
           "inputText": "#f0f3f6",
           "inputPlaceholderText": "#9ea7b3",
-          "inputFocusText": "#f0f3f6",
+          "inputFocusText": "#e6edf3",
           "inputBg": "#272b33",
           "donutError": "#ff6a69",
           "donutPending": "#f0b72f",
           "donutSuccess": "#09b43a",
           "donutNeutral": "#bdc4cc",
-          "dropdownText": "#f0f3f6",
+          "dropdownText": "#e6edf3",
           "dropdownBg": "#272b33",
           "dropdownBorder": "#7a828e",
           "dropdownShadow": "rgba(1,4,9,0.3)",
-          "dropdownHoverText": "#f0f3f6",
+          "dropdownHoverText": "#e6edf3",
           "dropdownHoverBg": "rgba(158,167,179,0.1)",
-          "dropdownBtnHoverText": "#f0f3f6",
+          "dropdownBtnHoverText": "#e6edf3",
           "dropdownBtnHoverBg": "rgba(158,167,179,0.1)",
           "scrollbarThumbBg": "rgba(158,167,179,0.4)",
           "headerLabelText": "#f0f3f6",
-          "headerLabelOpenText": "#f0f3f6",
+          "headerLabelOpenText": "#e6edf3",
           "headerBorder": "#7a828e",
           "headerIcon": "#f0f3f6",
           "lineText": "#f0f3f6",
           "lineNumText": "#9ea7b3",
           "lineTimestampText": "#9ea7b3",
           "lineHoverBg": "rgba(158,167,179,0.1)",
-          "lineSelectedBg": "rgba(64,158,255,0.15)",
-          "lineSelectedNumText": "#71b7ff",
+          "lineSelectedBg": "rgba(64,158,255,0.1)",
+          "lineSelectedNumText": "#2f81f7",
           "lineDtFmText": "#0a0c10",
           "lineDtFmBg": "#e09b13",
           "gateBg": "rgba(224,155,19,0.15)",
@@ -3228,11 +3228,11 @@ var themePreval = {
           "loglineDebugText": "#b780ff",
           "loglineErrorText": "#f0f3f6",
           "loglineErrorNumText": "#9ea7b3",
-          "loglineErrorBg": "rgba(255,106,105,0.15)",
+          "loglineErrorBg": "rgba(255,106,105,0.1)",
           "loglineWarningText": "#f0f3f6",
           "loglineWarningNumText": "#f0b72f",
           "loglineWarningBg": "rgba(224,155,19,0.15)",
-          "loglineCommandText": "#71b7ff",
+          "loglineCommandText": "#2f81f7",
           "loglineSectionText": "#26cd4d",
           "ansi": {
             "black": "#0a0c10",
@@ -3452,7 +3452,7 @@ var themePreval = {
           }
         },
         "fg": {
-          "default": "#f0f3f6",
+          "default": "#e6edf3",
           "muted": "#f0f3f6",
           "subtle": "#9ea7b3",
           "onEmphasis": "#0a0c10"
@@ -3475,10 +3475,10 @@ var themePreval = {
           "subtle": "rgba(158,167,179,0.1)"
         },
         "accent": {
-          "fg": "#71b7ff",
+          "fg": "#2f81f7",
           "emphasis": "#409eff",
           "muted": "#409eff",
-          "subtle": "rgba(64,158,255,0.15)"
+          "subtle": "rgba(64,158,255,0.1)"
         },
         "success": {
           "fg": "#26cd4d",
@@ -3496,13 +3496,13 @@ var themePreval = {
           "fg": "#e7811d",
           "emphasis": "#e7811d",
           "muted": "#e7811d",
-          "subtle": "rgba(231,129,29,0.15)"
+          "subtle": "rgba(231,129,29,0.1)"
         },
         "danger": {
           "fg": "#ff6a69",
           "emphasis": "#ff6a69",
           "muted": "#ff6a69",
-          "subtle": "rgba(255,106,105,0.15)"
+          "subtle": "rgba(255,106,105,0.1)"
         },
         "open": {
           "fg": "#26cd4d",
@@ -3520,13 +3520,13 @@ var themePreval = {
           "fg": "#b780ff",
           "emphasis": "#b87fff",
           "muted": "#b780ff",
-          "subtle": "rgba(183,128,255,0.15)"
+          "subtle": "rgba(183,128,255,0.1)"
         },
         "sponsors": {
           "fg": "#ef6eb1",
           "emphasis": "#ef6eb1",
           "muted": "#ef6eb1",
-          "subtle": "rgba(239,110,177,0.15)"
+          "subtle": "rgba(239,110,177,0.1)"
         },
         "primer": {
           "fg": {
@@ -3557,7 +3557,7 @@ var themePreval = {
           }
         },
         "avatar": {
-          "childShadow": "-2px -2px 0 #0a0c10"
+          "childShadow": "0 0 0 2px #0a0c10"
         },
         "overlay": {
           "shadow": "0 0 0 1px #525964, 0 16px 32px rgba(1,4,9,0.85)"
@@ -3605,24 +3605,24 @@ var themePreval = {
         },
         "diffBlob": {
           "addition": {
-            "numText": "#c9d1d9",
-            "fg": "#c9d1d9",
+            "numText": "#e6edf3",
+            "fg": "#e6edf3",
             "numBg": "rgba(88,166,255,0.3)",
             "lineBg": "rgba(56,139,253,0.15)",
             "wordBg": "rgba(56,139,253,0.4)"
           },
           "deletion": {
-            "numText": "#c9d1d9",
-            "fg": "#c9d1d9",
+            "numText": "#e6edf3",
+            "fg": "#e6edf3",
             "numBg": "rgba(212,118,22,0.3)",
-            "lineBg": "rgba(212,118,22,0.15)",
+            "lineBg": "rgba(212,118,22,0.1)",
             "wordBg": "rgba(212,118,22,0.4)"
           },
           "hunk": {
             "numBg": "rgba(56,139,253,0.4)"
           },
           "expander": {
-            "icon": "#8b949e"
+            "icon": "#7d8590"
           }
         },
         "diffstat": {
@@ -3668,16 +3668,16 @@ var themePreval = {
           }
         },
         "codemirror": {
-          "text": "#c9d1d9",
+          "text": "#e6edf3",
           "bg": "#0d1117",
           "guttersBg": "#0d1117",
           "guttermarkerText": "#0d1117",
           "guttermarkerSubtleText": "#6e7681",
-          "linenumberText": "#8b949e",
-          "cursor": "#c9d1d9",
+          "linenumberText": "#7d8590",
+          "cursor": "#e6edf3",
           "selectionBg": "rgba(56,139,253,0.4)",
           "activelineBg": "rgba(110,118,129,0.1)",
-          "matchingbracketText": "#c9d1d9",
+          "matchingbracketText": "#e6edf3",
           "linesBg": "#0d1117",
           "syntax": {
             "comment": "#8b949e",
@@ -3692,57 +3692,57 @@ var themePreval = {
         },
         "checks": {
           "bg": "#010409",
-          "textPrimary": "#c9d1d9",
-          "textSecondary": "#8b949e",
-          "textLink": "#58a6ff",
-          "btnIcon": "#8b949e",
-          "btnHoverIcon": "#c9d1d9",
+          "textPrimary": "#e6edf3",
+          "textSecondary": "#7d8590",
+          "textLink": "#2f81f7",
+          "btnIcon": "#7d8590",
+          "btnHoverIcon": "#e6edf3",
           "btnHoverBg": "rgba(110,118,129,0.1)",
-          "inputText": "#8b949e",
+          "inputText": "#7d8590",
           "inputPlaceholderText": "#6e7681",
-          "inputFocusText": "#c9d1d9",
+          "inputFocusText": "#e6edf3",
           "inputBg": "#161b22",
           "donutError": "#d47616",
           "donutPending": "#d29922",
           "donutSuccess": "#388bfd",
           "donutNeutral": "#8b949e",
-          "dropdownText": "#c9d1d9",
+          "dropdownText": "#e6edf3",
           "dropdownBg": "#161b22",
           "dropdownBorder": "#30363d",
           "dropdownShadow": "rgba(1,4,9,0.3)",
-          "dropdownHoverText": "#c9d1d9",
+          "dropdownHoverText": "#e6edf3",
           "dropdownHoverBg": "rgba(110,118,129,0.1)",
-          "dropdownBtnHoverText": "#c9d1d9",
+          "dropdownBtnHoverText": "#e6edf3",
           "dropdownBtnHoverBg": "rgba(110,118,129,0.1)",
           "scrollbarThumbBg": "rgba(110,118,129,0.4)",
-          "headerLabelText": "#8b949e",
-          "headerLabelOpenText": "#c9d1d9",
+          "headerLabelText": "#7d8590",
+          "headerLabelOpenText": "#e6edf3",
           "headerBorder": "#21262d",
-          "headerIcon": "#8b949e",
-          "lineText": "#8b949e",
+          "headerIcon": "#7d8590",
+          "lineText": "#7d8590",
           "lineNumText": "#6e7681",
           "lineTimestampText": "#6e7681",
           "lineHoverBg": "rgba(110,118,129,0.1)",
-          "lineSelectedBg": "rgba(56,139,253,0.15)",
-          "lineSelectedNumText": "#58a6ff",
+          "lineSelectedBg": "rgba(56,139,253,0.1)",
+          "lineSelectedNumText": "#2f81f7",
           "lineDtFmText": "#ffffff",
           "lineDtFmBg": "#9e6a03",
           "gateBg": "rgba(187,128,9,0.15)",
-          "gateText": "#8b949e",
+          "gateText": "#7d8590",
           "gateWaitingText": "#d29922",
           "stepHeaderOpenBg": "#161b22",
           "stepErrorText": "#d47616",
           "stepWarningText": "#d29922",
-          "loglineText": "#8b949e",
+          "loglineText": "#7d8590",
           "loglineNumText": "#6e7681",
           "loglineDebugText": "#a371f7",
-          "loglineErrorText": "#8b949e",
+          "loglineErrorText": "#7d8590",
           "loglineErrorNumText": "#6e7681",
-          "loglineErrorBg": "rgba(212,118,22,0.15)",
-          "loglineWarningText": "#8b949e",
+          "loglineErrorBg": "rgba(212,118,22,0.1)",
+          "loglineWarningText": "#7d8590",
           "loglineWarningNumText": "#d29922",
           "loglineWarningBg": "rgba(187,128,9,0.15)",
-          "loglineCommandText": "#58a6ff",
+          "loglineCommandText": "#2f81f7",
           "loglineSectionText": "#58a6ff",
           "ansi": {
             "black": "#0d1117",
@@ -3916,7 +3916,7 @@ var themePreval = {
           "hoverBg": "hsla(215,8%,72%,0.1)",
           "activeBg": "rgba(110,118,129,0.4)",
           "disabledBg": "#21262d",
-          "fg": "#8b949e",
+          "fg": "#7d8590",
           "disabledFg": "#010409",
           "border": "rgba(0,0,0,0)",
           "checked": {
@@ -3958,12 +3958,12 @@ var themePreval = {
             "hoverBg": "rgba(177,186,196,0.12)"
           },
           "directory": {
-            "fill": "#8b949e"
+            "fill": "#7d8590"
           }
         },
         "fg": {
-          "default": "#c9d1d9",
-          "muted": "#8b949e",
+          "default": "#e6edf3",
+          "muted": "#7d8590",
           "subtle": "#6e7681",
           "onEmphasis": "#ffffff"
         },
@@ -3985,10 +3985,10 @@ var themePreval = {
           "subtle": "rgba(110,118,129,0.1)"
         },
         "accent": {
-          "fg": "#58a6ff",
+          "fg": "#2f81f7",
           "emphasis": "#1f6feb",
           "muted": "rgba(56,139,253,0.4)",
-          "subtle": "rgba(56,139,253,0.15)"
+          "subtle": "rgba(56,139,253,0.1)"
         },
         "success": {
           "fg": "#58a6ff",
@@ -4006,13 +4006,13 @@ var themePreval = {
           "fg": "#d47616",
           "emphasis": "#b76100",
           "muted": "rgba(212,118,22,0.4)",
-          "subtle": "rgba(212,118,22,0.15)"
+          "subtle": "rgba(212,118,22,0.1)"
         },
         "danger": {
           "fg": "#d47616",
           "emphasis": "#b76100",
           "muted": "rgba(212,118,22,0.4)",
-          "subtle": "rgba(212,118,22,0.15)"
+          "subtle": "rgba(212,118,22,0.1)"
         },
         "open": {
           "fg": "#ec8e2c",
@@ -4030,13 +4030,13 @@ var themePreval = {
           "fg": "#a371f7",
           "emphasis": "#8957e5",
           "muted": "rgba(163,113,247,0.4)",
-          "subtle": "rgba(163,113,247,0.15)"
+          "subtle": "rgba(163,113,247,0.1)"
         },
         "sponsors": {
           "fg": "#db61a2",
           "emphasis": "#bf4b8a",
           "muted": "rgba(219,97,162,0.4)",
-          "subtle": "rgba(219,97,162,0.15)"
+          "subtle": "rgba(219,97,162,0.1)"
         },
         "primer": {
           "fg": {
@@ -4067,7 +4067,7 @@ var themePreval = {
           }
         },
         "avatar": {
-          "childShadow": "-2px -2px 0 #0d1117"
+          "childShadow": "0 0 0 2px #0d1117"
         },
         "overlay": {
           "shadow": "0 0 0 1px #30363d, 0 16px 32px rgba(1,4,9,0.85)"
@@ -4115,24 +4115,24 @@ var themePreval = {
         },
         "diffBlob": {
           "addition": {
-            "numText": "#c9d1d9",
-            "fg": "#c9d1d9",
+            "numText": "#e6edf3",
+            "fg": "#e6edf3",
             "numBg": "rgba(88,166,255,0.3)",
             "lineBg": "rgba(56,139,253,0.15)",
             "wordBg": "rgba(56,139,253,0.4)"
           },
           "deletion": {
-            "numText": "#c9d1d9",
-            "fg": "#c9d1d9",
+            "numText": "#e6edf3",
+            "fg": "#e6edf3",
             "numBg": "rgba(248,81,73,0.3)",
-            "lineBg": "rgba(248,81,73,0.15)",
+            "lineBg": "rgba(248,81,73,0.1)",
             "wordBg": "rgba(248,81,73,0.4)"
           },
           "hunk": {
             "numBg": "rgba(56,139,253,0.4)"
           },
           "expander": {
-            "icon": "#8b949e"
+            "icon": "#7d8590"
           }
         },
         "diffstat": {
@@ -4178,16 +4178,16 @@ var themePreval = {
           }
         },
         "codemirror": {
-          "text": "#c9d1d9",
+          "text": "#e6edf3",
           "bg": "#0d1117",
           "guttersBg": "#0d1117",
           "guttermarkerText": "#0d1117",
           "guttermarkerSubtleText": "#6e7681",
-          "linenumberText": "#8b949e",
-          "cursor": "#c9d1d9",
+          "linenumberText": "#7d8590",
+          "cursor": "#e6edf3",
           "selectionBg": "rgba(56,139,253,0.4)",
           "activelineBg": "rgba(110,118,129,0.1)",
-          "matchingbracketText": "#c9d1d9",
+          "matchingbracketText": "#e6edf3",
           "linesBg": "#0d1117",
           "syntax": {
             "comment": "#8b949e",
@@ -4202,57 +4202,57 @@ var themePreval = {
         },
         "checks": {
           "bg": "#010409",
-          "textPrimary": "#c9d1d9",
-          "textSecondary": "#8b949e",
-          "textLink": "#58a6ff",
-          "btnIcon": "#8b949e",
-          "btnHoverIcon": "#c9d1d9",
+          "textPrimary": "#e6edf3",
+          "textSecondary": "#7d8590",
+          "textLink": "#2f81f7",
+          "btnIcon": "#7d8590",
+          "btnHoverIcon": "#e6edf3",
           "btnHoverBg": "rgba(110,118,129,0.1)",
-          "inputText": "#8b949e",
+          "inputText": "#7d8590",
           "inputPlaceholderText": "#6e7681",
-          "inputFocusText": "#c9d1d9",
+          "inputFocusText": "#e6edf3",
           "inputBg": "#161b22",
           "donutError": "#f85149",
           "donutPending": "#d29922",
           "donutSuccess": "#388bfd",
           "donutNeutral": "#8b949e",
-          "dropdownText": "#c9d1d9",
+          "dropdownText": "#e6edf3",
           "dropdownBg": "#161b22",
           "dropdownBorder": "#30363d",
           "dropdownShadow": "rgba(1,4,9,0.3)",
-          "dropdownHoverText": "#c9d1d9",
+          "dropdownHoverText": "#e6edf3",
           "dropdownHoverBg": "rgba(110,118,129,0.1)",
-          "dropdownBtnHoverText": "#c9d1d9",
+          "dropdownBtnHoverText": "#e6edf3",
           "dropdownBtnHoverBg": "rgba(110,118,129,0.1)",
           "scrollbarThumbBg": "rgba(110,118,129,0.4)",
-          "headerLabelText": "#8b949e",
-          "headerLabelOpenText": "#c9d1d9",
+          "headerLabelText": "#7d8590",
+          "headerLabelOpenText": "#e6edf3",
           "headerBorder": "#21262d",
-          "headerIcon": "#8b949e",
-          "lineText": "#8b949e",
+          "headerIcon": "#7d8590",
+          "lineText": "#7d8590",
           "lineNumText": "#6e7681",
           "lineTimestampText": "#6e7681",
           "lineHoverBg": "rgba(110,118,129,0.1)",
-          "lineSelectedBg": "rgba(56,139,253,0.15)",
-          "lineSelectedNumText": "#58a6ff",
+          "lineSelectedBg": "rgba(56,139,253,0.1)",
+          "lineSelectedNumText": "#2f81f7",
           "lineDtFmText": "#ffffff",
           "lineDtFmBg": "#9e6a03",
           "gateBg": "rgba(187,128,9,0.15)",
-          "gateText": "#8b949e",
+          "gateText": "#7d8590",
           "gateWaitingText": "#d29922",
           "stepHeaderOpenBg": "#161b22",
           "stepErrorText": "#f85149",
           "stepWarningText": "#d29922",
-          "loglineText": "#8b949e",
+          "loglineText": "#7d8590",
           "loglineNumText": "#6e7681",
           "loglineDebugText": "#a371f7",
-          "loglineErrorText": "#8b949e",
+          "loglineErrorText": "#7d8590",
           "loglineErrorNumText": "#6e7681",
-          "loglineErrorBg": "rgba(248,81,73,0.15)",
-          "loglineWarningText": "#8b949e",
+          "loglineErrorBg": "rgba(248,81,73,0.1)",
+          "loglineWarningText": "#7d8590",
           "loglineWarningNumText": "#d29922",
           "loglineWarningBg": "rgba(187,128,9,0.15)",
-          "loglineCommandText": "#58a6ff",
+          "loglineCommandText": "#2f81f7",
           "loglineSectionText": "#58a6ff",
           "ansi": {
             "black": "#0d1117",
@@ -4426,7 +4426,7 @@ var themePreval = {
           "hoverBg": "hsla(215,8%,72%,0.1)",
           "activeBg": "rgba(110,118,129,0.4)",
           "disabledBg": "#21262d",
-          "fg": "#8b949e",
+          "fg": "#7d8590",
           "disabledFg": "#010409",
           "border": "rgba(0,0,0,0)",
           "checked": {
@@ -4468,12 +4468,12 @@ var themePreval = {
             "hoverBg": "rgba(177,186,196,0.12)"
           },
           "directory": {
-            "fill": "#8b949e"
+            "fill": "#7d8590"
           }
         },
         "fg": {
-          "default": "#c9d1d9",
-          "muted": "#8b949e",
+          "default": "#e6edf3",
+          "muted": "#7d8590",
           "subtle": "#6e7681",
           "onEmphasis": "#ffffff"
         },
@@ -4495,10 +4495,10 @@ var themePreval = {
           "subtle": "rgba(110,118,129,0.1)"
         },
         "accent": {
-          "fg": "#58a6ff",
+          "fg": "#2f81f7",
           "emphasis": "#1f6feb",
           "muted": "rgba(56,139,253,0.4)",
-          "subtle": "rgba(56,139,253,0.15)"
+          "subtle": "rgba(56,139,253,0.1)"
         },
         "success": {
           "fg": "#58a6ff",
@@ -4516,13 +4516,13 @@ var themePreval = {
           "fg": "#f85149",
           "emphasis": "#da3633",
           "muted": "rgba(248,81,73,0.4)",
-          "subtle": "rgba(248,81,73,0.15)"
+          "subtle": "rgba(248,81,73,0.1)"
         },
         "danger": {
           "fg": "#f85149",
           "emphasis": "#da3633",
           "muted": "rgba(248,81,73,0.4)",
-          "subtle": "rgba(248,81,73,0.15)"
+          "subtle": "rgba(248,81,73,0.1)"
         },
         "open": {
           "fg": "#ff7b72",
@@ -4540,13 +4540,13 @@ var themePreval = {
           "fg": "#a371f7",
           "emphasis": "#8957e5",
           "muted": "rgba(163,113,247,0.4)",
-          "subtle": "rgba(163,113,247,0.15)"
+          "subtle": "rgba(163,113,247,0.1)"
         },
         "sponsors": {
           "fg": "#db61a2",
           "emphasis": "#bf4b8a",
           "muted": "rgba(219,97,162,0.4)",
-          "subtle": "rgba(219,97,162,0.15)"
+          "subtle": "rgba(219,97,162,0.1)"
         },
         "primer": {
           "fg": {
@@ -4577,7 +4577,7 @@ var themePreval = {
           }
         },
         "avatar": {
-          "childShadow": "-2px -2px 0 #0d1117"
+          "childShadow": "0 0 0 2px #0d1117"
         },
         "overlay": {
           "shadow": "0 0 0 1px #30363d, 0 16px 32px rgba(1,4,9,0.85)"

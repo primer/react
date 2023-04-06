@@ -14,18 +14,18 @@ export type DataTableProps<Data extends UniqueRow> = {
   /**
    * Provide an id to an element which uniquely describes this table
    */
-  'aria-describedby'?: string | undefined
+  'aria-describedby'?: string
 
   /**
    * Provide an id to an element which uniquely labels this table
    */
-  'aria-labelledby'?: string | undefined
+  'aria-labelledby'?: string
 
   /**
    * Specify the amount of space that should be available around the contents of
    * a cell
    */
-  cellPadding?: 'condensed' | 'normal' | 'spacious' | undefined
+  cellPadding?: 'condensed' | 'normal' | 'spacious'
 
   /**
    * Provide a collection of the rows which will be rendered inside of the table
@@ -43,13 +43,13 @@ export type DataTableProps<Data extends UniqueRow> = {
    * using this `prop`, the input data must be sorted by this column in
    * ascending order
    */
-  initialSortColumn?: ObjectPaths<Data> | string | undefined
+  initialSortColumn?: ObjectPaths<Data> | string | number
 
   /**
    * Provide the sort direction that the table should be sorted by on the
    * currently sorted column
    */
-  initialSortDirection?: Exclude<SortDirection, 'NONE'> | undefined
+  initialSortDirection?: Exclude<SortDirection, 'NONE'>
 }
 
 function DataTable<Data extends UniqueRow>({
@@ -61,14 +61,20 @@ function DataTable<Data extends UniqueRow>({
   initialSortColumn,
   initialSortDirection,
 }: DataTableProps<Data>) {
-  const {headers, rows, actions} = useTable({
+  const {headers, rows, actions, gridTemplateColumns} = useTable({
     data,
     columns,
     initialSortColumn,
     initialSortDirection,
   })
+
   return (
-    <Table aria-labelledby={labelledby} aria-describedby={describedby} cellPadding={cellPadding}>
+    <Table
+      aria-labelledby={labelledby}
+      aria-describedby={describedby}
+      cellPadding={cellPadding}
+      gridTemplateColumns={gridTemplateColumns}
+    >
       <TableHead>
         <TableRow>
           {headers.map(header => {
@@ -76,16 +82,21 @@ function DataTable<Data extends UniqueRow>({
               return (
                 <TableSortHeader
                   key={header.id}
+                  align={header.column.align}
                   direction={header.getSortDirection()}
                   onToggleSort={() => {
                     actions.sortBy(header)
                   }}
                 >
-                  {header.column.header}
+                  {typeof header.column.header === 'string' ? header.column.header : header.column.header()}
                 </TableSortHeader>
               )
             }
-            return <TableHeader key={header.id}>{header.column.header}</TableHeader>
+            return (
+              <TableHeader key={header.id} align={header.column.align}>
+                {typeof header.column.header === 'string' ? header.column.header : header.column.header()}
+              </TableHeader>
+            )
           })}
         </TableRow>
       </TableHead>
@@ -95,7 +106,7 @@ function DataTable<Data extends UniqueRow>({
             <TableRow key={row.id}>
               {row.getCells().map(cell => {
                 return (
-                  <TableCell key={cell.id} scope={cell.rowHeader ? 'row' : undefined}>
+                  <TableCell key={cell.id} scope={cell.rowHeader ? 'row' : undefined} align={cell.column.align}>
                     {cell.column.renderCell
                       ? cell.column.renderCell(row.getValue())
                       : (cell.getValue() as React.ReactNode)}
