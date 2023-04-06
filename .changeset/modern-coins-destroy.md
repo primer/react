@@ -25,7 +25,8 @@ ActionList.Groups inside an ActionList generated inaccessible markup. Previous u
 Instead, use `ActionList`s and stack them as needed.
 ```
 <div>
-  <ActionList headingProps={{ title: "Actions" }}>
+  <ActionList>
+    <ActionList.Heading title="Actions" />
     <ActionList.Item>Create</ActionList.Item>
     <ActionList.Item>Read</ActionList.Item>
     <ActionList.Item>Update</ActionList.Item>

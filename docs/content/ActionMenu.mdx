@@ -110,14 +110,15 @@ You can choose to have a different _anchor_ for the Menu depending on the applic
 </ActionMenu>
 ```
 
-### With Groups
+### Divided into sections
 
 ```jsx live
 <ActionMenu>
   <ActionMenu.Button>Open column menu</ActionMenu.Button>
 
   <ActionMenu.Overlay>
-    <ActionList showDividers headingProps={{title: 'Live query'}}>
+    <ActionList showDividers>
+      <ActionList.Heading title="Live query" />
       <ActionList.Item>
         <ActionList.LeadingVisual>
           <SearchIcon />
@@ -125,7 +126,8 @@ You can choose to have a different _anchor_ for the Menu depending on the applic
         repo:github/memex,github/github
       </ActionList.Item>
     </ActionList>
-    <ActionList showDividers headingProps={{title: 'Layout'}} variant="subtle">
+    <ActionList showDividers>
+      <ActionList.Heading title="Layout" variant="subtle" />
       <ActionList.Item>
         <ActionList.LeadingVisual>
           <NoteIcon />

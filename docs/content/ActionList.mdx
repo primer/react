@@ -170,7 +170,7 @@ When you want to add links to the List instead of actions, use `ActionList.LinkI
 </ActionList>
 ```
 
-### With groups
+### With headings
 
 ```javascript live noinline
 const SelectFields = () => {
@@ -197,7 +197,8 @@ const SelectFields = () => {
 
   return (
     <>
-      <ActionList selectionVariant="multiple" headingProps={{title: 'Visible fields'}}>
+      <ActionList selectionVariant="multiple">
+        <ActionList.Heading title="Visible fields" />
         {visibleOptions.map(option => (
           <ActionList.Item key={option.text} selected={true} onSelect={() => toggle(option.text)}>
             {option.text}
@@ -209,8 +210,8 @@ const SelectFields = () => {
           /** selectionVariant override on Group: disable selection if there are no options */
           hiddenOptions.length ? 'multiple' : false
         }
-        headingProps={{title: 'Hidden fields'}}
       >
+        <ActionList.Heading title="Hidden fields" />
         {hiddenOptions.map((option, index) => (
           <ActionList.Item key={option.text} selected={false} onSelect={() => toggle(option.text)}>
             {option.text}
