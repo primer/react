@@ -97,20 +97,6 @@
         }
       ]
     },
-    "label_group": {
-      "id": "label_group",
-      "name": "LabelGroup",
-      "status": "alpha",
-      "a11yReviewed": false,
-      "stories": [],
-      "props": [
-        {
-          "name": "sx",
-          "type": "SystemStyleObject"
-        }
-      ],
-      "subcomponents": []
-    },
     "overlay": {
       "id": "overlay",
       "name": "Overlay",
@@ -2348,6 +2334,25 @@
           "type": "'small' | 'large'",
           "defaultValue": "'small'",
           "description": "How large the label is rendered"
+        }
+      ],
+      "subcomponents": []
+    },
+    "label_group": {
+      "id": "label_group",
+      "name": "LabelGroup",
+      "status": "alpha",
+      "a11yReviewed": false,
+      "stories": [
+        {
+          "id": "components-labelgroup--default",
+          "code": "() => (\n  <LabelGroup>\n    <Label>Default label</Label>\n    <Label variant=\"danger\">\n      Label with background indicating a closed PR state\n    </Label>\n    <Label variant=\"primary\">Default outline label</Label>\n  </LabelGroup>\n)"
+        }
+      ],
+      "props": [
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
         }
       ],
       "subcomponents": []
