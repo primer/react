@@ -403,6 +403,21 @@ const components = new Map([
     },
   ],
   [
+    'FilteredSearch',
+    {
+      stories: [
+        {
+          id: 'components-filteredsearch--default',
+          name: 'Default',
+        },
+        {
+          id: 'components-filteredsearch--playground',
+          name: 'Playground',
+        },
+      ],
+    },
+  ],
+  [
     'FilterList',
     {
       stories: [
@@ -577,6 +592,21 @@ const components = new Map([
         {
           id: 'components-label-features--success',
           name: 'Success',
+        },
+      ],
+    },
+  ],
+  [
+    'LabelGroup',
+    {
+      stories: [
+        {
+          id: 'components-labelgroup--default',
+          name: 'Default',
+        },
+        {
+          id: 'components-labelgroup--playground',
+          name: 'Playground',
         },
       ],
     },

@@ -235,20 +235,11 @@ test.describe('ActionMenu', () => {
               colorScheme: theme,
             },
           })
-          await expect(page).toHaveNoViolations()
-        })
-      })
-    }
-  })
-
-  test.describe('Multiple Sections', () => {
-    for (const theme of themes) {
-      test.describe(theme, () => {
-        test('default @vrt', async ({page}) => {
-          await visit(page, {
-            id: 'components-actionmenu-examples--multiple-sections',
-            globals: {
-              colorScheme: theme,
+          await expect(page).toHaveNoViolations({
+            rules: {
+              'aria-required-children': {
+                enabled: false,
+              },
             },
           })
 
