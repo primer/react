@@ -1,4 +1,4 @@
-import {renderHook} from '@testing-library/react-hooks'
+import {renderHook, waitFor} from '@testing-library/react'
 import useSafeTimeout from '../hooks/useSafeTimeout'
 
 afterEach(() => {
@@ -6,7 +6,7 @@ afterEach(() => {
 })
 
 test('should call callback after time', async () => {
-  const {result, waitFor} = renderHook(() => useSafeTimeout())
+  const {result} = renderHook(() => useSafeTimeout())
   const mockFunction = jest.fn()
   result.current.safeSetTimeout(mockFunction, 300)
   await waitFor(() => expect(mockFunction).toHaveBeenCalled())

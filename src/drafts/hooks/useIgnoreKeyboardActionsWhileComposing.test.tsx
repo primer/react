@@ -1,7 +1,7 @@
 import React from 'react'
 import {isMacOS} from '@primer/behaviors/utils'
 import {fireEvent, render, screen} from '@testing-library/react'
-import {renderHook} from '@testing-library/react-hooks'
+import {renderHook} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import {useIgnoreKeyboardActionsWhileComposing} from './useIgnoreKeyboardActionsWhileComposing'
 
