@@ -597,6 +597,21 @@ const components = new Map([
     },
   ],
   [
+    'LabelGroup',
+    {
+      stories: [
+        {
+          id: 'components-labelgroup--default',
+          name: 'Default',
+        },
+        {
+          id: 'components-labelgroup--playground',
+          name: 'Playground',
+        },
+      ],
+    },
+  ],
+  [
     'Link',
     {
       stories: [
