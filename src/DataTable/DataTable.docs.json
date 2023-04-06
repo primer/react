@@ -30,6 +30,9 @@
     },
     {
       "id": "components-datatable-features--with-custom-heading"
+    },
+    {
+      "id": "components-datatable-features--with-loading"
     }
   ],
   "props": [
@@ -168,6 +171,25 @@
           "name": "id",
           "type": "string",
           "required": true
+        }
+      ]
+    },
+    {
+      "name": "Table.Skeleton",
+      "props": [
+        {
+          "name": "cellPadding",
+          "type": "'condensed' | 'normal' | 'spacious'",
+          "description": "Specify the amount of space that should be available around the contents of a cell"
+        },
+        {
+          "name": "columns",
+          "type": "Array<Column<Data>>"
+        },
+        {
+          "name": "rows",
+          "type": "number",
+          "description": "Optionally specify the number of rows which should be included in the skeleton state of the component"
         }
       ]
     }

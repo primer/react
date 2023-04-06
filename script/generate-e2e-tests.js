@@ -311,6 +311,21 @@ const components = new Map([
     },
   ],
   [
+    'CircleBadge',
+    {
+      stories: [
+        {
+          id: 'components-circlebadge--default',
+          name: 'Default',
+        },
+        {
+          id: 'components-circlebadge--playground',
+          name: 'Playground',
+        },
+      ],
+    },
+  ],
+  [
     'CounterLabel',
     {
       stories: [
@@ -388,6 +403,36 @@ const components = new Map([
     },
   ],
   [
+    'FilteredSearch',
+    {
+      stories: [
+        {
+          id: 'components-filteredsearch--default',
+          name: 'Default',
+        },
+        {
+          id: 'components-filteredsearch--playground',
+          name: 'Playground',
+        },
+      ],
+    },
+  ],
+  [
+    'FilterList',
+    {
+      stories: [
+        {
+          id: 'components-filterlist--default',
+          name: 'Default',
+        },
+        {
+          id: 'components-filterlist--playground',
+          name: 'Playground',
+        },
+      ],
+    },
+  ],
+  [
     'Flash',
     {
       stories: [
@@ -410,6 +455,17 @@ const components = new Map([
         {
           id: 'components-flash-features--warning',
           name: 'Warning',
+        },
+      ],
+    },
+  ],
+  [
+    'Header',
+    {
+      stories: [
+        {
+          id: 'components-header--default',
+          name: 'Default',
         },
       ],
     },

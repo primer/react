@@ -1,8 +1,8 @@
 import {Location, Pathname} from 'history'
 import styled, {css} from 'styled-components'
-import {get} from './constants'
-import sx, {SxProp} from './sx'
-import {ComponentProps} from './utils/types'
+import {get} from '../constants'
+import sx, {SxProp} from '../sx'
+import {ComponentProps} from '../utils/types'
 
 type StyledHeaderItemProps = {full?: boolean} & SxProp
 type StyledHeaderProps = SxProp

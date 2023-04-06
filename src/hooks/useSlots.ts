@@ -1,7 +1,8 @@
 import React from 'react'
 import {warning} from '../utils/warning'
 
-export type SlotConfig = Record<string, React.ComponentType>
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type SlotConfig = Record<string, React.ComponentType<any>>
 
 type SlotElements<Type extends SlotConfig> = {
   [Property in keyof Type]: React.ReactElement

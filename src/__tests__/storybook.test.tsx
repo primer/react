@@ -23,6 +23,7 @@ const allowlist = [
   'DataTable',
   'Details',
   'Flash',
+  'Header',
   'Heading',
   'IconButton',
   'FilteredActionList',
