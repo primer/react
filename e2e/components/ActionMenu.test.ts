@@ -25,13 +25,7 @@ test.describe('ActionMenu', () => {
               colorScheme: theme,
             },
           })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
+          await expect(page).toHaveNoViolations()
         })
       })
     }
@@ -61,13 +55,7 @@ test.describe('ActionMenu', () => {
               colorScheme: theme,
             },
           })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
+          await expect(page).toHaveNoViolations()
         })
       })
     }
@@ -97,13 +85,7 @@ test.describe('ActionMenu', () => {
               colorScheme: theme,
             },
           })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
+          await expect(page).toHaveNoViolations()
         })
       })
     }
@@ -133,13 +115,7 @@ test.describe('ActionMenu', () => {
               colorScheme: theme,
             },
           })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
+          await expect(page).toHaveNoViolations()
         })
       })
     }
@@ -169,13 +145,7 @@ test.describe('ActionMenu', () => {
               colorScheme: theme,
             },
           })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
+          await expect(page).toHaveNoViolations()
         })
       })
     }
@@ -205,13 +175,7 @@ test.describe('ActionMenu', () => {
               colorScheme: theme,
             },
           })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
+          await expect(page).toHaveNoViolations()
         })
       })
     }
@@ -241,13 +205,7 @@ test.describe('ActionMenu', () => {
               colorScheme: theme,
             },
           })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
+          await expect(page).toHaveNoViolations()
         })
       })
     }
@@ -279,9 +237,6 @@ test.describe('ActionMenu', () => {
           })
           await expect(page).toHaveNoViolations({
             rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
               'aria-required-children': {
                 enabled: false,
               },
