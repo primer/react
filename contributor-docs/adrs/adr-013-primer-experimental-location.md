@@ -15,7 +15,7 @@ As we work on new components (or rewrites of old components), we often need to s
 - When we are not sure about the API of a component, we put it in a different bundle: "primer/react/drafts". [ADR 010: Merge drafts status into experimental](./adr-010-drafts-are-experimental) recommends changing the name to `experimental`
 - The contract with consumers is that you are opting into a component in which we don't have 100% confidence yet, the API and structure can change.
 
-In [ADR 008: Lowering the barrier to entry](./adr-008-experimental-components) (Sep, 2022), we decided to create room to share experimental components between memex and the monolith with a new repository ([github/experimental-react-components](https://github.com/github/experimental-react-components)). Now that [memex is part of the monolith](https://github.com/github/planning-tracking/issues/1755), that [repository has been archived](https://github.com/github/platform-ux/issues/1248) (Feb, 2023).
+In [ADR 008: Lowering the barrier to entry](./adr-008-experimental-components) (Sep, 2022), we decided to create room to share experimental components between memex and the monolith with a new repository ([github/experimental-react-components](https://github.com/github/experimental-react-components)). Now that [memex is part of the monolith](https://github.com/github/planning-tracking/issues/1755), github/experimental-react-components [has been archived](https://github.com/github/platform-ux/issues/1248) (Feb, 2023).
 
 Which leaves us with: Where should experimental components maintained by Primer live?
 
