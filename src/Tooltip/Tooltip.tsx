@@ -6,8 +6,33 @@ import {isFocusable} from '@primer/behaviors/utils'
 import {invariant} from '../utils/invariant'
 import styled from 'styled-components'
 import {get} from '../constants'
-import {useOnEscapePress} from '../hooks/useOnEscapePress'
+import {getAnchoredPosition} from '@primer/behaviors'
 
+declare global {
+  interface PopoverToggleTargetElementInvoker {
+    popoverTargetElement: HTMLElement | null
+    popoverTargetAction: 'toggle' | 'show' | 'hide'
+  }
+  interface ToggleEvent extends Event {
+    oldState: string
+    newState: string
+  }
+  interface HTMLElement {
+    popover: 'auto' | 'manual' | null
+    showPopover(): void
+    hidePopover(): void
+    togglePopover(): void
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-empty-interface
+  interface HTMLButtonElement extends PopoverToggleTargetElementInvoker {}
+  // eslint-disable-next-line @typescript-eslint/no-empty-interface
+  interface HTMLInputElement extends PopoverToggleTargetElementInvoker {}
+
+  interface Window {
+    ToggleEvent: ToggleEvent
+  }
+}
 export type TooltipProps = {
   direction?: 'n' | 'ne' | 'e' | 'se' | 's' | 'sw' | 'w' | 'nw'
   text?: string
@@ -52,8 +77,7 @@ const TooltipEL = styled.div<TooltipProps>`
     outline: 1px solid transparent;
   }
 
-  /* tooltip element should be rendered visually hidden when it is not opened.  */
-  &:not([data-state='open']) {
+  &:not(:open) {
     /* Visually hidden styles */
     width: 1px;
     height: 1px;
@@ -64,6 +88,8 @@ const TooltipEL = styled.div<TooltipProps>`
     white-space: nowrap;
     border-width: 0;
   }
+
+  /* the styles are coming from a class for the polyfill. https://github.com/oddbird/popover-polyfill#caveats */
 
   // the caret
   &::before {
@@ -186,8 +212,8 @@ const TooltipEL = styled.div<TooltipProps>`
 
   /* Animation styles */
 
-  &[data-state='open'],
-  &[data-state='open']::before {
+  &:open,
+  &:open::before {
     animation-name: tooltip-appear;
     animation-duration: 0.1s;
     animation-fill-mode: forwards;
@@ -197,7 +223,7 @@ const TooltipEL = styled.div<TooltipProps>`
 
   /* Position of the tooltip element when it is opened. */
 
-  &[data-state='open'] {
+  &:open {
     &[data-no-delay='true'],
     &[data-no-delay='true']::before {
       animation-delay: 0s;
@@ -310,6 +336,7 @@ export const Tooltip: React.FC<React.PropsWithChildren<TooltipProps>> = ({
   const id = useId()
   const triggerRef = useRef<HTMLElement>(null)
   const child = Children.only(children)
+  const tooltipElRef = useRef<HTMLDivElement>(null)
   const [open, setOpen] = useState(false)
 
   // we need this check for every render
@@ -343,19 +370,25 @@ export const Tooltip: React.FC<React.PropsWithChildren<TooltipProps>> = ({
     })
   }
 
-  // Opting in using useOnEscapePress hook instead of onKeydown event to be able to close the tooltip when the mouse is hovering on the trigger element
-  useOnEscapePress(
-    (e: KeyboardEvent) => {
-      if (open) {
-        e.stopPropagation()
-        setOpen(false)
-      }
-    },
-    [open],
-  )
+  function openTooltip() {
+    if (tooltipElRef.current && triggerRef.current && !tooltipElRef.current.matches(':open')) {
+      //
+      tooltipElRef.current.showPopover()
+      getAnchoredPosition(tooltipElRef.current, triggerRef.current)
+    }
+  }
+
+  useEffect(() => {
+    tooltipElRef.current?.setAttribute('popover', 'auto')
+  }, [tooltipElRef])
 
   return (
-    <Box sx={{position: 'relative', display: 'inline-block'}} onMouseLeave={() => setOpen(false)}>
+    <Box
+      onMouseLeave={() => {
+        // it is going to be change to popover-open
+        if (tooltipElRef.current?.matches(':open')) tooltipElRef.current.hidePopover()
+      }}
+    >
       {React.isValidElement(child) &&
         React.cloneElement(child as React.ReactElement<TriggerPropsType>, {
           ref: triggerRef,
@@ -364,19 +397,20 @@ export const Tooltip: React.FC<React.PropsWithChildren<TooltipProps>> = ({
           // If it is a label type, we use tooltip to label the trigger
           'aria-labelledby': type === 'label' ? id : undefined,
           onBlur: (event: React.FocusEvent) => {
-            setOpen(false)
+            if (tooltipElRef.current?.matches(':open')) tooltipElRef.current.hidePopover()
             child.props.onBlur?.(event)
           },
           onFocus: (event: React.FocusEvent) => {
-            setOpen(true)
+            if (!tooltipElRef.current?.matches(':open')) tooltipElRef.current?.showPopover()
             child.props.onFocus?.(event)
           },
           onMouseEnter: (event: React.MouseEvent) => {
-            setOpen(true)
+            if (!tooltipElRef.current?.matches(':open')) tooltipElRef.current?.showPopover()
             child.props.onMouseEnter?.(event)
           },
         })}
       <TooltipEL
+        ref={tooltipElRef}
         data-direction={direction}
         data-state={open ? 'open' : undefined}
         data-align={align}
