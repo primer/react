@@ -38,7 +38,7 @@ npm install @primer/react
 yarn add @primer/react
 ```
 
-test test another test
+test test test
 
 ## Roadmap
 
