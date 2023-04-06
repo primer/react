@@ -28,7 +28,7 @@ Setup the project to use [`npm` workspaces](https://docs.npmjs.com/cli/v7/using-
 - root
   # Root package.json, defines workspaces
   - package.json
-  
+
   # Workspaces
   - docs
   - packages
@@ -41,7 +41,7 @@ Setup the project to use [`npm` workspaces](https://docs.npmjs.com/cli/v7/using-
 
   # Top-level scripts
   - script
-  
+
   # Testing & Development
   - .storybook
   - .playwright
@@ -75,6 +75,7 @@ The current `@primer/react` package will move to the `packages/react` package. W
 - TypeScript refactor for base config
 - Changeset support
 - Performance from installing node modules for entire workspace
+- Find workarounds in cases where legacy-peer-deps is required as an option
 
 ### Looking forward
 
