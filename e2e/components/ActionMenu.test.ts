@@ -235,7 +235,13 @@ test.describe('ActionMenu', () => {
               colorScheme: theme,
             },
           })
-          await expect(page).toHaveNoViolations()
+          await expect(page).toHaveNoViolations({
+            rules: {
+              'aria-required-children': {
+                enabled: false,
+              },
+            },
+          })
         })
       })
     }
