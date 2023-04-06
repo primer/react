@@ -97,25 +97,6 @@
         }
       ]
     },
-    "filtered_search": {
-      "id": "filtered_search",
-      "name": "FilteredSearch",
-      "status": "alpha",
-      "a11yReviewed": false,
-      "stories": [],
-      "props": [
-        {
-          "name": "children",
-          "type": "React.ReactNode",
-          "description": "FilteredSearch is expected to contain an `ActionMenu` followed by a `TextInput`."
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject"
-        }
-      ],
-      "subcomponents": []
-    },
     "label_group": {
       "id": "label_group",
       "name": "LabelGroup",
@@ -2059,6 +2040,30 @@
           ]
         }
       ]
+    },
+    "filtered_search": {
+      "id": "filtered_search",
+      "name": "FilteredSearch",
+      "status": "alpha",
+      "a11yReviewed": false,
+      "stories": [
+        {
+          "id": "components-filteredsearch--default",
+          "code": "() => (\n  <FilteredSearch>\n    <ActionMenu>\n      <ActionMenu.Button as=\"summary\">Filter</ActionMenu.Button>\n      <ActionMenu.Overlay>\n        <ActionList>\n          <ActionList.Item>Item 1</ActionList.Item>\n          <ActionList.Item>Item 2</ActionList.Item>\n          <ActionList.Item>Item 3</ActionList.Item>\n        </ActionList>\n      </ActionMenu.Overlay>\n    </ActionMenu>\n    <TextInput aria-label=\"filtered-search\" leadingVisual={SearchIcon} />\n  </FilteredSearch>\n)"
+        }
+      ],
+      "props": [
+        {
+          "name": "children",
+          "type": "React.ReactNode",
+          "description": "FilteredSearch is expected to contain an `ActionMenu` followed by a `TextInput`."
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ],
+      "subcomponents": []
     },
     "flash": {
       "id": "flash",
