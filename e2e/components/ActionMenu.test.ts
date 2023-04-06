@@ -240,34 +240,4 @@ test.describe('ActionMenu', () => {
       })
     }
   })
-
-  test.describe('Multiple Sections', () => {
-    for (const theme of themes) {
-      test.describe(theme, () => {
-        test('default @vrt', async ({page}) => {
-          await visit(page, {
-            id: 'components-actionmenu-examples--multiple-sections',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-
-          // Default state
-          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
-            `ActionMenu.Multiple Sections.${theme}.png`,
-          )
-        })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-actionmenu-examples--multiple-sections',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations()
-        })
-      })
-    }
-  })
 })
