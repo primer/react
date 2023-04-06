@@ -19,7 +19,7 @@ exports[`StateLabel renders children 1`] = `
   color: #ffffff;
   text-align: center;
   border-radius: 100px;
-  background-color: #2da44e;
+  background-color: #1f883d;
   color: #ffffff;
   padding-left: 12px;
   padding-right: 12px;
@@ -79,7 +79,7 @@ exports[`StateLabel renders consistently 1`] = `
   color: #ffffff;
   text-align: center;
   border-radius: 100px;
-  background-color: #2da44e;
+  background-color: #1f883d;
   color: #ffffff;
   padding-left: 12px;
   padding-right: 12px;
@@ -139,7 +139,7 @@ exports[`StateLabel respects the status prop 1`] = `
   color: #ffffff;
   text-align: center;
   border-radius: 100px;
-  background-color: #2da44e;
+  background-color: #1f883d;
   color: #ffffff;
   padding-left: 12px;
   padding-right: 12px;
@@ -369,7 +369,7 @@ exports[`StateLabel respects the variant prop 1`] = `
   color: #ffffff;
   text-align: center;
   border-radius: 100px;
-  background-color: #2da44e;
+  background-color: #1f883d;
   color: #ffffff;
   padding-left: 8px;
   padding-right: 8px;
@@ -428,7 +428,7 @@ exports[`StateLabel respects the variant prop 2`] = `
   color: #ffffff;
   text-align: center;
   border-radius: 100px;
-  background-color: #2da44e;
+  background-color: #1f883d;
   color: #ffffff;
   padding-left: 12px;
   padding-right: 12px;

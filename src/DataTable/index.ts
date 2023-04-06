@@ -6,11 +6,13 @@ import {
   TableRow,
   TableHeader,
   TableCell,
+  TableCellPlaceholder,
   TableContainer,
   TableTitle,
   TableSubtitle,
   TableActions,
   TableDivider,
+  TableSkeleton,
 } from './Table'
 
 const Table = Object.assign(TableImpl, {
@@ -19,11 +21,13 @@ const Table = Object.assign(TableImpl, {
   Subtitle: TableSubtitle,
   Actions: TableActions,
   Divider: TableDivider,
+  Skeleton: TableSkeleton,
   Head: TableHead,
   Body: TableBody,
   Header: TableHeader,
   Row: TableRow,
   Cell: TableCell,
+  CellPlaceholder: TableCellPlaceholder,
 })
 
 export {DataTable, Table}
@@ -39,4 +43,5 @@ export type {
   TableTitleProps,
   TableSubtitleProps,
   TableActionsProps,
+  TableSkeletonProps,
 } from './Table'

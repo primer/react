@@ -823,6 +823,7 @@ describe('DataTable', () => {
 
       expect(getGridTemplateFromColumns(columns)).toEqual(['minmax(max-content, 1fr)'])
     })
+
     it('correctly sets the column width when width === "grow"', () => {
       const columnHelper = createColumnHelper<{id: number; name: string}>()
       const columns = [
@@ -835,18 +836,20 @@ describe('DataTable', () => {
 
       expect(getGridTemplateFromColumns(columns)).toEqual(['minmax(max-content, 1fr)'])
     })
-    it('correctly sets the column width when width === "shrink"', () => {
+
+    it('correctly sets the column width when width === "growCollapse"', () => {
       const columnHelper = createColumnHelper<{id: number; name: string}>()
       const columns = [
         columnHelper.column({
           header: 'Name',
           field: 'name',
-          width: 'shrink',
+          width: 'growCollapse',
         }),
       ]
 
       expect(getGridTemplateFromColumns(columns)).toEqual(['minmax(0, 1fr)'])
     })
+
     it('correctly sets the column width when width === "auto"', () => {
       const columnHelper = createColumnHelper<{id: number; name: string}>()
       const columns = [
@@ -859,6 +862,7 @@ describe('DataTable', () => {
 
       expect(getGridTemplateFromColumns(columns)).toEqual(['auto'])
     })
+
     it('correctly sets the column width when width is a CSS width string', () => {
       const columnHelper = createColumnHelper<{id: number; name: string}>()
       const columns = [
@@ -871,6 +875,7 @@ describe('DataTable', () => {
 
       expect(getGridTemplateFromColumns(columns)).toEqual(['42ch'])
     })
+
     it('correctly sets the column width when width is a number', () => {
       const columnHelper = createColumnHelper<{id: number; name: string}>()
       const columns = [
@@ -883,6 +888,7 @@ describe('DataTable', () => {
 
       expect(getGridTemplateFromColumns(columns)).toEqual(['200px'])
     })
+
     it('correctly sets min-widths for the column', () => {
       const columnHelper = createColumnHelper<{id: number; name: string}>()
       const columns: Record<string, Column<{id: number; name: string}>[]> = {
@@ -894,11 +900,11 @@ describe('DataTable', () => {
             minWidth: '42ch',
           }),
         ],
-        shrink: [
+        growCollapse: [
           columnHelper.column({
             header: 'Name',
             field: 'name',
-            width: 'shrink',
+            width: 'growCollapse',
             minWidth: '42ch',
           }),
         ],
@@ -913,7 +919,7 @@ describe('DataTable', () => {
       }
       const expectedWidths: Record<string, string> = {
         grow: 'minmax(42ch, 1fr)',
-        shrink: 'minmax(42ch, 1fr)',
+        growCollapse: 'minmax(42ch, 1fr)',
         auto: 'minmax(42ch, auto)',
       }
 
@@ -921,6 +927,7 @@ describe('DataTable', () => {
         expect(getGridTemplateFromColumns(columns[widthOpt])).toEqual([expectedWidths[widthOpt]])
       }
     })
+
     it('correctly sets max-widths for the column', () => {
       const columnHelper = createColumnHelper<{id: number; name: string}>()
       const columns: Record<string, Column<{id: number; name: string}>[]> = {
@@ -932,11 +939,11 @@ describe('DataTable', () => {
             maxWidth: '42ch',
           }),
         ],
-        shrink: [
+        growCollapse: [
           columnHelper.column({
             header: 'Name',
             field: 'name',
-            width: 'shrink',
+            width: 'growCollapse',
             maxWidth: '42ch',
           }),
         ],
@@ -951,7 +958,7 @@ describe('DataTable', () => {
       }
       const expectedWidths: Record<string, string> = {
         grow: 'minmax(auto, 42ch)',
-        shrink: 'minmax(0, 42ch)',
+        growCollapse: 'minmax(0, 42ch)',
         auto: 'minmax(auto, 42ch)',
       }
 
@@ -959,6 +966,7 @@ describe('DataTable', () => {
         expect(getGridTemplateFromColumns(columns[widthOpt])).toEqual([expectedWidths[widthOpt]])
       }
     })
+
     it('sets a custom property style to define the column grid template', () => {
       const columnHelper = createColumnHelper<{id: number; name: string}>()
       const columns = [

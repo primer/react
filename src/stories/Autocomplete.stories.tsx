@@ -703,9 +703,6 @@ export const InOverlayWithCustomScrollContainerRef = (args: FormControlArgs<Auto
         side="inside-top"
         renderAnchor={props => <Button {...props}>open overlay</Button>}
       >
-        <FormControl.Label htmlFor="autocompleteInput" id="autocompleteLabel" visuallyHidden>
-          Pick tags
-        </FormControl.Label>
         <Autocomplete>
           <Box display="flex" flexDirection="column" height="100%">
             <Box borderWidth={0} borderBottomWidth={1} borderColor="border.default" borderStyle="solid">

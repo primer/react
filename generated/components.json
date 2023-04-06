@@ -1,29 +1,6 @@
 {
   "schemaVersion": 2,
   "components": {
-    "box": {
-      "id": "box",
-      "name": "Box",
-      "status": "beta",
-      "a11yReviewed": false,
-      "stories": [],
-      "props": [
-        {
-          "name": "ref",
-          "type": "React.RefObject<HTMLDivElement>"
-        },
-        {
-          "name": "as",
-          "type": "React.ElementType",
-          "defaultValue": "\"div\""
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject"
-        }
-      ],
-      "subcomponents": []
-    },
     "button_group": {
       "id": "button_group",
       "name": "ButtonGroup",
@@ -41,62 +18,6 @@
         }
       ],
       "subcomponents": []
-    },
-    "circle_badge": {
-      "id": "circle_badge",
-      "name": "CircleBadge",
-      "status": "alpha",
-      "a11yReviewed": false,
-      "stories": [],
-      "props": [
-        {
-          "name": "variant",
-          "type": "'small' | 'medium' | 'large'",
-          "defaultValue": "'medium'",
-          "description": "Creates a smaller or larger badge. Has no effect if the `size` prop is set"
-        },
-        {
-          "name": "size",
-          "type": "number",
-          "defaultValue": "",
-          "description": "Sets the size of the badge in pixels. Overrides the `variant` prop when set"
-        },
-        {
-          "name": "inline",
-          "type": "boolean",
-          "defaultValue": "false",
-          "description": "Styles the badge to `display: inline`"
-        },
-        {
-          "name": "ref",
-          "type": "React.RefObject<HTMLDivElement>"
-        },
-        {
-          "name": "as",
-          "type": "React.ElementType",
-          "defaultValue": "\"div\""
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject"
-        }
-      ],
-      "subcomponents": [
-        {
-          "name": "CircleBadge.Icon",
-          "props": [
-            {
-              "name": "as",
-              "type": "React.ElementType",
-              "defaultValue": "StyledOcticon"
-            }
-          ],
-          "passthrough": {
-            "element": "StyledOcticon",
-            "url": "/StyledOcticon"
-          }
-        }
-      ]
     },
     "circle_octicon": {
       "id": "circle_octicon",
@@ -176,51 +97,6 @@
         }
       ]
     },
-    "filter_list": {
-      "id": "filter_list",
-      "name": "FilterList",
-      "status": "alpha",
-      "a11yReviewed": false,
-      "stories": [],
-      "props": [
-        {
-          "name": "sx",
-          "type": "SystemStyleObject"
-        }
-      ],
-      "subcomponents": [
-        {
-          "name": "FilterList.Item",
-          "props": [
-            {
-              "name": "count",
-              "type": "number",
-              "description": "Number to be displayed in the list item"
-            },
-            {
-              "name": "selected",
-              "type": "boolean",
-              "description": "Whether the list item is selected or not"
-            },
-            {
-              "name": "small",
-              "type": "boolean",
-              "defaultValue": "false",
-              "description": "Whether the list item is small or not"
-            },
-            {
-              "name": "as",
-              "type": "React.ElementType",
-              "defaultValue": "'a'"
-            },
-            {
-              "name": "sx",
-              "type": "SystemStyleObject"
-            }
-          ]
-        }
-      ]
-    },
     "filtered_search": {
       "id": "filtered_search",
       "name": "FilteredSearch",
@@ -239,60 +115,6 @@
         }
       ],
       "subcomponents": []
-    },
-    "header": {
-      "id": "header",
-      "name": "Header",
-      "status": "alpha",
-      "a11yReviewed": false,
-      "stories": [],
-      "props": [
-        {
-          "name": "sx",
-          "type": "SystemStyleObject"
-        }
-      ],
-      "subcomponents": [
-        {
-          "name": "Header.Item",
-          "props": [
-            {
-              "name": "full",
-              "type": "string",
-              "defaultValue": "",
-              "description": "Stretches item to fill the available space"
-            },
-            {
-              "name": "sx",
-              "type": "SystemStyleObject"
-            }
-          ]
-        },
-        {
-          "name": "Header.Link",
-          "props": [
-            {
-              "name": "href",
-              "type": "string",
-              "defaultValue": "",
-              "description": "URL to be used for the Link"
-            },
-            {
-              "name": "as",
-              "type": "React.ElementType",
-              "defaultValue": "\"a\""
-            },
-            {
-              "name": "sx",
-              "type": "SystemStyleObject"
-            }
-          ],
-          "passthrough": {
-            "element": "a",
-            "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attributes"
-          }
-        }
-      ]
     },
     "label_group": {
       "id": "label_group",
@@ -419,22 +241,6 @@
       ],
       "subcomponents": []
     },
-    "pointer_box": {
-      "id": "pointer_box",
-      "name": "PointerBox",
-      "status": "alpha",
-      "a11yReviewed": false,
-      "stories": [],
-      "props": [
-        {
-          "name": "caret",
-          "type": "| 'top' | 'top-left' | 'top-right' | 'right' | 'right-top' | 'right-bottom' | 'bottom' | 'bottom-left' | 'bottom-right' | 'left' | 'left-top' | 'left-bottom'",
-          "defaultValue": "'bottom'",
-          "description": "Sets the location of the caret. The format is [edge]-[position on edge]. For example, right-top will position the caret on the top of the right edge of the box. Use top"
-        }
-      ],
-      "subcomponents": []
-    },
     "popover": {
       "id": "popover",
       "name": "Popover",
@@ -488,44 +294,6 @@
           ]
         }
       ]
-    },
-    "progress_bar": {
-      "id": "progress_bar",
-      "name": "ProgressBar",
-      "status": "alpha",
-      "a11yReviewed": false,
-      "stories": [],
-      "props": [
-        {
-          "name": "progress",
-          "type": "number",
-          "defaultValue": "0",
-          "description": "Used to set the size of the green bar"
-        },
-        {
-          "name": "barSize",
-          "type": "| 'small' | 'large' | 'default'",
-          "defaultValue": "'default'",
-          "description": "Controls the height of the progress bar. If omitted, height is set to the default height."
-        },
-        {
-          "name": "inline",
-          "type": "boolean",
-          "defaultValue": "false",
-          "description": "Styles the progress bar inline"
-        },
-        {
-          "name": "bg",
-          "type": "string",
-          "defaultValue": "'bg.successInverse'",
-          "description": "Set the progress bar color"
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject"
-        }
-      ],
-      "subcomponents": []
     },
     "styled_octicon": {
       "id": "styled_octicon",
@@ -641,7 +409,7 @@
       "id": "text",
       "name": "Text",
       "status": "alpha",
-      "a11yReviewed": false,
+      "a11yReviewed": true,
       "stories": [],
       "props": [
         {
@@ -1464,6 +1232,34 @@
         }
       ]
     },
+    "box": {
+      "id": "box",
+      "name": "Box",
+      "status": "beta",
+      "a11yReviewed": false,
+      "stories": [
+        {
+          "id": "components-box--default",
+          "code": "() => <Box>Default Box</Box>"
+        }
+      ],
+      "props": [
+        {
+          "name": "ref",
+          "type": "React.RefObject<HTMLDivElement>"
+        },
+        {
+          "name": "as",
+          "type": "React.ElementType",
+          "defaultValue": "\"div\""
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ],
+      "subcomponents": []
+    },
     "branch_name": {
       "id": "branch_name",
       "name": "BranchName",
@@ -1844,6 +1640,67 @@
         }
       ]
     },
+    "circle_badge": {
+      "id": "circle_badge",
+      "name": "CircleBadge",
+      "status": "alpha",
+      "a11yReviewed": false,
+      "stories": [
+        {
+          "id": "components-circlebadge--default",
+          "code": "() => (\n  <CircleBadge>\n    <CircleBadge.Icon icon={ZapIcon} />\n  </CircleBadge>\n)"
+        }
+      ],
+      "props": [
+        {
+          "name": "variant",
+          "type": "'small' | 'medium' | 'large'",
+          "defaultValue": "'medium'",
+          "description": "Creates a smaller or larger badge. Has no effect if the `size` prop is set"
+        },
+        {
+          "name": "size",
+          "type": "number",
+          "defaultValue": "",
+          "description": "Sets the size of the badge in pixels. Overrides the `variant` prop when set"
+        },
+        {
+          "name": "inline",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "Styles the badge to `display: inline`"
+        },
+        {
+          "name": "ref",
+          "type": "React.RefObject<HTMLDivElement>"
+        },
+        {
+          "name": "as",
+          "type": "React.ElementType",
+          "defaultValue": "\"div\""
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ],
+      "subcomponents": [
+        {
+          "name": "CircleBadge.Icon",
+          "props": [
+            {
+              "name": "as",
+              "type": "React.ElementType",
+              "defaultValue": "StyledOcticon"
+            }
+          ],
+          "passthrough": {
+            "element": "StyledOcticon",
+            "url": "/StyledOcticon"
+          }
+        }
+      ]
+    },
     "counter_label": {
       "id": "counter_label",
       "name": "CounterLabel",
@@ -1910,6 +1767,10 @@
         {
           "id": "components-datatable-features--with-custom-heading",
           "code": "() => (\n  <>\n    <Heading as=\"h2\" id=\"repositories\">\n      Security coverage\n    </Heading>\n    <p id=\"repositories-subtitle\">\n      Organization members can only see data for the most recently-updated\n      repositories. To see all repositories, talk to your organization\n      administrator about becoming a security manager.\n    </p>\n    <Table.Container>\n      <DataTable\n        aria-labelledby=\"repositories\"\n        aria-describedby=\"repositories-subtitle\"\n        data={data}\n        columns={[\n          {\n            header: 'Repository',\n            field: 'name',\n            rowHeader: true,\n          },\n          {\n            header: 'Type',\n            field: 'type',\n            renderCell: (row) => {\n              return <Label>{uppercase(row.type)}</Label>\n            },\n          },\n          {\n            header: 'Updated',\n            field: 'updatedAt',\n            renderCell: (row) => {\n              return <RelativeTime date={new Date(row.updatedAt)} />\n            },\n          },\n          {\n            header: 'Dependabot',\n            field: 'securityFeatures.dependabot',\n            renderCell: (row) => {\n              return row.securityFeatures.dependabot.length > 0 ? (\n                <LabelGroup>\n                  {row.securityFeatures.dependabot.map((feature) => {\n                    return <Label key={feature}>{uppercase(feature)}</Label>\n                  })}\n                </LabelGroup>\n              ) : null\n            },\n          },\n          {\n            header: 'Code scanning',\n            field: 'securityFeatures.codeScanning',\n            renderCell: (row) => {\n              return row.securityFeatures.codeScanning.length > 0 ? (\n                <LabelGroup>\n                  {row.securityFeatures.codeScanning.map((feature) => {\n                    return <Label key={feature}>{uppercase(feature)}</Label>\n                  })}\n                </LabelGroup>\n              ) : null\n            },\n          },\n        ]}\n      />\n    </Table.Container>\n  </>\n)"
+        },
+        {
+          "id": "components-datatable-features--with-loading",
+          "code": "() => {\n  const [loading] = React.useState(true)\n  return (\n    <Table.Container>\n      <Table.Title as=\"h2\" id=\"repositories\">\n        Repositories\n      </Table.Title>\n      <Table.Subtitle as=\"p\" id=\"repositories-subtitle\">\n        A subtitle could appear here to give extra context to the data.\n      </Table.Subtitle>\n      {loading ? (\n        <Table.Skeleton\n          aria-labelledby=\"repositories\"\n          aria-describedby=\"repositories-subtitle\"\n          columns={columns}\n          rows={10}\n        />\n      ) : (\n        <DataTable\n          aria-labelledby=\"repositories\"\n          aria-describedby=\"repositories-subtitle\"\n          data={data}\n          columns={columns}\n        />\n      )}\n    </Table.Container>\n  )\n}"
         }
       ],
       "props": [
@@ -2050,6 +1911,25 @@
               "required": true
             }
           ]
+        },
+        {
+          "name": "Table.Skeleton",
+          "props": [
+            {
+              "name": "cellPadding",
+              "type": "'condensed' | 'normal' | 'spacious'",
+              "description": "Specify the amount of space that should be available around the contents of a cell"
+            },
+            {
+              "name": "columns",
+              "type": "Array<Column<Data>>"
+            },
+            {
+              "name": "rows",
+              "type": "number",
+              "description": "Optionally specify the number of rows which should be included in the skeleton state of the component"
+            }
+          ]
         }
       ]
     },
@@ -2129,6 +2009,56 @@
         }
       ],
       "subcomponents": []
+    },
+    "filter_list": {
+      "id": "filter_list",
+      "name": "FilterList",
+      "status": "alpha",
+      "a11yReviewed": false,
+      "stories": [
+        {
+          "id": "components-filterlist--default",
+          "code": "() => {\n  const [selectedIndex, setSelectedIndex] = useState(0)\n  return (\n    <FilterList>\n      <FilterList.Item\n        selected={selectedIndex === 0}\n        onClick={() => setSelectedIndex(0)}\n        count={32}\n      >\n        First Filter\n      </FilterList.Item>\n      <FilterList.Item\n        selected={selectedIndex === 1}\n        onClick={() => setSelectedIndex(1)}\n        count={16}\n      >\n        Second Filter\n      </FilterList.Item>\n      <FilterList.Item\n        selected={selectedIndex === 2}\n        onClick={() => setSelectedIndex(2)}\n      >\n        Third Filter\n      </FilterList.Item>\n    </FilterList>\n  )\n}"
+        }
+      ],
+      "props": [
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ],
+      "subcomponents": [
+        {
+          "name": "FilterList.Item",
+          "props": [
+            {
+              "name": "count",
+              "type": "number",
+              "description": "Number to be displayed in the list item"
+            },
+            {
+              "name": "selected",
+              "type": "boolean",
+              "description": "Whether the list item is selected or not"
+            },
+            {
+              "name": "small",
+              "type": "boolean",
+              "defaultValue": "false",
+              "description": "Whether the list item is small or not"
+            },
+            {
+              "name": "as",
+              "type": "React.ElementType",
+              "defaultValue": "'a'"
+            },
+            {
+              "name": "sx",
+              "type": "SystemStyleObject"
+            }
+          ]
+        }
+      ]
     },
     "flash": {
       "id": "flash",
@@ -2284,6 +2214,65 @@
               "type": "SystemStyleObject"
             }
           ]
+        }
+      ]
+    },
+    "header": {
+      "id": "header",
+      "name": "Header",
+      "status": "alpha",
+      "a11yReviewed": false,
+      "stories": [
+        {
+          "id": "components-header--default",
+          "code": "() => (\n  <Header>\n    <Header.Item>\n      <Header.Link\n        href=\"#\"\n        sx={{\n          fontSize: 2,\n        }}\n      >\n        <StyledOcticon\n          icon={MarkGithubIcon}\n          size={32}\n          sx={{\n            mr: 2,\n          }}\n        />\n        <span>GitHub</span>\n      </Header.Link>\n    </Header.Item>\n    <Header.Item full>Menu</Header.Item>\n    <Header.Item\n      sx={{\n        mr: 0,\n      }}\n    >\n      <Avatar\n        src=\"https://github.com/octocat.png\"\n        size={20}\n        square\n        alt=\"@octocat\"\n      />\n    </Header.Item>\n  </Header>\n)"
+        }
+      ],
+      "props": [
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ],
+      "subcomponents": [
+        {
+          "name": "Header.Item",
+          "props": [
+            {
+              "name": "full",
+              "type": "string",
+              "defaultValue": "",
+              "description": "Stretches item to fill the available space"
+            },
+            {
+              "name": "sx",
+              "type": "SystemStyleObject"
+            }
+          ]
+        },
+        {
+          "name": "Header.Link",
+          "props": [
+            {
+              "name": "href",
+              "type": "string",
+              "defaultValue": "",
+              "description": "URL to be used for the Link"
+            },
+            {
+              "name": "as",
+              "type": "React.ElementType",
+              "defaultValue": "\"a\""
+            },
+            {
+              "name": "sx",
+              "type": "SystemStyleObject"
+            }
+          ],
+          "passthrough": {
+            "element": "a",
+            "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attributes"
+          }
         }
       ]
     },
@@ -3164,6 +3153,27 @@
       ],
       "subcomponents": []
     },
+    "pointer_box": {
+      "id": "pointer_box",
+      "name": "PointerBox",
+      "status": "alpha",
+      "a11yReviewed": false,
+      "stories": [
+        {
+          "id": "components-pointerbox--default",
+          "code": "() => <PointerBox>Pointer box content</PointerBox>"
+        }
+      ],
+      "props": [
+        {
+          "name": "caret",
+          "type": "| 'top' | 'top-left' | 'top-right' | 'right' | 'right-top' | 'right-bottom' | 'bottom' | 'bottom-left' | 'bottom-right' | 'left' | 'left-top' | 'left-bottom'",
+          "defaultValue": "'bottom'",
+          "description": "Sets the location of the caret. The format is [edge]-[position on edge]. For example, right-top will position the caret on the top of the right edge of the box. Use top"
+        }
+      ],
+      "subcomponents": []
+    },
     "portal": {
       "id": "portal",
       "name": "Portal",
@@ -3182,6 +3192,49 @@
           "type": "string",
           "defaultValue": "",
           "description": "Renders the portal children into the container registered with the given name. If omitted, children are rendered into the default portal root."
+        }
+      ],
+      "subcomponents": []
+    },
+    "progress_bar": {
+      "id": "progress_bar",
+      "name": "ProgressBar",
+      "status": "alpha",
+      "a11yReviewed": false,
+      "stories": [
+        {
+          "id": "components-progressbar--default",
+          "code": "() => <ProgressBar />"
+        }
+      ],
+      "props": [
+        {
+          "name": "progress",
+          "type": "number",
+          "defaultValue": "0",
+          "description": "Used to set the size of the green bar"
+        },
+        {
+          "name": "barSize",
+          "type": "| 'small' | 'large' | 'default'",
+          "defaultValue": "'default'",
+          "description": "Controls the height of the progress bar. If omitted, height is set to the default height."
+        },
+        {
+          "name": "inline",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "Styles the progress bar inline"
+        },
+        {
+          "name": "bg",
+          "type": "string",
+          "defaultValue": "'bg.successInverse'",
+          "description": "Set the progress bar color"
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
         }
       ],
       "subcomponents": []
@@ -4119,6 +4172,12 @@
               "description": "Text that appears in a tooltip. If an icon is passed, this is also used as the label used by assistive technologies."
             },
             {
+              "name": "tooltipDirection",
+              "type": "'n' | 'ne' | 'e' | 'se' | 's' | 'sw' | 'w' | 'nw'",
+              "defaultValue": "n",
+              "description": "Sets where the tooltip renders in relation to the target."
+            },
+            {
               "name": "icon",
               "type": "React.FunctionComponent",
               "defaultValue": "",
@@ -4633,6 +4692,11 @@
           "name": "children",
           "type": "React.ReactNode",
           "required": true
+        },
+        {
+          "name": "flat",
+          "type": "boolean",
+          "description": "Prevents the tree from indenting items. This should only be used when the tree is used to display a flat list of items."
         }
       ],
       "subcomponents": [

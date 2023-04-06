@@ -311,6 +311,21 @@ const components = new Map([
     },
   ],
   [
+    'CircleBadge',
+    {
+      stories: [
+        {
+          id: 'components-circlebadge--default',
+          name: 'Default',
+        },
+        {
+          id: 'components-circlebadge--playground',
+          name: 'Playground',
+        },
+      ],
+    },
+  ],
+  [
     'CounterLabel',
     {
       stories: [
@@ -326,12 +341,78 @@ const components = new Map([
     },
   ],
   [
+    'DataTable',
+    {
+      stories: [
+        {
+          id: 'components-datatable--default',
+          name: 'Default',
+        },
+        {
+          id: 'components-datatable-features--with-title',
+          name: 'With Title',
+        },
+        {
+          id: 'components-datatable-features--with-title-and-subtitle',
+          name: 'With Title and Subtitle',
+        },
+        {
+          id: 'components-datatable-features--with-sorting',
+          name: 'With Sorting',
+        },
+        {
+          id: 'components-datatable-features--with-actions',
+          name: 'With Actions',
+        },
+        {
+          id: 'components-datatable-features--with-action',
+          name: 'With Action',
+        },
+        {
+          id: 'components-datatable-features--with-row-action',
+          name: 'With Row Action',
+        },
+        {
+          id: 'components-datatable-features--with-row-actions',
+          name: 'With Row Actions',
+        },
+        {
+          id: 'components-datatable-features--with-row-action-menu',
+          name: 'With Row Action Menu',
+        },
+        {
+          id: 'components-datatable-features--with-custom-heading',
+          name: 'With Custom Heading',
+        },
+        {
+          id: 'components-datatable-features--with-overflow',
+          name: 'With Overflow',
+        },
+      ],
+    },
+  ],
+  [
     'Details',
     {
       stories: [
         {
           id: 'components-details--default',
           name: 'Default',
+        },
+      ],
+    },
+  ],
+  [
+    'FilterList',
+    {
+      stories: [
+        {
+          id: 'components-filterlist--default',
+          name: 'Default',
+        },
+        {
+          id: 'components-filterlist--playground',
+          name: 'Playground',
         },
       ],
     },
@@ -359,6 +440,17 @@ const components = new Map([
         {
           id: 'components-flash-features--warning',
           name: 'Warning',
+        },
+      ],
+    },
+  ],
+  [
+    'Header',
+    {
+      stories: [
+        {
+          id: 'components-header--default',
+          name: 'Default',
         },
       ],
     },
@@ -653,6 +745,45 @@ const components = new Map([
         {
           id: 'drafts-components-pageheader-features--with-parent-link-and-actions-of-context-area',
           name: 'With Parent Link and Actions of Context Area',
+        },
+      ],
+    },
+  ],
+  [
+    'ProgressBar',
+    {
+      stories: [
+        {
+          id: 'components-progressbar--default',
+          name: 'Default',
+        },
+        {
+          id: 'components-progressbar-features--progress-zero',
+          name: 'Progress Zero',
+        },
+        {
+          id: 'components-progressbar-features--progress-half',
+          name: 'Progress Half',
+        },
+        {
+          id: 'components-progressbar-features--progress-done',
+          name: 'Progress Done',
+        },
+        {
+          id: 'components-progressbar-features--size-small',
+          name: 'Size Small',
+        },
+        {
+          id: 'components-progressbar-features--size-large',
+          name: 'Size Large',
+        },
+        {
+          id: 'components-progressbar-features--inline',
+          name: 'Inline',
+        },
+        {
+          id: 'components-progressbar-features--color',
+          name: 'Color',
         },
       ],
     },

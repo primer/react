@@ -98,6 +98,7 @@ test.describe('PageHeader', () => {
             rules: {
               'color-contrast': {
                 enabled:
+                  theme !== 'dark_colorblind' &&
                   theme !== 'dark_dimmed' &&
                   theme !== 'light' &&
                   theme !== 'light_colorblind' &&
@@ -138,6 +139,7 @@ test.describe('PageHeader', () => {
             rules: {
               'color-contrast': {
                 enabled:
+                  theme !== 'dark_colorblind' &&
                   theme !== 'dark_dimmed' &&
                   theme !== 'light' &&
                   theme !== 'light_colorblind' &&

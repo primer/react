@@ -65,8 +65,8 @@ exports[`Checkbox renders consistently 1`] = `
 
 .c0:checked:disabled {
   cursor: not-allowed;
-  background-color: #57606a;
-  border-color: #57606a;
+  background-color: #656d76;
+  border-color: #656d76;
   opacity: 1;
 }
 
