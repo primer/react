@@ -403,6 +403,21 @@ const components = new Map([
     },
   ],
   [
+    'FilteredSearch',
+    {
+      stories: [
+        {
+          id: 'components-filteredsearch--default',
+          name: 'Default',
+        },
+        {
+          id: 'components-filteredsearch--playground',
+          name: 'Playground',
+        },
+      ],
+    },
+  ],
+  [
     'FilterList',
     {
       stories: [
