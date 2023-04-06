@@ -111,7 +111,7 @@ export const ControlledMenu = () => {
   const onSelect = (name: string) => fireAction(name)
 
   const [open, setOpen] = React.useState(false)
-  const triggerRef = React.createRef<HTMLButtonElement>()
+  const triggerRef = React.useRef<HTMLButtonElement>(null)
 
   return (
     <>
