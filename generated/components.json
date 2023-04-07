@@ -3438,7 +3438,7 @@
       "stories": [
         {
           "id": "components-relativetime--default",
-          "code": "(args) => {\n  const { date, ...rest } = args\n  return <RelativeTime {...rest} date={new Date(date)} />\n}"
+          "code": "() => <RelativeTime date={new Date('2020-01-01T00:00:00Z')} />"
         }
       ],
       "props": [
