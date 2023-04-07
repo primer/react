@@ -33,6 +33,7 @@ const allowlist = [
   'ProgressBar',
   'Radio',
   'RadioGroup',
+  'RelativeTime',
   'Select',
   'SegmentedControl',
   'Spinner',
