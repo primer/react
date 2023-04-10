@@ -1,5 +1,6 @@
 {
-  "name": "examples-consumer-test",
+  "name": "example-consumer-test",
+  "private": true,
   "scripts": {
     "check": "tsc --noEmit"
   },

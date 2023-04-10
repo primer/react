@@ -5,16 +5,21 @@
     "examples/*"
   ],
   "scripts": {
+    "build": "npm run build --workspaces --if-present",
+    "clean": "npm run clean --workspaces --if-present",
     "format": "prettier --cache --write '**/*.{js,md,mdx,ts,tsx,yml}'",
     "format:diff": "prettier --cache --list-different '**/*.{js.md,mdx,ts,tsx,yml}'",
     "lint": "eslint '**/*.{js,ts,tsx,md,mdx}' --max-warnings=0",
     "lint:fix": "npm run lint -- --fix",
     "lint:md": "markdownlint-cli2 \"**/*.{md,mdx}\" \"!.github\" \"!.changeset\" \"!**/node_modules/**\" \"!CHANGELOG.md\"",
     "prepare": "husky install",
+    "release": "npm run build && changeset publish",
     "test:type-check": "tsc --noEmit"
   },
   "devDependencies": {
     "@babel/eslint-parser": "7.21.3",
+    "@changesets/changelog-github": "0.4.8",
+    "@changesets/cli": "2.26.0",
     "@github/markdownlint-github": "^0.3.0",
     "@github/prettier-config": "0.0.6",
     "@typescript-eslint/eslint-plugin": "5.54.1",
