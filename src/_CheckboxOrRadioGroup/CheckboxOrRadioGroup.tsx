@@ -108,11 +108,11 @@ const CheckboxOrRadioGroup: React.FC<React.PropsWithChildren<CheckboxOrRadioGrou
         >
           {labelChild ? (
             /*
-                    Placing the caption text and validation text in the <legend> provides a better user
-                    experience for more screenreaders.
+              Placing the caption text and validation text in the <legend> provides a better user
+              experience for more screenreaders.
 
-                    Reference: https://blog.tenon.io/accessible-validation-of-checkbox-and-radiobutton-groups/
-                  */
+              Reference: https://blog.tenon.io/accessible-validation-of-checkbox-and-radiobutton-groups/
+            */
             <Box as="legend" mb={isLegendVisible ? 2 : undefined} padding={0}>
               {slots.label}
               {slots.caption}
