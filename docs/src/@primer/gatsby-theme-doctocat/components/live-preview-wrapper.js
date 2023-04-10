@@ -11,7 +11,6 @@ function ThemeSwitcher() {
   return (
     <ActionMenu>
       <ActionMenu.Button aria-label="Select field type">{selectedItem?.name}</ActionMenu.Button>
-      {/* eslint-disable-next-line primer-react/no-system-props */}
       <ActionMenu.Overlay width="medium">
         <ActionList selectionVariant="single">
           {items.map((type, index) => (
