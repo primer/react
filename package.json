@@ -132,7 +132,7 @@
     "@rollup/plugin-node-resolve": "15.0.1",
     "@rollup/plugin-replace": "5.0.2",
     "@rollup/plugin-terser": "0.4.0",
-    "@rollup/plugin-typescript": "11.0.0",
+    "@rollup/plugin-typescript": "11.1.0",
     "@rollup/plugin-virtual": "3.0.1",
     "@size-limit/preset-big-lib": "8.2.4",
     "@storybook/addon-a11y": "6.5.16",
