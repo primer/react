@@ -1,6 +1,7 @@
 import React from 'react'
 import {createGlobalStyle} from 'styled-components'
 import Box from '../Box'
+import Heading from '../Heading'
 import {useId} from '../hooks/useId'
 import {useRefObjectAsForwardedRef} from '../hooks/useRefObjectAsForwardedRef'
 import {isResponsiveValue, ResponsiveValue, useResponsiveValue} from '../hooks/useResponsiveValue'
@@ -489,6 +490,7 @@ export type PageLayoutPaneProps = {
   resizable?: boolean
   widthStorageKey?: string
   padding?: keyof typeof SPACING_MAP
+  heading?: string
   divider?: 'none' | 'line' | ResponsiveValue<'none' | 'line', 'none' | 'line' | 'filled'>
   /**
    * @deprecated Use the `divider` prop with a responsive value instead.
@@ -540,6 +542,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
       sticky = false,
       offsetHeader = 0,
       hidden: responsiveHidden = false,
+      heading,
       children,
       id,
       sx = {},
@@ -753,6 +756,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
           {...labelProp}
           {...(id && {id: paneId})}
         >
+          {heading && <Heading>{heading}</Heading>}
           {resizable && (
             <VisuallyHidden>
               <form onSubmit={handleWidthFormSubmit}>

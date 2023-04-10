@@ -337,6 +337,7 @@ const Template: Story = args => (
     </SplitPageLayout.Content>
     {args['Render pane?'] ? (
       <SplitPageLayout.Pane
+        heading="Pane Heading"
         resizable={args['Pane.resizable']}
         position={{
           narrow: args['Pane.position.narrow'],

@@ -74,7 +74,15 @@ export const Pane: React.FC<React.PropsWithChildren<SplitPageLayoutPaneProps>> =
   divider = 'line',
   ...props
 }) => {
-  return <PageLayout.Pane position={position} sticky={sticky} padding={padding} divider={divider} {...props} />
+  return (
+    <PageLayout.Pane
+      position={position}
+      sticky={sticky}
+      padding={padding}
+      divider={divider}
+      {...props}
+    ></PageLayout.Pane>
+  )
 }
 Pane.displayName = 'SplitPageLayout.Pane'
 
