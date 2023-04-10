@@ -61,7 +61,7 @@ exports[`TextInput renders 1`] = `
   padding: 12px;
 }
 
-.c0 >:not(:last-child) {
+.c0 > :not(:last-child) {
   margin-right: 8px;
 }
 
@@ -188,7 +188,7 @@ exports[`TextInput renders block 1`] = `
   padding: 12px;
 }
 
-.c0 >:not(:last-child) {
+.c0 > :not(:last-child) {
   margin-right: 8px;
 }
 
@@ -307,7 +307,7 @@ exports[`TextInput renders consistently 1`] = `
   padding: 12px;
 }
 
-.c0 >:not(:last-child) {
+.c0 > :not(:last-child) {
   margin-right: 8px;
 }
 
@@ -426,7 +426,7 @@ exports[`TextInput renders contrast 1`] = `
   padding: 12px;
 }
 
-.c0 >:not(:last-child) {
+.c0 > :not(:last-child) {
   margin-right: 8px;
 }
 
@@ -552,7 +552,7 @@ exports[`TextInput renders error 1`] = `
   box-shadow: inset 0 0 0 1px #0969da;
 }
 
-.c0 >:not(:last-child) {
+.c0 > :not(:last-child) {
   margin-right: 8px;
 }
 
@@ -677,7 +677,7 @@ exports[`TextInput renders large 1`] = `
   padding: 12px;
 }
 
-.c0 >:not(:last-child) {
+.c0 > :not(:last-child) {
   margin-right: 8px;
 }
 
@@ -797,7 +797,7 @@ exports[`TextInput renders leadingVisual 1`] = `
   padding: 12px;
 }
 
-.c0 >:not(:last-child) {
+.c0 > :not(:last-child) {
   margin-right: 8px;
 }
 
@@ -944,7 +944,7 @@ exports[`TextInput renders monospace 1`] = `
   padding: 12px;
 }
 
-.c0 >:not(:last-child) {
+.c0 > :not(:last-child) {
   margin-right: 8px;
 }
 
@@ -1063,7 +1063,7 @@ exports[`TextInput renders placeholder 1`] = `
   padding: 12px;
 }
 
-.c0 >:not(:last-child) {
+.c0 > :not(:last-child) {
   margin-right: 8px;
 }
 
@@ -1191,7 +1191,7 @@ exports[`TextInput renders small 1`] = `
   padding: 12px;
 }
 
-.c0 >:not(:last-child) {
+.c0 > :not(:last-child) {
   margin-right: 8px;
 }
 
@@ -1536,7 +1536,7 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   padding: 12px;
 }
 
-.c0 >:not(:last-child) {
+.c0 > :not(:last-child) {
   margin-right: 8px;
 }
 
@@ -2175,7 +2175,7 @@ exports[`TextInput renders trailingAction text button 1`] = `
   padding: 12px;
 }
 
-.c0 >:not(:last-child) {
+.c0 > :not(:last-child) {
   margin-right: 8px;
 }
 
@@ -2569,7 +2569,7 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   padding: 12px;
 }
 
-.c0 >:not(:last-child) {
+.c0 > :not(:last-child) {
   margin-right: 8px;
 }
 
@@ -2962,7 +2962,7 @@ exports[`TextInput renders trailingVisual 1`] = `
   padding: 12px;
 }
 
-.c0 >:not(:last-child) {
+.c0 > :not(:last-child) {
   margin-right: 8px;
 }
 
@@ -3109,7 +3109,7 @@ exports[`TextInput renders warning 1`] = `
   padding: 12px;
 }
 
-.c0 >:not(:last-child) {
+.c0 > :not(:last-child) {
   margin-right: 8px;
 }
 
@@ -3249,7 +3249,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   padding: 12px;
 }
 
-.c0 >:not(:last-child) {
+.c0 > :not(:last-child) {
   margin-right: 8px;
 }
 
@@ -3422,7 +3422,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   padding: 12px;
 }
 
-.c0 >:not(:last-child) {
+.c0 > :not(:last-child) {
   margin-right: 8px;
 }
 
@@ -3627,7 +3627,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   padding: 12px;
 }
 
-.c0 >:not(:last-child) {
+.c0 > :not(:last-child) {
   margin-right: 8px;
 }
 
@@ -3809,7 +3809,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   padding: 12px;
 }
 
-.c0 >:not(:last-child) {
+.c0 > :not(:last-child) {
   margin-right: 8px;
 }
 
@@ -4060,7 +4060,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   padding: 12px;
 }
 
-.c0 >:not(:last-child) {
+.c0 > :not(:last-child) {
   margin-right: 8px;
 }
 
@@ -4311,7 +4311,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   padding: 12px;
 }
 
-.c0 >:not(:last-child) {
+.c0 > :not(:last-child) {
   margin-right: 8px;
 }
 
@@ -4556,7 +4556,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   padding: 12px;
 }
 
-.c0 >:not(:last-child) {
+.c0 > :not(:last-child) {
   margin-right: 8px;
 }
 
@@ -4769,7 +4769,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   padding: 12px;
 }
 
-.c0 >:not(:last-child) {
+.c0 > :not(:last-child) {
   margin-right: 8px;
 }
 
@@ -5014,7 +5014,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   padding: 12px;
 }
 
-.c0 >:not(:last-child) {
+.c0 > :not(:last-child) {
   margin-right: 8px;
 }
 
@@ -5244,7 +5244,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   padding: 12px;
 }
 
-.c0 >:not(:last-child) {
+.c0 > :not(:last-child) {
   margin-right: 8px;
 }
 
@@ -5536,7 +5536,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   padding: 12px;
 }
 
-.c0 >:not(:last-child) {
+.c0 > :not(:last-child) {
   margin-right: 8px;
 }
 
@@ -5833,7 +5833,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   padding: 12px;
 }
 
-.c0 >:not(:last-child) {
+.c0 > :not(:last-child) {
   margin-right: 8px;
 }
 
@@ -6091,7 +6091,7 @@ exports[`TextInput should render a password input 1`] = `
   padding: 12px;
 }
 
-.c0 >:not(:last-child) {
+.c0 > :not(:last-child) {
   margin-right: 8px;
 }
 

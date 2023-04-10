@@ -119,7 +119,7 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
   padding: 12px;
 }
 
-.c0 >:not(:last-child) {
+.c0 > :not(:last-child) {
   margin-right: 8px;
 }
 
@@ -896,7 +896,7 @@ exports[`TextInputWithTokens renders a truncated set of tokens 1`] = `
   padding: 12px;
 }
 
-.c0 >:not(:last-child) {
+.c0 > :not(:last-child) {
   margin-right: 8px;
 }
 
@@ -1323,7 +1323,7 @@ exports[`TextInputWithTokens renders as block layout 1`] = `
   padding: 12px;
 }
 
-.c0 >:not(:last-child) {
+.c0 > :not(:last-child) {
   margin-right: 8px;
 }
 
@@ -1513,7 +1513,7 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
   padding: 12px;
 }
 
-.c0 >:not(:last-child) {
+.c0 > :not(:last-child) {
   margin-right: 8px;
 }
 
@@ -2240,7 +2240,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
   padding: 12px;
 }
 
-.c0 >:not(:last-child) {
+.c0 > :not(:last-child) {
   margin-right: 8px;
 }
 
@@ -2965,7 +2965,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
   padding: 12px;
 }
 
-.c0 >:not(:last-child) {
+.c0 > :not(:last-child) {
   margin-right: 8px;
 }
 
@@ -3683,7 +3683,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
   padding: 12px;
 }
 
-.c0 >:not(:last-child) {
+.c0 > :not(:last-child) {
   margin-right: 8px;
 }
 
@@ -4401,7 +4401,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
   padding: 12px;
 }
 
-.c0 >:not(:last-child) {
+.c0 > :not(:last-child) {
   margin-right: 8px;
 }
 
@@ -5121,7 +5121,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 5`] = `
   padding: 12px;
 }
 
-.c0 >:not(:last-child) {
+.c0 > :not(:last-child) {
   margin-right: 8px;
 }
 
@@ -5843,7 +5843,7 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
   padding: 12px;
 }
 
-.c0 >:not(:last-child) {
+.c0 > :not(:last-child) {
   margin-right: 8px;
 }
 
@@ -6563,7 +6563,7 @@ exports[`TextInputWithTokens renders tokens without a remove button when specifi
   padding: 12px;
 }
 
-.c0 >:not(:last-child) {
+.c0 > :not(:last-child) {
   margin-right: 8px;
 }
 
@@ -7008,7 +7008,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   padding: 12px;
 }
 
-.c0 >:not(:last-child) {
+.c0 > :not(:last-child) {
   margin-right: 8px;
 }
 
@@ -7783,7 +7783,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   padding: 12px;
 }
 
-.c0 >:not(:last-child) {
+.c0 > :not(:last-child) {
   margin-right: 8px;
 }
 
@@ -8590,7 +8590,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   padding: 12px;
 }
 
-.c0 >:not(:last-child) {
+.c0 > :not(:last-child) {
   margin-right: 8px;
 }
 
@@ -9374,7 +9374,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   padding: 12px;
 }
 
-.c0 >:not(:last-child) {
+.c0 > :not(:last-child) {
   margin-right: 8px;
 }
 
@@ -10227,7 +10227,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   padding: 12px;
 }
 
-.c0 >:not(:last-child) {
+.c0 > :not(:last-child) {
   margin-right: 8px;
 }
 
@@ -11080,7 +11080,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   padding: 12px;
 }
 
-.c0 >:not(:last-child) {
+.c0 > :not(:last-child) {
   margin-right: 8px;
 }
 
@@ -11927,7 +11927,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   padding: 12px;
 }
 
-.c0 >:not(:last-child) {
+.c0 > :not(:last-child) {
   margin-right: 8px;
 }
 
@@ -12742,7 +12742,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   padding: 12px;
 }
 
-.c0 >:not(:last-child) {
+.c0 > :not(:last-child) {
   margin-right: 8px;
 }
 
@@ -13589,7 +13589,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   padding: 12px;
 }
 
-.c0 >:not(:last-child) {
+.c0 > :not(:last-child) {
   margin-right: 8px;
 }
 
@@ -14420,7 +14420,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   padding: 12px;
 }
 
-.c0 >:not(:last-child) {
+.c0 > :not(:last-child) {
   margin-right: 8px;
 }
 
@@ -15311,7 +15311,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   padding: 12px;
 }
 
-.c0 >:not(:last-child) {
+.c0 > :not(:last-child) {
   margin-right: 8px;
 }
 
@@ -16204,7 +16204,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   padding: 12px;
 }
 
-.c0 >:not(:last-child) {
+.c0 > :not(:last-child) {
   margin-right: 8px;
 }
 
@@ -17061,7 +17061,7 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
   padding: 12px;
 }
 
-.c0 >:not(:last-child) {
+.c0 > :not(:last-child) {
   margin-right: 8px;
 }
 
@@ -17768,7 +17768,7 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
   padding: 12px;
 }
 
-.c0 >:not(:last-child) {
+.c0 > :not(:last-child) {
   margin-right: 8px;
 }
 
@@ -18442,7 +18442,7 @@ exports[`TextInputWithTokens renders without tokens 1`] = `
   padding: 12px;
 }
 
-.c0 >:not(:last-child) {
+.c0 > :not(:last-child) {
   margin-right: 8px;
 }
 
