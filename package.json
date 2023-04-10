@@ -9,7 +9,8 @@
     "lint": "eslint '**/*.{js,ts,tsx,md,mdx}' --max-warnings=0",
     "lint:fix": "npm run lint -- --fix",
     "lint:md": "markdownlint-cli2 \"**/*.{md,mdx}\" \"!.github\" \"!.changeset\" \"!**/node_modules/**\" \"!CHANGELOG.md\"",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "test:type-check": "tsc --noEmit"
   },
   "devDependencies": {
     "@babel/eslint-parser": "7.21.3",
@@ -34,7 +35,8 @@
     "lint-staged": "13.1.0",
     "markdownlint-cli2": "^0.6.0",
     "markdownlint-cli2-formatter-pretty": "0.0.3",
-    "prettier": "2.8.1"
+    "prettier": "2.8.1",
+    "typescript": "4.9.5"
   },
   "lint-staged": {
     "**/*.{js,ts,tsx,md,mdx}": "npm run lint"
