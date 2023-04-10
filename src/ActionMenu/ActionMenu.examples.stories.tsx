@@ -32,7 +32,7 @@ export const GroupsAndDescriptions = () => {
         Milestone
       </ActionMenu.Button>
       <ActionMenu.Overlay width="medium">
-        <ActionList selectionVariant="single" showDividers sx={{marginTop: '1.875px'}}>
+        <ActionList selectionVariant="single" showDividers sx={{marginTop: '1.8px'}}>
           <ActionList.Heading title="Open" />
           {milestones
             .filter(milestone => !milestone.name.includes('21'))
