@@ -16,7 +16,7 @@ import ValidationAnimationContainer from '../_ValidationAnimationContainer'
 import {get} from '../constants'
 import FormControlLeadingVisual from './_FormControlLeadingVisual'
 import {SxProp} from '../sx'
-import CheckboxOrRadioGroupContext from '../_CheckboxOrRadioGroup/_CheckboxOrRadioGroupContext'
+import {CheckboxOrRadioGroupContext} from '../_CheckboxOrRadioGroup'
 import InlineAutocomplete from '../drafts/InlineAutocomplete'
 
 export type FormControlProps = {
@@ -58,7 +58,7 @@ const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
       InlineAutocomplete,
     ]
     const choiceGroupContext = useContext(CheckboxOrRadioGroupContext)
-    const disabled = choiceGroupContext?.disabled || disabledProp
+    const disabled = choiceGroupContext.disabled || disabledProp
     const id = useSSRSafeId(idProp)
     const validationChild = React.Children.toArray(children).find(child =>
       React.isValidElement(child) && child.type === FormControlValidation ? child : null,

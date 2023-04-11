@@ -1,6 +1,6 @@
 {
   "name": "Primer React",
-  "image": "mcr.microsoft.com/vscode/devcontainers/typescript-node:16",
+  "image": "mcr.microsoft.com/vscode/devcontainers/typescript-node:18",
   "extensions": ["esbenp.prettier-vscode", "dbaeumer.vscode-eslint", "DavidAnson.vscode-markdownlint"],
   "forwardPorts": [8000],
   "postCreateCommand": ["/bin/bash", "-c", "npm run setup"],
@@ -11,8 +11,8 @@
     }
   },
   "hostRequirements": {
-   "cpus": 4,
-   "memory": "8gb",
-   "storage": "32gb" 
+    "cpus": 4,
+    "memory": "8gb",
+    "storage": "32gb"
   }
 }
