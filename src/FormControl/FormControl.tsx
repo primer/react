@@ -49,7 +49,7 @@ export const FormControlContext = React.createContext<FormControlContext>({})
 
 const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
   ({children, disabled: disabledProp, layout = 'vertical', id: idProp, required, sx}, ref) => {
-    const [slots, rest] = useSlots(children, {
+    const [slots, childrenWithoutSlots] = useSlots(children, {
       caption: FormControlCaption,
       label: FormControlLabel,
       leadingVisual: FormControlLeadingVisual,
@@ -71,7 +71,7 @@ const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
     const validationMessageId = slots.validation ? `${id}-validationMessage` : undefined
     const captionId = slots.caption ? `${id}-caption` : undefined
     const validationStatus = slots.validation?.props.variant
-    const InputComponent = React.Children.toArray(children).find(child =>
+    const InputComponent = childrenWithoutSlots.find(child =>
       expectedInputComponents.some(inputComponent => React.isValidElement(child) && child.type === inputComponent),
     )
     const inputProps = React.isValidElement(InputComponent) && InputComponent.props
@@ -114,7 +114,7 @@ const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
         )
       }
 
-      if (rest.find(child => React.isValidElement(child) && child.props?.required)) {
+      if (childrenWithoutSlots.find(child => React.isValidElement(child) && child.props?.required)) {
         // eslint-disable-next-line no-console
         console.warn('An individual checkbox or radio cannot be a required field.')
       }
@@ -127,7 +127,7 @@ const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
       }
     }
 
-    const isLabelHidden = React.isValidElement(slots.label) && slots.label.props.visuallyHidden
+    const isLabelHidden = slots.label?.props.visuallyHidden
 
     return (
       <FormControlContext.Provider
@@ -155,7 +155,7 @@ const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
                     ['aria-describedby']: captionId as string,
                   },
                 )}
-              {rest.filter(
+              {childrenWithoutSlots.filter(
                 child =>
                   React.isValidElement(child) &&
                   ![Checkbox, Radio].some(inputComponent => child.type === inputComponent),
