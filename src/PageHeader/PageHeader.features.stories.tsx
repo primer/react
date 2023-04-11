@@ -131,7 +131,7 @@ export const WithDescriptionSlot = () => (
     </PageHeader.TitleArea>
     <PageHeader.Description>
       <Text sx={{fontSize: 1, color: 'fg.muted'}}>
-        <Link href="#" muted sx={{fontWeight: 'bold'}}>
+        <Link href="https://github.com/broccolinisoup" muted sx={{fontWeight: 'bold'}}>
           broccolinisoup
         </Link>{' '}
         created this branch 5 days ago · 14 commits · updated today
@@ -211,8 +211,8 @@ export const WithParentLinkAndActionsOfContextArea = () => (
         <PageHeader.ParentLink href="http://github.com">Parent Link</PageHeader.ParentLink>
 
         <PageHeader.ContextAreaActions>
-          <Button size="small" leadingIcon={GitBranchIcon}>
-            Main
+          <Button size="small" trailingAction={TriangleDownIcon}>
+            Add File
           </Button>
           <IconButton size="small" aria-label="More Options" icon={KebabHorizontalIcon} />
         </PageHeader.ContextAreaActions>

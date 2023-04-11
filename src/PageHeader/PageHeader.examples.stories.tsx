@@ -71,7 +71,7 @@ export const PullRequestPage = () => (
         </PageHeader.Title>
         <PageHeader.Actions>
           <Hidden when={['regular', 'wide']}>
-            <IconButton aria-label="More" icon={KebabHorizontalIcon} />
+            <IconButton aria-label="More pull request actions" icon={KebabHorizontalIcon} />
             {/* Pop up actions */}
           </Hidden>
 
@@ -87,7 +87,7 @@ export const PullRequestPage = () => (
         <StateLabel status="pullOpened">Open</StateLabel>
         <Hidden when={['narrow']}>
           <Text sx={{fontSize: 1, color: 'fg.muted'}}>
-            <Link href="#" muted sx={{fontWeight: 'bold'}}>
+            <Link href="https://github.com/broccolinisoup" sx={{fontWeight: 'bold'}}>
               broccolinisoup
             </Link>{' '}
             wants to merge 3 commits into <BranchName href="#">main</BranchName> from{' '}
@@ -137,17 +137,19 @@ export const FilesPage = () => (
           <Button size="small" leadingIcon={GitBranchIcon}>
             Main
           </Button>
-          <IconButton size="small" aria-label="More" icon={KebabHorizontalIcon} />
+          <IconButton size="small" aria-label="More file actions" icon={KebabHorizontalIcon} />
         </PageHeader.ContextAreaActions>
       </PageHeader.ContextArea>
       <PageHeader.TitleArea>
         <Breadcrumbs>
-          <Breadcrumbs.Item href="#">...</Breadcrumbs.Item>
-          <Breadcrumbs.Item href="#">primer</Breadcrumbs.Item>
-          <Breadcrumbs.Item href="#">react</Breadcrumbs.Item>
-          <Breadcrumbs.Item href="#">src</Breadcrumbs.Item>
-          <Breadcrumbs.Item href="#">PageHeader</Breadcrumbs.Item>
-          <Breadcrumbs.Item href="#">PageHeader.tsx</Breadcrumbs.Item>
+          <Breadcrumbs.Item href="https://github.com/primer/react/tree/main">react</Breadcrumbs.Item>
+          <Breadcrumbs.Item href="https://github.com/primer/react/tree/main/src">src</Breadcrumbs.Item>
+          <Breadcrumbs.Item href="https://github.com/primer/react/tree/main/src/PageHeader">
+            PageHeader
+          </Breadcrumbs.Item>
+          <Breadcrumbs.Item href="https://github.com/primer/react/blob/main/src/PageHeader/PageHeader.tsx">
+            PageHeader.tsx
+          </Breadcrumbs.Item>
         </Breadcrumbs>
       </PageHeader.TitleArea>
     </PageHeader>
@@ -159,6 +161,9 @@ export const FilesPageOnNarrowViewport = () => {
 }
 
 export const WithPageLayout = () => {
+  const assignYourself = () => {
+    console.log('Assign yourself')
+  }
   return (
     <PageLayout>
       <PageLayout.Header>
@@ -173,7 +178,7 @@ export const WithPageLayout = () => {
             </PageHeader.Title>
             <PageHeader.Actions>
               <Hidden when={['regular', 'wide']}>
-                <IconButton aria-label="More" icon={KebabHorizontalIcon} />
+                <IconButton aria-label="More pull request actions" icon={KebabHorizontalIcon} />
                 {/* Pop up actions */}
               </Hidden>
 
@@ -189,7 +194,7 @@ export const WithPageLayout = () => {
             <StateLabel status="pullOpened">Open</StateLabel>
             <Hidden when={['narrow']}>
               <Text sx={{fontSize: 1, color: 'fg.muted'}}>
-                <Link href="#" muted sx={{fontWeight: 'bold'}}>
+                <Link href="https://github.com/broccolinisoup" sx={{fontWeight: 'bold'}}>
                   broccolinisoup
                 </Link>{' '}
                 wants to merge 3 commits into <BranchName href="#">main</BranchName> from{' '}
@@ -244,11 +249,11 @@ export const WithPageLayout = () => {
         <Box sx={{display: 'flex', flexDirection: 'column', gap: 3}}>
           <Box>
             <Text sx={{fontSize: 0, fontWeight: 'bold', display: 'block', color: 'fg.muted'}}>Assignees</Text>
-            <Text sx={{fontSize: 0, color: 'fg.muted', lineHeight: 'condensed'}}>
-              No one –{' '}
-              <Link href="#" muted>
+            <Text sx={{fontSize: 0, color: 'fg.muted', lineHeight: 'condensed', display: 'flex', alignItems: 'center'}}>
+              No one —
+              <Button variant="invisible" onClick={assignYourself} sx={{color: 'fg.muted'}}>
                 assign yourself
-              </Link>
+              </Button>
             </Text>
           </Box>
           <Box role="separator" sx={{width: '100%', height: 1, backgroundColor: 'border.default'}}></Box>
