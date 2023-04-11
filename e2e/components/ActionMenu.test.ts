@@ -241,7 +241,9 @@ test.describe('ActionMenu', () => {
           })
 
           // Default state
-          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(`ActionMenu.Multiple Sections.${theme}.png`)
+          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
+            `ActionMenu.Multiple Sections.${theme}.png`,
+          )
         })
 
         test('axe @aat', async ({page}) => {
