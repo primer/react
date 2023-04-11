@@ -211,7 +211,7 @@ const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
                   InputComponent.props,
                 ),
               )}
-            {React.Children.toArray(children).filter(
+            {childrenWithoutSlots.filter(
               child =>
                 React.isValidElement(child) &&
                 !expectedInputComponents.some(inputComponent => child.type === inputComponent),
