@@ -25,7 +25,7 @@ jobs:
     secrets:
       gh_token: ${{ secrets.GITHUB_TOKEN }}
     with:
-      node_version: 16
+      node_version: 18
       install: npm ci && cd docs && npm ci --legacy-peer-deps && cd ..
       build: npm run build:docs:preview
       output_dir: docs/public

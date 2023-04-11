@@ -1,6 +1,6 @@
 import {IconProps} from '@primer/octicons-react'
 import React from 'react'
-import Box, {BoxProps} from './Box'
+import Box, {BoxProps} from '../Box'
 
 export type CircleOcticonProps = {
   as?: React.ElementType
