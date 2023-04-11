@@ -282,6 +282,50 @@
         }
       ]
     },
+    "styled_octicon": {
+      "id": "styled_octicon",
+      "name": "StyledOcticon",
+      "status": "alpha",
+      "a11yReviewed": false,
+      "stories": [],
+      "props": [
+        {
+          "name": "ariaLabel",
+          "type": "string",
+          "defaultValue": "",
+          "description": "Specifies the aria-label attribute, which is read verbatim by screen readers "
+        },
+        {
+          "name": "icon",
+          "type": "Component",
+          "defaultValue": "",
+          "description": "Checks the input by default in uncontrolled modeName of the [Octicon component](https://primer.style/octicons/) used in the"
+        },
+        {
+          "name": "color",
+          "type": "string",
+          "defaultValue": "",
+          "description": "Sets an override color for the Octicon. Compatible with colors from the [Primer color system](https://primer.style/primitives/colors).\""
+        },
+        {
+          "name": "size",
+          "type": "number",
+          "defaultValue": "16",
+          "description": "Sets the uniform `width` and `height` of the SVG element"
+        },
+        {
+          "name": "verticalAlign",
+          "type": "string",
+          "defaultValue": "text-bottom",
+          "description": "Sets the `vertical-align` CSS property"
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ],
+      "subcomponents": []
+    },
     "sub_nav": {
       "id": "sub_nav",
       "name": "SubNav",
@@ -3188,6 +3232,65 @@
         }
       ],
       "subcomponents": []
+    },
+    "popover": {
+      "id": "popover",
+      "name": "Popover",
+      "status": "alpha",
+      "a11yReviewed": false,
+      "stories": [
+        {
+          "id": "components-popover--default",
+          "code": "() => (\n  <Popover relative open={true} caret=\"top\">\n    <Popover.Content\n      sx={{\n        marginTop: 2,\n      }}\n    >\n      <Heading\n        sx={{\n          fontSize: 2,\n        }}\n      >\n        Popover heading\n      </Heading>\n      <Text as=\"p\">Message about popovers</Text>\n      <Button>Got it!</Button>\n    </Popover.Content>\n  </Popover>\n)"
+        }
+      ],
+      "props": [
+        {
+          "name": "as",
+          "type": "string",
+          "defaultValue": "div",
+          "description": "Sets the underlying HTML tag for the component"
+        },
+        {
+          "name": "caret",
+          "type": "| 'top' | 'bottom' | 'left' | 'right' | 'bottom-left' | 'bottom-right' | 'top-left' | 'top-right' | 'left-bottom' | 'left-top' | 'right-bottom' | 'right-top' ",
+          "defaultValue": "'top'",
+          "description": "Controls the position of the caret"
+        },
+        {
+          "name": "open",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "Controls the visibility of the popover."
+        },
+        {
+          "name": "relative",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "Set to true to render the popover using relative positioning. "
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ],
+      "subcomponents": [
+        {
+          "name": "Popover.Content",
+          "props": [
+            {
+              "name": "as",
+              "type": "string",
+              "defaultValue": "div",
+              "description": "Sets the underlying HTML tag for the component"
+            },
+            {
+              "name": "sx",
+              "type": "SystemStyleObject"
+            }
+          ]
+        }
+      ]
     },
     "portal": {
       "id": "portal",
