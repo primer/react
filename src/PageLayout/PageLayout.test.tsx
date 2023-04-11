@@ -123,7 +123,9 @@ describe('PageLayout', () => {
       <ThemeProvider>
         <PageLayout>
           <PageLayout.Header aria-label="header">Header</PageLayout.Header>
-          <PageLayout.Content aria-label="content">Content</PageLayout.Content>
+          <PageLayout.Content as="main" aria-label="content">
+            Content
+          </PageLayout.Content>
           <PageLayout.Pane>Pane</PageLayout.Pane>
           <PageLayout.Footer aria-label="footer">Footer</PageLayout.Footer>
         </PageLayout>
@@ -142,7 +144,7 @@ describe('PageLayout', () => {
           <PageLayout.Header aria-labelledby="header-label">
             <span id="header-label">header</span>
           </PageLayout.Header>
-          <PageLayout.Content aria-labelledby="content-label">
+          <PageLayout.Content as="main" aria-labelledby="content-label">
             <span id="content-label">content</span>
           </PageLayout.Content>
           <PageLayout.Pane>Pane</PageLayout.Pane>
