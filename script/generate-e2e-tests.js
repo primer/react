@@ -814,6 +814,21 @@ const components = new Map([
     },
   ],
   [
+    'Popover',
+    {
+      stories: [
+        {
+          id: 'components-popover--default',
+          name: 'Default',
+        },
+        {
+          id: 'components-popover--playground',
+          name: 'Playground',
+        },
+      ],
+    },
+  ],
+  [
     'ProgressBar',
     {
       stories: [
