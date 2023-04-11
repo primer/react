@@ -1,6 +1,7 @@
 import {ObjectPaths} from './utils'
 import {UniqueRow} from './row'
 import {SortStrategy, CustomSortStrategy} from './sorting'
+import VisuallyHidden from '../_VisuallyHidden'
 
 export type ColumnWidth = 'grow' | 'growCollapse' | 'auto' | React.CSSProperties['width']
 export type CellAlignment = 'start' | 'end' | undefined
@@ -77,7 +78,16 @@ export function createColumnHelper<T extends UniqueRow>() {
     }
   }
 
+  function actions(renderCell: Column<T>['renderCell']): Column<T> {
+    return column({
+      id: 'actions',
+      header: () => <VisuallyHidden>Actions</VisuallyHidden>,
+      renderCell,
+    })
+  }
+
   return {
     column,
+    actions,
   }
 }

@@ -1,4 +1,5 @@
 import {useState} from 'react'
+import {warn, warning} from '../utils/warning'
 import {Column} from './column'
 import {UniqueRow} from './row'
 import {DEFAULT_SORT_DIRECTION, SortDirection, transition, strategies} from './sorting'
@@ -315,6 +316,79 @@ export function getGridTemplateFromColumns<Data extends UniqueRow>(columns: Arra
     // If we reach this point, the consumer is passing an explicit width value.
     return typeof columnWidth === 'number' ? `${columnWidth}px` : columnWidth
   })
+}
+
+interface PaginationState {
+  /**
+   * The index of currently selected page
+   */
+  pageIndex: number
+}
+
+interface PaginationOptions {
+  /**
+   * The index of default selected page
+   */
+  defaultPageIndex?: number
+
+  /**
+   * Provide an optional handler that is called whenever the pagination state
+   * has changed
+   */
+  onChange?: (state: PaginationState) => void
+
+  /**
+   * Specify the number of items within a page
+   */
+  pageSize: number
+
+  /**
+   * Specify the total number of items within the collection
+   */
+  totalItems: number
+}
+
+export function usePagination({defaultPageIndex, onChange, pageSize, totalItems}: PaginationOptions) {
+  const [pageIndex, setPageIndex] = useState(defaultPageIndex ?? 0)
+  const pageCount = Math.ceil(totalItems / pageSize)
+  const hasNextPage = pageIndex + 1 <= pageCount
+  const hasPreviousPage = pageIndex > 0
+
+  function selectNextPage() {
+    if (hasNextPage) {
+      const newPageIndex = pageIndex + 1
+      setPageIndex(newPageIndex)
+      onChange?.({
+        pageIndex,
+      })
+    } else {
+      warning(true, 'usePagination expected `selectNextPage` to be called only when a next page is available.')
+    }
+  }
+
+  function selectPreviousPage() {
+    if (hasPreviousPage) {
+      const newPageIndex = pageIndex - 1
+      setPageIndex(newPageIndex)
+      onChange?.({
+        pageIndex,
+      })
+    } else {
+      warning(true, 'usePagination expected `selectPreviousPage` to be called only when a previous page is available.')
+    }
+  }
+
+  return {
+    pageIndex,
+    pageSize,
+    totalItems,
+
+    hasNextPage,
+    hasPreviousPage,
+
+    selectNextPage,
+    selectPreviousPage,
+  }
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

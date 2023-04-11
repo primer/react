@@ -1,7 +1,7 @@
 import {DownloadIcon, KebabHorizontalIcon, PencilIcon, PlusIcon, RepoIcon, TrashIcon} from '@primer/octicons-react'
 import {action} from '@storybook/addon-actions'
 import {Meta} from '@storybook/react'
-import React from 'react'
+import React, {Suspense, useCallback, useEffect, useRef, useState, useTransition} from 'react'
 import {ActionList} from '../ActionList'
 import {ActionMenu} from '../ActionMenu'
 import Box from '../Box'
@@ -11,8 +11,11 @@ import Heading from '../Heading'
 import Label from '../Label'
 import LabelGroup from '../LabelGroup'
 import RelativeTime from '../RelativeTime'
+import {warning} from '../utils/warning'
 import VisuallyHidden from '../_VisuallyHidden'
 import {createColumnHelper} from './column'
+import {usePagination} from './useTable'
+import {fetchRepoPage, fetchRepos} from './store'
 
 export default {
   title: 'Components/DataTable/Features',
@@ -1356,6 +1359,144 @@ export const WithRightAlignedColumns = () => {
         initialSortColumn="updatedAt"
         initialSortDirection="DESC"
       />
+    </Table.Container>
+  )
+}
+
+type PromiseWrapper<T> = {
+  status?: 'fulfilled' | 'rejected' | 'pending'
+  value?: T
+  reason?: Error
+} & Promise<T>
+
+// Replace with `use` from `react` once it is available
+function use<T>(promise: PromiseWrapper<T>): T {
+  if (promise.status === 'fulfilled') {
+    return promise.value as T
+  } else if (promise.status === 'rejected') {
+    throw promise.reason
+  } else if (promise.status === 'pending') {
+    throw promise
+  } else {
+    promise.status = 'pending'
+    promise.then(
+      result => {
+        promise.status = 'fulfilled'
+        promise.value = result
+      },
+      reason => {
+        promise.status = 'rejected'
+        promise.reason = reason
+      },
+    )
+    throw promise
+  }
+}
+
+export const WithPagination = () => {
+  const fallback = (
+    <Table.Skeleton
+      aria-labelledby="repositories"
+      aria-describedby="repositories-subtitle"
+      columns={columns}
+      rows={15}
+    />
+  )
+
+  function WrappedDataTable({page, pageSize}) {
+    const {data} = use(fetchRepoPage(page, pageSize))
+    return (
+      <DataTable
+        aria-labelledby="repositories"
+        aria-describedby="repositories-subtitle"
+        data={data}
+        columns={columns}
+      />
+    )
+  }
+
+  function Example() {
+    const [page, setPage] = useState(0)
+    const pageSize = 15
+    const totalCount = 100
+    const totalPages = Math.ceil(totalCount / pageSize)
+    const previousButtonRef = useRef<HTMLButtonElement | null>(null)
+    const nextButtonRef = useRef<HTMLButtonElement | null>(null)
+
+    return (
+      <>
+        <Suspense fallback={fallback}>
+          <WrappedDataTable page={page} pageSize={pageSize} />
+        </Suspense>
+        <div
+          style={{
+            gridArea: 'footer',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            padding: '1rem',
+          }}
+        >
+          <div>
+            Showing items of {page * pageSize + 1} - {page * pageSize + data.length} of {totalCount}
+          </div>
+          <div>Items per page {pageSize}</div>
+          <div>Page {page + 1}</div>
+          <div>
+            <button
+              ref={previousButtonRef}
+              type="button"
+              disabled={page <= 0}
+              onClick={() => {
+                const newPage = Math.max(page - 1, 0)
+                setPage(newPage)
+                if (newPage <= 0) {
+                  nextButtonRef.current?.focus()
+                }
+              }}
+            >
+              Previous
+            </button>
+            <button
+              ref={nextButtonRef}
+              type="button"
+              disabled={page + 1 > totalPages}
+              onClick={() => {
+                const newPage = Math.min(page + 1, totalPages)
+                setPage(newPage)
+                if (newPage + 1 > totalPages) {
+                  previousButtonRef.current?.focus()
+                }
+              }}
+            >
+              Next
+            </button>
+          </div>
+        </div>
+      </>
+    )
+  }
+
+  return (
+    <Table.Container>
+      <Table.Title as="h2" id="repositories">
+        Repositories
+      </Table.Title>
+      <Table.Subtitle as="p" id="repositories-subtitle">
+        A subtitle could appear here to give extra context to the data.
+      </Table.Subtitle>
+      <Suspense
+        fallback={
+          <Table.Skeleton
+            aria-labelledby="repositories"
+            aria-describedby="repositories-subtitle"
+            columns={columns}
+            rows={15}
+          />
+        }
+      >
+        <Example />
+      </Suspense>
     </Table.Container>
   )
 }
