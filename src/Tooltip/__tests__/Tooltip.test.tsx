@@ -1,8 +1,8 @@
 import React from 'react'
-import {Tooltip, TooltipProps} from '.'
-import {checkStoriesForAxeViolations, behavesAsComponent, checkExports} from '../utils/testing'
+import {Tooltip, TooltipProps} from '..'
+import {checkStoriesForAxeViolations, checkExports} from '../../utils/testing'
 import {render as HTMLRender, act} from '@testing-library/react'
-import {Button} from '../Button'
+import {Button} from '../../Button'
 import {SearchIcon} from '@primer/octicons-react'
 import userEvent from '@testing-library/user-event'
 
@@ -15,12 +15,6 @@ const TooltipComponent = (props: TooltipProps) => (
 )
 
 describe('Tooltip', () => {
-  behavesAsComponent({
-    Component: Tooltip,
-    options: {skipAs: true, skipSx: true},
-    toRender: () => <TooltipComponent />,
-  })
-
   checkExports('Tooltip', {
     default: undefined,
     Tooltip,

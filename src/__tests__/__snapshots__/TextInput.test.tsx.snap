@@ -4,7 +4,7 @@ exports[`TextInput renders 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #24292f;
+  color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -70,7 +70,7 @@ exports[`TextInput renders 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #57606a;
+  color: #656d76;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -123,7 +123,7 @@ exports[`TextInput renders block 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #24292f;
+  color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -197,7 +197,7 @@ exports[`TextInput renders block 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #57606a;
+  color: #656d76;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -250,7 +250,7 @@ exports[`TextInput renders consistently 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #24292f;
+  color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -316,7 +316,7 @@ exports[`TextInput renders consistently 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #57606a;
+  color: #656d76;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -368,7 +368,7 @@ exports[`TextInput renders contrast 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #24292f;
+  color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -435,7 +435,7 @@ exports[`TextInput renders contrast 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #57606a;
+  color: #656d76;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -488,7 +488,7 @@ exports[`TextInput renders error 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #24292f;
+  color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -561,7 +561,7 @@ exports[`TextInput renders error 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #57606a;
+  color: #656d76;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -614,7 +614,7 @@ exports[`TextInput renders large 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #24292f;
+  color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -686,7 +686,7 @@ exports[`TextInput renders large 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #57606a;
+  color: #656d76;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -740,7 +740,7 @@ exports[`TextInput renders leadingVisual 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #24292f;
+  color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -806,7 +806,7 @@ exports[`TextInput renders leadingVisual 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #57606a;
+  color: #656d76;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -886,7 +886,7 @@ exports[`TextInput renders monospace 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #24292f;
+  color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -953,7 +953,7 @@ exports[`TextInput renders monospace 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #57606a;
+  color: #656d76;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -1006,7 +1006,7 @@ exports[`TextInput renders placeholder 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #24292f;
+  color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -1072,7 +1072,7 @@ exports[`TextInput renders placeholder 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #57606a;
+  color: #656d76;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -1126,7 +1126,7 @@ exports[`TextInput renders small 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #24292f;
+  color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -1200,7 +1200,7 @@ exports[`TextInput renders small 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #57606a;
+  color: #656d76;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -1412,7 +1412,7 @@ exports[`TextInput renders trailingAction icon button 1`] = `
 
 .c4 [data-component="leadingVisual"] {
   grid-area: leadingVisual;
-  color: #57606a;
+  color: #656d76;
 }
 
 .c4 [data-component="text"] {
@@ -1427,7 +1427,7 @@ exports[`TextInput renders trailingAction icon button 1`] = `
 
 .c4 [data-component="trailingAction"] {
   margin-right: -4px;
-  color: #57606a;
+  color: #656d76;
 }
 
 .c4 [data-component="buttonContent"] {
@@ -1463,7 +1463,7 @@ exports[`TextInput renders trailingAction icon button 1`] = `
 }
 
 .c4[data-component="IconButton"][data-no-visuals] {
-  color: #57606a;
+  color: #656d76;
 }
 
 .c4[data-no-visuals] {
@@ -1490,7 +1490,7 @@ exports[`TextInput renders trailingAction icon button 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #24292f;
+  color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -1550,7 +1550,7 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #57606a;
+  color: #656d76;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -1890,7 +1890,7 @@ exports[`TextInput renders trailingAction icon button 1`] = `
     >
       <button
         aria-label="iconLabel"
-        aria-labelledby="react-aria1299193909-2"
+        aria-labelledby="react-aria8002912340-2"
         className="c4"
         data-block={null}
         data-component="IconButton"
@@ -1929,7 +1929,7 @@ exports[`TextInput renders trailingAction icon button 1`] = `
         aria-hidden={true}
         className="c5"
         data-direction="n"
-        id="react-aria1299193909-2"
+        id="react-aria8002912340-2"
       >
         iconLabel
       </div>
@@ -2102,7 +2102,7 @@ exports[`TextInput renders trailingAction text button 1`] = `
 
 .c3 [data-component="leadingVisual"] {
   grid-area: leadingVisual;
-  color: #57606a;
+  color: #656d76;
 }
 
 .c3 [data-component="text"] {
@@ -2117,7 +2117,7 @@ exports[`TextInput renders trailingAction text button 1`] = `
 
 .c3 [data-component="trailingAction"] {
   margin-right: -4px;
-  color: #57606a;
+  color: #656d76;
 }
 
 .c3 [data-component="buttonContent"] {
@@ -2153,7 +2153,7 @@ exports[`TextInput renders trailingAction text button 1`] = `
 }
 
 .c3[data-component="IconButton"][data-no-visuals] {
-  color: #57606a;
+  color: #656d76;
 }
 
 .c3[data-no-visuals] {
@@ -2180,7 +2180,7 @@ exports[`TextInput renders trailingAction text button 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #24292f;
+  color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -2240,7 +2240,7 @@ exports[`TextInput renders trailingAction text button 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #57606a;
+  color: #656d76;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -2501,7 +2501,7 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
 
 .c4 [data-component="leadingVisual"] {
   grid-area: leadingVisual;
-  color: #57606a;
+  color: #656d76;
 }
 
 .c4 [data-component="text"] {
@@ -2516,7 +2516,7 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
 
 .c4 [data-component="trailingAction"] {
   margin-right: -4px;
-  color: #57606a;
+  color: #656d76;
 }
 
 .c4 [data-component="buttonContent"] {
@@ -2552,7 +2552,7 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
 }
 
 .c4[data-component="IconButton"][data-no-visuals] {
-  color: #57606a;
+  color: #656d76;
 }
 
 .c4[data-no-visuals] {
@@ -2579,7 +2579,7 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #24292f;
+  color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -2639,7 +2639,7 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #57606a;
+  color: #656d76;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -2979,7 +2979,7 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
       onMouseLeave={[Function]}
     >
       <button
-        aria-labelledby="react-aria1299193909-1"
+        aria-labelledby="react-aria8002912340-1"
         className="c4"
         data-block={null}
         data-no-visuals={true}
@@ -3004,7 +3004,7 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
         aria-hidden={true}
         className="c6"
         data-direction="n"
-        id="react-aria1299193909-1"
+        id="react-aria8002912340-1"
       >
         Clear input
       </div>
@@ -3017,7 +3017,7 @@ exports[`TextInput renders trailingVisual 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #24292f;
+  color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -3083,7 +3083,7 @@ exports[`TextInput renders trailingVisual 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #57606a;
+  color: #656d76;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -3163,7 +3163,7 @@ exports[`TextInput renders warning 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #24292f;
+  color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -3183,7 +3183,7 @@ exports[`TextInput renders warning 1`] = `
   background-position: right 8px center;
   padding-left: 0;
   padding-right: 0;
-  border-color: #bf8700;
+  border-color: #9a6700;
 }
 
 .c0 input,
@@ -3230,7 +3230,7 @@ exports[`TextInput renders warning 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #57606a;
+  color: #656d76;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -3304,7 +3304,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #24292f;
+  color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -3370,7 +3370,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #57606a;
+  color: #656d76;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -3477,7 +3477,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #24292f;
+  color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -3543,7 +3543,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #57606a;
+  color: #656d76;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -3682,7 +3682,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #24292f;
+  color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -3748,7 +3748,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #57606a;
+  color: #656d76;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -3864,7 +3864,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #24292f;
+  color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -3930,7 +3930,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #57606a;
+  color: #656d76;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -4115,7 +4115,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #24292f;
+  color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -4181,7 +4181,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #57606a;
+  color: #656d76;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -4366,7 +4366,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #24292f;
+  color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -4432,7 +4432,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #57606a;
+  color: #656d76;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -4611,7 +4611,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #24292f;
+  color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -4677,7 +4677,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #57606a;
+  color: #656d76;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -4824,7 +4824,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #24292f;
+  color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -4890,7 +4890,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #57606a;
+  color: #656d76;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -5069,7 +5069,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #24292f;
+  color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -5135,7 +5135,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #57606a;
+  color: #656d76;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -5291,7 +5291,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #24292f;
+  color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -5365,7 +5365,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #57606a;
+  color: #656d76;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -5591,7 +5591,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #24292f;
+  color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -5657,7 +5657,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #57606a;
+  color: #656d76;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -5882,7 +5882,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #24292f;
+  color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -5954,7 +5954,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #57606a;
+  color: #656d76;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -6146,7 +6146,7 @@ exports[`TextInput should render a password input 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #24292f;
+  color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -6212,7 +6212,7 @@ exports[`TextInput should render a password input 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #57606a;
+  color: #656d76;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
