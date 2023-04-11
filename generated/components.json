@@ -55,8 +55,8 @@
         }
       ]
     },
-    "styled_octicon": {
-      "id": "styled_octicon",
+    "octicon": {
+      "id": "octicon",
       "name": "Octicon",
       "status": "alpha",
       "a11yReviewed": false,
