@@ -207,7 +207,7 @@ the following command:
 script/test-e2e --grep @avt
 ```
 
-## Continous Integration
+## Continuous Integration
 
 All of the tests run on our continuous integration workflows.
 
@@ -226,6 +226,10 @@ and downloading the relevant report.
 > The `vrt` job is broken up into several runners to speed up how long it takes
 > to run Visual Regression Testing. Make sure to identify the job that is
 > failing and download the report that matches the number of the runner.
+>
+> If you notice that a test is failing and the difference appears to be a very
+> small distance, consider adding `animations: 'disabled'` to the `page.screenshot`
+> call in the test that is failing.
 
 ## FAQ
 
