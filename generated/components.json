@@ -19,30 +19,6 @@
       ],
       "subcomponents": []
     },
-    "circle_octicon": {
-      "id": "circle_octicon",
-      "name": "CircleOcticon",
-      "status": "alpha",
-      "a11yReviewed": false,
-      "stories": [],
-      "props": [
-        {
-          "name": "icon",
-          "type": "Octicon"
-        },
-        {
-          "name": "size",
-          "defaultValue": "32",
-          "type": "number",
-          "description": "Set the width and height of the icon in pixels."
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject"
-        }
-      ],
-      "subcomponents": []
-    },
     "dialog": {
       "id": "dialog",
       "name": "Dialog",
@@ -1667,6 +1643,35 @@
           }
         }
       ]
+    },
+    "circle_octicon": {
+      "id": "circle_octicon",
+      "name": "CircleOcticon",
+      "status": "alpha",
+      "a11yReviewed": false,
+      "stories": [
+        {
+          "id": "components-circleocticon--default",
+          "code": "() => (\n  <CircleOcticon\n    icon={CheckIcon}\n    size={32}\n    sx={{\n      backgroundColor: 'success.fg',\n      color: 'fg.onEmphasis',\n    }}\n  />\n)"
+        }
+      ],
+      "props": [
+        {
+          "name": "icon",
+          "type": "Octicon"
+        },
+        {
+          "name": "size",
+          "defaultValue": "32",
+          "type": "number",
+          "description": "Set the width and height of the icon in pixels."
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ],
+      "subcomponents": []
     },
     "counter_label": {
       "id": "counter_label",

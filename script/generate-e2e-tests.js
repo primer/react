@@ -311,6 +311,21 @@ const components = new Map([
     },
   ],
   [
+    'CircleOcticon',
+    {
+      stories: [
+        {
+          id: 'components-circleocticon--default',
+          name: 'Default',
+        },
+        {
+          id: 'components-circleocticon--playground',
+          name: 'Playground',
+        },
+      ],
+    },
+  ],
+  [
     'CircleBadge',
     {
       stories: [
