@@ -1,6 +1,6 @@
 import React from 'react'
 import {ComponentMeta} from '@storybook/react'
-import ProgressBar from './ProgressBar'
+import {ProgressBar} from '..'
 
 export default {
   title: 'Components/ProgressBar/Features',
@@ -17,3 +17,11 @@ export const SizeLarge = () => <ProgressBar progress="66" barSize="large" />
 export const Inline = () => <ProgressBar inline progress="66" sx={{width: '100px'}} />
 
 export const Color = () => <ProgressBar progress="66" bg="done.emphasis" />
+
+export const MultipleItems = () => (
+  <ProgressBar>
+    <ProgressBar.Item progress={33} />
+    <ProgressBar.Item progress={23} sx={{backgroundColor: 'danger.emphasis'}} />
+    <ProgressBar.Item progress={14} sx={{backgroundColor: 'severe.emphasis'}} />
+  </ProgressBar>
+)
