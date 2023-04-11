@@ -25,8 +25,8 @@ exports[`SelectMenu right-aligned modal has right: 0px 1`] = `
   font-size: 14px;
   color: #24292f;
   background-color: #f6f8fa;
-  border: 1px solid rgba(27,31,36,0.15);
-  box-shadow: 0 1px 0 rgba(27,31,36,0.04),inset 0 1px 0 rgba(255,255,255,0.25);
+  border: 1px solid rgba(31,35,40,0.15);
+  box-shadow: 0 1px 0 rgba(31,35,40,0.04),inset 0 1px 0 rgba(255,255,255,0.25);
 }
 
 .c1:hover {
@@ -48,7 +48,7 @@ exports[`SelectMenu right-aligned modal has right: 0px 1`] = `
 
 .c1:hover {
   background-color: #f3f4f6;
-  border-color: rgba(27,31,36,0.15);
+  border-color: rgba(31,35,40,0.15);
 }
 
 .c1:focus {
@@ -62,7 +62,7 @@ exports[`SelectMenu right-aligned modal has right: 0px 1`] = `
 .c1:disabled {
   color: #8c959f;
   background-color: #f6f8fa;
-  border-color: rgba(27,31,36,0.15);
+  border-color: rgba(31,35,40,0.15);
 }
 
 .c6 {
@@ -70,7 +70,7 @@ exports[`SelectMenu right-aligned modal has right: 0px 1`] = `
   margin: 0;
   font-size: 12px;
   font-weight: 600;
-  color: #57606a;
+  color: #656d76;
   background-color: #f6f8fa;
   border-bottom: 1px solid hsla(210,18%,87%,1);
 }
@@ -79,7 +79,7 @@ exports[`SelectMenu right-aligned modal has right: 0px 1`] = `
   margin-top: -1px;
   padding: 8px 16px;
   font-size: 12px;
-  color: #57606a;
+  color: #656d76;
   text-align: center;
   border-top: 1px solid hsla(210,18%,87%,1);
 }
@@ -100,7 +100,7 @@ exports[`SelectMenu right-aligned modal has right: 0px 1`] = `
   background-color: #ffffff;
   border: 0;
   border-bottom: 1px solid hsla(210,18%,87%,1);
-  color: #57606a;
+  color: #656d76;
   -webkit-text-decoration: none;
   text-decoration: none;
   font-size: 12px;
@@ -141,7 +141,7 @@ exports[`SelectMenu right-aligned modal has right: 0px 1`] = `
 
 .c5[aria-checked='true'] {
   font-weight: 500;
-  color: #24292f;
+  color: #1F2328;
 }
 
 .c5[aria-checked='true'] .SelectMenu-selected-icon {
@@ -183,7 +183,7 @@ exports[`SelectMenu right-aligned modal has right: 0px 1`] = `
   flex-direction: column;
   background-color: #ffffff;
   border-radius: 6px;
-  box-shadow: 0 1px 0 rgba(27,31,36,0.04);
+  box-shadow: 0 1px 0 rgba(31,35,40,0.04);
   -webkit-animation: lejQAW 0.12s cubic-bezier(0,0.1,0.1,1) backwards;
   animation: lejQAW 0.12s cubic-bezier(0,0.1,0.1,1) backwards;
   width: 300px;
@@ -215,7 +215,7 @@ exports[`SelectMenu right-aligned modal has right: 0px 1`] = `
   left: 0;
   pointer-events: none;
   content: '';
-  background-color: rgba(27,31,36,0.5);
+  background-color: rgba(31,35,40,0.5);
 }
 
 .c0 > summary {
@@ -268,12 +268,12 @@ exports[`SelectMenu right-aligned modal has right: 0px 1`] = `
   }
 
   .c4 .SelectMenuTab:not([aria-checked='true']):hover {
-    color: #24292f;
+    color: #1F2328;
     background-color: #f6f8fa;
   }
 
   .c4 .SelectMenuTab:not([aria-checked='true']):active {
-    color: #24292f;
+    color: #1F2328;
     background-color: #f6f8fa;
   }
 }
@@ -286,7 +286,7 @@ exports[`SelectMenu right-aligned modal has right: 0px 1`] = `
     font-size: 12px;
     border: 1px solid #d0d7de;
     border-radius: 6px;
-    box-shadow: 0 1px 0 rgba(27,31,36,0.04);
+    box-shadow: 0 1px 0 rgba(31,35,40,0.04);
   }
 }
 

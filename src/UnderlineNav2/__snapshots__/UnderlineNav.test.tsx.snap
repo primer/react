@@ -42,7 +42,7 @@ exports[`UnderlineNav renders consistently 1`] = `
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
   display: inline-flex;
-  color: #24292f;
+  color: #1F2328;
   text-align: center;
   -webkit-text-decoration: none;
   text-decoration: none;
@@ -126,7 +126,7 @@ exports[`UnderlineNav renders consistently 1`] = `
   line-height: 1;
   border-radius: 20px;
   background-color: rgba(175,184,193,0.2);
-  color: #24292f;
+  color: #1F2328;
 }
 
 .c7:empty {

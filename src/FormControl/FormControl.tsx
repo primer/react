@@ -7,7 +7,7 @@ import Select from '../Select'
 import TextInput from '../TextInput'
 import TextInputWithTokens from '../TextInputWithTokens'
 import Textarea from '../Textarea'
-import CheckboxOrRadioGroupContext from '../_CheckboxOrRadioGroup/_CheckboxOrRadioGroupContext'
+import {CheckboxOrRadioGroupContext} from '../_CheckboxOrRadioGroup'
 import ValidationAnimationContainer from '../_ValidationAnimationContainer'
 import {get} from '../constants'
 import InlineAutocomplete from '../drafts/InlineAutocomplete'
@@ -15,7 +15,7 @@ import {useSlots} from '../hooks/useSlots'
 import {SxProp} from '../sx'
 import {useSSRSafeId} from '../utils/ssr'
 import FormControlCaption from './_FormControlCaption'
-import FormControlLabel, {Props as FormControlLabelProps} from './_FormControlLabel'
+import FormControlLabel from './_FormControlLabel'
 import FormControlLeadingVisual from './_FormControlLeadingVisual'
 import FormControlValidation from './_FormControlValidation'
 
@@ -66,11 +66,11 @@ const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
       InlineAutocomplete,
     ]
     const choiceGroupContext = useContext(CheckboxOrRadioGroupContext)
-    const disabled = choiceGroupContext?.disabled || disabledProp
+    const disabled = choiceGroupContext.disabled || disabledProp
     const id = useSSRSafeId(idProp)
     const validationMessageId = slots.validation ? `${id}-validationMessage` : undefined
     const captionId = slots.caption ? `${id}-caption` : undefined
-    const validationStatus = slots.validation.props.variant
+    const validationStatus = slots.validation?.props.variant
     const InputComponent = React.Children.toArray(children).find(child =>
       expectedInputComponents.some(inputComponent => React.isValidElement(child) && child.type === inputComponent),
     )
@@ -140,7 +140,7 @@ const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
         }}
       >
         {isChoiceInput || layout === 'horizontal' ? (
-          <Box ref={ref} display="flex" alignItems={slots.LeadingVisual ? 'center' : undefined} sx={sx}>
+          <Box ref={ref} display="flex" alignItems={slots.leadingVisual ? 'center' : undefined} sx={sx}>
             <Box sx={{'> input': {marginLeft: 0, marginRight: 0}}}>
               {React.isValidElement(InputComponent) &&
                 React.cloneElement(
@@ -176,8 +176,7 @@ const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
                 {slots.leadingVisual}
               </Box>
             )}
-            {(React.isValidElement(slots.label) && !(slots.label.props as FormControlLabelProps).visuallyHidden) ||
-            slots.caption ? (
+            {!slots.label?.props.visuallyHidden || slots.caption ? (
               <Box display="flex" flexDirection="column" ml={2}>
                 {slots.label}
                 {slots.caption}

@@ -1,5 +1,21 @@
 # @primer/components
 
+## 35.24.0
+
+### Minor Changes
+
+- [#3071](https://github.com/primer/react/pull/3071) [`681e2271`](https://github.com/primer/react/commit/681e2271ecc90bde2920887c50c0d44b121005f1) Thanks [@mperrotti](https://github.com/mperrotti)! - Adds a helper component for rendering placeholder text to explain why a DataTable cell has no content.
+
+- [#3089](https://github.com/primer/react/pull/3089) [`4a6a9f73`](https://github.com/primer/react/commit/4a6a9f7326d5bf1e476a040d7f2f4f61e4d5bd05) Thanks [@mperrotti](https://github.com/mperrotti)! - Adds the ability to exclose indentation for flat tree views.
+
+- [#3011](https://github.com/primer/react/pull/3011) [`f8132d8e`](https://github.com/primer/react/commit/f8132d8ef653e1bd5a16203ab47f6006a871f662) Thanks [@edersonlucas](https://github.com/edersonlucas)! - Add the `tooltipDirection` property to the `TextInput.Action` component to make the tooltip position flexible.
+
+### Patch Changes
+
+- [#3085](https://github.com/primer/react/pull/3085) [`bf8c73b4`](https://github.com/primer/react/commit/bf8c73b4c36422fdd70b56f9ba677b6d6b961e87) Thanks [@mperrotti](https://github.com/mperrotti)! - Renames DataTable 'shrink' column width to 'growCollapse'
+
+- [#3104](https://github.com/primer/react/pull/3104) [`e46e33b8`](https://github.com/primer/react/commit/e46e33b8be0d553b838887d70893734923bb27d8) Thanks [@iansan5653](https://github.com/iansan5653)! - Fix `IssueLabelToken` treating alternative light schemes as dark
+
 ## 35.23.0
 
 ### Minor Changes

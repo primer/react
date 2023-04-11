@@ -80,18 +80,18 @@ We are slowly moving away from using `Jest` snapshots as a way to test visual ch
 
 #### Updating `theme-preval` snapshots
 
-If you need to update the `theme-preval` snapshots, you will need to run the following commands:
-
-```sh
-npm run build
-npm run test -- -u
-```
-
-After running that command, make sure to update the cache-busting timestamp in [src/theme-preval.js](https://github.com/primer/react/blob/main/src/theme-preval.js)
+If you need to update the `theme-preval` snapshots, make sure to first update the cache-busting timestamp in [src/theme-preval.js](https://github.com/primer/react/blob/main/src/theme-preval.js)
 
 ```diff
 - // Cache bust: 2022-02-23 12:00:00 GMT (This file is cached by our deployment tooling, update this timestamp to rebuild this file)
 + // Cache bust: 2023-02-24 12:00:00 GMT (This file is cached by our deployment tooling, update this timestamp to rebuild this file)
+```
+
+After you will need to run the following commands and commit changes to the `themePreval.test.ts.snap` file:
+
+```sh
+npm run build
+npm run test -- -u
 ```
 
 ### Running Tests

@@ -1,10 +1,11 @@
 import React from 'react'
 import {warning} from '../utils/warning'
 
-export type SlotConfig = Record<string, React.ComponentType>
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type SlotConfig = Record<string, React.ComponentType<any>>
 
 type SlotElements<Type extends SlotConfig> = {
-  [Property in keyof Type]: React.ReactElement
+  [Property in keyof Type]: React.ReactElement<React.ComponentPropsWithoutRef<Type[Property]>, Type[Property]>
 }
 
 /**
@@ -51,7 +52,7 @@ export function useSlots<T extends SlotConfig>(
     }
 
     // If the child is a slot, add it to the `slots` object
-    slots[slotKey] = child
+    slots[slotKey] = child as React.ReactElement<React.ComponentPropsWithoutRef<T[keyof T]>, T[keyof T]>
   })
 
   return [slots, rest]
