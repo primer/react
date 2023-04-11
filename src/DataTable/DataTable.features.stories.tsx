@@ -15,7 +15,7 @@ import {warning} from '../utils/warning'
 import VisuallyHidden from '../_VisuallyHidden'
 import {createColumnHelper} from './column'
 import {usePagination} from './useTable'
-import {fetchRepoPage, fetchRepos} from './store'
+import {fetchRepoPage, fetchRepoPageInfo, fetchRepos} from './store'
 
 export default {
   title: 'Components/DataTable/Features',
@@ -1403,8 +1403,8 @@ export const WithPagination = () => {
     />
   )
 
-  function WrappedDataTable({page, pageSize}) {
-    const {data} = use(fetchRepoPage(page, pageSize))
+  function WrappedDataTable({page, pageSize}: {page: number; pageSize: number}) {
+    const data = use(fetchRepoPage(page, pageSize))
     return (
       <DataTable
         aria-labelledby="repositories"
@@ -1416,10 +1416,9 @@ export const WithPagination = () => {
   }
 
   function Example() {
-    const [page, setPage] = useState(0)
     const pageSize = 15
-    const totalCount = 100
-    const totalPages = Math.ceil(totalCount / pageSize)
+    const [page, setPage] = useState(0)
+    const {totalCount, totalPages} = use(fetchRepoPageInfo(pageSize))
     const previousButtonRef = useRef<HTMLButtonElement | null>(null)
     const nextButtonRef = useRef<HTMLButtonElement | null>(null)
 
@@ -1438,7 +1437,7 @@ export const WithPagination = () => {
           }}
         >
           <div>
-            Showing items of {page * pageSize + 1} - {page * pageSize + data.length} of {totalCount}
+            {page * pageSize + 1} - {page * pageSize + data.length} of {totalCount}
           </div>
           <div>Items per page {pageSize}</div>
           <div>Page {page + 1}</div>

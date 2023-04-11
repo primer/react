@@ -48,10 +48,12 @@ const Repo = {
   },
   async paginate(offset: number, pageSize: number) {
     await sleep(random(2500, 3500))
+    return repos.slice(offset * pageSize, offset * pageSize + pageSize)
+  },
+  async pageInfo(pageSize: number) {
     return {
       totalCount: repos.length,
       totalPages: repos.length / pageSize,
-      data: repos.slice(offset * pageSize, offset * pageSize + pageSize),
     }
   },
 }
@@ -65,16 +67,23 @@ export function fetchRepos(): Promise<Array<Repo>> {
   return cache.get('/repos')
 }
 
-export function fetchRepoPage(
-  offset: number,
-  pageSize: number,
-): Promise<{totalCount: number; totalPages: number; data: Array<Repo>}> {
+export function fetchRepoPage(offset: number, pageSize: number): Promise<Array<Repo>> {
   const url = new URL('/repos', 'https://api.dev')
   url.searchParams.set('offset', `${offset}`)
   url.searchParams.set('pageSize', `${pageSize}`)
   const id = url.toString()
   if (!cache.has(id)) {
     cache.set(id, Repo.paginate(offset, pageSize))
+  }
+  return cache.get(id)
+}
+
+export function fetchRepoPageInfo(pageSize: number): Promise<{totalCount: number; totalPages: number}> {
+  const url = new URL('/repos/page-info', 'https://api.dev')
+  url.searchParams.set('pageSize', `${pageSize}`)
+  const id = url.toString()
+  if (!cache.has(id)) {
+    cache.set(id, Repo.pageInfo(pageSize))
   }
   return cache.get(id)
 }
