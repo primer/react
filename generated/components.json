@@ -184,60 +184,6 @@
       ],
       "subcomponents": []
     },
-    "popover": {
-      "id": "popover",
-      "name": "Popover",
-      "status": "alpha",
-      "a11yReviewed": false,
-      "stories": [],
-      "props": [
-        {
-          "name": "as",
-          "type": "string",
-          "defaultValue": "div",
-          "description": "Sets the underlying HTML tag for the component"
-        },
-        {
-          "name": "caret",
-          "type": "| 'top' | 'bottom' | 'left' | 'right' | 'bottom-left' | 'bottom-right' | 'top-left' | 'top-right' | 'left-bottom' | 'left-top' | 'right-bottom' | 'right-top' ",
-          "defaultValue": "'top'",
-          "description": "Controls the position of the caret"
-        },
-        {
-          "name": "open",
-          "type": "boolean",
-          "defaultValue": "false",
-          "description": "Controls the visibility of the popover."
-        },
-        {
-          "name": "relative",
-          "type": "boolean",
-          "defaultValue": "false",
-          "description": "Set to true to render the popover using relative positioning. "
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject"
-        }
-      ],
-      "subcomponents": [
-        {
-          "name": "Popover.Content",
-          "props": [
-            {
-              "name": "as",
-              "type": "string",
-              "defaultValue": "div",
-              "description": "Sets the underlying HTML tag for the component"
-            },
-            {
-              "name": "sx",
-              "type": "SystemStyleObject"
-            }
-          ]
-        }
-      ]
-    },
     "styled_octicon": {
       "id": "styled_octicon",
       "name": "StyledOcticon",
@@ -3188,6 +3134,65 @@
         }
       ],
       "subcomponents": []
+    },
+    "popover": {
+      "id": "popover",
+      "name": "Popover",
+      "status": "alpha",
+      "a11yReviewed": false,
+      "stories": [
+        {
+          "id": "components-popover--default",
+          "code": "() => (\n  <Popover relative open={true} caret=\"top\">\n    <Popover.Content\n      sx={{\n        marginTop: 2,\n      }}\n    >\n      <Heading\n        sx={{\n          fontSize: 2,\n        }}\n      >\n        Popover heading\n      </Heading>\n      <Text as=\"p\">Message about popovers</Text>\n      <Button>Got it!</Button>\n    </Popover.Content>\n  </Popover>\n)"
+        }
+      ],
+      "props": [
+        {
+          "name": "as",
+          "type": "string",
+          "defaultValue": "div",
+          "description": "Sets the underlying HTML tag for the component"
+        },
+        {
+          "name": "caret",
+          "type": "| 'top' | 'bottom' | 'left' | 'right' | 'bottom-left' | 'bottom-right' | 'top-left' | 'top-right' | 'left-bottom' | 'left-top' | 'right-bottom' | 'right-top' ",
+          "defaultValue": "'top'",
+          "description": "Controls the position of the caret"
+        },
+        {
+          "name": "open",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "Controls the visibility of the popover."
+        },
+        {
+          "name": "relative",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "Set to true to render the popover using relative positioning. "
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ],
+      "subcomponents": [
+        {
+          "name": "Popover.Content",
+          "props": [
+            {
+              "name": "as",
+              "type": "string",
+              "defaultValue": "div",
+              "description": "Sets the underlying HTML tag for the component"
+            },
+            {
+              "name": "sx",
+              "type": "SystemStyleObject"
+            }
+          ]
+        }
+      ]
     },
     "portal": {
       "id": "portal",
