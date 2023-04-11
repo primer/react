@@ -1,7 +1,7 @@
 import styled from 'styled-components'
-import {get} from './constants'
-import sx from './sx'
-import {ComponentProps} from './utils/types'
+import {get} from '../constants'
+import sx from '../sx'
+import {ComponentProps} from '../utils/types'
 
 const ButtonGroup = styled.div`
   display: inline-flex;

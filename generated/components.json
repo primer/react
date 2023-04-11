@@ -1,24 +1,6 @@
 {
   "schemaVersion": 2,
   "components": {
-    "button_group": {
-      "id": "button_group",
-      "name": "ButtonGroup",
-      "status": "alpha",
-      "a11yReviewed": false,
-      "stories": [],
-      "props": [
-        {
-          "name": "sx",
-          "type": "SystemStyleObject"
-        },
-        {
-          "name": "ref",
-          "type": "React.RefObject<HTMLDivElement>"
-        }
-      ],
-      "subcomponents": []
-    },
     "dialog": {
       "id": "dialog",
       "name": "Dialog",
@@ -1346,6 +1328,29 @@
         {
           "name": "sx",
           "type": "SystemStyleObject"
+        }
+      ],
+      "subcomponents": []
+    },
+    "button_group": {
+      "id": "button_group",
+      "name": "ButtonGroup",
+      "status": "alpha",
+      "a11yReviewed": false,
+      "stories": [
+        {
+          "id": "components-buttongroup--default",
+          "code": "() => (\n  <ButtonGroup>\n    <Button>Button 1</Button>\n    <Button>Button 2</Button>\n    <Button>Button 3</Button>\n  </ButtonGroup>\n)"
+        }
+      ],
+      "props": [
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        },
+        {
+          "name": "ref",
+          "type": "React.RefObject<HTMLDivElement>"
         }
       ],
       "subcomponents": []
