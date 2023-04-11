@@ -4648,6 +4648,7 @@
         {
           "name": "direction",
           "type": "'n' | 'ne' | 'e' | 'se' | 's' | 'sw' | 'w' | 'nw'",
+          "defaultValue": "n",
           "description": "Sets where the tooltip renders in relation to the target."
         },
         {
@@ -4663,6 +4664,7 @@
         {
           "name": "type",
           "type": "'label' | 'description'",
+          "defaultValue": "label",
           "description": "The type of tooltip. `label` is used for labelling the element that triggers tooltip. `description` is used for describing or adding a suplementary information to the element that triggers the tooltip."
         },
         {
