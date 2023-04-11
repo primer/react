@@ -311,6 +311,21 @@ const components = new Map([
     },
   ],
   [
+    'CircleOcticon',
+    {
+      stories: [
+        {
+          id: 'components-circleocticon--default',
+          name: 'Default',
+        },
+        {
+          id: 'components-circleocticon--playground',
+          name: 'Playground',
+        },
+      ],
+    },
+  ],
+  [
     'CircleBadge',
     {
       stories: [
@@ -775,6 +790,21 @@ const components = new Map([
         {
           id: 'drafts-components-pageheader-features--with-parent-link-and-actions-of-context-area',
           name: 'With Parent Link and Actions of Context Area',
+        },
+      ],
+    },
+  ],
+  [
+    'Popover',
+    {
+      stories: [
+        {
+          id: 'components-popover--default',
+          name: 'Default',
+        },
+        {
+          id: 'components-popover--playground',
+          name: 'Playground',
         },
       ],
     },
