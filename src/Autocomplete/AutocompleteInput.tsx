@@ -7,11 +7,11 @@ import React, {
   useEffect,
   useState,
 } from 'react'
-import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
+import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../internal/polymorphic'
 import {AutocompleteContext} from './AutocompleteContext'
 import TextInput from '../TextInput'
 import {useRefObjectAsForwardedRef} from '../hooks/useRefObjectAsForwardedRef'
-import {ComponentProps} from '../utils/types'
+import {ComponentProps} from '../internal/types'
 import useSafeTimeout from '../hooks/useSafeTimeout'
 
 type InternalAutocompleteInputProps = {

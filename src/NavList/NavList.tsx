@@ -1,5 +1,5 @@
 import {ChevronDownIcon} from '@primer/octicons-react'
-import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
+import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../internal/polymorphic'
 import React, {isValidElement} from 'react'
 import styled from 'styled-components'
 import {
@@ -13,7 +13,7 @@ import StyledOcticon from '../StyledOcticon'
 import sx, {merge, SxProp} from '../sx'
 import {defaultSxProp} from '../utils/defaultSxProp'
 import {useId} from '../hooks/useId'
-import useIsomorphicLayoutEffect from '../utils/useIsomorphicLayoutEffect'
+import useIsomorphicLayoutEffect from '../internal/useIsomorphicLayoutEffect'
 
 // ----------------------------------------------------------------------------
 // NavList

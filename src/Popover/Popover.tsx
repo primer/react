@@ -2,7 +2,7 @@ import classnames from 'classnames'
 import styled from 'styled-components'
 import {get} from '../constants'
 import sx, {SxProp} from '../sx'
-import {ComponentProps} from '../utils/types'
+import {ComponentProps} from '../internal/types'
 
 type CaretPosition =
   | 'top'

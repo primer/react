@@ -1,6 +1,6 @@
 import React from 'react'
 import {Meta} from '@storybook/react'
-import {ComponentProps} from '../utils/types'
+import {ComponentProps} from '../internal/types'
 import Breadcrumbs from './Breadcrumbs'
 
 export default {

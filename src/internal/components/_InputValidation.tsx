@@ -3,7 +3,7 @@ import React from 'react'
 import Box from './Box'
 import Text from './Text'
 import {SxProp} from './sx'
-import {FormValidationStatus} from './utils/types/FormValidationStatus'
+import {FormValidationStatus} from './internal/types/FormValidationStatus'
 
 type Props = {
   id: string

@@ -22,7 +22,7 @@ import {
   TypographyProps,
 } from 'styled-system'
 import sx, {SxProp} from '../sx'
-import {ComponentProps} from '../utils/types'
+import {ComponentProps} from '../internal/types'
 
 type StyledBoxProps = SpaceProps &
   ColorProps &

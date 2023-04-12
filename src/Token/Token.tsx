@@ -5,7 +5,7 @@ import {defaultSxProp} from '../utils/defaultSxProp'
 import TokenBase, {defaultTokenSize, isTokenInteractive, TokenBaseProps} from './TokenBase'
 import RemoveTokenButton from './_RemoveTokenButton'
 import TokenTextContainer from './_TokenTextContainer'
-import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
+import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../internal/polymorphic'
 import VisuallyHidden from '../_VisuallyHidden'
 
 // Omitting onResize and onResizeCapture because seems like React 18 types includes these menthod in the expansion but React 17 doesn't.

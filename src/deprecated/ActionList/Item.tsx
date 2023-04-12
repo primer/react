@@ -14,8 +14,8 @@ import {
   isActiveDescendantAttribute,
 } from '@primer/behaviors'
 import {useId} from '../../hooks/useId'
-import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../../utils/polymorphic'
-import {AriaRole} from '../../utils/types'
+import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../../internal/polymorphic'
+import {AriaRole} from '../../internal/types'
 
 /**
  * Contract for props passed to the `Item` component.

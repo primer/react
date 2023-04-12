@@ -1,7 +1,7 @@
 import React from 'react'
 import {useInView} from 'react-intersection-observer'
-import {canUseDOM} from '../utils/environment'
-import useLayoutEffect from '../utils/useIsomorphicLayoutEffect'
+import {canUseDOM} from '../internal/environment'
+import useLayoutEffect from '../internal/useIsomorphicLayoutEffect'
 import {getScrollContainer} from '../utils/scroll'
 
 /**

@@ -4,7 +4,7 @@ import {get} from '../constants'
 import {TokenBaseProps, defaultTokenSize, tokenSizes, TokenSizeKeys} from './TokenBase'
 import Token from './Token'
 import Avatar from '../Avatar'
-import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
+import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../internal/polymorphic'
 
 // TODO: update props to only accept 'large' and 'xlarge' on the next breaking change
 export interface AvatarTokenProps extends TokenBaseProps {

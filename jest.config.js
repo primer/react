@@ -16,7 +16,7 @@ module.exports = {
   cacheDirectory: '.test',
   collectCoverageFrom: ['src/**/*.{js,jsx,ts,tsx}', '!src/stories/**', '!**/*.stories.{js,jsx,ts,tsx}'],
   setupFiles: ['<rootDir>/src/utils/test-helpers.tsx'],
-  setupFilesAfterEnv: ['<rootDir>/src/utils/test-matchers.tsx', '<rootDir>/src/utils/test-deprecations.tsx'],
+  setupFilesAfterEnv: ['<rootDir>/src/internal/utils/test-matchers.tsx', '<rootDir>/src/internal/utils/test-deprecations.tsx'],
   testMatch: ['<rootDir>/(src|codemods)/**/*.test.[jt]s?(x)', '!**/*.types.test.[jt]s?(x)'],
   transformIgnorePatterns: [
     'node_modules/(?!@github/combobox-nav|@koddsson/textarea-caret|@github/[a-z-]+-element|@lit-labs/react)',

@@ -3,7 +3,7 @@ import styled, {css, keyframes} from 'styled-components'
 import {width, WidthProps} from 'styled-system'
 import {get} from '../../constants'
 import sx, {SxProp} from '../../sx'
-import {ComponentProps} from '../../utils/types'
+import {ComponentProps} from '../../internal/types'
 
 type StyledModalProps = {
   filter?: boolean

@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import {get} from '../../constants'
 import Spinner from '../../Spinner'
 import sx, {SxProp} from '../../sx'
-import {ComponentProps} from '../../utils/types'
+import {ComponentProps} from '../../internal/types'
 
 const Animation = styled.div<SxProp>`
   padding: ${get('space.6')} ${get('space.4')};

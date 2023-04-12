@@ -2,7 +2,7 @@ import {Location, Pathname} from 'history'
 import styled, {css} from 'styled-components'
 import {get} from '../constants'
 import sx, {SxProp} from '../sx'
-import {ComponentProps} from '../utils/types'
+import {ComponentProps} from '../internal/types'
 
 type StyledHeaderItemProps = {full?: boolean} & SxProp
 type StyledHeaderProps = SxProp

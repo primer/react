@@ -2,7 +2,7 @@ import {IconProps} from '@primer/octicons-react'
 import React from 'react'
 import styled from 'styled-components'
 import sx, {SxProp} from './sx'
-import {ComponentProps} from './utils/types'
+import {ComponentProps} from './internal/types'
 
 type OcticonProps = {icon: React.ElementType; color?: string} & IconProps
 

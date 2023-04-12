@@ -6,7 +6,7 @@ import {ActionMenu} from '../ActionMenu'
 import {useTheme} from '../ThemeProvider'
 import sx, {merge, SxProp} from '../sx'
 import {ResponsiveValue, useResponsiveValue} from '../hooks/useResponsiveValue'
-import {ViewportRangeKeys} from '../utils/types/ViewportRangeKeys'
+import {ViewportRangeKeys} from '../internal/types/ViewportRangeKeys'
 import styled from 'styled-components'
 import {defaultSxProp} from '../utils/defaultSxProp'
 

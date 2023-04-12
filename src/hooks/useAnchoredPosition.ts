@@ -3,7 +3,7 @@ import {getAnchoredPosition} from '@primer/behaviors'
 import type {AnchorPosition, PositionSettings} from '@primer/behaviors'
 import {useProvidedRefOrCreate} from './useProvidedRefOrCreate'
 import {useResizeObserver} from './useResizeObserver'
-import useLayoutEffect from '../utils/useIsomorphicLayoutEffect'
+import useLayoutEffect from '../internal/useIsomorphicLayoutEffect'
 
 export interface AnchoredPositionHookSettings extends Partial<PositionSettings> {
   floatingElementRef?: React.RefObject<Element>

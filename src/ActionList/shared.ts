@@ -1,7 +1,7 @@
 import React from 'react'
 import {SxProp} from '../sx'
-import createSlots from '../utils/create-slots'
-import {AriaRole} from '../utils/types'
+import createSlots from '../internal/utils/create-slots'
+import {AriaRole} from '../internal/types'
 
 export type ActionListItemProps = {
   /**

@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import Box from '../Box'
-import {ComponentProps} from '../utils/types'
+import {ComponentProps} from '../internal/types'
 
 type StyledPositionProps = {as?: React.ElementType}
 

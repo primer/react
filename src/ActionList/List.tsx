@@ -1,8 +1,8 @@
 import React from 'react'
-import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
+import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../internal/polymorphic'
 import styled from 'styled-components'
 import sx, {SxProp, merge} from '../sx'
-import {AriaRole} from '../utils/types'
+import {AriaRole} from '../internal/types'
 import {ActionListContainerContext} from './ActionListContainerContext'
 import {defaultSxProp} from '../utils/defaultSxProp'
 

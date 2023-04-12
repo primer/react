@@ -2,12 +2,12 @@ import React, {forwardRef, useRef, useContext, MutableRefObject, RefObject} from
 import Box from '../Box'
 import {merge, SxProp} from '../sx'
 import {IconProps} from '@primer/octicons-react'
-import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
+import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../internal/polymorphic'
 import {UnderlineNavContext} from './UnderlineNavContext'
 import CounterLabel from '../CounterLabel'
 import {getLinkStyles, iconWrapStyles, counterStyles} from './styles'
 import {LoadingCounter} from './LoadingCounter'
-import useLayoutEffect from '../utils/useIsomorphicLayoutEffect'
+import useLayoutEffect from '../internal/useIsomorphicLayoutEffect'
 import {defaultSxProp} from '../utils/defaultSxProp'
 
 // adopted from React.AnchorHTMLAttributes

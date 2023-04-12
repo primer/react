@@ -4,7 +4,7 @@ import React from 'react'
 import styled from 'styled-components'
 import {get} from './constants'
 import sx, {SxProp} from './sx'
-import {ComponentProps} from './utils/types'
+import {ComponentProps} from './internal/types'
 
 const ITEM_CLASS = 'SubNav-item'
 const SELECTED_CLASS = 'selected'

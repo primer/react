@@ -2,7 +2,7 @@ import React from 'react'
 import styled, {createGlobalStyle} from 'styled-components'
 import {COMMON, SystemCommonProps, SystemTypographyProps, TYPOGRAPHY} from './constants'
 import {useTheme} from './ThemeProvider'
-import {ComponentProps} from './utils/types'
+import {ComponentProps} from './internal/types'
 
 // load polyfill for :focus-visible
 import 'focus-visible'

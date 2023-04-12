@@ -6,7 +6,7 @@ import Box from './Box'
 import useDialog from './hooks/useDialog'
 import sx, {SxProp} from './sx'
 import Text from './Text'
-import {ComponentProps} from './utils/types'
+import {ComponentProps} from './internal/types'
 import {useRefObjectAsForwardedRef} from './hooks/useRefObjectAsForwardedRef'
 
 const noop = () => null

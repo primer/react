@@ -1,7 +1,7 @@
 import React from 'react'
 import {Story, Meta} from '@storybook/react'
 import PointerBox from './PointerBox'
-import {ComponentProps} from '../utils/types'
+import {ComponentProps} from '../internal/types'
 
 export default {
   title: 'Components/PointerBox',

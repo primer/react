@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import {variant} from 'styled-system'
 import {get} from '../constants'
 import sx, {SxProp} from '../sx'
-import {ComponentProps} from '../utils/types'
+import {ComponentProps} from '../internal/types'
 
 const variants = variant({
   variants: {

@@ -1,7 +1,7 @@
 import Link from '../Link'
 import {Meta, Story} from '@storybook/react'
 import React from 'react'
-import {ComponentProps} from '../utils/types'
+import {ComponentProps} from '../internal/types'
 
 export default {
   title: 'Components/Link',

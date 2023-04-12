@@ -6,7 +6,7 @@ import Details, {DetailsProps} from '../Details'
 import getDirectionStyles from '../DropdownStyles'
 import useDetails from '../hooks/useDetails'
 import sx, {SxProp} from '../sx'
-import {ComponentProps} from '../utils/types'
+import {ComponentProps} from '../internal/types'
 
 const StyledDetails = styled(Details)`
   position: relative;

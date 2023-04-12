@@ -13,7 +13,7 @@ import {variant} from 'styled-system'
 import {get} from '../constants'
 import StyledOcticon from '../StyledOcticon'
 import sx, {SxProp} from '../sx'
-import {ComponentProps} from '../utils/types'
+import {ComponentProps} from '../internal/types'
 
 const octiconMap = {
   issueOpened: IssueOpenedIcon,

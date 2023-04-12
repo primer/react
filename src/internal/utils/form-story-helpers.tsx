@@ -1,6 +1,6 @@
 import React from 'react'
 import {CheckboxGroup, FormControl} from '../index'
-import {ComponentProps} from './types'
+import {ComponentProps} from '../internal/types'
 import {ArgTypes} from '@storybook/react'
 import {InputType} from '@storybook/csf'
 

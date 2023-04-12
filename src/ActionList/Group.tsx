@@ -3,7 +3,7 @@ import {useId} from '../hooks/useId'
 import Box from '../Box'
 import {SxProp} from '../sx'
 import {ListContext, ActionListProps} from './List'
-import {AriaRole} from '../utils/types'
+import {AriaRole} from '../internal/types'
 
 export type ActionListGroupProps = {
   /**

@@ -1,5 +1,5 @@
 import React, {ComponentPropsWithRef, forwardRef, useMemo} from 'react'
-import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
+import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../internal/polymorphic'
 import Box from '../Box'
 import {BetterSystemStyleObject, merge} from '../sx'
 import {useTheme} from '../ThemeProvider'

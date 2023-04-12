@@ -1,7 +1,7 @@
 import React from 'react'
 import {Box, ThemeProvider, theme, themeGet, BaseStyles, CheckboxGroup, FormControl} from '../index'
 import {createGlobalStyle} from 'styled-components'
-import {ComponentProps} from './types'
+import {ComponentProps} from '../internal/types'
 import {ArgTypes} from '@storybook/react'
 import {InputType} from '@storybook/csf'
 import {Icon} from '@primer/octicons-react'

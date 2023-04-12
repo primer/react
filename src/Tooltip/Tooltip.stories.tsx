@@ -1,7 +1,7 @@
 import React from 'react'
 import {Meta} from '@storybook/react'
 import {BaseStyles, ThemeProvider, Button} from '..'
-import {Tooltip} from '../Tooltip'
+import {Tooltip} from '.'
 import Box from '../Box'
 
 export default {

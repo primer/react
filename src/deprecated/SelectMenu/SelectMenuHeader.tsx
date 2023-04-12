@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import {get} from '../../constants'
 import sx, {SxProp} from '../../sx'
-import {ComponentProps} from '../../utils/types'
+import {ComponentProps} from '../../internal/types'
 
 // SelectMenu.Header is intentionally not exported, it's an internal component used in
 // SelectMenu.Modal

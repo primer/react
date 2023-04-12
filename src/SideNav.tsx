@@ -4,7 +4,7 @@ import {get} from './constants'
 import styled, {css} from 'styled-components'
 
 import Box from './Box'
-import {ComponentProps} from './utils/types'
+import {ComponentProps} from './internal/types'
 import Link from './Link'
 import React from 'react'
 import classnames from 'classnames'

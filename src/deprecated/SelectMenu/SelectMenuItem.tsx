@@ -4,7 +4,7 @@ import styled, {css} from 'styled-components'
 import {get} from '../../constants'
 import StyledOcticon from '../../StyledOcticon'
 import sx, {SxProp} from '../../sx'
-import {ComponentProps} from '../../utils/types'
+import {ComponentProps} from '../../internal/types'
 import {MenuContext} from './SelectMenuContext'
 
 export const listItemStyles = css`

@@ -7,9 +7,9 @@ import {isResponsiveValue, ResponsiveValue, useResponsiveValue} from '../hooks/u
 import {useSlots} from '../hooks/useSlots'
 import {BetterSystemStyleObject, merge, SxProp} from '../sx'
 import {Theme} from '../ThemeProvider'
-import {canUseDOM} from '../utils/environment'
-import {invariant} from '../utils/invariant'
-import {useOverflow} from '../utils/useOverflow'
+import {canUseDOM} from '../internal/environment'
+import {invariant} from '../internal/invariant'
+import {useOverflow} from '../internal/useOverflow'
 import VisuallyHidden from '../_VisuallyHidden'
 import {useStickyPaneHeight} from './useStickyPaneHeight'
 

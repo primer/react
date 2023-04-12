@@ -1,7 +1,7 @@
 import React from 'react'
 import {Meta} from '@storybook/react'
 import TabNav from './TabNav'
-import {ComponentProps} from '../utils/types'
+import {ComponentProps} from '../internal/types'
 
 export default {
   title: 'Components/TabNav/Features',

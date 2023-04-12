@@ -9,7 +9,7 @@ import {ThemeProvider} from '../ThemeProvider'
 import {ItemProps} from '../deprecated/ActionList'
 import {SSRProvider} from '../utils/ssr'
 import {render} from '../utils/testing'
-import {MandateProps} from '../utils/types'
+import {MandateProps} from '../internal/types'
 
 const mockItems = [
   {text: 'zero', id: 0},

@@ -7,8 +7,8 @@ import {Divider} from './ActionList/Divider'
 import {ActionListContainerContext} from './ActionList/ActionListContainerContext'
 import {Button, ButtonProps} from './Button'
 import {useId} from './hooks/useId'
-import {MandateProps} from './utils/types'
-import {ForwardRefComponent as PolymorphicForwardRefComponent} from './utils/polymorphic'
+import {MandateProps} from './internal/types'
+import {ForwardRefComponent as PolymorphicForwardRefComponent} from './internal/polymorphic'
 
 export type MenuContextProps = Pick<
   AnchoredOverlayProps,

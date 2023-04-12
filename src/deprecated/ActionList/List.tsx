@@ -1,5 +1,5 @@
 import React, {Key} from 'react'
-import type {AriaRole} from '../../utils/types'
+import type {AriaRole} from '../../internal/types'
 import {Group, GroupProps} from './Group'
 import {Item, ItemProps} from './Item'
 import {Divider} from './Divider'
@@ -7,7 +7,7 @@ import styled from 'styled-components'
 import {get} from '../../constants'
 import {SystemCssProperties} from '@styled-system/css'
 import {hasActiveDescendantAttribute} from '@primer/behaviors'
-import {Merge} from '../../utils/types/Merge'
+import {Merge} from '../../internal/types/Merge'
 
 type RenderItemFn = (props: ItemProps) => React.ReactElement
 

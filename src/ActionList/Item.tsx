@@ -1,4 +1,4 @@
-import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
+import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../internal/polymorphic'
 import React from 'react'
 import styled from 'styled-components'
 import Box, {BoxProps} from '../Box'

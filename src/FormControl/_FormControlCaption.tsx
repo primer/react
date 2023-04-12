@@ -1,5 +1,5 @@
 import React from 'react'
-import InputCaption from '../_InputCaption'
+import InputCaption from '../internal/components/_InputCaption'
 import {SxProp} from '../sx'
 import {FormControlContext} from './FormControl'
 

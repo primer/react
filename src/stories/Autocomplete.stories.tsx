@@ -7,7 +7,7 @@ import Autocomplete from '../Autocomplete/Autocomplete'
 import {AnchoredOverlay} from '../AnchoredOverlay'
 import FormControl from '../FormControl'
 import {Button} from '../Button'
-import {ComponentProps} from '../utils/types'
+import {ComponentProps} from '../internal/types'
 import {
   FormControlArgs,
   formControlArgs,

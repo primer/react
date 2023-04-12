@@ -3,7 +3,7 @@ import React, {useContext, useEffect} from 'react'
 import styled, {css} from 'styled-components'
 import {get} from '../../constants'
 import sx, {SxProp} from '../../sx'
-import {ComponentProps} from '../../utils/types'
+import {ComponentProps} from '../../internal/types'
 import {MenuContext} from './SelectMenuContext'
 
 const tabStyles = css`

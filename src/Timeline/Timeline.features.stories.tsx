@@ -1,6 +1,6 @@
 import React from 'react'
 import {Meta} from '@storybook/react'
-import {ComponentProps} from '../utils/types'
+import {ComponentProps} from '../internal/types'
 import Timeline from './Timeline'
 import StyledOcticon from '../StyledOcticon'
 import {GitBranchIcon, GitCommitIcon, GitMergeIcon} from '@primer/octicons-react'

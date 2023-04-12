@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import {get} from '../../constants'
 import sx, {SxProp} from '../../sx'
 import TextInput, {TextInputProps} from '../../TextInput'
-import {ComponentProps} from '../../utils/types'
+import {ComponentProps} from '../../internal/types'
 import {MenuContext} from './SelectMenuContext'
 
 const StyledForm = styled.form<SxProp>`

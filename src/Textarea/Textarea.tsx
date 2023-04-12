@@ -1,7 +1,7 @@
 import styled, {css} from 'styled-components'
 import React, {TextareaHTMLAttributes, ReactElement} from 'react'
 import {TextInputBaseWrapper} from '../_TextInputWrapper'
-import {FormValidationStatus} from '../utils/types/FormValidationStatus'
+import {FormValidationStatus} from '../internal/types/FormValidationStatus'
 import sx, {SxProp} from '../sx'
 
 export const DEFAULT_TEXTAREA_ROWS = 7

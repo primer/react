@@ -2,7 +2,7 @@ import styled, {css} from 'styled-components'
 import {maxWidth, MaxWidthProps, minWidth, MinWidthProps, variant, width, WidthProps} from 'styled-system'
 import {get} from './constants'
 import sx, {SxProp} from './sx'
-import {FormValidationStatus} from './utils/types/FormValidationStatus'
+import {FormValidationStatus} from './internal/types/FormValidationStatus'
 
 export type TextInputSizes = 'small' | 'medium' | 'large'
 

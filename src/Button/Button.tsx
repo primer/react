@@ -1,7 +1,7 @@
 import React, {forwardRef} from 'react'
 import {ButtonProps} from './types'
 import {ButtonBase} from './ButtonBase'
-import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
+import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../internal/polymorphic'
 import {defaultSxProp} from '../utils/defaultSxProp'
 import {BetterSystemStyleObject} from '../sx'
 

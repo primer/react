@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import {variant} from 'styled-system'
 import {get} from '../constants'
 import sx, {SxProp} from '../sx'
-import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
+import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../internal/polymorphic'
 
 // TODO: remove invalid "extralarge" size name in next breaking change
 /** @deprecated 'extralarge' to be removed to align with size naming ADR https://github.com/github/primer/blob/main/adrs/2022-02-09-size-naming-guidelines.md **/

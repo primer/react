@@ -4,7 +4,7 @@ import styled, {css} from 'styled-components'
 import Box from '../Box'
 import {get} from '../constants'
 import sx, {SxProp} from '../sx'
-import {ComponentProps} from '../utils/types'
+import {ComponentProps} from '../internal/types'
 
 const Timeline = styled.div<{clipSidebar?: boolean} & SxProp>`
   display: flex;

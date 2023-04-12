@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import {get} from '../../constants'
 import sx, {SxProp} from '../../sx'
-import {ComponentProps} from '../../utils/types'
+import {ComponentProps} from '../../internal/types'
 
 const ButtonTableList = styled.summary<SxProp>`
   display: inline-block;

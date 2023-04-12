@@ -1,6 +1,6 @@
 import React from 'react'
-import {useForceUpdate} from './use-force-update'
-import useLayoutEffect from './useIsomorphicLayoutEffect'
+import {useForceUpdate} from '../hooks/useForceUpdate'
+import useLayoutEffect from '../hooks/useIsomorphicLayoutEffect'
 
 /** createSlots is a factory that can create a
  *  typesafe Slots + Slot pair to use in a component definition
