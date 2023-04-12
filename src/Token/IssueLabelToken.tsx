@@ -115,18 +115,21 @@ const IssueLabelToken = forwardRef((props, forwardedRef) => {
       ...(isTokenInteractive(props)
         ? {
             '&:hover': {
-              background: isLightScheme
-                ? 'color-mix(in srgb, rgb(var(--label-r),var(--label-g),var(--label-b)), black 10%);'
-                : 'color-mix(in srgb, rgba(var(--label-r), var(--label-g), var(--label-b), var(--background-alpha)), white 10%);',
-              backgroundImage: isLightScheme
-                ? 'linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)), linear-gradient(rgb(var(--label-r),var(--label-g),var(--label-b)), rgb(var(--label-r),var(--label-g),var(--label-b)))'
-                : 'linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.1)), linear-gradient(rgba(var(--label-r), var(--label-g), var(--label-b), var(--background-alpha)), rgba(var(--label-r), var(--label-g), var(--label-b), var(--background-alpha)))',
+              ...(isLightScheme
+                ? {
+                    backgroundImage:
+                      'linear-gradient(rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.15)), linear-gradient(rgb(var(--label-r),var(--label-g),var(--label-b)), rgb(var(--label-r),var(--label-g),var(--label-b)))',
+                  }
+                : {
+                    background:
+                      'hsla(var(--label-h), calc(var(--label-s) * 1%), calc(calc(var(--label-l) + 10) * 1%), 0.3);',
+                  }),
               boxShadow: 'shadow.medium',
             },
           }
         : {}),
     }
-  }, [fillColor, resolvedColorScheme, hideRemoveButton, onRemove, isSelected])
+  }, [fillColor, resolvedColorScheme, hideRemoveButton, onRemove, isSelected, props])
 
   return (
     <TokenBase
