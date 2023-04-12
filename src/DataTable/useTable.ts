@@ -42,48 +42,6 @@ interface Cell<Data extends UniqueRow> {
 
 type ColumnSortState = {id: string | number; direction: Exclude<SortDirection, 'NONE'>} | null
 
-export function getGridTemplateFromColumns<Data extends UniqueRow>(columns: Array<Column<Data>>): string[] {
-  return columns.map(column => {
-    const columnWidth = column.width ?? 'grow'
-    let minWidth = 'auto'
-    let maxWidth = '1fr'
-
-    if (columnWidth === 'auto') {
-      maxWidth = 'auto'
-    }
-
-    // Setting a min-width of 'max-content' ensures that the column will grow to fit the widest cell's content.
-    // However, If the column has a max width, we can't set the min width to `max-content` because
-    // the widest cell's content might overflow the container.
-    if (columnWidth === 'grow' && !column.maxWidth) {
-      minWidth = 'max-content'
-    }
-
-    // Column widths set to "growCollapse" don't need a min width unless one is explicitly provided.
-    if (columnWidth === 'growCollapse') {
-      minWidth = '0'
-    }
-
-    // If a consumer passes `minWidth` or `maxWidth`, we need to override whatever we set above.
-    if (column.minWidth) {
-      minWidth = typeof column.minWidth === 'number' ? `${column.minWidth}px` : column.minWidth
-    }
-
-    if (column.maxWidth) {
-      maxWidth = typeof column.maxWidth === 'number' ? `${column.maxWidth}px` : column.maxWidth
-    }
-
-    // If a consumer is passing one of the shorthand widths or doesn't pass a width at all, we use the
-    // min and max width calculated above to create a minmax() column template value.
-    if (typeof columnWidth !== 'number' && ['grow', 'growCollapse', 'auto'].includes(columnWidth)) {
-      return minWidth === maxWidth ? minWidth : `minmax(${minWidth}, ${maxWidth})`
-    }
-
-    // If we reach this point, the consumer is passing an explicit width value.
-    return typeof columnWidth === 'number' ? `${columnWidth}px` : columnWidth
-  })
-}
-
 export function useTable<Data extends UniqueRow>({
   columns,
   data,
@@ -96,6 +54,7 @@ export function useTable<Data extends UniqueRow>({
   const [sortByColumn, setSortByColumn] = useState<ColumnSortState>(() => {
     return getInitialSortState(columns, initialSortColumn, initialSortDirection)
   })
+  const {gridTemplateColumns} = useTableLayout(columns)
 
   // Reset the `sortByColumn` state if the columns change and that column is no
   // longer provided
@@ -235,7 +194,7 @@ export function useTable<Data extends UniqueRow>({
     actions: {
       sortBy,
     },
-    gridTemplateColumns: getGridTemplateFromColumns(columns).join(' '),
+    gridTemplateColumns,
   }
 }
 
@@ -308,6 +267,54 @@ function getInitialSortState<Data extends UniqueRow>(
   }
 
   return null
+}
+
+export function useTableLayout<Data extends UniqueRow>(columns: Array<Column<Data>>): {gridTemplateColumns: string} {
+  return {
+    gridTemplateColumns: getGridTemplateFromColumns(columns).join(' '),
+  }
+}
+
+export function getGridTemplateFromColumns<Data extends UniqueRow>(columns: Array<Column<Data>>): string[] {
+  return columns.map(column => {
+    const columnWidth = column.width ?? 'grow'
+    let minWidth = 'auto'
+    let maxWidth = '1fr'
+
+    if (columnWidth === 'auto') {
+      maxWidth = 'auto'
+    }
+
+    // Setting a min-width of 'max-content' ensures that the column will grow to fit the widest cell's content.
+    // However, If the column has a max width, we can't set the min width to `max-content` because
+    // the widest cell's content might overflow the container.
+    if (columnWidth === 'grow' && !column.maxWidth) {
+      minWidth = 'max-content'
+    }
+
+    // Column widths set to "growCollapse" don't need a min width unless one is explicitly provided.
+    if (columnWidth === 'growCollapse') {
+      minWidth = '0'
+    }
+
+    // If a consumer passes `minWidth` or `maxWidth`, we need to override whatever we set above.
+    if (column.minWidth) {
+      minWidth = typeof column.minWidth === 'number' ? `${column.minWidth}px` : column.minWidth
+    }
+
+    if (column.maxWidth) {
+      maxWidth = typeof column.maxWidth === 'number' ? `${column.maxWidth}px` : column.maxWidth
+    }
+
+    // If a consumer is passing one of the shorthand widths or doesn't pass a width at all, we use the
+    // min and max width calculated above to create a minmax() column template value.
+    if (typeof columnWidth !== 'number' && ['grow', 'growCollapse', 'auto'].includes(columnWidth)) {
+      return minWidth === maxWidth ? minWidth : `minmax(${minWidth}, ${maxWidth})`
+    }
+
+    // If we reach this point, the consumer is passing an explicit width value.
+    return typeof columnWidth === 'number' ? `${columnWidth}px` : columnWidth
+  })
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

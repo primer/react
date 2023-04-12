@@ -49,7 +49,7 @@ exports[`renders consistently 1`] = `
 }
 
 .c8 {
-  color: #57606a;
+  color: #656d76;
   line-height: 0;
   -webkit-box-flex: 1;
   -webkit-flex-grow: 1;
@@ -100,7 +100,7 @@ exports[`renders consistently 1`] = `
 
 .c1 {
   font-size: 14px;
-  color: #24292f;
+  color: #1F2328;
   margin-left: 8px;
   margin-right: 8px;
   position: relative;

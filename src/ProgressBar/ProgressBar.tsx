@@ -6,11 +6,13 @@ import sx, {SxProp} from '../sx'
 
 type ProgressProp = {progress?: string | number}
 
-const Bar = styled.span<ProgressProp & SxProp>`
+export const Item = styled.span<ProgressProp & SxProp>`
   width: ${props => (props.progress ? `${props.progress}%` : 0)};
-
+  background-color: ${get('colors.success.emphasis')};
   ${sx};
 `
+
+Item.displayName = 'ProgressBar.Item'
 
 const sizeMap = {
   small: '5px',
@@ -35,14 +37,22 @@ const ProgressContainer = styled.span<StyledProgressContainerProps>`
   ${sx};
 `
 
-export type ProgressBarProps = {bg?: string} & StyledProgressContainerProps & ProgressProp
+export type ProgressBarProps = React.PropsWithChildren & {bg?: string} & StyledProgressContainerProps & ProgressProp
 
-function ProgressBar({progress, bg = 'success.emphasis', barSize = 'default', ...rest}: ProgressBarProps) {
+export const ProgressBar = ({
+  progress,
+  bg = 'success.emphasis',
+  barSize = 'default',
+  children,
+  ...rest
+}: ProgressBarProps) => {
+  if (children && progress) {
+    throw new Error('You should pass `progress` or children, not both.')
+  }
+
   return (
     <ProgressContainer barSize={barSize} {...rest}>
-      <Bar progress={progress} sx={{bg}} />
+      {children ?? <Item progress={progress} sx={{backgroundColor: bg}} />}
     </ProgressContainer>
   )
 }
-
-export default ProgressBar
