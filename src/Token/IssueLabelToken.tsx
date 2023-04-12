@@ -5,7 +5,7 @@ import RemoveTokenButton from './_RemoveTokenButton'
 import {parseToHsla, parseToRgba} from 'color2k'
 import {useTheme} from '../ThemeProvider'
 import TokenTextContainer from './_TokenTextContainer'
-import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../internal/polymorphic'
+import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../internal/utils/polymorphic'
 
 export interface IssueLabelTokenProps extends TokenBaseProps {
   /**

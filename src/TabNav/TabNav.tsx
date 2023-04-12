@@ -1,4 +1,4 @@
-import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../internal/polymorphic'
+import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../internal/utils/polymorphic'
 import classnames from 'classnames'
 import {To} from 'history'
 import React, {useRef, useState} from 'react'

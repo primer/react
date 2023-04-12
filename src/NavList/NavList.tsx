@@ -1,5 +1,5 @@
 import {ChevronDownIcon} from '@primer/octicons-react'
-import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../internal/polymorphic'
+import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../internal/utils/polymorphic'
 import React, {isValidElement} from 'react'
 import styled from 'styled-components'
 import {

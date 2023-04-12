@@ -4,7 +4,7 @@ import {get} from '../constants'
 import {useRefObjectAsForwardedRef} from '../hooks'
 import sx, {SxProp} from '../sx'
 import {ComponentProps} from '../internal/types'
-import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../internal/polymorphic'
+import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../internal/utils/polymorphic'
 
 type StyledHeadingProps = {
   as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'

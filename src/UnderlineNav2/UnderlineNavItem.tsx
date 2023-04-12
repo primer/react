@@ -2,7 +2,7 @@ import React, {forwardRef, useRef, useContext, MutableRefObject, RefObject} from
 import Box from '../Box'
 import {merge, SxProp} from '../sx'
 import {IconProps} from '@primer/octicons-react'
-import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../internal/polymorphic'
+import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../internal/utils/polymorphic'
 import {UnderlineNavContext} from './UnderlineNavContext'
 import CounterLabel from '../CounterLabel'
 import {getLinkStyles, iconWrapStyles, counterStyles} from './styles'

@@ -14,7 +14,7 @@ import {
   isActiveDescendantAttribute,
 } from '@primer/behaviors'
 import {useId} from '../../hooks/useId'
-import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../../internal/polymorphic'
+import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../../internal/utils/polymorphic'
 import {AriaRole} from '../../internal/types'
 
 /**

@@ -5,7 +5,7 @@ import {get} from '../constants'
 import {useRefObjectAsForwardedRef} from '../hooks'
 import sx, {SxProp} from '../sx'
 import {ComponentProps} from '../internal/types'
-import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../internal/polymorphic'
+import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../internal/utils/polymorphic'
 
 type StyledLinkProps = {
   hoverColor?: string

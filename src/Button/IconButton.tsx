@@ -1,6 +1,6 @@
 import React, {forwardRef} from 'react'
 import {IconButtonProps} from './types'
-import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../internal/polymorphic'
+import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../internal/utils/polymorphic'
 import {ButtonBase} from './ButtonBase'
 import {defaultSxProp} from '../utils/defaultSxProp'
 import {generateCustomSxProp} from './Button'
