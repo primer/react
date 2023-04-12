@@ -71,8 +71,8 @@ The other reasons for change are to utilise css variables for theming and improv
 Code example:
 
 ```jsx
-import * as css from './ActionList.css'
-import classnames from 'classnames'
+import classNames from './ActionList.module.css'
+import clsx from 'clsx'
 
 const Button = ({className, sx, ...props}}) => {
   return (
@@ -80,7 +80,7 @@ const Button = ({className, sx, ...props}}) => {
       as="button"
       sx={sx}
       // it's important to pass both internal and props.className to the element
-      className={classnames(css.ActionList, className)}
+      className={clsx(classNames.ActionList, className)}
       {...props}
     >
     </Box>
