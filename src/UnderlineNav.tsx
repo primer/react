@@ -5,7 +5,7 @@ import styled from 'styled-components'
 import {get} from './constants'
 import sx, {SxProp} from './sx'
 import {ComponentProps} from './internal/types'
-import getGlobalFocusStyles from './internal/components/_getGlobalFocusStyles'
+import getGlobalFocusStyles from './internal/utils/_getGlobalFocusStyles'
 
 const ITEM_CLASS = 'PRC-UnderlineNav-item'
 const SELECTED_CLASS = 'PRC-selected'

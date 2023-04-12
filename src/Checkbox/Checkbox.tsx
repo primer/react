@@ -5,7 +5,7 @@ import sx, {SxProp} from '../sx'
 import useLayoutEffect from '../internal/useIsomorphicLayoutEffect'
 import {FormValidationStatus} from '../internal/types/FormValidationStatus'
 import {CheckboxGroupContext} from '../CheckboxGroup/CheckboxGroupContext'
-import getGlobalFocusStyles from '../internal/components/_getGlobalFocusStyles'
+import getGlobalFocusStyles from '../internal/utils/_getGlobalFocusStyles'
 import {get} from '../constants'
 import {sharedCheckboxAndRadioStyles} from '../_sharedCheckboxAndRadioStyles'
 
