@@ -1,8 +1,11 @@
-# ADR 014: Internal Modules
+# ADR 016: Internal Modules
 
 ## Status
 
-Proposed
+| Stage    | Status |
+| -------- | ------ |
+| Approved | ✅     |
+| Adopted  | 🚧     |
 
 ## Context
 
