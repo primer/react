@@ -652,7 +652,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
 
     const paneId = useId(id)
 
-    let labelProp: {'aria-labelledby'?: string; 'aria-label'?: string} = {}
+    const labelProp: {'aria-labelledby'?: string; 'aria-label'?: string} = {}
     if (hasOverflow) {
       warning(
         label === undefined && labelledBy === undefined,
