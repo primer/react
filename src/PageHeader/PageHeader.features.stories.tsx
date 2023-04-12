@@ -71,14 +71,16 @@ export const WithComponentAsATitle = () => (
     <PageHeader>
       <PageHeader.TitleArea>
         <Breadcrumbs>
-          <Breadcrumbs.Item href="#">...</Breadcrumbs.Item>
-          <Breadcrumbs.Item href="#">primer</Breadcrumbs.Item>
-          <Breadcrumbs.Item href="#">react</Breadcrumbs.Item>
-          <Breadcrumbs.Item href="#">src</Breadcrumbs.Item>
-          <Breadcrumbs.Item href="#">PageHeader</Breadcrumbs.Item>
-          <Breadcrumbs.Item href="#">PageHeader.tsx</Breadcrumbs.Item>
+          <Breadcrumbs.Item href="https://github.com/primer/react/tree/main">react</Breadcrumbs.Item>
+          <Breadcrumbs.Item href="https://github.com/primer/react/tree/main/src">src</Breadcrumbs.Item>
+          <Breadcrumbs.Item href="https://github.com/primer/react/tree/main/src/PageHeader">
+            PageHeader
+          </Breadcrumbs.Item>
+          <Breadcrumbs.Item href="https://github.com/primer/react/blob/main/src/PageHeader/PageHeader.tsx">
+            PageHeader.tsx
+          </Breadcrumbs.Item>
         </Breadcrumbs>
-        <VisuallyHidden as="h2">Visually Hidden Title</VisuallyHidden>
+        <VisuallyHidden as="h2">PageHeader.tsx</VisuallyHidden>
       </PageHeader.TitleArea>
     </PageHeader>
   </Box>
@@ -89,7 +91,7 @@ export const WithLeadingVisualHiddenOnRegularViewport = () => (
     <PageHeader>
       <PageHeader.TitleArea>
         <PageHeader.LeadingVisual hidden={{regular: true}}>
-          <GitPullRequestIcon />
+          <GitPullRequestIcon aria-label="something" />
         </PageHeader.LeadingVisual>
         <PageHeader.Title>Title</PageHeader.Title>
         <PageHeader.TrailingVisual>
@@ -131,7 +133,7 @@ export const WithDescriptionSlot = () => (
     </PageHeader.TitleArea>
     <PageHeader.Description>
       <Text sx={{fontSize: 1, color: 'fg.muted'}}>
-        <Link href="https://github.com/broccolinisoup" muted sx={{fontWeight: 'bold'}}>
+        <Link href="https://github.com/broccolinisoup" sx={{fontWeight: 'bold'}}>
           broccolinisoup
         </Link>{' '}
         created this branch 5 days ago · 14 commits · updated today
@@ -175,12 +177,12 @@ export const WithCustomNavigation = () => (
       <PageHeader.Navigation as="nav" aria-label="Item list">
         <Box as="ul" sx={{display: 'flex', gap: '8px', listStyle: 'none', paddingY: 0, paddingX: 3}} role="list">
           <li>
-            <Link href="#" aria-current="page">
+            <Link href="https://github.com/primer/react" aria-current="page">
               Item 1
             </Link>
           </li>
           <li>
-            <Link href="#">Item 2</Link>
+            <Link href="https://github.com/primer/react/pulls">Item 2</Link>
           </li>
         </Box>
       </PageHeader.Navigation>
@@ -236,15 +238,16 @@ export const WithContextBarAndActionsOfContextArea = () => (
       <PageHeader.ContextArea>
         <PageHeader.ContextBar>
           <Breadcrumbs>
-            <Breadcrumbs.Item href="#">...</Breadcrumbs.Item>
-            <Breadcrumbs.Item href="#">primer</Breadcrumbs.Item>
-            <Breadcrumbs.Item href="#">react</Breadcrumbs.Item>
-            <Breadcrumbs.Item href="#">src</Breadcrumbs.Item>
-            <Breadcrumbs.Item href="#">PageHeader</Breadcrumbs.Item>
-            <Breadcrumbs.Item href="#">PageHeader.tsx</Breadcrumbs.Item>
+            <Breadcrumbs.Item href="https://github.com/primer/react/tree/main">react</Breadcrumbs.Item>
+            <Breadcrumbs.Item href="https://github.com/primer/react/tree/main/src">src</Breadcrumbs.Item>
+            <Breadcrumbs.Item href="https://github.com/primer/react/tree/main/src/PageHeader">
+              PageHeader
+            </Breadcrumbs.Item>
+            <Breadcrumbs.Item href="https://github.com/primer/react/blob/main/src/PageHeader/PageHeader.tsx">
+              PageHeader.tsx
+            </Breadcrumbs.Item>
           </Breadcrumbs>
         </PageHeader.ContextBar>
-
         <PageHeader.ContextAreaActions>
           <Button size="small" leadingIcon={GitBranchIcon}>
             Main

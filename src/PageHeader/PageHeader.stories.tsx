@@ -193,12 +193,14 @@ export const Playground: Story = args => (
 
         <PageHeader.ContextBar hidden={!args.hasContextBar}>
           <Breadcrumbs>
-            <Breadcrumbs.Item href="#">...</Breadcrumbs.Item>
-            <Breadcrumbs.Item href="#">primer</Breadcrumbs.Item>
-            <Breadcrumbs.Item href="#">react</Breadcrumbs.Item>
-            <Breadcrumbs.Item href="#">src</Breadcrumbs.Item>
-            <Breadcrumbs.Item href="#">PageHeader</Breadcrumbs.Item>
-            <Breadcrumbs.Item href="#">PageHeader.tsx</Breadcrumbs.Item>
+            <Breadcrumbs.Item href="https://github.com/primer/react/tree/main">react</Breadcrumbs.Item>
+            <Breadcrumbs.Item href="https://github.com/primer/react/tree/main/src">src</Breadcrumbs.Item>
+            <Breadcrumbs.Item href="https://github.com/primer/react/tree/main/src/PageHeader">
+              PageHeader
+            </Breadcrumbs.Item>
+            <Breadcrumbs.Item href="https://github.com/primer/react/blob/main/src/PageHeader/PageHeader.tsx">
+              PageHeader.tsx
+            </Breadcrumbs.Item>
           </Breadcrumbs>
         </PageHeader.ContextBar>
 
@@ -244,18 +246,18 @@ export const Playground: Story = args => (
         <StateLabel status="pullOpened">Open</StateLabel>
         <Hidden when={['narrow']}>
           <Text sx={{fontSize: 1, color: 'fg.muted'}}>
-            <Link href="#" muted sx={{fontWeight: 'bold'}}>
+            <Link href="https://github.com/broccolinisoup" sx={{fontWeight: 'bold'}}>
               broccolinisoup
             </Link>{' '}
-            wants to merge 3 commits into <BranchName href="#">main</BranchName> from{' '}
-            <BranchName href="#">broccolinisoup/switch-to-new-underlineNav</BranchName>
+            wants to merge 3 commits into <BranchName href="https://github.com/primer/react">main</BranchName> from{' '}
+            <BranchName href="https://github.com/primer/react">broccolinisoup/switch-to-new-underlineNav</BranchName>
           </Text>
         </Hidden>
         <Hidden when={['regular', 'wide']}>
           <Text sx={{fontSize: 1, color: 'fg.muted'}}>
-            <BranchName href="#">main</BranchName>
+            <BranchName href="https://github.com/primer/react">main</BranchName>
             <ArrowRightIcon />
-            <BranchName href="#">page-header-initial</BranchName>
+            <BranchName href="https://github.com/primer/react">page-header-initial</BranchName>
           </Text>
         </Hidden>
       </PageHeader.Description>
