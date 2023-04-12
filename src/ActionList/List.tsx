@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import sx, {SxProp, merge} from '../sx'
 import {AriaRole} from '../internal/types'
 import {ActionListContainerContext} from './ActionListContainerContext'
-import {defaultSxProp} from '../utils/defaultSxProp'
+import {defaultSxProp} from '../internal/utils/defaultSxProp'
 
 export type ActionListProps = React.PropsWithChildren<{
   /**

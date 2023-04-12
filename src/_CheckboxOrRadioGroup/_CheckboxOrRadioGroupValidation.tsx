@@ -1,5 +1,5 @@
 import React from 'react'
-import InputValidation from '../_InputValidation'
+import InputValidation from '../internal/components/_InputValidation'
 import {SxProp} from '../sx'
 import {FormValidationStatus} from '../internal/types/FormValidationStatus'
 import {CheckboxOrRadioGroupContext} from './CheckboxOrRadioGroup'

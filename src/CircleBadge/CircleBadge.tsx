@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import {get} from '../constants'
 import StyledOcticon from '../StyledOcticon'
 import sx, {SxProp} from '../sx'
-import isNumeric from '../utils/isNumeric'
+import isNumeric from '../internal/utils/isNumeric'
 import {ComponentProps} from '../internal/types'
 
 const variantSizes = {

@@ -2,7 +2,7 @@ import React, {forwardRef} from 'react'
 import {IconButtonProps} from './types'
 import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../internal/utils/polymorphic'
 import {ButtonBase} from './ButtonBase'
-import {defaultSxProp} from '../utils/defaultSxProp'
+import {defaultSxProp} from '../internal/utils/defaultSxProp'
 import {generateCustomSxProp} from './Button'
 
 const IconButton = forwardRef(({sx: sxProp = defaultSxProp, icon: Icon, ...props}, forwardedRef): JSX.Element => {

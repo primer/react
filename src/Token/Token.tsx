@@ -1,12 +1,12 @@
 import React, {forwardRef, MouseEventHandler} from 'react'
 import Box from '../Box'
 import {BetterSystemStyleObject, merge, SxProp} from '../sx'
-import {defaultSxProp} from '../utils/defaultSxProp'
+import {defaultSxProp} from '../internal/utils/defaultSxProp'
 import TokenBase, {defaultTokenSize, isTokenInteractive, TokenBaseProps} from './TokenBase'
 import RemoveTokenButton from './_RemoveTokenButton'
 import TokenTextContainer from './_TokenTextContainer'
 import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../internal/utils/polymorphic'
-import VisuallyHidden from '../_VisuallyHidden'
+import VisuallyHidden from '../internal/components/_VisuallyHidden'
 
 // Omitting onResize and onResizeCapture because seems like React 18 types includes these menthod in the expansion but React 17 doesn't.
 // TODO: This is a temporary solution until we figure out why these methods are causing type errors.

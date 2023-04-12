@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import React, {ComponentPropsWithRef, ReactElement, useEffect, useRef} from 'react'
-import useLayoutEffect from './internal/useIsomorphicLayoutEffect'
+import useLayoutEffect from './internal/hooks/useIsomorphicLayoutEffect'
 import {get} from './constants'
 import {AriaRole, Merge} from './internal/types'
 import {useOverlay, TouchOrMouseEvent} from './hooks'

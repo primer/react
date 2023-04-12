@@ -10,7 +10,7 @@ import {ActionListGroupProps, GroupContext} from './Group'
 import {ActionListProps, ListContext} from './List'
 import {Selection} from './Selection'
 import {ActionListItemProps, Slots, TEXT_ROW_HEIGHT, getVariantStyles} from './shared'
-import {defaultSxProp} from '../utils/defaultSxProp'
+import {defaultSxProp} from '../internal/utils/defaultSxProp'
 
 const LiBox = styled.li<SxProp>(sx)
 

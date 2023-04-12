@@ -7,8 +7,8 @@ import {UnderlineNavContext} from './UnderlineNavContext'
 import CounterLabel from '../CounterLabel'
 import {getLinkStyles, iconWrapStyles, counterStyles} from './styles'
 import {LoadingCounter} from './LoadingCounter'
-import useLayoutEffect from '../internal/useIsomorphicLayoutEffect'
-import {defaultSxProp} from '../utils/defaultSxProp'
+import useLayoutEffect from '../internal/hooks/useIsomorphicLayoutEffect'
+import {defaultSxProp} from '../internal/utils/defaultSxProp'
 
 // adopted from React.AnchorHTMLAttributes
 type LinkProps = {

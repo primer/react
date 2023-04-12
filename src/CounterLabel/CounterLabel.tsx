@@ -1,7 +1,7 @@
 import React from 'react'
 import Box from '../Box'
 import {BetterSystemStyleObject, SxProp, merge} from '../sx'
-import VisuallyHidden from '../_VisuallyHidden'
+import VisuallyHidden from '../internal/components/_VisuallyHidden'
 
 export type CounterLabelProps = {
   scheme?: 'primary' | 'secondary'

@@ -11,9 +11,9 @@ import {
 import Box from '../Box'
 import StyledOcticon from '../StyledOcticon'
 import sx, {merge, SxProp} from '../sx'
-import {defaultSxProp} from '../utils/defaultSxProp'
+import {defaultSxProp} from '../internal/utils/defaultSxProp'
 import {useId} from '../hooks/useId'
-import useIsomorphicLayoutEffect from '../internal/useIsomorphicLayoutEffect'
+import useIsomorphicLayoutEffect from '../internal/hooks/useIsomorphicLayoutEffect'
 
 // ----------------------------------------------------------------------------
 // NavList

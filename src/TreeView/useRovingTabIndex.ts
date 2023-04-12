@@ -1,6 +1,6 @@
 import React from 'react'
 import {FocusKeys, useFocusZone} from '../hooks/useFocusZone'
-import {getScrollContainer} from '../utils/scroll'
+import {getScrollContainer} from '../internal/utils/scroll'
 
 export function useRovingTabIndex({containerRef}: {containerRef: React.RefObject<HTMLElement>}) {
   // TODO: Initialize focus to the aria-current item if it exists

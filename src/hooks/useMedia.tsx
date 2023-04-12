@@ -1,6 +1,6 @@
 import React, {createContext, useContext, useState, useEffect} from 'react'
-import {canUseDOM} from '../internal/environment'
-import {warning} from '../internal/warning'
+import {canUseDOM} from '../internal/utils/environment'
+import {warning} from '../internal/utils/warning'
 
 /**
  * `useMedia` will use the given `mediaQueryString` with `matchMedia` to

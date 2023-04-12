@@ -5,7 +5,7 @@ import {FormValidationStatus} from '../internal/types/FormValidationStatus'
 import {RadioGroupContext} from '../RadioGroup/RadioGroup'
 import getGlobalFocusStyles from '../internal/utils/_getGlobalFocusStyles'
 import {get} from '../constants'
-import {sharedCheckboxAndRadioStyles} from '../_sharedCheckboxAndRadioStyles'
+import {sharedCheckboxAndRadioStyles} from '../internal/components/_sharedCheckboxAndRadioStyles'
 
 export type RadioProps = {
   /**

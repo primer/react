@@ -2,7 +2,7 @@ import React, {forwardRef} from 'react'
 import {ButtonProps} from './types'
 import {ButtonBase} from './ButtonBase'
 import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../internal/utils/polymorphic'
-import {defaultSxProp} from '../utils/defaultSxProp'
+import {defaultSxProp} from '../internal/utils/defaultSxProp'
 import {BetterSystemStyleObject} from '../sx'
 
 const ButtonComponent = forwardRef(({children, sx: sxProp = defaultSxProp, ...props}, forwardedRef): JSX.Element => {

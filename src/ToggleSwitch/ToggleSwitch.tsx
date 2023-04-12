@@ -7,7 +7,7 @@ import Text from '../Text'
 import {get} from '../constants'
 import {useProvidedStateOrCreate} from '../hooks'
 import sx, {BetterSystemStyleObject, SxProp} from '../sx'
-import VisuallyHidden from '../_VisuallyHidden'
+import VisuallyHidden from '../internal/components/_VisuallyHidden'
 import {CellAlignment} from '../DataTable/column'
 
 const TRANSITION_DURATION = '80ms'

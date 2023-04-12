@@ -1,5 +1,5 @@
 import {RefObject, useRef} from 'react'
-import useLayoutEffect from '../internal/useIsomorphicLayoutEffect'
+import useLayoutEffect from '../internal/hooks/useIsomorphicLayoutEffect'
 
 // https://gist.github.com/strothj/708afcf4f01dd04de8f49c92e88093c3
 export type ResizeObserverCallback = (entries: ResizeObserverEntry[]) => void

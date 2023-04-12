@@ -2,12 +2,12 @@ import styled from 'styled-components'
 import {useProvidedRefOrCreate} from '../hooks'
 import React, {ChangeEventHandler, InputHTMLAttributes, ReactElement, useContext} from 'react'
 import sx, {SxProp} from '../sx'
-import useLayoutEffect from '../internal/useIsomorphicLayoutEffect'
+import useLayoutEffect from '../internal/hooks/useIsomorphicLayoutEffect'
 import {FormValidationStatus} from '../internal/types/FormValidationStatus'
 import {CheckboxGroupContext} from '../CheckboxGroup/CheckboxGroupContext'
 import getGlobalFocusStyles from '../internal/utils/_getGlobalFocusStyles'
 import {get} from '../constants'
-import {sharedCheckboxAndRadioStyles} from '../_sharedCheckboxAndRadioStyles'
+import {sharedCheckboxAndRadioStyles} from '../internal/components/_sharedCheckboxAndRadioStyles'
 
 export type CheckboxProps = {
   /**

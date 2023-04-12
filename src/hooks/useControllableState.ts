@@ -1,5 +1,5 @@
 import React from 'react'
-import {warning} from '../internal/warning'
+import {warning} from '../internal/utils/warning'
 
 type ControllableStateOptions<T> = {
   /**

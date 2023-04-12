@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import Box from '../Box'
 import sx, {merge, SxProp} from '../sx'
 import {getSegmentedControlButtonStyles, getSegmentedControlListItemStyles} from './getSegmentedControlStyles'
-import {defaultSxProp} from '../utils/defaultSxProp'
+import {defaultSxProp} from '../internal/utils/defaultSxProp'
 
 export type SegmentedControlButtonProps = {
   /** The visible label rendered in the button */

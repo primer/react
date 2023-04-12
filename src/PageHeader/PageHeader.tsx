@@ -7,7 +7,7 @@ import {ArrowLeftIcon} from '@primer/octicons-react'
 import Link, {LinkProps as BaseLinkProps} from '../Link'
 
 import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../internal/utils/polymorphic'
-import {getBreakpointDeclarations} from '../utils/getBreakpointDeclarations'
+import {getBreakpointDeclarations} from '../internal/utils/getBreakpointDeclarations'
 const REGION_ORDER = {
   ContextArea: 0,
   TitleArea: 1,

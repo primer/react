@@ -1,6 +1,6 @@
 import styled, {css} from 'styled-components'
 import React, {TextareaHTMLAttributes, ReactElement} from 'react'
-import {TextInputBaseWrapper} from '../_TextInputWrapper'
+import {TextInputBaseWrapper} from '../internal/components/_TextInputWrapper'
 import {FormValidationStatus} from '../internal/types/FormValidationStatus'
 import sx, {SxProp} from '../sx'
 

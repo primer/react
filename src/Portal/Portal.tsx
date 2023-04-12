@@ -1,6 +1,6 @@
 import React from 'react'
 import {createPortal} from 'react-dom'
-import useLayoutEffect from '../internal/useIsomorphicLayoutEffect'
+import useLayoutEffect from '../internal/hooks/useIsomorphicLayoutEffect'
 
 const PRIMER_PORTAL_ROOT_ID = '__primerPortalRoot__'
 const DEFAULT_PORTAL_CONTAINER_NAME = '__default__'

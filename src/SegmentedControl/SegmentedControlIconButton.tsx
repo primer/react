@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import sx, {merge, SxProp} from '../sx'
 import {getSegmentedControlButtonStyles, getSegmentedControlListItemStyles} from './getSegmentedControlStyles'
 import Box from '../Box'
-import {defaultSxProp} from '../utils/defaultSxProp'
+import {defaultSxProp} from '../internal/utils/defaultSxProp'
 
 export type SegmentedControlIconButtonProps = {
   'aria-label': string

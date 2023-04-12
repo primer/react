@@ -7,10 +7,10 @@ import {isResponsiveValue, ResponsiveValue, useResponsiveValue} from '../hooks/u
 import {useSlots} from '../hooks/useSlots'
 import {BetterSystemStyleObject, merge, SxProp} from '../sx'
 import {Theme} from '../ThemeProvider'
-import {canUseDOM} from '../internal/environment'
-import {invariant} from '../internal/invariant'
-import {useOverflow} from '../internal/useOverflow'
-import VisuallyHidden from '../_VisuallyHidden'
+import {canUseDOM} from '../internal/utils/environment'
+import {invariant} from '../internal/utils/invariant'
+import {useOverflow} from '../internal/hooks/useOverflow'
+import VisuallyHidden from '../internal/components/_VisuallyHidden'
 import {useStickyPaneHeight} from './useStickyPaneHeight'
 
 const REGION_ORDER = {

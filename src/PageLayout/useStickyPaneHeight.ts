@@ -1,8 +1,8 @@
 import React from 'react'
 import {useInView} from 'react-intersection-observer'
-import {canUseDOM} from '../internal/environment'
-import useLayoutEffect from '../internal/useIsomorphicLayoutEffect'
-import {getScrollContainer} from '../utils/scroll'
+import {canUseDOM} from '../internal/utils/environment'
+import useLayoutEffect from '../internal/hooks/useIsomorphicLayoutEffect'
+import {getScrollContainer} from '../internal/utils/scroll'
 
 /**
  * Calculates the height of the sticky pane such that it always
