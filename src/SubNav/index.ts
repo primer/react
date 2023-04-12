@@ -1,1 +1,1 @@
-export {default, SubNavProps, SubNavLinkProps} from './SubNav'
+export {default, SubNavProps, SubNavLinkProps, SubNavLinksProps} from './SubNav'
