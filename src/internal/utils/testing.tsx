@@ -4,8 +4,8 @@ import renderer from 'react-test-renderer'
 import {render as HTMLRender} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
 import type {Story as StoryType} from '@storybook/react'
-import {ThemeProvider} from '..'
-import {default as defaultTheme} from '../theme'
+import {ThemeProvider} from '../../'
+import {default as defaultTheme} from '../../theme'
 
 type ComputedStyles = Record<string, string | Record<string, string>>
 
