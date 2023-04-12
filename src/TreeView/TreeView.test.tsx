@@ -1,8 +1,9 @@
 import {fireEvent, render, act, waitFor} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import React from 'react'
-import {ThemeProvider} from '../ThemeProvider'
+import {ThemeProvider, SSRProvider} from '..'
 import {SubTreeState, TreeView} from './TreeView'
+import ReactDOMServer from 'react-dom/server'
 
 jest.useFakeTimers()
 
@@ -1364,3 +1365,83 @@ describe('Asyncronous loading', () => {
     expect(treeitem).not.toHaveAttribute('aria-expanded')
   })
 })
+
+test.only('renders the same on the server and client', async () => {
+  const ui = (
+    <SSRProvider>
+      <ThemeProvider>
+        <TreeView aria-label="Test tree">
+          <TreeView.Item id="item-1">
+            <TreeView.LeadingVisual label="leading">
+              <svg aria-hidden={true} />
+            </TreeView.LeadingVisual>
+            Item 1
+          </TreeView.Item>
+          <TreeView.Item id="item-2">
+            <TreeView.LeadingVisual>
+              <svg aria-hidden={true} />
+            </TreeView.LeadingVisual>
+            Item 2
+          </TreeView.Item>
+        </TreeView>
+      </ThemeProvider>
+    </SSRProvider>
+  )
+
+  const {container} = render(ui)
+  const clientHtml = container.innerHTML
+
+  // TODO: Ensure browser globals are not available in this context
+  const serverHtml = ReactDOMServer.renderToString(ui)
+
+  expect(normalizeHtml(clientHtml)).toEqual(normalizeHtml(serverHtml))
+})
+
+function normalizeHtml(html: string): string {
+  // The format of the style attribute is not consistent between server and client
+  return normalizeStyleAttribute(
+    // It's okay if tabIndex is different between server and client
+    stripAttributes(html, ['tabIndex']),
+  )
+}
+
+function stripAttributes(html: string, attrs: string[]) {
+  const doc = new DOMParser().parseFromString(html, 'text/html')
+  const elements = doc.querySelectorAll('*')
+  for (const el of elements) {
+    for (const attr of attrs) {
+      el.removeAttribute(attr)
+    }
+  }
+  return doc.documentElement.outerHTML
+}
+
+function normalizeStyleAttribute(html: string): string {
+  // Parse the HTML string into a document object using DOMParser
+  const doc = new DOMParser().parseFromString(html, 'text/html')
+
+  // Select all elements in the document using querySelectorAll
+  const elements = doc.querySelectorAll('*')
+
+  // Loop over each element
+  for (const el of elements) {
+    // Get the value of the style attribute
+    const style = el.getAttribute('style')
+
+    // If the style attribute exists
+    if (style) {
+      // Normalize the style attribute value using regular expressions
+      const normalizedStyle = style
+        .replace(/\s*:\s*/g, ':') // Remove whitespace around colons
+        .replace(/\s*;\s*/g, ';') // Remove whitespace around semicolons
+        .replace(/;\s*$/, '') // Remove trailing semicolon
+        .trim() // Remove leading and trailing whitespace
+
+      // Set the normalized style attribute value on the element
+      el.setAttribute('style', normalizedStyle)
+    }
+  }
+
+  // Return the outer HTML of the document's root element
+  return doc.documentElement.outerHTML
+}
