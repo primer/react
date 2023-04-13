@@ -119,7 +119,7 @@ exports[`SegmentedControl renders consistently 1`] = `
 }
 
 .c2 svg {
-  fill: #656d76;
+  fill: #57606a;
 }
 
 .c2:focus:focus-visible:not(:last-child):after {
@@ -182,7 +182,7 @@ exports[`SegmentedControl renders consistently 1`] = `
 }
 
 .c4 svg {
-  fill: #656d76;
+  fill: #57606a;
 }
 
 .c4:hover .segmentedControl-content {
@@ -253,7 +253,7 @@ exports[`SegmentedControl renders consistently 1`] = `
 }
 
 .c5 svg {
-  fill: #656d76;
+  fill: #57606a;
 }
 
 .c5:hover .segmentedControl-content {
