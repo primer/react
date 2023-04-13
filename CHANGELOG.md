@@ -1,5 +1,155 @@
 # @primer/components
 
+## 35.24.0
+
+### Minor Changes
+
+- [#3071](https://github.com/primer/react/pull/3071) [`681e2271`](https://github.com/primer/react/commit/681e2271ecc90bde2920887c50c0d44b121005f1) Thanks [@mperrotti](https://github.com/mperrotti)! - Adds a helper component for rendering placeholder text to explain why a DataTable cell has no content.
+
+- [#3089](https://github.com/primer/react/pull/3089) [`4a6a9f73`](https://github.com/primer/react/commit/4a6a9f7326d5bf1e476a040d7f2f4f61e4d5bd05) Thanks [@mperrotti](https://github.com/mperrotti)! - Adds the ability to exclose indentation for flat tree views.
+
+- [#3011](https://github.com/primer/react/pull/3011) [`f8132d8e`](https://github.com/primer/react/commit/f8132d8ef653e1bd5a16203ab47f6006a871f662) Thanks [@edersonlucas](https://github.com/edersonlucas)! - Add the `tooltipDirection` property to the `TextInput.Action` component to make the tooltip position flexible.
+
+### Patch Changes
+
+- [#3085](https://github.com/primer/react/pull/3085) [`bf8c73b4`](https://github.com/primer/react/commit/bf8c73b4c36422fdd70b56f9ba677b6d6b961e87) Thanks [@mperrotti](https://github.com/mperrotti)! - Renames DataTable 'shrink' column width to 'growCollapse'
+
+- [#3104](https://github.com/primer/react/pull/3104) [`e46e33b8`](https://github.com/primer/react/commit/e46e33b8be0d553b838887d70893734923bb27d8) Thanks [@iansan5653](https://github.com/iansan5653)! - Fix `IssueLabelToken` treating alternative light schemes as dark
+
+## 35.23.0
+
+### Minor Changes
+
+- [#3068](https://github.com/primer/react/pull/3068) [`09e11335`](https://github.com/primer/react/commit/09e11335f5a415459e18feabe2686511adb51fe4) Thanks [@mperrotti](https://github.com/mperrotti)! - Adds text alignment option to columns
+
+- [#3012](https://github.com/primer/react/pull/3012) [`04d9db02`](https://github.com/primer/react/commit/04d9db02c0ba6ddca13a0b2bd0f4ada3e00991e7) Thanks [@radglob](https://github.com/radglob)! - Adds `tabIndex` and `role="region"` to `PageLayout.Pane` when overflow is detected (scrollHeight > clientHeight). Also requires either `aria-labelledby` or `aria-label` when overflow is detected, and throws an error if neither is defined.
+
+### Patch Changes
+
+- [#3056](https://github.com/primer/react/pull/3056) [`7e4f7714`](https://github.com/primer/react/commit/7e4f7714f4839b0bd304770da1e64aa247a68d7b) Thanks [@langermank](https://github.com/langermank)! - Remove incorrect focus styles on ActionList items
+
+- [#3061](https://github.com/primer/react/pull/3061) [`b71cb1fb`](https://github.com/primer/react/commit/b71cb1fb2240b08a816278af0dd94ac4e2e1246d) Thanks [@broccolinisoup](https://github.com/broccolinisoup)! - Stop rendering `activeClassName` when there is no `to` prop is passed for react-router (TabNav, SubNav, BreadCrumb, UnderlineNav v1)
+
+- [#3041](https://github.com/primer/react/pull/3041) [`e5f13300`](https://github.com/primer/react/commit/e5f133004721426a63c8647e22f987dddd716442) Thanks [@simurai](https://github.com/simurai)! - Use open/closed colors for `StateLabel`
+
+## 35.22.0
+
+### Minor Changes
+
+- [#2901](https://github.com/primer/react/pull/2901) [`992f1acd`](https://github.com/primer/react/commit/992f1acd14e6425c1f12879d142f2171c131d416) Thanks [@joshblack](https://github.com/joshblack)! - Add babel-plugin-dev-expression to transform warning calls in package bundle
+
+- [#3027](https://github.com/primer/react/pull/3027) [`3153c810`](https://github.com/primer/react/commit/3153c8106cbfcdd2890461c2ff8845b8fb131920) Thanks [@talum](https://github.com/talum)! - Export `useResizeObserver` hook
+
+### Patch Changes
+
+- [#2996](https://github.com/primer/react/pull/2996) [`baa63958`](https://github.com/primer/react/commit/baa6395821caada57a9d4a662cf3fa1bd27c07ec) Thanks [@mperrotti](https://github.com/mperrotti)! - Implements column width features for the DataTable
+
+- [#3036](https://github.com/primer/react/pull/3036) [`51a2cc94`](https://github.com/primer/react/commit/51a2cc9484a6b9b822d61b3ea2e1f8af5ed1bca2) Thanks [@colebemis](https://github.com/colebemis)! - `PageLayout` and `SplitPageLayout` are now SSR-compatible.
+
+  Warning: In this new implementation, `PageLayout.Header` and `PageLayout.Footer` must be direct children of `PageLayout`. The same applies to `SplitPageLayout`
+
+- [#3029](https://github.com/primer/react/pull/3029) [`bb9f1561`](https://github.com/primer/react/commit/bb9f1561c847e9b6f64027060ecf0b45303b8f40) Thanks [@mperrotti](https://github.com/mperrotti)! - Adds new a11y improvements to Pagination.
+
+- [#2993](https://github.com/primer/react/pull/2993) [`6aa9205e`](https://github.com/primer/react/commit/6aa9205e37197b6ab05650c4a33f6cd7246f771c) Thanks [@mperrotti](https://github.com/mperrotti)! - Makes StateLabel's 'status' prop required
+
+- [#3009](https://github.com/primer/react/pull/3009) [`cc4e2bc5`](https://github.com/primer/react/commit/cc4e2bc5b6dffdbbb367d130e6f08683f28c20f1) Thanks [@iansan5653](https://github.com/iansan5653)! - Recalculate autocomplete suggestions if the input data changes while the menu is open
+
+- [#3010](https://github.com/primer/react/pull/3010) [`022d449c`](https://github.com/primer/react/commit/022d449c61457377f516617814488a03def5fc32) Thanks [@broccolinisoup](https://github.com/broccolinisoup)! - SegmentedControl: Resolve axe-violation by adding a discernible text to the icon button and removing the tooltip until it is marked as accessible
+
+## 35.21.0
+
+### Minor Changes
+
+- [#2953](https://github.com/primer/react/pull/2953) [`91688a41`](https://github.com/primer/react/commit/91688a4110b2b1c2208fc3ea257a40b61fa022bb) Thanks [@joshblack](https://github.com/joshblack)! - Add Table.Divider and Table.Actions components for Table
+
+- [#2985](https://github.com/primer/react/pull/2985) [`38ac17a6`](https://github.com/primer/react/commit/38ac17a6da12230c2037124776e55d165a6c1ee6) Thanks [@broccolinisoup](https://github.com/broccolinisoup)! - Hidden: rename prop 'on' -> 'when'
+
+- [#2951](https://github.com/primer/react/pull/2951) [`eff43b07`](https://github.com/primer/react/commit/eff43b0789afea74078b4024d7f35d4723b7055b) Thanks [@joshblack](https://github.com/joshblack)! - Add DataTable, Table to drafts entrypoint
+
+### Patch Changes
+
+- [#2929](https://github.com/primer/react/pull/2929) [`ee4b76f8`](https://github.com/primer/react/commit/ee4b76f8ff2b711f72efb0cf790113c67bdd08e6) Thanks [@broccolinisoup](https://github.com/broccolinisoup)! - Button: Fixes the style override issue when size is explicitly specified as medium
+
+- [#2933](https://github.com/primer/react/pull/2933) [`81ed5403`](https://github.com/primer/react/commit/81ed5403688129809957bd0224cce68d4087ad36) Thanks [@langermank](https://github.com/langermank)! - Bug fix: ButtonGroup hover state causes buttons to shift horizontally
+
+- [#2948](https://github.com/primer/react/pull/2948) [`0215c969`](https://github.com/primer/react/commit/0215c96905969f514326621eb1fef84e09ef3af0) Thanks [@colebemis](https://github.com/colebemis)! - Include story source code in `generated/components.json`
+
+- [#2905](https://github.com/primer/react/pull/2905) [`6bf9e677`](https://github.com/primer/react/commit/6bf9e6772608a639da8b7db5f6f13248b7b186cf) Thanks [@broccolinisoup](https://github.com/broccolinisoup)! - PageHeader: Make default heading level `h2`
+
+- [#2973](https://github.com/primer/react/pull/2973) [`3a25597a`](https://github.com/primer/react/commit/3a25597a093edf96601d05f3353c4c1277a06005) Thanks [@colebemis](https://github.com/colebemis)! - Upgrade @primer/octicons-react dependency to `^18.0.0`
+
+- [#2910](https://github.com/primer/react/pull/2910) [`0c701920`](https://github.com/primer/react/commit/0c7019201084c0f39ff3b4cb51d4f57f0e3d65d1) Thanks [@iansan5653](https://github.com/iansan5653)! - Add `isolation:isolate` to `ButtonGroup` container
+
+- [#2843](https://github.com/primer/react/pull/2843) [`533f0b4a`](https://github.com/primer/react/commit/533f0b4aaa762938f61c9fad03de1b2660fd1cb9) Thanks [@mperrotti](https://github.com/mperrotti)! - Updates the ToggleSwitch styles to be more minimal and less dimensional
+
+- [#2702](https://github.com/primer/react/pull/2702) [`0121c0f5`](https://github.com/primer/react/commit/0121c0f5ce3a0ceb9dc61b40a102847fb9795abc) Thanks [@mperrotti](https://github.com/mperrotti)! - Pagination design updates:
+
+  - Updates spacing inside of the buttons to match the "medium" control metrics: https://primer.style/primitives/spacing#medium
+  - Updates hover style to align with ActionList items and other elements that may appear on any background color
+  - Updates ARIA markup to improve assistive technology experience
+
+- [#2974](https://github.com/primer/react/pull/2974) [`6a795da6`](https://github.com/primer/react/commit/6a795da6d223692734fb679e31336de7a63f757a) Thanks [@iansan5653](https://github.com/iansan5653)! - Fix ellipsis truncation in `Token`
+
+- [#2925](https://github.com/primer/react/pull/2925) [`6f50b156`](https://github.com/primer/react/commit/6f50b1569ac4024672fa19bc3a916528e2308566) Thanks [@langermank](https://github.com/langermank)! - Decrease `invisible` button icon CSS specifity
+
+- [#2922](https://github.com/primer/react/pull/2922) [`7140ac8f`](https://github.com/primer/react/commit/7140ac8f14f309e879b1cc98742b92b1c2d78961) Thanks [@green6erry](https://github.com/green6erry)! - Updated PageLayout.Pane to conditionally include id prop
+
+- [#2702](https://github.com/primer/react/pull/2702) [`0121c0f5`](https://github.com/primer/react/commit/0121c0f5ce3a0ceb9dc61b40a102847fb9795abc) Thanks [@mperrotti](https://github.com/mperrotti)! - Updates the visual design of the Pagination component to align with the latest design token usage patterns. Also improves ARIA markup to hide the "..." from assistive technologies.
+
+- [#2954](https://github.com/primer/react/pull/2954) [`041dd150`](https://github.com/primer/react/commit/041dd150d6a85b0e60a3802dc59b00da63aeedd1) Thanks [@iansan5653](https://github.com/iansan5653)! - Allow `React.ReactNode` as `Token` content
+
+- [#3004](https://github.com/primer/react/pull/3004) [`45107bc5`](https://github.com/primer/react/commit/45107bc56e54da883ce134b2b1c9637935e9f6e3) Thanks [@iansan5653](https://github.com/iansan5653)! - Add support for custom emojis and a declarative "loading" state in `MarkdownEditor` suggestions
+
+## 35.20.0
+
+### Minor Changes
+
+- [`5967b0a9`](https://github.com/primer/react/commit/5967b0a9b71b0d2296eada7031ff6c82ad1b17a4) Thanks [@broccolinisoup](https://github.com/broccolinisoup)! - Issue a deprecation notice for UnderlineNav v1
+
+- [#2815](https://github.com/primer/react/pull/2815) [`74df59c4`](https://github.com/primer/react/commit/74df59c4e0df580dce7dd5c426fe44143d586b77) Thanks [@mperrotti](https://github.com/mperrotti)! - Addresses feedback from the accessibility team about our SegmentedControl component. These changes include an update to ActionMenu that allows u to specify the ID of the DOM node that labels the menu.
+
+- [#2768](https://github.com/primer/react/pull/2768) [`5055b91b`](https://github.com/primer/react/commit/5055b91b9cf40e163b9b19fa4a5bcc707adae329) Thanks [@green6erry](https://github.com/green6erry)! - Confine Heading as prop to header element types
+
+- [#2903](https://github.com/primer/react/pull/2903) [`13651ba1`](https://github.com/primer/react/commit/13651ba1ec73533900dc36501af307266d3a63c7) Thanks [@colebemis](https://github.com/colebemis)! - TreeView promoted to [beta](https://primer.style/contribute/component-lifecycle#beta) status. You can now import it from the main bundle instead of `/drafts`:
+
+  ```diff
+  - import {TreeView} from '@primer/react/drafts'
+  + import {TreeView} from '@primer/react'
+  ```
+
+### Patch Changes
+
+- [#2792](https://github.com/primer/react/pull/2792) [`03b470b0`](https://github.com/primer/react/commit/03b470b0eebc97a9c74483914ab638ae9cf11436) Thanks [@broccolinisoup](https://github.com/broccolinisoup)! - - Add a block prop for full width
+
+  - Add alignContent prop to align content to center or start for full width buttons
+  - Use control sizing CSS variable values (not using CSS vars just yet)
+  - Use height over padding for more control over sizing
+  - Adjust invisible button variant to match new design using ActionList colors
+
+- [#2868](https://github.com/primer/react/pull/2868) [`03ebf41b`](https://github.com/primer/react/commit/03ebf41b0ae4681841455217661e768ef2237686) Thanks [@colebemis](https://github.com/colebemis)! - TreeView: Reliably move focus from loading item to first asynchronously loaded item
+
+- [#2845](https://github.com/primer/react/pull/2845) [`c31314c8`](https://github.com/primer/react/commit/c31314c84186999ed6d7d905c04c5aa67057d3b3) Thanks [@colebemis](https://github.com/colebemis)! - TreeView: When moving focus to TreeView, the current item will be focused by default.
+
+- [#2770](https://github.com/primer/react/pull/2770) [`3bf1b0e3`](https://github.com/primer/react/commit/3bf1b0e368df10180291de205573df6c85434343) Thanks [@broccolinisoup](https://github.com/broccolinisoup)! - UnderlineNav2: Handle the case when container is too small to render any items
+
+- [`d8f18435`](https://github.com/primer/react/commit/d8f184351f01092ac144b736fd694da07ae9254d) Thanks [@iansan5653](https://github.com/iansan5653)! - Add `aria-modal` attribute to `Dialog` (V2) element
+
+- [`3127e104`](https://github.com/primer/react/commit/3127e104c6f165e76866c1b834a9d092ca4ca19a) Thanks [@jbrown1618](https://github.com/jbrown1618)! - Upgrade primer/behaviors from 1.3.1 to 1.3.2
+
+- [`2a00aab6`](https://github.com/primer/react/commit/2a00aab6a5424ff72f7cffcc75bc8a2fc9ecbc54) Thanks [@colebemis](https://github.com/colebemis)! - TreeView: Set aria-selected=true on focused item
+
+- [`ca7398df`](https://github.com/primer/react/commit/ca7398dfdda698c2eff9c3ed3744d7b7fee387ad) Thanks [@broccolinisoup](https://github.com/broccolinisoup)! - CounterLabel: Do not parse children to string for visually hidden content
+
+- [#2900](https://github.com/primer/react/pull/2900) [`3768cd7d`](https://github.com/primer/react/commit/3768cd7d3458081b07c8a21ec6a85cd59d286c39) Thanks [@broccolinisoup](https://github.com/broccolinisoup)! - PageHeader: A11y eng review remediations
+
+- [`8bce9740`](https://github.com/primer/react/commit/8bce974010967ab203e348a063ae2f2cdf996fe3) Thanks [@broccolinisoup](https://github.com/broccolinisoup)! - UnderlineNav2: Update total height of the navigation to `48px`
+
+- [`196a7929`](https://github.com/primer/react/commit/196a792964867c92b3beeaab6bbe4681aa10e1a4) Thanks [@iansan5653](https://github.com/iansan5653)! - Fix `useDynamicTextareaHeight` not taking into account top padding of `textarea`
+
+  Also makes the hook accept a `RefObject` instead of an element instance
+
+- [#2845](https://github.com/primer/react/pull/2845) [`c31314c8`](https://github.com/primer/react/commit/c31314c84186999ed6d7d905c04c5aa67057d3b3) Thanks [@colebemis](https://github.com/colebemis)! - TabNav: Re-focusing a TabNav will focus the selected tab
+
 ## 35.19.0
 
 ### Minor Changes

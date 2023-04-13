@@ -1,12 +1,27 @@
-/** This is the place where we keep components that are not part of the public
- *  api yet (not in main bundle). We don't recommend using it in production.
+/**
+ * This is the place where we keep components that are not part of the public
+ * api yet (not in main bundle). We don't recommend using it in production.
  *
- *  But, they are published on npm and you can import them for experimentation/feedback.
- *  example: import {ActionList} from '@primer/react/drafts
+ * But, they are published on npm and you can import them for experimentation/feedback.
+ * example: import {ActionList} from '@primer/react/drafts
  */
-export * from '../Dialog/Dialog'
 
-export * from '../Hidden'
+export {DataTable, Table} from '../DataTable'
+export type {
+  DataTableProps,
+  TableProps,
+  TableHeadProps,
+  TableBodyProps,
+  TableRowProps,
+  TableHeaderProps,
+  TableCellProps,
+  TableContainerProps,
+  TableTitleProps,
+  TableSubtitleProps,
+  TableActionsProps,
+} from '../DataTable'
+
+export * from '../Dialog/Dialog'
 
 export {default as InlineAutocomplete} from './InlineAutocomplete'
 export type {
@@ -26,7 +41,8 @@ export * from './MarkdownEditor'
 export * from '../UnderlineNav2'
 
 export * from '../PageHeader'
-export {default as Hidden} from '../Hidden'
+
+export * from '../Hidden'
 
 export * from './hooks'
 

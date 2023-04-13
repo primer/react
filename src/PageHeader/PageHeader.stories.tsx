@@ -22,7 +22,7 @@ import {OcticonArgType} from '../utils/story-helpers'
 import {PageHeader} from './PageHeader'
 import Hidden from '../Hidden'
 
-const meta: Meta = {
+export default {
   title: 'Drafts/Components/PageHeader',
   parameters: {
     layout: 'fullscreen',
@@ -181,9 +181,9 @@ const meta: Meta = {
       description: 'Description region/slot',
     },
   },
-}
+} as Meta
 
-const Template: Story = args => (
+export const Playground: Story = args => (
   <Box sx={{padding: 3}}>
     <PageHeader>
       <PageHeader.ContextArea hidden={!args.hasContextArea}>
@@ -230,11 +230,11 @@ const Template: Story = args => (
           <IconButton aria-label="Edit" icon={PencilIcon} variant="invisible" />
         </PageHeader.TrailingAction>
         <PageHeader.Actions hidden={!args.hasActions}>
-          <Hidden on={['narrow']}>
+          <Hidden when={['narrow']}>
             <Button variant="primary">New Branch</Button>
           </Hidden>
 
-          <Hidden on={['regular', 'wide', 'narrow']}>
+          <Hidden when={['regular', 'wide', 'narrow']}>
             <Button variant="primary">New</Button>
           </Hidden>
           <IconButton aria-label="More" icon={KebabHorizontalIcon} />
@@ -242,7 +242,7 @@ const Template: Story = args => (
       </PageHeader.TitleArea>
       <PageHeader.Description hidden={!args.hasDescription}>
         <StateLabel status="pullOpened">Open</StateLabel>
-        <Hidden on={['narrow']}>
+        <Hidden when={['narrow']}>
           <Text sx={{fontSize: 1, color: 'fg.muted'}}>
             <Link href="#" muted sx={{fontWeight: 'bold'}}>
               broccolinisoup
@@ -251,7 +251,7 @@ const Template: Story = args => (
             <BranchName href="#">broccolinisoup/switch-to-new-underlineNav</BranchName>
           </Text>
         </Hidden>
-        <Hidden on={['regular', 'wide']}>
+        <Hidden when={['regular', 'wide']}>
           <Text sx={{fontSize: 1, color: 'fg.muted'}}>
             <BranchName href="#">main</BranchName>
             <ArrowRightIcon />
@@ -279,6 +279,12 @@ const Template: Story = args => (
   </Box>
 )
 
-export const Playground = Template.bind({})
-
-export default meta
+export const Default = () => (
+  <Box sx={{padding: 3}}>
+    <PageHeader>
+      <PageHeader.TitleArea>
+        <PageHeader.Title>Title</PageHeader.Title>
+      </PageHeader.TitleArea>
+    </PageHeader>
+  </Box>
+)

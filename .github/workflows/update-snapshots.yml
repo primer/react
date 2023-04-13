@@ -105,7 +105,9 @@ jobs:
       - run: |
           for filepath in snapshots-*.zip
           do
-            unzip -o $filepath -d .playwright/snapshots
+            unzip -o $filepath
+            unzip -o snapshots.zip
+            rm snapshots.zip
             rm $filepath
           done
       - uses: stefanzweifel/git-auto-commit-action@v4
@@ -129,7 +131,7 @@ jobs:
             // This job may be run after pull-request is skipped above.
             // If so, this job will not have an issue number and can safely
             // return early
-            if (isNaN(ISSUE_NUMBER)) {
+            if (ISSUE_NUMBER === '' || isNaN(ISSUE_NUMBER)) {
               return;
             }
 

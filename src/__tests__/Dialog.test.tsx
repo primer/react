@@ -1,7 +1,7 @@
 import React, {useState, useRef} from 'react'
 import {Dialog, Box, Text} from '..'
 import {Button} from '../deprecated'
-import {render as HTMLRender, act, fireEvent} from '@testing-library/react'
+import {render as HTMLRender, fireEvent} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
 import {behavesAsComponent, checkExports} from '../utils/testing'
 expect.extend(toHaveNoViolations)
@@ -98,9 +98,7 @@ describe('Dialog', () => {
     const {getByLabelText, getByTestId, queryByTestId} = HTMLRender(<Component />)
 
     expect(getByTestId('inner')).toBeTruthy()
-    act(() => {
-      fireEvent.click(getByLabelText('Close'))
-    })
+    fireEvent.click(getByLabelText('Close'))
 
     expect(queryByTestId('inner')).toBeNull()
   })
@@ -133,9 +131,7 @@ describe('Dialog', () => {
     const {getByLabelText, getByTestId, queryByTestId} = HTMLRender(<Component />)
 
     expect(getByTestId('inner')).toBeTruthy()
-    act(() => {
-      fireEvent.click(getByLabelText('Close'))
-    })
+    fireEvent.click(getByLabelText('Close'))
 
     expect(queryByTestId('inner')).toBeNull()
     const triggerButton = getByTestId('trigger-button')

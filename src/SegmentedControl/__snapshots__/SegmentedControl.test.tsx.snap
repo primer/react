@@ -27,6 +27,10 @@ exports[`SegmentedControl renders consistently 1`] = `
   width: 1px;
 }
 
+.c1:focus-within:has(:focus-visible) {
+  --separator-color: transparent;
+}
+
 .c1:first-child {
   margin-left: -1px;
 }
@@ -61,6 +65,10 @@ exports[`SegmentedControl renders consistently 1`] = `
   width: 1px;
 }
 
+.c3:focus-within:has(:focus-visible) {
+  --separator-color: transparent;
+}
+
 .c3:first-child {
   margin-left: -1px;
 }
@@ -92,8 +100,8 @@ exports[`SegmentedControl renders consistently 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  background-color: #f6f8fa;
-  border-color: #6e7781;
+  background-color: #ffffff;
+  border-color: #8c959f;
   border-style: solid;
   border-width: 1px;
   border-radius: var(--segmented-control-outer-radius);
@@ -111,7 +119,7 @@ exports[`SegmentedControl renders consistently 1`] = `
 }
 
 .c2 svg {
-  fill: #57606a;
+  fill: #656d76;
 }
 
 .c2:focus:focus-visible:not(:last-child):after {
@@ -174,7 +182,7 @@ exports[`SegmentedControl renders consistently 1`] = `
 }
 
 .c4 svg {
-  fill: #57606a;
+  fill: #656d76;
 }
 
 .c4:hover .segmentedControl-content {
@@ -245,7 +253,7 @@ exports[`SegmentedControl renders consistently 1`] = `
 }
 
 .c5 svg {
-  fill: #57606a;
+  fill: #656d76;
 }
 
 .c5:hover .segmentedControl-content {
@@ -276,10 +284,7 @@ exports[`SegmentedControl renders consistently 1`] = `
 
 .c0 {
   background-color: #eaeef2;
-  border-color: #d0d7de;
   border-radius: 6px;
-  border-style: solid;
-  border-width: 1px;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;

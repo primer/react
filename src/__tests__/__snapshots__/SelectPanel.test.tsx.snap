@@ -4,7 +4,7 @@ exports[`SelectPanel renders consistently 1`] = `
 .c0 {
   font-family: -apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
   line-height: 1.5;
-  color: #24292f;
+  color: #1F2328;
 }
 
 .c1 {
@@ -31,8 +31,8 @@ exports[`SelectPanel renders consistently 1`] = `
   font-size: 14px;
   color: #24292f;
   background-color: #f6f8fa;
-  border: 1px solid rgba(27,31,36,0.15);
-  box-shadow: 0 1px 0 rgba(27,31,36,0.04),inset 0 1px 0 rgba(255,255,255,0.25);
+  border: 1px solid rgba(31,35,40,0.15);
+  box-shadow: 0 1px 0 rgba(31,35,40,0.04),inset 0 1px 0 rgba(255,255,255,0.25);
 }
 
 .c1:hover {
@@ -54,7 +54,7 @@ exports[`SelectPanel renders consistently 1`] = `
 
 .c1:hover {
   background-color: #f3f4f6;
-  border-color: rgba(27,31,36,0.15);
+  border-color: rgba(31,35,40,0.15);
 }
 
 .c1:focus {
@@ -63,13 +63,12 @@ exports[`SelectPanel renders consistently 1`] = `
 
 .c1:active {
   background-color: hsla(220,14%,94%,1);
-  box-shadow: inset 0 0.15em 0.3em rgba(27,31,36,0.15);
 }
 
 .c1:disabled {
   color: #8c959f;
   background-color: #f6f8fa;
-  border-color: rgba(27,31,36,0.15);
+  border-color: rgba(31,35,40,0.15);
 }
 
 .c2 {
@@ -111,7 +110,7 @@ exports[`SelectPanel renders consistently 1`] = `
       width={16}
     >
       <path
-        d="M4.427 7.427l3.396 3.396a.25.25 0 00.354 0l3.396-3.396A.25.25 0 0011.396 7H4.604a.25.25 0 00-.177.427z"
+        d="m4.427 7.427 3.396 3.396a.25.25 0 0 0 .354 0l3.396-3.396A.25.25 0 0 0 11.396 7H4.604a.25.25 0 0 0-.177.427Z"
       />
     </svg>
   </button>

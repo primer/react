@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Hidden renders \`on\` prop as expected 1`] = `
+exports[`Hidden renders \`when\` prop as expected 1`] = `
 @media screen and (max-width:calc(768px - 0.02px)) {
   .c0 {
     display: none;
@@ -12,7 +12,7 @@ exports[`Hidden renders \`on\` prop as expected 1`] = `
     class="c0"
   >
     <div>
-      Hidden on narrow
+      Hidden when narrow
     </div>
   </div>
 </div>
@@ -29,7 +29,7 @@ exports[`Hidden renders consistently 1`] = `
   className="c0"
 >
   <div>
-    Hidden on narrow
+    Hidden when narrow
   </div>
 </div>
 `;

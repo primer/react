@@ -7,15 +7,16 @@ import {
 import classnames from 'classnames'
 import React from 'react'
 import styled, {keyframes} from 'styled-components'
-import {get} from '../constants'
 import {ConfirmationDialog} from '../Dialog/ConfirmationDialog'
+import Spinner from '../Spinner'
+import Text from '../Text'
+import VisuallyHidden from '../_VisuallyHidden'
+import {get} from '../constants'
 import {useControllableState} from '../hooks/useControllableState'
 import {useId} from '../hooks/useId'
-import Spinner from '../Spinner'
+import useSafeTimeout from '../hooks/useSafeTimeout'
+import {useSlots} from '../hooks/useSlots'
 import sx, {SxProp} from '../sx'
-import Text from '../Text'
-import createSlots from '../utils/create-slots'
-import VisuallyHidden from '../_VisuallyHidden'
 import {getAccessibleName} from './shared'
 import {getFirstChildElement, useRovingTabIndex} from './useRovingTabIndex'
 import {useTypeahead} from './useTypeahead'
@@ -61,6 +62,7 @@ export type TreeViewProps = {
   'aria-label'?: React.AriaAttributes['aria-label']
   'aria-labelledby'?: React.AriaAttributes['aria-labelledby']
   children: React.ReactNode
+  flat?: boolean
 }
 
 const UlBox = styled.ul<SxProp>`
@@ -131,6 +133,10 @@ const UlBox = styled.ul<SxProp>`
         outline: none;
       }
     }
+  }
+
+  &[data-omit-spacer='true'] .PRIVATE_TreeView-item-container {
+    grid-template-columns: 0 0 1fr;
   }
 
   .PRIVATE_TreeView-item[aria-current='true'] > .PRIVATE_TreeView-item-container {
@@ -243,7 +249,12 @@ const UlBox = styled.ul<SxProp>`
   ${sx}
 `
 
-const Root: React.FC<TreeViewProps> = ({'aria-label': ariaLabel, 'aria-labelledby': ariaLabelledby, children}) => {
+const Root: React.FC<TreeViewProps> = ({
+  'aria-label': ariaLabel,
+  'aria-labelledby': ariaLabelledby,
+  children,
+  flat,
+}) => {
   const containerRef = React.useRef<HTMLUListElement>(null)
   const [ariaLiveMessage, setAriaLiveMessage] = React.useState('')
   const announceUpdate = React.useCallback((message: string) => {
@@ -277,7 +288,13 @@ const Root: React.FC<TreeViewProps> = ({'aria-label': ariaLabel, 'aria-labelledb
         <VisuallyHidden role="status" aria-live="polite" aria-atomic="true">
           {ariaLiveMessage}
         </VisuallyHidden>
-        <UlBox ref={containerRef} role="tree" aria-label={ariaLabel} aria-labelledby={ariaLabelledby}>
+        <UlBox
+          ref={containerRef}
+          role="tree"
+          aria-label={ariaLabel}
+          aria-labelledby={ariaLabelledby}
+          data-omit-spacer={flat}
+        >
           {children}
         </UlBox>
       </>
@@ -301,8 +318,6 @@ export type TreeViewItemProps = {
   onSelect?: (event: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>) => void
 }
 
-const {Slots, Slot} = createSlots(['LeadingVisual', 'TrailingVisual'])
-
 const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
   (
     {
@@ -317,6 +332,7 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
     },
     ref,
   ) => {
+    const [slots, rest] = useSlots(children, {leadingVisual: LeadingVisual, trailingVisual: TrailingVisual})
     const {expandedStateCache} = React.useContext(RootContext)
     const labelId = useId()
     const leadingVisualId = useId()
@@ -332,7 +348,7 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
       onChange: onExpandedChange,
     })
     const {level} = React.useContext(ItemContext)
-    const {hasSubTree, subTree, childrenWithoutSubTree} = useSubTree(children)
+    const {hasSubTree, subTree, childrenWithoutSubTree} = useSubTree(rest)
     const [isSubTreeEmpty, setIsSubTreeEmpty] = React.useState(!hasSubTree)
     const [isFocused, setIsFocused] = React.useState(false)
 
@@ -461,15 +477,9 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
               </div>
             ) : null}
             <div id={labelId} className="PRIVATE_TreeView-item-content">
-              <Slots>
-                {slots => (
-                  <>
-                    {slots.LeadingVisual}
-                    <span className="PRIVATE_TreeView-item-content-text">{childrenWithoutSubTree}</span>
-                    {slots.TrailingVisual}
-                  </>
-                )}
-              </Slots>
+              {slots.leadingVisual}
+              <span className="PRIVATE_TreeView-item-content-text">{childrenWithoutSubTree}</span>
+              {slots.trailingVisual}
             </div>
           </div>
           {subTree}
@@ -513,6 +523,7 @@ const SubTree: React.FC<TreeViewSubTreeProps> = ({count, state, children}) => {
   const ref = React.useRef<HTMLElement>(null)
   const [loadingFocused, setLoadingFocused] = React.useState(false)
   const previousState = usePreviousValue(state)
+  const {safeSetTimeout} = useSafeTimeout()
 
   React.useEffect(() => {
     // If `state` is undefined, we're working in a synchronous context and need
@@ -549,15 +560,19 @@ const SubTree: React.FC<TreeViewSubTreeProps> = ({count, state, children}) => {
         const firstChild = getFirstChildElement(parentElement)
 
         if (firstChild) {
-          firstChild.focus()
+          safeSetTimeout(() => {
+            firstChild.focus()
+          })
         } else {
-          parentElement.focus()
+          safeSetTimeout(() => {
+            parentElement.focus()
+          })
         }
 
         setLoadingFocused(false)
       }
     }
-  }, [loadingFocused, previousState, state, itemId, announceUpdate, ref])
+  }, [loadingFocused, previousState, state, itemId, announceUpdate, ref, safeSetTimeout])
 
   // Track focus on the loading indicator
   React.useEffect(() => {
@@ -751,14 +766,14 @@ const LeadingVisual: React.FC<TreeViewVisualProps> = props => {
   const {isExpanded, leadingVisualId} = React.useContext(ItemContext)
   const children = typeof props.children === 'function' ? props.children({isExpanded}) : props.children
   return (
-    <Slot name="LeadingVisual">
+    <>
       <div className="PRIVATE_VisuallyHidden" aria-hidden={true} id={leadingVisualId}>
         {props.label}
       </div>
       <div className="PRIVATE_TreeView-item-visual" aria-hidden={true}>
         {children}
       </div>
-    </Slot>
+    </>
   )
 }
 
@@ -768,14 +783,14 @@ const TrailingVisual: React.FC<TreeViewVisualProps> = props => {
   const {isExpanded, trailingVisualId} = React.useContext(ItemContext)
   const children = typeof props.children === 'function' ? props.children({isExpanded}) : props.children
   return (
-    <Slot name="TrailingVisual">
+    <>
       <div className="PRIVATE_VisuallyHidden" aria-hidden={true} id={trailingVisualId}>
         {props.label}
       </div>
       <div className="PRIVATE_TreeView-item-visual" aria-hidden={true}>
         {children}
       </div>
-    </Slot>
+    </>
   )
 }
 

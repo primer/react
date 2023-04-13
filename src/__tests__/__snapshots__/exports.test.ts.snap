@@ -89,6 +89,8 @@ exports[`@primer/react should not update exports without a semver change 1`] = `
   "useOpenAndCloseFocus",
   "useOverlay",
   "useRefObjectAsForwardedRef",
+  "useResizeObserver",
+  "useResponsiveValue",
   "useSSRSafeId",
   "useSafeTimeout",
   "useTheme",
@@ -130,6 +132,7 @@ exports[`@primer/react/decprecated should not update exports without a semver ch
 exports[`@primer/react/drafts should not update exports without a semver change 1`] = `
 [
   "Content",
+  "DataTable",
   "Dialog",
   "Footer",
   "Header",
@@ -143,6 +146,7 @@ exports[`@primer/react/drafts should not update exports without a semver change 
   "Root",
   "SegmentedControl",
   "SplitPageLayout",
+  "Table",
   "TreeView",
   "UnderlineNav",
   "callbackCancelledResult",

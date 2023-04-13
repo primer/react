@@ -1,13 +1,17 @@
-import {Meta, ComponentStory} from '@storybook/react'
+import {Meta} from '@storybook/react'
 import React from 'react'
-import {DataTable, TableContainer, TableTitle, TableSubtitle} from '../DataTable'
+import {DataTable, DataTableProps, Table} from '../DataTable'
 import Label from '../Label'
 import LabelGroup from '../LabelGroup'
 import RelativeTime from '../RelativeTime'
+import {CellAlignment} from './column'
+import {UniqueRow} from './row'
+import {getColumnWidthArgTypes, ColWidthArgTypes} from './storyHelpers'
 
 export default {
-  title: 'Drafts/Components/DataTable',
+  title: 'Components/DataTable',
   component: DataTable,
+  argTypes: getColumnWidthArgTypes(5),
 } as Meta<typeof DataTable>
 
 const now = Date.now()
@@ -116,15 +120,88 @@ function uppercase(input: string): string {
   return input[0].toUpperCase() + input.slice(1)
 }
 
-export const Playground: ComponentStory<typeof DataTable> = args => {
+export const Default = () => (
+  <Table.Container>
+    <Table.Title as="h2" id="repositories">
+      Repositories
+    </Table.Title>
+    <Table.Subtitle as="p" id="repositories-subtitle">
+      A subtitle could appear here to give extra context to the data.
+    </Table.Subtitle>
+    <DataTable
+      aria-labelledby="repositories"
+      aria-describedby="repositories-subtitle"
+      data={data}
+      columns={[
+        {
+          header: 'Repository',
+          field: 'name',
+          rowHeader: true,
+        },
+        {
+          header: 'Type',
+          field: 'type',
+          renderCell: row => {
+            return <Label>{uppercase(row.type)}</Label>
+          },
+        },
+        {
+          header: 'Updated',
+          field: 'updatedAt',
+          renderCell: row => {
+            return <RelativeTime date={new Date(row.updatedAt)} />
+          },
+        },
+        {
+          header: 'Dependabot',
+          field: 'securityFeatures.dependabot',
+          renderCell: row => {
+            return row.securityFeatures.dependabot.length > 0 ? (
+              <LabelGroup>
+                {row.securityFeatures.dependabot.map(feature => {
+                  return <Label key={feature}>{uppercase(feature)}</Label>
+                })}
+              </LabelGroup>
+            ) : null
+          },
+        },
+        {
+          header: 'Code scanning',
+          field: 'securityFeatures.codeScanning',
+          renderCell: row => {
+            return row.securityFeatures.codeScanning.length > 0 ? (
+              <LabelGroup>
+                {row.securityFeatures.codeScanning.map(feature => {
+                  return <Label key={feature}>{uppercase(feature)}</Label>
+                })}
+              </LabelGroup>
+            ) : null
+          },
+        },
+      ]}
+    />
+  </Table.Container>
+)
+
+export const Playground = (args: DataTableProps<UniqueRow> & ColWidthArgTypes) => {
+  const getColWidth = (colIndex: number) => {
+    return args[`colWidth${colIndex}`] !== 'explicit width'
+      ? args[`colWidth${colIndex}`]
+      : args[`explicitColWidth${colIndex}`]
+      ? args[`explicitColWidth${colIndex}`]
+      : 'grow'
+  }
+
+  const align = args.align as CellAlignment
+
   return (
-    <TableContainer>
-      <TableTitle as="h2" id="repositories">
+    <Table.Container>
+      <Table.Title as="h2" id="repositories">
         Repositories
-      </TableTitle>
-      <TableSubtitle as="p" id="repositories-subtitle">
+      </Table.Title>
+      <Table.Subtitle as="p" id="repositories-subtitle">
         A subtitle could appear here to give extra context to the data.
-      </TableSubtitle>
+      </Table.Subtitle>
       <DataTable
         {...args}
         aria-labelledby="repositories"
@@ -135,6 +212,10 @@ export const Playground: ComponentStory<typeof DataTable> = args => {
             header: 'Repository',
             field: 'name',
             rowHeader: true,
+            width: getColWidth(0),
+            minWidth: args.minColWidth0,
+            maxWidth: args.maxColWidth0,
+            align,
           },
           {
             header: 'Type',
@@ -142,6 +223,10 @@ export const Playground: ComponentStory<typeof DataTable> = args => {
             renderCell: row => {
               return <Label>{uppercase(row.type)}</Label>
             },
+            width: getColWidth(1),
+            minWidth: args.minColWidth1,
+            maxWidth: args.maxColWidth1,
+            align,
           },
           {
             header: 'Updated',
@@ -149,9 +234,14 @@ export const Playground: ComponentStory<typeof DataTable> = args => {
             renderCell: row => {
               return <RelativeTime date={new Date(row.updatedAt)} />
             },
+            width: getColWidth(2),
+            minWidth: args.minColWidth2,
+            maxWidth: args.maxColWidth2,
+            align,
           },
           {
             header: 'Dependabot',
+            field: 'securityFeatures.dependabot',
             renderCell: row => {
               return row.securityFeatures.dependabot.length > 0 ? (
                 <LabelGroup>
@@ -161,9 +251,14 @@ export const Playground: ComponentStory<typeof DataTable> = args => {
                 </LabelGroup>
               ) : null
             },
+            width: getColWidth(3),
+            minWidth: args.minColWidth3,
+            maxWidth: args.maxColWidth3,
+            align,
           },
           {
             header: 'Code scanning',
+            field: 'securityFeatures.codeScanning',
             renderCell: row => {
               return row.securityFeatures.codeScanning.length > 0 ? (
                 <LabelGroup>
@@ -173,10 +268,14 @@ export const Playground: ComponentStory<typeof DataTable> = args => {
                 </LabelGroup>
               ) : null
             },
+            width: getColWidth(4),
+            minWidth: args.minColWidth4,
+            maxWidth: args.maxColWidth4,
+            align,
           },
         ]}
       />
-    </TableContainer>
+    </Table.Container>
   )
 }
 
@@ -185,6 +284,15 @@ Playground.args = {
 }
 
 Playground.argTypes = {
+  align: {
+    control: {
+      type: 'radio',
+    },
+    type: {
+      name: 'enum',
+      value: ['start', 'end'],
+    },
+  },
   'aria-describedby': {
     control: false,
     table: {

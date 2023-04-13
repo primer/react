@@ -8,17 +8,46 @@ const ROOT_DIRECTORY = path.resolve(__dirname, '..', '..')
 // TODO: Remove this allowlist when all components use the new story format
 const allowlist = [
   'ActionList',
+  'ActionMenu',
   'Avatar',
+  'AvatarStack',
+  'AvatarPair',
   'Breadcrumbs',
   'BranchName',
+  'Blankslate',
+  'Box',
   'Button',
+  'Checkbox',
+  'CheckboxGroup',
+  'CounterLabel',
+  'DataTable',
+  'Details',
   'Flash',
+  'Header',
+  'Heading',
   'IconButton',
   'FilteredActionList',
   'Link',
+  'Pagehead',
+  'Pagination',
+  'ProgressBar',
+  'Radio',
+  'RadioGroup',
+  'RelativeTime',
+  'Select',
+  'SegmentedControl',
+  'Spinner',
+  'StateLabel',
+  'SubNav',
   'TabNav',
+  'Textarea',
+  'TextInput',
+  'TextInputWithTokens',
   'TreeView',
   'Timeline',
+  'ToggleSwitch',
+  'Token',
+  'UnderlineNav2',
 ]
 const stories = glob
   .sync('src/**/*.stories.tsx', {
@@ -98,7 +127,6 @@ const jsonFiles = glob
     return allowlist.includes(name)
   })
 
-// eslint-disable-next-line jest/no-identical-title
 describe.each(jsonFiles)('%s', filepath => {
   test('has a corresponding .stories.tsx file', () => {
     const storyFilepath = path.join(ROOT_DIRECTORY, filepath.replace('.docs.json', '.stories.tsx'))
