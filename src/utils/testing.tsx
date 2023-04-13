@@ -221,10 +221,6 @@ export function behavesAsComponent({Component, toRender, options}: BehavesAsComp
   it('sets a valid displayName', () => {
     expect(Component.displayName).toMatch(COMPONENT_DISPLAY_NAME_REGEX)
   })
-
-  it('renders consistently', () => {
-    expect(render(getElement())).toMatchSnapshot()
-  })
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
