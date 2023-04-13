@@ -27,31 +27,6 @@ exports[`Breadcrumbs.Item adds activeClassName={SELECTED_CLASS} when it gets a "
 />
 `;
 
-exports[`Breadcrumbs.Item renders consistently 1`] = `
-.c0 {
-  color: #0969da;
-  display: inline-block;
-  font-size: 14px;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-}
-
-.c0:hover {
-  -webkit-text-decoration: underline;
-  text-decoration: underline;
-}
-
-.c0.selected {
-  color: #1F2328;
-  pointer-events: none;
-}
-
-<a
-  aria-current={null}
-  className="c0"
-/>
-`;
-
 exports[`Breadcrumbs.Item respects the "selected" prop 1`] = `
 .c0 {
   color: #0969da;
