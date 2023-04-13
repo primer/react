@@ -13,12 +13,12 @@ module.exports = {
       name: 'storybook-css-modules',
       options: {cssModulesLoaderOptions: {modules: {localIdentName: 'prc_[local]-[hash:base64:5]'}}},
     },
-    {
-      name: 'storybook-addon-turbo-build',
-      options: {
-        optimizationLevel: 2,
-      },
-    },
+    // {
+    //   name: 'storybook-addon-turbo-build',
+    //   options: {
+    //     optimizationLevel: 2,
+    //   },
+    // },
   ],
   core: {
     builder: {

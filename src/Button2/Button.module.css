@@ -3,7 +3,7 @@
   border-color: var(--color-btn-border);
   border-radius: var(--primer-borderRadius-medium);
 
-  font-weight: var(--base-text-weight-semibold);
+  font-weight: var(--base-text-weight-medium);
   font-family: inherit;
   cursor: pointer;
   appearance: none;
@@ -11,6 +11,7 @@
   text-decoration: none;
   text-align: center;
   display: flex;
+  gap: var(--base-size-8);
   align-items: center;
   justify-content: center;
   min-width: max-content;
@@ -50,7 +51,7 @@
   width: 100%;
 }
 
-/* variants */
+/* variants: setup */
 .button {
   color: var(--prc-btn-text);
   background-color: var(--prc-btn-bg);
@@ -72,11 +73,28 @@
   box-shadow: var(--prc-btn-active-shadow, var(--prc-btn-active-shadow, var(--prc-btn-shadow)));
 }
 .button:disabled {
+  cursor: not-allowed;
   color: var(--prc-btn-disabled-text, var(--prc-btn-text));
   background-color: var(--prc-btn-disabled-bg, var(--prc-btn-bg));
   border-color: var(--prc-btn-disabled-border, var(--prc-btn-border));
 }
 
+/* todo: does the counter change sizes? */
+.counter {
+  color: var(--prc-btn-counter-text, var(--color-btn-text));
+  background-color: var(--prc-btn-counter-bg, var(--color-neutral-muted));
+}
+.button:hover:not([disabled]) .counter,
+.button:focus .counter,
+.button:focus-visible .counter {
+  color: var(--prc-btn-counter-hover-text, var(--prc-btn-counter-text, var(--color-btn-text)));
+  background-color: var(--prc-btn-counter-hover-bg, var(--prc-btn-counter-bg, var(--color-neutral-muted)));
+}
+.button:disabled .counter {
+  color: inherit;
+}
+
+/* variants: definitions */
 .button[data-variant='default'] {
   --prc-btn-text: var(--color-btn-text);
   --prc-btn-bg: var(--color-btn-bg);
@@ -107,6 +125,9 @@
   --prc-btn-disabled-text: var(--color-btn-primary-disabled-text);
   --prc-btn-disabled-bg: var(--color-btn-primary-disabled-bg);
   --prc-btn-disabled-border: var(--color-btn-primary-disabled-border);
+
+  --prc-btn-counter-text: var(--color-btn-primary-text);
+  --prc-btn-counter-bg: var(--color-btn-primary-counter-bg);
 }
 
 .button[data-variant='danger'] {
@@ -132,6 +153,11 @@
 
   --prc-btn-disabled-text: var(--color-btn-danger-disabled-text);
   --prc-btn-disabled-bg: var(--color-btn-danger-disabled-bg);
+
+  --prc-btn-counter-text: var(--color-btn-danger-text);
+  --prc-btn-counter-bg: var(--color-btn-danger-counter-bg);
+  --prc-btn-counter-hover-text: var(--color-btn-danger-hover-text);
+  --prc-btn-counter-hover-bg: var(--color-btn-danger-hover-counter-bg);
 }
 
 .button[data-variant='invisible'] {
@@ -164,4 +190,9 @@
 
   --prc-btn-disabled-text: var(--color-btn-outline-disabled-text);
   --prc-btn-disabled-bg: var(--color-btn-outline-disabled-bg);
+
+  --prc-btn-counter-text: var(--color-btn-outline-text);
+  --prc-btn-counter-bg: var(--color-btn-outline-counter-bg);
+  --prc-btn-counter-hover-text: var(--color-btn-outline-hover-text);
+  --prc-btn-counter-hover-bg: var(--color-btn-outline-hover-counter-bg);
 }

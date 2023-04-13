@@ -5,6 +5,7 @@ import VisuallyHidden from '../_VisuallyHidden'
 
 export type CounterLabelProps = {
   scheme?: 'primary' | 'secondary'
+  className?: string
 } & SxProp
 
 const CounterLabel: React.FC<React.PropsWithChildren<CounterLabelProps>> = ({

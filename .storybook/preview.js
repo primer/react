@@ -4,6 +4,7 @@ import {PrimerBreakpoints} from '../src/utils/layout'
 
 import '@primer/css/dist/primitives.css'
 import '@primer/css/dist/color-modes.css'
+import './preview.css'
 
 export const globalTypes = toolbarTypes
 export const decorators = [withThemeProvider, withSurroundingElements]
