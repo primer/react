@@ -17848,6 +17848,11 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
   border-color: hsla(var(--label-h),calc(var(--label-s) * 1%),calc((var(--label-l) - 25) * 1%),var(--border-alpha));
 }
 
+.c4:hover {
+  background-image: linear-gradient(rgba(0,0,0,0.15),rgba(0,0,0,0.15)),linear-gradient(rgb(var(--label-r),var(--label-g),var(--label-b)),rgb(var(--label-r),var(--label-g),var(--label-b)));
+  box-shadow: 0 3px 6px rgba(140,149,159,0.15);
+}
+
 .c6 {
   background-color: transparent;
   font-family: inherit;
