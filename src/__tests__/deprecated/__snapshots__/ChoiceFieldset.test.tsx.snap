@@ -1993,6 +1993,9 @@ exports[`ChoiceFieldset renders with a success validation message 1`] = `
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
+  -webkit-transform: translateY(2px);
+  -ms-transform: translateY(2px);
+  transform: translateY(2px);
 }
 
 .c2 {
@@ -2019,10 +2022,10 @@ exports[`ChoiceFieldset renders with a success validation message 1`] = `
 .c12 {
   font-size: 12px;
   font-weight: bold;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+  -webkit-align-items: baseline;
+  -webkit-box-align: baseline;
+  -ms-flex-align: baseline;
+  align-items: baseline;
   color: success.fg;
   display: -webkit-box;
   display: -webkit-flex;
@@ -2208,6 +2211,7 @@ exports[`ChoiceFieldset renders with a success validation message 1`] = `
             <span
               aria-hidden="true"
               class="c13"
+              display="flex"
             >
               <svg
                 aria-hidden="true"
@@ -2287,6 +2291,9 @@ exports[`ChoiceFieldset renders with an error validation message 1`] = `
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
+  -webkit-transform: translateY(2px);
+  -ms-transform: translateY(2px);
+  transform: translateY(2px);
 }
 
 .c2 {
@@ -2313,10 +2320,10 @@ exports[`ChoiceFieldset renders with an error validation message 1`] = `
 .c12 {
   font-size: 12px;
   font-weight: bold;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+  -webkit-align-items: baseline;
+  -webkit-box-align: baseline;
+  -ms-flex-align: baseline;
+  align-items: baseline;
   color: danger.fg;
   display: -webkit-box;
   display: -webkit-flex;
@@ -2502,6 +2509,7 @@ exports[`ChoiceFieldset renders with an error validation message 1`] = `
             <span
               aria-hidden="true"
               class="c13"
+              display="flex"
             >
               <svg
                 aria-hidden="true"
