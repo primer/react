@@ -7,9 +7,28 @@ import {invariant} from '../utils/invariant'
 import styled from 'styled-components'
 import {get} from '../constants'
 import {useOnEscapePress} from '../hooks/useOnEscapePress'
-import {ComponentProps} from '../utils/types'
 
-const StyledTooltip = styled.div`
+export type TooltipProps = {
+  direction?: 'n' | 'ne' | 'e' | 'se' | 's' | 'sw' | 'w' | 'nw'
+  text?: string
+  noDelay?: boolean
+  align?: 'left' | 'right'
+  wrap?: boolean
+  type?: 'label' | 'description'
+  'aria-label'?: React.AriaAttributes['aria-label']
+} & SxProp
+
+export type TriggerPropsType = {
+  'aria-describedby'?: string
+  'aria-labelledby'?: string
+  'aria-label'?: string
+  onBlur?: React.FocusEventHandler
+  onFocus?: React.FocusEventHandler
+  onMouseEnter?: React.MouseEventHandler
+  ref?: React.RefObject<HTMLElement>
+}
+
+const TooltipEL = styled.div<TooltipProps>`
   // tooltip element itself
   position: absolute;
   z-index: 1000000;
@@ -275,30 +294,7 @@ const StyledTooltip = styled.div`
   ${sx};
 `
 
-export type TooltipProps = React.PropsWithChildren<
-  {
-    direction?: 'n' | 'ne' | 'e' | 'se' | 's' | 'sw' | 'w' | 'nw'
-    text?: string
-    noDelay?: boolean
-    align?: 'left' | 'right'
-    wrap?: boolean
-    type?: 'label' | 'description'
-    'aria-label'?: React.AriaAttributes['aria-label']
-  } & SxProp &
-    ComponentProps<typeof StyledTooltip>
->
-
-export type TriggerPropsType = {
-  'aria-describedby'?: string
-  'aria-labelledby'?: string
-  'aria-label'?: string
-  onBlur?: React.FocusEventHandler
-  onFocus?: React.FocusEventHandler
-  onMouseEnter?: React.MouseEventHandler
-  ref?: React.RefObject<HTMLElement>
-}
-
-export const Tooltip = ({
+export const Tooltip: React.FC<React.PropsWithChildren<TooltipProps>> = ({
   direction = 'n',
   // used for description type
   text,
@@ -310,7 +306,7 @@ export const Tooltip = ({
   type = 'label',
   children,
   ...rest
-}: TooltipProps) => {
+}) => {
   const id = useId()
   const triggerRef = useRef<HTMLElement>(null)
   const child = Children.only(children)
@@ -380,7 +376,7 @@ export const Tooltip = ({
             child.props.onMouseEnter?.(event)
           },
         })}
-      <StyledTooltip
+      <TooltipEL
         data-direction={direction}
         data-state={open ? 'open' : undefined}
         data-align={align}
@@ -394,7 +390,7 @@ export const Tooltip = ({
         id={id}
       >
         {text ?? label}
-      </StyledTooltip>
+      </TooltipEL>
     </Box>
   )
 }
