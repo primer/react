@@ -14,7 +14,7 @@ import RelativeTime from '../RelativeTime'
 import {warning} from '../utils/warning'
 import VisuallyHidden from '../_VisuallyHidden'
 import {createColumnHelper} from './column'
-import {usePagination} from './useTable'
+import {Pagination} from './Pagination'
 import {fetchRepoPage, fetchRepoPageInfo, fetchRepos} from './store'
 
 export default {
@@ -1418,9 +1418,7 @@ export const WithPagination = () => {
   function Example() {
     const pageSize = 15
     const [page, setPage] = useState(0)
-    const {totalCount, totalPages} = use(fetchRepoPageInfo(pageSize))
-    const previousButtonRef = useRef<HTMLButtonElement | null>(null)
-    const nextButtonRef = useRef<HTMLButtonElement | null>(null)
+    const {totalCount} = use(fetchRepoPageInfo(pageSize))
 
     return (
       <>
@@ -1436,41 +1434,14 @@ export const WithPagination = () => {
             padding: '1rem',
           }}
         >
-          <div>
-            {page * pageSize + 1} - {page * pageSize + data.length} of {totalCount}
-          </div>
-          <div>Items per page {pageSize}</div>
-          <div>Page {page + 1}</div>
-          <div>
-            <button
-              ref={previousButtonRef}
-              type="button"
-              disabled={page <= 0}
-              onClick={() => {
-                const newPage = Math.max(page - 1, 0)
-                setPage(newPage)
-                if (newPage <= 0) {
-                  nextButtonRef.current?.focus()
-                }
-              }}
-            >
-              Previous
-            </button>
-            <button
-              ref={nextButtonRef}
-              type="button"
-              disabled={page + 1 > totalPages}
-              onClick={() => {
-                const newPage = Math.min(page + 1, totalPages)
-                setPage(newPage)
-                if (newPage + 1 > totalPages) {
-                  previousButtonRef.current?.focus()
-                }
-              }}
-            >
-              Next
-            </button>
-          </div>
+          <Pagination
+            label="Table pagination"
+            pageSize={pageSize}
+            totalItems={totalCount}
+            onChange={({pageIndex}) => {
+              setPage(pageIndex)
+            }}
+          />
         </div>
       </>
     )
