@@ -7,28 +7,9 @@ import {invariant} from '../utils/invariant'
 import styled from 'styled-components'
 import {get} from '../constants'
 import {useOnEscapePress} from '../hooks/useOnEscapePress'
+import {ComponentProps} from '../utils/types'
 
-export type TooltipProps = {
-  direction?: 'n' | 'ne' | 'e' | 'se' | 's' | 'sw' | 'w' | 'nw'
-  text?: string
-  noDelay?: boolean
-  align?: 'left' | 'right'
-  wrap?: boolean
-  type?: 'label' | 'description'
-  'aria-label'?: React.AriaAttributes['aria-label']
-} & SxProp
-
-export type TriggerPropsType = {
-  'aria-describedby'?: string
-  'aria-labelledby'?: string
-  'aria-label'?: string
-  onBlur?: React.FocusEventHandler
-  onFocus?: React.FocusEventHandler
-  onMouseEnter?: React.MouseEventHandler
-  ref?: React.RefObject<HTMLElement>
-}
-
-const TooltipEL = styled.div<TooltipProps>`
+const StyledTooltip = styled.div`
   // tooltip element itself
   position: absolute;
   z-index: 1000000;
@@ -294,7 +275,30 @@ const TooltipEL = styled.div<TooltipProps>`
   ${sx};
 `
 
-export const Tooltip: React.FC<React.PropsWithChildren<TooltipProps>> = ({
+export type TooltipProps = React.PropsWithChildren<
+  {
+    direction?: 'n' | 'ne' | 'e' | 'se' | 's' | 'sw' | 'w' | 'nw'
+    text?: string
+    noDelay?: boolean
+    align?: 'left' | 'right'
+    wrap?: boolean
+    type?: 'label' | 'description'
+    'aria-label'?: React.AriaAttributes['aria-label']
+  } & SxProp &
+    ComponentProps<typeof StyledTooltip>
+>
+
+export type TriggerPropsType = {
+  'aria-describedby'?: string
+  'aria-labelledby'?: string
+  'aria-label'?: string
+  onBlur?: React.FocusEventHandler
+  onFocus?: React.FocusEventHandler
+  onMouseEnter?: React.MouseEventHandler
+  ref?: React.RefObject<HTMLElement>
+}
+
+export const Tooltip = ({
   direction = 'n',
   // used for description type
   text,
@@ -306,7 +310,7 @@ export const Tooltip: React.FC<React.PropsWithChildren<TooltipProps>> = ({
   type = 'label',
   children,
   ...rest
-}) => {
+}: TooltipProps) => {
   const id = useId()
   const triggerRef = useRef<HTMLElement>(null)
   const child = Children.only(children)
@@ -376,7 +380,7 @@ export const Tooltip: React.FC<React.PropsWithChildren<TooltipProps>> = ({
             child.props.onMouseEnter?.(event)
           },
         })}
-      <TooltipEL
+      <StyledTooltip
         data-direction={direction}
         data-state={open ? 'open' : undefined}
         data-align={align}
@@ -390,7 +394,7 @@ export const Tooltip: React.FC<React.PropsWithChildren<TooltipProps>> = ({
         id={id}
       >
         {text ?? label}
-      </TooltipEL>
+      </StyledTooltip>
     </Box>
   )
 }
