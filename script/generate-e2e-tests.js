@@ -246,6 +246,25 @@ const components = new Map([
     },
   ],
   [
+    'ButtonGroup',
+    {
+      stories: [
+        {
+          id: 'components-buttongroup--default',
+          name: 'Default',
+        },
+        {
+          id: 'components-buttongroup--playground',
+          name: 'Playground',
+        },
+        {
+          id: 'components-buttongroup-features--icon-buttons',
+          name: 'Icon Buttons',
+        },
+      ],
+    },
+  ],
+  [
     'Breadcrumbs',
     {
       stories: [
@@ -306,6 +325,21 @@ const components = new Map([
         {
           id: 'components-checkboxgroup-features--warning',
           name: 'Warning',
+        },
+      ],
+    },
+  ],
+  [
+    'CircleOcticon',
+    {
+      stories: [
+        {
+          id: 'components-circleocticon--default',
+          name: 'Default',
+        },
+        {
+          id: 'components-circleocticon--playground',
+          name: 'Playground',
         },
       ],
     },
@@ -398,6 +432,36 @@ const components = new Map([
         {
           id: 'components-details--default',
           name: 'Default',
+        },
+      ],
+    },
+  ],
+  [
+    'FilteredSearch',
+    {
+      stories: [
+        {
+          id: 'components-filteredsearch--default',
+          name: 'Default',
+        },
+        {
+          id: 'components-filteredsearch--playground',
+          name: 'Playground',
+        },
+      ],
+    },
+  ],
+  [
+    'FilterList',
+    {
+      stories: [
+        {
+          id: 'components-filterlist--default',
+          name: 'Default',
+        },
+        {
+          id: 'components-filterlist--playground',
+          name: 'Playground',
         },
       ],
     },
@@ -567,6 +631,21 @@ const components = new Map([
     },
   ],
   [
+    'LabelGroup',
+    {
+      stories: [
+        {
+          id: 'components-labelgroup--default',
+          name: 'Default',
+        },
+        {
+          id: 'components-labelgroup--playground',
+          name: 'Playground',
+        },
+      ],
+    },
+  ],
+  [
     'Link',
     {
       stories: [
@@ -730,6 +809,21 @@ const components = new Map([
         {
           id: 'drafts-components-pageheader-features--with-parent-link-and-actions-of-context-area',
           name: 'With Parent Link and Actions of Context Area',
+        },
+      ],
+    },
+  ],
+  [
+    'Popover',
+    {
+      stories: [
+        {
+          id: 'components-popover--default',
+          name: 'Default',
+        },
+        {
+          id: 'components-popover--playground',
+          name: 'Playground',
         },
       ],
     },

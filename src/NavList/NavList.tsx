@@ -13,6 +13,7 @@ import StyledOcticon from '../StyledOcticon'
 import sx, {merge, SxProp} from '../sx'
 import {defaultSxProp} from '../utils/defaultSxProp'
 import {useId} from '../hooks/useId'
+import useIsomorphicLayoutEffect from '../utils/useIsomorphicLayoutEffect'
 
 // ----------------------------------------------------------------------------
 // NavList
@@ -110,7 +111,7 @@ function ItemWithSubNav({children, subNav, sx: sxProp = defaultSxProp}: ItemWith
   const subNavRef = React.useRef<HTMLDivElement>(null)
   const [containsCurrentItem, setContainsCurrentItem] = React.useState(false)
 
-  React.useLayoutEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     if (subNavRef.current) {
       // Check if SubNav contains current item
       const currentItem = subNavRef.current.querySelector('[aria-current]')
