@@ -182,7 +182,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       onKeyPress: keyPressHandler,
       'aria-disabled': disabled ? true : undefined,
       tabIndex: disabled ? undefined : 0,
-      'aria-labelledby': `${labelId} ${slots.description?.props.variant === 'inline' ? inlineDescriptionId : ''}`,
+      'aria-labelledby': `${labelId} ${slots.description?.props.variant !== 'block' ? inlineDescriptionId : ''}`,
       'aria-describedby': slots.description?.props.variant === 'block' ? blockDescriptionId : undefined,
       ...(selectionAttribute && {[selectionAttribute]: selected}),
       role: role || itemRole,
@@ -204,20 +204,20 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
             >
               <ConditionalBox if={Boolean(slots.trailingVisual)} sx={{display: 'flex', flexGrow: 1}}>
                 <ConditionalBox
-                  if={slots.description?.props.variant === 'inline'}
+                  if={slots.description?.props.variant !== 'block'}
                   sx={{display: 'flex', flexGrow: 1, alignItems: 'baseline', minWidth: 0}}
                 >
                   <Box
                     as="span"
                     id={labelId}
                     sx={{
-                      flexGrow: slots.description?.props.variant === 'inline' ? 0 : 1,
-                      fontWeight: slots.description?.props.variant === 'inline' ? 'bold' : 'normal',
+                      flexGrow: slots.description?.props.variant !== 'block' ? 0 : 1,
+                      fontWeight: slots.description?.props.variant !== 'block' ? 'bold' : 'normal',
                     }}
                   >
                     {childrenWithoutSlots}
                   </Box>
-                  {slots.description?.props.variant === 'inline' ? slots.description : null}
+                  {slots.description?.props.variant !== 'block' ? slots.description : null}
                 </ConditionalBox>
                 {slots.trailingVisual}
               </ConditionalBox>
