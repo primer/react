@@ -56,9 +56,11 @@ type MenuItemProps = {
 }
 
 export type ItemContext = Pick<ActionListItemProps, 'variant' | 'disabled'> & {
-  inlineDescriptionId: string
-  blockDescriptionId: string
+  inlineDescriptionId?: string
+  blockDescriptionId?: string
 }
+
+export const ItemContext = React.createContext<ItemContext>({})
 
 export const getVariantStyles = (
   variant: ActionListItemProps['variant'],
