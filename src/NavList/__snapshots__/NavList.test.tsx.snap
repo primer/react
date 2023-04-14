@@ -26,6 +26,7 @@ exports[`NavList renders a simple list 1`] = `
   -webkit-flex-grow: 1;
   -ms-flex-positive: 1;
   flex-grow: 1;
+  font-weight: 400;
 }
 
 .c1 {
@@ -395,6 +396,7 @@ exports[`NavList renders with groups 1`] = `
   -webkit-flex-grow: 1;
   -ms-flex-positive: 1;
   flex-grow: 1;
+  font-weight: 400;
 }
 
 .c2 {
@@ -824,6 +826,7 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   -webkit-flex-grow: 1;
   -ms-flex-positive: 1;
   flex-grow: 1;
+  font-weight: 400;
 }
 
 .c2 {
@@ -1292,6 +1295,7 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   -webkit-flex-grow: 1;
   -ms-flex-positive: 1;
   flex-grow: 1;
+  font-weight: 400;
 }
 
 .c2 {
