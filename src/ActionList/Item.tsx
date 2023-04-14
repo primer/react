@@ -213,7 +213,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
                         id={labelId}
                         sx={{
                           flexGrow: slots.InlineDescription ? 0 : 1,
-                          fontWeight: slots.InlineDescription ? '600' : '400',
+                          fontWeight: slots.InlineDescription ? 'bold' : 'normal',
                         }}
                       >
                         {props.children}
