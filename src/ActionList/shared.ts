@@ -92,6 +92,4 @@ export const getVariantStyles = (
   }
 }
 
-export const {Slots, Slot} = createSlots(['LeadingVisual', 'InlineDescription', 'BlockDescription', 'TrailingVisual'])
-
 export const TEXT_ROW_HEIGHT = '20px' // custom value off the scale
