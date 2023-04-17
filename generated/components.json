@@ -229,6 +229,44 @@
       ],
       "subcomponents": []
     },
+    "tooltip": {
+      "id": "tooltip",
+      "name": "Tooltip",
+      "status": "alpha",
+      "a11yReviewed": false,
+      "stories": [],
+      "props": [
+        {
+          "name": "align",
+          "type": "'left' | 'right'"
+        },
+        {
+          "name": "direction",
+          "type": "'n' | 'ne' | 'e' | 'se' | 's' | 'sw' | 'w' | 'nw'",
+          "description": "Sets where the tooltip renders in relation to the target."
+        },
+        {
+          "name": "noDelay",
+          "type": "boolean",
+          "description": "When set to `true`, tooltip appears without any delay."
+        },
+        {
+          "name": "aria-label",
+          "type": "string",
+          "description": "Text used in `aria-label` (for accessibility)"
+        },
+        {
+          "name": "wrap",
+          "type": "boolean",
+          "description": "Use `true` to allow text within tooltip to wrap."
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ],
+      "subcomponents": []
+    },
     "truncate": {
       "id": "truncate",
       "name": "Truncate",
@@ -4643,61 +4681,6 @@
           ]
         }
       ]
-    },
-    "tooltip": {
-      "id": "tooltip",
-      "name": "Tooltip",
-      "status": "alpha",
-      "a11yReviewed": false,
-      "stories": [
-        {
-          "id": "components-tooltip--default",
-          "code": "() => (\n  <Box\n    sx={{\n      p: 5,\n    }}\n  >\n    <Tooltip aria-label=\"Filter vegetarian options\" direction=\"e\">\n      <Button>🥦</Button>\n    </Tooltip>\n  </Box>\n)"
-        }
-      ],
-      "props": [
-        {
-          "name": "align",
-          "type": "'left' | 'right'"
-        },
-        {
-          "name": "aria-label",
-          "type": "string",
-          "description": "Should be utilised for label type tooltips and it is going to be used to label the tooltip trigger."
-        },
-        {
-          "name": "direction",
-          "type": "'n' | 'ne' | 'e' | 'se' | 's' | 'sw' | 'w' | 'nw'",
-          "defaultValue": "n",
-          "description": "Sets where the tooltip renders in relation to the target."
-        },
-        {
-          "name": "noDelay",
-          "type": "boolean",
-          "description": "When set to `true`, tooltip appears without any delay."
-        },
-        {
-          "name": "text",
-          "type": "string",
-          "description": "Should be utilised for description type tooltips and it is going to be used to describe the tooltip trigger."
-        },
-        {
-          "name": "type",
-          "type": "'label' | 'description'",
-          "defaultValue": "label",
-          "description": "The type of tooltip. `label` is used for labelling the element that triggers tooltip. `description` is used for describing or adding a suplementary information to the element that triggers the tooltip."
-        },
-        {
-          "name": "wrap",
-          "type": "boolean",
-          "description": "Use `true` to allow text within tooltip to wrap."
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject"
-        }
-      ],
-      "subcomponents": []
     },
     "tree_view": {
       "id": "tree_view",
