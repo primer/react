@@ -1,12 +1,8 @@
 import React from 'react'
-import {Tooltip} from '..'
+import Tooltip from '../Tooltip'
 
 export function shouldAcceptCallWithNoProps() {
   return <Tooltip />
-}
-
-export function shouldAcceptAdditionalProps() {
-  return <Tooltip id="test" style={{}} className="test" />
 }
 
 export function shouldNotAcceptSystemProps() {

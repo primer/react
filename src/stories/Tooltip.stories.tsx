@@ -1,11 +1,12 @@
 import React from 'react'
 import {Meta} from '@storybook/react'
-import {BaseStyles, ThemeProvider, Button} from '..'
-import {Tooltip} from '../Tooltip'
+import {BaseStyles, ThemeProvider, IconButton} from '..'
 import Box from '../Box'
+import Tooltip from '../Tooltip'
+import {SearchIcon} from '@primer/octicons-react'
 
 export default {
-  title: 'Components/Tooltip',
+  title: 'Components/Tooltip/Default',
   component: Tooltip,
 
   decorators: [
@@ -21,11 +22,10 @@ export default {
   ],
 } as Meta
 
-// As a label for an IconButton
-export const Default = () => (
+export const IconButtonTooltip = () => (
   <Box sx={{p: 5}}>
-    <Tooltip aria-label="Filter vegetarian options" direction="e">
-      <Button>🥦</Button>
+    <Tooltip aria-label="Search">
+      <IconButton icon={SearchIcon} aria-label="Search" />
     </Tooltip>
   </Box>
 )
