@@ -123,8 +123,8 @@ describe('PageLayout', () => {
       <ThemeProvider>
         <PageLayout>
           <PageLayout.Header aria-label="header">Header</PageLayout.Header>
-          <PageLayout.Content as="main" aria-label="content">
-            Content
+          <PageLayout.Content>
+            <main aria-label="content">Content</main>
           </PageLayout.Content>
           <PageLayout.Pane>Pane</PageLayout.Pane>
           <PageLayout.Footer aria-label="footer">Footer</PageLayout.Footer>
