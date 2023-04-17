@@ -1,13 +1,24 @@
 import {test, expect} from '@playwright/test'
+import type {Page} from '@playwright/test'
 import {visit} from '../test-helpers/storybook'
 import {themes} from '../test-helpers/themes'
 
-const isInViewPort = (boundingBox: {x: number; y: number; width: number; height: number}) => {
+const isInViewPort = (page: Page, boundingBox: {x: number; y: number; width: number; height: number}) => {
+  let width
+  let height
+  const viewportSize = page.viewportSize()
+  if (viewportSize !== null) {
+    width = viewportSize.width
+    height = viewportSize.height
+  }
+
   return (
+    width !== undefined &&
+    height !== undefined &&
     boundingBox.x >= 0 &&
     boundingBox.y >= 0 &&
-    boundingBox.x + boundingBox.width <= document.documentElement.clientWidth &&
-    boundingBox.y + boundingBox.height <= document.documentElement.clientHeight
+    boundingBox.x + boundingBox.width <= width &&
+    boundingBox.y + boundingBox.height <= height
   )
 }
 
