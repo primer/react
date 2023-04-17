@@ -3,7 +3,7 @@ import React from 'react'
 import {Button, IconButton} from '.'
 
 export default {
-  title: 'Components/Button/DevOnly',
+  title: 'Drafts/Components/Button/DevOnly',
 }
 
 export const InvisibleVariants = () => {

@@ -3,7 +3,7 @@ import React from 'react'
 import {IconButton} from '.'
 
 export default {
-  title: 'Components/IconButton/Features',
+  title: 'Drafts/Components/IconButton/Features',
 }
 
 export const Primary = () => <IconButton icon={HeartIcon} variant="primary" aria-label="Primary" />

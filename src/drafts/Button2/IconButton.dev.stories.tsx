@@ -3,7 +3,7 @@ import React from 'react'
 import {IconButton} from '.'
 
 export default {
-  title: 'Components/IconButton/DevOnly',
+  title: 'Drafts/Components/IconButton/DevOnly',
 }
 
 export const CustomSize = () => (

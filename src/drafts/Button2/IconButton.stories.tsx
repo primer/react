@@ -5,7 +5,7 @@ import {IconButton} from '.'
 import {OcticonArgType} from '../../utils/story-helpers'
 
 const meta: Meta<ComponentProps<typeof IconButton>> = {
-  title: 'Components/IconButton',
+  title: 'Drafts/Components/IconButton',
   argTypes: {
     size: {
       control: {

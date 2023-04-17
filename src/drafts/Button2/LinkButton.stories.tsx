@@ -5,7 +5,7 @@ import {Button} from '.'
 import {OcticonArgType} from '../../utils/story-helpers'
 
 export default {
-  title: 'Components/LinkButton',
+  title: 'Drafts/Components/LinkButton',
   argTypes: {
     size: {
       control: {

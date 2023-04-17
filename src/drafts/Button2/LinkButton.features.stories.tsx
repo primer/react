@@ -3,7 +3,7 @@ import React, {forwardRef} from 'react'
 import {Button} from '.'
 
 export default {
-  title: 'Components/LinkButton/Features',
+  title: 'Drafts/Components/LinkButton/Features',
 }
 
 export const Primary = () => (
