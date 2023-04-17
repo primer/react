@@ -113,7 +113,7 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
         backgroundColor: 'btn.selectedBg',
       },
       '&:disabled': {
-        color: 'primer.fg.disabled',
+        color: 'btn.invisible.disabledText',
         '[data-component=ButtonCounter]': {
           color: 'inherit',
         },
