@@ -1635,7 +1635,6 @@ exports[`Button styles invisible button appropriately 1`] = `
 
 <button
   class="c0"
-  data-no-visuals="true"
   type="button"
 >
   <span
