@@ -99,7 +99,7 @@
     "@styled-system/css": "^5.1.5",
     "@styled-system/props": "^5.1.5",
     "@styled-system/theme-get": "^5.1.2",
-    "@types/styled-components": "^5.1.11",
+    "@types/styled-components": "^5.1.26",
     "@types/styled-system": "^5.1.12",
     "@types/styled-system__css": "^5.0.16",
     "@types/styled-system__theme-get": "^5.0.1",
@@ -208,7 +208,7 @@
     "jest-environment-jsdom": "29.4.3",
     "jest-fail-on-console": "3.0.2",
     "jest-matchmedia-mock": "1.1.0",
-    "jest-styled-components": "6.3.4",
+    "jest-styled-components": "7.1.1",
     "jest-watch-typeahead": "2.2.2",
     "jscodeshift": "0.14.0",
     "lint-staged": "13.1.0",
@@ -237,7 +237,7 @@
     "semver": "7.3.8",
     "size-limit": "8.2.4",
     "storybook-addon-turbo-build": "1.1.0",
-    "styled-components": "4.4.1",
+    "styled-components": "5.3.9",
     "terser": "5.16.1",
     "ts-node": "10.9.1",
     "ts-toolbelt": "9.6.0",
@@ -251,7 +251,7 @@
   "peerDependencies": {
     "react": "^17.0.0 || ^18.0.0",
     "react-dom": "^17.0.0 || ^18.0.0",
-    "styled-components": "4.x || 5.x"
+    "styled-components": "5.x"
   },
   "prettier": "@github/prettier-config",
   "size-limit": [
