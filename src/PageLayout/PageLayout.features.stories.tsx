@@ -51,6 +51,7 @@ export const PullRequestPage = () => (
           p: 3,
           borderRadius: 2,
         }}
+        tabIndex={0}
       >
         This box has really long content. If it is too long, it will cause x overflow and should show a scrollbar. When
         this overflows, it should not break to overall page layout!
