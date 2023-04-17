@@ -814,6 +814,41 @@ const components = new Map([
     },
   ],
   [
+    'PageLayout',
+    {
+      stories: [
+        {
+          id: 'components-pagelayout--default',
+          name: 'Default',
+        },
+        {
+          id: 'components-pagelayout-features--pull-request',
+          name: 'Pull Request',
+        },
+        {
+          id: 'components-pagelayout-features--sticky-pane',
+          name: 'Sticky Pane',
+        },
+        {
+          id: 'components-pagelayout-features--nested-scroll-container',
+          name: 'Nested Scroll Container',
+        },
+        {
+          id: 'components-pagelayout-features--custom-sticky-header',
+          name: 'Custom Sticky Header',
+        },
+        {
+          id: 'components-pagelayout-features--resizable-pane',
+          name: 'Resizable Pane',
+        },
+        {
+          id: 'components-pagelayout-features--scroll-container-within-page-layout-pane',
+          name: 'Scroll Container Within Page Layout Pane',
+        },
+      ],
+    },
+  ],
+  [
     'Popover',
     {
       stories: [
