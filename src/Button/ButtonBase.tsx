@@ -65,9 +65,7 @@ const ButtonBase = forwardRef(
         ref={innerRef}
         data-block={block ? 'block' : null}
         data-size={size === 'small' || size === 'large' ? size : undefined}
-        data-no-visuals={
-          !LeadingIcon && !TrailingIcon && !TrailingAction && variant !== 'invisible' ? true : undefined
-        }
+        data-no-visuals={!LeadingIcon && !TrailingIcon && !TrailingAction && variant !== 'invisible' ? true : undefined}
       >
         {Icon ? (
           <Icon />
