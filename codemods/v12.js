@@ -6,7 +6,7 @@ module.exports = (file, api) => {
   const ast = j(file.source)
 
   modifyProps(ast, j, '@primer/components', {
-    is: 'as'
+    is: 'as',
   })
 
   return prettify(ast, file)

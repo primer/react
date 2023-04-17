@@ -10,7 +10,6 @@ removed.
 */
 
 let signalSupported = false
-// eslint-disable-next-line @typescript-eslint/no-empty-function
 function noop() {}
 try {
   const options = Object.create(
@@ -19,9 +18,9 @@ try {
       signal: {
         get() {
           signalSupported = true
-        }
-      }
-    }
+        },
+      },
+    },
   )
   window.addEventListener('test', noop, options)
   window.removeEventListener('test', noop, options)

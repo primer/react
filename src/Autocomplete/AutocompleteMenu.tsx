@@ -4,7 +4,9 @@ import type {ScrollIntoViewOptions} from '@primer/behaviors'
 import {ActionList, ItemProps} from '../deprecated/ActionList'
 import {useFocusZone} from '../hooks/useFocusZone'
 import {ComponentProps, MandateProps} from '../utils/types'
-import {Box, Spinner, useSSRSafeId} from '../'
+import Box from '../Box'
+import Spinner from '../Spinner'
+import {useSSRSafeId} from '../utils/ssr'
 import {AutocompleteContext} from './AutocompleteContext'
 import {PlusIcon} from '@primer/octicons-react'
 import VisuallyHidden from '../_VisuallyHidden'
@@ -24,7 +26,7 @@ function getDefaultItemFilter<T extends AutocompleteMenuItem>(filterValue: strin
 }
 
 function getdefaultCheckedSelectionChange<T extends AutocompleteMenuItem>(
-  setInputValueFn: (value: string) => void
+  setInputValueFn: (value: string) => void,
 ): OnSelectedChange<T> {
   return function (itemOrItems) {
     const {text = ''} = Array.isArray(itemOrItems) ? itemOrItems.slice(-1)[0] : itemOrItems
@@ -125,21 +127,21 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
     setInputValue,
     setIsMenuDirectlyActivated,
     setSelectedItemLength,
-    showMenu
+    showMenu,
   } = autocompleteContext
   const {
     items,
     selectedItemIds,
     sortOnCloseFn,
-    emptyStateText,
+    emptyStateText = 'No selectable options',
     addNewItem,
     loading,
-    selectionVariant,
+    selectionVariant = 'single',
     filterFn,
     'aria-labelledby': ariaLabelledBy,
     onOpenChange,
     onSelectedChange,
-    customScrollContainerRef
+    customScrollContainerRef,
   } = props
   const listContainerRef = useRef<HTMLDivElement>(null)
   const [highlightedItem, setHighlightedItem] = useState<T>()
@@ -151,7 +153,6 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
       items.map(selectableItem => {
         return {
           ...selectableItem,
-          _legacyEnterSupport: true, //TODO: Change behaviour, the enter key should not be used here.
           role: 'option',
           id: selectableItem.id,
           selected: selectionVariant === 'multiple' ? selectedItemIds.includes(selectableItem.id) : undefined,
@@ -165,7 +166,7 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
               : getdefaultCheckedSelectionChange(setInputValue)
 
             onSelectedChangeFn(
-              newSelectedItemIds.map(newSelectedItemId => getItemById(newSelectedItemId, items)) as T[]
+              newSelectedItemIds.map(newSelectedItemId => getItemById(newSelectedItemId, items)) as T[],
             )
 
             if (selectionVariant === 'multiple') {
@@ -175,7 +176,7 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
               setShowMenu(false)
               inputRef.current?.setSelectionRange(inputRef.current.value.length, inputRef.current.value.length)
             }
-          }
+          },
         }
       }),
     [
@@ -186,8 +187,8 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
       selectionVariant,
       setAutocompleteSuggestion,
       setInputValue,
-      setShowMenu
-    ]
+      setShowMenu,
+    ],
   )
 
   const itemSortOrderData = useMemo(
@@ -197,7 +198,7 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
 
         return acc
       }, {}),
-    [sortedItemIds]
+    [sortedItemIds],
   )
 
   const sortedAndFilteredItemsToRender = useMemo(
@@ -205,7 +206,7 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
       selectableItems
         .filter(filterFn ? filterFn : getDefaultItemFilter(inputValue))
         .sort((a, b) => itemSortOrderData[a.id] - itemSortOrderData[b.id]),
-    [selectableItems, itemSortOrderData, filterFn, inputValue]
+    [selectableItems, itemSortOrderData, filterFn, inputValue],
   )
 
   const allItemsToRender = useMemo(
@@ -218,7 +219,6 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
         ? [
             {
               ...addNewItem,
-              _legacyEnterSupport: true, //TODO: Change behaviour, the enter key should not be used here.
               leadingVisual: () => <PlusIcon />,
               onAction: (item: T) => {
                 // TODO: make it possible to pass a leadingVisual when using `addNewItem`
@@ -228,10 +228,10 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
                   setInputValue('')
                   setAutocompleteSuggestion('')
                 }
-              }
-            }
+              },
+            },
           ]
-        : [])
+        : []),
     ],
     [
       sortedAndFilteredItemsToRender,
@@ -239,8 +239,8 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
       setAutocompleteSuggestion,
       selectionVariant,
       setInputValue,
-      generatedUniqueId
-    ]
+      generatedUniqueId,
+    ],
   )
 
   useFocusZone(
@@ -265,9 +265,9 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
         } else if (current && scrollContainerRef.current && directlyActivated) {
           scrollIntoView(current, scrollContainerRef.current, menuScrollMargins)
         }
-      }
+      },
     },
-    [loading]
+    [loading],
   )
 
   useEffect(() => {
@@ -280,7 +280,7 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
 
   useEffect(() => {
     const itemIdSortResult = [...sortedItemIds].sort(
-      sortOnCloseFn ? sortOnCloseFn : getDefaultSortFn(itemId => isItemSelected(itemId, selectedItemIds))
+      sortOnCloseFn ? sortOnCloseFn : getDefaultSortFn(itemId => isItemSelected(itemId, selectedItemIds)),
     )
     const sortResultMatchesState =
       itemIdSortResult.length === sortedItemIds.length &&
@@ -324,11 +324,6 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
       )}
     </VisuallyHidden>
   )
-}
-
-AutocompleteMenu.defaultProps = {
-  emptyStateText: 'No selectable options',
-  selectionVariant: 'single'
 }
 
 AutocompleteMenu.displayName = 'AutocompleteMenu'

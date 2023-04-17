@@ -1,12 +1,11 @@
 import React from 'react'
 import {render} from '../utils/testing'
 import {render as HTMLRender, fireEvent, act} from '@testing-library/react'
-import {axe, toHaveNoViolations} from 'jest-axe'
+import {axe} from 'jest-axe'
 import {TokenSizeKeys, tokenSizes} from '../Token/TokenBase'
 import {IssueLabelToken} from '../Token'
 import TextInputWithTokens, {TextInputWithTokensProps} from '../TextInputWithTokens'
 import {MarkGithubIcon} from '@primer/octicons-react'
-expect.extend(toHaveNoViolations)
 
 const mockTokens = [
   {text: 'zero', id: 0},
@@ -16,7 +15,7 @@ const mockTokens = [
   {text: 'four', id: 4},
   {text: 'five', id: 5},
   {text: 'six', id: 6},
-  {text: 'seven', id: 7}
+  {text: 'seven', id: 7},
 ]
 
 const LabelledTextInputWithTokens: React.FC<React.PropsWithChildren<TextInputWithTokensProps>> = ({
@@ -54,21 +53,21 @@ describe('TextInputWithTokens', () => {
   it('renders with tokens using a custom token component', () => {
     const onRemoveMock = jest.fn()
     expect(
-      render(<TextInputWithTokens tokens={mockTokens} onTokenRemove={onRemoveMock} tokenComponent={IssueLabelToken} />)
+      render(<TextInputWithTokens tokens={mockTokens} onTokenRemove={onRemoveMock} tokenComponent={IssueLabelToken} />),
     ).toMatchSnapshot()
   })
 
   it('renders at a maximum height when specified', () => {
     const onRemoveMock = jest.fn()
     expect(
-      render(<TextInputWithTokens maxHeight="20px" tokens={mockTokens} onTokenRemove={onRemoveMock} />)
+      render(<TextInputWithTokens maxHeight="20px" tokens={mockTokens} onTokenRemove={onRemoveMock} />),
     ).toMatchSnapshot()
   })
 
   it('renders tokens on a single line when specified', () => {
     const onRemoveMock = jest.fn()
     expect(
-      render(<TextInputWithTokens preventTokenWrapping tokens={mockTokens} onTokenRemove={onRemoveMock} />)
+      render(<TextInputWithTokens preventTokenWrapping tokens={mockTokens} onTokenRemove={onRemoveMock} />),
     ).toMatchSnapshot()
   })
 
@@ -78,8 +77,8 @@ describe('TextInputWithTokens', () => {
     for (const tokenSizeKey of tokenSizeKeys) {
       expect(
         render(
-          <TextInputWithTokens tokens={mockTokens} onTokenRemove={onRemoveMock} size={tokenSizeKey as TokenSizeKeys} />
-        )
+          <TextInputWithTokens tokens={mockTokens} onTokenRemove={onRemoveMock} size={tokenSizeKey as TokenSizeKeys} />,
+        ),
       ).toMatchSnapshot()
     }
   })
@@ -87,14 +86,14 @@ describe('TextInputWithTokens', () => {
   it('renders tokens without a remove button when specified', () => {
     const onRemoveMock = jest.fn()
     expect(
-      render(<TextInputWithTokens hideTokenRemoveButtons tokens={mockTokens} onTokenRemove={onRemoveMock} />)
+      render(<TextInputWithTokens hideTokenRemoveButtons tokens={mockTokens} onTokenRemove={onRemoveMock} />),
     ).toMatchSnapshot()
   })
 
   it('renders a truncated set of tokens', () => {
     const onRemoveMock = jest.fn()
     expect(
-      render(<TextInputWithTokens tokens={mockTokens} onTokenRemove={onRemoveMock} visibleTokenCount={2} />)
+      render(<TextInputWithTokens tokens={mockTokens} onTokenRemove={onRemoveMock} visibleTokenCount={2} />),
     ).toMatchSnapshot()
   })
 
@@ -107,8 +106,8 @@ describe('TextInputWithTokens', () => {
           trailingVisual={MarkGithubIcon}
           tokens={mockTokens}
           onTokenRemove={onRemoveMock}
-        />
-      )
+        />,
+      ),
     ).toMatchSnapshot()
   })
 
@@ -196,15 +195,15 @@ describe('TextInputWithTokens', () => {
             trailingVisual={MarkGithubIcon}
             loaderPosition="trailing"
           />
-        </>
-      )
+        </>,
+      ),
     ).toMatchSnapshot()
   })
 
   it('focuses the previous token when keying ArrowLeft', () => {
     const onRemoveMock = jest.fn()
     const {getByLabelText, getByText} = HTMLRender(
-      <LabelledTextInputWithTokens tokens={mockTokens} onTokenRemove={onRemoveMock} />
+      <LabelledTextInputWithTokens tokens={mockTokens} onTokenRemove={onRemoveMock} />,
     )
     const inputNode = getByLabelText('Tokens')
     const lastTokenIndex = mockTokens.length - 1
@@ -236,7 +235,7 @@ describe('TextInputWithTokens', () => {
   it('focuses the input when keying ArrowLeft on the first token', () => {
     const onRemoveMock = jest.fn()
     const {getByLabelText, getByText} = HTMLRender(
-      <LabelledTextInputWithTokens tokens={mockTokens} onTokenRemove={onRemoveMock} />
+      <LabelledTextInputWithTokens tokens={mockTokens} onTokenRemove={onRemoveMock} />,
     )
     const inputNode = getByLabelText('Tokens')
     const firstTokenNode = getByText(mockTokens[0].text)
@@ -251,7 +250,7 @@ describe('TextInputWithTokens', () => {
   it('focuses the input when keying ArrowRight on the last token', () => {
     const onRemoveMock = jest.fn()
     const {getByLabelText, getByText} = HTMLRender(
-      <LabelledTextInputWithTokens tokens={mockTokens} onTokenRemove={onRemoveMock} />
+      <LabelledTextInputWithTokens tokens={mockTokens} onTokenRemove={onRemoveMock} />,
     )
     const inputNode = getByLabelText('Tokens')
     const lastTokenNode = getByText(mockTokens[mockTokens.length - 1].text)
@@ -266,7 +265,7 @@ describe('TextInputWithTokens', () => {
   it('focuses the input when keying Escape when focused on a token', () => {
     const onRemoveMock = jest.fn()
     const {getByLabelText, getByText} = HTMLRender(
-      <LabelledTextInputWithTokens tokens={mockTokens} onTokenRemove={onRemoveMock} />
+      <LabelledTextInputWithTokens tokens={mockTokens} onTokenRemove={onRemoveMock} />,
     )
     const inputNode = getByLabelText('Tokens')
     const lastTokenNode = getByText(mockTokens[mockTokens.length - 1].text)
@@ -284,7 +283,7 @@ describe('TextInputWithTokens', () => {
   it('does not focus the input when clicking a token', () => {
     const onRemoveMock = jest.fn()
     const {getByLabelText, getByText} = HTMLRender(
-      <LabelledTextInputWithTokens tokens={mockTokens} onTokenRemove={onRemoveMock} visibleTokenCount={2} />
+      <LabelledTextInputWithTokens tokens={mockTokens} onTokenRemove={onRemoveMock} visibleTokenCount={2} />,
     )
     const inputNode = getByLabelText('Tokens')
     const tokenNode = getByText(mockTokens[0].text)
@@ -297,7 +296,7 @@ describe('TextInputWithTokens', () => {
   it('focuses the input when clicking somewhere in the component besides the tokens', () => {
     const onRemoveMock = jest.fn()
     const {getByLabelText, getByText} = HTMLRender(
-      <LabelledTextInputWithTokens tokens={mockTokens} onTokenRemove={onRemoveMock} visibleTokenCount={2} />
+      <LabelledTextInputWithTokens tokens={mockTokens} onTokenRemove={onRemoveMock} visibleTokenCount={2} />,
     )
     const inputNode = getByLabelText('Tokens')
     const truncatedTokenCount = getByText('+6')
@@ -318,13 +317,14 @@ describe('TextInputWithTokens', () => {
           visibleTokenCount={visibleTokenCount}
         />
         <button id="focusableOutsideComponent">Focus me</button>
-      </>
+      </>,
     )
     const inputNode = getByLabelText('Tokens')
     const focusableOutsideComponentNode = getByText('Focus me')
     const allTokenLabels = mockTokens.map(token => token.text)
     const truncatedTokenCountNode = getByText('+6')
 
+    // eslint-disable-next-line testing-library/no-unnecessary-act
     act(() => {
       jest.runAllTimers()
       fireEvent.focus(inputNode)
@@ -337,6 +337,7 @@ describe('TextInputWithTokens', () => {
       }
     }, 0)
 
+    // eslint-disable-next-line testing-library/no-unnecessary-act
     act(() => {
       jest.runAllTimers()
       // onBlur isn't called on input unless we specifically fire the "blur" event
@@ -351,10 +352,8 @@ describe('TextInputWithTokens', () => {
       for (const tokenLabel of allTokenLabels) {
         const tokenNode = getByText(tokenLabel)
         if (allTokenLabels.indexOf(tokenLabel) > visibleTokenCount) {
-          // eslint-disable-next-line jest/no-conditional-expect
           expect(tokenNode).toBeDefined()
         } else {
-          // eslint-disable-next-line jest/no-conditional-expect
           expect(tokenNode).not.toBeDefined()
         }
       }
@@ -374,17 +373,15 @@ describe('TextInputWithTokens', () => {
           visibleTokenCount={visibleTokenCount}
         />
         <button id="focusableOutsideComponent">Focus me</button>
-      </>
+      </>,
     )
     const inputNode = getByLabelText('Tokens')
     const firstTokenNode = getByText(mockTokens[visibleTokenCount - 1].text)
     const allTokenLabels = mockTokens.map(token => token.text)
     const truncatedTokenCountNode = getByText('+6')
 
-    act(() => {
-      fireEvent.focus(inputNode)
-      fireEvent.focus(firstTokenNode)
-    })
+    fireEvent.focus(inputNode)
+    fireEvent.focus(firstTokenNode)
 
     expect(truncatedTokenCountNode).toBeDefined()
 
@@ -397,7 +394,7 @@ describe('TextInputWithTokens', () => {
   it('focuses the first token when keying ArrowRight in the input', () => {
     const onRemoveMock = jest.fn()
     const {getByLabelText, getByText} = HTMLRender(
-      <LabelledTextInputWithTokens tokens={mockTokens} onTokenRemove={onRemoveMock} />
+      <LabelledTextInputWithTokens tokens={mockTokens} onTokenRemove={onRemoveMock} />,
     )
     const inputNode = getByLabelText('Tokens')
     const firstTokenNode = getByText(mockTokens[0].text)
@@ -414,7 +411,7 @@ describe('TextInputWithTokens', () => {
   it('calls onTokenRemove on the last token when keying Backspace in an empty input', () => {
     const onRemoveMock = jest.fn()
     const {getByLabelText} = HTMLRender(
-      <LabelledTextInputWithTokens tokens={mockTokens} onTokenRemove={onRemoveMock} />
+      <LabelledTextInputWithTokens tokens={mockTokens} onTokenRemove={onRemoveMock} />,
     )
     const inputNode = getByLabelText('Tokens')
     const lastTokenIndex = mockTokens.length - 1
@@ -429,7 +426,7 @@ describe('TextInputWithTokens', () => {
   it("sets the input text to the last token's text when keying Backspace in an empty input", () => {
     const onRemoveMock = jest.fn()
     const {getByDisplayValue, getByLabelText} = HTMLRender(
-      <LabelledTextInputWithTokens tokens={mockTokens} onTokenRemove={onRemoveMock} />
+      <LabelledTextInputWithTokens tokens={mockTokens} onTokenRemove={onRemoveMock} />,
     )
     const inputNode = getByLabelText('Tokens')
     const lastTokenIndex = mockTokens.length - 1
@@ -445,7 +442,7 @@ describe('TextInputWithTokens', () => {
   it('does not call onTokenRemove on the last token when keying Backspace in an input that has a value', () => {
     const onRemoveMock = jest.fn()
     const {getByLabelText} = HTMLRender(
-      <LabelledTextInputWithTokens tokens={mockTokens} onTokenRemove={onRemoveMock} defaultValue="test" />
+      <LabelledTextInputWithTokens tokens={mockTokens} onTokenRemove={onRemoveMock} defaultValue="test" />,
     )
     const inputNode = getByLabelText('Tokens')
 
@@ -467,41 +464,72 @@ describe('TextInputWithTokens', () => {
     expect(onRemoveMock).toHaveBeenCalledWith(mockTokens[4].id)
   })
 
-  it('moves focus to the next token when removing the first token', () => {
+  it('moves focus to the next token when removing the first token', async () => {
     jest.useFakeTimers()
-    const onRemoveMock = jest.fn()
-    const {getByText} = HTMLRender(
-      <TextInputWithTokens tokens={[...mockTokens].slice(0, 2)} onTokenRemove={onRemoveMock} />
-    )
+
+    function TestComponent() {
+      const [tokens, setTokens] = React.useState(mockTokens.slice(0, 2))
+      return (
+        <TextInputWithTokens
+          tokens={tokens}
+          onTokenRemove={id => {
+            setTokens(
+              tokens.filter(token => {
+                return token.id !== id
+              }),
+            )
+          }}
+        />
+      )
+    }
+
+    const {getByText} = HTMLRender(<TestComponent />)
     const tokenNode = getByText(mockTokens[0].text)
 
     fireEvent.focus(tokenNode)
     fireEvent.keyDown(tokenNode, {key: 'Backspace'})
 
-    jest.runAllTimers()
-    setTimeout(() => {
-      expect(document.activeElement?.textContent).toBe(mockTokens[1].text)
-    }, 0)
+    act(() => {
+      jest.runAllTimers()
+    })
+
+    expect(document.activeElement?.textContent).toContain(mockTokens[1].text)
 
     jest.useRealTimers()
   })
 
   it('moves focus to the input when the last token is removed', () => {
     jest.useFakeTimers()
-    const onRemoveMock = jest.fn()
-    const {getByText, getByLabelText} = HTMLRender(
-      <LabelledTextInputWithTokens tokens={[mockTokens[0]]} onTokenRemove={onRemoveMock} />
-    )
+
+    function TestComponent() {
+      const [tokens, setTokens] = React.useState([mockTokens[0]])
+      return (
+        <LabelledTextInputWithTokens
+          tokens={tokens}
+          onTokenRemove={id => {
+            setTokens(tokens => {
+              return tokens.filter(token => {
+                return token.id !== id
+              })
+            })
+          }}
+        />
+      )
+    }
+
+    const {getByText, getByLabelText} = HTMLRender(<TestComponent />)
     const tokenNode = getByText(mockTokens[0].text)
     const inputNode = getByLabelText('Tokens')
 
     fireEvent.focus(tokenNode)
     fireEvent.keyDown(tokenNode, {key: 'Backspace'})
 
-    jest.runAllTimers()
-    setTimeout(() => {
-      expect(document.activeElement?.id).toBe(inputNode.id)
-    }, 0)
+    act(() => {
+      jest.runAllTimers()
+    })
+
+    expect(document.activeElement?.id).toBe(inputNode.id)
+
     jest.useRealTimers()
   })
 
@@ -509,7 +537,7 @@ describe('TextInputWithTokens', () => {
     const onRemoveMock = jest.fn()
     const onKeyDownMock = jest.fn()
     const {getByLabelText} = HTMLRender(
-      <LabelledTextInputWithTokens tokens={mockTokens} onTokenRemove={onRemoveMock} onKeyDown={onKeyDownMock} />
+      <LabelledTextInputWithTokens tokens={mockTokens} onTokenRemove={onRemoveMock} onKeyDown={onKeyDownMock} />,
     )
     const inputNode = getByLabelText('Tokens')
 

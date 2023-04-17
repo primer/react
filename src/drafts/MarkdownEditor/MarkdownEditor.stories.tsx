@@ -1,13 +1,13 @@
 import {DiffIcon} from '@primer/octicons-react'
 import React, {Meta} from '@storybook/react'
-import {useState} from 'react'
+import {useRef, useState} from 'react'
 import BaseStyles from '../../BaseStyles'
 import Box from '../../Box'
 import MarkdownEditor, {Emoji, Mentionable, Reference, SavedReply} from '.'
 import ThemeProvider from '../../ThemeProvider'
 
 const meta: Meta = {
-  title: 'Forms/MarkdownEditor',
+  title: 'Drafts/Components/MarkdownEditor',
   decorators: [
     Story => {
       return (
@@ -17,7 +17,7 @@ const meta: Meta = {
           </BaseStyles>
         </ThemeProvider>
       )
-    }
+    },
   ],
   parameters: {
     controls: {
@@ -30,84 +30,94 @@ const meta: Meta = {
         'Hide Label',
         'Required',
         'Enable File Uploads',
-        'Enable Saved Replies'
-      ]
-    }
+        'Enable Saved Replies',
+        'Enable Plain-Text URL Pasting',
+      ],
+    },
   },
   component: MarkdownEditor,
+  args: {
+    disabled: false,
+    fullHeight: false,
+    monospace: false,
+    pasteUrlsAsPlainText: false,
+    minHeightLines: 5,
+    maxHeightLines: 35,
+    hideLabel: false,
+    required: false,
+    fileUploadsEnabled: true,
+    savedRepliesEnabled: true,
+  },
   argTypes: {
     disabled: {
       name: 'Disabled',
-      defaultValue: false,
       control: {
-        type: 'boolean'
-      }
+        type: 'boolean',
+      },
     },
     fullHeight: {
       name: 'Full Height',
-      defaultValue: false,
       control: {
-        type: 'boolean'
-      }
+        type: 'boolean',
+      },
     },
     monospace: {
       name: 'Monospace Font',
-      defaultValue: false,
       control: {
-        type: 'boolean'
-      }
+        type: 'boolean',
+      },
+    },
+    pasteUrlsAsPlainText: {
+      name: 'Enable Plain-Text URL Pasting',
+      control: {
+        type: 'boolean',
+      },
     },
     minHeightLines: {
       name: 'Minimum Height (Lines)',
-      defaultValue: 5,
       control: {
-        type: 'number'
-      }
+        type: 'number',
+      },
     },
     maxHeightLines: {
       name: 'Maximum Height (Lines)',
-      defaultValue: 35,
       control: {
-        type: 'number'
-      }
+        type: 'number',
+      },
     },
     hideLabel: {
       name: 'Hide Label',
-      defaultValue: false,
       control: {
-        type: 'boolean'
-      }
+        type: 'boolean',
+      },
     },
     required: {
       name: 'Required',
-      defaultValue: false,
       control: {
-        type: 'boolean'
-      }
+        type: 'boolean',
+      },
     },
     fileUploadsEnabled: {
       name: 'Enable File Uploads',
-      defaultValue: true,
       control: {
-        type: 'boolean'
-      }
+        type: 'boolean',
+      },
     },
     savedRepliesEnabled: {
       name: 'Enable Saved Replies',
-      defaultValue: true,
       control: {
-        type: 'boolean'
-      }
+        type: 'boolean',
+      },
     },
     onSubmit: {
       name: 'onSubmit',
-      action: 'submitted'
+      action: 'submitted',
     },
     onDiffClick: {
       name: 'onDiffClick',
-      action: 'diff-clicked'
-    }
-  }
+      action: 'diff-clicked',
+    },
+  },
 }
 
 export default meta
@@ -122,6 +132,7 @@ type ArgProps = {
   required: boolean
   fileUploadsEnabled: boolean
   savedRepliesEnabled: boolean
+  pasteUrlsAsPlainText: boolean
   onSubmit: () => void
   onDiffClick: () => void
 }
@@ -133,7 +144,7 @@ const fakeFileUrl = (file: File) => `https://image-store.example/file/${encodeUR
 const mentionables: Mentionable[] = [
   {identifier: 'monalisa', description: 'Monalisa Octocat'},
   {identifier: 'github', description: 'GitHub'},
-  {identifier: 'primer', description: 'Primer'}
+  {identifier: 'primer', description: 'Primer'},
 ]
 
 const emojis: Emoji[] = [
@@ -151,7 +162,8 @@ const emojis: Emoji[] = [
   {name: 'point_right', character: '👉'},
   {name: 'raised_hand', character: '✋'},
   {name: 'thumbsup', character: '👍'},
-  {name: 'thumbsdown', character: '👎'}
+  {name: 'thumbsdown', character: '👎'},
+  {name: 'octocat', url: 'https://github.githubassets.com/images/icons/emoji/octocat.png'},
 ]
 
 const references: Reference[] = [
@@ -159,9 +171,9 @@ const references: Reference[] = [
   {
     id: '2',
     titleText: 'Error: `Failed to install` when installing',
-    titleHtml: 'Error: <code>Failed to install</code> when installing'
+    titleHtml: 'Error: <code>Failed to install</code> when installing',
   },
-  {id: '3', titleText: 'Add error-handling functionality', titleHtml: 'Add error-handling functionality'}
+  {id: '3', titleText: 'Add error-handling functionality', titleHtml: 'Add error-handling functionality'},
 ]
 
 const savedReplies: SavedReply[] = [
@@ -171,8 +183,8 @@ const savedReplies: SavedReply[] = [
   {
     name: 'Long Lorem Ipsum',
     content:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam sodales ligula commodo ex venenatis molestie. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Curabitur vulputate elementum dolor ac sollicitudin. Duis tellus quam, hendrerit sit amet metus quis, pharetra consectetur eros. Duis purus justo, convallis nec velit nec, feugiat pharetra nibh. Aenean vulputate urna sollicitudin vehicula fermentum. Vestibulum semper iaculis metus, quis ullamcorper dui feugiat a. Donec nulla sapien, tincidunt ut arcu sit amet, ultrices fringilla massa. Integer ac justo lacus.\n\nFusce sed pharetra sem. Nulla rutrum turpis magna, sit amet sodales dui vehicula in. Cras lacinia, dui sit amet dictum lobortis, arcu erat semper lectus, placerat accumsan diam dolor nec quam. Vivamus accumsan ut magna eget maximus. Integer scelerisque justo et quam pharetra, nec placerat nibh auctor. Vestibulum cursus, mauris id euismod convallis, justo sapien faucibus dolor, nec dictum erat urna at velit. Quisque egestas massa eget odio consectetur vehicula. Aliquam a imperdiet lacus, eu facilisis mauris. Etiam tempor neque vitae erat elementum bibendum. Fusce ultricies nunc tortor.\n\nQuisque in posuere sapien. Nulla ornare sagittis tellus eu laoreet. Sed molestie sem in turpis blandit pretium. Vivamus gravida dui id gravida aliquam. Vestibulum vestibulum, justo vitae cursus mattis, urna mauris pulvinar dolor, eu suscipit magna libero eget diam. Praesent id rutrum libero, a feugiat nulla. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Curabitur ornare libero id augue fringilla maximus sed sed ante. Quisque finibus accumsan lorem ut lobortis. Maecenas lobortis lacus sed mattis rutrum. Aliquam a mi sodales, blandit nisi ut, volutpat ex. Duis tristique, erat quis fermentum ultricies, leo ipsum placerat nunc, eu aliquam nibh mauris vitae lectus. Proin vitae tellus nec lorem vulputate faucibus. In hac habitasse platea dictumst. Suspendisse dictum odio in faucibus mattis.'
-  }
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam sodales ligula commodo ex venenatis molestie. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Curabitur vulputate elementum dolor ac sollicitudin. Duis tellus quam, hendrerit sit amet metus quis, pharetra consectetur eros. Duis purus justo, convallis nec velit nec, feugiat pharetra nibh. Aenean vulputate urna sollicitudin vehicula fermentum. Vestibulum semper iaculis metus, quis ullamcorper dui feugiat a. Donec nulla sapien, tincidunt ut arcu sit amet, ultrices fringilla massa. Integer ac justo lacus.\n\nFusce sed pharetra sem. Nulla rutrum turpis magna, sit amet sodales dui vehicula in. Cras lacinia, dui sit amet dictum lobortis, arcu erat semper lectus, placerat accumsan diam dolor nec quam. Vivamus accumsan ut magna eget maximus. Integer scelerisque justo et quam pharetra, nec placerat nibh auctor. Vestibulum cursus, mauris id euismod convallis, justo sapien faucibus dolor, nec dictum erat urna at velit. Quisque egestas massa eget odio consectetur vehicula. Aliquam a imperdiet lacus, eu facilisis mauris. Etiam tempor neque vitae erat elementum bibendum. Fusce ultricies nunc tortor.\n\nQuisque in posuere sapien. Nulla ornare sagittis tellus eu laoreet. Sed molestie sem in turpis blandit pretium. Vivamus gravida dui id gravida aliquam. Vestibulum vestibulum, justo vitae cursus mattis, urna mauris pulvinar dolor, eu suscipit magna libero eget diam. Praesent id rutrum libero, a feugiat nulla. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Curabitur ornare libero id augue fringilla maximus sed sed ante. Quisque finibus accumsan lorem ut lobortis. Maecenas lobortis lacus sed mattis rutrum. Aliquam a mi sodales, blandit nisi ut, volutpat ex. Duis tristique, erat quis fermentum ultricies, leo ipsum placerat nunc, eu aliquam nibh mauris vitae lectus. Proin vitae tellus nec lorem vulputate faucibus. In hac habitasse platea dictumst. Suspendisse dictum odio in faucibus mattis.',
+  },
 ]
 
 const onUploadFile = async (file: File) => {
@@ -200,7 +212,8 @@ export const Default = ({
   required,
   fileUploadsEnabled,
   onSubmit,
-  savedRepliesEnabled
+  savedRepliesEnabled,
+  pasteUrlsAsPlainText,
 }: ArgProps) => {
   const [value, setValue] = useState('')
 
@@ -223,6 +236,7 @@ export const Default = ({
         referenceSuggestions={references}
         savedReplies={savedRepliesEnabled ? savedReplies : undefined}
         required={required}
+        pasteUrlsAsPlainText={pasteUrlsAsPlainText}
       >
         <MarkdownEditor.Label visuallyHidden={hideLabel}>Markdown Editor Example</MarkdownEditor.Label>
       </MarkdownEditor>
@@ -242,7 +256,8 @@ export const CustomButtons = ({
   fileUploadsEnabled,
   onSubmit,
   onDiffClick,
-  savedRepliesEnabled
+  savedRepliesEnabled,
+  pasteUrlsAsPlainText,
 }: ArgProps) => {
   const [value, setValue] = useState('')
 
@@ -265,6 +280,7 @@ export const CustomButtons = ({
         referenceSuggestions={references}
         required={required}
         savedReplies={savedRepliesEnabled ? savedReplies : undefined}
+        pasteUrlsAsPlainText={pasteUrlsAsPlainText}
       >
         <MarkdownEditor.Label visuallyHidden={hideLabel}>Markdown Editor Example</MarkdownEditor.Label>
 
@@ -281,6 +297,70 @@ export const CustomButtons = ({
             Submit
           </MarkdownEditor.ActionButton>
         </MarkdownEditor.Actions>
+      </MarkdownEditor>
+      <p>Note: for demo purposes, files starting with &quot;A&quot; will be rejected.</p>
+    </>
+  )
+}
+
+function useLazySuggestions<T>(suggestions: T[]) {
+  const promiseRef = useRef<Promise<T[]> | null>(null)
+
+  return () => {
+    // This simulates waiting to make an API  request until the first time the suggestions are needed
+    // Then, once we have made the API request we keep returning the same Promise which will already
+    // be resolved with the cached data
+    if (!promiseRef.current) {
+      promiseRef.current = new Promise(resolve => {
+        setTimeout(() => resolve(suggestions), 500)
+      })
+    }
+
+    return promiseRef.current
+  }
+}
+
+export const LazyLoadedSuggestions = ({
+  disabled,
+  fullHeight,
+  monospace,
+  minHeightLines,
+  maxHeightLines,
+  hideLabel,
+  required,
+  fileUploadsEnabled,
+  onSubmit,
+  savedRepliesEnabled,
+  pasteUrlsAsPlainText,
+}: ArgProps) => {
+  const [value, setValue] = useState('')
+
+  const emojiSuggestions = useLazySuggestions(emojis)
+  const mentionSuggestions = useLazySuggestions(mentionables)
+  const referenceSuggestions = useLazySuggestions(references)
+
+  return (
+    <>
+      <MarkdownEditor
+        value={value}
+        onChange={setValue}
+        onPrimaryAction={onSubmit}
+        disabled={disabled}
+        fullHeight={fullHeight}
+        monospace={monospace}
+        minHeightLines={minHeightLines}
+        maxHeightLines={maxHeightLines}
+        placeholder="Enter some Markdown..."
+        onRenderPreview={renderPreview}
+        onUploadFile={fileUploadsEnabled ? onUploadFile : undefined}
+        emojiSuggestions={emojiSuggestions}
+        mentionSuggestions={mentionSuggestions}
+        referenceSuggestions={referenceSuggestions}
+        savedReplies={savedRepliesEnabled ? savedReplies : undefined}
+        required={required}
+        pasteUrlsAsPlainText={pasteUrlsAsPlainText}
+      >
+        <MarkdownEditor.Label visuallyHidden={hideLabel}>Markdown Editor Example</MarkdownEditor.Label>
       </MarkdownEditor>
       <p>Note: for demo purposes, files starting with &quot;A&quot; will be rejected.</p>
     </>

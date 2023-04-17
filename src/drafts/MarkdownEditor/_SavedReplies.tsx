@@ -6,7 +6,7 @@ import React, {
   useContext,
   useEffect,
   useImperativeHandle,
-  useState
+  useState,
 } from 'react'
 import {SelectPanel, SelectPanelProps} from '../../SelectPanel'
 import {ToolbarButton} from './Toolbar'
@@ -39,7 +39,7 @@ export const SavedRepliesButton = () => {
   useImperativeHandle(context?.ref, () => ({
     openMenu: () => {
       setOpen(true)
-    }
+    },
   }))
 
   const [open, setOpen] = useState(false)
@@ -63,10 +63,10 @@ export const SavedRepliesButton = () => {
             whiteSpace: 'nowrap',
             overflow: 'hidden',
             textOverflow: 'ellipsis',
-            maxWidth: '100%'
-          }
-        }
-      })
+            maxWidth: '100%',
+          },
+        },
+      }),
     )
 
   const onSelectItem = (item: Item | undefined) => {
@@ -86,7 +86,14 @@ export const SavedRepliesButton = () => {
 
   return items ? (
     <SelectPanel
-      renderAnchor={props => <ToolbarButton {...props} icon={ReplyIcon} aria-label="Add saved reply (Ctrl + .)" />}
+      renderAnchor={props => (
+        <ToolbarButton
+          {...props}
+          icon={ReplyIcon}
+          aria-label="Add saved reply (Ctrl + .)"
+          aria-labelledby={undefined}
+        />
+      )}
       open={open}
       onOpenChange={setOpen}
       items={items}

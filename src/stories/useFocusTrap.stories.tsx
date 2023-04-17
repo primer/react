@@ -17,8 +17,8 @@ export default {
           </BaseStyles>
         </ThemeProvider>
       )
-    }
-  ]
+    },
+  ],
 } as Meta
 
 // NOTE: the below styles are solely intended as a visual aid for
@@ -44,12 +44,12 @@ export const FocusTrap = () => {
   const {containerRef} = useFocusTrap({disabled: !trapEnabled})
 
   const spaceListener = React.useCallback(
-    event => {
+    (event: KeyboardEvent) => {
       if (event.key === ' ') {
         setTrapEnabled(!trapEnabled)
       }
     },
-    [trapEnabled]
+    [trapEnabled],
   )
 
   useEffect(() => {
@@ -95,12 +95,12 @@ export const RestoreFocus = () => {
   const {containerRef} = useFocusTrap({disabled: !trapEnabled, restoreFocusOnCleanUp: true})
 
   const spaceListener = React.useCallback(
-    event => {
+    (event: KeyboardEvent) => {
       if (event.key === ' ') {
         setTrapEnabled(!trapEnabled)
       }
     },
-    [trapEnabled]
+    [trapEnabled],
   )
 
   useEffect(() => {
@@ -146,12 +146,12 @@ export const CustomInitialFocus = () => {
   const {containerRef, initialFocusRef} = useFocusTrap({disabled: !trapEnabled})
 
   const spaceListener = React.useCallback(
-    event => {
+    (event: KeyboardEvent) => {
       if (event.key === ' ') {
         setTrapEnabled(!trapEnabled)
       }
     },
-    [trapEnabled]
+    [trapEnabled],
   )
 
   useEffect(() => {
@@ -204,7 +204,7 @@ function useKeyPressListener(key: string, handler: () => void, capture = false) 
         handler()
       }
     },
-    [key, handler]
+    [key, handler],
   )
 
   useEffect(() => {
@@ -221,7 +221,7 @@ function ToggleableButton({name}: {name: string}) {
 
   useKeyPressListener(
     key,
-    useCallback(() => setShowButton(!showButton), [showButton])
+    useCallback(() => setShowButton(!showButton), [showButton]),
   )
 
   return (
@@ -238,7 +238,7 @@ export const DynamicFocusTrapContents = () => {
 
   useKeyPressListener(
     ' ',
-    useCallback(() => setTrapEnabled(!trapEnabled), [trapEnabled])
+    useCallback(() => setTrapEnabled(!trapEnabled), [trapEnabled]),
   )
 
   return (
@@ -280,7 +280,7 @@ export const MultipleFocusTraps = () => {
   const {containerRef: containerRef2} = useFocusTrap({disabled: !trapEnabled2})
 
   const keyListener = React.useCallback(
-    event => {
+    (event: KeyboardEvent) => {
       if (event.key === '1') {
         setTrapEnabled1(!trapEnabled1)
       }
@@ -288,7 +288,7 @@ export const MultipleFocusTraps = () => {
         setTrapEnabled2(!trapEnabled2)
       }
     },
-    [trapEnabled1, trapEnabled2]
+    [trapEnabled1, trapEnabled2],
   )
 
   useEffect(() => {

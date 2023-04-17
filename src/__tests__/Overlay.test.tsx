@@ -3,13 +3,11 @@ import {Overlay, Box, Text} from '..'
 import {ButtonDanger, Button} from '../deprecated'
 import {render, waitFor, fireEvent} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import {axe, toHaveNoViolations} from 'jest-axe'
+import {axe} from 'jest-axe'
 import theme from '../theme'
 import BaseStyles from '../BaseStyles'
 import {ThemeProvider} from '../ThemeProvider'
-import {NestedOverlays, MemexNestedOverlays, MemexIssueOverlay} from '../stories/Overlay.stories'
-
-expect.extend(toHaveNoViolations)
+import {NestedOverlays, MemexNestedOverlays, MemexIssueOverlay, PositionedOverlays} from '../stories/Overlay.stories'
 
 type TestComponentSettings = {
   initialFocus?: 'button'
@@ -107,11 +105,19 @@ describe('Overlay', () => {
   })
 
   it('should close the top most overlay on escape', async () => {
+    const spy = jest.spyOn(console, 'log').mockImplementation(message => {
+      if (!message.startsWith('global handler')) {
+        throw new Error(
+          `Expected console.log() to be called with: 'global handler:' but instead it was called with: ${message}`,
+        )
+      }
+    })
+
     const user = userEvent.setup()
     const container = render(
       <ThemeProvider>
         <NestedOverlays />
-      </ThemeProvider>
+      </ThemeProvider>,
     )
 
     // open first menu
@@ -131,6 +137,62 @@ describe('Overlay', () => {
     // hitting escape again in first overlay should close it
     fireEvent.keyDown(container.getByText('Add to list'), {key: 'Escape', code: 'Escape'})
     expect(container.queryByText('Add to list')).not.toBeInTheDocument()
+
+    spy.mockRestore()
+  })
+
+  it('should right align when given `right: 0` and `position: fixed`', async () => {
+    const spy = jest.spyOn(console, 'log').mockImplementation(message => {
+      if (!message.startsWith('global handler')) {
+        throw new Error(
+          `Expected console.log() to be called with: 'global handler:' but instead it was called with: ${message}`,
+        )
+      }
+    })
+
+    const user = userEvent.setup()
+    const container = render(
+      <ThemeProvider>
+        <PositionedOverlays right />
+      </ThemeProvider>,
+    )
+
+    // open first menu
+    await user.click(container.getByText('Open right overlay'))
+    expect(container.getByText('Look! right aligned')).toBeInTheDocument()
+
+    const overlay = container.getByText('Look! right aligned').parentElement?.parentElement
+
+    expect(overlay).toHaveStyle({position: 'fixed', right: 0})
+    expect(overlay).not.toHaveStyle({left: 0})
+
+    spy.mockRestore()
+  })
+
+  it('should left align when not given position and left props', async () => {
+    const spy = jest.spyOn(console, 'log').mockImplementation(message => {
+      if (!message.startsWith('global handler')) {
+        throw new Error(
+          `Expected console.log() to be called with: 'global handler:' but instead it was called with: ${message}`,
+        )
+      }
+    })
+
+    const user = userEvent.setup()
+    const container = render(
+      <ThemeProvider>
+        <PositionedOverlays />
+      </ThemeProvider>,
+    )
+
+    // open first menu
+    await user.click(container.getByText('Open left overlay'))
+    expect(container.getByText('Look! left aligned')).toBeInTheDocument()
+
+    const overlay = container.getByText('Look! left aligned').parentElement?.parentElement
+    expect(overlay).toHaveStyle({left: 0, position: 'absolute'})
+
+    spy.mockRestore()
   })
 
   it('memex repro: should only close the dropdown when escape is pressed', async () => {
@@ -138,7 +200,7 @@ describe('Overlay', () => {
     const container = render(
       <ThemeProvider>
         <MemexNestedOverlays />
-      </ThemeProvider>
+      </ThemeProvider>,
     )
 
     // open first menu
@@ -161,7 +223,7 @@ describe('Overlay', () => {
     const container = render(
       <ThemeProvider>
         <MemexIssueOverlay />
-      </ThemeProvider>
+      </ThemeProvider>,
     )
 
     // clicking the title opens overlay
@@ -182,7 +244,6 @@ describe('Overlay', () => {
   })
 
   // https://github.com/primer/react/issues/1802
-  // eslint-disable-next-line jest/no-disabled-tests
   it.skip('memex repro: should not leak overlay events to the document', async () => {
     const user = userEvent.setup()
     const mockHandler = jest.fn()

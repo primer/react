@@ -97,21 +97,16 @@ const ModalWrapper = styled.div<StyledModalWrapperProps>`
 type SelectMenuModalInternalProps = Pick<StyledModalProps, 'width'> & ComponentProps<typeof ModalWrapper>
 
 const SelectMenuModal = React.forwardRef<HTMLDivElement, SelectMenuModalInternalProps>(
-  ({children, theme, width: widthProp, ...rest}, forwardedRef) => {
+  ({children, theme, width: widthProp = '300px', align = 'left', ...rest}, forwardedRef) => {
     return (
-      <ModalWrapper theme={theme} {...rest} role="menu" ref={forwardedRef}>
+      <ModalWrapper theme={theme} align={align} {...rest} role="menu" ref={forwardedRef}>
         <Modal theme={theme} width={widthProp}>
           {children}
         </Modal>
       </ModalWrapper>
     )
-  }
+  },
 )
-
-SelectMenuModal.defaultProps = {
-  align: 'left',
-  width: '300px'
-}
 
 SelectMenuModal.displayName = 'SelectMenu.Modal'
 

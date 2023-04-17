@@ -1,4 +1,5 @@
 import React from 'react'
+import ReactDOM from 'react-dom'
 import {ThemeProvider as SCThemeProvider} from 'styled-components'
 import defaultTheme from './theme'
 import deepmerge from 'deepmerge'
@@ -34,7 +35,7 @@ const ThemeContext = React.createContext<{
 }>({
   setColorMode: () => null,
   setDayScheme: () => null,
-  setNightScheme: () => null
+  setNightScheme: () => null,
 })
 
 // inspired from __NEXT_DATA__, we use application/json to avoid CSRF policy with inline scripts
@@ -54,7 +55,7 @@ export const ThemeProvider: React.FC<React.PropsWithChildren<ThemeProviderProps>
     theme: fallbackTheme,
     colorMode: fallbackColorMode,
     dayScheme: fallbackDayScheme,
-    nightScheme: fallbackNightScheme
+    nightScheme: fallbackNightScheme,
   } = useTheme()
 
   // Initialize state
@@ -71,7 +72,7 @@ export const ThemeProvider: React.FC<React.PropsWithChildren<ThemeProviderProps>
   const colorScheme = chooseColorScheme(resolvedColorMode, dayScheme, nightScheme)
   const {resolvedTheme, resolvedColorScheme} = React.useMemo(
     () => applyColorScheme(theme, colorScheme),
-    [theme, colorScheme]
+    [theme, colorScheme],
   )
 
   // this effect will only run on client
@@ -83,8 +84,13 @@ export const ThemeProvider: React.FC<React.PropsWithChildren<ThemeProviderProps>
         // if the resolved color mode passed on from the server is not the resolved color mode on client, change it!
         if (resolvedColorModePassthrough.current !== resolvedColorModeOnClient) {
           window.setTimeout(() => {
-            // override colorMode to whatever is resolved on the client to get a re-render
-            setColorMode(resolvedColorModeOnClient)
+            // use ReactDOM.flushSync to prevent automatic batching of state updates since React 18
+            // ref: https://github.com/reactwg/react-18/discussions/21
+            ReactDOM.flushSync(() => {
+              // override colorMode to whatever is resolved on the client to get a re-render
+              setColorMode(resolvedColorModeOnClient)
+            })
+
             // immediately after that, set the colorMode to what the user passed to respond to system color mode changes
             setColorMode(colorMode)
           })
@@ -93,7 +99,7 @@ export const ThemeProvider: React.FC<React.PropsWithChildren<ThemeProviderProps>
         resolvedColorModePassthrough.current = null
       }
     },
-    [colorMode, systemColorMode]
+    [colorMode, systemColorMode],
   )
 
   // Update state if props change
@@ -121,7 +127,7 @@ export const ThemeProvider: React.FC<React.PropsWithChildren<ThemeProviderProps>
         nightScheme,
         setColorMode,
         setDayScheme,
-        setNightScheme
+        setNightScheme,
       }}
     >
       <SCThemeProvider theme={resolvedTheme}>
@@ -212,12 +218,12 @@ function chooseColorScheme(colorMode: ColorMode, dayScheme: string, nightScheme:
 
 function applyColorScheme(
   theme: Theme,
-  colorScheme: string
+  colorScheme: string,
 ): {resolvedTheme: Theme; resolvedColorScheme: string | undefined} {
   if (!theme.colorSchemes) {
     return {
       resolvedTheme: theme,
-      resolvedColorScheme: undefined
+      resolvedColorScheme: undefined,
     }
   }
 
@@ -229,13 +235,13 @@ function applyColorScheme(
     const defaultColorScheme = Object.keys(theme.colorSchemes)[0]
     return {
       resolvedTheme: deepmerge(theme, theme.colorSchemes[defaultColorScheme]),
-      resolvedColorScheme: defaultColorScheme
+      resolvedColorScheme: defaultColorScheme,
     }
   }
 
   return {
     resolvedTheme: deepmerge(theme, theme.colorSchemes[colorScheme]),
-    resolvedColorScheme: colorScheme
+    resolvedColorScheme: colorScheme,
   }
 }
 

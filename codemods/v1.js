@@ -7,7 +7,7 @@ module.exports = (file, api) => {
 
   modifyProps(ast, j, 'primer-react', {
     tag: 'is',
-    fg: 'color'
+    fg: 'color',
   })
 
   return prettify(ast, file)

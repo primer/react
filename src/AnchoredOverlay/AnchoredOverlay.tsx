@@ -3,7 +3,7 @@ import Overlay, {OverlayProps} from '../Overlay'
 import {FocusTrapHookSettings, useFocusTrap} from '../hooks/useFocusTrap'
 import {FocusZoneHookSettings, useFocusZone} from '../hooks/useFocusZone'
 import {useAnchoredPosition, useProvidedRefOrCreate, useRenderForcingRef} from '../hooks'
-import {useSSRSafeId} from '@react-aria/ssr'
+import {useId} from '../hooks/useId'
 import type {PositionSettings} from '@primer/behaviors'
 
 interface AnchoredOverlayPropsWithAnchor {
@@ -99,12 +99,12 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
   overlayProps,
   focusTrapSettings,
   focusZoneSettings,
-  side,
-  align
+  side = 'outside-bottom',
+  align = 'start',
 }) => {
   const anchorRef = useProvidedRefOrCreate(externalAnchorRef)
   const [overlayRef, updateOverlayRef] = useRenderForcingRef<HTMLDivElement>()
-  const anchorId = useSSRSafeId(externalAnchorId)
+  const anchorId = useId(externalAnchorId)
 
   const onClickOutside = useCallback(() => onClose?.('click-outside'), [onClose])
   const onEscape = useCallback(() => onClose?.('escape'), [onClose])
@@ -118,7 +118,7 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
         }
       }
     },
-    [open, onOpen]
+    [open, onOpen],
   )
   const onAnchorClick = useCallback(
     (event: React.MouseEvent<HTMLElement>) => {
@@ -131,7 +131,7 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
         onClose?.('anchor-click')
       }
     },
-    [open, onOpen, onClose]
+    [open, onOpen, onClose],
   )
 
   const {position} = useAnchoredPosition(
@@ -139,9 +139,9 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
       anchorElementRef: anchorRef,
       floatingElementRef: overlayRef,
       side,
-      align
+      align,
     },
-    [overlayRef.current]
+    [overlayRef.current],
   )
 
   useEffect(() => {
@@ -154,7 +154,7 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
   useFocusZone({
     containerRef: overlayRef,
     disabled: !open || !position,
-    ...focusZoneSettings
+    ...focusZoneSettings,
   })
   useFocusTrap({containerRef: overlayRef, disabled: !open || !position, ...focusTrapSettings})
 
@@ -168,7 +168,7 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
           'aria-expanded': open ? 'true' : undefined,
           tabIndex: 0,
           onClick: onAnchorClick,
-          onKeyDown: onAnchorKeyDown
+          onKeyDown: onAnchorKeyDown,
         })}
       {open ? (
         <Overlay
@@ -194,8 +194,3 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
 }
 
 AnchoredOverlay.displayName = 'AnchoredOverlay'
-
-AnchoredOverlay.defaultProps = {
-  side: 'outside-bottom',
-  align: 'start'
-}

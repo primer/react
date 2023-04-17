@@ -1,0 +1,53 @@
+name: Bug report 🐛
+description: Something not working as expected? This is the place to report your issue.
+labels:
+  - 'bug'
+body:
+  - type: markdown
+    attributes:
+      value: |
+        # Hi there! :wave:
+
+        Thanks for taking the time to fill out this bug report.
+
+        **Note**: As this is a public repo, please be careful not to include details or screenshots from unreleased GitHub products or features. In most cases, a good bug report should be able to describe the new component without including business logic or feature details, but if you must discuss context relating to an unreleased feature, please open an issue in the private [Design Systems repo](https://github.com/github/primer/issues/new/choose) and link to it below.
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: "Tell us more about the problem that you're running into."
+      placeholder: What did you see? What did you expect to see?
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Steps to reproduce
+      description: 'How do we reproduce the error you described above? Feel free to use the `@primer/react` template on [CodeSandbox](https://codesandbox.io/s/primer-react-qyyepc) to get started'
+      placeholder: |
+        1. Go to '...'
+        2. Click on '....'
+        3. Scroll down to '....'
+        4. See error
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      description: 'What version of `@primer/react` are you using?'
+      placeholder: v35.2.0
+    validations:
+      required: true
+  - type: dropdown
+    id: browser
+    attributes:
+      label: Browser
+      description: In which browser(s) are you experiencing the issue?
+      multiple: true
+      options:
+        - Chrome
+        - Safari
+        - Firefox
+        - Edge
+        - iOS Safari

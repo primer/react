@@ -2,7 +2,7 @@ import React from 'react'
 import '@testing-library/jest-dom/extend-expect'
 import {render} from '@testing-library/react'
 import {Checkbox, CheckboxGroup, FormControl, SSRProvider} from '..'
-import {behavesAsComponent, checkExports, checkStoriesForAxeViolations} from '../utils/testing'
+import {behavesAsComponent, checkExports} from '../utils/testing'
 import userEvent from '@testing-library/user-event'
 import {CheckboxGroupContext} from '../CheckboxGroup'
 
@@ -12,9 +12,11 @@ describe('CheckboxGroup', () => {
   beforeAll(() => {
     jest.spyOn(global.console, 'warn').mockImplementation(mockWarningFn)
   })
+
   afterAll(() => {
     jest.clearAllMocks()
   })
+
   behavesAsComponent({
     Component: CheckboxGroup,
     options: {skipAs: true, skipSx: true}, // skipping sx check because we have to render this in a <SSRProvider> to keep snapshots consistent
@@ -36,12 +38,14 @@ describe('CheckboxGroup', () => {
           </FormControl>
         </CheckboxGroup>
       </SSRProvider>
-    )
+    ),
   })
+
   checkExports('CheckboxGroup', {
     default: CheckboxGroup,
-    CheckboxGroupContext
+    CheckboxGroupContext,
   })
+
   it('renders a disabled group of inputs', () => {
     const {getAllByRole, getByRole} = render(
       <CheckboxGroup disabled>
@@ -58,7 +62,7 @@ describe('CheckboxGroup', () => {
           <Checkbox value="three" />
           <FormControl.Label>Choice three</FormControl.Label>
         </FormControl>
-      </CheckboxGroup>
+      </CheckboxGroup>,
     )
     const checkboxInputs = getAllByRole('checkbox') as HTMLInputElement[]
     const fieldset = getByRole('group') as HTMLFieldSetElement
@@ -69,6 +73,7 @@ describe('CheckboxGroup', () => {
 
     expect(fieldset.disabled).toBe(true)
   })
+
   it('renders a required group of inputs', () => {
     const {getByTitle} = render(
       <CheckboxGroup required>
@@ -85,12 +90,13 @@ describe('CheckboxGroup', () => {
           <Checkbox value="three" />
           <FormControl.Label>Choice three</FormControl.Label>
         </FormControl>
-      </CheckboxGroup>
+      </CheckboxGroup>,
     )
     const requiredIndicator = getByTitle('required field')
 
     expect(requiredIndicator).toBeInTheDocument()
   })
+
   it('calls onChange handlers passed to CheckboxGroup and Checkbox', async () => {
     const user = userEvent.setup()
     const handleParentChange = jest.fn()
@@ -110,7 +116,7 @@ describe('CheckboxGroup', () => {
           <Checkbox value="three" />
           <FormControl.Label>Choice three</FormControl.Label>
         </FormControl>
-      </CheckboxGroup>
+      </CheckboxGroup>,
     )
     const checkbox = getByLabelText('Choice one') as HTMLInputElement
 
@@ -120,6 +126,7 @@ describe('CheckboxGroup', () => {
     expect(handleParentChange).toHaveBeenCalled()
     expect(handleCheckboxChange).toHaveBeenCalled()
   })
+
   it('calls onChange handler on CheckboxGroup with selected values', async () => {
     const user = userEvent.setup()
     const handleParentChange = jest.fn()
@@ -138,7 +145,7 @@ describe('CheckboxGroup', () => {
           <Checkbox value="three" />
           <FormControl.Label>Choice three</FormControl.Label>
         </FormControl>
-      </CheckboxGroup>
+      </CheckboxGroup>,
     )
 
     const checkbox = getByLabelText('Choice one') as HTMLInputElement
@@ -149,21 +156,18 @@ describe('CheckboxGroup', () => {
       ['two', 'one'],
       expect.objectContaining({
         target: expect.objectContaining({
-          value: 'one'
-        })
-      })
+          value: 'one',
+        }),
+      }),
     )
     await user.click(checkbox)
     expect(handleParentChange).toHaveBeenCalledWith(
       ['two'],
       expect.objectContaining({
         target: expect.objectContaining({
-          value: 'one'
-        })
-      })
+          value: 'one',
+        }),
+      }),
     )
   })
 })
-
-checkStoriesForAxeViolations('CheckboxGroup/fixtures')
-checkStoriesForAxeViolations('CheckboxGroup/examples')

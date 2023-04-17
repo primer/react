@@ -11,7 +11,7 @@ describe('Avatar', () => {
   behavesAsComponent({Component: Avatar})
 
   checkExports('Avatar', {
-    default: Avatar
+    default: Avatar,
   })
 
   it('should have no axe violations', async () => {

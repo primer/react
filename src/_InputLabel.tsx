@@ -1,5 +1,5 @@
 import React from 'react'
-import {Box} from '.'
+import Box from './Box'
 import {SxProp} from './sx'
 import VisuallyHidden from './_VisuallyHidden'
 
@@ -10,17 +10,17 @@ type BaseProps = SxProp & {
   id?: string
 }
 
-type LabelProps = BaseProps & {
+export type LabelProps = BaseProps & {
   htmlFor?: string
   as?: 'label'
 }
 
-type LegendProps = BaseProps & {
-  as: 'legend'
+export type LegendOrSpanProps = BaseProps & {
+  as: 'legend' | 'span'
   htmlFor?: undefined
 }
 
-type Props = LabelProps | LegendProps
+type Props = LabelProps | LegendOrSpanProps
 
 const InputLabel: React.FC<React.PropsWithChildren<Props>> = ({
   children,
@@ -30,7 +30,7 @@ const InputLabel: React.FC<React.PropsWithChildren<Props>> = ({
   required,
   visuallyHidden,
   sx,
-  as = 'label'
+  as = 'label',
 }) => {
   return (
     <VisuallyHidden
@@ -45,9 +45,9 @@ const InputLabel: React.FC<React.PropsWithChildren<Props>> = ({
         fontSize: 1,
         display: 'block',
         color: disabled ? 'fg.muted' : 'fg.default',
-        cursor: disabled ? 'default' : 'pointer',
+        cursor: disabled ? 'not-allowed' : 'pointer',
         alignSelf: 'flex-start',
-        ...sx
+        ...sx,
       }}
     >
       {required ? (

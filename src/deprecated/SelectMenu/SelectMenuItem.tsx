@@ -91,7 +91,7 @@ export const listItemStyles = css`
 `
 
 const StyledItem = styled.a.attrs(() => ({
-  role: 'menuitemcheckbox'
+  role: 'menuitemcheckbox',
 }))<SxProp>`
   ${listItemStyles}
   ${sx};
@@ -103,7 +103,7 @@ type SelectMenuItemInteralProps = {
 } & ComponentProps<typeof StyledItem>
 
 const SelectMenuItem = forwardRef<HTMLAnchorElement, SelectMenuItemInteralProps>(
-  ({children, selected, theme, onClick, ...rest}, forwardedRef) => {
+  ({children, selected = false, theme, onClick, ...rest}, forwardedRef) => {
     const menuContext = useContext(MenuContext)
     const backupRef = useRef<HTMLAnchorElement>(null)
     const itemRef = forwardedRef ?? backupRef
@@ -123,12 +123,8 @@ const SelectMenuItem = forwardRef<HTMLAnchorElement, SelectMenuItemInteralProps>
         {children}
       </StyledItem>
     )
-  }
+  },
 )
-
-SelectMenuItem.defaultProps = {
-  selected: false
-}
 
 SelectMenuItem.displayName = 'SelectMenu.Item'
 

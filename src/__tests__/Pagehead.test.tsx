@@ -11,7 +11,7 @@ describe('Pagehead', () => {
   behavesAsComponent({Component: Pagehead})
 
   checkExports('Pagehead', {
-    default: Pagehead
+    default: Pagehead,
   })
 
   it('should have no axe violations', async () => {

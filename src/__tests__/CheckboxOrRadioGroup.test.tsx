@@ -3,7 +3,7 @@ import '@testing-library/jest-dom/extend-expect'
 import {render, within} from '@testing-library/react'
 import {Checkbox, FormControl, Radio, SSRProvider, TextInput} from '..'
 import {behavesAsComponent, checkExports} from '../utils/testing'
-import CheckboxOrRadioGroup from '../_CheckboxOrRadioGroup'
+import CheckboxOrRadioGroup, {CheckboxOrRadioGroupContext} from '../_CheckboxOrRadioGroup'
 
 const INPUT_GROUP_LABEL = 'Choices'
 
@@ -37,10 +37,11 @@ describe('CheckboxOrRadioGroup', () => {
           </FormControl>
         </CheckboxOrRadioGroup>
       </SSRProvider>
-    )
+    ),
   })
   checkExports('_CheckboxOrRadioGroup', {
-    default: CheckboxOrRadioGroup
+    default: CheckboxOrRadioGroup,
+    CheckboxOrRadioGroupContext,
   })
   it('renders a group of inputs with a caption in the <legend>', () => {
     render(
@@ -59,7 +60,7 @@ describe('CheckboxOrRadioGroup', () => {
           <Checkbox value="three" />
           <FormControl.Label>Choice three</FormControl.Label>
         </FormControl>
-      </CheckboxOrRadioGroup>
+      </CheckboxOrRadioGroup>,
     )
     const legend = document.getElementsByTagName('legend')[0]
     const caption = within(legend).getByText('Caption text')
@@ -84,7 +85,7 @@ describe('CheckboxOrRadioGroup', () => {
           <FormControl.Label>Choice three</FormControl.Label>
         </FormControl>
         <CheckboxOrRadioGroup.Validation variant="error">Validation text</CheckboxOrRadioGroup.Validation>
-      </CheckboxOrRadioGroup>
+      </CheckboxOrRadioGroup>,
     )
     const legend = document.getElementsByTagName('legend')[0]
     const validationMsg = within(legend).getByText('Validation text')
@@ -107,7 +108,7 @@ describe('CheckboxOrRadioGroup', () => {
           <Checkbox value="three" />
           <FormControl.Label>Choice three</FormControl.Label>
         </FormControl>
-      </CheckboxOrRadioGroup>
+      </CheckboxOrRadioGroup>,
     )
     const legend = getByText(INPUT_GROUP_LABEL)
 
@@ -129,7 +130,7 @@ describe('CheckboxOrRadioGroup', () => {
           <Checkbox value="three" />
           <FormControl.Label>Choice three</FormControl.Label>
         </FormControl>
-      </CheckboxOrRadioGroup>
+      </CheckboxOrRadioGroup>,
     )
 
     expect(getByRole('group', {name: INPUT_GROUP_LABEL})).toBeTruthy()
@@ -153,14 +154,15 @@ describe('CheckboxOrRadioGroup', () => {
             <FormControl.Label>Choice three</FormControl.Label>
           </FormControl>
         </CheckboxOrRadioGroup>
-      </>
+      </>,
     )
     const fieldset = getByLabelText(INPUT_GROUP_LABEL)
 
     expect(fieldset).toBeInTheDocument()
   })
+
   it('logs a warning when trying to render a group without a label', () => {
-    const consoleSpy = jest.spyOn(global.console, 'warn')
+    const consoleSpy = jest.spyOn(global.console, 'warn').mockImplementation()
 
     render(
       <CheckboxOrRadioGroup>
@@ -176,17 +178,19 @@ describe('CheckboxOrRadioGroup', () => {
           <Checkbox value="three" />
           <FormControl.Label>Choice three</FormControl.Label>
         </FormControl>
-      </CheckboxOrRadioGroup>
+      </CheckboxOrRadioGroup>,
     )
 
     expect(consoleSpy).toHaveBeenCalled()
+
+    consoleSpy.mockRestore()
   })
+
   it('logs a warning when trying to render an input component other than Radio or Checkbox', () => {
-    const consoleSpy = jest.spyOn(global.console, 'warn')
+    const consoleSpy = jest.spyOn(global.console, 'warn').mockImplementation()
 
     render(
       <CheckboxOrRadioGroup>
-        <FormControl.Label>{INPUT_GROUP_LABEL}</FormControl.Label>
         <FormControl>
           <FormControl.Label>Choice one</FormControl.Label>
           <TextInput />
@@ -199,9 +203,10 @@ describe('CheckboxOrRadioGroup', () => {
           <Checkbox value="three" />
           <FormControl.Label>Choice three</FormControl.Label>
         </FormControl>
-      </CheckboxOrRadioGroup>
+      </CheckboxOrRadioGroup>,
     )
 
     expect(consoleSpy).toHaveBeenCalled()
+    consoleSpy.mockRestore()
   })
 })

@@ -20,7 +20,7 @@ const createSlots = <SlotNames extends string>(slotNames: SlotNames[]) => {
   const SlotsContext = React.createContext<ContextProps>({
     registerSlot: () => null,
     unregisterSlot: () => null,
-    context: {}
+    context: {},
   })
 
   // maintain a static reference to avoid infinite render loop
@@ -31,12 +31,10 @@ const createSlots = <SlotNames extends string>(slotNames: SlotNames[]) => {
    *  When all the children have mounted = registered themselves in slot,
    *  we re-render the parent component to render with slots
    */
-  const Slots: React.FC<
-    React.PropsWithChildren<{
-      context?: ContextProps['context']
-      children: (slots: Slots) => React.ReactNode
-    }>
-  > = ({context = defaultContext, children}) => {
+  const Slots: React.FC<{
+    context?: ContextProps['context']
+    children: (slots: Slots) => React.ReactNode
+  }> = ({context = defaultContext, children}) => {
     // initialise slots
     const slotsDefinition: Slots = {}
     slotNames.map(name => (slotsDefinition[name] = null))
@@ -58,7 +56,7 @@ const createSlots = <SlotNames extends string>(slotNames: SlotNames[]) => {
         // don't render until the component mounts = all slots are registered
         if (isMounted) rerenderWithSlots()
       },
-      [isMounted, rerenderWithSlots]
+      [isMounted, rerenderWithSlots],
     )
 
     // Slot can be removed from the tree as well,
@@ -68,7 +66,7 @@ const createSlots = <SlotNames extends string>(slotNames: SlotNames[]) => {
         slotsRef.current[name] = null
         rerenderWithSlots()
       },
-      [rerenderWithSlots]
+      [rerenderWithSlots],
     )
 
     /**
@@ -82,16 +80,12 @@ const createSlots = <SlotNames extends string>(slotNames: SlotNames[]) => {
     )
   }
 
-  const Slot: React.FC<
-    React.PropsWithChildren<{
-      name: SlotNames
-      children: React.ReactNode
-    }>
-  > = ({name, children}) => {
+  function Slot<T>(props: {name: SlotNames; children: React.ReactNode | ((context: T) => React.ReactNode)}) {
+    const {name, children} = props
     const {registerSlot, unregisterSlot, context} = React.useContext(SlotsContext)
 
     useLayoutEffect(() => {
-      registerSlot(name, typeof children === 'function' ? children(context) : children)
+      registerSlot(name, typeof children === 'function' ? children(context as T) : children)
       return () => unregisterSlot(name)
     }, [name, children, registerSlot, unregisterSlot, context])
 

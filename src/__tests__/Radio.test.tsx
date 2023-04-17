@@ -9,17 +9,17 @@ expect.extend(toHaveNoViolations)
 describe('Radio', () => {
   const defaultProps = {
     name: 'mock',
-    value: 'mock value'
+    value: 'mock value',
   }
 
   beforeEach(() => {
     jest.resetAllMocks()
   })
 
-  behavesAsComponent({Component: Radio})
+  behavesAsComponent({Component: Radio, toRender: () => <Radio {...defaultProps} />})
 
   checkExports('Radio', {
-    default: Radio
+    default: Radio,
   })
 
   it('renders a valid radio input', () => {
@@ -104,18 +104,14 @@ describe('Radio', () => {
 
     expect(radio.disabled).toEqual(true)
     expect(radio).not.toBeChecked()
-    expect(radio).toHaveAttribute('aria-disabled', 'true')
 
     fireEvent.change(radio)
 
     expect(radio.disabled).toEqual(true)
     expect(radio).not.toBeChecked()
-    expect(radio).toHaveAttribute('aria-disabled', 'true')
 
     // remove disabled attribute and retest
     rerender(<Radio {...defaultProps} onChange={handleChange} />)
-
-    expect(radio).toHaveAttribute('aria-disabled', 'false')
   })
 
   it('renders an uncontrolled component correctly', () => {

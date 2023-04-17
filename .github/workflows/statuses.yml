@@ -14,15 +14,15 @@ jobs:
     if: ${{ github.repository == 'primer/react' }}
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Setup Ruby
-        uses: actions/setup-ruby@v1
+        uses: ruby/setup-ruby@v1
         with:
-          ruby-version: 2.7.x
+          ruby-version: 2.7
       - name: Set up Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
-          node-version: 14
+          node-version: 18
       - name: Install node deps
         run: npm ci
       - name: Install ruby deps

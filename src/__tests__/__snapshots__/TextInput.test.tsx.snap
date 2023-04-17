@@ -4,7 +4,7 @@ exports[`TextInput renders 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #24292f;
+  color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -61,7 +61,7 @@ exports[`TextInput renders 1`] = `
   padding: 12px;
 }
 
-.c0 >:not(:last-child) {
+.c0 > :not(:last-child) {
   margin-right: 8px;
 }
 
@@ -70,7 +70,7 @@ exports[`TextInput renders 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #57606a;
+  color: #656d76;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -123,7 +123,7 @@ exports[`TextInput renders block 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #24292f;
+  color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -188,7 +188,7 @@ exports[`TextInput renders block 1`] = `
   padding: 12px;
 }
 
-.c0 >:not(:last-child) {
+.c0 > :not(:last-child) {
   margin-right: 8px;
 }
 
@@ -197,7 +197,7 @@ exports[`TextInput renders block 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #57606a;
+  color: #656d76;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -250,7 +250,7 @@ exports[`TextInput renders consistently 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #24292f;
+  color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -307,7 +307,7 @@ exports[`TextInput renders consistently 1`] = `
   padding: 12px;
 }
 
-.c0 >:not(:last-child) {
+.c0 > :not(:last-child) {
   margin-right: 8px;
 }
 
@@ -316,7 +316,7 @@ exports[`TextInput renders consistently 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #57606a;
+  color: #656d76;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -368,7 +368,7 @@ exports[`TextInput renders contrast 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #24292f;
+  color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -426,7 +426,7 @@ exports[`TextInput renders contrast 1`] = `
   padding: 12px;
 }
 
-.c0 >:not(:last-child) {
+.c0 > :not(:last-child) {
   margin-right: 8px;
 }
 
@@ -435,7 +435,7 @@ exports[`TextInput renders contrast 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #57606a;
+  color: #656d76;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -488,7 +488,7 @@ exports[`TextInput renders error 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #24292f;
+  color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -552,7 +552,7 @@ exports[`TextInput renders error 1`] = `
   box-shadow: inset 0 0 0 1px #0969da;
 }
 
-.c0 >:not(:last-child) {
+.c0 > :not(:last-child) {
   margin-right: 8px;
 }
 
@@ -561,7 +561,7 @@ exports[`TextInput renders error 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #57606a;
+  color: #656d76;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -614,7 +614,7 @@ exports[`TextInput renders large 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #24292f;
+  color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -630,11 +630,12 @@ exports[`TextInput renders large 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
+  --inner-action-size: 28px;
   padding-left: 8px;
   padding-right: 8px;
   padding-top: 10px;
   padding-bottom: 10px;
-  font-size: 20px;
+  height: 40px;
   background-repeat: no-repeat;
   background-position: right 8px center;
   padding-left: 0;
@@ -676,7 +677,7 @@ exports[`TextInput renders large 1`] = `
   padding: 12px;
 }
 
-.c0 >:not(:last-child) {
+.c0 > :not(:last-child) {
   margin-right: 8px;
 }
 
@@ -685,7 +686,7 @@ exports[`TextInput renders large 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #57606a;
+  color: #656d76;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -739,7 +740,7 @@ exports[`TextInput renders leadingVisual 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #24292f;
+  color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -796,7 +797,7 @@ exports[`TextInput renders leadingVisual 1`] = `
   padding: 12px;
 }
 
-.c0 >:not(:last-child) {
+.c0 > :not(:last-child) {
   margin-right: 8px;
 }
 
@@ -805,7 +806,7 @@ exports[`TextInput renders leadingVisual 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #57606a;
+  color: #656d76;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -849,12 +850,8 @@ exports[`TextInput renders leadingVisual 1`] = `
     <svg
       aria-hidden="true"
       className="octicon octicon-search"
-      dangerouslySetInnerHTML={
-        {
-          "__html": "<path fill-rule="evenodd" d="M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z"></path>",
-        }
-      }
       fill="currentColor"
+      focusable="false"
       height={16}
       role="img"
       style={
@@ -867,7 +864,11 @@ exports[`TextInput renders leadingVisual 1`] = `
       }
       viewBox="0 0 16 16"
       width={16}
-    />
+    >
+      <path
+        d="M10.68 11.74a6 6 0 0 1-7.922-8.982 6 6 0 0 1 8.982 7.922l3.04 3.04a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215ZM11.5 7a4.499 4.499 0 1 0-8.997 0A4.499 4.499 0 0 0 11.5 7Z"
+      />
+    </svg>
   </span>
   <input
     className="c1"
@@ -885,7 +886,7 @@ exports[`TextInput renders monospace 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #24292f;
+  color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -943,7 +944,7 @@ exports[`TextInput renders monospace 1`] = `
   padding: 12px;
 }
 
-.c0 >:not(:last-child) {
+.c0 > :not(:last-child) {
   margin-right: 8px;
 }
 
@@ -952,7 +953,7 @@ exports[`TextInput renders monospace 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #57606a;
+  color: #656d76;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -1005,7 +1006,7 @@ exports[`TextInput renders placeholder 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #24292f;
+  color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -1062,7 +1063,7 @@ exports[`TextInput renders placeholder 1`] = `
   padding: 12px;
 }
 
-.c0 >:not(:last-child) {
+.c0 > :not(:last-child) {
   margin-right: 8px;
 }
 
@@ -1071,7 +1072,7 @@ exports[`TextInput renders placeholder 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #57606a;
+  color: #656d76;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -1125,7 +1126,7 @@ exports[`TextInput renders small 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #24292f;
+  color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -1141,6 +1142,7 @@ exports[`TextInput renders small 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
+  --inner-action-size: 20px;
   min-height: 28px;
   padding-left: 8px;
   padding-right: 8px;
@@ -1189,7 +1191,7 @@ exports[`TextInput renders small 1`] = `
   padding: 12px;
 }
 
-.c0 >:not(:last-child) {
+.c0 > :not(:last-child) {
   margin-right: 8px;
 }
 
@@ -1198,7 +1200,7 @@ exports[`TextInput renders small 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #57606a;
+  color: #656d76;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -1250,22 +1252,18 @@ exports[`TextInput renders small 1`] = `
 
 exports[`TextInput renders trailingAction icon button 1`] = `
 .c2 {
-  margin: 4px;
-}
-
-.c5 {
-  display: inline-block;
+  margin-left: 4px;
+  margin-right: 4px;
+  line-height: 0;
 }
 
 .c4 {
   border-radius: 6px;
-  border: 0;
-  border-color: rgba(27,31,36,0.15);
+  border: 1px solid;
+  border-color: transparent;
   font-family: inherit;
-  font-weight: 600;
-  line-height: 20px;
-  white-space: nowrap;
-  vertical-align: middle;
+  font-weight: 500;
+  font-size: 14px;
   cursor: pointer;
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -1277,15 +1275,31 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   -webkit-text-decoration: none;
   text-decoration: none;
   text-align: center;
-  padding-top: 2px;
-  padding-bottom: 2px;
-  padding-left: 4px;
-  padding-right: 4px;
-  font-size: 14px;
-  color: #24292f;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  height: 32px;
+  padding: 0 12px;
+  gap: 8px;
+  min-width: -webkit-max-content;
+  min-width: -moz-max-content;
+  min-width: max-content;
+  -webkit-transition: 80ms cubic-bezier(0.65,0,0.35,1);
+  transition: 80ms cubic-bezier(0.65,0,0.35,1);
+  -webkit-transition-property: color,fill,background-color,border-color;
+  transition-property: color,fill,background-color,border-color;
+  color: #0969da;
   background-color: transparent;
   box-shadow: none;
-  position: relative;
 }
 
 .c4:focus:not(:disabled) {
@@ -1304,8 +1318,31 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   outline-offset: -2px;
 }
 
+.c4[href] {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+}
+
+.c4[href]:hover {
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c4:hover {
+  -webkit-transition-duration: 80ms;
+  transition-duration: 80ms;
+}
+
+.c4:active {
+  -webkit-transition: none;
+  transition: none;
+}
+
 .c4:disabled {
-  cursor: default;
+  cursor: not-allowed;
+  box-shadow: none;
   color: #8c959f;
 }
 
@@ -1313,12 +1350,99 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   color: inherit;
 }
 
-.c4:disabled svg {
-  opacity: 0.6;
-}
-
 .c4 [data-component=ButtonCounter] {
   font-size: 14px;
+}
+
+.c4[data-component=IconButton] {
+  display: inline-grid;
+  padding: unset;
+  place-content: center;
+  width: 32px;
+  min-width: unset;
+}
+
+.c4[data-size="small"] {
+  padding: 0 8px;
+  height: 28px;
+  gap: 4px;
+  font-size: 12px;
+}
+
+.c4[data-size="small"] [data-component="text"] {
+  line-height: calc(20 / 12);
+}
+
+.c4[data-size="small"] [data-component=ButtonCounter] {
+  font-size: 12px;
+}
+
+.c4[data-size="small"] [data-component="buttonContent"] > :not(:last-child) {
+  margin-right: 4px;
+}
+
+.c4[data-size="small"][data-component=IconButton] {
+  width: 28px;
+  padding: unset;
+}
+
+.c4[data-size="large"] {
+  padding: 0 16px;
+  height: 40px;
+  gap: 8px;
+}
+
+.c4[data-size="large"] [data-component="buttonContent"] > :not(:last-child) {
+  margin-right: 8px;
+}
+
+.c4[data-size="large"][data-component=IconButton] {
+  width: 40px;
+  padding: unset;
+}
+
+.c4[data-block="block"] {
+  width: 100%;
+}
+
+.c4 [data-component="leadingVisual"] {
+  grid-area: leadingVisual;
+  color: #656d76;
+}
+
+.c4 [data-component="text"] {
+  grid-area: text;
+  line-height: calc(20/14);
+  white-space: nowrap;
+}
+
+.c4 [data-component="trailingVisual"] {
+  grid-area: trailingVisual;
+}
+
+.c4 [data-component="trailingAction"] {
+  margin-right: -4px;
+  color: #656d76;
+}
+
+.c4 [data-component="buttonContent"] {
+  -webkit-flex: 1 0 auto;
+  -ms-flex: 1 0 auto;
+  flex: 1 0 auto;
+  display: grid;
+  grid-template-areas: "leadingVisual text trailingVisual";
+  grid-template-columns: min-content minmax(0,auto) min-content;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-align-content: center;
+  -ms-flex-line-pack: center;
+  align-content: center;
+}
+
+.c4 [data-component="buttonContent"] > :not(:last-child) {
+  margin-right: 8px;
 }
 
 .c4:hover:not([disabled]) {
@@ -1333,10 +1457,35 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   background-color: hsla(220,14%,94%,1);
 }
 
+.c4[data-component="IconButton"][data-no-visuals] {
+  color: #656d76;
+}
+
+.c4[data-no-visuals] {
+  color: #0969da;
+}
+
+.c4:has([data-component="ButtonCounter"]) {
+  color: #0969da;
+}
+
+.c4[data-size="small"][data-no-visuals="true"] {
+  padding-top: 2px;
+  padding-right: 4px;
+  padding-bottom: 2px;
+  padding-left: 4px;
+  position: relative;
+}
+
+.c4[data-size="small"][data-no-visuals="true"][data-component="IconButton"] {
+  width: var(--inner-action-size);
+  height: var(--inner-action-size);
+}
+
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #24292f;
+  color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -1387,7 +1536,7 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   padding: 12px;
 }
 
-.c0 >:not(:last-child) {
+.c0 > :not(:last-child) {
   margin-right: 8px;
 }
 
@@ -1396,7 +1545,7 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #57606a;
+  color: #656d76;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -1444,7 +1593,7 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   z-index: 1000000;
   display: none;
   padding: 0.5em 0.75em;
-  font: normal normal 11px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
+  font: normal normal 11px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
   -webkit-font-smoothing: subpixel-antialiased;
   color: #ffffff;
   text-align: center;
@@ -1468,9 +1617,11 @@ exports[`TextInput renders trailingAction icon button 1`] = `
 .c3:hover::before,
 .c3:active::before,
 .c3:focus::before,
+.c3:focus-within::before,
 .c3:hover::after,
 .c3:active::after,
-.c3:focus::after {
+.c3:focus::after,
+.c3:focus-within::after {
   display: inline-block;
   -webkit-text-decoration: none;
   text-decoration: none;
@@ -1489,16 +1640,19 @@ exports[`TextInput renders trailingAction icon button 1`] = `
 .c3.tooltipped-no-delay:hover::before,
 .c3.tooltipped-no-delay:active::before,
 .c3.tooltipped-no-delay:focus::before,
+.c3.tooltipped-no-delay:focus-within::before,
 .c3.tooltipped-no-delay:hover::after,
 .c3.tooltipped-no-delay:active::after,
-.c3.tooltipped-no-delay:focus::after {
+.c3.tooltipped-no-delay:focus::after,
+.c3.tooltipped-no-delay:focus-within::after {
   -webkit-animation-delay: 0s;
   animation-delay: 0s;
 }
 
 .c3.tooltipped-multiline:hover::after,
 .c3.tooltipped-multiline:active::after,
-.c3.tooltipped-multiline:focus::after {
+.c3.tooltipped-multiline:focus::after,
+.c3.tooltipped-multiline:focus-within::after {
   display: table-cell;
 }
 
@@ -1648,7 +1802,7 @@ exports[`TextInput renders trailingAction icon button 1`] = `
 }
 
 @media (pointer:coarse) {
-  .c4:after {
+  .c4[data-size="small"][data-no-visuals="true"]:after {
     content: "";
     position: absolute;
     left: 0;
@@ -1693,35 +1847,35 @@ exports[`TextInput renders trailingAction icon button 1`] = `
       <button
         aria-label="iconLabel"
         className="c4"
+        data-block={null}
+        data-component="IconButton"
+        data-no-visuals={true}
+        data-size="small"
         onClick={[MockFunction]}
         type="button"
       >
-        <span
-          className="c5"
+        <svg
+          aria-hidden="true"
+          className="octicon octicon-search"
+          fill="currentColor"
+          focusable="false"
+          height={16}
+          role="img"
+          style={
+            {
+              "display": "inline-block",
+              "overflow": "visible",
+              "userSelect": "none",
+              "verticalAlign": "text-bottom",
+            }
+          }
+          viewBox="0 0 16 16"
+          width={16}
         >
-          <svg
-            aria-hidden="true"
-            className="octicon octicon-search"
-            dangerouslySetInnerHTML={
-              {
-                "__html": "<path fill-rule="evenodd" d="M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z"></path>",
-              }
-            }
-            fill="currentColor"
-            height={16}
-            role="img"
-            style={
-              {
-                "display": "inline-block",
-                "overflow": "visible",
-                "userSelect": "none",
-                "verticalAlign": "text-bottom",
-              }
-            }
-            viewBox="0 0 16 16"
-            width={16}
+          <path
+            d="M10.68 11.74a6 6 0 0 1-7.922-8.982 6 6 0 0 1 8.982 7.922l3.04 3.04a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215ZM11.5 7a4.499 4.499 0 1 0-8.997 0A4.499 4.499 0 0 0 11.5 7Z"
           />
-        </span>
+        </svg>
       </button>
     </span>
   </span>
@@ -1730,18 +1884,25 @@ exports[`TextInput renders trailingAction icon button 1`] = `
 
 exports[`TextInput renders trailingAction text button 1`] = `
 .c2 {
-  margin: 4px;
+  margin-left: 4px;
+  margin-right: 4px;
+  line-height: 0;
+}
+
+.c4 {
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
 }
 
 .c3 {
   border-radius: 6px;
-  border: 0;
-  border-color: rgba(27,31,36,0.15);
+  border: 1px solid;
+  border-color: transparent;
   font-family: inherit;
-  font-weight: 600;
-  line-height: 20px;
-  white-space: nowrap;
-  vertical-align: middle;
+  font-weight: 500;
+  font-size: 14px;
   cursor: pointer;
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -1753,17 +1914,31 @@ exports[`TextInput renders trailingAction text button 1`] = `
   -webkit-text-decoration: none;
   text-decoration: none;
   text-align: center;
-  display: grid;
-  grid-template-areas: "leadingIcon text trailingIcon";
-  padding-top: 2px;
-  padding-bottom: 2px;
-  padding-left: 4px;
-  padding-right: 4px;
-  font-size: 12px;
-  color: #24292f;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  height: 32px;
+  padding: 0 12px;
+  gap: 8px;
+  min-width: -webkit-max-content;
+  min-width: -moz-max-content;
+  min-width: max-content;
+  -webkit-transition: 80ms cubic-bezier(0.65,0,0.35,1);
+  transition: 80ms cubic-bezier(0.65,0,0.35,1);
+  -webkit-transition-property: color,fill,background-color,border-color;
+  transition-property: color,fill,background-color,border-color;
+  color: #0969da;
   background-color: transparent;
   box-shadow: none;
-  position: relative;
 }
 
 .c3:focus:not(:disabled) {
@@ -1782,8 +1957,31 @@ exports[`TextInput renders trailingAction text button 1`] = `
   outline-offset: -2px;
 }
 
+.c3[href] {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+}
+
+.c3[href]:hover {
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c3:hover {
+  -webkit-transition-duration: 80ms;
+  transition-duration: 80ms;
+}
+
+.c3:active {
+  -webkit-transition: none;
+  transition: none;
+}
+
 .c3:disabled {
-  cursor: default;
+  cursor: not-allowed;
+  box-shadow: none;
   color: #8c959f;
 }
 
@@ -1791,28 +1989,99 @@ exports[`TextInput renders trailingAction text button 1`] = `
   color: inherit;
 }
 
-.c3:disabled svg {
-  opacity: 0.6;
+.c3 [data-component=ButtonCounter] {
+  font-size: 14px;
 }
 
-.c3 > :not(:last-child) {
+.c3[data-component=IconButton] {
+  display: inline-grid;
+  padding: unset;
+  place-content: center;
+  width: 32px;
+  min-width: unset;
+}
+
+.c3[data-size="small"] {
+  padding: 0 8px;
+  height: 28px;
+  gap: 4px;
+  font-size: 12px;
+}
+
+.c3[data-size="small"] [data-component="text"] {
+  line-height: calc(20 / 12);
+}
+
+.c3[data-size="small"] [data-component=ButtonCounter] {
+  font-size: 12px;
+}
+
+.c3[data-size="small"] [data-component="buttonContent"] > :not(:last-child) {
+  margin-right: 4px;
+}
+
+.c3[data-size="small"][data-component=IconButton] {
+  width: 28px;
+  padding: unset;
+}
+
+.c3[data-size="large"] {
+  padding: 0 16px;
+  height: 40px;
+  gap: 8px;
+}
+
+.c3[data-size="large"] [data-component="buttonContent"] > :not(:last-child) {
   margin-right: 8px;
 }
 
-.c3 [data-component="leadingIcon"] {
-  grid-area: leadingIcon;
+.c3[data-size="large"][data-component=IconButton] {
+  width: 40px;
+  padding: unset;
+}
+
+.c3[data-block="block"] {
+  width: 100%;
+}
+
+.c3 [data-component="leadingVisual"] {
+  grid-area: leadingVisual;
+  color: #656d76;
 }
 
 .c3 [data-component="text"] {
   grid-area: text;
+  line-height: calc(20/14);
+  white-space: nowrap;
 }
 
-.c3 [data-component="trailingIcon"] {
-  grid-area: trailingIcon;
+.c3 [data-component="trailingVisual"] {
+  grid-area: trailingVisual;
 }
 
-.c3 [data-component=ButtonCounter] {
-  font-size: 12px;
+.c3 [data-component="trailingAction"] {
+  margin-right: -4px;
+  color: #656d76;
+}
+
+.c3 [data-component="buttonContent"] {
+  -webkit-flex: 1 0 auto;
+  -ms-flex: 1 0 auto;
+  flex: 1 0 auto;
+  display: grid;
+  grid-template-areas: "leadingVisual text trailingVisual";
+  grid-template-columns: min-content minmax(0,auto) min-content;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-align-content: center;
+  -ms-flex-line-pack: center;
+  align-content: center;
+}
+
+.c3 [data-component="buttonContent"] > :not(:last-child) {
+  margin-right: 8px;
 }
 
 .c3:hover:not([disabled]) {
@@ -1827,10 +2096,35 @@ exports[`TextInput renders trailingAction text button 1`] = `
   background-color: hsla(220,14%,94%,1);
 }
 
+.c3[data-component="IconButton"][data-no-visuals] {
+  color: #656d76;
+}
+
+.c3[data-no-visuals] {
+  color: #0969da;
+}
+
+.c3:has([data-component="ButtonCounter"]) {
+  color: #0969da;
+}
+
+.c3[data-no-visuals="true"] {
+  padding-top: 2px;
+  padding-right: 4px;
+  padding-bottom: 2px;
+  padding-left: 4px;
+  position: relative;
+}
+
+.c3[data-no-visuals="true"][data-component="IconButton"] {
+  width: var(--inner-action-size);
+  height: var(--inner-action-size);
+}
+
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #24292f;
+  color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -1881,7 +2175,7 @@ exports[`TextInput renders trailingAction text button 1`] = `
   padding: 12px;
 }
 
-.c0 >:not(:last-child) {
+.c0 > :not(:last-child) {
   margin-right: 8px;
 }
 
@@ -1890,7 +2184,7 @@ exports[`TextInput renders trailingAction text button 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #57606a;
+  color: #656d76;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -1923,7 +2217,7 @@ exports[`TextInput renders trailingAction text button 1`] = `
 }
 
 @media (pointer:coarse) {
-  .c3:after {
+  .c3[data-no-visuals="true"]:after {
     content: "";
     position: absolute;
     left: 0;
@@ -1962,14 +2256,20 @@ exports[`TextInput renders trailingAction text button 1`] = `
   >
     <button
       className="c3"
+      data-block={null}
+      data-no-visuals={true}
       onClick={[MockFunction]}
-      size="small"
       type="button"
     >
       <span
-        data-component="text"
+        className="c4"
+        data-component="buttonContent"
       >
-        Clear
+        <span
+          data-component="text"
+        >
+          Clear
+        </span>
       </span>
     </button>
   </span>
@@ -1978,18 +2278,25 @@ exports[`TextInput renders trailingAction text button 1`] = `
 
 exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
 .c2 {
-  margin: 4px;
+  margin-left: 4px;
+  margin-right: 4px;
+  line-height: 0;
+}
+
+.c5 {
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
 }
 
 .c4 {
   border-radius: 6px;
-  border: 0;
-  border-color: rgba(27,31,36,0.15);
+  border: 1px solid;
+  border-color: transparent;
   font-family: inherit;
-  font-weight: 600;
-  line-height: 20px;
-  white-space: nowrap;
-  vertical-align: middle;
+  font-weight: 500;
+  font-size: 14px;
   cursor: pointer;
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -2001,17 +2308,31 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   -webkit-text-decoration: none;
   text-decoration: none;
   text-align: center;
-  display: grid;
-  grid-template-areas: "leadingIcon text trailingIcon";
-  padding-top: 2px;
-  padding-bottom: 2px;
-  padding-left: 4px;
-  padding-right: 4px;
-  font-size: 12px;
-  color: #24292f;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  height: 32px;
+  padding: 0 12px;
+  gap: 8px;
+  min-width: -webkit-max-content;
+  min-width: -moz-max-content;
+  min-width: max-content;
+  -webkit-transition: 80ms cubic-bezier(0.65,0,0.35,1);
+  transition: 80ms cubic-bezier(0.65,0,0.35,1);
+  -webkit-transition-property: color,fill,background-color,border-color;
+  transition-property: color,fill,background-color,border-color;
+  color: #0969da;
   background-color: transparent;
   box-shadow: none;
-  position: relative;
 }
 
 .c4:focus:not(:disabled) {
@@ -2030,8 +2351,31 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   outline-offset: -2px;
 }
 
+.c4[href] {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+}
+
+.c4[href]:hover {
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c4:hover {
+  -webkit-transition-duration: 80ms;
+  transition-duration: 80ms;
+}
+
+.c4:active {
+  -webkit-transition: none;
+  transition: none;
+}
+
 .c4:disabled {
-  cursor: default;
+  cursor: not-allowed;
+  box-shadow: none;
   color: #8c959f;
 }
 
@@ -2039,28 +2383,99 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   color: inherit;
 }
 
-.c4:disabled svg {
-  opacity: 0.6;
+.c4 [data-component=ButtonCounter] {
+  font-size: 14px;
 }
 
-.c4 > :not(:last-child) {
+.c4[data-component=IconButton] {
+  display: inline-grid;
+  padding: unset;
+  place-content: center;
+  width: 32px;
+  min-width: unset;
+}
+
+.c4[data-size="small"] {
+  padding: 0 8px;
+  height: 28px;
+  gap: 4px;
+  font-size: 12px;
+}
+
+.c4[data-size="small"] [data-component="text"] {
+  line-height: calc(20 / 12);
+}
+
+.c4[data-size="small"] [data-component=ButtonCounter] {
+  font-size: 12px;
+}
+
+.c4[data-size="small"] [data-component="buttonContent"] > :not(:last-child) {
+  margin-right: 4px;
+}
+
+.c4[data-size="small"][data-component=IconButton] {
+  width: 28px;
+  padding: unset;
+}
+
+.c4[data-size="large"] {
+  padding: 0 16px;
+  height: 40px;
+  gap: 8px;
+}
+
+.c4[data-size="large"] [data-component="buttonContent"] > :not(:last-child) {
   margin-right: 8px;
 }
 
-.c4 [data-component="leadingIcon"] {
-  grid-area: leadingIcon;
+.c4[data-size="large"][data-component=IconButton] {
+  width: 40px;
+  padding: unset;
+}
+
+.c4[data-block="block"] {
+  width: 100%;
+}
+
+.c4 [data-component="leadingVisual"] {
+  grid-area: leadingVisual;
+  color: #656d76;
 }
 
 .c4 [data-component="text"] {
   grid-area: text;
+  line-height: calc(20/14);
+  white-space: nowrap;
 }
 
-.c4 [data-component="trailingIcon"] {
-  grid-area: trailingIcon;
+.c4 [data-component="trailingVisual"] {
+  grid-area: trailingVisual;
 }
 
-.c4 [data-component=ButtonCounter] {
-  font-size: 12px;
+.c4 [data-component="trailingAction"] {
+  margin-right: -4px;
+  color: #656d76;
+}
+
+.c4 [data-component="buttonContent"] {
+  -webkit-flex: 1 0 auto;
+  -ms-flex: 1 0 auto;
+  flex: 1 0 auto;
+  display: grid;
+  grid-template-areas: "leadingVisual text trailingVisual";
+  grid-template-columns: min-content minmax(0,auto) min-content;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-align-content: center;
+  -ms-flex-line-pack: center;
+  align-content: center;
+}
+
+.c4 [data-component="buttonContent"] > :not(:last-child) {
+  margin-right: 8px;
 }
 
 .c4:hover:not([disabled]) {
@@ -2075,10 +2490,35 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   background-color: hsla(220,14%,94%,1);
 }
 
+.c4[data-component="IconButton"][data-no-visuals] {
+  color: #656d76;
+}
+
+.c4[data-no-visuals] {
+  color: #0969da;
+}
+
+.c4:has([data-component="ButtonCounter"]) {
+  color: #0969da;
+}
+
+.c4[data-no-visuals="true"] {
+  padding-top: 2px;
+  padding-right: 4px;
+  padding-bottom: 2px;
+  padding-left: 4px;
+  position: relative;
+}
+
+.c4[data-no-visuals="true"][data-component="IconButton"] {
+  width: var(--inner-action-size);
+  height: var(--inner-action-size);
+}
+
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #24292f;
+  color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -2129,7 +2569,7 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   padding: 12px;
 }
 
-.c0 >:not(:last-child) {
+.c0 > :not(:last-child) {
   margin-right: 8px;
 }
 
@@ -2138,7 +2578,7 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #57606a;
+  color: #656d76;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -2187,7 +2627,7 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   z-index: 1000000;
   display: none;
   padding: 0.5em 0.75em;
-  font: normal normal 11px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
+  font: normal normal 11px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
   -webkit-font-smoothing: subpixel-antialiased;
   color: #ffffff;
   text-align: center;
@@ -2211,9 +2651,11 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
 .c3:hover::before,
 .c3:active::before,
 .c3:focus::before,
+.c3:focus-within::before,
 .c3:hover::after,
 .c3:active::after,
-.c3:focus::after {
+.c3:focus::after,
+.c3:focus-within::after {
   display: inline-block;
   -webkit-text-decoration: none;
   text-decoration: none;
@@ -2232,16 +2674,19 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
 .c3.tooltipped-no-delay:hover::before,
 .c3.tooltipped-no-delay:active::before,
 .c3.tooltipped-no-delay:focus::before,
+.c3.tooltipped-no-delay:focus-within::before,
 .c3.tooltipped-no-delay:hover::after,
 .c3.tooltipped-no-delay:active::after,
-.c3.tooltipped-no-delay:focus::after {
+.c3.tooltipped-no-delay:focus::after,
+.c3.tooltipped-no-delay:focus-within::after {
   -webkit-animation-delay: 0s;
   animation-delay: 0s;
 }
 
 .c3.tooltipped-multiline:hover::after,
 .c3.tooltipped-multiline:active::after,
-.c3.tooltipped-multiline:focus::after {
+.c3.tooltipped-multiline:focus::after,
+.c3.tooltipped-multiline:focus-within::after {
   display: table-cell;
 }
 
@@ -2391,7 +2836,7 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
 }
 
 @media (pointer:coarse) {
-  .c4:after {
+  .c4[data-no-visuals="true"]:after {
     content: "";
     position: absolute;
     left: 0;
@@ -2435,14 +2880,20 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
     >
       <button
         className="c4"
+        data-block={null}
+        data-no-visuals={true}
         onClick={[MockFunction]}
-        size="small"
         type="button"
       >
         <span
-          data-component="text"
+          className="c5"
+          data-component="buttonContent"
         >
-          Clear
+          <span
+            data-component="text"
+          >
+            Clear
+          </span>
         </span>
       </button>
     </span>
@@ -2454,7 +2905,7 @@ exports[`TextInput renders trailingVisual 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #24292f;
+  color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -2511,7 +2962,7 @@ exports[`TextInput renders trailingVisual 1`] = `
   padding: 12px;
 }
 
-.c0 >:not(:last-child) {
+.c0 > :not(:last-child) {
   margin-right: 8px;
 }
 
@@ -2520,7 +2971,7 @@ exports[`TextInput renders trailingVisual 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #57606a;
+  color: #656d76;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -2573,12 +3024,8 @@ exports[`TextInput renders trailingVisual 1`] = `
     <svg
       aria-hidden="true"
       className="octicon octicon-search"
-      dangerouslySetInnerHTML={
-        {
-          "__html": "<path fill-rule="evenodd" d="M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z"></path>",
-        }
-      }
       fill="currentColor"
+      focusable="false"
       height={16}
       role="img"
       style={
@@ -2591,7 +3038,11 @@ exports[`TextInput renders trailingVisual 1`] = `
       }
       viewBox="0 0 16 16"
       width={16}
-    />
+    >
+      <path
+        d="M10.68 11.74a6 6 0 0 1-7.922-8.982 6 6 0 0 1 8.982 7.922l3.04 3.04a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215ZM11.5 7a4.499 4.499 0 1 0-8.997 0A4.499 4.499 0 0 0 11.5 7Z"
+      />
+    </svg>
   </span>
 </span>
 `;
@@ -2600,7 +3051,7 @@ exports[`TextInput renders warning 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #24292f;
+  color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -2620,7 +3071,7 @@ exports[`TextInput renders warning 1`] = `
   background-position: right 8px center;
   padding-left: 0;
   padding-right: 0;
-  border-color: #bf8700;
+  border-color: #9a6700;
 }
 
 .c0 input,
@@ -2658,7 +3109,7 @@ exports[`TextInput renders warning 1`] = `
   padding: 12px;
 }
 
-.c0 >:not(:last-child) {
+.c0 > :not(:last-child) {
   margin-right: 8px;
 }
 
@@ -2667,7 +3118,7 @@ exports[`TextInput renders warning 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #57606a;
+  color: #656d76;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -2732,10 +3183,16 @@ exports[`TextInput renders with a loading indicator 1`] = `
   position: relative;
 }
 
+.c3 {
+  -webkit-animation: rotate-keyframes 1s linear infinite;
+  animation: rotate-keyframes 1s linear infinite;
+  visibility: visible;
+}
+
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #24292f;
+  color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -2792,7 +3249,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   padding: 12px;
 }
 
-.c0 >:not(:last-child) {
+.c0 > :not(:last-child) {
   margin-right: 8px;
 }
 
@@ -2801,7 +3258,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #57606a;
+  color: #656d76;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -2825,12 +3282,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
 
 .c1:focus {
   outline: 0;
-}
-
-.c3 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
-  visibility: visible;
 }
 
 @media (min-width:768px) {
@@ -2899,10 +3350,22 @@ exports[`TextInput renders with a loading indicator 1`] = `
   position: relative;
 }
 
+.c2 {
+  -webkit-animation: rotate-keyframes 1s linear infinite;
+  animation: rotate-keyframes 1s linear infinite;
+  visibility: visible;
+}
+
+.c4 {
+  -webkit-animation: rotate-keyframes 1s linear infinite;
+  animation: rotate-keyframes 1s linear infinite;
+  visibility: hidden;
+}
+
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #24292f;
+  color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -2959,7 +3422,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   padding: 12px;
 }
 
-.c0 >:not(:last-child) {
+.c0 > :not(:last-child) {
   margin-right: 8px;
 }
 
@@ -2968,7 +3431,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #57606a;
+  color: #656d76;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -2992,18 +3455,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
 
 .c3:focus {
   outline: 0;
-}
-
-.c2 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
-  visibility: visible;
-}
-
-.c4 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
-  visibility: hidden;
 }
 
 @media (min-width:768px) {
@@ -3110,10 +3561,16 @@ exports[`TextInput renders with a loading indicator 1`] = `
   position: relative;
 }
 
+.c3 {
+  -webkit-animation: rotate-keyframes 1s linear infinite;
+  animation: rotate-keyframes 1s linear infinite;
+  visibility: visible;
+}
+
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #24292f;
+  color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -3170,7 +3627,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   padding: 12px;
 }
 
-.c0 >:not(:last-child) {
+.c0 > :not(:last-child) {
   margin-right: 8px;
 }
 
@@ -3179,7 +3636,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #57606a;
+  color: #656d76;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -3203,12 +3660,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
 
 .c1:focus {
   outline: 0;
-}
-
-.c3 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
-  visibility: visible;
 }
 
 @media (min-width:768px) {
@@ -3281,10 +3732,27 @@ exports[`TextInput renders with a loading indicator 1`] = `
   visibility: hidden;
 }
 
+.c5 {
+  -webkit-animation: rotate-keyframes 1s linear infinite;
+  animation: rotate-keyframes 1s linear infinite;
+  visibility: hidden;
+}
+
+.c3 {
+  -webkit-animation: rotate-keyframes 1s linear infinite;
+  animation: rotate-keyframes 1s linear infinite;
+  position: absolute;
+  top: 0;
+  height: 100%;
+  max-width: 100%;
+  visibility: visible;
+  left: 0;
+}
+
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #24292f;
+  color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -3341,7 +3809,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   padding: 12px;
 }
 
-.c0 >:not(:last-child) {
+.c0 > :not(:last-child) {
   margin-right: 8px;
 }
 
@@ -3350,7 +3818,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #57606a;
+  color: #656d76;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -3374,23 +3842,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
 
 .c4:focus {
   outline: 0;
-}
-
-.c5 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
-  visibility: hidden;
-}
-
-.c3 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
-  position: absolute;
-  top: 0;
-  height: 100%;
-  max-width: 100%;
-  visibility: visible;
-  left: 0;
 }
 
 @media (min-width:768px) {
@@ -3418,12 +3869,8 @@ exports[`TextInput renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-search"
-            dangerouslySetInnerHTML={
-              {
-                "__html": "<path fill-rule="evenodd" d="M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z"></path>",
-              }
-            }
             fill="currentColor"
+            focusable="false"
             height={16}
             role="img"
             style={
@@ -3436,7 +3883,11 @@ exports[`TextInput renders with a loading indicator 1`] = `
             }
             viewBox="0 0 16 16"
             width={16}
-          />
+          >
+            <path
+              d="M10.68 11.74a6 6 0 0 1-7.922-8.982 6 6 0 0 1 8.982 7.922l3.04 3.04a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215ZM11.5 7a4.499 4.499 0 1 0-8.997 0A4.499 4.499 0 0 0 11.5 7Z"
+            />
+          </svg>
         </div>
         <svg
           className="c3"
@@ -3532,10 +3983,27 @@ exports[`TextInput renders with a loading indicator 1`] = `
   visibility: hidden;
 }
 
+.c5 {
+  -webkit-animation: rotate-keyframes 1s linear infinite;
+  animation: rotate-keyframes 1s linear infinite;
+  visibility: hidden;
+}
+
+.c3 {
+  -webkit-animation: rotate-keyframes 1s linear infinite;
+  animation: rotate-keyframes 1s linear infinite;
+  position: absolute;
+  top: 0;
+  height: 100%;
+  max-width: 100%;
+  visibility: visible;
+  left: 0;
+}
+
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #24292f;
+  color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -3592,7 +4060,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   padding: 12px;
 }
 
-.c0 >:not(:last-child) {
+.c0 > :not(:last-child) {
   margin-right: 8px;
 }
 
@@ -3601,7 +4069,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #57606a;
+  color: #656d76;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -3625,23 +4093,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
 
 .c4:focus {
   outline: 0;
-}
-
-.c5 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
-  visibility: hidden;
-}
-
-.c3 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
-  position: absolute;
-  top: 0;
-  height: 100%;
-  max-width: 100%;
-  visibility: visible;
-  left: 0;
 }
 
 @media (min-width:768px) {
@@ -3669,12 +4120,8 @@ exports[`TextInput renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-search"
-            dangerouslySetInnerHTML={
-              {
-                "__html": "<path fill-rule="evenodd" d="M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z"></path>",
-              }
-            }
             fill="currentColor"
+            focusable="false"
             height={16}
             role="img"
             style={
@@ -3687,7 +4134,11 @@ exports[`TextInput renders with a loading indicator 1`] = `
             }
             viewBox="0 0 16 16"
             width={16}
-          />
+          >
+            <path
+              d="M10.68 11.74a6 6 0 0 1-7.922-8.982 6 6 0 0 1 8.982 7.922l3.04 3.04a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215ZM11.5 7a4.499 4.499 0 1 0-8.997 0A4.499 4.499 0 0 0 11.5 7Z"
+            />
+          </svg>
         </div>
         <svg
           className="c3"
@@ -3783,10 +4234,27 @@ exports[`TextInput renders with a loading indicator 1`] = `
   visibility: visible;
 }
 
+.c5 {
+  -webkit-animation: rotate-keyframes 1s linear infinite;
+  animation: rotate-keyframes 1s linear infinite;
+  visibility: visible;
+}
+
+.c3 {
+  -webkit-animation: rotate-keyframes 1s linear infinite;
+  animation: rotate-keyframes 1s linear infinite;
+  position: absolute;
+  top: 0;
+  height: 100%;
+  max-width: 100%;
+  visibility: hidden;
+  left: 0;
+}
+
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #24292f;
+  color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -3843,7 +4311,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   padding: 12px;
 }
 
-.c0 >:not(:last-child) {
+.c0 > :not(:last-child) {
   margin-right: 8px;
 }
 
@@ -3852,7 +4320,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #57606a;
+  color: #656d76;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -3876,23 +4344,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
 
 .c4:focus {
   outline: 0;
-}
-
-.c5 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
-  visibility: visible;
-}
-
-.c3 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
-  position: absolute;
-  top: 0;
-  height: 100%;
-  max-width: 100%;
-  visibility: hidden;
-  left: 0;
 }
 
 @media (min-width:768px) {
@@ -3920,12 +4371,8 @@ exports[`TextInput renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-search"
-            dangerouslySetInnerHTML={
-              {
-                "__html": "<path fill-rule="evenodd" d="M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z"></path>",
-              }
-            }
             fill="currentColor"
+            focusable="false"
             height={16}
             role="img"
             style={
@@ -3938,7 +4385,11 @@ exports[`TextInput renders with a loading indicator 1`] = `
             }
             viewBox="0 0 16 16"
             width={16}
-          />
+          >
+            <path
+              d="M10.68 11.74a6 6 0 0 1-7.922-8.982 6 6 0 0 1 8.982 7.922l3.04 3.04a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215ZM11.5 7a4.499 4.499 0 1 0-8.997 0A4.499 4.499 0 0 0 11.5 7Z"
+            />
+          </svg>
         </div>
         <svg
           className="c3"
@@ -4034,10 +4485,21 @@ exports[`TextInput renders with a loading indicator 1`] = `
   visibility: hidden;
 }
 
+.c4 {
+  -webkit-animation: rotate-keyframes 1s linear infinite;
+  animation: rotate-keyframes 1s linear infinite;
+  position: absolute;
+  top: 0;
+  height: 100%;
+  max-width: 100%;
+  visibility: visible;
+  right: 0;
+}
+
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #24292f;
+  color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -4094,7 +4556,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   padding: 12px;
 }
 
-.c0 >:not(:last-child) {
+.c0 > :not(:last-child) {
   margin-right: 8px;
 }
 
@@ -4103,7 +4565,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #57606a;
+  color: #656d76;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -4127,17 +4589,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
 
 .c1:focus {
   outline: 0;
-}
-
-.c4 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
-  position: absolute;
-  top: 0;
-  height: 100%;
-  max-width: 100%;
-  visibility: visible;
-  right: 0;
 }
 
 @media (min-width:768px) {
@@ -4172,12 +4623,8 @@ exports[`TextInput renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-search"
-            dangerouslySetInnerHTML={
-              {
-                "__html": "<path fill-rule="evenodd" d="M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z"></path>",
-              }
-            }
             fill="currentColor"
+            focusable="false"
             height={16}
             role="img"
             style={
@@ -4190,7 +4637,11 @@ exports[`TextInput renders with a loading indicator 1`] = `
             }
             viewBox="0 0 16 16"
             width={16}
-          />
+          >
+            <path
+              d="M10.68 11.74a6 6 0 0 1-7.922-8.982 6 6 0 0 1 8.982 7.922l3.04 3.04a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215ZM11.5 7a4.499 4.499 0 1 0-8.997 0A4.499 4.499 0 0 0 11.5 7Z"
+            />
+          </svg>
         </div>
         <svg
           className="c4"
@@ -4241,10 +4692,27 @@ exports[`TextInput renders with a loading indicator 1`] = `
   visibility: visible;
 }
 
+.c2 {
+  -webkit-animation: rotate-keyframes 1s linear infinite;
+  animation: rotate-keyframes 1s linear infinite;
+  visibility: visible;
+}
+
+.c5 {
+  -webkit-animation: rotate-keyframes 1s linear infinite;
+  animation: rotate-keyframes 1s linear infinite;
+  position: absolute;
+  top: 0;
+  height: 100%;
+  max-width: 100%;
+  visibility: hidden;
+  right: 0;
+}
+
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #24292f;
+  color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -4301,7 +4769,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   padding: 12px;
 }
 
-.c0 >:not(:last-child) {
+.c0 > :not(:last-child) {
   margin-right: 8px;
 }
 
@@ -4310,7 +4778,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #57606a;
+  color: #656d76;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -4334,23 +4802,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
 
 .c3:focus {
   outline: 0;
-}
-
-.c2 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
-  visibility: visible;
-}
-
-.c5 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
-  position: absolute;
-  top: 0;
-  height: 100%;
-  max-width: 100%;
-  visibility: hidden;
-  right: 0;
 }
 
 @media (min-width:768px) {
@@ -4423,12 +4874,8 @@ exports[`TextInput renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-search"
-            dangerouslySetInnerHTML={
-              {
-                "__html": "<path fill-rule="evenodd" d="M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z"></path>",
-              }
-            }
             fill="currentColor"
+            focusable="false"
             height={16}
             role="img"
             style={
@@ -4441,7 +4888,11 @@ exports[`TextInput renders with a loading indicator 1`] = `
             }
             viewBox="0 0 16 16"
             width={16}
-          />
+          >
+            <path
+              d="M10.68 11.74a6 6 0 0 1-7.922-8.982 6 6 0 0 1 8.982 7.922l3.04 3.04a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215ZM11.5 7a4.499 4.499 0 1 0-8.997 0A4.499 4.499 0 0 0 11.5 7Z"
+            />
+          </svg>
         </div>
         <svg
           className="c5"
@@ -4492,10 +4943,21 @@ exports[`TextInput renders with a loading indicator 1`] = `
   visibility: hidden;
 }
 
+.c4 {
+  -webkit-animation: rotate-keyframes 1s linear infinite;
+  animation: rotate-keyframes 1s linear infinite;
+  position: absolute;
+  top: 0;
+  height: 100%;
+  max-width: 100%;
+  visibility: visible;
+  right: 0;
+}
+
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #24292f;
+  color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -4552,7 +5014,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   padding: 12px;
 }
 
-.c0 >:not(:last-child) {
+.c0 > :not(:last-child) {
   margin-right: 8px;
 }
 
@@ -4561,7 +5023,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #57606a;
+  color: #656d76;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -4585,17 +5047,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
 
 .c1:focus {
   outline: 0;
-}
-
-.c4 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
-  position: absolute;
-  top: 0;
-  height: 100%;
-  max-width: 100%;
-  visibility: visible;
-  right: 0;
 }
 
 @media (min-width:768px) {
@@ -4630,12 +5081,8 @@ exports[`TextInput renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-search"
-            dangerouslySetInnerHTML={
-              {
-                "__html": "<path fill-rule="evenodd" d="M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z"></path>",
-              }
-            }
             fill="currentColor"
+            focusable="false"
             height={16}
             role="img"
             style={
@@ -4648,7 +5095,11 @@ exports[`TextInput renders with a loading indicator 1`] = `
             }
             viewBox="0 0 16 16"
             width={16}
-          />
+          >
+            <path
+              d="M10.68 11.74a6 6 0 0 1-7.922-8.982 6 6 0 0 1 8.982 7.922l3.04 3.04a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215ZM11.5 7a4.499 4.499 0 1 0-8.997 0A4.499 4.499 0 0 0 11.5 7Z"
+            />
+          </svg>
         </div>
         <svg
           className="c4"
@@ -4703,10 +5154,32 @@ exports[`TextInput renders with a loading indicator 1`] = `
   visibility: visible;
 }
 
+.c3 {
+  -webkit-animation: rotate-keyframes 1s linear infinite;
+  animation: rotate-keyframes 1s linear infinite;
+  position: absolute;
+  top: 0;
+  height: 100%;
+  max-width: 100%;
+  visibility: visible;
+  left: 0;
+}
+
+.c6 {
+  -webkit-animation: rotate-keyframes 1s linear infinite;
+  animation: rotate-keyframes 1s linear infinite;
+  position: absolute;
+  top: 0;
+  height: 100%;
+  max-width: 100%;
+  visibility: hidden;
+  right: 0;
+}
+
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #24292f;
+  color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -4722,6 +5195,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
+  --inner-action-size: 20px;
   min-height: 28px;
   padding-left: 8px;
   padding-right: 8px;
@@ -4770,7 +5244,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   padding: 12px;
 }
 
-.c0 >:not(:last-child) {
+.c0 > :not(:last-child) {
   margin-right: 8px;
 }
 
@@ -4779,7 +5253,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #57606a;
+  color: #656d76;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -4803,28 +5277,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
 
 .c4:focus {
   outline: 0;
-}
-
-.c3 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
-  position: absolute;
-  top: 0;
-  height: 100%;
-  max-width: 100%;
-  visibility: visible;
-  left: 0;
-}
-
-.c6 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
-  position: absolute;
-  top: 0;
-  height: 100%;
-  max-width: 100%;
-  visibility: hidden;
-  right: 0;
 }
 
 @media (min-width:768px) {
@@ -4853,12 +5305,8 @@ exports[`TextInput renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-search"
-            dangerouslySetInnerHTML={
-              {
-                "__html": "<path fill-rule="evenodd" d="M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z"></path>",
-              }
-            }
             fill="currentColor"
+            focusable="false"
             height={16}
             role="img"
             style={
@@ -4871,7 +5319,11 @@ exports[`TextInput renders with a loading indicator 1`] = `
             }
             viewBox="0 0 16 16"
             width={16}
-          />
+          >
+            <path
+              d="M10.68 11.74a6 6 0 0 1-7.922-8.982 6 6 0 0 1 8.982 7.922l3.04 3.04a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215ZM11.5 7a4.499 4.499 0 1 0-8.997 0A4.499 4.499 0 0 0 11.5 7Z"
+            />
+          </svg>
         </div>
         <svg
           className="c3"
@@ -4929,12 +5381,8 @@ exports[`TextInput renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-search"
-            dangerouslySetInnerHTML={
-              {
-                "__html": "<path fill-rule="evenodd" d="M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z"></path>",
-              }
-            }
             fill="currentColor"
+            focusable="false"
             height={16}
             role="img"
             style={
@@ -4947,7 +5395,11 @@ exports[`TextInput renders with a loading indicator 1`] = `
             }
             viewBox="0 0 16 16"
             width={16}
-          />
+          >
+            <path
+              d="M10.68 11.74a6 6 0 0 1-7.922-8.982 6 6 0 0 1 8.982 7.922l3.04 3.04a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215ZM11.5 7a4.499 4.499 0 1 0-8.997 0A4.499 4.499 0 0 0 11.5 7Z"
+            />
+          </svg>
         </div>
         <svg
           className="c6"
@@ -5002,10 +5454,32 @@ exports[`TextInput renders with a loading indicator 1`] = `
   visibility: visible;
 }
 
+.c3 {
+  -webkit-animation: rotate-keyframes 1s linear infinite;
+  animation: rotate-keyframes 1s linear infinite;
+  position: absolute;
+  top: 0;
+  height: 100%;
+  max-width: 100%;
+  visibility: visible;
+  left: 0;
+}
+
+.c6 {
+  -webkit-animation: rotate-keyframes 1s linear infinite;
+  animation: rotate-keyframes 1s linear infinite;
+  position: absolute;
+  top: 0;
+  height: 100%;
+  max-width: 100%;
+  visibility: hidden;
+  right: 0;
+}
+
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #24292f;
+  color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -5062,7 +5536,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   padding: 12px;
 }
 
-.c0 >:not(:last-child) {
+.c0 > :not(:last-child) {
   margin-right: 8px;
 }
 
@@ -5071,7 +5545,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #57606a;
+  color: #656d76;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -5095,28 +5569,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
 
 .c4:focus {
   outline: 0;
-}
-
-.c3 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
-  position: absolute;
-  top: 0;
-  height: 100%;
-  max-width: 100%;
-  visibility: visible;
-  left: 0;
-}
-
-.c6 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
-  position: absolute;
-  top: 0;
-  height: 100%;
-  max-width: 100%;
-  visibility: hidden;
-  right: 0;
 }
 
 @media (min-width:768px) {
@@ -5144,12 +5596,8 @@ exports[`TextInput renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-search"
-            dangerouslySetInnerHTML={
-              {
-                "__html": "<path fill-rule="evenodd" d="M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z"></path>",
-              }
-            }
             fill="currentColor"
+            focusable="false"
             height={16}
             role="img"
             style={
@@ -5162,7 +5610,11 @@ exports[`TextInput renders with a loading indicator 1`] = `
             }
             viewBox="0 0 16 16"
             width={16}
-          />
+          >
+            <path
+              d="M10.68 11.74a6 6 0 0 1-7.922-8.982 6 6 0 0 1 8.982 7.922l3.04 3.04a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215ZM11.5 7a4.499 4.499 0 1 0-8.997 0A4.499 4.499 0 0 0 11.5 7Z"
+            />
+          </svg>
         </div>
         <svg
           className="c3"
@@ -5220,12 +5672,8 @@ exports[`TextInput renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-search"
-            dangerouslySetInnerHTML={
-              {
-                "__html": "<path fill-rule="evenodd" d="M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z"></path>",
-              }
-            }
             fill="currentColor"
+            focusable="false"
             height={16}
             role="img"
             style={
@@ -5238,7 +5686,11 @@ exports[`TextInput renders with a loading indicator 1`] = `
             }
             viewBox="0 0 16 16"
             width={16}
-          />
+          >
+            <path
+              d="M10.68 11.74a6 6 0 0 1-7.922-8.982 6 6 0 0 1 8.982 7.922l3.04 3.04a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215ZM11.5 7a4.499 4.499 0 1 0-8.997 0A4.499 4.499 0 0 0 11.5 7Z"
+            />
+          </svg>
         </div>
         <svg
           className="c6"
@@ -5293,10 +5745,32 @@ exports[`TextInput renders with a loading indicator 1`] = `
   visibility: visible;
 }
 
+.c3 {
+  -webkit-animation: rotate-keyframes 1s linear infinite;
+  animation: rotate-keyframes 1s linear infinite;
+  position: absolute;
+  top: 0;
+  height: 100%;
+  max-width: 100%;
+  visibility: hidden;
+  left: 0;
+}
+
+.c6 {
+  -webkit-animation: rotate-keyframes 1s linear infinite;
+  animation: rotate-keyframes 1s linear infinite;
+  position: absolute;
+  top: 0;
+  height: 100%;
+  max-width: 100%;
+  visibility: visible;
+  right: 0;
+}
+
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #24292f;
+  color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -5312,11 +5786,12 @@ exports[`TextInput renders with a loading indicator 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
+  --inner-action-size: 28px;
   padding-left: 8px;
   padding-right: 8px;
   padding-top: 10px;
   padding-bottom: 10px;
-  font-size: 20px;
+  height: 40px;
   background-repeat: no-repeat;
   background-position: right 8px center;
   padding-left: 12px;
@@ -5358,7 +5833,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   padding: 12px;
 }
 
-.c0 >:not(:last-child) {
+.c0 > :not(:last-child) {
   margin-right: 8px;
 }
 
@@ -5367,7 +5842,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #57606a;
+  color: #656d76;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -5391,28 +5866,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
 
 .c4:focus {
   outline: 0;
-}
-
-.c3 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
-  position: absolute;
-  top: 0;
-  height: 100%;
-  max-width: 100%;
-  visibility: hidden;
-  left: 0;
-}
-
-.c6 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
-  position: absolute;
-  top: 0;
-  height: 100%;
-  max-width: 100%;
-  visibility: visible;
-  right: 0;
 }
 
 @media (min-width:768px) {
@@ -5441,12 +5894,8 @@ exports[`TextInput renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-search"
-            dangerouslySetInnerHTML={
-              {
-                "__html": "<path fill-rule="evenodd" d="M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z"></path>",
-              }
-            }
             fill="currentColor"
+            focusable="false"
             height={16}
             role="img"
             style={
@@ -5459,7 +5908,11 @@ exports[`TextInput renders with a loading indicator 1`] = `
             }
             viewBox="0 0 16 16"
             width={16}
-          />
+          >
+            <path
+              d="M10.68 11.74a6 6 0 0 1-7.922-8.982 6 6 0 0 1 8.982 7.922l3.04 3.04a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215ZM11.5 7a4.499 4.499 0 1 0-8.997 0A4.499 4.499 0 0 0 11.5 7Z"
+            />
+          </svg>
         </div>
         <svg
           className="c3"
@@ -5517,12 +5970,8 @@ exports[`TextInput renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-search"
-            dangerouslySetInnerHTML={
-              {
-                "__html": "<path fill-rule="evenodd" d="M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z"></path>",
-              }
-            }
             fill="currentColor"
+            focusable="false"
             height={16}
             role="img"
             style={
@@ -5535,7 +5984,11 @@ exports[`TextInput renders with a loading indicator 1`] = `
             }
             viewBox="0 0 16 16"
             width={16}
-          />
+          >
+            <path
+              d="M10.68 11.74a6 6 0 0 1-7.922-8.982 6 6 0 0 1 8.982 7.922l3.04 3.04a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215ZM11.5 7a4.499 4.499 0 1 0-8.997 0A4.499 4.499 0 0 0 11.5 7Z"
+            />
+          </svg>
         </div>
         <svg
           className="c6"
@@ -5581,7 +6034,7 @@ exports[`TextInput should render a password input 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #24292f;
+  color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -5638,7 +6091,7 @@ exports[`TextInput should render a password input 1`] = `
   padding: 12px;
 }
 
-.c0 >:not(:last-child) {
+.c0 > :not(:last-child) {
   margin-right: 8px;
 }
 
@@ -5647,7 +6100,7 @@ exports[`TextInput should render a password input 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #57606a;
+  color: #656d76;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;

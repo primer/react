@@ -2,7 +2,8 @@ import React from 'react'
 import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import Link from '../Link'
 import {SxProp, merge} from '../sx'
-import {Item, ActionListItemProps} from './Item'
+import {Item} from './Item'
+import {ActionListItemProps} from './shared'
 
 // adopted from React.AnchorHTMLAttributes
 type LinkProps = {
@@ -31,18 +32,31 @@ export const LinkItem = React.forwardRef(({sx = {}, active, as: Component, ...pr
 
     // inherit Item styles
     color: 'inherit',
-    '&:hover': {color: 'inherit', textDecoration: 'none'}
+    '&:hover': {color: 'inherit', textDecoration: 'none'},
   }
 
   return (
     <Item
       active={active}
       sx={{paddingY: 0, paddingX: 0}}
-      _PrivateItemWrapper={({children}) => (
-        <Link as={Component} sx={merge(styles, sx as SxProp)} {...props} ref={forwardedRef}>
-          {children}
-        </Link>
-      )}
+      _PrivateItemWrapper={({children, onClick, ...rest}) => {
+        const clickHandler = (event: React.MouseEvent) => {
+          onClick && onClick(event)
+          props.onClick && props.onClick(event as React.MouseEvent<HTMLAnchorElement>)
+        }
+        return (
+          <Link
+            as={Component}
+            sx={merge(styles, sx as SxProp)}
+            {...rest}
+            {...props}
+            onClick={clickHandler}
+            ref={forwardedRef}
+          >
+            {children}
+          </Link>
+        )
+      }}
     >
       {props.children}
     </Item>

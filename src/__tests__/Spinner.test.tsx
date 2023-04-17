@@ -8,11 +8,11 @@ expect.extend(toHaveNoViolations)
 
 describe('Spinner', () => {
   behavesAsComponent({
-    Component: Spinner
+    Component: Spinner,
   })
 
   checkExports('Spinner', {
-    default: Spinner
+    default: Spinner,
   })
 
   it('should have no axe violations', async () => {

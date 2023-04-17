@@ -1,13 +1,27 @@
-/** This is the place where we keep components that are not part of the public
- *  api yet (not in main bundle). We don't recommend using it in production.
+/**
+ * This is the place where we keep components that are not part of the public
+ * api yet (not in main bundle). We don't recommend using it in production.
  *
- *  But, they are published on npm and you can import them for experimentation/feedback.
- *  example: import {ActionList} from '@primer/react/drafts
+ * But, they are published on npm and you can import them for experimentation/feedback.
+ * example: import {ActionList} from '@primer/react/drafts
  */
-export * from '../NavList'
+
+export {DataTable, Table} from '../DataTable'
+export type {
+  DataTableProps,
+  TableProps,
+  TableHeadProps,
+  TableBodyProps,
+  TableRowProps,
+  TableHeaderProps,
+  TableCellProps,
+  TableContainerProps,
+  TableTitleProps,
+  TableSubtitleProps,
+  TableActionsProps,
+} from '../DataTable'
+
 export * from '../Dialog/Dialog'
-export * from '../SegmentedControl' // TODO: remove from drafts bundle in next major release
-export * from '../SplitPageLayout'
 
 export {default as InlineAutocomplete} from './InlineAutocomplete'
 export type {
@@ -15,7 +29,7 @@ export type {
   ShowSuggestionsEvent,
   Suggestion,
   Suggestions,
-  Trigger
+  Trigger,
 } from './InlineAutocomplete'
 
 export {default as MarkdownViewer} from './MarkdownViewer'
@@ -26,4 +40,14 @@ export * from './MarkdownEditor'
 
 export * from '../UnderlineNav2'
 
+export * from '../PageHeader'
+
+export * from '../Hidden'
+
 export * from './hooks'
+
+// TODO: Remove these components from the drafts bundle in the next major release
+export * from '../TreeView'
+export * from '../NavList'
+export * from '../SegmentedControl'
+export * from '../SplitPageLayout'

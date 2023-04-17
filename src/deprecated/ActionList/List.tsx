@@ -6,14 +6,13 @@ import {Divider} from './Divider'
 import styled from 'styled-components'
 import {get} from '../../constants'
 import {SystemCssProperties} from '@styled-system/css'
-import {FocusKeys, hasActiveDescendantAttribute} from '@primer/behaviors'
+import {hasActiveDescendantAttribute} from '@primer/behaviors'
 import {Merge} from '../../utils/types/Merge'
-import {useFocusZone} from '../../hooks/useFocusZone'
 
 type RenderItemFn = (props: ItemProps) => React.ReactElement
 
 export type ItemInput =
-  | Merge<React.ComponentPropsWithoutRef<'li'>, ItemProps>
+  | Merge<React.ComponentPropsWithoutRef<'div'>, ItemProps>
   | ((Partial<ItemProps> & {renderItem: RenderItemFn}) & {key?: Key})
 
 /**
@@ -101,7 +100,7 @@ function isGroupedListProps(props: ListProps): props is GroupedListProps {
  */
 export type ListProps = ListPropsBase | GroupedListProps
 
-const ListBox = styled.ul`
+const StyledList = styled.div`
   font-size: ${get('fontSizes.1')};
   /* 14px font-size * 1.428571429 = 20px line height
    *
@@ -109,9 +108,6 @@ const ListBox = styled.ul`
    * hardcoded '20px'
    */
   line-height: 20px;
-  padding-inline-start: 0;
-  margin-block-start: 0;
-  margin-block-end: 0;
 
   &[${hasActiveDescendantAttribute}], &:focus-within {
     --item-hover-bg-override: none;
@@ -133,13 +129,13 @@ function useListVariant(variant: ListProps['variant'] = 'inset'): {
     case 'full':
       return {
         headerStyle: {paddingX: get('space.2')},
-        itemStyle: {borderRadius: 0}
+        itemStyle: {borderRadius: 0},
       }
     default:
       return {
         firstGroupStyle: {marginTop: get('space.2')},
         lastGroupStyle: {marginBottom: get('space.2')},
-        itemStyle: {marginX: get('space.2')}
+        itemStyle: {marginX: get('space.2')},
       }
   }
 }
@@ -147,7 +143,7 @@ function useListVariant(variant: ListProps['variant'] = 'inset'): {
 /**
  * Lists `Item`s, either grouped or ungrouped, with a `Divider` between each `Group`.
  */
-export const List = React.forwardRef<HTMLUListElement, ListProps>((props, forwardedRef): JSX.Element => {
+export const List = React.forwardRef<HTMLDivElement, ListProps>((props, forwardedRef): JSX.Element => {
   // Get `sx` prop values for `List` children matching the given `List` style variation.
   const {firstGroupStyle, lastGroupStyle, headerStyle, itemStyle} = useListVariant(props.variant)
 
@@ -157,7 +153,7 @@ export const List = React.forwardRef<HTMLUListElement, ListProps>((props, forwar
    * the default `Group` renderer.
    */
   const renderGroup = (
-    groupProps: GroupProps | (Partial<GroupProps> & {renderItem?: typeof Item; renderGroup?: typeof Group})
+    groupProps: GroupProps | (Partial<GroupProps> & {renderItem?: typeof Item; renderGroup?: typeof Group}),
   ) => {
     const GroupComponent = (('renderGroup' in groupProps && groupProps.renderGroup) ?? props.renderGroup) || Group
     return <GroupComponent {...groupProps} key={groupProps.groupId} />
@@ -201,7 +197,7 @@ export const List = React.forwardRef<HTMLUListElement, ListProps>((props, forwar
      */
     const groupMap = props.groupMetadata.reduce(
       (groupAccumulator, groupMetadata) => groupAccumulator.set(groupMetadata.groupId, groupMetadata),
-      new Map<string, GroupProps | (Partial<GroupProps> & {renderItem?: typeof Item; renderGroup?: typeof Group})>()
+      new Map<string, GroupProps | (Partial<GroupProps> & {renderItem?: typeof Item; renderGroup?: typeof Group})>(),
     )
 
     for (const itemProps of props.items) {
@@ -218,48 +214,44 @@ export const List = React.forwardRef<HTMLUListElement, ListProps>((props, forwar
             {
               showDivider: group?.showItemDividers,
               ...(group && 'renderItem' in group && {renderItem: group.renderItem}),
-              ...itemProps
+              ...itemProps,
             },
             itemProps,
-            itemIndex
-          )
-        ]
+            itemIndex,
+          ),
+        ],
       })
     }
 
     groups = [...groupMap.values()]
   }
 
-  const {containerRef} = useFocusZone({bindKeys: FocusKeys.ArrowVertical | FocusKeys.HomeAndEnd})
-
   return (
-    <div ref={containerRef as React.RefObject<HTMLDivElement>}>
-      <ListBox {...props} ref={forwardedRef}>
-        {groups.map(({header, ...groupProps}, index) => {
-          const hasFilledHeader = header?.variant === 'filled'
-          const shouldShowDivider = index > 0 && !hasFilledHeader
-          return (
-            <React.Fragment key={groupProps.groupId}>
-              {shouldShowDivider ? <Divider key={`${groupProps.groupId}-divider`} /> : null}
-              {renderGroup({
-                sx: {
-                  ...(index === 0 && firstGroupStyle),
-                  ...(index === groups.length - 1 && lastGroupStyle),
-                  ...(index > 0 && !shouldShowDivider && {mt: 2})
+    <StyledList {...props} ref={forwardedRef}>
+      {groups.map(({header, ...groupProps}, index) => {
+        const hasFilledHeader = header?.variant === 'filled'
+        const shouldShowDivider = index > 0 && !hasFilledHeader
+        return (
+          <React.Fragment key={groupProps.groupId}>
+            {shouldShowDivider ? <Divider key={`${groupProps.groupId}-divider`} /> : null}
+            {renderGroup({
+              sx: {
+                ...(index === 0 && firstGroupStyle),
+                ...(index === groups.length - 1 && lastGroupStyle),
+                ...(index > 0 && !shouldShowDivider && {mt: 2}),
+              },
+              ...(header && {
+                header: {
+                  ...header,
+                  sx: {...headerStyle, ...header.sx},
                 },
-                ...(header && {
-                  header: {
-                    ...header,
-                    sx: {...headerStyle, ...header.sx}
-                  }
-                }),
-                ...groupProps
-              })}
-            </React.Fragment>
-          )
-        })}
-      </ListBox>
-    </div>
+              }),
+              ...groupProps,
+            })}
+          </React.Fragment>
+        )
+      })}
+    </StyledList>
   )
 })
 

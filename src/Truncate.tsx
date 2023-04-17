@@ -21,10 +21,12 @@ const Truncate = styled.div<StyledTruncateProps>`
   ${sx};
 `
 
+// TODO: Remove defaultProps to be compatible with the next major version of React
+// Reference: https://github.com/primer/react/issues/2758
 Truncate.defaultProps = {
   expandable: false,
   inline: false,
-  maxWidth: 125
+  maxWidth: 125,
 }
 
 export type TruncateProps = ComponentProps<typeof Truncate>

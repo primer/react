@@ -1,0 +1,8 @@
+.changeset
+dist
+lib
+lib-esm
+storybook-static
+docs/.cache
+docs/public
+**/.next/**

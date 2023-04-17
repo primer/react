@@ -56,7 +56,8 @@ const TooltipBase = styled.span<SxProp>`
 
   &:hover,
   &:active,
-  &:focus {
+  &:focus,
+  &:focus-within {
     &::before,
     &::after {
       display: inline-block;
@@ -71,7 +72,8 @@ const TooltipBase = styled.span<SxProp>`
 
   &.tooltipped-no-delay:hover,
   &.tooltipped-no-delay:active,
-  &.tooltipped-no-delay:focus {
+  &.tooltipped-no-delay:focus,
+  &.tooltipped-no-delay:focus-within {
     &::before,
     &::after {
       animation-delay: 0s;
@@ -80,7 +82,8 @@ const TooltipBase = styled.span<SxProp>`
 
   &.tooltipped-multiline:hover,
   &.tooltipped-multiline:active,
-  &.tooltipped-multiline:focus {
+  &.tooltipped-multiline:focus,
+  &.tooltipped-multiline:focus-within {
     &::after {
       display: table-cell;
     }
@@ -247,7 +250,7 @@ function Tooltip({direction = 'n', children, className, text, noDelay, align, wr
     `tooltipped-${direction}`,
     align && `tooltipped-align-${align}-2`,
     noDelay && 'tooltipped-no-delay',
-    wrap && 'tooltipped-multiline'
+    wrap && 'tooltipped-multiline',
   )
   return (
     <TooltipBase role="tooltip" aria-label={text} {...rest} className={classes}>

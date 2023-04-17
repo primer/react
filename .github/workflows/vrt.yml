@@ -1,0 +1,71 @@
+name: vrt
+on:
+  pull_request:
+    types:
+      - labeled
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  update-snapshots:
+    if: contains(github.event.pull_request.labels.*.name, 'update snapshots')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Save Pull Request info
+        run: |
+          mkdir PR
+          echo $NUMBER > ./PR/number
+        env:
+          NUMBER: ${{ github.event.number }}
+      - uses: actions/upload-artifact@v3
+        with:
+          name: pull-request
+          path: ./PR
+          retention-days: 1
+
+  upload-snapshots:
+    needs: update-snapshots
+    runs-on: ubuntu-latest-8-cores
+    strategy:
+      fail-fast: true
+      matrix:
+        shard: [1, 2, 3, 4]
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: 'npm'
+      - name: Install dependencies
+        run: npm ci
+      - name: Build storybook
+        run: npx build-storybook
+      - name: Install browsers
+        run: npx playwright install --with-deps
+      - name: Run storybook
+        id: storybook
+        run: |
+          npx serve -l 6006 storybook-static &
+          pid=$!
+          echo "pid=$pid" >> $GITHUB_OUTPUT
+          sleep 5
+      - name: Run VRT
+        run: npx playwright test --grep @vrt --update-snapshots --shard="${{ matrix.shard }}/${{ strategy.job-total }}"
+      - name: Stop storybook
+        if: ${{ always() }}
+        run: kill ${{ steps.storybook.outputs.pid }}
+      - name: Create snapshots.zip
+        run: |
+          if [[ ! -z  $(git ls-files --others --exclude-standard --modified) ]]; then
+            git ls-files --others --exclude-standard --modified | zip snapshots -@
+          fi
+      - name: Upload snapshots
+        uses: actions/upload-artifact@v3
+        with:
+          name: snapshots-${{ matrix.shard }}
+          path: snapshots.zip
+          retention-days: 1
+          if-no-files-found: ignore

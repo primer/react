@@ -22,7 +22,7 @@ export default () => (
   </Label>
 )
 `.trim(),
-  'removeSystemProps'
+  'removeSystemProps',
 )
 
 defineInlineTest(
@@ -54,7 +54,7 @@ const ClipboardCopy = ({value}) => (
     )}
   </Button>
 )`.trim(),
-  'removeSystemProps'
+  'removeSystemProps',
 )
 
 defineInlineTest(
@@ -95,7 +95,7 @@ const link = (
     Primer
   </Link>
 )`.trim(),
-  'removeSystemProps'
+  'removeSystemProps',
 )
 
 defineInlineTest(
@@ -119,7 +119,7 @@ export default () => (
   </Label>
 )
 `.trim(),
-  'removeSystemProps'
+  'removeSystemProps',
 )
 
 defineInlineTest(
@@ -143,7 +143,7 @@ export default () => (
   </Label>
 )
 `.trim(),
-  'removeSystemProps'
+  'removeSystemProps',
 )
 
 defineInlineTest(
@@ -171,7 +171,7 @@ export default () => (
   </Label>
 )
 `.trim(),
-  'removeSystemProps'
+  'removeSystemProps',
 )
 
 defineInlineTest(
@@ -195,7 +195,7 @@ export default () => (
   </Label>
 )
 `.trim(),
-  'removeSystemProps'
+  'removeSystemProps',
 )
 
 defineInlineTest(
@@ -221,5 +221,5 @@ export default () => (
   </Label>
 )
 `.trim(),
-  'removeSystemProps'
+  'removeSystemProps',
 )

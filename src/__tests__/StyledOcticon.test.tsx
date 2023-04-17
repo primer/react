@@ -10,11 +10,11 @@ expect.extend(toHaveNoViolations)
 describe('StyledOcticon', () => {
   behavesAsComponent({
     Component: StyledOcticon,
-    toRender: () => <StyledOcticon icon={XIcon} />
+    toRender: () => <StyledOcticon icon={XIcon} />,
   })
 
   checkExports('StyledOcticon', {
-    default: StyledOcticon
+    default: StyledOcticon,
   })
 
   it('should have no axe violations', async () => {

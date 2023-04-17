@@ -3,8 +3,10 @@ componentId: markdown_editor
 title: MarkdownEditor
 status: Draft
 description: Full-featured Markdown input.
-storybook: '/react/storybook?path=/story/forms-markdowneditor--default'
+storybook: '/react/storybook?path=/story/components-forms-markdowneditor--default'
 ---
+
+import data from '../../../src/drafts/MarkdownEditor/MarkdownEditor.docs.json'
 
 ```js
 import {MarkdownEditor} from '@primer/react/drafts'
@@ -26,21 +28,18 @@ import {MarkdownEditor} from '@primer/react/drafts'
 
 A `Label` is always required for accessibility:
 
+{/* prettier-ignore-start */}
 ```javascript live noinline drafts
 const renderMarkdown = async (markdown) => {
   // In production code, this would make a query to some external API endpoint to render
-  return "Rendered Markdown."
+  return 'Rendered Markdown.'
 }
 
 const MinimalExample = () => {
   const [value, setValue] = React.useState('')
 
   return (
-    <MarkdownEditor
-      value={value}
-      onChange={setValue}
-      onRenderPreview={renderMarkdown}
-    >
+    <MarkdownEditor value={value} onChange={setValue} onRenderPreview={renderMarkdown}>
       <MarkdownEditor.Label>Minimal Example</MarkdownEditor.Label>
     </MarkdownEditor>
   )
@@ -48,15 +47,17 @@ const MinimalExample = () => {
 
 render(MinimalExample)
 ```
+{/* prettier-ignore-end */}
 
 ### Suggestions, File Uploads, and Saved Replies
 
+{/* prettier-ignore-start */}
 ```javascript live noinline drafts
-const renderMarkdown = async (markdown) => "Rendered Markdown."
+const renderMarkdown = async (markdown) => 'Rendered Markdown.'
 
 const uploadFile = async (file) => ({
   url: `https://example.com/${encodeURIComponent(file.name)}`,
-  file
+  file,
 })
 
 const emojis = [
@@ -74,7 +75,7 @@ const emojis = [
   {name: 'point_right', character: '👉'},
   {name: 'raised_hand', character: '✋'},
   {name: 'thumbsup', character: '👍'},
-  {name: 'thumbsdown', character: '👎'}
+  {name: 'thumbsdown', character: '👎'},
 ]
 
 const references = [
@@ -82,21 +83,21 @@ const references = [
   {
     id: '2',
     titleText: 'Error: `Failed to install` when installing',
-    titleHtml: 'Error: <code>Failed to install</code> when installing'
+    titleHtml: 'Error: <code>Failed to install</code> when installing',
   },
-  {id: '3', titleText: 'Add error-handling functionality', titleHtml: 'Add error-handling functionality'}
+  {id: '3', titleText: 'Add error-handling functionality', titleHtml: 'Add error-handling functionality'},
 ]
 
 const mentionables = [
   {identifier: 'monalisa', description: 'Monalisa Octocat'},
   {identifier: 'github', description: 'GitHub'},
-  {identifier: 'primer', description: 'Primer'}
+  {identifier: 'primer', description: 'Primer'},
 ]
 
 const savedReplies = [
   {name: 'Duplicate', content: 'Duplicate of #'},
   {name: 'Welcome', content: 'Welcome to the project!\n\nPlease be sure to read the contributor guidelines.'},
-  {name: 'Thanks', content: 'Thanks for your contribution!'}
+  {name: 'Thanks', content: 'Thanks for your contribution!'},
 ]
 
 const MinimalExample = () => {
@@ -107,13 +108,10 @@ const MinimalExample = () => {
       value={value}
       onChange={setValue}
       onRenderPreview={renderMarkdown}
-
       onUploadFile={uploadFile}
-
       emojiSuggestions={emojis}
       referenceSuggestions={references}
       mentionSuggestions={mentionables}
-
       savedReplies={savedReplies}
     >
       <MarkdownEditor.Label>Suggestions, File Uploads, and Saved Replies Example</MarkdownEditor.Label>
@@ -123,21 +121,19 @@ const MinimalExample = () => {
 
 render(MinimalExample)
 ```
+{/* prettier-ignore-end */}
 
 ### Custom Buttons
 
+{/* prettier-ignore-start */}
 ```javascript live noinline drafts
-const renderMarkdown = async (markdown) => "Rendered Markdown."
+const renderMarkdown = async (markdown) => 'Rendered Markdown.'
 
 const MinimalExample = () => {
   const [value, setValue] = React.useState('')
 
   return (
-    <MarkdownEditor
-      value={value}
-      onChange={setValue}
-      onRenderPreview={renderMarkdown}
-    >
+    <MarkdownEditor value={value} onChange={setValue} onRenderPreview={renderMarkdown}>
       <MarkdownEditor.Label visuallyHidden>Custom Buttons</MarkdownEditor.Label>
 
       <MarkdownEditor.Toolbar>
@@ -147,12 +143,8 @@ const MinimalExample = () => {
       </MarkdownEditor.Toolbar>
 
       <MarkdownEditor.Actions>
-        <MarkdownEditor.ActionButton variant="danger">
-          Cancel
-        </MarkdownEditor.ActionButton>
-        <MarkdownEditor.ActionButton variant="primary">
-          Submit
-        </MarkdownEditor.ActionButton>
+        <MarkdownEditor.ActionButton variant="danger">Cancel</MarkdownEditor.ActionButton>
+        <MarkdownEditor.ActionButton variant="primary">Submit</MarkdownEditor.ActionButton>
       </MarkdownEditor.Actions>
     </MarkdownEditor>
   )
@@ -160,3 +152,8 @@ const MinimalExample = () => {
 
 render(MinimalExample)
 ```
+{/* prettier-ignore-end */}
+
+## Props
+
+<ComponentProps data={data} />

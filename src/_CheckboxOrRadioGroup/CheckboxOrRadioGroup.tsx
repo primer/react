@@ -1,14 +1,14 @@
 import React from 'react'
-import {Box, useSSRSafeId} from '..'
+import styled from 'styled-components'
+import Box from '../Box'
 import ValidationAnimationContainer from '../_ValidationAnimationContainer'
+import {get} from '../constants'
+import {useSSRSafeId} from '../utils/ssr'
 import CheckboxOrRadioGroupCaption from './_CheckboxOrRadioGroupCaption'
 import CheckboxOrRadioGroupLabel from './_CheckboxOrRadioGroupLabel'
 import CheckboxOrRadioGroupValidation from './_CheckboxOrRadioGroupValidation'
-import {Slots} from './slots'
-import styled from 'styled-components'
-import {get} from '../constants'
-import CheckboxOrRadioGroupContext from './_CheckboxOrRadioGroupContext'
 import VisuallyHidden from '../_VisuallyHidden'
+import {useSlots} from '../hooks/useSlots'
 import {SxProp} from '../sx'
 
 export type CheckboxOrRadioGroupProps = {
@@ -36,6 +36,8 @@ export type CheckboxOrRadioGroupContext = {
   captionId?: string
 } & CheckboxOrRadioGroupProps
 
+export const CheckboxOrRadioGroupContext = React.createContext<CheckboxOrRadioGroupContext>({})
+
 const Body = styled.div`
   display: flex;
   flex-direction: column;
@@ -51,115 +53,109 @@ const Body = styled.div`
 const CheckboxOrRadioGroup: React.FC<React.PropsWithChildren<CheckboxOrRadioGroupProps>> = ({
   'aria-labelledby': ariaLabelledby,
   children,
-  disabled,
+  disabled = false,
   id: idProp,
-  required,
-  sx
+  required = false,
+  sx,
 }) => {
+  const [slots, rest] = useSlots(children, {
+    caption: CheckboxOrRadioGroupCaption,
+    label: CheckboxOrRadioGroupLabel,
+    validation: CheckboxOrRadioGroupValidation,
+  })
   const labelChild = React.Children.toArray(children).find(
-    child => React.isValidElement(child) && child.type === CheckboxOrRadioGroupLabel
+    child => React.isValidElement(child) && child.type === CheckboxOrRadioGroupLabel,
   )
   const validationChild = React.Children.toArray(children).find(child =>
-    React.isValidElement(child) && child.type === CheckboxOrRadioGroupValidation ? child : null
+    React.isValidElement(child) && child.type === CheckboxOrRadioGroupValidation ? child : null,
   )
   const captionChild = React.Children.toArray(children).find(child =>
-    React.isValidElement(child) && child.type === CheckboxOrRadioGroupCaption ? child : null
+    React.isValidElement(child) && child.type === CheckboxOrRadioGroupCaption ? child : null,
   )
   const id = useSSRSafeId(idProp)
-  const validationMessageId = validationChild && `${id}-validationMessage`
-  const captionId = captionChild && `${id}-caption`
+  const validationMessageId = validationChild ? `${id}-validationMessage` : undefined
+  const captionId = captionChild ? `${id}-caption` : undefined
 
   if (!labelChild && !ariaLabelledby) {
     // eslint-disable-next-line no-console
     console.warn(
-      'A choice group must be labelled using a `CheckboxOrRadioGroup.Label` child, or by passing `aria-labelledby` to the CheckboxOrRadioGroup component.'
+      'A choice group must be labelled using a `CheckboxOrRadioGroup.Label` child, or by passing `aria-labelledby` to the CheckboxOrRadioGroup component.',
     )
   }
 
+  const isLegendVisible = React.isValidElement(labelChild) && !labelChild.props.visuallyHidden
+
   return (
-    <Slots
-      context={{
+    <CheckboxOrRadioGroupContext.Provider
+      value={{
         disabled,
         required,
         captionId,
-        validationMessageId
+        validationMessageId,
       }}
     >
-      {slots => {
-        const isLegendVisible = React.isValidElement(labelChild) && !labelChild.props.visuallyHidden
+      <div>
+        <Box
+          border="none"
+          margin={0}
+          mb={validationChild ? 2 : undefined}
+          padding={0}
+          {...(labelChild && {
+            as: 'fieldset',
+            disabled,
+          })}
+          sx={sx}
+        >
+          {labelChild ? (
+            /*
+              Placing the caption text and validation text in the <legend> provides a better user
+              experience for more screenreaders.
 
-        return (
-          <CheckboxOrRadioGroupContext.Provider value={{disabled}}>
-            <div>
-              <Box
-                border="none"
-                margin={0}
-                mb={validationChild ? 2 : undefined}
-                padding={0}
-                {...(labelChild && {
-                  as: 'fieldset',
-                  disabled
-                })}
-                sx={sx}
-              >
-                {labelChild ? (
-                  /*
-                    Placing the caption text and validation text in the <legend> provides a better user
-                    experience for more screenreaders.
-
-                    Reference: https://blog.tenon.io/accessible-validation-of-checkbox-and-radiobutton-groups/
-                  */
-                  <Box as="legend" mb={isLegendVisible ? 2 : undefined} padding={0}>
-                    {slots.Label}
-                    {slots.Caption}
-                    {React.isValidElement(slots.Validation) && slots.Validation.props.children && (
-                      <VisuallyHidden>{slots.Validation.props.children}</VisuallyHidden>
-                    )}
-                  </Box>
-                ) : (
-                  /*
-                    If CheckboxOrRadioGroup.Label wasn't passed as a child, we don't render a <legend> 
-                    but we still want to render a caption
-                  */
-                  slots.Caption
-                )}
-
-                <Body
-                  {...(!labelChild && {
-                    ['aria-labelledby']: ariaLabelledby,
-                    ['aria-describedby']: [validationMessageId, captionId].filter(Boolean).join(' '),
-                    as: 'div',
-                    role: 'group'
-                  })}
-                >
-                  {React.Children.toArray(children).filter(child => React.isValidElement(child))}
-                </Body>
-              </Box>
-              {validationChild && (
-                <ValidationAnimationContainer
-                  // If we have CheckboxOrRadioGroup.Label as a child, we render a screenreader-accessible validation message in the <legend>
-                  aria-hidden={Boolean(labelChild)}
-                  show
-                >
-                  {slots.Validation}
-                </ValidationAnimationContainer>
+              Reference: https://blog.tenon.io/accessible-validation-of-checkbox-and-radiobutton-groups/
+            */
+            <Box as="legend" mb={isLegendVisible ? 2 : undefined} padding={0}>
+              {slots.label}
+              {slots.caption}
+              {React.isValidElement(slots.validation) && slots.validation.props.children && (
+                <VisuallyHidden>{slots.validation.props.children}</VisuallyHidden>
               )}
-            </div>
-          </CheckboxOrRadioGroupContext.Provider>
-        )
-      }}
-    </Slots>
-  )
-}
+            </Box>
+          ) : (
+            /*
+              If CheckboxOrRadioGroup.Label wasn't passed as a child, we don't render a <legend>
+              but we still want to render a caption
+            */
+            slots.caption
+          )}
 
-CheckboxOrRadioGroup.defaultProps = {
-  disabled: false,
-  required: false
+          <Body
+            {...(!labelChild && {
+              ['aria-labelledby']: ariaLabelledby,
+              ['aria-describedby']: [validationMessageId, captionId].filter(Boolean).join(' '),
+              as: 'div',
+              role: 'group',
+            })}
+          >
+            {React.Children.toArray(rest).filter(child => React.isValidElement(child))}
+          </Body>
+        </Box>
+        {validationChild && (
+          <ValidationAnimationContainer
+            // If we have CheckboxOrRadioGroup.Label as a child, we render a screenreader-accessible validation message in the <legend>
+            aria-hidden={Boolean(labelChild)}
+            show
+          >
+            {slots.validation}
+          </ValidationAnimationContainer>
+        )}
+      </div>
+    </CheckboxOrRadioGroupContext.Provider>
+  )
 }
 
 export type {CheckboxOrRadioGroupLabelProps} from './_CheckboxOrRadioGroupLabel'
 export default Object.assign(CheckboxOrRadioGroup, {
   Caption: CheckboxOrRadioGroupCaption,
   Label: CheckboxOrRadioGroupLabel,
-  Validation: CheckboxOrRadioGroupValidation
+  Validation: CheckboxOrRadioGroupValidation,
 })

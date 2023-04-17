@@ -9,17 +9,17 @@ const SWITCH_LABEL_TEXT = 'Switch label'
 
 behavesAsComponent({
   Component: ToggleSwitch,
-  options: {skipAs: true}
+  options: {skipAs: true},
 })
 checkExports('ToggleSwitch', {
-  default: ToggleSwitch
+  default: ToggleSwitch,
 })
 it('renders a switch that is turned off', () => {
   const {getByLabelText} = render(
     <>
       <div id="switchLabel">{SWITCH_LABEL_TEXT}</div>
       <ToggleSwitch aria-labelledby="switchLabel" />
-    </>
+    </>,
   )
   const toggleSwitch = getByLabelText(SWITCH_LABEL_TEXT)
 
@@ -30,7 +30,7 @@ it('renders a switch that is turned on', () => {
     <>
       <div id="switchLabel">{SWITCH_LABEL_TEXT}</div>
       <ToggleSwitch aria-labelledby="switchLabel" defaultChecked />
-    </>
+    </>,
   )
   const toggleSwitch = getByLabelText(SWITCH_LABEL_TEXT)
 
@@ -42,11 +42,10 @@ it('renders a switch that is disabled', async () => {
     <>
       <div id="switchLabel">{SWITCH_LABEL_TEXT}</div>
       <ToggleSwitch aria-labelledby="switchLabel" disabled />
-    </>
+    </>,
   )
   const toggleSwitch = getByLabelText(SWITCH_LABEL_TEXT)
 
-  expect(toggleSwitch).toHaveAttribute('aria-disabled', 'true')
   expect(toggleSwitch).toHaveAttribute('aria-checked', 'false')
   await user.click(toggleSwitch)
   expect(toggleSwitch).toHaveAttribute('aria-checked', 'false')
@@ -57,13 +56,12 @@ it("renders a switch who's state is loading", async () => {
     <>
       <div id="switchLabel">{SWITCH_LABEL_TEXT}</div>
       <ToggleSwitch aria-labelledby="switchLabel" loading />
-    </>
+    </>,
   )
   const toggleSwitch = getByLabelText(SWITCH_LABEL_TEXT)
   const loadingSpinner = container.querySelector('svg')
 
   expect(loadingSpinner).toBeDefined()
-  expect(toggleSwitch).toHaveAttribute('aria-disabled', 'true')
   expect(toggleSwitch).toHaveAttribute('aria-checked', 'false')
   await user.click(toggleSwitch)
   expect(toggleSwitch).toHaveAttribute('aria-checked', 'false')
@@ -74,7 +72,7 @@ it('switches from off to on uncontrolled', async () => {
     <>
       <div id="switchLabel">{SWITCH_LABEL_TEXT}</div>
       <ToggleSwitch aria-labelledby="switchLabel" />
-    </>
+    </>,
   )
   const toggleSwitch = getByLabelText(SWITCH_LABEL_TEXT)
 
@@ -129,5 +127,4 @@ it('calls onChange when the switch is toggled', async () => {
   expect(handleChange).toHaveBeenCalledWith(true)
 })
 
-checkStoriesForAxeViolations('Switch/fixtures')
-checkStoriesForAxeViolations('Switch/examples')
+checkStoriesForAxeViolations('ToggleSwitch.features', '../ToggleSwitch/')

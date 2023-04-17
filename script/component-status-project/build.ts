@@ -24,14 +24,14 @@ function getComponentStatuses(filenames: string[], dir: string) {
   const handleCallback = (
     filename: string,
     resolve: (value: ComponentStatus | null) => void,
-    reject: (value: unknown) => void
+    reject: (value: unknown) => void,
   ) => {
     fs.readFile(path.resolve(dir, filename), 'utf-8', (err, content) => {
       if (err) return reject(err)
 
       if (fm.test(content)) {
         const {
-          attributes: {title, status}
+          attributes: {title, status},
         } = fm(content)
 
         if (status) {
@@ -71,9 +71,9 @@ async function readFiles(dir: string) {
       .reduce(
         (acc, file) => ({
           ...acc,
-          ...file
+          ...file,
         }),
-        {}
+        {},
       )
   } catch (err) {
     throw new Error(`error reading files: ${err}`)

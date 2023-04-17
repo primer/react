@@ -20,9 +20,9 @@ export const Divider: React.FC<React.PropsWithChildren<ActionListDividerProps>> 
           backgroundColor: 'actionListItem.inlineDivider',
           marginTop: (theme: Theme) => `calc(${get('space.2')(theme)} - 1px)`,
           marginBottom: 2,
-          listStyle: 'none' // hide the ::marker inserted by browser's stylesheet
+          listStyle: 'none', // hide the ::marker inserted by browser's stylesheet
         },
-        sx as SxProp
+        sx as SxProp,
       )}
       data-component="ActionList.Divider"
     />

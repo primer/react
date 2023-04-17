@@ -3,18 +3,54 @@ componentId: segmented_control
 title: SegmentedControl
 description: Use a segmented control to let users select an option from a short list and immediately apply the selection
 status: Alpha
+source: https://github.com/primer/react/tree/main/src/SegmentedControl
+storybook: '/react/storybook/?path=/story/components-segmentedcontrol'
 ---
+
+import data from '../../src/SegmentedControl/SegmentedControl.docs.json'
+
+<Note variant="warning">
+
+A `SegmentedControl` should not be used in a form as a replacement for something like a [RadioGroup](/RadioGroup) or [Select](/Select). See the [Accessibility section](https://primer.style/design/components/segmented-control#accessibility) of the SegmentedControl interface guidelines for more details.
+
+</Note>
 
 ## Examples
 
-### Uncontrolled (default)
+### With a label above and caption below
 
 ```jsx live
-<SegmentedControl aria-label="File view">
-  <SegmentedControl.Button defaultSelected>Preview</SegmentedControl.Button>
-  <SegmentedControl.Button>Raw</SegmentedControl.Button>
-  <SegmentedControl.Button>Blame</SegmentedControl.Button>
-</SegmentedControl>
+<FormControl>
+  <FormControl.Label id="scLabel-horiz" as="span">
+    File view
+  </FormControl.Label>
+  <SegmentedControl aria-labelledby="scLabel-horiz" aria-describedby="scCaption-horiz">
+    <SegmentedControl.Button defaultSelected>Preview</SegmentedControl.Button>
+    <SegmentedControl.Button>Raw</SegmentedControl.Button>
+    <SegmentedControl.Button>Blame</SegmentedControl.Button>
+  </SegmentedControl>
+  <FormControl.Caption id="scCaption-horiz">Change the way the file is viewed</FormControl.Caption>
+</FormControl>
+```
+
+### With a label and caption on the left
+
+```jsx live
+<Box display="flex">
+  <Box flexGrow={1}>
+    <Text fontSize={2} fontWeight="bold" id="scLabel-vert" display="block">
+      File view
+    </Text>
+    <Text color="fg.subtle" fontSize={1} id="scCaption-vert" display="block">
+      Change the way the file is viewed
+    </Text>
+  </Box>
+  <SegmentedControl aria-labelledby="scLabel-vert" aria-describedby="scCaption-vert">
+    <SegmentedControl.Button defaultSelected>Preview</SegmentedControl.Button>
+    <SegmentedControl.Button>Raw</SegmentedControl.Button>
+    <SegmentedControl.Button>Blame</SegmentedControl.Button>
+  </SegmentedControl>
+</Box>
 ```
 
 ### Controlled
@@ -37,6 +73,16 @@ const Controlled = () => {
 }
 
 render(Controlled)
+```
+
+### Small
+
+```jsx live
+<SegmentedControl aria-label="File view" size="small">
+  <SegmentedControl.Button defaultSelected>Preview</SegmentedControl.Button>
+  <SegmentedControl.Button>Raw</SegmentedControl.Button>
+  <SegmentedControl.Button>Blame</SegmentedControl.Button>
+</SegmentedControl>
 ```
 
 ### With icons and labels
@@ -95,40 +141,6 @@ render(Controlled)
 </SegmentedControl>
 ```
 
-### With a label and caption on the left
-
-```jsx live
-<Box display="flex">
-  <Box flexGrow={1}>
-    <Text fontSize={2} fontWeight="bold" id="scLabel-vert" display="block">
-      File view
-    </Text>
-    <Text color="fg.subtle" fontSize={1} id="scCaption-vert" display="block">
-      Change the way the file is viewed
-    </Text>
-  </Box>
-  <SegmentedControl aria-labelledby="scLabel-vert" aria-describedby="scCaption-vert">
-    <SegmentedControl.Button defaultSelected>Preview</SegmentedControl.Button>
-    <SegmentedControl.Button>Raw</SegmentedControl.Button>
-    <SegmentedControl.Button>Blame</SegmentedControl.Button>
-  </SegmentedControl>
-</Box>
-```
-
-### With a label above and caption below
-
-```jsx live
-<FormControl>
-  <FormControl.Label id="scLabel-horiz">File view</FormControl.Label>
-  <SegmentedControl aria-labelledby="scLabel-horiz" aria-describedby="scCaption-horiz">
-    <SegmentedControl.Button defaultSelected>Preview</SegmentedControl.Button>
-    <SegmentedControl.Button>Raw</SegmentedControl.Button>
-    <SegmentedControl.Button>Blame</SegmentedControl.Button>
-  </SegmentedControl>
-  <FormControl.Caption id="scCaption-horiz">Change the way the file is viewed</FormControl.Caption>
-</FormControl>
-```
-
 ### With something besides the first option selected
 
 ```jsx live
@@ -141,83 +153,7 @@ render(Controlled)
 
 ## Props
 
-### SegmentedControl
-
-<PropsTable>
-  <PropsTableRow name="aria-label" type="string" />
-  <PropsTableRow name="aria-labelledby" type="string" />
-  <PropsTableRow name="aria-describedby" type="string" />
-  <PropsTableRow
-    name="fullWidth"
-    type={`| boolean
-| {
-  narrow?: boolean
-  regular?: boolean
-  wide?: boolean
-}`}
-    description="Whether the control fills the width of its parent"
-  />
-  <PropsTableRow
-    name="onChange"
-    type="(selectedIndex?: number) => void"
-    description="The handler that gets called when a segment is selected"
-  />
-  <PropsTableRow
-    name="variant"
-    type={`| 'default'
-| {
-  narrow?: 'hideLabels' | 'dropdown' | 'default'
-  regular?: 'hideLabels' | 'dropdown' | 'default'
-  wide?: 'hideLabels' | 'dropdown' | 'default'
-}`}
-    defaultValue="'default'"
-    description="Configure alternative ways to render the control when it gets rendered in tight spaces"
-  />
-  <PropsTableSxRow />
-  <PropsTableRefRow refType="HTMLDivElement" />
-</PropsTable>
-
-### SegmentedControl.Button
-
-<PropsTable>
-  <PropsTableRow name="leadingIcon" type="Component" description="The leading icon comes before item label" />
-  <PropsTableRow
-    name="selected"
-    type="boolean"
-    description="Whether the segment is selected. This is used for controlled SegmentedControls, and needs to be updated using the onChange handler on SegmentedControl."
-  />
-  <PropsTableRow
-    name="defaultSelected"
-    type="boolean"
-    description="Whether the segment is selected. This is used for uncontrolled SegmentedControls to pick one SegmentedControlButton that is selected on the initial render."
-  />
-  <PropsTableSxRow />
-  <PropsTableRefRow refType="HTMLButtonElement" />
-</PropsTable>
-
-### SegmentedControl.IconButton
-
-<PropsTable>
-  <PropsTableRow name="aria-label" type="string" required />
-  <PropsTableRow
-    name="icon"
-    type="Component"
-    description="The icon that represents the segmented control item"
-    required
-  />
-  <PropsTableRow
-    name="selected"
-    type="boolean"
-    description="Whether the segment is selected. This is used for controlled SegmentedControls, and needs to be updated using the onChange handler on SegmentedControl."
-  />
-  <PropsTableRow
-    name="defaultSelected"
-    type="boolean"
-    description="Whether the segment is selected. This is used for uncontrolled SegmentedControls to pick one SegmentedControlButton that is selected on the initial render."
-  />
-  <PropsTableSxRow />
-  <PropsTableRefRow refType="HTMLButtonElement" />
-</PropsTable>
+<ComponentProps data={data} />
 
 ## Status
 
@@ -236,6 +172,6 @@ render(Controlled)
     stableApi: false,
     addressedApiFeedback: false,
     hasDesignGuidelines: false,
-    hasFigmaComponent: false
+    hasFigmaComponent: false,
   }}
 />

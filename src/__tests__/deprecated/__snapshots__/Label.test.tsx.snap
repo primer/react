@@ -34,7 +34,7 @@ exports[`Label respects the "outline" prop 1`] = `
   padding: 0 8px;
   margin-top: -1px;
   margin-bottom: -1px;
-  color: #57606a;
+  color: #656d76;
   border: 1px solid #d0d7de;
   box-shadow: none;
   background-color: transparent;

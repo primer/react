@@ -22,8 +22,7 @@ function SimpleSelectPanel(): JSX.Element {
         <BaseStyles>
           <SelectPanel
             items={items}
-            title="Select Items"
-            inputLabel="Select Items"
+            placeholder="Select Items"
             placeholderText="Filter Items"
             selected={selected}
             onSelectedChange={setSelected}
@@ -46,12 +45,12 @@ describe('SelectPanel', () => {
   behavesAsComponent({
     Component: SelectPanel,
     options: {skipAs: true, skipSx: true},
-    toRender: () => <SimpleSelectPanel />
+    toRender: () => <SimpleSelectPanel />,
   })
 
   checkExports('SelectPanel', {
     default: undefined,
-    SelectPanel
+    SelectPanel,
   })
 
   it('should have no axe violations', async () => {

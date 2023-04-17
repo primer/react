@@ -120,7 +120,7 @@ const getDirectionStyles = (theme: Theme, direction: 'ne' | 'e' | 'se' | 's' | '
         top: -14px;
         left: 10px;
       }
-    `
+    `,
   }
   return map[direction]
 }

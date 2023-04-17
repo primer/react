@@ -3,7 +3,10 @@ title: ButtonGroup
 componentId: button_group
 status: Alpha
 source: https://github.com/primer/react/tree/main/src/ButtonGroup
+storybook: '/react/storybook?path=/story/components-buttongroup--default'
 ---
+
+import data from '../../src/ButtonGroup/ButtonGroup.docs.json'
 
 ```js
 import {ButtonGroup} from '@primer/react'
@@ -32,12 +35,7 @@ import {ButtonGroup} from '@primer/react'
 
 ## Props
 
-### ButtonGroup
-
-<PropsTable>
-  <PropsTableSxRow />
-  <PropsTableRefRow refType="HTMLDivElement" />
-</PropsTable>
+<ComponentProps data={data} />
 
 ## Status
 
@@ -56,7 +54,7 @@ import {ButtonGroup} from '@primer/react'
     stableApi: false,
     addressedApiFeedback: false,
     hasDesignGuidelines: false,
-    hasFigmaComponent: false
+    hasFigmaComponent: false,
   }}
 />
 

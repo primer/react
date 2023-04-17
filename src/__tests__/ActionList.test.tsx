@@ -1,11 +1,10 @@
 import {render as HTMLRender, waitFor, fireEvent} from '@testing-library/react'
-import {axe, toHaveNoViolations} from 'jest-axe'
+import {axe} from 'jest-axe'
 import React from 'react'
 import theme from '../theme'
 import {ActionList} from '../ActionList'
-import {behavesAsComponent, checkExports, checkStoriesForAxeViolations} from '../utils/testing'
+import {behavesAsComponent, checkExports} from '../utils/testing'
 import {BaseStyles, ThemeProvider, SSRProvider} from '..'
-expect.extend(toHaveNoViolations)
 
 function SimpleActionList(): JSX.Element {
   return (
@@ -18,6 +17,9 @@ function SimpleActionList(): JSX.Element {
             <ActionList.Item>Copy link</ActionList.Item>
             <ActionList.Item>Edit file</ActionList.Item>
             <ActionList.Item variant="danger">Delete file</ActionList.Item>
+            <ActionList.LinkItem href="//github.com" title="anchor" aria-keyshortcuts="d">
+              Link Item
+            </ActionList.LinkItem>
           </ActionList>
         </BaseStyles>
       </SSRProvider>
@@ -28,7 +30,7 @@ function SimpleActionList(): JSX.Element {
 const projects = [
   {name: 'Primer Backlog', scope: 'GitHub'},
   {name: 'Primer React', scope: 'github/primer'},
-  {name: 'Disabled Project', scope: 'github/primer', disabled: true}
+  {name: 'Disabled Project', scope: 'github/primer', disabled: true},
 ]
 function SingleSelectListStory(): JSX.Element {
   const [selectedIndex, setSelectedIndex] = React.useState(0)
@@ -55,12 +57,21 @@ describe('ActionList', () => {
   behavesAsComponent({
     Component: ActionList,
     options: {skipAs: true, skipSx: true},
-    toRender: () => <ActionList />
+    toRender: () => <ActionList />,
   })
 
   checkExports('ActionList', {
     default: undefined,
-    ActionList
+    ActionList,
+  })
+
+  it('should have aria-keyshortcuts applied to the correct element', async () => {
+    const {container} = HTMLRender(<SimpleActionList />)
+
+    const linkOptions = await waitFor(() => container.querySelectorAll('a'))
+
+    expect(linkOptions[0]).toHaveAttribute('aria-keyshortcuts', 'd')
+    expect(linkOptions[0].parentElement).not.toHaveAttribute('aria-keyshortcuts', 'd')
   })
 
   it('should have no axe violations', async () => {
@@ -122,7 +133,7 @@ describe('ActionList', () => {
           <ActionList.Item role="option" selected={true}>
             Primer React
           </ActionList.Item>
-        </ActionList>
+        </ActionList>,
       )
     }).toThrow('For Item to be selected, ActionList or ActionList.Group needs to have a selectionVariant defined')
 
@@ -133,7 +144,7 @@ describe('ActionList', () => {
     const component = HTMLRender(
       <ActionList role="listbox">
         <ActionList.Item role="option">Primer React</ActionList.Item>
-      </ActionList>
+      </ActionList>,
     )
     const option = await waitFor(() => component.getByRole('option'))
     expect(option).toBeInTheDocument()
@@ -143,6 +154,17 @@ describe('ActionList', () => {
     expect(option).toBeInTheDocument()
   })
 
-  checkStoriesForAxeViolations('ActionList/fixtures')
-  checkStoriesForAxeViolations('ActionList/examples')
+  it('should call onClick for a link item', async () => {
+    const onClick = jest.fn()
+    const component = HTMLRender(
+      <ActionList role="listbox">
+        <ActionList.LinkItem role="link" onClick={onClick}>
+          Primer React
+        </ActionList.LinkItem>
+      </ActionList>,
+    )
+    const link = await waitFor(() => component.getByRole('link'))
+    fireEvent.click(link)
+    expect(onClick).toHaveBeenCalled()
+  })
 })

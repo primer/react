@@ -68,7 +68,7 @@ const MarkdownViewer = ({
   onChange: externalOnChange,
   disabled = false,
   onLinkClick,
-  openLinksInNewTab = false
+  openLinksInNewTab = false,
 }: MarkdownViewerProps) => {
   const outputContainerRef = useRef<HTMLDivElement>(null)
 
@@ -77,7 +77,7 @@ const MarkdownViewer = ({
   const [htmlContainer, setHtmlContainer] = useState(() => createRenderedContainer(dangerousRenderedHTML.__html))
   useEffect(
     () => setHtmlContainer(createRenderedContainer(dangerousRenderedHTML.__html)),
-    [dangerousRenderedHTML.__html]
+    [dangerousRenderedHTML.__html],
   )
 
   const onChange = useCallback(
@@ -88,26 +88,26 @@ const MarkdownViewer = ({
         setHtmlContainer(createRenderedContainer(dangerousRenderedHTML.__html))
       }
     },
-    [externalOnChange, dangerousRenderedHTML.__html]
+    [externalOnChange, dangerousRenderedHTML.__html],
   )
 
   useListInteraction({
     onChange,
     disabled: disabled || !externalOnChange,
     htmlContainer,
-    markdownValue
+    markdownValue,
   })
 
   useLinkInterception({
     htmlContainer,
     onLinkClick,
-    openLinksInNewTab
+    openLinksInNewTab,
   })
 
   // If we were to inject the `...htmlContainer.children` instead of the container element itself,
   // those children elements would be moved from the `htmlContainer` to the `outputContainer`. Then if
   // other effects use `htmlContainer.querySelectorAll`, they wouldn't find any elements to affect
-  useEffect(() => outputContainerRef.current?.replaceChildren(htmlContainer))
+  useEffect(() => outputContainerRef.current?.replaceChildren(htmlContainer), [htmlContainer])
 
   return loading ? (
     <Box sx={{display: 'flex', justifyContent: 'space-around', p: 2}}>

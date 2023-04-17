@@ -93,7 +93,7 @@ const DropdownMenu = styled.ul<StyledDropdownMenuProps>`
   > ul {
     list-style: none;
   }
-  ${props => (props.direction ? getDirectionStyles(props.theme, props.direction) : '')};
+  ${({direction = 'sw', ...rest}) => getDirectionStyles(rest.theme, direction)};
   ${sx};
 `
 
@@ -153,5 +153,5 @@ export default Object.assign(Dropdown, {
   Caret: DropdownCaret,
   Menu: DropdownMenu,
   Item: DropdownItem,
-  Button: DropdownButton
+  Button: DropdownButton,
 })

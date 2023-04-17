@@ -6,7 +6,7 @@ import Tooltip from '../Tooltip'
 import {SearchIcon} from '@primer/octicons-react'
 
 export default {
-  title: 'Tooltip/Default',
+  title: 'Components/Tooltip/Default',
   component: Tooltip,
 
   decorators: [
@@ -18,15 +18,9 @@ export default {
           </BaseStyles>
         </ThemeProvider>
       )
-    }
-  ]
+    },
+  ],
 } as Meta
-
-export const TextTooltip = () => (
-  <Box borderWidth="1px" borderStyle="solid" borderColor="border.default" borderRadius={2} p={3}>
-    <Tooltip aria-label="Hello, Tooltip!">Text with a tooltip</Tooltip>
-  </Box>
-)
 
 export const IconButtonTooltip = () => (
   <Box sx={{p: 5}}>

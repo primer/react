@@ -1,0 +1,21 @@
+{
+  "$id": "output.schema.json",
+  "type": "object",
+  "required": ["schemaVersion", "components"],
+  "properties": {
+    "schemaVersion": {
+      "type": "number",
+      "enum": [2],
+      "description": "The version of the schema. We increment this when we make breaking changes to the schema."
+    },
+    "components": {
+      "type": "object",
+      "description": "Metadata about exported by @primer/react.",
+      "patternProperties": {
+        ".*": {
+          "$ref": "./component.schema.json#"
+        }
+      }
+    }
+  }
+}

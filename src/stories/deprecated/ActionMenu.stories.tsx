@@ -8,7 +8,7 @@ import {
   ProjectIcon,
   FilterIcon,
   GearIcon,
-  ArrowRightIcon
+  ArrowRightIcon,
 } from '@primer/octicons-react'
 import {Meta} from '@storybook/react'
 import React, {useCallback, useState, useRef} from 'react'
@@ -29,13 +29,13 @@ const meta: Meta = {
           <Story />
         </BaseStyles>
       </ThemeProvider>
-    )
+    ),
   ],
   parameters: {
     controls: {
-      disabled: true
-    }
-  }
+      disable: true,
+    },
+  },
 }
 export default meta
 
@@ -65,15 +65,15 @@ export function ActionsStory(): JSX.Element {
               description:
                 "Your existing Codespace will be opened to its previous state, and you'll be asked to manually switch to new-branch.",
               descriptionVariant: 'block',
-              trailingText: '⌘O'
+              trailingText: '⌘O',
             },
             {
               leadingVisual: PlusCircleIcon,
               text: 'Create new Codespace',
               description: 'Create a brand new Codespace with a fresh image and checkout this branch.',
               descriptionVariant: 'block',
-              trailingText: '⌘C'
-            }
+              trailingText: '⌘C',
+            },
           ]}
         />
       </ErsatzOverlay>
@@ -96,7 +96,7 @@ export function SimpleListStory(): JSX.Element {
           onAction={onAction}
           anchorContent="Menu"
           overlayProps={{
-            'data-test-id': 'some_test_id'
+            'data-test-id': 'some_test_id',
           }}
           items={[
             {text: 'New file', trailingText: '⌘O', disabled: true, leadingVisual: ProjectIcon},
@@ -106,8 +106,8 @@ export function SimpleListStory(): JSX.Element {
             {
               text: 'Delete file',
               variant: 'danger',
-              trailingText: '⌘D'
-            }
+              trailingText: '⌘D',
+            },
           ]}
         />
       </ErsatzOverlay>
@@ -145,15 +145,14 @@ export function ExternalOpenState(): JSX.Element {
             {
               text: 'Delete file',
               variant: 'danger',
-              trailingVisual: '⌘D'
-            }
+              trailingVisual: '⌘D',
+            },
           ]}
         />
       </ErsatzOverlay>
     </>
   )
 }
-ExternalOpenState.storyName = 'External Open State'
 
 export function ComplexListStory(): JSX.Element {
   const [option, setOption] = useState('Select an option')
@@ -173,7 +172,7 @@ export function ComplexListStory(): JSX.Element {
             {groupId: '1', header: {title: 'Live query', variant: 'subtle'}},
             {groupId: '2', header: {title: 'Layout', variant: 'subtle'}},
             {groupId: '3', renderItem: props => <ActionList.Item style={{fontWeight: 'bold'}} {...props} />},
-            {groupId: '4'}
+            {groupId: '4'},
           ]}
           items={[
             {leadingVisual: TypographyIcon, text: 'Rename', groupId: '0'},
@@ -183,12 +182,12 @@ export function ComplexListStory(): JSX.Element {
               text: 'repo:github/github',
               groupId: '1',
               renderItem: props => <ActionList.Item style={{color: 'rebeccapurple'}} {...props} />,
-              trailingVisual: () => (
+              trailingVisual: (
                 <>
                   ⌘S
                   <ArrowRightIcon />
                 </>
-              )
+              ),
             },
             {
               leadingVisual: SearchIcon,
@@ -196,29 +195,29 @@ export function ComplexListStory(): JSX.Element {
               groupId: '1',
               renderItem: props => <ActionList.Item style={{color: 'rebeccapurple'}} {...props} />,
               trailingText: '⌘S', // backward compatible
-              trailingIcon: ArrowRightIcon // backward compatible
+              trailingIcon: ArrowRightIcon, // backward compatible
             },
             {
               leadingVisual: NoteIcon,
               text: 'Table',
               description: 'Information-dense table optimized for operations across teams',
               descriptionVariant: 'block',
-              groupId: '2'
+              groupId: '2',
             },
             {
               leadingVisual: ProjectIcon,
               text: 'Board',
               description: 'Kanban-style board focused on visual states',
               descriptionVariant: 'block',
-              groupId: '2'
+              groupId: '2',
             },
             {
               leadingVisual: FilterIcon,
               text: 'Save sort and filters to current view',
-              groupId: '3'
+              groupId: '3',
             },
             {leadingVisual: FilterIcon, text: 'Save sort and filters to new view', groupId: '3'},
-            {leadingVisual: GearIcon, text: 'View settings', groupId: '4'}
+            {leadingVisual: GearIcon, text: 'View settings', groupId: '4'},
           ]}
         />
       </ErsatzOverlay>
@@ -247,14 +246,13 @@ export function CustomTrigger(): JSX.Element {
             ActionList.Divider,
             {text: 'Copy link'},
             {text: 'Edit file'},
-            {text: 'Delete file', variant: 'danger'}
+            {text: 'Delete file', variant: 'danger'},
           ]}
         />
       </ErsatzOverlay>
     </>
   )
 }
-CustomTrigger.storyName = 'Custom Trigger'
 
 export function ActionMenuWithExternalAnchor(): JSX.Element {
   const [isOpen, setIsOpen] = useState(false)
@@ -274,7 +272,7 @@ export function ActionMenuWithExternalAnchor(): JSX.Element {
           ActionList.Divider,
           {text: 'Copy link'},
           {text: 'Edit file'},
-          {text: 'Delete file', variant: 'danger'}
+          {text: 'Delete file', variant: 'danger'},
         ]}
       />
     </>
@@ -292,7 +290,7 @@ const DoubleClickableAnchor: Exclude<ActionMenuProps['renderAnchor'], null | und
       }
       callback?.(event)
     },
-    [callback]
+    [callback],
   )
   return <DropdownButton onClick={onClick} {...rest} />
 }
@@ -311,15 +309,15 @@ export function ActionMenuWithDoubleClickStory(): JSX.Element {
               description:
                 "Your existing Codespace will be opened to its previous state, and you'll be asked to manually switch to new-branch.",
               descriptionVariant: 'block',
-              trailingText: '⌘O'
+              trailingText: '⌘O',
             },
             {
               leadingVisual: PlusCircleIcon,
               text: 'Create new Codespace',
               description: 'Create a brand new Codespace with a fresh image and checkout this branch.',
               descriptionVariant: 'block',
-              trailingText: '⌘C'
-            }
+              trailingText: '⌘C',
+            },
           ]}
         />
       </ErsatzOverlay>

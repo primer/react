@@ -1,5 +1,5 @@
 import {score} from 'fzy.js'
-import React from 'react'
+import React, {useMemo} from 'react'
 import {suggestionsCalculator, UseSuggestionsHook} from '.'
 import {ActionList} from '../../../ActionList'
 import {Suggestion, Trigger} from '../../InlineAutocomplete'
@@ -13,23 +13,37 @@ export type Mentionable = {
 }
 
 const trigger: Trigger = {
-  triggerChar: '@'
+  triggerChar: '@',
 }
 
 const mentionableToSuggestion = (mentionable: Mentionable): Suggestion => ({
   value: mentionable.identifier,
   render: props => (
-    <ActionList.Item {...props} sx={{...props.sx, '& > span': {display: 'none'}}}>
+    <ActionList.Item {...props}>
       <Text sx={{fontWeight: 'bold'}}>{mentionable.identifier}</Text>{' '}
       <ActionList.Description>{mentionable.description}</ActionList.Description>
     </ActionList.Item>
+  ),
+})
+
+const scoreSuggestion = (query: string, mentionable: Mentionable): number => {
+  const fzyScore = score(query, `${mentionable.identifier} ${mentionable.description}`.trim().toLowerCase())
+
+  // fzy unintuitively returns Infinity if the length of the item is less than or equal to the length of the query
+  // All users have an identifier but some have empty descriptions; in those cases the query might equal the identifier
+  // and we'd still want to show the suggestion in that case.
+  if (fzyScore === Infinity && query.toLowerCase() !== mentionable.identifier.toLowerCase()) return -Infinity
+
+  return fzyScore
+}
+
+export const useMentionSuggestions: UseSuggestionsHook<Mentionable> = mentionables => {
+  const calculateSuggestions = useMemo(
+    () => suggestionsCalculator(mentionables, scoreSuggestion, mentionableToSuggestion),
+    [mentionables],
   )
-})
-
-const scoreSuggestion = (query: string, mentionable: Mentionable): number =>
-  score(query, `${mentionable.identifier} ${mentionable.description}`.trim().toLowerCase())
-
-export const useMentionSuggestions: UseSuggestionsHook<Mentionable> = mentionables => ({
-  calculateSuggestions: suggestionsCalculator(mentionables, scoreSuggestion, mentionableToSuggestion),
-  trigger
-})
+  return {
+    calculateSuggestions,
+    trigger,
+  }
+}

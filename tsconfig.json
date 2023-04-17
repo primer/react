@@ -16,5 +16,5 @@
     "resolveJsonModule": true,
     "typeRoots": ["./node_modules/@types", "./@types"]
   },
-  "include": ["@types/**/*.ts", "src/**/*.js", "src/**/*.ts", "src/**/*.tsx", "script/**/*.ts"]
+  "include": ["@types/**/*.ts", "src/**/*.js", "src/**/*.ts", "src/**/*.tsx", "script/**/*.ts", "e2e/**/*.ts", "playwright.config.ts"]
 }

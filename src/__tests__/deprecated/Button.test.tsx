@@ -6,7 +6,7 @@ import {
   ButtonDanger,
   ButtonOutline,
   ButtonInvisible,
-  ButtonTableList
+  ButtonTableList,
 } from '../../deprecated'
 import {ButtonGroup} from '../..'
 import {render, behavesAsComponent, checkExports} from '../../utils/testing'
@@ -15,7 +15,6 @@ import {axe, toHaveNoViolations} from 'jest-axe'
 
 expect.extend(toHaveNoViolations)
 
-// eslint-disable-next-line @typescript-eslint/no-empty-function
 function noop() {}
 
 describe('Button', () => {
@@ -28,10 +27,10 @@ describe('Button', () => {
     ButtonOutline,
     ButtonInvisible,
     ButtonTableList,
-    ButtonClose
+    ButtonClose,
   })
   checkExports('ButtonGroup', {
-    default: ButtonGroup
+    default: ButtonGroup,
   })
 
   it('renders a <button>', () => {

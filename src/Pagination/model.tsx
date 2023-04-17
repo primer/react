@@ -3,7 +3,7 @@ export function buildPaginationModel(
   currentPage: number,
   showPages: boolean,
   marginPageCount: number,
-  surroundingPageCount: number
+  surroundingPageCount: number,
 ) {
   const pages = []
 
@@ -65,39 +65,46 @@ export function buildPaginationModel(
     for (let idx = 0; idx < sorted.length; idx++) {
       const num = sorted[idx]
       const selected = num === currentPage
+      const last = sorted[idx - 1]
+      const next = sorted[idx + 1]
+      const lastDelta = num - last
+      const nextDelta = num - next
+      const precedesBreak = nextDelta !== -1
+
       if (idx === 0) {
         if (num !== 1) {
           // If the first page isn't page one,
           // we need to add a break
           pages.push({
             type: 'BREAK',
-            num: 1
+            num: 1,
           })
         }
         pages.push({
           type: 'NUM',
           num,
-          selected
+          selected,
+          precedesBreak,
         })
       } else {
-        const last = sorted[idx - 1]
-        const delta = num - last
-        if (delta === 1) {
+        if (lastDelta === 1) {
           pages.push({
             type: 'NUM',
             num,
-            selected
+            selected,
+            precedesBreak,
           })
         } else {
           // We skipped some, so add a break
           pages.push({
             type: 'BREAK',
-            num: num - 1
+            num: num - 1,
           })
           pages.push({
             type: 'NUM',
             num,
-            selected
+            selected,
+            precedesBreak: false,
           })
         }
       }
@@ -109,7 +116,7 @@ export function buildPaginationModel(
       // so we need an additional break
       pages.push({
         type: 'BREAK',
-        num: pageCount
+        num: pageCount,
       })
     }
   }
@@ -124,12 +131,13 @@ type PageType = {
   num: number
   disabled?: boolean
   selected?: boolean
+  precedesBreak?: boolean
 }
 
 export function buildComponentData(
   page: PageType,
   hrefBuilder: (n: number) => string,
-  onClick: (e: React.MouseEvent) => void
+  onClick: (e: React.MouseEvent) => void,
 ) {
   const props = {}
   let content = ''
@@ -146,7 +154,7 @@ export function buildComponentData(
           rel: 'prev',
           href: hrefBuilder(page.num),
           'aria-label': 'Previous Page',
-          onClick
+          onClick,
         })
       }
       break
@@ -161,7 +169,7 @@ export function buildComponentData(
           rel: 'next',
           href: hrefBuilder(page.num),
           'aria-label': 'Next Page',
-          onClick
+          onClick,
         })
       }
       break
@@ -169,17 +177,21 @@ export function buildComponentData(
     case 'NUM': {
       key = `page-${page.num}`
       content = String(page.num)
-      if (page.selected) {
-        Object.assign(props, {as: 'em', 'aria-current': 'page'})
-      } else {
-        Object.assign(props, {href: hrefBuilder(page.num), 'aria-label': `Page ${page.num}`, onClick})
-      }
+      Object.assign(props, {
+        href: hrefBuilder(page.num),
+        // We append "..." to the aria-label for pages that preceed a break because screen readers will
+        // change the tone the text is read in.
+        // This is a slightly nicer experience than skipping a bunch of numbers unexpectedly.
+        'aria-label': `Page ${page.num}${page.precedesBreak ? '...' : ''}`,
+        onClick,
+        'aria-current': page.selected ? 'page' : undefined,
+      })
       break
     }
     case 'BREAK': {
       key = `page-${page.num}-break`
       content = '…'
-      Object.assign(props, {as: 'span', 'aria-disabled': true})
+      Object.assign(props, {as: 'span', role: 'presentation'})
     }
   }
 

@@ -18,26 +18,26 @@ const variants = variant<{height: string; width: string}, TokenSizeKeys>({
   variants: {
     small: {
       height: tokenSizes.small,
-      width: tokenSizes.small
+      width: tokenSizes.small,
     },
     medium: {
       height: tokenSizes.medium,
-      width: tokenSizes.medium
+      width: tokenSizes.medium,
     },
     large: {
       height: tokenSizes.large,
-      width: tokenSizes.large
+      width: tokenSizes.large,
     },
     extralarge: {
       height: tokenSizes.extralarge,
-      width: tokenSizes.extralarge
+      width: tokenSizes.extralarge,
     },
     // xlarge will eventually replace "extralarge" per this ADR: https://github.com/github/primer/blob/main/adrs/2022-02-09-size-naming-guidelines.md
     xlarge: {
       height: tokenSizes.xlarge,
-      width: tokenSizes.xlarge
-    }
-  }
+      width: tokenSizes.xlarge,
+    },
+  },
 })
 
 const getTokenButtonIconSize = (size?: TokenSizeKeys) => parseInt(tokenSizes[size || defaultTokenSize], 10) * 0.75
@@ -92,7 +92,7 @@ const StyledTokenButton = styled.span<TokenButtonProps & SxProp>`
 const RemoveTokenButton: React.FC<React.PropsWithChildren<ComponentProps<typeof StyledTokenButton>>> = ({
   'aria-label': ariaLabel,
   isParentInteractive,
-  size,
+  size = defaultTokenSize,
   ...rest
 }) => {
   delete rest.children
@@ -108,10 +108,6 @@ const RemoveTokenButton: React.FC<React.PropsWithChildren<ComponentProps<typeof 
       <XIcon size={getTokenButtonIconSize(size)} />
     </StyledTokenButton>
   )
-}
-
-RemoveTokenButton.defaultProps = {
-  size: defaultTokenSize
 }
 
 export default RemoveTokenButton

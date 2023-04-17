@@ -15,7 +15,7 @@ export const useMenuKeyboardNavigation = (
   open: boolean,
   onClose: MenuContextProps['onClose'],
   containerRef: React.RefObject<HTMLElement>,
-  anchorRef: React.RefObject<HTMLElement>
+  anchorRef: React.RefObject<HTMLElement>,
 ) => {
   useMenuInitialFocus(open, containerRef, anchorRef)
   useMnemonics(open, containerRef)
@@ -31,7 +31,7 @@ const useCloseMenuOnTab = (
   open: boolean,
   onClose: MenuContextProps['onClose'],
   containerRef: React.RefObject<HTMLElement>,
-  anchorRef: React.RefObject<HTMLElement>
+  anchorRef: React.RefObject<HTMLElement>,
 ) => {
   React.useEffect(() => {
     const container = containerRef.current
@@ -57,7 +57,7 @@ const useCloseMenuOnTab = (
 const useMoveFocusToMenuItem = (
   open: boolean,
   containerRef: React.RefObject<HTMLElement>,
-  anchorRef: React.RefObject<HTMLElement>
+  anchorRef: React.RefObject<HTMLElement>,
 ) => {
   React.useEffect(() => {
     const container = containerRef.current

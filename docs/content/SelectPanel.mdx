@@ -4,6 +4,8 @@ title: SelectPanel
 status: Alpha
 ---
 
+import data from '../../src/SelectPanel/SelectPanel.docs.json'
+
 A `SelectPanel` provides an anchor that will open an overlay with a list of selectable items, and a text input to filter the selectable items
 
 ## Example
@@ -33,24 +35,23 @@ const items = [
   {leadingVisual: getColorCircle('#ffd78e'), text: 'design', id: 4},
   {leadingVisual: getColorCircle('#ff0000'), text: 'blocker', id: 5},
   {leadingVisual: getColorCircle('#a4f287'), text: 'backend', id: 6},
-  {leadingVisual: getColorCircle('#8dc6fc'), text: 'frontend', id: 7}
+  {leadingVisual: getColorCircle('#8dc6fc'), text: 'frontend', id: 7},
 ]
 
 function DemoComponent() {
-  const [selected, setSelected] = React.useState([items[2], items[4]])
+  const [selected, setSelected] = React.useState([items[0], items[1]])
   const [filter, setFilter] = React.useState('')
   const filteredItems = items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
   const [open, setOpen] = React.useState(false)
 
   return (
     <SelectPanel
-      renderAnchor={({...anchorProps}) => (
-        <Button trailingIcon={TriangleDownIcon} {...anchorProps}>
-          Select Labels
+      renderAnchor={({children, 'aria-labelledby': ariaLabelledBy, ...anchorProps}) => (
+        <Button trailingAction={TriangleDownIcon} aria-labelledby={` ${ariaLabelledBy}`} {...anchorProps}>
+          {children || 'Select Labels'}
         </Button>
       )}
-      title="Select Items"
-      inputLabel="Select Items"
+      placeholderText="Filter Labels"
       open={open}
       onOpenChange={setOpen}
       items={filteredItems}
@@ -58,7 +59,7 @@ function DemoComponent() {
       onSelectedChange={setSelected}
       onFilterChange={setFilter}
       showItemDividers={true}
-      overlayProps={{width: 'medium', height: 'medium'}}
+      overlayProps={{width: 'small', height: 'xsmall'}}
     />
   )
 }
@@ -66,4 +67,42 @@ function DemoComponent() {
 render(<DemoComponent />)
 ```
 
-## Component props
+## Accessibility
+
+### Keyboard
+
+Pressing `Enter` or `Space` on the `SelectPanel` anchor will
+open the `SelectPanel` and place focus on the filter input. Pressing `Escape` or interacting with the cancel or close buttons will close the `SelectPanel` and restore focus to the anchor.
+
+A user may use `Tab` and `Shift+Tab` to navigate between the filter input, list of
+items, action buttons, and the close button.
+
+When focus is on the list of items, pressing `ArrowDown` and `ArrowUp` will allow navigation between items. Support for `Home` and `End` is also provided to quickly navigate to the first and last items in the list, respectively. Pressing `Space` will select an item.
+
+The `Enter` key may be used when focus is within the `SelectPanel` as an
+alternative to activating the save button.
+
+## Props
+
+<ComponentProps data={data} />
+
+## Status
+
+<ComponentChecklist
+  items={{
+    propsDocumented: false,
+    noUnnecessaryDeps: true,
+    adaptsToThemes: true,
+    adaptsToScreenSizes: true,
+    fullTestCoverage: false,
+    usedInProduction: true,
+    usageExamplesDocumented: false,
+    hasStorybookStories: false,
+    designReviewed: false,
+    a11yReviewed: false,
+    stableApi: false,
+    addressedApiFeedback: false,
+    hasDesignGuidelines: false,
+    hasFigmaComponent: false,
+  }}
+/>

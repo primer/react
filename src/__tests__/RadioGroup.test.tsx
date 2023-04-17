@@ -1,8 +1,7 @@
 import React from 'react'
-import '@testing-library/jest-dom/extend-expect'
 import {render} from '@testing-library/react'
 import {RadioGroup, FormControl, Radio, SSRProvider} from '..'
-import {behavesAsComponent, checkExports, checkStoriesForAxeViolations} from '../utils/testing'
+import {behavesAsComponent, checkExports} from '../utils/testing'
 import userEvent from '@testing-library/user-event'
 import {RadioGroupContext} from '../RadioGroup'
 
@@ -12,9 +11,11 @@ describe('RadioGroup', () => {
   beforeAll(() => {
     jest.spyOn(global.console, 'warn').mockImplementation(mockWarningFn)
   })
+
   afterAll(() => {
     jest.clearAllMocks()
   })
+
   behavesAsComponent({
     Component: RadioGroup,
     options: {skipAs: true, skipSx: true}, // skipping sx check because we have to render this in a <SSRProvider> to keep snapshots consistent
@@ -36,12 +37,14 @@ describe('RadioGroup', () => {
           </FormControl>
         </RadioGroup>
       </SSRProvider>
-    )
+    ),
   })
+
   checkExports('RadioGroup', {
     default: RadioGroup,
-    RadioGroupContext
+    RadioGroupContext,
   })
+
   it('renders a disabled group of inputs', () => {
     const {getAllByRole, getByRole} = render(
       <RadioGroup name="choices" disabled>
@@ -58,7 +61,7 @@ describe('RadioGroup', () => {
           <Radio value="three" />
           <FormControl.Label>Choice three</FormControl.Label>
         </FormControl>
-      </RadioGroup>
+      </RadioGroup>,
     )
     const radioInputs = getAllByRole('radio') as HTMLInputElement[]
     const fieldset = getByRole('group') as HTMLFieldSetElement
@@ -69,6 +72,7 @@ describe('RadioGroup', () => {
 
     expect(fieldset.disabled).toBe(true)
   })
+
   it('renders a required group of inputs', () => {
     const {getByTitle} = render(
       <RadioGroup name="choices" required>
@@ -85,12 +89,13 @@ describe('RadioGroup', () => {
           <Radio value="three" />
           <FormControl.Label>Choice three</FormControl.Label>
         </FormControl>
-      </RadioGroup>
+      </RadioGroup>,
     )
     const requiredIndicator = getByTitle('required field')
 
     expect(requiredIndicator).toBeInTheDocument()
   })
+
   it('calls onChange handlers passed to RadioGroup and Radio', async () => {
     const user = userEvent.setup()
     const handleParentChange = jest.fn()
@@ -110,7 +115,7 @@ describe('RadioGroup', () => {
           <Radio value="three" />
           <FormControl.Label>Choice three</FormControl.Label>
         </FormControl>
-      </RadioGroup>
+      </RadioGroup>,
     )
     const checkbox = getByLabelText('Choice one') as HTMLInputElement
 
@@ -120,6 +125,7 @@ describe('RadioGroup', () => {
     expect(handleParentChange).toHaveBeenCalled()
     expect(handleRadioChange).toHaveBeenCalled()
   })
+
   it('calls onChange handler on RadioGroup with selected value', async () => {
     const user = userEvent.setup()
     const handleParentChange = jest.fn()
@@ -138,7 +144,7 @@ describe('RadioGroup', () => {
           <Radio value="three" />
           <FormControl.Label>Choice three</FormControl.Label>
         </FormControl>
-      </RadioGroup>
+      </RadioGroup>,
     )
 
     const checkbox = getByLabelText('Choice one') as HTMLInputElement
@@ -149,12 +155,9 @@ describe('RadioGroup', () => {
       'one',
       expect.objectContaining({
         target: expect.objectContaining({
-          value: 'one'
-        })
-      })
+          value: 'one',
+        }),
+      }),
     )
   })
 })
-
-checkStoriesForAxeViolations('RadioGroup/fixtures')
-checkStoriesForAxeViolations('RadioGroup/examples')

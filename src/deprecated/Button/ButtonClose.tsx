@@ -9,13 +9,12 @@ const StyledButton = styled.button<SxProp>`
   border: none;
   padding: 0;
   background: transparent;
-  outline: none;
   cursor: pointer;
   border-radius: ${get('radii.2')};
   color: ${get('colors.fg.muted')};
 
   &:focus {
-    box-shadow: ${get('shadows.btn.focusShadow')};
+    outline: solid 2px ${get('colors.accent.fg')};
   }
 
   &:hover {
@@ -24,7 +23,13 @@ const StyledButton = styled.button<SxProp>`
   ${sx};
 `
 
-const ButtonClose = forwardRef<HTMLButtonElement, ComponentProps<typeof StyledButton>>((props, ref) => {
+const ButtonClose = forwardRef<
+  HTMLButtonElement,
+  // Include {theme?: any} in the intersection as it mirrors the generated type
+  // from styled-components
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  React.ButtonHTMLAttributes<HTMLButtonElement> & {theme?: any} & SxProp
+>((props, ref) => {
   return (
     <StyledButton ref={ref} aria-label="Close" {...props}>
       <XIcon />

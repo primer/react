@@ -5,7 +5,7 @@ import {
   PageLayoutContentProps,
   PageLayoutFooterProps,
   PageLayoutHeaderProps,
-  PageLayoutPaneProps
+  PageLayoutPaneProps,
 } from '../PageLayout'
 
 // ----------------------------------------------------------------------------
@@ -14,7 +14,19 @@ import {
 export type SplitPageLayoutProps = SxProp
 
 export const Root: React.FC<React.PropsWithChildren<SplitPageLayoutProps>> = props => {
-  return <PageLayout containerWidth="full" padding="none" columnGap="none" rowGap="none" {...props} />
+  return (
+    <PageLayout
+      containerWidth="full"
+      padding="none"
+      columnGap="none"
+      rowGap="none"
+      _slotsConfig={{
+        header: Header,
+        footer: Footer,
+      }}
+      {...props}
+    />
+  )
 }
 
 Root.displayName = 'SplitPageLayout'
@@ -29,6 +41,7 @@ export const Header: React.FC<React.PropsWithChildren<SplitPageLayoutHeaderProps
   divider = 'line',
   ...props
 }) => {
+  // eslint-disable-next-line primer-react/direct-slot-children
   return <PageLayout.Header padding={padding} divider={divider} {...props} />
 }
 
@@ -75,6 +88,7 @@ export const Footer: React.FC<React.PropsWithChildren<SplitPageLayoutFooterProps
   divider = 'line',
   ...props
 }) => {
+  // eslint-disable-next-line primer-react/direct-slot-children
   return <PageLayout.Footer padding={padding} divider={divider} {...props} />
 }
 
@@ -87,5 +101,5 @@ export const SplitPageLayout = Object.assign(Root, {
   Header,
   Content,
   Pane,
-  Footer
+  Footer,
 })

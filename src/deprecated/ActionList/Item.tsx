@@ -11,9 +11,9 @@ import {useTheme} from '../../ThemeProvider'
 import {
   activeDescendantActivatedDirectly,
   activeDescendantActivatedIndirectly,
-  isActiveDescendantAttribute
+  isActiveDescendantAttribute,
 } from '@primer/behaviors'
-import {useSSRSafeId} from '@react-aria/ssr'
+import {useId} from '../../hooks/useId'
 import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../../utils/polymorphic'
 import {AriaRole} from '../../utils/types'
 
@@ -59,7 +59,7 @@ export interface ItemProps extends SxProp {
   /**
    * Icon or text positioned after `Item` text.
    */
-  trailingVisual?: React.ReactNode
+  trailingVisual?: React.FunctionComponent<React.PropsWithChildren<IconProps>> | React.ReactNode
 
   /**
    * Style variations associated with various `Item` types.
@@ -97,7 +97,7 @@ export interface ItemProps extends SxProp {
   /**
    * Callback that will trigger both on click selection and keyboard selection.
    */
-  onAction?: (item: ItemProps, event: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement>) => void
+  onAction?: (item: ItemProps, event: React.MouseEvent<HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>) => void
 
   /**
    * An id associated with this item.  Should be unique between items
@@ -118,11 +118,6 @@ export interface ItemProps extends SxProp {
    * An item to pass back in the `onAction` callback, meant as
    */
   item?: ItemInput
-
-  /**
-   * @deprecated Allows the `enter` key to select an item. Kept for compatibility purposes. Should not be used in new components.
-   */
-  _legacyEnterSupport?: boolean
 }
 
 const getItemVariant = (variant = 'default', disabled?: boolean) => {
@@ -131,7 +126,7 @@ const getItemVariant = (variant = 'default', disabled?: boolean) => {
       color: get('colors.primer.fg.disabled'),
       iconColor: get('colors.primer.fg.disabled'),
       annotationColor: get('colors.primer.fg.disabled'),
-      hoverCursor: 'default'
+      hoverCursor: 'default',
     }
   }
 
@@ -144,7 +139,7 @@ const getItemVariant = (variant = 'default', disabled?: boolean) => {
         hoverCursor: 'pointer',
         hoverBg: get('colors.actionListItem.danger.hoverBg'),
         focusBg: get('colors.actionListItem.danger.activeBg'),
-        hoverText: get('colors.actionListItem.danger.hoverText')
+        hoverText: get('colors.actionListItem.danger.hoverText'),
       }
     default:
       return {
@@ -153,7 +148,7 @@ const getItemVariant = (variant = 'default', disabled?: boolean) => {
         annotationColor: get('colors.fg.muted'),
         hoverCursor: 'pointer',
         hoverBg: get('colors.actionListItem.default.hoverBg'),
-        focusBg: get('colors.actionListItem.default.activeBg')
+        focusBg: get('colors.actionListItem.default.activeBg'),
       }
   }
 }
@@ -175,7 +170,7 @@ const MainContent = styled.div`
   flex-grow: 1;
 `
 
-const StyledItem = styled.li<
+const StyledItem = styled.div<
   {
     variant: ItemProps['variant']
     showDivider: ItemProps['showDivider']
@@ -354,34 +349,28 @@ export const Item = React.forwardRef((itemProps, ref) => {
     children,
     onClick,
     id,
-    _legacyEnterSupport = false,
     ...props
   } = itemProps
 
-  const labelId = useSSRSafeId()
-  const descriptionId = useSSRSafeId()
+  const labelId = useId()
+  const descriptionId = useId()
 
   const keyPressHandler = useCallback(
-    event => {
+    (event: React.KeyboardEvent<HTMLDivElement>) => {
       if (disabled) {
         return
       }
       onKeyPress?.(event)
 
-      const triggerKeys = [' ']
-      if (_legacyEnterSupport === true) {
-        triggerKeys.push('Enter')
-      }
-      if (!event.defaultPrevented && triggerKeys.includes(event.key)) {
+      if (!event.defaultPrevented && [' ', 'Enter'].includes(event.key)) {
         onAction?.(itemProps, event)
-        event.preventDefault()
       }
     },
-    [onAction, disabled, itemProps, onKeyPress, _legacyEnterSupport]
+    [onAction, disabled, itemProps, onKeyPress],
   )
 
   const clickHandler = useCallback(
-    event => {
+    (event: React.MouseEvent<HTMLDivElement>) => {
       if (disabled) {
         return
       }
@@ -390,7 +379,7 @@ export const Item = React.forwardRef((itemProps, ref) => {
         onAction?.(itemProps, event)
       }
     },
-    [onAction, disabled, itemProps, onClick]
+    [onAction, disabled, itemProps, onClick],
   )
 
   const {theme} = useTheme()
@@ -459,7 +448,7 @@ export const Item = React.forwardRef((itemProps, ref) => {
               style={
                 {
                   '--description-container-margin-left': descriptionVariant === 'inline' ? get('space.2')(theme) : 0,
-                  '--description-container-flex-basis': descriptionVariant === 'inline' ? 0 : 'auto'
+                  '--description-container-flex-basis': descriptionVariant === 'inline' ? 0 : 'auto',
                 } as React.CSSProperties
               }
             >
@@ -487,6 +476,6 @@ export const Item = React.forwardRef((itemProps, ref) => {
       </DividedContent>
     </StyledItem>
   )
-}) as PolymorphicForwardRefComponent<'li', ItemProps>
+}) as PolymorphicForwardRefComponent<'div', ItemProps>
 
 Item.displayName = 'ActionList.Item'

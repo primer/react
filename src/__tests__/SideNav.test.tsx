@@ -1,16 +1,14 @@
 import React from 'react'
 import {SideNav} from '..'
-import {render, behavesAsComponent, mount, checkExports} from '../utils/testing'
+import {render, behavesAsComponent, checkExports} from '../utils/testing'
 import {render as HTMLRender} from '@testing-library/react'
-import {axe, toHaveNoViolations} from 'jest-axe'
-
-expect.extend(toHaveNoViolations)
+import {axe} from 'jest-axe'
 
 describe('SideNav', () => {
   behavesAsComponent({Component: SideNav})
 
   checkExports('SideNav', {
-    default: SideNav
+    default: SideNav,
   })
 
   describe('SideNav.Link', () => {
@@ -24,7 +22,7 @@ describe('SideNav', () => {
         <SideNav.Link href="#" selected>
           Two
         </SideNav.Link>
-      </SideNav>
+      </SideNav>,
     )
     const results = await axe(container)
     expect(results).toHaveNoViolations()
@@ -40,16 +38,15 @@ describe('SideNav', () => {
   })
 
   it('sets aria-current on a selected link', () => {
-    const elem = (
+    const {getByRole} = HTMLRender(
       <SideNav>
         <SideNav.Link href="#one">One</SideNav.Link>
         <SideNav.Link href="#two" selected>
           Two
         </SideNav.Link>
-      </SideNav>
+      </SideNav>,
     )
-    const wrapper = mount(elem)
-    expect(wrapper.find('[aria-current="page"]').text()).toEqual('Two')
+    expect(getByRole('link', {name: 'Two'})).toHaveAttribute('aria-current', 'page')
   })
 
   it('sets different styles for SideNavs with the lightweight variant', () => {

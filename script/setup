@@ -10,3 +10,8 @@ npm run build
 pushd docs
 npm install --legacy-peer-deps
 popd
+
+# Install examples dependencies
+pushd examples/nextjs
+npm install --legacy-peer-deps
+popd

@@ -54,7 +54,7 @@ function UnderlineNav({actions, className, align, children, full, label, theme, 
     className,
     'PRC-UnderlineNav',
     align && `PRC-UnderlineNav--${align}`,
-    full && 'PRC-UnderlineNav--full'
+    full && 'PRC-UnderlineNav--full',
   )
   return (
     <UnderlineNavBase className={classes} aria-label={label} theme={theme} {...rest}>
@@ -70,8 +70,8 @@ type StyledUnderlineNavLinkProps = {
 } & SxProp
 
 const UnderlineNavLink = styled.a.attrs<StyledUnderlineNavLinkProps>(props => ({
-  activeClassName: typeof props.to === 'string' ? 'selected' : '',
-  className: classnames(ITEM_CLASS, props.selected && SELECTED_CLASS, props.className)
+  activeClassName: typeof props.to === 'string' ? 'selected' : undefined,
+  className: classnames(ITEM_CLASS, props.selected && SELECTED_CLASS, props.className),
 }))<StyledUnderlineNavLinkProps>`
   padding: ${get('space.3')} ${get('space.2')};
   margin-right: ${get('space.3')};
@@ -111,4 +111,7 @@ const UnderlineNavLink = styled.a.attrs<StyledUnderlineNavLinkProps>(props => ({
 UnderlineNavLink.displayName = 'UnderlineNav.Link'
 
 export type UnderlineNavLinkProps = ComponentProps<typeof UnderlineNavLink>
+/**
+ * @deprecated UnderlineNav is deprecated and will be replaced by the draft `UnderlineNav` in the next major release. See https://primer.style/react/drafts/UnderlineNav2 for more details.
+ */
 export default Object.assign(UnderlineNav, {Link: UnderlineNavLink})

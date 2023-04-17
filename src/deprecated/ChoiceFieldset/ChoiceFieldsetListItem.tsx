@@ -27,7 +27,7 @@ const ChoiceFieldsetListItem: React.FC<React.PropsWithChildren<ChoiceFieldProps>
   children,
   id,
   disabled: disabledProp,
-  value
+  value,
 }) => {
   const choiceFieldsetListContext = useContext(ChoiceFieldsetListContext)
   if (choiceFieldsetListContext === null) {
@@ -36,11 +36,11 @@ const ChoiceFieldsetListItem: React.FC<React.PropsWithChildren<ChoiceFieldProps>
   const {name, onChange, selected, disabled, selectionVariant} = choiceFieldsetListContext
   const fieldId = useSSRSafeId(id)
   const labelChild = React.Children.toArray(children).find(
-    child => React.isValidElement(child) && child.type === ChoiceFieldLabel
+    child => React.isValidElement(child) && child.type === ChoiceFieldLabel,
   )
   const otherValidChildren = React.Children.toArray(children).filter(
     child =>
-      React.isValidElement(child) && (child.type === ChoiceFieldCaption || child.type === ChoiceInputLeadingVisual)
+      React.isValidElement(child) && (child.type === ChoiceFieldCaption || child.type === ChoiceInputLeadingVisual),
   )
   const ChoiceInput = selectionVariant === 'multiple' ? Checkbox : Radio
 
@@ -71,5 +71,5 @@ export type ChoiceFieldComponentProps = ComponentProps<typeof ChoiceFieldsetList
 export default Object.assign(ChoiceFieldsetListItem, {
   Caption: ChoiceFieldCaption,
   Label: ChoiceFieldLabel,
-  LeadingVisual: ChoiceInputLeadingVisual
+  LeadingVisual: ChoiceInputLeadingVisual,
 })

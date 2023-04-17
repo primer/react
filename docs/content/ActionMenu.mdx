@@ -2,10 +2,13 @@
 componentId: action_menu
 title: ActionMenu
 status: Beta
+a11yReviewed: true
 source: https://github.com/primer/react/tree/main/src/ActionMenu.tsx
-storybook: '/react/storybook?path=/story/composite-components-actionmenu'
+storybook: '/react/storybook?path=/story/components-actionmenu'
 description: An ActionMenu is an ActionList-based component for creating a menu of actions that expands through a trigger button.
 ---
+
+import data from '../../src/ActionMenu/ActionMenu.docs.json'
 
 import {Box, Avatar, ActionList, ActionMenu} from '@primer/react'
 
@@ -181,7 +184,7 @@ const fieldTypes = [
   {icon: NumberIcon, name: 'Number'},
   {icon: CalendarIcon, name: 'Date'},
   {icon: SingleSelectIcon, name: 'Single select'},
-  {icon: IterationsIcon, name: 'Iteration'}
+  {icon: IterationsIcon, name: 'Iteration'},
 ]
 
 const Example = () => {
@@ -219,7 +222,7 @@ To create an anchor outside of the menu, you need to switch to controlled mode f
 ```javascript live noinline
 const Example = () => {
   const [open, setOpen] = React.useState(false)
-  const anchorRef = React.createRef()
+  const anchorRef = React.useRef(null)
 
   return (
     <>
@@ -274,81 +277,13 @@ render(
         </ActionList.Item>
       </ActionList>
     </ActionMenu.Overlay>
-  </ActionMenu>
+  </ActionMenu>,
 )
 ```
 
-## Props / API reference
+## Props
 
-### ActionMenu
-
-<PropsTable>
-  <PropsTableRow
-    name="children"
-    required
-    type="React.ReactElement[]"
-    description={
-      <>
-        Recommended: <InlineCode>ActionMenu.Button</InlineCode> or <InlineCode>ActionMenu.Anchor</InlineCode> with{' '}
-        <InlineCode>ActionMenu.Overlay</InlineCode>
-      </>
-    }
-  />
-  <PropsTableRow
-    name="open"
-    type="boolean"
-    defaultValue="false"
-    description={
-      <>
-        If defined, will control the open/closed state of the overlay. Must be used in conjuction with{' '}
-        <InlineCode>onOpenChange</InlineCode>.
-      </>
-    }
-  />
-  <PropsTableRow
-    name="onOpenChange"
-    type="(open: boolean) => void"
-    description={
-      <>
-        If defined, will control the open/closed state of the overlay. Must be used in conjuction with{' '}
-        <InlineCode>open</InlineCode>.
-      </>
-    }
-  />
-  <PropsTableRow
-    name="anchorRef"
-    type="React.RefObject<HTMLElement>"
-    description="Useful for defining an external anchor"
-  />
-</PropsTable>
-
-### ActionMenu.Button
-
-<PropsTable>
-  <PropsTableRow name="children" required type="React.ReactElement" />
-  <PropsTablePassthroughPropsRow
-    elementName="Button"
-    isPolymorphic
-    passthroughPropsLink={<Link href="/react/Button">Button docs</Link>}
-  />
-</PropsTable>
-
-### ActionMenu.Anchor
-
-<PropsTable>
-  <PropsTableRow name="children" required type="React.ReactElement" description="Accepts a single child element" />
-</PropsTable>
-
-### ActionMenu.Overlay
-
-<PropsTable>
-  <PropsTableRow name="children" required type="React.ReactNode" />
-  <PropsTableRow name="align" type="start | center | end" defaultValue="start" />
-  <PropsTablePassthroughPropsRow
-    elementName="Overlay"
-    passthroughPropsLink={<Link href="/react/Overlay">Overlay docs</Link>}
-  />
-</PropsTable>
+<ComponentProps data={data} />
 
 ## Status
 
@@ -364,10 +299,10 @@ render(
     hasStorybookStories: true,
     designReviewed: true,
     a11yReviewed: true,
-    stableApi: false,
+    stableApi: true,
     addressedApiFeedback: false,
     hasDesignGuidelines: true,
-    hasFigmaComponent: true
+    hasFigmaComponent: true,
   }}
 />
 

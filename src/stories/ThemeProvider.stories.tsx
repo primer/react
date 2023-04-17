@@ -6,16 +6,16 @@ import {ThemeProviderProps} from '../ThemeProvider'
 import {createGlobalStyle} from 'styled-components'
 
 export default {
-  title: 'Generic behaviors/ThemeProvider',
+  title: 'Behaviors/ThemeProvider',
   component: ThemeProvider,
   parameters: {disableThemeDecorator: true},
   argTypes: {
     theme: {
       table: {
-        disable: true
-      }
-    }
-  }
+        disable: true,
+      },
+    },
+  },
 } as Meta
 
 const GlobalStyle = createGlobalStyle`
@@ -43,7 +43,7 @@ export const Default: Story<ThemeProviderProps> = args => {
 Default.args = {
   colorMode: 'day',
   dayScheme: 'light',
-  nightScheme: 'dark'
+  nightScheme: 'dark',
 }
 
 function NightMode() {

@@ -1,0 +1,53 @@
+---
+componentId: relative-time
+title: RelativeTime
+status: Alpha
+source: https://github.com/primer/react/blob/main/src/RelativeTime.tsx
+---
+
+import data from '../../src/RelativeTime/RelativeTime.docs.json'
+
+```js
+import {RelativeTime} from '@primer/react'
+```
+
+Formats a timestamp as a localized string or as relative text that auto-updates in the user's browser.
+
+## Examples
+
+### Default
+
+```jsx live
+<>
+  <RelativeTime datetime="2014-04-01T16:30:00-08:00" />
+  <br />
+  <RelativeTime date={new Date('2014-04-01T16:30:00-08:00')} format="micro" tense="past" />
+  <br />
+  <RelativeTime datetime="2014-04-01T16:30:00-08:00" format="elapsed" />
+</>
+```
+
+## Props
+
+<ComponentProps data={data} />
+
+## Status
+
+<ComponentChecklist
+  items={{
+    propsDocumented: true,
+    noUnnecessaryDeps: true,
+    adaptsToThemes: true,
+    adaptsToScreenSizes: true,
+    fullTestCoverage: true,
+    usedInProduction: false,
+    usageExamplesDocumented: true,
+    hasStorybookStories: true,
+    designReviewed: false,
+    a11yReviewed: false,
+    stableApi: true,
+    addressedApiFeedback: false,
+    hasDesignGuidelines: false,
+    hasFigmaComponent: false,
+  }}
+/>

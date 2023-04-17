@@ -5,11 +5,13 @@ status: Draft
 description: Displays rendered Markdown and facilitates interaction.
 ---
 
+import data from '../../../src/drafts/MarkdownViewer/MarkdownViewer.docs.json'
+
 ```js
 import {MarkdownViewer} from '@primer/react/drafts'
 ```
 
-The `MarkdownViewer` displays rendered Markdown with appropriate styling and handles interaction (link clicking and checkbox checking/unchecking) with that content.
+The `MarkdownViewer` displays rendered Markdown and handles interaction (link clicking and checkbox checking/unchecking) with that content.
 
 ## Examples
 
@@ -75,6 +77,10 @@ const MarkdownViewerExample = () => {
 render(MarkdownViewerExample)
 ```
 
+## Props
+
+<ComponentProps data={data} />
+
 ## Status
 
 <ComponentChecklist
@@ -92,6 +98,6 @@ render(MarkdownViewerExample)
     stableApi: false,
     addressedApiFeedback: false,
     hasDesignGuidelines: false,
-    hasFigmaComponent: false
+    hasFigmaComponent: false,
   }}
 />

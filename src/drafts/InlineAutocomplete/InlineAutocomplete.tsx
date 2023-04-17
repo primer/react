@@ -2,8 +2,8 @@ import React, {cloneElement, useRef} from 'react'
 import Box from '../../Box'
 import Portal from '../../Portal'
 import {BetterSystemStyleObject} from '../../sx'
-import {getAbsoluteCharacterCoordinates} from '../utils/character-coordinates'
 import {useSyntheticChange} from '../hooks/useSyntheticChange'
+import {getAbsoluteCharacterCoordinates} from '../utils/character-coordinates'
 
 import {ShowSuggestionsEvent, Suggestions, TextInputCompatibleChild, TextInputElement, Trigger} from './types'
 import {augmentHandler, calculateSuggestionsQuery, getSuggestionValue, requireChildrenToBeInput} from './utils'
@@ -89,7 +89,7 @@ const InlineAutocomplete = ({
 
   const emitSyntheticChange = useSyntheticChange({
     inputRef,
-    fallbackEventHandler: externalInput.props.onChange ?? noop
+    fallbackEventHandler: externalInput.props.onChange ?? noop,
   })
 
   /** Stores the query that caused the current suggestion list to appear. */
@@ -105,7 +105,7 @@ const InlineAutocomplete = ({
     inputRef.current && showEventRef.current && suggestionsVisible
       ? getAbsoluteCharacterCoordinates(
           inputRef.current,
-          (getSelectionStart(inputRef.current) ?? 0) - showEventRef.current.query.length
+          (getSelectionStart(inputRef.current) ?? 0) - showEventRef.current.query.length,
         )
       : {top: 0, left: 0, height: 0}
   const suggestionsOffset = {top: triggerCharCoords.top + triggerCharCoords.height, left: triggerCharCoords.left}
@@ -161,7 +161,7 @@ const InlineAutocomplete = ({
     onBlur: augmentHandler(externalInput.props.onBlur, onBlur),
     onKeyDown: augmentHandler(externalInput.props.onKeyDown, onKeyDown),
     onChange: augmentHandler(externalInput.props.onChange, onChange),
-    ref: inputRef
+    ref: inputRef,
   })
 
   /**
@@ -198,8 +198,8 @@ const InlineAutocomplete = ({
         inputRef={inputRef}
         onCommit={onCommit}
         onClose={onHideSuggestions}
-        top={suggestionsOffset.top}
-        left={suggestionsOffset.left}
+        top={suggestionsOffset.top || 0}
+        left={suggestionsOffset.left || 0}
         visible={suggestionsVisible}
         tabInsertsSuggestions={tabInsertsSuggestions}
       />
@@ -207,7 +207,7 @@ const InlineAutocomplete = ({
       <Portal>
         {/* This should NOT be linked to the input with aria-describedby or screen readers may not read the live updates.
         The assertive live attribute ensures the suggestions are read instead of the input label, which voiceover will try to re-read when the role changes. */}
-        <span aria-live="assertive" aria-atomic style={{clipPath: 'circle(0)'}}>
+        <span aria-live="assertive" aria-atomic style={{clipPath: 'circle(0)', position: 'absolute'}}>
           {suggestionsDescription}
         </span>
       </Portal>
