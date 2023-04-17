@@ -98,7 +98,7 @@ test.describe('PageLayout', () => {
 
           const paragraphRect = await page.getByTestId('paragraph0').boundingBox()
           if (paragraphRect) {
-            expect(isInViewPort(paragraphRect)).toBe(true)
+            expect(isInViewPort(page, paragraphRect)).toBe(true)
           }
         })
 
@@ -122,7 +122,7 @@ test.describe('PageLayout', () => {
           await content3.scrollIntoViewIfNeeded()
           const paragraphRect = await page.getByTestId('paragraph0').boundingBox()
           if (paragraphRect) {
-            expect(isInViewPort(paragraphRect)).toBe(true)
+            expect(isInViewPort(page, paragraphRect)).toBe(true)
           }
         })
 
@@ -187,11 +187,11 @@ test.describe('PageLayout', () => {
           const paragraphBoundaries = await page.getByTestId('paragraph0').boundingBox()
           const stickyHeaderBoundaries = await page.getByTestId('sticky-header').boundingBox()
           if (paragraphBoundaries) {
-            expect(isInViewPort(paragraphBoundaries)).toBe(true)
+            expect(isInViewPort(page, paragraphBoundaries)).toBe(true)
           }
 
           if (stickyHeaderBoundaries) {
-            expect(isInViewPort(stickyHeaderBoundaries)).toBe(true)
+            expect(isInViewPort(page, stickyHeaderBoundaries)).toBe(true)
           }
         })
 
