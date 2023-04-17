@@ -8,8 +8,8 @@ import {useSlots} from '../hooks/useSlots'
 import {BetterSystemStyleObject, merge, SxProp} from '../sx'
 import {Theme} from '../ThemeProvider'
 import {canUseDOM} from '../utils/environment'
-import {invariant} from '../utils/invariant'
 import {useOverflow} from '../utils/useOverflow'
+import {warning} from '../utils/warning'
 import VisuallyHidden from '../_VisuallyHidden'
 import {useStickyPaneHeight} from './useStickyPaneHeight'
 
@@ -652,13 +652,19 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
 
     const paneId = useId(id)
 
-    let labelProp = undefined
+    const labelProp: {'aria-labelledby'?: string; 'aria-label'?: string} = {}
     if (hasOverflow) {
-      invariant(label !== undefined || labelledBy !== undefined)
+      warning(
+        label === undefined && labelledBy === undefined,
+        'The <PageLayout.Pane> has overflow and `aria-label` or `aria-labelledby` has not been set. ' +
+          'Please provide `aria-label` or `aria-labelledby` to <PageLayout.Pane> in order to label this ' +
+          'region.',
+      )
+
       if (labelledBy) {
-        labelProp = {'aria-labelledby': labelledBy}
-      } else {
-        labelProp = {'aria-label': label}
+        labelProp['aria-labelledby'] = labelledBy
+      } else if (label) {
+        labelProp['aria-label'] = label
       }
     }
 
