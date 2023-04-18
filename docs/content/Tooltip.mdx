@@ -4,7 +4,7 @@ title: Tooltip
 status: Alpha
 ---
 
-import data from '../../src/Tooltip/Tooltip.docs.json'
+import data from '../../src/Tooltip.docs.json'
 
 The Tooltip component adds a tooltip to add context to interactive elements on the page.
 
@@ -20,85 +20,10 @@ A tooltip may only be used on an element that is interactive such as a button or
 
 ## Examples
 
-### Default (As a label type)
-
 ```jsx live
-<Tooltip aria-label="Search on the documentation">
-  <Button>
-    <SearchIcon />
-  </Button>
-</Tooltip>
-```
-
-### As a description type
-
-```jsx live
-<Tooltip text="This is a supplementary text for the save button" type="description">
-  <Button>Save</Button>
-</Tooltip>
-```
-
-### With direction
-
-```jsx live
-<Box sx={{padding: 5, display: 'flex', gap: '8px'}}>
-  <Tooltip direction="n" text="Supplementary text" type="description">
-    <Button>North</Button>
-  </Tooltip>
-  <Tooltip direction="s" text="Supplementary text" type="description">
-    <Button>South</Button>
-  </Tooltip>
-  <Tooltip direction="e" text="Supplementary text" type="description">
-    <Button>East</Button>
-  </Tooltip>
-  <Tooltip direction="w" text="Supplementary text" type="description">
-    <Button>West</Button>
-  </Tooltip>
-  <Tooltip direction="ne" text="Supplementary text" type="description">
-    <Button>North East</Button>
-  </Tooltip>
-  <Tooltip direction="nw" text="Supplementary text" type="description">
-    <Button>North West</Button>
-  </Tooltip>
-  <Tooltip direction="se" text="Supplementary text" type="description">
-    <Button>Southeast</Button>
-  </Tooltip>
-  <Tooltip direction="sw" text="Supplementary text" type="description">
-    <Button>Southwest</Button>
-  </Tooltip>
-</Box>
-```
-
-### With wrap
-
-```jsx live
-<Tooltip
-  direction="n"
-  wrap
-  text="Random long text that needs to be wrapped and be multipline and have some paddings around"
-  type="description"
->
-  <Button>Multiline</Button>
-</Tooltip>
-```
-
-### With no delay
-
-```jsx live
-<Tooltip noDelay text="Supplemetary text" type="description" direction="se">
-  <Button>Button</Button>
-</Tooltip>
-```
-
-### With align
-
-```jsx live
-<Box sx={{padding: 5, display: 'flex', gap: '8px'}}>
-  <Tooltip align="left" text="Supplemetary text" type="description">
-    <Button>Align Left</Button>
-  </Tooltip>
-  <Tooltip align="right" text="Supplemetary text" type="description">
-    <Button>Align Right</Button>
+<Box borderWidth="1px" borderStyle="solid" borderColor="border.default" borderRadius={2} p={3}>
+  <Tooltip aria-label="Hello, Tooltip!">
+    <Button>Hover me</Button>
   </Tooltip>
 </Box>
 ```
