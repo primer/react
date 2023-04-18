@@ -5,6 +5,7 @@ import Box from '../Box'
 import {Button} from '../Button'
 import Octicon from '../Octicon'
 import {SubTreeState, TreeView} from './TreeView'
+import TextInput from '../TextInput/TextInput'
 
 const meta: Meta = {
   title: 'Components/TreeView/Features',
@@ -23,6 +24,7 @@ const meta: Meta = {
 
 export const Files: Story = () => (
   <nav aria-label="Files">
+    <TextInput />
     <TreeView aria-label="Files">
       <TreeView.Item id="src" defaultExpanded>
         <TreeView.LeadingVisual>
@@ -54,9 +56,161 @@ export const Files: Story = () => (
                 </TreeView.LeadingVisual>
                 Button.test.tsx
               </TreeView.Item>
+              <TreeView.Item id="src/Button/Button.tsx">
+                <TreeView.LeadingVisual>
+                  <FileIcon />
+                </TreeView.LeadingVisual>
+                Button.tsx
+              </TreeView.Item>
+              <TreeView.Item id="src/Button/Button.test.tsx">
+                <TreeView.LeadingVisual>
+                  <FileIcon />
+                </TreeView.LeadingVisual>
+                Button.test.tsx
+              </TreeView.Item>
+              <TreeView.Item id="src/Button/Button.tsx">
+                <TreeView.LeadingVisual>
+                  <FileIcon />
+                </TreeView.LeadingVisual>
+                Button.tsx
+              </TreeView.Item>
+              <TreeView.Item id="src/Button/Button.test.tsx">
+                <TreeView.LeadingVisual>
+                  <FileIcon />
+                </TreeView.LeadingVisual>
+                Button.test.tsx
+              </TreeView.Item>
+              <TreeView.Item id="src/Button/Button.tsx">
+                <TreeView.LeadingVisual>
+                  <FileIcon />
+                </TreeView.LeadingVisual>
+                Button.tsx
+              </TreeView.Item>
+              <TreeView.Item id="src/Button/Button.test.tsx">
+                <TreeView.LeadingVisual>
+                  <FileIcon />
+                </TreeView.LeadingVisual>
+                Button.test.tsx
+              </TreeView.Item>
+              <TreeView.Item id="src/Button/Button.tsx">
+                <TreeView.LeadingVisual>
+                  <FileIcon />
+                </TreeView.LeadingVisual>
+                Button.tsx
+              </TreeView.Item>
+              <TreeView.Item id="src/Button/Button.test.tsx">
+                <TreeView.LeadingVisual>
+                  <FileIcon />
+                </TreeView.LeadingVisual>
+                Button.test.tsx
+              </TreeView.Item>
+              <TreeView.Item id="src/Button/Button.tsx">
+                <TreeView.LeadingVisual>
+                  <FileIcon />
+                </TreeView.LeadingVisual>
+                Button.tsx
+              </TreeView.Item>
+              <TreeView.Item id="src/Button/Button.test.tsx">
+                <TreeView.LeadingVisual>
+                  <FileIcon />
+                </TreeView.LeadingVisual>
+                Button.test.tsx
+              </TreeView.Item>
+              <TreeView.Item id="src/Button/Button.tsx">
+                <TreeView.LeadingVisual>
+                  <FileIcon />
+                </TreeView.LeadingVisual>
+                Button.tsx
+              </TreeView.Item>
+              <TreeView.Item id="src/Button/Button.test.tsx">
+                <TreeView.LeadingVisual>
+                  <FileIcon />
+                </TreeView.LeadingVisual>
+                Button.test.tsx
+              </TreeView.Item>
             </TreeView.SubTree>
           </TreeView.Item>
           <TreeView.Item id="src/ReallyLongFileNameThatShouldBeTruncated.tsx">
+            <TreeView.LeadingVisual>
+              <FileIcon />
+            </TreeView.LeadingVisual>
+            ReallyLongFileNameThatShouldBeTruncated.tsx
+          </TreeView.Item>
+        </TreeView.SubTree>
+      </TreeView.Item>
+      <TreeView.Item id="src2" defaultExpanded>
+        <TreeView.LeadingVisual>
+          <TreeView.DirectoryIcon />
+        </TreeView.LeadingVisual>
+        src
+        <TreeView.SubTree>
+          <TreeView.Item id="src/Avatar.tsx2">
+            <TreeView.LeadingVisual>
+              <FileIcon />
+            </TreeView.LeadingVisual>
+            Avatar.tsx
+          </TreeView.Item>
+          <TreeView.Item id="src/Button2">
+            <TreeView.LeadingVisual>
+              <TreeView.DirectoryIcon />
+            </TreeView.LeadingVisual>
+            Button
+            <TreeView.SubTree>
+              <TreeView.Item id="src/Button/Button.tsx2">
+                <TreeView.LeadingVisual>
+                  <FileIcon />
+                </TreeView.LeadingVisual>
+                Button.tsx
+              </TreeView.Item>
+              <TreeView.Item id="src/Button/Button.test.tsx2">
+                <TreeView.LeadingVisual>
+                  <FileIcon />
+                </TreeView.LeadingVisual>
+                Button.test.tsx
+              </TreeView.Item>
+            </TreeView.SubTree>
+          </TreeView.Item>
+          <TreeView.Item id="src/ReallyLongFileNameThatShouldBeTruncated.tsx2">
+            <TreeView.LeadingVisual>
+              <FileIcon />
+            </TreeView.LeadingVisual>
+            ReallyLongFileNameThatShouldBeTruncated.tsx
+          </TreeView.Item>
+        </TreeView.SubTree>
+      </TreeView.Item>
+      <TreeView.Item id="src3">
+        <TreeView.LeadingVisual>
+          <TreeView.DirectoryIcon />
+        </TreeView.LeadingVisual>
+        src
+        <TreeView.SubTree>
+          <TreeView.Item id="src/Avatar.tsx3">
+            <TreeView.LeadingVisual>
+              <FileIcon />
+            </TreeView.LeadingVisual>
+            Avatar.tsx
+          </TreeView.Item>
+          <TreeView.Item id="src/Button3">
+            <TreeView.LeadingVisual>
+              <TreeView.DirectoryIcon />
+            </TreeView.LeadingVisual>
+            Button
+            <TreeView.SubTree>
+              <TreeView.Item id="src/Button/Button.tsx3">
+                <TreeView.LeadingVisual>
+                  <FileIcon />
+                </TreeView.LeadingVisual>
+                Button.tsx
+              </TreeView.Item>
+              <TreeView.Item id="src/Button/Button.test.tsx3">
+                <TreeView.LeadingVisual>
+                  <FileIcon />
+                </TreeView.LeadingVisual>
+                Button.test.tsx
+              </TreeView.Item>
+            </TreeView.SubTree>
+          </TreeView.Item>
+          <TreeView.Item id="src/ReallyLongFileNameThatShouldBeTruncated.tsx3">
             <TreeView.LeadingVisual>
               <FileIcon />
             </TreeView.LeadingVisual>
