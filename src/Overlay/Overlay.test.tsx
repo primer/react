@@ -7,7 +7,7 @@ import {axe} from 'jest-axe'
 import theme from '../theme'
 import BaseStyles from '../BaseStyles'
 import {ThemeProvider} from '../ThemeProvider'
-import {NestedOverlays, MemexNestedOverlays, MemexIssueOverlay, PositionedOverlays} from '../stories/Overlay.stories'
+import {NestedOverlays, MemexNestedOverlays, MemexIssueOverlay, PositionedOverlays} from './Overlay.features.stories'
 
 type TestComponentSettings = {
   initialFocus?: 'button'
