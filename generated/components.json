@@ -99,25 +99,6 @@
       ],
       "subcomponents": []
     },
-    "text": {
-      "id": "text",
-      "name": "Text",
-      "status": "alpha",
-      "a11yReviewed": true,
-      "stories": [],
-      "props": [
-        {
-          "name": "as",
-          "defaultValue": "'span'",
-          "type": "React.ElementType"
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject"
-        }
-      ],
-      "subcomponents": []
-    },
     "tooltip": {
       "id": "tooltip",
       "name": "Tooltip",
@@ -4069,6 +4050,30 @@
           ]
         }
       ]
+    },
+    "text": {
+      "id": "text",
+      "name": "Text",
+      "status": "alpha",
+      "a11yReviewed": true,
+      "stories": [
+        {
+          "id": "components-text--default",
+          "code": "() => <Text>Default Text</Text>"
+        }
+      ],
+      "props": [
+        {
+          "name": "as",
+          "defaultValue": "'span'",
+          "type": "React.ElementType"
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ],
+      "subcomponents": []
     },
     "text_input": {
       "id": "text_input",
