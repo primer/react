@@ -136,6 +136,12 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
       '&:has([data-component="ButtonCounter"])': {
         color: 'accent.fg',
       },
+      '&:disabled[data-no-visuals]': {
+        color: 'primer.fg.disabled',
+        '[data-component=ButtonCounter]': {
+          color: 'inherit',
+        },
+      },
     },
     outline: {
       color: 'btn.outline.text',
