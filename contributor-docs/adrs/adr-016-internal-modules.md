@@ -5,7 +5,7 @@
 | Stage    | Status |
 | -------- | ------ |
 | Approved | ✅     |
-| Adopted  | 🚧     |
+| Adopted  | ✅     |
 
 ## Context
 
@@ -13,17 +13,17 @@ Currently all files live under the `src` directory. In the `npm` package for `@p
 
 ```json5
 {
-  "exports": {
+  exports: {
     // ...
-    "./lib-esm/*": {
-      "import": [
+    './lib-esm/*': {
+      import: [
         // ...
       ],
-      "require": [
+      require: [
         // ...
-      ]
-    }
-  }
+      ],
+    },
+  },
 }
 ```
 
@@ -37,10 +37,10 @@ In the `"exports"` field of our `npm` package, we can then add the following pat
 
 ```json5
 {
-  "exports": {
+  exports: {
     // ...
-    "./lib-esm/internal/*": null
-  }
+    './lib-esm/internal/*': null,
+  },
 }
 ```
 
@@ -56,7 +56,6 @@ This pattern would remove any files and folders within `src/internal` from the p
   }
 }
 ```
-
 
 ### Impact
 

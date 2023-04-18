@@ -11,7 +11,7 @@ import {Column, CellAlignment} from './column'
 import {UniqueRow} from './row'
 import {SortDirection} from './sorting'
 import {useTableLayout} from './useTable'
-import {useOverflow} from '../hooks/useOverflow'
+import {useOverflow} from '../internal/hooks/useOverflow'
 
 // ----------------------------------------------------------------------------
 // Table
