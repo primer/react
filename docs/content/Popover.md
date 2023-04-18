@@ -6,7 +6,7 @@ status: Alpha
 source: https://github.com/primer/react/blob/main/src/Popover.tsx
 ---
 
-import data from '../../src/Popover.docs.json'
+import data from '../../src/Popover/Popover.docs.json'
 
 ```js
 import {Popover} from '@primer/react'

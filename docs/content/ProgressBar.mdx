@@ -28,6 +28,19 @@ If you'd like to use ProgressBar inline, pass the `inline` boolean prop & **be s
 </>
 ```
 
+### Multiple Segments
+
+If you want to show multiple segments in a ProgressBar, pass separate `Item`s as children **instead** of a `progress` value.
+
+```jsx live
+<>
+  <ProgressBar>
+    <ProgressBar.Item progress={33} />
+    <ProgressBar.Item progress={33} sx={{backgroundColor: 'danger.emphasis'}} />
+  </ProgressBar>
+</>
+```
+
 ## Props
 
 <ComponentProps data={data} />

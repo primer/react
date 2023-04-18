@@ -246,6 +246,25 @@ const components = new Map([
     },
   ],
   [
+    'ButtonGroup',
+    {
+      stories: [
+        {
+          id: 'components-buttongroup--default',
+          name: 'Default',
+        },
+        {
+          id: 'components-buttongroup--playground',
+          name: 'Playground',
+        },
+        {
+          id: 'components-buttongroup-features--icon-buttons',
+          name: 'Icon Buttons',
+        },
+      ],
+    },
+  ],
+  [
     'Breadcrumbs',
     {
       stories: [
@@ -306,6 +325,21 @@ const components = new Map([
         {
           id: 'components-checkboxgroup-features--warning',
           name: 'Warning',
+        },
+      ],
+    },
+  ],
+  [
+    'CircleOcticon',
+    {
+      stories: [
+        {
+          id: 'components-circleocticon--default',
+          name: 'Default',
+        },
+        {
+          id: 'components-circleocticon--playground',
+          name: 'Playground',
         },
       ],
     },
@@ -775,6 +809,56 @@ const components = new Map([
         {
           id: 'drafts-components-pageheader-features--with-parent-link-and-actions-of-context-area',
           name: 'With Parent Link and Actions of Context Area',
+        },
+      ],
+    },
+  ],
+  [
+    'PageLayout',
+    {
+      stories: [
+        {
+          id: 'components-pagelayout--default',
+          name: 'Default',
+        },
+        {
+          id: 'components-pagelayout-features--pull-request',
+          name: 'Pull Request',
+        },
+        {
+          id: 'components-pagelayout-features--sticky-pane',
+          name: 'Sticky Pane',
+        },
+        {
+          id: 'components-pagelayout-features--nested-scroll-container',
+          name: 'Nested Scroll Container',
+        },
+        {
+          id: 'components-pagelayout-features--custom-sticky-header',
+          name: 'Custom Sticky Header',
+        },
+        {
+          id: 'components-pagelayout-features--resizable-pane',
+          name: 'Resizable Pane',
+        },
+        {
+          id: 'components-pagelayout-features--scroll-container-within-page-layout-pane',
+          name: 'Scroll Container Within Page Layout Pane',
+        },
+      ],
+    },
+  ],
+  [
+    'Popover',
+    {
+      stories: [
+        {
+          id: 'components-popover--default',
+          name: 'Default',
+        },
+        {
+          id: 'components-popover--playground',
+          name: 'Playground',
         },
       ],
     },
