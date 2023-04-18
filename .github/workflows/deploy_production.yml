@@ -17,7 +17,7 @@ jobs:
     outputs:
       # To avoid deploying documentation for unrelease changes, we check the number of changeset files.
       # If it's 0, we deploy.
-      should_deploy: ${{ steps.changeset-count.outputs.change_count == 0 }}
+      should_deploy: ${{ steps.changeset-count.outputs.change_count == 0 && steps.has-pages.outputs.pages == 1 }}
     steps:
       - uses: actions/checkout@v3
 
@@ -27,6 +27,16 @@ jobs:
       # Log changeset count for debugging purposes
       - name: Log changeset count
         run: echo ${{ steps.changeset-count.outputs.change_count }}
+
+      - id: has-pages
+        name: Check if pages is configured
+        run: |
+          if gh api --silent https://api.github.com/repos/${{ github.repository }}/pages ; then
+            echo "::set-output name=pages::1"
+          fi
+
+      - name: Log has pages
+        run: echo ${{ steps.has-pages.outputs.pages }}
 
       # Log guard output for debugging purposes
       - name: Log guard output
