@@ -864,29 +864,6 @@ const components = new Map([
     },
   ],
   [
-    'Portal',
-    {
-      stories: [
-        {
-          id: 'behaviors-portal--default',
-          name: 'Default',
-        },
-        {
-          id: 'behaviors-portal--custom-portal-root-by-id',
-          name: 'Custom Portal Root By ID',
-        },
-        {
-          id: 'behaviors-portal--custom-portal-root-by-registration',
-          name: 'Custom Portal Root by Registration',
-        },
-        {
-          id: 'behaviors-portal--multiple-portal-roots',
-          name: 'Multiple Portal Roots',
-        },
-      ],
-    },
-  ],
-  [
     'ProgressBar',
     {
       stories: [
