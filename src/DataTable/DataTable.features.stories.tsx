@@ -2,6 +2,7 @@ import {DownloadIcon, KebabHorizontalIcon, PencilIcon, PlusIcon, RepoIcon, Trash
 import {action} from '@storybook/addon-actions'
 import {Meta} from '@storybook/react'
 import React, {Suspense, useCallback, useEffect, useRef, useState, useTransition} from 'react'
+import styled from 'styled-components'
 import {ActionList} from '../ActionList'
 import {ActionMenu} from '../ActionMenu'
 import Box from '../Box'
@@ -12,10 +13,10 @@ import Label from '../Label'
 import LabelGroup from '../LabelGroup'
 import RelativeTime from '../RelativeTime'
 import {warning} from '../utils/warning'
-import VisuallyHidden from '../_VisuallyHidden'
 import {createColumnHelper} from './column'
 import {Pagination} from './Pagination'
 import {fetchRepoPage, fetchRepoPageInfo, fetchRepos} from './store'
+import sx from '../sx'
 
 export default {
   title: 'Components/DataTable/Features',
@@ -1393,6 +1394,45 @@ function use<T>(promise: PromiseWrapper<T>): T {
   }
 }
 
+const VisuallyHidden = styled.div`
+  &:not(:focus):not(:active):not(:focus-within) {
+    clip-path: inset(50%);
+    height: 1px;
+    overflow: hidden;
+    position: absolute;
+    white-space: nowrap;
+    width: 1px;
+  }
+
+  ${sx}
+`
+
+function SkipLink({sx, href, children}) {
+  return (
+    <VisuallyHidden>
+      <Box
+        as="a"
+        href={href}
+        sx={{
+          position: 'absolute',
+          top: 0,
+          right: 0,
+          padding: '1rem',
+          color: 'white',
+          backgroundColor: 'accent.emphasis',
+          textDecoration: 'none',
+          borderRadius: 0,
+          fontSize: '0.875rem',
+          lineHeight: 'calc(20 / 14)',
+          ...sx,
+        }}
+      >
+        {children}
+      </Box>
+    </VisuallyHidden>
+  )
+}
+
 export const WithPagination = () => {
   const fallback = (
     <Table.Skeleton
@@ -1425,16 +1465,9 @@ export const WithPagination = () => {
         <Suspense fallback={fallback}>
           <WrappedDataTable page={page} pageSize={pageSize} />
         </Suspense>
-        <div
-          style={{
-            gridArea: 'footer',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            padding: '1rem',
-          }}
-        >
+        <Box sx={{gridArea: 'footer', zIndex: 100}}>
           <Pagination
+            id="uuid-table-pagination"
             label="Table pagination"
             pageSize={pageSize}
             totalItems={totalCount}
@@ -1442,31 +1475,67 @@ export const WithPagination = () => {
               setPage(pageIndex)
             }}
           />
-        </div>
+        </Box>
       </>
     )
   }
 
   return (
-    <Table.Container>
-      <Table.Title as="h2" id="repositories">
-        Repositories
-      </Table.Title>
-      <Table.Subtitle as="p" id="repositories-subtitle">
-        A subtitle could appear here to give extra context to the data.
-      </Table.Subtitle>
-      <Suspense
-        fallback={
-          <Table.Skeleton
-            aria-labelledby="repositories"
-            aria-describedby="repositories-subtitle"
-            columns={columns}
-            rows={15}
-          />
-        }
-      >
-        <Example />
-      </Suspense>
-    </Table.Container>
+    <>
+      <Table.Container>
+        <Box sx={{gridArea: '-1 / -1 / 1 / 1', position: 'relative'}}>
+          <SkipLink href="#uuid-table-end">
+            Skip table<VisuallyHidden>: Repositories</VisuallyHidden>
+          </SkipLink>
+        </Box>
+        <Box sx={{gridArea: 'table', position: 'relative', zIndex: 100}}>
+          <SkipLink aria-labelledby="repositories" href="#uuid-table-pagination">
+            Skip to pagination<VisuallyHidden>&nbsp;for table: Repositories</VisuallyHidden>
+          </SkipLink>
+        </Box>
+        <Table.Title as="h2" id="repositories">
+          Repositories
+        </Table.Title>
+        <Table.Subtitle as="p" id="repositories-subtitle">
+          A subtitle could appear here to give extra context to the data.
+        </Table.Subtitle>
+        <Suspense
+          fallback={
+            <Table.Skeleton
+              aria-labelledby="repositories"
+              aria-describedby="repositories-subtitle"
+              columns={columns}
+              rows={15}
+            />
+          }
+        >
+          <Example />
+        </Suspense>
+        <Box sx={{gridArea: 'footer', position: 'relative', zIndex: 0}}>
+          <VisuallyHidden id="uuid-table-end" tabIndex={-1}>
+            <Box
+              as="p"
+              sx={{
+                position: 'absolute',
+                bottom: 0,
+                right: 0,
+                margin: 0,
+                padding: '1rem',
+                color: 'white',
+                backgroundColor: 'accent.emphasis',
+                textDecoration: 'none',
+                borderRadius: 0,
+                fontSize: '0.875rem',
+                lineHeight: 'calc(20 / 14)',
+                zIndex: 1000,
+                ...sx,
+              }}
+            >
+              End of table<VisuallyHidden>: Repositories.</VisuallyHidden>
+            </Box>
+          </VisuallyHidden>
+        </Box>
+      </Table.Container>
+    </>
   )
 }

@@ -94,11 +94,11 @@ const StyledTable = styled.table<React.ComponentPropsWithoutRef<'table'>>`
     border-top-right-radius: var(--table-border-radius);
   }
 
-  .TableBody .TableRow:last-of-type .TableCell:first-child {
+  .TableOverflowWrapper:not(~ .TablePagination) .TableBody .TableRow:last-of-type .TableCell:first-child {
     border-bottom-left-radius: var(--table-border-radius);
   }
 
-  .TableBody .TableRow:last-of-type .TableCell:last-child {
+  .TableOverflowWrapper:not(~ .TablePagination) .TableBody .TableRow:last-of-type .TableCell:last-child {
     border-bottom-right-radius: var(--table-border-radius);
   }
 
@@ -433,6 +433,7 @@ const StyledTableContainer = styled.div`
     'table table'
     'footer footer';
   column-gap: ${get('space.2')};
+  position: relative;
 
   ${sx}
 

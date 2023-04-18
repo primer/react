@@ -12,7 +12,7 @@ interface Repo {
 const now = Date.now()
 const repos: Array<Repo> = []
 
-for (let i = 0; i < 100; i++) {
+for (let i = 0; i < 1000; i++) {
   repos.push({
     id: i,
     name: `Repository ${i + 1}`,
