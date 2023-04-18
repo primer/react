@@ -1,5 +1,5 @@
 import React from 'react'
-import Overlay from '../Overlay'
+import Overlay from './Overlay'
 
 export function shouldAcceptCallWithNoProps(ref: React.RefObject<HTMLElement>) {
   return <Overlay returnFocusRef={ref} onClickOutside={() => null} onEscape={() => null} />
