@@ -26,7 +26,8 @@
         "./lib/*.js",
         "./lib/*/index.js"
       ]
-    }
+    },
+    "./lib-esm/internal/*": null
   },
   "typings": "lib/index.d.ts",
   "sideEffects": false,
