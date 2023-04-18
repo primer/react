@@ -1056,6 +1056,21 @@ const components = new Map([
     },
   ],
   [
+    'Text',
+    {
+      stories: [
+        {
+          id: 'components-text--default',
+          name: 'Default',
+        },
+        {
+          id: 'components-text--playground',
+          name: 'Playground',
+        },
+      ],
+    },
+  ],
+  [
     'Textarea',
     {
       stories: [
