@@ -31,7 +31,7 @@ export type UnderlineNavItemProps = {
   /**
    * Callback that will trigger both on click selection and keyboard selection.
    */
-  onSelect?: (event: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement>) => void
+  onSelect?: (event: React.MouseEvent<HTMLAnchorElement> | React.KeyboardEvent<HTMLAnchorElement>) => void
   /**
    * Is `UnderlineNav.Item` current page?
    */
@@ -137,7 +137,7 @@ export const UnderlineNavItem = forwardRef(
     ])
 
     const keyPressHandler = React.useCallback(
-      (event: React.KeyboardEvent<HTMLLIElement>) => {
+      (event: React.KeyboardEvent<HTMLAnchorElement>) => {
         if (event.key === ' ' || event.key === 'Enter') {
           if (!event.defaultPrevented && typeof onSelect === 'function') onSelect(event)
           if (!event.defaultPrevented && typeof afterSelect === 'function') afterSelect(event)
@@ -147,7 +147,7 @@ export const UnderlineNavItem = forwardRef(
       [onSelect, afterSelect, ref, setSelectedLink],
     )
     const clickHandler = React.useCallback(
-      (event: React.MouseEvent<HTMLLIElement>) => {
+      (event: React.MouseEvent<HTMLAnchorElement>) => {
         if (!event.defaultPrevented) {
           if (typeof onSelect === 'function') onSelect(event)
           if (typeof afterSelect === 'function') afterSelect(event)

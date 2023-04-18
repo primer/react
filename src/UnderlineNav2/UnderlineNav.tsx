@@ -17,7 +17,42 @@ import {useOnOutsideClick} from '../hooks/useOnOutsideClick'
 import {useId} from '../hooks/useId'
 import {ActionList} from '../ActionList'
 import {defaultSxProp} from '../utils/defaultSxProp'
+import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
+import {IconProps} from '@primer/octicons-react'
 
+// adopted from React.AnchorHTMLAttributes
+type LinkProps = {
+  download?: string
+  href?: string
+  hrefLang?: string
+  media?: string
+  ping?: string
+  rel?: string
+  target?: string
+  type?: string
+  referrerPolicy?: React.AnchorHTMLAttributes<HTMLAnchorElement>['referrerPolicy']
+}
+export type MenuItemLinkProps = {
+  /**
+   * Primary content for an UnderlineNav
+   */
+  children?: React.ReactNode
+  /**
+   * Callback that will trigger both on click selection and keyboard selection.
+   */
+  onClick?: (event: React.MouseEvent<HTMLAnchorElement> | React.KeyboardEvent<HTMLAnchorElement>) => void
+
+  /**
+   *  Icon before the text
+   */
+  icon?: React.FunctionComponent<IconProps>
+
+  /**
+   * Counter
+   */
+  counter?: number | string
+} & SxProp &
+  LinkProps
 export type UnderlineNavProps = {
   'aria-label'?: React.AriaAttributes['aria-label']
   as?: React.ElementType
@@ -29,7 +64,7 @@ export type UnderlineNavProps = {
    * loading state for all counters. It displays loading animation for individual counters (UnderlineNav.Item) until all are resolved. It is needed to prevent multiple layout shift.
    */
   loadingCounters?: boolean
-  afterSelect?: (event: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement>) => void
+  afterSelect?: (event: React.MouseEvent<HTMLAnchorElement> | React.KeyboardEvent<HTMLAnchorElement>) => void
   children: React.ReactNode
 }
 // When page is loaded, we don't have ref for the more button as it is not on the DOM yet.
@@ -165,9 +200,10 @@ export const UnderlineNav = forwardRef(
     const swapMenuItemWithListItem = (
       prospectiveListItem: React.ReactElement,
       indexOfProspectiveListItem: number,
-      event: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement>,
+      event: React.MouseEvent<HTMLAnchorElement> | React.KeyboardEvent<HTMLAnchorElement>,
       callback: (props: ResponsiveProps, displayIcons: boolean) => void,
     ) => {
+      console.log('swapMenuItemWithListItem', prospectiveListItem)
       // get the selected menu item's width
       const widthToFitIntoList = getItemsWidth(prospectiveListItem.props.children)
       // Check if there is any empty space on the right side of the list
@@ -210,12 +246,14 @@ export const UnderlineNav = forwardRef(
     const [selectedLinkText, setSelectedLinkText] = useState<string>('')
     // Capture the mouse/keyboard event when a menu item is selected so that we can use it to fire the onSelect callback after the menu item is swapped with the list item
     const [selectEvent, setSelectEvent] = useState<
-      React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement> | null
+      React.MouseEvent<HTMLAnchorElement> | React.KeyboardEvent<HTMLAnchorElement> | null
     >(null)
 
     const [iconsVisible, setIconsVisible] = useState<boolean>(true)
 
-    const afterSelectHandler = (event: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement>) => {
+    const afterSelectHandler = (
+      event: React.MouseEvent<HTMLAnchorElement> | React.KeyboardEvent<HTMLAnchorElement>,
+    ) => {
       if (!event.defaultPrevented) {
         if (typeof afterSelect === 'function') afterSelect(event)
         closeOverlay()
@@ -315,6 +353,33 @@ export const UnderlineNav = forwardRef(
       setIsWidgetOpen(isWidgetOpen => !isWidgetOpen)
     }, [])
 
+    const MenuItemLink = React.forwardRef<HTMLAnchorElement, MenuItemLinkProps>(
+      ({children, href, onClick, counter, ...actionElementProps}, forwardedRef) => {
+        return (
+          <ActionList.LinkItem
+            ref={forwardRef}
+            {...actionElementProps}
+            sx={menuItemStyles}
+            active={false}
+            onClick={onClick}
+          >
+            <Box as="span" sx={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
+              {children}
+
+              {loadingCounters ? (
+                <LoadingCounter />
+              ) : (
+                counter !== undefined && (
+                  <Box as="span" data-component="counter">
+                    <CounterLabel>{counter}</CounterLabel>
+                  </Box>
+                )
+              )}
+            </Box>
+          </ActionList.LinkItem>
+        )
+      },
+    ) as PolymorphicForwardRefComponent<'a', MenuItemLinkProps>
     return (
       <UnderlineNavContext.Provider
         value={{
@@ -373,35 +438,23 @@ export const UnderlineNav = forwardRef(
                 >
                   {actions.map((action, index) => {
                     const {children: actionElementChildren, ...actionElementProps} = action.props
+                    console.log('actionElementProps', actionElementProps)
                     return (
-                      <Box key={actionElementChildren} as="li">
-                        <ActionList.Item
-                          {...actionElementProps}
-                          as={action.props.as || 'a'}
-                          sx={menuItemStyles}
-                          onSelect={(event: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement>) => {
-                            // When there are no items in the list, do not run the swap function as we want to keep everything in the menu.
-                            !onlyMenuVisible && swapMenuItemWithListItem(action, index, event, updateListAndMenu)
-                            setSelectEvent(event)
-                            closeOverlay()
-                            focusOnMoreMenuBtn()
-                          }}
-                        >
-                          <Box as="span" sx={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
-                            {actionElementChildren}
-
-                            {loadingCounters ? (
-                              <LoadingCounter />
-                            ) : (
-                              actionElementProps.counter !== undefined && (
-                                <Box as="span" data-component="counter">
-                                  <CounterLabel>{actionElementProps.counter}</CounterLabel>
-                                </Box>
-                              )
-                            )}
-                          </Box>
-                        </ActionList.Item>
-                      </Box>
+                      <MenuItemLink
+                        key={index}
+                        {...actionElementProps}
+                        onClick={(
+                          event: React.MouseEvent<HTMLAnchorElement> | React.KeyboardEvent<HTMLAnchorElement>,
+                        ) => {
+                          // When there are no items in the list, do not run the swap function as we want to keep everything in the menu.
+                          !onlyMenuVisible && swapMenuItemWithListItem(action, index, event, updateListAndMenu)
+                          setSelectEvent(event)
+                          closeOverlay()
+                          focusOnMoreMenuBtn()
+                        }}
+                      >
+                        {actionElementChildren}
+                      </MenuItemLink>
                     )
                   })}
                 </ActionList>

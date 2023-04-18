@@ -60,7 +60,14 @@ export default function Layout() {
 
 function UnderlineNavItem({href, children, ...rest}) {
   const router = useRouter()
-  const isCurrent = typeof href === 'string' ? router.asPath === href : router.pathname === href.pathname
+  console.log(router.asPath, href, children)
+  const isCurrent =
+    children === 'Code' && router.asPath === '/'
+      ? true
+      : typeof href === 'string'
+      ? router.asPath === href
+      : router.pathname === href.pathname
+
   return (
     <UnderlineNav.Item as={Link} href={href} aria-current={isCurrent ? 'page' : undefined} {...rest}>
       {children}
