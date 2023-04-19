@@ -1,5 +1,49 @@
 # @primer/components
 
+## 35.25.0
+
+### Minor Changes
+
+- [#3186](https://github.com/primer/react/pull/3186) [`2b147794`](https://github.com/primer/react/commit/2b14779453de66a889d9bbcb6b81e3e9a7360f4d) Thanks [@joshblack](https://github.com/joshblack)! - Modules under an internal export pattern are not able to be imported from outside @primer/react
+
+- [#3090](https://github.com/primer/react/pull/3090) [`1b8bb16f`](https://github.com/primer/react/commit/1b8bb16f9d874738bae02f88e458495c39052134) Thanks [@kendallgassner](https://github.com/kendallgassner)! - Experimental Support: exporting useResponsiveValue
+
+- [#3055](https://github.com/primer/react/pull/3055) [`42037c98`](https://github.com/primer/react/commit/42037c98b845a99cdf922802e9869e1bb3c3f07d) Thanks [@joshblack](https://github.com/joshblack)! - Add Table.Skeleton component
+
+### Patch Changes
+
+- [#3124](https://github.com/primer/react/pull/3124) [`5b3cf499`](https://github.com/primer/react/commit/5b3cf49957ea96e0b7f00b8ac2c78d02688a908d) Thanks [@mattcosta7](https://github.com/mattcosta7)! - replace createRef with useRef
+
+- [#3149](https://github.com/primer/react/pull/3149) [`4c2d121f`](https://github.com/primer/react/commit/4c2d121fa44386c596c8b29dc159c57c49341c01) Thanks [@colebemis](https://github.com/colebemis)! - `FormControl` is now SSR-compatible.
+
+  Warning: In this new implementation, `FormControl.Caption`, `FormControl.Label`, `FormControl.LeadingVisual`, and `FormControl.Validation` must be direct children of `FormControl`.
+
+- [#3114](https://github.com/primer/react/pull/3114) [`f5c7f299`](https://github.com/primer/react/commit/f5c7f2997ec568420cc980bf672b6c5b44712ef7) Thanks [@radglob](https://github.com/radglob)! - Adds the option to declare multiple segments in a ProgressBar.
+
+- [#3127](https://github.com/primer/react/pull/3127) [`5224fcbf`](https://github.com/primer/react/commit/5224fcbf026b7627be1d20a5ff097d1200b66af2) Thanks [@siddharthkp](https://github.com/siddharthkp)! - Suppress SSR warning for useLayoutEffect in NavList, use useIsomorphicLayoutEffect instead of useLayoutEffect
+
+- [#3165](https://github.com/primer/react/pull/3165) [`d749f495`](https://github.com/primer/react/commit/d749f495e0129de41dc33136b4d5f1145b17a275) Thanks [@broccolinisoup](https://github.com/broccolinisoup)! - UnderlineNav2: Add transparent outline for focus to support WHCM
+
+- [#3120](https://github.com/primer/react/pull/3120) [`9e40fdf4`](https://github.com/primer/react/commit/9e40fdf47ac7c6003a9ba3ebb7efc17e3b7306bd) Thanks [@simurai](https://github.com/simurai)! - Bump @primer/primitives to `7.11.5`
+
+- [#3093](https://github.com/primer/react/pull/3093) [`8b5307da`](https://github.com/primer/react/commit/8b5307daad011627fdc96fec1a6d600f479458b5) Thanks [@simurai](https://github.com/simurai)! - Bump @primer/primitives to `7.11.3`
+
+- [#3097](https://github.com/primer/react/pull/3097) [`a38c00e6`](https://github.com/primer/react/commit/a38c00e6722373599e6be83b857c7f22c2014459) Thanks [@colebemis](https://github.com/colebemis)! - `TreeView` is now SSR-compatible.
+
+  Warning: In this new implementation, `TreeView.LeadingVisual` and `TreeView.TrailingView` must be direct children of `TreeView.Item`.
+
+- [#3170](https://github.com/primer/react/pull/3170) [`1f2df9b7`](https://github.com/primer/react/commit/1f2df9b7164fe29dccfe24cb752766c2f63754d1) Thanks [@lukasoppermann](https://github.com/lukasoppermann)! - When an inline description is added to the item the normal text is set to bold
+
+- [#3160](https://github.com/primer/react/pull/3160) [`4b05b19e`](https://github.com/primer/react/commit/4b05b19e6812396e0b88db37d65ca05c61ad7732) Thanks [@joshblack](https://github.com/joshblack)! - Update PageLayout.Pane to provide a warning instead of an error when overflow is detected and no label has been provided
+
+- [#3094](https://github.com/primer/react/pull/3094) [`16cae51a`](https://github.com/primer/react/commit/16cae51a243a66707ddd1f027d9429ee3e0f45b6) Thanks [@mperrotti](https://github.com/mperrotti)! - Fixes styling issue where PointerBox would show a border between the caret and the box if the background color was transparent.
+
+- [#3112](https://github.com/primer/react/pull/3112) [`bd4e1393`](https://github.com/primer/react/commit/bd4e13934c99bdfaa7f5941afc1beaec371fef28) Thanks [@langermank](https://github.com/langermank)! - Adds shadow and color change to IssueLabelToken on hover
+
+- [#3146](https://github.com/primer/react/pull/3146) [`a19b721c`](https://github.com/primer/react/commit/a19b721c8abde18cd05b745e9e18074c4eaa16f0) Thanks [@colebemis](https://github.com/colebemis)! - `CheckboxGroup` and `RadioGroup` are now SSR-compatible.
+
+  Warning: In this new implementation, `CheckboxGroup.Caption`, `CheckboxGroup.Label,` and `CheckboxGroup.Validation` must be direct children of `CheckboxGroup`. The same applies to `RadioGroup`.
+
 ## 35.24.0
 
 ### Minor Changes
