@@ -20,42 +20,15 @@ import {defaultSxProp} from '../utils/defaultSxProp'
 import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import {IconProps} from '@primer/octicons-react'
 
-// adopted from React.AnchorHTMLAttributes
-type LinkProps = {
-  download?: string
-  href?: string
-  hrefLang?: string
-  media?: string
-  ping?: string
-  rel?: string
-  target?: string
-  type?: string
-  referrerPolicy?: React.AnchorHTMLAttributes<HTMLAnchorElement>['referrerPolicy']
-}
-export type MenuItemLinkProps = {
-  /**
-   * Primary content for an UnderlineNav
-   */
-  children?: React.ReactNode
-  /**
-   * Callback that will trigger both on click selection and keyboard selection.
-   */
-  onClick?: (event: React.MouseEvent<HTMLAnchorElement> | React.KeyboardEvent<HTMLAnchorElement>) => void
+import {MenuItemLink} from './MenuItemLink'
 
-  /**
-   *  Icon before the text
-   */
-  icon?: React.FunctionComponent<IconProps>
-
-  /**
-   * Counter
-   */
-  counter?: number | string
-} & SxProp &
-  LinkProps
 export type UnderlineNavProps = {
   'aria-label'?: React.AriaAttributes['aria-label']
   as?: React.ElementType
+  /**
+   * Renders `UnderlineNav.Item` as given component
+   **/
+  itemAs?: React.ElementType
   sx?: SxProp['sx']
   // cariant and align are currently not in used. Keeping here until some design explorations are finalized.
   variant?: 'default' | 'small'
@@ -173,6 +146,7 @@ export const UnderlineNav = forwardRef(
   (
     {
       as = 'nav',
+      itemAs = 'a',
       align,
       'aria-label': ariaLabel,
       sx: sxProp = defaultSxProp,
@@ -353,33 +327,6 @@ export const UnderlineNav = forwardRef(
       setIsWidgetOpen(isWidgetOpen => !isWidgetOpen)
     }, [])
 
-    const MenuItemLink = React.forwardRef<HTMLAnchorElement, MenuItemLinkProps>(
-      ({children, href, onClick, counter, ...actionElementProps}, forwardedRef) => {
-        return (
-          <ActionList.LinkItem
-            ref={forwardRef}
-            {...actionElementProps}
-            sx={menuItemStyles}
-            active={false}
-            onClick={onClick}
-          >
-            <Box as="span" sx={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
-              {children}
-
-              {loadingCounters ? (
-                <LoadingCounter />
-              ) : (
-                counter !== undefined && (
-                  <Box as="span" data-component="counter">
-                    <CounterLabel>{counter}</CounterLabel>
-                  </Box>
-                )
-              )}
-            </Box>
-          </ActionList.LinkItem>
-        )
-      },
-    ) as PolymorphicForwardRefComponent<'a', MenuItemLinkProps>
     return (
       <UnderlineNavContext.Provider
         value={{
@@ -395,6 +342,7 @@ export const UnderlineNav = forwardRef(
           variant,
           loadingCounters,
           iconsVisible,
+          itemAs,
         }}
       >
         {ariaLabel && <VisuallyHidden as="h2">{`${ariaLabel} navigation`}</VisuallyHidden>}
@@ -442,7 +390,6 @@ export const UnderlineNav = forwardRef(
                     return (
                       <MenuItemLink
                         key={index}
-                        {...actionElementProps}
                         onClick={(
                           event: React.MouseEvent<HTMLAnchorElement> | React.KeyboardEvent<HTMLAnchorElement>,
                         ) => {
@@ -452,6 +399,7 @@ export const UnderlineNav = forwardRef(
                           closeOverlay()
                           focusOnMoreMenuBtn()
                         }}
+                        {...actionElementProps}
                       >
                         {actionElementChildren}
                       </MenuItemLink>

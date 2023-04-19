@@ -41,10 +41,6 @@ export type UnderlineNavItemProps = {
    */
   icon?: React.FunctionComponent<IconProps>
   /**
-   * Renders `UnderlineNav.Item` as given component
-   **/
-  as?: React.ElementType
-  /**
    * Counter
    */
   counter?: number | string
@@ -81,6 +77,7 @@ export const UnderlineNavItem = forwardRef(
       variant,
       loadingCounters,
       iconsVisible,
+      itemAs,
     } = useContext(UnderlineNavContext)
 
     useLayoutEffect(() => {
@@ -160,7 +157,7 @@ export const UnderlineNavItem = forwardRef(
     return (
       <Box as="li" sx={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
         <Box
-          as={Component}
+          as={itemAs}
           href={href}
           onKeyPress={keyPressHandler}
           onClick={clickHandler}

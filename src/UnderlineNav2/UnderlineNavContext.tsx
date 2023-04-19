@@ -14,6 +14,7 @@ export const UnderlineNavContext = createContext<{
   variant: 'default' | 'small'
   loadingCounters: boolean
   iconsVisible: boolean
+  itemAs?: React.ElementType
 }>({
   theme: {},
   setChildrenWidth: () => null,
@@ -26,4 +27,5 @@ export const UnderlineNavContext = createContext<{
   variant: 'default',
   loadingCounters: false,
   iconsVisible: true,
+  itemAs: 'a',
 })

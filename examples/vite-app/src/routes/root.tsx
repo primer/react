@@ -39,7 +39,7 @@ const Root = props => {
 
   return (
     <Box sx={{backgroundColor: 'canvas.subtle', padding: 2}}>
-      <UnderlineNav aria-label="Repository">
+      <UnderlineNav aria-label="Repository" itemAs={Link}>
         {items.map((item, index) => (
           // With react router
           <UnderlineNavItem
@@ -74,7 +74,7 @@ function UnderlineNavItem({to, children, ...rest}) {
     children === 'Code' && resolved.pathname === '/' ? true : useMatch({path: resolved.pathname, end: true})
 
   return (
-    <UnderlineNav.Item as={Link} to={to} aria-current={isCurrent ? 'page' : undefined} {...rest}>
+    <UnderlineNav.Item to={to} aria-current={isCurrent ? 'page' : undefined} {...rest}>
       {children}
     </UnderlineNav.Item>
   )
