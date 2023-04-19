@@ -25,10 +25,7 @@ import {MenuItemLink} from './MenuItemLink'
 export type UnderlineNavProps = {
   'aria-label'?: React.AriaAttributes['aria-label']
   as?: React.ElementType
-  /**
-   * Renders `UnderlineNav.Item` as given component
-   **/
-  itemAs?: React.ElementType
+
   sx?: SxProp['sx']
   // cariant and align are currently not in used. Keeping here until some design explorations are finalized.
   variant?: 'default' | 'small'
@@ -146,7 +143,6 @@ export const UnderlineNav = forwardRef(
   (
     {
       as = 'nav',
-      itemAs = 'a',
       align,
       'aria-label': ariaLabel,
       sx: sxProp = defaultSxProp,
@@ -327,6 +323,7 @@ export const UnderlineNav = forwardRef(
       setIsWidgetOpen(isWidgetOpen => !isWidgetOpen)
     }, [])
 
+    const [itemAs, setItemAs] = useState<React.ElementType>('a')
     return (
       <UnderlineNavContext.Provider
         value={{
@@ -342,6 +339,7 @@ export const UnderlineNav = forwardRef(
           variant,
           loadingCounters,
           iconsVisible,
+          setItemAs,
           itemAs,
         }}
       >

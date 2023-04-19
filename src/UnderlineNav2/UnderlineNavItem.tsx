@@ -1,4 +1,4 @@
-import React, {forwardRef, useRef, useContext, MutableRefObject, RefObject} from 'react'
+import React, {forwardRef, useRef, useContext, MutableRefObject, RefObject, useState} from 'react'
 import Box from '../Box'
 import {merge, SxProp} from '../sx'
 import {IconProps} from '@primer/octicons-react'
@@ -41,6 +41,10 @@ export type UnderlineNavItemProps = {
    */
   icon?: React.FunctionComponent<IconProps>
   /**
+   * Renders `UnderlineNav.Item` as given component
+   **/
+  as?: React.ElementType | 'a'
+  /**
    * Counter
    */
   counter?: number | string
@@ -77,7 +81,7 @@ export const UnderlineNavItem = forwardRef(
       variant,
       loadingCounters,
       iconsVisible,
-      itemAs,
+      setItemAs,
     } = useContext(UnderlineNavContext)
 
     useLayoutEffect(() => {
@@ -119,6 +123,10 @@ export const UnderlineNavItem = forwardRef(
           if (typeof onSelect === 'function' && selectEvent !== null) onSelect(selectEvent)
           setSelectedLinkText('')
         }
+
+        // disable typoscript
+        // @ts-ignore
+        setItemAs(Component)
       }
     }, [
       ref,
@@ -131,6 +139,7 @@ export const UnderlineNavItem = forwardRef(
       setNoIconChildrenWidth,
       onSelect,
       selectEvent,
+      setItemAs,
     ])
 
     const keyPressHandler = React.useCallback(
@@ -157,7 +166,7 @@ export const UnderlineNavItem = forwardRef(
     return (
       <Box as="li" sx={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
         <Box
-          as={itemAs}
+          as={Component}
           href={href}
           onKeyPress={keyPressHandler}
           onClick={clickHandler}
