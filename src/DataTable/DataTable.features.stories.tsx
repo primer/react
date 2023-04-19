@@ -1421,7 +1421,12 @@ export const WithPagination = () => {
           },
         ]}
       />
-      <Table.Pagination aria-label="Pagination for Repositories" totalCount={1000} onChange={action('onChange')} />
+      <Table.Pagination
+        aria-label="Pagination for Repositories"
+        pageSize={25}
+        totalCount={500}
+        onChange={action('onChange')}
+      />
     </Table.Container>
   )
 }

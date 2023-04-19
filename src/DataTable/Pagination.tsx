@@ -125,8 +125,6 @@ export type PaginationProps = React.ComponentPropsWithoutRef<'nav'> & {
   totalCount: number
 }
 
-const VISIBLE_PAGE_COUNT = 4
-
 export function Pagination({
   'aria-label': label,
   defaultPageIndex,
@@ -151,39 +149,23 @@ export function Pagination({
     pageSize,
     totalCount,
   })
-  const {
-    windowStartIndex,
-    hasPagesBefore,
-    hasPagesAfter,
-    isWithinBounds,
-    shiftWindowDown,
-    shiftWindowUp,
-    shiftStartTo,
-    shiftEndTo,
-  } = useWindowing({
-    defaultPageIndex,
-    size: VISIBLE_PAGE_COUNT,
-    pageCount,
-  })
-  const pages = Array.from({length: VISIBLE_PAGE_COUNT}).map((_, i) => {
-    const offset = windowStartIndex + i
-    const active = offset === pageIndex
 
-    return (
-      <li className="TablePaginationStep" key={offset}>
-        <Button
-          type="button"
-          className="TablePaginationPage"
-          data-active={active ? true : undefined}
-          onClick={() => {
-            selectPage(offset)
-          }}
-        >
-          <VisuallyHidden>Page&nbsp;</VisuallyHidden>
-          {offset + 1}
-        </Button>
-      </li>
-    )
+  const totalPageCount = pageCount > 2 ? Math.min(pageCount - 2, 5) : 0
+  const [offsetStartIndex, setOffsetStartIndex] = useState(() => {
+    if (pageIndex === 0) {
+      return 1
+    }
+    return pageIndex
+  })
+  const offsetEndIndex = offsetStartIndex + totalPageCount - 1
+  const hasLeadingTruncation = offsetStartIndex >= 2
+  const hasTrailingTruncation = pageCount - 1 - offsetEndIndex > 1
+
+  console.log({
+    totalPageCount,
+    offsetStartIndex,
+    offsetEndIndex,
+    pageIndex,
   })
 
   return (
@@ -201,9 +183,10 @@ export function Pagination({
               }
 
               selectPreviousPage()
-
-              if (!isWithinBounds(pageIndex - 1)) {
-                shiftWindowDown()
+              if (hasLeadingTruncation) {
+                if (pageIndex - 1 < offsetStartIndex + 1) {
+                  setOffsetStartIndex(offsetStartIndex - 1)
+                }
               }
             }}
           >
@@ -212,45 +195,75 @@ export function Pagination({
             <VisuallyHidden>&nbsp;page</VisuallyHidden>
           </Button>
         </li>
-        {hasPagesBefore ? (
-          <>
-            <li className="TablePaginationStep">
-              <Button
-                type="button"
-                className="TablePaginationPage"
-                onClick={() => {
-                  selectPage(0)
-                  shiftStartTo(0)
-                }}
-              >
-                <VisuallyHidden>Page&nbsp;</VisuallyHidden>1
-              </Button>
-            </li>
-            <li aria-hidden="true" className="TablePaginationTruncated">
-              …
-            </li>
-          </>
+        {pageCount > 0 ? (
+          <li className="TablePaginationStep">
+            <Button
+              className="TablePaginationPage"
+              type="button"
+              data-active={pageIndex === 0 ? true : undefined}
+              aria-current={pageIndex === 0 ? true : undefined}
+              onClick={() => {
+                selectPage(0)
+                if (pageCount > 1) {
+                  setOffsetStartIndex(1)
+                }
+              }}
+            >
+              {1}
+            </Button>
+          </li>
         ) : null}
-        {pages}
-        {hasPagesAfter ? (
-          <>
-            <li aria-hidden="true" className="TablePaginationTruncated">
-              …
-            </li>
-            <li className="TablePaginationStep">
-              <Button
-                type="button"
-                className="TablePaginationPage"
-                onClick={() => {
-                  selectPage(pageCount)
-                  shiftEndTo(pageCount)
-                }}
-              >
-                <VisuallyHidden>Page&nbsp;</VisuallyHidden>
-                {pageCount}
-              </Button>
-            </li>
-          </>
+        {pageCount > 2
+          ? Array.from({length: totalPageCount}).map((_, i) => {
+              if (i === 0 && hasLeadingTruncation) {
+                return (
+                  <li aria-hidden="true" className="TablePaginationTruncated" key={`truncation-${i}`}>
+                    …
+                  </li>
+                )
+              }
+
+              if (i === totalPageCount - 1 && hasTrailingTruncation) {
+                return (
+                  <li aria-hidden="true" className="TablePaginationTruncated" key={`truncation-${i}`}>
+                    …
+                  </li>
+                )
+              }
+
+              const page = offsetStartIndex + i
+              return (
+                <li className="TablePaginationStep" key={i}>
+                  <Button
+                    className="TablePaginationPage"
+                    type="button"
+                    data-active={pageIndex === page ? true : undefined}
+                    aria-current={pageIndex === page ? true : undefined}
+                    onClick={() => {
+                      selectPage(page)
+                    }}
+                  >
+                    {page + 1}
+                  </Button>
+                </li>
+              )
+            })
+          : null}
+        {pageCount > 1 ? (
+          <li className="TablePaginationStep">
+            <Button
+              className="TablePaginationPage"
+              type="button"
+              data-active={pageIndex === pageCount - 1 ? true : undefined}
+              aria-current={pageIndex === pageCount - 1 ? true : undefined}
+              onClick={() => {
+                selectPage(pageCount - 1)
+                setOffsetStartIndex(pageCount - 1 - totalPageCount)
+              }}
+            >
+              {pageCount}
+            </Button>
+          </li>
         ) : null}
         <li className="TablePaginationStep">
           <Button
@@ -263,9 +276,10 @@ export function Pagination({
               }
 
               selectNextPage()
-
-              if (!isWithinBounds(pageIndex + 1)) {
-                shiftWindowUp()
+              if (hasTrailingTruncation) {
+                if (pageIndex + 1 > offsetEndIndex - 1) {
+                  setOffsetStartIndex(offsetStartIndex + 1)
+                }
               }
             }}
           >
@@ -289,9 +303,9 @@ function Range({pageStart, pageEnd, totalCount}: RangeProps) {
   return (
     <p className="TablePaginationRange">
       {pageStart + 1}
-      <VisuallyHidden>&nbsp;through&nbsp;</VisuallyHidden>
+      <VisuallyHidden as="span">&nbsp;through&nbsp;</VisuallyHidden>
       <span aria-hidden="true">‒</span>
-      {pageEnd} of {totalCount}
+      {pageEnd + 1} of {totalCount}
     </p>
   )
 }
@@ -413,65 +427,5 @@ function usePagination(config: PaginationConfig): PaginationResult {
     selectPage,
     selectPreviousPage,
     selectNextPage,
-  }
-}
-
-interface WindowingConfig {
-  /**
-   * Provide an optional index to specify the default selected page
-   */
-  defaultPageIndex?: number
-
-  /**
-   * Specify the size of the window
-   */
-  size: number
-
-  /**
-   * Specify the total number of items within the collection
-   */
-  pageCount: number
-}
-
-/**
- * A helper utility for "windowing"
- */
-function useWindowing(config: WindowingConfig) {
-  const {defaultPageIndex, size, pageCount} = config
-  const [startIndex, setStartIndex] = useState(defaultPageIndex ?? 0)
-  const endIndex = Math.min(startIndex + size, pageCount - 1)
-
-  console.log('useWindowing()', startIndex, endIndex, pageCount)
-
-  function isWithinBounds(index: number) {
-    return index >= startIndex && index < endIndex
-  }
-
-  function shiftWindowUp() {
-    setStartIndex(startIndex + 1)
-  }
-
-  function shiftWindowDown() {
-    setStartIndex(startIndex - 1)
-  }
-
-  function shiftStartTo(index: number) {
-    setStartIndex(index)
-  }
-
-  function shiftEndTo(index: number) {
-    setStartIndex(index - size)
-  }
-
-  return {
-    windowStartIndex: startIndex,
-    windowEndIndex: endIndex,
-    hasPagesBefore: startIndex > 0,
-    hasPagesAfter: endIndex < pageCount - 1,
-    isWithinBounds,
-    shiftWindowUp,
-    shiftWindowDown,
-    shiftStartTo,
-    shiftEndTo,
   }
 }
