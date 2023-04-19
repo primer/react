@@ -212,7 +212,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
                     id={labelId}
                     sx={{
                       flexGrow: slots.description?.props.variant !== 'block' ? 0 : 1,
-                      fontWeight: slots.description?.props.variant !== 'block' ? 'bold' : 'normal',
+                      fontWeight: slots.description && slots.description.props.variant !== 'block' ? 'bold' : 'normal',
                     }}
                   >
                     {childrenWithoutSlots}
