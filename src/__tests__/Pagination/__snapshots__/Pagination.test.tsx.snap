@@ -12,7 +12,7 @@ exports[`Pagination renders consistently 1`] = `
   padding: 0.5rem calc((2rem - 1.25rem) / 2);
   font-style: normal;
   line-height: 1;
-  color: #24292f;
+  color: #1F2328;
   text-align: center;
   white-space: nowrap;
   vertical-align: middle;
