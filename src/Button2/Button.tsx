@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import clsx from 'clsx'
+import merge from 'classnames'
 import sx, {SxProp} from '../sx'
 import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import CounterLabel, {CounterLabelProps} from '../CounterLabel'
@@ -61,7 +61,7 @@ const ButtonComponent = React.forwardRef(
     return (
       <StyledButton
         type="button"
-        className={clsx(classNames.button, className)}
+        className={merge(classNames.button, className)}
         data-variant={variant}
         data-size={size}
         data-block={block}
@@ -95,7 +95,7 @@ export type ButtonCounterProps = Omit<CounterLabelProps, 'scheme'> & {children: 
 
 const Counter = ({children, className, ...props}: ButtonCounterProps) => {
   return (
-    <CounterLabel className={clsx(classNames.counter, className)} data-component="ButtonCounter" {...props}>
+    <CounterLabel className={merge(classNames.counter, className)} data-component="ButtonCounter" {...props}>
       {children}
     </CounterLabel>
   )
