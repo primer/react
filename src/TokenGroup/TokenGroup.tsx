@@ -1,6 +1,7 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import {useResizeObserver, ResizeObserverEntry} from '../hooks/useResizeObserver'
 import styled from 'styled-components'
+import Box from '../Box'
 
 type TokenGroupProps = {
   visibleTokenCount?: number | 'auto'
@@ -22,61 +23,59 @@ const StyledActionsContainer = styled.div`
 
 const TokenGroup: React.FC<React.PropsWithChildren<TokenGroupProps>> = ({children, visibleTokenCount, width}) => {
   const [menuActions, setMenuActions] = React.useState([])
+  const [inlineActions, setInlineActions] = React.useState(getValidChildren(children))
   const [isOverflowing, setIsOverflowing] = React.useState(false)
   const actionsRef = React.useRef<HTMLDivElement>(null)
-  console.log('menuActions', menuActions)
 
-  const inlineActions = React.useMemo(() => {
-    const notInMenuActions = React.Children.toArray(children).filter(child => {
-      const menuActionIds = menuActions.map(menuAction => menuAction.props['data-targetid'])
-      return !menuActionIds.includes(child.props['data-targetid'])
-    })
+  const moveFromInline = () => {
+    const copyOfInlineActions = [...inlineActions]
+    // get the last element of the inline actions
+    const lastActionButton = copyOfInlineActions[copyOfInlineActions.length - 1]
+    console.log('lastActionButton', lastActionButton)
 
-    return notInMenuActions
-  }, [menuActions, children])
+    if (lastActionButton !== undefined) {
+      setMenuActions([...menuActions, lastActionButton])
+      const inlineActions = copyOfInlineActions.slice(0, -1)
+      setInlineActions(inlineActions)
 
-  React.useEffect(() => {
-    const moveFromInline = () => {
-      const lastActionButton = inlineActions[inlineActions.length - 1]
-      console.log('setting menuActions')
-      setMenuActions([lastActionButton, ...menuActions])
+      // if (isOverflowing) {
+      //   moveFromInline()
+      // }
     }
 
-    setIsOverflowing(actionsRef.current?.scrollWidth && actionsRef.current.scrollWidth > actionsRef.current.offsetWidth)
+    console.log('the new action and inline buttons', inlineActions, menuActions)
+  }
 
-    if (isOverflowing && inlineActions.length) {
-      moveFromInline()
-    }
-  }, [menuActions, actionsRef, isOverflowing, inlineActions])
+  // React.useLayoutEffect(() => {
+  //   console.log('actionsRef is rendered')
+
+  //   handleOverflow()
+  // }, [actionsRef])
 
   // TODO: figure out if we can do this without querying DOM node size (which triggers a reflow)
   // It would be better if we could use `resizeObserverEntries` to check `scrollWidth` and `offsetWidth`
   // const isOverflowing = () =>
   //   actionsRef.current?.scrollWidth && actionsRef.current.scrollWidth > actionsRef.current.offsetWidth
 
-  const handleResize = () => {
-    if (menuActions.length) {
-      // console.log('clearing menuActions')
-      setMenuActions([])
+  const handleOverflow = () => {
+    setIsOverflowing(actionsRef.current?.scrollWidth && actionsRef.current.scrollWidth > actionsRef.current.offsetWidth)
+    console.log('isOverflowing inside handleOverflow', isOverflowing)
+
+    if (isOverflowing) {
+      moveFromInline()
+    } else {
+      // do the opposite of the above
     }
-
-    console.log('isOverflowing inside handleResize', isOverflowing)
-
-    // else {
-    //   const menuActionsMinusFirst = menuActions.slice(1)
-    //   console.log('menuActionsMinusFirst', menuActionsMinusFirst)
-    //   setMenuActions(menuActionsMinusFirst)
-    // }
   }
 
-  useResizeObserver(handleResize, actionsRef)
+  useResizeObserver(handleOverflow, [])
+
+  console.log('rerender', inlineActions)
 
   return (
     <>
-      <StyledActionsContainer ref={actionsRef} style={{maxWidth: `${width}px`}}>
-        {inlineActions}
-      </StyledActionsContainer>
-      <div>{menuActions}</div>
+      <StyledActionsContainer ref={actionsRef}>{inlineActions}</StyledActionsContainer>
+      <Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'baseline'}}>{menuActions}</Box>
     </>
   )
 }
