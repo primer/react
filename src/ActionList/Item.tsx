@@ -204,7 +204,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
             >
               <ConditionalBox if={Boolean(slots.trailingVisual)} sx={{display: 'flex', flexGrow: 1}}>
                 <ConditionalBox
-                  if={slots.description?.props.variant !== 'block'}
+                  if={!!slots.description && slots.description.props.variant !== 'block'}
                   sx={{display: 'flex', flexGrow: 1, alignItems: 'baseline', minWidth: 0}}
                 >
                   <Box
