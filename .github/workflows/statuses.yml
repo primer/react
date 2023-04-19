@@ -11,6 +11,7 @@ on:
 jobs:
   build-and-deploy:
     name: Update status project
+    if: ${{ github.repository == 'primer/react' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
