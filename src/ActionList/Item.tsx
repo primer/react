@@ -182,7 +182,9 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       onKeyPress: keyPressHandler,
       'aria-disabled': disabled ? true : undefined,
       tabIndex: disabled ? undefined : 0,
-      'aria-labelledby': `${labelId} ${slots.description?.props.variant !== 'block' ? inlineDescriptionId : ''}`,
+      'aria-labelledby': `${labelId} ${
+        slots.description && slots.description.props.variant !== 'block' ? inlineDescriptionId : ''
+      }`,
       'aria-describedby': slots.description?.props.variant === 'block' ? blockDescriptionId : undefined,
       ...(selectionAttribute && {[selectionAttribute]: selected}),
       role: role || itemRole,
