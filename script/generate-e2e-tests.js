@@ -1013,6 +1013,41 @@ const components = new Map([
     },
   ],
   [
+    'SelectPanel',
+    {
+      stories: [
+        {
+          id: 'components-selectpanel--default',
+          name: 'Default',
+        },
+        {
+          id: 'components-selectpanel-features--single-select-story',
+          name: 'Single Select',
+        },
+        {
+          id: 'components-selectpanel-features--external-anchor-story',
+          name: 'External Anchor',
+        },
+        {
+          id: 'components-selectpanel-features--select-panel-height-initial-with-overflowing-items-story',
+          name: 'SelectPanel, Height: Initial, Overflowing Items',
+        },
+        {
+          id: 'components-selectpanel-features--select-panel-height-initial-with-underflowing-items-story',
+          name: 'SelectPanel, Height: Initial, Underflowing Items',
+        },
+        {
+          id: 'components-selectpanel-features--select-panel-above-tall-body',
+          name: 'SelectPanel, Above a Tall Body',
+        },
+        {
+          id: 'components-selectpanel-features-select-panel-height-and-scroll',
+          name: 'SelectPanel, Height and Scroll',
+        },
+      ],
+    },
+  ],
+  [
     'StateLabel',
     {
       stories: [
