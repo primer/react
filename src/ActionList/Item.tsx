@@ -213,7 +213,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
                     as="span"
                     id={labelId}
                     sx={{
-                      flexGrow: slots.description?.props.variant !== 'block' ? 0 : 1,
+                      flexGrow: slots.description && slots.description.props.variant !== 'block' ? 0 : 1,
                       fontWeight: slots.description && slots.description.props.variant !== 'block' ? 'bold' : 'normal',
                     }}
                   >
