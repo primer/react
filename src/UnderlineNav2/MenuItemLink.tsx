@@ -43,7 +43,7 @@ export const MenuItemLink = React.forwardRef<HTMLAnchorElement, MenuItemLinkProp
 
     return (
       // disable typescript error for now
-      // @ts-ignore
+      //   @ts-ignore
       <ActionList.LinkItem ref={forwardedRef} sx={menuItemStyles} as={itemAs} active={false} {...props}>
         <Box as="span" sx={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
           {children}

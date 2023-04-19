@@ -37,13 +37,22 @@ const Root = props => {
 
   const [content, setContent] = React.useState('Code')
 
+  //   const isCurrent = useMatch({path: resolved.pathname, end: true})
+
+  function isCurrent(children, to) {
+    const resolved = useResolvedPath(to)
+    return children === 'Code' && resolved.pathname === '/' ? true : useMatch({path: resolved.pathname, end: true})
+  }
+
   return (
     <Box sx={{backgroundColor: 'canvas.subtle', padding: 2}}>
       <UnderlineNav aria-label="Repository">
         {items.map((item, index) => (
-          // With react router
-          <UnderlineNavItem
+          <UnderlineNav.Item
+            key={item.navigation}
+            as={Link}
             to={`/${item.href}`}
+            aria-current={isCurrent(item.navigation, item.href) ? 'page' : undefined}
             counter={item.counter}
             icon={item.icon}
             onSelect={() => {
@@ -52,7 +61,19 @@ const Root = props => {
             }}
           >
             {item.navigation}
-          </UnderlineNavItem>
+          </UnderlineNav.Item>
+          // With react router
+          // <UnderlineNavItem
+          //   to={`/${item.href}`}
+          //   counter={item.counter}
+          //   icon={item.icon}
+          //   onSelect={() => {
+          //     console.log('set content')
+          //     setContent(item.navigation)
+          //   }}
+          // >
+          //   {item.navigation}
+          // </UnderlineNavItem>
         ))}
       </UnderlineNav>
 

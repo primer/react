@@ -3,13 +3,11 @@ import Box from '../Box'
 import sx, {merge, BetterSystemStyleObject, SxProp} from '../sx'
 import {UnderlineNavContext} from './UnderlineNavContext'
 import {useResizeObserver, ResizeObserverEntry} from '../hooks/useResizeObserver'
-import CounterLabel from '../CounterLabel'
 import {useTheme} from '../ThemeProvider'
 import {ChildWidthArray, ResponsiveProps, ChildSize} from './types'
 import VisuallyHidden from '../_VisuallyHidden'
 import {moreBtnStyles, getDividerStyle, getNavStyles, ulStyles, menuStyles, menuItemStyles, GAP} from './styles'
 import styled from 'styled-components'
-import {LoadingCounter} from './LoadingCounter'
 import {Button} from '../Button'
 import {TriangleDownIcon} from '@primer/octicons-react'
 import {useOnEscapePress} from '../hooks/useOnEscapePress'
@@ -17,15 +15,12 @@ import {useOnOutsideClick} from '../hooks/useOnOutsideClick'
 import {useId} from '../hooks/useId'
 import {ActionList} from '../ActionList'
 import {defaultSxProp} from '../utils/defaultSxProp'
-import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
-import {IconProps} from '@primer/octicons-react'
 
 import {MenuItemLink} from './MenuItemLink'
 
 export type UnderlineNavProps = {
   'aria-label'?: React.AriaAttributes['aria-label']
   as?: React.ElementType
-
   sx?: SxProp['sx']
   // cariant and align are currently not in used. Keeping here until some design explorations are finalized.
   variant?: 'default' | 'small'
@@ -92,6 +87,7 @@ const overflowEffect = (
      * If there is only one item left to display in the overflow menu according to the calculation,
      * we need to pull another item from the list into the overflow menu.
      */
+    console.log(childArray)
     const numberOfItemsInMenu = childArray.length - numberOfItemsPossibleWithMoreMenu
     const numberOfListItems =
       numberOfItemsInMenu === 1 ? numberOfItemsPossibleWithMoreMenu - 1 : numberOfItemsPossibleWithMoreMenu
@@ -104,6 +100,7 @@ const overflowEffect = (
         const isCurrent = Boolean(ariaCurrent) && ariaCurrent !== 'false'
         // We need to make sure to keep the selected item always visible.
         // To do that, we swap the selected item with the last item in the list to make it visible. (When there is at least 1 item in the list to swap.)
+        // console.log(isCurrent, child, numberOfListItems)
         if (isCurrent && numberOfListItems > 0) {
           // If selected item couldn't make in to the list, we swap it with the last item in the list.
           const indexToReplaceAt = numberOfListItems - 1 // because we are replacing the last item in the list
@@ -173,7 +170,6 @@ export const UnderlineNav = forwardRef(
       event: React.MouseEvent<HTMLAnchorElement> | React.KeyboardEvent<HTMLAnchorElement>,
       callback: (props: ResponsiveProps, displayIcons: boolean) => void,
     ) => {
-      console.log('swapMenuItemWithListItem', prospectiveListItem)
       // get the selected menu item's width
       const widthToFitIntoList = getItemsWidth(prospectiveListItem.props.children)
       // Check if there is any empty space on the right side of the list
