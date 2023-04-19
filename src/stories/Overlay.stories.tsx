@@ -385,7 +385,7 @@ export const MemexIssueOverlay = () => {
           onClickOutside={() => setOverlayOpen(false)}
           returnFocusRef={linkRef}
           top={0}
-          left={window.innerWidth - 480}
+          left="calc(100vw - 480px)"
         >
           <Box sx={{p: 4, height: '100vh'}}>
             <Box sx={{display: 'flex', alignItems: 'center', gap: 1, mb: 2}}>

@@ -94,7 +94,7 @@ export const getLinkStyles = (
     },
   },
   '&:focus': {
-    outline: 0,
+    outline: '2px solid transparent',
     '&': {
       boxShadow: `inset 0 0 0 2px ${theme?.colors.accent.fg}`,
     },
@@ -104,6 +104,7 @@ export const getLinkStyles = (
     },
   },
   '&:focus-visible': {
+    outline: '2px solid transparent',
     boxShadow: `inset 0 0 0 2px ${theme?.colors.accent.fg}`,
   },
   // renders a visibly hidden "copy" of the label in bold, reserving box space for when label becomes bold on selected
