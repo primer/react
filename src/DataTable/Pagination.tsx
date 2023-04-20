@@ -3,9 +3,8 @@ import React, {useState} from 'react'
 import styled from 'styled-components'
 import {get} from '../constants'
 import {Button} from '../internal/components/ButtonReset'
-import {Message} from '../internal/components/LiveRegion'
+import {LiveRegion, LiveRegionOutlet, Message} from '../internal/components/LiveRegion'
 import {VisuallyHidden} from '../internal/components/VisuallyHidden'
-import {LiveRegion, LiveRegionOutlet, useLiveRegion} from '../internal/components/LiveRegion'
 
 const StyledPagination = styled.nav`
   display: flex;

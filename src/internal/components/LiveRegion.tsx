@@ -16,7 +16,7 @@ function useLiveRegion() {
   return context
 }
 
-function LiveRegion({children}: React.PropsWithChildren<{}>) {
+function LiveRegion({children}: React.PropsWithChildren) {
   const [message, setMessage] = React.useState('')
   const value = React.useMemo(() => {
     return {
@@ -32,18 +32,23 @@ function LiveRegionOutlet() {
   const liveRegion = useLiveRegion()
   return (
     <VisuallyHidden role="status" aria-live="polite" aria-atomic={true}>
-      {liveRegion.message ?? null}
+      {liveRegion.message}
     </VisuallyHidden>
   )
 }
 
 function Message({value}: {value: string}) {
   const liveRegion = useLiveRegion()
+  const savedLiveRegion = React.useRef(liveRegion)
   const committedRef = React.useRef(false)
 
   React.useEffect(() => {
+    savedLiveRegion.current = liveRegion
+  }, [liveRegion])
+
+  React.useEffect(() => {
     if (committedRef.current === true) {
-      liveRegion.announce(value)
+      savedLiveRegion.current.announce(value)
     }
   }, [value])
 

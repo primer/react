@@ -14,7 +14,6 @@ import RelativeTime from '../RelativeTime'
 import VisuallyHidden from '../_VisuallyHidden'
 import {createColumnHelper} from './column'
 import {repos} from './storybook/data'
-import {LiveRegion, LiveRegionOutlet, Message} from '../internal/components/LiveRegion'
 
 export default {
   title: 'Components/DataTable/Features',
@@ -1370,7 +1369,6 @@ export const WithPagination = () => {
     const start = pageIndex * pageSize
     const end = start + pageSize
     const rows = repos.slice(start, end)
-    const totalCount = repos.length
 
     return (
       <Table.Container>
