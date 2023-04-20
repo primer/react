@@ -208,7 +208,14 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
                       if={Boolean(slots.InlineDescription)}
                       sx={{display: 'flex', flexGrow: 1, alignItems: 'baseline', minWidth: 0}}
                     >
-                      <Box as="span" id={labelId} sx={{flexGrow: slots.InlineDescription ? 0 : 1}}>
+                      <Box
+                        as="span"
+                        id={labelId}
+                        sx={{
+                          flexGrow: slots.InlineDescription ? 0 : 1,
+                          fontWeight: slots.InlineDescription ? 'bold' : 'normal',
+                        }}
+                      >
                         {props.children}
                       </Box>
                       {slots.InlineDescription}

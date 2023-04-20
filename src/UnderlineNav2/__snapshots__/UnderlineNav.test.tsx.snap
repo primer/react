@@ -56,7 +56,7 @@ exports[`UnderlineNav renders consistently 1`] = `
 }
 
 .c4:focus {
-  outline: 0;
+  outline: 2px solid transparent;
 }
 
 .c4:focus {
@@ -68,6 +68,7 @@ exports[`UnderlineNav renders consistently 1`] = `
 }
 
 .c4:focus-visible {
+  outline: 2px solid transparent;
   box-shadow: inset 0 0 0 2px #0969da;
 }
 

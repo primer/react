@@ -55,117 +55,6 @@
         }
       ]
     },
-    "overlay": {
-      "id": "overlay",
-      "name": "Overlay",
-      "status": "alpha",
-      "a11yReviewed": false,
-      "stories": [],
-      "props": [
-        {
-          "name": "returnFocusRef",
-          "type": "React.RefObject<HTMLElement>",
-          "defaultValue": "",
-          "required": true,
-          "description": "Ref for the element to focus when the `Overlay` is closed."
-        },
-        {
-          "name": "onClickOutside",
-          "type": "function",
-          "defaultValue": "",
-          "required": true,
-          "description": "Function to call when clicking outside of the `Overlay`. Typically this function sets the `Overlay` visibility state to `false`."
-        },
-        {
-          "name": "onEscape",
-          "type": "function",
-          "defaultValue": "",
-          "required": true,
-          "description": "Function to call when user presses `Escape`. Typically this function sets the `Overlay` visibility state to `false`."
-        },
-        {
-          "name": "ignoreClickRefs",
-          "type": "React.RefObject<HTMLElement> []",
-          "defaultValue": "",
-          "description": "An array of ref objects to ignore clicks on in the onOutsideClick behavior. This is often used to ignore clicking on the element that toggles the open/closed state for the Overlay to prevent the Overlay from being toggled twice."
-        },
-        {
-          "name": "initialFocusRef",
-          "type": "React.RefObject<HTMLElement>",
-          "defaultValue": "",
-          "description": "Ref for the element to focus when the `Overlay` is opened. If nothing is provided, the first focusable element in the `Overlay` body is focused."
-        },
-        {
-          "name": "width",
-          "type": "| 'small' | 'medium' | 'large' | 'xlarge' | 'xxlarge' | 'auto'",
-          "defaultValue": "'auto'",
-          "description": "Sets the width of the `Overlay`, pick from our set list of widths, or pass `auto` to automatically set the width based on the content of the `Overlay`. `small` corresponds to `256px`, `medium` corresponds to `320px`, `large` corresponds to `480px`, `xlarge` corresponds to `640px`, `xxlarge` corresponds to `960px`."
-        },
-        {
-          "name": "height",
-          "type": "| 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge' | 'auto'",
-          "defaultValue": "'auto'",
-          "description": "Sets the height of the `Overlay`, pick from our set list of heights, or pass `auto` to automatically set the height based on the content of the `Overlay`. `xsmall` corresponds to `192px`, `small` corresponds to `256px`, `medium` corresponds to `320px`, `large` corresponds to `432px`, `xlarge` corresponds to `600px`."
-        },
-        {
-          "name": "maxHeight",
-          "type": "| 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge'",
-          "defaultValue": "",
-          "description": "Sets the maximum height of the `Overlay`, pick from our set list of heights. `xsmall` corresponds to `192px`, `small` corresponds to `256px`, `medium` corresponds to `320px`, `large` corresponds to `432px`, `xlarge` corresponds to `600px`."
-        },
-        {
-          "name": "visibility",
-          "type": "| 'visible' | 'hidden'",
-          "defaultValue": "'visible'",
-          "description": "Sets the visibility of the `Overlay`."
-        },
-        {
-          "name": "anchorSide",
-          "type": "| 'inside-top' | 'inside-bottom' | 'inside-left' | 'inside-right' | 'inside-center' | 'outside-top' | 'outside-bottom' | 'outside-left' | 'outside-right'",
-          "defaultValue": "",
-          "description": "If provided, the Overlay will slide into position from the side of the anchor with a brief animation"
-        },
-        {
-          "name": "top",
-          "type": "number",
-          "defaultValue": "0",
-          "description": "The top CSS property of the Overlay — affects the vertical position."
-        },
-        {
-          "name": "left",
-          "type": "number",
-          "defaultValue": "0",
-          "description": "The left CSS property of the Overlay — affects the horizontal position."
-        },
-        {
-          "name": "right",
-          "type": "number",
-          "description": "The right CSS property of the Overlay — affects the horizontal position."
-        },
-        {
-          "name": "bottom",
-          "type": "number",
-          "description": "The bottom CSS property of the Overlay — affects the vertical position."
-        },
-        {
-          "name": "position",
-          "type": "| 'static' | 'relative' | 'absolute' | 'fixed' | 'sticky'",
-          "defaultValue": "absolute",
-          "description": "The position CSS property of the Overlay — sets how the Overlay is positioned relative to its Portal"
-        },
-        {
-          "name": "portalContainerName",
-          "type": "string",
-          "defaultValue": "",
-          "description": "If defined, Overlays will be rendered in the named portal. See also `Portal`."
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject"
-        }
-      ],
-      "subcomponents": []
-    },
     "styled_octicon": {
       "id": "styled_octicon",
       "name": "StyledOcticon",
@@ -210,83 +99,37 @@
       ],
       "subcomponents": []
     },
-    "sub_nav": {
-      "id": "sub_nav",
-      "name": "SubNav",
+    "tooltip": {
+      "id": "tooltip",
+      "name": "Tooltip",
       "status": "alpha",
       "a11yReviewed": false,
       "stories": [],
       "props": [
         {
-          "name": "actions",
-          "type": "React.ReactNode",
-          "description": "Place another element, such as a button, to the opposite side of the navigation items."
-        },
-        {
           "name": "align",
-          "type": "'right'",
-          "description": "Use `right` to have navigation items aligned right."
+          "type": "'left' | 'right'"
         },
         {
-          "name": "full",
+          "name": "direction",
+          "type": "'n' | 'ne' | 'e' | 'se' | 's' | 'sw' | 'w' | 'nw'",
+          "defaultValue": "n",
+          "description": "Sets where the tooltip renders in relation to the target."
+        },
+        {
+          "name": "noDelay",
           "type": "boolean",
-          "description": "Used to make navigation fill the width of the container."
+          "description": "When set to `true`, tooltip appears without any delay."
         },
         {
           "name": "aria-label",
           "type": "string",
-          "description": "Used to set the `aria-label` on the top level `<nav>` element."
+          "description": "Text used in `aria-label` (for accessibility)"
         },
         {
-          "name": "sx",
-          "type": "SystemStyleObject"
-        }
-      ],
-      "subcomponents": [
-        {
-          "name": "SubNav.Link",
-          "props": [
-            {
-              "name": "as",
-              "type": "React.ElementType",
-              "default": "'a'"
-            },
-            {
-              "name": "href",
-              "type": "string"
-            },
-            {
-              "name": "selected",
-              "type": "boolean"
-            },
-            {
-              "name": "sx",
-              "type": "SystemStyleObject"
-            }
-          ]
-        },
-        {
-          "name": "SubNav.Links",
-          "props": [
-            {
-              "name": "sx",
-              "type": "SystemStyleObject"
-            }
-          ]
-        }
-      ]
-    },
-    "text": {
-      "id": "text",
-      "name": "Text",
-      "status": "alpha",
-      "a11yReviewed": true,
-      "stories": [],
-      "props": [
-        {
-          "name": "as",
-          "defaultValue": "'span'",
-          "type": "React.ElementType"
+          "name": "wrap",
+          "type": "boolean",
+          "description": "Use `true` to allow text within tooltip to wrap."
         },
         {
           "name": "sx",
@@ -2462,6 +2305,117 @@
         }
       ]
     },
+    "overlay": {
+      "id": "overlay",
+      "name": "Overlay",
+      "status": "alpha",
+      "a11yReviewed": false,
+      "stories": [],
+      "props": [
+        {
+          "name": "returnFocusRef",
+          "type": "React.RefObject<HTMLElement>",
+          "defaultValue": "",
+          "required": true,
+          "description": "Ref for the element to focus when the `Overlay` is closed."
+        },
+        {
+          "name": "onClickOutside",
+          "type": "function",
+          "defaultValue": "",
+          "required": true,
+          "description": "Function to call when clicking outside of the `Overlay`. Typically this function sets the `Overlay` visibility state to `false`."
+        },
+        {
+          "name": "onEscape",
+          "type": "function",
+          "defaultValue": "",
+          "required": true,
+          "description": "Function to call when user presses `Escape`. Typically this function sets the `Overlay` visibility state to `false`."
+        },
+        {
+          "name": "ignoreClickRefs",
+          "type": "React.RefObject<HTMLElement> []",
+          "defaultValue": "",
+          "description": "An array of ref objects to ignore clicks on in the onOutsideClick behavior. This is often used to ignore clicking on the element that toggles the open/closed state for the Overlay to prevent the Overlay from being toggled twice."
+        },
+        {
+          "name": "initialFocusRef",
+          "type": "React.RefObject<HTMLElement>",
+          "defaultValue": "",
+          "description": "Ref for the element to focus when the `Overlay` is opened. If nothing is provided, the first focusable element in the `Overlay` body is focused."
+        },
+        {
+          "name": "width",
+          "type": "| 'small' | 'medium' | 'large' | 'xlarge' | 'xxlarge' | 'auto'",
+          "defaultValue": "'auto'",
+          "description": "Sets the width of the `Overlay`, pick from our set list of widths, or pass `auto` to automatically set the width based on the content of the `Overlay`. `small` corresponds to `256px`, `medium` corresponds to `320px`, `large` corresponds to `480px`, `xlarge` corresponds to `640px`, `xxlarge` corresponds to `960px`."
+        },
+        {
+          "name": "height",
+          "type": "| 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge' | 'auto'",
+          "defaultValue": "'auto'",
+          "description": "Sets the height of the `Overlay`, pick from our set list of heights, or pass `auto` to automatically set the height based on the content of the `Overlay`. `xsmall` corresponds to `192px`, `small` corresponds to `256px`, `medium` corresponds to `320px`, `large` corresponds to `432px`, `xlarge` corresponds to `600px`."
+        },
+        {
+          "name": "maxHeight",
+          "type": "| 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge'",
+          "defaultValue": "",
+          "description": "Sets the maximum height of the `Overlay`, pick from our set list of heights. `xsmall` corresponds to `192px`, `small` corresponds to `256px`, `medium` corresponds to `320px`, `large` corresponds to `432px`, `xlarge` corresponds to `600px`."
+        },
+        {
+          "name": "visibility",
+          "type": "| 'visible' | 'hidden'",
+          "defaultValue": "'visible'",
+          "description": "Sets the visibility of the `Overlay`."
+        },
+        {
+          "name": "anchorSide",
+          "type": "| 'inside-top' | 'inside-bottom' | 'inside-left' | 'inside-right' | 'inside-center' | 'outside-top' | 'outside-bottom' | 'outside-left' | 'outside-right'",
+          "defaultValue": "",
+          "description": "If provided, the Overlay will slide into position from the side of the anchor with a brief animation"
+        },
+        {
+          "name": "top",
+          "type": "number",
+          "defaultValue": "0",
+          "description": "The top CSS property of the Overlay — affects the vertical position."
+        },
+        {
+          "name": "left",
+          "type": "number",
+          "defaultValue": "0",
+          "description": "The left CSS property of the Overlay — affects the horizontal position."
+        },
+        {
+          "name": "right",
+          "type": "number",
+          "description": "The right CSS property of the Overlay — affects the horizontal position."
+        },
+        {
+          "name": "bottom",
+          "type": "number",
+          "description": "The bottom CSS property of the Overlay — affects the vertical position."
+        },
+        {
+          "name": "position",
+          "type": "| 'static' | 'relative' | 'absolute' | 'fixed' | 'sticky'",
+          "defaultValue": "absolute",
+          "description": "The position CSS property of the Overlay — sets how the Overlay is positioned relative to its Portal"
+        },
+        {
+          "name": "portalContainerName",
+          "type": "string",
+          "defaultValue": "",
+          "description": "If defined, Overlays will be rendered in the named portal. See also `Portal`."
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ],
+      "subcomponents": []
+    },
     "drafts_page_header": {
       "id": "drafts_page_header",
       "name": "PageHeader",
@@ -3166,7 +3120,12 @@
       "name": "Portal",
       "status": "alpha",
       "a11yReviewed": false,
-      "stories": [],
+      "stories": [
+        {
+          "id": "components-portal--default",
+          "code": "() => (\n  <>\n    Root position\n    <Box bg=\"red.2\" p={3}>\n      Outer container\n      <Box bg=\"green.2\" p={3}>\n        Inner container\n        <Portal>\n          Portaled content rendered at <code>&lt;BaseStyles&gt;</code> root.\n        </Portal>\n      </Box>\n    </Box>\n  </>\n)"
+        }
+      ],
       "props": [
         {
           "name": "onMount",
@@ -3979,6 +3938,77 @@
       ],
       "subcomponents": []
     },
+    "sub_nav": {
+      "id": "sub_nav",
+      "name": "SubNav",
+      "status": "alpha",
+      "a11yReviewed": false,
+      "stories": [
+        {
+          "id": "components-subnav--default",
+          "code": "() => (\n  <SubNav aria-label=\"Main\">\n    <SubNav.Links>\n      <SubNav.Link href=\"#home\" selected>\n        Home\n      </SubNav.Link>\n      <SubNav.Link href=\"#documentation\">Documentation</SubNav.Link>\n      <SubNav.Link href=\"#support\">Support</SubNav.Link>\n    </SubNav.Links>\n  </SubNav>\n)"
+        }
+      ],
+      "props": [
+        {
+          "name": "actions",
+          "type": "React.ReactNode",
+          "description": "Place another element, such as a button, to the opposite side of the navigation items."
+        },
+        {
+          "name": "align",
+          "type": "'right'",
+          "description": "Use `right` to have navigation items aligned right."
+        },
+        {
+          "name": "full",
+          "type": "boolean",
+          "description": "Used to make navigation fill the width of the container."
+        },
+        {
+          "name": "aria-label",
+          "type": "string",
+          "description": "Used to set the `aria-label` on the top level `<nav>` element."
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ],
+      "subcomponents": [
+        {
+          "name": "SubNav.Link",
+          "props": [
+            {
+              "name": "as",
+              "type": "React.ElementType",
+              "default": "'a'"
+            },
+            {
+              "name": "href",
+              "type": "string"
+            },
+            {
+              "name": "selected",
+              "type": "boolean"
+            },
+            {
+              "name": "sx",
+              "type": "SystemStyleObject"
+            }
+          ]
+        },
+        {
+          "name": "SubNav.Links",
+          "props": [
+            {
+              "name": "sx",
+              "type": "SystemStyleObject"
+            }
+          ]
+        }
+      ]
+    },
     "tab_nav": {
       "id": "tab_nav",
       "name": "TabNav",
@@ -4025,6 +4055,30 @@
           ]
         }
       ]
+    },
+    "text": {
+      "id": "text",
+      "name": "Text",
+      "status": "alpha",
+      "a11yReviewed": true,
+      "stories": [
+        {
+          "id": "components-text--default",
+          "code": "() => <Text>Default Text</Text>"
+        }
+      ],
+      "props": [
+        {
+          "name": "as",
+          "defaultValue": "'span'",
+          "type": "React.ElementType"
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ],
+      "subcomponents": []
     },
     "text_input": {
       "id": "text_input",
@@ -4638,61 +4692,6 @@
           ]
         }
       ]
-    },
-    "tooltip": {
-      "id": "tooltip",
-      "name": "Tooltip",
-      "status": "alpha",
-      "a11yReviewed": false,
-      "stories": [
-        {
-          "id": "components-tooltip--default",
-          "code": "() => (\n  <Box\n    sx={{\n      p: 5,\n    }}\n  >\n    <Tooltip aria-label=\"Filter vegetarian options\" direction=\"e\">\n      <Button>🥦</Button>\n    </Tooltip>\n  </Box>\n)"
-        }
-      ],
-      "props": [
-        {
-          "name": "align",
-          "type": "'left' | 'right'"
-        },
-        {
-          "name": "aria-label",
-          "type": "string",
-          "description": "Should be utilised for label type tooltips and it is going to be used to label the tooltip trigger."
-        },
-        {
-          "name": "direction",
-          "type": "'n' | 'ne' | 'e' | 'se' | 's' | 'sw' | 'w' | 'nw'",
-          "defaultValue": "n",
-          "description": "Sets where the tooltip renders in relation to the target."
-        },
-        {
-          "name": "noDelay",
-          "type": "boolean",
-          "description": "When set to `true`, tooltip appears without any delay."
-        },
-        {
-          "name": "text",
-          "type": "string",
-          "description": "Should be utilised for description type tooltips and it is going to be used to describe the tooltip trigger."
-        },
-        {
-          "name": "type",
-          "type": "'label' | 'description'",
-          "defaultValue": "label",
-          "description": "The type of tooltip. `label` is used for labelling the element that triggers tooltip. `description` is used for describing or adding a suplementary information to the element that triggers the tooltip."
-        },
-        {
-          "name": "wrap",
-          "type": "boolean",
-          "description": "Use `true` to allow text within tooltip to wrap."
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject"
-        }
-      ],
-      "subcomponents": []
     },
     "tree_view": {
       "id": "tree_view",
