@@ -174,32 +174,4 @@ test.describe('SelectPanel', () => {
       })
     }
   })
-
-  test.describe('SelectPanel, Height and Scroll', () => {
-    for (const theme of themes) {
-      test.describe(theme, () => {
-        test('default @vrt', async ({page}) => {
-          await visit(page, {
-            id: 'components-selectpanel-features-select-panel-height-and-scroll',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-
-          // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`SelectPanel.SelectPanel, Height and Scroll.${theme}.png`)
-        })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-selectpanel-features-select-panel-height-and-scroll',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations()
-        })
-      })
-    }
-  })
 })
