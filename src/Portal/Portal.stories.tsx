@@ -1,24 +1,13 @@
 import React from 'react'
-import {Meta} from '@storybook/react'
+import {ComponentMeta} from '@storybook/react'
 
-import {BaseStyles, Box, ThemeProvider} from '..'
+import {Box} from '..'
 import {Portal} from './Portal'
 
 export default {
   title: 'Behaviors/Portal',
   component: Portal,
-  decorators: [
-    Story => {
-      return (
-        <ThemeProvider>
-          <BaseStyles>
-            <Story />
-          </BaseStyles>
-        </ThemeProvider>
-      )
-    },
-  ],
-} as Meta
+} as ComponentMeta<typeof Portal>
 
 export const Default = () => (
   <>
