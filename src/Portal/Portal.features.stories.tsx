@@ -1,39 +1,12 @@
 import React from 'react'
-import {Meta} from '@storybook/react'
-
-import {BaseStyles, Box, ThemeProvider} from '..'
-import Portal, {registerPortalRoot} from '../Portal'
+import {ComponentMeta} from '@storybook/react'
+import Box from '../Box'
+import {Portal, registerPortalRoot} from './Portal'
 
 export default {
-  title: 'Behaviors/Portal',
+  title: 'Behaviors/Portal/Features',
   component: Portal,
-  decorators: [
-    Story => {
-      return (
-        <ThemeProvider>
-          <BaseStyles>
-            <Story />
-          </BaseStyles>
-        </ThemeProvider>
-      )
-    },
-  ],
-} as Meta
-
-export const DefaultPortal = () => (
-  <>
-    Root position
-    <Box bg="red.2" p={3}>
-      Outer container
-      <Box bg="green.2" p={3}>
-        Inner container
-        <Portal>
-          Portaled content rendered at <code>&lt;BaseStyles&gt;</code> root.
-        </Portal>
-      </Box>
-    </Box>
-  </>
-)
+} as ComponentMeta<typeof Portal>
 
 export const CustomPortalRootById = () => (
   <>
