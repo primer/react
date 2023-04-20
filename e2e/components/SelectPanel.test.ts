@@ -87,7 +87,7 @@ test.describe('SelectPanel', () => {
     }
   })
 
-  test.describe('SelectPanel, Height: Initial, Overflowing Items', () => {
+  test.describe('SelectPanel, Initial Height, Overflowing Items', () => {
     for (const theme of themes) {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
@@ -100,7 +100,7 @@ test.describe('SelectPanel', () => {
 
           // Default state
           expect(await page.screenshot()).toMatchSnapshot(
-            `SelectPanel.SelectPanel, Height: Initial, Overflowing Items.${theme}.png`,
+            `SelectPanel.SelectPanel, Initial Height, Overflowing Items.${theme}.png`,
           )
         })
 
@@ -117,7 +117,7 @@ test.describe('SelectPanel', () => {
     }
   })
 
-  test.describe('SelectPanel, Height: Initial, Underflowing Items', () => {
+  test.describe('SelectPanel, Initial Height, Underflowing Items', () => {
     for (const theme of themes) {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
@@ -130,7 +130,7 @@ test.describe('SelectPanel', () => {
 
           // Default state
           expect(await page.screenshot()).toMatchSnapshot(
-            `SelectPanel.SelectPanel, Height: Initial, Underflowing Items.${theme}.png`,
+            `SelectPanel.SelectPanel, Initial Height, Underflowing Items.${theme}.png`,
           )
         })
 
