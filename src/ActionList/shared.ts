@@ -1,7 +1,8 @@
 import React from 'react'
+
+import {AriaRole} from '../utils/types'
 import {SxProp} from '../sx'
 import createSlots from '../utils/create-slots'
-import {AriaRole} from '../utils/types'
 
 export type ActionListItemProps = {
   /**
@@ -56,9 +57,11 @@ type MenuItemProps = {
 }
 
 export type ItemContext = Pick<ActionListItemProps, 'variant' | 'disabled'> & {
-  inlineDescriptionId: string
-  blockDescriptionId: string
+  inlineDescriptionId?: string
+  blockDescriptionId?: string
 }
+
+export const ItemContext = React.createContext<ItemContext>({})
 
 export const getVariantStyles = (
   variant: ActionListItemProps['variant'],
