@@ -1,47 +1,31 @@
-import {Meta} from '@storybook/react'
 import React, {useState} from 'react'
-import {theme, ThemeProvider} from '..'
-import {Button} from '../Button'
+import {ComponentMeta} from '@storybook/react'
 import {TriangleDownIcon} from '@primer/octicons-react'
+
+import {Button} from '../Button'
 import {ItemInput} from '../deprecated/ActionList/List'
-import BaseStyles from '../BaseStyles'
 import {SelectPanel} from '../SelectPanel'
 import Box from '../Box'
 
-const meta: Meta = {
+export default {
   title: 'Components/SelectPanel',
   component: SelectPanel,
-  decorators: [
-    (Story: React.ComponentType<React.PropsWithChildren<unknown>>): JSX.Element => {
-      return (
-        <ThemeProvider theme={theme}>
-          <BaseStyles>
-            <Story />
-          </BaseStyles>
-        </ThemeProvider>
-      )
-    },
-  ],
-  parameters: {
-    controls: {
-      disable: true,
-    },
-  },
-}
-export default meta
+} as ComponentMeta<typeof SelectPanel>
 
 function getColorCircle(color: string) {
   return function () {
     return (
       <Box
-        bg={color}
-        borderColor={color}
-        width={14}
-        height={14}
-        borderRadius={10}
-        margin="auto"
-        borderWidth="1px"
-        borderStyle="solid"
+        sx={{
+          backgroundColor: color,
+          borderColor: color,
+          width: 14,
+          height: 14,
+          borderRadius: 10,
+          margin: 'auto',
+          borderWidth: '1px',
+          borderStyle: 'solid',
+        }}
       />
     )
   }
