@@ -3,7 +3,9 @@ import React, {useState} from 'react'
 import styled from 'styled-components'
 import {get} from '../constants'
 import {Button} from '../internal/components/ButtonReset'
+import {Message} from '../internal/components/LiveRegion'
 import {VisuallyHidden} from '../internal/components/VisuallyHidden'
+import {LiveRegion, LiveRegionOutlet, useLiveRegion} from '../internal/components/LiveRegion'
 
 const StyledPagination = styled.nav`
   display: flex;
@@ -149,7 +151,6 @@ export function Pagination({
     pageSize,
     totalCount,
   })
-
   const totalPageCount = pageCount > 2 ? Math.min(pageCount - 2, 7) : 0
   const [offsetStartIndex, setOffsetStartIndex] = useState(() => {
     if (pageIndex === 0) {
@@ -162,127 +163,130 @@ export function Pagination({
   const hasTrailingTruncation = pageCount - 1 - offsetEndIndex > 1
 
   return (
-    <StyledPagination aria-label={label} className="TablePagination" id={id} tabIndex={-1}>
-      <Range pageStart={pageStart} pageEnd={pageEnd} totalCount={totalCount} />
-      <ul className="TablePaginationSteps">
-        <li className="TablePaginationStep">
-          <Button
-            className="TablePaginationAction"
-            type="button"
-            data-has-page={hasPreviousPage ? true : undefined}
-            onClick={() => {
-              if (!hasPreviousPage) {
-                return
-              }
-
-              selectPreviousPage()
-              if (hasLeadingTruncation) {
-                if (pageIndex - 1 < offsetStartIndex + 1) {
-                  setOffsetStartIndex(offsetStartIndex - 1)
-                }
-              }
-            }}
-          >
-            {hasPreviousPage ? <ChevronLeftIcon /> : null}
-            <span className="TablePaginationActionLabel">Previous</span>
-            <VisuallyHidden>&nbsp;page</VisuallyHidden>
-          </Button>
-        </li>
-        {pageCount > 0 ? (
+    <LiveRegion>
+      <LiveRegionOutlet />
+      <StyledPagination aria-label={label} className="TablePagination" id={id} tabIndex={-1}>
+        <Range pageStart={pageStart} pageEnd={pageEnd} totalCount={totalCount} />
+        <ul className="TablePaginationSteps">
           <li className="TablePaginationStep">
             <Button
-              className="TablePaginationPage"
+              className="TablePaginationAction"
               type="button"
-              data-active={pageIndex === 0 ? true : undefined}
-              aria-current={pageIndex === 0 ? true : undefined}
+              data-has-page={hasPreviousPage ? true : undefined}
               onClick={() => {
-                selectPage(0)
-                if (pageCount > 1) {
-                  setOffsetStartIndex(1)
+                if (!hasPreviousPage) {
+                  return
+                }
+
+                selectPreviousPage()
+                if (hasLeadingTruncation) {
+                  if (pageIndex - 1 < offsetStartIndex + 1) {
+                    setOffsetStartIndex(offsetStartIndex - 1)
+                  }
                 }
               }}
             >
-              {1}
+              {hasPreviousPage ? <ChevronLeftIcon /> : null}
+              <span className="TablePaginationActionLabel">Previous</span>
+              <VisuallyHidden>&nbsp;page</VisuallyHidden>
             </Button>
           </li>
-        ) : null}
-        {pageCount > 2
-          ? Array.from({length: totalPageCount}).map((_, i) => {
-              if (i === 0 && hasLeadingTruncation) {
+          {pageCount > 0 ? (
+            <li className="TablePaginationStep">
+              <Button
+                className="TablePaginationPage"
+                type="button"
+                data-active={pageIndex === 0 ? true : undefined}
+                aria-current={pageIndex === 0 ? true : undefined}
+                onClick={() => {
+                  selectPage(0)
+                  if (pageCount > 1) {
+                    setOffsetStartIndex(1)
+                  }
+                }}
+              >
+                {1}
+              </Button>
+            </li>
+          ) : null}
+          {pageCount > 2
+            ? Array.from({length: totalPageCount}).map((_, i) => {
+                if (i === 0 && hasLeadingTruncation) {
+                  return (
+                    <li aria-hidden="true" className="TablePaginationTruncated" key={`truncation-${i}`}>
+                      …
+                    </li>
+                  )
+                }
+
+                if (i === totalPageCount - 1 && hasTrailingTruncation) {
+                  return (
+                    <li aria-hidden="true" className="TablePaginationTruncated" key={`truncation-${i}`}>
+                      …
+                    </li>
+                  )
+                }
+
+                const page = offsetStartIndex + i
                 return (
-                  <li aria-hidden="true" className="TablePaginationTruncated" key={`truncation-${i}`}>
-                    …
+                  <li className="TablePaginationStep" key={i}>
+                    <Button
+                      className="TablePaginationPage"
+                      type="button"
+                      data-active={pageIndex === page ? true : undefined}
+                      aria-current={pageIndex === page ? true : undefined}
+                      onClick={() => {
+                        selectPage(page)
+                      }}
+                    >
+                      {page + 1}
+                    </Button>
                   </li>
                 )
-              }
-
-              if (i === totalPageCount - 1 && hasTrailingTruncation) {
-                return (
-                  <li aria-hidden="true" className="TablePaginationTruncated" key={`truncation-${i}`}>
-                    …
-                  </li>
-                )
-              }
-
-              const page = offsetStartIndex + i
-              return (
-                <li className="TablePaginationStep" key={i}>
-                  <Button
-                    className="TablePaginationPage"
-                    type="button"
-                    data-active={pageIndex === page ? true : undefined}
-                    aria-current={pageIndex === page ? true : undefined}
-                    onClick={() => {
-                      selectPage(page)
-                    }}
-                  >
-                    {page + 1}
-                  </Button>
-                </li>
-              )
-            })
-          : null}
-        {pageCount > 1 ? (
+              })
+            : null}
+          {pageCount > 1 ? (
+            <li className="TablePaginationStep">
+              <Button
+                className="TablePaginationPage"
+                type="button"
+                data-active={pageIndex === pageCount - 1 ? true : undefined}
+                aria-current={pageIndex === pageCount - 1 ? true : undefined}
+                onClick={() => {
+                  selectPage(pageCount - 1)
+                  setOffsetStartIndex(pageCount - 1 - totalPageCount)
+                }}
+              >
+                {pageCount}
+              </Button>
+            </li>
+          ) : null}
           <li className="TablePaginationStep">
             <Button
-              className="TablePaginationPage"
+              className="TablePaginationAction"
               type="button"
-              data-active={pageIndex === pageCount - 1 ? true : undefined}
-              aria-current={pageIndex === pageCount - 1 ? true : undefined}
+              data-has-page={hasNextPage ? true : undefined}
               onClick={() => {
-                selectPage(pageCount - 1)
-                setOffsetStartIndex(pageCount - 1 - totalPageCount)
+                if (!hasNextPage) {
+                  return
+                }
+
+                selectNextPage()
+                if (hasTrailingTruncation) {
+                  if (pageIndex + 1 > offsetEndIndex - 1) {
+                    setOffsetStartIndex(offsetStartIndex + 1)
+                  }
+                }
               }}
             >
-              {pageCount}
+              <span className="TablePaginationActionLabel">Next</span>
+              <VisuallyHidden>&nbsp;page</VisuallyHidden>
+              {hasNextPage ? <ChevronRightIcon /> : null}
             </Button>
           </li>
-        ) : null}
-        <li className="TablePaginationStep">
-          <Button
-            className="TablePaginationAction"
-            type="button"
-            data-has-page={hasNextPage ? true : undefined}
-            onClick={() => {
-              if (!hasNextPage) {
-                return
-              }
-
-              selectNextPage()
-              if (hasTrailingTruncation) {
-                if (pageIndex + 1 > offsetEndIndex - 1) {
-                  setOffsetStartIndex(offsetStartIndex + 1)
-                }
-              }
-            }}
-          >
-            <span className="TablePaginationActionLabel">Next</span>
-            <VisuallyHidden>&nbsp;page</VisuallyHidden>
-            {hasNextPage ? <ChevronRightIcon /> : null}
-          </Button>
-        </li>
-      </ul>
-    </StyledPagination>
+        </ul>
+      </StyledPagination>
+    </LiveRegion>
   )
 }
 
@@ -293,13 +297,18 @@ type RangeProps = {
 }
 
 function Range({pageStart, pageEnd, totalCount}: RangeProps) {
+  const start = pageStart + 1
+  const end = pageEnd === totalCount - 1 ? totalCount : pageEnd
   return (
-    <p className="TablePaginationRange">
-      {pageStart + 1}
-      <VisuallyHidden as="span">&nbsp;through&nbsp;</VisuallyHidden>
-      <span aria-hidden="true">‒</span>
-      {pageEnd === totalCount - 1 ? totalCount : pageEnd} of {totalCount}
-    </p>
+    <>
+      <Message value={`Showing ${start} through ${end} of ${totalCount}`} />
+      <p className="TablePaginationRange">
+        {start}
+        <VisuallyHidden as="span">&nbsp;through&nbsp;</VisuallyHidden>
+        <span aria-hidden="true">‒</span>
+        {end} of {totalCount}
+      </p>
+    </>
   )
 }
 

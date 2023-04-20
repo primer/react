@@ -14,6 +14,7 @@ import RelativeTime from '../RelativeTime'
 import VisuallyHidden from '../_VisuallyHidden'
 import {createColumnHelper} from './column'
 import {repos} from './storybook/data'
+import {LiveRegion, LiveRegionOutlet, Message} from '../internal/components/LiveRegion'
 
 export default {
   title: 'Components/DataTable/Features',
@@ -1365,9 +1366,11 @@ export const WithPagination = () => {
   const pageSize = 10
 
   function Story() {
-    const [rows, setRows] = React.useState(() => {
-      return repos.slice(0, pageSize)
-    })
+    const [pageIndex, setPageIndex] = React.useState(0)
+    const start = pageIndex * pageSize
+    const end = start + pageSize
+    const rows = repos.slice(start, end)
+    const totalCount = repos.length
 
     return (
       <Table.Container>
@@ -1434,9 +1437,7 @@ export const WithPagination = () => {
           pageSize={pageSize}
           totalCount={repos.length}
           onChange={({pageIndex}) => {
-            const start = pageIndex * pageSize
-            const end = start + pageSize
-            setRows(repos.slice(start, end))
+            setPageIndex(pageIndex)
           }}
         />
       </Table.Container>
