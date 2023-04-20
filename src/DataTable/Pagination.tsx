@@ -205,6 +205,7 @@ export function Pagination({
                   }
                 }}
               >
+                <VisuallyHidden>Page&nbsp;</VisuallyHidden>
                 {1}
               </Button>
             </li>
@@ -239,6 +240,7 @@ export function Pagination({
                         selectPage(page)
                       }}
                     >
+                      <VisuallyHidden>Page&nbsp;</VisuallyHidden>
                       {page + 1}
                     </Button>
                   </li>
@@ -257,6 +259,7 @@ export function Pagination({
                   setOffsetStartIndex(pageCount - 1 - totalPageCount)
                 }}
               >
+                <VisuallyHidden>Page&nbsp;</VisuallyHidden>
                 {pageCount}
               </Button>
             </li>
