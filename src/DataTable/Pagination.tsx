@@ -167,7 +167,7 @@ export function Pagination({
       <LiveRegionOutlet />
       <StyledPagination aria-label={label} className="TablePagination" id={id} tabIndex={-1}>
         <Range pageStart={pageStart} pageEnd={pageEnd} totalCount={totalCount} />
-        <ul className="TablePaginationSteps">
+        <ol className="TablePaginationSteps">
           <li className="TablePaginationStep">
             <Button
               className="TablePaginationAction"
@@ -284,7 +284,7 @@ export function Pagination({
               {hasNextPage ? <ChevronRightIcon /> : null}
             </Button>
           </li>
-        </ul>
+        </ol>
       </StyledPagination>
     </LiveRegion>
   )
