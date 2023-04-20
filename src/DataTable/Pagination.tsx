@@ -91,7 +91,7 @@ const StyledPagination = styled.nav`
   }
 `
 
-export type PaginationProps = React.ComponentPropsWithoutRef<'nav'> & {
+export type PaginationProps = Omit<React.ComponentPropsWithoutRef<'nav'>, 'onChange'> & {
   /**
    * Provide a label for the navigation landmark rendered by this component
    */
@@ -150,7 +150,7 @@ export function Pagination({
     totalCount,
   })
 
-  const totalPageCount = pageCount > 2 ? Math.min(pageCount - 2, 5) : 0
+  const totalPageCount = pageCount > 2 ? Math.min(pageCount - 2, 7) : 0
   const [offsetStartIndex, setOffsetStartIndex] = useState(() => {
     if (pageIndex === 0) {
       return 1
@@ -160,13 +160,6 @@ export function Pagination({
   const offsetEndIndex = offsetStartIndex + totalPageCount - 1
   const hasLeadingTruncation = offsetStartIndex >= 2
   const hasTrailingTruncation = pageCount - 1 - offsetEndIndex > 1
-
-  console.log({
-    totalPageCount,
-    offsetStartIndex,
-    offsetEndIndex,
-    pageIndex,
-  })
 
   return (
     <StyledPagination aria-label={label} className="TablePagination" id={id} tabIndex={-1}>
@@ -305,7 +298,7 @@ function Range({pageStart, pageEnd, totalCount}: RangeProps) {
       {pageStart + 1}
       <VisuallyHidden as="span">&nbsp;through&nbsp;</VisuallyHidden>
       <span aria-hidden="true">‒</span>
-      {pageEnd + 1} of {totalCount}
+      {pageEnd === totalCount - 1 ? totalCount : pageEnd} of {totalCount}
     </p>
   )
 }

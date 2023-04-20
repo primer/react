@@ -10,7 +10,7 @@ interface Repo {
 }
 
 const now = Date.now()
-const repos: Array<Repo> = []
+export const repos: Array<Repo> = []
 
 for (let i = 0; i < 1000; i++) {
   repos.push({
