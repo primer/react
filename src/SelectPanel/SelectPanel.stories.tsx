@@ -41,7 +41,7 @@ const items = [
   {leadingVisual: getColorCircle('#8dc6fc'), text: 'frontend', id: 7},
 ]
 
-export function Default(): JSX.Element {
+export const Default = () => {
   const [selected, setSelected] = React.useState<ItemInput[]>([items[0], items[1]])
   const [filter, setFilter] = React.useState('')
   const filteredItems = items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))

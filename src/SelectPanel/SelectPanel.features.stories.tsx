@@ -40,7 +40,7 @@ const items = [
   {leadingVisual: getColorCircle('#8dc6fc'), text: 'frontend', id: 7},
 ]
 
-export function SingleSelectStory(): JSX.Element {
+export const SingleSelectStory = () => {
   const [selected, setSelected] = React.useState<ItemInput | undefined>(items[0])
   const [filter, setFilter] = React.useState('')
   const filteredItems = items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
@@ -71,7 +71,7 @@ export function SingleSelectStory(): JSX.Element {
 }
 SingleSelectStory.storyName = 'Single Select'
 
-export function ExternalAnchorStory(): JSX.Element {
+export const ExternalAnchorStory = () => {
   const [selected, setSelected] = React.useState<ItemInput | undefined>(items[0])
   const [filter, setFilter] = React.useState('')
   const filteredItems = items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
@@ -102,7 +102,7 @@ export function ExternalAnchorStory(): JSX.Element {
 }
 ExternalAnchorStory.storyName = 'With External Anchor'
 
-export function SelectPanelHeightInitialWithOverflowingItemsStory(): JSX.Element {
+export const SelectPanelHeightInitialWithOverflowingItemsStory = () => {
   const [selected, setSelected] = React.useState<ItemInput | undefined>(items[0])
   const [filter, setFilter] = React.useState('')
   const filteredItems = items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
@@ -133,7 +133,7 @@ export function SelectPanelHeightInitialWithOverflowingItemsStory(): JSX.Element
 }
 SelectPanelHeightInitialWithOverflowingItemsStory.storyName = 'SelectPanel, Height: Initial, Overflowing Items'
 
-export function SelectPanelHeightInitialWithUnderflowingItemsStory(): JSX.Element {
+export const SelectPanelHeightInitialWithUnderflowingItemsStory = () => {
   const underflowingItems = [items[0], items[1]]
   const [selected, setSelected] = React.useState<ItemInput | undefined>(underflowingItems[0])
   const [filter, setFilter] = React.useState('')
@@ -165,7 +165,7 @@ export function SelectPanelHeightInitialWithUnderflowingItemsStory(): JSX.Elemen
 }
 SelectPanelHeightInitialWithUnderflowingItemsStory.storyName = 'SelectPanel, Height: Initial, Underflowing Items'
 
-export function SelectPanelHeightInitialWithUnderflowingItemsAfterFetch(): JSX.Element {
+export const SelectPanelHeightInitialWithUnderflowingItemsAfterFetch = () => {
   const [selected, setSelected] = React.useState<ItemInput | undefined>(items[0])
   const [filter, setFilter] = React.useState('')
   const [fetchedItems, setFetchedItems] = useState<typeof items>([])
@@ -211,7 +211,7 @@ export function SelectPanelHeightInitialWithUnderflowingItemsAfterFetch(): JSX.E
 SelectPanelHeightInitialWithUnderflowingItemsAfterFetch.storyName =
   'SelectPanel, Height: Initial, Underflowing Items (After Fetch)'
 
-export function SelectPanelAboveTallBody(): JSX.Element {
+export const SelectPanelAboveTallBody = () => {
   const [selected, setSelected] = React.useState<ItemInput | undefined>(items[0])
   const [filter, setFilter] = React.useState('')
   const filteredItems = items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
@@ -251,7 +251,7 @@ export function SelectPanelAboveTallBody(): JSX.Element {
 }
 SelectPanelAboveTallBody.storyName = 'SelectPanel, Above a Tall Body'
 
-export function SelectPanelHeightAndScroll(): JSX.Element {
+export const SelectPanelHeightAndScroll = () => {
   const longItems = [...items, ...items, ...items, ...items, ...items, ...items, ...items, ...items]
   const [selectedA, setSelectedA] = React.useState<ItemInput | undefined>(longItems[0])
   const [selectedB, setSelectedB] = React.useState<ItemInput | undefined>(longItems[0])
