@@ -3120,7 +3120,12 @@
       "name": "Portal",
       "status": "alpha",
       "a11yReviewed": false,
-      "stories": [],
+      "stories": [
+        {
+          "id": "components-portal--default",
+          "code": "() => (\n  <>\n    Root position\n    <Box bg=\"red.2\" p={3}>\n      Outer container\n      <Box bg=\"green.2\" p={3}>\n        Inner container\n        <Portal>\n          Portaled content rendered at <code>&lt;BaseStyles&gt;</code> root.\n        </Portal>\n      </Box>\n    </Box>\n  </>\n)"
+        }
+      ],
       "props": [
         {
           "name": "onMount",
