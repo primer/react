@@ -1,5 +1,5 @@
-import React, {DOMAttributes, useCallback, useEffect, useRef, useState} from 'react'
-import {Spinner, Box} from '../..'
+import React, {DOMAttributes, useCallback} from 'react'
+import {Box, Spinner} from '../..'
 
 import {useLinkInterception} from './_useLinkInterception'
 import {useListInteraction} from './_useListInteraction'
@@ -55,12 +55,6 @@ type NoninteractiveMarkdownViewerProps = CoreMarkdownViewerProps & {
 
 export type MarkdownViewerProps = NoninteractiveMarkdownViewerProps | InteractiveMarkdownViewerProps
 
-const createRenderedContainer = (html: string): HTMLDivElement => {
-  const div = document.createElement('div')
-  div.innerHTML = html
-  return div
-}
-
 const MarkdownViewer = ({
   dangerousRenderedHTML,
   loading = false,
@@ -70,25 +64,22 @@ const MarkdownViewer = ({
   onLinkClick,
   openLinksInNewTab = false,
 }: MarkdownViewerProps) => {
-  const outputContainerRef = useRef<HTMLDivElement>(null)
-
-  // Render the HTML into an internal container element so we can modify it before it becomes visible.
-  // Using `unsafeInnerHTML` would require an effect to run after rendering which would cause flicker
-  const [htmlContainer, setHtmlContainer] = useState(() => createRenderedContainer(dangerousRenderedHTML.__html))
-  useEffect(
-    () => setHtmlContainer(createRenderedContainer(dangerousRenderedHTML.__html)),
-    [dangerousRenderedHTML.__html],
-  )
+  const [htmlContainer, setHtmlContainer] = React.useState<HTMLElement>()
+  const htmlContainerRef = React.useCallback((node: HTMLElement | null) => {
+    if (!node) return
+    setHtmlContainer(node)
+  }, [])
 
   const onChange = useCallback(
     async (value: string) => {
       try {
         await externalOnChange?.(value)
       } catch (error) {
-        setHtmlContainer(createRenderedContainer(dangerousRenderedHTML.__html))
+        // eslint-disable-next-line no-console
+        console.error(error)
       }
     },
-    [externalOnChange, dangerousRenderedHTML.__html],
+    [externalOnChange],
   )
 
   useListInteraction({
@@ -104,20 +95,16 @@ const MarkdownViewer = ({
     openLinksInNewTab,
   })
 
-  // If we were to inject the `...htmlContainer.children` instead of the container element itself,
-  // those children elements would be moved from the `htmlContainer` to the `outputContainer`. Then if
-  // other effects use `htmlContainer.querySelectorAll`, they wouldn't find any elements to affect
-  useEffect(() => outputContainerRef.current?.replaceChildren(htmlContainer), [htmlContainer])
-
   return loading ? (
     <Box sx={{display: 'flex', justifyContent: 'space-around', p: 2}}>
       <Spinner aria-label="Loading content..." />
     </Box>
   ) : (
     <Box
-      ref={outputContainerRef}
+      ref={htmlContainerRef}
       className="markdown-body"
       sx={{fontSize: 1, maxWidth: '100%', '& > div > :last-child': {mb: 0}}}
+      dangerouslySetInnerHTML={dangerousRenderedHTML}
     />
   )
 }

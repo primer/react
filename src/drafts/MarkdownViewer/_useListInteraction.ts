@@ -1,4 +1,4 @@
-import {useCallback, useEffect, useLayoutEffect, useMemo, useRef} from 'react'
+import {useCallback, useEffect, useRef} from 'react'
 import {ListItem, listItemToString, parseListItem} from '../MarkdownEditor/_useListEditing'
 
 type TaskListItem = ListItem & {taskBox: '[ ]' | '[x]'}
@@ -11,7 +11,7 @@ const toggleTaskListItem = (item: TaskListItem): TaskListItem => ({
 })
 
 type UseListInteractionSettings = {
-  htmlContainer: HTMLDivElement | null
+  htmlContainer?: HTMLElement
   markdownValue: string
   onChange: (markdown: string) => void | Promise<void>
   disabled?: boolean
@@ -32,9 +32,16 @@ export const useListInteraction = ({
   // Storing the value in a ref allows not using the markdown value as a depdency of
   // onToggleItem, which would mean we'd have to re-bind the event handlers on every change
   const markdownRef = useRef(markdownValue)
-  useLayoutEffect(() => {
+
+  useEffect(() => {
     markdownRef.current = markdownValue
   }, [markdownValue])
+
+  const onChangeRef = useRef(onChange)
+
+  useEffect(() => {
+    onChangeRef.current = onChange
+  }, [onChange])
 
   const onToggleItem = useCallback(
     (toggledItemIndex: number) => () => {
@@ -52,55 +59,44 @@ export const useListInteraction = ({
           const updatedMarkdown = lines.join('\n')
           markdownRef.current = updatedMarkdown
 
-          onChange(updatedMarkdown)
+          onChangeRef.current(updatedMarkdown)
           return
         }
 
         taskIndex++
       }
     },
-    [onChange],
+    [],
   )
 
-  const checkboxElements = useMemo(
-    () =>
-      Array.from(
-        htmlContainer?.querySelectorAll<HTMLInputElement>('input[type=checkbox].task-list-item-checkbox') ?? [],
-      ),
-    [htmlContainer],
-  )
+  useEffect(() => {
+    const checkboxElements = Array.from(
+      htmlContainer?.querySelectorAll<HTMLInputElement>('input[type=checkbox].task-list-item-checkbox') ?? [],
+    )
 
-  // This could be combined with the other effect, but then the checkboxes might have a flicker
-  // of being disabled between cleanup & setup
-  useEffect(
-    function enableOrDisableCheckboxes() {
-      const cleanupFns = checkboxElements.map(el => {
-        const previouslyDisabled = el.disabled
-        el.disabled = disabled
+    // Enable / disable checkboxes
+    const stateCleanupFns = checkboxElements.map(el => {
+      const previouslyDisabled = el.disabled
+      el.disabled = disabled
 
-        return () => {
-          el.disabled = previouslyDisabled
-        }
-      })
+      return () => {
+        el.disabled = previouslyDisabled
+      }
+    })
 
+    // Bind event listeners
+    const eventCleanupFns = checkboxElements.map((el, i) => {
+      const toggleHandler = onToggleItem(i)
+      el.addEventListener('change', toggleHandler)
+
+      return () => el.removeEventListener('change', toggleHandler)
+    })
+
+    return () => {
       // eslint-disable-next-line github/array-foreach
-      return () => cleanupFns.forEach(fn => fn())
-    },
-    [checkboxElements, disabled],
-  )
-
-  useEffect(
-    function bindEventListeners() {
-      const cleanupFns = checkboxElements.map((el, i) => {
-        const toggleHandler = onToggleItem(i)
-        el.addEventListener('change', toggleHandler)
-
-        return () => el.removeEventListener('change', toggleHandler)
-      })
-
+      stateCleanupFns.forEach(fn => fn())
       // eslint-disable-next-line github/array-foreach
-      return () => cleanupFns.forEach(fn => fn())
-    },
-    [checkboxElements, onToggleItem],
-  )
+      eventCleanupFns.forEach(fn => fn())
+    }
+  }, [htmlContainer, disabled, onToggleItem])
 }
