@@ -1278,12 +1278,6 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   list-style: none;
 }
 
-.c9 {
-  padding: 0;
-  margin: 0;
-  display: none;
-}
-
 .c5 {
   display: -webkit-box;
   display: -webkit-flex;
@@ -1293,6 +1287,12 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   -webkit-flex-grow: 1;
   -ms-flex-positive: 1;
   flex-grow: 1;
+}
+
+.c9 {
+  padding: 0;
+  margin: 0;
+  display: none;
 }
 
 .c7 {

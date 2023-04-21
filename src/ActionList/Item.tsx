@@ -1,16 +1,19 @@
-import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import React from 'react'
 import styled from 'styled-components'
 import Box, {BoxProps} from '../Box'
+import {useId} from '../hooks/useId'
+import {useSlots} from '../hooks/useSlots'
 import sx, {BetterSystemStyleObject, merge, SxProp} from '../sx'
 import {useTheme} from '../ThemeProvider'
-import {useId} from '../hooks/useId'
+import {defaultSxProp} from '../utils/defaultSxProp'
+import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import {ActionListContainerContext} from './ActionListContainerContext'
+import {Description} from './Description'
 import {ActionListGroupProps, GroupContext} from './Group'
 import {ActionListProps, ListContext} from './List'
 import {Selection} from './Selection'
-import {ActionListItemProps, Slots, TEXT_ROW_HEIGHT, getVariantStyles} from './shared'
-import {defaultSxProp} from '../utils/defaultSxProp'
+import {ActionListItemProps, getVariantStyles, ItemContext, TEXT_ROW_HEIGHT} from './shared'
+import {LeadingVisual, TrailingVisual} from './Visuals'
 
 const LiBox = styled.li<SxProp>(sx)
 
@@ -30,6 +33,11 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
     },
     forwardedRef,
   ): JSX.Element => {
+    const [slots, childrenWithoutSlots] = useSlots(props.children, {
+      leadingVisual: LeadingVisual,
+      trailingVisual: TrailingVisual,
+      description: Description,
+    })
     const {variant: listVariant, showDividers, selectionVariant: listSelectionVariant} = React.useContext(ListContext)
     const {selectionVariant: groupSelectionVariant} = React.useContext(GroupContext)
     const {container, afterSelect, selectionAttribute} = React.useContext(ActionListContainerContext)
@@ -169,66 +177,57 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
 
     const ItemWrapper = _PrivateItemWrapper || React.Fragment
 
-    return (
-      <Slots context={{variant, disabled, inlineDescriptionId, blockDescriptionId}}>
-        {slots => {
-          const menuItemProps = {
-            onClick: clickHandler,
-            onKeyPress: keyPressHandler,
-            'aria-disabled': disabled ? true : undefined,
-            tabIndex: disabled ? undefined : 0,
-            'aria-labelledby': `${labelId} ${slots.InlineDescription ? inlineDescriptionId : ''}`,
-            'aria-describedby': slots.BlockDescription ? blockDescriptionId : undefined,
-            ...(selectionAttribute && {[selectionAttribute]: selected}),
-            role: role || itemRole,
-          }
-          const containerProps = _PrivateItemWrapper
-            ? {
-                role: role || itemRole ? 'none' : undefined,
-              }
-            : menuItemProps
-          const wrapperProps = _PrivateItemWrapper ? menuItemProps : {}
+    const menuItemProps = {
+      onClick: clickHandler,
+      onKeyPress: keyPressHandler,
+      'aria-disabled': disabled ? true : undefined,
+      tabIndex: disabled ? undefined : 0,
+      'aria-labelledby': `${labelId} ${
+        slots.description && slots.description.props.variant !== 'block' ? inlineDescriptionId : ''
+      }`,
+      'aria-describedby': slots.description?.props.variant === 'block' ? blockDescriptionId : undefined,
+      ...(selectionAttribute && {[selectionAttribute]: selected}),
+      role: role || itemRole,
+    }
 
-          return (
-            <LiBox
-              ref={forwardedRef}
-              sx={merge<BetterSystemStyleObject>(styles, sxProp)}
-              {...containerProps}
-              {...props}
+    const containerProps = _PrivateItemWrapper ? {role: role || itemRole ? 'none' : undefined} : menuItemProps
+
+    const wrapperProps = _PrivateItemWrapper ? menuItemProps : {}
+
+    return (
+      <ItemContext.Provider value={{variant, disabled, inlineDescriptionId, blockDescriptionId}}>
+        <LiBox ref={forwardedRef} sx={merge<BetterSystemStyleObject>(styles, sxProp)} {...containerProps} {...props}>
+          <ItemWrapper {...wrapperProps}>
+            <Selection selected={selected} />
+            {slots.leadingVisual}
+            <Box
+              data-component="ActionList.Item--DividerContainer"
+              sx={{display: 'flex', flexDirection: 'column', flexGrow: 1, minWidth: 0}}
             >
-              <ItemWrapper {...wrapperProps}>
-                <Selection selected={selected} />
-                {slots.LeadingVisual}
-                <Box
-                  data-component="ActionList.Item--DividerContainer"
-                  sx={{display: 'flex', flexDirection: 'column', flexGrow: 1, minWidth: 0}}
+              <ConditionalBox if={Boolean(slots.trailingVisual)} sx={{display: 'flex', flexGrow: 1}}>
+                <ConditionalBox
+                  if={!!slots.description && slots.description.props.variant !== 'block'}
+                  sx={{display: 'flex', flexGrow: 1, alignItems: 'baseline', minWidth: 0}}
                 >
-                  <ConditionalBox if={Boolean(slots.TrailingVisual)} sx={{display: 'flex', flexGrow: 1}}>
-                    <ConditionalBox
-                      if={Boolean(slots.InlineDescription)}
-                      sx={{display: 'flex', flexGrow: 1, alignItems: 'baseline', minWidth: 0}}
-                    >
-                      <Box
-                        as="span"
-                        id={labelId}
-                        sx={{
-                          flexGrow: slots.InlineDescription ? 0 : 1,
-                          fontWeight: slots.InlineDescription ? 'bold' : 'normal',
-                        }}
-                      >
-                        {props.children}
-                      </Box>
-                      {slots.InlineDescription}
-                    </ConditionalBox>
-                    {slots.TrailingVisual}
-                  </ConditionalBox>
-                  {slots.BlockDescription}
-                </Box>
-              </ItemWrapper>
-            </LiBox>
-          )
-        }}
-      </Slots>
+                  <Box
+                    as="span"
+                    id={labelId}
+                    sx={{
+                      flexGrow: slots.description && slots.description.props.variant !== 'block' ? 0 : 1,
+                      fontWeight: slots.description && slots.description.props.variant !== 'block' ? 'bold' : 'normal',
+                    }}
+                  >
+                    {childrenWithoutSlots}
+                  </Box>
+                  {slots.description?.props.variant !== 'block' ? slots.description : null}
+                </ConditionalBox>
+                {slots.trailingVisual}
+              </ConditionalBox>
+              {slots.description?.props.variant === 'block' ? slots.description : null}
+            </Box>
+          </ItemWrapper>
+        </LiBox>
+      </ItemContext.Provider>
     )
   },
 ) as PolymorphicForwardRefComponent<'li', ActionListItemProps>
