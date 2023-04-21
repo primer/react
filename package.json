@@ -2,7 +2,8 @@
   "private": true,
   "workspaces": [
     "packages/*",
-    "examples/*"
+    "examples/*",
+    "docs"
   ],
   "scripts": {
     "format": "prettier --cache --write '**/*.{js,md,mdx,ts,tsx,yml}'",
