@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import sx, {SxProp} from '../../sx'
 
 /**
- * Provides an unstyled button that can be used styled as-needed for components
+ * Provides an unstyled button that can be styled as-needed for components
  */
 export const Button = styled.button<SxProp>`
   padding: 0;

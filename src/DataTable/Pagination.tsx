@@ -82,7 +82,7 @@ const StyledPagination = styled.nav`
     color: ${get('colors.fg.onEmphasis')};
   }
 
-  .TablePaginationTruncated {
+  .TablePaginationTruncationStep {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -126,6 +126,12 @@ export type PaginationProps = Omit<React.ComponentPropsWithoutRef<'nav'>, 'onCha
   totalCount: number
 }
 
+/**
+ * Specifies the maximum number of items in between the first and last page,
+ * including truncated steps
+ */
+const MAX_TRUNCATED_STEP_COUNT = 7
+
 export function Pagination({
   'aria-label': label,
   defaultPageIndex,
@@ -150,14 +156,16 @@ export function Pagination({
     pageSize,
     totalCount,
   })
-  const totalPageCount = pageCount > 2 ? Math.min(pageCount - 2, 7) : 0
+  const truncatedPageCount = pageCount > 2 ? Math.min(pageCount - 2, MAX_TRUNCATED_STEP_COUNT) : 0
   const [offsetStartIndex, setOffsetStartIndex] = useState(() => {
+    // Set the offset start index to the page at index 1 since we will have the
+    // first page already visible
     if (pageIndex === 0) {
       return 1
     }
     return pageIndex
   })
-  const offsetEndIndex = offsetStartIndex + totalPageCount - 1
+  const offsetEndIndex = offsetStartIndex + truncatedPageCount - 1
   const hasLeadingTruncation = offsetStartIndex >= 2
   const hasTrailingTruncation = pageCount - 1 - offsetEndIndex > 1
 
@@ -167,7 +175,7 @@ export function Pagination({
       <StyledPagination aria-label={label} className="TablePagination" id={id} tabIndex={-1}>
         <Range pageStart={pageStart} pageEnd={pageEnd} totalCount={totalCount} />
         <ol className="TablePaginationSteps">
-          <li className="TablePaginationStep">
+          <Step>
             <Button
               className="TablePaginationAction"
               type="button"
@@ -189,14 +197,11 @@ export function Pagination({
               <span className="TablePaginationActionLabel">Previous</span>
               <VisuallyHidden>&nbsp;page</VisuallyHidden>
             </Button>
-          </li>
+          </Step>
           {pageCount > 0 ? (
-            <li className="TablePaginationStep">
-              <Button
-                className="TablePaginationPage"
-                type="button"
-                data-active={pageIndex === 0 ? true : undefined}
-                aria-current={pageIndex === 0 ? true : undefined}
+            <Step>
+              <Page
+                active={pageIndex === 0}
                 onClick={() => {
                   selectPage(0)
                   if (pageCount > 1) {
@@ -204,66 +209,49 @@ export function Pagination({
                   }
                 }}
               >
-                <VisuallyHidden>Page&nbsp;</VisuallyHidden>
                 {1}
-              </Button>
-            </li>
+              </Page>
+            </Step>
           ) : null}
           {pageCount > 2
-            ? Array.from({length: totalPageCount}).map((_, i) => {
+            ? Array.from({length: truncatedPageCount}).map((_, i) => {
                 if (i === 0 && hasLeadingTruncation) {
-                  return (
-                    <li aria-hidden="true" className="TablePaginationTruncated" key={`truncation-${i}`}>
-                      …
-                    </li>
-                  )
+                  return <TruncationStep key={`truncation-${i}`} />
                 }
 
-                if (i === totalPageCount - 1 && hasTrailingTruncation) {
-                  return (
-                    <li aria-hidden="true" className="TablePaginationTruncated" key={`truncation-${i}`}>
-                      …
-                    </li>
-                  )
+                if (i === truncatedPageCount - 1 && hasTrailingTruncation) {
+                  return <TruncationStep key={`truncation-${i}`} />
                 }
 
                 const page = offsetStartIndex + i
                 return (
-                  <li className="TablePaginationStep" key={i}>
-                    <Button
-                      className="TablePaginationPage"
-                      type="button"
-                      data-active={pageIndex === page ? true : undefined}
-                      aria-current={pageIndex === page ? true : undefined}
+                  <Step>
+                    <Page
+                      active={pageIndex === page}
                       onClick={() => {
                         selectPage(page)
                       }}
                     >
-                      <VisuallyHidden>Page&nbsp;</VisuallyHidden>
                       {page + 1}
-                    </Button>
-                  </li>
+                    </Page>
+                  </Step>
                 )
               })
             : null}
           {pageCount > 1 ? (
-            <li className="TablePaginationStep">
-              <Button
-                className="TablePaginationPage"
-                type="button"
-                data-active={pageIndex === pageCount - 1 ? true : undefined}
-                aria-current={pageIndex === pageCount - 1 ? true : undefined}
+            <Step>
+              <Page
+                active={pageIndex === pageCount - 1}
                 onClick={() => {
                   selectPage(pageCount - 1)
-                  setOffsetStartIndex(pageCount - 1 - totalPageCount)
+                  setOffsetStartIndex(pageCount - 1 - truncatedPageCount)
                 }}
               >
-                <VisuallyHidden>Page&nbsp;</VisuallyHidden>
                 {pageCount}
-              </Button>
-            </li>
+              </Page>
+            </Step>
           ) : null}
-          <li className="TablePaginationStep">
+          <Step>
             <Button
               className="TablePaginationAction"
               type="button"
@@ -285,7 +273,7 @@ export function Pagination({
               <VisuallyHidden>&nbsp;page</VisuallyHidden>
               {hasNextPage ? <ChevronRightIcon /> : null}
             </Button>
-          </li>
+          </Step>
         </ol>
       </StyledPagination>
     </LiveRegion>
@@ -311,6 +299,38 @@ function Range({pageStart, pageEnd, totalCount}: RangeProps) {
         {end} of {totalCount}
       </p>
     </>
+  )
+}
+
+function TruncationStep() {
+  return (
+    <li aria-hidden="true" className="TablePaginationTruncationStep">
+      …
+    </li>
+  )
+}
+
+function Step({children}: React.PropsWithChildren) {
+  return <li className="TablePaginationStep">{children}</li>
+}
+
+type PageProps = React.PropsWithChildren<{
+  active: boolean
+  onClick: () => void
+}>
+
+function Page({active, children, onClick}: PageProps) {
+  return (
+    <Button
+      className="TablePaginationPage"
+      type="button"
+      data-active={active ? true : undefined}
+      aria-current={active ? true : undefined}
+      onClick={onClick}
+    >
+      <VisuallyHidden>Page&nbsp;</VisuallyHidden>
+      {children}
+    </Button>
   )
 }
 
