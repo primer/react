@@ -13,7 +13,7 @@ const gzipSize = require('gzip-size')
 
 async function main() {
   const rootDirectory = path.resolve(__dirname, '..')
-  const packageJsonPath = path.join(rootDirectory, 'package.json')
+  const packageJsonPath = path.join(rootDirectory, 'packages', 'react', 'package.json')
   const packageJson = JSON.parse(await fs.readFile(packageJsonPath, 'utf8'))
   const external = [
     ...Object.keys(packageJson.dependencies ?? {}),

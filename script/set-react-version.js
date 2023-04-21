@@ -71,7 +71,7 @@ async function main(version = 17) {
   }
 
   const {devDependencies} = versions.get(version)
-  const packageJsonPath = path.resolve(__dirname, '..', 'package.json')
+  const packageJsonPath = path.resolve(__dirname, '..', 'packages', 'react', 'package.json')
   const packageJson = JSON.parse(await fs.readFile(packageJsonPath, 'utf8'))
 
   for (const dependency of devDependencies) {
