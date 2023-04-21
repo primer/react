@@ -3302,7 +3302,7 @@
           "type": "string",
           "defaultValue": "",
           "required": true,
-          "description": "An ISO8601 time represeting the time"
+          "description": "An ISO8601 time representing the time"
         },
         {
           "name": "date",
