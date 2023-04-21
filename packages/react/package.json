@@ -32,24 +32,8 @@
   "typings": "lib/index.d.ts",
   "sideEffects": false,
   "scripts": {
-    "setup": "./script/setup",
     "build": "./script/build",
-    "clean": "rimraf dist lib lib-esm",
-    "start": "concurrently npm:start:*",
-    "start:docs": "cd docs && npm run develop",
-    "start:storybook": "STORYBOOK=true start-storybook -p 6006",
-    "build:storybook": "script/build-storybook",
-    "build:docs": "NODE_OPTIONS=--openssl-legacy-provider script/build-docs",
-    "build:docs:preview": "NODE_OPTIONS=--openssl-legacy-provider script/build-docs preview",
-    "build:storybook:visual-testing": "build-storybook",
-    "build:components.json": "ts-node script/components-json/build",
-    "test": "jest",
-    "test:storybook": "test-storybook",
-    "test:update": "npm run test -- --updateSnapshot",
-    "test:watch": "npm run test -- --watch",
-    "test:coverage": "npm run test -- --coverage",
-    "release": "npm run build && changeset publish",
-    "size": "size-limit"
+    "clean": "rimraf dist lib lib-esm"
   },
   "repository": "primer/react",
   "keywords": [
@@ -167,7 +151,6 @@
     "change-case": "4.1.2",
     "chroma-js": "2.4.2",
     "chromatic": "6.1.0",
-    "concurrently": "7.6.0",
     "copyfiles": "2.4.1",
     "cross-env": "7.0.3",
     "fast-glob": "3.2.12",
