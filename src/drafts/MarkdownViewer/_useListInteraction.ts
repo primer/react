@@ -1,4 +1,4 @@
-import {useCallback, useEffect, useRef} from 'react'
+import {useCallback, useEffect, useRef, useMemo} from 'react'
 import {ListItem, listItemToString, parseListItem} from '../MarkdownEditor/_useListEditing'
 
 type TaskListItem = ListItem & {taskBox: '[ ]' | '[x]'}
@@ -37,12 +37,6 @@ export const useListInteraction = ({
     markdownRef.current = markdownValue
   }, [markdownValue])
 
-  const onChangeRef = useRef(onChange)
-
-  useEffect(() => {
-    onChangeRef.current = onChange
-  }, [onChange])
-
   const onToggleItem = useCallback(
     (toggledItemIndex: number) => () => {
       const lines = markdownRef.current.split('\n')
@@ -59,44 +53,55 @@ export const useListInteraction = ({
           const updatedMarkdown = lines.join('\n')
           markdownRef.current = updatedMarkdown
 
-          onChangeRef.current(updatedMarkdown)
+          onChange(updatedMarkdown)
           return
         }
 
         taskIndex++
       }
     },
-    [],
+    [onChange],
   )
 
-  useEffect(() => {
-    const checkboxElements = Array.from(
-      htmlContainer?.querySelectorAll<HTMLInputElement>('input[type=checkbox].task-list-item-checkbox') ?? [],
-    )
+  const checkboxElements = useMemo(
+    () =>
+      Array.from(
+        htmlContainer?.querySelectorAll<HTMLInputElement>('input[type=checkbox].task-list-item-checkbox') ?? [],
+      ),
+    [htmlContainer],
+  )
 
-    // Enable / disable checkboxes
-    const stateCleanupFns = checkboxElements.map(el => {
-      const previouslyDisabled = el.disabled
-      el.disabled = disabled
+  // This could be combined with the other effect, but then the checkboxes might have a flicker
+  // of being disabled between cleanup & setup
+  useEffect(
+    function enableOrDisableCheckboxes() {
+      const cleanupFns = checkboxElements.map(el => {
+        const previouslyDisabled = el.disabled
+        el.disabled = disabled
 
-      return () => {
-        el.disabled = previouslyDisabled
-      }
-    })
+        return () => {
+          el.disabled = previouslyDisabled
+        }
+      })
 
-    // Bind event listeners
-    const eventCleanupFns = checkboxElements.map((el, i) => {
-      const toggleHandler = onToggleItem(i)
-      el.addEventListener('change', toggleHandler)
-
-      return () => el.removeEventListener('change', toggleHandler)
-    })
-
-    return () => {
       // eslint-disable-next-line github/array-foreach
-      stateCleanupFns.forEach(fn => fn())
+      return () => cleanupFns.forEach(fn => fn())
+    },
+    [checkboxElements, disabled],
+  )
+
+  useEffect(
+    function bindEventListeners() {
+      const cleanupFns = checkboxElements.map((el, i) => {
+        const toggleHandler = onToggleItem(i)
+        el.addEventListener('change', toggleHandler)
+
+        return () => el.removeEventListener('change', toggleHandler)
+      })
+
       // eslint-disable-next-line github/array-foreach
-      eventCleanupFns.forEach(fn => fn())
-    }
-  }, [htmlContainer, disabled, onToggleItem])
+      return () => cleanupFns.forEach(fn => fn())
+    },
+    [checkboxElements, onToggleItem],
+  )
 }
