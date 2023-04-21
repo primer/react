@@ -6,6 +6,8 @@
     "docs"
   ],
   "scripts": {
+    "clean": "npm run clean --workspaces --if-present",
+    "build": "npm run build --workspaces --if-present",
     "format": "prettier --cache --write '**/*.{js,md,mdx,ts,tsx,yml}'",
     "format:diff": "prettier --cache --list-different '**/*.{js.md,mdx,ts,tsx,yml}'",
     "lint": "eslint '**/*.{js,ts,tsx,md,mdx}' --max-warnings=0",
@@ -14,10 +16,10 @@
     "test:type-check": "tsc --noEmit"
   },
   "devDependencies": {
+    "@github/prettier-config": "0.0.6",
     "@types/jest": "29.4.0",
     "@types/jest-axe": "3.5.5",
     "@types/node": "16.11.11",
-    "@github/prettier-config": "0.0.6",
     "@typescript-eslint/eslint-plugin": "5.54.1",
     "@typescript-eslint/parser": "5.54.1",
     "eslint": "8.35.0",
@@ -35,7 +37,8 @@
     "eslint-plugin-storybook": "0.6.11",
     "eslint-plugin-testing-library": "5.10.2",
     "husky": "8.0.2",
-    "prettier": "2.8.1"
+    "prettier": "2.8.1",
+    "rimraf": "5.0.0"
   },
   "prettier": "@github/prettier-config"
 }
