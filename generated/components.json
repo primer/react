@@ -3634,7 +3634,12 @@
       "name": "SelectPanel",
       "status": "alpha",
       "a11yReviewed": false,
-      "stories": [],
+      "stories": [
+        {
+          "id": "components-selectpanel--default",
+          "code": "() => {\n  const [selected, setSelected] = React.useState<ItemInput[]>([\n    items[0],\n    items[1],\n  ])\n  const [filter, setFilter] = React.useState('')\n  const filteredItems = items.filter((item) =>\n    item.text.toLowerCase().startsWith(filter.toLowerCase()),\n  )\n  const [open, setOpen] = useState(false)\n  return (\n    <>\n      <h1>Multi Select Panel</h1>\n      <div>Please select labels that describe your issue:</div>\n      <SelectPanel\n        renderAnchor={({\n          children,\n          'aria-labelledby': ariaLabelledBy,\n          ...anchorProps\n        }) => (\n          <Button\n            trailingAction={TriangleDownIcon}\n            aria-labelledby={` ${ariaLabelledBy}`}\n            {...anchorProps}\n          >\n            {children ?? 'Select Labels'}\n          </Button>\n        )}\n        placeholderText=\"Filter Labels\"\n        open={open}\n        onOpenChange={setOpen}\n        items={filteredItems}\n        selected={selected}\n        onSelectedChange={setSelected}\n        onFilterChange={setFilter}\n        showItemDividers={true}\n        overlayProps={{\n          width: 'small',\n          height: 'xsmall',\n        }}\n      />\n    </>\n  )\n}"
+        }
+      ],
       "props": [
         {
           "name": "onOpenChange",
