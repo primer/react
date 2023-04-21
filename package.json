@@ -12,10 +12,12 @@
     "format:diff": "prettier --cache --list-different '**/*.{js.md,mdx,ts,tsx,yml}'",
     "lint": "eslint '**/*.{js,ts,tsx,md,mdx}' --max-warnings=0",
     "lint:fix": "npm run lint -- --fix",
+    "lint:md": "markdownlint-cli2 \"**/*.{md,mdx}\" \"!.github\" \"!.changeset\" \"!**/node_modules/**\" \"!**/CHANGELOG.md\"",
     "prepare": "husky install",
     "test:type-check": "tsc --noEmit"
   },
   "devDependencies": {
+    "@github/markdownlint-github": "^0.3.0",
     "@github/prettier-config": "0.0.6",
     "@types/jest": "29.4.0",
     "@types/jest-axe": "3.5.5",
@@ -37,6 +39,8 @@
     "eslint-plugin-storybook": "0.6.11",
     "eslint-plugin-testing-library": "5.10.2",
     "husky": "8.0.2",
+    "markdownlint-cli2": "^0.6.0",
+    "markdownlint-cli2-formatter-pretty": "0.0.3",
     "prettier": "2.8.1",
     "rimraf": "5.0.0"
   },
