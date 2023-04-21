@@ -1,0 +1,9 @@
+{
+  "extends": "./tsconfig.base.json",
+  "references": [
+    {
+      "path": "./packages/react"
+    }
+  ],
+  "include": ["e2e/**/*.ts", "playwright.config.ts"]
+}
