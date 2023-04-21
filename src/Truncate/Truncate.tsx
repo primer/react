@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import {maxWidth, MaxWidthProps} from 'styled-system'
-import sx, {SxProp} from './sx'
-import {ComponentProps} from './utils/types'
+import sx, {SxProp} from '../sx'
+import {ComponentProps} from '../utils/types'
 
 type StyledTruncateProps = {
   title: string
