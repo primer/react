@@ -79,7 +79,7 @@ jobs:
         run: npm ci
 
       - name: Build
-        run: npm run build
+        run: npx nx run-many -t build --exclude docs
 
       - name: Test
         run: npm run test -- --coverage
@@ -129,7 +129,7 @@ jobs:
       - name: Install dependencies
         run: npm ci
       - name: Build
-        run: npm run build
+        run: npx nx run-many -t build --exclude docs
 
   vrt-runner:
     runs-on: ubuntu-latest-8-cores

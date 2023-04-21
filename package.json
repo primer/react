@@ -6,8 +6,8 @@
     "docs"
   ],
   "scripts": {
-    "clean": "npm run clean --workspaces --if-present",
-    "build": "npm run build --workspaces --if-present",
+    "clean": "nx run-many -t clean",
+    "build": "nx run-many -t build",
     "build:components.json": "ts-node script/components-json/build",
     "build:docs": "NODE_OPTIONS=--openssl-legacy-provider script/build-docs",
     "build:docs:preview": "NODE_OPTIONS=--openssl-legacy-provider script/build-docs preview",
@@ -72,7 +72,8 @@
     "markdownlint-cli2-formatter-pretty": "0.0.3",
     "prettier": "2.8.1",
     "rimraf": "5.0.0",
-    "storybook-addon-turbo-build": "1.1.0"
+    "storybook-addon-turbo-build": "1.1.0",
+    "nx": "15.9.2"
   },
   "prettier": "@github/prettier-config",
   "size-limit": [
