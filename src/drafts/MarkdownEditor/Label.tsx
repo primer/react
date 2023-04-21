@@ -1,7 +1,6 @@
 import React, {FC, useContext} from 'react'
-import {SxProp} from '../../sx'
 import InputLabel from '../../_InputLabel'
-import {MarkdownEditorSlot} from './MarkdownEditor'
+import {SxProp} from '../../sx'
 import {MarkdownEditorContext} from './_MarkdownEditorContext'
 
 type LabelProps = SxProp & {
@@ -20,8 +19,4 @@ const Legend: FC<LabelProps> = ({sx, ...props}) => {
 }
 Legend.displayName = 'MarkdownEditor.Label'
 
-export const Label: FC<LabelProps> = props => (
-  <MarkdownEditorSlot name="Label">
-    <Legend {...props} />
-  </MarkdownEditorSlot>
-)
+export const Label: FC<LabelProps> = props => <Legend {...props} />
