@@ -1,6 +1,6 @@
 import React from 'react'
 import {Meta, ComponentStory} from '@storybook/react'
-import StyledOcticon from '../StyledOcticon'
+import StyledOcticon from './StyledOcticon'
 import {HeartFillIcon} from '@primer/octicons-react'
 
 export default {

@@ -19,7 +19,7 @@ export const Polymorphism = () => (
 )
 
 export const StyledText = () => (
-  <Text sx={{border: '2px solid #999', margin: '10px', padding: '5px', fontSize: '1.5rem', color: 'danger.fg'}}>
+  <Text as="p" sx={{color: 'fg.onEmphasis', bg: 'neutral.emphasis', p: 2}}>
     Stylized text
   </Text>
 )
