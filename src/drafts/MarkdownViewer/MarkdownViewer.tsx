@@ -64,6 +64,8 @@ const MarkdownViewer = ({
   onLinkClick,
   openLinksInNewTab = false,
 }: MarkdownViewerProps) => {
+  // We're using state to store the HTML container because we want the value
+  // to re-run effects when it changes
   const [htmlContainer, setHtmlContainer] = React.useState<HTMLElement>()
   const htmlContainerRef = React.useCallback((node: HTMLElement | null) => {
     if (!node) return
