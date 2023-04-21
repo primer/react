@@ -1,5 +1,5 @@
 import {create} from '@storybook/theming'
-import packageJson from '../package.json'
+import packageJson from '../packages/react/package.json'
 
 export default create({
   brandTitle: `
