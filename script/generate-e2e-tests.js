@@ -1332,6 +1332,21 @@ const components = new Map([
     },
   ],
   [
+    'Truncate',
+    {
+      stories: [
+        {
+          id: 'components-truncate--default',
+          name: 'Default',
+        },
+        {
+          id: 'components-truncate--playground',
+          name: 'Playground',
+        },
+      ],
+    },
+  ],
+  [
     'Token',
     {
       stories: [
