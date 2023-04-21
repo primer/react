@@ -9,31 +9,33 @@ import React, {
   useState,
 } from 'react'
 import Box from '../../Box'
-import {FileType} from '../hooks/useUnifiedFileSelect'
-import {useId} from '../../hooks/useId'
-import {useIgnoreKeyboardActionsWhileComposing} from '../hooks/useIgnoreKeyboardActionsWhileComposing'
-import {useResizeObserver} from '../../hooks/useResizeObserver'
-import {useSyntheticChange} from '../hooks/useSyntheticChange'
-import MarkdownViewer from '../MarkdownViewer'
-import {SxProp} from '../../sx'
-import createSlots from '../../utils/create-slots'
 import VisuallyHidden from '../../_VisuallyHidden'
+import {useId} from '../../hooks/useId'
+import {useResizeObserver} from '../../hooks/useResizeObserver'
+import {useSlots} from '../../hooks/useSlots'
+import {SxProp} from '../../sx'
+import MarkdownViewer from '../MarkdownViewer'
+import {useIgnoreKeyboardActionsWhileComposing} from '../hooks/useIgnoreKeyboardActionsWhileComposing'
+import {useSafeAsyncCallback} from '../hooks/useSafeAsyncCallback'
+import {useSyntheticChange} from '../hooks/useSyntheticChange'
+import {FileType} from '../hooks/useUnifiedFileSelect'
+import {Actions} from './Actions'
+import {Label} from './Label'
+import {CoreToolbar, DefaultToolbarButtons, Toolbar} from './Toolbar'
+import {Footer} from './_Footer'
 import {FormattingTools} from './_FormattingTools'
 import {MarkdownEditorContext} from './_MarkdownEditorContext'
-import {CoreToolbar, DefaultToolbarButtons} from './Toolbar'
-import {Footer} from './_Footer'
 import {MarkdownInput} from './_MarkdownInput'
+import {SavedRepliesContext, SavedRepliesHandle, SavedReply} from './_SavedReplies'
+import {MarkdownViewMode, ViewSwitch} from './_ViewSwitch'
 import {FileUploadResult, useFileHandling} from './_useFileHandling'
 import {useIndenting} from './_useIndenting'
 import {useListEditing} from './_useListEditing'
-import {MarkdownViewMode, ViewSwitch} from './_ViewSwitch'
-import {useSafeAsyncCallback} from '../hooks/useSafeAsyncCallback'
-import {SavedRepliesContext, SavedRepliesHandle, SavedReply} from './_SavedReplies'
+import {SuggestionOptions} from './suggestions'
 import {Emoji} from './suggestions/_useEmojiSuggestions'
 import {Mentionable} from './suggestions/_useMentionSuggestions'
 import {Reference} from './suggestions/_useReferenceSuggestions'
 import {isModifierKey} from './utils'
-import {SuggestionOptions} from './suggestions'
 
 export type MarkdownEditorProps = SxProp & {
   /** Current value of the editor as a multiline markdown string. */
@@ -143,9 +145,6 @@ const a11yOnlyStyle = {clipPath: 'Circle(0)', position: 'absolute'} as const
 
 const CONDENSED_WIDTH_THRESHOLD = 675
 
-const {Slot, Slots} = createSlots(['Toolbar', 'Actions', 'Label'])
-export const MarkdownEditorSlot = Slot
-
 /**
  * We want to switch editors from preview mode on cmd/ctrl+shift+P. But in preview mode,
  * there's no input to focus so we have to bind the event to the document. If there are
@@ -189,6 +188,11 @@ const MarkdownEditor = forwardRef<MarkdownEditorHandle, MarkdownEditorProps>(
     },
     ref,
   ) => {
+    const [slots, childrenWithoutSlots] = useSlots(children, {
+      toolbar: Toolbar,
+      actions: Actions,
+      label: Label,
+    })
     const [uncontrolledViewMode, uncontrolledSetViewMode] = useState<MarkdownViewMode>('edit')
     const [view, setView] =
       controlledViewMode === undefined
@@ -352,123 +356,117 @@ const MarkdownEditor = forwardRef<MarkdownEditorHandle, MarkdownEditorProps>(
 
     // We are using MarkdownEditorContext instead of the built-in Slots context because Slots' context is not typesafe
     return (
-      <Slots context={{}}>
-        {slots => (
-          <MarkdownEditorContext.Provider value={context}>
-            <fieldset
-              aria-disabled={
-                disabled /* if we set disabled={true}, we can't enable the buttons that should be enabled */
-              }
-              aria-describedby={describedBy ? `${descriptionId} ${describedBy}` : descriptionId}
-              style={{appearance: 'none', border: 'none', minInlineSize: 'auto'}}
-            >
-              <FormattingTools ref={formattingToolsRef} forInputId={id} />
-              <div style={{display: 'none'}}>{children}</div>
+      <MarkdownEditorContext.Provider value={context}>
+        <fieldset
+          aria-disabled={disabled /* if we set disabled={true}, we can't enable the buttons that should be enabled */}
+          aria-describedby={describedBy ? `${descriptionId} ${describedBy}` : descriptionId}
+          style={{appearance: 'none', border: 'none', minInlineSize: 'auto'}}
+        >
+          <FormattingTools ref={formattingToolsRef} forInputId={id} />
+          <div style={{display: 'none'}}>{childrenWithoutSlots}</div>
 
-              {slots.Label}
+          {slots.label}
 
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              width: '100%',
+              borderColor: 'border.default',
+              borderWidth: 1,
+              borderStyle: 'solid',
+              borderRadius: 2,
+              p: 2,
+              height: fullHeight ? '100%' : undefined,
+              minInlineSize: 'auto',
+              bg: 'canvas.default',
+              color: disabled ? 'fg.subtle' : 'fg.default',
+              ...sx,
+            }}
+            ref={containerRef}
+          >
+            <VisuallyHidden id={descriptionId} aria-live="polite">
+              Markdown input:
+              {view === 'preview' ? ' preview mode selected.' : ' edit mode selected.'}
+            </VisuallyHidden>
+
+            <Box sx={{display: 'flex', pb: 2, gap: 2, justifyContent: 'space-between'}} as="header">
+              <ViewSwitch
+                selectedView={view}
+                onViewSelect={setView}
+                disabled={fileHandler?.uploadProgress !== undefined}
+                onLoadPreview={loadPreview}
+              />
+
+              <Box sx={{display: 'flex'}}>
+                <SavedRepliesContext.Provider value={savedRepliesContext}>
+                  {view === 'edit' &&
+                    (slots.toolbar ?? (
+                      <CoreToolbar>
+                        <DefaultToolbarButtons />
+                      </CoreToolbar>
+                    ))}
+                </SavedRepliesContext.Provider>
+              </Box>
+            </Box>
+
+            <MarkdownInput
+              value={value}
+              onChange={onInputChange}
+              emojiSuggestions={emojiSuggestions}
+              mentionSuggestions={mentionSuggestions}
+              referenceSuggestions={referenceSuggestions}
+              disabled={disabled}
+              placeholder={placeholder}
+              id={id}
+              maxLength={maxLength}
+              ref={inputRef}
+              fullHeight={fullHeight}
+              isDraggedOver={fileHandler?.isDraggedOver ?? false}
+              minHeightLines={minHeightLines}
+              maxHeightLines={maxHeightLines}
+              visible={view === 'edit'}
+              monospace={monospace}
+              required={required}
+              name={name}
+              pasteUrlsAsPlainText={pasteUrlsAsPlainText}
+              {...inputCompositionProps}
+              {...fileHandler?.pasteTargetProps}
+              {...fileHandler?.dropTargetProps}
+            />
+
+            {view === 'preview' && (
               <Box
                 sx={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  width: '100%',
-                  borderColor: 'border.default',
-                  borderWidth: 1,
-                  borderStyle: 'solid',
-                  borderRadius: 2,
-                  p: 2,
+                  p: 1,
+                  overflow: 'auto',
                   height: fullHeight ? '100%' : undefined,
-                  minInlineSize: 'auto',
-                  bg: 'canvas.default',
-                  color: disabled ? 'fg.subtle' : 'fg.default',
-                  ...sx,
+                  minHeight: inputHeight.current,
+                  boxSizing: 'border-box',
                 }}
-                ref={containerRef}
+                aria-live="polite"
+                tabIndex={-1}
               >
-                <VisuallyHidden id={descriptionId} aria-live="polite">
-                  Markdown input:
-                  {view === 'preview' ? ' preview mode selected.' : ' edit mode selected.'}
-                </VisuallyHidden>
-
-                <Box sx={{display: 'flex', pb: 2, gap: 2, justifyContent: 'space-between'}} as="header">
-                  <ViewSwitch
-                    selectedView={view}
-                    onViewSelect={setView}
-                    disabled={fileHandler?.uploadProgress !== undefined}
-                    onLoadPreview={loadPreview}
-                  />
-
-                  <Box sx={{display: 'flex'}}>
-                    <SavedRepliesContext.Provider value={savedRepliesContext}>
-                      {view === 'edit' &&
-                        (slots.Toolbar ?? (
-                          <CoreToolbar>
-                            <DefaultToolbarButtons />
-                          </CoreToolbar>
-                        ))}
-                    </SavedRepliesContext.Provider>
-                  </Box>
-                </Box>
-
-                <MarkdownInput
-                  value={value}
-                  onChange={onInputChange}
-                  emojiSuggestions={emojiSuggestions}
-                  mentionSuggestions={mentionSuggestions}
-                  referenceSuggestions={referenceSuggestions}
-                  disabled={disabled}
-                  placeholder={placeholder}
-                  id={id}
-                  maxLength={maxLength}
-                  ref={inputRef}
-                  fullHeight={fullHeight}
-                  isDraggedOver={fileHandler?.isDraggedOver ?? false}
-                  minHeightLines={minHeightLines}
-                  maxHeightLines={maxHeightLines}
-                  visible={view === 'edit'}
-                  monospace={monospace}
-                  required={required}
-                  name={name}
-                  pasteUrlsAsPlainText={pasteUrlsAsPlainText}
-                  {...inputCompositionProps}
-                  {...fileHandler?.pasteTargetProps}
-                  {...fileHandler?.dropTargetProps}
-                />
-
-                {view === 'preview' && (
-                  <Box
-                    sx={{
-                      p: 1,
-                      overflow: 'auto',
-                      height: fullHeight ? '100%' : undefined,
-                      minHeight: inputHeight.current,
-                      boxSizing: 'border-box',
-                    }}
-                    aria-live="polite"
-                    tabIndex={-1}
-                  >
-                    <h2 style={a11yOnlyStyle}>Rendered Markdown Preview</h2>
-                    <MarkdownViewer
-                      dangerousRenderedHTML={{__html: html || 'Nothing to preview'}}
-                      loading={html === null}
-                      openLinksInNewTab
-                    />
-                  </Box>
-                )}
-
-                <Footer
-                  actionButtons={slots.Actions}
-                  fileDraggedOver={fileHandler?.isDraggedOver ?? false}
-                  fileUploadProgress={fileHandler?.uploadProgress}
-                  uploadButtonProps={fileHandler?.clickTargetProps ?? null}
-                  errorMessage={fileHandler?.errorMessage}
-                  previewMode={view === 'preview'}
+                <h2 style={a11yOnlyStyle}>Rendered Markdown Preview</h2>
+                <MarkdownViewer
+                  dangerousRenderedHTML={{__html: html || 'Nothing to preview'}}
+                  loading={html === null}
+                  openLinksInNewTab
                 />
               </Box>
-            </fieldset>
-          </MarkdownEditorContext.Provider>
-        )}
-      </Slots>
+            )}
+
+            <Footer
+              actionButtons={slots.actions}
+              fileDraggedOver={fileHandler?.isDraggedOver ?? false}
+              fileUploadProgress={fileHandler?.uploadProgress}
+              uploadButtonProps={fileHandler?.clickTargetProps ?? null}
+              errorMessage={fileHandler?.errorMessage}
+              previewMode={view === 'preview'}
+            />
+          </Box>
+        </fieldset>
+      </MarkdownEditorContext.Provider>
     )
   },
 )
