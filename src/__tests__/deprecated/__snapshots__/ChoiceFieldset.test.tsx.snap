@@ -66,7 +66,7 @@ exports[`ChoiceFieldset renders a disabled list 1`] = `
   place-content: center;
   position: relative;
   width: var(--base-size-16,16px);
-  border-radius: var(--primer-borderRadius-full,100vh);
+  border-radius: var(--borderRadius-full,100vh);
   -webkit-transition: background-color,border-color 80ms cubic-bezier(0.33,1,0.68,1);
   transition: background-color,border-color 80ms cubic-bezier(0.33,1,0.68,1);
 }
@@ -288,7 +288,7 @@ exports[`ChoiceFieldset renders a fieldset with a description 1`] = `
   place-content: center;
   position: relative;
   width: var(--base-size-16,16px);
-  border-radius: var(--primer-borderRadius-full,100vh);
+  border-radius: var(--borderRadius-full,100vh);
   -webkit-transition: background-color,border-color 80ms cubic-bezier(0.33,1,0.68,1);
   transition: background-color,border-color 80ms cubic-bezier(0.33,1,0.68,1);
 }
@@ -531,7 +531,7 @@ exports[`ChoiceFieldset renders a list of items with leading visuals and caption
   place-content: center;
   position: relative;
   width: var(--base-size-16,16px);
-  border-radius: var(--primer-borderRadius-full,100vh);
+  border-radius: var(--borderRadius-full,100vh);
   -webkit-transition: background-color,border-color 80ms cubic-bezier(0.33,1,0.68,1);
   transition: background-color,border-color 80ms cubic-bezier(0.33,1,0.68,1);
 }
@@ -1132,7 +1132,7 @@ exports[`ChoiceFieldset renders a required fieldset 1`] = `
   place-content: center;
   position: relative;
   width: var(--base-size-16,16px);
-  border-radius: var(--primer-borderRadius-full,100vh);
+  border-radius: var(--borderRadius-full,100vh);
   -webkit-transition: background-color,border-color 80ms cubic-bezier(0.33,1,0.68,1);
   transition: background-color,border-color 80ms cubic-bezier(0.33,1,0.68,1);
 }
@@ -1360,7 +1360,7 @@ exports[`ChoiceFieldset renders default 1`] = `
   place-content: center;
   position: relative;
   width: var(--base-size-16,16px);
-  border-radius: var(--primer-borderRadius-full,100vh);
+  border-radius: var(--borderRadius-full,100vh);
   -webkit-transition: background-color,border-color 80ms cubic-bezier(0.33,1,0.68,1);
   transition: background-color,border-color 80ms cubic-bezier(0.33,1,0.68,1);
 }
@@ -1575,7 +1575,7 @@ exports[`ChoiceFieldset renders with a custom name and id passed 1`] = `
   place-content: center;
   position: relative;
   width: var(--base-size-16,16px);
-  border-radius: var(--primer-borderRadius-full,100vh);
+  border-radius: var(--borderRadius-full,100vh);
   -webkit-transition: background-color,border-color 80ms cubic-bezier(0.33,1,0.68,1);
   transition: background-color,border-color 80ms cubic-bezier(0.33,1,0.68,1);
 }
@@ -1794,7 +1794,7 @@ exports[`ChoiceFieldset renders with a hidden legend 1`] = `
   place-content: center;
   position: relative;
   width: var(--base-size-16,16px);
-  border-radius: var(--primer-borderRadius-full,100vh);
+  border-radius: var(--borderRadius-full,100vh);
   -webkit-transition: background-color,border-color 80ms cubic-bezier(0.33,1,0.68,1);
   transition: background-color,border-color 80ms cubic-bezier(0.33,1,0.68,1);
 }
@@ -2050,7 +2050,7 @@ exports[`ChoiceFieldset renders with a success validation message 1`] = `
   place-content: center;
   position: relative;
   width: var(--base-size-16,16px);
-  border-radius: var(--primer-borderRadius-full,100vh);
+  border-radius: var(--borderRadius-full,100vh);
   -webkit-transition: background-color,border-color 80ms cubic-bezier(0.33,1,0.68,1);
   transition: background-color,border-color 80ms cubic-bezier(0.33,1,0.68,1);
 }
@@ -2344,7 +2344,7 @@ exports[`ChoiceFieldset renders with an error validation message 1`] = `
   place-content: center;
   position: relative;
   width: var(--base-size-16,16px);
-  border-radius: var(--primer-borderRadius-full,100vh);
+  border-radius: var(--borderRadius-full,100vh);
   -webkit-transition: background-color,border-color 80ms cubic-bezier(0.33,1,0.68,1);
   transition: background-color,border-color 80ms cubic-bezier(0.33,1,0.68,1);
 }
