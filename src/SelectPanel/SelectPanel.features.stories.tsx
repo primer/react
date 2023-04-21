@@ -1,35 +1,17 @@
-import type {OverlayProps} from '../Overlay'
-import {Meta} from '@storybook/react'
-import React, {useRef, useState} from 'react'
-import {theme, ThemeProvider} from '..'
-import {Button} from '../Button'
-import {TriangleDownIcon} from '@primer/octicons-react'
-import {ItemInput} from '../deprecated/ActionList/List'
-import BaseStyles from '../BaseStyles'
-import {SelectPanel} from '../SelectPanel'
-import Box from '../Box'
+import React, {useState, useRef} from 'react'
+import {ComponentMeta} from '@storybook/react'
 
-const meta: Meta = {
-  title: 'Components/SelectPanel',
+import Box from '../Box'
+import {Button} from '../Button'
+import {ItemInput} from '../deprecated/ActionList/List'
+import {SelectPanel} from './SelectPanel'
+import {TriangleDownIcon} from '@primer/octicons-react'
+import type {OverlayProps} from '../Overlay'
+
+export default {
+  title: 'Components/SelectPanel/Features',
   component: SelectPanel,
-  decorators: [
-    (Story: React.ComponentType<React.PropsWithChildren<unknown>>): JSX.Element => {
-      return (
-        <ThemeProvider theme={theme}>
-          <BaseStyles>
-            <Story />
-          </BaseStyles>
-        </ThemeProvider>
-      )
-    },
-  ],
-  parameters: {
-    controls: {
-      disable: true,
-    },
-  },
-}
-export default meta
+} as ComponentMeta<typeof SelectPanel>
 
 function getColorCircle(color: string) {
   return function () {
@@ -58,38 +40,7 @@ const items = [
   {leadingVisual: getColorCircle('#8dc6fc'), text: 'frontend', id: 7},
 ]
 
-export function MultiSelectStory(): JSX.Element {
-  const [selected, setSelected] = React.useState<ItemInput[]>([items[0], items[1]])
-  const [filter, setFilter] = React.useState('')
-  const filteredItems = items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
-  const [open, setOpen] = useState(false)
-
-  return (
-    <>
-      <h1>Multi Select Panel</h1>
-      <div>Please select labels that describe your issue:</div>
-      <SelectPanel
-        renderAnchor={({children, 'aria-labelledby': ariaLabelledBy, ...anchorProps}) => (
-          <Button trailingAction={TriangleDownIcon} aria-labelledby={` ${ariaLabelledBy}`} {...anchorProps}>
-            {children ?? 'Select Labels'}
-          </Button>
-        )}
-        placeholderText="Filter Labels"
-        open={open}
-        onOpenChange={setOpen}
-        items={filteredItems}
-        selected={selected}
-        onSelectedChange={setSelected}
-        onFilterChange={setFilter}
-        showItemDividers={true}
-        overlayProps={{width: 'small', height: 'xsmall'}}
-      />
-    </>
-  )
-}
-MultiSelectStory.storyName = 'Multi Select'
-
-export function SingleSelectStory(): JSX.Element {
+export const SingleSelectStory = () => {
   const [selected, setSelected] = React.useState<ItemInput | undefined>(items[0])
   const [filter, setFilter] = React.useState('')
   const filteredItems = items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
@@ -120,7 +71,7 @@ export function SingleSelectStory(): JSX.Element {
 }
 SingleSelectStory.storyName = 'Single Select'
 
-export function ExternalAnchorStory(): JSX.Element {
+export const ExternalAnchorStory = () => {
   const [selected, setSelected] = React.useState<ItemInput | undefined>(items[0])
   const [filter, setFilter] = React.useState('')
   const filteredItems = items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
@@ -151,7 +102,7 @@ export function ExternalAnchorStory(): JSX.Element {
 }
 ExternalAnchorStory.storyName = 'With External Anchor'
 
-export function SelectPanelHeightInitialWithOverflowingItemsStory(): JSX.Element {
+export const SelectPanelHeightInitialWithOverflowingItemsStory = () => {
   const [selected, setSelected] = React.useState<ItemInput | undefined>(items[0])
   const [filter, setFilter] = React.useState('')
   const filteredItems = items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
@@ -182,7 +133,7 @@ export function SelectPanelHeightInitialWithOverflowingItemsStory(): JSX.Element
 }
 SelectPanelHeightInitialWithOverflowingItemsStory.storyName = 'SelectPanel, Height: Initial, Overflowing Items'
 
-export function SelectPanelHeightInitialWithUnderflowingItemsStory(): JSX.Element {
+export const SelectPanelHeightInitialWithUnderflowingItemsStory = () => {
   const underflowingItems = [items[0], items[1]]
   const [selected, setSelected] = React.useState<ItemInput | undefined>(underflowingItems[0])
   const [filter, setFilter] = React.useState('')
@@ -214,7 +165,7 @@ export function SelectPanelHeightInitialWithUnderflowingItemsStory(): JSX.Elemen
 }
 SelectPanelHeightInitialWithUnderflowingItemsStory.storyName = 'SelectPanel, Height: Initial, Underflowing Items'
 
-export function SelectPanelHeightInitialWithUnderflowingItemsAfterFetch(): JSX.Element {
+export const SelectPanelHeightInitialWithUnderflowingItemsAfterFetch = () => {
   const [selected, setSelected] = React.useState<ItemInput | undefined>(items[0])
   const [filter, setFilter] = React.useState('')
   const [fetchedItems, setFetchedItems] = useState<typeof items>([])
@@ -260,7 +211,7 @@ export function SelectPanelHeightInitialWithUnderflowingItemsAfterFetch(): JSX.E
 SelectPanelHeightInitialWithUnderflowingItemsAfterFetch.storyName =
   'SelectPanel, Height: Initial, Underflowing Items (After Fetch)'
 
-export function SelectPanelAboveTallBody(): JSX.Element {
+export const SelectPanelAboveTallBody = () => {
   const [selected, setSelected] = React.useState<ItemInput | undefined>(items[0])
   const [filter, setFilter] = React.useState('')
   const filteredItems = items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
@@ -300,7 +251,7 @@ export function SelectPanelAboveTallBody(): JSX.Element {
 }
 SelectPanelAboveTallBody.storyName = 'SelectPanel, Above a Tall Body'
 
-export function SelectPanelHeightAndScroll(): JSX.Element {
+export const SelectPanelHeightAndScroll = () => {
   const longItems = [...items, ...items, ...items, ...items, ...items, ...items, ...items, ...items]
   const [selectedA, setSelectedA] = React.useState<ItemInput | undefined>(longItems[0])
   const [selectedB, setSelectedB] = React.useState<ItemInput | undefined>(longItems[0])
