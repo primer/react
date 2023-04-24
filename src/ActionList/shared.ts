@@ -2,7 +2,7 @@ import React from 'react'
 
 import {AriaRole} from '../utils/types'
 import {SxProp} from '../sx'
-import createSlots from '../utils/create-slots'
+import createSlots from '../deprecated/utils/create-slots'
 
 export type ActionListItemProps = {
   /**
