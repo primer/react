@@ -1,5 +1,21 @@
 # @primer/components
 
+## 35.25.1
+
+### Patch Changes
+
+- [#3174](https://github.com/primer/react/pull/3174) [`d4c6ae5b`](https://github.com/primer/react/commit/d4c6ae5b481631ab9bcd7256f5287612c97e021e) Thanks [@colebemis](https://github.com/colebemis)! - `MarkdownEditor` is now SSR-compatible.
+
+  Warning: In this new implementation, `MarkdownEditor.Toolbar`, `MarkdownEditor.Actions`, and `MarkdownEditor.Label` must be direct children of `MarkdownEditor`.
+
+- [#3209](https://github.com/primer/react/pull/3209) [`a6279536`](https://github.com/primer/react/commit/a6279536e3c2c28788196fd9a5e28fc53ec6538a) Thanks [@langermank](https://github.com/langermank)! - Remove `--primer` prefix from CSS var
+
+- [#3173](https://github.com/primer/react/pull/3173) [`6b900e90`](https://github.com/primer/react/commit/6b900e90c3a551251b8161227c3d51ba476b9b5c) Thanks [@colebemis](https://github.com/colebemis)! - `ActionList` and `NavList` are now SSR-compatible.
+
+  Warning: In this new implementation, `ActionList.LeadingVisual`, `ActionList.TrailingVisual,` and `ActionList.Description` must be direct children of `ActionList`. The same applies to `NavList`.
+
+- [#3198](https://github.com/primer/react/pull/3198) [`a273748b`](https://github.com/primer/react/commit/a273748b6d8162b7f6e819200c5663963558ec2f) Thanks [@langermank](https://github.com/langermank)! - Bug fix: `ButtonGroup` borders show incorrectly on hover
+
 ## 35.25.0
 
 ### Minor Changes
