@@ -3663,7 +3663,7 @@
       "stories": [
         {
           "id": "components-splitpagelayout--default",
-          "code": "Template.bind({})"
+          "code": "() => (\n  <SplitPageLayout>\n    <SplitPageLayout.Header>\n      <Placeholder label=\"Header\" height={100} />\n    </SplitPageLayout.Header>\n    <SplitPageLayout.Pane position=\"start\">\n      <Placeholder label=\"Pane\" height={400} />\n    </SplitPageLayout.Pane>\n    <SplitPageLayout.Content>\n      <Placeholder label=\"Content\" height={600} />\n    </SplitPageLayout.Content>\n    <SplitPageLayout.Footer>\n      <Placeholder label=\"Footer\" height={100} />\n    </SplitPageLayout.Footer>\n  </SplitPageLayout>\n)"
         }
       ],
       "props": [
