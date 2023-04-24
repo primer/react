@@ -144,7 +144,7 @@ describe('PageLayout', () => {
           <PageLayout.Header aria-labelledby="header-label">
             <span id="header-label">header</span>
           </PageLayout.Header>
-          <PageLayout.Content as="main" aria-labelledby="content-label">
+          <PageLayout.Content aria-labelledby="content-label" role="main">
             <span id="content-label">content</span>
           </PageLayout.Content>
           <PageLayout.Pane>Pane</PageLayout.Pane>
