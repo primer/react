@@ -1,0 +1,10 @@
+#!/bin/bash
+set -e
+
+if [ -n "$1" ]; then
+  npx nx build:preview docs
+  npm run build:storybook preview
+else
+  npx nx build docs
+  npm run build:storybook
+fi

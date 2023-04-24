@@ -1,4 +1,4 @@
-const defines = require('../babel-defines')
+const defines = require('../packages/react/babel-defines')
 const docgen = require('react-docgen-typescript')
 const globby = require('globby')
 

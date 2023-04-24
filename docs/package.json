@@ -16,6 +16,7 @@
     "@primer/gatsby-theme-doctocat": "^4.4.2",
     "@primer/octicons-react": "^17.7.0",
     "@primer/primitives": "4.1.0",
+    "@primer/react": "^35.25.0",
     "@styled-system/prop-types": "^5.1.0",
     "@styled-system/theme-get": "^5.1.0",
     "deepmerge": "4.2.2",
@@ -31,6 +32,7 @@
   },
   "devDependencies": {
     "cross-env": "7.0.2",
+    "eslint-config-react-app": "7.0.1",
     "globby": "^11.0.4",
     "minipass": "^2.9.0",
     "path-browserify": "^1.0.1"

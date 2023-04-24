@@ -19,9 +19,9 @@ module.exports = {
       resolve: `gatsby-plugin-alias-imports`,
       options: {
         alias: {
-          '@primer/components': path.resolve(__dirname, '../src'),
-          '@primer/react': path.resolve(__dirname, '../src'),
-          '@primer/react/drafts': path.resolve(__dirname, '../src/drafts'),
+          '@primer/components': path.resolve(__dirname, '..', 'packages', 'react', 'src'),
+          '@primer/react': path.resolve(__dirname, '..', 'packages', 'react', 'src'),
+          '@primer/react/drafts': path.resolve(__dirname, '..', 'packages', 'react', 'src', 'drafts'),
           'styled-components': path.resolve(__dirname, '..', 'node_modules', 'styled-components'),
           react: path.resolve(__dirname, 'node_modules', 'react'),
         },
