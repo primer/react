@@ -94,7 +94,7 @@ test.describe('PageLayout', () => {
           expect(await page.screenshot()).toMatchSnapshot(`PageLayout.Sticky Pane.${theme}.png`)
 
           const content = page.getByTestId('content3')
-          content.scrollIntoViewIfNeeded()
+          await content.scrollIntoViewIfNeeded()
 
           const paragraphRect = await page.getByTestId('paragraph0').boundingBox()
           if (paragraphRect) {
@@ -182,7 +182,7 @@ test.describe('PageLayout', () => {
           expect(await page.screenshot()).toMatchSnapshot(`PageLayout.Custom Sticky Header.${theme}.png`)
 
           const content = page.getByTestId('content3')
-          content.scrollIntoViewIfNeeded()
+          await content.scrollIntoViewIfNeeded()
 
           const paragraphBoundaries = await page.getByTestId('paragraph0').boundingBox()
           const stickyHeaderBoundaries = await page.getByTestId('sticky-header').boundingBox()
