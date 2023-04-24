@@ -1,10 +1,7 @@
-import {ButtonComponent} from './Button'
-import {Counter} from './ButtonCounter'
-import {IconButton} from './IconButton'
-import {LinkButton} from './LinkButton'
-export type {ButtonProps, IconButtonProps} from './types'
-export {IconButton, LinkButton}
+// todo: dev stories
+// todo: counter size
+// todo: icon button
+// todo: themeprovider with primitives
 
-export const Button = Object.assign(ButtonComponent, {
-  Counter,
-})
+export {Button} from './Button'
+export type {ButtonProps, ButtonCounterProps} from './Button'

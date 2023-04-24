@@ -1,6 +1,6 @@
 import {SearchIcon, TriangleDownIcon, EyeIcon} from '@primer/octicons-react'
 import React from 'react'
-import {Button, IconButton} from '.'
+import {Button, IconButton} from '../../Button'
 
 export default {
   title: 'Drafts/Components/Button/DevOnly',

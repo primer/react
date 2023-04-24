@@ -53,4 +53,4 @@ export * from '../SegmentedControl'
 export * from '../SplitPageLayout'
 
 // CSS Experiment
-export * from '../Button2'
+export * from './Button2'

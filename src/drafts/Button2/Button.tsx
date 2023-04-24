@@ -1,90 +1,104 @@
-import React, {forwardRef} from 'react'
-import {ButtonProps} from './types'
-import {ButtonBase} from './ButtonBase'
+import React from 'react'
+import styled from 'styled-components'
+import merge from 'classnames'
+import sx, {SxProp} from '../../sx'
 import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../../utils/polymorphic'
-import {defaultSxProp} from '../../utils/defaultSxProp'
-import {BetterSystemStyleObject} from '../../sx'
+import CounterLabel, {CounterLabelProps} from '../../CounterLabel'
+import classNames from './Button.module.css'
 
-const ButtonComponent = forwardRef(({children, sx: sxProp = defaultSxProp, ...props}, forwardedRef): JSX.Element => {
-  let sxStyles = sxProp
+// keep styled.button underneath to support sx prop
+const StyledButton = styled.button<SxProp>(sx)
 
-  // grap the button props that have associated data attributes in the styles
-  const {block, size, leadingIcon, trailingIcon, trailingAction} = props
+export type ButtonProps = {
+  children: React.ReactNode
+  /**
+   * Determine's the styles on a button one of 'default' | 'primary' | 'invisible' | 'danger'
+   */
+  variant?: 'default' | 'primary' | 'invisible' | 'danger' | 'outline'
+  /**
+   * Size of button and fontSize of text in button
+   */
+  size?: 'small' | 'medium' | 'large'
+  /**
+   * Allow button width to fill its container.
+   */
+  block?: boolean
+  /**
+   * Content alignment for when visuals are present
+   */
+  alignContent?: 'start' | 'center'
+  /**
+   * The leading icon comes before button content
+   */
+  leadingIcon?: React.ComponentType | null | undefined
+  /**
+   * The trailing icon comes after button content
+   */
+  trailingIcon?: React.ComponentType | null | undefined
+  /**
+   * Trailing action appears to the right of the trailing visual and is always locked to the end
+   */
+  trailingAction?: React.ComponentType | null | undefined
+} & SxProp &
+  React.ButtonHTMLAttributes<HTMLButtonElement>
 
-  if (sxProp !== null && Object.keys(sxProp).length > 0) {
-    sxStyles = generateCustomSxProp({block, size, leadingIcon, trailingIcon, trailingAction}, sxProp)
-  }
+const ButtonComponent = React.forwardRef(
+  (
+    {
+      children,
+      variant = 'default',
+      size = 'medium',
+      block = false,
+      leadingIcon: LeadingIcon,
+      trailingIcon: TrailingIcon,
+      trailingAction: TrailingAction,
+      sx,
+      className,
+      ...props
+    },
+    forwardedRef,
+  ): JSX.Element => {
+    return (
+      <StyledButton
+        type="button"
+        className={merge(classNames.button, className)}
+        data-variant={variant}
+        data-size={size}
+        data-block={block}
+        ref={forwardedRef}
+        sx={sx}
+        {...props}
+      >
+        {LeadingIcon && (
+          <span data-component="leadingVisual">
+            <LeadingIcon />
+          </span>
+        )}
+        {children}
+        {TrailingIcon && (
+          <span data-component="trailingVisual">
+            <TrailingIcon />
+          </span>
+        )}
+        {TrailingAction && (
+          <span data-component="trailingVisual">
+            <TrailingAction />
+          </span>
+        )}
+      </StyledButton>
+    )
+  },
+) as PolymorphicForwardRefComponent<'button', ButtonProps>
 
+// scheme is not configurable, always set to default (secondary)
+export type ButtonCounterProps = Omit<CounterLabelProps, 'scheme'> & {children: number}
+
+const Counter = ({children, className, ...props}: ButtonCounterProps) => {
   return (
-    <ButtonBase ref={forwardedRef} as="button" sx={sxStyles} type="button" {...props}>
+    <CounterLabel className={merge(classNames.counter, className)} data-component="ButtonCounter" {...props}>
       {children}
-    </ButtonBase>
+    </CounterLabel>
   )
-}) as PolymorphicForwardRefComponent<'button', ButtonProps>
-
-// This function is used to generate a custom cssSelector for the sxProp
-
-// The usual sx prop can like this:
-// sx={{
-//   [`@media (max-width: 768px)`]: {
-//     '& > ul': {
-//       backgroundColor: 'deeppink',
-//     },
-//     '&:hover': {
-//       backgroundColor: 'yellow',
-//     },
-//   },
-//  '&:hover': {
-//     backgroundColor: 'yellow',
-//   },
-//  '&': {
-//  width : 320px
-// }
-// }}
-//*
-/* What we want for Button styles is this:
-sx={{
-//   [`@media (max-width: 768px)`]: {
-//     '&[data-attribute="something"] > ul': {
-//       backgroundColor: 'deeppink',
-//     },
-//     '&[data-attribute="something"]:hover': {
-//       backgroundColor: 'yellow',
-//     },
-//   },
-//  '&[data-attribute="something"]:hover': {
-//     backgroundColor: 'yellow',
-//   },
-//  '&[data-attribute="something"]': {
-//     width : 320px
-//  }
-// }}
-
-// We need to make sure we append the customCSSSelector to the original class selector. i.e & - > &[data-attribute="Icon"][data-size="small"]
-*/
-export function generateCustomSxProp(
-  props: Partial<Pick<ButtonProps, 'size' | 'block' | 'leadingIcon' | 'trailingIcon' | 'trailingAction'>>,
-  providedSx: BetterSystemStyleObject,
-) {
-  // Possible data attributes: data-size, data-block, data-no-visuals
-  const size = props.size && props.size !== 'medium' ? `[data-size="${props.size}"]` : '' // medium is a default size therefore it doesn't have a data attribute that used for styling
-  const block = props.block ? `[data-block="block"]` : ''
-  const noVisuals = props.leadingIcon || props.trailingIcon || props.trailingAction ? '' : '[data-no-visuals="true"]'
-
-  // this is custom selector. We need to make sure we add the data attributes to the base css class (& -> &[data-attributename="value"]])
-  const cssSelector = `&${size}${block}${noVisuals}` // &[data-size="small"][data-block="block"][data-no-visuals="true"]
-
-  const customSxProp: {
-    [key: string]: BetterSystemStyleObject
-  } = {}
-
-  if (!providedSx) return customSxProp
-  else {
-    customSxProp[cssSelector] = providedSx
-    return customSxProp
-  }
 }
 
-ButtonComponent.displayName = 'Button'
-
-export {ButtonComponent}
+export const Button = Object.assign(ButtonComponent, {Counter})
