@@ -8,7 +8,7 @@ export default {
   component: UnderlineNav,
 } as Meta<typeof UnderlineNav>
 
-export const Actions = () => (
+export const Actions: ComponentStory<typeof UnderlineNav> = () => (
   <UnderlineNav aria-label="Main" actions={<Button>Click me</Button>}>
     <UnderlineNav.Link href="#home" selected>
       Home
