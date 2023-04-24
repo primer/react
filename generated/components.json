@@ -967,16 +967,6 @@
           "defaultValue": "'medium'"
         },
         {
-          "name": "leadingIcon",
-          "type": "React.ComponentType<OcticonProps>",
-          "description": "An icon to display before the button text."
-        },
-        {
-          "name": "trailingIcon",
-          "type": "React.ComponentType<OcticonProps>",
-          "description": "An icon to display after the button text."
-        },
-        {
           "name": "as",
           "type": "React.ElementType",
           "defaultValue": "'button'"
@@ -993,24 +983,7 @@
       "passthrough": {
         "element": "button",
         "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#attributes"
-      },
-      "subcomponents": [
-        {
-          "name": "Button.Counter",
-          "props": [
-            {
-              "name": "children",
-              "required": true,
-              "type": "number",
-              "description": "The counter value."
-            },
-            {
-              "name": "sx",
-              "type": "SystemStyleObject"
-            }
-          ]
-        }
-      ]
+      }
     },
     "icon_button": {
       "id": "icon_button",
