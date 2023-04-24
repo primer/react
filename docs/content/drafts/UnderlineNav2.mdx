@@ -145,7 +145,7 @@ function UnderlineNavItem({href, children, ...rest}) {
   const router = useRouter()
   const isCurrent = typeof href === 'string' ? router.asPath === href : router.pathname === href.pathname
   return (
-    <UnderlineNav.Item s={Link} href={href} aria-current={isCurrent ? 'page' : undefined} {...rest}>
+    <UnderlineNav.Item as={Link} href={href} aria-current={isCurrent ? 'page' : undefined} {...rest}>
       {children}
     </UnderlineNav.Item>
   )

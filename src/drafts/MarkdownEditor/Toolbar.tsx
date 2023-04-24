@@ -18,7 +18,6 @@ import {isMacOS} from '@primer/behaviors/utils'
 import Box from '../../Box'
 import {IconButton, IconButtonProps} from '../../Button'
 import {useFocusZone} from '../../hooks/useFocusZone'
-import {MarkdownEditorSlot} from './MarkdownEditor'
 import {MarkdownEditorContext} from './_MarkdownEditorContext'
 import {SavedRepliesButton} from './_SavedReplies'
 
@@ -143,9 +142,5 @@ export const CoreToolbar = ({children}: {children?: React.ReactNode}) => {
   )
 }
 
-export const Toolbar = ({children}: {children?: React.ReactNode}) => (
-  <MarkdownEditorSlot name="Toolbar">
-    <CoreToolbar>{children}</CoreToolbar>
-  </MarkdownEditorSlot>
-)
+export const Toolbar = ({children}: {children?: React.ReactNode}) => <CoreToolbar>{children}</CoreToolbar>
 Toolbar.displayName = 'MarkdownEditor.Toolbar'
