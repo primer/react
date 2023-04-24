@@ -43,6 +43,6 @@ export const Large = () => <Button size="large">Default</Button>
 export const WithClassName = () => (
   <Button className="storybook-debug">
     Watch
-    <Button.Counter className="storybook-debug">2</Button.Counter>
+    <Button.Counter className="storybook-debug">{2}</Button.Counter>
   </Button>
 )
