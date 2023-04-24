@@ -1,6 +1,6 @@
 import React from 'react'
 import {render, waitFor} from '@testing-library/react'
-import createSlots from '../../utils/create-slots'
+import createSlots from './create-slots'
 
 // setup a component with slots
 const {Slots, Slot} = createSlots(['One', 'Two', 'Three'])
