@@ -1,3 +1,3 @@
-import createSlots from '../../utils/create-slots'
+import createSlots from '../utils/create-slots'
 
 export const {Slots, Slot} = createSlots(['Caption', 'Input', 'Label', 'LeadingVisual'])
