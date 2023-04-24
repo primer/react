@@ -814,6 +814,41 @@ const components = new Map([
     },
   ],
   [
+    'PageLayout',
+    {
+      stories: [
+        {
+          id: 'components-pagelayout--default',
+          name: 'Default',
+        },
+        {
+          id: 'components-pagelayout-features--pull-request',
+          name: 'Pull Request',
+        },
+        {
+          id: 'components-pagelayout-features--sticky-pane',
+          name: 'Sticky Pane',
+        },
+        {
+          id: 'components-pagelayout-features--nested-scroll-container',
+          name: 'Nested Scroll Container',
+        },
+        {
+          id: 'components-pagelayout-features--custom-sticky-header',
+          name: 'Custom Sticky Header',
+        },
+        {
+          id: 'components-pagelayout-features--resizable-pane',
+          name: 'Resizable Pane',
+        },
+        {
+          id: 'components-pagelayout-features--scroll-container-within-page-layout-pane',
+          name: 'Scroll Container Within Page Layout Pane',
+        },
+      ],
+    },
+  ],
+  [
     'Popover',
     {
       stories: [
@@ -978,6 +1013,41 @@ const components = new Map([
     },
   ],
   [
+    'SelectPanel',
+    {
+      stories: [
+        {
+          id: 'components-selectpanel--default',
+          name: 'Default',
+        },
+        {
+          id: 'components-selectpanel-features--single-select-story',
+          name: 'Single Select',
+        },
+        {
+          id: 'components-selectpanel-features--external-anchor-story',
+          name: 'External Anchor',
+        },
+        {
+          id: 'components-selectpanel-features--select-panel-height-initial-with-overflowing-items-story',
+          name: 'SelectPanel, Height: Initial, Overflowing Items',
+        },
+        {
+          id: 'components-selectpanel-features--select-panel-height-initial-with-underflowing-items-story',
+          name: 'SelectPanel, Height: Initial, Underflowing Items',
+        },
+        {
+          id: 'components-selectpanel-features--select-panel-above-tall-body',
+          name: 'SelectPanel, Above a Tall Body',
+        },
+        {
+          id: 'components-selectpanel-features-select-panel-height-and-scroll',
+          name: 'SelectPanel, Height and Scroll',
+        },
+      ],
+    },
+  ],
+  [
     'StateLabel',
     {
       stories: [
@@ -1016,6 +1086,21 @@ const components = new Map([
         {
           id: 'components-statelabel-features--small',
           name: 'Small',
+        },
+      ],
+    },
+  ],
+  [
+    'Text',
+    {
+      stories: [
+        {
+          id: 'components-text--default',
+          name: 'Default',
+        },
+        {
+          id: 'components-text--playground',
+          name: 'Playground',
         },
       ],
     },
@@ -1277,6 +1362,21 @@ const components = new Map([
         {
           id: 'components-treeview-features--files-changed',
           name: 'Files Changed',
+        },
+      ],
+    },
+  ],
+  [
+    'Truncate',
+    {
+      stories: [
+        {
+          id: 'components-truncate--default',
+          name: 'Default',
+        },
+        {
+          id: 'components-truncate--playground',
+          name: 'Playground',
         },
       ],
     },
