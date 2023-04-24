@@ -9,7 +9,6 @@ import {defaultSxProp} from '../utils/defaultSxProp'
 import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import {ActionListContainerContext} from './ActionListContainerContext'
 import {Description} from './Description'
-import {GroupContext} from './Group'
 import {ActionListProps, ListContext} from './List'
 import {Selection} from './Selection'
 import {ActionListItemProps, getVariantStyles, ItemContext, TEXT_ROW_HEIGHT} from './shared'
@@ -39,7 +38,6 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       description: Description,
     })
     const {variant: listVariant, showDividers, selectionVariant: listSelectionVariant} = React.useContext(ListContext)
-    const {selectionVariant: groupSelectionVariant} = React.useContext(GroupContext)
     const {container, afterSelect, selectionAttribute} = React.useContext(ActionListContainerContext)
 
     const onSelect = React.useCallback(
@@ -55,9 +53,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       [onSelectUser],
     )
 
-    const selectionVariant: ActionListProps['selectionVariant'] = groupSelectionVariant
-      ? groupSelectionVariant
-      : listSelectionVariant
+    const selectionVariant: ActionListProps['selectionVariant'] = listSelectionVariant
 
     /** Infer item role based on the container */
     let itemRole: ActionListItemProps['role']
