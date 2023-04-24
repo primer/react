@@ -20,10 +20,6 @@ exports[`TextInput renders 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
-  background-repeat: no-repeat;
-  background-position: right 8px center;
-  padding-left: 0;
-  padding-right: 0;
 }
 
 .c0 input,
@@ -61,12 +57,19 @@ exports[`TextInput renders 1`] = `
   padding: 12px;
 }
 
-.c0 > :not(:last-child) {
+.c1 {
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.c1 > :not(:last-child) {
   margin-right: 8px;
 }
 
-.c0 .TextInput-icon,
-.c0 .TextInput-action {
+.c1 .TextInput-icon,
+.c1 .TextInput-action {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
@@ -76,13 +79,13 @@ exports[`TextInput renders 1`] = `
   flex-shrink: 0;
 }
 
-.c0 > input,
-.c0 > select {
+.c1 > input,
+.c1 > select {
   padding-left: 12px;
   padding-right: 12px;
 }
 
-.c1 {
+.c2 {
   border: 0;
   font-size: inherit;
   font-family: inherit;
@@ -92,7 +95,7 @@ exports[`TextInput renders 1`] = `
   width: 100%;
 }
 
-.c1:focus {
+.c2:focus {
   outline: 0;
 }
 
@@ -105,11 +108,11 @@ exports[`TextInput renders 1`] = `
 <span
   aria-busy={false}
   aria-live="polite"
-  className="c0 TextInput-wrapper"
+  className="c0 c1 TextInput-wrapper"
   onClick={[Function]}
 >
   <input
-    className="c1"
+    className="c2"
     data-component="input"
     name="zipcode"
     onBlur={[Function]}
@@ -147,10 +150,6 @@ exports[`TextInput renders block 1`] = `
   -webkit-align-self: stretch;
   -ms-flex-item-align: stretch;
   align-self: stretch;
-  background-repeat: no-repeat;
-  background-position: right 8px center;
-  padding-left: 0;
-  padding-right: 0;
 }
 
 .c0 input,
@@ -188,12 +187,19 @@ exports[`TextInput renders block 1`] = `
   padding: 12px;
 }
 
-.c0 > :not(:last-child) {
+.c1 {
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.c1 > :not(:last-child) {
   margin-right: 8px;
 }
 
-.c0 .TextInput-icon,
-.c0 .TextInput-action {
+.c1 .TextInput-icon,
+.c1 .TextInput-action {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
@@ -203,13 +209,13 @@ exports[`TextInput renders block 1`] = `
   flex-shrink: 0;
 }
 
-.c0 > input,
-.c0 > select {
+.c1 > input,
+.c1 > select {
   padding-left: 12px;
   padding-right: 12px;
 }
 
-.c1 {
+.c2 {
   border: 0;
   font-size: inherit;
   font-family: inherit;
@@ -219,7 +225,7 @@ exports[`TextInput renders block 1`] = `
   width: 100%;
 }
 
-.c1:focus {
+.c2:focus {
   outline: 0;
 }
 
@@ -232,11 +238,11 @@ exports[`TextInput renders block 1`] = `
 <span
   aria-busy={false}
   aria-live="polite"
-  className="c0 TextInput-wrapper"
+  className="c0 c1 TextInput-wrapper"
   onClick={[Function]}
 >
   <input
-    className="c1"
+    className="c2"
     data-component="input"
     name="zipcode"
     onBlur={[Function]}
@@ -266,10 +272,6 @@ exports[`TextInput renders consistently 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
-  background-repeat: no-repeat;
-  background-position: right 8px center;
-  padding-left: 0;
-  padding-right: 0;
 }
 
 .c0 input,
@@ -307,12 +309,19 @@ exports[`TextInput renders consistently 1`] = `
   padding: 12px;
 }
 
-.c0 > :not(:last-child) {
+.c1 {
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.c1 > :not(:last-child) {
   margin-right: 8px;
 }
 
-.c0 .TextInput-icon,
-.c0 .TextInput-action {
+.c1 .TextInput-icon,
+.c1 .TextInput-action {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
@@ -322,13 +331,13 @@ exports[`TextInput renders consistently 1`] = `
   flex-shrink: 0;
 }
 
-.c0 > input,
-.c0 > select {
+.c1 > input,
+.c1 > select {
   padding-left: 12px;
   padding-right: 12px;
 }
 
-.c1 {
+.c2 {
   border: 0;
   font-size: inherit;
   font-family: inherit;
@@ -338,7 +347,7 @@ exports[`TextInput renders consistently 1`] = `
   width: 100%;
 }
 
-.c1:focus {
+.c2:focus {
   outline: 0;
 }
 
@@ -351,11 +360,11 @@ exports[`TextInput renders consistently 1`] = `
 <span
   aria-busy={false}
   aria-live="polite"
-  className="c0 TextInput-wrapper"
+  className="c0 c1 TextInput-wrapper"
   onClick={[Function]}
 >
   <input
-    className="c1"
+    className="c2"
     data-component="input"
     onBlur={[Function]}
     onFocus={[Function]}
@@ -385,10 +394,6 @@ exports[`TextInput renders contrast 1`] = `
   align-items: stretch;
   min-height: 32px;
   background-color: #f6f8fa;
-  background-repeat: no-repeat;
-  background-position: right 8px center;
-  padding-left: 0;
-  padding-right: 0;
 }
 
 .c0 input,
@@ -426,12 +431,19 @@ exports[`TextInput renders contrast 1`] = `
   padding: 12px;
 }
 
-.c0 > :not(:last-child) {
+.c1 {
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.c1 > :not(:last-child) {
   margin-right: 8px;
 }
 
-.c0 .TextInput-icon,
-.c0 .TextInput-action {
+.c1 .TextInput-icon,
+.c1 .TextInput-action {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
@@ -441,13 +453,13 @@ exports[`TextInput renders contrast 1`] = `
   flex-shrink: 0;
 }
 
-.c0 > input,
-.c0 > select {
+.c1 > input,
+.c1 > select {
   padding-left: 12px;
   padding-right: 12px;
 }
 
-.c1 {
+.c2 {
   border: 0;
   font-size: inherit;
   font-family: inherit;
@@ -457,7 +469,7 @@ exports[`TextInput renders contrast 1`] = `
   width: 100%;
 }
 
-.c1:focus {
+.c2:focus {
   outline: 0;
 }
 
@@ -470,11 +482,11 @@ exports[`TextInput renders contrast 1`] = `
 <span
   aria-busy={false}
   aria-live="polite"
-  className="c0 TextInput-wrapper"
+  className="c0 c1 TextInput-wrapper"
   onClick={[Function]}
 >
   <input
-    className="c1"
+    className="c2"
     data-component="input"
     name="zipcode"
     onBlur={[Function]}
@@ -505,10 +517,6 @@ exports[`TextInput renders error 1`] = `
   align-items: stretch;
   min-height: 32px;
   border-color: #cf222e;
-  background-repeat: no-repeat;
-  background-position: right 8px center;
-  padding-left: 0;
-  padding-right: 0;
 }
 
 .c0 input,
@@ -552,12 +560,19 @@ exports[`TextInput renders error 1`] = `
   box-shadow: inset 0 0 0 1px #0969da;
 }
 
-.c0 > :not(:last-child) {
+.c1 {
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.c1 > :not(:last-child) {
   margin-right: 8px;
 }
 
-.c0 .TextInput-icon,
-.c0 .TextInput-action {
+.c1 .TextInput-icon,
+.c1 .TextInput-action {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
@@ -567,13 +582,13 @@ exports[`TextInput renders error 1`] = `
   flex-shrink: 0;
 }
 
-.c0 > input,
-.c0 > select {
+.c1 > input,
+.c1 > select {
   padding-left: 12px;
   padding-right: 12px;
 }
 
-.c1 {
+.c2 {
   border: 0;
   font-size: inherit;
   font-family: inherit;
@@ -583,7 +598,7 @@ exports[`TextInput renders error 1`] = `
   width: 100%;
 }
 
-.c1:focus {
+.c2:focus {
   outline: 0;
 }
 
@@ -596,11 +611,11 @@ exports[`TextInput renders error 1`] = `
 <span
   aria-busy={false}
   aria-live="polite"
-  className="c0 TextInput-wrapper"
+  className="c0 c1 TextInput-wrapper"
   onClick={[Function]}
 >
   <input
-    className="c1"
+    className="c2"
     data-component="input"
     name="zipcode"
     onBlur={[Function]}
@@ -636,10 +651,6 @@ exports[`TextInput renders large 1`] = `
   padding-top: 10px;
   padding-bottom: 10px;
   height: 40px;
-  background-repeat: no-repeat;
-  background-position: right 8px center;
-  padding-left: 0;
-  padding-right: 0;
 }
 
 .c0 input,
@@ -677,12 +688,19 @@ exports[`TextInput renders large 1`] = `
   padding: 12px;
 }
 
-.c0 > :not(:last-child) {
+.c1 {
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.c1 > :not(:last-child) {
   margin-right: 8px;
 }
 
-.c0 .TextInput-icon,
-.c0 .TextInput-action {
+.c1 .TextInput-icon,
+.c1 .TextInput-action {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
@@ -692,13 +710,13 @@ exports[`TextInput renders large 1`] = `
   flex-shrink: 0;
 }
 
-.c0 > input,
-.c0 > select {
+.c1 > input,
+.c1 > select {
   padding-left: 12px;
   padding-right: 12px;
 }
 
-.c1 {
+.c2 {
   border: 0;
   font-size: inherit;
   font-family: inherit;
@@ -708,7 +726,7 @@ exports[`TextInput renders large 1`] = `
   width: 100%;
 }
 
-.c1:focus {
+.c2:focus {
   outline: 0;
 }
 
@@ -721,12 +739,12 @@ exports[`TextInput renders large 1`] = `
 <span
   aria-busy={false}
   aria-live="polite"
-  className="c0 TextInput-wrapper"
+  className="c0 c1 TextInput-wrapper"
   onClick={[Function]}
   size="large"
 >
   <input
-    className="c1"
+    className="c2"
     data-component="input"
     name="zipcode"
     onBlur={[Function]}
@@ -756,10 +774,6 @@ exports[`TextInput renders leadingVisual 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
-  background-repeat: no-repeat;
-  background-position: right 8px center;
-  padding-left: 12px;
-  padding-right: 0;
 }
 
 .c0 input,
@@ -797,12 +811,19 @@ exports[`TextInput renders leadingVisual 1`] = `
   padding: 12px;
 }
 
-.c0 > :not(:last-child) {
+.c1 {
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  padding-left: 12px;
+  padding-right: 0;
+}
+
+.c1 > :not(:last-child) {
   margin-right: 8px;
 }
 
-.c0 .TextInput-icon,
-.c0 .TextInput-action {
+.c1 .TextInput-icon,
+.c1 .TextInput-action {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
@@ -812,13 +833,13 @@ exports[`TextInput renders leadingVisual 1`] = `
   flex-shrink: 0;
 }
 
-.c0 > input,
-.c0 > select {
+.c1 > input,
+.c1 > select {
   padding-left: 0;
   padding-right: 12px;
 }
 
-.c1 {
+.c2 {
   border: 0;
   font-size: inherit;
   font-family: inherit;
@@ -828,7 +849,7 @@ exports[`TextInput renders leadingVisual 1`] = `
   width: 100%;
 }
 
-.c1:focus {
+.c2:focus {
   outline: 0;
 }
 
@@ -841,7 +862,7 @@ exports[`TextInput renders leadingVisual 1`] = `
 <span
   aria-busy={false}
   aria-live="polite"
-  className="c0 TextInput-wrapper"
+  className="c0 c1 TextInput-wrapper"
   onClick={[Function]}
 >
   <span
@@ -871,7 +892,7 @@ exports[`TextInput renders leadingVisual 1`] = `
     </svg>
   </span>
   <input
-    className="c1"
+    className="c2"
     data-component="input"
     name="search"
     onBlur={[Function]}
@@ -903,10 +924,6 @@ exports[`TextInput renders monospace 1`] = `
   align-items: stretch;
   min-height: 32px;
   font-family: SFMono-Regular,Consolas,"Liberation Mono",Menlo,Courier,monospace;
-  background-repeat: no-repeat;
-  background-position: right 8px center;
-  padding-left: 0;
-  padding-right: 0;
 }
 
 .c0 input,
@@ -944,12 +961,19 @@ exports[`TextInput renders monospace 1`] = `
   padding: 12px;
 }
 
-.c0 > :not(:last-child) {
+.c1 {
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.c1 > :not(:last-child) {
   margin-right: 8px;
 }
 
-.c0 .TextInput-icon,
-.c0 .TextInput-action {
+.c1 .TextInput-icon,
+.c1 .TextInput-action {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
@@ -959,13 +983,13 @@ exports[`TextInput renders monospace 1`] = `
   flex-shrink: 0;
 }
 
-.c0 > input,
-.c0 > select {
+.c1 > input,
+.c1 > select {
   padding-left: 12px;
   padding-right: 12px;
 }
 
-.c1 {
+.c2 {
   border: 0;
   font-size: inherit;
   font-family: inherit;
@@ -975,7 +999,7 @@ exports[`TextInput renders monospace 1`] = `
   width: 100%;
 }
 
-.c1:focus {
+.c2:focus {
   outline: 0;
 }
 
@@ -988,11 +1012,11 @@ exports[`TextInput renders monospace 1`] = `
 <span
   aria-busy={false}
   aria-live="polite"
-  className="c0 TextInput-wrapper"
+  className="c0 c1 TextInput-wrapper"
   onClick={[Function]}
 >
   <input
-    className="c1"
+    className="c2"
     data-component="input"
     name="zipcode"
     onBlur={[Function]}
@@ -1022,10 +1046,6 @@ exports[`TextInput renders placeholder 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
-  background-repeat: no-repeat;
-  background-position: right 8px center;
-  padding-left: 0;
-  padding-right: 0;
 }
 
 .c0 input,
@@ -1063,12 +1083,19 @@ exports[`TextInput renders placeholder 1`] = `
   padding: 12px;
 }
 
-.c0 > :not(:last-child) {
+.c1 {
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.c1 > :not(:last-child) {
   margin-right: 8px;
 }
 
-.c0 .TextInput-icon,
-.c0 .TextInput-action {
+.c1 .TextInput-icon,
+.c1 .TextInput-action {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
@@ -1078,13 +1105,13 @@ exports[`TextInput renders placeholder 1`] = `
   flex-shrink: 0;
 }
 
-.c0 > input,
-.c0 > select {
+.c1 > input,
+.c1 > select {
   padding-left: 12px;
   padding-right: 12px;
 }
 
-.c1 {
+.c2 {
   border: 0;
   font-size: inherit;
   font-family: inherit;
@@ -1094,7 +1121,7 @@ exports[`TextInput renders placeholder 1`] = `
   width: 100%;
 }
 
-.c1:focus {
+.c2:focus {
   outline: 0;
 }
 
@@ -1107,11 +1134,11 @@ exports[`TextInput renders placeholder 1`] = `
 <span
   aria-busy={false}
   aria-live="polite"
-  className="c0 TextInput-wrapper"
+  className="c0 c1 TextInput-wrapper"
   onClick={[Function]}
 >
   <input
-    className="c1"
+    className="c2"
     data-component="input"
     name="zipcode"
     onBlur={[Function]}
@@ -1150,10 +1177,6 @@ exports[`TextInput renders small 1`] = `
   padding-bottom: 3px;
   font-size: 12px;
   line-height: 20px;
-  background-repeat: no-repeat;
-  background-position: right 8px center;
-  padding-left: 0;
-  padding-right: 0;
 }
 
 .c0 input,
@@ -1191,12 +1214,19 @@ exports[`TextInput renders small 1`] = `
   padding: 12px;
 }
 
-.c0 > :not(:last-child) {
+.c1 {
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.c1 > :not(:last-child) {
   margin-right: 8px;
 }
 
-.c0 .TextInput-icon,
-.c0 .TextInput-action {
+.c1 .TextInput-icon,
+.c1 .TextInput-action {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
@@ -1206,13 +1236,13 @@ exports[`TextInput renders small 1`] = `
   flex-shrink: 0;
 }
 
-.c0 > input,
-.c0 > select {
+.c1 > input,
+.c1 > select {
   padding-left: 12px;
   padding-right: 12px;
 }
 
-.c1 {
+.c2 {
   border: 0;
   font-size: inherit;
   font-family: inherit;
@@ -1222,7 +1252,7 @@ exports[`TextInput renders small 1`] = `
   width: 100%;
 }
 
-.c1:focus {
+.c2:focus {
   outline: 0;
 }
 
@@ -1235,12 +1265,12 @@ exports[`TextInput renders small 1`] = `
 <span
   aria-busy={false}
   aria-live="polite"
-  className="c0 TextInput-wrapper"
+  className="c0 c1 TextInput-wrapper"
   onClick={[Function]}
   size="small"
 >
   <input
-    className="c1"
+    className="c2"
     data-component="input"
     name="zipcode"
     onBlur={[Function]}
@@ -1251,13 +1281,13 @@ exports[`TextInput renders small 1`] = `
 `;
 
 exports[`TextInput renders trailingAction icon button 1`] = `
-.c2 {
+.c3 {
   margin-left: 4px;
   margin-right: 4px;
   line-height: 0;
 }
 
-.c4 {
+.c5 {
   border-radius: 6px;
   border: 1px solid;
   border-color: transparent;
@@ -1302,59 +1332,59 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   box-shadow: none;
 }
 
-.c4:focus:not(:disabled) {
+.c5:focus:not(:disabled) {
   box-shadow: none;
   outline: 2px solid #0969da;
   outline-offset: -2px;
 }
 
-.c4:focus:not(:disabled):not(:focus-visible) {
+.c5:focus:not(:disabled):not(:focus-visible) {
   outline: solid 1px transparent;
 }
 
-.c4:focus-visible:not(:disabled) {
+.c5:focus-visible:not(:disabled) {
   box-shadow: none;
   outline: 2px solid #0969da;
   outline-offset: -2px;
 }
 
-.c4[href] {
+.c5[href] {
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
   display: inline-flex;
 }
 
-.c4[href]:hover {
+.c5[href]:hover {
   -webkit-text-decoration: none;
   text-decoration: none;
 }
 
-.c4:hover {
+.c5:hover {
   -webkit-transition-duration: 80ms;
   transition-duration: 80ms;
 }
 
-.c4:active {
+.c5:active {
   -webkit-transition: none;
   transition: none;
 }
 
-.c4:disabled {
+.c5:disabled {
   cursor: not-allowed;
   box-shadow: none;
   color: #8c959f;
 }
 
-.c4:disabled [data-component=ButtonCounter] {
+.c5:disabled [data-component=ButtonCounter] {
   color: inherit;
 }
 
-.c4 [data-component=ButtonCounter] {
+.c5 [data-component=ButtonCounter] {
   font-size: 14px;
 }
 
-.c4[data-component=IconButton] {
+.c5[data-component=IconButton] {
   display: inline-grid;
   padding: unset;
   place-content: center;
@@ -1362,70 +1392,70 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   min-width: unset;
 }
 
-.c4[data-size="small"] {
+.c5[data-size="small"] {
   padding: 0 8px;
   height: 28px;
   gap: 4px;
   font-size: 12px;
 }
 
-.c4[data-size="small"] [data-component="text"] {
+.c5[data-size="small"] [data-component="text"] {
   line-height: calc(20 / 12);
 }
 
-.c4[data-size="small"] [data-component=ButtonCounter] {
+.c5[data-size="small"] [data-component=ButtonCounter] {
   font-size: 12px;
 }
 
-.c4[data-size="small"] [data-component="buttonContent"] > :not(:last-child) {
+.c5[data-size="small"] [data-component="buttonContent"] > :not(:last-child) {
   margin-right: 4px;
 }
 
-.c4[data-size="small"][data-component=IconButton] {
+.c5[data-size="small"][data-component=IconButton] {
   width: 28px;
   padding: unset;
 }
 
-.c4[data-size="large"] {
+.c5[data-size="large"] {
   padding: 0 16px;
   height: 40px;
   gap: 8px;
 }
 
-.c4[data-size="large"] [data-component="buttonContent"] > :not(:last-child) {
+.c5[data-size="large"] [data-component="buttonContent"] > :not(:last-child) {
   margin-right: 8px;
 }
 
-.c4[data-size="large"][data-component=IconButton] {
+.c5[data-size="large"][data-component=IconButton] {
   width: 40px;
   padding: unset;
 }
 
-.c4[data-block="block"] {
+.c5[data-block="block"] {
   width: 100%;
 }
 
-.c4 [data-component="leadingVisual"] {
+.c5 [data-component="leadingVisual"] {
   grid-area: leadingVisual;
   color: #656d76;
 }
 
-.c4 [data-component="text"] {
+.c5 [data-component="text"] {
   grid-area: text;
   line-height: calc(20/14);
   white-space: nowrap;
 }
 
-.c4 [data-component="trailingVisual"] {
+.c5 [data-component="trailingVisual"] {
   grid-area: trailingVisual;
 }
 
-.c4 [data-component="trailingAction"] {
+.c5 [data-component="trailingAction"] {
   margin-right: -4px;
   color: #656d76;
 }
 
-.c4 [data-component="buttonContent"] {
+.c5 [data-component="buttonContent"] {
   -webkit-flex: 1 0 auto;
   -ms-flex: 1 0 auto;
   flex: 1 0 auto;
@@ -1441,35 +1471,35 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   align-content: center;
 }
 
-.c4 [data-component="buttonContent"] > :not(:last-child) {
+.c5 [data-component="buttonContent"] > :not(:last-child) {
   margin-right: 8px;
 }
 
-.c4:hover:not([disabled]) {
+.c5:hover:not([disabled]) {
   background-color: #f3f4f6;
 }
 
-.c4:active:not([disabled]) {
+.c5:active:not([disabled]) {
   background-color: hsla(220,14%,94%,1);
 }
 
-.c4[aria-expanded=true] {
+.c5[aria-expanded=true] {
   background-color: hsla(220,14%,94%,1);
 }
 
-.c4[data-component="IconButton"][data-no-visuals] {
+.c5[data-component="IconButton"][data-no-visuals] {
   color: #656d76;
 }
 
-.c4[data-no-visuals] {
+.c5[data-no-visuals] {
   color: #0969da;
 }
 
-.c4:has([data-component="ButtonCounter"]) {
+.c5:has([data-component="ButtonCounter"]) {
   color: #0969da;
 }
 
-.c4[data-size="small"][data-no-visuals="true"] {
+.c5[data-size="small"][data-no-visuals="true"] {
   padding-top: 2px;
   padding-right: 4px;
   padding-bottom: 2px;
@@ -1477,7 +1507,7 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   position: relative;
 }
 
-.c4[data-size="small"][data-no-visuals="true"][data-component="IconButton"] {
+.c5[data-size="small"][data-no-visuals="true"][data-component="IconButton"] {
   width: var(--inner-action-size);
   height: var(--inner-action-size);
 }
@@ -1501,10 +1531,6 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
-  background-repeat: no-repeat;
-  background-position: right 8px center;
-  padding-left: 0;
-  padding-right: 0;
 }
 
 .c0 input,
@@ -1536,12 +1562,19 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   padding: 12px;
 }
 
-.c0 > :not(:last-child) {
+.c1 {
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.c1 > :not(:last-child) {
   margin-right: 8px;
 }
 
-.c0 .TextInput-icon,
-.c0 .TextInput-action {
+.c1 .TextInput-icon,
+.c1 .TextInput-action {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
@@ -1551,13 +1584,13 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   flex-shrink: 0;
 }
 
-.c0 > input,
-.c0 > select {
+.c1 > input,
+.c1 > select {
   padding-left: 12px;
   padding-right: 0;
 }
 
-.c1 {
+.c2 {
   border: 0;
   font-size: inherit;
   font-family: inherit;
@@ -1567,15 +1600,15 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   width: 100%;
 }
 
-.c1:focus {
+.c2:focus {
   outline: 0;
 }
 
-.c3 {
+.c4 {
   position: relative;
 }
 
-.c3::before {
+.c4::before {
   position: absolute;
   z-index: 1000001;
   display: none;
@@ -1588,7 +1621,7 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   opacity: 0;
 }
 
-.c3::after {
+.c4::after {
   position: absolute;
   z-index: 1000000;
   display: none;
@@ -1614,14 +1647,14 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   opacity: 0;
 }
 
-.c3:hover::before,
-.c3:active::before,
-.c3:focus::before,
-.c3:focus-within::before,
-.c3:hover::after,
-.c3:active::after,
-.c3:focus::after,
-.c3:focus-within::after {
+.c4:hover::before,
+.c4:active::before,
+.c4:focus::before,
+.c4:focus-within::before,
+.c4:hover::after,
+.c4:active::after,
+.c4:focus::after,
+.c4:focus-within::after {
   display: inline-block;
   -webkit-text-decoration: none;
   text-decoration: none;
@@ -1637,36 +1670,36 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   animation-delay: 0.4s;
 }
 
-.c3.tooltipped-no-delay:hover::before,
-.c3.tooltipped-no-delay:active::before,
-.c3.tooltipped-no-delay:focus::before,
-.c3.tooltipped-no-delay:focus-within::before,
-.c3.tooltipped-no-delay:hover::after,
-.c3.tooltipped-no-delay:active::after,
-.c3.tooltipped-no-delay:focus::after,
-.c3.tooltipped-no-delay:focus-within::after {
+.c4.tooltipped-no-delay:hover::before,
+.c4.tooltipped-no-delay:active::before,
+.c4.tooltipped-no-delay:focus::before,
+.c4.tooltipped-no-delay:focus-within::before,
+.c4.tooltipped-no-delay:hover::after,
+.c4.tooltipped-no-delay:active::after,
+.c4.tooltipped-no-delay:focus::after,
+.c4.tooltipped-no-delay:focus-within::after {
   -webkit-animation-delay: 0s;
   animation-delay: 0s;
 }
 
-.c3.tooltipped-multiline:hover::after,
-.c3.tooltipped-multiline:active::after,
-.c3.tooltipped-multiline:focus::after,
-.c3.tooltipped-multiline:focus-within::after {
+.c4.tooltipped-multiline:hover::after,
+.c4.tooltipped-multiline:active::after,
+.c4.tooltipped-multiline:focus::after,
+.c4.tooltipped-multiline:focus-within::after {
   display: table-cell;
 }
 
-.c3.tooltipped-s::after,
-.c3.tooltipped-se::after,
-.c3.tooltipped-sw::after {
+.c4.tooltipped-s::after,
+.c4.tooltipped-se::after,
+.c4.tooltipped-sw::after {
   top: 100%;
   right: 50%;
   margin-top: 6px;
 }
 
-.c3.tooltipped-s::before,
-.c3.tooltipped-se::before,
-.c3.tooltipped-sw::before {
+.c4.tooltipped-s::before,
+.c4.tooltipped-se::before,
+.c4.tooltipped-sw::before {
   top: auto;
   right: 50%;
   bottom: -7px;
@@ -1674,27 +1707,27 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   border-bottom-color: #24292f;
 }
 
-.c3.tooltipped-se::after {
+.c4.tooltipped-se::after {
   right: auto;
   left: 50%;
   margin-left: -16px;
 }
 
-.c3.tooltipped-sw::after {
+.c4.tooltipped-sw::after {
   margin-right: -16px;
 }
 
-.c3.tooltipped-n::after,
-.c3.tooltipped-ne::after,
-.c3.tooltipped-nw::after {
+.c4.tooltipped-n::after,
+.c4.tooltipped-ne::after,
+.c4.tooltipped-nw::after {
   right: 50%;
   bottom: 100%;
   margin-bottom: 6px;
 }
 
-.c3.tooltipped-n::before,
-.c3.tooltipped-ne::before,
-.c3.tooltipped-nw::before {
+.c4.tooltipped-n::before,
+.c4.tooltipped-ne::before,
+.c4.tooltipped-nw::before {
   top: -7px;
   right: 50%;
   bottom: auto;
@@ -1702,24 +1735,24 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   border-top-color: #24292f;
 }
 
-.c3.tooltipped-ne::after {
+.c4.tooltipped-ne::after {
   right: auto;
   left: 50%;
   margin-left: -16px;
 }
 
-.c3.tooltipped-nw::after {
+.c4.tooltipped-nw::after {
   margin-right: -16px;
 }
 
-.c3.tooltipped-s::after,
-.c3.tooltipped-n::after {
+.c4.tooltipped-s::after,
+.c4.tooltipped-n::after {
   -webkit-transform: translateX(50%);
   -ms-transform: translateX(50%);
   transform: translateX(50%);
 }
 
-.c3.tooltipped-w::after {
+.c4.tooltipped-w::after {
   right: 100%;
   bottom: 50%;
   margin-right: 6px;
@@ -1728,7 +1761,7 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   transform: translateY(50%);
 }
 
-.c3.tooltipped-w::before {
+.c4.tooltipped-w::before {
   top: 50%;
   bottom: 50%;
   left: -7px;
@@ -1736,7 +1769,7 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   border-left-color: #24292f;
 }
 
-.c3.tooltipped-e::after {
+.c4.tooltipped-e::after {
   bottom: 50%;
   left: 100%;
   margin-left: 6px;
@@ -1745,7 +1778,7 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   transform: translateY(50%);
 }
 
-.c3.tooltipped-e::before {
+.c4.tooltipped-e::before {
   top: 50%;
   right: -7px;
   bottom: 50%;
@@ -1753,7 +1786,7 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   border-right-color: #24292f;
 }
 
-.c3.tooltipped-multiline::after {
+.c4.tooltipped-multiline::after {
   width: -webkit-max-content;
   width: -moz-max-content;
   width: max-content;
@@ -1763,8 +1796,8 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   border-collapse: separate;
 }
 
-.c3.tooltipped-multiline.tooltipped-s::after,
-.c3.tooltipped-multiline.tooltipped-n::after {
+.c4.tooltipped-multiline.tooltipped-s::after,
+.c4.tooltipped-multiline.tooltipped-n::after {
   right: auto;
   left: 50%;
   -webkit-transform: translateX(-50%);
@@ -1772,37 +1805,37 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   transform: translateX(-50%);
 }
 
-.c3.tooltipped-multiline.tooltipped-w::after,
-.c3.tooltipped-multiline.tooltipped-e::after {
+.c4.tooltipped-multiline.tooltipped-w::after,
+.c4.tooltipped-multiline.tooltipped-e::after {
   right: 100%;
 }
 
-.c3.tooltipped-align-right-2::after {
+.c4.tooltipped-align-right-2::after {
   right: 0;
   margin-right: 0;
 }
 
-.c3.tooltipped-align-right-2::before {
+.c4.tooltipped-align-right-2::before {
   right: 15px;
 }
 
-.c3.tooltipped-align-left-2::after {
+.c4.tooltipped-align-left-2::after {
   left: 0;
   margin-left: 0;
 }
 
-.c3.tooltipped-align-left-2::before {
+.c4.tooltipped-align-left-2::before {
   left: 10px;
 }
 
 @media (forced-colors:active) {
-  .c4:focus {
+  .c5:focus {
     outline: solid 1px transparent;
   }
 }
 
 @media (pointer:coarse) {
-  .c4[data-size="small"][data-no-visuals="true"]:after {
+  .c5[data-size="small"][data-no-visuals="true"]:after {
     content: "";
     position: absolute;
     left: 0;
@@ -1824,11 +1857,11 @@ exports[`TextInput renders trailingAction icon button 1`] = `
 <span
   aria-busy={false}
   aria-live="polite"
-  className="c0 TextInput-wrapper"
+  className="c0 c1 TextInput-wrapper"
   onClick={[Function]}
 >
   <input
-    className="c1"
+    className="c2"
     data-component="input"
     name="search"
     onBlur={[Function]}
@@ -1837,16 +1870,16 @@ exports[`TextInput renders trailingAction icon button 1`] = `
     type="text"
   />
   <span
-    className="c2 TextInput-action"
+    className="c3 TextInput-action"
   >
     <span
       aria-label="iconLabel"
-      className="c3 tooltipped-n"
+      className="c4 tooltipped-n"
       role="tooltip"
     >
       <button
         aria-label="iconLabel"
-        className="c4"
+        className="c5"
         data-block={null}
         data-component="IconButton"
         data-no-visuals={true}
@@ -1883,401 +1916,7 @@ exports[`TextInput renders trailingAction icon button 1`] = `
 `;
 
 exports[`TextInput renders trailingAction text button 1`] = `
-.c2 {
-  margin-left: 4px;
-  margin-right: 4px;
-  line-height: 0;
-}
-
-.c4 {
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-}
-
 .c3 {
-  border-radius: 6px;
-  border: 1px solid;
-  border-color: transparent;
-  font-family: inherit;
-  font-weight: 500;
-  font-size: 14px;
-  cursor: pointer;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  text-align: center;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: justify;
-  -webkit-justify-content: space-between;
-  -ms-flex-pack: justify;
-  justify-content: space-between;
-  height: 32px;
-  padding: 0 12px;
-  gap: 8px;
-  min-width: -webkit-max-content;
-  min-width: -moz-max-content;
-  min-width: max-content;
-  -webkit-transition: 80ms cubic-bezier(0.65,0,0.35,1);
-  transition: 80ms cubic-bezier(0.65,0,0.35,1);
-  -webkit-transition-property: color,fill,background-color,border-color;
-  transition-property: color,fill,background-color,border-color;
-  color: #0969da;
-  background-color: transparent;
-  box-shadow: none;
-}
-
-.c3:focus:not(:disabled) {
-  box-shadow: none;
-  outline: 2px solid #0969da;
-  outline-offset: -2px;
-}
-
-.c3:focus:not(:disabled):not(:focus-visible) {
-  outline: solid 1px transparent;
-}
-
-.c3:focus-visible:not(:disabled) {
-  box-shadow: none;
-  outline: 2px solid #0969da;
-  outline-offset: -2px;
-}
-
-.c3[href] {
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-}
-
-.c3[href]:hover {
-  -webkit-text-decoration: none;
-  text-decoration: none;
-}
-
-.c3:hover {
-  -webkit-transition-duration: 80ms;
-  transition-duration: 80ms;
-}
-
-.c3:active {
-  -webkit-transition: none;
-  transition: none;
-}
-
-.c3:disabled {
-  cursor: not-allowed;
-  box-shadow: none;
-  color: #8c959f;
-}
-
-.c3:disabled [data-component=ButtonCounter] {
-  color: inherit;
-}
-
-.c3 [data-component=ButtonCounter] {
-  font-size: 14px;
-}
-
-.c3[data-component=IconButton] {
-  display: inline-grid;
-  padding: unset;
-  place-content: center;
-  width: 32px;
-  min-width: unset;
-}
-
-.c3[data-size="small"] {
-  padding: 0 8px;
-  height: 28px;
-  gap: 4px;
-  font-size: 12px;
-}
-
-.c3[data-size="small"] [data-component="text"] {
-  line-height: calc(20 / 12);
-}
-
-.c3[data-size="small"] [data-component=ButtonCounter] {
-  font-size: 12px;
-}
-
-.c3[data-size="small"] [data-component="buttonContent"] > :not(:last-child) {
-  margin-right: 4px;
-}
-
-.c3[data-size="small"][data-component=IconButton] {
-  width: 28px;
-  padding: unset;
-}
-
-.c3[data-size="large"] {
-  padding: 0 16px;
-  height: 40px;
-  gap: 8px;
-}
-
-.c3[data-size="large"] [data-component="buttonContent"] > :not(:last-child) {
-  margin-right: 8px;
-}
-
-.c3[data-size="large"][data-component=IconButton] {
-  width: 40px;
-  padding: unset;
-}
-
-.c3[data-block="block"] {
-  width: 100%;
-}
-
-.c3 [data-component="leadingVisual"] {
-  grid-area: leadingVisual;
-  color: #656d76;
-}
-
-.c3 [data-component="text"] {
-  grid-area: text;
-  line-height: calc(20/14);
-  white-space: nowrap;
-}
-
-.c3 [data-component="trailingVisual"] {
-  grid-area: trailingVisual;
-}
-
-.c3 [data-component="trailingAction"] {
-  margin-right: -4px;
-  color: #656d76;
-}
-
-.c3 [data-component="buttonContent"] {
-  -webkit-flex: 1 0 auto;
-  -ms-flex: 1 0 auto;
-  flex: 1 0 auto;
-  display: grid;
-  grid-template-areas: "leadingVisual text trailingVisual";
-  grid-template-columns: min-content minmax(0,auto) min-content;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-align-content: center;
-  -ms-flex-line-pack: center;
-  align-content: center;
-}
-
-.c3 [data-component="buttonContent"] > :not(:last-child) {
-  margin-right: 8px;
-}
-
-.c3:hover:not([disabled]) {
-  background-color: #f3f4f6;
-}
-
-.c3:active:not([disabled]) {
-  background-color: hsla(220,14%,94%,1);
-}
-
-.c3[aria-expanded=true] {
-  background-color: hsla(220,14%,94%,1);
-}
-
-.c3[data-component="IconButton"][data-no-visuals] {
-  color: #656d76;
-}
-
-.c3[data-no-visuals] {
-  color: #0969da;
-}
-
-.c3:has([data-component="ButtonCounter"]) {
-  color: #0969da;
-}
-
-.c3[data-no-visuals="true"] {
-  padding-top: 2px;
-  padding-right: 4px;
-  padding-bottom: 2px;
-  padding-left: 4px;
-  position: relative;
-}
-
-.c3[data-no-visuals="true"][data-component="IconButton"] {
-  width: var(--inner-action-size);
-  height: var(--inner-action-size);
-}
-
-.c0 {
-  font-size: 14px;
-  line-height: 20px;
-  color: #1F2328;
-  vertical-align: middle;
-  background-color: #ffffff;
-  border: 1px solid #d0d7de;
-  border-radius: 6px;
-  outline: none;
-  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-align-items: stretch;
-  -webkit-box-align: stretch;
-  -ms-flex-align: stretch;
-  align-items: stretch;
-  min-height: 32px;
-  background-repeat: no-repeat;
-  background-position: right 8px center;
-  padding-left: 0;
-  padding-right: 0;
-}
-
-.c0 input,
-.c0 textarea {
-  cursor: text;
-}
-
-.c0 select {
-  cursor: pointer;
-}
-
-.c0::-webkit-input-placeholder {
-  color: #6e7781;
-}
-
-.c0::-moz-placeholder {
-  color: #6e7781;
-}
-
-.c0:-ms-input-placeholder {
-  color: #6e7781;
-}
-
-.c0::placeholder {
-  color: #6e7781;
-}
-
-.c0 > textarea {
-  padding: 12px;
-}
-
-.c0 > :not(:last-child) {
-  margin-right: 8px;
-}
-
-.c0 .TextInput-icon,
-.c0 .TextInput-action {
-  -webkit-align-self: center;
-  -ms-flex-item-align: center;
-  align-self: center;
-  color: #656d76;
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
-}
-
-.c0 > input,
-.c0 > select {
-  padding-left: 12px;
-  padding-right: 0;
-}
-
-.c1 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-}
-
-.c1:focus {
-  outline: 0;
-}
-
-@media (forced-colors:active) {
-  .c3:focus {
-    outline: solid 1px transparent;
-  }
-}
-
-@media (pointer:coarse) {
-  .c3[data-no-visuals="true"]:after {
-    content: "";
-    position: absolute;
-    left: 0;
-    right: 0;
-    -webkit-transform: translateY(-50%);
-    -ms-transform: translateY(-50%);
-    transform: translateY(-50%);
-    top: 50%;
-    min-height: 44px;
-  }
-}
-
-@media (min-width:768px) {
-  .c0 {
-    font-size: 14px;
-  }
-}
-
-<span
-  aria-busy={false}
-  aria-live="polite"
-  className="c0 TextInput-wrapper"
-  onClick={[Function]}
->
-  <input
-    className="c1"
-    data-component="input"
-    name="search"
-    onBlur={[Function]}
-    onFocus={[Function]}
-    placeholder="Search"
-    type="text"
-  />
-  <span
-    className="c2 TextInput-action"
-  >
-    <button
-      className="c3"
-      data-block={null}
-      data-no-visuals={true}
-      onClick={[MockFunction]}
-      type="button"
-    >
-      <span
-        className="c4"
-        data-component="buttonContent"
-      >
-        <span
-          data-component="text"
-        >
-          Clear
-        </span>
-      </span>
-    </button>
-  </span>
-</span>
-`;
-
-exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
-.c2 {
   margin-left: 4px;
   margin-right: 4px;
   line-height: 0;
@@ -2534,10 +2173,6 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
-  background-repeat: no-repeat;
-  background-position: right 8px center;
-  padding-left: 0;
-  padding-right: 0;
 }
 
 .c0 input,
@@ -2569,12 +2204,19 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   padding: 12px;
 }
 
-.c0 > :not(:last-child) {
+.c1 {
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.c1 > :not(:last-child) {
   margin-right: 8px;
 }
 
-.c0 .TextInput-icon,
-.c0 .TextInput-action {
+.c1 .TextInput-icon,
+.c1 .TextInput-action {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
@@ -2584,13 +2226,13 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   flex-shrink: 0;
 }
 
-.c0 > input,
-.c0 > select {
+.c1 > input,
+.c1 > select {
   padding-left: 12px;
   padding-right: 0;
 }
 
-.c1 {
+.c2 {
   border: 0;
   font-size: inherit;
   font-family: inherit;
@@ -2600,233 +2242,8 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   width: 100%;
 }
 
-.c1:focus {
+.c2:focus {
   outline: 0;
-}
-
-.c3 {
-  position: relative;
-  display: inline-block;
-}
-
-.c3::before {
-  position: absolute;
-  z-index: 1000001;
-  display: none;
-  width: 0px;
-  height: 0px;
-  color: #24292f;
-  pointer-events: none;
-  content: '';
-  border: 6px solid transparent;
-  opacity: 0;
-}
-
-.c3::after {
-  position: absolute;
-  z-index: 1000000;
-  display: none;
-  padding: 0.5em 0.75em;
-  font: normal normal 11px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
-  -webkit-font-smoothing: subpixel-antialiased;
-  color: #ffffff;
-  text-align: center;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  text-shadow: none;
-  text-transform: none;
-  -webkit-letter-spacing: normal;
-  -moz-letter-spacing: normal;
-  -ms-letter-spacing: normal;
-  letter-spacing: normal;
-  word-wrap: break-word;
-  white-space: pre;
-  pointer-events: none;
-  content: attr(aria-label);
-  background: #24292f;
-  border-radius: 3px;
-  opacity: 0;
-}
-
-.c3:hover::before,
-.c3:active::before,
-.c3:focus::before,
-.c3:focus-within::before,
-.c3:hover::after,
-.c3:active::after,
-.c3:focus::after,
-.c3:focus-within::after {
-  display: inline-block;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  -webkit-animation-name: tooltip-appear;
-  animation-name: tooltip-appear;
-  -webkit-animation-duration: 0.1s;
-  animation-duration: 0.1s;
-  -webkit-animation-fill-mode: forwards;
-  animation-fill-mode: forwards;
-  -webkit-animation-timing-function: ease-in;
-  animation-timing-function: ease-in;
-  -webkit-animation-delay: 0.4s;
-  animation-delay: 0.4s;
-}
-
-.c3.tooltipped-no-delay:hover::before,
-.c3.tooltipped-no-delay:active::before,
-.c3.tooltipped-no-delay:focus::before,
-.c3.tooltipped-no-delay:focus-within::before,
-.c3.tooltipped-no-delay:hover::after,
-.c3.tooltipped-no-delay:active::after,
-.c3.tooltipped-no-delay:focus::after,
-.c3.tooltipped-no-delay:focus-within::after {
-  -webkit-animation-delay: 0s;
-  animation-delay: 0s;
-}
-
-.c3.tooltipped-multiline:hover::after,
-.c3.tooltipped-multiline:active::after,
-.c3.tooltipped-multiline:focus::after,
-.c3.tooltipped-multiline:focus-within::after {
-  display: table-cell;
-}
-
-.c3.tooltipped-s::after,
-.c3.tooltipped-se::after,
-.c3.tooltipped-sw::after {
-  top: 100%;
-  right: 50%;
-  margin-top: 6px;
-}
-
-.c3.tooltipped-s::before,
-.c3.tooltipped-se::before,
-.c3.tooltipped-sw::before {
-  top: auto;
-  right: 50%;
-  bottom: -7px;
-  margin-right: -6px;
-  border-bottom-color: #24292f;
-}
-
-.c3.tooltipped-se::after {
-  right: auto;
-  left: 50%;
-  margin-left: -16px;
-}
-
-.c3.tooltipped-sw::after {
-  margin-right: -16px;
-}
-
-.c3.tooltipped-n::after,
-.c3.tooltipped-ne::after,
-.c3.tooltipped-nw::after {
-  right: 50%;
-  bottom: 100%;
-  margin-bottom: 6px;
-}
-
-.c3.tooltipped-n::before,
-.c3.tooltipped-ne::before,
-.c3.tooltipped-nw::before {
-  top: -7px;
-  right: 50%;
-  bottom: auto;
-  margin-right: -6px;
-  border-top-color: #24292f;
-}
-
-.c3.tooltipped-ne::after {
-  right: auto;
-  left: 50%;
-  margin-left: -16px;
-}
-
-.c3.tooltipped-nw::after {
-  margin-right: -16px;
-}
-
-.c3.tooltipped-s::after,
-.c3.tooltipped-n::after {
-  -webkit-transform: translateX(50%);
-  -ms-transform: translateX(50%);
-  transform: translateX(50%);
-}
-
-.c3.tooltipped-w::after {
-  right: 100%;
-  bottom: 50%;
-  margin-right: 6px;
-  -webkit-transform: translateY(50%);
-  -ms-transform: translateY(50%);
-  transform: translateY(50%);
-}
-
-.c3.tooltipped-w::before {
-  top: 50%;
-  bottom: 50%;
-  left: -7px;
-  margin-top: -6px;
-  border-left-color: #24292f;
-}
-
-.c3.tooltipped-e::after {
-  bottom: 50%;
-  left: 100%;
-  margin-left: 6px;
-  -webkit-transform: translateY(50%);
-  -ms-transform: translateY(50%);
-  transform: translateY(50%);
-}
-
-.c3.tooltipped-e::before {
-  top: 50%;
-  right: -7px;
-  bottom: 50%;
-  margin-top: -6px;
-  border-right-color: #24292f;
-}
-
-.c3.tooltipped-multiline::after {
-  width: -webkit-max-content;
-  width: -moz-max-content;
-  width: max-content;
-  max-width: 250px;
-  word-wrap: break-word;
-  white-space: pre-line;
-  border-collapse: separate;
-}
-
-.c3.tooltipped-multiline.tooltipped-s::after,
-.c3.tooltipped-multiline.tooltipped-n::after {
-  right: auto;
-  left: 50%;
-  -webkit-transform: translateX(-50%);
-  -ms-transform: translateX(-50%);
-  transform: translateX(-50%);
-}
-
-.c3.tooltipped-multiline.tooltipped-w::after,
-.c3.tooltipped-multiline.tooltipped-e::after {
-  right: 100%;
-}
-
-.c3.tooltipped-align-right-2::after {
-  right: 0;
-  margin-right: 0;
-}
-
-.c3.tooltipped-align-right-2::before {
-  right: 15px;
-}
-
-.c3.tooltipped-align-left-2::after {
-  left: 0;
-  margin-left: 0;
-}
-
-.c3.tooltipped-align-left-2::before {
-  left: 10px;
 }
 
 @media (forced-colors:active) {
@@ -2858,11 +2275,11 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
 <span
   aria-busy={false}
   aria-live="polite"
-  className="c0 TextInput-wrapper"
+  className="c0 c1 TextInput-wrapper"
   onClick={[Function]}
 >
   <input
-    className="c1"
+    className="c2"
     data-component="input"
     name="search"
     onBlur={[Function]}
@@ -2871,22 +2288,644 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
     type="text"
   />
   <span
-    className="c2 TextInput-action"
+    className="c3 TextInput-action"
+  >
+    <button
+      className="c4"
+      data-block={null}
+      data-no-visuals={true}
+      onClick={[MockFunction]}
+      type="button"
+    >
+      <span
+        className="c5"
+        data-component="buttonContent"
+      >
+        <span
+          data-component="text"
+        >
+          Clear
+        </span>
+      </span>
+    </button>
+  </span>
+</span>
+`;
+
+exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
+.c3 {
+  margin-left: 4px;
+  margin-right: 4px;
+  line-height: 0;
+}
+
+.c6 {
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+.c5 {
+  border-radius: 6px;
+  border: 1px solid;
+  border-color: transparent;
+  font-family: inherit;
+  font-weight: 500;
+  font-size: 14px;
+  cursor: pointer;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  text-align: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  height: 32px;
+  padding: 0 12px;
+  gap: 8px;
+  min-width: -webkit-max-content;
+  min-width: -moz-max-content;
+  min-width: max-content;
+  -webkit-transition: 80ms cubic-bezier(0.65,0,0.35,1);
+  transition: 80ms cubic-bezier(0.65,0,0.35,1);
+  -webkit-transition-property: color,fill,background-color,border-color;
+  transition-property: color,fill,background-color,border-color;
+  color: #0969da;
+  background-color: transparent;
+  box-shadow: none;
+}
+
+.c5:focus:not(:disabled) {
+  box-shadow: none;
+  outline: 2px solid #0969da;
+  outline-offset: -2px;
+}
+
+.c5:focus:not(:disabled):not(:focus-visible) {
+  outline: solid 1px transparent;
+}
+
+.c5:focus-visible:not(:disabled) {
+  box-shadow: none;
+  outline: 2px solid #0969da;
+  outline-offset: -2px;
+}
+
+.c5[href] {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+}
+
+.c5[href]:hover {
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c5:hover {
+  -webkit-transition-duration: 80ms;
+  transition-duration: 80ms;
+}
+
+.c5:active {
+  -webkit-transition: none;
+  transition: none;
+}
+
+.c5:disabled {
+  cursor: not-allowed;
+  box-shadow: none;
+  color: #8c959f;
+}
+
+.c5:disabled [data-component=ButtonCounter] {
+  color: inherit;
+}
+
+.c5 [data-component=ButtonCounter] {
+  font-size: 14px;
+}
+
+.c5[data-component=IconButton] {
+  display: inline-grid;
+  padding: unset;
+  place-content: center;
+  width: 32px;
+  min-width: unset;
+}
+
+.c5[data-size="small"] {
+  padding: 0 8px;
+  height: 28px;
+  gap: 4px;
+  font-size: 12px;
+}
+
+.c5[data-size="small"] [data-component="text"] {
+  line-height: calc(20 / 12);
+}
+
+.c5[data-size="small"] [data-component=ButtonCounter] {
+  font-size: 12px;
+}
+
+.c5[data-size="small"] [data-component="buttonContent"] > :not(:last-child) {
+  margin-right: 4px;
+}
+
+.c5[data-size="small"][data-component=IconButton] {
+  width: 28px;
+  padding: unset;
+}
+
+.c5[data-size="large"] {
+  padding: 0 16px;
+  height: 40px;
+  gap: 8px;
+}
+
+.c5[data-size="large"] [data-component="buttonContent"] > :not(:last-child) {
+  margin-right: 8px;
+}
+
+.c5[data-size="large"][data-component=IconButton] {
+  width: 40px;
+  padding: unset;
+}
+
+.c5[data-block="block"] {
+  width: 100%;
+}
+
+.c5 [data-component="leadingVisual"] {
+  grid-area: leadingVisual;
+  color: #656d76;
+}
+
+.c5 [data-component="text"] {
+  grid-area: text;
+  line-height: calc(20/14);
+  white-space: nowrap;
+}
+
+.c5 [data-component="trailingVisual"] {
+  grid-area: trailingVisual;
+}
+
+.c5 [data-component="trailingAction"] {
+  margin-right: -4px;
+  color: #656d76;
+}
+
+.c5 [data-component="buttonContent"] {
+  -webkit-flex: 1 0 auto;
+  -ms-flex: 1 0 auto;
+  flex: 1 0 auto;
+  display: grid;
+  grid-template-areas: "leadingVisual text trailingVisual";
+  grid-template-columns: min-content minmax(0,auto) min-content;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-align-content: center;
+  -ms-flex-line-pack: center;
+  align-content: center;
+}
+
+.c5 [data-component="buttonContent"] > :not(:last-child) {
+  margin-right: 8px;
+}
+
+.c5:hover:not([disabled]) {
+  background-color: #f3f4f6;
+}
+
+.c5:active:not([disabled]) {
+  background-color: hsla(220,14%,94%,1);
+}
+
+.c5[aria-expanded=true] {
+  background-color: hsla(220,14%,94%,1);
+}
+
+.c5[data-component="IconButton"][data-no-visuals] {
+  color: #656d76;
+}
+
+.c5[data-no-visuals] {
+  color: #0969da;
+}
+
+.c5:has([data-component="ButtonCounter"]) {
+  color: #0969da;
+}
+
+.c5[data-no-visuals="true"] {
+  padding-top: 2px;
+  padding-right: 4px;
+  padding-bottom: 2px;
+  padding-left: 4px;
+  position: relative;
+}
+
+.c5[data-no-visuals="true"][data-component="IconButton"] {
+  width: var(--inner-action-size);
+  height: var(--inner-action-size);
+}
+
+.c0 {
+  font-size: 14px;
+  line-height: 20px;
+  color: #1F2328;
+  vertical-align: middle;
+  background-color: #ffffff;
+  border: 1px solid #d0d7de;
+  border-radius: 6px;
+  outline: none;
+  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: stretch;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  min-height: 32px;
+}
+
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
+}
+
+.c0::-webkit-input-placeholder {
+  color: #6e7781;
+}
+
+.c0::-moz-placeholder {
+  color: #6e7781;
+}
+
+.c0:-ms-input-placeholder {
+  color: #6e7781;
+}
+
+.c0::placeholder {
+  color: #6e7781;
+}
+
+.c0 > textarea {
+  padding: 12px;
+}
+
+.c1 {
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.c1 > :not(:last-child) {
+  margin-right: 8px;
+}
+
+.c1 .TextInput-icon,
+.c1 .TextInput-action {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  color: #656d76;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+}
+
+.c1 > input,
+.c1 > select {
+  padding-left: 12px;
+  padding-right: 0;
+}
+
+.c2 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c2:focus {
+  outline: 0;
+}
+
+.c4 {
+  position: relative;
+  display: inline-block;
+}
+
+.c4::before {
+  position: absolute;
+  z-index: 1000001;
+  display: none;
+  width: 0px;
+  height: 0px;
+  color: #24292f;
+  pointer-events: none;
+  content: '';
+  border: 6px solid transparent;
+  opacity: 0;
+}
+
+.c4::after {
+  position: absolute;
+  z-index: 1000000;
+  display: none;
+  padding: 0.5em 0.75em;
+  font: normal normal 11px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
+  -webkit-font-smoothing: subpixel-antialiased;
+  color: #ffffff;
+  text-align: center;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  text-shadow: none;
+  text-transform: none;
+  -webkit-letter-spacing: normal;
+  -moz-letter-spacing: normal;
+  -ms-letter-spacing: normal;
+  letter-spacing: normal;
+  word-wrap: break-word;
+  white-space: pre;
+  pointer-events: none;
+  content: attr(aria-label);
+  background: #24292f;
+  border-radius: 3px;
+  opacity: 0;
+}
+
+.c4:hover::before,
+.c4:active::before,
+.c4:focus::before,
+.c4:focus-within::before,
+.c4:hover::after,
+.c4:active::after,
+.c4:focus::after,
+.c4:focus-within::after {
+  display: inline-block;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  -webkit-animation-name: tooltip-appear;
+  animation-name: tooltip-appear;
+  -webkit-animation-duration: 0.1s;
+  animation-duration: 0.1s;
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+  -webkit-animation-timing-function: ease-in;
+  animation-timing-function: ease-in;
+  -webkit-animation-delay: 0.4s;
+  animation-delay: 0.4s;
+}
+
+.c4.tooltipped-no-delay:hover::before,
+.c4.tooltipped-no-delay:active::before,
+.c4.tooltipped-no-delay:focus::before,
+.c4.tooltipped-no-delay:focus-within::before,
+.c4.tooltipped-no-delay:hover::after,
+.c4.tooltipped-no-delay:active::after,
+.c4.tooltipped-no-delay:focus::after,
+.c4.tooltipped-no-delay:focus-within::after {
+  -webkit-animation-delay: 0s;
+  animation-delay: 0s;
+}
+
+.c4.tooltipped-multiline:hover::after,
+.c4.tooltipped-multiline:active::after,
+.c4.tooltipped-multiline:focus::after,
+.c4.tooltipped-multiline:focus-within::after {
+  display: table-cell;
+}
+
+.c4.tooltipped-s::after,
+.c4.tooltipped-se::after,
+.c4.tooltipped-sw::after {
+  top: 100%;
+  right: 50%;
+  margin-top: 6px;
+}
+
+.c4.tooltipped-s::before,
+.c4.tooltipped-se::before,
+.c4.tooltipped-sw::before {
+  top: auto;
+  right: 50%;
+  bottom: -7px;
+  margin-right: -6px;
+  border-bottom-color: #24292f;
+}
+
+.c4.tooltipped-se::after {
+  right: auto;
+  left: 50%;
+  margin-left: -16px;
+}
+
+.c4.tooltipped-sw::after {
+  margin-right: -16px;
+}
+
+.c4.tooltipped-n::after,
+.c4.tooltipped-ne::after,
+.c4.tooltipped-nw::after {
+  right: 50%;
+  bottom: 100%;
+  margin-bottom: 6px;
+}
+
+.c4.tooltipped-n::before,
+.c4.tooltipped-ne::before,
+.c4.tooltipped-nw::before {
+  top: -7px;
+  right: 50%;
+  bottom: auto;
+  margin-right: -6px;
+  border-top-color: #24292f;
+}
+
+.c4.tooltipped-ne::after {
+  right: auto;
+  left: 50%;
+  margin-left: -16px;
+}
+
+.c4.tooltipped-nw::after {
+  margin-right: -16px;
+}
+
+.c4.tooltipped-s::after,
+.c4.tooltipped-n::after {
+  -webkit-transform: translateX(50%);
+  -ms-transform: translateX(50%);
+  transform: translateX(50%);
+}
+
+.c4.tooltipped-w::after {
+  right: 100%;
+  bottom: 50%;
+  margin-right: 6px;
+  -webkit-transform: translateY(50%);
+  -ms-transform: translateY(50%);
+  transform: translateY(50%);
+}
+
+.c4.tooltipped-w::before {
+  top: 50%;
+  bottom: 50%;
+  left: -7px;
+  margin-top: -6px;
+  border-left-color: #24292f;
+}
+
+.c4.tooltipped-e::after {
+  bottom: 50%;
+  left: 100%;
+  margin-left: 6px;
+  -webkit-transform: translateY(50%);
+  -ms-transform: translateY(50%);
+  transform: translateY(50%);
+}
+
+.c4.tooltipped-e::before {
+  top: 50%;
+  right: -7px;
+  bottom: 50%;
+  margin-top: -6px;
+  border-right-color: #24292f;
+}
+
+.c4.tooltipped-multiline::after {
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+  max-width: 250px;
+  word-wrap: break-word;
+  white-space: pre-line;
+  border-collapse: separate;
+}
+
+.c4.tooltipped-multiline.tooltipped-s::after,
+.c4.tooltipped-multiline.tooltipped-n::after {
+  right: auto;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+  -ms-transform: translateX(-50%);
+  transform: translateX(-50%);
+}
+
+.c4.tooltipped-multiline.tooltipped-w::after,
+.c4.tooltipped-multiline.tooltipped-e::after {
+  right: 100%;
+}
+
+.c4.tooltipped-align-right-2::after {
+  right: 0;
+  margin-right: 0;
+}
+
+.c4.tooltipped-align-right-2::before {
+  right: 15px;
+}
+
+.c4.tooltipped-align-left-2::after {
+  left: 0;
+  margin-left: 0;
+}
+
+.c4.tooltipped-align-left-2::before {
+  left: 10px;
+}
+
+@media (forced-colors:active) {
+  .c5:focus {
+    outline: solid 1px transparent;
+  }
+}
+
+@media (pointer:coarse) {
+  .c5[data-no-visuals="true"]:after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    top: 50%;
+    min-height: 44px;
+  }
+}
+
+@media (min-width:768px) {
+  .c0 {
+    font-size: 14px;
+  }
+}
+
+<span
+  aria-busy={false}
+  aria-live="polite"
+  className="c0 c1 TextInput-wrapper"
+  onClick={[Function]}
+>
+  <input
+    className="c2"
+    data-component="input"
+    name="search"
+    onBlur={[Function]}
+    onFocus={[Function]}
+    placeholder="Search"
+    type="text"
+  />
+  <span
+    className="c3 TextInput-action"
   >
     <span
       aria-label="Clear input"
-      className="c3 tooltipped-n"
+      className="c4 tooltipped-n"
       role="tooltip"
     >
       <button
-        className="c4"
+        className="c5"
         data-block={null}
         data-no-visuals={true}
         onClick={[MockFunction]}
         type="button"
       >
         <span
-          className="c5"
+          className="c6"
           data-component="buttonContent"
         >
           <span
@@ -2921,10 +2960,6 @@ exports[`TextInput renders trailingVisual 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
-  background-repeat: no-repeat;
-  background-position: right 8px center;
-  padding-left: 0;
-  padding-right: 12px;
 }
 
 .c0 input,
@@ -2962,12 +2997,19 @@ exports[`TextInput renders trailingVisual 1`] = `
   padding: 12px;
 }
 
-.c0 > :not(:last-child) {
+.c1 {
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  padding-left: 0;
+  padding-right: 12px;
+}
+
+.c1 > :not(:last-child) {
   margin-right: 8px;
 }
 
-.c0 .TextInput-icon,
-.c0 .TextInput-action {
+.c1 .TextInput-icon,
+.c1 .TextInput-action {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
@@ -2977,13 +3019,13 @@ exports[`TextInput renders trailingVisual 1`] = `
   flex-shrink: 0;
 }
 
-.c0 > input,
-.c0 > select {
+.c1 > input,
+.c1 > select {
   padding-left: 12px;
   padding-right: 0;
 }
 
-.c1 {
+.c2 {
   border: 0;
   font-size: inherit;
   font-family: inherit;
@@ -2993,7 +3035,7 @@ exports[`TextInput renders trailingVisual 1`] = `
   width: 100%;
 }
 
-.c1:focus {
+.c2:focus {
   outline: 0;
 }
 
@@ -3006,11 +3048,11 @@ exports[`TextInput renders trailingVisual 1`] = `
 <span
   aria-busy={false}
   aria-live="polite"
-  className="c0 TextInput-wrapper"
+  className="c0 c1 TextInput-wrapper"
   onClick={[Function]}
 >
   <input
-    className="c1"
+    className="c2"
     data-component="input"
     name="search"
     onBlur={[Function]}
@@ -3067,11 +3109,6 @@ exports[`TextInput renders warning 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
-  background-repeat: no-repeat;
-  background-position: right 8px center;
-  padding-left: 0;
-  padding-right: 0;
-  border-color: #9a6700;
 }
 
 .c0 input,
@@ -3109,12 +3146,20 @@ exports[`TextInput renders warning 1`] = `
   padding: 12px;
 }
 
-.c0 > :not(:last-child) {
+.c1 {
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  padding-left: 0;
+  padding-right: 0;
+  border-color: #9a6700;
+}
+
+.c1 > :not(:last-child) {
   margin-right: 8px;
 }
 
-.c0 .TextInput-icon,
-.c0 .TextInput-action {
+.c1 .TextInput-icon,
+.c1 .TextInput-action {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
@@ -3124,19 +3169,19 @@ exports[`TextInput renders warning 1`] = `
   flex-shrink: 0;
 }
 
-.c0 > input,
-.c0 > select {
+.c1 > input,
+.c1 > select {
   padding-left: 12px;
   padding-right: 12px;
 }
 
-.c0:focus-within {
+.c1:focus-within {
   border-color: #0969da;
   outline: none;
   box-shadow: inset 0 0 0 1px #0969da;
 }
 
-.c1 {
+.c2 {
   border: 0;
   font-size: inherit;
   font-family: inherit;
@@ -3146,7 +3191,7 @@ exports[`TextInput renders warning 1`] = `
   width: 100%;
 }
 
-.c1:focus {
+.c2:focus {
   outline: 0;
 }
 
@@ -3159,11 +3204,11 @@ exports[`TextInput renders warning 1`] = `
 <span
   aria-busy={false}
   aria-live="polite"
-  className="c0 TextInput-wrapper"
+  className="c0 c1 TextInput-wrapper"
   onClick={[Function]}
 >
   <input
-    className="c1"
+    className="c2"
     data-component="input"
     name="zipcode"
     onBlur={[Function]}
@@ -3175,191 +3220,18 @@ exports[`TextInput renders warning 1`] = `
 
 exports[`TextInput renders with a loading indicator 1`] = `
 [
-  .c2 {
+  .c3 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
   position: relative;
-}
-
-.c3 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
-  visibility: visible;
-}
-
-.c0 {
-  font-size: 14px;
-  line-height: 20px;
-  color: #1F2328;
-  vertical-align: middle;
-  background-color: #ffffff;
-  border: 1px solid #d0d7de;
-  border-radius: 6px;
-  outline: none;
-  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-align-items: stretch;
-  -webkit-box-align: stretch;
-  -ms-flex-align: stretch;
-  align-items: stretch;
-  min-height: 32px;
-  background-repeat: no-repeat;
-  background-position: right 8px center;
-  padding-left: 0;
-  padding-right: 12px;
-}
-
-.c0 input,
-.c0 textarea {
-  cursor: text;
-}
-
-.c0 select {
-  cursor: pointer;
-}
-
-.c0::-webkit-input-placeholder {
-  color: #6e7781;
-}
-
-.c0::-moz-placeholder {
-  color: #6e7781;
-}
-
-.c0:-ms-input-placeholder {
-  color: #6e7781;
-}
-
-.c0::placeholder {
-  color: #6e7781;
-}
-
-.c0:focus-within {
-  border-color: #0969da;
-  outline: none;
-  box-shadow: inset 0 0 0 1px #0969da;
-}
-
-.c0 > textarea {
-  padding: 12px;
-}
-
-.c0 > :not(:last-child) {
-  margin-right: 8px;
-}
-
-.c0 .TextInput-icon,
-.c0 .TextInput-action {
-  -webkit-align-self: center;
-  -ms-flex-item-align: center;
-  align-self: center;
-  color: #656d76;
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
-}
-
-.c0 > input,
-.c0 > select {
-  padding-left: 12px;
-  padding-right: 0;
-}
-
-.c1 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-}
-
-.c1:focus {
-  outline: 0;
-}
-
-@media (min-width:768px) {
-  .c0 {
-    font-size: 14px;
-  }
-}
-
-<span
-    aria-busy={true}
-    aria-live="polite"
-    className="c0 TextInput-wrapper"
-    onClick={[Function]}
-  >
-    <input
-      className="c1"
-      data-component="input"
-      onBlur={[Function]}
-      onFocus={[Function]}
-      type="text"
-    />
-    <span
-      className="TextInput-icon"
-    >
-      <div
-        className="c2"
-        display="flex"
-      >
-        <svg
-          className="c3"
-          fill="none"
-          height="16px"
-          sx={
-            {
-              "visibility": "visible",
-            }
-          }
-          viewBox="0 0 16 16"
-          width="16px"
-        >
-          <circle
-            cx="8"
-            cy="8"
-            r="7"
-            stroke="currentColor"
-            strokeOpacity="0.25"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-          <path
-            d="M15 8a7.002 7.002 0 00-7-7"
-            stroke="currentColor"
-            strokeLinecap="round"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-        </svg>
-      </div>
-    </span>
-  </span>,
-  .c1 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  position: relative;
-}
-
-.c2 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
-  visibility: visible;
 }
 
 .c4 {
   -webkit-animation: rotate-keyframes 1s linear infinite;
   animation: rotate-keyframes 1s linear infinite;
-  visibility: hidden;
+  visibility: visible;
 }
 
 .c0 {
@@ -3381,10 +3253,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
-  background-repeat: no-repeat;
-  background-position: right 8px center;
-  padding-left: 12px;
-  padding-right: 0;
 }
 
 .c0 input,
@@ -3422,12 +3290,19 @@ exports[`TextInput renders with a loading indicator 1`] = `
   padding: 12px;
 }
 
-.c0 > :not(:last-child) {
+.c1 {
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  padding-left: 0;
+  padding-right: 12px;
+}
+
+.c1 > :not(:last-child) {
   margin-right: 8px;
 }
 
-.c0 .TextInput-icon,
-.c0 .TextInput-action {
+.c1 .TextInput-icon,
+.c1 .TextInput-action {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
@@ -3437,13 +3312,13 @@ exports[`TextInput renders with a loading indicator 1`] = `
   flex-shrink: 0;
 }
 
-.c0 > input,
-.c0 > select {
-  padding-left: 0;
-  padding-right: 12px;
+.c1 > input,
+.c1 > select {
+  padding-left: 12px;
+  padding-right: 0;
 }
 
-.c3 {
+.c2 {
   border: 0;
   font-size: inherit;
   font-family: inherit;
@@ -3453,7 +3328,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   width: 100%;
 }
 
-.c3:focus {
+.c2:focus {
   outline: 0;
 }
 
@@ -3463,52 +3338,22 @@ exports[`TextInput renders with a loading indicator 1`] = `
   }
 }
 
+@media (min-width:768px) {
+
+}
+
+@media (min-width:768px) {
+
+}
+
 <span
     aria-busy={true}
     aria-live="polite"
-    className="c0 TextInput-wrapper"
+    className="c0 c1 TextInput-wrapper"
     onClick={[Function]}
   >
-    <span
-      className="TextInput-icon"
-    >
-      <div
-        className="c1"
-        display="flex"
-      >
-        <svg
-          className="c2"
-          fill="none"
-          height="16px"
-          sx={
-            {
-              "visibility": "visible",
-            }
-          }
-          viewBox="0 0 16 16"
-          width="16px"
-        >
-          <circle
-            cx="8"
-            cy="8"
-            r="7"
-            stroke="currentColor"
-            strokeOpacity="0.25"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-          <path
-            d="M15 8a7.002 7.002 0 00-7-7"
-            stroke="currentColor"
-            strokeLinecap="round"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-        </svg>
-      </div>
-    </span>
     <input
-      className="c3"
+      className="c2"
       data-component="input"
       onBlur={[Function]}
       onFocus={[Function]}
@@ -3518,7 +3363,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
       className="TextInput-icon"
     >
       <div
-        className="c1"
+        className="c3"
         display="flex"
       >
         <svg
@@ -3527,7 +3372,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
           height="16px"
           sx={
             {
-              "visibility": "hidden",
+              "visibility": "visible",
             }
           }
           viewBox="0 0 16 16"
@@ -3567,188 +3412,12 @@ exports[`TextInput renders with a loading indicator 1`] = `
   visibility: visible;
 }
 
-.c0 {
-  font-size: 14px;
-  line-height: 20px;
-  color: #1F2328;
-  vertical-align: middle;
-  background-color: #ffffff;
-  border: 1px solid #d0d7de;
-  border-radius: 6px;
-  outline: none;
-  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-align-items: stretch;
-  -webkit-box-align: stretch;
-  -ms-flex-align: stretch;
-  align-items: stretch;
-  min-height: 32px;
-  background-repeat: no-repeat;
-  background-position: right 8px center;
-  padding-left: 0;
-  padding-right: 12px;
-}
-
-.c0 input,
-.c0 textarea {
-  cursor: text;
-}
-
-.c0 select {
-  cursor: pointer;
-}
-
-.c0::-webkit-input-placeholder {
-  color: #6e7781;
-}
-
-.c0::-moz-placeholder {
-  color: #6e7781;
-}
-
-.c0:-ms-input-placeholder {
-  color: #6e7781;
-}
-
-.c0::placeholder {
-  color: #6e7781;
-}
-
-.c0:focus-within {
-  border-color: #0969da;
-  outline: none;
-  box-shadow: inset 0 0 0 1px #0969da;
-}
-
-.c0 > textarea {
-  padding: 12px;
-}
-
-.c0 > :not(:last-child) {
-  margin-right: 8px;
-}
-
-.c0 .TextInput-icon,
-.c0 .TextInput-action {
-  -webkit-align-self: center;
-  -ms-flex-item-align: center;
-  align-self: center;
-  color: #656d76;
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
-}
-
-.c0 > input,
-.c0 > select {
-  padding-left: 12px;
-  padding-right: 0;
-}
-
-.c1 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-}
-
-.c1:focus {
-  outline: 0;
-}
-
-@media (min-width:768px) {
-  .c0 {
-    font-size: 14px;
-  }
-}
-
-<span
-    aria-busy={true}
-    aria-live="polite"
-    className="c0 TextInput-wrapper"
-    onClick={[Function]}
-  >
-    <input
-      className="c1"
-      data-component="input"
-      onBlur={[Function]}
-      onFocus={[Function]}
-      type="text"
-    />
-    <span
-      className="TextInput-icon"
-    >
-      <div
-        className="c2"
-        display="flex"
-      >
-        <svg
-          className="c3"
-          fill="none"
-          height="16px"
-          sx={
-            {
-              "visibility": "visible",
-            }
-          }
-          viewBox="0 0 16 16"
-          width="16px"
-        >
-          <circle
-            cx="8"
-            cy="8"
-            r="7"
-            stroke="currentColor"
-            strokeOpacity="0.25"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-          <path
-            d="M15 8a7.002 7.002 0 00-7-7"
-            stroke="currentColor"
-            strokeLinecap="round"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-        </svg>
-      </div>
-    </span>
-  </span>,
-  .c1 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  position: relative;
-}
-
-.c2 {
-  visibility: hidden;
-}
-
 .c5 {
   -webkit-animation: rotate-keyframes 1s linear infinite;
   animation: rotate-keyframes 1s linear infinite;
   visibility: hidden;
 }
 
-.c3 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
-  position: absolute;
-  top: 0;
-  height: 100%;
-  max-width: 100%;
-  visibility: visible;
-  left: 0;
-}
-
 .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -3768,10 +3437,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
-  background-repeat: no-repeat;
-  background-position: right 8px center;
-  padding-left: 12px;
-  padding-right: 0;
 }
 
 .c0 input,
@@ -3809,12 +3474,19 @@ exports[`TextInput renders with a loading indicator 1`] = `
   padding: 12px;
 }
 
-.c0 > :not(:last-child) {
+.c1 {
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  padding-left: 12px;
+  padding-right: 0;
+}
+
+.c1 > :not(:last-child) {
   margin-right: 8px;
 }
 
-.c0 .TextInput-icon,
-.c0 .TextInput-action {
+.c1 .TextInput-icon,
+.c1 .TextInput-action {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
@@ -3824,8 +3496,8 @@ exports[`TextInput renders with a loading indicator 1`] = `
   flex-shrink: 0;
 }
 
-.c0 > input,
-.c0 > select {
+.c1 > input,
+.c1 > select {
   padding-left: 0;
   padding-right: 12px;
 }
@@ -3850,61 +3522,38 @@ exports[`TextInput renders with a loading indicator 1`] = `
   }
 }
 
+@media (min-width:768px) {
+
+}
+
+@media (min-width:768px) {
+
+}
+
 <span
     aria-busy={true}
     aria-live="polite"
-    className="c0 TextInput-wrapper"
+    className="c0 c1 TextInput-wrapper"
     onClick={[Function]}
   >
     <span
       className="TextInput-icon"
     >
       <div
-        className="c1"
+        className="c2"
         display="flex"
       >
-        <div
-          className="c2"
-        >
-          <svg
-            aria-hidden="true"
-            className="octicon octicon-search"
-            fill="currentColor"
-            focusable="false"
-            height={16}
-            role="img"
-            style={
-              {
-                "display": "inline-block",
-                "overflow": "visible",
-                "userSelect": "none",
-                "verticalAlign": "text-bottom",
-              }
-            }
-            viewBox="0 0 16 16"
-            width={16}
-          >
-            <path
-              d="M10.68 11.74a6 6 0 0 1-7.922-8.982 6 6 0 0 1 8.982 7.922l3.04 3.04a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215ZM11.5 7a4.499 4.499 0 1 0-8.997 0A4.499 4.499 0 0 0 11.5 7Z"
-            />
-          </svg>
-        </div>
         <svg
           className="c3"
           fill="none"
-          height="32px"
+          height="16px"
           sx={
             {
-              "height": "100%",
-              "left": 0,
-              "maxWidth": "100%",
-              "position": "absolute",
-              "top": 0,
               "visibility": "visible",
             }
           }
           viewBox="0 0 16 16"
-          width="32px"
+          width="16px"
         >
           <circle
             cx="8"
@@ -3936,7 +3585,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
       className="TextInput-icon"
     >
       <div
-        className="c1"
+        className="c2"
         display="flex"
       >
         <svg
@@ -3971,7 +3620,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
       </div>
     </span>
   </span>,
-  .c1 {
+  .c3 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -3979,25 +3628,10 @@ exports[`TextInput renders with a loading indicator 1`] = `
   position: relative;
 }
 
-.c2 {
-  visibility: hidden;
-}
-
-.c5 {
+.c4 {
   -webkit-animation: rotate-keyframes 1s linear infinite;
   animation: rotate-keyframes 1s linear infinite;
-  visibility: hidden;
-}
-
-.c3 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
-  position: absolute;
-  top: 0;
-  height: 100%;
-  max-width: 100%;
   visibility: visible;
-  left: 0;
 }
 
 .c0 {
@@ -4019,10 +3653,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
-  background-repeat: no-repeat;
-  background-position: right 8px center;
-  padding-left: 12px;
-  padding-right: 0;
 }
 
 .c0 input,
@@ -4060,263 +3690,19 @@ exports[`TextInput renders with a loading indicator 1`] = `
   padding: 12px;
 }
 
-.c0 > :not(:last-child) {
-  margin-right: 8px;
-}
-
-.c0 .TextInput-icon,
-.c0 .TextInput-action {
-  -webkit-align-self: center;
-  -ms-flex-item-align: center;
-  align-self: center;
-  color: #656d76;
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
-}
-
-.c0 > input,
-.c0 > select {
-  padding-left: 0;
-  padding-right: 12px;
-}
-
-.c4 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-}
-
-.c4:focus {
-  outline: 0;
-}
-
-@media (min-width:768px) {
-  .c0 {
-    font-size: 14px;
-  }
-}
-
-<span
-    aria-busy={true}
-    aria-live="polite"
-    className="c0 TextInput-wrapper"
-    onClick={[Function]}
-  >
-    <span
-      className="TextInput-icon"
-    >
-      <div
-        className="c1"
-        display="flex"
-      >
-        <div
-          className="c2"
-        >
-          <svg
-            aria-hidden="true"
-            className="octicon octicon-search"
-            fill="currentColor"
-            focusable="false"
-            height={16}
-            role="img"
-            style={
-              {
-                "display": "inline-block",
-                "overflow": "visible",
-                "userSelect": "none",
-                "verticalAlign": "text-bottom",
-              }
-            }
-            viewBox="0 0 16 16"
-            width={16}
-          >
-            <path
-              d="M10.68 11.74a6 6 0 0 1-7.922-8.982 6 6 0 0 1 8.982 7.922l3.04 3.04a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215ZM11.5 7a4.499 4.499 0 1 0-8.997 0A4.499 4.499 0 0 0 11.5 7Z"
-            />
-          </svg>
-        </div>
-        <svg
-          className="c3"
-          fill="none"
-          height="32px"
-          sx={
-            {
-              "height": "100%",
-              "left": 0,
-              "maxWidth": "100%",
-              "position": "absolute",
-              "top": 0,
-              "visibility": "visible",
-            }
-          }
-          viewBox="0 0 16 16"
-          width="32px"
-        >
-          <circle
-            cx="8"
-            cy="8"
-            r="7"
-            stroke="currentColor"
-            strokeOpacity="0.25"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-          <path
-            d="M15 8a7.002 7.002 0 00-7-7"
-            stroke="currentColor"
-            strokeLinecap="round"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-        </svg>
-      </div>
-    </span>
-    <input
-      className="c4"
-      data-component="input"
-      onBlur={[Function]}
-      onFocus={[Function]}
-      type="text"
-    />
-    <span
-      className="TextInput-icon"
-    >
-      <div
-        className="c1"
-        display="flex"
-      >
-        <svg
-          className="c5"
-          fill="none"
-          height="16px"
-          sx={
-            {
-              "visibility": "hidden",
-            }
-          }
-          viewBox="0 0 16 16"
-          width="16px"
-        >
-          <circle
-            cx="8"
-            cy="8"
-            r="7"
-            stroke="currentColor"
-            strokeOpacity="0.25"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-          <path
-            d="M15 8a7.002 7.002 0 00-7-7"
-            stroke="currentColor"
-            strokeLinecap="round"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-        </svg>
-      </div>
-    </span>
-  </span>,
-  .c1 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  position: relative;
-}
-
-.c2 {
-  visibility: visible;
-}
-
-.c5 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
-  visibility: visible;
-}
-
-.c3 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
-  position: absolute;
-  top: 0;
-  height: 100%;
-  max-width: 100%;
-  visibility: hidden;
-  left: 0;
-}
-
-.c0 {
-  font-size: 14px;
-  line-height: 20px;
-  color: #1F2328;
-  vertical-align: middle;
-  background-color: #ffffff;
-  border: 1px solid #d0d7de;
-  border-radius: 6px;
-  outline: none;
-  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-align-items: stretch;
-  -webkit-box-align: stretch;
-  -ms-flex-align: stretch;
-  align-items: stretch;
-  min-height: 32px;
+.c1 {
   background-repeat: no-repeat;
   background-position: right 8px center;
-  padding-left: 12px;
+  padding-left: 0;
   padding-right: 12px;
 }
 
-.c0 input,
-.c0 textarea {
-  cursor: text;
-}
-
-.c0 select {
-  cursor: pointer;
-}
-
-.c0::-webkit-input-placeholder {
-  color: #6e7781;
-}
-
-.c0::-moz-placeholder {
-  color: #6e7781;
-}
-
-.c0:-ms-input-placeholder {
-  color: #6e7781;
-}
-
-.c0::placeholder {
-  color: #6e7781;
-}
-
-.c0:focus-within {
-  border-color: #0969da;
-  outline: none;
-  box-shadow: inset 0 0 0 1px #0969da;
-}
-
-.c0 > textarea {
-  padding: 12px;
-}
-
-.c0 > :not(:last-child) {
+.c1 > :not(:last-child) {
   margin-right: 8px;
 }
 
-.c0 .TextInput-icon,
-.c0 .TextInput-action {
+.c1 .TextInput-icon,
+.c1 .TextInput-action {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
@@ -4326,13 +3712,13 @@ exports[`TextInput renders with a loading indicator 1`] = `
   flex-shrink: 0;
 }
 
-.c0 > input,
-.c0 > select {
-  padding-left: 0;
+.c1 > input,
+.c1 > select {
+  padding-left: 12px;
   padding-right: 0;
 }
 
-.c4 {
+.c2 {
   border: 0;
   font-size: inherit;
   font-family: inherit;
@@ -4342,7 +3728,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   width: 100%;
 }
 
-.c4:focus {
+.c2:focus {
   outline: 0;
 }
 
@@ -4352,83 +3738,22 @@ exports[`TextInput renders with a loading indicator 1`] = `
   }
 }
 
+@media (min-width:768px) {
+
+}
+
+@media (min-width:768px) {
+
+}
+
 <span
     aria-busy={true}
     aria-live="polite"
-    className="c0 TextInput-wrapper"
+    className="c0 c1 TextInput-wrapper"
     onClick={[Function]}
   >
-    <span
-      className="TextInput-icon"
-    >
-      <div
-        className="c1"
-        display="flex"
-      >
-        <div
-          className="c2"
-        >
-          <svg
-            aria-hidden="true"
-            className="octicon octicon-search"
-            fill="currentColor"
-            focusable="false"
-            height={16}
-            role="img"
-            style={
-              {
-                "display": "inline-block",
-                "overflow": "visible",
-                "userSelect": "none",
-                "verticalAlign": "text-bottom",
-              }
-            }
-            viewBox="0 0 16 16"
-            width={16}
-          >
-            <path
-              d="M10.68 11.74a6 6 0 0 1-7.922-8.982 6 6 0 0 1 8.982 7.922l3.04 3.04a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215ZM11.5 7a4.499 4.499 0 1 0-8.997 0A4.499 4.499 0 0 0 11.5 7Z"
-            />
-          </svg>
-        </div>
-        <svg
-          className="c3"
-          fill="none"
-          height="32px"
-          sx={
-            {
-              "height": "100%",
-              "left": 0,
-              "maxWidth": "100%",
-              "position": "absolute",
-              "top": 0,
-              "visibility": "hidden",
-            }
-          }
-          viewBox="0 0 16 16"
-          width="32px"
-        >
-          <circle
-            cx="8"
-            cy="8"
-            r="7"
-            stroke="currentColor"
-            strokeOpacity="0.25"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-          <path
-            d="M15 8a7.002 7.002 0 00-7-7"
-            stroke="currentColor"
-            strokeLinecap="round"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-        </svg>
-      </div>
-    </span>
     <input
-      className="c4"
+      className="c2"
       data-component="input"
       onBlur={[Function]}
       onFocus={[Function]}
@@ -4438,11 +3763,11 @@ exports[`TextInput renders with a loading indicator 1`] = `
       className="TextInput-icon"
     >
       <div
-        className="c1"
+        className="c3"
         display="flex"
       >
         <svg
-          className="c5"
+          className="c4"
           fill="none"
           height="16px"
           sx={
@@ -4483,689 +3808,1508 @@ exports[`TextInput renders with a loading indicator 1`] = `
 
 .c3 {
   visibility: hidden;
-}
-
-.c4 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
-  position: absolute;
-  top: 0;
-  height: 100%;
-  max-width: 100%;
-  visibility: visible;
-  right: 0;
-}
-
-.c0 {
-  font-size: 14px;
-  line-height: 20px;
-  color: #1F2328;
-  vertical-align: middle;
-  background-color: #ffffff;
-  border: 1px solid #d0d7de;
-  border-radius: 6px;
-  outline: none;
-  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-align-items: stretch;
-  -webkit-box-align: stretch;
-  -ms-flex-align: stretch;
-  align-items: stretch;
-  min-height: 32px;
-  background-repeat: no-repeat;
-  background-position: right 8px center;
-  padding-left: 0;
-  padding-right: 12px;
-}
-
-.c0 input,
-.c0 textarea {
-  cursor: text;
-}
-
-.c0 select {
-  cursor: pointer;
-}
-
-.c0::-webkit-input-placeholder {
-  color: #6e7781;
-}
-
-.c0::-moz-placeholder {
-  color: #6e7781;
-}
-
-.c0:-ms-input-placeholder {
-  color: #6e7781;
-}
-
-.c0::placeholder {
-  color: #6e7781;
-}
-
-.c0:focus-within {
-  border-color: #0969da;
-  outline: none;
-  box-shadow: inset 0 0 0 1px #0969da;
-}
-
-.c0 > textarea {
-  padding: 12px;
-}
-
-.c0 > :not(:last-child) {
-  margin-right: 8px;
-}
-
-.c0 .TextInput-icon,
-.c0 .TextInput-action {
-  -webkit-align-self: center;
-  -ms-flex-item-align: center;
-  align-self: center;
-  color: #656d76;
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
-}
-
-.c0 > input,
-.c0 > select {
-  padding-left: 12px;
-  padding-right: 0;
-}
-
-.c1 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-}
-
-.c1:focus {
-  outline: 0;
-}
-
-@media (min-width:768px) {
-  .c0 {
-    font-size: 14px;
-  }
-}
-
-<span
-    aria-busy={true}
-    aria-live="polite"
-    className="c0 TextInput-wrapper"
-    onClick={[Function]}
-  >
-    <input
-      className="c1"
-      data-component="input"
-      onBlur={[Function]}
-      onFocus={[Function]}
-      type="text"
-    />
-    <span
-      className="TextInput-icon"
-    >
-      <div
-        className="c2"
-        display="flex"
-      >
-        <div
-          className="c3"
-        >
-          <svg
-            aria-hidden="true"
-            className="octicon octicon-search"
-            fill="currentColor"
-            focusable="false"
-            height={16}
-            role="img"
-            style={
-              {
-                "display": "inline-block",
-                "overflow": "visible",
-                "userSelect": "none",
-                "verticalAlign": "text-bottom",
-              }
-            }
-            viewBox="0 0 16 16"
-            width={16}
-          >
-            <path
-              d="M10.68 11.74a6 6 0 0 1-7.922-8.982 6 6 0 0 1 8.982 7.922l3.04 3.04a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215ZM11.5 7a4.499 4.499 0 1 0-8.997 0A4.499 4.499 0 0 0 11.5 7Z"
-            />
-          </svg>
-        </div>
-        <svg
-          className="c4"
-          fill="none"
-          height="32px"
-          sx={
-            {
-              "height": "100%",
-              "maxWidth": "100%",
-              "position": "absolute",
-              "right": 0,
-              "top": 0,
-              "visibility": "visible",
-            }
-          }
-          viewBox="0 0 16 16"
-          width="32px"
-        >
-          <circle
-            cx="8"
-            cy="8"
-            r="7"
-            stroke="currentColor"
-            strokeOpacity="0.25"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-          <path
-            d="M15 8a7.002 7.002 0 00-7-7"
-            stroke="currentColor"
-            strokeLinecap="round"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-        </svg>
-      </div>
-    </span>
-  </span>,
-  .c1 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  position: relative;
-}
-
-.c4 {
-  visibility: visible;
-}
-
-.c2 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
-  visibility: visible;
-}
-
-.c5 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
-  position: absolute;
-  top: 0;
-  height: 100%;
-  max-width: 100%;
-  visibility: hidden;
-  right: 0;
-}
-
-.c0 {
-  font-size: 14px;
-  line-height: 20px;
-  color: #1F2328;
-  vertical-align: middle;
-  background-color: #ffffff;
-  border: 1px solid #d0d7de;
-  border-radius: 6px;
-  outline: none;
-  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-align-items: stretch;
-  -webkit-box-align: stretch;
-  -ms-flex-align: stretch;
-  align-items: stretch;
-  min-height: 32px;
-  background-repeat: no-repeat;
-  background-position: right 8px center;
-  padding-left: 12px;
-  padding-right: 12px;
-}
-
-.c0 input,
-.c0 textarea {
-  cursor: text;
-}
-
-.c0 select {
-  cursor: pointer;
-}
-
-.c0::-webkit-input-placeholder {
-  color: #6e7781;
-}
-
-.c0::-moz-placeholder {
-  color: #6e7781;
-}
-
-.c0:-ms-input-placeholder {
-  color: #6e7781;
-}
-
-.c0::placeholder {
-  color: #6e7781;
-}
-
-.c0:focus-within {
-  border-color: #0969da;
-  outline: none;
-  box-shadow: inset 0 0 0 1px #0969da;
-}
-
-.c0 > textarea {
-  padding: 12px;
-}
-
-.c0 > :not(:last-child) {
-  margin-right: 8px;
-}
-
-.c0 .TextInput-icon,
-.c0 .TextInput-action {
-  -webkit-align-self: center;
-  -ms-flex-item-align: center;
-  align-self: center;
-  color: #656d76;
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
-}
-
-.c0 > input,
-.c0 > select {
-  padding-left: 0;
-  padding-right: 0;
-}
-
-.c3 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-}
-
-.c3:focus {
-  outline: 0;
-}
-
-@media (min-width:768px) {
-  .c0 {
-    font-size: 14px;
-  }
-}
-
-<span
-    aria-busy={true}
-    aria-live="polite"
-    className="c0 TextInput-wrapper"
-    onClick={[Function]}
-  >
-    <span
-      className="TextInput-icon"
-    >
-      <div
-        className="c1"
-        display="flex"
-      >
-        <svg
-          className="c2"
-          fill="none"
-          height="16px"
-          sx={
-            {
-              "visibility": "visible",
-            }
-          }
-          viewBox="0 0 16 16"
-          width="16px"
-        >
-          <circle
-            cx="8"
-            cy="8"
-            r="7"
-            stroke="currentColor"
-            strokeOpacity="0.25"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-          <path
-            d="M15 8a7.002 7.002 0 00-7-7"
-            stroke="currentColor"
-            strokeLinecap="round"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-        </svg>
-      </div>
-    </span>
-    <input
-      className="c3"
-      data-component="input"
-      onBlur={[Function]}
-      onFocus={[Function]}
-      type="text"
-    />
-    <span
-      className="TextInput-icon"
-    >
-      <div
-        className="c1"
-        display="flex"
-      >
-        <div
-          className="c4"
-        >
-          <svg
-            aria-hidden="true"
-            className="octicon octicon-search"
-            fill="currentColor"
-            focusable="false"
-            height={16}
-            role="img"
-            style={
-              {
-                "display": "inline-block",
-                "overflow": "visible",
-                "userSelect": "none",
-                "verticalAlign": "text-bottom",
-              }
-            }
-            viewBox="0 0 16 16"
-            width={16}
-          >
-            <path
-              d="M10.68 11.74a6 6 0 0 1-7.922-8.982 6 6 0 0 1 8.982 7.922l3.04 3.04a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215ZM11.5 7a4.499 4.499 0 1 0-8.997 0A4.499 4.499 0 0 0 11.5 7Z"
-            />
-          </svg>
-        </div>
-        <svg
-          className="c5"
-          fill="none"
-          height="32px"
-          sx={
-            {
-              "height": "100%",
-              "maxWidth": "100%",
-              "position": "absolute",
-              "right": 0,
-              "top": 0,
-              "visibility": "hidden",
-            }
-          }
-          viewBox="0 0 16 16"
-          width="32px"
-        >
-          <circle
-            cx="8"
-            cy="8"
-            r="7"
-            stroke="currentColor"
-            strokeOpacity="0.25"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-          <path
-            d="M15 8a7.002 7.002 0 00-7-7"
-            stroke="currentColor"
-            strokeLinecap="round"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-        </svg>
-      </div>
-    </span>
-  </span>,
-  .c2 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  position: relative;
-}
-
-.c3 {
-  visibility: hidden;
-}
-
-.c4 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
-  position: absolute;
-  top: 0;
-  height: 100%;
-  max-width: 100%;
-  visibility: visible;
-  right: 0;
-}
-
-.c0 {
-  font-size: 14px;
-  line-height: 20px;
-  color: #1F2328;
-  vertical-align: middle;
-  background-color: #ffffff;
-  border: 1px solid #d0d7de;
-  border-radius: 6px;
-  outline: none;
-  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-align-items: stretch;
-  -webkit-box-align: stretch;
-  -ms-flex-align: stretch;
-  align-items: stretch;
-  min-height: 32px;
-  background-repeat: no-repeat;
-  background-position: right 8px center;
-  padding-left: 0;
-  padding-right: 12px;
-}
-
-.c0 input,
-.c0 textarea {
-  cursor: text;
-}
-
-.c0 select {
-  cursor: pointer;
-}
-
-.c0::-webkit-input-placeholder {
-  color: #6e7781;
-}
-
-.c0::-moz-placeholder {
-  color: #6e7781;
-}
-
-.c0:-ms-input-placeholder {
-  color: #6e7781;
-}
-
-.c0::placeholder {
-  color: #6e7781;
-}
-
-.c0:focus-within {
-  border-color: #0969da;
-  outline: none;
-  box-shadow: inset 0 0 0 1px #0969da;
-}
-
-.c0 > textarea {
-  padding: 12px;
-}
-
-.c0 > :not(:last-child) {
-  margin-right: 8px;
-}
-
-.c0 .TextInput-icon,
-.c0 .TextInput-action {
-  -webkit-align-self: center;
-  -ms-flex-item-align: center;
-  align-self: center;
-  color: #656d76;
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
-}
-
-.c0 > input,
-.c0 > select {
-  padding-left: 12px;
-  padding-right: 0;
-}
-
-.c1 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-}
-
-.c1:focus {
-  outline: 0;
-}
-
-@media (min-width:768px) {
-  .c0 {
-    font-size: 14px;
-  }
-}
-
-<span
-    aria-busy={true}
-    aria-live="polite"
-    className="c0 TextInput-wrapper"
-    onClick={[Function]}
-  >
-    <input
-      className="c1"
-      data-component="input"
-      onBlur={[Function]}
-      onFocus={[Function]}
-      type="text"
-    />
-    <span
-      className="TextInput-icon"
-    >
-      <div
-        className="c2"
-        display="flex"
-      >
-        <div
-          className="c3"
-        >
-          <svg
-            aria-hidden="true"
-            className="octicon octicon-search"
-            fill="currentColor"
-            focusable="false"
-            height={16}
-            role="img"
-            style={
-              {
-                "display": "inline-block",
-                "overflow": "visible",
-                "userSelect": "none",
-                "verticalAlign": "text-bottom",
-              }
-            }
-            viewBox="0 0 16 16"
-            width={16}
-          >
-            <path
-              d="M10.68 11.74a6 6 0 0 1-7.922-8.982 6 6 0 0 1 8.982 7.922l3.04 3.04a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215ZM11.5 7a4.499 4.499 0 1 0-8.997 0A4.499 4.499 0 0 0 11.5 7Z"
-            />
-          </svg>
-        </div>
-        <svg
-          className="c4"
-          fill="none"
-          height="32px"
-          sx={
-            {
-              "height": "100%",
-              "maxWidth": "100%",
-              "position": "absolute",
-              "right": 0,
-              "top": 0,
-              "visibility": "visible",
-            }
-          }
-          viewBox="0 0 16 16"
-          width="32px"
-        >
-          <circle
-            cx="8"
-            cy="8"
-            r="7"
-            stroke="currentColor"
-            strokeOpacity="0.25"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-          <path
-            d="M15 8a7.002 7.002 0 00-7-7"
-            stroke="currentColor"
-            strokeLinecap="round"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-        </svg>
-      </div>
-    </span>
-  </span>,
-  .c1 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  position: relative;
-}
-
-.c2 {
-  visibility: hidden;
-}
-
-.c5 {
-  visibility: visible;
-}
-
-.c3 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
-  position: absolute;
-  top: 0;
-  height: 100%;
-  max-width: 100%;
-  visibility: visible;
-  left: 0;
 }
 
 .c6 {
+  -webkit-animation: rotate-keyframes 1s linear infinite;
+  animation: rotate-keyframes 1s linear infinite;
+  visibility: hidden;
+}
+
+.c4 {
+  -webkit-animation: rotate-keyframes 1s linear infinite;
+  animation: rotate-keyframes 1s linear infinite;
+  position: absolute;
+  top: 0;
+  height: 100%;
+  max-width: 100%;
+  visibility: visible;
+  left: 0;
+}
+
+.c0 {
+  font-size: 14px;
+  line-height: 20px;
+  color: #1F2328;
+  vertical-align: middle;
+  background-color: #ffffff;
+  border: 1px solid #d0d7de;
+  border-radius: 6px;
+  outline: none;
+  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: stretch;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  min-height: 32px;
+}
+
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
+}
+
+.c0::-webkit-input-placeholder {
+  color: #6e7781;
+}
+
+.c0::-moz-placeholder {
+  color: #6e7781;
+}
+
+.c0:-ms-input-placeholder {
+  color: #6e7781;
+}
+
+.c0::placeholder {
+  color: #6e7781;
+}
+
+.c0:focus-within {
+  border-color: #0969da;
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
+}
+
+.c0 > textarea {
+  padding: 12px;
+}
+
+.c1 {
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  padding-left: 12px;
+  padding-right: 0;
+}
+
+.c1 > :not(:last-child) {
+  margin-right: 8px;
+}
+
+.c1 .TextInput-icon,
+.c1 .TextInput-action {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  color: #656d76;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+}
+
+.c1 > input,
+.c1 > select {
+  padding-left: 0;
+  padding-right: 12px;
+}
+
+.c5 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c5:focus {
+  outline: 0;
+}
+
+@media (min-width:768px) {
+  .c0 {
+    font-size: 14px;
+  }
+}
+
+@media (min-width:768px) {
+
+}
+
+@media (min-width:768px) {
+
+}
+
+<span
+    aria-busy={true}
+    aria-live="polite"
+    className="c0 c1 TextInput-wrapper"
+    onClick={[Function]}
+  >
+    <span
+      className="TextInput-icon"
+    >
+      <div
+        className="c2"
+        display="flex"
+      >
+        <div
+          className="c3"
+        >
+          <svg
+            aria-hidden="true"
+            className="octicon octicon-search"
+            fill="currentColor"
+            focusable="false"
+            height={16}
+            role="img"
+            style={
+              {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
+                "verticalAlign": "text-bottom",
+              }
+            }
+            viewBox="0 0 16 16"
+            width={16}
+          >
+            <path
+              d="M10.68 11.74a6 6 0 0 1-7.922-8.982 6 6 0 0 1 8.982 7.922l3.04 3.04a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215ZM11.5 7a4.499 4.499 0 1 0-8.997 0A4.499 4.499 0 0 0 11.5 7Z"
+            />
+          </svg>
+        </div>
+        <svg
+          className="c4"
+          fill="none"
+          height="32px"
+          sx={
+            {
+              "height": "100%",
+              "left": 0,
+              "maxWidth": "100%",
+              "position": "absolute",
+              "top": 0,
+              "visibility": "visible",
+            }
+          }
+          viewBox="0 0 16 16"
+          width="32px"
+        >
+          <circle
+            cx="8"
+            cy="8"
+            r="7"
+            stroke="currentColor"
+            strokeOpacity="0.25"
+            strokeWidth="2"
+            vectorEffect="non-scaling-stroke"
+          />
+          <path
+            d="M15 8a7.002 7.002 0 00-7-7"
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeWidth="2"
+            vectorEffect="non-scaling-stroke"
+          />
+        </svg>
+      </div>
+    </span>
+    <input
+      className="c5"
+      data-component="input"
+      onBlur={[Function]}
+      onFocus={[Function]}
+      type="text"
+    />
+    <span
+      className="TextInput-icon"
+    >
+      <div
+        className="c2"
+        display="flex"
+      >
+        <svg
+          className="c6"
+          fill="none"
+          height="16px"
+          sx={
+            {
+              "visibility": "hidden",
+            }
+          }
+          viewBox="0 0 16 16"
+          width="16px"
+        >
+          <circle
+            cx="8"
+            cy="8"
+            r="7"
+            stroke="currentColor"
+            strokeOpacity="0.25"
+            strokeWidth="2"
+            vectorEffect="non-scaling-stroke"
+          />
+          <path
+            d="M15 8a7.002 7.002 0 00-7-7"
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeWidth="2"
+            vectorEffect="non-scaling-stroke"
+          />
+        </svg>
+      </div>
+    </span>
+  </span>,
+  .c2 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  position: relative;
+}
+
+.c3 {
+  visibility: hidden;
+}
+
+.c6 {
+  -webkit-animation: rotate-keyframes 1s linear infinite;
+  animation: rotate-keyframes 1s linear infinite;
+  visibility: hidden;
+}
+
+.c4 {
+  -webkit-animation: rotate-keyframes 1s linear infinite;
+  animation: rotate-keyframes 1s linear infinite;
+  position: absolute;
+  top: 0;
+  height: 100%;
+  max-width: 100%;
+  visibility: visible;
+  left: 0;
+}
+
+.c0 {
+  font-size: 14px;
+  line-height: 20px;
+  color: #1F2328;
+  vertical-align: middle;
+  background-color: #ffffff;
+  border: 1px solid #d0d7de;
+  border-radius: 6px;
+  outline: none;
+  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: stretch;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  min-height: 32px;
+}
+
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
+}
+
+.c0::-webkit-input-placeholder {
+  color: #6e7781;
+}
+
+.c0::-moz-placeholder {
+  color: #6e7781;
+}
+
+.c0:-ms-input-placeholder {
+  color: #6e7781;
+}
+
+.c0::placeholder {
+  color: #6e7781;
+}
+
+.c0:focus-within {
+  border-color: #0969da;
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
+}
+
+.c0 > textarea {
+  padding: 12px;
+}
+
+.c1 {
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  padding-left: 12px;
+  padding-right: 0;
+}
+
+.c1 > :not(:last-child) {
+  margin-right: 8px;
+}
+
+.c1 .TextInput-icon,
+.c1 .TextInput-action {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  color: #656d76;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+}
+
+.c1 > input,
+.c1 > select {
+  padding-left: 0;
+  padding-right: 12px;
+}
+
+.c5 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c5:focus {
+  outline: 0;
+}
+
+@media (min-width:768px) {
+  .c0 {
+    font-size: 14px;
+  }
+}
+
+@media (min-width:768px) {
+
+}
+
+@media (min-width:768px) {
+
+}
+
+<span
+    aria-busy={true}
+    aria-live="polite"
+    className="c0 c1 TextInput-wrapper"
+    onClick={[Function]}
+  >
+    <span
+      className="TextInput-icon"
+    >
+      <div
+        className="c2"
+        display="flex"
+      >
+        <div
+          className="c3"
+        >
+          <svg
+            aria-hidden="true"
+            className="octicon octicon-search"
+            fill="currentColor"
+            focusable="false"
+            height={16}
+            role="img"
+            style={
+              {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
+                "verticalAlign": "text-bottom",
+              }
+            }
+            viewBox="0 0 16 16"
+            width={16}
+          >
+            <path
+              d="M10.68 11.74a6 6 0 0 1-7.922-8.982 6 6 0 0 1 8.982 7.922l3.04 3.04a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215ZM11.5 7a4.499 4.499 0 1 0-8.997 0A4.499 4.499 0 0 0 11.5 7Z"
+            />
+          </svg>
+        </div>
+        <svg
+          className="c4"
+          fill="none"
+          height="32px"
+          sx={
+            {
+              "height": "100%",
+              "left": 0,
+              "maxWidth": "100%",
+              "position": "absolute",
+              "top": 0,
+              "visibility": "visible",
+            }
+          }
+          viewBox="0 0 16 16"
+          width="32px"
+        >
+          <circle
+            cx="8"
+            cy="8"
+            r="7"
+            stroke="currentColor"
+            strokeOpacity="0.25"
+            strokeWidth="2"
+            vectorEffect="non-scaling-stroke"
+          />
+          <path
+            d="M15 8a7.002 7.002 0 00-7-7"
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeWidth="2"
+            vectorEffect="non-scaling-stroke"
+          />
+        </svg>
+      </div>
+    </span>
+    <input
+      className="c5"
+      data-component="input"
+      onBlur={[Function]}
+      onFocus={[Function]}
+      type="text"
+    />
+    <span
+      className="TextInput-icon"
+    >
+      <div
+        className="c2"
+        display="flex"
+      >
+        <svg
+          className="c6"
+          fill="none"
+          height="16px"
+          sx={
+            {
+              "visibility": "hidden",
+            }
+          }
+          viewBox="0 0 16 16"
+          width="16px"
+        >
+          <circle
+            cx="8"
+            cy="8"
+            r="7"
+            stroke="currentColor"
+            strokeOpacity="0.25"
+            strokeWidth="2"
+            vectorEffect="non-scaling-stroke"
+          />
+          <path
+            d="M15 8a7.002 7.002 0 00-7-7"
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeWidth="2"
+            vectorEffect="non-scaling-stroke"
+          />
+        </svg>
+      </div>
+    </span>
+  </span>,
+  .c2 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  position: relative;
+}
+
+.c3 {
+  visibility: visible;
+}
+
+.c6 {
+  -webkit-animation: rotate-keyframes 1s linear infinite;
+  animation: rotate-keyframes 1s linear infinite;
+  visibility: visible;
+}
+
+.c4 {
+  -webkit-animation: rotate-keyframes 1s linear infinite;
+  animation: rotate-keyframes 1s linear infinite;
+  position: absolute;
+  top: 0;
+  height: 100%;
+  max-width: 100%;
+  visibility: hidden;
+  left: 0;
+}
+
+.c0 {
+  font-size: 14px;
+  line-height: 20px;
+  color: #1F2328;
+  vertical-align: middle;
+  background-color: #ffffff;
+  border: 1px solid #d0d7de;
+  border-radius: 6px;
+  outline: none;
+  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: stretch;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  min-height: 32px;
+}
+
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
+}
+
+.c0::-webkit-input-placeholder {
+  color: #6e7781;
+}
+
+.c0::-moz-placeholder {
+  color: #6e7781;
+}
+
+.c0:-ms-input-placeholder {
+  color: #6e7781;
+}
+
+.c0::placeholder {
+  color: #6e7781;
+}
+
+.c0:focus-within {
+  border-color: #0969da;
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
+}
+
+.c0 > textarea {
+  padding: 12px;
+}
+
+.c1 {
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  padding-left: 12px;
+  padding-right: 12px;
+}
+
+.c1 > :not(:last-child) {
+  margin-right: 8px;
+}
+
+.c1 .TextInput-icon,
+.c1 .TextInput-action {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  color: #656d76;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+}
+
+.c1 > input,
+.c1 > select {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.c5 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c5:focus {
+  outline: 0;
+}
+
+@media (min-width:768px) {
+  .c0 {
+    font-size: 14px;
+  }
+}
+
+@media (min-width:768px) {
+
+}
+
+@media (min-width:768px) {
+
+}
+
+<span
+    aria-busy={true}
+    aria-live="polite"
+    className="c0 c1 TextInput-wrapper"
+    onClick={[Function]}
+  >
+    <span
+      className="TextInput-icon"
+    >
+      <div
+        className="c2"
+        display="flex"
+      >
+        <div
+          className="c3"
+        >
+          <svg
+            aria-hidden="true"
+            className="octicon octicon-search"
+            fill="currentColor"
+            focusable="false"
+            height={16}
+            role="img"
+            style={
+              {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
+                "verticalAlign": "text-bottom",
+              }
+            }
+            viewBox="0 0 16 16"
+            width={16}
+          >
+            <path
+              d="M10.68 11.74a6 6 0 0 1-7.922-8.982 6 6 0 0 1 8.982 7.922l3.04 3.04a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215ZM11.5 7a4.499 4.499 0 1 0-8.997 0A4.499 4.499 0 0 0 11.5 7Z"
+            />
+          </svg>
+        </div>
+        <svg
+          className="c4"
+          fill="none"
+          height="32px"
+          sx={
+            {
+              "height": "100%",
+              "left": 0,
+              "maxWidth": "100%",
+              "position": "absolute",
+              "top": 0,
+              "visibility": "hidden",
+            }
+          }
+          viewBox="0 0 16 16"
+          width="32px"
+        >
+          <circle
+            cx="8"
+            cy="8"
+            r="7"
+            stroke="currentColor"
+            strokeOpacity="0.25"
+            strokeWidth="2"
+            vectorEffect="non-scaling-stroke"
+          />
+          <path
+            d="M15 8a7.002 7.002 0 00-7-7"
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeWidth="2"
+            vectorEffect="non-scaling-stroke"
+          />
+        </svg>
+      </div>
+    </span>
+    <input
+      className="c5"
+      data-component="input"
+      onBlur={[Function]}
+      onFocus={[Function]}
+      type="text"
+    />
+    <span
+      className="TextInput-icon"
+    >
+      <div
+        className="c2"
+        display="flex"
+      >
+        <svg
+          className="c6"
+          fill="none"
+          height="16px"
+          sx={
+            {
+              "visibility": "visible",
+            }
+          }
+          viewBox="0 0 16 16"
+          width="16px"
+        >
+          <circle
+            cx="8"
+            cy="8"
+            r="7"
+            stroke="currentColor"
+            strokeOpacity="0.25"
+            strokeWidth="2"
+            vectorEffect="non-scaling-stroke"
+          />
+          <path
+            d="M15 8a7.002 7.002 0 00-7-7"
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeWidth="2"
+            vectorEffect="non-scaling-stroke"
+          />
+        </svg>
+      </div>
+    </span>
+  </span>,
+  .c3 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  position: relative;
+}
+
+.c4 {
+  visibility: hidden;
+}
+
+.c5 {
+  -webkit-animation: rotate-keyframes 1s linear infinite;
+  animation: rotate-keyframes 1s linear infinite;
+  position: absolute;
+  top: 0;
+  height: 100%;
+  max-width: 100%;
+  visibility: visible;
+  right: 0;
+}
+
+.c0 {
+  font-size: 14px;
+  line-height: 20px;
+  color: #1F2328;
+  vertical-align: middle;
+  background-color: #ffffff;
+  border: 1px solid #d0d7de;
+  border-radius: 6px;
+  outline: none;
+  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: stretch;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  min-height: 32px;
+}
+
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
+}
+
+.c0::-webkit-input-placeholder {
+  color: #6e7781;
+}
+
+.c0::-moz-placeholder {
+  color: #6e7781;
+}
+
+.c0:-ms-input-placeholder {
+  color: #6e7781;
+}
+
+.c0::placeholder {
+  color: #6e7781;
+}
+
+.c0:focus-within {
+  border-color: #0969da;
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
+}
+
+.c0 > textarea {
+  padding: 12px;
+}
+
+.c1 {
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  padding-left: 0;
+  padding-right: 12px;
+}
+
+.c1 > :not(:last-child) {
+  margin-right: 8px;
+}
+
+.c1 .TextInput-icon,
+.c1 .TextInput-action {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  color: #656d76;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+}
+
+.c1 > input,
+.c1 > select {
+  padding-left: 12px;
+  padding-right: 0;
+}
+
+.c2 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c2:focus {
+  outline: 0;
+}
+
+@media (min-width:768px) {
+  .c0 {
+    font-size: 14px;
+  }
+}
+
+@media (min-width:768px) {
+
+}
+
+@media (min-width:768px) {
+
+}
+
+<span
+    aria-busy={true}
+    aria-live="polite"
+    className="c0 c1 TextInput-wrapper"
+    onClick={[Function]}
+  >
+    <input
+      className="c2"
+      data-component="input"
+      onBlur={[Function]}
+      onFocus={[Function]}
+      type="text"
+    />
+    <span
+      className="TextInput-icon"
+    >
+      <div
+        className="c3"
+        display="flex"
+      >
+        <div
+          className="c4"
+        >
+          <svg
+            aria-hidden="true"
+            className="octicon octicon-search"
+            fill="currentColor"
+            focusable="false"
+            height={16}
+            role="img"
+            style={
+              {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
+                "verticalAlign": "text-bottom",
+              }
+            }
+            viewBox="0 0 16 16"
+            width={16}
+          >
+            <path
+              d="M10.68 11.74a6 6 0 0 1-7.922-8.982 6 6 0 0 1 8.982 7.922l3.04 3.04a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215ZM11.5 7a4.499 4.499 0 1 0-8.997 0A4.499 4.499 0 0 0 11.5 7Z"
+            />
+          </svg>
+        </div>
+        <svg
+          className="c5"
+          fill="none"
+          height="32px"
+          sx={
+            {
+              "height": "100%",
+              "maxWidth": "100%",
+              "position": "absolute",
+              "right": 0,
+              "top": 0,
+              "visibility": "visible",
+            }
+          }
+          viewBox="0 0 16 16"
+          width="32px"
+        >
+          <circle
+            cx="8"
+            cy="8"
+            r="7"
+            stroke="currentColor"
+            strokeOpacity="0.25"
+            strokeWidth="2"
+            vectorEffect="non-scaling-stroke"
+          />
+          <path
+            d="M15 8a7.002 7.002 0 00-7-7"
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeWidth="2"
+            vectorEffect="non-scaling-stroke"
+          />
+        </svg>
+      </div>
+    </span>
+  </span>,
+  .c2 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  position: relative;
+}
+
+.c5 {
+  visibility: visible;
+}
+
+.c3 {
+  -webkit-animation: rotate-keyframes 1s linear infinite;
+  animation: rotate-keyframes 1s linear infinite;
+  visibility: visible;
+}
+
+.c6 {
+  -webkit-animation: rotate-keyframes 1s linear infinite;
+  animation: rotate-keyframes 1s linear infinite;
+  position: absolute;
+  top: 0;
+  height: 100%;
+  max-width: 100%;
+  visibility: hidden;
+  right: 0;
+}
+
+.c0 {
+  font-size: 14px;
+  line-height: 20px;
+  color: #1F2328;
+  vertical-align: middle;
+  background-color: #ffffff;
+  border: 1px solid #d0d7de;
+  border-radius: 6px;
+  outline: none;
+  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: stretch;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  min-height: 32px;
+}
+
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
+}
+
+.c0::-webkit-input-placeholder {
+  color: #6e7781;
+}
+
+.c0::-moz-placeholder {
+  color: #6e7781;
+}
+
+.c0:-ms-input-placeholder {
+  color: #6e7781;
+}
+
+.c0::placeholder {
+  color: #6e7781;
+}
+
+.c0:focus-within {
+  border-color: #0969da;
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
+}
+
+.c0 > textarea {
+  padding: 12px;
+}
+
+.c1 {
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  padding-left: 12px;
+  padding-right: 12px;
+}
+
+.c1 > :not(:last-child) {
+  margin-right: 8px;
+}
+
+.c1 .TextInput-icon,
+.c1 .TextInput-action {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  color: #656d76;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+}
+
+.c1 > input,
+.c1 > select {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.c4 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c4:focus {
+  outline: 0;
+}
+
+@media (min-width:768px) {
+  .c0 {
+    font-size: 14px;
+  }
+}
+
+@media (min-width:768px) {
+
+}
+
+@media (min-width:768px) {
+
+}
+
+<span
+    aria-busy={true}
+    aria-live="polite"
+    className="c0 c1 TextInput-wrapper"
+    onClick={[Function]}
+  >
+    <span
+      className="TextInput-icon"
+    >
+      <div
+        className="c2"
+        display="flex"
+      >
+        <svg
+          className="c3"
+          fill="none"
+          height="16px"
+          sx={
+            {
+              "visibility": "visible",
+            }
+          }
+          viewBox="0 0 16 16"
+          width="16px"
+        >
+          <circle
+            cx="8"
+            cy="8"
+            r="7"
+            stroke="currentColor"
+            strokeOpacity="0.25"
+            strokeWidth="2"
+            vectorEffect="non-scaling-stroke"
+          />
+          <path
+            d="M15 8a7.002 7.002 0 00-7-7"
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeWidth="2"
+            vectorEffect="non-scaling-stroke"
+          />
+        </svg>
+      </div>
+    </span>
+    <input
+      className="c4"
+      data-component="input"
+      onBlur={[Function]}
+      onFocus={[Function]}
+      type="text"
+    />
+    <span
+      className="TextInput-icon"
+    >
+      <div
+        className="c2"
+        display="flex"
+      >
+        <div
+          className="c5"
+        >
+          <svg
+            aria-hidden="true"
+            className="octicon octicon-search"
+            fill="currentColor"
+            focusable="false"
+            height={16}
+            role="img"
+            style={
+              {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
+                "verticalAlign": "text-bottom",
+              }
+            }
+            viewBox="0 0 16 16"
+            width={16}
+          >
+            <path
+              d="M10.68 11.74a6 6 0 0 1-7.922-8.982 6 6 0 0 1 8.982 7.922l3.04 3.04a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215ZM11.5 7a4.499 4.499 0 1 0-8.997 0A4.499 4.499 0 0 0 11.5 7Z"
+            />
+          </svg>
+        </div>
+        <svg
+          className="c6"
+          fill="none"
+          height="32px"
+          sx={
+            {
+              "height": "100%",
+              "maxWidth": "100%",
+              "position": "absolute",
+              "right": 0,
+              "top": 0,
+              "visibility": "hidden",
+            }
+          }
+          viewBox="0 0 16 16"
+          width="32px"
+        >
+          <circle
+            cx="8"
+            cy="8"
+            r="7"
+            stroke="currentColor"
+            strokeOpacity="0.25"
+            strokeWidth="2"
+            vectorEffect="non-scaling-stroke"
+          />
+          <path
+            d="M15 8a7.002 7.002 0 00-7-7"
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeWidth="2"
+            vectorEffect="non-scaling-stroke"
+          />
+        </svg>
+      </div>
+    </span>
+  </span>,
+  .c3 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  position: relative;
+}
+
+.c4 {
+  visibility: hidden;
+}
+
+.c5 {
+  -webkit-animation: rotate-keyframes 1s linear infinite;
+  animation: rotate-keyframes 1s linear infinite;
+  position: absolute;
+  top: 0;
+  height: 100%;
+  max-width: 100%;
+  visibility: visible;
+  right: 0;
+}
+
+.c0 {
+  font-size: 14px;
+  line-height: 20px;
+  color: #1F2328;
+  vertical-align: middle;
+  background-color: #ffffff;
+  border: 1px solid #d0d7de;
+  border-radius: 6px;
+  outline: none;
+  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: stretch;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  min-height: 32px;
+}
+
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
+}
+
+.c0::-webkit-input-placeholder {
+  color: #6e7781;
+}
+
+.c0::-moz-placeholder {
+  color: #6e7781;
+}
+
+.c0:-ms-input-placeholder {
+  color: #6e7781;
+}
+
+.c0::placeholder {
+  color: #6e7781;
+}
+
+.c0:focus-within {
+  border-color: #0969da;
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
+}
+
+.c0 > textarea {
+  padding: 12px;
+}
+
+.c1 {
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  padding-left: 0;
+  padding-right: 12px;
+}
+
+.c1 > :not(:last-child) {
+  margin-right: 8px;
+}
+
+.c1 .TextInput-icon,
+.c1 .TextInput-action {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  color: #656d76;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+}
+
+.c1 > input,
+.c1 > select {
+  padding-left: 12px;
+  padding-right: 0;
+}
+
+.c2 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c2:focus {
+  outline: 0;
+}
+
+@media (min-width:768px) {
+  .c0 {
+    font-size: 14px;
+  }
+}
+
+@media (min-width:768px) {
+
+}
+
+@media (min-width:768px) {
+
+}
+
+<span
+    aria-busy={true}
+    aria-live="polite"
+    className="c0 c1 TextInput-wrapper"
+    onClick={[Function]}
+  >
+    <input
+      className="c2"
+      data-component="input"
+      onBlur={[Function]}
+      onFocus={[Function]}
+      type="text"
+    />
+    <span
+      className="TextInput-icon"
+    >
+      <div
+        className="c3"
+        display="flex"
+      >
+        <div
+          className="c4"
+        >
+          <svg
+            aria-hidden="true"
+            className="octicon octicon-search"
+            fill="currentColor"
+            focusable="false"
+            height={16}
+            role="img"
+            style={
+              {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
+                "verticalAlign": "text-bottom",
+              }
+            }
+            viewBox="0 0 16 16"
+            width={16}
+          >
+            <path
+              d="M10.68 11.74a6 6 0 0 1-7.922-8.982 6 6 0 0 1 8.982 7.922l3.04 3.04a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215ZM11.5 7a4.499 4.499 0 1 0-8.997 0A4.499 4.499 0 0 0 11.5 7Z"
+            />
+          </svg>
+        </div>
+        <svg
+          className="c5"
+          fill="none"
+          height="32px"
+          sx={
+            {
+              "height": "100%",
+              "maxWidth": "100%",
+              "position": "absolute",
+              "right": 0,
+              "top": 0,
+              "visibility": "visible",
+            }
+          }
+          viewBox="0 0 16 16"
+          width="32px"
+        >
+          <circle
+            cx="8"
+            cy="8"
+            r="7"
+            stroke="currentColor"
+            strokeOpacity="0.25"
+            strokeWidth="2"
+            vectorEffect="non-scaling-stroke"
+          />
+          <path
+            d="M15 8a7.002 7.002 0 00-7-7"
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeWidth="2"
+            vectorEffect="non-scaling-stroke"
+          />
+        </svg>
+      </div>
+    </span>
+  </span>,
+  .c2 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  position: relative;
+}
+
+.c3 {
+  visibility: hidden;
+}
+
+.c6 {
+  visibility: visible;
+}
+
+.c4 {
+  -webkit-animation: rotate-keyframes 1s linear infinite;
+  animation: rotate-keyframes 1s linear infinite;
+  position: absolute;
+  top: 0;
+  height: 100%;
+  max-width: 100%;
+  visibility: visible;
+  left: 0;
+}
+
+.c7 {
   -webkit-animation: rotate-keyframes 1s linear infinite;
   animation: rotate-keyframes 1s linear infinite;
   position: absolute;
@@ -5203,10 +5347,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
   padding-bottom: 3px;
   font-size: 12px;
   line-height: 20px;
-  background-repeat: no-repeat;
-  background-position: right 8px center;
-  padding-left: 12px;
-  padding-right: 12px;
 }
 
 .c0 input,
@@ -5244,12 +5384,19 @@ exports[`TextInput renders with a loading indicator 1`] = `
   padding: 12px;
 }
 
-.c0 > :not(:last-child) {
+.c1 {
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  padding-left: 12px;
+  padding-right: 12px;
+}
+
+.c1 > :not(:last-child) {
   margin-right: 8px;
 }
 
-.c0 .TextInput-icon,
-.c0 .TextInput-action {
+.c1 .TextInput-icon,
+.c1 .TextInput-action {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
@@ -5259,13 +5406,13 @@ exports[`TextInput renders with a loading indicator 1`] = `
   flex-shrink: 0;
 }
 
-.c0 > input,
-.c0 > select {
+.c1 > input,
+.c1 > select {
   padding-left: 0;
   padding-right: 0;
 }
 
-.c4 {
+.c5 {
   border: 0;
   font-size: inherit;
   font-family: inherit;
@@ -5275,8 +5422,12 @@ exports[`TextInput renders with a loading indicator 1`] = `
   width: 100%;
 }
 
-.c4:focus {
+.c5:focus {
   outline: 0;
+}
+
+@media (min-width:768px) {
+
 }
 
 @media (min-width:768px) {
@@ -5285,10 +5436,14 @@ exports[`TextInput renders with a loading indicator 1`] = `
   }
 }
 
+@media (min-width:768px) {
+
+}
+
 <span
     aria-busy={true}
     aria-live="polite"
-    className="c0 TextInput-wrapper"
+    className="c0 c1 TextInput-wrapper"
     onClick={[Function]}
     size="small"
   >
@@ -5296,11 +5451,11 @@ exports[`TextInput renders with a loading indicator 1`] = `
       className="TextInput-icon"
     >
       <div
-        className="c1"
+        className="c2"
         display="flex"
       >
         <div
-          className="c2"
+          className="c3"
         >
           <svg
             aria-hidden="true"
@@ -5326,7 +5481,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
           </svg>
         </div>
         <svg
-          className="c3"
+          className="c4"
           fill="none"
           height="32px"
           sx={
@@ -5362,7 +5517,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
       </div>
     </span>
     <input
-      className="c4"
+      className="c5"
       data-component="input"
       onBlur={[Function]}
       onFocus={[Function]}
@@ -5372,11 +5527,11 @@ exports[`TextInput renders with a loading indicator 1`] = `
       className="TextInput-icon"
     >
       <div
-        className="c1"
+        className="c2"
         display="flex"
       >
         <div
-          className="c5"
+          className="c6"
         >
           <svg
             aria-hidden="true"
@@ -5402,7 +5557,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
           </svg>
         </div>
         <svg
-          className="c6"
+          className="c7"
           fill="none"
           height="32px"
           sx={
@@ -5438,7 +5593,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
       </div>
     </span>
   </span>,
-  .c1 {
+  .c2 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -5446,15 +5601,15 @@ exports[`TextInput renders with a loading indicator 1`] = `
   position: relative;
 }
 
-.c2 {
+.c3 {
   visibility: hidden;
 }
 
-.c5 {
+.c6 {
   visibility: visible;
 }
 
-.c3 {
+.c4 {
   -webkit-animation: rotate-keyframes 1s linear infinite;
   animation: rotate-keyframes 1s linear infinite;
   position: absolute;
@@ -5465,7 +5620,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   left: 0;
 }
 
-.c6 {
+.c7 {
   -webkit-animation: rotate-keyframes 1s linear infinite;
   animation: rotate-keyframes 1s linear infinite;
   position: absolute;
@@ -5495,10 +5650,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
-  background-repeat: no-repeat;
-  background-position: right 8px center;
-  padding-left: 12px;
-  padding-right: 12px;
 }
 
 .c0 input,
@@ -5536,12 +5687,19 @@ exports[`TextInput renders with a loading indicator 1`] = `
   padding: 12px;
 }
 
-.c0 > :not(:last-child) {
+.c1 {
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  padding-left: 12px;
+  padding-right: 12px;
+}
+
+.c1 > :not(:last-child) {
   margin-right: 8px;
 }
 
-.c0 .TextInput-icon,
-.c0 .TextInput-action {
+.c1 .TextInput-icon,
+.c1 .TextInput-action {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
@@ -5551,13 +5709,13 @@ exports[`TextInput renders with a loading indicator 1`] = `
   flex-shrink: 0;
 }
 
-.c0 > input,
-.c0 > select {
+.c1 > input,
+.c1 > select {
   padding-left: 0;
   padding-right: 0;
 }
 
-.c4 {
+.c5 {
   border: 0;
   font-size: inherit;
   font-family: inherit;
@@ -5567,7 +5725,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   width: 100%;
 }
 
-.c4:focus {
+.c5:focus {
   outline: 0;
 }
 
@@ -5577,21 +5735,29 @@ exports[`TextInput renders with a loading indicator 1`] = `
   }
 }
 
+@media (min-width:768px) {
+
+}
+
+@media (min-width:768px) {
+
+}
+
 <span
     aria-busy={true}
     aria-live="polite"
-    className="c0 TextInput-wrapper"
+    className="c0 c1 TextInput-wrapper"
     onClick={[Function]}
   >
     <span
       className="TextInput-icon"
     >
       <div
-        className="c1"
+        className="c2"
         display="flex"
       >
         <div
-          className="c2"
+          className="c3"
         >
           <svg
             aria-hidden="true"
@@ -5617,7 +5783,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
           </svg>
         </div>
         <svg
-          className="c3"
+          className="c4"
           fill="none"
           height="32px"
           sx={
@@ -5653,7 +5819,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
       </div>
     </span>
     <input
-      className="c4"
+      className="c5"
       data-component="input"
       onBlur={[Function]}
       onFocus={[Function]}
@@ -5663,11 +5829,11 @@ exports[`TextInput renders with a loading indicator 1`] = `
       className="TextInput-icon"
     >
       <div
-        className="c1"
+        className="c2"
         display="flex"
       >
         <div
-          className="c5"
+          className="c6"
         >
           <svg
             aria-hidden="true"
@@ -5693,7 +5859,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
           </svg>
         </div>
         <svg
-          className="c6"
+          className="c7"
           fill="none"
           height="32px"
           sx={
@@ -5729,7 +5895,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
       </div>
     </span>
   </span>,
-  .c1 {
+  .c2 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -5737,15 +5903,15 @@ exports[`TextInput renders with a loading indicator 1`] = `
   position: relative;
 }
 
-.c5 {
+.c6 {
   visibility: hidden;
 }
 
-.c2 {
+.c3 {
   visibility: visible;
 }
 
-.c3 {
+.c4 {
   -webkit-animation: rotate-keyframes 1s linear infinite;
   animation: rotate-keyframes 1s linear infinite;
   position: absolute;
@@ -5756,7 +5922,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   left: 0;
 }
 
-.c6 {
+.c7 {
   -webkit-animation: rotate-keyframes 1s linear infinite;
   animation: rotate-keyframes 1s linear infinite;
   position: absolute;
@@ -5792,10 +5958,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
   padding-top: 10px;
   padding-bottom: 10px;
   height: 40px;
-  background-repeat: no-repeat;
-  background-position: right 8px center;
-  padding-left: 12px;
-  padding-right: 12px;
 }
 
 .c0 input,
@@ -5833,12 +5995,19 @@ exports[`TextInput renders with a loading indicator 1`] = `
   padding: 12px;
 }
 
-.c0 > :not(:last-child) {
+.c1 {
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  padding-left: 12px;
+  padding-right: 12px;
+}
+
+.c1 > :not(:last-child) {
   margin-right: 8px;
 }
 
-.c0 .TextInput-icon,
-.c0 .TextInput-action {
+.c1 .TextInput-icon,
+.c1 .TextInput-action {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
@@ -5848,13 +6017,13 @@ exports[`TextInput renders with a loading indicator 1`] = `
   flex-shrink: 0;
 }
 
-.c0 > input,
-.c0 > select {
+.c1 > input,
+.c1 > select {
   padding-left: 0;
   padding-right: 0;
 }
 
-.c4 {
+.c5 {
   border: 0;
   font-size: inherit;
   font-family: inherit;
@@ -5864,8 +6033,16 @@ exports[`TextInput renders with a loading indicator 1`] = `
   width: 100%;
 }
 
-.c4:focus {
+.c5:focus {
   outline: 0;
+}
+
+@media (min-width:768px) {
+
+}
+
+@media (min-width:768px) {
+
 }
 
 @media (min-width:768px) {
@@ -5877,7 +6054,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
 <span
     aria-busy={true}
     aria-live="polite"
-    className="c0 TextInput-wrapper"
+    className="c0 c1 TextInput-wrapper"
     onClick={[Function]}
     size="large"
   >
@@ -5885,11 +6062,11 @@ exports[`TextInput renders with a loading indicator 1`] = `
       className="TextInput-icon"
     >
       <div
-        className="c1"
+        className="c2"
         display="flex"
       >
         <div
-          className="c2"
+          className="c3"
         >
           <svg
             aria-hidden="true"
@@ -5915,7 +6092,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
           </svg>
         </div>
         <svg
-          className="c3"
+          className="c4"
           fill="none"
           height="32px"
           sx={
@@ -5951,7 +6128,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
       </div>
     </span>
     <input
-      className="c4"
+      className="c5"
       data-component="input"
       onBlur={[Function]}
       onFocus={[Function]}
@@ -5961,11 +6138,11 @@ exports[`TextInput renders with a loading indicator 1`] = `
       className="TextInput-icon"
     >
       <div
-        className="c1"
+        className="c2"
         display="flex"
       >
         <div
-          className="c5"
+          className="c6"
         >
           <svg
             aria-hidden="true"
@@ -5991,7 +6168,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
           </svg>
         </div>
         <svg
-          className="c6"
+          className="c7"
           fill="none"
           height="32px"
           sx={
@@ -6050,10 +6227,6 @@ exports[`TextInput should render a password input 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
-  background-repeat: no-repeat;
-  background-position: right 8px center;
-  padding-left: 0;
-  padding-right: 0;
 }
 
 .c0 input,
@@ -6091,12 +6264,19 @@ exports[`TextInput should render a password input 1`] = `
   padding: 12px;
 }
 
-.c0 > :not(:last-child) {
+.c1 {
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.c1 > :not(:last-child) {
   margin-right: 8px;
 }
 
-.c0 .TextInput-icon,
-.c0 .TextInput-action {
+.c1 .TextInput-icon,
+.c1 .TextInput-action {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
@@ -6106,13 +6286,13 @@ exports[`TextInput should render a password input 1`] = `
   flex-shrink: 0;
 }
 
-.c0 > input,
-.c0 > select {
+.c1 > input,
+.c1 > select {
   padding-left: 12px;
   padding-right: 12px;
 }
 
-.c1 {
+.c2 {
   border: 0;
   font-size: inherit;
   font-family: inherit;
@@ -6122,7 +6302,7 @@ exports[`TextInput should render a password input 1`] = `
   width: 100%;
 }
 
-.c1:focus {
+.c2:focus {
   outline: 0;
 }
 
@@ -6135,11 +6315,11 @@ exports[`TextInput should render a password input 1`] = `
 <span
   aria-busy={false}
   aria-live="polite"
-  className="c0 TextInput-wrapper"
+  className="c0 c1 TextInput-wrapper"
   onClick={[Function]}
 >
   <input
-    className="c1"
+    className="c2"
     data-component="input"
     name="password"
     onBlur={[Function]}

@@ -126,9 +126,11 @@ const StyledTokenBase = styled.span<
   ${sx}
 `
 
-const TokenBase = React.forwardRef(({onRemove, onKeyDown, id, size = defaultTokenSize, ...rest}, forwardedRef) => {
+const TokenBase = React.forwardRef(({as, onRemove, onKeyDown, id, size = defaultTokenSize, ...rest}, forwardedRef) => {
   return (
+    // @ts-ignore because this sucks
     <StyledTokenBase
+      as={as}
       onKeyDown={(event: KeyboardEvent<HTMLSpanElement & HTMLAnchorElement & HTMLButtonElement>) => {
         onKeyDown && onKeyDown(event)
 
