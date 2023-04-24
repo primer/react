@@ -165,7 +165,7 @@
       "props": [
         {
           "name": "children",
-          "type": "ActionList.Item[] | ActionList.LinkItem[] | ActionList.Group[]",
+          "type": "ActionList.Item[] | ActionList.LinkItem[] | ActionList.Divider[]",
           "defaultValue": "",
           "required": true,
           "description": ""
@@ -342,48 +342,34 @@
           ]
         },
         {
-          "name": "ActionList.Group",
+          "name": "ActionList.Heading",
           "props": [
             {
-              "name": "children",
-              "type": "ActionList.Item[] | ActionList.LinkItem[]",
-              "defaultValue": "",
-              "required": true,
+              "name": "variant",
+              "type": "'subtle' | 'filled'",
+              "defaultValue": "subtle",
               "description": ""
             },
             {
               "name": "title",
               "type": "string",
               "defaultValue": "",
-              "description": "Title of the group."
+              "required": true,
+              "description": ""
             },
             {
-              "name": "auxiliaryText",
+              "name": "subtitle",
               "type": "string",
               "defaultValue": "",
-              "description": "Secondary text that provides additional information about the group."
+              "required": false,
+              "description": ""
             },
             {
-              "name": "variant",
-              "type": "'filled' | 'subtle'",
-              "defaultValue": "'subtle'",
-              "description": "`inline` descriptions are positioned beside primary text. `block` descriptions are positioned below primary text."
-            },
-            {
-              "name": "selectionVariant",
-              "type": "'single' | 'multiple' | false",
-              "defaultValue": "",
-              "description": "Set `selectionVariant` at the group level."
-            },
-            {
-              "name": "role",
-              "type": "AriaRole",
-              "defaultValue": "",
-              "description": "ARIA role describing the function of the list inside the group. `listbox` and `menu` are a common values."
-            },
-            {
-              "name": "sx",
-              "type": "SystemStyleObject"
+              "name": "headingLevel",
+              "type": "'1' | '2' | '3' | '4' | '5' | '6'",
+              "defaultValue": "3",
+              "required": false,
+              "description": ""
             }
           ]
         }
