@@ -1048,6 +1048,25 @@ const components = new Map([
     },
   ],
   [
+    'SplitPageLayout',
+    {
+      stories: [
+        {
+          id: 'components-splitpagelayout--default',
+          name: 'Default',
+        },
+        {
+          id: 'components-splitpagelayout--playground',
+          name: 'Playground',
+        },
+        {
+          id: 'components-splitpagelayout--features--settings-page',
+          name: 'Settings Page',
+        },
+      ],
+    },
+  ],
+  [
     'StateLabel',
     {
       stories: [
