@@ -15,7 +15,7 @@ test.describe('ActionMenu', () => {
           })
 
           // Default state
-          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(`ActionMenu.Default.${theme}.png`)
+          expect(await page.screenshot()).toMatchSnapshot(`ActionMenu.Default.${theme}.png`)
         })
 
         test('axe @aat', async ({page}) => {
@@ -43,9 +43,7 @@ test.describe('ActionMenu', () => {
           })
 
           // Default state
-          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
-            `ActionMenu.Links And Actions.${theme}.png`,
-          )
+          expect(await page.screenshot()).toMatchSnapshot(`ActionMenu.Links And Actions.${theme}.png`)
         })
 
         test('axe @aat', async ({page}) => {
@@ -73,9 +71,7 @@ test.describe('ActionMenu', () => {
           })
 
           // Default state
-          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
-            `ActionMenu.Multi Select.${theme}.png`,
-          )
+          expect(await page.screenshot()).toMatchSnapshot(`ActionMenu.Multi Select.${theme}.png`)
         })
 
         test('axe @aat', async ({page}) => {
@@ -103,9 +99,7 @@ test.describe('ActionMenu', () => {
           })
 
           // Default state
-          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
-            `ActionMenu.Single Select.${theme}.png`,
-          )
+          expect(await page.screenshot()).toMatchSnapshot(`ActionMenu.Single Select.${theme}.png`)
         })
 
         test('axe @aat', async ({page}) => {
@@ -133,9 +127,7 @@ test.describe('ActionMenu', () => {
           })
 
           // Default state
-          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
-            `ActionMenu.Controlled Menu.${theme}.png`,
-          )
+          expect(await page.screenshot()).toMatchSnapshot(`ActionMenu.Controlled Menu.${theme}.png`)
         })
 
         test('axe @aat', async ({page}) => {
@@ -163,9 +155,7 @@ test.describe('ActionMenu', () => {
           })
 
           // Default state
-          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
-            `ActionMenu.Custom Anchor.${theme}.png`,
-          )
+          expect(await page.screenshot()).toMatchSnapshot(`ActionMenu.Custom Anchor.${theme}.png`)
         })
 
         test('axe @aat', async ({page}) => {
@@ -193,9 +183,7 @@ test.describe('ActionMenu', () => {
           })
 
           // Default state
-          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
-            `ActionMenu.Custom Overlay Props.${theme}.png`,
-          )
+          expect(await page.screenshot()).toMatchSnapshot(`ActionMenu.Custom Overlay Props.${theme}.png`)
         })
 
         test('axe @aat', async ({page}) => {
@@ -235,13 +223,37 @@ test.describe('ActionMenu', () => {
               colorScheme: theme,
             },
           })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'aria-required-children': {
-                enabled: false,
-              },
+          await expect(page).toHaveNoViolations()
+        })
+      })
+    }
+  })
+
+  test.describe('Multiple Sections', () => {
+    for (const theme of themes) {
+      test.describe(theme, () => {
+        test('default @vrt', async ({page}) => {
+          await visit(page, {
+            id: 'components-actionmenu-examples--multiple-sections',
+            globals: {
+              colorScheme: theme,
             },
           })
+
+          // Default state
+          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
+            `ActionMenu.Multiple Sections.${theme}.png`,
+          )
+        })
+
+        test('axe @aat', async ({page}) => {
+          await visit(page, {
+            id: 'components-actionmenu-examples--multiple-sections',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+          await expect(page).toHaveNoViolations()
         })
       })
     }

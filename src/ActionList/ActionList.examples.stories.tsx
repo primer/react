@@ -132,24 +132,25 @@ export function MixedSelection(): JSX.Element {
       <h1>List with mixed selection</h1>
 
       <p>
-        In this list, there is a ActionList.Group with single selection for picking one option, followed by a Item that
-        is an action. This pattern appears inside a menu for selection view options in Memex
+        In this list, there is a ActionList with single selection for picking one option, followed by another ActionList
+        with a single Item that is an action. This pattern appears inside a menu for selection view options in Memex.
       </p>
 
+      <ActionList selectionVariant="single" role="listbox">
+        <ActionList.Heading title="Group by" />
+        {options.map((option, index) => (
+          <ActionList.Item
+            key={index}
+            selected={index === selectedIndex}
+            onSelect={() => setSelectedIndex(index)}
+            role="option"
+          >
+            <ActionList.LeadingVisual>{option.icon}</ActionList.LeadingVisual>
+            {option.text}
+          </ActionList.Item>
+        ))}
+      </ActionList>
       <ActionList>
-        <ActionList.Group title="Group by" selectionVariant="single" role="listbox">
-          {options.map((option, index) => (
-            <ActionList.Item
-              key={index}
-              selected={index === selectedIndex}
-              onSelect={() => setSelectedIndex(index)}
-              role="option"
-            >
-              <ActionList.LeadingVisual>{option.icon}</ActionList.LeadingVisual>
-              {option.text}
-            </ActionList.Item>
-          ))}
-        </ActionList.Group>
         {typeof selectedIndex === 'number' && (
           <>
             <ActionList.Divider />
@@ -248,37 +249,31 @@ export function MemexSortable(): JSX.Element {
     // @ts-ignore react-dnd needs to be updated to support React 18
     <DndProvider backend={HTML5Backend}>
       <ActionList selectionVariant="multiple" role="menu">
-        <ActionList.Group title="Visible fields (can be reordered)">
-          {visibleOptions.map(option => (
-            <SortableItem
-              key={option.text}
-              role="menuitemcheckbox"
-              option={option}
-              onSelect={() => toggle(option.text)}
-              reorder={reorder}
-            />
-          ))}
-        </ActionList.Group>
-        <ActionList.Group
-          title="Hidden fields"
-          selectionVariant={
-            /** selectionVariant override on Group: disable selection if there are no options */
-            hiddenOptions.length ? 'multiple' : false
-          }
-        >
-          {hiddenOptions.map((option, index) => (
-            <ActionList.Item
-              key={index}
-              role="menuitemcheckbox"
-              selected={option.selected}
-              onSelect={() => toggle(option.text)}
-            >
-              <ActionList.LeadingVisual>{option.icon}</ActionList.LeadingVisual>
-              {option.text}
-            </ActionList.Item>
-          ))}
-          {hiddenOptions.length === 0 && <ActionList.Item disabled>No hidden fields</ActionList.Item>}
-        </ActionList.Group>
+        <ActionList.Heading title="Visible fields (can be reordered)" />
+        {visibleOptions.map(option => (
+          <SortableItem
+            key={option.text}
+            role="menuitemcheckbox"
+            option={option}
+            onSelect={() => toggle(option.text)}
+            reorder={reorder}
+          />
+        ))}
+      </ActionList>
+      <ActionList selectionVariant={hiddenOptions.length ? 'multiple' : undefined} role="menu">
+        <ActionList.Heading title="Hidden fields" />
+        {hiddenOptions.map((option, index) => (
+          <ActionList.Item
+            key={index}
+            role="menuitemcheckbox"
+            selected={option.selected}
+            onSelect={() => toggle(option.text)}
+          >
+            <ActionList.LeadingVisual>{option.icon}</ActionList.LeadingVisual>
+            {option.text}
+          </ActionList.Item>
+        ))}
+        {hiddenOptions.length === 0 && <ActionList.Item disabled>No hidden fields</ActionList.Item>}
       </ActionList>
     </DndProvider>
   )
