@@ -7,6 +7,8 @@ exports[`PointerBox applies the background color via "bg" prop for backwards com
   border-style: solid;
   border-color: #d0d7de;
   border-radius: 6px;
+  --custom-bg: #cf222e;
+  background-image: linear-gradient(var(--custom-bg),var(--custom-bg)),linear-gradient(#ffffff,#ffffff);
   position: relative;
 }
 
@@ -15,6 +17,7 @@ exports[`PointerBox applies the background color via "bg" prop for backwards com
 >
   <svg
     height={16}
+    role="presentation"
     style={
       {
         "left": "50%",
@@ -29,6 +32,10 @@ exports[`PointerBox applies the background color via "bg" prop for backwards com
     <g
       transform="translate(8,0)"
     >
+      <path
+        d="M-8,0L0,8L8,0L-8,0Z"
+        fill="#ffffff"
+      />
       <path
         d="M-8,0L0,8L8,0L-8,0Z"
         fill="#cf222e"
@@ -50,7 +57,8 @@ exports[`PointerBox applies the background color via sx prop 1`] = `
   border-style: solid;
   border-color: #d0d7de;
   border-radius: 6px;
-  background-color: #cf222e;
+  --custom-bg: #cf222e;
+  background-image: linear-gradient(var(--custom-bg),var(--custom-bg)),linear-gradient(#ffffff,#ffffff);
   position: relative;
 }
 
@@ -59,6 +67,7 @@ exports[`PointerBox applies the background color via sx prop 1`] = `
 >
   <svg
     height={16}
+    role="presentation"
     style={
       {
         "left": "50%",
@@ -73,6 +82,10 @@ exports[`PointerBox applies the background color via sx prop 1`] = `
     <g
       transform="translate(8,0)"
     >
+      <path
+        d="M-8,0L0,8L8,0L-8,0Z"
+        fill="#ffffff"
+      />
       <path
         d="M-8,0L0,8L8,0L-8,0Z"
         fill="#cf222e"
@@ -102,6 +115,7 @@ exports[`PointerBox applies the border color via "borderColor" prop for backward
 >
   <svg
     height={16}
+    role="presentation"
     style={
       {
         "left": "50%",
@@ -116,6 +130,10 @@ exports[`PointerBox applies the border color via "borderColor" prop for backward
     <g
       transform="translate(8,0)"
     >
+      <path
+        d="M-8,0L0,8L8,0L-8,0Z"
+        fill="#ffffff"
+      />
       <path
         d="M-8,0L0,8L8,0L-8,0Z"
         fill="#ffffff"
@@ -146,6 +164,7 @@ exports[`PointerBox applies the border color via sx prop 1`] = `
 >
   <svg
     height={16}
+    role="presentation"
     style={
       {
         "left": "50%",
@@ -160,6 +179,10 @@ exports[`PointerBox applies the border color via sx prop 1`] = `
     <g
       transform="translate(8,0)"
     >
+      <path
+        d="M-8,0L0,8L8,0L-8,0Z"
+        fill="#ffffff"
+      />
       <path
         d="M-8,0L0,8L8,0L-8,0Z"
         fill="#ffffff"
@@ -189,6 +212,7 @@ exports[`PointerBox renders a <Caret> in <Box> with relative positioning 1`] = `
 >
   <svg
     height={16}
+    role="presentation"
     style={
       {
         "left": "50%",
@@ -203,6 +227,10 @@ exports[`PointerBox renders a <Caret> in <Box> with relative positioning 1`] = `
     <g
       transform="translate(8,0)"
     >
+      <path
+        d="M-8,0L0,8L8,0L-8,0Z"
+        fill="#ffffff"
+      />
       <path
         d="M-8,0L0,8L8,0L-8,0Z"
         fill="#ffffff"
@@ -232,6 +260,7 @@ exports[`PointerBox renders consistently 1`] = `
 >
   <svg
     height={16}
+    role="presentation"
     style={
       {
         "left": "50%",
@@ -246,6 +275,10 @@ exports[`PointerBox renders consistently 1`] = `
     <g
       transform="translate(8,0)"
     >
+      <path
+        d="M-8,0L0,8L8,0L-8,0Z"
+        fill="#ffffff"
+      />
       <path
         d="M-8,0L0,8L8,0L-8,0Z"
         fill="#ffffff"

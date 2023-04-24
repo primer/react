@@ -4,7 +4,7 @@ exports[`TextInput renders 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #24292f;
+  color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -61,7 +61,7 @@ exports[`TextInput renders 1`] = `
   padding: 12px;
 }
 
-.c0 >:not(:last-child) {
+.c0 > :not(:last-child) {
   margin-right: 8px;
 }
 
@@ -70,7 +70,7 @@ exports[`TextInput renders 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #57606a;
+  color: #656d76;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -123,7 +123,7 @@ exports[`TextInput renders block 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #24292f;
+  color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -188,7 +188,7 @@ exports[`TextInput renders block 1`] = `
   padding: 12px;
 }
 
-.c0 >:not(:last-child) {
+.c0 > :not(:last-child) {
   margin-right: 8px;
 }
 
@@ -197,7 +197,7 @@ exports[`TextInput renders block 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #57606a;
+  color: #656d76;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -250,7 +250,7 @@ exports[`TextInput renders consistently 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #24292f;
+  color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -307,7 +307,7 @@ exports[`TextInput renders consistently 1`] = `
   padding: 12px;
 }
 
-.c0 >:not(:last-child) {
+.c0 > :not(:last-child) {
   margin-right: 8px;
 }
 
@@ -316,7 +316,7 @@ exports[`TextInput renders consistently 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #57606a;
+  color: #656d76;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -368,7 +368,7 @@ exports[`TextInput renders contrast 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #24292f;
+  color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -426,7 +426,7 @@ exports[`TextInput renders contrast 1`] = `
   padding: 12px;
 }
 
-.c0 >:not(:last-child) {
+.c0 > :not(:last-child) {
   margin-right: 8px;
 }
 
@@ -435,7 +435,7 @@ exports[`TextInput renders contrast 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #57606a;
+  color: #656d76;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -488,7 +488,7 @@ exports[`TextInput renders error 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #24292f;
+  color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -552,7 +552,7 @@ exports[`TextInput renders error 1`] = `
   box-shadow: inset 0 0 0 1px #0969da;
 }
 
-.c0 >:not(:last-child) {
+.c0 > :not(:last-child) {
   margin-right: 8px;
 }
 
@@ -561,7 +561,7 @@ exports[`TextInput renders error 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #57606a;
+  color: #656d76;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -614,7 +614,7 @@ exports[`TextInput renders large 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #24292f;
+  color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -677,7 +677,7 @@ exports[`TextInput renders large 1`] = `
   padding: 12px;
 }
 
-.c0 >:not(:last-child) {
+.c0 > :not(:last-child) {
   margin-right: 8px;
 }
 
@@ -686,7 +686,7 @@ exports[`TextInput renders large 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #57606a;
+  color: #656d76;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -740,7 +740,7 @@ exports[`TextInput renders leadingVisual 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #24292f;
+  color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -797,7 +797,7 @@ exports[`TextInput renders leadingVisual 1`] = `
   padding: 12px;
 }
 
-.c0 >:not(:last-child) {
+.c0 > :not(:last-child) {
   margin-right: 8px;
 }
 
@@ -806,7 +806,7 @@ exports[`TextInput renders leadingVisual 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #57606a;
+  color: #656d76;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -886,7 +886,7 @@ exports[`TextInput renders monospace 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #24292f;
+  color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -944,7 +944,7 @@ exports[`TextInput renders monospace 1`] = `
   padding: 12px;
 }
 
-.c0 >:not(:last-child) {
+.c0 > :not(:last-child) {
   margin-right: 8px;
 }
 
@@ -953,7 +953,7 @@ exports[`TextInput renders monospace 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #57606a;
+  color: #656d76;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -1006,7 +1006,7 @@ exports[`TextInput renders placeholder 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #24292f;
+  color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -1063,7 +1063,7 @@ exports[`TextInput renders placeholder 1`] = `
   padding: 12px;
 }
 
-.c0 >:not(:last-child) {
+.c0 > :not(:last-child) {
   margin-right: 8px;
 }
 
@@ -1072,7 +1072,7 @@ exports[`TextInput renders placeholder 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #57606a;
+  color: #656d76;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -1126,7 +1126,7 @@ exports[`TextInput renders small 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #24292f;
+  color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -1191,7 +1191,7 @@ exports[`TextInput renders small 1`] = `
   padding: 12px;
 }
 
-.c0 >:not(:last-child) {
+.c0 > :not(:last-child) {
   margin-right: 8px;
 }
 
@@ -1200,7 +1200,7 @@ exports[`TextInput renders small 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #57606a;
+  color: #656d76;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -1407,7 +1407,7 @@ exports[`TextInput renders trailingAction icon button 1`] = `
 
 .c4 [data-component="leadingVisual"] {
   grid-area: leadingVisual;
-  color: #57606a;
+  color: #656d76;
 }
 
 .c4 [data-component="text"] {
@@ -1422,7 +1422,7 @@ exports[`TextInput renders trailingAction icon button 1`] = `
 
 .c4 [data-component="trailingAction"] {
   margin-right: -4px;
-  color: #57606a;
+  color: #656d76;
 }
 
 .c4 [data-component="buttonContent"] {
@@ -1458,7 +1458,7 @@ exports[`TextInput renders trailingAction icon button 1`] = `
 }
 
 .c4[data-component="IconButton"][data-no-visuals] {
-  color: #57606a;
+  color: #656d76;
 }
 
 .c4[data-no-visuals] {
@@ -1467,6 +1467,14 @@ exports[`TextInput renders trailingAction icon button 1`] = `
 
 .c4:has([data-component="ButtonCounter"]) {
   color: #0969da;
+}
+
+.c4:disabled[data-no-visuals] {
+  color: #8c959f;
+}
+
+.c4:disabled[data-no-visuals] [data-component=ButtonCounter] {
+  color: inherit;
 }
 
 .c4[data-size="small"][data-no-visuals="true"] {
@@ -1485,7 +1493,7 @@ exports[`TextInput renders trailingAction icon button 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #24292f;
+  color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -1536,7 +1544,7 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   padding: 12px;
 }
 
-.c0 >:not(:last-child) {
+.c0 > :not(:last-child) {
   margin-right: 8px;
 }
 
@@ -1545,7 +1553,7 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #57606a;
+  color: #656d76;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -2046,7 +2054,7 @@ exports[`TextInput renders trailingAction text button 1`] = `
 
 .c3 [data-component="leadingVisual"] {
   grid-area: leadingVisual;
-  color: #57606a;
+  color: #656d76;
 }
 
 .c3 [data-component="text"] {
@@ -2061,7 +2069,7 @@ exports[`TextInput renders trailingAction text button 1`] = `
 
 .c3 [data-component="trailingAction"] {
   margin-right: -4px;
-  color: #57606a;
+  color: #656d76;
 }
 
 .c3 [data-component="buttonContent"] {
@@ -2097,7 +2105,7 @@ exports[`TextInput renders trailingAction text button 1`] = `
 }
 
 .c3[data-component="IconButton"][data-no-visuals] {
-  color: #57606a;
+  color: #656d76;
 }
 
 .c3[data-no-visuals] {
@@ -2106,6 +2114,14 @@ exports[`TextInput renders trailingAction text button 1`] = `
 
 .c3:has([data-component="ButtonCounter"]) {
   color: #0969da;
+}
+
+.c3:disabled[data-no-visuals] {
+  color: #8c959f;
+}
+
+.c3:disabled[data-no-visuals] [data-component=ButtonCounter] {
+  color: inherit;
 }
 
 .c3[data-no-visuals="true"] {
@@ -2124,7 +2140,7 @@ exports[`TextInput renders trailingAction text button 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #24292f;
+  color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -2175,7 +2191,7 @@ exports[`TextInput renders trailingAction text button 1`] = `
   padding: 12px;
 }
 
-.c0 >:not(:last-child) {
+.c0 > :not(:last-child) {
   margin-right: 8px;
 }
 
@@ -2184,7 +2200,7 @@ exports[`TextInput renders trailingAction text button 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #57606a;
+  color: #656d76;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -2440,7 +2456,7 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
 
 .c4 [data-component="leadingVisual"] {
   grid-area: leadingVisual;
-  color: #57606a;
+  color: #656d76;
 }
 
 .c4 [data-component="text"] {
@@ -2455,7 +2471,7 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
 
 .c4 [data-component="trailingAction"] {
   margin-right: -4px;
-  color: #57606a;
+  color: #656d76;
 }
 
 .c4 [data-component="buttonContent"] {
@@ -2491,7 +2507,7 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
 }
 
 .c4[data-component="IconButton"][data-no-visuals] {
-  color: #57606a;
+  color: #656d76;
 }
 
 .c4[data-no-visuals] {
@@ -2500,6 +2516,14 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
 
 .c4:has([data-component="ButtonCounter"]) {
   color: #0969da;
+}
+
+.c4:disabled[data-no-visuals] {
+  color: #8c959f;
+}
+
+.c4:disabled[data-no-visuals] [data-component=ButtonCounter] {
+  color: inherit;
 }
 
 .c4[data-no-visuals="true"] {
@@ -2518,7 +2542,7 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #24292f;
+  color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -2569,7 +2593,7 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   padding: 12px;
 }
 
-.c0 >:not(:last-child) {
+.c0 > :not(:last-child) {
   margin-right: 8px;
 }
 
@@ -2578,7 +2602,7 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #57606a;
+  color: #656d76;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -2905,7 +2929,7 @@ exports[`TextInput renders trailingVisual 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #24292f;
+  color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -2962,7 +2986,7 @@ exports[`TextInput renders trailingVisual 1`] = `
   padding: 12px;
 }
 
-.c0 >:not(:last-child) {
+.c0 > :not(:last-child) {
   margin-right: 8px;
 }
 
@@ -2971,7 +2995,7 @@ exports[`TextInput renders trailingVisual 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #57606a;
+  color: #656d76;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -3051,7 +3075,7 @@ exports[`TextInput renders warning 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #24292f;
+  color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -3071,7 +3095,7 @@ exports[`TextInput renders warning 1`] = `
   background-position: right 8px center;
   padding-left: 0;
   padding-right: 0;
-  border-color: #bf8700;
+  border-color: #9a6700;
 }
 
 .c0 input,
@@ -3109,7 +3133,7 @@ exports[`TextInput renders warning 1`] = `
   padding: 12px;
 }
 
-.c0 >:not(:last-child) {
+.c0 > :not(:last-child) {
   margin-right: 8px;
 }
 
@@ -3118,7 +3142,7 @@ exports[`TextInput renders warning 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #57606a;
+  color: #656d76;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -3192,7 +3216,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #24292f;
+  color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -3249,7 +3273,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   padding: 12px;
 }
 
-.c0 >:not(:last-child) {
+.c0 > :not(:last-child) {
   margin-right: 8px;
 }
 
@@ -3258,7 +3282,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #57606a;
+  color: #656d76;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -3365,7 +3389,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #24292f;
+  color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -3422,7 +3446,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   padding: 12px;
 }
 
-.c0 >:not(:last-child) {
+.c0 > :not(:last-child) {
   margin-right: 8px;
 }
 
@@ -3431,7 +3455,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #57606a;
+  color: #656d76;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -3570,7 +3594,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #24292f;
+  color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -3627,7 +3651,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   padding: 12px;
 }
 
-.c0 >:not(:last-child) {
+.c0 > :not(:last-child) {
   margin-right: 8px;
 }
 
@@ -3636,7 +3660,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #57606a;
+  color: #656d76;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -3752,7 +3776,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #24292f;
+  color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -3809,7 +3833,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   padding: 12px;
 }
 
-.c0 >:not(:last-child) {
+.c0 > :not(:last-child) {
   margin-right: 8px;
 }
 
@@ -3818,7 +3842,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #57606a;
+  color: #656d76;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -4003,7 +4027,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #24292f;
+  color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -4060,7 +4084,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   padding: 12px;
 }
 
-.c0 >:not(:last-child) {
+.c0 > :not(:last-child) {
   margin-right: 8px;
 }
 
@@ -4069,7 +4093,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #57606a;
+  color: #656d76;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -4254,7 +4278,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #24292f;
+  color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -4311,7 +4335,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   padding: 12px;
 }
 
-.c0 >:not(:last-child) {
+.c0 > :not(:last-child) {
   margin-right: 8px;
 }
 
@@ -4320,7 +4344,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #57606a;
+  color: #656d76;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -4499,7 +4523,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #24292f;
+  color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -4556,7 +4580,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   padding: 12px;
 }
 
-.c0 >:not(:last-child) {
+.c0 > :not(:last-child) {
   margin-right: 8px;
 }
 
@@ -4565,7 +4589,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #57606a;
+  color: #656d76;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -4712,7 +4736,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #24292f;
+  color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -4769,7 +4793,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   padding: 12px;
 }
 
-.c0 >:not(:last-child) {
+.c0 > :not(:last-child) {
   margin-right: 8px;
 }
 
@@ -4778,7 +4802,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #57606a;
+  color: #656d76;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -4957,7 +4981,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #24292f;
+  color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -5014,7 +5038,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   padding: 12px;
 }
 
-.c0 >:not(:last-child) {
+.c0 > :not(:last-child) {
   margin-right: 8px;
 }
 
@@ -5023,7 +5047,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #57606a;
+  color: #656d76;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -5179,7 +5203,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #24292f;
+  color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -5244,7 +5268,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   padding: 12px;
 }
 
-.c0 >:not(:last-child) {
+.c0 > :not(:last-child) {
   margin-right: 8px;
 }
 
@@ -5253,7 +5277,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #57606a;
+  color: #656d76;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -5479,7 +5503,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #24292f;
+  color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -5536,7 +5560,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   padding: 12px;
 }
 
-.c0 >:not(:last-child) {
+.c0 > :not(:last-child) {
   margin-right: 8px;
 }
 
@@ -5545,7 +5569,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #57606a;
+  color: #656d76;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -5770,7 +5794,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #24292f;
+  color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -5833,7 +5857,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   padding: 12px;
 }
 
-.c0 >:not(:last-child) {
+.c0 > :not(:last-child) {
   margin-right: 8px;
 }
 
@@ -5842,7 +5866,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #57606a;
+  color: #656d76;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -6034,7 +6058,7 @@ exports[`TextInput should render a password input 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #24292f;
+  color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -6091,7 +6115,7 @@ exports[`TextInput should render a password input 1`] = `
   padding: 12px;
 }
 
-.c0 >:not(:last-child) {
+.c0 > :not(:last-child) {
   margin-right: 8px;
 }
 
@@ -6100,7 +6124,7 @@ exports[`TextInput should render a password input 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #57606a;
+  color: #656d76;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;

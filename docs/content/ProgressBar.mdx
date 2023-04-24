@@ -5,7 +5,7 @@ status: Alpha
 source: https://github.com/primer/react/blob/main/src/ProgressBar.tsx
 ---
 
-import data from '../../src/ProgressBar.docs.json'
+import data from '../../src/ProgressBar/ProgressBar.docs.json'
 
 ```js
 import {ProgressBar} from '@primer/react'
@@ -25,6 +25,19 @@ If you'd like to use ProgressBar inline, pass the `inline` boolean prop & **be s
 <>
   <Text mr={3}>5 of 10</Text>
   <ProgressBar progress={50} inline sx={{width: '100px'}} />
+</>
+```
+
+### Multiple Segments
+
+If you want to show multiple segments in a ProgressBar, pass separate `Item`s as children **instead** of a `progress` value.
+
+```jsx live
+<>
+  <ProgressBar>
+    <ProgressBar.Item progress={33} />
+    <ProgressBar.Item progress={33} sx={{backgroundColor: 'danger.emphasis'}} />
+  </ProgressBar>
 </>
 ```
 

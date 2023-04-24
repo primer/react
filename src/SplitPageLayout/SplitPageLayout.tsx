@@ -41,6 +41,7 @@ export const Header: React.FC<React.PropsWithChildren<SplitPageLayoutHeaderProps
   divider = 'line',
   ...props
 }) => {
+  // eslint-disable-next-line primer-react/direct-slot-children
   return <PageLayout.Header padding={padding} divider={divider} {...props} />
 }
 
@@ -87,6 +88,7 @@ export const Footer: React.FC<React.PropsWithChildren<SplitPageLayoutFooterProps
   divider = 'line',
   ...props
 }) => {
+  // eslint-disable-next-line primer-react/direct-slot-children
   return <PageLayout.Footer padding={padding} divider={divider} {...props} />
 }
 

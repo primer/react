@@ -1,16 +1,26 @@
 import {SortAscIcon, SortDescIcon} from '@primer/octicons-react'
+import cx from 'classnames'
 import React from 'react'
-import styled from 'styled-components'
+import styled, {keyframes} from 'styled-components'
 import Box from '../Box'
+import Text from '../Text'
 import {get} from '../constants'
 import sx, {SxProp} from '../sx'
+import VisuallyHidden from '../_VisuallyHidden'
+import {Column, CellAlignment} from './column'
+import {UniqueRow} from './row'
 import {SortDirection} from './sorting'
-import {useOverflow} from '../hooks/useOverflow'
+import {useTableLayout} from './useTable'
+import {useOverflow} from '../internal/hooks/useOverflow'
 
 // ----------------------------------------------------------------------------
 // Table
 // ----------------------------------------------------------------------------
 
+const shimmer = keyframes`
+  from { mask-position: 200%; }
+  to { mask-position: 0%; }
+`
 const StyledTable = styled.table<React.ComponentPropsWithoutRef<'table'>>`
   /* Default table styles */
   --table-border-radius: 0.375rem;
@@ -55,7 +65,20 @@ const StyledTable = styled.table<React.ComponentPropsWithoutRef<'table'>>`
 
   .TableHeader,
   .TableCell {
+    text-align: start;
     border-bottom: 1px solid ${get('colors.border.default')};
+  }
+
+  .TableHeader[data-cell-align='end'],
+  .TableCell[data-cell-align='end'] {
+    text-align: end;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .TableHeader[data-cell-align='end'] .TableSortButton {
+    display: flex;
+    flex-direction: row-reverse;
   }
 
   .TableHead .TableRow:first-of-type .TableHeader {
@@ -89,11 +112,13 @@ const StyledTable = styled.table<React.ComponentPropsWithoutRef<'table'>>`
    * Offset padding to make sure type aligns regardless of cell padding
    * selection
    */
-  .TableRow > *:first-child {
+  .TableRow > *:first-child:not(.TableCellSkeleton),
+  .TableRow > *:first-child .TableCellSkeletonItem {
     padding-inline-start: 1rem;
   }
 
-  .TableRow > *:last-child {
+  .TableRow > *:last-child:not(.TableCellSkeleton),
+  .TableRow > *:last-child .TableCellSkeletonItem {
     padding-inline-end: 1rem;
   }
 
@@ -102,7 +127,6 @@ const StyledTable = styled.table<React.ComponentPropsWithoutRef<'table'>>`
     background-color: ${get('colors.canvas.subtle')};
     color: ${get('colors.fg.muted')};
     font-weight: 600;
-    text-align: start;
     border-top: 1px solid ${get('colors.border.default')};
   }
 
@@ -118,7 +142,7 @@ const StyledTable = styled.table<React.ComponentPropsWithoutRef<'table'>>`
 
   /* The ASC icon is visible if the header is sortable and is hovered or focused */
   .TableHeader:hover .TableSortIcon--ascending,
-  .TableHeader button:focus .TableSortIcon--ascending {
+  .TableHeader .TableSortButton:focus .TableSortIcon--ascending {
     visibility: visible;
   }
 
@@ -129,7 +153,7 @@ const StyledTable = styled.table<React.ComponentPropsWithoutRef<'table'>>`
   }
 
   /* TableRow */
-  .TableRow:hover .TableCell {
+  .TableRow:hover .TableCell:not(.TableCellSkeleton) {
     /* TODO: update this token when the new primitive tokens are released */
     background-color: ${get('colors.actionListItem.default.hoverBg')};
   }
@@ -138,7 +162,66 @@ const StyledTable = styled.table<React.ComponentPropsWithoutRef<'table'>>`
   .TableCell[scope='row'] {
     color: ${get('colors.fg.default')};
     font-weight: 600;
-    text-align: start;
+  }
+
+  /* TableCellSkeleton */
+  .TableCellSkeleton {
+    padding: 0;
+  }
+
+  .TableCellSkeletonItems {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .TableCellSkeletonItem {
+    padding: var(--table-cell-padding);
+
+    &:nth-of-type(5n + 1) {
+      --skeleton-item-width: 85%;
+    }
+
+    &:nth-of-type(5n + 2) {
+      --skeleton-item-width: 67.5%;
+    }
+
+    &:nth-of-type(5n + 3) {
+      --skeleton-item-width: 80%;
+    }
+
+    &:nth-of-type(5n + 4) {
+      --skeleton-item-width: 60%;
+    }
+
+    &:nth-of-type(5n + 5) {
+      --skeleton-item-width: 75%;
+    }
+  }
+
+  .TableCellSkeletonItem:not(:last-of-type) {
+    border-bottom: 1px solid ${get('colors.border.default')};
+  }
+
+  .TableCellSkeletonItem::before {
+    display: block;
+    content: '';
+    height: 1rem;
+    width: var(--skeleton-item-width, 67%);
+    background-color: ${get('colors.canvas.subtle')};
+    border-radius: 3px;
+
+    @media (prefers-reduced-motion: no-preference) {
+      mask-image: linear-gradient(75deg, #000 30%, rgba(0, 0, 0, 0.65) 80%);
+      mask-size: 200%;
+      animation: ${shimmer};
+      animation-duration: 1s;
+      animation-iteration-count: infinite;
+    }
+
+    @media (forced-colors: active) {
+      outline: 1px solid transparent;
+      outline-offset: -1px;
+    }
   }
 
   /* Grid layout */
@@ -182,7 +265,7 @@ export type TableProps = React.ComponentPropsWithoutRef<'table'> & {
 }
 
 const Table = React.forwardRef<HTMLTableElement, TableProps>(function Table(
-  {'aria-labelledby': labelledby, cellPadding = 'normal', gridTemplateColumns, ...rest},
+  {'aria-labelledby': labelledby, cellPadding = 'normal', className, gridTemplateColumns, ...rest},
   ref,
 ) {
   return (
@@ -191,7 +274,7 @@ const Table = React.forwardRef<HTMLTableElement, TableProps>(function Table(
         {...rest}
         aria-labelledby={labelledby}
         data-cell-padding={cellPadding}
-        className="Table"
+        className={cx('Table', className)}
         role="table"
         ref={ref}
         style={{'--grid-template-columns': gridTemplateColumns} as React.CSSProperties}
@@ -238,11 +321,16 @@ function TableBody({children}: TableBodyProps) {
 // TableHeader
 // ----------------------------------------------------------------------------
 
-export type TableHeaderProps = React.ComponentPropsWithoutRef<'th'>
+export type TableHeaderProps = Omit<React.ComponentPropsWithoutRef<'th'>, 'align'> & {
+  /**
+   * The horizontal alignment of the cell's content
+   */
+  align?: CellAlignment
+}
 
-function TableHeader({children, ...rest}: TableHeaderProps) {
+function TableHeader({align, children, ...rest}: TableHeaderProps) {
   return (
-    <th {...rest} className="TableHeader" role="columnheader" scope="col">
+    <th {...rest} className="TableHeader" role="columnheader" scope="col" data-cell-align={align}>
       {children}
     </th>
   )
@@ -261,12 +349,14 @@ type TableSortHeaderProps = TableHeaderProps & {
   onToggleSort: () => void
 }
 
-function TableSortHeader({children, direction, onToggleSort, ...rest}: TableSortHeaderProps) {
+function TableSortHeader({align, children, direction, onToggleSort, ...rest}: TableSortHeaderProps) {
   const ariaSort = direction === 'DESC' ? 'descending' : direction === 'ASC' ? 'ascending' : undefined
+
   return (
-    <TableHeader {...rest} aria-sort={ariaSort}>
+    <TableHeader {...rest} aria-sort={ariaSort} align={align}>
       <Button
         type="button"
+        className="TableSortButton"
         onClick={() => {
           onToggleSort()
         }}
@@ -299,7 +389,12 @@ function TableRow({children, ...rest}: TableRowProps) {
 // TableCell
 // ----------------------------------------------------------------------------
 
-export type TableCellProps = React.ComponentPropsWithoutRef<'td'> & {
+export type TableCellProps = Omit<React.ComponentPropsWithoutRef<'td'>, 'align'> & {
+  /**
+   * The horizontal alignment of the cell's content
+   */
+  align?: CellAlignment
+
   /**
    * Provide the scope for a table cell, useful for defining a row header using
    * `scope="row"`
@@ -307,15 +402,21 @@ export type TableCellProps = React.ComponentPropsWithoutRef<'td'> & {
   scope?: 'row'
 }
 
-function TableCell({children, scope, ...rest}: TableCellProps) {
+function TableCell({align, className, children, scope, ...rest}: TableCellProps) {
   const BaseComponent = scope ? 'th' : 'td'
   const role = scope ? 'rowheader' : 'cell'
 
   return (
-    <BaseComponent {...rest} className="TableCell" scope={scope} role={role}>
+    <BaseComponent {...rest} className={cx('TableCell', className)} scope={scope} role={role} data-cell-align={align}>
       {children}
     </BaseComponent>
   )
+}
+
+type TableCellPlaceholderProps = React.PropsWithChildren
+
+function TableCellPlaceholder({children}: TableCellPlaceholderProps) {
+  return <Text color="fg.subtle">{children}</Text>
 }
 
 // ----------------------------------------------------------------------------
@@ -474,6 +575,66 @@ function TableActions({children}: TableActionsProps) {
 }
 
 // ----------------------------------------------------------------------------
+// TableSkeleton
+// ----------------------------------------------------------------------------
+export type TableSkeletonProps<Data extends UniqueRow> = React.ComponentPropsWithoutRef<'table'> & {
+  /**
+   * Specify the amount of space that should be available around the contents of
+   * a cell
+   */
+  cellPadding?: 'condensed' | 'normal' | 'spacious'
+
+  /**
+   * Provide an array of columns for the table. Columns will render as the headers
+   * of the table.
+   */
+  columns: Array<Column<Data>>
+
+  /**
+   * Optionally specify the number of rows which should be included in the
+   * skeleton state of the component
+   */
+  rows?: number
+}
+
+function TableSkeleton<Data extends UniqueRow>({cellPadding, columns, rows = 10, ...rest}: TableSkeletonProps<Data>) {
+  const {gridTemplateColumns} = useTableLayout(columns)
+  return (
+    <Table {...rest} cellPadding={cellPadding} gridTemplateColumns={gridTemplateColumns}>
+      <TableHead>
+        <TableRow>
+          {Array.isArray(columns)
+            ? columns.map((column, i) => {
+                return (
+                  <TableHeader key={i}>
+                    {typeof column.header === 'string' ? column.header : column.header()}
+                  </TableHeader>
+                )
+              })
+            : null}
+        </TableRow>
+      </TableHead>
+      <TableBody>
+        <TableRow>
+          {Array.from({length: columns.length}).map((_, i) => {
+            return (
+              <TableCell key={i} className="TableCellSkeleton">
+                <VisuallyHidden>Loading</VisuallyHidden>
+                <div className="TableCellSkeletonItems">
+                  {Array.from({length: rows}).map((_, i) => {
+                    return <div key={i} className="TableCellSkeletonItem" />
+                  })}
+                </div>
+              </TableCell>
+            )
+          })}
+        </TableRow>
+      </TableBody>
+    </Table>
+  )
+}
+
+// ----------------------------------------------------------------------------
 // Utilities
 // ----------------------------------------------------------------------------
 
@@ -535,4 +696,6 @@ export {
   TableHeader,
   TableSortHeader,
   TableCell,
+  TableCellPlaceholder,
+  TableSkeleton,
 }

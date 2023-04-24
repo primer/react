@@ -1,6 +1,5 @@
 import React from 'react'
 import {SxProp} from '../sx'
-import createSlots from '../utils/create-slots'
 import {AriaRole} from '../utils/types'
 
 export type ActionListItemProps = {
@@ -56,9 +55,11 @@ type MenuItemProps = {
 }
 
 export type ItemContext = Pick<ActionListItemProps, 'variant' | 'disabled'> & {
-  inlineDescriptionId: string
-  blockDescriptionId: string
+  inlineDescriptionId?: string
+  blockDescriptionId?: string
 }
+
+export const ItemContext = React.createContext<ItemContext>({})
 
 export const getVariantStyles = (
   variant: ActionListItemProps['variant'],
@@ -89,7 +90,5 @@ export const getVariantStyles = (
       }
   }
 }
-
-export const {Slots, Slot} = createSlots(['LeadingVisual', 'InlineDescription', 'BlockDescription', 'TrailingVisual'])
 
 export const TEXT_ROW_HEIGHT = '20px' // custom value off the scale

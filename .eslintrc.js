@@ -16,6 +16,7 @@ module.exports = {
     'plugin:github/browser',
     'plugin:primer-react/recommended',
     'plugin:import/typescript',
+    'plugin:ssr-friendly/recommended',
   ],
   settings: {
     react: {
@@ -99,6 +100,7 @@ module.exports = {
         'import/no-namespace': 'off',
         'import/no-named-as-default': 'off',
         'import/no-named-as-default-member': 'off',
+        'primer-react/direct-slot-children': ['error', {skipImportCheck: true}],
         'no-unused-vars': [
           'error',
           {
@@ -137,6 +139,7 @@ module.exports = {
         'import/no-deprecated': 'off',
         'import/no-named-as-default': 'off',
         'import/no-named-as-default-member': 'off',
+        'primer-react/direct-slot-children': ['error', {skipImportCheck: true}],
         'no-restricted-imports': [
           'error',
           {
@@ -156,12 +159,19 @@ module.exports = {
     // Tests
     {
       files: ['src/**/*.test.{ts,tsx}'],
-      extends: ['plugin:jest/recommended'],
+      extends: ['plugin:jest/recommended', 'plugin:testing-library/react'],
       rules: {
         '@typescript-eslint/no-non-null-assertion': 'off',
         'jest/expect-expect': 'off',
         'jest/no-conditional-expect': 'off',
         'jest/no-disabled-tests': 'off',
+        'testing-library/prefer-screen-queries': 'off',
+        'testing-library/no-node-access': 'off',
+        'testing-library/no-container': 'off',
+        'testing-library/render-result-naming-convention': 'off',
+        'testing-library/prefer-presence-queries': 'off',
+        'testing-library/prefer-find-by': 'off',
+        'testing-library/no-wait-for-multiple-assertions': 'off',
       },
     },
 
@@ -224,6 +234,8 @@ module.exports = {
         '@typescript-eslint/no-unused-vars': 'off',
         'primer-react/no-deprecated-colors': ['error', {skipImportCheck: true}],
         'no-redeclare': 'off',
+        'ssr-friendly/no-dom-globals-in-module-scope': 'off',
+        'ssr-friendly/no-dom-globals-in-react-fc': 'off',
       },
     },
   ],
