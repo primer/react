@@ -2,7 +2,7 @@
 
 exports[`has default theme 1`] = `
 .c0 {
-  color: #1F2328;
+  color: #24292f;
   margin-bottom: 4px;
 }
 
