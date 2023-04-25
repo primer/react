@@ -5,6 +5,7 @@ import {get} from '../constants'
 import {Button} from '../internal/components/ButtonReset'
 import {LiveRegion, LiveRegionOutlet, Message} from '../internal/components/LiveRegion'
 import {VisuallyHidden} from '../internal/components/VisuallyHidden'
+import {warning} from '../utils/warning'
 
 const StyledPagination = styled.nav`
   display: flex;
@@ -172,7 +173,7 @@ export function Pagination({
   return (
     <LiveRegion>
       <LiveRegionOutlet />
-      <StyledPagination aria-label={label} className="TablePagination" id={id} tabIndex={-1}>
+      <StyledPagination aria-label={label} className="TablePagination" id={id}>
         <Range pageStart={pageStart} pageEnd={pageEnd} totalCount={totalCount} />
         <ol className="TablePaginationSteps">
           <Step>
@@ -225,7 +226,7 @@ export function Pagination({
 
                 const page = offsetStartIndex + i
                 return (
-                  <Step>
+                  <Step key={i}>
                     <Page
                       active={pageIndex === page}
                       onClick={() => {
@@ -334,14 +335,14 @@ function Page({active, children, onClick}: PageProps) {
   )
 }
 
-interface PaginationState {
+type PaginationState = {
   /**
    * The index of currently selected page
    */
   pageIndex: number
 }
 
-interface PaginationConfig {
+type PaginationConfig = {
   /**
    * Provide an optional index to specify the default selected page
    */
@@ -364,7 +365,7 @@ interface PaginationConfig {
   totalCount: number
 }
 
-interface PaginationResult {
+type PaginationResult = {
   /**
    * The index for the currently selected page
    */
@@ -417,16 +418,35 @@ interface PaginationResult {
 
 function usePagination(config: PaginationConfig): PaginationResult {
   const {defaultPageIndex, onChange, pageSize, totalCount} = config
-  const [pageIndex, setPageIndex] = useState(defaultPageIndex ?? 0)
   const pageCount = Math.ceil(totalCount / pageSize)
+  const [pageIndex, setPageIndex] = useState(() => {
+    if (defaultPageIndex !== undefined) {
+      if (defaultPageIndex >= 0 && defaultPageIndex < pageCount) {
+        return defaultPageIndex
+      }
+
+      warning(
+        true,
+        '<Pagination> expected `defaultPageIndex` to be less than the ' +
+          'total number of pages. Instead, received a `defaultPageIndex` ' +
+          'of %s with %s total pages.',
+        defaultPageIndex,
+        pageCount,
+      )
+    }
+
+    return 0
+  })
   const pageStart = pageIndex * pageSize
   const pageEnd = Math.min(pageIndex * pageSize + pageSize, totalCount - 1)
   const hasNextPage = pageIndex + 1 < pageCount
   const hasPreviousPage = pageIndex > 0
 
-  function selectPage(pageIndex: number) {
-    setPageIndex(pageIndex)
-    onChange?.({pageIndex})
+  function selectPage(newPageIndex: number) {
+    if (pageIndex !== newPageIndex) {
+      setPageIndex(newPageIndex)
+      onChange?.({pageIndex: newPageIndex})
+    }
   }
 
   function selectPreviousPage() {
