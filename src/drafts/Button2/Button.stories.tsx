@@ -8,11 +8,15 @@ export default {
   title: 'Drafts/Components/Button',
   argTypes: {
     size: {
-      control: {type: 'radio'},
+      control: {
+        type: 'radio',
+      },
       options: ['small', 'medium', 'large'],
     },
     disabled: {
-      control: {type: 'boolean'},
+      control: {
+        type: 'boolean',
+      },
     },
     variant: {
       control: {
@@ -27,7 +31,9 @@ export default {
       },
     },
     block: {
-      control: {type: 'boolean'},
+      control: {
+        type: 'boolean',
+      },
     },
     leadingIcon: OcticonArgType([EyeClosedIcon, EyeIcon, SearchIcon, XIcon, HeartIcon]),
     trailingIcon: OcticonArgType([EyeClosedIcon, EyeIcon, SearchIcon, XIcon, HeartIcon]),
@@ -42,6 +48,10 @@ export default {
     disabled: false,
     variant: 'default',
     alignContent: 'center',
+    trailingIcon: null,
+    leadingIcon: null,
+    trailingAction: null,
+    trailingVisualCount: undefined,
   },
 } as Meta<typeof Button>
 

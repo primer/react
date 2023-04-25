@@ -1,9 +1,9 @@
 import {SearchIcon, TriangleDownIcon, EyeIcon} from '@primer/octicons-react'
 import React from 'react'
-import {Button, IconButton} from '../Button'
+import {Button, IconButton} from '.'
 
 export default {
-  title: 'Drafts/Components/Button/DevOnly',
+  title: 'Components/Button/DevOnly',
 }
 
 export const InvisibleVariants = () => {
