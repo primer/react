@@ -94,63 +94,6 @@
       ],
       "subcomponents": []
     },
-    "underline_nav": {
-      "id": "underline_nav",
-      "name": "UnderlineNav",
-      "status": "alpha",
-      "a11yReviewed": false,
-      "stories": [],
-      "props": [
-        {
-          "name": "actions",
-          "type": "React.ReactNode",
-          "description": "Place another element, such as a button, to the opposite side of the navigation items."
-        },
-        {
-          "name": "align",
-          "type": "'right'",
-          "description": "Use `right` to have navigation items aligned right."
-        },
-        {
-          "name": "full",
-          "type": "boolean",
-          "description": "Used to make navigation fill the width of the container."
-        },
-        {
-          "name": "aria-label",
-          "type": "string",
-          "description": "Used to set the `aria-label` on the top level `<nav>` element."
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject"
-        }
-      ],
-      "subcomponents": [
-        {
-          "name": "UnderlineNav.Link",
-          "props": [
-            {
-              "name": "as",
-              "type": "React.ElementType",
-              "defaultValue": "'a'"
-            },
-            {
-              "name": "href",
-              "type": "string"
-            },
-            {
-              "name": "selected",
-              "type": "boolean"
-            },
-            {
-              "name": "sx",
-              "type": "SystemStyleObject"
-            }
-          ]
-        }
-      ]
-    },
     "action_list": {
       "id": "action_list",
       "name": "ActionList",
@@ -4873,6 +4816,68 @@
         }
       ],
       "subcomponents": []
+    },
+    "underline_nav": {
+      "id": "underline_nav",
+      "name": "UnderlineNav",
+      "status": "alpha",
+      "a11yReviewed": false,
+      "stories": [
+        {
+          "id": "components-underlinenav--default",
+          "code": "() => (\n  <UnderlineNav aria-label=\"Main\">\n    <UnderlineNav.Link href=\"#home\" selected>\n      Home\n    </UnderlineNav.Link>\n    <UnderlineNav.Link href=\"#documentation\">Documentation</UnderlineNav.Link>\n    <UnderlineNav.Link href=\"#support\">Support</UnderlineNav.Link>\n  </UnderlineNav>\n)"
+        }
+      ],
+      "props": [
+        {
+          "name": "actions",
+          "type": "React.ReactNode",
+          "description": "Place another element, such as a button, to the opposite side of the navigation items."
+        },
+        {
+          "name": "align",
+          "type": "'right'",
+          "description": "Use `right` to have navigation items aligned right."
+        },
+        {
+          "name": "full",
+          "type": "boolean",
+          "description": "Used to make navigation fill the width of the container."
+        },
+        {
+          "name": "aria-label",
+          "type": "string",
+          "description": "Used to set the `aria-label` on the top level `<nav>` element."
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ],
+      "subcomponents": [
+        {
+          "name": "UnderlineNav.Link",
+          "props": [
+            {
+              "name": "as",
+              "type": "React.ElementType",
+              "defaultValue": "'a'"
+            },
+            {
+              "name": "href",
+              "type": "string"
+            },
+            {
+              "name": "selected",
+              "type": "boolean"
+            },
+            {
+              "name": "sx",
+              "type": "SystemStyleObject"
+            }
+          ]
+        }
+      ]
     },
     "drafts_underline_nav2": {
       "id": "drafts_underline_nav2",
