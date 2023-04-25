@@ -4,7 +4,7 @@ exports[`TextInput renders 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #1F2328;
+  color: #24292f;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -61,7 +61,7 @@ exports[`TextInput renders 1`] = `
   padding: 12px;
 }
 
-.c0 > :not(:last-child) {
+.c0 >:not(:last-child) {
   margin-right: 8px;
 }
 
@@ -70,7 +70,7 @@ exports[`TextInput renders 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #656d76;
+  color: #57606a;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -104,7 +104,6 @@ exports[`TextInput renders 1`] = `
 
 <span
   aria-busy={false}
-  aria-live="polite"
   className="c0 TextInput-wrapper"
   onClick={[Function]}
 >
@@ -123,7 +122,7 @@ exports[`TextInput renders block 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #1F2328;
+  color: #24292f;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -188,7 +187,7 @@ exports[`TextInput renders block 1`] = `
   padding: 12px;
 }
 
-.c0 > :not(:last-child) {
+.c0 >:not(:last-child) {
   margin-right: 8px;
 }
 
@@ -197,7 +196,7 @@ exports[`TextInput renders block 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #656d76;
+  color: #57606a;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -231,7 +230,6 @@ exports[`TextInput renders block 1`] = `
 
 <span
   aria-busy={false}
-  aria-live="polite"
   className="c0 TextInput-wrapper"
   onClick={[Function]}
 >
@@ -250,7 +248,7 @@ exports[`TextInput renders consistently 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #1F2328;
+  color: #24292f;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -307,7 +305,7 @@ exports[`TextInput renders consistently 1`] = `
   padding: 12px;
 }
 
-.c0 > :not(:last-child) {
+.c0 >:not(:last-child) {
   margin-right: 8px;
 }
 
@@ -316,7 +314,7 @@ exports[`TextInput renders consistently 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #656d76;
+  color: #57606a;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -350,7 +348,6 @@ exports[`TextInput renders consistently 1`] = `
 
 <span
   aria-busy={false}
-  aria-live="polite"
   className="c0 TextInput-wrapper"
   onClick={[Function]}
 >
@@ -368,7 +365,7 @@ exports[`TextInput renders contrast 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #1F2328;
+  color: #24292f;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -426,7 +423,7 @@ exports[`TextInput renders contrast 1`] = `
   padding: 12px;
 }
 
-.c0 > :not(:last-child) {
+.c0 >:not(:last-child) {
   margin-right: 8px;
 }
 
@@ -435,7 +432,7 @@ exports[`TextInput renders contrast 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #656d76;
+  color: #57606a;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -469,7 +466,6 @@ exports[`TextInput renders contrast 1`] = `
 
 <span
   aria-busy={false}
-  aria-live="polite"
   className="c0 TextInput-wrapper"
   onClick={[Function]}
 >
@@ -488,7 +484,7 @@ exports[`TextInput renders error 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #1F2328;
+  color: #24292f;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -552,7 +548,7 @@ exports[`TextInput renders error 1`] = `
   box-shadow: inset 0 0 0 1px #0969da;
 }
 
-.c0 > :not(:last-child) {
+.c0 >:not(:last-child) {
   margin-right: 8px;
 }
 
@@ -561,7 +557,7 @@ exports[`TextInput renders error 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #656d76;
+  color: #57606a;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -595,7 +591,6 @@ exports[`TextInput renders error 1`] = `
 
 <span
   aria-busy={false}
-  aria-live="polite"
   className="c0 TextInput-wrapper"
   onClick={[Function]}
 >
@@ -614,7 +609,7 @@ exports[`TextInput renders large 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #1F2328;
+  color: #24292f;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -677,7 +672,7 @@ exports[`TextInput renders large 1`] = `
   padding: 12px;
 }
 
-.c0 > :not(:last-child) {
+.c0 >:not(:last-child) {
   margin-right: 8px;
 }
 
@@ -686,7 +681,7 @@ exports[`TextInput renders large 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #656d76;
+  color: #57606a;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -720,7 +715,6 @@ exports[`TextInput renders large 1`] = `
 
 <span
   aria-busy={false}
-  aria-live="polite"
   className="c0 TextInput-wrapper"
   onClick={[Function]}
   size="large"
@@ -740,7 +734,7 @@ exports[`TextInput renders leadingVisual 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #1F2328;
+  color: #24292f;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -797,7 +791,7 @@ exports[`TextInput renders leadingVisual 1`] = `
   padding: 12px;
 }
 
-.c0 > :not(:last-child) {
+.c0 >:not(:last-child) {
   margin-right: 8px;
 }
 
@@ -806,7 +800,7 @@ exports[`TextInput renders leadingVisual 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #656d76;
+  color: #57606a;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -840,7 +834,6 @@ exports[`TextInput renders leadingVisual 1`] = `
 
 <span
   aria-busy={false}
-  aria-live="polite"
   className="c0 TextInput-wrapper"
   onClick={[Function]}
 >
@@ -886,7 +879,7 @@ exports[`TextInput renders monospace 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #1F2328;
+  color: #24292f;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -944,7 +937,7 @@ exports[`TextInput renders monospace 1`] = `
   padding: 12px;
 }
 
-.c0 > :not(:last-child) {
+.c0 >:not(:last-child) {
   margin-right: 8px;
 }
 
@@ -953,7 +946,7 @@ exports[`TextInput renders monospace 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #656d76;
+  color: #57606a;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -987,7 +980,6 @@ exports[`TextInput renders monospace 1`] = `
 
 <span
   aria-busy={false}
-  aria-live="polite"
   className="c0 TextInput-wrapper"
   onClick={[Function]}
 >
@@ -1006,7 +998,7 @@ exports[`TextInput renders placeholder 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #1F2328;
+  color: #24292f;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -1063,7 +1055,7 @@ exports[`TextInput renders placeholder 1`] = `
   padding: 12px;
 }
 
-.c0 > :not(:last-child) {
+.c0 >:not(:last-child) {
   margin-right: 8px;
 }
 
@@ -1072,7 +1064,7 @@ exports[`TextInput renders placeholder 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #656d76;
+  color: #57606a;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -1106,7 +1098,6 @@ exports[`TextInput renders placeholder 1`] = `
 
 <span
   aria-busy={false}
-  aria-live="polite"
   className="c0 TextInput-wrapper"
   onClick={[Function]}
 >
@@ -1126,7 +1117,7 @@ exports[`TextInput renders small 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #1F2328;
+  color: #24292f;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -1191,7 +1182,7 @@ exports[`TextInput renders small 1`] = `
   padding: 12px;
 }
 
-.c0 > :not(:last-child) {
+.c0 >:not(:last-child) {
   margin-right: 8px;
 }
 
@@ -1200,7 +1191,7 @@ exports[`TextInput renders small 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #656d76;
+  color: #57606a;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -1234,7 +1225,6 @@ exports[`TextInput renders small 1`] = `
 
 <span
   aria-busy={false}
-  aria-live="polite"
   className="c0 TextInput-wrapper"
   onClick={[Function]}
   size="small"
@@ -1407,7 +1397,7 @@ exports[`TextInput renders trailingAction icon button 1`] = `
 
 .c4 [data-component="leadingVisual"] {
   grid-area: leadingVisual;
-  color: #656d76;
+  color: #57606a;
 }
 
 .c4 [data-component="text"] {
@@ -1422,7 +1412,7 @@ exports[`TextInput renders trailingAction icon button 1`] = `
 
 .c4 [data-component="trailingAction"] {
   margin-right: -4px;
-  color: #656d76;
+  color: #57606a;
 }
 
 .c4 [data-component="buttonContent"] {
@@ -1458,7 +1448,7 @@ exports[`TextInput renders trailingAction icon button 1`] = `
 }
 
 .c4[data-component="IconButton"][data-no-visuals] {
-  color: #656d76;
+  color: #57606a;
 }
 
 .c4[data-no-visuals] {
@@ -1493,7 +1483,7 @@ exports[`TextInput renders trailingAction icon button 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #1F2328;
+  color: #24292f;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -1544,7 +1534,7 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   padding: 12px;
 }
 
-.c0 > :not(:last-child) {
+.c0 >:not(:last-child) {
   margin-right: 8px;
 }
 
@@ -1553,7 +1543,7 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #656d76;
+  color: #57606a;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -1831,7 +1821,6 @@ exports[`TextInput renders trailingAction icon button 1`] = `
 
 <span
   aria-busy={false}
-  aria-live="polite"
   className="c0 TextInput-wrapper"
   onClick={[Function]}
 >
@@ -2054,7 +2043,7 @@ exports[`TextInput renders trailingAction text button 1`] = `
 
 .c3 [data-component="leadingVisual"] {
   grid-area: leadingVisual;
-  color: #656d76;
+  color: #57606a;
 }
 
 .c3 [data-component="text"] {
@@ -2069,7 +2058,7 @@ exports[`TextInput renders trailingAction text button 1`] = `
 
 .c3 [data-component="trailingAction"] {
   margin-right: -4px;
-  color: #656d76;
+  color: #57606a;
 }
 
 .c3 [data-component="buttonContent"] {
@@ -2105,7 +2094,7 @@ exports[`TextInput renders trailingAction text button 1`] = `
 }
 
 .c3[data-component="IconButton"][data-no-visuals] {
-  color: #656d76;
+  color: #57606a;
 }
 
 .c3[data-no-visuals] {
@@ -2140,7 +2129,7 @@ exports[`TextInput renders trailingAction text button 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #1F2328;
+  color: #24292f;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -2191,7 +2180,7 @@ exports[`TextInput renders trailingAction text button 1`] = `
   padding: 12px;
 }
 
-.c0 > :not(:last-child) {
+.c0 >:not(:last-child) {
   margin-right: 8px;
 }
 
@@ -2200,7 +2189,7 @@ exports[`TextInput renders trailingAction text button 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #656d76;
+  color: #57606a;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -2254,7 +2243,6 @@ exports[`TextInput renders trailingAction text button 1`] = `
 
 <span
   aria-busy={false}
-  aria-live="polite"
   className="c0 TextInput-wrapper"
   onClick={[Function]}
 >
@@ -2456,7 +2444,7 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
 
 .c4 [data-component="leadingVisual"] {
   grid-area: leadingVisual;
-  color: #656d76;
+  color: #57606a;
 }
 
 .c4 [data-component="text"] {
@@ -2471,7 +2459,7 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
 
 .c4 [data-component="trailingAction"] {
   margin-right: -4px;
-  color: #656d76;
+  color: #57606a;
 }
 
 .c4 [data-component="buttonContent"] {
@@ -2507,7 +2495,7 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
 }
 
 .c4[data-component="IconButton"][data-no-visuals] {
-  color: #656d76;
+  color: #57606a;
 }
 
 .c4[data-no-visuals] {
@@ -2542,7 +2530,7 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #1F2328;
+  color: #24292f;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -2593,7 +2581,7 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   padding: 12px;
 }
 
-.c0 > :not(:last-child) {
+.c0 >:not(:last-child) {
   margin-right: 8px;
 }
 
@@ -2602,7 +2590,7 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #656d76;
+  color: #57606a;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -2881,7 +2869,6 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
 
 <span
   aria-busy={false}
-  aria-live="polite"
   className="c0 TextInput-wrapper"
   onClick={[Function]}
 >
@@ -2929,7 +2916,7 @@ exports[`TextInput renders trailingVisual 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #1F2328;
+  color: #24292f;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -2986,7 +2973,7 @@ exports[`TextInput renders trailingVisual 1`] = `
   padding: 12px;
 }
 
-.c0 > :not(:last-child) {
+.c0 >:not(:last-child) {
   margin-right: 8px;
 }
 
@@ -2995,7 +2982,7 @@ exports[`TextInput renders trailingVisual 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #656d76;
+  color: #57606a;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -3029,7 +3016,6 @@ exports[`TextInput renders trailingVisual 1`] = `
 
 <span
   aria-busy={false}
-  aria-live="polite"
   className="c0 TextInput-wrapper"
   onClick={[Function]}
 >
@@ -3075,7 +3061,7 @@ exports[`TextInput renders warning 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #1F2328;
+  color: #24292f;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -3095,7 +3081,7 @@ exports[`TextInput renders warning 1`] = `
   background-position: right 8px center;
   padding-left: 0;
   padding-right: 0;
-  border-color: #9a6700;
+  border-color: #bf8700;
 }
 
 .c0 input,
@@ -3133,7 +3119,7 @@ exports[`TextInput renders warning 1`] = `
   padding: 12px;
 }
 
-.c0 > :not(:last-child) {
+.c0 >:not(:last-child) {
   margin-right: 8px;
 }
 
@@ -3142,7 +3128,7 @@ exports[`TextInput renders warning 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #656d76;
+  color: #57606a;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -3182,7 +3168,6 @@ exports[`TextInput renders warning 1`] = `
 
 <span
   aria-busy={false}
-  aria-live="polite"
   className="c0 TextInput-wrapper"
   onClick={[Function]}
 >
@@ -3216,7 +3201,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #1F2328;
+  color: #24292f;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -3273,7 +3258,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   padding: 12px;
 }
 
-.c0 > :not(:last-child) {
+.c0 >:not(:last-child) {
   margin-right: 8px;
 }
 
@@ -3282,7 +3267,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #656d76;
+  color: #57606a;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -3316,7 +3301,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
 
 <span
     aria-busy={true}
-    aria-live="polite"
     className="c0 TextInput-wrapper"
     onClick={[Function]}
   >
@@ -3389,7 +3373,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #1F2328;
+  color: #24292f;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -3446,7 +3430,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   padding: 12px;
 }
 
-.c0 > :not(:last-child) {
+.c0 >:not(:last-child) {
   margin-right: 8px;
 }
 
@@ -3455,7 +3439,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #656d76;
+  color: #57606a;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -3489,7 +3473,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
 
 <span
     aria-busy={true}
-    aria-live="polite"
     className="c0 TextInput-wrapper"
     onClick={[Function]}
   >
@@ -3594,7 +3577,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #1F2328;
+  color: #24292f;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -3651,7 +3634,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   padding: 12px;
 }
 
-.c0 > :not(:last-child) {
+.c0 >:not(:last-child) {
   margin-right: 8px;
 }
 
@@ -3660,7 +3643,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #656d76;
+  color: #57606a;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -3694,7 +3677,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
 
 <span
     aria-busy={true}
-    aria-live="polite"
     className="c0 TextInput-wrapper"
     onClick={[Function]}
   >
@@ -3776,7 +3758,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #1F2328;
+  color: #24292f;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -3833,7 +3815,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   padding: 12px;
 }
 
-.c0 > :not(:last-child) {
+.c0 >:not(:last-child) {
   margin-right: 8px;
 }
 
@@ -3842,7 +3824,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #656d76;
+  color: #57606a;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -3876,7 +3858,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
 
 <span
     aria-busy={true}
-    aria-live="polite"
     className="c0 TextInput-wrapper"
     onClick={[Function]}
   >
@@ -4027,7 +4008,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #1F2328;
+  color: #24292f;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -4084,7 +4065,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   padding: 12px;
 }
 
-.c0 > :not(:last-child) {
+.c0 >:not(:last-child) {
   margin-right: 8px;
 }
 
@@ -4093,7 +4074,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #656d76;
+  color: #57606a;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -4127,7 +4108,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
 
 <span
     aria-busy={true}
-    aria-live="polite"
     className="c0 TextInput-wrapper"
     onClick={[Function]}
   >
@@ -4278,7 +4258,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #1F2328;
+  color: #24292f;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -4335,7 +4315,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   padding: 12px;
 }
 
-.c0 > :not(:last-child) {
+.c0 >:not(:last-child) {
   margin-right: 8px;
 }
 
@@ -4344,7 +4324,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #656d76;
+  color: #57606a;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -4378,7 +4358,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
 
 <span
     aria-busy={true}
-    aria-live="polite"
     className="c0 TextInput-wrapper"
     onClick={[Function]}
   >
@@ -4523,7 +4502,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #1F2328;
+  color: #24292f;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -4580,7 +4559,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   padding: 12px;
 }
 
-.c0 > :not(:last-child) {
+.c0 >:not(:last-child) {
   margin-right: 8px;
 }
 
@@ -4589,7 +4568,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #656d76;
+  color: #57606a;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -4623,7 +4602,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
 
 <span
     aria-busy={true}
-    aria-live="polite"
     className="c0 TextInput-wrapper"
     onClick={[Function]}
   >
@@ -4736,7 +4714,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #1F2328;
+  color: #24292f;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -4793,7 +4771,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   padding: 12px;
 }
 
-.c0 > :not(:last-child) {
+.c0 >:not(:last-child) {
   margin-right: 8px;
 }
 
@@ -4802,7 +4780,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #656d76;
+  color: #57606a;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -4836,7 +4814,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
 
 <span
     aria-busy={true}
-    aria-live="polite"
     className="c0 TextInput-wrapper"
     onClick={[Function]}
   >
@@ -4981,7 +4958,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #1F2328;
+  color: #24292f;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -5038,7 +5015,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   padding: 12px;
 }
 
-.c0 > :not(:last-child) {
+.c0 >:not(:last-child) {
   margin-right: 8px;
 }
 
@@ -5047,7 +5024,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #656d76;
+  color: #57606a;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -5081,7 +5058,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
 
 <span
     aria-busy={true}
-    aria-live="polite"
     className="c0 TextInput-wrapper"
     onClick={[Function]}
   >
@@ -5203,7 +5179,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #1F2328;
+  color: #24292f;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -5268,7 +5244,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   padding: 12px;
 }
 
-.c0 > :not(:last-child) {
+.c0 >:not(:last-child) {
   margin-right: 8px;
 }
 
@@ -5277,7 +5253,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #656d76;
+  color: #57606a;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -5311,7 +5287,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
 
 <span
     aria-busy={true}
-    aria-live="polite"
     className="c0 TextInput-wrapper"
     onClick={[Function]}
     size="small"
@@ -5503,7 +5478,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #1F2328;
+  color: #24292f;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -5560,7 +5535,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   padding: 12px;
 }
 
-.c0 > :not(:last-child) {
+.c0 >:not(:last-child) {
   margin-right: 8px;
 }
 
@@ -5569,7 +5544,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #656d76;
+  color: #57606a;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -5603,7 +5578,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
 
 <span
     aria-busy={true}
-    aria-live="polite"
     className="c0 TextInput-wrapper"
     onClick={[Function]}
   >
@@ -5794,7 +5768,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #1F2328;
+  color: #24292f;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -5857,7 +5831,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   padding: 12px;
 }
 
-.c0 > :not(:last-child) {
+.c0 >:not(:last-child) {
   margin-right: 8px;
 }
 
@@ -5866,7 +5840,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #656d76;
+  color: #57606a;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -5900,7 +5874,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
 
 <span
     aria-busy={true}
-    aria-live="polite"
     className="c0 TextInput-wrapper"
     onClick={[Function]}
     size="large"
@@ -6058,7 +6031,7 @@ exports[`TextInput should render a password input 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #1F2328;
+  color: #24292f;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -6115,7 +6088,7 @@ exports[`TextInput should render a password input 1`] = `
   padding: 12px;
 }
 
-.c0 > :not(:last-child) {
+.c0 >:not(:last-child) {
   margin-right: 8px;
 }
 
@@ -6124,7 +6097,7 @@ exports[`TextInput should render a password input 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #656d76;
+  color: #57606a;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -6158,7 +6131,6 @@ exports[`TextInput should render a password input 1`] = `
 
 <span
   aria-busy={false}
-  aria-live="polite"
   className="c0 TextInput-wrapper"
   onClick={[Function]}
 >
