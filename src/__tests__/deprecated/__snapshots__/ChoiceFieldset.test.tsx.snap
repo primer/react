@@ -35,7 +35,7 @@ exports[`ChoiceFieldset renders a disabled list 1`] = `
 }
 
 .c2 {
-  color: #57606a;
+  color: #656d76;
   font-size: 16px;
   padding: 0;
 }
@@ -44,7 +44,7 @@ exports[`ChoiceFieldset renders a disabled list 1`] = `
   font-weight: 600;
   font-size: 14px;
   display: block;
-  color: #57606a;
+  color: #656d76;
   cursor: not-allowed;
   -webkit-align-self: flex-start;
   -ms-flex-item-align: start;
@@ -83,7 +83,7 @@ exports[`ChoiceFieldset renders a disabled list 1`] = `
 
 .c6:checked:disabled {
   cursor: not-allowed;
-  border-color: #57606a;
+  border-color: #656d76;
 }
 
 .c6:focus:not(:disabled) {
@@ -261,7 +261,7 @@ exports[`ChoiceFieldset renders a fieldset with a description 1`] = `
   font-weight: 600;
   font-size: 14px;
   display: block;
-  color: #24292f;
+  color: #1F2328;
   cursor: pointer;
   -webkit-align-self: flex-start;
   -ms-flex-item-align: start;
@@ -270,7 +270,7 @@ exports[`ChoiceFieldset renders a fieldset with a description 1`] = `
 
 .c3 {
   font-size: 14px;
-  color: #24292f;
+  color: #1F2328;
 }
 
 .c7 {
@@ -305,7 +305,7 @@ exports[`ChoiceFieldset renders a fieldset with a description 1`] = `
 
 .c7:checked:disabled {
   cursor: not-allowed;
-  border-color: #57606a;
+  border-color: #656d76;
 }
 
 .c7:focus:not(:disabled) {
@@ -485,7 +485,7 @@ exports[`ChoiceFieldset renders a list of items with leading visuals and caption
 
 .c7 {
   margin-left: 8px;
-  color: #24292f;
+  color: #1F2328;
 }
 
 .c7 > * {
@@ -503,7 +503,7 @@ exports[`ChoiceFieldset renders a list of items with leading visuals and caption
   font-weight: 600;
   font-size: 14px;
   display: block;
-  color: #24292f;
+  color: #1F2328;
   cursor: pointer;
   -webkit-align-self: flex-start;
   -ms-flex-item-align: start;
@@ -512,7 +512,7 @@ exports[`ChoiceFieldset renders a list of items with leading visuals and caption
 
 .c10 {
   font-size: 12px;
-  color: #57606a;
+  color: #656d76;
   display: block;
 }
 
@@ -548,7 +548,7 @@ exports[`ChoiceFieldset renders a list of items with leading visuals and caption
 
 .c6:checked:disabled {
   cursor: not-allowed;
-  border-color: #57606a;
+  border-color: #656d76;
 }
 
 .c6:focus:not(:disabled) {
@@ -794,7 +794,7 @@ exports[`ChoiceFieldset renders a list with selected items 1`] = `
   font-weight: 600;
   font-size: 14px;
   display: block;
-  color: #24292f;
+  color: #1F2328;
   cursor: pointer;
   -webkit-align-self: flex-start;
   -ms-flex-item-align: start;
@@ -865,8 +865,8 @@ exports[`ChoiceFieldset renders a list with selected items 1`] = `
 
 .c6:checked:disabled {
   cursor: not-allowed;
-  background-color: #57606a;
-  border-color: #57606a;
+  background-color: #656d76;
+  border-color: #656d76;
   opacity: 1;
 }
 
@@ -1110,7 +1110,7 @@ exports[`ChoiceFieldset renders a required fieldset 1`] = `
   font-weight: 600;
   font-size: 14px;
   display: block;
-  color: #24292f;
+  color: #1F2328;
   cursor: pointer;
   -webkit-align-self: flex-start;
   -ms-flex-item-align: start;
@@ -1149,7 +1149,7 @@ exports[`ChoiceFieldset renders a required fieldset 1`] = `
 
 .c7:checked:disabled {
   cursor: not-allowed;
-  border-color: #57606a;
+  border-color: #656d76;
 }
 
 .c7:focus:not(:disabled) {
@@ -1338,7 +1338,7 @@ exports[`ChoiceFieldset renders default 1`] = `
   font-weight: 600;
   font-size: 14px;
   display: block;
-  color: #24292f;
+  color: #1F2328;
   cursor: pointer;
   -webkit-align-self: flex-start;
   -ms-flex-item-align: start;
@@ -1377,7 +1377,7 @@ exports[`ChoiceFieldset renders default 1`] = `
 
 .c6:checked:disabled {
   cursor: not-allowed;
-  border-color: #57606a;
+  border-color: #656d76;
 }
 
 .c6:focus:not(:disabled) {
@@ -1553,7 +1553,7 @@ exports[`ChoiceFieldset renders with a custom name and id passed 1`] = `
   font-weight: 600;
   font-size: 14px;
   display: block;
-  color: #24292f;
+  color: #1F2328;
   cursor: pointer;
   -webkit-align-self: flex-start;
   -ms-flex-item-align: start;
@@ -1592,7 +1592,7 @@ exports[`ChoiceFieldset renders with a custom name and id passed 1`] = `
 
 .c6:checked:disabled {
   cursor: not-allowed;
-  border-color: #57606a;
+  border-color: #656d76;
 }
 
 .c6:focus:not(:disabled) {
@@ -1759,7 +1759,7 @@ exports[`ChoiceFieldset renders with a hidden legend 1`] = `
   font-weight: 600;
   font-size: 14px;
   display: block;
-  color: #24292f;
+  color: #1F2328;
   cursor: pointer;
   -webkit-align-self: flex-start;
   -ms-flex-item-align: start;
@@ -1811,7 +1811,7 @@ exports[`ChoiceFieldset renders with a hidden legend 1`] = `
 
 .c5:checked:disabled {
   cursor: not-allowed;
-  border-color: #57606a;
+  border-color: #656d76;
 }
 
 .c5:focus:not(:disabled) {
