@@ -52,8 +52,8 @@ const ButtonComponent = React.forwardRef(
       leadingIcon: LeadingIcon,
       trailingIcon: TrailingIcon,
       trailingAction: TrailingAction,
-      sx,
       className,
+      sx,
       ...props
     },
     forwardedRef,
@@ -66,7 +66,8 @@ const ButtonComponent = React.forwardRef(
         data-size={size}
         data-block={block}
         ref={forwardedRef}
-        sx={sx}
+        sx={sx ? {'&[data-sx][data-sx]': sx} : undefined}
+        data-sx={sx ? '' : undefined}
         {...props}
       >
         {LeadingIcon && (
@@ -93,9 +94,15 @@ const ButtonComponent = React.forwardRef(
 // scheme is not configurable, always set to default (secondary)
 export type ButtonCounterProps = Omit<CounterLabelProps, 'scheme'> & {children: number}
 
-const Counter = ({children, className, ...props}: ButtonCounterProps) => {
+const Counter = ({children, className, sx, ...props}: ButtonCounterProps) => {
   return (
-    <CounterLabel className={merge(classNames.counter, className)} data-component="ButtonCounter" {...props}>
+    <CounterLabel
+      className={merge(classNames.counter, className)}
+      data-component="ButtonCounter"
+      sx={sx ? {'&[data-sx][data-sx]': sx} : undefined}
+      data-sx={sx ? '' : undefined}
+      {...props}
+    >
       {children}
     </CounterLabel>
   )
