@@ -3,7 +3,7 @@
   "image": "mcr.microsoft.com/vscode/devcontainers/typescript-node:18",
   "extensions": ["esbenp.prettier-vscode", "dbaeumer.vscode-eslint", "DavidAnson.vscode-markdownlint"],
   "forwardPorts": [8000],
-  "postCreateCommand": ["/bin/bash", "-c", "npm run setup"],
+  "onCreateCommand": ["/bin/bash", "-c", "npm run setup"],
   "remoteUser": "node",
   "features": {
     "ghcr.io/devcontainers/features/sshd:1": {
