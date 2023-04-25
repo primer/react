@@ -89,6 +89,7 @@ const MarkdownViewer = ({
     disabled: disabled || !externalOnChange,
     htmlContainer,
     markdownValue,
+    dependencies: [dangerousRenderedHTML],
   })
 
   useLinkInterception({

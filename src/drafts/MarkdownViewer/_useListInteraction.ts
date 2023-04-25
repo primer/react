@@ -1,4 +1,4 @@
-import {useCallback, useEffect, useRef, useMemo} from 'react'
+import {useCallback, useEffect, useRef, useState} from 'react'
 import {ListItem, listItemToString, parseListItem} from '../MarkdownEditor/_useListEditing'
 
 type TaskListItem = ListItem & {taskBox: '[ ]' | '[x]'}
@@ -15,6 +15,7 @@ type UseListInteractionSettings = {
   markdownValue: string
   onChange: (markdown: string) => void | Promise<void>
   disabled?: boolean
+  dependencies?: Array<unknown>
 }
 
 /**
@@ -28,6 +29,7 @@ export const useListInteraction = ({
   markdownValue,
   onChange,
   disabled = false,
+  dependencies = [],
 }: UseListInteractionSettings) => {
   // Storing the value in a ref allows not using the markdown value as a depdency of
   // onToggleItem, which would mean we'd have to re-bind the event handlers on every change
@@ -63,12 +65,18 @@ export const useListInteraction = ({
     [onChange],
   )
 
-  const checkboxElements = useMemo(
-    () =>
-      Array.from(
-        htmlContainer?.querySelectorAll<HTMLInputElement>('input[type=checkbox].task-list-item-checkbox') ?? [],
-      ),
-    [htmlContainer],
+  const [checkboxElements, setCheckboxElements] = useState<HTMLInputElement[]>([])
+
+  useEffect(
+    () => {
+      setCheckboxElements(
+        Array.from(
+          htmlContainer?.querySelectorAll<HTMLInputElement>('input[type=checkbox].task-list-item-checkbox') ?? [],
+        ),
+      )
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [htmlContainer, ...dependencies],
   )
 
   // This could be combined with the other effect, but then the checkboxes might have a flicker
