@@ -77,11 +77,12 @@ const MarkdownViewer = ({
       try {
         await externalOnChange?.(value)
       } catch (error) {
-        // eslint-disable-next-line no-console
-        console.error(error)
+        if (htmlContainer) {
+          htmlContainer.innerHTML = dangerousRenderedHTML.__html
+        }
       }
     },
-    [externalOnChange],
+    [externalOnChange, htmlContainer, dangerousRenderedHTML],
   )
 
   useListInteraction({
