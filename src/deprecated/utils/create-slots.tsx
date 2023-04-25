@@ -1,8 +1,11 @@
 import React from 'react'
-import {useForceUpdate} from './use-force-update'
-import useLayoutEffect from './useIsomorphicLayoutEffect'
+import {useForceUpdate} from '../../utils/use-force-update'
+import useLayoutEffect from '../../utils/useIsomorphicLayoutEffect'
 
-/** createSlots is a factory that can create a
+/**
+ * @deprecated Use the `useSlots` hook instead.
+ *
+ * createSlots is a factory that can create a
  *  typesafe Slots + Slot pair to use in a component definition
  *  For example: ActionList.Item uses createSlots to get a Slots wrapper
  *  + Slot component that is used by LeadingVisual, Description
