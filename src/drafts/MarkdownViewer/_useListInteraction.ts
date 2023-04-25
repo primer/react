@@ -1,4 +1,5 @@
 import {useCallback, useEffect, useRef, useState} from 'react'
+import useIsomorphicLayoutEffect from '../../utils/useIsomorphicLayoutEffect'
 import {ListItem, listItemToString, parseListItem} from '../MarkdownEditor/_useListEditing'
 
 type TaskListItem = ListItem & {taskBox: '[ ]' | '[x]'}
@@ -35,7 +36,7 @@ export const useListInteraction = ({
   // onToggleItem, which would mean we'd have to re-bind the event handlers on every change
   const markdownRef = useRef(markdownValue)
 
-  useEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     markdownRef.current = markdownValue
   }, [markdownValue])
 
