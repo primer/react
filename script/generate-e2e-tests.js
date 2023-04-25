@@ -1420,6 +1420,25 @@ const components = new Map([
       ],
     },
   ],
+  [
+    'UnderlineNav--deprecated',
+    {
+      stories: [
+        {
+          id: 'components-underlinenav--default',
+          name: 'Default',
+        },
+        {
+          id: 'components-underlinenav--playground',
+          name: 'Playground',
+        },
+        {
+          id: 'components-underlinenav-features--actions',
+          name: 'Actions',
+        },
+      ],
+    },
+  ],
 ])
 
 for (const [component, info] of components) {
