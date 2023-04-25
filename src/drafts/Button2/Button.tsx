@@ -81,7 +81,7 @@ const ButtonComponent = React.forwardRef(
           </span>
         )}
         {TrailingAction && (
-          <span data-component="trailingVisual">
+          <span data-component="trailingAction">
             <TrailingAction />
           </span>
         )}

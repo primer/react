@@ -79,21 +79,6 @@
   border-color: var(--prc-btn-disabled-border, var(--prc-btn-border));
 }
 
-/* todo: does the counter change sizes? */
-.counter {
-  color: var(--prc-btn-counter-text, var(--color-btn-text));
-  background-color: var(--prc-btn-counter-bg, var(--color-neutral-muted));
-}
-.button:hover:not([disabled]) .counter,
-.button:focus .counter,
-.button:focus-visible .counter {
-  color: var(--prc-btn-counter-hover-text, var(--prc-btn-counter-text, var(--color-btn-text)));
-  background-color: var(--prc-btn-counter-hover-bg, var(--prc-btn-counter-bg, var(--color-neutral-muted)));
-}
-.button:disabled .counter {
-  color: inherit;
-}
-
 /* variants: definitions */
 .button[data-variant='default'] {
   --prc-btn-text: var(--color-btn-text);
@@ -195,4 +180,24 @@
   --prc-btn-counter-bg: var(--color-btn-outline-counter-bg);
   --prc-btn-counter-hover-text: var(--color-btn-outline-hover-text);
   --prc-btn-counter-hover-bg: var(--color-btn-outline-hover-counter-bg);
+}
+
+/* trailing action */
+.button [data-component='trailingAction'] {
+  margin-right: calc(-1 * var(--base-size-4));
+}
+
+/* counter */
+.counter {
+  color: var(--prc-btn-counter-text, var(--color-btn-text));
+  background-color: var(--prc-btn-counter-bg, var(--color-neutral-muted));
+}
+.button:hover:not([disabled]) .counter,
+.button:focus .counter,
+.button:focus-visible .counter {
+  color: var(--prc-btn-counter-hover-text, var(--prc-btn-counter-text, var(--color-btn-text)));
+  background-color: var(--prc-btn-counter-hover-bg, var(--prc-btn-counter-bg, var(--color-neutral-muted)));
+}
+.button:disabled .counter {
+  color: inherit;
 }
