@@ -15,6 +15,10 @@ module.exports = {
         optimizationLevel: 2,
       },
     },
+    {
+      name: 'storybook-css-modules',
+      options: {cssModulesLoaderOptions: {modules: {localIdentName: 'prc_[local]-[hash:base64:5]'}}},
+    },
   ],
   core: {
     builder: {
