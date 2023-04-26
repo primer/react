@@ -213,6 +213,7 @@ export function Pagination({
                 }}
               >
                 {1}
+                {hasLeadingTruncation ? <VisuallyHidden>…</VisuallyHidden> : null}
               </Page>
             </Step>
           ) : null}
@@ -236,6 +237,9 @@ export function Pagination({
                       }}
                     >
                       {page + 1}
+                      {i === truncatedPageCount - 2 && hasTrailingTruncation ? (
+                        <VisuallyHidden>…</VisuallyHidden>
+                      ) : null}
                     </Page>
                   </Step>
                 )
