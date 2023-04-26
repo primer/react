@@ -49,6 +49,10 @@ export interface TokenBaseProps
    * Which size the token will be rendered at
    */
   size?: TokenSizeKeys
+  /**
+   * Whether or not the token is disabled (non-interactive).
+   */
+  disabled?: boolean
 }
 
 export const isTokenInteractive = ({
@@ -56,8 +60,13 @@ export const isTokenInteractive = ({
   onClick,
   onFocus,
   tabIndex = -1,
-}: Pick<ComponentProps<typeof TokenBase>, 'as' | 'onClick' | 'onFocus' | 'tabIndex'>) =>
-  Boolean(onFocus || onClick || tabIndex > -1 || ['a', 'button'].includes(as))
+  disabled,
+}: Pick<ComponentProps<typeof TokenBase>, 'disabled' | 'as' | 'onClick' | 'onFocus' | 'tabIndex'>) => {
+  if (disabled) {
+    return false
+  }
+  return Boolean(onFocus || onClick || tabIndex > -1 || ['a', 'button'].includes(as))
+}
 
 const xlargeVariantStyles = {
   fontSize: 1,

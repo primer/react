@@ -1,8 +1,8 @@
 import React from 'react'
 import Box from '../Box'
-import {SxProp, merge} from '../sx'
 import Truncate from '../Truncate'
-import {Slot, ItemContext} from './shared'
+import {SxProp, merge} from '../sx'
+import {ItemContext} from './shared'
 
 export type ActionListDescriptionProps = {
   /**
@@ -28,29 +28,25 @@ export const Description: React.FC<React.PropsWithChildren<ActionListDescription
     marginLeft: variant === 'block' ? 0 : 2,
   }
 
-  return (
-    <Slot name={variant === 'block' ? 'BlockDescription' : 'InlineDescription'}>
-      {({blockDescriptionId, inlineDescriptionId, disabled}: ItemContext) =>
-        variant === 'block' ? (
-          <Box
-            as="span"
-            sx={merge({...styles, color: disabled ? 'fg.disabled' : 'fg.muted'}, sx as SxProp)}
-            id={blockDescriptionId}
-          >
-            {props.children}
-          </Box>
-        ) : (
-          <Truncate
-            id={inlineDescriptionId}
-            sx={merge({...styles, color: disabled ? 'fg.disabled' : 'fg.muted'}, sx as SxProp)}
-            title={props.children as string}
-            inline={true}
-            maxWidth="100%"
-          >
-            {props.children}
-          </Truncate>
-        )
-      }
-    </Slot>
+  const {blockDescriptionId, inlineDescriptionId, disabled} = React.useContext(ItemContext)
+
+  return variant === 'block' ? (
+    <Box
+      as="span"
+      sx={merge({...styles, color: disabled ? 'fg.disabled' : 'fg.muted'}, sx as SxProp)}
+      id={blockDescriptionId}
+    >
+      {props.children}
+    </Box>
+  ) : (
+    <Truncate
+      id={inlineDescriptionId}
+      sx={merge({...styles, color: disabled ? 'fg.disabled' : 'fg.muted'}, sx as SxProp)}
+      title={props.children as string}
+      inline={true}
+      maxWidth="100%"
+    >
+      {props.children}
+    </Truncate>
   )
 }

@@ -55,50 +55,6 @@
         }
       ]
     },
-    "styled_octicon": {
-      "id": "styled_octicon",
-      "name": "StyledOcticon",
-      "status": "alpha",
-      "a11yReviewed": false,
-      "stories": [],
-      "props": [
-        {
-          "name": "ariaLabel",
-          "type": "string",
-          "defaultValue": "",
-          "description": "Specifies the aria-label attribute, which is read verbatim by screen readers "
-        },
-        {
-          "name": "icon",
-          "type": "Component",
-          "defaultValue": "",
-          "description": "Checks the input by default in uncontrolled modeName of the [Octicon component](https://primer.style/octicons/) used in the"
-        },
-        {
-          "name": "color",
-          "type": "string",
-          "defaultValue": "",
-          "description": "Sets an override color for the Octicon. Compatible with colors from the [Primer color system](https://primer.style/primitives/colors).\""
-        },
-        {
-          "name": "size",
-          "type": "number",
-          "defaultValue": "16",
-          "description": "Sets the uniform `width` and `height` of the SVG element"
-        },
-        {
-          "name": "verticalAlign",
-          "type": "string",
-          "defaultValue": "text-bottom",
-          "description": "Sets the `vertical-align` CSS property"
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject"
-        }
-      ],
-      "subcomponents": []
-    },
     "tooltip": {
       "id": "tooltip",
       "name": "Tooltip",
@@ -138,100 +94,6 @@
       ],
       "subcomponents": []
     },
-    "truncate": {
-      "id": "truncate",
-      "name": "Truncate",
-      "status": "alpha",
-      "a11yReviewed": false,
-      "stories": [],
-      "props": [
-        {
-          "name": "maxWidth",
-          "type": "number",
-          "defaultValue": "125",
-          "description": "Sets the max-width of the text."
-        },
-        {
-          "name": "inline",
-          "type": "boolean",
-          "defaultValue": "false",
-          "description": "Displays text as inline block and vertical aligns to the top."
-        },
-        {
-          "name": "expandable",
-          "type": "boolean",
-          "defaultValue": "false",
-          "description": "Allows the truncated text to be displayed on hover."
-        },
-        {
-          "name": "as",
-          "type": "React.ElementType",
-          "defaultValue": "'div'"
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject"
-        }
-      ],
-      "subcomponents": []
-    },
-    "underline_nav": {
-      "id": "underline_nav",
-      "name": "UnderlineNav",
-      "status": "alpha",
-      "a11yReviewed": false,
-      "stories": [],
-      "props": [
-        {
-          "name": "actions",
-          "type": "React.ReactNode",
-          "description": "Place another element, such as a button, to the opposite side of the navigation items."
-        },
-        {
-          "name": "align",
-          "type": "'right'",
-          "description": "Use `right` to have navigation items aligned right."
-        },
-        {
-          "name": "full",
-          "type": "boolean",
-          "description": "Used to make navigation fill the width of the container."
-        },
-        {
-          "name": "aria-label",
-          "type": "string",
-          "description": "Used to set the `aria-label` on the top level `<nav>` element."
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject"
-        }
-      ],
-      "subcomponents": [
-        {
-          "name": "UnderlineNav.Link",
-          "props": [
-            {
-              "name": "as",
-              "type": "React.ElementType",
-              "defaultValue": "'a'"
-            },
-            {
-              "name": "href",
-              "type": "string"
-            },
-            {
-              "name": "selected",
-              "type": "boolean"
-            },
-            {
-              "name": "sx",
-              "type": "SystemStyleObject"
-            }
-          ]
-        }
-      ]
-    },
     "action_list": {
       "id": "action_list",
       "name": "ActionList",
@@ -246,7 +108,7 @@
       "props": [
         {
           "name": "children",
-          "type": "ActionList.Item[] | ActionList.LinkItem[] | ActionList.Group[]",
+          "type": "ActionList.Item[] | ActionList.LinkItem[] | ActionList.Divider[]",
           "defaultValue": "",
           "required": true,
           "description": ""
@@ -423,48 +285,34 @@
           ]
         },
         {
-          "name": "ActionList.Group",
+          "name": "ActionList.Heading",
           "props": [
             {
-              "name": "children",
-              "type": "ActionList.Item[] | ActionList.LinkItem[]",
-              "defaultValue": "",
-              "required": true,
+              "name": "variant",
+              "type": "'subtle' | 'filled'",
+              "defaultValue": "subtle",
               "description": ""
             },
             {
               "name": "title",
               "type": "string",
               "defaultValue": "",
-              "description": "Title of the group."
+              "required": true,
+              "description": ""
             },
             {
-              "name": "auxiliaryText",
+              "name": "subtitle",
               "type": "string",
               "defaultValue": "",
-              "description": "Secondary text that provides additional information about the group."
+              "required": false,
+              "description": ""
             },
             {
-              "name": "variant",
-              "type": "'filled' | 'subtle'",
-              "defaultValue": "'subtle'",
-              "description": "`inline` descriptions are positioned beside primary text. `block` descriptions are positioned below primary text."
-            },
-            {
-              "name": "selectionVariant",
-              "type": "'single' | 'multiple' | false",
-              "defaultValue": "",
-              "description": "Set `selectionVariant` at the group level."
-            },
-            {
-              "name": "role",
-              "type": "AriaRole",
-              "defaultValue": "",
-              "description": "ARIA role describing the function of the list inside the group. `listbox` and `menu` are a common values."
-            },
-            {
-              "name": "sx",
-              "type": "SystemStyleObject"
+              "name": "headingLevel",
+              "type": "'1' | '2' | '3' | '4' | '5' | '6'",
+              "defaultValue": "3",
+              "required": false,
+              "description": ""
             }
           ]
         }
@@ -3120,7 +2968,12 @@
       "name": "Portal",
       "status": "alpha",
       "a11yReviewed": false,
-      "stories": [],
+      "stories": [
+        {
+          "id": "components-portal--default",
+          "code": "() => (\n  <>\n    Root position\n    <Box bg=\"red.2\" p={3}>\n      Outer container\n      <Box bg=\"green.2\" p={3}>\n        Inner container\n        <Portal>\n          Portaled content rendered at <code>&lt;BaseStyles&gt;</code> root.\n        </Portal>\n      </Box>\n    </Box>\n  </>\n)"
+        }
+      ],
       "props": [
         {
           "name": "onMount",
@@ -3378,7 +3231,7 @@
           "type": "string",
           "defaultValue": "",
           "required": true,
-          "description": "An ISO8601 time represeting the time"
+          "description": "An ISO8601 time representing the time"
         },
         {
           "name": "date",
@@ -3666,7 +3519,12 @@
       "name": "SelectPanel",
       "status": "alpha",
       "a11yReviewed": false,
-      "stories": [],
+      "stories": [
+        {
+          "id": "components-selectpanel--default",
+          "code": "() => {\n  const [selected, setSelected] = React.useState<ItemInput[]>([\n    items[0],\n    items[1],\n  ])\n  const [filter, setFilter] = React.useState('')\n  const filteredItems = items.filter((item) =>\n    item.text.toLowerCase().startsWith(filter.toLowerCase()),\n  )\n  const [open, setOpen] = useState(false)\n  return (\n    <>\n      <h1>Multi Select Panel</h1>\n      <div>Please select labels that describe your issue:</div>\n      <SelectPanel\n        renderAnchor={({\n          children,\n          'aria-labelledby': ariaLabelledBy,\n          ...anchorProps\n        }) => (\n          <Button\n            trailingAction={TriangleDownIcon}\n            aria-labelledby={` ${ariaLabelledBy}`}\n            {...anchorProps}\n          >\n            {children ?? 'Select Labels'}\n          </Button>\n        )}\n        placeholderText=\"Filter Labels\"\n        open={open}\n        onOpenChange={setOpen}\n        items={filteredItems}\n        selected={selected}\n        onSelectedChange={setSelected}\n        onFilterChange={setFilter}\n        showItemDividers={true}\n        overlayProps={{\n          width: 'small',\n          height: 'xsmall',\n        }}\n      />\n    </>\n  )\n}"
+        }
+      ],
       "props": [
         {
           "name": "onOpenChange",
@@ -3748,7 +3606,7 @@
       "stories": [
         {
           "id": "components-splitpagelayout--default",
-          "code": "Template.bind({})"
+          "code": "() => (\n  <SplitPageLayout>\n    <SplitPageLayout.Header>\n      <Placeholder label=\"Header\" height={100} />\n    </SplitPageLayout.Header>\n    <SplitPageLayout.Pane position=\"start\">\n      <Placeholder label=\"Pane\" height={400} />\n    </SplitPageLayout.Pane>\n    <SplitPageLayout.Content>\n      <Placeholder label=\"Content\" height={600} />\n    </SplitPageLayout.Content>\n    <SplitPageLayout.Footer>\n      <Placeholder label=\"Footer\" height={100} />\n    </SplitPageLayout.Footer>\n  </SplitPageLayout>\n)"
         }
       ],
       "props": [
@@ -3925,6 +3783,55 @@
           "name": "status",
           "type": "'issueOpened' | 'issueClosed' | 'issueClosedNotPlanned' | 'pullOpened' | 'pullClosed' | 'pullMerged' | 'draft' | 'issueDraft'",
           "required": true
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ],
+      "subcomponents": []
+    },
+    "styled_octicon": {
+      "id": "styled_octicon",
+      "name": "StyledOcticon",
+      "status": "alpha",
+      "a11yReviewed": false,
+      "stories": [
+        {
+          "id": "components-styledocticon--default",
+          "code": "() => <StyledOcticon icon={HeartFillIcon} size={32} />"
+        }
+      ],
+      "props": [
+        {
+          "name": "ariaLabel",
+          "type": "string",
+          "defaultValue": "",
+          "description": "Specifies the aria-label attribute, which is read verbatim by screen readers "
+        },
+        {
+          "name": "icon",
+          "type": "Component",
+          "defaultValue": "",
+          "description": "Checks the input by default in uncontrolled modeName of the [Octicon component](https://primer.style/octicons/) used in the"
+        },
+        {
+          "name": "color",
+          "type": "string",
+          "defaultValue": "",
+          "description": "Sets an override color for the Octicon. Compatible with colors from the [Primer color system](https://primer.style/primitives/colors).\""
+        },
+        {
+          "name": "size",
+          "type": "number",
+          "defaultValue": "16",
+          "description": "Sets the uniform `width` and `height` of the SVG element"
+        },
+        {
+          "name": "verticalAlign",
+          "type": "string",
+          "defaultValue": "text-bottom",
+          "description": "Sets the `vertical-align` CSS property"
         },
         {
           "name": "sx",
@@ -4868,6 +4775,110 @@
         }
       ]
     },
+    "truncate": {
+      "id": "truncate",
+      "name": "Truncate",
+      "status": "alpha",
+      "a11yReviewed": false,
+      "stories": [
+        {
+          "id": "components-truncate--default",
+          "code": "() => <Truncate title=\"Some example text\">Some example text</Truncate>"
+        }
+      ],
+      "props": [
+        {
+          "name": "maxWidth",
+          "type": "number",
+          "defaultValue": "125",
+          "description": "Sets the max-width of the text."
+        },
+        {
+          "name": "inline",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "Displays text as inline block and vertical aligns to the top."
+        },
+        {
+          "name": "expandable",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "Allows the truncated text to be displayed on hover."
+        },
+        {
+          "name": "as",
+          "type": "React.ElementType",
+          "defaultValue": "'div'"
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ],
+      "subcomponents": []
+    },
+    "underline_nav": {
+      "id": "underline_nav",
+      "name": "UnderlineNav",
+      "status": "alpha",
+      "a11yReviewed": false,
+      "stories": [
+        {
+          "id": "components-underlinenav--default",
+          "code": "() => (\n  <UnderlineNav aria-label=\"Main\">\n    <UnderlineNav.Link href=\"#home\" selected>\n      Home\n    </UnderlineNav.Link>\n    <UnderlineNav.Link href=\"#documentation\">Documentation</UnderlineNav.Link>\n    <UnderlineNav.Link href=\"#support\">Support</UnderlineNav.Link>\n  </UnderlineNav>\n)"
+        }
+      ],
+      "props": [
+        {
+          "name": "actions",
+          "type": "React.ReactNode",
+          "description": "Place another element, such as a button, to the opposite side of the navigation items."
+        },
+        {
+          "name": "align",
+          "type": "'right'",
+          "description": "Use `right` to have navigation items aligned right."
+        },
+        {
+          "name": "full",
+          "type": "boolean",
+          "description": "Used to make navigation fill the width of the container."
+        },
+        {
+          "name": "aria-label",
+          "type": "string",
+          "description": "Used to set the `aria-label` on the top level `<nav>` element."
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ],
+      "subcomponents": [
+        {
+          "name": "UnderlineNav.Link",
+          "props": [
+            {
+              "name": "as",
+              "type": "React.ElementType",
+              "defaultValue": "'a'"
+            },
+            {
+              "name": "href",
+              "type": "string"
+            },
+            {
+              "name": "selected",
+              "type": "boolean"
+            },
+            {
+              "name": "sx",
+              "type": "SystemStyleObject"
+            }
+          ]
+        }
+      ]
+    },
     "drafts_underline_nav2": {
       "id": "drafts_underline_nav2",
       "name": "UnderlineNav",
@@ -4943,11 +4954,6 @@
               "type": "(event) => void",
               "defaultValue": "",
               "description": "The handler that gets called when a nav link is selected. For example, a manual route binding can be done here(I.e. 'navigate(href)' for the react router.)"
-            },
-            {
-              "name": "as",
-              "type": "React.ElementType",
-              "defaultValue": "\"a\""
             },
             {
               "name": "as",
