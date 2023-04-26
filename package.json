@@ -206,6 +206,7 @@
     "husky": "8.0.2",
     "jest": "29.4.2",
     "jest-axe": "7.0.1",
+    "jest-css-modules": "2.1.0",
     "jest-environment-jsdom": "29.4.3",
     "jest-fail-on-console": "3.1.1",
     "jest-matchmedia-mock": "1.1.0",
