@@ -189,6 +189,11 @@ export default {
       control: {type: 'radio'},
       table: {category: 'Pane props'},
     },
+    'Pane.minWidth': {
+      type: 'number',
+      defaultValue: 256,
+      table: {category: 'Pane props'},
+    },
     'Pane.sticky': {
       type: 'boolean',
       defaultValue: true,
@@ -342,6 +347,7 @@ const Template: Story = args => (
           wide: args['Pane.position.wide'],
         }}
         width={args['Pane.width']}
+        minWidth={args['Pane.minWidth']}
         sticky={args['Pane.sticky']}
         padding={args['Pane.padding']}
         divider={{
