@@ -29,6 +29,7 @@ describe('Table.Pagination', () => {
     expect(spy).toHaveBeenCalledWith(
       'Warning:',
       expect.stringMatching(
+        // eslint-disable-next-line github/unescaped-html-literal
         '<Pagination> expected `defaultPageIndex` to be less than the total number of pages. Instead, received a `defaultPageIndex` of 4 with 4 total pages.',
       ),
     )

@@ -429,6 +429,7 @@ function usePagination(config: PaginationConfig): PaginationResult {
 
       warning(
         true,
+        // eslint-disable-next-line github/unescaped-html-literal
         '<Pagination> expected `defaultPageIndex` to be less than the ' +
           'total number of pages. Instead, received a `defaultPageIndex` ' +
           'of %s with %s total pages.',
