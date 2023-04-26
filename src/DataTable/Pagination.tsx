@@ -11,6 +11,7 @@ const StyledPagination = styled.nav`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  column-gap: 1rem;
   width: 100%;
   grid-area: footer;
   padding: 0.5rem 1rem;
@@ -27,8 +28,9 @@ const StyledPagination = styled.nav`
 
   .TablePaginationSteps {
     display: flex;
-    list-style: none;
     align-items: center;
+    flex-wrap: wrap;
+    list-style: none;
     color: ${get('colors.fg.default')};
     font-size: 0.875rem;
     margin: 0;
