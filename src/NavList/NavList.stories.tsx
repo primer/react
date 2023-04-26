@@ -26,6 +26,18 @@ export const Simple: Story = () => (
   </PageLayout>
 )
 
+export const WithGroup: Story = () => (
+  <NavList>
+    <NavList.Group title="Group title">
+      <NavList.Item href="#" aria-current="page">
+        Item 1
+      </NavList.Item>
+      <NavList.Item href="#">Item 2</NavList.Item>
+      <NavList.Item href="#">Item 3</NavList.Item>
+    </NavList.Group>
+  </NavList>
+)
+
 export const WithSubItems: Story = () => (
   <PageLayout>
     <PageLayout.Pane position="start">
