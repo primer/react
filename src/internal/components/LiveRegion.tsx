@@ -47,8 +47,14 @@ function Message({value}: {value: string}) {
   }, [liveRegion])
 
   React.useEffect(() => {
-    if (committedRef.current === true) {
+    if (committedRef.current !== true) {
+      return
+    }
+    const timeoutId = setTimeout(() => {
       savedLiveRegion.current.announce(value)
+    }, 750)
+    return () => {
+      clearTimeout(timeoutId)
     }
   }, [value])
 
