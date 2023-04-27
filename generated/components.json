@@ -1347,6 +1347,10 @@
         {
           "id": "components-datatable-features--with-loading",
           "code": "() => {\n  const [loading] = React.useState(true)\n  return (\n    <Table.Container>\n      <Table.Title as=\"h2\" id=\"repositories\">\n        Repositories\n      </Table.Title>\n      <Table.Subtitle as=\"p\" id=\"repositories-subtitle\">\n        A subtitle could appear here to give extra context to the data.\n      </Table.Subtitle>\n      {loading ? (\n        <Table.Skeleton\n          aria-labelledby=\"repositories\"\n          aria-describedby=\"repositories-subtitle\"\n          columns={columns}\n          rows={10}\n        />\n      ) : (\n        <DataTable\n          aria-labelledby=\"repositories\"\n          aria-describedby=\"repositories-subtitle\"\n          data={data}\n          columns={columns}\n        />\n      )}\n    </Table.Container>\n  )\n}"
+        },
+        {
+          "id": "components-datatable-features--with-pagination",
+          "code": "() => {\n  const pageSize = 10\n  const [pageIndex, setPageIndex] = React.useState(0)\n  const start = pageIndex * pageSize\n  const end = start + pageSize\n  const rows = repos.slice(start, end)\n  return (\n    <Table.Container>\n      <Table.Title as=\"h2\" id=\"repositories\">\n        Repositories\n      </Table.Title>\n      <Table.Subtitle as=\"p\" id=\"repositories-subtitle\">\n        A subtitle could appear here to give extra context to the data.\n      </Table.Subtitle>\n      <DataTable\n        aria-labelledby=\"repositories\"\n        aria-describedby=\"repositories-subtitle\"\n        data={rows}\n        columns={[\n          {\n            header: 'Repository',\n            field: 'name',\n            rowHeader: true,\n          },\n          {\n            header: 'Type',\n            field: 'type',\n            renderCell: (row) => {\n              return <Label>{uppercase(row.type)}</Label>\n            },\n          },\n          {\n            header: 'Updated',\n            field: 'updatedAt',\n            renderCell: (row) => {\n              return <RelativeTime date={new Date(row.updatedAt)} />\n            },\n          },\n          {\n            header: 'Dependabot',\n            field: 'securityFeatures.dependabot',\n            renderCell: (row) => {\n              return row.securityFeatures.dependabot.length > 0 ? (\n                <LabelGroup>\n                  {row.securityFeatures.dependabot.map((feature) => {\n                    return <Label key={feature}>{uppercase(feature)}</Label>\n                  })}\n                </LabelGroup>\n              ) : null\n            },\n          },\n          {\n            header: 'Code scanning',\n            field: 'securityFeatures.codeScanning',\n            renderCell: (row) => {\n              return row.securityFeatures.codeScanning.length > 0 ? (\n                <LabelGroup>\n                  {row.securityFeatures.codeScanning.map((feature) => {\n                    return <Label key={feature}>{uppercase(feature)}</Label>\n                  })}\n                </LabelGroup>\n              ) : null\n            },\n          },\n        ]}\n      />\n      <Table.Pagination\n        aria-label=\"Pagination for Repositories\"\n        pageSize={pageSize}\n        totalCount={repos.length}\n        onChange={({ pageIndex }) => {\n          setPageIndex(pageIndex)\n        }}\n      />\n    </Table.Container>\n  )\n}"
         }
       ],
       "props": [
@@ -1504,6 +1508,37 @@
               "name": "rows",
               "type": "number",
               "description": "Optionally specify the number of rows which should be included in the skeleton state of the component"
+            }
+          ]
+        },
+        {
+          "name": "Table.Pagination",
+          "props": [
+            {
+              "name": "aria-label",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "defaultPageIndex",
+              "type": "string"
+            },
+            {
+              "name": "id",
+              "type": "string"
+            },
+            {
+              "name": "onChange",
+              "type": "({ pageIndex }: { pageIndex: number }) => void"
+            },
+            {
+              "name": "pageSize",
+              "type": "number"
+            },
+            {
+              "name": "totalCount",
+              "type": "number",
+              "required": true
             }
           ]
         }
