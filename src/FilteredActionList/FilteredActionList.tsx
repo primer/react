@@ -1,8 +1,7 @@
 import React, {KeyboardEventHandler, useCallback, useEffect, useRef} from 'react'
-import {GroupedListProps, ListPropsBase} from '../deprecated/ActionList/List'
 import TextInput, {TextInputProps} from '../TextInput'
 import Box from '../Box'
-import {ActionList} from '../deprecated/ActionList'
+import {ActionList, ActionListProps, ActionListItemProps} from '../ActionList'
 import Spinner from '../Spinner'
 import {useFocusZone} from '../hooks/useFocusZone'
 import {useProvidedStateOrCreate} from '../hooks/useProvidedStateOrCreate'
@@ -17,16 +16,20 @@ import {useId} from '../hooks/useId'
 
 const menuScrollMargins: ScrollIntoViewOptions = {startMargin: 0, endMargin: 8}
 
-export interface FilteredActionListProps
-  extends Partial<Omit<GroupedListProps, keyof ListPropsBase>>,
-    ListPropsBase,
-    SxProp {
+export type ItemInput = Partial<ActionListItemProps> & {
+  leadingVisual?: React.ReactElement
+  text: string
+}
+
+export interface FilteredActionListProps extends ActionListProps, SxProp {
   loading?: boolean
   placeholderText: string
   filterValue?: string
   onFilterChange: (value: string, e: React.ChangeEvent<HTMLInputElement>) => void
   textInputProps?: Partial<Omit<TextInputProps, 'onChange'>>
   inputRef?: React.RefObject<HTMLInputElement>
+  items: ItemInput[]
+  renderFn: (props: ItemInput) => React.ReactElement
 }
 
 const StyledHeader = styled.div`
@@ -40,6 +43,7 @@ export function FilteredActionList({
   filterValue: externalFilterValue,
   onFilterChange,
   items,
+  renderFn,
   textInputProps,
   inputRef: providedInputRef,
   sx,
@@ -56,7 +60,7 @@ export function FilteredActionList({
   )
 
   const scrollContainerRef = useRef<HTMLDivElement>(null)
-  const listContainerRef = useRef<HTMLDivElement>(null)
+  const listContainerRef = useRef<HTMLUListElement>(null)
   const inputRef = useProvidedRefOrCreate<HTMLInputElement>(providedInputRef)
   const activeDescendantRef = useRef<HTMLElement>()
   const listId = useId()
@@ -82,7 +86,7 @@ export function FilteredActionList({
         return !(element instanceof HTMLInputElement)
       },
       activeDescendantFocus: inputRef,
-      onActiveDescendantChanged: (current, previous, directlyActivated) => {
+      onActiveDescendantChanged: (current, _previous, directlyActivated) => {
         activeDescendantRef.current = current
 
         if (current && scrollContainerRef.current && directlyActivated) {
@@ -128,7 +132,9 @@ export function FilteredActionList({
             <Spinner />
           </Box>
         ) : (
-          <ActionList ref={listContainerRef} items={items} {...listProps} role="listbox" id={listId} />
+          <ActionList ref={listContainerRef} {...listProps} role="listbox" id={listId}>
+            {items.map(i => renderFn(i))}
+          </ActionList>
         )}
       </Box>
     </Box>

@@ -1,7 +1,8 @@
 import {Meta} from '@storybook/react'
 import React from 'react'
 import {ThemeProvider} from '..'
-import {FilteredActionList} from '../FilteredActionList'
+import {FilteredActionList, ItemInput} from '../FilteredActionList'
+import {ActionList} from '../ActionList'
 import BaseStyles from '../BaseStyles'
 import Box from '../Box'
 
@@ -26,20 +27,18 @@ const meta: Meta = {
 export default meta
 
 function getColorCircle(color: string) {
-  return function () {
-    return (
-      <Box
-        bg={color}
-        borderColor={color}
-        width={14}
-        height={14}
-        borderRadius={10}
-        margin="auto"
-        borderWidth="1px"
-        borderStyle="solid"
-      />
-    )
-  }
+  return (
+    <Box
+      bg={color}
+      borderColor={color}
+      width={14}
+      height={14}
+      borderRadius={10}
+      margin="auto"
+      borderWidth="1px"
+      borderStyle="solid"
+    />
+  )
 }
 
 const items = [
@@ -50,7 +49,7 @@ const items = [
   {leadingVisual: getColorCircle('#ff0000'), text: 'blocker', id: 5},
   {leadingVisual: getColorCircle('#a4f287'), text: 'backend', id: 6},
   {leadingVisual: getColorCircle('#8dc6fc'), text: 'frontend', id: 7},
-]
+] as ItemInput[]
 
 export function Default(): JSX.Element {
   const [filter, setFilter] = React.useState('')
@@ -65,6 +64,12 @@ export function Default(): JSX.Element {
         items={filteredItems}
         onFilterChange={setFilter}
         sx={{border: '1px solid', padding: '8px'}}
+        renderFn={({id, leadingVisual, text}) => (
+          <ActionList.Item key={id}>
+            {leadingVisual && <ActionList.LeadingVisual>{leadingVisual}</ActionList.LeadingVisual>}
+            {text}
+          </ActionList.Item>
+        )}
       />
     </>
   )
