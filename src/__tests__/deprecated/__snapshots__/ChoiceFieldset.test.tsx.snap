@@ -2203,6 +2203,7 @@ exports[`ChoiceFieldset renders with a success validation message 1`] = `
           class="c11"
         >
           <span
+            aria-live="polite"
             class="c12"
           >
             <span
@@ -2497,6 +2498,7 @@ exports[`ChoiceFieldset renders with an error validation message 1`] = `
           class="c11"
         >
           <span
+            aria-live="polite"
             class="c12"
           >
             <span
