@@ -5007,6 +5007,81 @@
         }
       ]
     },
+    "drafts_button": {
+      "id": "drafts_button",
+      "name": "Button2",
+      "status": "draft",
+      "a11yReviewed": false,
+      "stories": [
+        {
+          "id": "components-button2--default",
+          "code": "() => <Button>Default</Button>"
+        }
+      ],
+      "props": [
+        {
+          "name": "children",
+          "required": true,
+          "type": "React.ReactNode",
+          "description": "The content of the button."
+        },
+        {
+          "name": "variant",
+          "type": "| 'default'\n| 'primary'\n| 'danger'\n| 'outline'\n| 'invisible'",
+          "defaultValue": "'default'",
+          "description": "Change the visual style of the button."
+        },
+        {
+          "name": "size",
+          "type": "| 'small'\n| 'medium'\n| 'large'",
+          "defaultValue": "'medium'"
+        },
+        {
+          "name": "leadingIcon",
+          "type": "React.ComponentType<OcticonProps>",
+          "description": "An icon to display before the button text."
+        },
+        {
+          "name": "trailingIcon",
+          "type": "React.ComponentType<OcticonProps>",
+          "description": "An icon to display after the button text."
+        },
+        {
+          "name": "as",
+          "type": "React.ElementType",
+          "defaultValue": "'button'"
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        },
+        {
+          "name": "ref",
+          "type": "React.RefObject<HTMLButtonElement>"
+        }
+      ],
+      "passthrough": {
+        "element": "button",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#attributes"
+      },
+      "subcomponents": [
+        {
+          "name": "Button.Counter",
+          "props": [
+            {
+              "name": "children",
+              "required": true,
+              "type": "number",
+              "description": "The counter value."
+            },
+            {
+              "name": "sx",
+              "type": "SystemStyleObject"
+            }
+          ]
+        }
+      ]
+    },
     "drafts_inline_autocomplete": {
       "id": "drafts_inline_autocomplete",
       "name": "InlineAutocomplete",
