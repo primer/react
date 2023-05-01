@@ -1,6 +1,6 @@
 .component {
-  background-color: tomato;
-  color: white;
+  background-color: var(--color-canvas-default);
+  color: var(--color-fg-muted);
   width: fit-content;
-  padding: 0.625rem 0.75rem;
+  padding: var(--control-xsmall-paddingBlock) var(--control-xsmall-paddingInline-normal);
 }
