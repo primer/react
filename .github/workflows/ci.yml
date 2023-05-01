@@ -73,10 +73,6 @@ jobs:
         run: npm run test -- --coverage
 
   type-check:
-    strategy:
-      fail-fast: false
-      matrix:
-        react: [17, 18]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -88,15 +84,7 @@ jobs:
           node-version: 18
           cache: 'npm'
 
-      - name: Set React version
-        run: node script/set-react-version.js ${{ matrix.react }}
-
       - name: Install dependencies
-        if: ${{ matrix.react == 17 }}
-        run: npm install --legacy-peer-deps
-
-      - name: Install dependencies
-        if: ${{ matrix.react != 17 }}
         run: npm ci
 
       - name: Type check
