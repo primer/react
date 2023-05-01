@@ -1,4 +1,12 @@
-import {BookIcon, DownloadIcon, KebabHorizontalIcon, PencilIcon, PlusIcon, RepoIcon, TrashIcon} from '@primer/octicons-react'
+import {
+  BookIcon,
+  DownloadIcon,
+  KebabHorizontalIcon,
+  PencilIcon,
+  PlusIcon,
+  RepoIcon,
+  TrashIcon,
+} from '@primer/octicons-react'
 import {action} from '@storybook/addon-actions'
 import {Meta} from '@storybook/react'
 import React from 'react'
@@ -1514,6 +1522,5 @@ export const WithPagination = () => {
         }}
       />
     </Table.Container>
->>>>>>> c0cbdd0806809236e681cab535b4a74ecdfcc14a
   )
 }
