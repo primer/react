@@ -14,6 +14,7 @@ import {
   TableDivider,
   TableSkeleton,
 } from './Table'
+import {Pagination} from './Pagination'
 
 const Table = Object.assign(TableImpl, {
   Container: TableContainer,
@@ -28,6 +29,7 @@ const Table = Object.assign(TableImpl, {
   Row: TableRow,
   Cell: TableCell,
   CellPlaceholder: TableCellPlaceholder,
+  Pagination,
 })
 
 export {DataTable, Table}

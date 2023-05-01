@@ -35,6 +35,9 @@ export type ActionListGroupProps = {
 type ContextProps = Pick<ActionListGroupProps, 'selectionVariant'>
 export const GroupContext = React.createContext<ContextProps>({})
 
+/**
+ * @deprecated ActionList.Group is deprecated. Use ActionList with ActionList.Heading instead.
+ */
 export const Group: React.FC<React.PropsWithChildren<ActionListGroupProps>> = ({
   title,
   variant = 'subtle',
@@ -58,7 +61,6 @@ export const Group: React.FC<React.PropsWithChildren<ActionListGroupProps>> = ({
       }}
       {...props}
     >
-      {title && <Header title={title} variant={variant} auxiliaryText={auxiliaryText} labelId={labelId} />}
       <GroupContext.Provider value={{selectionVariant}}>
         <Box
           as="ul"
@@ -66,6 +68,7 @@ export const Group: React.FC<React.PropsWithChildren<ActionListGroupProps>> = ({
           aria-labelledby={title ? labelId : undefined}
           role={role || (listRole && 'group')}
         >
+          {title && <Header title={title} variant={variant} auxiliaryText={auxiliaryText} labelId={labelId} />}
           {props.children}
         </Box>
       </GroupContext.Provider>
@@ -91,6 +94,7 @@ const Header: React.FC<React.PropsWithChildren<HeaderProps>> = ({variant, title,
     fontSize: 0,
     fontWeight: 'bold',
     color: 'fg.muted',
+    listStyle: 'none',
     ...(variant === 'filled' && {
       backgroundColor: 'canvas.subtle',
       marginX: 0,
@@ -102,7 +106,7 @@ const Header: React.FC<React.PropsWithChildren<HeaderProps>> = ({variant, title,
   }
 
   return (
-    <Box sx={styles} role="presentation" aria-hidden="true" {...props}>
+    <Box as="li" sx={styles} role="presentation" aria-hidden="true" {...props}>
       <span id={labelId}>{title}</span>
       {auxiliaryText && <span>{auxiliaryText}</span>}
     </Box>

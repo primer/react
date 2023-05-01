@@ -83,7 +83,7 @@ exports[`CheckboxOrRadioGroup renders consistently 1`] = `
   place-content: center;
   position: relative;
   width: var(--base-size-16,16px);
-  border-radius: var(--primer-borderRadius-full,100vh);
+  border-radius: var(--borderRadius-full,100vh);
   -webkit-transition: background-color,border-color 80ms cubic-bezier(0.33,1,0.68,1);
   transition: background-color,border-color 80ms cubic-bezier(0.33,1,0.68,1);
 }

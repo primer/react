@@ -43,6 +43,7 @@ const InputValidation: React.FC<React.PropsWithChildren<Props>> = ({children, id
         },
         ...sx,
       }}
+      aria-live="polite"
     >
       {IconComponent && (
         <Box as="span" display="flex" mr={1} sx={{transform: 'translateY(2px)'}} aria-hidden="true">
