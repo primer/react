@@ -10,7 +10,7 @@ type StyledTruncateProps = {
 } & MaxWidthProps &
   SxProp
 
-const Truncate = styled.div<StyledTruncateProps>`
+const StyledTruncate = styled.div<StyledTruncateProps>`
   display: ${props => (props.inline ? 'inline-block' : 'inherit')};
   overflow: hidden;
   text-overflow: ellipsis;
@@ -21,13 +21,10 @@ const Truncate = styled.div<StyledTruncateProps>`
   ${sx};
 `
 
-// TODO: Remove defaultProps to be compatible with the next major version of React
-// Reference: https://github.com/primer/react/issues/2758
-Truncate.defaultProps = {
-  expandable: false,
-  inline: false,
-  maxWidth: 125,
+export type TruncateProps = ComponentProps<typeof StyledTruncate>
+
+function Truncate({expandable = false, inline = false, maxWidth = 125, ...rest}: TruncateProps) {
+  return <StyledTruncate expandable={expandable} inline={inline} maxWidth={maxWidth} {...rest} />
 }
 
-export type TruncateProps = ComponentProps<typeof Truncate>
 export default Truncate

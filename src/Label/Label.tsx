@@ -76,7 +76,7 @@ const sizes: Record<LabelSizeKeys, BetterSystemStyleObject> = {
   },
 }
 
-const Label = styled.span<LabelProps>`
+const StyledLabel = styled.span<LabelProps>`
   align-items: center;
   background-color: transparent;
   border-width: 1px;
@@ -92,11 +92,8 @@ const Label = styled.span<LabelProps>`
   ${sx};
 `
 
-// TODO: Remove defaultProps to be compatible with the next major version of React
-// Reference: https://github.com/primer/react/issues/2758
-Label.defaultProps = {
-  size: 'small',
-  variant: 'default',
+function Label({size = 'small', variant = 'default', ...rest}: LabelProps) {
+  return <StyledLabel size={size} variant={variant} {...rest} />
 }
 
 export default Label

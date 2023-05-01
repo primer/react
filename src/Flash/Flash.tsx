@@ -46,7 +46,7 @@ type StyledFlashProps = {
   full?: boolean
 } & SxProp
 
-const Flash = styled.div<StyledFlashProps>`
+const StyledFlash = styled.div<StyledFlashProps>`
   position: relative;
   color: ${get('colors.fg.default')};
   padding: ${get('space.3')};
@@ -67,11 +67,10 @@ const Flash = styled.div<StyledFlashProps>`
   ${sx};
 `
 
-// TODO: Remove defaultProps to be compatible with the next major version of React
-// Reference: https://github.com/primer/react/issues/2758
-Flash.defaultProps = {
-  variant: 'default',
+export type FlashProps = ComponentProps<typeof StyledFlash>
+
+function Flash({variant = 'default', ...rest}: FlashProps) {
+  return <StyledFlash variant={variant} {...rest} />
 }
 
-export type FlashProps = ComponentProps<typeof Flash>
 export default Flash
