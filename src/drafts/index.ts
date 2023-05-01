@@ -21,7 +21,7 @@ export type {
   TableActionsProps,
 } from '../DataTable'
 
-export * from '../Dialog2'
+export * from '../Dialog/Dialog'
 
 export {default as InlineAutocomplete} from './InlineAutocomplete'
 export type {
@@ -51,3 +51,6 @@ export * from '../TreeView'
 export * from '../NavList'
 export * from '../SegmentedControl'
 export * from '../SplitPageLayout'
+
+// CSS Experiment
+export * from './Button2'

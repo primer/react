@@ -126,7 +126,6 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
         hasTrailingAction={Boolean(trailingAction)}
         isInputFocused={isInputFocused}
         onClick={focusInput}
-        aria-live="polite"
         aria-busy={Boolean(loading)}
       >
         {IconComponent && <IconComponent className="TextInput-icon" />}

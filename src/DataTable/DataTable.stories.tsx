@@ -1,13 +1,17 @@
-import {Meta, ComponentStory} from '@storybook/react'
+import {Meta} from '@storybook/react'
 import React from 'react'
-import {DataTable, Table} from '../DataTable'
+import {DataTable, DataTableProps, Table} from '../DataTable'
 import Label from '../Label'
 import LabelGroup from '../LabelGroup'
 import RelativeTime from '../RelativeTime'
+import {CellAlignment} from './column'
+import {UniqueRow} from './row'
+import {getColumnWidthArgTypes, ColWidthArgTypes} from './storyHelpers'
 
 export default {
   title: 'Components/DataTable',
   component: DataTable,
+  argTypes: getColumnWidthArgTypes(5),
 } as Meta<typeof DataTable>
 
 const now = Date.now()
@@ -179,7 +183,17 @@ export const Default = () => (
   </Table.Container>
 )
 
-export const Playground: ComponentStory<typeof DataTable> = args => {
+export const Playground = (args: DataTableProps<UniqueRow> & ColWidthArgTypes) => {
+  const getColWidth = (colIndex: number) => {
+    return args[`colWidth${colIndex}`] !== 'explicit width'
+      ? args[`colWidth${colIndex}`]
+      : args[`explicitColWidth${colIndex}`]
+      ? args[`explicitColWidth${colIndex}`]
+      : 'grow'
+  }
+
+  const align = args.align as CellAlignment
+
   return (
     <Table.Container>
       <Table.Title as="h2" id="repositories">
@@ -198,6 +212,10 @@ export const Playground: ComponentStory<typeof DataTable> = args => {
             header: 'Repository',
             field: 'name',
             rowHeader: true,
+            width: getColWidth(0),
+            minWidth: args.minColWidth0,
+            maxWidth: args.maxColWidth0,
+            align,
           },
           {
             header: 'Type',
@@ -205,6 +223,10 @@ export const Playground: ComponentStory<typeof DataTable> = args => {
             renderCell: row => {
               return <Label>{uppercase(row.type)}</Label>
             },
+            width: getColWidth(1),
+            minWidth: args.minColWidth1,
+            maxWidth: args.maxColWidth1,
+            align,
           },
           {
             header: 'Updated',
@@ -212,6 +234,10 @@ export const Playground: ComponentStory<typeof DataTable> = args => {
             renderCell: row => {
               return <RelativeTime date={new Date(row.updatedAt)} />
             },
+            width: getColWidth(2),
+            minWidth: args.minColWidth2,
+            maxWidth: args.maxColWidth2,
+            align,
           },
           {
             header: 'Dependabot',
@@ -225,6 +251,10 @@ export const Playground: ComponentStory<typeof DataTable> = args => {
                 </LabelGroup>
               ) : null
             },
+            width: getColWidth(3),
+            minWidth: args.minColWidth3,
+            maxWidth: args.maxColWidth3,
+            align,
           },
           {
             header: 'Code scanning',
@@ -238,6 +268,10 @@ export const Playground: ComponentStory<typeof DataTable> = args => {
                 </LabelGroup>
               ) : null
             },
+            width: getColWidth(4),
+            minWidth: args.minColWidth4,
+            maxWidth: args.maxColWidth4,
+            align,
           },
         ]}
       />
@@ -250,6 +284,15 @@ Playground.args = {
 }
 
 Playground.argTypes = {
+  align: {
+    control: {
+      type: 'radio',
+    },
+    type: {
+      name: 'enum',
+      value: ['start', 'end'],
+    },
+  },
   'aria-describedby': {
     control: false,
     table: {

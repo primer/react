@@ -37,7 +37,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: 18
           cache: 'npm'
       - name: Install dependencies
         run: npm ci
@@ -57,9 +57,15 @@ jobs:
       - name: Stop storybook
         if: ${{ always() }}
         run: kill ${{ steps.storybook.outputs.pid }}
+      - name: Create snapshots.zip
+        run: |
+          if [[ ! -z  $(git ls-files --others --exclude-standard --modified) ]]; then
+            git ls-files --others --exclude-standard --modified | zip snapshots -@
+          fi
       - name: Upload snapshots
         uses: actions/upload-artifact@v3
         with:
           name: snapshots-${{ matrix.shard }}
-          path: .playwright/snapshots
+          path: snapshots.zip
           retention-days: 1
+          if-no-files-found: ignore

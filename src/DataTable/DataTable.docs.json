@@ -33,6 +33,12 @@
     },
     {
       "id": "components-datatable-features--with-no-content"
+    },
+    {
+      "id": "components-datatable-features--with-loading"
+    },
+    {
+      "id": "components-datatable-features--with-pagination"
     }
   ],
   "props": [
@@ -170,6 +176,56 @@
         {
           "name": "id",
           "type": "string",
+          "required": true
+        }
+      ]
+    },
+    {
+      "name": "Table.Skeleton",
+      "props": [
+        {
+          "name": "cellPadding",
+          "type": "'condensed' | 'normal' | 'spacious'",
+          "description": "Specify the amount of space that should be available around the contents of a cell"
+        },
+        {
+          "name": "columns",
+          "type": "Array<Column<Data>>"
+        },
+        {
+          "name": "rows",
+          "type": "number",
+          "description": "Optionally specify the number of rows which should be included in the skeleton state of the component"
+        }
+      ]
+    },
+    {
+      "name": "Table.Pagination",
+      "props": [
+        {
+          "name": "aria-label",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "defaultPageIndex",
+          "type": "string"
+        },
+        {
+          "name": "id",
+          "type": "string"
+        },
+        {
+          "name": "onChange",
+          "type": "({ pageIndex }: { pageIndex: number }) => void"
+        },
+        {
+          "name": "pageSize",
+          "type": "number"
+        },
+        {
+          "name": "totalCount",
+          "type": "number",
           "required": true
         }
       ]

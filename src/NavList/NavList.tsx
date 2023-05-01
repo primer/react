@@ -13,6 +13,7 @@ import StyledOcticon from '../StyledOcticon'
 import sx, {merge, SxProp} from '../sx'
 import {defaultSxProp} from '../utils/defaultSxProp'
 import {useId} from '../hooks/useId'
+import useIsomorphicLayoutEffect from '../utils/useIsomorphicLayoutEffect'
 
 // ----------------------------------------------------------------------------
 // NavList
@@ -110,7 +111,7 @@ function ItemWithSubNav({children, subNav, sx: sxProp = defaultSxProp}: ItemWith
   const subNavRef = React.useRef<HTMLDivElement>(null)
   const [containsCurrentItem, setContainsCurrentItem] = React.useState(false)
 
-  React.useLayoutEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     if (subNavRef.current) {
       // Check if SubNav contains current item
       const currentItem = subNavRef.current.querySelector('[aria-current]')
@@ -245,13 +246,14 @@ const defaultSx = {}
 // TODO: ref prop
 const Group: React.FC<NavListGroupProps> = ({title, children, sx: sxProp = defaultSx, ...props}) => {
   return (
-    <>
+    <Box as="li" sx={sxProp} {...props}>
       {/* Hide divider if the group is the first item in the list */}
-      <ActionList.Divider sx={{'&:first-child': {display: 'none'}}} />
-      <ActionList.Group {...props} title={title} sx={sxProp}>
+      <ActionList.Divider as="div" sx={{'&:first-child': {display: 'none'}}} />
+      {title && <ActionList.Heading title={title} />}
+      <Box as="ul" sx={{paddingInlineStart: 0}}>
         {children}
-      </ActionList.Group>
-    </>
+      </Box>
+    </Box>
   )
 }
 

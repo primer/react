@@ -34,12 +34,14 @@ export type {TouchOrMouseEvent} from './hooks/useOnOutsideClick'
 export {useOpenAndCloseFocus} from './hooks/useOpenAndCloseFocus'
 export {useOnEscapePress} from './hooks/useOnEscapePress'
 export {useOverlay} from './hooks/useOverlay'
-export {useConfirm} from './Dialog2/ConfirmationDialog'
+export {useConfirm} from './Dialog/ConfirmationDialog'
 export {useFocusTrap} from './hooks/useFocusTrap'
 export type {FocusTrapHookSettings} from './hooks/useFocusTrap'
 export {useFocusZone} from './hooks/useFocusZone'
 export type {FocusZoneHookSettings} from './hooks/useFocusZone'
 export {useRefObjectAsForwardedRef} from './hooks/useRefObjectAsForwardedRef'
+export {useResizeObserver} from './hooks/useResizeObserver'
+export {useResponsiveValue} from './hooks/useResponsiveValue'
 
 // Components
 export {default as Radio} from './Radio'
@@ -47,7 +49,7 @@ export type {RadioProps} from './Radio'
 export {ActionList} from './ActionList'
 export type {
   ActionListProps,
-  ActionListGroupProps,
+  ActionListHeadingProps,
   ActionListItemProps,
   ActionListLinkItemProps,
   ActionListDividerProps,
@@ -86,8 +88,8 @@ export {default as Details} from './Details'
 export type {DetailsProps} from './Details'
 export {default as Dialog} from './Dialog'
 export type {DialogProps, DialogHeaderProps} from './Dialog'
-export type {ConfirmationDialogProps} from './Dialog2/ConfirmationDialog'
-export {ConfirmationDialog} from './Dialog2/ConfirmationDialog'
+export type {ConfirmationDialogProps} from './Dialog/ConfirmationDialog'
+export {ConfirmationDialog} from './Dialog/ConfirmationDialog'
 export {default as FilteredSearch} from './FilteredSearch'
 export type {FilteredSearchProps} from './FilteredSearch'
 export {default as FilterList} from './FilterList'
@@ -127,7 +129,7 @@ export {default as Popover} from './Popover'
 export type {PopoverProps, PopoverContentProps} from './Popover'
 export {default as Portal, registerPortalRoot} from './Portal'
 export type {PortalProps} from './Portal'
-export {default as ProgressBar} from './ProgressBar'
+export {ProgressBar} from './ProgressBar'
 export type {ProgressBarProps} from './ProgressBar'
 export {default as RadioGroup} from './RadioGroup'
 export type {RelativeTimeProps} from './RelativeTime'

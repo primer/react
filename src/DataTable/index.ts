@@ -6,12 +6,15 @@ import {
   TableRow,
   TableHeader,
   TableCell,
+  TableCellPlaceholder,
   TableContainer,
   TableTitle,
   TableSubtitle,
   TableActions,
   TableDivider,
+  TableSkeleton,
 } from './Table'
+import {Pagination} from './Pagination'
 
 const Table = Object.assign(TableImpl, {
   Container: TableContainer,
@@ -19,11 +22,14 @@ const Table = Object.assign(TableImpl, {
   Subtitle: TableSubtitle,
   Actions: TableActions,
   Divider: TableDivider,
+  Skeleton: TableSkeleton,
   Head: TableHead,
   Body: TableBody,
   Header: TableHeader,
   Row: TableRow,
   Cell: TableCell,
+  CellPlaceholder: TableCellPlaceholder,
+  Pagination,
 })
 
 export {DataTable, Table}
@@ -39,4 +45,5 @@ export type {
   TableTitleProps,
   TableSubtitleProps,
   TableActionsProps,
+  TableSkeletonProps,
 } from './Table'

@@ -1,10 +1,11 @@
-import {BookIcon, DownloadIcon, KebabHorizontalIcon, PencilIcon, PlusIcon, TrashIcon} from '@primer/octicons-react'
+import {BookIcon, DownloadIcon, KebabHorizontalIcon, PencilIcon, PlusIcon, RepoIcon, TrashIcon} from '@primer/octicons-react'
 import {action} from '@storybook/addon-actions'
 import {Meta} from '@storybook/react'
 import React from 'react'
 import {ActionList} from '../ActionList'
 import {ActionMenu} from '../ActionMenu'
 import {Blankslate} from '../Blankslate'
+import Box from '../Box'
 import {Button, IconButton} from '../Button'
 import {DataTable, Table} from '../DataTable'
 import Heading from '../Heading'
@@ -12,6 +13,8 @@ import Label from '../Label'
 import LabelGroup from '../LabelGroup'
 import RelativeTime from '../RelativeTime'
 import VisuallyHidden from '../_VisuallyHidden'
+import {createColumnHelper} from './column'
+import {repos} from './storybook/data'
 
 export default {
   title: 'Components/DataTable/Features',
@@ -931,6 +934,72 @@ export const WithRowActionMenu = () => (
   </Table.Container>
 )
 
+export const MixedColumnWidths = () => (
+  <Table.Container>
+    <Table.Title as="h2" id="repositories">
+      Repositories
+    </Table.Title>
+    <DataTable
+      aria-labelledby="repositories"
+      aria-describedby="repositories-subtitle"
+      data={data}
+      columns={[
+        {
+          header: 'grow w/ 200px max',
+          field: 'name',
+          rowHeader: true,
+          width: 'grow',
+          maxWidth: '200px',
+        },
+        {
+          header: 'growCollapse w/ 100px min',
+          field: 'type',
+          renderCell: row => {
+            return <Label>{uppercase(row.type)}</Label>
+          },
+          width: 'growCollapse',
+          minWidth: '100px',
+        },
+        {
+          header: 'auto',
+          field: 'updatedAt',
+          renderCell: row => {
+            return <RelativeTime date={new Date(row.updatedAt)} />
+          },
+          width: 'auto',
+        },
+        {
+          header: '200px',
+          field: 'securityFeatures.dependabot',
+          renderCell: row => {
+            return row.securityFeatures.dependabot.length > 0 ? (
+              <LabelGroup>
+                {row.securityFeatures.dependabot.map(feature => {
+                  return <Label key={feature}>{uppercase(feature)}</Label>
+                })}
+              </LabelGroup>
+            ) : null
+          },
+          width: '200px',
+        },
+        {
+          header: 'undefined (defaults to grow)',
+          field: 'securityFeatures.codeScanning',
+          renderCell: row => {
+            return row.securityFeatures.codeScanning.length > 0 ? (
+              <LabelGroup>
+                {row.securityFeatures.codeScanning.map(feature => {
+                  return <Label key={feature}>{uppercase(feature)}</Label>
+                })}
+              </LabelGroup>
+            ) : null
+          },
+        },
+      ]}
+    />
+  </Table.Container>
+)
+
 export const WithCustomHeading = () => (
   <>
     <Heading as="h2" id="repositories">
@@ -1070,5 +1139,381 @@ export const WithNoContent = () => {
         ]}
       />
     </Table.Container>
+  )
+}
+
+export const WithOverflow = () => (
+  <div
+    style={{
+      width: 500,
+    }}
+  >
+    <Table.Container>
+      <Table.Title as="h2" id="repositories">
+        Repositories
+      </Table.Title>
+      <Table.Subtitle as="p" id="repositories-subtitle">
+        A subtitle could appear here to give extra context to the data.
+      </Table.Subtitle>
+      <DataTable
+        aria-labelledby="repositories"
+        aria-describedby="repositories-subtitle"
+        data={data}
+        columns={[
+          {
+            header: 'Repository',
+            field: 'name',
+            rowHeader: true,
+          },
+          {
+            header: 'Type',
+            field: 'type',
+            renderCell: row => {
+              return <Label>{uppercase(row.type)}</Label>
+            },
+          },
+          {
+            header: 'Updated',
+            field: 'updatedAt',
+            renderCell: row => {
+              return <RelativeTime date={new Date(row.updatedAt)} />
+            },
+          },
+          {
+            header: 'Dependabot',
+            field: 'securityFeatures.dependabot',
+            renderCell: row => {
+              return row.securityFeatures.dependabot.length > 0 ? (
+                <LabelGroup>
+                  {row.securityFeatures.dependabot.map(feature => {
+                    return <Label key={feature}>{uppercase(feature)}</Label>
+                  })}
+                </LabelGroup>
+              ) : null
+            },
+          },
+          {
+            header: 'Code scanning',
+            field: 'securityFeatures.codeScanning',
+            renderCell: row => {
+              return row.securityFeatures.codeScanning.length > 0 ? (
+                <LabelGroup>
+                  {row.securityFeatures.codeScanning.map(feature => {
+                    return <Label key={feature}>{uppercase(feature)}</Label>
+                  })}
+                </LabelGroup>
+              ) : null
+            },
+          },
+        ]}
+      />
+    </Table.Container>
+  </div>
+)
+
+const columnHelper = createColumnHelper<Repo>()
+const columns = [
+  columnHelper.column({
+    header: 'Repository',
+    field: 'name',
+    rowHeader: true,
+  }),
+  columnHelper.column({
+    header: 'Type',
+    field: 'type',
+    renderCell: row => {
+      return <Label>{uppercase(row.type)}</Label>
+    },
+  }),
+  columnHelper.column({
+    header: 'Updated',
+    field: 'updatedAt',
+    renderCell: row => {
+      return <RelativeTime date={new Date(row.updatedAt)} />
+    },
+  }),
+  columnHelper.column({
+    header: 'Dependabot',
+    field: 'securityFeatures.dependabot',
+    renderCell: row => {
+      return row.securityFeatures.dependabot.length > 0 ? (
+        <LabelGroup>
+          {row.securityFeatures.dependabot.map(feature => {
+            return <Label key={feature}>{uppercase(feature)}</Label>
+          })}
+        </LabelGroup>
+      ) : null
+    },
+  }),
+  columnHelper.column({
+    header: 'Code scanning',
+    field: 'securityFeatures.codeScanning',
+    renderCell: row => {
+      return row.securityFeatures.codeScanning.length > 0 ? (
+        <LabelGroup>
+          {row.securityFeatures.codeScanning.map(feature => {
+            return <Label key={feature}>{uppercase(feature)}</Label>
+          })}
+        </LabelGroup>
+      ) : null
+    },
+  }),
+]
+
+export const WithLoading = () => {
+  const [loading] = React.useState(true)
+  return (
+    <Table.Container>
+      <Table.Title as="h2" id="repositories">
+        Repositories
+      </Table.Title>
+      <Table.Subtitle as="p" id="repositories-subtitle">
+        A subtitle could appear here to give extra context to the data.
+      </Table.Subtitle>
+      {loading ? (
+        <Table.Skeleton
+          aria-labelledby="repositories"
+          aria-describedby="repositories-subtitle"
+          columns={columns}
+          rows={10}
+        />
+      ) : (
+        <DataTable
+          aria-labelledby="repositories"
+          aria-describedby="repositories-subtitle"
+          data={data}
+          columns={columns}
+        />
+      )}
+    </Table.Container>
+  )
+}
+
+export const WithPlaceholderCells = () => (
+  <Table.Container>
+    <Table.Title as="h2" id="repositories">
+      Repositories
+    </Table.Title>
+    <Table.Subtitle as="p" id="repositories-subtitle">
+      A subtitle could appear here to give extra context to the data.
+    </Table.Subtitle>
+    <DataTable
+      aria-labelledby="repositories"
+      aria-describedby="repositories-subtitle"
+      data={data}
+      columns={[
+        {
+          header: 'Repository',
+          field: 'name',
+          rowHeader: true,
+        },
+        {
+          header: 'Type',
+          field: 'type',
+          renderCell: row => {
+            return <Label>{uppercase(row.type)}</Label>
+          },
+        },
+        {
+          header: 'Updated',
+          field: 'updatedAt',
+          renderCell: row => {
+            return <RelativeTime date={new Date(row.updatedAt)} />
+          },
+        },
+        {
+          header: 'Dependabot',
+          field: 'securityFeatures.dependabot',
+          renderCell: row => {
+            return row.securityFeatures.dependabot.length > 0 ? (
+              <LabelGroup>
+                {row.securityFeatures.dependabot.map(feature => {
+                  return <Label key={feature}>{uppercase(feature)}</Label>
+                })}
+              </LabelGroup>
+            ) : (
+              <Table.CellPlaceholder>Not configured</Table.CellPlaceholder>
+            )
+          },
+        },
+        {
+          header: 'Code scanning',
+          field: 'securityFeatures.codeScanning',
+          renderCell: row => {
+            return row.securityFeatures.codeScanning.length > 0 ? (
+              <LabelGroup>
+                {row.securityFeatures.codeScanning.map(feature => {
+                  return <Label key={feature}>{uppercase(feature)}</Label>
+                })}
+              </LabelGroup>
+            ) : (
+              <Table.CellPlaceholder>Not configured</Table.CellPlaceholder>
+            )
+          },
+        },
+      ]}
+    />
+  </Table.Container>
+)
+
+export const WithRightAlignedColumns = () => {
+  const rows = Array.from(data).sort((a, b) => {
+    return b.updatedAt - a.updatedAt
+  })
+  return (
+    <Table.Container>
+      <Table.Title as="h2" id="repositories">
+        Repositories
+      </Table.Title>
+      <Table.Subtitle as="p" id="repositories-subtitle">
+        A subtitle could appear here to give extra context to the data.
+      </Table.Subtitle>
+      <DataTable
+        aria-labelledby="repositories"
+        aria-describedby="repositories-subtitle"
+        data={rows}
+        columns={[
+          {
+            header: () => (
+              <Box display="flex" alignItems="center" sx={{gap: 1}}>
+                <RepoIcon size={16} />
+                Repository
+              </Box>
+            ),
+            field: 'name',
+            rowHeader: true,
+            sortBy: 'alphanumeric',
+            align: 'end',
+          },
+          {
+            header: 'Type',
+            field: 'type',
+            renderCell: row => {
+              return <Label>{uppercase(row.type)}</Label>
+            },
+            align: 'end',
+          },
+          {
+            header: 'Updated',
+            field: 'updatedAt',
+            sortBy: 'datetime',
+            renderCell: row => {
+              return <RelativeTime date={new Date(row.updatedAt)} />
+            },
+            align: 'end',
+          },
+          {
+            header: 'Dependabot',
+            field: 'securityFeatures.dependabot',
+            renderCell: row => {
+              return row.securityFeatures.dependabot.length > 0 ? (
+                <LabelGroup>
+                  {row.securityFeatures.dependabot.map(feature => {
+                    return <Label key={feature}>{uppercase(feature)}</Label>
+                  })}
+                </LabelGroup>
+              ) : null
+            },
+            align: 'end',
+          },
+          {
+            header: 'Code scanning',
+            field: 'securityFeatures.codeScanning',
+            renderCell: row => {
+              return row.securityFeatures.codeScanning.length > 0 ? (
+                <LabelGroup>
+                  {row.securityFeatures.codeScanning.map(feature => {
+                    return <Label key={feature}>{uppercase(feature)}</Label>
+                  })}
+                </LabelGroup>
+              ) : null
+            },
+            align: 'end',
+          },
+        ]}
+        initialSortColumn="updatedAt"
+        initialSortDirection="DESC"
+      />
+    </Table.Container>
+  )
+}
+
+export const WithPagination = () => {
+  const pageSize = 10
+  const [pageIndex, setPageIndex] = React.useState(0)
+  const start = pageIndex * pageSize
+  const end = start + pageSize
+  const rows = repos.slice(start, end)
+
+  return (
+    <Table.Container>
+      <Table.Title as="h2" id="repositories">
+        Repositories
+      </Table.Title>
+      <Table.Subtitle as="p" id="repositories-subtitle">
+        A subtitle could appear here to give extra context to the data.
+      </Table.Subtitle>
+      <DataTable
+        aria-labelledby="repositories"
+        aria-describedby="repositories-subtitle"
+        data={rows}
+        columns={[
+          {
+            header: 'Repository',
+            field: 'name',
+            rowHeader: true,
+          },
+          {
+            header: 'Type',
+            field: 'type',
+            renderCell: row => {
+              return <Label>{uppercase(row.type)}</Label>
+            },
+          },
+          {
+            header: 'Updated',
+            field: 'updatedAt',
+            renderCell: row => {
+              return <RelativeTime date={new Date(row.updatedAt)} />
+            },
+          },
+          {
+            header: 'Dependabot',
+            field: 'securityFeatures.dependabot',
+            renderCell: row => {
+              return row.securityFeatures.dependabot.length > 0 ? (
+                <LabelGroup>
+                  {row.securityFeatures.dependabot.map(feature => {
+                    return <Label key={feature}>{uppercase(feature)}</Label>
+                  })}
+                </LabelGroup>
+              ) : null
+            },
+          },
+          {
+            header: 'Code scanning',
+            field: 'securityFeatures.codeScanning',
+            renderCell: row => {
+              return row.securityFeatures.codeScanning.length > 0 ? (
+                <LabelGroup>
+                  {row.securityFeatures.codeScanning.map(feature => {
+                    return <Label key={feature}>{uppercase(feature)}</Label>
+                  })}
+                </LabelGroup>
+              ) : null
+            },
+          },
+        ]}
+      />
+      <Table.Pagination
+        aria-label="Pagination for Repositories"
+        pageSize={pageSize}
+        totalCount={repos.length}
+        onChange={({pageIndex}) => {
+          setPageIndex(pageIndex)
+        }}
+      />
+    </Table.Container>
+>>>>>>> c0cbdd0806809236e681cab535b4a74ecdfcc14a
   )
 }

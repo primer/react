@@ -109,7 +109,9 @@ export function useStickyPaneHeight() {
 // no longer be needed
 //
 // @see https://bugs.webkit.org/show_bug.cgi?id=242758
+// eslint-disable-next-line ssr-friendly/no-dom-globals-in-module-scope
 const supportsTouchCallout = canUseDOM ? CSS.supports('-webkit-touch-callout', 'none') : false
+// eslint-disable-next-line ssr-friendly/no-dom-globals-in-module-scope
 const supportsDVH = canUseDOM ? CSS.supports('max-height', '100dvh') && supportsTouchCallout : false
 
 /**

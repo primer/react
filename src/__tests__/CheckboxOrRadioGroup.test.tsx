@@ -3,7 +3,7 @@ import '@testing-library/jest-dom/extend-expect'
 import {render, within} from '@testing-library/react'
 import {Checkbox, FormControl, Radio, SSRProvider, TextInput} from '..'
 import {behavesAsComponent, checkExports} from '../utils/testing'
-import CheckboxOrRadioGroup from '../_CheckboxOrRadioGroup'
+import CheckboxOrRadioGroup, {CheckboxOrRadioGroupContext} from '../_CheckboxOrRadioGroup'
 
 const INPUT_GROUP_LABEL = 'Choices'
 
@@ -41,6 +41,7 @@ describe('CheckboxOrRadioGroup', () => {
   })
   checkExports('_CheckboxOrRadioGroup', {
     default: CheckboxOrRadioGroup,
+    CheckboxOrRadioGroupContext,
   })
   it('renders a group of inputs with a caption in the <legend>', () => {
     render(
@@ -190,7 +191,6 @@ describe('CheckboxOrRadioGroup', () => {
 
     render(
       <CheckboxOrRadioGroup>
-        <FormControl.Label>{INPUT_GROUP_LABEL}</FormControl.Label>
         <FormControl>
           <FormControl.Label>Choice one</FormControl.Label>
           <TextInput />
