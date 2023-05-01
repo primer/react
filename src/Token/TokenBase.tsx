@@ -137,6 +137,8 @@ const StyledTokenBase = styled.span<
 
 const TokenBase = React.forwardRef(({onRemove, onKeyDown, id, size = defaultTokenSize, ...rest}, forwardedRef) => {
   return (
+    // @ts-ignore The `as` prop is not being set properly with the polymorphic
+    // type
     <StyledTokenBase
       onKeyDown={(event: KeyboardEvent<HTMLSpanElement & HTMLAnchorElement & HTMLButtonElement>) => {
         onKeyDown && onKeyDown(event)
