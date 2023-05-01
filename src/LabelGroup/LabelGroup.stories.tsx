@@ -1,34 +1,71 @@
 import React from 'react'
-import {Meta, ComponentStory} from '@storybook/react'
+import styled from 'styled-components'
 import LabelGroup from './LabelGroup'
-import Label from '../Label'
+import {Meta, Story} from '@storybook/react'
+import Token from '../Token/Token'
 
-export default {
+const meta: Meta = {
   title: 'Components/LabelGroup',
   component: LabelGroup,
-} as Meta<typeof LabelGroup>
-
-export const Default = () => (
-  <LabelGroup>
-    <Label>Default label</Label>
-    <Label variant="danger">Label with background indicating a closed PR state</Label>
-    <Label variant="primary">Default outline label</Label>
-  </LabelGroup>
-)
-
-export const Playground: ComponentStory<typeof LabelGroup> = args => (
-  <LabelGroup {...args}>
-    <Label>Default label</Label>
-    <Label variant="danger">Label with background indicating a closed PR state</Label>
-    <Label variant="primary">Default outline label</Label>
-  </LabelGroup>
-)
-
-Playground.argTypes = {
-  sx: {
-    controls: false,
-    table: {
-      disable: true,
+  decorators: [
+    Story => {
+      return (
+        <>
+          <Story />
+        </>
+      )
     },
-  },
+  ],
 }
+
+const ResizableContainer = styled.div`
+  outline: 1px solid black;
+  resize: horizontal;
+  overflow: auto;
+`
+
+export const Default: Story = () => (
+  <LabelGroup>
+    <Token text="One" />
+    <Token text="Two" />
+    <Token text="Three" />
+    <Token text="Four" />
+    <Token text="Five" />
+    <Token text="Six" />
+    <Token text="Seven" />
+    <Token text="Eight" />
+    <Token text="Nine" />
+    <Token text="Ten" />
+    <Token text="Eleven" />
+    <Token text="Twelve" />
+    <Token text="Thirteen" />
+    <Token text="Fourteen" />
+    <Token text="Fifteen" />
+    <Token text="Sixteen" />
+  </LabelGroup>
+)
+
+export const Playground: Story = () => (
+  <ResizableContainer>
+    <LabelGroup>
+      <Token text="One" />
+      <Token text="Two" />
+      <Token text="Three" />
+      <Token text="Four" />
+      <Token text="Five" />
+      <Token text="Six" />
+      <Token text="Seven" />
+      <Token text="Eight" />
+      <Token text="Nine" />
+      <Token text="Ten" />
+      <Token text="Eleven" />
+      <Token text="Twelve" />
+      <Token text="Thirteen" />
+      <Token text="Fourteen" />
+      <Token text="Fifteen" />
+      <Token text="Sixteen" />
+    </LabelGroup>
+  </ResizableContainer>
+)
+
+export default meta
