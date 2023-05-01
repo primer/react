@@ -89,7 +89,7 @@ const baseConfig = {
       ],
       plugins: [
         'macros',
-        'preval',
+        // 'preval',
         'add-react-displayname',
         'dev-expression',
         'babel-plugin-styled-components',
