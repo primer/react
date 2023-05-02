@@ -3777,6 +3777,17 @@
             {
               "name": "sx",
               "type": "SystemStyleObject"
+            },
+            {
+              "name": "heading",
+              "type": "string",
+              "description": "Provide a heading for the SplitPageLayout Pane."
+            },
+            {
+              "name": "headingLevel",
+              "type": "|  'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'",
+              "defaultValue": "\"h2\"",
+              "description": "Which heading level is applied to SplitPageLayout Pane heading."
             }
           ]
         },
