@@ -4,8 +4,10 @@ import {get} from '../constants'
 import VisuallyHidden from '../_VisuallyHidden'
 import {AnchoredOverlay, Box, Button, IconButton, useTheme} from '..'
 import {DashIcon, XIcon} from '@primer/octicons-react'
-// import {getFocusableChild} from '../utils/iterate-focusable-elements'
+// TODO: try and import this from `@primer/behaviors`
+import {getFocusableChild} from '../utils/iterate-focusable-elements'
 
+// TODO: rename 'visibleTokenCount' to something more neutral like 'visibleCount' or 'visibleChildCount'
 export type LabelGroupProps = {
   /** How hidden tokens should be shown. `'inline'` shows the hidden tokens after the visible tokens. `'overlay'` shows all tokens in an overlay that appears on top of the visible tokens. */
   overflowStyle?: 'inline' | 'overlay'
@@ -38,38 +40,49 @@ const LabelGroup: React.FC<React.PropsWithChildren<LabelGroupProps>> = ({
   const {theme} = useTheme()
   const OVERLAY_PADDING = get('space.2')(theme)
   const containerRef = React.useRef<HTMLDivElement>(null)
-  const expandButtonRef = React.useRef<HTMLButtonElement>(null)
+  // const expandButtonRef = React.useRef<HTMLButtonElement>(null)
   const collapseButtonRef = React.useRef<HTMLButtonElement>(null)
+  const firstHiddenIndex = React.useRef<number | undefined>(undefined)
   const [visibilityMap, setVisibilityMap] = React.useState<Record<string, boolean>>({})
   const [isOverflowShown, setIsOverflowShown] = React.useState<boolean>(false)
   const containerLeft =
     containerRef.current && visibleTokenCount === 'auto' ? containerRef.current.getBoundingClientRect().left : undefined
-  const buttonClientRect =
-    expandButtonRef.current && visibleTokenCount === 'auto' ? expandButtonRef.current.getBoundingClientRect() : null
-  const buttonWidth = buttonClientRect ? buttonClientRect.width : 0
-  const buttonRight = buttonClientRect && buttonClientRect.right
+  const [buttonClientRect, setButtonClientRect] = React.useState<{width: number; right: number}>({
+    width: 0,
+    right: 0,
+  })
   const overlayWidth =
-    containerLeft && buttonRight ? parseInt(OVERLAY_PADDING, 10) + buttonRight - containerLeft : undefined
+    containerLeft && buttonClientRect.right
+      ? parseInt(OVERLAY_PADDING, 10) + buttonClientRect.right - containerLeft
+      : undefined
   const hiddenItemIds = Object.keys(visibilityMap).filter(key => !visibilityMap[key])
+  const expandButtonRef = React.useCallback(
+    (node: HTMLButtonElement | null) => {
+      if (node !== null) {
+        const {width, right} = node.getBoundingClientRect()
+
+        if (width !== buttonClientRect.width || right !== buttonClientRect.right) {
+          setButtonClientRect({width, right})
+        }
+      }
+    },
+    [buttonClientRect],
+  )
 
   const openOverflowOverlay = React.useCallback(() => setIsOverflowShown(true), [setIsOverflowShown])
-  const closeOverflowOverlay = React.useCallback(() => setIsOverflowShown(false), [setIsOverflowShown])
+  const closeOverflowOverlay = React.useCallback(() => {
+    setIsOverflowShown(false)
+
+    // NOTE: this is bad hack, but it works
+    // TODO: get rid of this hack
+    setTimeout(() => {
+      expandButtonRef.current?.focus()
+    }, 10)
+  }, [expandButtonRef, setIsOverflowShown])
   const showAllTokensInline = React.useCallback(() => {
-    // const firstHiddenIndex = hiddenItemIds[0]
-    // const firstHiddenChildDOM = document.querySelector<HTMLElement>(`[data-targetid="${firstHiddenIndex}"]`)
+    // firstHiddenIndex.current = parseInt(hiddenItemIds[0], 10)
     setVisibilityMap({})
     setIsOverflowShown(true)
-    // const focusableChild = firstHiddenChildDOM ? getFocusableChild(firstHiddenChildDOM) : null
-
-    // console.log('firstHiddenChildDOM', firstHiddenChildDOM?.firstElementChild)
-    // console.log('focusableChild', focusableChild)
-
-    // TODO: get this working
-    // if (focusableChild) {
-    //   focusableChild.focus()
-    // } else {
-    //   collapseButtonRef.current?.focus()
-    // }
   }, [setVisibilityMap, setIsOverflowShown])
 
   const handleIntersection = (entries: IntersectionObserverEntry[]) => {
@@ -88,15 +101,15 @@ const LabelGroup: React.FC<React.PropsWithChildren<LabelGroupProps>> = ({
     }))
   }
 
-  React.useEffect(() => {
-    if (!visibleTokenCount) {
+  React.useLayoutEffect(() => {
+    if (visibleTokenCount === undefined) {
       return
     }
 
     if (visibleTokenCount === 'auto') {
       const observer = new IntersectionObserver(handleIntersection, {
         root: containerRef.current,
-        rootMargin: `0px -${buttonWidth}px 0px 0px`,
+        rootMargin: `0px -${buttonClientRect.width || 0}px 0px 0px`,
         threshold: 1,
       })
 
@@ -121,15 +134,26 @@ const LabelGroup: React.FC<React.PropsWithChildren<LabelGroupProps>> = ({
         setVisibilityMap(updatedEntries)
       }
     }
-  }, [buttonWidth, visibleTokenCount])
+  }, [buttonClientRect, visibleTokenCount])
 
   React.useEffect(() => {
-    if (isOverflowShown) {
-      collapseButtonRef.current?.focus()
-    } else {
-      expandButtonRef.current?.focus()
+    if (hiddenItemIds.length) {
+      firstHiddenIndex.current = parseInt(hiddenItemIds[0], 10)
     }
-  }, [isOverflowShown, collapseButtonRef, expandButtonRef])
+  }, [hiddenItemIds])
+
+  React.useEffect(() => {
+    const firstHiddenChildDOM = document.querySelector<HTMLElement>(`[data-index="${firstHiddenIndex.current}"]`)
+    const focusableChild = firstHiddenChildDOM ? getFocusableChild(firstHiddenChildDOM) : null
+
+    if (isOverflowShown) {
+      if (focusableChild) {
+        focusableChild.focus()
+      } else {
+        collapseButtonRef.current?.focus()
+      }
+    }
+  }, [isOverflowShown])
 
   return visibleTokenCount ? (
     <>

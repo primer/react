@@ -25,4 +25,24 @@ describe('LabelGroup', () => {
     const results = await axe(container)
     expect(results).toHaveNoViolations()
   })
+
+  it('should automatically truncate labels to fit available width', () => {})
+
+  it('should truncate labels to a specified number', () => {})
+
+  it('should expand all tokens into an overlay when overflowStyle="overlay"', () => {})
+
+  it('should expand all tokens in place when overflowStyle="inline"', () => {})
+
+  describe('focus behavior - interactive children', () => {
+    it('should focus the first token in the overlay that was previously hidden when overflowStyle="overlay"', () => {})
+
+    it('should focus the first token inline that was previously hidden when overflowStyle="inline"', () => {})
+  })
+
+  describe('focus behavior - non-interacive children', () => {
+    it('should focus the collapse button when expanded', () => {})
+
+    it('should focus the expand button when collapsed', () => {})
+  })
 })
