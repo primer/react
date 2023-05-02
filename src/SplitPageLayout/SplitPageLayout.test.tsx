@@ -1,5 +1,5 @@
 import React from 'react'
-import {prettyDOM, render} from '@testing-library/react'
+import {render} from '@testing-library/react'
 import MatchMediaMock from 'jest-matchmedia-mock'
 import 'react-intersection-observer/test-utils'
 import {ThemeProvider} from '..'
@@ -46,7 +46,7 @@ describe('SplitPageLayout', () => {
   })
 
   it('renders Pane with a heading', () => {
-    const {getByText, container} = render(
+    const {getByText} = render(
       <ThemeProvider>
         <SplitPageLayout>
           <SplitPageLayout.Pane heading="Custom heading" />
@@ -54,8 +54,20 @@ describe('SplitPageLayout', () => {
       </ThemeProvider>,
     )
     const heading = getByText('Custom heading')
-    console.log(prettyDOM(container))
 
     expect(heading.tagName).toBe('H2')
+  })
+
+  it('renders Pane with a custom level heading', () => {
+    const {getByText} = render(
+      <ThemeProvider>
+        <SplitPageLayout>
+          <SplitPageLayout.Pane heading="Custom heading" headingLevel="h3" />
+        </SplitPageLayout>
+      </ThemeProvider>,
+    )
+    const heading = getByText('Custom heading')
+
+    expect(heading.tagName).toBe('H3')
   })
 })
