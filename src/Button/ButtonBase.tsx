@@ -15,7 +15,7 @@ const ButtonBase = forwardRef(
       leadingVisual: LeadingVisual,
       trailingVisual: TrailingVisual,
       trailingAction: TrailingAction,
-      trailingVisualCount: trailingVisualCount,
+      count: count,
       icon: Icon,
       variant = 'default',
       size = 'medium',
@@ -85,9 +85,9 @@ const ButtonBase = forwardRef(
                   <TrailingVisual />
                 </Box>
               )}
-              {trailingVisualCount !== undefined ? (
+              {count !== undefined ? (
                 <Box as="span" data-component="trailingVisual" sx={{...iconWrapStyles}}>
-                  <CounterLabel data-component="ButtonCounter">{trailingVisualCount}</CounterLabel>
+                  <CounterLabel data-component="ButtonCounter">{count}</CounterLabel>
                 </Box>
               ) : TrailingVisual ? (
                 <Box as="span" data-component="trailingVisual" sx={{...iconWrapStyles}}>

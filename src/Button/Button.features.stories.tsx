@@ -19,7 +19,7 @@ export const TrailingVisual = () => <Button trailingVisual={EyeIcon}>Trailing vi
 export const TrailingCounter = () => {
   const [count, setCount] = useState(0)
   return (
-    <Button onClick={() => setCount(count + 1)} trailingVisualCount={count}>
+    <Button onClick={() => setCount(count + 1)} count={count}>
       Watch
     </Button>
   )

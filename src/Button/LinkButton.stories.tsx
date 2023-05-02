@@ -33,7 +33,7 @@ export default {
     leadingVisual: OcticonArgType([EyeClosedIcon, EyeIcon, SearchIcon, XIcon, HeartIcon]),
     trailingVisual: OcticonArgType([EyeClosedIcon, EyeIcon, SearchIcon, XIcon, HeartIcon]),
     trailingAction: OcticonArgType([ChevronRightIcon]),
-    trailingVisualCount: {
+    count: {
       control: {
         type: 'number',
       },

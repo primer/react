@@ -38,7 +38,7 @@ export default {
     leadingVisual: OcticonArgType([EyeClosedIcon, EyeIcon, SearchIcon, XIcon, HeartIcon]),
     trailingVisual: OcticonArgType([EyeClosedIcon, EyeIcon, SearchIcon, XIcon, HeartIcon]),
     trailingAction: OcticonArgType([TriangleDownIcon]),
-    trailingVisualCount: {
+    count: {
       control: {
         type: 'number',
       },
@@ -53,7 +53,7 @@ export default {
     trailingVisual: null,
     leadingVisual: null,
     trailingAction: null,
-    trailingVisualCount: undefined,
+    count: undefined,
   },
 } as Meta<typeof Button>
 

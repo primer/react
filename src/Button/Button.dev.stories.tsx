@@ -17,13 +17,13 @@ export const InvisibleVariants = () => {
       <Button variant="invisible" trailingAction={TriangleDownIcon}>
         Button
       </Button>
-      <Button variant="primary" trailingVisualCount={count}>
+      <Button variant="primary" count={count}>
         Button
       </Button>
-      <Button variant="invisible" leadingVisual={EyeIcon} trailingVisualCount={count}>
+      <Button variant="invisible" leadingVisual={EyeIcon} count={count}>
         Button
       </Button>
-      <Button variant="invisible" leadingVisual={EyeIcon} trailingAction={TriangleDownIcon} trailingVisualCount={count}>
+      <Button variant="invisible" leadingVisual={EyeIcon} trailingAction={TriangleDownIcon} count={count}>
         Button
       </Button>
       <IconButton icon={TriangleDownIcon} variant="invisible" aria-label="Invisible" />
@@ -86,7 +86,7 @@ export const TestSxProp = () => {
       <Button size="small" block variant="invisible" sx={{width: 320}}>
         Overriden Block
       </Button>
-      <Button sx={{fontSize: 32}} trailingVisualCount={count}>
+      <Button sx={{fontSize: 32}} count={count}>
         Watch
       </Button>
     </div>
