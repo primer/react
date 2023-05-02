@@ -49,7 +49,7 @@ export type {RadioProps} from './Radio'
 export {ActionList} from './ActionList'
 export type {
   ActionListProps,
-  ActionListGroupProps,
+  ActionListHeadingProps,
   ActionListItemProps,
   ActionListLinkItemProps,
   ActionListDividerProps,
@@ -129,7 +129,7 @@ export {default as Popover} from './Popover'
 export type {PopoverProps, PopoverContentProps} from './Popover'
 export {default as Portal, registerPortalRoot} from './Portal'
 export type {PortalProps} from './Portal'
-export {default as ProgressBar} from './ProgressBar'
+export {ProgressBar} from './ProgressBar'
 export type {ProgressBarProps} from './ProgressBar'
 export {default as RadioGroup} from './RadioGroup'
 export type {RelativeTimeProps} from './RelativeTime'

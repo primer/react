@@ -16,6 +16,7 @@ module.exports = {
     'plugin:github/browser',
     'plugin:primer-react/recommended',
     'plugin:import/typescript',
+    'plugin:ssr-friendly/recommended',
   ],
   settings: {
     react: {
@@ -233,6 +234,8 @@ module.exports = {
         '@typescript-eslint/no-unused-vars': 'off',
         'primer-react/no-deprecated-colors': ['error', {skipImportCheck: true}],
         'no-redeclare': 'off',
+        'ssr-friendly/no-dom-globals-in-module-scope': 'off',
+        'ssr-friendly/no-dom-globals-in-react-fc': 'off',
       },
     },
   ],

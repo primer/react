@@ -1,48 +1,6 @@
 {
   "schemaVersion": 2,
   "components": {
-    "button_group": {
-      "id": "button_group",
-      "name": "ButtonGroup",
-      "status": "alpha",
-      "a11yReviewed": false,
-      "stories": [],
-      "props": [
-        {
-          "name": "sx",
-          "type": "SystemStyleObject"
-        },
-        {
-          "name": "ref",
-          "type": "React.RefObject<HTMLDivElement>"
-        }
-      ],
-      "subcomponents": []
-    },
-    "circle_octicon": {
-      "id": "circle_octicon",
-      "name": "CircleOcticon",
-      "status": "alpha",
-      "a11yReviewed": false,
-      "stories": [],
-      "props": [
-        {
-          "name": "icon",
-          "type": "Octicon"
-        },
-        {
-          "name": "size",
-          "defaultValue": "32",
-          "type": "number",
-          "description": "Set the width and height of the icon in pixels."
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject"
-        }
-      ],
-      "subcomponents": []
-    },
     "dialog": {
       "id": "dialog",
       "name": "Dialog",
@@ -97,300 +55,6 @@
         }
       ]
     },
-    "overlay": {
-      "id": "overlay",
-      "name": "Overlay",
-      "status": "alpha",
-      "a11yReviewed": false,
-      "stories": [],
-      "props": [
-        {
-          "name": "returnFocusRef",
-          "type": "React.RefObject<HTMLElement>",
-          "defaultValue": "",
-          "required": true,
-          "description": "Ref for the element to focus when the `Overlay` is closed."
-        },
-        {
-          "name": "onClickOutside",
-          "type": "function",
-          "defaultValue": "",
-          "required": true,
-          "description": "Function to call when clicking outside of the `Overlay`. Typically this function sets the `Overlay` visibility state to `false`."
-        },
-        {
-          "name": "onEscape",
-          "type": "function",
-          "defaultValue": "",
-          "required": true,
-          "description": "Function to call when user presses `Escape`. Typically this function sets the `Overlay` visibility state to `false`."
-        },
-        {
-          "name": "ignoreClickRefs",
-          "type": "React.RefObject<HTMLElement> []",
-          "defaultValue": "",
-          "description": "An array of ref objects to ignore clicks on in the onOutsideClick behavior. This is often used to ignore clicking on the element that toggles the open/closed state for the Overlay to prevent the Overlay from being toggled twice."
-        },
-        {
-          "name": "initialFocusRef",
-          "type": "React.RefObject<HTMLElement>",
-          "defaultValue": "",
-          "description": "Ref for the element to focus when the `Overlay` is opened. If nothing is provided, the first focusable element in the `Overlay` body is focused."
-        },
-        {
-          "name": "width",
-          "type": "| 'small' | 'medium' | 'large' | 'xlarge' | 'xxlarge' | 'auto'",
-          "defaultValue": "'auto'",
-          "description": "Sets the width of the `Overlay`, pick from our set list of widths, or pass `auto` to automatically set the width based on the content of the `Overlay`. `small` corresponds to `256px`, `medium` corresponds to `320px`, `large` corresponds to `480px`, `xlarge` corresponds to `640px`, `xxlarge` corresponds to `960px`."
-        },
-        {
-          "name": "height",
-          "type": "| 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge' | 'auto'",
-          "defaultValue": "'auto'",
-          "description": "Sets the height of the `Overlay`, pick from our set list of heights, or pass `auto` to automatically set the height based on the content of the `Overlay`. `xsmall` corresponds to `192px`, `small` corresponds to `256px`, `medium` corresponds to `320px`, `large` corresponds to `432px`, `xlarge` corresponds to `600px`."
-        },
-        {
-          "name": "maxHeight",
-          "type": "| 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge'",
-          "defaultValue": "",
-          "description": "Sets the maximum height of the `Overlay`, pick from our set list of heights. `xsmall` corresponds to `192px`, `small` corresponds to `256px`, `medium` corresponds to `320px`, `large` corresponds to `432px`, `xlarge` corresponds to `600px`."
-        },
-        {
-          "name": "visibility",
-          "type": "| 'visible' | 'hidden'",
-          "defaultValue": "'visible'",
-          "description": "Sets the visibility of the `Overlay`."
-        },
-        {
-          "name": "anchorSide",
-          "type": "| 'inside-top' | 'inside-bottom' | 'inside-left' | 'inside-right' | 'inside-center' | 'outside-top' | 'outside-bottom' | 'outside-left' | 'outside-right'",
-          "defaultValue": "",
-          "description": "If provided, the Overlay will slide into position from the side of the anchor with a brief animation"
-        },
-        {
-          "name": "top",
-          "type": "number",
-          "defaultValue": "0",
-          "description": "The top CSS property of the Overlay — affects the vertical position."
-        },
-        {
-          "name": "left",
-          "type": "number",
-          "defaultValue": "0",
-          "description": "The left CSS property of the Overlay — affects the horizontal position."
-        },
-        {
-          "name": "right",
-          "type": "number",
-          "description": "The right CSS property of the Overlay — affects the horizontal position."
-        },
-        {
-          "name": "bottom",
-          "type": "number",
-          "description": "The bottom CSS property of the Overlay — affects the vertical position."
-        },
-        {
-          "name": "position",
-          "type": "| 'static' | 'relative' | 'absolute' | 'fixed' | 'sticky'",
-          "defaultValue": "absolute",
-          "description": "The position CSS property of the Overlay — sets how the Overlay is positioned relative to its Portal"
-        },
-        {
-          "name": "portalContainerName",
-          "type": "string",
-          "defaultValue": "",
-          "description": "If defined, Overlays will be rendered in the named portal. See also `Portal`."
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject"
-        }
-      ],
-      "subcomponents": []
-    },
-    "popover": {
-      "id": "popover",
-      "name": "Popover",
-      "status": "alpha",
-      "a11yReviewed": false,
-      "stories": [],
-      "props": [
-        {
-          "name": "as",
-          "type": "string",
-          "defaultValue": "div",
-          "description": "Sets the underlying HTML tag for the component"
-        },
-        {
-          "name": "caret",
-          "type": "| 'top' | 'bottom' | 'left' | 'right' | 'bottom-left' | 'bottom-right' | 'top-left' | 'top-right' | 'left-bottom' | 'left-top' | 'right-bottom' | 'right-top' ",
-          "defaultValue": "'top'",
-          "description": "Controls the position of the caret"
-        },
-        {
-          "name": "open",
-          "type": "boolean",
-          "defaultValue": "false",
-          "description": "Controls the visibility of the popover."
-        },
-        {
-          "name": "relative",
-          "type": "boolean",
-          "defaultValue": "false",
-          "description": "Set to true to render the popover using relative positioning. "
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject"
-        }
-      ],
-      "subcomponents": [
-        {
-          "name": "Popover.Content",
-          "props": [
-            {
-              "name": "as",
-              "type": "string",
-              "defaultValue": "div",
-              "description": "Sets the underlying HTML tag for the component"
-            },
-            {
-              "name": "sx",
-              "type": "SystemStyleObject"
-            }
-          ]
-        }
-      ]
-    },
-    "styled_octicon": {
-      "id": "styled_octicon",
-      "name": "StyledOcticon",
-      "status": "alpha",
-      "a11yReviewed": false,
-      "stories": [],
-      "props": [
-        {
-          "name": "ariaLabel",
-          "type": "string",
-          "defaultValue": "",
-          "description": "Specifies the aria-label attribute, which is read verbatim by screen readers "
-        },
-        {
-          "name": "icon",
-          "type": "Component",
-          "defaultValue": "",
-          "description": "Checks the input by default in uncontrolled modeName of the [Octicon component](https://primer.style/octicons/) used in the"
-        },
-        {
-          "name": "color",
-          "type": "string",
-          "defaultValue": "",
-          "description": "Sets an override color for the Octicon. Compatible with colors from the [Primer color system](https://primer.style/primitives/colors).\""
-        },
-        {
-          "name": "size",
-          "type": "number",
-          "defaultValue": "16",
-          "description": "Sets the uniform `width` and `height` of the SVG element"
-        },
-        {
-          "name": "verticalAlign",
-          "type": "string",
-          "defaultValue": "text-bottom",
-          "description": "Sets the `vertical-align` CSS property"
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject"
-        }
-      ],
-      "subcomponents": []
-    },
-    "sub_nav": {
-      "id": "sub_nav",
-      "name": "SubNav",
-      "status": "alpha",
-      "a11yReviewed": false,
-      "stories": [],
-      "props": [
-        {
-          "name": "actions",
-          "type": "React.ReactNode",
-          "description": "Place another element, such as a button, to the opposite side of the navigation items."
-        },
-        {
-          "name": "align",
-          "type": "'right'",
-          "description": "Use `right` to have navigation items aligned right."
-        },
-        {
-          "name": "full",
-          "type": "boolean",
-          "description": "Used to make navigation fill the width of the container."
-        },
-        {
-          "name": "aria-label",
-          "type": "string",
-          "description": "Used to set the `aria-label` on the top level `<nav>` element."
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject"
-        }
-      ],
-      "subcomponents": [
-        {
-          "name": "SubNav.Link",
-          "props": [
-            {
-              "name": "as",
-              "type": "React.ElementType",
-              "default": "'a'"
-            },
-            {
-              "name": "href",
-              "type": "string"
-            },
-            {
-              "name": "selected",
-              "type": "boolean"
-            },
-            {
-              "name": "sx",
-              "type": "SystemStyleObject"
-            }
-          ]
-        },
-        {
-          "name": "SubNav.Links",
-          "props": [
-            {
-              "name": "sx",
-              "type": "SystemStyleObject"
-            }
-          ]
-        }
-      ]
-    },
-    "text": {
-      "id": "text",
-      "name": "Text",
-      "status": "alpha",
-      "a11yReviewed": true,
-      "stories": [],
-      "props": [
-        {
-          "name": "as",
-          "defaultValue": "'span'",
-          "type": "React.ElementType"
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject"
-        }
-      ],
-      "subcomponents": []
-    },
     "tooltip": {
       "id": "tooltip",
       "name": "Tooltip",
@@ -405,6 +69,7 @@
         {
           "name": "direction",
           "type": "'n' | 'ne' | 'e' | 'se' | 's' | 'sw' | 'w' | 'nw'",
+          "defaultValue": "n",
           "description": "Sets where the tooltip renders in relation to the target."
         },
         {
@@ -429,100 +94,6 @@
       ],
       "subcomponents": []
     },
-    "truncate": {
-      "id": "truncate",
-      "name": "Truncate",
-      "status": "alpha",
-      "a11yReviewed": false,
-      "stories": [],
-      "props": [
-        {
-          "name": "maxWidth",
-          "type": "number",
-          "defaultValue": "125",
-          "description": "Sets the max-width of the text."
-        },
-        {
-          "name": "inline",
-          "type": "boolean",
-          "defaultValue": "false",
-          "description": "Displays text as inline block and vertical aligns to the top."
-        },
-        {
-          "name": "expandable",
-          "type": "boolean",
-          "defaultValue": "false",
-          "description": "Allows the truncated text to be displayed on hover."
-        },
-        {
-          "name": "as",
-          "type": "React.ElementType",
-          "defaultValue": "'div'"
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject"
-        }
-      ],
-      "subcomponents": []
-    },
-    "underline_nav": {
-      "id": "underline_nav",
-      "name": "UnderlineNav",
-      "status": "alpha",
-      "a11yReviewed": false,
-      "stories": [],
-      "props": [
-        {
-          "name": "actions",
-          "type": "React.ReactNode",
-          "description": "Place another element, such as a button, to the opposite side of the navigation items."
-        },
-        {
-          "name": "align",
-          "type": "'right'",
-          "description": "Use `right` to have navigation items aligned right."
-        },
-        {
-          "name": "full",
-          "type": "boolean",
-          "description": "Used to make navigation fill the width of the container."
-        },
-        {
-          "name": "aria-label",
-          "type": "string",
-          "description": "Used to set the `aria-label` on the top level `<nav>` element."
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject"
-        }
-      ],
-      "subcomponents": [
-        {
-          "name": "UnderlineNav.Link",
-          "props": [
-            {
-              "name": "as",
-              "type": "React.ElementType",
-              "defaultValue": "'a'"
-            },
-            {
-              "name": "href",
-              "type": "string"
-            },
-            {
-              "name": "selected",
-              "type": "boolean"
-            },
-            {
-              "name": "sx",
-              "type": "SystemStyleObject"
-            }
-          ]
-        }
-      ]
-    },
     "action_list": {
       "id": "action_list",
       "name": "ActionList",
@@ -537,7 +108,7 @@
       "props": [
         {
           "name": "children",
-          "type": "ActionList.Item[] | ActionList.LinkItem[] | ActionList.Group[]",
+          "type": "ActionList.Item[] | ActionList.LinkItem[] | ActionList.Divider[]",
           "defaultValue": "",
           "required": true,
           "description": ""
@@ -714,48 +285,34 @@
           ]
         },
         {
-          "name": "ActionList.Group",
+          "name": "ActionList.Heading",
           "props": [
             {
-              "name": "children",
-              "type": "ActionList.Item[] | ActionList.LinkItem[]",
-              "defaultValue": "",
-              "required": true,
+              "name": "variant",
+              "type": "'subtle' | 'filled'",
+              "defaultValue": "subtle",
               "description": ""
             },
             {
               "name": "title",
               "type": "string",
               "defaultValue": "",
-              "description": "Title of the group."
+              "required": true,
+              "description": ""
             },
             {
-              "name": "auxiliaryText",
+              "name": "subtitle",
               "type": "string",
               "defaultValue": "",
-              "description": "Secondary text that provides additional information about the group."
+              "required": false,
+              "description": ""
             },
             {
-              "name": "variant",
-              "type": "'filled' | 'subtle'",
-              "defaultValue": "'subtle'",
-              "description": "`inline` descriptions are positioned beside primary text. `block` descriptions are positioned below primary text."
-            },
-            {
-              "name": "selectionVariant",
-              "type": "'single' | 'multiple' | false",
-              "defaultValue": "",
-              "description": "Set `selectionVariant` at the group level."
-            },
-            {
-              "name": "role",
-              "type": "AriaRole",
-              "defaultValue": "",
-              "description": "ARIA role describing the function of the list inside the group. `listbox` and `menu` are a common values."
-            },
-            {
-              "name": "sx",
-              "type": "SystemStyleObject"
+              "name": "headingLevel",
+              "type": "'1' | '2' | '3' | '4' | '5' | '6'",
+              "defaultValue": "3",
+              "required": false,
+              "description": ""
             }
           ]
         }
@@ -1428,6 +985,29 @@
       ],
       "subcomponents": []
     },
+    "button_group": {
+      "id": "button_group",
+      "name": "ButtonGroup",
+      "status": "alpha",
+      "a11yReviewed": false,
+      "stories": [
+        {
+          "id": "components-buttongroup--default",
+          "code": "() => (\n  <ButtonGroup>\n    <Button>Button 1</Button>\n    <Button>Button 2</Button>\n    <Button>Button 3</Button>\n  </ButtonGroup>\n)"
+        }
+      ],
+      "props": [
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        },
+        {
+          "name": "ref",
+          "type": "React.RefObject<HTMLDivElement>"
+        }
+      ],
+      "subcomponents": []
+    },
     "checkbox": {
       "id": "checkbox",
       "name": "Checkbox",
@@ -1668,6 +1248,35 @@
         }
       ]
     },
+    "circle_octicon": {
+      "id": "circle_octicon",
+      "name": "CircleOcticon",
+      "status": "alpha",
+      "a11yReviewed": false,
+      "stories": [
+        {
+          "id": "components-circleocticon--default",
+          "code": "() => (\n  <CircleOcticon\n    icon={CheckIcon}\n    size={32}\n    sx={{\n      backgroundColor: 'success.fg',\n      color: 'fg.onEmphasis',\n    }}\n  />\n)"
+        }
+      ],
+      "props": [
+        {
+          "name": "icon",
+          "type": "Octicon"
+        },
+        {
+          "name": "size",
+          "defaultValue": "32",
+          "type": "number",
+          "description": "Set the width and height of the icon in pixels."
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ],
+      "subcomponents": []
+    },
     "counter_label": {
       "id": "counter_label",
       "name": "CounterLabel",
@@ -1738,6 +1347,10 @@
         {
           "id": "components-datatable-features--with-loading",
           "code": "() => {\n  const [loading] = React.useState(true)\n  return (\n    <Table.Container>\n      <Table.Title as=\"h2\" id=\"repositories\">\n        Repositories\n      </Table.Title>\n      <Table.Subtitle as=\"p\" id=\"repositories-subtitle\">\n        A subtitle could appear here to give extra context to the data.\n      </Table.Subtitle>\n      {loading ? (\n        <Table.Skeleton\n          aria-labelledby=\"repositories\"\n          aria-describedby=\"repositories-subtitle\"\n          columns={columns}\n          rows={10}\n        />\n      ) : (\n        <DataTable\n          aria-labelledby=\"repositories\"\n          aria-describedby=\"repositories-subtitle\"\n          data={data}\n          columns={columns}\n        />\n      )}\n    </Table.Container>\n  )\n}"
+        },
+        {
+          "id": "components-datatable-features--with-pagination",
+          "code": "() => {\n  const pageSize = 10\n  const [pageIndex, setPageIndex] = React.useState(0)\n  const start = pageIndex * pageSize\n  const end = start + pageSize\n  const rows = repos.slice(start, end)\n  return (\n    <Table.Container>\n      <Table.Title as=\"h2\" id=\"repositories\">\n        Repositories\n      </Table.Title>\n      <Table.Subtitle as=\"p\" id=\"repositories-subtitle\">\n        A subtitle could appear here to give extra context to the data.\n      </Table.Subtitle>\n      <DataTable\n        aria-labelledby=\"repositories\"\n        aria-describedby=\"repositories-subtitle\"\n        data={rows}\n        columns={[\n          {\n            header: 'Repository',\n            field: 'name',\n            rowHeader: true,\n          },\n          {\n            header: 'Type',\n            field: 'type',\n            renderCell: (row) => {\n              return <Label>{uppercase(row.type)}</Label>\n            },\n          },\n          {\n            header: 'Updated',\n            field: 'updatedAt',\n            renderCell: (row) => {\n              return <RelativeTime date={new Date(row.updatedAt)} />\n            },\n          },\n          {\n            header: 'Dependabot',\n            field: 'securityFeatures.dependabot',\n            renderCell: (row) => {\n              return row.securityFeatures.dependabot.length > 0 ? (\n                <LabelGroup>\n                  {row.securityFeatures.dependabot.map((feature) => {\n                    return <Label key={feature}>{uppercase(feature)}</Label>\n                  })}\n                </LabelGroup>\n              ) : null\n            },\n          },\n          {\n            header: 'Code scanning',\n            field: 'securityFeatures.codeScanning',\n            renderCell: (row) => {\n              return row.securityFeatures.codeScanning.length > 0 ? (\n                <LabelGroup>\n                  {row.securityFeatures.codeScanning.map((feature) => {\n                    return <Label key={feature}>{uppercase(feature)}</Label>\n                  })}\n                </LabelGroup>\n              ) : null\n            },\n          },\n        ]}\n      />\n      <Table.Pagination\n        aria-label=\"Pagination for Repositories\"\n        pageSize={pageSize}\n        totalCount={repos.length}\n        onChange={({ pageIndex }) => {\n          setPageIndex(pageIndex)\n        }}\n      />\n    </Table.Container>\n  )\n}"
         }
       ],
       "props": [
@@ -1895,6 +1508,37 @@
               "name": "rows",
               "type": "number",
               "description": "Optionally specify the number of rows which should be included in the skeleton state of the component"
+            }
+          ]
+        },
+        {
+          "name": "Table.Pagination",
+          "props": [
+            {
+              "name": "aria-label",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "defaultPageIndex",
+              "type": "string"
+            },
+            {
+              "name": "id",
+              "type": "string"
+            },
+            {
+              "name": "onChange",
+              "type": "({ pageIndex }: { pageIndex: number }) => void"
+            },
+            {
+              "name": "pageSize",
+              "type": "number"
+            },
+            {
+              "name": "totalCount",
+              "type": "number",
+              "required": true
             }
           ]
         }
@@ -2544,6 +2188,117 @@
         }
       ]
     },
+    "overlay": {
+      "id": "overlay",
+      "name": "Overlay",
+      "status": "alpha",
+      "a11yReviewed": false,
+      "stories": [],
+      "props": [
+        {
+          "name": "returnFocusRef",
+          "type": "React.RefObject<HTMLElement>",
+          "defaultValue": "",
+          "required": true,
+          "description": "Ref for the element to focus when the `Overlay` is closed."
+        },
+        {
+          "name": "onClickOutside",
+          "type": "function",
+          "defaultValue": "",
+          "required": true,
+          "description": "Function to call when clicking outside of the `Overlay`. Typically this function sets the `Overlay` visibility state to `false`."
+        },
+        {
+          "name": "onEscape",
+          "type": "function",
+          "defaultValue": "",
+          "required": true,
+          "description": "Function to call when user presses `Escape`. Typically this function sets the `Overlay` visibility state to `false`."
+        },
+        {
+          "name": "ignoreClickRefs",
+          "type": "React.RefObject<HTMLElement> []",
+          "defaultValue": "",
+          "description": "An array of ref objects to ignore clicks on in the onOutsideClick behavior. This is often used to ignore clicking on the element that toggles the open/closed state for the Overlay to prevent the Overlay from being toggled twice."
+        },
+        {
+          "name": "initialFocusRef",
+          "type": "React.RefObject<HTMLElement>",
+          "defaultValue": "",
+          "description": "Ref for the element to focus when the `Overlay` is opened. If nothing is provided, the first focusable element in the `Overlay` body is focused."
+        },
+        {
+          "name": "width",
+          "type": "| 'small' | 'medium' | 'large' | 'xlarge' | 'xxlarge' | 'auto'",
+          "defaultValue": "'auto'",
+          "description": "Sets the width of the `Overlay`, pick from our set list of widths, or pass `auto` to automatically set the width based on the content of the `Overlay`. `small` corresponds to `256px`, `medium` corresponds to `320px`, `large` corresponds to `480px`, `xlarge` corresponds to `640px`, `xxlarge` corresponds to `960px`."
+        },
+        {
+          "name": "height",
+          "type": "| 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge' | 'auto'",
+          "defaultValue": "'auto'",
+          "description": "Sets the height of the `Overlay`, pick from our set list of heights, or pass `auto` to automatically set the height based on the content of the `Overlay`. `xsmall` corresponds to `192px`, `small` corresponds to `256px`, `medium` corresponds to `320px`, `large` corresponds to `432px`, `xlarge` corresponds to `600px`."
+        },
+        {
+          "name": "maxHeight",
+          "type": "| 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge'",
+          "defaultValue": "",
+          "description": "Sets the maximum height of the `Overlay`, pick from our set list of heights. `xsmall` corresponds to `192px`, `small` corresponds to `256px`, `medium` corresponds to `320px`, `large` corresponds to `432px`, `xlarge` corresponds to `600px`."
+        },
+        {
+          "name": "visibility",
+          "type": "| 'visible' | 'hidden'",
+          "defaultValue": "'visible'",
+          "description": "Sets the visibility of the `Overlay`."
+        },
+        {
+          "name": "anchorSide",
+          "type": "| 'inside-top' | 'inside-bottom' | 'inside-left' | 'inside-right' | 'inside-center' | 'outside-top' | 'outside-bottom' | 'outside-left' | 'outside-right'",
+          "defaultValue": "",
+          "description": "If provided, the Overlay will slide into position from the side of the anchor with a brief animation"
+        },
+        {
+          "name": "top",
+          "type": "number",
+          "defaultValue": "0",
+          "description": "The top CSS property of the Overlay — affects the vertical position."
+        },
+        {
+          "name": "left",
+          "type": "number",
+          "defaultValue": "0",
+          "description": "The left CSS property of the Overlay — affects the horizontal position."
+        },
+        {
+          "name": "right",
+          "type": "number",
+          "description": "The right CSS property of the Overlay — affects the horizontal position."
+        },
+        {
+          "name": "bottom",
+          "type": "number",
+          "description": "The bottom CSS property of the Overlay — affects the vertical position."
+        },
+        {
+          "name": "position",
+          "type": "| 'static' | 'relative' | 'absolute' | 'fixed' | 'sticky'",
+          "defaultValue": "absolute",
+          "description": "The position CSS property of the Overlay — sets how the Overlay is positioned relative to its Portal"
+        },
+        {
+          "name": "portalContainerName",
+          "type": "string",
+          "defaultValue": "",
+          "description": "If defined, Overlays will be rendered in the named portal. See also `Portal`."
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ],
+      "subcomponents": []
+    },
     "drafts_page_header": {
       "id": "drafts_page_header",
       "name": "PageHeader",
@@ -2969,6 +2724,12 @@
               "description": "The width of the pane."
             },
             {
+              "name": "minWidth",
+              "type": "number",
+              "defaultValue": "256",
+              "description": "The minimum width of the pane."
+            },
+            {
               "name": "resizable",
               "type": "boolean",
               "defaultValue": "false",
@@ -3184,12 +2945,76 @@
       ],
       "subcomponents": []
     },
+    "popover": {
+      "id": "popover",
+      "name": "Popover",
+      "status": "alpha",
+      "a11yReviewed": false,
+      "stories": [
+        {
+          "id": "components-popover--default",
+          "code": "() => (\n  <Popover relative open={true} caret=\"top\">\n    <Popover.Content\n      sx={{\n        marginTop: 2,\n      }}\n    >\n      <Heading\n        sx={{\n          fontSize: 2,\n        }}\n      >\n        Popover heading\n      </Heading>\n      <Text as=\"p\">Message about popovers</Text>\n      <Button>Got it!</Button>\n    </Popover.Content>\n  </Popover>\n)"
+        }
+      ],
+      "props": [
+        {
+          "name": "as",
+          "type": "string",
+          "defaultValue": "div",
+          "description": "Sets the underlying HTML tag for the component"
+        },
+        {
+          "name": "caret",
+          "type": "| 'top' | 'bottom' | 'left' | 'right' | 'bottom-left' | 'bottom-right' | 'top-left' | 'top-right' | 'left-bottom' | 'left-top' | 'right-bottom' | 'right-top' ",
+          "defaultValue": "'top'",
+          "description": "Controls the position of the caret"
+        },
+        {
+          "name": "open",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "Controls the visibility of the popover."
+        },
+        {
+          "name": "relative",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "Set to true to render the popover using relative positioning. "
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ],
+      "subcomponents": [
+        {
+          "name": "Popover.Content",
+          "props": [
+            {
+              "name": "as",
+              "type": "string",
+              "defaultValue": "div",
+              "description": "Sets the underlying HTML tag for the component"
+            },
+            {
+              "name": "sx",
+              "type": "SystemStyleObject"
+            }
+          ]
+        }
+      ]
+    },
     "portal": {
       "id": "portal",
       "name": "Portal",
       "status": "alpha",
       "a11yReviewed": false,
-      "stories": [],
+      "stories": [
+        {
+          "id": "components-portal--default",
+          "code": "() => (\n  <>\n    Root position\n    <Box bg=\"red.2\" p={3}>\n      Outer container\n      <Box bg=\"green.2\" p={3}>\n        Inner container\n        <Portal>\n          Portaled content rendered at <code>&lt;BaseStyles&gt;</code> root.\n        </Portal>\n      </Box>\n    </Box>\n  </>\n)"
+        }
+      ],
       "props": [
         {
           "name": "onMount",
@@ -3447,7 +3272,7 @@
           "type": "string",
           "defaultValue": "",
           "required": true,
-          "description": "An ISO8601 time represeting the time"
+          "description": "An ISO8601 time representing the time"
         },
         {
           "name": "date",
@@ -3735,7 +3560,12 @@
       "name": "SelectPanel",
       "status": "alpha",
       "a11yReviewed": false,
-      "stories": [],
+      "stories": [
+        {
+          "id": "components-selectpanel--default",
+          "code": "() => {\n  const [selected, setSelected] = React.useState<ItemInput[]>([\n    items[0],\n    items[1],\n  ])\n  const [filter, setFilter] = React.useState('')\n  const filteredItems = items.filter((item) =>\n    item.text.toLowerCase().startsWith(filter.toLowerCase()),\n  )\n  const [open, setOpen] = useState(false)\n  return (\n    <>\n      <h1>Multi Select Panel</h1>\n      <div>Please select labels that describe your issue:</div>\n      <SelectPanel\n        renderAnchor={({\n          children,\n          'aria-labelledby': ariaLabelledBy,\n          ...anchorProps\n        }) => (\n          <Button\n            trailingAction={TriangleDownIcon}\n            aria-labelledby={` ${ariaLabelledBy}`}\n            {...anchorProps}\n          >\n            {children ?? 'Select Labels'}\n          </Button>\n        )}\n        placeholderText=\"Filter Labels\"\n        open={open}\n        onOpenChange={setOpen}\n        items={filteredItems}\n        selected={selected}\n        onSelectedChange={setSelected}\n        onFilterChange={setFilter}\n        showItemDividers={true}\n        overlayProps={{\n          width: 'small',\n          height: 'xsmall',\n        }}\n      />\n    </>\n  )\n}"
+        }
+      ],
       "props": [
         {
           "name": "onOpenChange",
@@ -3817,7 +3647,7 @@
       "stories": [
         {
           "id": "components-splitpagelayout--default",
-          "code": "Template.bind({})"
+          "code": "() => (\n  <SplitPageLayout>\n    <SplitPageLayout.Header>\n      <Placeholder label=\"Header\" height={100} />\n    </SplitPageLayout.Header>\n    <SplitPageLayout.Pane position=\"start\">\n      <Placeholder label=\"Pane\" height={400} />\n    </SplitPageLayout.Pane>\n    <SplitPageLayout.Content>\n      <Placeholder label=\"Content\" height={600} />\n    </SplitPageLayout.Content>\n    <SplitPageLayout.Footer>\n      <Placeholder label=\"Footer\" height={100} />\n    </SplitPageLayout.Footer>\n  </SplitPageLayout>\n)"
         }
       ],
       "props": [
@@ -3895,6 +3725,12 @@
               "type": "| 'small' | 'medium' | 'large'",
               "defaultValue": "'medium'",
               "description": "The width of the pane."
+            },
+            {
+              "name": "minWidth",
+              "type": "number",
+              "defaultValue": "256",
+              "description": "The minimum width of the pane."
             },
             {
               "name": "resizable",
@@ -4002,6 +3838,126 @@
       ],
       "subcomponents": []
     },
+    "styled_octicon": {
+      "id": "styled_octicon",
+      "name": "StyledOcticon",
+      "status": "alpha",
+      "a11yReviewed": false,
+      "stories": [
+        {
+          "id": "components-styledocticon--default",
+          "code": "() => <StyledOcticon icon={HeartFillIcon} size={32} />"
+        }
+      ],
+      "props": [
+        {
+          "name": "ariaLabel",
+          "type": "string",
+          "defaultValue": "",
+          "description": "Specifies the aria-label attribute, which is read verbatim by screen readers "
+        },
+        {
+          "name": "icon",
+          "type": "Component",
+          "defaultValue": "",
+          "description": "Checks the input by default in uncontrolled modeName of the [Octicon component](https://primer.style/octicons/) used in the"
+        },
+        {
+          "name": "color",
+          "type": "string",
+          "defaultValue": "",
+          "description": "Sets an override color for the Octicon. Compatible with colors from the [Primer color system](https://primer.style/primitives/colors).\""
+        },
+        {
+          "name": "size",
+          "type": "number",
+          "defaultValue": "16",
+          "description": "Sets the uniform `width` and `height` of the SVG element"
+        },
+        {
+          "name": "verticalAlign",
+          "type": "string",
+          "defaultValue": "text-bottom",
+          "description": "Sets the `vertical-align` CSS property"
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ],
+      "subcomponents": []
+    },
+    "sub_nav": {
+      "id": "sub_nav",
+      "name": "SubNav",
+      "status": "alpha",
+      "a11yReviewed": false,
+      "stories": [
+        {
+          "id": "components-subnav--default",
+          "code": "() => (\n  <SubNav aria-label=\"Main\">\n    <SubNav.Links>\n      <SubNav.Link href=\"#home\" selected>\n        Home\n      </SubNav.Link>\n      <SubNav.Link href=\"#documentation\">Documentation</SubNav.Link>\n      <SubNav.Link href=\"#support\">Support</SubNav.Link>\n    </SubNav.Links>\n  </SubNav>\n)"
+        }
+      ],
+      "props": [
+        {
+          "name": "actions",
+          "type": "React.ReactNode",
+          "description": "Place another element, such as a button, to the opposite side of the navigation items."
+        },
+        {
+          "name": "align",
+          "type": "'right'",
+          "description": "Use `right` to have navigation items aligned right."
+        },
+        {
+          "name": "full",
+          "type": "boolean",
+          "description": "Used to make navigation fill the width of the container."
+        },
+        {
+          "name": "aria-label",
+          "type": "string",
+          "description": "Used to set the `aria-label` on the top level `<nav>` element."
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ],
+      "subcomponents": [
+        {
+          "name": "SubNav.Link",
+          "props": [
+            {
+              "name": "as",
+              "type": "React.ElementType",
+              "default": "'a'"
+            },
+            {
+              "name": "href",
+              "type": "string"
+            },
+            {
+              "name": "selected",
+              "type": "boolean"
+            },
+            {
+              "name": "sx",
+              "type": "SystemStyleObject"
+            }
+          ]
+        },
+        {
+          "name": "SubNav.Links",
+          "props": [
+            {
+              "name": "sx",
+              "type": "SystemStyleObject"
+            }
+          ]
+        }
+      ]
+    },
     "tab_nav": {
       "id": "tab_nav",
       "name": "TabNav",
@@ -4048,6 +4004,30 @@
           ]
         }
       ]
+    },
+    "text": {
+      "id": "text",
+      "name": "Text",
+      "status": "alpha",
+      "a11yReviewed": true,
+      "stories": [
+        {
+          "id": "components-text--default",
+          "code": "() => <Text>Default Text</Text>"
+        }
+      ],
+      "props": [
+        {
+          "name": "as",
+          "defaultValue": "'span'",
+          "type": "React.ElementType"
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ],
+      "subcomponents": []
     },
     "text_input": {
       "id": "text_input",
@@ -4842,6 +4822,110 @@
         }
       ]
     },
+    "truncate": {
+      "id": "truncate",
+      "name": "Truncate",
+      "status": "alpha",
+      "a11yReviewed": false,
+      "stories": [
+        {
+          "id": "components-truncate--default",
+          "code": "() => <Truncate title=\"Some example text\">Some example text</Truncate>"
+        }
+      ],
+      "props": [
+        {
+          "name": "maxWidth",
+          "type": "number",
+          "defaultValue": "125",
+          "description": "Sets the max-width of the text."
+        },
+        {
+          "name": "inline",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "Displays text as inline block and vertical aligns to the top."
+        },
+        {
+          "name": "expandable",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "Allows the truncated text to be displayed on hover."
+        },
+        {
+          "name": "as",
+          "type": "React.ElementType",
+          "defaultValue": "'div'"
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ],
+      "subcomponents": []
+    },
+    "underline_nav": {
+      "id": "underline_nav",
+      "name": "UnderlineNav",
+      "status": "alpha",
+      "a11yReviewed": false,
+      "stories": [
+        {
+          "id": "components-underlinenav--default",
+          "code": "() => (\n  <UnderlineNav aria-label=\"Main\">\n    <UnderlineNav.Link href=\"#home\" selected>\n      Home\n    </UnderlineNav.Link>\n    <UnderlineNav.Link href=\"#documentation\">Documentation</UnderlineNav.Link>\n    <UnderlineNav.Link href=\"#support\">Support</UnderlineNav.Link>\n  </UnderlineNav>\n)"
+        }
+      ],
+      "props": [
+        {
+          "name": "actions",
+          "type": "React.ReactNode",
+          "description": "Place another element, such as a button, to the opposite side of the navigation items."
+        },
+        {
+          "name": "align",
+          "type": "'right'",
+          "description": "Use `right` to have navigation items aligned right."
+        },
+        {
+          "name": "full",
+          "type": "boolean",
+          "description": "Used to make navigation fill the width of the container."
+        },
+        {
+          "name": "aria-label",
+          "type": "string",
+          "description": "Used to set the `aria-label` on the top level `<nav>` element."
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ],
+      "subcomponents": [
+        {
+          "name": "UnderlineNav.Link",
+          "props": [
+            {
+              "name": "as",
+              "type": "React.ElementType",
+              "defaultValue": "'a'"
+            },
+            {
+              "name": "href",
+              "type": "string"
+            },
+            {
+              "name": "selected",
+              "type": "boolean"
+            },
+            {
+              "name": "sx",
+              "type": "SystemStyleObject"
+            }
+          ]
+        }
+      ]
+    },
     "drafts_underline_nav2": {
       "id": "drafts_underline_nav2",
       "name": "UnderlineNav",
@@ -4924,11 +5008,6 @@
               "defaultValue": "\"a\""
             },
             {
-              "name": "as",
-              "type": "React.ElementType",
-              "defaultValue": "\"a\""
-            },
-            {
               "name": "sx",
               "type": "SystemStyleObject"
             }
@@ -4937,6 +5016,81 @@
             "element": "a",
             "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#Attributes"
           }
+        }
+      ]
+    },
+    "drafts_button": {
+      "id": "drafts_button",
+      "name": "Button2",
+      "status": "draft",
+      "a11yReviewed": false,
+      "stories": [
+        {
+          "id": "components-button2--default",
+          "code": "() => <Button>Default</Button>"
+        }
+      ],
+      "props": [
+        {
+          "name": "children",
+          "required": true,
+          "type": "React.ReactNode",
+          "description": "The content of the button."
+        },
+        {
+          "name": "variant",
+          "type": "| 'default'\n| 'primary'\n| 'danger'\n| 'outline'\n| 'invisible'",
+          "defaultValue": "'default'",
+          "description": "Change the visual style of the button."
+        },
+        {
+          "name": "size",
+          "type": "| 'small'\n| 'medium'\n| 'large'",
+          "defaultValue": "'medium'"
+        },
+        {
+          "name": "leadingIcon",
+          "type": "React.ComponentType<OcticonProps>",
+          "description": "An icon to display before the button text."
+        },
+        {
+          "name": "trailingIcon",
+          "type": "React.ComponentType<OcticonProps>",
+          "description": "An icon to display after the button text."
+        },
+        {
+          "name": "as",
+          "type": "React.ElementType",
+          "defaultValue": "'button'"
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        },
+        {
+          "name": "ref",
+          "type": "React.RefObject<HTMLButtonElement>"
+        }
+      ],
+      "passthrough": {
+        "element": "button",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#attributes"
+      },
+      "subcomponents": [
+        {
+          "name": "Button.Counter",
+          "props": [
+            {
+              "name": "children",
+              "required": true,
+              "type": "number",
+              "description": "The counter value."
+            },
+            {
+              "name": "sx",
+              "type": "SystemStyleObject"
+            }
+          ]
         }
       ]
     },

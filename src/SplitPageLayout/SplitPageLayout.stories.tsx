@@ -1,11 +1,9 @@
 import React from 'react'
 import {Meta, Story} from '@storybook/react'
-import {Box, Button, Heading, Text} from '..'
-import {NavList} from '../NavList'
 import {Placeholder} from '../Placeholder'
 import {SplitPageLayout} from '../SplitPageLayout'
 
-const meta: Meta = {
+export default {
   title: 'Components/SplitPageLayout',
   parameters: {
     layout: 'fullscreen',
@@ -196,6 +194,11 @@ const meta: Meta = {
       control: {type: 'radio'},
       table: {category: 'Pane props'},
     },
+    'Pane.minWidth': {
+      type: 'number',
+      defaultValue: 256,
+      table: {category: 'Pane props'},
+    },
     'Pane.sticky': {
       type: 'boolean',
       defaultValue: true,
@@ -308,7 +311,7 @@ const meta: Meta = {
       table: {category: 'Footer props'},
     },
   },
-}
+} as Meta<typeof SplitPageLayout>
 
 const Template: Story = args => (
   <SplitPageLayout sx={args.sx}>
@@ -350,6 +353,7 @@ const Template: Story = args => (
           wide: args['Pane.position.wide'],
         }}
         width={args['Pane.width']}
+        minWidth={args['Pane.minWidth']}
         sticky={args['Pane.sticky']}
         padding={args['Pane.padding']}
         divider={{
@@ -387,47 +391,21 @@ const Template: Story = args => (
   </SplitPageLayout>
 )
 
-export const Default = Template.bind({})
-
-export const SettingsPage = () => (
+export const Default = () => (
   <SplitPageLayout>
+    <SplitPageLayout.Header>
+      <Placeholder label="Header" height={100} />
+    </SplitPageLayout.Header>
     <SplitPageLayout.Pane position="start">
-      <NavList aria-label="main">
-        <NavList.Item href="#">Profile</NavList.Item>
-        <NavList.Item href="#" aria-current="page">
-          Account
-        </NavList.Item>
-        <NavList.Item href="#">Emails</NavList.Item>
-        <NavList.Item href="#">Notifications</NavList.Item>
-      </NavList>
+      <Placeholder label="Pane" height={400} />
     </SplitPageLayout.Pane>
     <SplitPageLayout.Content>
-      <Heading as="h2" sx={{fontSize: 4, fontWeight: 'normal', color: 'danger.fg', mb: 2}}>
-        Danger zone
-      </Heading>
-      <Box
-        sx={{
-          border: '1px solid',
-          borderColor: 'danger.emphasis',
-          borderRadius: 2,
-          p: 3,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          gap: 3,
-        }}
-      >
-        <Box sx={{display: 'grid', gap: 1}}>
-          <Text sx={{fontSize: 1, fontWeight: 'bold', color: 'danger.fg'}}>Delete account</Text>
-          <Text sx={{fontSize: 1, color: 'fg.muted'}}>
-            Are you sure you don&apos;t want to just downgrade your account to a free account? We won&apos;t charge your
-            credit card anymore.
-          </Text>
-        </Box>
-        <Button variant="danger">Delete account</Button>
-      </Box>
+      <Placeholder label="Content" height={600} />
     </SplitPageLayout.Content>
+    <SplitPageLayout.Footer>
+      <Placeholder label="Footer" height={100} />
+    </SplitPageLayout.Footer>
   </SplitPageLayout>
 )
 
-export default meta
+export const Playground = Template.bind({})
