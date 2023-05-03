@@ -40,30 +40,29 @@ const LabelGroup: React.FC<React.PropsWithChildren<LabelGroupProps>> = ({
   const {theme} = useTheme()
   const OVERLAY_PADDING = get('space.2')(theme)
   const containerRef = React.useRef<HTMLDivElement>(null)
-  // const expandButtonRef = React.useRef<HTMLButtonElement>(null)
   const collapseButtonRef = React.useRef<HTMLButtonElement>(null)
-  const firstHiddenIndex = React.useRef<number | undefined>(undefined)
+  const firstHiddenIndexRef = React.useRef<number | undefined>(undefined)
   const [visibilityMap, setVisibilityMap] = React.useState<Record<string, boolean>>({})
   const [isOverflowShown, setIsOverflowShown] = React.useState<boolean>(false)
   const containerLeft =
     containerRef.current && visibleTokenCount === 'auto' ? containerRef.current.getBoundingClientRect().left : undefined
-  const [buttonClientRect, setButtonClientRect] = React.useState<{width: number; right: number}>({
-    width: 0,
-    right: 0,
-  })
+  const [buttonClientRect, setButtonClientRect] = React.useState<DOMRect | null>(null)
+  const buttonWidth = buttonClientRect?.width || 0
+  const buttonRight = buttonClientRect?.right || 0
   const overlayWidth =
-    containerLeft && buttonClientRect.right
-      ? parseInt(OVERLAY_PADDING, 10) + buttonClientRect.right - containerLeft
-      : undefined
+    containerLeft && buttonRight ? parseInt(OVERLAY_PADDING, 10) + buttonRight - containerLeft : undefined
   const hiddenItemIds = Object.keys(visibilityMap).filter(key => !visibilityMap[key])
-  const expandButtonRef = React.useCallback(
-    (node: HTMLButtonElement | null) => {
+  const expandButtonRef: React.RefCallback<HTMLButtonElement> = React.useCallback(
+    node => {
       if (node !== null) {
-        const {width, right} = node.getBoundingClientRect()
+        const nodeClientRect = node.getBoundingClientRect()
 
-        if (width !== buttonClientRect.width || right !== buttonClientRect.right) {
-          setButtonClientRect({width, right})
+        if (nodeClientRect.width !== buttonClientRect?.width || nodeClientRect.right !== buttonClientRect.right) {
+          setButtonClientRect(nodeClientRect)
         }
+
+        // @ts-ignore you can set `.current` on ref objects or ref callbacks in React
+        expandButtonRef.current = node
       }
     },
     [buttonClientRect],
@@ -73,14 +72,13 @@ const LabelGroup: React.FC<React.PropsWithChildren<LabelGroupProps>> = ({
   const closeOverflowOverlay = React.useCallback(() => {
     setIsOverflowShown(false)
 
-    // NOTE: this is bad hack, but it works
     // TODO: get rid of this hack
     setTimeout(() => {
+      // @ts-ignore you can set `.current` on ref objects or ref callbacks in React
       expandButtonRef.current?.focus()
     }, 10)
   }, [expandButtonRef, setIsOverflowShown])
   const showAllTokensInline = React.useCallback(() => {
-    // firstHiddenIndex.current = parseInt(hiddenItemIds[0], 10)
     setVisibilityMap({})
     setIsOverflowShown(true)
   }, [setVisibilityMap, setIsOverflowShown])
@@ -101,15 +99,15 @@ const LabelGroup: React.FC<React.PropsWithChildren<LabelGroupProps>> = ({
     }))
   }
 
-  React.useLayoutEffect(() => {
-    if (visibleTokenCount === undefined) {
+  React.useEffect(() => {
+    if (!visibleTokenCount) {
       return
     }
 
     if (visibleTokenCount === 'auto') {
       const observer = new IntersectionObserver(handleIntersection, {
         root: containerRef.current,
-        rootMargin: `0px -${buttonClientRect.width || 0}px 0px 0px`,
+        rootMargin: `0px -${buttonWidth}px 0px 0px`,
         threshold: 1,
       })
 
@@ -134,16 +132,16 @@ const LabelGroup: React.FC<React.PropsWithChildren<LabelGroupProps>> = ({
         setVisibilityMap(updatedEntries)
       }
     }
-  }, [buttonClientRect, visibleTokenCount])
+  }, [buttonWidth, visibleTokenCount])
 
   React.useEffect(() => {
     if (hiddenItemIds.length) {
-      firstHiddenIndex.current = parseInt(hiddenItemIds[0], 10)
+      firstHiddenIndexRef.current = parseInt(hiddenItemIds[0], 10)
     }
   }, [hiddenItemIds])
 
   React.useEffect(() => {
-    const firstHiddenChildDOM = document.querySelector<HTMLElement>(`[data-index="${firstHiddenIndex.current}"]`)
+    const firstHiddenChildDOM = document.querySelector<HTMLElement>(`[data-index="${firstHiddenIndexRef.current}"]`)
     const focusableChild = firstHiddenChildDOM ? getFocusableChild(firstHiddenChildDOM) : null
 
     if (isOverflowShown) {

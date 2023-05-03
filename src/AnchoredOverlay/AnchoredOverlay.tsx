@@ -16,7 +16,7 @@ interface AnchoredOverlayPropsWithAnchor {
   /**
    * An override to the internal ref that will be spread on to the renderAnchor
    */
-  anchorRef?: React.RefObject<HTMLElement>
+  anchorRef?: React.RefObject<HTMLElement> | React.RefCallback<HTMLElement>
 
   /**
    * An override to the internal id that will be spread on to the renderAnchor
