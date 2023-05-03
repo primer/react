@@ -27,7 +27,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       sx: sxProp = defaultSxProp,
       id,
       role,
-      hideSelection,
+      hideSelection = false,
       _PrivateItemWrapper,
       ...props
     },
@@ -195,7 +195,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       <ItemContext.Provider value={{variant, disabled, inlineDescriptionId, blockDescriptionId}}>
         <LiBox ref={forwardedRef} sx={merge<BetterSystemStyleObject>(styles, sxProp)} {...containerProps} {...props}>
           <ItemWrapper {...wrapperProps}>
-            {!!hideSelection && <Selection selected={selected} />}
+            {!hideSelection && <Selection selected={selected} />}
             {slots.leadingVisual}
             <Box
               data-component="ActionList.Item--DividerContainer"
