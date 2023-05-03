@@ -153,6 +153,12 @@
           "description": "The width of the pane."
         },
         {
+          "name": "minWidth",
+          "type": "number",
+          "defaultValue": "256",
+          "description": "The minimum width of the pane."
+        },
+        {
           "name": "resizable",
           "type": "boolean",
           "defaultValue": "false",

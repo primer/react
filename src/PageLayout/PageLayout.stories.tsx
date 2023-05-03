@@ -238,6 +238,11 @@ const meta: Meta = {
       control: {type: 'radio'},
       table: {category: 'Pane props'},
     },
+    'Pane.minWidth': {
+      type: 'number',
+      defaultValue: 256,
+      table: {category: 'Pane props'},
+    },
     'Pane.sticky': {
       type: 'boolean',
       table: {category: 'Pane props'},
@@ -383,6 +388,7 @@ const Template: Story = args => (
           wide: args['Pane.position.wide'],
         }}
         width={args['Pane.width']}
+        minWidth={args['Pane.minWidth']}
         sticky={args['Pane.sticky']}
         resizable={args['Pane.resizable']}
         padding={args['Pane.padding']}
