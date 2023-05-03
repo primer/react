@@ -33,7 +33,7 @@ export type SelectPanelProps = SelectPanelBaseProps &
   Omit<FilteredActionListProps, 'selectionVariant'> &
   Pick<AnchoredOverlayProps, 'open'> &
   AnchoredOverlayWrapperAnchorProps &
-  (SelectPanelSingleSelection | SelectPanelMultiSelection)
+  (SelectPanelSingleSelection | SelectPanelMultiSelection) & {hideSelection?: boolean}
 
 function isMultiSelectVariant(
   selected: SelectPanelSingleSelection['selected'] | SelectPanelMultiSelection['selected'],
@@ -57,6 +57,7 @@ export function SelectPanel({
   filterValue: externalFilterValue,
   onFilterChange: externalOnFilterChange,
   items,
+  hideSelection,
   textInputProps,
   overlayProps,
   sx,
@@ -159,8 +160,8 @@ export function SelectPanel({
         onFilterChange={onFilterChange}
         {...listProps}
         role="listbox"
-        aria-multiselectable={isMultiSelectVariant(selected) ? 'true' : 'false'}
-        selectionVariant={isMultiSelectVariant(selected) ? 'multiple' : 'single'}
+        aria-multiselectable={hideSelection ? undefined : isMultiSelectVariant(selected) ? 'true' : 'false'}
+        selectionVariant={hideSelection ? undefined : isMultiSelectVariant(selected) ? 'multiple' : 'single'}
         items={itemsToRender}
         renderFn={renderFn}
         textInputProps={extendedTextInputProps}

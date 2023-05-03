@@ -46,10 +46,11 @@ const renderFn = ({
   sx,
   text,
   trailingVisual,
+  hideSelection,
   onSelect,
 }: ItemInput): React.ReactElement => {
   return (
-    <ActionList.Item key={id} sx={sx} role="option" onSelect={onSelect}>
+    <ActionList.Item key={id} sx={sx} role="option" onSelect={onSelect} hideSelection={hideSelection}>
       <Box sx={{display: 'flex', flexDirection: 'column'}}>
         {text ? (
           <Box as="span" className="TextContainer">
