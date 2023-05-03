@@ -34,7 +34,7 @@
   "scripts": {
     "setup": "./script/setup",
     "build": "./script/build",
-    "clean": "rimraf dist lib lib-esm",
+    "clean": "rimraf dist lib lib-esm css",
     "format": "prettier --cache --write '**/*.{js,md,mdx,ts,tsx,yml}'",
     "format:diff": "prettier --cache --list-different '**/*.{js.md,mdx,ts,tsx,yml}'",
     "start": "concurrently npm:start:*",
@@ -72,6 +72,7 @@
     "lib",
     "lib/node_modules",
     "lib-esm",
+    "css",
     "index.d.ts",
     "deprecated/package.json",
     "drafts/package.json",
