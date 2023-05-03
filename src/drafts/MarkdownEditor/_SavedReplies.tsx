@@ -99,6 +99,7 @@ export const SavedRepliesButton = () => {
           },
         },
         id: i.toString(),
+        hideSelection: true,
       }),
     )
 
