@@ -50,28 +50,18 @@ const renderFn = ({
 }: ItemInput): React.ReactElement => {
   return (
     <ActionList.Item key={id} sx={sx} role="option" onSelect={onSelect} hideSelection={hideSelection}>
-      <Box sx={{display: 'flex', flexDirection: 'column'}}>
-        {text ? (
-          <Box as="span" className="TextContainer">
-            {text}
-          </Box>
-        ) : null}
-        {description ? (
-          <Box
-            className="DescriptionContainer"
-            as="span"
-            sx={{color: get('colors.fg.muted'), fontSize: get('fontSizes.0')}}
-          >
-            {descriptionVariant === 'block' ? (
-              description
-            ) : (
-              <Truncate title={description} inline={true} maxWidth="100%">
-                {description}
-              </Truncate>
-            )}
-          </Box>
-        ) : null}
-      </Box>
+      {text ? text : null}
+      {description ? (
+        <ActionList.Description variant="block">
+          {descriptionVariant === 'block' ? (
+            description
+          ) : (
+            <Truncate title={description} inline={true} maxWidth="100%">
+              {description}
+            </Truncate>
+          )}
+        </ActionList.Description>
+      ) : null}
       {!!trailingVisual && <ActionList.TrailingVisual>{trailingVisual}</ActionList.TrailingVisual>}
     </ActionList.Item>
   )
@@ -98,7 +88,7 @@ export const SavedRepliesButton = () => {
       (reply, i): Item => ({
         text: reply.name,
         description: reply.content,
-        descriptionVariant: 'block',
+        descriptionVariant: 'inline',
         trailingVisual: i < 9 ? `Ctrl + ${i + 1}` : undefined,
         sx: {
           // hide the leading visual container since we don't use the checkboxes
