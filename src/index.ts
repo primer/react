@@ -49,7 +49,7 @@ export type {RadioProps} from './Radio'
 export {ActionList} from './ActionList'
 export type {
   ActionListProps,
-  ActionListHeadingProps,
+  ActionListGroupProps,
   ActionListItemProps,
   ActionListLinkItemProps,
   ActionListDividerProps,

@@ -246,14 +246,13 @@ const defaultSx = {}
 // TODO: ref prop
 const Group: React.FC<NavListGroupProps> = ({title, children, sx: sxProp = defaultSx, ...props}) => {
   return (
-    <Box as="li" sx={sxProp} {...props}>
+    <>
       {/* Hide divider if the group is the first item in the list */}
-      <ActionList.Divider as="div" sx={{'&:first-child': {display: 'none'}}} />
-      {title && <ActionList.Heading title={title} />}
-      <Box as="ul" sx={{paddingInlineStart: 0}}>
+      <ActionList.Divider sx={{'&:first-child': {display: 'none'}}} />
+      <ActionList.Group {...props} title={title} sx={sxProp}>
         {children}
-      </Box>
-    </Box>
+      </ActionList.Group>
+    </>
   )
 }
 

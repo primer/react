@@ -368,38 +368,40 @@ export const UnderlineNav = forwardRef(
                   selectionVariant="single"
                   ref={containerRef}
                   id={disclosureWidgetId}
-                  sx={merge({display: isWidgetOpen ? 'block' : 'none'}, menuStyles)}
+                  sx={menuStyles}
+                  style={{display: isWidgetOpen ? 'block' : 'none'}}
                 >
                   {actions.map((action, index) => {
                     const {children: actionElementChildren, ...actionElementProps} = action.props
                     return (
-                      <ActionList.Item
-                        {...actionElementProps}
-                        key={actionElementChildren}
-                        as={action.props.as || 'a'}
-                        sx={menuItemStyles}
-                        onSelect={(event: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement>) => {
-                          // When there are no items in the list, do not run the swap function as we want to keep everything in the menu.
-                          !onlyMenuVisible && swapMenuItemWithListItem(action, index, event, updateListAndMenu)
-                          setSelectEvent(event)
-                          closeOverlay()
-                          focusOnMoreMenuBtn()
-                        }}
-                      >
-                        <Box as="span" sx={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
-                          {actionElementChildren}
+                      <Box key={actionElementChildren} as="li">
+                        <ActionList.Item
+                          {...actionElementProps}
+                          as={action.props.as || 'a'}
+                          sx={menuItemStyles}
+                          onSelect={(event: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement>) => {
+                            // When there are no items in the list, do not run the swap function as we want to keep everything in the menu.
+                            !onlyMenuVisible && swapMenuItemWithListItem(action, index, event, updateListAndMenu)
+                            setSelectEvent(event)
+                            closeOverlay()
+                            focusOnMoreMenuBtn()
+                          }}
+                        >
+                          <Box as="span" sx={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
+                            {actionElementChildren}
 
-                          {loadingCounters ? (
-                            <LoadingCounter />
-                          ) : (
-                            actionElementProps.counter !== undefined && (
-                              <Box as="span" data-component="counter">
-                                <CounterLabel>{actionElementProps.counter}</CounterLabel>
-                              </Box>
-                            )
-                          )}
-                        </Box>
-                      </ActionList.Item>
+                            {loadingCounters ? (
+                              <LoadingCounter />
+                            ) : (
+                              actionElementProps.counter !== undefined && (
+                                <Box as="span" data-component="counter">
+                                  <CounterLabel>{actionElementProps.counter}</CounterLabel>
+                                </Box>
+                              )
+                            )}
+                          </Box>
+                        </ActionList.Item>
+                      </Box>
                     )
                   })}
                 </ActionList>
