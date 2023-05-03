@@ -16,10 +16,17 @@ import {useId} from '../hooks/useId'
 
 const menuScrollMargins: ScrollIntoViewOptions = {startMargin: 0, endMargin: 8}
 
-export type ItemInput = Partial<ActionListItemProps> & {
-  leadingVisual?: React.ReactElement
-  text: string
-}
+export type ItemInput = Partial<
+  ActionListItemProps & {
+    description?: string
+    descriptionVariant?: string
+    leadingVisual?: JSX.Element
+    onAction?: (itemFromAction: ItemInput, event: React.MouseEvent) => void
+    selected?: boolean
+    text?: string
+    trailingVisual?: string
+  }
+>
 
 export interface FilteredActionListProps extends ActionListProps, SxProp {
   loading?: boolean

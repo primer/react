@@ -8,8 +8,14 @@ import React, {
   useImperativeHandle,
   useState,
 } from 'react'
+import {get} from '../../constants'
 import {SelectPanel, SelectPanelProps} from '../../SelectPanel'
+import {ItemInput} from '../../FilteredActionList'
+import {ActionList} from '../../ActionList'
+import Box from '../../Box'
 import {ToolbarButton} from './Toolbar'
+import Truncate from '../../Truncate'
+import {useId} from '../../hooks/useId'
 
 export type SavedReply = {
   name: string
@@ -32,6 +38,44 @@ type Item = SelectPanelProps['items'][number]
 // SavedRepliesContext is separate from MarkdownEditorContext because the saved replies array is practically guarunteed to change
 // on every render. If it was provided in the MarkdownEditorContext, it would cause the whole editor to rerender on every render.
 export const SavedRepliesContext = createContext<SavedRepliesContext>(null)
+
+const renderFn = ({
+  description,
+  descriptionVariant,
+  id,
+  sx,
+  text,
+  trailingVisual,
+  onSelect,
+}: ItemInput): React.ReactElement => {
+  return (
+    <ActionList.Item key={id} sx={sx} role="option" onSelect={onSelect}>
+      <Box sx={{display: 'flex', flexDirection: 'column'}}>
+        {text ? (
+          <Box as="span" className="TextContainer">
+            {text}
+          </Box>
+        ) : null}
+        {description ? (
+          <Box
+            className="DescriptionContainer"
+            as="span"
+            sx={{color: get('colors.fg.muted'), fontSize: get('fontSizes.0')}}
+          >
+            {descriptionVariant === 'block' ? (
+              description
+            ) : (
+              <Truncate title={description} inline={true} maxWidth="100%">
+                {description}
+              </Truncate>
+            )}
+          </Box>
+        ) : null}
+      </Box>
+      {!!trailingVisual && <ActionList.TrailingVisual>{trailingVisual}</ActionList.TrailingVisual>}
+    </ActionList.Item>
+  )
+}
 
 export const SavedRepliesButton = () => {
   const context = useContext(SavedRepliesContext)
@@ -66,6 +110,7 @@ export const SavedRepliesButton = () => {
             maxWidth: '100%',
           },
         },
+        id: i.toString(),
       }),
     )
 
@@ -97,6 +142,7 @@ export const SavedRepliesButton = () => {
       open={open}
       onOpenChange={setOpen}
       items={items}
+      renderFn={renderFn}
       filterValue={filter}
       onFilterChange={setFilter}
       placeholderText="Search saved replies"

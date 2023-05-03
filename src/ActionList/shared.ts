@@ -39,7 +39,7 @@ export type ActionListItemProps = {
   /**
    * id to attach to the root element of the Item
    */
-  id?: string | number
+  id?: string
   /**
    * Private API for use internally only. Used by LinkItem to wrap contents in an anchor
    */
