@@ -15,7 +15,6 @@ import {ActionList} from '../../ActionList'
 import Box from '../../Box'
 import {ToolbarButton} from './Toolbar'
 import Truncate from '../../Truncate'
-import {useId} from '../../hooks/useId'
 
 export type SavedReply = {
   name: string
