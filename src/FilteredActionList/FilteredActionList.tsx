@@ -139,7 +139,13 @@ export function FilteredActionList({
             <Spinner />
           </Box>
         ) : (
-          <ActionList ref={listContainerRef} {...listProps} role="listbox" id={listId}>
+          <ActionList
+            ref={listContainerRef}
+            {...listProps}
+            role="listbox"
+            id={listId}
+            aria-label={`${placeholderText} options`}
+          >
             {items.map(i => renderFn(i))}
           </ActionList>
         )}

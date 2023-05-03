@@ -53,7 +53,7 @@ const items = [
 
 export function Default(): JSX.Element {
   const [filter, setFilter] = React.useState('')
-  const filteredItems = items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
+  const filteredItems = items.filter(item => item.text?.toLowerCase().startsWith(filter.toLowerCase()))
 
   return (
     <>
@@ -65,7 +65,7 @@ export function Default(): JSX.Element {
         onFilterChange={setFilter}
         sx={{border: '1px solid', padding: '8px'}}
         renderFn={({id, leadingVisual, text}) => (
-          <ActionList.Item key={id}>
+          <ActionList.Item key={id} role="option">
             {leadingVisual && <ActionList.LeadingVisual>{leadingVisual}</ActionList.LeadingVisual>}
             {text}
           </ActionList.Item>
