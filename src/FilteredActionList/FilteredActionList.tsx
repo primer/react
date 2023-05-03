@@ -36,7 +36,7 @@ export interface FilteredActionListProps extends ActionListProps, SxProp {
   textInputProps?: Partial<Omit<TextInputProps, 'onChange'>>
   inputRef?: React.RefObject<HTMLInputElement>
   items: ItemInput[]
-  renderFn: (props: ItemInput) => React.ReactElement
+  renderFn?: (props: ItemInput) => React.ReactElement
 }
 
 const StyledHeader = styled.div`
@@ -146,7 +146,7 @@ export function FilteredActionList({
             id={listId}
             aria-label={`${placeholderText} options`}
           >
-            {items.map(i => renderFn(i))}
+            {items.map(i => renderFn?.(i))}
           </ActionList>
         )}
       </Box>
