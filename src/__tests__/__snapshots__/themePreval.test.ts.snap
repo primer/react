@@ -4618,7 +4618,7 @@ var themePreval = {
   }
 };
 
-var theme = themePreval;
+var theme = /*@__PURE__*/_commonjsHelpers.getDefaultExportFromCjs(themePreval);
 
 module.exports = theme;
 "
