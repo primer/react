@@ -8,11 +8,9 @@ import React, {
   useImperativeHandle,
   useState,
 } from 'react'
-import {get} from '../../constants'
 import {SelectPanel, SelectPanelProps} from '../../SelectPanel'
 import {ItemInput} from '../../FilteredActionList'
 import {ActionList} from '../../ActionList'
-import Box from '../../Box'
 import {ToolbarButton} from './Toolbar'
 import Truncate from '../../Truncate'
 
