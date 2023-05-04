@@ -21,7 +21,7 @@ export default {
     variant: {
       control: {
         type: 'radio',
-        options: ['default', 'primary', 'danger', 'invisible'],
+        options: ['default', 'primary', 'danger', 'invisible', 'outline'],
       },
     },
     alignContent: {
@@ -57,6 +57,14 @@ export default {
   },
 } as Meta<typeof Button>
 
-export const Playground: Story<typeof Button> = args => <Button {...args}>Default</Button>
+export const Playground: Story<typeof Button & {trailingVisualCount: number}> = args => {
+  const {trailingVisualCount, ...rest} = args
+  return (
+    <Button {...rest}>
+      Default
+      {typeof trailingVisualCount === 'undefined' ? null : <Button.Counter>{trailingVisualCount}</Button.Counter>}
+    </Button>
+  )
+}
 
 export const Default = () => <Button>Default</Button>

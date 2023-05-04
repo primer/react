@@ -1,6 +1,6 @@
 import React from 'react'
 import {Box, useSSRSafeId} from '../..'
-import createSlots from '../../utils/create-slots'
+import createSlots from '../utils/create-slots'
 import {FormValidationStatus} from '../../utils/types/FormValidationStatus'
 import ValidationAnimationContainer from '../../_ValidationAnimationContainer'
 import InputValidation from '../../_InputValidation'

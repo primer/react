@@ -1,6 +1,6 @@
 {
   "name": "@primer/react",
-  "version": "35.24.0",
+  "version": "35.25.1",
   "description": "An implementation of GitHub's Primer Design System using React",
   "main": "lib/index.js",
   "module": "lib-esm/index.js",
@@ -26,7 +26,8 @@
         "./lib/*.js",
         "./lib/*/index.js"
       ]
-    }
+    },
+    "./lib-esm/internal/*": null
   },
   "typings": "lib/index.d.ts",
   "sideEffects": false,
@@ -94,7 +95,7 @@
     "@lit-labs/react": "1.1.1",
     "@primer/behaviors": "1.3.3",
     "@primer/octicons-react": "^18.0.0",
-    "@primer/primitives": "7.11.5",
+    "@primer/primitives": "7.11.7",
     "@react-aria/ssr": "^3.1.0",
     "@styled-system/css": "^5.1.5",
     "@styled-system/props": "^5.1.5",
@@ -128,8 +129,8 @@
     "@github/prettier-config": "0.0.6",
     "@playwright/test": "1.32.0",
     "@rollup/plugin-babel": "6.0.3",
-    "@rollup/plugin-commonjs": "24.0.1",
-    "@rollup/plugin-node-resolve": "15.0.1",
+    "@rollup/plugin-commonjs": "24.1.0",
+    "@rollup/plugin-node-resolve": "15.0.2",
     "@rollup/plugin-replace": "5.0.2",
     "@rollup/plugin-terser": "0.4.0",
     "@rollup/plugin-typescript": "11.1.0",
@@ -145,7 +146,7 @@
     "@storybook/jest": "0.0.10",
     "@storybook/manager-webpack5": "6.5.14",
     "@storybook/react": "6.5.16",
-    "@storybook/test-runner": "0.9.1",
+    "@storybook/test-runner": "0.10.0",
     "@storybook/testing-library": "0.0.13",
     "@storybook/theming": "6.5.16",
     "@testing-library/dom": "9.2.0",
@@ -166,7 +167,7 @@
     "@typescript-eslint/eslint-plugin": "5.54.1",
     "@typescript-eslint/parser": "5.54.1",
     "ajv": "8.12.0",
-    "axe-core": "4.6.1",
+    "axe-core": "4.7.0",
     "babel-core": "7.0.0-bridge.0",
     "babel-loader": "^9.1.0",
     "babel-plugin-add-react-displayname": "0.0.5",
@@ -216,9 +217,9 @@
     "lodash.isempty": "4.4.0",
     "lodash.isobject": "3.0.2",
     "lodash.keyby": "4.6.0",
-    "markdownlint-cli2": "^0.6.0",
+    "markdownlint-cli2": "^0.7.1",
     "markdownlint-cli2-formatter-pretty": "0.0.3",
-    "mdast-util-from-markdown": "1.2.0",
+    "mdast-util-from-markdown": "1.3.0",
     "mdast-util-frontmatter": "1.0.1",
     "mdast-util-mdx": "2.0.1",
     "mdast-util-to-string": "3.1.1",
@@ -234,7 +235,7 @@
     "rimraf": "4.1.2",
     "rollup": "3.20.2",
     "rollup-plugin-visualizer": "5.9.0",
-    "semver": "7.3.8",
+    "semver": "7.5.0",
     "size-limit": "8.2.4",
     "storybook-addon-turbo-build": "1.1.0",
     "styled-components": "4.4.1",
@@ -246,7 +247,7 @@
     "unist-util-find-before": "3.0.1",
     "unist-util-flat-filter": "2.0.0",
     "webpack": "5.77.0",
-    "yaml": "2.2.1"
+    "yaml": "2.2.2"
   },
   "peerDependencies": {
     "react": "^17.0.0 || ^18.0.0",

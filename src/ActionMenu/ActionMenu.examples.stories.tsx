@@ -33,40 +33,40 @@ export const GroupsAndDescriptions = () => {
       </ActionMenu.Button>
       <ActionMenu.Overlay width="medium">
         <ActionList selectionVariant="single" showDividers>
-          <ActionList.Group title="Open">
-            {milestones
-              .filter(milestone => !milestone.name.includes('21'))
-              .map((milestone, index) => (
-                <ActionList.Item
-                  key={index}
-                  selected={milestone.name === selectedMilestone?.name}
-                  onSelect={() => setSelectedMilestone(milestone)}
-                >
-                  <ActionList.LeadingVisual>
-                    <MilestoneIcon />
-                  </ActionList.LeadingVisual>
-                  {milestone.name}
-                  <ActionList.Description variant="block">Due by {milestone.due}</ActionList.Description>
-                </ActionList.Item>
-              ))}
-          </ActionList.Group>
-          <ActionList.Group title="Closed">
-            {milestones
-              .filter(milestone => milestone.name.includes('21'))
-              .map((milestone, index) => (
-                <ActionList.Item
-                  key={index}
-                  selected={milestone.name === selectedMilestone?.name}
-                  onSelect={() => setSelectedMilestone(milestone)}
-                >
-                  <ActionList.LeadingVisual>
-                    <MilestoneIcon />
-                  </ActionList.LeadingVisual>
-                  {milestone.name}
-                  <ActionList.Description variant="block">Due by {milestone.due}</ActionList.Description>
-                </ActionList.Item>
-              ))}
-          </ActionList.Group>
+          <ActionList.Heading title="Open" />
+          {milestones
+            .filter(milestone => !milestone.name.includes('21'))
+            .map((milestone, index) => (
+              <ActionList.Item
+                key={index}
+                selected={milestone.name === selectedMilestone?.name}
+                onSelect={() => setSelectedMilestone(milestone)}
+              >
+                <ActionList.LeadingVisual>
+                  <MilestoneIcon />
+                </ActionList.LeadingVisual>
+                {milestone.name}
+                <ActionList.Description variant="block">Due by {milestone.due}</ActionList.Description>
+              </ActionList.Item>
+            ))}
+        </ActionList>
+        <ActionList sx={{paddingTop: 0}} selectionVariant="single">
+          <ActionList.Heading title="Closed" />
+          {milestones
+            .filter(milestone => milestone.name.includes('21'))
+            .map((milestone, index) => (
+              <ActionList.Item
+                key={index}
+                selected={milestone.name === selectedMilestone?.name}
+                onSelect={() => setSelectedMilestone(milestone)}
+              >
+                <ActionList.LeadingVisual>
+                  <MilestoneIcon />
+                </ActionList.LeadingVisual>
+                {milestone.name}
+                <ActionList.Description variant="block">Due by {milestone.due}</ActionList.Description>
+              </ActionList.Item>
+            ))}
         </ActionList>
       </ActionMenu.Overlay>
     </ActionMenu>
@@ -212,27 +212,25 @@ export const MixedSelection = () => {
         {selectedOption ? `Group by ${selectedOption.text}` : 'Group items by'}
       </ActionMenu.Button>
       <ActionMenu.Overlay width="medium">
+        <ActionList selectionVariant="single">
+          <ActionList.Heading title="Group by" />
+          {options.map((option, index) => (
+            <ActionList.Item key={index} selected={index === selectedIndex} onSelect={() => setSelectedIndex(index)}>
+              <ActionList.LeadingVisual>
+                <option.icon />
+              </ActionList.LeadingVisual>
+              {option.text}
+            </ActionList.Item>
+          ))}
+        </ActionList>
         <ActionList>
-          <ActionList.Group selectionVariant="single" title="Group by">
-            {options.map((option, index) => (
-              <ActionList.Item key={index} selected={index === selectedIndex} onSelect={() => setSelectedIndex(index)}>
-                <ActionList.LeadingVisual>
-                  <option.icon />
-                </ActionList.LeadingVisual>
-                {option.text}
-              </ActionList.Item>
-            ))}
-          </ActionList.Group>
           {typeof selectedIndex === 'number' && (
-            <ActionList.Group>
-              <ActionList.Divider />
-              <ActionList.Item onSelect={() => setSelectedIndex(null)}>
-                <ActionList.LeadingVisual>
-                  <XIcon />
-                </ActionList.LeadingVisual>
-                Clear Group by
-              </ActionList.Item>
-            </ActionList.Group>
+            <ActionList.Item onSelect={() => setSelectedIndex(null)}>
+              <ActionList.LeadingVisual>
+                <XIcon />
+              </ActionList.LeadingVisual>
+              Clear Group by
+            </ActionList.Item>
           )}
         </ActionList>
       </ActionMenu.Overlay>
@@ -251,29 +249,31 @@ export const MultipleSections = () => {
         <IconButton icon={KebabHorizontalIcon} aria-label="Open menu" />
       </ActionMenu.Anchor>
       <ActionMenu.Overlay width="small">
+        <ActionList aria-busy="true">
+          <ActionList.Heading title="Raw file content" />
+          <ActionList.Item onSelect={() => alert('Workflows clicked')}>Download</ActionList.Item>
+          <ActionList.Divider />
+          <ActionList.Item onSelect={() => alert('Workflows clicked')}>Jump to line</ActionList.Item>
+          <ActionList.Item onSelect={() => alert('Workflows clicked')}>Find in file</ActionList.Item>
+          <ActionList.Divider />
+          <ActionList.Item onSelect={() => alert('Workflows clicked')}>Copy path</ActionList.Item>
+          <ActionList.Item onSelect={() => alert('Workflows clicked')}>Copy permalink</ActionList.Item>
+        </ActionList>
+        <ActionList.Divider sx={{marginBottom: 0}} />
+        <ActionList selectionVariant="multiple">
+          <ActionList.Heading title="View options" />
+          {items.map((item, index) => (
+            <ActionList.Item
+              key={index}
+              selected={item.name === selectedMilestone?.name}
+              onSelect={() => setSelectedMilestone(item)}
+            >
+              {item.name}
+            </ActionList.Item>
+          ))}
+        </ActionList>
+        <ActionList.Divider sx={{marginBottom: 0}} />
         <ActionList>
-          <ActionList.Group title="Raw file content">
-            <ActionList.Item onSelect={() => alert('Workflows clicked')}>Download</ActionList.Item>
-            <ActionList.Divider />
-            <ActionList.Item onSelect={() => alert('Workflows clicked')}>Jump to line</ActionList.Item>
-            <ActionList.Item onSelect={() => alert('Workflows clicked')}>Find in file</ActionList.Item>
-            <ActionList.Divider />
-            <ActionList.Item onSelect={() => alert('Workflows clicked')}>Copy path</ActionList.Item>
-            <ActionList.Item onSelect={() => alert('Workflows clicked')}>Copy permalink</ActionList.Item>
-          </ActionList.Group>
-          <ActionList.Divider />
-          <ActionList.Group title="View options" selectionVariant="multiple">
-            {items.map((item, index) => (
-              <ActionList.Item
-                key={index}
-                selected={item.name === selectedMilestone?.name}
-                onSelect={() => setSelectedMilestone(item)}
-              >
-                {item.name}
-              </ActionList.Item>
-            ))}
-          </ActionList.Group>
-          <ActionList.Divider />
           <ActionList.Item onSelect={() => alert('Delete file')} variant="danger">
             Delete file
           </ActionList.Item>

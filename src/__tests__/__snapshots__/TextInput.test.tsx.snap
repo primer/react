@@ -104,7 +104,6 @@ exports[`TextInput renders 1`] = `
 
 <span
   aria-busy={false}
-  aria-live="polite"
   className="c0 TextInput-wrapper"
   onClick={[Function]}
 >
@@ -231,7 +230,6 @@ exports[`TextInput renders block 1`] = `
 
 <span
   aria-busy={false}
-  aria-live="polite"
   className="c0 TextInput-wrapper"
   onClick={[Function]}
 >
@@ -350,7 +348,6 @@ exports[`TextInput renders consistently 1`] = `
 
 <span
   aria-busy={false}
-  aria-live="polite"
   className="c0 TextInput-wrapper"
   onClick={[Function]}
 >
@@ -469,7 +466,6 @@ exports[`TextInput renders contrast 1`] = `
 
 <span
   aria-busy={false}
-  aria-live="polite"
   className="c0 TextInput-wrapper"
   onClick={[Function]}
 >
@@ -595,7 +591,6 @@ exports[`TextInput renders error 1`] = `
 
 <span
   aria-busy={false}
-  aria-live="polite"
   className="c0 TextInput-wrapper"
   onClick={[Function]}
 >
@@ -720,7 +715,6 @@ exports[`TextInput renders large 1`] = `
 
 <span
   aria-busy={false}
-  aria-live="polite"
   className="c0 TextInput-wrapper"
   onClick={[Function]}
   size="large"
@@ -840,7 +834,6 @@ exports[`TextInput renders leadingVisual 1`] = `
 
 <span
   aria-busy={false}
-  aria-live="polite"
   className="c0 TextInput-wrapper"
   onClick={[Function]}
 >
@@ -987,7 +980,6 @@ exports[`TextInput renders monospace 1`] = `
 
 <span
   aria-busy={false}
-  aria-live="polite"
   className="c0 TextInput-wrapper"
   onClick={[Function]}
 >
@@ -1106,7 +1098,6 @@ exports[`TextInput renders placeholder 1`] = `
 
 <span
   aria-busy={false}
-  aria-live="polite"
   className="c0 TextInput-wrapper"
   onClick={[Function]}
 >
@@ -1234,7 +1225,6 @@ exports[`TextInput renders small 1`] = `
 
 <span
   aria-busy={false}
-  aria-live="polite"
   className="c0 TextInput-wrapper"
   onClick={[Function]}
   size="small"
@@ -1467,6 +1457,14 @@ exports[`TextInput renders trailingAction icon button 1`] = `
 
 .c4:has([data-component="ButtonCounter"]) {
   color: #24292f;
+}
+
+.c4:disabled[data-no-visuals] {
+  color: #8c959f;
+}
+
+.c4:disabled[data-no-visuals] [data-component=ButtonCounter] {
+  color: inherit;
 }
 
 .c4[data-size="small"][data-no-visuals="true"] {
@@ -1823,7 +1821,6 @@ exports[`TextInput renders trailingAction icon button 1`] = `
 
 <span
   aria-busy={false}
-  aria-live="polite"
   className="c0 TextInput-wrapper"
   onClick={[Function]}
 >
@@ -2108,6 +2105,14 @@ exports[`TextInput renders trailingAction text button 1`] = `
   color: #24292f;
 }
 
+.c3:disabled[data-no-visuals] {
+  color: #8c959f;
+}
+
+.c3:disabled[data-no-visuals] [data-component=ButtonCounter] {
+  color: inherit;
+}
+
 .c3[data-no-visuals="true"] {
   padding-top: 2px;
   padding-right: 4px;
@@ -2238,7 +2243,6 @@ exports[`TextInput renders trailingAction text button 1`] = `
 
 <span
   aria-busy={false}
-  aria-live="polite"
   className="c0 TextInput-wrapper"
   onClick={[Function]}
 >
@@ -2500,6 +2504,14 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
 
 .c4:has([data-component="ButtonCounter"]) {
   color: #24292f;
+}
+
+.c4:disabled[data-no-visuals] {
+  color: #8c959f;
+}
+
+.c4:disabled[data-no-visuals] [data-component=ButtonCounter] {
+  color: inherit;
 }
 
 .c4[data-no-visuals="true"] {
@@ -2857,7 +2869,6 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
 
 <span
   aria-busy={false}
-  aria-live="polite"
   className="c0 TextInput-wrapper"
   onClick={[Function]}
 >
@@ -3005,7 +3016,6 @@ exports[`TextInput renders trailingVisual 1`] = `
 
 <span
   aria-busy={false}
-  aria-live="polite"
   className="c0 TextInput-wrapper"
   onClick={[Function]}
 >
@@ -3158,7 +3168,6 @@ exports[`TextInput renders warning 1`] = `
 
 <span
   aria-busy={false}
-  aria-live="polite"
   className="c0 TextInput-wrapper"
   onClick={[Function]}
 >
@@ -3292,7 +3301,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
 
 <span
     aria-busy={true}
-    aria-live="polite"
     className="c0 TextInput-wrapper"
     onClick={[Function]}
   >
@@ -3465,7 +3473,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
 
 <span
     aria-busy={true}
-    aria-live="polite"
     className="c0 TextInput-wrapper"
     onClick={[Function]}
   >
@@ -3670,7 +3677,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
 
 <span
     aria-busy={true}
-    aria-live="polite"
     className="c0 TextInput-wrapper"
     onClick={[Function]}
   >
@@ -3852,7 +3858,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
 
 <span
     aria-busy={true}
-    aria-live="polite"
     className="c0 TextInput-wrapper"
     onClick={[Function]}
   >
@@ -4103,7 +4108,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
 
 <span
     aria-busy={true}
-    aria-live="polite"
     className="c0 TextInput-wrapper"
     onClick={[Function]}
   >
@@ -4354,7 +4358,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
 
 <span
     aria-busy={true}
-    aria-live="polite"
     className="c0 TextInput-wrapper"
     onClick={[Function]}
   >
@@ -4599,7 +4602,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
 
 <span
     aria-busy={true}
-    aria-live="polite"
     className="c0 TextInput-wrapper"
     onClick={[Function]}
   >
@@ -4812,7 +4814,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
 
 <span
     aria-busy={true}
-    aria-live="polite"
     className="c0 TextInput-wrapper"
     onClick={[Function]}
   >
@@ -5057,7 +5058,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
 
 <span
     aria-busy={true}
-    aria-live="polite"
     className="c0 TextInput-wrapper"
     onClick={[Function]}
   >
@@ -5287,7 +5287,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
 
 <span
     aria-busy={true}
-    aria-live="polite"
     className="c0 TextInput-wrapper"
     onClick={[Function]}
     size="small"
@@ -5579,7 +5578,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
 
 <span
     aria-busy={true}
-    aria-live="polite"
     className="c0 TextInput-wrapper"
     onClick={[Function]}
   >
@@ -5876,7 +5874,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
 
 <span
     aria-busy={true}
-    aria-live="polite"
     className="c0 TextInput-wrapper"
     onClick={[Function]}
     size="large"
@@ -6134,7 +6131,6 @@ exports[`TextInput should render a password input 1`] = `
 
 <span
   aria-busy={false}
-  aria-live="polite"
   className="c0 TextInput-wrapper"
   onClick={[Function]}
 >
