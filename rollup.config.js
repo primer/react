@@ -5,6 +5,7 @@ import replace from '@rollup/plugin-replace'
 import terser from '@rollup/plugin-terser'
 import glob from 'fast-glob'
 import {visualizer} from 'rollup-plugin-visualizer'
+import postcss from 'rollup-plugin-postcss'
 import packageJson from './package.json'
 
 const input = new Set([
@@ -107,6 +108,11 @@ const baseConfig = {
     }),
     commonjs({
       extensions,
+    }),
+    postcss({
+      extract: 'components.css',
+      autoModules: false,
+      modules: {generateScopedName: 'prc_[local]-[hash:base64:5]'},
     }),
   ],
 }
