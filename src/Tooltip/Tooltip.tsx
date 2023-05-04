@@ -3,7 +3,8 @@ import Box from '../Box'
 import sx, {SxProp} from '../sx'
 import {useId} from '../hooks/useId'
 import {isFocusable} from '@primer/behaviors/utils'
-import {invariant} from '../utils/invariant'
+// TODO: replace the warnings with invariant when future teams are ready to move the non-interactive triggers' tooltip info to else where. (Sorry for a very vague timeline :/)
+import {warning} from '../utils/warning'
 import styled from 'styled-components'
 import {get} from '../constants'
 import {useOnEscapePress} from '../hooks/useOnEscapePress'
@@ -328,8 +329,8 @@ export const Tooltip = ({
         const hasInteractiveChild = Array.from(triggerChildren).some(child => {
           return child instanceof HTMLElement && isFocusable(child)
         })
-        invariant(
-          isTriggerInteractive || hasInteractiveChild,
+        warning(
+          !isTriggerInteractive && !hasInteractiveChild,
           'The `Tooltip` component expects a single React element that contains interactive content. Consider using a `<button>` or equivalent interactive element instead.',
         )
         // If the tooltip is used for labelling the interactive element, the trigger element or any of its children should not have aria-label
@@ -338,8 +339,8 @@ export const Tooltip = ({
           const hasAriaLabelInChildren = Array.from(triggerRef.current.childNodes).some(
             child => child instanceof HTMLElement && child.hasAttribute('aria-label'),
           )
-          invariant(
-            !hasAriaLabel && !hasAriaLabelInChildren,
+          warning(
+            hasAriaLabel || hasAriaLabelInChildren,
             'The label type `Tooltip` is going to be used here to label the trigger element. Please remove the aria-label from the trigger element.',
           )
         }
