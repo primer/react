@@ -1,12 +1,11 @@
 import React from 'react'
 import styled from 'styled-components'
+import {DashIcon, XIcon} from '@primer/octicons-react'
+import {getFocusableChild} from '@primer/behaviors/dist/esm/utils'
 import {get} from '../constants'
 import VisuallyHidden from '../_VisuallyHidden'
 import {AnchoredOverlay, Box, Button, IconButton, useTheme} from '..'
 import sx, {SxProp} from '../sx'
-import {DashIcon, XIcon} from '@primer/octicons-react'
-// TODO: try and import this from `@primer/behaviors`
-import {getFocusableChild} from '../utils/iterate-focusable-elements'
 
 // TODO: rename 'visibleTokenCount' to something more neutral like 'visibleCount' or 'visibleChildCount'
 export type LabelGroupProps = {
@@ -54,6 +53,7 @@ const LabelGroup: React.FC<React.PropsWithChildren<LabelGroupProps>> = ({
   const overlayWidth =
     containerLeft && buttonRight ? parseInt(OVERLAY_PADDING, 10) + buttonRight - containerLeft : undefined
   const hiddenItemIds = Object.keys(visibilityMap).filter(key => !visibilityMap[key])
+
   const expandButtonRef: React.RefCallback<HTMLButtonElement> = React.useCallback(
     node => {
       if (node !== null) {
@@ -220,7 +220,8 @@ const LabelGroup: React.FC<React.PropsWithChildren<LabelGroupProps>> = ({
             height="auto"
             align="start"
             side="inside-right"
-            anchorRef={expandButtonRef}
+            // expandButtonRef satisfies React.RefObject<HTMLButtonElement> because we manually set `.current` in the `useCallback` above
+            anchorRef={expandButtonRef as unknown as React.RefObject<HTMLButtonElement>}
             anchorOffset={parseInt(OVERLAY_PADDING, 10) * -1}
             alignmentOffset={parseInt(OVERLAY_PADDING, 10) * -1}
             renderAnchor={props => (
