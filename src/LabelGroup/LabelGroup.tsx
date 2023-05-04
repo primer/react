@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import {get} from '../constants'
 import VisuallyHidden from '../_VisuallyHidden'
 import {AnchoredOverlay, Box, Button, IconButton, useTheme} from '..'
+import sx, {SxProp} from '../sx'
 import {DashIcon, XIcon} from '@primer/octicons-react'
 // TODO: try and import this from `@primer/behaviors`
 import {getFocusableChild} from '../utils/iterate-focusable-elements'
@@ -13,9 +14,9 @@ export type LabelGroupProps = {
   overflowStyle?: 'inline' | 'overlay'
   /** How many tokens to show. `'auto'` truncates the tokens to fit in the parent container. Passing a number will truncate after that number tokens. If this is undefined, tokens will never be truncated. */
   visibleTokenCount?: 'auto' | number
-}
+} & SxProp
 
-const StyledLabelGroupContainer = styled.div`
+const StyledLabelGroupContainer = styled.div<SxProp>`
   align-items: center;
   display: flex;
   flex-wrap: nowrap;
@@ -27,15 +28,16 @@ const StyledLabelGroupContainer = styled.div`
   &[data-overflow='inline'] {
     flex-wrap: wrap;
   }
+
+  ${sx};
 `
 
-// TODO: add `sx` support
 // TODO: reduce re-renders
-// TODO: call `getBoundingClientRect()` as little as possible
 const LabelGroup: React.FC<React.PropsWithChildren<LabelGroupProps>> = ({
   children,
   visibleTokenCount,
   overflowStyle,
+  sx: sxProp,
 }) => {
   const {theme} = useTheme()
   const OVERLAY_PADDING = get('space.2')(theme)
@@ -68,16 +70,36 @@ const LabelGroup: React.FC<React.PropsWithChildren<LabelGroupProps>> = ({
     [buttonClientRect],
   )
 
+  const hideChildrenAfterIndex = React.useCallback(() => {
+    if (!visibleTokenCount || visibleTokenCount === 'auto') {
+      return
+    }
+    const containerChildren = containerRef.current?.children || []
+    const updatedEntries: Record<string, boolean> = {}
+    for (const child of containerChildren) {
+      const targetid = child.getAttribute('data-index')
+      if (targetid) {
+        updatedEntries[targetid] = parseInt(targetid, 10) < visibleTokenCount
+      }
+    }
+
+    setVisibilityMap(updatedEntries)
+  }, [visibleTokenCount])
+
   const openOverflowOverlay = React.useCallback(() => setIsOverflowShown(true), [setIsOverflowShown])
   const closeOverflowOverlay = React.useCallback(() => {
     setIsOverflowShown(false)
+
+    if (visibleTokenCount && typeof visibleTokenCount === 'number') {
+      hideChildrenAfterIndex()
+    }
 
     // TODO: get rid of this hack
     setTimeout(() => {
       // @ts-ignore you can set `.current` on ref objects or ref callbacks in React
       expandButtonRef.current?.focus()
     }, 10)
-  }, [expandButtonRef, setIsOverflowShown])
+  }, [expandButtonRef, setIsOverflowShown, hideChildrenAfterIndex, visibleTokenCount])
   const showAllTokensInline = React.useCallback(() => {
     setVisibilityMap({})
     setIsOverflowShown(true)
@@ -121,19 +143,9 @@ const LabelGroup: React.FC<React.PropsWithChildren<LabelGroupProps>> = ({
 
       return () => observer.disconnect()
     } else {
-      const containerChildren = containerRef.current?.children || []
-      const updatedEntries: Record<string, boolean> = {}
-      for (const child of containerChildren) {
-        const targetid = child.getAttribute('data-index')
-        if (targetid) {
-          updatedEntries[targetid] = parseInt(targetid, 10) < visibleTokenCount
-        }
-
-        setVisibilityMap(updatedEntries)
-      }
+      hideChildrenAfterIndex()
     }
-  }, [buttonWidth, visibleTokenCount])
-
+  }, [buttonWidth, visibleTokenCount, hideChildrenAfterIndex])
   React.useEffect(() => {
     if (hiddenItemIds.length) {
       firstHiddenIndexRef.current = parseInt(hiddenItemIds[0], 10)
@@ -141,23 +153,26 @@ const LabelGroup: React.FC<React.PropsWithChildren<LabelGroupProps>> = ({
   }, [hiddenItemIds])
 
   React.useEffect(() => {
-    const firstHiddenChildDOM = document.querySelector<HTMLElement>(`[data-index="${firstHiddenIndexRef.current}"]`)
-    const focusableChild = firstHiddenChildDOM ? getFocusableChild(firstHiddenChildDOM) : null
+    if (overflowStyle === 'inline') {
+      const firstHiddenChildDOM = document.querySelector<HTMLElement>(`[data-index="${firstHiddenIndexRef.current}"]`)
+      const focusableChild = firstHiddenChildDOM ? getFocusableChild(firstHiddenChildDOM) : null
 
-    if (isOverflowShown) {
-      if (focusableChild) {
-        focusableChild.focus()
-      } else {
-        collapseButtonRef.current?.focus()
+      if (isOverflowShown) {
+        if (focusableChild) {
+          focusableChild.focus()
+        } else {
+          collapseButtonRef.current?.focus()
+        }
       }
     }
-  }, [isOverflowShown])
+  }, [overflowStyle, isOverflowShown])
 
   return visibleTokenCount ? (
     <>
       <StyledLabelGroupContainer
         ref={containerRef}
         data-overflow={overflowStyle === 'inline' && isOverflowShown ? 'inline' : undefined}
+        sx={sxProp}
       >
         {React.Children.map(children, (child, index) => {
           if (hiddenItemIds.includes(index.toString())) {
@@ -226,9 +241,13 @@ const LabelGroup: React.FC<React.PropsWithChildren<LabelGroupProps>> = ({
       </StyledLabelGroupContainer>
     </>
   ) : (
-    <StyledLabelGroupContainer data-overflow="inline">{children}</StyledLabelGroupContainer>
+    <StyledLabelGroupContainer data-overflow="inline" sx={sxProp}>
+      {children}
+    </StyledLabelGroupContainer>
   )
 }
+
+LabelGroup.displayName = 'LabelGroup'
 
 LabelGroup.defaultProps = {
   overflowStyle: 'overlay',

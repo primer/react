@@ -1,8 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
 import LabelGroup, {LabelGroupProps} from './LabelGroup'
-import {ComponentStory, Meta, Story} from '@storybook/react'
-import Token from '../Token/Token'
+import {Meta, Story} from '@storybook/react'
+import Label from '../Label/Label'
 
 const meta: Meta = {
   title: 'Components/LabelGroup',
@@ -41,28 +41,30 @@ const meta: Meta = {
 
 const ResizableContainer = styled.div`
   outline: 1px solid black;
-  resize: horizontal;
   overflow: auto;
+  padding: 0.25rem;
+  resize: horizontal;
+  width: 600px;
 `
 
 export const Default: Story = () => (
   <LabelGroup>
-    <Token text="One" />
-    <Token text="Two" />
-    <Token text="Three" />
-    <Token text="Four" />
-    <Token text="Five" />
-    <Token text="Six" />
-    <Token text="Seven" />
-    <Token text="Eight" />
-    <Token text="Nine" />
-    <Token text="Ten" />
-    <Token text="Eleven" />
-    <Token text="Twelve" />
-    <Token text="Thirteen" />
-    <Token text="Fourteen" />
-    <Token text="Fifteen" />
-    <Token text="Sixteen" />
+    <Label>One</Label>
+    <Label>Two</Label>
+    <Label>Three</Label>
+    <Label>Four</Label>
+    <Label>Five</Label>
+    <Label>Six</Label>
+    <Label>Seven</Label>
+    <Label>Eight</Label>
+    <Label>Nine</Label>
+    <Label>Ten</Label>
+    <Label>Eleven</Label>
+    <Label>Twelve</Label>
+    <Label>Thirteen</Label>
+    <Label>Fourteen</Label>
+    <Label>Fifteen</Label>
+    <Label>Sixteen</Label>
   </LabelGroup>
 )
 
@@ -76,22 +78,22 @@ export const Playground: Story = ({
   return (
     <ResizableContainer>
       <LabelGroup {...restArgs} visibleTokenCount={visibleTokenCountValue}>
-        <Token text="One" />
-        <Token text="Two" />
-        <Token text="Three" />
-        <Token text="Four" />
-        <Token text="Five" />
-        <Token text="Six" />
-        <Token text="Seven" />
-        <Token text="Eight" />
-        <Token text="Nine" />
-        <Token text="Ten" />
-        <Token text="Eleven" />
-        <Token text="Twelve" />
-        <Token text="Thirteen" />
-        <Token text="Fourteen" />
-        <Token text="Fifteen" />
-        <Token text="Sixteen" />
+        <Label>One</Label>
+        <Label>Two</Label>
+        <Label>Three</Label>
+        <Label>Four</Label>
+        <Label>Five</Label>
+        <Label>Six</Label>
+        <Label>Seven</Label>
+        <Label>Eight</Label>
+        <Label>Nine</Label>
+        <Label>Ten</Label>
+        <Label>Eleven</Label>
+        <Label>Twelve</Label>
+        <Label>Thirteen</Label>
+        <Label>Fourteen</Label>
+        <Label>Fifteen</Label>
+        <Label>Sixteen</Label>
       </LabelGroup>
     </ResizableContainer>
   )
