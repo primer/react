@@ -1,18 +1,17 @@
 import React from 'react'
 import styled from 'styled-components'
 import {DashIcon, XIcon} from '@primer/octicons-react'
-import {getFocusableChild} from '@primer/behaviors/dist/esm/utils'
+import {getFocusableChild} from '@primer/behaviors/utils'
 import {get} from '../constants'
 import VisuallyHidden from '../_VisuallyHidden'
 import {AnchoredOverlay, Box, Button, IconButton, useTheme} from '..'
 import sx, {SxProp} from '../sx'
 
-// TODO: rename 'visibleTokenCount' to something more neutral like 'visibleCount' or 'visibleChildCount'
 export type LabelGroupProps = {
   /** How hidden tokens should be shown. `'inline'` shows the hidden tokens after the visible tokens. `'overlay'` shows all tokens in an overlay that appears on top of the visible tokens. */
   overflowStyle?: 'inline' | 'overlay'
   /** How many tokens to show. `'auto'` truncates the tokens to fit in the parent container. Passing a number will truncate after that number tokens. If this is undefined, tokens will never be truncated. */
-  visibleTokenCount?: 'auto' | number
+  visibleChildCount?: 'auto' | number
 } & SxProp
 
 const StyledLabelGroupContainer = styled.div<SxProp>`
@@ -31,35 +30,137 @@ const StyledLabelGroupContainer = styled.div<SxProp>`
   ${sx};
 `
 
+// Calculates the width of the overlay to cover the labels/tokens and the expand button.
+const getOverlayWidth = (
+  buttonClientRect: DOMRect,
+  containerRef: React.RefObject<HTMLDivElement>,
+  overlayPaddingPx: number,
+) => overlayPaddingPx + buttonClientRect.right - (containerRef.current?.getBoundingClientRect()?.left || 0)
+
+const InlineToggle: React.FC<{
+  collapseButtonRef: React.RefObject<HTMLButtonElement>
+  collapseInlineExpandedChildren: () => void
+  expandButtonRef: React.RefCallback<HTMLButtonElement>
+  hiddenItemIds: string[]
+  isOverflowShown: boolean
+  showAllTokensInline: () => void
+}> = ({
+  collapseButtonRef,
+  collapseInlineExpandedChildren,
+  expandButtonRef,
+  hiddenItemIds,
+  isOverflowShown,
+  showAllTokensInline,
+}) =>
+  isOverflowShown ? (
+    <IconButton
+      ref={collapseButtonRef}
+      onClick={collapseInlineExpandedChildren}
+      icon={() => <DashIcon size="small" />}
+      size="small"
+      aria-label="Show less"
+      variant="invisible"
+    />
+  ) : hiddenItemIds.length ? (
+    <Button ref={expandButtonRef} variant="invisible" size="small" onClick={showAllTokensInline}>
+      <VisuallyHidden>Show all</VisuallyHidden>
+      <span aria-hidden="true">+{hiddenItemIds.length}</span>
+    </Button>
+  ) : null
+
+const OverlayToggle: React.FC<
+  React.PropsWithChildren<{
+    closeOverflowOverlay: () => void
+    expandButtonRef: React.RefCallback<HTMLButtonElement>
+    hiddenItemIds: string[]
+    isOverflowShown: boolean
+    openOverflowOverlay: () => void
+    overlayPaddingPx: number
+    overlayWidth?: number
+  }>
+> = ({
+  children,
+  closeOverflowOverlay,
+  expandButtonRef,
+  hiddenItemIds,
+  isOverflowShown,
+  openOverflowOverlay,
+  overlayPaddingPx,
+  overlayWidth,
+}) =>
+  hiddenItemIds.length ? (
+    <AnchoredOverlay
+      open={isOverflowShown}
+      onOpen={openOverflowOverlay}
+      onClose={closeOverflowOverlay}
+      width="auto"
+      height="auto"
+      align="start"
+      side="inside-right"
+      // expandButtonRef satisfies React.RefObject<HTMLButtonElement> because we manually set `.current` in the `useCallback` above
+      anchorRef={expandButtonRef as unknown as React.RefObject<HTMLButtonElement>}
+      anchorOffset={overlayPaddingPx * -1}
+      alignmentOffset={overlayPaddingPx * -1}
+      renderAnchor={props => (
+        <Button variant="invisible" size="small" {...props} ref={expandButtonRef}>
+          <VisuallyHidden>Show all</VisuallyHidden>
+          <span aria-hidden="true">+{hiddenItemIds.length}</span>
+        </Button>
+      )}
+    >
+      <Box alignItems="flex-start" display="flex" width={overlayWidth} padding={`${overlayPaddingPx}px`}>
+        <Box display="flex" flexWrap="wrap" sx={{gap: 1}}>
+          {children}
+        </Box>
+        <IconButton onClick={closeOverflowOverlay} icon={XIcon} aria-label="Close" variant="invisible" />
+      </Box>
+    </AnchoredOverlay>
+  ) : null
+
 // TODO: reduce re-renders
 const LabelGroup: React.FC<React.PropsWithChildren<LabelGroupProps>> = ({
   children,
-  visibleTokenCount,
+  visibleChildCount,
   overflowStyle,
   sx: sxProp,
 }) => {
-  const {theme} = useTheme()
-  const OVERLAY_PADDING = get('space.2')(theme)
   const containerRef = React.useRef<HTMLDivElement>(null)
   const collapseButtonRef = React.useRef<HTMLButtonElement>(null)
   const firstHiddenIndexRef = React.useRef<number | undefined>(undefined)
   const [visibilityMap, setVisibilityMap] = React.useState<Record<string, boolean>>({})
   const [isOverflowShown, setIsOverflowShown] = React.useState<boolean>(false)
-  const containerLeft =
-    containerRef.current && visibleTokenCount === 'auto' ? containerRef.current.getBoundingClientRect().left : undefined
-  const [buttonClientRect, setButtonClientRect] = React.useState<DOMRect | null>(null)
-  const buttonWidth = buttonClientRect?.width || 0
-  const buttonRight = buttonClientRect?.right || 0
-  const overlayWidth =
-    containerLeft && buttonRight ? parseInt(OVERLAY_PADDING, 10) + buttonRight - containerLeft : undefined
+  const [buttonClientRect, setButtonClientRect] = React.useState<DOMRect>({
+    width: 0,
+    right: 0,
+    height: 0,
+    x: 0,
+    y: 0,
+    top: 0,
+    left: 0,
+    bottom: 0,
+    toJSON: () => undefined,
+  })
+
+  const {theme} = useTheme()
+
+  const overlayPaddingPx = parseInt(get('space.2')(theme), 10)
+
   const hiddenItemIds = Object.keys(visibilityMap).filter(key => !visibilityMap[key])
+
+  // `overlayWidth` is only needed when we render an overlay
+  // if we don't use an overlay, we can skip the width calculation
+  // and save on reflows caused by measuring DOM nodes.
+  const overlayWidth =
+    visibleChildCount === 'auto' && overflowStyle === 'overlay'
+      ? getOverlayWidth(buttonClientRect, containerRef, overlayPaddingPx)
+      : undefined
 
   const expandButtonRef: React.RefCallback<HTMLButtonElement> = React.useCallback(
     node => {
       if (node !== null) {
         const nodeClientRect = node.getBoundingClientRect()
 
-        if (nodeClientRect.width !== buttonClientRect?.width || nodeClientRect.right !== buttonClientRect.right) {
+        if (nodeClientRect.width !== buttonClientRect.width || nodeClientRect.right !== buttonClientRect.right) {
           setButtonClientRect(nodeClientRect)
         }
 
@@ -70,177 +171,184 @@ const LabelGroup: React.FC<React.PropsWithChildren<LabelGroupProps>> = ({
     [buttonClientRect],
   )
 
-  const hideChildrenAfterIndex = React.useCallback(() => {
-    if (!visibleTokenCount || visibleTokenCount === 'auto') {
-      return
-    }
+  // Sets the visibility map to hide children after the given index.
+  const hideChildrenAfterIndex = React.useCallback((truncateAfter: number) => {
     const containerChildren = containerRef.current?.children || []
     const updatedEntries: Record<string, boolean> = {}
     for (const child of containerChildren) {
-      const targetid = child.getAttribute('data-index')
-      if (targetid) {
-        updatedEntries[targetid] = parseInt(targetid, 10) < visibleTokenCount
+      const targetId = child.getAttribute('data-index')
+      if (targetId) {
+        updatedEntries[targetId] = parseInt(targetId, 10) < truncateAfter
       }
     }
 
     setVisibilityMap(updatedEntries)
-  }, [visibleTokenCount])
+  }, [])
 
   const openOverflowOverlay = React.useCallback(() => setIsOverflowShown(true), [setIsOverflowShown])
+
   const closeOverflowOverlay = React.useCallback(() => {
     setIsOverflowShown(false)
+  }, [setIsOverflowShown])
 
-    if (visibleTokenCount && typeof visibleTokenCount === 'number') {
-      hideChildrenAfterIndex()
+  const collapseInlineExpandedChildren = React.useCallback(() => {
+    setIsOverflowShown(false)
+
+    if (visibleChildCount && typeof visibleChildCount === 'number') {
+      hideChildrenAfterIndex(visibleChildCount)
     }
 
+    // We need to manually re-focus the collapse button if we're not showing the full
+    // list in an overlay.
     // TODO: get rid of this hack
     setTimeout(() => {
       // @ts-ignore you can set `.current` on ref objects or ref callbacks in React
       expandButtonRef.current?.focus()
     }, 10)
-  }, [expandButtonRef, setIsOverflowShown, hideChildrenAfterIndex, visibleTokenCount])
+  }, [expandButtonRef, hideChildrenAfterIndex, visibleChildCount])
+
   const showAllTokensInline = React.useCallback(() => {
     setVisibilityMap({})
     setIsOverflowShown(true)
   }, [setVisibilityMap, setIsOverflowShown])
 
-  const handleIntersection = (entries: IntersectionObserverEntry[]) => {
-    const updatedEntries: Record<string, boolean> = {}
-
-    for (const entry of entries) {
-      const targetid = entry.target.getAttribute('data-index')
-      if (targetid) {
-        updatedEntries[targetid] = entry.isIntersecting
-      }
-    }
-
-    setVisibilityMap(prev => ({
-      ...prev,
-      ...updatedEntries,
-    }))
-  }
-
   React.useEffect(() => {
-    if (!visibleTokenCount) {
+    // If we're not truncating, we don't need to run this useEffect.
+    if (!visibleChildCount) {
       return
     }
 
-    if (visibleTokenCount === 'auto') {
-      const observer = new IntersectionObserver(handleIntersection, {
-        root: containerRef.current,
-        rootMargin: `0px -${buttonWidth}px 0px 0px`,
-        threshold: 1,
-      })
+    if (visibleChildCount === 'auto') {
+      // Instatiates the IntersectionObserver to track when children fit in the container.
+      const observer = new IntersectionObserver(
+        (entries: IntersectionObserverEntry[]) => {
+          const updatedEntries: Record<string, boolean> = {}
 
-      if (containerRef.current) {
-        for (const item of containerRef.current.children) {
-          if (item.getAttribute('data-index')) {
-            observer.observe(item)
+          for (const entry of entries) {
+            // Checks which children are intersecting the root container
+            const targetId = entry.target.getAttribute('data-index')
+            if (targetId) {
+              updatedEntries[targetId] = entry.isIntersecting
+            }
           }
+
+          // Updates the visibility map based on the intersection results.
+          setVisibilityMap(prev => ({
+            ...prev,
+            ...updatedEntries,
+          }))
+        },
+        {
+          root: containerRef.current,
+          rootMargin: `0px -${buttonClientRect.width}px 0px 0px`,
+          threshold: 1,
+        },
+      )
+
+      for (const item of containerRef.current?.children || []) {
+        if (item.getAttribute('data-index')) {
+          observer.observe(item)
         }
       }
 
       return () => observer.disconnect()
-    } else {
-      hideChildrenAfterIndex()
     }
-  }, [buttonWidth, visibleTokenCount, hideChildrenAfterIndex])
+    // We're not auto truncating, so we need to hide children after the given `visibleChildCount`.
+    else {
+      hideChildrenAfterIndex(visibleChildCount)
+    }
+  }, [buttonClientRect, visibleChildCount, hideChildrenAfterIndex])
+
+  // Updates the index of the first hidden child.
+  // We need to keep track of this so we can focus the first hidden child when the overflow is shown inline.
   React.useEffect(() => {
+    // If we're using an overlay, we don't need to keep track of the first hidden index.
+    if (overflowStyle === 'overlay') {
+      return
+    }
     if (hiddenItemIds.length) {
       firstHiddenIndexRef.current = parseInt(hiddenItemIds[0], 10)
     }
-  }, [hiddenItemIds])
+  }, [hiddenItemIds, overflowStyle])
 
+  // Updates the index of the first hidden child.
+  // We need to keep track of this so we can focus the first hidden child when the overflow is shown inline.
   React.useEffect(() => {
-    if (overflowStyle === 'inline') {
-      const firstHiddenChildDOM = document.querySelector<HTMLElement>(`[data-index="${firstHiddenIndexRef.current}"]`)
-      const focusableChild = firstHiddenChildDOM ? getFocusableChild(firstHiddenChildDOM) : null
+    if (overflowStyle === 'overlay') {
+      return
+    }
+    const firstHiddenChildDOM = document.querySelector<HTMLElement>(`[data-index="${firstHiddenIndexRef.current}"]`)
+    const focusableChild = firstHiddenChildDOM ? getFocusableChild(firstHiddenChildDOM) : null
 
-      if (isOverflowShown) {
-        if (focusableChild) {
-          focusableChild.focus()
-        } else {
-          collapseButtonRef.current?.focus()
-        }
+    if (isOverflowShown) {
+      // If the first hidden child is focusable, focus it.
+      // Otherwise, focus the collapse button.
+      if (focusableChild) {
+        focusableChild.focus()
+      } else {
+        collapseButtonRef.current?.focus()
       }
     }
   }, [overflowStyle, isOverflowShown])
 
-  return visibleTokenCount ? (
-    <>
-      <StyledLabelGroupContainer
-        ref={containerRef}
-        data-overflow={overflowStyle === 'inline' && isOverflowShown ? 'inline' : undefined}
-        sx={sxProp}
-      >
-        {React.Children.map(children, (child, index) => {
-          if (hiddenItemIds.includes(index.toString())) {
-            return (
-              <div
-                data-index={index}
-                style={{
-                  order: 9999,
-                  visibility: 'hidden',
-                  pointerEvents: 'none',
-                }}
-              >
-                {child}
-              </div>
-            )
-          } else {
-            return <div data-index={index}>{child}</div>
-          }
-        })}
-        {
-          // TODO: simplify these nested ternaries
-          overflowStyle === 'inline' && isOverflowShown ? (
-            <IconButton
-              ref={collapseButtonRef}
-              onClick={closeOverflowOverlay}
-              icon={() => <DashIcon size="small" />}
-              size="small"
-              aria-label="Show less"
-              variant="invisible"
-            />
-          ) : overflowStyle === 'inline' && hiddenItemIds.length ? (
-            // TODO: make this button a component?
-            <Button ref={expandButtonRef} variant="invisible" size="small" onClick={showAllTokensInline}>
-              <VisuallyHidden>Show all</VisuallyHidden>
-              <span aria-hidden="true">+{hiddenItemIds.length}</span>
-            </Button>
-          ) : null
+  // If truncation is enabled, we need to render based on truncation logic.
+  return visibleChildCount ? (
+    <StyledLabelGroupContainer
+      ref={containerRef}
+      data-overflow={overflowStyle === 'inline' && isOverflowShown ? 'inline' : undefined}
+      sx={sxProp}
+    >
+      {React.Children.map(children, (child, index) => {
+        if (hiddenItemIds.includes(index.toString())) {
+          // hidden children
+          return (
+            <div
+              // data-index is used as an identifier we can use in the IntersectionObserver
+              data-index={index}
+              style={{
+                order: 9999,
+                visibility: 'hidden',
+                pointerEvents: 'none',
+              }}
+            >
+              {child}
+            </div>
+          )
+        } else {
+          // visible children
+          return (
+            <div
+              // data-index is used as an identifier we can use in the IntersectionObserver
+              data-index={index}
+            >
+              {child}
+            </div>
+          )
         }
-        {overflowStyle === 'overlay' && hiddenItemIds.length ? (
-          <AnchoredOverlay
-            open={isOverflowShown}
-            onOpen={openOverflowOverlay}
-            onClose={closeOverflowOverlay}
-            width="auto"
-            height="auto"
-            align="start"
-            side="inside-right"
-            // expandButtonRef satisfies React.RefObject<HTMLButtonElement> because we manually set `.current` in the `useCallback` above
-            anchorRef={expandButtonRef as unknown as React.RefObject<HTMLButtonElement>}
-            anchorOffset={parseInt(OVERLAY_PADDING, 10) * -1}
-            alignmentOffset={parseInt(OVERLAY_PADDING, 10) * -1}
-            renderAnchor={props => (
-              <Button variant="invisible" size="small" {...props} ref={expandButtonRef}>
-                <VisuallyHidden>Show all</VisuallyHidden>
-                <span aria-hidden="true">+{hiddenItemIds.length}</span>
-              </Button>
-            )}
-          >
-            <Box alignItems="flex-start" display="flex" width={overlayWidth} padding={OVERLAY_PADDING}>
-              <Box display="flex" flexWrap="wrap" sx={{gap: 1}}>
-                {children}
-              </Box>
-              <IconButton onClick={closeOverflowOverlay} icon={XIcon} aria-label="Close" variant="invisible" />
-            </Box>
-          </AnchoredOverlay>
-        ) : null}
-      </StyledLabelGroupContainer>
-    </>
+      })}
+      {overflowStyle === 'inline' ? (
+        <InlineToggle
+          collapseButtonRef={collapseButtonRef}
+          collapseInlineExpandedChildren={collapseInlineExpandedChildren}
+          expandButtonRef={expandButtonRef}
+          hiddenItemIds={hiddenItemIds}
+          isOverflowShown={isOverflowShown}
+          showAllTokensInline={showAllTokensInline}
+        />
+      ) : (
+        <OverlayToggle
+          closeOverflowOverlay={closeOverflowOverlay}
+          expandButtonRef={expandButtonRef}
+          hiddenItemIds={hiddenItemIds}
+          isOverflowShown={isOverflowShown}
+          openOverflowOverlay={openOverflowOverlay}
+          overlayPaddingPx={overlayPaddingPx}
+          overlayWidth={overlayWidth}
+        >
+          {children}
+        </OverlayToggle>
+      )}
+    </StyledLabelGroupContainer>
   ) : (
     <StyledLabelGroupContainer data-overflow="inline" sx={sxProp}>
       {children}

@@ -29,7 +29,7 @@ const ResizableContainer = styled.div`
 
 export const TruncateAuto: Story = () => (
   <ResizableContainer>
-    <LabelGroup visibleTokenCount="auto">
+    <LabelGroup visibleChildCount="auto">
       <Label>One</Label>
       <Label>Two</Label>
       <Label>Three</Label>
@@ -52,7 +52,7 @@ export const TruncateAuto: Story = () => (
 
 export const TruncateAutoWithInteractiveTokens: Story = () => (
   <ResizableContainer>
-    <LabelGroup visibleTokenCount="auto">
+    <LabelGroup visibleChildCount="auto">
       <Token as="button" text="One" />
       <Token as="button" text="Two" />
       <Token as="button" text="Three" />
@@ -74,7 +74,7 @@ export const TruncateAutoWithInteractiveTokens: Story = () => (
 )
 
 export const TruncateAfterFive: Story = () => (
-  <LabelGroup visibleTokenCount={5} overflowStyle="inline">
+  <LabelGroup visibleChildCount={5} overflowStyle="inline">
     <Label>One</Label>
     <Label>Two</Label>
     <Label>Three</Label>
@@ -96,7 +96,7 @@ export const TruncateAfterFive: Story = () => (
 
 export const TruncateAutoExpandInline: Story = () => (
   <ResizableContainer>
-    <LabelGroup visibleTokenCount="auto" overflowStyle="inline">
+    <LabelGroup visibleChildCount="auto" overflowStyle="inline">
       <Label>One</Label>
       <Label>Two</Label>
       <Label>Three</Label>
@@ -119,7 +119,7 @@ export const TruncateAutoExpandInline: Story = () => (
 
 export const TruncateAutoExpandInlineWithInteractiveTokens: Story = () => (
   <ResizableContainer>
-    <LabelGroup visibleTokenCount="auto" overflowStyle="inline">
+    <LabelGroup visibleChildCount="auto" overflowStyle="inline">
       <Token as="button" text="One" />
       <Token as="button" text="Two" />
       <Token as="button" text="Three" />

@@ -21,7 +21,7 @@ const meta: Meta = {
         type: 'boolean',
       },
     },
-    visibleTokenCount: {
+    visibleChildCount: {
       control: {
         type: 'number',
       },
@@ -70,14 +70,14 @@ export const Default: Story = () => (
 
 export const Playground: Story = ({
   autoTruncateTokens,
-  visibleTokenCount,
+  visibleChildCount,
   ...restArgs
 }: LabelGroupProps & {autoTruncateTokens?: boolean}) => {
-  const visibleTokenCountValue = autoTruncateTokens ? 'auto' : visibleTokenCount
+  const visibleChildCountValue = autoTruncateTokens ? 'auto' : visibleChildCount
 
   return (
     <ResizableContainer>
-      <LabelGroup {...restArgs} visibleTokenCount={visibleTokenCountValue}>
+      <LabelGroup {...restArgs} visibleChildCount={visibleChildCountValue}>
         <Label>One</Label>
         <Label>Two</Label>
         <Label>Three</Label>
