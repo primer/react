@@ -1,7 +1,7 @@
 {
-  "id": "button",
-  "name": "Button",
-  "status": "alpha",
+  "id": "drafts_button",
+  "name": "Button2",
+  "status": "draft",
   "a11yReviewed": false,
   "stories": [],
   "props": [

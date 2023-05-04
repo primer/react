@@ -3,6 +3,8 @@
 exports[`snapshot theme-preval.js 1`] = `
 "'use strict';
 
+var _commonjsHelpers = require('./_virtual/_commonjsHelpers.js');
+
 // this file was prevaled
 // This file needs to be a JavaScript file using CommonJS to be compatible with preval
 // Cache bust: 2023-04-04 12:00:00 GMT (This file is cached by our deployment tooling, update this timestamp to rebuild this file)
@@ -4618,7 +4620,7 @@ var themePreval = {
   }
 };
 
-var theme = themePreval;
+var theme = /*@__PURE__*/_commonjsHelpers.getDefaultExportFromCjs(themePreval);
 
 module.exports = theme;
 "

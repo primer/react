@@ -13,6 +13,7 @@ import LabelGroup from '../LabelGroup'
 import RelativeTime from '../RelativeTime'
 import VisuallyHidden from '../_VisuallyHidden'
 import {createColumnHelper} from './column'
+import {repos} from './storybook/data'
 
 export default {
   title: 'Components/DataTable/Features',
@@ -1355,6 +1356,85 @@ export const WithRightAlignedColumns = () => {
         ]}
         initialSortColumn="updatedAt"
         initialSortDirection="DESC"
+      />
+    </Table.Container>
+  )
+}
+
+export const WithPagination = () => {
+  const pageSize = 10
+  const [pageIndex, setPageIndex] = React.useState(0)
+  const start = pageIndex * pageSize
+  const end = start + pageSize
+  const rows = repos.slice(start, end)
+
+  return (
+    <Table.Container>
+      <Table.Title as="h2" id="repositories">
+        Repositories
+      </Table.Title>
+      <Table.Subtitle as="p" id="repositories-subtitle">
+        A subtitle could appear here to give extra context to the data.
+      </Table.Subtitle>
+      <DataTable
+        aria-labelledby="repositories"
+        aria-describedby="repositories-subtitle"
+        data={rows}
+        columns={[
+          {
+            header: 'Repository',
+            field: 'name',
+            rowHeader: true,
+          },
+          {
+            header: 'Type',
+            field: 'type',
+            renderCell: row => {
+              return <Label>{uppercase(row.type)}</Label>
+            },
+          },
+          {
+            header: 'Updated',
+            field: 'updatedAt',
+            renderCell: row => {
+              return <RelativeTime date={new Date(row.updatedAt)} />
+            },
+          },
+          {
+            header: 'Dependabot',
+            field: 'securityFeatures.dependabot',
+            renderCell: row => {
+              return row.securityFeatures.dependabot.length > 0 ? (
+                <LabelGroup>
+                  {row.securityFeatures.dependabot.map(feature => {
+                    return <Label key={feature}>{uppercase(feature)}</Label>
+                  })}
+                </LabelGroup>
+              ) : null
+            },
+          },
+          {
+            header: 'Code scanning',
+            field: 'securityFeatures.codeScanning',
+            renderCell: row => {
+              return row.securityFeatures.codeScanning.length > 0 ? (
+                <LabelGroup>
+                  {row.securityFeatures.codeScanning.map(feature => {
+                    return <Label key={feature}>{uppercase(feature)}</Label>
+                  })}
+                </LabelGroup>
+              ) : null
+            },
+          },
+        ]}
+      />
+      <Table.Pagination
+        aria-label="Pagination for Repositories"
+        pageSize={pageSize}
+        totalCount={repos.length}
+        onChange={({pageIndex}) => {
+          setPageIndex(pageIndex)
+        }}
       />
     </Table.Container>
   )
