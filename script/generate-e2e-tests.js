@@ -1228,35 +1228,35 @@ const components = new Map([
     {
       stories: [
         {
-          id: 'drafts-components-underlinenav-examples--profile-page',
+          id: 'components-underlinenav-examples--profile-page',
           name: 'Profile Page',
         },
         {
-          id: 'drafts-components-underlinenav-examples--pull-request-page',
+          id: 'components-underlinenav-examples--pull-request-page',
           name: 'Pull Request Page',
         },
         {
-          id: 'drafts-components-underlinenav-examples--repos-page',
+          id: 'components-underlinenav-examples--repos-page',
           name: 'Repos Page',
         },
         {
-          id: 'drafts-components-underlinenav-features--counters-loading-state',
+          id: 'components-underlinenav-features--counters-loading-state',
           name: 'Counters Loading State',
         },
         {
-          id: 'drafts-components-underlinenav-features--default',
+          id: 'components-underlinenav-features--default',
           name: 'Default',
         },
         {
-          id: 'drafts-components-underlinenav-features--overflow-template',
+          id: 'components-underlinenav-features--overflow-template',
           name: 'Overflow Template',
         },
         {
-          id: 'drafts-components-underlinenav-features--with-counter-labels',
+          id: 'components-underlinenav-features--with-counter-labels',
           name: 'With Counter Labels',
         },
         {
-          id: 'drafts-components-underlinenav-features--with-icons',
+          id: 'components-underlinenav-features--with-icons',
           name: 'With Icons',
         },
       ],

@@ -6,7 +6,7 @@ import {CodeIcon, GitPullRequestIcon, PeopleIcon} from '@primer/octicons-react'
 import {OcticonArgType} from '../utils/story-helpers'
 
 export default {
-  title: 'Drafts/Components/UnderlineNav/UnderlineNav.Item',
+  title: 'Components/UnderlineNav/UnderlineNav.Item',
   component: UnderlineNavItem,
   decorators: [
     Story => {

@@ -14,7 +14,7 @@ import {
 
 import {PageHeader} from './PageHeader'
 import {Hidden} from '../Hidden'
-import {UnderlineNav} from '../UnderlineNav2'
+import {UnderlineNav} from '../UnderlineNav'
 
 const meta: Meta = {
   title: 'Drafts/Components/PageHeader/Examples',

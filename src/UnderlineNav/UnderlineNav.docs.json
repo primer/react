@@ -1,29 +1,34 @@
 {
-  "id": "underline_nav",
+  "id": "drafts_underline_nav2",
   "name": "UnderlineNav",
-  "status": "alpha",
-  "a11yReviewed": false,
+  "status": "draft",
+  "a11yReviewed": true,
   "stories": [],
   "props": [
     {
-      "name": "actions",
-      "type": "React.ReactNode",
-      "description": "Place another element, such as a button, to the opposite side of the navigation items."
-    },
-    {
-      "name": "align",
-      "type": "'right'",
-      "description": "Use `right` to have navigation items aligned right."
-    },
-    {
-      "name": "full",
-      "type": "boolean",
-      "description": "Used to make navigation fill the width of the container."
+      "name": "afterSelect",
+      "type": "(event) => void",
+      "defaultValue": "",
+      "description": "The handler that gets called when a nav link child is selected"
     },
     {
       "name": "aria-label",
       "type": "string",
-      "description": "Used to set the `aria-label` on the top level `<nav>` element."
+      "defaultValue": "",
+      "description": "A unique name for the rendered 'nav' landmark. It will also be used to label the arrow\nbuttons that control the scroll behaviour on coarse pointer devices. (I.e.\n'Scroll ${aria-label} left/right')\n"
+    },
+    {
+      "name": "children",
+      "type": "UnderlineNav.Item[]",
+      "defaultValue": "",
+      "required": true,
+      "description": ""
+    },
+    {
+      "name": "loadingCounters",
+      "type": "boolean",
+      "defaultValue": "false",
+      "description": "Whether the navigation items are in loading state. Component waits for all the counters to finish loading to prevent multiple layout shifts."
     },
     {
       "name": "sx",
@@ -32,26 +37,52 @@
   ],
   "subcomponents": [
     {
-      "name": "UnderlineNav.Link",
+      "name": "UnderlineNav.Item",
       "props": [
         {
-          "name": "as",
-          "type": "React.ElementType",
-          "defaultValue": "'a'"
+          "name": "aria-current",
+          "type": "| 'page' | 'step' | 'location' | 'date' | 'time' | true | false",
+          "defaultValue": "false",
+          "description": "Set `aria-current` to `\"page\"` to indicate that the item represents the current page. Set `aria-current` to `\"location\"` to indicate that the item represents the current location on a page. For more information about `aria-current`, see [MDN](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-current)."
+        },
+        {
+          "name": "counter",
+          "type": "number",
+          "defaultValue": "",
+          "description": "The number to display in the counter label."
         },
         {
           "name": "href",
-          "type": "string"
+          "type": "string",
+          "defaultValue": "",
+          "description": "The URL that the item navigates to. 'href' is passed to the underlying '<a>' element. If 'as' is specified, the component may need different props and 'href' is ignored. (Required prop for the react router is 'to' for example)"
         },
         {
-          "name": "selected",
-          "type": "boolean"
+          "name": "icon",
+          "type": "Component",
+          "defaultValue": "",
+          "description": "The leading icon comes before item label"
+        },
+        {
+          "name": "onSelect",
+          "type": "(event) => void",
+          "defaultValue": "",
+          "description": "The handler that gets called when a nav link is selected. For example, a manual route binding can be done here(I.e. 'navigate(href)' for the react router.)"
+        },
+        {
+          "name": "as",
+          "type": "React.ElementType",
+          "defaultValue": "\"a\""
         },
         {
           "name": "sx",
           "type": "SystemStyleObject"
         }
-      ]
+      ],
+      "passthrough": {
+        "element": "a",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#Attributes"
+      }
     }
   ]
 }

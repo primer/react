@@ -38,8 +38,6 @@ export type {MarkdownViewerProps, InteractiveMarkdownViewerProps} from './Markdo
 export {default as MarkdownEditor} from './MarkdownEditor'
 export * from './MarkdownEditor'
 
-export * from '../UnderlineNav2'
-
 export * from '../PageHeader'
 
 export * from '../Hidden'

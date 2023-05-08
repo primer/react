@@ -1,5 +1,5 @@
 import React from 'react'
-import UnderlineNav from '../UnderlineNav'
+import {UnderlineNav} from '../../deprecated'
 
 export function shouldAcceptCallWithNoProps() {
   return (
