@@ -144,7 +144,7 @@ describe('PageLayout', () => {
           <PageLayout.Header aria-labelledby="header-label">
             <span id="header-label">header</span>
           </PageLayout.Header>
-          <PageLayout.Content aria-labelledby="content-label" role="main">
+          <PageLayout.Content aria-labelledby="content-label">
             <span id="content-label">content</span>
           </PageLayout.Content>
           <PageLayout.Pane>Pane</PageLayout.Pane>
@@ -156,7 +156,7 @@ describe('PageLayout', () => {
     )
 
     expect(screen.getByRole('banner')).toHaveAccessibleName('header')
-    expect(screen.getByRole('main')).toHaveAccessibleName('content')
+    expect(screen.getByLabelText('content')).toBeInTheDocument()
     expect(screen.getByRole('contentinfo')).toHaveAccessibleName('footer')
   })
 

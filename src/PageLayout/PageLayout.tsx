@@ -397,7 +397,6 @@ export type PageLayoutContentProps = {
   width?: keyof typeof contentWidths
   padding?: keyof typeof SPACING_MAP
   hidden?: boolean | ResponsiveValue<boolean>
-  role?: string
 } & SxProp
 
 // TODO: Account for pane width when centering content
@@ -414,7 +413,6 @@ const Content: React.FC<React.PropsWithChildren<PageLayoutContentProps>> = ({
   width = 'full',
   padding = 'none',
   hidden = false,
-  role,
   children,
   sx = {},
 }) => {
@@ -425,7 +423,6 @@ const Content: React.FC<React.PropsWithChildren<PageLayoutContentProps>> = ({
     <Box
       aria-label={label}
       aria-labelledby={labelledBy}
-      role={role}
       sx={merge<BetterSystemStyleObject>(
         {
           display: isHidden ? 'none' : 'flex',
