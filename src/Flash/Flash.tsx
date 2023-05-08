@@ -1,8 +1,10 @@
+import React from 'react'
 import styled from 'styled-components'
 import {variant} from 'styled-system'
 import {get} from '../constants'
 import sx, {SxProp} from '../sx'
 import {ComponentProps} from '../utils/types'
+import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 
 const variants = variant({
   variants: {
@@ -69,8 +71,8 @@ const StyledFlash = styled.div<StyledFlashProps>`
 
 export type FlashProps = ComponentProps<typeof StyledFlash>
 
-function Flash({variant = 'default', ...rest}: FlashProps) {
-  return <StyledFlash variant={variant} {...rest} />
-}
+const Flash = React.forwardRef(function Flash({as, variant = 'default', ...rest}, ref) {
+  return <StyledFlash ref={ref} as={as} variant={variant} {...rest} />
+}) as PolymorphicForwardRefComponent<'div', StyledFlashProps>
 
 export default Flash

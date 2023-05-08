@@ -1,3 +1,4 @@
+import React from 'react'
 import styled from 'styled-components'
 import {get} from '../constants'
 import sx, {SxProp} from '../sx'
@@ -37,8 +38,11 @@ const StyledAvatar = styled.img.attrs<StyledAvatarProps>(props => ({
 
 export type AvatarProps = ComponentProps<typeof StyledAvatar>
 
-function Avatar({alt = '', size = 20, square = false, ...rest}: AvatarProps) {
-  return <StyledAvatar alt={alt} size={size} square={square} {...rest} />
-}
+const Avatar = React.forwardRef<HTMLImageElement, AvatarProps>(function Avatar(
+  {alt = '', size = 20, square = false, ...rest},
+  ref,
+) {
+  return <StyledAvatar ref={ref} alt={alt} size={size} square={square} {...rest} />
+})
 
 export default Avatar
