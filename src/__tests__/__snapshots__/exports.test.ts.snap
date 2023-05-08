@@ -97,7 +97,7 @@ exports[`@primer/react should not update exports without a semver change 1`] = `
 ]
 `;
 
-exports[`@primer/react/decprecated should not update exports without a semver change 1`] = `
+exports[`@primer/react/deprecated should not update exports without a semver change 1`] = `
 [
   "Absolute",
   "ActionList",

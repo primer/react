@@ -178,8 +178,6 @@
       url: /deprecated/ActionList
     - title: ActionMenu (legacy)
       url: /deprecated/ActionMenu
-    - title: BorderBox
-      url: /deprecated/BorderBox
     - title: Buttons (legacy)
       url: /deprecated/Buttons
     - title: ChoiceFieldset
