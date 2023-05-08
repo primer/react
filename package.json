@@ -255,7 +255,6 @@
     "yaml": "2.2.2"
   },
   "peerDependencies": {
-    "@primer/css": "^21.0.1",
     "react": "^17.0.0 || ^18.0.0",
     "react-dom": "^17.0.0 || ^18.0.0",
     "styled-components": "4.x || 5.x"
