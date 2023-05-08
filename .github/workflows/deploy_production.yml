@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -33,7 +34,11 @@ jobs:
         run: |
           if gh api --silent https://api.github.com/repos/${{ github.repository }}/pages ; then
             echo "::set-output name=pages::1"
+          else
+            echo "::set-output name=pages::0"
           fi
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Log has pages
         run: echo ${{ steps.has-pages.outputs.pages }}
