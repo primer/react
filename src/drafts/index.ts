@@ -44,11 +44,5 @@ export * from '../Hidden'
 
 export * from './hooks'
 
-// TODO: Remove these components from the drafts bundle in the next major release
-export * from '../TreeView'
-export * from '../NavList'
-export * from '../SegmentedControl'
-export * from '../SplitPageLayout'
-
 // CSS Experiment
 export * from './Button2'
