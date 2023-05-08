@@ -112,6 +112,6 @@ UnderlineNavLink.displayName = 'UnderlineNav.Link'
 
 export type UnderlineNavLinkProps = ComponentProps<typeof UnderlineNavLink>
 /**
- * @deprecated UnderlineNav is deprecated and will be replaced by the draft `UnderlineNav` in the next major release. See https://primer.style/react/drafts/UnderlineNav2 for more details.
+ * @deprecated Use the new UnderlineNav instead https://primer.style/react/UnderlineNav
  */
 export default Object.assign(UnderlineNav, {Link: UnderlineNavLink})

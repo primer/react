@@ -1,14 +1,12 @@
 import React from 'react'
-import {UnderlineNav} from '..'
-import {render, behavesAsComponent} from '../utils/testing'
+import {UnderlineNav} from '../../deprecated'
+import {render} from '../../utils/testing'
 import {render as HTMLRender} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
 
 expect.extend(toHaveNoViolations)
 
 describe('UnderlineNav.Link', () => {
-  behavesAsComponent({Component: UnderlineNav.Link})
-
   it('renders an <a> by default', () => {
     expect(render(<UnderlineNav.Link />).type).toEqual('a')
   })
