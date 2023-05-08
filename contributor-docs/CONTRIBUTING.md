@@ -136,6 +136,12 @@ Component.displayName = 'Component'
 export default Component
 ```
 
+### SSR compatibility
+
+Every Primer React component should be compatible with server-side rendering (SSR).
+
+TODO
+
 ### Adding the `sx` prop
 
 Each component should accept a prop called `sx` that allows for setting theme-aware ad-hoc styles. See the [overriding styles](https://primer.style/components/overriding-styles) doc for more information on using the prop.
