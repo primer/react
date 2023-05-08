@@ -31,6 +31,7 @@ const InputLabel: React.FC<React.PropsWithChildren<Props>> = ({
   visuallyHidden,
   sx,
   as = 'label',
+  ...props
 }) => {
   return (
     <VisuallyHidden
@@ -49,6 +50,7 @@ const InputLabel: React.FC<React.PropsWithChildren<Props>> = ({
         alignSelf: 'flex-start',
         ...sx,
       }}
+      {...props}
     >
       {required ? (
         <Box display="flex" as="span">
