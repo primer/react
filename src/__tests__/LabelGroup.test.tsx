@@ -153,31 +153,6 @@ describe('LabelGroup', () => {
     expect(fourthLabel).toBeVisible()
   })
 
-  // TODO: test this some other way
-  // NOTE: It's not possible to test for side-effects of IntersectionObserver because it's a Jest mock
-  it.skip('should focus the first focusable token inline that was previously hidden when overflowStyle="inline"', async () => {
-    const user = userEvent.setup()
-    const {getByText} = HTMLRender(
-      <ThemeAndStyleContainer>
-        <LabelGroup visibleChildCount={3} overflowStyle="inline">
-          <Token as="button" text="One" />
-          <Token as="button" text="Two" />
-          <Token as="button" text="Three" />
-          <Token as="button" text="Four" />
-          <Token as="button" text="Five" />
-        </LabelGroup>
-      </ThemeAndStyleContainer>,
-    )
-    const expandButton = getByText('+2')
-
-    expect(document.activeElement).not.toEqual(getByText('Four'))
-
-    await user.click(expandButton)
-    await waitFor(() => getByText('Four'))
-
-    expect(document.activeElement).toEqual(getByText('Four'))
-  })
-
   it('should focus the collapse button when expanded, and the expand button when collapsed', async () => {
     const user = userEvent.setup()
     const {getByLabelText, getByText} = HTMLRender(

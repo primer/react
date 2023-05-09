@@ -1,6 +1,7 @@
 import {test, expect} from '@playwright/test'
 import {visit} from '../test-helpers/storybook'
 import {themes} from '../test-helpers/themes'
+import {viewports} from '../test-helpers/viewports'
 
 test.describe('LabelGroup', () => {
   test.describe('Default', () => {
@@ -113,5 +114,19 @@ test.describe('LabelGroup', () => {
         })
       })
     }
+  })
+
+  test.describe('LabelGroup Interactions', () => {
+    test('inline overflow - focuses the first focusable token that was previously hidden', async ({page}) => {
+      await visit(page, {
+        id: 'components-labelgroup-features--truncate-auto-expand-inline-with-interactive-tokens',
+        globals: {
+          colorScheme: 'light',
+        },
+      })
+      await page.locator('button', {hasText: '+5'}).click()
+
+      await expect(page.locator('button', {hasText: 'Twelve'})).toBeFocused()
+    })
   })
 })
