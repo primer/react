@@ -74,7 +74,7 @@ export const TruncateAutoWithInteractiveTokens: Story = () => (
 )
 
 export const TruncateAfterFive: Story = () => (
-  <LabelGroup visibleChildCount={5} overflowStyle="inline">
+  <LabelGroup visibleChildCount={5}>
     <Label>One</Label>
     <Label>Two</Label>
     <Label>Three</Label>

@@ -68,7 +68,7 @@ describe('LabelGroup', () => {
     HTMLRender(
       <ThemeAndStyleContainer>
         <AutoTruncateContainer width={600}>
-          <LabelGroup visibleTokenCount="auto">
+          <LabelGroup visibleChildCount="auto">
             <Label>One</Label>
             <Label>Two</Label>
             <Label>Three</Label>
@@ -96,7 +96,7 @@ describe('LabelGroup', () => {
   it('should truncate labels to a specified number', () => {
     const {getByText} = HTMLRender(
       <ThemeAndStyleContainer>
-        <LabelGroup visibleTokenCount={3}>
+        <LabelGroup visibleChildCount={3}>
           <Label>One</Label>
           <Label>Two</Label>
           <Label>Three</Label>
@@ -114,7 +114,7 @@ describe('LabelGroup', () => {
     const user = userEvent.setup()
     const {getByLabelText, getByText} = HTMLRender(
       <ThemeAndStyleContainer>
-        <LabelGroup visibleTokenCount={3} overflowStyle="overlay">
+        <LabelGroup visibleChildCount={3} overflowStyle="overlay">
           <Label>One</Label>
           <Label>Two</Label>
           <Label>Three</Label>
@@ -134,7 +134,7 @@ describe('LabelGroup', () => {
     const user = userEvent.setup()
     const {getByText} = HTMLRender(
       <ThemeAndStyleContainer>
-        <LabelGroup visibleTokenCount={3} overflowStyle="inline">
+        <LabelGroup visibleChildCount={3} overflowStyle="inline">
           <Label>One</Label>
           <Label>Two</Label>
           <Label>Three</Label>
@@ -159,7 +159,7 @@ describe('LabelGroup', () => {
     const user = userEvent.setup()
     const {getByText} = HTMLRender(
       <ThemeAndStyleContainer>
-        <LabelGroup visibleTokenCount={3} overflowStyle="inline">
+        <LabelGroup visibleChildCount={3} overflowStyle="inline">
           <Token as="button" text="One" />
           <Token as="button" text="Two" />
           <Token as="button" text="Three" />
@@ -182,7 +182,7 @@ describe('LabelGroup', () => {
     const user = userEvent.setup()
     const {getByLabelText, getByText} = HTMLRender(
       <ThemeAndStyleContainer>
-        <LabelGroup visibleTokenCount={3} overflowStyle="inline">
+        <LabelGroup visibleChildCount={3} overflowStyle="inline">
           <Label>One</Label>
           <Label>Two</Label>
           <Label>Three</Label>
