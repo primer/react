@@ -198,7 +198,17 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
             {slots.leadingVisual}
             <Box
               data-component="ActionList.Item--DividerContainer"
-              sx={{display: 'flex', flexDirection: 'column', flexGrow: 1, minWidth: 0}}
+              sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                flexGrow: 1,
+                minWidth: 0,
+                borderStyle: 'none',
+                backgroundColor: 'transparent',
+                cursor: 'inherit',
+                fontSize: 'inherit',
+              }}
+              as="button"
             >
               <ConditionalBox if={Boolean(slots.trailingVisual)} sx={{display: 'flex', flexGrow: 1}}>
                 <ConditionalBox
