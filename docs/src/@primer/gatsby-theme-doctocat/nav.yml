@@ -180,8 +180,6 @@
       url: /deprecated/ActionMenu
     - title: Buttons (legacy)
       url: /deprecated/Buttons
-    - title: Dropdown
-      url: /deprecated/Dropdown
     - title: DropdownMenu
       url: /deprecated/DropdownMenu
     - title: FormGroup
