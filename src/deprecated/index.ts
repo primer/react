@@ -8,8 +8,6 @@
 
 // Deprecated in v35.0.0 on March 9, 2022
 // TODO: We can remove these 6 months after release: September 10, 2022
-export {default as Position, Absolute, Fixed, Relative, Sticky} from './Position'
-export type {PositionProps, AbsoluteProps, FixedProps, RelativeProps, StickyProps} from './Position'
 export {default as Dropdown} from './Dropdown'
 export type {
   DropdownProps,
