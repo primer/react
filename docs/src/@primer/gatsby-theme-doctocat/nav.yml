@@ -182,8 +182,6 @@
       url: /deprecated/Buttons
     - title: DropdownMenu
       url: /deprecated/DropdownMenu
-    - title: FormGroup
-      url: /deprecated/FormGroup
     - title: Grid
       url: /deprecated/Grid
     - title: InputField

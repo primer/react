@@ -3,4 +3,4 @@
 ---
 
 Remove components from deprecated
-- `BorderBox`, `ChoiceFieldset`, `Flex`, `Grid`, `Position`, `Dropdown`
+- `BorderBox`, `ChoiceFieldset`, `Flex`, `Grid`, `Position`, `Dropdown`, `FormGroup`
