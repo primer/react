@@ -99,7 +99,6 @@ exports[`@primer/react should not update exports without a semver change 1`] = `
 
 exports[`@primer/react/decprecated should not update exports without a semver change 1`] = `
 [
-  "Absolute",
   "ActionList",
   "ActionMenu",
   "Button",
@@ -111,11 +110,7 @@ exports[`@primer/react/decprecated should not update exports without a semver ch
   "ButtonTableList",
   "DropdownButton",
   "DropdownMenu",
-  "Fixed",
   "Item",
-  "Label",
-  "Relative",
-  "Sticky",
 ]
 `;
 
