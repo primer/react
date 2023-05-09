@@ -1,9 +1,9 @@
 import React from 'react'
 import {CheckIcon} from '@primer/octicons-react'
-import {ListContext, ActionListProps} from './List'
+import {ListContext} from './List'
 import {ActionListItemProps} from './shared'
 import {LeadingVisualContainer} from './Visuals'
-import {ActionListGroupProps, GroupContext} from './Group'
+import {GroupContext} from './Group'
 
 type SelectionProps = Pick<ActionListItemProps, 'selected'>
 export const Selection: React.FC<React.PropsWithChildren<SelectionProps>> = ({selected}) => {
