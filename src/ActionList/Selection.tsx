@@ -3,14 +3,18 @@ import {CheckIcon} from '@primer/octicons-react'
 import {ListContext, ActionListProps} from './List'
 import {ActionListItemProps} from './shared'
 import {LeadingVisualContainer} from './Visuals'
+import {ActionListGroupProps, GroupContext} from './Group'
 
 type SelectionProps = Pick<ActionListItemProps, 'selected'>
 export const Selection: React.FC<React.PropsWithChildren<SelectionProps>> = ({selected}) => {
+  const {selectionVariant: groupSelectionVariant} = React.useContext(GroupContext)
   const {selectionVariant: listSelectionVariant} = React.useContext(ListContext)
 
   /** selectionVariant in Group can override the selectionVariant in List root */
   /** fallback to selectionVariant from container menu if any (ActionMenu, SelectPanel ) */
-  const selectionVariant: ActionListProps['selectionVariant'] = listSelectionVariant
+  let selectionVariant: ActionListProps['selectionVariant'] | ActionListGroupProps['selectionVariant']
+  if (typeof groupSelectionVariant !== 'undefined') selectionVariant = groupSelectionVariant
+  else selectionVariant = listSelectionVariant
 
   if (!selectionVariant) {
     // if selectionVariant is not set on List, but Item is selected
