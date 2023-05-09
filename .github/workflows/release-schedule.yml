@@ -85,8 +85,8 @@ jobs:
             const previousEnd = nextFriday(previousStart);
 
             // Issue IDs
-            const id = `primer-release-schedule:${format(start, 'yyyy-M-d')}`;
-            const previousId = `primer-release-schedule:${format(previousStart, 'yyyy-M-d')}`;
+            const id = `primer-release-schedule:${format(start, 'yyyy-MM-dd')}`;
+            const previousId = `primer-release-schedule:${format(previousStart, 'yyyy-M-dd')}`;
 
             const ISSUE_TITLE = 'Release Tracking';
             const timeline = [
