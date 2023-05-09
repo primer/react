@@ -15,8 +15,9 @@ import React, {useCallback, useState, useRef} from 'react'
 import styled from 'styled-components'
 import {ThemeProvider} from '../..'
 import Link, {LinkProps} from '../../Link'
-import {ActionMenu, ActionMenuProps, ActionList, DropdownButton, Button} from '../../deprecated'
+import {ActionMenu, ActionMenuProps, ActionList, DropdownButton} from '../../deprecated'
 import {ItemProps} from '../../deprecated/ActionList'
+import {Button} from '../../Button'
 import BaseStyles from '../../BaseStyles'
 
 const meta: Meta = {

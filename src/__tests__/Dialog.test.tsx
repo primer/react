@@ -1,6 +1,6 @@
 import React, {useState, useRef} from 'react'
 import {Dialog, Box, Text} from '..'
-import {Button} from '../deprecated'
+import {Button} from '../Button'
 import {render as HTMLRender, fireEvent} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
 import {behavesAsComponent, checkExports} from '../utils/testing'

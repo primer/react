@@ -1,6 +1,6 @@
 import React, {useRef, useState} from 'react'
 import {Overlay, Box, Text} from '..'
-import {ButtonDanger, Button} from '../deprecated'
+import {Button} from '../Button'
 import {render, waitFor, fireEvent} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import {axe} from 'jest-axe'
@@ -43,7 +43,9 @@ const TestComponent = ({initialFocus, callback}: TestComponentSettings) => {
             >
               <Box display="flex" flexDirection="column" p={2}>
                 <Text>Are you sure?</Text>
-                <ButtonDanger onClick={closeOverlay}>Cancel</ButtonDanger>
+                <Button variant="danger" onClick={closeOverlay}>
+                  Cancel
+                </Button>
                 <Button onClick={closeOverlay} ref={confirmButtonRef}>
                   Confirm
                 </Button>
