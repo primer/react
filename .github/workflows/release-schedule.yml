@@ -2,6 +2,10 @@ name: Release Schedule
 on:
   workflow_dispatch:
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.workflow_run.head_branch }}
+  cancel-in-progress: true
+
 permissions: {}
 
 jobs:
@@ -87,6 +91,7 @@ jobs:
             const ISSUE_TITLE = 'Release Tracking';
             const timeline = [
               '## Timeline',
+              '',
               '<!-- Provide updates for release activities, like cutting releases and different integration points -->',
               '',
               ...eachDayOfInterval({ start, end }).map((day) => {
@@ -100,6 +105,12 @@ jobs:
               '- [ ] Integration checks passed',
               '- [ ] Release available on npm',
               '- [ ] Upstream dependencies have been updated to latest',
+            ].join('\n');
+            const notes = [
+              '## Notes',
+              '',
+              '<!-- Provide any notes for this release that may be helpful for a future conductor or for consumers -->',
+              ''
             ].join('\n');
 
             let ISSUE_BODY = `<!-- ${id} -->\n`;
@@ -127,7 +138,7 @@ jobs:
               }
             }
 
-            // We need to create an issue for the current release
+            // There is no previously open release tracking issue
             if (!releaseIssue) {
               ISSUE_BODY += '| Last week | Value |';
               ISSUE_BODY += '| :-------- | :---- |';
@@ -150,20 +161,39 @@ jobs:
 
             // We already have an issue open for the current release
             if (releaseIssue.body.contains(id)) {
+              return;
             }
 
             // This is the previous release issue
             if (releaseIssue.body.contains(previousId)) {
-            }
+              const assignees = releaseIssue.assignees.map((assignee) => {
+                return `@${assignee.login}`;
+              }).join(' ');
 
-  assign-to-release-pr:
-    needs: release-conductor
-    runs-on: ubuntu-latest
-    permissions:
-      pull-requests: write
-    steps:
-      - uses: actions/github-script@v6
-        env:
-          RELEASE_CONDUCTOR: ${{ needs.release-conductor.outputs.conductor }}
-        with:
-          script: |
+              ISSUE_BODY += '| Last week | Value |';
+              ISSUE_BODY += '| :-------- | :---- |';
+              ISSUE_BODY += `| Issue     | [${releaseIssue.title}](${releaseIssue.html_url}) |`;
+              ISSUE_BODY += '| Conductor | ${assignees} |';
+              ISSUE_BODY += '\n';
+              ISSUE_BODY += timeline;
+              ISSUE_BODY += '\n';
+              ISSUE_BODY += checklist;
+
+              // Create the current release issue
+              await github.rest.issues.create({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                title: ISSUE_TITLE,
+                body: ISSUE_BODY,
+                assignee: [RELEASE_CONDUCTOR],
+              });
+
+              // Close the previous release issue
+              await github.rest.issues.update({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: releaseIssue.number,
+                state: 'closed',
+                state_reason: 'completed',
+              });
+            }
