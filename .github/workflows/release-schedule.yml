@@ -102,9 +102,9 @@ jobs:
               '## Checklist',
               '',
               '- [ ] Prerelease available on npm',
-              '- [ ] Integration checks passed',
+              '- [ ] Integration checks have passed',
               '- [ ] Release available on npm',
-              '- [ ] Upstream dependencies have been updated to latest',
+              '- [ ] Integration Pull Requests have been merged',
             ].join('\n');
             const notes = [
               '## Notes',
