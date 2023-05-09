@@ -180,14 +180,10 @@
       url: /deprecated/ActionMenu
     - title: Buttons (legacy)
       url: /deprecated/Buttons
-    - title: ChoiceInputField
-      url: /deprecated/ChoiceInputField
     - title: Dropdown
       url: /deprecated/Dropdown
     - title: DropdownMenu
       url: /deprecated/DropdownMenu
-    - title: Flex
-      url: /deprecated/Flex
     - title: FormGroup
       url: /deprecated/FormGroup
     - title: Grid
