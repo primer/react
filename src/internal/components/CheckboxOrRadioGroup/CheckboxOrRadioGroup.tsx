@@ -1,15 +1,15 @@
 import React from 'react'
 import styled from 'styled-components'
-import Box from '../Box'
-import ValidationAnimationContainer from '../_ValidationAnimationContainer'
-import {get} from '../constants'
-import {useSSRSafeId} from '../utils/ssr'
-import CheckboxOrRadioGroupCaption from './_CheckboxOrRadioGroupCaption'
-import CheckboxOrRadioGroupLabel from './_CheckboxOrRadioGroupLabel'
-import CheckboxOrRadioGroupValidation from './_CheckboxOrRadioGroupValidation'
-import VisuallyHidden from '../_VisuallyHidden'
-import {useSlots} from '../hooks/useSlots'
-import {SxProp} from '../sx'
+import Box from '../../../Box'
+import ValidationAnimationContainer from '../../../_ValidationAnimationContainer'
+import {get} from '../../../constants'
+import {useSSRSafeId} from '../../../utils/ssr'
+import CheckboxOrRadioGroupCaption from './CheckboxOrRadioGroupCaption'
+import CheckboxOrRadioGroupLabel from './CheckboxOrRadioGroupLabel'
+import CheckboxOrRadioGroupValidation from './CheckboxOrRadioGroupValidation'
+import VisuallyHidden from '../../../_VisuallyHidden'
+import {useSlots} from '../../../hooks/useSlots'
+import {SxProp} from '../../../sx'
 
 export type CheckboxOrRadioGroupProps = {
   /**
@@ -153,7 +153,7 @@ const CheckboxOrRadioGroup: React.FC<React.PropsWithChildren<CheckboxOrRadioGrou
   )
 }
 
-export type {CheckboxOrRadioGroupLabelProps} from './_CheckboxOrRadioGroupLabel'
+export type {CheckboxOrRadioGroupLabelProps} from './CheckboxOrRadioGroupLabel'
 export default Object.assign(CheckboxOrRadioGroup, {
   Caption: CheckboxOrRadioGroupCaption,
   Label: CheckboxOrRadioGroupLabel,
