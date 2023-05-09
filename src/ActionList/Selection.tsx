@@ -12,7 +12,7 @@ export const Selection: React.FC<React.PropsWithChildren<SelectionProps>> = ({se
 
   /** selectionVariant in Group can override the selectionVariant in List root */
   /** fallback to selectionVariant from container menu if any (ActionMenu, SelectPanel ) */
-  const selectionVariant = groupSelectionVariant ?? listSelectionVariant;
+  const selectionVariant = groupSelectionVariant ?? listSelectionVariant
 
   if (!selectionVariant) {
     // if selectionVariant is not set on List, but Item is selected
