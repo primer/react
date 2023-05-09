@@ -1,0 +1,169 @@
+name: Release Schedule
+on:
+  workflow_dispatch:
+
+permissions: {}
+
+jobs:
+  release-conductor:
+    if: ${{ github.repository == 'primer/react' }}
+    runs-on: ubuntu-latest
+    outputs:
+      conductor: ${{ steps.pagerduty.output.result }}
+    steps:
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - name: Install packages for github-script
+        run: npm i node-fetch
+      - name: Fetch user from pagerduty schedule
+        id: pagerduty
+        uses: actions/github-script@v6
+        env:
+          PAGERDUTY_API_KEY: ${{ secrets.PAGERDUTY_API_KEY_SID }}
+        with:
+          script: |
+            const fetch = require('node-fetch');
+
+            const { PAGERDUTY_API_KEY } = process.env;
+
+            const today = new Date().toISOString().slice(0, 10); // format: 2022-11-24
+            const url = new URL('https://api.pagerduty.com/schedules/P3IIVC4');
+            url.searchParams.append('since', today);
+            url.searchParams.append('until', today);
+
+            const response = await fetch(url, {
+              headers: {
+               'Content-Type': 'application/json',
+               'Authorization': `Token token=${PAGERDUTY_API_KEY}`
+              }
+            });
+            const data = await response.json();
+            const conductor = data.schedule.final_schedule.rendered_schedule_entries[0].user.summary;
+
+            core.info(`${conductor} is release conductor`);
+
+            return conductor;
+
+  create-tracking-issue:
+    needs: release-conductor
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+    steps:
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - name: Install packages for github-script
+        run: npm i date-fns
+      - name: Create Release Issue
+        uses: actions/github-script@v6
+        env:
+          RELEASE_CONDUCTOR: ${{ needs.release-conductor.outputs.conductor }}
+        with:
+          script: |
+            const startOfWeek = require('date-fns/startOfWeek');
+            const nextFriday = require('date-fns/nextFriday');
+            const format = require('date-fns/format');
+            const previousMonday = require('date-fns/previousMonday');
+
+            cnost { RELEASE_CONDUCTOR } = process.env;
+
+            // Current schedule
+            const today = new Date();
+            const start = startOfWeek(today, { weekStartsOn: 1 });
+            const end = nextFriday(start);
+
+            // Previous schedule
+            const previousStart = previousMonday(start);
+            const previousEnd = nextFriday(previousStart);
+
+            // Issue IDs
+            const id = `primer-release-schedule:${format(start, 'yyyy-M-d')}`;
+            const previousId = `primer-release-schedule:${format(previousStart, 'yyyy-M-d')}`;
+
+            const ISSUE_TITLE = 'Release Tracking';
+            const timeline = [
+              '## Timeline',
+              '<!-- Provide updates for release activities, like cutting releases and different integration points -->',
+              '',
+              ...eachDayOfInterval({ start, end }).map((day) => {
+                return `- ${format(day, 'EEEE do')}`;
+              }),
+            ].join('\n');
+            const checklist = [
+              '## Checklist',
+              '',
+              '- [ ] Prerelease available on npm',
+              '- [ ] Integration checks passed',
+              '- [ ] Release available on npm',
+              '- [ ] Upstream dependencies have been updated to latest',
+            ].join('\n');
+
+            let ISSUE_BODY = `<!-- ${id} -->\n`;
+
+            ISSUE_BODY += `_This is a scheduled issue for tracking the release between ${format(start, 'EEEE do')} and ${format(end, 'EEEE do')}_\n`;
+
+            const iterator = github.paginate.iterator(
+              github.rest.issues.listForRepo,
+              {
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                state: 'open',
+                per_page: 100,
+              }
+            );
+
+            let releaseIssue = null;
+
+            for await (const page of iterator) {
+              releaseIssue = page.data.find((issue) => {
+                return issue.title === ISSUE_TITLE;
+              });
+              if (releaseIssue) {
+                break;
+              }
+            }
+
+            // We need to create an issue for the current release
+            if (!releaseIssue) {
+              ISSUE_BODY += '| Last week | Value |';
+              ISSUE_BODY += '| :-------- | :---- |';
+              ISSUE_BODY += '| Issue     |       |';
+              ISSUE_BODY += '| Conductor |       |';
+              ISSUE_BODY += '\n';
+              ISSUE_BODY += timeline;
+              ISSUE_BODY += '\n';
+              ISSUE_BODY += checklist;
+
+              await github.rest.issues.create({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                title: ISSUE_TITLE,
+                body: ISSUE_BODY,
+                assignee: [RELEASE_CONDUCTOR],
+              });
+              return;
+            }
+
+            // We already have an issue open for the current release
+            if (releaseIssue.body.contains(id)) {
+            }
+
+            // This is the previous release issue
+            if (releaseIssue.body.contains(previousId)) {
+            }
+
+  assign-to-release-pr:
+    needs: release-conductor
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+    steps:
+      - uses: actions/github-script@v6
+        env:
+          RELEASE_CONDUCTOR: ${{ needs.release-conductor.outputs.conductor }}
+        with:
+          script: |
