@@ -8,7 +8,6 @@
 
 // Deprecated in v35.0.0 on March 9, 2022
 // TODO: We can remove these 6 months after release: September 10, 2022
-export {default as InputField} from './InputField'
 export {default as Label} from './Label'
 export type {LabelProps} from './Label'
 export {ActionList} from './ActionList'

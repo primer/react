@@ -182,10 +182,6 @@
       url: /deprecated/Buttons
     - title: DropdownMenu
       url: /deprecated/DropdownMenu
-    - title: Grid
-      url: /deprecated/Grid
-    - title: InputField
-      url: /deprecated/InputField
     - title: Label
       url: /deprecated/Label
     - title: SideNav
