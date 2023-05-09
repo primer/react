@@ -3,3 +3,4 @@
 ---
 
 Remove components from deprecated
+- `BorderBox`, `ChoiceFieldset`

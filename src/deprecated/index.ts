@@ -8,7 +8,6 @@
 
 // Deprecated in v35.0.0 on March 9, 2022
 // TODO: We can remove these 6 months after release: September 10, 2022
-export {default as ChoiceFieldset, Item} from './ChoiceFieldset'
 export {default as ChoiceInputField} from './ChoiceInputField'
 export {default as Flex} from './Flex'
 export type {FlexProps} from './Flex'
