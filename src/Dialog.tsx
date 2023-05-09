@@ -1,6 +1,7 @@
 import React, {forwardRef, useRef} from 'react'
 import styled from 'styled-components'
-import ButtonClose from './deprecated/Button/ButtonClose'
+import {IconButton} from './Button'
+import {XIcon} from '@primer/octicons-react'
 import {get} from './constants'
 import Box from './Box'
 import useDialog from './hooks/useDialog'
@@ -119,10 +120,12 @@ const Dialog = forwardRef<HTMLDivElement, InternalDialogProps>(
       <>
         <Overlay ref={overlayRef} />
         <DialogBase tabIndex={-1} ref={modalRef} role="dialog" aria-modal="true" {...props} {...getDialogProps()}>
-          <ButtonClose
-            ref={closeButtonRef}
+          <IconButton
             onClick={onCloseClick}
             sx={{position: 'absolute', top: '16px', right: '16px'}}
+            aria-label="Close"
+            icon={XIcon}
+            ref={closeButtonRef}
           />
           {children}
         </DialogBase>

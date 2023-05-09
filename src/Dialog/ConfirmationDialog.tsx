@@ -37,7 +37,7 @@ export interface ConfirmationDialogProps {
   /**
    * The type of button to use for the confirm button. Default: Button.
    */
-  confirmButtonType?: 'normal' | 'primary' | 'danger'
+  confirmButtonType?: 'default' | 'primary' | 'danger'
 }
 
 const StyledConfirmationHeader = styled.div`
@@ -106,7 +106,7 @@ export const ConfirmationDialog: React.FC<React.PropsWithChildren<ConfirmationDi
     title,
     cancelButtonContent = 'Cancel',
     confirmButtonContent = 'OK',
-    confirmButtonType = 'normal',
+    confirmButtonType = 'default',
     children,
   } = props
 
@@ -118,12 +118,12 @@ export const ConfirmationDialog: React.FC<React.PropsWithChildren<ConfirmationDi
   }, [onClose])
   const isConfirmationDangerous = confirmButtonType === 'danger'
   const cancelButton: DialogButtonProps = {
-    content: cancelButtonContent,
+    children: cancelButtonContent,
     onClick: onCancelButtonClick,
     autoFocus: isConfirmationDangerous,
   }
   const confirmButton: DialogButtonProps = {
-    content: confirmButtonContent,
+    children: confirmButtonContent,
     buttonType: confirmButtonType,
     onClick: onConfirmButtonClick,
     autoFocus: !isConfirmationDangerous,

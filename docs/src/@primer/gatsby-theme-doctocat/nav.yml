@@ -178,8 +178,6 @@
       url: /deprecated/ActionList
     - title: ActionMenu (legacy)
       url: /deprecated/ActionMenu
-    - title: Buttons (legacy)
-      url: /deprecated/Buttons
     - title: DropdownMenu
       url: /deprecated/DropdownMenu
     - title: SideNav

@@ -2,10 +2,10 @@ import {render} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import React from 'react'
 import {Details, useDetails, Box} from '../..'
-import {Button, ButtonPrimary} from '../../deprecated'
-import {ButtonProps} from '../../deprecated/Button/Button'
+import {Button, IconButton} from '../../Button'
 import {behavesAsComponent, checkExports} from '../../utils/testing'
 import {axe} from 'jest-axe'
+import {XIcon} from '@primer/octicons-react'
 
 describe('Details', () => {
   behavesAsComponent({Component: Details})
@@ -59,7 +59,6 @@ describe('Details', () => {
 
   it('Can manipulate state with setOpen', async () => {
     const user = userEvent.setup()
-    const CloseButton = (props: ButtonProps) => <Button {...props} />
     const Component = () => {
       const {getDetailsProps, setOpen, open} = useDetails({closeOnOutsideClick: true, defaultOpen: true})
       return (
@@ -67,7 +66,7 @@ describe('Details', () => {
           <Button as="summary" data-testid="summary">
             {open ? 'Open' : 'Closed'}
           </Button>
-          <CloseButton onClick={() => setOpen(false)}>Close</CloseButton>
+          <IconButton onClick={() => setOpen(false)} aria-label="Close" icon={XIcon} />
         </Details>
       )
     }
@@ -90,7 +89,7 @@ describe('Details', () => {
             {open ? 'Open' : 'Closed'}
           </Button>
           <Box>
-            <ButtonPrimary>test</ButtonPrimary>
+            <Button variant="primary">test</Button>
           </Box>
         </Details>
       )

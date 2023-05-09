@@ -101,13 +101,6 @@ exports[`@primer/react/decprecated should not update exports without a semver ch
 [
   "ActionList",
   "ActionMenu",
-  "Button",
-  "ButtonClose",
-  "ButtonDanger",
-  "ButtonInvisible",
-  "ButtonOutline",
-  "ButtonPrimary",
-  "ButtonTableList",
   "DropdownButton",
   "DropdownMenu",
 ]
