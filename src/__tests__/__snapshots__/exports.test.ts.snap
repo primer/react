@@ -114,7 +114,6 @@ exports[`@primer/react/decprecated should not update exports without a semver ch
   "DropdownMenu",
   "Fixed",
   "FormGroup",
-  "Grid",
   "InputField",
   "Item",
   "Label",
