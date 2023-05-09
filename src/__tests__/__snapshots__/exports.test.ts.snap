@@ -116,7 +116,6 @@ exports[`@primer/react/decprecated should not update exports without a semver ch
   "Item",
   "Label",
   "Relative",
-  "SelectMenu",
   "Sticky",
 ]
 `;

@@ -11,21 +11,6 @@
 export {default as InputField} from './InputField'
 export {default as Label} from './Label'
 export type {LabelProps} from './Label'
-export {default as SelectMenu} from './SelectMenu'
-export type {
-  SelectMenuProps,
-  SelectMenuDividerProps,
-  SelectMenuFilterProps,
-  SelectMenuFooterProps,
-  SelectMenuItemProps,
-  SelectMenuListProps,
-  SelectMenuModalProps,
-  SelectMenuTabsProps,
-  SelectMenuHeaderProps,
-  SelectMenuTabProps,
-  SelectMenuTabPanelProps,
-  SelectMenuLoadingAnimationProps,
-} from './SelectMenu'
 export {ActionList} from './ActionList'
 export type {ActionListProps} from './ActionList'
 export {ActionMenu} from './ActionMenu'
