@@ -2,6 +2,7 @@ import React, {KeyboardEventHandler, useCallback, useEffect, useRef} from 'react
 import TextInput, {TextInputProps} from '../TextInput'
 import Box from '../Box'
 import {ActionList, ActionListProps, ActionListItemProps} from '../ActionList'
+import Truncate from '../Truncate'
 import Spinner from '../Spinner'
 import {useFocusZone} from '../hooks/useFocusZone'
 import {useProvidedStateOrCreate} from '../hooks/useProvidedStateOrCreate'
@@ -44,13 +45,43 @@ const StyledHeader = styled.div`
   z-index: 1;
 `
 
+const defaultRenderFn = ({
+  description,
+  descriptionVariant,
+  id,
+  sx,
+  text,
+  trailingVisual,
+  leadingVisual,
+  onSelect,
+}: ItemInput): React.ReactElement => {
+  return (
+    <ActionList.Item key={id} sx={sx} role="option" onSelect={onSelect}>
+      {!!leadingVisual && <ActionList.LeadingVisual>{leadingVisual}</ActionList.LeadingVisual>}
+      {text ? text : null}
+      {description ? (
+        <ActionList.Description variant="block">
+          {descriptionVariant === 'block' ? (
+            description
+          ) : (
+            <Truncate title={description} inline={true} maxWidth="100%">
+              {description}
+            </Truncate>
+          )}
+        </ActionList.Description>
+      ) : null}
+      {!!trailingVisual && <ActionList.TrailingVisual>{trailingVisual}</ActionList.TrailingVisual>}
+    </ActionList.Item>
+  )
+}
+
 export function FilteredActionList({
   loading = false,
   placeholderText,
   filterValue: externalFilterValue,
   onFilterChange,
   items,
-  renderFn,
+  renderFn = defaultRenderFn,
   textInputProps,
   inputRef: providedInputRef,
   sx,
@@ -146,7 +177,7 @@ export function FilteredActionList({
             id={listId}
             aria-label={`${placeholderText} options`}
           >
-            {items.map(i => renderFn?.(i))}
+            {items.map(i => renderFn(i))}
           </ActionList>
         )}
       </Box>

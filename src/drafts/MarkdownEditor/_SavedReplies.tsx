@@ -9,10 +9,7 @@ import React, {
   useState,
 } from 'react'
 import {SelectPanel, SelectPanelProps} from '../../SelectPanel'
-import {ItemInput} from '../../FilteredActionList'
-import {ActionList} from '../../ActionList'
 import {ToolbarButton} from './Toolbar'
-import Truncate from '../../Truncate'
 
 export type SavedReply = {
   name: string
@@ -35,35 +32,6 @@ type Item = SelectPanelProps['items'][number]
 // SavedRepliesContext is separate from MarkdownEditorContext because the saved replies array is practically guarunteed to change
 // on every render. If it was provided in the MarkdownEditorContext, it would cause the whole editor to rerender on every render.
 export const SavedRepliesContext = createContext<SavedRepliesContext>(null)
-
-const renderFn = ({
-  description,
-  descriptionVariant,
-  id,
-  sx,
-  text,
-  trailingVisual,
-  hideSelection,
-  onSelect,
-}: ItemInput): React.ReactElement => {
-  return (
-    <ActionList.Item key={id} sx={sx} role="option" onSelect={onSelect} hideSelection={hideSelection}>
-      {text ? text : null}
-      {description ? (
-        <ActionList.Description variant="block">
-          {descriptionVariant === 'block' ? (
-            description
-          ) : (
-            <Truncate title={description} inline={true} maxWidth="100%">
-              {description}
-            </Truncate>
-          )}
-        </ActionList.Description>
-      ) : null}
-      {!!trailingVisual && <ActionList.TrailingVisual>{trailingVisual}</ActionList.TrailingVisual>}
-    </ActionList.Item>
-  )
-}
 
 export const SavedRepliesButton = () => {
   const context = useContext(SavedRepliesContext)
@@ -131,7 +99,6 @@ export const SavedRepliesButton = () => {
       open={open}
       onOpenChange={setOpen}
       items={items}
-      renderFn={renderFn}
       filterValue={filter}
       onFilterChange={setFilter}
       placeholderText="Search saved replies"
