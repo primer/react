@@ -4,6 +4,7 @@ import Box from '../Box'
 import {get} from '../constants'
 import {SxProp, merge} from '../sx'
 import {useId} from '../hooks/useId'
+import {defaultSxProp} from '../utils/defaultSxProp'
 
 export type ActionListHeadingProps = {
   variant?: 'subtle' | 'filled'
@@ -22,7 +23,7 @@ export const Heading: React.FC<React.PropsWithChildren<ActionListHeadingProps>> 
   title,
   subtitle,
   as = 'h3',
-  sx,
+  sx = defaultSxProp,
   ...props
 }) => {
   const {variant: listVariant, headingId: headingId} = React.useContext(ListContext)
