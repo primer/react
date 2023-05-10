@@ -157,10 +157,10 @@ export function SelectPanel({
       <FilteredActionList
         filterValue={filterValue}
         onFilterChange={onFilterChange}
-        {...listProps}
         role="listbox"
         aria-multiselectable={isMultiSelectVariant(selected) ? 'true' : 'false'}
         selectionVariant={isMultiSelectVariant(selected) ? 'multiple' : 'single'}
+        {...listProps}
         items={itemsToRender}
         renderFn={renderFn}
         textInputProps={extendedTextInputProps}

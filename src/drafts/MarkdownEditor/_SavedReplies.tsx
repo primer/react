@@ -107,6 +107,12 @@ export const SavedRepliesButton = () => {
         onSelectItem(Array.isArray(selection) ? selection[0] : selection)
       }}
       overlayProps={{width: 'small', maxHeight: 'small', anchorSide: 'outside-right', onKeyDown}}
+      // @ts-ignore this is bad because SelectPanel does not accept selectionVariant in the public API
+      // but it does pass it down to FilteredActionList underneath.
+      // SavedReplies should not use SelectPanel and override it's semantics, it should instead
+      // use the building blocks of SelectPanel to build a new component
+      selectionVariant={undefined}
+      aria-multiselectable={undefined}
     />
   ) : (
     <></>
