@@ -59,6 +59,7 @@ export interface Column<Data extends UniqueRow> {
   sortBy?: boolean | SortStrategy | CustomSortStrategy<Data>
 
   /**
+<<<<<<< Updated upstream
    * Controls the width of the column.
    * - 'grow': Stretch to fill available space, and min width is the width of the widest cell in the column
    * - 'growCollapse': Stretch to fill available space or shrink to fit in the available space. Allows the column to shrink smaller than the cell content's width.
@@ -67,6 +68,12 @@ export interface Column<Data extends UniqueRow> {
    * @default 'grow'
    */
   width?: ColumnWidth
+=======
+   * Specify if the column is sortable. This is used to render a sortable table
+   * header but will not sort the rows
+   */
+  sortable?: boolean
+>>>>>>> Stashed changes
 }
 
 export function createColumnHelper<T extends UniqueRow>() {

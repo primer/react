@@ -1,8 +1,7 @@
-import React from 'react'
+import React, {useSyncExternalStore} from 'react'
 import {VisuallyHidden} from './VisuallyHidden'
 
 type LiveRegionContext = {
-  announce: (message: string) => void
   message: string
 }
 
@@ -17,15 +16,14 @@ function useLiveRegion() {
 }
 
 function LiveRegion({children}: React.PropsWithChildren) {
-  const [message, setMessage] = React.useState('')
-  const value = React.useMemo(() => {
-    return {
-      announce: setMessage,
-      message,
-    }
-  }, [message])
+  const parentLiveRegion = React.useContext(LiveRegionContext)
+  const state = useSyncExternalStore(subscribe, getSnapshot)
 
-  return <LiveRegionContext.Provider value={value}>{children}</LiveRegionContext.Provider>
+  if (parentLiveRegion) {
+    return <>{children}</>
+  }
+
+  return <LiveRegionContext.Provider value={state}>{children}</LiveRegionContext.Provider>
 }
 
 function LiveRegionOutlet() {
@@ -51,7 +49,7 @@ function Message({value}: {value: string}) {
       return
     }
     const timeoutId = setTimeout(() => {
-      savedLiveRegion.current.announce(value)
+      announce(value)
     }, 750)
     return () => {
       clearTimeout(timeoutId)
@@ -68,4 +66,35 @@ function Message({value}: {value: string}) {
   return null
 }
 
-export {LiveRegion, LiveRegionOutlet, Message, useLiveRegion}
+type State = {
+  message: string
+}
+type Subscriber = (state: State) => void
+type Subscription = () => void
+
+const subscribers = new Set<Subscriber>()
+let state = {
+  message: '',
+}
+
+function subscribe(subscriber: Subscriber): Subscription {
+  subscribers.add(subscriber)
+  return () => {
+    subscribers.delete(subscriber)
+  }
+}
+
+function getSnapshot() {
+  return state
+}
+
+function announce(message: string) {
+  state = {
+    message,
+  }
+  for (const subscriber of subscribers) {
+    subscriber(state)
+  }
+}
+
+export {LiveRegion, LiveRegionOutlet, Message, useLiveRegion, announce}

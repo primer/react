@@ -1,4 +1,13 @@
-import {DownloadIcon, KebabHorizontalIcon, PencilIcon, PlusIcon, RepoIcon, TrashIcon} from '@primer/octicons-react'
+import {
+  DownloadIcon,
+  KebabHorizontalIcon,
+  PencilIcon,
+  PlusIcon,
+  RepoIcon,
+  SortAscIcon,
+  SortDescIcon,
+  TrashIcon,
+} from '@primer/octicons-react'
 import {action} from '@storybook/addon-actions'
 import {Meta} from '@storybook/react'
 import React from 'react'
@@ -11,9 +20,12 @@ import Heading from '../Heading'
 import Label from '../Label'
 import LabelGroup from '../LabelGroup'
 import RelativeTime from '../RelativeTime'
-import VisuallyHidden from '../_VisuallyHidden'
+import {VisuallyHidden} from '../internal/components/VisuallyHidden'
 import {createColumnHelper} from './column'
-import {repos} from './storybook/data'
+import {fetchRepos, repos, useQuery, useQueryWithError} from './storybook/data'
+import Spinner from '../Spinner'
+import {LiveRegion, LiveRegionOutlet, Message, announce} from '../internal/components/LiveRegion'
+import {Button as ButtonReset} from '../internal/components/ButtonReset'
 
 export default {
   title: 'Components/DataTable/Features',
@@ -1434,6 +1446,344 @@ export const WithPagination = () => {
         totalCount={repos.length}
         onChange={({pageIndex}) => {
           setPageIndex(pageIndex)
+        }}
+      />
+    </Table.Container>
+  )
+}
+
+const cache = new Map()
+
+export const WithAsyncSorting = () => {
+  const columns = [
+    {
+      id: 'name',
+      header: 'Name',
+      isSortable: true,
+    },
+    {
+      id: 'type',
+      header: 'Type',
+    },
+    {
+      id: 'updatedAt',
+      header: 'Updated',
+      isSortable: true,
+    },
+    {
+      id: 'securityFeatures.dependabot',
+      header: 'Dependabot',
+    },
+    {
+      id: 'securityFeatures.codeScanning',
+      header: 'Code scanning',
+    },
+  ]
+  const [sortColumn, setSortColumn] = React.useState<'name' | 'updatedAt'>('updatedAt')
+  const [sortDirection, setSortDirection] = React.useState<'ASC' | 'DESC'>('DESC')
+  const [page, setPage] = React.useState(0)
+  const perPage = 10
+  const totalCount = repos.length
+  const [showLoadingColumn, setShowLoadingColumn] = React.useState(false)
+  const {loading, error, data} = useQuery(['repos', sortColumn, sortDirection, page, perPage], async () => {
+    const key = [sortColumn, sortDirection, page, perPage].join('.')
+    if (!cache.has(key)) {
+      cache.set(
+        key,
+        fetchRepos({
+          sort: sortColumn,
+          direction: sortDirection === 'ASC' ? 'asc' : 'desc',
+          page,
+          perPage,
+        }),
+      )
+    }
+    return cache.get(key) as Promise<Array<Repo>>
+  })
+  const announcedInitialLoading = React.useRef(false)
+  const announcedInitialLoad = React.useRef(false)
+
+  React.useEffect(() => {
+    if (loading && announcedInitialLoading.current === false) {
+      announce('Loading table content: Repositories')
+      announcedInitialLoading.current = true
+    } else if (!loading && announcedInitialLoad.current === false) {
+      announce('Repositories table content loaded')
+      announcedInitialLoad.current = true
+    }
+  }, [loading])
+
+  return (
+    <LiveRegion>
+      <Table.Container>
+        <LiveRegionOutlet />
+        <Table.Title as="h2" id="repositories">
+          Repositories
+        </Table.Title>
+        <Table.Subtitle as="p" id="repositories-subtitle">
+          A subtitle could appear here to give extra context to the data.
+        </Table.Subtitle>
+        <Table aria-labelledby="repositories" aria-describedby="repositories-subtitle" columns={[{}, {}, {}, {}, {}]}>
+          <Table.Head>
+            <Table.Row>
+              {columns.map(column => {
+                if (column.isSortable) {
+                  const isActive = sortColumn === column.id
+                  const showSpinner = sortColumn === column.id && loading && showLoadingColumn
+                  const ariaSort =
+                    sortDirection === 'DESC' ? 'descending' : sortDirection === 'ASC' ? 'ascending' : undefined
+                  return (
+                    <Table.Header
+                      key={column.id}
+                      aria-sort={showSpinner ? undefined : isActive ? ariaSort : undefined}
+                      data-state={loading ? 'pending' : undefined}
+                    >
+                      <Box
+                        sx={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          columnGap: '0.5rem',
+                        }}
+                      >
+                        <ButtonReset
+                          className="TableSortButton"
+                          type="button"
+                          onClick={() => {
+                            setShowLoadingColumn(true)
+                            setSortColumn(column.id)
+                            if (sortColumn === column.id) {
+                              setSortDirection(sortDirection === 'ASC' ? 'DESC' : 'ASC')
+                            } else {
+                              setSortDirection('ASC')
+                            }
+                            // announce(`Table content sorted by ${column.header}`)
+                          }}
+                          sx={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            columnGap: '0.5rem',
+                          }}
+                        >
+                          {column.header}
+                          {isActive && loading ? <VisuallyHidden>&nbsp;Results are sorting</VisuallyHidden> : null}
+                          {isActive && !showSpinner && sortDirection === 'ASC' ? (
+                            <SortAscIcon className="TableSortIcon TableSortIcon--ascending" />
+                          ) : null}
+                          {isActive && !showSpinner && sortDirection === 'DESC' ? (
+                            <SortDescIcon className="TableSortIcon TableSortIcon--descending" />
+                          ) : null}
+                        </ButtonReset>
+                        {showSpinner ? <Spinner size="small" /> : null}
+                      </Box>
+                    </Table.Header>
+                  )
+                }
+
+                return <Table.Header key={column.id}>{column.header}</Table.Header>
+              })}
+            </Table.Row>
+          </Table.Head>
+          <Table.Body>
+            {loading ? (
+              <Table.SkeletonRows columns={columns.length} rows={perPage}>
+                Loading {perPage} rows
+              </Table.SkeletonRows>
+            ) : null}
+            {data
+              ? data.map(row => {
+                  return (
+                    <Table.Row key={row.id}>
+                      <Table.Cell scope="row">{row.name}</Table.Cell>
+                      <Table.Cell>
+                        <Label>{uppercase(row.type)}</Label>
+                      </Table.Cell>
+                      <Table.Cell>
+                        <RelativeTime date={new Date(row.updatedAt)} />
+                      </Table.Cell>
+                      <Table.Cell>
+                        {row.securityFeatures.dependabot.length > 0 ? (
+                          <LabelGroup>
+                            {row.securityFeatures.dependabot.map(feature => {
+                              return <Label key={feature}>{uppercase(feature)}</Label>
+                            })}
+                          </LabelGroup>
+                        ) : null}
+                      </Table.Cell>
+                      <Table.Cell>
+                        {row.securityFeatures.codeScanning.length > 0 ? (
+                          <LabelGroup>
+                            {row.securityFeatures.codeScanning.map(feature => {
+                              return <Label key={feature}>{uppercase(feature)}</Label>
+                            })}
+                          </LabelGroup>
+                        ) : null}
+                      </Table.Cell>
+                    </Table.Row>
+                  )
+                })
+              : null}
+          </Table.Body>
+        </Table>
+        <Table.Pagination
+          aria-label="Pagination for Repositories"
+          pageSize={perPage}
+          totalCount={totalCount}
+          onChange={({pageIndex}) => {
+            setShowLoadingColumn(false)
+            setPage(pageIndex)
+          }}
+        />
+      </Table.Container>
+    </LiveRegion>
+  )
+}
+
+export const WithError = () => {
+  const columns = [
+    {
+      id: 'name',
+      header: 'Name',
+      isSortable: true,
+    },
+    {
+      id: 'type',
+      header: 'Type',
+    },
+    {
+      id: 'updatedAt',
+      header: 'Updated',
+      isSortable: true,
+    },
+    {
+      id: 'securityFeatures.dependabot',
+      header: 'Dependabot',
+    },
+    {
+      id: 'securityFeatures.codeScanning',
+      header: 'Code scanning',
+    },
+  ]
+  const [sortColumn, setSortColumn] = React.useState<'name' | 'updatedAt'>('updatedAt')
+  const [sortDirection, setSortDirection] = React.useState<'ASC' | 'DESC'>('DESC')
+  const [page, setPage] = React.useState(0)
+  const perPage = 10
+  const [showLoadingColumn, setShowLoadingColumn] = React.useState(false)
+  const {loading, error, data} = useQuery(['repos', sortColumn, sortDirection, page, perPage], async () => {
+    const key = [sortColumn, sortDirection, page, perPage].join('.')
+    if (!cache.has(key)) {
+      cache.set(
+        key,
+        fetchRepos({
+          sort: sortColumn,
+          direction: sortDirection === 'ASC' ? 'asc' : 'desc',
+          page,
+          perPage,
+        }),
+      )
+    }
+    return cache.get(key) as Promise<Array<Repo>>
+  })
+  const ref = React.useRef(null)
+
+  return (
+    <Table.Container>
+      <Table.Title as="h2" id="repositories">
+        Repositories
+      </Table.Title>
+      <Table.Subtitle as="p" id="repositories-subtitle">
+        A subtitle could appear here to give extra context to the data.
+      </Table.Subtitle>
+      <Table
+        aria-labelledby="repositories"
+        aria-describedby="repositories-subtitle"
+        columns={[{}, {}, {}, {}, {}]}
+        ref={ref}
+      >
+        <Table.Head>
+          <Table.Row>
+            {columns.map(column => {
+              if (column.isSortable) {
+                const showSpinner = sortColumn === column.id && loading && showLoadingColumn
+                return (
+                  <Table.SortHeader
+                    key={column.id}
+                    direction={sortColumn === column.id ? sortDirection : 'NONE'}
+                    onToggleSort={() => {
+                      setShowLoadingColumn(true)
+                      setSortColumn(column.id)
+                      if (sortColumn === column.id) {
+                        setSortDirection(sortDirection === 'ASC' ? 'DESC' : 'ASC')
+                      } else {
+                        setSortDirection('ASC')
+                      }
+                    }}
+                    trailingVisual={showSpinner ? <Spinner size="small" /> : undefined}
+                  >
+                    {column.header}
+                  </Table.SortHeader>
+                )
+              }
+
+              return <Table.Header key={column.id}>{column.header}</Table.Header>
+            })}
+          </Table.Row>
+        </Table.Head>
+        <Table.Body>
+          {error ? (
+            <Table.ErrorDialog
+              onRetry={() => {
+                ref.current?.focus()
+              }}
+              onDismiss={() => {
+                ref.current?.focus()
+              }}
+            >
+              There was an error loading the table contents.
+            </Table.ErrorDialog>
+          ) : null}
+          {loading ? <Table.SkeletonRows columns={columns.length} rows={perPage} /> : null}
+          {data
+            ? data.map(row => {
+                return (
+                  <Table.Row key={row.id}>
+                    <Table.Cell rowHeader>{row.name}</Table.Cell>
+                    <Table.Cell>
+                      <Label>{uppercase(row.type)}</Label>
+                    </Table.Cell>
+                    <Table.Cell>
+                      <RelativeTime date={new Date(row.updatedAt)} />
+                    </Table.Cell>
+                    <Table.Cell>
+                      {row.securityFeatures.dependabot.length > 0 ? (
+                        <LabelGroup>
+                          {row.securityFeatures.dependabot.map(feature => {
+                            return <Label key={feature}>{uppercase(feature)}</Label>
+                          })}
+                        </LabelGroup>
+                      ) : null}
+                    </Table.Cell>
+                    <Table.Cell>
+                      {row.securityFeatures.codeScanning.length > 0 ? (
+                        <LabelGroup>
+                          {row.securityFeatures.codeScanning.map(feature => {
+                            return <Label key={feature}>{uppercase(feature)}</Label>
+                          })}
+                        </LabelGroup>
+                      ) : null}
+                    </Table.Cell>
+                  </Table.Row>
+                )
+              })
+            : null}
+        </Table.Body>
+      </Table>
+      <Table.Pagination
+        aria-label="Pagination for Repositories"
+        pageSize={perPage}
+        totalCount={repos.length}
+        onChange={({pageIndex}) => {
+          setShowLoadingColumn(false)
+          setPage(pageIndex)
         }}
       />
     </Table.Container>

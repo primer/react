@@ -86,12 +86,19 @@ export function useTable<Data extends UniqueRow>({
       throw new Error(`Expected either an \`id\` or \`field\` to be defined for a Column`)
     }
 
-    const sortable = column.sortBy !== undefined && column.sortBy !== false
     return {
       id,
       column,
       isSortable() {
-        return sortable
+        if (column.sortBy !== undefined) {
+          return column.sortBy !== false
+        }
+
+        if (column.sortable) {
+          return column.sortable
+        }
+
+        return false
       },
       getSortDirection() {
         if (sortByColumn && sortByColumn.id === id) {

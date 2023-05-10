@@ -6,8 +6,13 @@ import Box from '../Box'
 import Text from '../Text'
 import {get} from '../constants'
 import sx, {SxProp} from '../sx'
+<<<<<<< Updated upstream
 import VisuallyHidden from '../_VisuallyHidden'
 import {Column, CellAlignment} from './column'
+=======
+import {VisuallyHidden} from '../internal/components/VisuallyHidden'
+import {Column, CellAlignment, ColumnSize} from './column'
+>>>>>>> Stashed changes
 import {UniqueRow} from './row'
 import {SortDirection} from './sorting'
 import {useTableLayout} from './useTable'
@@ -131,7 +136,8 @@ const StyledTable = styled.table<React.ComponentPropsWithoutRef<'table'>>`
   }
 
   .TableHeader[aria-sort='descending'],
-  .TableHeader[aria-sort='ascending'] {
+  .TableHeader[aria-sort='ascending'],
+  .TableHeader[data-state='pending'] {
     color: ${get('colors.fg.default')};
   }
 
@@ -159,6 +165,10 @@ const StyledTable = styled.table<React.ComponentPropsWithoutRef<'table'>>`
   }
 
   /* TableCell */
+  .TableCell {
+    vertical-align: middle;
+  }
+
   .TableCell[scope='row'] {
     color: ${get('colors.fg.default')};
     font-weight: 600;
@@ -336,7 +346,7 @@ function TableHeader({align, children, ...rest}: TableHeaderProps) {
   )
 }
 
-type TableSortHeaderProps = TableHeaderProps & {
+export type TableSortHeaderProps = TableHeaderProps & {
   /**
    * Specify the sort direction for the TableHeader
    */
@@ -347,9 +357,11 @@ type TableSortHeaderProps = TableHeaderProps & {
    * interacted with via a click or keyboard interaction
    */
   onToggleSort: () => void
+
+  trailingVisual?: React.ReactNode
 }
 
-function TableSortHeader({align, children, direction, onToggleSort, ...rest}: TableSortHeaderProps) {
+function TableSortHeader({align, children, direction, onToggleSort, trailingVisual, ...rest}: TableSortHeaderProps) {
   const ariaSort = direction === 'DESC' ? 'descending' : direction === 'ASC' ? 'ascending' : undefined
 
   return (
@@ -362,10 +374,18 @@ function TableSortHeader({align, children, direction, onToggleSort, ...rest}: Ta
         }}
       >
         {children}
-        {direction === SortDirection.NONE || direction === SortDirection.ASC ? (
-          <SortAscIcon className="TableSortIcon TableSortIcon--ascending" />
-        ) : null}
-        {direction === SortDirection.DESC ? <SortDescIcon className="TableSortIcon TableSortIcon--descending" /> : null}
+        {trailingVisual ? (
+          trailingVisual
+        ) : (
+          <>
+            {direction === SortDirection.NONE || direction === SortDirection.ASC ? (
+              <SortAscIcon className="TableSortIcon TableSortIcon--ascending" />
+            ) : null}
+            {direction === SortDirection.DESC ? (
+              <SortDescIcon className="TableSortIcon TableSortIcon--descending" />
+            ) : null}
+          </>
+        )}
       </Button>
     </TableHeader>
   )
@@ -400,14 +420,22 @@ export type TableCellProps = Omit<React.ComponentPropsWithoutRef<'td'>, 'align'>
    * `scope="row"`
    */
   scope?: 'row'
+
+  rowHeader?: boolean
 }
 
-function TableCell({align, className, children, scope, ...rest}: TableCellProps) {
-  const BaseComponent = scope ? 'th' : 'td'
-  const role = scope ? 'rowheader' : 'cell'
+function TableCell({align, className, children, scope, rowHeader = false, ...rest}: TableCellProps) {
+  const BaseComponent = scope || rowHeader ? 'th' : 'td'
+  const role = scope || rowHeader ? 'rowheader' : 'cell'
 
   return (
-    <BaseComponent {...rest} className={cx('TableCell', className)} scope={scope} role={role} data-cell-align={align}>
+    <BaseComponent
+      {...rest}
+      className={cx('TableCell', className)}
+      scope={scope ? scope : rowHeader ? 'row' : undefined}
+      role={role}
+      data-cell-align={align}
+    >
       {children}
     </BaseComponent>
   )
@@ -597,8 +625,20 @@ export type TableSkeletonProps<Data extends UniqueRow> = React.ComponentPropsWit
   rows?: number
 }
 
+<<<<<<< Updated upstream
 function TableSkeleton<Data extends UniqueRow>({cellPadding, columns, rows = 10, ...rest}: TableSkeletonProps<Data>) {
   const {gridTemplateColumns} = useTableLayout(columns)
+=======
+const DEFAULT_ROW_COUNT = 10
+
+function TableSkeleton<Data extends UniqueRow>({
+  cellPadding,
+  columns,
+  rows = DEFAULT_ROW_COUNT,
+  ...rest
+}: TableSkeletonProps<Data>) {
+  const {gridTemplateColumns} = getGridTemplateFromColumns(columns)
+>>>>>>> Stashed changes
   return (
     <Table {...rest} cellPadding={cellPadding} gridTemplateColumns={gridTemplateColumns}>
       <TableHead>
@@ -615,22 +655,39 @@ function TableSkeleton<Data extends UniqueRow>({cellPadding, columns, rows = 10,
         </TableRow>
       </TableHead>
       <TableBody>
-        <TableRow>
-          {Array.from({length: columns.length}).map((_, i) => {
-            return (
-              <TableCell key={i} className="TableCellSkeleton">
-                <VisuallyHidden>Loading</VisuallyHidden>
-                <div className="TableCellSkeletonItems">
-                  {Array.from({length: rows}).map((_, i) => {
-                    return <div key={i} className="TableCellSkeletonItem" />
-                  })}
-                </div>
-              </TableCell>
-            )
-          })}
-        </TableRow>
+        <TableSkeletonRows columns={columns.length} rows={rows} />
       </TableBody>
     </Table>
+  )
+}
+
+export type TableSkeletonRowsProps = React.PropsWithChildren<{
+  columns: number
+  rows?: number
+}>
+
+function TableSkeletonRows({children, columns, rows = DEFAULT_ROW_COUNT}: TableSkeletonRowsProps) {
+  return (
+    <>
+      <VisuallyHidden as="tr">
+        <TableCell colSpan={columns} rowHeader>
+          {children ?? 'Loading table content'}
+        </TableCell>
+      </VisuallyHidden>
+      <TableRow aria-hidden={true}>
+        {Array.from({length: columns}).map((_, i) => {
+          return (
+            <TableCell key={i} className="TableCellSkeleton" rowHeader={i === 0}>
+              <div className="TableCellSkeletonItems">
+                {Array.from({length: rows}).map((_, i) => {
+                  return <div key={i} className="TableCellSkeletonItem" />
+                })}
+              </div>
+            </TableCell>
+          )
+        })}
+      </TableRow>
+    </>
   )
 }
 
@@ -698,4 +755,5 @@ export {
   TableCell,
   TableCellPlaceholder,
   TableSkeleton,
+  TableSkeletonRows,
 }

@@ -1,11 +1,11 @@
 import {ChevronLeftIcon, ChevronRightIcon} from '@primer/octicons-react'
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import styled from 'styled-components'
 import {get} from '../constants'
 import {Button} from '../internal/components/ButtonReset'
-import {LiveRegion, LiveRegionOutlet, Message} from '../internal/components/LiveRegion'
 import {VisuallyHidden} from '../internal/components/VisuallyHidden'
 import {warning} from '../utils/warning'
+import {announce} from '../internal/components/LiveRegion'
 
 const StyledPagination = styled.nav`
   display: flex;
@@ -173,117 +173,112 @@ export function Pagination({
   const hasTrailingTruncation = pageCount - 1 - offsetEndIndex > 1
 
   return (
-    <LiveRegion>
-      <LiveRegionOutlet />
-      <StyledPagination aria-label={label} className="TablePagination" id={id}>
-        <Range pageStart={pageStart} pageEnd={pageEnd} totalCount={totalCount} />
-        <ol className="TablePaginationSteps">
-          <Step>
-            <Button
-              className="TablePaginationAction"
-              type="button"
-              data-has-page={hasPreviousPage ? true : undefined}
-              onClick={() => {
-                if (!hasPreviousPage) {
-                  return
-                }
+    <StyledPagination aria-label={label} className="TablePagination" id={id}>
+      <Range pageStart={pageStart} pageEnd={pageEnd} totalCount={totalCount} />
+      <ol className="TablePaginationSteps">
+        <Step>
+          <Button
+            className="TablePaginationAction"
+            type="button"
+            data-has-page={hasPreviousPage ? true : undefined}
+            onClick={() => {
+              if (!hasPreviousPage) {
+                return
+              }
 
-                selectPreviousPage()
-                if (hasLeadingTruncation) {
-                  if (pageIndex - 1 < offsetStartIndex + 1) {
-                    setOffsetStartIndex(offsetStartIndex - 1)
-                  }
+              selectPreviousPage()
+              if (hasLeadingTruncation) {
+                if (pageIndex - 1 < offsetStartIndex + 1) {
+                  setOffsetStartIndex(offsetStartIndex - 1)
+                }
+              }
+            }}
+          >
+            {hasPreviousPage ? <ChevronLeftIcon /> : null}
+            <span className="TablePaginationActionLabel">Previous</span>
+            <VisuallyHidden>&nbsp;page</VisuallyHidden>
+          </Button>
+        </Step>
+        {pageCount > 0 ? (
+          <Step>
+            <Page
+              active={pageIndex === 0}
+              onClick={() => {
+                selectPage(0)
+                if (pageCount > 1) {
+                  setOffsetStartIndex(1)
                 }
               }}
             >
-              {hasPreviousPage ? <ChevronLeftIcon /> : null}
-              <span className="TablePaginationActionLabel">Previous</span>
-              <VisuallyHidden>&nbsp;page</VisuallyHidden>
-            </Button>
+              {1}
+              {hasLeadingTruncation ? <VisuallyHidden>…</VisuallyHidden> : null}
+            </Page>
           </Step>
-          {pageCount > 0 ? (
-            <Step>
-              <Page
-                active={pageIndex === 0}
-                onClick={() => {
-                  selectPage(0)
-                  if (pageCount > 1) {
-                    setOffsetStartIndex(1)
-                  }
-                }}
-              >
-                {1}
-                {hasLeadingTruncation ? <VisuallyHidden>…</VisuallyHidden> : null}
-              </Page>
-            </Step>
-          ) : null}
-          {pageCount > 2
-            ? Array.from({length: truncatedPageCount}).map((_, i) => {
-                if (i === 0 && hasLeadingTruncation) {
-                  return <TruncationStep key={`truncation-${i}`} />
-                }
+        ) : null}
+        {pageCount > 2
+          ? Array.from({length: truncatedPageCount}).map((_, i) => {
+              if (i === 0 && hasLeadingTruncation) {
+                return <TruncationStep key={`truncation-${i}`} />
+              }
 
-                if (i === truncatedPageCount - 1 && hasTrailingTruncation) {
-                  return <TruncationStep key={`truncation-${i}`} />
-                }
+              if (i === truncatedPageCount - 1 && hasTrailingTruncation) {
+                return <TruncationStep key={`truncation-${i}`} />
+              }
 
-                const page = offsetStartIndex + i
-                return (
-                  <Step key={i}>
-                    <Page
-                      active={pageIndex === page}
-                      onClick={() => {
-                        selectPage(page)
-                      }}
-                    >
-                      {page + 1}
-                      {i === truncatedPageCount - 2 && hasTrailingTruncation ? (
-                        <VisuallyHidden>…</VisuallyHidden>
-                      ) : null}
-                    </Page>
-                  </Step>
-                )
-              })
-            : null}
-          {pageCount > 1 ? (
-            <Step>
-              <Page
-                active={pageIndex === pageCount - 1}
-                onClick={() => {
-                  selectPage(pageCount - 1)
-                  setOffsetStartIndex(pageCount - 1 - truncatedPageCount)
-                }}
-              >
-                {pageCount}
-              </Page>
-            </Step>
-          ) : null}
+              const page = offsetStartIndex + i
+              return (
+                <Step key={i}>
+                  <Page
+                    active={pageIndex === page}
+                    onClick={() => {
+                      selectPage(page)
+                    }}
+                  >
+                    {page + 1}
+                    {i === truncatedPageCount - 2 && hasTrailingTruncation ? <VisuallyHidden>…</VisuallyHidden> : null}
+                  </Page>
+                </Step>
+              )
+            })
+          : null}
+        {pageCount > 1 ? (
           <Step>
-            <Button
-              className="TablePaginationAction"
-              type="button"
-              data-has-page={hasNextPage ? true : undefined}
+            <Page
+              active={pageIndex === pageCount - 1}
               onClick={() => {
-                if (!hasNextPage) {
-                  return
-                }
-
-                selectNextPage()
-                if (hasTrailingTruncation) {
-                  if (pageIndex + 1 > offsetEndIndex - 1) {
-                    setOffsetStartIndex(offsetStartIndex + 1)
-                  }
-                }
+                selectPage(pageCount - 1)
+                setOffsetStartIndex(pageCount - 1 - truncatedPageCount)
               }}
             >
-              <span className="TablePaginationActionLabel">Next</span>
-              <VisuallyHidden>&nbsp;page</VisuallyHidden>
-              {hasNextPage ? <ChevronRightIcon /> : null}
-            </Button>
+              {pageCount}
+            </Page>
           </Step>
-        </ol>
-      </StyledPagination>
-    </LiveRegion>
+        ) : null}
+        <Step>
+          <Button
+            className="TablePaginationAction"
+            type="button"
+            data-has-page={hasNextPage ? true : undefined}
+            onClick={() => {
+              if (!hasNextPage) {
+                return
+              }
+
+              selectNextPage()
+              if (hasTrailingTruncation) {
+                if (pageIndex + 1 > offsetEndIndex - 1) {
+                  setOffsetStartIndex(offsetStartIndex + 1)
+                }
+              }
+            }}
+          >
+            <span className="TablePaginationActionLabel">Next</span>
+            <VisuallyHidden>&nbsp;page</VisuallyHidden>
+            {hasNextPage ? <ChevronRightIcon /> : null}
+          </Button>
+        </Step>
+      </ol>
+    </StyledPagination>
   )
 }
 
@@ -296,16 +291,18 @@ type RangeProps = {
 function Range({pageStart, pageEnd, totalCount}: RangeProps) {
   const start = pageStart + 1
   const end = pageEnd === totalCount - 1 ? totalCount : pageEnd
+
+  // useEffect(() => {
+  // announce(`Showing ${start} through ${end} of ${totalCount}`)
+  // }, [start, end, totalCount])
+
   return (
-    <>
-      <Message value={`Showing ${start} through ${end} of ${totalCount}`} />
-      <p className="TablePaginationRange">
-        {start}
-        <VisuallyHidden as="span">&nbsp;through&nbsp;</VisuallyHidden>
-        <span aria-hidden="true">‒</span>
-        {end} of {totalCount}
-      </p>
-    </>
+    <p className="TablePaginationRange">
+      {start}
+      <VisuallyHidden as="span">&nbsp;through&nbsp;</VisuallyHidden>
+      <span aria-hidden="true">‒</span>
+      {end} of {totalCount}
+    </p>
   )
 }
 
