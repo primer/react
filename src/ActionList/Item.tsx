@@ -44,6 +44,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
 
     /** Infer item role based on the container */
     let itemRole: ActionListItemProps['role']
+    //TODO: Remove this DropdownMenu is removed
     if (container === 'ActionMenu' || container === 'DropdownMenu') {
       if (selectionVariant === 'single') itemRole = 'menuitemradio'
       else if (selectionVariant === 'multiple') itemRole = 'menuitemcheckbox'

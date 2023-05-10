@@ -178,7 +178,5 @@
       url: /deprecated/ActionList
     - title: ActionMenu (legacy)
       url: /deprecated/ActionMenu
-    - title: DropdownMenu
-      url: /deprecated/DropdownMenu
     - title: SideNav
       url: /deprecated/SideNav
