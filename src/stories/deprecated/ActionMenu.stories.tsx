@@ -9,13 +9,14 @@ import {
   FilterIcon,
   GearIcon,
   ArrowRightIcon,
+  TriangleDownIcon,
 } from '@primer/octicons-react'
 import {Meta} from '@storybook/react'
 import React, {useCallback, useState, useRef} from 'react'
 import styled from 'styled-components'
 import {ThemeProvider} from '../..'
 import Link, {LinkProps} from '../../Link'
-import {ActionMenu, ActionMenuProps, ActionList, DropdownButton} from '../../deprecated'
+import {ActionMenu, ActionMenuProps, ActionList} from '../../deprecated'
 import {ItemProps} from '../../deprecated/ActionList'
 import {Button} from '../../Button'
 import BaseStyles from '../../BaseStyles'
@@ -282,6 +283,7 @@ export function ActionMenuWithExternalAnchor(): JSX.Element {
 
 const DoubleClickableAnchor: Exclude<ActionMenuProps['renderAnchor'], null | undefined> = ({
   onClick: callback,
+  children,
   ...rest
 }) => {
   const onClick = useCallback(
@@ -293,7 +295,11 @@ const DoubleClickableAnchor: Exclude<ActionMenuProps['renderAnchor'], null | und
     },
     [callback],
   )
-  return <DropdownButton onClick={onClick} {...rest} />
+  return (
+    <Button trailingAction={TriangleDownIcon} onClick={onClick} {...rest}>
+      {children}
+    </Button>
+  )
 }
 export function ActionMenuWithDoubleClickStory(): JSX.Element {
   return (
