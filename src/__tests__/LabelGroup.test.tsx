@@ -1,7 +1,7 @@
 import React from 'react'
 import {render as HTMLRender, waitFor} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
-import {LabelGroup, Label, ThemeProvider, BaseStyles, Token} from '..'
+import {LabelGroup, Label, ThemeProvider, BaseStyles} from '..'
 import {behavesAsComponent, checkExports} from '../utils/testing'
 import theme from '../theme'
 import userEvent from '@testing-library/user-event'

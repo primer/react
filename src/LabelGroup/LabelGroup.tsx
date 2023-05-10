@@ -112,7 +112,13 @@ const OverlayToggle: React.FC<
         <Box display="flex" flexWrap="wrap" sx={{gap: 1}}>
           {children}
         </Box>
-        <IconButton onClick={closeOverflowOverlay} icon={XIcon} aria-label="Close" variant="invisible" />
+        <IconButton
+          onClick={closeOverflowOverlay}
+          icon={XIcon}
+          aria-label="Close"
+          variant="invisible"
+          sx={{flexShrink: 0}}
+        />
       </Box>
     </AnchoredOverlay>
   ) : null
@@ -151,7 +157,7 @@ const LabelGroup: React.FC<React.PropsWithChildren<LabelGroupProps>> = ({
   // if we don't use an overlay, we can skip the width calculation
   // and save on reflows caused by measuring DOM nodes.
   const overlayWidth =
-    visibleChildCount === 'auto' && overflowStyle === 'overlay'
+    hiddenItemIds.length && overflowStyle === 'overlay'
       ? getOverlayWidth(buttonClientRect, containerRef, overlayPaddingPx)
       : undefined
 
@@ -274,6 +280,7 @@ const LabelGroup: React.FC<React.PropsWithChildren<LabelGroupProps>> = ({
   // Updates the index of the first hidden child.
   // We need to keep track of this so we can focus the first hidden child when the overflow is shown inline.
   React.useEffect(() => {
+    // If we're using an overlay, we don't need to focus the first child that was previously hidden.
     if (overflowStyle === 'overlay') {
       return
     }

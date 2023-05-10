@@ -1,7 +1,6 @@
 import {test, expect} from '@playwright/test'
 import {visit} from '../test-helpers/storybook'
 import {themes} from '../test-helpers/themes'
-import {viewports} from '../test-helpers/viewports'
 
 test.describe('LabelGroup', () => {
   test.describe('Default', () => {
