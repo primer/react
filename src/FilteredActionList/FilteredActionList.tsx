@@ -54,9 +54,10 @@ const defaultRenderFn = ({
   trailingVisual,
   leadingVisual,
   onSelect,
+  selected,
 }: ItemInput): React.ReactElement => {
   return (
-    <ActionList.Item key={id} sx={sx} role="option" onSelect={onSelect}>
+    <ActionList.Item key={id} sx={sx} role="option" onSelect={onSelect} selected={selected}>
       {!!leadingVisual && <ActionList.LeadingVisual>{leadingVisual}</ActionList.LeadingVisual>}
       {text ? text : null}
       {description ? (
