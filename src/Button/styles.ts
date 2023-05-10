@@ -91,7 +91,7 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
         },
       },
       '[data-component=ButtonCounter]': {
-        color: 'btn.danger.text',
+        color: 'btn.danger.counterFg',
         backgroundColor: 'btn.danger.counterBg',
       },
       '&[aria-expanded=true]': {
