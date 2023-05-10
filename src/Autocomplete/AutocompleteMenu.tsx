@@ -1,7 +1,7 @@
 import React, {useContext, useEffect, useMemo, useRef, useState} from 'react'
 import {scrollIntoView} from '@primer/behaviors'
 import type {ScrollIntoViewOptions} from '@primer/behaviors'
-import {ActionList, ItemProps} from '../deprecated/ActionList'
+import {ActionList, ActionListItemProps} from '../ActionList'
 import {useFocusZone} from '../hooks/useFocusZone'
 import {ComponentProps, MandateProps} from '../utils/types'
 import Box from '../Box'
@@ -12,7 +12,7 @@ import {PlusIcon} from '@primer/octicons-react'
 import VisuallyHidden from '../_VisuallyHidden'
 
 type OnSelectedChange<T> = (item: T | T[]) => void
-type AutocompleteMenuItem = MandateProps<ItemProps, 'id'>
+type AutocompleteMenuItem = MandateProps<ActionListItemProps, 'id'> & {text?: string}
 
 const getDefaultSortFn =
   (isItemSelectedFn: (itemId: string | number) => boolean) => (itemIdA: string | number, itemIdB: string | number) =>
@@ -155,6 +155,7 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
           ...selectableItem,
           role: 'option',
           id: selectableItem.id,
+          active: highlightedItem?.id === selectableItem.id,
           selected: selectionVariant === 'multiple' ? selectedItemIds.includes(selectableItem.id) : undefined,
           onAction: (item: T) => {
             const otherSelectedItemIds = selectedItemIds.filter(selectedItemId => selectedItemId !== item.id)
@@ -180,6 +181,7 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
         }
       }),
     [
+      highlightedItem,
       items,
       selectedItemIds,
       inputRef,
@@ -243,6 +245,20 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
     ],
   )
 
+  const getItemsAsChildren = () => {
+    // console.log('allItemsToRender', allItemsToRender)
+    return allItemsToRender.map(item => {
+      const {id, onAction, text, leadingVisual, trailingVisual, ...itemProps} = item
+      return (
+        <ActionList.Item key={id} onSelect={() => onAction(item)} {...itemProps} id={id}>
+          {leadingVisual && <ActionList.LeadingVisual>{leadingVisual}</ActionList.LeadingVisual>}
+          {text}
+          {trailingVisual && <ActionList.TrailingVisual>{trailingVisual}</ActionList.TrailingVisual>}
+        </ActionList.Item>
+      )
+    })
+  }
+
   useFocusZone(
     {
       containerRef: listContainerRef,
@@ -254,6 +270,8 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
       onActiveDescendantChanged: (current, _previous, directlyActivated) => {
         activeDescendantRef.current = current || null
         if (current) {
+          // NOTE: 'data-id' doesn't exist on the new ActionList items,
+          // I added it manually just to see if it would work
           const selectedItem = selectableItems.find(item => item.id.toString() === current.getAttribute('data-id'))
 
           setHighlightedItem(selectedItem)
@@ -308,15 +326,19 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
       ) : (
         <div ref={listContainerRef}>
           {allItemsToRender.length ? (
-            <ActionList
-              selectionVariant="multiple"
-              // have to typecast to `ItemProps` because we have an extra property
-              // on `items` for Autocomplete: `metadata`
-              items={allItemsToRender as ItemProps[]}
-              role="listbox"
-              id={`${id}-listbox`}
-              aria-labelledby={ariaLabelledBy}
-            />
+            <>
+              <ActionList
+                selectionVariant="multiple"
+                // have to typecast to `ItemProps` because we have an extra property
+                // on `items` for Autocomplete: `metadata`
+                // items={allItemsToRender as ItemProps[]}
+                role="listbox"
+                id={`${id}-listbox`}
+                aria-labelledby={ariaLabelledBy}
+              >
+                {getItemsAsChildren()}
+              </ActionList>
+            </>
           ) : (
             <Box p={3}>{emptyStateText}</Box>
           )}
