@@ -207,8 +207,9 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
                 backgroundColor: 'transparent',
                 cursor: 'inherit',
                 fontSize: 'inherit',
+                paddingLeft: props.as === 'button' ? 0 : 'initial',
               }}
-              as="button"
+              as={props.as === 'button' ? 'div' : 'button'}
             >
               <ConditionalBox if={Boolean(slots.trailingVisual)} sx={{display: 'flex', flexGrow: 1}}>
                 <ConditionalBox
@@ -220,7 +221,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
                     id={labelId}
                     sx={{
                       flexGrow: slots.description && slots.description.props.variant !== 'block' ? 0 : 1,
-                      fontWeight: slots.description && slots.description.props.variant !== 'block' ? 'bold' : 'normal',
+                      fontWeight: slots.description && slots.description.props.variant !== 'block' ? 'bold' : 'inherit',
                     }}
                   >
                     {childrenWithoutSlots}
