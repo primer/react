@@ -2,8 +2,7 @@ import React from 'react'
 import {ListContext} from './List'
 import Box from '../Box'
 import {get} from '../constants'
-import {SxProp} from '../sx'
-import {merge} from 'lodash'
+import {SxProp, merge} from '../sx'
 import {useId} from '../hooks/useId'
 
 export type ActionListHeadingProps = {
