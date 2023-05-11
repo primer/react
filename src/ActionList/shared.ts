@@ -40,7 +40,6 @@ export type ActionListItemProps = {
    * id to attach to the root element of the Item
    */
   id?: string
-  as?: React.ElementType
   /**
    * Private API for use internally only. Used by LinkItem to wrap contents in an anchor
    */

@@ -128,6 +128,9 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
         borderTopWidth: showDividers ? `1px` : '0',
         borderColor: 'var(--divider-color, transparent)',
       },
+      'button[data-component="ActionList.Item--DividerContainer"]': {
+        paddingLeft: 0,
+      },
       // show between 2 items
       ':not(:first-of-type)': {'--divider-color': theme?.colors.actionListItem.inlineDivider},
       // hide divider after dividers & group header, with higher importance!
@@ -207,8 +210,8 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
                 backgroundColor: 'transparent',
                 cursor: 'inherit',
                 fontSize: 'inherit',
-                paddingLeft: props.as === 'button' ? 0 : 'initial',
               }}
+              // @ts-ignore `as` prop may be passed to ActionList.Item, even if it isn't defined in ActionListItemProps.
               as={props.as === 'button' ? 'div' : 'button'}
             >
               <ConditionalBox if={Boolean(slots.trailingVisual)} sx={{display: 'flex', flexGrow: 1}}>

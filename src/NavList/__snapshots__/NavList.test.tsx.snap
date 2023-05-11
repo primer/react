@@ -19,6 +19,10 @@ exports[`NavList renders a simple list 1`] = `
   -ms-flex-positive: 1;
   flex-grow: 1;
   min-width: 0;
+  border-style: none;
+  background-color: transparent;
+  cursor: inherit;
+  font-size: inherit;
 }
 
 .c6 {
@@ -26,7 +30,7 @@ exports[`NavList renders a simple list 1`] = `
   -webkit-flex-grow: 1;
   -ms-flex-positive: 1;
   flex-grow: 1;
-  font-weight: 400;
+  font-weight: inherit;
 }
 
 .c1 {
@@ -85,6 +89,10 @@ exports[`NavList renders a simple list 1`] = `
   border: 0 solid;
   border-top-width: 0;
   border-color: var(--divider-color,transparent);
+}
+
+.c3 button[data-component="ActionList.Item--DividerContainer"] {
+  padding-left: 0;
 }
 
 .c3:not(:first-of-type) {
@@ -167,6 +175,10 @@ exports[`NavList renders a simple list 1`] = `
   border: 0 solid;
   border-top-width: 0;
   border-color: var(--divider-color,transparent);
+}
+
+.c7 button[data-component="ActionList.Item--DividerContainer"] {
+  padding-left: 0;
 }
 
 .c7:not(:first-of-type) {
@@ -307,7 +319,7 @@ exports[`NavList renders a simple list 1`] = `
             href="/"
             tabindex="0"
           >
-            <div
+            <button
               class="c5"
               data-component="ActionList.Item--DividerContainer"
             >
@@ -317,7 +329,7 @@ exports[`NavList renders a simple list 1`] = `
               >
                 Home
               </span>
-            </div>
+            </button>
           </a>
         </li>
         <li
@@ -329,7 +341,7 @@ exports[`NavList renders a simple list 1`] = `
             href="/about"
             tabindex="0"
           >
-            <div
+            <button
               class="c5"
               data-component="ActionList.Item--DividerContainer"
             >
@@ -339,7 +351,7 @@ exports[`NavList renders a simple list 1`] = `
               >
                 About
               </span>
-            </div>
+            </button>
           </a>
         </li>
         <li
@@ -351,7 +363,7 @@ exports[`NavList renders a simple list 1`] = `
             href="/contact"
             tabindex="0"
           >
-            <div
+            <button
               class="c5"
               data-component="ActionList.Item--DividerContainer"
             >
@@ -361,7 +373,7 @@ exports[`NavList renders a simple list 1`] = `
               >
                 Contact
               </span>
-            </div>
+            </button>
           </a>
         </li>
       </ul>
@@ -389,6 +401,10 @@ exports[`NavList renders with groups 1`] = `
   -ms-flex-positive: 1;
   flex-grow: 1;
   min-width: 0;
+  border-style: none;
+  background-color: transparent;
+  cursor: inherit;
+  font-size: inherit;
 }
 
 .c10 {
@@ -396,7 +412,7 @@ exports[`NavList renders with groups 1`] = `
   -webkit-flex-grow: 1;
   -ms-flex-positive: 1;
   flex-grow: 1;
-  font-weight: 400;
+  font-weight: inherit;
 }
 
 .c2 {
@@ -491,6 +507,10 @@ exports[`NavList renders with groups 1`] = `
   border-color: var(--divider-color,transparent);
 }
 
+.c7 button[data-component="ActionList.Item--DividerContainer"] {
+  padding-left: 0;
+}
+
 .c7:not(:first-of-type) {
   --divider-color: rgba(208,215,222,0.48);
 }
@@ -571,6 +591,10 @@ exports[`NavList renders with groups 1`] = `
   border: 0 solid;
   border-top-width: 0;
   border-color: var(--divider-color,transparent);
+}
+
+.c11 button[data-component="ActionList.Item--DividerContainer"] {
+  padding-left: 0;
 }
 
 .c11:not(:first-of-type) {
@@ -733,7 +757,7 @@ exports[`NavList renders with groups 1`] = `
                 href="/getting-started"
                 tabindex="0"
               >
-                <div
+                <button
                   class="c9"
                   data-component="ActionList.Item--DividerContainer"
                 >
@@ -743,7 +767,7 @@ exports[`NavList renders with groups 1`] = `
                   >
                     Getting started
                   </span>
-                </div>
+                </button>
               </a>
             </li>
           </ul>
@@ -779,7 +803,7 @@ exports[`NavList renders with groups 1`] = `
                 href="/Avatar"
                 tabindex="0"
               >
-                <div
+                <button
                   class="c9"
                   data-component="ActionList.Item--DividerContainer"
                 >
@@ -789,7 +813,7 @@ exports[`NavList renders with groups 1`] = `
                   >
                     Avatar
                   </span>
-                </div>
+                </button>
               </a>
             </li>
           </ul>
@@ -819,6 +843,10 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   -ms-flex-positive: 1;
   flex-grow: 1;
   min-width: 0;
+  border-style: none;
+  background-color: transparent;
+  cursor: inherit;
+  font-size: inherit;
 }
 
 .c7 {
@@ -826,7 +854,7 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   -webkit-flex-grow: 1;
   -ms-flex-positive: 1;
   flex-grow: 1;
-  font-weight: 400;
+  font-weight: inherit;
 }
 
 .c2 {
@@ -922,6 +950,10 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   border: 0 solid;
   border-top-width: 0;
   border-color: var(--divider-color,transparent);
+}
+
+.c11 button[data-component="ActionList.Item--DividerContainer"] {
+  padding-left: 0;
 }
 
 .c11:not(:first-of-type) {
@@ -1047,6 +1079,10 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   border: 0 solid;
   border-top-width: 0;
   border-color: var(--divider-color,transparent);
+}
+
+.c4 button[data-component="ActionList.Item--DividerContainer"] {
+  padding-left: 0;
 }
 
 .c4:not(:first-of-type) {
@@ -1247,7 +1283,7 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
                   href="#"
                   tabindex="0"
                 >
-                  <div
+                  <button
                     class="c5"
                     data-component="ActionList.Item--DividerContainer"
                   >
@@ -1257,7 +1293,7 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
                     >
                       Sub Item
                     </span>
-                  </div>
+                  </button>
                 </a>
               </li>
             </ul>
@@ -1288,6 +1324,10 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   -ms-flex-positive: 1;
   flex-grow: 1;
   min-width: 0;
+  border-style: none;
+  background-color: transparent;
+  cursor: inherit;
+  font-size: inherit;
 }
 
 .c7 {
@@ -1295,7 +1335,7 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   -webkit-flex-grow: 1;
   -ms-flex-positive: 1;
   flex-grow: 1;
-  font-weight: 400;
+  font-weight: inherit;
 }
 
 .c2 {
@@ -1391,6 +1431,10 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   border: 0 solid;
   border-top-width: 0;
   border-color: var(--divider-color,transparent);
+}
+
+.c11 button[data-component="ActionList.Item--DividerContainer"] {
+  padding-left: 0;
 }
 
 .c11:not(:first-of-type) {
@@ -1523,6 +1567,10 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   border: 0 solid;
   border-top-width: 0;
   border-color: var(--divider-color,transparent);
+}
+
+.c4 button[data-component="ActionList.Item--DividerContainer"] {
+  padding-left: 0;
 }
 
 .c4:not(:first-of-type) {
@@ -1728,7 +1776,7 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
                   href="#"
                   tabindex="0"
                 >
-                  <div
+                  <button
                     class="c5"
                     data-component="ActionList.Item--DividerContainer"
                   >
@@ -1738,7 +1786,7 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
                     >
                       Sub Item
                     </span>
-                  </div>
+                  </button>
                 </a>
               </li>
             </ul>
