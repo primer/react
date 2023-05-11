@@ -1,5 +1,5 @@
 import {DownloadIcon, KebabHorizontalIcon, PencilIcon, PlusIcon, RepoIcon, TrashIcon} from '@primer/octicons-react'
-import {action, actions} from '@storybook/addon-actions'
+import {action} from '@storybook/addon-actions'
 import {Meta} from '@storybook/react'
 import React from 'react'
 import {ActionList} from '../ActionList'
