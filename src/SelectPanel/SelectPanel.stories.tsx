@@ -5,7 +5,6 @@ import {TriangleDownIcon} from '@primer/octicons-react'
 import {Button} from '../Button'
 import {SelectPanel} from '../SelectPanel'
 import Box from '../Box'
-import {ActionList} from '../ActionList'
 import {ItemInput} from '../FilteredActionList'
 
 export default {
