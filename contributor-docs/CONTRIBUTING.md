@@ -7,6 +7,7 @@
    - [Tools we use](#tools-we-use)
    - [File Structure](#file-structure)
    - [Component patterns](#component-patterns)
+   - [SSR compatibility](#ssr-compatibility)
    - [Adding the sx prop](#adding-the-sx-prop)
    - [Linting](#linting)
    - [TypeScript support](#typescript-support)
