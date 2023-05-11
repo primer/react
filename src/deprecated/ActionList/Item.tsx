@@ -465,7 +465,7 @@ export const Item = React.forwardRef((itemProps, ref) => {
         {/* backward compatibility: prefer TrailingVisual but fallback to TrailingIcon */}
         {TrailingVisual ? (
           <TrailingContent variant={variant} disabled={disabled}>
-            {typeof TrailingVisual === 'function' ? <TrailingVisual /> : TrailingVisual}
+            {TrailingVisual && <TrailingVisual />}
           </TrailingContent>
         ) : TrailingIcon || trailingText ? (
           <TrailingContent variant={variant} disabled={disabled}>
