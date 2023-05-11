@@ -127,6 +127,8 @@ test.describe('Select', () => {
               colorScheme: theme,
             },
           })
+
+          await expect(page.getByText('Something went wrong')).toBeVisible()
           await expect(page).toHaveNoViolations({
             rules: {
               'color-contrast': {
@@ -229,6 +231,8 @@ test.describe('Select', () => {
               colorScheme: theme,
             },
           })
+
+          await expect(page.getByText('Success')).toBeVisible()
           await expect(page).toHaveNoViolations({
             rules: {
               'color-contrast': {
@@ -297,6 +301,7 @@ test.describe('Select', () => {
               colorScheme: theme,
             },
           })
+          await expect(page.getByText('Warning')).toBeVisible()
           await expect(page).toHaveNoViolations({
             rules: {
               'color-contrast': {

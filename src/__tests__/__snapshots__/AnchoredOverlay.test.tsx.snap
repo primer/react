@@ -74,6 +74,9 @@ exports[`AnchoredOverlay renders consistently 1`] = `
 <div
   className="c0"
   color="fg.default"
+  data-color-mode="light"
+  data-dark-theme="dark"
+  data-light-theme="light"
   data-portal-root={true}
   fontFamily="normal"
 >
@@ -190,6 +193,9 @@ exports[`AnchoredOverlay should render consistently when open 1`] = `
   <div
     class="c0"
     color="fg.default"
+    data-color-mode="light"
+    data-dark-theme="dark"
+    data-light-theme="light"
     data-portal-root="true"
     font-family="normal"
   >

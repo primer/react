@@ -1258,13 +1258,13 @@ exports[`Button styles danger button appropriately 1`] = `
 }
 
 .c0:disabled [data-component=ButtonCounter] {
-  color: inherit;
+  color: btn.danger.disabledCounterFg;
   background-color: btn.danger.disabledCounterBg;
 }
 
 .c0 [data-component=ButtonCounter] {
   font-size: 14px;
-  color: btn.danger.text;
+  color: btn.danger.counterFg;
   background-color: btn.danger.counterBg;
 }
 
@@ -1366,7 +1366,7 @@ exports[`Button styles danger button appropriately 1`] = `
 
 .c0:hover:not([disabled]) [data-component=ButtonCounter] {
   background-color: btn.danger.hoverCounterBg;
-  color: btn.danger.hoverText;
+  color: btn.danger.hoverCounterFg;
 }
 
 .c0:active:not([disabled]) {
