@@ -2,7 +2,6 @@ import {Meta} from '@storybook/react'
 import React from 'react'
 import {ThemeProvider} from '..'
 import {FilteredActionList, ItemInput} from '../FilteredActionList'
-import {ActionList} from '../ActionList'
 import BaseStyles from '../BaseStyles'
 import Box from '../Box'
 
@@ -64,12 +63,6 @@ export function Default(): JSX.Element {
         items={filteredItems}
         onFilterChange={setFilter}
         sx={{border: '1px solid', padding: '8px'}}
-        renderFn={({id, leadingVisual, text}) => (
-          <ActionList.Item key={id} role="option">
-            {leadingVisual && <ActionList.LeadingVisual>{leadingVisual}</ActionList.LeadingVisual>}
-            {text}
-          </ActionList.Item>
-        )}
       />
     </>
   )

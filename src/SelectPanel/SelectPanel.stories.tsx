@@ -45,12 +45,6 @@ export const Default = () => {
   const [filter, setFilter] = React.useState('')
   const filteredItems = items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
   const [open, setOpen] = useState(false)
-  const renderFn = (props: ItemInput) => (
-    <ActionList.Item key={props.id}>
-      {!!props.leadingVisual && <ActionList.LeadingVisual>{props.leadingVisual}</ActionList.LeadingVisual>}
-      {props.text}
-    </ActionList.Item>
-  )
 
   return (
     <>
@@ -66,7 +60,6 @@ export const Default = () => {
         open={open}
         onOpenChange={setOpen}
         items={filteredItems}
-        renderFn={renderFn}
         selected={selected}
         onSelectedChange={setSelected}
         onFilterChange={setFilter}

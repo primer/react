@@ -60,7 +60,6 @@ export function SelectPanel({
   textInputProps,
   overlayProps,
   sx,
-  renderFn,
   ...listProps
 }: SelectPanelProps): JSX.Element {
   const [filterValue, setInternalFilterValue] = useProvidedStateOrCreate(externalFilterValue, undefined, '')
@@ -162,7 +161,6 @@ export function SelectPanel({
         selectionVariant={isMultiSelectVariant(selected) ? 'multiple' : 'single'}
         {...listProps}
         items={itemsToRender}
-        renderFn={renderFn}
         textInputProps={extendedTextInputProps}
         inputRef={inputRef}
         // inheriting height and maxHeight ensures that the FilteredActionList is never taller

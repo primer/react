@@ -2,7 +2,6 @@ import React, {KeyboardEventHandler, useCallback, useEffect, useRef} from 'react
 import TextInput, {TextInputProps} from '../TextInput'
 import Box from '../Box'
 import {ActionList, ActionListProps, ActionListItemProps} from '../ActionList'
-import Truncate from '../Truncate'
 import Spinner from '../Spinner'
 import {useFocusZone} from '../hooks/useFocusZone'
 import {useProvidedStateOrCreate} from '../hooks/useProvidedStateOrCreate'
@@ -20,7 +19,7 @@ const menuScrollMargins: ScrollIntoViewOptions = {startMargin: 0, endMargin: 8}
 export type ItemInput = Partial<
   ActionListItemProps & {
     description?: string
-    descriptionVariant?: string
+    descriptionVariant?: 'inline' | 'block'
     leadingVisual?: JSX.Element
     onAction?: (itemFromAction: ItemInput, event: React.MouseEvent) => void
     selected?: boolean
@@ -60,17 +59,7 @@ const defaultRenderFn = ({
     <ActionList.Item key={id} sx={sx} role="option" onSelect={onSelect} selected={selected}>
       {!!leadingVisual && <ActionList.LeadingVisual>{leadingVisual}</ActionList.LeadingVisual>}
       {text ? text : null}
-      {description ? (
-        <ActionList.Description variant="block">
-          {descriptionVariant === 'block' ? (
-            description
-          ) : (
-            <Truncate title={description} inline={true} maxWidth="100%">
-              {description}
-            </Truncate>
-          )}
-        </ActionList.Description>
-      ) : null}
+      {description ? <ActionList.Description variant={descriptionVariant}>{description}</ActionList.Description> : null}
       {!!trailingVisual && <ActionList.TrailingVisual>{trailingVisual}</ActionList.TrailingVisual>}
     </ActionList.Item>
   )
