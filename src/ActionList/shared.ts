@@ -41,10 +41,6 @@ export type ActionListItemProps = {
    */
   id?: string
   /**
-   * boolean to hide selection subcomponent
-   */
-  hideSelection?: boolean
-  /**
    * Private API for use internally only. Used by LinkItem to wrap contents in an anchor
    */
   _PrivateItemWrapper?: React.FC<React.PropsWithChildren<MenuItemProps>>

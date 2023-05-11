@@ -54,7 +54,7 @@ export const SavedRepliesButton = () => {
       (reply, i): Item => ({
         text: reply.name,
         description: reply.content,
-        descriptionVariant: 'inline',
+        descriptionVariant: 'block',
         trailingVisual: i < 9 ? `Ctrl + ${i + 1}` : undefined,
         sx: {
           // hide the leading visual container since we don't use the checkboxes
@@ -67,7 +67,6 @@ export const SavedRepliesButton = () => {
           },
         },
         id: i.toString(),
-        hideSelection: true,
       }),
     )
 
