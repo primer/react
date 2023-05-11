@@ -1,5 +1,5 @@
 ---
-'@primer/react': minor
+'@primer/react': patch
 ---
 
-Bump @primer/octicons-react to v19
+Upgrade @primer/octicons-react dependency to `^19.0.1`
