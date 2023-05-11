@@ -10,6 +10,7 @@ import React, {
 } from 'react'
 import {SelectPanel, SelectPanelProps} from '../../SelectPanel'
 import {ToolbarButton} from './Toolbar'
+import Truncate from '../../Truncate'
 
 export type SavedReply = {
   name: string
@@ -53,7 +54,11 @@ export const SavedRepliesButton = () => {
     .map(
       (reply, i): Item => ({
         text: reply.name,
-        description: reply.content,
+        description: (
+          <Truncate maxWidth={170} title={reply.content}>
+            {reply.content}
+          </Truncate>
+        ),
         descriptionVariant: 'block',
         trailingVisual: i < 9 ? `Ctrl + ${i + 1}` : undefined,
         sx: {

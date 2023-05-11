@@ -18,7 +18,7 @@ const menuScrollMargins: ScrollIntoViewOptions = {startMargin: 0, endMargin: 8}
 
 export type ItemInput = Partial<
   ActionListItemProps & {
-    description?: string
+    description?: string | React.ReactElement
     descriptionVariant?: 'inline' | 'block'
     leadingVisual?: JSX.Element
     onAction?: (itemFromAction: ItemInput, event: React.MouseEvent) => void
@@ -58,7 +58,7 @@ const defaultRenderFn = ({
   return (
     <ActionList.Item key={id} sx={sx} role="option" onSelect={onSelect} selected={selected}>
       {!!leadingVisual && <ActionList.LeadingVisual>{leadingVisual}</ActionList.LeadingVisual>}
-      {text ? text : null}
+      <Box>{text ? text : null}</Box>
       {description ? <ActionList.Description variant={descriptionVariant}>{description}</ActionList.Description> : null}
       {!!trailingVisual && <ActionList.TrailingVisual>{trailingVisual}</ActionList.TrailingVisual>}
     </ActionList.Item>
