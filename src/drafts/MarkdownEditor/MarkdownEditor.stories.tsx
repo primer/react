@@ -296,6 +296,7 @@ export const CustomButtons = ({
           <MarkdownEditor.ActionButton variant="primary" onClick={onSubmit}>
             Submit
           </MarkdownEditor.ActionButton>
+          <MarkdownEditor.DefaultActionButtons />
         </MarkdownEditor.Actions>
       </MarkdownEditor>
       <p>Note: for demo purposes, files starting with &quot;A&quot; will be rejected.</p>

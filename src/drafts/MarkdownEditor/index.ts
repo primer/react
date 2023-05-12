@@ -1,6 +1,6 @@
 import _MarkdownEditor from './MarkdownEditor'
 import {DefaultToolbarButtons, Toolbar, ToolbarButton} from './Toolbar'
-import {ActionButton, Actions} from './Actions'
+import {DefaultActionButtons, ActionButton, Actions} from './Actions'
 import {Label} from './Label'
 
 export type {MarkdownEditorHandle} from './MarkdownEditor'
@@ -32,6 +32,11 @@ const MarkdownEditor = Object.assign(_MarkdownEditor, {
   Actions,
   /** A button to show in the editor footer. */
   ActionButton,
+  /**
+   * The full set of default footer buttons. This is "Markdown is supported" button
+   * and file upload button in a standardized order.
+   */
+  DefaultActionButtons,
 })
 export default MarkdownEditor
 

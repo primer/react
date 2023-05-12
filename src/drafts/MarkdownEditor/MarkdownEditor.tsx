@@ -457,6 +457,7 @@ const MarkdownEditor = forwardRef<MarkdownEditorHandle, MarkdownEditorProps>(
             )}
 
             <Footer
+              footerButtons={slots.footer}
               actionButtons={slots.actions}
               fileDraggedOver={fileHandler?.isDraggedOver ?? false}
               fileUploadProgress={fileHandler?.uploadProgress}
