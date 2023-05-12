@@ -42,12 +42,6 @@ export const TrailingCounterAllVariants = () => {
       <Button variant="primary" disabled onClick={() => setCount(count + 1)} count={count}>
         Watch
       </Button>
-      <Button variant="outline" onClick={() => setCount(count + 1)} count={count}>
-        Watch
-      </Button>
-      <Button variant="outline" disabled onClick={() => setCount(count + 1)} count={count}>
-        Watch
-      </Button>
       <Button variant="danger" onClick={() => setCount(count + 1)} count={count}>
         Watch
       </Button>
