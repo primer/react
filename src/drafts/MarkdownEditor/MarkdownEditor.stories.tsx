@@ -1,4 +1,4 @@
-import {DiffIcon} from '@primer/octicons-react'
+import {DiffIcon, PlusIcon} from '@primer/octicons-react'
 import React, {Meta} from '@storybook/react'
 import {useRef, useState} from 'react'
 import BaseStyles from '../../BaseStyles'
@@ -290,13 +290,21 @@ export const CustomButtons = ({
         </MarkdownEditor.Toolbar>
 
         <MarkdownEditor.Actions>
+          <MarkdownEditor.FooterActionButton
+            sx={{borderRadius: 14, color: 'fg.muted', borderColor: 'border.default'}}
+            variant="invisible"
+            onClick={() => setValue('')}
+            leadingIcon={PlusIcon}
+          >
+            Add Button
+          </MarkdownEditor.FooterActionButton>
+
           <MarkdownEditor.ActionButton variant="danger" onClick={() => setValue('')}>
             Reset
           </MarkdownEditor.ActionButton>
           <MarkdownEditor.ActionButton variant="primary" onClick={onSubmit}>
             Submit
           </MarkdownEditor.ActionButton>
-          <MarkdownEditor.DefaultActionButtons />
         </MarkdownEditor.Actions>
       </MarkdownEditor>
       <p>Note: for demo purposes, files starting with &quot;A&quot; will be rejected.</p>

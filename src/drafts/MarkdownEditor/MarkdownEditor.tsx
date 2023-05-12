@@ -457,14 +457,14 @@ const MarkdownEditor = forwardRef<MarkdownEditorHandle, MarkdownEditorProps>(
             )}
 
             <Footer
-              footerButtons={slots.footer}
-              actionButtons={slots.actions}
               fileDraggedOver={fileHandler?.isDraggedOver ?? false}
               fileUploadProgress={fileHandler?.uploadProgress}
               uploadButtonProps={fileHandler?.clickTargetProps ?? null}
               errorMessage={fileHandler?.errorMessage}
               previewMode={view === 'preview'}
-            />
+            >
+              {React.isValidElement(slots.actions) && slots.actions.props.children}
+            </Footer>
           </Box>
         </fieldset>
       </MarkdownEditorContext.Provider>
