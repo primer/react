@@ -36,7 +36,6 @@ export interface FilteredActionListProps extends ActionListProps, SxProp {
   textInputProps?: Partial<Omit<TextInputProps, 'onChange'>>
   inputRef?: React.RefObject<HTMLInputElement>
   items: ItemInput[]
-  renderFn?: (props: ItemInput) => React.ReactElement
 }
 
 const StyledHeader = styled.div`
@@ -44,7 +43,7 @@ const StyledHeader = styled.div`
   z-index: 1;
 `
 
-const defaultRenderFn = ({
+const renderFn = ({
   description,
   descriptionVariant,
   id,
@@ -71,7 +70,6 @@ export function FilteredActionList({
   filterValue: externalFilterValue,
   onFilterChange,
   items,
-  renderFn = defaultRenderFn,
   textInputProps,
   inputRef: providedInputRef,
   sx,

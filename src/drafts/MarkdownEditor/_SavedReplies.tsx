@@ -55,7 +55,7 @@ export const SavedRepliesButton = () => {
       (reply, i): Item => ({
         text: reply.name,
         description: (
-          <Truncate maxWidth={170} title={reply.content}>
+          <Truncate maxWidth="100%" title={reply.content}>
             {reply.content}
           </Truncate>
         ),
