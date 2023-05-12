@@ -1238,12 +1238,12 @@
             {
               "name": "as",
               "type": "React.ElementType",
-              "defaultValue": "StyledOcticon"
+              "defaultValue": "Octicon"
             }
           ],
           "passthrough": {
-            "element": "StyledOcticon",
-            "url": "/StyledOcticon"
+            "element": "Octicon",
+            "url": "/Octicon"
           }
         }
       ]
@@ -1860,7 +1860,7 @@
       "stories": [
         {
           "id": "components-header--default",
-          "code": "() => (\n  <Header>\n    <Header.Item>\n      <Header.Link\n        href=\"#\"\n        sx={{\n          fontSize: 2,\n        }}\n      >\n        <StyledOcticon\n          icon={MarkGithubIcon}\n          size={32}\n          sx={{\n            mr: 2,\n          }}\n        />\n        <span>GitHub</span>\n      </Header.Link>\n    </Header.Item>\n    <Header.Item full>Menu</Header.Item>\n    <Header.Item\n      sx={{\n        mr: 0,\n      }}\n    >\n      <Avatar\n        src=\"https://github.com/octocat.png\"\n        size={20}\n        square\n        alt=\"@octocat\"\n      />\n    </Header.Item>\n  </Header>\n)"
+          "code": "() => (\n  <Header>\n    <Header.Item>\n      <Header.Link\n        href=\"#\"\n        sx={{\n          fontSize: 2,\n        }}\n      >\n        <Octicon\n          icon={MarkGithubIcon}\n          size={32}\n          sx={{\n            mr: 2,\n          }}\n        />\n        <span>GitHub</span>\n      </Header.Link>\n    </Header.Item>\n    <Header.Item full>Menu</Header.Item>\n    <Header.Item\n      sx={{\n        mr: 0,\n      }}\n    >\n      <Avatar\n        src=\"https://github.com/octocat.png\"\n        size={20}\n        square\n        alt=\"@octocat\"\n      />\n    </Header.Item>\n  </Header>\n)"
         }
       ],
       "props": [
@@ -2187,6 +2187,50 @@
           ]
         }
       ]
+    },
+    "octicon": {
+      "id": "octicon",
+      "name": "Octicon",
+      "status": "alpha",
+      "a11yReviewed": false,
+      "stories": [],
+      "props": [
+        {
+          "name": "ariaLabel",
+          "type": "string",
+          "defaultValue": "",
+          "description": "Specifies the aria-label attribute, which is read verbatim by screen readers "
+        },
+        {
+          "name": "icon",
+          "type": "Component",
+          "defaultValue": "",
+          "description": "Checks the input by default in uncontrolled modeName of the [Octicon component](https://primer.style/octicons/) used in the"
+        },
+        {
+          "name": "color",
+          "type": "string",
+          "defaultValue": "",
+          "description": "Sets an override color for the Octicon. Compatible with colors from the [Primer color system](https://primer.style/primitives/colors).\""
+        },
+        {
+          "name": "size",
+          "type": "number",
+          "defaultValue": "16",
+          "description": "Sets the uniform `width` and `height` of the SVG element"
+        },
+        {
+          "name": "verticalAlign",
+          "type": "string",
+          "defaultValue": "text-bottom",
+          "description": "Sets the `vertical-align` CSS property"
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ],
+      "subcomponents": []
     },
     "overlay": {
       "id": "overlay",
@@ -3838,55 +3882,6 @@
       ],
       "subcomponents": []
     },
-    "styled_octicon": {
-      "id": "styled_octicon",
-      "name": "StyledOcticon",
-      "status": "alpha",
-      "a11yReviewed": false,
-      "stories": [
-        {
-          "id": "components-styledocticon--default",
-          "code": "() => <StyledOcticon icon={HeartFillIcon} size={32} />"
-        }
-      ],
-      "props": [
-        {
-          "name": "ariaLabel",
-          "type": "string",
-          "defaultValue": "",
-          "description": "Specifies the aria-label attribute, which is read verbatim by screen readers "
-        },
-        {
-          "name": "icon",
-          "type": "Component",
-          "defaultValue": "",
-          "description": "Checks the input by default in uncontrolled modeName of the [Octicon component](https://primer.style/octicons/) used in the"
-        },
-        {
-          "name": "color",
-          "type": "string",
-          "defaultValue": "",
-          "description": "Sets an override color for the Octicon. Compatible with colors from the [Primer color system](https://primer.style/primitives/colors).\""
-        },
-        {
-          "name": "size",
-          "type": "number",
-          "defaultValue": "16",
-          "description": "Sets the uniform `width` and `height` of the SVG element"
-        },
-        {
-          "name": "verticalAlign",
-          "type": "string",
-          "defaultValue": "text-bottom",
-          "description": "Sets the `vertical-align` CSS property"
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject"
-        }
-      ],
-      "subcomponents": []
-    },
     "sub_nav": {
       "id": "sub_nav",
       "name": "SubNav",
@@ -4348,7 +4343,7 @@
       "stories": [
         {
           "id": "components-timeline--default",
-          "code": "() => (\n  <Timeline>\n    <Timeline.Item>\n      <Timeline.Badge>\n        <StyledOcticon icon={GitCommitIcon} />\n      </Timeline.Badge>\n      <Timeline.Body>This is a message</Timeline.Body>\n    </Timeline.Item>\n    <Timeline.Item>\n      <Timeline.Badge>\n        <StyledOcticon icon={GitCommitIcon} />\n      </Timeline.Badge>\n      <Timeline.Body>This is a message</Timeline.Body>\n    </Timeline.Item>\n    <Timeline.Item>\n      <Timeline.Badge>\n        <StyledOcticon icon={GitCommitIcon} />\n      </Timeline.Badge>\n      <Timeline.Body>This is a message</Timeline.Body>\n    </Timeline.Item>\n  </Timeline>\n)"
+          "code": "() => (\n  <Timeline>\n    <Timeline.Item>\n      <Timeline.Badge>\n        <Octicon icon={GitCommitIcon} />\n      </Timeline.Badge>\n      <Timeline.Body>This is a message</Timeline.Body>\n    </Timeline.Item>\n    <Timeline.Item>\n      <Timeline.Badge>\n        <Octicon icon={GitCommitIcon} />\n      </Timeline.Badge>\n      <Timeline.Body>This is a message</Timeline.Body>\n    </Timeline.Item>\n    <Timeline.Item>\n      <Timeline.Badge>\n        <Octicon icon={GitCommitIcon} />\n      </Timeline.Badge>\n      <Timeline.Body>This is a message</Timeline.Body>\n    </Timeline.Item>\n  </Timeline>\n)"
         }
       ],
       "props": [
@@ -4650,7 +4645,7 @@
       "stories": [
         {
           "id": "components-treeview--default",
-          "code": "() => (\n  <nav aria-label=\"Files changed\">\n    <TreeView aria-label=\"Files changed\">\n      <TreeView.Item id=\"src\" defaultExpanded>\n        <TreeView.LeadingVisual>\n          <TreeView.DirectoryIcon />\n        </TreeView.LeadingVisual>\n        src\n        <TreeView.SubTree>\n          <TreeView.Item id=\"src/Avatar.tsx\">\n            <TreeView.LeadingVisual>\n              <FileIcon />\n            </TreeView.LeadingVisual>\n            Avatar.tsx\n            <TreeView.TrailingVisual>\n              <StyledOcticon\n                icon={DiffAddedIcon}\n                color=\"success.fg\"\n                aria-label=\"added\"\n              />\n            </TreeView.TrailingVisual>\n          </TreeView.Item>\n          <TreeView.Item id=\"src/Button.tsx\" current>\n            <TreeView.LeadingVisual>\n              <FileIcon />\n            </TreeView.LeadingVisual>\n            Button.tsx\n            <TreeView.TrailingVisual>\n              <StyledOcticon\n                icon={DiffModifiedIcon}\n                color=\"attention.fg\"\n                aria-label=\"modified\"\n              />\n            </TreeView.TrailingVisual>\n          </TreeView.Item>\n        </TreeView.SubTree>\n      </TreeView.Item>\n      <TreeView.Item id=\"package.json\">\n        <TreeView.LeadingVisual>\n          <FileIcon />\n        </TreeView.LeadingVisual>\n        package.json\n        <TreeView.TrailingVisual>\n          <StyledOcticon\n            icon={DiffModifiedIcon}\n            color=\"attention.fg\"\n            aria-label=\"modified\"\n          />\n        </TreeView.TrailingVisual>\n      </TreeView.Item>\n    </TreeView>\n  </nav>\n)"
+          "code": "() => (\n  <nav aria-label=\"Files changed\">\n    <TreeView aria-label=\"Files changed\">\n      <TreeView.Item id=\"src\" defaultExpanded>\n        <TreeView.LeadingVisual>\n          <TreeView.DirectoryIcon />\n        </TreeView.LeadingVisual>\n        src\n        <TreeView.SubTree>\n          <TreeView.Item id=\"src/Avatar.tsx\">\n            <TreeView.LeadingVisual>\n              <FileIcon />\n            </TreeView.LeadingVisual>\n            Avatar.tsx\n            <TreeView.TrailingVisual>\n              <Octicon\n                icon={DiffAddedIcon}\n                color=\"success.fg\"\n                aria-label=\"added\"\n              />\n            </TreeView.TrailingVisual>\n          </TreeView.Item>\n          <TreeView.Item id=\"src/Button.tsx\" current>\n            <TreeView.LeadingVisual>\n              <FileIcon />\n            </TreeView.LeadingVisual>\n            Button.tsx\n            <TreeView.TrailingVisual>\n              <Octicon\n                icon={DiffModifiedIcon}\n                color=\"attention.fg\"\n                aria-label=\"modified\"\n              />\n            </TreeView.TrailingVisual>\n          </TreeView.Item>\n        </TreeView.SubTree>\n      </TreeView.Item>\n      <TreeView.Item id=\"package.json\">\n        <TreeView.LeadingVisual>\n          <FileIcon />\n        </TreeView.LeadingVisual>\n        package.json\n        <TreeView.TrailingVisual>\n          <Octicon\n            icon={DiffModifiedIcon}\n            color=\"attention.fg\"\n            aria-label=\"modified\"\n          />\n        </TreeView.TrailingVisual>\n      </TreeView.Item>\n    </TreeView>\n  </nav>\n)"
         },
         {
           "id": "components-treeview-features--files",
@@ -4658,7 +4653,7 @@
         },
         {
           "id": "components-treeview-features--files-changed",
-          "code": "() => {\n  return (\n    <nav aria-label=\"Files\">\n      <TreeView aria-label=\"Files\">\n        <TreeView.Item id=\"src\" defaultExpanded>\n          <TreeView.LeadingVisual>\n            <TreeView.DirectoryIcon />\n          </TreeView.LeadingVisual>\n          src\n          <TreeView.SubTree>\n            <TreeView.Item id=\"src/Avatar.tsx\">\n              <TreeView.LeadingVisual>\n                <FileIcon />\n              </TreeView.LeadingVisual>\n              Avatar.tsx\n              <TreeView.TrailingVisual label=\"added\">\n                <StyledOcticon icon={DiffAddedIcon} color=\"success.fg\" />\n              </TreeView.TrailingVisual>\n            </TreeView.Item>\n            <TreeView.Item id=\"src/Button\" defaultExpanded>\n              <TreeView.LeadingVisual>\n                <TreeView.DirectoryIcon />\n              </TreeView.LeadingVisual>\n              Button\n              <TreeView.SubTree>\n                <TreeView.Item id=\"src/Button/Button.tsx\" current>\n                  <TreeView.LeadingVisual>\n                    <FileIcon />\n                  </TreeView.LeadingVisual>\n                  Button.tsx\n                  <TreeView.TrailingVisual label=\"modified\">\n                    <StyledOcticon\n                      icon={DiffModifiedIcon}\n                      color=\"attention.fg\"\n                    />\n                  </TreeView.TrailingVisual>\n                </TreeView.Item>\n                <TreeView.Item id=\"src/Button/Button.test.tsx\">\n                  <TreeView.LeadingVisual>\n                    <FileIcon />\n                  </TreeView.LeadingVisual>\n                  Button.test.tsx\n                  <TreeView.TrailingVisual label=\"modified\">\n                    <StyledOcticon\n                      icon={DiffModifiedIcon}\n                      color=\"attention.fg\"\n                    />\n                  </TreeView.TrailingVisual>\n                </TreeView.Item>\n              </TreeView.SubTree>\n            </TreeView.Item>\n            <TreeView.Item id=\"src/ReallyLongFileNameThatShouldBeTruncated.tsx\">\n              <TreeView.LeadingVisual>\n                <FileIcon />\n              </TreeView.LeadingVisual>\n              ReallyLongFileNameThatShouldBeTruncated.tsx\n              <TreeView.TrailingVisual label=\"modified\">\n                <StyledOcticon icon={DiffModifiedIcon} color=\"attention.fg\" />\n              </TreeView.TrailingVisual>\n            </TreeView.Item>\n          </TreeView.SubTree>\n        </TreeView.Item>\n        <TreeView.Item id=\"public\" defaultExpanded>\n          <TreeView.LeadingVisual>\n            <TreeView.DirectoryIcon />\n          </TreeView.LeadingVisual>\n          public\n          <TreeView.SubTree>\n            <TreeView.Item id=\"public/index.html\">\n              <TreeView.LeadingVisual>\n                <FileIcon />\n              </TreeView.LeadingVisual>\n              index.html\n              <TreeView.TrailingVisual label=\"renamed\">\n                <StyledOcticon icon={DiffRenamedIcon} />\n              </TreeView.TrailingVisual>\n            </TreeView.Item>\n            <TreeView.Item id=\"public/favicon.ico\">\n              <TreeView.LeadingVisual>\n                <FileIcon />\n              </TreeView.LeadingVisual>\n              favicon.ico\n              <TreeView.TrailingVisual label=\"removed\">\n                <StyledOcticon icon={DiffRemovedIcon} color=\"danger.fg\" />\n              </TreeView.TrailingVisual>\n            </TreeView.Item>\n          </TreeView.SubTree>\n        </TreeView.Item>\n      </TreeView>\n    </nav>\n  )\n}"
+          "code": "() => {\n  return (\n    <nav aria-label=\"Files\">\n      <TreeView aria-label=\"Files\">\n        <TreeView.Item id=\"src\" defaultExpanded>\n          <TreeView.LeadingVisual>\n            <TreeView.DirectoryIcon />\n          </TreeView.LeadingVisual>\n          src\n          <TreeView.SubTree>\n            <TreeView.Item id=\"src/Avatar.tsx\">\n              <TreeView.LeadingVisual>\n                <FileIcon />\n              </TreeView.LeadingVisual>\n              Avatar.tsx\n              <TreeView.TrailingVisual label=\"added\">\n                <Octicon icon={DiffAddedIcon} color=\"success.fg\" />\n              </TreeView.TrailingVisual>\n            </TreeView.Item>\n            <TreeView.Item id=\"src/Button\" defaultExpanded>\n              <TreeView.LeadingVisual>\n                <TreeView.DirectoryIcon />\n              </TreeView.LeadingVisual>\n              Button\n              <TreeView.SubTree>\n                <TreeView.Item id=\"src/Button/Button.tsx\" current>\n                  <TreeView.LeadingVisual>\n                    <FileIcon />\n                  </TreeView.LeadingVisual>\n                  Button.tsx\n                  <TreeView.TrailingVisual label=\"modified\">\n                    <Octicon icon={DiffModifiedIcon} color=\"attention.fg\" />\n                  </TreeView.TrailingVisual>\n                </TreeView.Item>\n                <TreeView.Item id=\"src/Button/Button.test.tsx\">\n                  <TreeView.LeadingVisual>\n                    <FileIcon />\n                  </TreeView.LeadingVisual>\n                  Button.test.tsx\n                  <TreeView.TrailingVisual label=\"modified\">\n                    <Octicon icon={DiffModifiedIcon} color=\"attention.fg\" />\n                  </TreeView.TrailingVisual>\n                </TreeView.Item>\n              </TreeView.SubTree>\n            </TreeView.Item>\n            <TreeView.Item id=\"src/ReallyLongFileNameThatShouldBeTruncated.tsx\">\n              <TreeView.LeadingVisual>\n                <FileIcon />\n              </TreeView.LeadingVisual>\n              ReallyLongFileNameThatShouldBeTruncated.tsx\n              <TreeView.TrailingVisual label=\"modified\">\n                <Octicon icon={DiffModifiedIcon} color=\"attention.fg\" />\n              </TreeView.TrailingVisual>\n            </TreeView.Item>\n          </TreeView.SubTree>\n        </TreeView.Item>\n        <TreeView.Item id=\"public\" defaultExpanded>\n          <TreeView.LeadingVisual>\n            <TreeView.DirectoryIcon />\n          </TreeView.LeadingVisual>\n          public\n          <TreeView.SubTree>\n            <TreeView.Item id=\"public/index.html\">\n              <TreeView.LeadingVisual>\n                <FileIcon />\n              </TreeView.LeadingVisual>\n              index.html\n              <TreeView.TrailingVisual label=\"renamed\">\n                <Octicon icon={DiffRenamedIcon} />\n              </TreeView.TrailingVisual>\n            </TreeView.Item>\n            <TreeView.Item id=\"public/favicon.ico\">\n              <TreeView.LeadingVisual>\n                <FileIcon />\n              </TreeView.LeadingVisual>\n              favicon.ico\n              <TreeView.TrailingVisual label=\"removed\">\n                <Octicon icon={DiffRemovedIcon} color=\"danger.fg\" />\n              </TreeView.TrailingVisual>\n            </TreeView.Item>\n          </TreeView.SubTree>\n        </TreeView.Item>\n      </TreeView>\n    </nav>\n  )\n}"
         },
         {
           "id": "components-treeview-features--async-success",
