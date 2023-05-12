@@ -4,7 +4,7 @@ exports[`Textarea renders consistently 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #24292f;
+  color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
