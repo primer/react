@@ -16,6 +16,7 @@ export type MenuContextProps = Pick<
 > & {
   onClose?: (gesture: 'anchor-click' | 'click-outside' | 'escape' | 'tab') => void
 }
+
 const MenuContext = React.createContext<MenuContextProps>({renderAnchor: null, open: false})
 
 export type ActionMenuProps = {
@@ -130,4 +131,4 @@ const Overlay: React.FC<React.PropsWithChildren<MenuOverlayProps>> = ({children,
 }
 
 Menu.displayName = 'ActionMenu'
-export const ActionMenu = Object.assign(Menu, {Button: MenuButton, Anchor, Overlay, Divider})
+export const ActionMenu = Object.assign(Menu, {Button: MenuButton, Anchor, Overlay, Divider, MenuContext})

@@ -13,6 +13,7 @@ import {ActionListProps, ListContext} from './List'
 import {Selection} from './Selection'
 import {ActionListItemProps, getVariantStyles, ItemContext, TEXT_ROW_HEIGHT} from './shared'
 import {LeadingVisual, TrailingVisual} from './Visuals'
+import {ActionMenu} from '../ActionMenu'
 
 const LiBox = styled.li<SxProp>(sx)
 
@@ -39,6 +40,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
     })
     const {variant: listVariant, showDividers, selectionVariant: listSelectionVariant} = React.useContext(ListContext)
     const {container, afterSelect, selectionAttribute} = React.useContext(ActionListContainerContext)
+    const menuContext = React.useContext(ActionMenu.MenuContext)
 
     const selectionVariant: ActionListProps['selectionVariant'] = listSelectionVariant
 
@@ -212,7 +214,8 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
                 fontSize: 'inherit',
               }}
               // @ts-ignore `as` prop may be passed to ActionList.Item, even if it isn't defined in ActionListItemProps.
-              as={props.as === 'button' ? 'div' : 'button'}
+              // If this item is inside an ActionMenu, don't render an interactive button.
+              as={props.as === 'button' || menuContext.anchorId !== undefined ? 'div' : 'button'}
             >
               <ConditionalBox if={Boolean(slots.trailingVisual)} sx={{display: 'flex', flexGrow: 1}}>
                 <ConditionalBox
