@@ -31,43 +31,34 @@ export const TrailingCounterAllVariants = () => {
     <div style={{display: 'flex', flexDirection: 'row', gap: '1rem'}}>
       <Button onClick={() => setCount(count + 1)}>
         Watch
-        <Button.Counter>{count}</Button.Counter>
+        <Button>{count}</Button>
       </Button>
-      <Button disabled onClick={() => setCount(count + 1)}>
+      <Button disabled onClick={() => setCount(count + 1)} count={count}>
         Watch
-        <Button.Counter>{count}</Button.Counter>
       </Button>
-      <Button variant="primary" onClick={() => setCount(count + 1)}>
+      <Button variant="primary" onClick={() => setCount(count + 1)} count={count}>
         Watch
-        <Button.Counter>{count}</Button.Counter>
       </Button>
-      <Button variant="primary" disabled onClick={() => setCount(count + 1)}>
+      <Button variant="primary" disabled onClick={() => setCount(count + 1)} count={count}>
         Watch
-        <Button.Counter>{count}</Button.Counter>
       </Button>
-      <Button variant="outline" onClick={() => setCount(count + 1)}>
+      <Button variant="outline" onClick={() => setCount(count + 1)} count={count}>
         Watch
-        <Button.Counter>{count}</Button.Counter>
       </Button>
-      <Button variant="outline" disabled onClick={() => setCount(count + 1)}>
+      <Button variant="outline" disabled onClick={() => setCount(count + 1)} count={count}>
         Watch
-        <Button.Counter>{count}</Button.Counter>
       </Button>
-      <Button variant="danger" onClick={() => setCount(count + 1)}>
+      <Button variant="danger" onClick={() => setCount(count + 1)} count={count}>
         Watch
-        <Button.Counter>{count}</Button.Counter>
       </Button>
-      <Button variant="danger" disabled onClick={() => setCount(count + 1)}>
+      <Button variant="danger" disabled onClick={() => setCount(count + 1)} count={count}>
         Watch
-        <Button.Counter>{count}</Button.Counter>
       </Button>
-      <Button variant="invisible" onClick={() => setCount(count + 1)}>
+      <Button variant="invisible" onClick={() => setCount(count + 1)} count={count}>
         Watch
-        <Button.Counter>{count}</Button.Counter>
       </Button>
-      <Button variant="invisible" disabled onClick={() => setCount(count + 1)}>
+      <Button variant="invisible" disabled onClick={() => setCount(count + 1)} count={count}>
         Watch
-        <Button.Counter>{count}</Button.Counter>
       </Button>
     </div>
   )
