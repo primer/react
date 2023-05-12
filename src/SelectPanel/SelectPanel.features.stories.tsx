@@ -61,6 +61,7 @@ export const SingleSelectStory = () => {
         selected={selected}
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
+        showDividers={true}
         overlayProps={{width: 'small', height: 'xsmall'}}
       />
     </>
