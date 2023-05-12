@@ -6,6 +6,7 @@ import {
   IssueDraftIcon,
   IssueOpenedIcon,
   QuestionIcon,
+  GitMergeQueueIcon,
 } from '@primer/octicons-react'
 import React from 'react'
 import styled from 'styled-components'
@@ -24,6 +25,7 @@ const octiconMap = {
   pullMerged: GitMergeIcon,
   draft: GitPullRequestIcon,
   issueDraft: IssueDraftIcon,
+  pullQueued: GitMergeQueueIcon,
 }
 
 const colorVariants = variant({
@@ -43,6 +45,10 @@ const colorVariants = variant({
     },
     pullMerged: {
       backgroundColor: 'done.emphasis',
+      color: 'fg.onEmphasis',
+    },
+    pullQueued: {
+      backgroundColor: 'attention.emphasis',
       color: 'fg.onEmphasis',
     },
     issueOpened: {

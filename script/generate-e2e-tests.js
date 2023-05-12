@@ -242,6 +242,10 @@ const components = new Map([
           id: 'components-button-features--trailing-visual',
           name: 'Trailing Visual',
         },
+        {
+          id: 'components-button-features--trailing-counter-all-variants',
+          name: 'Trailing Counter All Variants',
+        },
       ],
     },
   ],
@@ -1416,6 +1420,25 @@ const components = new Map([
         {
           id: 'components-token-features--issue-label-token-with-on-remove-fn',
           name: 'Issue Label Token With On Remove Fn',
+        },
+      ],
+    },
+  ],
+  [
+    'UnderlineNav--deprecated',
+    {
+      stories: [
+        {
+          id: 'components-underlinenav--default',
+          name: 'Default',
+        },
+        {
+          id: 'components-underlinenav--playground',
+          name: 'Playground',
+        },
+        {
+          id: 'components-underlinenav-features--actions',
+          name: 'Actions',
         },
       ],
     },

@@ -32,6 +32,7 @@ describe('StateLabel', () => {
     expect(render(<StateLabel status="issueClosed" />)).toMatchSnapshot()
     expect(render(<StateLabel status="issueClosedNotPlanned" />)).toMatchSnapshot()
     expect(render(<StateLabel status="pullMerged" />)).toMatchSnapshot()
+    expect(render(<StateLabel status="pullQueued" />)).toMatchSnapshot()
   })
 
   it('respects the variant prop', () => {
