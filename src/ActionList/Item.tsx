@@ -9,11 +9,12 @@ import {defaultSxProp} from '../utils/defaultSxProp'
 import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import {ActionListContainerContext} from './ActionListContainerContext'
 import {Description} from './Description'
-import {ActionListProps, ListContext} from './List'
+import {ListContext} from './List'
 import {Selection} from './Selection'
 import {ActionListItemProps, getVariantStyles, ItemContext, TEXT_ROW_HEIGHT} from './shared'
 import {LeadingVisual, TrailingVisual} from './Visuals'
 import {ActionMenu} from '../ActionMenu'
+import {GroupContext} from './Group'
 
 const LiBox = styled.li<SxProp>(sx)
 
@@ -41,8 +42,9 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
     const {variant: listVariant, showDividers, selectionVariant: listSelectionVariant} = React.useContext(ListContext)
     const {container, afterSelect, selectionAttribute} = React.useContext(ActionListContainerContext)
     const menuContext = React.useContext(ActionMenu.MenuContext)
+    const {selectionVariant: groupSelectionVariant} = React.useContext(GroupContext)
 
-    const selectionVariant: ActionListProps['selectionVariant'] = listSelectionVariant
+    const selectionVariant = groupSelectionVariant ?? listSelectionVariant
 
     /** Infer item role based on the container */
     let itemRole: ActionListItemProps['role']

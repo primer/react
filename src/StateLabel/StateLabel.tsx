@@ -12,7 +12,7 @@ import React from 'react'
 import styled from 'styled-components'
 import {variant} from 'styled-system'
 import {get} from '../constants'
-import StyledOcticon from '../StyledOcticon'
+import Octicon from '../Octicon'
 import sx, {SxProp} from '../sx'
 import {ComponentProps} from '../utils/types'
 
@@ -111,7 +111,7 @@ function StateLabel({children, status, variant: variantProp = 'normal', ...rest}
   return (
     <StateLabelBase {...rest} variant={variantProp} status={status}>
       {/* eslint-disable-next-line @typescript-eslint/no-unnecessary-condition */}
-      {status && <StyledOcticon {...octiconProps} icon={octiconMap[status] || QuestionIcon} sx={{mr: 1}} />}
+      {status && <Octicon {...octiconProps} icon={octiconMap[status] || QuestionIcon} sx={{mr: 1}} />}
       {children}
     </StateLabelBase>
   )
