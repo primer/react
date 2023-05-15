@@ -8,7 +8,7 @@ import {visualizer} from 'rollup-plugin-visualizer'
 import postcss from 'rollup-plugin-postcss'
 import packageJson from './package.json'
 import postcssCustomPropertiesFallback from 'postcss-custom-properties-fallback'
-const importedJSONFromPrimitives = require('./node_modules/@primer/primitives/tokens-next-private/fallbacks/color-fallbacks.json')
+const importedJSONFromPrimitives = require('@primer/primitives/tokens-next-private/fallbacks/color-fallbacks.json')
 
 const input = new Set([
   // "exports"
