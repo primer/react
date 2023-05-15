@@ -198,6 +198,11 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
 
     const wrapperProps = _PrivateItemWrapper ? menuItemProps : {}
 
+    // @ts-ignore props.as may be defined, may not.
+    const isTopLevelInteractive = () => props.as === 'button' || menuContext.anchorId !== undefined || role?.match(/menuitem/)
+
+    console.log(isTopLevelInteractive())
+
     return (
       <ItemContext.Provider value={{variant, disabled, inlineDescriptionId, blockDescriptionId}}>
         <LiBox ref={forwardedRef} sx={merge<BetterSystemStyleObject>(styles, sxProp)} {...containerProps} {...props}>
@@ -219,7 +224,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
               }}
               // @ts-ignore `as` prop may be passed to ActionList.Item, even if it isn't defined in ActionListItemProps.
               // If this item is inside an ActionMenu, don't render an interactive button.
-              as={props.as === 'button' || menuContext.anchorId !== undefined ? 'div' : 'button'}
+              as={isTopLevelInteractive() ? 'div' : 'button'}
             >
               <ConditionalBox if={Boolean(slots.trailingVisual)} sx={{display: 'flex', flexGrow: 1}}>
                 <ConditionalBox
