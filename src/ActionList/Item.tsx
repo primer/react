@@ -13,6 +13,7 @@ import {ActionListProps, ListContext} from './List'
 import {Selection} from './Selection'
 import {ActionListItemProps, getVariantStyles, ItemContext, TEXT_ROW_HEIGHT} from './shared'
 import {LeadingVisual, TrailingVisual} from './Visuals'
+import {GroupContext} from './Group'
 
 const LiBox = styled.li<SxProp>(sx)
 
@@ -39,8 +40,11 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
     })
     const {variant: listVariant, showDividers, selectionVariant: listSelectionVariant} = React.useContext(ListContext)
     const {container, afterSelect, selectionAttribute} = React.useContext(ActionListContainerContext)
+    const {selectionVariant: groupSelectionVariant} = React.useContext(GroupContext)
 
-    const selectionVariant: ActionListProps['selectionVariant'] = listSelectionVariant
+    const selectionVariant: ActionListProps['selectionVariant'] = groupSelectionVariant
+      ? groupSelectionVariant
+      : listSelectionVariant
 
     /** Infer item role based on the container */
     let itemRole: ActionListItemProps['role']
