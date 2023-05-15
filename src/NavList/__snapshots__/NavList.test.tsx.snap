@@ -23,6 +23,7 @@ exports[`NavList renders a simple list 1`] = `
   background-color: transparent;
   cursor: inherit;
   font-size: inherit;
+  color: inherit;
 }
 
 .c6 {
@@ -405,6 +406,7 @@ exports[`NavList renders with groups 1`] = `
   background-color: transparent;
   cursor: inherit;
   font-size: inherit;
+  color: inherit;
 }
 
 .c10 {
@@ -847,6 +849,7 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   background-color: transparent;
   cursor: inherit;
   font-size: inherit;
+  color: inherit;
 }
 
 .c7 {
@@ -1328,6 +1331,7 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   background-color: transparent;
   cursor: inherit;
   font-size: inherit;
+  color: inherit;
 }
 
 .c7 {
