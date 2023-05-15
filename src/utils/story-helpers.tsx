@@ -72,7 +72,12 @@ export const withThemeProvider = (Story: React.FC<React.PropsWithChildren<StoryC
       >
         <GlobalStyleMultiTheme />
         {Object.keys(theme.colorSchemes).map(scheme => (
-          <ThemeProvider key={scheme} colorMode="day" dayScheme={scheme}>
+          <ThemeProvider
+            key={scheme}
+            colorMode={scheme.includes('dark') ? 'dark' : 'light'}
+            dayScheme={scheme}
+            nightScheme={scheme}
+          >
             <BaseStyles>
               <Box
                 sx={{

@@ -303,7 +303,7 @@ var themePreval = {
             "disabledBg": "#94d3a2",
             "disabledBorder": "rgba(31,35,40,0.15)",
             "icon": "rgba(255,255,255,0.8)",
-            "counterBg": "rgba(255,255,255,0.2)"
+            "counterBg": "rgba(0,45,17,0.2)"
           },
           "outline": {
             "text": "#0969da",
@@ -317,7 +317,10 @@ var themePreval = {
             "disabledText": "rgba(9,105,218,0.5)",
             "disabledBg": "#f6f8fa",
             "disabledCounterBg": "rgba(9,105,218,0.05)",
-            "counterBg": "rgba(9,105,218,0.1)"
+            "counterBg": "#0969da1a",
+            "counterFg": "#0550ae",
+            "hoverCounterFg": "#ffffff",
+            "disabledCounterFg": "rgba(9,105,218,0.5)"
           },
           "danger": {
             "text": "#cf222e",
@@ -333,7 +336,10 @@ var themePreval = {
             "disabledCounterBg": "rgba(207,34,46,0.05)",
             "counterBg": "rgba(207,34,46,0.1)",
             "icon": "#cf222e",
-            "hoverIcon": "#ffffff"
+            "hoverIcon": "#ffffff",
+            "counterFg": "#a40e26",
+            "hoverCounterFg": "#ffffff",
+            "disabledCounterFg": "rgba(207,34,46,0.5)"
           }
         },
         "underlinenav": {
@@ -810,7 +816,7 @@ var themePreval = {
             "disabledBg": "#94d3a2",
             "disabledBorder": "rgba(1,4,9,0.8)",
             "icon": "rgba(255,255,255,0.8)",
-            "counterBg": "rgba(255,255,255,0.2)"
+            "counterBg": "rgba(0,35,11,0.2)"
           },
           "outline": {
             "text": "#023b95",
@@ -824,7 +830,10 @@ var themePreval = {
             "disabledText": "rgba(3,73,180,0.5)",
             "disabledBg": "#e7ecf0",
             "disabledCounterBg": "rgba(3,73,180,0.05)",
-            "counterBg": "rgba(3,73,180,0.1)"
+            "counterBg": "#0969da1a",
+            "counterFg": "#023b95",
+            "hoverCounterFg": "#ffffff",
+            "disabledCounterFg": "rgba(3,73,180,0.5)"
           },
           "danger": {
             "text": "#86061d",
@@ -840,7 +849,10 @@ var themePreval = {
             "disabledCounterBg": "rgba(160,17,31,0.05)",
             "counterBg": "rgba(160,17,31,0.1)",
             "icon": "#86061d",
-            "hoverIcon": "#ffffff"
+            "hoverIcon": "#ffffff",
+            "counterFg": "#86061d",
+            "hoverCounterFg": "#ffffff",
+            "disabledCounterFg": "rgba(160,17,31,0.5)"
           }
         },
         "underlinenav": {
@@ -1317,7 +1329,7 @@ var themePreval = {
             "disabledBg": "#80ccff",
             "disabledBorder": "rgba(27,31,36,0.15)",
             "icon": "rgba(255,255,255,0.8)",
-            "counterBg": "rgba(255,255,255,0.2)"
+            "counterBg": "rgba(0,33,85,0.2)"
           },
           "outline": {
             "text": "#0969da",
@@ -1331,7 +1343,10 @@ var themePreval = {
             "disabledText": "rgba(9,105,218,0.5)",
             "disabledBg": "#f6f8fa",
             "disabledCounterBg": "rgba(9,105,218,0.05)",
-            "counterBg": "rgba(9,105,218,0.1)"
+            "counterBg": "#0969da1a",
+            "counterFg": "#0550ae",
+            "hoverCounterFg": "#ffffff",
+            "disabledCounterFg": "rgba(9,105,218,0.5)"
           },
           "danger": {
             "text": "#b35900",
@@ -1347,7 +1362,10 @@ var themePreval = {
             "disabledCounterBg": "rgba(179,89,0,0.05)",
             "counterBg": "rgba(179,89,0,0.1)",
             "icon": "#b35900",
-            "hoverIcon": "#ffffff"
+            "hoverIcon": "#ffffff",
+            "counterFg": "#8a4600",
+            "hoverCounterFg": "#ffffff",
+            "disabledCounterFg": "rgba(179,89,0,0.5)"
           }
         },
         "underlinenav": {
@@ -1824,7 +1842,7 @@ var themePreval = {
             "disabledBg": "#80ccff",
             "disabledBorder": "rgba(27,31,36,0.15)",
             "icon": "rgba(255,255,255,0.8)",
-            "counterBg": "rgba(255,255,255,0.2)"
+            "counterBg": "rgba(0,33,85,0.2)"
           },
           "outline": {
             "text": "#0969da",
@@ -1838,7 +1856,10 @@ var themePreval = {
             "disabledText": "rgba(9,105,218,0.5)",
             "disabledBg": "#f6f8fa",
             "disabledCounterBg": "rgba(9,105,218,0.05)",
-            "counterBg": "rgba(9,105,218,0.1)"
+            "counterBg": "#0969da1a",
+            "counterFg": "#0550ae",
+            "hoverCounterFg": "#ffffff",
+            "disabledCounterFg": "rgba(9,105,218,0.5)"
           },
           "danger": {
             "text": "#cf222e",
@@ -1854,7 +1875,10 @@ var themePreval = {
             "disabledCounterBg": "rgba(207,34,46,0.05)",
             "counterBg": "rgba(207,34,46,0.1)",
             "icon": "#cf222e",
-            "hoverIcon": "#ffffff"
+            "hoverIcon": "#ffffff",
+            "counterFg": "#a40e26",
+            "hoverCounterFg": "#ffffff",
+            "disabledCounterFg": "rgba(207,34,46,0.5)"
           }
         },
         "underlinenav": {
@@ -2331,21 +2355,24 @@ var themePreval = {
             "disabledBg": "rgba(35,134,54,0.6)",
             "disabledBorder": "rgba(240,246,252,0.1)",
             "icon": "#ffffff",
-            "counterBg": "rgba(255,255,255,0.2)"
+            "counterBg": "rgba(4,38,15,0.2)"
           },
           "outline": {
-            "text": "#58a6ff",
+            "text": "#388bfd",
             "hoverText": "#58a6ff",
             "hoverBg": "#30363d",
             "hoverBorder": "rgba(240,246,252,0.1)",
-            "hoverCounterBg": "rgba(255,255,255,0.2)",
+            "hoverCounterBg": "rgba(5,29,77,0.2)",
             "selectedText": "#ffffff",
             "selectedBg": "#0d419d",
             "selectedBorder": "rgba(240,246,252,0.1)",
             "disabledText": "rgba(88,166,255,0.5)",
             "disabledBg": "#0d1117",
             "disabledCounterBg": "rgba(31,111,235,0.05)",
-            "counterBg": "rgba(31,111,235,0.1)"
+            "counterBg": "rgba(5,29,77,0.2)",
+            "hoverCounterFg": "#58a6ff",
+            "disabledCounterFg": "rgba(47,129,247,0.5)",
+            "counterFg": "#388bfd"
           },
           "danger": {
             "text": "#f85149",
@@ -2360,8 +2387,11 @@ var themePreval = {
             "disabledText": "rgba(248,81,73,0.5)",
             "disabledBg": "#0d1117",
             "disabledCounterBg": "rgba(218,54,51,0.05)",
-            "counterBg": "rgba(218,54,51,0.1)",
-            "icon": "#f85149"
+            "counterBg": "rgba(73,2,2,0.2)",
+            "icon": "#f85149",
+            "counterFg": "#f85149",
+            "disabledCounterFg": "rgba(248,81,73,0.5)",
+            "hoverCounterFg": "#ffffff"
           }
         },
         "underlinenav": {
@@ -2841,21 +2871,24 @@ var themePreval = {
             "disabledBg": "rgba(52,125,57,0.6)",
             "disabledBorder": "rgba(205,217,229,0.1)",
             "icon": "#cdd9e5",
-            "counterBg": "rgba(205,217,229,0.2)"
+            "counterBg": "rgba(17,52,23,0.2)"
           },
           "outline": {
-            "text": "#539bf5",
+            "text": "#4184e4",
             "hoverText": "#539bf5",
             "hoverBg": "#444c56",
             "hoverBorder": "rgba(205,217,229,0.1)",
-            "hoverCounterBg": "rgba(205,217,229,0.2)",
+            "hoverCounterBg": "rgba(15,45,92,0.2)",
             "selectedText": "#cdd9e5",
             "selectedBg": "#1b4b91",
             "selectedBorder": "rgba(205,217,229,0.1)",
             "disabledText": "rgba(83,155,245,0.5)",
             "disabledBg": "#22272e",
             "disabledCounterBg": "rgba(49,109,202,0.05)",
-            "counterBg": "rgba(49,109,202,0.1)"
+            "counterBg": "rgba(15,45,92,0.2)",
+            "hoverCounterFg": "#539bf5",
+            "disabledCounterFg": "rgba(83,155,245,0.5)",
+            "counterFg": "#4184e4"
           },
           "danger": {
             "text": "#e5534b",
@@ -2870,8 +2903,11 @@ var themePreval = {
             "disabledText": "rgba(229,83,75,0.5)",
             "disabledBg": "#22272e",
             "disabledCounterBg": "rgba(201,60,55,0.05)",
-            "counterBg": "rgba(201,60,55,0.1)",
-            "icon": "#e5534b"
+            "counterBg": "rgba(93,15,18,0.2)",
+            "icon": "#e5534b",
+            "counterFg": "#e5534b",
+            "disabledCounterFg": "rgba(229,83,75,0.5)",
+            "hoverCounterFg": "#cdd9e5"
           }
         },
         "underlinenav": {
@@ -3354,18 +3390,21 @@ var themePreval = {
             "counterBg": "rgba(1,4,9,0.15)"
           },
           "outline": {
-            "text": "#71b7ff",
+            "text": "#409eff",
             "hoverText": "#71b7ff",
             "hoverBg": "#525964",
             "hoverBorder": "#7a828e",
-            "hoverCounterBg": "rgba(255,255,255,0.2)",
+            "hoverCounterBg": "rgba(25,79,177,0.2)",
             "selectedText": "#ffffff",
             "selectedBg": "#2672f3",
             "selectedBorder": "#7a828e",
             "disabledText": "rgba(113,183,255,0.5)",
             "disabledBg": "#0a0c10",
             "disabledCounterBg": "rgba(64,158,255,0.05)",
-            "counterBg": "rgba(64,158,255,0.1)"
+            "counterBg": "rgba(25,79,177,0.2)",
+            "hoverCounterFg": "#71b7ff",
+            "disabledCounterFg": "rgba(113,183,255,0.5)",
+            "counterFg": "#409eff"
           },
           "danger": {
             "text": "#ff6a69",
@@ -3381,7 +3420,10 @@ var themePreval = {
             "disabledBg": "#0a0c10",
             "disabledCounterBg": "rgba(255,106,105,0.05)",
             "counterBg": "rgba(1,4,9,0.15)",
-            "icon": "#ff6a69"
+            "icon": "#ff6a69",
+            "counterFg": "#ff6a69",
+            "disabledCounterFg": "rgba(255,106,105,0.5)",
+            "hoverCounterFg": "#ffffff"
           }
         },
         "underlinenav": {
@@ -3861,21 +3903,24 @@ var themePreval = {
             "disabledBg": "rgba(31,111,235,0.6)",
             "disabledBorder": "rgba(240,246,252,0.1)",
             "icon": "#ffffff",
-            "counterBg": "rgba(255,255,255,0.2)"
+            "counterBg": "rgba(5,29,77,0.2)"
           },
           "outline": {
-            "text": "#58a6ff",
+            "text": "#388bfd",
             "hoverText": "#58a6ff",
             "hoverBg": "#30363d",
             "hoverBorder": "rgba(240,246,252,0.1)",
-            "hoverCounterBg": "rgba(255,255,255,0.2)",
+            "hoverCounterBg": "rgba(5,29,77,0.2)",
             "selectedText": "#ffffff",
             "selectedBg": "#0d419d",
             "selectedBorder": "rgba(240,246,252,0.1)",
             "disabledText": "rgba(88,166,255,0.5)",
             "disabledBg": "#0d1117",
             "disabledCounterBg": "rgba(31,111,235,0.05)",
-            "counterBg": "rgba(31,111,235,0.1)"
+            "counterBg": "rgba(5,29,77,0.2)",
+            "hoverCounterFg": "#58a6ff",
+            "disabledCounterFg": "rgba(88,166,255,0.5)",
+            "counterFg": "#388bfd"
           },
           "danger": {
             "text": "#d47616",
@@ -3890,8 +3935,11 @@ var themePreval = {
             "disabledText": "rgba(212,118,22,0.5)",
             "disabledBg": "#0d1117",
             "disabledCounterBg": "rgba(183,97,0,0.05)",
-            "counterBg": "rgba(183,97,0,0.1)",
-            "icon": "#d47616"
+            "counterBg": "rgba(51,28,4,0.2)",
+            "icon": "#d47616",
+            "counterFg": "#d47616",
+            "disabledCounterFg": "rgba(212,118,22,0.5)",
+            "hoverCounterFg": "#ffffff"
           }
         },
         "underlinenav": {
@@ -4371,21 +4419,24 @@ var themePreval = {
             "disabledBg": "rgba(31,111,235,0.6)",
             "disabledBorder": "rgba(240,246,252,0.1)",
             "icon": "#ffffff",
-            "counterBg": "rgba(255,255,255,0.2)"
+            "counterBg": "rgba(5,29,77,0.2)"
           },
           "outline": {
-            "text": "#58a6ff",
+            "text": "#388bfd",
             "hoverText": "#58a6ff",
             "hoverBg": "#30363d",
             "hoverBorder": "rgba(240,246,252,0.1)",
-            "hoverCounterBg": "rgba(255,255,255,0.2)",
+            "hoverCounterBg": "rgba(5,29,77,0.2)",
             "selectedText": "#ffffff",
             "selectedBg": "#0d419d",
             "selectedBorder": "rgba(240,246,252,0.1)",
             "disabledText": "rgba(88,166,255,0.5)",
             "disabledBg": "#0d1117",
             "disabledCounterBg": "rgba(31,111,235,0.05)",
-            "counterBg": "rgba(31,111,235,0.1)"
+            "counterBg": "rgba(5,29,77,0.2)",
+            "hoverCounterFg": "#58a6ff",
+            "disabledCounterFg": "rgba(88,166,255,0.5)",
+            "counterFg": "#388bfd"
           },
           "danger": {
             "text": "#f85149",
@@ -4400,8 +4451,11 @@ var themePreval = {
             "disabledText": "rgba(248,81,73,0.5)",
             "disabledBg": "#0d1117",
             "disabledCounterBg": "rgba(218,54,51,0.05)",
-            "counterBg": "rgba(218,54,51,0.1)",
-            "icon": "#f85149"
+            "counterBg": "rgba(73,2,2,0.2)",
+            "icon": "#f85149",
+            "counterFg": "#f85149",
+            "disabledCounterFg": "rgba(248,81,73,0.5)",
+            "hoverCounterFg": "#ffffff"
           }
         },
         "underlinenav": {

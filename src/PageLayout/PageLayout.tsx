@@ -421,7 +421,6 @@ const Content: React.FC<React.PropsWithChildren<PageLayoutContentProps>> = ({
 
   return (
     <Box
-      as="main"
       aria-label={label}
       aria-labelledby={labelledBy}
       sx={merge<BetterSystemStyleObject>(
