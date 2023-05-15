@@ -199,7 +199,8 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
     const wrapperProps = _PrivateItemWrapper ? menuItemProps : {}
 
     // @ts-ignore props.as may be defined, may not.
-    const isTopLevelInteractive = () => props.as === 'button' || menuContext.anchorId !== undefined || role?.match(/menuitem/)
+    const isTopLevelInteractive = () =>
+      props.as === 'button' || menuContext.anchorId !== undefined || role?.match(/menuitem/)
 
     console.log(isTopLevelInteractive())
 
