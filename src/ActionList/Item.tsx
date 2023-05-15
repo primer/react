@@ -215,6 +215,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
                 backgroundColor: 'transparent',
                 cursor: 'inherit',
                 fontSize: 'inherit',
+                color: 'inherit'
               }}
               // @ts-ignore `as` prop may be passed to ActionList.Item, even if it isn't defined in ActionListItemProps.
               // If this item is inside an ActionMenu, don't render an interactive button.
