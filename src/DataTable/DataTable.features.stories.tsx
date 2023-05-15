@@ -14,6 +14,7 @@ import RelativeTime from '../RelativeTime'
 import VisuallyHidden from '../_VisuallyHidden'
 import {createColumnHelper} from './column'
 import {repos} from './storybook/data'
+import Checkbox from '../Checkbox'
 
 export default {
   title: 'Components/DataTable/Features',
@@ -1436,6 +1437,98 @@ export const WithPagination = () => {
           setPageIndex(pageIndex)
         }}
       />
+    </Table.Container>
+  )
+}
+
+export const WithRowSelection = () => {
+  const [selected, setSelected] = React.useState(() => {
+    return new Set()
+  })
+  const partiallySelected = selected.size > 0 && selected.size < data.length
+  const allSelected = selected.size === data.length
+
+  return (
+    <Table.Container>
+      <Table.Title as="h2" id="repositories">
+        Repositories
+      </Table.Title>
+      <Table.Subtitle as="p" id="repositories-subtitle">
+        A subtitle could appear here to give extra context to the data.
+      </Table.Subtitle>
+      <Table gridTemplateColumns={'min-content auto auto auto auto auto'}>
+        <Table.Head>
+          <Table.Row>
+            <Table.Header>
+              <Checkbox
+                aria-label="select all rows"
+                checked={allSelected}
+                indeterminate={partiallySelected}
+                onChange={event => {
+                  if (event.target.checked === true) {
+                    setSelected(new Set(data.map(row => row.id)))
+                  } else {
+                    setSelected(new Set())
+                  }
+                }}
+              />
+            </Table.Header>
+            {columns.map(column => {
+              return <Table.Header key={column.field}>{column.header}</Table.Header>
+            })}
+          </Table.Row>
+        </Table.Head>
+        <Table.Body>
+          {data.map(row => {
+            return (
+              <Table.Row key={row.id}>
+                <Table.Cell>
+                  <Checkbox
+                    aria-label={`Select ${row.name}`}
+                    checked={selected.has(row.id)}
+                    onChange={event => {
+                      if (event.target.checked === true) {
+                        const newState = new Set(selected)
+                        newState.add(row.id)
+                        setSelected(newState)
+                      } else if (event.target.checked === false) {
+                        const newState = new Set(selected)
+                        newState.delete(row.id)
+                        setSelected(newState)
+                      }
+                    }}
+                  />
+                </Table.Cell>
+                <Table.Cell scope="row">{row.name}</Table.Cell>
+                <Table.Cell>
+                  <Label>{uppercase(row.type)}</Label>
+                </Table.Cell>
+                <Table.Cell>
+                  <RelativeTime date={new Date(row.updatedAt)} />
+                </Table.Cell>
+                <Table.Cell>
+                  {row.securityFeatures.dependabot.length > 0 ? (
+                    <LabelGroup>
+                      {row.securityFeatures.dependabot.map(feature => {
+                        return <Label key={feature}>{uppercase(feature)}</Label>
+                      })}
+                    </LabelGroup>
+                  ) : null}
+                </Table.Cell>
+                <Table.Cell>
+                  {row.securityFeatures.codeScanning.length > 0 ? (
+                    <LabelGroup>
+                      {row.securityFeatures.codeScanning.map(feature => {
+                        return <Label key={feature}>{uppercase(feature)}</Label>
+                      })}
+                    </LabelGroup>
+                  ) : null}
+                </Table.Cell>
+              </Table.Row>
+            )
+          })}
+        </Table.Body>
+      </Table>
     </Table.Container>
   )
 }
