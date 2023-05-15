@@ -7,6 +7,7 @@
    - [Tools we use](#tools-we-use)
    - [File Structure](#file-structure)
    - [Component patterns](#component-patterns)
+   - [SSR compatibility](#ssr-compatibility)
    - [Adding the sx prop](#adding-the-sx-prop)
    - [Linting](#linting)
    - [TypeScript support](#typescript-support)
@@ -135,6 +136,18 @@ Component.displayName = 'Component'
 
 export default Component
 ```
+
+### SSR compatibility
+
+Every Primer React component should be compatible with server-side rendering (SSR).
+We consider a component SSR-compatible if it...
+
+1. can be rendered server-side without errors (i.e., doesn’t misuse DOM globals or useLayoutEffect).
+1. doesn’t cause layout shift during hydration.
+
+We use [`eslint-plugin-ssr-friendly`](https://github.com/kopiro/eslint-plugin-ssr-friendly) to prevent misuse of DOM globals. If you see an error from this plugin, please fix it before merging your PR.
+
+If your component doesn't use DOM globals, it likely won't cause layout shift during hydration. However, if you suspect that your component might cause layout shift, you can use the example Next.js app (`examples/nextjs`) to debug. Import and render your component in `examples/nextjs/pages/index.js` then run the example app with `cd examples/nextjs && npm run develop`.
 
 ### Adding the `sx` prop
 
