@@ -3,7 +3,7 @@ import {Meta, Story} from '@storybook/react'
 import React from 'react'
 import Box from '../Box'
 import {Button} from '../Button'
-import StyledOcticon from '../StyledOcticon'
+import Octicon from '../Octicon'
 import {SubTreeState, TreeView} from './TreeView'
 
 const meta: Meta = {
@@ -114,7 +114,7 @@ export const FilesChanged: Story = () => {
               </TreeView.LeadingVisual>
               Avatar.tsx
               <TreeView.TrailingVisual label="added">
-                <StyledOcticon icon={DiffAddedIcon} color="success.fg" />
+                <Octicon icon={DiffAddedIcon} color="success.fg" />
               </TreeView.TrailingVisual>
             </TreeView.Item>
             <TreeView.Item id="src/Button" defaultExpanded>
@@ -129,7 +129,7 @@ export const FilesChanged: Story = () => {
                   </TreeView.LeadingVisual>
                   Button.tsx
                   <TreeView.TrailingVisual label="modified">
-                    <StyledOcticon icon={DiffModifiedIcon} color="attention.fg" />
+                    <Octicon icon={DiffModifiedIcon} color="attention.fg" />
                   </TreeView.TrailingVisual>
                 </TreeView.Item>
                 <TreeView.Item id="src/Button/Button.test.tsx">
@@ -138,7 +138,7 @@ export const FilesChanged: Story = () => {
                   </TreeView.LeadingVisual>
                   Button.test.tsx
                   <TreeView.TrailingVisual label="modified">
-                    <StyledOcticon icon={DiffModifiedIcon} color="attention.fg" />
+                    <Octicon icon={DiffModifiedIcon} color="attention.fg" />
                   </TreeView.TrailingVisual>
                 </TreeView.Item>
               </TreeView.SubTree>
@@ -149,7 +149,7 @@ export const FilesChanged: Story = () => {
               </TreeView.LeadingVisual>
               ReallyLongFileNameThatShouldBeTruncated.tsx
               <TreeView.TrailingVisual label="modified">
-                <StyledOcticon icon={DiffModifiedIcon} color="attention.fg" />
+                <Octicon icon={DiffModifiedIcon} color="attention.fg" />
               </TreeView.TrailingVisual>
             </TreeView.Item>
           </TreeView.SubTree>
@@ -166,7 +166,7 @@ export const FilesChanged: Story = () => {
               </TreeView.LeadingVisual>
               index.html
               <TreeView.TrailingVisual label="renamed">
-                <StyledOcticon icon={DiffRenamedIcon} />
+                <Octicon icon={DiffRenamedIcon} />
               </TreeView.TrailingVisual>
             </TreeView.Item>
             <TreeView.Item id="public/favicon.ico">
@@ -175,7 +175,7 @@ export const FilesChanged: Story = () => {
               </TreeView.LeadingVisual>
               favicon.ico
               <TreeView.TrailingVisual label="removed">
-                <StyledOcticon icon={DiffRemovedIcon} color="danger.fg" />
+                <Octicon icon={DiffRemovedIcon} color="danger.fg" />
               </TreeView.TrailingVisual>
             </TreeView.Item>
           </TreeView.SubTree>
@@ -806,7 +806,7 @@ export const WithoutIndentation: Story = () => (
         </TreeView.LeadingVisual>
         Avatar.tsx
         <TreeView.TrailingVisual>
-          <StyledOcticon icon={DiffAddedIcon} color="success.fg" aria-label="added" />
+          <Octicon icon={DiffAddedIcon} color="success.fg" aria-label="added" />
         </TreeView.TrailingVisual>
       </TreeView.Item>
       <TreeView.Item id="src/Button.tsx" current>
@@ -815,7 +815,7 @@ export const WithoutIndentation: Story = () => (
         </TreeView.LeadingVisual>
         Button.tsx
         <TreeView.TrailingVisual>
-          <StyledOcticon icon={DiffModifiedIcon} color="attention.fg" aria-label="modified" />
+          <Octicon icon={DiffModifiedIcon} color="attention.fg" aria-label="modified" />
         </TreeView.TrailingVisual>
       </TreeView.Item>
       <TreeView.Item id="package.json">
@@ -824,7 +824,7 @@ export const WithoutIndentation: Story = () => (
         </TreeView.LeadingVisual>
         package.json
         <TreeView.TrailingVisual>
-          <StyledOcticon icon={DiffModifiedIcon} color="attention.fg" aria-label="modified" />
+          <Octicon icon={DiffModifiedIcon} color="attention.fg" aria-label="modified" />
         </TreeView.TrailingVisual>
       </TreeView.Item>
     </TreeView>
