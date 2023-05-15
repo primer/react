@@ -24,7 +24,7 @@ export type DialogButtonProps = ButtonProps & {
   /**
    * The type of Button element to use
    */
-  buttonType?: 'default' | 'primary' | 'danger'
+  buttonType?: 'default' | 'primary' | 'danger' | 'normal'
 
   /**
    * The Button's inner text
@@ -387,7 +387,7 @@ const Buttons: React.FC<React.PropsWithChildren<{buttons: DialogButtonProps[]}>>
           <Button
             key={index}
             {...buttonProps}
-            variant={buttonType}
+            variant={buttonType === 'normal' ? 'default' : buttonType}
             ref={autoFocus && autoFocusCount === 0 ? (autoFocusCount++, autoFocusRef) : null}
           >
             {children}
