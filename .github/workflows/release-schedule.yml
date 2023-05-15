@@ -101,10 +101,10 @@ jobs:
             const checklist = [
               '## Checklist',
               '',
-              '- [ ] Prerelease available on npm',
-              '- [ ] Integration checks have passed',
-              '- [ ] Release available on npm',
-              '- [ ] Integration Pull Requests have been merged',
+              '- [ ] Checks have passed on the integration Pull Request downstream',
+              '- [ ] Release tracking Pull Request has been merged',
+              '- [ ] Stable release available on npm',
+              '- [ ] Downstream repos have been updated to latest',
             ].join('\n');
             const notes = [
               '## Notes',
