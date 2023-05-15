@@ -59,7 +59,7 @@ export interface ItemProps extends SxProp {
   /**
    * Icon or text positioned after `Item` text.
    */
-  trailingVisual?: string | React.ComponentType<React.PropsWithChildren<{className?: string}>>
+  trailingVisual?: React.FunctionComponent<React.PropsWithChildren<IconProps>> | React.ReactNode
 
   /**
    * Style variations associated with various `Item` types.
@@ -465,7 +465,8 @@ export const Item = React.forwardRef((itemProps, ref) => {
         {/* backward compatibility: prefer TrailingVisual but fallback to TrailingIcon */}
         {TrailingVisual ? (
           <TrailingContent variant={variant} disabled={disabled}>
-            {typeof TrailingVisual === 'string' ? TrailingVisual : <TrailingVisual />}
+            {/* @ts-ignore how to check the type of Icons ? */}
+            {typeof TrailingVisual === 'object' ? <TrailingVisual /> : TrailingVisual}
           </TrailingContent>
         ) : TrailingIcon || trailingText ? (
           <TrailingContent variant={variant} disabled={disabled}>
