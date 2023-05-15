@@ -13,7 +13,7 @@ import {ListContext} from './List'
 import {Selection} from './Selection'
 import {ActionListItemProps, getVariantStyles, ItemContext, TEXT_ROW_HEIGHT} from './shared'
 import {LeadingVisual, TrailingVisual} from './Visuals'
-import {ActionMenu} from '../ActionMenu'
+import {MenuContext} from '../ActionMenu/ActionMenu'
 import {GroupContext} from './Group'
 
 const LiBox = styled.li<SxProp>(sx)
@@ -39,9 +39,10 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       trailingVisual: TrailingVisual,
       description: Description,
     })
+
     const {variant: listVariant, showDividers, selectionVariant: listSelectionVariant} = React.useContext(ListContext)
     const {container, afterSelect, selectionAttribute} = React.useContext(ActionListContainerContext)
-    const menuContext = React.useContext(ActionMenu.MenuContext)
+    const menuContext = React.useContext(MenuContext)
     const {selectionVariant: groupSelectionVariant} = React.useContext(GroupContext)
 
     const selectionVariant = groupSelectionVariant ?? listSelectionVariant
