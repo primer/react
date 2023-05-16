@@ -25,6 +25,7 @@ jobs:
         env:
           PAGERDUTY_API_KEY: ${{ secrets.PAGERDUTY_API_KEY_SID }}
         with:
+          result-encoding: string
           script: |
             const { PAGERDUTY_API_KEY } = process.env;
 
