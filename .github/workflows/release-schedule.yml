@@ -69,7 +69,7 @@ jobs:
             const format = require('date-fns/format');
             const previousMonday = require('date-fns/previousMonday');
 
-            cnost { RELEASE_CONDUCTOR } = process.env;
+            const { RELEASE_CONDUCTOR } = process.env;
 
             // Current schedule
             const today = new Date();
