@@ -157,16 +157,14 @@ jobs:
               });
               return;
             }
-            
-            console.log(releaseIssue);
 
             // We already have an issue open for the current release
-            if (releaseIssue.body.contains(id)) {
+            if (releaseIssue.body.includes(id)) {
               return;
             }
 
             // This is the previous release issue
-            if (releaseIssue.body.contains(previousId)) {
+            if (releaseIssue.body.includes(previousId)) {
               const assignees = releaseIssue.assignees.map((assignee) => {
                 return `@${assignee.login}`;
               }).join(' ');
