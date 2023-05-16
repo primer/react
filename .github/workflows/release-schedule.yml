@@ -71,6 +71,8 @@ jobs:
             const previousMonday = require('date-fns/previousMonday');
 
             const { RELEASE_CONDUCTOR } = process.env;
+            
+            core.info(`Release conductor: ${RELEASE_CONDUCTOR}`);
 
             // Current schedule
             const today = new Date();
@@ -84,6 +86,16 @@ jobs:
             // Issue IDs
             const id = `primer-release-schedule:${format(start, 'yyyy-MM-dd')}`;
             const previousId = `primer-release-schedule:${format(previousStart, 'yyyy-M-dd')}`;
+            
+            core.startGroup(`Previous schedule: ${previousId}`);
+            core.info(`Start: ${previousStart}`);
+            core.info(`End: ${previousEnd}`)
+            core.endGroup();
+            
+            core.startGroup(`Current schedule: ${id}`);
+            core.info(`Start: ${start}`);
+            core.info(`End: ${end}`)
+            core.endGroup();
 
             const ISSUE_TITLE = 'Release Tracking';
             const timeline = [
@@ -153,10 +165,12 @@ jobs:
                 repo: context.repo.repo,
                 title: ISSUE_TITLE,
                 body: ISSUE_BODY,
-                assignee: [RELEASE_CONDUCTOR],
+                assignees: [RELEASE_CONDUCTOR],
               });
               return;
             }
+            
+            core.info(`Found release issue: ${releaseIssue.html_url}`);
 
             // We already have an issue open for the current release
             if (releaseIssue.body.includes(id)) {
@@ -186,7 +200,7 @@ jobs:
                 repo: context.repo.repo,
                 title: ISSUE_TITLE,
                 body: ISSUE_BODY,
-                assignee: [RELEASE_CONDUCTOR],
+                assignees: [RELEASE_CONDUCTOR],
               });
 
               // Close the previous release issue
