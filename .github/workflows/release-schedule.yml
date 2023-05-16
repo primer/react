@@ -157,6 +157,8 @@ jobs:
               });
               return;
             }
+            
+            console.log(releaseIssue);
 
             // We already have an issue open for the current release
             if (releaseIssue.body.contains(id)) {
