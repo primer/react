@@ -94,7 +94,8 @@ exports[`NavList renders a simple list 1`] = `
 }
 
 .c3 button[data-component="ActionList.Item--DividerContainer"] {
-  padding-left: 0;
+  padding: 0;
+  text-align: left;
 }
 
 .c3:not(:first-of-type) {
@@ -180,7 +181,8 @@ exports[`NavList renders a simple list 1`] = `
 }
 
 .c7 button[data-component="ActionList.Item--DividerContainer"] {
-  padding-left: 0;
+  padding: 0;
+  text-align: left;
 }
 
 .c7:not(:first-of-type) {
@@ -512,7 +514,8 @@ exports[`NavList renders with groups 1`] = `
 }
 
 .c7 button[data-component="ActionList.Item--DividerContainer"] {
-  padding-left: 0;
+  padding: 0;
+  text-align: left;
 }
 
 .c7:not(:first-of-type) {
@@ -598,7 +601,8 @@ exports[`NavList renders with groups 1`] = `
 }
 
 .c11 button[data-component="ActionList.Item--DividerContainer"] {
-  padding-left: 0;
+  padding: 0;
+  text-align: left;
 }
 
 .c11:not(:first-of-type) {
@@ -959,7 +963,8 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
 }
 
 .c11 button[data-component="ActionList.Item--DividerContainer"] {
-  padding-left: 0;
+  padding: 0;
+  text-align: left;
 }
 
 .c11:not(:first-of-type) {
@@ -1088,7 +1093,8 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
 }
 
 .c4 button[data-component="ActionList.Item--DividerContainer"] {
-  padding-left: 0;
+  padding: 0;
+  text-align: left;
 }
 
 .c4:not(:first-of-type) {
@@ -1442,7 +1448,8 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
 }
 
 .c11 button[data-component="ActionList.Item--DividerContainer"] {
-  padding-left: 0;
+  padding: 0;
+  text-align: left;
 }
 
 .c11:not(:first-of-type) {
@@ -1578,7 +1585,8 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
 }
 
 .c4 button[data-component="ActionList.Item--DividerContainer"] {
-  padding-left: 0;
+  padding: 0;
+  text-align: left;
 }
 
 .c4:not(:first-of-type) {

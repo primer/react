@@ -135,6 +135,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       },
       'button[data-component="ActionList.Item--DividerContainer"]': {
         padding: 0,
+        textAlign: 'left',
       },
       // show between 2 items
       ':not(:first-of-type)': {'--divider-color': theme?.colors.actionListItem.inlineDivider},
