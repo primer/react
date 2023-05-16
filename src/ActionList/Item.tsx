@@ -201,7 +201,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
 
     const isTopLevelInteractive = () =>
       // @ts-ignore props.as may be defined, may not.
-      props.as === 'button' || menuContext.anchorId !== undefined || role?.match(/menuitem/)
+      props.as === 'button' || props.as === 'a' || menuContext.anchorId !== undefined || role?.match(/menuitem/)
 
     return (
       <ItemContext.Provider value={{variant, disabled, inlineDescriptionId, blockDescriptionId}}>
