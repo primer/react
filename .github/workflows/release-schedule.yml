@@ -19,8 +19,6 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 18
-      - name: Install packages for github-script
-        run: npm i node-fetch
       - name: Fetch user from pagerduty schedule
         id: pagerduty
         uses: actions/github-script@v6
@@ -28,8 +26,6 @@ jobs:
           PAGERDUTY_API_KEY: ${{ secrets.PAGERDUTY_API_KEY_SID }}
         with:
           script: |
-            const fetch = require('node-fetch');
-
             const { PAGERDUTY_API_KEY } = process.env;
 
             const today = new Date().toISOString().slice(0, 10); // format: 2022-11-24
