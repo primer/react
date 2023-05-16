@@ -6,10 +6,6 @@ import {ComponentProps} from '../utils/types'
 
 type StyledOcticonProps = {icon: React.ElementType; color?: string} & IconProps
 
-// function Icon({icon: IconComponent, ...rest}: StyledOcticonProps) {
-//   return <IconComponent {...rest} />
-// }
-
 const Icon = React.forwardRef((props: StyledOcticonProps, ref: React.Ref<SVGSVGElement>) => {
   const {icon: IconComponent, ...rest} = props
   return <IconComponent {...rest} ref={ref} />
