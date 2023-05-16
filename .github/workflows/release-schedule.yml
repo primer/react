@@ -64,6 +64,7 @@ jobs:
           RELEASE_CONDUCTOR: ${{ needs.release-conductor.outputs.conductor }}
         with:
           script: |
+            const eachDayOfInterval = require('date-fns/eachDayOfInterval');
             const startOfWeek = require('date-fns/startOfWeek');
             const nextFriday = require('date-fns/nextFriday');
             const format = require('date-fns/format');
