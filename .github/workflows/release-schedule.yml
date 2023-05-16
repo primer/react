@@ -13,23 +13,20 @@ jobs:
     if: ${{ github.repository == 'primer/react' }}
     runs-on: ubuntu-latest
     outputs:
-      conductor: ${{ steps.pagerduty.output.result }}
+      conductor: ${{ steps.pagerduty.outputs.result }}
     steps:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: 18
-      - name: Install packages for github-script
-        run: npm i node-fetch
       - name: Fetch user from pagerduty schedule
         id: pagerduty
         uses: actions/github-script@v6
         env:
           PAGERDUTY_API_KEY: ${{ secrets.PAGERDUTY_API_KEY_SID }}
         with:
+          result-encoding: string
           script: |
-            const fetch = require('node-fetch');
-
             const { PAGERDUTY_API_KEY } = process.env;
 
             const today = new Date().toISOString().slice(0, 10); // format: 2022-11-24
@@ -68,12 +65,15 @@ jobs:
           RELEASE_CONDUCTOR: ${{ needs.release-conductor.outputs.conductor }}
         with:
           script: |
+            const eachDayOfInterval = require('date-fns/eachDayOfInterval');
             const startOfWeek = require('date-fns/startOfWeek');
             const nextFriday = require('date-fns/nextFriday');
             const format = require('date-fns/format');
             const previousMonday = require('date-fns/previousMonday');
 
-            cnost { RELEASE_CONDUCTOR } = process.env;
+            const { RELEASE_CONDUCTOR } = process.env;
+            
+            core.info(`Release conductor: ${RELEASE_CONDUCTOR}`);
 
             // Current schedule
             const today = new Date();
@@ -87,6 +87,16 @@ jobs:
             // Issue IDs
             const id = `primer-release-schedule:${format(start, 'yyyy-MM-dd')}`;
             const previousId = `primer-release-schedule:${format(previousStart, 'yyyy-M-dd')}`;
+            
+            core.startGroup(`Previous schedule: ${previousId}`);
+            core.info(`Start: ${previousStart}`);
+            core.info(`End: ${previousEnd}`)
+            core.endGroup();
+            
+            core.startGroup(`Current schedule: ${id}`);
+            core.info(`Start: ${start}`);
+            core.info(`End: ${end}`)
+            core.endGroup();
 
             const ISSUE_TITLE = 'Release Tracking';
             const timeline = [
@@ -97,6 +107,7 @@ jobs:
               ...eachDayOfInterval({ start, end }).map((day) => {
                 return `- ${format(day, 'EEEE do')}`;
               }),
+              '',
             ].join('\n');
             const checklist = [
               '## Checklist',
@@ -105,6 +116,7 @@ jobs:
               '- [ ] Release tracking Pull Request has been merged',
               '- [ ] Stable release available on npm',
               '- [ ] Downstream repos have been updated to latest',
+              '',
             ].join('\n');
             const notes = [
               '## Notes',
@@ -113,9 +125,9 @@ jobs:
               ''
             ].join('\n');
 
-            let ISSUE_BODY = `<!-- ${id} -->\n`;
+            let ISSUE_BODY = `<!-- ${id} -->\n\n`;
 
-            ISSUE_BODY += `_This is a scheduled issue for tracking the release between ${format(start, 'EEEE do')} and ${format(end, 'EEEE do')}_\n`;
+            ISSUE_BODY += `_This is a scheduled issue for tracking the release between ${format(start, 'EEEE do')} and ${format(end, 'EEEE do')}_\n\n`;
 
             const iterator = github.paginate.iterator(
               github.rest.issues.listForRepo,
@@ -140,48 +152,54 @@ jobs:
 
             // There is no previously open release tracking issue
             if (!releaseIssue) {
-              ISSUE_BODY += '| Last week | Value |';
-              ISSUE_BODY += '| :-------- | :---- |';
-              ISSUE_BODY += '| Issue     |       |';
-              ISSUE_BODY += '| Conductor |       |';
-              ISSUE_BODY += '| Release Pull Request | [Link](https://gh.io/AAksvvr) |';
-              ISSUE_BODY += '| Integration tests    | [Link](https://gh.io/AAkr65h) |';
+              ISSUE_BODY += '| Last week | Value |\n';
+              ISSUE_BODY += '| :-------- | :---- |\n';
+              ISSUE_BODY += '| Issue     |       |\n';
+              ISSUE_BODY += '| Conductor |       |\n';
+              ISSUE_BODY += '| Release Pull Request | [Link](https://gh.io/AAksvvr) |\n';
+              ISSUE_BODY += '| Integration tests    | [Link](https://gh.io/AAkr65h) |\n';
               ISSUE_BODY += '\n';
               ISSUE_BODY += timeline;
               ISSUE_BODY += '\n';
               ISSUE_BODY += checklist;
+              ISSUE_BODY += '\n';
+              ISSUE_BODY += notes;
 
               await github.rest.issues.create({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 title: ISSUE_TITLE,
                 body: ISSUE_BODY,
-                assignee: [RELEASE_CONDUCTOR],
+                assignees: [RELEASE_CONDUCTOR],
               });
               return;
             }
+            
+            core.info(`Found release issue: ${releaseIssue.html_url}`);
 
             // We already have an issue open for the current release
-            if (releaseIssue.body.contains(id)) {
+            if (releaseIssue.body.includes(id)) {
               return;
             }
 
             // This is the previous release issue
-            if (releaseIssue.body.contains(previousId)) {
+            if (releaseIssue.body.includes(previousId)) {
               const assignees = releaseIssue.assignees.map((assignee) => {
-                return `@${assignee.login}`;
+                return assignee.login;
               }).join(' ');
 
-              ISSUE_BODY += '| Last week | Value |';
-              ISSUE_BODY += '| :-------- | :---- |';
-              ISSUE_BODY += `| Issue     | [${releaseIssue.title}](${releaseIssue.html_url}) |`;
-              ISSUE_BODY += '| Conductor | ${assignees} |';
-              ISSUE_BODY += '| Release Pull Request | [Link](https://gh.io/AAksvvr) |';
-              ISSUE_BODY += '| Integration tests    | [Link](https://gh.io/AAkr65h) |';
+              ISSUE_BODY += '| Last week | Value |\n';
+              ISSUE_BODY += '| :-------- | :---- |\n';
+              ISSUE_BODY += `| Issue     | [${releaseIssue.title}](${releaseIssue.html_url}) |\n`;
+              ISSUE_BODY += '| Conductor | ${assignees} |\n';
+              ISSUE_BODY += '| Release Pull Request | [Link](https://gh.io/AAksvvr) |\n';
+              ISSUE_BODY += '| Integration tests    | [Link](https://gh.io/AAkr65h) |\n';
               ISSUE_BODY += '\n';
               ISSUE_BODY += timeline;
               ISSUE_BODY += '\n';
               ISSUE_BODY += checklist;
+              ISSUE_BODY += '\n';
+              ISSUE_BODY += notes;
 
               // Create the current release issue
               await github.rest.issues.create({
@@ -189,7 +207,7 @@ jobs:
                 repo: context.repo.repo,
                 title: ISSUE_TITLE,
                 body: ISSUE_BODY,
-                assignee: [RELEASE_CONDUCTOR],
+                assignees: [RELEASE_CONDUCTOR],
               });
 
               // Close the previous release issue
