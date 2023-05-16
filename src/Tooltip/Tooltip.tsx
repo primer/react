@@ -2,7 +2,6 @@ import React, {Children, useEffect, useRef, useState} from 'react'
 import Box from '../Box'
 import sx, {SxProp} from '../sx'
 import {useId} from '../hooks/useId'
-import {isFocusable} from '@primer/behaviors/utils'
 // TODO: replace the warnings with invariant when future teams are ready to move the non-interactive triggers' tooltip info to else where. (Sorry for a very vague timeline :/)
 import {warning} from '../utils/warning'
 import styled from 'styled-components'
@@ -299,6 +298,15 @@ export type TriggerPropsType = {
   ref?: React.RefObject<HTMLElement>
 }
 
+// The list is from GitHub's custom-axe-rules https://github.com/github/github/blob/master/app/assets/modules/github/axe-custom-rules.ts#L3
+const interactiveElements = ['a[href]', 'button', 'summary', 'select', 'input:not([type=hidden])', 'textarea']
+
+const isInteractive = (element: HTMLElement) => {
+  return (
+    interactiveElements.some(selector => element.matches(selector)) ||
+    (element.hasAttribute('role') && element.getAttribute('role') === 'button')
+  )
+}
 export const Tooltip = ({
   direction = 'n',
   // used for description type
@@ -319,15 +327,15 @@ export const Tooltip = ({
 
   // we need this check for every render
   if (__DEV__) {
-    // Practically, this is not a conditional hook, it is a compile time check
+    // Practically, this is not a conditional hook, it is just making sure this hook runs only on DEV not PROD.
     // eslint-disable-next-line react-hooks/rules-of-hooks
     useEffect(() => {
       if (triggerRef.current) {
         // Has trigger element or any of its children interactive elements?
-        const isTriggerInteractive = isFocusable(triggerRef.current)
+        const isTriggerInteractive = isInteractive(triggerRef.current)
         const triggerChildren = triggerRef.current.childNodes
         const hasInteractiveChild = Array.from(triggerChildren).some(child => {
-          return child instanceof HTMLElement && isFocusable(child)
+          return child instanceof HTMLElement && isInteractive(child)
         })
         warning(
           !isTriggerInteractive && !hasInteractiveChild,
