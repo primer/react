@@ -213,7 +213,6 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
               sx={{
                 display: 'flex',
                 flexDirection: 'column',
-                flexGrow: 1,
                 minWidth: 0,
                 borderStyle: 'none',
                 backgroundColor: 'transparent',
