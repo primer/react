@@ -138,7 +138,9 @@ describe('ActionMenu', () => {
       </ThemeProvider>,
     )
 
-    const button = component.getAllByRole('button')[0]
+    const button = component.getByRole('button', {
+      name: 'Group by Stage',
+    })
 
     const user = userEvent.setup()
     await user.click(button)
