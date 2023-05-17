@@ -1,4 +1,4 @@
-import React, {forwardRef, useEffect} from 'react'
+import React, {forwardRef} from 'react'
 import styled from 'styled-components'
 import {system} from 'styled-system'
 import {get} from '../constants'
@@ -27,51 +27,15 @@ const StyledLink = styled.a<StyledLinkProps>`
     text-decoration: ${props => (props.muted ? 'none' : 'underline')};
     ${props => (props.hoverColor ? hoverColor : props.muted ? `color: ${get('colors.accent.fg')(props)}` : '')};
   }
-  &:is(button) {
-    display: inline-block;
-    padding: 0;
-    font-size: inherit;
-    white-space: nowrap;
-    cursor: pointer;
-    user-select: none;
-    background-color: transparent;
-    border: 0;
-    appearance: none;
-  }
   ${sx};
 `
 
-const Link = forwardRef(({as: Component = 'a', ...props}, forwardedRef) => {
+const Link = forwardRef(({...props}, forwardedRef) => {
   const innerRef = React.useRef<HTMLAnchorElement>(null)
   useRefObjectAsForwardedRef(forwardedRef, innerRef)
 
-  if (__DEV__) {
-    /**
-     * The Linter yells because it thinks this conditionally calls an effect,
-     * but since this is a compile-time flag and not a runtime conditional
-     * this is safe, and ensures the entire effect is kept out of prod builds
-     * shaving precious bytes from the output, and avoiding mounting a noop effect
-     */
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    useEffect(() => {
-      if (
-        innerRef.current &&
-        !(innerRef.current instanceof HTMLButtonElement) &&
-        !(innerRef.current instanceof HTMLAnchorElement)
-      ) {
-        // eslint-disable-next-line no-console
-        console.error(
-          'Error: Found `Link` component that renders an inaccessible element',
-          innerRef.current,
-          'Please ensure `Link` always renders as <a> or <button>',
-        )
-      }
-    }, [innerRef])
-  }
-
   return (
     <StyledLink
-      as={Component}
       {...props}
       // @ts-ignore shh
       ref={innerRef}

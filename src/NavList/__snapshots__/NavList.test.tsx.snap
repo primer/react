@@ -214,23 +214,6 @@ exports[`NavList renders a simple list 1`] = `
   text-decoration: underline;
 }
 
-.c4:is(button) {
-  display: inline-block;
-  padding: 0;
-  font-size: inherit;
-  white-space: nowrap;
-  cursor: pointer;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  background-color: transparent;
-  border: 0;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-}
-
 .c4:hover {
   color: inherit;
   -webkit-text-decoration: none;
@@ -616,23 +599,6 @@ exports[`NavList renders with groups 1`] = `
 .c8:hover {
   -webkit-text-decoration: underline;
   text-decoration: underline;
-}
-
-.c8:is(button) {
-  display: inline-block;
-  padding: 0;
-  font-size: inherit;
-  white-space: nowrap;
-  cursor: pointer;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  background-color: transparent;
-  border: 0;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
 }
 
 .c8:hover {
@@ -1102,23 +1068,6 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   text-decoration: underline;
 }
 
-.c12:is(button) {
-  display: inline-block;
-  padding: 0;
-  font-size: inherit;
-  white-space: nowrap;
-  cursor: pointer;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  background-color: transparent;
-  border: 0;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-}
-
 .c12:hover {
   color: inherit;
   -webkit-text-decoration: none;
@@ -1581,23 +1530,6 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
 .c12:hover {
   -webkit-text-decoration: underline;
   text-decoration: underline;
-}
-
-.c12:is(button) {
-  display: inline-block;
-  padding: 0;
-  font-size: inherit;
-  white-space: nowrap;
-  cursor: pointer;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  background-color: transparent;
-  border: 0;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
 }
 
 .c12:hover {

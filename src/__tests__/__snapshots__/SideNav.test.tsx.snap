@@ -12,23 +12,6 @@ exports[`SideNav SideNav.Link renders consistently 1`] = `
   text-decoration: underline;
 }
 
-.c0:is(button) {
-  display: inline-block;
-  padding: 0;
-  font-size: inherit;
-  white-space: nowrap;
-  cursor: pointer;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  background-color: transparent;
-  border: 0;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-}
-
 .c1 {
   position: relative;
   display: block;
