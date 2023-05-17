@@ -72,7 +72,7 @@ jobs:
             const previousMonday = require('date-fns/previousMonday');
 
             const { RELEASE_CONDUCTOR } = process.env;
-            
+
             core.info(`Release conductor: ${RELEASE_CONDUCTOR}`);
 
             // Current schedule
@@ -87,12 +87,12 @@ jobs:
             // Issue IDs
             const id = `primer-release-schedule:${format(start, 'yyyy-MM-dd')}`;
             const previousId = `primer-release-schedule:${format(previousStart, 'yyyy-M-dd')}`;
-            
+
             core.startGroup(`Previous schedule: ${previousId}`);
             core.info(`Start: ${previousStart}`);
             core.info(`End: ${previousEnd}`)
             core.endGroup();
-            
+
             core.startGroup(`Current schedule: ${id}`);
             core.info(`Start: ${start}`);
             core.info(`End: ${end}`)
@@ -174,7 +174,7 @@ jobs:
               });
               return;
             }
-            
+
             core.info(`Found release issue: ${releaseIssue.html_url}`);
 
             // We already have an issue open for the current release
