@@ -58,6 +58,7 @@
     "@types/jest-axe": "3.5.5",
     "@typescript-eslint/eslint-plugin": "5.54.1",
     "@typescript-eslint/parser": "5.54.1",
+    "babel-loader": "^9.1.0",
     "eslint": "8.40.0",
     "eslint-import-resolver-typescript": "3.5.3",
     "eslint-plugin-github": "4.6.1",
@@ -88,7 +89,8 @@
     "size-limit": "8.2.4",
     "storybook-addon-turbo-build": "1.1.0",
     "storybook-css-modules": "1.0.8",
-    "typescript": "4.9.5"
+    "typescript": "4.9.5",
+    "webpack": "5.82.1"
   },
   "prettier": "@github/prettier-config",
   "size-limit": [

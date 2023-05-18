@@ -40,7 +40,7 @@ module.exports = {
     'lib/**/*',
     'lib-*/**/*',
     'types/**/*',
-    'consumer-test/**/*',
+    'examples/consumer-test/**/*',
     'contributor-docs/adrs/*',
     'examples/nextjs/**',
     // Note: this file is inlined from an external dependency

@@ -9,7 +9,6 @@ export default {
   Link,
   InlineCode,
   ComponentChecklist,
-  // eslint-disable-next-line import/no-deprecated
   PropsTable,
   ComponentProps,
   // HACK: MDX doesn't support rendering subcomponents with dot notation

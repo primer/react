@@ -21,9 +21,14 @@ type Component = {
 const ajv = new Ajv()
 
 // Get all JSON files matching `src/**/*.docs.json`
-const docsFiles = glob.sync('src/**/*.docs.json', {
-  cwd: path.resolve(__dirname, '..', '..', 'packages', 'react'),
-})
+const rootDirectory = path.resolve(__dirname, '..', '..', 'packages', 'react')
+const docsFiles = glob
+  .sync('src/**/*.docs.json', {
+    cwd: rootDirectory,
+  })
+  .map(filename => {
+    return path.join(rootDirectory, filename)
+  })
 
 const components = docsFiles.map(docsFilepath => {
   const docs = JSON.parse(fs.readFileSync(docsFilepath, 'utf-8'))
