@@ -71,11 +71,15 @@ async function main(version = 17) {
   }
 
   const {devDependencies} = versions.get(version)
-  const packageJsonPath = path.resolve(__dirname, '..', 'packages', 'react', 'package.json')
+  const packageJsonPath = path.resolve(__dirname, '..', 'package.json')
   const packageJson = JSON.parse(await fs.readFile(packageJsonPath, 'utf8'))
 
+  packageJson.overrides = {
+    ...packageJson.overrides,
+  }
+
   for (const dependency of devDependencies) {
-    packageJson.devDependencies[dependency.name] = dependency.version
+    packageJson.overrides[dependency.name] = dependency.version
   }
 
   const contents = `${JSON.stringify(packageJson, null, 2)}${os.EOL}`
