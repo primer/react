@@ -6,6 +6,8 @@
     "examples/*"
   ],
   "scripts": {
+    "build": "npm run build -w @primer/react",
+    "setup": "./script/setup",
     "prepare": "husky install"
   },
   "devDependencies": {
