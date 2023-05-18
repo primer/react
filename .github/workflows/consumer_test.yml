@@ -36,12 +36,12 @@ jobs:
 
       - name: Link
         run: npm link
+        working-directory: packages/react
 
       - name: Link and test
         id: link-and-test
-        working-directory: consumer-test
+        working-directory: examples/consumer-test
         run: |
-          npm install
           npm link @primer/react
           npm run check
 
