@@ -65,7 +65,7 @@ const versions = new Map([
   ],
 ])
 
-async function main(version = '17') {
+async function main(version = 17) {
   if (!versions.has(version)) {
     throw new Error(`No React version defined for input: ${version}`)
   }
