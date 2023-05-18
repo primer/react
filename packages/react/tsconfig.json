@@ -1,20 +1,8 @@
 {
+  "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "target": "esnext",
-    "module": "commonjs",
-    "allowJs": true,
-    "checkJs": false,
-    "jsx": "preserve",
-    "declaration": true,
-    "outDir": "./lib",
-    "strict": true,
-    "moduleResolution": "node",
-    "rootDirs": ["src"],
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
-    "resolveJsonModule": true,
+    "composite": true,
     "typeRoots": ["./node_modules/@types", "./@types"]
   },
-  "include": ["@types/**/*.ts", "src/**/*.js", "src/**/*.ts", "src/**/*.tsx", "script/**/*.ts", "e2e/**/*.ts", "playwright.config.ts"]
+  "include": ["@types/**/*.ts", "src/**/*.js", "src/**/*.ts", "src/**/*.tsx", "script/**/*.ts"]
 }
