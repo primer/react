@@ -2,6 +2,7 @@
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "composite": true,
+    "outDir": "./lib",
     "typeRoots": ["../../node_modules/@types", "./node_modules/@types", "./@types"]
   },
   "include": ["@types/**/*.ts", "src/**/*.js", "src/**/*.ts", "src/**/*.tsx", "script/**/*.ts"]

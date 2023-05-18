@@ -13,14 +13,16 @@ module.exports = {
     REACT_VERSION_17: REACT_VERSION_17 === 'true',
   },
   testEnvironment: 'jsdom',
-  cacheDirectory: '.test',
-  collectCoverageFrom: ['src/**/*.{js,jsx,ts,tsx}', '!src/stories/**', '!**/*.stories.{js,jsx,ts,tsx}'],
+  collectCoverageFrom: ['<rootDir>/packages/**/*.{js,jsx,ts,tsx}', '!src/stories/**', '!**/*.stories.{js,jsx,ts,tsx}'],
   moduleNameMapper: {
     '\\.css$': 'jest-css-modules',
   },
-  setupFiles: ['<rootDir>/src/utils/test-helpers.tsx'],
-  setupFilesAfterEnv: ['<rootDir>/src/utils/test-matchers.tsx', '<rootDir>/src/utils/test-deprecations.tsx'],
-  testMatch: ['<rootDir>/(src|codemods)/**/*.test.[jt]s?(x)', '!**/*.types.test.[jt]s?(x)'],
+  setupFiles: ['<rootDir>/packages/react/src/utils/test-helpers.tsx'],
+  setupFilesAfterEnv: [
+    '<rootDir>/packages/react/src/utils/test-matchers.tsx',
+    '<rootDir>/packages/react/src/utils/test-deprecations.tsx',
+  ],
+  testMatch: ['<rootDir>/packages/**/*.test.[jt]s?(x)', '!**/*.types.test.[jt]s?(x)'],
   transformIgnorePatterns: [
     'node_modules/(?!@github/combobox-nav|@koddsson/textarea-caret|@github/[a-z-]+-element|@lit-labs/react)',
   ],
