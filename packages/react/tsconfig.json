@@ -3,6 +3,7 @@
   "compilerOptions": {
     "composite": true,
     "outDir": "./lib",
+    "rootDir": "src",
     "typeRoots": ["../../node_modules/@types", "./node_modules/@types", "./@types"]
   },
   "include": ["@types/**/*.ts", "src/**/*.js", "src/**/*.ts", "src/**/*.tsx", "script/**/*.ts"]

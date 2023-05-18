@@ -16,7 +16,7 @@
     "**/*.stories.tsx",
     "**/*.test.tsx",
     "script/**/*.ts",
-    "src/__tests__/",
+    "**/__tests__/**",
     "src/utils/test-*.tsx",
     "src/utils/testing.tsx"
   ]
