@@ -1,6 +1,6 @@
 import {addons} from '@storybook/addons'
-import {withThemeProvider, withSurroundingElements, toolbarTypes} from '../src/utils/story-helpers'
-import {PrimerBreakpoints} from '../src/utils/layout'
+import {withThemeProvider, withSurroundingElements, toolbarTypes} from '../packages/react/src/utils/story-helpers'
+import {PrimerBreakpoints} from '../packages/react/src/utils/layout'
 
 // primitives v8
 import './primitives-v8.css'
