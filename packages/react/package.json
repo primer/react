@@ -32,11 +32,8 @@
   "typings": "lib/index.d.ts",
   "sideEffects": false,
   "scripts": {
-    "setup": "./script/setup",
     "build": "./script/build",
     "clean": "rimraf dist lib lib-esm css",
-    "format": "prettier --cache --write '**/*.{js,md,mdx,ts,tsx,yml}'",
-    "format:diff": "prettier --cache --list-different '**/*.{js.md,mdx,ts,tsx,yml}'",
     "start": "concurrently npm:start:*",
     "start:docs": "cd docs && npm run develop",
     "start:storybook": "STORYBOOK=true start-storybook -p 6006",
@@ -126,7 +123,6 @@
     "@changesets/changelog-github": "0.4.8",
     "@changesets/cli": "2.26.0",
     "@github/markdownlint-github": "^0.3.0",
-    "@github/prettier-config": "0.0.6",
     "@playwright/test": "1.32.0",
     "@primer/css": "^21.0.1",
     "@rollup/plugin-babel": "6.0.3",
@@ -224,7 +220,6 @@
     "mdast-util-to-string": "3.1.1",
     "micromark-extension-frontmatter": "1.0.0",
     "micromark-extension-mdxjs": "1.0.0",
-    "prettier": "2.8.1",
     "react": "18.2.0",
     "react-dnd": "14.0.4",
     "react-dnd-html5-backend": "14.0.2",
@@ -255,7 +250,6 @@
     "react-dom": "^17.0.0 || ^18.0.0",
     "styled-components": "4.x || 5.x"
   },
-  "prettier": "@github/prettier-config",
   "size-limit": [
     {
       "path": "dist/browser.esm.js",

@@ -8,10 +8,15 @@
   "scripts": {
     "build": "npm run build -w @primer/react",
     "clean": "npm run clean -ws --if-present",
+    "format": "prettier --cache --write '**/*.{js,md,mdx,ts,tsx,yml}'",
+    "format:diff": "prettier --cache --list-different '**/*.{js.md,mdx,ts,tsx,yml}'",
     "setup": "./script/setup",
     "prepare": "husky install"
   },
   "devDependencies": {
-    "husky": "8.0.2"
-  }
+    "@github/prettier-config": "0.0.6",
+    "husky": "8.0.2",
+    "prettier": "2.8.1"
+  },
+  "prettier": "@github/prettier-config"
 }
