@@ -2,7 +2,8 @@
   "name": "primer",
   "private": true,
   "workspaces": [
-    "packages/*"
+    "packages/*",
+    "examples/*"
   ],
   "scripts": {
     "prepare": "husky install"
