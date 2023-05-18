@@ -5,7 +5,6 @@ import Box from '../Box'
 import {Button} from '../Button'
 import Octicon from '../Octicon'
 import {SubTreeState, TreeView} from './TreeView'
-import TextInput from '../TextInput/TextInput'
 
 const meta: Meta = {
   title: 'Components/TreeView/Features',
