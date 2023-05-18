@@ -1,5 +1,5 @@
-import React from 'react'
-import {Box, Text, ToggleSwitch, Heading, PageLayout, NavList, SubNav} from '@primer/react'
+import React, {useEffect} from 'react'
+import {Box, Text, ToggleSwitch, Heading, PageLayout, NavList, SubNav, Button} from '@primer/react'
 import {HomeIcon} from '@primer/octicons-react'
 import {UnderlineNav} from '@primer/react/drafts'
 
@@ -31,11 +31,22 @@ const Root = props => {
     {navigation: 'Settings', icon: GearIcon, counter: 10, href: 'settings'},
     {navigation: 'Security', icon: ShieldLockIcon, href: 'security'},
   ]
+
+  const docItems = [
+    {navigation: 'Mac', href: 'mac'},
+    {navigation: 'Windows', href: 'windows'},
+    {navigation: 'Linux', href: 'linux'},
+  ]
   const windowHash = window.location.hash
+  console.log('component is reloaded with window hash:', windowHash)
+  console.log('windowHash', windowHash)
   const [selectedHash, setSelectedHash] = React.useState(windowHash)
-  console.log('selectedHash', selectedHash, windowHash)
+
+  console.log('selectedHash', selectedHash)
 
   const [content, setContent] = React.useState('Code')
+
+  // useEffect(() => {
 
   //   const isCurrent = useMatch({path: resolved.pathname, end: true})
 
@@ -47,24 +58,12 @@ const Root = props => {
   return (
     <Box sx={{backgroundColor: 'canvas.subtle', padding: 2}}>
       <UnderlineNav aria-label="Repository">
-        {items.map((item, index) => (
-          <UnderlineNav.Item
-            key={item.navigation}
-            as={Link}
-            to={`/${item.href}`}
-            aria-current={isCurrent(item.navigation, item.href) ? 'page' : undefined}
-            counter={item.counter}
-            icon={item.icon}
-            onSelect={() => {
-              console.log('set content')
-              setContent(item.navigation)
-            }}
-          >
-            {item.navigation}
-          </UnderlineNav.Item>
-          // With react router
-          // <UnderlineNavItem
+        {docItems.map((item, index) => (
+          // <UnderlineNav.Item
+          //   key={item.navigation}
+          //   as={Link}
           //   to={`/${item.href}`}
+          //   aria-current={isCurrent(item.navigation, item.href) ? 'page' : undefined}
           //   counter={item.counter}
           //   icon={item.icon}
           //   onSelect={() => {
@@ -73,12 +72,60 @@ const Root = props => {
           //   }}
           // >
           //   {item.navigation}
-          // </UnderlineNavItem>
+          // </UnderlineNav.Item>
+          // With hash
+          <UnderlineNav.Item
+            key={item.href}
+            href={`#${item.href}`}
+            aria-current={`#${item.href}` === `${selectedHash}` ? 'page' : undefined}
+            onSelect={event => {
+              console.log('setSelectedHash')
+              setContent(item.navigation)
+              setSelectedHash(item.href)
+              // event.preventDefault()
+            }}
+          >
+            {item.navigation}
+          </UnderlineNav.Item>
         ))}
       </UnderlineNav>
 
       <Box sx={{height: 900}} p={4}>
-        {' '}
+        <ul>
+          <li>
+            <a
+              href="#windows"
+              onClick={() => {
+                // setContent('windows')
+                setSelectedHash('#windows')
+              }}
+            >
+              Windows
+            </a>
+          </li>
+          <li>
+            <a
+              href="#mac"
+              onClick={() => {
+                // setContent('mac')
+                setSelectedHash('#mac')
+              }}
+            >
+              Mac
+            </a>
+          </li>
+          <li>
+            <a
+              href="#linux"
+              onClick={() => {
+                // setContent('linux')
+                setSelectedHash('#linux')
+              }}
+            >
+              Linux
+            </a>
+          </li>
+        </ul>
         {content}
         {props.children}
       </Box>

@@ -110,7 +110,7 @@ export const UnderlineNavItem = forwardRef(
         // It can happen when the page is loaded (selectedLink === undefined)
         // or if the item is coming out of the menu when there is enough space to show items along with the more menu. (selectedLink.current === null)
         if (
-          (selectedLink === undefined || selectedLink.current === null) &&
+          // (selectedLink === undefined || selectedLink.current === null) &&
           Boolean(ariaCurrent) &&
           ariaCurrent !== 'false'
         ) {
@@ -128,6 +128,8 @@ export const UnderlineNavItem = forwardRef(
         // @ts-ignore
         setItemAs(Component)
       }
+      console.log('selectedLink', selectedLink)
+      console.log('underline nav item is reloaded')
     }, [
       ref,
       ariaCurrent,
