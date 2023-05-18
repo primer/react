@@ -10,6 +10,7 @@ import keyBy from 'lodash.keyby'
 import prettier from 'prettier'
 import componentSchema from './component.schema.json'
 import outputSchema from './output.schema.json'
+import path from 'path'
 
 // Only includes fields we use in this script
 type Component = {
@@ -20,7 +21,9 @@ type Component = {
 const ajv = new Ajv()
 
 // Get all JSON files matching `src/**/*.docs.json`
-const docsFiles = glob.sync('src/**/*.docs.json')
+const docsFiles = glob.sync('src/**/*.docs.json', {
+  cwd: path.resolve(__dirname, '..', '..', 'packages', 'react'),
+})
 
 const components = docsFiles.map(docsFilepath => {
   const docs = JSON.parse(fs.readFileSync(docsFilepath, 'utf-8'))

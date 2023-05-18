@@ -5,7 +5,7 @@ import path from 'path'
 const fm = require('front-matter') // FIXME after this bugfix is merged https://github.com/jxson/front-matter/pull/77
 
 const sourceDirectory = path.resolve(__dirname, '../../docs/content/')
-const outputDir = path.resolve(__dirname, '../../dist/')
+const outputDir = path.resolve(__dirname, '../../packages/react/dist/')
 
 type ComponentStatus = {
   [component: string]: string

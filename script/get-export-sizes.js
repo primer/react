@@ -12,7 +12,7 @@ const {minify} = require('terser')
 const gzipSize = require('gzip-size')
 
 async function main() {
-  const rootDirectory = path.resolve(__dirname, '..')
+  const rootDirectory = path.resolve(__dirname, '..', 'packages', 'react')
   const packageJsonPath = path.join(rootDirectory, 'package.json')
   const packageJson = JSON.parse(await fs.readFile(packageJsonPath, 'utf8'))
   const external = [
