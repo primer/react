@@ -87,6 +87,9 @@
     "markdownlint-cli2": "^0.7.1",
     "markdownlint-cli2-formatter-pretty": "0.0.3",
     "prettier": "2.8.1",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-test-renderer": "18.2.0",
     "size-limit": "8.2.4",
     "storybook-addon-turbo-build": "1.1.0",
     "storybook-css-modules": "1.0.8",
@@ -94,20 +97,17 @@
     "webpack": "5.82.1"
   },
   "overrides": {
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
-    "react-test-renderer": "18.2.0",
     "webpack": "5.82.1"
   },
   "prettier": "@github/prettier-config",
   "size-limit": [
     {
-      "path": "packages/react/dist/browser.esm.js",
+      "path": "dist/browser.esm.js",
       "webpack": false,
       "running": false
     },
     {
-      "path": "packages/react/dist/browser.umd.js",
+      "path": "dist/browser.umd.js",
       "webpack": false,
       "running": false
     }
