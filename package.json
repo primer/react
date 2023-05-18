@@ -94,6 +94,9 @@
     "webpack": "5.82.1"
   },
   "overrides": {
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-test-renderer": "18.2.0",
     "webpack": "5.82.1"
   },
   "prettier": "@github/prettier-config",
