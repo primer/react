@@ -38,4 +38,20 @@ module.exports = {
     fastRefresh: true,
     strictMode: true,
   },
+  webpackFinal: config => {
+    return {
+      ...config,
+      resolve: {
+        ...config.resolve,
+        fallback: {
+          ...config.resolve.fallback,
+          // When switching to Webpack 5, this is no longer included and caused
+          // a failure in certain stories. This can be removed when using
+          // Storybook v7
+          // @see https://github.com/storybookjs/storybook/issues/17458
+          assert: require.resolve('assert'),
+        },
+      },
+    }
+  },
 }
