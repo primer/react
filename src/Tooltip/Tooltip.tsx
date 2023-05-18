@@ -326,7 +326,9 @@ export const Tooltip = ({
   const [open, setOpen] = useState(false)
 
   // we need this check for every render
-  if (__DEV__) {
+  if (__DEV__ && process.env.NODE_ENV !== 'test') {
+    // We don't want these warnings to show up on tests because it fails the tests (at dotcom) due to not extecting a warning.
+    // TODO: We can remove the test check when we update these warnings to invariants.
     // Practically, this is not a conditional hook, it is just making sure this hook runs only on DEV not PROD.
     // eslint-disable-next-line react-hooks/rules-of-hooks
     useEffect(() => {
