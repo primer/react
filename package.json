@@ -40,6 +40,7 @@
     "@changesets/cli": "2.26.0",
     "@github/markdownlint-github": "^0.3.0",
     "@github/prettier-config": "0.0.6",
+    "@playwright/test": "1.32.0",
     "@size-limit/preset-big-lib": "8.2.4",
     "@storybook/addon-a11y": "6.5.16",
     "@storybook/addon-actions": "6.5.16",
