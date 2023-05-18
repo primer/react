@@ -35,10 +35,12 @@ const PageLayoutContext = React.createContext<{
   disableStickyPane?: () => void
   contentTopRef?: (node?: Element | null | undefined) => void
   contentBottomRef?: (node?: Element | null | undefined) => void
+  paneWidth: keyof typeof paneWidths
 }>({
   padding: 'normal',
   rowGap: 'normal',
   columnGap: 'normal',
+  paneWidth: 'medium',
 })
 
 // ----------------------------------------------------------------------------
@@ -51,6 +53,7 @@ export type PageLayoutProps = {
   padding?: keyof typeof SPACING_MAP
   rowGap?: keyof typeof SPACING_MAP
   columnGap?: keyof typeof SPACING_MAP
+  paneWidth?: keyof typeof paneWidths
 
   /** Private prop to allow SplitPageLayout to customize slot components */
   _slotsConfig?: Record<'header' | 'footer', React.ComponentType>
@@ -69,6 +72,7 @@ const Root: React.FC<React.PropsWithChildren<PageLayoutProps>> = ({
   padding = 'normal',
   rowGap = 'normal',
   columnGap = 'normal',
+  paneWidth = 'medium',
   children,
   sx = {},
   _slotsConfig: slotsConfig,
@@ -77,7 +81,7 @@ const Root: React.FC<React.PropsWithChildren<PageLayoutProps>> = ({
     useStickyPaneHeight()
 
   const [slots, rest] = useSlots(children, slotsConfig ?? {header: Header, footer: Footer})
-
+  console.log(paneWidth)
   return (
     <PageLayoutContext.Provider
       value={{
@@ -88,6 +92,7 @@ const Root: React.FC<React.PropsWithChildren<PageLayoutProps>> = ({
         disableStickyPane,
         contentTopRef,
         contentBottomRef,
+        paneWidth,
       }}
     >
       <Box
@@ -95,6 +100,9 @@ const Root: React.FC<React.PropsWithChildren<PageLayoutProps>> = ({
         style={{
           // @ts-ignore TypeScript doesn't know about CSS custom properties
           '--sticky-pane-height': stickyPaneHeight,
+          // '--pane-width': `${paneWidth[paneWidth]}`,
+
+          //contentWidths[width]
         }}
         sx={merge<BetterSystemStyleObject>({padding: SPACING_MAP[padding]}, sx)}
       >
@@ -444,8 +452,10 @@ const Content: React.FC<React.PropsWithChildren<PageLayoutContentProps>> = ({
 
       <Box
         sx={{
+          '--content-width': contentWidths[width],
           width: '100%',
-          maxWidth: contentWidths[width],
+          maxWidth: 'calc(var(--content-width) + `${paneWidth}px`)',
+          // maxWidth: '`calc(${contentWidths[width]}`',
           marginX: 'auto',
           flexGrow: 1,
           padding: SPACING_MAP[padding],
@@ -742,6 +752,9 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
             '--pane-width': `${paneWidth}px`,
           }}
           sx={(theme: Theme) => ({
+            [`:root`]: {
+              '--pane-width': `${paneWidth}px`,
+            },
             '--pane-min-width': `${minWidth}px`,
             '--pane-max-width-diff': '511px',
             '--pane-max-width': `calc(100vw - var(--pane-max-width-diff))`,
