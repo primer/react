@@ -7,6 +7,8 @@
   ],
   "scripts": {
     "build": "npm run build -w @primer/react",
+    "build:docs": "NODE_OPTIONS=--openssl-legacy-provider script/build-docs",
+    "build:docs:preview": "NODE_OPTIONS=--openssl-legacy-provider script/build-docs preview",
     "clean": "npm run clean -ws --if-present",
     "format": "prettier --cache --write '**/*.{js,md,mdx,ts,tsx,yml}'",
     "format:diff": "prettier --cache --list-different '**/*.{js.md,mdx,ts,tsx,yml}'",

@@ -2,7 +2,7 @@ import {Box, Heading, Text, ThemeProvider} from '@primer/react'
 import React from 'react'
 import {Container} from '@primer/gatsby-theme-doctocat'
 import heroIllustration from '../primer-components-hero.svg'
-import {version} from '../../../../../package.json'
+import {version} from '../../../../../packages/react/package.json'
 
 export default function Hero() {
   return (
