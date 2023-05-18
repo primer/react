@@ -10,6 +10,7 @@
     "clean": "npm run clean -ws --if-present",
     "format": "prettier --cache --write '**/*.{js,md,mdx,ts,tsx,yml}'",
     "format:diff": "prettier --cache --list-different '**/*.{js.md,mdx,ts,tsx,yml}'",
+    "install:docs": "(cd docs && npm install --legacy-peer-deps)",
     "lint": "eslint '**/*.{js,ts,tsx,md,mdx}' --max-warnings=0",
     "lint:fix": "npm run lint -- --fix",
     "lint:md": "markdownlint-cli2 \"**/*.{md,mdx}\" \"!.github\" \"!.changeset\" \"!**/node_modules/**\" \"!**/CHANGELOG.md\"",
