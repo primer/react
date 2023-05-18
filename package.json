@@ -10,12 +10,16 @@
     "clean": "npm run clean -ws --if-present",
     "format": "prettier --cache --write '**/*.{js,md,mdx,ts,tsx,yml}'",
     "format:diff": "prettier --cache --list-different '**/*.{js.md,mdx,ts,tsx,yml}'",
+    "lint:md": "markdownlint-cli2 \"**/*.{md,mdx}\" \"!.github\" \"!.changeset\" \"!**/node_modules/**\" \"!**/CHANGELOG.md\"",
     "setup": "./script/setup",
     "prepare": "husky install"
   },
   "devDependencies": {
+    "@github/markdownlint-github": "^0.3.0",
     "@github/prettier-config": "0.0.6",
     "husky": "8.0.2",
+    "markdownlint-cli2": "^0.7.1",
+    "markdownlint-cli2-formatter-pretty": "0.0.3",
     "prettier": "2.8.1"
   },
   "prettier": "@github/prettier-config"
