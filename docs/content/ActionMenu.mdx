@@ -190,9 +190,7 @@ const Example = () => {
 
   return (
     <ActionMenu>
-      <ActionMenu.Button aria-label="Select field type" leadingIcon={selectedType.icon}>
-        {selectedType.name}
-      </ActionMenu.Button>
+      <ActionMenu.Button leadingIcon={selectedType.icon}>{selectedType.name}</ActionMenu.Button>
       <ActionMenu.Overlay width="medium">
         <ActionList selectionVariant="single">
           {fieldTypes.map((type, index) => (
