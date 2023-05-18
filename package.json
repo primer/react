@@ -9,6 +9,10 @@
       "import": "./lib-esm/index.js",
       "require": "./lib/index.js"
     },
+    "./experimental": {
+      "import": "./lib-esm/experimental/index.js",
+      "require": "./lib/experimental/index.js"
+    },
     "./drafts": {
       "import": "./lib-esm/drafts/index.js",
       "require": "./lib/drafts/index.js"
