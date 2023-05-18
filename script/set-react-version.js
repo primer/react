@@ -65,25 +65,29 @@ const versions = new Map([
   ],
 ])
 
-async function main(version = 17) {
+async function main(version = '17') {
   if (!versions.has(version)) {
     throw new Error(`No React version defined for input: ${version}`)
   }
 
   const {devDependencies} = versions.get(version)
-  const packageJsonPath = path.resolve(__dirname, '..', 'package.json')
-  const packageJson = JSON.parse(await fs.readFile(packageJsonPath, 'utf8'))
+  const packageJsonPaths = [
+    path.resolve(__dirname, '..', 'package.json'),
+    path.resolve(__dirname, '..', 'packages', 'react', 'package.json'),
+  ]
 
-  packageJson.overrides = {
-    ...packageJson.overrides,
+  for (const packageJsonPath of packageJsonPaths) {
+    const packageJson = JSON.parse(await fs.readFile(packageJsonPath, 'utf8'))
+
+    for (const dependency of devDependencies) {
+      if (packageJson.devDependencies[dependency.name]) {
+        packageJson.devDependencies[dependency.name] = dependency.version
+      }
+    }
+
+    const contents = `${JSON.stringify(packageJson, null, 2)}${os.EOL}`
+    await fs.writeFile(packageJsonPath, contents)
   }
-
-  for (const dependency of devDependencies) {
-    packageJson.overrides[dependency.name] = dependency.version
-  }
-
-  const contents = `${JSON.stringify(packageJson, null, 2)}${os.EOL}`
-  await fs.writeFile(packageJsonPath, contents)
 }
 
 const [version] = process.argv.slice(2)
