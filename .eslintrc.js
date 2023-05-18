@@ -113,7 +113,7 @@ module.exports = {
     // rules which apply only to TS
     {
       parserOptions: {
-        project: 'tsconfig.json',
+        project: ['./tsconfig.json', './packages/**/tsconfig.json', './examples/**/tsconfig.json'],
       },
       files: ['**/*.{ts,tsx}'],
       extends: ['plugin:@typescript-eslint/recommended'],
