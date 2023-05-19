@@ -72,12 +72,16 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       },
     }
 
+    const isTopLevelInteractive = () =>
+      // @ts-ignore props.as may be defined, may not.
+      props.as === 'button' || props.as === 'a' || menuContext.anchorId !== undefined || role?.match(/menuitem/)
+
     const styles = {
       position: 'relative',
       display: 'flex',
-      paddingX: 2,
+      paddingX: isTopLevelInteractive() ? 2 : 0,
       fontSize: 1,
-      paddingY: '6px', // custom value off the scale
+      paddingY: isTopLevelInteractive() ? '6px' : 0, // custom value off the scale
       lineHeight: TEXT_ROW_HEIGHT,
       minHeight: 5,
       marginX: listVariant === 'inset' ? 2 : 0,
@@ -134,7 +138,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
         borderColor: 'var(--divider-color, transparent)',
       },
       'button[data-component="ActionList.Item--DividerContainer"]': {
-        padding: 0,
+        padding: '6px 8px',
         textAlign: 'left',
       },
       // show between 2 items
@@ -186,7 +190,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       onClick: clickHandler,
       onKeyPress: keyPressHandler,
       'aria-disabled': disabled ? true : undefined,
-      tabIndex: disabled ? undefined : 0,
+      tabIndex: disabled || !isTopLevelInteractive() ? undefined : 0,
       'aria-labelledby': `${labelId} ${
         slots.description && slots.description.props.variant !== 'block' ? inlineDescriptionId : ''
       }`,
@@ -198,10 +202,6 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
     const containerProps = _PrivateItemWrapper ? {role: role || itemRole ? 'none' : undefined} : menuItemProps
 
     const wrapperProps = _PrivateItemWrapper ? menuItemProps : {}
-
-    const isTopLevelInteractive = () =>
-      // @ts-ignore props.as may be defined, may not.
-      props.as === 'button' || props.as === 'a' || menuContext.anchorId !== undefined || role?.match(/menuitem/)
 
     return (
       <ItemContext.Provider value={{variant, disabled, inlineDescriptionId, blockDescriptionId}}>

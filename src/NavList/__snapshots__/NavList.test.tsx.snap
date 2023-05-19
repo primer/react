@@ -94,7 +94,7 @@ exports[`NavList renders a simple list 1`] = `
 }
 
 .c3 button[data-component="ActionList.Item--DividerContainer"] {
-  padding: 0;
+  padding: 6px 8px;
   text-align: left;
 }
 
@@ -181,7 +181,7 @@ exports[`NavList renders a simple list 1`] = `
 }
 
 .c7 button[data-component="ActionList.Item--DividerContainer"] {
-  padding: 0;
+  padding: 6px 8px;
   text-align: left;
 }
 
@@ -321,7 +321,6 @@ exports[`NavList renders a simple list 1`] = `
             aria-labelledby="react-aria-2 "
             class="c4"
             href="/"
-            tabindex="0"
           >
             <button
               class="c5"
@@ -343,7 +342,6 @@ exports[`NavList renders a simple list 1`] = `
             aria-labelledby="react-aria-5 "
             class="c4"
             href="/about"
-            tabindex="0"
           >
             <button
               class="c5"
@@ -365,7 +363,6 @@ exports[`NavList renders a simple list 1`] = `
             aria-labelledby="react-aria-8 "
             class="c4"
             href="/contact"
-            tabindex="0"
           >
             <button
               class="c5"
@@ -514,7 +511,7 @@ exports[`NavList renders with groups 1`] = `
 }
 
 .c7 button[data-component="ActionList.Item--DividerContainer"] {
-  padding: 0;
+  padding: 6px 8px;
   text-align: left;
 }
 
@@ -601,7 +598,7 @@ exports[`NavList renders with groups 1`] = `
 }
 
 .c11 button[data-component="ActionList.Item--DividerContainer"] {
-  padding: 0;
+  padding: 6px 8px;
   text-align: left;
 }
 
@@ -763,7 +760,6 @@ exports[`NavList renders with groups 1`] = `
                 aria-labelledby="react-aria-2 "
                 class="c8"
                 href="/getting-started"
-                tabindex="0"
               >
                 <button
                   class="c9"
@@ -809,7 +805,6 @@ exports[`NavList renders with groups 1`] = `
                 aria-labelledby="react-aria-5 "
                 class="c8"
                 href="/Avatar"
-                tabindex="0"
               >
                 <button
                   class="c9"
@@ -963,7 +958,7 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
 }
 
 .c11 button[data-component="ActionList.Item--DividerContainer"] {
-  padding: 0;
+  padding: 6px 8px;
   text-align: left;
 }
 
@@ -1093,7 +1088,7 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
 }
 
 .c4 button[data-component="ActionList.Item--DividerContainer"] {
-  padding: 0;
+  padding: 6px 8px;
   text-align: left;
 }
 
@@ -1293,7 +1288,6 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
                   aria-labelledby="react-aria-4 "
                   class="c12"
                   href="#"
-                  tabindex="0"
                 >
                   <button
                     class="c5"
@@ -1448,7 +1442,7 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
 }
 
 .c11 button[data-component="ActionList.Item--DividerContainer"] {
-  padding: 0;
+  padding: 6px 8px;
   text-align: left;
 }
 
@@ -1585,7 +1579,7 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
 }
 
 .c4 button[data-component="ActionList.Item--DividerContainer"] {
-  padding: 0;
+  padding: 6px 8px;
   text-align: left;
 }
 
@@ -1790,7 +1784,6 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
                   aria-labelledby="react-aria-4 "
                   class="c12"
                   href="#"
-                  tabindex="0"
                 >
                   <button
                     class="c5"
