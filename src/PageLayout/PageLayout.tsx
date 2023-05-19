@@ -746,17 +746,17 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
 
         <Box
           ref={paneRef}
-          style={{
-            // @ts-ignore CSS custom properties are not supported by TypeScript
-            '--pane-width': `${paneWidth}px`,
-          }}
+          // style={{
+          //   // @ts-ignore CSS custom properties are not supported by TypeScript
+          //   '--pane-width': `${paneWidth}px`,
+          // }}
           sx={(theme: Theme) => ({
             '--pane-min-width': `${minWidth}px`,
             '--pane-max-width-diff': '511px',
             '--pane-max-width': `calc(100vw - var(--pane-max-width-diff))`,
             width: resizable
               ? ['100%', null, 'clamp(var(--pane-min-width), var(--pane-width), var(--pane-max-width))']
-              : paneWidths[width],
+              : 'var(--pane-width)',
             padding: SPACING_MAP[padding],
             overflow: [null, null, 'auto'],
 
