@@ -115,13 +115,15 @@ export function useQuery<T>(
 
     savedQueryFn
       .current({signal: controller.signal})
+      // eslint-disable-next-line github/no-then
       .then(data => {
         if (!controller.signal.aborted) {
           setLoading(false)
           setData(data)
-          setError(error)
+          setError(null)
         }
       })
+      // eslint-disable-next-line github/no-then
       .catch(error => {
         if (!controller.signal.aborted) {
           setLoading(false)
@@ -166,7 +168,7 @@ export function useFlakeyQuery<T>({
         setWrappedError(new Error('Flakey error'))
         setPreviouslyHadError(true)
       }
-    } else if (loading === true) {
+    } else {
       setWrappedError(null)
     }
   }
