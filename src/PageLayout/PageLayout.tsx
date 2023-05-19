@@ -35,12 +35,10 @@ const PageLayoutContext = React.createContext<{
   disableStickyPane?: () => void
   contentTopRef?: (node?: Element | null | undefined) => void
   contentBottomRef?: (node?: Element | null | undefined) => void
-  paneWidth: keyof typeof paneWidths
 }>({
   padding: 'normal',
   rowGap: 'normal',
   columnGap: 'normal',
-  paneWidth: 'medium',
 })
 
 // ----------------------------------------------------------------------------
@@ -53,7 +51,6 @@ export type PageLayoutProps = {
   padding?: keyof typeof SPACING_MAP
   rowGap?: keyof typeof SPACING_MAP
   columnGap?: keyof typeof SPACING_MAP
-  paneWidth?: keyof typeof paneWidths
 
   /** Private prop to allow SplitPageLayout to customize slot components */
   _slotsConfig?: Record<'header' | 'footer', React.ComponentType>
@@ -72,7 +69,6 @@ const Root: React.FC<React.PropsWithChildren<PageLayoutProps>> = ({
   padding = 'normal',
   rowGap = 'normal',
   columnGap = 'normal',
-  paneWidth = 'medium',
   children,
   sx = {},
   _slotsConfig: slotsConfig,
@@ -81,7 +77,7 @@ const Root: React.FC<React.PropsWithChildren<PageLayoutProps>> = ({
     useStickyPaneHeight()
 
   const [slots, rest] = useSlots(children, slotsConfig ?? {header: Header, footer: Footer})
-  console.log(paneWidth)
+
   return (
     <PageLayoutContext.Provider
       value={{
@@ -92,7 +88,6 @@ const Root: React.FC<React.PropsWithChildren<PageLayoutProps>> = ({
         disableStickyPane,
         contentTopRef,
         contentBottomRef,
-        paneWidth,
       }}
     >
       <Box
@@ -100,9 +95,6 @@ const Root: React.FC<React.PropsWithChildren<PageLayoutProps>> = ({
         style={{
           // @ts-ignore TypeScript doesn't know about CSS custom properties
           '--sticky-pane-height': stickyPaneHeight,
-          // '--pane-width': `${paneWidth[paneWidth]}`,
-
-          //contentWidths[width]
         }}
         sx={merge<BetterSystemStyleObject>({padding: SPACING_MAP[padding]}, sx)}
       >
@@ -454,14 +446,14 @@ const Content: React.FC<React.PropsWithChildren<PageLayoutContentProps>> = ({
         sx={{
           '--content-width': contentWidths[width],
           width: '100%',
-          maxWidth: 'calc(var(--content-width) + `${paneWidth}px`)',
+          maxWidth: 'calc(var(--content-width) + var(--pane-width))',
           // maxWidth: '`calc(${contentWidths[width]}`',
           marginX: 'auto',
           flexGrow: 1,
           padding: SPACING_MAP[padding],
         }}
       >
-        {children}
+        <Box sx={{maxWidth: 'var(--content-width)', marginRight: 'auto'}}>{children}</Box>
       </Box>
 
       {/* Track the bottom of the content region so we can calculate the height of the pane region */}
@@ -611,6 +603,12 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
       }
     }
 
+    const GlobalStyle = createGlobalStyle`
+      :root {
+        --pane-width: ${paneWidth}px;
+      }
+    `
+
     const paneRef = React.useRef<HTMLDivElement>(null)
     useRefObjectAsForwardedRef(forwardRef, paneRef)
 
@@ -716,6 +714,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
           )
         }
       >
+        <GlobalStyle />
         {/* Show a horizontal divider when viewport is narrow. Otherwise, show a vertical divider. */}
         <HorizontalDivider
           variant={{narrow: dividerVariant, regular: 'none'}}
@@ -752,9 +751,6 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
             '--pane-width': `${paneWidth}px`,
           }}
           sx={(theme: Theme) => ({
-            [`:root`]: {
-              '--pane-width': `${paneWidth}px`,
-            },
             '--pane-min-width': `${minWidth}px`,
             '--pane-max-width-diff': '511px',
             '--pane-max-width': `calc(100vw - var(--pane-max-width-diff))`,
