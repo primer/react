@@ -147,7 +147,7 @@
     "@storybook/builder-webpack5": "6.5.16",
     "@storybook/jest": "0.0.10",
     "@storybook/manager-webpack5": "6.5.14",
-    "@storybook/react": "6.5.16",
+    "@storybook/react": "7.0.12",
     "@storybook/test-runner": "0.10.0",
     "@storybook/testing-library": "0.0.13",
     "@storybook/theming": "6.5.16",
