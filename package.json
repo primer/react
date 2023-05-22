@@ -213,7 +213,7 @@
     "jest-styled-components": "6.3.4",
     "jest-watch-typeahead": "2.2.2",
     "jscodeshift": "0.14.0",
-    "lint-staged": "13.1.0",
+    "lint-staged": "13.2.2",
     "lodash.groupby": "4.6.0",
     "lodash.isempty": "4.4.0",
     "lodash.isobject": "3.0.2",
