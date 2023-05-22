@@ -138,7 +138,10 @@ describe('ActionMenu', () => {
         <MixedSelection />
       </ThemeProvider>,
     )
-    const button = component.getByLabelText('Group by')
+
+    const button = component.getByRole('button', {
+      name: 'Group by Stage',
+    })
 
     const user = userEvent.setup()
     await user.click(button)

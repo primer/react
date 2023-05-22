@@ -22,7 +22,7 @@ import LabelGroup from '../LabelGroup'
 import RelativeTime from '../RelativeTime'
 import VisuallyHidden from '../_VisuallyHidden'
 import {createColumnHelper} from './column'
-import {repos} from './storybook/data'
+import {fetchRepos, repos, useFlakeyQuery} from './storybook/data'
 
 export default {
   title: 'Components/DataTable/Features',
@@ -1513,6 +1513,58 @@ export const WithPagination = () => {
           },
         ]}
       />
+      <Table.Pagination
+        aria-label="Pagination for Repositories"
+        pageSize={pageSize}
+        totalCount={repos.length}
+        onChange={({pageIndex}) => {
+          setPageIndex(pageIndex)
+        }}
+      />
+    </Table.Container>
+  )
+}
+
+export const WithNetworkError = () => {
+  const pageSize = 10
+  const [pageIndex, setPageIndex] = React.useState(0)
+  const {error, loading, data} = useFlakeyQuery({
+    queryKey: ['repos', pageSize, pageIndex],
+    queryFn: () => {
+      return fetchRepos({
+        page: pageIndex,
+        perPage: pageSize,
+      })
+    },
+  })
+
+  return (
+    <Table.Container>
+      <Table.Title as="h2" id="repositories">
+        Repositories
+      </Table.Title>
+      <Table.Subtitle as="p" id="repositories-subtitle">
+        A subtitle could appear here to give extra context to the data.
+      </Table.Subtitle>
+      {loading || error ? <Table.Skeleton columns={columns} /> : null}
+      {error ? (
+        <Table.ErrorDialog
+          onDismiss={() => {
+            action('onDismiss')
+          }}
+          onRetry={() => {
+            action('onRetry')
+          }}
+        />
+      ) : null}
+      {data ? (
+        <DataTable
+          aria-labelledby="repositories"
+          aria-describedby="repositories-subtitle"
+          data={data}
+          columns={columns}
+        />
+      ) : null}
       <Table.Pagination
         aria-label="Pagination for Repositories"
         pageSize={pageSize}
