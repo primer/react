@@ -1,5 +1,5 @@
 name: accessibility-alt-text-bot
-on: 
+on:
   issues:
     types: [opened, edited]
   pull_request:
