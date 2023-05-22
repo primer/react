@@ -73,8 +73,13 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
     }
 
     const isTopLevelInteractive = () =>
+      _PrivateItemWrapper !== undefined ||
       // @ts-ignore props.as may be defined, may not.
-      props.as === 'button' || props.as === 'a' || menuContext.anchorId !== undefined || role?.match(/menuitem/)
+      props.as === 'button' ||
+      // @ts-ignore props.as may be defined, may not.
+      props.as === 'a' ||
+      menuContext.anchorId !== undefined ||
+      role?.match(/menuitem/)
 
     const styles = {
       position: 'relative',
@@ -138,8 +143,8 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
         borderColor: 'var(--divider-color, transparent)',
       },
       'button[data-component="ActionList.Item--DividerContainer"]': {
-        padding: '6px 8px',
         textAlign: 'left',
+        padding: 0,
       },
       // show between 2 items
       ':not(:first-of-type)': {'--divider-color': theme?.colors.actionListItem.inlineDivider},
@@ -184,7 +189,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
     const inlineDescriptionId = useId(id && `${id}--inline-description`)
     const blockDescriptionId = useId(id && `${id}--block-description`)
 
-    const ItemWrapper = _PrivateItemWrapper || React.Fragment
+    const ItemWrapper = _PrivateItemWrapper || Box
 
     const menuItemProps = {
       onClick: clickHandler,
@@ -201,7 +206,16 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
 
     const containerProps = _PrivateItemWrapper ? {role: role || itemRole ? 'none' : undefined} : menuItemProps
 
-    const wrapperProps = _PrivateItemWrapper ? menuItemProps : {}
+    const wrapperProps = _PrivateItemWrapper
+      ? menuItemProps
+      : {
+          sx: {
+            display: 'flex',
+            paddingX: isTopLevelInteractive() ? 0 : 2,
+            paddingY: isTopLevelInteractive() ? 0 : '6px',
+            flexGrow: 1,
+          },
+        }
 
     return (
       <ItemContext.Provider value={{variant, disabled, inlineDescriptionId, blockDescriptionId}}>
@@ -237,7 +251,6 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
                     id={labelId}
                     sx={{
                       flexGrow: slots.description && slots.description.props.variant !== 'block' ? 0 : 1,
-                      fontWeight: slots.description && slots.description.props.variant !== 'block' ? 'bold' : 'inherit',
                     }}
                   >
                     {childrenWithoutSlots}
