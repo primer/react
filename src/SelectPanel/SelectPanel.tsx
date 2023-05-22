@@ -10,6 +10,7 @@ import {TextInputProps} from '../TextInput'
 import {useProvidedStateOrCreate} from '../hooks/useProvidedStateOrCreate'
 import {AnchoredOverlayWrapperAnchorProps} from '../AnchoredOverlay/AnchoredOverlay'
 import {useProvidedRefOrCreate} from '../hooks'
+import {SearchIcon} from '@primer/octicons-react'
 
 interface SelectPanelSingleSelection {
   selected: ItemInput | undefined
@@ -27,6 +28,8 @@ interface SelectPanelBaseProps {
     gesture: 'anchor-click' | 'anchor-key-press' | 'click-outside' | 'escape' | 'selection',
   ) => void
   placeholder?: string
+  // TODO: Make `inputLabel` required in next major version
+  inputLabel?: string
   overlayProps?: Partial<OverlayProps>
 }
 
@@ -53,6 +56,8 @@ export function SelectPanel({
   renderAnchor = props => <DropdownButton {...props} />,
   anchorRef: externalAnchorRef,
   placeholder,
+  placeholderText = 'Filter items',
+  inputLabel = placeholderText,
   selected,
   onSelectedChange,
   filterValue: externalFilterValue,
@@ -141,9 +146,11 @@ export function SelectPanel({
     return {
       sx: {m: 2},
       contrast: true,
+      leadingVisual: SearchIcon,
+      'aria-label': inputLabel,
       ...textInputProps,
     }
-  }, [textInputProps])
+  }, [inputLabel, textInputProps])
 
   return (
     <AnchoredOverlay
@@ -159,6 +166,7 @@ export function SelectPanel({
       <FilteredActionList
         filterValue={filterValue}
         onFilterChange={onFilterChange}
+        placeholderText={placeholderText}
         {...listProps}
         role="listbox"
         aria-multiselectable={isMultiSelectVariant(selected) ? 'true' : 'false'}
