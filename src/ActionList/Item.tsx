@@ -220,6 +220,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
     return (
       <ItemContext.Provider value={{variant, disabled, inlineDescriptionId, blockDescriptionId}}>
         <LiBox ref={forwardedRef} sx={merge<BetterSystemStyleObject>(styles, sxProp)} {...containerProps} {...props}>
+          {/* @ts-ignore onClick prop is only passed when _PrivateItemWrapper is set by ActionList.LinkItem. */}
           <ItemWrapper {...wrapperProps}>
             <Selection selected={selected} />
             {slots.leadingVisual}
