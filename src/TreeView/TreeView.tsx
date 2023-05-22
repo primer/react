@@ -262,20 +262,19 @@ const Root: React.FC<TreeViewProps> = ({
     setAriaLiveMessage(message)
   }, [])
 
-  const mouseDownHandler = useCallback(() => {
+  const onMouseDown = useCallback(() => {
     mouseDownRef.current = true
   }, [])
 
-  const mouseUpHandler = useCallback(() => {
-    mouseDownRef.current = false
-  }, [])
-
   useEffect(() => {
-    document.addEventListener('mouseup', mouseUpHandler)
-    return () => {
-      document.removeEventListener('mouseup', mouseUpHandler)
+    function onMouseUp() {
+      mouseDownRef.current = false
     }
-  })
+    document.addEventListener('mouseup', onMouseUp)
+    return () => {
+      document.removeEventListener('mouseup', onMouseUp)
+    }
+  }, [])
 
   useRovingTabIndex({containerRef, mouseDownRef})
   useTypeahead({
@@ -310,7 +309,7 @@ const Root: React.FC<TreeViewProps> = ({
           aria-label={ariaLabel}
           aria-labelledby={ariaLabelledby}
           data-omit-spacer={flat}
-          onMouseDown={mouseDownHandler}
+          onMouseDown={onMouseDown}
         >
           {children}
         </UlBox>
