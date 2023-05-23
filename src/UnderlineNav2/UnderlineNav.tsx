@@ -72,6 +72,8 @@ const overflowEffect = (
   const items: Array<React.ReactElement> = []
   const actions: Array<React.ReactElement> = []
 
+  // console.log({numberOfItemsPossible}, {numberOfItemsWithoutIconPossible}, {numberOfItemsPossibleWithMoreMenu})
+
   // First, we check if we can fit all the items with their icons
   if (childArray.length <= numberOfItemsPossible) {
     items.push(...childArray)
@@ -87,16 +89,16 @@ const overflowEffect = (
      * If there is only one item left to display in the overflow menu according to the calculation,
      * we need to pull another item from the list into the overflow menu.
      */
-    console.log(childArray)
     const numberOfItemsInMenu = childArray.length - numberOfItemsPossibleWithMoreMenu
     const numberOfListItems =
       numberOfItemsInMenu === 1 ? numberOfItemsPossibleWithMoreMenu - 1 : numberOfItemsPossibleWithMoreMenu
-
+    // console.log({numberOfItemsPossibleWithMoreMenu}, childArray.length)
     for (const [index, child] of childArray.entries()) {
       if (index < numberOfListItems) {
         items.push(child)
       } else {
         const ariaCurrent = child.props['aria-current']
+        // console.log('child.props', child.props)
         const isCurrent = Boolean(ariaCurrent) && ariaCurrent !== 'false'
         // We need to make sure to keep the selected item always visible.
         // To do that, we swap the selected item with the last item in the list to make it visible. (When there is at least 1 item in the list to swap.)
@@ -205,7 +207,7 @@ export const UnderlineNav = forwardRef(
       return breakpoint
     }
 
-    const [selectedLink, setSelectedLink] = useState<RefObject<HTMLElement> | undefined>(undefined)
+    // const [selectedLink, setSelectedLink] = useState<RefObject<HTMLElement> | undefined>(undefined)
 
     // selectedLinkText is needed to be able set the selected menu item as selectedLink.
     // This is needed because setSelectedLink only accepts ref but at the time of setting selected menu item as selectedLink, its ref as a list item is not available
@@ -326,8 +328,6 @@ export const UnderlineNav = forwardRef(
           theme,
           setChildrenWidth,
           setNoIconChildrenWidth,
-          selectedLink,
-          setSelectedLink,
           selectedLinkText,
           setSelectedLinkText,
           selectEvent,
@@ -380,7 +380,6 @@ export const UnderlineNav = forwardRef(
                 >
                   {actions.map((action, index) => {
                     const {children: actionElementChildren, ...actionElementProps} = action.props
-                    console.log('actionElementProps', actionElementProps)
                     return (
                       <MenuItemLink
                         key={index}

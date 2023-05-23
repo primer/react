@@ -36,15 +36,17 @@ const Root = props => {
     {navigation: 'Mac', href: 'mac'},
     {navigation: 'Windows', href: 'windows'},
     {navigation: 'Linux', href: 'linux'},
+    {navigation: 'Code', href: 'code'},
+    {navigation: 'Issues', href: 'issues'},
+    {navigation: 'Pull Requests', href: 'pull-requests'},
   ]
   const windowHash = window.location.hash
   console.log('component is reloaded with window hash:', windowHash)
-  console.log('windowHash', windowHash)
+
   const [selectedHash, setSelectedHash] = React.useState(windowHash)
-
-  console.log('selectedHash', selectedHash)
-
   const [content, setContent] = React.useState('Code')
+
+  console.log({windowHash}, {selectedHash})
 
   // useEffect(() => {
 
@@ -81,11 +83,11 @@ const Root = props => {
             onSelect={event => {
               console.log('setSelectedHash')
               setContent(item.navigation)
-              setSelectedHash(item.href)
+              setSelectedHash(`#${item.href}`)
               // event.preventDefault()
             }}
           >
-            {item.navigation}
+            {item.navigation} {`#${item.href}` === `${selectedHash}`}
           </UnderlineNav.Item>
         ))}
       </UnderlineNav>

@@ -9,6 +9,7 @@ import {getLinkStyles, iconWrapStyles, counterStyles} from './styles'
 import {LoadingCounter} from './LoadingCounter'
 import useLayoutEffect from '../utils/useIsomorphicLayoutEffect'
 import {defaultSxProp} from '../utils/defaultSxProp'
+import Link from '../Link'
 
 // adopted from React.AnchorHTMLAttributes
 type LinkProps = {
@@ -72,8 +73,6 @@ export const UnderlineNavItem = forwardRef(
       theme,
       setChildrenWidth,
       setNoIconChildrenWidth,
-      selectedLink,
-      setSelectedLink,
       selectedLinkText,
       setSelectedLinkText,
       selectEvent,
@@ -81,7 +80,6 @@ export const UnderlineNavItem = forwardRef(
       variant,
       loadingCounters,
       iconsVisible,
-      setItemAs,
     } = useContext(UnderlineNavContext)
 
     useLayoutEffect(() => {
@@ -106,42 +104,24 @@ export const UnderlineNavItem = forwardRef(
         setChildrenWidth({text, width: domRect.width})
         setNoIconChildrenWidth({text, width: domRect.width - iconWidthWithMargin})
 
-        // When an item has aria-current !== false while rendering, we should be sure to select it.
-        // It can happen when the page is loaded (selectedLink === undefined)
-        // or if the item is coming out of the menu when there is enough space to show items along with the more menu. (selectedLink.current === null)
-        if (
-          // (selectedLink === undefined || selectedLink.current === null) &&
-          Boolean(ariaCurrent) &&
-          ariaCurrent !== 'false'
-        ) {
-          setSelectedLink(ref as RefObject<HTMLElement>)
-        }
-
         // Only runs when a menu item is selected (swapping the menu item with the list item to keep it visible)
         if (selectedLinkText === text) {
-          setSelectedLink(ref as RefObject<HTMLElement>)
+          // setSelectedLink(ref as RefObject<HTMLElement>)
           if (typeof onSelect === 'function' && selectEvent !== null) onSelect(selectEvent)
           setSelectedLinkText('')
         }
 
-        // disable typoscript
-        // @ts-ignore
-        setItemAs(Component)
+        console.log('underlineNav is reloaded', ref.current, ariaCurrent)
       }
-      console.log('selectedLink', selectedLink)
-      console.log('underline nav item is reloaded')
     }, [
       ref,
-      ariaCurrent,
-      selectedLink,
       selectedLinkText,
       setSelectedLinkText,
-      setSelectedLink,
       setChildrenWidth,
       setNoIconChildrenWidth,
       onSelect,
       selectEvent,
-      setItemAs,
+      ariaCurrent,
     ])
 
     const keyPressHandler = React.useCallback(
@@ -149,10 +129,9 @@ export const UnderlineNavItem = forwardRef(
         if (event.key === ' ' || event.key === 'Enter') {
           if (!event.defaultPrevented && typeof onSelect === 'function') onSelect(event)
           if (!event.defaultPrevented && typeof afterSelect === 'function') afterSelect(event)
-          setSelectedLink(ref as RefObject<HTMLElement>)
         }
       },
-      [onSelect, afterSelect, ref, setSelectedLink],
+      [onSelect, afterSelect],
     )
     const clickHandler = React.useCallback(
       (event: React.MouseEvent<HTMLAnchorElement>) => {
@@ -160,20 +139,20 @@ export const UnderlineNavItem = forwardRef(
           if (typeof onSelect === 'function') onSelect(event)
           if (typeof afterSelect === 'function') afterSelect(event)
         }
-        setSelectedLink(ref as RefObject<HTMLElement>)
       },
-      [onSelect, afterSelect, ref, setSelectedLink],
+      [onSelect, afterSelect],
     )
 
     return (
       <Box as="li" sx={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-        <Box
+        <Link
           as={Component}
           href={href}
           onKeyPress={keyPressHandler}
           onClick={clickHandler}
           aria-current={ariaCurrent}
-          sx={merge(getLinkStyles(theme, {variant}, selectedLink, ref), sxProp as SxProp)}
+          // @ts-ignore
+          sx={merge(getLinkStyles(theme, {variant}, ariaCurrent), sxProp as SxProp)}
           {...props}
           ref={ref}
         >
@@ -187,7 +166,7 @@ export const UnderlineNavItem = forwardRef(
               as="span"
               data-component="text"
               data-content={children}
-              sx={selectedLink === ref ? {fontWeight: 600} : {}}
+              sx={Boolean(ariaCurrent) && ariaCurrent !== 'false' ? {fontWeight: 600} : {}}
             >
               {children}
             </Box>
@@ -203,7 +182,7 @@ export const UnderlineNavItem = forwardRef(
               </Box>
             )
           )}
-        </Box>
+        </Link>
       </Box>
     )
   },

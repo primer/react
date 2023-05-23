@@ -5,8 +5,8 @@ export const UnderlineNavContext = createContext<{
   theme: Theme | undefined
   setChildrenWidth: React.Dispatch<{text: string; width: number}>
   setNoIconChildrenWidth: React.Dispatch<{text: string; width: number}>
-  selectedLink: RefObject<HTMLElement> | undefined
-  setSelectedLink: (ref: RefObject<HTMLElement>) => void
+  // selectedLink: RefObject<HTMLElement> | undefined
+  // setSelectedLink: (ref: RefObject<HTMLElement>) => void
   selectedLinkText: string
   setSelectedLinkText: React.Dispatch<React.SetStateAction<string>>
   selectEvent: React.MouseEvent<HTMLAnchorElement> | React.KeyboardEvent<HTMLAnchorElement> | null
@@ -20,8 +20,8 @@ export const UnderlineNavContext = createContext<{
   theme: {},
   setChildrenWidth: () => null,
   setNoIconChildrenWidth: () => null,
-  selectedLink: undefined,
-  setSelectedLink: () => null,
+  // selectedLink: undefined,
+  // setSelectedLink: () => null,
   selectedLinkText: '',
   setSelectedLinkText: () => null,
   selectEvent: null,
