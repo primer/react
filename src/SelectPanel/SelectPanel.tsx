@@ -150,7 +150,7 @@ export function SelectPanel({
       open={open}
       onOpen={onOpen}
       onClose={onClose}
-      overlayProps={overlayProps}
+      overlayProps={{role: 'dialog', ...overlayProps}}
       focusTrapSettings={focusTrapSettings}
       focusZoneSettings={focusZoneSettings}
     >
