@@ -1,16 +1,16 @@
 import React from 'react'
 import {Meta, ComponentStory} from '@storybook/react'
-import StyledOcticon from './StyledOcticon'
+import Octicon from './Octicon'
 import {HeartFillIcon} from '@primer/octicons-react'
 
 export default {
-  title: 'Components/StyledOcticon',
-  component: StyledOcticon,
-} as Meta<typeof StyledOcticon>
+  title: 'Components/Octicon',
+  component: Octicon,
+} as Meta<typeof Octicon>
 
-export const Default = () => <StyledOcticon icon={HeartFillIcon} size={32} />
+export const Default = () => <Octicon icon={HeartFillIcon} size={32} />
 
-export const Playground: ComponentStory<typeof StyledOcticon> = args => <StyledOcticon icon={HeartFillIcon} {...args} />
+export const Playground: ComponentStory<typeof Octicon> = args => <Octicon icon={HeartFillIcon} {...args} />
 
 Playground.args = {
   ariaLabel: 'Heart',

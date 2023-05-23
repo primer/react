@@ -45,4 +45,5 @@ export * from '../Hidden'
 export * from './hooks'
 
 // CSS Experiment
+export * from './CSSComponent'
 export * from './Button2'
