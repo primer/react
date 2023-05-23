@@ -191,7 +191,7 @@ jobs:
               ISSUE_BODY += '| Last week | Value |\n';
               ISSUE_BODY += '| :-------- | :---- |\n';
               ISSUE_BODY += `| Issue     | [${releaseIssue.title}](${releaseIssue.html_url}) |\n`;
-              ISSUE_BODY += '| Conductor | ${assignees} |\n';
+              ISSUE_BODY += `| Conductor | ${assignees} |\n`;
               ISSUE_BODY += '| Release Pull Request | [Link](https://gh.io/AAksvvr) |\n';
               ISSUE_BODY += '| Integration tests    | [Link](https://gh.io/AAkr65h) |\n';
               ISSUE_BODY += '\n';
