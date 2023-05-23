@@ -1,15 +1,16 @@
 import React, {useCallback, useMemo} from 'react'
+import {AnchoredOverlay, AnchoredOverlayProps} from '../AnchoredOverlay'
+import {AnchoredOverlayWrapperAnchorProps} from '../AnchoredOverlay/AnchoredOverlay'
 import {FilteredActionList, FilteredActionListProps} from '../FilteredActionList'
 import {OverlayProps} from '../Overlay'
-import {ItemInput} from '../deprecated/ActionList/List'
-import {FocusZoneHookSettings} from '../hooks/useFocusZone'
-import {DropdownButton} from '../deprecated/DropdownMenu'
-import {ItemProps} from '../deprecated/ActionList'
-import {AnchoredOverlay, AnchoredOverlayProps} from '../AnchoredOverlay'
 import {TextInputProps} from '../TextInput'
-import {useProvidedStateOrCreate} from '../hooks/useProvidedStateOrCreate'
-import {AnchoredOverlayWrapperAnchorProps} from '../AnchoredOverlay/AnchoredOverlay'
+import {ItemProps} from '../deprecated/ActionList'
+import {ItemInput} from '../deprecated/ActionList/List'
+import {DropdownButton} from '../deprecated/DropdownMenu'
 import {useProvidedRefOrCreate} from '../hooks'
+import {FocusZoneHookSettings} from '../hooks/useFocusZone'
+import {useProvidedStateOrCreate} from '../hooks/useProvidedStateOrCreate'
+import {LiveRegion, LiveRegionOutlet, Message} from '../internal/components/LiveRegion'
 
 interface SelectPanelSingleSelection {
   selected: ItemInput | undefined
@@ -146,31 +147,43 @@ export function SelectPanel({
   }, [textInputProps])
 
   return (
-    <AnchoredOverlay
-      renderAnchor={renderMenuAnchor}
-      anchorRef={anchorRef}
-      open={open}
-      onOpen={onOpen}
-      onClose={onClose}
-      overlayProps={{role: 'dialog', ...overlayProps}}
-      focusTrapSettings={focusTrapSettings}
-      focusZoneSettings={focusZoneSettings}
-    >
-      <FilteredActionList
-        filterValue={filterValue}
-        onFilterChange={onFilterChange}
-        {...listProps}
-        role="listbox"
-        aria-multiselectable={isMultiSelectVariant(selected) ? 'true' : 'false'}
-        selectionVariant={isMultiSelectVariant(selected) ? 'multiple' : 'single'}
-        items={itemsToRender}
-        textInputProps={extendedTextInputProps}
-        inputRef={inputRef}
-        // inheriting height and maxHeight ensures that the FilteredActionList is never taller
-        // than the Overlay (which would break scrolling the items)
-        sx={{...sx, height: 'inherit', maxHeight: 'inherit'}}
-      />
-    </AnchoredOverlay>
+    <LiveRegion>
+      <AnchoredOverlay
+        renderAnchor={renderMenuAnchor}
+        anchorRef={anchorRef}
+        open={open}
+        onOpen={onOpen}
+        onClose={onClose}
+        overlayProps={{role: 'dialog', ...overlayProps}}
+        focusTrapSettings={focusTrapSettings}
+        focusZoneSettings={focusZoneSettings}
+      >
+        <LiveRegionOutlet />
+        <Message
+          value={
+            filterValue === ''
+              ? 'Showing all items'
+              : items.length <= 0
+              ? 'No matching items'
+              : `${items.length} matching ${items.length === 1 ? 'item' : 'items'}`
+          }
+        />
+        <FilteredActionList
+          filterValue={filterValue}
+          onFilterChange={onFilterChange}
+          {...listProps}
+          role="listbox"
+          aria-multiselectable={isMultiSelectVariant(selected) ? 'true' : 'false'}
+          selectionVariant={isMultiSelectVariant(selected) ? 'multiple' : 'single'}
+          items={itemsToRender}
+          textInputProps={extendedTextInputProps}
+          inputRef={inputRef}
+          // inheriting height and maxHeight ensures that the FilteredActionList is never taller
+          // than the Overlay (which would break scrolling the items)
+          sx={{...sx, height: 'inherit', maxHeight: 'inherit'}}
+        />
+      </AnchoredOverlay>
+    </LiveRegion>
   )
 }
 
