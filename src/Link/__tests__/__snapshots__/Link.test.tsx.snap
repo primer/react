@@ -7,7 +7,8 @@ exports[`Link passes href down to link element 1`] = `
   text-decoration: none;
 }
 
-.c0:hover {
+.c0:hover,
+.c0:focus {
   -webkit-text-decoration: underline;
   text-decoration: underline;
 }
@@ -25,7 +26,8 @@ exports[`Link renders consistently 1`] = `
   text-decoration: none;
 }
 
-.c0:hover {
+.c0:hover,
+.c0:focus {
   -webkit-text-decoration: underline;
   text-decoration: underline;
 }
@@ -42,7 +44,8 @@ exports[`Link respects hoverColor prop 1`] = `
   text-decoration: none;
 }
 
-.c0:hover {
+.c0:hover,
+.c0:focus {
   -webkit-text-decoration: underline;
   text-decoration: underline;
   color: #0969da;
@@ -61,7 +64,8 @@ exports[`Link respects the  "sx" prop when "muted" prop is also passed 1`] = `
   color: #ffffff;
 }
 
-.c0:hover {
+.c0:hover,
+.c0:focus {
   -webkit-text-decoration: none;
   text-decoration: none;
   color: #0969da;
@@ -80,7 +84,8 @@ exports[`Link respects the "muted" prop 1`] = `
   text-decoration: none;
 }
 
-.c0:hover {
+.c0:hover,
+.c0:focus {
   -webkit-text-decoration: none;
   text-decoration: none;
   color: #0969da;

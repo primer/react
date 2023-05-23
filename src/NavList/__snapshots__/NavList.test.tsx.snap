@@ -209,7 +209,8 @@ exports[`NavList renders a simple list 1`] = `
   color: inherit;
 }
 
-.c4:hover {
+.c4:hover,
+.c4:focus {
   -webkit-text-decoration: underline;
   text-decoration: underline;
 }
@@ -596,7 +597,8 @@ exports[`NavList renders with groups 1`] = `
   color: inherit;
 }
 
-.c8:hover {
+.c8:hover,
+.c8:focus {
   -webkit-text-decoration: underline;
   text-decoration: underline;
 }
@@ -1063,7 +1065,8 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   font-weight: 400;
 }
 
-.c12:hover {
+.c12:hover,
+.c12:focus {
   -webkit-text-decoration: underline;
   text-decoration: underline;
 }
@@ -1527,7 +1530,8 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   font-weight: 400;
 }
 
-.c12:hover {
+.c12:hover,
+.c12:focus {
   -webkit-text-decoration: underline;
   text-decoration: underline;
 }

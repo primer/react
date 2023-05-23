@@ -7,7 +7,8 @@ exports[`SideNav SideNav.Link renders consistently 1`] = `
   text-decoration: none;
 }
 
-.c0:hover {
+.c0:hover,
+.c0:focus {
   -webkit-text-decoration: underline;
   text-decoration: underline;
 }
