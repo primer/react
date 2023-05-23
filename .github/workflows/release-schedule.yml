@@ -86,7 +86,7 @@ jobs:
 
             // Issue IDs
             const id = `primer-release-schedule:${format(start, 'yyyy-MM-dd')}`;
-            const previousId = `primer-release-schedule:${format(previousStart, 'yyyy-M-dd')}`;
+            const previousId = `primer-release-schedule:${format(previousStart, 'yyyy-MM-dd')}`;
 
             core.startGroup(`Previous schedule: ${previousId}`);
             core.info(`Start: ${previousStart}`);
