@@ -106,23 +106,13 @@ export const UnderlineNavItem = forwardRef(
 
         // Only runs when a menu item is selected (swapping the menu item with the list item to keep it visible)
         if (selectedLinkText === text) {
+          // console.log('are you here?')
           // setSelectedLink(ref as RefObject<HTMLElement>)
           if (typeof onSelect === 'function' && selectEvent !== null) onSelect(selectEvent)
           setSelectedLinkText('')
         }
-
-        console.log('underlineNav is reloaded', ref.current, ariaCurrent)
       }
-    }, [
-      ref,
-      selectedLinkText,
-      setSelectedLinkText,
-      setChildrenWidth,
-      setNoIconChildrenWidth,
-      onSelect,
-      selectEvent,
-      ariaCurrent,
-    ])
+    }, [ref, selectedLinkText, setSelectedLinkText, setChildrenWidth, setNoIconChildrenWidth, onSelect, selectEvent])
 
     const keyPressHandler = React.useCallback(
       (event: React.KeyboardEvent<HTMLAnchorElement>) => {

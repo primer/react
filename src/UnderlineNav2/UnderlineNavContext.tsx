@@ -1,4 +1,4 @@
-import React, {createContext, RefObject} from 'react'
+import React, {createContext} from 'react'
 import {Theme} from '../ThemeProvider'
 
 export const UnderlineNavContext = createContext<{
@@ -14,8 +14,6 @@ export const UnderlineNavContext = createContext<{
   variant: 'default' | 'small'
   loadingCounters: boolean
   iconsVisible: boolean
-  itemAs?: React.ElementType
-  setItemAs?: React.Dispatch<React.SetStateAction<React.ElementType>>
 }>({
   theme: {},
   setChildrenWidth: () => null,
@@ -28,6 +26,4 @@ export const UnderlineNavContext = createContext<{
   variant: 'default',
   loadingCounters: false,
   iconsVisible: true,
-  itemAs: 'a',
-  setItemAs: () => null,
 })

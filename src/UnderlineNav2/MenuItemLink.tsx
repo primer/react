@@ -39,12 +39,12 @@ export type MenuItemLinkProps = {
 
 export const MenuItemLink = React.forwardRef<HTMLAnchorElement, MenuItemLinkProps>(
   ({children, counter, sx: sxProp = defaultSxProp, ...props}, forwardedRef) => {
-    const {loadingCounters, itemAs} = useContext(UnderlineNavContext)
+    const {loadingCounters} = useContext(UnderlineNavContext)
 
     return (
       // disable typescript error for now
       //   @ts-ignore
-      <ActionList.LinkItem ref={forwardedRef} sx={menuItemStyles} as={itemAs} active={false} {...props}>
+      <ActionList.LinkItem ref={forwardedRef} sx={menuItemStyles} active={false} {...props}>
         <Box as="span" sx={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
           {children}
 

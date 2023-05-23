@@ -87,7 +87,7 @@ const Root = props => {
               // event.preventDefault()
             }}
           >
-            {item.navigation} {`#${item.href}` === `${selectedHash}`}
+            {item.navigation}
           </UnderlineNav.Item>
         ))}
       </UnderlineNav>

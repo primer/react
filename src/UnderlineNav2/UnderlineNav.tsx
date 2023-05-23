@@ -94,7 +94,14 @@ const overflowEffect = (
       numberOfItemsInMenu === 1 ? numberOfItemsPossibleWithMoreMenu - 1 : numberOfItemsPossibleWithMoreMenu
     // console.log({numberOfItemsPossibleWithMoreMenu}, childArray.length)
     for (const [index, child] of childArray.entries()) {
+      // the index of the current element.
+      // const ariaCurrent = child.props['aria-current']
+      // const currentIndex = Boolean(ariaCurrent) && ariaCurrent !== 'false' ? index : -1
+      // const lastListElementIndex = numberOfListItems - 1
+      // const swap = !!(currentIndex > lastListElementIndex)
+      console.log('component', child.props.children, child.props)
       if (index < numberOfListItems) {
+        // can the current item fit into the list?
         items.push(child)
       } else {
         const ariaCurrent = child.props['aria-current']
@@ -162,6 +169,7 @@ export const UnderlineNav = forwardRef(
 
     const {theme} = useTheme()
 
+    console.log('UnderlieNav is reloaded.')
     function getItemsWidth(itemText: string): number {
       return noIconChildWidthArray.find(item => item.text === itemText)?.width || 0
     }
@@ -321,7 +329,6 @@ export const UnderlineNav = forwardRef(
       setIsWidgetOpen(isWidgetOpen => !isWidgetOpen)
     }, [])
 
-    const [itemAs, setItemAs] = useState<React.ElementType>('a')
     return (
       <UnderlineNavContext.Provider
         value={{
@@ -335,8 +342,6 @@ export const UnderlineNav = forwardRef(
           variant,
           loadingCounters,
           iconsVisible,
-          setItemAs,
-          itemAs,
         }}
       >
         {ariaLabel && <VisuallyHidden as="h2">{`${ariaLabel} navigation`}</VisuallyHidden>}
