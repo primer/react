@@ -33,7 +33,8 @@ export type SelectPanelProps = SelectPanelBaseProps &
   Omit<FilteredActionListProps, 'selectionVariant'> &
   Pick<AnchoredOverlayProps, 'open'> &
   AnchoredOverlayWrapperAnchorProps &
-  (SelectPanelSingleSelection | SelectPanelMultiSelection)
+  // TODO: 23-05-23 - Remove showItemDividers after next-major release
+  (SelectPanelSingleSelection | SelectPanelMultiSelection) & {showItemDividers?: boolean}
 
 function isMultiSelectVariant(
   selected: SelectPanelSingleSelection['selected'] | SelectPanelMultiSelection['selected'],
