@@ -287,15 +287,15 @@ export const MultipleSections = () => {
 
 export const DelayedMenuClose = () => {
   const [open, setOpen] = React.useState(false)
-  const [copyLinkSuccess, setCopyLinkSuccess] = React.useState(false)
+  const [copied, setCopied] = React.useState(false)
   const onSelect = (event: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement>) => {
     // don't close the menu
     event.preventDefault()
 
-    setCopyLinkSuccess(true)
+    setCopied(true)
     setTimeout(() => {
       setOpen(false)
-      setCopyLinkSuccess(false)
+      setCopied(false)
     }, 1000)
   }
 
@@ -308,8 +308,8 @@ export const DelayedMenuClose = () => {
         <ActionMenu.Overlay>
           <ActionList>
             <ActionList.Item onSelect={onSelect}>
-              <ActionList.LeadingVisual>{copyLinkSuccess ? <CheckIcon /> : <CopyIcon />}</ActionList.LeadingVisual>
-              {copyLinkSuccess ? 'Copied!' : 'Copy link'}
+              <ActionList.LeadingVisual>{copied ? <CheckIcon /> : <CopyIcon />}</ActionList.LeadingVisual>
+              {copied ? 'Copied!' : 'Copy link'}
             </ActionList.Item>
           </ActionList>
         </ActionMenu.Overlay>
