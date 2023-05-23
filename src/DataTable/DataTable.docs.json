@@ -229,6 +229,33 @@
           "required": true
         }
       ]
+    },
+    {
+      "name": "Table.ErrorDialog",
+      "props": [
+        {
+          "name": "children",
+          "required": true,
+          "type": "React.ReactNode",
+          "description": "The content of the dialog. This is usually a message explaining the error."
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "defaultValue": "'Error'",
+          "description": "The title of the dialog. This is usually a short description of the error."
+        },
+        {
+          "name": "onRetry",
+          "type": "() => void",
+          "description": "Event handler called when the user clicks the retry button."
+        },
+        {
+          "name": "onDismiss",
+          "type": "() => void",
+          "description": "Event handler called when the dialog is dismissed."
+        }
+      ]
     }
   ]
 }
