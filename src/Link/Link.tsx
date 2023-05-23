@@ -31,9 +31,16 @@ const StyledLink = styled.a<StyledLinkProps>`
   ${sx};
 `
 
-const Link = forwardRef(({...props}, forwardedRef) => {
+const Link = forwardRef(({as, ...props}, forwardedRef) => {
   const innerRef = React.useRef<HTMLAnchorElement>(null)
   useRefObjectAsForwardedRef(forwardedRef, innerRef)
+
+  if (as !== undefined) {
+    // eslint-disable-next-line no-console
+    console.warn(
+      'Links no longer accept an as prop. If you need to style another tag as a link, you should use a different component and apply appropriate styling.',
+    )
+  }
 
   return (
     <StyledLink
