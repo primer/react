@@ -159,7 +159,7 @@ export function SelectPanel({
       open={open}
       onOpen={onOpen}
       onClose={onClose}
-      overlayProps={{'aria-labelledby': titleId, ...overlayProps}}
+      overlayProps={{role: 'dialog', 'aria-labelledby': titleId, ...overlayProps}}
       focusTrapSettings={focusTrapSettings}
       focusZoneSettings={focusZoneSettings}
     >
