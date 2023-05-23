@@ -1,5 +1,5 @@
 import React from 'react'
-import {Box, ActionMenu, ActionList, Button, IconButton} from '../'
+import {Box, ActionMenu, ActionList, Button, IconButton, ActionListItemProps} from '../'
 import {
   GearIcon,
   MilestoneIcon,
@@ -288,8 +288,8 @@ export const MultipleSections = () => {
 export const DelayedMenuClose = () => {
   const [open, setOpen] = React.useState(false)
   const [copied, setCopied] = React.useState(false)
-  const onSelect = (event: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement>) => {
-    // don't close the menu
+  const onSelect: ActionListItemProps['onSelect'] = event => {
+    // prevent default behavior of closing menu
     event.preventDefault()
 
     setCopied(true)
