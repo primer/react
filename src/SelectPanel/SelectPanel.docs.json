@@ -23,7 +23,7 @@
       "type": "string",
       "defaultValue": "Same as placeholderText",
       "description": "The aria-label for the filter input"
-    }
+    },
     {
       "name": "overlayProps",
       "type": "Partial<OverlayProps>",
