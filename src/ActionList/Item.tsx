@@ -146,29 +146,28 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       ...(active ? activeStyles : {}),
     }
 
-    const clickHandler = React.useCallback(
-      (event: React.MouseEvent<HTMLLIElement>) => {
+    const internalOnSelect = React.useCallback(
+      (event: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement>) => {
         if (disabled) return
-        if (!event.defaultPrevented) {
-          if (typeof onSelect === 'function') onSelect(event)
-          // if this Item is inside a Menu, close the Menu
-          if (typeof afterSelect === 'function') afterSelect()
-        }
+        if (event.defaultPrevented) return
+
+        if (typeof onSelect === 'function') onSelect(event)
+
+        // typescript does not know onSelect can call event.preventDefault, so this check is valid
+        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+        if (event.defaultPrevented) return
+
+        // if this Item is inside a Menu, close the Menu
+        if (typeof afterSelect === 'function') afterSelect()
       },
-      [onSelect, disabled, afterSelect],
+      [disabled, onSelect, afterSelect],
     )
 
-    const keyPressHandler = React.useCallback(
-      (event: React.KeyboardEvent<HTMLLIElement>) => {
-        if (disabled) return
-        if (!event.defaultPrevented && [' ', 'Enter'].includes(event.key)) {
-          if (typeof onSelect === 'function') onSelect(event)
-          // if this Item is inside a Menu, close the Menu
-          if (typeof afterSelect === 'function') afterSelect()
-        }
-      },
-      [onSelect, disabled, afterSelect],
-    )
+    const clickHandler = internalOnSelect
+
+    const keyPressHandler = (event: React.KeyboardEvent<HTMLLIElement>) => {
+      if ([' ', 'Enter'].includes(event.key)) internalOnSelect(event)
+    }
 
     // use props.id if provided, otherwise generate one.
     const labelId = useId(id)
