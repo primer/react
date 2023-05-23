@@ -1,0 +1,7 @@
+---
+"@primer/react": minor
+---
+
+Link components no longer accept an `as` prop. If you need link-like styling, you should use a different component and style accordingly.
+
+Links that are rendered within `<p>` tags will always have underlines to distinguish from the surrounding text.
