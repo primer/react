@@ -125,8 +125,8 @@ export const BasicDialog = ({width, height, subtitle}: DialogStoryProps) => {
           width={width}
           height={height}
           footerButtons={[
-            {buttonType: 'danger', children: 'Delete the universe', onClick: onDialogClose},
-            {buttonType: 'primary', children: 'Proceed', onClick: openSecondDialog, autoFocus: true},
+            {buttonType: 'danger', content: 'Delete the universe', onClick: onDialogClose},
+            {buttonType: 'primary', content: 'Proceed', onClick: openSecondDialog, autoFocus: true},
           ]}
         >
           {lipsum}
@@ -189,8 +189,8 @@ export const WithCustomRenderers = ({width, height, subtitle}: DialogStoryProps)
           renderFooter={CustomFooter}
           onClose={onDialogClose}
           footerButtons={[
-            {buttonType: 'danger', children: 'Delete the universe', onClick: onDialogClose},
-            {buttonType: 'primary', children: 'Proceed'},
+            {buttonType: 'danger', content: 'Delete the universe', onClick: onDialogClose},
+            {buttonType: 'primary', content: 'Proceed'},
           ]}
         >
           {lipsum}
@@ -207,7 +207,7 @@ export const StressTest = ({width, height, subtitle}: DialogStoryProps) => {
   const onDialogClose = useCallback(() => setIsOpen(false), [])
   const onSecondDialogClose = useCallback(() => setSecondOpen(false), [])
   const openSecondDialog = useCallback(() => setSecondOpen(true), [])
-  const manyButtons = new Array(10).fill(undefined).map((_, i) => ({children: `Button ${i}`}))
+  const manyButtons = new Array(10).fill(undefined).map((_, i) => ({content: `Button ${i}`}))
   return (
     <>
       <Button ref={buttonRef} onClick={() => setIsOpen(!isOpen)}>
@@ -226,8 +226,8 @@ export const StressTest = ({width, height, subtitle}: DialogStoryProps) => {
           height={height}
           footerButtons={[
             ...manyButtons,
-            {buttonType: 'danger', children: 'Delete the universe', onClick: onDialogClose},
-            {buttonType: 'primary', children: 'Proceed', onClick: openSecondDialog, autoFocus: true},
+            {buttonType: 'danger', content: 'Delete the universe', onClick: onDialogClose},
+            {buttonType: 'primary', content: 'Proceed', onClick: openSecondDialog, autoFocus: true},
           ]}
         >
           {lipsum}

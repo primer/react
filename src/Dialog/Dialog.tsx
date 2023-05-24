@@ -20,7 +20,7 @@ const ANIMATION_DURATION = '200ms'
  * Props that characterize a button to be rendered into the footer of
  * a Dialog.
  */
-export type DialogButtonProps = ButtonProps & {
+export type DialogButtonProps = Omit<ButtonProps, 'children'> & {
   /**
    * The type of Button element to use
    */
@@ -29,7 +29,7 @@ export type DialogButtonProps = ButtonProps & {
   /**
    * The Button's inner text
    */
-  children: React.ReactNode
+  content: React.ReactNode
 
   /**
    * If true, and if this is the only button with autoFocus set to true,
@@ -382,7 +382,7 @@ const Buttons: React.FC<React.PropsWithChildren<{buttons: DialogButtonProps[]}>>
   return (
     <>
       {buttons.map((dialogButtonProps, index) => {
-        const {children, buttonType = 'default', autoFocus = false, ...buttonProps} = dialogButtonProps
+        const {content, buttonType = 'default', autoFocus = false, ...buttonProps} = dialogButtonProps
         return (
           <Button
             key={index}
@@ -390,7 +390,7 @@ const Buttons: React.FC<React.PropsWithChildren<{buttons: DialogButtonProps[]}>>
             variant={buttonType === 'normal' ? 'default' : buttonType}
             ref={autoFocus && autoFocusCount === 0 ? (autoFocusCount++, autoFocusRef) : null}
           >
-            {children}
+            {content}
           </Button>
         )
       })}
