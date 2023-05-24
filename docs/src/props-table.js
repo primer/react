@@ -1,5 +1,5 @@
 import React from 'react'
-import {Box, Link, Label} from '@primer/react'
+import {Box, InlineCode, Link, Label} from '@primer/react'
 import Table from '@primer/gatsby-theme-doctocat/src/components/table'
 import InlineCode from '@primer/gatsby-theme-doctocat/src/components/inline-code'
 
@@ -67,7 +67,7 @@ function Row({name, type, defaultValue, description, required, deprecated}) {
         {defaultValue}
       </Box>
       <Box as="td" verticalAlign="top">
-        {description}
+        <ReactMarkdown components={{a: Link, code: InlineCode}}>{description}</ReactMarkdown>
       </Box>
     </tr>
   )
