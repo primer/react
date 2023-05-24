@@ -71,8 +71,6 @@ function createPackageRegex(name) {
 const baseConfig = {
   input: Array.from(input),
   plugins: [
-    // Note: it's important that the babel-plugin-preval is loaded first
-    // to work as-intended
     babel({
       extensions,
       exclude: /node_modules/,
@@ -90,7 +88,6 @@ const baseConfig = {
       ],
       plugins: [
         'macros',
-        'preval',
         'add-react-displayname',
         'dev-expression',
         'babel-plugin-styled-components',
@@ -106,10 +103,10 @@ const baseConfig = {
         ],
       ],
     }),
-    commonjs({
+    resolve({
       extensions,
     }),
-    resolve({
+    commonjs({
       extensions,
     }),
     postcss({
