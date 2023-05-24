@@ -1,7 +1,8 @@
-import {useId} from '../hooks/useId'
+import {SearchIcon} from '@primer/octicons-react'
 import React, {useCallback, useMemo} from 'react'
 import {AnchoredOverlay, AnchoredOverlayProps} from '../AnchoredOverlay'
 import {AnchoredOverlayWrapperAnchorProps} from '../AnchoredOverlay/AnchoredOverlay'
+import Box from '../Box'
 import {FilteredActionList, FilteredActionListProps} from '../FilteredActionList'
 import Heading from '../Heading'
 import {OverlayProps} from '../Overlay'
@@ -11,9 +12,9 @@ import {ItemInput} from '../deprecated/ActionList/List'
 import {DropdownButton} from '../deprecated/DropdownMenu'
 import {useProvidedRefOrCreate} from '../hooks'
 import {FocusZoneHookSettings} from '../hooks/useFocusZone'
+import {useId} from '../hooks/useId'
 import {useProvidedStateOrCreate} from '../hooks/useProvidedStateOrCreate'
 import {LiveRegion, LiveRegionOutlet, Message} from '../internal/components/LiveRegion'
-import {SearchIcon} from '@primer/octicons-react'
 
 interface SelectPanelSingleSelection {
   selected: ItemInput | undefined
@@ -178,7 +179,7 @@ export function SelectPanel({
               ? 'Showing all items'
               : items.length <= 0
               ? 'No matching items'
-              : `${items.length} matching ${items.length === 1 ? 'item' : 'items'}
+              : `${items.length} matching ${items.length === 1 ? 'item' : 'items'}`
           }
         />
         <Box sx={{display: 'flex', flexDirection: 'column', height: 'inherit', maxHeight: 'inherit'}}>
