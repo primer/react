@@ -11,6 +11,7 @@ import {useProvidedRefOrCreate} from '../hooks'
 import {FocusZoneHookSettings} from '../hooks/useFocusZone'
 import {useProvidedStateOrCreate} from '../hooks/useProvidedStateOrCreate'
 import {LiveRegion, LiveRegionOutlet, Message} from '../internal/components/LiveRegion'
+import {SearchIcon} from '@primer/octicons-react'
 
 interface SelectPanelSingleSelection {
   selected: ItemInput | undefined
@@ -28,6 +29,8 @@ interface SelectPanelBaseProps {
     gesture: 'anchor-click' | 'anchor-key-press' | 'click-outside' | 'escape' | 'selection',
   ) => void
   placeholder?: string
+  // TODO: Make `inputLabel` required in next major version
+  inputLabel?: string
   overlayProps?: Partial<OverlayProps>
 }
 
@@ -54,6 +57,8 @@ export function SelectPanel({
   renderAnchor = props => <DropdownButton {...props} />,
   anchorRef: externalAnchorRef,
   placeholder,
+  placeholderText = 'Filter items',
+  inputLabel = placeholderText,
   selected,
   onSelectedChange,
   filterValue: externalFilterValue,
@@ -142,9 +147,11 @@ export function SelectPanel({
     return {
       sx: {m: 2},
       contrast: true,
+      leadingVisual: SearchIcon,
+      'aria-label': inputLabel,
       ...textInputProps,
     }
-  }, [textInputProps])
+  }, [inputLabel, textInputProps])
 
   return (
     <LiveRegion>
@@ -165,12 +172,13 @@ export function SelectPanel({
               ? 'Showing all items'
               : items.length <= 0
               ? 'No matching items'
-              : `${items.length} matching ${items.length === 1 ? 'item' : 'items'}`
+              : `${items.length} matching ${items.length === 1 ? 'item' : 'items'}
           }
         />
         <FilteredActionList
           filterValue={filterValue}
           onFilterChange={onFilterChange}
+          placeholderText={placeholderText}
           {...listProps}
           role="listbox"
           aria-multiselectable={isMultiSelectVariant(selected) ? 'true' : 'false'}
