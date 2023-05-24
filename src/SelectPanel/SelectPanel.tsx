@@ -14,6 +14,7 @@ import {FocusZoneHookSettings} from '../hooks/useFocusZone'
 import {useProvidedStateOrCreate} from '../hooks/useProvidedStateOrCreate'
 import Box from '../Box'
 import {SearchIcon} from '@primer/octicons-react'
+import {Button} from '../Button'
 
 interface SelectPanelSingleSelection {
   selected: ItemInput | undefined
@@ -36,6 +37,8 @@ interface SelectPanelBaseProps {
   // TODO: Make `inputLabel` required in next major version
   inputLabel?: string
   overlayProps?: Partial<OverlayProps>
+  _singleSelectVariant?: 'no_buttons' | 'no_buttons_with_explanation' | 'buttons' | 'buttons_with_keyboard'
+  _openWithKeyboard?: boolean
 }
 
 export type SelectPanelProps = SelectPanelBaseProps &
@@ -55,6 +58,13 @@ const focusZoneSettings: Partial<FocusZoneHookSettings> = {
   disabled: true,
 }
 
+// Single select
+// options
+//  - current
+//  - screen reader announces how to confirm selection
+//  - display buttons always
+//  - display buttons with keyboard interaction
+
 export function SelectPanel({
   open,
   onOpenChange,
@@ -72,6 +82,8 @@ export function SelectPanel({
   textInputProps,
   overlayProps,
   sx,
+  _singleSelectVariant = 'no_buttons',
+  _openWithKeyboard = false,
   ...listProps
 }: SelectPanelProps): JSX.Element {
   const titleId = useId()
@@ -159,6 +171,10 @@ export function SelectPanel({
     }
   }, [inputLabel, textInputProps])
 
+  // Save
+
+  // Cancel/click away
+
   return (
     <AnchoredOverlay
       renderAnchor={renderMenuAnchor}
@@ -191,6 +207,27 @@ export function SelectPanel({
           // than the Overlay (which would break scrolling the items)
           sx={{...sx, height: 'inherit', maxHeight: 'inherit'}}
         />
+        {_singleSelectVariant === 'buttons' ||
+        (_singleSelectVariant === 'buttons_with_keyboard' && _openWithKeyboard) ? (
+          <Box
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'flex-end',
+              gap: '8px',
+              padding: '12px',
+              borderTop: '1px solid border.default',
+            }}
+          >
+            <Button size="small">Cancel</Button>
+            <Button size="small" variant="primary">
+              Save
+            </Button>
+          </Box>
+        ) : null}
+        {_singleSelectVariant === 'no_buttons_with_explanation' ? (
+          <Box sx={{px: 3, py: 2, color: 'fg.subtle', fontSize: 1}}>Press enter to select</Box>
+        ) : null}
       </Box>
     </AnchoredOverlay>
   )

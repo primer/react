@@ -303,3 +303,143 @@ export const SelectPanelHeightAndScroll = () => {
   )
 }
 SelectPanelHeightAndScroll.storyName = 'SelectPanel, Height and Scroll'
+
+const NoButtons = () => {
+  const [selected, setSelected] = React.useState<ItemInput | undefined>(items[0])
+  const [filter, setFilter] = React.useState('')
+  const filteredItems = items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
+  const [open, setOpen] = useState(false)
+
+  return (
+    <SelectPanel
+      _singleSelectVariant="no_buttons"
+      renderAnchor={({children, 'aria-labelledby': ariaLabelledBy, ...anchorProps}) => (
+        <Button trailingAction={TriangleDownIcon} aria-labelledby={` ${ariaLabelledBy}`} {...anchorProps}>
+          {children ?? 'Select Labels'}
+        </Button>
+      )}
+      placeholderText="Filter Labels"
+      open={open}
+      onOpenChange={setOpen}
+      items={filteredItems}
+      selected={selected}
+      onSelectedChange={setSelected}
+      onFilterChange={setFilter}
+      showItemDividers={true}
+      overlayProps={{width: 'medium', height: 'large'}}
+    />
+  )
+}
+
+const NoButtonsWithExplanation = () => {
+  const [selected, setSelected] = React.useState<ItemInput | undefined>(items[0])
+  const [filter, setFilter] = React.useState('')
+  const filteredItems = items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
+  const [open, setOpen] = useState(false)
+
+  return (
+    <SelectPanel
+      _singleSelectVariant="no_buttons_with_explanation"
+      renderAnchor={({children, 'aria-labelledby': ariaLabelledBy, ...anchorProps}) => (
+        <Button trailingAction={TriangleDownIcon} aria-labelledby={` ${ariaLabelledBy}`} {...anchorProps}>
+          {children ?? 'Select Labels'}
+        </Button>
+      )}
+      placeholderText="Filter Labels"
+      open={open}
+      onOpenChange={setOpen}
+      items={filteredItems}
+      selected={selected}
+      onSelectedChange={setSelected}
+      onFilterChange={setFilter}
+      showItemDividers={true}
+      overlayProps={{width: 'medium', height: 'large'}}
+    />
+  )
+}
+
+const ButtonsWithKeyboard = () => {
+  const [selected, setSelected] = React.useState<ItemInput | undefined>(items[0])
+  const [filter, setFilter] = React.useState('')
+  const filteredItems = items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
+  const [open, setOpen] = useState(false)
+  const [openWithKeyboard, setOpenWithKeyboard] = useState(false)
+
+  function openPanel(isOpen: boolean, gesture: string) {
+    if (gesture === 'anchor-key-press') {
+      setOpenWithKeyboard(true)
+    } else {
+      setOpenWithKeyboard(false)
+    }
+
+    setOpen(isOpen)
+  }
+
+  return (
+    <SelectPanel
+      _singleSelectVariant="buttons_with_keyboard"
+      _openWithKeyboard={openWithKeyboard}
+      renderAnchor={({children, 'aria-labelledby': ariaLabelledBy, ...anchorProps}) => (
+        <Button trailingAction={TriangleDownIcon} aria-labelledby={` ${ariaLabelledBy}`} {...anchorProps}>
+          {children ?? 'Select Labels'}
+        </Button>
+      )}
+      placeholderText="Filter Labels"
+      open={open}
+      onOpenChange={openPanel}
+      items={filteredItems}
+      selected={selected}
+      onSelectedChange={setSelected}
+      onFilterChange={setFilter}
+      showItemDividers={true}
+      overlayProps={{width: 'medium', height: 'large'}}
+    />
+  )
+}
+
+const Buttons = () => {
+  const [selected, setSelected] = React.useState<ItemInput | undefined>(items[0])
+  const [filter, setFilter] = React.useState('')
+  const filteredItems = items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
+  const [open, setOpen] = useState(false)
+
+  return (
+    <SelectPanel
+      _singleSelectVariant="buttons"
+      renderAnchor={({children, 'aria-labelledby': ariaLabelledBy, ...anchorProps}) => (
+        <Button trailingAction={TriangleDownIcon} aria-labelledby={` ${ariaLabelledBy}`} {...anchorProps}>
+          {children ?? 'Select Labels'}
+        </Button>
+      )}
+      placeholderText="Filter Labels"
+      open={open}
+      onOpenChange={setOpen}
+      items={filteredItems}
+      selected={selected}
+      onSelectedChange={setSelected}
+      onFilterChange={setFilter}
+      showItemDividers={true}
+      overlayProps={{width: 'medium', height: 'large'}}
+    />
+  )
+}
+
+export const SingleSelectExplorations = () => {
+  return (
+    <>
+      <h1>Single Select Explorations</h1>
+
+      <h2>No buttons</h2>
+      <NoButtons />
+
+      <h2>No buttons with explanation</h2>
+      <NoButtonsWithExplanation />
+
+      <h2>Buttons with keyboard</h2>
+      <ButtonsWithKeyboard />
+
+      <h2>Buttons</h2>
+      <Buttons />
+    </>
+  )
+}
