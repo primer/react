@@ -112,8 +112,24 @@ const IssueLabelToken = forwardRef((props, forwardedRef) => {
             },
           }
         : {}),
+      ...(isTokenInteractive(props)
+        ? {
+            '&:hover': {
+              ...(isLightScheme
+                ? {
+                    backgroundImage:
+                      'linear-gradient(rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.15)), linear-gradient(rgb(var(--label-r),var(--label-g),var(--label-b)), rgb(var(--label-r),var(--label-g),var(--label-b)))',
+                  }
+                : {
+                    background:
+                      'hsla(var(--label-h), calc(var(--label-s) * 1%), calc(calc(var(--label-l) + 10) * 1%), 0.3);',
+                  }),
+              boxShadow: 'shadow.medium',
+            },
+          }
+        : {}),
     }
-  }, [fillColor, resolvedColorScheme, hideRemoveButton, onRemove, isSelected])
+  }, [fillColor, resolvedColorScheme, hideRemoveButton, onRemove, isSelected, props])
 
   return (
     <TokenBase

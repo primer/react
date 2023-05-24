@@ -4,6 +4,7 @@ exports[`ProgressBar renders consistently 1`] = `
 .c1 {
   width: 0;
   background-color: #1f883d;
+  background-color: #1f883d;
 }
 
 .c0 {
@@ -29,6 +30,7 @@ exports[`ProgressBar renders consistently 1`] = `
 exports[`ProgressBar respects the "progress" prop 1`] = `
 .c1 {
   width: 80%;
+  background-color: #1f883d;
   background-color: #1f883d;
 }
 
