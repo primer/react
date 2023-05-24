@@ -1,15 +1,18 @@
+import {useId} from '../hooks/useId'
 import React, {useCallback, useMemo} from 'react'
-import {FilteredActionList, FilteredActionListProps} from '../FilteredActionList'
-import {OverlayProps} from '../Overlay'
-import {ItemInput} from '../deprecated/ActionList/List'
-import {FocusZoneHookSettings} from '../hooks/useFocusZone'
-import {DropdownButton} from '../deprecated/DropdownMenu'
-import {ItemProps} from '../deprecated/ActionList'
 import {AnchoredOverlay, AnchoredOverlayProps} from '../AnchoredOverlay'
-import {TextInputProps} from '../TextInput'
-import {useProvidedStateOrCreate} from '../hooks/useProvidedStateOrCreate'
 import {AnchoredOverlayWrapperAnchorProps} from '../AnchoredOverlay/AnchoredOverlay'
+import {FilteredActionList, FilteredActionListProps} from '../FilteredActionList'
+import Heading from '../Heading'
+import {OverlayProps} from '../Overlay'
+import {TextInputProps} from '../TextInput'
+import {ItemProps} from '../deprecated/ActionList'
+import {ItemInput} from '../deprecated/ActionList/List'
+import {DropdownButton} from '../deprecated/DropdownMenu'
 import {useProvidedRefOrCreate} from '../hooks'
+import {FocusZoneHookSettings} from '../hooks/useFocusZone'
+import {useProvidedStateOrCreate} from '../hooks/useProvidedStateOrCreate'
+import Box from '../Box'
 import {SearchIcon} from '@primer/octicons-react'
 
 interface SelectPanelSingleSelection {
@@ -23,6 +26,8 @@ interface SelectPanelMultiSelection {
 }
 
 interface SelectPanelBaseProps {
+  // TODO: Make `title` required in the next major version
+  title?: string | React.ReactElement
   onOpenChange: (
     open: boolean,
     gesture: 'anchor-click' | 'anchor-key-press' | 'click-outside' | 'escape' | 'selection',
@@ -59,6 +64,7 @@ export function SelectPanel({
   placeholderText = 'Filter items',
   inputLabel = placeholderText,
   selected,
+  title = isMultiSelectVariant(selected) ? 'Select items' : 'Select an item',
   onSelectedChange,
   filterValue: externalFilterValue,
   onFilterChange: externalOnFilterChange,
@@ -68,6 +74,7 @@ export function SelectPanel({
   sx,
   ...listProps
 }: SelectPanelProps): JSX.Element {
+  const titleId = useId()
   const [filterValue, setInternalFilterValue] = useProvidedStateOrCreate(externalFilterValue, undefined, '')
   const onFilterChange: FilteredActionListProps['onFilterChange'] = useCallback(
     (value, e) => {
@@ -159,25 +166,32 @@ export function SelectPanel({
       open={open}
       onOpen={onOpen}
       onClose={onClose}
-      overlayProps={{role: 'dialog', ...overlayProps}}
+      overlayProps={{role: 'dialog', 'aria-labelledby': titleId, ...overlayProps}}
       focusTrapSettings={focusTrapSettings}
       focusZoneSettings={focusZoneSettings}
     >
-      <FilteredActionList
-        filterValue={filterValue}
-        onFilterChange={onFilterChange}
-        placeholderText={placeholderText}
-        {...listProps}
-        role="listbox"
-        aria-multiselectable={isMultiSelectVariant(selected) ? 'true' : 'false'}
-        selectionVariant={isMultiSelectVariant(selected) ? 'multiple' : 'single'}
-        items={itemsToRender}
-        textInputProps={extendedTextInputProps}
-        inputRef={inputRef}
-        // inheriting height and maxHeight ensures that the FilteredActionList is never taller
-        // than the Overlay (which would break scrolling the items)
-        sx={{...sx, height: 'inherit', maxHeight: 'inherit'}}
-      />
+      <Box sx={{display: 'flex', flexDirection: 'column', height: 'inherit', maxHeight: 'inherit'}}>
+        <Box sx={{pt: 2, px: 3}}>
+          <Heading as="h1" id={titleId} sx={{fontSize: 1}}>
+            {title}
+          </Heading>
+        </Box>
+        <FilteredActionList
+          filterValue={filterValue}
+          onFilterChange={onFilterChange}
+          placeholderText={placeholderText}
+          {...listProps}
+          role="listbox"
+          aria-multiselectable={isMultiSelectVariant(selected) ? 'true' : 'false'}
+          selectionVariant={isMultiSelectVariant(selected) ? 'multiple' : 'single'}
+          items={itemsToRender}
+          textInputProps={extendedTextInputProps}
+          inputRef={inputRef}
+          // inheriting height and maxHeight ensures that the FilteredActionList is never taller
+          // than the Overlay (which would break scrolling the items)
+          sx={{...sx, height: 'inherit', maxHeight: 'inherit'}}
+        />
+      </Box>
     </AnchoredOverlay>
   )
 }
