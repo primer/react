@@ -1,6 +1,5 @@
 import React, {useState} from 'react'
-import {Box, Text} from '@primer/react'
-import {TreeView} from '@primer/react/drafts'
+import {Box, Text, TreeView} from '@primer/react'
 
 export default function ThemeReferenceTree({themeData}) {
   return (

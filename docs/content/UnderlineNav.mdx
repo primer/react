@@ -107,7 +107,7 @@ render(<Navigation />)
 
 ```jsx
 import {Link, useMatch, useResolvedPath} from 'react-router-dom'
-import {UnderlineNav} from '@primer/react/drafts'
+import {UnderlineNav} from '@primer/react'
 
 function UnderlineNavItem({to, children, ...rest}) {
   const resolved = useResolvedPath(to)
@@ -139,7 +139,7 @@ const Navigation = () => {
 ```jsx
 import {useRouter} from 'next/router'
 import Link from 'next/link'
-import {UnderlineNav} from '@primer/react/drafts'
+import {UnderlineNav} from '@primer/react'
 
 function UnderlineNavItem({href, children, ...rest}) {
   const router = useRouter()
