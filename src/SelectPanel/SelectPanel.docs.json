@@ -7,7 +7,7 @@
   "props": [
     {
       "name": "title",
-      "type": "string",
+      "type": "string | React.ReactElement",
       "defaultValue": "\"Select an item\" or \"Select items\"",
       "description": "A descriptive title for the panel"
     },

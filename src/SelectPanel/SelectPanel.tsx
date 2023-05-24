@@ -26,7 +26,7 @@ interface SelectPanelMultiSelection {
 
 interface SelectPanelBaseProps {
   // TODO: Make `title` required in the next major version
-  title?: string
+  title?: string | React.ReactElement
   onOpenChange: (
     open: boolean,
     gesture: 'anchor-click' | 'anchor-key-press' | 'click-outside' | 'escape' | 'selection',
