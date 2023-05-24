@@ -1,5 +1,97 @@
 # @primer/components
 
+## 35.25.1
+
+### Patch Changes
+
+- [#3174](https://github.com/primer/react/pull/3174) [`d4c6ae5b`](https://github.com/primer/react/commit/d4c6ae5b481631ab9bcd7256f5287612c97e021e) Thanks [@colebemis](https://github.com/colebemis)! - `MarkdownEditor` is now SSR-compatible.
+
+  Warning: In this new implementation, `MarkdownEditor.Toolbar`, `MarkdownEditor.Actions`, and `MarkdownEditor.Label` must be direct children of `MarkdownEditor`.
+
+- [#3209](https://github.com/primer/react/pull/3209) [`a6279536`](https://github.com/primer/react/commit/a6279536e3c2c28788196fd9a5e28fc53ec6538a) Thanks [@langermank](https://github.com/langermank)! - Remove `--primer` prefix from CSS var
+
+- [#3173](https://github.com/primer/react/pull/3173) [`6b900e90`](https://github.com/primer/react/commit/6b900e90c3a551251b8161227c3d51ba476b9b5c) Thanks [@colebemis](https://github.com/colebemis)! - `ActionList` and `NavList` are now SSR-compatible.
+
+  Warning: In this new implementation, `ActionList.LeadingVisual`, `ActionList.TrailingVisual,` and `ActionList.Description` must be direct children of `ActionList`. The same applies to `NavList`.
+
+- [#3198](https://github.com/primer/react/pull/3198) [`a273748b`](https://github.com/primer/react/commit/a273748b6d8162b7f6e819200c5663963558ec2f) Thanks [@langermank](https://github.com/langermank)! - Bug fix: `ButtonGroup` borders show incorrectly on hover
+
+## 35.25.0
+
+### Minor Changes
+
+- [#3186](https://github.com/primer/react/pull/3186) [`2b147794`](https://github.com/primer/react/commit/2b14779453de66a889d9bbcb6b81e3e9a7360f4d) Thanks [@joshblack](https://github.com/joshblack)! - Modules under an internal export pattern are not able to be imported from outside @primer/react
+
+- [#3090](https://github.com/primer/react/pull/3090) [`1b8bb16f`](https://github.com/primer/react/commit/1b8bb16f9d874738bae02f88e458495c39052134) Thanks [@kendallgassner](https://github.com/kendallgassner)! - Experimental Support: exporting useResponsiveValue
+
+- [#3055](https://github.com/primer/react/pull/3055) [`42037c98`](https://github.com/primer/react/commit/42037c98b845a99cdf922802e9869e1bb3c3f07d) Thanks [@joshblack](https://github.com/joshblack)! - Add Table.Skeleton component
+
+### Patch Changes
+
+- [#3124](https://github.com/primer/react/pull/3124) [`5b3cf499`](https://github.com/primer/react/commit/5b3cf49957ea96e0b7f00b8ac2c78d02688a908d) Thanks [@mattcosta7](https://github.com/mattcosta7)! - replace createRef with useRef
+
+- [#3149](https://github.com/primer/react/pull/3149) [`4c2d121f`](https://github.com/primer/react/commit/4c2d121fa44386c596c8b29dc159c57c49341c01) Thanks [@colebemis](https://github.com/colebemis)! - `FormControl` is now SSR-compatible.
+
+  Warning: In this new implementation, `FormControl.Caption`, `FormControl.Label`, `FormControl.LeadingVisual`, and `FormControl.Validation` must be direct children of `FormControl`.
+
+- [#3114](https://github.com/primer/react/pull/3114) [`f5c7f299`](https://github.com/primer/react/commit/f5c7f2997ec568420cc980bf672b6c5b44712ef7) Thanks [@radglob](https://github.com/radglob)! - Adds the option to declare multiple segments in a ProgressBar.
+
+- [#3127](https://github.com/primer/react/pull/3127) [`5224fcbf`](https://github.com/primer/react/commit/5224fcbf026b7627be1d20a5ff097d1200b66af2) Thanks [@siddharthkp](https://github.com/siddharthkp)! - Suppress SSR warning for useLayoutEffect in NavList, use useIsomorphicLayoutEffect instead of useLayoutEffect
+
+- [#3165](https://github.com/primer/react/pull/3165) [`d749f495`](https://github.com/primer/react/commit/d749f495e0129de41dc33136b4d5f1145b17a275) Thanks [@broccolinisoup](https://github.com/broccolinisoup)! - UnderlineNav2: Add transparent outline for focus to support WHCM
+
+- [#3120](https://github.com/primer/react/pull/3120) [`9e40fdf4`](https://github.com/primer/react/commit/9e40fdf47ac7c6003a9ba3ebb7efc17e3b7306bd) Thanks [@simurai](https://github.com/simurai)! - Bump @primer/primitives to `7.11.5`
+
+- [#3093](https://github.com/primer/react/pull/3093) [`8b5307da`](https://github.com/primer/react/commit/8b5307daad011627fdc96fec1a6d600f479458b5) Thanks [@simurai](https://github.com/simurai)! - Bump @primer/primitives to `7.11.3`
+
+- [#3097](https://github.com/primer/react/pull/3097) [`a38c00e6`](https://github.com/primer/react/commit/a38c00e6722373599e6be83b857c7f22c2014459) Thanks [@colebemis](https://github.com/colebemis)! - `TreeView` is now SSR-compatible.
+
+  Warning: In this new implementation, `TreeView.LeadingVisual` and `TreeView.TrailingView` must be direct children of `TreeView.Item`.
+
+- [#3170](https://github.com/primer/react/pull/3170) [`1f2df9b7`](https://github.com/primer/react/commit/1f2df9b7164fe29dccfe24cb752766c2f63754d1) Thanks [@lukasoppermann](https://github.com/lukasoppermann)! - When an inline description is added to the item the normal text is set to bold
+
+- [#3160](https://github.com/primer/react/pull/3160) [`4b05b19e`](https://github.com/primer/react/commit/4b05b19e6812396e0b88db37d65ca05c61ad7732) Thanks [@joshblack](https://github.com/joshblack)! - Update PageLayout.Pane to provide a warning instead of an error when overflow is detected and no label has been provided
+
+- [#3094](https://github.com/primer/react/pull/3094) [`16cae51a`](https://github.com/primer/react/commit/16cae51a243a66707ddd1f027d9429ee3e0f45b6) Thanks [@mperrotti](https://github.com/mperrotti)! - Fixes styling issue where PointerBox would show a border between the caret and the box if the background color was transparent.
+
+- [#3112](https://github.com/primer/react/pull/3112) [`bd4e1393`](https://github.com/primer/react/commit/bd4e13934c99bdfaa7f5941afc1beaec371fef28) Thanks [@langermank](https://github.com/langermank)! - Adds shadow and color change to IssueLabelToken on hover
+
+- [#3146](https://github.com/primer/react/pull/3146) [`a19b721c`](https://github.com/primer/react/commit/a19b721c8abde18cd05b745e9e18074c4eaa16f0) Thanks [@colebemis](https://github.com/colebemis)! - `CheckboxGroup` and `RadioGroup` are now SSR-compatible.
+
+  Warning: In this new implementation, `CheckboxGroup.Caption`, `CheckboxGroup.Label,` and `CheckboxGroup.Validation` must be direct children of `CheckboxGroup`. The same applies to `RadioGroup`.
+
+## 35.24.0
+
+### Minor Changes
+
+- [#3071](https://github.com/primer/react/pull/3071) [`681e2271`](https://github.com/primer/react/commit/681e2271ecc90bde2920887c50c0d44b121005f1) Thanks [@mperrotti](https://github.com/mperrotti)! - Adds a helper component for rendering placeholder text to explain why a DataTable cell has no content.
+
+- [#3089](https://github.com/primer/react/pull/3089) [`4a6a9f73`](https://github.com/primer/react/commit/4a6a9f7326d5bf1e476a040d7f2f4f61e4d5bd05) Thanks [@mperrotti](https://github.com/mperrotti)! - Adds the ability to exclose indentation for flat tree views.
+
+- [#3011](https://github.com/primer/react/pull/3011) [`f8132d8e`](https://github.com/primer/react/commit/f8132d8ef653e1bd5a16203ab47f6006a871f662) Thanks [@edersonlucas](https://github.com/edersonlucas)! - Add the `tooltipDirection` property to the `TextInput.Action` component to make the tooltip position flexible.
+
+### Patch Changes
+
+- [#3085](https://github.com/primer/react/pull/3085) [`bf8c73b4`](https://github.com/primer/react/commit/bf8c73b4c36422fdd70b56f9ba677b6d6b961e87) Thanks [@mperrotti](https://github.com/mperrotti)! - Renames DataTable 'shrink' column width to 'growCollapse'
+
+- [#3104](https://github.com/primer/react/pull/3104) [`e46e33b8`](https://github.com/primer/react/commit/e46e33b8be0d553b838887d70893734923bb27d8) Thanks [@iansan5653](https://github.com/iansan5653)! - Fix `IssueLabelToken` treating alternative light schemes as dark
+
+## 35.23.0
+
+### Minor Changes
+
+- [#3068](https://github.com/primer/react/pull/3068) [`09e11335`](https://github.com/primer/react/commit/09e11335f5a415459e18feabe2686511adb51fe4) Thanks [@mperrotti](https://github.com/mperrotti)! - Adds text alignment option to columns
+
+- [#3012](https://github.com/primer/react/pull/3012) [`04d9db02`](https://github.com/primer/react/commit/04d9db02c0ba6ddca13a0b2bd0f4ada3e00991e7) Thanks [@radglob](https://github.com/radglob)! - Adds `tabIndex` and `role="region"` to `PageLayout.Pane` when overflow is detected (scrollHeight > clientHeight). Also requires either `aria-labelledby` or `aria-label` when overflow is detected, and throws an error if neither is defined.
+
+### Patch Changes
+
+- [#3056](https://github.com/primer/react/pull/3056) [`7e4f7714`](https://github.com/primer/react/commit/7e4f7714f4839b0bd304770da1e64aa247a68d7b) Thanks [@langermank](https://github.com/langermank)! - Remove incorrect focus styles on ActionList items
+
+- [#3061](https://github.com/primer/react/pull/3061) [`b71cb1fb`](https://github.com/primer/react/commit/b71cb1fb2240b08a816278af0dd94ac4e2e1246d) Thanks [@broccolinisoup](https://github.com/broccolinisoup)! - Stop rendering `activeClassName` when there is no `to` prop is passed for react-router (TabNav, SubNav, BreadCrumb, UnderlineNav v1)
+
+- [#3041](https://github.com/primer/react/pull/3041) [`e5f13300`](https://github.com/primer/react/commit/e5f133004721426a63c8647e22f987dddd716442) Thanks [@simurai](https://github.com/simurai)! - Use open/closed colors for `StateLabel`
+
 ## 35.22.0
 
 ### Minor Changes

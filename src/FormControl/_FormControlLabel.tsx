@@ -1,8 +1,7 @@
 import React from 'react'
+import InputLabel from '../_InputLabel'
 import {SxProp} from '../sx'
-import InputLabel, {LegendOrSpanProps, LabelProps} from '../_InputLabel'
 import {FormControlContext} from './FormControl'
-import {Slot} from './slots'
 
 export type Props = {
   /**
@@ -13,22 +12,35 @@ export type Props = {
 } & SxProp
 
 const FormControlLabel: React.FC<
-  React.PropsWithChildren<{htmlFor?: string} & (LegendOrSpanProps | LabelProps) & Props>
-> = ({children, htmlFor, id, visuallyHidden, sx}) => (
-  <Slot name="Label">
-    {({disabled, id: formControlId, required}: FormControlContext) => (
-      <InputLabel
-        htmlFor={htmlFor || formControlId}
-        id={id}
-        visuallyHidden={visuallyHidden}
-        required={required}
-        disabled={disabled}
-        sx={sx}
-      >
-        {children}
-      </InputLabel>
-    )}
-  </Slot>
-)
+  React.PropsWithChildren<{htmlFor?: string} & React.ComponentProps<typeof InputLabel> & Props>
+> = ({as, children, htmlFor, id, visuallyHidden, sx, ...props}) => {
+  const {disabled, id: formControlId, required} = React.useContext(FormControlContext)
+
+  /**
+   * Ensure we can pass through props correctly, since legend/span accept no defined 'htmlFor'
+   */
+  const labelProps: React.ComponentProps<typeof InputLabel> =
+    as === 'legend' || as === 'span'
+      ? {
+          as,
+          id,
+          visuallyHidden,
+          required,
+          disabled,
+          sx,
+          ...props,
+        }
+      : {
+          as,
+          id,
+          visuallyHidden,
+          htmlFor: htmlFor || formControlId,
+          required,
+          disabled,
+          sx,
+          ...props,
+        }
+  return <InputLabel {...labelProps}>{children}</InputLabel>
+}
 
 export default FormControlLabel

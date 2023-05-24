@@ -13,7 +13,7 @@ const Fixture = ({
   hasTextarea?: boolean
   refNotAttached?: boolean
 }) => {
-  const containerRef = React.createRef<HTMLDivElement>()
+  const containerRef = React.useRef<HTMLDivElement>(null)
   useMnemonics(true, containerRef) // hard coding open=true for test
 
   return (

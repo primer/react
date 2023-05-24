@@ -18,7 +18,7 @@
 - [Interaction Tests](#interaction-tests)
   - [As A Part Of Unit Tests](#as-a-part-of-unit-tests)
   - [Storybook Interaction Tests](#storybook-interaction-tests)
-- [Continous Integration](#continous-integration)
+- [Continuous Integration](#continuous-integration)
 - [FAQ](#faq)
   - [Why am I seeing `browserType.launch: Executable doesn't exist at ../path`?](#why-am-i-seeing-browsertypelaunch-executable-doesnt-exist-at-path)
 
@@ -80,18 +80,18 @@ We are slowly moving away from using `Jest` snapshots as a way to test visual ch
 
 #### Updating `theme-preval` snapshots
 
-If you need to update the `theme-preval` snapshots, you will need to run the following commands:
-
-```sh
-npm run build
-npm run test -- -u
-```
-
-After running that command, make sure to update the cache-busting timestamp in [src/theme-preval.js](https://github.com/primer/react/blob/main/src/theme-preval.js)
+If you need to update the `theme-preval` snapshots, make sure to first update the cache-busting timestamp in [src/theme-preval.js](https://github.com/primer/react/blob/main/src/theme-preval.js)
 
 ```diff
 - // Cache bust: 2022-02-23 12:00:00 GMT (This file is cached by our deployment tooling, update this timestamp to rebuild this file)
 + // Cache bust: 2023-02-24 12:00:00 GMT (This file is cached by our deployment tooling, update this timestamp to rebuild this file)
+```
+
+After you will need to run the following commands and commit changes to the `themePreval.test.ts.snap` file:
+
+```sh
+npm run build
+npm run test -- -u
 ```
 
 ### Running Tests
@@ -207,7 +207,7 @@ the following command:
 script/test-e2e --grep @avt
 ```
 
-## Continous Integration
+## Continuous Integration
 
 All of the tests run on our continuous integration workflows.
 
@@ -226,6 +226,10 @@ and downloading the relevant report.
 > The `vrt` job is broken up into several runners to speed up how long it takes
 > to run Visual Regression Testing. Make sure to identify the job that is
 > failing and download the report that matches the number of the runner.
+>
+> If you notice that a test is failing and the difference appears to be a very
+> small distance, consider adding `animations: 'disabled'` to the `page.screenshot`
+> call in the test that is failing.
 
 ## FAQ
 
