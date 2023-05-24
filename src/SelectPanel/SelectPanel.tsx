@@ -1,7 +1,8 @@
-import {useId} from '../hooks/useId'
+import {SearchIcon} from '@primer/octicons-react'
 import React, {useCallback, useMemo} from 'react'
 import {AnchoredOverlay, AnchoredOverlayProps} from '../AnchoredOverlay'
 import {AnchoredOverlayWrapperAnchorProps} from '../AnchoredOverlay/AnchoredOverlay'
+import Box from '../Box'
 import {FilteredActionList, FilteredActionListProps} from '../FilteredActionList'
 import Heading from '../Heading'
 import {OverlayProps} from '../Overlay'
@@ -11,9 +12,9 @@ import {ItemInput} from '../deprecated/ActionList/List'
 import {DropdownButton} from '../deprecated/DropdownMenu'
 import {useProvidedRefOrCreate} from '../hooks'
 import {FocusZoneHookSettings} from '../hooks/useFocusZone'
+import {useId} from '../hooks/useId'
 import {useProvidedStateOrCreate} from '../hooks/useProvidedStateOrCreate'
-import Box from '../Box'
-import {SearchIcon} from '@primer/octicons-react'
+import {LiveRegion, LiveRegionOutlet, Message} from '../internal/components/LiveRegion'
 
 interface SelectPanelSingleSelection {
   selected: ItemInput | undefined
@@ -160,39 +161,51 @@ export function SelectPanel({
   }, [inputLabel, textInputProps])
 
   return (
-    <AnchoredOverlay
-      renderAnchor={renderMenuAnchor}
-      anchorRef={anchorRef}
-      open={open}
-      onOpen={onOpen}
-      onClose={onClose}
-      overlayProps={{role: 'dialog', 'aria-labelledby': titleId, ...overlayProps}}
-      focusTrapSettings={focusTrapSettings}
-      focusZoneSettings={focusZoneSettings}
-    >
-      <Box sx={{display: 'flex', flexDirection: 'column', height: 'inherit', maxHeight: 'inherit'}}>
-        <Box sx={{pt: 2, px: 3}}>
-          <Heading as="h1" id={titleId} sx={{fontSize: 1}}>
-            {title}
-          </Heading>
-        </Box>
-        <FilteredActionList
-          filterValue={filterValue}
-          onFilterChange={onFilterChange}
-          placeholderText={placeholderText}
-          {...listProps}
-          role="listbox"
-          aria-multiselectable={isMultiSelectVariant(selected) ? 'true' : 'false'}
-          selectionVariant={isMultiSelectVariant(selected) ? 'multiple' : 'single'}
-          items={itemsToRender}
-          textInputProps={extendedTextInputProps}
-          inputRef={inputRef}
-          // inheriting height and maxHeight ensures that the FilteredActionList is never taller
-          // than the Overlay (which would break scrolling the items)
-          sx={{...sx, height: 'inherit', maxHeight: 'inherit'}}
+    <LiveRegion>
+      <AnchoredOverlay
+        renderAnchor={renderMenuAnchor}
+        anchorRef={anchorRef}
+        open={open}
+        onOpen={onOpen}
+        onClose={onClose}
+        overlayProps={{role: 'dialog', 'aria-labelledby': titleId, ...overlayProps}}
+        focusTrapSettings={focusTrapSettings}
+        focusZoneSettings={focusZoneSettings}
+      >
+        <LiveRegionOutlet />
+        <Message
+          value={
+            filterValue === ''
+              ? 'Showing all items'
+              : items.length <= 0
+              ? 'No matching items'
+              : `${items.length} matching ${items.length === 1 ? 'item' : 'items'}`
+          }
         />
-      </Box>
-    </AnchoredOverlay>
+        <Box sx={{display: 'flex', flexDirection: 'column', height: 'inherit', maxHeight: 'inherit'}}>
+          <Box sx={{pt: 2, px: 3}}>
+            <Heading as="h1" id={titleId} sx={{fontSize: 1}}>
+              {title}
+            </Heading>
+          </Box>
+          <FilteredActionList
+            filterValue={filterValue}
+            onFilterChange={onFilterChange}
+            placeholderText={placeholderText}
+            {...listProps}
+            role="listbox"
+            aria-multiselectable={isMultiSelectVariant(selected) ? 'true' : 'false'}
+            selectionVariant={isMultiSelectVariant(selected) ? 'multiple' : 'single'}
+            items={itemsToRender}
+            textInputProps={extendedTextInputProps}
+            inputRef={inputRef}
+            // inheriting height and maxHeight ensures that the FilteredActionList is never taller
+            // than the Overlay (which would break scrolling the items)
+            sx={{...sx, height: 'inherit', maxHeight: 'inherit'}}
+          />
+        </Box>
+      </AnchoredOverlay>
+    </LiveRegion>
   )
 }
 
