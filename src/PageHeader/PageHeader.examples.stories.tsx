@@ -359,7 +359,7 @@ export const WithPageLayout = () => {
             <Text sx={{fontSize: 0, fontWeight: 'bold', display: 'block', color: 'fg.muted'}}>Assignees</Text>
             <Text sx={{fontSize: 0, color: 'fg.muted', lineHeight: 'condensed', display: 'flex', alignItems: 'center'}}>
               No one —
-              <Button variant="invisible" onClick={assignYourself} sx={{color: 'fg.muted'}}>
+              <Button variant="invisible" onClick={() => {}} sx={{color: 'fg.muted'}}>
                 assign yourself
               </Button>
             </Text>
