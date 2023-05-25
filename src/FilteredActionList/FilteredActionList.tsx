@@ -11,8 +11,9 @@ import {useProvidedRefOrCreate} from '../hooks/useProvidedRefOrCreate'
 import useScrollFlash from '../hooks/useScrollFlash'
 import {scrollIntoView} from '@primer/behaviors'
 import type {ScrollIntoViewOptions} from '@primer/behaviors'
-import {SxProp} from '../sx'
 import {useId} from '../hooks/useId'
+import {VisuallyHidden} from '../internal/components/VisuallyHidden'
+import {SxProp} from '../sx'
 
 const menuScrollMargins: ScrollIntoViewOptions = {startMargin: 0, endMargin: 8}
 
@@ -30,7 +31,7 @@ export type ItemInput = Partial<
 
 export interface FilteredActionListProps extends ActionListProps, SxProp {
   loading?: boolean
-  placeholderText: string
+  placeholderText?: string
   filterValue?: string
   onFilterChange: (value: string, e: React.ChangeEvent<HTMLInputElement>) => void
   textInputProps?: Partial<Omit<TextInputProps, 'onChange'>>
@@ -90,6 +91,7 @@ export function FilteredActionList({
   const inputRef = useProvidedRefOrCreate<HTMLInputElement>(providedInputRef)
   const activeDescendantRef = useRef<HTMLElement>()
   const listId = useId()
+  const inputDescriptionTextId = useId()
   const onInputKeyPress: KeyboardEventHandler = useCallback(
     event => {
       if (event.key === 'Enter' && activeDescendantRef.current) {
@@ -149,9 +151,11 @@ export function FilteredActionList({
           placeholder={placeholderText}
           aria-label={placeholderText}
           aria-controls={listId}
+          aria-describedby={inputDescriptionTextId}
           {...textInputProps}
         />
       </StyledHeader>
+      <VisuallyHidden id={inputDescriptionTextId}>Items will be filtered as you type</VisuallyHidden>
       <Box ref={scrollContainerRef} overflow="auto">
         {loading ? (
           <Box width="100%" display="flex" flexDirection="row" justifyContent="center" pt={6} pb={7}>

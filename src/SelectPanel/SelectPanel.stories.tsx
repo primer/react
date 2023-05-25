@@ -1,6 +1,6 @@
-import React, {useState} from 'react'
-import {ComponentMeta} from '@storybook/react'
 import {TriangleDownIcon} from '@primer/octicons-react'
+import {ComponentMeta} from '@storybook/react'
+import React, {useState} from 'react'
 
 import {Button} from '../Button'
 import {SelectPanel} from '../SelectPanel'
@@ -50,12 +50,13 @@ export const Default = () => {
       <h1>Multi Select Panel</h1>
       <div>Please select labels that describe your issue:</div>
       <SelectPanel
+        title="Select labels"
         renderAnchor={({children, 'aria-labelledby': ariaLabelledBy, ...anchorProps}) => (
           <Button trailingAction={TriangleDownIcon} aria-labelledby={` ${ariaLabelledBy}`} {...anchorProps}>
             {children ?? 'Select Labels'}
           </Button>
         )}
-        placeholderText="Filter Labels"
+        placeholderText="Filter labels"
         open={open}
         onOpenChange={setOpen}
         items={filteredItems}
