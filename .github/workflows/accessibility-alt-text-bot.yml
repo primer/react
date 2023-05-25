@@ -8,7 +8,7 @@ on:
     types: [created, edited]
   discussion:
     types: [created, edited]
-    
+
 permissions:
   issues: write
   pull-requests: write
