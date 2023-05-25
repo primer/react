@@ -13,6 +13,9 @@ const input = new Set([
   // "."
   'src/index.ts',
 
+  // "./experimental"
+  'src/experimental/index.ts',
+
   // "./drafts"
   'src/drafts/index.ts',
 
