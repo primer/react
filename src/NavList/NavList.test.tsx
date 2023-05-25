@@ -3,13 +3,6 @@ import React from 'react'
 import {ThemeProvider, SSRProvider} from '..'
 import {NavList} from './NavList'
 
-type ReactRouterLikeLinkProps = {to: string; children: React.ReactNode}
-
-const ReactRouterLikeLink = React.forwardRef<HTMLAnchorElement, ReactRouterLikeLinkProps>(({to, ...props}, ref) => {
-  // eslint-disable-next-line jsx-a11y/anchor-has-content
-  return <a ref={ref} href={to} {...props} />
-})
-
 type NextJSLinkProps = {href: string; children: React.ReactNode}
 
 const NextJSLikeLink = React.forwardRef<HTMLAnchorElement, NextJSLinkProps>(
