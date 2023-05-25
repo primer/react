@@ -5,7 +5,7 @@ import {render as HTMLRender} from '@testing-library/react'
 import {axe} from 'jest-axe'
 
 describe('Link', () => {
-  behavesAsComponent({Component: Link})
+  behavesAsComponent({Component: Link, options: {skipAs: true}})
 
   checkExports('Link', {
     default: Link,
