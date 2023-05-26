@@ -1,17 +1,16 @@
 import {SearchIcon} from '@primer/octicons-react'
 import React, {useCallback, useMemo} from 'react'
+import {FilteredActionList, FilteredActionListProps, ItemInput} from '../FilteredActionList'
+import {OverlayProps} from '../Overlay'
+import {FocusZoneHookSettings} from '../hooks/useFocusZone'
+import {DropdownButton} from '../deprecated/DropdownMenu'
+import {ActionListItemProps} from '../ActionList'
 import {AnchoredOverlay, AnchoredOverlayProps} from '../AnchoredOverlay'
 import {AnchoredOverlayWrapperAnchorProps} from '../AnchoredOverlay/AnchoredOverlay'
 import Box from '../Box'
-import {FilteredActionList, FilteredActionListProps} from '../FilteredActionList'
 import Heading from '../Heading'
-import {OverlayProps} from '../Overlay'
 import {TextInputProps} from '../TextInput'
-import {ItemProps} from '../deprecated/ActionList'
-import {ItemInput} from '../deprecated/ActionList/List'
-import {DropdownButton} from '../deprecated/DropdownMenu'
 import {useProvidedRefOrCreate} from '../hooks'
-import {FocusZoneHookSettings} from '../hooks/useFocusZone'
 import {useId} from '../hooks/useId'
 import {useProvidedStateOrCreate} from '../hooks/useProvidedStateOrCreate'
 import {LiveRegion, LiveRegionOutlet, Message} from '../internal/components/LiveRegion'
@@ -43,7 +42,8 @@ export type SelectPanelProps = SelectPanelBaseProps &
   Omit<FilteredActionListProps, 'selectionVariant'> &
   Pick<AnchoredOverlayProps, 'open'> &
   AnchoredOverlayWrapperAnchorProps &
-  (SelectPanelSingleSelection | SelectPanelMultiSelection)
+  // TODO: 23-05-23 - Remove showItemDividers after next-major release
+  (SelectPanelSingleSelection | SelectPanelMultiSelection) & {showItemDividers?: boolean}
 
 function isMultiSelectVariant(
   selected: SelectPanelSingleSelection['selected'] | SelectPanelMultiSelection['selected'],
@@ -120,9 +120,7 @@ export function SelectPanel({
         ...item,
         role: 'option',
         selected: 'selected' in item && item.selected === undefined ? undefined : isItemSelected,
-        onAction: (itemFromAction, event) => {
-          item.onAction?.(itemFromAction, event)
-
+        onSelect: (event: React.MouseEvent | React.KeyboardEvent) => {
           if (event.defaultPrevented) {
             return
           }
@@ -141,7 +139,7 @@ export function SelectPanel({
           singleSelectOnChange(item === selected ? undefined : item)
           onClose('selection')
         },
-      } as ItemProps
+      } as ActionListItemProps
     })
   }, [onClose, onSelectedChange, items, selected])
 
@@ -191,11 +189,10 @@ export function SelectPanel({
           <FilteredActionList
             filterValue={filterValue}
             onFilterChange={onFilterChange}
-            placeholderText={placeholderText}
-            {...listProps}
             role="listbox"
             aria-multiselectable={isMultiSelectVariant(selected) ? 'true' : 'false'}
             selectionVariant={isMultiSelectVariant(selected) ? 'multiple' : 'single'}
+            {...listProps}
             items={itemsToRender}
             textInputProps={extendedTextInputProps}
             inputRef={inputRef}
