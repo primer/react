@@ -547,11 +547,11 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
   margin-right: 8px;
 }
 
-.c4:not(:first-of-type):not(.c12 + .c3):not(.c11 + .c3) {
+.c4:not(:first-of-type):not(.c11 + .c3):not(.c12 + .c3) {
   margin-top: 0;
 }
 
-.c4:not(:first-of-type):not(.c12 + .c3):not(.c11 + .c3) .c7::before {
+.c4:not(:first-of-type):not(.c11 + .c3):not(.c12 + .c3) .c7::before {
   content: ' ';
   display: block;
   position: absolute;
@@ -1504,11 +1504,11 @@ exports[`snapshots renders a multiselect input 1`] = `
   margin-right: 8px;
 }
 
-.c4:not(:first-of-type):not(.c11 + .c3):not(.c10 + .c3) {
+.c4:not(:first-of-type):not(.c10 + .c3):not(.c11 + .c3) {
   margin-top: 0;
 }
 
-.c4:not(:first-of-type):not(.c11 + .c3):not(.c10 + .c3) .c7::before {
+.c4:not(:first-of-type):not(.c10 + .c3):not(.c11 + .c3) .c7::before {
   content: ' ';
   display: block;
   position: absolute;
@@ -2371,11 +2371,11 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
   margin-right: 8px;
 }
 
-.c4:not(:first-of-type):not(.c12 + .c3):not(.c11 + .c3) {
+.c4:not(:first-of-type):not(.c11 + .c3):not(.c12 + .c3) {
   margin-top: 0;
 }
 
-.c4:not(:first-of-type):not(.c12 + .c3):not(.c11 + .c3) .c7::before {
+.c4:not(:first-of-type):not(.c11 + .c3):not(.c12 + .c3) .c7::before {
   content: ' ';
   display: block;
   position: absolute;
@@ -3249,11 +3249,11 @@ exports[`snapshots renders a single select input 1`] = `
   margin-right: 8px;
 }
 
-.c4:not(:first-of-type):not(.c9 + .c3):not(.c8 + .c3) {
+.c4:not(:first-of-type):not(.c8 + .c3):not(.c9 + .c3) {
   margin-top: 0;
 }
 
-.c4:not(:first-of-type):not(.c9 + .c3):not(.c8 + .c3) .c5::before {
+.c4:not(:first-of-type):not(.c8 + .c3):not(.c9 + .c3) .c5::before {
   content: ' ';
   display: block;
   position: absolute;
@@ -3692,11 +3692,11 @@ exports[`snapshots renders with a custom text input component 1`] = `
   margin-right: 8px;
 }
 
-.c4:not(:first-of-type):not(.c9 + .c3):not(.c8 + .c3) {
+.c4:not(:first-of-type):not(.c8 + .c3):not(.c9 + .c3) {
   margin-top: 0;
 }
 
-.c4:not(:first-of-type):not(.c9 + .c3):not(.c8 + .c3) .c5::before {
+.c4:not(:first-of-type):not(.c8 + .c3):not(.c9 + .c3) .c5::before {
   content: ' ';
   display: block;
   position: absolute;

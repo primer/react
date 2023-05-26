@@ -59,11 +59,11 @@ exports[`ActionList.Item renders consistently 1`] = `
   flex-grow: 1;
 }
 
-.c5:not(:first-of-type):not(.c9 + .c0):not(.c8 + .c0) {
+.c5:not(:first-of-type):not(.c8 + .c0):not(.c9 + .c0) {
   margin-top: 0;
 }
 
-.c5:not(:first-of-type):not(.c9 + .c0):not(.c8 + .c0) .c2::before {
+.c5:not(:first-of-type):not(.c8 + .c0):not(.c9 + .c0) .c2::before {
   content: ' ';
   display: block;
   position: absolute;
@@ -85,11 +85,11 @@ exports[`ActionList.Item renders consistently 1`] = `
   border-color: transparent !important;
 }
 
-.c6:not(:first-of-type):not(.c9 + .c0):not(.c8 + .c0) {
+.c6:not(:first-of-type):not(.c8 + .c0):not(.c9 + .c0) {
   margin-top: 0;
 }
 
-.c6:not(:first-of-type):not(.c9 + .c0):not(.c8 + .c0) .c2::before {
+.c6:not(:first-of-type):not(.c8 + .c0):not(.c9 + .c0) .c2::before {
   content: ' ';
   display: block;
   position: absolute;
@@ -111,11 +111,11 @@ exports[`ActionList.Item renders consistently 1`] = `
   border-color: transparent !important;
 }
 
-.c7:not(:first-of-type):not(.c9 + .c0):not(.c8 + .c0) {
+.c7:not(:first-of-type):not(.c8 + .c0):not(.c9 + .c0) {
   margin-top: 0;
 }
 
-.c7:not(:first-of-type):not(.c9 + .c0):not(.c8 + .c0) .c2::before {
+.c7:not(:first-of-type):not(.c8 + .c0):not(.c9 + .c0) .c2::before {
   content: ' ';
   display: block;
   position: absolute;
@@ -151,11 +151,11 @@ exports[`ActionList.Item renders consistently 1`] = `
   text-decoration: none;
 }
 
-.c1:not(:first-of-type):not(.c9 + .c0):not(.c8 + .c0) {
+.c1:not(:first-of-type):not(.c8 + .c0):not(.c9 + .c0) {
   margin-top: 0;
 }
 
-.c1:not(:first-of-type):not(.c9 + .c0):not(.c8 + .c0) .c2::before {
+.c1:not(:first-of-type):not(.c8 + .c0):not(.c9 + .c0) .c2::before {
   content: ' ';
   display: block;
   position: absolute;
