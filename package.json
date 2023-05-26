@@ -115,6 +115,8 @@
     "focus-visible": "^5.2.0",
     "fzy.js": "0.4.1",
     "history": "^5.0.0",
+    "lodash.isempty": "4.4.0",
+    "lodash.isobject": "3.0.2",
     "react-intersection-observer": "9.4.3",
     "styled-system": "^5.1.5"
   },
@@ -217,8 +219,6 @@
     "jscodeshift": "0.14.0",
     "lint-staged": "13.2.2",
     "lodash.groupby": "4.6.0",
-    "lodash.isempty": "4.4.0",
-    "lodash.isobject": "3.0.2",
     "lodash.keyby": "4.6.0",
     "markdownlint-cli2": "^0.7.1",
     "markdownlint-cli2-formatter-pretty": "0.0.3",
