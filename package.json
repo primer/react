@@ -162,6 +162,7 @@
     "@testing-library/react": "14.0.0",
     "@testing-library/react-hooks": "7.0.2",
     "@testing-library/user-event": "^14.3.0",
+    "@trivago/prettier-plugin-sort-imports": "4.1.1",
     "@types/jest": "29.4.0",
     "@types/jest-axe": "3.5.5",
     "@types/lodash.groupby": "4.6.7",
@@ -261,7 +262,6 @@
     "react-dom": "^17.0.0 || ^18.0.0",
     "styled-components": "4.x || 5.x"
   },
-  "prettier": "@github/prettier-config",
   "size-limit": [
     {
       "path": "dist/browser.esm.js",
