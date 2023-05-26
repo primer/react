@@ -1,7 +1,8 @@
-import {List} from './List'
+import {Divider} from './Divider'
 import {Group} from './Group'
 import {Item} from './Item'
-import {Divider} from './Divider'
+import {List} from './List'
+
 export type {ListProps as ActionListProps} from './List'
 export type {GroupProps} from './Group'
 export type {ItemProps} from './Item'

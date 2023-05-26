@@ -1,14 +1,15 @@
-import React from 'react'
-import MatchMediaMock from 'jest-matchmedia-mock'
-import {render, fireEvent, waitFor} from '@testing-library/react'
 import {EyeIcon, FileCodeIcon, PeopleIcon} from '@primer/octicons-react'
+import {fireEvent, render, waitFor} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import {behavesAsComponent, checkExports} from '../utils/testing'
-import {SegmentedControl} from '.' // TODO: update import when we move this to the global index
-import theme from '../theme'
-import {BaseStyles, SSRProvider, ThemeProvider} from '..'
+import MatchMediaMock from 'jest-matchmedia-mock'
+import React from 'react'
 import {act} from 'react-test-renderer'
+import {SegmentedControl} from '.'
+import {BaseStyles, SSRProvider, ThemeProvider} from '..'
 import {viewportRanges} from '../hooks/useResponsiveValue'
+// TODO: update import when we move this to the global index
+import theme from '../theme'
+import {behavesAsComponent, checkExports} from '../utils/testing'
 
 const segmentData = [
   {label: 'Preview', id: 'preview', iconLabel: 'EyeIcon', icon: () => <EyeIcon aria-label="EyeIcon" />},

@@ -1,5 +1,5 @@
 import React, {useMemo} from 'react'
-import {suggestionsCalculator, UseSuggestionsHook} from '.'
+import {UseSuggestionsHook, suggestionsCalculator} from '.'
 import {ActionList} from '../../../ActionList'
 import {Suggestion, Trigger} from '../../InlineAutocomplete'
 

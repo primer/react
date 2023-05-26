@@ -1,6 +1,6 @@
-import {isResponsiveValue, ResponsiveValue} from '../hooks/useResponsiveValue'
-import {BetterSystemStyleObject} from '../sx'
 import type {Properties as CSSProperties} from 'csstype'
+import {ResponsiveValue, isResponsiveValue} from '../hooks/useResponsiveValue'
+import {BetterSystemStyleObject} from '../sx'
 import {mediaQueries} from './layout'
 
 function areAllValuesTheSame(responsiveValue: ResponsiveValue<boolean | number | string>): boolean {

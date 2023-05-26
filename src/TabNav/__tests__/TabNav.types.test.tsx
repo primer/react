@@ -1,6 +1,6 @@
 import React from 'react'
-import TabNav from '../TabNav'
 import {Button} from '../../Button'
+import TabNav from '../TabNav'
 
 export function shouldAcceptCallWithNoProps() {
   return (

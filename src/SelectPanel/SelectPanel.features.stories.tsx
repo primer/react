@@ -1,12 +1,11 @@
-import React, {useState, useRef} from 'react'
+import {TriangleDownIcon} from '@primer/octicons-react'
 import {ComponentMeta} from '@storybook/react'
-
+import React, {useRef, useState} from 'react'
 import Box from '../Box'
 import {Button} from '../Button'
 import {ItemInput} from '../FilteredActionList'
-import {SelectPanel} from './SelectPanel'
-import {TriangleDownIcon} from '@primer/octicons-react'
 import type {OverlayProps} from '../Overlay'
+import {SelectPanel} from './SelectPanel'
 
 export default {
   title: 'Components/SelectPanel/Features',

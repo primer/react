@@ -57,8 +57,8 @@ Take this example of composition:
 <img width="377" alt="flash with icon" src="https://user-images.githubusercontent.com/1863771/144945208-308393e0-013d-45a9-a14d-a51bf4d4cfad.png">
 
 ```jsx
-import {Flash} from '@primer/react'
 import {CheckIcon} from '@primer/octicons-react'
+import {Flash} from '@primer/react'
 
 render(
   <Flash variant="success">

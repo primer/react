@@ -1,12 +1,12 @@
-import React from 'react'
-import {Meta} from '@storybook/react'
+import {GitBranchIcon} from '@primer/octicons-react'
 import {action} from '@storybook/addon-actions'
-import {get} from '../constants'
+import {Meta} from '@storybook/react'
+import React from 'react'
 import {BaseStyles, ThemeProvider} from '..'
 import Box from '../Box'
-import Token from './Token'
-import {GitBranchIcon} from '@primer/octicons-react'
+import {get} from '../constants'
 import IssueLabelToken from './IssueLabelToken'
+import Token from './Token'
 
 export default {
   title: 'Components/Token/Features',

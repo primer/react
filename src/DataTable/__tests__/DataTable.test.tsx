@@ -1,5 +1,5 @@
+import {getByRole, queryAllByRole, queryByRole, render, screen} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import {render, screen, getByRole, queryByRole, queryAllByRole} from '@testing-library/react'
 import React from 'react'
 import {DataTable, Table} from '../../DataTable'
 import {Column, createColumnHelper} from '../column'

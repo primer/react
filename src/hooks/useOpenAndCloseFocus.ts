@@ -1,5 +1,5 @@
-import React, {useEffect} from 'react'
 import {iterateFocusableElements} from '@primer/behaviors/utils'
+import React, {useEffect} from 'react'
 
 export type UseOpenAndCloseFocusSettings = {
   initialFocusRef?: React.RefObject<HTMLElement>

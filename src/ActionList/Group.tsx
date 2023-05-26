@@ -1,9 +1,9 @@
 import React from 'react'
-import {useId} from '../hooks/useId'
 import Box from '../Box'
+import {useId} from '../hooks/useId'
 import {SxProp} from '../sx'
-import {ListContext, ActionListProps} from './List'
 import {AriaRole} from '../utils/types'
+import {ActionListProps, ListContext} from './List'
 
 export type ActionListGroupProps = {
   /**

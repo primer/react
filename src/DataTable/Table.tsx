@@ -4,14 +4,14 @@ import React from 'react'
 import styled, {keyframes} from 'styled-components'
 import Box from '../Box'
 import Text from '../Text'
-import {get} from '../constants'
-import sx, {SxProp} from '../sx'
 import VisuallyHidden from '../_VisuallyHidden'
-import {Column, CellAlignment} from './column'
+import {get} from '../constants'
+import {useOverflow} from '../internal/hooks/useOverflow'
+import sx, {SxProp} from '../sx'
+import {CellAlignment, Column} from './column'
 import {UniqueRow} from './row'
 import {SortDirection} from './sorting'
 import {useTableLayout} from './useTable'
-import {useOverflow} from '../internal/hooks/useOverflow'
 
 // ----------------------------------------------------------------------------
 // Table

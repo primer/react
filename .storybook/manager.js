@@ -1,5 +1,5 @@
 import {addons, types} from '@storybook/addons'
-import {Tool, TOOL_ID, ADDON_ID} from './src/accessibility-tool'
+import {ADDON_ID, TOOL_ID, Tool} from './src/accessibility-tool'
 import theme from './theme'
 
 addons.setConfig({

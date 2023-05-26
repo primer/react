@@ -1,6 +1,6 @@
-import React from 'react'
 import {render} from '@testing-library/react'
 import MatchMediaMock from 'jest-matchmedia-mock'
+import React from 'react'
 import 'react-intersection-observer/test-utils'
 import {ThemeProvider} from '..'
 import {SplitPageLayout} from '../SplitPageLayout/SplitPageLayout'

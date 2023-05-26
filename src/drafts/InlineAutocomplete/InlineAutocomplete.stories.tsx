@@ -1,18 +1,17 @@
-import React, {useState} from 'react'
 import {Meta} from '@storybook/react'
-
+import React, {useState} from 'react'
+import InlineAutocomplete, {ShowSuggestionsEvent, Suggestions} from '.'
 import {
+  ActionList,
+  ActionListItemProps,
+  Avatar,
   BaseStyles,
   Box,
-  Textarea,
-  ThemeProvider,
-  ActionList,
-  Avatar,
-  ActionListItemProps,
   FormControl,
   TextInput,
+  Textarea,
+  ThemeProvider,
 } from '../..'
-import InlineAutocomplete, {ShowSuggestionsEvent, Suggestions} from '.'
 
 export default {
   title: 'Components/Forms/InlineAutocomplete',

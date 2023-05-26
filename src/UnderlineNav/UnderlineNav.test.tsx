@@ -1,8 +1,8 @@
-import React from 'react'
-import {UnderlineNav} from '..'
-import {render, rendersClass, behavesAsComponent, checkExports} from '../utils/testing'
 import {render as HTMLRender} from '@testing-library/react'
 import {axe} from 'jest-axe'
+import React from 'react'
+import {UnderlineNav} from '..'
+import {behavesAsComponent, checkExports, render, rendersClass} from '../utils/testing'
 
 describe('UnderlineNav', () => {
   behavesAsComponent({Component: UnderlineNav})

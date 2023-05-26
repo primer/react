@@ -1,11 +1,11 @@
-import React from 'react'
-import {render} from '@testing-library/react'
-import {PageHeader} from '.'
-import MatchMediaMock from 'jest-matchmedia-mock'
-import {behavesAsComponent, checkExports, renderStyles} from '../utils/testing'
-import {IconButton} from '../Button'
 import {ChevronLeftIcon, GitBranchIcon, PencilIcon, SidebarExpandIcon} from '@primer/octicons-react'
+import {render} from '@testing-library/react'
+import MatchMediaMock from 'jest-matchmedia-mock'
+import React from 'react'
+import {PageHeader} from '.'
+import {IconButton} from '../Button'
 import {mediaQueries} from '../utils/layout'
+import {behavesAsComponent, checkExports, renderStyles} from '../utils/testing'
 
 let matchmedia: MatchMediaMock
 describe('PageHeader', () => {

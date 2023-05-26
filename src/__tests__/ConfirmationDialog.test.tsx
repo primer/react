@@ -1,14 +1,13 @@
 import {render as HTMLRender, fireEvent} from '@testing-library/react'
 import {axe} from 'jest-axe'
 import React, {useCallback, useRef, useState} from 'react'
-
-import {ActionMenu} from '../deprecated/ActionMenu'
 import BaseStyles from '../BaseStyles'
 import Box from '../Box'
-import Button from '../deprecated/Button/Button'
 import {ConfirmationDialog, useConfirm} from '../Dialog/ConfirmationDialog'
-import theme from '../theme'
 import {ThemeProvider} from '../ThemeProvider'
+import {ActionMenu} from '../deprecated/ActionMenu'
+import Button from '../deprecated/Button/Button'
+import theme from '../theme'
 import {SSRProvider} from '../utils/ssr'
 import {behavesAsComponent, checkExports} from '../utils/testing'
 

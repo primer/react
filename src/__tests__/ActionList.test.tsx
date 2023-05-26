@@ -1,10 +1,10 @@
-import {render as HTMLRender, waitFor, fireEvent} from '@testing-library/react'
+import {render as HTMLRender, fireEvent, waitFor} from '@testing-library/react'
 import {axe} from 'jest-axe'
 import React from 'react'
-import theme from '../theme'
+import {BaseStyles, SSRProvider, ThemeProvider} from '..'
 import {ActionList} from '../ActionList'
+import theme from '../theme'
 import {behavesAsComponent, checkExports} from '../utils/testing'
-import {BaseStyles, ThemeProvider, SSRProvider} from '..'
 
 function SimpleActionList(): JSX.Element {
   return (

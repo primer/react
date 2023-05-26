@@ -1,6 +1,6 @@
+import {Box} from '@primer/react'
 import React from 'react'
 import Navigation from './Navigation'
-import {Box} from '@primer/react'
 
 export default function Layout({children}) {
   return (

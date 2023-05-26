@@ -1,9 +1,10 @@
-import React, {useState, useRef} from 'react'
-import {Dialog, Box, Text} from '..'
-import {Button} from '../deprecated'
 import {render as HTMLRender, fireEvent} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
+import React, {useRef, useState} from 'react'
+import {Box, Dialog, Text} from '..'
+import {Button} from '../deprecated'
 import {behavesAsComponent, checkExports} from '../utils/testing'
+
 expect.extend(toHaveNoViolations)
 
 const comp = (

@@ -1,8 +1,8 @@
-import React from 'react'
-import {Header} from '..'
-import {render, behavesAsComponent, checkExports} from '../utils/testing'
 import {render as HTMLRender} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
+import React from 'react'
+import {Header} from '..'
+import {behavesAsComponent, checkExports, render} from '../utils/testing'
 
 expect.extend(toHaveNoViolations)
 

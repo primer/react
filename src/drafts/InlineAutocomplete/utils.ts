@@ -1,5 +1,4 @@
 import {Children, EventHandler, SyntheticEvent} from 'react'
-
 import {ShowSuggestionsEvent, Suggestion, TextInputCompatibleChild, Trigger} from './types'
 
 const singleWordTriggerTerminators = new Set([' ', '\n'])

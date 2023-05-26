@@ -1,7 +1,7 @@
 import React, {useContext} from 'react'
 import {Checkbox, Radio, useSSRSafeId} from '../..'
-import ChoiceInputField from '../ChoiceInputField'
 import {ComponentProps} from '../../utils/types'
+import ChoiceInputField from '../ChoiceInputField'
 import ChoiceInputLeadingVisual from '../_ChoiceInputLeadingVisual'
 import ChoiceFieldCaption from './ChoiceFieldCaption'
 import ChoiceFieldLabel from './ChoiceFieldLabel'

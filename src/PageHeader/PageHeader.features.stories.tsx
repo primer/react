@@ -1,25 +1,24 @@
-import React from 'react'
-import {Meta} from '@storybook/react'
-import {IconButton, Breadcrumbs, Text, Link, Button, Box, Label, UnderlineNav2} from '..'
 import {
-  PencilIcon,
-  SidebarExpandIcon,
+  ChecklistIcon,
   CommentDiscussionIcon,
   CommitIcon,
   FileDiffIcon,
-  ChecklistIcon,
-  WorkflowIcon,
-  GraphIcon,
-  TriangleDownIcon,
   GearIcon,
-  GitPullRequestIcon,
   GitBranchIcon,
+  GitPullRequestIcon,
+  GraphIcon,
   KebabHorizontalIcon,
+  PencilIcon,
+  SidebarExpandIcon,
+  TriangleDownIcon,
+  WorkflowIcon,
 } from '@primer/octicons-react'
-import VisuallyHidden from '../_VisuallyHidden'
-
-import {PageHeader} from './PageHeader'
+import {Meta} from '@storybook/react'
+import React from 'react'
+import {Box, Breadcrumbs, Button, IconButton, Label, Link, Text, UnderlineNav2} from '..'
 import {Hidden} from '../Hidden'
+import VisuallyHidden from '../_VisuallyHidden'
+import {PageHeader} from './PageHeader'
 
 const meta: Meta = {
   title: 'Drafts/Components/PageHeader/Features',

@@ -1,14 +1,12 @@
-import {To} from 'history'
-
-import {get} from './constants'
-import styled, {css} from 'styled-components'
-
-import Box from './Box'
-import {ComponentProps} from './utils/types'
-import Link from './Link'
-import React from 'react'
 import classnames from 'classnames'
+import {To} from 'history'
+import React from 'react'
+import styled, {css} from 'styled-components'
+import Box from './Box'
+import Link from './Link'
+import {get} from './constants'
 import sx, {SxProp} from './sx'
+import {ComponentProps} from './utils/types'
 
 type SideNavBaseProps = {
   variant?: 'lightweight' | 'normal'

@@ -3,15 +3,15 @@ import {isFocusable} from '@primer/behaviors/utils'
 import {omit} from '@styled-system/props'
 import React, {FocusEventHandler, KeyboardEventHandler, MouseEventHandler, RefObject, useRef, useState} from 'react'
 import Box from '../Box'
-import {useRefObjectAsForwardedRef} from '../hooks/useRefObjectAsForwardedRef'
-import {useFocusZone} from '../hooks/useFocusZone'
 import Text from '../Text'
 import {TextInputProps} from '../TextInput'
 import Token from '../Token/Token'
 import {TokenSizeKeys} from '../Token/TokenBase'
 import TextInputInnerVisualSlot from '../_TextInputInnerVisualSlot'
-import TextInputWrapper, {textInputHorizPadding, TextInputSizes} from '../_TextInputWrapper'
+import TextInputWrapper, {TextInputSizes, textInputHorizPadding} from '../_TextInputWrapper'
 import UnstyledTextInput from '../_UnstyledTextInput'
+import {useFocusZone} from '../hooks/useFocusZone'
+import {useRefObjectAsForwardedRef} from '../hooks/useRefObjectAsForwardedRef'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type AnyReactComponent = React.ComponentType<React.PropsWithChildren<any>>

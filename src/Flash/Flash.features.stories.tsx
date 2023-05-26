@@ -1,5 +1,5 @@
-import React from 'react'
 import {ComponentMeta} from '@storybook/react'
+import React from 'react'
 import Flash from './Flash'
 
 export default {

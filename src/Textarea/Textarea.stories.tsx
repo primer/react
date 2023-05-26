@@ -1,5 +1,5 @@
-import React from 'react'
 import {Meta} from '@storybook/react'
+import React from 'react'
 import {Box, FormControl, Textarea, TextareaProps} from '..'
 import {DEFAULT_TEXTAREA_COLS, DEFAULT_TEXTAREA_RESIZE, DEFAULT_TEXTAREA_ROWS} from '../Textarea'
 import {

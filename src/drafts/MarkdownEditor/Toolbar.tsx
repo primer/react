@@ -1,4 +1,5 @@
 import {FocusKeys} from '@primer/behaviors'
+import {isMacOS} from '@primer/behaviors/utils'
 import {
   BoldIcon,
   CodeIcon,
@@ -13,8 +14,6 @@ import {
   TasklistIcon,
 } from '@primer/octicons-react'
 import React, {forwardRef, memo, useContext, useRef} from 'react'
-
-import {isMacOS} from '@primer/behaviors/utils'
 import Box from '../../Box'
 import {IconButton, IconButtonProps} from '../../Button'
 import {useFocusZone} from '../../hooks/useFocusZone'

@@ -1,6 +1,5 @@
 import React, {DOMAttributes, useCallback} from 'react'
 import {Box, Spinner} from '../..'
-
 import {useLinkInterception} from './_useLinkInterception'
 import {useListInteraction} from './_useListInteraction'
 

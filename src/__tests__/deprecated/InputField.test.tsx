@@ -1,8 +1,9 @@
-import React from 'react'
 import {render} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
+import React from 'react'
 import {Autocomplete, SSRProvider, TextInput, TextInputWithTokens} from '../../'
 import InputField from '../../deprecated/InputField'
+
 expect.extend(toHaveNoViolations)
 
 const TEXTINPUTFIELD_LABEL_TEXT = 'Name'

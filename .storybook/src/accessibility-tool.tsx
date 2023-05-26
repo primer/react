@@ -1,6 +1,6 @@
-import React, {useCallback} from 'react'
 import {useGlobals} from '@storybook/api'
 import {IconButton, Icons} from '@storybook/components'
+import React, {useCallback} from 'react'
 
 export const ADDON_ID = 'show-surrounding-links'
 export const TOOL_ID = `${ADDON_ID}/tool`

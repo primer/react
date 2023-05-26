@@ -1,9 +1,9 @@
+import {render as HTMLRender} from '@testing-library/react'
+import {axe, toHaveNoViolations} from 'jest-axe'
 import React from 'react'
 import {Avatar} from '..'
 import theme from '../theme'
-import {px, render, behavesAsComponent, checkExports} from '../utils/testing'
-import {render as HTMLRender} from '@testing-library/react'
-import {axe, toHaveNoViolations} from 'jest-axe'
+import {behavesAsComponent, checkExports, px, render} from '../utils/testing'
 
 expect.extend(toHaveNoViolations)
 

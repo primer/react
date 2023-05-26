@@ -1,7 +1,8 @@
-import React, {useEffect} from 'react'
 import {focusZone} from '@primer/behaviors'
 import type {FocusZoneSettings} from '@primer/behaviors'
+import React, {useEffect} from 'react'
 import {useProvidedRefOrCreate} from './useProvidedRefOrCreate'
+
 export {FocusKeys} from '@primer/behaviors'
 export type {Direction} from '@primer/behaviors'
 

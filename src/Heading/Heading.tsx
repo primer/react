@@ -3,8 +3,8 @@ import styled from 'styled-components'
 import {get} from '../constants'
 import {useRefObjectAsForwardedRef} from '../hooks'
 import sx, {SxProp} from '../sx'
-import {ComponentProps} from '../utils/types'
 import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
+import {ComponentProps} from '../utils/types'
 
 type StyledHeadingProps = {
   as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'

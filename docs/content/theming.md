@@ -267,8 +267,8 @@ function Example() {
 Instead, use the `useColorSchemeVar` hook to create a local variable that will update based on the active color scheme:
 
 ```jsx
-import {useColorSchemeVar} from '@primer/react'
 import {colors} from '@primer/primitives'
+import {useColorSchemeVar} from '@primer/react'
 
 function Example() {
   // GOOD: The value of `customBg` changes based on the active color scheme

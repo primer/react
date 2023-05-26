@@ -1,7 +1,7 @@
 import React, {HTMLAttributes, forwardRef} from 'react'
 import Box from '../Box'
-import {BetterSystemStyleObject, SxProp, merge} from '../sx'
 import VisuallyHidden from '../_VisuallyHidden'
+import {BetterSystemStyleObject, SxProp, merge} from '../sx'
 import {defaultSxProp} from '../utils/defaultSxProp'
 
 export type CounterLabelProps = React.PropsWithChildren<

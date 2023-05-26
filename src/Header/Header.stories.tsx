@@ -1,10 +1,9 @@
-import React from 'react'
-import {ComponentMeta, ComponentStory} from '@storybook/react'
 import {MarkGithubIcon} from '@primer/octicons-react'
-
-import Header from './Header'
+import {ComponentMeta, ComponentStory} from '@storybook/react'
+import React from 'react'
 import Avatar from '../Avatar'
 import Octicon from '../Octicon'
+import Header from './Header'
 
 export default {
   title: 'Components/Header',

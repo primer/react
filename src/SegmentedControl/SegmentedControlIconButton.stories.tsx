@@ -1,8 +1,8 @@
-import React from 'react'
-import {Meta, StoryFn} from '@storybook/react'
-import SegmentedControlIconButton, {SegmentedControlIconButtonProps} from './SegmentedControlIconButton'
-import {SegmentedControl} from '.'
 import {EyeIcon, FileCodeIcon, PeopleIcon} from '@primer/octicons-react'
+import {Meta, StoryFn} from '@storybook/react'
+import React from 'react'
+import {SegmentedControl} from '.'
+import SegmentedControlIconButton, {SegmentedControlIconButtonProps} from './SegmentedControlIconButton'
 
 const icons = {FileCodeIcon, EyeIcon, PeopleIcon}
 

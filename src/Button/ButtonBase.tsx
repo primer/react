@@ -1,12 +1,12 @@
 import React, {ComponentPropsWithRef, forwardRef, useMemo} from 'react'
-import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import Box from '../Box'
-import {BetterSystemStyleObject, merge} from '../sx'
 import {useTheme} from '../ThemeProvider'
-import {ButtonProps, StyledButton} from './types'
-import {getVariantStyles, getButtonStyles, getAlignContentSize} from './styles'
 import {useRefObjectAsForwardedRef} from '../hooks/useRefObjectAsForwardedRef'
+import {BetterSystemStyleObject, merge} from '../sx'
 import {defaultSxProp} from '../utils/defaultSxProp'
+import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
+import {getAlignContentSize, getButtonStyles, getVariantStyles} from './styles'
+import {ButtonProps, StyledButton} from './types'
 
 const ButtonBase = forwardRef(
   ({children, as: Component = 'button', sx: sxProp = defaultSxProp, ...props}, forwardedRef): JSX.Element => {

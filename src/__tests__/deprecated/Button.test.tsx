@@ -1,17 +1,17 @@
-import React from 'react'
-import {
-  Button,
-  ButtonPrimary,
-  ButtonClose,
-  ButtonDanger,
-  ButtonOutline,
-  ButtonInvisible,
-  ButtonTableList,
-} from '../../deprecated'
-import {ButtonGroup} from '../..'
-import {render, behavesAsComponent, checkExports} from '../../utils/testing'
 import {render as HTMLRender} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
+import React from 'react'
+import {ButtonGroup} from '../..'
+import {
+  Button,
+  ButtonClose,
+  ButtonDanger,
+  ButtonInvisible,
+  ButtonOutline,
+  ButtonPrimary,
+  ButtonTableList,
+} from '../../deprecated'
+import {behavesAsComponent, checkExports, render} from '../../utils/testing'
 
 expect.extend(toHaveNoViolations)
 

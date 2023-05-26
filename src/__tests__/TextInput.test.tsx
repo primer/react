@@ -1,10 +1,10 @@
 import {SearchIcon} from '@primer/octicons-react'
-import userEvent from '@testing-library/user-event'
 import {render as HTMLRender, fireEvent} from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import {axe} from 'jest-axe'
 import React from 'react'
 import {TextInput} from '..'
-import {render, behavesAsComponent, checkExports} from '../utils/testing'
+import {behavesAsComponent, checkExports, render} from '../utils/testing'
 
 describe('TextInput', () => {
   behavesAsComponent({Component: TextInput, options: {skipAs: true}})

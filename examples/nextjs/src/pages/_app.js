@@ -1,4 +1,4 @@
-import {ThemeProvider, BaseStyles} from '@primer/react'
+import {BaseStyles, ThemeProvider} from '@primer/react'
 import React from 'react'
 import Layout from '../components/Layout'
 

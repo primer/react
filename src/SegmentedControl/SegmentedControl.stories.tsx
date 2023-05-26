@@ -1,9 +1,9 @@
-import React from 'react'
-import {Story, Meta} from '@storybook/react'
-import {SegmentedControl} from '.'
-import SegmentedControlIconButton from './SegmentedControlIconButton'
-import SegmentedControlButton from './SegmentedControlButton'
 import {EyeIcon, FileCodeIcon, PeopleIcon} from '@primer/octicons-react'
+import {Meta, Story} from '@storybook/react'
+import React from 'react'
+import {SegmentedControl} from '.'
+import SegmentedControlButton from './SegmentedControlButton'
+import SegmentedControlIconButton from './SegmentedControlIconButton'
 
 type ResponsiveVariantOptions = 'dropdown' | 'hideLabels' | 'default'
 type Args = {

@@ -106,8 +106,8 @@ render(<Navigation />)
 ### With React Router
 
 ```jsx
-import {Link, useMatch, useResolvedPath} from 'react-router-dom'
 import {UnderlineNav} from '@primer/react/drafts'
+import {Link, useMatch, useResolvedPath} from 'react-router-dom'
 
 function UnderlineNavItem({to, children, ...rest}) {
   const resolved = useResolvedPath(to)
@@ -137,9 +137,9 @@ const Navigation = () => {
 ### With Next.js
 
 ```jsx
-import {useRouter} from 'next/router'
-import Link from 'next/link'
 import {UnderlineNav} from '@primer/react/drafts'
+import Link from 'next/link'
+import {useRouter} from 'next/router'
 
 function UnderlineNavItem({href, children, ...rest}) {
   const router = useRouter()

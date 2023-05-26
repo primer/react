@@ -1,9 +1,9 @@
 import componentMetadata from '@primer/component-metadata'
-import {Link, Label, Octicon} from '@primer/react'
-import {AccessibilityInsetIcon} from '@primer/octicons-react'
 import StatusLabel from '@primer/gatsby-theme-doctocat/src/components/status-label'
 import Table from '@primer/gatsby-theme-doctocat/src/components/table'
-import {graphql, Link as GatsbyLink, useStaticQuery} from 'gatsby'
+import {AccessibilityInsetIcon} from '@primer/octicons-react'
+import {Label, Link, Octicon} from '@primer/react'
+import {Link as GatsbyLink, graphql, useStaticQuery} from 'gatsby'
 import React from 'react'
 
 export function ComponentStatuses() {

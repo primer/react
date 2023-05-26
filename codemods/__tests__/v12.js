@@ -1,5 +1,6 @@
 import {defineInlineTest} from 'jscodeshift/dist/testUtils'
 import v12 from '../v12'
+
 defineInlineTest(
   v12,
   {},

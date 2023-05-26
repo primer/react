@@ -1,9 +1,9 @@
-import React from 'react'
-import {Meta, Story} from '@storybook/react'
-import {UnderlineNav} from './index'
-import {UnderlineNavItem} from './UnderlineNavItem'
 import {CodeIcon, GitPullRequestIcon, PeopleIcon} from '@primer/octicons-react'
+import {Meta, Story} from '@storybook/react'
+import React from 'react'
 import {OcticonArgType} from '../utils/story-helpers'
+import {UnderlineNavItem} from './UnderlineNavItem'
+import {UnderlineNav} from './index'
 
 export default {
   title: 'Drafts/Components/UnderlineNav/UnderlineNav.Item',

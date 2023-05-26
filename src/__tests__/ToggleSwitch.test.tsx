@@ -1,9 +1,9 @@
-import React from 'react'
 import '@testing-library/jest-dom/extend-expect'
 import {render} from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
+import React from 'react'
 import {ToggleSwitch} from '..'
 import {behavesAsComponent, checkExports, checkStoriesForAxeViolations} from '../utils/testing'
-import userEvent from '@testing-library/user-event'
 
 const SWITCH_LABEL_TEXT = 'Switch label'
 

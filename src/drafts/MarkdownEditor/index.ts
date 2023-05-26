@@ -1,7 +1,7 @@
-import _MarkdownEditor from './MarkdownEditor'
-import {DefaultToolbarButtons, Toolbar, ToolbarButton} from './Toolbar'
 import {ActionButton, Actions} from './Actions'
 import {Label} from './Label'
+import _MarkdownEditor from './MarkdownEditor'
+import {DefaultToolbarButtons, Toolbar, ToolbarButton} from './Toolbar'
 
 export type {MarkdownEditorHandle} from './MarkdownEditor'
 

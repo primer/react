@@ -1,9 +1,9 @@
 import {score} from 'fzy.js'
 import React, {useMemo} from 'react'
-import {suggestionsCalculator, UseSuggestionsHook} from '.'
+import {UseSuggestionsHook, suggestionsCalculator} from '.'
 import {ActionList} from '../../../ActionList'
-import {Suggestion, Trigger} from '../../InlineAutocomplete'
 import Text from '../../../Text'
+import {Suggestion, Trigger} from '../../InlineAutocomplete'
 
 /** Could be a user, team, or organization - anything that can be mentioned. */
 export type Mentionable = {

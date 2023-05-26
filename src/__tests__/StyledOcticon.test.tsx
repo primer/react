@@ -1,9 +1,9 @@
-import React from 'react'
 import {XIcon} from '@primer/octicons-react'
-import {StyledOcticon} from '..'
-import {behavesAsComponent, checkExports} from '../utils/testing'
 import {render as HTMLRender} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
+import React from 'react'
+import {StyledOcticon} from '..'
+import {behavesAsComponent, checkExports} from '../utils/testing'
 
 expect.extend(toHaveNoViolations)
 

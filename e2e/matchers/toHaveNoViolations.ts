@@ -1,7 +1,7 @@
+import fs from 'node:fs'
+import path from 'node:path'
 import {Page, expect, test} from '@playwright/test'
 import {AxeResults, source} from 'axe-core'
-import path from 'node:path'
-import fs from 'node:fs'
 
 const defaultOptions = {
   rules: {

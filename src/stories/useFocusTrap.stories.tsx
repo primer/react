@@ -1,10 +1,9 @@
-import React, {useCallback, useEffect} from 'react'
 import {Meta} from '@storybook/react'
+import {themeGet} from '@styled-system/theme-get'
+import React, {useCallback, useEffect} from 'react'
 import styled, {createGlobalStyle} from 'styled-components'
-
 import {BaseStyles, Box, Button, Flash, Text, ThemeProvider} from '..'
 import {useFocusTrap} from '../hooks/useFocusTrap'
-import {themeGet} from '@styled-system/theme-get'
 
 export default {
   title: 'Hooks/useFocusTrap',

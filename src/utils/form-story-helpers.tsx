@@ -1,8 +1,8 @@
+import {InputType} from '@storybook/csf'
+import {ArgTypes} from '@storybook/react'
 import React from 'react'
 import {CheckboxGroup, FormControl} from '../index'
 import {ComponentProps} from './types'
-import {ArgTypes} from '@storybook/react'
-import {InputType} from '@storybook/csf'
 
 type CheckboxOrRadioGroupWrapperArgs = ComponentProps<typeof CheckboxGroup>
 type CheckboxOrRadioGroupLabelArgs = ComponentProps<typeof CheckboxGroup.Label> & {

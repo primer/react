@@ -1,10 +1,10 @@
-import React from 'react'
-import {Box, ThemeProvider, theme, themeGet, BaseStyles, CheckboxGroup, FormControl} from '../index'
-import {createGlobalStyle} from 'styled-components'
-import {ComponentProps} from './types'
-import {ArgTypes} from '@storybook/react'
-import {InputType} from '@storybook/csf'
 import {Icon} from '@primer/octicons-react'
+import {InputType} from '@storybook/csf'
+import {ArgTypes} from '@storybook/react'
+import React from 'react'
+import {createGlobalStyle} from 'styled-components'
+import {BaseStyles, Box, CheckboxGroup, FormControl, ThemeProvider, theme, themeGet} from '../index'
+import {ComponentProps} from './types'
 
 // we don't import StoryContext from storybook because of exports that conflict
 // with primer/react more: https://github.com/primer/react/runs/6129115026?check_suite_focus=true

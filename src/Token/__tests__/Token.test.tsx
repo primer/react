@@ -1,12 +1,12 @@
 import {render as HTMLRender, fireEvent} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import React from 'react'
-import Token from '../Token'
-import {render, behavesAsComponent} from '../../utils/testing'
 import {axe} from 'jest-axe'
-import {TokenSizeKeys, tokenSizes} from '../TokenBase'
-import {IssueLabelToken, AvatarToken} from '..'
+import React from 'react'
+import {AvatarToken, IssueLabelToken} from '..'
+import {behavesAsComponent, render} from '../../utils/testing'
 import {AvatarTokenProps} from '../AvatarToken'
+import Token from '../Token'
+import {TokenSizeKeys, tokenSizes} from '../TokenBase'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const testTokenComponent = (Component: React.ComponentType<React.PropsWithChildren<any>>) => {

@@ -1,7 +1,7 @@
-import React from 'react'
-import {Meta, ComponentStory} from '@storybook/react'
-import CircleOcticon from './CircleOcticon'
 import {CheckIcon} from '@primer/octicons-react'
+import {ComponentStory, Meta} from '@storybook/react'
+import React from 'react'
+import CircleOcticon from './CircleOcticon'
 
 export default {
   title: 'Components/CircleOcticon',

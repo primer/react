@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import {width, WidthProps} from 'styled-system'
+import {WidthProps, width} from 'styled-system'
 import {get} from '../constants'
 import sx, {SxProp} from '../sx'
 

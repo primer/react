@@ -1,4 +1,4 @@
-import {fireEvent, render, act, waitFor} from '@testing-library/react'
+import {act, fireEvent, render, waitFor} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import React from 'react'
 import {ThemeProvider} from '../ThemeProvider'

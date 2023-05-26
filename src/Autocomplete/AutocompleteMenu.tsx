@@ -1,15 +1,15 @@
-import React, {useContext, useEffect, useMemo, useRef, useState} from 'react'
 import {scrollIntoView} from '@primer/behaviors'
 import type {ScrollIntoViewOptions} from '@primer/behaviors'
-import {ActionList, ItemProps} from '../deprecated/ActionList'
-import {useFocusZone} from '../hooks/useFocusZone'
-import {ComponentProps, MandateProps} from '../utils/types'
+import {PlusIcon} from '@primer/octicons-react'
+import React, {useContext, useEffect, useMemo, useRef, useState} from 'react'
 import Box from '../Box'
 import Spinner from '../Spinner'
-import {useSSRSafeId} from '../utils/ssr'
-import {AutocompleteContext} from './AutocompleteContext'
-import {PlusIcon} from '@primer/octicons-react'
 import VisuallyHidden from '../_VisuallyHidden'
+import {ActionList, ItemProps} from '../deprecated/ActionList'
+import {useFocusZone} from '../hooks/useFocusZone'
+import {useSSRSafeId} from '../utils/ssr'
+import {ComponentProps, MandateProps} from '../utils/types'
+import {AutocompleteContext} from './AutocompleteContext'
 
 type OnSelectedChange<T> = (item: T | T[]) => void
 type AutocompleteMenuItem = MandateProps<ItemProps, 'id'>

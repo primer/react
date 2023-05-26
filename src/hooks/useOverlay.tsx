@@ -1,6 +1,6 @@
-import {useOnOutsideClick, TouchOrMouseEvent} from './useOnOutsideClick'
-import {useOpenAndCloseFocus} from './useOpenAndCloseFocus'
 import {useOnEscapePress} from './useOnEscapePress'
+import {TouchOrMouseEvent, useOnOutsideClick} from './useOnOutsideClick'
+import {useOpenAndCloseFocus} from './useOpenAndCloseFocus'
 import {useProvidedRefOrCreate} from './useProvidedRefOrCreate'
 
 export type UseOverlaySettings = {

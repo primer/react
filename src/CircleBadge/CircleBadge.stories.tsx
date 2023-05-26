@@ -1,7 +1,7 @@
-import React from 'react'
-import {Meta, ComponentStory} from '@storybook/react'
-import CircleBadge from './CircleBadge'
 import {ZapIcon} from '@primer/octicons-react'
+import {ComponentStory, Meta} from '@storybook/react'
+import React from 'react'
+import CircleBadge from './CircleBadge'
 
 export default {
   title: 'Components/CircleBadge',

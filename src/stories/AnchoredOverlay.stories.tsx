@@ -1,10 +1,9 @@
-import React, {useEffect, useRef, useState} from 'react'
 import {Meta} from '@storybook/react'
-
+import React, {useEffect, useRef, useState} from 'react'
 import {BaseStyles, Box, ThemeProvider} from '..'
-import Heading from '../Heading'
-import {Button} from '../Button'
 import {AnchoredOverlay} from '../AnchoredOverlay'
+import {Button} from '../Button'
+import Heading from '../Heading'
 import {registerPortalRoot} from '../Portal'
 
 export default {

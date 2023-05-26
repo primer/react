@@ -1,17 +1,16 @@
-import React from 'react'
-import {render} from '@testing-library/react'
-import userEvent from '@testing-library/user-event'
 import {
-  IconProps,
   CodeIcon,
-  IssueOpenedIcon,
-  GitPullRequestIcon,
   CommentDiscussionIcon,
+  GitPullRequestIcon,
+  GraphIcon,
+  IconProps,
+  IssueOpenedIcon,
   ProjectIcon,
   ShieldLockIcon,
-  GraphIcon,
 } from '@primer/octicons-react'
-
+import {render} from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
+import React from 'react'
 import {UnderlineNav} from '.'
 import {behavesAsComponent, checkExports, checkStoriesForAxeViolations} from '../utils/testing'
 

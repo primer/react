@@ -1,13 +1,13 @@
 import {subscribe as subscribeToMarkdownPasting} from '@github/paste-markdown'
 import React, {forwardRef, useEffect, useMemo, useRef, useState} from 'react'
-import {useDynamicTextareaHeight} from '../hooks/useDynamicTextareaHeight'
-import InlineAutocomplete, {ShowSuggestionsEvent, Suggestions} from '../InlineAutocomplete'
 import Textarea, {TextareaProps} from '../../Textarea'
+import {useRefObjectAsForwardedRef} from '../../hooks'
+import InlineAutocomplete, {ShowSuggestionsEvent, Suggestions} from '../InlineAutocomplete'
+import {useDynamicTextareaHeight} from '../hooks/useDynamicTextareaHeight'
+import {SuggestionOptions} from './suggestions'
 import {Emoji, useEmojiSuggestions} from './suggestions/_useEmojiSuggestions'
 import {Mentionable, useMentionSuggestions} from './suggestions/_useMentionSuggestions'
 import {Reference, useReferenceSuggestions} from './suggestions/_useReferenceSuggestions'
-import {useRefObjectAsForwardedRef} from '../../hooks'
-import {SuggestionOptions} from './suggestions'
 
 interface MarkdownInputProps extends Omit<TextareaProps, 'onChange'> {
   value: string

@@ -1,5 +1,5 @@
+import {ActionList, ActionMenu, BaseStyles, Box, ThemeProvider, useTheme} from '@primer/react'
 import React from 'react'
-import {ActionMenu, ActionList, BaseStyles, Box, ThemeProvider, useTheme} from '@primer/react'
 
 function ThemeSwitcher() {
   const {theme, dayScheme, setDayScheme} = useTheme()

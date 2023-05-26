@@ -1,4 +1,4 @@
-import {useRef, useCallback} from 'react'
+import {useCallback, useRef} from 'react'
 
 type DeprecationType = {name: string; message: string; version: string}
 

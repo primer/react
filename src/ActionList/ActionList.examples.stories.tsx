@@ -1,23 +1,23 @@
+import {
+  CalendarIcon,
+  IssueOpenedIcon,
+  LinkIcon,
+  NumberIcon,
+  PeopleIcon,
+  StarIcon,
+  TableIcon,
+  TypographyIcon,
+  XIcon,
+} from '@primer/octicons-react'
 import {Meta} from '@storybook/react'
 import React, {forwardRef} from 'react'
 import {DndProvider, useDrag, useDrop} from 'react-dnd'
 import {HTML5Backend} from 'react-dnd-html5-backend'
-import {
-  TypographyIcon,
-  StarIcon,
-  TableIcon,
-  PeopleIcon,
-  CalendarIcon,
-  IssueOpenedIcon,
-  NumberIcon,
-  LinkIcon,
-  XIcon,
-} from '@primer/octicons-react'
 import {ActionList, ActionListItemProps} from '.'
-import TextInput from '../TextInput'
-import Spinner from '../Spinner'
 import Box from '../Box'
+import Spinner from '../Spinner'
 import Text from '../Text'
+import TextInput from '../TextInput'
 
 const meta: Meta = {
   title: 'Components/ActionList/Examples',

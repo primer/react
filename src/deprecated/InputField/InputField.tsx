@@ -1,13 +1,14 @@
 import React from 'react'
 import {Autocomplete, Box, Select, TextInput, TextInputWithTokens, useSSRSafeId} from '../../'
 import InputValidation from '../../_InputValidation'
+import ValidationAnimationContainer from '../../_ValidationAnimationContainer'
 import {ComponentProps} from '../../utils/types'
 import {FormValidationStatus} from '../../utils/types/FormValidationStatus'
 import InputFieldCaption from './_InputFieldCaption'
 import InputFieldLabel from './_InputFieldLabel'
 import InputFieldValidation from './_InputFieldValidation'
 import {Slots} from './slots'
-import ValidationAnimationContainer from '../../_ValidationAnimationContainer'
+
 export interface Props<T = Record<string, FormValidationStatus>> {
   children?: React.ReactNode
   /**

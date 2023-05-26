@@ -1,7 +1,7 @@
+import {ComponentStory, Meta} from '@storybook/react'
 import React from 'react'
-import {Meta, ComponentStory} from '@storybook/react'
-import LabelGroup from './LabelGroup'
 import Label from '../Label'
+import LabelGroup from './LabelGroup'
 
 export default {
   title: 'Components/LabelGroup',

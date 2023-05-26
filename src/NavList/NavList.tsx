@@ -1,5 +1,4 @@
 import {ChevronDownIcon} from '@primer/octicons-react'
-import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import React, {isValidElement} from 'react'
 import styled from 'styled-components'
 import {
@@ -10,9 +9,10 @@ import {
 } from '../ActionList'
 import Box from '../Box'
 import Octicon from '../Octicon'
-import sx, {merge, SxProp} from '../sx'
-import {defaultSxProp} from '../utils/defaultSxProp'
 import {useId} from '../hooks/useId'
+import sx, {SxProp, merge} from '../sx'
+import {defaultSxProp} from '../utils/defaultSxProp'
+import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import useIsomorphicLayoutEffect from '../utils/useIsomorphicLayoutEffect'
 
 // ----------------------------------------------------------------------------

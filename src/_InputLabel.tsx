@@ -1,7 +1,7 @@
 import React from 'react'
 import Box from './Box'
-import {SxProp} from './sx'
 import VisuallyHidden from './_VisuallyHidden'
+import {SxProp} from './sx'
 
 type BaseProps = SxProp & {
   disabled?: boolean

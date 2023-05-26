@@ -1,10 +1,10 @@
+import {render} from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
+import {toHaveNoViolations} from 'jest-axe'
 import React from 'react'
 import {Textarea} from '..'
+import {DEFAULT_TEXTAREA_COLS, DEFAULT_TEXTAREA_RESIZE, DEFAULT_TEXTAREA_ROWS} from '../Textarea'
 import {behavesAsComponent, checkExports, renderStyles} from '../utils/testing'
-import {render} from '@testing-library/react'
-import {toHaveNoViolations} from 'jest-axe'
-import userEvent from '@testing-library/user-event'
-import {DEFAULT_TEXTAREA_ROWS, DEFAULT_TEXTAREA_COLS, DEFAULT_TEXTAREA_RESIZE} from '../Textarea'
 
 expect.extend(toHaveNoViolations)
 

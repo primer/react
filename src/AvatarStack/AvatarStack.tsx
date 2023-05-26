@@ -1,8 +1,8 @@
 import classnames from 'classnames'
 import React from 'react'
 import styled from 'styled-components'
-import {get} from '../constants'
 import Box from '../Box'
+import {get} from '../constants'
 import sx, {SxProp} from '../sx'
 
 type StyledAvatarStackWrapperProps = {

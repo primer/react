@@ -1,13 +1,13 @@
 import React, {forwardRef, useRef} from 'react'
 import styled from 'styled-components'
-import ButtonClose from './deprecated/Button/ButtonClose'
-import {get} from './constants'
 import Box from './Box'
-import useDialog from './hooks/useDialog'
-import sx, {SxProp} from './sx'
 import Text from './Text'
-import {ComponentProps} from './utils/types'
+import {get} from './constants'
+import ButtonClose from './deprecated/Button/ButtonClose'
+import useDialog from './hooks/useDialog'
 import {useRefObjectAsForwardedRef} from './hooks/useRefObjectAsForwardedRef'
+import sx, {SxProp} from './sx'
+import {ComponentProps} from './utils/types'
 
 const noop = () => null
 

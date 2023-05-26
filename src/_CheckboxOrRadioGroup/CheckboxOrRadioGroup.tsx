@@ -2,14 +2,14 @@ import React from 'react'
 import styled from 'styled-components'
 import Box from '../Box'
 import ValidationAnimationContainer from '../_ValidationAnimationContainer'
+import VisuallyHidden from '../_VisuallyHidden'
 import {get} from '../constants'
+import {useSlots} from '../hooks/useSlots'
+import {SxProp} from '../sx'
 import {useSSRSafeId} from '../utils/ssr'
 import CheckboxOrRadioGroupCaption from './_CheckboxOrRadioGroupCaption'
 import CheckboxOrRadioGroupLabel from './_CheckboxOrRadioGroupLabel'
 import CheckboxOrRadioGroupValidation from './_CheckboxOrRadioGroupValidation'
-import VisuallyHidden from '../_VisuallyHidden'
-import {useSlots} from '../hooks/useSlots'
-import {SxProp} from '../sx'
 
 export type CheckboxOrRadioGroupProps = {
   /**

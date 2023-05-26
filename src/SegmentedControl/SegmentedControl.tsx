@@ -1,14 +1,14 @@
 import React, {useRef, useState} from 'react'
-import Button, {SegmentedControlButtonProps} from './SegmentedControlButton'
-import SegmentedControlIconButton, {SegmentedControlIconButtonProps} from './SegmentedControlIconButton'
+import styled from 'styled-components'
 import {ActionList} from '../ActionList'
 import {ActionMenu} from '../ActionMenu'
 import {useTheme} from '../ThemeProvider'
-import sx, {merge, SxProp} from '../sx'
 import {ResponsiveValue, useResponsiveValue} from '../hooks/useResponsiveValue'
-import {ViewportRangeKeys} from '../utils/types/ViewportRangeKeys'
-import styled from 'styled-components'
+import sx, {SxProp, merge} from '../sx'
 import {defaultSxProp} from '../utils/defaultSxProp'
+import {ViewportRangeKeys} from '../utils/types/ViewportRangeKeys'
+import Button, {SegmentedControlButtonProps} from './SegmentedControlButton'
+import SegmentedControlIconButton, {SegmentedControlIconButtonProps} from './SegmentedControlIconButton'
 
 type WidthOnlyViewportRangeKeys = Exclude<ViewportRangeKeys, 'narrowLandscape' | 'portrait' | 'landscape'>
 

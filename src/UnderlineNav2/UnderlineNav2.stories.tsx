@@ -1,7 +1,7 @@
-import React from 'react'
 import {ComponentMeta, ComponentStory} from '@storybook/react'
-import {UnderlineNav} from './index'
+import React from 'react'
 import {UnderlineNavItem} from './UnderlineNavItem'
+import {UnderlineNav} from './index'
 
 const excludedControlKeys = ['sx', 'as', 'variant', 'align', 'afterSelect']
 

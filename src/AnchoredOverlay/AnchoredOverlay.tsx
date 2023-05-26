@@ -1,10 +1,10 @@
+import type {PositionSettings} from '@primer/behaviors'
 import React, {useCallback, useEffect} from 'react'
 import Overlay, {OverlayProps} from '../Overlay'
+import {useAnchoredPosition, useProvidedRefOrCreate, useRenderForcingRef} from '../hooks'
 import {FocusTrapHookSettings, useFocusTrap} from '../hooks/useFocusTrap'
 import {FocusZoneHookSettings, useFocusZone} from '../hooks/useFocusZone'
-import {useAnchoredPosition, useProvidedRefOrCreate, useRenderForcingRef} from '../hooks'
 import {useId} from '../hooks/useId'
-import type {PositionSettings} from '@primer/behaviors'
 
 interface AnchoredOverlayPropsWithAnchor {
   /**

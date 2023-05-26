@@ -1,5 +1,5 @@
-import lockFile from '../../package-lock.json'
 import docsLockFile from '../../docs/package-lock.json'
+import lockFile from '../../package-lock.json'
 
 test('root: lockfileVersion should be 3', async () => {
   expect(lockFile.lockfileVersion).toEqual(3)

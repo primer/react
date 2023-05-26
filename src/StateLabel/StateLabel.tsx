@@ -1,18 +1,18 @@
 import {
   GitMergeIcon,
+  GitMergeQueueIcon,
   GitPullRequestIcon,
   IssueClosedIcon,
-  SkipIcon,
   IssueDraftIcon,
   IssueOpenedIcon,
   QuestionIcon,
-  GitMergeQueueIcon,
+  SkipIcon,
 } from '@primer/octicons-react'
 import React from 'react'
 import styled from 'styled-components'
 import {variant} from 'styled-system'
-import {get} from '../constants'
 import Octicon from '../Octicon'
+import {get} from '../constants'
 import sx, {SxProp} from '../sx'
 import {ComponentProps} from '../utils/types'
 

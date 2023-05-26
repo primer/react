@@ -1,13 +1,14 @@
+import babel from '@rollup/plugin-babel'
 import commonjs from '@rollup/plugin-commonjs'
 import resolve from '@rollup/plugin-node-resolve'
-import babel from '@rollup/plugin-babel'
 import replace from '@rollup/plugin-replace'
 import terser from '@rollup/plugin-terser'
 import glob from 'fast-glob'
-import {visualizer} from 'rollup-plugin-visualizer'
-import postcss from 'rollup-plugin-postcss'
-import packageJson from './package.json'
 import postcssCustomPropertiesFallback from 'postcss-custom-properties-fallback'
+import postcss from 'rollup-plugin-postcss'
+import {visualizer} from 'rollup-plugin-visualizer'
+import packageJson from './package.json'
+
 const importedJSONFromPrimitives = require('@primer/primitives/tokens-next-private/fallbacks/color-fallbacks.json')
 
 const input = new Set([

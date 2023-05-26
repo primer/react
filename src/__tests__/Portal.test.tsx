@@ -1,8 +1,7 @@
-import Portal, {registerPortalRoot} from '../Portal/index'
-
 import {render} from '@testing-library/react'
 import React from 'react'
 import BaseStyles from '../BaseStyles'
+import Portal, {registerPortalRoot} from '../Portal/index'
 
 describe('Portal', () => {
   it('renders a default portal into document.body (no BaseStyles present)', () => {

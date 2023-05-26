@@ -1,8 +1,8 @@
-import React from 'react'
-import {PointerBox} from '..'
-import {render, behavesAsComponent, checkExports, renderStyles} from '../utils/testing'
 import {render as HTMLRender} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
+import React from 'react'
+import {PointerBox} from '..'
+import {behavesAsComponent, checkExports, render, renderStyles} from '../utils/testing'
 
 expect.extend(toHaveNoViolations)
 

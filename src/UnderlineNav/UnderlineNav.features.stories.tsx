@@ -1,7 +1,7 @@
-import React from 'react'
 import {ComponentStory, Meta} from '@storybook/react'
-import UnderlineNav from './UnderlineNav'
+import React from 'react'
 import {Button} from '../Button'
+import UnderlineNav from './UnderlineNav'
 
 export default {
   title: 'Components/UnderlineNav/Features',

@@ -48,8 +48,8 @@ There are two ways to change the theme of Primer components:
 2. You can merge the Primer theme with your custom theme using Object.assign:
 
    ```javascript
-   import {ThemeProvider} from 'styled-components'
    import {theme} from '@primer/react'
+   import {ThemeProvider} from 'styled-components'
 
    const customTheme = {} // Theme overrides
 

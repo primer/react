@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
-import sx, {SxProp} from '../sx'
 import getGlobalFocusStyles from '../_getGlobalFocusStyles'
+import sx, {SxProp} from '../sx'
 
 export const StyledButton = styled.button<SxProp>`
   ${getGlobalFocusStyles('-2px')};

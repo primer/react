@@ -1,9 +1,9 @@
+import {render as HTMLRender} from '@testing-library/react'
+import {axe} from 'jest-axe'
 import React from 'react'
 import Flash from '..'
 import theme from '../../theme'
-import {render, behavesAsComponent, checkExports} from '../../utils/testing'
-import {render as HTMLRender} from '@testing-library/react'
-import {axe} from 'jest-axe'
+import {behavesAsComponent, checkExports, render} from '../../utils/testing'
 
 describe('Flash', () => {
   behavesAsComponent({Component: Flash})

@@ -1,5 +1,5 @@
 import styled, {css} from 'styled-components'
-import {borderColor, BorderColorProps, variant} from 'styled-system'
+import {BorderColorProps, borderColor, variant} from 'styled-system'
 import {get} from '../constants'
 import sx, {SxProp} from '../sx'
 import {ComponentProps} from '../utils/types'

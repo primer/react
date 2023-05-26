@@ -1,7 +1,7 @@
-import React from 'react'
 import {Meta, Story} from '@storybook/react'
-import SubNav from './SubNav'
+import React from 'react'
 import {ComponentProps} from '../utils/types'
+import SubNav from './SubNav'
 
 export default {
   title: 'Components/SubNav',

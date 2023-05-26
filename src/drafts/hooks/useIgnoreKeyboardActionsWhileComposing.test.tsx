@@ -1,8 +1,8 @@
-import React from 'react'
 import {isMacOS} from '@primer/behaviors/utils'
 import {fireEvent, render, screen} from '@testing-library/react'
 import {renderHook} from '@testing-library/react-hooks'
 import userEvent from '@testing-library/user-event'
+import React from 'react'
 import {useIgnoreKeyboardActionsWhileComposing} from './useIgnoreKeyboardActionsWhileComposing'
 
 jest.mock('@primer/behaviors/utils')

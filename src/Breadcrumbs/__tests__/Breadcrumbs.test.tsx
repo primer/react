@@ -1,8 +1,8 @@
-import React from 'react'
-import Breadcrumbs, {Breadcrumb} from '..'
-import {render, behavesAsComponent, checkExports} from '../../utils/testing'
 import {render as HTMLRender} from '@testing-library/react'
 import {axe} from 'jest-axe'
+import React from 'react'
+import Breadcrumbs, {Breadcrumb} from '..'
+import {behavesAsComponent, checkExports, render} from '../../utils/testing'
 
 describe('Breadcrumbs', () => {
   behavesAsComponent({Component: Breadcrumbs, options: {skipAs: true}})

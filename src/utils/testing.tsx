@@ -1,9 +1,9 @@
-import React from 'react'
-import {promisify} from 'util'
-import renderer from 'react-test-renderer'
+import type {Story as StoryType} from '@storybook/react'
 import {render as HTMLRender} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
-import type {Story as StoryType} from '@storybook/react'
+import React from 'react'
+import renderer from 'react-test-renderer'
+import {promisify} from 'util'
 import {ThemeProvider} from '..'
 import {default as defaultTheme} from '../theme'
 

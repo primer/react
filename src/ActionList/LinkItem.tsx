@@ -1,7 +1,7 @@
 import React from 'react'
-import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import Link from '../Link'
 import {SxProp, merge} from '../sx'
+import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import {Item} from './Item'
 import {ActionListItemProps} from './shared'
 

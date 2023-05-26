@@ -1,17 +1,17 @@
-import React from 'react'
-import {Box, ActionMenu, ActionList, Button, IconButton} from '../'
 import {
-  GearIcon,
-  MilestoneIcon,
-  KebabHorizontalIcon,
-  IssueOpenedIcon,
-  TableIcon,
-  PeopleIcon,
-  TypographyIcon,
-  NumberIcon,
   CalendarIcon,
+  GearIcon,
+  IssueOpenedIcon,
+  KebabHorizontalIcon,
+  MilestoneIcon,
+  NumberIcon,
+  PeopleIcon,
+  TableIcon,
+  TypographyIcon,
   XIcon,
 } from '@primer/octicons-react'
+import React from 'react'
+import {ActionList, ActionMenu, Box, Button, IconButton} from '../'
 
 export default {
   title: 'Components/ActionMenu/Examples',

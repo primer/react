@@ -1,20 +1,20 @@
-import React from 'react'
 import {
-  IconProps,
-  EyeIcon,
   CodeIcon,
-  IssueOpenedIcon,
-  GitPullRequestIcon,
   CommentDiscussionIcon,
+  EyeIcon,
+  GearIcon,
+  GitPullRequestIcon,
+  GraphIcon,
+  IconProps,
+  IssueOpenedIcon,
   PlayIcon,
   ProjectIcon,
-  GraphIcon,
   ShieldLockIcon,
-  GearIcon,
 } from '@primer/octicons-react'
-import {Meta} from '@storybook/react'
-import {UnderlineNav} from './index'
 import {INITIAL_VIEWPORTS} from '@storybook/addon-viewport'
+import {Meta} from '@storybook/react'
+import React from 'react'
+import {UnderlineNav} from './index'
 
 export default {
   title: 'Drafts/Components/UnderlineNav/Features',

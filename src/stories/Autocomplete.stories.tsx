@@ -1,23 +1,22 @@
-import React, {ChangeEventHandler, RefObject, useCallback, useRef, useState} from 'react'
+import {expect} from '@storybook/jest'
 import {Meta} from '@storybook/react'
-
+import {userEvent, within} from '@storybook/testing-library'
+import React, {ChangeEventHandler, RefObject, useCallback, useRef, useState} from 'react'
 import {BaseStyles, Box, ThemeProvider} from '..'
-import TextInputTokens from '../TextInputWithTokens'
-import Autocomplete from '../Autocomplete/Autocomplete'
 import {AnchoredOverlay} from '../AnchoredOverlay'
-import FormControl from '../FormControl'
+import Autocomplete from '../Autocomplete/Autocomplete'
 import {Button} from '../Button'
-import {ComponentProps} from '../utils/types'
+import FormControl from '../FormControl'
+import TextInputTokens from '../TextInputWithTokens'
 import {
   FormControlArgs,
-  formControlArgs,
   formControlArgTypes,
+  formControlArgs,
   getFormControlArgsByChildComponent,
   getTextInputArgTypes,
   textInputWithTokensArgTypes,
 } from '../utils/story-helpers'
-import {within, userEvent} from '@storybook/testing-library'
-import {expect} from '@storybook/jest'
+import {ComponentProps} from '../utils/types'
 
 type AutocompleteOverlayArgs = ComponentProps<typeof Autocomplete.Overlay>
 type AutocompleteMenuArgs = ComponentProps<typeof Autocomplete.Menu>

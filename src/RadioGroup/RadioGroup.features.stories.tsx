@@ -1,5 +1,5 @@
 import React from 'react'
-import {Radio, RadioGroup, FormControl, Box} from '..'
+import {Box, FormControl, Radio, RadioGroup} from '..'
 
 export default {
   title: 'Components/RadioGroup/Features',

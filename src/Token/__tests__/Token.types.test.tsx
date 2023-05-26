@@ -1,8 +1,8 @@
+import {CheckIcon} from '@primer/octicons-react'
 import React from 'react'
-import Token from '../Token'
 import AvatarToken from '../AvatarToken'
 import IssueLabelToken from '../IssueLabelToken'
-import {CheckIcon} from '@primer/octicons-react'
+import Token from '../Token'
 
 export function requiresAtLeastaTextProp() {
   // @ts-expect-error text is required

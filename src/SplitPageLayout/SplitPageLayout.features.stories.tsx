@@ -1,6 +1,5 @@
-import React from 'react'
 import {ComponentStory, Meta} from '@storybook/react'
-
+import React from 'react'
 import {Box, Button, Heading, Text} from '..'
 import {NavList} from '../NavList'
 import {SplitPageLayout} from '../SplitPageLayout'

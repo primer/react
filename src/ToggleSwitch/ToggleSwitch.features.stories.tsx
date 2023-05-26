@@ -1,7 +1,7 @@
-import React from 'react'
-import ToggleSwitch from './ToggleSwitch'
-import {Box, Text} from '..'
 import {action} from '@storybook/addon-actions'
+import React from 'react'
+import {Box, Text} from '..'
+import ToggleSwitch from './ToggleSwitch'
 
 export default {
   title: 'Components/ToggleSwitch/Features',

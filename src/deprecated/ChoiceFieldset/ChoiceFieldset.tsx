@@ -1,13 +1,13 @@
 import React from 'react'
 import {Box, useSSRSafeId} from '../..'
-import createSlots from '../utils/create-slots'
-import {FormValidationStatus} from '../../utils/types/FormValidationStatus'
-import ValidationAnimationContainer from '../../_ValidationAnimationContainer'
 import InputValidation from '../../_InputValidation'
-import ChoiceFieldsetListItem from './ChoiceFieldsetListItem'
+import ValidationAnimationContainer from '../../_ValidationAnimationContainer'
+import {FormValidationStatus} from '../../utils/types/FormValidationStatus'
+import createSlots from '../utils/create-slots'
 import ChoiceFieldsetDescription from './ChoiceFieldsetDescription'
 import ChoiceFieldsetLegend from './ChoiceFieldsetLegend'
 import ChoiceFieldsetList from './ChoiceFieldsetList'
+import ChoiceFieldsetListItem from './ChoiceFieldsetListItem'
 import ChoiceFieldsetValidation from './ChoiceFieldsetValidation'
 
 export interface ChoiceFieldsetProps<T = Record<string, FormValidationStatus>> {

@@ -2,11 +2,12 @@ import {render as HTMLRender, waitFor} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import {axe, toHaveNoViolations} from 'jest-axe'
 import React from 'react'
-import theme from '../theme'
-import {ActionMenu, ActionList, BaseStyles, ThemeProvider, SSRProvider} from '..'
-import {behavesAsComponent, checkExports} from '../utils/testing'
-import {SingleSelect} from '../ActionMenu/ActionMenu.features.stories'
+import {ActionList, ActionMenu, BaseStyles, SSRProvider, ThemeProvider} from '..'
 import {MixedSelection} from '../ActionMenu/ActionMenu.examples.stories'
+import {SingleSelect} from '../ActionMenu/ActionMenu.features.stories'
+import theme from '../theme'
+import {behavesAsComponent, checkExports} from '../utils/testing'
+
 expect.extend(toHaveNoViolations)
 
 function Example(): JSX.Element {

@@ -1,8 +1,8 @@
 import {render, screen} from '@testing-library/react'
 import React from 'react'
 import {Table} from '../../DataTable'
-import {createColumnHelper} from '../column'
 import {TableProps} from '../Table'
+import {createColumnHelper} from '../column'
 
 function createTable({columns, rows}: {columns: Array<string>; rows: Array<Array<string>>}) {
   return (

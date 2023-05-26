@@ -1,11 +1,10 @@
-import React from 'react'
-import styled, {createGlobalStyle} from 'styled-components'
-import {COMMON, SystemCommonProps, SystemTypographyProps, TYPOGRAPHY} from './constants'
-import {useTheme, defaultColorMode, ColorModeWithAuto} from './ThemeProvider'
-import {ComponentProps} from './utils/types'
-
 // load polyfill for :focus-visible
 import 'focus-visible'
+import React from 'react'
+import styled, {createGlobalStyle} from 'styled-components'
+import {ColorModeWithAuto, defaultColorMode, useTheme} from './ThemeProvider'
+import {COMMON, SystemCommonProps, SystemTypographyProps, TYPOGRAPHY} from './constants'
+import {ComponentProps} from './utils/types'
 
 const GlobalStyle = createGlobalStyle<{colorScheme?: 'light' | 'dark'}>`
   * { box-sizing: border-box; }

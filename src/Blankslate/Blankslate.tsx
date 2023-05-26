@@ -2,8 +2,8 @@ import React from 'react'
 import styled from 'styled-components'
 import Box from '../Box'
 import {Button} from '../Button'
-import {get} from '../constants'
 import Link from '../Link'
+import {get} from '../constants'
 
 const StyledBlankslate = styled.div`
   display: grid;

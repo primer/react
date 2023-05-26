@@ -1,6 +1,6 @@
-import {render, fireEvent} from '@testing-library/react'
+import {fireEvent, render} from '@testing-library/react'
 import React from 'react'
-import {ThemeProvider, SSRProvider} from '..'
+import {SSRProvider, ThemeProvider} from '..'
 import {NavList} from './NavList'
 
 type ReactRouterLikeLinkProps = {to: string; children: React.ReactNode}

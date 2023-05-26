@@ -1,5 +1,5 @@
-import React from 'react'
 import {Meta} from '@storybook/react'
+import React from 'react'
 import {Box, Checkbox, CheckboxProps} from '..'
 import FormControl from '../FormControl'
 import {

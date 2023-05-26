@@ -1,9 +1,9 @@
 // eslint-disable-next-line import/no-namespace
 import * as Index from '..'
 // eslint-disable-next-line import/no-namespace
-import * as Drafts from '../drafts'
-// eslint-disable-next-line import/no-namespace
 import * as Deprecated from '../deprecated'
+// eslint-disable-next-line import/no-namespace
+import * as Drafts from '../drafts'
 
 describe('@primer/react', () => {
   it('should not update exports without a semver change', () => {

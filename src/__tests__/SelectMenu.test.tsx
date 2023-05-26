@@ -1,10 +1,10 @@
 import {render as HTMLRender} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import React from 'react'
-import {SelectMenu, Button} from '../deprecated'
-import {render, renderRoot, COMPONENT_DISPLAY_NAME_REGEX, checkExports} from '../utils/testing'
 import {axe} from 'jest-axe'
-import {SelectMenuModalProps, SelectMenuItemProps, SelectMenuTabProps} from '../deprecated/SelectMenu'
+import React from 'react'
+import {Button, SelectMenu} from '../deprecated'
+import {SelectMenuItemProps, SelectMenuModalProps, SelectMenuTabProps} from '../deprecated/SelectMenu'
+import {COMPONENT_DISPLAY_NAME_REGEX, checkExports, render, renderRoot} from '../utils/testing'
 
 const BasicSelectMenu = ({
   onClick,

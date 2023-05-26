@@ -1,12 +1,12 @@
+import {ArrowLeftIcon, ArrowRightIcon, SearchIcon, TypographyIcon, VersionsIcon} from '@primer/octicons-react'
+import {Meta, Story} from '@storybook/react'
 import React from 'react'
-import {Story, Meta} from '@storybook/react'
 import {ActionList, ActionListProps} from '.'
+import {Description} from './Description'
+import {Divider} from './Divider'
+import {ActionListHeadingProps, Heading} from './Heading'
 import {Item} from './Item'
 import {LinkItem} from './LinkItem'
-import {Heading, ActionListHeadingProps} from './Heading'
-import {Divider} from './Divider'
-import {Description} from './Description'
-import {TypographyIcon, VersionsIcon, SearchIcon, ArrowRightIcon, ArrowLeftIcon} from '@primer/octicons-react'
 
 export default {
   title: 'Components/ActionList',

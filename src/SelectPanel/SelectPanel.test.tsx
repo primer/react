@@ -1,11 +1,11 @@
 import {render as HTMLRender} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
 import React from 'react'
-import theme from '../theme'
-import {SelectPanel} from '../SelectPanel'
-import {behavesAsComponent, checkExports} from '../utils/testing'
 import {BaseStyles, SSRProvider, ThemeProvider} from '..'
 import {ItemInput} from '../FilteredActionList'
+import {SelectPanel} from '../SelectPanel'
+import theme from '../theme'
+import {behavesAsComponent, checkExports} from '../utils/testing'
 
 expect.extend(toHaveNoViolations)
 

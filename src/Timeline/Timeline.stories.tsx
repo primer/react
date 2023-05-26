@@ -1,9 +1,9 @@
-import React from 'react'
+import {GitCommitIcon} from '@primer/octicons-react'
 import {Meta, Story} from '@storybook/react'
+import React from 'react'
+import Octicon from '../Octicon'
 import {ComponentProps} from '../utils/types'
 import Timeline from './Timeline'
-import Octicon from '../Octicon'
-import {GitCommitIcon} from '@primer/octicons-react'
 
 export default {
   title: 'Components/Timeline',

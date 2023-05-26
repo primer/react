@@ -1,7 +1,7 @@
-import glob from 'fast-glob'
-import groupBy from 'lodash.groupby'
 import fs from 'node:fs'
 import path from 'node:path'
+import glob from 'fast-glob'
+import groupBy from 'lodash.groupby'
 
 const ROOT_DIRECTORY = path.resolve(__dirname, '..', '..')
 // Components opted into the new story format

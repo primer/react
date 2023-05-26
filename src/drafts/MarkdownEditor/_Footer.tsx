@@ -1,7 +1,6 @@
-import React, {memo, useContext} from 'react'
 import {AlertIcon, ImageIcon, MarkdownIcon} from '@primer/octicons-react'
-
-import {Spinner, Button, ButtonProps, LinkButton, Box, Text} from '../..'
+import React, {memo, useContext} from 'react'
+import {Box, Button, ButtonProps, LinkButton, Spinner, Text} from '../..'
 import {MarkdownEditorContext} from './_MarkdownEditorContext'
 
 const uploadingNote = ([current, total]: [number, number]) =>

@@ -1,28 +1,28 @@
-import React from 'react'
+import {
+  AlertIcon,
+  ArrowLeftIcon,
+  ArrowRightIcon,
+  BookIcon,
+  EyeIcon,
+  LawIcon,
+  LinkIcon,
+  PeopleIcon,
+  RepoForkedIcon,
+  StarIcon,
+  TableIcon,
+} from '@primer/octicons-react'
 import {Meta} from '@storybook/react'
+import React from 'react'
 import {ActionList} from '.'
-import {Item} from './Item'
-import {LinkItem} from './LinkItem'
-import {Divider} from './Divider'
-import {Description} from './Description'
+import {AnchoredOverlay} from '../AnchoredOverlay'
 import Avatar from '../Avatar'
 import Box from '../Box'
-import Label from '../Label'
 import Heading from '../Heading'
-import {AnchoredOverlay} from '../AnchoredOverlay'
-import {
-  EyeIcon,
-  BookIcon,
-  ArrowRightIcon,
-  ArrowLeftIcon,
-  LinkIcon,
-  LawIcon,
-  StarIcon,
-  RepoForkedIcon,
-  AlertIcon,
-  TableIcon,
-  PeopleIcon,
-} from '@primer/octicons-react'
+import Label from '../Label'
+import {Description} from './Description'
+import {Divider} from './Divider'
+import {Item} from './Item'
+import {LinkItem} from './LinkItem'
 
 export default {
   title: 'Components/ActionList/Features',

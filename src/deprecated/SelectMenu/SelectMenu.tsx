@@ -2,7 +2,6 @@ import React, {useCallback, useEffect, useRef, useState} from 'react'
 import styled from 'styled-components'
 import sx, {SxProp} from '../../sx'
 import {ComponentProps} from '../../utils/types'
-import useKeyboardNav from './hooks/useKeyboardNav'
 import {MenuContext} from './SelectMenuContext'
 import SelectMenuDivider from './SelectMenuDivider'
 import SelectMenuFilter from './SelectMenuFilter'
@@ -15,6 +14,7 @@ import SelectMenuModal from './SelectMenuModal'
 import SelectMenuTab from './SelectMenuTab'
 import SelectMenuTabPanel from './SelectMenuTabPanel'
 import SelectMenuTabs from './SelectMenuTabs'
+import useKeyboardNav from './hooks/useKeyboardNav'
 
 const wrapperStyles = `
   // Remove marker added by the display: list-item browser default

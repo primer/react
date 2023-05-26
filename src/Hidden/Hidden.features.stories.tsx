@@ -1,7 +1,7 @@
 import {ComponentMeta} from '@storybook/react'
 import React from 'react'
-import {Hidden} from './Hidden'
 import {Box, Button} from '..'
+import {Hidden} from './Hidden'
 
 export default {
   title: 'Drafts/Components/Hidden/Features',

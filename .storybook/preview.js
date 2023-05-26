@@ -1,9 +1,9 @@
 import {addons} from '@storybook/addons'
-import {withThemeProvider, withSurroundingElements, toolbarTypes} from '../src/utils/story-helpers'
 import {PrimerBreakpoints} from '../src/utils/layout'
-
+import {toolbarTypes, withSurroundingElements, withThemeProvider} from '../src/utils/story-helpers'
 // primitives v8
 import './primitives-v8.css'
+
 // primitives v7 for fallback, commented out by default
 // uncomment it for testing
 // import './primitives-v7.css'

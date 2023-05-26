@@ -1,10 +1,10 @@
 import React from 'react'
+import {Table, TableBody, TableCell, TableHead, TableHeader, TableRow, TableSortHeader} from './Table'
 import {Column} from './column'
-import {useTable} from './useTable'
-import {SortDirection} from './sorting'
 import {UniqueRow} from './row'
+import {SortDirection} from './sorting'
+import {useTable} from './useTable'
 import {ObjectPaths} from './utils'
-import {Table, TableHead, TableBody, TableRow, TableHeader, TableSortHeader, TableCell} from './Table'
 
 // ----------------------------------------------------------------------------
 // DataTable

@@ -1,9 +1,10 @@
-import React from 'react'
+import {MarkGithubIcon} from '@primer/octicons-react'
 import {render} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
+import React from 'react'
 import {Checkbox, Radio, SSRProvider} from '../../'
 import ChoiceInputField from '../../deprecated/ChoiceInputField'
-import {MarkGithubIcon} from '@primer/octicons-react'
+
 expect.extend(toHaveNoViolations)
 
 const CHECKBOXINPUTFIELD_LABEL_TEXT = 'Option one'

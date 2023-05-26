@@ -4,6 +4,7 @@ import React from 'react'
 import {Box} from '..'
 import theme from '../theme'
 import {behavesAsComponent, checkExports, render} from '../utils/testing'
+
 expect.extend(toHaveNoViolations)
 
 describe('Box', () => {

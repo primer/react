@@ -1,5 +1,5 @@
-import React, {useState} from 'react'
 import {CheckIcon, NumberIcon} from '@primer/octicons-react'
+import React, {useState} from 'react'
 import {Box, FormControl} from '..'
 import TextInputWithTokens, {TextInputWithTokensProps} from '../TextInputWithTokens'
 import IssueLabelToken from '../Token/IssueLabelToken'

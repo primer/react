@@ -1,10 +1,10 @@
-import React from 'react'
 import {Meta} from '@storybook/react'
+import React from 'react'
 import {Box, FormControl, Radio, RadioProps} from '..'
 import {
   FormControlArgs,
-  formControlArgs,
   formControlArgTypesWithoutValidation,
+  formControlArgs,
   getFormControlArgsByChildComponent,
 } from '../utils/form-story-helpers'
 

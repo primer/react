@@ -1,5 +1,5 @@
 import React from 'react'
-import {Checkbox, CheckboxGroup, FormControl, Box} from '..'
+import {Box, Checkbox, CheckboxGroup, FormControl} from '..'
 
 export default {
   title: 'Components/CheckboxGroup/Features',

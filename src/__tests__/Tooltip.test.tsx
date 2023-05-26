@@ -1,8 +1,8 @@
-import React from 'react'
-import Tooltip, {TooltipProps} from '../Tooltip'
-import {render, renderClasses, rendersClass, behavesAsComponent, checkExports} from '../utils/testing'
 import {render as HTMLRender} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
+import React from 'react'
+import Tooltip, {TooltipProps} from '../Tooltip'
+import {behavesAsComponent, checkExports, render, renderClasses, rendersClass} from '../utils/testing'
 
 expect.extend(toHaveNoViolations)
 

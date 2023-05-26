@@ -1,9 +1,9 @@
-import React from 'react'
 import {render} from '@testing-library/react'
-import {RadioGroup, FormControl, Radio, SSRProvider} from '..'
-import {behavesAsComponent, checkExports} from '../utils/testing'
 import userEvent from '@testing-library/user-event'
+import React from 'react'
+import {FormControl, Radio, RadioGroup, SSRProvider} from '..'
 import {RadioGroupContext} from '../RadioGroup'
+import {behavesAsComponent, checkExports} from '../utils/testing'
 
 describe('RadioGroup', () => {
   const mockWarningFn = jest.fn()

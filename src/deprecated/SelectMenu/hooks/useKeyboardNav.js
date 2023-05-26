@@ -1,4 +1,4 @@
-import {useEffect, useCallback} from 'react'
+import {useCallback, useEffect} from 'react'
 
 // adapted from details-menu web component https://github.com/github/details-menu-element
 function useKeyboardNav(details, open, setOpen) {

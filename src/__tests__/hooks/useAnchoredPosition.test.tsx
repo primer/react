@@ -1,6 +1,6 @@
+import {render} from '@testing-library/react'
 import React from 'react'
 import {useAnchoredPosition} from '../../hooks/useAnchoredPosition'
-import {render} from '@testing-library/react'
 
 const Component = ({callback}: {callback: (hookReturnValue: ReturnType<typeof useAnchoredPosition>) => void}) => {
   const floatingElementRef = React.useRef<HTMLDivElement>(null)

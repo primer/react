@@ -1,5 +1,5 @@
-import React from 'react'
 import {render, waitFor} from '@testing-library/react'
+import React from 'react'
 import createSlots from './create-slots'
 
 // setup a component with slots

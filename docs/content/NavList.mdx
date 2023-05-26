@@ -179,8 +179,8 @@ If a `NavList.Item` contains a `NavList.SubNav`, the `NavList.Item` will render 
 ### With React Router
 
 ```jsx
-import {Link, useMatch, useResolvedPath} from 'react-router-dom'
 import {NavList} from '@primer/react'
+import {Link, useMatch, useResolvedPath} from 'react-router-dom'
 
 function NavItem({to, children}) {
   const resolved = useResolvedPath(to)
@@ -206,9 +206,9 @@ function App() {
 ### With Next.js
 
 ```jsx
-import {useRouter} from 'next/router'
-import Link from 'next/link'
 import {NavList} from '@primer/react'
+import Link from 'next/link'
+import {useRouter} from 'next/router'
 
 function NavItem({href, children}) {
   const router = useRouter()

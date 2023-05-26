@@ -1,10 +1,10 @@
-import React, {ButtonHTMLAttributes} from 'react'
 import {IconProps} from '@primer/octicons-react'
+import React, {ButtonHTMLAttributes} from 'react'
 import styled from 'styled-components'
 import Box from '../Box'
-import sx, {merge, SxProp} from '../sx'
-import {getSegmentedControlButtonStyles, getSegmentedControlListItemStyles} from './getSegmentedControlStyles'
+import sx, {SxProp, merge} from '../sx'
 import {defaultSxProp} from '../utils/defaultSxProp'
+import {getSegmentedControlButtonStyles, getSegmentedControlListItemStyles} from './getSegmentedControlStyles'
 
 export type SegmentedControlButtonProps = {
   /** The visible label rendered in the button */

@@ -1,10 +1,10 @@
-import {Box, Link} from '@primer/react'
 import InlineCode from '@primer/gatsby-theme-doctocat/src/components/inline-code'
+import {Box, Link} from '@primer/react'
 import {ComponentChecklist} from '../../component-checklist'
+import {ComponentProps} from '../../component-props'
 // eslint-disable-next-line import/no-deprecated
 import {Props} from '../../props'
 import {PropsTable} from '../../props-table'
-import {ComponentProps} from '../../component-props'
 
 export default {
   Box,

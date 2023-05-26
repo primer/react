@@ -6,7 +6,7 @@ import LabelGroup from '../LabelGroup'
 import RelativeTime from '../RelativeTime'
 import {CellAlignment} from './column'
 import {UniqueRow} from './row'
-import {getColumnWidthArgTypes, ColWidthArgTypes} from './storyHelpers'
+import {ColWidthArgTypes, getColumnWidthArgTypes} from './storyHelpers'
 
 export default {
   title: 'Components/DataTable',

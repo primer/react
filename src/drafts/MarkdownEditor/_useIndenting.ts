@@ -1,6 +1,5 @@
 import {useCallback} from 'react'
 import {SyntheticChangeEmitter} from '../hooks/useSyntheticChange'
-
 import {getSelectedLineRange} from './utils'
 
 type UseIndentingSettings = {

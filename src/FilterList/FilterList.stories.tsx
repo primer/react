@@ -1,5 +1,5 @@
+import {ComponentStory, Meta} from '@storybook/react'
 import React, {useState} from 'react'
-import {Meta, ComponentStory} from '@storybook/react'
 import FilterList from './FilterList'
 
 export default {

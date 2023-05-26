@@ -1,7 +1,7 @@
+import {ComponentStory, Meta} from '@storybook/react'
 import React from 'react'
-import {Meta, ComponentStory} from '@storybook/react'
-import {ComponentProps} from '../utils/types'
 import {Box, Text} from '../'
+import {ComponentProps} from '../utils/types'
 import ToggleSwitch from './ToggleSwitch'
 
 export default {

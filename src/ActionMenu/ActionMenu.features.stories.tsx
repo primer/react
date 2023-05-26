@@ -1,6 +1,6 @@
+import {ArchiveIcon, BookIcon, CommentIcon, CopyIcon, GearIcon, RocketIcon, WorkflowIcon} from '@primer/octicons-react'
 import React from 'react'
-import {ActionMenu, ActionList} from '../'
-import {WorkflowIcon, ArchiveIcon, GearIcon, CopyIcon, RocketIcon, CommentIcon, BookIcon} from '@primer/octicons-react'
+import {ActionList, ActionMenu} from '../'
 
 export default {
   title: 'Components/ActionMenu/Features',

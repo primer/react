@@ -1,8 +1,8 @@
-import React from 'react'
-import StateLabel from '../StateLabel'
-import {render, behavesAsComponent, checkExports} from '../../utils/testing'
 import {render as HTMLRender} from '@testing-library/react'
 import {axe} from 'jest-axe'
+import React from 'react'
+import {behavesAsComponent, checkExports, render} from '../../utils/testing'
+import StateLabel from '../StateLabel'
 
 describe('StateLabel', () => {
   behavesAsComponent({

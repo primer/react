@@ -1,23 +1,23 @@
 import {
-  ServerIcon,
-  PlusCircleIcon,
-  TypographyIcon,
-  VersionsIcon,
-  SearchIcon,
-  NoteIcon,
-  ProjectIcon,
+  ArrowLeftIcon,
+  ArrowRightIcon,
   FilterIcon,
   GearIcon,
-  ArrowRightIcon,
-  ArrowLeftIcon,
+  NoteIcon,
+  PlusCircleIcon,
+  ProjectIcon,
+  SearchIcon,
+  ServerIcon,
+  TypographyIcon,
+  VersionsIcon,
 } from '@primer/octicons-react'
 import {Meta} from '@storybook/react'
 import React, {forwardRef} from 'react'
 import styled from 'styled-components'
 import {Label, ThemeProvider} from '../..'
+import BaseStyles from '../../BaseStyles'
 import {ActionList as _ActionList} from '../../deprecated/ActionList'
 import {Header} from '../../deprecated/ActionList/Header'
-import BaseStyles from '../../BaseStyles'
 import sx from '../../sx'
 
 const ActionList = Object.assign(_ActionList, {

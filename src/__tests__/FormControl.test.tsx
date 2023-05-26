@@ -1,8 +1,9 @@
-import React from 'react'
+import {MarkGithubIcon} from '@primer/octicons-react'
 import {render} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
-import {Autocomplete, Checkbox, FormControl, Select, SSRProvider, Textarea, TextInput, TextInputWithTokens} from '..'
-import {MarkGithubIcon} from '@primer/octicons-react'
+import React from 'react'
+import {Autocomplete, Checkbox, FormControl, SSRProvider, Select, TextInput, TextInputWithTokens, Textarea} from '..'
+
 expect.extend(toHaveNoViolations)
 
 const LABEL_TEXT = 'Form control'

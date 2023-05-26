@@ -1,6 +1,6 @@
-import Link from '../Link'
 import {Meta} from '@storybook/react'
 import React from 'react'
+import Link from '../Link'
 import {ComponentProps} from '../utils/types'
 
 export default {

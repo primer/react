@@ -1,7 +1,7 @@
-import React from 'react'
-import {Box, Link, Label} from '@primer/react'
-import Table from '@primer/gatsby-theme-doctocat/src/components/table'
 import InlineCode from '@primer/gatsby-theme-doctocat/src/components/inline-code'
+import Table from '@primer/gatsby-theme-doctocat/src/components/table'
+import {Box, Label, Link} from '@primer/react'
+import React from 'react'
 
 function PropsTable({children}) {
   return (

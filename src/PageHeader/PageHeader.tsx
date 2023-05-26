@@ -1,13 +1,13 @@
+import {ArrowLeftIcon} from '@primer/octicons-react'
 import React from 'react'
 import {Box} from '..'
-import {useResponsiveValue, ResponsiveValue} from '../hooks/useResponsiveValue'
-import {SxProp, merge, BetterSystemStyleObject} from '../sx'
 import Heading from '../Heading'
-import {ArrowLeftIcon} from '@primer/octicons-react'
 import Link, {LinkProps as BaseLinkProps} from '../Link'
-
-import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
+import {ResponsiveValue, useResponsiveValue} from '../hooks/useResponsiveValue'
+import {BetterSystemStyleObject, SxProp, merge} from '../sx'
 import {getBreakpointDeclarations} from '../utils/getBreakpointDeclarations'
+import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
+
 const REGION_ORDER = {
   ContextArea: 0,
   TitleArea: 1,

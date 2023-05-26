@@ -1,4 +1,4 @@
-import {useCallback, useEffect, useState, useRef} from 'react'
+import {useCallback, useEffect, useRef, useState} from 'react'
 
 type UseDetailsParameters = {
   ref?: React.RefObject<HTMLDetailsElement>

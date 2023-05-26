@@ -1,5 +1,5 @@
 import styled, {css} from 'styled-components'
-import {maxWidth, MaxWidthProps, minWidth, MinWidthProps, variant, width, WidthProps} from 'styled-system'
+import {MaxWidthProps, MinWidthProps, WidthProps, maxWidth, minWidth, variant, width} from 'styled-system'
 import {get} from './constants'
 import sx, {SxProp} from './sx'
 import {FormValidationStatus} from './utils/types/FormValidationStatus'

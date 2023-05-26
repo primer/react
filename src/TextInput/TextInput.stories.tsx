@@ -1,11 +1,11 @@
-import React, {useState} from 'react'
 import {Meta} from '@storybook/react'
+import React, {useState} from 'react'
 import {Box, FormControl} from '..'
 import TextInput, {TextInputProps} from '../TextInput'
 import {
   FormControlArgs,
-  formControlArgs,
   formControlArgTypes,
+  formControlArgs,
   getFormControlArgsByChildComponent,
   getTextInputArgTypes,
   textInputExcludedControlKeys,

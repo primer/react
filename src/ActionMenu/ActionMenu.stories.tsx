@@ -1,8 +1,8 @@
-import React from 'react'
 import {Meta} from '@storybook/react'
+import React from 'react'
+import {ActionList} from '../ActionList'
 import {ComponentProps} from '../utils/types'
 import {ActionMenu} from './ActionMenu'
-import {ActionList} from '../ActionList'
 
 export default {
   title: 'Components/ActionMenu',

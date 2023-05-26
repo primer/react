@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import {useSSRSafeId} from '../..'
 import {get} from '../../constants'
-import {Slot, ChoiceFieldsetContext} from './ChoiceFieldset'
+import {ChoiceFieldsetContext, Slot} from './ChoiceFieldset'
 import ChoiceFieldsetListContext from './ChoiceFieldsetListContext'
 
 export interface ChoiceFieldsetListProps {

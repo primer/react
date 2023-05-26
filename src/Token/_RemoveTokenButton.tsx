@@ -1,11 +1,11 @@
-import React from 'react'
 import {XIcon} from '@primer/octicons-react'
+import React from 'react'
 import styled, {css} from 'styled-components'
 import {variant} from 'styled-system'
 import {get} from '../constants'
 import sx, {SxProp} from '../sx'
 import {ComponentProps} from '../utils/types'
-import {tokenSizes, TokenSizeKeys, defaultTokenSize} from './TokenBase'
+import {TokenSizeKeys, defaultTokenSize, tokenSizes} from './TokenBase'
 
 interface TokenButtonProps {
   borderOffset?: number

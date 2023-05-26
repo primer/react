@@ -1,7 +1,7 @@
 import React from 'react'
+import Box from '../Box'
 import {ResponsiveValue} from '../hooks/useResponsiveValue'
 import {getBreakpointDeclarations} from '../utils/getBreakpointDeclarations'
-import Box from '../Box'
 
 type Viewport = 'narrow' | 'regular' | 'wide'
 

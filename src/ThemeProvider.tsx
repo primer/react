@@ -1,8 +1,8 @@
+import deepmerge from 'deepmerge'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import {ThemeProvider as SCThemeProvider} from 'styled-components'
 import defaultTheme from './theme'
-import deepmerge from 'deepmerge'
 
 export const defaultColorMode = 'day'
 const defaultDayScheme = 'light'

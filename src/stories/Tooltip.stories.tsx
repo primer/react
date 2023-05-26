@@ -1,9 +1,9 @@
-import React from 'react'
+import {SearchIcon} from '@primer/octicons-react'
 import {Meta} from '@storybook/react'
-import {BaseStyles, ThemeProvider, IconButton} from '..'
+import React from 'react'
+import {BaseStyles, IconButton, ThemeProvider} from '..'
 import Box from '../Box'
 import Tooltip from '../Tooltip'
-import {SearchIcon} from '@primer/octicons-react'
 
 export default {
   title: 'Components/Tooltip/Default',

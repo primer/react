@@ -1,7 +1,7 @@
 // eslint-disable-next-line import/no-namespace
-import * as React from 'react'
 // eslint-disable-next-line no-restricted-imports
 import {useSSRSafeId} from '@react-aria/ssr'
+import * as React from 'react'
 
 /**
  * Detect if `React.useId()` is present. This strategy is a workaround for:

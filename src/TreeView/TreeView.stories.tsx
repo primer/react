@@ -1,6 +1,6 @@
-import React from 'react'
 import {DiffAddedIcon, DiffModifiedIcon, FileIcon} from '@primer/octicons-react'
 import {Meta, Story} from '@storybook/react'
+import React from 'react'
 import Box from '../Box'
 import Octicon from '../Octicon'
 import {TreeView} from './TreeView'

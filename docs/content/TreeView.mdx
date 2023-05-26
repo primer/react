@@ -116,8 +116,8 @@ import {TreeView} from '@primer/react'
 ### With React Router
 
 ```jsx
-import {Link, useMatch, useResolvedPath, navigate} from 'react-router-dom'
 import {TreeView} from '@primer/react/drafts'
+import {Link, navigate, useMatch, useResolvedPath} from 'react-router-dom'
 
 function TreeLinkItem({id, to, children}) {
   const resolved = useResolvedPath(to)
@@ -155,9 +155,9 @@ function App() {
 Please note that we advise against using this pattern for website navigation because it's not the expected semantic structure for a navigation component.
 
 ```jsx
-import {useRouter} from 'next/router'
-import Link from 'next/link'
 import {TreeView} from '@primer/react/drafts'
+import Link from 'next/link'
+import {useRouter} from 'next/router'
 
 function TreeLinkItem({id, href, children}) {
   const router = useRouter()

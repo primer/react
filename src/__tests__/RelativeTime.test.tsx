@@ -1,8 +1,9 @@
-import React from 'react'
-import {RelativeTime} from '..'
 import {render as HTMLRender} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
-import {render, behavesAsComponent, checkExports} from '../utils/testing'
+import React from 'react'
+import {RelativeTime} from '..'
+import {behavesAsComponent, checkExports, render} from '../utils/testing'
+
 expect.extend(toHaveNoViolations)
 
 describe('RelativeTime', () => {

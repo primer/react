@@ -1,6 +1,6 @@
 import styled from 'styled-components'
-import {get} from '../constants'
 import Octicon from '../Octicon'
+import {get} from '../constants'
 import sx, {SxProp} from '../sx'
 import isNumeric from '../utils/isNumeric'
 import {ComponentProps} from '../utils/types'

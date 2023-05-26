@@ -1,9 +1,9 @@
+import {ComponentStory, Meta} from '@storybook/react'
 import React from 'react'
-import {Meta, ComponentStory} from '@storybook/react'
-import Heading from '../Heading'
-import Popover from './Popover'
-import Text from '../Text'
 import {Button} from '../Button'
+import Heading from '../Heading'
+import Text from '../Text'
+import Popover from './Popover'
 
 export default {
   title: 'Components/Popover',

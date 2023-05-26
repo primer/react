@@ -1,8 +1,8 @@
-import React from 'react'
-import {Box, Link} from '@primer/react'
-import {PropsTable} from './props-table'
 import {H3} from '@primer/gatsby-theme-doctocat/src/components/heading'
 import InlineCode from '@primer/gatsby-theme-doctocat/src/components/inline-code'
+import {Box, Link} from '@primer/react'
+import React from 'react'
+import {PropsTable} from './props-table'
 
 // We're moving the source of truth for component prop documentation out of .mdx
 // files and into .docs.json files that live in the same directory as the

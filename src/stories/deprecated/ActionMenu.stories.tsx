@@ -1,23 +1,23 @@
 import {
-  ServerIcon,
-  PlusCircleIcon,
-  TypographyIcon,
-  VersionsIcon,
-  SearchIcon,
-  NoteIcon,
-  ProjectIcon,
+  ArrowRightIcon,
   FilterIcon,
   GearIcon,
-  ArrowRightIcon,
+  NoteIcon,
+  PlusCircleIcon,
+  ProjectIcon,
+  SearchIcon,
+  ServerIcon,
+  TypographyIcon,
+  VersionsIcon,
 } from '@primer/octicons-react'
 import {Meta} from '@storybook/react'
-import React, {useCallback, useState, useRef} from 'react'
+import React, {useCallback, useRef, useState} from 'react'
 import styled from 'styled-components'
 import {ThemeProvider} from '../..'
-import Link, {LinkProps} from '../../Link'
-import {ActionMenu, ActionMenuProps, ActionList, DropdownButton, Button} from '../../deprecated'
-import {ItemProps} from '../../deprecated/ActionList'
 import BaseStyles from '../../BaseStyles'
+import Link, {LinkProps} from '../../Link'
+import {ActionList, ActionMenu, ActionMenuProps, Button, DropdownButton} from '../../deprecated'
+import {ItemProps} from '../../deprecated/ActionList'
 
 const meta: Meta = {
   title: 'Deprecated components/ActionMenu',

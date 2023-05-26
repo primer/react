@@ -1,11 +1,11 @@
 import {render as HTMLRender, fireEvent} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
 import React from 'react'
-import theme from '../../theme'
-import {DropdownMenu, DropdownButton} from '../../deprecated'
-import {behavesAsComponent, checkExports} from '../../utils/testing'
-import {BaseStyles, ThemeProvider, SSRProvider} from '../..'
+import {BaseStyles, SSRProvider, ThemeProvider} from '../..'
+import {DropdownButton, DropdownMenu} from '../../deprecated'
 import {ItemInput} from '../../deprecated/ActionList/List'
+import theme from '../../theme'
+import {behavesAsComponent, checkExports} from '../../utils/testing'
 
 expect.extend(toHaveNoViolations)
 

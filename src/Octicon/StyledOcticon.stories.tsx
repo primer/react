@@ -1,7 +1,7 @@
-import React from 'react'
-import {Meta, ComponentStory} from '@storybook/react'
-import Octicon from './Octicon'
 import {HeartFillIcon} from '@primer/octicons-react'
+import {ComponentStory, Meta} from '@storybook/react'
+import React from 'react'
+import Octicon from './Octicon'
 
 export default {
   title: 'Components/Octicon',

@@ -1,7 +1,7 @@
-import React from 'react'
 import {ComponentMeta} from '@storybook/react'
-import AvatarStack from './AvatarStack'
+import React from 'react'
 import Avatar from '../Avatar'
+import AvatarStack from './AvatarStack'
 
 export default {
   title: 'Components/AvatarStack/Features',

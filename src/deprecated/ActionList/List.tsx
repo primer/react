@@ -1,13 +1,13 @@
+import {hasActiveDescendantAttribute} from '@primer/behaviors'
+import {SystemCssProperties} from '@styled-system/css'
 import React, {Key} from 'react'
-import type {AriaRole} from '../../utils/types'
-import {Group, GroupProps} from './Group'
-import {Item, ItemProps} from './Item'
-import {Divider} from './Divider'
 import styled from 'styled-components'
 import {get} from '../../constants'
-import {SystemCssProperties} from '@styled-system/css'
-import {hasActiveDescendantAttribute} from '@primer/behaviors'
+import type {AriaRole} from '../../utils/types'
 import {Merge} from '../../utils/types/Merge'
+import {Divider} from './Divider'
+import {Group, GroupProps} from './Group'
+import {Item, ItemProps} from './Item'
 
 type RenderItemFn = (props: ItemProps) => React.ReactElement
 

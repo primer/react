@@ -1,11 +1,11 @@
-import React from 'react'
-import {render} from '../utils/testing'
-import {render as HTMLRender, fireEvent, act} from '@testing-library/react'
-import {axe} from 'jest-axe'
-import {TokenSizeKeys, tokenSizes} from '../Token/TokenBase'
-import {IssueLabelToken} from '../Token'
-import TextInputWithTokens, {TextInputWithTokensProps} from '../TextInputWithTokens'
 import {MarkGithubIcon} from '@primer/octicons-react'
+import {render as HTMLRender, act, fireEvent} from '@testing-library/react'
+import {axe} from 'jest-axe'
+import React from 'react'
+import TextInputWithTokens, {TextInputWithTokensProps} from '../TextInputWithTokens'
+import {IssueLabelToken} from '../Token'
+import {TokenSizeKeys, tokenSizes} from '../Token/TokenBase'
+import {render} from '../utils/testing'
 
 const mockTokens = [
   {text: 'zero', id: 0},

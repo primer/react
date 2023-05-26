@@ -1,8 +1,8 @@
+import React, {ReactElement, TextareaHTMLAttributes} from 'react'
 import styled, {css} from 'styled-components'
-import React, {TextareaHTMLAttributes, ReactElement} from 'react'
 import {TextInputBaseWrapper} from '../_TextInputWrapper'
-import {FormValidationStatus} from '../utils/types/FormValidationStatus'
 import sx, {SxProp} from '../sx'
+import {FormValidationStatus} from '../utils/types/FormValidationStatus'
 
 export const DEFAULT_TEXTAREA_ROWS = 7
 export const DEFAULT_TEXTAREA_COLS = 30

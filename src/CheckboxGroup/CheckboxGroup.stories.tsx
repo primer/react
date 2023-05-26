@@ -1,5 +1,5 @@
-import React from 'react'
 import {Meta} from '@storybook/react'
+import React from 'react'
 import {Checkbox, CheckboxGroup, FormControl} from '..'
 import {CheckboxOrRadioGroupArgs} from '../utils/form-story-helpers'
 

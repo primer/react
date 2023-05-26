@@ -1,7 +1,7 @@
-import React from 'react'
 import {TriangleDownIcon} from '@primer/octicons-react'
-import Button, {ButtonProps} from '../Button/Button'
+import React from 'react'
 import Octicon from '../../Octicon'
+import Button, {ButtonProps} from '../Button/Button'
 
 export type DropdownButtonProps = ButtonProps
 

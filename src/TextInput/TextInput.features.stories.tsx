@@ -1,7 +1,7 @@
+import {CalendarIcon, CheckIcon, XCircleFillIcon} from '@primer/octicons-react'
 import React, {useState} from 'react'
 import {Box, FormControl} from '..'
 import TextInput, {TextInputProps} from '../TextInput'
-import {CalendarIcon, CheckIcon, XCircleFillIcon} from '@primer/octicons-react'
 import {FormControlArgs, formControlArgTypes, textInputExcludedControlKeys} from '../utils/story-helpers'
 
 export default {

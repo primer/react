@@ -1,10 +1,10 @@
-import React from 'react'
+import {GitBranchIcon, GitCommitIcon, GitMergeIcon} from '@primer/octicons-react'
 import {Meta} from '@storybook/react'
+import React from 'react'
+import Link from '../Link'
+import Octicon from '../Octicon'
 import {ComponentProps} from '../utils/types'
 import Timeline from './Timeline'
-import Octicon from '../Octicon'
-import {GitBranchIcon, GitCommitIcon, GitMergeIcon} from '@primer/octicons-react'
-import Link from '../Link'
 
 export default {
   title: 'Components/Timeline/Features',

@@ -1,4 +1,4 @@
-import {EyeIcon, ChevronRightIcon, HeartIcon} from '@primer/octicons-react'
+import {ChevronRightIcon, EyeIcon, HeartIcon} from '@primer/octicons-react'
 import React, {forwardRef} from 'react'
 import {Button} from '.'
 

@@ -1,4 +1,4 @@
-import React, {forwardRef, useImperativeHandle, useRef, useEffect} from 'react'
+import React, {forwardRef, useEffect, useImperativeHandle, useRef} from 'react'
 
 export type FormattingTools = {
   header: () => void

@@ -1,4 +1,4 @@
-import {SearchIcon, TriangleDownIcon, EyeIcon} from '@primer/octicons-react'
+import {EyeIcon, SearchIcon, TriangleDownIcon} from '@primer/octicons-react'
 import React from 'react'
 import {Button} from '.'
 

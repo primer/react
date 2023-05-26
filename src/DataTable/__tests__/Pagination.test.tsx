@@ -1,7 +1,7 @@
-import React from 'react'
-import {Pagination} from '../Pagination'
 import {render, screen} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
+import React from 'react'
+import {Pagination} from '../Pagination'
 
 describe('Table.Pagination', () => {
   it('should render a navigation landmark with an accessible name provided by `aria-label`', () => {

@@ -1,21 +1,21 @@
 import {DataTable} from './DataTable'
 import {ErrorDialog} from './ErrorDialog'
+import {Pagination} from './Pagination'
 import {
-  Table as TableImpl,
-  TableHead,
+  TableActions,
   TableBody,
-  TableRow,
-  TableHeader,
   TableCell,
   TableCellPlaceholder,
   TableContainer,
-  TableTitle,
-  TableSubtitle,
-  TableActions,
   TableDivider,
+  TableHead,
+  TableHeader,
+  Table as TableImpl,
+  TableRow,
   TableSkeleton,
+  TableSubtitle,
+  TableTitle,
 } from './Table'
-import {Pagination} from './Pagination'
 
 const Table = Object.assign(TableImpl, {
   Container: TableContainer,

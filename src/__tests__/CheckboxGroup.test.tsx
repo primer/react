@@ -1,10 +1,10 @@
-import React from 'react'
 import '@testing-library/jest-dom/extend-expect'
 import {render} from '@testing-library/react'
-import {Checkbox, CheckboxGroup, FormControl, SSRProvider} from '..'
-import {behavesAsComponent, checkExports} from '../utils/testing'
 import userEvent from '@testing-library/user-event'
+import React from 'react'
+import {Checkbox, CheckboxGroup, FormControl, SSRProvider} from '..'
 import {CheckboxGroupContext} from '../CheckboxGroup'
+import {behavesAsComponent, checkExports} from '../utils/testing'
 
 describe('CheckboxGroup', () => {
   const mockWarningFn = jest.fn()

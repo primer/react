@@ -1,8 +1,8 @@
+import {render as HTMLRender} from '@testing-library/react'
+import {axe, toHaveNoViolations} from 'jest-axe'
 import React from 'react'
 import FormGroup from '../../deprecated/FormGroup'
 import {behavesAsComponent, checkExports} from '../../utils/testing'
-import {render as HTMLRender} from '@testing-library/react'
-import {axe, toHaveNoViolations} from 'jest-axe'
 
 expect.extend(toHaveNoViolations)
 

@@ -1,7 +1,7 @@
 import '@testing-library/jest-dom'
+import failOnConsole from 'jest-fail-on-console'
 import 'jest-styled-components'
 import {styleSheetSerializer} from 'jest-styled-components/serializer'
-import failOnConsole from 'jest-fail-on-console'
 import React from 'react'
 import {ReactTestRendererJSON, ReactTestRendererNode} from 'react-test-renderer'
 import {getClasses, getComputedStyles, render} from './testing'

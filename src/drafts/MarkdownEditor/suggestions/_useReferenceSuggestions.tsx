@@ -1,9 +1,9 @@
-import React, {useMemo} from 'react'
-import {suggestionsCalculator, UseSuggestionsHook} from '.'
-import {ActionList} from '../../../ActionList'
-import {Suggestion, Trigger} from '../../InlineAutocomplete'
-import Text from '../../../Text'
 import {score} from 'fzy.js'
+import React, {useMemo} from 'react'
+import {UseSuggestionsHook, suggestionsCalculator} from '.'
+import {ActionList} from '../../../ActionList'
+import Text from '../../../Text'
+import {Suggestion, Trigger} from '../../InlineAutocomplete'
 
 export type Reference = {
   titleHtml: string

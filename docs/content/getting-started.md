@@ -140,6 +140,9 @@ Like React, Primer React emits warnings to the JavaScript console under certain 
 Testing your application with Primer React is no different than testing your application with any other React library. Depending on your test environment and the testing libraries you use, you may need polyfills. For example if you are using `jest`, it runs via Node runtime and uses [JSDOM](https://github.com/jsdom/jsdom) as a DOM implementation, so you will need to mock some browser APIs. We have [helpers](https://github.com/primer/react/blob/main/src/utils/test-helpers.tsx) that you can utilize to mock some of these APIs. You can import the helpers in your test setup file like so:
 
 ```js
-import '@primer/react/lib-esm/utils/test-helpers' // For ESM
-import '@primer/react/lib/utils/test-helpers' // For CommonJS
+import '@primer/react/lib-esm/utils/test-helpers'
+// For ESM
+import '@primer/react/lib/utils/test-helpers'
+
+// For CommonJS
 ```

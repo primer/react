@@ -1,5 +1,4 @@
 import {RefObject, useLayoutEffect, useState} from 'react'
-
 import {SxProp} from '../../sx'
 import {getCharacterCoordinates} from '../utils/character-coordinates'
 

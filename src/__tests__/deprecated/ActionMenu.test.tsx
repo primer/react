@@ -1,11 +1,12 @@
 import {render as HTMLRender, fireEvent} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
 import React from 'react'
-import theme from '../../theme'
-import {ActionMenu} from '../../deprecated'
-import {behavesAsComponent, checkExports} from '../../utils/testing'
 import {BaseStyles, SSRProvider, ThemeProvider} from '../..'
+import {ActionMenu} from '../../deprecated'
 import {ItemProps} from '../../deprecated/ActionList/Item'
+import theme from '../../theme'
+import {behavesAsComponent, checkExports} from '../../utils/testing'
+
 expect.extend(toHaveNoViolations)
 
 const items = [

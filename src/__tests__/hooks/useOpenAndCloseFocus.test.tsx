@@ -1,5 +1,5 @@
-import React, {useRef} from 'react'
 import {render, waitFor} from '@testing-library/react'
+import React, {useRef} from 'react'
 import {useOpenAndCloseFocus} from '../../hooks/useOpenAndCloseFocus'
 
 const Component = () => {

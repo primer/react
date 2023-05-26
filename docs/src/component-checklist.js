@@ -1,6 +1,6 @@
-import {Box, Octicon, Link, Text} from '@primer/react'
 import {H3} from '@primer/gatsby-theme-doctocat/src/components/heading'
 import {CheckCircleFillIcon, CircleIcon, SkipIcon} from '@primer/octicons-react'
+import {Box, Link, Octicon, Text} from '@primer/react'
 import React from 'react'
 
 /** Render component status checklist in documentation pages */

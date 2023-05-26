@@ -1,10 +1,9 @@
-import React from 'react'
-import {ComponentMeta} from '@storybook/react'
-import {Button, Link, Text, StateLabel, BranchName, Box} from '..'
 import {ArrowRightIcon} from '@primer/octicons-react'
-
-import {PageHeader} from '../PageHeader'
+import {ComponentMeta} from '@storybook/react'
+import React from 'react'
 import {Hidden} from '.'
+import {Box, BranchName, Button, Link, StateLabel, Text} from '..'
+import {PageHeader} from '../PageHeader'
 
 export default {
   title: 'Drafts/Components/Hidden/Examples',

@@ -1,8 +1,8 @@
+import {ComponentMeta, ComponentStory} from '@storybook/react'
 import React from 'react'
-import {ComponentStory, ComponentMeta} from '@storybook/react'
-import Details from './Details'
 import {Button} from '../Button'
 import useDetails from '../hooks/useDetails'
+import Details from './Details'
 
 export default {
   title: 'Components/Details',

@@ -1,28 +1,28 @@
-import React from 'react'
 import {
-  IconProps,
+  BookIcon,
+  ChecklistIcon,
   CodeIcon,
-  IssueOpenedIcon,
-  GitPullRequestIcon,
   CommentDiscussionIcon,
+  CommitIcon,
+  FileDiffIcon,
+  GearIcon,
+  GitPullRequestIcon,
+  GraphIcon,
+  IconProps,
+  IssueOpenedIcon,
+  PackageIcon,
+  PeopleIcon,
   PlayIcon,
   ProjectIcon,
-  GraphIcon,
-  ShieldLockIcon,
-  GearIcon,
-  CommitIcon,
-  ChecklistIcon,
-  FileDiffIcon,
-  BookIcon,
   RepoIcon,
-  PackageIcon,
+  ShieldLockIcon,
   StarIcon,
   ThreeBarsIcon,
-  PeopleIcon,
 } from '@primer/octicons-react'
 import {Meta} from '@storybook/react'
+import React from 'react'
+import {Avatar, Box, BranchName, Button, Heading, Link, Octicon, StateLabel, Text} from '..'
 import {UnderlineNav} from './index'
-import {Avatar, Octicon, Button, Box, Heading, Link, Text, StateLabel, BranchName} from '..'
 
 export default {
   title: 'Drafts/Components/UnderlineNav/Examples',

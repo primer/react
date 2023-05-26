@@ -1,8 +1,8 @@
 import React, {forwardRef, useContext, useEffect, useRef} from 'react'
 import styled from 'styled-components'
+import TextInput, {TextInputProps} from '../../TextInput'
 import {get} from '../../constants'
 import sx, {SxProp} from '../../sx'
-import TextInput, {TextInputProps} from '../../TextInput'
 import {ComponentProps} from '../../utils/types'
 import {MenuContext} from './SelectMenuContext'
 

@@ -1,10 +1,10 @@
+import {SearchIcon} from '@primer/octicons-react'
+import {ComponentStory, Meta} from '@storybook/react'
 import React from 'react'
-import {Meta, ComponentStory} from '@storybook/react'
-import FilteredSearch from './FilteredSearch'
 import {ActionList} from '../ActionList'
 import {ActionMenu} from '../ActionMenu'
 import TextInput from '../TextInput'
-import {SearchIcon} from '@primer/octicons-react'
+import FilteredSearch from './FilteredSearch'
 
 export default {
   title: 'Components/FilteredSearch',

@@ -1,9 +1,9 @@
-import React from 'react'
 import {render} from '@testing-library/react'
-import {Hidden} from '.'
 import MatchMediaMock from 'jest-matchmedia-mock'
-import {behavesAsComponent, checkExports, renderStyles, checkStoriesForAxeViolations} from '../utils/testing'
+import React from 'react'
+import {Hidden} from '.'
 import {mediaQueries} from '../utils/layout'
+import {behavesAsComponent, checkExports, checkStoriesForAxeViolations, renderStyles} from '../utils/testing'
 
 let matchMedia: MatchMediaMock
 describe('Hidden', () => {

@@ -1,4 +1,4 @@
-import {createContext, RefObject} from 'react'
+import {RefObject, createContext} from 'react'
 import {FormattingTools} from './_FormattingTools'
 
 // For performance, the properties in context MUST NOT be values that change often - every time

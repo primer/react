@@ -1,5 +1,5 @@
-import {ActionMenu} from '..'
 import React from 'react'
+import {ActionMenu} from '..'
 
 export function actionButtonWithoutProps() {
   //@ts-expect-error requires children

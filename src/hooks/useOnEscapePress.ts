@@ -1,4 +1,4 @@
-import {useEffect, useCallback, useMemo} from 'react'
+import {useCallback, useEffect, useMemo} from 'react'
 
 /**
  * Calls all handlers in reverse order

@@ -1,7 +1,7 @@
-import React from 'react'
 import {ComponentMeta} from '@storybook/react'
-import Box from '../Box'
+import React from 'react'
 import Text from '.'
+import Box from '../Box'
 
 export default {
   title: 'Components/Text/Features',

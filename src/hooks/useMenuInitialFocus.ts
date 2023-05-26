@@ -1,5 +1,5 @@
-import React from 'react'
 import {iterateFocusableElements} from '@primer/behaviors/utils'
+import React from 'react'
 
 export const useMenuInitialFocus = (
   open: boolean,

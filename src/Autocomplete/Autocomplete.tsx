@@ -1,10 +1,10 @@
 import React, {useCallback, useReducer, useRef} from 'react'
+import {useId} from '../hooks/useId'
 import {ComponentProps} from '../utils/types'
 import {AutocompleteContext} from './AutocompleteContext'
 import AutocompleteInput from './AutocompleteInput'
 import AutocompleteMenu from './AutocompleteMenu'
 import AutocompleteOverlay from './AutocompleteOverlay'
-import {useId} from '../hooks/useId'
 
 type Action =
   | {type: 'showMenu' | 'isMenuDirectlyActivated'; payload: boolean}

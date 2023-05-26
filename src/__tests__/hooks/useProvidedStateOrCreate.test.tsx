@@ -1,6 +1,6 @@
-import {useProvidedStateOrCreate} from '../../hooks/useProvidedStateOrCreate'
 import {render} from '@testing-library/react'
 import React, {useState} from 'react'
+import {useProvidedStateOrCreate} from '../../hooks/useProvidedStateOrCreate'
 
 it('will use the provided state', () => {
   const Component = () => {

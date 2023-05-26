@@ -1,9 +1,8 @@
-import React, {useState, useRef, useCallback} from 'react'
 import {Meta} from '@storybook/react'
-
-import {BaseStyles, ThemeProvider, Box} from '..'
+import React, {useCallback, useRef, useState} from 'react'
+import {BaseStyles, Box, ThemeProvider} from '..'
 import {Button} from '../Button'
-import {Dialog, DialogProps, DialogWidth, DialogHeight} from '../Dialog/Dialog'
+import {Dialog, DialogHeight, DialogProps, DialogWidth} from '../Dialog/Dialog'
 
 export default {
   title: 'Components/Dialog',

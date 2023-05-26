@@ -1,8 +1,8 @@
-import React from 'react'
+import {DashIcon, PlusIcon} from '@primer/octicons-react'
 import {ComponentMeta} from '@storybook/react'
-import ButtonGroup from './ButtonGroup'
+import React from 'react'
 import {IconButton} from '../Button'
-import {PlusIcon, DashIcon} from '@primer/octicons-react'
+import ButtonGroup from './ButtonGroup'
 
 export default {
   title: 'Components/ButtonGroup/Features',

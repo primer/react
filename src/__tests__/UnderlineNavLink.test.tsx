@@ -1,8 +1,8 @@
-import React from 'react'
-import {UnderlineNav} from '..'
-import {render, behavesAsComponent} from '../utils/testing'
 import {render as HTMLRender} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
+import React from 'react'
+import {UnderlineNav} from '..'
+import {behavesAsComponent, render} from '../utils/testing'
 
 expect.extend(toHaveNoViolations)
 

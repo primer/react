@@ -1,9 +1,9 @@
+import {render as HTMLRender} from '@testing-library/react'
+import {axe, toHaveNoViolations} from 'jest-axe'
 import React from 'react'
 import {Pagehead} from '..'
 import theme from '../theme'
 import {behavesAsComponent, checkExports} from '../utils/testing'
-import {render as HTMLRender} from '@testing-library/react'
-import {axe, toHaveNoViolations} from 'jest-axe'
 
 expect.extend(toHaveNoViolations)
 

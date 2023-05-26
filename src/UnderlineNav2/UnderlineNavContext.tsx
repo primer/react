@@ -1,4 +1,4 @@
-import React, {createContext, RefObject} from 'react'
+import React, {RefObject, createContext} from 'react'
 import {Theme} from '../ThemeProvider'
 
 export const UnderlineNavContext = createContext<{

@@ -1,11 +1,11 @@
-import React, {forwardRef, MouseEventHandler, useMemo} from 'react'
 import {CSSObject} from '@styled-system/css'
-import TokenBase, {defaultTokenSize, isTokenInteractive, TokenBaseProps} from './TokenBase'
-import RemoveTokenButton from './_RemoveTokenButton'
 import {parseToHsla, parseToRgba} from 'color2k'
+import React, {MouseEventHandler, forwardRef, useMemo} from 'react'
 import {useTheme} from '../ThemeProvider'
-import TokenTextContainer from './_TokenTextContainer'
 import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
+import TokenBase, {TokenBaseProps, defaultTokenSize, isTokenInteractive} from './TokenBase'
+import RemoveTokenButton from './_RemoveTokenButton'
+import TokenTextContainer from './_TokenTextContainer'
 
 export interface IssueLabelTokenProps extends TokenBaseProps {
   /**

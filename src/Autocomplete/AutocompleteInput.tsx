@@ -7,12 +7,12 @@ import React, {
   useEffect,
   useState,
 } from 'react'
-import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
-import {AutocompleteContext} from './AutocompleteContext'
 import TextInput from '../TextInput'
 import {useRefObjectAsForwardedRef} from '../hooks/useRefObjectAsForwardedRef'
-import {ComponentProps} from '../utils/types'
 import useSafeTimeout from '../hooks/useSafeTimeout'
+import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
+import {ComponentProps} from '../utils/types'
+import {AutocompleteContext} from './AutocompleteContext'
 
 type InternalAutocompleteInputProps = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

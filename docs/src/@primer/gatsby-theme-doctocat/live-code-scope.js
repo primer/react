@@ -1,9 +1,9 @@
 import * as doctocatComponents from '@primer/gatsby-theme-doctocat'
 import * as octicons from '@primer/octicons-react'
 import * as primerComponents from '@primer/react'
-import * as drafts from '@primer/react/drafts'
-import * as deprecated from '@primer/react/deprecated'
 import {Placeholder} from '@primer/react/Placeholder'
+import * as deprecated from '@primer/react/deprecated'
+import * as drafts from '@primer/react/drafts'
 import React from 'react'
 import State from '../../../components/State'
 

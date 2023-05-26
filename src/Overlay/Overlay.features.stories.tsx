@@ -1,23 +1,23 @@
-import React, {useState, useRef, useCallback} from 'react'
+import type {AnchorSide} from '@primer/behaviors'
+import {IssueDraftIcon, PlusIcon, TriangleDownIcon} from '@primer/octicons-react'
 import {Meta} from '@storybook/react'
-import {TriangleDownIcon, PlusIcon, IssueDraftIcon} from '@primer/octicons-react'
+import React, {useCallback, useRef, useState} from 'react'
 import {
-  Overlay,
-  ButtonGroup,
-  Button,
-  IconButton,
-  Text,
+  ActionList,
+  ActionMenu,
   Box,
+  Button,
+  ButtonGroup,
   Checkbox,
   CheckboxGroup,
   FormControl,
-  TextInput,
-  Link,
+  IconButton,
   Label,
-  ActionList,
-  ActionMenu,
+  Link,
+  Overlay,
+  Text,
+  TextInput,
 } from '..'
-import type {AnchorSide} from '@primer/behaviors'
 
 export default {
   title: 'Private components/Overlay',

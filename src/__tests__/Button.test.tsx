@@ -1,9 +1,10 @@
-import React from 'react'
-import {IconButton, Button} from '../Button'
-import {behavesAsComponent} from '../utils/testing'
-import {render, fireEvent} from '@testing-library/react'
-import {axe, toHaveNoViolations} from 'jest-axe'
 import {SearchIcon} from '@primer/octicons-react'
+import {fireEvent, render} from '@testing-library/react'
+import {axe, toHaveNoViolations} from 'jest-axe'
+import React from 'react'
+import {Button, IconButton} from '../Button'
+import {behavesAsComponent} from '../utils/testing'
+
 expect.extend(toHaveNoViolations)
 
 describe('Button', () => {

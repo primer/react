@@ -1,5 +1,5 @@
-import React from 'react'
 import {Meta, Story} from '@storybook/react'
+import React from 'react'
 import {ComponentProps} from '../utils/types'
 import Label from './Label'
 

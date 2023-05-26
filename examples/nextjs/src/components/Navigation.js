@@ -1,19 +1,19 @@
-import {Box} from '@primer/react'
 import {
   CodeIcon,
-  IssueOpenedIcon,
-  GitPullRequestIcon,
   CommentDiscussionIcon,
+  GearIcon,
+  GitPullRequestIcon,
+  GraphIcon,
+  IssueOpenedIcon,
   PlayIcon,
   ProjectIcon,
-  GraphIcon,
-  GearIcon,
   ShieldLockIcon,
 } from '@primer/octicons-react'
-import React from 'react'
+import {Box} from '@primer/react'
 import {UnderlineNav} from '@primer/react/drafts'
-import {useRouter} from 'next/router'
 import Link from 'next/link'
+import {useRouter} from 'next/router'
+import React from 'react'
 
 export default function Navigation() {
   const items = [

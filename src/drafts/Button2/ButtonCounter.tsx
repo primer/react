@@ -1,6 +1,6 @@
 import React from 'react'
-import {SxProp} from '../../sx'
 import CounterLabel from '../../CounterLabel'
+import {SxProp} from '../../sx'
 import {defaultSxProp} from '../../utils/defaultSxProp'
 
 export type CounterProps = {

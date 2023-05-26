@@ -1,19 +1,19 @@
 import React from 'react'
 import styled from 'styled-components'
 import Box, {BoxProps} from '../Box'
+import {useTheme} from '../ThemeProvider'
 import {useId} from '../hooks/useId'
 import {useSlots} from '../hooks/useSlots'
-import sx, {BetterSystemStyleObject, merge, SxProp} from '../sx'
-import {useTheme} from '../ThemeProvider'
+import sx, {BetterSystemStyleObject, SxProp, merge} from '../sx'
 import {defaultSxProp} from '../utils/defaultSxProp'
 import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import {ActionListContainerContext} from './ActionListContainerContext'
 import {Description} from './Description'
+import {GroupContext} from './Group'
 import {ActionListProps, ListContext} from './List'
 import {Selection} from './Selection'
-import {ActionListItemProps, getVariantStyles, ItemContext, TEXT_ROW_HEIGHT} from './shared'
 import {LeadingVisual, TrailingVisual} from './Visuals'
-import {GroupContext} from './Group'
+import {ActionListItemProps, ItemContext, TEXT_ROW_HEIGHT, getVariantStyles} from './shared'
 
 const LiBox = styled.li<SxProp>(sx)
 

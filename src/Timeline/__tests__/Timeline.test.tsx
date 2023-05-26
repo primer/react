@@ -1,9 +1,8 @@
 import {render as HTMLRender} from '@testing-library/react'
 import {axe} from 'jest-axe'
-import {render, rendersClass, behavesAsComponent, checkExports} from '../../utils/testing'
-
 import React from 'react'
 import Timeline from '..'
+import {behavesAsComponent, checkExports, render, rendersClass} from '../../utils/testing'
 
 describe('Timeline', () => {
   behavesAsComponent({Component: Timeline})

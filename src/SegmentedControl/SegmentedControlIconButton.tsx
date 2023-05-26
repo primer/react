@@ -1,10 +1,10 @@
-import React, {ButtonHTMLAttributes} from 'react'
 import {IconProps} from '@primer/octicons-react'
+import React, {ButtonHTMLAttributes} from 'react'
 import styled from 'styled-components'
-import sx, {merge, SxProp} from '../sx'
-import {getSegmentedControlButtonStyles, getSegmentedControlListItemStyles} from './getSegmentedControlStyles'
 import Box from '../Box'
+import sx, {SxProp, merge} from '../sx'
 import {defaultSxProp} from '../utils/defaultSxProp'
+import {getSegmentedControlButtonStyles, getSegmentedControlListItemStyles} from './getSegmentedControlStyles'
 
 export type SegmentedControlIconButtonProps = {
   'aria-label': string

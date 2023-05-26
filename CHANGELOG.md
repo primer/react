@@ -1370,7 +1370,7 @@
   <td valign="top">
 
   ```jsx
-  import {ButtonPrimary, ButtonInvisible, ButtonOutline, ButtonDanger} from '@primer/react'
+  import {ButtonDanger, ButtonInvisible, ButtonOutline, ButtonPrimary} from '@primer/react'
 
   function Example() {
     return (
@@ -1540,7 +1540,7 @@
   <td valign="top">
 
   ```jsx
-  import {CheckboxGroup, RadioGroup, FormControl, Checkbox, Radio} from '@primer/react'
+  import {Checkbox, CheckboxGroup, FormControl, Radio, RadioGroup} from '@primer/react'
 
   function Example() {
     return (
@@ -1630,7 +1630,7 @@
   <td valign="top">
 
   ```jsx
-  import {FormControl, Checkbox, TextInput} from '@primer/react'
+  import {Checkbox, FormControl, TextInput} from '@primer/react'
 
   function Example() {
     return (
@@ -1718,7 +1718,7 @@
   To continue to use the deprecated API for now, change the import path to `@primer/react/deprecated`:
 
   ```js
-  import {FormGroup, ChoiceInputField, InputField} from '@primer/react/deprecated'
+  import {ChoiceInputField, FormGroup, InputField} from '@primer/react/deprecated'
   ```
 
   You can use the [one-time codemod](https://github.com/primer/react-migrate#readme) to change your import statements automatically.
@@ -2981,8 +2981,8 @@
 * [`beef075e`](https://github.com/primer/react/commit/beef075e0274396b77887adf0b912583fe564b3f) [#1094](https://github.com/primer/react/pull/1094) Thanks [@colebemis](https://github.com/colebemis)! - Components no longer have a default `theme` prop. To ensure components still render correctly, you'll need pass the Primer theme to a [styled-components](https://styled-components.com/) `<ThemeProvider>` at the root of your application:
 
   ```jsx
-  import {ThemeProvider} from 'styled-components'
   import {theme} from '@primer/react'
+  import {ThemeProvider} from 'styled-components'
 
   function App(props) {
     return (

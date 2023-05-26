@@ -1,11 +1,11 @@
-import React from 'react'
 import {act, fireEvent, render, screen} from '@testing-library/react'
 import MatchMediaMock from 'jest-matchmedia-mock'
+import React from 'react'
 import 'react-intersection-observer/test-utils'
 import {ThemeProvider} from '..'
+import {Placeholder} from '../Placeholder'
 import {viewportRanges} from '../hooks/useResponsiveValue'
 import {PageLayout} from './PageLayout'
-import {Placeholder} from '../Placeholder'
 
 let matchMedia: MatchMediaMock
 

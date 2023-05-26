@@ -1,9 +1,9 @@
-import React from 'react'
-import {CircleBadge} from '..'
 import {CheckIcon} from '@primer/octicons-react'
-import {render, behavesAsComponent, checkExports} from '../utils/testing'
 import {render as HTMLRender} from '@testing-library/react'
 import {axe} from 'jest-axe'
+import React from 'react'
+import {CircleBadge} from '..'
+import {behavesAsComponent, checkExports, render} from '../utils/testing'
 
 const imgInput = <img alt="" src="primer.jpg" />
 
