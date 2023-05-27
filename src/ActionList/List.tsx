@@ -69,7 +69,8 @@ export const List = React.forwardRef<HTMLUListElement, ActionListProps>(
           value={{
             variant,
             selectionVariant: selectionVariant || containerSelectionVariant,
-            showDividers,
+            // @ts-ignore showItemDividers may be passed by some components until next major.
+            showDividers: showDividers || !!props.showItemDividers,
             role: role || listRole,
             headingId,
           }}
