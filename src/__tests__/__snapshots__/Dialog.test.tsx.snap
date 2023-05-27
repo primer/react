@@ -5,7 +5,7 @@ exports[`Dialog Dialog.Header renders consistently 1`] = `
   font-size: 14px;
   font-weight: 600;
   font-family: sans-serif;
-  color: #1F2328;
+  color: #24292f;
 }
 
 .c0 {
@@ -51,7 +51,7 @@ exports[`Dialog renders consistently 1`] = `
   content: ' ';
   background: transparent;
   z-index: 99;
-  background: rgba(31,35,40,0.5);
+  background: rgba(27,31,36,0.5);
 }
 
 <span
@@ -61,13 +61,24 @@ exports[`Dialog renders consistently 1`] = `
   padding: 16px;
 }
 
+.c3 {
+  font-size: 14px;
+  font-weight: 600;
+  font-family: sans-serif;
+  color: #24292f;
+}
+
+.c5 {
+  font-family: sans-serif;
+}
+
 .c1 {
   border: none;
   padding: 0;
   background: transparent;
   cursor: pointer;
   border-radius: 6px;
-  color: #656d76;
+  color: #57606a;
   position: absolute;
   top: 16px;
   right: 16px;
@@ -79,17 +90,6 @@ exports[`Dialog renders consistently 1`] = `
 
 .c1:hover {
   color: #0969da;
-}
-
-.c3 {
-  font-size: 14px;
-  font-weight: 600;
-  font-family: sans-serif;
-  color: #1F2328;
-}
-
-.c5 {
-  font-family: sans-serif;
 }
 
 .c0 {
