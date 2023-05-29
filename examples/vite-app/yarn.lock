@@ -183,7 +183,7 @@
   integrity sha512-kOoc4wrBw3bPe2ZPj9BmCwXdEkw8hxUX/tFCvcjOsZ6eywaQXm3PR0yZnPZxZ8o4RFj2tdg/cwGr4+cU83weHw==
 
 "@primer/react@file:../../":
-  version "35.24.0"
+  version "35.25.1"
   resolved "file:../.."
   dependencies:
     "@github/combobox-nav" "^2.1.5"

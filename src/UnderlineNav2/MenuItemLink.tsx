@@ -1,50 +1,49 @@
 import React, {useContext} from 'react'
 import Box from '../Box'
-import sx, {merge, BetterSystemStyleObject, SxProp} from '../sx'
-
 import CounterLabel from '../CounterLabel'
-
 import {LoadingCounter} from './LoadingCounter'
-
 import {ActionList} from '../ActionList'
-import {defaultSxProp} from '../utils/defaultSxProp'
 import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
-import {moreBtnStyles, getDividerStyle, getNavStyles, ulStyles, menuStyles, menuItemStyles, GAP} from './styles'
-import {IconProps} from '@primer/octicons-react'
+import {menuItemStyles} from './styles'
 import {UnderlineNavContext} from './UnderlineNavContext'
+import {UnderlineNavItemProps} from './UnderlineNavItem'
 
-// adopted from React.AnchorHTMLAttributes
-type LinkProps = {
-  download?: string
-  href?: string
-  hrefLang?: string
-  media?: string
-  ping?: string
-  rel?: string
-  target?: string
-  type?: string
-  referrerPolicy?: React.AnchorHTMLAttributes<HTMLAnchorElement>['referrerPolicy']
-}
+// Menu and the list items have the same props
 export type MenuItemLinkProps = {
-  /**
-   * Primary content for an UnderlineNav
-   */
-  children?: React.ReactNode
-  /**
-   * Counter
-   */
-  counter?: number | string
-} & SxProp &
-  LinkProps
+  onClick?: (event: React.MouseEvent<HTMLAnchorElement> | React.KeyboardEvent<HTMLAnchorElement>) => void
+} & UnderlineNavItemProps
 
 export const MenuItemLink = React.forwardRef<HTMLAnchorElement, MenuItemLinkProps>(
-  ({children, counter, sx: sxProp = defaultSxProp, ...props}, forwardedRef) => {
+  ({children, counter, onSelect, 'aria-current': ariaCurrent, ...props}, forwardedRef) => {
     const {loadingCounters} = useContext(UnderlineNavContext)
+
+    if (ariaCurrent === 'page' && children !== undefined) {
+      // console.log('Selected menu item', children, 'on select function', onSelect)
+      //   @ts-ignore
+      // setSelectedLinkText(children)
+      // call onClick function
+      // create a new mouse event
+
+      const event = new MouseEvent('click')
+      // @ts-ignore
+      if (typeof onSelect === 'function') onSelect(event)
+      // @ts-ignore
+      props.onClick?.(event)
+    }
 
     return (
       // disable typescript error for now
       //   @ts-ignore
-      <ActionList.LinkItem ref={forwardedRef} sx={menuItemStyles} active={false} {...props}>
+      <ActionList.LinkItem
+        ref={forwardedRef}
+        sx={menuItemStyles}
+        active={false}
+        onClick={(event: React.MouseEvent<HTMLAnchorElement> | React.KeyboardEvent<HTMLAnchorElement>) => {
+          if (typeof onSelect === 'function') onSelect(event)
+          props.onClick?.(event)
+        }}
+        {...props}
+      >
         <Box as="span" sx={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
           {children}
 

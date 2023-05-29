@@ -169,7 +169,6 @@ export const UnderlineNav = forwardRef(
 
     const {theme} = useTheme()
 
-    console.log('UnderlieNav is reloaded.')
     function getItemsWidth(itemText: string): number {
       return noIconChildWidthArray.find(item => item.text === itemText)?.width || 0
     }
@@ -329,6 +328,8 @@ export const UnderlineNav = forwardRef(
       setIsWidgetOpen(isWidgetOpen => !isWidgetOpen)
     }, [])
 
+    console.log('UnderlieNav is reloaded with selected link text', selectedLinkText)
+
     return (
       <UnderlineNavContext.Provider
         value={{
@@ -383,10 +384,15 @@ export const UnderlineNav = forwardRef(
                   sx={merge({display: isWidgetOpen ? 'block' : 'none'}, menuStyles)}
                 >
                   {actions.map((action, index) => {
-                    const {children: actionElementChildren, ...actionElementProps} = action.props
+                    const {
+                      children: actionElementChildren,
+                      'aria-current': ariaCurrent,
+                      ...actionElementProps
+                    } = action.props
                     return (
                       <MenuItemLink
                         key={actionElementChildren}
+                        aria-current={ariaCurrent}
                         onClick={(
                           event: React.MouseEvent<HTMLAnchorElement> | React.KeyboardEvent<HTMLAnchorElement>,
                         ) => {
