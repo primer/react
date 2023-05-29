@@ -22,6 +22,7 @@ module.exports = {
           '@primer/components': path.resolve(__dirname, '../src'),
           '@primer/react': path.resolve(__dirname, '../src'),
           '@primer/react/drafts': path.resolve(__dirname, '../src/drafts'),
+          '@primer/react/experimental': path.resolve(__dirname, '../src/experimental'),
           'styled-components': path.resolve(__dirname, '..', 'node_modules', 'styled-components'),
           react: path.resolve(__dirname, 'node_modules', 'react'),
         },
