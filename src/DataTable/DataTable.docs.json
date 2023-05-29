@@ -32,7 +32,13 @@
       "id": "components-datatable-features--with-custom-heading"
     },
     {
+      "id": "components-datatable-features--with-no-content"
+    },
+    {
       "id": "components-datatable-features--with-loading"
+    },
+    {
+      "id": "components-datatable-features--with-pagination"
     }
   ],
   "props": [
@@ -190,6 +196,64 @@
           "name": "rows",
           "type": "number",
           "description": "Optionally specify the number of rows which should be included in the skeleton state of the component"
+        }
+      ]
+    },
+    {
+      "name": "Table.Pagination",
+      "props": [
+        {
+          "name": "aria-label",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "defaultPageIndex",
+          "type": "string"
+        },
+        {
+          "name": "id",
+          "type": "string"
+        },
+        {
+          "name": "onChange",
+          "type": "({ pageIndex }: { pageIndex: number }) => void"
+        },
+        {
+          "name": "pageSize",
+          "type": "number"
+        },
+        {
+          "name": "totalCount",
+          "type": "number",
+          "required": true
+        }
+      ]
+    },
+    {
+      "name": "Table.ErrorDialog",
+      "props": [
+        {
+          "name": "children",
+          "required": true,
+          "type": "React.ReactNode",
+          "description": "The content of the dialog. This is usually a message explaining the error."
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "defaultValue": "'Error'",
+          "description": "The title of the dialog. This is usually a short description of the error."
+        },
+        {
+          "name": "onRetry",
+          "type": "() => void",
+          "description": "Event handler called when the user clicks the retry button."
+        },
+        {
+          "name": "onDismiss",
+          "type": "() => void",
+          "description": "Event handler called when the dialog is dismissed."
         }
       ]
     }

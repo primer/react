@@ -9,7 +9,7 @@ import {
   ActionListTrailingVisualProps,
 } from '../ActionList'
 import Box from '../Box'
-import StyledOcticon from '../StyledOcticon'
+import Octicon from '../Octicon'
 import sx, {merge, SxProp} from '../sx'
 import {defaultSxProp} from '../utils/defaultSxProp'
 import {useId} from '../hooks/useId'
@@ -143,7 +143,7 @@ function ItemWithSubNav({children, subNav, sx: sxProp = defaultSxProp}: ItemWith
           {children}
           {/* What happens if the user provides a TrailingVisual? */}
           <ActionList.TrailingVisual>
-            <StyledOcticon
+            <Octicon
               icon={ChevronDownIcon}
               sx={{
                 transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)',
@@ -248,10 +248,13 @@ const Group: React.FC<NavListGroupProps> = ({title, children, sx: sxProp = defau
   return (
     <>
       {/* Hide divider if the group is the first item in the list */}
-      <ActionList.Divider sx={{'&:first-child': {display: 'none'}}} />
-      <ActionList.Group {...props} title={title} sx={sxProp}>
-        {children}
-      </ActionList.Group>
+      <ActionList.Divider sx={{'&:first-of-type': {display: 'none'}}} />
+      <Box as="li" sx={sxProp} {...props}>
+        {title && <ActionList.Heading title={title} />}
+        <Box as="ul" sx={{paddingInlineStart: 0}}>
+          {children}
+        </Box>
+      </Box>
     </>
   )
 }

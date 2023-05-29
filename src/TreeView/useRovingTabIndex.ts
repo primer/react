@@ -2,7 +2,13 @@ import React from 'react'
 import {FocusKeys, useFocusZone} from '../hooks/useFocusZone'
 import {getScrollContainer} from '../utils/scroll'
 
-export function useRovingTabIndex({containerRef}: {containerRef: React.RefObject<HTMLElement>}) {
+export function useRovingTabIndex({
+  containerRef,
+  mouseDownRef,
+}: {
+  containerRef: React.RefObject<HTMLElement>
+  mouseDownRef: React.RefObject<boolean>
+}) {
   // TODO: Initialize focus to the aria-current item if it exists
   useFocusZone({
     containerRef,
@@ -19,6 +25,13 @@ export function useRovingTabIndex({containerRef}: {containerRef: React.RefObject
       return getNextFocusableElement(from, event) ?? from
     },
     focusInStrategy: () => {
+      // Don't try to execute the focusInStrategy if focus is coming from a click.
+      // The clicked row will receive focus correctly by default.
+      // If a chevron is clicked, setting the focus through the focuszone will prevent its toggle.
+      if (mouseDownRef.current) {
+        return undefined
+      }
+
       const currentItem = containerRef.current?.querySelector('[aria-current]')
       const firstItem = containerRef.current?.querySelector('[role="treeitem"]')
 

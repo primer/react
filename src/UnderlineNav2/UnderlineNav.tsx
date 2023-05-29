@@ -380,14 +380,13 @@ export const UnderlineNav = forwardRef(
                   selectionVariant="single"
                   ref={containerRef}
                   id={disclosureWidgetId}
-                  sx={menuStyles}
-                  style={{display: isWidgetOpen ? 'block' : 'none'}}
+                  sx={merge({display: isWidgetOpen ? 'block' : 'none'}, menuStyles)}
                 >
                   {actions.map((action, index) => {
                     const {children: actionElementChildren, ...actionElementProps} = action.props
                     return (
                       <MenuItemLink
-                        key={index}
+                        key={actionElementChildren}
                         onClick={(
                           event: React.MouseEvent<HTMLAnchorElement> | React.KeyboardEvent<HTMLAnchorElement>,
                         ) => {

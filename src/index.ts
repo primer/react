@@ -49,7 +49,7 @@ export type {RadioProps} from './Radio'
 export {ActionList} from './ActionList'
 export type {
   ActionListProps,
-  ActionListGroupProps,
+  ActionListHeadingProps,
   ActionListItemProps,
   ActionListLinkItemProps,
   ActionListDividerProps,
@@ -117,6 +117,8 @@ export type {
   NavListTrailingVisualProps,
   NavListDividerProps,
 } from './NavList'
+export {default as Octicon} from './Octicon'
+export type {OcticonProps} from './Octicon'
 export {default as Overlay} from './Overlay'
 export type {OverlayProps} from './Overlay'
 export {default as Pagehead} from './Pagehead'

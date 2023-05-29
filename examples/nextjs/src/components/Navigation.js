@@ -15,7 +15,7 @@ import {UnderlineNav} from '@primer/react/drafts'
 import {useRouter} from 'next/router'
 import Link from 'next/link'
 
-export default function Layout() {
+export default function Navigation() {
   const items = [
     {navigation: 'Code', href: '/tabs/code', icon: CodeIcon},
     {

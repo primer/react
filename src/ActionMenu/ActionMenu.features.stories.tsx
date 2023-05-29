@@ -35,27 +35,27 @@ export const LinksAndActions = () => (
             <CopyIcon />
           </ActionList.LeadingVisual>
         </ActionList.Item>
-        <ActionList.Divider />
-        <ActionList.Group title="Github projects">
-          <ActionList.LinkItem href="/">
-            What&apos;s new
-            <ActionList.LeadingVisual>
-              <RocketIcon />
-            </ActionList.LeadingVisual>
-          </ActionList.LinkItem>
-          <ActionList.LinkItem href="/">
-            Give feedback
-            <ActionList.LeadingVisual>
-              <CommentIcon />
-            </ActionList.LeadingVisual>
-          </ActionList.LinkItem>
-          <ActionList.LinkItem href="/">
-            GitHub Docs
-            <ActionList.LeadingVisual>
-              <BookIcon />
-            </ActionList.LeadingVisual>
-          </ActionList.LinkItem>
-        </ActionList.Group>
+      </ActionList>
+      <ActionList>
+        <ActionList.Heading title="Github projects" />
+        <ActionList.LinkItem href="/">
+          What&apos;s new
+          <ActionList.LeadingVisual>
+            <RocketIcon />
+          </ActionList.LeadingVisual>
+        </ActionList.LinkItem>
+        <ActionList.LinkItem href="/">
+          Give feedback
+          <ActionList.LeadingVisual>
+            <CommentIcon />
+          </ActionList.LeadingVisual>
+        </ActionList.LinkItem>
+        <ActionList.LinkItem href="/">
+          GitHub Docs
+          <ActionList.LeadingVisual>
+            <BookIcon />
+          </ActionList.LeadingVisual>
+        </ActionList.LinkItem>
       </ActionList>
     </ActionMenu.Overlay>
   </ActionMenu>
