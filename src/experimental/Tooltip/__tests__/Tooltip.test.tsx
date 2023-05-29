@@ -1,6 +1,6 @@
 import React from 'react'
 import {Tooltip, TooltipProps} from '../Tooltip'
-import {checkStoriesForAxeViolations, checkExports} from '../../../utils/testing'
+import {checkStoriesForAxeViolations} from '../../../utils/testing'
 import {render as HTMLRender, act} from '@testing-library/react'
 import {Button} from '../../../Button'
 import {SearchIcon} from '@primer/octicons-react'
@@ -15,12 +15,7 @@ const TooltipComponent = (props: TooltipProps) => (
 )
 
 describe('Tooltip', () => {
-  checkExports('Tooltip', {
-    default: undefined,
-    Tooltip,
-  })
-
-  checkStoriesForAxeViolations('Tooltip.features', '../Tooltip/')
+  checkStoriesForAxeViolations('Tooltip.features', '../experimental/Tooltip/')
 
   it('renders `data-direction="n"` by default', () => {
     const {getByText} = HTMLRender(<TooltipComponent />)

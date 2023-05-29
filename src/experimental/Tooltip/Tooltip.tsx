@@ -2,7 +2,7 @@ import React, {Children, useEffect, useRef, useState} from 'react'
 import Box from '../../Box'
 import sx, {SxProp} from '../../sx'
 import {useId} from '../../hooks/useId'
-// TODO: replace the warnings with invariant when future teams are ready to move the non-interactive triggers' tooltip info to else where. (Sorry for a very vague timeline :/)
+import {invariant} from '../../utils/invariant'
 import {warning} from '../../utils/warning'
 import styled from 'styled-components'
 import {get} from '../../constants'
@@ -326,7 +326,7 @@ export const Tooltip = ({
   const [open, setOpen] = useState(false)
 
   // we need this check for every render
-  if (__DEV__ && process.env.NODE_ENV !== 'test') {
+  if (__DEV__) {
     // We don't want these warnings to show up on tests because it fails the tests (at dotcom) due to not extecting a warning.
     // TODO: We can remove the test check when we update these warnings to invariants.
     // Practically, this is not a conditional hook, it is just making sure this hook runs only on DEV not PROD.
@@ -339,8 +339,8 @@ export const Tooltip = ({
         const hasInteractiveChild = Array.from(triggerChildren).some(child => {
           return child instanceof HTMLElement && isInteractive(child)
         })
-        warning(
-          !isTriggerInteractive && !hasInteractiveChild,
+        invariant(
+          isTriggerInteractive || hasInteractiveChild,
           'The `Tooltip` component expects a single React element that contains interactive content. Consider using a `<button>` or equivalent interactive element instead.',
         )
         // If the tooltip is used for labelling the interactive element, the trigger element or any of its children should not have aria-label
