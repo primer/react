@@ -115,11 +115,6 @@
           "type": "React.RefObject<HTMLAnchorElement>"
         },
         {
-          "name": "as",
-          "type": "React.ElementType",
-          "defaultValue": "\"a\""
-        },
-        {
           "name": "sx",
           "type": "SystemStyleObject"
         }
