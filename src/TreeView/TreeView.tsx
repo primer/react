@@ -5,7 +5,7 @@ import {
   FileDirectoryOpenFillIcon,
 } from '@primer/octicons-react'
 import classnames from 'classnames'
-import React from 'react'
+import React, {useCallback, useEffect} from 'react'
 import styled, {keyframes} from 'styled-components'
 import {ConfirmationDialog} from '../Dialog/ConfirmationDialog'
 import Spinner from '../Spinner'
@@ -256,12 +256,27 @@ const Root: React.FC<TreeViewProps> = ({
   flat,
 }) => {
   const containerRef = React.useRef<HTMLUListElement>(null)
+  const mouseDownRef = React.useRef<boolean>(false)
   const [ariaLiveMessage, setAriaLiveMessage] = React.useState('')
   const announceUpdate = React.useCallback((message: string) => {
     setAriaLiveMessage(message)
   }, [])
 
-  useRovingTabIndex({containerRef})
+  const onMouseDown = useCallback(() => {
+    mouseDownRef.current = true
+  }, [])
+
+  useEffect(() => {
+    function onMouseUp() {
+      mouseDownRef.current = false
+    }
+    document.addEventListener('mouseup', onMouseUp)
+    return () => {
+      document.removeEventListener('mouseup', onMouseUp)
+    }
+  }, [])
+
+  useRovingTabIndex({containerRef, mouseDownRef})
   useTypeahead({
     containerRef,
     onFocusChange: element => {
@@ -294,6 +309,7 @@ const Root: React.FC<TreeViewProps> = ({
           aria-label={ariaLabel}
           aria-labelledby={ariaLabelledby}
           data-omit-spacer={flat}
+          onMouseDown={onMouseDown}
         >
           {children}
         </UlBox>

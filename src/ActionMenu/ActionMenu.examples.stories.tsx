@@ -24,7 +24,7 @@ export const GroupsAndDescriptions = () => {
     {name: 'FY23 - Q2', due: 'December 30, 2022', progress: 0},
   ]
 
-  const [selectedMilestone, setSelectedMilestone] = React.useState<typeof milestones[0] | undefined>()
+  const [selectedMilestone, setSelectedMilestone] = React.useState<(typeof milestones)[0] | undefined>()
 
   return (
     <ActionMenu open>
@@ -208,7 +208,7 @@ export const MixedSelection = () => {
 
   return (
     <ActionMenu>
-      <ActionMenu.Button aria-label="Group by" leadingIcon={selectedOption ? selectedOption.icon : undefined}>
+      <ActionMenu.Button leadingIcon={selectedOption ? selectedOption.icon : undefined}>
         {selectedOption ? `Group by ${selectedOption.text}` : 'Group items by'}
       </ActionMenu.Button>
       <ActionMenu.Overlay width="medium">
@@ -241,7 +241,7 @@ export const MixedSelection = () => {
 export const MultipleSections = () => {
   const items = [{name: 'Show code folding buttons'}, {name: 'Wrap lines'}, {name: 'Center content'}]
 
-  const [selectedMilestone, setSelectedMilestone] = React.useState<typeof items[0] | undefined>()
+  const [selectedMilestone, setSelectedMilestone] = React.useState<(typeof items)[0] | undefined>()
 
   return (
     <ActionMenu open>
