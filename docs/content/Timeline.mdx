@@ -16,7 +16,7 @@ The Timeline.Item component is used to display items on a vertical timeline, con
 <Timeline>
   <Timeline.Item>
     <Timeline.Badge>
-      <StyledOcticon icon={FlameIcon} />
+      <Octicon icon={FlameIcon} />
     </Timeline.Badge>
     <Timeline.Body>
       <Link href="#" sx={{fontWeight: 'bold', color: 'fg.default', mr: 1}} muted>
@@ -41,7 +41,7 @@ The default Timeline.Badge color is dark text on a light grey background.
 <Timeline>
   <Timeline.Item>
     <Timeline.Badge>
-      <StyledOcticon icon={FlameIcon} />
+      <Octicon icon={FlameIcon} />
     </Timeline.Badge>
     <Timeline.Body>Default badge color</Timeline.Body>
   </Timeline.Item>
@@ -51,25 +51,25 @@ The default Timeline.Badge color is dark text on a light grey background.
 ### Adding color to a Badge
 
 To have color variants, use the `bg` prop on the `Timeline.Badge`. If an icon is being used, set the `color` prop
-of the child `StyledOcticon` if necessary.
+of the child `Octicon` if necessary.
 
 ```jsx live
 <Timeline>
   <Timeline.Item>
     <Timeline.Badge sx={{bg: 'danger.emphasis'}}>
-      <StyledOcticon icon={FlameIcon} sx={{color: 'fg.onEmphasis'}} />
+      <Octicon icon={FlameIcon} sx={{color: 'fg.onEmphasis'}} />
     </Timeline.Badge>
     <Timeline.Body>Background used when closed events occur</Timeline.Body>
   </Timeline.Item>
   <Timeline.Item>
     <Timeline.Badge sx={{bg: 'danger.emphasis'}}>
-      <StyledOcticon icon={FlameIcon} color="fg.onEmphasis" />
+      <Octicon icon={FlameIcon} color="fg.onEmphasis" />
     </Timeline.Badge>
     <Timeline.Body>Background when opened or passed events occur</Timeline.Body>
   </Timeline.Item>
   <Timeline.Item>
     <Timeline.Badge sx={{bg: 'danger.emphasis'}}>
-      <StyledOcticon icon={FlameIcon} sx={{color: 'fg.onEmphasis'}} />
+      <Octicon icon={FlameIcon} sx={{color: 'fg.onEmphasis'}} />
     </Timeline.Badge>
     <Timeline.Body>Background used when pull requests are merged</Timeline.Body>
   </Timeline.Item>
@@ -84,13 +84,13 @@ Timeline has a condensed prop that will reduce the vertical padding and remove t
 <Timeline>
   <Timeline.Item condensed>
     <Timeline.Badge>
-      <StyledOcticon icon={GitCommitIcon} />
+      <Octicon icon={GitCommitIcon} />
     </Timeline.Badge>
     <Timeline.Body>This is the message of a condensed TimelineItem</Timeline.Body>
   </Timeline.Item>
   <Timeline.Item condensed>
     <Timeline.Badge>
-      <StyledOcticon icon={GitCommitIcon} />
+      <Octicon icon={GitCommitIcon} />
     </Timeline.Badge>
     <Timeline.Body>This is the message of a condensed TimelineItem</Timeline.Body>
   </Timeline.Item>
@@ -105,14 +105,14 @@ To create a visual break in the timeline, use Timeline.Break. This adds a horizo
 <Timeline>
   <Timeline.Item>
     <Timeline.Badge sx={{bg: 'danger.emphasis'}}>
-      <StyledOcticon icon={FlameIcon} color="fg.onEmphasis" />
+      <Octicon icon={FlameIcon} color="fg.onEmphasis" />
     </Timeline.Badge>
     <Timeline.Body>Background used when closed events occur</Timeline.Body>
   </Timeline.Item>
   <Timeline.Break />
   <Timeline.Item>
     <Timeline.Badge sx={{bg: 'success.emphasis'}}>
-      <StyledOcticon icon={FlameIcon} sx={{color: 'fg.onEmphasis'}} />
+      <Octicon icon={FlameIcon} sx={{color: 'fg.onEmphasis'}} />
     </Timeline.Badge>
     <Timeline.Body>Background when opened or passed events occur</Timeline.Body>
   </Timeline.Item>
