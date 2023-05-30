@@ -46,6 +46,7 @@ Closes # (type the GitHub issue number after #)
 
 - [ ] Added/updated tests
 - [ ] Added/updated documentation
+- [ ] Added/updated previews (Storybook)
 - [ ] Changes are [SSR compatible](https://github.com/primer/react/blob/main/contributor-docs/CONTRIBUTING.md#ssr-compatibility)
 - [ ] Tested in Chrome
 - [ ] Tested in Firefox
