@@ -407,7 +407,7 @@ exports[`NavList renders with groups 1`] = `
   list-style: none;
 }
 
-.c2:first-child {
+.c2:first-of-type {
   display: none;
 }
 
@@ -702,14 +702,14 @@ exports[`NavList renders with groups 1`] = `
         class="c1"
       >
         <li
+          aria-hidden="true"
+          class="c2"
+          data-component="ActionList.Divider"
+          role="separator"
+        />
+        <li
           class=""
         >
-          <div
-            aria-hidden="true"
-            class="c2"
-            data-component="ActionList.Divider"
-            role="separator"
-          />
           <div
             class="c3"
           >
@@ -749,14 +749,14 @@ exports[`NavList renders with groups 1`] = `
           </ul>
         </li>
         <li
+          aria-hidden="true"
+          class="c2"
+          data-component="ActionList.Divider"
+          role="separator"
+        />
+        <li
           class=""
         >
-          <div
-            aria-hidden="true"
-            class="c2"
-            data-component="ActionList.Divider"
-            role="separator"
-          />
           <div
             class="c3"
           >
