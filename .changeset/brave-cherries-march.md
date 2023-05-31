@@ -1,5 +1,5 @@
 ---
-'@primer/react': patch
+"@primer/react": minor
 ---
 
-prevent closing menu when `event.preventDefault()` is called on `ActionList.Item`'s `onSelect` handler
+ActionMenu: Calling `event.preventDefault` inside `onSelect` of `ActionList.Item` will prevent the default behavior of closing the menu
