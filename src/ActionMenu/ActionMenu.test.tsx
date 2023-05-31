@@ -22,7 +22,7 @@ function Example(): JSX.Element {
                 <ActionList.Divider />
                 <ActionList.Item>Copy link</ActionList.Item>
                 <ActionList.Item>Edit file</ActionList.Item>
-                <ActionList.Item variant="danger" onClick={event => event.preventDefault()}>
+                <ActionList.Item variant="danger" onSelect={event => event.preventDefault()}>
                   Delete file
                 </ActionList.Item>
                 <ActionList.LinkItem href="//github.com" title="anchor" aria-keyshortcuts="s">

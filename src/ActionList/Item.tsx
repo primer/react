@@ -25,7 +25,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       disabled = false,
       selected = undefined,
       active = false,
-      onSelect,
+      onSelect: onSelectUser,
       sx: sxProp = defaultSxProp,
       id,
       role,
@@ -46,6 +46,18 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
     const {selectionVariant: groupSelectionVariant} = React.useContext(GroupContext)
 
     const selectionVariant = groupSelectionVariant ?? listSelectionVariant
+    const onSelect = React.useCallback(
+      (
+        event: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement>,
+        // eslint-disable-next-line @typescript-eslint/ban-types
+        afterSelect?: Function,
+      ) => {
+        if (typeof onSelectUser === 'function') onSelectUser(event)
+        if (event.defaultPrevented) return
+        if (typeof afterSelect === 'function') afterSelect()
+      },
+      [onSelectUser],
+    )
 
     /** Infer item role based on the container */
     let itemRole: ActionListItemProps['role']
@@ -163,11 +175,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
     const clickHandler = React.useCallback(
       (event: React.MouseEvent<HTMLLIElement>) => {
         if (disabled) return
-        if (!event.defaultPrevented) {
-          if (typeof onSelect === 'function') onSelect(event)
-          // if this Item is inside a Menu, close the Menu
-          if (typeof afterSelect === 'function') afterSelect()
-        }
+        onSelect(event, afterSelect)
       },
       [onSelect, disabled, afterSelect],
     )
@@ -175,10 +183,8 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
     const keyPressHandler = React.useCallback(
       (event: React.KeyboardEvent<HTMLLIElement>) => {
         if (disabled) return
-        if (!event.defaultPrevented && [' ', 'Enter'].includes(event.key)) {
-          if (typeof onSelect === 'function') onSelect(event)
-          // if this Item is inside a Menu, close the Menu
-          if (typeof afterSelect === 'function') afterSelect()
+        if ([' ', 'Enter'].includes(event.key)) {
+          onSelect(event, afterSelect)
         }
       },
       [onSelect, disabled, afterSelect],
