@@ -126,7 +126,6 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
         hasTrailingAction={Boolean(trailingAction)}
         isInputFocused={isInputFocused}
         onClick={focusInput}
-        aria-live="polite"
         aria-busy={Boolean(loading)}
       >
         {IconComponent && <IconComponent className="TextInput-icon" />}
@@ -135,7 +134,7 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
           showLoadingIndicator={showLeadingLoadingIndicator}
           hasLoadingIndicator={typeof loading === 'boolean'}
         >
-          {typeof LeadingVisual === 'function' ? <LeadingVisual /> : LeadingVisual}
+          {LeadingVisual && (typeof LeadingVisual === 'string' ? LeadingVisual : <LeadingVisual />)}
         </TextInputInnerVisualSlot>
         <UnstyledTextInput
           ref={inputRef}
@@ -151,7 +150,7 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
           showLoadingIndicator={showTrailingLoadingIndicator}
           hasLoadingIndicator={typeof loading === 'boolean'}
         >
-          {typeof TrailingVisual === 'function' ? <TrailingVisual /> : TrailingVisual}
+          {TrailingVisual && (typeof TrailingVisual === 'string' ? TrailingVisual : <TrailingVisual />)}
         </TextInputInnerVisualSlot>
         {trailingAction}
       </TextInputWrapper>

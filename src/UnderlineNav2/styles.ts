@@ -94,7 +94,7 @@ export const getLinkStyles = (
     },
   },
   '&:focus': {
-    outline: 0,
+    outline: '2px solid transparent',
     '&': {
       boxShadow: `inset 0 0 0 2px ${theme?.colors.accent.fg}`,
     },
@@ -104,6 +104,7 @@ export const getLinkStyles = (
     },
   },
   '&:focus-visible': {
+    outline: '2px solid transparent',
     boxShadow: `inset 0 0 0 2px ${theme?.colors.accent.fg}`,
   },
   // renders a visibly hidden "copy" of the label in bold, reserving box space for when label becomes bold on selected
@@ -146,6 +147,7 @@ export const menuItemStyles = {
 
 export const menuStyles = {
   position: 'absolute',
+  zIndex: 1,
   top: '90%',
   right: '0',
   boxShadow: '0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24)',

@@ -43,7 +43,15 @@ describe('PointerBox', () => {
     const mockBg = 'red'
     const viaStyledSystem = renderStyles(<PointerBox bg={mockBg} />)
     const viaSxProp = renderStyles(<PointerBox sx={{bg: mockBg}} />)
-    expect(viaStyledSystem).toEqual(expect.objectContaining({'background-color': mockBg}))
-    expect(viaSxProp).toEqual(expect.objectContaining({'background-color': mockBg}))
+    expect(viaStyledSystem).toEqual(
+      expect.objectContaining({
+        'background-image': 'linear-gradient(var(--custom-bg),var(--custom-bg)),linear-gradient(#ffffff,#ffffff)',
+      }),
+    )
+    expect(viaSxProp).toEqual(
+      expect.objectContaining({
+        'background-image': 'linear-gradient(var(--custom-bg),var(--custom-bg)),linear-gradient(#ffffff,#ffffff)',
+      }),
+    )
   })
 })

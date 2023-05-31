@@ -1,104 +1,6 @@
 {
   "schemaVersion": 2,
   "components": {
-    "button_group": {
-      "id": "button_group",
-      "name": "ButtonGroup",
-      "status": "alpha",
-      "a11yReviewed": false,
-      "stories": [],
-      "props": [
-        {
-          "name": "sx",
-          "type": "SystemStyleObject"
-        },
-        {
-          "name": "ref",
-          "type": "React.RefObject<HTMLDivElement>"
-        }
-      ],
-      "subcomponents": []
-    },
-    "circle_badge": {
-      "id": "circle_badge",
-      "name": "CircleBadge",
-      "status": "alpha",
-      "a11yReviewed": false,
-      "stories": [],
-      "props": [
-        {
-          "name": "variant",
-          "type": "'small' | 'medium' | 'large'",
-          "defaultValue": "'medium'",
-          "description": "Creates a smaller or larger badge. Has no effect if the `size` prop is set"
-        },
-        {
-          "name": "size",
-          "type": "number",
-          "defaultValue": "",
-          "description": "Sets the size of the badge in pixels. Overrides the `variant` prop when set"
-        },
-        {
-          "name": "inline",
-          "type": "boolean",
-          "defaultValue": "false",
-          "description": "Styles the badge to `display: inline`"
-        },
-        {
-          "name": "ref",
-          "type": "React.RefObject<HTMLDivElement>"
-        },
-        {
-          "name": "as",
-          "type": "React.ElementType",
-          "defaultValue": "\"div\""
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject"
-        }
-      ],
-      "subcomponents": [
-        {
-          "name": "CircleBadge.Icon",
-          "props": [
-            {
-              "name": "as",
-              "type": "React.ElementType",
-              "defaultValue": "StyledOcticon"
-            }
-          ],
-          "passthrough": {
-            "element": "StyledOcticon",
-            "url": "/StyledOcticon"
-          }
-        }
-      ]
-    },
-    "circle_octicon": {
-      "id": "circle_octicon",
-      "name": "CircleOcticon",
-      "status": "alpha",
-      "a11yReviewed": false,
-      "stories": [],
-      "props": [
-        {
-          "name": "icon",
-          "type": "Octicon"
-        },
-        {
-          "name": "size",
-          "defaultValue": "32",
-          "type": "number",
-          "description": "Set the width and height of the icon in pixels."
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject"
-        }
-      ],
-      "subcomponents": []
-    },
     "dialog": {
       "id": "dialog",
       "name": "Dialog",
@@ -153,394 +55,6 @@
         }
       ]
     },
-    "filter_list": {
-      "id": "filter_list",
-      "name": "FilterList",
-      "status": "alpha",
-      "a11yReviewed": false,
-      "stories": [],
-      "props": [
-        {
-          "name": "sx",
-          "type": "SystemStyleObject"
-        }
-      ],
-      "subcomponents": [
-        {
-          "name": "FilterList.Item",
-          "props": [
-            {
-              "name": "count",
-              "type": "number",
-              "description": "Number to be displayed in the list item"
-            },
-            {
-              "name": "selected",
-              "type": "boolean",
-              "description": "Whether the list item is selected or not"
-            },
-            {
-              "name": "small",
-              "type": "boolean",
-              "defaultValue": "false",
-              "description": "Whether the list item is small or not"
-            },
-            {
-              "name": "as",
-              "type": "React.ElementType",
-              "defaultValue": "'a'"
-            },
-            {
-              "name": "sx",
-              "type": "SystemStyleObject"
-            }
-          ]
-        }
-      ]
-    },
-    "filtered_search": {
-      "id": "filtered_search",
-      "name": "FilteredSearch",
-      "status": "alpha",
-      "a11yReviewed": false,
-      "stories": [],
-      "props": [
-        {
-          "name": "children",
-          "type": "React.ReactNode",
-          "description": "FilteredSearch is expected to contain an `ActionMenu` followed by a `TextInput`."
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject"
-        }
-      ],
-      "subcomponents": []
-    },
-    "label_group": {
-      "id": "label_group",
-      "name": "LabelGroup",
-      "status": "alpha",
-      "a11yReviewed": false,
-      "stories": [],
-      "props": [
-        {
-          "name": "sx",
-          "type": "SystemStyleObject"
-        }
-      ],
-      "subcomponents": []
-    },
-    "overlay": {
-      "id": "overlay",
-      "name": "Overlay",
-      "status": "alpha",
-      "a11yReviewed": false,
-      "stories": [],
-      "props": [
-        {
-          "name": "returnFocusRef",
-          "type": "React.RefObject<HTMLElement>",
-          "defaultValue": "",
-          "required": true,
-          "description": "Ref for the element to focus when the `Overlay` is closed."
-        },
-        {
-          "name": "onClickOutside",
-          "type": "function",
-          "defaultValue": "",
-          "required": true,
-          "description": "Function to call when clicking outside of the `Overlay`. Typically this function sets the `Overlay` visibility state to `false`."
-        },
-        {
-          "name": "onEscape",
-          "type": "function",
-          "defaultValue": "",
-          "required": true,
-          "description": "Function to call when user presses `Escape`. Typically this function sets the `Overlay` visibility state to `false`."
-        },
-        {
-          "name": "ignoreClickRefs",
-          "type": "React.RefObject<HTMLElement> []",
-          "defaultValue": "",
-          "description": "An array of ref objects to ignore clicks on in the onOutsideClick behavior. This is often used to ignore clicking on the element that toggles the open/closed state for the Overlay to prevent the Overlay from being toggled twice."
-        },
-        {
-          "name": "initialFocusRef",
-          "type": "React.RefObject<HTMLElement>",
-          "defaultValue": "",
-          "description": "Ref for the element to focus when the `Overlay` is opened. If nothing is provided, the first focusable element in the `Overlay` body is focused."
-        },
-        {
-          "name": "width",
-          "type": "| 'small' | 'medium' | 'large' | 'xlarge' | 'xxlarge' | 'auto'",
-          "defaultValue": "'auto'",
-          "description": "Sets the width of the `Overlay`, pick from our set list of widths, or pass `auto` to automatically set the width based on the content of the `Overlay`. `small` corresponds to `256px`, `medium` corresponds to `320px`, `large` corresponds to `480px`, `xlarge` corresponds to `640px`, `xxlarge` corresponds to `960px`."
-        },
-        {
-          "name": "height",
-          "type": "| 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge' | 'auto'",
-          "defaultValue": "'auto'",
-          "description": "Sets the height of the `Overlay`, pick from our set list of heights, or pass `auto` to automatically set the height based on the content of the `Overlay`. `xsmall` corresponds to `192px`, `small` corresponds to `256px`, `medium` corresponds to `320px`, `large` corresponds to `432px`, `xlarge` corresponds to `600px`."
-        },
-        {
-          "name": "maxHeight",
-          "type": "| 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge'",
-          "defaultValue": "",
-          "description": "Sets the maximum height of the `Overlay`, pick from our set list of heights. `xsmall` corresponds to `192px`, `small` corresponds to `256px`, `medium` corresponds to `320px`, `large` corresponds to `432px`, `xlarge` corresponds to `600px`."
-        },
-        {
-          "name": "visibility",
-          "type": "| 'visible' | 'hidden'",
-          "defaultValue": "'visible'",
-          "description": "Sets the visibility of the `Overlay`."
-        },
-        {
-          "name": "anchorSide",
-          "type": "| 'inside-top' | 'inside-bottom' | 'inside-left' | 'inside-right' | 'inside-center' | 'outside-top' | 'outside-bottom' | 'outside-left' | 'outside-right'",
-          "defaultValue": "",
-          "description": "If provided, the Overlay will slide into position from the side of the anchor with a brief animation"
-        },
-        {
-          "name": "top",
-          "type": "number",
-          "defaultValue": "0",
-          "description": "The top CSS property of the Overlay — affects the vertical position."
-        },
-        {
-          "name": "left",
-          "type": "number",
-          "defaultValue": "0",
-          "description": "The left CSS property of the Overlay — affects the horizontal position."
-        },
-        {
-          "name": "right",
-          "type": "number",
-          "description": "The right CSS property of the Overlay — affects the horizontal position."
-        },
-        {
-          "name": "bottom",
-          "type": "number",
-          "description": "The bottom CSS property of the Overlay — affects the vertical position."
-        },
-        {
-          "name": "position",
-          "type": "| 'static' | 'relative' | 'absolute' | 'fixed' | 'sticky'",
-          "defaultValue": "absolute",
-          "description": "The position CSS property of the Overlay — sets how the Overlay is positioned relative to its Portal"
-        },
-        {
-          "name": "portalContainerName",
-          "type": "string",
-          "defaultValue": "",
-          "description": "If defined, Overlays will be rendered in the named portal. See also `Portal`."
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject"
-        }
-      ],
-      "subcomponents": []
-    },
-    "pointer_box": {
-      "id": "pointer_box",
-      "name": "PointerBox",
-      "status": "alpha",
-      "a11yReviewed": false,
-      "stories": [],
-      "props": [
-        {
-          "name": "caret",
-          "type": "| 'top' | 'top-left' | 'top-right' | 'right' | 'right-top' | 'right-bottom' | 'bottom' | 'bottom-left' | 'bottom-right' | 'left' | 'left-top' | 'left-bottom'",
-          "defaultValue": "'bottom'",
-          "description": "Sets the location of the caret. The format is [edge]-[position on edge]. For example, right-top will position the caret on the top of the right edge of the box. Use top"
-        }
-      ],
-      "subcomponents": []
-    },
-    "popover": {
-      "id": "popover",
-      "name": "Popover",
-      "status": "alpha",
-      "a11yReviewed": false,
-      "stories": [],
-      "props": [
-        {
-          "name": "as",
-          "type": "string",
-          "defaultValue": "div",
-          "description": "Sets the underlying HTML tag for the component"
-        },
-        {
-          "name": "caret",
-          "type": "| 'top' | 'bottom' | 'left' | 'right' | 'bottom-left' | 'bottom-right' | 'top-left' | 'top-right' | 'left-bottom' | 'left-top' | 'right-bottom' | 'right-top' ",
-          "defaultValue": "'top'",
-          "description": "Controls the position of the caret"
-        },
-        {
-          "name": "open",
-          "type": "boolean",
-          "defaultValue": "false",
-          "description": "Controls the visibility of the popover."
-        },
-        {
-          "name": "relative",
-          "type": "boolean",
-          "defaultValue": "false",
-          "description": "Set to true to render the popover using relative positioning. "
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject"
-        }
-      ],
-      "subcomponents": [
-        {
-          "name": "Popover.Content",
-          "props": [
-            {
-              "name": "as",
-              "type": "string",
-              "defaultValue": "div",
-              "description": "Sets the underlying HTML tag for the component"
-            },
-            {
-              "name": "sx",
-              "type": "SystemStyleObject"
-            }
-          ]
-        }
-      ]
-    },
-    "styled_octicon": {
-      "id": "styled_octicon",
-      "name": "StyledOcticon",
-      "status": "alpha",
-      "a11yReviewed": false,
-      "stories": [],
-      "props": [
-        {
-          "name": "ariaLabel",
-          "type": "string",
-          "defaultValue": "",
-          "description": "Specifies the aria-label attribute, which is read verbatim by screen readers "
-        },
-        {
-          "name": "icon",
-          "type": "Component",
-          "defaultValue": "",
-          "description": "Checks the input by default in uncontrolled modeName of the [Octicon component](https://primer.style/octicons/) used in the"
-        },
-        {
-          "name": "color",
-          "type": "string",
-          "defaultValue": "",
-          "description": "Sets an override color for the Octicon. Compatible with colors from the [Primer color system](https://primer.style/primitives/colors).\""
-        },
-        {
-          "name": "size",
-          "type": "number",
-          "defaultValue": "16",
-          "description": "Sets the uniform `width` and `height` of the SVG element"
-        },
-        {
-          "name": "verticalAlign",
-          "type": "string",
-          "defaultValue": "text-bottom",
-          "description": "Sets the `vertical-align` CSS property"
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject"
-        }
-      ],
-      "subcomponents": []
-    },
-    "sub_nav": {
-      "id": "sub_nav",
-      "name": "SubNav",
-      "status": "alpha",
-      "a11yReviewed": false,
-      "stories": [],
-      "props": [
-        {
-          "name": "actions",
-          "type": "React.ReactNode",
-          "description": "Place another element, such as a button, to the opposite side of the navigation items."
-        },
-        {
-          "name": "align",
-          "type": "'right'",
-          "description": "Use `right` to have navigation items aligned right."
-        },
-        {
-          "name": "full",
-          "type": "boolean",
-          "description": "Used to make navigation fill the width of the container."
-        },
-        {
-          "name": "aria-label",
-          "type": "string",
-          "description": "Used to set the `aria-label` on the top level `<nav>` element."
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject"
-        }
-      ],
-      "subcomponents": [
-        {
-          "name": "SubNav.Link",
-          "props": [
-            {
-              "name": "as",
-              "type": "React.ElementType",
-              "default": "'a'"
-            },
-            {
-              "name": "href",
-              "type": "string"
-            },
-            {
-              "name": "selected",
-              "type": "boolean"
-            },
-            {
-              "name": "sx",
-              "type": "SystemStyleObject"
-            }
-          ]
-        },
-        {
-          "name": "SubNav.Links",
-          "props": [
-            {
-              "name": "sx",
-              "type": "SystemStyleObject"
-            }
-          ]
-        }
-      ]
-    },
-    "text": {
-      "id": "text",
-      "name": "Text",
-      "status": "alpha",
-      "a11yReviewed": true,
-      "stories": [],
-      "props": [
-        {
-          "name": "as",
-          "defaultValue": "'span'",
-          "type": "React.ElementType"
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject"
-        }
-      ],
-      "subcomponents": []
-    },
     "tooltip": {
       "id": "tooltip",
       "name": "Tooltip",
@@ -555,6 +69,7 @@
         {
           "name": "direction",
           "type": "'n' | 'ne' | 'e' | 'se' | 's' | 'sw' | 'w' | 'nw'",
+          "defaultValue": "n",
           "description": "Sets where the tooltip renders in relation to the target."
         },
         {
@@ -579,100 +94,6 @@
       ],
       "subcomponents": []
     },
-    "truncate": {
-      "id": "truncate",
-      "name": "Truncate",
-      "status": "alpha",
-      "a11yReviewed": false,
-      "stories": [],
-      "props": [
-        {
-          "name": "maxWidth",
-          "type": "number",
-          "defaultValue": "125",
-          "description": "Sets the max-width of the text."
-        },
-        {
-          "name": "inline",
-          "type": "boolean",
-          "defaultValue": "false",
-          "description": "Displays text as inline block and vertical aligns to the top."
-        },
-        {
-          "name": "expandable",
-          "type": "boolean",
-          "defaultValue": "false",
-          "description": "Allows the truncated text to be displayed on hover."
-        },
-        {
-          "name": "as",
-          "type": "React.ElementType",
-          "defaultValue": "'div'"
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject"
-        }
-      ],
-      "subcomponents": []
-    },
-    "underline_nav": {
-      "id": "underline_nav",
-      "name": "UnderlineNav",
-      "status": "alpha",
-      "a11yReviewed": false,
-      "stories": [],
-      "props": [
-        {
-          "name": "actions",
-          "type": "React.ReactNode",
-          "description": "Place another element, such as a button, to the opposite side of the navigation items."
-        },
-        {
-          "name": "align",
-          "type": "'right'",
-          "description": "Use `right` to have navigation items aligned right."
-        },
-        {
-          "name": "full",
-          "type": "boolean",
-          "description": "Used to make navigation fill the width of the container."
-        },
-        {
-          "name": "aria-label",
-          "type": "string",
-          "description": "Used to set the `aria-label` on the top level `<nav>` element."
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject"
-        }
-      ],
-      "subcomponents": [
-        {
-          "name": "UnderlineNav.Link",
-          "props": [
-            {
-              "name": "as",
-              "type": "React.ElementType",
-              "defaultValue": "'a'"
-            },
-            {
-              "name": "href",
-              "type": "string"
-            },
-            {
-              "name": "selected",
-              "type": "boolean"
-            },
-            {
-              "name": "sx",
-              "type": "SystemStyleObject"
-            }
-          ]
-        }
-      ]
-    },
     "action_list": {
       "id": "action_list",
       "name": "ActionList",
@@ -687,7 +108,7 @@
       "props": [
         {
           "name": "children",
-          "type": "ActionList.Item[] | ActionList.LinkItem[] | ActionList.Group[]",
+          "type": "ActionList.Item[] | ActionList.LinkItem[] | ActionList.Divider[]",
           "defaultValue": "",
           "required": true,
           "description": ""
@@ -742,7 +163,7 @@
               "name": "onSelect",
               "type": "(event: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement>) => void",
               "defaultValue": "",
-              "description": "Callback that is called when the item is selected using either the mouse or keyboard."
+              "description": "Callback that is called when the item is selected using either the mouse or keyboard. `event.preventDefault()` will prevent a menu from closing when within an `<ActionMenu />`"
             },
             {
               "name": "selected",
@@ -864,48 +285,34 @@
           ]
         },
         {
-          "name": "ActionList.Group",
+          "name": "ActionList.Heading",
           "props": [
             {
-              "name": "children",
-              "type": "ActionList.Item[] | ActionList.LinkItem[]",
-              "defaultValue": "",
-              "required": true,
+              "name": "variant",
+              "type": "'subtle' | 'filled'",
+              "defaultValue": "subtle",
               "description": ""
             },
             {
               "name": "title",
               "type": "string",
               "defaultValue": "",
-              "description": "Title of the group."
+              "required": true,
+              "description": ""
             },
             {
-              "name": "auxiliaryText",
+              "name": "subtitle",
               "type": "string",
               "defaultValue": "",
-              "description": "Secondary text that provides additional information about the group."
+              "required": false,
+              "description": ""
             },
             {
-              "name": "variant",
-              "type": "'filled' | 'subtle'",
-              "defaultValue": "'subtle'",
-              "description": "`inline` descriptions are positioned beside primary text. `block` descriptions are positioned below primary text."
-            },
-            {
-              "name": "selectionVariant",
-              "type": "'single' | 'multiple' | false",
-              "defaultValue": "",
-              "description": "Set `selectionVariant` at the group level."
-            },
-            {
-              "name": "role",
-              "type": "AriaRole",
-              "defaultValue": "",
-              "description": "ARIA role describing the function of the list inside the group. `listbox` and `menu` are a common values."
-            },
-            {
-              "name": "sx",
-              "type": "SystemStyleObject"
+              "name": "headingLevel",
+              "type": "'1' | '2' | '3' | '4' | '5' | '6'",
+              "defaultValue": "3",
+              "required": false,
+              "description": ""
             }
           ]
         }
@@ -915,7 +322,7 @@
       "id": "action_menu",
       "name": "ActionMenu",
       "status": "beta",
-      "a11yReviewed": true,
+      "a11yReviewed": false,
       "stories": [
         {
           "id": "components-actionmenu--default",
@@ -1578,6 +985,29 @@
       ],
       "subcomponents": []
     },
+    "button_group": {
+      "id": "button_group",
+      "name": "ButtonGroup",
+      "status": "alpha",
+      "a11yReviewed": false,
+      "stories": [
+        {
+          "id": "components-buttongroup--default",
+          "code": "() => (\n  <ButtonGroup>\n    <Button>Button 1</Button>\n    <Button>Button 2</Button>\n    <Button>Button 3</Button>\n  </ButtonGroup>\n)"
+        }
+      ],
+      "props": [
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        },
+        {
+          "name": "ref",
+          "type": "React.RefObject<HTMLDivElement>"
+        }
+      ],
+      "subcomponents": []
+    },
     "checkbox": {
       "id": "checkbox",
       "name": "Checkbox",
@@ -1757,6 +1187,96 @@
         }
       ]
     },
+    "circle_badge": {
+      "id": "circle_badge",
+      "name": "CircleBadge",
+      "status": "alpha",
+      "a11yReviewed": false,
+      "stories": [
+        {
+          "id": "components-circlebadge--default",
+          "code": "() => (\n  <CircleBadge>\n    <CircleBadge.Icon icon={ZapIcon} />\n  </CircleBadge>\n)"
+        }
+      ],
+      "props": [
+        {
+          "name": "variant",
+          "type": "'small' | 'medium' | 'large'",
+          "defaultValue": "'medium'",
+          "description": "Creates a smaller or larger badge. Has no effect if the `size` prop is set"
+        },
+        {
+          "name": "size",
+          "type": "number",
+          "defaultValue": "",
+          "description": "Sets the size of the badge in pixels. Overrides the `variant` prop when set"
+        },
+        {
+          "name": "inline",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "Styles the badge to `display: inline`"
+        },
+        {
+          "name": "ref",
+          "type": "React.RefObject<HTMLDivElement>"
+        },
+        {
+          "name": "as",
+          "type": "React.ElementType",
+          "defaultValue": "\"div\""
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ],
+      "subcomponents": [
+        {
+          "name": "CircleBadge.Icon",
+          "props": [
+            {
+              "name": "as",
+              "type": "React.ElementType",
+              "defaultValue": "Octicon"
+            }
+          ],
+          "passthrough": {
+            "element": "Octicon",
+            "url": "/Octicon"
+          }
+        }
+      ]
+    },
+    "circle_octicon": {
+      "id": "circle_octicon",
+      "name": "CircleOcticon",
+      "status": "alpha",
+      "a11yReviewed": false,
+      "stories": [
+        {
+          "id": "components-circleocticon--default",
+          "code": "() => (\n  <CircleOcticon\n    icon={CheckIcon}\n    size={32}\n    sx={{\n      backgroundColor: 'success.fg',\n      color: 'fg.onEmphasis',\n    }}\n  />\n)"
+        }
+      ],
+      "props": [
+        {
+          "name": "icon",
+          "type": "Octicon"
+        },
+        {
+          "name": "size",
+          "defaultValue": "32",
+          "type": "number",
+          "description": "Set the width and height of the icon in pixels."
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ],
+      "subcomponents": []
+    },
     "counter_label": {
       "id": "counter_label",
       "name": "CounterLabel",
@@ -1823,6 +1343,18 @@
         {
           "id": "components-datatable-features--with-custom-heading",
           "code": "() => (\n  <>\n    <Heading as=\"h2\" id=\"repositories\">\n      Security coverage\n    </Heading>\n    <p id=\"repositories-subtitle\">\n      Organization members can only see data for the most recently-updated\n      repositories. To see all repositories, talk to your organization\n      administrator about becoming a security manager.\n    </p>\n    <Table.Container>\n      <DataTable\n        aria-labelledby=\"repositories\"\n        aria-describedby=\"repositories-subtitle\"\n        data={data}\n        columns={[\n          {\n            header: 'Repository',\n            field: 'name',\n            rowHeader: true,\n          },\n          {\n            header: 'Type',\n            field: 'type',\n            renderCell: (row) => {\n              return <Label>{uppercase(row.type)}</Label>\n            },\n          },\n          {\n            header: 'Updated',\n            field: 'updatedAt',\n            renderCell: (row) => {\n              return <RelativeTime date={new Date(row.updatedAt)} />\n            },\n          },\n          {\n            header: 'Dependabot',\n            field: 'securityFeatures.dependabot',\n            renderCell: (row) => {\n              return row.securityFeatures.dependabot.length > 0 ? (\n                <LabelGroup>\n                  {row.securityFeatures.dependabot.map((feature) => {\n                    return <Label key={feature}>{uppercase(feature)}</Label>\n                  })}\n                </LabelGroup>\n              ) : null\n            },\n          },\n          {\n            header: 'Code scanning',\n            field: 'securityFeatures.codeScanning',\n            renderCell: (row) => {\n              return row.securityFeatures.codeScanning.length > 0 ? (\n                <LabelGroup>\n                  {row.securityFeatures.codeScanning.map((feature) => {\n                    return <Label key={feature}>{uppercase(feature)}</Label>\n                  })}\n                </LabelGroup>\n              ) : null\n            },\n          },\n        ]}\n      />\n    </Table.Container>\n  </>\n)"
+        },
+        {
+          "id": "components-datatable-features--with-no-content",
+          "code": "() => {\n  const exampleEmptyData: Array<Repo> = []\n  return exampleEmptyData.length === 0 ? (\n    <Blankslate border>\n      <Blankslate.Visual>\n        <BookIcon size=\"medium\" />\n      </Blankslate.Visual>\n      <Blankslate.Heading>Blankslate heading</Blankslate.Heading>\n      <Blankslate.Description>\n        Use it to provide information when no dynamic content exists.\n      </Blankslate.Description>\n      <Blankslate.PrimaryAction href=\"#\">\n        Primary action\n      </Blankslate.PrimaryAction>\n      <Blankslate.SecondaryAction href=\"#\">\n        Secondary action link\n      </Blankslate.SecondaryAction>\n    </Blankslate>\n  ) : (\n    <Table.Container>\n      <Table.Title as=\"h2\" id=\"repositories\">\n        Repositories\n      </Table.Title>\n      <Table.Subtitle as=\"p\" id=\"repositories-subtitle\">\n        A subtitle could appear here to give extra context to the data.\n      </Table.Subtitle>\n      <DataTable\n        aria-labelledby=\"repositories\"\n        aria-describedby=\"repositories-subtitle\"\n        data={exampleEmptyData}\n        columns={[\n          {\n            header: 'Repository',\n            field: 'name',\n            rowHeader: true,\n          },\n          {\n            header: 'Type',\n            field: 'type',\n            renderCell: (row) => {\n              return <Label>{uppercase(row.type)}</Label>\n            },\n          },\n          {\n            header: 'Updated',\n            field: 'updatedAt',\n            renderCell: (row) => {\n              return <RelativeTime date={new Date(row.updatedAt)} />\n            },\n          },\n          {\n            header: 'Dependabot',\n            field: 'securityFeatures.dependabot',\n            renderCell: (row) => {\n              return row.securityFeatures.dependabot.length > 0 ? (\n                <LabelGroup>\n                  {row.securityFeatures.dependabot.map((feature) => {\n                    return <Label key={feature}>{uppercase(feature)}</Label>\n                  })}\n                </LabelGroup>\n              ) : null\n            },\n          },\n          {\n            header: 'Code scanning',\n            field: 'securityFeatures.codeScanning',\n            renderCell: (row) => {\n              return row.securityFeatures.codeScanning.length > 0 ? (\n                <LabelGroup>\n                  {row.securityFeatures.codeScanning.map((feature) => {\n                    return <Label key={feature}>{uppercase(feature)}</Label>\n                  })}\n                </LabelGroup>\n              ) : null\n            },\n          },\n        ]}\n      />\n    </Table.Container>\n  )\n}"
+        },
+        {
+          "id": "components-datatable-features--with-loading",
+          "code": "() => {\n  const [loading] = React.useState(true)\n  return (\n    <Table.Container>\n      <Table.Title as=\"h2\" id=\"repositories\">\n        Repositories\n      </Table.Title>\n      <Table.Subtitle as=\"p\" id=\"repositories-subtitle\">\n        A subtitle could appear here to give extra context to the data.\n      </Table.Subtitle>\n      {loading ? (\n        <Table.Skeleton\n          aria-labelledby=\"repositories\"\n          aria-describedby=\"repositories-subtitle\"\n          columns={columns}\n          rows={10}\n        />\n      ) : (\n        <DataTable\n          aria-labelledby=\"repositories\"\n          aria-describedby=\"repositories-subtitle\"\n          data={data}\n          columns={columns}\n        />\n      )}\n    </Table.Container>\n  )\n}"
+        },
+        {
+          "id": "components-datatable-features--with-pagination",
+          "code": "() => {\n  const pageSize = 10\n  const [pageIndex, setPageIndex] = React.useState(0)\n  const start = pageIndex * pageSize\n  const end = start + pageSize\n  const rows = repos.slice(start, end)\n  return (\n    <Table.Container>\n      <Table.Title as=\"h2\" id=\"repositories\">\n        Repositories\n      </Table.Title>\n      <Table.Subtitle as=\"p\" id=\"repositories-subtitle\">\n        A subtitle could appear here to give extra context to the data.\n      </Table.Subtitle>\n      <DataTable\n        aria-labelledby=\"repositories\"\n        aria-describedby=\"repositories-subtitle\"\n        data={rows}\n        columns={[\n          {\n            header: 'Repository',\n            field: 'name',\n            rowHeader: true,\n          },\n          {\n            header: 'Type',\n            field: 'type',\n            renderCell: (row) => {\n              return <Label>{uppercase(row.type)}</Label>\n            },\n          },\n          {\n            header: 'Updated',\n            field: 'updatedAt',\n            renderCell: (row) => {\n              return <RelativeTime date={new Date(row.updatedAt)} />\n            },\n          },\n          {\n            header: 'Dependabot',\n            field: 'securityFeatures.dependabot',\n            renderCell: (row) => {\n              return row.securityFeatures.dependabot.length > 0 ? (\n                <LabelGroup>\n                  {row.securityFeatures.dependabot.map((feature) => {\n                    return <Label key={feature}>{uppercase(feature)}</Label>\n                  })}\n                </LabelGroup>\n              ) : null\n            },\n          },\n          {\n            header: 'Code scanning',\n            field: 'securityFeatures.codeScanning',\n            renderCell: (row) => {\n              return row.securityFeatures.codeScanning.length > 0 ? (\n                <LabelGroup>\n                  {row.securityFeatures.codeScanning.map((feature) => {\n                    return <Label key={feature}>{uppercase(feature)}</Label>\n                  })}\n                </LabelGroup>\n              ) : null\n            },\n          },\n        ]}\n      />\n      <Table.Pagination\n        aria-label=\"Pagination for Repositories\"\n        pageSize={pageSize}\n        totalCount={repos.length}\n        onChange={({ pageIndex }) => {\n          setPageIndex(pageIndex)\n        }}\n      />\n    </Table.Container>\n  )\n}"
         }
       ],
       "props": [
@@ -1963,6 +1495,83 @@
               "required": true
             }
           ]
+        },
+        {
+          "name": "Table.Skeleton",
+          "props": [
+            {
+              "name": "cellPadding",
+              "type": "'condensed' | 'normal' | 'spacious'",
+              "description": "Specify the amount of space that should be available around the contents of a cell"
+            },
+            {
+              "name": "columns",
+              "type": "Array<Column<Data>>"
+            },
+            {
+              "name": "rows",
+              "type": "number",
+              "description": "Optionally specify the number of rows which should be included in the skeleton state of the component"
+            }
+          ]
+        },
+        {
+          "name": "Table.Pagination",
+          "props": [
+            {
+              "name": "aria-label",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "defaultPageIndex",
+              "type": "string"
+            },
+            {
+              "name": "id",
+              "type": "string"
+            },
+            {
+              "name": "onChange",
+              "type": "({ pageIndex }: { pageIndex: number }) => void"
+            },
+            {
+              "name": "pageSize",
+              "type": "number"
+            },
+            {
+              "name": "totalCount",
+              "type": "number",
+              "required": true
+            }
+          ]
+        },
+        {
+          "name": "Table.ErrorDialog",
+          "props": [
+            {
+              "name": "children",
+              "required": true,
+              "type": "React.ReactNode",
+              "description": "The content of the dialog. This is usually a message explaining the error."
+            },
+            {
+              "name": "title",
+              "type": "string",
+              "defaultValue": "'Error'",
+              "description": "The title of the dialog. This is usually a short description of the error."
+            },
+            {
+              "name": "onRetry",
+              "type": "() => void",
+              "description": "Event handler called when the user clicks the retry button."
+            },
+            {
+              "name": "onDismiss",
+              "type": "() => void",
+              "description": "Event handler called when the dialog is dismissed."
+            }
+          ]
         }
       ]
     },
@@ -2039,6 +1648,80 @@
         {
           "name": "height",
           "type": "'small' | 'large' | 'auto'"
+        }
+      ],
+      "subcomponents": []
+    },
+    "filter_list": {
+      "id": "filter_list",
+      "name": "FilterList",
+      "status": "alpha",
+      "a11yReviewed": false,
+      "stories": [
+        {
+          "id": "components-filterlist--default",
+          "code": "() => {\n  const [selectedIndex, setSelectedIndex] = useState(0)\n  return (\n    <FilterList>\n      <FilterList.Item\n        selected={selectedIndex === 0}\n        onClick={() => setSelectedIndex(0)}\n        count={32}\n      >\n        First Filter\n      </FilterList.Item>\n      <FilterList.Item\n        selected={selectedIndex === 1}\n        onClick={() => setSelectedIndex(1)}\n        count={16}\n      >\n        Second Filter\n      </FilterList.Item>\n      <FilterList.Item\n        selected={selectedIndex === 2}\n        onClick={() => setSelectedIndex(2)}\n      >\n        Third Filter\n      </FilterList.Item>\n    </FilterList>\n  )\n}"
+        }
+      ],
+      "props": [
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ],
+      "subcomponents": [
+        {
+          "name": "FilterList.Item",
+          "props": [
+            {
+              "name": "count",
+              "type": "number",
+              "description": "Number to be displayed in the list item"
+            },
+            {
+              "name": "selected",
+              "type": "boolean",
+              "description": "Whether the list item is selected or not"
+            },
+            {
+              "name": "small",
+              "type": "boolean",
+              "defaultValue": "false",
+              "description": "Whether the list item is small or not"
+            },
+            {
+              "name": "as",
+              "type": "React.ElementType",
+              "defaultValue": "'a'"
+            },
+            {
+              "name": "sx",
+              "type": "SystemStyleObject"
+            }
+          ]
+        }
+      ]
+    },
+    "filtered_search": {
+      "id": "filtered_search",
+      "name": "FilteredSearch",
+      "status": "alpha",
+      "a11yReviewed": false,
+      "stories": [
+        {
+          "id": "components-filteredsearch--default",
+          "code": "() => (\n  <FilteredSearch>\n    <ActionMenu>\n      <ActionMenu.Button as=\"summary\">Filter</ActionMenu.Button>\n      <ActionMenu.Overlay>\n        <ActionList>\n          <ActionList.Item>Item 1</ActionList.Item>\n          <ActionList.Item>Item 2</ActionList.Item>\n          <ActionList.Item>Item 3</ActionList.Item>\n        </ActionList>\n      </ActionMenu.Overlay>\n    </ActionMenu>\n    <TextInput aria-label=\"filtered-search\" leadingVisual={SearchIcon} />\n  </FilteredSearch>\n)"
+        }
+      ],
+      "props": [
+        {
+          "name": "children",
+          "type": "React.ReactNode",
+          "description": "FilteredSearch is expected to contain an `ActionMenu` followed by a `TextInput`."
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
         }
       ],
       "subcomponents": []
@@ -2208,7 +1891,7 @@
       "stories": [
         {
           "id": "components-header--default",
-          "code": "() => (\n  <Header>\n    <Header.Item>\n      <Header.Link\n        href=\"#\"\n        sx={{\n          fontSize: 2,\n        }}\n      >\n        <StyledOcticon\n          icon={MarkGithubIcon}\n          size={32}\n          sx={{\n            mr: 2,\n          }}\n        />\n        <span>GitHub</span>\n      </Header.Link>\n    </Header.Item>\n    <Header.Item full>Menu</Header.Item>\n    <Header.Item\n      sx={{\n        mr: 0,\n      }}\n    >\n      <Avatar\n        src=\"https://github.com/octocat.png\"\n        size={20}\n        square\n        alt=\"@octocat\"\n      />\n    </Header.Item>\n  </Header>\n)"
+          "code": "() => (\n  <Header>\n    <Header.Item>\n      <Header.Link\n        href=\"#\"\n        sx={{\n          fontSize: 2,\n        }}\n      >\n        <Octicon\n          icon={MarkGithubIcon}\n          size={32}\n          sx={{\n            mr: 2,\n          }}\n        />\n        <span>GitHub</span>\n      </Header.Link>\n    </Header.Item>\n    <Header.Item full>Menu</Header.Item>\n    <Header.Item\n      sx={{\n        mr: 0,\n      }}\n    >\n      <Avatar\n        src=\"https://github.com/octocat.png\"\n        size={20}\n        square\n        alt=\"@octocat\"\n      />\n    </Header.Item>\n  </Header>\n)"
         }
       ],
       "props": [
@@ -2326,6 +2009,25 @@
           "type": "'small' | 'large'",
           "defaultValue": "'small'",
           "description": "How large the label is rendered"
+        }
+      ],
+      "subcomponents": []
+    },
+    "label_group": {
+      "id": "label_group",
+      "name": "LabelGroup",
+      "status": "alpha",
+      "a11yReviewed": false,
+      "stories": [
+        {
+          "id": "components-labelgroup--default",
+          "code": "() => (\n  <LabelGroup>\n    <Label>Default label</Label>\n    <Label variant=\"danger\">\n      Label with background indicating a closed PR state\n    </Label>\n    <Label variant=\"primary\">Default outline label</Label>\n  </LabelGroup>\n)"
+        }
+      ],
+      "props": [
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
         }
       ],
       "subcomponents": []
@@ -2516,6 +2218,161 @@
           ]
         }
       ]
+    },
+    "octicon": {
+      "id": "octicon",
+      "name": "Octicon",
+      "status": "alpha",
+      "a11yReviewed": false,
+      "stories": [],
+      "props": [
+        {
+          "name": "ariaLabel",
+          "type": "string",
+          "defaultValue": "",
+          "description": "Specifies the aria-label attribute, which is read verbatim by screen readers "
+        },
+        {
+          "name": "icon",
+          "type": "Component",
+          "defaultValue": "",
+          "description": "Checks the input by default in uncontrolled modeName of the [Octicon component](https://primer.style/octicons/) used in the"
+        },
+        {
+          "name": "color",
+          "type": "string",
+          "defaultValue": "",
+          "description": "Sets an override color for the Octicon. Compatible with colors from the [Primer color system](https://primer.style/primitives/colors).\""
+        },
+        {
+          "name": "size",
+          "type": "number",
+          "defaultValue": "16",
+          "description": "Sets the uniform `width` and `height` of the SVG element"
+        },
+        {
+          "name": "verticalAlign",
+          "type": "string",
+          "defaultValue": "text-bottom",
+          "description": "Sets the `vertical-align` CSS property"
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ],
+      "subcomponents": []
+    },
+    "overlay": {
+      "id": "overlay",
+      "name": "Overlay",
+      "status": "alpha",
+      "a11yReviewed": false,
+      "stories": [],
+      "props": [
+        {
+          "name": "returnFocusRef",
+          "type": "React.RefObject<HTMLElement>",
+          "defaultValue": "",
+          "required": true,
+          "description": "Ref for the element to focus when the `Overlay` is closed."
+        },
+        {
+          "name": "onClickOutside",
+          "type": "function",
+          "defaultValue": "",
+          "required": true,
+          "description": "Function to call when clicking outside of the `Overlay`. Typically this function sets the `Overlay` visibility state to `false`."
+        },
+        {
+          "name": "onEscape",
+          "type": "function",
+          "defaultValue": "",
+          "required": true,
+          "description": "Function to call when user presses `Escape`. Typically this function sets the `Overlay` visibility state to `false`."
+        },
+        {
+          "name": "ignoreClickRefs",
+          "type": "React.RefObject<HTMLElement> []",
+          "defaultValue": "",
+          "description": "An array of ref objects to ignore clicks on in the onOutsideClick behavior. This is often used to ignore clicking on the element that toggles the open/closed state for the Overlay to prevent the Overlay from being toggled twice."
+        },
+        {
+          "name": "initialFocusRef",
+          "type": "React.RefObject<HTMLElement>",
+          "defaultValue": "",
+          "description": "Ref for the element to focus when the `Overlay` is opened. If nothing is provided, the first focusable element in the `Overlay` body is focused."
+        },
+        {
+          "name": "width",
+          "type": "| 'small' | 'medium' | 'large' | 'xlarge' | 'xxlarge' | 'auto'",
+          "defaultValue": "'auto'",
+          "description": "Sets the width of the `Overlay`, pick from our set list of widths, or pass `auto` to automatically set the width based on the content of the `Overlay`. `small` corresponds to `256px`, `medium` corresponds to `320px`, `large` corresponds to `480px`, `xlarge` corresponds to `640px`, `xxlarge` corresponds to `960px`."
+        },
+        {
+          "name": "height",
+          "type": "| 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge' | 'auto'",
+          "defaultValue": "'auto'",
+          "description": "Sets the height of the `Overlay`, pick from our set list of heights, or pass `auto` to automatically set the height based on the content of the `Overlay`. `xsmall` corresponds to `192px`, `small` corresponds to `256px`, `medium` corresponds to `320px`, `large` corresponds to `432px`, `xlarge` corresponds to `600px`."
+        },
+        {
+          "name": "maxHeight",
+          "type": "| 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge'",
+          "defaultValue": "",
+          "description": "Sets the maximum height of the `Overlay`, pick from our set list of heights. `xsmall` corresponds to `192px`, `small` corresponds to `256px`, `medium` corresponds to `320px`, `large` corresponds to `432px`, `xlarge` corresponds to `600px`."
+        },
+        {
+          "name": "visibility",
+          "type": "| 'visible' | 'hidden'",
+          "defaultValue": "'visible'",
+          "description": "Sets the visibility of the `Overlay`."
+        },
+        {
+          "name": "anchorSide",
+          "type": "| 'inside-top' | 'inside-bottom' | 'inside-left' | 'inside-right' | 'inside-center' | 'outside-top' | 'outside-bottom' | 'outside-left' | 'outside-right'",
+          "defaultValue": "",
+          "description": "If provided, the Overlay will slide into position from the side of the anchor with a brief animation"
+        },
+        {
+          "name": "top",
+          "type": "number",
+          "defaultValue": "0",
+          "description": "The top CSS property of the Overlay — affects the vertical position."
+        },
+        {
+          "name": "left",
+          "type": "number",
+          "defaultValue": "0",
+          "description": "The left CSS property of the Overlay — affects the horizontal position."
+        },
+        {
+          "name": "right",
+          "type": "number",
+          "description": "The right CSS property of the Overlay — affects the horizontal position."
+        },
+        {
+          "name": "bottom",
+          "type": "number",
+          "description": "The bottom CSS property of the Overlay — affects the vertical position."
+        },
+        {
+          "name": "position",
+          "type": "| 'static' | 'relative' | 'absolute' | 'fixed' | 'sticky'",
+          "defaultValue": "absolute",
+          "description": "The position CSS property of the Overlay — sets how the Overlay is positioned relative to its Portal"
+        },
+        {
+          "name": "portalContainerName",
+          "type": "string",
+          "defaultValue": "",
+          "description": "If defined, Overlays will be rendered in the named portal. See also `Portal`."
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ],
+      "subcomponents": []
     },
     "drafts_page_header": {
       "id": "drafts_page_header",
@@ -2874,18 +2731,6 @@
           "name": "PageLayout.Content",
           "props": [
             {
-              "name": "aria-label",
-              "type": "string | undefined",
-              "defaultValue": "",
-              "description": "A unique label for the rendered main landmark"
-            },
-            {
-              "name": "aria-labelledby",
-              "type": "string | undefined",
-              "defaultValue": "",
-              "description": "An id to an element which uniquely labels the rendered main landmark"
-            },
-            {
               "name": "width",
               "type": "| 'full' | 'medium' | 'large' | 'xlarge'",
               "defaultValue": "'full'",
@@ -2940,6 +2785,12 @@
               "type": "| 'small' | 'medium' | 'large'",
               "defaultValue": "'medium'",
               "description": "The width of the pane."
+            },
+            {
+              "name": "minWidth",
+              "type": "number",
+              "defaultValue": "256",
+              "description": "The minimum width of the pane."
             },
             {
               "name": "resizable",
@@ -3136,12 +2987,97 @@
       ],
       "subcomponents": []
     },
+    "pointer_box": {
+      "id": "pointer_box",
+      "name": "PointerBox",
+      "status": "alpha",
+      "a11yReviewed": false,
+      "stories": [
+        {
+          "id": "components-pointerbox--default",
+          "code": "() => <PointerBox>Pointer box content</PointerBox>"
+        }
+      ],
+      "props": [
+        {
+          "name": "caret",
+          "type": "| 'top' | 'top-left' | 'top-right' | 'right' | 'right-top' | 'right-bottom' | 'bottom' | 'bottom-left' | 'bottom-right' | 'left' | 'left-top' | 'left-bottom'",
+          "defaultValue": "'bottom'",
+          "description": "Sets the location of the caret. The format is [edge]-[position on edge]. For example, right-top will position the caret on the top of the right edge of the box. Use top"
+        }
+      ],
+      "subcomponents": []
+    },
+    "popover": {
+      "id": "popover",
+      "name": "Popover",
+      "status": "alpha",
+      "a11yReviewed": false,
+      "stories": [
+        {
+          "id": "components-popover--default",
+          "code": "() => (\n  <Popover relative open={true} caret=\"top\">\n    <Popover.Content\n      sx={{\n        marginTop: 2,\n      }}\n    >\n      <Heading\n        sx={{\n          fontSize: 2,\n        }}\n      >\n        Popover heading\n      </Heading>\n      <Text as=\"p\">Message about popovers</Text>\n      <Button>Got it!</Button>\n    </Popover.Content>\n  </Popover>\n)"
+        }
+      ],
+      "props": [
+        {
+          "name": "as",
+          "type": "string",
+          "defaultValue": "div",
+          "description": "Sets the underlying HTML tag for the component"
+        },
+        {
+          "name": "caret",
+          "type": "| 'top' | 'bottom' | 'left' | 'right' | 'bottom-left' | 'bottom-right' | 'top-left' | 'top-right' | 'left-bottom' | 'left-top' | 'right-bottom' | 'right-top' ",
+          "defaultValue": "'top'",
+          "description": "Controls the position of the caret"
+        },
+        {
+          "name": "open",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "Controls the visibility of the popover."
+        },
+        {
+          "name": "relative",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "Set to true to render the popover using relative positioning. "
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ],
+      "subcomponents": [
+        {
+          "name": "Popover.Content",
+          "props": [
+            {
+              "name": "as",
+              "type": "string",
+              "defaultValue": "div",
+              "description": "Sets the underlying HTML tag for the component"
+            },
+            {
+              "name": "sx",
+              "type": "SystemStyleObject"
+            }
+          ]
+        }
+      ]
+    },
     "portal": {
       "id": "portal",
       "name": "Portal",
       "status": "alpha",
       "a11yReviewed": false,
-      "stories": [],
+      "stories": [
+        {
+          "id": "components-portal--default",
+          "code": "() => (\n  <>\n    Root position\n    <Box bg=\"red.2\" p={3}>\n      Outer container\n      <Box bg=\"green.2\" p={3}>\n        Inner container\n        <Portal>\n          Portaled content rendered at <code>&lt;BaseStyles&gt;</code> root.\n        </Portal>\n      </Box>\n    </Box>\n  </>\n)"
+        }
+      ],
       "props": [
         {
           "name": "onMount",
@@ -3390,7 +3326,7 @@
       "stories": [
         {
           "id": "components-relativetime--default",
-          "code": "(args) => {\n  const { date, ...rest } = args\n  return <RelativeTime {...rest} date={new Date(date)} />\n}"
+          "code": "() => <RelativeTime date={new Date('2020-01-01T00:00:00Z')} />"
         }
       ],
       "props": [
@@ -3399,7 +3335,7 @@
           "type": "string",
           "defaultValue": "",
           "required": true,
-          "description": "An ISO8601 time represeting the time"
+          "description": "An ISO8601 time representing the time"
         },
         {
           "name": "date",
@@ -3687,8 +3623,19 @@
       "name": "SelectPanel",
       "status": "alpha",
       "a11yReviewed": false,
-      "stories": [],
+      "stories": [
+        {
+          "id": "components-selectpanel--default",
+          "code": "() => {\n  const [selected, setSelected] = React.useState<ItemInput[]>([\n    items[0],\n    items[1],\n  ])\n  const [filter, setFilter] = React.useState('')\n  const filteredItems = items.filter((item) =>\n    item.text.toLowerCase().startsWith(filter.toLowerCase()),\n  )\n  const [open, setOpen] = useState(false)\n  return (\n    <>\n      <h1>Multi Select Panel</h1>\n      <div>Please select labels that describe your issue:</div>\n      <SelectPanel\n        title=\"Select labels\"\n        renderAnchor={({\n          children,\n          'aria-labelledby': ariaLabelledBy,\n          ...anchorProps\n        }) => (\n          <Button\n            trailingAction={TriangleDownIcon}\n            aria-labelledby={` ${ariaLabelledBy}`}\n            {...anchorProps}\n          >\n            {children ?? 'Select Labels'}\n          </Button>\n        )}\n        placeholderText=\"Filter labels\"\n        open={open}\n        onOpenChange={setOpen}\n        items={filteredItems}\n        selected={selected}\n        onSelectedChange={setSelected}\n        onFilterChange={setFilter}\n        overlayProps={{\n          width: 'small',\n          height: 'xsmall',\n        }}\n      />\n    </>\n  )\n}"
+        }
+      ],
       "props": [
+        {
+          "name": "title",
+          "type": "string | React.ReactElement",
+          "defaultValue": "\"Select an item\" or \"Select items\"",
+          "description": "A descriptive title for the panel"
+        },
         {
           "name": "onOpenChange",
           "type": "( open: boolean, gesture: | 'anchor-click' | 'anchor-key-press' | 'click-outside' | 'escape' | 'selection' ) => void",
@@ -3701,6 +3648,12 @@
           "type": "string",
           "defaultValue": "",
           "description": ""
+        },
+        {
+          "name": "inputLabel",
+          "type": "string",
+          "defaultValue": "Same as placeholderText",
+          "description": "The aria-label for the filter input"
         },
         {
           "name": "overlayProps",
@@ -3769,7 +3722,7 @@
       "stories": [
         {
           "id": "components-splitpagelayout--default",
-          "code": "Template.bind({})"
+          "code": "() => (\n  <SplitPageLayout>\n    <SplitPageLayout.Header>\n      <Placeholder label=\"Header\" height={100} />\n    </SplitPageLayout.Header>\n    <SplitPageLayout.Pane position=\"start\">\n      <Placeholder label=\"Pane\" height={400} />\n    </SplitPageLayout.Pane>\n    <SplitPageLayout.Content>\n      <Placeholder label=\"Content\" height={600} />\n    </SplitPageLayout.Content>\n    <SplitPageLayout.Footer>\n      <Placeholder label=\"Footer\" height={100} />\n    </SplitPageLayout.Footer>\n  </SplitPageLayout>\n)"
         }
       ],
       "props": [
@@ -3847,6 +3800,12 @@
               "type": "| 'small' | 'medium' | 'large'",
               "defaultValue": "'medium'",
               "description": "The width of the pane."
+            },
+            {
+              "name": "minWidth",
+              "type": "number",
+              "defaultValue": "256",
+              "description": "The minimum width of the pane."
             },
             {
               "name": "resizable",
@@ -3954,6 +3913,77 @@
       ],
       "subcomponents": []
     },
+    "sub_nav": {
+      "id": "sub_nav",
+      "name": "SubNav",
+      "status": "alpha",
+      "a11yReviewed": false,
+      "stories": [
+        {
+          "id": "components-subnav--default",
+          "code": "() => (\n  <SubNav aria-label=\"Main\">\n    <SubNav.Links>\n      <SubNav.Link href=\"#home\" selected>\n        Home\n      </SubNav.Link>\n      <SubNav.Link href=\"#documentation\">Documentation</SubNav.Link>\n      <SubNav.Link href=\"#support\">Support</SubNav.Link>\n    </SubNav.Links>\n  </SubNav>\n)"
+        }
+      ],
+      "props": [
+        {
+          "name": "actions",
+          "type": "React.ReactNode",
+          "description": "Place another element, such as a button, to the opposite side of the navigation items."
+        },
+        {
+          "name": "align",
+          "type": "'right'",
+          "description": "Use `right` to have navigation items aligned right."
+        },
+        {
+          "name": "full",
+          "type": "boolean",
+          "description": "Used to make navigation fill the width of the container."
+        },
+        {
+          "name": "aria-label",
+          "type": "string",
+          "description": "Used to set the `aria-label` on the top level `<nav>` element."
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ],
+      "subcomponents": [
+        {
+          "name": "SubNav.Link",
+          "props": [
+            {
+              "name": "as",
+              "type": "React.ElementType",
+              "default": "'a'"
+            },
+            {
+              "name": "href",
+              "type": "string"
+            },
+            {
+              "name": "selected",
+              "type": "boolean"
+            },
+            {
+              "name": "sx",
+              "type": "SystemStyleObject"
+            }
+          ]
+        },
+        {
+          "name": "SubNav.Links",
+          "props": [
+            {
+              "name": "sx",
+              "type": "SystemStyleObject"
+            }
+          ]
+        }
+      ]
+    },
     "tab_nav": {
       "id": "tab_nav",
       "name": "TabNav",
@@ -4000,6 +4030,30 @@
           ]
         }
       ]
+    },
+    "text": {
+      "id": "text",
+      "name": "Text",
+      "status": "alpha",
+      "a11yReviewed": true,
+      "stories": [
+        {
+          "id": "components-text--default",
+          "code": "() => <Text>Default Text</Text>"
+        }
+      ],
+      "props": [
+        {
+          "name": "as",
+          "defaultValue": "'span'",
+          "type": "React.ElementType"
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ],
+      "subcomponents": []
     },
     "text_input": {
       "id": "text_input",
@@ -4132,6 +4186,12 @@
               "type": "string",
               "defaultValue": "",
               "description": "Text that appears in a tooltip. If an icon is passed, this is also used as the label used by assistive technologies."
+            },
+            {
+              "name": "tooltipDirection",
+              "type": "'n' | 'ne' | 'e' | 'se' | 's' | 'sw' | 'w' | 'nw'",
+              "defaultValue": "n",
+              "description": "Sets where the tooltip renders in relation to the target."
             },
             {
               "name": "icon",
@@ -4314,7 +4374,7 @@
       "stories": [
         {
           "id": "components-timeline--default",
-          "code": "() => (\n  <Timeline>\n    <Timeline.Item>\n      <Timeline.Badge>\n        <StyledOcticon icon={GitCommitIcon} />\n      </Timeline.Badge>\n      <Timeline.Body>This is a message</Timeline.Body>\n    </Timeline.Item>\n    <Timeline.Item>\n      <Timeline.Badge>\n        <StyledOcticon icon={GitCommitIcon} />\n      </Timeline.Badge>\n      <Timeline.Body>This is a message</Timeline.Body>\n    </Timeline.Item>\n    <Timeline.Item>\n      <Timeline.Badge>\n        <StyledOcticon icon={GitCommitIcon} />\n      </Timeline.Badge>\n      <Timeline.Body>This is a message</Timeline.Body>\n    </Timeline.Item>\n  </Timeline>\n)"
+          "code": "() => (\n  <Timeline>\n    <Timeline.Item>\n      <Timeline.Badge>\n        <Octicon icon={GitCommitIcon} />\n      </Timeline.Badge>\n      <Timeline.Body>This is a message</Timeline.Body>\n    </Timeline.Item>\n    <Timeline.Item>\n      <Timeline.Badge>\n        <Octicon icon={GitCommitIcon} />\n      </Timeline.Badge>\n      <Timeline.Body>This is a message</Timeline.Body>\n    </Timeline.Item>\n    <Timeline.Item>\n      <Timeline.Badge>\n        <Octicon icon={GitCommitIcon} />\n      </Timeline.Badge>\n      <Timeline.Body>This is a message</Timeline.Body>\n    </Timeline.Item>\n  </Timeline>\n)"
         }
       ],
       "props": [
@@ -4616,7 +4676,7 @@
       "stories": [
         {
           "id": "components-treeview--default",
-          "code": "() => (\n  <nav aria-label=\"Files changed\">\n    <TreeView aria-label=\"Files changed\">\n      <TreeView.Item id=\"src\" defaultExpanded>\n        <TreeView.LeadingVisual>\n          <TreeView.DirectoryIcon />\n        </TreeView.LeadingVisual>\n        src\n        <TreeView.SubTree>\n          <TreeView.Item id=\"src/Avatar.tsx\">\n            <TreeView.LeadingVisual>\n              <FileIcon />\n            </TreeView.LeadingVisual>\n            Avatar.tsx\n            <TreeView.TrailingVisual>\n              <StyledOcticon\n                icon={DiffAddedIcon}\n                color=\"success.fg\"\n                aria-label=\"added\"\n              />\n            </TreeView.TrailingVisual>\n          </TreeView.Item>\n          <TreeView.Item id=\"src/Button.tsx\" current>\n            <TreeView.LeadingVisual>\n              <FileIcon />\n            </TreeView.LeadingVisual>\n            Button.tsx\n            <TreeView.TrailingVisual>\n              <StyledOcticon\n                icon={DiffModifiedIcon}\n                color=\"attention.fg\"\n                aria-label=\"modified\"\n              />\n            </TreeView.TrailingVisual>\n          </TreeView.Item>\n        </TreeView.SubTree>\n      </TreeView.Item>\n      <TreeView.Item id=\"package.json\">\n        <TreeView.LeadingVisual>\n          <FileIcon />\n        </TreeView.LeadingVisual>\n        package.json\n        <TreeView.TrailingVisual>\n          <StyledOcticon\n            icon={DiffModifiedIcon}\n            color=\"attention.fg\"\n            aria-label=\"modified\"\n          />\n        </TreeView.TrailingVisual>\n      </TreeView.Item>\n    </TreeView>\n  </nav>\n)"
+          "code": "() => (\n  <nav aria-label=\"Files changed\">\n    <TreeView aria-label=\"Files changed\">\n      <TreeView.Item id=\"src\" defaultExpanded>\n        <TreeView.LeadingVisual>\n          <TreeView.DirectoryIcon />\n        </TreeView.LeadingVisual>\n        src\n        <TreeView.SubTree>\n          <TreeView.Item id=\"src/Avatar.tsx\">\n            <TreeView.LeadingVisual>\n              <FileIcon />\n            </TreeView.LeadingVisual>\n            Avatar.tsx\n            <TreeView.TrailingVisual>\n              <Octicon\n                icon={DiffAddedIcon}\n                color=\"success.fg\"\n                aria-label=\"added\"\n              />\n            </TreeView.TrailingVisual>\n          </TreeView.Item>\n          <TreeView.Item id=\"src/Button.tsx\" current>\n            <TreeView.LeadingVisual>\n              <FileIcon />\n            </TreeView.LeadingVisual>\n            Button.tsx\n            <TreeView.TrailingVisual>\n              <Octicon\n                icon={DiffModifiedIcon}\n                color=\"attention.fg\"\n                aria-label=\"modified\"\n              />\n            </TreeView.TrailingVisual>\n          </TreeView.Item>\n        </TreeView.SubTree>\n      </TreeView.Item>\n      <TreeView.Item id=\"package.json\">\n        <TreeView.LeadingVisual>\n          <FileIcon />\n        </TreeView.LeadingVisual>\n        package.json\n        <TreeView.TrailingVisual>\n          <Octicon\n            icon={DiffModifiedIcon}\n            color=\"attention.fg\"\n            aria-label=\"modified\"\n          />\n        </TreeView.TrailingVisual>\n      </TreeView.Item>\n    </TreeView>\n  </nav>\n)"
         },
         {
           "id": "components-treeview-features--files",
@@ -4624,7 +4684,7 @@
         },
         {
           "id": "components-treeview-features--files-changed",
-          "code": "() => {\n  return (\n    <nav aria-label=\"Files\">\n      <TreeView aria-label=\"Files\">\n        <TreeView.Item id=\"src\" defaultExpanded>\n          <TreeView.LeadingVisual>\n            <TreeView.DirectoryIcon />\n          </TreeView.LeadingVisual>\n          src\n          <TreeView.SubTree>\n            <TreeView.Item id=\"src/Avatar.tsx\">\n              <TreeView.LeadingVisual>\n                <FileIcon />\n              </TreeView.LeadingVisual>\n              Avatar.tsx\n              <TreeView.TrailingVisual label=\"added\">\n                <StyledOcticon icon={DiffAddedIcon} color=\"success.fg\" />\n              </TreeView.TrailingVisual>\n            </TreeView.Item>\n            <TreeView.Item id=\"src/Button\" defaultExpanded>\n              <TreeView.LeadingVisual>\n                <TreeView.DirectoryIcon />\n              </TreeView.LeadingVisual>\n              Button\n              <TreeView.SubTree>\n                <TreeView.Item id=\"src/Button/Button.tsx\" current>\n                  <TreeView.LeadingVisual>\n                    <FileIcon />\n                  </TreeView.LeadingVisual>\n                  Button.tsx\n                  <TreeView.TrailingVisual label=\"modified\">\n                    <StyledOcticon\n                      icon={DiffModifiedIcon}\n                      color=\"attention.fg\"\n                    />\n                  </TreeView.TrailingVisual>\n                </TreeView.Item>\n                <TreeView.Item id=\"src/Button/Button.test.tsx\">\n                  <TreeView.LeadingVisual>\n                    <FileIcon />\n                  </TreeView.LeadingVisual>\n                  Button.test.tsx\n                  <TreeView.TrailingVisual label=\"modified\">\n                    <StyledOcticon\n                      icon={DiffModifiedIcon}\n                      color=\"attention.fg\"\n                    />\n                  </TreeView.TrailingVisual>\n                </TreeView.Item>\n              </TreeView.SubTree>\n            </TreeView.Item>\n            <TreeView.Item id=\"src/ReallyLongFileNameThatShouldBeTruncated.tsx\">\n              <TreeView.LeadingVisual>\n                <FileIcon />\n              </TreeView.LeadingVisual>\n              ReallyLongFileNameThatShouldBeTruncated.tsx\n              <TreeView.TrailingVisual label=\"modified\">\n                <StyledOcticon icon={DiffModifiedIcon} color=\"attention.fg\" />\n              </TreeView.TrailingVisual>\n            </TreeView.Item>\n          </TreeView.SubTree>\n        </TreeView.Item>\n        <TreeView.Item id=\"public\" defaultExpanded>\n          <TreeView.LeadingVisual>\n            <TreeView.DirectoryIcon />\n          </TreeView.LeadingVisual>\n          public\n          <TreeView.SubTree>\n            <TreeView.Item id=\"public/index.html\">\n              <TreeView.LeadingVisual>\n                <FileIcon />\n              </TreeView.LeadingVisual>\n              index.html\n              <TreeView.TrailingVisual label=\"renamed\">\n                <StyledOcticon icon={DiffRenamedIcon} />\n              </TreeView.TrailingVisual>\n            </TreeView.Item>\n            <TreeView.Item id=\"public/favicon.ico\">\n              <TreeView.LeadingVisual>\n                <FileIcon />\n              </TreeView.LeadingVisual>\n              favicon.ico\n              <TreeView.TrailingVisual label=\"removed\">\n                <StyledOcticon icon={DiffRemovedIcon} color=\"danger.fg\" />\n              </TreeView.TrailingVisual>\n            </TreeView.Item>\n          </TreeView.SubTree>\n        </TreeView.Item>\n      </TreeView>\n    </nav>\n  )\n}"
+          "code": "() => {\n  return (\n    <nav aria-label=\"Files\">\n      <TreeView aria-label=\"Files\">\n        <TreeView.Item id=\"src\" defaultExpanded>\n          <TreeView.LeadingVisual>\n            <TreeView.DirectoryIcon />\n          </TreeView.LeadingVisual>\n          src\n          <TreeView.SubTree>\n            <TreeView.Item id=\"src/Avatar.tsx\">\n              <TreeView.LeadingVisual>\n                <FileIcon />\n              </TreeView.LeadingVisual>\n              Avatar.tsx\n              <TreeView.TrailingVisual label=\"added\">\n                <Octicon icon={DiffAddedIcon} color=\"success.fg\" />\n              </TreeView.TrailingVisual>\n            </TreeView.Item>\n            <TreeView.Item id=\"src/Button\" defaultExpanded>\n              <TreeView.LeadingVisual>\n                <TreeView.DirectoryIcon />\n              </TreeView.LeadingVisual>\n              Button\n              <TreeView.SubTree>\n                <TreeView.Item id=\"src/Button/Button.tsx\" current>\n                  <TreeView.LeadingVisual>\n                    <FileIcon />\n                  </TreeView.LeadingVisual>\n                  Button.tsx\n                  <TreeView.TrailingVisual label=\"modified\">\n                    <Octicon icon={DiffModifiedIcon} color=\"attention.fg\" />\n                  </TreeView.TrailingVisual>\n                </TreeView.Item>\n                <TreeView.Item id=\"src/Button/Button.test.tsx\">\n                  <TreeView.LeadingVisual>\n                    <FileIcon />\n                  </TreeView.LeadingVisual>\n                  Button.test.tsx\n                  <TreeView.TrailingVisual label=\"modified\">\n                    <Octicon icon={DiffModifiedIcon} color=\"attention.fg\" />\n                  </TreeView.TrailingVisual>\n                </TreeView.Item>\n              </TreeView.SubTree>\n            </TreeView.Item>\n            <TreeView.Item id=\"src/ReallyLongFileNameThatShouldBeTruncated.tsx\">\n              <TreeView.LeadingVisual>\n                <FileIcon />\n              </TreeView.LeadingVisual>\n              ReallyLongFileNameThatShouldBeTruncated.tsx\n              <TreeView.TrailingVisual label=\"modified\">\n                <Octicon icon={DiffModifiedIcon} color=\"attention.fg\" />\n              </TreeView.TrailingVisual>\n            </TreeView.Item>\n          </TreeView.SubTree>\n        </TreeView.Item>\n        <TreeView.Item id=\"public\" defaultExpanded>\n          <TreeView.LeadingVisual>\n            <TreeView.DirectoryIcon />\n          </TreeView.LeadingVisual>\n          public\n          <TreeView.SubTree>\n            <TreeView.Item id=\"public/index.html\">\n              <TreeView.LeadingVisual>\n                <FileIcon />\n              </TreeView.LeadingVisual>\n              index.html\n              <TreeView.TrailingVisual label=\"renamed\">\n                <Octicon icon={DiffRenamedIcon} />\n              </TreeView.TrailingVisual>\n            </TreeView.Item>\n            <TreeView.Item id=\"public/favicon.ico\">\n              <TreeView.LeadingVisual>\n                <FileIcon />\n              </TreeView.LeadingVisual>\n              favicon.ico\n              <TreeView.TrailingVisual label=\"removed\">\n                <Octicon icon={DiffRemovedIcon} color=\"danger.fg\" />\n              </TreeView.TrailingVisual>\n            </TreeView.Item>\n          </TreeView.SubTree>\n        </TreeView.Item>\n      </TreeView>\n    </nav>\n  )\n}"
         },
         {
           "id": "components-treeview-features--async-success",
@@ -4648,6 +4708,11 @@
           "name": "children",
           "type": "React.ReactNode",
           "required": true
+        },
+        {
+          "name": "flat",
+          "type": "boolean",
+          "description": "Prevents the tree from indenting items. This should only be used when the tree is used to display a flat list of items."
         }
       ],
       "subcomponents": [
@@ -4783,6 +4848,110 @@
         }
       ]
     },
+    "truncate": {
+      "id": "truncate",
+      "name": "Truncate",
+      "status": "alpha",
+      "a11yReviewed": false,
+      "stories": [
+        {
+          "id": "components-truncate--default",
+          "code": "() => <Truncate title=\"Some example text\">Some example text</Truncate>"
+        }
+      ],
+      "props": [
+        {
+          "name": "maxWidth",
+          "type": "number",
+          "defaultValue": "125",
+          "description": "Sets the max-width of the text."
+        },
+        {
+          "name": "inline",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "Displays text as inline block and vertical aligns to the top."
+        },
+        {
+          "name": "expandable",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "Allows the truncated text to be displayed on hover."
+        },
+        {
+          "name": "as",
+          "type": "React.ElementType",
+          "defaultValue": "'div'"
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ],
+      "subcomponents": []
+    },
+    "underline_nav": {
+      "id": "underline_nav",
+      "name": "UnderlineNav",
+      "status": "alpha",
+      "a11yReviewed": false,
+      "stories": [
+        {
+          "id": "components-underlinenav--default",
+          "code": "() => (\n  <UnderlineNav aria-label=\"Main\">\n    <UnderlineNav.Link href=\"#home\" selected>\n      Home\n    </UnderlineNav.Link>\n    <UnderlineNav.Link href=\"#documentation\">Documentation</UnderlineNav.Link>\n    <UnderlineNav.Link href=\"#support\">Support</UnderlineNav.Link>\n  </UnderlineNav>\n)"
+        }
+      ],
+      "props": [
+        {
+          "name": "actions",
+          "type": "React.ReactNode",
+          "description": "Place another element, such as a button, to the opposite side of the navigation items."
+        },
+        {
+          "name": "align",
+          "type": "'right'",
+          "description": "Use `right` to have navigation items aligned right."
+        },
+        {
+          "name": "full",
+          "type": "boolean",
+          "description": "Used to make navigation fill the width of the container."
+        },
+        {
+          "name": "aria-label",
+          "type": "string",
+          "description": "Used to set the `aria-label` on the top level `<nav>` element."
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ],
+      "subcomponents": [
+        {
+          "name": "UnderlineNav.Link",
+          "props": [
+            {
+              "name": "as",
+              "type": "React.ElementType",
+              "defaultValue": "'a'"
+            },
+            {
+              "name": "href",
+              "type": "string"
+            },
+            {
+              "name": "selected",
+              "type": "boolean"
+            },
+            {
+              "name": "sx",
+              "type": "SystemStyleObject"
+            }
+          ]
+        }
+      ]
+    },
     "drafts_underline_nav2": {
       "id": "drafts_underline_nav2",
       "name": "UnderlineNav",
@@ -4865,11 +5034,6 @@
               "defaultValue": "\"a\""
             },
             {
-              "name": "as",
-              "type": "React.ElementType",
-              "defaultValue": "\"a\""
-            },
-            {
               "name": "sx",
               "type": "SystemStyleObject"
             }
@@ -4878,6 +5042,81 @@
             "element": "a",
             "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#Attributes"
           }
+        }
+      ]
+    },
+    "drafts_button": {
+      "id": "drafts_button",
+      "name": "Button2",
+      "status": "draft",
+      "a11yReviewed": false,
+      "stories": [
+        {
+          "id": "components-button2--default",
+          "code": "() => <Button>Default</Button>"
+        }
+      ],
+      "props": [
+        {
+          "name": "children",
+          "required": true,
+          "type": "React.ReactNode",
+          "description": "The content of the button."
+        },
+        {
+          "name": "variant",
+          "type": "| 'default'\n| 'primary'\n| 'danger'\n| 'outline'\n| 'invisible'",
+          "defaultValue": "'default'",
+          "description": "Change the visual style of the button."
+        },
+        {
+          "name": "size",
+          "type": "| 'small'\n| 'medium'\n| 'large'",
+          "defaultValue": "'medium'"
+        },
+        {
+          "name": "leadingIcon",
+          "type": "React.ComponentType<OcticonProps>",
+          "description": "An icon to display before the button text."
+        },
+        {
+          "name": "trailingIcon",
+          "type": "React.ComponentType<OcticonProps>",
+          "description": "An icon to display after the button text."
+        },
+        {
+          "name": "as",
+          "type": "React.ElementType",
+          "defaultValue": "'button'"
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        },
+        {
+          "name": "ref",
+          "type": "React.RefObject<HTMLButtonElement>"
+        }
+      ],
+      "passthrough": {
+        "element": "button",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#attributes"
+      },
+      "subcomponents": [
+        {
+          "name": "Button.Counter",
+          "props": [
+            {
+              "name": "children",
+              "required": true,
+              "type": "number",
+              "description": "The counter value."
+            },
+            {
+              "name": "sx",
+              "type": "SystemStyleObject"
+            }
+          ]
         }
       ]
     },
