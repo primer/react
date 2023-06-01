@@ -235,6 +235,9 @@ WithParentLinkAndActionsOfContextArea.parameters = {
 export const WithContextBarAndActionsOfContextArea = () => (
   <Box sx={{padding: 3}}>
     <PageHeader>
+      <PageHeader.TitleArea>
+        <PageHeader.Title>Title</PageHeader.Title>
+      </PageHeader.TitleArea>
       <PageHeader.ContextArea>
         <PageHeader.ContextBar>
           <Breadcrumbs>
@@ -255,9 +258,6 @@ export const WithContextBarAndActionsOfContextArea = () => (
           <IconButton size="small" aria-label="More Options" icon={KebabHorizontalIcon} />
         </PageHeader.ContextAreaActions>
       </PageHeader.ContextArea>
-      <PageHeader.TitleArea>
-        <PageHeader.Title>Title</PageHeader.Title>
-      </PageHeader.TitleArea>
     </PageHeader>
   </Box>
 )
