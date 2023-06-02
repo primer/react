@@ -64,10 +64,14 @@ const ShorthandHookFromActionMenu = () => {
         <BaseStyles>
           <Box display="flex" flexDirection="column" alignItems="flex-start">
             <ActionMenu>
-              <Button>{text}</Button>
-              <Button ref={buttonRef} onClick={onButtonClick}>
-                Show dialog
-              </Button>
+
+              <ActionMenu.Button>{text}</ActionMenu.Button>
+              <ActionMenu.Overlay>
+                <ActionList>
+                  <ActionList.Item onSelect={onButtonClick}>Show dialog</ActionList.Item>
+                </ActionList>
+              </ActionMenu.Overlay>
+
             </ActionMenu>
           </Box>
         </BaseStyles>
