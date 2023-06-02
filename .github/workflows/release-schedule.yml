@@ -107,7 +107,7 @@ jobs:
               '<!-- Provide updates for release activities, like cutting releases and different integration points -->',
               '',
               ...eachDayOfInterval({ start, end }).map((day) => {
-                return `- ${format(day, 'EEEE do')}`;
+                return `- ${format(day, 'EEEE, LLLL do')}`;
               }),
               '',
             ].join('\n');
