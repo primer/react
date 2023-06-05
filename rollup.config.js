@@ -7,11 +7,16 @@ import glob from 'fast-glob'
 import {visualizer} from 'rollup-plugin-visualizer'
 import postcss from 'rollup-plugin-postcss'
 import packageJson from './package.json'
+import postcssCustomPropertiesFallback from 'postcss-custom-properties-fallback'
+const importedJSONFromPrimitives = require('@primer/primitives/tokens-next-private/fallbacks/color-fallbacks.json')
 
 const input = new Set([
   // "exports"
   // "."
   'src/index.ts',
+
+  // "./experimental"
+  'src/experimental/index.ts',
 
   // "./drafts"
   'src/drafts/index.ts',
@@ -113,6 +118,13 @@ const baseConfig = {
       extract: 'components.css',
       autoModules: false,
       modules: {generateScopedName: 'prc_[local]-[hash:base64:5]'},
+      plugins: [
+        postcssCustomPropertiesFallback({
+          importFrom: {
+            customProperties: importedJSONFromPrimitives,
+          },
+        }),
+      ],
     }),
   ],
 }

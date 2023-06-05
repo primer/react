@@ -1,7 +1,7 @@
 .component {
-  background-color: var(--bgColor-default, var(--color-canvas-default));
-  color: var(--fgColor-muted, var(--color-fg-muted));
-  border: 1px solid var(--borderColor-default, var(--color-border-default));
+  background-color: var(--bgColor-default);
+  color: var(--fgColor-muted);
+  border: 1px solid var(--borderColor-default);
   width: fit-content;
   padding: var(--control-xsmall-paddingBlock) var(--control-xsmall-paddingInline-normal);
 }
