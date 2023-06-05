@@ -7,7 +7,7 @@ import {useProvidedRefOrCreate} from '../hooks'
 import {Merge} from '../utils/types'
 import TextInputWrapper, {StyledWrapperProps} from '../_TextInputWrapper'
 import UnstyledTextInput from '../_UnstyledTextInput'
-import TextInputAction from '../_TextInputInnerAction'
+import TextInputAction from '../internal/components/TextInputInnerAction'
 
 export type TextInputNonPassthroughProps = {
   /** @deprecated Use `leadingVisual` or `trailingVisual` prop instead */
