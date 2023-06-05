@@ -29,12 +29,18 @@ const InputValidation: React.FC<React.PropsWithChildren<Props>> = ({children, id
   const IconComponent = validationStatus ? validationIconMap[validationStatus] : undefined
   const fgColor = validationStatus ? validationColorMap[validationStatus] : undefined
 
+  // TODO: use `text-caption-lineHeight` token as a custom property when it's available
+  // then, we can move this all to CSS and use `calc` to get our height values
+  const captionLineHeight = 16 / 12
+  const iconSize = 12
+  const iconBoxMinHeight = iconSize * captionLineHeight
+
   return (
     <Text
       sx={{
         fontSize: 0,
         fontWeight: 'bold',
-        alignItems: 'center',
+        alignItems: 'start',
         color: fgColor,
         display: 'flex',
         a: {
@@ -46,11 +52,13 @@ const InputValidation: React.FC<React.PropsWithChildren<Props>> = ({children, id
       aria-live="polite"
     >
       {IconComponent && (
-        <Box as="span" mr={1} sx={{display: 'flex'}} aria-hidden="true">
-          <IconComponent size={12} fill="currentColor" />
+        <Box as="span" alignItems="center" display="flex" minHeight={iconBoxMinHeight} mr={1} aria-hidden="true">
+          <IconComponent size={iconSize} fill="currentColor" />
         </Box>
       )}
-      <span id={id}>{children}</span>
+      <Box as="span" id={id} sx={{lineHeight: captionLineHeight}}>
+        {children}
+      </Box>
     </Text>
   )
 }
