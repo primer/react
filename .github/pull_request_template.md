@@ -3,17 +3,17 @@ _Authors: Please fill out this form carefully and completely._
 _Reviewers: By approving this Pull Request you are approving the code change, as well as its deployment and mitigation plans._
 _Please read this description carefully. If you feel there is anything unclear or missing, please ask for updates._
 
-### What are you trying to accomplish?
-<!-- Provide a description of the changes. -->
-
-### Screenshots
-<!-- Provide before/after screenshots, videos, or graphs for any visual changes; otherwise, remove this section -->
-
 #### List the issues that this change affects.
 <!--Every code change must address _at least 1_ issue. Fixes a bug, completes a task, every change
       should have a corresponding issue listed here. If one does not already exist, create one. -->
       
 Closes # (type the GitHub issue number after #)
+
+### What are you trying to accomplish?
+<!-- Provide a description of the changes. -->
+
+### Screenshots
+<!-- Provide before/after screenshots, videos, or graphs for any visual changes; otherwise, remove this section -->
 
 #### Risk Assessment
   <!-- Please select from one of the following and detail why this level was chosen -->
