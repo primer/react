@@ -35,7 +35,7 @@ export const MenuItemLink = React.forwardRef<HTMLAnchorElement, MenuItemLinkProp
 
     if (Boolean(ariaCurrent) && ariaCurrent !== 'false') {
       const event = new MouseEvent('click')
-      //   @ts-ignore
+      //   @ts-ignore for now
       typeof props.onMenuItemClick === 'function' && props.onMenuItemClick(event)
     }
     return (
@@ -45,7 +45,7 @@ export const MenuItemLink = React.forwardRef<HTMLAnchorElement, MenuItemLinkProp
         active={false}
         onClick={() => {
           const event = new MouseEvent('click')
-          //   @ts-ignore
+          //   @ts-ignore for now
           typeof props.onMenuItemClick === 'function' && props.onMenuItemClick(event)
         }}
         {...props}
