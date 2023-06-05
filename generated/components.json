@@ -163,7 +163,7 @@
               "name": "onSelect",
               "type": "(event: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement>) => void",
               "defaultValue": "",
-              "description": "Callback that is called when the item is selected using either the mouse or keyboard."
+              "description": "Callback that is called when the item is selected using either the mouse or keyboard. `event.preventDefault()` will prevent a menu from closing when within an `<ActionMenu />`"
             },
             {
               "name": "selected",
