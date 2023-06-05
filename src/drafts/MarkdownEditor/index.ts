@@ -1,6 +1,7 @@
 import _MarkdownEditor from './MarkdownEditor'
 import {DefaultToolbarButtons, Toolbar, ToolbarButton} from './Toolbar'
-import {ActionButton, Actions, FooterActionButton} from './Actions'
+import {ActionButton, Actions} from './Actions'
+import {Footer, FooterButton, DefaultFooterButtons} from './Footer'
 import {Label} from './Label'
 
 export type {MarkdownEditorHandle} from './MarkdownEditor'
@@ -24,17 +25,24 @@ const MarkdownEditor = Object.assign(_MarkdownEditor, {
    * standardized order.
    */
   DefaultToolbarButtons,
+  /** A custom footer to show below the editor. */
+  Footer,
+  /** A button to show in the editor footer before the `DefaultFooterButtons` */
+  FooterButton,
+  /**
+   * The full set of default footer buttons. This is "Markdown is supported" button
+   * and file upload button in a standardized order.
+   */
+  DefaultFooterButtons,
   /**
    * Optionally define a set of custom buttons to show in the editor footer. Often if you
    * are defining custom buttons you should also wrap the editor in a `<form>`. The
-   * footer should contain `ActionButton`s before and/or after a `DefaultActionButtons`
+   * footer should contain `ActionButton`s before and/or after a `DefaultFooterButtons`
    * instance. To create groups of buttons, wrap them in an unstyled `Box`.
    */
   Actions,
   /** A button to show in the editor footer. */
   ActionButton,
-  /** A button to show in the editor footer before the `DefaultActionButtons` */
-  FooterActionButton,
 })
 export default MarkdownEditor
 

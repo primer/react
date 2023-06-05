@@ -1,32 +1,19 @@
-import React, {memo, useContext} from 'react'
+import React, {memo, forwardRef, useContext} from 'react'
 import {AlertIcon, ImageIcon, MarkdownIcon} from '@primer/octicons-react'
 
 import {Spinner, Button, ButtonProps, LinkButton, Box, Text} from '../..'
 import {MarkdownEditorContext} from './_MarkdownEditorContext'
-import {FooterActionButton} from './Actions'
 import {useSlots} from '../../hooks/useSlots'
 
 const uploadingNote = ([current, total]: [number, number]) =>
   total === 1 ? `Uploading your file...` : `Uploading your files... (${current}/${total})`
 
-export const Footer = ({
-  uploadButtonProps,
-  fileUploadProgress,
-  fileDraggedOver,
-  errorMessage,
-  previewMode,
-  children,
-}: {
-  uploadButtonProps: Partial<ButtonProps> | null
-  fileUploadProgress?: [number, number]
-  fileDraggedOver: boolean
-  errorMessage?: string
-  previewMode: boolean
-  children: React.ReactNode
-}) => {
+export const CoreFooter = ({children}: {children: React.ReactNode}) => {
   const [slots, childrenWithoutSlots] = useSlots(children, {
-    footerButtons: FooterActionButton,
+    defaultFooterButtons: DefaultFooterButtons,
+    footerButtons: FooterButton,
   })
+  const {fileUploadProgress, errorMessage, previewMode} = useContext(MarkdownEditorContext)
 
   return (
     <Box sx={{pt: 2, display: 'flex', gap: 2, justifyContent: 'space-between', minHeight: '36px'}} as="footer">
@@ -42,14 +29,7 @@ export const Footer = ({
         ) : (
           <>
             {slots.footerButtons && <Box sx={{display: 'flex', gap: 2}}>{slots.footerButtons}</Box>}
-            <MarkdownSupportedHint />
-
-            {uploadButtonProps && (
-              <>
-                <VisualSeparator />
-                <FileUploadButton fileDraggedOver={fileDraggedOver} {...uploadButtonProps} />
-              </>
-            )}
+            <DefaultFooterButtons />
           </>
         )}
       </Box>
@@ -57,6 +37,33 @@ export const Footer = ({
     </Box>
   )
 }
+
+export const Footer = ({children}: {children?: React.ReactNode}) => <CoreFooter>{children}</CoreFooter>
+Footer.displayName = 'MarkdownEditor.Footer'
+
+export const FooterButton = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {
+  const {disabled} = useContext(MarkdownEditorContext)
+  return <Button ref={ref} size="small" disabled={disabled} {...props} />
+})
+FooterButton.displayName = 'MarkdownEditor.FooterButton'
+
+export const DefaultFooterButtons = memo(() => {
+  const {uploadButtonProps, fileDraggedOver} = useContext(MarkdownEditorContext)
+
+  return (
+    <>
+      <MarkdownSupportedHint />
+
+      {uploadButtonProps && (
+        <>
+          <VisualSeparator />
+          <FileUploadButton fileDraggedOver={fileDraggedOver} {...uploadButtonProps} />
+        </>
+      )}
+    </>
+  )
+})
+DefaultFooterButtons.displayName = 'MarkdownEditor.DefaultFooterButtons'
 
 const ErrorMessage = memo(({message}: {message: string}) => (
   <Text sx={{py: 1, px: 2, color: 'danger.fg'}} aria-live="polite">

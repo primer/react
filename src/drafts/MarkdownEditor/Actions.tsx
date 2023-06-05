@@ -10,9 +10,3 @@ export const ActionButton = forwardRef<HTMLButtonElement, ButtonProps>((props, r
   return <Button ref={ref} size="small" disabled={disabled} {...props} />
 })
 ActionButton.displayName = 'MarkdownEditor.ActionButton'
-
-export const FooterActionButton = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {
-  const {disabled} = useContext(MarkdownEditorContext)
-  return <Button ref={ref} size="small" disabled={disabled} {...props} />
-})
-FooterActionButton.displayName = 'MarkdownEditor.FooterActionButton'
