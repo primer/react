@@ -90,6 +90,7 @@ export const getLinkStyles = (
     '&:hover ': {
       backgroundColor: theme?.colors.neutral.muted,
       transition: 'background .12s ease-out',
+      textDecoration: 'none',
     },
   },
   '&:focus': {

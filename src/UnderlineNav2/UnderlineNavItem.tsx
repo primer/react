@@ -1,6 +1,6 @@
 import React, {forwardRef, useRef, useContext, MutableRefObject, RefObject} from 'react'
 import Box from '../Box'
-import {merge, SxProp} from '../sx'
+import {merge, SxProp, BetterSystemStyleObject} from '../sx'
 import {IconProps} from '@primer/octicons-react'
 import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import {UnderlineNavContext} from './UnderlineNavContext'
@@ -12,7 +12,7 @@ import {defaultSxProp} from '../utils/defaultSxProp'
 import Link from '../Link'
 
 // adopted from React.AnchorHTMLAttributes
-type LinkProps = {
+export type LinkProps = {
   download?: string
   href?: string
   hrefLang?: string
@@ -68,7 +68,7 @@ export const UnderlineNavItem = forwardRef(
     forwardedRef,
   ) => {
     const backupRef = useRef<HTMLElement>(null)
-    const ref = (forwardedRef ?? backupRef) as RefObject<HTMLElement>
+    const ref = (forwardedRef ?? backupRef) as RefObject<HTMLAnchorElement>
     const {
       theme,
       setChildrenWidth,
@@ -106,8 +106,6 @@ export const UnderlineNavItem = forwardRef(
 
         // Only runs when a menu item is selected (swapping the menu item with the list item to keep it visible)
         if (selectedLinkText === text) {
-          // console.log('are you here?')
-          // setSelectedLink(ref as RefObject<HTMLElement>)
           if (typeof onSelect === 'function' && selectEvent !== null) onSelect(selectEvent)
           setSelectedLinkText('')
         }
@@ -136,15 +134,14 @@ export const UnderlineNavItem = forwardRef(
     return (
       <Box as="li" sx={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
         <Link
+          ref={ref}
           as={Component}
           href={href}
+          aria-current={ariaCurrent}
           onKeyPress={keyPressHandler}
           onClick={clickHandler}
-          aria-current={ariaCurrent}
-          // @ts-ignore
-          sx={merge(getLinkStyles(theme, {variant}, ariaCurrent), sxProp as SxProp)}
+          sx={merge<BetterSystemStyleObject>(getLinkStyles(theme, {variant}, ariaCurrent), sxProp as SxProp)}
           {...props}
-          ref={ref}
         >
           {iconsVisible && Icon && (
             <Box as="span" data-component="icon" sx={iconWrapStyles}>
