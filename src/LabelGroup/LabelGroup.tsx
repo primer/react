@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import {DashIcon, XIcon} from '@primer/octicons-react'
+import {XIcon} from '@primer/octicons-react'
 import {getFocusableChild} from '@primer/behaviors/utils'
 import {get} from '../constants'
 import VisuallyHidden from '../_VisuallyHidden'
@@ -53,14 +53,9 @@ const InlineToggle: React.FC<{
   showAllTokensInline,
 }) =>
   isOverflowShown ? (
-    <IconButton
-      ref={collapseButtonRef}
-      onClick={collapseInlineExpandedChildren}
-      icon={() => <DashIcon size="small" />}
-      size="small"
-      aria-label="Show less"
-      variant="invisible"
-    />
+    <Button ref={collapseButtonRef} onClick={collapseInlineExpandedChildren} size="small" variant="invisible">
+      Show less
+    </Button>
   ) : hiddenItemIds.length ? (
     <Button ref={expandButtonRef} variant="invisible" size="small" onClick={showAllTokensInline}>
       <VisuallyHidden>Show all</VisuallyHidden>

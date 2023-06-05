@@ -155,7 +155,7 @@ describe('LabelGroup', () => {
 
   it('should focus the collapse button when expanded, and the expand button when collapsed', async () => {
     const user = userEvent.setup()
-    const {getByLabelText, getByText} = HTMLRender(
+    const {getByText} = HTMLRender(
       <ThemeAndStyleContainer>
         <LabelGroup visibleChildCount={3} overflowStyle="inline">
           <Label>One</Label>
@@ -169,16 +169,14 @@ describe('LabelGroup', () => {
 
     // Expand
     await user.click(getByText('+2'))
-    await waitFor(() => getByLabelText('Show less'))
+    await waitFor(() => getByText('Show less'))
 
-    expect(document.activeElement).toEqual(getByLabelText('Show less'))
+    expect(document.activeElement).toEqual(getByText('Show less').closest('button'))
 
     // Collapse
-    await user.click(getByLabelText('Show less'))
+    await user.click(getByText('Show less'))
     await waitFor(() => getByText('+2'))
 
-    expect(document.activeElement?.textContent).toContain('+2')
-    // TODO: get the assertion below to work. It's not working for some reason...
-    // expect(document.activeElement).toEqual(getByText('+2'))
+    expect(document.activeElement).toEqual(getByText('+2').closest('button'))
   })
 })
