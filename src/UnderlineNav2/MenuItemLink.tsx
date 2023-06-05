@@ -30,13 +30,13 @@ export type MenuItemLinkProps = {
   LinkProps
 
 export const MenuItemLink = React.forwardRef<HTMLAnchorElement, MenuItemLinkProps>(
-  ({children, counter, 'aria-current': ariaCurrent, ...props}, forwardedRef) => {
+  ({children, counter, 'aria-current': ariaCurrent, onMenuItemClick, ...props}, forwardedRef) => {
     const {loadingCounters} = useContext(UnderlineNavContext)
 
     if (Boolean(ariaCurrent) && ariaCurrent !== 'false') {
       const event = new MouseEvent('click')
       //   @ts-ignore for now
-      typeof props.onMenuItemClick === 'function' && props.onMenuItemClick(event)
+      typeof onMenuItemClick === 'function' && onMenuItemClick(event)
     }
     return (
       <ActionList.LinkItem
@@ -46,7 +46,7 @@ export const MenuItemLink = React.forwardRef<HTMLAnchorElement, MenuItemLinkProp
         onClick={() => {
           const event = new MouseEvent('click')
           //   @ts-ignore for now
-          typeof props.onMenuItemClick === 'function' && props.onMenuItemClick(event)
+          typeof onMenuItemClick === 'function' && onMenuItemClick(event)
         }}
         {...props}
       >
