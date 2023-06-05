@@ -136,7 +136,7 @@ export default [
     external: dependencies.map(createPackageRegex),
     output: {
       interop: 'auto',
-      dir: 'lib-esm',
+      dir: 'dist/lib-esm',
       format: 'esm',
       preserveModules: true,
       preserveModulesRoot: 'src',
@@ -149,7 +149,7 @@ export default [
     external: dependencies.filter(name => !ESM_ONLY.has(name)).map(createPackageRegex),
     output: {
       interop: 'auto',
-      dir: 'lib',
+      dir: 'dist/lib',
       format: 'commonjs',
       preserveModules: true,
       preserveModulesRoot: 'src',

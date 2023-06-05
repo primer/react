@@ -1,0 +1,5 @@
+**/__tests__/**
+**/stories/**
+**/*.test.ts
+**/*.test.tsx
+**/*.stories.tsx

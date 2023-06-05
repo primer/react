@@ -6,39 +6,47 @@
   "module": "lib-esm/index.js",
   "exports": {
     ".": {
-      "import": "./lib-esm/index.js",
-      "require": "./lib/index.js"
+      "types": "./dist/index.d.ts",
+      "import": "./dist/lib-esm/index.js",
+      "require": "./dist/lib/index.js"
     },
     "./experimental": {
-      "import": "./lib-esm/experimental/index.js",
-      "require": "./lib/experimental/index.js"
+      "types": "./dist/experimental/index.d.ts",
+      "import": "./dist/lib-esm/experimental/index.js",
+      "require": "./dist/lib/experimental/index.js"
     },
     "./drafts": {
-      "import": "./lib-esm/drafts/index.js",
-      "require": "./lib/drafts/index.js"
+      "types": "./dist/drafts/index.d.ts",
+      "import": "./dist/lib-esm/drafts/index.js",
+      "require": "./dist/lib/drafts/index.js"
     },
     "./deprecated": {
-      "import": "./lib-esm/deprecated/index.js",
-      "require": "./lib/deprecated/index.js"
+      "types": "./dist/deprecated/index.d.ts",
+      "import": "./dist/lib-esm/deprecated/index.js",
+      "require": "./dist/lib/deprecated/index.js"
     },
     "./lib-esm/*": {
+      "types": [
+        "./dist/*.d.ts",
+        "./dist/*/index.d.ts"
+      ],
       "import": [
-        "./lib-esm/*.js",
-        "./lib-esm/*/index.js"
+        "./dist/lib-esm/*.js",
+        "./dist/lib-esm/*/index.js"
       ],
       "require": [
-        "./lib/*.js",
-        "./lib/*/index.js"
+        "./dist/lib/*.js",
+        "./dist/lib/*/index.js"
       ]
     },
     "./lib-esm/internal/*": null
   },
-  "typings": "lib/index.d.ts",
+  "typings": "dist/index.d.ts",
   "sideEffects": false,
   "scripts": {
     "setup": "./script/setup",
     "build": "./script/build",
-    "clean": "rimraf dist lib lib-esm css",
+    "clean": "rimraf dist css",
     "format": "prettier --cache --write '**/*.{js,md,mdx,ts,tsx,yml}'",
     "format:diff": "prettier --cache --list-different '**/*.{js.md,mdx,ts,tsx,yml}'",
     "start": "concurrently npm:start:*",
@@ -73,17 +81,8 @@
   "files": [
     "codemods",
     "dist",
-    "lib",
-    "lib/node_modules",
-    "lib-esm",
+    "dist/lib/node_modules",
     "css",
-    "index.d.ts",
-    "deprecated/package.json",
-    "drafts/package.json",
-    "!lib/__tests__",
-    "!lib/stories",
-    "!lib-esm/__tests__",
-    "!lib-esm/stories",
     "generated"
   ],
   "author": "GitHub, Inc.",
