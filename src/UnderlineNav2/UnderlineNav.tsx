@@ -6,7 +6,7 @@ import {useResizeObserver, ResizeObserverEntry} from '../hooks/useResizeObserver
 import {useTheme} from '../ThemeProvider'
 import {ChildWidthArray, ResponsiveProps, ChildSize} from './types'
 import VisuallyHidden from '../_VisuallyHidden'
-import {moreBtnStyles, getDividerStyle, getNavStyles, ulStyles, menuStyles, GAP} from './styles'
+import {moreBtnStyles, getDividerStyle, getNavStyles, ulStyles, menuStyles, menuItemStyles, GAP} from './styles'
 import styled from 'styled-components'
 import {Button} from '../Button'
 import {TriangleDownIcon} from '@primer/octicons-react'
@@ -15,8 +15,10 @@ import {useOnOutsideClick} from '../hooks/useOnOutsideClick'
 import {useId} from '../hooks/useId'
 import {ActionList} from '../ActionList'
 import {defaultSxProp} from '../utils/defaultSxProp'
+import CounterLabel from '../CounterLabel'
+import {LoadingCounter} from './LoadingCounter'
 
-import {MenuItemLink} from './MenuItemLink'
+// import {MenuItemLink} from './MenuItemLink'
 
 export type UnderlineNavProps = {
   children: React.ReactNode
@@ -354,11 +356,28 @@ export const UnderlineNav = forwardRef(
                   sx={merge({display: isWidgetOpen ? 'block' : 'none'}, menuStyles)}
                 >
                   {actions.map((action, index) => {
-                    const {children: actionElementChildren, ...actionElementProps} = action.props
+                    const {
+                      children: actionElementChildren,
+                      counter,
+                      'aria-current': ariaCurrent,
+                      ...actionElementProps
+                    } = action.props
+
+                    if (Boolean(ariaCurrent) && ariaCurrent !== 'false') {
+                      const event = new MouseEvent('click')
+                      // @ts-ignore for now
+                      !onlyMenuVisible && swapMenuItemWithListItem(action, index, event, updateListAndMenu)
+                      // @ts-ignore for now
+                      setSelectEvent(event)
+                      closeOverlay()
+                      focusOnMoreMenuBtn()
+                    }
+
                     return (
-                      <MenuItemLink
+                      <ActionList.LinkItem
                         key={actionElementChildren}
-                        onMenuItemClick={(
+                        sx={menuItemStyles}
+                        onClick={(
                           event: React.MouseEvent<HTMLAnchorElement> | React.KeyboardEvent<HTMLAnchorElement>,
                         ) => {
                           // When there are no items in the list, do not run the swap function as we want to keep everything in the menu.
@@ -369,8 +388,19 @@ export const UnderlineNav = forwardRef(
                         }}
                         {...actionElementProps}
                       >
-                        {actionElementChildren}
-                      </MenuItemLink>
+                        <Box as="span" sx={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
+                          {actionElementChildren}
+                          {loadingCounters ? (
+                            <LoadingCounter />
+                          ) : (
+                            counter !== undefined && (
+                              <Box as="span" data-component="counter">
+                                <CounterLabel>{counter}</CounterLabel>
+                              </Box>
+                            )
+                          )}
+                        </Box>
+                      </ActionList.LinkItem>
                     )
                   })}
                 </ActionList>
