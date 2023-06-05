@@ -1,5 +1,4 @@
 import React, {useCallback} from 'react'
-import ReactDOM from 'react-dom'
 import {createRoot} from 'react-dom/client'
 import styled from 'styled-components'
 import Box from '../Box'
