@@ -501,12 +501,13 @@ export type TableTitleProps = React.PropsWithChildren<{
   id: string
 }>
 
-function TableTitle({as = 'h2', children, id}: TableTitleProps) {
+const TableTitle = React.forwardRef<HTMLElement, TableTitleProps>(function TableTitle({as = 'h2', children, id}, ref) {
   return (
     <Box
       as={as}
       className="TableTitle"
       id={id}
+      ref={ref}
       sx={{
         color: 'fg.default',
         fontWeight: 'bold',
@@ -518,7 +519,7 @@ function TableTitle({as = 'h2', children, id}: TableTitleProps) {
       {children}
     </Box>
   )
-}
+})
 
 export type TableSubtitleProps = React.PropsWithChildren<{
   /**

@@ -78,13 +78,16 @@ exports[`SelectPanel renders consistently 1`] = `
 <div
   className="c0"
   color="fg.default"
+  data-color-mode="light"
+  data-dark-theme="dark"
+  data-light-theme="light"
   data-portal-root={true}
   fontFamily="normal"
 >
   <button
     aria-haspopup="true"
     className="c1"
-    id="react-aria-1"
+    id="react-aria-2"
     onClick={[Function]}
     onKeyDown={[Function]}
     tabIndex={0}
