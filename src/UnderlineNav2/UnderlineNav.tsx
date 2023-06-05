@@ -19,18 +19,14 @@ import {defaultSxProp} from '../utils/defaultSxProp'
 import {MenuItemLink} from './MenuItemLink'
 
 export type UnderlineNavProps = {
+  children: React.ReactNode
   'aria-label'?: React.AriaAttributes['aria-label']
   as?: React.ElementType
   sx?: SxProp['sx']
-  // cariant and align are currently not in used. Keeping here until some design explorations are finalized.
-  variant?: 'default' | 'small'
-  align?: 'right'
   /**
    * loading state for all counters. It displays loading animation for individual counters (UnderlineNav.Item) until all are resolved. It is needed to prevent multiple layout shift.
    */
   loadingCounters?: boolean
-  afterSelect?: (event: React.MouseEvent<HTMLAnchorElement> | React.KeyboardEvent<HTMLAnchorElement>) => void
-  children: React.ReactNode
 }
 // When page is loaded, we don't have ref for the more button as it is not on the DOM yet.
 // However, we need to calculate number of possible items when the more button present as well. So using the width of the more button as a constant.
@@ -141,11 +137,8 @@ export const UnderlineNav = forwardRef(
   (
     {
       as = 'nav',
-      align,
       'aria-label': ariaLabel,
       sx: sxProp = defaultSxProp,
-      afterSelect,
-      variant = 'default',
       loadingCounters = false,
       children,
     }: UnderlineNavProps,
@@ -215,15 +208,6 @@ export const UnderlineNav = forwardRef(
     >(null)
 
     const [iconsVisible, setIconsVisible] = useState<boolean>(true)
-
-    const afterSelectHandler = (
-      event: React.MouseEvent<HTMLAnchorElement> | React.KeyboardEvent<HTMLAnchorElement>,
-    ) => {
-      if (!event.defaultPrevented) {
-        if (typeof afterSelect === 'function') afterSelect(event)
-        closeOverlay()
-      }
-    }
 
     const [responsiveProps, setResponsiveProps] = useState<ResponsiveProps>({
       items: getValidChildren(children),
@@ -327,8 +311,6 @@ export const UnderlineNav = forwardRef(
           selectedLinkText,
           setSelectedLinkText,
           selectEvent,
-          afterSelect: afterSelectHandler,
-          variant,
           loadingCounters,
           iconsVisible,
         }}
@@ -336,7 +318,7 @@ export const UnderlineNav = forwardRef(
         {ariaLabel && <VisuallyHidden as="h2">{`${ariaLabel} navigation`}</VisuallyHidden>}
         <Box
           as={as}
-          sx={merge<BetterSystemStyleObject>(getNavStyles(theme, {align}), sxProp)}
+          sx={merge<BetterSystemStyleObject>(getNavStyles(theme), sxProp)}
           aria-label={ariaLabel}
           ref={navRef}
         >
@@ -376,7 +358,7 @@ export const UnderlineNav = forwardRef(
                     return (
                       <MenuItemLink
                         key={actionElementChildren}
-                        onClick={(
+                        onMenuItemClick={(
                           event: React.MouseEvent<HTMLAnchorElement> | React.KeyboardEvent<HTMLAnchorElement>,
                         ) => {
                           // When there are no items in the list, do not run the swap function as we want to keep everything in the menu.

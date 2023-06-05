@@ -76,8 +76,6 @@ export const UnderlineNavItem = forwardRef(
       selectedLinkText,
       setSelectedLinkText,
       selectEvent,
-      afterSelect,
-      variant,
       loadingCounters,
       iconsVisible,
     } = useContext(UnderlineNavContext)
@@ -116,19 +114,17 @@ export const UnderlineNavItem = forwardRef(
       (event: React.KeyboardEvent<HTMLAnchorElement>) => {
         if (event.key === ' ' || event.key === 'Enter') {
           if (!event.defaultPrevented && typeof onSelect === 'function') onSelect(event)
-          if (!event.defaultPrevented && typeof afterSelect === 'function') afterSelect(event)
         }
       },
-      [onSelect, afterSelect],
+      [onSelect],
     )
     const clickHandler = React.useCallback(
       (event: React.MouseEvent<HTMLAnchorElement>) => {
         if (!event.defaultPrevented) {
           if (typeof onSelect === 'function') onSelect(event)
-          if (typeof afterSelect === 'function') afterSelect(event)
         }
       },
-      [onSelect, afterSelect],
+      [onSelect],
     )
 
     return (
@@ -140,7 +136,7 @@ export const UnderlineNavItem = forwardRef(
           aria-current={ariaCurrent}
           onKeyPress={keyPressHandler}
           onClick={clickHandler}
-          sx={merge<BetterSystemStyleObject>(getLinkStyles(theme, {variant}, ariaCurrent), sxProp as SxProp)}
+          sx={merge<BetterSystemStyleObject>(getLinkStyles(theme, ariaCurrent), sxProp as SxProp)}
           {...props}
         >
           {iconsVisible && Icon && (

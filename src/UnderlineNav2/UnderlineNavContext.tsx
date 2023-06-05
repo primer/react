@@ -8,8 +8,6 @@ export const UnderlineNavContext = createContext<{
   selectedLinkText: string
   setSelectedLinkText: React.Dispatch<React.SetStateAction<string>>
   selectEvent: React.MouseEvent<HTMLAnchorElement> | React.KeyboardEvent<HTMLAnchorElement> | null
-  afterSelect?: (event: React.MouseEvent<HTMLAnchorElement> | React.KeyboardEvent<HTMLAnchorElement>) => void
-  variant: 'default' | 'small'
   loadingCounters: boolean
   iconsVisible: boolean
 }>({
@@ -19,7 +17,6 @@ export const UnderlineNavContext = createContext<{
   selectedLinkText: '',
   setSelectedLinkText: () => null,
   selectEvent: null,
-  variant: 'default',
   loadingCounters: false,
   iconsVisible: true,
 })

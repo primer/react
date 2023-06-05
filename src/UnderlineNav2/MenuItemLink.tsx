@@ -18,18 +18,40 @@ export type MenuItemLinkProps = {
    * Counter
    */
   counter?: number | string
+  /**
+   * Is `UnderlineNav.Item` current page?
+   */
+  'aria-current'?: 'page' | 'step' | 'location' | 'date' | 'time' | 'true' | 'false' | boolean
+  /**
+   * Callback that will trigger both on click selection and keyboard selection.
+   */
+  onMenuItemClick?: (event: React.MouseEvent<HTMLAnchorElement> | React.KeyboardEvent<HTMLAnchorElement>) => void
 } & SxProp &
   LinkProps
 
 export const MenuItemLink = React.forwardRef<HTMLAnchorElement, MenuItemLinkProps>(
-  ({children, counter, ...props}, forwardedRef) => {
+  ({children, counter, 'aria-current': ariaCurrent, ...props}, forwardedRef) => {
     const {loadingCounters} = useContext(UnderlineNavContext)
 
+    if (Boolean(ariaCurrent) && ariaCurrent !== 'false') {
+      const event = new MouseEvent('click')
+      //   @ts-ignore
+      typeof props.onMenuItemClick === 'function' && props.onMenuItemClick(event)
+    }
     return (
-      <ActionList.LinkItem ref={forwardedRef} sx={menuItemStyles} active={false} {...props}>
+      <ActionList.LinkItem
+        ref={forwardedRef}
+        sx={menuItemStyles}
+        active={false}
+        onClick={() => {
+          const event = new MouseEvent('click')
+          //   @ts-ignore
+          typeof props.onMenuItemClick === 'function' && props.onMenuItemClick(event)
+        }}
+        {...props}
+      >
         <Box as="span" sx={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
           {children}
-
           {loadingCounters ? (
             <LoadingCounter />
           ) : (
