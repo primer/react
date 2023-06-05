@@ -1,8 +1,8 @@
 import React, {ChangeEvent, ChangeEventHandler, createContext, FC} from 'react'
-import CheckboxOrRadioGroup, {CheckboxOrRadioGroupProps} from '../_CheckboxOrRadioGroup'
-import CheckboxOrRadioGroupCaption from '../_CheckboxOrRadioGroup/_CheckboxOrRadioGroupCaption'
-import CheckboxOrRadioGroupLabel from '../_CheckboxOrRadioGroup/_CheckboxOrRadioGroupLabel'
-import CheckboxOrRadioGroupValidation from '../_CheckboxOrRadioGroup/_CheckboxOrRadioGroupValidation'
+import CheckboxOrRadioGroup, {CheckboxOrRadioGroupProps} from '../internal/components/CheckboxOrRadioGroup'
+import CheckboxOrRadioGroupCaption from '../internal/components/CheckboxOrRadioGroup/CheckboxOrRadioGroupCaption'
+import CheckboxOrRadioGroupLabel from '../internal/components/CheckboxOrRadioGroup/CheckboxOrRadioGroupLabel'
+import CheckboxOrRadioGroupValidation from '../internal/components/CheckboxOrRadioGroup/CheckboxOrRadioGroupValidation'
 import {useRenderForcingRef} from '../hooks'
 import {SxProp} from '../sx'
 
