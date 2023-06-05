@@ -348,8 +348,6 @@ export const CustomFooter = ({
             Add Button
           </MarkdownEditor.FooterButton>
 
-          <MarkdownEditor.DefaultFooterButtons />
-
           <MarkdownEditor.Actions>
             <MarkdownEditor.ActionButton variant="danger" onClick={() => setValue('')}>
               Reset
@@ -412,7 +410,6 @@ export const CustomFooterActions = ({
           </MarkdownEditor.ActionButton>
         </MarkdownEditor.Actions>
       </MarkdownEditor>
-
       <p>Note: for demo purposes, files starting with &quot;A&quot; will be rejected.</p>
     </>
   )

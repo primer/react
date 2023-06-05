@@ -302,7 +302,6 @@ describe('MarkdownEditor', () => {
         <UncontrolledEditor>
           <MarkdownEditor.Footer>
             <MarkdownEditor.FooterButton>Footer A</MarkdownEditor.FooterButton>
-            <MarkdownEditor.DefaultFooterButtons />
             <MarkdownEditor.Actions>
               <MarkdownEditor.ActionButton>Action A</MarkdownEditor.ActionButton>
             </MarkdownEditor.Actions>
@@ -319,7 +318,6 @@ describe('MarkdownEditor', () => {
         <UncontrolledEditor disabled>
           <MarkdownEditor.Footer>
             <MarkdownEditor.FooterButton>Footer A</MarkdownEditor.FooterButton>
-            <MarkdownEditor.DefaultFooterButtons />
             <MarkdownEditor.Actions>
               <MarkdownEditor.ActionButton>Action A</MarkdownEditor.ActionButton>
               <MarkdownEditor.ActionButton disabled={false}>Action B</MarkdownEditor.ActionButton>

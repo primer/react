@@ -10,9 +10,9 @@ const uploadingNote = ([current, total]: [number, number]) =>
 
 export const CoreFooter = ({children}: {children: React.ReactNode}) => {
   const [slots, childrenWithoutSlots] = useSlots(children, {
-    defaultFooterButtons: DefaultFooterButtons,
     footerButtons: FooterButton,
   })
+
   const {fileUploadProgress, errorMessage, previewMode} = useContext(MarkdownEditorContext)
 
   return (
@@ -47,7 +47,7 @@ export const FooterButton = forwardRef<HTMLButtonElement, ButtonProps>((props, r
 })
 FooterButton.displayName = 'MarkdownEditor.FooterButton'
 
-export const DefaultFooterButtons = memo(() => {
+const DefaultFooterButtons = memo(() => {
   const {uploadButtonProps, fileDraggedOver} = useContext(MarkdownEditorContext)
 
   return (

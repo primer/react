@@ -1,6 +1,6 @@
 import React, {forwardRef, useContext} from 'react'
+import {Button, ButtonProps} from '../../Button'
 import {MarkdownEditorContext} from './_MarkdownEditorContext'
-import {Button, ButtonProps} from '../..'
 
 export const Actions = ({children}: {children?: React.ReactNode}) => <>{children}</>
 Actions.displayName = 'MarkdownEditor.Actions'
