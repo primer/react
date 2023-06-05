@@ -3,13 +3,11 @@ import Box from '../Box'
 import sx, {merge, BetterSystemStyleObject, SxProp} from '../sx'
 import {UnderlineNavContext} from './UnderlineNavContext'
 import {useResizeObserver, ResizeObserverEntry} from '../hooks/useResizeObserver'
-import CounterLabel from '../CounterLabel'
 import {useTheme} from '../ThemeProvider'
 import {ChildWidthArray, ResponsiveProps, ChildSize} from './types'
 import VisuallyHidden from '../_VisuallyHidden'
-import {moreBtnStyles, getDividerStyle, getNavStyles, ulStyles, menuStyles, menuItemStyles, GAP} from './styles'
+import {moreBtnStyles, getDividerStyle, getNavStyles, ulStyles, menuStyles, GAP} from './styles'
 import styled from 'styled-components'
-import {LoadingCounter} from './LoadingCounter'
 import {Button} from '../Button'
 import {TriangleDownIcon} from '@primer/octicons-react'
 import {useOnEscapePress} from '../hooks/useOnEscapePress'
@@ -17,6 +15,8 @@ import {useOnOutsideClick} from '../hooks/useOnOutsideClick'
 import {useId} from '../hooks/useId'
 import {ActionList} from '../ActionList'
 import {defaultSxProp} from '../utils/defaultSxProp'
+
+import {MenuItemLink} from './MenuItemLink'
 
 export type UnderlineNavProps = {
   'aria-label'?: React.AriaAttributes['aria-label']
@@ -29,7 +29,7 @@ export type UnderlineNavProps = {
    * loading state for all counters. It displays loading animation for individual counters (UnderlineNav.Item) until all are resolved. It is needed to prevent multiple layout shift.
    */
   loadingCounters?: boolean
-  afterSelect?: (event: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement>) => void
+  afterSelect?: (event: React.MouseEvent<HTMLAnchorElement> | React.KeyboardEvent<HTMLAnchorElement>) => void
   children: React.ReactNode
 }
 // When page is loaded, we don't have ref for the more button as it is not on the DOM yet.
@@ -72,6 +72,8 @@ const overflowEffect = (
   const items: Array<React.ReactElement> = []
   const actions: Array<React.ReactElement> = []
 
+  // console.log({numberOfItemsPossible}, {numberOfItemsWithoutIconPossible}, {numberOfItemsPossibleWithMoreMenu})
+
   // First, we check if we can fit all the items with their icons
   if (childArray.length <= numberOfItemsPossible) {
     items.push(...childArray)
@@ -90,9 +92,10 @@ const overflowEffect = (
     const numberOfItemsInMenu = childArray.length - numberOfItemsPossibleWithMoreMenu
     const numberOfListItems =
       numberOfItemsInMenu === 1 ? numberOfItemsPossibleWithMoreMenu - 1 : numberOfItemsPossibleWithMoreMenu
-
+    // console.log({numberOfItemsPossibleWithMoreMenu}, childArray.length)
     for (const [index, child] of childArray.entries()) {
       if (index < numberOfListItems) {
+        // can the current item fit into the list?
         items.push(child)
       } else {
         const ariaCurrent = child.props['aria-current']
@@ -165,7 +168,7 @@ export const UnderlineNav = forwardRef(
     const swapMenuItemWithListItem = (
       prospectiveListItem: React.ReactElement,
       indexOfProspectiveListItem: number,
-      event: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement>,
+      event: React.MouseEvent<HTMLAnchorElement> | React.KeyboardEvent<HTMLAnchorElement>,
       callback: (props: ResponsiveProps, displayIcons: boolean) => void,
     ) => {
       // get the selected menu item's width
@@ -203,19 +206,19 @@ export const UnderlineNav = forwardRef(
       return breakpoint
     }
 
-    const [selectedLink, setSelectedLink] = useState<RefObject<HTMLElement> | undefined>(undefined)
-
     // selectedLinkText is needed to be able set the selected menu item as selectedLink.
     // This is needed because setSelectedLink only accepts ref but at the time of setting selected menu item as selectedLink, its ref as a list item is not available
     const [selectedLinkText, setSelectedLinkText] = useState<string>('')
     // Capture the mouse/keyboard event when a menu item is selected so that we can use it to fire the onSelect callback after the menu item is swapped with the list item
     const [selectEvent, setSelectEvent] = useState<
-      React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement> | null
+      React.MouseEvent<HTMLAnchorElement> | React.KeyboardEvent<HTMLAnchorElement> | null
     >(null)
 
     const [iconsVisible, setIconsVisible] = useState<boolean>(true)
 
-    const afterSelectHandler = (event: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement>) => {
+    const afterSelectHandler = (
+      event: React.MouseEvent<HTMLAnchorElement> | React.KeyboardEvent<HTMLAnchorElement>,
+    ) => {
       if (!event.defaultPrevented) {
         if (typeof afterSelect === 'function') afterSelect(event)
         closeOverlay()
@@ -321,8 +324,6 @@ export const UnderlineNav = forwardRef(
           theme,
           setChildrenWidth,
           setNoIconChildrenWidth,
-          selectedLink,
-          setSelectedLink,
           selectedLinkText,
           setSelectedLinkText,
           selectEvent,
@@ -373,33 +374,21 @@ export const UnderlineNav = forwardRef(
                   {actions.map((action, index) => {
                     const {children: actionElementChildren, ...actionElementProps} = action.props
                     return (
-                      <ActionList.Item
-                        {...actionElementProps}
+                      <MenuItemLink
                         key={actionElementChildren}
-                        as={action.props.as || 'a'}
-                        sx={menuItemStyles}
-                        onSelect={(event: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement>) => {
+                        onClick={(
+                          event: React.MouseEvent<HTMLAnchorElement> | React.KeyboardEvent<HTMLAnchorElement>,
+                        ) => {
                           // When there are no items in the list, do not run the swap function as we want to keep everything in the menu.
                           !onlyMenuVisible && swapMenuItemWithListItem(action, index, event, updateListAndMenu)
                           setSelectEvent(event)
                           closeOverlay()
                           focusOnMoreMenuBtn()
                         }}
+                        {...actionElementProps}
                       >
-                        <Box as="span" sx={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
-                          {actionElementChildren}
-
-                          {loadingCounters ? (
-                            <LoadingCounter />
-                          ) : (
-                            actionElementProps.counter !== undefined && (
-                              <Box as="span" data-component="counter">
-                                <CounterLabel>{actionElementProps.counter}</CounterLabel>
-                              </Box>
-                            )
-                          )}
-                        </Box>
-                      </ActionList.Item>
+                        {actionElementChildren}
+                      </MenuItemLink>
                     )
                   })}
                 </ActionList>

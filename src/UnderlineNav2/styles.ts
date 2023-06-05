@@ -76,8 +76,7 @@ export const moreBtnStyles = {
 export const getLinkStyles = (
   theme?: Theme,
   props?: Partial<Pick<UnderlineNavProps, 'variant'>>,
-  selectedLink?: React.RefObject<HTMLElement>,
-  ref?: React.RefObject<HTMLElement>,
+  ariaCurrent?: string | boolean,
 ) => ({
   position: 'relative',
   display: 'inline-flex',
@@ -124,14 +123,15 @@ export const getLinkStyles = (
     width: '100%',
     height: 2,
     content: '""',
-    bg: selectedLink === ref ? theme?.colors.primer.border.active : 'transparent',
+    backgroundColor:
+      Boolean(ariaCurrent) && ariaCurrent !== 'false' ? theme?.colors.primer.border.active : 'transparent',
     borderRadius: 0,
     transform: 'translate(50%, -50%)',
   },
   '@media (forced-colors: active)': {
     '::after': {
       // Support for Window Force Color Mode https://learn.microsoft.com/en-us/fluent-ui/web-components/design-system/high-contrast
-      bg: selectedLink === ref ? 'LinkText' : 'transparent',
+      backgroundColor: Boolean(ariaCurrent) && ariaCurrent ? 'LinkText' : 'transparent',
     },
   },
 })
