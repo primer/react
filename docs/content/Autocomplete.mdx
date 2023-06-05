@@ -654,7 +654,7 @@ There are two ways to get around this:
 
 ```javascript live noinline
 export function InADialog() {
-  const outerContainerRef = React.useRef < HTMLDivElement > null
+  const outerContainerRef = React.useRef(null)
   const [mounted, setMounted] = React.useState(false)
   const [isDialogOpen, setIsDialogOpen] = React.useState(false)
 
