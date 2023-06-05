@@ -777,11 +777,118 @@ export const InitialFocus: Story = () => (
   <div>
     <Button>Focusable element before TreeView</Button>
     <TreeView aria-label="Test tree">
-      <TreeView.Item id="item-1">Item 1</TreeView.Item>
-      <TreeView.Item id="item-2" current>
-        Item 2
+      <TreeView.Item id="src" defaultExpanded>
+        <TreeView.LeadingVisual>
+          <TreeView.DirectoryIcon />
+        </TreeView.LeadingVisual>
+        src
+        <TreeView.SubTree>
+          <TreeView.Item id="src/Avatar.tsx">
+            <TreeView.LeadingVisual>
+              <FileIcon />
+            </TreeView.LeadingVisual>
+            Avatar.tsx
+          </TreeView.Item>
+          <TreeView.Item id="src/Button" defaultExpanded>
+            <TreeView.LeadingVisual>
+              <TreeView.DirectoryIcon />
+            </TreeView.LeadingVisual>
+            Button
+            <TreeView.SubTree>
+              <TreeView.Item id="src/Button/Button.tsx">
+                <TreeView.LeadingVisual>
+                  <FileIcon />
+                </TreeView.LeadingVisual>
+                Button.tsx
+              </TreeView.Item>
+              <TreeView.Item id="src/Button/Button.test.tsx">
+                <TreeView.LeadingVisual>
+                  <FileIcon />
+                </TreeView.LeadingVisual>
+                Button.test.tsx
+              </TreeView.Item>
+              <TreeView.Item id="src/Button/Button2.tsx">
+                <TreeView.LeadingVisual>
+                  <FileIcon />
+                </TreeView.LeadingVisual>
+                Button2.tsx
+              </TreeView.Item>
+              <TreeView.Item id="src/Button/Button2.test.tsx">
+                <TreeView.LeadingVisual>
+                  <FileIcon />
+                </TreeView.LeadingVisual>
+                Button2.test.tsx
+              </TreeView.Item>
+              <TreeView.Item id="src/Button/Button3.tsx">
+                <TreeView.LeadingVisual>
+                  <FileIcon />
+                </TreeView.LeadingVisual>
+                Button3.tsx
+              </TreeView.Item>
+              <TreeView.Item id="src/Button/Button3.test.tsx">
+                <TreeView.LeadingVisual>
+                  <FileIcon />
+                </TreeView.LeadingVisual>
+                Button3.test.tsx
+              </TreeView.Item>
+              <TreeView.Item id="src/Button/Button4.tsx">
+                <TreeView.LeadingVisual>
+                  <FileIcon />
+                </TreeView.LeadingVisual>
+                Button4.tsx
+              </TreeView.Item>
+              <TreeView.Item id="src/Button/Button4.test.tsx">
+                <TreeView.LeadingVisual>
+                  <FileIcon />
+                </TreeView.LeadingVisual>
+                Button4.test.tsx
+              </TreeView.Item>
+              <TreeView.Item id="src/Button/Button5.tsx">
+                <TreeView.LeadingVisual>
+                  <FileIcon />
+                </TreeView.LeadingVisual>
+                Button5.tsx
+              </TreeView.Item>
+              <TreeView.Item id="src/Button/Button5.test.tsx">
+                <TreeView.LeadingVisual>
+                  <FileIcon />
+                </TreeView.LeadingVisual>
+                Button5.test.tsx
+              </TreeView.Item>
+              <TreeView.Item id="src/Button/Button6.tsx">
+                <TreeView.LeadingVisual>
+                  <FileIcon />
+                </TreeView.LeadingVisual>
+                Button6.tsx
+              </TreeView.Item>
+              <TreeView.Item id="src/Button/Button6.test.tsx">
+                <TreeView.LeadingVisual>
+                  <FileIcon />
+                </TreeView.LeadingVisual>
+                Button6.test.tsx
+              </TreeView.Item>
+              <TreeView.Item id="src/Button/Button7.tsx">
+                <TreeView.LeadingVisual>
+                  <FileIcon />
+                </TreeView.LeadingVisual>
+                Button7.tsx
+              </TreeView.Item>
+              <TreeView.Item id="src/Button/Button7.test.tsx" current>
+                <TreeView.LeadingVisual>
+                  <FileIcon />
+                </TreeView.LeadingVisual>
+                Button7.test.tsx
+              </TreeView.Item>
+            </TreeView.SubTree>
+          </TreeView.Item>
+          <TreeView.Item id="src/ReallyLongFileNameThatShouldBeTruncated.tsx">
+            <TreeView.LeadingVisual>
+              <FileIcon />
+            </TreeView.LeadingVisual>
+            ReallyLongFileNameThatShouldBeTruncated.tsx
+          </TreeView.Item>
+        </TreeView.SubTree>
       </TreeView.Item>
-      <TreeView.Item id="item-3">Item 3</TreeView.Item>
     </TreeView>
     <Button>Focusable element after TreeView</Button>
   </div>
