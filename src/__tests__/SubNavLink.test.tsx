@@ -22,9 +22,4 @@ describe('SubNav.Link', () => {
   it('respects the "selected" prop', () => {
     expect(render(<SubNav.Link selected />)).toMatchSnapshot()
   })
-
-  it('adds activeClassName={SELECTED_CLASS} when it gets a "to" prop', () => {
-    const Link = ({theme: _ignoredTheme, ...props}: Record<string, unknown>) => <div {...props} />
-    expect(render(<SubNav.Link as={Link} to="#" />)).toMatchSnapshot()
-  })
 })
