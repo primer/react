@@ -2,33 +2,28 @@ import {render as HTMLRender, fireEvent, waitFor} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import React from 'react'
 import Autocomplete, {AutocompleteInputProps} from '../Autocomplete'
-import {AutocompleteMenuInternalProps} from '../Autocomplete/AutocompleteMenu'
+import {AutocompleteMenuInternalProps, AutocompleteMenuItem} from '../Autocomplete/AutocompleteMenu'
 import BaseStyles from '../BaseStyles'
 import theme from '../theme'
 import {ThemeProvider} from '../ThemeProvider'
-import {ItemProps} from '../deprecated/ActionList'
 import {SSRProvider} from '../utils/ssr'
 import {render} from '../utils/testing'
-import {MandateProps} from '../utils/types'
 
 const mockItems = [
-  {text: 'zero', id: 0},
-  {text: 'one', id: 1},
-  {text: 'two', id: 2},
-  {text: 'three', id: 3},
-  {text: 'four', id: 4},
-  {text: 'five', id: 5},
-  {text: 'six', id: 6},
-  {text: 'seven', id: 7},
-  {text: 'twenty', id: 20},
-  {text: 'twentyone', id: 21},
+  {text: 'zero', id: '0'},
+  {text: 'one', id: '1'},
+  {text: 'two', id: '2'},
+  {text: 'three', id: '3'},
+  {text: 'four', id: '4'},
+  {text: 'five', id: '5'},
+  {text: 'six', id: '6'},
+  {text: 'seven', id: '7'},
+  {text: 'twenty', id: '20'},
+  {text: 'twentyone', id: '21'},
 ]
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-type AutocompleteItemProps<T = Record<string, any>> = MandateProps<ItemProps, 'id'> & {metadata?: T}
-
 const AUTOCOMPLETE_LABEL = 'Autocomplete field'
-const LabelledAutocomplete = <T extends AutocompleteItemProps>({
+const LabelledAutocomplete = <T extends AutocompleteMenuItem>({
   inputProps = {},
   menuProps,
 }: {
@@ -306,6 +301,7 @@ describe('Autocomplete', () => {
             selectedItemIds: [],
             selectionVariant: 'multiple',
             addNewItem: {
+              id: 'add-new-item',
               text: 'Add new item',
               handleAddItem: handleAddItemMock,
             },
@@ -377,7 +373,7 @@ describe('snapshots', () => {
             <Autocomplete.Menu
               aria-labelledby="labelId"
               items={mockItems}
-              selectedItemIds={[0, 1, 2]}
+              selectedItemIds={['0', '1', '2']}
               selectionVariant="multiple"
             />
           </Autocomplete>
@@ -399,6 +395,7 @@ describe('snapshots', () => {
               selectionVariant="multiple"
               selectedItemIds={[]}
               addNewItem={{
+                id: 'add-new-item',
                 text: 'Add new item',
                 handleAddItem: handleAddItemMock,
               }}
