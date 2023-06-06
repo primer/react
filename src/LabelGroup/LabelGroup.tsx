@@ -122,7 +122,7 @@ const OverlayToggle: React.FC<
 const LabelGroup: React.FC<React.PropsWithChildren<LabelGroupProps>> = ({
   children,
   visibleChildCount,
-  overflowStyle,
+  overflowStyle = 'overlay',
   sx: sxProp,
 }) => {
   const containerRef = React.useRef<HTMLDivElement>(null)
@@ -359,9 +359,5 @@ const LabelGroup: React.FC<React.PropsWithChildren<LabelGroupProps>> = ({
 }
 
 LabelGroup.displayName = 'LabelGroup'
-
-LabelGroup.defaultProps = {
-  overflowStyle: 'overlay',
-}
 
 export default LabelGroup
