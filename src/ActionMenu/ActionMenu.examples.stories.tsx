@@ -82,16 +82,7 @@ export const CustomOverlayProps = () => {
     <Box sx={{display: 'flex', justifyContent: 'center'}}>
       <ActionMenu open={open} onOpenChange={setOpen}>
         <ActionMenu.Button>Menu</ActionMenu.Button>
-        <ActionMenu.Overlay
-          width="large"
-          align="center"
-          onClickOutside={() => {
-            /* do nothing, keep it open*/
-          }}
-          onEscape={() => {
-            /* do nothing, keep it open*/
-          }}
-        >
+        <ActionMenu.Overlay width="large" align="center">
           <ActionList>
             <ActionList.Item>Option 1</ActionList.Item>
             <ActionList.Item>Option 2</ActionList.Item>
