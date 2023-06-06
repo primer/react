@@ -26,7 +26,7 @@ export const Playground = (args: FormControlArgs<TextInputProps>) => {
   }
 
   return (
-    <Box as="form" maxWidth={200}>
+    <Box as="form">
       <FormControl {...parentArgs}>
         <FormControl.Label {...labelArgs} />
         <TextInput value={value} onChange={handleChange} {...args} />

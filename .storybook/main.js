@@ -4,12 +4,7 @@
 module.exports = {
   stories: ['../src/**/*.stories.mdx', '../src/**/*.stories.@(js|jsx|ts|tsx)'],
   addons: [
-    {
-      name: '@storybook/addon-essentials',
-      options: {
-        backgrounds: false,
-      },
-    },
+    {name: '@storybook/addon-essentials', options: {backgrounds: false}},
     '@storybook/addon-storysource',
     '@storybook/addon-interactions',
     '@storybook/addon-a11y',
@@ -21,33 +16,26 @@ module.exports = {
       },
     },
     {
-      name: 'storybook-css-modules',
-      // TODO: replace with @storybook/addon-styling for storybook v7
-      options: {
-        cssModulesLoaderOptions: {
-          modules: {
-            localIdentName: 'prc_[local]-[hash:base64:5]',
-          },
-        },
-      },
+      name: 'storybook-css-modules', // TODO: replace with @storybook/addon-styling for storybook v7
+      options: {cssModulesLoaderOptions: {modules: {localIdentName: 'prc_[local]-[hash:base64:5]'}}},
     },
   ],
+  core: {
+    builder: {
+      name: 'webpack5',
+      options: {
+        fsCache: true,
+      },
+    },
+  },
   features: {
     interactionsDebugger: true,
     storyStoreV7: true,
     buildStoriesJson: true,
   },
-  framework: {
-    name: '@storybook/react-webpack5',
-    options: {
-      fastRefresh: true,
-      strictMode: true,
-      builder: {
-        fsCache: true,
-      },
-    },
-  },
-  docs: {
-    autodocs: true,
+  framework: '@storybook/react',
+  reactOptions: {
+    fastRefresh: true,
+    strictMode: true,
   },
 }

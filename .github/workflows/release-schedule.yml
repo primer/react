@@ -1,8 +1,6 @@
 name: Release Schedule
 on:
   workflow_dispatch:
-  schedule:
-    - cron: '30 13 * * MON'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.workflow_run.head_branch }}
@@ -88,7 +86,7 @@ jobs:
 
             // Issue IDs
             const id = `primer-release-schedule:${format(start, 'yyyy-MM-dd')}`;
-            const previousId = `primer-release-schedule:${format(previousStart, 'yyyy-MM-dd')}`;
+            const previousId = `primer-release-schedule:${format(previousStart, 'yyyy-M-dd')}`;
 
             core.startGroup(`Previous schedule: ${previousId}`);
             core.info(`Start: ${previousStart}`);
@@ -107,7 +105,7 @@ jobs:
               '<!-- Provide updates for release activities, like cutting releases and different integration points -->',
               '',
               ...eachDayOfInterval({ start, end }).map((day) => {
-                return `- ${format(day, 'EEEE, LLLL do')}`;
+                return `- ${format(day, 'EEEE do')}`;
               }),
               '',
             ].join('\n');
@@ -193,7 +191,7 @@ jobs:
               ISSUE_BODY += '| Last week | Value |\n';
               ISSUE_BODY += '| :-------- | :---- |\n';
               ISSUE_BODY += `| Issue     | [${releaseIssue.title}](${releaseIssue.html_url}) |\n`;
-              ISSUE_BODY += `| Conductor | ${assignees} |\n`;
+              ISSUE_BODY += '| Conductor | ${assignees} |\n';
               ISSUE_BODY += '| Release Pull Request | [Link](https://gh.io/AAksvvr) |\n';
               ISSUE_BODY += '| Integration tests    | [Link](https://gh.io/AAkr65h) |\n';
               ISSUE_BODY += '\n';

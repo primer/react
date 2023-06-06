@@ -23,6 +23,12 @@ Object.entries(PrimerBreakpoints).forEach(([viewport, value]) => {
   }
 })
 
+addons.setConfig({
+  // Some stories may set up keyboard event handlers, which can be interfered
+  // with by these keyboard shortcuts.
+  enableShortcuts: false,
+})
+
 export const parameters = {
   actions: {argTypesRegex: '^on[A-Z].*'},
   html: {

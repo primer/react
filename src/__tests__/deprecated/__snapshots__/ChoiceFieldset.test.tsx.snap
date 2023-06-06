@@ -1993,15 +1993,6 @@ exports[`ChoiceFieldset renders with a success validation message 1`] = `
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  min-height: 16px;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-}
-
-.c14 {
-  line-height: 1.3333333333333333;
 }
 
 .c2 {
@@ -2028,10 +2019,10 @@ exports[`ChoiceFieldset renders with a success validation message 1`] = `
 .c12 {
   font-size: 12px;
   font-weight: bold;
-  -webkit-align-items: start;
-  -webkit-box-align: start;
-  -ms-flex-align: start;
-  align-items: start;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
   color: success.fg;
   display: -webkit-box;
   display: -webkit-flex;
@@ -2218,7 +2209,6 @@ exports[`ChoiceFieldset renders with a success validation message 1`] = `
             <span
               aria-hidden="true"
               class="c13"
-              display="flex"
             >
               <svg
                 aria-hidden="true"
@@ -2237,7 +2227,6 @@ exports[`ChoiceFieldset renders with a success validation message 1`] = `
               </svg>
             </span>
             <span
-              class="c14"
               id="react-aria-1-validationMsg"
             >
               You made the right selection
@@ -2299,15 +2288,6 @@ exports[`ChoiceFieldset renders with an error validation message 1`] = `
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  min-height: 16px;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-}
-
-.c14 {
-  line-height: 1.3333333333333333;
 }
 
 .c2 {
@@ -2334,10 +2314,10 @@ exports[`ChoiceFieldset renders with an error validation message 1`] = `
 .c12 {
   font-size: 12px;
   font-weight: bold;
-  -webkit-align-items: start;
-  -webkit-box-align: start;
-  -ms-flex-align: start;
-  align-items: start;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
   color: danger.fg;
   display: -webkit-box;
   display: -webkit-flex;
@@ -2524,7 +2504,6 @@ exports[`ChoiceFieldset renders with an error validation message 1`] = `
             <span
               aria-hidden="true"
               class="c13"
-              display="flex"
             >
               <svg
                 aria-hidden="true"
@@ -2543,7 +2522,6 @@ exports[`ChoiceFieldset renders with an error validation message 1`] = `
               </svg>
             </span>
             <span
-              class="c14"
               id="react-aria-1-validationMsg"
             >
               You made the wrong selection
