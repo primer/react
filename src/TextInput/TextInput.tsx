@@ -5,7 +5,7 @@ import classnames from 'classnames'
 import TextInputInnerVisualSlot from '../_TextInputInnerVisualSlot'
 import {useProvidedRefOrCreate} from '../hooks'
 import {Merge} from '../utils/types'
-import TextInputWrapper, {StyledWrapperProps} from '../_TextInputWrapper'
+import TextInputWrapper, {StyledWrapperProps} from '../internal/components/TextInputWrapper'
 import UnstyledTextInput from '../_UnstyledTextInput'
 import TextInputAction from '../_TextInputInnerAction'
 
@@ -134,7 +134,7 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
           showLoadingIndicator={showLeadingLoadingIndicator}
           hasLoadingIndicator={typeof loading === 'boolean'}
         >
-          {typeof LeadingVisual === 'function' ? <LeadingVisual /> : LeadingVisual}
+          {LeadingVisual && (typeof LeadingVisual === 'string' ? LeadingVisual : <LeadingVisual />)}
         </TextInputInnerVisualSlot>
         <UnstyledTextInput
           ref={inputRef}
@@ -150,7 +150,7 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
           showLoadingIndicator={showTrailingLoadingIndicator}
           hasLoadingIndicator={typeof loading === 'boolean'}
         >
-          {typeof TrailingVisual === 'function' ? <TrailingVisual /> : TrailingVisual}
+          {TrailingVisual && (typeof TrailingVisual === 'string' ? TrailingVisual : <TrailingVisual />)}
         </TextInputInnerVisualSlot>
         {trailingAction}
       </TextInputWrapper>
