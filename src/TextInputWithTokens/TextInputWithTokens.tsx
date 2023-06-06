@@ -11,7 +11,7 @@ import Token from '../Token/Token'
 import {TokenSizeKeys} from '../Token/TokenBase'
 import TextInputInnerVisualSlot from '../_TextInputInnerVisualSlot'
 import TextInputWrapper, {textInputHorizPadding, TextInputSizes} from '../internal/components/TextInputWrapper'
-import UnstyledTextInput from '../_UnstyledTextInput'
+import UnstyledTextInput from '../internal/components/UnstyledTextInput'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type AnyReactComponent = React.ComponentType<React.PropsWithChildren<any>>
