@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import TextInputWrapper, {StyledWrapperProps} from './_TextInputWrapper'
+import TextInputWrapper, {StyledWrapperProps} from './internal/components/TextInputWrapper'
 
 export type SelectProps = Omit<
   Omit<React.ComponentPropsWithoutRef<'select'>, 'size'> & Omit<StyledWrapperProps, 'variant'>,
@@ -21,7 +21,7 @@ const StyledSelect = styled.select`
   /* Firefox hacks: */
   /* 1. Makes Firefox's native dropdown menu's background match the theme.
 
-        background-color should be 'transparent', but Firefox uses the background-color on 
+        background-color should be 'transparent', but Firefox uses the background-color on
         <select> to determine the background color used for the dropdown menu.
 
      2. Adds 1px margins to the <select> so the background color doesn't hide the focus outline created with an inset box-shadow.
@@ -32,7 +32,7 @@ const StyledSelect = styled.select`
   margin-bottom: 1px;
 
   /* 2. Prevents visible overlap of partially transparent background colors.
-  
+
      'colors.input.disabledBg' happens to be partially transparent in light mode, so we use a
      transparent background-color on a disabled <select>. */
   &:disabled {
@@ -40,7 +40,7 @@ const StyledSelect = styled.select`
   }
 
   /* 3. Maintain dark bg color in Firefox on Windows high-contrast mode
-  
+
      Firefox makes the <select>'s background color white when setting 'background-color: transparent;' */
   @media screen and (forced-colors: active) {
     &:disabled {

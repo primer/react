@@ -7,7 +7,7 @@ import InputFieldCaption from './_InputFieldCaption'
 import InputFieldLabel from './_InputFieldLabel'
 import InputFieldValidation from './_InputFieldValidation'
 import {Slots} from './slots'
-import ValidationAnimationContainer from '../../_ValidationAnimationContainer'
+import ValidationAnimationContainer from '../../internal/components/ValidationAnimationContainer'
 export interface Props<T = Record<string, FormValidationStatus>> {
   children?: React.ReactNode
   /**
