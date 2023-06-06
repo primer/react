@@ -21,14 +21,14 @@ export default {
     variant: {
       control: {
         type: 'radio',
-        options: ['default', 'primary', 'danger', 'invisible', 'outline'],
       },
+      options: ['default', 'primary', 'danger', 'invisible', 'outline'],
     },
     alignContent: {
       control: {
         type: 'radio',
-        options: ['center', 'start'],
       },
+      options: ['center', 'start'],
     },
     block: {
       control: {
