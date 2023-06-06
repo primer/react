@@ -5,7 +5,7 @@ import classnames from 'classnames'
 import TextInputInnerVisualSlot from '../_TextInputInnerVisualSlot'
 import {useProvidedRefOrCreate} from '../hooks'
 import {Merge} from '../utils/types'
-import TextInputWrapper, {StyledWrapperProps} from '../_TextInputWrapper'
+import TextInputWrapper, {StyledWrapperProps} from '../internal/components/TextInputWrapper'
 import UnstyledTextInput from '../_UnstyledTextInput'
 import TextInputAction from '../_TextInputInnerAction'
 

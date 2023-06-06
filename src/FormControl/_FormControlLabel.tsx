@@ -1,5 +1,5 @@
 import React from 'react'
-import InputLabel from '../_InputLabel'
+import InputLabel from '../internal/components/InputLabel'
 import {SxProp} from '../sx'
 import {FormControlContext} from './FormControl'
 

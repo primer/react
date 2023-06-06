@@ -5,7 +5,7 @@ import theme from '../theme'
 import {SelectPanel} from '../SelectPanel'
 import {behavesAsComponent, checkExports} from '../utils/testing'
 import {BaseStyles, SSRProvider, ThemeProvider} from '..'
-import {ItemInput} from '../FilteredActionList'
+import {ItemInput} from '../deprecated/ActionList/List'
 
 expect.extend(toHaveNoViolations)
 
