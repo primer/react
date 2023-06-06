@@ -6,7 +6,7 @@ import TextInputInnerVisualSlot from '../_TextInputInnerVisualSlot'
 import {useProvidedRefOrCreate} from '../hooks'
 import {Merge} from '../utils/types'
 import TextInputWrapper, {StyledWrapperProps} from '../internal/components/TextInputWrapper'
-import UnstyledTextInput from '../_UnstyledTextInput'
+import UnstyledTextInput from '../internal/components/UnstyledTextInput'
 import TextInputAction from '../_TextInputInnerAction'
 
 export type TextInputNonPassthroughProps = {
