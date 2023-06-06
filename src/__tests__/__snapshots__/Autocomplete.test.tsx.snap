@@ -2144,7 +2144,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
   padding-bottom: 8px;
 }
 
-.c5 {
+.c8 {
   height: 20px;
   min-width: 16px;
   max-width: 20px;
@@ -2166,13 +2166,13 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
   margin-right: 8px;
 }
 
-.c5 rect {
+.c8 rect {
   fill: #ffffff;
   stroke: #d0d7de;
   shape-rendering: auto;
 }
 
-.c5 path {
+.c8 path {
   fill: #ffffff;
   box-shadow: 0 1px 0 rgba(31,35,40,0.04);
   opacity: 0;
@@ -2199,6 +2199,40 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
   -ms-flex-positive: 1;
   flex-grow: 1;
   font-weight: 400;
+}
+
+.c5 {
+  height: 20px;
+  min-width: 16px;
+  max-width: 20px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  margin-right: 8px;
+}
+
+.c5 rect {
+  fill: #0969da;
+  stroke: #0969da;
+  shape-rendering: auto;
+}
+
+.c5 path {
+  fill: #ffffff;
+  box-shadow: 0 1px 0 rgba(31,35,40,0.04);
+  opacity: 1;
 }
 
 .c0 {
@@ -2290,9 +2324,9 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
   --divider-color: transparent;
 }
 
-.c8:hover:not([aria-disabled]) + .c3,
-.c8:focus:not([aria-disabled]) + .c8,
-.c8[data-focus-visible-added] + li {
+.c9:hover:not([aria-disabled]) + .c3,
+.c9:focus:not([aria-disabled]) + .c9,
+.c9[data-focus-visible-added] + li {
   --divider-color: transparent;
 }
 
@@ -2479,7 +2513,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
             tabIndex={0}
           >
             <span
-              className="c5"
+              className="c8"
             >
               <svg
                 aria-hidden="true"
@@ -2524,7 +2558,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
             tabIndex={0}
           >
             <span
-              className="c5"
+              className="c8"
             >
               <svg
                 aria-hidden="true"
@@ -2569,7 +2603,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
             tabIndex={0}
           >
             <span
-              className="c5"
+              className="c8"
             >
               <svg
                 aria-hidden="true"
@@ -2614,7 +2648,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
             tabIndex={0}
           >
             <span
-              className="c5"
+              className="c8"
             >
               <svg
                 aria-hidden="true"
@@ -2659,7 +2693,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
             tabIndex={0}
           >
             <span
-              className="c5"
+              className="c8"
             >
               <svg
                 aria-hidden="true"
@@ -2704,7 +2738,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
             tabIndex={0}
           >
             <span
-              className="c5"
+              className="c8"
             >
               <svg
                 aria-hidden="true"
@@ -2749,7 +2783,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
             tabIndex={0}
           >
             <span
-              className="c5"
+              className="c8"
             >
               <svg
                 aria-hidden="true"
