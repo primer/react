@@ -7,11 +7,16 @@ import glob from 'fast-glob'
 import {visualizer} from 'rollup-plugin-visualizer'
 import postcss from 'rollup-plugin-postcss'
 import packageJson from './package.json'
+import postcssCustomPropertiesFallback from 'postcss-custom-properties-fallback'
+const importedJSONFromPrimitives = require('@primer/primitives/tokens-next-private/fallbacks/color-fallbacks.json')
 
 const input = new Set([
   // "exports"
   // "."
   'src/index.ts',
+
+  // "./experimental"
+  'src/experimental/index.ts',
 
   // "./drafts"
   'src/drafts/index.ts',
@@ -71,8 +76,6 @@ function createPackageRegex(name) {
 const baseConfig = {
   input: Array.from(input),
   plugins: [
-    // Note: it's important that the babel-plugin-preval is loaded first
-    // to work as-intended
     babel({
       extensions,
       exclude: /node_modules/,
@@ -90,7 +93,6 @@ const baseConfig = {
       ],
       plugins: [
         'macros',
-        'preval',
         'add-react-displayname',
         'dev-expression',
         'babel-plugin-styled-components',
@@ -106,16 +108,23 @@ const baseConfig = {
         ],
       ],
     }),
-    commonjs({
+    resolve({
       extensions,
     }),
-    resolve({
+    commonjs({
       extensions,
     }),
     postcss({
       extract: 'components.css',
       autoModules: false,
       modules: {generateScopedName: 'prc_[local]-[hash:base64:5]'},
+      plugins: [
+        postcssCustomPropertiesFallback({
+          importFrom: {
+            customProperties: importedJSONFromPrimitives,
+          },
+        }),
+      ],
     }),
   ],
 }

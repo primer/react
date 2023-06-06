@@ -57,7 +57,7 @@ export type {
   ActionListLeadingVisualProps,
   ActionListTrailingVisualProps,
 } from './ActionList'
-export {ActionMenu} from './ActionMenu'
+export {ActionMenu, MenuContext} from './ActionMenu'
 export type {ActionMenuProps, ActionMenuAnchorProps, ActionMenuButtonProps} from './ActionMenu'
 export {AnchoredOverlay} from './AnchoredOverlay'
 export type {AnchoredOverlayProps} from './AnchoredOverlay'
@@ -117,6 +117,8 @@ export type {
   NavListTrailingVisualProps,
   NavListDividerProps,
 } from './NavList'
+export {default as Octicon} from './Octicon'
+export type {OcticonProps} from './Octicon'
 export {default as Overlay} from './Overlay'
 export type {OverlayProps} from './Overlay'
 export {default as Pagehead} from './Pagehead'

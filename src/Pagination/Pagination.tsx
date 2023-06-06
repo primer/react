@@ -58,6 +58,18 @@ const Page = styled.a`
   }
 
   &[aria-disabled],
+  &[aria-disabled]:hover {
+    color: ${get('colors.primer.fg.disabled')}; // check
+    cursor: default;
+    background-color: transparent;
+    border-color: transparent;
+    font-size: inherit;
+    font-family: inherit;
+    padding-top: inherit;
+    padding-bottom: inherit;
+  }
+
+  &[aria-disabled],
   &[aria-disabled]:hover,
   &[role='presentation'],
   &[role='presentation']:hover {
