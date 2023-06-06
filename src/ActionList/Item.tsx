@@ -30,6 +30,8 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       id,
       role,
       _PrivateItemWrapper,
+      // @ts-ignore tabIndex is sometimes passed as a prop in dotcom.
+      tabIndex,
       ...props
     },
     forwardedRef,
@@ -91,7 +93,8 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       // @ts-ignore props.as may be defined, may not.
       props.as === 'a' ||
       menuContext.anchorId !== undefined ||
-      role?.match(/menuitem/)
+      role?.match(/menuitem/) ||
+      tabIndex !== undefined
 
     const styles = {
       position: 'relative',
