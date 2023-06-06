@@ -19,6 +19,12 @@ exports[`NavList renders a simple list 1`] = `
   -ms-flex-positive: 1;
   flex-grow: 1;
   min-width: 0;
+  border-style: none;
+  background-color: transparent;
+  cursor: inherit;
+  font-size: inherit;
+  color: #1F2328;
+  line-height: 20px;
 }
 
 .c6 {
@@ -85,6 +91,11 @@ exports[`NavList renders a simple list 1`] = `
   border: 0 solid;
   border-top-width: 0;
   border-color: var(--divider-color,transparent);
+}
+
+.c3 button[data-component="ActionList.Item--DividerContainer"] {
+  text-align: left;
+  padding: 0;
 }
 
 .c3:not(:first-of-type) {
@@ -167,6 +178,11 @@ exports[`NavList renders a simple list 1`] = `
   border: 0 solid;
   border-top-width: 0;
   border-color: var(--divider-color,transparent);
+}
+
+.c7 button[data-component="ActionList.Item--DividerContainer"] {
+  text-align: left;
+  padding: 0;
 }
 
 .c7:not(:first-of-type) {
@@ -389,6 +405,12 @@ exports[`NavList renders with groups 1`] = `
   -ms-flex-positive: 1;
   flex-grow: 1;
   min-width: 0;
+  border-style: none;
+  background-color: transparent;
+  cursor: inherit;
+  font-size: inherit;
+  color: #1F2328;
+  line-height: 20px;
 }
 
 .c10 {
@@ -491,6 +513,11 @@ exports[`NavList renders with groups 1`] = `
   border-color: var(--divider-color,transparent);
 }
 
+.c7 button[data-component="ActionList.Item--DividerContainer"] {
+  text-align: left;
+  padding: 0;
+}
+
 .c7:not(:first-of-type) {
   --divider-color: rgba(208,215,222,0.48);
 }
@@ -571,6 +598,11 @@ exports[`NavList renders with groups 1`] = `
   border: 0 solid;
   border-top-width: 0;
   border-color: var(--divider-color,transparent);
+}
+
+.c11 button[data-component="ActionList.Item--DividerContainer"] {
+  text-align: left;
+  padding: 0;
 }
 
 .c11:not(:first-of-type) {
@@ -806,7 +838,7 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   padding-bottom: 8px;
 }
 
-.c5 {
+.c6 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -819,9 +851,15 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   -ms-flex-positive: 1;
   flex-grow: 1;
   min-width: 0;
+  border-style: none;
+  background-color: transparent;
+  cursor: inherit;
+  font-size: inherit;
+  color: #1F2328;
+  line-height: 20px;
 }
 
-.c7 {
+.c8 {
   -webkit-box-flex: 1;
   -webkit-flex-grow: 1;
   -ms-flex-positive: 1;
@@ -833,7 +871,22 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   list-style: none;
 }
 
-.c6 {
+.c5 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  padding-left: 0;
+  padding-right: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+}
+
+.c7 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -844,13 +897,13 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   flex-grow: 1;
 }
 
-.c10 {
+.c11 {
   padding: 0;
   margin: 0;
   display: block;
 }
 
-.c8 {
+.c9 {
   height: 20px;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
@@ -860,7 +913,7 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   font-weight: initial;
 }
 
-.c9 {
+.c10 {
   -webkit-transform: rotate(180deg);
   -ms-transform: rotate(180deg);
   transform: rotate(180deg);
@@ -871,7 +924,7 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   padding-inline-start: 0;
 }
 
-.c11 {
+.c12 {
   position: relative;
   display: -webkit-box;
   display: -webkit-flex;
@@ -905,15 +958,15 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   background-color: rgba(208,215,222,0.24);
 }
 
-.c11[aria-disabled] {
+.c12[aria-disabled] {
   cursor: not-allowed;
 }
 
-.c11 [data-component="ActionList.Item--DividerContainer"] {
+.c12 [data-component="ActionList.Item--DividerContainer"] {
   position: relative;
 }
 
-.c11 [data-component="ActionList.Item--DividerContainer"]::before {
+.c12 [data-component="ActionList.Item--DividerContainer"]::before {
   content: " ";
   display: block;
   position: absolute;
@@ -924,27 +977,32 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   border-color: var(--divider-color,transparent);
 }
 
-.c11:not(:first-of-type) {
+.c12 button[data-component="ActionList.Item--DividerContainer"] {
+  text-align: left;
+  padding: 0;
+}
+
+.c12:not(:first-of-type) {
   --divider-color: rgba(208,215,222,0.48);
 }
 
-[data-component="ActionList.Divider"] + .c11 {
+[data-component="ActionList.Divider"] + .c12 {
   --divider-color: transparent !important;
 }
 
-.c11:hover:not([aria-disabled]),
-.c11:focus:not([aria-disabled]),
-.c11[data-focus-visible-added]:not([aria-disabled]) {
+.c12:hover:not([aria-disabled]),
+.c12:focus:not([aria-disabled]),
+.c12[data-focus-visible-added]:not([aria-disabled]) {
   --divider-color: transparent;
 }
 
-.c11:hover:not([aria-disabled]) + .c3,
-.c11:focus:not([aria-disabled]) + .c11,
-.c11[data-focus-visible-added] + li {
+.c12:hover:not([aria-disabled]) + .c3,
+.c12:focus:not([aria-disabled]) + .c12,
+.c12[data-focus-visible-added] + li {
   --divider-color: transparent;
 }
 
-.c11::after {
+.c12::after {
   position: absolute;
   top: calc(50% - 12px);
   left: -8px;
@@ -953,12 +1011,6 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   content: "";
   background-color: #0969da;
   border-radius: 6px;
-}
-
-.c13:hover:not([aria-disabled]) + .c3,
-.c13:focus:not([aria-disabled]) + .c13,
-.c13[data-focus-visible-added] + li {
-  --divider-color: transparent;
 }
 
 .c14:hover:not([aria-disabled]) + .c3,
@@ -994,6 +1046,12 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
 .c19:hover:not([aria-disabled]) + .c3,
 .c19:focus:not([aria-disabled]) + .c19,
 .c19[data-focus-visible-added] + li {
+  --divider-color: transparent;
+}
+
+.c20:hover:not([aria-disabled]) + .c3,
+.c20:focus:not([aria-disabled]) + .c20,
+.c20[data-focus-visible-added] + li {
   --divider-color: transparent;
 }
 
@@ -1048,6 +1106,11 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   border-color: var(--divider-color,transparent);
 }
 
+.c4 button[data-component="ActionList.Item--DividerContainer"] {
+  text-align: left;
+  padding: 0;
+}
+
 .c4:not(:first-of-type) {
   --divider-color: rgba(208,215,222,0.48);
 }
@@ -1068,13 +1131,13 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   --divider-color: transparent;
 }
 
-.c20:hover:not([aria-disabled]) + .c3,
-.c20:focus:not([aria-disabled]) + .c20,
-.c20[data-focus-visible-added] + li {
+.c21:hover:not([aria-disabled]) + .c3,
+.c21:focus:not([aria-disabled]) + .c21,
+.c21[data-focus-visible-added] + li {
   --divider-color: transparent;
 }
 
-.c12 {
+.c13 {
   color: #0969da;
   -webkit-text-decoration: none;
   text-decoration: none;
@@ -1096,12 +1159,12 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   font-weight: 400;
 }
 
-.c12:hover {
+.c13:hover {
   -webkit-text-decoration: underline;
   text-decoration: underline;
 }
 
-.c12:is(button) {
+.c13:is(button) {
   display: inline-block;
   padding: 0;
   font-size: inherit;
@@ -1118,33 +1181,33 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   appearance: none;
 }
 
-.c12:hover {
+.c13:hover {
   color: inherit;
   -webkit-text-decoration: none;
   text-decoration: none;
 }
 
 @media (hover:hover) and (pointer:fine) {
-  .c11:hover:not([aria-disabled]) {
+  .c12:hover:not([aria-disabled]) {
     background-color: rgba(208,215,222,0.32);
     color: #1F2328;
   }
 
-  .c11:focus-visible,
-  .c11 > a:focus-visible {
+  .c12:focus-visible,
+  .c12 > a:focus-visible {
     outline: none;
     border: 2 solid;
     box-shadow: 0 0 0 2px #0969da;
   }
 
-  .c11:active:not([aria-disabled]) {
+  .c12:active:not([aria-disabled]) {
     background-color: rgba(208,215,222,0.48);
     color: #1F2328;
   }
 }
 
 @media (forced-colors:active) {
-  .c11:focus {
+  .c12:focus {
     outline: solid 1px transparent !important;
   }
 }
@@ -1197,61 +1260,65 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
           >
             <div
               class="c5"
-              data-component="ActionList.Item--DividerContainer"
             >
               <div
                 class="c6"
+                data-component="ActionList.Item--DividerContainer"
               >
-                <span
+                <div
                   class="c7"
-                  id="react-aria-2"
                 >
-                  Item
-                </span>
-                <span
-                  class="c8"
-                >
-                  <svg
-                    aria-hidden="true"
-                    class="c9"
-                    fill="currentColor"
-                    focusable="false"
-                    height="16"
-                    role="img"
-                    style="display: inline-block; user-select: none; vertical-align: text-bottom; overflow: visible;"
-                    viewBox="0 0 16 16"
-                    width="16"
+                  <span
+                    class="c8"
+                    id="react-aria-2"
                   >
-                    <path
-                      d="M12.78 5.22a.749.749 0 0 1 0 1.06l-4.25 4.25a.749.749 0 0 1-1.06 0L3.22 6.28a.749.749 0 1 1 1.06-1.06L8 8.939l3.72-3.719a.749.749 0 0 1 1.06 0Z"
-                    />
-                  </svg>
-                </span>
+                    Item
+                  </span>
+                  <span
+                    class="c9"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      class="c10"
+                      fill="currentColor"
+                      focusable="false"
+                      height="16"
+                      role="img"
+                      style="display: inline-block; user-select: none; vertical-align: text-bottom; overflow: visible;"
+                      viewBox="0 0 16 16"
+                      width="16"
+                    >
+                      <path
+                        d="M12.78 5.22a.749.749 0 0 1 0 1.06l-4.25 4.25a.749.749 0 0 1-1.06 0L3.22 6.28a.749.749 0 1 1 1.06-1.06L8 8.939l3.72-3.719a.749.749 0 0 1 1.06 0Z"
+                      />
+                    </svg>
+                  </span>
+                </div>
               </div>
             </div>
           </button>
           <div>
             <ul
               aria-labelledby="react-aria-2"
-              class="c10"
+              class="c11"
               id="react-aria-3"
             >
               <li
-                class="c3 c11"
+                class="c3 c12"
               >
                 <a
                   aria-current="page"
                   aria-labelledby="react-aria-4 "
-                  class="c12"
+                  class="c13"
                   href="#"
                   tabindex="0"
                 >
                   <div
-                    class="c5"
+                    class="c6"
                     data-component="ActionList.Item--DividerContainer"
                   >
                     <span
-                      class="c7"
+                      class="c8"
                       id="react-aria-4"
                     >
                       Sub Item
@@ -1274,7 +1341,7 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   padding-bottom: 8px;
 }
 
-.c5 {
+.c6 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -1287,9 +1354,15 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   -ms-flex-positive: 1;
   flex-grow: 1;
   min-width: 0;
+  border-style: none;
+  background-color: transparent;
+  cursor: inherit;
+  font-size: inherit;
+  color: #1F2328;
+  line-height: 20px;
 }
 
-.c7 {
+.c8 {
   -webkit-box-flex: 1;
   -webkit-flex-grow: 1;
   -ms-flex-positive: 1;
@@ -1301,7 +1374,22 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   list-style: none;
 }
 
-.c6 {
+.c5 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  padding-left: 0;
+  padding-right: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+}
+
+.c7 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -1312,13 +1400,13 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   flex-grow: 1;
 }
 
-.c10 {
+.c11 {
   padding: 0;
   margin: 0;
   display: none;
 }
 
-.c8 {
+.c9 {
   height: 20px;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
@@ -1328,7 +1416,7 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   font-weight: initial;
 }
 
-.c9 {
+.c10 {
   -webkit-transform: rotate(0deg);
   -ms-transform: rotate(0deg);
   transform: rotate(0deg);
@@ -1339,7 +1427,7 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   padding-inline-start: 0;
 }
 
-.c11 {
+.c12 {
   position: relative;
   display: -webkit-box;
   display: -webkit-flex;
@@ -1373,15 +1461,15 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   background-color: rgba(208,215,222,0.24);
 }
 
-.c11[aria-disabled] {
+.c12[aria-disabled] {
   cursor: not-allowed;
 }
 
-.c11 [data-component="ActionList.Item--DividerContainer"] {
+.c12 [data-component="ActionList.Item--DividerContainer"] {
   position: relative;
 }
 
-.c11 [data-component="ActionList.Item--DividerContainer"]::before {
+.c12 [data-component="ActionList.Item--DividerContainer"]::before {
   content: " ";
   display: block;
   position: absolute;
@@ -1392,27 +1480,32 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   border-color: var(--divider-color,transparent);
 }
 
-.c11:not(:first-of-type) {
+.c12 button[data-component="ActionList.Item--DividerContainer"] {
+  text-align: left;
+  padding: 0;
+}
+
+.c12:not(:first-of-type) {
   --divider-color: rgba(208,215,222,0.48);
 }
 
-[data-component="ActionList.Divider"] + .c11 {
+[data-component="ActionList.Divider"] + .c12 {
   --divider-color: transparent !important;
 }
 
-.c11:hover:not([aria-disabled]),
-.c11:focus:not([aria-disabled]),
-.c11[data-focus-visible-added]:not([aria-disabled]) {
+.c12:hover:not([aria-disabled]),
+.c12:focus:not([aria-disabled]),
+.c12[data-focus-visible-added]:not([aria-disabled]) {
   --divider-color: transparent;
 }
 
-.c11:hover:not([aria-disabled]) + .c3,
-.c11:focus:not([aria-disabled]) + .c11,
-.c11[data-focus-visible-added] + li {
+.c12:hover:not([aria-disabled]) + .c3,
+.c12:focus:not([aria-disabled]) + .c12,
+.c12[data-focus-visible-added] + li {
   --divider-color: transparent;
 }
 
-.c11::after {
+.c12::after {
   position: absolute;
   top: calc(50% - 12px);
   left: -8px;
@@ -1421,12 +1514,6 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   content: "";
   background-color: #0969da;
   border-radius: 6px;
-}
-
-.c13:hover:not([aria-disabled]) + .c3,
-.c13:focus:not([aria-disabled]) + .c13,
-.c13[data-focus-visible-added] + li {
-  --divider-color: transparent;
 }
 
 .c14:hover:not([aria-disabled]) + .c3,
@@ -1468,6 +1555,12 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
 .c20:hover:not([aria-disabled]) + .c3,
 .c20:focus:not([aria-disabled]) + .c20,
 .c20[data-focus-visible-added] + li {
+  --divider-color: transparent;
+}
+
+.c21:hover:not([aria-disabled]) + .c3,
+.c21:focus:not([aria-disabled]) + .c21,
+.c21[data-focus-visible-added] + li {
   --divider-color: transparent;
 }
 
@@ -1523,6 +1616,11 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   border-color: var(--divider-color,transparent);
 }
 
+.c4 button[data-component="ActionList.Item--DividerContainer"] {
+  text-align: left;
+  padding: 0;
+}
+
 .c4:not(:first-of-type) {
   --divider-color: rgba(208,215,222,0.48);
 }
@@ -1554,7 +1652,7 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   border-radius: 6px;
 }
 
-.c12 {
+.c13 {
   color: #0969da;
   -webkit-text-decoration: none;
   text-decoration: none;
@@ -1576,12 +1674,12 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   font-weight: 400;
 }
 
-.c12:hover {
+.c13:hover {
   -webkit-text-decoration: underline;
   text-decoration: underline;
 }
 
-.c12:is(button) {
+.c13:is(button) {
   display: inline-block;
   padding: 0;
   font-size: inherit;
@@ -1598,33 +1696,33 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   appearance: none;
 }
 
-.c12:hover {
+.c13:hover {
   color: inherit;
   -webkit-text-decoration: none;
   text-decoration: none;
 }
 
 @media (hover:hover) and (pointer:fine) {
-  .c11:hover:not([aria-disabled]) {
+  .c12:hover:not([aria-disabled]) {
     background-color: rgba(208,215,222,0.32);
     color: #1F2328;
   }
 
-  .c11:focus-visible,
-  .c11 > a:focus-visible {
+  .c12:focus-visible,
+  .c12 > a:focus-visible {
     outline: none;
     border: 2 solid;
     box-shadow: 0 0 0 2px #0969da;
   }
 
-  .c11:active:not([aria-disabled]) {
+  .c12:active:not([aria-disabled]) {
     background-color: rgba(208,215,222,0.48);
     color: #1F2328;
   }
 }
 
 @media (forced-colors:active) {
-  .c11:focus {
+  .c12:focus {
     outline: solid 1px transparent !important;
   }
 }
@@ -1677,61 +1775,65 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
           >
             <div
               class="c5"
-              data-component="ActionList.Item--DividerContainer"
             >
               <div
                 class="c6"
+                data-component="ActionList.Item--DividerContainer"
               >
-                <span
+                <div
                   class="c7"
-                  id="react-aria-2"
                 >
-                  Item
-                </span>
-                <span
-                  class="c8"
-                >
-                  <svg
-                    aria-hidden="true"
-                    class="c9"
-                    fill="currentColor"
-                    focusable="false"
-                    height="16"
-                    role="img"
-                    style="display: inline-block; user-select: none; vertical-align: text-bottom; overflow: visible;"
-                    viewBox="0 0 16 16"
-                    width="16"
+                  <span
+                    class="c8"
+                    id="react-aria-2"
                   >
-                    <path
-                      d="M12.78 5.22a.749.749 0 0 1 0 1.06l-4.25 4.25a.749.749 0 0 1-1.06 0L3.22 6.28a.749.749 0 1 1 1.06-1.06L8 8.939l3.72-3.719a.749.749 0 0 1 1.06 0Z"
-                    />
-                  </svg>
-                </span>
+                    Item
+                  </span>
+                  <span
+                    class="c9"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      class="c10"
+                      fill="currentColor"
+                      focusable="false"
+                      height="16"
+                      role="img"
+                      style="display: inline-block; user-select: none; vertical-align: text-bottom; overflow: visible;"
+                      viewBox="0 0 16 16"
+                      width="16"
+                    >
+                      <path
+                        d="M12.78 5.22a.749.749 0 0 1 0 1.06l-4.25 4.25a.749.749 0 0 1-1.06 0L3.22 6.28a.749.749 0 1 1 1.06-1.06L8 8.939l3.72-3.719a.749.749 0 0 1 1.06 0Z"
+                      />
+                    </svg>
+                  </span>
+                </div>
               </div>
             </div>
           </button>
           <div>
             <ul
               aria-labelledby="react-aria-2"
-              class="c10"
+              class="c11"
               id="react-aria-3"
             >
               <li
-                class="c3 c11"
+                class="c3 c12"
               >
                 <a
                   aria-current="page"
                   aria-labelledby="react-aria-4 "
-                  class="c12"
+                  class="c13"
                   href="#"
                   tabindex="0"
                 >
                   <div
-                    class="c5"
+                    class="c6"
                     data-component="ActionList.Item--DividerContainer"
                   >
                     <span
-                      class="c7"
+                      class="c8"
                       id="react-aria-4"
                     >
                       Sub Item
