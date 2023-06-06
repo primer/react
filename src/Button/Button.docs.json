@@ -13,7 +13,7 @@
     },
     {
       "name": "variant",
-      "type": "| 'default'\n| 'primary'\n| 'danger'\n| 'outline'\n| 'invisible'",
+      "type": "| 'default'\n| 'primary'\n| 'danger'\n| 'outline'\n| 'invisible'\n| 'link'",
       "defaultValue": "'default'",
       "description": "Change the visual style of the button."
     },
