@@ -161,6 +161,36 @@ If a `NavList.Item` contains a `NavList.SubNav`, the `NavList.Item` will render 
 
 </Note>
 
+### With nested sub-items
+
+```jsx live drafts
+<NavList>
+  <NavList.Item href="/branches">Branches</NavList.Item>
+  <NavList.Item href="/tags">Tags</NavList.Item>
+  <NavList.Item>
+    Actions
+    <NavList.SubNav>
+      <NavList.Item href="/actions" aria-current="page">
+        General
+      </NavList.Item>
+      <NavList.Item href="/actions/runners">
+        Runners
+        <NavList.SubNav>
+          <NavList.Item href="/actions/runners/runner-1">Runner 1</NavList.Item>
+          <NavList.Item href="/actions/runners/runner-2">Runner 2</NavList.Item>
+        </NavList.SubNav>
+      </NavList.Item>
+    </NavList.SubNav>
+  </NavList.Item>
+</NavList>
+```
+
+<Note variant="warning">
+
+We only allow for up to 4 levels of nested subnavs. If more than 4 levels is required, it's a good sign that the navigation design needs to be rethought.
+
+</Note>
+
 ### With a divider
 
 ```jsx live drafts
