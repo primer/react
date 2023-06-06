@@ -220,8 +220,8 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       : {
           sx: {
             display: 'flex',
-            paddingX: isTopLevelInteractive() ? 0 : 2,
-            paddingY: isTopLevelInteractive() ? 0 : '6px',
+            paddingX: styles.paddingX,
+            paddingY: styles.paddingY,
             flexGrow: 1,
           },
         }
