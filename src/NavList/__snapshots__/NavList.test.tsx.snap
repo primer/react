@@ -193,7 +193,7 @@ exports[`NavList renders a simple list 1`] = `
   color: #0969da;
   -webkit-text-decoration: none;
   text-decoration: none;
-  padding-left: 0;
+  padding-left: 8px;
   padding-right: 8px;
   padding-top: 6px;
   padding-bottom: 6px;
@@ -597,7 +597,7 @@ exports[`NavList renders with groups 1`] = `
   color: #0969da;
   -webkit-text-decoration: none;
   text-decoration: none;
-  padding-left: 0;
+  padding-left: 8px;
   padding-right: 8px;
   padding-top: 6px;
   padding-bottom: 6px;
@@ -1003,7 +1003,7 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  padding-left: 0;
+  padding-left: 8px;
   padding-right: 8px;
   padding-top: 6px;
   padding-bottom: 6px;
@@ -1477,7 +1477,7 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  padding-left: 0;
+  padding-left: 8px;
   padding-right: 8px;
   padding-top: 6px;
   padding-bottom: 6px;
