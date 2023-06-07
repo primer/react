@@ -270,9 +270,9 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
       onActiveDescendantChanged: (current, _previous, directlyActivated) => {
         activeDescendantRef.current = current || null
         if (current) {
-          const selectedItem = allItemsToRenderRef.current.find(
-            item => item.id.toString() === current.getAttribute('data-id'),
-          )
+          const selectedItem = allItemsToRenderRef.current.find(item => {
+            return item.id === current.closest('li')?.getAttribute('data-id')
+          })
 
           setHighlightedItem(selectedItem)
           setIsMenuDirectlyActivated(directlyActivated)

@@ -685,6 +685,12 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
   --divider-color: transparent;
 }
 
+.c10:hover:not([aria-disabled]) + .c3,
+.c10:focus:not([aria-disabled]) + .c10,
+.c10[data-focus-visible-added] + li {
+  --divider-color: transparent;
+}
+
 @media (hover:hover) and (pointer:fine) {
   .c4:hover:not([aria-disabled]) {
     background-color: rgba(208,215,222,0.32);
@@ -1589,6 +1595,12 @@ exports[`snapshots renders a multiselect input 1`] = `
   --divider-color: transparent;
 }
 
+.c9:hover:not([aria-disabled]) + .c3,
+.c9:focus:not([aria-disabled]) + .c9,
+.c9[data-focus-visible-added] + li {
+  --divider-color: transparent;
+}
+
 @media (hover:hover) and (pointer:fine) {
   .c4:hover:not([aria-disabled]) {
     background-color: rgba(208,215,222,0.32);
@@ -2453,6 +2465,12 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
   --divider-color: transparent;
 }
 
+.c10:hover:not([aria-disabled]) + .c3,
+.c10:focus:not([aria-disabled]) + .c10,
+.c10[data-focus-visible-added] + li {
+  --divider-color: transparent;
+}
+
 @media (hover:hover) and (pointer:fine) {
   .c4:hover:not([aria-disabled]) {
     background-color: rgba(208,215,222,0.32);
@@ -3271,6 +3289,12 @@ exports[`snapshots renders a single select input 1`] = `
   --divider-color: transparent;
 }
 
+.c9:hover:not([aria-disabled]) + .c3,
+.c9:focus:not([aria-disabled]) + .c9,
+.c9[data-focus-visible-added] + li {
+  --divider-color: transparent;
+}
+
 @media (hover:hover) and (pointer:fine) {
   .c4:hover:not([aria-disabled]) {
     background-color: rgba(208,215,222,0.32);
@@ -3754,6 +3778,12 @@ exports[`snapshots renders with a custom text input component 1`] = `
 .c4:hover:not([aria-disabled]) + .c3,
 .c4:focus:not([aria-disabled]) + .c4,
 .c4[data-focus-visible-added] + li {
+  --divider-color: transparent;
+}
+
+.c9:hover:not([aria-disabled]) + .c3,
+.c9:focus:not([aria-disabled]) + .c9,
+.c9[data-focus-visible-added] + li {
   --divider-color: transparent;
 }
 
