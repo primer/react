@@ -3,6 +3,7 @@
 
 const isEmpty = require('lodash.isempty')
 const isObject = require('lodash.isobject')
+const chroma = require('chroma-js')
 
 function fontStack(fonts) {
   return fonts.map(font => (font.includes(' ') ? `"${font}"` : font)).join(', ')
@@ -17,11 +18,7 @@ function isShadowValue(value) {
 }
 
 function isColorValue(value) {
-  if (isShadowValue(value)) return false
-  if (value.startsWith('#')) return true // #hex
-  if (value.startsWith('rgb')) return true // rgb, rgba
-  if (value.startsWith('hsl')) return true // hsl, hsla
-  return false
+  return chroma.valid(value)
 }
 
 function filterObject(obj, predicate) {

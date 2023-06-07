@@ -6,12 +6,6 @@
   "stories": [],
   "props": [
     {
-      "name": "title",
-      "type": "string | React.ReactElement",
-      "defaultValue": "\"Select an item\" or \"Select items\"",
-      "description": "A descriptive title for the panel"
-    },
-    {
       "name": "onOpenChange",
       "type": "( open: boolean, gesture: | 'anchor-click' | 'anchor-key-press' | 'click-outside' | 'escape' | 'selection' ) => void",
       "defaultValue": "",
@@ -23,12 +17,6 @@
       "type": "string",
       "defaultValue": "",
       "description": ""
-    },
-    {
-      "name": "inputLabel",
-      "type": "string",
-      "defaultValue": "Same as placeholderText",
-      "description": "The aria-label for the filter input"
     },
     {
       "name": "overlayProps",

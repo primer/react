@@ -1,2 +1,2 @@
 export {FilteredActionList} from './FilteredActionList'
-export type {FilteredActionListProps, ItemInput} from './FilteredActionList'
+export type {FilteredActionListProps} from './FilteredActionList'
