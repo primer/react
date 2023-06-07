@@ -50,9 +50,9 @@ export const Default = () => {
   return (
     <>
       <h1>Multi Select Panel</h1>
-      <div>Please select labels that describe your issue:</div>
       <SelectPanel
         title="Select labels"
+        subtitle="Use labels to organize issues and pull requests"
         renderAnchor={({children, 'aria-labelledby': ariaLabelledBy, ...anchorProps}) => (
           <Button trailingAction={TriangleDownIcon} aria-labelledby={` ${ariaLabelledBy}`} {...anchorProps}>
             {children ?? 'Select Labels'}
@@ -66,7 +66,7 @@ export const Default = () => {
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
         showItemDividers={true}
-        overlayProps={{width: 'small', height: 'xsmall'}}
+        overlayProps={{width: 'medium', height: 'medium'}}
       />
     </>
   )
