@@ -107,7 +107,20 @@ const Root: React.FC<React.PropsWithChildren<PageLayoutProps>> = ({
           }}
         >
           {slots.header}
-          <Box sx={{display: 'flex', flex: '1 1 100%', flexWrap: 'wrap', maxWidth: '100%'}}>{rest}</Box>
+          <Box
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            sx={(theme: any) => ({
+              display: 'flex',
+              flex: '1 1 100%',
+              flexWrap: 'wrap',
+              maxWidth: '100%',
+              [`@media screen and (min-width: ${theme.breakpoints[1]})`]: {
+                columnGap: SPACING_MAP[columnGap],
+              },
+            })}
+          >
+            {rest}
+          </Box>
           {slots.footer}
         </Box>
       </Box>
@@ -427,7 +440,6 @@ const Content: React.FC<React.PropsWithChildren<PageLayoutContentProps>> = ({
         {
           display: isHidden ? 'none' : 'flex',
           flexDirection: 'column',
-          order: REGION_ORDER.content,
           // Set flex-basis to 0% to allow flex-grow to control the width of the content region.
           // Without this, the content region could wrap onto a different line
           // than the pane region on wide viewports if its contents are too wide.
@@ -529,7 +541,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
     {
       'aria-label': label,
       'aria-labelledby': labelledBy,
-      position: responsivePosition = 'end',
+      position: responsivePosition = undefined,
       positionWhenNarrow = 'inherit',
       width = 'medium',
       minWidth = 256,
@@ -547,6 +559,13 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
     },
     forwardRef,
   ) => {
+    if (responsivePosition !== undefined) {
+      // eslint-disable-next-line no-console
+      console.warn(
+        'The `position` prop will be removed on the next major version. You should order your markup as you want it to render instead.',
+      )
+    }
+
     // Combine position and positionWhenNarrow for backwards compatibility
     const positionProp =
       !isResponsiveValue(responsivePosition) && positionWhenNarrow !== 'inherit'
@@ -677,7 +696,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
             {
               // Narrow viewports
               display: isHidden ? 'none' : 'flex',
-              order: panePositions[position],
+              order: position !== undefined ? panePositions[position] : undefined,
               width: '100%',
               marginX: 0,
               ...(position === 'end'
@@ -697,9 +716,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
                       maxHeight: 'var(--sticky-pane-height)',
                     }
                   : {}),
-                ...(position === 'end'
-                  ? {flexDirection: 'row', marginLeft: SPACING_MAP[columnGap]}
-                  : {flexDirection: 'row-reverse', marginRight: SPACING_MAP[columnGap]}),
+                ...(position === 'end' ? {flexDirection: 'row'} : {flexDirection: 'row-reverse'}),
               },
             },
             sx,
