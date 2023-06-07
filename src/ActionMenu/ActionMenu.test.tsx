@@ -3,7 +3,7 @@ import userEvent from '@testing-library/user-event'
 import {axe, toHaveNoViolations} from 'jest-axe'
 import React from 'react'
 import theme from '../theme'
-import {ActionMenu, ActionList, BaseStyles, ThemeProvider, SSRProvider} from '..'
+import {ActionMenu, MenuContext, ActionList, BaseStyles, ThemeProvider, SSRProvider} from '..'
 import {behavesAsComponent, checkExports} from '../utils/testing'
 import {SingleSelect} from '../ActionMenu/ActionMenu.features.stories'
 import {MixedSelection} from '../ActionMenu/ActionMenu.examples.stories'
@@ -22,7 +22,7 @@ function Example(): JSX.Element {
                 <ActionList.Divider />
                 <ActionList.Item>Copy link</ActionList.Item>
                 <ActionList.Item>Edit file</ActionList.Item>
-                <ActionList.Item variant="danger" onClick={event => event.preventDefault()}>
+                <ActionList.Item variant="danger" onSelect={event => event.preventDefault()}>
                   Delete file
                 </ActionList.Item>
                 <ActionList.LinkItem href="//github.com" title="anchor" aria-keyshortcuts="s">
@@ -47,6 +47,7 @@ describe('ActionMenu', () => {
   checkExports('ActionMenu', {
     default: undefined,
     ActionMenu,
+    MenuContext,
   })
 
   it('should open Menu on MenuButton click', async () => {
