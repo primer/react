@@ -5,6 +5,7 @@ import {get} from '../constants'
 import sx, {SxProp} from '../sx'
 import getGlobalFocusStyles from '../_getGlobalFocusStyles'
 import {buildComponentData, buildPaginationModel} from './model'
+import {ResponsiveValue, viewportRanges} from '../hooks/useResponsiveValue'
 
 const Page = styled.a`
   display: inline-block;
@@ -78,6 +79,22 @@ const Page = styled.a`
     background-color: transparent;
   }
 
+  ${
+    // Hides pages based on the viewport range passed to `showPages`
+    Object.keys(viewportRanges)
+      .map(viewportRangeKey => {
+        return `
+      @media (${viewportRanges[viewportRangeKey as keyof typeof viewportRanges]}) {
+        &[data-hidden-viewport-ranges*='${viewportRangeKey}'],
+        &[data-hidden-viewport-ranges*='${viewportRangeKey}'] + .paginationBreak {
+          display: none;
+        }
+      }
+    `
+      })
+      .join('')
+  }
+
   @supports (clip-path: polygon(50% 0, 100% 50%, 50% 100%)) {
     &[rel='prev']::before,
     &[rel='next']::after {
@@ -130,7 +147,7 @@ type UsePaginationPagesParameters = {
   onPageChange: (e: React.MouseEvent, n: number) => void
   hrefBuilder: (n: number) => string
   marginPageCount: number
-  showPages?: boolean
+  showPages?: PaginationProps['showPages']
   surroundingPageCount: number
 }
 
@@ -147,7 +164,7 @@ function usePaginationPages({
   const pageChange = React.useCallback((n: number) => (e: React.MouseEvent) => onPageChange(e, n), [onPageChange])
 
   const model = React.useMemo(() => {
-    return buildPaginationModel(pageCount, currentPage, !!showPages, marginPageCount, surroundingPageCount)
+    return buildPaginationModel(pageCount, currentPage, marginPageCount, surroundingPageCount, showPages)
   }, [pageCount, currentPage, showPages, marginPageCount, surroundingPageCount])
 
   const children = React.useMemo(() => {
@@ -178,7 +195,7 @@ export type PaginationProps = {
   onPageChange?: (e: React.MouseEvent, n: number) => void
   hrefBuilder?: (n: number) => string
   marginPageCount?: number
-  showPages?: boolean
+  showPages?: boolean | ResponsiveValue<boolean>
   surroundingPageCount?: number
 }
 

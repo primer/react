@@ -1,11 +1,12 @@
 import {ChevronLeftIcon, ChevronRightIcon} from '@primer/octicons-react'
-import React, {useState} from 'react'
+import React, {useCallback, useState} from 'react'
 import styled from 'styled-components'
 import {get} from '../constants'
 import {Button} from '../internal/components/ButtonReset'
 import {LiveRegion, LiveRegionOutlet, Message} from '../internal/components/LiveRegion'
 import {VisuallyHidden} from '../internal/components/VisuallyHidden'
 import {warning} from '../utils/warning'
+import {ResponsiveValue, viewportRanges} from '../hooks/useResponsiveValue'
 
 const StyledPagination = styled.nav`
   display: flex;
@@ -93,6 +94,22 @@ const StyledPagination = styled.nav`
     min-height: 2rem;
     user-select: none;
   }
+
+  ${
+    // Hides pages based on the viewport range passed to `showPages`
+    Object.keys(viewportRanges)
+      .map(viewportRangeKey => {
+        return `
+      @media (${viewportRanges[viewportRangeKey as keyof typeof viewportRanges]}) {
+        .TablePaginationStep[data-hidden-viewport-ranges*='${viewportRangeKey}'],
+        .TablePaginationStep[data-hidden-viewport-ranges*='${viewportRangeKey}'] + .TablePaginationTruncationStep {
+          display: none;
+        }
+      }
+    `
+      })
+      .join('')
+  }
 `
 
 export type PaginationProps = Omit<React.ComponentPropsWithoutRef<'nav'>, 'onChange'> & {
@@ -124,6 +141,11 @@ export type PaginationProps = Omit<React.ComponentPropsWithoutRef<'nav'>, 'onCha
   pageSize?: number
 
   /**
+   * Whether to show the page numbers
+   */
+  showPages?: boolean | ResponsiveValue<boolean>
+
+  /**
    * Specify the total number of items within the collection
    */
   totalCount: number
@@ -141,6 +163,7 @@ export function Pagination({
   id,
   onChange,
   pageSize = 25,
+  showPages = {narrow: false},
   totalCount,
 }: PaginationProps) {
   const {
@@ -171,6 +194,19 @@ export function Pagination({
   const offsetEndIndex = offsetStartIndex + truncatedPageCount - 1
   const hasLeadingTruncation = offsetStartIndex >= 2
   const hasTrailingTruncation = pageCount - 1 - offsetEndIndex > 1
+  const getViewportRangesToHidePages = useCallback(() => {
+    if (typeof showPages !== 'boolean') {
+      return Object.keys(showPages).filter(key => !showPages[key as keyof typeof viewportRanges]) as Array<
+        keyof typeof viewportRanges
+      >
+    }
+
+    if (showPages) {
+      return []
+    } else {
+      return Object.keys(viewportRanges) as Array<keyof typeof viewportRanges>
+    }
+  }, [showPages])
 
   return (
     <LiveRegion>
@@ -202,7 +238,7 @@ export function Pagination({
             </Button>
           </Step>
           {pageCount > 0 ? (
-            <Step>
+            <Step hiddenViewportRanges={getViewportRangesToHidePages()}>
               <Page
                 active={pageIndex === 0}
                 onClick={() => {
@@ -229,7 +265,7 @@ export function Pagination({
 
                 const page = offsetStartIndex + i
                 return (
-                  <Step key={i}>
+                  <Step key={i} hiddenViewportRanges={getViewportRangesToHidePages()}>
                     <Page
                       active={pageIndex === page}
                       onClick={() => {
@@ -246,7 +282,7 @@ export function Pagination({
               })
             : null}
           {pageCount > 1 ? (
-            <Step>
+            <Step hiddenViewportRanges={getViewportRangesToHidePages()}>
               <Page
                 active={pageIndex === pageCount - 1}
                 onClick={() => {
@@ -317,12 +353,20 @@ function TruncationStep() {
   )
 }
 
-function Step({children}: React.PropsWithChildren) {
-  return <li className="TablePaginationStep">{children}</li>
+function Step({
+  children,
+  hiddenViewportRanges,
+}: React.PropsWithChildren & {hiddenViewportRanges?: Array<keyof typeof viewportRanges>}) {
+  return (
+    <li className="TablePaginationStep" data-hidden-viewport-ranges={hiddenViewportRanges?.join(' ')}>
+      {children}
+    </li>
+  )
 }
 
 type PageProps = React.PropsWithChildren<{
   active: boolean
+  hiddenViewportRanges?: Array<keyof typeof viewportRanges>
   onClick: () => void
 }>
 
