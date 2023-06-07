@@ -345,7 +345,7 @@ WithTokenInput.parameters = {
 
 export const AddNewItem = (args: FormControlArgs<AutocompleteArgs>) => {
   const {parentArgs, labelArgs, captionArgs, validationArgs} = getFormControlArgsByChildComponent(args)
-  const {menuArgs, overlayArgs, textInputArgs} = getArgsByChildComponent(args)
+  const {menuArgs, overlayArgs, textInputWithTokensArgs} = getArgsByChildComponent(args)
   const [localItemsState, setLocalItemsState] = useState<Datum[]>(items)
   const [filterVal, setFilterVal] = useState<string>('')
   const [tokens, setTokens] = useState<Datum[]>(mockTokens)
@@ -395,10 +395,10 @@ export const AddNewItem = (args: FormControlArgs<AutocompleteArgs>) => {
         <Autocomplete>
           <Autocomplete.Input
             as={TextInputTokens}
-            tokens={[]}
+            tokens={tokens}
             onTokenRemove={onTokenRemove}
             onChange={handleChange}
-            {...textInputArgs}
+            {...textInputWithTokensArgs}
           />
           <Autocomplete.Overlay {...overlayArgs}>
             <Autocomplete.Menu

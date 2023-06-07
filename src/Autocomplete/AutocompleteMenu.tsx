@@ -46,7 +46,6 @@ function getItemById<T extends AutocompleteMenuItem>(itemId: string, items: T[])
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type AutocompleteItemProps<T = Record<string, any>> = AutocompleteMenuItem & {metadata?: T}
 
-// TODO: we should make `aria-labelledby` required for a11y
 export type AutocompleteMenuInternalProps<T extends AutocompleteItemProps> = {
   /**
    * A menu item that is used to allow users make a selection that is not available in the array passed to the `items` prop.
@@ -111,7 +110,9 @@ export type AutocompleteMenuInternalProps<T extends AutocompleteItemProps> = {
    * scrolls when the user highlights an item in the menu that is outside the scroll container
    */
   customScrollContainerRef?: React.MutableRefObject<HTMLElement | null>
-} & Pick<React.AriaAttributes, 'aria-labelledby'>
+  // TODO: instead of making this required, maybe we can infer aria-labelledby from the ID of the text input somehow?
+  ['aria-labelledby']: string
+}
 
 function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMenuInternalProps<T>) {
   const autocompleteContext = useContext(AutocompleteContext)
@@ -258,27 +259,6 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
     allItemsToRenderRef.current = allItemsToRender
   })
 
-  const getItemsAsChildren = () => {
-    return allItemsToRender.map(item => {
-      const {id, onAction, text, leadingVisual: LeadingVisual, trailingVisual: TrailingVisual, ...itemProps} = item
-      return (
-        <ActionList.Item key={id} onSelect={() => onAction(item)} {...itemProps} id={id}>
-          {LeadingVisual && (
-            <ActionList.LeadingVisual>
-              <LeadingVisual />
-            </ActionList.LeadingVisual>
-          )}
-          {text}
-          {TrailingVisual && (
-            <ActionList.TrailingVisual>
-              <TrailingVisual />
-            </ActionList.TrailingVisual>
-          )}
-        </ActionList.Item>
-      )
-    })
-  }
-
   useFocusZone(
     {
       containerRef: listContainerRef,
@@ -290,8 +270,6 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
       onActiveDescendantChanged: (current, _previous, directlyActivated) => {
         activeDescendantRef.current = current || null
         if (current) {
-          // NOTE: 'data-id' doesn't exist on the new ActionList items,
-          // I added it manually just to see if it would work
           const selectedItem = allItemsToRenderRef.current.find(
             item => item.id.toString() === current.getAttribute('data-id'),
           )
@@ -339,6 +317,10 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
     }
   }, [selectedItemIds, setSelectedItemLength])
 
+  if (selectionVariant === 'single' && selectedItemIds.length > 1) {
+    throw new Error('Autocomplete: selectionVariant "single" cannot be used with multiple selected items')
+  }
+
   return (
     <VisuallyHidden isVisible={showMenu}>
       {loading ? (
@@ -349,12 +331,36 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
         <div ref={listContainerRef}>
           {allItemsToRender.length ? (
             <ActionList
-              selectionVariant="multiple" // TODO: make this configurable
+              selectionVariant={selectionVariant} // TODO: make this configurable
               role="listbox"
               id={`${id}-listbox`}
               aria-labelledby={ariaLabelledBy}
             >
-              {getItemsAsChildren()}
+              {allItemsToRender.map(item => {
+                const {
+                  id,
+                  onAction,
+                  text,
+                  leadingVisual: LeadingVisual,
+                  trailingVisual: TrailingVisual,
+                  ...itemProps
+                } = item
+                return (
+                  <ActionList.Item key={id} onSelect={() => onAction(item)} {...itemProps} id={id} data-id={id}>
+                    {LeadingVisual && (
+                      <ActionList.LeadingVisual>
+                        <LeadingVisual />
+                      </ActionList.LeadingVisual>
+                    )}
+                    {text}
+                    {TrailingVisual && (
+                      <ActionList.TrailingVisual>
+                        <TrailingVisual />
+                      </ActionList.TrailingVisual>
+                    )}
+                  </ActionList.Item>
+                )
+              })}
             </ActionList>
           ) : (
             <Box p={3}>{emptyStateText}</Box>

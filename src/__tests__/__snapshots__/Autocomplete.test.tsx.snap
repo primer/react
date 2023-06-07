@@ -486,6 +486,29 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
   padding-bottom: 8px;
 }
 
+.c6 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  min-width: 0;
+}
+
+.c7 {
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  font-weight: 400;
+}
+
 .c5 {
   height: 20px;
   min-width: 16px;
@@ -518,29 +541,6 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
   fill: #ffffff;
   box-shadow: 0 1px 0 rgba(31,35,40,0.04);
   opacity: 0;
-}
-
-.c6 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
-  min-width: 0;
-}
-
-.c7 {
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
-  font-weight: 400;
 }
 
 .c8 {
@@ -1364,6 +1364,29 @@ exports[`snapshots renders a multiselect input 1`] = `
   padding-bottom: 8px;
 }
 
+.c6 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  min-width: 0;
+}
+
+.c7 {
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  font-weight: 400;
+}
+
 .c5 {
   height: 20px;
   min-width: 16px;
@@ -1396,29 +1419,6 @@ exports[`snapshots renders a multiselect input 1`] = `
   fill: #ffffff;
   box-shadow: 0 1px 0 rgba(31,35,40,0.04);
   opacity: 0;
-}
-
-.c6 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
-  min-width: 0;
-}
-
-.c7 {
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
-  font-weight: 400;
 }
 
 .c0 {
@@ -2144,6 +2144,29 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
   padding-bottom: 8px;
 }
 
+.c6 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  min-width: 0;
+}
+
+.c7 {
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  font-weight: 400;
+}
+
 .c8 {
   height: 20px;
   min-width: 16px;
@@ -2176,29 +2199,6 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
   fill: #ffffff;
   box-shadow: 0 1px 0 rgba(31,35,40,0.04);
   opacity: 0;
-}
-
-.c6 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
-  min-width: 0;
-}
-
-.c7 {
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
-  font-weight: 400;
 }
 
 .c5 {
@@ -2980,18 +2980,6 @@ exports[`snapshots renders a single select input 1`] = `
   margin-right: 8px;
 }
 
-.c5 rect {
-  fill: #ffffff;
-  stroke: #d0d7de;
-  shape-rendering: auto;
-}
-
-.c5 path {
-  fill: #ffffff;
-  box-shadow: 0 1px 0 rgba(31,35,40,0.04);
-  opacity: 0;
-}
-
 .c6 {
   display: -webkit-box;
   display: -webkit-flex;
@@ -3159,28 +3147,7 @@ exports[`snapshots renders a single select input 1`] = `
           >
             <span
               className="c5"
-            >
-              <svg
-                aria-hidden="true"
-                height="16"
-                viewBox="0 0 16 16"
-                width="16"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <rect
-                  height="12"
-                  rx="4"
-                  width="12"
-                  x="2"
-                  y="2"
-                />
-                <path
-                  d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
-                  fillRule="evenodd"
-                  strokeWidth="0"
-                />
-              </svg>
-            </span>
+            />
             <div
               className="c6"
               data-component="ActionList.Item--DividerContainer"
@@ -3204,28 +3171,7 @@ exports[`snapshots renders a single select input 1`] = `
           >
             <span
               className="c5"
-            >
-              <svg
-                aria-hidden="true"
-                height="16"
-                viewBox="0 0 16 16"
-                width="16"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <rect
-                  height="12"
-                  rx="4"
-                  width="12"
-                  x="2"
-                  y="2"
-                />
-                <path
-                  d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
-                  fillRule="evenodd"
-                  strokeWidth="0"
-                />
-              </svg>
-            </span>
+            />
             <div
               className="c6"
               data-component="ActionList.Item--DividerContainer"
@@ -3249,28 +3195,7 @@ exports[`snapshots renders a single select input 1`] = `
           >
             <span
               className="c5"
-            >
-              <svg
-                aria-hidden="true"
-                height="16"
-                viewBox="0 0 16 16"
-                width="16"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <rect
-                  height="12"
-                  rx="4"
-                  width="12"
-                  x="2"
-                  y="2"
-                />
-                <path
-                  d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
-                  fillRule="evenodd"
-                  strokeWidth="0"
-                />
-              </svg>
-            </span>
+            />
             <div
               className="c6"
               data-component="ActionList.Item--DividerContainer"
@@ -3294,28 +3219,7 @@ exports[`snapshots renders a single select input 1`] = `
           >
             <span
               className="c5"
-            >
-              <svg
-                aria-hidden="true"
-                height="16"
-                viewBox="0 0 16 16"
-                width="16"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <rect
-                  height="12"
-                  rx="4"
-                  width="12"
-                  x="2"
-                  y="2"
-                />
-                <path
-                  d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
-                  fillRule="evenodd"
-                  strokeWidth="0"
-                />
-              </svg>
-            </span>
+            />
             <div
               className="c6"
               data-component="ActionList.Item--DividerContainer"
@@ -3339,28 +3243,7 @@ exports[`snapshots renders a single select input 1`] = `
           >
             <span
               className="c5"
-            >
-              <svg
-                aria-hidden="true"
-                height="16"
-                viewBox="0 0 16 16"
-                width="16"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <rect
-                  height="12"
-                  rx="4"
-                  width="12"
-                  x="2"
-                  y="2"
-                />
-                <path
-                  d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
-                  fillRule="evenodd"
-                  strokeWidth="0"
-                />
-              </svg>
-            </span>
+            />
             <div
               className="c6"
               data-component="ActionList.Item--DividerContainer"
@@ -3384,28 +3267,7 @@ exports[`snapshots renders a single select input 1`] = `
           >
             <span
               className="c5"
-            >
-              <svg
-                aria-hidden="true"
-                height="16"
-                viewBox="0 0 16 16"
-                width="16"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <rect
-                  height="12"
-                  rx="4"
-                  width="12"
-                  x="2"
-                  y="2"
-                />
-                <path
-                  d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
-                  fillRule="evenodd"
-                  strokeWidth="0"
-                />
-              </svg>
-            </span>
+            />
             <div
               className="c6"
               data-component="ActionList.Item--DividerContainer"
@@ -3429,28 +3291,7 @@ exports[`snapshots renders a single select input 1`] = `
           >
             <span
               className="c5"
-            >
-              <svg
-                aria-hidden="true"
-                height="16"
-                viewBox="0 0 16 16"
-                width="16"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <rect
-                  height="12"
-                  rx="4"
-                  width="12"
-                  x="2"
-                  y="2"
-                />
-                <path
-                  d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
-                  fillRule="evenodd"
-                  strokeWidth="0"
-                />
-              </svg>
-            </span>
+            />
             <div
               className="c6"
               data-component="ActionList.Item--DividerContainer"
@@ -3474,28 +3315,7 @@ exports[`snapshots renders a single select input 1`] = `
           >
             <span
               className="c5"
-            >
-              <svg
-                aria-hidden="true"
-                height="16"
-                viewBox="0 0 16 16"
-                width="16"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <rect
-                  height="12"
-                  rx="4"
-                  width="12"
-                  x="2"
-                  y="2"
-                />
-                <path
-                  d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
-                  fillRule="evenodd"
-                  strokeWidth="0"
-                />
-              </svg>
-            </span>
+            />
             <div
               className="c6"
               data-component="ActionList.Item--DividerContainer"
@@ -3519,28 +3339,7 @@ exports[`snapshots renders a single select input 1`] = `
           >
             <span
               className="c5"
-            >
-              <svg
-                aria-hidden="true"
-                height="16"
-                viewBox="0 0 16 16"
-                width="16"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <rect
-                  height="12"
-                  rx="4"
-                  width="12"
-                  x="2"
-                  y="2"
-                />
-                <path
-                  d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
-                  fillRule="evenodd"
-                  strokeWidth="0"
-                />
-              </svg>
-            </span>
+            />
             <div
               className="c6"
               data-component="ActionList.Item--DividerContainer"
@@ -3564,28 +3363,7 @@ exports[`snapshots renders a single select input 1`] = `
           >
             <span
               className="c5"
-            >
-              <svg
-                aria-hidden="true"
-                height="16"
-                viewBox="0 0 16 16"
-                width="16"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <rect
-                  height="12"
-                  rx="4"
-                  width="12"
-                  x="2"
-                  y="2"
-                />
-                <path
-                  d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
-                  fillRule="evenodd"
-                  strokeWidth="0"
-                />
-              </svg>
-            </span>
+            />
             <div
               className="c6"
               data-component="ActionList.Item--DividerContainer"
@@ -3638,18 +3416,6 @@ exports[`snapshots renders with a custom text input component 1`] = `
   margin-right: 8px;
 }
 
-.c5 rect {
-  fill: #ffffff;
-  stroke: #d0d7de;
-  shape-rendering: auto;
-}
-
-.c5 path {
-  fill: #ffffff;
-  box-shadow: 0 1px 0 rgba(31,35,40,0.04);
-  opacity: 0;
-}
-
 .c6 {
   display: -webkit-box;
   display: -webkit-flex;
@@ -3817,28 +3583,7 @@ exports[`snapshots renders with a custom text input component 1`] = `
           >
             <span
               className="c5"
-            >
-              <svg
-                aria-hidden="true"
-                height="16"
-                viewBox="0 0 16 16"
-                width="16"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <rect
-                  height="12"
-                  rx="4"
-                  width="12"
-                  x="2"
-                  y="2"
-                />
-                <path
-                  d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
-                  fillRule="evenodd"
-                  strokeWidth="0"
-                />
-              </svg>
-            </span>
+            />
             <div
               className="c6"
               data-component="ActionList.Item--DividerContainer"
@@ -3862,28 +3607,7 @@ exports[`snapshots renders with a custom text input component 1`] = `
           >
             <span
               className="c5"
-            >
-              <svg
-                aria-hidden="true"
-                height="16"
-                viewBox="0 0 16 16"
-                width="16"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <rect
-                  height="12"
-                  rx="4"
-                  width="12"
-                  x="2"
-                  y="2"
-                />
-                <path
-                  d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
-                  fillRule="evenodd"
-                  strokeWidth="0"
-                />
-              </svg>
-            </span>
+            />
             <div
               className="c6"
               data-component="ActionList.Item--DividerContainer"
@@ -3907,28 +3631,7 @@ exports[`snapshots renders with a custom text input component 1`] = `
           >
             <span
               className="c5"
-            >
-              <svg
-                aria-hidden="true"
-                height="16"
-                viewBox="0 0 16 16"
-                width="16"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <rect
-                  height="12"
-                  rx="4"
-                  width="12"
-                  x="2"
-                  y="2"
-                />
-                <path
-                  d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
-                  fillRule="evenodd"
-                  strokeWidth="0"
-                />
-              </svg>
-            </span>
+            />
             <div
               className="c6"
               data-component="ActionList.Item--DividerContainer"
@@ -3952,28 +3655,7 @@ exports[`snapshots renders with a custom text input component 1`] = `
           >
             <span
               className="c5"
-            >
-              <svg
-                aria-hidden="true"
-                height="16"
-                viewBox="0 0 16 16"
-                width="16"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <rect
-                  height="12"
-                  rx="4"
-                  width="12"
-                  x="2"
-                  y="2"
-                />
-                <path
-                  d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
-                  fillRule="evenodd"
-                  strokeWidth="0"
-                />
-              </svg>
-            </span>
+            />
             <div
               className="c6"
               data-component="ActionList.Item--DividerContainer"
@@ -3997,28 +3679,7 @@ exports[`snapshots renders with a custom text input component 1`] = `
           >
             <span
               className="c5"
-            >
-              <svg
-                aria-hidden="true"
-                height="16"
-                viewBox="0 0 16 16"
-                width="16"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <rect
-                  height="12"
-                  rx="4"
-                  width="12"
-                  x="2"
-                  y="2"
-                />
-                <path
-                  d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
-                  fillRule="evenodd"
-                  strokeWidth="0"
-                />
-              </svg>
-            </span>
+            />
             <div
               className="c6"
               data-component="ActionList.Item--DividerContainer"
@@ -4042,28 +3703,7 @@ exports[`snapshots renders with a custom text input component 1`] = `
           >
             <span
               className="c5"
-            >
-              <svg
-                aria-hidden="true"
-                height="16"
-                viewBox="0 0 16 16"
-                width="16"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <rect
-                  height="12"
-                  rx="4"
-                  width="12"
-                  x="2"
-                  y="2"
-                />
-                <path
-                  d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
-                  fillRule="evenodd"
-                  strokeWidth="0"
-                />
-              </svg>
-            </span>
+            />
             <div
               className="c6"
               data-component="ActionList.Item--DividerContainer"
@@ -4087,28 +3727,7 @@ exports[`snapshots renders with a custom text input component 1`] = `
           >
             <span
               className="c5"
-            >
-              <svg
-                aria-hidden="true"
-                height="16"
-                viewBox="0 0 16 16"
-                width="16"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <rect
-                  height="12"
-                  rx="4"
-                  width="12"
-                  x="2"
-                  y="2"
-                />
-                <path
-                  d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
-                  fillRule="evenodd"
-                  strokeWidth="0"
-                />
-              </svg>
-            </span>
+            />
             <div
               className="c6"
               data-component="ActionList.Item--DividerContainer"
@@ -4132,28 +3751,7 @@ exports[`snapshots renders with a custom text input component 1`] = `
           >
             <span
               className="c5"
-            >
-              <svg
-                aria-hidden="true"
-                height="16"
-                viewBox="0 0 16 16"
-                width="16"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <rect
-                  height="12"
-                  rx="4"
-                  width="12"
-                  x="2"
-                  y="2"
-                />
-                <path
-                  d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
-                  fillRule="evenodd"
-                  strokeWidth="0"
-                />
-              </svg>
-            </span>
+            />
             <div
               className="c6"
               data-component="ActionList.Item--DividerContainer"
@@ -4177,28 +3775,7 @@ exports[`snapshots renders with a custom text input component 1`] = `
           >
             <span
               className="c5"
-            >
-              <svg
-                aria-hidden="true"
-                height="16"
-                viewBox="0 0 16 16"
-                width="16"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <rect
-                  height="12"
-                  rx="4"
-                  width="12"
-                  x="2"
-                  y="2"
-                />
-                <path
-                  d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
-                  fillRule="evenodd"
-                  strokeWidth="0"
-                />
-              </svg>
-            </span>
+            />
             <div
               className="c6"
               data-component="ActionList.Item--DividerContainer"
@@ -4222,28 +3799,7 @@ exports[`snapshots renders with a custom text input component 1`] = `
           >
             <span
               className="c5"
-            >
-              <svg
-                aria-hidden="true"
-                height="16"
-                viewBox="0 0 16 16"
-                width="16"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <rect
-                  height="12"
-                  rx="4"
-                  width="12"
-                  x="2"
-                  y="2"
-                />
-                <path
-                  d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
-                  fillRule="evenodd"
-                  strokeWidth="0"
-                />
-              </svg>
-            </span>
+            />
             <div
               className="c6"
               data-component="ActionList.Item--DividerContainer"

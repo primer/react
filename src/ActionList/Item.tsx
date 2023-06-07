@@ -203,15 +203,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
 
     return (
       <ItemContext.Provider value={{variant, disabled, inlineDescriptionId, blockDescriptionId}}>
-        <LiBox
-          ref={forwardedRef}
-          sx={merge<BetterSystemStyleObject>(styles, sxProp)}
-          {...containerProps}
-          {...props}
-          // NOTE: 'data-id' was added for debugging while refactoring
-          // Autocomplete to stop using the deprecated ActionList
-          data-id={id}
-        >
+        <LiBox ref={forwardedRef} sx={merge<BetterSystemStyleObject>(styles, sxProp)} {...containerProps} {...props}>
           <ItemWrapper {...wrapperProps}>
             <Selection selected={selected} />
             {slots.leadingVisual}
