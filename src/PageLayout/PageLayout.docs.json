@@ -126,7 +126,7 @@
           "type": "| 'start' | 'end' | { narrow?: | 'start' | 'end' regular?: | 'start' | 'end' wide?: | 'start' | 'end' }",
           "defaultValue": "'end'",
           "description": "",
-          "deprecated": true,
+          "deprecated": true
         },
         {
           "name": "positionWhenNarrow",
