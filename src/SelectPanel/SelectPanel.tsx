@@ -29,6 +29,7 @@ interface SelectPanelMultiSelection {
 interface SelectPanelBaseProps {
   // TODO: Make `title` required in the next major version
   title?: string | React.ReactElement
+  subtitle?: string | React.ReactElement
   onOpenChange: (
     open: boolean,
     gesture: 'anchor-click' | 'anchor-key-press' | 'click-outside' | 'escape' | 'selection',
@@ -66,6 +67,7 @@ export function SelectPanel({
   inputLabel = placeholderText,
   selected,
   title = isMultiSelectVariant(selected) ? 'Select items' : 'Select an item',
+  subtitle,
   onSelectedChange,
   filterValue: externalFilterValue,
   onFilterChange: externalOnFilterChange,
@@ -76,6 +78,7 @@ export function SelectPanel({
   ...listProps
 }: SelectPanelProps): JSX.Element {
   const titleId = useId()
+  const subtitleId = useId()
   const [filterValue, setInternalFilterValue] = useProvidedStateOrCreate(externalFilterValue, undefined, '')
   const onFilterChange: FilteredActionListProps['onFilterChange'] = useCallback(
     (value, e) => {
@@ -168,7 +171,12 @@ export function SelectPanel({
         open={open}
         onOpen={onOpen}
         onClose={onClose}
-        overlayProps={{role: 'dialog', 'aria-labelledby': titleId, ...overlayProps}}
+        overlayProps={{
+          role: 'dialog',
+          'aria-labelledby': titleId,
+          'aria-describedby': subtitle ? subtitleId : undefined,
+          ...overlayProps,
+        }}
         focusTrapSettings={focusTrapSettings}
         focusZoneSettings={focusZoneSettings}
       >
@@ -187,6 +195,11 @@ export function SelectPanel({
             <Heading as="h1" id={titleId} sx={{fontSize: 1}}>
               {title}
             </Heading>
+            {subtitle ? (
+              <Box id={subtitleId} sx={{fontSize: 0, color: 'fg.muted'}}>
+                {subtitle}
+              </Box>
+            ) : null}
           </Box>
           <FilteredActionList
             filterValue={filterValue}
