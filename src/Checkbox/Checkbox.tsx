@@ -7,7 +7,7 @@ import {FormValidationStatus} from '../utils/types/FormValidationStatus'
 import {CheckboxGroupContext} from '../CheckboxGroup/CheckboxGroupContext'
 import getGlobalFocusStyles from '../_getGlobalFocusStyles'
 import {get} from '../constants'
-import {sharedCheckboxAndRadioStyles} from '../_sharedCheckboxAndRadioStyles'
+import {sharedCheckboxAndRadioStyles} from '../internal/utils/sharedCheckboxAndRadioStyles'
 
 export type CheckboxProps = {
   /**
