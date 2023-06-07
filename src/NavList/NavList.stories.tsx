@@ -13,7 +13,7 @@ const meta: Meta = {
 
 export const Simple: Story = () => (
   <PageLayout>
-    <PageLayout.Pane position="start">
+    <PageLayout.Pane>
       <NavList>
         <NavList.Item href="#" aria-current="page">
           Item 1
@@ -45,7 +45,7 @@ export const WithGroup: Story = () => (
 
 export const WithSubItems: Story = () => (
   <PageLayout>
-    <PageLayout.Pane position="start">
+    <PageLayout.Pane>
       <NavList>
         <NavList.Item href="#">Item 1</NavList.Item>
         <NavList.Item>
@@ -72,7 +72,7 @@ const ReactRouterLikeLink = React.forwardRef<HTMLAnchorElement, ReactRouterLikeL
 
 export const WithReactRouterLink = () => (
   <PageLayout>
-    <PageLayout.Pane position="start">
+    <PageLayout.Pane>
       <NavList>
         <NavList.Item as={ReactRouterLikeLink} to="#" aria-current="page">
           Item 1
@@ -104,7 +104,7 @@ const NextJSLikeLink = React.forwardRef<HTMLAnchorElement, NextJSLinkProps>(
 
 export const WithNextJSLink = () => (
   <PageLayout>
-    <PageLayout.Pane position="start">
+    <PageLayout.Pane>
       <NavList>
         <NextJSLikeLink href="#">
           <NavList.Item aria-current="page">Item 1</NavList.Item>
