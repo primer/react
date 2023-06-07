@@ -4446,7 +4446,7 @@
       "stories": [
         {
           "id": "components-toggleswitch--default",
-          "code": "<Box\n  display=\"grid\"\n  gridTemplateColumns={'max-content auto'}\n  maxWidth={'20rem'}\n  alignItems={'center'}\n  justifyContent={'space-between'}\n>\n  <Text id=\"toggle\" fontWeight={'bold'} fontSize={2}>\n    Toggle label\n  </Text>\n  <ToggleSwitch aria-labelledby=\"toggle\" />\n</Box>"
+          "code": "() => (\n  <>\n    <Text id=\"toggle\" fontWeight=\"bold\" fontSize={1}>\n      Toggle label\n    </Text>\n    <ToggleSwitch aria-labelledby=\"toggle\" />\n  </>\n)"
         }
       ],
       "props": [
