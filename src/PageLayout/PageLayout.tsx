@@ -108,6 +108,7 @@ const Root: React.FC<React.PropsWithChildren<PageLayoutProps>> = ({
         >
           {slots.header}
           <Box
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             sx={(theme: any) => ({
               display: 'flex',
               flex: '1 1 100%',
@@ -427,12 +428,13 @@ const Content: React.FC<React.PropsWithChildren<PageLayoutContentProps>> = ({
   sx = {},
 }) => {
   const isHidden = useResponsiveValue(hidden, false)
-  const {contentTopRef, contentBottomRef, columnGap} = React.useContext(PageLayoutContext)
+  const {contentTopRef, contentBottomRef} = React.useContext(PageLayoutContext)
 
   return (
     <Box
       aria-label={label}
       aria-labelledby={labelledBy}
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       sx={(theme: any) =>
         merge<BetterSystemStyleObject>(
           {
