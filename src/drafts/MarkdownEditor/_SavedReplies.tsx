@@ -10,7 +10,6 @@ import React, {
 } from 'react'
 import {SelectPanel, SelectPanelProps} from '../../SelectPanel'
 import {ToolbarButton} from './Toolbar'
-import Truncate from '../../Truncate'
 
 export type SavedReply = {
   name: string
@@ -54,11 +53,7 @@ export const SavedRepliesButton = () => {
     .map(
       (reply, i): Item => ({
         text: reply.name,
-        description: (
-          <Truncate maxWidth="100%" title={reply.content}>
-            {reply.content}
-          </Truncate>
-        ),
+        description: reply.content,
         descriptionVariant: 'block',
         trailingVisual: i < 9 ? `Ctrl + ${i + 1}` : undefined,
         sx: {
@@ -71,7 +66,6 @@ export const SavedRepliesButton = () => {
             maxWidth: '100%',
           },
         },
-        id: i.toString(),
       }),
     )
 
@@ -111,12 +105,6 @@ export const SavedRepliesButton = () => {
         onSelectItem(Array.isArray(selection) ? selection[0] : selection)
       }}
       overlayProps={{width: 'small', maxHeight: 'small', anchorSide: 'outside-right', onKeyDown}}
-      // @ts-ignore this is bad because SelectPanel does not accept selectionVariant in the public API
-      // but it does pass it down to FilteredActionList underneath.
-      // SavedReplies should not use SelectPanel and override it's semantics, it should instead
-      // use the building blocks of SelectPanel to build a new component
-      selectionVariant={undefined}
-      aria-multiselectable={undefined}
     />
   ) : (
     <></>

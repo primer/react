@@ -1,69 +1,39 @@
-import React, {KeyboardEventHandler, useCallback, useEffect, useRef} from 'react'
-import TextInput, {TextInputProps} from '../TextInput'
-import Box from '../Box'
-import {ActionList, ActionListProps, ActionListItemProps} from '../ActionList'
-import Spinner from '../Spinner'
-import {useFocusZone} from '../hooks/useFocusZone'
-import {useProvidedStateOrCreate} from '../hooks/useProvidedStateOrCreate'
-import styled from 'styled-components'
-import {get} from '../constants'
-import {useProvidedRefOrCreate} from '../hooks/useProvidedRefOrCreate'
-import useScrollFlash from '../hooks/useScrollFlash'
-import {scrollIntoView} from '@primer/behaviors'
 import type {ScrollIntoViewOptions} from '@primer/behaviors'
+import {scrollIntoView} from '@primer/behaviors'
+import React, {KeyboardEventHandler, useCallback, useEffect, useRef} from 'react'
+import styled from 'styled-components'
+import Box from '../Box'
+import Spinner from '../Spinner'
+import TextInput, {TextInputProps} from '../TextInput'
+import {get} from '../constants'
+import {ActionList} from '../deprecated/ActionList'
+import {GroupedListProps, ListPropsBase} from '../deprecated/ActionList/List'
+import {useFocusZone} from '../hooks/useFocusZone'
 import {useId} from '../hooks/useId'
+import {useProvidedRefOrCreate} from '../hooks/useProvidedRefOrCreate'
+import {useProvidedStateOrCreate} from '../hooks/useProvidedStateOrCreate'
+import useScrollFlash from '../hooks/useScrollFlash'
 import {VisuallyHidden} from '../internal/components/VisuallyHidden'
 import {SxProp} from '../sx'
 
 const menuScrollMargins: ScrollIntoViewOptions = {startMargin: 0, endMargin: 8}
 
-export type ItemInput = Partial<
-  ActionListItemProps & {
-    description?: string | React.ReactElement
-    descriptionVariant?: 'inline' | 'block'
-    leadingVisual?: JSX.Element
-    onAction?: (itemFromAction: ItemInput, event: React.MouseEvent) => void
-    selected?: boolean
-    text?: string
-    trailingVisual?: string
-  }
->
-
-export interface FilteredActionListProps extends ActionListProps, SxProp {
+export interface FilteredActionListProps
+  extends Partial<Omit<GroupedListProps, keyof ListPropsBase>>,
+    ListPropsBase,
+    SxProp {
   loading?: boolean
   placeholderText?: string
   filterValue?: string
   onFilterChange: (value: string, e: React.ChangeEvent<HTMLInputElement>) => void
   textInputProps?: Partial<Omit<TextInputProps, 'onChange'>>
   inputRef?: React.RefObject<HTMLInputElement>
-  items: ItemInput[]
 }
 
 const StyledHeader = styled.div`
   box-shadow: 0 1px 0 ${get('colors.border.default')};
   z-index: 1;
 `
-
-const renderFn = ({
-  description,
-  descriptionVariant,
-  id,
-  sx,
-  text,
-  trailingVisual,
-  leadingVisual,
-  onSelect,
-  selected,
-}: ItemInput): React.ReactElement => {
-  return (
-    <ActionList.Item key={id} sx={sx} role="option" onSelect={onSelect} selected={selected}>
-      {!!leadingVisual && <ActionList.LeadingVisual>{leadingVisual}</ActionList.LeadingVisual>}
-      <Box>{text ? text : null}</Box>
-      {description ? <ActionList.Description variant={descriptionVariant}>{description}</ActionList.Description> : null}
-      {!!trailingVisual && <ActionList.TrailingVisual>{trailingVisual}</ActionList.TrailingVisual>}
-    </ActionList.Item>
-  )
-}
 
 export function FilteredActionList({
   loading = false,
@@ -87,7 +57,7 @@ export function FilteredActionList({
   )
 
   const scrollContainerRef = useRef<HTMLDivElement>(null)
-  const listContainerRef = useRef<HTMLUListElement>(null)
+  const listContainerRef = useRef<HTMLDivElement>(null)
   const inputRef = useProvidedRefOrCreate<HTMLInputElement>(providedInputRef)
   const activeDescendantRef = useRef<HTMLElement>()
   const listId = useId()
@@ -114,7 +84,7 @@ export function FilteredActionList({
         return !(element instanceof HTMLInputElement)
       },
       activeDescendantFocus: inputRef,
-      onActiveDescendantChanged: (current, _previous, directlyActivated) => {
+      onActiveDescendantChanged: (current, previous, directlyActivated) => {
         activeDescendantRef.current = current
 
         if (current && scrollContainerRef.current && directlyActivated) {
@@ -162,15 +132,7 @@ export function FilteredActionList({
             <Spinner />
           </Box>
         ) : (
-          <ActionList
-            ref={listContainerRef}
-            {...listProps}
-            role="listbox"
-            id={listId}
-            aria-label={`${placeholderText} options`}
-          >
-            {items.map(i => renderFn(i))}
-          </ActionList>
+          <ActionList ref={listContainerRef} items={items} {...listProps} role="listbox" id={listId} />
         )}
       </Box>
     </Box>
