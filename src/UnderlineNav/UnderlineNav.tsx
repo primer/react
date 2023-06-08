@@ -5,7 +5,7 @@ import styled from 'styled-components'
 import {get} from '../constants'
 import sx, {SxProp} from '../sx'
 import {ComponentProps} from '../utils/types'
-import getGlobalFocusStyles from '../_getGlobalFocusStyles'
+import getGlobalFocusStyles from '../internal/utils/getGlobalFocusStyles'
 
 const ITEM_CLASS = 'PRC-UnderlineNav-item'
 const SELECTED_CLASS = 'PRC-selected'
@@ -70,7 +70,6 @@ type StyledUnderlineNavLinkProps = {
 } & SxProp
 
 const UnderlineNavLink = styled.a.attrs<StyledUnderlineNavLinkProps>(props => ({
-  activeClassName: typeof props.to === 'string' ? 'selected' : undefined,
   className: classnames(ITEM_CLASS, props.selected && SELECTED_CLASS, props.className),
 }))<StyledUnderlineNavLinkProps>`
   padding: ${get('space.3')} ${get('space.2')};

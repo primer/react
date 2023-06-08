@@ -7,7 +7,7 @@ import {get} from '../constants'
 import {FocusKeys, useFocusZone} from '../hooks/useFocusZone'
 import sx, {SxProp} from '../sx'
 import {ComponentProps} from '../utils/types'
-import getGlobalFocusStyles from '../_getGlobalFocusStyles'
+import getGlobalFocusStyles from '../internal/utils/getGlobalFocusStyles'
 
 const ITEM_CLASS = 'TabNav-item'
 const SELECTED_CLASS = 'selected'
@@ -81,7 +81,6 @@ export type TabNavLinkProps = React.DetailedHTMLProps<React.HTMLAttributes<HTMLA
 } & SxProp
 
 const TabNavLink = styled.a.attrs<TabNavLinkProps>(props => ({
-  activeClassName: typeof props.to === 'string' ? 'selected' : undefined,
   className: classnames(ITEM_CLASS, props.selected && SELECTED_CLASS, props.className),
   role: 'tab',
   'aria-selected': !!props.selected,

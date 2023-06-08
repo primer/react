@@ -1,6 +1,6 @@
 import React from 'react'
-import Text from '../Text'
-import {SxProp} from '../sx'
+import Text from '../../../Text'
+import {SxProp} from '../../../sx'
 import {CheckboxOrRadioGroupContext} from './CheckboxOrRadioGroup'
 
 const CheckboxOrRadioGroupCaption: React.FC<React.PropsWithChildren<SxProp>> = ({children, sx}) => {
