@@ -37,8 +37,7 @@ interface SelectPanelBaseProps {
   // TODO: Make `inputLabel` required in next major version
   inputLabel?: string
   overlayProps?: Partial<OverlayProps>
-  _singleSelectVariant?: 'no_buttons' | 'no_buttons_with_explanation' | 'buttons' | 'buttons_with_keyboard'
-  _openWithKeyboard?: boolean
+  _singleSelectVariant?: 'no_buttons' | 'no_buttons_with_explanation' | 'buttons'
 }
 
 export type SelectPanelProps = SelectPanelBaseProps &
@@ -83,7 +82,6 @@ export function SelectPanel({
   overlayProps,
   sx,
   _singleSelectVariant = 'no_buttons',
-  _openWithKeyboard = false,
   ...listProps
 }: SelectPanelProps): JSX.Element {
   const titleId = useId()
@@ -207,8 +205,7 @@ export function SelectPanel({
           // than the Overlay (which would break scrolling the items)
           sx={{...sx, height: 'inherit', maxHeight: 'inherit'}}
         />
-        {_singleSelectVariant === 'buttons' ||
-        (_singleSelectVariant === 'buttons_with_keyboard' && _openWithKeyboard) ? (
+        {_singleSelectVariant === 'buttons' ? (
           <Box
             sx={{
               display: 'flex',
