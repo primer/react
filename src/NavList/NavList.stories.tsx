@@ -66,7 +66,7 @@ export const WithSubItems: Story = () => (
 
 export const WithNestedSubItems: Story = () => (
   <PageLayout>
-    <PageLayout.Pane position="start">
+    <PageLayout.Pane>
       <NavList>
         <NavList.Item href="#">Item 1</NavList.Item>
         <NavList.Item href="#">
