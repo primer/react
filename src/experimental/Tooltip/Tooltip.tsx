@@ -6,14 +6,45 @@ import {invariant} from '../../utils/invariant'
 import {warning} from '../../utils/warning'
 import styled from 'styled-components'
 import {get} from '../../constants'
-import {useOnEscapePress} from '../../hooks/useOnEscapePress'
+// import {useOnEscapePress} from '../../hooks/useOnEscapePress'
 import {ComponentProps} from '../../utils/types'
+import {getAnchoredPosition} from '@primer/behaviors'
+import {useAnchoredPosition} from '../../hooks'
+import type {AnchorPosition, AnchorSide, AnchorAlignment} from '@primer/behaviors'
+
+declare global {
+  interface PopoverToggleTargetElementInvoker {
+    popoverTargetElement: HTMLElement | null
+    popoverTargetAction: 'toggle' | 'show' | 'hide'
+  }
+  interface ToggleEvent extends Event {
+    oldState: string
+    newState: string
+  }
+  interface HTMLElement {
+    popover: 'auto' | 'manual' | null
+    showPopover(): void
+    hidePopover(): void
+    togglePopover(): void
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-empty-interface
+  interface HTMLButtonElement extends PopoverToggleTargetElementInvoker {}
+  // eslint-disable-next-line @typescript-eslint/no-empty-interface
+  interface HTMLInputElement extends PopoverToggleTargetElementInvoker {}
+
+  interface Window {
+    ToggleEvent: ToggleEvent
+  }
+}
 
 const StyledTooltip = styled.div`
   // tooltip element itself
-  position: absolute;
+  position: relative;
   z-index: 1000000;
   padding: 0.5em 0.75em;
+  /* This depends on the direction. for north it is bottom  */
+  padding-bottom: 1em;
   font: normal normal 11px/1.5 ${get('fonts.normal')};
   -webkit-font-smoothing: subpixel-antialiased;
   color: ${get('colors.fg.onEmphasis')};
@@ -25,16 +56,20 @@ const StyledTooltip = styled.div`
   word-wrap: break-word;
   white-space: normal;
   background: ${get('colors.neutral.emphasisPlus')};
+  background: linear-gradient(180deg, rgba(2, 0, 36, 1) 0%, rgba(2, 0, 36, 1) 80%, rgb(255 255 255 / 0%) 88%);
   border-radius: ${get('radii.1')};
   width: max-content;
   opacity: 0;
   max-width: 250px;
+  inset: auto;
+  /* for scrollbar */
+  overflow: hidden;
   @media (forced-colors: active) {
     outline: 1px solid transparent;
   }
 
   /* tooltip element should be rendered visually hidden when it is not opened.  */
-  &:not([data-state='open']) {
+  &:not(:popover-open) {
     /* Visually hidden styles */
     width: 1px;
     height: 1px;
@@ -45,7 +80,6 @@ const StyledTooltip = styled.div`
     white-space: nowrap;
     border-width: 0;
   }
-
   // the caret
   &::before {
     position: absolute;
@@ -62,7 +96,7 @@ const StyledTooltip = styled.div`
     display: block;
     right: 0;
     left: 0;
-    height: 8px;
+    height: 12px;
     content: '';
   }
 
@@ -78,54 +112,45 @@ const StyledTooltip = styled.div`
 
   /* South, East, Southeast, Southwest before */
 
-  &[data-direction='n']::before,
+  &:popover-open[data-direction='n']::before,
   &[data-direction='ne']::before,
   &[data-direction='nw']::before {
-    top: 100%;
+    top: 82%;
     border-top-color: ${get('colors.neutral.emphasisPlus')};
   }
-
   &[data-direction='s']::before,
   &[data-direction='se']::before,
   &[data-direction='sw']::before {
     bottom: 100%;
     border-bottom-color: ${get('colors.neutral.emphasisPlus')};
   }
-
   &[data-direction='n']:before,
   &[data-direction='s']:before {
     right: 50%;
     margin-right: -6px;
   }
-
   &[data-direction='ne']::before,
   &[data-direction='se']::before {
     left: 0;
     margin-left: 6px;
   }
-
   &[data-direction='sw']::before,
   &[data-direction='nw']::before {
     right: 0;
     margin-right: 6px;
   }
-
   /* South, East, Southeast, Southwest after */
-
   &[data-direction='n']::after,
   &[data-direction='ne']::after,
   &[data-direction='nw']::after {
     top: 100%;
   }
-
   &[data-direction='s']::after,
   &[data-direction='se']::after,
   &[data-direction='sw']::after {
     bottom: 100%;
   }
-
   /* West before and after */
-
   &[data-direction='w']::before {
     top: 50%;
     bottom: 50%;
@@ -133,7 +158,6 @@ const StyledTooltip = styled.div`
     margin-top: -6px;
     border-left-color: ${get('colors.neutral.emphasisPlus')};
   }
-
   &[data-direction='w']::after {
     position: absolute;
     display: block;
@@ -143,9 +167,7 @@ const StyledTooltip = styled.div`
     bottom: 0;
     left: 100%;
   }
-
   /* East before and after */
-
   &[data-direction='e']::after {
     position: absolute;
     display: block;
@@ -156,7 +178,6 @@ const StyledTooltip = styled.div`
     right: 100%;
     margin-left: -8px;
   }
-
   &[data-direction='e']::before {
     top: 50%;
     bottom: 50%;
@@ -167,8 +188,8 @@ const StyledTooltip = styled.div`
 
   /* Animation styles */
 
-  &[data-state='open'],
-  &[data-state='open']::before {
+  &:popover-open,
+  &:popover-open::before {
     animation-name: tooltip-appear;
     animation-duration: 0.1s;
     animation-fill-mode: forwards;
@@ -178,76 +199,10 @@ const StyledTooltip = styled.div`
 
   /* Position of the tooltip element when it is opened. */
 
-  &[data-state='open'] {
+  &:popover-open {
     &[data-no-delay='true'],
     &[data-no-delay='true']::before {
       animation-delay: 0s;
-    }
-    &[data-direction='s'],
-    &[data-direction='se'],
-    &[data-direction='sw'] {
-      top: 100%;
-      right: 50%;
-      margin-top: 6px;
-    }
-
-    &[data-direction='n'],
-    &[data-direction='ne'],
-    &[data-direction='nw'] {
-      bottom: 100%;
-      margin-bottom: 6px;
-      right: 50%;
-    }
-
-    &[data-direction='n'],
-    &[data-direction='s'] {
-      transform: translateX(50%);
-    }
-
-    &[data-direction='se'] {
-      right: auto;
-      left: 50%;
-      margin-left: -${get('space.3')};
-    }
-    &[data-direction='ne'] {
-      right: auto;
-      left: 50%;
-      margin-left: -${get('space.3')};
-    }
-
-    &[data-direction='sw'] {
-      margin-right: -${get('space.3')};
-    }
-
-    &[data-direction='e'] {
-      bottom: 50%;
-      left: 100%;
-      margin-left: 6px;
-      transform: translateY(50%);
-    }
-
-    &[data-direction='w'] {
-      bottom: 50%;
-      right: 100%;
-      margin-right: 6px;
-      transform: translateY(50%);
-    }
-
-    /* Align and wrap styles */
-
-    &[data-align='left'] {
-      right: 100%;
-      margin-left: 0;
-    }
-    &[data-align='left']::before {
-      right: 40px;
-    }
-    &[data-align='right'] {
-      right: 0;
-      margin-right: 0;
-    }
-    &[data-align='right']::before {
-      right: 72px;
     }
 
     &[data-wrap='true'] {
@@ -258,29 +213,19 @@ const StyledTooltip = styled.div`
       white-space: pre-line;
       border-collapse: separate;
     }
-
-    &[data-wrap='true'][data-direction='n'],
-    &[data-wrap='true'][data-direction='s'] {
-      transform: translateX(-50%);
-      right: auto;
-      left: 50%;
-    }
-
-    &[data-wrap='true'][data-direction='w'],
-    &[data-wrap='true'][data-direction='e'] {
-      right: 100%;
-    }
   }
 
   ${sx};
 `
 
+type TooltipDirection = 'nw' | 'n' | 'ne' | 'e' | 'se' | 's' | 'sw' | 'w'
+type TooltipAlign = 'left' | 'right'
 export type TooltipProps = React.PropsWithChildren<
   {
-    direction?: 'n' | 'ne' | 'e' | 'se' | 's' | 'sw' | 'w' | 'nw'
+    direction?: TooltipDirection
     text?: string
     noDelay?: boolean
-    align?: 'left' | 'right'
+    align?: TooltipAlign
     wrap?: boolean
     type?: 'label' | 'description'
     'aria-label'?: React.AriaAttributes['aria-label']
@@ -297,6 +242,21 @@ export type TriggerPropsType = {
   onMouseEnter?: React.MouseEventHandler
   ref?: React.RefObject<HTMLElement>
 }
+
+// map tooltip direction to anchoredPosition props
+const directionToPosition: Record<TooltipDirection, {side: AnchorSide; align: AnchorAlignment}> = {
+  nw: {side: 'outside-top', align: 'start'},
+  n: {side: 'outside-top', align: 'center'},
+  ne: {side: 'outside-top', align: 'end'},
+  e: {side: 'outside-right', align: 'center'},
+  se: {side: 'outside-bottom', align: 'end'},
+  s: {side: 'outside-bottom', align: 'center'},
+  sw: {side: 'outside-bottom', align: 'start'},
+  w: {side: 'outside-left', align: 'center'},
+}
+
+// map align to AnchorAlignment
+const alignToAnchorAlignment: Record<TooltipAlign, AnchorAlignment> = {left: 'start', right: 'end'}
 
 // The list is from GitHub's custom-axe-rules https://github.com/github/github/blob/master/app/assets/modules/github/axe-custom-rules.ts#L3
 const interactiveElements = ['a[href]', 'button', 'summary', 'select', 'input:not([type=hidden])', 'textarea']
@@ -322,6 +282,7 @@ export const Tooltip = ({
 }: TooltipProps) => {
   const id = useId()
   const triggerRef = useRef<HTMLElement>(null)
+  const tooltipElRef = useRef<HTMLDivElement>(null)
   const child = Children.only(children)
   const [open, setOpen] = useState(false)
 
@@ -359,18 +320,62 @@ export const Tooltip = ({
   }
 
   // Opting in using useOnEscapePress hook instead of onKeydown event to be able to close the tooltip when the mouse is hovering on the trigger element
-  useOnEscapePress(
-    (e: KeyboardEvent) => {
-      if (open) {
-        e.stopPropagation()
-        setOpen(false)
-      }
-    },
-    [open],
-  )
+  // useOnEscapePress(
+  //   (e: KeyboardEvent) => {
+  //     if (open) {
+  //       e.stopPropagation()
+  //       setOpen(false)
+  //     }
+  //   },
+  //   [open],
+  // )
+
+  const openTooltip = () => {
+    if (tooltipElRef.current && triggerRef.current && !tooltipElRef.current.matches(':popover-open')) {
+      //
+      tooltipElRef.current.showPopover()
+      setOpen(true)
+    }
+  }
+
+  // const position = {top, left}
+
+  useEffect(() => {
+    if (!tooltipElRef.current || !triggerRef.current) return
+    const tooltip = tooltipElRef.current
+    const trigger = triggerRef.current
+    tooltip.setAttribute('popover', 'auto')
+    // if (!open) return
+    const settings = {
+      side: directionToPosition[direction].side,
+      align: align ? alignToAnchorAlignment[align] : directionToPosition[direction].align,
+      // alignmentOffset: 10,
+      anchorOffset: -2,
+    }
+
+    const positionSet = () => {
+      const {top, left} = getAnchoredPosition(tooltip, trigger, settings)
+
+      tooltip.style.top = `${top}px`
+      tooltip.style.left = `${left}px`
+      tooltip.setAttribute('data-setting', JSON.stringify(settings))
+    }
+
+    tooltip.addEventListener('toggle', positionSet)
+
+    return () => {
+      tooltip.removeEventListener('toggle', positionSet)
+    }
+  }, [tooltipElRef, triggerRef, direction, align])
 
   return (
-    <Box sx={{position: 'relative', display: 'inline-block'}} onMouseLeave={() => setOpen(false)}>
+    <Box
+      sx={{display: 'inline-block'}}
+      // onMouseLeave={() => {
+      //   // it is going to be change to popover-open
+      //   if (tooltipElRef.current?.matches(':popover-open')) tooltipElRef.current.hidePopover()
+      // }}
+    >
       {React.isValidElement(child) &&
         React.cloneElement(child as React.ReactElement<TriggerPropsType>, {
           ref: triggerRef,
@@ -379,19 +384,21 @@ export const Tooltip = ({
           // If it is a label type, we use tooltip to label the trigger
           'aria-labelledby': type === 'label' ? id : undefined,
           onBlur: (event: React.FocusEvent) => {
-            setOpen(false)
+            if (tooltipElRef.current?.matches(':popover-open')) tooltipElRef.current.hidePopover()
             child.props.onBlur?.(event)
           },
           onFocus: (event: React.FocusEvent) => {
-            setOpen(true)
+            openTooltip()
+            // if (!tooltipElRef.current?.matches(':popover-open')) tooltipElRef.current?.showPopover()
             child.props.onFocus?.(event)
           },
           onMouseEnter: (event: React.MouseEvent) => {
-            setOpen(true)
+            openTooltip()
             child.props.onMouseEnter?.(event)
           },
         })}
       <StyledTooltip
+        ref={tooltipElRef}
         data-direction={direction}
         data-state={open ? 'open' : undefined}
         data-align={align}

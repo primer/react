@@ -12,8 +12,8 @@ export default {
 // As a label for an IconButton
 export const TooltipLabelTypeTooltip = () => (
   <Box sx={{p: 5}}>
-    <Tooltip aria-label="Filter vegetarian options" direction="e">
-      <Button>🥦</Button>
+    <Tooltip aria-label="Filter ">
+      <Button sx={{marginLeft: 3}}>🥦</Button>
     </Tooltip>
   </Box>
 )
@@ -39,7 +39,7 @@ export const TooltipDescriptionTypeTooltip = () => (
 // As a supplementary description for an IconButton
 export const TooltipIconButtonWithDescription = () => (
   <Box sx={{p: 5}}>
-    <Tooltip text="Supplementary text" type="description">
+    <Tooltip text="Supplementary textSupplementary text" direction="e" type="description">
       <IconButton icon={SearchIcon} aria-label="Search" />
     </Tooltip>
   </Box>
