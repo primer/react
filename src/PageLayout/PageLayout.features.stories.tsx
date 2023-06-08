@@ -151,6 +151,18 @@ export const NestedScrollContainer: Story = args => (
         <PageLayout.Header padding="normal" divider="line">
           <Placeholder label="Header" height={64} />
         </PageLayout.Header>
+        <PageLayout.Pane padding="normal" divider="line" sticky aria-label="Side pane">
+          <Box sx={{display: 'grid', gap: 3}}>
+            {Array.from({length: args.numParagraphsInPane}).map((_, i) => (
+              <Box key={i} as="p" sx={{margin: 0}}>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam at enim id lorem tempus egestas a non
+                ipsum. Maecenas imperdiet ante quam, at varius lorem molestie vel. Sed at eros consequat, varius tellus
+                et, auctor felis. Donec pulvinar lacinia urna nec commodo. Phasellus at imperdiet risus. Donec sit amet
+                massa purus.
+              </Box>
+            ))}
+          </Box>
+        </PageLayout.Pane>
         <PageLayout.Content padding="normal" width="large">
           <Box sx={{display: 'grid', gap: 3}}>
             {Array.from({length: args.numParagraphsInContent}).map((_, i) => (
@@ -165,18 +177,6 @@ export const NestedScrollContainer: Story = args => (
             ))}
           </Box>
         </PageLayout.Content>
-        <PageLayout.Pane padding="normal" divider="line" sticky aria-label="Side pane">
-          <Box sx={{display: 'grid', gap: 3}}>
-            {Array.from({length: args.numParagraphsInPane}).map((_, i) => (
-              <Box key={i} as="p" sx={{margin: 0}}>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam at enim id lorem tempus egestas a non
-                ipsum. Maecenas imperdiet ante quam, at varius lorem molestie vel. Sed at eros consequat, varius tellus
-                et, auctor felis. Donec pulvinar lacinia urna nec commodo. Phasellus at imperdiet risus. Donec sit amet
-                massa purus.
-              </Box>
-            ))}
-          </Box>
-        </PageLayout.Pane>
         <PageLayout.Footer padding="normal" divider="line">
           <Placeholder label="Footer" height={64} />
         </PageLayout.Footer>
@@ -221,6 +221,23 @@ export const CustomStickyHeader: Story = args => (
       Custom sticky header
     </Box>
     <PageLayout rowGap="none" columnGap="none" padding="none" containerWidth="full">
+      <PageLayout.Pane padding="normal" divider="line" aria-label="Aside pane" sticky offsetHeader={args.offsetHeader}>
+        <Box sx={{display: 'grid', gap: 3}}>
+          {Array.from({length: args.numParagraphsInPane}).map((_, i) => {
+            const testId = `paragraph${i}`
+            return (
+              <Box key={i} as="p" sx={{margin: 0}}>
+                <span data-testid={testId}>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam at enim id lorem tempus egestas a non
+                  ipsum. Maecenas imperdiet ante quam, at varius lorem molestie vel. Sed at eros consequat, varius
+                  tellus et, auctor felis. Donec pulvinar lacinia urna nec commodo. Phasellus at imperdiet risus. Donec
+                  sit amet massa purus.
+                </span>
+              </Box>
+            )
+          })}
+        </Box>
+      </PageLayout.Pane>
       <PageLayout.Content padding="normal" width="large">
         <Box sx={{display: 'grid', gap: 3}} data-testid="scrollContainer">
           {Array.from({length: args.numParagraphsInContent}).map((_, i) => {
@@ -241,23 +258,6 @@ export const CustomStickyHeader: Story = args => (
           })}
         </Box>
       </PageLayout.Content>
-      <PageLayout.Pane padding="normal" divider="line" aria-label="Aside pane" sticky offsetHeader={args.offsetHeader}>
-        <Box sx={{display: 'grid', gap: 3}}>
-          {Array.from({length: args.numParagraphsInPane}).map((_, i) => {
-            const testId = `paragraph${i}`
-            return (
-              <Box key={i} as="p" sx={{margin: 0}}>
-                <span data-testid={testId}>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam at enim id lorem tempus egestas a non
-                  ipsum. Maecenas imperdiet ante quam, at varius lorem molestie vel. Sed at eros consequat, varius
-                  tellus et, auctor felis. Donec pulvinar lacinia urna nec commodo. Phasellus at imperdiet risus. Donec
-                  sit amet massa purus.
-                </span>
-              </Box>
-            )
-          })}
-        </Box>
-      </PageLayout.Pane>
       <PageLayout.Footer padding="normal" divider="line">
         <Placeholder label="Footer" height={64} />
       </PageLayout.Footer>
