@@ -114,7 +114,7 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
       },
       '&:disabled': {
         color: 'primer.fg.disabled',
-        '[data-component=ButtonCounter]': {
+        '[data-component=ButtonCounter], [data-component="leadingVisual"], [data-component="trailingAction"]': {
           color: 'inherit',
         },
       },

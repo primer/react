@@ -1504,7 +1504,9 @@ exports[`Button styles invisible button appropriately 1`] = `
   color: primer.fg.disabled;
 }
 
-.c0:disabled [data-component=ButtonCounter] {
+.c0:disabled [data-component=ButtonCounter],
+.c0:disabled [data-component="leadingVisual"],
+.c0:disabled [data-component="trailingAction"] {
   color: inherit;
 }
 

@@ -2,7 +2,7 @@ name: Release Schedule
 on:
   workflow_dispatch:
   schedule:
-    - cron: '30 13 * * MON'
+    - cron: '0 16 * * MON'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.workflow_run.head_branch }}

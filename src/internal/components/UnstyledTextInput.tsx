@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import sx from './sx'
+import sx from '../../sx'
 
 const UnstyledTextInput = styled.input`
   border: 0;
