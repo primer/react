@@ -26,7 +26,7 @@ const StyledTruncate = styled.div<StyledTruncateProps>`
 export type TruncateProps = ComponentProps<typeof StyledTruncate>
 
 const Truncate = React.forwardRef(function Truncate(
-  {as, expandable = false, inline = false, maxWidth = 125, ...rest},
+  {as = 'div', expandable = false, inline = false, maxWidth = 125, ...rest},
   ref,
 ) {
   return <StyledTruncate ref={ref} as={as} expandable={expandable} inline={inline} maxWidth={maxWidth} {...rest} />
