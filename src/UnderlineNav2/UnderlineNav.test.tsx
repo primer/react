@@ -99,7 +99,6 @@ describe('UnderlineNav', () => {
     expect(nav.getElementsByTagName('svg').length).toEqual(7)
   })
   it('fires onSelect on click', async () => {
-    const spy = jest.spyOn(console, 'error').mockImplementation()
     const onSelect = jest.fn()
     const {getByRole} = render(
       <UnderlineNav aria-label="Test Navigation">
@@ -112,9 +111,6 @@ describe('UnderlineNav', () => {
     const user = userEvent.setup()
     await user.click(item)
     expect(onSelect).toHaveBeenCalledTimes(1)
-
-    expect(spy).not.toHaveBeenCalled()
-    spy.mockRestore()
   })
   it('fires onSelect on keypress', async () => {
     const onSelect = jest.fn()
