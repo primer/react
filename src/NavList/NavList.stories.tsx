@@ -64,6 +64,45 @@ export const WithSubItems: Story = () => (
   </PageLayout>
 )
 
+export const WithNestedSubItems: Story = () => (
+  <PageLayout>
+    <PageLayout.Pane position="start">
+      <NavList>
+        <NavList.Item href="#">Item 1</NavList.Item>
+        <NavList.Item href="#">
+          Item 2{/* NOTE: Don't nest SubNavs. For testing purposes only */}
+          <NavList.SubNav>
+            <NavList.Item href="#">
+              Sub item 1
+              <NavList.SubNav>
+                <NavList.Item href="#">
+                  Sub item 1.1
+                  <NavList.SubNav>
+                    <NavList.Item href="#">Sub item 1.1.1</NavList.Item>
+                    <NavList.Item href="#">
+                      Sub item 1.1.2
+                      <NavList.SubNav>
+                        <NavList.Item href="#">Sub item 1.1.2.1</NavList.Item>
+                        <NavList.Item href="#" aria-current="page">
+                          Sub item 1.1.2.2
+                        </NavList.Item>
+                      </NavList.SubNav>
+                    </NavList.Item>
+                  </NavList.SubNav>
+                </NavList.Item>
+                <NavList.Item href="#">Sub item 1.2</NavList.Item>
+              </NavList.SubNav>
+            </NavList.Item>
+            <NavList.Item href="#">Sub item 2</NavList.Item>
+          </NavList.SubNav>
+        </NavList.Item>
+        <NavList.Item href="#">Item 3</NavList.Item>
+      </NavList>
+    </PageLayout.Pane>
+    <PageLayout.Content></PageLayout.Content>
+  </PageLayout>
+)
+
 type ReactRouterLikeLinkProps = {to: string; children: React.ReactNode}
 const ReactRouterLikeLink = React.forwardRef<HTMLAnchorElement, ReactRouterLikeLinkProps>(({to, ...props}, ref) => {
   // eslint-disable-next-line jsx-a11y/anchor-has-content
