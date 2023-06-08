@@ -2,24 +2,19 @@ import React from 'react'
 import ToggleSwitch from './ToggleSwitch'
 import {Box, Text} from '..'
 import {action} from '@storybook/addon-actions'
+import ToggleSwitchStoryWrapper from './ToggleSwitchStoryWrapper'
 
 export default {
   title: 'Components/ToggleSwitch/Features',
 }
 
 export const Small = () => (
-  <Box
-    display="grid"
-    gridTemplateColumns="max-content auto"
-    maxWidth={'20rem'}
-    alignItems={'center'}
-    justifyContent={'space-between'}
-  >
+  <ToggleSwitchStoryWrapper>
     <Text id="toggle" fontWeight={'bold'} fontSize={1}>
       Toggle label
     </Text>
     <ToggleSwitch size="small" aria-labelledby="toggle" />
-  </Box>
+  </ToggleSwitchStoryWrapper>
 )
 
 export const WithCaption = () => (
@@ -37,78 +32,48 @@ export const WithCaption = () => (
 )
 
 export const Disabled = () => (
-  <Box
-    display="grid"
-    gridTemplateColumns={'max-content auto'}
-    maxWidth={'20rem'}
-    alignItems={'center'}
-    justifyContent={'space-between'}
-  >
+  <ToggleSwitchStoryWrapper>
     <Text id="toggle" fontWeight={'bold'} fontSize={1}>
       Toggle label
     </Text>
     <ToggleSwitch disabled aria-labelledby="toggle" />
-  </Box>
+  </ToggleSwitchStoryWrapper>
 )
 
 export const Checked = () => (
-  <Box
-    display="grid"
-    gridTemplateColumns={'max-content auto'}
-    maxWidth={'20rem'}
-    alignItems={'center'}
-    justifyContent={'space-between'}
-  >
+  <ToggleSwitchStoryWrapper>
     <Text id="toggle" fontWeight={'bold'} fontSize={1}>
       Toggle label
     </Text>
     <ToggleSwitch checked aria-labelledby="toggle" />
-  </Box>
+  </ToggleSwitchStoryWrapper>
 )
 
 export const CheckedDisabled = () => (
-  <Box
-    display="grid"
-    gridTemplateColumns={'max-content auto'}
-    maxWidth={'20rem'}
-    alignItems={'center'}
-    justifyContent={'space-between'}
-  >
+  <ToggleSwitchStoryWrapper>
     <Text id="toggle" fontWeight={'bold'} fontSize={1}>
       Toggle label
     </Text>
     <ToggleSwitch checked disabled aria-labelledby="toggle" />
-  </Box>
+  </ToggleSwitchStoryWrapper>
 )
 
 export const Loading = () => (
-  <Box
-    display="grid"
-    gridTemplateColumns={'max-content auto'}
-    maxWidth={'20rem'}
-    alignItems={'center'}
-    justifyContent={'space-between'}
-  >
+  <ToggleSwitchStoryWrapper>
     <Text id="toggle" fontWeight={'bold'} fontSize={1}>
       Toggle label
     </Text>
     <ToggleSwitch loading aria-labelledby="toggle" />
-  </Box>
+  </ToggleSwitchStoryWrapper>
 )
 
 export const LabelEnd = () => (
-  <Box
-    display="grid"
-    gridTemplateColumns={'max-content auto'}
-    maxWidth={'20rem'}
-    alignItems={'center'}
-    justifyContent={'space-between'}
-  >
+  <ToggleSwitchStoryWrapper>
     <Text id="toggle" fontWeight={'bold'} fontSize={1}>
       Toggle label
     </Text>
     <ToggleSwitch statusLabelPosition="end" aria-labelledby="toggle" />
-  </Box>
+  </ToggleSwitchStoryWrapper>
 )
 
 export const Controlled = () => {
