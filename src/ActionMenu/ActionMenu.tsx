@@ -16,7 +16,8 @@ export type MenuContextProps = Pick<
 > & {
   onClose?: (gesture: 'anchor-click' | 'click-outside' | 'escape' | 'tab') => void
 }
-const MenuContext = React.createContext<MenuContextProps>({renderAnchor: null, open: false})
+
+export const MenuContext = React.createContext<MenuContextProps>({renderAnchor: null, open: false})
 
 export type ActionMenuProps = {
   /**

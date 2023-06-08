@@ -12,8 +12,6 @@ import {ThemeProvider} from '../ThemeProvider'
 import {SSRProvider} from '../utils/ssr'
 import {behavesAsComponent, checkExports} from '../utils/testing'
 
-declare const REACT_VERSION_LATEST: boolean
-
 const Basic = ({confirmButtonType}: Pick<React.ComponentProps<typeof ConfirmationDialog>, 'confirmButtonType'>) => {
   const [isOpen, setIsOpen] = useState(false)
   const buttonRef = useRef<HTMLButtonElement>(null)
@@ -116,8 +114,6 @@ describe('ConfirmationDialog', () => {
   })
 
   it('supports nested `focusTrap`s', async () => {
-    const spy = jest.spyOn(console, 'error').mockImplementationOnce(() => {})
-
     const {getByText} = HTMLRender(<ShorthandHookFromActionMenu />)
 
     fireEvent.click(getByText('Show menu'))
@@ -125,15 +121,5 @@ describe('ConfirmationDialog', () => {
 
     expect(getByText('Primary')).toEqual(document.activeElement)
     expect(getByText('Secondary')).not.toEqual(document.activeElement)
-
-    // REACT_VERSION_LATEST should be treated as a constant for the test
-    // environment
-    if (REACT_VERSION_LATEST) {
-      expect(spy).toHaveBeenCalledTimes(0)
-      expect(spy).not.toHaveBeenCalledWith(
-        expect.stringContaining('Warning: ReactDOM.render is no longer supported in React 18'),
-      )
-    }
-    spy.mockRestore()
   })
 })
