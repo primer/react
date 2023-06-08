@@ -7,7 +7,7 @@ import {get} from '../constants'
 import {FocusKeys, useFocusZone} from '../hooks/useFocusZone'
 import sx, {SxProp} from '../sx'
 import {ComponentProps} from '../utils/types'
-import getGlobalFocusStyles from '../_getGlobalFocusStyles'
+import getGlobalFocusStyles from '../internal/utils/getGlobalFocusStyles'
 
 const ITEM_CLASS = 'TabNav-item'
 const SELECTED_CLASS = 'selected'
