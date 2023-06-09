@@ -114,7 +114,7 @@ export const WithActions = () => (
         <PageHeader.Actions>
           <IconButton aria-label="Workflows" icon={WorkflowIcon} />
           <IconButton aria-label="Insights" icon={GraphIcon} />
-          <Button variant="primary" trailingIcon={TriangleDownIcon}>
+          <Button variant="primary" trailingVisual={TriangleDownIcon}>
             Add Item
           </Button>
           <IconButton aria-label="Settings" icon={GearIcon} />
@@ -211,7 +211,7 @@ export const WithParentLinkAndActionsOfContextArea = () => (
         <PageHeader.ParentLink href="http://github.com">Parent Link</PageHeader.ParentLink>
 
         <PageHeader.ContextAreaActions>
-          <Button size="small" leadingIcon={GitBranchIcon}>
+          <Button size="small" leadingVisual={GitBranchIcon}>
             Main
           </Button>
           <IconButton size="small" aria-label="More Options" icon={KebabHorizontalIcon} />
@@ -246,7 +246,7 @@ export const WithContextBarAndActionsOfContextArea = () => (
         </PageHeader.ContextBar>
 
         <PageHeader.ContextAreaActions>
-          <Button size="small" leadingIcon={GitBranchIcon}>
+          <Button size="small" leadingVisual={GitBranchIcon}>
             Main
           </Button>
           <IconButton size="small" aria-label="More Options" icon={KebabHorizontalIcon} />

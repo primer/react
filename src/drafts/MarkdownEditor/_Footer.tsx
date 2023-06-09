@@ -64,7 +64,7 @@ const FileUploadButton = memo(({fileDraggedOver, ...props}: Partial<ButtonProps>
   return (
     <Button
       variant="invisible"
-      leadingIcon={ImageIcon}
+      leadingVisual={ImageIcon}
       size="small"
       sx={{color: 'fg.default', fontWeight: fileDraggedOver ? 'bold' : 'normal', px: 2}}
       onMouseDown={(e: React.MouseEvent) => {
@@ -88,7 +88,7 @@ const MarkdownSupportedHint = memo(() => {
 
   return (
     <LinkButton
-      leadingIcon={MarkdownIcon}
+      leadingVisual={MarkdownIcon}
       variant="invisible"
       size="small"
       sx={{color: 'inherit', fontWeight: 'normal', px: 2}}
