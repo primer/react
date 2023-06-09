@@ -5,7 +5,7 @@ import styled from 'styled-components'
 import {get} from '../../constants'
 import sx, {SxProp} from '../../sx'
 import {ComponentProps} from '../../utils/types'
-import getGlobalFocusStyles from '../../_getGlobalFocusStyles'
+import getGlobalFocusStyles from '../../internal/utils/getGlobalFocusStyles'
 
 const ITEM_CLASS = 'PRC-UnderlineNav-item'
 const SELECTED_CLASS = 'PRC-selected'
@@ -111,6 +111,6 @@ UnderlineNavLink.displayName = 'UnderlineNav.Link'
 
 export type UnderlineNavLinkProps = ComponentProps<typeof UnderlineNavLink>
 /**
- * @deprecated Use the new UnderlineNav instead https://primer.style/react/UnderlineNav
+ * @deprecated UnderlineNav is deprecated and will be replaced by the draft `UnderlineNav` in the next major release. See https://primer.style/react/drafts/UnderlineNav2 for more details.
  */
 export default Object.assign(UnderlineNav, {Link: UnderlineNavLink})

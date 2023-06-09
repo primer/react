@@ -17,7 +17,7 @@ import {UnderlineNav} from './index'
 import {INITIAL_VIEWPORTS} from '@storybook/addon-viewport'
 
 export default {
-  title: 'Components/UnderlineNav/Features',
+  title: 'Drafts/Components/UnderlineNav/Features',
 } as Meta
 
 export const Default = () => {
@@ -76,7 +76,11 @@ const items: {navigation: string; icon: React.FC<IconProps>; counter?: number | 
 export const OverflowTemplate = ({initialSelectedIndex = 1}: {initialSelectedIndex?: number}) => {
   const [selectedIndex, setSelectedIndex] = React.useState<number | null>(initialSelectedIndex)
   return (
-    <UnderlineNav aria-label="Repository">
+    <UnderlineNav
+      aria-label="Repository"
+      // @ts-ignore UnderlineNav does not take selectionVariant prop, but we need to pass it to the underlying ActionList so it doesn't show Selections.
+      selectionVariant={undefined}
+    >
       {items.map((item, index) => (
         <UnderlineNav.Item
           key={item.navigation}
