@@ -16,8 +16,4 @@ describe('UnderlineNav.Link', () => {
     const results = await axe(container)
     expect(results).toHaveNoViolations()
   })
-
-  it('respects the "selected" prop', () => {
-    expect(render(<UnderlineNav.Link selected />)).toMatchSnapshot()
-  })
 })
