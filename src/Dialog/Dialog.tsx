@@ -6,7 +6,7 @@ import {get} from '../constants'
 import {useOnEscapePress, useProvidedRefOrCreate} from '../hooks'
 import {useFocusTrap} from '../hooks/useFocusTrap'
 import sx, {SxProp} from '../sx'
-import StyledOcticon from '../StyledOcticon'
+import Octicon from '../Octicon'
 import {XIcon} from '@primer/octicons-react'
 import {useFocusZone} from '../hooks/useFocusZone'
 import {FocusKeys} from '@primer/behaviors'
@@ -417,7 +417,7 @@ const DialogCloseButton = styled(Button)`
 const CloseButton: React.FC<React.PropsWithChildren<{onClose: () => void}>> = ({onClose}) => {
   return (
     <DialogCloseButton aria-label="Close" onClick={onClose}>
-      <StyledOcticon icon={XIcon} />
+      <Octicon icon={XIcon} />
     </DialogCloseButton>
   )
 }

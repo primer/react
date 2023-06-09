@@ -6,6 +6,7 @@ coverage/
 dist/
 lib/
 lib-esm/
+css/
 public/
 stats.html
 .env

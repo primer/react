@@ -199,6 +199,24 @@ describe('FormControl', () => {
         expect(input).toBeDefined()
         expect(label).toBeDefined()
       })
+
+      it('passes through props on the label element', () => {
+        const {getByLabelText, getByText} = render(
+          <SSRProvider>
+            <FormControl>
+              <FormControl.Label data-testid="some-test-id">{LABEL_TEXT}</FormControl.Label>
+              <Textarea />
+            </FormControl>
+          </SSRProvider>,
+        )
+
+        const input = getByLabelText(LABEL_TEXT)
+        const label = getByText(LABEL_TEXT)
+
+        expect(input).toBeDefined()
+        expect(label).toBeDefined()
+        expect(label).toHaveAttribute('data-testid', 'some-test-id')
+      })
     })
 
     describe('ARIA attributes', () => {

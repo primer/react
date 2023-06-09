@@ -2,7 +2,7 @@
 componentId: action_menu
 title: ActionMenu
 status: Beta
-a11yReviewed: true
+a11yReviewed: false
 source: https://github.com/primer/react/tree/main/src/ActionMenu.tsx
 storybook: '/react/storybook?path=/story/components-actionmenu'
 description: An ActionMenu is an ActionList-based component for creating a menu of actions that expands through a trigger button.
@@ -137,7 +137,7 @@ You can choose to have a different _anchor_ for the Menu depending on the applic
           Information-dense table optimized for operations across teams
         </ActionList.Description>
       </ActionList.Item>
-      <ActionList.Item role="listitem">
+      <ActionList.Item>
         <ActionList.LeadingVisual>
           <ProjectIcon />
         </ActionList.LeadingVisual>
@@ -190,9 +190,7 @@ const Example = () => {
 
   return (
     <ActionMenu>
-      <ActionMenu.Button aria-label="Select field type" leadingIcon={selectedType.icon}>
-        {selectedType.name}
-      </ActionMenu.Button>
+      <ActionMenu.Button leadingIcon={selectedType.icon}>{selectedType.name}</ActionMenu.Button>
       <ActionMenu.Overlay width="medium">
         <ActionList selectionVariant="single">
           {fieldTypes.map((type, index) => (
