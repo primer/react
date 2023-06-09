@@ -1,6 +1,6 @@
 import {CSSProperties} from 'react'
 import {css} from 'styled-components'
-import {get} from './constants'
+import {get} from '../../constants'
 
 const globalFocusStyle = css`
   box-shadow: none;
