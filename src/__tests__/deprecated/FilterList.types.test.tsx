@@ -1,5 +1,5 @@
 import React from 'react'
-import FilterList from '../deprecated/FilterList'
+import FilterList from '../../deprecated/FilterList'
 
 export function shouldAcceptCallWithNoProps() {
   return <FilterList />
