@@ -77,4 +77,6 @@ export type {
 // TODO: We can remove these 6 months after release: December 2023
 export {default as FilterList} from './FilterList'
 export type {FilterListProps, FilterListItemProps} from './FilterList'
+export {default as FilteredSearch} from './FilteredSearch'
+export type {FilteredSearchProps} from './FilteredSearch'
 // end of v36.0.0
