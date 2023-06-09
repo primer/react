@@ -2,7 +2,7 @@ import React, {MouseEventHandler, useCallback, useState} from 'react'
 import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import classnames from 'classnames'
 
-import TextInputInnerVisualSlot from '../_TextInputInnerVisualSlot'
+import TextInputInnerVisualSlot from '../internal/components/TextInputInnerVisualSlot'
 import {useProvidedRefOrCreate} from '../hooks'
 import {Merge} from '../utils/types'
 import TextInputWrapper, {StyledWrapperProps} from '../internal/components/TextInputWrapper'
