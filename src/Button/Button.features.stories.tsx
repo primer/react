@@ -29,9 +29,8 @@ export const TrailingCounterAllVariants = () => {
   const [count, setCount] = useState(0)
   return (
     <div style={{display: 'flex', flexDirection: 'row', gap: '1rem'}}>
-      <Button onClick={() => setCount(count + 1)}>
+      <Button onClick={() => setCount(count + 1)} count={count}>
         Watch
-        <Button>{count}</Button>
       </Button>
       <Button disabled onClick={() => setCount(count + 1)} count={count}>
         Watch

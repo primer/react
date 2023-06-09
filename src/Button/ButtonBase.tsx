@@ -85,7 +85,7 @@ const ButtonBase = forwardRef(
                   <TrailingVisual />
                 </Box>
               )}
-              {count !== undefined ? (
+              {count !== undefined && !TrailingVisual ? (
                 <Box as="span" data-component="trailingVisual" sx={{...iconWrapStyles}}>
                   <CounterLabel data-component="ButtonCounter">{count}</CounterLabel>
                 </Box>
