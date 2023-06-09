@@ -9,6 +9,7 @@ type VisualProps = SxProp & React.HTMLAttributes<HTMLSpanElement>
 export const LeadingVisualContainer: React.FC<React.PropsWithChildren<VisualProps>> = ({sx = {}, ...props}) => {
   return (
     <Box
+      data-component="ActionList.LeadingVisual"
       as="span"
       sx={merge(
         {
