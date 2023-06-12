@@ -390,7 +390,7 @@ export const SingleSelectExplorations = () => {
     <>
       <h1>Single Select Explorations</h1>
 
-      <h2>Native Select for reference</h2>
+      <h2>Reference: Native Select</h2>
       <select>
         {items.map(item => (
           <option key={item.id} value={item.id}>
@@ -398,6 +398,12 @@ export const SingleSelectExplorations = () => {
           </option>
         ))}
       </select>
+
+      <h2>Reference: Scrollable Listbox Example by ARIA Authoring Practices Guide</h2>
+
+      <a href="https://www.w3.org/WAI/ARIA/apg/patterns/listbox/examples/listbox-scrollable/#ex">
+        Scrollable Listbox Example
+      </a>
 
       <h2>No buttons</h2>
 
