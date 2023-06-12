@@ -3,7 +3,7 @@ import {ComponentMeta} from '@storybook/react'
 
 import Box from '../Box'
 import {Button} from '../Button'
-import {ItemInput} from '../deprecated/ActionList/List'
+import {ItemInput} from '../FilteredActionList'
 import {SelectPanel} from './SelectPanel'
 import {TriangleDownIcon} from '@primer/octicons-react'
 import type {OverlayProps} from '../Overlay'
@@ -14,30 +14,28 @@ export default {
 } as ComponentMeta<typeof SelectPanel>
 
 function getColorCircle(color: string) {
-  return function () {
-    return (
-      <Box
-        bg={color}
-        borderColor={color}
-        width={14}
-        height={14}
-        borderRadius={10}
-        margin="auto"
-        borderWidth="1px"
-        borderStyle="solid"
-      />
-    )
-  }
+  return (
+    <Box
+      bg={color}
+      borderColor={color}
+      width={14}
+      height={14}
+      borderRadius={10}
+      margin="auto"
+      borderWidth="1px"
+      borderStyle="solid"
+    />
+  )
 }
 
 const items = [
-  {leadingVisual: getColorCircle('#a2eeef'), text: 'enhancement', id: 1},
-  {leadingVisual: getColorCircle('#d73a4a'), text: 'bug', id: 2},
-  {leadingVisual: getColorCircle('#0cf478'), text: 'good first issue', id: 3},
-  {leadingVisual: getColorCircle('#ffd78e'), text: 'design', id: 4},
-  {leadingVisual: getColorCircle('#ff0000'), text: 'blocker', id: 5},
-  {leadingVisual: getColorCircle('#a4f287'), text: 'backend', id: 6},
-  {leadingVisual: getColorCircle('#8dc6fc'), text: 'frontend', id: 7},
+  {leadingVisual: getColorCircle('#a2eeef'), text: 'enhancement', id: '1'},
+  {leadingVisual: getColorCircle('#d73a4a'), text: 'bug', id: '2'},
+  {leadingVisual: getColorCircle('#0cf478'), text: 'good first issue', id: '3'},
+  {leadingVisual: getColorCircle('#ffd78e'), text: 'design', id: '4'},
+  {leadingVisual: getColorCircle('#ff0000'), text: 'blocker', id: '5'},
+  {leadingVisual: getColorCircle('#a4f287'), text: 'backend', id: '6'},
+  {leadingVisual: getColorCircle('#8dc6fc'), text: 'frontend', id: '7'},
 ]
 
 export const SingleSelectStory = () => {
@@ -63,6 +61,7 @@ export const SingleSelectStory = () => {
         selected={selected}
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
+        showDividers={true}
         showItemDividers={true}
         overlayProps={{width: 'small', height: 'xsmall'}}
       />
@@ -94,7 +93,6 @@ export const ExternalAnchorStory = () => {
         selected={selected}
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
-        showItemDividers={true}
         overlayProps={{width: 'small', height: 'xsmall'}}
       />
     </>
@@ -125,7 +123,6 @@ export const SelectPanelHeightInitialWithOverflowingItemsStory = () => {
         selected={selected}
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
-        showItemDividers={true}
         overlayProps={{width: 'small', height: 'initial', maxHeight: 'xsmall'}}
       />
     </>
@@ -157,7 +154,6 @@ export const SelectPanelHeightInitialWithUnderflowingItemsStory = () => {
         selected={selected}
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
-        showItemDividers={true}
         overlayProps={{width: 'small', height: 'initial', maxHeight: 'xsmall'}}
       />
     </>
@@ -202,7 +198,6 @@ export const SelectPanelHeightInitialWithUnderflowingItemsAfterFetch = () => {
         selected={selected}
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
-        showItemDividers={true}
         overlayProps={{width: 'small', height, maxHeight: 'xsmall'}}
       />
     </>
@@ -234,7 +229,6 @@ export const SelectPanelAboveTallBody = () => {
         selected={selected}
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
-        showItemDividers={true}
         overlayProps={{width: 'small', height: 'xsmall'}}
       />
       <div
@@ -276,7 +270,6 @@ export const SelectPanelHeightAndScroll = () => {
         selected={selectedA}
         onSelectedChange={setSelectedA}
         onFilterChange={setFilter}
-        showItemDividers={true}
         overlayProps={{height: 'medium'}}
       />
       <h2>With height:auto, maxheight:medium</h2>
@@ -293,7 +286,6 @@ export const SelectPanelHeightAndScroll = () => {
         selected={selectedB}
         onSelectedChange={setSelectedB}
         onFilterChange={setFilter}
-        showItemDividers={true}
         overlayProps={{
           height: 'auto',
           maxHeight: 'medium',
