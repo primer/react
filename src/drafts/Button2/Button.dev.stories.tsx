@@ -78,7 +78,7 @@ export const TestSxProp = () => {
           height: 32,
           '&:focus': {
             outline: 0,
-            '& > span': {
+            '&': {
               boxShadow: `inset 0 0 0 2px deeppink`,
             },
           },

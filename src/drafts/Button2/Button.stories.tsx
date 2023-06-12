@@ -1,6 +1,6 @@
 import React from 'react'
+import {Story, Meta} from '@storybook/react'
 import {EyeClosedIcon, EyeIcon, SearchIcon, TriangleDownIcon, XIcon, HeartIcon} from '@primer/octicons-react'
-import {Meta, StoryFn} from '@storybook/react'
 import {Button} from '.'
 import {OcticonArgType} from '../../utils/story-helpers'
 
@@ -39,9 +39,7 @@ export default {
     trailingIcon: OcticonArgType([EyeClosedIcon, EyeIcon, SearchIcon, XIcon, HeartIcon]),
     trailingAction: OcticonArgType([TriangleDownIcon]),
     trailingVisualCount: {
-      control: {
-        type: 'number',
-      },
+      control: {type: 'number'},
     },
   },
   args: {
@@ -57,11 +55,11 @@ export default {
   },
 } as Meta<typeof Button>
 
-export const Playground: StoryFn = args => {
+export const Playground: Story<typeof Button & {trailingVisualCount: number}> = args => {
   const {trailingVisualCount, ...rest} = args
   return (
     <Button {...rest}>
-      Default
+      Default{' '}
       {typeof trailingVisualCount === 'undefined' ? null : <Button.Counter>{trailingVisualCount}</Button.Counter>}
     </Button>
   )

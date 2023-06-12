@@ -3,3 +3,4 @@ declare var __DEV__: boolean
 
 // supress type warnings for css files
 declare module '*.module.css'
+declare module '*.module.scss'

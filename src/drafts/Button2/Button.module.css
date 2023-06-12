@@ -1,0 +1,378 @@
+/* CSS for Button  */
+
+/* temporary, pre primitives release */
+:root {
+  --duration-fast: 80ms;
+  --easing-easeInOut: cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+/* base button */
+.Button {
+  position: relative;
+  font-size: var(--text-body-size-medium, 14px);
+  font-weight: var(--base-text-weight-medium, 500);
+  cursor: pointer;
+  user-select: none;
+  background-color: transparent;
+  border: var(--borderWidth-thin, 1px) solid;
+  border-color: transparent;
+  border-radius: var(--borderRadius-medium, 6px);
+  color: var(--color-btn-text);
+  transition: var(--duration-fast) var(--easing-easeInOut);
+  transition-property: color, fill, background-color, border-color;
+  text-align: center;
+  height: var(--control-medium-size, 32px);
+  padding: 0 var(--control-medium-paddingInline-normal, 12px);
+  display: inline-flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--base-size-4, 4px);
+  min-width: max-content;
+
+  /* mobile friendly sizing */
+  @media (pointer: coarse) {
+    .Button::before {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 100%;
+      height: 100%;
+      min-height: 48px;
+      content: '';
+      transform: translateX(-50%) translateY(-50%);
+      min-width: 48px;
+    }
+  }
+
+  /* base states */
+
+  &:hover {
+    transition-duration: var(--duration-fast);
+  }
+
+  &:active {
+    transition: none;
+  }
+
+  &:disabled,
+  &[aria-disabled='true'] {
+    cursor: not-allowed;
+    box-shadow: none;
+  }
+}
+
+.Button-withTooltip {
+  position: relative;
+  display: inline-block;
+}
+
+a.Button,
+summary.Button {
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+/* wrap grid content to allow trailingAction to lock-right */
+.Button-content {
+  flex: 1 0 auto;
+  display: grid;
+  grid-template-areas: 'leadingVisual text trailingVisual';
+  grid-template-columns: min-content minmax(0, auto) min-content;
+  align-items: center;
+  place-content: center;
+
+  /* padding-bottom: 1px; optical alignment for firefox */
+
+  & > :not(:last-child) {
+    margin-right: var(--control-medium-gap, 8px);
+  }
+}
+
+/* center child elements for fullWidth */
+.Button-content--alignStart {
+  justify-content: start;
+}
+
+/* button child elements */
+
+/* align svg */
+.Button-visual {
+  display: flex;
+  pointer-events: none; /* allow click handler to work, avoiding visuals */
+
+  & .Counter {
+    color: inherit;
+    background-color: var(--color-btn-counter-bg);
+  }
+}
+
+.Button-label {
+  grid-area: text;
+  white-space: nowrap;
+  line-height: var(--text-body-lineHeight-medium, calc(20 / 14));
+}
+
+.Button-leadingVisual {
+  grid-area: leadingVisual;
+}
+
+.Button-trailingVisual {
+  grid-area: trailingVisual;
+}
+
+.Button-trailingAction {
+  margin-right: calc(var(--base-size-4, 4px) * -1);
+}
+
+/* sizes */
+
+.Button--small {
+  font-size: var(--text-body-size-small, 12px);
+  height: var(--control-small-size, 28px);
+  padding: 0 var(--control-small-paddingInline-condensed, 8px);
+  gap: var(--control-small-gap, 4px);
+
+  & .Button-label {
+    line-height: var(--text-body-lineHeight-small, calc(20 / 12));
+  }
+
+  & .Button-content {
+    & > :not(:last-child) {
+      margin-right: var(--control-small-gap, 4px);
+    }
+  }
+}
+
+.Button--large {
+  height: var(--control-large-size, 40px);
+  padding: 0 var(--control-large-paddingInline-spacious, 16px);
+  gap: var(--control-large-gap, 8px);
+
+  & .Button-label {
+    line-height: var(--text-body-lineHeight-large, calc(48 / 32));
+  }
+
+  & .Button-content {
+    & > :not(:last-child) {
+      margin-right: var(--control-large-gap, 8px);
+    }
+  }
+}
+
+.Button--fullWidth {
+  width: 100%;
+}
+
+/* variants */
+
+/* primary */
+.Button--primary {
+  color: var(--color-btn-primary-text);
+  fill: var(--color-btn-primary-icon);
+  background-color: var(--color-btn-primary-bg);
+  border-color: var(--color-btn-primary-border);
+  box-shadow: var(--color-btn-primary-shadow), var(--color-btn-primary-inset-shadow);
+
+  &:hover:not(:disabled) {
+    background-color: var(--color-btn-primary-hover-bg);
+    border-color: var(--color-btn-primary-hover-border);
+  }
+
+  /* fallback :focus state */
+  &:focus {
+    outline: 2px solid var(--color-accent-fg);
+    outline-offset: -2px;
+    box-shadow: inset 0 0 0 3px var(--color-fg-on-emphasis);
+
+    /* remove fallback :focus if :focus-visible is supported */
+    &:not(:focus-visible) {
+      outline: solid 1px transparent;
+      box-shadow: none;
+    }
+  }
+
+  /* default focus state */
+  &:focus-visible {
+    outline: 2px solid var(--color-accent-fg);
+    outline-offset: -2px;
+    box-shadow: inset 0 0 0 3px var(--color-fg-on-emphasis);
+  }
+
+  &:active:not(:disabled),
+  &[aria-pressed='true'] {
+    background-color: var(--color-btn-primary-selected-bg);
+    box-shadow: var(--color-btn-primary-selected-shadow);
+  }
+
+  &:disabled,
+  &[aria-disabled='true'] {
+    color: var(--color-btn-primary-disabled-text);
+    background-color: var(--color-btn-primary-disabled-bg);
+    border-color: var(--color-btn-primary-disabled-border);
+    fill: var(--color-btn-primary-disabled-text);
+  }
+
+  & .Counter {
+    color: inherit;
+    background-color: var(--color-btn-primary-counter-bg);
+  }
+}
+
+/* default (secondary) */
+.Button--secondary {
+  color: var(--color-btn-text);
+  fill: var(--color-fg-muted); /* help this */
+  background-color: var(--color-btn-bg);
+  border-color: var(--color-btn-border);
+  box-shadow: var(--color-btn-shadow), var(--color-btn-inset-shadow);
+
+  &:hover:not(:disabled) {
+    background-color: var(--color-btn-hover-bg);
+    border-color: var(--color-btn-hover-border);
+  }
+
+  &:active:not(:disabled) {
+    background-color: var(--color-btn-active-bg);
+    border-color: var(--color-btn-active-border);
+  }
+
+  &[aria-pressed='true'] {
+    background-color: var(--color-btn-selected-bg);
+    box-shadow: var(--color-primer-shadow-inset);
+  }
+
+  &:disabled,
+  &[aria-disabled='true'] {
+    color: var(--color-primer-fg-disabled);
+    background-color: var(--color-btn-bg);
+    border-color: var(--color-btn-border);
+    fill: var(--color-primer-fg-disabled);
+  }
+}
+
+.Button--invisible {
+  color: var(--color-btn-text);
+
+  &:hover:not(:disabled) {
+    background-color: var(--color-action-list-item-default-hover-bg);
+  }
+
+  &[aria-pressed='true'],
+  &:active:not(:disabled) {
+    background-color: var(--color-action-list-item-default-active-bg);
+  }
+
+  &:disabled,
+  &[aria-disabled='true'] {
+    color: var(--color-primer-fg-disabled);
+    background-color: var(--color-btn-bg);
+    border-color: var(--color-btn-border);
+    fill: var(--color-primer-fg-disabled);
+  }
+
+  /* if button has no visuals, use link blue for text */
+  &.Button--invisible-noVisuals .Button-label {
+    color: var(--color-accent-fg);
+  }
+
+  & .Button-visual {
+    color: var(--color-fg-muted);
+
+    & .Counter {
+      color: var(--color-fg-default);
+    }
+  }
+}
+
+.Button--link {
+  color: var(--color-accent-fg);
+  fill: var(--color-accent-fg);
+  display: inline-block;
+  font-size: inherit;
+  border: none;
+  height: unset;
+  padding: 0;
+
+  &:hover:not(:disabled) {
+    text-decoration: underline;
+  }
+
+  &:focus-visible,
+  &:focus {
+    outline-offset: 2px;
+  }
+
+  &:disabled,
+  &[aria-disabled='true'] {
+    color: var(--color-primer-fg-disabled);
+    background-color: transparent;
+    border-color: transparent;
+    fill: var(--color-primer-fg-disabled);
+  }
+}
+
+/* danger */
+.Button--danger {
+  color: var(--color-btn-danger-text);
+  fill: var(--color-btn-danger-icon);
+  background-color: var(--color-btn-bg);
+  border-color: var(--color-btn-border);
+  box-shadow: var(--color-btn-shadow), var(--color-btn-inset-shadow);
+
+  &:hover:not(:disabled) {
+    color: var(--color-btn-danger-hover-text);
+    fill: var(--color-btn-danger-hover-text);
+    background-color: var(--color-btn-danger-hover-bg);
+    border-color: var(--color-btn-danger-hover-border);
+    box-shadow: var(--color-btn-danger-hover-shadow), var(--color-btn-danger-hover-inset-shadow);
+
+    & .Counter {
+      color: var(--color-btn-danger-hover-counter-fg);
+      background-color: var(--color-btn-danger-hover-counter-bg);
+    }
+  }
+
+  &:active:not(:disabled),
+  &[aria-pressed='true'] {
+    color: var(--color-btn-danger-selected-text);
+    fill: var(--color-btn-danger-selected-text);
+    background-color: var(--color-btn-danger-selected-bg);
+    border-color: var(--color-btn-danger-selected-border);
+    box-shadow: var(--color-btn-danger-selected-shadow);
+  }
+
+  &:disabled,
+  &[aria-disabled='true'] {
+    color: var(--color-btn-danger-disabled-text);
+    fill: var(--color-btn-danger-disabled-text);
+    background-color: var(--color-btn-danger-disabled-bg);
+    border-color: var(--color-btn-border);
+
+    & .Counter {
+      color: var(--color-btn-danger-disabled-counter-fg);
+      background-color: var(--color-btn-danger-disabled-counter-bg);
+    }
+  }
+
+  & .Counter {
+    color: var(--color-btn-danger-counter-fg);
+    background-color: var(--color-btn-danger-counter-bg);
+  }
+}
+
+.Button--iconOnly {
+  display: inline-grid;
+  place-content: center;
+  padding: unset;
+  width: var(--control-medium-size, 32px);
+
+  &.Button--small {
+    width: var(--control-small-size, 28px);
+  }
+
+  &.Button--large {
+    width: var(--control-large-size, 40px);
+  }
+}

@@ -39,3 +39,10 @@ export const Small = () => <Button size="small">Default</Button>
 export const Medium = () => <Button size="medium">Default</Button>
 
 export const Large = () => <Button size="large">Default</Button>
+
+export const WithClassName = () => (
+  <Button className="storybook-debug">
+    Watch
+    <Button.Counter className="storybook-debug">{2}</Button.Counter>
+  </Button>
+)
