@@ -11,8 +11,6 @@ import {
   NumberIcon,
   CalendarIcon,
   XIcon,
-  CheckIcon,
-  CopyIcon,
 } from '@primer/octicons-react'
 
 export default {
@@ -273,37 +271,5 @@ export const MultipleSections = () => {
         </ActionList>
       </ActionMenu.Overlay>
     </ActionMenu>
-  )
-}
-
-export const DelayedMenuClose = () => {
-  const [open, setOpen] = React.useState(false)
-  const [copyLinkSuccess, setCopyLinkSuccess] = React.useState(false)
-  const onSelect = (event: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement>) => {
-    event.preventDefault()
-
-    setCopyLinkSuccess(true)
-    setTimeout(() => {
-      setOpen(false)
-      setCopyLinkSuccess(false)
-    }, 700)
-  }
-
-  return (
-    <>
-      <h1>Delayed Menu Close</h1>
-
-      <ActionMenu open={open} onOpenChange={setOpen}>
-        <ActionMenu.Button>Anchor</ActionMenu.Button>
-        <ActionMenu.Overlay>
-          <ActionList>
-            <ActionList.Item onSelect={onSelect}>
-              <ActionList.LeadingVisual>{copyLinkSuccess ? <CheckIcon /> : <CopyIcon />}</ActionList.LeadingVisual>
-              {copyLinkSuccess ? 'Copied!' : 'Copy link'}
-            </ActionList.Item>
-          </ActionList>
-        </ActionMenu.Overlay>
-      </ActionMenu>
-    </>
   )
 }
