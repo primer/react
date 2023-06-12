@@ -30,7 +30,7 @@ export const GroupsAndDescriptions = () => {
 
   return (
     <ActionMenu open>
-      <ActionMenu.Button variant="default" trailingIcon={GearIcon}>
+      <ActionMenu.Button variant="default" trailingVisual={GearIcon}>
         Milestone
       </ActionMenu.Button>
       <ActionMenu.Overlay width="medium">
@@ -201,7 +201,7 @@ export const MixedSelection = () => {
 
   return (
     <ActionMenu>
-      <ActionMenu.Button leadingIcon={selectedOption ? selectedOption.icon : undefined}>
+      <ActionMenu.Button leadingVisual={selectedOption ? selectedOption.icon : undefined}>
         {selectedOption ? `Group by ${selectedOption.text}` : 'Group items by'}
       </ActionMenu.Button>
       <ActionMenu.Overlay width="medium">

@@ -203,7 +203,7 @@ export const Playground: Story = args => (
         </PageHeader.ContextBar>
 
         <PageHeader.ContextAreaActions hidden={!args.hasContextAreaAction}>
-          <Button size="small" leadingIcon={GitBranchIcon}>
+          <Button size="small" leadingVisual={GitBranchIcon}>
             Main
           </Button>
           <IconButton size="small" aria-label="More" icon={KebabHorizontalIcon} />
