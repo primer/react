@@ -57,7 +57,7 @@ export type {
   ActionListLeadingVisualProps,
   ActionListTrailingVisualProps,
 } from './ActionList'
-export {ActionMenu, MenuContext} from './ActionMenu'
+export {ActionMenu} from './ActionMenu'
 export type {ActionMenuProps, ActionMenuAnchorProps, ActionMenuButtonProps} from './ActionMenu'
 export {AnchoredOverlay} from './AnchoredOverlay'
 export type {AnchoredOverlayProps} from './AnchoredOverlay'
