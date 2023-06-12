@@ -14,9 +14,6 @@ import {useProvidedRefOrCreate} from '../hooks'
 import {FocusZoneHookSettings} from '../hooks/useFocusZone'
 import {useId} from '../hooks/useId'
 import {useProvidedStateOrCreate} from '../hooks/useProvidedStateOrCreate'
-import Box from '../Box'
-import {SearchIcon} from '@primer/octicons-react'
-import {Button} from '../Button'
 import {LiveRegion, LiveRegionOutlet, Message} from '../internal/components/LiveRegion'
 
 interface SelectPanelSingleSelection {
