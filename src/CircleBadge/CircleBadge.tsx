@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import {get} from '../constants'
-import Octicon from '../Octicon'
+import StyledOcticon from '../StyledOcticon'
 import sx, {SxProp} from '../sx'
 import isNumeric from '../utils/isNumeric'
 import {ComponentProps} from '../utils/types'
@@ -36,7 +36,7 @@ const CircleBadge = styled.div<StyledCircleBadgeProps>`
   ${sx};
 `
 
-const CircleBadgeIcon = styled(Octicon)`
+const CircleBadgeIcon = styled(StyledOcticon)`
   height: auto;
   max-width: 60%;
   max-height: 55%;

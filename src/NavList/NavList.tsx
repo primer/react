@@ -9,7 +9,7 @@ import {
   ActionListTrailingVisualProps,
 } from '../ActionList'
 import Box from '../Box'
-import Octicon from '../Octicon'
+import StyledOcticon from '../StyledOcticon'
 import sx, {merge, SxProp} from '../sx'
 import {defaultSxProp} from '../utils/defaultSxProp'
 import {useId} from '../hooks/useId'
@@ -143,7 +143,7 @@ function ItemWithSubNav({children, subNav, sx: sxProp = defaultSxProp}: ItemWith
           {children}
           {/* What happens if the user provides a TrailingVisual? */}
           <ActionList.TrailingVisual>
-            <Octicon
+            <StyledOcticon
               icon={ChevronDownIcon}
               sx={{
                 transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)',

@@ -1,6 +1,6 @@
 {
-  "id": "octicon",
-  "name": "Octicon",
+  "id": "styled_octicon",
+  "name": "StyledOcticon",
   "status": "alpha",
   "a11yReviewed": false,
   "stories": [],

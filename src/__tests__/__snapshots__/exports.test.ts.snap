@@ -39,7 +39,6 @@ exports[`@primer/react should not update exports without a semver change 1`] = `
   "Link",
   "LinkButton",
   "NavList",
-  "Octicon",
   "Overlay",
   "PageLayout",
   "Pagehead",

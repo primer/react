@@ -2,7 +2,7 @@ import React from 'react'
 import {DiffAddedIcon, DiffModifiedIcon, FileIcon} from '@primer/octicons-react'
 import {Meta, Story} from '@storybook/react'
 import Box from '../Box'
-import Octicon from '../Octicon'
+import StyledOcticon from '../StyledOcticon'
 import {TreeView} from './TreeView'
 
 const meta: Meta = {
@@ -34,7 +34,7 @@ export const Default: Story = () => (
             </TreeView.LeadingVisual>
             Avatar.tsx
             <TreeView.TrailingVisual>
-              <Octicon icon={DiffAddedIcon} color="success.fg" aria-label="added" />
+              <StyledOcticon icon={DiffAddedIcon} color="success.fg" aria-label="added" />
             </TreeView.TrailingVisual>
           </TreeView.Item>
           <TreeView.Item id="src/Button.tsx" current>
@@ -43,7 +43,7 @@ export const Default: Story = () => (
             </TreeView.LeadingVisual>
             Button.tsx
             <TreeView.TrailingVisual>
-              <Octicon icon={DiffModifiedIcon} color="attention.fg" aria-label="modified" />
+              <StyledOcticon icon={DiffModifiedIcon} color="attention.fg" aria-label="modified" />
             </TreeView.TrailingVisual>
           </TreeView.Item>
         </TreeView.SubTree>
@@ -54,7 +54,7 @@ export const Default: Story = () => (
         </TreeView.LeadingVisual>
         package.json
         <TreeView.TrailingVisual>
-          <Octicon icon={DiffModifiedIcon} color="attention.fg" aria-label="modified" />
+          <StyledOcticon icon={DiffModifiedIcon} color="attention.fg" aria-label="modified" />
         </TreeView.TrailingVisual>
       </TreeView.Item>
     </TreeView>

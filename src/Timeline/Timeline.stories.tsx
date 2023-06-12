@@ -2,7 +2,7 @@ import React from 'react'
 import {Meta, Story} from '@storybook/react'
 import {ComponentProps} from '../utils/types'
 import Timeline from './Timeline'
-import Octicon from '../Octicon'
+import StyledOcticon from '../StyledOcticon'
 import {GitCommitIcon} from '@primer/octicons-react'
 
 export default {
@@ -20,19 +20,19 @@ export const Default = () => (
   <Timeline>
     <Timeline.Item>
       <Timeline.Badge>
-        <Octicon icon={GitCommitIcon} />
+        <StyledOcticon icon={GitCommitIcon} />
       </Timeline.Badge>
       <Timeline.Body>This is a message</Timeline.Body>
     </Timeline.Item>
     <Timeline.Item>
       <Timeline.Badge>
-        <Octicon icon={GitCommitIcon} />
+        <StyledOcticon icon={GitCommitIcon} />
       </Timeline.Badge>
       <Timeline.Body>This is a message</Timeline.Body>
     </Timeline.Item>
     <Timeline.Item>
       <Timeline.Badge>
-        <Octicon icon={GitCommitIcon} />
+        <StyledOcticon icon={GitCommitIcon} />
       </Timeline.Badge>
       <Timeline.Body>This is a message</Timeline.Body>
     </Timeline.Item>
@@ -43,19 +43,19 @@ export const Playground: Story<ComponentProps<typeof Timeline>> = args => (
   <Timeline {...args}>
     <Timeline.Item>
       <Timeline.Badge>
-        <Octicon icon={GitCommitIcon} />
+        <StyledOcticon icon={GitCommitIcon} />
       </Timeline.Badge>
       <Timeline.Body>This is a message</Timeline.Body>
     </Timeline.Item>
     <Timeline.Item>
       <Timeline.Badge>
-        <Octicon icon={GitCommitIcon} />
+        <StyledOcticon icon={GitCommitIcon} />
       </Timeline.Badge>
       <Timeline.Body>This is a message</Timeline.Body>
     </Timeline.Item>
     <Timeline.Item>
       <Timeline.Badge>
-        <Octicon icon={GitCommitIcon} />
+        <StyledOcticon icon={GitCommitIcon} />
       </Timeline.Badge>
       <Timeline.Body>This is a message</Timeline.Body>
     </Timeline.Item>

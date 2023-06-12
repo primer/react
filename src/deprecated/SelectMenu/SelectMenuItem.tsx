@@ -2,7 +2,7 @@ import {CheckIcon} from '@primer/octicons-react'
 import React, {forwardRef, useContext, useRef} from 'react'
 import styled, {css} from 'styled-components'
 import {get} from '../../constants'
-import Octicon from '../../Octicon'
+import StyledOcticon from '../../StyledOcticon'
 import sx, {SxProp} from '../../sx'
 import {ComponentProps} from '../../utils/types'
 import {MenuContext} from './SelectMenuContext'
@@ -119,7 +119,7 @@ const SelectMenuItem = forwardRef<HTMLAnchorElement, SelectMenuItemInteralProps>
     }
     return (
       <StyledItem ref={itemRef} {...rest} theme={theme} onClick={handleClick} aria-checked={selected}>
-        <Octicon theme={theme} className="SelectMenu-icon SelectMenu-selected-icon" icon={CheckIcon} />
+        <StyledOcticon theme={theme} className="SelectMenu-icon SelectMenu-selected-icon" icon={CheckIcon} />
         {children}
       </StyledItem>
     )
