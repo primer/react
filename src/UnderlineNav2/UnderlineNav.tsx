@@ -145,6 +145,7 @@ export const UnderlineNav = forwardRef(
       variant = 'default',
       loadingCounters = false,
       children,
+      ...props
     }: UnderlineNavProps,
     forwardedRef,
   ) => {
@@ -369,6 +370,7 @@ export const UnderlineNav = forwardRef(
                   ref={containerRef}
                   id={disclosureWidgetId}
                   sx={merge({display: isWidgetOpen ? 'block' : 'none'}, menuStyles)}
+                  {...props}
                 >
                   {actions.map((action, index) => {
                     const {children: actionElementChildren, ...actionElementProps} = action.props

@@ -163,7 +163,7 @@
               "name": "onSelect",
               "type": "(event: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement>) => void",
               "defaultValue": "",
-              "description": "Callback that is called when the item is selected using either the mouse or keyboard."
+              "description": "Callback that is called when the item is selected using either the mouse or keyboard. `event.preventDefault()` will prevent a menu from closing when within an `<ActionMenu />`"
             },
             {
               "name": "selected",
@@ -2731,18 +2731,6 @@
           "name": "PageLayout.Content",
           "props": [
             {
-              "name": "aria-label",
-              "type": "string | undefined",
-              "defaultValue": "",
-              "description": "A unique label for the rendered main landmark"
-            },
-            {
-              "name": "aria-labelledby",
-              "type": "string | undefined",
-              "defaultValue": "",
-              "description": "An id to an element which uniquely labels the rendered main landmark"
-            },
-            {
               "name": "width",
               "type": "| 'full' | 'medium' | 'large' | 'xlarge'",
               "defaultValue": "'full'",
@@ -3638,7 +3626,7 @@
       "stories": [
         {
           "id": "components-selectpanel--default",
-          "code": "() => {\n  const [selected, setSelected] = React.useState<ItemInput[]>([\n    items[0],\n    items[1],\n  ])\n  const [filter, setFilter] = React.useState('')\n  const filteredItems = items.filter((item) =>\n    item.text.toLowerCase().startsWith(filter.toLowerCase()),\n  )\n  const [open, setOpen] = useState(false)\n  return (\n    <>\n      <h1>Multi Select Panel</h1>\n      <div>Please select labels that describe your issue:</div>\n      <SelectPanel\n        title=\"Select labels\"\n        renderAnchor={({\n          children,\n          'aria-labelledby': ariaLabelledBy,\n          ...anchorProps\n        }) => (\n          <Button\n            trailingAction={TriangleDownIcon}\n            aria-labelledby={` ${ariaLabelledBy}`}\n            {...anchorProps}\n          >\n            {children ?? 'Select Labels'}\n          </Button>\n        )}\n        placeholderText=\"Filter labels\"\n        open={open}\n        onOpenChange={setOpen}\n        items={filteredItems}\n        selected={selected}\n        onSelectedChange={setSelected}\n        onFilterChange={setFilter}\n        showItemDividers={true}\n        overlayProps={{\n          width: 'medium',\n          height: 'large',\n        }}\n      />\n    </>\n  )\n}"
+          "code": "() => {\n  const [selected, setSelected] = React.useState<ItemInput[]>([\n    items[0],\n    items[1],\n  ])\n  const [filter, setFilter] = React.useState('')\n  const filteredItems = items.filter((item) =>\n    item.text.toLowerCase().startsWith(filter.toLowerCase()),\n  )\n  const [open, setOpen] = useState(false)\n  return (\n    <>\n      <h1>Multi Select Panel</h1>\n      <SelectPanel\n        title=\"Select labels\"\n        subtitle=\"Use labels to organize issues and pull requests\"\n        renderAnchor={({\n          children,\n          'aria-labelledby': ariaLabelledBy,\n          ...anchorProps\n        }) => (\n          <Button\n            trailingAction={TriangleDownIcon}\n            aria-labelledby={` ${ariaLabelledBy}`}\n            {...anchorProps}\n          >\n            {children ?? 'Select Labels'}\n          </Button>\n        )}\n        placeholderText=\"Filter labels\"\n        open={open}\n        onOpenChange={setOpen}\n        items={filteredItems}\n        selected={selected}\n        onSelectedChange={setSelected}\n        onFilterChange={setFilter}\n        showItemDividers={true}\n        overlayProps={{\n          width: 'medium',\n          height: 'medium',\n        }}\n      />\n    </>\n  )\n}"
         }
       ],
       "props": [
@@ -3647,6 +3635,12 @@
           "type": "string | React.ReactElement",
           "defaultValue": "\"Select an item\" or \"Select items\"",
           "description": "A descriptive title for the panel"
+        },
+        {
+          "name": "subtitle",
+          "type": "string | React.ReactElement",
+          "defaultValue": "",
+          "description": "When provided, a subtitle is displayed below the title"
         },
         {
           "name": "onOpenChange",
@@ -4452,7 +4446,7 @@
       "stories": [
         {
           "id": "components-toggleswitch--default",
-          "code": "<Box\n  display=\"grid\"\n  gridTemplateColumns={'max-content auto'}\n  maxWidth={'20rem'}\n  alignItems={'center'}\n  justifyContent={'space-between'}\n>\n  <Text id=\"toggle\" fontWeight={'bold'} fontSize={2}>\n    Toggle label\n  </Text>\n  <ToggleSwitch aria-labelledby=\"toggle\" />\n</Box>"
+          "code": "() => (\n  <>\n    <Text id=\"toggle\" fontWeight=\"bold\" fontSize={1}>\n      Toggle label\n    </Text>\n    <ToggleSwitch aria-labelledby=\"toggle\" />\n  </>\n)"
         }
       ],
       "props": [
