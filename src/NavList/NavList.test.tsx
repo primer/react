@@ -249,7 +249,7 @@ describe('NavList.Item with NavList.SubNav', () => {
     expect(container).toMatchSnapshot()
   })
 
-  it('prevents more than 4 levels of nested SubNavs', () => {
+  it('prevents multiple levels of nested SubNavs', () => {
     const consoleSpy = jest
       .spyOn(console, 'error')
       // Suppress error message in test output
@@ -257,45 +257,22 @@ describe('NavList.Item with NavList.SubNav', () => {
 
     const {getByRole} = render(
       <NavList>
-        <NavList.Item href="#">Item 1</NavList.Item>
-        <NavList.Item href="#">
-          Item 2{/* NOTE: Don't nest SubNavs. For testing purposes only */}
+        <NavList.Item>
+          Item
           <NavList.SubNav>
-            <NavList.Item href="#">
-              Sub item 1
+            <NavList.Item>
+              Sub item
+              {/* NOTE: Don't nest SubNavs. For testing purposes only */}
               <NavList.SubNav>
-                <NavList.Item href="#">
-                  Sub item 1.1
-                  <NavList.SubNav>
-                    <NavList.Item href="#">Sub item 1.1.1</NavList.Item>
-                    <NavList.Item href="#">
-                      Sub item 1.1.2
-                      <NavList.SubNav>
-                        <NavList.Item href="#">Sub item 1.1.2.1</NavList.Item>
-                        <NavList.Item href="#">
-                          Sub item 1.1.2.2
-                          <NavList.SubNav>
-                            <NavList.Item href="#" aria-current="page">
-                              Sub item 1.1.2.2.1
-                            </NavList.Item>
-                            <NavList.Item href="#">Sub item 1.1.2.2.2</NavList.Item>
-                          </NavList.SubNav>
-                        </NavList.Item>
-                      </NavList.SubNav>
-                    </NavList.Item>
-                  </NavList.SubNav>
-                </NavList.Item>
-                <NavList.Item href="#">Sub item 1.2</NavList.Item>
+                <NavList.Item href="#">Sub sub item</NavList.Item>
               </NavList.SubNav>
             </NavList.Item>
-            <NavList.Item href="#">Sub item 2</NavList.Item>
           </NavList.SubNav>
         </NavList.Item>
-        <NavList.Item href="#">Item 3</NavList.Item>
       </NavList>,
     )
 
-    const item = getByRole('button', {name: 'Item 2'})
+    const item = getByRole('button', {name: 'Item'})
     fireEvent.click(item)
 
     expect(consoleSpy).toHaveBeenCalled()
