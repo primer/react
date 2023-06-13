@@ -297,6 +297,11 @@ describe('MarkdownEditor', () => {
   })
 
   describe('footer', () => {
+    it('renders default when not using custom footer', async () => {
+      const {getDefaultFooterButton} = await render(<UncontrolledEditor></UncontrolledEditor>)
+      expect(getDefaultFooterButton()).toBeInTheDocument()
+    })
+
     it('renders custom buttons', async () => {
       const {getActionButton, getDefaultFooterButton} = await render(
         <UncontrolledEditor>
