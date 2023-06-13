@@ -6,29 +6,21 @@
   "module": "lib-esm/index.js",
   "exports": {
     ".": {
-      "import": "./lib-esm/index.js",
-      "require": "./lib/index.js"
+      "import": "./lib-esm/index.js"
     },
     "./experimental": {
-      "import": "./lib-esm/experimental/index.js",
-      "require": "./lib/experimental/index.js"
+      "import": "./lib-esm/experimental/index.js"
     },
     "./drafts": {
-      "import": "./lib-esm/drafts/index.js",
-      "require": "./lib/drafts/index.js"
+      "import": "./lib-esm/drafts/index.js"
     },
     "./deprecated": {
-      "import": "./lib-esm/deprecated/index.js",
-      "require": "./lib/deprecated/index.js"
+      "import": "./lib-esm/deprecated/index.js"
     },
     "./lib-esm/*": {
       "import": [
         "./lib-esm/*.js",
         "./lib-esm/*/index.js"
-      ],
-      "require": [
-        "./lib/*.js",
-        "./lib/*/index.js"
       ]
     },
     "./lib-esm/internal/*": null

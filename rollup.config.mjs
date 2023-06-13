@@ -56,13 +56,6 @@ const input = new Set([
 ])
 
 const extensions = ['.js', '.jsx', '.ts', '.tsx']
-const ESM_ONLY = new Set([
-  '@github/combobox-nav',
-  '@github/markdown-toolbar-element',
-  '@github/paste-markdown',
-  '@github/relative-time-element',
-  '@lit-labs/react',
-])
 const dependencies = [
   ...Object.keys(packageJson.peerDependencies ?? {}),
   ...Object.keys(packageJson.dependencies ?? {}),
@@ -140,20 +133,6 @@ export default [
       format: 'esm',
       preserveModules: true,
       preserveModulesRoot: 'src',
-    },
-  },
-
-  // CommonJS
-  {
-    ...baseConfig,
-    external: dependencies.filter(name => !ESM_ONLY.has(name)).map(createPackageRegex),
-    output: {
-      interop: 'auto',
-      dir: 'lib',
-      format: 'commonjs',
-      preserveModules: true,
-      preserveModulesRoot: 'src',
-      exports: 'auto',
     },
   },
 
