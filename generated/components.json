@@ -1052,7 +1052,7 @@
         },
         {
           "name": "validationStatus",
-          "type": "'error' | 'success' | 'warning'",
+          "type": "'error' | 'success'",
           "defaultValue": "",
           "description": "Only used to inform ARIA attributes.<br /> Individual checkboxes do not have validation styles."
         },
@@ -1174,7 +1174,7 @@
             },
             {
               "name": "variant",
-              "type": "'error' | 'success' | 'warning'",
+              "type": "'error' | 'success'",
               "defaultValue": "",
               "required": true,
               "description": "Changes the visual style to match the validation status"
@@ -1855,7 +1855,7 @@
             },
             {
               "name": "variant",
-              "type": "'error' | 'success' | 'warning'",
+              "type": "'error' | 'success'",
               "defaultValue": "",
               "required": true,
               "description": "Changes the visual style to match the validation status"
@@ -3305,7 +3305,7 @@
             },
             {
               "name": "variant",
-              "type": "'error' | 'success' | 'warning'",
+              "type": "'error' | 'success'",
               "defaultValue": "",
               "required": true,
               "description": "Changes the visual style to match the validation status"
@@ -3611,7 +3611,7 @@
         },
         {
           "name": "validationStatus",
-          "type": "'error' | 'success' | 'warning'",
+          "type": "'error' | 'success'",
           "defaultValue": "",
           "description": "Style the input to match the status"
         }
@@ -4135,7 +4135,7 @@
         },
         {
           "name": "validationStatus",
-          "type": "'error' | 'success' | 'warning'",
+          "type": "'error' | 'success'",
           "defaultValue": "",
           "description": "Style the input to match the status"
         },
@@ -4291,7 +4291,7 @@
         },
         {
           "name": "validationStatus",
-          "type": "'error' | 'success' | 'warning'",
+          "type": "'error' | 'success'",
           "defaultValue": "",
           "description": "Style the input to match the status"
         },
