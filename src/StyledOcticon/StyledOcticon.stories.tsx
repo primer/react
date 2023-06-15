@@ -10,7 +10,7 @@ export default {
 
 export const Default = () => <StyledOcticon icon={HeartFillIcon} size={32} />
 
-export const Playground: ComponentStory<typeof Octicon> = args => <StyledOcticon icon={HeartFillIcon} {...args} />
+export const Playground: ComponentStory<typeof StyledOcticon> = args => <StyledOcticon icon={HeartFillIcon} {...args} />
 
 Playground.args = {
   ariaLabel: 'Heart',
