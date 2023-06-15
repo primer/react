@@ -15,6 +15,7 @@ import {FocusZoneHookSettings} from '../hooks/useFocusZone'
 import {useId} from '../hooks/useId'
 import {useProvidedStateOrCreate} from '../hooks/useProvidedStateOrCreate'
 import {LiveRegion, LiveRegionOutlet, Message} from '../internal/components/LiveRegion'
+import {Button} from '../Button'
 
 interface SelectPanelSingleSelection {
   selected: ItemInput | undefined
@@ -83,7 +84,7 @@ export function SelectPanel({
   textInputProps,
   overlayProps,
   sx,
-  _singleSelectVariant = 'no_buttons',
+  _singleSelectVariant = 'buttons',
   ...listProps
 }: SelectPanelProps): JSX.Element {
   const titleId = useId()
@@ -229,6 +230,26 @@ export function SelectPanel({
             // than the Overlay (which would break scrolling the items)
             sx={{...sx, height: 'inherit', maxHeight: 'inherit'}}
           />
+          {_singleSelectVariant === 'buttons' ? (
+            <Box
+              sx={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'flex-end',
+                gap: '8px',
+                padding: '12px',
+                borderTop: '1px solid border.default',
+              }}
+            >
+              <Button size="small">Cancel</Button>
+              <Button size="small" variant="primary">
+                Save
+              </Button>
+            </Box>
+          ) : null}
+          {_singleSelectVariant === 'no_buttons_with_explanation' ? (
+            <Box sx={{px: 3, py: 2, color: 'fg.subtle', fontSize: 1}}>Press enter to select</Box>
+          ) : null}
         </Box>
       </AnchoredOverlay>
     </LiveRegion>
