@@ -405,7 +405,17 @@ export const SingleSelectExplorations = () => {
         Scrollable Listbox Example
       </a>
 
-      <h2>No buttons</h2>
+      <h2>No buttons with explanation</h2>
+
+      <NoButtonsWithExplanation />
+
+      <p>
+        The idea is to add a clue that keyboard users can confirm a selection by pressing <kbd>enter</kbd>.
+      </p>
+
+      <h2>Single Select</h2>
+
+      <h3>Without buttons</h3>
 
       <p>
         This is the current version. It's inaccessible to blind keyboard users because it's unclear that an option can
@@ -414,10 +424,15 @@ export const SingleSelectExplorations = () => {
 
       <NoButtons />
 
-      <h2>No buttons with explanation</h2>
-      <NoButtonsWithExplanation />
+      <h3>With buttons</h3>
 
-      <h2>Buttons</h2>
+      <p>
+        work in progress - should have checkboxes:{' '}
+        <a href="https://www.figma.com/file/S3xgRPvRuFVCDGxPlIGxaP/SelectPanel-%26-Filtering?type=design&node-id=52-55315&t=zTGR5G6DVjSjE0cy-4">
+          Design in Figma
+        </a>
+      </p>
+
       <Buttons />
     </>
   )
