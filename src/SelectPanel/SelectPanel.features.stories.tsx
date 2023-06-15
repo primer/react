@@ -434,6 +434,16 @@ export const SingleSelectExplorations = () => {
       </p>
 
       <Buttons />
+
+      <h2>To be done</h2>
+
+      <ol>
+        <li>Multi Select with checkboxes</li>
+        <li>Intermediate state. Select all/unselect all for static lists, only intermediate state for dynamic lists</li>
+        <li>Loading states: show loader in panel / show loader in input</li>
+        <li>Error states: no data could be loaded / additional data could not be loaded</li>
+        <li>Warning state ("You have reached maximum of 5 assignees")</li>
+      </ol>
     </>
   )
 }
