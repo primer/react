@@ -426,16 +426,19 @@ export const SingleSelectExplorations = () => {
 
       <h3>With buttons</h3>
 
-      <p>
-        work in progress - should have checkboxes:{' '}
-        <a href="https://www.figma.com/file/S3xgRPvRuFVCDGxPlIGxaP/SelectPanel-%26-Filtering?type=design&node-id=52-55315&t=zTGR5G6DVjSjE0cy-4">
-          Design in Figma
-        </a>
-      </p>
+      <p>work in progress - should have checkboxes: </p>
 
       <Buttons />
 
       <h2>To be done</h2>
+
+      <p>
+        See{' '}
+        <a href="https://www.figma.com/file/S3xgRPvRuFVCDGxPlIGxaP/SelectPanel-%26-Filtering?type=design&node-id=52-55315&t=zTGR5G6DVjSjE0cy-4">
+          Design in Figma
+        </a>
+        . (Sorry, Hubbers only)
+      </p>
 
       <ol>
         <li>Multi Select with checkboxes</li>
