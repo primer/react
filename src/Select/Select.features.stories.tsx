@@ -91,23 +91,6 @@ export const Error = () => (
   </Box>
 )
 
-export const Warning = () => (
-  <Box as="form">
-    <FormControl>
-      <FormControl.Label>Default label</FormControl.Label>
-      <Select>
-        <Select.Option value="one">Choice one</Select.Option>
-        <Select.Option value="two">Choice two</Select.Option>
-        <Select.Option value="three">Choice three</Select.Option>
-        <Select.Option value="four">Choice four</Select.Option>
-        <Select.Option value="five">Choice five</Select.Option>
-        <Select.Option value="six">Choice six</Select.Option>
-      </Select>
-      <FormControl.Validation variant="warning">Warning</FormControl.Validation>
-    </FormControl>
-  </Box>
-)
-
 export const Success = () => (
   <Box as="form">
     <FormControl>
