@@ -26,10 +26,6 @@ const GlobalStyle = createGlobalStyle<{colorScheme?: 'light' | 'dark'}>`
   details-dialog:focus:not(:focus-visible):not(.focus-visible) {
     outline: none;
   }
-
-  p a[class*=StyledLink] {
-    text-decoration: underline;
-  }
 `
 
 const Base = styled.div<SystemTypographyProps & SystemCommonProps>`
