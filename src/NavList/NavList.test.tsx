@@ -211,7 +211,7 @@ describe('NavList.Item with NavList.SubNav', () => {
       </ThemeProvider>,
     )
 
-    const button = getByRole('button', {name: 'Item'})
+    const button = getByRole('button')
 
     // Starts open
     expect(queryByRole('list', {name: 'Item'})).toBeVisible()
