@@ -1,12 +1,31 @@
 import React, {useState} from 'react'
 import {Meta} from '@storybook/react'
 import {ActionList, Avatar, ActionListItemProps, Textarea, TextInput, FormControl} from '../..'
-import InlineAutocomplete from '.'
+import InlineAutocomplete, {ShowSuggestionsEvent, Suggestions} from '.'
 
 export default {
   title: 'Components/Forms/InlineAutocomplete/Features',
   component: InlineAutocomplete,
 } as Meta<typeof InlineAutocomplete>
+
+interface User {
+  login: string
+  name: string
+  avatar: string
+  type: 'user' | 'organization'
+}
+
+const sampleUsers: User[] = [
+  {login: 'monalisa', name: 'Monalisa Octocat', avatar: 'https://avatars.githubusercontent.com/github', type: 'user'},
+  {login: 'primer', name: 'Primer', avatar: 'https://avatars.githubusercontent.com/primer', type: 'organization'},
+  {login: 'github', name: 'GitHub', avatar: 'https://avatars.githubusercontent.com/github', type: 'organization'},
+]
+
+const filteredUsers = (query: string) =>
+  sampleUsers.filter(
+    user =>
+      user.login.toLowerCase().includes(query.toLowerCase()) || user.name.toLowerCase().includes(query.toLowerCase()),
+  )
 
 export const SingleLine = ({loading, tabInserts}: ArgProps) => {
   const [suggestions, setSuggestions] = useState<Suggestions | null>(null)

@@ -91,7 +91,7 @@ type ArgProps = {
   tabInserts: boolean
 }
 
-export const Playground: ComponentStory<typeof InlineAutocomplete> = ({loading, tabInserts}: ArgProps) => {
+export const Playground = ({loading, tabInserts}: ArgProps) => {
   const [suggestions, setSuggestions] = useState<Suggestions | null>(null)
 
   const onShowSuggestions = (event: ShowSuggestionsEvent) => {
