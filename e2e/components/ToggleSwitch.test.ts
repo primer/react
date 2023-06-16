@@ -30,11 +30,6 @@ test.describe('ToggleSwitch', () => {
               'color-contrast': {
                 enabled: theme !== 'dark_dimmed',
               },
-
-              // the 'default' preview does not associate a label with the button
-              'button-name': {
-                enabled: false,
-              },
             },
           })
         })
