@@ -7,6 +7,7 @@ import Text from '../Text'
 import {get} from '../constants'
 import {useProvidedStateOrCreate} from '../hooks'
 import sx, {BetterSystemStyleObject, SxProp} from '../sx'
+import VisuallyHidden from '../_VisuallyHidden'
 import {CellAlignment} from '../DataTable/column'
 
 const TRANSITION_DURATION = '80ms'
@@ -253,8 +254,7 @@ const ToggleSwitch: React.FC<React.PropsWithChildren<ToggleSwitchProps>> = ({
         fontSize={size === 'small' ? 0 : 1}
         mx={2}
         aria-hidden="true"
-        sx={{position: 'relative', cursor: 'pointer'}}
-        onClick={handleToggleClick}
+        sx={{position: 'relative'}}
       >
         <Box textAlign="right" sx={isOn ? null : hiddenTextStyles}>
           On
@@ -267,11 +267,13 @@ const ToggleSwitch: React.FC<React.PropsWithChildren<ToggleSwitchProps>> = ({
         onClick={handleToggleClick}
         aria-labelledby={ariaLabelledby}
         aria-describedby={ariaDescribedby}
-        aria-pressed={isOn}
+        aria-checked={isOn}
+        role="switch"
         checked={isOn}
         size={size}
         disabled={!acceptsInteraction}
       >
+        <VisuallyHidden>{isOn ? 'On' : 'Off'}</VisuallyHidden>
         <Box aria-hidden="true" display="flex" alignItems="center" width="100%" height="100%" overflow="hidden">
           <Box
             flexGrow={1}
