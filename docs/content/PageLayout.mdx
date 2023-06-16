@@ -241,14 +241,14 @@ navigation container is used for.
 
 ### With `aria-label`
 
-Using `aria-label` along with `PageLayout.Header` or `PageLayout.Footer` creates a unique label for that landmark role that can make it easier to navigate between sections of content on a page.
+Using `aria-label` along with `PageLayout.Header`, `PageLayout.Content`, or `PageLayout.Footer` creates a unique label for that landmark role that can make it easier to navigate between sections of content on a page.
 
 ```jsx live
 <PageLayout>
   <PageLayout.Header aria-label="header">
     <Placeholder label="Header" height={64} />
   </PageLayout.Header>
-  <PageLayout.Content>
+  <PageLayout.Content aria-label="content">
     <Placeholder label="Content" height={240} />
   </PageLayout.Content>
   <PageLayout.Pane>
@@ -262,15 +262,15 @@ Using `aria-label` along with `PageLayout.Header` or `PageLayout.Footer` creates
 
 ### With `aria-labelledby`
 
-Using `aria-labelledby` along with `PageLayout.Header` or `PageLayout.Footer` creates a unique label for each landmark role by using the given `id` to associate the landmark with the content with the corresponding `id`. This is helpful when you have a visible item that visually communicates the type of content which you would like to associate to the landmark itself.
+Using `aria-labelledby` along with `PageLayout.Header`, `PageLayout.Content`, or `PageLayout.Footer` creates a unique label for each landmark role by using the given `id` to associate the landmark with the content with the corresponding `id`. This is helpful when you have a visible item that visually communicates the type of content which you would like to associate to the landmark itself.
 
 ```jsx live
 <PageLayout>
   <PageLayout.Header aria-labelledby="header-label">
     <Placeholder id="header-label" label="Header" height={64} />
   </PageLayout.Header>
-  <PageLayout.Content>
-    <Placeholder label="Content" height={240} />
+  <PageLayout.Content aria-labelledby="main-label">
+    <Placeholder id="main-label" label="Content" height={240} />
   </PageLayout.Content>
   <PageLayout.Pane>
     <Placeholder label="Pane" height={120} />
@@ -300,35 +300,15 @@ Using `aria-labelledby` along with `PageLayout.Header` or `PageLayout.Footer` cr
 </PageLayout>
 ```
 
-### With `<main>` landmark
-
-```jsx live
-<PageLayout>
-  <PageLayout.Header>
-    <Placeholder label="Header" height={64} />
-  </PageLayout.Header>
-  <PageLayout.Content>
-    <main>
-      <Placeholder label="Content" height={240} />
-    </main>
-  </PageLayout.Content>
-  <PageLayout.Pane resizable>
-    <Placeholder label="Pane" height={120} />
-  </PageLayout.Pane>
-  <PageLayout.Footer>
-    <Placeholder label="Footer" height={64} />
-  </PageLayout.Footer>
-</PageLayout>
-```
-
 ## Accessibility
 
-The `PageLayout` component uses [landmark roles](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/landmark_role) for `PageLayout.Header` and `PageLayout.Footer` in order to make it easier for screen reader users to navigate between sections of the page.
+The `PageLayout` component uses [landmark roles](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/landmark_role) for `PageLayout.Header`, `PageLayout.Content`, and `PageLayout.Footer` in order to make it easier for screen reader users to navigate between sections of the page.
 
-| Component           | Landmark role                                                                                           |
-| :------------------ | :------------------------------------------------------------------------------------------------------ |
-| `PageLayout.Header` | [`banner`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/banner_role)           |
-| `PageLayout.Footer` | [`contentinfo`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/contentinfo_role) |
+| Component            | Landmark role                                                                                           |
+| :------------------- | :------------------------------------------------------------------------------------------------------ |
+| `PageLayout.Header`  | [`banner`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/banner_role)           |
+| `PageLayout.Content` | [`main`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/main_role)               |
+| `PageLayout.Footer`  | [`contentinfo`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/contentinfo_role) |
 
 Each component may be labeled through either `aria-label` or `aria-labelledby` in order to provide a unique label for the landmark. This can be helpful when there are multiple landmarks of the same type on the page.
 
@@ -337,14 +317,6 @@ Each component may be labeled through either `aria-label` or `aria-labelledby` i
 - [W3C, Landmark roles](https://w3c.github.io/aria/#landmark_roles)
 - [WCAG, ARIA11 Technique](https://www.w3.org/WAI/WCAG22/Techniques/aria/ARIA11)
 - [MDN, Landmark roles](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/landmark_role)
-
-### `PageLayout.Content`
-
-The `PageLayout.Content` component does not provide a default `<main>` landmark role.
-If you want to utilize a `<main>` landmark with this component, you may supply one directly [as a child of `PageLayout.Content`](#with-main-landmark).
-When using `<main>` ensure that no other `<main>` landmark exists on the page, as there should only be one per page.
-
-- [`main` usage](https://www.w3.org/WAI/ARIA/apg/patterns/landmarks/examples/main.html)
 
 ### `PageLayout.Pane`
 

@@ -1,9 +1,9 @@
 import React from 'react'
 import {Story, Meta} from '@storybook/react'
-import {ActionList, ActionListProps} from '.'
+import {ActionList, ActionListProps, ActionListGroupProps} from '.'
 import {Item} from './Item'
 import {LinkItem} from './LinkItem'
-import {Heading, ActionListHeadingProps} from './Heading'
+import {Group} from './Group'
 import {Divider} from './Divider'
 import {Description} from './Description'
 import {TypographyIcon, VersionsIcon, SearchIcon, ArrowRightIcon, ArrowLeftIcon} from '@primer/octicons-react'
@@ -11,7 +11,7 @@ import {TypographyIcon, VersionsIcon, SearchIcon, ArrowRightIcon, ArrowLeftIcon}
 export default {
   title: 'Components/ActionList',
   component: ActionList,
-  subcomponents: {Item, LinkItem, Heading, Divider, Description},
+  subcomponents: {Item, LinkItem, Group, Divider, Description},
 } as Meta<typeof ActionList>
 
 export const Default = () => (
@@ -33,7 +33,7 @@ Playground.args = {
   showDividers: false,
   selectionVariant: undefined,
   variant: 'inset',
-  role: 'list',
+  role: 'listbox',
 }
 Playground.argTypes = {
   showDividers: {
@@ -242,34 +242,34 @@ LinkItemPlayground.argTypes = {
   },
 }
 
-export const HeadingPlayground: Story<ActionListProps & ActionListHeadingProps> = args => (
+export const GroupPlayground: Story<ActionListGroupProps> = args => (
   <ActionList>
-    <ActionList.Heading title={args.title} subtitle={args.subtitle} variant={args.variant} as={args.as} />
+    <ActionList.Group {...args}>
+      <ActionList.Item>Item 1</ActionList.Item>
+      <ActionList.Item>Item 2</ActionList.Item>
+    </ActionList.Group>
   </ActionList>
 )
-
-HeadingPlayground.args = {
-  title: 'Group title',
-}
-
-HeadingPlayground.argTypes = {
+GroupPlayground.argTypes = {
   variant: {
-    type: 'string',
     control: {
       type: 'radio',
     },
     options: ['subtle', 'filled'],
   },
+  role: {
+    type: 'string',
+  },
   title: {
     type: 'string',
   },
-  subtitle: {
+  auxiliaryText: {
     type: 'string',
   },
-  as: {
-    control: {
-      type: 'radio',
-    },
-    options: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'],
-  },
+}
+GroupPlayground.args = {
+  variant: 'subtle',
+  role: 'listbox',
+  title: 'Group title',
+  auxiliaryText: '',
 }
