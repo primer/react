@@ -26,23 +26,6 @@ export const Simple: Story = () => (
   </PageLayout>
 )
 
-export const WithGroup: Story = () => (
-  <NavList>
-    <NavList.Group title="Group 1">
-      <NavList.Item href="#" aria-current="page">
-        Item 1
-      </NavList.Item>
-      <NavList.Item href="#">Item 2</NavList.Item>
-      <NavList.Item href="#">Item 3</NavList.Item>
-    </NavList.Group>
-    <NavList.Group title="Group 2">
-      <NavList.Item href="#">Item 4</NavList.Item>
-      <NavList.Item href="#">Item 5</NavList.Item>
-      <NavList.Item href="#">Item 6</NavList.Item>
-    </NavList.Group>
-  </NavList>
-)
-
 export const WithSubItems: Story = () => (
   <PageLayout>
     <PageLayout.Pane position="start">
@@ -53,6 +36,45 @@ export const WithSubItems: Story = () => (
           <NavList.SubNav>
             <NavList.Item href="#" aria-current="page">
               Sub item 1
+            </NavList.Item>
+            <NavList.Item href="#">Sub item 2</NavList.Item>
+          </NavList.SubNav>
+        </NavList.Item>
+        <NavList.Item href="#">Item 3</NavList.Item>
+      </NavList>
+    </PageLayout.Pane>
+    <PageLayout.Content></PageLayout.Content>
+  </PageLayout>
+)
+
+export const WithNestedSubItems: Story = () => (
+  <PageLayout>
+    <PageLayout.Pane position="start">
+      <NavList>
+        <NavList.Item href="#">Item 1</NavList.Item>
+        <NavList.Item href="#">
+          Item 2{/* NOTE: Don't nest SubNavs. For testing purposes only */}
+          <NavList.SubNav>
+            <NavList.Item href="#">
+              Sub item 1
+              <NavList.SubNav>
+                <NavList.Item href="#">
+                  Sub item 1.1
+                  <NavList.SubNav>
+                    <NavList.Item href="#">Sub item 1.1.1</NavList.Item>
+                    <NavList.Item href="#">
+                      Sub item 1.1.2
+                      <NavList.SubNav>
+                        <NavList.Item href="#">Sub item 1.1.2.1</NavList.Item>
+                        <NavList.Item href="#" aria-current="page">
+                          Sub item 1.1.2.2
+                        </NavList.Item>
+                      </NavList.SubNav>
+                    </NavList.Item>
+                  </NavList.SubNav>
+                </NavList.Item>
+                <NavList.Item href="#">Sub item 1.2</NavList.Item>
+              </NavList.SubNav>
             </NavList.Item>
             <NavList.Item href="#">Sub item 2</NavList.Item>
           </NavList.SubNav>
