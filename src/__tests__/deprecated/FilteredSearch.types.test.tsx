@@ -1,5 +1,5 @@
 import React from 'react'
-import FilteredSearch from '../FilteredSearch'
+import FilteredSearch from '../../deprecated/FilteredSearch'
 
 export function shouldAcceptCallWithNoProps() {
   return <FilteredSearch />
