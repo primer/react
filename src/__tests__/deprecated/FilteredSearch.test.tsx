@@ -1,6 +1,6 @@
 import React from 'react'
-import {FilteredSearch} from '..'
-import {render, behavesAsComponent, checkExports} from '../utils/testing'
+import {FilteredSearch} from '../../deprecated'
+import {render, behavesAsComponent, checkExports} from '../../utils/testing'
 import {render as HTMLRender} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
 
@@ -9,7 +9,7 @@ expect.extend(toHaveNoViolations)
 describe('FilteredSearch', () => {
   behavesAsComponent({Component: FilteredSearch})
 
-  checkExports('FilteredSearch', {
+  checkExports('deprecated/FilteredSearch', {
     default: FilteredSearch,
   })
 
