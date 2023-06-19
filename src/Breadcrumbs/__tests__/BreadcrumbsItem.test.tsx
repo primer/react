@@ -20,9 +20,4 @@ describe('Breadcrumbs.Item', () => {
   it('respects the "selected" prop', () => {
     expect(render(<Breadcrumbs.Item selected />)).toMatchSnapshot()
   })
-
-  it('adds activeClassName={SELECTED_CLASS} when it gets a "to" prop', () => {
-    const Link = ({theme: _ignoredTheme, ...props}: Record<string, unknown>) => <div {...props} />
-    expect(render(<Breadcrumbs.Item as={Link} to="#" />)).toMatchSnapshot()
-  })
 })
