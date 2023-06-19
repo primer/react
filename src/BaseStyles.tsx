@@ -61,7 +61,7 @@ function BaseStyles(props: BaseStylesProps) {
       fontFamily={fontFamily}
       lineHeight={lineHeight}
       data-portal-root
-      data-color-mode={primerColorModeToPrimitiveColorMode[colorMode || defaultColorMode]}
+      data-color-mode={colorScheme?.includes('dark') ? 'dark' : 'light'}
       data-light-theme={dayScheme}
       data-dark-theme={nightScheme}
     >
