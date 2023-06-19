@@ -1,6 +1,6 @@
 import {SearchIcon, TriangleDownIcon, EyeIcon} from '@primer/octicons-react'
 import React from 'react'
-import {Button, IconButton} from '.'
+import {Button} from '.'
 
 export default {
   title: 'Drafts/Components/Button/DevOnly',
@@ -29,7 +29,7 @@ export const InvisibleVariants = () => {
         Button
         <Button.Counter>{count}</Button.Counter>
       </Button>
-      <IconButton icon={TriangleDownIcon} variant="invisible" aria-label="Invisible" />
+      {/* <IconButton icon={TriangleDownIcon} variant="invisible" aria-label="Invisible" /> */}
     </div>
   )
 }

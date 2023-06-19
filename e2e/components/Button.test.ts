@@ -377,6 +377,40 @@ test.describe('Button', () => {
     }
   })
 
+  test.describe('Trailing Action', () => {
+    for (const theme of themes) {
+      test.describe(theme, () => {
+        test('default @vrt', async ({page}) => {
+          await visit(page, {
+            id: 'components-button-features--trailing-action',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+
+          // Default state
+          expect(await page.screenshot()).toMatchSnapshot(`Button.Trailing Action.${theme}.png`)
+        })
+
+        test('axe @aat', async ({page}) => {
+          await visit(page, {
+            id: 'components-button-features--trailing-action',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+          await expect(page).toHaveNoViolations({
+            rules: {
+              'color-contrast': {
+                enabled: theme !== 'dark_dimmed',
+              },
+            },
+          })
+        })
+      })
+    }
+  })
+
   test.describe('Trailing Counter', () => {
     for (const theme of themes) {
       test.describe(theme, () => {
@@ -440,6 +474,42 @@ test.describe('Button', () => {
               },
             },
           })
+        })
+      })
+    }
+  })
+
+  test.describe('Dev: Invisible Variants', () => {
+    for (const theme of themes) {
+      test.describe(theme, () => {
+        test('default @vrt', async ({page}) => {
+          await visit(page, {
+            id: 'components-button-devonly--invisible-variants',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+
+          // Default state
+          expect(await page.screenshot()).toMatchSnapshot(`Button.Invisible Variants.${theme}.png`)
+        })
+      })
+    }
+  })
+
+  test.describe('Dev: sx prop', () => {
+    for (const theme of themes) {
+      test.describe(theme, () => {
+        test('default @vrt', async ({page}) => {
+          await visit(page, {
+            id: 'components-button-devonly--test-sx-prop',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+
+          // Default state
+          expect(await page.screenshot()).toMatchSnapshot(`Button.sx prop.${theme}.png`)
         })
       })
     }

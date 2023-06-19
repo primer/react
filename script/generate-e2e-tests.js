@@ -242,6 +242,10 @@ const components = new Map([
           id: 'components-button-features--trailing-visual',
           name: 'Trailing Visual',
         },
+        {
+          id: 'components-button-features--trailing-counter-all-variants',
+          name: 'Trailing Counter All Variants',
+        },
       ],
     },
   ],
@@ -1013,6 +1017,41 @@ const components = new Map([
     },
   ],
   [
+    'SelectPanel',
+    {
+      stories: [
+        {
+          id: 'components-selectpanel--default',
+          name: 'Default',
+        },
+        {
+          id: 'components-selectpanel-features--single-select-story',
+          name: 'Single Select',
+        },
+        {
+          id: 'components-selectpanel-features--external-anchor-story',
+          name: 'External Anchor',
+        },
+        {
+          id: 'components-selectpanel-features--select-panel-height-initial-with-overflowing-items-story',
+          name: 'SelectPanel, Height: Initial, Overflowing Items',
+        },
+        {
+          id: 'components-selectpanel-features--select-panel-height-initial-with-underflowing-items-story',
+          name: 'SelectPanel, Height: Initial, Underflowing Items',
+        },
+        {
+          id: 'components-selectpanel-features--select-panel-above-tall-body',
+          name: 'SelectPanel, Above a Tall Body',
+        },
+        {
+          id: 'components-selectpanel-features-select-panel-height-and-scroll',
+          name: 'SelectPanel, Height and Scroll',
+        },
+      ],
+    },
+  ],
+  [
     'StateLabel',
     {
       stories: [
@@ -1332,6 +1371,21 @@ const components = new Map([
     },
   ],
   [
+    'Truncate',
+    {
+      stories: [
+        {
+          id: 'components-truncate--default',
+          name: 'Default',
+        },
+        {
+          id: 'components-truncate--playground',
+          name: 'Playground',
+        },
+      ],
+    },
+  ],
+  [
     'Token',
     {
       stories: [
@@ -1366,6 +1420,25 @@ const components = new Map([
         {
           id: 'components-token-features--issue-label-token-with-on-remove-fn',
           name: 'Issue Label Token With On Remove Fn',
+        },
+      ],
+    },
+  ],
+  [
+    'UnderlineNav--deprecated',
+    {
+      stories: [
+        {
+          id: 'components-underlinenav--default',
+          name: 'Default',
+        },
+        {
+          id: 'components-underlinenav--playground',
+          name: 'Playground',
+        },
+        {
+          id: 'components-underlinenav-features--actions',
+          name: 'Actions',
         },
       ],
     },

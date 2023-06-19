@@ -16,6 +16,7 @@ export const IssueDraft = () => <StateLabel status="issueDraft">Draft</StateLabe
 export const PullOpened = () => <StateLabel status="pullOpened">Open</StateLabel>
 export const PullClosed = () => <StateLabel status="pullClosed">Closed</StateLabel>
 export const PullMerged = () => <StateLabel status="pullMerged">Merged</StateLabel>
+export const Queued = () => <StateLabel status="pullQueued">Queued</StateLabel>
 export const Draft = () => <StateLabel status="draft">Draft</StateLabel>
 
 export const Small = () => (

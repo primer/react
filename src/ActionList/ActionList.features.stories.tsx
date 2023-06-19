@@ -419,7 +419,7 @@ export const InsideOverlay = () => {
 export const GroupWithSubtleTitle = () => {
   const [assignees, setAssignees] = React.useState(users.slice(0, 1))
 
-  const toggleAssignee = (assignee: typeof users[number]) => {
+  const toggleAssignee = (assignee: (typeof users)[number]) => {
     const assigneeIndex = assignees.findIndex(a => a.login === assignee.login)
 
     if (assigneeIndex === -1) setAssignees([...assignees, assignee])
@@ -452,7 +452,7 @@ export const GroupWithSubtleTitle = () => {
 export const GroupWithFilledTitle = () => {
   const [assignees, setAssignees] = React.useState(users.slice(0, 1))
 
-  const toggleAssignee = (assignee: typeof users[number]) => {
+  const toggleAssignee = (assignee: (typeof users)[number]) => {
     const assigneeIndex = assignees.findIndex(a => a.login === assignee.login)
 
     if (assigneeIndex === -1) setAssignees([...assignees, assignee])

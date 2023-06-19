@@ -9,9 +9,10 @@ import Text from '../Text'
 import {TextInputProps} from '../TextInput'
 import Token from '../Token/Token'
 import {TokenSizeKeys} from '../Token/TokenBase'
-import TextInputInnerVisualSlot from '../_TextInputInnerVisualSlot'
-import TextInputWrapper, {textInputHorizPadding, TextInputSizes} from '../_TextInputWrapper'
-import UnstyledTextInput from '../_UnstyledTextInput'
+
+import TextInputWrapper, {textInputHorizPadding, TextInputSizes} from '../internal/components/TextInputWrapper'
+import UnstyledTextInput from '../internal/components/UnstyledTextInput'
+import TextInputInnerVisualSlot from '../internal/components/TextInputInnerVisualSlot'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type AnyReactComponent = React.ComponentType<React.PropsWithChildren<any>>
@@ -155,7 +156,7 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
   }
 
   const handleTokenFocus: (tokenIndex: number) => FocusEventHandler = tokenIndex => () => {
-    setSelectedTokenIndex(tokenIndex)
+    if (!disabled) setSelectedTokenIndex(tokenIndex)
   }
 
   const handleTokenBlur: FocusEventHandler = () => {
@@ -334,6 +335,7 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
         </Box>
         {visibleTokens.map(({id, ...tokenRest}, i) => (
           <TokenComponent
+            disabled={disabled}
             key={id}
             onFocus={handleTokenFocus(i)}
             onBlur={handleTokenBlur}
@@ -343,7 +345,7 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
             onRemove={() => {
               handleTokenRemove(id)
             }}
-            hideRemoveButton={hideTokenRemoveButtons}
+            hideRemoveButton={disabled || hideTokenRemoveButtons}
             size={size}
             tabIndex={0}
             {...tokenRest}

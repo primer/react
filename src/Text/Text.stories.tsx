@@ -13,10 +13,14 @@ export const Playground: ComponentStory<typeof Text> = args => <Text {...args}>{
 
 Playground.args = {
   text: 'Playground',
+  as: 'span',
 }
 
 Playground.argTypes = {
   text: {
+    type: 'string',
+  },
+  as: {
     type: 'string',
   },
   sx: {
@@ -32,12 +36,6 @@ Playground.argTypes = {
     },
   },
   ref: {
-    controls: false,
-    table: {
-      disable: true,
-    },
-  },
-  as: {
     controls: false,
     table: {
       disable: true,

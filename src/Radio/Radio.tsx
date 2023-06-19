@@ -3,9 +3,9 @@ import React, {ChangeEventHandler, InputHTMLAttributes, ReactElement, useContext
 import sx, {SxProp} from '../sx'
 import {FormValidationStatus} from '../utils/types/FormValidationStatus'
 import {RadioGroupContext} from '../RadioGroup/RadioGroup'
-import getGlobalFocusStyles from '../_getGlobalFocusStyles'
+import getGlobalFocusStyles from '../internal/utils/getGlobalFocusStyles'
 import {get} from '../constants'
-import {sharedCheckboxAndRadioStyles} from '../_sharedCheckboxAndRadioStyles'
+import {sharedCheckboxAndRadioStyles} from '../internal/utils/sharedCheckboxAndRadioStyles'
 
 export type RadioProps = {
   /**
@@ -42,7 +42,7 @@ export type RadioProps = {
 
 const StyledRadio = styled.input`
   ${sharedCheckboxAndRadioStyles};
-  border-radius: var(--primer-borderRadius-full, 100vh);
+  border-radius: var(--borderRadius-full, 100vh);
   transition: background-color, border-color 80ms cubic-bezier(0.33, 1, 0.68, 1); /* checked -> unchecked - add 120ms delay to fully see animation-out */
 
   &:checked {
