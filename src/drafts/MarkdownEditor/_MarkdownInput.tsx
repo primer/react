@@ -123,8 +123,7 @@ export const MarkdownInput = forwardRef<HTMLTextAreaElement, MarkdownInputProps>
       return subscription?.unsubscribe
     }, [pasteUrlsAsPlainText])
 
-    const dynamicHeightStyles = useDynamicTextareaHeight({maxHeightLines, minHeightLines, elementRef: ref, value})
-    const heightStyles = fullHeight ? {} : dynamicHeightStyles
+    const heightStyles = useDynamicTextareaHeight({fullHeight, maxHeightLines, minHeightLines, elementRef: ref, value})
 
     return (
       <InlineAutocomplete
