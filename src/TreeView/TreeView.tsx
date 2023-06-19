@@ -397,11 +397,15 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
             }
             break
           case 'ArrowRight':
+            // Ignore if modifier keys are pressed
+            if (event.altKey || event.metaKey) return
             event.preventDefault()
             event.stopPropagation()
             setIsExpandedWithCache(true)
             break
           case 'ArrowLeft':
+            // Ignore if modifier keys are pressed
+            if (event.altKey || event.metaKey) return
             event.preventDefault()
             event.stopPropagation()
             setIsExpandedWithCache(false)
