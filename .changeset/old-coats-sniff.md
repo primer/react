@@ -2,4 +2,4 @@
 '@primer/react': major
 ---
 
-Removes 'warning' status from form validation
+Removes 'warning' option from form components' `validationStatus` props
