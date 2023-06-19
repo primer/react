@@ -1,14 +1,14 @@
 import React from 'react'
 import {TriangleDownIcon} from '@primer/octicons-react'
-import {AnchoredOverlay, AnchoredOverlayProps} from '../AnchoredOverlay'
-import {OverlayProps} from '../Overlay'
-import {useProvidedRefOrCreate, useProvidedStateOrCreate, useMenuKeyboardNavigation} from '../hooks'
-import {Divider} from '../ActionList/Divider'
-import {ActionListContainerContext} from '../ActionList/ActionListContainerContext'
-import {Button, ButtonProps} from '../Button'
-import {useId} from '../hooks/useId'
-import {MandateProps} from '../utils/types'
-import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
+import {AnchoredOverlay, AnchoredOverlayProps} from './AnchoredOverlay'
+import {OverlayProps} from './Overlay'
+import {useProvidedRefOrCreate, useProvidedStateOrCreate, useMenuKeyboardNavigation} from './hooks'
+import {Divider} from './ActionList/Divider'
+import {ActionListContainerContext} from './ActionList/ActionListContainerContext'
+import {Button, ButtonProps} from './Button'
+import {useId} from './hooks/useId'
+import {MandateProps} from './utils/types'
+import {ForwardRefComponent as PolymorphicForwardRefComponent} from './utils/polymorphic'
 
 export type MenuContextProps = Pick<
   AnchoredOverlayProps,
@@ -89,7 +89,12 @@ type MenuOverlayProps = Partial<OverlayProps> &
      */
     children: React.ReactNode
   }
-const Overlay: React.FC<React.PropsWithChildren<MenuOverlayProps>> = ({children, align = 'start', ...overlayProps}) => {
+const Overlay: React.FC<React.PropsWithChildren<MenuOverlayProps>> = ({
+  children,
+  align = 'start',
+  'aria-labelledby': ariaLabelledby,
+  ...overlayProps
+}) => {
   // we typecast anchorRef as required instead of optional
   // because we know that we're setting it in context in Menu
   const {anchorRef, renderAnchor, anchorId, open, onOpen, onClose} = React.useContext(MenuContext) as MandateProps<
@@ -117,7 +122,7 @@ const Overlay: React.FC<React.PropsWithChildren<MenuOverlayProps>> = ({children,
           value={{
             container: 'ActionMenu',
             listRole: 'menu',
-            listLabelledBy: anchorId,
+            listLabelledBy: ariaLabelledby || anchorId,
             selectionAttribute: 'aria-checked', // Should this be here?
             afterSelect: onClose,
           }}
