@@ -5,24 +5,14 @@
   "main": "lib/index.js",
   "module": "lib-esm/index.js",
   "exports": {
-    ".": {
-      "import": "./lib-esm/index.js"
-    },
-    "./experimental": {
-      "import": "./lib-esm/experimental/index.js"
-    },
-    "./drafts": {
-      "import": "./lib-esm/drafts/index.js"
-    },
-    "./deprecated": {
-      "import": "./lib-esm/deprecated/index.js"
-    },
-    "./lib-esm/*": {
-      "import": [
+    ".": "./lib-esm/index.js",
+    "./experimental": "./lib-esm/experimental/index.js",
+    "./drafts": "./lib-esm/drafts/index.js",
+    "./deprecated": "./lib-esm/deprecated/index.js",
+    "./lib-esm/*": [
         "./lib-esm/*.js",
         "./lib-esm/*/index.js"
-      ]
-    },
+    ],
     "./lib-esm/internal/*": null
   },
   "typings": "lib/index.d.ts",
