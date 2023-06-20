@@ -8,6 +8,7 @@ import {get} from '../../constants'
 import {SystemCssProperties} from '@styled-system/css'
 import {hasActiveDescendantAttribute} from '@primer/behaviors'
 import {Merge} from '../../utils/types/Merge'
+import {SingleSelectVariant} from '../../SelectPanel/SelectPanel'
 
 type RenderItemFn = (props: ItemProps) => React.ReactElement
 
@@ -18,7 +19,7 @@ export type ItemInput =
 /**
  * Contract for props passed to the `List` component.
  */
-export interface ListPropsBase {
+export interface ListPropsBase extends SingleSelectVariant {
   /**
    * A collection of `Item` props and `Item`-level custom `Item` renderers.
    */
@@ -176,6 +177,7 @@ export const List = React.forwardRef<HTMLDivElement, ListProps>((props, forwarde
         key={key}
         sx={{...itemStyle, ...itemProps.sx}}
         item={item}
+        _singleSelectVariant={props._singleSelectVariant}
       />
     )
   }

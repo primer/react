@@ -16,11 +16,12 @@ import {
 import {useId} from '../../hooks/useId'
 import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../../utils/polymorphic'
 import {AriaRole} from '../../utils/types'
+import {SingleSelectVariant} from '../../SelectPanel/SelectPanel'
 
 /**
  * Contract for props passed to the `Item` component.
  */
-export interface ItemProps extends SxProp {
+export interface ItemProps extends SxProp, SingleSelectVariant {
   /**
    * Primary text which names an `Item`.
    */
@@ -424,6 +425,8 @@ export const Item = React.forwardRef((itemProps, ref) => {
                 />
               </MultiSelectIcon>
             </>
+          ) : props._singleSelectVariant === 'buttons' ? (
+            <input type="radio" checked={selected} readOnly />
           ) : (
             selected && <CheckIcon fill={theme?.colors.fg.default} />
           )}

@@ -358,7 +358,7 @@ const NoButtonsWithExplanation = () => {
   )
 }
 
-const Buttons = () => {
+const SingleSelectWithButtons = () => {
   const [selected, setSelected] = React.useState<ItemInput | undefined>(items[0])
   const [filter, setFilter] = React.useState('')
   const filteredItems = items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
@@ -380,7 +380,33 @@ const Buttons = () => {
       onSelectedChange={setSelected}
       onFilterChange={setFilter}
       showItemDividers={true}
-      overlayProps={{width: 'medium', height: 'large'}}
+      overlayProps={{width: 'medium', height: 'auto'}}
+    />
+  )
+}
+
+const MultiSelectWithButtons = () => {
+  const [selected, setSelected] = React.useState<ItemInput[]>([items[0]])
+  const [filter, setFilter] = React.useState('')
+  const filteredItems = items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
+  const [open, setOpen] = useState(false)
+
+  return (
+    <SelectPanel
+      renderAnchor={({children, 'aria-labelledby': ariaLabelledBy, ...anchorProps}) => (
+        <Button trailingAction={TriangleDownIcon} aria-labelledby={` ${ariaLabelledBy}`} {...anchorProps}>
+          {children ?? 'Select Labels'}
+        </Button>
+      )}
+      placeholderText="Filter Labels"
+      open={open}
+      onOpenChange={setOpen}
+      items={filteredItems}
+      selected={selected}
+      onSelectedChange={setSelected}
+      onFilterChange={setFilter}
+      showItemDividers={true}
+      overlayProps={{width: 'medium', height: 'auto'}}
     />
   )
 }
@@ -426,9 +452,20 @@ export const SingleSelectExplorations = () => {
 
       <h3>With buttons</h3>
 
-      <p>work in progress - should have checkboxes: </p>
+      <p>Select Panel with radio buttons as per design</p>
 
-      <Buttons />
+      <SingleSelectWithButtons />
+
+      <h3>Multi Select with Buttons</h3>
+
+      <p>TO BE DONE</p>
+
+      <ul>
+        <li>Do not call onSelectedChange until selection is confirmed with buttons</li>
+        <li>Selection should be reset when Esc is pressed</li>
+      </ul>
+
+      <MultiSelectWithButtons />
 
       <h2>To be done</h2>
 

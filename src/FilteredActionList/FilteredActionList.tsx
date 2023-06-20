@@ -16,12 +16,15 @@ import useScrollFlash from '../hooks/useScrollFlash'
 import {VisuallyHidden} from '../internal/components/VisuallyHidden'
 import {SxProp} from '../sx'
 
+import {SingleSelectVariant} from '../SelectPanel/SelectPanel'
+
 const menuScrollMargins: ScrollIntoViewOptions = {startMargin: 0, endMargin: 8}
 
 export interface FilteredActionListProps
   extends Partial<Omit<GroupedListProps, keyof ListPropsBase>>,
     ListPropsBase,
-    SxProp {
+    SxProp,
+    SingleSelectVariant {
   loading?: boolean
   placeholderText?: string
   filterValue?: string

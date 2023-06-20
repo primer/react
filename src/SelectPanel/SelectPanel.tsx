@@ -1,5 +1,5 @@
 import {SearchIcon} from '@primer/octicons-react'
-import React, {useCallback, useMemo} from 'react'
+import React, {useCallback, useMemo, useState} from 'react'
 import {AnchoredOverlay, AnchoredOverlayProps} from '../AnchoredOverlay'
 import {AnchoredOverlayWrapperAnchorProps} from '../AnchoredOverlay/AnchoredOverlay'
 import Box from '../Box'
@@ -27,7 +27,11 @@ interface SelectPanelMultiSelection {
   onSelectedChange: (selected: ItemInput[]) => void
 }
 
-interface SelectPanelBaseProps {
+export interface SingleSelectVariant {
+  _singleSelectVariant?: 'no_buttons' | 'no_buttons_with_explanation' | 'buttons'
+}
+
+interface SelectPanelBaseProps extends SingleSelectVariant {
   // TODO: Make `title` required in the next major version
   title?: string | React.ReactElement
   subtitle?: string | React.ReactElement
@@ -39,7 +43,6 @@ interface SelectPanelBaseProps {
   // TODO: Make `inputLabel` required in next major version
   inputLabel?: string
   overlayProps?: Partial<OverlayProps>
-  _singleSelectVariant?: 'no_buttons' | 'no_buttons_with_explanation' | 'buttons'
 }
 
 export type SelectPanelProps = SelectPanelBaseProps &
@@ -125,9 +128,13 @@ export function SelectPanel({
     }
   }, [placeholder, renderAnchor, selected])
 
+  const [selectedItems, setSelectedItems] = useState<ItemInput[]>(
+    selected === undefined ? [] : isMultiSelectVariant(selected) ? selected : [selected],
+  )
+
   const itemsToRender = useMemo(() => {
     return items.map(item => {
-      const isItemSelected = isMultiSelectVariant(selected) ? selected.includes(item) : selected === item
+      const isItemSelected = selectedItems.includes(item)
 
       return {
         ...item,
@@ -141,11 +148,10 @@ export function SelectPanel({
           }
 
           if (isMultiSelectVariant(selected)) {
-            const otherSelectedItems = selected.filter(selectedItem => selectedItem !== item)
-            const newSelectedItems = selected.includes(item) ? otherSelectedItems : [...otherSelectedItems, item]
+            const otherSelectedItems = selectedItems.filter(selectedItem => selectedItem !== item)
+            const newSelectedItems = selectedItems.includes(item) ? otherSelectedItems : [...otherSelectedItems, item]
 
-            const multiSelectOnChange = onSelectedChange as SelectPanelMultiSelection['onSelectedChange']
-            multiSelectOnChange(newSelectedItems)
+            setSelectedItems(newSelectedItems)
             return
           }
 
@@ -156,7 +162,7 @@ export function SelectPanel({
         },
       } as ItemProps
     })
-  }, [onClose, onSelectedChange, items, selected])
+  }, [onClose, onSelectedChange, items, selected, selectedItems])
 
   const inputRef = React.useRef<HTMLInputElement>(null)
   const focusTrapSettings = {
@@ -223,6 +229,7 @@ export function SelectPanel({
             role="listbox"
             aria-multiselectable={isMultiSelectVariant(selected) ? 'true' : 'false'}
             selectionVariant={isMultiSelectVariant(selected) ? 'multiple' : 'single'}
+            _singleSelectVariant={_singleSelectVariant}
             items={itemsToRender}
             textInputProps={extendedTextInputProps}
             inputRef={inputRef}
@@ -241,8 +248,24 @@ export function SelectPanel({
                 borderTop: '1px solid border.default',
               }}
             >
-              <Button size="small">Cancel</Button>
-              <Button size="small" variant="primary">
+              <Button
+                size="small"
+                onClick={() => {
+                  setSelectedItems(selected === undefined ? [] : isMultiSelectVariant(selected) ? selected : [selected])
+                  onClose('escape')
+                }}
+              >
+                Cancel
+              </Button>
+              <Button
+                size="small"
+                variant="primary"
+                onClick={() => {
+                  const multiSelectOnChange = onSelectedChange as SelectPanelMultiSelection['onSelectedChange']
+                  multiSelectOnChange(selectedItems)
+                  onClose('selection')
+                }}
+              >
                 Save
               </Button>
             </Box>
