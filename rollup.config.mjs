@@ -1,3 +1,5 @@
+import path from 'path'
+import {fileURLToPath} from 'url'
 import commonjs from '@rollup/plugin-commonjs'
 import resolve from '@rollup/plugin-node-resolve'
 import babel from '@rollup/plugin-babel'
@@ -6,9 +8,12 @@ import terser from '@rollup/plugin-terser'
 import glob from 'fast-glob'
 import {visualizer} from 'rollup-plugin-visualizer'
 import postcss from 'rollup-plugin-postcss'
-import packageJson from './package.json'
+import packageJson from './package.json' assert {type: 'json'}
 import postcssCustomPropertiesFallback from 'postcss-custom-properties-fallback'
-const importedJSONFromPrimitives = require('@primer/primitives/tokens-next-private/fallbacks/color-fallbacks.json')
+import importedJSONFromPrimitives from '@primer/primitives/tokens-next-private/fallbacks/color-fallbacks.json' assert {type: 'json'}
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
 
 const input = new Set([
   // "exports"
