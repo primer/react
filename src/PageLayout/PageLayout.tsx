@@ -763,7 +763,6 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
           {resizable && (
             <VisuallyHidden>
               <form onSubmit={handleWidthFormSubmit}>
-                {/* eslint-disable-next-line jsx-a11y/label-has-for */}
                 <label htmlFor={`${paneId}-width-input`}>Pane width</label>
                 <p id={`${paneId}-input-hint`}>
                   Use a value between {minPercent}% and {maxPercent}%
