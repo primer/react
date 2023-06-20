@@ -1,4 +1,4 @@
-import defines from '../babel-defines.cjs'
+import defines from '../babel-defines'
 import docgen from 'react-docgen-typescript'
 import globby from 'globby'
 
