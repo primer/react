@@ -1118,6 +1118,21 @@ const components = new Map([
     },
   ],
   [
+    'StyledOcticon',
+    {
+      stories: [
+        {
+          id: 'components-styledocticon--default',
+          name: 'Default',
+        },
+        {
+          id: 'components-styledocticon--playground',
+          name: 'Playground',
+        },
+      ],
+    },
+  ],
+  [
     'Text',
     {
       stories: [
