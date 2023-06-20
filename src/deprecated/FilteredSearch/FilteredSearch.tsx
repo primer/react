@@ -1,8 +1,12 @@
 import styled from 'styled-components'
-import {get} from '../constants'
-import sx, {SxProp} from '../sx'
-import {ComponentProps} from '../utils/types'
+import {get} from '../../constants'
+import sx, {SxProp} from '../../sx'
+import {ComponentProps} from '../../utils/types'
 
+/**
+ * @deprecated A new filter component is in progress.
+ * Until the new filter component is ready, you can use Button + TextInput + ActionList to reproduce this pattern.
+ */
 const FilteredSearch = styled.div<SxProp>`
   display: flex;
   align-items: stretch;
