@@ -1,8 +1,8 @@
-const defines = require('../babel-defines.cjs')
-const docgen = require('react-docgen-typescript')
-const globby = require('globby')
+import defines from '../babel-defines.cjs'
+import docgen from 'react-docgen-typescript'
+import globby from 'globby'
 
-exports.onCreateWebpackConfig = ({actions, plugins, loaders, getConfig}) => {
+export const onCreateWebpackConfig = ({actions, plugins, loaders, getConfig}) => {
   const config = getConfig()
   // Add our `__DEV__` and `process.env.NODE_ENV` defines
   config.plugins.push(plugins.define(defines[process.env.NODE_ENV || 'development']))
@@ -38,7 +38,7 @@ exports.onCreateWebpackConfig = ({actions, plugins, loaders, getConfig}) => {
   actions.replaceWebpackConfig(config)
 }
 
-exports.sourceNodes = ({actions, createNodeId, createContentDigest}) => {
+export const sourceNodes = ({actions, createNodeId, createContentDigest}) => {
   const {createNode} = actions
 
   // Extract component metadata from source files

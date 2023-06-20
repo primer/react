@@ -1,4 +1,4 @@
-import defines from './babel-defines.cjs'
+import defines from './babel-defines'
 
 function replacementPlugin(env) {
   return ['babel-plugin-transform-replace-expressions', {replace: defines[env]}]

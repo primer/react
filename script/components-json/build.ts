@@ -8,8 +8,8 @@ import glob from 'fast-glob'
 import fs from 'fs'
 import keyBy from 'lodash.keyby'
 import prettier from 'prettier'
-import componentSchema from './component.schema.json'
-import outputSchema from './output.schema.json'
+import componentSchema from './component.schema.json' assert {type: 'json'}
+import outputSchema from './output.schema.json' assert {type: 'json'}
 
 // Only includes fields we use in this script
 type Component = {
