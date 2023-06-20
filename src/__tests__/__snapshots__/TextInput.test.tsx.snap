@@ -1336,7 +1336,9 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   color: #8c959f;
 }
 
-.c4:disabled [data-component=ButtonCounter] {
+.c4:disabled [data-component=ButtonCounter],
+.c4:disabled [data-component="leadingVisual"],
+.c4:disabled [data-component="trailingAction"] {
   color: inherit;
 }
 
@@ -1982,7 +1984,9 @@ exports[`TextInput renders trailingAction text button 1`] = `
   color: #8c959f;
 }
 
-.c3:disabled [data-component=ButtonCounter] {
+.c3:disabled [data-component=ButtonCounter],
+.c3:disabled [data-component="leadingVisual"],
+.c3:disabled [data-component="trailingAction"] {
   color: inherit;
 }
 
@@ -2383,7 +2387,9 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   color: #8c959f;
 }
 
-.c4:disabled [data-component=ButtonCounter] {
+.c4:disabled [data-component=ButtonCounter],
+.c4:disabled [data-component="leadingVisual"],
+.c4:disabled [data-component="trailingAction"] {
   color: inherit;
 }
 

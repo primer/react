@@ -7,7 +7,7 @@
   "props": [
     {
       "name": "children",
-      "type": "ActionList.Item[] | ActionList.LinkItem[] | ActionList.Divider[]",
+      "type": "ActionList.Item[] | ActionList.LinkItem[] | ActionList.Group[]",
       "defaultValue": "",
       "required": true,
       "description": ""
@@ -62,7 +62,7 @@
           "name": "onSelect",
           "type": "(event: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement>) => void",
           "defaultValue": "",
-          "description": "Callback that is called when the item is selected using either the mouse or keyboard."
+          "description": "Callback that is called when the item is selected using either the mouse or keyboard. `event.preventDefault()` will prevent a menu from closing when within an `<ActionMenu />`"
         },
         {
           "name": "selected",
@@ -184,34 +184,48 @@
       ]
     },
     {
-      "name": "ActionList.Heading",
+      "name": "ActionList.Group",
       "props": [
         {
-          "name": "variant",
-          "type": "'subtle' | 'filled'",
-          "defaultValue": "subtle",
+          "name": "children",
+          "type": "ActionList.Item[] | ActionList.LinkItem[]",
+          "defaultValue": "",
+          "required": true,
           "description": ""
         },
         {
           "name": "title",
           "type": "string",
           "defaultValue": "",
-          "required": true,
-          "description": ""
+          "description": "Title of the group."
         },
         {
-          "name": "subtitle",
+          "name": "auxiliaryText",
           "type": "string",
           "defaultValue": "",
-          "required": false,
-          "description": ""
+          "description": "Secondary text that provides additional information about the group."
         },
         {
-          "name": "headingLevel",
-          "type": "'1' | '2' | '3' | '4' | '5' | '6'",
-          "defaultValue": "3",
-          "required": false,
-          "description": ""
+          "name": "variant",
+          "type": "'filled' | 'subtle'",
+          "defaultValue": "'subtle'",
+          "description": "`inline` descriptions are positioned beside primary text. `block` descriptions are positioned below primary text."
+        },
+        {
+          "name": "selectionVariant",
+          "type": "'single' | 'multiple' | false",
+          "defaultValue": "",
+          "description": "Set `selectionVariant` at the group level."
+        },
+        {
+          "name": "role",
+          "type": "AriaRole",
+          "defaultValue": "",
+          "description": "ARIA role describing the function of the list inside the group. `listbox` and `menu` are a common values."
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
         }
       ]
     }

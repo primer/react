@@ -10,11 +10,11 @@ export default {
 export const Default = () => <Avatar src="https://avatars.githubusercontent.com/u/92997159?v=4" />
 
 export const Playground: ComponentStory<typeof Avatar> = args => (
-  <Avatar src="https://avatars.githubusercontent.com/u/92997159?v=4" {...args} />
+  <Avatar {...args} src="https://avatars.githubusercontent.com/u/92997159?v=4" />
 )
 
 Playground.args = {
-  size: '20',
+  size: 20,
 }
 
 Playground.argTypes = {
@@ -30,25 +30,7 @@ Playground.argTypes = {
       disable: true,
     },
   },
-  forwardedAs: {
-    controls: false,
-    table: {
-      disable: true,
-    },
-  },
   sx: {
-    controls: false,
-    table: {
-      disable: true,
-    },
-  },
-  as: {
-    controls: false,
-    table: {
-      disable: true,
-    },
-  },
-  theme: {
     controls: false,
     table: {
       disable: true,

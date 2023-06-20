@@ -15,6 +15,14 @@ import {defaultSxProp} from '../utils/defaultSxProp'
 import {useId} from '../hooks/useId'
 import useIsomorphicLayoutEffect from '../utils/useIsomorphicLayoutEffect'
 
+const getSubnavStyles = (depth: number) => {
+  return {
+    paddingLeft: depth > 0 ? depth + 2 : null, // Indent sub-items
+    fontSize: depth > 0 ? 0 : null, // Reduce font size of sub-items
+    fontWeight: depth > 0 ? 'normal' : null, // Sub-items don't get bolded
+  }
+}
+
 // ----------------------------------------------------------------------------
 // NavList
 
@@ -57,9 +65,9 @@ const Item = React.forwardRef<HTMLAnchorElement, NavListItemProps>(
     )
 
     // Render ItemWithSubNav if SubNav is present
-    if (subNav && isValidElement(subNav) && depth < 1) {
+    if (subNav && isValidElement(subNav)) {
       return (
-        <ItemWithSubNav subNav={subNav} sx={sxProp}>
+        <ItemWithSubNav subNav={subNav} depth={depth} sx={sxProp}>
           {childrenWithoutSubNav}
         </ItemWithSubNav>
       )
@@ -70,14 +78,7 @@ const Item = React.forwardRef<HTMLAnchorElement, NavListItemProps>(
         ref={ref}
         aria-current={ariaCurrent}
         active={Boolean(ariaCurrent) && ariaCurrent !== 'false'}
-        sx={merge<SxProp['sx']>(
-          {
-            paddingLeft: depth > 0 ? 5 : null, // Indent sub-items
-            fontSize: depth > 0 ? 0 : null, // Reduce font size of sub-items
-            fontWeight: depth > 0 ? 'normal' : null, // Sub-items don't get bolded
-          },
-          sxProp,
-        )}
+        sx={merge<SxProp['sx']>(getSubnavStyles(depth), sxProp)}
         {...props}
       >
         {children}
@@ -94,6 +95,7 @@ Item.displayName = 'NavList.Item'
 type ItemWithSubNavProps = {
   children: React.ReactNode
   subNav: React.ReactNode
+  depth: number
 } & SxProp
 
 const ItemWithSubNavContext = React.createContext<{buttonId: string; subNavId: string; isOpen: boolean}>({
@@ -104,7 +106,7 @@ const ItemWithSubNavContext = React.createContext<{buttonId: string; subNavId: s
 
 // TODO: ref prop
 // TODO: Animate open/close transition
-function ItemWithSubNav({children, subNav, sx: sxProp = defaultSxProp}: ItemWithSubNavProps) {
+function ItemWithSubNav({children, subNav, depth, sx: sxProp = defaultSxProp}: ItemWithSubNavProps) {
   const buttonId = useId()
   const subNavId = useId()
   const [isOpen, setIsOpen] = React.useState(false)
@@ -135,6 +137,7 @@ function ItemWithSubNav({children, subNav, sx: sxProp = defaultSxProp}: ItemWith
           onClick={() => setIsOpen(open => !open)}
           sx={merge<SxProp['sx']>(
             {
+              ...getSubnavStyles(depth),
               fontWeight: containsCurrentItem ? 'bold' : null, // Parent item is bold if any of it's sub-items are current
             },
             sxProp,
@@ -178,9 +181,10 @@ const SubNav = ({children, sx: sxProp = defaultSxProp}: NavListSubNavProps) => {
     console.error('NavList.SubNav must be a child of a NavList.Item')
   }
 
-  if (depth > 0) {
+  if (depth > 3) {
+    // TODO: write a more informative error message that directs people to rethink their IA
     // eslint-disable-next-line no-console
-    console.error('NavList.SubNav only supports one level of nesting')
+    console.error('NavList.SubNav only supports four levels of nesting')
     return null
   }
 
@@ -246,14 +250,13 @@ const defaultSx = {}
 // TODO: ref prop
 const Group: React.FC<NavListGroupProps> = ({title, children, sx: sxProp = defaultSx, ...props}) => {
   return (
-    <Box as="li" sx={sxProp} {...props}>
+    <>
       {/* Hide divider if the group is the first item in the list */}
-      <ActionList.Divider as="div" sx={{'&:first-child': {display: 'none'}}} />
-      {title && <ActionList.Heading title={title} />}
-      <Box as="ul" sx={{paddingInlineStart: 0}}>
+      <ActionList.Divider sx={{'&:first-child': {display: 'none'}}} />
+      <ActionList.Group {...props} title={title} sx={sxProp}>
         {children}
-      </Box>
-    </Box>
+      </ActionList.Group>
+    </>
   )
 }
 
