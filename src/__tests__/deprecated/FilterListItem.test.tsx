@@ -1,6 +1,6 @@
 import React from 'react'
-import {FilterList} from '..'
-import {render, behavesAsComponent} from '../utils/testing'
+import {FilterList} from '../../deprecated'
+import {render, behavesAsComponent} from '../../utils/testing'
 import {render as HTMLRender} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
 
