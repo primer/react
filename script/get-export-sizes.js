@@ -1,15 +1,12 @@
-'use strict'
-
-const fs = require('node:fs/promises')
-const path = require('node:path')
-const core = require('@actions/core')
-const commonjs = require('@rollup/plugin-commonjs')
-const {nodeResolve} = require('@rollup/plugin-node-resolve')
-const virtual = require('@rollup/plugin-virtual')
-const {filesize} = require('filesize')
-const {rollup} = require('rollup')
-const {minify} = require('terser')
-const gzipSize = require('gzip-size')
+import fs from 'node:fs/promises'
+import path from 'node:path'
+import core from '@actions/core'
+import {nodeResolve} from '@rollup/plugin-node-resolve'
+import virtual from '@rollup/plugin-virtual'
+import {filesize} from 'filesize'
+import {rollup} from 'rollup'
+import {minify} from 'terser'
+import gzipSize from 'gzip-size'
 
 async function main() {
   const rootDirectory = path.resolve(__dirname, '..')
@@ -36,12 +33,7 @@ async function main() {
     const bundle = await rollup({
       input: filepath,
       external,
-      plugins: [
-        nodeResolve(),
-        commonjs({
-          include: [/node_modules/],
-        }),
-      ],
+      plugins: [nodeResolve()],
       onwarn: () => {},
     })
     const {output} = await bundle.generate({
@@ -60,9 +52,6 @@ async function main() {
         external,
         plugins: [
           nodeResolve(),
-          commonjs({
-            include: /node_modules/,
-          }),
           virtual({
             __entrypoint__: `export { ${identifier} } from '${filepath}';`,
           }),
