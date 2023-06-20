@@ -60,7 +60,7 @@ export const useDynamicTextareaHeight = ({
     if (minHeightLines !== undefined) setMinHeight(`calc(${minHeightLines} * ${lineHeight})`)
     if (maxHeightLines !== undefined) setMaxHeight(`calc(${maxHeightLines} * ${lineHeight})`)
     // `value` is an unnecessary dependency but it enables us to recalculate as the user types
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [minHeightLines, maxHeightLines, value, elementRef, disabled])
 
   useLayoutEffect(refreshHeight, [refreshHeight])
