@@ -1,42 +1,12 @@
 import React, {useState} from 'react'
 import {Meta} from '@storybook/react'
-
-import {BaseStyles, Box, Textarea, ThemeProvider, FormControl} from '../..'
+import {ActionList, Avatar, ActionListItemProps, Textarea, TextInput, FormControl} from '../..'
 import InlineAutocomplete, {ShowSuggestionsEvent, Suggestions} from '.'
 
 export default {
-  title: 'Components/Forms/InlineAutocomplete',
+  title: 'Components/Forms/InlineAutocomplete/Features',
   component: InlineAutocomplete,
-  decorators: [
-    Story => {
-      return (
-        <ThemeProvider>
-          <BaseStyles>
-            <Box paddingTop={5}>{Story()}</Box>
-          </BaseStyles>
-        </ThemeProvider>
-      )
-    },
-  ],
-  args: {
-    loading: false,
-    tabInserts: false,
-  },
-  argTypes: {
-    loading: {
-      name: 'Loading',
-      control: {
-        type: 'boolean',
-      },
-    },
-    tabInserts: {
-      name: '`Tab` Key Inserts Suggestions',
-      control: {
-        type: 'boolean',
-      },
-    },
-  },
-} as Meta
+} as Meta<typeof InlineAutocomplete>
 
 interface User {
   login: string
@@ -57,7 +27,7 @@ const filteredUsers = (query: string) =>
       user.login.toLowerCase().includes(query.toLowerCase()) || user.name.toLowerCase().includes(query.toLowerCase()),
   )
 
-export const Default = ({loading, tabInserts}: ArgProps) => {
+export const SingleLine = ({loading, tabInserts}: ArgProps) => {
   const [suggestions, setSuggestions] = useState<Suggestions | null>(null)
 
   const onShowSuggestions = (event: ShowSuggestionsEvent) => {
@@ -80,18 +50,27 @@ export const Default = ({loading, tabInserts}: ArgProps) => {
         onHideSuggestions={() => setSuggestions(null)}
         tabInsertsSuggestions={tabInserts}
       >
-        <Textarea />
+        <TextInput sx={{lineHeight: 1.2}} />
       </InlineAutocomplete>
     </FormControl>
   )
 }
+
+const UserSuggestion = ({user, ...props}: {user: User} & ActionListItemProps) => (
+  <ActionList.Item {...props}>
+    <ActionList.LeadingVisual>
+      <Avatar src={user.avatar} square={user.type === 'organization'} />
+    </ActionList.LeadingVisual>
+    {user.name} <ActionList.Description>{user.login}</ActionList.Description>
+  </ActionList.Item>
+)
 
 type ArgProps = {
   loading: boolean
   tabInserts: boolean
 }
 
-export const Playground = ({loading, tabInserts}: ArgProps) => {
+export const CustomRendering = ({loading, tabInserts}: ArgProps) => {
   const [suggestions, setSuggestions] = useState<Suggestions | null>(null)
 
   const onShowSuggestions = (event: ShowSuggestionsEvent) => {
@@ -100,17 +79,25 @@ export const Playground = ({loading, tabInserts}: ArgProps) => {
       return
     }
 
-    setSuggestions(filteredUsers(event.query).map(user => user.login))
+    setSuggestions(
+      filteredUsers(event.query).map(user => ({
+        value: user.login,
+        render: props => <UserSuggestion user={user} {...props} />,
+      })),
+    )
   }
+
+  const onHideSuggestions = () => setSuggestions(null)
+
   return (
     <FormControl>
-      <FormControl.Label>Inline Autocomplete Playground</FormControl.Label>
+      <FormControl.Label>Inline Autocomplete Demo</FormControl.Label>
       <FormControl.Caption>Try typing &apos;@&apos; to show user suggestions.</FormControl.Caption>
       <InlineAutocomplete
         triggers={[{triggerChar: '@'}]}
         suggestions={suggestions}
         onShowSuggestions={onShowSuggestions}
-        onHideSuggestions={() => setSuggestions(null)}
+        onHideSuggestions={onHideSuggestions}
         tabInsertsSuggestions={tabInserts}
       >
         <Textarea />
