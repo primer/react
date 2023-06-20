@@ -1,6 +1,6 @@
 import React from 'react'
-import {FilterList} from '..'
-import {render, behavesAsComponent, checkExports} from '../utils/testing'
+import {FilterList} from '../../deprecated'
+import {render, behavesAsComponent, checkExports} from '../../utils/testing'
 import {render as HTMLRender} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
 
@@ -9,7 +9,7 @@ expect.extend(toHaveNoViolations)
 describe('FilterList', () => {
   behavesAsComponent({Component: FilterList})
 
-  checkExports('FilterList', {
+  checkExports('deprecated/FilterList', {
     default: FilterList,
   })
 

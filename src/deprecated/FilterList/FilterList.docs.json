@@ -1,7 +1,7 @@
 {
   "id": "filter_list",
   "name": "FilterList",
-  "status": "alpha",
+  "status": "deprecated",
   "a11yReviewed": false,
   "stories": [],
   "props": [
