@@ -61,7 +61,7 @@ Playground.argTypes = {
     },
   },
   validationStatus: {
-    options: ['error', 'success', 'warning'],
+    options: ['error', 'success'],
     control: {type: 'radio'},
   },
   ...formControlArgTypes,
