@@ -6,7 +6,7 @@ set -e
 npm run clean
 
 # Bundle
-npx rollup -c --bundleConfigAsCjs
+npx rollup --config
 
 # Type check
 npx tsc --project tsconfig.build.json

@@ -130,7 +130,9 @@ function getStorySourceCode(filepath: string) {
 
   const stories: Record<string, string> = {}
 
-  traverse(ast, {
+  // @ts-ignore Can't call `traverse` in ESM directly, must reference `default`.
+  traverse.default(ast, {
+    // @ts-ignore I don't know what `path` should even be here.
     ExportNamedDeclaration(path) {
       const varDecloration = path.node.declaration as VariableDeclaration
       const id = varDecloration.declarations[0].id as Identifier
@@ -138,7 +140,8 @@ function getStorySourceCode(filepath: string) {
       const func = varDecloration.declarations[0].init as ArrowFunctionExpression
 
       const code = prettier
-        .format(generate(func).code, {
+        // @ts-ignore Can't call `traverse` in ESM directly, must reference `default`.
+        .format(generate.default(func).code, {
           parser: 'typescript',
           singleQuote: true,
           trailingComma: 'all',

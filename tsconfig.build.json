@@ -1,7 +1,7 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "emitDeclarationOnly": true
+    "emitDeclarationOnly": true,
   },
   // NOTE: We exclude Storybook stories and test utilities which import
   // Storybook and its dependencies, because:

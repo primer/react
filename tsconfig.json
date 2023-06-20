@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "target": "esnext",
-    "module": "commonjs",
+    "module": "esnext",
     "allowJs": true,
     "checkJs": false,
     "jsx": "preserve",
@@ -25,5 +25,9 @@
     "script/**/*.ts",
     "e2e/**/*.ts",
     "playwright.config.ts"
-  ]
+  ],
+  "ts-node": {
+    "esm": true,
+    "experimentalSpecifierResolution": "node"
+  }
 }
