@@ -1,4 +1,5 @@
-import {isShadowValue} from '../utils/theme'
+import Theme from '../utils/theme'
+const {isShadowValue} = Theme
 
 describe('isShadowValue', () => {
   it('accepts transparent', () => {
