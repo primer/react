@@ -8,6 +8,7 @@ import {Merge} from '../utils/types'
 import TextInputWrapper, {StyledWrapperProps} from '../internal/components/TextInputWrapper'
 import UnstyledTextInput from '../internal/components/UnstyledTextInput'
 import TextInputAction from '../_TextInputInnerAction'
+import {isValidElementType} from 'react-is'
 
 export type TextInputNonPassthroughProps = {
   /** @deprecated Use `leadingVisual` or `trailingVisual` prop instead */
@@ -24,11 +25,11 @@ export type TextInputNonPassthroughProps = {
   /**
    * A visual that renders inside the input before the typing area
    */
-  leadingVisual?: string | React.ComponentType<React.PropsWithChildren<{className?: string}>>
+  leadingVisual?: string | React.ReactNode
   /**
    * A visual that renders inside the input after the typing area
    */
-  trailingVisual?: string | React.ComponentType<React.PropsWithChildren<{className?: string}>>
+  trailingVisual?: string | React.ReactNode
   /**
    * A visual that renders inside the input after the typing area
    */
@@ -134,7 +135,7 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
           showLoadingIndicator={showLeadingLoadingIndicator}
           hasLoadingIndicator={typeof loading === 'boolean'}
         >
-          {typeof LeadingVisual === 'function' ? <LeadingVisual /> : LeadingVisual}
+          {isValidElementType(LeadingVisual) ? <LeadingVisual /> : LeadingVisual}
         </TextInputInnerVisualSlot>
         <UnstyledTextInput
           ref={inputRef}
@@ -150,7 +151,7 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
           showLoadingIndicator={showTrailingLoadingIndicator}
           hasLoadingIndicator={typeof loading === 'boolean'}
         >
-          {typeof TrailingVisual === 'function' ? <TrailingVisual /> : TrailingVisual}
+          {isValidElementType(TrailingVisual) ? <TrailingVisual /> : TrailingVisual}
         </TextInputInnerVisualSlot>
         {trailingAction}
       </TextInputWrapper>

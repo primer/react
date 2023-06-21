@@ -13,6 +13,7 @@ import {TokenSizeKeys} from '../Token/TokenBase'
 import TextInputWrapper, {textInputHorizPadding, TextInputSizes} from '../internal/components/TextInputWrapper'
 import UnstyledTextInput from '../internal/components/UnstyledTextInput'
 import TextInputInnerVisualSlot from '../internal/components/TextInputInnerVisualSlot'
+import {isValidElementType} from 'react-is'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type AnyReactComponent = React.ComponentType<React.PropsWithChildren<any>>
@@ -296,7 +297,7 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
         visualPosition="leading"
         showLoadingIndicator={showLeadingLoadingIndicator}
       >
-        {typeof LeadingVisual === 'function' ? <LeadingVisual /> : LeadingVisual}
+        {isValidElementType(LeadingVisual) ? <LeadingVisual /> : LeadingVisual}
       </TextInputInnerVisualSlot>
       <Box
         ref={containerRef as RefObject<HTMLDivElement>}
@@ -362,7 +363,7 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
         visualPosition="trailing"
         showLoadingIndicator={showTrailingLoadingIndicator}
       >
-        {typeof TrailingVisual === 'function' ? <TrailingVisual /> : TrailingVisual}
+        {isValidElementType(TrailingVisual) ? <TrailingVisual /> : TrailingVisual}
       </TextInputInnerVisualSlot>
     </TextInputWrapper>
   )
