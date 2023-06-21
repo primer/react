@@ -138,7 +138,7 @@ export const getLinkStyles = (
 
 export const menuItemStyles = {
   // This is needed to hide the selected check icon on the menu item. https://github.com/primer/react/blob/main/src/ActionList/Selection.tsx#L32
-  '& > span': {
+  '& span[data-component="ActionList.LeadingVisual"]': {
     display: 'none',
   },
   // To reset the style when the menu items are rendered as react router links
