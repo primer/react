@@ -1,7 +1,10 @@
 import {Page, expect, test} from '@playwright/test'
-import {AxeResults, source} from 'axe-core'
+import axe from 'axe-core'
+import type {AxeResults} from 'axe-core'
 import path from 'node:path'
 import fs from 'node:fs'
+
+const {source} = axe
 
 const defaultOptions = {
   rules: {

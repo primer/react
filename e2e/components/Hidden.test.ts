@@ -1,7 +1,7 @@
 import {test, expect} from '@playwright/test'
-import {visit} from '../test-helpers/storybook'
-import {themes} from '../test-helpers/themes'
-import {viewports} from '../test-helpers/viewports'
+import {visit} from '../test-helpers/storybook.js'
+import {themes} from '../test-helpers/themes.js'
+import {viewports} from '../test-helpers/viewports.js'
 
 test.describe('Hidden', () => {
   test.describe('Default', () => {

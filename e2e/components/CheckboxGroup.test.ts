@@ -1,6 +1,6 @@
 import {test, expect} from '@playwright/test'
-import {visit} from '../test-helpers/storybook'
-import {themes} from '../test-helpers/themes'
+import {visit} from '../test-helpers/storybook.js'
+import {themes} from '../test-helpers/themes.js'
 
 test.describe('CheckboxGroup', () => {
   test.describe('Default', () => {

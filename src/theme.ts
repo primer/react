@@ -1,6 +1,8 @@
 import {KeyPaths} from './utils/types/KeyPaths'
 import primitives from '@primer/primitives'
-import {partitionColors, fontStack, omitScale} from './utils/theme'
+import __theme from './utils/theme'
+
+const {partitionColors, fontStack, omitScale} = __theme
 
 const {lineHeight: lineHeights} = primitives.typography.normal
 

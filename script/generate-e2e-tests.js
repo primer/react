@@ -1,10 +1,14 @@
 'use strict'
 
-const fs = require('node:fs')
-const path = require('node:path')
-const prettier = require('prettier')
-const prettierConfig = require('@github/prettier-config')
-const recast = require('recast')
+import fs from 'node:fs'
+import {fileURLToPath} from 'url'
+import path from 'node:path'
+import prettier from 'prettier'
+import prettierConfig from '@github/prettier-config'
+import recast from 'recast'
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
 
 const E2E_DIR = path.join(__dirname, '..', 'e2e', 'components')
 const components = new Map([
@@ -1463,8 +1467,8 @@ for (const [component, info] of components) {
   })
 
   const source = recast.parse(`import {test, expect} from '@playwright/test'
-import {visit} from '../test-helpers/storybook'
-import {themes} from '../test-helpers/themes'
+import {visit} from '../test-helpers/storybook.js'
+import {themes} from '../test-helpers/themes.js'
 
 test.describe('${component}', () => {
   ${stories.join('\n\n')}

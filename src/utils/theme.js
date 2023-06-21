@@ -1,8 +1,8 @@
 // Utility functions used in theme-preval.js
 // This file needs to be a JavaScript file using CommonJS to be compatible with preval
 
-const isEmpty = require('lodash.isempty')
-const isObject = require('lodash.isobject')
+import isEmpty from 'lodash.isempty'
+import isObject from 'lodash.isobject'
 
 function fontStack(fonts) {
   return fonts.map(font => (font.includes(' ') ? `"${font}"` : font)).join(', ')
@@ -57,7 +57,7 @@ function omitScale(obj) {
   return rest
 }
 
-module.exports = {
+export default {
   fontStack,
   isShadowValue,
   isColorValue,

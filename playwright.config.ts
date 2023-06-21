@@ -1,6 +1,10 @@
 import path from 'node:path'
+import {fileURLToPath} from 'url'
 import {Config} from '@playwright/test'
-import './e2e/matchers/toHaveNoViolations'
+import './e2e/matchers/toHaveNoViolations.js'
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
 
 const config: Config = {
   // https://playwright.dev/docs/api/class-testconfig#test-config-test-dir

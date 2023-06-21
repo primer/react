@@ -1,7 +1,7 @@
 import {test, expect} from '@playwright/test'
 import type {Page} from '@playwright/test'
-import {visit} from '../test-helpers/storybook'
-import {themes} from '../test-helpers/themes'
+import {visit} from '../test-helpers/storybook.js'
+import {themes} from '../test-helpers/themes.js'
 
 const isInViewPort = (page: Page, boundingBox: {x: number; y: number; width: number; height: number}) => {
   let width

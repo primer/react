@@ -1,5 +1,5 @@
 import {Page} from '@playwright/test'
-import {waitForImages} from './waitForImages'
+import {waitForImages} from './waitForImages.js'
 
 interface Options {
   id: string
