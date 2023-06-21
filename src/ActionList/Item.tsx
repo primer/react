@@ -9,12 +9,11 @@ import {defaultSxProp} from '../utils/defaultSxProp'
 import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import {ActionListContainerContext} from './ActionListContainerContext'
 import {Description} from './Description'
-import {ListContext} from './List'
+import {GroupContext} from './Group'
+import {ActionListProps, ListContext} from './List'
 import {Selection} from './Selection'
 import {ActionListItemProps, getVariantStyles, ItemContext, TEXT_ROW_HEIGHT} from './shared'
 import {LeadingVisual, TrailingVisual} from './Visuals'
-import {MenuContext} from '../ActionMenu/ActionMenu'
-import {GroupContext} from './Group'
 
 const LiBox = styled.li<SxProp>(sx)
 
@@ -30,8 +29,6 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       id,
       role,
       _PrivateItemWrapper,
-      // @ts-ignore tabIndex is sometimes passed as a prop in dotcom.
-      tabIndex,
       ...props
     },
     forwardedRef,
@@ -41,13 +38,10 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       trailingVisual: TrailingVisual,
       description: Description,
     })
-
     const {variant: listVariant, showDividers, selectionVariant: listSelectionVariant} = React.useContext(ListContext)
-    const {container, afterSelect, selectionAttribute} = React.useContext(ActionListContainerContext)
-    const menuContext = React.useContext(MenuContext)
     const {selectionVariant: groupSelectionVariant} = React.useContext(GroupContext)
+    const {container, afterSelect, selectionAttribute} = React.useContext(ActionListContainerContext)
 
-    const selectionVariant = groupSelectionVariant ?? listSelectionVariant
     const onSelect = React.useCallback(
       (
         event: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement>,
@@ -60,6 +54,10 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       },
       [onSelectUser],
     )
+
+    const selectionVariant: ActionListProps['selectionVariant'] = groupSelectionVariant
+      ? groupSelectionVariant
+      : listSelectionVariant
 
     /** Infer item role based on the container */
     let itemRole: ActionListItemProps['role']
@@ -86,22 +84,12 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       },
     }
 
-    const isTopLevelInteractive = () =>
-      _PrivateItemWrapper !== undefined ||
-      // @ts-ignore props.as may be defined, may not.
-      props.as === 'button' ||
-      // @ts-ignore props.as may be defined, may not.
-      props.as === 'a' ||
-      menuContext.anchorId !== undefined ||
-      role?.match(/menuitem/) ||
-      tabIndex !== undefined
-
     const styles = {
       position: 'relative',
       display: 'flex',
-      paddingX: isTopLevelInteractive() ? 2 : 0,
+      paddingX: 2,
       fontSize: 1,
-      paddingY: isTopLevelInteractive() ? '6px' : 0, // custom value off the scale
+      paddingY: '6px', // custom value off the scale
       lineHeight: TEXT_ROW_HEIGHT,
       minHeight: 5,
       marginX: listVariant === 'inset' ? 2 : 0,
@@ -157,10 +145,6 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
         borderTopWidth: showDividers ? `1px` : '0',
         borderColor: 'var(--divider-color, transparent)',
       },
-      'button[data-component="ActionList.Item--DividerContainer"]': {
-        textAlign: 'left',
-        padding: 0,
-      },
       // show between 2 items
       ':not(:first-of-type)': {'--divider-color': theme?.colors.actionListItem.inlineDivider},
       // hide divider after dividers & group header, with higher importance!
@@ -198,13 +182,13 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
     const inlineDescriptionId = useId(id && `${id}--inline-description`)
     const blockDescriptionId = useId(id && `${id}--block-description`)
 
-    const ItemWrapper = _PrivateItemWrapper || Box
+    const ItemWrapper = _PrivateItemWrapper || React.Fragment
 
     const menuItemProps = {
       onClick: clickHandler,
       onKeyPress: keyPressHandler,
       'aria-disabled': disabled ? true : undefined,
-      tabIndex: disabled || !isTopLevelInteractive() ? undefined : 0,
+      tabIndex: disabled ? undefined : 0,
       'aria-labelledby': `${labelId} ${
         slots.description && slots.description.props.variant !== 'block' ? inlineDescriptionId : ''
       }`,
@@ -215,41 +199,17 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
 
     const containerProps = _PrivateItemWrapper ? {role: role || itemRole ? 'none' : undefined} : menuItemProps
 
-    const wrapperProps = _PrivateItemWrapper
-      ? menuItemProps
-      : {
-          sx: {
-            display: 'flex',
-            paddingX: isTopLevelInteractive() ? 0 : 2,
-            paddingY: isTopLevelInteractive() ? 0 : '6px', // custom value off the scale
-            flexGrow: 1,
-          },
-        }
+    const wrapperProps = _PrivateItemWrapper ? menuItemProps : {}
 
     return (
       <ItemContext.Provider value={{variant, disabled, inlineDescriptionId, blockDescriptionId}}>
         <LiBox ref={forwardedRef} sx={merge<BetterSystemStyleObject>(styles, sxProp)} {...containerProps} {...props}>
-          {/* @ts-ignore onClick prop is only passed when _PrivateItemWrapper is set by ActionList.LinkItem. */}
           <ItemWrapper {...wrapperProps}>
             <Selection selected={selected} />
             {slots.leadingVisual}
             <Box
               data-component="ActionList.Item--DividerContainer"
-              sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                flexGrow: 1,
-                minWidth: 0,
-                borderStyle: 'none',
-                backgroundColor: 'transparent',
-                cursor: 'inherit',
-                fontSize: 'inherit',
-                color: getVariantStyles(variant, disabled).color,
-                lineHeight: '20px',
-              }}
-              // @ts-ignore `as` prop may be passed to ActionList.Item, even if it isn't defined in ActionListItemProps.
-              // If this item is inside an ActionMenu, don't render an interactive button.
-              as={isTopLevelInteractive() ? 'div' : 'button'}
+              sx={{display: 'flex', flexDirection: 'column', flexGrow: 1, minWidth: 0}}
             >
               <ConditionalBox if={Boolean(slots.trailingVisual)} sx={{display: 'flex', flexGrow: 1}}>
                 <ConditionalBox

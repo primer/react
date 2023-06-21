@@ -49,7 +49,7 @@ export type {RadioProps} from './Radio'
 export {ActionList} from './ActionList'
 export type {
   ActionListProps,
-  ActionListHeadingProps,
+  ActionListGroupProps,
   ActionListItemProps,
   ActionListLinkItemProps,
   ActionListDividerProps,
@@ -57,7 +57,7 @@ export type {
   ActionListLeadingVisualProps,
   ActionListTrailingVisualProps,
 } from './ActionList'
-export {ActionMenu, MenuContext} from './ActionMenu'
+export {ActionMenu} from './ActionMenu'
 export type {ActionMenuProps, ActionMenuAnchorProps, ActionMenuButtonProps} from './ActionMenu'
 export {AnchoredOverlay} from './AnchoredOverlay'
 export type {AnchoredOverlayProps} from './AnchoredOverlay'

@@ -105,7 +105,6 @@ describe('TextInput', () => {
   it('focuses the text input if you do not click the input element', () => {
     const {container, getByLabelText} = HTMLRender(
       <>
-        {/* eslint-disable-next-line jsx-a11y/label-has-for */}
         <label htmlFor="testInput">Search</label>
         <TextInput id="testInput" name="search" placeholder={'Search'} trailingVisual={SearchIcon} />
       </>,
@@ -159,7 +158,6 @@ describe('TextInput', () => {
   it('indicates a busy status to assistive technology', () => {
     const {container} = HTMLRender(
       <>
-        {/* eslint-disable-next-line jsx-a11y/label-has-for */}
         <label htmlFor="loadingInput">Search</label>
         <TextInput loading id="loadingInput" />
       </>,
