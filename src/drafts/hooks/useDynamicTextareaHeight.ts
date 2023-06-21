@@ -1,4 +1,4 @@
-import {RefObject, useLayoutEffect, useState} from 'react'
+import {RefObject, useCallback, useEffect, useLayoutEffect, useState} from 'react'
 
 import {SxProp} from '../../sx'
 import {getCharacterCoordinates} from '../utils/character-coordinates'
@@ -34,7 +34,7 @@ export const useDynamicTextareaHeight = ({
   const [minHeight, setMinHeight] = useState<string | undefined>(undefined)
   const [maxHeight, setMaxHeight] = useState<string | undefined>(undefined)
 
-  useLayoutEffect(() => {
+  const refreshHeight = useCallback(() => {
     if (disabled) return
 
     const element = elementRef.current
@@ -60,7 +60,16 @@ export const useDynamicTextareaHeight = ({
     if (minHeightLines !== undefined) setMinHeight(`calc(${minHeightLines} * ${lineHeight})`)
     if (maxHeightLines !== undefined) setMaxHeight(`calc(${maxHeightLines} * ${lineHeight})`)
     // `value` is an unnecessary dependency but it enables us to recalculate as the user types
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [minHeightLines, maxHeightLines, value, elementRef, disabled])
+
+  useLayoutEffect(refreshHeight, [refreshHeight])
+
+  // With Slots, initial render of the component is delayed and so the initial layout effect can occur
+  // before the target element has actually been calculated in the DOM. But if we only use regular effects,
+  // there will be a visible flash on initial render when not using slots
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(refreshHeight, [])
 
   if (disabled) return {}
 
