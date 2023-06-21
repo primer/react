@@ -1,5 +1,6 @@
 import fs from 'node:fs/promises'
 import path from 'node:path'
+import {fileURLToPath} from 'url'
 import core from '@actions/core'
 import {nodeResolve} from '@rollup/plugin-node-resolve'
 import virtual from '@rollup/plugin-virtual'
@@ -7,6 +8,9 @@ import {filesize} from 'filesize'
 import {rollup} from 'rollup'
 import {minify} from 'terser'
 import gzipSize from 'gzip-size'
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
 
 async function main() {
   const rootDirectory = path.resolve(__dirname, '..')
