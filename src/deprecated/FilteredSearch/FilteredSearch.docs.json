@@ -1,7 +1,7 @@
 {
   "id": "filtered_search",
   "name": "FilteredSearch",
-  "status": "alpha",
+  "status": "deprecated",
   "a11yReviewed": false,
   "stories": [],
   "props": [

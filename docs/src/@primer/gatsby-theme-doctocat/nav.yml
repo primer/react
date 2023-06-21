@@ -72,10 +72,6 @@
       url: /Details
     - title: Dialog
       url: /Dialog
-    - title: FilteredSearch
-      url: /FilteredSearch
-    - title: FilterList
-      url: /FilterList
     - title: Flash
       url: /Flash
     - title: FormControl
@@ -188,6 +184,10 @@
       url: /deprecated/Dropdown
     - title: DropdownMenu
       url: /deprecated/DropdownMenu
+    - title: FilteredSearch
+      url: /deprecated/FilteredSearch
+    - title: FilterList
+      url: /deprecated/FilterList
     - title: Flex
       url: /deprecated/Flex
     - title: FormGroup

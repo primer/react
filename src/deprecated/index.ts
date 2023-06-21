@@ -75,3 +75,10 @@ export type {
 
 export {default as UnderlineNav} from './UnderlineNav'
 export type {UnderlineNavProps, UnderlineNavLinkProps} from './UnderlineNav'
+// Deprecated in v36.0.0 in June 2023
+// TODO: We can remove these 6 months after release: December 2023
+export {default as FilterList} from './FilterList'
+export type {FilterListProps, FilterListItemProps} from './FilterList'
+export {default as FilteredSearch} from './FilteredSearch'
+export type {FilteredSearchProps} from './FilteredSearch'
+// end of v36.0.0

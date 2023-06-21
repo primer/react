@@ -47,7 +47,7 @@ export const ViewSwitch = ({selectedView, onViewSelect, onLoadPreview, disabled}
       {condensed ? (
         <IconButton {...sharedProps} disabled={disabled} icon={icon} aria-label={label} />
       ) : (
-        <Button {...sharedProps} leadingIcon={icon} disabled={disabled}>
+        <Button {...sharedProps} leadingVisual={icon} disabled={disabled}>
           {label}
         </Button>
       )}
