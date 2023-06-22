@@ -189,7 +189,7 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
     link: {
       color: 'accent.fg',
       backgroundColor: 'transparent',
-      display: 'inline-block',
+      display: 'inline-flex',
       border: 'none',
       height: 'unset',
       padding: 0,
