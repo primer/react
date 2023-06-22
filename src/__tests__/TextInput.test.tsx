@@ -57,10 +57,56 @@ describe('TextInput', () => {
 
   it('renders leadingVisual', () => {
     expect(render(<TextInput name="search" placeholder={'Search'} leadingVisual={SearchIcon} />)).toMatchSnapshot()
+    expect(render(<TextInput name="search" placeholder={'Search'} leadingVisual={<SearchIcon />} />)).toMatchSnapshot()
+    expect(
+      render(
+        <TextInput
+          name="search"
+          placeholder={'Search'}
+          leadingVisual={React.memo(() => (
+            <div>Trailing</div>
+          ))}
+        />,
+      ),
+    ).toMatchSnapshot()
+    expect(
+      render(
+        <TextInput
+          name="search"
+          placeholder={'Search'}
+          leadingVisual={React.forwardRef(() => (
+            <div>Trailing</div>
+          ))}
+        />,
+      ),
+    ).toMatchSnapshot()
   })
 
   it('renders trailingVisual', () => {
     expect(render(<TextInput name="search" placeholder={'Search'} trailingVisual={SearchIcon} />)).toMatchSnapshot()
+    expect(render(<TextInput name="search" placeholder={'Search'} trailingVisual={<SearchIcon />} />)).toMatchSnapshot()
+    expect(
+      render(
+        <TextInput
+          name="search"
+          placeholder={'Search'}
+          trailingVisual={React.memo(() => (
+            <div>Trailing</div>
+          ))}
+        />,
+      ),
+    ).toMatchSnapshot()
+    expect(
+      render(
+        <TextInput
+          name="search"
+          placeholder={'Search'}
+          trailingVisual={React.forwardRef(() => (
+            <div>Trailing</div>
+          ))}
+        />,
+      ),
+    ).toMatchSnapshot()
   })
 
   it('renders trailingAction text button', () => {
