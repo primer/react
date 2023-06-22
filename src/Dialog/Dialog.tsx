@@ -1,12 +1,10 @@
 import React, {useCallback, useEffect, useRef, useState} from 'react'
 import styled from 'styled-components'
-import Button, {ButtonPrimary, ButtonDanger, ButtonProps} from '../deprecated/Button'
-import Box from '../Box'
+import {Box, Button, ButtonProps, IconButton, Text} from '../'
 import {get} from '../constants'
 import {useOnEscapePress, useProvidedRefOrCreate} from '../hooks'
 import {useFocusTrap} from '../hooks/useFocusTrap'
 import sx, {SxProp} from '../sx'
-import Octicon from '../Octicon'
 import {XIcon} from '@primer/octicons-react'
 import {useFocusZone} from '../hooks/useFocusZone'
 import {FocusKeys} from '@primer/behaviors'
@@ -323,21 +321,15 @@ const Header = styled.div<SxProp>`
   flex-shrink: 0;
 `
 
-const Title = styled.h1<SxProp>`
-  font-size: ${get('fontSizes.1')};
-  font-weight: ${get('fontWeights.bold')};
-  margin: 0; /* override default margin */
-  ${sx};
-`
+// TODO: check if this is an appropriate use of `h1`
+const Title: React.FC<React.PropsWithChildren<React.ComponentPropsWithoutRef<'h1'> & SxProp>> = ({sx, ...props}) => (
+  <Text as="h2" color="fg.muted" margin="0" fontSize={1} sx={sx} {...props} />
+)
 
-const Subtitle = styled.h2<SxProp>`
-  font-size: ${get('fontSizes.0')};
-  color: ${get('colors.fg.muted')};
-  margin: 0; /* override default margin */
-  margin-top: ${get('space.1')};
-
-  ${sx};
-`
+// TODO: check if this is an appropriate use of `h2`
+const Subtitle: React.FC<React.PropsWithChildren<React.ComponentPropsWithoutRef<'h2'> & SxProp>> = ({sx, ...props}) => (
+  <Text as="h2" color="fg.muted" margin="0" fontWeight="normal" fontSize={0} sx={sx} {...props} />
+)
 
 const Body = styled.div<SxProp>`
   flex-grow: 1;
@@ -368,8 +360,8 @@ const Footer = styled.div<SxProp>`
 
 const buttonTypes = {
   normal: Button,
-  primary: ButtonPrimary,
-  danger: ButtonDanger,
+  primary: (props: ButtonProps) => <Button variant="primary" {...props} />,
+  danger: (props: ButtonProps) => <Button variant="danger" {...props} />,
 }
 const Buttons: React.FC<React.PropsWithChildren<{buttons: DialogButtonProps[]}>> = ({buttons}) => {
   const autoFocusRef = useProvidedRefOrCreate<HTMLButtonElement>(buttons.find(button => button.autoFocus)?.ref)
@@ -393,7 +385,6 @@ const Buttons: React.FC<React.PropsWithChildren<{buttons: DialogButtonProps[]}>>
           <ButtonElement
             key={index}
             {...buttonProps}
-            variant={buttonType}
             ref={autoFocus && autoFocusCount === 0 ? (autoFocusCount++, autoFocusRef) : null}
           >
             {content}
@@ -403,24 +394,10 @@ const Buttons: React.FC<React.PropsWithChildren<{buttons: DialogButtonProps[]}>>
     </>
   )
 }
-const DialogCloseButton = styled(Button)`
-  border-radius: 4px;
-  background: transparent;
-  border: 0;
-  vertical-align: middle;
-  color: ${get('colors.fg.muted')};
-  padding: ${get('space.2')};
-  align-self: flex-start;
-  line-height: normal;
-  box-shadow: none;
-`
-const CloseButton: React.FC<React.PropsWithChildren<{onClose: () => void}>> = ({onClose}) => {
-  return (
-    <DialogCloseButton aria-label="Close" onClick={onClose}>
-      <Octicon icon={XIcon} />
-    </DialogCloseButton>
-  )
-}
+
+const CloseButton: React.FC<React.PropsWithChildren<{onClose: () => void}>> = ({onClose}) => (
+  <IconButton aria-label="Close" onClick={onClose} icon={XIcon} variant="invisible" />
+)
 
 /**
  * A dialog is a type of overlay that can be used for confirming actions, asking
