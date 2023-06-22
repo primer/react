@@ -44,6 +44,7 @@ export const Description: React.FC<React.PropsWithChildren<ActionListDescription
       sx={merge({...styles, color: disabled ? 'fg.disabled' : 'fg.muted'}, sx as SxProp)}
       title={props.children as string}
       inline={true}
+      maxWidth="100%"
     >
       {props.children}
     </Truncate>
