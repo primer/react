@@ -80,6 +80,7 @@
     "index.d.ts",
     "deprecated/package.json",
     "drafts/package.json",
+    "experimental/package.json",
     "!lib/__tests__",
     "!lib/stories",
     "!lib-esm/__tests__",
