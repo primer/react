@@ -1,5 +1,7 @@
 name: Changesets
-'on': pull_request
+'on':
+  pull_request:
+    types: [opened, synchronize, reopened, labeled, unlabeled]
 
 jobs:
   validate:
