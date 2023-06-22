@@ -5,8 +5,9 @@ import {BaseStyles, ThemeProvider, Box} from '..'
 import {Button} from '../Button'
 import {Dialog, DialogProps, DialogWidth, DialogHeight} from '../Dialog/Dialog'
 
+// TODO: update this title and all other draft component titles to "Drafts/{component name}"
 export default {
-  title: 'Components/Dialog',
+  title: 'Drafts/Components/Dialog',
   component: Dialog,
   decorators: [
     Story => {
