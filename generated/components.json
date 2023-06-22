@@ -216,11 +216,6 @@
               "type": "React.RefObject<HTMLAnchorElement>"
             },
             {
-              "name": "as",
-              "type": "React.ElementType",
-              "defaultValue": "\"a\""
-            },
-            {
               "name": "sx",
               "type": "SystemStyleObject"
             }
@@ -900,7 +895,7 @@
         },
         {
           "name": "variant",
-          "type": "| 'default'\n| 'primary'\n| 'danger'\n| 'outline'\n| 'invisible'",
+          "type": "| 'default'\n| 'primary'\n| 'danger'\n| 'outline'\n| 'invisible'\n| 'link'",
           "defaultValue": "'default'",
           "description": "Change the visual style of the button."
         },
@@ -2062,7 +2057,7 @@
           "name": "href",
           "type": "string",
           "defaultValue": "",
-          "description": "URL to be used for the Link. (The `href` is passed to the underlying `<a>` element. If `as` is specified, the link behavior may need different props)."
+          "description": "URL to be used for the Link. (The `href` is passed to the underlying `<a>` element)."
         },
         {
           "name": "muted",
@@ -2085,11 +2080,6 @@
         {
           "name": "ref",
           "type": "React.RefObject<HTMLAnchorElement>"
-        },
-        {
-          "name": "as",
-          "type": "React.ElementType",
-          "defaultValue": "\"a\""
         },
         {
           "name": "sx",

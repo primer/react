@@ -186,6 +186,25 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
         borderColor: 'btn.outline.selectedBorder',
       },
     },
+    link: {
+      color: 'accent.fg',
+      backgroundColor: 'transparent',
+      display: 'inline-flex',
+      border: 'none',
+      height: 'unset',
+      padding: 0,
+      '&:hover:not(:disabled)': {
+        textDecoration: 'underline',
+      },
+      '&:focus-visible, &:focus': {
+        outlineOffset: '2px',
+      },
+      '&:disabled, &[aria-disabled=true]': {
+        color: 'primer.fg.disabled',
+        backgroundColor: 'transparent',
+        borderColor: 'transparent',
+      },
+    },
   }
   return style[variant]
 }
