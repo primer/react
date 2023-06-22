@@ -323,7 +323,7 @@ const Header = styled.div<SxProp>`
 
 // TODO: check if this is an appropriate use of `h1`
 const Title: React.FC<React.PropsWithChildren<React.ComponentPropsWithoutRef<'h1'> & SxProp>> = ({sx, ...props}) => (
-  <Text as="h2" color="fg.muted" margin="0" fontSize={1} sx={sx} {...props} />
+  <Text as="h2" margin="0" fontSize={1} sx={sx} {...props} />
 )
 
 // TODO: check if this is an appropriate use of `h2`
