@@ -12,7 +12,7 @@ import TextInputAction from '../_TextInputInnerAction'
 
 export type TextInputNonPassthroughProps = {
   /** @deprecated Use `leadingVisual` or `trailingVisual` prop instead */
-  icon?: React.ComponentType<React.PropsWithChildren<{className?: string}>>
+  icon?: React.ElementType
   /** Whether the to show a loading indicator in the input */
   loading?: boolean
   /**
