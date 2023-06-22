@@ -1,6 +1,6 @@
 import React, {useCallback, useRef, useState} from 'react'
 import {Meta} from '@storybook/react'
-import styled, {createGlobalStyle} from 'styled-components'
+import styled from 'styled-components'
 import {Box, BaseStyles, Flash, theme, ThemeProvider} from '..'
 import {Button} from '../Button'
 import {FocusKeys} from '@primer/behaviors'
@@ -24,14 +24,6 @@ export default {
   ],
 } as Meta
 
-// NOTE: the below styles are solely intended as a visual aid for
-// this Storybook story, but they're not recommended for a real site!
-const HelperGlobalStyling = createGlobalStyle`
-  *:focus {
-    outline: 2px solid ${themeGet('colors.border.info')} !important;
-  }
-`
-
 const MarginButton = styled(Button)`
   margin: ${themeGet('space.1')};
 `
@@ -52,7 +44,6 @@ export const BasicFocusZone = () => {
 
   return (
     <>
-      <HelperGlobalStyling />
       <Box display="flex" flexDirection="column" alignItems="flex-start" onKeyDownCapture={reportKey}>
         <Box position="absolute" right={5} top={2}>
           Last key pressed: {lastKey}
@@ -105,7 +96,6 @@ export const FocusOutBehavior = () => {
 
   return (
     <>
-      <HelperGlobalStyling />
       <Box display="flex" flexDirection="column" alignItems="flex-start" onKeyDownCapture={reportKey}>
         <Box position="absolute" right={5} top={2}>
           Last key pressed: {lastKey}
@@ -223,7 +213,6 @@ export const CustomFocusMovement = () => {
 
   return (
     <>
-      <HelperGlobalStyling />
       <Box display="flex" flexDirection="column" alignItems="flex-start" onKeyDownCapture={reportKey}>
         <Box position="absolute" right={5} top={2}>
           Last key pressed: {lastKey}
@@ -294,7 +283,6 @@ export const FocusInStrategy = () => {
 
   return (
     <>
-      <HelperGlobalStyling />
       <Box display="flex" flexDirection="column" alignItems="flex-start" onKeyDownCapture={reportKey}>
         <Box position="absolute" right={5} top={2}>
           Last key pressed: {lastKey}
@@ -393,7 +381,6 @@ export const SpecialSituations = () => {
 
   return (
     <>
-      <HelperGlobalStyling />
       <Box display="flex" flexDirection="column" alignItems="flex-start" onKeyDownCapture={reportKey}>
         <Flash sx={{mb: 3}}>
           This story is very esoteric! It only exists to show some of the nuance of the arrow key focus behavior in
@@ -488,7 +475,6 @@ export const ChangingSubtree = () => {
 
   return (
     <>
-      <HelperGlobalStyling />
       <Box display="flex" flexDirection="column" alignItems="flex-start" onKeyDownCapture={reportKey}>
         <Flash sx={{mb: 3}}>
           This story demonstrates that focusZone is consistent even when the container&rsquo;s subtree changes.
@@ -544,7 +530,6 @@ export const NestedZones = () => {
 
   return (
     <>
-      <HelperGlobalStyling />
       <Box display="flex" flexDirection="column" alignItems="flex-start" onKeyDownCapture={reportKey}>
         <Box position="absolute" right={5} top={2}>
           Last key pressed: {lastKey}
@@ -606,7 +591,7 @@ export const ActiveDescendant = () => {
     bindKeys: FocusKeys.ArrowVertical,
     onActiveDescendantChanged: (current, previous) => {
       if (current) {
-        current.style.outline = `2px solid ${themeFromContext?.colors.border.info}`
+        current.style.outline = `2px solid ${themeFromContext?.colors.accent.fg}`
       }
       if (previous) {
         previous.style.outline = ''
@@ -617,7 +602,6 @@ export const ActiveDescendant = () => {
 
   return (
     <>
-      <HelperGlobalStyling />
       <Box display="flex" flexDirection="column" alignItems="flex-start" onKeyDownCapture={reportKey}>
         <Flash sx={{mb: 3}}>
           This story demonstrates using the `aria-activedescendant` pattern for managing both a focused element and an
