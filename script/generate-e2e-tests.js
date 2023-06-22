@@ -326,10 +326,6 @@ const components = new Map([
           id: 'components-checkboxgroup-features--visually-hidden-label',
           name: 'Visually Hidden Label',
         },
-        {
-          id: 'components-checkboxgroup-features--warning',
-          name: 'Warning',
-        },
       ],
     },
   ],
@@ -978,10 +974,6 @@ const components = new Map([
           name: 'Visually Hidden Label',
         },
         {
-          id: 'components-radiogroup-features--warning',
-          name: 'Warning',
-        },
-        {
           id: 'components-radiogroup-features--with-external-label',
           name: 'With External Label',
         },
@@ -1023,10 +1015,6 @@ const components = new Map([
         {
           id: 'components-select-features--visually-hidden-label',
           name: 'Visually Hidden Label',
-        },
-        {
-          id: 'components-select-features--warning',
-          name: 'Warning',
         },
         {
           id: 'components-select-features--with-caption',
@@ -1176,10 +1164,6 @@ const components = new Map([
           name: 'Visually Hidden Label',
         },
         {
-          id: 'components-textarea-features--warning',
-          name: 'Warning',
-        },
-        {
           id: 'components-textarea-features--with-caption',
           name: 'With Caption',
         },
@@ -1221,10 +1205,6 @@ const components = new Map([
         {
           id: 'components-textinput-features--visually-hidden-label',
           name: 'Visually Hidden Label',
-        },
-        {
-          id: 'components-textinput-features--warning',
-          name: 'Warning',
         },
         {
           id: 'components-textinput-features--with-caption',

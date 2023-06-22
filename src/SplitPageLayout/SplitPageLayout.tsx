@@ -68,13 +68,12 @@ Content.displayName = 'SplitPageLayout.Content'
 export type SplitPageLayoutPaneProps = PageLayoutPaneProps
 
 export const Pane: React.FC<React.PropsWithChildren<SplitPageLayoutPaneProps>> = ({
-  position = 'start',
   sticky = true,
   padding = 'normal',
   divider = 'line',
   ...props
 }) => {
-  return <PageLayout.Pane position={position} sticky={sticky} padding={padding} divider={divider} {...props} />
+  return <PageLayout.Pane sticky={sticky} padding={padding} divider={divider} {...props} />
 }
 Pane.displayName = 'SplitPageLayout.Pane'
 

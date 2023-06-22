@@ -1,8 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
-import {get} from '../constants'
-import sx, {SxProp} from '../sx'
-import {ComponentProps} from '../utils/types'
+import {get} from '../../constants'
+import sx, {SxProp} from '../../sx'
+import {ComponentProps} from '../../utils/types'
 
 const FilterListBase = styled.ul<SxProp>`
   list-style-type: none;
@@ -13,6 +13,9 @@ const FilterListBase = styled.ul<SxProp>`
 
 export type FilterListProps = ComponentProps<typeof FilterListBase>
 
+/**
+ * @deprecated Use the ActionList component instead.
+ */
 const FilterList = ({children, ...rest}: React.PropsWithChildren<FilterListProps>) => {
   const items = React.Children.map(children, child => {
     return <li>{child}</li>

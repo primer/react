@@ -12,7 +12,7 @@ export default {
 
 export const SettingsPage: ComponentStory<typeof SplitPageLayout> = () => (
   <SplitPageLayout>
-    <SplitPageLayout.Pane position="start">
+    <SplitPageLayout.Pane>
       <NavList aria-label="main">
         <NavList.Item href="#">Profile</NavList.Item>
         <NavList.Item href="#" aria-current="page">

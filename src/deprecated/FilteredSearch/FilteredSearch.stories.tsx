@@ -1,9 +1,9 @@
 import React from 'react'
 import {Meta, ComponentStory} from '@storybook/react'
 import FilteredSearch from './FilteredSearch'
-import {ActionList} from '../ActionList'
-import {ActionMenu} from '../ActionMenu'
-import TextInput from '../TextInput'
+import {ActionList} from '../../ActionList'
+import {ActionMenu} from '../../ActionMenu'
+import TextInput from '../../TextInput'
 import {SearchIcon} from '@primer/octicons-react'
 
 export default {

@@ -96,7 +96,7 @@
         },
         {
           "name": "variant",
-          "type": "'error' | 'success' | 'warning'",
+          "type": "'error' | 'success'",
           "defaultValue": "",
           "required": true,
           "description": "Changes the visual style to match the validation status"
