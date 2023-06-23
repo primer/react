@@ -1,5 +1,5 @@
 import React from 'react'
-import InputCaption from '../../_InputCaption'
+import InputCaption from '../../internal/components/InputCaption'
 import {InputFieldContext} from './InputField'
 import {Slot} from './slots'
 

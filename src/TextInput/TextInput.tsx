@@ -1,17 +1,18 @@
 import React, {MouseEventHandler, useCallback, useState} from 'react'
+import {isValidElementType} from 'react-is'
 import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import classnames from 'classnames'
 
-import TextInputInnerVisualSlot from '../_TextInputInnerVisualSlot'
+import TextInputInnerVisualSlot from '../internal/components/TextInputInnerVisualSlot'
 import {useProvidedRefOrCreate} from '../hooks'
 import {Merge} from '../utils/types'
-import TextInputWrapper, {StyledWrapperProps} from '../_TextInputWrapper'
-import UnstyledTextInput from '../_UnstyledTextInput'
+import TextInputWrapper, {StyledWrapperProps} from '../internal/components/TextInputWrapper'
+import UnstyledTextInput from '../internal/components/UnstyledTextInput'
 import TextInputAction from '../_TextInputInnerAction'
 
 export type TextInputNonPassthroughProps = {
   /** @deprecated Use `leadingVisual` or `trailingVisual` prop instead */
-  icon?: React.ComponentType<React.PropsWithChildren<{className?: string}>>
+  icon?: React.ElementType
   /** Whether the to show a loading indicator in the input */
   loading?: boolean
   /**
@@ -24,11 +25,11 @@ export type TextInputNonPassthroughProps = {
   /**
    * A visual that renders inside the input before the typing area
    */
-  leadingVisual?: string | React.ComponentType<React.PropsWithChildren<{className?: string}>>
+  leadingVisual?: React.ElementType | React.ReactNode
   /**
    * A visual that renders inside the input after the typing area
    */
-  trailingVisual?: string | React.ComponentType<React.PropsWithChildren<{className?: string}>>
+  trailingVisual?: React.ElementType | React.ReactNode
   /**
    * A visual that renders inside the input after the typing area
    */
@@ -134,7 +135,7 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
           showLoadingIndicator={showLeadingLoadingIndicator}
           hasLoadingIndicator={typeof loading === 'boolean'}
         >
-          {LeadingVisual && (typeof LeadingVisual === 'string' ? LeadingVisual : <LeadingVisual />)}
+          {typeof LeadingVisual !== 'string' && isValidElementType(LeadingVisual) ? <LeadingVisual /> : LeadingVisual}
         </TextInputInnerVisualSlot>
         <UnstyledTextInput
           ref={inputRef}
@@ -150,7 +151,11 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
           showLoadingIndicator={showTrailingLoadingIndicator}
           hasLoadingIndicator={typeof loading === 'boolean'}
         >
-          {TrailingVisual && (typeof TrailingVisual === 'string' ? TrailingVisual : <TrailingVisual />)}
+          {typeof TrailingVisual !== 'string' && isValidElementType(TrailingVisual) ? (
+            <TrailingVisual />
+          ) : (
+            TrailingVisual
+          )}
         </TextInputInnerVisualSlot>
         {trailingAction}
       </TextInputWrapper>

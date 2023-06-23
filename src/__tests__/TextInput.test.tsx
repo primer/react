@@ -57,10 +57,56 @@ describe('TextInput', () => {
 
   it('renders leadingVisual', () => {
     expect(render(<TextInput name="search" placeholder={'Search'} leadingVisual={SearchIcon} />)).toMatchSnapshot()
+    expect(render(<TextInput name="search" placeholder={'Search'} leadingVisual={<SearchIcon />} />)).toMatchSnapshot()
+    expect(
+      render(
+        <TextInput
+          name="search"
+          placeholder={'Search'}
+          leadingVisual={React.memo(() => (
+            <div>Trailing</div>
+          ))}
+        />,
+      ),
+    ).toMatchSnapshot()
+    expect(
+      render(
+        <TextInput
+          name="search"
+          placeholder={'Search'}
+          leadingVisual={React.forwardRef(() => (
+            <div>Trailing</div>
+          ))}
+        />,
+      ),
+    ).toMatchSnapshot()
   })
 
   it('renders trailingVisual', () => {
     expect(render(<TextInput name="search" placeholder={'Search'} trailingVisual={SearchIcon} />)).toMatchSnapshot()
+    expect(render(<TextInput name="search" placeholder={'Search'} trailingVisual={<SearchIcon />} />)).toMatchSnapshot()
+    expect(
+      render(
+        <TextInput
+          name="search"
+          placeholder={'Search'}
+          trailingVisual={React.memo(() => (
+            <div>Trailing</div>
+          ))}
+        />,
+      ),
+    ).toMatchSnapshot()
+    expect(
+      render(
+        <TextInput
+          name="search"
+          placeholder={'Search'}
+          trailingVisual={React.forwardRef(() => (
+            <div>Trailing</div>
+          ))}
+        />,
+      ),
+    ).toMatchSnapshot()
   })
 
   it('renders trailingAction text button', () => {
@@ -109,7 +155,6 @@ describe('TextInput', () => {
   it('focuses the text input if you do not click the input element', () => {
     const {container, getByLabelText} = HTMLRender(
       <>
-        {/* eslint-disable-next-line jsx-a11y/label-has-for */}
         <label htmlFor="testInput">Search</label>
         <TextInput id="testInput" name="search" placeholder={'Search'} trailingVisual={SearchIcon} />
       </>,
@@ -163,7 +208,6 @@ describe('TextInput', () => {
   it('indicates a busy status to assistive technology', () => {
     const {container} = HTMLRender(
       <>
-        {/* eslint-disable-next-line jsx-a11y/label-has-for */}
         <label htmlFor="loadingInput">Search</label>
         <TextInput loading id="loadingInput" />
       </>,

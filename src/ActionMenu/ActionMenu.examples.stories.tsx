@@ -11,6 +11,8 @@ import {
   NumberIcon,
   CalendarIcon,
   XIcon,
+  CheckIcon,
+  CopyIcon,
 } from '@primer/octicons-react'
 
 export default {
@@ -24,7 +26,7 @@ export const GroupsAndDescriptions = () => {
     {name: 'FY23 - Q2', due: 'December 30, 2022', progress: 0},
   ]
 
-  const [selectedMilestone, setSelectedMilestone] = React.useState<typeof milestones[0] | undefined>()
+  const [selectedMilestone, setSelectedMilestone] = React.useState<(typeof milestones)[0] | undefined>()
 
   return (
     <ActionMenu open>
@@ -33,40 +35,40 @@ export const GroupsAndDescriptions = () => {
       </ActionMenu.Button>
       <ActionMenu.Overlay width="medium">
         <ActionList selectionVariant="single" showDividers>
-          <ActionList.Heading title="Open" />
-          {milestones
-            .filter(milestone => !milestone.name.includes('21'))
-            .map((milestone, index) => (
-              <ActionList.Item
-                key={index}
-                selected={milestone.name === selectedMilestone?.name}
-                onSelect={() => setSelectedMilestone(milestone)}
-              >
-                <ActionList.LeadingVisual>
-                  <MilestoneIcon />
-                </ActionList.LeadingVisual>
-                {milestone.name}
-                <ActionList.Description variant="block">Due by {milestone.due}</ActionList.Description>
-              </ActionList.Item>
-            ))}
-        </ActionList>
-        <ActionList sx={{paddingTop: 0}} selectionVariant="single">
-          <ActionList.Heading title="Closed" />
-          {milestones
-            .filter(milestone => milestone.name.includes('21'))
-            .map((milestone, index) => (
-              <ActionList.Item
-                key={index}
-                selected={milestone.name === selectedMilestone?.name}
-                onSelect={() => setSelectedMilestone(milestone)}
-              >
-                <ActionList.LeadingVisual>
-                  <MilestoneIcon />
-                </ActionList.LeadingVisual>
-                {milestone.name}
-                <ActionList.Description variant="block">Due by {milestone.due}</ActionList.Description>
-              </ActionList.Item>
-            ))}
+          <ActionList.Group title="Open">
+            {milestones
+              .filter(milestone => !milestone.name.includes('21'))
+              .map((milestone, index) => (
+                <ActionList.Item
+                  key={index}
+                  selected={milestone.name === selectedMilestone?.name}
+                  onSelect={() => setSelectedMilestone(milestone)}
+                >
+                  <ActionList.LeadingVisual>
+                    <MilestoneIcon />
+                  </ActionList.LeadingVisual>
+                  {milestone.name}
+                  <ActionList.Description variant="block">Due by {milestone.due}</ActionList.Description>
+                </ActionList.Item>
+              ))}
+          </ActionList.Group>
+          <ActionList.Group title="Closed">
+            {milestones
+              .filter(milestone => milestone.name.includes('21'))
+              .map((milestone, index) => (
+                <ActionList.Item
+                  key={index}
+                  selected={milestone.name === selectedMilestone?.name}
+                  onSelect={() => setSelectedMilestone(milestone)}
+                >
+                  <ActionList.LeadingVisual>
+                    <MilestoneIcon />
+                  </ActionList.LeadingVisual>
+                  {milestone.name}
+                  <ActionList.Description variant="block">Due by {milestone.due}</ActionList.Description>
+                </ActionList.Item>
+              ))}
+          </ActionList.Group>
         </ActionList>
       </ActionMenu.Overlay>
     </ActionMenu>
@@ -80,16 +82,7 @@ export const CustomOverlayProps = () => {
     <Box sx={{display: 'flex', justifyContent: 'center'}}>
       <ActionMenu open={open} onOpenChange={setOpen}>
         <ActionMenu.Button>Menu</ActionMenu.Button>
-        <ActionMenu.Overlay
-          width="large"
-          align="center"
-          onClickOutside={() => {
-            /* do nothing, keep it open*/
-          }}
-          onEscape={() => {
-            /* do nothing, keep it open*/
-          }}
-        >
+        <ActionMenu.Overlay width="large" align="center">
           <ActionList>
             <ActionList.Item>Option 1</ActionList.Item>
             <ActionList.Item>Option 2</ActionList.Item>
@@ -212,25 +205,27 @@ export const MixedSelection = () => {
         {selectedOption ? `Group by ${selectedOption.text}` : 'Group items by'}
       </ActionMenu.Button>
       <ActionMenu.Overlay width="medium">
-        <ActionList selectionVariant="single">
-          <ActionList.Heading title="Group by" />
-          {options.map((option, index) => (
-            <ActionList.Item key={index} selected={index === selectedIndex} onSelect={() => setSelectedIndex(index)}>
-              <ActionList.LeadingVisual>
-                <option.icon />
-              </ActionList.LeadingVisual>
-              {option.text}
-            </ActionList.Item>
-          ))}
-        </ActionList>
         <ActionList>
+          <ActionList.Group selectionVariant="single" title="Group by">
+            {options.map((option, index) => (
+              <ActionList.Item key={index} selected={index === selectedIndex} onSelect={() => setSelectedIndex(index)}>
+                <ActionList.LeadingVisual>
+                  <option.icon />
+                </ActionList.LeadingVisual>
+                {option.text}
+              </ActionList.Item>
+            ))}
+          </ActionList.Group>
           {typeof selectedIndex === 'number' && (
-            <ActionList.Item onSelect={() => setSelectedIndex(null)}>
-              <ActionList.LeadingVisual>
-                <XIcon />
-              </ActionList.LeadingVisual>
-              Clear Group by
-            </ActionList.Item>
+            <ActionList.Group>
+              <ActionList.Divider />
+              <ActionList.Item onSelect={() => setSelectedIndex(null)}>
+                <ActionList.LeadingVisual>
+                  <XIcon />
+                </ActionList.LeadingVisual>
+                Clear Group by
+              </ActionList.Item>
+            </ActionList.Group>
           )}
         </ActionList>
       </ActionMenu.Overlay>
@@ -241,7 +236,7 @@ export const MixedSelection = () => {
 export const MultipleSections = () => {
   const items = [{name: 'Show code folding buttons'}, {name: 'Wrap lines'}, {name: 'Center content'}]
 
-  const [selectedMilestone, setSelectedMilestone] = React.useState<typeof items[0] | undefined>()
+  const [selectedMilestone, setSelectedMilestone] = React.useState<(typeof items)[0] | undefined>()
 
   return (
     <ActionMenu open>
@@ -249,36 +244,66 @@ export const MultipleSections = () => {
         <IconButton icon={KebabHorizontalIcon} aria-label="Open menu" />
       </ActionMenu.Anchor>
       <ActionMenu.Overlay width="small">
-        <ActionList aria-busy="true">
-          <ActionList.Heading title="Raw file content" />
-          <ActionList.Item onSelect={() => alert('Workflows clicked')}>Download</ActionList.Item>
-          <ActionList.Divider />
-          <ActionList.Item onSelect={() => alert('Workflows clicked')}>Jump to line</ActionList.Item>
-          <ActionList.Item onSelect={() => alert('Workflows clicked')}>Find in file</ActionList.Item>
-          <ActionList.Divider />
-          <ActionList.Item onSelect={() => alert('Workflows clicked')}>Copy path</ActionList.Item>
-          <ActionList.Item onSelect={() => alert('Workflows clicked')}>Copy permalink</ActionList.Item>
-        </ActionList>
-        <ActionList.Divider sx={{marginBottom: 0}} />
-        <ActionList selectionVariant="multiple">
-          <ActionList.Heading title="View options" />
-          {items.map((item, index) => (
-            <ActionList.Item
-              key={index}
-              selected={item.name === selectedMilestone?.name}
-              onSelect={() => setSelectedMilestone(item)}
-            >
-              {item.name}
-            </ActionList.Item>
-          ))}
-        </ActionList>
-        <ActionList.Divider sx={{marginBottom: 0}} />
         <ActionList>
+          <ActionList.Group title="Raw file content">
+            <ActionList.Item onSelect={() => alert('Workflows clicked')}>Download</ActionList.Item>
+            <ActionList.Divider />
+            <ActionList.Item onSelect={() => alert('Workflows clicked')}>Jump to line</ActionList.Item>
+            <ActionList.Item onSelect={() => alert('Workflows clicked')}>Find in file</ActionList.Item>
+            <ActionList.Divider />
+            <ActionList.Item onSelect={() => alert('Workflows clicked')}>Copy path</ActionList.Item>
+            <ActionList.Item onSelect={() => alert('Workflows clicked')}>Copy permalink</ActionList.Item>
+          </ActionList.Group>
+          <ActionList.Divider />
+          <ActionList.Group title="View options" selectionVariant="multiple">
+            {items.map((item, index) => (
+              <ActionList.Item
+                key={index}
+                selected={item.name === selectedMilestone?.name}
+                onSelect={() => setSelectedMilestone(item)}
+              >
+                {item.name}
+              </ActionList.Item>
+            ))}
+          </ActionList.Group>
+          <ActionList.Divider />
           <ActionList.Item onSelect={() => alert('Delete file')} variant="danger">
             Delete file
           </ActionList.Item>
         </ActionList>
       </ActionMenu.Overlay>
     </ActionMenu>
+  )
+}
+
+export const DelayedMenuClose = () => {
+  const [open, setOpen] = React.useState(false)
+  const [copyLinkSuccess, setCopyLinkSuccess] = React.useState(false)
+  const onSelect = (event: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement>) => {
+    event.preventDefault()
+
+    setCopyLinkSuccess(true)
+    setTimeout(() => {
+      setOpen(false)
+      setCopyLinkSuccess(false)
+    }, 700)
+  }
+
+  return (
+    <>
+      <h1>Delayed Menu Close</h1>
+
+      <ActionMenu open={open} onOpenChange={setOpen}>
+        <ActionMenu.Button>Anchor</ActionMenu.Button>
+        <ActionMenu.Overlay>
+          <ActionList>
+            <ActionList.Item onSelect={onSelect}>
+              <ActionList.LeadingVisual>{copyLinkSuccess ? <CheckIcon /> : <CopyIcon />}</ActionList.LeadingVisual>
+              {copyLinkSuccess ? 'Copied!' : 'Copy link'}
+            </ActionList.Item>
+          </ActionList>
+        </ActionMenu.Overlay>
+      </ActionMenu>
+    </>
   )
 }
