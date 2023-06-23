@@ -55,6 +55,10 @@ exports[`UnderlineNav renders consistently 1`] = `
   padding-bottom: calc((2rem - 1.25rem) / 2);
 }
 
+.c4 span[data-component="icon"] {
+  color: #656d76;
+}
+
 .c4:focus {
   outline: 2px solid transparent;
 }
@@ -107,7 +111,7 @@ exports[`UnderlineNav renders consistently 1`] = `
   margin-right: 8px;
 }
 
-.c7 {
+.c6 {
   margin-left: 8px;
   display: -webkit-box;
   display: -webkit-flex;
@@ -119,7 +123,7 @@ exports[`UnderlineNav renders consistently 1`] = `
   align-items: center;
 }
 
-.c8 {
+.c7 {
   display: inline-block;
   padding: 2px 5px;
   font-size: 12px;
@@ -130,7 +134,7 @@ exports[`UnderlineNav renders consistently 1`] = `
   color: #1F2328;
 }
 
-.c8:empty {
+.c7:empty {
   display: none;
 }
 
@@ -145,10 +149,6 @@ exports[`UnderlineNav renders consistently 1`] = `
   clip: rect(0,0,0,0);
   white-space: nowrap;
   border-width: 0;
-}
-
-.c6 {
-  color: #656d76;
 }
 
 .c2 {
@@ -216,7 +216,7 @@ exports[`UnderlineNav renders consistently 1`] = `
           >
             <svg
               aria-hidden="true"
-              className="c6"
+              className="octicon octicon-code"
               fill="currentColor"
               focusable="false"
               height={16}
@@ -261,7 +261,7 @@ exports[`UnderlineNav renders consistently 1`] = `
           >
             <svg
               aria-hidden="true"
-              className="c6"
+              className="octicon octicon-issue-opened"
               fill="currentColor"
               focusable="false"
               height={16}
@@ -293,12 +293,12 @@ exports[`UnderlineNav renders consistently 1`] = `
             Issues
           </span>
           <span
-            className="c7"
+            className="c6"
             data-component="counter"
           >
             <span
               aria-hidden="true"
-              className="c8"
+              className="c7"
             >
               120
             </span>
@@ -327,7 +327,7 @@ exports[`UnderlineNav renders consistently 1`] = `
           >
             <svg
               aria-hidden="true"
-              className="c6"
+              className="octicon octicon-git-pull-request"
               fill="currentColor"
               focusable="false"
               height={16}
@@ -356,12 +356,12 @@ exports[`UnderlineNav renders consistently 1`] = `
             Pull Requests
           </span>
           <span
-            className="c7"
+            className="c6"
             data-component="counter"
           >
             <span
               aria-hidden="true"
-              className="c8"
+              className="c7"
             >
               13
             </span>
@@ -390,7 +390,7 @@ exports[`UnderlineNav renders consistently 1`] = `
           >
             <svg
               aria-hidden="true"
-              className="c6"
+              className="octicon octicon-comment-discussion"
               fill="currentColor"
               focusable="false"
               height={16}
@@ -419,12 +419,12 @@ exports[`UnderlineNav renders consistently 1`] = `
             Discussions
           </span>
           <span
-            className="c7"
+            className="c6"
             data-component="counter"
           >
             <span
               aria-hidden="true"
-              className="c8"
+              className="c7"
             >
               5
             </span>
@@ -455,12 +455,12 @@ exports[`UnderlineNav renders consistently 1`] = `
             Actions
           </span>
           <span
-            className="c7"
+            className="c6"
             data-component="counter"
           >
             <span
               aria-hidden="true"
-              className="c8"
+              className="c7"
             >
               4
             </span>
@@ -489,7 +489,7 @@ exports[`UnderlineNav renders consistently 1`] = `
           >
             <svg
               aria-hidden="true"
-              className="c6"
+              className="octicon octicon-project"
               fill="currentColor"
               focusable="false"
               height={16}
@@ -518,12 +518,12 @@ exports[`UnderlineNav renders consistently 1`] = `
             Projects
           </span>
           <span
-            className="c7"
+            className="c6"
             data-component="counter"
           >
             <span
               aria-hidden="true"
-              className="c8"
+              className="c7"
             >
               9
             </span>
@@ -552,7 +552,7 @@ exports[`UnderlineNav renders consistently 1`] = `
           >
             <svg
               aria-hidden="true"
-              className="c6"
+              className="octicon octicon-graph"
               fill="currentColor"
               focusable="false"
               height={16}
@@ -599,12 +599,12 @@ exports[`UnderlineNav renders consistently 1`] = `
             Settings
           </span>
           <span
-            className="c7"
+            className="c6"
             data-component="counter"
           >
             <span
               aria-hidden="true"
-              className="c8"
+              className="c7"
             >
               10
             </span>
@@ -633,7 +633,7 @@ exports[`UnderlineNav renders consistently 1`] = `
           >
             <svg
               aria-hidden="true"
-              className="c6"
+              className="octicon octicon-shield-lock"
               fill="currentColor"
               focusable="false"
               height={16}
