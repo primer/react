@@ -25,7 +25,7 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
         backgroundColor: 'btn.activeBg',
         borderColor: 'btn.activeBorder',
       },
-      '[data-component="leadingVisual"], [data-component="trailingVisual"]': {
+      '[data-component="leadingVisual"], [data-component="trailingVisual"], [data-component="trailingAction"]': {
         color: 'fg.muted',
       },
     },

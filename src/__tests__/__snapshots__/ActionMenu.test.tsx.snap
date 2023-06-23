@@ -224,7 +224,8 @@ exports[`ActionMenu renders consistently 1`] = `
 }
 
 .c1 [data-component="leadingVisual"],
-.c1 [data-component="trailingVisual"] {
+.c1 [data-component="trailingVisual"],
+.c1 [data-component="trailingAction"] {
   color: #656d76;
 }
 

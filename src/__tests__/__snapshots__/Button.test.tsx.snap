@@ -210,7 +210,8 @@ exports[`Button renders consistently 1`] = `
 }
 
 .c0 [data-component="leadingVisual"],
-.c0 [data-component="trailingVisual"] {
+.c0 [data-component="trailingVisual"],
+.c0 [data-component="trailingAction"] {
   color: #656d76;
 }
 
@@ -442,7 +443,8 @@ exports[`Button respects block prop 1`] = `
 }
 
 .c0 [data-component="leadingVisual"],
-.c0 [data-component="trailingVisual"] {
+.c0 [data-component="trailingVisual"],
+.c0 [data-component="trailingAction"] {
   color: fg.muted;
 }
 
@@ -680,7 +682,8 @@ exports[`Button respects the alignContent prop 1`] = `
 }
 
 .c0 [data-component="leadingVisual"],
-.c0 [data-component="trailingVisual"] {
+.c0 [data-component="trailingVisual"],
+.c0 [data-component="trailingAction"] {
   color: fg.muted;
 }
 
@@ -917,7 +920,8 @@ exports[`Button respects the large size prop 1`] = `
 }
 
 .c0 [data-component="leadingVisual"],
-.c0 [data-component="trailingVisual"] {
+.c0 [data-component="trailingVisual"],
+.c0 [data-component="trailingAction"] {
   color: fg.muted;
 }
 
@@ -1155,7 +1159,8 @@ exports[`Button respects the small size prop 1`] = `
 }
 
 .c0 [data-component="leadingVisual"],
-.c0 [data-component="trailingVisual"] {
+.c0 [data-component="trailingVisual"],
+.c0 [data-component="trailingAction"] {
   color: fg.muted;
 }
 
