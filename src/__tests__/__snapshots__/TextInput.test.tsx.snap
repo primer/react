@@ -1740,7 +1740,7 @@ exports[`TextInput renders trailingAction icon button 1`] = `
 }
 
 .c4 [data-component=ButtonCounter] {
-  font-size: 14px;
+  font-size: 12px;
 }
 
 .c4[data-component=IconButton] {
@@ -2388,7 +2388,7 @@ exports[`TextInput renders trailingAction text button 1`] = `
 }
 
 .c3 [data-component=ButtonCounter] {
-  font-size: 14px;
+  font-size: 12px;
 }
 
 .c3[data-component=IconButton] {
@@ -2791,7 +2791,7 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
 }
 
 .c4 [data-component=ButtonCounter] {
-  font-size: 14px;
+  font-size: 12px;
 }
 
 .c4[data-component=IconButton] {
