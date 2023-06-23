@@ -256,7 +256,7 @@ export const getBaseStyles = (theme?: Theme) => ({
     },
   },
   '[data-component=ButtonCounter]': {
-    fontSize: '1',
+    fontSize: '0',
   },
   '&[data-component=IconButton]': {
     display: 'inline-grid',
