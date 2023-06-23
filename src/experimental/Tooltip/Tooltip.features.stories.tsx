@@ -9,10 +9,10 @@ export default {
   component: Tooltip,
 }
 
-// As a label for an IconButton
+// As a label for an icon button
 export const TooltipLabelTypeTooltip = () => (
   <Box sx={{p: 5}}>
-    <Tooltip aria-label="Filter ">
+    <Tooltip text="Filter" type="label">
       <Button sx={{marginLeft: 3}}>🥦</Button>
     </Tooltip>
   </Box>
@@ -21,7 +21,7 @@ export const TooltipLabelTypeTooltip = () => (
 // As a label for an IconButton
 export const TooltipNativeHTMLButton = () => (
   <Box sx={{p: 5}}>
-    <Tooltip aria-label="Filter vegetarian options" direction="e">
+    <Tooltip text="Filter vegetarian options" direction="e" type="label">
       <button>🥦</button>
     </Tooltip>
   </Box>
@@ -30,7 +30,7 @@ export const TooltipNativeHTMLButton = () => (
 // As a supplementary description for a button
 export const TooltipDescriptionTypeTooltip = () => (
   <Box sx={{p: 5}}>
-    <Tooltip text="Supplementary text" type="description">
+    <Tooltip text="Supplementary text" direction="n">
       <Button>Save</Button>
     </Tooltip>
   </Box>
@@ -39,7 +39,7 @@ export const TooltipDescriptionTypeTooltip = () => (
 // As a supplementary description for an IconButton
 export const TooltipIconButtonWithDescription = () => (
   <Box sx={{p: 5}}>
-    <Tooltip text="Supplementary textSupplementary text" direction="e" type="description">
+    <Tooltip text="Supplementary textSupplementary text" direction="e">
       <IconButton icon={SearchIcon} aria-label="Search" />
     </Tooltip>
   </Box>
@@ -47,35 +47,33 @@ export const TooltipIconButtonWithDescription = () => (
 
 export const TooltipWithDirection = () => (
   <Box sx={{padding: 5, display: 'flex', gap: '8px'}}>
-    <Tooltip direction="n" text="Supplementary text" type="description">
+    <Tooltip direction="n" text="Supplementary text">
       <Button>North</Button>
     </Tooltip>
-    <Tooltip direction="s" text="Supplementary text" type="description">
+    <Tooltip direction="s" text="Supplementary text">
       <Button>South</Button>
     </Tooltip>
-    <Tooltip direction="e" text="Supplementary text" type="description">
+    <Tooltip direction="e" text="Supplementary text">
       <Button>East</Button>
     </Tooltip>
-    <Tooltip direction="w" text="Supplementary text" type="description">
+    <Tooltip direction="w" text="Supplementary text">
       <Button>West</Button>
     </Tooltip>
-    <Tooltip direction="ne" text="Supplementary text" type="description">
+    <Tooltip direction="ne" text="Supplementary text">
       <Button>North East</Button>
     </Tooltip>
-    <Tooltip direction="nw" text="Supplementary text" type="description">
+    <Tooltip direction="nw" text="Supplementary text">
       <Button>North West</Button>
     </Tooltip>
-    <Tooltip direction="se" text="Supplementary text" type="description">
+    <Tooltip direction="se" text="Supplementary text">
       <Button>Southeast</Button>
     </Tooltip>
-    <Tooltip direction="sw" text="Supplementary text" type="description">
+    <Tooltip direction="sw" text="Supplementary text">
       <Button>Southwest</Button>
     </Tooltip>
     <Tooltip
       direction="n"
-      wrap
       text="Random long text that needs to be wrapped and be multipline and have some paddings around"
-      type="description"
     >
       <Button>Multiline</Button>
     </Tooltip>
@@ -83,39 +81,7 @@ export const TooltipWithDirection = () => (
 )
 
 export const TooltipNoDelay = () => (
-  <Tooltip noDelay text="Supplemetary text" type="description" direction="se">
+  <Tooltip noDelay text="Supplemetary text" direction="se">
     <Button>Button</Button>
   </Tooltip>
-)
-
-export const TooltipWithAlign = () => (
-  <Box sx={{padding: 5, display: 'flex', gap: '8px'}}>
-    <Tooltip align="left" text="Supplemetary text" type="description">
-      <Button>Align Left</Button>
-    </Tooltip>
-    <Tooltip align="right" text="Supplemetary text" type="description">
-      <Button>Align Right</Button>
-    </Tooltip>
-  </Box>
-)
-
-export const TooltipWithWrap = () => (
-  <Box sx={{padding: 5, display: 'flex', gap: '8px'}}>
-    <Tooltip
-      direction="e"
-      wrap
-      text="Random long text that needs to be wrapped and be multipline and have some paddings around"
-      type="description"
-    >
-      <Button>Multiline East</Button>
-    </Tooltip>
-    <Tooltip
-      direction="se"
-      wrap
-      text="Random long text that needs to be wrapped and be multipline and have some paddings around"
-      type="description"
-    >
-      <Button>Multiline Southeast</Button>
-    </Tooltip>
-  </Box>
 )

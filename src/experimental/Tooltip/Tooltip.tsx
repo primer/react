@@ -6,11 +6,9 @@ import {invariant} from '../../utils/invariant'
 import {warning} from '../../utils/warning'
 import styled from 'styled-components'
 import {get} from '../../constants'
-// import {useOnEscapePress} from '../../hooks/useOnEscapePress'
 import {ComponentProps} from '../../utils/types'
 import {getAnchoredPosition} from '@primer/behaviors'
-import {useAnchoredPosition} from '../../hooks'
-import type {AnchorPosition, AnchorSide, AnchorAlignment} from '@primer/behaviors'
+import type {AnchorSide, AnchorAlignment} from '@primer/behaviors'
 
 declare global {
   interface PopoverToggleTargetElementInvoker {
@@ -43,8 +41,6 @@ const StyledTooltip = styled.div`
   position: relative;
   z-index: 1000000;
   padding: 0.5em 0.75em;
-  /* This depends on the direction. for north it is bottom  */
-  padding-bottom: 1em;
   font: normal normal 11px/1.5 ${get('fonts.normal')};
   -webkit-font-smoothing: subpixel-antialiased;
   color: ${get('colors.fg.onEmphasis')};
@@ -56,8 +52,8 @@ const StyledTooltip = styled.div`
   word-wrap: break-word;
   white-space: normal;
   background: ${get('colors.neutral.emphasisPlus')};
-  background: linear-gradient(180deg, rgba(2, 0, 36, 1) 0%, rgba(2, 0, 36, 1) 80%, rgb(255 255 255 / 0%) 88%);
-  border-radius: ${get('radii.1')};
+  border-radius: ${get('radii.2')};
+  border: 0;
   width: max-content;
   opacity: 0;
   max-width: 250px;
@@ -81,14 +77,14 @@ const StyledTooltip = styled.div`
     border-width: 0;
   }
   // the caret
-  &::before {
+  /* &::before {
     position: absolute;
     z-index: 1000001;
     color: ${get('colors.neutral.emphasisPlus')};
     content: '';
     border: 6px solid transparent;
     opacity: 0;
-  }
+  } */
 
   // This is needed to keep the tooltip open when the user leaves the trigger element to hover tooltip
   &::after {
@@ -204,31 +200,18 @@ const StyledTooltip = styled.div`
     &[data-no-delay='true']::before {
       animation-delay: 0s;
     }
-
-    &[data-wrap='true'] {
-      display: table-cell;
-      width: max-content;
-      max-width: 250px;
-      word-wrap: break-word;
-      white-space: pre-line;
-      border-collapse: separate;
-    }
   }
 
   ${sx};
 `
 
 type TooltipDirection = 'nw' | 'n' | 'ne' | 'e' | 'se' | 's' | 'sw' | 'w'
-type TooltipAlign = 'left' | 'right'
 export type TooltipProps = React.PropsWithChildren<
   {
     direction?: TooltipDirection
     text?: string
     noDelay?: boolean
-    align?: TooltipAlign
-    wrap?: boolean
     type?: 'label' | 'description'
-    'aria-label'?: React.AriaAttributes['aria-label']
   } & SxProp &
     ComponentProps<typeof StyledTooltip>
 >
@@ -255,9 +238,6 @@ const directionToPosition: Record<TooltipDirection, {side: AnchorSide; align: An
   w: {side: 'outside-left', align: 'center'},
 }
 
-// map align to AnchorAlignment
-const alignToAnchorAlignment: Record<TooltipAlign, AnchorAlignment> = {left: 'start', right: 'end'}
-
 // The list is from GitHub's custom-axe-rules https://github.com/github/github/blob/master/app/assets/modules/github/axe-custom-rules.ts#L3
 const interactiveElements = ['a[href]', 'button', 'summary', 'select', 'input:not([type=hidden])', 'textarea']
 
@@ -269,14 +249,10 @@ const isInteractive = (element: HTMLElement) => {
 }
 export const Tooltip = ({
   direction = 'n',
-  // used for description type
+  // tooltip text
   text,
-  // used for label type
-  'aria-label': label,
-  align,
-  wrap,
+  type = 'description',
   noDelay,
-  type = 'label',
   children,
   ...rest
 }: TooltipProps) => {
@@ -348,9 +324,9 @@ export const Tooltip = ({
     // if (!open) return
     const settings = {
       side: directionToPosition[direction].side,
-      align: align ? alignToAnchorAlignment[align] : directionToPosition[direction].align,
+      align: directionToPosition[direction].align,
       // alignmentOffset: 10,
-      anchorOffset: -2,
+      // anchorOffset: -2,
     }
 
     const positionSet = () => {
@@ -366,15 +342,14 @@ export const Tooltip = ({
     return () => {
       tooltip.removeEventListener('toggle', positionSet)
     }
-  }, [tooltipElRef, triggerRef, direction, align])
+  }, [tooltipElRef, triggerRef, direction])
 
   return (
     <Box
       sx={{display: 'inline-block'}}
-      // onMouseLeave={() => {
-      //   // it is going to be change to popover-open
-      //   if (tooltipElRef.current?.matches(':popover-open')) tooltipElRef.current.hidePopover()
-      // }}
+      onMouseLeave={() => {
+        if (tooltipElRef.current?.matches(':popover-open')) tooltipElRef.current.hidePopover()
+      }}
     >
       {React.isValidElement(child) &&
         React.cloneElement(child as React.ReactElement<TriggerPropsType>, {
@@ -401,8 +376,6 @@ export const Tooltip = ({
         ref={tooltipElRef}
         data-direction={direction}
         data-state={open ? 'open' : undefined}
-        data-align={align}
-        data-wrap={wrap}
         data-no-delay={noDelay}
         {...rest}
         // Only need tooltip role if the tooltip is a description for supplementary information
@@ -411,7 +384,7 @@ export const Tooltip = ({
         aria-hidden={type === 'label' ? true : undefined}
         id={id}
       >
-        {text ?? label}
+        {text}
       </StyledTooltip>
     </Box>
   )
