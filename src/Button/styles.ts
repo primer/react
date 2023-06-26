@@ -208,6 +208,12 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
   }
   return style[variant]
 }
+export const highContrastStyles = {
+  '@media (forced-colors: active)': {
+    // Support for Windows high contrast https://sarahmhigley.com/writing/whcm-quick-tips
+    outline: 'solid 1px transparent',
+  },
+}
 
 export const getBaseStyles = (theme?: Theme) => ({
   borderRadius: '2',
@@ -246,11 +252,8 @@ export const getBaseStyles = (theme?: Theme) => ({
     cursor: 'not-allowed',
     boxShadow: 'none',
   },
-  '@media (forced-colors: active)': {
-    '&:focus': {
-      // Support for Windows high contrast https://sarahmhigley.com/writing/whcm-quick-tips
-      outline: 'solid 1px transparent',
-    },
+  '&:focus': {
+    ...highContrastStyles,
   },
   '[data-component=ButtonCounter]': {
     fontSize: '1',

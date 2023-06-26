@@ -1,5 +1,14 @@
-import styled from 'styled-components'
+import styled, {css} from 'styled-components'
 import sx, {SxProp} from '../../sx'
+
+export const visuallyHiddenStyles = css`
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+`
 
 /**
  * Provides a component that implements the "visually hidden" technique. This is
@@ -13,12 +22,7 @@ import sx, {SxProp} from '../../sx'
  */
 export const VisuallyHidden = styled.div<SxProp>`
   &:not(:focus):not(:active):not(:focus-within) {
-    clip-path: inset(50%);
-    height: 1px;
-    overflow: hidden;
-    position: absolute;
-    white-space: nowrap;
-    width: 1px;
+    ${visuallyHiddenStyles}
   }
 
   ${sx}
