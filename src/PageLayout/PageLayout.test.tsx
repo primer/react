@@ -130,9 +130,9 @@ describe('PageLayout', () => {
       </ThemeProvider>,
     )
 
-    expect(screen.getByRole('banner')).toHaveAccessibleName('header')
-    expect(screen.getByRole('main')).toHaveAccessibleName('content')
-    expect(screen.getByRole('contentinfo')).toHaveAccessibleName('footer')
+    expect(screen.getByRole('banner')).toHaveAccessibleName('Header')
+    expect(screen.getByRole('main')).toHaveAccessibleName('Content')
+    expect(screen.getByRole('contentinfo')).toHaveAccessibleName('Footer')
   })
 
   it('should support labeling landmarks through `aria-labelledby`', () => {

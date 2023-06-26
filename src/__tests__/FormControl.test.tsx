@@ -391,9 +391,7 @@ describe('FormControl', () => {
           </SSRProvider>,
         )
 
-        const leadingVisual = getByLabelText('leadingVisualIcon')
-
-        expect(leadingVisual).toBeDefined()
+        expect(getByLabelText('Icon label')).toBeDefined()
       })
     })
 

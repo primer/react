@@ -8,7 +8,7 @@ describe('Table.Pagination', () => {
     render(<Pagination aria-label="Pagination" totalCount={100} />)
     expect(
       screen.getByRole('navigation', {
-        name: 'test',
+        name: 'Pagination',
       }),
     ).toBeInTheDocument()
   })
@@ -39,7 +39,7 @@ describe('Table.Pagination', () => {
     render(<Pagination aria-label="Test label" id="test-id" totalCount={100} />)
     expect(
       screen.getByRole('navigation', {
-        name: 'test-label',
+        name: 'Test label',
       }),
     ).toHaveAttribute('id', 'test-id')
   })

@@ -2236,12 +2236,12 @@ exports[`TextInput renders trailingAction icon button 1`] = `
     className="c2 TextInput-action"
   >
     <span
-      aria-label="iconLabel"
+      aria-label="Icon label"
       className="c3 tooltipped-n"
       role="tooltip"
     >
       <button
-        aria-label="iconLabel"
+        aria-label="Icon label"
         className="c4"
         data-block={null}
         data-component="IconButton"
