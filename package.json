@@ -155,7 +155,7 @@
     "@storybook/addon-storysource": "7.0.12",
     "@storybook/csf": "0.1.0",
     "@storybook/jest": "0.1.0",
-    "@storybook/react": "7.0.12",
+    "@storybook/react": "7.0.23",
     "@storybook/react-webpack5": "7.0.12",
     "@storybook/test-runner": "0.10.0",
     "@storybook/testing-library": "0.1.0",
