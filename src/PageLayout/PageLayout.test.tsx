@@ -122,10 +122,10 @@ describe('PageLayout', () => {
     render(
       <ThemeProvider>
         <PageLayout>
-          <PageLayout.Header aria-label="header">Header</PageLayout.Header>
-          <PageLayout.Content aria-label="content">Content</PageLayout.Content>
+          <PageLayout.Header aria-label="Header">Header</PageLayout.Header>
+          <PageLayout.Content aria-label="Content">Content</PageLayout.Content>
           <PageLayout.Pane>Pane</PageLayout.Pane>
-          <PageLayout.Footer aria-label="footer">Footer</PageLayout.Footer>
+          <PageLayout.Footer aria-label="Footer">Footer</PageLayout.Footer>
         </PageLayout>
       </ThemeProvider>,
     )
