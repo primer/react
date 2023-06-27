@@ -1,12 +1,12 @@
 import React, {useCallback} from 'react'
 import ReactDOM from 'react-dom'
 import styled from 'styled-components'
-import Box from '../Box'
-import {ThemeProvider, useTheme, ThemeProviderProps} from '../ThemeProvider'
+import Box from '../../Box'
+import {ThemeProvider, useTheme, ThemeProviderProps} from '../../ThemeProvider'
 import {FocusKeys} from '@primer/behaviors'
-import {get} from '../constants'
+import {get} from '../../constants'
 import {Dialog, DialogProps, DialogHeaderProps, DialogButtonProps} from '../Dialog/Dialog'
-import {useFocusZone} from '../hooks/useFocusZone'
+import {useFocusZone} from '../../hooks/useFocusZone'
 
 /**
  * Props to customize the ConfirmationDialog.
