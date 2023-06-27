@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import Box from '../Box'
 import {get} from '../constants'
 import sx, {SxProp} from '../sx'
-import getGlobalFocusStyles from '../_getGlobalFocusStyles'
+import getGlobalFocusStyles from '../internal/utils/getGlobalFocusStyles'
 import {buildComponentData, buildPaginationModel} from './model'
 
 const Page = styled.a`
@@ -55,6 +55,18 @@ const Page = styled.a`
     color: ${get('colors.fg.onEmphasis')};
     background-color: ${get('colors.accent.emphasis')};
     border-color: transparent;
+  }
+
+  &[aria-disabled],
+  &[aria-disabled]:hover {
+    color: ${get('colors.primer.fg.disabled')}; // check
+    cursor: default;
+    background-color: transparent;
+    border-color: transparent;
+    font-size: inherit;
+    font-family: inherit;
+    padding-top: inherit;
+    padding-bottom: inherit;
   }
 
   &[aria-disabled],

@@ -108,7 +108,7 @@
       "props": [
         {
           "name": "children",
-          "type": "ActionList.Item[] | ActionList.LinkItem[] | ActionList.Divider[]",
+          "type": "ActionList.Item[] | ActionList.LinkItem[] | ActionList.Group[]",
           "defaultValue": "",
           "required": true,
           "description": ""
@@ -163,7 +163,7 @@
               "name": "onSelect",
               "type": "(event: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement>) => void",
               "defaultValue": "",
-              "description": "Callback that is called when the item is selected using either the mouse or keyboard."
+              "description": "Callback that is called when the item is selected using either the mouse or keyboard. `event.preventDefault()` will prevent a menu from closing when within an `<ActionMenu />`"
             },
             {
               "name": "selected",
@@ -214,11 +214,6 @@
             {
               "name": "ref",
               "type": "React.RefObject<HTMLAnchorElement>"
-            },
-            {
-              "name": "as",
-              "type": "React.ElementType",
-              "defaultValue": "\"a\""
             },
             {
               "name": "sx",
@@ -285,34 +280,48 @@
           ]
         },
         {
-          "name": "ActionList.Heading",
+          "name": "ActionList.Group",
           "props": [
             {
-              "name": "variant",
-              "type": "'subtle' | 'filled'",
-              "defaultValue": "subtle",
+              "name": "children",
+              "type": "ActionList.Item[] | ActionList.LinkItem[]",
+              "defaultValue": "",
+              "required": true,
               "description": ""
             },
             {
               "name": "title",
               "type": "string",
               "defaultValue": "",
-              "required": true,
-              "description": ""
+              "description": "Title of the group."
             },
             {
-              "name": "subtitle",
+              "name": "auxiliaryText",
               "type": "string",
               "defaultValue": "",
-              "required": false,
-              "description": ""
+              "description": "Secondary text that provides additional information about the group."
             },
             {
-              "name": "headingLevel",
-              "type": "'1' | '2' | '3' | '4' | '5' | '6'",
-              "defaultValue": "3",
-              "required": false,
-              "description": ""
+              "name": "variant",
+              "type": "'filled' | 'subtle'",
+              "defaultValue": "'subtle'",
+              "description": "`inline` descriptions are positioned beside primary text. `block` descriptions are positioned below primary text."
+            },
+            {
+              "name": "selectionVariant",
+              "type": "'single' | 'multiple' | false",
+              "defaultValue": "",
+              "description": "Set `selectionVariant` at the group level."
+            },
+            {
+              "name": "role",
+              "type": "AriaRole",
+              "defaultValue": "",
+              "description": "ARIA role describing the function of the list inside the group. `listbox` and `menu` are a common values."
+            },
+            {
+              "name": "sx",
+              "type": "SystemStyleObject"
             }
           ]
         }
@@ -886,7 +895,7 @@
         },
         {
           "name": "variant",
-          "type": "| 'default'\n| 'primary'\n| 'danger'\n| 'outline'\n| 'invisible'",
+          "type": "| 'default'\n| 'primary'\n| 'danger'\n| 'outline'\n| 'invisible'\n| 'link'",
           "defaultValue": "'default'",
           "description": "Change the visual style of the button."
         },
@@ -1238,12 +1247,12 @@
             {
               "name": "as",
               "type": "React.ElementType",
-              "defaultValue": "StyledOcticon"
+              "defaultValue": "Octicon"
             }
           ],
           "passthrough": {
-            "element": "StyledOcticon",
-            "url": "/StyledOcticon"
+            "element": "Octicon",
+            "url": "/Octicon"
           }
         }
       ]
@@ -1343,6 +1352,10 @@
         {
           "id": "components-datatable-features--with-custom-heading",
           "code": "() => (\n  <>\n    <Heading as=\"h2\" id=\"repositories\">\n      Security coverage\n    </Heading>\n    <p id=\"repositories-subtitle\">\n      Organization members can only see data for the most recently-updated\n      repositories. To see all repositories, talk to your organization\n      administrator about becoming a security manager.\n    </p>\n    <Table.Container>\n      <DataTable\n        aria-labelledby=\"repositories\"\n        aria-describedby=\"repositories-subtitle\"\n        data={data}\n        columns={[\n          {\n            header: 'Repository',\n            field: 'name',\n            rowHeader: true,\n          },\n          {\n            header: 'Type',\n            field: 'type',\n            renderCell: (row) => {\n              return <Label>{uppercase(row.type)}</Label>\n            },\n          },\n          {\n            header: 'Updated',\n            field: 'updatedAt',\n            renderCell: (row) => {\n              return <RelativeTime date={new Date(row.updatedAt)} />\n            },\n          },\n          {\n            header: 'Dependabot',\n            field: 'securityFeatures.dependabot',\n            renderCell: (row) => {\n              return row.securityFeatures.dependabot.length > 0 ? (\n                <LabelGroup>\n                  {row.securityFeatures.dependabot.map((feature) => {\n                    return <Label key={feature}>{uppercase(feature)}</Label>\n                  })}\n                </LabelGroup>\n              ) : null\n            },\n          },\n          {\n            header: 'Code scanning',\n            field: 'securityFeatures.codeScanning',\n            renderCell: (row) => {\n              return row.securityFeatures.codeScanning.length > 0 ? (\n                <LabelGroup>\n                  {row.securityFeatures.codeScanning.map((feature) => {\n                    return <Label key={feature}>{uppercase(feature)}</Label>\n                  })}\n                </LabelGroup>\n              ) : null\n            },\n          },\n        ]}\n      />\n    </Table.Container>\n  </>\n)"
+        },
+        {
+          "id": "components-datatable-features--with-no-content",
+          "code": "() => {\n  const exampleEmptyData: Array<Repo> = []\n  return exampleEmptyData.length === 0 ? (\n    <Blankslate border>\n      <Blankslate.Visual>\n        <BookIcon size=\"medium\" />\n      </Blankslate.Visual>\n      <Blankslate.Heading>Blankslate heading</Blankslate.Heading>\n      <Blankslate.Description>\n        Use it to provide information when no dynamic content exists.\n      </Blankslate.Description>\n      <Blankslate.PrimaryAction href=\"#\">\n        Primary action\n      </Blankslate.PrimaryAction>\n      <Blankslate.SecondaryAction href=\"#\">\n        Secondary action link\n      </Blankslate.SecondaryAction>\n    </Blankslate>\n  ) : (\n    <Table.Container>\n      <Table.Title as=\"h2\" id=\"repositories\">\n        Repositories\n      </Table.Title>\n      <Table.Subtitle as=\"p\" id=\"repositories-subtitle\">\n        A subtitle could appear here to give extra context to the data.\n      </Table.Subtitle>\n      <DataTable\n        aria-labelledby=\"repositories\"\n        aria-describedby=\"repositories-subtitle\"\n        data={exampleEmptyData}\n        columns={[\n          {\n            header: 'Repository',\n            field: 'name',\n            rowHeader: true,\n          },\n          {\n            header: 'Type',\n            field: 'type',\n            renderCell: (row) => {\n              return <Label>{uppercase(row.type)}</Label>\n            },\n          },\n          {\n            header: 'Updated',\n            field: 'updatedAt',\n            renderCell: (row) => {\n              return <RelativeTime date={new Date(row.updatedAt)} />\n            },\n          },\n          {\n            header: 'Dependabot',\n            field: 'securityFeatures.dependabot',\n            renderCell: (row) => {\n              return row.securityFeatures.dependabot.length > 0 ? (\n                <LabelGroup>\n                  {row.securityFeatures.dependabot.map((feature) => {\n                    return <Label key={feature}>{uppercase(feature)}</Label>\n                  })}\n                </LabelGroup>\n              ) : null\n            },\n          },\n          {\n            header: 'Code scanning',\n            field: 'securityFeatures.codeScanning',\n            renderCell: (row) => {\n              return row.securityFeatures.codeScanning.length > 0 ? (\n                <LabelGroup>\n                  {row.securityFeatures.codeScanning.map((feature) => {\n                    return <Label key={feature}>{uppercase(feature)}</Label>\n                  })}\n                </LabelGroup>\n              ) : null\n            },\n          },\n        ]}\n      />\n    </Table.Container>\n  )\n}"
         },
         {
           "id": "components-datatable-features--with-loading",
@@ -1539,6 +1552,33 @@
               "name": "totalCount",
               "type": "number",
               "required": true
+            }
+          ]
+        },
+        {
+          "name": "Table.ErrorDialog",
+          "props": [
+            {
+              "name": "children",
+              "required": true,
+              "type": "React.ReactNode",
+              "description": "The content of the dialog. This is usually a message explaining the error."
+            },
+            {
+              "name": "title",
+              "type": "string",
+              "defaultValue": "'Error'",
+              "description": "The title of the dialog. This is usually a short description of the error."
+            },
+            {
+              "name": "onRetry",
+              "type": "() => void",
+              "description": "Event handler called when the user clicks the retry button."
+            },
+            {
+              "name": "onDismiss",
+              "type": "() => void",
+              "description": "Event handler called when the dialog is dismissed."
             }
           ]
         }
@@ -1860,7 +1900,7 @@
       "stories": [
         {
           "id": "components-header--default",
-          "code": "() => (\n  <Header>\n    <Header.Item>\n      <Header.Link\n        href=\"#\"\n        sx={{\n          fontSize: 2,\n        }}\n      >\n        <StyledOcticon\n          icon={MarkGithubIcon}\n          size={32}\n          sx={{\n            mr: 2,\n          }}\n        />\n        <span>GitHub</span>\n      </Header.Link>\n    </Header.Item>\n    <Header.Item full>Menu</Header.Item>\n    <Header.Item\n      sx={{\n        mr: 0,\n      }}\n    >\n      <Avatar\n        src=\"https://github.com/octocat.png\"\n        size={20}\n        square\n        alt=\"@octocat\"\n      />\n    </Header.Item>\n  </Header>\n)"
+          "code": "() => (\n  <Header>\n    <Header.Item>\n      <Header.Link\n        href=\"#\"\n        sx={{\n          fontSize: 2,\n        }}\n      >\n        <Octicon\n          icon={MarkGithubIcon}\n          size={32}\n          sx={{\n            mr: 2,\n          }}\n        />\n        <span>GitHub</span>\n      </Header.Link>\n    </Header.Item>\n    <Header.Item full>Menu</Header.Item>\n    <Header.Item\n      sx={{\n        mr: 0,\n      }}\n    >\n      <Avatar\n        src=\"https://github.com/octocat.png\"\n        size={20}\n        square\n        alt=\"@octocat\"\n      />\n    </Header.Item>\n  </Header>\n)"
         }
       ],
       "props": [
@@ -2017,7 +2057,7 @@
           "name": "href",
           "type": "string",
           "defaultValue": "",
-          "description": "URL to be used for the Link. (The `href` is passed to the underlying `<a>` element. If `as` is specified, the link behavior may need different props)."
+          "description": "URL to be used for the Link. (The `href` is passed to the underlying `<a>` element)."
         },
         {
           "name": "muted",
@@ -2040,11 +2080,6 @@
         {
           "name": "ref",
           "type": "React.RefObject<HTMLAnchorElement>"
-        },
-        {
-          "name": "as",
-          "type": "React.ElementType",
-          "defaultValue": "\"a\""
         },
         {
           "name": "sx",
@@ -2187,6 +2222,50 @@
           ]
         }
       ]
+    },
+    "octicon": {
+      "id": "octicon",
+      "name": "Octicon",
+      "status": "alpha",
+      "a11yReviewed": false,
+      "stories": [],
+      "props": [
+        {
+          "name": "ariaLabel",
+          "type": "string",
+          "defaultValue": "",
+          "description": "Specifies the aria-label attribute, which is read verbatim by screen readers "
+        },
+        {
+          "name": "icon",
+          "type": "Component",
+          "defaultValue": "",
+          "description": "Checks the input by default in uncontrolled modeName of the [Octicon component](https://primer.style/octicons/) used in the"
+        },
+        {
+          "name": "color",
+          "type": "string",
+          "defaultValue": "",
+          "description": "Sets an override color for the Octicon. Compatible with colors from the [Primer color system](https://primer.style/primitives/colors).\""
+        },
+        {
+          "name": "size",
+          "type": "number",
+          "defaultValue": "16",
+          "description": "Sets the uniform `width` and `height` of the SVG element"
+        },
+        {
+          "name": "verticalAlign",
+          "type": "string",
+          "defaultValue": "text-bottom",
+          "description": "Sets the `vertical-align` CSS property"
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ],
+      "subcomponents": []
     },
     "overlay": {
       "id": "overlay",
@@ -3563,10 +3642,22 @@
       "stories": [
         {
           "id": "components-selectpanel--default",
-          "code": "() => {\n  const [selected, setSelected] = React.useState<ItemInput[]>([\n    items[0],\n    items[1],\n  ])\n  const [filter, setFilter] = React.useState('')\n  const filteredItems = items.filter((item) =>\n    item.text.toLowerCase().startsWith(filter.toLowerCase()),\n  )\n  const [open, setOpen] = useState(false)\n  return (\n    <>\n      <h1>Multi Select Panel</h1>\n      <div>Please select labels that describe your issue:</div>\n      <SelectPanel\n        renderAnchor={({\n          children,\n          'aria-labelledby': ariaLabelledBy,\n          ...anchorProps\n        }) => (\n          <Button\n            trailingAction={TriangleDownIcon}\n            aria-labelledby={` ${ariaLabelledBy}`}\n            {...anchorProps}\n          >\n            {children ?? 'Select Labels'}\n          </Button>\n        )}\n        placeholderText=\"Filter Labels\"\n        open={open}\n        onOpenChange={setOpen}\n        items={filteredItems}\n        selected={selected}\n        onSelectedChange={setSelected}\n        onFilterChange={setFilter}\n        showItemDividers={true}\n        overlayProps={{\n          width: 'small',\n          height: 'xsmall',\n        }}\n      />\n    </>\n  )\n}"
+          "code": "() => {\n  const [selected, setSelected] = React.useState<ItemInput[]>([\n    items[0],\n    items[1],\n  ])\n  const [filter, setFilter] = React.useState('')\n  const filteredItems = items.filter((item) =>\n    item.text.toLowerCase().startsWith(filter.toLowerCase()),\n  )\n  const [open, setOpen] = useState(false)\n  return (\n    <>\n      <h1>Multi Select Panel</h1>\n      <SelectPanel\n        title=\"Select labels\"\n        subtitle=\"Use labels to organize issues and pull requests\"\n        renderAnchor={({\n          children,\n          'aria-labelledby': ariaLabelledBy,\n          ...anchorProps\n        }) => (\n          <Button\n            trailingAction={TriangleDownIcon}\n            aria-labelledby={` ${ariaLabelledBy}`}\n            {...anchorProps}\n          >\n            {children ?? 'Select Labels'}\n          </Button>\n        )}\n        placeholderText=\"Filter labels\"\n        open={open}\n        onOpenChange={setOpen}\n        items={filteredItems}\n        selected={selected}\n        onSelectedChange={setSelected}\n        onFilterChange={setFilter}\n        showItemDividers={true}\n        overlayProps={{\n          width: 'small',\n          height: 'xsmall',\n        }}\n      />\n    </>\n  )\n}"
         }
       ],
       "props": [
+        {
+          "name": "title",
+          "type": "string | React.ReactElement",
+          "defaultValue": "\"Select an item\" or \"Select items\"",
+          "description": "A descriptive title for the panel"
+        },
+        {
+          "name": "subtitle",
+          "type": "string | React.ReactElement",
+          "defaultValue": "",
+          "description": "When provided, a subtitle is displayed below the title"
+        },
         {
           "name": "onOpenChange",
           "type": "( open: boolean, gesture: | 'anchor-click' | 'anchor-key-press' | 'click-outside' | 'escape' | 'selection' ) => void",
@@ -3579,6 +3670,12 @@
           "type": "string",
           "defaultValue": "",
           "description": ""
+        },
+        {
+          "name": "inputLabel",
+          "type": "string",
+          "defaultValue": "Same as placeholderText",
+          "description": "The aria-label for the filter input"
         },
         {
           "name": "overlayProps",
@@ -3830,55 +3927,6 @@
           "name": "status",
           "type": "'issueOpened' | 'issueClosed' | 'issueClosedNotPlanned' | 'pullOpened' | 'pullClosed' | 'pullMerged' | 'draft' | 'issueDraft'",
           "required": true
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject"
-        }
-      ],
-      "subcomponents": []
-    },
-    "styled_octicon": {
-      "id": "styled_octicon",
-      "name": "StyledOcticon",
-      "status": "alpha",
-      "a11yReviewed": false,
-      "stories": [
-        {
-          "id": "components-styledocticon--default",
-          "code": "() => <StyledOcticon icon={HeartFillIcon} size={32} />"
-        }
-      ],
-      "props": [
-        {
-          "name": "ariaLabel",
-          "type": "string",
-          "defaultValue": "",
-          "description": "Specifies the aria-label attribute, which is read verbatim by screen readers "
-        },
-        {
-          "name": "icon",
-          "type": "Component",
-          "defaultValue": "",
-          "description": "Checks the input by default in uncontrolled modeName of the [Octicon component](https://primer.style/octicons/) used in the"
-        },
-        {
-          "name": "color",
-          "type": "string",
-          "defaultValue": "",
-          "description": "Sets an override color for the Octicon. Compatible with colors from the [Primer color system](https://primer.style/primitives/colors).\""
-        },
-        {
-          "name": "size",
-          "type": "number",
-          "defaultValue": "16",
-          "description": "Sets the uniform `width` and `height` of the SVG element"
-        },
-        {
-          "name": "verticalAlign",
-          "type": "string",
-          "defaultValue": "text-bottom",
-          "description": "Sets the `vertical-align` CSS property"
         },
         {
           "name": "sx",
@@ -4348,7 +4396,7 @@
       "stories": [
         {
           "id": "components-timeline--default",
-          "code": "() => (\n  <Timeline>\n    <Timeline.Item>\n      <Timeline.Badge>\n        <StyledOcticon icon={GitCommitIcon} />\n      </Timeline.Badge>\n      <Timeline.Body>This is a message</Timeline.Body>\n    </Timeline.Item>\n    <Timeline.Item>\n      <Timeline.Badge>\n        <StyledOcticon icon={GitCommitIcon} />\n      </Timeline.Badge>\n      <Timeline.Body>This is a message</Timeline.Body>\n    </Timeline.Item>\n    <Timeline.Item>\n      <Timeline.Badge>\n        <StyledOcticon icon={GitCommitIcon} />\n      </Timeline.Badge>\n      <Timeline.Body>This is a message</Timeline.Body>\n    </Timeline.Item>\n  </Timeline>\n)"
+          "code": "() => (\n  <Timeline>\n    <Timeline.Item>\n      <Timeline.Badge>\n        <Octicon icon={GitCommitIcon} />\n      </Timeline.Badge>\n      <Timeline.Body>This is a message</Timeline.Body>\n    </Timeline.Item>\n    <Timeline.Item>\n      <Timeline.Badge>\n        <Octicon icon={GitCommitIcon} />\n      </Timeline.Badge>\n      <Timeline.Body>This is a message</Timeline.Body>\n    </Timeline.Item>\n    <Timeline.Item>\n      <Timeline.Badge>\n        <Octicon icon={GitCommitIcon} />\n      </Timeline.Badge>\n      <Timeline.Body>This is a message</Timeline.Body>\n    </Timeline.Item>\n  </Timeline>\n)"
         }
       ],
       "props": [
@@ -4414,7 +4462,7 @@
       "stories": [
         {
           "id": "components-toggleswitch--default",
-          "code": "<Box\n  display=\"grid\"\n  gridTemplateColumns={'max-content auto'}\n  maxWidth={'20rem'}\n  alignItems={'center'}\n  justifyContent={'space-between'}\n>\n  <Text id=\"toggle\" fontWeight={'bold'} fontSize={2}>\n    Toggle label\n  </Text>\n  <ToggleSwitch aria-labelledby=\"toggle\" />\n</Box>"
+          "code": "() => (\n  <>\n    <Text id=\"toggle\" fontWeight=\"bold\" fontSize={1}>\n      Toggle label\n    </Text>\n    <ToggleSwitch aria-labelledby=\"toggle\" />\n  </>\n)"
         }
       ],
       "props": [
@@ -4650,7 +4698,7 @@
       "stories": [
         {
           "id": "components-treeview--default",
-          "code": "() => (\n  <nav aria-label=\"Files changed\">\n    <TreeView aria-label=\"Files changed\">\n      <TreeView.Item id=\"src\" defaultExpanded>\n        <TreeView.LeadingVisual>\n          <TreeView.DirectoryIcon />\n        </TreeView.LeadingVisual>\n        src\n        <TreeView.SubTree>\n          <TreeView.Item id=\"src/Avatar.tsx\">\n            <TreeView.LeadingVisual>\n              <FileIcon />\n            </TreeView.LeadingVisual>\n            Avatar.tsx\n            <TreeView.TrailingVisual>\n              <StyledOcticon\n                icon={DiffAddedIcon}\n                color=\"success.fg\"\n                aria-label=\"added\"\n              />\n            </TreeView.TrailingVisual>\n          </TreeView.Item>\n          <TreeView.Item id=\"src/Button.tsx\" current>\n            <TreeView.LeadingVisual>\n              <FileIcon />\n            </TreeView.LeadingVisual>\n            Button.tsx\n            <TreeView.TrailingVisual>\n              <StyledOcticon\n                icon={DiffModifiedIcon}\n                color=\"attention.fg\"\n                aria-label=\"modified\"\n              />\n            </TreeView.TrailingVisual>\n          </TreeView.Item>\n        </TreeView.SubTree>\n      </TreeView.Item>\n      <TreeView.Item id=\"package.json\">\n        <TreeView.LeadingVisual>\n          <FileIcon />\n        </TreeView.LeadingVisual>\n        package.json\n        <TreeView.TrailingVisual>\n          <StyledOcticon\n            icon={DiffModifiedIcon}\n            color=\"attention.fg\"\n            aria-label=\"modified\"\n          />\n        </TreeView.TrailingVisual>\n      </TreeView.Item>\n    </TreeView>\n  </nav>\n)"
+          "code": "() => (\n  <nav aria-label=\"Files changed\">\n    <TreeView aria-label=\"Files changed\">\n      <TreeView.Item id=\"src\" defaultExpanded>\n        <TreeView.LeadingVisual>\n          <TreeView.DirectoryIcon />\n        </TreeView.LeadingVisual>\n        src\n        <TreeView.SubTree>\n          <TreeView.Item id=\"src/Avatar.tsx\">\n            <TreeView.LeadingVisual>\n              <FileIcon />\n            </TreeView.LeadingVisual>\n            Avatar.tsx\n            <TreeView.TrailingVisual>\n              <Octicon\n                icon={DiffAddedIcon}\n                color=\"success.fg\"\n                aria-label=\"added\"\n              />\n            </TreeView.TrailingVisual>\n          </TreeView.Item>\n          <TreeView.Item id=\"src/Button.tsx\" current>\n            <TreeView.LeadingVisual>\n              <FileIcon />\n            </TreeView.LeadingVisual>\n            Button.tsx\n            <TreeView.TrailingVisual>\n              <Octicon\n                icon={DiffModifiedIcon}\n                color=\"attention.fg\"\n                aria-label=\"modified\"\n              />\n            </TreeView.TrailingVisual>\n          </TreeView.Item>\n        </TreeView.SubTree>\n      </TreeView.Item>\n      <TreeView.Item id=\"package.json\">\n        <TreeView.LeadingVisual>\n          <FileIcon />\n        </TreeView.LeadingVisual>\n        package.json\n        <TreeView.TrailingVisual>\n          <Octicon\n            icon={DiffModifiedIcon}\n            color=\"attention.fg\"\n            aria-label=\"modified\"\n          />\n        </TreeView.TrailingVisual>\n      </TreeView.Item>\n    </TreeView>\n  </nav>\n)"
         },
         {
           "id": "components-treeview-features--files",
@@ -4658,7 +4706,7 @@
         },
         {
           "id": "components-treeview-features--files-changed",
-          "code": "() => {\n  return (\n    <nav aria-label=\"Files\">\n      <TreeView aria-label=\"Files\">\n        <TreeView.Item id=\"src\" defaultExpanded>\n          <TreeView.LeadingVisual>\n            <TreeView.DirectoryIcon />\n          </TreeView.LeadingVisual>\n          src\n          <TreeView.SubTree>\n            <TreeView.Item id=\"src/Avatar.tsx\">\n              <TreeView.LeadingVisual>\n                <FileIcon />\n              </TreeView.LeadingVisual>\n              Avatar.tsx\n              <TreeView.TrailingVisual label=\"added\">\n                <StyledOcticon icon={DiffAddedIcon} color=\"success.fg\" />\n              </TreeView.TrailingVisual>\n            </TreeView.Item>\n            <TreeView.Item id=\"src/Button\" defaultExpanded>\n              <TreeView.LeadingVisual>\n                <TreeView.DirectoryIcon />\n              </TreeView.LeadingVisual>\n              Button\n              <TreeView.SubTree>\n                <TreeView.Item id=\"src/Button/Button.tsx\" current>\n                  <TreeView.LeadingVisual>\n                    <FileIcon />\n                  </TreeView.LeadingVisual>\n                  Button.tsx\n                  <TreeView.TrailingVisual label=\"modified\">\n                    <StyledOcticon\n                      icon={DiffModifiedIcon}\n                      color=\"attention.fg\"\n                    />\n                  </TreeView.TrailingVisual>\n                </TreeView.Item>\n                <TreeView.Item id=\"src/Button/Button.test.tsx\">\n                  <TreeView.LeadingVisual>\n                    <FileIcon />\n                  </TreeView.LeadingVisual>\n                  Button.test.tsx\n                  <TreeView.TrailingVisual label=\"modified\">\n                    <StyledOcticon\n                      icon={DiffModifiedIcon}\n                      color=\"attention.fg\"\n                    />\n                  </TreeView.TrailingVisual>\n                </TreeView.Item>\n              </TreeView.SubTree>\n            </TreeView.Item>\n            <TreeView.Item id=\"src/ReallyLongFileNameThatShouldBeTruncated.tsx\">\n              <TreeView.LeadingVisual>\n                <FileIcon />\n              </TreeView.LeadingVisual>\n              ReallyLongFileNameThatShouldBeTruncated.tsx\n              <TreeView.TrailingVisual label=\"modified\">\n                <StyledOcticon icon={DiffModifiedIcon} color=\"attention.fg\" />\n              </TreeView.TrailingVisual>\n            </TreeView.Item>\n          </TreeView.SubTree>\n        </TreeView.Item>\n        <TreeView.Item id=\"public\" defaultExpanded>\n          <TreeView.LeadingVisual>\n            <TreeView.DirectoryIcon />\n          </TreeView.LeadingVisual>\n          public\n          <TreeView.SubTree>\n            <TreeView.Item id=\"public/index.html\">\n              <TreeView.LeadingVisual>\n                <FileIcon />\n              </TreeView.LeadingVisual>\n              index.html\n              <TreeView.TrailingVisual label=\"renamed\">\n                <StyledOcticon icon={DiffRenamedIcon} />\n              </TreeView.TrailingVisual>\n            </TreeView.Item>\n            <TreeView.Item id=\"public/favicon.ico\">\n              <TreeView.LeadingVisual>\n                <FileIcon />\n              </TreeView.LeadingVisual>\n              favicon.ico\n              <TreeView.TrailingVisual label=\"removed\">\n                <StyledOcticon icon={DiffRemovedIcon} color=\"danger.fg\" />\n              </TreeView.TrailingVisual>\n            </TreeView.Item>\n          </TreeView.SubTree>\n        </TreeView.Item>\n      </TreeView>\n    </nav>\n  )\n}"
+          "code": "() => {\n  return (\n    <nav aria-label=\"Files\">\n      <TreeView aria-label=\"Files\">\n        <TreeView.Item id=\"src\" defaultExpanded>\n          <TreeView.LeadingVisual>\n            <TreeView.DirectoryIcon />\n          </TreeView.LeadingVisual>\n          src\n          <TreeView.SubTree>\n            <TreeView.Item id=\"src/Avatar.tsx\">\n              <TreeView.LeadingVisual>\n                <FileIcon />\n              </TreeView.LeadingVisual>\n              Avatar.tsx\n              <TreeView.TrailingVisual label=\"added\">\n                <Octicon icon={DiffAddedIcon} color=\"success.fg\" />\n              </TreeView.TrailingVisual>\n            </TreeView.Item>\n            <TreeView.Item id=\"src/Button\" defaultExpanded>\n              <TreeView.LeadingVisual>\n                <TreeView.DirectoryIcon />\n              </TreeView.LeadingVisual>\n              Button\n              <TreeView.SubTree>\n                <TreeView.Item id=\"src/Button/Button.tsx\" current>\n                  <TreeView.LeadingVisual>\n                    <FileIcon />\n                  </TreeView.LeadingVisual>\n                  Button.tsx\n                  <TreeView.TrailingVisual label=\"modified\">\n                    <Octicon icon={DiffModifiedIcon} color=\"attention.fg\" />\n                  </TreeView.TrailingVisual>\n                </TreeView.Item>\n                <TreeView.Item id=\"src/Button/Button.test.tsx\">\n                  <TreeView.LeadingVisual>\n                    <FileIcon />\n                  </TreeView.LeadingVisual>\n                  Button.test.tsx\n                  <TreeView.TrailingVisual label=\"modified\">\n                    <Octicon icon={DiffModifiedIcon} color=\"attention.fg\" />\n                  </TreeView.TrailingVisual>\n                </TreeView.Item>\n              </TreeView.SubTree>\n            </TreeView.Item>\n            <TreeView.Item id=\"src/ReallyLongFileNameThatShouldBeTruncated.tsx\">\n              <TreeView.LeadingVisual>\n                <FileIcon />\n              </TreeView.LeadingVisual>\n              ReallyLongFileNameThatShouldBeTruncated.tsx\n              <TreeView.TrailingVisual label=\"modified\">\n                <Octicon icon={DiffModifiedIcon} color=\"attention.fg\" />\n              </TreeView.TrailingVisual>\n            </TreeView.Item>\n          </TreeView.SubTree>\n        </TreeView.Item>\n        <TreeView.Item id=\"public\" defaultExpanded>\n          <TreeView.LeadingVisual>\n            <TreeView.DirectoryIcon />\n          </TreeView.LeadingVisual>\n          public\n          <TreeView.SubTree>\n            <TreeView.Item id=\"public/index.html\">\n              <TreeView.LeadingVisual>\n                <FileIcon />\n              </TreeView.LeadingVisual>\n              index.html\n              <TreeView.TrailingVisual label=\"renamed\">\n                <Octicon icon={DiffRenamedIcon} />\n              </TreeView.TrailingVisual>\n            </TreeView.Item>\n            <TreeView.Item id=\"public/favicon.ico\">\n              <TreeView.LeadingVisual>\n                <FileIcon />\n              </TreeView.LeadingVisual>\n              favicon.ico\n              <TreeView.TrailingVisual label=\"removed\">\n                <Octicon icon={DiffRemovedIcon} color=\"danger.fg\" />\n              </TreeView.TrailingVisual>\n            </TreeView.Item>\n          </TreeView.SubTree>\n        </TreeView.Item>\n      </TreeView>\n    </nav>\n  )\n}"
         },
         {
           "id": "components-treeview-features--async-success",
