@@ -17,17 +17,17 @@
     },
     {
       "name": "renderHeader",
-      "type": "React.FunctionComponent<React.PropsWithChildren<DialogHeaderProps>>",
+      "type": "React.FunctionComponent<\n  React.PropsWithChildren<DialogHeaderProps>\n>",
       "description": "Provide a custom renderer for the dialog header. This content is rendered directly into the dialog body area, full bleed from edge to edge, top to the start of the body element. Warning: using a custom renderer may violate Primer UX principles."
     },
     {
       "name": "renderBody",
-      "type": "React.FunctionComponent<React.PropsWithChildren<DialogProps>>",
+      "type": "React.FunctionComponent<\n  React.PropsWithChildren<DialogProps>\n>",
       "description": "Provide a custom render function for the dialog body. This content is rendered directly into the dialog body area, full bleed from edge to edge, header to footer. Warning: using a custom renderer may violate Primer UX principles."
     },
     {
       "name": "renderFooter",
-      "type": "React.FunctionComponent<React.PropsWithChildren<DialogProps>>",
+      "type": "React.FunctionComponent<\n  React.PropsWithChildren<DialogProps>\n>",
       "description": "Provide a custom render function for the dialog footer. This content is rendered directly into the dialog footer area, full bleed from edge to edge, end of the body element to bottom. Warning: using a custom renderer may violate Primer UX principles."
     },
     {
@@ -42,16 +42,16 @@
     },
     {
       "name": "role",
-      "type": "'dialog' | 'alertdialog'",
+      "type": "'dialog'\n| 'alertdialog'",
       "description": "The ARIA role to assign to this dialog."
     },
     {
       "name": "width",
-      "type": "'small' | 'medium' | 'large' | 'xlarge'"
+      "type": "'small'\n| 'medium'\n| 'large'\n| 'xlarge'"
     },
     {
       "name": "height",
-      "type": "'small' | 'large' | 'auto'"
+      "type": "'small'\n| 'large'\n| 'auto'"
     }
   ],
   "subcomponents": []
