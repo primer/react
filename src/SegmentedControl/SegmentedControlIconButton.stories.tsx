@@ -39,5 +39,5 @@ export default {
 } as Meta<typeof SegmentedControlIconButton>
 
 export const Playground: StoryFn<SegmentedControlIconButtonProps> = args => (
-  <SegmentedControlIconButton {...args} aria-label="test" />
+  <SegmentedControlIconButton {...args} aria-label="Icon label" />
 )

@@ -574,6 +574,29 @@ const components = new Map([
     },
   ],
   [
+    'InlineAutocomplete',
+    {
+      stories: [
+        {
+          id: 'components-forms-inlineautocomplete--default',
+          name: 'Default',
+        },
+        {
+          id: 'components-forms-inlineautocomplete--playground',
+          name: 'Playground',
+        },
+        {
+          id: 'components-forms-inlineautocomplete-features--custom-rendering',
+          name: 'Custom Rendering',
+        },
+        {
+          id: 'components-forms-inlineautocomplete-features--single-line',
+          name: 'Single Line',
+        },
+      ],
+    },
+  ],
+  [
     'Label',
     {
       stories: [
@@ -1090,6 +1113,21 @@ const components = new Map([
         {
           id: 'components-statelabel-features--small',
           name: 'Small',
+        },
+      ],
+    },
+  ],
+  [
+    'StyledOcticon',
+    {
+      stories: [
+        {
+          id: 'components-styledocticon--default',
+          name: 'Default',
+        },
+        {
+          id: 'components-styledocticon--playground',
+          name: 'Playground',
         },
       ],
     },
