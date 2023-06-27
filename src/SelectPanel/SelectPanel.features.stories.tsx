@@ -18,10 +18,10 @@ function getColorCircle(color: string) {
     return (
       <Box
         bg={color}
-        borderColor={color}
-        width={14}
-        height={14}
-        borderRadius={10}
+        borderColor="primer.border.contrast"
+        width={12}
+        height={12}
+        borderRadius={6}
         margin="auto"
         borderWidth="1px"
         borderStyle="solid"
@@ -31,7 +31,7 @@ function getColorCircle(color: string) {
 }
 
 const items = [
-  {leadingVisual: getColorCircle('#a2eeef'), text: 'enhancement', id: 1},
+  {leadingVisual: getColorCircle('#a2eeef'), text: 'enhancement', description: 'test', id: 1},
   {leadingVisual: getColorCircle('#d73a4a'), text: 'bug', id: 2},
   {leadingVisual: getColorCircle('#0cf478'), text: 'good first issue', id: 3},
   {leadingVisual: getColorCircle('#ffd78e'), text: 'design', id: 4},
@@ -56,7 +56,7 @@ export const SingleSelectStory = () => {
             {children ?? 'Select Labels'}
           </Button>
         )}
-        placeholderText="Filter Labels"
+        placeholderText="Search labels"
         open={open}
         onOpenChange={setOpen}
         items={filteredItems}
@@ -87,7 +87,7 @@ export const ExternalAnchorStory = () => {
       <SelectPanel
         renderAnchor={null}
         anchorRef={buttonRef}
-        placeholderText="Filter Labels"
+        placeholderText="Search"
         open={open}
         onOpenChange={setOpen}
         items={filteredItems}
@@ -118,7 +118,7 @@ export const SelectPanelHeightInitialWithOverflowingItemsStory = () => {
             {children ?? 'Select Labels'}
           </Button>
         )}
-        placeholderText="Filter Labels"
+        placeholderText="Search"
         open={open}
         onOpenChange={setOpen}
         items={filteredItems}
@@ -150,7 +150,7 @@ export const SelectPanelHeightInitialWithUnderflowingItemsStory = () => {
             {children ?? 'Select Labels'}
           </Button>
         )}
-        placeholderText="Filter Labels"
+        placeholderText="Search"
         open={open}
         onOpenChange={setOpen}
         items={filteredItems}
@@ -194,7 +194,7 @@ export const SelectPanelHeightInitialWithUnderflowingItemsAfterFetch = () => {
             {children ?? 'Select Labels'}
           </Button>
         )}
-        placeholderText="Filter Labels"
+        placeholderText="Search"
         open={open}
         onOpenChange={onOpenChange}
         loading={filteredItems.length === 0}
@@ -227,7 +227,7 @@ export const SelectPanelAboveTallBody = () => {
             {children ?? 'Select Labels'}
           </Button>
         )}
-        placeholderText="Filter Labels"
+        placeholderText="Search"
         open={open}
         onOpenChange={setOpen}
         items={filteredItems}
@@ -269,7 +269,7 @@ export const SelectPanelHeightAndScroll = () => {
             {children ?? 'Select Labels'}
           </Button>
         )}
-        placeholderText="Filter Labels"
+        placeholderText="Search"
         open={openA}
         onOpenChange={setOpenA}
         items={filteredItems}
@@ -286,7 +286,7 @@ export const SelectPanelHeightAndScroll = () => {
             {children ?? 'Select Labels'}
           </Button>
         )}
-        placeholderText="Filter Labels"
+        placeholderText="Search"
         open={openB}
         onOpenChange={setOpenB}
         items={filteredItems}

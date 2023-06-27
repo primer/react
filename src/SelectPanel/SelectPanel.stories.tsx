@@ -18,10 +18,10 @@ function getColorCircle(color: string) {
       <Box
         sx={{
           backgroundColor: color,
-          borderColor: color,
-          width: 14,
-          height: 14,
-          borderRadius: 10,
+          borderColor: 'primer.border.contrast',
+          width: 12,
+          height: 12,
+          borderRadius: 6,
           margin: 'auto',
           borderWidth: '1px',
           borderStyle: 'solid',
@@ -58,7 +58,7 @@ export const Default = () => {
             {children ?? 'Select Labels'}
           </Button>
         )}
-        placeholderText="Filter labels"
+        placeholderText="Search"
         open={open}
         onOpenChange={setOpen}
         items={filteredItems}
