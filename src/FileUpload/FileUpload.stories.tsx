@@ -1,5 +1,5 @@
 import React from 'react'
-import {Meta} from '@storybook/react'
+import {Meta, Story} from '@storybook/react'
 import FileUpload from './FileUpload'
 
 const meta: Meta<typeof FileUpload> = {
@@ -8,41 +8,129 @@ const meta: Meta<typeof FileUpload> = {
 }
 
 export const Default = () => {
-  const fileProgress = (file: File) => Math.random() * 100
+  const fileProgress = () => Math.random() * 100
+  const [uploadedFile, setUploadedFile] = React.useState<File | undefined>(undefined)
+  const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const files = event.target.files
+
+    if (files) {
+      const fileList = Array.from(files)
+      setUploadedFile(fileList[0])
+    }
+  }
+
   return (
-    <FileUpload fileProgress={fileProgress}>
+    <FileUpload onChange={handleFileUpload}>
       <FileUpload.Label>Upload your files</FileUpload.Label>
+      {uploadedFile && (
+        <FileUpload.Item
+          key={uploadedFile.name}
+          file={uploadedFile}
+          progress={fileProgress()}
+          onRemove={e => {
+            setUploadedFile(undefined)
+          }}
+        />
+      )}
     </FileUpload>
   )
 }
 
 export const Multiple = () => {
-  const fileProgress = (file: File) => Math.random() * 100
+  const fileProgress = () => Math.random() * 100
+  const [uploadedFiles, setUploadedFiles] = React.useState<File[]>([])
+  const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const files = event.target.files
+
+    if (files) {
+      const fileList = Array.from(files)
+      setUploadedFiles(fileList)
+    }
+  }
 
   return (
-    <FileUpload fileProgress={fileProgress} multiple>
+    <FileUpload multiple onChange={handleFileUpload}>
       <FileUpload.Label>Upload your files</FileUpload.Label>
+      {uploadedFiles.map(file => (
+        <FileUpload.Item
+          key={file.name}
+          file={file}
+          progress={fileProgress()}
+          onRemove={e => {
+            setUploadedFiles(() => {
+              return uploadedFiles.filter(cur => {
+                return file.name !== cur.name
+              })
+            })
+          }}
+        />
+      ))}
     </FileUpload>
   )
 }
 
 export const StyledButton = () => {
-  const fileProgress = (file: File) => Math.random() * 100
+  const [uploadedFile, setUploadedFile] = React.useState<File | undefined>(undefined)
+  const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const files = event.target.files
+
+    if (files) {
+      const fileList = Array.from(files)
+      setUploadedFile(fileList[0])
+    }
+  }
 
   return (
-    <FileUpload fileProgress={fileProgress} buttonProps={{variant: 'invisible', children: 'Upload stuff!'}}>
+    <FileUpload buttonProps={{variant: 'invisible', children: 'Upload stuff!'}} onChange={handleFileUpload}>
       <FileUpload.Label>Upload your files</FileUpload.Label>
+      {uploadedFile && (
+        <FileUpload.Item
+          key={uploadedFile.name}
+          file={uploadedFile}
+          progress={100}
+          onRemove={e => {
+            setUploadedFile(undefined)
+          }}
+        />
+      )}
     </FileUpload>
   )
 }
 
-export const Playground = () => {
-  const fileProgress = (file: File) => Math.random() * 100
+export const Playground: Story<React.ComponentProps<typeof FileUpload>> = args => {
+  const fileProgress = () => Math.random() * 100
+  const [uploadedFiles, setUploadedFiles] = React.useState<File[]>([])
+  const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const files = event.target.files
 
-  return <FileUpload fileProgress={fileProgress} />
+    if (files) {
+      const fileList = Array.from(files)
+      setUploadedFiles(fileList)
+    }
+  }
+
+  return (
+    <FileUpload onChange={handleFileUpload} {...args}>
+      <FileUpload.Label>Upload your files</FileUpload.Label>
+      {uploadedFiles.map(file => (
+        <FileUpload.Item
+          key={file.name}
+          file={file}
+          progress={fileProgress()}
+          onRemove={e => {
+            setUploadedFiles(() => {
+              return uploadedFiles.filter(cur => {
+                return file.name !== cur.name
+              })
+            })
+          }}
+        />
+      ))}
+    </FileUpload>
+  )
 }
 
-Playground.args = {}
+Playground.args = {multiple: true}
 
 Playground.argTypes = {}
 

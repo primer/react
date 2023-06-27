@@ -13,6 +13,7 @@ import {outlineOffset} from '../Button/types'
 import VisuallyHidden from '../_VisuallyHidden'
 import {ProgressBar} from '../ProgressBar'
 import Box from '../Box/Box'
+import {useSlots} from '../hooks/useSlots'
 
 const FileUploadContext = React.createContext({
   fileUploadId: '',
@@ -41,13 +42,6 @@ const UploadItem = styled.li`
   margin-bottom: 8px;
 `
 
-export type FileUploadProps = ComponentProps<typeof FileInputBase> & {
-  buttonProps?: Omit<ComponentProps<typeof ButtonBase>, 'children'> & {children?: React.ReactNode}
-  visuallyHiddenLabel?: string
-  // Is this the best way to do this?
-  fileProgress: (file: File) => number
-}
-
 export type FileUploadLabelProps = {
   visuallyHidden?: boolean
 } & SxProp &
@@ -69,52 +63,53 @@ const FileUploadLabel = ({
   )
 }
 
-export type FileUploadItemProps = {
-  visuallyHidden?: boolean
-} & SxProp &
-  React.HTMLProps<HTMLLabelElement>
+export type FileUploadItemProps = ComponentProps<typeof UploadItem> & {
+  file: File
+  progress: number
+  onRemove: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
+} & SxProp
 
-const FileUploadItem = ({children, visuallyHidden = false, ...rest}: React.PropsWithChildren<FileUploadLabelProps>) => {
-  const {fileUploadId} = React.useContext(FileUploadContext)
+const FileUploadItem = ({file, progress, onRemove, ...rest}: React.PropsWithChildren<FileUploadItemProps>) => {
+  const {name: fileName} = file
 
   return (
-    <VisuallyHidden isVisible={!visuallyHidden}>
-      <label htmlFor={fileUploadId} {...rest}>
-        {children}
-      </label>
-    </VisuallyHidden>
+    <UploadItem {...rest}>
+      <Box display={'flex'} justifyContent={'space-between'} marginBottom={'8px'}>
+        <Text>{fileName}</Text>
+        <IconButton
+          aria-label={`remove ${fileName}`}
+          icon={XIcon}
+          onClick={e => {
+            onRemove(e)
+          }}
+        />
+      </Box>
+      {/*  typically determine upload progress by */}
+      <ProgressBar progress={progress} barSize={'default'} inline bg={'success.emphasis'} />
+    </UploadItem>
   )
 }
 
-const FileUpload = ({children, fileProgress, buttonProps, ...rest}: React.PropsWithChildren<FileUploadProps>) => {
+export type FileUploadProps = ComponentProps<typeof FileInputBase> & {
+  buttonProps?: Omit<ComponentProps<typeof ButtonBase>, 'children'> & {children?: React.ReactNode}
+  _slotsConfig?: Record<'label', React.ElementType>
+}
+
+const FileUpload = ({
+  children,
+  buttonProps,
+  _slotsConfig: slotsConfig,
+  ...restProps
+}: React.PropsWithChildren<FileUploadProps>) => {
   const fileInputRef = React.useRef<HTMLInputElement>(null)
-
-  const [uploadedFiles, setUploadedFiles] = React.useState<File[]>([])
-
-  const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const files = event.target.files
-
-    if (files) {
-      const fileList = Array.from(files)
-      setUploadedFiles(fileList)
-    }
-  }
-
   const fileUploadId = useId()
+
+  const [slots, rest] = useSlots(children, slotsConfig ?? {label: FileUploadLabel})
 
   return (
     <FileUploadContext.Provider value={{fileUploadId}}>
-      {children}
-      <FileInputBase
-        {...rest}
-        id={fileUploadId}
-        type="file"
-        ref={fileInputRef}
-        onChange={e => {
-          handleFileUpload(e)
-          rest.onChange?.(e)
-        }}
-      />
+      {slots.label}
+      <FileInputBase {...restProps} id={fileUploadId} type="file" ref={fileInputRef} />
       <ButtonBase
         {...buttonProps}
         type="button"
@@ -127,38 +122,7 @@ const FileUpload = ({children, fileProgress, buttonProps, ...rest}: React.PropsW
       >
         {buttonProps?.children ?? 'Upload File'}
       </ButtonBase>
-      {uploadedFiles.length > 0 && (
-        // TODO change aria-label based on design
-        <UploadList aria-label="uploaded files...">
-          {uploadedFiles.map(file => {
-            return (
-              <UploadItem key={file.name}>
-                <Box display={'flex'} justifyContent={'space-between'} marginBottom={'8px'}>
-                  <Text>{file.name}</Text>
-                  <IconButton
-                    aria-label={`remove ${file.name}`}
-                    icon={XIcon}
-                    onClick={e => {
-                      if (fileInputRef.current) {
-                        fileInputRef.current.files = null
-                      }
-
-                      // TODO: remove the file from the actual input fileList
-                      setUploadedFiles(() => {
-                        return uploadedFiles.filter(cur => {
-                          return file.name !== cur.name
-                        })
-                      })
-                    }}
-                  />
-                </Box>
-                {/*  typically determine upload progress by */}
-                <ProgressBar progress={fileProgress(file)} barSize={'default'} inline bg={'success.emphasis'} />
-              </UploadItem>
-            )
-          })}
-        </UploadList>
-      )}
+      {rest.length ? <UploadList aria-label="uploaded files...">{rest}</UploadList> : null}
     </FileUploadContext.Provider>
   )
 }
