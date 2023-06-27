@@ -36,7 +36,6 @@ const LabelledAutocomplete = <T extends AutocompleteMenuItem>({
     <ThemeProvider theme={theme}>
       <SSRProvider>
         <BaseStyles>
-          {/* eslint-disable-next-line jsx-a11y/label-has-for */}
           <label htmlFor={id} id={ariaLabelledBy}>
             Autocomplete field
           </label>

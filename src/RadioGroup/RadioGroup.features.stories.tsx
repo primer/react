@@ -72,25 +72,6 @@ export const Error = () => (
   </RadioGroup>
 )
 
-export const Warning = () => (
-  <RadioGroup name="defaultRadioGroup">
-    <RadioGroup.Label>Choices</RadioGroup.Label>
-    <FormControl>
-      <Radio value="one" />
-      <FormControl.Label>Choice one</FormControl.Label>
-    </FormControl>
-    <FormControl>
-      <Radio value="two" defaultChecked />
-      <FormControl.Label>Choice two</FormControl.Label>
-    </FormControl>
-    <FormControl>
-      <Radio value="three" />
-      <FormControl.Label>Choice three</FormControl.Label>
-    </FormControl>
-    <RadioGroup.Validation variant="warning">Warning message</RadioGroup.Validation>
-  </RadioGroup>
-)
-
 export const Success = () => (
   <RadioGroup name="defaultRadioGroup">
     <RadioGroup.Label>Choices</RadioGroup.Label>

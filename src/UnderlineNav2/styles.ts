@@ -68,7 +68,7 @@ export const moreBtnStyles = {
   boxShadow: 'none',
   paddingY: 1,
   paddingX: 2,
-  '& > span[data-component="trailingIcon"]': {
+  '& > span[data-component="trailingVisual"]': {
     marginLeft: 0,
   },
 }

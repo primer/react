@@ -151,7 +151,7 @@ const Backdrop = styled('div')`
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: ${get('colors.primer.canvas.backdrop')};
   animation: dialog-backdrop-appear ${ANIMATION_DURATION} ${get('animation.easeOutCubic')};
 
   @keyframes dialog-backdrop-appear {

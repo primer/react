@@ -135,7 +135,7 @@ describe('ActionList', () => {
           </ActionList.Item>
         </ActionList>,
       )
-    }).toThrow('For Item to be selected, ActionList needs to have a selectionVariant defined')
+    }).toThrow('For Item to be selected, ActionList or ActionList.Group needs to have a selectionVariant defined')
 
     mockError.mockRestore()
   })
