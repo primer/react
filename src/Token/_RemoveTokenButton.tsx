@@ -28,11 +28,6 @@ const variants = variant<{height: string; width: string}, TokenSizeKeys>({
       height: tokenSizes.large,
       width: tokenSizes.large,
     },
-    extralarge: {
-      height: tokenSizes.extralarge,
-      width: tokenSizes.extralarge,
-    },
-    // xlarge will eventually replace "extralarge" per this ADR: https://github.com/github/primer/blob/main/adrs/2022-02-09-size-naming-guidelines.md
     xlarge: {
       height: tokenSizes.xlarge,
       width: tokenSizes.xlarge,
@@ -62,7 +57,6 @@ const StyledTokenButton = styled.span<TokenButtonProps & SxProp>`
   ${props => {
     switch (props.size) {
       case 'large':
-      case 'extralarge':
       case 'xlarge':
         return css`
           margin-left: ${get('space.2')};

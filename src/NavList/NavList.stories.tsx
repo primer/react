@@ -13,7 +13,7 @@ const meta: Meta = {
 
 export const Simple: Story = () => (
   <PageLayout>
-    <PageLayout.Pane position="start">
+    <PageLayout.Pane>
       <NavList>
         <NavList.Item href="#" aria-current="page">
           Item 1
@@ -26,26 +26,9 @@ export const Simple: Story = () => (
   </PageLayout>
 )
 
-export const WithGroup: Story = () => (
-  <NavList>
-    <NavList.Group title="Group 1">
-      <NavList.Item href="#" aria-current="page">
-        Item 1
-      </NavList.Item>
-      <NavList.Item href="#">Item 2</NavList.Item>
-      <NavList.Item href="#">Item 3</NavList.Item>
-    </NavList.Group>
-    <NavList.Group title="Group 2">
-      <NavList.Item href="#">Item 4</NavList.Item>
-      <NavList.Item href="#">Item 5</NavList.Item>
-      <NavList.Item href="#">Item 6</NavList.Item>
-    </NavList.Group>
-  </NavList>
-)
-
 export const WithSubItems: Story = () => (
   <PageLayout>
-    <PageLayout.Pane position="start">
+    <PageLayout.Pane>
       <NavList>
         <NavList.Item href="#">Item 1</NavList.Item>
         <NavList.Item>
@@ -66,7 +49,7 @@ export const WithSubItems: Story = () => (
 
 export const WithNestedSubItems: Story = () => (
   <PageLayout>
-    <PageLayout.Pane position="start">
+    <PageLayout.Pane>
       <NavList>
         <NavList.Item href="#">Item 1</NavList.Item>
         <NavList.Item href="#">
@@ -111,7 +94,7 @@ const ReactRouterLikeLink = React.forwardRef<HTMLAnchorElement, ReactRouterLikeL
 
 export const WithReactRouterLink = () => (
   <PageLayout>
-    <PageLayout.Pane position="start">
+    <PageLayout.Pane>
       <NavList>
         <NavList.Item as={ReactRouterLikeLink} to="#" aria-current="page">
           Item 1
@@ -143,7 +126,7 @@ const NextJSLikeLink = React.forwardRef<HTMLAnchorElement, NextJSLinkProps>(
 
 export const WithNextJSLink = () => (
   <PageLayout>
-    <PageLayout.Pane position="start">
+    <PageLayout.Pane>
       <NavList>
         <NextJSLikeLink href="#">
           <NavList.Item aria-current="page">Item 1</NavList.Item>

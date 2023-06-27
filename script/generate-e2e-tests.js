@@ -326,10 +326,6 @@ const components = new Map([
           id: 'components-checkboxgroup-features--visually-hidden-label',
           name: 'Visually Hidden Label',
         },
-        {
-          id: 'components-checkboxgroup-features--warning',
-          name: 'Warning',
-        },
       ],
     },
   ],
@@ -569,6 +565,29 @@ const components = new Map([
         {
           id: 'components-iconbutton-features--small',
           name: 'Small',
+        },
+      ],
+    },
+  ],
+  [
+    'InlineAutocomplete',
+    {
+      stories: [
+        {
+          id: 'components-forms-inlineautocomplete--default',
+          name: 'Default',
+        },
+        {
+          id: 'components-forms-inlineautocomplete--playground',
+          name: 'Playground',
+        },
+        {
+          id: 'components-forms-inlineautocomplete-features--custom-rendering',
+          name: 'Custom Rendering',
+        },
+        {
+          id: 'components-forms-inlineautocomplete-features--single-line',
+          name: 'Single Line',
         },
       ],
     },
@@ -955,10 +974,6 @@ const components = new Map([
           name: 'Visually Hidden Label',
         },
         {
-          id: 'components-radiogroup-features--warning',
-          name: 'Warning',
-        },
-        {
           id: 'components-radiogroup-features--with-external-label',
           name: 'With External Label',
         },
@@ -1000,10 +1015,6 @@ const components = new Map([
         {
           id: 'components-select-features--visually-hidden-label',
           name: 'Visually Hidden Label',
-        },
-        {
-          id: 'components-select-features--warning',
-          name: 'Warning',
         },
         {
           id: 'components-select-features--with-caption',
@@ -1095,6 +1106,21 @@ const components = new Map([
     },
   ],
   [
+    'StyledOcticon',
+    {
+      stories: [
+        {
+          id: 'components-styledocticon--default',
+          name: 'Default',
+        },
+        {
+          id: 'components-styledocticon--playground',
+          name: 'Playground',
+        },
+      ],
+    },
+  ],
+  [
     'Text',
     {
       stories: [
@@ -1138,10 +1164,6 @@ const components = new Map([
           name: 'Visually Hidden Label',
         },
         {
-          id: 'components-textarea-features--warning',
-          name: 'Warning',
-        },
-        {
           id: 'components-textarea-features--with-caption',
           name: 'With Caption',
         },
@@ -1183,10 +1205,6 @@ const components = new Map([
         {
           id: 'components-textinput-features--visually-hidden-label',
           name: 'Visually Hidden Label',
-        },
-        {
-          id: 'components-textinput-features--warning',
-          name: 'Warning',
         },
         {
           id: 'components-textinput-features--with-caption',

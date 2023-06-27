@@ -66,7 +66,7 @@ export const Default = () => {
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
         showItemDividers={true}
-        overlayProps={{width: 'medium', height: 'medium'}}
+        overlayProps={{width: 'small', height: 'xsmall'}}
       />
     </>
   )

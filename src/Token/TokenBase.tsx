@@ -5,19 +5,13 @@ import {get} from '../constants'
 import sx, {SxProp} from '../sx'
 import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 
-// TODO: remove invalid "extralarge" size name in next breaking change
-/** @deprecated 'extralarge' to be removed to align with size naming ADR https://github.com/github/primer/blob/main/adrs/2022-02-09-size-naming-guidelines.md **/
-type ExtraLarge = 'extralarge'
-export type TokenSizeKeys = 'small' | 'medium' | 'large' | 'xlarge' | ExtraLarge
-
-const xlargeSize = '32px'
+export type TokenSizeKeys = 'small' | 'medium' | 'large' | 'xlarge'
 
 export const tokenSizes: Record<TokenSizeKeys, string> = {
   small: '16px',
   medium: '20px',
   large: '24px',
-  extralarge: xlargeSize,
-  xlarge: xlargeSize,
+  xlarge: '32px',
 }
 
 export const defaultTokenSize: TokenSizeKeys = 'medium'
@@ -112,7 +106,6 @@ const variants = variant<
       paddingLeft: 2,
       paddingRight: 2,
     },
-    extralarge: xlargeVariantStyles,
     xlarge: xlargeVariantStyles,
   },
 })

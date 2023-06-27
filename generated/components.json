@@ -108,7 +108,7 @@
       "props": [
         {
           "name": "children",
-          "type": "ActionList.Item[] | ActionList.LinkItem[] | ActionList.Divider[]",
+          "type": "ActionList.Item[] | ActionList.LinkItem[] | ActionList.Group[]",
           "defaultValue": "",
           "required": true,
           "description": ""
@@ -285,34 +285,48 @@
           ]
         },
         {
-          "name": "ActionList.Heading",
+          "name": "ActionList.Group",
           "props": [
             {
-              "name": "variant",
-              "type": "'subtle' | 'filled'",
-              "defaultValue": "subtle",
+              "name": "children",
+              "type": "ActionList.Item[] | ActionList.LinkItem[]",
+              "defaultValue": "",
+              "required": true,
               "description": ""
             },
             {
               "name": "title",
               "type": "string",
               "defaultValue": "",
-              "required": true,
-              "description": ""
+              "description": "Title of the group."
             },
             {
-              "name": "subtitle",
+              "name": "auxiliaryText",
               "type": "string",
               "defaultValue": "",
-              "required": false,
-              "description": ""
+              "description": "Secondary text that provides additional information about the group."
             },
             {
-              "name": "headingLevel",
-              "type": "'1' | '2' | '3' | '4' | '5' | '6'",
-              "defaultValue": "3",
-              "required": false,
-              "description": ""
+              "name": "variant",
+              "type": "'filled' | 'subtle'",
+              "defaultValue": "'subtle'",
+              "description": "`inline` descriptions are positioned beside primary text. `block` descriptions are positioned below primary text."
+            },
+            {
+              "name": "selectionVariant",
+              "type": "'single' | 'multiple' | false",
+              "defaultValue": "",
+              "description": "Set `selectionVariant` at the group level."
+            },
+            {
+              "name": "role",
+              "type": "AriaRole",
+              "defaultValue": "",
+              "description": "ARIA role describing the function of the list inside the group. `listbox` and `menu` are a common values."
+            },
+            {
+              "name": "sx",
+              "type": "SystemStyleObject"
             }
           ]
         }
@@ -885,6 +899,12 @@
           "description": "The content of the button."
         },
         {
+          "name": "count",
+          "required": true,
+          "type": "number | string",
+          "description": "For counter buttons, the number to display."
+        },
+        {
           "name": "variant",
           "type": "| 'default'\n| 'primary'\n| 'danger'\n| 'outline'\n| 'invisible'",
           "defaultValue": "'default'",
@@ -922,24 +942,7 @@
       "passthrough": {
         "element": "button",
         "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#attributes"
-      },
-      "subcomponents": [
-        {
-          "name": "Button.Counter",
-          "props": [
-            {
-              "name": "children",
-              "required": true,
-              "type": "number",
-              "description": "The counter value."
-            },
-            {
-              "name": "sx",
-              "type": "SystemStyleObject"
-            }
-          ]
-        }
-      ]
+      }
     },
     "icon_button": {
       "id": "icon_button",
@@ -1052,7 +1055,7 @@
         },
         {
           "name": "validationStatus",
-          "type": "'error' | 'success' | 'warning'",
+          "type": "'error' | 'success'",
           "defaultValue": "",
           "description": "Only used to inform ARIA attributes.<br /> Individual checkboxes do not have validation styles."
         },
@@ -1174,7 +1177,7 @@
             },
             {
               "name": "variant",
-              "type": "'error' | 'success' | 'warning'",
+              "type": "'error' | 'success'",
               "defaultValue": "",
               "required": true,
               "description": "Changes the visual style to match the validation status"
@@ -1652,80 +1655,6 @@
       ],
       "subcomponents": []
     },
-    "filter_list": {
-      "id": "filter_list",
-      "name": "FilterList",
-      "status": "alpha",
-      "a11yReviewed": false,
-      "stories": [
-        {
-          "id": "components-filterlist--default",
-          "code": "() => {\n  const [selectedIndex, setSelectedIndex] = useState(0)\n  return (\n    <FilterList>\n      <FilterList.Item\n        selected={selectedIndex === 0}\n        onClick={() => setSelectedIndex(0)}\n        count={32}\n      >\n        First Filter\n      </FilterList.Item>\n      <FilterList.Item\n        selected={selectedIndex === 1}\n        onClick={() => setSelectedIndex(1)}\n        count={16}\n      >\n        Second Filter\n      </FilterList.Item>\n      <FilterList.Item\n        selected={selectedIndex === 2}\n        onClick={() => setSelectedIndex(2)}\n      >\n        Third Filter\n      </FilterList.Item>\n    </FilterList>\n  )\n}"
-        }
-      ],
-      "props": [
-        {
-          "name": "sx",
-          "type": "SystemStyleObject"
-        }
-      ],
-      "subcomponents": [
-        {
-          "name": "FilterList.Item",
-          "props": [
-            {
-              "name": "count",
-              "type": "number",
-              "description": "Number to be displayed in the list item"
-            },
-            {
-              "name": "selected",
-              "type": "boolean",
-              "description": "Whether the list item is selected or not"
-            },
-            {
-              "name": "small",
-              "type": "boolean",
-              "defaultValue": "false",
-              "description": "Whether the list item is small or not"
-            },
-            {
-              "name": "as",
-              "type": "React.ElementType",
-              "defaultValue": "'a'"
-            },
-            {
-              "name": "sx",
-              "type": "SystemStyleObject"
-            }
-          ]
-        }
-      ]
-    },
-    "filtered_search": {
-      "id": "filtered_search",
-      "name": "FilteredSearch",
-      "status": "alpha",
-      "a11yReviewed": false,
-      "stories": [
-        {
-          "id": "components-filteredsearch--default",
-          "code": "() => (\n  <FilteredSearch>\n    <ActionMenu>\n      <ActionMenu.Button as=\"summary\">Filter</ActionMenu.Button>\n      <ActionMenu.Overlay>\n        <ActionList>\n          <ActionList.Item>Item 1</ActionList.Item>\n          <ActionList.Item>Item 2</ActionList.Item>\n          <ActionList.Item>Item 3</ActionList.Item>\n        </ActionList>\n      </ActionMenu.Overlay>\n    </ActionMenu>\n    <TextInput aria-label=\"filtered-search\" leadingVisual={SearchIcon} />\n  </FilteredSearch>\n)"
-        }
-      ],
-      "props": [
-        {
-          "name": "children",
-          "type": "React.ReactNode",
-          "description": "FilteredSearch is expected to contain an `ActionMenu` followed by a `TextInput`."
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject"
-        }
-      ],
-      "subcomponents": []
-    },
     "flash": {
       "id": "flash",
       "name": "Flash",
@@ -1855,7 +1784,7 @@
             },
             {
               "name": "variant",
-              "type": "'error' | 'success' | 'warning'",
+              "type": "'error' | 'success'",
               "defaultValue": "",
               "required": true,
               "description": "Changes the visual style to match the validation status"
@@ -2731,6 +2660,18 @@
           "name": "PageLayout.Content",
           "props": [
             {
+              "name": "aria-label",
+              "type": "string | undefined",
+              "defaultValue": "",
+              "description": "A unique label for the rendered main landmark"
+            },
+            {
+              "name": "aria-labelledby",
+              "type": "string | undefined",
+              "defaultValue": "",
+              "description": "An id to an element which uniquely labels the rendered main landmark"
+            },
+            {
               "name": "width",
               "type": "| 'full' | 'medium' | 'large' | 'xlarge'",
               "defaultValue": "'full'",
@@ -3305,7 +3246,7 @@
             },
             {
               "name": "variant",
-              "type": "'error' | 'success' | 'warning'",
+              "type": "'error' | 'success'",
               "defaultValue": "",
               "required": true,
               "description": "Changes the visual style to match the validation status"
@@ -3611,7 +3552,7 @@
         },
         {
           "name": "validationStatus",
-          "type": "'error' | 'success' | 'warning'",
+          "type": "'error' | 'success'",
           "defaultValue": "",
           "description": "Style the input to match the status"
         }
@@ -3626,7 +3567,7 @@
       "stories": [
         {
           "id": "components-selectpanel--default",
-          "code": "() => {\n  const [selected, setSelected] = React.useState<ItemInput[]>([\n    items[0],\n    items[1],\n  ])\n  const [filter, setFilter] = React.useState('')\n  const filteredItems = items.filter((item) =>\n    item.text.toLowerCase().startsWith(filter.toLowerCase()),\n  )\n  const [open, setOpen] = useState(false)\n  return (\n    <>\n      <h1>Multi Select Panel</h1>\n      <SelectPanel\n        title=\"Select labels\"\n        subtitle=\"Use labels to organize issues and pull requests\"\n        renderAnchor={({\n          children,\n          'aria-labelledby': ariaLabelledBy,\n          ...anchorProps\n        }) => (\n          <Button\n            trailingAction={TriangleDownIcon}\n            aria-labelledby={` ${ariaLabelledBy}`}\n            {...anchorProps}\n          >\n            {children ?? 'Select Labels'}\n          </Button>\n        )}\n        placeholderText=\"Filter labels\"\n        open={open}\n        onOpenChange={setOpen}\n        items={filteredItems}\n        selected={selected}\n        onSelectedChange={setSelected}\n        onFilterChange={setFilter}\n        showItemDividers={true}\n        overlayProps={{\n          width: 'medium',\n          height: 'medium',\n        }}\n      />\n    </>\n  )\n}"
+          "code": "() => {\n  const [selected, setSelected] = React.useState<ItemInput[]>([\n    items[0],\n    items[1],\n  ])\n  const [filter, setFilter] = React.useState('')\n  const filteredItems = items.filter((item) =>\n    item.text.toLowerCase().startsWith(filter.toLowerCase()),\n  )\n  const [open, setOpen] = useState(false)\n  return (\n    <>\n      <h1>Multi Select Panel</h1>\n      <SelectPanel\n        title=\"Select labels\"\n        subtitle=\"Use labels to organize issues and pull requests\"\n        renderAnchor={({\n          children,\n          'aria-labelledby': ariaLabelledBy,\n          ...anchorProps\n        }) => (\n          <Button\n            trailingAction={TriangleDownIcon}\n            aria-labelledby={` ${ariaLabelledBy}`}\n            {...anchorProps}\n          >\n            {children ?? 'Select Labels'}\n          </Button>\n        )}\n        placeholderText=\"Filter labels\"\n        open={open}\n        onOpenChange={setOpen}\n        items={filteredItems}\n        selected={selected}\n        onSelectedChange={setSelected}\n        onFilterChange={setFilter}\n        showItemDividers={true}\n        overlayProps={{\n          width: 'small',\n          height: 'xsmall',\n        }}\n      />\n    </>\n  )\n}"
         }
       ],
       "props": [
@@ -3728,7 +3669,7 @@
       "stories": [
         {
           "id": "components-splitpagelayout--default",
-          "code": "() => (\n  <SplitPageLayout>\n    <SplitPageLayout.Header>\n      <Placeholder label=\"Header\" height={100} />\n    </SplitPageLayout.Header>\n    <SplitPageLayout.Pane position=\"start\">\n      <Placeholder label=\"Pane\" height={400} />\n    </SplitPageLayout.Pane>\n    <SplitPageLayout.Content>\n      <Placeholder label=\"Content\" height={600} />\n    </SplitPageLayout.Content>\n    <SplitPageLayout.Footer>\n      <Placeholder label=\"Footer\" height={100} />\n    </SplitPageLayout.Footer>\n  </SplitPageLayout>\n)"
+          "code": "() => (\n  <SplitPageLayout>\n    <SplitPageLayout.Header>\n      <Placeholder label=\"Header\" height={100} />\n    </SplitPageLayout.Header>\n    <SplitPageLayout.Pane>\n      <Placeholder label=\"Pane\" height={400} />\n    </SplitPageLayout.Pane>\n    <SplitPageLayout.Content>\n      <Placeholder label=\"Content\" height={600} />\n    </SplitPageLayout.Content>\n    <SplitPageLayout.Footer>\n      <Placeholder label=\"Footer\" height={100} />\n    </SplitPageLayout.Footer>\n  </SplitPageLayout>\n)"
         }
       ],
       "props": [
@@ -4135,7 +4076,7 @@
         },
         {
           "name": "validationStatus",
-          "type": "'error' | 'success' | 'warning'",
+          "type": "'error' | 'success'",
           "defaultValue": "",
           "description": "Style the input to match the status"
         },
@@ -4291,7 +4232,7 @@
         },
         {
           "name": "validationStatus",
-          "type": "'error' | 'success' | 'warning'",
+          "type": "'error' | 'success'",
           "defaultValue": "",
           "description": "Style the input to match the status"
         },
@@ -5050,6 +4991,80 @@
           }
         }
       ]
+    },
+    "filter_list": {
+      "id": "filter_list",
+      "name": "FilterList",
+      "status": "deprecated",
+      "a11yReviewed": false,
+      "stories": [
+        {
+          "id": "components-filterlist--default",
+          "code": "() => {\n  const [selectedIndex, setSelectedIndex] = useState(0)\n  return (\n    <FilterList>\n      <FilterList.Item\n        selected={selectedIndex === 0}\n        onClick={() => setSelectedIndex(0)}\n        count={32}\n      >\n        First Filter\n      </FilterList.Item>\n      <FilterList.Item\n        selected={selectedIndex === 1}\n        onClick={() => setSelectedIndex(1)}\n        count={16}\n      >\n        Second Filter\n      </FilterList.Item>\n      <FilterList.Item\n        selected={selectedIndex === 2}\n        onClick={() => setSelectedIndex(2)}\n      >\n        Third Filter\n      </FilterList.Item>\n    </FilterList>\n  )\n}"
+        }
+      ],
+      "props": [
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ],
+      "subcomponents": [
+        {
+          "name": "FilterList.Item",
+          "props": [
+            {
+              "name": "count",
+              "type": "number",
+              "description": "Number to be displayed in the list item"
+            },
+            {
+              "name": "selected",
+              "type": "boolean",
+              "description": "Whether the list item is selected or not"
+            },
+            {
+              "name": "small",
+              "type": "boolean",
+              "defaultValue": "false",
+              "description": "Whether the list item is small or not"
+            },
+            {
+              "name": "as",
+              "type": "React.ElementType",
+              "defaultValue": "'a'"
+            },
+            {
+              "name": "sx",
+              "type": "SystemStyleObject"
+            }
+          ]
+        }
+      ]
+    },
+    "filtered_search": {
+      "id": "filtered_search",
+      "name": "FilteredSearch",
+      "status": "deprecated",
+      "a11yReviewed": false,
+      "stories": [
+        {
+          "id": "components-filteredsearch--default",
+          "code": "() => (\n  <FilteredSearch>\n    <ActionMenu>\n      <ActionMenu.Button as=\"summary\">Filter</ActionMenu.Button>\n      <ActionMenu.Overlay>\n        <ActionList>\n          <ActionList.Item>Item 1</ActionList.Item>\n          <ActionList.Item>Item 2</ActionList.Item>\n          <ActionList.Item>Item 3</ActionList.Item>\n        </ActionList>\n      </ActionMenu.Overlay>\n    </ActionMenu>\n    <TextInput aria-label=\"filtered-search\" leadingVisual={SearchIcon} />\n  </FilteredSearch>\n)"
+        }
+      ],
+      "props": [
+        {
+          "name": "children",
+          "type": "React.ReactNode",
+          "description": "FilteredSearch is expected to contain an `ActionMenu` followed by a `TextInput`."
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ],
+      "subcomponents": []
     },
     "drafts_button": {
       "id": "drafts_button",
