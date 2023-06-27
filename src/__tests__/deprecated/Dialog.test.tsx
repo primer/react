@@ -1,9 +1,9 @@
 import React, {useState, useRef} from 'react'
-import {Dialog, Box, Text} from '..'
-import {Button} from '../deprecated'
+import {Box, Text} from '../../'
+import {Dialog, Button} from '../../deprecated'
 import {render as HTMLRender, fireEvent} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
-import {behavesAsComponent, checkExports} from '../utils/testing'
+import {behavesAsComponent, checkExports} from '../../utils/testing'
 expect.extend(toHaveNoViolations)
 
 const comp = (
@@ -78,7 +78,7 @@ describe('Dialog', () => {
     options: {skipAs: true, skipSx: true},
   })
 
-  checkExports('Dialog', {
+  checkExports('deprecated/Dialog/Dialog', {
     default: Dialog,
   })
 

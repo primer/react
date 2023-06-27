@@ -70,8 +70,6 @@
       url: /CounterLabel
     - title: Details
       url: /Details
-    - title: Dialog
-      url: /Dialog
     - title: Flash
       url: /Flash
     - title: FormControl
@@ -182,6 +180,8 @@
       url: /deprecated/ChoiceFieldset
     - title: ChoiceInputField
       url: /deprecated/ChoiceInputField
+    - title: Dialog
+      url: /deprecated/Dialog
     - title: Dropdown
       url: /deprecated/Dropdown
     - title: DropdownMenu

@@ -61,6 +61,17 @@ exports[`Dialog renders consistently 1`] = `
   padding: 16px;
 }
 
+.c3 {
+  font-size: 14px;
+  font-weight: 600;
+  font-family: sans-serif;
+  color: #1F2328;
+}
+
+.c5 {
+  font-family: sans-serif;
+}
+
 .c1 {
   border: none;
   padding: 0;
@@ -79,17 +90,6 @@ exports[`Dialog renders consistently 1`] = `
 
 .c1:hover {
   color: #0969da;
-}
-
-.c3 {
-  font-size: 14px;
-  font-weight: 600;
-  font-family: sans-serif;
-  color: #1F2328;
-}
-
-.c5 {
-  font-family: sans-serif;
 }
 
 .c0 {

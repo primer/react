@@ -1,7 +1,7 @@
 {
   "id": "dialog",
   "name": "Dialog",
-  "status": "alpha",
+  "status": "deprecated",
   "a11yReviewed": false,
   "stories": [],
   "props": [
