@@ -14,9 +14,11 @@ import VisuallyHidden from '../_VisuallyHidden'
 import {ProgressBar} from '../ProgressBar'
 import Box from '../Box/Box'
 import {useSlots} from '../hooks/useSlots'
+import Flash, {FlashProps} from '../Flash/Flash'
 
-const FileUploadContext = React.createContext({
-  fileUploadId: '',
+const FileUploadContext = React.createContext<{fileUploadId?: string; fileStatusId?: string}>({
+  fileUploadId: undefined,
+  fileStatusId: undefined,
 })
 const FileInputBase = styled.input<SxProp>`
   ${visuallyHiddenStyles}
@@ -63,6 +65,14 @@ const FileUploadLabel = ({
   )
 }
 
+// TODO: aria-live="polite" or "assertive" on variant
+// style based on validation status?
+const FileUploadStatus = ({variant, ...rest}: React.PropsWithChildren<FlashProps>) => {
+  const {fileStatusId} = React.useContext(FileUploadContext)
+
+  return <Flash variant={variant} id={fileStatusId} {...rest} />
+}
+
 export type FileUploadItemProps = ComponentProps<typeof UploadItem> & {
   file: File
   progress: number
@@ -92,7 +102,7 @@ const FileUploadItem = ({file, progress, onRemove, ...rest}: React.PropsWithChil
 
 export type FileUploadProps = ComponentProps<typeof FileInputBase> & {
   buttonProps?: Omit<ComponentProps<typeof ButtonBase>, 'children'> & {children?: React.ReactNode}
-  _slotsConfig?: Record<'label', React.ElementType>
+  _slotsConfig?: Record<'label' | 'status', React.ElementType>
 }
 
 const FileUpload = ({
@@ -103,13 +113,17 @@ const FileUpload = ({
 }: React.PropsWithChildren<FileUploadProps>) => {
   const fileInputRef = React.useRef<HTMLInputElement>(null)
   const fileUploadId = useId()
+  const fileStatusId = useId()
 
-  const [slots, rest] = useSlots(children, slotsConfig ?? {label: FileUploadLabel})
+  const [slots, rest] = useSlots(children, slotsConfig ?? {label: FileUploadLabel, status: FileUploadStatus})
 
   return (
-    <FileUploadContext.Provider value={{fileUploadId}}>
-      {slots.label}
-      <FileInputBase {...restProps} id={fileUploadId} type="file" ref={fileInputRef} />
+    <FileUploadContext.Provider value={{fileUploadId, fileStatusId}}>
+      <Box display={'flex'} flexDirection={'column'}>
+        {slots.label}
+        {slots.status}
+      </Box>
+      <FileInputBase {...restProps} id={fileUploadId} aria-describedby={fileStatusId} type="file" ref={fileInputRef} />
       <ButtonBase
         {...buttonProps}
         type="button"
@@ -130,4 +144,5 @@ const FileUpload = ({
 export default Object.assign(FileUpload, {
   Label: FileUploadLabel,
   Item: FileUploadItem,
+  Status: FileUploadStatus,
 })

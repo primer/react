@@ -22,6 +22,9 @@ export const Default = () => {
   return (
     <FileUpload onChange={handleFileUpload}>
       <FileUpload.Label>Upload your files</FileUpload.Label>
+      <FileUpload.Status variant="danger">
+        Yowza, that’s a big file. Try again with a file smaller than 25MB.
+      </FileUpload.Status>
       {uploadedFile && (
         <FileUpload.Item
           key={uploadedFile.name}
@@ -131,7 +134,5 @@ export const Playground: Story<React.ComponentProps<typeof FileUpload>> = args =
 }
 
 Playground.args = {multiple: true}
-
-Playground.argTypes = {}
 
 export default meta
