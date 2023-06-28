@@ -50,8 +50,6 @@ FooterButton.displayName = 'MarkdownEditor.FooterButton'
 
 const DefaultFooterButtons = memo(() => {
   const {uploadButtonProps, fileDraggedOver} = useContext(MarkdownEditorContext)
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const {variant, ...uploadButtonPropsRest} = uploadButtonProps || {}
 
   return (
     <>
@@ -60,7 +58,7 @@ const DefaultFooterButtons = memo(() => {
       {uploadButtonProps && (
         <>
           <VisualSeparator />
-          <FileUploadButton fileDraggedOver={fileDraggedOver} {...uploadButtonPropsRest} />
+          <FileUploadButton fileDraggedOver={fileDraggedOver} {...uploadButtonProps} />
         </>
       )}
     </>
