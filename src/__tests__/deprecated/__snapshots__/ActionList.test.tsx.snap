@@ -144,7 +144,7 @@ exports[`ActionList.Item renders consistently 1`] = `
   display: -ms-flexbox;
   display: flex;
   border-radius: 6px;
-  color: #24292f;
+  color: #1F2328;
   -webkit-transition: background 33.333ms linear;
   transition: background 33.333ms linear;
   -webkit-text-decoration: none;

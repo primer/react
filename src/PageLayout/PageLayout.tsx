@@ -8,8 +8,8 @@ import {useSlots} from '../hooks/useSlots'
 import {BetterSystemStyleObject, merge, SxProp} from '../sx'
 import {Theme} from '../ThemeProvider'
 import {canUseDOM} from '../utils/environment'
-import {invariant} from '../utils/invariant'
-import {useOverflow} from '../utils/useOverflow'
+import {useOverflow} from '../internal/hooks/useOverflow'
+import {warning} from '../utils/warning'
 import VisuallyHidden from '../_VisuallyHidden'
 import {useStickyPaneHeight} from './useStickyPaneHeight'
 
@@ -53,7 +53,7 @@ export type PageLayoutProps = {
   columnGap?: keyof typeof SPACING_MAP
 
   /** Private prop to allow SplitPageLayout to customize slot components */
-  _slotsConfig?: Record<'header' | 'footer', React.ComponentType>
+  _slotsConfig?: Record<'header' | 'footer', React.ElementType>
 } & SxProp
 
 const containerWidths = {
@@ -482,10 +482,11 @@ export type PageLayoutPaneProps = {
    * position={{regular: 'start', narrow: 'end'}}
    * ```
    */
+  positionWhenNarrow?: 'inherit' | keyof typeof panePositions
   'aria-labelledby'?: string
   'aria-label'?: string
-  positionWhenNarrow?: 'inherit' | keyof typeof panePositions
   width?: keyof typeof paneWidths
+  minWidth?: number
   resizable?: boolean
   widthStorageKey?: string
   padding?: keyof typeof SPACING_MAP
@@ -532,6 +533,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
       position: responsivePosition = 'end',
       positionWhenNarrow = 'inherit',
       width = 'medium',
+      minWidth = 256,
       padding = 'none',
       resizable = false,
       widthStorageKey = 'paneWidth',
@@ -603,7 +605,6 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
     const paneRef = React.useRef<HTMLDivElement>(null)
     useRefObjectAsForwardedRef(forwardRef, paneRef)
 
-    const MIN_PANE_WIDTH = 256 // 256px, related to `--pane-min-width CSS var.
     const [minPercent, setMinPercent] = React.useState(0)
     const [maxPercent, setMaxPercent] = React.useState(0)
     const hasOverflow = useOverflow(paneRef)
@@ -618,7 +619,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
         const viewportWidth = window.innerWidth
         const maxPaneWidth = viewportWidth > maxPaneWidthDiff ? viewportWidth - maxPaneWidthDiff : viewportWidth
 
-        const minPercent = Math.round((100 * MIN_PANE_WIDTH) / viewportWidth)
+        const minPercent = Math.round((100 * minWidth) / viewportWidth)
         setMinPercent(minPercent)
 
         const maxPercent = Math.round((100 * maxPaneWidth) / viewportWidth)
@@ -627,7 +628,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
         const widthPercent = Math.round((100 * paneWidth) / viewportWidth)
         setWidthPercent(widthPercent.toString())
       }
-    }, [paneRef])
+    }, [paneRef, minWidth])
 
     const [widthPercent, setWidthPercent] = React.useState('')
     const [prevPercent, setPrevPercent] = React.useState('')
@@ -652,13 +653,19 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
 
     const paneId = useId(id)
 
-    let labelProp = undefined
+    const labelProp: {'aria-labelledby'?: string; 'aria-label'?: string} = {}
     if (hasOverflow) {
-      invariant(label !== undefined || labelledBy !== undefined)
+      warning(
+        label === undefined && labelledBy === undefined,
+        'The <PageLayout.Pane> has overflow and `aria-label` or `aria-labelledby` has not been set. ' +
+          'Please provide `aria-label` or `aria-labelledby` to <PageLayout.Pane> in order to label this ' +
+          'region.',
+      )
+
       if (labelledBy) {
-        labelProp = {'aria-labelledby': labelledBy}
-      } else {
-        labelProp = {'aria-label': label}
+        labelProp['aria-labelledby'] = labelledBy
+      } else if (label) {
+        labelProp['aria-label'] = label
       }
     }
 
@@ -736,7 +743,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
             '--pane-width': `${paneWidth}px`,
           }}
           sx={(theme: Theme) => ({
-            '--pane-min-width': `256px`,
+            '--pane-min-width': `${minWidth}px`,
             '--pane-max-width-diff': '511px',
             '--pane-max-width': `calc(100vw - var(--pane-max-width-diff))`,
             width: resizable
@@ -756,7 +763,6 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
           {resizable && (
             <VisuallyHidden>
               <form onSubmit={handleWidthFormSubmit}>
-                {/* eslint-disable-next-line jsx-a11y/label-has-for */}
                 <label htmlFor={`${paneId}-width-input`}>Pane width</label>
                 <p id={`${paneId}-input-hint`}>
                   Use a value between {minPercent}% and {maxPercent}%

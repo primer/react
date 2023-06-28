@@ -25,8 +25,8 @@ exports[`DropdownMenu renders consistently 1`] = `
   font-size: 14px;
   color: #24292f;
   background-color: #f6f8fa;
-  border: 1px solid rgba(27,31,36,0.15);
-  box-shadow: 0 1px 0 rgba(27,31,36,0.04),inset 0 1px 0 rgba(255,255,255,0.25);
+  border: 1px solid rgba(31,35,40,0.15);
+  box-shadow: 0 1px 0 rgba(31,35,40,0.04),inset 0 1px 0 rgba(255,255,255,0.25);
 }
 
 .c0:hover {
@@ -48,7 +48,7 @@ exports[`DropdownMenu renders consistently 1`] = `
 
 .c0:hover {
   background-color: #f3f4f6;
-  border-color: rgba(27,31,36,0.15);
+  border-color: rgba(31,35,40,0.15);
 }
 
 .c0:focus {
@@ -62,7 +62,7 @@ exports[`DropdownMenu renders consistently 1`] = `
 .c0:disabled {
   color: #8c959f;
   background-color: #f6f8fa;
-  border-color: rgba(27,31,36,0.15);
+  border-color: rgba(31,35,40,0.15);
 }
 
 .c1 {

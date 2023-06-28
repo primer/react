@@ -2,7 +2,7 @@
 componentId: action_menu
 title: ActionMenu
 status: Beta
-a11yReviewed: true
+a11yReviewed: false
 source: https://github.com/primer/react/tree/main/src/ActionMenu.tsx
 storybook: '/react/storybook?path=/story/components-actionmenu'
 description: An ActionMenu is an ActionList-based component for creating a menu of actions that expands through a trigger button.
@@ -222,7 +222,7 @@ To create an anchor outside of the menu, you need to switch to controlled mode f
 ```javascript live noinline
 const Example = () => {
   const [open, setOpen] = React.useState(false)
-  const anchorRef = React.createRef()
+  const anchorRef = React.useRef(null)
 
   return (
     <>

@@ -41,6 +41,7 @@ export {useFocusZone} from './hooks/useFocusZone'
 export type {FocusZoneHookSettings} from './hooks/useFocusZone'
 export {useRefObjectAsForwardedRef} from './hooks/useRefObjectAsForwardedRef'
 export {useResizeObserver} from './hooks/useResizeObserver'
+export {useResponsiveValue} from './hooks/useResponsiveValue'
 
 // Components
 export {default as Radio} from './Radio'
@@ -116,6 +117,8 @@ export type {
   NavListTrailingVisualProps,
   NavListDividerProps,
 } from './NavList'
+export {default as Octicon} from './Octicon'
+export type {OcticonProps} from './Octicon'
 export {default as Overlay} from './Overlay'
 export type {OverlayProps} from './Overlay'
 export {default as Pagehead} from './Pagehead'
@@ -128,7 +131,7 @@ export {default as Popover} from './Popover'
 export type {PopoverProps, PopoverContentProps} from './Popover'
 export {default as Portal, registerPortalRoot} from './Portal'
 export type {PortalProps} from './Portal'
-export {default as ProgressBar} from './ProgressBar'
+export {ProgressBar} from './ProgressBar'
 export type {ProgressBarProps} from './ProgressBar'
 export {default as RadioGroup} from './RadioGroup'
 export type {RelativeTimeProps} from './RelativeTime'
