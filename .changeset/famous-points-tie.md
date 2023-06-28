@@ -4,4 +4,4 @@
 
 test summary
 
-<!-- Changed components: Dialog, AvatarStack, Checkbox, Label, Octicon, RelativeTime -->
+<!-- Changed components: Dialog, AvatarStack, Checkbox, Label, Octicon, RelativeTime, Invalid -->
