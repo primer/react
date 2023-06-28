@@ -51,6 +51,10 @@ FooterButton.displayName = 'MarkdownEditor.FooterButton'
 const DefaultFooterButtons = memo(() => {
   const {uploadButtonProps, fileDraggedOver} = useContext(MarkdownEditorContext)
 
+  // Removing the variant prop from the upload button because it's causing a mysterious type error
+  // in the "size" check in CI. The variant prop is not used by the upload button anyway.
+  delete uploadButtonProps?.variant
+
   return (
     <>
       <MarkdownSupportedHint />
