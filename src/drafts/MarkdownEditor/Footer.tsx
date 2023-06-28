@@ -50,10 +50,8 @@ FooterButton.displayName = 'MarkdownEditor.FooterButton'
 
 const DefaultFooterButtons = memo(() => {
   const {uploadButtonProps, fileDraggedOver} = useContext(MarkdownEditorContext)
-
-  // Removing the variant prop from the upload button because it's causing a mysterious type error
-  // in the "size" check in CI. The variant prop is not used by the upload button anyway.
-  delete uploadButtonProps?.variant
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const {variant, ...uploadButtonPropsRest} = uploadButtonProps || {}
 
   return (
     <>
@@ -62,7 +60,7 @@ const DefaultFooterButtons = memo(() => {
       {uploadButtonProps && (
         <>
           <VisualSeparator />
-          <FileUploadButton fileDraggedOver={fileDraggedOver} {...uploadButtonProps} />
+          <FileUploadButton fileDraggedOver={fileDraggedOver} {...uploadButtonPropsRest} />
         </>
       )}
     </>
