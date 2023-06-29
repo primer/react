@@ -4,22 +4,53 @@ import styled from 'styled-components'
 import {get} from '../constants'
 import Box from '../Box'
 import sx, {SxProp} from '../sx'
+import {AvatarProps, DEFAULT_AVATAR_SIZE} from '../Avatar/Avatar'
 
 type StyledAvatarStackWrapperProps = {
   count?: number
 } & SxProp
 
+const findSmallestNumber = (numbers: number[]): number => {
+  let smallestNumber = numbers[0]
+  for (let i = 1; i < numbers.length; i++) {
+    if (numbers[i] < smallestNumber) {
+      smallestNumber = numbers[i]
+    }
+  }
+  return smallestNumber
+}
+
 const AvatarStackWrapper = styled.span<StyledAvatarStackWrapperProps>`
+  --avatar-border-width: 1px;
+  --avatar-two-margin: calc(var(--avatar-size) * -0.55);
+  --avatar-three-margin: calc(var(--avatar-size) * -0.85);
+
+  // this calc explained:
+  // 1. avatar size + the non-overlapping part of the second avatar
+  // 2. + the non-overlapping part of the second and third avatar
+  // 3. + the border widths of all previous avatars
+  --avatar-stack-three-plus-min-width: calc(
+    var(--avatar-size) +
+      calc(
+        calc(var(--avatar-size) + var(--avatar-two-margin)) + calc(var(--avatar-size) + var(--avatar-three-margin)) * 2
+      ) + calc(var(--avatar-border-width) * 3)
+  );
   display: flex;
   position: relative;
-  height: 20px;
-  min-width: ${props => (props.count === 1 ? '20px' : props.count === 2 ? '30px' : '38px')};
+  height: var(--avatar-size);
+  min-width: ${props => (props.count === 1 ? 'var(--avatar-size)' : props.count === 2 ? '30px' : '38px')};
+
+  .pc-AvatarStackBody {
+    display: flex;
+    position: absolute;
+    width: var(--avatar-stack-three-plus-min-width);
+  }
 
   .pc-AvatarItem {
     flex-shrink: 0;
-    height: 20px;
-    width: 20px;
-    box-shadow: 0 0 0 1px ${get('colors.canvas.default')};
+    height: var(--avatar-size);
+    width: var(--avatar-size);
+    box-shadow: 0 0 0 var(--avatar-border-width) ${get('colors.canvas.default')};
     position: relative;
     overflow: hidden;
     transition: margin 0.2s ease-in-out, opacity 0.2s ease-in-out, visibility 0.2s ease-in-out,
@@ -31,12 +62,12 @@ const AvatarStackWrapper = styled.span<StyledAvatarStackWrapperProps>`
     }
 
     &:nth-child(n + 2) {
-      margin-left: -11px;
+      margin-left: var(--avatar-two-margin);
       z-index: 9;
     }
 
     &:nth-child(n + 3) {
-      margin-left: -17px;
+      margin-left: var(--avatar-three-margin);
       opacity: ${100 - 3 * 15}%;
       z-index: 8;
     }
@@ -58,11 +89,16 @@ const AvatarStackWrapper = styled.span<StyledAvatarStackWrapperProps>`
   }
 
   &.pc-AvatarStack--two {
-    min-width: 30px;
+    // this calc explained:
+    // 1. avatar size + the non-overlapping part of the second avatar
+    // 2. + the border widths of the first two avatars
+    min-width: calc(
+      var(--avatar-size) + calc(var(--avatar-size) + var(--avatar-two-margin)) + var(--avatar-border-width)
+    );
   }
 
   &.pc-AvatarStack--three-plus {
-    min-width: 38px;
+    min-width: var(--avatar-stack-three-plus-min-width);
   }
 
   &.pc-AvatarStack--right {
@@ -75,11 +111,11 @@ const AvatarStackWrapper = styled.span<StyledAvatarStackWrapperProps>`
       }
 
       &:nth-child(n + 2) {
-        margin-right: -11px;
+        margin-right: var(--avatar-two-margin);
       }
 
       &:nth-child(n + 3) {
-        margin-right: -17px;
+        margin-right: var(--avatar-three-margin);
       }
     }
 
@@ -128,10 +164,17 @@ const transformChildren = (children: React.ReactNode) => {
 export type AvatarStackProps = {
   alignRight?: boolean
   disableExpand?: boolean
+  size?: number
   children: React.ReactNode
 } & SxProp
 
-const AvatarStack = ({children, alignRight, disableExpand, sx: sxProp}: AvatarStackProps) => {
+const AvatarStack = ({
+  children,
+  alignRight,
+  disableExpand,
+  size = DEFAULT_AVATAR_SIZE,
+  sx: sxProp,
+}: AvatarStackProps) => {
   const count = React.Children.count(children)
   const wrapperClassNames = classnames({
     'pc-AvatarStack--two': count === 2,
@@ -141,11 +184,21 @@ const AvatarStack = ({children, alignRight, disableExpand, sx: sxProp}: AvatarSt
   const bodyClassNames = classnames('pc-AvatarStackBody', {
     'pc-AvatarStack--disableExpand': disableExpand,
   })
+
+  const avatarSizes = React.Children.map(children, child => {
+    if (!React.isValidElement<AvatarProps>(child)) return size
+
+    return child.props.size ? child.props.size : size
+  })
+
   return (
-    <AvatarStackWrapper count={count} className={wrapperClassNames} sx={sxProp}>
-      <Box position="absolute" display="flex" width="38px" className={bodyClassNames}>
-        {transformChildren(children)}
-      </Box>
+    <AvatarStackWrapper
+      count={count}
+      className={wrapperClassNames}
+      sx={sxProp}
+      style={{'--avatar-size': `${findSmallestNumber(avatarSizes || [])}px`} as React.CSSProperties}
+    >
+      <Box className={bodyClassNames}> {transformChildren(children)}</Box>
     </AvatarStackWrapper>
   )
 }

@@ -4,6 +4,8 @@ import {get} from '../constants'
 import sx, {SxProp} from '../sx'
 import {ComponentProps} from '../utils/types'
 
+export const DEFAULT_AVATAR_SIZE = 20
+
 type StyledAvatarProps = {
   /** Sets the width and height of the avatar. */
   size?: number
@@ -39,7 +41,7 @@ const StyledAvatar = styled.img.attrs<StyledAvatarProps>(props => ({
 export type AvatarProps = ComponentProps<typeof StyledAvatar>
 
 const Avatar = React.forwardRef<HTMLImageElement, AvatarProps>(function Avatar(
-  {alt = '', size = 20, square = false, ...rest},
+  {alt = '', size = DEFAULT_AVATAR_SIZE, square = false, ...rest},
   ref,
 ) {
   return <StyledAvatar ref={ref} alt={alt} size={size} square={square} {...rest} />
