@@ -19,7 +19,8 @@ Please ensure these items are checked before merging.
 
 ### 🤔 Sanity test
 
-- [ ] All bugfixes in this release have resolved their corrosponding issues
+- [ ] All bugfixes in this release have resolved their corresponding issues
+- [ ] Reverted PRs' issues have been re-opened and commented on with a link to the reverted PR
 - [ ] No noticeable regressions have not been introduced as a result of changes in this release
 - [ ] Release notes accurately describe the changes made
 
