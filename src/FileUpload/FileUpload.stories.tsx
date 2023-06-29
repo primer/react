@@ -22,6 +22,7 @@ export const Default = () => {
   return (
     <FileUpload onChange={handleFileUpload}>
       <FileUpload.Label>Upload your files</FileUpload.Label>
+      <FileUpload.Description>Max. size: 25MB; accepted file types: .jpg and .png</FileUpload.Description>
       <FileUpload.Status variant="danger">
         Yowza, that’s a big file. Try again with a file smaller than 25MB.
       </FileUpload.Status>
@@ -30,7 +31,7 @@ export const Default = () => {
           key={uploadedFile.name}
           file={uploadedFile}
           progress={fileProgress()}
-          onRemove={e => {
+          onRemove={() => {
             setUploadedFile(undefined)
           }}
         />
@@ -59,7 +60,7 @@ export const Multiple = () => {
           key={file.name}
           file={file}
           progress={fileProgress()}
-          onRemove={e => {
+          onRemove={() => {
             setUploadedFiles(() => {
               return uploadedFiles.filter(cur => {
                 return file.name !== cur.name
@@ -91,7 +92,7 @@ export const StyledButton = () => {
           key={uploadedFile.name}
           file={uploadedFile}
           progress={100}
-          onRemove={e => {
+          onRemove={() => {
             setUploadedFile(undefined)
           }}
         />
@@ -120,7 +121,7 @@ export const Playground: Story<React.ComponentProps<typeof FileUpload>> = args =
           key={file.name}
           file={file}
           progress={fileProgress()}
-          onRemove={e => {
+          onRemove={() => {
             setUploadedFiles(() => {
               return uploadedFiles.filter(cur => {
                 return file.name !== cur.name

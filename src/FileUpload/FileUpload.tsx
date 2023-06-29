@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import {XIcon} from '@primer/octicons-react'
+import {XIcon, UploadIcon} from '@primer/octicons-react'
 import {ComponentProps} from '../utils/types'
 import {useId} from '../hooks/useId'
 import sx, {SxProp} from '../sx'
@@ -65,6 +65,12 @@ const FileUploadLabel = ({
   )
 }
 
+export type FileUploadDescriptionTextProps = SxProp & React.HTMLProps<HTMLLabelElement>
+
+const FileUploadDescriptionText = ({children}: React.PropsWithChildren<FileUploadDescriptionTextProps>) => {
+  return <Text>{children}</Text>
+}
+
 // TODO: aria-live="polite" or "assertive" on variant
 // style based on validation status?
 const FileUploadStatus = ({variant, ...rest}: React.PropsWithChildren<FlashProps>) => {
@@ -102,7 +108,7 @@ const FileUploadItem = ({file, progress, onRemove, ...rest}: React.PropsWithChil
 
 export type FileUploadProps = ComponentProps<typeof FileInputBase> & {
   buttonProps?: Omit<ComponentProps<typeof ButtonBase>, 'children'> & {children?: React.ReactNode}
-  _slotsConfig?: Record<'label' | 'status', React.ElementType>
+  _slotsConfig?: Record<'label' | 'status' | 'description', React.ElementType>
 }
 
 const FileUpload = ({
@@ -115,13 +121,16 @@ const FileUpload = ({
   const fileUploadId = useId()
   const fileStatusId = useId()
 
-  const [slots, rest] = useSlots(children, slotsConfig ?? {label: FileUploadLabel, status: FileUploadStatus})
+  const [slots, rest] = useSlots(
+    children,
+    slotsConfig ?? {label: FileUploadLabel, description: FileUploadDescriptionText, status: FileUploadStatus},
+  )
 
   return (
     <FileUploadContext.Provider value={{fileUploadId, fileStatusId}}>
       <Box display={'flex'} flexDirection={'column'}>
         {slots.label}
-        {slots.status}
+        {slots.description}
       </Box>
       <FileInputBase {...restProps} id={fileUploadId} aria-describedby={fileStatusId} type="file" ref={fileInputRef} />
       <ButtonBase
@@ -134,9 +143,11 @@ const FileUpload = ({
           buttonProps?.onClick?.(e)
         }}
       >
+        <UploadIcon size={16} />
         {buttonProps?.children ?? 'Upload File'}
       </ButtonBase>
-      {rest.length ? <UploadList aria-label="uploaded files...">{rest}</UploadList> : null}
+      {slots.status}
+      {rest.length ? <UploadList aria-label="Uploaded files">{rest}</UploadList> : null}
     </FileUploadContext.Provider>
   )
 }
