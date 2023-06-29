@@ -5,7 +5,7 @@ import {render as HTMLRender} from '@testing-library/react'
 import {axe} from 'jest-axe'
 
 describe('Link', () => {
-  behavesAsComponent({Component: Link, options: {skipAs: true}})
+  behavesAsComponent({Component: Link})
 
   checkExports('Link', {
     default: Link,
@@ -29,11 +29,24 @@ describe('Link', () => {
     expect(render(<Link sx={{fontStyle: 'italic'}} />)).toHaveStyleRule('font-style', 'italic')
   })
 
+  it('applies button styles when rendering a button element', () => {
+    expect(render(<Link as="button" />)).toMatchSnapshot()
+  })
+
   it('respects the "muted" prop', () => {
     expect(render(<Link muted />)).toMatchSnapshot()
   })
 
   it('respects the  "sx" prop when "muted" prop is also passed', () => {
     expect(render(<Link muted sx={{color: 'fg.onEmphasis'}} />)).toMatchSnapshot()
+  })
+
+  it('logs a warning when trying to render invalid "as" prop', () => {
+    const consoleSpy = jest.spyOn(global.console, 'error').mockImplementation()
+
+    HTMLRender(<Link as="i" />)
+    expect(consoleSpy).toHaveBeenCalled()
+
+    consoleSpy.mockRestore()
   })
 })
