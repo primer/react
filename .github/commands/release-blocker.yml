@@ -2,6 +2,8 @@
 trigger: release-blocker
 title: Release Blocker
 description: Describe the issue(s) preventing a release from being published
+surfaces:
+  - issue
 steps:
   - type: form
     style: embedded
@@ -11,6 +13,21 @@ steps:
           id: blocker-description
           label: Description
           placeholder: Describe the issue that prevents the release from being published.
+
+      - type: dropdown
+        attributes:
+          id: blocker-type
+          label: Type
+          options:
+            - 'Component or type removed'
+            - 'Type incompatability'
+            - 'Other'
+
+      - type: input
+        id: other
+        attributes:
+          label: Other
+          description: 'Provide a custom blocker type if other was used above'
 
       - type: textarea
         attributes:
