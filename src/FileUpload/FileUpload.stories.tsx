@@ -23,14 +23,43 @@ export const Default = () => {
     <FileUpload onChange={handleFileUpload}>
       <FileUpload.Label>Upload your files</FileUpload.Label>
       <FileUpload.Description>Max. size: 25MB; accepted file types: .jpg and .png</FileUpload.Description>
-      <FileUpload.Status variant="danger">
+      {/* <FileUpload.Status variant="danger">
         Yowza, that’s a big file. Try again with a file smaller than 25MB.
-      </FileUpload.Status>
+      </FileUpload.Status> */}
       {uploadedFile && (
         <FileUpload.Item
           key={uploadedFile.name}
           file={uploadedFile}
           progress={fileProgress()}
+          onRemove={() => {
+            setUploadedFile(undefined)
+          }}
+        />
+      )}
+    </FileUpload>
+  )
+}
+
+export const SingleFileSuccessfullyUploaded = () => {
+  const [uploadedFile, setUploadedFile] = React.useState<File | undefined>(undefined)
+  const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const files = event.target.files
+
+    if (files) {
+      const fileList = Array.from(files)
+      setUploadedFile(fileList[0])
+    }
+  }
+
+  return (
+    <FileUpload onChange={handleFileUpload}>
+      <FileUpload.Label>Upload your files</FileUpload.Label>
+      <FileUpload.Description>Max. size: 25MB; accepted file types: .jpg and .png</FileUpload.Description>
+      {uploadedFile && (
+        <FileUpload.Item
+          key={uploadedFile.name}
+          file={uploadedFile}
+          progress={100}
           onRemove={() => {
             setUploadedFile(undefined)
           }}

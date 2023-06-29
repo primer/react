@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import {XIcon, UploadIcon} from '@primer/octicons-react'
+import {XIcon, UploadIcon, FileIcon} from '@primer/octicons-react'
 import {ComponentProps} from '../utils/types'
 import {useId} from '../hooks/useId'
 import sx, {SxProp} from '../sx'
@@ -14,9 +14,10 @@ import VisuallyHidden from '../_VisuallyHidden'
 import {ProgressBar} from '../ProgressBar'
 import Box from '../Box/Box'
 import {useSlots} from '../hooks/useSlots'
-import Flash, {FlashProps} from '../Flash/Flash'
+import Flash from '../Flash/Flash'
 
-const FileUploadContext = React.createContext<{fileUploadId?: string; fileStatusId?: string}>({
+const FileUploadContext = React.createContext<{fileUploadId?: string; fileStatusId?: string; fileName?: string}>({
+  fileName: undefined,
   fileUploadId: undefined,
   fileStatusId: undefined,
 })
@@ -65,18 +66,46 @@ const FileUploadLabel = ({
   )
 }
 
-export type FileUploadDescriptionTextProps = SxProp & React.HTMLProps<HTMLLabelElement>
+export type FileUploadDescriptionTextProps = SxProp & React.HTMLProps<HTMLParagraphElement>
 
 const FileUploadDescriptionText = ({children}: React.PropsWithChildren<FileUploadDescriptionTextProps>) => {
   return <Text>{children}</Text>
 }
 
+export type FileUploadStatusProps = {
+  status: 'unsupported' | 'error' | 'success'
+} & SxProp
+
 // TODO: aria-live="polite" or "assertive" on variant
 // style based on validation status?
-const FileUploadStatus = ({variant, ...rest}: React.PropsWithChildren<FlashProps>) => {
+const FileUploadStatus = ({status, ...rest}: React.PropsWithChildren<FileUploadStatusProps>) => {
   const {fileStatusId} = React.useContext(FileUploadContext)
+  // TODO: Use the context provider to get the file name
+  // const {fileName} = React.useContext(fileName)
+  const fileName = 'test file name'
 
-  return <Flash variant={variant} id={fileStatusId} {...rest} />
+  if (status === 'unsupported') {
+    return (
+      <Flash variant="danger" id={fileStatusId} {...rest}>
+        {fileName} not supported. Upload a different file.
+      </Flash>
+    )
+  } else if (status === 'error') {
+    return (
+      <Flash variant="danger" id={fileStatusId} {...rest}>
+        {fileName} could not be added. Please refresh.
+      </Flash>
+    )
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+  } else if (status === 'success') {
+    return (
+      <Flash variant="success" id={fileStatusId} {...rest}>
+        {fileName} successfully added!
+      </Flash>
+    )
+  } else {
+    return null
+  }
 }
 
 export type FileUploadItemProps = ComponentProps<typeof UploadItem> & {
@@ -91,7 +120,9 @@ const FileUploadItem = ({file, progress, onRemove, ...rest}: React.PropsWithChil
   return (
     <UploadItem {...rest}>
       <Box display={'flex'} justifyContent={'space-between'} marginBottom={'8px'}>
+        <FileIcon size={16} />
         <Text>{fileName}</Text>
+        {progress < 100 ? <Text>{Math.ceil(progress)}% complete</Text> : null}
         <IconButton
           aria-label={`remove ${fileName}`}
           icon={XIcon}
@@ -108,7 +139,7 @@ const FileUploadItem = ({file, progress, onRemove, ...rest}: React.PropsWithChil
 
 export type FileUploadProps = ComponentProps<typeof FileInputBase> & {
   buttonProps?: Omit<ComponentProps<typeof ButtonBase>, 'children'> & {children?: React.ReactNode}
-  _slotsConfig?: Record<'label' | 'status' | 'description', React.ElementType>
+  _slotsConfig?: Record<'label' | 'description', React.ElementType>
 }
 
 const FileUpload = ({
@@ -123,7 +154,7 @@ const FileUpload = ({
 
   const [slots, rest] = useSlots(
     children,
-    slotsConfig ?? {label: FileUploadLabel, description: FileUploadDescriptionText, status: FileUploadStatus},
+    slotsConfig ?? {label: FileUploadLabel, description: FileUploadDescriptionText},
   )
 
   return (
@@ -146,14 +177,15 @@ const FileUpload = ({
         <UploadIcon size={16} />
         {buttonProps?.children ?? 'Upload File'}
       </ButtonBase>
-      {slots.status}
+      {/* TODO: only display if there is a status */}
+      <FileUploadStatus status="success" />
       {rest.length ? <UploadList aria-label="Uploaded files">{rest}</UploadList> : null}
     </FileUploadContext.Provider>
   )
 }
 
 export default Object.assign(FileUpload, {
+  Description: FileUploadDescriptionText,
   Label: FileUploadLabel,
   Item: FileUploadItem,
-  Status: FileUploadStatus,
 })
