@@ -23,15 +23,45 @@ export const Default = () => {
     <FileUpload onChange={handleFileUpload}>
       <FileUpload.Label>Upload your files</FileUpload.Label>
       <FileUpload.Description>Max. size: 25MB; accepted file types: .jpg and .png</FileUpload.Description>
-      {/* <FileUpload.Status variant="danger">
+      <FileUpload.Status status="error">
         Yowza, that’s a big file. Try again with a file smaller than 25MB.
-      </FileUpload.Status> */}
+      </FileUpload.Status>
       {uploadedFile && (
         <FileUpload.Item
           key={uploadedFile.name}
           file={uploadedFile}
           progress={fileProgress()}
-          onRemove={() => {
+          onClick={() => {
+            setUploadedFile(undefined)
+          }}
+        />
+      )}
+    </FileUpload>
+  )
+}
+
+export const SingleFileInProgress = () => {
+  const fileProgress = () => Math.random() * 100
+  const [uploadedFile, setUploadedFile] = React.useState<File | undefined>(undefined)
+  const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const files = event.target.files
+
+    if (files) {
+      const fileList = Array.from(files)
+      setUploadedFile(fileList[0])
+    }
+  }
+
+  return (
+    <FileUpload onChange={handleFileUpload}>
+      <FileUpload.Label>Upload your files</FileUpload.Label>
+      <FileUpload.Description>Max. size: 25MB; accepted file types: .jpg and .png</FileUpload.Description>
+      {uploadedFile && (
+        <FileUpload.Item
+          key={uploadedFile.name}
+          file={uploadedFile}
+          progress={fileProgress()}
+          onClick={() => {
             setUploadedFile(undefined)
           }}
         />
@@ -55,12 +85,16 @@ export const SingleFileSuccessfullyUploaded = () => {
     <FileUpload onChange={handleFileUpload}>
       <FileUpload.Label>Upload your files</FileUpload.Label>
       <FileUpload.Description>Max. size: 25MB; accepted file types: .jpg and .png</FileUpload.Description>
+      <FileUpload.Status status="success">
+        Yowza, that’s a big file. Try again with a file smaller than 25MB.
+      </FileUpload.Status>
       {uploadedFile && (
         <FileUpload.Item
           key={uploadedFile.name}
           file={uploadedFile}
+          status={'success'}
           progress={100}
-          onRemove={() => {
+          onClick={() => {
             setUploadedFile(undefined)
           }}
         />
@@ -69,38 +103,72 @@ export const SingleFileSuccessfullyUploaded = () => {
   )
 }
 
-export const Multiple = () => {
+export const SingleFileWithError = () => {
   const fileProgress = () => Math.random() * 100
-  const [uploadedFiles, setUploadedFiles] = React.useState<File[]>([])
+  const [uploadedFile, setUploadedFile] = React.useState<File | undefined>(undefined)
   const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files
 
     if (files) {
       const fileList = Array.from(files)
-      setUploadedFiles(fileList)
+      setUploadedFile(fileList[0])
     }
   }
 
   return (
-    <FileUpload multiple onChange={handleFileUpload}>
+    <FileUpload onChange={handleFileUpload}>
       <FileUpload.Label>Upload your files</FileUpload.Label>
-      {uploadedFiles.map(file => (
+      <FileUpload.Description>Max. size: 25MB; accepted file types: .jpg and .png</FileUpload.Description>
+      <FileUpload.Status status="error">
+        Yowza, that’s a big file. Try again with a file smaller than 25MB.
+      </FileUpload.Status>
+      {uploadedFile && (
         <FileUpload.Item
-          key={file.name}
-          file={file}
-          progress={fileProgress()}
-          onRemove={() => {
-            setUploadedFiles(() => {
-              return uploadedFiles.filter(cur => {
-                return file.name !== cur.name
-              })
-            })
+          key={uploadedFile.name}
+          file={uploadedFile}
+          status={'error'}
+          progress={100}
+          onClick={() => {
+            setUploadedFile(undefined)
           }}
         />
-      ))}
+      )}
     </FileUpload>
   )
 }
+
+// export const Multiple = () => {
+//   const fileProgress = () => Math.random() * 100
+//   const [uploadedFiles, setUploadedFiles] = React.useState<File[]>([])
+//   const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+//     const files = event.target.files
+
+//     if (files) {
+//       const fileList = Array.from(files)
+//       setUploadedFiles(fileList)
+//     }
+//   }
+
+//   return (
+//     <FileUpload multiple onChange={handleFileUpload}>
+//       <FileUpload.Label>Upload your files</FileUpload.Label>
+//       {uploadedFiles.map(file => (
+//         <FileUpload.Item
+//           key={file.name}
+//           file={file}
+//           progress={fileProgress()}
+//           onRemove={() => {
+//             setUploadedFiles(() => {
+//               return uploadedFiles.filter(cur => {
+//                 return file.name !== cur.name
+//               })
+//             })
+//           }}
+//         />
+//       ))}
+//     </FileUpload>
+//   )
+// }
 
 export const StyledButton = () => {
   const [uploadedFile, setUploadedFile] = React.useState<File | undefined>(undefined)
@@ -121,7 +189,7 @@ export const StyledButton = () => {
           key={uploadedFile.name}
           file={uploadedFile}
           progress={100}
-          onRemove={() => {
+          onClick={() => {
             setUploadedFile(undefined)
           }}
         />
@@ -150,7 +218,7 @@ export const Playground: Story<React.ComponentProps<typeof FileUpload>> = args =
           key={file.name}
           file={file}
           progress={fileProgress()}
-          onRemove={() => {
+          onClick={() => {
             setUploadedFiles(() => {
               return uploadedFiles.filter(cur => {
                 return file.name !== cur.name
