@@ -81,7 +81,7 @@ const FileUploadButton = memo(({fileDraggedOver, ...props}: Partial<ButtonProps>
   return (
     <Button
       variant="invisible"
-      leadingIcon={ImageIcon}
+      leadingVisual={ImageIcon}
       size="small"
       sx={{color: 'fg.default', fontWeight: fileDraggedOver ? 'bold' : 'normal', px: 2}}
       onMouseDown={(e: React.MouseEvent) => {
