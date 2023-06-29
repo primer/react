@@ -56,7 +56,7 @@ For a full list of releases, visit our [releases](https://github.com/primer/reac
 
 semver bump: **minor**
 
-When a type is broadeded, it is now possible for that type to include both the
+When a type is broadened, it is now possible for that type to include both the
 existing value and additional values. As a result, this maintains backwards
 compatability while providing new functionality to the library.
 
