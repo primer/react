@@ -99,7 +99,7 @@ const AvatarStackWrapper = styled.span<StyledAvatarStackWrapperProps>`
     }
   }
 
-  .pc-AvatarStackBody:hover {
+  .pc-AvatarStackBody:not(.pc-AvatarStack--disableExpand):hover {
     width: auto;
 
     .pc-AvatarItem {
@@ -127,19 +127,23 @@ const transformChildren = (children: React.ReactNode) => {
 
 export type AvatarStackProps = {
   alignRight?: boolean
+  disableExpand?: boolean
   children: React.ReactNode
 } & SxProp
 
-const AvatarStack = ({children, alignRight, sx: sxProp}: AvatarStackProps) => {
+const AvatarStack = ({children, alignRight, disableExpand, sx: sxProp}: AvatarStackProps) => {
   const count = React.Children.count(children)
   const wrapperClassNames = classnames({
     'pc-AvatarStack--two': count === 2,
     'pc-AvatarStack--three-plus': count > 2,
     'pc-AvatarStack--right': alignRight,
   })
+  const bodyClassNames = classnames('pc-AvatarStackBody', {
+    'pc-AvatarStack--disableExpand': disableExpand,
+  })
   return (
     <AvatarStackWrapper count={count} className={wrapperClassNames} sx={sxProp}>
-      <Box position="absolute" display="flex" width="38px" className="pc-AvatarStackBody">
+      <Box position="absolute" display="flex" width="38px" className={bodyClassNames}>
         {transformChildren(children)}
       </Box>
     </AvatarStackWrapper>
