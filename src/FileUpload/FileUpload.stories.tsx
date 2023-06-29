@@ -1,6 +1,6 @@
 import React from 'react'
 import {Meta, Story} from '@storybook/react'
-import FileUpload from './FileUpload'
+import FileUpload, {FileUploadItemProps} from './FileUpload'
 
 const meta: Meta<typeof FileUpload> = {
   title: 'Components/FileUpload',
@@ -8,7 +8,6 @@ const meta: Meta<typeof FileUpload> = {
 }
 
 export const Default = () => {
-  const fileProgress = () => Math.random() * 100
   const [uploadedFile, setUploadedFile] = React.useState<File | undefined>(undefined)
   const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files
@@ -18,24 +17,22 @@ export const Default = () => {
       setUploadedFile(fileList[0])
     }
   }
-
+  const progress = Math.random() * 100
   return (
     <FileUpload onChange={handleFileUpload}>
       <FileUpload.Label>Upload your files</FileUpload.Label>
       <FileUpload.Description>Max. size: 25MB; accepted file types: .jpg and .png</FileUpload.Description>
-      <FileUpload.Status status="error">
-        Yowza, that’s a big file. Try again with a file smaller than 25MB.
-      </FileUpload.Status>
       {uploadedFile && (
         <FileUpload.Item
           key={uploadedFile.name}
           file={uploadedFile}
-          progress={fileProgress()}
+          progress={progress}
           onClick={() => {
             setUploadedFile(undefined)
           }}
         />
       )}
+      {progress === 100 ? <FileUpload.Status status="success">1 file successfully added!</FileUpload.Status> : null}
     </FileUpload>
   )
 }
@@ -85,26 +82,25 @@ export const SingleFileSuccessfullyUploaded = () => {
     <FileUpload onChange={handleFileUpload}>
       <FileUpload.Label>Upload your files</FileUpload.Label>
       <FileUpload.Description>Max. size: 25MB; accepted file types: .jpg and .png</FileUpload.Description>
-      <FileUpload.Status status="success">
-        Yowza, that’s a big file. Try again with a file smaller than 25MB.
-      </FileUpload.Status>
       {uploadedFile && (
-        <FileUpload.Item
-          key={uploadedFile.name}
-          file={uploadedFile}
-          status={'success'}
-          progress={100}
-          onClick={() => {
-            setUploadedFile(undefined)
-          }}
-        />
+        <>
+          <FileUpload.Status status="success">1 file successfully added!</FileUpload.Status>
+          <FileUpload.Item
+            key={uploadedFile.name}
+            file={uploadedFile}
+            status={'success'}
+            progress={100}
+            onClick={() => {
+              setUploadedFile(undefined)
+            }}
+          />
+        </>
       )}
     </FileUpload>
   )
 }
 
 export const SingleFileWithError = () => {
-  const fileProgress = () => Math.random() * 100
   const [uploadedFile, setUploadedFile] = React.useState<File | undefined>(undefined)
   const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files
@@ -119,58 +115,26 @@ export const SingleFileWithError = () => {
     <FileUpload onChange={handleFileUpload}>
       <FileUpload.Label>Upload your files</FileUpload.Label>
       <FileUpload.Description>Max. size: 25MB; accepted file types: .jpg and .png</FileUpload.Description>
-      <FileUpload.Status status="error">
-        Yowza, that’s a big file. Try again with a file smaller than 25MB.
-      </FileUpload.Status>
       {uploadedFile && (
-        <FileUpload.Item
-          key={uploadedFile.name}
-          file={uploadedFile}
-          status={'error'}
-          progress={100}
-          onClick={() => {
-            setUploadedFile(undefined)
-          }}
-        />
+        <>
+          <FileUpload.Status status="error">{uploadedFile.name} could not be added. Please refresh.</FileUpload.Status>
+          <FileUpload.Item
+            key={uploadedFile.name}
+            file={uploadedFile}
+            status={'error'}
+            progress={100}
+            onClick={() => {
+              setUploadedFile(undefined)
+            }}
+          />
+        </>
       )}
     </FileUpload>
   )
 }
 
-// export const Multiple = () => {
-//   const fileProgress = () => Math.random() * 100
-//   const [uploadedFiles, setUploadedFiles] = React.useState<File[]>([])
-//   const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-//     const files = event.target.files
-
-//     if (files) {
-//       const fileList = Array.from(files)
-//       setUploadedFiles(fileList)
-//     }
-//   }
-
-//   return (
-//     <FileUpload multiple onChange={handleFileUpload}>
-//       <FileUpload.Label>Upload your files</FileUpload.Label>
-//       {uploadedFiles.map(file => (
-//         <FileUpload.Item
-//           key={file.name}
-//           file={file}
-//           progress={fileProgress()}
-//           onRemove={() => {
-//             setUploadedFiles(() => {
-//               return uploadedFiles.filter(cur => {
-//                 return file.name !== cur.name
-//               })
-//             })
-//           }}
-//         />
-//       ))}
-//     </FileUpload>
-//   )
-// }
-
-export const StyledButton = () => {
+export const Playground: Story<React.ComponentProps<typeof FileUpload>> = args => {
+  const progress = Math.random() * 100
   const [uploadedFile, setUploadedFile] = React.useState<File | undefined>(undefined)
   const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files
@@ -182,55 +146,51 @@ export const StyledButton = () => {
   }
 
   return (
-    <FileUpload buttonProps={{variant: 'invisible', children: 'Upload stuff!'}} onChange={handleFileUpload}>
+    <FileUpload onChange={handleFileUpload} {...args}>
       <FileUpload.Label>Upload your files</FileUpload.Label>
+      <FileUpload.Description>Max. size: 25MB; accepted file types: .jpg and .png</FileUpload.Description>
       {uploadedFile && (
-        <FileUpload.Item
-          key={uploadedFile.name}
-          file={uploadedFile}
-          progress={100}
-          onClick={() => {
-            setUploadedFile(undefined)
-          }}
-        />
+        <>
+          <FileUpload.Item
+            key={uploadedFile.name}
+            file={uploadedFile}
+            progress={progress}
+            onClick={() => {
+              setUploadedFile(undefined)
+            }}
+          />
+          {progress === 100 ? <FileUpload.Status status="success">1 file successfully added!</FileUpload.Status> : null}
+        </>
       )}
     </FileUpload>
   )
 }
 
-export const Playground: Story<React.ComponentProps<typeof FileUpload>> = args => {
-  const fileProgress = () => Math.random() * 100
-  const [uploadedFiles, setUploadedFiles] = React.useState<File[]>([])
-  const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const files = event.target.files
+Playground.args = {accept: '.jpg,.png'}
 
-    if (files) {
-      const fileList = Array.from(files)
-      setUploadedFiles(fileList)
-    }
-  }
+export const FileUploadItem = (args: FileUploadItemProps) => {
+  const {progress} = args
 
   return (
-    <FileUpload onChange={handleFileUpload} {...args}>
-      <FileUpload.Label>Upload your files</FileUpload.Label>
-      {uploadedFiles.map(file => (
-        <FileUpload.Item
-          key={file.name}
-          file={file}
-          progress={fileProgress()}
-          onClick={() => {
-            setUploadedFiles(() => {
-              return uploadedFiles.filter(cur => {
-                return file.name !== cur.name
-              })
-            })
-          }}
-        />
-      ))}
-    </FileUpload>
+    <FileUpload.Item
+      key={'file/name'}
+      file={new File([''], 'src/cat.jpg', {type: 'text/plain'})}
+      progress={progress}
+      onClick={() => {
+        alert('clicked')
+      }}
+      status={progress === 100 ? args.status || 'success' : undefined}
+    />
   )
 }
-
-Playground.args = {multiple: true}
+FileUploadItem.args = {progress: 50, status: undefined}
+FileUploadItem.argTypes = {
+  status: {
+    control: {
+      type: 'radio',
+    },
+    options: ['success', 'error', undefined],
+  },
+}
 
 export default meta

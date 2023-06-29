@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import {XIcon, UploadIcon, FileIcon, SyncIcon} from '@primer/octicons-react'
+import {XIcon, UploadIcon, FileIcon, SyncIcon, StopIcon, CheckIcon} from '@primer/octicons-react'
 import {ComponentProps} from '../utils/types'
 import {useId} from '../hooks/useId'
 import sx, {SxProp} from '../sx'
@@ -34,14 +34,17 @@ const ButtonBase = styled(Button)`
   ${sx}
 `
 
-const UploadList = styled.ul`
+const ListContainer = styled.ul`
   padding-inline: 0;
+  margin: 0;
 `
-const UploadItem = styled.li`
+
+const ListItem = styled.li<SxProp>`
   list-style: none;
   display: flex;
   flex-direction: column;
   margin-bottom: 8px;
+  ${sx};
 `
 
 export type FileUploadLabelProps = {
@@ -57,7 +60,7 @@ const FileUploadLabel = ({
   const {fileUploadId} = React.useContext(FileUploadContext)
 
   return (
-    <VisuallyHidden isVisible={!visuallyHidden}>
+    <VisuallyHidden isVisible={!visuallyHidden} sx={{fontSize: 2, fontWeight: 3}}>
       <label htmlFor={fileUploadId} {...rest}>
         {children}
       </label>
@@ -70,7 +73,11 @@ export type FileUploadDescriptionTextProps = SxProp & React.HTMLProps<HTMLSpanEl
 const FileUploadDescriptionText = ({children}: React.PropsWithChildren<FileUploadDescriptionTextProps>) => {
   const {fileDescriptionId} = React.useContext(FileUploadContext)
 
-  return <Text id={fileDescriptionId}>{children}</Text>
+  return (
+    <Text fontSize={1} id={fileDescriptionId}>
+      {children}
+    </Text>
+  )
 }
 
 export type Status = 'error' | 'success'
@@ -80,13 +87,29 @@ export type FileUploadStatusProps = {
 } & SxProp &
   Omit<FlashProps, 'variant'>
 
-// TODO: aria-live="polite" or "assertive" on variant
-// style based on validation status?
-const FileUploadStatus = ({status, ...rest}: React.PropsWithChildren<FileUploadStatusProps>) => {
-  return <Flash variant={status === 'success' ? 'success' : 'danger'} {...rest} />
+// TODO: aria-live="polite" or "assertive" on variant?
+const FileUploadStatus = ({status, children, ...rest}: React.PropsWithChildren<FileUploadStatusProps>) => {
+  const isSuccess = status === 'success'
+  return (
+    // TODO: do we need to add an aria-labelledby here?
+    <ListItem>
+      <Flash variant={isSuccess ? 'success' : 'danger'} {...rest}>
+        <Box
+          as={Text}
+          alignItems={'center'}
+          display={'flex'}
+          fontSize={2}
+          sx={isSuccess ? {} : {'&>svg': {fill: 'danger.fg'}}}
+        >
+          {isSuccess ? <CheckIcon size={16} /> : <StopIcon size={16} />}
+          {children}
+        </Box>
+      </Flash>
+    </ListItem>
+  )
 }
 
-export type FileUploadItemProps = ComponentProps<typeof UploadItem> & {
+export type FileUploadItemProps = ComponentProps<typeof ListItem> & {
   file: File
   progress: number
   status?: Status
@@ -95,14 +118,23 @@ export type FileUploadItemProps = ComponentProps<typeof UploadItem> & {
 
 const FileUploadItem = ({file, progress, status, onClick, ...rest}: React.PropsWithChildren<FileUploadItemProps>) => {
   const {name: fileName} = file
+  const inProgress = progress < 100 && status !== 'error'
 
   return (
-    <UploadItem {...rest}>
-      <Box display={'flex'} justifyContent={'space-between'} marginBottom={'8px'}>
-        <FileIcon size={16} />
-        <Text>{fileName}</Text>
-        {progress < 100 && status !== 'error' ? (
-          <Text>{Math.ceil(progress)}% complete</Text>
+    <ListItem {...rest} sx={{marginBottom: '8px', position: 'relative'}}>
+      <Box
+        display={'grid'}
+        alignItems={'center'}
+        gridTemplateColumns={'1fr max-content'}
+        sx={{gap: 2, borderRadius: 2, padding: 2, borderColor: 'border.muted'}}
+        border={'2px solid'}
+      >
+        <Box display={'flex'} alignItems={'center'} sx={{gap: 2}}>
+          <FileIcon size={24} />
+          <Text sx={{fontSize: 2, wordBreak: 'break-word'}}>{fileName}</Text>
+        </Box>
+        {inProgress ? (
+          <Text sx={{fontSize: 2}}>{Math.ceil(progress)}% complete</Text>
         ) : (
           status && (
             <IconButton
@@ -113,9 +145,23 @@ const FileUploadItem = ({file, progress, status, onClick, ...rest}: React.PropsW
           )
         )}
       </Box>
-      {/*  typically determine upload progress by */}
-      <ProgressBar progress={progress} barSize={'default'} inline bg={'success.emphasis'} />
-    </UploadItem>
+      {inProgress ? (
+        <ProgressBar
+          progress={progress}
+          barSize={'default'}
+          bg={'accent.fg'}
+          inline
+          sx={{
+            // TODO figure out if we can sub `3px` for `borderRadius.2`
+            borderRadius: '0 0 3px 3px',
+            height: '4px',
+            position: 'absolute',
+            bottom: '0',
+            width: '100%',
+          }}
+        />
+      ) : null}
+    </ListItem>
   )
 }
 
@@ -141,7 +187,7 @@ const FileUpload = ({
 
   return (
     <FileUploadContext.Provider value={{fileUploadId, fileDescriptionId}}>
-      <Box display={'flex'} flexDirection={'column'}>
+      <Box display={'flex'} flexDirection={'column'} sx={{gap: 1, marginBottom: 2}}>
         {slots.label}
         {slots.description}
       </Box>
@@ -155,18 +201,21 @@ const FileUpload = ({
       <ButtonBase
         {...buttonProps}
         type="button"
-        aria-hidden
+        aria-hidden={true}
         tabIndex={-1}
         onClick={e => {
           fileInputRef.current?.click()
           buttonProps?.onClick?.(e)
         }}
+        sx={{marginBottom: 2}}
       >
         <UploadIcon size={16} />
         {buttonProps?.children ?? 'Upload File'}
       </ButtonBase>
-      {slots.status}
-      {rest.length ? <UploadList aria-label="Selected files">{rest}</UploadList> : null}
+      <Box display={'flex'} flexDirection="column" sx={{gap: 2}}>
+        {slots.status ? <ListContainer aria-label="notifications">{slots.status}</ListContainer> : null}
+        {rest.length ? <ListContainer aria-label="Selected files">{rest}</ListContainer> : null}
+      </Box>
     </FileUploadContext.Provider>
   )
 }
