@@ -84,6 +84,7 @@ module.exports = {
     'github/no-inner-html': 'off',
     'github/role-supports-aria-props': 'off',
     'no-restricted-syntax': 'off',
+    'import/no-namespace': ['error', {ignore: ['*.module.css']}],
   },
   overrides: [
     // rules which apply only to JS
