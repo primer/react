@@ -87,11 +87,9 @@ export type FileUploadStatusProps = {
 } & SxProp &
   Omit<FlashProps, 'variant'>
 
-// TODO: aria-live="polite" or "assertive" on variant?
 const FileUploadStatus = ({status, children, ...rest}: React.PropsWithChildren<FileUploadStatusProps>) => {
   const isSuccess = status === 'success'
   return (
-    // TODO: do we need to add an aria-labelledby here?
     <ListItem>
       <Flash variant={isSuccess ? 'success' : 'danger'} {...rest}>
         <Box
@@ -152,8 +150,7 @@ const FileUploadItem = ({file, progress, status, onClick, ...rest}: React.PropsW
           bg={'accent.fg'}
           inline
           sx={{
-            // TODO figure out if we can sub `3px` for `borderRadius.2`
-            borderRadius: '0 0 3px 3px',
+            borderRadius: '0 0 var(--borderRadius-small) var(--borderRadius-small)',
             height: '4px',
             position: 'absolute',
             bottom: '0',
@@ -213,7 +210,7 @@ const FileUpload = ({
         {buttonProps?.children ?? 'Upload File'}
       </ButtonBase>
       <Box display={'flex'} flexDirection="column" sx={{gap: 2}}>
-        {slots.status ? <ListContainer aria-label="notifications">{slots.status}</ListContainer> : null}
+        {slots.status ? <ListContainer aria-label="Notifications">{slots.status}</ListContainer> : null}
         {rest.length ? <ListContainer aria-label="Selected files">{rest}</ListContainer> : null}
       </Box>
     </FileUploadContext.Provider>
