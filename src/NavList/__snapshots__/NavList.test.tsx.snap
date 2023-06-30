@@ -206,10 +206,26 @@ exports[`NavList renders a simple list 1`] = `
   color: inherit;
 }
 
-.c3:hover,
-.c3:focus {
+.c3:hover {
   -webkit-text-decoration: underline;
   text-decoration: underline;
+}
+
+.c3:is(button) {
+  display: inline-block;
+  padding: 0;
+  font-size: inherit;
+  white-space: nowrap;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  background-color: transparent;
+  border: 0;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
 }
 
 .c3:hover {
@@ -587,10 +603,26 @@ exports[`NavList renders with groups 1`] = `
   color: inherit;
 }
 
-.c7:hover,
-.c7:focus {
+.c7:hover {
   -webkit-text-decoration: underline;
   text-decoration: underline;
+}
+
+.c7:is(button) {
+  display: inline-block;
+  padding: 0;
+  font-size: inherit;
+  white-space: nowrap;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  background-color: transparent;
+  border: 0;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
 }
 
 .c7:hover {
@@ -1049,10 +1081,26 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   font-weight: 400;
 }
 
-.c11:hover,
-.c11:focus {
+.c11:hover {
   -webkit-text-decoration: underline;
   text-decoration: underline;
+}
+
+.c11:is(button) {
+  display: inline-block;
+  padding: 0;
+  font-size: inherit;
+  white-space: nowrap;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  background-color: transparent;
+  border: 0;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
 }
 
 .c11:hover {
@@ -1506,10 +1554,26 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   font-weight: 400;
 }
 
-.c11:hover,
-.c11:focus {
+.c11:hover {
   -webkit-text-decoration: underline;
   text-decoration: underline;
+}
+
+.c11:is(button) {
+  display: inline-block;
+  padding: 0;
+  font-size: inherit;
+  white-space: nowrap;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  background-color: transparent;
+  border: 0;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
 }
 
 .c11:hover {
