@@ -18,8 +18,11 @@ steps:
         attributes:
           id: blocker-type
           label: Type
+          description: Specify the type(s) of changes that prevent the release from being published.
+          multiple: true
           options:
-            - 'Component or type removed'
+            - 'Component removed'
+            - 'Type removed'
             - 'Type incompatability'
             - 'Other'
 
