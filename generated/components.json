@@ -698,6 +698,18 @@
           "description": "Align the avatars to the right"
         },
         {
+          "name": "disableExpand",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "Do not spread the avatars on hover"
+        },
+        {
+          "name": "size",
+          "type": "number",
+          "defaultValue": "20",
+          "description": "The size of the avatar children in pixels."
+        },
+        {
           "name": "sx",
           "type": "SystemStyleObject"
         }
