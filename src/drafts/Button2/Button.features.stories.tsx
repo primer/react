@@ -1,6 +1,6 @@
 import {EyeIcon, TriangleDownIcon, HeartIcon} from '@primer/octicons-react'
 import React, {useState} from 'react'
-import {Button} from '.'
+import {Button2 as Button} from '.'
 
 export default {
   title: 'Drafts/Components/Button/Features',
