@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {forwardRef} from 'react'
 import styled from 'styled-components'
 import {XIcon, UploadIcon, FileIcon, SyncIcon, StopIcon, CheckIcon} from '@primer/octicons-react'
 import {ComponentProps} from '../utils/types'
@@ -15,6 +15,7 @@ import {ProgressBar} from '../ProgressBar'
 import Box from '../Box/Box'
 import {useSlots} from '../hooks/useSlots'
 import Flash, {FlashProps} from '../Flash/Flash'
+import {useRefObjectAsForwardedRef} from '../hooks'
 
 const FileUploadContext = React.createContext<{fileUploadId?: string; fileDescriptionId?: string}>({
   fileUploadId: undefined,
@@ -43,7 +44,6 @@ const ListItem = styled.li<SxProp>`
   list-style: none;
   display: flex;
   flex-direction: column;
-  margin-bottom: 8px;
   ${sx};
 `
 
@@ -90,36 +90,43 @@ export type FileUploadStatusProps = {
 const FileUploadStatus = ({status, children, ...rest}: React.PropsWithChildren<FileUploadStatusProps>) => {
   const isSuccess = status === 'success'
   return (
-    <ListItem>
-      <Flash variant={isSuccess ? 'success' : 'danger'} {...rest}>
-        <Box
-          as={Text}
-          alignItems={'center'}
-          display={'flex'}
-          fontSize={2}
-          sx={isSuccess ? {} : {'&>svg': {fill: 'danger.fg'}}}
-        >
-          {isSuccess ? <CheckIcon size={16} /> : <StopIcon size={16} />}
-          {children}
-        </Box>
-      </Flash>
-    </ListItem>
+    <Flash variant={isSuccess ? 'success' : 'danger'} sx={{marginBottom: 2}} {...rest}>
+      <Box
+        as={Text}
+        alignItems={'center'}
+        display={'flex'}
+        fontSize={2}
+        sx={isSuccess ? {} : {'&>svg': {fill: 'danger.fg'}}}
+      >
+        {isSuccess ? <CheckIcon size={16} /> : <StopIcon size={16} />}
+        {children}
+      </Box>
+    </Flash>
   )
 }
 
 export type FileUploadItemProps = ComponentProps<typeof ListItem> & {
   file: File
   progress: number
+  progressBarRef?: React.RefObject<HTMLSpanElement>
   status?: Status
   onClick: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
 } & SxProp
 
-const FileUploadItem = ({file, progress, status, onClick, ...rest}: React.PropsWithChildren<FileUploadItemProps>) => {
+const FileUploadItem = ({
+  file,
+  progress,
+  status,
+  onClick,
+  progressBarRef,
+  ...rest
+}: React.PropsWithChildren<FileUploadItemProps>) => {
   const {name: fileName} = file
+  const fileNameId = useId()
   const inProgress = progress < 100 && status !== 'error'
 
   return (
-    <ListItem {...rest} sx={{marginBottom: '8px', position: 'relative'}}>
+    <ListItem {...rest} sx={{marginBottom: 2, position: 'relative'}}>
       <Box
         display={'grid'}
         alignItems={'center'}
@@ -129,10 +136,14 @@ const FileUploadItem = ({file, progress, status, onClick, ...rest}: React.PropsW
       >
         <Box display={'flex'} alignItems={'center'} sx={{gap: 2}}>
           <FileIcon size={24} />
-          <Text sx={{fontSize: 2, wordBreak: 'break-word'}}>{fileName}</Text>
+          <Text sx={{fontSize: 2, wordBreak: 'break-word'}} id={fileNameId}>
+            {fileName}
+          </Text>
         </Box>
         {inProgress ? (
-          <Text sx={{fontSize: 2}}>{Math.ceil(progress)}% complete</Text>
+          <Text aria-hidden sx={{fontSize: 2}}>
+            {Math.ceil(progress)}% complete
+          </Text>
         ) : (
           status && (
             <IconButton
@@ -145,8 +156,11 @@ const FileUploadItem = ({file, progress, status, onClick, ...rest}: React.PropsW
       </Box>
       {inProgress ? (
         <ProgressBar
+          ref={progressBarRef}
+          tabIndex={-1}
           progress={progress}
           barSize={'default'}
+          aria-labelledby={fileNameId}
           bg={'accent.fg'}
           inline
           sx={{
@@ -167,55 +181,59 @@ export type FileUploadProps = ComponentProps<typeof FileInputBase> & {
   _slotsConfig?: Record<'label' | 'description' | 'status', React.ElementType>
 }
 
-const FileUpload = ({
-  children,
-  buttonProps,
-  _slotsConfig: slotsConfig,
-  ...restProps
-}: React.PropsWithChildren<FileUploadProps>) => {
-  const fileInputRef = React.useRef<HTMLInputElement>(null)
-  const fileUploadId = useId()
-  const fileDescriptionId = useId()
+const FileUpload = React.forwardRef(
+  (
+    {children, buttonProps, _slotsConfig: slotsConfig, ...restProps}: React.PropsWithChildren<FileUploadProps>,
+    forwardedRef,
+  ) => {
+    const fileInputRef = React.useRef<HTMLInputElement>(null)
+    useRefObjectAsForwardedRef(forwardedRef, fileInputRef)
 
-  const [slots, rest] = useSlots(
-    children,
-    slotsConfig ?? {label: FileUploadLabel, description: FileUploadDescriptionText, status: FileUploadStatus},
-  )
+    const fileUploadId = useId()
+    const fileDescriptionId = useId()
 
-  return (
-    <FileUploadContext.Provider value={{fileUploadId, fileDescriptionId}}>
-      <Box display={'flex'} flexDirection={'column'} sx={{gap: 1, marginBottom: 2}}>
-        {slots.label}
-        {slots.description}
-      </Box>
-      <FileInputBase
-        {...restProps}
-        id={fileUploadId}
-        aria-describedby={fileDescriptionId}
-        type="file"
-        ref={fileInputRef}
-      />
-      <ButtonBase
-        {...buttonProps}
-        type="button"
-        aria-hidden={true}
-        tabIndex={-1}
-        onClick={e => {
-          fileInputRef.current?.click()
-          buttonProps?.onClick?.(e)
-        }}
-        sx={{marginBottom: 2}}
-      >
-        <UploadIcon size={16} />
-        {buttonProps?.children ?? 'Upload File'}
-      </ButtonBase>
-      <Box display={'flex'} flexDirection="column" sx={{gap: 2}}>
-        {slots.status ? <ListContainer aria-label="Notifications">{slots.status}</ListContainer> : null}
-        {rest.length ? <ListContainer aria-label="Selected files">{rest}</ListContainer> : null}
-      </Box>
-    </FileUploadContext.Provider>
-  )
-}
+    const [slots, rest] = useSlots(
+      children,
+      slotsConfig ?? {label: FileUploadLabel, description: FileUploadDescriptionText, status: FileUploadStatus},
+    )
+
+    console.log(slots.status)
+
+    return (
+      <FileUploadContext.Provider value={{fileUploadId, fileDescriptionId}}>
+        <Box display={'flex'} flexDirection={'column'} sx={{gap: 1, marginBottom: 2}}>
+          {slots.label}
+          {slots.description}
+        </Box>
+        <FileInputBase
+          {...restProps}
+          id={fileUploadId}
+          aria-describedby={fileDescriptionId}
+          type="file"
+          ref={fileInputRef}
+        />
+        <ButtonBase
+          {...buttonProps}
+          type="button"
+          aria-hidden={true}
+          tabIndex={-1}
+          onClick={e => {
+            fileInputRef.current?.click()
+            buttonProps?.onClick?.(e)
+          }}
+          sx={{marginBottom: 2}}
+        >
+          <UploadIcon size={16} />
+          {buttonProps?.children ?? 'Upload File'}
+        </ButtonBase>
+        <Box display={'flex'} flexDirection="column" sx={{gap: 2}}>
+          {slots.status}
+          {rest.length ? <ListContainer aria-label="Selected files">{rest}</ListContainer> : null}
+        </Box>
+      </FileUploadContext.Provider>
+    )
+  },
+)
 
 export default Object.assign(FileUpload, {
   Label: FileUploadLabel,

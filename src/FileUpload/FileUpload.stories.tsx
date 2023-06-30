@@ -9,6 +9,9 @@ const meta: Meta<typeof FileUpload> = {
 
 export const Default = () => {
   const [uploadedFile, setUploadedFile] = React.useState<File | undefined>(undefined)
+  const inputRef = React.useRef<HTMLInputElement>(null)
+  const progressBarRef = React.useRef<HTMLSpanElement>(null)
+
   const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files
 
@@ -17,13 +20,19 @@ export const Default = () => {
       setUploadedFile(fileList[0])
     }
   }
+
+  React.useEffect(() => {
+    progressBarRef.current?.focus()
+  }, [uploadedFile])
+
   const progress = Math.random() * 100
   return (
-    <FileUpload onChange={handleFileUpload}>
+    <FileUpload ref={inputRef} onChange={handleFileUpload} accept={'.jpg,.png'}>
       <FileUpload.Label>Upload your files</FileUpload.Label>
       <FileUpload.Description>Max. size: 25MB; accepted file types: .jpg and .png</FileUpload.Description>
       {uploadedFile && (
         <FileUpload.Item
+          progressBarRef={progressBarRef}
           key={uploadedFile.name}
           file={uploadedFile}
           progress={progress}
@@ -40,6 +49,7 @@ export const Default = () => {
 export const SingleFileInProgress = () => {
   const fileProgress = () => Math.random() * 100
   const [uploadedFile, setUploadedFile] = React.useState<File | undefined>(undefined)
+  const progressBarRef = React.useRef<HTMLSpanElement>(null)
   const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files
 
@@ -49,12 +59,17 @@ export const SingleFileInProgress = () => {
     }
   }
 
+  React.useEffect(() => {
+    progressBarRef.current?.focus()
+  }, [uploadedFile])
+
   return (
     <FileUpload onChange={handleFileUpload}>
       <FileUpload.Label>Upload your files</FileUpload.Label>
-      <FileUpload.Description>Max. size: 25MB; accepted file types: .jpg and .png</FileUpload.Description>
+      <FileUpload.Description>Max. size: 25MB</FileUpload.Description>
       {uploadedFile && (
         <FileUpload.Item
+          progressBarRef={progressBarRef}
           key={uploadedFile.name}
           file={uploadedFile}
           progress={fileProgress()}
@@ -69,6 +84,7 @@ export const SingleFileInProgress = () => {
 
 export const SingleFileSuccessfullyUploaded = () => {
   const [uploadedFile, setUploadedFile] = React.useState<File | undefined>(undefined)
+  const inputRef = React.useRef<HTMLInputElement>(null)
   const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files
 
@@ -79,22 +95,21 @@ export const SingleFileSuccessfullyUploaded = () => {
   }
 
   return (
-    <FileUpload onChange={handleFileUpload}>
+    <FileUpload ref={inputRef} onChange={handleFileUpload}>
       <FileUpload.Label>Upload your files</FileUpload.Label>
-      <FileUpload.Description>Max. size: 25MB; accepted file types: .jpg and .png</FileUpload.Description>
+      <FileUpload.Description>Max. size: 25MB</FileUpload.Description>
+      {uploadedFile && <FileUpload.Status status="success">1 file successfully added!</FileUpload.Status>}
       {uploadedFile && (
-        <>
-          <FileUpload.Status status="success">1 file successfully added!</FileUpload.Status>
-          <FileUpload.Item
-            key={uploadedFile.name}
-            file={uploadedFile}
-            status={'success'}
-            progress={100}
-            onClick={() => {
-              setUploadedFile(undefined)
-            }}
-          />
-        </>
+        <FileUpload.Item
+          key={uploadedFile.name}
+          file={uploadedFile}
+          status={'success'}
+          progress={100}
+          onClick={() => {
+            setUploadedFile(undefined)
+            inputRef.current?.focus()
+          }}
+        />
       )}
     </FileUpload>
   )
@@ -102,6 +117,8 @@ export const SingleFileSuccessfullyUploaded = () => {
 
 export const SingleFileWithError = () => {
   const [uploadedFile, setUploadedFile] = React.useState<File | undefined>(undefined)
+  const progressBarRef = React.useRef<HTMLSpanElement>(null)
+  const [progress, setProgress] = React.useState<number>(100)
   const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files
 
@@ -111,23 +128,30 @@ export const SingleFileWithError = () => {
     }
   }
 
+  React.useEffect(() => {
+    if (progress !== 100) {
+      progressBarRef.current?.focus()
+    }
+  }, [uploadedFile, progress])
+
   return (
     <FileUpload onChange={handleFileUpload}>
       <FileUpload.Label>Upload your files</FileUpload.Label>
-      <FileUpload.Description>Max. size: 25MB; accepted file types: .jpg and .png</FileUpload.Description>
+      <FileUpload.Description>Max. size: 25MB</FileUpload.Description>
+      {uploadedFile && progress === 100 && (
+        <FileUpload.Status status="error">{uploadedFile.name} could not be added. Please refresh.</FileUpload.Status>
+      )}
       {uploadedFile && (
-        <>
-          <FileUpload.Status status="error">{uploadedFile.name} could not be added. Please refresh.</FileUpload.Status>
-          <FileUpload.Item
-            key={uploadedFile.name}
-            file={uploadedFile}
-            status={'error'}
-            progress={100}
-            onClick={() => {
-              setUploadedFile(undefined)
-            }}
-          />
-        </>
+        <FileUpload.Item
+          progressBarRef={progressBarRef}
+          key={uploadedFile.name}
+          file={uploadedFile}
+          status={progress === 100 ? 'error' : undefined}
+          progress={progress}
+          onClick={() => {
+            setProgress(33)
+          }}
+        />
       )}
     </FileUpload>
   )
@@ -135,6 +159,7 @@ export const SingleFileWithError = () => {
 
 export const Playground: Story<React.ComponentProps<typeof FileUpload>> = args => {
   const progress = Math.random() * 100
+  const inputRef = React.useRef<HTMLInputElement>(null)
   const [uploadedFile, setUploadedFile] = React.useState<File | undefined>(undefined)
   const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files
@@ -146,7 +171,7 @@ export const Playground: Story<React.ComponentProps<typeof FileUpload>> = args =
   }
 
   return (
-    <FileUpload onChange={handleFileUpload} {...args}>
+    <FileUpload ref={inputRef} onChange={handleFileUpload} {...args}>
       <FileUpload.Label>Upload your files</FileUpload.Label>
       <FileUpload.Description>Max. size: 25MB; accepted file types: .jpg and .png</FileUpload.Description>
       {uploadedFile && (
@@ -157,6 +182,7 @@ export const Playground: Story<React.ComponentProps<typeof FileUpload>> = args =
             progress={progress}
             onClick={() => {
               setUploadedFile(undefined)
+              inputRef.current?.focus()
             }}
           />
           {progress === 100 ? <FileUpload.Status status="success">1 file successfully added!</FileUpload.Status> : null}
@@ -183,7 +209,9 @@ export const FileUploadItem = (args: FileUploadItemProps) => {
     />
   )
 }
+
 FileUploadItem.args = {progress: 50, status: undefined}
+
 FileUploadItem.argTypes = {
   status: {
     control: {
