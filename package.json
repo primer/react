@@ -148,7 +148,7 @@
     "@size-limit/preset-big-lib": "8.2.4",
     "@storybook/addon-a11y": "7.0.12",
     "@storybook/addon-actions": "7.0.12",
-    "@storybook/addon-essentials": "7.0.22",
+    "@storybook/addon-essentials": "7.0.24",
     "@storybook/addon-interactions": "7.0.12",
     "@storybook/addon-links": "7.0.12",
     "@storybook/addon-storysource": "7.0.12",
