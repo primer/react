@@ -25,7 +25,7 @@ const ActionList = Object.assign(_ActionList, {
 })
 
 const meta: Meta = {
-  title: 'Deprecated/ActionList',
+  title: 'Deprecated/Components/ActionList',
   component: ActionList,
   decorators: [
     (Story: React.ComponentType<React.PropsWithChildren<unknown>>): JSX.Element => (
