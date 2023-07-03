@@ -204,7 +204,7 @@
     "eslint-plugin-react-hooks": "4.6.0",
     "eslint-plugin-ssr-friendly": "1.2.0",
     "eslint-plugin-storybook": "0.6.12",
-    "eslint-plugin-testing-library": "5.10.2",
+    "eslint-plugin-testing-library": "5.11.0",
     "fast-glob": "3.2.12",
     "filesize": "10.0.6",
     "front-matter": "4.0.2",
