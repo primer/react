@@ -1,5 +1,5 @@
 import React, {useCallback} from 'react'
-import ReactDOM from 'react-dom'
+import {createRoot} from 'react-dom/client'
 import styled from 'styled-components'
 import Box from '../Box'
 import {ThemeProvider, useTheme, ThemeProviderProps} from '../ThemeProvider'
@@ -149,22 +149,21 @@ export type ConfirmOptions = Omit<ConfirmationDialogProps, 'onClose'> & {content
 async function confirm(themeProps: ThemeProviderProps, options: ConfirmOptions): Promise<boolean> {
   const {content, ...confirmationDialogProps} = options
   return new Promise(resolve => {
-    const hostElement = document.createElement('div')
+    const root = createRoot(document.createElement('div'))
     const onClose: ConfirmationDialogProps['onClose'] = gesture => {
-      ReactDOM.unmountComponentAtNode(hostElement)
+      root.unmount()
       if (gesture === 'confirm') {
         resolve(true)
       } else {
         resolve(false)
       }
     }
-    ReactDOM.render(
+    root.render(
       <ThemeProvider {...themeProps}>
         <ConfirmationDialog {...confirmationDialogProps} onClose={onClose}>
           {content}
         </ConfirmationDialog>
       </ThemeProvider>,
-      hostElement,
     )
   })
 }
