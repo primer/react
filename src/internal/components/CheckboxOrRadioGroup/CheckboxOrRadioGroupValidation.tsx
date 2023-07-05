@@ -2,7 +2,7 @@ import React from 'react'
 import InputValidation from '../InputValidation'
 import {SxProp} from '../../../sx'
 import {FormValidationStatus} from '../../../utils/types/FormValidationStatus'
-import {CheckboxOrRadioGroupContext} from './CheckboxOrRadioGroup'
+import CheckboxOrRadioGroupContext from './CheckboxOrRadioGroupContext'
 
 export type CheckboxOrRadioGroupValidationProps = {
   /** Changes the visual style to match the validation status */
