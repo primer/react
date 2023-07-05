@@ -152,7 +152,7 @@ jobs:
         shard: [1, 2]
     steps:
       - uses: actions/checkout@v3
-      - name: Use Node.js 16.x
+      - name: Use Node.js 18.x
         uses: actions/setup-node@v3
         with:
           node-version: 18
@@ -198,7 +198,7 @@ jobs:
         shard: [1, 2]
     steps:
       - uses: actions/checkout@v3
-      - name: Use Node.js 16.x
+      - name: Use Node.js 18.x
         uses: actions/setup-node@v3
         with:
           node-version: 18
@@ -256,7 +256,7 @@ jobs:
           repository: ${{ github.event.pull_request.head.repo.full_name }}
           ref: ${{ github.head_ref }}
           token: ${{ steps.generate_token.outputs.token }}
-      - name: Use Node.js 16.x
+      - name: Use Node.js 18.x
         uses: actions/setup-node@v3
         with:
           node-version: 18
@@ -265,9 +265,6 @@ jobs:
         run: npm ci
       - name: Build components.json
         run: npm run build:components.json
-      - uses: stefanzweifel/git-auto-commit-action@v4
-        with:
-          commit_message: 'Update generated/components.json'
 
   sizes:
     runs-on: ubuntu-latest
