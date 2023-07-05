@@ -15,7 +15,7 @@ import {ButtonBaseProps} from '../../deprecated/Button/ButtonBase'
 type StrictButtonStyleProps = ButtonStyleProps & {variant: ButtonBaseProps['variant']}
 
 export default {
-  title: 'Deprecated components/Button',
+  title: 'Deprecated/Components/Button',
   argTypes: {
     as: {
       table: {
