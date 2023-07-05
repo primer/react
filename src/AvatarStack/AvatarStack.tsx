@@ -10,16 +10,6 @@ type StyledAvatarStackWrapperProps = {
   count?: number
 } & SxProp
 
-const findSmallestNumber = (numbers: number[]): number => {
-  let smallestNumber = numbers[0]
-  for (let i = 1; i < numbers.length; i++) {
-    if (numbers[i] < smallestNumber) {
-      smallestNumber = numbers[i]
-    }
-  }
-  return smallestNumber
-}
-
 const AvatarStackWrapper = styled.span<StyledAvatarStackWrapperProps>`
   --avatar-border-width: 1px;
   --avatar-two-margin: calc(var(--avatar-size) * -0.55);
@@ -185,18 +175,19 @@ const AvatarStack = ({
     'pc-AvatarStack--disableExpand': disableExpand,
   })
 
-  const avatarSizes = React.Children.map(children, child => {
-    if (!React.isValidElement<AvatarProps>(child)) return size
+  const avatarSizes: number[] =
+    React.Children.map(children, child => {
+      if (!React.isValidElement<AvatarProps>(child)) return size
 
-    return child.props.size ? child.props.size : size
-  })
+      return child.props.size ? child.props.size : size
+    }) || []
 
   return (
     <AvatarStackWrapper
       count={count}
       className={wrapperClassNames}
       sx={sxProp}
-      style={{'--avatar-size': `${findSmallestNumber(avatarSizes || [])}px`} as React.CSSProperties}
+      style={{'--avatar-size': `${Math.min(...avatarSizes)}px`} as React.CSSProperties}
     >
       <Box className={bodyClassNames}> {transformChildren(children)}</Box>
     </AvatarStackWrapper>
