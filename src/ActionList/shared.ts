@@ -1,6 +1,7 @@
 import React from 'react'
 import {SxProp} from '../sx'
 import {AriaRole} from '../utils/types'
+import createSlots from '../deprecated/utils/create-slots'
 
 export type ActionListItemProps = {
   /**
@@ -92,3 +93,11 @@ export const getVariantStyles = (
 }
 
 export const TEXT_ROW_HEIGHT = '20px' // custom value off the scale
+
+export const {Slots, Slot} = createSlots([
+  'Heading',
+  'LeadingVisual',
+  'InlineDescription',
+  'BlockDescription',
+  'TrailingVisual',
+])

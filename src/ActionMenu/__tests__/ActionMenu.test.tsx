@@ -2,11 +2,12 @@ import {render as HTMLRender, waitFor} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import {axe, toHaveNoViolations} from 'jest-axe'
 import React from 'react'
-import theme from '../theme'
-import {ActionMenu, ActionList, BaseStyles, ThemeProvider, SSRProvider} from '..'
-import {behavesAsComponent, checkExports} from '../utils/testing'
-import {SingleSelect} from '../ActionMenu/ActionMenu.features.stories'
-import {MixedSelection} from '../ActionMenu/ActionMenu.examples.stories'
+import theme from '../../theme'
+import {ActionMenu, ActionList, BaseStyles, ThemeProvider, SSRProvider} from '../..'
+import {MenuContext} from '../ActionMenu'
+import {behavesAsComponent, checkExports} from '../../utils/testing'
+import {SingleSelect} from '../ActionMenu.features.stories'
+import {MixedSelection} from '../ActionMenu.examples.stories'
 expect.extend(toHaveNoViolations)
 
 function Example(): JSX.Element {
@@ -47,6 +48,7 @@ describe('ActionMenu', () => {
   checkExports('ActionMenu', {
     default: undefined,
     ActionMenu,
+    MenuContext,
   })
 
   it('should open Menu on MenuButton click', async () => {
