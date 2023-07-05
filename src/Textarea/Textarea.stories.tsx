@@ -35,6 +35,7 @@ Playground.args = {
   cols: DEFAULT_TEXTAREA_COLS,
   disabled: false,
   resize: DEFAULT_TEXTAREA_RESIZE,
+  contrast: false,
   rows: DEFAULT_TEXTAREA_ROWS,
   validationStatus: undefined,
 }
@@ -51,6 +52,9 @@ Playground.argTypes = {
   resize: {
     options: ['none', 'both', 'horizontal', 'vertical'],
     control: {type: 'radio'},
+  },
+  contrast: {
+    control: {type: 'boolean'},
   },
   rows: {
     control: {type: 'number'},
