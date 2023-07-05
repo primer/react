@@ -432,6 +432,7 @@ const Content: React.FC<React.PropsWithChildren<PageLayoutContentProps>> = ({
 
   return (
     <Box
+      as="main"
       aria-label={label}
       aria-labelledby={labelledBy}
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -762,7 +763,6 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
           {resizable && (
             <VisuallyHidden>
               <form onSubmit={handleWidthFormSubmit}>
-                {/* eslint-disable-next-line jsx-a11y/label-has-for */}
                 <label htmlFor={`${paneId}-width-input`}>Pane width</label>
                 <p id={`${paneId}-input-hint`}>
                   Use a value between {minPercent}% and {maxPercent}%

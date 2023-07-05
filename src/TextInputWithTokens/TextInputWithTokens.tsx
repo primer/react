@@ -294,7 +294,7 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
         visualPosition="leading"
         showLoadingIndicator={showLeadingLoadingIndicator}
       >
-        {LeadingVisual && (typeof LeadingVisual === 'string' ? LeadingVisual : <LeadingVisual />)}
+        {typeof LeadingVisual === 'function' ? <LeadingVisual /> : LeadingVisual}
       </TextInputInnerVisualSlot>
       <Box
         ref={containerRef as RefObject<HTMLDivElement>}
@@ -360,7 +360,7 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
         visualPosition="trailing"
         showLoadingIndicator={showTrailingLoadingIndicator}
       >
-        {TrailingVisual && (typeof TrailingVisual === 'string' ? TrailingVisual : <TrailingVisual />)}
+        {typeof TrailingVisual === 'function' ? <TrailingVisual /> : TrailingVisual}
       </TextInputInnerVisualSlot>
     </TextInputWrapper>
   )

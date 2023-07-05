@@ -128,22 +128,25 @@ const StyledTokenBase = styled.span<
   ${sx}
 `
 
-const TokenBase = React.forwardRef(({onRemove, onKeyDown, id, size = defaultTokenSize, ...rest}, forwardedRef) => {
-  return (
-    <StyledTokenBase
-      onKeyDown={(event: KeyboardEvent<HTMLSpanElement & HTMLAnchorElement & HTMLButtonElement>) => {
-        onKeyDown && onKeyDown(event)
+const TokenBase = React.forwardRef<HTMLButtonElement | HTMLAnchorElement | HTMLSpanElement | undefined, TokenBaseProps>(
+  ({onRemove, onKeyDown, id, size = defaultTokenSize, ...rest}, forwardedRef) => {
+    return (
+      <StyledTokenBase
+        onKeyDown={(event: KeyboardEvent<HTMLSpanElement & HTMLAnchorElement & HTMLButtonElement>) => {
+          onKeyDown && onKeyDown(event)
 
-        if ((event.key === 'Backspace' || event.key === 'Delete') && onRemove) {
-          onRemove()
-        }
-      }}
-      id={id?.toString()}
-      size={size}
-      {...rest}
-      ref={forwardedRef}
-    />
-  )
-}) as PolymorphicForwardRefComponent<'span' | 'a' | 'button', TokenBaseProps & SxProp>
+          if ((event.key === 'Backspace' || event.key === 'Delete') && onRemove) {
+            onRemove()
+          }
+        }}
+        id={id?.toString()}
+        size={size}
+        {...rest}
+        // @ts-expect-error TokenBase wants Anchor, Button, and Span refs
+        ref={forwardedRef}
+      />
+    )
+  },
+) as PolymorphicForwardRefComponent<'span' | 'a' | 'button', TokenBaseProps & SxProp>
 
 export default TokenBase
