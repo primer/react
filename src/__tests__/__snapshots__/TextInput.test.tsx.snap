@@ -1954,20 +1954,6 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   padding-right: 0;
 }
 
-.c1 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-}
-
-.c1:focus {
-  outline: 0;
-}
-
 .c3 {
   position: relative;
 }
@@ -2190,6 +2176,20 @@ exports[`TextInput renders trailingAction icon button 1`] = `
 
 .c3.tooltipped-align-left-2::before {
   left: 10px;
+}
+
+.c1 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c1:focus {
+  outline: 0;
 }
 
 @media (forced-colors:active) {
@@ -3005,20 +3005,6 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   padding-right: 0;
 }
 
-.c1 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-}
-
-.c1:focus {
-  outline: 0;
-}
-
 .c3 {
   position: relative;
   display: inline-block;
@@ -3242,6 +3228,20 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
 
 .c3.tooltipped-align-left-2::before {
   left: 10px;
+}
+
+.c1 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c1:focus {
+  outline: 0;
 }
 
 @media (forced-colors:active) {
