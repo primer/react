@@ -1,7 +1,8 @@
 import React, {memo, forwardRef, useContext} from 'react'
 import {AlertIcon, ImageIcon, MarkdownIcon} from '@primer/octicons-react'
 
-import {Spinner, Button, ButtonProps, LinkButton, Box, Text} from '../..'
+import {Spinner, LinkButton, Box, Text} from '../..'
+import {Button, ButtonProps} from '../../Button'
 import {MarkdownEditorContext} from './_MarkdownEditorContext'
 import {useSlots} from '../../hooks/useSlots'
 

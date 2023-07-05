@@ -20,7 +20,7 @@ type ButtonA11yProps =
 
 export type ButtonBaseProps = {
   /**
-   * Determine's the styles on a button one of 'default' | 'primary' | 'invisible' | 'danger'
+   * Determine's the styles on a button one of 'default' | 'primary' | 'invisible' | 'danger' | 'outline'
    */
   variant?: VariantType
   /**
