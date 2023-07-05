@@ -3,7 +3,7 @@ import React from 'react'
 import {Blankslate} from '../Blankslate'
 
 export default {
-  title: 'Private/Components/Blankslate/Features',
+  title: 'Drafts/Components/Blankslate/Features',
   component: Blankslate,
   subcomponents: {
     'Blankslate.Visual': Blankslate.Visual,

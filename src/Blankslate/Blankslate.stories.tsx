@@ -5,7 +5,7 @@ import {Blankslate} from '../Blankslate'
 import {ComponentProps} from '../utils/types'
 
 export default {
-  title: 'Private/Components/Blankslate',
+  title: 'Drafts/Components/Blankslate',
   component: Blankslate,
   subcomponents: {
     'Blankslate.Visual': Blankslate.Visual,
