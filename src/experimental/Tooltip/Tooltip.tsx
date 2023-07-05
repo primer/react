@@ -59,7 +59,7 @@ const StyledTooltip = styled.div`
   max-width: 250px;
   inset: auto;
   /* for scrollbar */
-  overflow: hidden;
+  overflow: visible;
   @media (forced-colors: active) {
     outline: 1px solid transparent;
   }
@@ -92,8 +92,9 @@ const StyledTooltip = styled.div`
     display: block;
     right: 0;
     left: 0;
-    height: 12px;
+    height: 8px;
     content: '';
+    background-color: red;
   }
 
   // delay animation for tooltip
@@ -295,17 +296,6 @@ export const Tooltip = ({
     })
   }
 
-  // Opting in using useOnEscapePress hook instead of onKeydown event to be able to close the tooltip when the mouse is hovering on the trigger element
-  // useOnEscapePress(
-  //   (e: KeyboardEvent) => {
-  //     if (open) {
-  //       e.stopPropagation()
-  //       setOpen(false)
-  //     }
-  //   },
-  //   [open],
-  // )
-
   const openTooltip = () => {
     if (tooltipElRef.current && triggerRef.current && !tooltipElRef.current.matches(':popover-open')) {
       //
@@ -313,8 +303,6 @@ export const Tooltip = ({
       setOpen(true)
     }
   }
-
-  // const position = {top, left}
 
   useEffect(() => {
     if (!tooltipElRef.current || !triggerRef.current) return
@@ -338,9 +326,13 @@ export const Tooltip = ({
     }
 
     tooltip.addEventListener('toggle', positionSet)
+    // tooltip.addEventListener('mouseenter', () => {
+    //   console.log('mouse enter triggered')
+    // })
 
     return () => {
       tooltip.removeEventListener('toggle', positionSet)
+      // tooltip.removeEventListener('mouseenter')
     }
   }, [tooltipElRef, triggerRef, direction])
 
@@ -348,6 +340,7 @@ export const Tooltip = ({
     <Box
       sx={{display: 'inline-block'}}
       onMouseLeave={() => {
+        console.log('mouse leave triggered')
         if (tooltipElRef.current?.matches(':popover-open')) tooltipElRef.current.hidePopover()
       }}
     >
@@ -364,7 +357,7 @@ export const Tooltip = ({
           },
           onFocus: (event: React.FocusEvent) => {
             openTooltip()
-            // if (!tooltipElRef.current?.matches(':popover-open')) tooltipElRef.current?.showPopover()
+            if (!tooltipElRef.current?.matches(':popover-open')) tooltipElRef.current?.showPopover()
             child.props.onFocus?.(event)
           },
           onMouseEnter: (event: React.MouseEvent) => {
