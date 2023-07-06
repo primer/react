@@ -4,7 +4,7 @@ import {width, WidthProps} from 'styled-system'
 import {get} from '../constants'
 import sx, {SxProp} from '../sx'
 
-type ProgressProp = {progress?: string | number}
+type ProgressProp = {progress?: string | number} & SxProp
 
 export const Item = styled.span<ProgressProp>`
   width: ${props => (props.progress ? `${props.progress}%` : 0)};
@@ -23,8 +23,10 @@ const sizeMap = {
 type StyledProgressContainerProps = {
   inline?: boolean
   barSize?: keyof typeof sizeMap
+  tabIndex?: number
 } & WidthProps &
-  SxProp
+  SxProp &
+  React.PropsWithChildren
 
 const ProgressContainer = styled.span<StyledProgressContainerProps>`
   display: ${props => (props.inline ? 'inline-flex' : 'flex')};
@@ -32,14 +34,13 @@ const ProgressContainer = styled.span<StyledProgressContainerProps>`
   background-color: ${get('colors.border.default')};
   border-radius: ${get('radii.1')};
   height: ${props => sizeMap[props.barSize || 'default']};
-
   ${width}
   ${sx};
 `
 
-export type ProgressBarProps = React.PropsWithChildren & {bg?: string} & StyledProgressContainerProps & ProgressProp
+export type ProgressBarProps = {bg?: string} & StyledProgressContainerProps & Pick<ProgressProp, 'progress'>
 
-export const ProgressBar = forwardRef(
+export const ProgressBar = forwardRef<HTMLSpanElement, ProgressBarProps>(
   ({progress, bg = 'success.emphasis', barSize = 'default', children, ...rest}: ProgressBarProps, forwardRef) => {
     if (children && progress) {
       throw new Error('You should pass `progress` or children, not both.')

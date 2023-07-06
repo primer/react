@@ -1,4 +1,4 @@
-import React, {forwardRef} from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import {XIcon, UploadIcon, FileIcon, SyncIcon, StopIcon, CheckIcon} from '@primer/octicons-react'
 import {ComponentProps} from '../utils/types'
@@ -29,7 +29,6 @@ const FileInputBase = styled.input<SxProp>`
 const ButtonBase = styled(Button)`
     input:focus + & {
         ${globalFocusStyle(outlineOffset)}
-        // TODO: verify that high Contrast works!
         ${highContrastStyles},
     },
   ${sx}
