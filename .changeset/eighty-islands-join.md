@@ -2,4 +2,4 @@
 "@primer/react": minor
 ---
 
-Allows consumers to disable the behavior where the stack expands to show all avatars on hover. Also allows users to customize the size of the avatars in the stack.
+Allows consumers to disable the behavior where the AvatarStack expands to show each Avatar on hover. There are also changes that allow users to customize the size of the avatars - even responsively!
