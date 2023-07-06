@@ -3,8 +3,12 @@ import React from 'react'
 import styled from 'styled-components'
 import {get} from '../constants'
 import Box from '../Box'
-import sx, {SxProp} from '../sx'
+import sx, {SxProp, merge} from '../sx'
 import {AvatarProps, DEFAULT_AVATAR_SIZE} from '../Avatar/Avatar'
+import {ResponsiveValue, isResponsiveValue} from '../hooks/useResponsiveValue'
+import {getBreakpointDeclarations} from '../utils/getBreakpointDeclarations'
+import {defaultSxProp} from '../utils/defaultSxProp'
+import {WidthOnlyViewportRangeKeys} from '../utils/types/ViewportRangeKeys'
 
 type StyledAvatarStackWrapperProps = {
   count?: number
@@ -12,23 +16,24 @@ type StyledAvatarStackWrapperProps = {
 
 const AvatarStackWrapper = styled.span<StyledAvatarStackWrapperProps>`
   --avatar-border-width: 1px;
-  --avatar-two-margin: calc(var(--avatar-size) * -0.55);
-  --avatar-three-margin: calc(var(--avatar-size) * -0.85);
+  --avatar-two-margin: calc(var(--avatar-stack-size) * -0.55);
+  --avatar-three-margin: calc(var(--avatar-stack-size) * -0.85);
 
   // this calc explained:
   // 1. avatar size + the non-overlapping part of the second avatar
   // 2. + the non-overlapping part of the second and third avatar
   // 3. + the border widths of all previous avatars
   --avatar-stack-three-plus-min-width: calc(
-    var(--avatar-size) +
+    var(--avatar-stack-size) +
       calc(
-        calc(var(--avatar-size) + var(--avatar-two-margin)) + calc(var(--avatar-size) + var(--avatar-three-margin)) * 2
+        calc(var(--avatar-stack-size) + var(--avatar-two-margin)) +
+          calc(var(--avatar-stack-size) + var(--avatar-three-margin)) * 2
       ) + calc(var(--avatar-border-width) * 3)
   );
   display: flex;
   position: relative;
-  height: var(--avatar-size);
-  min-width: ${props => (props.count === 1 ? 'var(--avatar-size)' : props.count === 2 ? '30px' : '38px')};
+  height: var(--avatar-stack-size);
+  min-width: ${props => (props.count === 1 ? 'var(--avatar-stack-size)' : props.count === 2 ? '30px' : '38px')};
 
   .pc-AvatarStackBody {
     display: flex;
@@ -37,9 +42,10 @@ const AvatarStackWrapper = styled.span<StyledAvatarStackWrapperProps>`
   }
 
   .pc-AvatarItem {
+    --avatar-size: var(--avatar-stack-size);
     flex-shrink: 0;
-    height: var(--avatar-size);
-    width: var(--avatar-size);
+    height: var(--avatar-stack-size);
+    width: var(--avatar-stack-size);
     box-shadow: 0 0 0 var(--avatar-border-width) ${get('colors.canvas.default')};
     position: relative;
     overflow: hidden;
@@ -83,7 +89,7 @@ const AvatarStackWrapper = styled.span<StyledAvatarStackWrapperProps>`
     // 1. avatar size + the non-overlapping part of the second avatar
     // 2. + the border widths of the first two avatars
     min-width: calc(
-      var(--avatar-size) + calc(var(--avatar-size) + var(--avatar-two-margin)) + var(--avatar-border-width)
+      var(--avatar-stack-size) + calc(var(--avatar-stack-size) + var(--avatar-two-margin)) + var(--avatar-border-width)
     );
   }
 
@@ -154,7 +160,7 @@ const transformChildren = (children: React.ReactNode) => {
 export type AvatarStackProps = {
   alignRight?: boolean
   disableExpand?: boolean
-  size?: number
+  size?: number | ResponsiveValue<number>
   children: React.ReactNode
 } & SxProp
 
@@ -163,7 +169,7 @@ const AvatarStack = ({
   alignRight,
   disableExpand,
   size = DEFAULT_AVATAR_SIZE,
-  sx: sxProp,
+  sx: sxProp = defaultSxProp,
 }: AvatarStackProps) => {
   const count = React.Children.count(children)
   const wrapperClassNames = classnames({
@@ -175,19 +181,61 @@ const AvatarStack = ({
     'pc-AvatarStack--disableExpand': disableExpand,
   })
 
-  const avatarSizes: number[] =
-    React.Children.map(children, child => {
-      if (!React.isValidElement<AvatarProps>(child)) return size
+  const responsiveAvatarSizes = () => {
+    const avatarSizeMap: Record<WidthOnlyViewportRangeKeys, number[]> = {
+      narrow: [],
+      regular: [],
+      wide: [],
+    }
 
-      return child.props.size ? child.props.size : size
-    }) || []
+    return React.Children.toArray(children).reduce<Record<WidthOnlyViewportRangeKeys, number> | undefined>(
+      (acc, child) => {
+        if (!React.isValidElement<AvatarProps>(child) || !acc) return
+
+        if (isResponsiveValue(child.props.size) && !isResponsiveValue(size)) {
+          for (const responsiveKey of Object.keys(avatarSizeMap)) {
+            avatarSizeMap[responsiveKey as WidthOnlyViewportRangeKeys].push(
+              child.props.size[responsiveKey as WidthOnlyViewportRangeKeys] || size,
+            )
+            acc[responsiveKey as WidthOnlyViewportRangeKeys] = Math.min(
+              ...avatarSizeMap[responsiveKey as WidthOnlyViewportRangeKeys],
+            )
+          }
+
+          return acc
+        }
+      },
+      {
+        narrow: 0,
+        regular: 0,
+        wide: 0,
+      },
+    )
+  }
+
+  const getResponsiveAvatarSizeStyles = () => {
+    if (size && isResponsiveValue(size)) {
+      return getBreakpointDeclarations(size, '--avatar-stack-size' as keyof React.CSSProperties, value => `${value}px`)
+    } else if (size) {
+      return getBreakpointDeclarations(
+        responsiveAvatarSizes(),
+        '--avatar-stack-size' as keyof React.CSSProperties,
+        value => `${value}px`,
+      )
+    }
+
+    return {'--avatar-stack-size': `${size}px`} as React.CSSProperties
+  }
+
+  // TODO: fix type error
+  const avatarStackSx = merge(getResponsiveAvatarSizeStyles(), sxProp as SxProp)
 
   return (
     <AvatarStackWrapper
       count={count}
       className={wrapperClassNames}
-      sx={sxProp}
-      style={{'--avatar-size': `${Math.min(...avatarSizes)}px`} as React.CSSProperties}
+      sx={avatarStackSx}
+      // style={{'--avatar-stack-size': `calc(min(${avatarSizes.join(', ')}) * 1px)`} as React.CSSProperties}
     >
       <Box className={bodyClassNames}> {transformChildren(children)}</Box>
     </AvatarStackWrapper>
