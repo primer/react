@@ -4,7 +4,16 @@ import {ListItem, listItemToString, parseListItem} from '../MarkdownEditor/_useL
 
 type TaskListItem = ListItem & {taskBox: '[ ]' | '[x]'}
 
-const isCodeBlockDelimiter = (line: string) => line.trimStart().startsWith('```')
+// Make check for code fences more robust per spec: https://github.github.com/gfm/#fenced-code-blocks
+const parseCodeFenceBegin = (line: string) => {
+  const match = line.match(/^ {0,3}(`{3,}|~{3,})[^`]*$/)
+  return match ? match[1] : null
+}
+
+const isCodeFenceEnd = (line: string, fence: string) => {
+  const match = line.match(new RegExp(`^ {0,3}${fence}${fence[0]}* *$`))
+  return match !== null
+}
 
 const isTaskListItem = (item: ListItem | null): item is TaskListItem => typeof item?.taskBox === 'string'
 
@@ -45,17 +54,23 @@ export const useListInteraction = ({
   const onToggleItem = useCallback(
     (toggledItemIndex: number) => () => {
       const lines = markdownRef.current.split('\n')
-      let inCodeBlock = false
+      let currentCodeFence: string | null = null
 
       for (let lineIndex = 0, taskIndex = 0; lineIndex < lines.length; lineIndex++) {
-        if (isCodeBlockDelimiter(lines[lineIndex])) {
-          inCodeBlock = !inCodeBlock
+        const line = lines[lineIndex]
+
+        if (!currentCodeFence) {
+          currentCodeFence = parseCodeFenceBegin(line)
+        } else if (isCodeFenceEnd(line, currentCodeFence)) {
+          currentCodeFence = null
           continue
         }
 
-        const parsedLine = parseListItem(lines[lineIndex])
+        if (currentCodeFence) continue
 
-        if (!isTaskListItem(parsedLine) || inCodeBlock) continue
+        const parsedLine = parseListItem(line)
+
+        if (!isTaskListItem(parsedLine)) continue
 
         if (taskIndex === toggledItemIndex) {
           const updatedLine = listItemToString(toggleTaskListItem(parsedLine))
