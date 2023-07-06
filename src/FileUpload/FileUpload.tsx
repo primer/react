@@ -59,7 +59,7 @@ const FileUploadLabel = ({
   const {fileUploadId} = React.useContext(FileUploadContext)
 
   return (
-    <VisuallyHidden isVisible={!visuallyHidden} sx={{fontSize: 2, fontWeight: 3}}>
+    <VisuallyHidden isVisible={!visuallyHidden} sx={{fontSize: 2, fontWeight: 600}}>
       <label htmlFor={fileUploadId} {...rest}>
         {children}
       </label>
@@ -73,7 +73,7 @@ const FileUploadDescriptionText = ({children}: React.PropsWithChildren<FileUploa
   const {fileDescriptionId} = React.useContext(FileUploadContext)
 
   return (
-    <Text fontSize={1} id={fileDescriptionId}>
+    <Text fontSize={1} color={'fg.muted'} id={fileDescriptionId}>
       {children}
     </Text>
   )
@@ -97,7 +97,7 @@ const FileUploadStatus = ({status, children, ...rest}: React.PropsWithChildren<F
         fontSize={2}
         sx={isSuccess ? {} : {'&>svg': {fill: 'danger.fg'}}}
       >
-        {isSuccess ? <CheckIcon size={16} /> : <StopIcon size={16} />}
+        {isSuccess ? <CheckIcon size={20} /> : <StopIcon size={20} />}
         {children}
       </Box>
     </Flash>
@@ -146,6 +146,7 @@ const FileUploadItem = ({
         ) : (
           status && (
             <IconButton
+              variant="invisible"
               aria-label={`${status === 'success' ? 'Remove' : 'Retry'} ${fileName}`}
               icon={status === 'success' ? XIcon : SyncIcon}
               onClick={onClick}
@@ -195,8 +196,6 @@ const FileUpload = React.forwardRef(
       children,
       slotsConfig ?? {label: FileUploadLabel, description: FileUploadDescriptionText, status: FileUploadStatus},
     )
-
-    console.log(slots.status)
 
     return (
       <FileUploadContext.Provider value={{fileUploadId, fileDescriptionId}}>

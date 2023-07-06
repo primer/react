@@ -98,7 +98,7 @@ export const SingleFileSuccessfullyUploaded = () => {
     <FileUpload ref={inputRef} onChange={handleFileUpload}>
       <FileUpload.Label>Upload your files</FileUpload.Label>
       <FileUpload.Description>Max. size: 25MB</FileUpload.Description>
-      {uploadedFile && <FileUpload.Status status="success">1 file successfully added!</FileUpload.Status>}
+      {uploadedFile && <FileUpload.Status status="success">File successfully added!</FileUpload.Status>}
       {uploadedFile && (
         <FileUpload.Item
           key={uploadedFile.name}
