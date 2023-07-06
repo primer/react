@@ -1,5 +1,5 @@
 import React from 'react'
-import {ComponentMeta, ComponentStory, Story} from '@storybook/react'
+import {ComponentMeta, Story} from '@storybook/react'
 import AvatarStack, {AvatarStackProps} from './AvatarStack'
 import Avatar from '../Avatar'
 import {parseSizeFromArgs} from '../Avatar/storyHelpers'
