@@ -106,3 +106,4 @@ Other clean up work includes:
 - [ ] - Adding test cases
 - [ ] - Adding documentation
 - [ ] - Adding `aria-live` in the `FileUpload.status` slot
+- [ ] - Determine if focus management can be managed internally
