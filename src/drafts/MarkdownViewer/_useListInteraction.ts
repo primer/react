@@ -4,6 +4,8 @@ import {ListItem, listItemToString, parseListItem} from '../MarkdownEditor/_useL
 
 type TaskListItem = ListItem & {taskBox: '[ ]' | '[x]'}
 
+const isCodeBlockDelimiter = (line: string) => line.trimStart().startsWith('```')
+
 const isTaskListItem = (item: ListItem | null): item is TaskListItem => typeof item?.taskBox === 'string'
 
 const toggleTaskListItem = (item: TaskListItem): TaskListItem => ({
@@ -43,11 +45,17 @@ export const useListInteraction = ({
   const onToggleItem = useCallback(
     (toggledItemIndex: number) => () => {
       const lines = markdownRef.current.split('\n')
+      let inCodeBlock = false
 
       for (let lineIndex = 0, taskIndex = 0; lineIndex < lines.length; lineIndex++) {
+        if (isCodeBlockDelimiter(lines[lineIndex])) {
+          inCodeBlock = !inCodeBlock
+          continue
+        }
+
         const parsedLine = parseListItem(lines[lineIndex])
 
-        if (!isTaskListItem(parsedLine)) continue
+        if (!isTaskListItem(parsedLine) || inCodeBlock) continue
 
         if (taskIndex === toggledItemIndex) {
           const updatedLine = listItemToString(toggleTaskListItem(parsedLine))
