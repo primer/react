@@ -3,16 +3,17 @@
 exports[`Avatar renders consistently 1`] = `
 .c0 {
   --avatar-border-width: 1px;
-  --avatar-two-margin: calc(var(--avatar-size) * -0.55);
-  --avatar-three-margin: calc(var(--avatar-size) * -0.85);
-  --avatar-stack-three-plus-min-width: calc( var(--avatar-size) + calc( calc(var(--avatar-size) + var(--avatar-two-margin)) + calc(var(--avatar-size) + var(--avatar-three-margin)) * 2 ) + calc(var(--avatar-border-width) * 3) );
+  --avatar-two-margin: calc(var(--avatar-stack-size) * -0.55);
+  --avatar-three-margin: calc(var(--avatar-stack-size) * -0.85);
+  --avatar-stack-three-plus-min-width: calc( var(--avatar-stack-size) + calc( calc(var(--avatar-stack-size) + var(--avatar-two-margin)) + calc(var(--avatar-stack-size) + var(--avatar-three-margin)) * 2 ) + calc(var(--avatar-border-width) * 3) );
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
   position: relative;
-  height: var(--avatar-size);
+  height: var(--avatar-stack-size);
   min-width: 38px;
+  --avatar-stack-size: 20px;
 }
 
 .c0 .pc-AvatarStackBody {
@@ -25,11 +26,12 @@ exports[`Avatar renders consistently 1`] = `
 }
 
 .c0 .pc-AvatarItem {
+  --avatar-size: var(--avatar-stack-size);
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
-  height: var(--avatar-size);
-  width: var(--avatar-size);
+  height: var(--avatar-stack-size);
+  width: var(--avatar-stack-size);
   box-shadow: 0 0 0 var(--avatar-border-width) #ffffff;
   position: relative;
   overflow: hidden;
@@ -69,7 +71,7 @@ exports[`Avatar renders consistently 1`] = `
 }
 
 .c0.pc-AvatarStack--two {
-  min-width: calc( var(--avatar-size) + calc(var(--avatar-size) + var(--avatar-two-margin)) + var(--avatar-border-width) );
+  min-width: calc( var(--avatar-stack-size) + calc(var(--avatar-stack-size) + var(--avatar-two-margin)) + var(--avatar-border-width) );
 }
 
 .c0.pc-AvatarStack--three-plus {
@@ -131,11 +133,6 @@ exports[`Avatar renders consistently 1`] = `
 
 <span
   className="c0 pc-AvatarStack--three-plus"
-  style={
-    {
-      "--avatar-size": "20px",
-    }
-  }
 >
   <div
     className="pc-AvatarStackBody"
@@ -168,16 +165,17 @@ exports[`Avatar renders consistently 1`] = `
 exports[`Avatar respects alignRight props 1`] = `
 .c0 {
   --avatar-border-width: 1px;
-  --avatar-two-margin: calc(var(--avatar-size) * -0.55);
-  --avatar-three-margin: calc(var(--avatar-size) * -0.85);
-  --avatar-stack-three-plus-min-width: calc( var(--avatar-size) + calc( calc(var(--avatar-size) + var(--avatar-two-margin)) + calc(var(--avatar-size) + var(--avatar-three-margin)) * 2 ) + calc(var(--avatar-border-width) * 3) );
+  --avatar-two-margin: calc(var(--avatar-stack-size) * -0.55);
+  --avatar-three-margin: calc(var(--avatar-stack-size) * -0.85);
+  --avatar-stack-three-plus-min-width: calc( var(--avatar-stack-size) + calc( calc(var(--avatar-stack-size) + var(--avatar-two-margin)) + calc(var(--avatar-stack-size) + var(--avatar-three-margin)) * 2 ) + calc(var(--avatar-border-width) * 3) );
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
   position: relative;
-  height: var(--avatar-size);
+  height: var(--avatar-stack-size);
   min-width: 38px;
+  --avatar-stack-size: 20px;
 }
 
 .c0 .pc-AvatarStackBody {
@@ -190,11 +188,12 @@ exports[`Avatar respects alignRight props 1`] = `
 }
 
 .c0 .pc-AvatarItem {
+  --avatar-size: var(--avatar-stack-size);
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
-  height: var(--avatar-size);
-  width: var(--avatar-size);
+  height: var(--avatar-stack-size);
+  width: var(--avatar-stack-size);
   box-shadow: 0 0 0 var(--avatar-border-width) #ffffff;
   position: relative;
   overflow: hidden;
@@ -234,7 +233,7 @@ exports[`Avatar respects alignRight props 1`] = `
 }
 
 .c0.pc-AvatarStack--two {
-  min-width: calc( var(--avatar-size) + calc(var(--avatar-size) + var(--avatar-two-margin)) + var(--avatar-border-width) );
+  min-width: calc( var(--avatar-stack-size) + calc(var(--avatar-stack-size) + var(--avatar-two-margin)) + var(--avatar-border-width) );
 }
 
 .c0.pc-AvatarStack--three-plus {
@@ -296,11 +295,6 @@ exports[`Avatar respects alignRight props 1`] = `
 
 <span
   className="c0 pc-AvatarStack--three-plus pc-AvatarStack--right"
-  style={
-    {
-      "--avatar-size": "20px",
-    }
-  }
 >
   <div
     className="pc-AvatarStackBody"

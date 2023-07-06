@@ -3,7 +3,7 @@ import React from 'react'
 import styled from 'styled-components'
 import {get} from '../constants'
 import Box from '../Box'
-import sx, {SxProp, merge} from '../sx'
+import sx, {BetterCssProperties, SxProp, merge} from '../sx'
 import {AvatarProps, DEFAULT_AVATAR_SIZE} from '../Avatar/Avatar'
 import {ResponsiveValue, isResponsiveValue} from '../hooks/useResponsiveValue'
 import {getBreakpointDeclarations} from '../utils/getBreakpointDeclarations'
@@ -164,13 +164,7 @@ export type AvatarStackProps = {
   children: React.ReactNode
 } & SxProp
 
-const AvatarStack = ({
-  children,
-  alignRight,
-  disableExpand,
-  size = DEFAULT_AVATAR_SIZE,
-  sx: sxProp = defaultSxProp,
-}: AvatarStackProps) => {
+const AvatarStack = ({children, alignRight, disableExpand, size, sx: sxProp = defaultSxProp}: AvatarStackProps) => {
   const count = React.Children.count(children)
   const wrapperClassNames = classnames({
     'pc-AvatarStack--two': count === 2,
@@ -181,62 +175,73 @@ const AvatarStack = ({
     'pc-AvatarStack--disableExpand': disableExpand,
   })
 
-  const responsiveAvatarSizes = () => {
+  const getAvatarChildSizes = () => {
     const avatarSizeMap: Record<WidthOnlyViewportRangeKeys, number[]> = {
       narrow: [],
       regular: [],
       wide: [],
     }
 
-    return React.Children.toArray(children).reduce<Record<WidthOnlyViewportRangeKeys, number> | undefined>(
+    return React.Children.toArray(children).reduce<Record<WidthOnlyViewportRangeKeys, number>>(
       (acc, child) => {
-        if (!React.isValidElement<AvatarProps>(child) || !acc) return
+        // if child is not an Avatar, return the default avatar sizes from the accumulator
+        if (!React.isValidElement<AvatarProps>(child)) return acc
 
-        if (isResponsiveValue(child.props.size) && !isResponsiveValue(size)) {
-          for (const responsiveKey of Object.keys(avatarSizeMap)) {
+        for (const responsiveKey of Object.keys(avatarSizeMap)) {
+          // if the child has responsive `size` prop values, push the value to the appropriate viewport property in the avatarSizeMap
+          if (isResponsiveValue(child.props.size)) {
             avatarSizeMap[responsiveKey as WidthOnlyViewportRangeKeys].push(
-              child.props.size[responsiveKey as WidthOnlyViewportRangeKeys] || size,
-            )
-            acc[responsiveKey as WidthOnlyViewportRangeKeys] = Math.min(
-              ...avatarSizeMap[responsiveKey as WidthOnlyViewportRangeKeys],
+              child.props.size[responsiveKey as WidthOnlyViewportRangeKeys] || DEFAULT_AVATAR_SIZE,
             )
           }
+          // otherwise, the size is a number (or undefined), so push the value to all viewport properties in the avatarSizeMap
+          else {
+            avatarSizeMap[responsiveKey as WidthOnlyViewportRangeKeys].push(child.props.size || DEFAULT_AVATAR_SIZE)
+          }
 
-          return acc
+          // set the smallest size in each viewport property as the value for that viewport property in the accumulator
+          acc[responsiveKey as WidthOnlyViewportRangeKeys] = Math.min(
+            ...avatarSizeMap[responsiveKey as WidthOnlyViewportRangeKeys],
+          )
         }
+
+        return acc
       },
       {
-        narrow: 0,
-        regular: 0,
-        wide: 0,
+        narrow: DEFAULT_AVATAR_SIZE,
+        regular: DEFAULT_AVATAR_SIZE,
+        wide: DEFAULT_AVATAR_SIZE,
       },
     )
   }
 
   const getResponsiveAvatarSizeStyles = () => {
-    if (size && isResponsiveValue(size)) {
-      return getBreakpointDeclarations(size, '--avatar-stack-size' as keyof React.CSSProperties, value => `${value}px`)
-    } else if (size) {
+    // if there is no size set on the AvatarStack, use the `size` props of the Avatar children to set the `--avatar-stack-size` CSS variable
+    if (!size) {
       return getBreakpointDeclarations(
-        responsiveAvatarSizes(),
+        getAvatarChildSizes(),
         '--avatar-stack-size' as keyof React.CSSProperties,
         value => `${value}px`,
       )
     }
 
+    // if the `size` prop is set and responsive, set the `--avatar-stack-size` CSS variable for each viewport
+    if (isResponsiveValue(size)) {
+      return getBreakpointDeclarations(
+        size,
+        '--avatar-stack-size' as keyof React.CSSProperties,
+        value => `${value || DEFAULT_AVATAR_SIZE}px`,
+      )
+    }
+
+    // if the `size` prop is set and not responsive, it is a number, so we can just set the `--avatar-stack-size` CSS variable to that number
     return {'--avatar-stack-size': `${size}px`} as React.CSSProperties
   }
 
-  // TODO: fix type error
-  const avatarStackSx = merge(getResponsiveAvatarSizeStyles(), sxProp as SxProp)
+  const avatarStackSx = merge(getResponsiveAvatarSizeStyles() as BetterCssProperties, sxProp as SxProp)
 
   return (
-    <AvatarStackWrapper
-      count={count}
-      className={wrapperClassNames}
-      sx={avatarStackSx}
-      // style={{'--avatar-stack-size': `calc(min(${avatarSizes.join(', ')}) * 1px)`} as React.CSSProperties}
-    >
+    <AvatarStackWrapper count={count} className={wrapperClassNames} sx={avatarStackSx}>
       <Box className={bodyClassNames}> {transformChildren(children)}</Box>
     </AvatarStackWrapper>
   )

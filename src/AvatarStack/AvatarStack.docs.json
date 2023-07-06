@@ -19,7 +19,7 @@
     },
     {
       "name": "size",
-      "type": "number",
+      "type": "number | { narrow?: number; regular?: number; wide?: number; }",
       "defaultValue": "20",
       "description": "The size of the avatar children in pixels."
     },

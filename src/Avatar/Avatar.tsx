@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import {get} from '../constants'
-import sx, {SxProp, merge} from '../sx'
+import sx, {BetterCssProperties, SxProp, merge} from '../sx'
 import {ComponentProps} from '../utils/types'
 import {ResponsiveValue, isResponsiveValue} from '../hooks/useResponsiveValue'
 import {getBreakpointDeclarations} from '../utils/getBreakpointDeclarations'
@@ -42,10 +42,13 @@ const Avatar = React.forwardRef<HTMLImageElement, AvatarProps>(function Avatar(
   {alt = '', size = DEFAULT_AVATAR_SIZE, square = false, sx: sxProp = defaultSxProp, ...rest},
   ref,
 ) {
-  // TODO: fix type error
   const avatarSx = isResponsiveValue(size)
     ? merge(
-        getBreakpointDeclarations(size, '--avatar-size' as keyof React.CSSProperties, value => `${value}px`),
+        getBreakpointDeclarations(
+          size,
+          '--avatar-size' as keyof React.CSSProperties,
+          value => `${value || DEFAULT_AVATAR_SIZE}px`,
+        ) as BetterCssProperties,
         sxProp as SxProp,
       )
     : merge({'--avatar-size': `${size}px`} as React.CSSProperties, sxProp as SxProp)
