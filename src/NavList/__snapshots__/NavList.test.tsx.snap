@@ -843,12 +843,6 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   font-weight: initial;
 }
 
-.c8 {
-  -webkit-transform: rotate(180deg);
-  -ms-transform: rotate(180deg);
-  transform: rotate(180deg);
-}
-
 .c0 {
   margin: 0;
   padding-inline-start: 0;
@@ -1109,6 +1103,12 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   text-decoration: none;
 }
 
+.c8 {
+  -webkit-transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+  transform: rotate(180deg);
+}
+
 @media (hover:hover) and (pointer:fine) {
   .c10:hover:not([aria-disabled]) {
     background-color: rgba(208,215,222,0.32);
@@ -1302,12 +1302,6 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   color: #656d76;
   margin-left: 8px;
   font-weight: initial;
-}
-
-.c8 {
-  -webkit-transform: rotate(0deg);
-  -ms-transform: rotate(0deg);
-  transform: rotate(0deg);
 }
 
 .c0 {
@@ -1580,6 +1574,12 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   color: inherit;
   -webkit-text-decoration: none;
   text-decoration: none;
+}
+
+.c8 {
+  -webkit-transform: rotate(0deg);
+  -ms-transform: rotate(0deg);
+  transform: rotate(0deg);
 }
 
 @media (hover:hover) and (pointer:fine) {
