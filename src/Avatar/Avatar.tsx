@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import {get} from '../constants'
-import sx, {BetterCssProperties, SxProp, merge} from '../sx'
+import sx, {BetterCssProperties, BetterSystemStyleObject, SxProp, merge} from '../sx'
 import {ComponentProps} from '../utils/types'
 import {ResponsiveValue, isResponsiveValue} from '../hooks/useResponsiveValue'
 import {getBreakpointDeclarations} from '../utils/getBreakpointDeclarations'
@@ -43,12 +43,12 @@ const Avatar = React.forwardRef<HTMLImageElement, AvatarProps>(function Avatar(
   ref,
 ) {
   const avatarSx = isResponsiveValue(size)
-    ? merge(
+    ? merge<BetterCssProperties | BetterSystemStyleObject>(
         getBreakpointDeclarations(
           size,
           '--avatar-size' as keyof React.CSSProperties,
           value => `${value || DEFAULT_AVATAR_SIZE}px`,
-        ) as BetterCssProperties,
+        ),
         sxProp as SxProp,
       )
     : merge({'--avatar-size': `${size}px`} as React.CSSProperties, sxProp as SxProp)

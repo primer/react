@@ -3,7 +3,7 @@ import React from 'react'
 import styled from 'styled-components'
 import {get} from '../constants'
 import Box from '../Box'
-import sx, {BetterCssProperties, SxProp, merge} from '../sx'
+import sx, {BetterCssProperties, BetterSystemStyleObject, SxProp, merge} from '../sx'
 import {AvatarProps, DEFAULT_AVATAR_SIZE} from '../Avatar/Avatar'
 import {ResponsiveValue, isResponsiveValue} from '../hooks/useResponsiveValue'
 import {getBreakpointDeclarations} from '../utils/getBreakpointDeclarations'
@@ -238,7 +238,10 @@ const AvatarStack = ({children, alignRight, disableExpand, size, sx: sxProp = de
     return {'--avatar-stack-size': `${size}px`} as React.CSSProperties
   }
 
-  const avatarStackSx = merge(getResponsiveAvatarSizeStyles() as BetterCssProperties, sxProp as SxProp)
+  const avatarStackSx = merge<BetterCssProperties | BetterSystemStyleObject>(
+    getResponsiveAvatarSizeStyles(),
+    sxProp as SxProp,
+  )
 
   return (
     <AvatarStackWrapper count={count} className={wrapperClassNames} sx={avatarStackSx}>
