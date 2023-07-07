@@ -108,7 +108,7 @@
       "props": [
         {
           "name": "children",
-          "type": "ActionList.Item[] | ActionList.LinkItem[] | ActionList.Divider[]",
+          "type": "ActionList.Item[] | ActionList.LinkItem[] | ActionList.Group[]",
           "defaultValue": "",
           "required": true,
           "description": ""
@@ -285,34 +285,48 @@
           ]
         },
         {
-          "name": "ActionList.Heading",
+          "name": "ActionList.Group",
           "props": [
             {
-              "name": "variant",
-              "type": "'subtle' | 'filled'",
-              "defaultValue": "subtle",
+              "name": "children",
+              "type": "ActionList.Item[] | ActionList.LinkItem[]",
+              "defaultValue": "",
+              "required": true,
               "description": ""
             },
             {
               "name": "title",
               "type": "string",
               "defaultValue": "",
-              "required": true,
-              "description": ""
+              "description": "Title of the group."
             },
             {
-              "name": "subtitle",
+              "name": "auxiliaryText",
               "type": "string",
               "defaultValue": "",
-              "required": false,
-              "description": ""
+              "description": "Secondary text that provides additional information about the group."
             },
             {
-              "name": "headingLevel",
-              "type": "'1' | '2' | '3' | '4' | '5' | '6'",
-              "defaultValue": "3",
-              "required": false,
-              "description": ""
+              "name": "variant",
+              "type": "'filled' | 'subtle'",
+              "defaultValue": "'subtle'",
+              "description": "`inline` descriptions are positioned beside primary text. `block` descriptions are positioned below primary text."
+            },
+            {
+              "name": "selectionVariant",
+              "type": "'single' | 'multiple' | false",
+              "defaultValue": "",
+              "description": "Set `selectionVariant` at the group level."
+            },
+            {
+              "name": "role",
+              "type": "AriaRole",
+              "defaultValue": "",
+              "description": "ARIA role describing the function of the list inside the group. `listbox` and `menu` are a common values."
+            },
+            {
+              "name": "sx",
+              "type": "SystemStyleObject"
             }
           ]
         }
@@ -2731,6 +2745,18 @@
           "name": "PageLayout.Content",
           "props": [
             {
+              "name": "aria-label",
+              "type": "string | undefined",
+              "defaultValue": "",
+              "description": "A unique label for the rendered main landmark"
+            },
+            {
+              "name": "aria-labelledby",
+              "type": "string | undefined",
+              "defaultValue": "",
+              "description": "An id to an element which uniquely labels the rendered main landmark"
+            },
+            {
               "name": "width",
               "type": "| 'full' | 'medium' | 'large' | 'xlarge'",
               "defaultValue": "'full'",
@@ -3626,7 +3652,7 @@
       "stories": [
         {
           "id": "components-selectpanel--default",
-          "code": "() => {\n  const [selected, setSelected] = React.useState<ItemInput[]>([\n    items[0],\n    items[1],\n  ])\n  const [filter, setFilter] = React.useState('')\n  const filteredItems = items.filter((item) =>\n    item.text.toLowerCase().startsWith(filter.toLowerCase()),\n  )\n  const [open, setOpen] = useState(false)\n  return (\n    <>\n      <h1>Multi Select Panel</h1>\n      <SelectPanel\n        title=\"Select labels\"\n        subtitle=\"Use labels to organize issues and pull requests\"\n        renderAnchor={({\n          children,\n          'aria-labelledby': ariaLabelledBy,\n          ...anchorProps\n        }) => (\n          <Button\n            trailingAction={TriangleDownIcon}\n            aria-labelledby={` ${ariaLabelledBy}`}\n            {...anchorProps}\n          >\n            {children ?? 'Select Labels'}\n          </Button>\n        )}\n        placeholderText=\"Filter labels\"\n        open={open}\n        onOpenChange={setOpen}\n        items={filteredItems}\n        selected={selected}\n        onSelectedChange={setSelected}\n        onFilterChange={setFilter}\n        showItemDividers={true}\n        overlayProps={{\n          width: 'medium',\n          height: 'medium',\n        }}\n      />\n    </>\n  )\n}"
+          "code": "() => {\n  const [selected, setSelected] = React.useState<ItemInput[]>([\n    items[0],\n    items[1],\n  ])\n  const [filter, setFilter] = React.useState('')\n  const filteredItems = items.filter((item) =>\n    item.text.toLowerCase().startsWith(filter.toLowerCase()),\n  )\n  const [open, setOpen] = useState(false)\n  return (\n    <>\n      <h1>Multi Select Panel</h1>\n      <SelectPanel\n        title=\"Select labels\"\n        subtitle=\"Use labels to organize issues and pull requests\"\n        renderAnchor={({\n          children,\n          'aria-labelledby': ariaLabelledBy,\n          ...anchorProps\n        }) => (\n          <Button\n            trailingAction={TriangleDownIcon}\n            aria-labelledby={` ${ariaLabelledBy}`}\n            {...anchorProps}\n          >\n            {children ?? 'Select Labels'}\n          </Button>\n        )}\n        placeholderText=\"Filter labels\"\n        open={open}\n        onOpenChange={setOpen}\n        items={filteredItems}\n        selected={selected}\n        onSelectedChange={setSelected}\n        onFilterChange={setFilter}\n        showItemDividers={true}\n        overlayProps={{\n          width: 'small',\n          height: 'xsmall',\n        }}\n      />\n    </>\n  )\n}"
         }
       ],
       "props": [

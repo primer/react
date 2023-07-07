@@ -1,8 +1,8 @@
 import path from 'node:path'
-import {Config} from '@playwright/test'
+import {defineConfig} from '@playwright/test'
 import './e2e/matchers/toHaveNoViolations'
 
-const config: Config = {
+export default defineConfig({
   // https://playwright.dev/docs/api/class-testconfig#test-config-test-dir
   testDir: path.join(__dirname, 'e2e'),
   testIgnore: ['**/matchers/**', '**/test-helpers/**'],
@@ -17,6 +17,7 @@ const config: Config = {
 
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
+  retries: process.env.CI ? 2 : 0,
   use: {
     screenshot: 'only-on-failure',
     viewport: {
@@ -41,6 +42,4 @@ const config: Config = {
       },
     ],
   ],
-}
-
-export default config
+})
