@@ -171,7 +171,7 @@ const AvatarStack = ({children, alignRight, disableExpand, size, sx: sxProp = de
     'pc-AvatarStack--three-plus': count > 2,
     'pc-AvatarStack--right': alignRight,
   })
-  const bodyClassNames = classnames('pc-AvatarStackBody', {
+  const bodyClassNames = clsx('pc-AvatarStackBody', {
     'pc-AvatarStack--disableExpand': disableExpand,
   })
 
