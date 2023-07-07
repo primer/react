@@ -1,4 +1,4 @@
-import classnames from 'classnames'
+import clsx from 'clsx'
 import React from 'react'
 import styled from 'styled-components'
 import {get} from '../constants'
@@ -152,7 +152,7 @@ const transformChildren = (children: React.ReactNode) => {
     if (!React.isValidElement(child)) return child
     return React.cloneElement(child, {
       ...child.props,
-      className: classnames(child.props.className, 'pc-AvatarItem'),
+      className: clsx(child.props.className, 'pc-AvatarItem'),
     })
   })
 }
@@ -166,7 +166,7 @@ export type AvatarStackProps = {
 
 const AvatarStack = ({children, alignRight, disableExpand, size, sx: sxProp = defaultSxProp}: AvatarStackProps) => {
   const count = React.Children.count(children)
-  const wrapperClassNames = classnames({
+  const wrapperClassNames = clsx({
     'pc-AvatarStack--two': count === 2,
     'pc-AvatarStack--three-plus': count > 2,
     'pc-AvatarStack--right': alignRight,
