@@ -73,8 +73,8 @@ The other reasons for change are to utilise css variables for theming and improv
 Code example:
 
 ```jsx
-import classNames from './ActionList.module.css'
 import clsx from 'clsx'
+import classNames from './ActionList.module.css'
 
 const Button = ({className, sx, ...props}}) => {
   return (
