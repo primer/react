@@ -2,9 +2,9 @@
 
 ## Status
 
-| Stage    | Status                        |
-| -------- | ----------------------------- |
-| Approved | ✅                            |
+| Stage    | Status                                                                |
+| -------- | --------------------------------------------------------------------- |
+| Approved | ✅                                                                    |
 | Adopted  | 🚧 [github/primer#2160](https://github.com/github/primer/issues/2160) |
 
 ## Context
@@ -63,7 +63,7 @@ The other reasons for change are to utilise css variables for theming and improv
 2. Use css modules with hash
 
    By importing styles in the component, we can create an explicit dependency between the two. This enables applications using primer to have control over bundling and delivery.
-   
+
    To begin with, we will ship a single css bundle that can be imported in the application. (example: `import '@primer/react/styles.css'`). When needed, we have the option to delegate bundling of css files to the application (they can be split by page or bundled as a common chunk for all react pages to share)
 
 3. Keep styled-components underneath for supporting sx prop.
