@@ -110,7 +110,7 @@ You can choose to have a different _anchor_ for the Menu depending on the applic
 </ActionMenu>
 ```
 
-### Divided into sections
+### With Groups
 
 ```jsx live
 <ActionMenu>
@@ -118,54 +118,57 @@ You can choose to have a different _anchor_ for the Menu depending on the applic
 
   <ActionMenu.Overlay>
     <ActionList showDividers>
-      <ActionList.Heading title="Live query" />
-      <ActionList.Item>
-        <ActionList.LeadingVisual>
-          <SearchIcon />
-        </ActionList.LeadingVisual>
-        repo:github/memex,github/github
-      </ActionList.Item>
-    </ActionList>
-    <ActionList showDividers>
-      <ActionList.Heading title="Layout" variant="subtle" />
-      <ActionList.Item>
-        <ActionList.LeadingVisual>
-          <NoteIcon />
-        </ActionList.LeadingVisual>
-        Table
-        <ActionList.Description variant="block">
-          Information-dense table optimized for operations across teams
-        </ActionList.Description>
-      </ActionList.Item>
-      <ActionList.Item>
-        <ActionList.LeadingVisual>
-          <ProjectIcon />
-        </ActionList.LeadingVisual>
-        Board
-        <ActionList.Description variant="block">Kanban-style board focused on visual states</ActionList.Description>
-      </ActionList.Item>
-    </ActionList>
-    <ActionList showDividers>
-      <ActionList.Item>
-        <ActionList.LeadingVisual>
-          <FilterIcon />
-        </ActionList.LeadingVisual>
-        Save sort and filters to current view
-      </ActionList.Item>
-      <ActionList.Item>
-        <ActionList.LeadingVisual>
-          <FilterIcon />
-        </ActionList.LeadingVisual>
-        Save sort and filters to new view
-      </ActionList.Item>
-    </ActionList>
-    <ActionList>
-      <ActionList.Item>
-        <ActionList.LeadingVisual>
-          <GearIcon />
-        </ActionList.LeadingVisual>
-        View settings
-      </ActionList.Item>
+      <ActionList.Group title="Live query">
+        <ActionList.Item>
+          <ActionList.LeadingVisual>
+            <SearchIcon />
+          </ActionList.LeadingVisual>
+          repo:github/memex,github/github
+        </ActionList.Item>
+      </ActionList.Group>
+      <ActionList.Divider />
+      <ActionList.Group title="Layout" variant="subtle">
+        <ActionList.Item>
+          <ActionList.LeadingVisual>
+            <NoteIcon />
+          </ActionList.LeadingVisual>
+          Table
+          <ActionList.Description variant="block">
+            Information-dense table optimized for operations across teams
+          </ActionList.Description>
+        </ActionList.Item>
+        <ActionList.Item role="listitem">
+          <ActionList.LeadingVisual>
+            <ProjectIcon />
+          </ActionList.LeadingVisual>
+          Board
+          <ActionList.Description variant="block">Kanban-style board focused on visual states</ActionList.Description>
+        </ActionList.Item>
+      </ActionList.Group>
+      <ActionList.Divider />
+      <ActionList.Group>
+        <ActionList.Item>
+          <ActionList.LeadingVisual>
+            <FilterIcon />
+          </ActionList.LeadingVisual>
+          Save sort and filters to current view
+        </ActionList.Item>
+        <ActionList.Item>
+          <ActionList.LeadingVisual>
+            <FilterIcon />
+          </ActionList.LeadingVisual>
+          Save sort and filters to new view
+        </ActionList.Item>
+      </ActionList.Group>
+      <ActionList.Divider />
+      <ActionList.Group>
+        <ActionList.Item>
+          <ActionList.LeadingVisual>
+            <GearIcon />
+          </ActionList.LeadingVisual>
+          View settings
+        </ActionList.Item>
+      </ActionList.Group>
     </ActionList>
   </ActionMenu.Overlay>
 </ActionMenu>
@@ -190,7 +193,9 @@ const Example = () => {
 
   return (
     <ActionMenu>
-      <ActionMenu.Button leadingIcon={selectedType.icon}>{selectedType.name}</ActionMenu.Button>
+      <ActionMenu.Button aria-label="Select field type" leadingIcon={selectedType.icon}>
+        {selectedType.name}
+      </ActionMenu.Button>
       <ActionMenu.Overlay width="medium">
         <ActionList selectionVariant="single">
           {fieldTypes.map((type, index) => (

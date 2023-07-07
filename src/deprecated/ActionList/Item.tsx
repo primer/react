@@ -1,5 +1,6 @@
-import {CheckIcon, IconProps} from '@primer/octicons-react'
+import {CheckIcon} from '@primer/octicons-react'
 import React, {useCallback} from 'react'
+import {isValidElementType} from 'react-is'
 import {get} from '../../constants'
 import sx, {SxProp} from '../../sx'
 import Truncate from '../../Truncate'
@@ -42,13 +43,13 @@ export interface ItemProps extends SxProp {
   /**
    * Icon (or similar) positioned before `Item` text.
    */
-  leadingVisual?: React.FunctionComponent<React.PropsWithChildren<IconProps>>
+  leadingVisual?: React.ElementType
 
   /**
    * @deprecated Use `trailingVisual` instead
    * Icon (or similar) positioned after `Item` text.
    */
-  trailingIcon?: React.FunctionComponent<React.PropsWithChildren<IconProps>>
+  trailingIcon?: React.ElementType
 
   /**
    * @deprecated Use `trailingVisual` instead
@@ -59,7 +60,7 @@ export interface ItemProps extends SxProp {
   /**
    * Icon or text positioned after `Item` text.
    */
-  trailingVisual?: React.FunctionComponent<React.PropsWithChildren<IconProps>> | React.ReactNode
+  trailingVisual?: React.ElementType | React.ReactNode
 
   /**
    * Style variations associated with various `Item` types.
@@ -465,8 +466,11 @@ export const Item = React.forwardRef((itemProps, ref) => {
         {/* backward compatibility: prefer TrailingVisual but fallback to TrailingIcon */}
         {TrailingVisual ? (
           <TrailingContent variant={variant} disabled={disabled}>
-            {/* @ts-ignore how to check the type of Icons ? */}
-            {typeof TrailingVisual === 'object' ? <TrailingVisual /> : TrailingVisual}
+            {typeof TrailingVisual !== 'string' && isValidElementType(TrailingVisual) ? (
+              <TrailingVisual />
+            ) : (
+              TrailingVisual
+            )}
           </TrailingContent>
         ) : TrailingIcon || trailingText ? (
           <TrailingContent variant={variant} disabled={disabled}>

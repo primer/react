@@ -203,7 +203,7 @@ exports[`PageLayout renders condensed layout 1`] = `
       <div
         class="c5"
       >
-        <div
+        <main
           class="c6"
         >
           <div
@@ -217,7 +217,7 @@ exports[`PageLayout renders condensed layout 1`] = `
           <div
             class=""
           />
-        </div>
+        </main>
         <div
           class="c8"
         >
@@ -545,7 +545,7 @@ exports[`PageLayout renders default layout 1`] = `
       <div
         class="c5"
       >
-        <div
+        <main
           class="c6"
         >
           <div
@@ -559,7 +559,7 @@ exports[`PageLayout renders default layout 1`] = `
           <div
             class=""
           />
-        </div>
+        </main>
         <div
           class="c8"
         >
@@ -887,7 +887,7 @@ exports[`PageLayout renders pane in different position when narrow 1`] = `
       <div
         class="c5"
       >
-        <div
+        <main
           class="c6"
         >
           <div
@@ -901,7 +901,7 @@ exports[`PageLayout renders pane in different position when narrow 1`] = `
           <div
             class=""
           />
-        </div>
+        </main>
         <div
           class="c8"
         >
@@ -1229,7 +1229,7 @@ exports[`PageLayout renders with dividers 1`] = `
       <div
         class="c5"
       >
-        <div
+        <main
           class="c6"
         >
           <div
@@ -1243,7 +1243,7 @@ exports[`PageLayout renders with dividers 1`] = `
           <div
             class=""
           />
-        </div>
+        </main>
         <div
           class="c8"
         >
