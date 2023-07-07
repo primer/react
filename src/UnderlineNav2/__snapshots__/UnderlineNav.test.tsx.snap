@@ -55,6 +55,10 @@ exports[`UnderlineNav renders consistently 1`] = `
   padding-bottom: calc((2rem - 1.25rem) / 2);
 }
 
+.c4 span[data-component="icon"] {
+  color: #656d76;
+}
+
 .c4:focus {
   outline: 2px solid transparent;
 }

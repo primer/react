@@ -85,6 +85,9 @@ export const getLinkStyles = (
   textAlign: 'center',
   textDecoration: 'none',
   lineHeight: 'calc(20/14)',
+  '& span[data-component="icon"]': {
+    color: 'fg.muted',
+  },
   borderRadius: 2,
   ...(props?.variant === 'small' ? smallVariantLinkStyles : defaultVariantLinkStyles),
   '@media (hover:hover)': {

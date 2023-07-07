@@ -1,5 +1,29 @@
 # @primer/components
 
+## 35.26.1
+
+### Patch Changes
+
+- [#3446](https://github.com/primer/react/pull/3446) [`650a46d5`](https://github.com/primer/react/commit/650a46d5dbf10500d4d9af508c71744665f1bd0d) Thanks [@broccolinisoup](https://github.com/broccolinisoup)! - UnderlineNav2: Correct the icon colours to be `fg.muted`
+
+- [#3423](https://github.com/primer/react/pull/3423) [`af32ec79`](https://github.com/primer/react/commit/af32ec7989899b48b4fc2cec393bc2de29f9f643) Thanks [@japf](https://github.com/japf)! - improve performance of the MarkdownEditor component when fullHeight is enabled
+
+- [#3437](https://github.com/primer/react/pull/3437) [`b298c326`](https://github.com/primer/react/commit/b298c3266b8034c695f0d8d2d3c97813f5f44fa0) Thanks [@mattcosta7](https://github.com/mattcosta7)! - update icon types and primer octicons
+
+- [#3476](https://github.com/primer/react/pull/3476) [`379d947e`](https://github.com/primer/react/commit/379d947ee5500cc20dbf637e6d0fe47af39efc10) Thanks [@siddharthkp](https://github.com/siddharthkp)! - ActionMenu: Fix missing divider for first item when the menu is open with mouse
+
+  <!-- Changed components: ActionMenu -->
+
+- [#3489](https://github.com/primer/react/pull/3489) [`c79e78c7`](https://github.com/primer/react/commit/c79e78c7a9cba327ae826a8923893b78f402e628) Thanks [@adrianababakanian](https://github.com/adrianababakanian)! - Remove `aria-hidden=true` from `span`s with required asterisk
+
+- [#3196](https://github.com/primer/react/pull/3196) [`21fa73cd`](https://github.com/primer/react/commit/21fa73cde4ff0172a95e0aca19550e5dd554c2a0) Thanks [@iansan5653](https://github.com/iansan5653)! - Fix `useDynamicTextareaHeight` initial render with slots
+
+- [#3413](https://github.com/primer/react/pull/3413) [`4dc719c4`](https://github.com/primer/react/commit/4dc719c453870c7ddb595cfbabc1310358f4ecce) Thanks [@colebemis](https://github.com/colebemis)! - TreeView: Ignore arrow key events when combined with cmd or alt keys to avoid interfering with native browser shortcuts.
+
+- [#3411](https://github.com/primer/react/pull/3411) [`295c4bcd`](https://github.com/primer/react/commit/295c4bcd4b2db37a92979afedb2b25aee80db632) Thanks [@dusave](https://github.com/dusave)! - Fix `Dialog2` backdrop color variable
+
+- [#3440](https://github.com/primer/react/pull/3440) [`99a641bd`](https://github.com/primer/react/commit/99a641bde39f5b9029465be48a4f4d8a23f04a59) Thanks [@joshblack](https://github.com/joshblack)! - Add the experimental folder to the npm package for @primer/react
+
 ## 35.26.0
 
 ### Minor Changes
