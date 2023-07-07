@@ -49,7 +49,26 @@ function AutocompleteOverlay({
     return null
   }
 
-  return (
+  // return (
+  //   <Overlay
+  //     returnFocusRef={inputRef}
+  //     preventFocusOnOpen={true}
+  //     onClickOutside={closeOptionList}
+  //     onEscape={closeOptionList}
+  //     ref={floatingElementRef as React.RefObject<HTMLDivElement>}
+  //     top={position?.top}
+  //     left={position?.left}
+  //     visibility={showMenu ? 'visible' : 'hidden'}
+  //     sx={{
+  //       overflow: 'auto',
+  //     }}
+  //     {...overlayProps}
+  //   >
+  //     {children}
+  //   </Overlay>
+  // )
+
+  return showMenu ? (
     <Overlay
       returnFocusRef={inputRef}
       preventFocusOnOpen={true}
@@ -58,7 +77,6 @@ function AutocompleteOverlay({
       ref={floatingElementRef as React.RefObject<HTMLDivElement>}
       top={position?.top}
       left={position?.left}
-      visibility={showMenu ? 'visible' : 'hidden'}
       sx={{
         overflow: 'auto',
       }}
@@ -66,7 +84,7 @@ function AutocompleteOverlay({
     >
       {children}
     </Overlay>
-  )
+  ) : null
 }
 
 AutocompleteOverlay.displayName = 'AutocompleteOverlay'

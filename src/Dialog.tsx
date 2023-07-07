@@ -8,6 +8,7 @@ import sx, {SxProp} from './sx'
 import Text from './Text'
 import {ComponentProps} from './utils/types'
 import {useRefObjectAsForwardedRef} from './hooks/useRefObjectAsForwardedRef'
+import {useOnEscapePress} from './hooks'
 
 const noop = () => null
 
@@ -115,6 +116,15 @@ const Dialog = forwardRef<HTMLDivElement, InternalDialogProps>(
       returnFocusRef,
       overlayRef,
     })
+
+    useOnEscapePress(
+      (event: KeyboardEvent) => {
+        onDismiss()
+        event.preventDefault()
+      },
+      [onDismiss],
+    )
+
     return isOpen ? (
       <>
         <Overlay ref={overlayRef} />

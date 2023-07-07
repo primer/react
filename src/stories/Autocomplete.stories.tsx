@@ -1,7 +1,7 @@
 import React, {ChangeEventHandler, RefObject, useCallback, useEffect, useRef, useState} from 'react'
 import {Meta} from '@storybook/react'
 
-import {BaseStyles, Box, Dialog, ThemeProvider, registerPortalRoot} from '..'
+import {ActionList, ActionMenu, BaseStyles, Box, Dialog, ThemeProvider, registerPortalRoot} from '..'
 import TextInputTokens from '../TextInputWithTokens'
 import Autocomplete from '../Autocomplete/Autocomplete'
 import {AnchoredOverlay} from '../AnchoredOverlay'
@@ -770,7 +770,35 @@ export const InADialog = (args: FormControlArgs<AutocompleteArgs>) => {
   return (
     <>
       <Button onClick={() => setIsDialogOpen(!isDialogOpen)}>Show dialog</Button>
-      <Dialog id="dialog-with-autocomplete" isOpen={isDialogOpen}>
+      <Dialog id="dialog-with-autocomplete" isOpen={isDialogOpen} onDismiss={() => setIsDialogOpen(!isDialogOpen)}>
+        {/* <div ref={outerContainerRef}>
+          {mounted ? (
+          <ActionMenu>
+            <ActionMenu.Button>Open menu</ActionMenu.Button>
+            <ActionMenu.Overlay width="medium" portalContainerName="outerContainer">
+              <ActionList>
+                <ActionList.Item onSelect={() => alert('Copy link clicked')}>
+                  Copy link
+                  <ActionList.TrailingVisual>⌘C</ActionList.TrailingVisual>
+                </ActionList.Item>
+                <ActionList.Item onSelect={() => alert('Quote reply clicked')}>
+                  Quote reply
+                  <ActionList.TrailingVisual>⌘Q</ActionList.TrailingVisual>
+                </ActionList.Item>
+                <ActionList.Item onSelect={() => alert('Edit comment clicked')}>
+                  Edit comment
+                  <ActionList.TrailingVisual>⌘E</ActionList.TrailingVisual>
+                </ActionList.Item>
+                <ActionList.Divider />
+                <ActionList.Item variant="danger" onSelect={() => alert('Delete file clicked')}>
+                  Delete file
+                  <ActionList.TrailingVisual>⌘D</ActionList.TrailingVisual>
+                </ActionList.Item>
+              </ActionList>
+            </ActionMenu.Overlay>
+          </ActionMenu>
+          ) : null}
+        </div> */}
         <div ref={outerContainerRef}>
           <Box as="form" sx={{p: 3}}>
             {mounted ? (

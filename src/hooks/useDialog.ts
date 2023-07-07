@@ -113,7 +113,7 @@ function useDialog({
   )
 
   const getDialogProps = () => {
-    return {onKeyDown}
+    return {}
   }
 
   return {getDialogProps}
