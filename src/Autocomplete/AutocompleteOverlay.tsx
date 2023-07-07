@@ -4,6 +4,7 @@ import Overlay, {OverlayProps} from '../Overlay'
 import {ComponentProps} from '../utils/types'
 import {AutocompleteContext} from './AutocompleteContext'
 import {useRefObjectAsForwardedRef} from '../hooks/useRefObjectAsForwardedRef'
+import VisuallyHidden from '../_VisuallyHidden'
 
 type AutocompleteOverlayInternalProps = {
   /**
@@ -65,7 +66,11 @@ function AutocompleteOverlay({
     >
       {children}
     </Overlay>
-  ) : null
+  ) : (
+    // HACK: This ensures AutocompleteMenu is still mounted when closing the menu and all of the hooks inside of it are still called.
+    // A better way to do this would be to move the hooks to AutocompleteOverlay or somewhere that won't get unmounted.
+    <VisuallyHidden>{children}</VisuallyHidden>
+  )
 }
 
 AutocompleteOverlay.displayName = 'AutocompleteOverlay'
