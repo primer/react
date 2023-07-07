@@ -3,6 +3,7 @@ import {axe} from 'jest-axe'
 import React, {useCallback, useRef, useState} from 'react'
 
 import {ActionMenu} from '../ActionMenu'
+import {ActionList} from '../ActionList'`
 import BaseStyles from '../BaseStyles'
 import Box from '../Box'
 import {Button} from '../Button'
@@ -45,7 +46,6 @@ const Basic = ({confirmButtonType}: Pick<React.ComponentProps<typeof Confirmatio
 const ShorthandHookFromActionMenu = () => {
   const confirm = useConfirm()
   const [text, setText] = useState('Show menu')
-  const buttonRef = useRef<HTMLButtonElement>(null)
   const onButtonClick = useCallback(async () => {
     if (
       await confirm({
@@ -64,14 +64,12 @@ const ShorthandHookFromActionMenu = () => {
         <BaseStyles>
           <Box display="flex" flexDirection="column" alignItems="flex-start">
             <ActionMenu>
-
               <ActionMenu.Button>{text}</ActionMenu.Button>
               <ActionMenu.Overlay>
                 <ActionList>
                   <ActionList.Item onSelect={onButtonClick}>Show dialog</ActionList.Item>
                 </ActionList>
               </ActionMenu.Overlay>
-
             </ActionMenu>
           </Box>
         </BaseStyles>
