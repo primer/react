@@ -3,3 +3,5 @@
 ---
 
 The showPages prop on both Pagination components can now accept a responsive value.
+
+<!-- Components changed: DataTable, Pagination -->
