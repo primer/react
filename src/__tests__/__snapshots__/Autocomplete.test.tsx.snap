@@ -481,27 +481,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
       type="text"
     />
   </span>,
-  .c1 {
-  padding-top: 8px;
-  padding-bottom: 8px;
-}
-
-.c5 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  padding-left: 8px;
-  padding-right: 8px;
-  padding-top: 6px;
-  padding-bottom: 6px;
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
-}
-
-.c7 {
+  .c5 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -514,15 +494,9 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
   -ms-flex-positive: 1;
   flex-grow: 1;
   min-width: 0;
-  border-style: none;
-  background-color: transparent;
-  cursor: inherit;
-  font-size: inherit;
-  color: #1F2328;
-  line-height: 20px;
 }
 
-.c8 {
+.c6 {
   -webkit-box-flex: 1;
   -webkit-flex-grow: 1;
   -ms-flex-positive: 1;
@@ -530,7 +504,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
   font-weight: 400;
 }
 
-.c6 {
+.c4 {
   height: 20px;
   min-width: 16px;
   max-width: 20px;
@@ -552,19 +526,19 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
   margin-right: 8px;
 }
 
-.c6 rect {
+.c4 rect {
   fill: #ffffff;
   stroke: #d0d7de;
   shape-rendering: auto;
 }
 
-.c6 path {
+.c4 path {
   fill: #ffffff;
   box-shadow: 0 1px 0 rgba(31,35,40,0.04);
   opacity: 0;
 }
 
-.c9 {
+.c7 {
   height: 20px;
   min-width: 16px;
   max-width: 20px;
@@ -587,7 +561,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
   color: #656d76;
 }
 
-.c9 svg {
+.c7 svg {
   font-size: 12px;
 }
 
@@ -604,22 +578,24 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
   border-width: 0;
 }
 
-.c2 {
+.c1 {
   margin: 0;
   padding-inline-start: 0;
+  padding-top: 8px;
+  padding-bottom: 8px;
 }
 
-.c4 {
+.c3 {
   position: relative;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  padding-left: 0;
-  padding-right: 0;
+  padding-left: 8px;
+  padding-right: 8px;
   font-size: 14px;
-  padding-top: 0;
-  padding-bottom: 0;
+  padding-top: 6px;
+  padding-bottom: 6px;
   line-height: 20px;
   min-height: 5px;
   margin-left: 8px;
@@ -641,15 +617,15 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
   margin-bottom: unset;
 }
 
-.c4[aria-disabled] {
+.c3[aria-disabled] {
   cursor: not-allowed;
 }
 
-.c4 [data-component="ActionList.Item--DividerContainer"] {
+.c3 [data-component="ActionList.Item--DividerContainer"] {
   position: relative;
 }
 
-.c4 [data-component="ActionList.Item--DividerContainer"]::before {
+.c3 [data-component="ActionList.Item--DividerContainer"]::before {
   content: " ";
   display: block;
   position: absolute;
@@ -660,58 +636,53 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
   border-color: var(--divider-color,transparent);
 }
 
-.c4 button[data-component="ActionList.Item--DividerContainer"] {
-  text-align: left;
-  padding: 0;
-}
-
-.c4:not(:first-of-type) {
+.c3:not(:first-of-type) {
   --divider-color: rgba(208,215,222,0.48);
 }
 
-[data-component="ActionList.Divider"] + .c4 {
+[data-component="ActionList.Divider"] + .c3 {
   --divider-color: transparent !important;
 }
 
-.c4:hover:not([aria-disabled]),
-.c4:focus:not([aria-disabled]),
-.c4[data-focus-visible-added]:not([aria-disabled]) {
+.c3:hover:not([aria-disabled]),
+.c3:focus:not([aria-disabled]),
+.c3[data-focus-visible-added]:not([aria-disabled]) {
   --divider-color: transparent;
 }
 
-.c4:hover:not([aria-disabled]) + .c3,
-.c4:focus:not([aria-disabled]) + .c4,
-.c4[data-focus-visible-added] + li {
+.c3:hover:not([aria-disabled]) + .c2,
+.c3:focus:not([aria-disabled]) + .c3,
+.c3[data-focus-visible-added] + li {
   --divider-color: transparent;
 }
 
-.c10:hover:not([aria-disabled]) + .c3,
-.c10:focus:not([aria-disabled]) + .c10,
-.c10[data-focus-visible-added] + li {
+.c8:hover:not([aria-disabled]) + .c2,
+.c8:focus:not([aria-disabled]) + .c8,
+.c8[data-focus-visible-added] + li {
   --divider-color: transparent;
 }
 
 @media (hover:hover) and (pointer:fine) {
-  .c4:hover:not([aria-disabled]) {
+  .c3:hover:not([aria-disabled]) {
     background-color: rgba(208,215,222,0.32);
     color: #1F2328;
   }
 
-  .c4:focus-visible,
-  .c4 > a:focus-visible {
+  .c3:focus-visible,
+  .c3 > a:focus-visible {
     outline: none;
     border: 2 solid;
     box-shadow: 0 0 0 2px #0969da;
   }
 
-  .c4:active:not([aria-disabled]) {
+  .c3:active:not([aria-disabled]) {
     background-color: rgba(208,215,222,0.48);
     color: #1F2328;
   }
 }
 
 @media (forced-colors:active) {
-  .c4:focus {
+  .c3:focus {
     outline: solid 1px transparent !important;
   }
 }
@@ -720,571 +691,534 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
     className="c0"
   >
     <div>
-      <div
+      <ul
+        aria-labelledby="labelId"
         className="c1"
+        id="autocompleteId-listbox"
+        role="listbox"
       >
-        <ul
-          aria-labelledby="labelId"
-          className="c2"
-          id="autocompleteId-listbox"
-          role="listbox"
+        <li
+          aria-labelledby="0 "
+          className="c2 c3"
+          data-id="0"
+          onClick={[Function]}
+          onKeyPress={[Function]}
+          role="option"
+          tabIndex={0}
         >
-          <li
-            aria-labelledby="0 "
-            className="c3 c4"
-            data-id="0"
-            onClick={[Function]}
-            onKeyPress={[Function]}
-            role="option"
+          <span
+            className="c4"
           >
-            <div
-              className="c5"
+            <svg
+              aria-hidden="true"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+              xmlns="http://www.w3.org/2000/svg"
             >
-              <span
-                className="c6"
-              >
-                <svg
-                  aria-hidden="true"
-                  height="16"
-                  viewBox="0 0 16 16"
-                  width="16"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <rect
-                    height="12"
-                    rx="4"
-                    width="12"
-                    x="2"
-                    y="2"
-                  />
-                  <path
-                    d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
-                    fillRule="evenodd"
-                    strokeWidth="0"
-                  />
-                </svg>
-              </span>
-              <button
-                className="c7"
-                data-component="ActionList.Item--DividerContainer"
-              >
-                <span
-                  className="c8"
-                  id="0"
-                >
-                  zero
-                </span>
-              </button>
-            </div>
-          </li>
-          <li
-            aria-labelledby="1 "
-            className="c3 c4"
-            data-id="1"
-            onClick={[Function]}
-            onKeyPress={[Function]}
-            role="option"
+              <rect
+                height="12"
+                rx="4"
+                width="12"
+                x="2"
+                y="2"
+              />
+              <path
+                d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
+                fillRule="evenodd"
+                strokeWidth="0"
+              />
+            </svg>
+          </span>
+          <div
+            className="c5"
+            data-component="ActionList.Item--DividerContainer"
           >
-            <div
-              className="c5"
+            <span
+              className="c6"
+              id="0"
             >
-              <span
-                className="c6"
-              >
-                <svg
-                  aria-hidden="true"
-                  height="16"
-                  viewBox="0 0 16 16"
-                  width="16"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <rect
-                    height="12"
-                    rx="4"
-                    width="12"
-                    x="2"
-                    y="2"
-                  />
-                  <path
-                    d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
-                    fillRule="evenodd"
-                    strokeWidth="0"
-                  />
-                </svg>
-              </span>
-              <button
-                className="c7"
-                data-component="ActionList.Item--DividerContainer"
-              >
-                <span
-                  className="c8"
-                  id="1"
-                >
-                  one
-                </span>
-              </button>
-            </div>
-          </li>
-          <li
-            aria-labelledby="2 "
-            className="c3 c4"
-            data-id="2"
-            onClick={[Function]}
-            onKeyPress={[Function]}
-            role="option"
+              zero
+            </span>
+          </div>
+        </li>
+        <li
+          aria-labelledby="1 "
+          className="c2 c3"
+          data-id="1"
+          onClick={[Function]}
+          onKeyPress={[Function]}
+          role="option"
+          tabIndex={0}
+        >
+          <span
+            className="c4"
           >
-            <div
-              className="c5"
+            <svg
+              aria-hidden="true"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+              xmlns="http://www.w3.org/2000/svg"
             >
-              <span
-                className="c6"
-              >
-                <svg
-                  aria-hidden="true"
-                  height="16"
-                  viewBox="0 0 16 16"
-                  width="16"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <rect
-                    height="12"
-                    rx="4"
-                    width="12"
-                    x="2"
-                    y="2"
-                  />
-                  <path
-                    d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
-                    fillRule="evenodd"
-                    strokeWidth="0"
-                  />
-                </svg>
-              </span>
-              <button
-                className="c7"
-                data-component="ActionList.Item--DividerContainer"
-              >
-                <span
-                  className="c8"
-                  id="2"
-                >
-                  two
-                </span>
-              </button>
-            </div>
-          </li>
-          <li
-            aria-labelledby="3 "
-            className="c3 c4"
-            data-id="3"
-            onClick={[Function]}
-            onKeyPress={[Function]}
-            role="option"
+              <rect
+                height="12"
+                rx="4"
+                width="12"
+                x="2"
+                y="2"
+              />
+              <path
+                d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
+                fillRule="evenodd"
+                strokeWidth="0"
+              />
+            </svg>
+          </span>
+          <div
+            className="c5"
+            data-component="ActionList.Item--DividerContainer"
           >
-            <div
-              className="c5"
+            <span
+              className="c6"
+              id="1"
             >
-              <span
-                className="c6"
-              >
-                <svg
-                  aria-hidden="true"
-                  height="16"
-                  viewBox="0 0 16 16"
-                  width="16"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <rect
-                    height="12"
-                    rx="4"
-                    width="12"
-                    x="2"
-                    y="2"
-                  />
-                  <path
-                    d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
-                    fillRule="evenodd"
-                    strokeWidth="0"
-                  />
-                </svg>
-              </span>
-              <button
-                className="c7"
-                data-component="ActionList.Item--DividerContainer"
-              >
-                <span
-                  className="c8"
-                  id="3"
-                >
-                  three
-                </span>
-              </button>
-            </div>
-          </li>
-          <li
-            aria-labelledby="4 "
-            className="c3 c4"
-            data-id="4"
-            onClick={[Function]}
-            onKeyPress={[Function]}
-            role="option"
+              one
+            </span>
+          </div>
+        </li>
+        <li
+          aria-labelledby="2 "
+          className="c2 c3"
+          data-id="2"
+          onClick={[Function]}
+          onKeyPress={[Function]}
+          role="option"
+          tabIndex={0}
+        >
+          <span
+            className="c4"
           >
-            <div
-              className="c5"
+            <svg
+              aria-hidden="true"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+              xmlns="http://www.w3.org/2000/svg"
             >
-              <span
-                className="c6"
-              >
-                <svg
-                  aria-hidden="true"
-                  height="16"
-                  viewBox="0 0 16 16"
-                  width="16"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <rect
-                    height="12"
-                    rx="4"
-                    width="12"
-                    x="2"
-                    y="2"
-                  />
-                  <path
-                    d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
-                    fillRule="evenodd"
-                    strokeWidth="0"
-                  />
-                </svg>
-              </span>
-              <button
-                className="c7"
-                data-component="ActionList.Item--DividerContainer"
-              >
-                <span
-                  className="c8"
-                  id="4"
-                >
-                  four
-                </span>
-              </button>
-            </div>
-          </li>
-          <li
-            aria-labelledby="5 "
-            className="c3 c4"
-            data-id="5"
-            onClick={[Function]}
-            onKeyPress={[Function]}
-            role="option"
+              <rect
+                height="12"
+                rx="4"
+                width="12"
+                x="2"
+                y="2"
+              />
+              <path
+                d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
+                fillRule="evenodd"
+                strokeWidth="0"
+              />
+            </svg>
+          </span>
+          <div
+            className="c5"
+            data-component="ActionList.Item--DividerContainer"
           >
-            <div
-              className="c5"
+            <span
+              className="c6"
+              id="2"
             >
-              <span
-                className="c6"
-              >
-                <svg
-                  aria-hidden="true"
-                  height="16"
-                  viewBox="0 0 16 16"
-                  width="16"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <rect
-                    height="12"
-                    rx="4"
-                    width="12"
-                    x="2"
-                    y="2"
-                  />
-                  <path
-                    d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
-                    fillRule="evenodd"
-                    strokeWidth="0"
-                  />
-                </svg>
-              </span>
-              <button
-                className="c7"
-                data-component="ActionList.Item--DividerContainer"
-              >
-                <span
-                  className="c8"
-                  id="5"
-                >
-                  five
-                </span>
-              </button>
-            </div>
-          </li>
-          <li
-            aria-labelledby="6 "
-            className="c3 c4"
-            data-id="6"
-            onClick={[Function]}
-            onKeyPress={[Function]}
-            role="option"
+              two
+            </span>
+          </div>
+        </li>
+        <li
+          aria-labelledby="3 "
+          className="c2 c3"
+          data-id="3"
+          onClick={[Function]}
+          onKeyPress={[Function]}
+          role="option"
+          tabIndex={0}
+        >
+          <span
+            className="c4"
           >
-            <div
-              className="c5"
+            <svg
+              aria-hidden="true"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+              xmlns="http://www.w3.org/2000/svg"
             >
-              <span
-                className="c6"
-              >
-                <svg
-                  aria-hidden="true"
-                  height="16"
-                  viewBox="0 0 16 16"
-                  width="16"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <rect
-                    height="12"
-                    rx="4"
-                    width="12"
-                    x="2"
-                    y="2"
-                  />
-                  <path
-                    d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
-                    fillRule="evenodd"
-                    strokeWidth="0"
-                  />
-                </svg>
-              </span>
-              <button
-                className="c7"
-                data-component="ActionList.Item--DividerContainer"
-              >
-                <span
-                  className="c8"
-                  id="6"
-                >
-                  six
-                </span>
-              </button>
-            </div>
-          </li>
-          <li
-            aria-labelledby="7 "
-            className="c3 c4"
-            data-id="7"
-            onClick={[Function]}
-            onKeyPress={[Function]}
-            role="option"
+              <rect
+                height="12"
+                rx="4"
+                width="12"
+                x="2"
+                y="2"
+              />
+              <path
+                d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
+                fillRule="evenodd"
+                strokeWidth="0"
+              />
+            </svg>
+          </span>
+          <div
+            className="c5"
+            data-component="ActionList.Item--DividerContainer"
           >
-            <div
-              className="c5"
+            <span
+              className="c6"
+              id="3"
             >
-              <span
-                className="c6"
-              >
-                <svg
-                  aria-hidden="true"
-                  height="16"
-                  viewBox="0 0 16 16"
-                  width="16"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <rect
-                    height="12"
-                    rx="4"
-                    width="12"
-                    x="2"
-                    y="2"
-                  />
-                  <path
-                    d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
-                    fillRule="evenodd"
-                    strokeWidth="0"
-                  />
-                </svg>
-              </span>
-              <button
-                className="c7"
-                data-component="ActionList.Item--DividerContainer"
-              >
-                <span
-                  className="c8"
-                  id="7"
-                >
-                  seven
-                </span>
-              </button>
-            </div>
-          </li>
-          <li
-            aria-labelledby="20 "
-            className="c3 c4"
-            data-id="20"
-            onClick={[Function]}
-            onKeyPress={[Function]}
-            role="option"
+              three
+            </span>
+          </div>
+        </li>
+        <li
+          aria-labelledby="4 "
+          className="c2 c3"
+          data-id="4"
+          onClick={[Function]}
+          onKeyPress={[Function]}
+          role="option"
+          tabIndex={0}
+        >
+          <span
+            className="c4"
           >
-            <div
-              className="c5"
+            <svg
+              aria-hidden="true"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+              xmlns="http://www.w3.org/2000/svg"
             >
-              <span
-                className="c6"
-              >
-                <svg
-                  aria-hidden="true"
-                  height="16"
-                  viewBox="0 0 16 16"
-                  width="16"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <rect
-                    height="12"
-                    rx="4"
-                    width="12"
-                    x="2"
-                    y="2"
-                  />
-                  <path
-                    d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
-                    fillRule="evenodd"
-                    strokeWidth="0"
-                  />
-                </svg>
-              </span>
-              <button
-                className="c7"
-                data-component="ActionList.Item--DividerContainer"
-              >
-                <span
-                  className="c8"
-                  id="20"
-                >
-                  twenty
-                </span>
-              </button>
-            </div>
-          </li>
-          <li
-            aria-labelledby="21 "
-            className="c3 c4"
-            data-id="21"
-            onClick={[Function]}
-            onKeyPress={[Function]}
-            role="option"
+              <rect
+                height="12"
+                rx="4"
+                width="12"
+                x="2"
+                y="2"
+              />
+              <path
+                d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
+                fillRule="evenodd"
+                strokeWidth="0"
+              />
+            </svg>
+          </span>
+          <div
+            className="c5"
+            data-component="ActionList.Item--DividerContainer"
           >
-            <div
-              className="c5"
+            <span
+              className="c6"
+              id="4"
             >
-              <span
-                className="c6"
-              >
-                <svg
-                  aria-hidden="true"
-                  height="16"
-                  viewBox="0 0 16 16"
-                  width="16"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <rect
-                    height="12"
-                    rx="4"
-                    width="12"
-                    x="2"
-                    y="2"
-                  />
-                  <path
-                    d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
-                    fillRule="evenodd"
-                    strokeWidth="0"
-                  />
-                </svg>
-              </span>
-              <button
-                className="c7"
-                data-component="ActionList.Item--DividerContainer"
-              >
-                <span
-                  className="c8"
-                  id="21"
-                >
-                  twentyone
-                </span>
-              </button>
-            </div>
-          </li>
-          <li
-            aria-labelledby="add-new-item "
-            className="c3 c4"
-            data-id="add-new-item"
-            onClick={[Function]}
-            onKeyPress={[Function]}
-            role="option"
+              four
+            </span>
+          </div>
+        </li>
+        <li
+          aria-labelledby="5 "
+          className="c2 c3"
+          data-id="5"
+          onClick={[Function]}
+          onKeyPress={[Function]}
+          role="option"
+          tabIndex={0}
+        >
+          <span
+            className="c4"
           >
-            <div
-              className="c5"
+            <svg
+              aria-hidden="true"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+              xmlns="http://www.w3.org/2000/svg"
             >
-              <span
-                className="c6"
-              >
-                <svg
-                  aria-hidden="true"
-                  height="16"
-                  viewBox="0 0 16 16"
-                  width="16"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <rect
-                    height="12"
-                    rx="4"
-                    width="12"
-                    x="2"
-                    y="2"
-                  />
-                  <path
-                    d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
-                    fillRule="evenodd"
-                    strokeWidth="0"
-                  />
-                </svg>
-              </span>
-              <span
-                className="c9"
-              >
-                <svg
-                  aria-hidden="true"
-                  className="octicon octicon-plus"
-                  fill="currentColor"
-                  focusable="false"
-                  height={16}
-                  role="img"
-                  style={
-                    {
-                      "display": "inline-block",
-                      "overflow": "visible",
-                      "userSelect": "none",
-                      "verticalAlign": "text-bottom",
-                    }
-                  }
-                  viewBox="0 0 16 16"
-                  width={16}
-                >
-                  <path
-                    d="M7.75 2a.75.75 0 0 1 .75.75V7h4.25a.75.75 0 0 1 0 1.5H8.5v4.25a.75.75 0 0 1-1.5 0V8.5H2.75a.75.75 0 0 1 0-1.5H7V2.75A.75.75 0 0 1 7.75 2Z"
-                  />
-                </svg>
-              </span>
-              <button
-                className="c7"
-                data-component="ActionList.Item--DividerContainer"
-              >
-                <span
-                  className="c8"
-                  id="add-new-item"
-                >
-                  Add new item
-                </span>
-              </button>
-            </div>
-          </li>
-        </ul>
-      </div>
+              <rect
+                height="12"
+                rx="4"
+                width="12"
+                x="2"
+                y="2"
+              />
+              <path
+                d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
+                fillRule="evenodd"
+                strokeWidth="0"
+              />
+            </svg>
+          </span>
+          <div
+            className="c5"
+            data-component="ActionList.Item--DividerContainer"
+          >
+            <span
+              className="c6"
+              id="5"
+            >
+              five
+            </span>
+          </div>
+        </li>
+        <li
+          aria-labelledby="6 "
+          className="c2 c3"
+          data-id="6"
+          onClick={[Function]}
+          onKeyPress={[Function]}
+          role="option"
+          tabIndex={0}
+        >
+          <span
+            className="c4"
+          >
+            <svg
+              aria-hidden="true"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect
+                height="12"
+                rx="4"
+                width="12"
+                x="2"
+                y="2"
+              />
+              <path
+                d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
+                fillRule="evenodd"
+                strokeWidth="0"
+              />
+            </svg>
+          </span>
+          <div
+            className="c5"
+            data-component="ActionList.Item--DividerContainer"
+          >
+            <span
+              className="c6"
+              id="6"
+            >
+              six
+            </span>
+          </div>
+        </li>
+        <li
+          aria-labelledby="7 "
+          className="c2 c3"
+          data-id="7"
+          onClick={[Function]}
+          onKeyPress={[Function]}
+          role="option"
+          tabIndex={0}
+        >
+          <span
+            className="c4"
+          >
+            <svg
+              aria-hidden="true"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect
+                height="12"
+                rx="4"
+                width="12"
+                x="2"
+                y="2"
+              />
+              <path
+                d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
+                fillRule="evenodd"
+                strokeWidth="0"
+              />
+            </svg>
+          </span>
+          <div
+            className="c5"
+            data-component="ActionList.Item--DividerContainer"
+          >
+            <span
+              className="c6"
+              id="7"
+            >
+              seven
+            </span>
+          </div>
+        </li>
+        <li
+          aria-labelledby="20 "
+          className="c2 c3"
+          data-id="20"
+          onClick={[Function]}
+          onKeyPress={[Function]}
+          role="option"
+          tabIndex={0}
+        >
+          <span
+            className="c4"
+          >
+            <svg
+              aria-hidden="true"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect
+                height="12"
+                rx="4"
+                width="12"
+                x="2"
+                y="2"
+              />
+              <path
+                d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
+                fillRule="evenodd"
+                strokeWidth="0"
+              />
+            </svg>
+          </span>
+          <div
+            className="c5"
+            data-component="ActionList.Item--DividerContainer"
+          >
+            <span
+              className="c6"
+              id="20"
+            >
+              twenty
+            </span>
+          </div>
+        </li>
+        <li
+          aria-labelledby="21 "
+          className="c2 c3"
+          data-id="21"
+          onClick={[Function]}
+          onKeyPress={[Function]}
+          role="option"
+          tabIndex={0}
+        >
+          <span
+            className="c4"
+          >
+            <svg
+              aria-hidden="true"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect
+                height="12"
+                rx="4"
+                width="12"
+                x="2"
+                y="2"
+              />
+              <path
+                d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
+                fillRule="evenodd"
+                strokeWidth="0"
+              />
+            </svg>
+          </span>
+          <div
+            className="c5"
+            data-component="ActionList.Item--DividerContainer"
+          >
+            <span
+              className="c6"
+              id="21"
+            >
+              twentyone
+            </span>
+          </div>
+        </li>
+        <li
+          aria-labelledby="add-new-item "
+          className="c2 c3"
+          data-id="add-new-item"
+          onClick={[Function]}
+          onKeyPress={[Function]}
+          role="option"
+          tabIndex={0}
+        >
+          <span
+            className="c4"
+          >
+            <svg
+              aria-hidden="true"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect
+                height="12"
+                rx="4"
+                width="12"
+                x="2"
+                y="2"
+              />
+              <path
+                d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
+                fillRule="evenodd"
+                strokeWidth="0"
+              />
+            </svg>
+          </span>
+          <span
+            className="c7"
+          >
+            <svg
+              aria-hidden="true"
+              className="octicon octicon-plus"
+              fill="currentColor"
+              focusable="false"
+              height={16}
+              role="img"
+              style={
+                {
+                  "display": "inline-block",
+                  "overflow": "visible",
+                  "userSelect": "none",
+                  "verticalAlign": "text-bottom",
+                }
+              }
+              viewBox="0 0 16 16"
+              width={16}
+            >
+              <path
+                d="M7.75 2a.75.75 0 0 1 .75.75V7h4.25a.75.75 0 0 1 0 1.5H8.5v4.25a.75.75 0 0 1-1.5 0V8.5H2.75a.75.75 0 0 1 0-1.5H7V2.75A.75.75 0 0 1 7.75 2Z"
+              />
+            </svg>
+          </span>
+          <div
+            className="c5"
+            data-component="ActionList.Item--DividerContainer"
+          >
+            <span
+              className="c6"
+              id="add-new-item"
+            >
+              Add new item
+            </span>
+          </div>
+        </li>
+      </ul>
     </div>
   </span>,
 ]
@@ -1418,27 +1352,7 @@ exports[`snapshots renders a multiselect input 1`] = `
       type="text"
     />
   </span>,
-  .c1 {
-  padding-top: 8px;
-  padding-bottom: 8px;
-}
-
-.c5 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  padding-left: 8px;
-  padding-right: 8px;
-  padding-top: 6px;
-  padding-bottom: 6px;
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
-}
-
-.c7 {
+  .c5 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -1451,15 +1365,9 @@ exports[`snapshots renders a multiselect input 1`] = `
   -ms-flex-positive: 1;
   flex-grow: 1;
   min-width: 0;
-  border-style: none;
-  background-color: transparent;
-  cursor: inherit;
-  font-size: inherit;
-  color: #1F2328;
-  line-height: 20px;
 }
 
-.c8 {
+.c6 {
   -webkit-box-flex: 1;
   -webkit-flex-grow: 1;
   -ms-flex-positive: 1;
@@ -1467,7 +1375,7 @@ exports[`snapshots renders a multiselect input 1`] = `
   font-weight: 400;
 }
 
-.c6 {
+.c4 {
   height: 20px;
   min-width: 16px;
   max-width: 20px;
@@ -1489,13 +1397,13 @@ exports[`snapshots renders a multiselect input 1`] = `
   margin-right: 8px;
 }
 
-.c6 rect {
+.c4 rect {
   fill: #ffffff;
   stroke: #d0d7de;
   shape-rendering: auto;
 }
 
-.c6 path {
+.c4 path {
   fill: #ffffff;
   box-shadow: 0 1px 0 rgba(31,35,40,0.04);
   opacity: 0;
@@ -1514,22 +1422,24 @@ exports[`snapshots renders a multiselect input 1`] = `
   border-width: 0;
 }
 
-.c2 {
+.c1 {
   margin: 0;
   padding-inline-start: 0;
+  padding-top: 8px;
+  padding-bottom: 8px;
 }
 
-.c4 {
+.c3 {
   position: relative;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  padding-left: 0;
-  padding-right: 0;
+  padding-left: 8px;
+  padding-right: 8px;
   font-size: 14px;
-  padding-top: 0;
-  padding-bottom: 0;
+  padding-top: 6px;
+  padding-bottom: 6px;
   line-height: 20px;
   min-height: 5px;
   margin-left: 8px;
@@ -1551,15 +1461,15 @@ exports[`snapshots renders a multiselect input 1`] = `
   margin-bottom: unset;
 }
 
-.c4[aria-disabled] {
+.c3[aria-disabled] {
   cursor: not-allowed;
 }
 
-.c4 [data-component="ActionList.Item--DividerContainer"] {
+.c3 [data-component="ActionList.Item--DividerContainer"] {
   position: relative;
 }
 
-.c4 [data-component="ActionList.Item--DividerContainer"]::before {
+.c3 [data-component="ActionList.Item--DividerContainer"]::before {
   content: " ";
   display: block;
   position: absolute;
@@ -1570,58 +1480,53 @@ exports[`snapshots renders a multiselect input 1`] = `
   border-color: var(--divider-color,transparent);
 }
 
-.c4 button[data-component="ActionList.Item--DividerContainer"] {
-  text-align: left;
-  padding: 0;
-}
-
-.c4:not(:first-of-type) {
+.c3:not(:first-of-type) {
   --divider-color: rgba(208,215,222,0.48);
 }
 
-[data-component="ActionList.Divider"] + .c4 {
+[data-component="ActionList.Divider"] + .c3 {
   --divider-color: transparent !important;
 }
 
-.c4:hover:not([aria-disabled]),
-.c4:focus:not([aria-disabled]),
-.c4[data-focus-visible-added]:not([aria-disabled]) {
+.c3:hover:not([aria-disabled]),
+.c3:focus:not([aria-disabled]),
+.c3[data-focus-visible-added]:not([aria-disabled]) {
   --divider-color: transparent;
 }
 
-.c4:hover:not([aria-disabled]) + .c3,
-.c4:focus:not([aria-disabled]) + .c4,
-.c4[data-focus-visible-added] + li {
+.c3:hover:not([aria-disabled]) + .c2,
+.c3:focus:not([aria-disabled]) + .c3,
+.c3[data-focus-visible-added] + li {
   --divider-color: transparent;
 }
 
-.c9:hover:not([aria-disabled]) + .c3,
-.c9:focus:not([aria-disabled]) + .c9,
-.c9[data-focus-visible-added] + li {
+.c7:hover:not([aria-disabled]) + .c2,
+.c7:focus:not([aria-disabled]) + .c7,
+.c7[data-focus-visible-added] + li {
   --divider-color: transparent;
 }
 
 @media (hover:hover) and (pointer:fine) {
-  .c4:hover:not([aria-disabled]) {
+  .c3:hover:not([aria-disabled]) {
     background-color: rgba(208,215,222,0.32);
     color: #1F2328;
   }
 
-  .c4:focus-visible,
-  .c4 > a:focus-visible {
+  .c3:focus-visible,
+  .c3 > a:focus-visible {
     outline: none;
     border: 2 solid;
     box-shadow: 0 0 0 2px #0969da;
   }
 
-  .c4:active:not([aria-disabled]) {
+  .c3:active:not([aria-disabled]) {
     background-color: rgba(208,215,222,0.48);
     color: #1F2328;
   }
 }
 
 @media (forced-colors:active) {
-  .c4:focus {
+  .c3:focus {
     outline: solid 1px transparent !important;
   }
 }
@@ -1630,497 +1535,463 @@ exports[`snapshots renders a multiselect input 1`] = `
     className="c0"
   >
     <div>
-      <div
+      <ul
+        aria-labelledby="labelId"
         className="c1"
+        id="autocompleteId-listbox"
+        role="listbox"
       >
-        <ul
-          aria-labelledby="labelId"
-          className="c2"
-          id="autocompleteId-listbox"
-          role="listbox"
+        <li
+          aria-labelledby="0 "
+          className="c2 c3"
+          data-id="0"
+          onClick={[Function]}
+          onKeyPress={[Function]}
+          role="option"
+          tabIndex={0}
         >
-          <li
-            aria-labelledby="0 "
-            className="c3 c4"
-            data-id="0"
-            onClick={[Function]}
-            onKeyPress={[Function]}
-            role="option"
+          <span
+            className="c4"
           >
-            <div
-              className="c5"
+            <svg
+              aria-hidden="true"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+              xmlns="http://www.w3.org/2000/svg"
             >
-              <span
-                className="c6"
-              >
-                <svg
-                  aria-hidden="true"
-                  height="16"
-                  viewBox="0 0 16 16"
-                  width="16"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <rect
-                    height="12"
-                    rx="4"
-                    width="12"
-                    x="2"
-                    y="2"
-                  />
-                  <path
-                    d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
-                    fillRule="evenodd"
-                    strokeWidth="0"
-                  />
-                </svg>
-              </span>
-              <button
-                className="c7"
-                data-component="ActionList.Item--DividerContainer"
-              >
-                <span
-                  className="c8"
-                  id="0"
-                >
-                  zero
-                </span>
-              </button>
-            </div>
-          </li>
-          <li
-            aria-labelledby="1 "
-            className="c3 c4"
-            data-id="1"
-            onClick={[Function]}
-            onKeyPress={[Function]}
-            role="option"
+              <rect
+                height="12"
+                rx="4"
+                width="12"
+                x="2"
+                y="2"
+              />
+              <path
+                d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
+                fillRule="evenodd"
+                strokeWidth="0"
+              />
+            </svg>
+          </span>
+          <div
+            className="c5"
+            data-component="ActionList.Item--DividerContainer"
           >
-            <div
-              className="c5"
+            <span
+              className="c6"
+              id="0"
             >
-              <span
-                className="c6"
-              >
-                <svg
-                  aria-hidden="true"
-                  height="16"
-                  viewBox="0 0 16 16"
-                  width="16"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <rect
-                    height="12"
-                    rx="4"
-                    width="12"
-                    x="2"
-                    y="2"
-                  />
-                  <path
-                    d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
-                    fillRule="evenodd"
-                    strokeWidth="0"
-                  />
-                </svg>
-              </span>
-              <button
-                className="c7"
-                data-component="ActionList.Item--DividerContainer"
-              >
-                <span
-                  className="c8"
-                  id="1"
-                >
-                  one
-                </span>
-              </button>
-            </div>
-          </li>
-          <li
-            aria-labelledby="2 "
-            className="c3 c4"
-            data-id="2"
-            onClick={[Function]}
-            onKeyPress={[Function]}
-            role="option"
+              zero
+            </span>
+          </div>
+        </li>
+        <li
+          aria-labelledby="1 "
+          className="c2 c3"
+          data-id="1"
+          onClick={[Function]}
+          onKeyPress={[Function]}
+          role="option"
+          tabIndex={0}
+        >
+          <span
+            className="c4"
           >
-            <div
-              className="c5"
+            <svg
+              aria-hidden="true"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+              xmlns="http://www.w3.org/2000/svg"
             >
-              <span
-                className="c6"
-              >
-                <svg
-                  aria-hidden="true"
-                  height="16"
-                  viewBox="0 0 16 16"
-                  width="16"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <rect
-                    height="12"
-                    rx="4"
-                    width="12"
-                    x="2"
-                    y="2"
-                  />
-                  <path
-                    d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
-                    fillRule="evenodd"
-                    strokeWidth="0"
-                  />
-                </svg>
-              </span>
-              <button
-                className="c7"
-                data-component="ActionList.Item--DividerContainer"
-              >
-                <span
-                  className="c8"
-                  id="2"
-                >
-                  two
-                </span>
-              </button>
-            </div>
-          </li>
-          <li
-            aria-labelledby="3 "
-            className="c3 c4"
-            data-id="3"
-            onClick={[Function]}
-            onKeyPress={[Function]}
-            role="option"
+              <rect
+                height="12"
+                rx="4"
+                width="12"
+                x="2"
+                y="2"
+              />
+              <path
+                d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
+                fillRule="evenodd"
+                strokeWidth="0"
+              />
+            </svg>
+          </span>
+          <div
+            className="c5"
+            data-component="ActionList.Item--DividerContainer"
           >
-            <div
-              className="c5"
+            <span
+              className="c6"
+              id="1"
             >
-              <span
-                className="c6"
-              >
-                <svg
-                  aria-hidden="true"
-                  height="16"
-                  viewBox="0 0 16 16"
-                  width="16"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <rect
-                    height="12"
-                    rx="4"
-                    width="12"
-                    x="2"
-                    y="2"
-                  />
-                  <path
-                    d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
-                    fillRule="evenodd"
-                    strokeWidth="0"
-                  />
-                </svg>
-              </span>
-              <button
-                className="c7"
-                data-component="ActionList.Item--DividerContainer"
-              >
-                <span
-                  className="c8"
-                  id="3"
-                >
-                  three
-                </span>
-              </button>
-            </div>
-          </li>
-          <li
-            aria-labelledby="4 "
-            className="c3 c4"
-            data-id="4"
-            onClick={[Function]}
-            onKeyPress={[Function]}
-            role="option"
+              one
+            </span>
+          </div>
+        </li>
+        <li
+          aria-labelledby="2 "
+          className="c2 c3"
+          data-id="2"
+          onClick={[Function]}
+          onKeyPress={[Function]}
+          role="option"
+          tabIndex={0}
+        >
+          <span
+            className="c4"
           >
-            <div
-              className="c5"
+            <svg
+              aria-hidden="true"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+              xmlns="http://www.w3.org/2000/svg"
             >
-              <span
-                className="c6"
-              >
-                <svg
-                  aria-hidden="true"
-                  height="16"
-                  viewBox="0 0 16 16"
-                  width="16"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <rect
-                    height="12"
-                    rx="4"
-                    width="12"
-                    x="2"
-                    y="2"
-                  />
-                  <path
-                    d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
-                    fillRule="evenodd"
-                    strokeWidth="0"
-                  />
-                </svg>
-              </span>
-              <button
-                className="c7"
-                data-component="ActionList.Item--DividerContainer"
-              >
-                <span
-                  className="c8"
-                  id="4"
-                >
-                  four
-                </span>
-              </button>
-            </div>
-          </li>
-          <li
-            aria-labelledby="5 "
-            className="c3 c4"
-            data-id="5"
-            onClick={[Function]}
-            onKeyPress={[Function]}
-            role="option"
+              <rect
+                height="12"
+                rx="4"
+                width="12"
+                x="2"
+                y="2"
+              />
+              <path
+                d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
+                fillRule="evenodd"
+                strokeWidth="0"
+              />
+            </svg>
+          </span>
+          <div
+            className="c5"
+            data-component="ActionList.Item--DividerContainer"
           >
-            <div
-              className="c5"
+            <span
+              className="c6"
+              id="2"
             >
-              <span
-                className="c6"
-              >
-                <svg
-                  aria-hidden="true"
-                  height="16"
-                  viewBox="0 0 16 16"
-                  width="16"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <rect
-                    height="12"
-                    rx="4"
-                    width="12"
-                    x="2"
-                    y="2"
-                  />
-                  <path
-                    d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
-                    fillRule="evenodd"
-                    strokeWidth="0"
-                  />
-                </svg>
-              </span>
-              <button
-                className="c7"
-                data-component="ActionList.Item--DividerContainer"
-              >
-                <span
-                  className="c8"
-                  id="5"
-                >
-                  five
-                </span>
-              </button>
-            </div>
-          </li>
-          <li
-            aria-labelledby="6 "
-            className="c3 c4"
-            data-id="6"
-            onClick={[Function]}
-            onKeyPress={[Function]}
-            role="option"
+              two
+            </span>
+          </div>
+        </li>
+        <li
+          aria-labelledby="3 "
+          className="c2 c3"
+          data-id="3"
+          onClick={[Function]}
+          onKeyPress={[Function]}
+          role="option"
+          tabIndex={0}
+        >
+          <span
+            className="c4"
           >
-            <div
-              className="c5"
+            <svg
+              aria-hidden="true"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+              xmlns="http://www.w3.org/2000/svg"
             >
-              <span
-                className="c6"
-              >
-                <svg
-                  aria-hidden="true"
-                  height="16"
-                  viewBox="0 0 16 16"
-                  width="16"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <rect
-                    height="12"
-                    rx="4"
-                    width="12"
-                    x="2"
-                    y="2"
-                  />
-                  <path
-                    d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
-                    fillRule="evenodd"
-                    strokeWidth="0"
-                  />
-                </svg>
-              </span>
-              <button
-                className="c7"
-                data-component="ActionList.Item--DividerContainer"
-              >
-                <span
-                  className="c8"
-                  id="6"
-                >
-                  six
-                </span>
-              </button>
-            </div>
-          </li>
-          <li
-            aria-labelledby="7 "
-            className="c3 c4"
-            data-id="7"
-            onClick={[Function]}
-            onKeyPress={[Function]}
-            role="option"
+              <rect
+                height="12"
+                rx="4"
+                width="12"
+                x="2"
+                y="2"
+              />
+              <path
+                d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
+                fillRule="evenodd"
+                strokeWidth="0"
+              />
+            </svg>
+          </span>
+          <div
+            className="c5"
+            data-component="ActionList.Item--DividerContainer"
           >
-            <div
-              className="c5"
+            <span
+              className="c6"
+              id="3"
             >
-              <span
-                className="c6"
-              >
-                <svg
-                  aria-hidden="true"
-                  height="16"
-                  viewBox="0 0 16 16"
-                  width="16"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <rect
-                    height="12"
-                    rx="4"
-                    width="12"
-                    x="2"
-                    y="2"
-                  />
-                  <path
-                    d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
-                    fillRule="evenodd"
-                    strokeWidth="0"
-                  />
-                </svg>
-              </span>
-              <button
-                className="c7"
-                data-component="ActionList.Item--DividerContainer"
-              >
-                <span
-                  className="c8"
-                  id="7"
-                >
-                  seven
-                </span>
-              </button>
-            </div>
-          </li>
-          <li
-            aria-labelledby="20 "
-            className="c3 c4"
-            data-id="20"
-            onClick={[Function]}
-            onKeyPress={[Function]}
-            role="option"
+              three
+            </span>
+          </div>
+        </li>
+        <li
+          aria-labelledby="4 "
+          className="c2 c3"
+          data-id="4"
+          onClick={[Function]}
+          onKeyPress={[Function]}
+          role="option"
+          tabIndex={0}
+        >
+          <span
+            className="c4"
           >
-            <div
-              className="c5"
+            <svg
+              aria-hidden="true"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+              xmlns="http://www.w3.org/2000/svg"
             >
-              <span
-                className="c6"
-              >
-                <svg
-                  aria-hidden="true"
-                  height="16"
-                  viewBox="0 0 16 16"
-                  width="16"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <rect
-                    height="12"
-                    rx="4"
-                    width="12"
-                    x="2"
-                    y="2"
-                  />
-                  <path
-                    d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
-                    fillRule="evenodd"
-                    strokeWidth="0"
-                  />
-                </svg>
-              </span>
-              <button
-                className="c7"
-                data-component="ActionList.Item--DividerContainer"
-              >
-                <span
-                  className="c8"
-                  id="20"
-                >
-                  twenty
-                </span>
-              </button>
-            </div>
-          </li>
-          <li
-            aria-labelledby="21 "
-            className="c3 c4"
-            data-id="21"
-            onClick={[Function]}
-            onKeyPress={[Function]}
-            role="option"
+              <rect
+                height="12"
+                rx="4"
+                width="12"
+                x="2"
+                y="2"
+              />
+              <path
+                d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
+                fillRule="evenodd"
+                strokeWidth="0"
+              />
+            </svg>
+          </span>
+          <div
+            className="c5"
+            data-component="ActionList.Item--DividerContainer"
           >
-            <div
-              className="c5"
+            <span
+              className="c6"
+              id="4"
             >
-              <span
-                className="c6"
-              >
-                <svg
-                  aria-hidden="true"
-                  height="16"
-                  viewBox="0 0 16 16"
-                  width="16"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <rect
-                    height="12"
-                    rx="4"
-                    width="12"
-                    x="2"
-                    y="2"
-                  />
-                  <path
-                    d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
-                    fillRule="evenodd"
-                    strokeWidth="0"
-                  />
-                </svg>
-              </span>
-              <button
-                className="c7"
-                data-component="ActionList.Item--DividerContainer"
-              >
-                <span
-                  className="c8"
-                  id="21"
-                >
-                  twentyone
-                </span>
-              </button>
-            </div>
-          </li>
-        </ul>
-      </div>
+              four
+            </span>
+          </div>
+        </li>
+        <li
+          aria-labelledby="5 "
+          className="c2 c3"
+          data-id="5"
+          onClick={[Function]}
+          onKeyPress={[Function]}
+          role="option"
+          tabIndex={0}
+        >
+          <span
+            className="c4"
+          >
+            <svg
+              aria-hidden="true"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect
+                height="12"
+                rx="4"
+                width="12"
+                x="2"
+                y="2"
+              />
+              <path
+                d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
+                fillRule="evenodd"
+                strokeWidth="0"
+              />
+            </svg>
+          </span>
+          <div
+            className="c5"
+            data-component="ActionList.Item--DividerContainer"
+          >
+            <span
+              className="c6"
+              id="5"
+            >
+              five
+            </span>
+          </div>
+        </li>
+        <li
+          aria-labelledby="6 "
+          className="c2 c3"
+          data-id="6"
+          onClick={[Function]}
+          onKeyPress={[Function]}
+          role="option"
+          tabIndex={0}
+        >
+          <span
+            className="c4"
+          >
+            <svg
+              aria-hidden="true"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect
+                height="12"
+                rx="4"
+                width="12"
+                x="2"
+                y="2"
+              />
+              <path
+                d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
+                fillRule="evenodd"
+                strokeWidth="0"
+              />
+            </svg>
+          </span>
+          <div
+            className="c5"
+            data-component="ActionList.Item--DividerContainer"
+          >
+            <span
+              className="c6"
+              id="6"
+            >
+              six
+            </span>
+          </div>
+        </li>
+        <li
+          aria-labelledby="7 "
+          className="c2 c3"
+          data-id="7"
+          onClick={[Function]}
+          onKeyPress={[Function]}
+          role="option"
+          tabIndex={0}
+        >
+          <span
+            className="c4"
+          >
+            <svg
+              aria-hidden="true"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect
+                height="12"
+                rx="4"
+                width="12"
+                x="2"
+                y="2"
+              />
+              <path
+                d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
+                fillRule="evenodd"
+                strokeWidth="0"
+              />
+            </svg>
+          </span>
+          <div
+            className="c5"
+            data-component="ActionList.Item--DividerContainer"
+          >
+            <span
+              className="c6"
+              id="7"
+            >
+              seven
+            </span>
+          </div>
+        </li>
+        <li
+          aria-labelledby="20 "
+          className="c2 c3"
+          data-id="20"
+          onClick={[Function]}
+          onKeyPress={[Function]}
+          role="option"
+          tabIndex={0}
+        >
+          <span
+            className="c4"
+          >
+            <svg
+              aria-hidden="true"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect
+                height="12"
+                rx="4"
+                width="12"
+                x="2"
+                y="2"
+              />
+              <path
+                d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
+                fillRule="evenodd"
+                strokeWidth="0"
+              />
+            </svg>
+          </span>
+          <div
+            className="c5"
+            data-component="ActionList.Item--DividerContainer"
+          >
+            <span
+              className="c6"
+              id="20"
+            >
+              twenty
+            </span>
+          </div>
+        </li>
+        <li
+          aria-labelledby="21 "
+          className="c2 c3"
+          data-id="21"
+          onClick={[Function]}
+          onKeyPress={[Function]}
+          role="option"
+          tabIndex={0}
+        >
+          <span
+            className="c4"
+          >
+            <svg
+              aria-hidden="true"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect
+                height="12"
+                rx="4"
+                width="12"
+                x="2"
+                y="2"
+              />
+              <path
+                d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
+                fillRule="evenodd"
+                strokeWidth="0"
+              />
+            </svg>
+          </span>
+          <div
+            className="c5"
+            data-component="ActionList.Item--DividerContainer"
+          >
+            <span
+              className="c6"
+              id="21"
+            >
+              twentyone
+            </span>
+          </div>
+        </li>
+      </ul>
     </div>
   </span>,
 ]
@@ -2254,27 +2125,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
       type="text"
     />
   </span>,
-  .c1 {
-  padding-top: 8px;
-  padding-bottom: 8px;
-}
-
-.c5 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  padding-left: 8px;
-  padding-right: 8px;
-  padding-top: 6px;
-  padding-bottom: 6px;
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
-}
-
-.c7 {
+  .c5 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -2287,15 +2138,9 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
   -ms-flex-positive: 1;
   flex-grow: 1;
   min-width: 0;
-  border-style: none;
-  background-color: transparent;
-  cursor: inherit;
-  font-size: inherit;
-  color: #1F2328;
-  line-height: 20px;
 }
 
-.c8 {
+.c6 {
   -webkit-box-flex: 1;
   -webkit-flex-grow: 1;
   -ms-flex-positive: 1;
@@ -2303,7 +2148,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
   font-weight: 400;
 }
 
-.c9 {
+.c7 {
   height: 20px;
   min-width: 16px;
   max-width: 20px;
@@ -2325,19 +2170,19 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
   margin-right: 8px;
 }
 
-.c9 rect {
+.c7 rect {
   fill: #ffffff;
   stroke: #d0d7de;
   shape-rendering: auto;
 }
 
-.c9 path {
+.c7 path {
   fill: #ffffff;
   box-shadow: 0 1px 0 rgba(31,35,40,0.04);
   opacity: 0;
 }
 
-.c6 {
+.c4 {
   height: 20px;
   min-width: 16px;
   max-width: 20px;
@@ -2359,13 +2204,13 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
   margin-right: 8px;
 }
 
-.c6 rect {
+.c4 rect {
   fill: #0969da;
   stroke: #0969da;
   shape-rendering: auto;
 }
 
-.c6 path {
+.c4 path {
   fill: #ffffff;
   box-shadow: 0 1px 0 rgba(31,35,40,0.04);
   opacity: 1;
@@ -2384,22 +2229,24 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
   border-width: 0;
 }
 
-.c2 {
+.c1 {
   margin: 0;
   padding-inline-start: 0;
+  padding-top: 8px;
+  padding-bottom: 8px;
 }
 
-.c4 {
+.c3 {
   position: relative;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  padding-left: 0;
-  padding-right: 0;
+  padding-left: 8px;
+  padding-right: 8px;
   font-size: 14px;
-  padding-top: 0;
-  padding-bottom: 0;
+  padding-top: 6px;
+  padding-bottom: 6px;
   line-height: 20px;
   min-height: 5px;
   margin-left: 8px;
@@ -2421,15 +2268,15 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
   margin-bottom: unset;
 }
 
-.c4[aria-disabled] {
+.c3[aria-disabled] {
   cursor: not-allowed;
 }
 
-.c4 [data-component="ActionList.Item--DividerContainer"] {
+.c3 [data-component="ActionList.Item--DividerContainer"] {
   position: relative;
 }
 
-.c4 [data-component="ActionList.Item--DividerContainer"]::before {
+.c3 [data-component="ActionList.Item--DividerContainer"]::before {
   content: " ";
   display: block;
   position: absolute;
@@ -2440,58 +2287,53 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
   border-color: var(--divider-color,transparent);
 }
 
-.c4 button[data-component="ActionList.Item--DividerContainer"] {
-  text-align: left;
-  padding: 0;
-}
-
-.c4:not(:first-of-type) {
+.c3:not(:first-of-type) {
   --divider-color: rgba(208,215,222,0.48);
 }
 
-[data-component="ActionList.Divider"] + .c4 {
+[data-component="ActionList.Divider"] + .c3 {
   --divider-color: transparent !important;
 }
 
-.c4:hover:not([aria-disabled]),
-.c4:focus:not([aria-disabled]),
-.c4[data-focus-visible-added]:not([aria-disabled]) {
+.c3:hover:not([aria-disabled]),
+.c3:focus:not([aria-disabled]),
+.c3[data-focus-visible-added]:not([aria-disabled]) {
   --divider-color: transparent;
 }
 
-.c4:hover:not([aria-disabled]) + .c3,
-.c4:focus:not([aria-disabled]) + .c4,
-.c4[data-focus-visible-added] + li {
+.c3:hover:not([aria-disabled]) + .c2,
+.c3:focus:not([aria-disabled]) + .c3,
+.c3[data-focus-visible-added] + li {
   --divider-color: transparent;
 }
 
-.c10:hover:not([aria-disabled]) + .c3,
-.c10:focus:not([aria-disabled]) + .c10,
-.c10[data-focus-visible-added] + li {
+.c8:hover:not([aria-disabled]) + .c2,
+.c8:focus:not([aria-disabled]) + .c8,
+.c8[data-focus-visible-added] + li {
   --divider-color: transparent;
 }
 
 @media (hover:hover) and (pointer:fine) {
-  .c4:hover:not([aria-disabled]) {
+  .c3:hover:not([aria-disabled]) {
     background-color: rgba(208,215,222,0.32);
     color: #1F2328;
   }
 
-  .c4:focus-visible,
-  .c4 > a:focus-visible {
+  .c3:focus-visible,
+  .c3 > a:focus-visible {
     outline: none;
     border: 2 solid;
     box-shadow: 0 0 0 2px #0969da;
   }
 
-  .c4:active:not([aria-disabled]) {
+  .c3:active:not([aria-disabled]) {
     background-color: rgba(208,215,222,0.48);
     color: #1F2328;
   }
 }
 
 @media (forced-colors:active) {
-  .c4:focus {
+  .c3:focus {
     outline: solid 1px transparent !important;
   }
 }
@@ -2500,497 +2342,463 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
     className="c0"
   >
     <div>
-      <div
+      <ul
+        aria-labelledby="labelId"
         className="c1"
+        id="autocompleteId-listbox"
+        role="listbox"
       >
-        <ul
-          aria-labelledby="labelId"
-          className="c2"
-          id="autocompleteId-listbox"
-          role="listbox"
+        <li
+          aria-labelledby="0 "
+          className="c2 c3"
+          data-id="0"
+          onClick={[Function]}
+          onKeyPress={[Function]}
+          role="option"
+          tabIndex={0}
         >
-          <li
-            aria-labelledby="0 "
-            className="c3 c4"
-            data-id="0"
-            onClick={[Function]}
-            onKeyPress={[Function]}
-            role="option"
+          <span
+            className="c4"
           >
-            <div
-              className="c5"
+            <svg
+              aria-hidden="true"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+              xmlns="http://www.w3.org/2000/svg"
             >
-              <span
-                className="c6"
-              >
-                <svg
-                  aria-hidden="true"
-                  height="16"
-                  viewBox="0 0 16 16"
-                  width="16"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <rect
-                    height="12"
-                    rx="4"
-                    width="12"
-                    x="2"
-                    y="2"
-                  />
-                  <path
-                    d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
-                    fillRule="evenodd"
-                    strokeWidth="0"
-                  />
-                </svg>
-              </span>
-              <button
-                className="c7"
-                data-component="ActionList.Item--DividerContainer"
-              >
-                <span
-                  className="c8"
-                  id="0"
-                >
-                  zero
-                </span>
-              </button>
-            </div>
-          </li>
-          <li
-            aria-labelledby="1 "
-            className="c3 c4"
-            data-id="1"
-            onClick={[Function]}
-            onKeyPress={[Function]}
-            role="option"
+              <rect
+                height="12"
+                rx="4"
+                width="12"
+                x="2"
+                y="2"
+              />
+              <path
+                d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
+                fillRule="evenodd"
+                strokeWidth="0"
+              />
+            </svg>
+          </span>
+          <div
+            className="c5"
+            data-component="ActionList.Item--DividerContainer"
           >
-            <div
-              className="c5"
+            <span
+              className="c6"
+              id="0"
             >
-              <span
-                className="c6"
-              >
-                <svg
-                  aria-hidden="true"
-                  height="16"
-                  viewBox="0 0 16 16"
-                  width="16"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <rect
-                    height="12"
-                    rx="4"
-                    width="12"
-                    x="2"
-                    y="2"
-                  />
-                  <path
-                    d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
-                    fillRule="evenodd"
-                    strokeWidth="0"
-                  />
-                </svg>
-              </span>
-              <button
-                className="c7"
-                data-component="ActionList.Item--DividerContainer"
-              >
-                <span
-                  className="c8"
-                  id="1"
-                >
-                  one
-                </span>
-              </button>
-            </div>
-          </li>
-          <li
-            aria-labelledby="2 "
-            className="c3 c4"
-            data-id="2"
-            onClick={[Function]}
-            onKeyPress={[Function]}
-            role="option"
+              zero
+            </span>
+          </div>
+        </li>
+        <li
+          aria-labelledby="1 "
+          className="c2 c3"
+          data-id="1"
+          onClick={[Function]}
+          onKeyPress={[Function]}
+          role="option"
+          tabIndex={0}
+        >
+          <span
+            className="c4"
           >
-            <div
-              className="c5"
+            <svg
+              aria-hidden="true"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+              xmlns="http://www.w3.org/2000/svg"
             >
-              <span
-                className="c6"
-              >
-                <svg
-                  aria-hidden="true"
-                  height="16"
-                  viewBox="0 0 16 16"
-                  width="16"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <rect
-                    height="12"
-                    rx="4"
-                    width="12"
-                    x="2"
-                    y="2"
-                  />
-                  <path
-                    d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
-                    fillRule="evenodd"
-                    strokeWidth="0"
-                  />
-                </svg>
-              </span>
-              <button
-                className="c7"
-                data-component="ActionList.Item--DividerContainer"
-              >
-                <span
-                  className="c8"
-                  id="2"
-                >
-                  two
-                </span>
-              </button>
-            </div>
-          </li>
-          <li
-            aria-labelledby="3 "
-            className="c3 c4"
-            data-id="3"
-            onClick={[Function]}
-            onKeyPress={[Function]}
-            role="option"
+              <rect
+                height="12"
+                rx="4"
+                width="12"
+                x="2"
+                y="2"
+              />
+              <path
+                d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
+                fillRule="evenodd"
+                strokeWidth="0"
+              />
+            </svg>
+          </span>
+          <div
+            className="c5"
+            data-component="ActionList.Item--DividerContainer"
           >
-            <div
-              className="c5"
+            <span
+              className="c6"
+              id="1"
             >
-              <span
-                className="c9"
-              >
-                <svg
-                  aria-hidden="true"
-                  height="16"
-                  viewBox="0 0 16 16"
-                  width="16"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <rect
-                    height="12"
-                    rx="4"
-                    width="12"
-                    x="2"
-                    y="2"
-                  />
-                  <path
-                    d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
-                    fillRule="evenodd"
-                    strokeWidth="0"
-                  />
-                </svg>
-              </span>
-              <button
-                className="c7"
-                data-component="ActionList.Item--DividerContainer"
-              >
-                <span
-                  className="c8"
-                  id="3"
-                >
-                  three
-                </span>
-              </button>
-            </div>
-          </li>
-          <li
-            aria-labelledby="4 "
-            className="c3 c4"
-            data-id="4"
-            onClick={[Function]}
-            onKeyPress={[Function]}
-            role="option"
+              one
+            </span>
+          </div>
+        </li>
+        <li
+          aria-labelledby="2 "
+          className="c2 c3"
+          data-id="2"
+          onClick={[Function]}
+          onKeyPress={[Function]}
+          role="option"
+          tabIndex={0}
+        >
+          <span
+            className="c4"
           >
-            <div
-              className="c5"
+            <svg
+              aria-hidden="true"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+              xmlns="http://www.w3.org/2000/svg"
             >
-              <span
-                className="c9"
-              >
-                <svg
-                  aria-hidden="true"
-                  height="16"
-                  viewBox="0 0 16 16"
-                  width="16"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <rect
-                    height="12"
-                    rx="4"
-                    width="12"
-                    x="2"
-                    y="2"
-                  />
-                  <path
-                    d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
-                    fillRule="evenodd"
-                    strokeWidth="0"
-                  />
-                </svg>
-              </span>
-              <button
-                className="c7"
-                data-component="ActionList.Item--DividerContainer"
-              >
-                <span
-                  className="c8"
-                  id="4"
-                >
-                  four
-                </span>
-              </button>
-            </div>
-          </li>
-          <li
-            aria-labelledby="5 "
-            className="c3 c4"
-            data-id="5"
-            onClick={[Function]}
-            onKeyPress={[Function]}
-            role="option"
+              <rect
+                height="12"
+                rx="4"
+                width="12"
+                x="2"
+                y="2"
+              />
+              <path
+                d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
+                fillRule="evenodd"
+                strokeWidth="0"
+              />
+            </svg>
+          </span>
+          <div
+            className="c5"
+            data-component="ActionList.Item--DividerContainer"
           >
-            <div
-              className="c5"
+            <span
+              className="c6"
+              id="2"
             >
-              <span
-                className="c9"
-              >
-                <svg
-                  aria-hidden="true"
-                  height="16"
-                  viewBox="0 0 16 16"
-                  width="16"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <rect
-                    height="12"
-                    rx="4"
-                    width="12"
-                    x="2"
-                    y="2"
-                  />
-                  <path
-                    d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
-                    fillRule="evenodd"
-                    strokeWidth="0"
-                  />
-                </svg>
-              </span>
-              <button
-                className="c7"
-                data-component="ActionList.Item--DividerContainer"
-              >
-                <span
-                  className="c8"
-                  id="5"
-                >
-                  five
-                </span>
-              </button>
-            </div>
-          </li>
-          <li
-            aria-labelledby="6 "
-            className="c3 c4"
-            data-id="6"
-            onClick={[Function]}
-            onKeyPress={[Function]}
-            role="option"
+              two
+            </span>
+          </div>
+        </li>
+        <li
+          aria-labelledby="3 "
+          className="c2 c3"
+          data-id="3"
+          onClick={[Function]}
+          onKeyPress={[Function]}
+          role="option"
+          tabIndex={0}
+        >
+          <span
+            className="c7"
           >
-            <div
-              className="c5"
+            <svg
+              aria-hidden="true"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+              xmlns="http://www.w3.org/2000/svg"
             >
-              <span
-                className="c9"
-              >
-                <svg
-                  aria-hidden="true"
-                  height="16"
-                  viewBox="0 0 16 16"
-                  width="16"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <rect
-                    height="12"
-                    rx="4"
-                    width="12"
-                    x="2"
-                    y="2"
-                  />
-                  <path
-                    d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
-                    fillRule="evenodd"
-                    strokeWidth="0"
-                  />
-                </svg>
-              </span>
-              <button
-                className="c7"
-                data-component="ActionList.Item--DividerContainer"
-              >
-                <span
-                  className="c8"
-                  id="6"
-                >
-                  six
-                </span>
-              </button>
-            </div>
-          </li>
-          <li
-            aria-labelledby="7 "
-            className="c3 c4"
-            data-id="7"
-            onClick={[Function]}
-            onKeyPress={[Function]}
-            role="option"
+              <rect
+                height="12"
+                rx="4"
+                width="12"
+                x="2"
+                y="2"
+              />
+              <path
+                d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
+                fillRule="evenodd"
+                strokeWidth="0"
+              />
+            </svg>
+          </span>
+          <div
+            className="c5"
+            data-component="ActionList.Item--DividerContainer"
           >
-            <div
-              className="c5"
+            <span
+              className="c6"
+              id="3"
             >
-              <span
-                className="c9"
-              >
-                <svg
-                  aria-hidden="true"
-                  height="16"
-                  viewBox="0 0 16 16"
-                  width="16"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <rect
-                    height="12"
-                    rx="4"
-                    width="12"
-                    x="2"
-                    y="2"
-                  />
-                  <path
-                    d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
-                    fillRule="evenodd"
-                    strokeWidth="0"
-                  />
-                </svg>
-              </span>
-              <button
-                className="c7"
-                data-component="ActionList.Item--DividerContainer"
-              >
-                <span
-                  className="c8"
-                  id="7"
-                >
-                  seven
-                </span>
-              </button>
-            </div>
-          </li>
-          <li
-            aria-labelledby="20 "
-            className="c3 c4"
-            data-id="20"
-            onClick={[Function]}
-            onKeyPress={[Function]}
-            role="option"
+              three
+            </span>
+          </div>
+        </li>
+        <li
+          aria-labelledby="4 "
+          className="c2 c3"
+          data-id="4"
+          onClick={[Function]}
+          onKeyPress={[Function]}
+          role="option"
+          tabIndex={0}
+        >
+          <span
+            className="c7"
           >
-            <div
-              className="c5"
+            <svg
+              aria-hidden="true"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+              xmlns="http://www.w3.org/2000/svg"
             >
-              <span
-                className="c9"
-              >
-                <svg
-                  aria-hidden="true"
-                  height="16"
-                  viewBox="0 0 16 16"
-                  width="16"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <rect
-                    height="12"
-                    rx="4"
-                    width="12"
-                    x="2"
-                    y="2"
-                  />
-                  <path
-                    d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
-                    fillRule="evenodd"
-                    strokeWidth="0"
-                  />
-                </svg>
-              </span>
-              <button
-                className="c7"
-                data-component="ActionList.Item--DividerContainer"
-              >
-                <span
-                  className="c8"
-                  id="20"
-                >
-                  twenty
-                </span>
-              </button>
-            </div>
-          </li>
-          <li
-            aria-labelledby="21 "
-            className="c3 c4"
-            data-id="21"
-            onClick={[Function]}
-            onKeyPress={[Function]}
-            role="option"
+              <rect
+                height="12"
+                rx="4"
+                width="12"
+                x="2"
+                y="2"
+              />
+              <path
+                d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
+                fillRule="evenodd"
+                strokeWidth="0"
+              />
+            </svg>
+          </span>
+          <div
+            className="c5"
+            data-component="ActionList.Item--DividerContainer"
           >
-            <div
-              className="c5"
+            <span
+              className="c6"
+              id="4"
             >
-              <span
-                className="c9"
-              >
-                <svg
-                  aria-hidden="true"
-                  height="16"
-                  viewBox="0 0 16 16"
-                  width="16"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <rect
-                    height="12"
-                    rx="4"
-                    width="12"
-                    x="2"
-                    y="2"
-                  />
-                  <path
-                    d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
-                    fillRule="evenodd"
-                    strokeWidth="0"
-                  />
-                </svg>
-              </span>
-              <button
-                className="c7"
-                data-component="ActionList.Item--DividerContainer"
-              >
-                <span
-                  className="c8"
-                  id="21"
-                >
-                  twentyone
-                </span>
-              </button>
-            </div>
-          </li>
-        </ul>
-      </div>
+              four
+            </span>
+          </div>
+        </li>
+        <li
+          aria-labelledby="5 "
+          className="c2 c3"
+          data-id="5"
+          onClick={[Function]}
+          onKeyPress={[Function]}
+          role="option"
+          tabIndex={0}
+        >
+          <span
+            className="c7"
+          >
+            <svg
+              aria-hidden="true"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect
+                height="12"
+                rx="4"
+                width="12"
+                x="2"
+                y="2"
+              />
+              <path
+                d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
+                fillRule="evenodd"
+                strokeWidth="0"
+              />
+            </svg>
+          </span>
+          <div
+            className="c5"
+            data-component="ActionList.Item--DividerContainer"
+          >
+            <span
+              className="c6"
+              id="5"
+            >
+              five
+            </span>
+          </div>
+        </li>
+        <li
+          aria-labelledby="6 "
+          className="c2 c3"
+          data-id="6"
+          onClick={[Function]}
+          onKeyPress={[Function]}
+          role="option"
+          tabIndex={0}
+        >
+          <span
+            className="c7"
+          >
+            <svg
+              aria-hidden="true"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect
+                height="12"
+                rx="4"
+                width="12"
+                x="2"
+                y="2"
+              />
+              <path
+                d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
+                fillRule="evenodd"
+                strokeWidth="0"
+              />
+            </svg>
+          </span>
+          <div
+            className="c5"
+            data-component="ActionList.Item--DividerContainer"
+          >
+            <span
+              className="c6"
+              id="6"
+            >
+              six
+            </span>
+          </div>
+        </li>
+        <li
+          aria-labelledby="7 "
+          className="c2 c3"
+          data-id="7"
+          onClick={[Function]}
+          onKeyPress={[Function]}
+          role="option"
+          tabIndex={0}
+        >
+          <span
+            className="c7"
+          >
+            <svg
+              aria-hidden="true"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect
+                height="12"
+                rx="4"
+                width="12"
+                x="2"
+                y="2"
+              />
+              <path
+                d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
+                fillRule="evenodd"
+                strokeWidth="0"
+              />
+            </svg>
+          </span>
+          <div
+            className="c5"
+            data-component="ActionList.Item--DividerContainer"
+          >
+            <span
+              className="c6"
+              id="7"
+            >
+              seven
+            </span>
+          </div>
+        </li>
+        <li
+          aria-labelledby="20 "
+          className="c2 c3"
+          data-id="20"
+          onClick={[Function]}
+          onKeyPress={[Function]}
+          role="option"
+          tabIndex={0}
+        >
+          <span
+            className="c7"
+          >
+            <svg
+              aria-hidden="true"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect
+                height="12"
+                rx="4"
+                width="12"
+                x="2"
+                y="2"
+              />
+              <path
+                d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
+                fillRule="evenodd"
+                strokeWidth="0"
+              />
+            </svg>
+          </span>
+          <div
+            className="c5"
+            data-component="ActionList.Item--DividerContainer"
+          >
+            <span
+              className="c6"
+              id="20"
+            >
+              twenty
+            </span>
+          </div>
+        </li>
+        <li
+          aria-labelledby="21 "
+          className="c2 c3"
+          data-id="21"
+          onClick={[Function]}
+          onKeyPress={[Function]}
+          role="option"
+          tabIndex={0}
+        >
+          <span
+            className="c7"
+          >
+            <svg
+              aria-hidden="true"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect
+                height="12"
+                rx="4"
+                width="12"
+                x="2"
+                y="2"
+              />
+              <path
+                d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
+                fillRule="evenodd"
+                strokeWidth="0"
+              />
+            </svg>
+          </span>
+          <div
+            className="c5"
+            data-component="ActionList.Item--DividerContainer"
+          >
+            <span
+              className="c6"
+              id="21"
+            >
+              twentyone
+            </span>
+          </div>
+        </li>
+      </ul>
     </div>
   </span>,
 ]
@@ -3124,27 +2932,7 @@ exports[`snapshots renders a single select input 1`] = `
       type="text"
     />
   </span>,
-  .c1 {
-  padding-top: 8px;
-  padding-bottom: 8px;
-}
-
-.c5 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  padding-left: 8px;
-  padding-right: 8px;
-  padding-top: 6px;
-  padding-bottom: 6px;
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
-}
-
-.c6 {
+  .c4 {
   height: 20px;
   min-width: 16px;
   max-width: 20px;
@@ -3166,7 +2954,7 @@ exports[`snapshots renders a single select input 1`] = `
   margin-right: 8px;
 }
 
-.c7 {
+.c5 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -3179,15 +2967,9 @@ exports[`snapshots renders a single select input 1`] = `
   -ms-flex-positive: 1;
   flex-grow: 1;
   min-width: 0;
-  border-style: none;
-  background-color: transparent;
-  cursor: inherit;
-  font-size: inherit;
-  color: #1F2328;
-  line-height: 20px;
 }
 
-.c8 {
+.c6 {
   -webkit-box-flex: 1;
   -webkit-flex-grow: 1;
   -ms-flex-positive: 1;
@@ -3208,22 +2990,24 @@ exports[`snapshots renders a single select input 1`] = `
   border-width: 0;
 }
 
-.c2 {
+.c1 {
   margin: 0;
   padding-inline-start: 0;
+  padding-top: 8px;
+  padding-bottom: 8px;
 }
 
-.c4 {
+.c3 {
   position: relative;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  padding-left: 0;
-  padding-right: 0;
+  padding-left: 8px;
+  padding-right: 8px;
   font-size: 14px;
-  padding-top: 0;
-  padding-bottom: 0;
+  padding-top: 6px;
+  padding-bottom: 6px;
   line-height: 20px;
   min-height: 5px;
   margin-left: 8px;
@@ -3245,15 +3029,15 @@ exports[`snapshots renders a single select input 1`] = `
   margin-bottom: unset;
 }
 
-.c4[aria-disabled] {
+.c3[aria-disabled] {
   cursor: not-allowed;
 }
 
-.c4 [data-component="ActionList.Item--DividerContainer"] {
+.c3 [data-component="ActionList.Item--DividerContainer"] {
   position: relative;
 }
 
-.c4 [data-component="ActionList.Item--DividerContainer"]::before {
+.c3 [data-component="ActionList.Item--DividerContainer"]::before {
   content: " ";
   display: block;
   position: absolute;
@@ -3264,58 +3048,53 @@ exports[`snapshots renders a single select input 1`] = `
   border-color: var(--divider-color,transparent);
 }
 
-.c4 button[data-component="ActionList.Item--DividerContainer"] {
-  text-align: left;
-  padding: 0;
-}
-
-.c4:not(:first-of-type) {
+.c3:not(:first-of-type) {
   --divider-color: rgba(208,215,222,0.48);
 }
 
-[data-component="ActionList.Divider"] + .c4 {
+[data-component="ActionList.Divider"] + .c3 {
   --divider-color: transparent !important;
 }
 
-.c4:hover:not([aria-disabled]),
-.c4:focus:not([aria-disabled]),
-.c4[data-focus-visible-added]:not([aria-disabled]) {
+.c3:hover:not([aria-disabled]),
+.c3:focus:not([aria-disabled]),
+.c3[data-focus-visible-added]:not([aria-disabled]) {
   --divider-color: transparent;
 }
 
-.c4:hover:not([aria-disabled]) + .c3,
-.c4:focus:not([aria-disabled]) + .c4,
-.c4[data-focus-visible-added] + li {
+.c3:hover:not([aria-disabled]) + .c2,
+.c3:focus:not([aria-disabled]) + .c3,
+.c3[data-focus-visible-added] + li {
   --divider-color: transparent;
 }
 
-.c9:hover:not([aria-disabled]) + .c3,
-.c9:focus:not([aria-disabled]) + .c9,
-.c9[data-focus-visible-added] + li {
+.c7:hover:not([aria-disabled]) + .c2,
+.c7:focus:not([aria-disabled]) + .c7,
+.c7[data-focus-visible-added] + li {
   --divider-color: transparent;
 }
 
 @media (hover:hover) and (pointer:fine) {
-  .c4:hover:not([aria-disabled]) {
+  .c3:hover:not([aria-disabled]) {
     background-color: rgba(208,215,222,0.32);
     color: #1F2328;
   }
 
-  .c4:focus-visible,
-  .c4 > a:focus-visible {
+  .c3:focus-visible,
+  .c3 > a:focus-visible {
     outline: none;
     border: 2 solid;
     box-shadow: 0 0 0 2px #0969da;
   }
 
-  .c4:active:not([aria-disabled]) {
+  .c3:active:not([aria-disabled]) {
     background-color: rgba(208,215,222,0.48);
     color: #1F2328;
   }
 }
 
 @media (forced-colors:active) {
-  .c4:focus {
+  .c3:focus {
     outline: solid 1px transparent !important;
   }
 }
@@ -3324,287 +3103,253 @@ exports[`snapshots renders a single select input 1`] = `
     className="c0"
   >
     <div>
-      <div
+      <ul
+        aria-labelledby="labelId"
         className="c1"
+        id="autocompleteId-listbox"
+        role="listbox"
       >
-        <ul
-          aria-labelledby="labelId"
-          className="c2"
-          id="autocompleteId-listbox"
-          role="listbox"
+        <li
+          aria-labelledby="0 "
+          className="c2 c3"
+          data-id="0"
+          onClick={[Function]}
+          onKeyPress={[Function]}
+          role="option"
+          tabIndex={0}
         >
-          <li
-            aria-labelledby="0 "
-            className="c3 c4"
-            data-id="0"
-            onClick={[Function]}
-            onKeyPress={[Function]}
-            role="option"
+          <span
+            className="c4"
+          />
+          <div
+            className="c5"
+            data-component="ActionList.Item--DividerContainer"
           >
-            <div
-              className="c5"
+            <span
+              className="c6"
+              id="0"
             >
-              <span
-                className="c6"
-              />
-              <button
-                className="c7"
-                data-component="ActionList.Item--DividerContainer"
-              >
-                <span
-                  className="c8"
-                  id="0"
-                >
-                  zero
-                </span>
-              </button>
-            </div>
-          </li>
-          <li
-            aria-labelledby="1 "
-            className="c3 c4"
-            data-id="1"
-            onClick={[Function]}
-            onKeyPress={[Function]}
-            role="option"
+              zero
+            </span>
+          </div>
+        </li>
+        <li
+          aria-labelledby="1 "
+          className="c2 c3"
+          data-id="1"
+          onClick={[Function]}
+          onKeyPress={[Function]}
+          role="option"
+          tabIndex={0}
+        >
+          <span
+            className="c4"
+          />
+          <div
+            className="c5"
+            data-component="ActionList.Item--DividerContainer"
           >
-            <div
-              className="c5"
+            <span
+              className="c6"
+              id="1"
             >
-              <span
-                className="c6"
-              />
-              <button
-                className="c7"
-                data-component="ActionList.Item--DividerContainer"
-              >
-                <span
-                  className="c8"
-                  id="1"
-                >
-                  one
-                </span>
-              </button>
-            </div>
-          </li>
-          <li
-            aria-labelledby="2 "
-            className="c3 c4"
-            data-id="2"
-            onClick={[Function]}
-            onKeyPress={[Function]}
-            role="option"
+              one
+            </span>
+          </div>
+        </li>
+        <li
+          aria-labelledby="2 "
+          className="c2 c3"
+          data-id="2"
+          onClick={[Function]}
+          onKeyPress={[Function]}
+          role="option"
+          tabIndex={0}
+        >
+          <span
+            className="c4"
+          />
+          <div
+            className="c5"
+            data-component="ActionList.Item--DividerContainer"
           >
-            <div
-              className="c5"
+            <span
+              className="c6"
+              id="2"
             >
-              <span
-                className="c6"
-              />
-              <button
-                className="c7"
-                data-component="ActionList.Item--DividerContainer"
-              >
-                <span
-                  className="c8"
-                  id="2"
-                >
-                  two
-                </span>
-              </button>
-            </div>
-          </li>
-          <li
-            aria-labelledby="3 "
-            className="c3 c4"
-            data-id="3"
-            onClick={[Function]}
-            onKeyPress={[Function]}
-            role="option"
+              two
+            </span>
+          </div>
+        </li>
+        <li
+          aria-labelledby="3 "
+          className="c2 c3"
+          data-id="3"
+          onClick={[Function]}
+          onKeyPress={[Function]}
+          role="option"
+          tabIndex={0}
+        >
+          <span
+            className="c4"
+          />
+          <div
+            className="c5"
+            data-component="ActionList.Item--DividerContainer"
           >
-            <div
-              className="c5"
+            <span
+              className="c6"
+              id="3"
             >
-              <span
-                className="c6"
-              />
-              <button
-                className="c7"
-                data-component="ActionList.Item--DividerContainer"
-              >
-                <span
-                  className="c8"
-                  id="3"
-                >
-                  three
-                </span>
-              </button>
-            </div>
-          </li>
-          <li
-            aria-labelledby="4 "
-            className="c3 c4"
-            data-id="4"
-            onClick={[Function]}
-            onKeyPress={[Function]}
-            role="option"
+              three
+            </span>
+          </div>
+        </li>
+        <li
+          aria-labelledby="4 "
+          className="c2 c3"
+          data-id="4"
+          onClick={[Function]}
+          onKeyPress={[Function]}
+          role="option"
+          tabIndex={0}
+        >
+          <span
+            className="c4"
+          />
+          <div
+            className="c5"
+            data-component="ActionList.Item--DividerContainer"
           >
-            <div
-              className="c5"
+            <span
+              className="c6"
+              id="4"
             >
-              <span
-                className="c6"
-              />
-              <button
-                className="c7"
-                data-component="ActionList.Item--DividerContainer"
-              >
-                <span
-                  className="c8"
-                  id="4"
-                >
-                  four
-                </span>
-              </button>
-            </div>
-          </li>
-          <li
-            aria-labelledby="5 "
-            className="c3 c4"
-            data-id="5"
-            onClick={[Function]}
-            onKeyPress={[Function]}
-            role="option"
+              four
+            </span>
+          </div>
+        </li>
+        <li
+          aria-labelledby="5 "
+          className="c2 c3"
+          data-id="5"
+          onClick={[Function]}
+          onKeyPress={[Function]}
+          role="option"
+          tabIndex={0}
+        >
+          <span
+            className="c4"
+          />
+          <div
+            className="c5"
+            data-component="ActionList.Item--DividerContainer"
           >
-            <div
-              className="c5"
+            <span
+              className="c6"
+              id="5"
             >
-              <span
-                className="c6"
-              />
-              <button
-                className="c7"
-                data-component="ActionList.Item--DividerContainer"
-              >
-                <span
-                  className="c8"
-                  id="5"
-                >
-                  five
-                </span>
-              </button>
-            </div>
-          </li>
-          <li
-            aria-labelledby="6 "
-            className="c3 c4"
-            data-id="6"
-            onClick={[Function]}
-            onKeyPress={[Function]}
-            role="option"
+              five
+            </span>
+          </div>
+        </li>
+        <li
+          aria-labelledby="6 "
+          className="c2 c3"
+          data-id="6"
+          onClick={[Function]}
+          onKeyPress={[Function]}
+          role="option"
+          tabIndex={0}
+        >
+          <span
+            className="c4"
+          />
+          <div
+            className="c5"
+            data-component="ActionList.Item--DividerContainer"
           >
-            <div
-              className="c5"
+            <span
+              className="c6"
+              id="6"
             >
-              <span
-                className="c6"
-              />
-              <button
-                className="c7"
-                data-component="ActionList.Item--DividerContainer"
-              >
-                <span
-                  className="c8"
-                  id="6"
-                >
-                  six
-                </span>
-              </button>
-            </div>
-          </li>
-          <li
-            aria-labelledby="7 "
-            className="c3 c4"
-            data-id="7"
-            onClick={[Function]}
-            onKeyPress={[Function]}
-            role="option"
+              six
+            </span>
+          </div>
+        </li>
+        <li
+          aria-labelledby="7 "
+          className="c2 c3"
+          data-id="7"
+          onClick={[Function]}
+          onKeyPress={[Function]}
+          role="option"
+          tabIndex={0}
+        >
+          <span
+            className="c4"
+          />
+          <div
+            className="c5"
+            data-component="ActionList.Item--DividerContainer"
           >
-            <div
-              className="c5"
+            <span
+              className="c6"
+              id="7"
             >
-              <span
-                className="c6"
-              />
-              <button
-                className="c7"
-                data-component="ActionList.Item--DividerContainer"
-              >
-                <span
-                  className="c8"
-                  id="7"
-                >
-                  seven
-                </span>
-              </button>
-            </div>
-          </li>
-          <li
-            aria-labelledby="20 "
-            className="c3 c4"
-            data-id="20"
-            onClick={[Function]}
-            onKeyPress={[Function]}
-            role="option"
+              seven
+            </span>
+          </div>
+        </li>
+        <li
+          aria-labelledby="20 "
+          className="c2 c3"
+          data-id="20"
+          onClick={[Function]}
+          onKeyPress={[Function]}
+          role="option"
+          tabIndex={0}
+        >
+          <span
+            className="c4"
+          />
+          <div
+            className="c5"
+            data-component="ActionList.Item--DividerContainer"
           >
-            <div
-              className="c5"
+            <span
+              className="c6"
+              id="20"
             >
-              <span
-                className="c6"
-              />
-              <button
-                className="c7"
-                data-component="ActionList.Item--DividerContainer"
-              >
-                <span
-                  className="c8"
-                  id="20"
-                >
-                  twenty
-                </span>
-              </button>
-            </div>
-          </li>
-          <li
-            aria-labelledby="21 "
-            className="c3 c4"
-            data-id="21"
-            onClick={[Function]}
-            onKeyPress={[Function]}
-            role="option"
+              twenty
+            </span>
+          </div>
+        </li>
+        <li
+          aria-labelledby="21 "
+          className="c2 c3"
+          data-id="21"
+          onClick={[Function]}
+          onKeyPress={[Function]}
+          role="option"
+          tabIndex={0}
+        >
+          <span
+            className="c4"
+          />
+          <div
+            className="c5"
+            data-component="ActionList.Item--DividerContainer"
           >
-            <div
-              className="c5"
+            <span
+              className="c6"
+              id="21"
             >
-              <span
-                className="c6"
-              />
-              <button
-                className="c7"
-                data-component="ActionList.Item--DividerContainer"
-              >
-                <span
-                  className="c8"
-                  id="21"
-                >
-                  twentyone
-                </span>
-              </button>
-            </div>
-          </li>
-        </ul>
-      </div>
+              twentyone
+            </span>
+          </div>
+        </li>
+      </ul>
     </div>
   </span>,
 ]
@@ -3616,27 +3361,7 @@ exports[`snapshots renders with a custom text input component 1`] = `
     id="customInput"
     type="text"
   />,
-  .c1 {
-  padding-top: 8px;
-  padding-bottom: 8px;
-}
-
-.c5 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  padding-left: 8px;
-  padding-right: 8px;
-  padding-top: 6px;
-  padding-bottom: 6px;
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
-}
-
-.c6 {
+  .c4 {
   height: 20px;
   min-width: 16px;
   max-width: 20px;
@@ -3658,7 +3383,7 @@ exports[`snapshots renders with a custom text input component 1`] = `
   margin-right: 8px;
 }
 
-.c7 {
+.c5 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -3671,15 +3396,9 @@ exports[`snapshots renders with a custom text input component 1`] = `
   -ms-flex-positive: 1;
   flex-grow: 1;
   min-width: 0;
-  border-style: none;
-  background-color: transparent;
-  cursor: inherit;
-  font-size: inherit;
-  color: #1F2328;
-  line-height: 20px;
 }
 
-.c8 {
+.c6 {
   -webkit-box-flex: 1;
   -webkit-flex-grow: 1;
   -ms-flex-positive: 1;
@@ -3700,22 +3419,24 @@ exports[`snapshots renders with a custom text input component 1`] = `
   border-width: 0;
 }
 
-.c2 {
+.c1 {
   margin: 0;
   padding-inline-start: 0;
+  padding-top: 8px;
+  padding-bottom: 8px;
 }
 
-.c4 {
+.c3 {
   position: relative;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  padding-left: 0;
-  padding-right: 0;
+  padding-left: 8px;
+  padding-right: 8px;
   font-size: 14px;
-  padding-top: 0;
-  padding-bottom: 0;
+  padding-top: 6px;
+  padding-bottom: 6px;
   line-height: 20px;
   min-height: 5px;
   margin-left: 8px;
@@ -3737,15 +3458,15 @@ exports[`snapshots renders with a custom text input component 1`] = `
   margin-bottom: unset;
 }
 
-.c4[aria-disabled] {
+.c3[aria-disabled] {
   cursor: not-allowed;
 }
 
-.c4 [data-component="ActionList.Item--DividerContainer"] {
+.c3 [data-component="ActionList.Item--DividerContainer"] {
   position: relative;
 }
 
-.c4 [data-component="ActionList.Item--DividerContainer"]::before {
+.c3 [data-component="ActionList.Item--DividerContainer"]::before {
   content: " ";
   display: block;
   position: absolute;
@@ -3756,58 +3477,53 @@ exports[`snapshots renders with a custom text input component 1`] = `
   border-color: var(--divider-color,transparent);
 }
 
-.c4 button[data-component="ActionList.Item--DividerContainer"] {
-  text-align: left;
-  padding: 0;
-}
-
-.c4:not(:first-of-type) {
+.c3:not(:first-of-type) {
   --divider-color: rgba(208,215,222,0.48);
 }
 
-[data-component="ActionList.Divider"] + .c4 {
+[data-component="ActionList.Divider"] + .c3 {
   --divider-color: transparent !important;
 }
 
-.c4:hover:not([aria-disabled]),
-.c4:focus:not([aria-disabled]),
-.c4[data-focus-visible-added]:not([aria-disabled]) {
+.c3:hover:not([aria-disabled]),
+.c3:focus:not([aria-disabled]),
+.c3[data-focus-visible-added]:not([aria-disabled]) {
   --divider-color: transparent;
 }
 
-.c4:hover:not([aria-disabled]) + .c3,
-.c4:focus:not([aria-disabled]) + .c4,
-.c4[data-focus-visible-added] + li {
+.c3:hover:not([aria-disabled]) + .c2,
+.c3:focus:not([aria-disabled]) + .c3,
+.c3[data-focus-visible-added] + li {
   --divider-color: transparent;
 }
 
-.c9:hover:not([aria-disabled]) + .c3,
-.c9:focus:not([aria-disabled]) + .c9,
-.c9[data-focus-visible-added] + li {
+.c7:hover:not([aria-disabled]) + .c2,
+.c7:focus:not([aria-disabled]) + .c7,
+.c7[data-focus-visible-added] + li {
   --divider-color: transparent;
 }
 
 @media (hover:hover) and (pointer:fine) {
-  .c4:hover:not([aria-disabled]) {
+  .c3:hover:not([aria-disabled]) {
     background-color: rgba(208,215,222,0.32);
     color: #1F2328;
   }
 
-  .c4:focus-visible,
-  .c4 > a:focus-visible {
+  .c3:focus-visible,
+  .c3 > a:focus-visible {
     outline: none;
     border: 2 solid;
     box-shadow: 0 0 0 2px #0969da;
   }
 
-  .c4:active:not([aria-disabled]) {
+  .c3:active:not([aria-disabled]) {
     background-color: rgba(208,215,222,0.48);
     color: #1F2328;
   }
 }
 
 @media (forced-colors:active) {
-  .c4:focus {
+  .c3:focus {
     outline: solid 1px transparent !important;
   }
 }
@@ -3816,287 +3532,253 @@ exports[`snapshots renders with a custom text input component 1`] = `
     className="c0"
   >
     <div>
-      <div
+      <ul
+        aria-labelledby="labelId"
         className="c1"
+        id="autocompleteId-listbox"
+        role="listbox"
       >
-        <ul
-          aria-labelledby="labelId"
-          className="c2"
-          id="autocompleteId-listbox"
-          role="listbox"
+        <li
+          aria-labelledby="0 "
+          className="c2 c3"
+          data-id="0"
+          onClick={[Function]}
+          onKeyPress={[Function]}
+          role="option"
+          tabIndex={0}
         >
-          <li
-            aria-labelledby="0 "
-            className="c3 c4"
-            data-id="0"
-            onClick={[Function]}
-            onKeyPress={[Function]}
-            role="option"
+          <span
+            className="c4"
+          />
+          <div
+            className="c5"
+            data-component="ActionList.Item--DividerContainer"
           >
-            <div
-              className="c5"
+            <span
+              className="c6"
+              id="0"
             >
-              <span
-                className="c6"
-              />
-              <button
-                className="c7"
-                data-component="ActionList.Item--DividerContainer"
-              >
-                <span
-                  className="c8"
-                  id="0"
-                >
-                  zero
-                </span>
-              </button>
-            </div>
-          </li>
-          <li
-            aria-labelledby="1 "
-            className="c3 c4"
-            data-id="1"
-            onClick={[Function]}
-            onKeyPress={[Function]}
-            role="option"
+              zero
+            </span>
+          </div>
+        </li>
+        <li
+          aria-labelledby="1 "
+          className="c2 c3"
+          data-id="1"
+          onClick={[Function]}
+          onKeyPress={[Function]}
+          role="option"
+          tabIndex={0}
+        >
+          <span
+            className="c4"
+          />
+          <div
+            className="c5"
+            data-component="ActionList.Item--DividerContainer"
           >
-            <div
-              className="c5"
+            <span
+              className="c6"
+              id="1"
             >
-              <span
-                className="c6"
-              />
-              <button
-                className="c7"
-                data-component="ActionList.Item--DividerContainer"
-              >
-                <span
-                  className="c8"
-                  id="1"
-                >
-                  one
-                </span>
-              </button>
-            </div>
-          </li>
-          <li
-            aria-labelledby="2 "
-            className="c3 c4"
-            data-id="2"
-            onClick={[Function]}
-            onKeyPress={[Function]}
-            role="option"
+              one
+            </span>
+          </div>
+        </li>
+        <li
+          aria-labelledby="2 "
+          className="c2 c3"
+          data-id="2"
+          onClick={[Function]}
+          onKeyPress={[Function]}
+          role="option"
+          tabIndex={0}
+        >
+          <span
+            className="c4"
+          />
+          <div
+            className="c5"
+            data-component="ActionList.Item--DividerContainer"
           >
-            <div
-              className="c5"
+            <span
+              className="c6"
+              id="2"
             >
-              <span
-                className="c6"
-              />
-              <button
-                className="c7"
-                data-component="ActionList.Item--DividerContainer"
-              >
-                <span
-                  className="c8"
-                  id="2"
-                >
-                  two
-                </span>
-              </button>
-            </div>
-          </li>
-          <li
-            aria-labelledby="3 "
-            className="c3 c4"
-            data-id="3"
-            onClick={[Function]}
-            onKeyPress={[Function]}
-            role="option"
+              two
+            </span>
+          </div>
+        </li>
+        <li
+          aria-labelledby="3 "
+          className="c2 c3"
+          data-id="3"
+          onClick={[Function]}
+          onKeyPress={[Function]}
+          role="option"
+          tabIndex={0}
+        >
+          <span
+            className="c4"
+          />
+          <div
+            className="c5"
+            data-component="ActionList.Item--DividerContainer"
           >
-            <div
-              className="c5"
+            <span
+              className="c6"
+              id="3"
             >
-              <span
-                className="c6"
-              />
-              <button
-                className="c7"
-                data-component="ActionList.Item--DividerContainer"
-              >
-                <span
-                  className="c8"
-                  id="3"
-                >
-                  three
-                </span>
-              </button>
-            </div>
-          </li>
-          <li
-            aria-labelledby="4 "
-            className="c3 c4"
-            data-id="4"
-            onClick={[Function]}
-            onKeyPress={[Function]}
-            role="option"
+              three
+            </span>
+          </div>
+        </li>
+        <li
+          aria-labelledby="4 "
+          className="c2 c3"
+          data-id="4"
+          onClick={[Function]}
+          onKeyPress={[Function]}
+          role="option"
+          tabIndex={0}
+        >
+          <span
+            className="c4"
+          />
+          <div
+            className="c5"
+            data-component="ActionList.Item--DividerContainer"
           >
-            <div
-              className="c5"
+            <span
+              className="c6"
+              id="4"
             >
-              <span
-                className="c6"
-              />
-              <button
-                className="c7"
-                data-component="ActionList.Item--DividerContainer"
-              >
-                <span
-                  className="c8"
-                  id="4"
-                >
-                  four
-                </span>
-              </button>
-            </div>
-          </li>
-          <li
-            aria-labelledby="5 "
-            className="c3 c4"
-            data-id="5"
-            onClick={[Function]}
-            onKeyPress={[Function]}
-            role="option"
+              four
+            </span>
+          </div>
+        </li>
+        <li
+          aria-labelledby="5 "
+          className="c2 c3"
+          data-id="5"
+          onClick={[Function]}
+          onKeyPress={[Function]}
+          role="option"
+          tabIndex={0}
+        >
+          <span
+            className="c4"
+          />
+          <div
+            className="c5"
+            data-component="ActionList.Item--DividerContainer"
           >
-            <div
-              className="c5"
+            <span
+              className="c6"
+              id="5"
             >
-              <span
-                className="c6"
-              />
-              <button
-                className="c7"
-                data-component="ActionList.Item--DividerContainer"
-              >
-                <span
-                  className="c8"
-                  id="5"
-                >
-                  five
-                </span>
-              </button>
-            </div>
-          </li>
-          <li
-            aria-labelledby="6 "
-            className="c3 c4"
-            data-id="6"
-            onClick={[Function]}
-            onKeyPress={[Function]}
-            role="option"
+              five
+            </span>
+          </div>
+        </li>
+        <li
+          aria-labelledby="6 "
+          className="c2 c3"
+          data-id="6"
+          onClick={[Function]}
+          onKeyPress={[Function]}
+          role="option"
+          tabIndex={0}
+        >
+          <span
+            className="c4"
+          />
+          <div
+            className="c5"
+            data-component="ActionList.Item--DividerContainer"
           >
-            <div
-              className="c5"
+            <span
+              className="c6"
+              id="6"
             >
-              <span
-                className="c6"
-              />
-              <button
-                className="c7"
-                data-component="ActionList.Item--DividerContainer"
-              >
-                <span
-                  className="c8"
-                  id="6"
-                >
-                  six
-                </span>
-              </button>
-            </div>
-          </li>
-          <li
-            aria-labelledby="7 "
-            className="c3 c4"
-            data-id="7"
-            onClick={[Function]}
-            onKeyPress={[Function]}
-            role="option"
+              six
+            </span>
+          </div>
+        </li>
+        <li
+          aria-labelledby="7 "
+          className="c2 c3"
+          data-id="7"
+          onClick={[Function]}
+          onKeyPress={[Function]}
+          role="option"
+          tabIndex={0}
+        >
+          <span
+            className="c4"
+          />
+          <div
+            className="c5"
+            data-component="ActionList.Item--DividerContainer"
           >
-            <div
-              className="c5"
+            <span
+              className="c6"
+              id="7"
             >
-              <span
-                className="c6"
-              />
-              <button
-                className="c7"
-                data-component="ActionList.Item--DividerContainer"
-              >
-                <span
-                  className="c8"
-                  id="7"
-                >
-                  seven
-                </span>
-              </button>
-            </div>
-          </li>
-          <li
-            aria-labelledby="20 "
-            className="c3 c4"
-            data-id="20"
-            onClick={[Function]}
-            onKeyPress={[Function]}
-            role="option"
+              seven
+            </span>
+          </div>
+        </li>
+        <li
+          aria-labelledby="20 "
+          className="c2 c3"
+          data-id="20"
+          onClick={[Function]}
+          onKeyPress={[Function]}
+          role="option"
+          tabIndex={0}
+        >
+          <span
+            className="c4"
+          />
+          <div
+            className="c5"
+            data-component="ActionList.Item--DividerContainer"
           >
-            <div
-              className="c5"
+            <span
+              className="c6"
+              id="20"
             >
-              <span
-                className="c6"
-              />
-              <button
-                className="c7"
-                data-component="ActionList.Item--DividerContainer"
-              >
-                <span
-                  className="c8"
-                  id="20"
-                >
-                  twenty
-                </span>
-              </button>
-            </div>
-          </li>
-          <li
-            aria-labelledby="21 "
-            className="c3 c4"
-            data-id="21"
-            onClick={[Function]}
-            onKeyPress={[Function]}
-            role="option"
+              twenty
+            </span>
+          </div>
+        </li>
+        <li
+          aria-labelledby="21 "
+          className="c2 c3"
+          data-id="21"
+          onClick={[Function]}
+          onKeyPress={[Function]}
+          role="option"
+          tabIndex={0}
+        >
+          <span
+            className="c4"
+          />
+          <div
+            className="c5"
+            data-component="ActionList.Item--DividerContainer"
           >
-            <div
-              className="c5"
+            <span
+              className="c6"
+              id="21"
             >
-              <span
-                className="c6"
-              />
-              <button
-                className="c7"
-                data-component="ActionList.Item--DividerContainer"
-              >
-                <span
-                  className="c8"
-                  id="21"
-                >
-                  twentyone
-                </span>
-              </button>
-            </div>
-          </li>
-        </ul>
-      </div>
+              twentyone
+            </span>
+          </div>
+        </li>
+      </ul>
     </div>
   </span>,
 ]
