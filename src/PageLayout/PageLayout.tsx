@@ -53,7 +53,7 @@ export type PageLayoutProps = {
   columnGap?: keyof typeof SPACING_MAP
 
   /** Private prop to allow SplitPageLayout to customize slot components */
-  _slotsConfig?: Record<'header' | 'footer', React.ComponentType>
+  _slotsConfig?: Record<'header' | 'footer', React.ElementType>
 } & SxProp
 
 const containerWidths = {
@@ -421,6 +421,7 @@ const Content: React.FC<React.PropsWithChildren<PageLayoutContentProps>> = ({
 
   return (
     <Box
+      as="main"
       aria-label={label}
       aria-labelledby={labelledBy}
       sx={merge<BetterSystemStyleObject>(
@@ -762,7 +763,6 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
           {resizable && (
             <VisuallyHidden>
               <form onSubmit={handleWidthFormSubmit}>
-                {/* eslint-disable-next-line jsx-a11y/label-has-for */}
                 <label htmlFor={`${paneId}-width-input`}>Pane width</label>
                 <p id={`${paneId}-input-hint`}>
                   Use a value between {minPercent}% and {maxPercent}%

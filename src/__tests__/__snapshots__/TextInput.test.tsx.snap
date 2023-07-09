@@ -875,6 +875,403 @@ exports[`TextInput renders leadingVisual 1`] = `
 </span>
 `;
 
+exports[`TextInput renders leadingVisual 2`] = `
+.c0 {
+  font-size: 14px;
+  line-height: 20px;
+  color: #1F2328;
+  vertical-align: middle;
+  background-color: #ffffff;
+  border: 1px solid #d0d7de;
+  border-radius: 6px;
+  outline: none;
+  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: stretch;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  min-height: 32px;
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  padding-left: 12px;
+  padding-right: 0;
+}
+
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
+}
+
+.c0::-webkit-input-placeholder {
+  color: #6e7781;
+}
+
+.c0::-moz-placeholder {
+  color: #6e7781;
+}
+
+.c0:-ms-input-placeholder {
+  color: #6e7781;
+}
+
+.c0::placeholder {
+  color: #6e7781;
+}
+
+.c0:focus-within {
+  border-color: #0969da;
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
+}
+
+.c0 > textarea {
+  padding: 12px;
+}
+
+.c0 > :not(:last-child) {
+  margin-right: 8px;
+}
+
+.c0 .TextInput-icon,
+.c0 .TextInput-action {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  color: #656d76;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+}
+
+.c0 > input,
+.c0 > select {
+  padding-left: 0;
+  padding-right: 12px;
+}
+
+.c1 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c1:focus {
+  outline: 0;
+}
+
+@media (min-width:768px) {
+  .c0 {
+    font-size: 14px;
+  }
+}
+
+<span
+  aria-busy={false}
+  className="c0 TextInput-wrapper"
+  onClick={[Function]}
+>
+  <span
+    className="TextInput-icon"
+  >
+    <svg
+      aria-hidden="true"
+      className="octicon octicon-search"
+      fill="currentColor"
+      focusable="false"
+      height={16}
+      role="img"
+      style={
+        {
+          "display": "inline-block",
+          "overflow": "visible",
+          "userSelect": "none",
+          "verticalAlign": "text-bottom",
+        }
+      }
+      viewBox="0 0 16 16"
+      width={16}
+    >
+      <path
+        d="M10.68 11.74a6 6 0 0 1-7.922-8.982 6 6 0 0 1 8.982 7.922l3.04 3.04a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215ZM11.5 7a4.499 4.499 0 1 0-8.997 0A4.499 4.499 0 0 0 11.5 7Z"
+      />
+    </svg>
+  </span>
+  <input
+    className="c1"
+    data-component="input"
+    name="search"
+    onBlur={[Function]}
+    onFocus={[Function]}
+    placeholder="Search"
+    type="text"
+  />
+</span>
+`;
+
+exports[`TextInput renders leadingVisual 3`] = `
+.c0 {
+  font-size: 14px;
+  line-height: 20px;
+  color: #1F2328;
+  vertical-align: middle;
+  background-color: #ffffff;
+  border: 1px solid #d0d7de;
+  border-radius: 6px;
+  outline: none;
+  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: stretch;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  min-height: 32px;
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  padding-left: 12px;
+  padding-right: 0;
+}
+
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
+}
+
+.c0::-webkit-input-placeholder {
+  color: #6e7781;
+}
+
+.c0::-moz-placeholder {
+  color: #6e7781;
+}
+
+.c0:-ms-input-placeholder {
+  color: #6e7781;
+}
+
+.c0::placeholder {
+  color: #6e7781;
+}
+
+.c0:focus-within {
+  border-color: #0969da;
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
+}
+
+.c0 > textarea {
+  padding: 12px;
+}
+
+.c0 > :not(:last-child) {
+  margin-right: 8px;
+}
+
+.c0 .TextInput-icon,
+.c0 .TextInput-action {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  color: #656d76;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+}
+
+.c0 > input,
+.c0 > select {
+  padding-left: 0;
+  padding-right: 12px;
+}
+
+.c1 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c1:focus {
+  outline: 0;
+}
+
+@media (min-width:768px) {
+  .c0 {
+    font-size: 14px;
+  }
+}
+
+<span
+  aria-busy={false}
+  className="c0 TextInput-wrapper"
+  onClick={[Function]}
+>
+  <span
+    className="TextInput-icon"
+  >
+    <div>
+      Trailing
+    </div>
+  </span>
+  <input
+    className="c1"
+    data-component="input"
+    name="search"
+    onBlur={[Function]}
+    onFocus={[Function]}
+    placeholder="Search"
+    type="text"
+  />
+</span>
+`;
+
+exports[`TextInput renders leadingVisual 4`] = `
+.c0 {
+  font-size: 14px;
+  line-height: 20px;
+  color: #1F2328;
+  vertical-align: middle;
+  background-color: #ffffff;
+  border: 1px solid #d0d7de;
+  border-radius: 6px;
+  outline: none;
+  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: stretch;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  min-height: 32px;
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  padding-left: 12px;
+  padding-right: 0;
+}
+
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
+}
+
+.c0::-webkit-input-placeholder {
+  color: #6e7781;
+}
+
+.c0::-moz-placeholder {
+  color: #6e7781;
+}
+
+.c0:-ms-input-placeholder {
+  color: #6e7781;
+}
+
+.c0::placeholder {
+  color: #6e7781;
+}
+
+.c0:focus-within {
+  border-color: #0969da;
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
+}
+
+.c0 > textarea {
+  padding: 12px;
+}
+
+.c0 > :not(:last-child) {
+  margin-right: 8px;
+}
+
+.c0 .TextInput-icon,
+.c0 .TextInput-action {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  color: #656d76;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+}
+
+.c0 > input,
+.c0 > select {
+  padding-left: 0;
+  padding-right: 12px;
+}
+
+.c1 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c1:focus {
+  outline: 0;
+}
+
+@media (min-width:768px) {
+  .c0 {
+    font-size: 14px;
+  }
+}
+
+<span
+  aria-busy={false}
+  className="c0 TextInput-wrapper"
+  onClick={[Function]}
+>
+  <span
+    className="TextInput-icon"
+  >
+    <div>
+      Trailing
+    </div>
+  </span>
+  <input
+    className="c1"
+    data-component="input"
+    name="search"
+    onBlur={[Function]}
+    onFocus={[Function]}
+    placeholder="Search"
+    type="text"
+  />
+</span>
+`;
+
 exports[`TextInput renders monospace 1`] = `
 .c0 {
   font-size: 14px;
@@ -1336,7 +1733,9 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   color: #8c959f;
 }
 
-.c4:disabled [data-component=ButtonCounter] {
+.c4:disabled [data-component=ButtonCounter],
+.c4:disabled [data-component="leadingVisual"],
+.c4:disabled [data-component="trailingAction"] {
   color: inherit;
 }
 
@@ -1553,20 +1952,6 @@ exports[`TextInput renders trailingAction icon button 1`] = `
 .c0 > select {
   padding-left: 12px;
   padding-right: 0;
-}
-
-.c1 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-}
-
-.c1:focus {
-  outline: 0;
 }
 
 .c3 {
@@ -1793,6 +2178,20 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   left: 10px;
 }
 
+.c1 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c1:focus {
+  outline: 0;
+}
+
 @media (forced-colors:active) {
   .c4:focus {
     outline: solid 1px transparent;
@@ -1837,12 +2236,12 @@ exports[`TextInput renders trailingAction icon button 1`] = `
     className="c2 TextInput-action"
   >
     <span
-      aria-label="iconLabel"
+      aria-label="Icon label"
       className="c3 tooltipped-n"
       role="tooltip"
     >
       <button
-        aria-label="iconLabel"
+        aria-label="Icon label"
         className="c4"
         data-block={null}
         data-component="IconButton"
@@ -1982,7 +2381,9 @@ exports[`TextInput renders trailingAction text button 1`] = `
   color: #8c959f;
 }
 
-.c3:disabled [data-component=ButtonCounter] {
+.c3:disabled [data-component=ButtonCounter],
+.c3:disabled [data-component="leadingVisual"],
+.c3:disabled [data-component="trailingAction"] {
   color: inherit;
 }
 
@@ -2383,7 +2784,9 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   color: #8c959f;
 }
 
-.c4:disabled [data-component=ButtonCounter] {
+.c4:disabled [data-component=ButtonCounter],
+.c4:disabled [data-component="leadingVisual"],
+.c4:disabled [data-component="trailingAction"] {
   color: inherit;
 }
 
@@ -2600,20 +3003,6 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
 .c0 > select {
   padding-left: 12px;
   padding-right: 0;
-}
-
-.c1 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-}
-
-.c1:focus {
-  outline: 0;
 }
 
 .c3 {
@@ -2841,6 +3230,20 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   left: 10px;
 }
 
+.c1 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c1:focus {
+  outline: 0;
+}
+
 @media (forced-colors:active) {
   .c4:focus {
     outline: solid 1px transparent;
@@ -3053,6 +3456,403 @@ exports[`TextInput renders trailingVisual 1`] = `
         d="M10.68 11.74a6 6 0 0 1-7.922-8.982 6 6 0 0 1 8.982 7.922l3.04 3.04a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215ZM11.5 7a4.499 4.499 0 1 0-8.997 0A4.499 4.499 0 0 0 11.5 7Z"
       />
     </svg>
+  </span>
+</span>
+`;
+
+exports[`TextInput renders trailingVisual 2`] = `
+.c0 {
+  font-size: 14px;
+  line-height: 20px;
+  color: #1F2328;
+  vertical-align: middle;
+  background-color: #ffffff;
+  border: 1px solid #d0d7de;
+  border-radius: 6px;
+  outline: none;
+  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: stretch;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  min-height: 32px;
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  padding-left: 0;
+  padding-right: 12px;
+}
+
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
+}
+
+.c0::-webkit-input-placeholder {
+  color: #6e7781;
+}
+
+.c0::-moz-placeholder {
+  color: #6e7781;
+}
+
+.c0:-ms-input-placeholder {
+  color: #6e7781;
+}
+
+.c0::placeholder {
+  color: #6e7781;
+}
+
+.c0:focus-within {
+  border-color: #0969da;
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
+}
+
+.c0 > textarea {
+  padding: 12px;
+}
+
+.c0 > :not(:last-child) {
+  margin-right: 8px;
+}
+
+.c0 .TextInput-icon,
+.c0 .TextInput-action {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  color: #656d76;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+}
+
+.c0 > input,
+.c0 > select {
+  padding-left: 12px;
+  padding-right: 0;
+}
+
+.c1 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c1:focus {
+  outline: 0;
+}
+
+@media (min-width:768px) {
+  .c0 {
+    font-size: 14px;
+  }
+}
+
+<span
+  aria-busy={false}
+  className="c0 TextInput-wrapper"
+  onClick={[Function]}
+>
+  <input
+    className="c1"
+    data-component="input"
+    name="search"
+    onBlur={[Function]}
+    onFocus={[Function]}
+    placeholder="Search"
+    type="text"
+  />
+  <span
+    className="TextInput-icon"
+  >
+    <svg
+      aria-hidden="true"
+      className="octicon octicon-search"
+      fill="currentColor"
+      focusable="false"
+      height={16}
+      role="img"
+      style={
+        {
+          "display": "inline-block",
+          "overflow": "visible",
+          "userSelect": "none",
+          "verticalAlign": "text-bottom",
+        }
+      }
+      viewBox="0 0 16 16"
+      width={16}
+    >
+      <path
+        d="M10.68 11.74a6 6 0 0 1-7.922-8.982 6 6 0 0 1 8.982 7.922l3.04 3.04a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215ZM11.5 7a4.499 4.499 0 1 0-8.997 0A4.499 4.499 0 0 0 11.5 7Z"
+      />
+    </svg>
+  </span>
+</span>
+`;
+
+exports[`TextInput renders trailingVisual 3`] = `
+.c0 {
+  font-size: 14px;
+  line-height: 20px;
+  color: #1F2328;
+  vertical-align: middle;
+  background-color: #ffffff;
+  border: 1px solid #d0d7de;
+  border-radius: 6px;
+  outline: none;
+  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: stretch;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  min-height: 32px;
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  padding-left: 0;
+  padding-right: 12px;
+}
+
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
+}
+
+.c0::-webkit-input-placeholder {
+  color: #6e7781;
+}
+
+.c0::-moz-placeholder {
+  color: #6e7781;
+}
+
+.c0:-ms-input-placeholder {
+  color: #6e7781;
+}
+
+.c0::placeholder {
+  color: #6e7781;
+}
+
+.c0:focus-within {
+  border-color: #0969da;
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
+}
+
+.c0 > textarea {
+  padding: 12px;
+}
+
+.c0 > :not(:last-child) {
+  margin-right: 8px;
+}
+
+.c0 .TextInput-icon,
+.c0 .TextInput-action {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  color: #656d76;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+}
+
+.c0 > input,
+.c0 > select {
+  padding-left: 12px;
+  padding-right: 0;
+}
+
+.c1 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c1:focus {
+  outline: 0;
+}
+
+@media (min-width:768px) {
+  .c0 {
+    font-size: 14px;
+  }
+}
+
+<span
+  aria-busy={false}
+  className="c0 TextInput-wrapper"
+  onClick={[Function]}
+>
+  <input
+    className="c1"
+    data-component="input"
+    name="search"
+    onBlur={[Function]}
+    onFocus={[Function]}
+    placeholder="Search"
+    type="text"
+  />
+  <span
+    className="TextInput-icon"
+  >
+    <div>
+      Trailing
+    </div>
+  </span>
+</span>
+`;
+
+exports[`TextInput renders trailingVisual 4`] = `
+.c0 {
+  font-size: 14px;
+  line-height: 20px;
+  color: #1F2328;
+  vertical-align: middle;
+  background-color: #ffffff;
+  border: 1px solid #d0d7de;
+  border-radius: 6px;
+  outline: none;
+  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: stretch;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  min-height: 32px;
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  padding-left: 0;
+  padding-right: 12px;
+}
+
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
+}
+
+.c0::-webkit-input-placeholder {
+  color: #6e7781;
+}
+
+.c0::-moz-placeholder {
+  color: #6e7781;
+}
+
+.c0:-ms-input-placeholder {
+  color: #6e7781;
+}
+
+.c0::placeholder {
+  color: #6e7781;
+}
+
+.c0:focus-within {
+  border-color: #0969da;
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
+}
+
+.c0 > textarea {
+  padding: 12px;
+}
+
+.c0 > :not(:last-child) {
+  margin-right: 8px;
+}
+
+.c0 .TextInput-icon,
+.c0 .TextInput-action {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  color: #656d76;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+}
+
+.c0 > input,
+.c0 > select {
+  padding-left: 12px;
+  padding-right: 0;
+}
+
+.c1 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c1:focus {
+  outline: 0;
+}
+
+@media (min-width:768px) {
+  .c0 {
+    font-size: 14px;
+  }
+}
+
+<span
+  aria-busy={false}
+  className="c0 TextInput-wrapper"
+  onClick={[Function]}
+>
+  <input
+    className="c1"
+    data-component="input"
+    name="search"
+    onBlur={[Function]}
+    onFocus={[Function]}
+    placeholder="Search"
+    type="text"
+  />
+  <span
+    className="TextInput-icon"
+  >
+    <div>
+      Trailing
+    </div>
   </span>
 </span>
 `;

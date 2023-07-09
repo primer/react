@@ -69,6 +69,9 @@ export const getLinkStyles = (theme?: Theme, ariaCurrent?: string | boolean) => 
   textAlign: 'center',
   textDecoration: 'none',
   lineHeight: 'calc(20/14)',
+  '& span[data-component="icon"]': {
+    color: 'fg.muted',
+  },
   borderRadius: 2,
   fontSize: 1,
   paddingX: 2,

@@ -353,7 +353,8 @@ export const UnderlineNav = forwardRef(
                   selectionVariant="single"
                   ref={containerRef}
                   id={disclosureWidgetId}
-                  sx={merge({display: isWidgetOpen ? 'block' : 'none'}, menuStyles)}
+                  sx={menuStyles}
+                  style={{display: isWidgetOpen ? 'block' : 'none'}}
                 >
                   {actions.map((action, index) => {
                     const {

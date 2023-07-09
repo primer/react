@@ -1,11 +1,11 @@
-import classnames from 'classnames'
+import clsx from 'clsx'
 import {To} from 'history'
 import React from 'react'
 import styled from 'styled-components'
 import {get} from '../constants'
 import sx, {SxProp} from '../sx'
 import {ComponentProps} from '../utils/types'
-import getGlobalFocusStyles from '../_getGlobalFocusStyles'
+import getGlobalFocusStyles from '../internal/utils/getGlobalFocusStyles'
 
 const ITEM_CLASS = 'PRC-UnderlineNav-item'
 const SELECTED_CLASS = 'PRC-selected'
@@ -50,7 +50,7 @@ export type UnderlineNavProps = {
 } & ComponentProps<typeof UnderlineNavBase>
 
 function UnderlineNav({actions, className, align, children, full, label, theme, ...rest}: UnderlineNavProps) {
-  const classes = classnames(
+  const classes = clsx(
     className,
     'PRC-UnderlineNav',
     align && `PRC-UnderlineNav--${align}`,
@@ -71,7 +71,7 @@ type StyledUnderlineNavLinkProps = {
 
 const UnderlineNavLink = styled.a.attrs<StyledUnderlineNavLinkProps>(props => ({
   activeClassName: typeof props.to === 'string' ? 'selected' : undefined,
-  className: classnames(ITEM_CLASS, props.selected && SELECTED_CLASS, props.className),
+  className: clsx(ITEM_CLASS, props.selected && SELECTED_CLASS, props.className),
 }))<StyledUnderlineNavLinkProps>`
   padding: ${get('space.3')} ${get('space.2')};
   margin-right: ${get('space.3')};

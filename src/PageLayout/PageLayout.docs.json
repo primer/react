@@ -85,6 +85,18 @@
       "name": "PageLayout.Content",
       "props": [
         {
+          "name": "aria-label",
+          "type": "string | undefined",
+          "defaultValue": "",
+          "description": "A unique label for the rendered main landmark"
+        },
+        {
+          "name": "aria-labelledby",
+          "type": "string | undefined",
+          "defaultValue": "",
+          "description": "An id to an element which uniquely labels the rendered main landmark"
+        },
+        {
           "name": "width",
           "type": "| 'full' | 'medium' | 'large' | 'xlarge'",
           "defaultValue": "'full'",

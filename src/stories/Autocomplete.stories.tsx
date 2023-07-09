@@ -1,7 +1,7 @@
-import React, {ChangeEventHandler, RefObject, useCallback, useRef, useState} from 'react'
+import React, {ChangeEventHandler, RefObject, useCallback, useEffect, useRef, useState} from 'react'
 import {Meta} from '@storybook/react'
 
-import {BaseStyles, Box, ThemeProvider} from '..'
+import {BaseStyles, Box, Dialog, ThemeProvider, registerPortalRoot} from '..'
 import TextInputTokens from '../TextInputWithTokens'
 import Autocomplete from '../Autocomplete/Autocomplete'
 import {AnchoredOverlay} from '../AnchoredOverlay'
@@ -750,6 +750,61 @@ InOverlayWithCustomScrollContainerRef.parameters = {
       'maxHeight',
       'width',
       'children',
+    ],
+  },
+}
+
+export const InADialog = (args: FormControlArgs<AutocompleteArgs>) => {
+  const {overlayArgs} = getArgsByChildComponent(args)
+  const outerContainerRef = useRef<HTMLDivElement>(null)
+  const [mounted, setMounted] = useState(false)
+  const [isDialogOpen, setIsDialogOpen] = useState(false)
+
+  useEffect(() => {
+    if (outerContainerRef.current instanceof HTMLElement) {
+      registerPortalRoot(outerContainerRef.current, 'outerContainer')
+      setMounted(true)
+    }
+  }, [isDialogOpen])
+
+  return (
+    <>
+      <Button onClick={() => setIsDialogOpen(!isDialogOpen)}>Show dialog</Button>
+      <Dialog id="dialog-with-autocomplete" isOpen={isDialogOpen}>
+        <div ref={outerContainerRef}>
+          <Box as="form" sx={{p: 3}}>
+            {mounted ? (
+              <FormControl>
+                <FormControl.Label id="autocompleteLabel" />
+                <Autocomplete>
+                  <Autocomplete.Input data-testid="autocompleteInput" />
+                  <Autocomplete.Overlay {...overlayArgs} portalContainerName="outerContainer">
+                    <Autocomplete.Menu items={items} selectedItemIds={[]} aria-labelledby="autocompleteLabel" />
+                  </Autocomplete.Overlay>
+                </Autocomplete>
+              </FormControl>
+            ) : null}
+          </Box>
+        </div>
+      </Dialog>
+      <p>
+        The Autocomplete.Overlay is portalled to a div inside the Dialog to ensure it appears above the dialog in the
+        stacking context.
+      </p>
+    </>
+  )
+}
+
+InADialog.parameters = {
+  controls: {
+    exclude: [
+      ...excludedControlKeys,
+      ...Object.keys(formControlArgTypes),
+      ...Object.keys(getTextInputArgTypes()),
+      'input (size)',
+      'children',
+      'emptyStateText',
+      'selectionVariant',
     ],
   },
 }
