@@ -913,7 +913,7 @@ export const WithoutIndentation: Story = () => (
         </TreeView.LeadingVisual>
         Avatar.tsx
         <TreeView.TrailingVisual>
-          <Octicon icon={DiffAddedIcon} color="success.fg" aria-label="added" />
+          <Octicon icon={DiffAddedIcon} color="success.fg" aria-label="Added" />
         </TreeView.TrailingVisual>
       </TreeView.Item>
       <TreeView.Item id="src/Button.tsx" current>
@@ -922,7 +922,7 @@ export const WithoutIndentation: Story = () => (
         </TreeView.LeadingVisual>
         Button.tsx
         <TreeView.TrailingVisual>
-          <Octicon icon={DiffModifiedIcon} color="attention.fg" aria-label="modified" />
+          <Octicon icon={DiffModifiedIcon} color="attention.fg" aria-label="Modified" />
         </TreeView.TrailingVisual>
       </TreeView.Item>
       <TreeView.Item id="package.json">
@@ -931,7 +931,7 @@ export const WithoutIndentation: Story = () => (
         </TreeView.LeadingVisual>
         package.json
         <TreeView.TrailingVisual>
-          <Octicon icon={DiffModifiedIcon} color="attention.fg" aria-label="modified" />
+          <Octicon icon={DiffModifiedIcon} color="attention.fg" aria-label="Modified" />
         </TreeView.TrailingVisual>
       </TreeView.Item>
     </TreeView>

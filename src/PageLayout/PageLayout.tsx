@@ -53,7 +53,7 @@ export type PageLayoutProps = {
   columnGap?: keyof typeof SPACING_MAP
 
   /** Private prop to allow SplitPageLayout to customize slot components */
-  _slotsConfig?: Record<'header' | 'footer', React.ComponentType>
+  _slotsConfig?: Record<'header' | 'footer', React.ElementType>
 } & SxProp
 
 const containerWidths = {
