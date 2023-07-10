@@ -11,8 +11,8 @@ const parseCodeFenceBegin = (line: string) => {
 }
 
 const isCodeFenceEnd = (line: string, fence: string) => {
-  const match = line.match(new RegExp(`^ {0,3}${fence}${fence[0]}* *$`))
-  return match !== null
+  const regex = new RegExp(`^ {0,3}${fence}${fence[0]}* *$`)
+  return regex.test(line)
 }
 
 const isTaskListItem = (item: ListItem | null): item is TaskListItem => typeof item?.taskBox === 'string'
