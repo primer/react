@@ -19,5 +19,5 @@ export function showAcceptARef() {
 }
 
 export function shouldPassThroughSpanProps() {
-  return <CounterLabel data-testid="some value" aria-label="some label" />
+  return <CounterLabel data-testid="test value" aria-label="Test label" />
 }

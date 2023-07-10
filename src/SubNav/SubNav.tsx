@@ -1,4 +1,4 @@
-import classnames from 'classnames'
+import clsx from 'clsx'
 import {To} from 'history'
 import React from 'react'
 import styled from 'styled-components'
@@ -41,7 +41,7 @@ export type SubNavProps = {
 } & ComponentProps<typeof SubNavBase>
 
 function SubNav({actions, className, children, label, ...rest}: SubNavProps) {
-  const classes = classnames(className, 'SubNav')
+  const classes = clsx(className, 'SubNav')
   return (
     <SubNavBase className={classes} aria-label={label} {...rest}>
       <div className="SubNav-body">{children}</div>
@@ -64,7 +64,7 @@ type StyledSubNavLinkProps = {
 
 const SubNavLink = styled.a.attrs<StyledSubNavLinkProps>(props => ({
   activeClassName: typeof props.to === 'string' ? 'selected' : undefined,
-  className: classnames(ITEM_CLASS, props.selected && SELECTED_CLASS, props.className),
+  className: clsx(ITEM_CLASS, props.selected && SELECTED_CLASS, props.className),
 }))<StyledSubNavLinkProps>`
   padding-left: ${get('space.3')};
   padding-right: ${get('space.3')};
