@@ -18,8 +18,6 @@ import {defaultSxProp} from '../utils/defaultSxProp'
 import CounterLabel from '../CounterLabel'
 import {LoadingCounter} from './LoadingCounter'
 
-// import {MenuItemLink} from './MenuItemLink'
-
 export type UnderlineNavProps = {
   children: React.ReactNode
   'aria-label'?: React.AriaAttributes['aria-label']
@@ -70,8 +68,6 @@ const overflowEffect = (
   const items: Array<React.ReactElement> = []
   const actions: Array<React.ReactElement> = []
 
-  // console.log({numberOfItemsPossible}, {numberOfItemsWithoutIconPossible}, {numberOfItemsPossibleWithMoreMenu})
-
   // First, we check if we can fit all the items with their icons
   if (childArray.length <= numberOfItemsPossible) {
     items.push(...childArray)
@@ -90,7 +86,6 @@ const overflowEffect = (
     const numberOfItemsInMenu = childArray.length - numberOfItemsPossibleWithMoreMenu
     const numberOfListItems =
       numberOfItemsInMenu === 1 ? numberOfItemsPossibleWithMoreMenu - 1 : numberOfItemsPossibleWithMoreMenu
-    // console.log({numberOfItemsPossibleWithMoreMenu}, childArray.length)
     for (const [index, child] of childArray.entries()) {
       if (index < numberOfListItems) {
         // can the current item fit into the list?
@@ -121,15 +116,15 @@ const getValidChildren = (children: React.ReactNode) => {
 
 const calculatePossibleItems = (childWidthArray: ChildWidthArray, navWidth: number, moreMenuWidth = 0) => {
   const widthToFit = navWidth - moreMenuWidth
-  let breakpoint = childWidthArray.length - 1
+  let breakpoint = childWidthArray.length // assume all items will fit
   let sumsOfChildWidth = 0
   for (const [index, childWidth] of childWidthArray.entries()) {
+    sumsOfChildWidth = sumsOfChildWidth + childWidth.width + GAP
     if (sumsOfChildWidth > widthToFit) {
-      breakpoint = index - 1
+      breakpoint = index
       break
     } else {
-      // The the gap between items into account when calculating the number of items possible
-      sumsOfChildWidth = sumsOfChildWidth + childWidth.width + GAP
+      continue
     }
   }
   return breakpoint
@@ -184,7 +179,6 @@ export const UnderlineNav = forwardRef(
       const updatedMenuItems = [...actions]
       // Add itemsToAddToMenu array's items to the menu at the index of the prospectiveListItem and remove 1 count of items (prospectiveListItem)
       updatedMenuItems.splice(indexOfProspectiveListItem, 1, ...itemsToAddToMenu)
-      setSelectedLinkText(prospectiveListItem.props.children)
       callback({items: updatedItemList, actions: updatedMenuItems}, false)
     }
     // How many items do we need to pull in to the menu to make room for the selected menu item.
@@ -200,14 +194,6 @@ export const UnderlineNav = forwardRef(
       }
       return breakpoint
     }
-
-    // selectedLinkText is needed to be able set the selected menu item as selectedLink.
-    // This is needed because setSelectedLink only accepts ref but at the time of setting selected menu item as selectedLink, its ref as a list item is not available
-    const [selectedLinkText, setSelectedLinkText] = useState<string>('')
-    // Capture the mouse/keyboard event when a menu item is selected so that we can use it to fire the onSelect callback after the menu item is swapped with the list item
-    const [selectEvent, setSelectEvent] = useState<
-      React.MouseEvent<HTMLAnchorElement> | React.KeyboardEvent<HTMLAnchorElement> | null
-    >(null)
 
     const [iconsVisible, setIconsVisible] = useState<boolean>(true)
 
@@ -310,9 +296,6 @@ export const UnderlineNav = forwardRef(
           theme,
           setChildrenWidth,
           setNoIconChildrenWidth,
-          selectedLinkText,
-          setSelectedLinkText,
-          selectEvent,
           loadingCounters,
           iconsVisible,
         }}
@@ -361,15 +344,21 @@ export const UnderlineNav = forwardRef(
                       children: actionElementChildren,
                       counter,
                       'aria-current': ariaCurrent,
+                      onSelect,
                       ...actionElementProps
                     } = action.props
 
+                    // // This logic is used to pop the selected item out of the menu and into the list when loading the component
                     if (Boolean(ariaCurrent) && ariaCurrent !== 'false') {
                       const event = new MouseEvent('click')
-                      // @ts-ignore for now
-                      !onlyMenuVisible && swapMenuItemWithListItem(action, index, event, updateListAndMenu)
-                      // @ts-ignore for now
-                      setSelectEvent(event)
+                      !onlyMenuVisible &&
+                        swapMenuItemWithListItem(
+                          action,
+                          index,
+                          // @ts-ignore - not a big deal because it is internally creating an event but ask help
+                          event as React.MouseEvent<HTMLAnchorElement>,
+                          updateListAndMenu,
+                        )
                       closeOverlay()
                       focusOnMoreMenuBtn()
                     }
@@ -383,9 +372,10 @@ export const UnderlineNav = forwardRef(
                         ) => {
                           // When there are no items in the list, do not run the swap function as we want to keep everything in the menu.
                           !onlyMenuVisible && swapMenuItemWithListItem(action, index, event, updateListAndMenu)
-                          setSelectEvent(event)
                           closeOverlay()
                           focusOnMoreMenuBtn()
+                          // fire onSelect event that comes from the UnderlineNav.Item
+                          onSelect(event)
                         }}
                         {...actionElementProps}
                       >

@@ -42,7 +42,7 @@ export type UnderlineNavItemProps = {
    */
   icon?: React.FunctionComponent<IconProps>
   /**
-   * Renders `UnderlineNav.Item` as given component
+   * Renders `UnderlineNav.Item` as given component i.e. react-router's Link
    **/
   as?: React.ElementType | 'a'
   /**
@@ -69,16 +69,8 @@ export const UnderlineNavItem = forwardRef(
   ) => {
     const backupRef = useRef<HTMLElement>(null)
     const ref = (forwardedRef ?? backupRef) as RefObject<HTMLAnchorElement>
-    const {
-      theme,
-      setChildrenWidth,
-      setNoIconChildrenWidth,
-      selectedLinkText,
-      setSelectedLinkText,
-      selectEvent,
-      loadingCounters,
-      iconsVisible,
-    } = useContext(UnderlineNavContext)
+    const {theme, setChildrenWidth, setNoIconChildrenWidth, loadingCounters, iconsVisible} =
+      useContext(UnderlineNavContext)
 
     useLayoutEffect(() => {
       if (ref.current) {
@@ -101,27 +93,21 @@ export const UnderlineNavItem = forwardRef(
 
         setChildrenWidth({text, width: domRect.width})
         setNoIconChildrenWidth({text, width: domRect.width - iconWidthWithMargin})
-
-        // Only runs when a menu item is selected (swapping the menu item with the list item to keep it visible)
-        if (selectedLinkText === text) {
-          if (typeof onSelect === 'function' && selectEvent !== null) onSelect(selectEvent)
-          setSelectedLinkText('')
-        }
       }
-    }, [ref, selectedLinkText, setSelectedLinkText, setChildrenWidth, setNoIconChildrenWidth, onSelect, selectEvent])
+    }, [ref, setChildrenWidth, setNoIconChildrenWidth])
 
-    const keyPressHandler = React.useCallback(
+    const keyDownHandler = React.useCallback(
       (event: React.KeyboardEvent<HTMLAnchorElement>) => {
-        if (event.key === ' ' || event.key === 'Enter') {
-          if (!event.defaultPrevented && typeof onSelect === 'function') onSelect(event)
+        if ((event.key === ' ' || event.key === 'Enter') && !event.defaultPrevented && typeof onSelect === 'function') {
+          onSelect(event)
         }
       },
       [onSelect],
     )
     const clickHandler = React.useCallback(
       (event: React.MouseEvent<HTMLAnchorElement>) => {
-        if (!event.defaultPrevented) {
-          if (typeof onSelect === 'function') onSelect(event)
+        if (!event.defaultPrevented && typeof onSelect === 'function') {
+          onSelect(event)
         }
       },
       [onSelect],
@@ -134,7 +120,7 @@ export const UnderlineNavItem = forwardRef(
           as={Component}
           href={href}
           aria-current={ariaCurrent}
-          onKeyPress={keyPressHandler}
+          onKeyDown={keyDownHandler}
           onClick={clickHandler}
           sx={merge<BetterSystemStyleObject>(getLinkStyles(theme, ariaCurrent), sxProp as SxProp)}
           {...props}
