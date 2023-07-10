@@ -228,7 +228,7 @@
     "mdast-util-frontmatter": "1.0.1",
     "mdast-util-mdx": "2.0.1",
     "mdast-util-to-string": "3.1.1",
-    "micromark-extension-frontmatter": "1.0.0",
+    "micromark-extension-frontmatter": "2.0.0",
     "micromark-extension-mdxjs": "1.0.1",
     "postcss-custom-properties-fallback": "^1.0.2",
     "prettier": "2.8.8",
