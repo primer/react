@@ -26,14 +26,22 @@ export const Description: React.FC<React.PropsWithChildren<ActionListDescription
     flexBasis: 0,
     minWidth: 0,
     marginLeft: variant === 'block' ? 0 : 2,
+    color: 'fg.muted',
+    'li[aria-disabled="true"] &': {
+      color: 'inherit',
+    },
+    'li[data-variant="danger"]:hover &, li[data-variant="danger"]:active &': {
+      color: 'inherit',
+    },
   }
 
-  const {blockDescriptionId, inlineDescriptionId, disabled} = React.useContext(ItemContext)
+  const {blockDescriptionId, inlineDescriptionId} = React.useContext(ItemContext)
 
   return variant === 'block' ? (
     <Box
       as="span"
-      sx={merge({...styles, color: disabled ? 'fg.disabled' : 'fg.muted'}, sx as SxProp)}
+      // huh why?
+      sx={merge(styles, sx as SxProp)}
       id={blockDescriptionId}
     >
       {props.children}
@@ -41,7 +49,7 @@ export const Description: React.FC<React.PropsWithChildren<ActionListDescription
   ) : (
     <Truncate
       id={inlineDescriptionId}
-      sx={merge({...styles, color: disabled ? 'fg.disabled' : 'fg.muted'}, sx as SxProp)}
+      sx={merge(styles, sx as SxProp)}
       title={props.children as string}
       inline={true}
       maxWidth="100%"
