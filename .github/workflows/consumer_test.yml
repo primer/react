@@ -25,6 +25,10 @@ jobs:
       # from it later to install the package
       - name: Create a tarball for the package
         run: npm pack --pack-destination consumer-test --json > consumer-test/pack.json
+      - name: Clean package directory
+        run: |
+          npm run clean
+          rm -rf node_modules
       - name: Test
         id: test
         working-directory: consumer-test
