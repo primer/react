@@ -2,4 +2,4 @@
 '@primer/react': patch
 ---
 
-Fix legacy task list position calculation
+Address scenario in useListInteraction where the position calculation can be incorrect when tasklists appear above legacy task lists
