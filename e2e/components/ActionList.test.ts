@@ -503,7 +503,7 @@ test.describe('ActionList', () => {
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'components-actionlist-features--all-combinations',
+            id: 'components-actionlist-examples--all-combinations',
             globals: {
               colorScheme: theme,
             },
