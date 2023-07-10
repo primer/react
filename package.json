@@ -258,12 +258,23 @@
     "yaml": "2.2.2"
   },
   "peerDependencies": {
+    "@types/react": "^18.0.0",
+    "@types/react-dom": "^18.0.0",
+    "@types/styled-components": "^5.1.11",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "styled-components": "4.x || 5.x"
   },
-  "optionalPeerDependencies": {
-    "@types/styled-components": "^5.1.11"
+  "peerDependenciesMeta": {
+    "@types/react": {
+      "optional": true
+    },
+    "@types/react-dom": {
+      "optional": true
+    },
+    "@types/styled-components": {
+      "optional": true
+    }
   },
   "prettier": "@github/prettier-config",
   "size-limit": [
