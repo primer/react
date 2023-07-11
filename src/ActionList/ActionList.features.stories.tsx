@@ -365,7 +365,7 @@ export const ChildWithSideEffects = () => {
       return () => window.clearInterval(interval)
     }, [])
 
-    return <ActionList.Description>{seconds} seconds passed</ActionList.Description>
+    return <>{seconds} seconds passed</>
   }
 
   return (
@@ -375,7 +375,9 @@ export const ChildWithSideEffects = () => {
           <Avatar src={`https://avatars.githubusercontent.com/${user.login}`} />
         </ActionList.LeadingVisual>
         {user.login}
-        <SideEffectDescription />
+        <ActionList.Description>
+          <SideEffectDescription />
+        </ActionList.Description>
       </ActionList.Item>
     </ActionList>
   )
@@ -417,7 +419,7 @@ export const InsideOverlay = () => {
 export const GroupWithSubtleTitle = () => {
   const [assignees, setAssignees] = React.useState(users.slice(0, 1))
 
-  const toggleAssignee = (assignee: typeof users[number]) => {
+  const toggleAssignee = (assignee: (typeof users)[number]) => {
     const assigneeIndex = assignees.findIndex(a => a.login === assignee.login)
 
     if (assigneeIndex === -1) setAssignees([...assignees, assignee])
@@ -450,7 +452,7 @@ export const GroupWithSubtleTitle = () => {
 export const GroupWithFilledTitle = () => {
   const [assignees, setAssignees] = React.useState(users.slice(0, 1))
 
-  const toggleAssignee = (assignee: typeof users[number]) => {
+  const toggleAssignee = (assignee: (typeof users)[number]) => {
     const assigneeIndex = assignees.findIndex(a => a.login === assignee.login)
 
     if (assigneeIndex === -1) setAssignees([...assignees, assignee])

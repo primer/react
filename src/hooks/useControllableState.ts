@@ -1,4 +1,5 @@
 import React from 'react'
+import {warning} from '../utils/warning'
 
 type ControllableStateOptions<T> = {
   /**
@@ -73,7 +74,8 @@ export function useControllableState<T>({
     // Uncontrolled -> Controlled
     // If the component prop is uncontrolled, the prop value should be undefined
     if (controlled.current === false && controlledValue) {
-      warn(
+      warning(
+        true,
         'A component is changing an uncontrolled %s component to be controlled. ' +
           'This is likely caused by the value changing to a defined value ' +
           'from undefined. Decide between using a controlled or uncontrolled ' +
@@ -86,7 +88,8 @@ export function useControllableState<T>({
     // Controlled -> Uncontrolled
     // If the component prop is controlled, the prop value should be defined
     if (controlled.current === true && !controlledValue) {
-      warn(
+      warning(
+        true,
         'A component is changing a controlled %s component to be uncontrolled. ' +
           'This is likely caused by the value changing to an undefined value ' +
           'from a defined one. Decide between using a controlled or ' +
@@ -103,16 +106,3 @@ export function useControllableState<T>({
 
   return [state, setState]
 }
-
-/** Warn when running in a development environment */
-const warn = __DEV__
-  ? // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    function warn(format: string, ...args: any[]) {
-      let index = 0
-      const message = format.replace(/%s/g, () => {
-        return args[index++]
-      })
-      // eslint-disable-next-line no-console
-      console.warn(`Warning: ${message}`)
-    }
-  : function emptyFunction() {}

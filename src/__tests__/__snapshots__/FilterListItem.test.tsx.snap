@@ -8,7 +8,7 @@ exports[`FilterList.Item renders consistently 1`] = `
   margin: 0 0 5px 0;
   overflow: hidden;
   font-size: 14px;
-  color: #57606a;
+  color: #656d76;
   background-color: !important;
   -webkit-text-decoration: none;
   text-decoration: none;

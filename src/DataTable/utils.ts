@@ -34,8 +34,7 @@ export type ObjectPaths<T> = T extends readonly any[] & ArrayWithinBounds<T>
   ? never & 'Unable to determine keys of potentially boundless array'
   : T extends Date
   ? never
-  : // eslint-disable-next-line @typescript-eslint/ban-types
-  T extends object
+  : T extends object
   ? Extract<keyof T, string | number> | PrefixPath<T, Extract<keyof T, string | number>>
   : never
 
@@ -44,7 +43,6 @@ type PrefixPath<T, Prefix> = Prefix extends Extract<keyof T, number | string>
   : never
 
 // Get the value of a given path within an object
-// eslint-disable-next-line @typescript-eslint/ban-types
 export type ObjectPathValue<ObjectType extends object, Path extends string | number> = ObjectType extends Record<
   string | number,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

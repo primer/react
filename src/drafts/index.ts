@@ -6,6 +6,9 @@
  * example: import {ActionList} from '@primer/react/drafts
  */
 
+export {Blankslate} from '../Blankslate'
+export type {BlankslateProps} from '../Blankslate'
+
 export {DataTable, Table} from '../DataTable'
 export type {
   DataTableProps,
@@ -22,8 +25,6 @@ export type {
 } from '../DataTable'
 
 export * from '../Dialog/Dialog'
-
-export * from '../Hidden'
 
 export {default as InlineAutocomplete} from './InlineAutocomplete'
 export type {
@@ -43,7 +44,8 @@ export * from './MarkdownEditor'
 export * from '../UnderlineNav2'
 
 export * from '../PageHeader'
-export {default as Hidden} from '../Hidden'
+
+export * from '../Hidden'
 
 export * from './hooks'
 
@@ -52,3 +54,7 @@ export * from '../TreeView'
 export * from '../NavList'
 export * from '../SegmentedControl'
 export * from '../SplitPageLayout'
+
+// CSS Experiment
+// export * from './CSSComponent'
+// export * from './Button2'

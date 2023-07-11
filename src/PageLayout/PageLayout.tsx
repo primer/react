@@ -4,14 +4,14 @@ import Box from '../Box'
 import {useId} from '../hooks/useId'
 import {useRefObjectAsForwardedRef} from '../hooks/useRefObjectAsForwardedRef'
 import {isResponsiveValue, ResponsiveValue, useResponsiveValue} from '../hooks/useResponsiveValue'
+import {useSlots} from '../hooks/useSlots'
 import {BetterSystemStyleObject, merge, SxProp} from '../sx'
 import {Theme} from '../ThemeProvider'
-import createSlots from '../utils/create-slots'
 import {canUseDOM} from '../utils/environment'
+import {useOverflow} from '../internal/hooks/useOverflow'
+import {warning} from '../utils/warning'
 import VisuallyHidden from '../_VisuallyHidden'
 import {useStickyPaneHeight} from './useStickyPaneHeight'
-
-const {Slots, Slot} = createSlots(['Header', 'Footer'])
 
 const REGION_ORDER = {
   header: 0,
@@ -51,6 +51,9 @@ export type PageLayoutProps = {
   padding?: keyof typeof SPACING_MAP
   rowGap?: keyof typeof SPACING_MAP
   columnGap?: keyof typeof SPACING_MAP
+
+  /** Private prop to allow SplitPageLayout to customize slot components */
+  _slotsConfig?: Record<'header' | 'footer', React.ElementType>
 } & SxProp
 
 const containerWidths = {
@@ -68,9 +71,13 @@ const Root: React.FC<React.PropsWithChildren<PageLayoutProps>> = ({
   columnGap = 'normal',
   children,
   sx = {},
+  _slotsConfig: slotsConfig,
 }) => {
   const {rootRef, enableStickyPane, disableStickyPane, contentTopRef, contentBottomRef, stickyPaneHeight} =
     useStickyPaneHeight()
+
+  const [slots, rest] = useSlots(children, slotsConfig ?? {header: Header, footer: Footer})
+
   return (
     <PageLayoutContext.Provider
       value={{
@@ -99,17 +106,9 @@ const Root: React.FC<React.PropsWithChildren<PageLayoutProps>> = ({
             flexWrap: 'wrap',
           }}
         >
-          <Slots>
-            {slots => {
-              return (
-                <>
-                  {slots.Header}
-                  <Box sx={{display: 'flex', flex: '1 1 100%', flexWrap: 'wrap', maxWidth: '100%'}}>{children}</Box>
-                  {slots.Footer}
-                </>
-              )
-            }}
-          </Slots>
+          {slots.header}
+          <Box sx={{display: 'flex', flex: '1 1 100%', flexWrap: 'wrap', maxWidth: '100%'}}>{rest}</Box>
+          {slots.footer}
         </Box>
       </Box>
     </PageLayoutContext.Provider>
@@ -361,24 +360,22 @@ const Header: React.FC<React.PropsWithChildren<PageLayoutHeaderProps>> = ({
   const isHidden = useResponsiveValue(hidden, false)
   const {rowGap} = React.useContext(PageLayoutContext)
   return (
-    <Slot name="Header">
-      <Box
-        as="header"
-        aria-label={label}
-        aria-labelledby={labelledBy}
-        hidden={isHidden}
-        sx={merge<BetterSystemStyleObject>(
-          {
-            width: '100%',
-            marginBottom: SPACING_MAP[rowGap],
-          },
-          sx,
-        )}
-      >
-        <Box sx={{padding: SPACING_MAP[padding]}}>{children}</Box>
-        <HorizontalDivider variant={dividerVariant} sx={{marginTop: SPACING_MAP[rowGap]}} />
-      </Box>
-    </Slot>
+    <Box
+      as="header"
+      aria-label={label}
+      aria-labelledby={labelledBy}
+      hidden={isHidden}
+      sx={merge<BetterSystemStyleObject>(
+        {
+          width: '100%',
+          marginBottom: SPACING_MAP[rowGap],
+        },
+        sx,
+      )}
+    >
+      <Box sx={{padding: SPACING_MAP[padding]}}>{children}</Box>
+      <HorizontalDivider variant={dividerVariant} sx={{marginTop: SPACING_MAP[rowGap]}} />
+    </Box>
   )
 }
 
@@ -421,6 +418,7 @@ const Content: React.FC<React.PropsWithChildren<PageLayoutContentProps>> = ({
 }) => {
   const isHidden = useResponsiveValue(hidden, false)
   const {contentTopRef, contentBottomRef} = React.useContext(PageLayoutContext)
+
   return (
     <Box
       as="main"
@@ -485,7 +483,10 @@ export type PageLayoutPaneProps = {
    * ```
    */
   positionWhenNarrow?: 'inherit' | keyof typeof panePositions
+  'aria-labelledby'?: string
+  'aria-label'?: string
   width?: keyof typeof paneWidths
+  minWidth?: number
   resizable?: boolean
   widthStorageKey?: string
   padding?: keyof typeof SPACING_MAP
@@ -527,9 +528,12 @@ const defaultPaneWidth = {small: 256, medium: 296, large: 320}
 const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayoutPaneProps>>(
   (
     {
+      'aria-label': label,
+      'aria-labelledby': labelledBy,
       position: responsivePosition = 'end',
       positionWhenNarrow = 'inherit',
       width = 'medium',
+      minWidth = 256,
       padding = 'none',
       resizable = false,
       widthStorageKey = 'paneWidth',
@@ -601,9 +605,9 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
     const paneRef = React.useRef<HTMLDivElement>(null)
     useRefObjectAsForwardedRef(forwardRef, paneRef)
 
-    const MIN_PANE_WIDTH = 256 // 256px, related to `--pane-min-width CSS var.
     const [minPercent, setMinPercent] = React.useState(0)
     const [maxPercent, setMaxPercent] = React.useState(0)
+    const hasOverflow = useOverflow(paneRef)
 
     const measuredRef = React.useCallback(() => {
       if (paneRef.current !== null) {
@@ -615,7 +619,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
         const viewportWidth = window.innerWidth
         const maxPaneWidth = viewportWidth > maxPaneWidthDiff ? viewportWidth - maxPaneWidthDiff : viewportWidth
 
-        const minPercent = Math.round((100 * MIN_PANE_WIDTH) / viewportWidth)
+        const minPercent = Math.round((100 * minWidth) / viewportWidth)
         setMinPercent(minPercent)
 
         const maxPercent = Math.round((100 * maxPaneWidth) / viewportWidth)
@@ -624,7 +628,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
         const widthPercent = Math.round((100 * paneWidth) / viewportWidth)
         setWidthPercent(widthPercent.toString())
       }
-    }, [paneRef])
+    }, [paneRef, minWidth])
 
     const [widthPercent, setWidthPercent] = React.useState('')
     const [prevPercent, setPrevPercent] = React.useState('')
@@ -648,6 +652,22 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
     }
 
     const paneId = useId(id)
+
+    const labelProp: {'aria-labelledby'?: string; 'aria-label'?: string} = {}
+    if (hasOverflow) {
+      warning(
+        label === undefined && labelledBy === undefined,
+        'The <PageLayout.Pane> has overflow and `aria-label` or `aria-labelledby` has not been set. ' +
+          'Please provide `aria-label` or `aria-labelledby` to <PageLayout.Pane> in order to label this ' +
+          'region.',
+      )
+
+      if (labelledBy) {
+        labelProp['aria-labelledby'] = labelledBy
+      } else if (label) {
+        labelProp['aria-label'] = label
+      }
+    }
 
     return (
       <Box
@@ -723,7 +743,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
             '--pane-width': `${paneWidth}px`,
           }}
           sx={(theme: Theme) => ({
-            '--pane-min-width': `256px`,
+            '--pane-min-width': `${minWidth}px`,
             '--pane-max-width-diff': '511px',
             '--pane-max-width': `calc(100vw - var(--pane-max-width-diff))`,
             width: resizable
@@ -736,11 +756,13 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
               '--pane-max-width-diff': '959px',
             },
           })}
+          {...(hasOverflow && {tabIndex: 0, role: 'region'})}
+          {...labelProp}
+          {...(id && {id: paneId})}
         >
           {resizable && (
             <VisuallyHidden>
               <form onSubmit={handleWidthFormSubmit}>
-                {/* eslint-disable-next-line jsx-a11y/label-has-for */}
                 <label htmlFor={`${paneId}-width-input`}>Pane width</label>
                 <p id={`${paneId}-input-hint`}>
                   Use a value between {minPercent}% and {maxPercent}%
@@ -825,25 +847,23 @@ const Footer: React.FC<React.PropsWithChildren<PageLayoutFooterProps>> = ({
   const isHidden = useResponsiveValue(hidden, false)
   const {rowGap} = React.useContext(PageLayoutContext)
   return (
-    <Slot name="Footer">
-      <Box
-        as="footer"
-        aria-label={label}
-        aria-labelledby={labelledBy}
-        hidden={isHidden}
-        sx={merge<BetterSystemStyleObject>(
-          {
-            order: REGION_ORDER.footer,
-            width: '100%',
-            marginTop: SPACING_MAP[rowGap],
-          },
-          sx,
-        )}
-      >
-        <HorizontalDivider variant={dividerVariant} sx={{marginBottom: SPACING_MAP[rowGap]}} />
-        <Box sx={{padding: SPACING_MAP[padding]}}>{children}</Box>
-      </Box>
-    </Slot>
+    <Box
+      as="footer"
+      aria-label={label}
+      aria-labelledby={labelledBy}
+      hidden={isHidden}
+      sx={merge<BetterSystemStyleObject>(
+        {
+          order: REGION_ORDER.footer,
+          width: '100%',
+          marginTop: SPACING_MAP[rowGap],
+        },
+        sx,
+      )}
+    >
+      <HorizontalDivider variant={dividerVariant} sx={{marginBottom: SPACING_MAP[rowGap]}} />
+      <Box sx={{padding: SPACING_MAP[padding]}}>{children}</Box>
+    </Box>
   )
 }
 

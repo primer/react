@@ -44,7 +44,7 @@ exports[`CheckboxOrRadioGroup renders consistently 1`] = `
   font-weight: 600;
   font-size: 14px;
   display: block;
-  color: #24292f;
+  color: #1F2328;
   cursor: pointer;
   -webkit-align-self: flex-start;
   -ms-flex-item-align: start;
@@ -83,7 +83,7 @@ exports[`CheckboxOrRadioGroup renders consistently 1`] = `
   place-content: center;
   position: relative;
   width: var(--base-size-16,16px);
-  border-radius: var(--primer-borderRadius-full,100vh);
+  border-radius: var(--borderRadius-full,100vh);
   -webkit-transition: background-color,border-color 80ms cubic-bezier(0.33,1,0.68,1);
   transition: background-color,border-color 80ms cubic-bezier(0.33,1,0.68,1);
 }
@@ -100,7 +100,7 @@ exports[`CheckboxOrRadioGroup renders consistently 1`] = `
 
 .c6:checked:disabled {
   cursor: not-allowed;
-  border-color: #57606a;
+  border-color: #656d76;
 }
 
 .c6:focus:not(:disabled) {

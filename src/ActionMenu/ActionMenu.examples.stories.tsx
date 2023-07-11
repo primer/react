@@ -11,6 +11,8 @@ import {
   NumberIcon,
   CalendarIcon,
   XIcon,
+  CheckIcon,
+  CopyIcon,
 } from '@primer/octicons-react'
 
 export default {
@@ -24,7 +26,7 @@ export const GroupsAndDescriptions = () => {
     {name: 'FY23 - Q2', due: 'December 30, 2022', progress: 0},
   ]
 
-  const [selectedMilestone, setSelectedMilestone] = React.useState<typeof milestones[0] | undefined>()
+  const [selectedMilestone, setSelectedMilestone] = React.useState<(typeof milestones)[0] | undefined>()
 
   return (
     <ActionMenu open>
@@ -80,16 +82,7 @@ export const CustomOverlayProps = () => {
     <Box sx={{display: 'flex', justifyContent: 'center'}}>
       <ActionMenu open={open} onOpenChange={setOpen}>
         <ActionMenu.Button>Menu</ActionMenu.Button>
-        <ActionMenu.Overlay
-          width="large"
-          align="center"
-          onClickOutside={() => {
-            /* do nothing, keep it open*/
-          }}
-          onEscape={() => {
-            /* do nothing, keep it open*/
-          }}
-        >
+        <ActionMenu.Overlay width="large" align="center">
           <ActionList>
             <ActionList.Item>Option 1</ActionList.Item>
             <ActionList.Item>Option 2</ActionList.Item>
@@ -111,7 +104,7 @@ export const ControlledMenu = () => {
   const onSelect = (name: string) => fireAction(name)
 
   const [open, setOpen] = React.useState(false)
-  const triggerRef = React.createRef<HTMLButtonElement>()
+  const triggerRef = React.useRef<HTMLButtonElement>(null)
 
   return (
     <>
@@ -208,7 +201,7 @@ export const MixedSelection = () => {
 
   return (
     <ActionMenu>
-      <ActionMenu.Button aria-label="Group by" leadingIcon={selectedOption ? selectedOption.icon : undefined}>
+      <ActionMenu.Button leadingIcon={selectedOption ? selectedOption.icon : undefined}>
         {selectedOption ? `Group by ${selectedOption.text}` : 'Group items by'}
       </ActionMenu.Button>
       <ActionMenu.Overlay width="medium">
@@ -243,7 +236,7 @@ export const MixedSelection = () => {
 export const MultipleSections = () => {
   const items = [{name: 'Show code folding buttons'}, {name: 'Wrap lines'}, {name: 'Center content'}]
 
-  const [selectedMilestone, setSelectedMilestone] = React.useState<typeof items[0] | undefined>()
+  const [selectedMilestone, setSelectedMilestone] = React.useState<(typeof items)[0] | undefined>()
 
   return (
     <ActionMenu open>
@@ -280,5 +273,37 @@ export const MultipleSections = () => {
         </ActionList>
       </ActionMenu.Overlay>
     </ActionMenu>
+  )
+}
+
+export const DelayedMenuClose = () => {
+  const [open, setOpen] = React.useState(false)
+  const [copyLinkSuccess, setCopyLinkSuccess] = React.useState(false)
+  const onSelect = (event: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement>) => {
+    event.preventDefault()
+
+    setCopyLinkSuccess(true)
+    setTimeout(() => {
+      setOpen(false)
+      setCopyLinkSuccess(false)
+    }, 700)
+  }
+
+  return (
+    <>
+      <h1>Delayed Menu Close</h1>
+
+      <ActionMenu open={open} onOpenChange={setOpen}>
+        <ActionMenu.Button>Anchor</ActionMenu.Button>
+        <ActionMenu.Overlay>
+          <ActionList>
+            <ActionList.Item onSelect={onSelect}>
+              <ActionList.LeadingVisual>{copyLinkSuccess ? <CheckIcon /> : <CopyIcon />}</ActionList.LeadingVisual>
+              {copyLinkSuccess ? 'Copied!' : 'Copy link'}
+            </ActionList.Item>
+          </ActionList>
+        </ActionMenu.Overlay>
+      </ActionMenu>
+    </>
   )
 }

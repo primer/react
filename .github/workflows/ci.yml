@@ -3,10 +3,12 @@ on:
   push:
     branches:
       - main
+      - next-major
   pull_request:
   merge_group:
     branches:
       - main
+      - next-major
     types:
       - checks_requested
 
@@ -23,7 +25,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: 18
           cache: 'npm'
       - name: Install dependencies
         run: npm ci
@@ -39,7 +41,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: 18
           cache: 'npm'
 
       - name: Install dependencies
@@ -64,7 +66,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: 18
           cache: 'npm'
 
       - name: Set React version
@@ -99,7 +101,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: 18
           cache: 'npm'
 
       - name: Set React version
@@ -125,7 +127,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: 18
           cache: 'npm'
 
       - name: Install dependencies
@@ -150,15 +152,15 @@ jobs:
         shard: [1, 2]
     steps:
       - uses: actions/checkout@v3
-      - name: Use Node.js 16.x
+      - name: Use Node.js 18.x
         uses: actions/setup-node@v3
         with:
-          node-version: '16.x'
+          node-version: 18
           cache: 'npm'
       - name: Install dependencies
         run: npm ci
       - name: Build storybook
-        run: npx build-storybook
+        run: npx storybook build
       - name: Install browsers
         run: npx playwright install --with-deps
       - name: Run storybook
@@ -196,15 +198,15 @@ jobs:
         shard: [1, 2]
     steps:
       - uses: actions/checkout@v3
-      - name: Use Node.js 16.x
+      - name: Use Node.js 18.x
         uses: actions/setup-node@v3
         with:
-          node-version: '16.x'
+          node-version: 18
           cache: 'npm'
       - name: Install dependencies
         run: npm ci
       - name: Build storybook
-        run: npx build-storybook
+        run: npx storybook build
       - name: Install browsers
         run: npx playwright install --with-deps
       - name: Run storybook
@@ -254,18 +256,15 @@ jobs:
           repository: ${{ github.event.pull_request.head.repo.full_name }}
           ref: ${{ github.head_ref }}
           token: ${{ steps.generate_token.outputs.token }}
-      - name: Use Node.js 16.x
+      - name: Use Node.js 18.x
         uses: actions/setup-node@v3
         with:
-          node-version: '16.x'
+          node-version: 18
           cache: 'npm'
       - name: Install dependencies
         run: npm ci
       - name: Build components.json
         run: npm run build:components.json
-      - uses: stefanzweifel/git-auto-commit-action@v4
-        with:
-          commit_message: 'Update generated/components.json'
 
   sizes:
     runs-on: ubuntu-latest
@@ -275,7 +274,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: 18
           cache: 'npm'
       - name: Install dependencies
         run: npm ci

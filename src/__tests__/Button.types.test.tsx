@@ -16,7 +16,7 @@ export function ShouldAcceptKnownButtonPropsAndDomProps() {
       size="medium"
       variant="primary"
       disabled
-      aria-label="some label"
+      aria-label="Test label"
       onClick={e => {
         // current target is assignable to HTMLButtonElement
         buttonEl.current = e.currentTarget

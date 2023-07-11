@@ -6,7 +6,7 @@ import {get} from '../constants'
 import {useOnEscapePress, useProvidedRefOrCreate} from '../hooks'
 import {useFocusTrap} from '../hooks/useFocusTrap'
 import sx, {SxProp} from '../sx'
-import StyledOcticon from '../StyledOcticon'
+import Octicon from '../Octicon'
 import {XIcon} from '@primer/octicons-react'
 import {useFocusZone} from '../hooks/useFocusZone'
 import {FocusKeys} from '@primer/behaviors'
@@ -151,7 +151,7 @@ const Backdrop = styled('div')`
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: ${get('colors.primer.canvas.backdrop')};
   animation: dialog-backdrop-appear ${ANIMATION_DURATION} ${get('animation.easeOutCubic')};
 
   @keyframes dialog-backdrop-appear {
@@ -417,7 +417,7 @@ const DialogCloseButton = styled(Button)`
 const CloseButton: React.FC<React.PropsWithChildren<{onClose: () => void}>> = ({onClose}) => {
   return (
     <DialogCloseButton aria-label="Close" onClick={onClose}>
-      <StyledOcticon icon={XIcon} />
+      <Octicon icon={XIcon} />
     </DialogCloseButton>
   )
 }

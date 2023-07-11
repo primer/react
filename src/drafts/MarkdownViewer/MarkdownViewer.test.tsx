@@ -1,6 +1,6 @@
-import React from 'react'
-import {render, waitFor, fireEvent} from '@testing-library/react'
+import {fireEvent, render, waitFor} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
+import React from 'react'
 
 import MarkdownViewer from '../MarkdownViewer'
 
@@ -88,6 +88,42 @@ text after list`
       const items = getAllByRole('checkbox')
       fireEvent.change(items[0])
       await waitFor(() => expect(onChangeMock).toHaveBeenCalledWith(noItemsCheckedMarkdown))
+    })
+
+    it('attaches event handlers to new tasks', async () => {
+      const onChangeMock = jest.fn()
+      const TestComponent = () => {
+        const [html, setHtml] = React.useState(taskListHtml)
+        const [markdown, setMarkdown] = React.useState(noItemsCheckedMarkdown)
+        return (
+          <>
+            <button
+              onClick={() => {
+                setMarkdown(`${markdown}
+- [ ] item 3
+`)
+                setHtml(`${html}
+<ul class='contains-task-list'>
+  <li class='task-list-item'><input type='checkbox' class='task-list-item-checkbox' disabled/> item 3</li>
+</ul>
+`)
+              }}
+            >
+              Add markdown
+            </button>
+            <MarkdownViewer dangerousRenderedHTML={{__html: html}} markdownValue={markdown} onChange={onChangeMock} />
+          </>
+        )
+      }
+      const {getByRole, getAllByRole} = render(<TestComponent />)
+
+      // Change markdown and html content
+      const button = getByRole('button', {name: 'Add markdown'})
+      fireEvent.click(button)
+
+      const items = getAllByRole('checkbox')
+      fireEvent.change(items[2])
+      await waitFor(() => expect(onChangeMock).toHaveBeenCalledWith(`${noItemsCheckedMarkdown}\n- [x] item 3\n`))
     })
   })
 

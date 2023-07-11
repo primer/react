@@ -6,12 +6,13 @@ import {
   IssueDraftIcon,
   IssueOpenedIcon,
   QuestionIcon,
+  GitMergeQueueIcon,
 } from '@primer/octicons-react'
 import React from 'react'
 import styled from 'styled-components'
 import {variant} from 'styled-system'
 import {get} from '../constants'
-import StyledOcticon from '../StyledOcticon'
+import Octicon from '../Octicon'
 import sx, {SxProp} from '../sx'
 import {ComponentProps} from '../utils/types'
 
@@ -24,6 +25,7 @@ const octiconMap = {
   pullMerged: GitMergeIcon,
   draft: GitPullRequestIcon,
   issueDraft: IssueDraftIcon,
+  pullQueued: GitMergeQueueIcon,
 }
 
 const colorVariants = variant({
@@ -38,19 +40,23 @@ const colorVariants = variant({
       color: 'fg.onEmphasis',
     },
     pullClosed: {
-      backgroundColor: 'danger.emphasis',
+      backgroundColor: 'closed.emphasis',
       color: 'fg.onEmphasis',
     },
     pullMerged: {
       backgroundColor: 'done.emphasis',
       color: 'fg.onEmphasis',
     },
+    pullQueued: {
+      backgroundColor: 'attention.emphasis',
+      color: 'fg.onEmphasis',
+    },
     issueOpened: {
-      backgroundColor: 'success.emphasis',
+      backgroundColor: 'open.emphasis',
       color: 'fg.onEmphasis',
     },
     pullOpened: {
-      backgroundColor: 'success.emphasis',
+      backgroundColor: 'open.emphasis',
       color: 'fg.onEmphasis',
     },
     draft: {
@@ -82,7 +88,7 @@ const sizeVariants = variant({
 
 type StyledStateLabelBaseProps = {
   variant?: 'small' | 'normal'
-  status?: keyof typeof octiconMap
+  status: keyof typeof octiconMap
 } & SxProp
 
 const StateLabelBase = styled.span<StyledStateLabelBaseProps>`
@@ -105,7 +111,7 @@ function StateLabel({children, status, variant: variantProp = 'normal', ...rest}
   return (
     <StateLabelBase {...rest} variant={variantProp} status={status}>
       {/* eslint-disable-next-line @typescript-eslint/no-unnecessary-condition */}
-      {status && <StyledOcticon {...octiconProps} icon={octiconMap[status] || QuestionIcon} sx={{mr: 1}} />}
+      {status && <Octicon {...octiconProps} icon={octiconMap[status] || QuestionIcon} sx={{mr: 1}} />}
       {children}
     </StateLabelBase>
   )

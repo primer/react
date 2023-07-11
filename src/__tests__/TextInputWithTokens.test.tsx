@@ -24,7 +24,6 @@ const LabelledTextInputWithTokens: React.FC<React.PropsWithChildren<TextInputWit
   ...rest
 }) => (
   <>
-    {/* eslint-disable-next-line jsx-a11y/label-has-for */}
     <label htmlFor="tokenInput" id="tokenLabel">
       Tokens
     </label>
@@ -324,6 +323,7 @@ describe('TextInputWithTokens', () => {
     const allTokenLabels = mockTokens.map(token => token.text)
     const truncatedTokenCountNode = getByText('+6')
 
+    // eslint-disable-next-line testing-library/no-unnecessary-act
     act(() => {
       jest.runAllTimers()
       fireEvent.focus(inputNode)
@@ -336,6 +336,7 @@ describe('TextInputWithTokens', () => {
       }
     }, 0)
 
+    // eslint-disable-next-line testing-library/no-unnecessary-act
     act(() => {
       jest.runAllTimers()
       // onBlur isn't called on input unless we specifically fire the "blur" event
@@ -350,10 +351,8 @@ describe('TextInputWithTokens', () => {
       for (const tokenLabel of allTokenLabels) {
         const tokenNode = getByText(tokenLabel)
         if (allTokenLabels.indexOf(tokenLabel) > visibleTokenCount) {
-          // eslint-disable-next-line jest/no-conditional-expect
           expect(tokenNode).toBeDefined()
         } else {
-          // eslint-disable-next-line jest/no-conditional-expect
           expect(tokenNode).not.toBeDefined()
         }
       }
@@ -380,10 +379,8 @@ describe('TextInputWithTokens', () => {
     const allTokenLabels = mockTokens.map(token => token.text)
     const truncatedTokenCountNode = getByText('+6')
 
-    act(() => {
-      fireEvent.focus(inputNode)
-      fireEvent.focus(firstTokenNode)
-    })
+    fireEvent.focus(inputNode)
+    fireEvent.focus(firstTokenNode)
 
     expect(truncatedTokenCountNode).toBeDefined()
 

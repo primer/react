@@ -5,7 +5,7 @@ exports[`snapshots renders a custom empty state message 1`] = `
   .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #24292f;
+  color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -62,7 +62,7 @@ exports[`snapshots renders a custom empty state message 1`] = `
   padding: 12px;
 }
 
-.c0 >:not(:last-child) {
+.c0 > :not(:last-child) {
   margin-right: 8px;
 }
 
@@ -71,7 +71,7 @@ exports[`snapshots renders a custom empty state message 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #57606a;
+  color: #656d76;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -105,7 +105,6 @@ exports[`snapshots renders a custom empty state message 1`] = `
 
 <span
     aria-busy={false}
-    aria-live="polite"
     className="c0 TextInput-wrapper"
     onClick={[Function]}
   >
@@ -165,7 +164,7 @@ exports[`snapshots renders a loading state 1`] = `
   .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #24292f;
+  color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -222,7 +221,7 @@ exports[`snapshots renders a loading state 1`] = `
   padding: 12px;
 }
 
-.c0 >:not(:last-child) {
+.c0 > :not(:last-child) {
   margin-right: 8px;
 }
 
@@ -231,7 +230,7 @@ exports[`snapshots renders a loading state 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #57606a;
+  color: #656d76;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -265,7 +264,6 @@ exports[`snapshots renders a loading state 1`] = `
 
 <span
     aria-busy={false}
-    aria-live="polite"
     className="c0 TextInput-wrapper"
     onClick={[Function]}
   >
@@ -360,7 +358,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
   .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #24292f;
+  color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -417,7 +415,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
   padding: 12px;
 }
 
-.c0 >:not(:last-child) {
+.c0 > :not(:last-child) {
   margin-right: 8px;
 }
 
@@ -426,7 +424,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #57606a;
+  color: #656d76;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -460,7 +458,6 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
 
 <span
     aria-busy={false}
-    aria-live="polite"
     className="c0 TextInput-wrapper"
     onClick={[Function]}
   >
@@ -541,7 +538,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
   display: -ms-flexbox;
   display: flex;
   border-radius: 6px;
-  color: #24292f;
+  color: #1F2328;
   -webkit-transition: background 33.333ms linear;
   transition: background 33.333ms linear;
   -webkit-text-decoration: none;
@@ -647,7 +644,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
 }
 
 .c10 svg {
-  fill: #57606a;
+  fill: #656d76;
   font-size: 12px;
 }
 
@@ -1318,7 +1315,7 @@ exports[`snapshots renders a multiselect input 1`] = `
   .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #24292f;
+  color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -1375,7 +1372,7 @@ exports[`snapshots renders a multiselect input 1`] = `
   padding: 12px;
 }
 
-.c0 >:not(:last-child) {
+.c0 > :not(:last-child) {
   margin-right: 8px;
 }
 
@@ -1384,7 +1381,7 @@ exports[`snapshots renders a multiselect input 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #57606a;
+  color: #656d76;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -1418,7 +1415,6 @@ exports[`snapshots renders a multiselect input 1`] = `
 
 <span
     aria-busy={false}
-    aria-live="polite"
     className="c0 TextInput-wrapper"
     onClick={[Function]}
   >
@@ -1499,7 +1495,7 @@ exports[`snapshots renders a multiselect input 1`] = `
   display: -ms-flexbox;
   display: flex;
   border-radius: 6px;
-  color: #24292f;
+  color: #1F2328;
   -webkit-transition: background 33.333ms linear;
   transition: background 33.333ms linear;
   -webkit-text-decoration: none;
@@ -2186,7 +2182,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
   .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #24292f;
+  color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -2243,7 +2239,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
   padding: 12px;
 }
 
-.c0 >:not(:last-child) {
+.c0 > :not(:last-child) {
   margin-right: 8px;
 }
 
@@ -2252,7 +2248,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #57606a;
+  color: #656d76;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -2286,7 +2282,6 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
 
 <span
     aria-busy={false}
-    aria-live="polite"
     className="c0 TextInput-wrapper"
     onClick={[Function]}
   >
@@ -2367,7 +2362,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
   display: -ms-flexbox;
   display: flex;
   border-radius: 6px;
-  color: #24292f;
+  color: #1F2328;
   -webkit-transition: background 33.333ms linear;
   transition: background 33.333ms linear;
   -webkit-text-decoration: none;
@@ -3065,7 +3060,7 @@ exports[`snapshots renders a single select input 1`] = `
   .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #24292f;
+  color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -3122,7 +3117,7 @@ exports[`snapshots renders a single select input 1`] = `
   padding: 12px;
 }
 
-.c0 >:not(:last-child) {
+.c0 > :not(:last-child) {
   margin-right: 8px;
 }
 
@@ -3131,7 +3126,7 @@ exports[`snapshots renders a single select input 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #57606a;
+  color: #656d76;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -3165,7 +3160,6 @@ exports[`snapshots renders a single select input 1`] = `
 
 <span
     aria-busy={false}
-    aria-live="polite"
     className="c0 TextInput-wrapper"
     onClick={[Function]}
   >
@@ -3246,7 +3240,7 @@ exports[`snapshots renders a single select input 1`] = `
   display: -ms-flexbox;
   display: flex;
   border-radius: 6px;
-  color: #24292f;
+  color: #1F2328;
   -webkit-transition: background 33.333ms linear;
   transition: background 33.333ms linear;
   -webkit-text-decoration: none;
@@ -3689,7 +3683,7 @@ exports[`snapshots renders with a custom text input component 1`] = `
   display: -ms-flexbox;
   display: flex;
   border-radius: 6px;
-  color: #24292f;
+  color: #1F2328;
   -webkit-transition: background 33.333ms linear;
   transition: background 33.333ms linear;
   -webkit-text-decoration: none;
@@ -4074,7 +4068,7 @@ exports[`snapshots renders with an input value 1`] = `
   .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #24292f;
+  color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #d0d7de;
@@ -4131,7 +4125,7 @@ exports[`snapshots renders with an input value 1`] = `
   padding: 12px;
 }
 
-.c0 >:not(:last-child) {
+.c0 > :not(:last-child) {
   margin-right: 8px;
 }
 
@@ -4140,7 +4134,7 @@ exports[`snapshots renders with an input value 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #57606a;
+  color: #656d76;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -4174,7 +4168,6 @@ exports[`snapshots renders with an input value 1`] = `
 
 <span
     aria-busy={false}
-    aria-live="polite"
     className="c0 TextInput-wrapper"
     onClick={[Function]}
   >

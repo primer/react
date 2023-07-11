@@ -11,7 +11,7 @@ function ThemeSwitcher() {
   return (
     <ActionMenu>
       <ActionMenu.Button aria-label="Select field type">{selectedItem?.name}</ActionMenu.Button>
-      <ActionMenu.Overlay width="medium">
+      <ActionMenu.Overlay sx={{width: 'medium'}}>
         <ActionList selectionVariant="single">
           {items.map((type, index) => (
             <ActionList.Item

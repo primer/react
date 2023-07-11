@@ -1,5 +1,5 @@
 import React from 'react'
-import {Story, Meta} from '@storybook/react'
+import {Meta, StoryFn} from '@storybook/react'
 import SegmentedControlButton, {SegmentedControlButtonProps} from './SegmentedControlButton'
 import {SegmentedControl} from '.'
 import {EyeIcon, FileCodeIcon, PeopleIcon} from '@primer/octicons-react'
@@ -12,7 +12,7 @@ export default {
   component: SegmentedControlButton,
   args: {
     children: 'Option',
-    leadingIcon: null,
+    leadingIcon: undefined,
     selected: false,
     defaultSelected: false,
   },
@@ -21,10 +21,8 @@ export default {
       type: 'string',
     },
     leadingIcon: {
-      control: {
-        type: 'select',
-        options: Object.keys(icons),
-      },
+      control: 'select',
+      options: Object.keys(icons),
       mapping: icons,
     },
     selected: {
@@ -45,4 +43,4 @@ export default {
   ],
 } as Meta<typeof SegmentedControlButton>
 
-export const Playground: Story<SegmentedControlButtonProps> = args => <SegmentedControlButton {...args} />
+export const Playground: StoryFn<SegmentedControlButtonProps> = args => <SegmentedControlButton {...args} />

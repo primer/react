@@ -1,7 +1,7 @@
 import {useEffect} from 'react'
 
 type UseLinkInterceptionSettings = {
-  htmlContainer: HTMLDivElement
+  htmlContainer?: HTMLElement
   onLinkClick?: (event: MouseEvent) => void
   openLinksInNewTab: boolean
 }
@@ -22,6 +22,8 @@ export const useLinkInterception = ({htmlContainer, onLinkClick, openLinksInNewT
         event.preventDefault()
       }
     }
+
+    if (!htmlContainer) return
 
     htmlContainer.addEventListener('click', clickHandler)
 
