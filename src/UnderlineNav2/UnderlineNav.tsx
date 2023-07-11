@@ -359,8 +359,6 @@ export const UnderlineNav = forwardRef(
                           event as React.MouseEvent<HTMLAnchorElement>,
                           updateListAndMenu,
                         )
-                      closeOverlay()
-                      focusOnMoreMenuBtn()
                     }
 
                     return (
@@ -374,8 +372,8 @@ export const UnderlineNav = forwardRef(
                           !onlyMenuVisible && swapMenuItemWithListItem(action, index, event, updateListAndMenu)
                           closeOverlay()
                           focusOnMoreMenuBtn()
-                          // fire onSelect event that comes from the UnderlineNav.Item
-                          onSelect(event)
+                          // fire onSelect event that comes from the UnderlineNav.Item (if it is defined)
+                          typeof onSelect === 'function' && onSelect(event)
                         }}
                         {...actionElementProps}
                       >
