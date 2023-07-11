@@ -88,7 +88,6 @@ const overflowEffect = (
       numberOfItemsInMenu === 1 ? numberOfItemsPossibleWithMoreMenu - 1 : numberOfItemsPossibleWithMoreMenu
     for (const [index, child] of childArray.entries()) {
       if (index < numberOfListItems) {
-        // can the current item fit into the list?
         items.push(child)
       } else {
         const ariaCurrent = child.props['aria-current']
@@ -348,7 +347,7 @@ export const UnderlineNav = forwardRef(
                       ...actionElementProps
                     } = action.props
 
-                    // // This logic is used to pop the selected item out of the menu and into the list when loading the component
+                    // This logic is used to pop the selected item out of the menu and into the list when the navigation is control externally
                     if (Boolean(ariaCurrent) && ariaCurrent !== 'false') {
                       const event = new MouseEvent('click')
                       !onlyMenuVisible &&
