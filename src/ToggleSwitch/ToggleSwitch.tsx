@@ -220,6 +220,7 @@ const ToggleSwitch: React.FC<React.PropsWithChildren<ToggleSwitchProps>> = ({
   size = 'medium',
   statusLabelPosition = 'start',
   sx: sxProp,
+  ...props
 }) => {
   const isControlled = typeof checked !== 'undefined'
   const [isOn, setIsOn] = useProvidedStateOrCreate<boolean>(checked, onChange, Boolean(defaultChecked))
@@ -246,6 +247,7 @@ const ToggleSwitch: React.FC<React.PropsWithChildren<ToggleSwitchProps>> = ({
       alignItems="center"
       flexDirection={statusLabelPosition === 'start' ? 'row' : 'row-reverse'}
       sx={sxProp}
+      {...props}
     >
       {loading ? <Spinner size="small" /> : null}
       <Text
