@@ -17,7 +17,7 @@ const ButtonComponent = forwardRef(({children, sx: sxProp = defaultSxProp, ...pr
 
   return (
     <ButtonBase ref={forwardedRef} as="button" sx={sxStyles} type="button" {...props}>
-      {children}
+      {children}+1
     </ButtonBase>
   )
 }) as PolymorphicForwardRefComponent<'button', ButtonProps>
