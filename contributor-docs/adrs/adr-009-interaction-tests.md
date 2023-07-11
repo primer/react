@@ -2,7 +2,10 @@
 
 ## Status
 
-Draft
+| Stage    | Status |
+| -------- | ------ |
+| Approved | ✅     |
+| Adopted  | 🚧     |
 
 ## Context
 
