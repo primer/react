@@ -71,11 +71,20 @@ export const TooltipWithDirection = () => (
     <Tooltip direction="sw" text="Supplementary text">
       <Button>Southwest</Button>
     </Tooltip>
-    <Tooltip
-      direction="n"
-      text="Random long text that needs to be wrapped and be multipline and have some paddings around"
-    >
+    <Tooltip text="Random long text that needs to be wrapped and be multipline and have some paddings around">
       <Button>Multiline</Button>
+    </Tooltip>
+  </Box>
+)
+
+export const TooltipWithCalculatedDirection = () => (
+  <Box sx={{padding: 5, display: 'flex', gap: '8px'}}>
+    <Tooltip direction="w" text="But appears on east due to not having enough space">
+      <Button>West</Button>
+    </Tooltip>
+
+    <Tooltip text="The direction here is north by default but there is not enough space on the north therefore the tooltip appears on the south">
+      <Button>North</Button>
     </Tooltip>
   </Box>
 )

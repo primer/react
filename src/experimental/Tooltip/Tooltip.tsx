@@ -94,7 +94,6 @@ const StyledTooltip = styled.div`
     left: 0;
     height: 8px;
     content: '';
-    background-color: red;
   }
 
   // delay animation for tooltip
@@ -239,6 +238,17 @@ const directionToPosition: Record<TooltipDirection, {side: AnchorSide; align: An
   w: {side: 'outside-left', align: 'center'},
 }
 
+const positionToDirection: Record<string, TooltipDirection> = {
+  'outside-top-start': 'nw',
+  'outside-top-center': 'n',
+  'outside-top-end': 'ne',
+  'outside-right-center': 'e',
+  'outside-bottom-end': 'se',
+  'outside-bottom-center': 's',
+  'outside-bottom-start': 'sw',
+  'outside-left-center': 'w',
+}
+
 // The list is from GitHub's custom-axe-rules https://github.com/github/github/blob/master/app/assets/modules/github/axe-custom-rules.ts#L3
 const interactiveElements = ['a[href]', 'button', 'summary', 'select', 'input:not([type=hidden])', 'textarea']
 
@@ -262,6 +272,7 @@ export const Tooltip = ({
   const tooltipElRef = useRef<HTMLDivElement>(null)
   const child = Children.only(children)
   const [open, setOpen] = useState(false)
+  const [calculatedDirection, setCalculatedDirection] = useState<TooltipDirection>(direction)
 
   // we need this check for every render
   if (__DEV__) {
@@ -309,30 +320,26 @@ export const Tooltip = ({
     const tooltip = tooltipElRef.current
     const trigger = triggerRef.current
     tooltip.setAttribute('popover', 'auto')
-    // if (!open) return
     const settings = {
       side: directionToPosition[direction].side,
       align: directionToPosition[direction].align,
-      // alignmentOffset: 10,
-      // anchorOffset: -2,
     }
 
     const positionSet = () => {
-      const {top, left} = getAnchoredPosition(tooltip, trigger, settings)
+      const {top, left, anchorAlign, anchorSide} = getAnchoredPosition(tooltip, trigger, settings)
 
       tooltip.style.top = `${top}px`
       tooltip.style.left = `${left}px`
-      tooltip.setAttribute('data-setting', JSON.stringify(settings))
+      // This is required to make sure the popover is positioned correctly i.e. when there is not enough space on the given direction, we set a new direction to position the ::after
+      const calculatedDirection = positionToDirection[`${anchorSide}-${anchorAlign}` as string]
+      setCalculatedDirection(calculatedDirection)
+      tooltip.setAttribute('data-setting', JSON.stringify({...settings, anchorAlign, anchorSide}))
     }
 
     tooltip.addEventListener('toggle', positionSet)
-    // tooltip.addEventListener('mouseenter', () => {
-    //   console.log('mouse enter triggered')
-    // })
 
     return () => {
       tooltip.removeEventListener('toggle', positionSet)
-      // tooltip.removeEventListener('mouseenter')
     }
   }, [tooltipElRef, triggerRef, direction])
 
@@ -340,7 +347,6 @@ export const Tooltip = ({
     <Box
       sx={{display: 'inline-block'}}
       onMouseLeave={() => {
-        console.log('mouse leave triggered')
         if (tooltipElRef.current?.matches(':popover-open')) tooltipElRef.current.hidePopover()
       }}
     >
@@ -367,8 +373,9 @@ export const Tooltip = ({
         })}
       <StyledTooltip
         ref={tooltipElRef}
-        data-direction={direction}
-        data-state={open ? 'open' : undefined}
+        data-direction={calculatedDirection}
+        data-state="open"
+        // data-state={open ? 'open' : undefined}
         data-no-delay={noDelay}
         {...rest}
         // Only need tooltip role if the tooltip is a description for supplementary information
