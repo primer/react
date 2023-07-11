@@ -78,7 +78,7 @@ describe('ConfirmationDialog', () => {
     options: {skipAs: true, skipSx: true},
   })
 
-  checkExports('Dialog/ConfirmationDialog', {
+  checkExports('drafts/Dialog/ConfirmationDialog', {
     default: undefined,
     useConfirm,
     ConfirmationDialog,
