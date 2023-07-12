@@ -7,3 +7,5 @@ Adds truncation features to the LabelGroup component:
 - truncate LabelGroup children to fit in the width of the parent
 - show full list in an Overlay
 - show full list inline
+
+<!-- Components changed: LabelGroup -->
