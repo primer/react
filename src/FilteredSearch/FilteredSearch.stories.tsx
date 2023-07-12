@@ -23,7 +23,7 @@ export const Default = () => (
         </ActionList>
       </ActionMenu.Overlay>
     </ActionMenu>
-    <TextInput aria-label="filtered-search" leadingVisual={SearchIcon} />
+    <TextInput aria-label="Filtered search" leadingVisual={SearchIcon} />
   </FilteredSearch>
 )
 
@@ -39,7 +39,7 @@ export const Playground: ComponentStory<typeof FilteredSearch> = args => (
         </ActionList>
       </ActionMenu.Overlay>
     </ActionMenu>
-    <TextInput aria-label="filtered-search" leadingVisual={SearchIcon} />
+    <TextInput aria-label="Filtered search" leadingVisual={SearchIcon} />
   </FilteredSearch>
 )
 

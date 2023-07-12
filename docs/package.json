@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "scripts": {
     "clean": "gatsby clean",
-    "develop": "gatsby develop",
+    "develop": "NODE_OPTIONS=--openssl-legacy-provider gatsby develop",
     "build": "cross-env NODE_ENV=production gatsby build --prefix-paths",
     "build:preview": "cross-env NODE_ENV=production gatsby build"
   },
@@ -13,7 +13,7 @@
     "npm": ">=7"
   },
   "dependencies": {
-    "@primer/gatsby-theme-doctocat": "^4.4.2",
+    "@primer/gatsby-theme-doctocat": "^4.4.3",
     "@primer/octicons-react": "^17.7.0",
     "@primer/primitives": "4.1.0",
     "@styled-system/prop-types": "^5.1.0",
@@ -24,9 +24,9 @@
     "gatsby-plugin-typescript": "2.10.0",
     "graphql": "^15.8.0",
     "prop-types": "^15.7.2",
-    "react": "^17.0.0",
+    "react": "^18.2.0",
     "react-docgen-typescript": "^2.0.0",
-    "react-dom": "^17.0.0",
+    "react-dom": "^18.2.0",
     "styled-system": "^5.1.0"
   },
   "devDependencies": {

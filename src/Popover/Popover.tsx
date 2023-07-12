@@ -1,4 +1,4 @@
-import classnames from 'classnames'
+import clsx from 'clsx'
 import styled from 'styled-components'
 import {get} from '../constants'
 import sx, {SxProp} from '../sx'
@@ -26,7 +26,7 @@ type StyledPopoverProps = {
 
 const Popover = styled.div.attrs<StyledPopoverProps>(({className, caret = 'top'}) => {
   return {
-    className: classnames(className, `caret-pos--${caret}`),
+    className: clsx(className, `caret-pos--${caret}`),
   }
 })<StyledPopoverProps>`
   position: ${props => (props.relative ? 'relative' : 'absolute')};

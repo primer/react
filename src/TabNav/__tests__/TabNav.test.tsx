@@ -37,15 +37,15 @@ describe('TabNav', () => {
   })
 
   it('should have no axe violations', async () => {
-    const {container} = HTMLRender(<TabNav aria-label="main" />)
+    const {container} = HTMLRender(<TabNav aria-label="Test Label" />)
     const results = await axe(container)
     expect(results).toHaveNoViolations()
   })
 
   it('sets aria-label appropriately', () => {
-    const {getByLabelText} = HTMLRender(<TabNav aria-label="stuff" />)
-    expect(getByLabelText('stuff')).toBeTruthy()
-    expect(getByLabelText('stuff').tagName).toEqual('NAV')
+    const {getByLabelText} = HTMLRender(<TabNav aria-label="Test label" />)
+    expect(getByLabelText('Test label')).toBeTruthy()
+    expect(getByLabelText('Test label').tagName).toEqual('NAV')
   })
 
   it('selects a tab when tab is loaded', () => {

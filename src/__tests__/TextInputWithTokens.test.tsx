@@ -24,7 +24,6 @@ const LabelledTextInputWithTokens: React.FC<React.PropsWithChildren<TextInputWit
   ...rest
 }) => (
   <>
-    {/* eslint-disable-next-line jsx-a11y/label-has-for */}
     <label htmlFor="tokenInput" id="tokenLabel">
       Tokens
     </label>
