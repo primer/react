@@ -102,6 +102,7 @@ const OverlayToggle: React.FC<
           <span aria-hidden="true">+{hiddenItemIds.length}</span>
         </Button>
       )}
+      focusZoneSettings={{disabled: true}}
     >
       <Box alignItems="flex-start" display="flex" width={overlayWidth} padding={`${overlayPaddingPx}px`}>
         <Box display="flex" flexWrap="wrap" sx={{gap: 1}}>
