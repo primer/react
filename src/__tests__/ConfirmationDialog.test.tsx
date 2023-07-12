@@ -2,10 +2,11 @@ import {render as HTMLRender, fireEvent} from '@testing-library/react'
 import {axe} from 'jest-axe'
 import React, {useCallback, useRef, useState} from 'react'
 
-import {ActionMenu} from '../deprecated/ActionMenu'
+import {ActionMenu} from '../ActionMenu'
+import {ActionList} from '../ActionList'
 import BaseStyles from '../BaseStyles'
 import Box from '../Box'
-import Button from '../deprecated/Button/Button'
+import {Button} from '../Button'
 import {ConfirmationDialog, useConfirm} from '../drafts/Dialog/ConfirmationDialog'
 import theme from '../theme'
 import {ThemeProvider} from '../ThemeProvider'
@@ -60,10 +61,18 @@ const ShorthandHookFromActionMenu = () => {
       <SSRProvider>
         <BaseStyles>
           <Box display="flex" flexDirection="column" alignItems="flex-start">
-            <ActionMenu
+            <ActionMenu>
+              <ActionMenu.Button>{text}</ActionMenu.Button>
+              <ActionMenu.Overlay width="medium">
+                <ActionList>
+                  <ActionList.Item onSelect={onButtonClick}>Show dialog</ActionList.Item>
+                </ActionList>
+              </ActionMenu.Overlay>
+            </ActionMenu>
+            {/* <ActionMenu
               renderAnchor={props => <Button {...props}>{text}</Button>}
               items={[{text: 'Show dialog', onAction: onButtonClick}]}
-            />
+            /> */}
           </Box>
         </BaseStyles>
       </SSRProvider>
@@ -92,25 +101,31 @@ describe('ConfirmationDialog', () => {
     expect(results).toHaveNoViolations()
   })
 
-  it('focuses the primary action when opened and the confirmButtonType is not set', async () => {
+  it('focuses the primary action when opened and the confirmButtonType is not set', () => {
     const {getByText} = HTMLRender(<Basic />)
     fireEvent.click(getByText('Show dialog'))
-    expect(getByText('Primary')).toEqual(document.activeElement)
-    expect(getByText('Secondary')).not.toEqual(document.activeElement)
+
+    // comparing `textContent` instead of the element itself because the comparison fails in @react/testing-library
+    expect(document.activeElement?.textContent).toEqual('Primary')
+    expect(document.activeElement?.textContent).not.toEqual('Secondary')
   })
 
   it('focuses the primary action when opened and the confirmButtonType is not danger', async () => {
     const {getByText} = HTMLRender(<Basic confirmButtonType="primary" />)
     fireEvent.click(getByText('Show dialog'))
-    expect(getByText('Primary')).toEqual(document.activeElement)
-    expect(getByText('Secondary')).not.toEqual(document.activeElement)
+
+    // comparing `textContent` instead of the element itself because the comparison fails in @react/testing-library
+    expect(document.activeElement?.textContent).toEqual('Primary')
+    expect(document.activeElement?.textContent).not.toEqual('Secondary')
   })
 
   it('focuses the secondary action when opened and the confirmButtonType is danger', async () => {
     const {getByText} = HTMLRender(<Basic confirmButtonType="danger" />)
     fireEvent.click(getByText('Show dialog'))
-    expect(getByText('Primary')).not.toEqual(document.activeElement)
-    expect(getByText('Secondary')).toEqual(document.activeElement)
+
+    // comparing `textContent` instead of the element itself because the comparison fails in @react/testing-library
+    expect(document.activeElement?.textContent).not.toEqual('Primary')
+    expect(document.activeElement?.textContent).toEqual('Secondary')
   })
 
   it('supports nested `focusTrap`s', async () => {
@@ -119,7 +134,8 @@ describe('ConfirmationDialog', () => {
     fireEvent.click(getByText('Show menu'))
     fireEvent.click(getByText('Show dialog'))
 
-    expect(getByText('Primary')).toEqual(document.activeElement)
-    expect(getByText('Secondary')).not.toEqual(document.activeElement)
+    // comparing `textContent` instead of the element itself because the comparison fails in @react/testing-library
+    expect(document.activeElement?.textContent).toEqual('Primary')
+    expect(document.activeElement?.textContent).not.toEqual('Secondary')
   })
 })

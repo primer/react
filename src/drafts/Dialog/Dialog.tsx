@@ -355,11 +355,6 @@ const Footer = styled.div<SxProp>`
   ${sx};
 `
 
-const buttonTypes = {
-  normal: Button,
-  primary: (props: ButtonProps) => <Button variant="primary" {...props} />,
-  danger: (props: ButtonProps) => <Button variant="danger" {...props} />,
-}
 const Buttons: React.FC<React.PropsWithChildren<{buttons: DialogButtonProps[]}>> = ({buttons}) => {
   const autoFocusRef = useProvidedRefOrCreate<HTMLButtonElement>(buttons.find(button => button.autoFocus)?.ref)
   let autoFocusCount = 0
@@ -377,21 +372,20 @@ const Buttons: React.FC<React.PropsWithChildren<{buttons: DialogButtonProps[]}>>
     <>
       {buttons.map((dialogButtonProps, index) => {
         const {content, buttonType = 'normal', autoFocus = false, ...buttonProps} = dialogButtonProps
-        const ButtonElement = buttonTypes[buttonType]
         return (
-          <ButtonElement
+          <Button
             key={index}
             {...buttonProps}
+            variant={buttonType !== 'normal' ? buttonType : undefined}
             ref={autoFocus && autoFocusCount === 0 ? (autoFocusCount++, autoFocusRef) : null}
           >
             {content}
-          </ButtonElement>
+          </Button>
         )
       })}
     </>
   )
 }
-
 const CloseButton: React.FC<React.PropsWithChildren<{onClose: () => void}>> = ({onClose}) => (
   <IconButton aria-label="Close" onClick={onClose} icon={XIcon} variant="invisible" />
 )
