@@ -8,4 +8,4 @@ Adds truncation features to the LabelGroup component:
 - show full list in an Overlay
 - show full list inline
 
-<!-- Components changed: LabelGroup -->
+<!-- Changed components: LabelGroup -->
