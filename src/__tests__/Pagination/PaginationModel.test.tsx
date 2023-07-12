@@ -15,33 +15,33 @@ function last(array: Array<any>, count = 1) {
 
 describe('Pagination model', () => {
   it('sets disabled on prev links', () => {
-    const model1 = buildPaginationModel(10, 1, 1, 2, true)
+    const model1 = buildPaginationModel(10, 1, true, 1, 2)
     expect(first(model1).type).toEqual('PREV')
     expect(first(model1).disabled).toBe(true)
 
-    const model2 = buildPaginationModel(10, 2, 1, 2, true)
+    const model2 = buildPaginationModel(10, 2, true, 1, 2)
     expect(first(model2).type).toEqual('PREV')
     expect(first(model2).disabled).toBe(false)
   })
 
   it('sets disabled on next links', () => {
-    const model1 = buildPaginationModel(10, 10, 1, 2, true)
+    const model1 = buildPaginationModel(10, 10, true, 1, 2)
     expect(last(model1).type).toEqual('NEXT')
     expect(last(model1).disabled).toBe(true)
 
-    const model2 = buildPaginationModel(10, 9, 1, 2, true)
+    const model2 = buildPaginationModel(10, 9, true, 1, 2)
     expect(last(model2).type).toEqual('NEXT')
     expect(last(model2).disabled).toBe(false)
   })
 
   it('sets the page number for prev and next links', () => {
-    const model = buildPaginationModel(10, 5, 1, 2, true)
+    const model = buildPaginationModel(10, 5, true, 1, 2)
     expect(first(model).num).toEqual(4)
     expect(last(model).num).toEqual(6)
   })
 
   it('ensures margin pages on the left', () => {
-    const model = buildPaginationModel(10, 10, 2, 0, true)
+    const model = buildPaginationModel(10, 10, true, 2, 0)
     const slice = first(model, 5)
 
     const expected = [
@@ -56,7 +56,7 @@ describe('Pagination model', () => {
   })
 
   it('ensures margin pages on the right', () => {
-    const model = buildPaginationModel(10, 1, 2, 0, true)
+    const model = buildPaginationModel(10, 1, true, 2, 0)
     const slice = last(model, 5)
 
     const expected = [
@@ -71,7 +71,7 @@ describe('Pagination model', () => {
   })
 
   it('ensures that the current page is surrounded by the right number of pages', () => {
-    const model = buildPaginationModel(10, 5, 1, 1, true)
+    const model = buildPaginationModel(10, 5, true, 1, 1)
     const expected = [
       {type: 'PREV', num: 4},
       {type: 'NUM', num: 1, precedesBreak: true},
@@ -87,7 +87,7 @@ describe('Pagination model', () => {
   })
 
   it('adds items to the right if it hits bounds to the left', () => {
-    const model = buildPaginationModel(15, 2, 1, 1, true)
+    const model = buildPaginationModel(15, 2, true, 1, 1)
     const expected = [
       {type: 'PREV', num: 1},
       {type: 'NUM', num: 1},
@@ -102,7 +102,7 @@ describe('Pagination model', () => {
   })
 
   it('adds items to the left if it hits bounds to the right', () => {
-    const model = buildPaginationModel(15, 14, 1, 1, true)
+    const model = buildPaginationModel(15, 14, true, 1, 1)
     const expected = [
       // normally with a surround of 1, only 13 and 15 would be shown
       // however, since 15 was already shown, we extend to 12
@@ -117,7 +117,7 @@ describe('Pagination model', () => {
   })
 
   it('correctly creates breaks next to the next/prev links when margin is 0', () => {
-    const model = buildPaginationModel(10, 5, 0, 1, true)
+    const model = buildPaginationModel(10, 5, true, 0, 1)
     const expected = [
       {type: 'PREV'},
       {type: 'BREAK', num: 1},

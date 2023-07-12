@@ -103,27 +103,6 @@ exports[`Pagination renders consistently 1`] = `
   text-align: center;
 }
 
-@media ((max-width:calc(768px - 0.02px))) {
-  .c2[data-hidden-viewport-ranges*='narrow'],
-  .c2[data-hidden-viewport-ranges*='narrow'] + .paginationBreak {
-    display: none;
-  }
-}
-
-@media ((min-width:768px)) {
-  .c2[data-hidden-viewport-ranges*='regular'],
-  .c2[data-hidden-viewport-ranges*='regular'] + .paginationBreak {
-    display: none;
-  }
-}
-
-@media ((min-width:1400px)) {
-  .c2[data-hidden-viewport-ranges*='wide'],
-  .c2[data-hidden-viewport-ranges*='wide'] + .paginationBreak {
-    display: none;
-  }
-}
-
 @supports (-webkit-clip-path:polygon(50% 0,100% 50%,50% 100%)) or (clip-path:polygon(50% 0,100% 50%,50% 100%)) {
   .c2[rel='prev']::before,
   .c2[rel='next']::after {
@@ -148,12 +127,55 @@ exports[`Pagination renders consistently 1`] = `
   }
 }
 
+@media ((max-width:calc(768px - 0.02px))) {
+  .c0 .TablePaginationSteps[data-hidden-viewport-ranges*='narrow'] > *:not(:first-child):not(:last-child) {
+    display: none;
+  }
+
+  .c0 .TablePaginationSteps[data-hidden-viewport-ranges*='narrow'] > *:first-child {
+    margin-inline-end: 0;
+  }
+
+  .c0 .TablePaginationSteps[data-hidden-viewport-ranges*='narrow'] > *:last-child {
+    margin-inline-start: 0;
+  }
+}
+
+@media ((min-width:768px)) {
+  .c0 .TablePaginationSteps[data-hidden-viewport-ranges*='regular'] > *:not(:first-child):not(:last-child) {
+    display: none;
+  }
+
+  .c0 .TablePaginationSteps[data-hidden-viewport-ranges*='regular'] > *:first-child {
+    margin-inline-end: 0;
+  }
+
+  .c0 .TablePaginationSteps[data-hidden-viewport-ranges*='regular'] > *:last-child {
+    margin-inline-start: 0;
+  }
+}
+
+@media ((min-width:1400px)) {
+  .c0 .TablePaginationSteps[data-hidden-viewport-ranges*='wide'] > *:not(:first-child):not(:last-child) {
+    display: none;
+  }
+
+  .c0 .TablePaginationSteps[data-hidden-viewport-ranges*='wide'] > *:first-child {
+    margin-inline-end: 0;
+  }
+
+  .c0 .TablePaginationSteps[data-hidden-viewport-ranges*='wide'] > *:last-child {
+    margin-inline-start: 0;
+  }
+}
+
 <nav
   aria-label="Pagination"
   className="c0"
 >
   <div
-    className="c1"
+    className="c1 TablePaginationSteps"
+    data-hidden-viewport-ranges=""
     display="inline-block"
   >
     <button
@@ -166,7 +188,6 @@ exports[`Pagination renders consistently 1`] = `
       aria-current="page"
       aria-label="Page 1"
       className="c2"
-      data-hidden-viewport-ranges=""
       href="#1"
       onClick={[Function]}
     >
@@ -175,7 +196,6 @@ exports[`Pagination renders consistently 1`] = `
     <a
       aria-label="Page 2"
       className="c2"
-      data-hidden-viewport-ranges=""
       href="#2"
       onClick={[Function]}
     >
@@ -184,7 +204,6 @@ exports[`Pagination renders consistently 1`] = `
     <a
       aria-label="Page 3"
       className="c2"
-      data-hidden-viewport-ranges=""
       href="#3"
       onClick={[Function]}
     >
@@ -193,7 +212,6 @@ exports[`Pagination renders consistently 1`] = `
     <a
       aria-label="Page 4"
       className="c2"
-      data-hidden-viewport-ranges=""
       href="#4"
       onClick={[Function]}
     >
@@ -202,7 +220,6 @@ exports[`Pagination renders consistently 1`] = `
     <a
       aria-label="Page 5"
       className="c2"
-      data-hidden-viewport-ranges=""
       href="#5"
       onClick={[Function]}
     >
@@ -211,14 +228,13 @@ exports[`Pagination renders consistently 1`] = `
     <a
       aria-label="Page 6..."
       className="c2"
-      data-hidden-viewport-ranges=""
       href="#6"
       onClick={[Function]}
     >
       6
     </a>
     <span
-      className="c2 paginationBreak"
+      className="c2"
       role="presentation"
     >
       …
@@ -226,7 +242,6 @@ exports[`Pagination renders consistently 1`] = `
     <a
       aria-label="Page 10"
       className="c2"
-      data-hidden-viewport-ranges=""
       href="#10"
       onClick={[Function]}
     >

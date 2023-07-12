@@ -1,30 +1,13 @@
-import {viewportRanges} from '../hooks/useResponsiveValue'
-import {PaginationProps} from './Pagination'
-
 export function buildPaginationModel(
   pageCount: number,
   currentPage: number,
+  showPages: boolean,
   marginPageCount: number,
   surroundingPageCount: number,
-  showPages?: PaginationProps['showPages'],
 ) {
   const pages = []
 
-  const getViewportRangesToHidePages = () => {
-    if (showPages && typeof showPages !== 'boolean') {
-      return Object.keys(showPages).filter(key => !showPages[key as keyof typeof viewportRanges]) as Array<
-        keyof typeof viewportRanges
-      >
-    }
-
-    if (showPages) {
-      return []
-    } else {
-      return Object.keys(viewportRanges) as Array<keyof typeof viewportRanges>
-    }
-  }
-
-  if (showPages !== false) {
+  if (showPages) {
     const pageNums: Array<number> = []
     const addPage = (n: number) => {
       if (n >= 1 && n <= pageCount) {
@@ -102,7 +85,6 @@ export function buildPaginationModel(
           num,
           selected,
           precedesBreak,
-          hiddenViewportRanges: getViewportRangesToHidePages(),
         })
       } else {
         if (lastDelta === 1) {
@@ -111,7 +93,6 @@ export function buildPaginationModel(
             num,
             selected,
             precedesBreak,
-            hiddenViewportRanges: getViewportRangesToHidePages(),
           })
         } else {
           // We skipped some, so add a break
@@ -124,7 +105,6 @@ export function buildPaginationModel(
             num,
             selected,
             precedesBreak: false,
-            hiddenViewportRanges: getViewportRangesToHidePages(),
           })
         }
       }
@@ -152,7 +132,6 @@ type PageType = {
   disabled?: boolean
   selected?: boolean
   precedesBreak?: boolean
-  hiddenViewportRanges?: Array<keyof typeof viewportRanges>
 }
 
 export function buildComponentData(
@@ -206,14 +185,13 @@ export function buildComponentData(
         'aria-label': `Page ${page.num}${page.precedesBreak ? '...' : ''}`,
         onClick,
         'aria-current': page.selected ? 'page' : undefined,
-        'data-hidden-viewport-ranges': page.hiddenViewportRanges?.join(' '),
       })
       break
     }
     case 'BREAK': {
       key = `page-${page.num}-break`
       content = '…'
-      Object.assign(props, {as: 'span', role: 'presentation', className: 'paginationBreak'})
+      Object.assign(props, {as: 'span', role: 'presentation'})
     }
   }
 

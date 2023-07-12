@@ -101,9 +101,16 @@ const StyledPagination = styled.nav`
       .map(viewportRangeKey => {
         return `
       @media (${viewportRanges[viewportRangeKey as keyof typeof viewportRanges]}) {
-        .TablePaginationStep[data-hidden-viewport-ranges*='${viewportRangeKey}'],
-        .TablePaginationStep[data-hidden-viewport-ranges*='${viewportRangeKey}'] + .TablePaginationTruncationStep {
+        .TablePaginationSteps[data-hidden-viewport-ranges*='${viewportRangeKey}'] > *:not(:first-child):not(:last-child) {
           display: none;
+        }
+
+        .TablePaginationSteps[data-hidden-viewport-ranges*='${viewportRangeKey}'] > *:first-child {
+          margin-inline-end: 0;
+        }
+        
+        .TablePaginationSteps[data-hidden-viewport-ranges*='${viewportRangeKey}'] > *:last-child {
+          margin-inline-start: 0;
         }
       }
     `
@@ -213,7 +220,7 @@ export function Pagination({
       <LiveRegionOutlet />
       <StyledPagination aria-label={label} className="TablePagination" id={id}>
         <Range pageStart={pageStart} pageEnd={pageEnd} totalCount={totalCount} />
-        <ol className="TablePaginationSteps">
+        <ol className="TablePaginationSteps" data-hidden-viewport-ranges={getViewportRangesToHidePages().join(' ')}>
           <Step>
             <Button
               className="TablePaginationAction"
@@ -238,7 +245,7 @@ export function Pagination({
             </Button>
           </Step>
           {pageCount > 0 ? (
-            <Step hiddenViewportRanges={getViewportRangesToHidePages()}>
+            <Step>
               <Page
                 active={pageIndex === 0}
                 onClick={() => {
@@ -265,7 +272,7 @@ export function Pagination({
 
                 const page = offsetStartIndex + i
                 return (
-                  <Step key={i} hiddenViewportRanges={getViewportRangesToHidePages()}>
+                  <Step key={i}>
                     <Page
                       active={pageIndex === page}
                       onClick={() => {
@@ -282,7 +289,7 @@ export function Pagination({
               })
             : null}
           {pageCount > 1 ? (
-            <Step hiddenViewportRanges={getViewportRangesToHidePages()}>
+            <Step>
               <Page
                 active={pageIndex === pageCount - 1}
                 onClick={() => {
@@ -353,20 +360,12 @@ function TruncationStep() {
   )
 }
 
-function Step({
-  children,
-  hiddenViewportRanges,
-}: React.PropsWithChildren & {hiddenViewportRanges?: Array<keyof typeof viewportRanges>}) {
-  return (
-    <li className="TablePaginationStep" data-hidden-viewport-ranges={hiddenViewportRanges?.join(' ')}>
-      {children}
-    </li>
-  )
+function Step({children}: React.PropsWithChildren) {
+  return <li className="TablePaginationStep">{children}</li>
 }
 
 type PageProps = React.PropsWithChildren<{
   active: boolean
-  hiddenViewportRanges?: Array<keyof typeof viewportRanges>
   onClick: () => void
 }>
 

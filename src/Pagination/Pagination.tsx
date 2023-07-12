@@ -7,6 +7,20 @@ import getGlobalFocusStyles from '../internal/utils/getGlobalFocusStyles'
 import {buildComponentData, buildPaginationModel} from './model'
 import {ResponsiveValue, viewportRanges} from '../hooks/useResponsiveValue'
 
+const getViewportRangesToHidePages = (showPages: PaginationProps['showPages']) => {
+  if (showPages && typeof showPages !== 'boolean') {
+    return Object.keys(showPages).filter(key => !showPages[key as keyof typeof viewportRanges]) as Array<
+      keyof typeof viewportRanges
+    >
+  }
+
+  if (showPages) {
+    return []
+  } else {
+    return Object.keys(viewportRanges) as Array<keyof typeof viewportRanges>
+  }
+}
+
 const Page = styled.a`
   display: inline-block;
   min-width: 32px; /* primer.control.medium.size */
@@ -79,22 +93,6 @@ const Page = styled.a`
     background-color: transparent;
   }
 
-  ${
-    // Hides pages based on the viewport range passed to `showPages`
-    Object.keys(viewportRanges)
-      .map(viewportRangeKey => {
-        return `
-      @media (${viewportRanges[viewportRangeKey as keyof typeof viewportRanges]}) {
-        &[data-hidden-viewport-ranges*='${viewportRangeKey}'],
-        &[data-hidden-viewport-ranges*='${viewportRangeKey}'] + .paginationBreak {
-          display: none;
-        }
-      }
-    `
-      })
-      .join('')
-  }
-
   @supports (clip-path: polygon(50% 0, 100% 50%, 50% 100%)) {
     &[rel='prev']::before,
     &[rel='next']::after {
@@ -164,7 +162,7 @@ function usePaginationPages({
   const pageChange = React.useCallback((n: number) => (e: React.MouseEvent) => onPageChange(e, n), [onPageChange])
 
   const model = React.useMemo(() => {
-    return buildPaginationModel(pageCount, currentPage, marginPageCount, surroundingPageCount, showPages)
+    return buildPaginationModel(pageCount, currentPage, !!showPages, marginPageCount, surroundingPageCount)
   }, [pageCount, currentPage, showPages, marginPageCount, surroundingPageCount])
 
   const children = React.useMemo(() => {
@@ -185,6 +183,30 @@ const PaginationContainer = styled.nav<SxProp>`
   margin-top: 20px;
   margin-bottom: 15px;
   text-align: center;
+
+  ${
+    // Hides pages based on the viewport range passed to `showPages`
+    Object.keys(viewportRanges)
+      .map(viewportRangeKey => {
+        return `
+      @media (${viewportRanges[viewportRangeKey as keyof typeof viewportRanges]}) {
+        .TablePaginationSteps[data-hidden-viewport-ranges*='${viewportRangeKey}'] > *:not(:first-child):not(:last-child) {
+          display: none;
+        }
+
+        .TablePaginationSteps[data-hidden-viewport-ranges*='${viewportRangeKey}'] > *:first-child {
+          margin-inline-end: 0;
+        }
+        
+        .TablePaginationSteps[data-hidden-viewport-ranges*='${viewportRangeKey}'] > *:last-child {
+          margin-inline-start: 0;
+        }
+      }
+    `
+      })
+      .join('')
+  }
+
   ${sx};
 `
 
@@ -222,7 +244,12 @@ function Pagination({
   })
   return (
     <PaginationContainer aria-label="Pagination" {...rest} theme={theme}>
-      <Box display="inline-block" theme={theme}>
+      <Box
+        display="inline-block"
+        theme={theme}
+        className="TablePaginationSteps"
+        data-hidden-viewport-ranges={getViewportRangesToHidePages(showPages).join(' ')}
+      >
         {pageElements}
       </Box>
     </PaginationContainer>
