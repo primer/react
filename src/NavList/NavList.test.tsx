@@ -3,6 +3,13 @@ import React from 'react'
 import {ThemeProvider, SSRProvider} from '..'
 import {NavList} from './NavList'
 
+type ReactRouterLikeLinkProps = {to: string; children: React.ReactNode}
+
+const ReactRouterLikeLink = React.forwardRef<HTMLAnchorElement, ReactRouterLikeLinkProps>(({to, ...props}, ref) => {
+  // eslint-disable-next-line jsx-a11y/anchor-has-content
+  return <a ref={ref} href={to} {...props} />
+})
+
 type NextJSLinkProps = {href: string; children: React.ReactNode}
 
 const NextJSLikeLink = React.forwardRef<HTMLAnchorElement, NextJSLinkProps>(
@@ -74,10 +81,10 @@ describe('NavList.Item', () => {
     expect(aboutLink).not.toHaveAttribute('aria-current')
   })
 
-  it('is compatible with React-Router-like link components', () => {
+  it('is compatiable with React-Router-like link components', () => {
     const {getByRole} = render(
       <NavList>
-        <NavList.Item href={'/'} aria-current="page">
+        <NavList.Item as={ReactRouterLikeLink} to={'/'} aria-current="page">
           React Router link
         </NavList.Item>
       </NavList>,
@@ -294,12 +301,12 @@ describe('NavList.Item with NavList.SubNav', () => {
     expect(consoleSpy).toHaveBeenCalled()
   })
 
-  it('is compatible with React-Router-like link components', () => {
+  it('is compatiable with React-Router-like link components', () => {
     function NavLink({href, children}: {href: string; children: React.ReactNode}) {
       // In a real app, you'd check if the href matches the url of the current page. For testing purposes, we'll use the text of the link to determine if it's current
       const isCurrent = children === 'Current'
       return (
-        <NavList.Item href={href} aria-current={isCurrent ? 'page' : false}>
+        <NavList.Item as={ReactRouterLikeLink} to={href} aria-current={isCurrent ? 'page' : false}>
           {children}
         </NavList.Item>
       )

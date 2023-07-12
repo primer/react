@@ -33,7 +33,7 @@
       "name": "resize",
       "type": "'both' | 'horizontal' | 'vertical' | 'none'",
       "defaultValue": "'both'",
-      "description": "Changes background color to a higher contrast color"
+      "description": "Changes the resize behavior"
     },
     {
       "name": "validationStatus",
@@ -44,10 +44,6 @@
     {
       "name": "ref",
       "type": "React.RefObject<HTMLTextAreaElement>"
-    },
-    {
-      "name": "ref",
-      "type": "React.RefObject<HTMLTextareaElement>"
     },
     {
       "name": "as",

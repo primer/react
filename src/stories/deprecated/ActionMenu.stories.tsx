@@ -20,7 +20,7 @@ import {ItemProps} from '../../deprecated/ActionList'
 import BaseStyles from '../../BaseStyles'
 
 const meta: Meta = {
-  title: 'Deprecated components/ActionMenu',
+  title: 'Deprecated/Components/ActionMenu',
   component: ActionMenu,
   decorators: [
     (Story: React.ComponentType<React.PropsWithChildren<unknown>>): JSX.Element => (

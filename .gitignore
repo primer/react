@@ -12,3 +12,4 @@ stats.html
 .env
 storybook-static
 .tool-versions
+/generated
