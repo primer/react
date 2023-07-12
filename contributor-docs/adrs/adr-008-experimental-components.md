@@ -2,7 +2,10 @@
 
 ## Status
 
-Proposed
+| Stage    | Status |
+| -------- | ------ |
+| Approved | ✅     |
+| Adopted  | 🚧     |
 
 &nbsp;
 

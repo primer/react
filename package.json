@@ -121,6 +121,7 @@
     "lodash.isobject": "^3.0.2",
     "react-intersection-observer": "^9.4.3",
     "react-is": "^18.2.0",
+    "react-markdown": "8.0.7",
     "styled-system": "^5.1.5"
   },
   "devDependencies": {
