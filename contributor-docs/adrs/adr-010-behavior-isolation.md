@@ -2,7 +2,10 @@
 
 ## Status
 
-Accepted
+| Stage    | Status |
+| -------- | ------ |
+| Approved | ✅     |
+| Adopted  | ✅     |
 
 ## Context
 

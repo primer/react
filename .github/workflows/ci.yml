@@ -245,17 +245,8 @@ jobs:
   build-components-json:
     runs-on: ubuntu-latest
     steps:
-      - name: Generate token
-        id: generate_token
-        uses: tibdex/github-app-token@v1
-        with:
-          app_id: ${{ secrets.APP_ID }}
-          private_key: ${{ secrets.PRIVATE_KEY }}
-      - uses: actions/checkout@v3
-        with:
-          repository: ${{ github.event.pull_request.head.repo.full_name }}
-          ref: ${{ github.head_ref }}
-          token: ${{ steps.generate_token.outputs.token }}
+      - name: Checkout repository
+        uses: actions/checkout@v3
       - name: Use Node.js 18.x
         uses: actions/setup-node@v3
         with:

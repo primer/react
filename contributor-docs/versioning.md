@@ -39,16 +39,21 @@ For a full list of releases, visit our [releases](https://github.com/primer/reac
 
 ## Changes
 
-| Category  | Type of change                                                      | semver bump |
-| :-------- | :------------------------------------------------------------------ | :---------- |
-| Component | A component is added                                                | `minor`     |
-|           | A component is deprecated                                           | `minor`     |
-|           | A component is removed                                              | `major`     |
-| Props     | A prop is added                                                     | `minor`     |
-|           | [The type of a prop is broadened](#the-type-of-a-prop-is-broadened) | `minor`     |
-|           | [The type of a prop is narrowed](#the-type-of-a-prop-is-narrowed)   | `major`     |
-|           | A prop is deprecated                                                | `minor`     |
-|           | A prop is removed                                                   | `major`     |
+| Category  | Type of change                                                               | semver bump |
+| :-------- | :--------------------------------------------------------------------------- | :---------- |
+| Component | A component is added                                                         | `minor`     |
+|           | A component is deprecated                                                    | `minor`     |
+|           | A component is removed                                                       | `major`     |
+| Props     | A prop is added                                                              | `minor`     |
+|           | [The type of a prop is broadened](#the-type-of-a-prop-is-broadened)          | `minor`     |
+|           | [The type of a prop is narrowed](#the-type-of-a-prop-is-narrowed)            | `major`     |
+|           | A prop is deprecated                                                         | `minor`     |
+|           | A prop is removed                                                            | `major`     |
+| Package   | A dependency is added                                                        | `minor`     |
+|           | A dependency is removed and it does not affect the public API of the package | `minor`     |
+|           | A dependency is removed and it does affect the public API of the package     | `major`     |
+|           | The version of a dependency is increased to a newer minor or patch version   | `minor`     |
+|           | The version of a dependency is increased to a newer major version            | `major`     |
 
 ## Reference
 

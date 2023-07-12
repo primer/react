@@ -203,7 +203,13 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
 
     return (
       <ItemContext.Provider value={{variant, disabled, inlineDescriptionId, blockDescriptionId}}>
-        <LiBox ref={forwardedRef} sx={merge<BetterSystemStyleObject>(styles, sxProp)} {...containerProps} {...props}>
+        <LiBox
+          ref={forwardedRef}
+          sx={merge<BetterSystemStyleObject>(styles, sxProp)}
+          data-variant={variant === 'danger' ? variant : undefined}
+          {...containerProps}
+          {...props}
+        >
           <ItemWrapper {...wrapperProps}>
             <Selection selected={selected} />
             {slots.leadingVisual}
