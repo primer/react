@@ -40,31 +40,36 @@ export type ButtonBaseProps = {
 
 export type ButtonProps = {
   /**
-   * The icon for the IconButton
-   */
-  icon?: React.ComponentType | null | undefined
-  /**
-   * The leading icon comes before button content
-   */
-  leadingVisual?: React.ComponentType | null | undefined
-  /**
-   * The trailing icon comes after button content
-   */
-  trailingVisual?: React.ComponentType | null | undefined
-  /**
-   * Trailing action appears to the right of the trailing visual and is always locked to the end
-   */
-  trailingAction?: React.ComponentType | null | undefined
-  children: React.ReactNode
-  /**
    * Content alignment for when visuals are present
    */
   alignContent?: AlignContent
+
+  /**
+   * The icon for the IconButton
+   */
+  icon?: React.ElementType | null | undefined
+
+  /**
+   * The leading icon comes before button content
+   */
+  leadingVisual?: React.ElementType | null | undefined
+
+  /**
+   * The trailing icon comes after button content
+   */
+  trailingVisual?: React.ElementType | null | undefined
+
+  /**
+   * Trailing action appears to the right of the trailing visual and is always locked to the end
+   */
+  trailingAction?: React.ElementType | null | undefined
+
+  children: React.ReactNode
   count?: number
 } & ButtonBaseProps
 
 export type IconButtonProps = ButtonA11yProps & {
-  icon: React.ComponentType
+  icon: React.ElementType
 } & Omit<ButtonBaseProps, 'aria-label' | 'aria-labelledby'>
 
 // adopted from React.AnchorHTMLAttributes

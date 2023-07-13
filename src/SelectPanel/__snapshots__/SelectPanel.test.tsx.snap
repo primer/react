@@ -7,6 +7,10 @@ exports[`SelectPanel renders consistently 1`] = `
   color: #1F2328;
 }
 
+.c2 {
+  margin-left: 4px;
+}
+
 .c1 {
   position: relative;
   display: inline-block;
@@ -69,10 +73,6 @@ exports[`SelectPanel renders consistently 1`] = `
   color: #8c959f;
   background-color: #f6f8fa;
   border-color: rgba(31,35,40,0.15);
-}
-
-.c2 {
-  margin-left: 4px;
 }
 
 <div
