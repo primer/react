@@ -233,7 +233,7 @@
     "micromark-extension-mdxjs": "1.0.1",
     "postcss-custom-properties-fallback": "^1.0.2",
     "prettier": "2.8.8",
-    "primer-changesets-cli": "2.2.0",
+    "primer-changesets-cli": "2.2.1",
     "react": "18.2.0",
     "react-dnd": "14.0.4",
     "react-dnd-html5-backend": "14.0.2",
