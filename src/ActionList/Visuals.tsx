@@ -37,6 +37,9 @@ export const LeadingVisual: React.FC<React.PropsWithChildren<VisualProps>> = ({s
         {
           color: getVariantStyles(variant, disabled).iconColor,
           svg: {fontSize: 0},
+          '[data-variant="danger"]:hover &, [data-variant="danger"]:active &': {
+            color: getVariantStyles(variant, disabled).hoverColor,
+          },
         },
         sx as SxProp,
       )}
@@ -60,6 +63,9 @@ export const TrailingVisual: React.FC<React.PropsWithChildren<VisualProps>> = ({
           color: getVariantStyles(variant, disabled).annotationColor,
           marginLeft: 2,
           fontWeight: 'initial',
+          '[data-variant="danger"]:hover &, [data-variant="danger"]:active &': {
+            color: getVariantStyles(variant, disabled).hoverColor,
+          },
         },
         sx as SxProp,
       )}

@@ -839,6 +839,11 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   font-weight: initial;
 }
 
+[data-variant="danger"]:hover .c7,
+[data-variant="danger"]:active .c7 {
+  color: #1F2328;
+}
+
 .c8 {
   -webkit-transform: rotate(180deg);
   -ms-transform: rotate(180deg);
@@ -1288,6 +1293,11 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   color: #656d76;
   margin-left: 8px;
   font-weight: initial;
+}
+
+[data-variant="danger"]:hover .c7,
+[data-variant="danger"]:active .c7 {
+  color: #1F2328;
 }
 
 .c8 {

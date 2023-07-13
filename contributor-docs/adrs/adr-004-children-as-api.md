@@ -2,7 +2,10 @@
 
 ## Status
 
-Approved 2022-05-10
+| Stage    | Status |
+| -------- | ------ |
+| Approved | ✅     |
+| Adopted  | 🚧     |
 
 <br/>
 
