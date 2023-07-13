@@ -23,6 +23,7 @@
     "gatsby-plugin-alias-imports": "^1.0.5",
     "gatsby-plugin-typescript": "2.10.0",
     "graphql": "^15.8.0",
+    "path": "^0.12.7",
     "prop-types": "^15.7.2",
     "react": "^18.2.0",
     "react-docgen-typescript": "^2.0.0",

@@ -2,7 +2,7 @@ const shared = {
   __DEV__: "process.env.NODE_ENV !== 'production'",
 }
 
-export default {
+module.exports = {
   development: shared,
   test: shared,
   production: {
