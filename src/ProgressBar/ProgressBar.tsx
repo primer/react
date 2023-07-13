@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {forwardRef} from 'react'
 import styled from 'styled-components'
 import {width, WidthProps} from 'styled-system'
 import {get} from '../constants'
@@ -23,6 +23,7 @@ const sizeMap = {
 type StyledProgressContainerProps = {
   inline?: boolean
   barSize?: keyof typeof sizeMap
+  tabIndex?: number
 } & WidthProps &
   SxProp
 
@@ -39,20 +40,24 @@ const ProgressContainer = styled.span<StyledProgressContainerProps>`
 
 export type ProgressBarProps = React.PropsWithChildren & {bg?: string} & StyledProgressContainerProps & ProgressProp
 
-export const ProgressBar = ({
-  progress,
-  bg = 'success.emphasis',
-  barSize = 'default',
-  children,
-  ...rest
-}: ProgressBarProps) => {
-  if (children && progress) {
-    throw new Error('You should pass `progress` or children, not both.')
-  }
+export const ProgressBar = forwardRef<HTMLSpanElement, ProgressBarProps>(
+  ({progress, bg = 'success.emphasis', barSize = 'default', children, ...rest}: ProgressBarProps, forwardRef) => {
+    if (children && progress) {
+      throw new Error('You should pass `progress` or children, not both.')
+    }
 
-  return (
-    <ProgressContainer barSize={barSize} {...rest}>
-      {children ?? <Item progress={progress} sx={{backgroundColor: bg}} />}
-    </ProgressContainer>
-  )
-}
+    const ariaAttributes = {
+      'aria-valuenow': typeof progress === 'number' ? Math.round(progress) : undefined,
+      'aria-valuetext': typeof progress === 'string' ? progress : undefined,
+      'aria-valuemin': 0,
+      'aria-valuemax': 100,
+      'aria-busy': progress !== 100,
+    }
+
+    return (
+      <ProgressContainer ref={forwardRef} role="progressbar" barSize={barSize} {...ariaAttributes} {...rest}>
+        {children ?? <Item progress={progress} sx={{backgroundColor: bg}} />}
+      </ProgressContainer>
+    )
+  },
+)
