@@ -44,6 +44,7 @@ const InlineToggle: React.FC<{
   hiddenItemIds: string[]
   isOverflowShown: boolean
   showAllTokensInline: () => void
+  totalLength: number
 }> = ({
   collapseButtonRef,
   collapseInlineExpandedChildren,
@@ -51,6 +52,7 @@ const InlineToggle: React.FC<{
   hiddenItemIds,
   isOverflowShown,
   showAllTokensInline,
+  totalLength,
 }) =>
   isOverflowShown ? (
     <Button ref={collapseButtonRef} onClick={collapseInlineExpandedChildren} size="small" variant="invisible">
@@ -58,7 +60,7 @@ const InlineToggle: React.FC<{
     </Button>
   ) : hiddenItemIds.length ? (
     <Button ref={expandButtonRef} variant="invisible" size="small" onClick={showAllTokensInline}>
-      <VisuallyHidden>Show all</VisuallyHidden>
+      <VisuallyHidden>Show all {totalLength}</VisuallyHidden>
       <span aria-hidden="true">+{hiddenItemIds.length}</span>
     </Button>
   ) : null
@@ -72,6 +74,7 @@ const OverlayToggle: React.FC<
     openOverflowOverlay: () => void
     overlayPaddingPx: number
     overlayWidth?: number
+    totalLength: number
   }>
 > = ({
   children,
@@ -82,6 +85,7 @@ const OverlayToggle: React.FC<
   openOverflowOverlay,
   overlayPaddingPx,
   overlayWidth,
+  totalLength,
 }) =>
   hiddenItemIds.length ? (
     <AnchoredOverlay
@@ -98,7 +102,7 @@ const OverlayToggle: React.FC<
       alignmentOffset={overlayPaddingPx * -1}
       renderAnchor={props => (
         <Button variant="invisible" size="small" {...props} ref={expandButtonRef}>
-          <VisuallyHidden>Show all</VisuallyHidden>
+          <VisuallyHidden>Show all {totalLength}</VisuallyHidden>
           <span aria-hidden="true">+{hiddenItemIds.length}</span>
         </Button>
       )}
@@ -337,6 +341,7 @@ const LabelGroup: React.FC<React.PropsWithChildren<LabelGroupProps>> = ({
           hiddenItemIds={hiddenItemIds}
           isOverflowShown={isOverflowShown}
           showAllTokensInline={showAllTokensInline}
+          totalLength={React.Children.toArray(children).length}
         />
       ) : (
         <OverlayToggle
@@ -347,6 +352,7 @@ const LabelGroup: React.FC<React.PropsWithChildren<LabelGroupProps>> = ({
           openOverflowOverlay={openOverflowOverlay}
           overlayPaddingPx={overlayPaddingPx}
           overlayWidth={overlayWidth}
+          totalLength={React.Children.toArray(children).length}
         >
           {children}
         </OverlayToggle>
