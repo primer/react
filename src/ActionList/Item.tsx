@@ -153,7 +153,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       '&:hover:not([aria-disabled]), &:focus:not([aria-disabled]), &[data-focus-visible-added]:not([aria-disabled])': {
         '--divider-color': 'transparent',
       },
-      '&:hover:not([aria-disabled]) + &, &:focus:not([aria-disabled]) + &, &[data-focus-visible-added] + li': {
+      '&:hover:not([aria-disabled]) + &, &[data-focus-visible-added] + li': {
         '--divider-color': 'transparent',
       },
       ...(active ? activeStyles : {}),
@@ -203,7 +203,13 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
 
     return (
       <ItemContext.Provider value={{variant, disabled, inlineDescriptionId, blockDescriptionId}}>
-        <LiBox ref={forwardedRef} sx={merge<BetterSystemStyleObject>(styles, sxProp)} {...containerProps} {...props}>
+        <LiBox
+          ref={forwardedRef}
+          sx={merge<BetterSystemStyleObject>(styles, sxProp)}
+          data-variant={variant === 'danger' ? variant : undefined}
+          {...containerProps}
+          {...props}
+        >
           <ItemWrapper {...wrapperProps}>
             <Selection selected={selected} />
             {slots.leadingVisual}
@@ -221,7 +227,9 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
                     id={labelId}
                     sx={{
                       flexGrow: slots.description && slots.description.props.variant !== 'block' ? 0 : 1,
-                      fontWeight: slots.description && slots.description.props.variant !== 'block' ? 'bold' : 'normal',
+                      fontWeight: slots.description ? 'bold' : 'normal',
+                      marginBlockEnd:
+                        slots.description && slots.description.props.variant !== 'inline' ? '4px' : undefined,
                     }}
                   >
                     {childrenWithoutSlots}

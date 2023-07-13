@@ -2,8 +2,11 @@
 
 ## Status
 
-~~Approved 2021-02-04~~
-Superseded by [ADR 010](./adr-010-behavior-isolation.md) (2023-01-31)
+| Stage         | Status                                     |
+| ------------- | ------------------------------------------ |
+| Approved      | ✅                                         |
+| Adopted       | ✅                                         |
+| Superseded by | [ADR 010](./adr-010-behavior-isolation.md) |
 
 ## Related documents
 
