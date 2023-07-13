@@ -75,22 +75,26 @@ export const Group: React.FC<React.PropsWithChildren<ActionListGroupProps>> = ({
 
 export type HeaderProps = Pick<ActionListGroupProps, 'variant' | 'title' | 'auxiliaryText'> & {
   labelId: string
+  as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
 }
 
 /**
- * Displays the name and description of a `Group`.
+ * Displays the title and description of a `Group`.
  *
- * For visual presentation only. It's hidden from screen readers.
  */
-const Header: React.FC<React.PropsWithChildren<HeaderProps>> = ({variant, title, auxiliaryText, labelId, ...props}) => {
+const Header: React.FC<React.PropsWithChildren<HeaderProps>> = ({
+  variant,
+  title,
+  auxiliaryText,
+  labelId,
+  as = 'h3',
+  ...props
+}) => {
   const {variant: listVariant} = React.useContext(ListContext)
 
-  const styles = {
+  const wrapperStyles = {
     paddingY: '6px',
     paddingX: listVariant === 'full' ? 2 : 3,
-    fontSize: 0,
-    fontWeight: 'bold',
-    color: 'fg.muted',
     ...(variant === 'filled' && {
       backgroundColor: 'canvas.subtle',
       marginX: 0,
@@ -100,10 +104,13 @@ const Header: React.FC<React.PropsWithChildren<HeaderProps>> = ({variant, title,
       borderColor: 'neutral.muted',
     }),
   }
+  const headerStyles = {marginBottom: 0, marginTop: 0, fontSize: 0, fontWeight: 'bold', color: 'fg.muted'}
 
   return (
-    <Box sx={styles} role="presentation" aria-hidden="true" {...props}>
-      <span id={labelId}>{title}</span>
+    <Box sx={wrapperStyles} {...props}>
+      <Box as={as} id={labelId} sx={headerStyles}>
+        {title}
+      </Box>
       {auxiliaryText && <span>{auxiliaryText}</span>}
     </Box>
   )
