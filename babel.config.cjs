@@ -1,4 +1,4 @@
-import defines from './babel-defines.cjs'
+const defines = require('./babel-defines.cjs')
 
 function replacementPlugin(env) {
   return ['babel-plugin-transform-replace-expressions', {replace: defines[env]}]
@@ -17,7 +17,7 @@ function makePresets(moduleValue) {
   return ['@babel/preset-typescript', ['@babel/preset-react', {modules: moduleValue}]]
 }
 
-export default {
+module.exports = {
   env: {
     development: {
       presets: makePresets(process.env.BABEL_MODULE || false),
