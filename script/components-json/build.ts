@@ -140,7 +140,7 @@ function getStorySourceCode(filepath: string) {
       const func = varDecloration.declarations[0].init as ArrowFunctionExpression
 
       const code = prettier
-        // @ts-ignore Can't call `traverse` in ESM directly, must reference `default`.
+        // @ts-ignore Can't call `generate` in ESM directly, must reference `default`.
         .format(generate.default(func).code, {
           parser: 'typescript',
           singleQuote: true,
