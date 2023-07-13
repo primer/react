@@ -43,6 +43,6 @@ describe('Header', () => {
   })
 
   it('sets aria-label appropriately', () => {
-    expect(render(<Header aria-label="foo" />).props['aria-label']).toEqual('foo')
+    expect(render(<Header aria-label="Test label" />).props['aria-label']).toEqual('Test label')
   })
 })

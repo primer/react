@@ -33,9 +33,9 @@ jobs:
         name: Check if pages is configured
         run: |
           if gh api --silent https://api.github.com/repos/${{ github.repository }}/pages ; then
-            echo "::set-output name=pages::1"
+            echo "pages=1" >> $GITHUB_OUTPUT
           else
-            echo "::set-output name=pages::0"
+            echo "pages=0" >> $GITHUB_OUTPUT
           fi
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -21,7 +21,7 @@ export type DialogButtonProps = Omit<ButtonProps, 'children'> & {
   /**
    * The type of Button element to use
    */
-  buttonType?: 'normal' | 'primary' | 'danger'
+  buttonType?: 'default' | 'primary' | 'danger' | 'normal'
 
   /**
    * The Button's inner text

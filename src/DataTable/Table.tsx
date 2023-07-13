@@ -1,5 +1,5 @@
 import {SortAscIcon, SortDescIcon} from '@primer/octicons-react'
-import cx from 'classnames'
+import clsx from 'clsx'
 import React from 'react'
 import styled, {keyframes} from 'styled-components'
 import Box from '../Box'
@@ -274,7 +274,7 @@ const Table = React.forwardRef<HTMLTableElement, TableProps>(function Table(
         {...rest}
         aria-labelledby={labelledby}
         data-cell-padding={cellPadding}
-        className={cx('Table', className)}
+        className={clsx('Table', className)}
         role="table"
         ref={ref}
         style={{'--grid-template-columns': gridTemplateColumns} as React.CSSProperties}
@@ -407,7 +407,7 @@ function TableCell({align, className, children, scope, ...rest}: TableCellProps)
   const role = scope ? 'rowheader' : 'cell'
 
   return (
-    <BaseComponent {...rest} className={cx('TableCell', className)} scope={scope} role={role} data-cell-align={align}>
+    <BaseComponent {...rest} className={clsx('TableCell', className)} scope={scope} role={role} data-cell-align={align}>
       {children}
     </BaseComponent>
   )

@@ -12,7 +12,7 @@ type Props = {
 
 const validationIconMap: Record<
   NonNullable<Props['validationStatus']>,
-  React.ComponentType<React.PropsWithChildren<IconProps>>
+  React.ElementType<React.PropsWithChildren<IconProps>>
 > = {
   success: CheckCircleFillIcon,
   error: AlertFillIcon,
