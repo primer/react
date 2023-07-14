@@ -137,7 +137,7 @@
     "@changesets/changelog-github": "0.4.8",
     "@github/markdownlint-github": "^0.3.0",
     "@github/prettier-config": "0.0.6",
-    "@playwright/test": "1.32.0",
+    "@playwright/test": "1.36.0",
     "@primer/css": "^21.0.1",
     "@rollup/plugin-babel": "6.0.3",
     "@rollup/plugin-commonjs": "25.0.0",
