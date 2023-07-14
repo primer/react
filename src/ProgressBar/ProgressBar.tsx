@@ -46,12 +46,23 @@ export const ProgressBar = forwardRef<HTMLSpanElement, ProgressBarProps>(
       throw new Error('You should pass `progress` or children, not both.')
     }
 
+    if (
+      children &&
+      typeof (rest as React.AriaAttributes)['aria-valuenow'] === 'undefined' &&
+      typeof (rest as React.AriaAttributes)['aria-valuetext'] === 'undefined'
+    ) {
+      throw new Error(
+        'Use the `aria-valuenow` or `aria-valuetext` so screen reader users can determine the `progress`.',
+      )
+    }
+
+    const progressAsNumber = typeof progress === 'string' ? parseInt(progress) : progress
+
     const ariaAttributes = {
-      'aria-valuenow': typeof progress === 'number' ? Math.round(progress) : undefined,
-      'aria-valuetext': typeof progress === 'string' ? progress : undefined,
+      'aria-valuenow': progressAsNumber ? Math.round(progressAsNumber) : undefined,
       'aria-valuemin': 0,
       'aria-valuemax': 100,
-      'aria-busy': progress !== 100,
+      'aria-busy': progressAsNumber ? progressAsNumber !== 100 : false,
     }
 
     return (
