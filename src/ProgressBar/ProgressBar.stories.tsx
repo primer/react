@@ -10,7 +10,7 @@ export default {
 export const Default = () => <ProgressBar />
 
 export const Playground: ComponentStory<typeof ProgressBar> = args => (
-  <ProgressBar {...args} sx={args.inline ? {width: '100px'} : {}} />
+  <ProgressBar {...args} sx={args.inline ? {width: '100px'} : {}} aria-label="Upload test.png" />
 )
 
 Playground.args = {
