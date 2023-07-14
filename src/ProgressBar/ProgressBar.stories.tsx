@@ -7,7 +7,7 @@ export default {
   component: ProgressBar,
 } as Meta<typeof ProgressBar>
 
-export const Default = () => <ProgressBar />
+export const Default = () => <ProgressBar aria-label="Upload test.png" />
 
 export const Playground: ComponentStory<typeof ProgressBar> = args => (
   <ProgressBar {...args} sx={args.inline ? {width: '100px'} : {}} aria-label="Upload test.png" />
