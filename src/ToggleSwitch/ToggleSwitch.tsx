@@ -13,11 +13,7 @@ import {CellAlignment} from '../DataTable/column'
 const TRANSITION_DURATION = '80ms'
 const EASE_OUT_QUAD_CURVE = 'cubic-bezier(0.5, 1, 0.89, 1)'
 
-export type ToggleSwitchProps = {
-  /** The id of the DOM node that describes the switch */
-  ['aria-describedby']?: string
-  /** The id of the DOM node that labels the switch */
-  ['aria-labelledby']: string
+export interface ToggleSwitchProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange'>, SxProp {
   /** Uncontrolled - whether the switch is turned on */
   defaultChecked?: boolean
   /** Whether the switch is ready for user input */
@@ -36,7 +32,7 @@ export type ToggleSwitchProps = {
    * **This should only be changed when the switch's alignment needs to be adjusted.** For example: It needs to be left-aligned because the label appears above it and the caption appears below it.
    */
   statusLabelPosition?: CellAlignment
-} & SxProp
+}
 
 const sizeVariants = variant({
   prop: 'size',
@@ -221,6 +217,7 @@ const ToggleSwitch: React.FC<React.PropsWithChildren<ToggleSwitchProps>> = ({
   size = 'medium',
   statusLabelPosition = 'start',
   sx: sxProp,
+  ...props
 }) => {
   const isControlled = typeof checked !== 'undefined'
   const [isOn, setIsOn] = useProvidedStateOrCreate<boolean>(checked, onChange, Boolean(defaultChecked))
@@ -247,6 +244,7 @@ const ToggleSwitch: React.FC<React.PropsWithChildren<ToggleSwitchProps>> = ({
       alignItems="center"
       flexDirection={statusLabelPosition === 'start' ? 'row' : 'row-reverse'}
       sx={sxProp}
+      {...props}
     >
       {loading ? <Spinner size="small" /> : null}
       <Text
