@@ -362,7 +362,7 @@ exports[`NavList renders a simple list 1`] = `
 `;
 
 exports[`NavList renders with groups 1`] = `
-.c8 {
+.c9 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -377,7 +377,7 @@ exports[`NavList renders with groups 1`] = `
   min-width: 0;
 }
 
-.c9 {
+.c10 {
   -webkit-box-flex: 1;
   -webkit-flex-grow: 1;
   -ms-flex-positive: 1;
@@ -410,12 +410,17 @@ exports[`NavList renders with groups 1`] = `
   padding-bottom: 6px;
   padding-left: 16px;
   padding-right: 16px;
+}
+
+.c4 {
+  margin-bottom: 0;
+  margin-top: 0;
   font-size: 12px;
   font-weight: 600;
   color: #656d76;
 }
 
-.c4 {
+.c5 {
   padding-inline-start: 0;
 }
 
@@ -426,7 +431,7 @@ exports[`NavList renders with groups 1`] = `
   padding-bottom: 8px;
 }
 
-.c6 {
+.c7 {
   position: relative;
   display: -webkit-box;
   display: -webkit-flex;
@@ -460,15 +465,15 @@ exports[`NavList renders with groups 1`] = `
   background-color: rgba(208,215,222,0.24);
 }
 
-.c6[aria-disabled] {
+.c7[aria-disabled] {
   cursor: not-allowed;
 }
 
-.c6 [data-component="ActionList.Item--DividerContainer"] {
+.c7 [data-component="ActionList.Item--DividerContainer"] {
   position: relative;
 }
 
-.c6 [data-component="ActionList.Item--DividerContainer"]::before {
+.c7 [data-component="ActionList.Item--DividerContainer"]::before {
   content: " ";
   display: block;
   position: absolute;
@@ -479,26 +484,26 @@ exports[`NavList renders with groups 1`] = `
   border-color: var(--divider-color,transparent);
 }
 
-.c6:not(:first-of-type) {
+.c7:not(:first-of-type) {
   --divider-color: rgba(208,215,222,0.48);
 }
 
-[data-component="ActionList.Divider"] + .c6 {
+[data-component="ActionList.Divider"] + .c7 {
   --divider-color: transparent !important;
 }
 
-.c6:hover:not([aria-disabled]),
-.c6:focus:not([aria-disabled]),
-.c6[data-focus-visible-added]:not([aria-disabled]) {
+.c7:hover:not([aria-disabled]),
+.c7:focus:not([aria-disabled]),
+.c7[data-focus-visible-added]:not([aria-disabled]) {
   --divider-color: transparent;
 }
 
-.c6:hover:not([aria-disabled]) + .c5,
-.c6[data-focus-visible-added] + li {
+.c7:hover:not([aria-disabled]) + .c6,
+.c7[data-focus-visible-added] + li {
   --divider-color: transparent;
 }
 
-.c6::after {
+.c7::after {
   position: absolute;
   top: calc(50% - 12px);
   left: -8px;
@@ -509,7 +514,7 @@ exports[`NavList renders with groups 1`] = `
   border-radius: 6px;
 }
 
-.c10 {
+.c11 {
   position: relative;
   display: -webkit-box;
   display: -webkit-flex;
@@ -541,15 +546,15 @@ exports[`NavList renders with groups 1`] = `
   margin-bottom: unset;
 }
 
-.c10[aria-disabled] {
+.c11[aria-disabled] {
   cursor: not-allowed;
 }
 
-.c10 [data-component="ActionList.Item--DividerContainer"] {
+.c11 [data-component="ActionList.Item--DividerContainer"] {
   position: relative;
 }
 
-.c10 [data-component="ActionList.Item--DividerContainer"]::before {
+.c11 [data-component="ActionList.Item--DividerContainer"]::before {
   content: " ";
   display: block;
   position: absolute;
@@ -560,26 +565,26 @@ exports[`NavList renders with groups 1`] = `
   border-color: var(--divider-color,transparent);
 }
 
-.c10:not(:first-of-type) {
+.c11:not(:first-of-type) {
   --divider-color: rgba(208,215,222,0.48);
 }
 
-[data-component="ActionList.Divider"] + .c10 {
+[data-component="ActionList.Divider"] + .c11 {
   --divider-color: transparent !important;
 }
 
-.c10:hover:not([aria-disabled]),
-.c10:focus:not([aria-disabled]),
-.c10[data-focus-visible-added]:not([aria-disabled]) {
+.c11:hover:not([aria-disabled]),
+.c11:focus:not([aria-disabled]),
+.c11[data-focus-visible-added]:not([aria-disabled]) {
   --divider-color: transparent;
 }
 
-.c10:hover:not([aria-disabled]) + .c5,
-.c10[data-focus-visible-added] + li {
+.c11:hover:not([aria-disabled]) + .c6,
+.c11[data-focus-visible-added] + li {
   --divider-color: transparent;
 }
 
-.c7 {
+.c8 {
   color: #0969da;
   -webkit-text-decoration: none;
   text-decoration: none;
@@ -599,12 +604,12 @@ exports[`NavList renders with groups 1`] = `
   color: inherit;
 }
 
-.c7:hover {
+.c8:hover {
   -webkit-text-decoration: underline;
   text-decoration: underline;
 }
 
-.c7:is(button) {
+.c8:is(button) {
   display: inline-block;
   padding: 0;
   font-size: inherit;
@@ -621,58 +626,58 @@ exports[`NavList renders with groups 1`] = `
   appearance: none;
 }
 
-.c7:hover {
+.c8:hover {
   color: inherit;
   -webkit-text-decoration: none;
   text-decoration: none;
 }
 
 @media (hover:hover) and (pointer:fine) {
-  .c6:hover:not([aria-disabled]) {
+  .c7:hover:not([aria-disabled]) {
     background-color: rgba(208,215,222,0.32);
     color: #1F2328;
   }
 
-  .c6:focus-visible,
-  .c6 > a:focus-visible {
+  .c7:focus-visible,
+  .c7 > a:focus-visible {
     outline: none;
     border: 2 solid;
     box-shadow: 0 0 0 2px #0969da;
   }
 
-  .c6:active:not([aria-disabled]) {
+  .c7:active:not([aria-disabled]) {
     background-color: rgba(208,215,222,0.48);
     color: #1F2328;
   }
 }
 
 @media (forced-colors:active) {
-  .c6:focus {
+  .c7:focus {
     outline: solid 1px transparent !important;
   }
 }
 
 @media (hover:hover) and (pointer:fine) {
-  .c10:hover:not([aria-disabled]) {
+  .c11:hover:not([aria-disabled]) {
     background-color: rgba(208,215,222,0.32);
     color: #1F2328;
   }
 
-  .c10:focus-visible,
-  .c10 > a:focus-visible {
+  .c11:focus-visible,
+  .c11 > a:focus-visible {
     outline: none;
     border: 2 solid;
     box-shadow: 0 0 0 2px #0969da;
   }
 
-  .c10:active:not([aria-disabled]) {
+  .c11:active:not([aria-disabled]) {
     background-color: rgba(208,215,222,0.48);
     color: #1F2328;
   }
 }
 
 @media (forced-colors:active) {
-  .c10:focus {
+  .c11:focus {
     outline: solid 1px transparent !important;
   }
 }
@@ -693,36 +698,35 @@ exports[`NavList renders with groups 1`] = `
         class="c2"
       >
         <div
-          aria-hidden="true"
           class="c3"
-          role="presentation"
         >
-          <span
+          <h3
+            class="c4"
             id="react-aria-1"
           >
             Overview
-          </span>
+          </h3>
         </div>
         <ul
           aria-labelledby="react-aria-1"
-          class="c4"
+          class="c5"
         >
           <li
-            class="c5 c6"
+            class="c6 c7"
           >
             <a
               aria-current="page"
               aria-labelledby="react-aria-2 "
-              class="c7"
+              class="c8"
               href="/getting-started"
               tabindex="0"
             >
               <div
-                class="c8"
+                class="c9"
                 data-component="ActionList.Item--DividerContainer"
               >
                 <span
-                  class="c9"
+                  class="c10"
                   id="react-aria-2"
                 >
                   Getting started
@@ -741,35 +745,34 @@ exports[`NavList renders with groups 1`] = `
         class="c2"
       >
         <div
-          aria-hidden="true"
           class="c3"
-          role="presentation"
         >
-          <span
+          <h3
+            class="c4"
             id="react-aria-5"
           >
             Components
-          </span>
+          </h3>
         </div>
         <ul
           aria-labelledby="react-aria-5"
-          class="c4"
+          class="c5"
         >
           <li
-            class="c5 c10"
+            class="c6 c11"
           >
             <a
               aria-labelledby="react-aria-6 "
-              class="c7"
+              class="c8"
               href="/Avatar"
               tabindex="0"
             >
               <div
-                class="c8"
+                class="c9"
                 data-component="ActionList.Item--DividerContainer"
               >
                 <span
-                  class="c9"
+                  class="c10"
                   id="react-aria-6"
                 >
                   Avatar
