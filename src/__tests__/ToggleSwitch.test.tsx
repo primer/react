@@ -1,6 +1,6 @@
 import React from 'react'
 import '@testing-library/jest-dom/extend-expect'
-import {render} from '@testing-library/react'
+import {render, within} from '@testing-library/react'
 import {ToggleSwitch} from '..'
 import {behavesAsComponent, checkExports, checkStoriesForAxeViolations} from '../utils/testing'
 import userEvent from '@testing-library/user-event'
@@ -125,6 +125,20 @@ it('calls onChange when the switch is toggled', async () => {
 
   await user.click(toggleSwitch)
   expect(handleChange).toHaveBeenCalledWith(true)
+})
+it('can pass data attributes to the rendered component', async () => {
+  const TEST_ID = 'a test id'
+  const ControlledSwitchComponent = () => {
+    return (
+      <>
+        <div id="switchLabel">{SWITCH_LABEL_TEXT}</div>
+        <ToggleSwitch data-testid={TEST_ID} defaultChecked aria-labelledby="switchLabel" />
+      </>
+    )
+  }
+  const {getByTestId} = render(<ControlledSwitchComponent />)
+  const toggleSwitch = getByTestId(TEST_ID)
+  expect(toggleSwitch).toBeInTheDocument()
 })
 
 checkStoriesForAxeViolations('ToggleSwitch.features', '../ToggleSwitch/')
