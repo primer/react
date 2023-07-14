@@ -1,0 +1,59 @@
+.ToastUI {
+  display: inline-flex;
+  flex-direction: row;
+  align-items: flex-start;
+  column-gap: var(--stack-padding-normal);
+
+  padding-block: var(--stack-padding-normal);
+  padding-inline: var(--stack-padding-normal);
+
+  color: var(--overlay-inverse-fgColor-default);
+
+  background-color: var(--overlay-inverse-bgColor);
+  border-radius: var(--borderRadius-medium);
+  box-shadow: var(--shadow-floating-large);
+
+  &[data-dismissable='true'] {
+    padding-inline-end: var(--stack-padding-condensed);
+  }
+}
+
+.ToastUI__wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  width: auto;
+}
+
+.ToastUI__Icon {
+  display: flex;
+
+  &[data-variant='default'] {
+    color: var(--overlay-inverse-fgColor-accent);
+  }
+
+  &[data-variant='success'] {
+    color: var(--overlay-inverse-fgColor-success);
+  }
+
+  &[data-variant='attention'] {
+    color: var(--overlay-inverse-fgColor-attention);
+  }
+
+  &[data-variant='danger'] {
+    color: var(--overlay-inverse-fgColor-danger);
+  }
+
+  &[data-variant='loading'] {
+    color: var(--overlay-inverse-fgColor-default);
+  }
+}
+
+.ToastUI__text {
+  max-width: 450px;
+
+  & * {
+    margin: 0;
+  }
+}

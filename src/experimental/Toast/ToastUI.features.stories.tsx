@@ -11,7 +11,7 @@ const meta: Meta = {
       return (
         <ThemeProvider>
           <BaseStyles>
-            <Box sx={{display: 'inline-flex', flexDirection: 'column', gap: 3}}>{Story()}</Box>
+            <div>{Story()}</div>
           </BaseStyles>
         </ThemeProvider>
       )

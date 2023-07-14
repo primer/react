@@ -1,7 +1,10 @@
 import React from 'react'
 import {CheckIcon, AlertIcon, StopIcon, InfoIcon, XIcon} from '@primer/octicons-react'
 
-import {Spinner, Box, IconButton} from '../..'
+import {Spinner, Text, IconButton} from '../..'
+
+import classNames from './ToastUI.module.css'
+import {useLayoutEffect, useRef, useState} from 'react'
 
 const variants = ['default', 'success', 'attention', 'danger', 'loading'] as const
 
@@ -16,7 +19,6 @@ const icon: Record<ToastVariants, React.ReactNode> = {
 export const ToastUI = ({
   dismissible = false,
   variant = 'default',
-  role = 'status',
   dismissLabel = 'Dismiss this message',
   children,
 }: React.PropsWithChildren<ToastUIProps>) => {
@@ -28,85 +30,53 @@ export const ToastUI = ({
     )
   }
 
+  const textRef = useRef<HTMLDivElement>(null)
+  const [height, setHeight] = useState<string>('0px')
+
+  useLayoutEffect(() => {
+    if (textRef.current) {
+      setHeight(window.getComputedStyle(textRef.current).lineHeight)
+    }
+  }, [])
+
+  const body = React.createElement(
+    typeof children === 'string' ? Text : 'div',
+    {
+      role: 'main',
+      className: classNames.ToastUI__text,
+      ref: textRef,
+    },
+    children,
+  )
+
   return (
-    <Box role={role} sx={{display: 'flex', justifyContent: 'flex-start'}}>
-      <Box
-        sx={{display: 'inline-flex', maxWidth: '450px', borderRadius: 2, boxShadow: 'shadow.large', overflow: 'hidden'}}
-      >
-        <Box
-          sx={{
-            display: 'flex',
-            justifyItems: 'center',
-            alignItems: 'center',
-            borderTopLeftRadius: 2,
-            borderBottomLeftRadius: 2,
-            border: '1px solid',
-            borderColor: 'border.default',
-            borderInlineEnd: 'none',
-            p: 3,
-            color: 'fg.onEmphasis',
-            '&[data-variant="default"]': {
-              backgroundColor: 'accent.emphasis',
-              borderColor: 'accent.emphasis',
-            },
-            '&[data-variant="success"]': {
-              backgroundColor: 'success.emphasis',
-              borderColor: 'success.emphasis',
-            },
-            '&[data-variant="attention"]': {
-              backgroundColor: 'attention.emphasis',
-              borderColor: 'attention.emphasis',
-            },
-            '&[data-variant="danger"]': {
-              backgroundColor: 'danger.emphasis',
-              borderColor: 'danger.emphasis',
-            },
-            '&[data-variant="loading"]': {
-              backgroundColor: 'neutral.emphasis',
-              borderColor: 'neutral.emphasis',
-            },
-          }}
-          role="presentation"
-          data-variant={variant}
-        >
+    <div role="alert" className={classNames.ToastUI} data-dismissable={dismissible}>
+      <div role="presentation" className={classNames.ToastUI__wrapper} style={{height: height}}>
+        <div className={classNames.ToastUI__Icon} data-variant={variant}>
           {icon[variant]}
-        </Box>
-        <Box
-          sx={{
-            display: 'grid',
-            gridTemplateColumns: dismissible ? 'auto 1fr' : '1fr',
-            alignItems: 'center',
-            gap: 3,
-            justifyContent: 'space-between',
-            borderBottomRightRadius: 2,
-            borderTopRightRadius: 2,
-            border: '1px solid',
-            borderColor: 'border.default',
-            borderInlineStart: 'none',
-            px: 3,
-            paddingRight: dismissible ? 2 : 3,
-          }}
-        >
-          <Box
+        </div>
+      </div>
+      <div>{body}</div>
+      {dismissible && (
+        <div className={classNames.ToastUI__wrapper} style={{height: height}}>
+          <IconButton
+            aria-label={dismissLabel}
+            icon={XIcon}
+            variant="invisible"
             sx={{
-              /* we margin to allow for margin collapsing when user-land uses as the children <Text as="p" /> */
-              marginY: 3,
+              color: 'var(--overlay-inverse-fgColor-default)',
+              '&:hover': {
+                backgroundColor: 'var(--button-invisible-bgColor-hover)',
+              },
+              '&:active': {
+                backgroundColor: 'var(--button-invisible-bgColor-active)',
+              },
             }}
-          >
-            {children}
-          </Box>
-          {dismissible && (
-            <IconButton
-              aria-label={dismissLabel}
-              icon={XIcon}
-              variant="invisible"
-              sx={{color: 'fg.default'}}
-              size="small"
-            ></IconButton>
-          )}
-        </Box>
-      </Box>
-    </Box>
+            size="small"
+          />
+        </div>
+      )}
+    </div>
   )
 }
 ToastUI.displayName = 'Toast'
@@ -124,17 +94,6 @@ export type ToastUIProps = {
    * @default false
    */
   dismissible?: boolean | undefined
-  /**
-   * Sets the role attribute of the toast, which is used by assistive technologies to communicate status to users.
-   *
-   * - "status" will not be read out of assistive technologies immediately, and won't interupt what the user is currently doing.
-   * - "alert" will be read out immediately, and will interupt what the user is currently doing. Because of this "alert" should be use sparingly.
-   *
-   * @see https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_alert_role
-   *
-   * @default status
-   */
-  role?: 'status' | 'alert' | undefined
 
   /**
    * The `aria-label` to use for the close button.

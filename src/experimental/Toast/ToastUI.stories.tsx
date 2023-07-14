@@ -28,7 +28,6 @@ export const Playground: StoryObj<typeof ToastUI> = {
   render: args => <ToastUI {...args} />,
   args: {
     children: 'Message',
-    role: 'status',
     dismissible: false,
     dismissLabel: 'Dismiss this message',
     variant: 'default',
