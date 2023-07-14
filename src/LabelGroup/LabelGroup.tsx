@@ -15,7 +15,6 @@ export type LabelGroupProps = {
 } & SxProp
 
 const StyledLabelGroupContainer = styled.div<SxProp>`
-  align-items: center;
   display: flex;
   flex-wrap: nowrap;
   gap: ${get('space.1')};
@@ -28,6 +27,24 @@ const StyledLabelGroupContainer = styled.div<SxProp>`
   }
 
   ${sx};
+`
+
+const ItemWrapper = styled.div`
+  display: flex;
+  align-items: center;
+
+  /* This min-height matches the height of the expand/collapse button.
+     Without it, the labels/tokens will do a slight layout shift when expanded.
+     This is because the height of the first row will match the token sizes,
+     but the height of the second row will be the height of the collapse button.
+  */
+  min-height: 28px;
+
+  &.ItemWrapper--hidden {
+    order: 9999;
+    pointer-events: none;
+    visibility: hidden;
+  }
 `
 
 // Calculates the width of the overlay to cover the labels/tokens and the expand button.
@@ -220,7 +237,7 @@ const LabelGroup: React.FC<React.PropsWithChildren<LabelGroupProps>> = ({
 
   React.useEffect(() => {
     // If we're not truncating, we don't need to run this useEffect.
-    if (!visibleChildCount) {
+    if (!visibleChildCount || isOverflowShown) {
       return
     }
 
@@ -263,7 +280,7 @@ const LabelGroup: React.FC<React.PropsWithChildren<LabelGroupProps>> = ({
     else {
       hideChildrenAfterIndex(visibleChildCount)
     }
-  }, [buttonClientRect, visibleChildCount, hideChildrenAfterIndex])
+  }, [buttonClientRect, visibleChildCount, hideChildrenAfterIndex, isOverflowShown])
 
   // Updates the index of the first hidden child.
   // We need to keep track of this so we can focus the first hidden child when the overflow is shown inline.
@@ -275,7 +292,7 @@ const LabelGroup: React.FC<React.PropsWithChildren<LabelGroupProps>> = ({
     if (hiddenItemIds.length) {
       firstHiddenIndexRef.current = parseInt(hiddenItemIds[0], 10)
     }
-  }, [hiddenItemIds, overflowStyle])
+  }, [hiddenItemIds, overflowStyle, isOverflowShown])
 
   // Updates the index of the first hidden child.
   // We need to keep track of this so we can focus the first hidden child when the overflow is shown inline.
@@ -305,34 +322,15 @@ const LabelGroup: React.FC<React.PropsWithChildren<LabelGroupProps>> = ({
       data-overflow={overflowStyle === 'inline' && isOverflowShown ? 'inline' : undefined}
       sx={sxProp}
     >
-      {React.Children.map(children, (child, index) => {
-        if (hiddenItemIds.includes(index.toString())) {
-          // hidden children
-          return (
-            <div
-              // data-index is used as an identifier we can use in the IntersectionObserver
-              data-index={index}
-              style={{
-                order: 9999,
-                visibility: 'hidden',
-                pointerEvents: 'none',
-              }}
-            >
-              {child}
-            </div>
-          )
-        } else {
-          // visible children
-          return (
-            <div
-              // data-index is used as an identifier we can use in the IntersectionObserver
-              data-index={index}
-            >
-              {child}
-            </div>
-          )
-        }
-      })}
+      {React.Children.map(children, (child, index) => (
+        <ItemWrapper
+          // data-index is used as an identifier we can use in the IntersectionObserver
+          data-index={index}
+          className={hiddenItemIds.includes(index.toString()) ? 'ItemWrapper--hidden' : undefined}
+        >
+          {child}
+        </ItemWrapper>
+      ))}
       {overflowStyle === 'inline' ? (
         <InlineToggle
           collapseButtonRef={collapseButtonRef}
