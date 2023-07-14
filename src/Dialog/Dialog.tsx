@@ -1,13 +1,13 @@
 import React, {forwardRef, useRef} from 'react'
 import styled from 'styled-components'
-import ButtonClose from '../Button/ButtonClose'
-import {get} from '../../constants'
-import Box from '../../Box'
-import useDialog from '../../hooks/useDialog'
-import sx, {SxProp} from '../../sx'
-import Text from '../../Text'
-import {ComponentProps} from '../../utils/types'
-import {useRefObjectAsForwardedRef} from '../../hooks/useRefObjectAsForwardedRef'
+import ButtonClose from '../deprecated/Button/ButtonClose'
+import {get} from '../constants'
+import Box from '../Box'
+import useDialog from '../hooks/useDialog'
+import sx, {SxProp} from '../sx'
+import Text from '../Text'
+import {ComponentProps} from '../utils/types'
+import {useRefObjectAsForwardedRef} from '../hooks/useRefObjectAsForwardedRef'
 
 const noop = () => null
 
@@ -92,9 +92,6 @@ type InternalDialogProps = {
   returnFocusRef?: React.RefObject<HTMLElement>
 } & ComponentProps<typeof DialogBase>
 
-/**
- * @deprecated Use the new Dialog component instead
- */
 const Dialog = forwardRef<HTMLDivElement, InternalDialogProps>(
   ({children, onDismiss = noop, isOpen, initialFocusRef, returnFocusRef, ...props}, forwardedRef) => {
     const overlayRef = useRef(null)
@@ -142,7 +139,5 @@ DialogHeader.displayName = 'Dialog.Header'
 Dialog.displayName = 'Dialog'
 
 export type DialogProps = ComponentProps<typeof Dialog>
-/**
- * @deprecated Use the new Dialog component instead
- */
+
 export default Object.assign(Dialog, {Header: DialogHeader})

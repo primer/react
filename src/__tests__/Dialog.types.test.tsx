@@ -1,5 +1,5 @@
 import React from 'react'
-import Dialog from '../../deprecated/Dialog/Dialog'
+import Dialog from '../Dialog/Dialog'
 
 export function shouldAcceptCallWithNoProps() {
   return <Dialog />
