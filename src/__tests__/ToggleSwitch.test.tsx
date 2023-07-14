@@ -1,6 +1,6 @@
 import React from 'react'
 import '@testing-library/jest-dom/extend-expect'
-import {render, within} from '@testing-library/react'
+import {render} from '@testing-library/react'
 import {ToggleSwitch} from '..'
 import {behavesAsComponent, checkExports, checkStoriesForAxeViolations} from '../utils/testing'
 import userEvent from '@testing-library/user-event'
