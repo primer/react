@@ -4,4 +4,4 @@
 
 Adding aria-attributes and role to the ProgressBar component
 
-<!-- Changed components: _none_ -->
+<!-- Changed components: ProgressBar -->
