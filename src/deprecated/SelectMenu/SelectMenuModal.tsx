@@ -22,13 +22,13 @@ const animateModal = keyframes`
 
 const modalStyles = css<StyledModalProps>`
   position: relative;
-  z-index: 99; // Needs to be higher than .details-overlay's z-index: 80.
+  z-index: 99; /* Needs to be higher than .details-overlay's z-index: 80. */
   display: flex;
   ${props => (props.filter ? 'height: 80%' : '')};
   max-height: ${props => (props.filter ? 'none' : '66%')};
   margin: auto 0;
   ${props => (props.filter ? 'margin-top: 0' : '')};
-  overflow: hidden; // Enables border radius on scrollable child elements
+  overflow: hidden; /* Enables border radius on scrollable child elements */
   pointer-events: auto;
   flex-direction: column;
   background-color: ${get('colors.canvas.overlay')};

@@ -7,12 +7,12 @@ import {ComponentProps} from '../../utils/types'
 const tabWrapperStyles = css`
   display: flex;
   flex-shrink: 0;
-  margin-bottom: -1px; // hide border of element below
+  margin-bottom: -1px; /* hide border of element below */
   -webkit-overflow-scrolling: touch;
   overflow-x: auto;
   overflow-y: hidden;
 
-  // Hide scrollbar so it doesn't cover the text
+  /* Hide scrollbar so it doesn't cover the text */
   &::-webkit-scrollbar {
     display: none;
   }

@@ -27,7 +27,7 @@ const tabStyles = css`
   }
 
   &[aria-selected='true'] {
-    z-index: 1; // Keeps box-shadow visible when hovering
+    z-index: 1; /* Keeps box-shadow visible when hovering */
     color: ${get('colors.text-primary')};
     background-color: ${get('colors.canvas.overlay')};
     box-shadow: 0 0 0 1px ${get('colors.border.muted')};

@@ -21,7 +21,7 @@ const SelectMenuTitle = styled.h3`
 
 const StyledHeader = styled.header<SxProp>`
   display: flex;
-  flex: none; // fixes header from getting squeezed in Safari iOS
+  flex: none; /* fixes header from getting squeezed in Safari iOS */
   padding: ${get('space.3')};
   border-bottom: ${get('borderWidths')} solid ${get('colors.border.muted')};
 

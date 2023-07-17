@@ -43,7 +43,7 @@ const TooltipBase = styled.span<SxProp>`
     opacity: 0;
   }
 
-  // delay animation for tooltip
+  /* delay animation for tooltip */
   @keyframes tooltip-appear {
     from {
       opacity: 0;
@@ -89,7 +89,7 @@ const TooltipBase = styled.span<SxProp>`
     }
   }
 
-  // Tooltipped south
+  /* Tooltipped south */
   &.tooltipped-s,
   &.tooltipped-se,
   &.tooltipped-sw {
@@ -120,7 +120,7 @@ const TooltipBase = styled.span<SxProp>`
     margin-right: -${get('space.3')};
   }
 
-  // Tooltips above the object
+  /* Tooltips above the object */
   &.tooltipped-n,
   &.tooltipped-ne,
   &.tooltipped-nw {
@@ -151,13 +151,13 @@ const TooltipBase = styled.span<SxProp>`
     margin-right: -${get('space.3')};
   }
 
-  // Move the tooltip body to the center of the object.
+  /* Move the tooltip body to the center of the object. */
   &.tooltipped-s::after,
   &.tooltipped-n::after {
     transform: translateX(50%);
   }
 
-  // Tooltipped to the left
+  /* Tooltipped to the left */
   &.tooltipped-w {
     &::after {
       right: 100%;
@@ -175,7 +175,7 @@ const TooltipBase = styled.span<SxProp>`
     }
   }
 
-  // tooltipped to the right
+  /* tooltipped to the right */
   &.tooltipped-e {
     &::after {
       bottom: 50%;

@@ -18,7 +18,7 @@ const fadeIn = keyframes`
   `
 // using easeOutQuint easing fn https://easings.net/#easeOutQuint
 const AnimatedElement = styled.div<Props>`
-  animation: ${props => props.show && css`170ms ${fadeIn} cubic-bezier(0.44, 0.74, 0.36, 1);`};
+  animation: ${props => (props.show ? `${fadeIn} 170ms cubic-bezier(0.44, 0.74, 0.36, 1)` : null)};
 `
 const ValidationAnimationContainer: React.FC<React.PropsWithChildren<Props>> = ({show, children}) => {
   const [shouldRender, setRender] = useState(show)

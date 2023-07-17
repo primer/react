@@ -187,13 +187,13 @@ const StyledItem = styled.div<
   display: flex;
   border-radius: ${get('radii.2')};
   color: ${({variant, item}) => getItemVariant(variant, item?.disabled).color};
-  // 2 frames on a 60hz monitor
+  /* 2 frames on a 60hz monitor */
   transition: background 33.333ms linear;
   text-decoration: none;
 
   @media (hover: hover) and (pointer: fine) {
     :hover {
-      // allow override in case another item in the list is active/focused
+      /* allow override in case another item in the list is active/focused */
       background: var(
         --item-hover-bg-override,
         ${({variant, item}) => getItemVariant(variant, item?.disabled).hoverBg}
@@ -203,7 +203,7 @@ const StyledItem = styled.div<
     }
   }
 
-  // Item dividers
+  /* Item dividers */
   :not(:first-of-type):not(${StyledDivider} + &):not(${StyledHeader} + &) {
     margin-top: ${({showDivider}) => (showDivider ? `1px` : '0')};
 
@@ -213,36 +213,42 @@ const StyledItem = styled.div<
       position: absolute;
       width: 100%;
       top: -7px;
-      // NB: This 'get' won’t execute if it’s moved into the arrow function below.
+      /* NB: This 'get' won’t execute if it’s moved into the arrow function below. */
       border: 0 solid ${get('colors.border.muted')};
       border-top-width: ${({showDivider}) => (showDivider ? `1px` : '0')};
     }
   }
 
-  // Item dividers should not be visible:
-  // - above Hovered
+  /* 
+   * Item dividers should not be visible:
+   * - above Hovered
+   */
   &:hover ${DividedContent}::before,
-  // - below Hovered
-  // '*' instead of '&' because '&' maps to separate class names depending on 'variant'
+  /*
+   * - below Hovered
+   * '*' instead of '&' because '&' maps to separate class names depending on 'variant'
+   */
   :hover + * ${DividedContent}::before {
-    // allow override in case another item in the list is active/focused
+    /* allow override in case another item in the list is active/focused */
     border-color: var(--item-hover-divider-border-color-override, transparent) !important;
   }
 
-  // - above Focused
+  /* - above Focused */
   &:focus ${DividedContent}::before,
-  // - below Focused
-  // '*' instead of '&' because '&' maps to separate class names depending on 'variant'
+  /* 
+   * - below Focused 
+   * '*' instead of '&' because '&' maps to separate class names depending on 'variant'
+   */
   :focus + * ${DividedContent}::before,
-  // - above Active Descendent
+  /* - above Active Descendent */
   &[${isActiveDescendantAttribute}] ${DividedContent}::before,
-  // - below Active Descendent
+  /* - below Active Descendent */
   [${isActiveDescendantAttribute}] + & ${DividedContent}::before {
-    // '!important' because all the ':not's above give higher specificity
+    /* '!important' because all the ':not's above give higher specificity */
     border-color: transparent !important;
   }
 
-  // Active Descendant
+  /* Active Descendant */
   &[${isActiveDescendantAttribute}='${activeDescendantActivatedDirectly}'] {
     background: ${({variant, item}) => getItemVariant(variant, item?.disabled).focusBg};
   }
@@ -267,9 +273,10 @@ export const TextContainer = styled.span<{
 }>``
 
 const BaseVisualContainer = styled.div<{variant?: ItemProps['variant']; disabled?: boolean}>`
-  // Match visual height to adjacent text line height.
-  // TODO: When rem-based spacing on a 4px scale lands, replace
-  // hardcoded '20px' with '${get('space.s20')}'.
+  /* Match visual height to adjacent text line height.
+   * TODO: When rem-based spacing on a 4px scale lands, replace
+   * hardcoded '20px' with '${get('space.s20')}'.
+   */
   height: 20px;
   width: ${get('space.3')};
   margin-right: ${get('space.2')};
@@ -293,7 +300,7 @@ const LeadingVisualContainer = styled(ColoredVisualContainer)`
 `
 
 const TrailingContent = styled(ColoredVisualContainer)`
-  color: ${({variant, disabled}) => getItemVariant(variant, disabled).annotationColor}};
+  color: ${({variant, disabled}) => getItemVariant(variant, disabled).annotationColor};
   margin-left: ${get('space.2')};
   margin-right: 0;
   width: auto;
@@ -305,8 +312,10 @@ const TrailingContent = styled(ColoredVisualContainer)`
 const DescriptionContainer = styled.span`
   color: ${get('colors.fg.muted')};
   font-size: ${get('fontSizes.0')};
-  // TODO: When rem-based spacing on a 4px scale lands, replace
-  // hardcoded '16px' with '${get('lh-12')}'.
+  /*
+   * TODO: When rem-based spacing on a 4px scale lands, replace
+   * hardcoded '16px' with '${get('lh-12')}'.
+   */
   line-height: 16px;
   margin-left: var(--description-container-margin-left);
   min-width: 0;
@@ -318,7 +327,7 @@ const MultiSelectIcon = styled.svg<{selected?: boolean}>`
   rect {
     fill: ${({selected}) => (selected ? get('colors.accent.fg') : get('colors.canvas.default'))};
     stroke: ${({selected}) => (selected ? get('colors.accent.fg') : get('colors.border.default'))};
-    shape-rendering: auto; // this is a workaround to override global style in github/github, see primer/react#1666
+    shape-rendering: auto; /* this is a workaround to override global style in github/github, see primer/react#1666 */
   }
   path {
     fill: ${get('colors.fg.onEmphasis')};

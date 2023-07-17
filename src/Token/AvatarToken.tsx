@@ -12,8 +12,10 @@ export interface AvatarTokenProps extends TokenBaseProps {
 }
 
 const AvatarContainer = styled.span<{avatarSize: TokenSizeKeys}>`
-  // 'space.1' is used because to match space from the left of the token to the left of the avatar
-  // '* 2' is done to account for the top and bottom
+  /*
+   * 'space.1' is used because to match space from the left of the token to the left of the avatar
+   * '* 2' is done to account for the top and bottom
+   */
   --spacing: calc(${get('space.1')} * 2);
 
   display: block;

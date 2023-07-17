@@ -14,7 +14,7 @@ const ButtonTableList = styled.summary<SxProp>`
   user-select: none;
   background-color: transparent;
   border: 0;
-  appearance: none; // Corrects inability to style clickable input types in iOS.
+  appearance: none; /* Corrects inability to style clickable input types in iOS. */
 
   &:hover {
     text-decoration: underline;

@@ -74,7 +74,7 @@ const Page = styled.a`
 
   &[aria-disabled],
   &[aria-disabled]:hover {
-    color: ${get('colors.primer.fg.disabled')}; // check
+    color: ${get('colors.primer.fg.disabled')}; /* check */
     cursor: default;
     background-color: transparent;
     border-color: transparent;
@@ -88,7 +88,7 @@ const Page = styled.a`
   &[aria-disabled]:hover,
   &[role='presentation'],
   &[role='presentation']:hover {
-    color: ${get('colors.primer.fg.disabled')}; // check
+    color: ${get('colors.primer.fg.disabled')}; /* check */
     cursor: default;
     background-color: transparent;
   }
@@ -104,7 +104,7 @@ const Page = styled.a`
       background-color: currentColor;
     }
 
-    // chevron-left
+    /* chevron-left */
     &[rel='prev']::before {
       margin-right: ${get('space.1')};
       clip-path: polygon(
@@ -120,7 +120,7 @@ const Page = styled.a`
       );
     }
 
-    // chevron-right
+    /* chevron-right */
     &[rel='next']::after {
       margin-left: ${get('space.1')};
       clip-path: polygon(

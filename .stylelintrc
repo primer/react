@@ -1,0 +1,9 @@
+{
+  "plugins": [
+    "@ronilaukkarinen/stylelint-a11y"
+  ],
+  "customSyntax": "postcss-styled-syntax",
+  "rules": {
+    "a11y/media-prefers-reduced-motion": true
+  }
+}

@@ -25,10 +25,10 @@ const StyledAvatar = styled.img.attrs<StyledAvatarProps>(props => ({
   width: props.size,
 }))<StyledAvatarProps>`
   display: inline-block;
-  overflow: hidden; // Ensure page layout in Firefox should images fail to load
+  overflow: hidden; /* Ensure page layout in Firefox should images fail to load */
   line-height: ${get('lineHeights.condensedUltra')};
   vertical-align: middle;
-  // If the avatar is square and size is greater than 24px (at any breakpoint), border-radius will be 6px. Otherwise, it will be 4px.
+  /* If the avatar is square and size is greater than 24px (at any breakpoint), border-radius will be 6px. Otherwise, it will be 4px. */
   border-radius: ${props => (props.square ? 'clamp(4px, var(--avatar-size) - 24px, 6px)' : '50%')};
   box-shadow: 0 0 0 1px ${get('colors.avatar.border')};
   height: var(--avatar-size);

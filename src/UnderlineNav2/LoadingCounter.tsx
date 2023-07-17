@@ -11,7 +11,7 @@ export const LoadingCounter = styled.span`
   background-color: ${get('colors.neutral.muted')};
   border-color: ${get('colors.border.default')};
   width: 1.5rem;
-  height: 1rem; // 16px
+  height: 1rem; /* 16px */
   display: inline-block;
   border-radius: 20px;
 `

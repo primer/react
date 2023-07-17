@@ -18,7 +18,7 @@ export default css`
   text-align: center;
 
   &:hover {
-    // needed to override link styles
+    /* needed to override link styles */
     text-decoration: none;
   }
 

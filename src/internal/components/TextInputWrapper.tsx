@@ -171,7 +171,7 @@ export const TextInputBaseWrapper = styled.span<StyledBaseWrapperProps>`
       align-self: stretch;
     `}
 
-  // Ensures inputs don' t zoom on mobile but are body-font size on desktop
+  /* Ensures inputs don' t zoom on mobile but are body-font size on desktop */
   @media (min-width: ${get('breakpoints.1')}) {
     font-size: ${get('fontSizes.1')};
   }
@@ -185,8 +185,8 @@ export const TextInputBaseWrapper = styled.span<StyledBaseWrapperProps>`
 `
 
 const TextInputWrapper = styled(TextInputBaseWrapper)<StyledWrapperProps>`
-  background-repeat: no-repeat; // Repeat and position set for form states (success, error, etc)
-  background-position: right 8px center; // For form validation. This keeps images 8px from right and centered vertically.
+  background-repeat: no-repeat; /* Repeat and position set for form states (success, error, etc) */
+  background-position: right 8px center; /* For form validation. This keeps images 8px from right and centered vertically. */
 
   & > :not(:last-child) {
     margin-right: ${get('space.2')};

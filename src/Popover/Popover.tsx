@@ -45,7 +45,7 @@ const PopoverContent = styled.div<SxProp>`
   padding: ${get('space.4')};
   background-color: ${get('colors.canvas.overlay')};
 
-  // Carets
+  /* Carets */
   &::before,
   &::after {
     position: absolute;
@@ -57,18 +57,18 @@ const PopoverContent = styled.div<SxProp>`
   &::before {
     top: -${get('space.3')};
     margin-left: -9px;
-    border: ${get('space.2')} solid transparent; // TODO: solid?
+    border: ${get('space.2')} solid transparent; /* TODO: solid? */
     border-bottom-color: ${get('colors.border.default')};
   }
 
   &::after {
     top: -14px;
     margin-left: -${get('space.2')};
-    border: 7px solid transparent; // todo: solid
+    border: 7px solid transparent; /* TODO: solid */
     border-bottom-color: ${get('colors.canvas.overlay')};
   }
 
-  // Bottom-oriented carets
+  /* Bottom-oriented carets */
   ${Popover}.caret-pos--bottom & ,
   ${Popover}.caret-pos--bottom-right & ,
   ${Popover}.caret-pos--bottom-left & {
@@ -85,12 +85,12 @@ const PopoverContent = styled.div<SxProp>`
 
     &::after {
       bottom: -14px;
-      // stylelint-disable-next-line primer/borders
+      /* stylelint-disable-next-line primer/borders */
       border-top-color: ${get('colors.canvas.overlay')};
     }
   }
 
-  // Top & Bottom: Right-oriented carets
+  /* Top & Bottom: Right-oriented carets */
   ${Popover}.caret-pos--top-right & ,
   ${Popover}.caret-pos--bottom-right & {
     right: -9px;
@@ -111,7 +111,7 @@ const PopoverContent = styled.div<SxProp>`
     }
   }
 
-  // Top & Bottom: Left-oriented carets
+  /* Top & Bottom: Left-oriented carets */
   ${Popover}.caret-pos--top-left & ,
   ${Popover}.caret-pos--bottom-left & {
     left: -9px;
@@ -128,7 +128,7 @@ const PopoverContent = styled.div<SxProp>`
     }
   }
 
-  // Right- & Left-oriented carets
+  /* Right- & Left-oriented carets */
   ${Popover}.caret-pos--right & ,
   ${Popover}.caret-pos--right-top & ,
   ${Popover}.caret-pos--right-bottom & ,
@@ -144,7 +144,7 @@ const PopoverContent = styled.div<SxProp>`
     }
 
     &::before {
-      // stylelint-disable-next-line primer/spacing
+      /* stylelint-disable-next-line primer/spacing */
       margin-top: calc((${get('space.2')} + 1px) * -1);
     }
 
@@ -153,7 +153,7 @@ const PopoverContent = styled.div<SxProp>`
     }
   }
 
-  // Right-oriented carets
+  /* Right-oriented carets */
   ${Popover}.caret-pos--right & ,
   ${Popover}.caret-pos--right-top & ,
   ${Popover}.caret-pos--right-bottom & {
@@ -164,12 +164,12 @@ const PopoverContent = styled.div<SxProp>`
 
     &::after {
       right: -14px;
-      // stylelint-disable-next-line primer/borders
+      /* stylelint-disable-next-line primer/borders */
       border-left-color: ${get('colors.canvas.overlay')};
     }
   }
 
-  // Left-oriented carets
+  /* Left-oriented carets */
   ${Popover}.caret-pos--left & ,
   ${Popover}.caret-pos--left-top & ,
   ${Popover}.caret-pos--left-bottom & {
@@ -180,12 +180,12 @@ const PopoverContent = styled.div<SxProp>`
 
     &::after {
       left: -14px;
-      // stylelint-disable-next-line primer/borders
+      /* stylelint-disable-next-line primer/borders */
       border-right-color: ${get('colors.canvas.overlay')};
     }
   }
 
-  // Right & Left: Top-oriented carets
+  /* Right & Left: Top-oriented carets */
   ${Popover}.caret-pos--right-top & ,
   ${Popover}.caret-pos--left-top & {
     &::before,
@@ -194,7 +194,7 @@ const PopoverContent = styled.div<SxProp>`
     }
   }
 
-  // Right & Left: Bottom-oriented carets
+  /* Right & Left: Bottom-oriented carets */
   ${Popover}.caret-pos--right-bottom & ,
   ${Popover}.caret-pos--left-bottom & {
     &::before,

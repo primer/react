@@ -19,10 +19,12 @@ const AvatarStackWrapper = styled.span<StyledAvatarStackWrapperProps>`
   --avatar-two-margin: calc(var(--avatar-stack-size) * -0.55);
   --avatar-three-margin: calc(var(--avatar-stack-size) * -0.85);
 
-  // this calc explained:
-  // 1. avatar size + the non-overlapping part of the second avatar
-  // 2. + the non-overlapping part of the second and third avatar
-  // 3. + the border widths of all previous avatars
+  /*
+   * this calc explained:
+   * 1. avatar size + the non-overlapping part of the second avatar
+   * 2. + the non-overlapping part of the second and third avatar
+   * 3. + the border widths of all previous avatars
+   */
   --avatar-stack-three-plus-min-width: calc(
     var(--avatar-stack-size) +
       calc(
@@ -85,9 +87,11 @@ const AvatarStackWrapper = styled.span<StyledAvatarStackWrapperProps>`
   }
 
   &.pc-AvatarStack--two {
-    // this calc explained:
-    // 1. avatar size + the non-overlapping part of the second avatar
-    // 2. + the border widths of the first two avatars
+    /*
+     * this calc explained:
+     * 1. avatar size + the non-overlapping part of the second avatar
+     * 2. + the border widths of the first two avatars
+     */
     min-width: calc(
       var(--avatar-stack-size) + calc(var(--avatar-stack-size) + var(--avatar-two-margin)) + var(--avatar-border-width)
     );

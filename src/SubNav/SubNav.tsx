@@ -70,8 +70,8 @@ const SubNavLink = styled.a.attrs<StyledSubNavLinkProps>(props => ({
   padding-right: ${get('space.3')};
   font-weight: ${get('fontWeights.semibold')};
   font-size: ${get('fontSizes.1')};
-  line-height: 20px; //custom value for SubNav
-  min-height: 34px; //custom value for SubNav
+  line-height: 20px; /* custom value for SubNav */
+  min-height: 34px; /* custom value for SubNav */
   color: ${get('colors.fg.default')};
   text-align: center;
   text-decoration: none;

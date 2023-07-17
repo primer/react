@@ -9,14 +9,14 @@ const Button = styled(ButtonBase)<ButtonBaseProps & SxProp>`
   color: ${get('colors.btn.text')};
   background-color: ${get('colors.btn.bg')};
   border: 1px solid ${get('colors.btn.border')};
-  box-shadow: ${get('shadows.btn.shadow')}, ${get('shadows.btn.insetShadow')}};
+  box-shadow: ${get('shadows.btn.shadow')}, ${get('shadows.btn.insetShadow')};
 
   &:hover {
     background-color: ${get('colors.btn.hoverBg')};
     border-color: ${get('colors.btn.hoverBorder')};
   }
 
-  // focus must come before :active so that the active box shadow overrides
+  /* focus must come before :active so that the active box shadow overrides */
   &:focus {
     outline: solid 2px ${get('colors.accent.fg')};
   }

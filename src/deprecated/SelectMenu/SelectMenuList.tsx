@@ -11,7 +11,7 @@ const listStyles = css`
   overflow-x: hidden;
   overflow-y: auto;
   background-color: ${get('colors.canvas.overlay')};
-  -webkit-overflow-scrolling: touch; // Adds momentum + bouncy scrolling
+  -webkit-overflow-scrolling: touch; /* Adds momentum + bouncy scrolling */
 
   @media (hover: hover) {
     .SelectMenuTab:focus {

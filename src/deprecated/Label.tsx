@@ -5,8 +5,8 @@ import sx, {SxProp} from '../sx'
 import {ComponentProps} from '../utils/types'
 
 const outlineStyles = css`
-  margin-top: -1px; // offsets the 1px border
-  margin-bottom: -1px; // offsets the 1px border
+  margin-top: -1px; /* offsets the 1px border */
+  margin-bottom: -1px; /* offsets the 1px border */
   color: ${get('colors.fg.muted')};
   border: ${get('borderWidths.1')} solid ${get('colors.border.default')};
   box-shadow: none;
@@ -61,7 +61,7 @@ const Label = styled.span<
 
   ${sizeVariant}
   ${props => (props.dropshadow ? 'box-shadow: inset 0 -1px 0 rgba(27, 31, 35, 0.12)' : '')}
-  ${props => (props.outline ? outlineStyles : '')} // must be last to override other values
+  ${props => (props.outline ? outlineStyles : '')} /* must be last to override other values */
   ${sx}
 `
 

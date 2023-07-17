@@ -76,12 +76,12 @@ const StyledTokenButton = styled.span<TokenButtonProps & SxProp>`
 
   &:hover,
   &:focus {
-    // TODO: choose a better functional color variable for this
+    /* TODO: choose a better functional color variable for this */
     background-color: ${get('colors.neutral.muted')};
   }
 
   &:active {
-    // TODO: choose a better functional color variable for this
+    /* TODO: choose a better functional color variable for this */
     background-color: ${get('colors.neutral.subtle')};
   }
 

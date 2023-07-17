@@ -61,7 +61,7 @@ const DropdownMenu = styled.ul<StyledDropdownMenuProps>`
   left: 0;
   list-style: none;
   margin-top: 2px;
-  padding: 5px 0 5px 0 !important; //TODO: fix this override on our markdown styles
+  padding: 5px 0 5px 0 !important; /* TODO: fix this override on our markdown styles */
   position: absolute;
   top: 100%;
   width: 160px;
@@ -89,7 +89,7 @@ const DropdownMenu = styled.ul<StyledDropdownMenuProps>`
     border-bottom-color: ${get('colors.canvas.overlay')};
   }
 
-  // stylelint-disable-next-line selector-max-type
+  /* stylelint-disable-next-line selector-max-type */
   > ul {
     list-style: none;
   }

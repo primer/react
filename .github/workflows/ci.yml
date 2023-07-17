@@ -50,6 +50,9 @@ jobs:
       - name: Lint JavaScript
         run: npm run lint
 
+      - name: Lint CSS
+        run: npm run lint:css
+
       - name: Lint markdown
         run: npm run lint:md
 

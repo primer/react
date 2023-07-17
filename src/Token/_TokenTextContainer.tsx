@@ -8,7 +8,7 @@ const TokenTextContainer = styled('span')<Partial<TokenBaseProps>>`
   text-overflow: ellipsis;
   white-space: nowrap;
 
-  // reset button styles, make the cursor a pointer, and add line-height
+  /* reset button styles, make the cursor a pointer, and add line-height */
   background: transparent;
   border: none;
   color: inherit;
@@ -21,14 +21,16 @@ const TokenTextContainer = styled('span')<Partial<TokenBaseProps>>`
   -webkit-appearance: none;
   line-height: normal;
 
-  // reset anchor styles
+  /* reset anchor styles */
   color: currentColor;
   text-decoration: none;
 
-  // Position psuedo-element above text content, but below the
-  // remove button.
-  // This ensures the <a> or <button> receives the click no
-  // matter where on the token the user clicks.
+  /*
+   * Position psuedo-element above text content, but below the
+   * remove button.
+   * This ensures the <a> or <button> receives the click no
+   * matter where on the token the user clicks.
+   */
   &:is(a, button, [tabIndex='0']) {
     cursor: pointer;
 

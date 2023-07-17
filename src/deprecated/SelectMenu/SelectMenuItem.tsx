@@ -20,7 +20,7 @@ export const listItemStyles = css`
   color: ${get('colors.fg.muted')};
   text-decoration: none;
   font-size: ${get('fontSizes.0')};
-  font-family: inherit; // needed if user uses a "button" tag
+  font-family: inherit; /* needed if user uses a "button" tag */
   width: 100%;
 
   &:hover {
@@ -51,7 +51,7 @@ export const listItemStyles = css`
     transform: scale(0);
   }
 
-  // selected items
+  /* selected items */
   &[aria-checked='true'] {
     font-weight: 500;
     color: ${get('colors.fg.default')};
@@ -63,7 +63,7 @@ export const listItemStyles = css`
     }
   }
 
-  // can hover states
+  /* can hover states */
   @media (hover: hover) {
     &:hover,
     &:active,
@@ -72,20 +72,21 @@ export const listItemStyles = css`
     }
   }
 
-  // Can not hover states
-  //
-  // For touch input
+  /* Can not hover states
+   * For touch input 
+   */
 
   @media (hover: none) {
-    // Android
+    /* Android */
     &:focus,
     &:active {
       background-color: ${get('colors.canvas.subtle')};
     }
 
-    // iOS Safari
-    // :active would work if ontouchstart is added to the button
-    // Instead this tweaks the "native" highlight color
+    /* iOS Safari 
+     * :active would work if ontouchstart is added to the button
+     * Instead this tweaks the "native" highlight color
+     */
     -webkit-tap-highlight-color: ${get('colors.selectMenu.tapHighlight')};
   }
 `
