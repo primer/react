@@ -30,6 +30,18 @@ export const Default = () => {
   )
 }
 
+export const DefaultCurrent = () => {
+  return (
+    <UnderlineNav aria-label="Repository">
+      <UnderlineNav.Item href="#code" defaultCurrent>
+        Code
+      </UnderlineNav.Item>
+      <UnderlineNav.Item href="#issues">Issues</UnderlineNav.Item>
+      <UnderlineNav.Item href="#pulls">Pull Requests</UnderlineNav.Item>
+    </UnderlineNav>
+  )
+}
+
 export const WithIcons = () => {
   return (
     <UnderlineNav aria-label="Repository with icons">
@@ -90,6 +102,27 @@ export const OverflowTemplate = ({initialSelectedIndex = 1}: {initialSelectedInd
             event.preventDefault()
             setSelectedIndex(index)
           }}
+          counter={item.counter}
+          href={item.href}
+        >
+          {item.navigation}
+        </UnderlineNav.Item>
+      ))}
+    </UnderlineNav>
+  )
+}
+export const OverflowTemplateWithDefaultCurrent = ({initialSelectedIndex = 1}: {initialSelectedIndex?: number}) => {
+  return (
+    <UnderlineNav aria-label="Repository">
+      {items.map((item, index) => (
+        <UnderlineNav.Item
+          key={item.navigation}
+          icon={item.icon}
+          defaultCurrent={index === initialSelectedIndex}
+          // Set so that navigation in interaction tests does not cause the
+          // page to load the storybook iframe URL and instead keeps the test in
+          // the local preview
+          target="_self"
           counter={item.counter}
           href={item.href}
         >

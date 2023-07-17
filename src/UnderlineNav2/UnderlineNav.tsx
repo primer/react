@@ -68,6 +68,8 @@ const overflowEffect = (
   const items: Array<React.ReactElement> = []
   const actions: Array<React.ReactElement> = []
 
+  // console.log({childArray})
+
   // First, we check if we can fit all the items with their icons
   if (childArray.length <= numberOfItemsPossible) {
     items.push(...childArray)
@@ -88,8 +90,10 @@ const overflowEffect = (
       numberOfItemsInMenu === 1 ? numberOfItemsPossibleWithMoreMenu - 1 : numberOfItemsPossibleWithMoreMenu
     for (const [index, child] of childArray.entries()) {
       if (index < numberOfListItems) {
+        console.log('hi child', child)
         items.push(child)
       } else {
+        console.log('hi child', child)
         const ariaCurrent = child.props['aria-current']
         const isCurrent = Boolean(ariaCurrent) && ariaCurrent !== 'false'
         // We need to make sure to keep the selected item always visible.
@@ -110,6 +114,7 @@ const overflowEffect = (
 }
 
 const getValidChildren = (children: React.ReactNode) => {
+  console.log('children', children)
   return React.Children.toArray(children).filter(child => React.isValidElement(child)) as React.ReactElement[]
 }
 
@@ -146,6 +151,7 @@ export const UnderlineNav = forwardRef(
     const moreMenuRef = useRef<HTMLLIElement>(null)
     const moreMenuBtnRef = useRef<HTMLButtonElement>(null)
     const containerRef = React.useRef<HTMLUListElement>(null)
+    const itemRef = useRef<HTMLAnchorElement>(null)
     const disclosureWidgetId = useId()
 
     const {theme} = useTheme()
@@ -200,6 +206,10 @@ export const UnderlineNav = forwardRef(
       items: getValidChildren(children),
       actions: [],
     })
+
+    const [currentItem, setCurrentItem] = useState<RefObject<HTMLElement> | undefined>(undefined)
+
+    const [actionSwapKey, setActionSwapKey] = useState<string | undefined>(undefined)
 
     /*
      * This is needed to make sure responsiveProps.items and ResponsiveProps.actions are updated when children are changed
@@ -295,8 +305,12 @@ export const UnderlineNav = forwardRef(
           theme,
           setChildrenWidth,
           setNoIconChildrenWidth,
+          currentItem,
+          setCurrentItem,
           loadingCounters,
           iconsVisible,
+          actionSwapKey,
+          setActionSwapKey,
         }}
       >
         {ariaLabel && <VisuallyHidden as="h2">{`${ariaLabel} navigation`}</VisuallyHidden>}
@@ -307,7 +321,17 @@ export const UnderlineNav = forwardRef(
           ref={navRef}
         >
           <NavigationList sx={ulStyles} ref={listRef} role="list">
-            {responsiveProps.items}
+            {responsiveProps.items.map(listItem => {
+              return (
+                <Box
+                  key={listItem.props.children}
+                  as="li"
+                  sx={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}
+                >
+                  {listItem}
+                </Box>
+              )
+            })}
             {actions.length > 0 && (
               <MoreMenuListItem ref={moreMenuRef}>
                 {!onlyMenuVisible && <Box sx={getDividerStyle(theme)}></Box>}
@@ -342,13 +366,15 @@ export const UnderlineNav = forwardRef(
                     const {
                       children: actionElementChildren,
                       counter,
+                      // currentItem,
                       'aria-current': ariaCurrent,
+                      defaultSelected,
                       onSelect,
                       ...actionElementProps
                     } = action.props
 
                     // This logic is used to pop the selected item out of the menu and into the list when the navigation is control externally
-                    if (Boolean(ariaCurrent) && ariaCurrent !== 'false') {
+                    if (defaultSelected || (Boolean(ariaCurrent) && ariaCurrent !== 'false')) {
                       const event = new MouseEvent('click')
                       !onlyMenuVisible &&
                         swapMenuItemWithListItem(
@@ -362,13 +388,18 @@ export const UnderlineNav = forwardRef(
 
                     return (
                       <ActionList.LinkItem
+                        data-component="menu-item"
                         key={actionElementChildren}
                         sx={menuItemStyles}
+                        // aria-current={currentItem === actionListLinkItemRef ? 'page' : undefined}
                         onClick={(
                           event: React.MouseEvent<HTMLAnchorElement> | React.KeyboardEvent<HTMLAnchorElement>,
                         ) => {
                           // When there are no items in the list, do not run the swap function as we want to keep everything in the menu.
                           !onlyMenuVisible && swapMenuItemWithListItem(action, index, event, updateListAndMenu)
+                          // setCurrentItem(actionListLinkItemRef)
+                          setActionSwapKey(actionElementChildren)
+
                           closeOverlay()
                           focusOnMoreMenuBtn()
                           // fire onSelect event that comes from the UnderlineNav.Item (if it is defined)

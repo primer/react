@@ -49,6 +49,12 @@ export type UnderlineNavItemProps = {
    * Counter
    */
   counter?: number | string
+  /**
+   * If true, the item will be in a current mode.
+   * This is equivalent to setting `aria-current=true`.
+   * It is used for simple navigation items wit and internal select state management.
+   */
+  defaultCurrent?: boolean
 } & SxProp &
   LinkProps
 
@@ -63,14 +69,24 @@ export const UnderlineNavItem = forwardRef(
       onSelect,
       'aria-current': ariaCurrent,
       icon: Icon,
+      defaultCurrent,
       ...props
     },
     forwardedRef,
   ) => {
     const backupRef = useRef<HTMLElement>(null)
     const ref = (forwardedRef ?? backupRef) as RefObject<HTMLAnchorElement>
-    const {theme, setChildrenWidth, setNoIconChildrenWidth, loadingCounters, iconsVisible} =
-      useContext(UnderlineNavContext)
+    const {
+      theme,
+      setChildrenWidth,
+      setNoIconChildrenWidth,
+      currentItem,
+      setCurrentItem,
+      loadingCounters,
+      iconsVisible,
+      actionSwapKey,
+      setActionSwapKey,
+    } = useContext(UnderlineNavContext)
 
     useLayoutEffect(() => {
       if (ref.current) {
@@ -93,66 +109,84 @@ export const UnderlineNavItem = forwardRef(
 
         setChildrenWidth({text, width: domRect.width})
         setNoIconChildrenWidth({text, width: domRect.width - iconWidthWithMargin})
+        // console.log(actionSwapKey, currentItem)
+        // initial load - current item is undefined. We need to set it to the first item with aria-current=true
+        if (currentItem === undefined && (defaultCurrent || (Boolean(ariaCurrent) && ariaCurrent !== 'false'))) {
+          setCurrentItem(ref as RefObject<HTMLElement>)
+        } else if (actionSwapKey !== undefined) {
+          setCurrentItem(ref as RefObject<HTMLElement>)
+          setActionSwapKey(undefined)
+        }
       }
-    }, [ref, setChildrenWidth, setNoIconChildrenWidth])
+    }, [
+      ref,
+      setChildrenWidth,
+      setNoIconChildrenWidth,
+      currentItem,
+      setCurrentItem,
+      ariaCurrent,
+      defaultCurrent,
+      actionSwapKey,
+      setActionSwapKey,
+    ])
 
     const keyDownHandler = React.useCallback(
       (event: React.KeyboardEvent<HTMLAnchorElement>) => {
         if ((event.key === ' ' || event.key === 'Enter') && !event.defaultPrevented && typeof onSelect === 'function') {
           onSelect(event)
         }
+        setCurrentItem(ref as RefObject<HTMLElement>)
       },
-      [onSelect],
+      [onSelect, setCurrentItem, ref],
     )
     const clickHandler = React.useCallback(
       (event: React.MouseEvent<HTMLAnchorElement>) => {
         if (!event.defaultPrevented && typeof onSelect === 'function') {
           onSelect(event)
         }
+        setCurrentItem(ref as RefObject<HTMLElement>)
       },
-      [onSelect],
+      [onSelect, setCurrentItem, ref],
     )
 
     return (
-      <Box as="li" sx={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-        <Link
-          ref={ref}
-          as={Component}
-          href={href}
-          aria-current={ariaCurrent}
-          onKeyDown={keyDownHandler}
-          onClick={clickHandler}
-          sx={merge<BetterSystemStyleObject>(getLinkStyles(theme, ariaCurrent), sxProp as SxProp)}
-          {...props}
-        >
-          {iconsVisible && Icon && (
-            <Box as="span" data-component="icon" sx={iconWrapStyles}>
-              <Icon />
-            </Box>
-          )}
-          {children && (
-            <Box
-              as="span"
-              data-component="text"
-              data-content={children}
-              sx={Boolean(ariaCurrent) && ariaCurrent !== 'false' ? {fontWeight: 600} : {}}
-            >
-              {children}
-            </Box>
-          )}
-          {loadingCounters ? (
+      <Link
+        ref={ref}
+        as={Component}
+        href={href}
+        aria-current={currentItem === ref ? ariaCurrent || 'page' : undefined}
+        onKeyDown={keyDownHandler}
+        onClick={clickHandler}
+        sx={merge<BetterSystemStyleObject>(getLinkStyles(theme, currentItem, ref), sxProp as SxProp)}
+        {...props}
+      >
+        {iconsVisible && Icon && (
+          <Box as="span" data-component="icon" sx={iconWrapStyles}>
+            <Icon />
+          </Box>
+        )}
+        {children && (
+          <Box
+            as="span"
+            data-component="text"
+            data-content={children}
+            sx={currentItem === ref ? {fontWeight: 600} : {}}
+          >
+            {children}
+          </Box>
+        )}
+        {loadingCounters ? (
+          <Box as="span" data-component="counter" sx={counterStyles}>
+            <LoadingCounter />
+          </Box>
+        ) : (
+          counter !== undefined && (
             <Box as="span" data-component="counter" sx={counterStyles}>
-              <LoadingCounter />
+              <CounterLabel>{counter}</CounterLabel>
             </Box>
-          ) : (
-            counter !== undefined && (
-              <Box as="span" data-component="counter" sx={counterStyles}>
-                <CounterLabel>{counter}</CounterLabel>
-              </Box>
-            )
-          )}
-        </Link>
-      </Box>
+          )
+        )}
+      </Link>
     )
   },
 ) as PolymorphicForwardRefComponent<'a', UnderlineNavItemProps>
