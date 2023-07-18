@@ -1,10 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`DropdownMenu renders consistently 1`] = `
-.c1 {
-  margin-left: 4px;
-}
-
 .c0 {
   position: relative;
   display: inline-block;
@@ -67,6 +63,10 @@ exports[`DropdownMenu renders consistently 1`] = `
   color: #8c959f;
   background-color: #f6f8fa;
   border-color: rgba(31,35,40,0.15);
+}
+
+.c1 {
+  margin-left: 4px;
 }
 
 <button
