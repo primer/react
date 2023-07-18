@@ -17,6 +17,7 @@ import {ActionList} from '../ActionList'
 import {defaultSxProp} from '../utils/defaultSxProp'
 import CounterLabel from '../CounterLabel'
 import {LoadingCounter} from './LoadingCounter'
+import {invariant} from '../utils/invariant'
 
 export type UnderlineNavProps = {
   children: React.ReactNode
@@ -206,30 +207,30 @@ export const UnderlineNav = forwardRef(
      * Particually when an item is selected. It adds 'aria-current="page"' attribute to the child and we need to make sure
      * responsiveProps.items and ResponsiveProps.actions are updated with that attribute
      */
-    useEffect(() => {
-      const childArray = getValidChildren(children)
-
-      const updatedItems = responsiveProps.items.map(item => {
-        return childArray.find(child => child.key === item.key) || item
-      })
-
-      const updatedActions = responsiveProps.actions.map(action => {
-        return childArray.find(child => child.key === action.key) || action
-      })
-
-      setResponsiveProps({
-        items: updatedItems,
-        actions: updatedActions,
-      })
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [children])
+    const listLinks = responsiveProps.items.map(item => {
+      return getValidChildren(children).find(child => child.key === item.key) || item
+    })
+    // TODO: Rename this to menuItems
+    const actions = responsiveProps.actions.map(action => {
+      return getValidChildren(children).find(child => child.key === action.key) || action
+    })
 
     const updateListAndMenu = useCallback((props: ResponsiveProps, displayIcons: boolean) => {
       setResponsiveProps(props)
       setIconsVisible(displayIcons)
     }, [])
 
-    const actions = responsiveProps.actions
+    // Address illegal state where there are multiple items that have `aria-current=''page'` attribute
+    if (__DEV__) {
+      // Practically, this is not a conditional hook, it is just making sure this hook runs only on DEV not PROD.
+      // eslint-disable-next-line react-hooks/rules-of-hooks
+      useEffect(() => {
+        const activeElements = getValidChildren(children).filter(child => {
+          return child.props['aria-current'] !== undefined
+        })
+        invariant(activeElements.length <= 1, 'Only one current element is allowed')
+      })
+    }
     // This is the case where the viewport is too narrow to show any list item with the more menu. In this case, we only show the dropdown
     const onlyMenuVisible = responsiveProps.items.length === 0
     const [childWidthArray, setChildWidthArray] = useState<ChildWidthArray>([])
@@ -307,7 +308,18 @@ export const UnderlineNav = forwardRef(
           ref={navRef}
         >
           <NavigationList sx={ulStyles} ref={listRef} role="list">
-            {responsiveProps.items}
+            {listLinks.map(listLink => {
+              return (
+                <Box
+                  key={listLink.props.children}
+                  as="li"
+                  sx={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}
+                >
+                  {listLink}
+                </Box>
+              )
+            })}
+
             {actions.length > 0 && (
               <MoreMenuListItem ref={moreMenuRef}>
                 {!onlyMenuVisible && <Box sx={getDividerStyle(theme)}></Box>}
