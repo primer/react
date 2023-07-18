@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import {Box, FormControl} from '..'
 import TextInput, {TextInputProps} from '../TextInput'
-import {CalendarIcon, CheckIcon, XCircleFillIcon} from '@primer/octicons-react'
+import {CalendarIcon, CheckIcon, XCircleFillIcon, SearchIcon} from '@primer/octicons-react'
 import {FormControlArgs, formControlArgTypes, textInputExcludedControlKeys} from '../utils/story-helpers'
 
 export default {
@@ -61,7 +61,7 @@ export const Success = () => (
     <FormControl>
       <FormControl.Label>Default label</FormControl.Label>
       <TextInput />
-      <FormControl.Validation variant="success">Something went wrong</FormControl.Validation>
+      <FormControl.Validation variant="success">Username available</FormControl.Validation>
     </FormControl>
   </Box>
 )
@@ -119,61 +119,32 @@ export const WithTrailingIcon = () => (
   </Box>
 )
 
-export const WithTrailingAction = () => {
+export const WithClearButtonAndLeadingVisual = () => {
   const [value, setValue] = useState('')
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value)
   }
   return (
-    <Box as="form">
-      <FormControl>
-        <FormControl.Label>Default label</FormControl.Label>
-        <TextInput
-          trailingAction={
-            <TextInput.Action
-              onClick={() => {
-                setValue('')
-              }}
-              icon={XCircleFillIcon}
-              aria-label="Clear input"
-              sx={{color: 'fg.subtle'}}
-            />
-          }
-          value={value}
-          onChange={handleChange}
-        />
-      </FormControl>
-    </Box>
-  )
-}
-
-export const WithTooltipDirection = () => {
-  const [value, setValue] = useState('')
-
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setValue(event.target.value)
-  }
-  return (
-    <Box as="form">
-      <FormControl>
-        <FormControl.Label>Default label</FormControl.Label>
-        <TextInput
-          trailingAction={
-            <TextInput.Action
-              onClick={() => {
-                setValue('')
-              }}
-              icon={XCircleFillIcon}
-              aria-label="Clear input"
-              tooltipDirection="nw"
-              sx={{color: 'fg.subtle'}}
-            />
-          }
-          value={value}
-          onChange={handleChange}
-        />
-      </FormControl>
+    <Box>
+      <Box mb={2}>
+        <FormControl>
+          <FormControl.Label>Default label</FormControl.Label>
+          <TextInput
+            leadingVisual={SearchIcon}
+            placeholder="Search"
+            onClickClear={() => setValue('')}
+            value={value}
+            onChange={handleChange}
+          />
+        </FormControl>
+      </Box>
+      <Box mb={2}>
+        <FormControl>
+          <FormControl.Label>Default label</FormControl.Label>
+          <TextInput value="leading" loading={true} loaderPosition="leading" />
+        </FormControl>
+      </Box>
     </Box>
   )
 }

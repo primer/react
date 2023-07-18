@@ -25,3 +25,5 @@ export const Button = styled.button<SxProp>`
 
   ${sx}
 `
+
+export default Button

@@ -4,11 +4,16 @@ import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/po
 import clsx from 'clsx'
 
 import TextInputInnerVisualSlot from '../internal/components/TextInputInnerVisualSlot'
+import ButtonReset from '../internal/components/ButtonReset'
+import Tooltip from '../Tooltip'
+import Box from '../Box'
+
 import {useProvidedRefOrCreate} from '../hooks'
 import {Merge} from '../utils/types'
 import TextInputWrapper, {StyledWrapperProps} from '../internal/components/TextInputWrapper'
 import TextInputAction from '../internal/components/TextInputInnerAction'
 import UnstyledTextInput from '../internal/components/UnstyledTextInput'
+import {XCircleFillIcon} from '@primer/octicons-react'
 
 export type TextInputNonPassthroughProps = {
   /** @deprecated Use `leadingVisual` or `trailingVisual` prop instead */
@@ -31,9 +36,13 @@ export type TextInputNonPassthroughProps = {
    */
   trailingVisual?: React.ElementType | React.ReactNode
   /**
-   * A visual that renders inside the input after the typing area
+   * @deprecated A visual that renders inside the input after the typing area. If you're using a clear button use the onClear callback instead.
    */
   trailingAction?: React.ReactElement<React.HTMLProps<HTMLButtonElement>>
+  /**
+   * A clear button that appears inside the typing area when there is a value
+   */
+  onClickClear?: () => void
 } & Pick<
   StyledWrapperProps,
   | 'block'
@@ -55,10 +64,8 @@ export type TextInputProps = Merge<React.ComponentPropsWithoutRef<'input'>, Text
 const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
   (
     {
-      icon: IconComponent,
       leadingVisual: LeadingVisual,
       trailingVisual: TrailingVisual,
-      trailingAction,
       block,
       className,
       contrast,
@@ -71,13 +78,17 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
       size: sizeProp,
       onFocus,
       onBlur,
+      onClickClear,
       // start deprecated props
+      icon: IconComponent,
+      trailingAction,
       width: widthProp,
       minWidth: minWidthProp,
       maxWidth: maxWidthProp,
       variant: variantProp,
       // end deprecated props
       type = 'text',
+      value,
       ...inputProps
     },
     ref,
@@ -143,6 +154,7 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
           onFocus={handleInputFocus}
           onBlur={handleInputBlur}
           type={type}
+          value={value}
           {...inputProps}
           data-component="input"
         />
@@ -158,6 +170,47 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
           )}
         </TextInputInnerVisualSlot>
         {trailingAction}
+        {onClickClear && value && (
+          <Box
+            sx={{
+              color: 'fg.muted',
+              right: 0,
+              px: 1,
+              top: 1,
+              position: 'absolute',
+              bottom: 1,
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          >
+            <Tooltip aria-label="Clear input">
+              <ButtonReset
+                aria-label="Clear"
+                onClick={onClickClear}
+                sx={{
+                  p: 1,
+                  ':hover': {
+                    color: 'fg.subtle',
+                  },
+                  '@media (pointer: coarse)': {
+                    ':after': {
+                      content: '""',
+                      position: 'absolute',
+                      left: 0,
+                      right: 0,
+                      transform: 'translateY(-50%)',
+                      top: '50%',
+                      minHeight: '44px',
+                    },
+                  },
+                }}
+              >
+                <XCircleFillIcon />
+              </ButtonReset>
+            </Tooltip>
+          </Box>
+        )}
       </TextInputWrapper>
     )
   },

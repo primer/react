@@ -60,6 +60,11 @@
       "description": "Visual positioned on the right edge inside the input"
     },
     {
+      "name": "onClickClear",
+      "type": "() => void",
+      "description": "Shows a clear button when defined"
+    },
+    {
       "name": "trailingAction",
       "type": "React.ReactElement<HTMLProps<HTMLButtonElement>>",
       "defaultValue": "",
@@ -113,55 +118,6 @@
     {
       "name": "ref",
       "type": "React.RefObject<HTMLInputElement>"
-    }
-  ],
-  "subcomponents": [
-    {
-      "name": "TextInput.Action",
-      "props": [
-        {
-          "name": "aria-label",
-          "type": "string",
-          "defaultValue": "",
-          "description": "Text that appears in a tooltip. If an icon is passed, this is also used as the label used by assistive technologies."
-        },
-        {
-          "name": "tooltipDirection",
-          "type": "'n' | 'ne' | 'e' | 'se' | 's' | 'sw' | 'w' | 'nw'",
-          "defaultValue": "n",
-          "description": "Sets where the tooltip renders in relation to the target."
-        },
-        {
-          "name": "icon",
-          "type": "React.FunctionComponent",
-          "defaultValue": "",
-          "description": "The icon to render inside the button"
-        },
-        {
-          "name": "variant",
-          "type": "'default' | 'primary' | 'invisible' | 'danger'",
-          "defaultValue": "",
-          "deprecated": true,
-          "description": "(Deprecated so that only the 'invisible' variant is used) Determine's the styles on a button"
-        },
-        {
-          "name": "ref",
-          "type": "React.RefObject<HTMLButtonElement>"
-        },
-        {
-          "name": "as",
-          "type": "React.ElementType",
-          "defaultValue": "\"button\""
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject"
-        }
-      ],
-      "passthrough": {
-        "element": "button",
-        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#attributes"
-      }
     }
   ]
 }

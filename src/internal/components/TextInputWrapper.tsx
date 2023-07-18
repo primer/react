@@ -51,6 +51,7 @@ export type StyledBaseWrapperProps = {
   contrast?: boolean
   disabled?: boolean
   hasTrailingAction?: boolean
+  hasClearButton?: boolean
   isInputFocused?: boolean
   monospace?: boolean
   validationStatus?: FormValidationStatus
@@ -103,6 +104,7 @@ export const TextInputBaseWrapper = styled.span<StyledBaseWrapperProps>`
   display: inline-flex;
   align-items: stretch;
   min-height: 32px;
+  position: relative;
 
   input,
   textarea {
@@ -189,7 +191,7 @@ const TextInputWrapper = styled(TextInputBaseWrapper)<StyledWrapperProps>`
   background-position: right 8px center; // For form validation. This keeps images 8px from right and centered vertically.
 
   & > :not(:last-child) {
-    margin-right: ${get('space.2')};
+    margin-right: ${get('space.1')};
   }
 
   .TextInput-icon,
@@ -201,13 +203,16 @@ const TextInputWrapper = styled(TextInputBaseWrapper)<StyledWrapperProps>`
 
   ${props =>
     css`
-      padding-left: ${props.hasLeadingVisual ? textInputHorizPadding : 0};
-      padding-right: ${props.hasTrailingVisual && !props.hasTrailingAction ? textInputHorizPadding : 0};
-
+      padding-left: ${props.hasLeadingVisual ? get('space.2') : 0};
+      padding-right: ${props.hasTrailingVisual && !props.hasTrailingAction && !props.hasClearButton
+        ? get('space.2')
+        : 0};
       > input,
       > select {
         padding-left: ${!props.hasLeadingVisual ? textInputHorizPadding : 0};
-        padding-right: ${!props.hasTrailingVisual && !props.hasTrailingAction ? textInputHorizPadding : 0};
+        padding-right: ${!props.hasTrailingVisual && !props.hasTrailingAction && !props.hasClearButton
+          ? textInputHorizPadding
+          : 0};
       }
     `}
 
