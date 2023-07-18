@@ -39,7 +39,7 @@
     },
     {
       "name": "showPages",
-      "type": "boolean",
+      "type": "boolean | { narrow?: boolean, regular?: boolean, wide?: boolean }",
       "defaultValue": "true",
       "description": "Whether or not to show the individual page links."
     },

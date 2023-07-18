@@ -102,16 +102,12 @@ export type ParentLinkProps = React.PropsWithChildren<ChildrenPropTypes & LinkPr
 
 // PageHeader.ParentLink : Only visible on narrow viewports by default to let users navigate up in the hierarchy.
 const ParentLink = React.forwardRef<HTMLAnchorElement, ParentLinkProps>(
-  ({children, sx = {}, href, 'aria-label': ariaLabel, as, hidden = hiddenOnRegularAndWide}, ref) => {
-    if (as !== undefined) {
-      // eslint-disable-next-line no-console
-      console.warn('ParentLink no longer accepts an as prop.')
-    }
-
+  ({children, sx = {}, href, 'aria-label': ariaLabel, as = 'a', hidden = hiddenOnRegularAndWide}, ref) => {
     return (
       <>
         <Link
           ref={ref}
+          as={as}
           aria-label={ariaLabel}
           muted
           sx={merge<BetterSystemStyleObject>(

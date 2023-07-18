@@ -7,7 +7,7 @@ import Box from './Box'
 import {ComponentProps} from './utils/types'
 import Link from './Link'
 import React from 'react'
-import classnames from 'classnames'
+import clsx from 'clsx'
 import sx, {SxProp} from './sx'
 
 type SideNavBaseProps = {
@@ -20,7 +20,7 @@ type SideNavBaseProps = {
 
 function SideNavBase({variant = 'normal', className, bordered, children, 'aria-label': ariaLabel}: SideNavBaseProps) {
   const variantClassName = variant === 'lightweight' ? 'lightweight' : 'normal'
-  const newClassName = classnames(className, `variant-${variantClassName}`)
+  const newClassName = clsx(className, `variant-${variantClassName}`)
 
   return (
     <Box

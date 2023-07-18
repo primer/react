@@ -22,7 +22,7 @@ export default {
       control: {
         type: 'radio',
       },
-      options: ['default', 'primary', 'danger', 'invisible', 'outline', 'link'],
+      options: ['default', 'primary', 'danger', 'invisible', 'outline'],
     },
     alignContent: {
       control: {

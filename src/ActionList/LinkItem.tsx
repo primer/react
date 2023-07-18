@@ -9,7 +9,6 @@ import {ActionListItemProps} from './shared'
 type LinkProps = {
   download?: string
   href?: string
-  to?: string
   hrefLang?: string
   media?: string
   ping?: string
@@ -22,7 +21,7 @@ type LinkProps = {
 // LinkItem does not support selected, variants, etc.
 export type ActionListLinkItemProps = Pick<ActionListItemProps, 'active' | 'children' | 'sx'> & LinkProps
 
-export const LinkItem = React.forwardRef(({sx = {}, active, ...props}, forwardedRef) => {
+export const LinkItem = React.forwardRef(({sx = {}, active, as: Component, ...props}, forwardedRef) => {
   const styles = {
     // occupy full size of Item
     paddingX: 2,
@@ -36,8 +35,6 @@ export const LinkItem = React.forwardRef(({sx = {}, active, ...props}, forwarded
     '&:hover': {color: 'inherit', textDecoration: 'none'},
   }
 
-  if (props.href === undefined && props.to !== undefined) props.href = props.to
-
   return (
     <Item
       active={active}
@@ -48,7 +45,14 @@ export const LinkItem = React.forwardRef(({sx = {}, active, ...props}, forwarded
           props.onClick && props.onClick(event as React.MouseEvent<HTMLAnchorElement>)
         }
         return (
-          <Link sx={merge(styles, sx as SxProp)} {...rest} {...props} onClick={clickHandler} ref={forwardedRef}>
+          <Link
+            as={Component}
+            sx={merge(styles, sx as SxProp)}
+            {...rest}
+            {...props}
+            onClick={clickHandler}
+            ref={forwardedRef}
+          >
             {children}
           </Link>
         )

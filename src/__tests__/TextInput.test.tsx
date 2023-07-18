@@ -14,7 +14,7 @@ describe('TextInput', () => {
   })
 
   it('should have no axe violations', async () => {
-    const {container} = HTMLRender(<TextInput aria-label="zipcode" name="zipcode" variant="small" />)
+    const {container} = HTMLRender(<TextInput aria-label="Zipcode" name="zipcode" variant="small" />)
     const results = await axe(container)
     expect(results).toHaveNoViolations()
   })
@@ -146,7 +146,7 @@ describe('TextInput', () => {
         <TextInput
           name="search"
           placeholder={'Search'}
-          trailingAction={<TextInput.Action onClick={handleAction} icon={SearchIcon} aria-label="iconLabel" />}
+          trailingAction={<TextInput.Action onClick={handleAction} icon={SearchIcon} aria-label="Icon label" />}
         />,
       ),
     ).toMatchSnapshot()
