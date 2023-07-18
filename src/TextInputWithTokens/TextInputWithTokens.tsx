@@ -2,6 +2,7 @@ import {FocusKeys} from '@primer/behaviors'
 import {isFocusable} from '@primer/behaviors/utils'
 import {omit} from '@styled-system/props'
 import React, {FocusEventHandler, KeyboardEventHandler, MouseEventHandler, RefObject, useRef, useState} from 'react'
+import {isValidElementType} from 'react-is'
 import Box from '../Box'
 import {useRefObjectAsForwardedRef} from '../hooks/useRefObjectAsForwardedRef'
 import {useFocusZone} from '../hooks/useFocusZone'
@@ -294,7 +295,7 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
         visualPosition="leading"
         showLoadingIndicator={showLeadingLoadingIndicator}
       >
-        {LeadingVisual && (typeof LeadingVisual === 'string' ? LeadingVisual : <LeadingVisual />)}
+        {typeof LeadingVisual !== 'string' && isValidElementType(LeadingVisual) ? <LeadingVisual /> : LeadingVisual}
       </TextInputInnerVisualSlot>
       <Box
         ref={containerRef as RefObject<HTMLDivElement>}
@@ -360,7 +361,7 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
         visualPosition="trailing"
         showLoadingIndicator={showTrailingLoadingIndicator}
       >
-        {TrailingVisual && (typeof TrailingVisual === 'string' ? TrailingVisual : <TrailingVisual />)}
+        {typeof TrailingVisual !== 'string' && isValidElementType(TrailingVisual) ? <TrailingVisual /> : TrailingVisual}
       </TextInputInnerVisualSlot>
     </TextInputWrapper>
   )

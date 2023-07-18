@@ -63,14 +63,14 @@ A function may be passed to the `filterFn` prop if this default filtering behavi
     <Autocomplete.Overlay>
       <Autocomplete.Menu
         items={[
-          {text: 'main', id: 0},
-          {text: 'autocomplete-tests', id: 1},
-          {text: 'a11y-improvements', id: 2},
-          {text: 'button-bug-fixes', id: 3},
-          {text: 'radio-input-component', id: 4},
-          {text: 'release-1.0.0', id: 5},
-          {text: 'text-input-implementation', id: 6},
-          {text: 'visual-design-tweaks', id: 7},
+          {text: 'main', id: '0'},
+          {text: 'autocomplete-tests', id: '1'},
+          {text: 'a11y-improvements', id: '2'},
+          {text: 'button-bug-fixes', id: '3'},
+          {text: 'radio-input-component', id: '4'},
+          {text: 'release-1.0.0', id: '5'},
+          {text: 'text-input-implementation', id: '6'},
+          {text: 'visual-design-tweaks', id: '7'},
         ]}
         selectedItemIds={[]}
         aria-labelledby="autocompleteLabel-basic"
@@ -86,7 +86,7 @@ In this example, we're passing a [TextInputWithTokens](/TextInputWithTokens) com
 
 ```javascript live noinline
 const CustomTextInputExample = () => {
-  const [tokens, setTokens] = React.useState([{text: 'zero', id: 0}])
+  const [tokens, setTokens] = React.useState([{text: 'zero', id: '0'}])
   const selectedTokenIds = tokens.map(token => token.id)
   const [selectedItemIds, setSelectedItemIds] = React.useState(selectedTokenIds)
   const onTokenRemove = tokenId => {
@@ -122,14 +122,14 @@ const CustomTextInputExample = () => {
         <Autocomplete.Overlay>
           <Autocomplete.Menu
             items={[
-              {text: 'zero', id: 0},
-              {text: 'one', id: 1},
-              {text: 'two', id: 2},
-              {text: 'three', id: 3},
-              {text: 'four', id: 4},
-              {text: 'five', id: 5},
-              {text: 'six', id: 6},
-              {text: 'seven', id: 7},
+              {text: 'zero', id: '0'},
+              {text: 'one', id: '1'},
+              {text: 'two', id: '2'},
+              {text: 'three', id: '3'},
+              {text: 'four', id: '4'},
+              {text: 'five', id: '5'},
+              {text: 'six', id: '6'},
+              {text: 'seven', id: '7'},
             ]}
             selectedItemIds={selectedItemIds}
             onSelectedChange={onSelectedChange}
@@ -154,14 +154,14 @@ render(<CustomTextInputExample />)
     <Autocomplete.Input />
     <Autocomplete.Menu
       items={[
-        {text: 'main', id: 0},
-        {text: 'autocomplete-tests', id: 1},
-        {text: 'a11y-improvements', id: 2},
-        {text: 'button-bug-fixes', id: 3},
-        {text: 'radio-input-component', id: 4},
-        {text: 'release-1.0.0', id: 5},
-        {text: 'text-input-implementation', id: 6},
-        {text: 'visual-design-tweaks', id: 7},
+        {text: 'main', id: '0'},
+        {text: 'autocomplete-tests', id: '1'},
+        {text: 'a11y-improvements', id: '2'},
+        {text: 'button-bug-fixes', id: '3'},
+        {text: 'radio-input-component', id: '4'},
+        {text: 'release-1.0.0', id: '5'},
+        {text: 'text-input-implementation', id: '6'},
+        {text: 'visual-design-tweaks', id: '7'},
       ]}
       selectedItemIds={[]}
       aria-labelledby="autocompleteLabel-withoutOverlay"
@@ -192,9 +192,9 @@ function getColorCircle(color) {
 
 const CustomRenderedItemExample = () => {
   const [tokens, setTokens] = React.useState([
-    {text: 'enhancement', id: 1, fillColor: '#a2eeef'},
-    {text: 'bug', id: 2, fillColor: '#d73a4a'},
-    {text: 'good first issue', id: 3, fillColor: '#0cf478'},
+    {text: 'enhancement', id: '1', fillColor: '#a2eeef'},
+    {text: 'bug', id: '2', fillColor: '#d73a4a'},
+    {text: 'good first issue', id: '3', fillColor: '#0cf478'},
   ])
   const selectedTokenIds = tokens.map(token => token.id)
   const [selectedItemIds, setSelectedItemIds] = React.useState(selectedTokenIds)
@@ -236,18 +236,23 @@ const CustomRenderedItemExample = () => {
         <Autocomplete.Overlay>
           <Autocomplete.Menu
             items={[
-              {leadingVisual: getColorCircle('#a2eeef'), text: 'enhancement', id: 1, metadata: {fillColor: '#a2eeef'}},
-              {leadingVisual: getColorCircle('#d73a4a'), text: 'bug', id: 2, metadata: {fillColor: '#d73a4a'}},
+              {
+                leadingVisual: getColorCircle('#a2eeef'),
+                text: 'enhancement',
+                id: '1',
+                metadata: {fillColor: '#a2eeef'},
+              },
+              {leadingVisual: getColorCircle('#d73a4a'), text: 'bug', id: '2', metadata: {fillColor: '#d73a4a'}},
               {
                 leadingVisual: getColorCircle('#0cf478'),
                 text: 'good first issue',
-                id: 3,
+                id: '3',
                 metadata: {fillColor: '#0cf478'},
               },
-              {leadingVisual: getColorCircle('#ffd78e'), text: 'design', id: 4, metadata: {fillColor: '#ffd78e'}},
-              {leadingVisual: getColorCircle('#ff0000'), text: 'blocker', id: 5, metadata: {fillColor: '#ff0000'}},
-              {leadingVisual: getColorCircle('#a4f287'), text: 'backend', id: 6, metadata: {fillColor: '#a4f287'}},
-              {leadingVisual: getColorCircle('#8dc6fc'), text: 'frontend', id: 7, metadata: {fillColor: '#8dc6fc'}},
+              {leadingVisual: getColorCircle('#ffd78e'), text: 'design', id: '4', metadata: {fillColor: '#ffd78e'}},
+              {leadingVisual: getColorCircle('#ff0000'), text: 'blocker', id: '5', metadata: {fillColor: '#ff0000'}},
+              {leadingVisual: getColorCircle('#a4f287'), text: 'backend', id: '6', metadata: {fillColor: '#a4f287'}},
+              {leadingVisual: getColorCircle('#8dc6fc'), text: 'frontend', id: '7', metadata: {fillColor: '#8dc6fc'}},
             ]}
             selectedItemIds={selectedItemIds}
             onSelectedChange={onSelectedChange}
@@ -289,14 +294,14 @@ const CustomSortAfterMenuClose = () => {
         <Autocomplete.Overlay>
           <Autocomplete.Menu
             items={[
-              {text: 'main', id: 0},
-              {text: 'autocomplete-tests', id: 1},
-              {text: 'a11y-improvements', id: 2},
-              {text: 'button-bug-fixes', id: 3},
-              {text: 'radio-input-component', id: 4},
-              {text: 'release-1.0.0', id: 5},
-              {text: 'text-input-implementation', id: 6},
-              {text: 'visual-design-tweaks', id: 7},
+              {text: 'main', id: '0'},
+              {text: 'autocomplete-tests', id: '1'},
+              {text: 'a11y-improvements', id: '2'},
+              {text: 'button-bug-fixes', id: '3'},
+              {text: 'radio-input-component', id: '4'},
+              {text: 'release-1.0.0', id: '5'},
+              {text: 'text-input-implementation', id: '6'},
+              {text: 'visual-design-tweaks', id: '7'},
             ]}
             selectedItemIds={selectedItemIds}
             aria-labelledby="autocompleteLabel-sortAfterClose"
@@ -333,14 +338,14 @@ const CustomSearchFilter = () => {
         <Autocomplete.Overlay>
           <Autocomplete.Menu
             items={[
-              {text: 'main', id: 0},
-              {text: 'autocomplete-tests', id: 1},
-              {text: 'a11y-improvements', id: 2},
-              {text: 'button-bug-fixes', id: 3},
-              {text: 'radio-input-component', id: 4},
-              {text: 'release-1.0.0', id: 5},
-              {text: 'text-input-implementation', id: 6},
-              {text: 'visual-design-tweaks', id: 7},
+              {text: 'main', id: '0'},
+              {text: 'autocomplete-tests', id: '1'},
+              {text: 'a11y-improvements', id: '2'},
+              {text: 'button-bug-fixes', id: '3'},
+              {text: 'radio-input-component', id: '4'},
+              {text: 'release-1.0.0', id: '5'},
+              {text: 'text-input-implementation', id: '6'},
+              {text: 'visual-design-tweaks', id: '7'},
             ]}
             selectedItemIds={[]}
             aria-labelledby="autocompleteLabel-customFilter"
@@ -419,14 +424,14 @@ const InOverlayWithCustomScrollContainerRef = () => {
             <Box overflow="auto" flexGrow={1} ref={scrollContainerRef}>
               <Autocomplete.Menu
                 items={[
-                  {text: 'main', id: 0},
-                  {text: 'autocomplete-tests', id: 1},
-                  {text: 'a11y-improvements', id: 2},
-                  {text: 'button-bug-fixes', id: 3},
-                  {text: 'radio-input-component', id: 4},
-                  {text: 'release-1.0.0', id: 5},
-                  {text: 'text-input-implementation', id: 6},
-                  {text: 'visual-design-tweaks', id: 7},
+                  {text: 'main', id: '0'},
+                  {text: 'autocomplete-tests', id: '1'},
+                  {text: 'a11y-improvements', id: '2'},
+                  {text: 'button-bug-fixes', id: '3'},
+                  {text: 'radio-input-component', id: '4'},
+                  {text: 'release-1.0.0', id: '5'},
+                  {text: 'text-input-implementation', id: '6'},
+                  {text: 'visual-design-tweaks', id: '7'},
                 ]}
                 selectedItemIds={[]}
                 customScrollContainerRef={scrollContainerRef}
@@ -448,14 +453,14 @@ render(<InOverlayWithCustomScrollContainerRef />)
 ```javascript live noinline
 const MultiSelect = () => {
   const items = [
-    {text: 'main', id: 0},
-    {text: 'autocomplete-tests', id: 1},
-    {text: 'a11y-improvements', id: 22},
-    {text: 'button-bug-fixes', id: 3},
-    {text: 'radio-input-component', id: 4},
-    {text: 'release-1.0.0', id: 5},
-    {text: 'text-input-implementation', id: 6},
-    {text: 'visual-design-tweaks', id: 7},
+    {text: 'main', id: '0'},
+    {text: 'autocomplete-tests', id: '1'},
+    {text: 'a11y-improvements', id: '2'},
+    {text: 'button-bug-fixes', id: '3'},
+    {text: 'radio-input-component', id: '4'},
+    {text: 'release-1.0.0', id: '5'},
+    {text: 'text-input-implementation', id: '6'},
+    {text: 'visual-design-tweaks', id: '7'},
   ]
   const [selectedItemIds, setSelectedItemIds] = React.useState([])
   const onSelectedChange = newlySelectedItems => {
@@ -514,14 +519,14 @@ const MultiSelectAddNewItem = () => {
   }
 
   const [localItemsState, setLocalItemsState] = React.useState([
-    {text: 'main', id: 0},
-    {text: 'autocomplete-tests', id: 1},
-    {text: 'a11y-improvements', id: 22},
-    {text: 'button-bug-fixes', id: 3},
-    {text: 'radio-input-component', id: 4},
-    {text: 'release-1.0.0', id: 5},
-    {text: 'text-input-implementation', id: 6},
-    {text: 'visual-design-tweaks', id: 7},
+    {text: 'main', id: '0'},
+    {text: 'autocomplete-tests', id: '1'},
+    {text: 'a11y-improvements', id: '2'},
+    {text: 'button-bug-fixes', id: '3'},
+    {text: 'radio-input-component', id: '4'},
+    {text: 'release-1.0.0', id: '5'},
+    {text: 'text-input-implementation', id: '6'},
+    {text: 'visual-design-tweaks', id: '7'},
   ])
   const getItemById = id => localItemsState.find(item => item.id === id)
   const [filterVal, setFilterVal] = React.useState('')
@@ -625,14 +630,14 @@ export function AutocompleteWithContextInternal() {
       <Autocomplete.Overlay>
         <Autocomplete.Menu
           items={[
-            {text: 'main', id: 0},
-            {text: 'autocomplete-tests', id: 1},
-            {text: 'a11y-improvements', id: 2},
-            {text: 'button-bug-fixes', id: 3},
-            {text: 'radio-input-component', id: 4},
-            {text: 'release-1.0.0', id: 5},
-            {text: 'text-input-implementation', id: 6},
-            {text: 'visual-design-tweaks', id: 7},
+            {text: 'main', id: '0'},
+            {text: 'autocomplete-tests', id: '1'},
+            {text: 'a11y-improvements', id: '2'},
+            {text: 'button-bug-fixes', id: '3'},
+            {text: 'radio-input-component', id: '4'},
+            {text: 'release-1.0.0', id: '5'},
+            {text: 'text-input-implementation', id: '6'},
+            {text: 'visual-design-tweaks', id: '7'},
           ]}
           selectedItemIds={[]}
           selectionVariant="single"
@@ -641,6 +646,57 @@ export function AutocompleteWithContextInternal() {
     </Autocomplete.Context.Provider>
   )
 }
+```
+
+#### Rendered inside of a `Dialog`
+
+If you attempt to render an Autocomplete inside of a [Dialog](/Dialog) (or any other component that overlays the page), the menu will be rendered below the parent overlay.
+
+There are two ways to get around this:
+
+1. Register a new `Portal` root inside the `Dialog`, then pass the name of that `Portal` root to `Autocomplete.Overlay`: `<Autocomplete.Overlay portalContainerName="portal-inside-dialog">`
+2. Wait to render the `Autocomplete.Overlay` until after the `Dialog` has opened
+
+```javascript live noinline
+export function InADialog() {
+  const outerContainerRef = React.useRef(null)
+  const [mounted, setMounted] = React.useState(false)
+  const [isDialogOpen, setIsDialogOpen] = React.useState(false)
+
+  useEffect(() => {
+    if (outerContainerRef.current instanceof HTMLElement) {
+      registerPortalRoot(outerContainerRef.current, 'outerContainer')
+      setMounted(true)
+    }
+  }, [isDialogOpen])
+
+  return (
+    <>
+      <Button onClick={() => setIsDialogOpen(!isDialogOpen)}>Show dialog</Button>
+      <Dialog id="dialog-with-autocomplete" isOpen={isDialogOpen}>
+        <div ref={outerContainerRef}>
+          {mounted ? (
+            <FormControl>
+              <FormControl.Label id="autocompleteLabel" />
+              <Autocomplete>
+                <Autocomplete.Input data-testid="autocompleteInput" />
+                <Autocomplete.Overlay portalContainerName="outerContainer">
+                  <Autocomplete.Menu items={items} selectedItemIds={[]} aria-labelledby="autocompleteLabel" />
+                </Autocomplete.Overlay>
+              </Autocomplete>
+            </FormControl>
+          ) : null}
+        </div>
+      </Dialog>
+      <p>
+        The Autocomplete.Overlay is portalled to a div inside the Dialog to ensure it appears above the dialog in the
+        stacking context.
+      </p>
+    </>
+  )
+}
+
+render(<InADialog />)
 ```
 
 ## Props

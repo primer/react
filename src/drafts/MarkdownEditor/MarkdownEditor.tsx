@@ -22,7 +22,7 @@ import {FileType} from '../hooks/useUnifiedFileSelect'
 import {Actions} from './Actions'
 import {Label} from './Label'
 import {CoreToolbar, DefaultToolbarButtons, Toolbar} from './Toolbar'
-import {Footer} from './_Footer'
+import {CoreFooter, Footer} from './Footer'
 import {FormattingTools} from './_FormattingTools'
 import {MarkdownEditorContext} from './_MarkdownEditorContext'
 import {MarkdownInput} from './_MarkdownInput'
@@ -192,6 +192,7 @@ const MarkdownEditor = forwardRef<MarkdownEditorHandle, MarkdownEditorProps>(
       toolbar: Toolbar,
       actions: Actions,
       label: Label,
+      footer: Footer,
     })
     const [uncontrolledViewMode, uncontrolledSetViewMode] = useState<MarkdownViewMode>('edit')
     const [view, setView] =
@@ -350,8 +351,27 @@ const MarkdownEditor = forwardRef<MarkdownEditorHandle, MarkdownEditorProps>(
 
     // If we don't memoize the context object, every child will rerender on every render even if memoized
     const context = useMemo(
-      () => ({disabled, formattingToolsRef, condensed, required}),
-      [disabled, formattingToolsRef, condensed, required],
+      () => ({
+        disabled,
+        formattingToolsRef,
+        condensed,
+        required,
+        fileDraggedOver: fileHandler?.isDraggedOver ?? false,
+        fileUploadProgress: fileHandler?.uploadProgress,
+        uploadButtonProps: fileHandler?.clickTargetProps ?? null,
+        errorMessage: fileHandler?.errorMessage,
+        previewMode: view === 'preview',
+      }),
+      [
+        disabled,
+        condensed,
+        required,
+        fileHandler?.isDraggedOver,
+        fileHandler?.uploadProgress,
+        fileHandler?.clickTargetProps,
+        fileHandler?.errorMessage,
+        view,
+      ],
     )
 
     // We are using MarkdownEditorContext instead of the built-in Slots context because Slots' context is not typesafe
@@ -455,15 +475,9 @@ const MarkdownEditor = forwardRef<MarkdownEditorHandle, MarkdownEditorProps>(
                 />
               </Box>
             )}
-
-            <Footer
-              actionButtons={slots.actions}
-              fileDraggedOver={fileHandler?.isDraggedOver ?? false}
-              fileUploadProgress={fileHandler?.uploadProgress}
-              uploadButtonProps={fileHandler?.clickTargetProps ?? null}
-              errorMessage={fileHandler?.errorMessage}
-              previewMode={view === 'preview'}
-            />
+            {slots.footer ?? (
+              <CoreFooter>{React.isValidElement(slots.actions) && slots.actions.props.children}</CoreFooter>
+            )}
           </Box>
         </fieldset>
       </MarkdownEditorContext.Provider>

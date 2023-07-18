@@ -2,46 +2,40 @@ import {render as HTMLRender, fireEvent, waitFor} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import React from 'react'
 import Autocomplete, {AutocompleteInputProps} from '../Autocomplete'
-import {AutocompleteMenuInternalProps} from '../Autocomplete/AutocompleteMenu'
+import {AutocompleteMenuInternalProps, AutocompleteMenuItem} from '../Autocomplete/AutocompleteMenu'
 import BaseStyles from '../BaseStyles'
 import theme from '../theme'
 import {ThemeProvider} from '../ThemeProvider'
-import {ItemProps} from '../deprecated/ActionList'
 import {SSRProvider} from '../utils/ssr'
 import {render} from '../utils/testing'
-import {MandateProps} from '../utils/types'
 
 const mockItems = [
-  {text: 'zero', id: 0},
-  {text: 'one', id: 1},
-  {text: 'two', id: 2},
-  {text: 'three', id: 3},
-  {text: 'four', id: 4},
-  {text: 'five', id: 5},
-  {text: 'six', id: 6},
-  {text: 'seven', id: 7},
-  {text: 'twenty', id: 20},
-  {text: 'twentyone', id: 21},
+  {text: 'zero', id: '0'},
+  {text: 'one', id: '1'},
+  {text: 'two', id: '2'},
+  {text: 'three', id: '3'},
+  {text: 'four', id: '4'},
+  {text: 'five', id: '5'},
+  {text: 'six', id: '6'},
+  {text: 'seven', id: '7'},
+  {text: 'twenty', id: '20'},
+  {text: 'twentyone', id: '21'},
 ]
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-type AutocompleteItemProps<T = Record<string, any>> = MandateProps<ItemProps, 'id'> & {metadata?: T}
-
 const AUTOCOMPLETE_LABEL = 'Autocomplete field'
-const LabelledAutocomplete = <T extends AutocompleteItemProps>({
+const LabelledAutocomplete = <T extends AutocompleteMenuItem>({
   inputProps = {},
   menuProps,
 }: {
   inputProps?: AutocompleteInputProps
   menuProps: AutocompleteMenuInternalProps<T>
 }) => {
-  const {['aria-labelledby']: ariaLabelledBy = 'autocompleteLabel', ...menuPropsRest} = menuProps
+  const {['aria-labelledby']: ariaLabelledBy, ...menuPropsRest} = menuProps
   const {id = 'autocompleteInput', ...inputPropsRest} = inputProps
   return (
     <ThemeProvider theme={theme}>
       <SSRProvider>
         <BaseStyles>
-          {/* eslint-disable-next-line jsx-a11y/label-has-for */}
           <label htmlFor={id} id={ariaLabelledBy}>
             Autocomplete field
           </label>
@@ -65,7 +59,7 @@ describe('Autocomplete', () => {
       const {container} = HTMLRender(
         <LabelledAutocomplete
           inputProps={{onChange: onChangeMock}}
-          menuProps={{items: mockItems, selectedItemIds: []}}
+          menuProps={{items: mockItems, selectedItemIds: [], ['aria-labelledby']: 'autocompleteLabel'}}
         />,
       )
       const inputNode = container.querySelector('#autocompleteInput')
@@ -79,7 +73,7 @@ describe('Autocomplete', () => {
       const {container} = HTMLRender(
         <LabelledAutocomplete
           inputProps={{onFocus: onFocusMock}}
-          menuProps={{items: mockItems, selectedItemIds: []}}
+          menuProps={{items: mockItems, selectedItemIds: [], ['aria-labelledby']: 'autocompleteLabel'}}
         />,
       )
       const inputNode = container.querySelector('#autocompleteInput')
@@ -92,7 +86,10 @@ describe('Autocomplete', () => {
     it('calls onKeyDown', () => {
       const onKeyDownMock = jest.fn()
       const {getByLabelText} = HTMLRender(
-        <LabelledAutocomplete inputProps={{onKeyDown: onKeyDownMock}} menuProps={{items: [], selectedItemIds: []}} />,
+        <LabelledAutocomplete
+          inputProps={{onKeyDown: onKeyDownMock}}
+          menuProps={{items: [], selectedItemIds: [], ['aria-labelledby']: 'autocompleteLabel'}}
+        />,
       )
       const inputNode = getByLabelText(AUTOCOMPLETE_LABEL)
 
@@ -104,7 +101,10 @@ describe('Autocomplete', () => {
     it('calls onKeyUp', () => {
       const onKeyUpMock = jest.fn()
       const {getByLabelText} = HTMLRender(
-        <LabelledAutocomplete inputProps={{onKeyUp: onKeyUpMock}} menuProps={{items: [], selectedItemIds: []}} />,
+        <LabelledAutocomplete
+          inputProps={{onKeyUp: onKeyUpMock}}
+          menuProps={{items: [], selectedItemIds: [], ['aria-labelledby']: 'autocompleteLabel'}}
+        />,
       )
       const inputNode = getByLabelText(AUTOCOMPLETE_LABEL)
 
@@ -117,7 +117,10 @@ describe('Autocomplete', () => {
       const user = userEvent.setup()
       const onKeyPressMock = jest.fn()
       const {getByLabelText} = HTMLRender(
-        <LabelledAutocomplete inputProps={{onKeyPress: onKeyPressMock}} menuProps={{items: [], selectedItemIds: []}} />,
+        <LabelledAutocomplete
+          inputProps={{onKeyPress: onKeyPressMock}}
+          menuProps={{items: [], selectedItemIds: [], ['aria-labelledby']: 'autocompleteLabel'}}
+        />,
       )
       const inputNode = getByLabelText(AUTOCOMPLETE_LABEL)
 
@@ -127,7 +130,9 @@ describe('Autocomplete', () => {
     })
 
     it('opens the menu when the input is focused', () => {
-      const {getByLabelText} = HTMLRender(<LabelledAutocomplete menuProps={{items: [], selectedItemIds: []}} />)
+      const {getByLabelText} = HTMLRender(
+        <LabelledAutocomplete menuProps={{items: [], selectedItemIds: [], ['aria-labelledby']: 'autocompleteLabel'}} />,
+      )
       const inputNode = getByLabelText(AUTOCOMPLETE_LABEL)
 
       expect(inputNode.getAttribute('aria-expanded')).not.toBe('true')
@@ -136,7 +141,9 @@ describe('Autocomplete', () => {
     })
 
     it('closes the menu when the input is blurred', async () => {
-      const {getByLabelText} = HTMLRender(<LabelledAutocomplete menuProps={{items: [], selectedItemIds: []}} />)
+      const {getByLabelText} = HTMLRender(
+        <LabelledAutocomplete menuProps={{items: [], selectedItemIds: [], ['aria-labelledby']: 'autocompleteLabel'}} />,
+      )
       const inputNode = getByLabelText(AUTOCOMPLETE_LABEL)
 
       expect(inputNode.getAttribute('aria-expanded')).not.toBe('true')
@@ -152,7 +159,9 @@ describe('Autocomplete', () => {
     it('sets the input value to the suggested item text and highlights the untyped part of the word', async () => {
       const user = userEvent.setup()
       const {container, getByDisplayValue} = HTMLRender(
-        <LabelledAutocomplete menuProps={{items: mockItems, selectedItemIds: []}} />,
+        <LabelledAutocomplete
+          menuProps={{items: mockItems, selectedItemIds: [], ['aria-labelledby']: 'autocompleteLabel'}}
+        />,
       )
       const inputNode = container.querySelector('#autocompleteInput')
 
@@ -163,7 +172,9 @@ describe('Autocomplete', () => {
     it('does not show or highlight suggestion text after the user hits Backspace until they hit another key', async () => {
       const user = userEvent.setup()
       const {container, getByDisplayValue} = HTMLRender(
-        <LabelledAutocomplete menuProps={{items: mockItems, selectedItemIds: []}} />,
+        <LabelledAutocomplete
+          menuProps={{items: mockItems, selectedItemIds: [], ['aria-labelledby']: 'autocompleteLabel'}}
+        />,
       )
       const inputNode = container.querySelector('#autocompleteInput')
 
@@ -183,7 +194,11 @@ describe('Autocomplete', () => {
 
     it('clears the input value when the user hits Escape', async () => {
       const user = userEvent.setup()
-      const {container} = HTMLRender(<LabelledAutocomplete menuProps={{items: mockItems, selectedItemIds: []}} />)
+      const {container} = HTMLRender(
+        <LabelledAutocomplete
+          menuProps={{items: mockItems, selectedItemIds: [], ['aria-labelledby']: 'autocompleteLabel'}}
+        />,
+      )
       const inputNode = container.querySelector('#autocompleteInput')
 
       expect(inputNode?.getAttribute('aria-expanded')).not.toBe('true')
@@ -195,7 +210,10 @@ describe('Autocomplete', () => {
 
     it('allows the value to be 0', () => {
       const {getByDisplayValue} = HTMLRender(
-        <LabelledAutocomplete menuProps={{items: mockItems, selectedItemIds: []}} inputProps={{value: 0}} />,
+        <LabelledAutocomplete
+          menuProps={{items: mockItems, selectedItemIds: [], ['aria-labelledby']: 'autocompleteLabel'}}
+          inputProps={{value: 0}}
+        />,
       )
 
       expect(getByDisplayValue('0')).toBeDefined()
@@ -207,7 +225,14 @@ describe('Autocomplete', () => {
       const user = userEvent.setup()
       const filterFnMock = jest.fn()
       const {container} = HTMLRender(
-        <LabelledAutocomplete menuProps={{items: mockItems, selectedItemIds: [], filterFn: filterFnMock}} />,
+        <LabelledAutocomplete
+          menuProps={{
+            items: mockItems,
+            selectedItemIds: [],
+            filterFn: filterFnMock,
+            ['aria-labelledby']: 'autocompleteLabel',
+          }}
+        />,
       )
       const inputNode = container.querySelector('#autocompleteInput')
 
@@ -219,7 +244,14 @@ describe('Autocomplete', () => {
       const user = userEvent.setup()
       const sortOnCloseFnMock = jest.fn()
       const {container} = HTMLRender(
-        <LabelledAutocomplete menuProps={{items: mockItems, selectedItemIds: [], sortOnCloseFn: sortOnCloseFnMock}} />,
+        <LabelledAutocomplete
+          menuProps={{
+            items: mockItems,
+            selectedItemIds: [],
+            sortOnCloseFn: sortOnCloseFnMock,
+            ['aria-labelledby']: 'autocompleteLabel',
+          }}
+        />,
       )
       const inputNode = container.querySelector('#autocompleteInput')
 
@@ -240,7 +272,14 @@ describe('Autocomplete', () => {
       const user = userEvent.setup()
       const onOpenChangeMock = jest.fn()
       const {container} = HTMLRender(
-        <LabelledAutocomplete menuProps={{items: mockItems, selectedItemIds: [], onOpenChange: onOpenChangeMock}} />,
+        <LabelledAutocomplete
+          menuProps={{
+            items: mockItems,
+            selectedItemIds: [],
+            onOpenChange: onOpenChangeMock,
+            ['aria-labelledby']: 'autocompleteLabel',
+          }}
+        />,
       )
       const inputNode = container.querySelector('#autocompleteInput')
 
@@ -253,7 +292,12 @@ describe('Autocomplete', () => {
       const onSelectedChangeMock = jest.fn()
       const {container} = HTMLRender(
         <LabelledAutocomplete
-          menuProps={{items: mockItems, selectedItemIds: [], onSelectedChange: onSelectedChangeMock}}
+          menuProps={{
+            items: mockItems,
+            selectedItemIds: [],
+            onSelectedChange: onSelectedChangeMock,
+            ['aria-labelledby']: 'autocompleteLabel',
+          }}
         />,
       )
       const inputNode = container.querySelector('#autocompleteInput')
@@ -270,7 +314,14 @@ describe('Autocomplete', () => {
     it('does not close the menu when clicking an item in the menu if selectionVariant=multiple', async () => {
       const user = userEvent.setup()
       const {getByText, container} = HTMLRender(
-        <LabelledAutocomplete menuProps={{items: mockItems, selectedItemIds: [], selectionVariant: 'multiple'}} />,
+        <LabelledAutocomplete
+          menuProps={{
+            items: mockItems,
+            selectedItemIds: [],
+            selectionVariant: 'multiple',
+            ['aria-labelledby']: 'autocompleteLabel',
+          }}
+        />,
       )
       const inputNode = container.querySelector('#autocompleteInput')
       const itemToClickNode = getByText(mockItems[1].text)
@@ -285,7 +336,14 @@ describe('Autocomplete', () => {
 
     it('closes the menu when clicking an item in the menu if selectionVariant=single', () => {
       const {getByText, container} = HTMLRender(
-        <LabelledAutocomplete menuProps={{items: mockItems, selectedItemIds: [], selectionVariant: 'single'}} />,
+        <LabelledAutocomplete
+          menuProps={{
+            items: mockItems,
+            selectedItemIds: [],
+            selectionVariant: 'single',
+            ['aria-labelledby']: 'autocompleteLabel',
+          }}
+        />,
       )
       const inputNode = container.querySelector('#autocompleteInput')
       const itemToClickNode = getByText(mockItems[1].text)
@@ -306,9 +364,11 @@ describe('Autocomplete', () => {
             selectedItemIds: [],
             selectionVariant: 'multiple',
             addNewItem: {
+              id: 'add-new-item',
               text: 'Add new item',
               handleAddItem: handleAddItemMock,
             },
+            ['aria-labelledby']: 'autocompleteLabel',
           }}
         />,
       )
@@ -319,6 +379,25 @@ describe('Autocomplete', () => {
       fireEvent.click(addNewItemNode)
       expect(handleAddItemMock).toHaveBeenCalled()
     })
+
+    it('throws an error when passing multiple items when selection="single"', () => {
+      const spy = jest.spyOn(console, 'error').mockImplementation(() => {})
+
+      expect(() => {
+        HTMLRender(
+          <Autocomplete>
+            <Autocomplete.Menu
+              items={mockItems}
+              selectedItemIds={['1', '2', '3']}
+              selectionVariant="single"
+              aria-labelledby="autocompleteLabel"
+            />
+          </Autocomplete>,
+        )
+      }).toThrow('Autocomplete: selectionVariant "single" cannot be used with multiple selected items')
+
+      spy.mockRestore()
+    })
   })
 
   describe('null context', () => {
@@ -327,9 +406,9 @@ describe('Autocomplete', () => {
 
       expect(() => HTMLRender(<Autocomplete.Overlay />)).toThrow('AutocompleteContext returned null values')
       expect(() => HTMLRender(<Autocomplete.Input />)).toThrow('AutocompleteContext returned null values')
-      expect(() => HTMLRender(<Autocomplete.Menu items={mockItems} selectedItemIds={[]} />)).toThrow(
-        'AutocompleteContext returned null values',
-      )
+      expect(() =>
+        HTMLRender(<Autocomplete.Menu items={mockItems} selectedItemIds={[]} aria-labelledby="autocompleteLabel" />),
+      ).toThrow('AutocompleteContext returned null values')
 
       spy.mockRestore()
     })
@@ -377,7 +456,7 @@ describe('snapshots', () => {
             <Autocomplete.Menu
               aria-labelledby="labelId"
               items={mockItems}
-              selectedItemIds={[0, 1, 2]}
+              selectedItemIds={['0', '1', '2']}
               selectionVariant="multiple"
             />
           </Autocomplete>
@@ -399,6 +478,7 @@ describe('snapshots', () => {
               selectionVariant="multiple"
               selectedItemIds={[]}
               addNewItem={{
+                id: 'add-new-item',
                 text: 'Add new item',
                 handleAddItem: handleAddItemMock,
               }}

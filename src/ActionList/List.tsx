@@ -5,10 +5,6 @@ import sx, {SxProp, merge} from '../sx'
 import {AriaRole} from '../utils/types'
 import {ActionListContainerContext} from './ActionListContainerContext'
 import {defaultSxProp} from '../utils/defaultSxProp'
-import {Heading} from './Heading'
-import Box from '../Box'
-import {useSlots} from '../hooks/useSlots'
-import {useId} from '../hooks/useId'
 
 export type ActionListProps = React.PropsWithChildren<{
   /**
@@ -30,10 +26,7 @@ export type ActionListProps = React.PropsWithChildren<{
 }> &
   SxProp
 
-type ContextProps = Pick<ActionListProps, 'variant' | 'selectionVariant' | 'showDividers' | 'role'> & {
-  headingId?: string
-}
-
+type ContextProps = Pick<ActionListProps, 'variant' | 'selectionVariant' | 'showDividers' | 'role'>
 export const ListContext = React.createContext<ContextProps>({})
 
 const ListBox = styled.ul<SxProp>(sx)
@@ -43,13 +36,10 @@ export const List = React.forwardRef<HTMLUListElement, ActionListProps>(
     {variant = 'inset', selectionVariant, showDividers = false, role, sx: sxProp = defaultSxProp, ...props},
     forwardedRef,
   ): JSX.Element => {
-    const outerStyles = {
-      paddingY: variant === 'inset' ? 2 : 0,
-    }
-
-    const innerStyles = {
+    const styles = {
       margin: 0,
       paddingInlineStart: 0, // reset ul styles
+      paddingY: variant === 'inset' ? 2 : 0,
     }
 
     /** if list is inside a Menu, it will get a role from the Menu */
@@ -59,12 +49,14 @@ export const List = React.forwardRef<HTMLUListElement, ActionListProps>(
       selectionVariant: containerSelectionVariant, // TODO: Remove after DropdownMenu2 deprecation
     } = React.useContext(ActionListContainerContext)
 
-    const [slots, rest] = useSlots(props.children, {heading: Heading})
-
-    const headingId = useId()
-
     return (
-      <Box sx={merge(outerStyles, sxProp as SxProp)}>
+      <ListBox
+        sx={merge(styles, sxProp as SxProp)}
+        role={role || listRole}
+        aria-labelledby={listLabelledBy}
+        {...props}
+        ref={forwardedRef}
+      >
         <ListContext.Provider
           value={{
             variant,
@@ -72,21 +64,11 @@ export const List = React.forwardRef<HTMLUListElement, ActionListProps>(
             // @ts-ignore showItemDividers may be passed by some components until next major.
             showDividers: showDividers || !!props.showItemDividers,
             role: role || listRole,
-            headingId,
           }}
         >
-          {slots.heading}
-          <ListBox
-            sx={innerStyles}
-            role={role || listRole}
-            aria-labelledby={slots.heading ? headingId : listLabelledBy}
-            {...props}
-            ref={forwardedRef}
-          >
-            {rest}
-          </ListBox>
+          {props.children}
         </ListContext.Provider>
-      </Box>
+      </ListBox>
     )
   },
 ) as PolymorphicForwardRefComponent<'ul', ActionListProps>

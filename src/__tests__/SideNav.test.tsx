@@ -34,7 +34,7 @@ describe('SideNav', () => {
   })
 
   it('sets aria-label appropriately', () => {
-    expect(render(<SideNav aria-label="foo" />).props['aria-label']).toEqual('foo')
+    expect(render(<SideNav aria-label="Label" />).props['aria-label']).toEqual('Label')
   })
 
   it('sets aria-current on a selected link', () => {

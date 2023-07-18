@@ -1,4 +1,4 @@
-import classnames from 'classnames'
+import clsx from 'clsx'
 import React from 'react'
 import styled, {css} from 'styled-components'
 import Box from '../Box'
@@ -27,7 +27,7 @@ const Timeline = styled.div<{clipSidebar?: boolean} & SxProp>`
 type StyledTimelineItemProps = {condensed?: boolean} & SxProp
 
 const TimelineItem = styled.div.attrs<StyledTimelineItemProps>(props => ({
-  className: classnames('Timeline-Item', props.className),
+  className: clsx('Timeline-Item', props.className),
 }))<StyledTimelineItemProps>`
   display: flex;
   position: relative;

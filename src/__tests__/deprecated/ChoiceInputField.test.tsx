@@ -93,6 +93,7 @@ describe('ChoiceInputField', () => {
             <ChoiceInputField.Label>{CHECKBOXINPUTFIELD_LABEL_TEXT}</ChoiceInputField.Label>
             <Checkbox value="testCheckbox" />
             <ChoiceInputField.LeadingVisual>
+              {/* eslint-disable-next-line github/a11y-aria-label-is-well-formatted */}
               <MarkGithubIcon aria-label="leadingVisualIcon" />
             </ChoiceInputField.LeadingVisual>
           </ChoiceInputField>
