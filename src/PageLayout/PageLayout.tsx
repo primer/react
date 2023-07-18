@@ -114,9 +114,12 @@ const Root: React.FC<React.PropsWithChildren<PageLayoutProps>> = ({
               flex: '1 1 100%',
               flexWrap: 'wrap',
               maxWidth: '100%',
-              [`@media screen and (min-width: ${theme.breakpoints[1]})`]: {
-                columnGap: SPACING_MAP[columnGap],
+              [`@media screen and (max-width: ${theme.breakpoints[2]})`]: {
+                rowGap: SPACING_MAP[rowGap],
               },
+              [`@media screen and (min-width: ${theme.breakpoints[1]})`]: { 
+                columnGap: SPACING_MAP[columnGap],
+              }
             })}
           >
             {rest}
@@ -700,9 +703,6 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
               order: position !== undefined ? panePositions[position] : undefined,
               width: '100%',
               marginX: 0,
-              ...(position === 'end'
-                ? {flexDirection: 'column', marginTop: SPACING_MAP[rowGap]}
-                : {flexDirection: 'column-reverse', marginBottom: SPACING_MAP[rowGap]}),
 
               // Regular and wide viewports
               [`@media screen and (min-width: ${theme.breakpoints[1]})`]: {
