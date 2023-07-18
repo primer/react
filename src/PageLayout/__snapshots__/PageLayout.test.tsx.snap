@@ -51,6 +51,16 @@ exports[`PageLayout renders condensed layout 1`] = `
   padding: 0;
 }
 
+.c8 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  margin-left: 0;
+  margin-right: 0;
+}
+
 .c10 {
   --pane-min-width: 256px;
   --pane-max-width-diff: 511px;
@@ -89,20 +99,6 @@ exports[`PageLayout renders condensed layout 1`] = `
   max-width: 100%;
 }
 
-.c8 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  width: 100%;
-  margin-left: 0;
-  margin-right: 0;
-  -webkit-flex-direction: column-reverse;
-  -ms-flex-direction: column-reverse;
-  flex-direction: column-reverse;
-  margin-bottom: 16px;
-}
-
 .c9 {
   height: 100%;
   position: relative;
@@ -123,6 +119,17 @@ exports[`PageLayout renders condensed layout 1`] = `
   margin-right: -16px;
   display: none;
   margin-bottom: 16px;
+}
+
+@media screen and (min-width:768px) {
+  .c8 {
+    width: auto;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    -webkit-flex-direction: row-reverse;
+    -ms-flex-direction: row-reverse;
+    flex-direction: row-reverse;
+  }
 }
 
 @media screen and (min-width:768px) {
@@ -151,21 +158,16 @@ exports[`PageLayout renders condensed layout 1`] = `
   }
 }
 
-@media screen and (min-width:768px) {
+@media screen and (max-width:1012px) {
   .c5 {
-    -webkit-column-gap: 16px;
-    column-gap: 16px;
+    row-gap: 16px;
   }
 }
 
 @media screen and (min-width:768px) {
-  .c8 {
-    width: auto;
-    margin-top: 0 !important;
-    margin-bottom: 0 !important;
-    -webkit-flex-direction: row-reverse;
-    -ms-flex-direction: row-reverse;
-    flex-direction: row-reverse;
+  .c5 {
+    -webkit-column-gap: 16px;
+    column-gap: 16px;
   }
 }
 
@@ -337,10 +339,6 @@ exports[`PageLayout renders default layout 1`] = `
   width: 100%;
   margin-left: 0;
   margin-right: 0;
-  -webkit-flex-direction: column-reverse;
-  -ms-flex-direction: column-reverse;
-  flex-direction: column-reverse;
-  margin-bottom: 16px;
 }
 
 .c9 {
@@ -400,6 +398,12 @@ exports[`PageLayout renders default layout 1`] = `
   }
 }
 
+@media screen and (max-width:1012px) {
+  .c5 {
+    row-gap: 16px;
+  }
+}
+
 @media screen and (min-width:768px) {
   .c5 {
     -webkit-column-gap: 16px;
@@ -415,12 +419,6 @@ exports[`PageLayout renders default layout 1`] = `
     -webkit-flex-direction: row-reverse;
     -ms-flex-direction: row-reverse;
     flex-direction: row-reverse;
-  }
-}
-
-@media screen and (min-width:1012px) {
-  .c8 {
-    margin-bottom: 24px;
   }
 }
 
@@ -657,10 +655,6 @@ exports[`PageLayout renders pane in different position when narrow 1`] = `
   width: 100%;
   margin-left: 0;
   margin-right: 0;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  margin-top: 16px;
 }
 
 .c10 {
@@ -694,6 +688,12 @@ exports[`PageLayout renders pane in different position when narrow 1`] = `
     margin-left: -24px;
     margin-right: -24px;
     margin-top: 24px;
+  }
+}
+
+@media screen and (max-width:1012px) {
+  .c5 {
+    row-gap: 16px;
   }
 }
 
@@ -752,12 +752,6 @@ exports[`PageLayout renders pane in different position when narrow 1`] = `
     -webkit-flex-direction: row;
     -ms-flex-direction: row;
     flex-direction: row;
-  }
-}
-
-@media screen and (min-width:1012px) {
-  .c8 {
-    margin-top: 24px;
   }
 }
 
@@ -928,10 +922,6 @@ exports[`PageLayout renders with dividers 1`] = `
   width: 100%;
   margin-left: 0;
   margin-right: 0;
-  -webkit-flex-direction: column-reverse;
-  -ms-flex-direction: column-reverse;
-  flex-direction: column-reverse;
-  margin-bottom: 16px;
 }
 
 .c7 {
@@ -991,6 +981,12 @@ exports[`PageLayout renders with dividers 1`] = `
   }
 }
 
+@media screen and (max-width:1012px) {
+  .c5 {
+    row-gap: 16px;
+  }
+}
+
 @media screen and (min-width:768px) {
   .c5 {
     -webkit-column-gap: 16px;
@@ -1006,12 +1002,6 @@ exports[`PageLayout renders with dividers 1`] = `
     -webkit-flex-direction: row-reverse;
     -ms-flex-direction: row-reverse;
     flex-direction: row-reverse;
-  }
-}
-
-@media screen and (min-width:1012px) {
-  .c6 {
-    margin-bottom: 24px;
   }
 }
 

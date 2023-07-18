@@ -117,9 +117,9 @@ const Root: React.FC<React.PropsWithChildren<PageLayoutProps>> = ({
               [`@media screen and (max-width: ${theme.breakpoints[2]})`]: {
                 rowGap: SPACING_MAP[rowGap],
               },
-              [`@media screen and (min-width: ${theme.breakpoints[1]})`]: { 
+              [`@media screen and (min-width: ${theme.breakpoints[1]})`]: {
                 columnGap: SPACING_MAP[columnGap],
-              }
+              },
             })}
           >
             {rest}

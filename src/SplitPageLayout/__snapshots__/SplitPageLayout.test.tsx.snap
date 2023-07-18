@@ -94,10 +94,6 @@ exports[`SplitPageLayout renders default layout 1`] = `
   width: 100%;
   margin-left: 0;
   margin-right: 0;
-  -webkit-flex-direction: column-reverse;
-  -ms-flex-direction: column-reverse;
-  flex-direction: column-reverse;
-  margin-bottom: 0;
 }
 
 .c9 {
@@ -149,6 +145,12 @@ exports[`SplitPageLayout renders default layout 1`] = `
   .c4 {
     margin-left: 0 !important;
     margin-right: 0 !important;
+  }
+}
+
+@media screen and (max-width:1012px) {
+  .c5 {
+    row-gap: 0;
   }
 }
 
