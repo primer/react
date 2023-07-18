@@ -21,7 +21,7 @@ const GlobalStyle = createGlobalStyle<{colorScheme?: 'light' | 'dark'}>`
     outline: none;
     box-shadow: none;
   }
-
+ 
   [tabindex="0"]:focus:not(:focus-visible):not(.focus-visible),
   details-dialog:focus:not(:focus-visible):not(.focus-visible) {
     outline: none;
