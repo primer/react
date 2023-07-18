@@ -137,7 +137,8 @@
           "name": "position",
           "type": "| 'start' | 'end' | { narrow?: | 'start' | 'end' regular?: | 'start' | 'end' wide?: | 'start' | 'end' }",
           "defaultValue": "'end'",
-          "description": ""
+          "description": "",
+          "deprecated": true
         },
         {
           "name": "positionWhenNarrow",

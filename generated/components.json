@@ -637,7 +637,7 @@
         },
         {
           "name": "size",
-          "type": "number",
+          "type": "number | { narrow?: number; regular?: number; wide?: number; }",
           "defaultValue": "20",
           "description": "The size of the avatar in pixels."
         },
@@ -696,6 +696,18 @@
           "type": "boolean",
           "defaultValue": "false",
           "description": "Align the avatars to the right"
+        },
+        {
+          "name": "disableExpand",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "Do not spread the avatars on hover"
+        },
+        {
+          "name": "size",
+          "type": "number | { narrow?: number; regular?: number; wide?: number; }",
+          "defaultValue": "20",
+          "description": "The size of the avatar children in pixels."
         },
         {
           "name": "sx",
@@ -1724,7 +1736,7 @@
       "stories": [
         {
           "id": "components-filteredsearch--default",
-          "code": "() => (\n  <FilteredSearch>\n    <ActionMenu>\n      <ActionMenu.Button as=\"summary\">Filter</ActionMenu.Button>\n      <ActionMenu.Overlay>\n        <ActionList>\n          <ActionList.Item>Item 1</ActionList.Item>\n          <ActionList.Item>Item 2</ActionList.Item>\n          <ActionList.Item>Item 3</ActionList.Item>\n        </ActionList>\n      </ActionMenu.Overlay>\n    </ActionMenu>\n    <TextInput aria-label=\"filtered-search\" leadingVisual={SearchIcon} />\n  </FilteredSearch>\n)"
+          "code": "() => (\n  <FilteredSearch>\n    <ActionMenu>\n      <ActionMenu.Button as=\"summary\">Filter</ActionMenu.Button>\n      <ActionMenu.Overlay>\n        <ActionList>\n          <ActionList.Item>Item 1</ActionList.Item>\n          <ActionList.Item>Item 2</ActionList.Item>\n          <ActionList.Item>Item 3</ActionList.Item>\n        </ActionList>\n      </ActionMenu.Overlay>\n    </ActionMenu>\n    <TextInput aria-label=\"Filtered search\" leadingVisual={SearchIcon} />\n  </FilteredSearch>\n)"
         }
       ],
       "props": [
@@ -2797,7 +2809,8 @@
               "name": "position",
               "type": "| 'start' | 'end' | { narrow?: | 'start' | 'end' regular?: | 'start' | 'end' wide?: | 'start' | 'end' }",
               "defaultValue": "'end'",
-              "description": ""
+              "description": "",
+              "deprecated": true
             },
             {
               "name": "positionWhenNarrow",
@@ -4370,7 +4383,7 @@
           "name": "resize",
           "type": "'both' | 'horizontal' | 'vertical' | 'none'",
           "defaultValue": "'both'",
-          "description": "Changes background color to a higher contrast color"
+          "description": "Changes the resize behavior"
         },
         {
           "name": "validationStatus",
@@ -4381,10 +4394,6 @@
         {
           "name": "ref",
           "type": "React.RefObject<HTMLTextAreaElement>"
-        },
-        {
-          "name": "ref",
-          "type": "React.RefObject<HTMLTextareaElement>"
         },
         {
           "name": "as",
@@ -4708,7 +4717,7 @@
       "stories": [
         {
           "id": "components-treeview--default",
-          "code": "() => (\n  <nav aria-label=\"Files changed\">\n    <TreeView aria-label=\"Files changed\">\n      <TreeView.Item id=\"src\" defaultExpanded>\n        <TreeView.LeadingVisual>\n          <TreeView.DirectoryIcon />\n        </TreeView.LeadingVisual>\n        src\n        <TreeView.SubTree>\n          <TreeView.Item id=\"src/Avatar.tsx\">\n            <TreeView.LeadingVisual>\n              <FileIcon />\n            </TreeView.LeadingVisual>\n            Avatar.tsx\n            <TreeView.TrailingVisual>\n              <Octicon\n                icon={DiffAddedIcon}\n                color=\"success.fg\"\n                aria-label=\"added\"\n              />\n            </TreeView.TrailingVisual>\n          </TreeView.Item>\n          <TreeView.Item id=\"src/Button.tsx\" current>\n            <TreeView.LeadingVisual>\n              <FileIcon />\n            </TreeView.LeadingVisual>\n            Button.tsx\n            <TreeView.TrailingVisual>\n              <Octicon\n                icon={DiffModifiedIcon}\n                color=\"attention.fg\"\n                aria-label=\"modified\"\n              />\n            </TreeView.TrailingVisual>\n          </TreeView.Item>\n        </TreeView.SubTree>\n      </TreeView.Item>\n      <TreeView.Item id=\"package.json\">\n        <TreeView.LeadingVisual>\n          <FileIcon />\n        </TreeView.LeadingVisual>\n        package.json\n        <TreeView.TrailingVisual>\n          <Octicon\n            icon={DiffModifiedIcon}\n            color=\"attention.fg\"\n            aria-label=\"modified\"\n          />\n        </TreeView.TrailingVisual>\n      </TreeView.Item>\n    </TreeView>\n  </nav>\n)"
+          "code": "() => (\n  <nav aria-label=\"Files changed\">\n    <TreeView aria-label=\"Files changed\">\n      <TreeView.Item id=\"src\" defaultExpanded>\n        <TreeView.LeadingVisual>\n          <TreeView.DirectoryIcon />\n        </TreeView.LeadingVisual>\n        src\n        <TreeView.SubTree>\n          <TreeView.Item id=\"src/Avatar.tsx\">\n            <TreeView.LeadingVisual>\n              <FileIcon />\n            </TreeView.LeadingVisual>\n            Avatar.tsx\n            <TreeView.TrailingVisual>\n              <Octicon\n                icon={DiffAddedIcon}\n                color=\"success.fg\"\n                aria-label=\"Added\"\n              />\n            </TreeView.TrailingVisual>\n          </TreeView.Item>\n          <TreeView.Item id=\"src/Button.tsx\" current>\n            <TreeView.LeadingVisual>\n              <FileIcon />\n            </TreeView.LeadingVisual>\n            Button.tsx\n            <TreeView.TrailingVisual>\n              <Octicon\n                icon={DiffModifiedIcon}\n                color=\"attention.fg\"\n                aria-label=\"Modified\"\n              />\n            </TreeView.TrailingVisual>\n          </TreeView.Item>\n        </TreeView.SubTree>\n      </TreeView.Item>\n      <TreeView.Item id=\"package.json\">\n        <TreeView.LeadingVisual>\n          <FileIcon />\n        </TreeView.LeadingVisual>\n        package.json\n        <TreeView.TrailingVisual>\n          <Octicon\n            icon={DiffModifiedIcon}\n            color=\"attention.fg\"\n            aria-label=\"Modified\"\n          />\n        </TreeView.TrailingVisual>\n      </TreeView.Item>\n    </TreeView>\n  </nav>\n)"
         },
         {
           "id": "components-treeview-features--files",
