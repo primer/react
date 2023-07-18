@@ -71,8 +71,9 @@
         {
           "name": "position",
           "type": "| 'start' | 'end' | { narrow?: | 'start' | 'end' regular?: | 'start' | 'end' wide?: | 'start' | 'end' }",
-          "defaultValue": "'start'",
-          "description": ""
+          "defaultValue": "start'",
+          "description": "",
+          "deprecated": true
         },
         {
           "name": "width",
