@@ -93,7 +93,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       lineHeight: TEXT_ROW_HEIGHT,
       minHeight: 5,
       marginX: listVariant === 'inset' ? 2 : 0,
-      borderRadius: listVariant === 'inset' ? 2 : 0,
+      borderRadius: 2,
       transition: 'background 33.333ms linear',
       color: getVariantStyles(variant, disabled).color,
       cursor: 'pointer',
