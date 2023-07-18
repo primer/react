@@ -72,3 +72,5 @@ export const ProgressBar = forwardRef<HTMLSpanElement, ProgressBarProps>(
     )
   },
 )
+
+ProgressBar.displayName = 'ProgressBar'
