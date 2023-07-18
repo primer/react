@@ -103,7 +103,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       appearance: 'none',
       background: 'unset',
       border: 'unset',
-      width: 'calc(100% - 16px)',
+      width: listVariant === 'inset' ? 'calc(100% - 16px)' : '100%',
       fontFamily: 'unset',
       textAlign: 'unset',
       marginY: 'unset',
@@ -203,7 +203,13 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
 
     return (
       <ItemContext.Provider value={{variant, disabled, inlineDescriptionId, blockDescriptionId}}>
-        <LiBox ref={forwardedRef} sx={merge<BetterSystemStyleObject>(styles, sxProp)} {...containerProps} {...props}>
+        <LiBox
+          ref={forwardedRef}
+          sx={merge<BetterSystemStyleObject>(styles, sxProp)}
+          data-variant={variant === 'danger' ? variant : undefined}
+          {...containerProps}
+          {...props}
+        >
           <ItemWrapper {...wrapperProps}>
             <Selection selected={selected} />
             {slots.leadingVisual}

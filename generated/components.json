@@ -2971,7 +2971,7 @@
       "stories": [
         {
           "id": "components-pagination--default",
-          "code": "() => (\n  <Pagination\n    pageCount={15}\n    currentPage={2}\n    onPageChange={(e) => e.preventDefault()}\n  />\n)"
+          "code": "() => (\n  <Pagination\n    pageCount={15}\n    currentPage={2}\n    onPageChange={(e) => e.preventDefault()}\n    showPages={{\n      narrow: false,\n    }}\n  />\n)"
         }
       ],
       "props": [
@@ -3009,7 +3009,7 @@
         },
         {
           "name": "showPages",
-          "type": "boolean",
+          "type": "boolean | { narrow?: boolean, regular?: boolean, wide?: boolean }",
           "defaultValue": "true",
           "description": "Whether or not to show the individual page links."
         },
