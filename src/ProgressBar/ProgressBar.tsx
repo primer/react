@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import {width, WidthProps} from 'styled-system'
 import {get} from '../constants'
 import sx, {SxProp} from '../sx'
+import {warning} from '../utils/warning'
 
 type ProgressProp = {progress?: string | number}
 
@@ -23,7 +24,6 @@ const sizeMap = {
 type StyledProgressContainerProps = {
   inline?: boolean
   barSize?: keyof typeof sizeMap
-  tabIndex?: number
 } & WidthProps &
   SxProp
 
@@ -38,7 +38,8 @@ const ProgressContainer = styled.span<StyledProgressContainerProps>`
   ${sx};
 `
 
-export type ProgressBarProps = React.PropsWithChildren & {bg?: string} & StyledProgressContainerProps & ProgressProp
+export type ProgressBarProps = React.HTMLAttributes<HTMLSpanElement> & {bg?: string} & StyledProgressContainerProps &
+  ProgressProp
 
 export const ProgressBar = forwardRef<HTMLSpanElement, ProgressBarProps>(
   ({progress, bg = 'success.emphasis', barSize = 'default', children, ...rest}: ProgressBarProps, forwardRef) => {
@@ -46,17 +47,14 @@ export const ProgressBar = forwardRef<HTMLSpanElement, ProgressBarProps>(
       throw new Error('You should pass `progress` or children, not both.')
     }
 
-    if (
+    warning(
       children &&
-      typeof (rest as React.AriaAttributes)['aria-valuenow'] === 'undefined' &&
-      typeof (rest as React.AriaAttributes)['aria-valuetext'] === 'undefined'
-    ) {
-      throw new Error(
-        'Use the `aria-valuenow` or `aria-valuetext` so screen reader users can determine the `progress`.',
-      )
-    }
+        typeof (rest as React.AriaAttributes)['aria-valuenow'] === 'undefined' &&
+        typeof (rest as React.AriaAttributes)['aria-valuetext'] === 'undefined',
+      'Expected `aria-valuenow` or `aria-valuetext` to be provided to <ProgressBar>. Provide one of these values so screen reader users can determine the current progress. This warning will become an error in the next major release.',
+    )
 
-    const progressAsNumber = typeof progress === 'string' ? parseInt(progress) : progress
+    const progressAsNumber = typeof progress === 'string' ? parseInt(progress, 10) : progress
 
     const ariaAttributes = {
       'aria-valuenow': progressAsNumber ? Math.round(progressAsNumber) : undefined,
