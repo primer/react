@@ -24,10 +24,10 @@ export type {
   TableActionsProps,
 } from '../DataTable'
 
-export * from './Dialog/Dialog'
-export type {ConfirmationDialogProps} from './Dialog/ConfirmationDialog'
-export {ConfirmationDialog} from './Dialog/ConfirmationDialog'
-export {useConfirm} from './Dialog/ConfirmationDialog'
+export * from './Dialog2/Dialog'
+export type {ConfirmationDialogProps} from './Dialog2/ConfirmationDialog'
+export {ConfirmationDialog} from './Dialog2/ConfirmationDialog'
+export {useConfirm} from './Dialog2/ConfirmationDialog'
 
 export {default as InlineAutocomplete} from './InlineAutocomplete'
 export type {

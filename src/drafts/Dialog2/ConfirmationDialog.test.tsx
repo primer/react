@@ -2,16 +2,16 @@ import {render as HTMLRender, fireEvent} from '@testing-library/react'
 import {axe} from 'jest-axe'
 import React, {useCallback, useRef, useState} from 'react'
 
-import {ActionMenu} from '../ActionMenu'
-import {ActionList} from '../ActionList'
-import BaseStyles from '../BaseStyles'
-import Box from '../Box'
-import {Button} from '../Button'
-import {ConfirmationDialog, useConfirm} from '../drafts/Dialog/ConfirmationDialog'
-import theme from '../theme'
-import {ThemeProvider} from '../ThemeProvider'
-import {SSRProvider} from '../utils/ssr'
-import {behavesAsComponent, checkExports} from '../utils/testing'
+import {ActionMenu} from '../../ActionMenu'
+import {ActionList} from '../../ActionList'
+import BaseStyles from '../../BaseStyles'
+import Box from '../../Box'
+import {Button} from '../../Button'
+import {ConfirmationDialog, useConfirm} from './ConfirmationDialog'
+import theme from '../../theme'
+import {ThemeProvider} from '../../ThemeProvider'
+import {SSRProvider} from '../../utils/ssr'
+import {behavesAsComponent, checkExports} from '../../utils/testing'
 
 const Basic = ({confirmButtonType}: Pick<React.ComponentProps<typeof ConfirmationDialog>, 'confirmButtonType'>) => {
   const [isOpen, setIsOpen] = useState(false)
@@ -83,7 +83,7 @@ describe('ConfirmationDialog', () => {
     options: {skipAs: true, skipSx: true},
   })
 
-  checkExports('drafts/Dialog/ConfirmationDialog', {
+  checkExports('drafts/Dialog2/ConfirmationDialog', {
     default: undefined,
     useConfirm,
     ConfirmationDialog,

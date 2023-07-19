@@ -7,7 +7,7 @@ import {
 import clsx from 'clsx'
 import React, {useCallback, useEffect} from 'react'
 import styled, {keyframes} from 'styled-components'
-import {ConfirmationDialog} from '../drafts/Dialog/ConfirmationDialog'
+import {ConfirmationDialog} from '../drafts/Dialog2/ConfirmationDialog'
 import Spinner from '../Spinner'
 import Text from '../Text'
 import VisuallyHidden from '../_VisuallyHidden'

@@ -1,6 +1,6 @@
 import React, {useCallback, useEffect, useRef, useState} from 'react'
 import styled from 'styled-components'
-import {Box, Button, ButtonProps, IconButton, Portal, Text} from '../../'
+import {Box, Button, ButtonProps, IconButton, Portal, Text} from '../..'
 import {get} from '../../constants'
 import {useOnEscapePress, useProvidedRefOrCreate} from '../../hooks'
 import {useFocusTrap} from '../../hooks/useFocusTrap'

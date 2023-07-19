@@ -1,6 +1,6 @@
 import React, {useState, useRef, useCallback} from 'react'
 import {Meta} from '@storybook/react'
-import {BaseStyles, Box, ThemeProvider, useTheme} from '../../'
+import {BaseStyles, Box, ThemeProvider, useTheme} from '../..'
 import {Button} from '../../Button'
 import {ActionMenu} from '../../ActionMenu'
 import {ActionList} from '../../ActionList'
