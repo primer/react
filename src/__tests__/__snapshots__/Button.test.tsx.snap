@@ -1258,13 +1258,13 @@ exports[`Button styles danger button appropriately 1`] = `
 }
 
 .c0:disabled [data-component=ButtonCounter] {
-  color: inherit;
+  color: btn.danger.disabledCounterFg;
   background-color: btn.danger.disabledCounterBg;
 }
 
 .c0 [data-component=ButtonCounter] {
   font-size: 14px;
-  color: btn.danger.text;
+  color: btn.danger.counterFg;
   background-color: btn.danger.counterBg;
 }
 
@@ -1366,7 +1366,7 @@ exports[`Button styles danger button appropriately 1`] = `
 
 .c0:hover:not([disabled]) [data-component=ButtonCounter] {
   background-color: btn.danger.hoverCounterBg;
-  color: btn.danger.hoverText;
+  color: btn.danger.hoverCounterFg;
 }
 
 .c0:active:not([disabled]) {
@@ -1455,7 +1455,7 @@ exports[`Button styles invisible button appropriately 1`] = `
   transition: 80ms cubic-bezier(0.65,0,0.35,1);
   -webkit-transition-property: color,fill,background-color,border-color;
   transition-property: color,fill,background-color,border-color;
-  color: accent.fg;
+  color: btn.text;
   background-color: transparent;
   box-shadow: none;
 }
@@ -1504,7 +1504,9 @@ exports[`Button styles invisible button appropriately 1`] = `
   color: primer.fg.disabled;
 }
 
-.c0:disabled [data-component=ButtonCounter] {
+.c0:disabled [data-component=ButtonCounter],
+.c0:disabled [data-component="leadingVisual"],
+.c0:disabled [data-component="trailingAction"] {
   color: inherit;
 }
 
@@ -1604,15 +1606,15 @@ exports[`Button styles invisible button appropriately 1`] = `
 }
 
 .c0:hover:not([disabled]) {
-  background-color: btn.hoverBg;
+  background-color: actionListItem.default.hoverBg;
 }
 
 .c0:active:not([disabled]) {
-  background-color: btn.selectedBg;
+  background-color: actionListItem.default.activeBg;
 }
 
 .c0[aria-expanded=true] {
-  background-color: btn.selectedBg;
+  background-color: actionListItem.default.selectedBg;
 }
 
 .c0[data-component="IconButton"][data-no-visuals] {
@@ -1624,7 +1626,7 @@ exports[`Button styles invisible button appropriately 1`] = `
 }
 
 .c0:has([data-component="ButtonCounter"]) {
-  color: accent.fg;
+  color: btn.text;
 }
 
 .c0:disabled[data-no-visuals] {

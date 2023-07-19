@@ -4,8 +4,8 @@ import {
   FileDirectoryFillIcon,
   FileDirectoryOpenFillIcon,
 } from '@primer/octicons-react'
-import classnames from 'classnames'
-import React from 'react'
+import clsx from 'clsx'
+import React, {useCallback, useEffect} from 'react'
 import styled, {keyframes} from 'styled-components'
 import {ConfirmationDialog} from '../Dialog/ConfirmationDialog'
 import Spinner from '../Spinner'
@@ -256,12 +256,27 @@ const Root: React.FC<TreeViewProps> = ({
   flat,
 }) => {
   const containerRef = React.useRef<HTMLUListElement>(null)
+  const mouseDownRef = React.useRef<boolean>(false)
   const [ariaLiveMessage, setAriaLiveMessage] = React.useState('')
   const announceUpdate = React.useCallback((message: string) => {
     setAriaLiveMessage(message)
   }, [])
 
-  useRovingTabIndex({containerRef})
+  const onMouseDown = useCallback(() => {
+    mouseDownRef.current = true
+  }, [])
+
+  useEffect(() => {
+    function onMouseUp() {
+      mouseDownRef.current = false
+    }
+    document.addEventListener('mouseup', onMouseUp)
+    return () => {
+      document.removeEventListener('mouseup', onMouseUp)
+    }
+  }, [])
+
+  useRovingTabIndex({containerRef, mouseDownRef})
   useTypeahead({
     containerRef,
     onFocusChange: element => {
@@ -294,6 +309,7 @@ const Root: React.FC<TreeViewProps> = ({
           aria-label={ariaLabel}
           aria-labelledby={ariaLabelledby}
           data-omit-spacer={flat}
+          onMouseDown={onMouseDown}
         >
           {children}
         </UlBox>
@@ -381,11 +397,15 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
             }
             break
           case 'ArrowRight':
+            // Ignore if modifier keys are pressed
+            if (event.altKey || event.metaKey) return
             event.preventDefault()
             event.stopPropagation()
             setIsExpandedWithCache(true)
             break
           case 'ArrowLeft':
+            // Ignore if modifier keys are pressed
+            if (event.altKey || event.metaKey) return
             event.preventDefault()
             event.stopPropagation()
             setIsExpandedWithCache(false)
@@ -462,7 +482,7 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
             {hasSubTree ? (
               // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
               <div
-                className={classnames(
+                className={clsx(
                   'PRIVATE_TreeView-item-toggle',
                   onSelect && 'PRIVATE_TreeView-item-toggle--hover',
                   level === 1 && 'PRIVATE_TreeView-item-toggle--end',

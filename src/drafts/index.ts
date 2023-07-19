@@ -6,6 +6,9 @@
  * example: import {ActionList} from '@primer/react/drafts
  */
 
+export {Blankslate} from '../Blankslate'
+export type {BlankslateProps} from '../Blankslate'
+
 export {DataTable, Table} from '../DataTable'
 export type {
   DataTableProps,
@@ -51,6 +54,3 @@ export * from '../TreeView'
 export * from '../NavList'
 export * from '../SegmentedControl'
 export * from '../SplitPageLayout'
-
-// CSS Experiment
-export * from './Button2'

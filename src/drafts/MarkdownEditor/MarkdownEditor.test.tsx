@@ -1,13 +1,10 @@
 import {DiffAddedIcon} from '@primer/octicons-react'
-import {fireEvent, render as _render, waitFor, within} from '@testing-library/react'
+import {fireEvent, render as _render, waitFor, within, act} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import {UserEvent} from '@testing-library/user-event/dist/types/setup/setup'
 import React, {forwardRef, useRef, useState} from 'react'
-import {act} from 'react-dom/test-utils'
 import MarkdownEditor, {MarkdownEditorHandle, MarkdownEditorProps, Mentionable, Reference, SavedReply} from '.'
 import ThemeProvider from '../../ThemeProvider'
-
-declare const REACT_VERSION_LATEST: boolean
 
 type UncontrolledEditorProps = Omit<MarkdownEditorProps, 'value' | 'onChange' | 'onRenderPreview' | 'children'> &
   Partial<Pick<MarkdownEditorProps, 'onChange' | 'onRenderPreview' | 'children'>> & {
@@ -57,6 +54,8 @@ const render = async (ui: React.ReactElement) => {
 
   const queryForToolbarButton = (label: string) => within(getToolbar()).queryByRole('button', {name: label})
 
+  const getDefaultFooterButton = () => within(getFooter()).getByRole('link', {name: 'Markdown documentation'})
+
   const getActionButton = (label: string) => within(getFooter()).getByRole('button', {name: label})
 
   const getViewSwitch = () => {
@@ -97,6 +96,7 @@ const render = async (ui: React.ReactElement) => {
     user,
     queryForUploadButton,
     getFooter,
+    getDefaultFooterButton,
     getViewSwitch,
     getPreview,
     queryForPreview,
@@ -287,6 +287,59 @@ describe('MarkdownEditor', () => {
           <MarkdownEditor.Actions>
             <MarkdownEditor.ActionButton ref={ref}>Example</MarkdownEditor.ActionButton>
           </MarkdownEditor.Actions>
+        </UncontrolledEditor>,
+      )
+      expect(ref.current).toBeInstanceOf(HTMLButtonElement)
+    })
+  })
+
+  describe('footer', () => {
+    it('renders default when not using custom footer', async () => {
+      const {getDefaultFooterButton} = await render(<UncontrolledEditor></UncontrolledEditor>)
+      expect(getDefaultFooterButton()).toBeInTheDocument()
+    })
+
+    it('renders custom buttons', async () => {
+      const {getActionButton, getDefaultFooterButton} = await render(
+        <UncontrolledEditor>
+          <MarkdownEditor.Footer>
+            <MarkdownEditor.FooterButton>Footer A</MarkdownEditor.FooterButton>
+            <MarkdownEditor.Actions>
+              <MarkdownEditor.ActionButton>Action A</MarkdownEditor.ActionButton>
+            </MarkdownEditor.Actions>
+          </MarkdownEditor.Footer>
+        </UncontrolledEditor>,
+      )
+      expect(getActionButton('Footer A')).toBeInTheDocument()
+      expect(getDefaultFooterButton()).toBeInTheDocument()
+      expect(getActionButton('Action A')).toBeInTheDocument()
+    })
+
+    it('disables buttons when the editor is disabled (unless explicitly overridden)', async () => {
+      const {getActionButton, getDefaultFooterButton} = await render(
+        <UncontrolledEditor disabled>
+          <MarkdownEditor.Footer>
+            <MarkdownEditor.FooterButton>Footer A</MarkdownEditor.FooterButton>
+            <MarkdownEditor.Actions>
+              <MarkdownEditor.ActionButton>Action A</MarkdownEditor.ActionButton>
+              <MarkdownEditor.ActionButton disabled={false}>Action B</MarkdownEditor.ActionButton>
+            </MarkdownEditor.Actions>
+          </MarkdownEditor.Footer>
+        </UncontrolledEditor>,
+      )
+      expect(getActionButton('Footer A')).toBeDisabled()
+      expect(getDefaultFooterButton()).not.toBeDisabled()
+      expect(getActionButton('Action A')).toBeDisabled()
+      expect(getActionButton('Action B')).not.toBeDisabled()
+    })
+
+    it('forwards action button refs', async () => {
+      const ref: React.RefObject<HTMLButtonElement> = {current: null}
+      await render(
+        <UncontrolledEditor>
+          <MarkdownEditor.Footer>
+            <MarkdownEditor.FooterButton ref={ref}>Footer A</MarkdownEditor.FooterButton>
+          </MarkdownEditor.Footer>
         </UncontrolledEditor>,
       )
       expect(ref.current).toBeInstanceOf(HTMLButtonElement)
@@ -1147,11 +1200,7 @@ describe('MarkdownEditor', () => {
       //
       // At the moment, it doesn't seem clear how to appropriately wrap this
       // interaction in an act() in order to cover this warning
-      if (REACT_VERSION_LATEST) {
-        expect(spy).toHaveBeenCalled()
-      } else {
-        expect(spy).not.toHaveBeenCalled()
-      }
+      expect(spy).toHaveBeenCalled()
       expect(queryByRole('listbox')).toBeInTheDocument()
 
       spy.mockClear()
@@ -1189,11 +1238,7 @@ describe('MarkdownEditor', () => {
       // Note: this spy assertion for console.error() is for an act() violation.
       // It's not clear where this act() violation is located as wrapping the
       // above code does not address this.
-      if (REACT_VERSION_LATEST) {
-        expect(spy).toHaveBeenCalled()
-      } else {
-        expect(spy).not.toHaveBeenCalled()
-      }
+      expect(spy).toHaveBeenCalled()
       spy.mockRestore()
     })
 

@@ -6,11 +6,9 @@ import {ActionMenu} from '../ActionMenu'
 import {useTheme} from '../ThemeProvider'
 import sx, {merge, SxProp} from '../sx'
 import {ResponsiveValue, useResponsiveValue} from '../hooks/useResponsiveValue'
-import {ViewportRangeKeys} from '../utils/types/ViewportRangeKeys'
+import {WidthOnlyViewportRangeKeys} from '../utils/types/ViewportRangeKeys'
 import styled from 'styled-components'
 import {defaultSxProp} from '../utils/defaultSxProp'
-
-type WidthOnlyViewportRangeKeys = Exclude<ViewportRangeKeys, 'narrowLandscape' | 'portrait' | 'landscape'>
 
 // Needed because passing a ref to `Box` causes a type error
 const SegmentedControlList = styled.ul`
@@ -111,7 +109,7 @@ const Root: React.FC<React.PropsWithChildren<SegmentedControlProps>> = ({
           The aria-label is only provided as a backup when the designer or engineer neglects to show a label for the SegmentedControl.
           The best thing to do is to have a visual label who's id is referenced using the `aria-labelledby` prop.
         */}
-        <ActionMenu.Button aria-label={ariaLabel} leadingIcon={getChildIcon(selectedChild)}>
+        <ActionMenu.Button aria-label={ariaLabel} leadingVisual={getChildIcon(selectedChild)}>
           {getChildText(selectedChild)}
         </ActionMenu.Button>
         <ActionMenu.Overlay aria-labelledby={ariaLabelledby}>

@@ -72,7 +72,12 @@ export const withThemeProvider = (Story: React.FC<React.PropsWithChildren<StoryC
       >
         <GlobalStyleMultiTheme />
         {Object.keys(theme.colorSchemes).map(scheme => (
-          <ThemeProvider key={scheme} colorMode="day" dayScheme={scheme}>
+          <ThemeProvider
+            key={scheme}
+            colorMode={scheme.includes('dark') ? 'dark' : 'light'}
+            dayScheme={scheme}
+            nightScheme={scheme}
+          >
             <BaseStyles>
               <Box
                 sx={{
@@ -148,7 +153,7 @@ export const inputWrapperArgTypes: ArgTypes = {
   },
   validationStatus: {
     defaultValue: undefined,
-    options: ['error', 'success', 'warning', undefined],
+    options: ['error', 'success', undefined],
     control: {type: 'radio'},
   },
 }
@@ -303,7 +308,7 @@ export const formControlArgTypes: ArgTypes = {
     control: {
       type: 'radio',
     },
-    options: ['error', 'success', 'warning'],
+    options: ['error', 'success'],
     table: {
       category: 'FormControl.Validation',
     },

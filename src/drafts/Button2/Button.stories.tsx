@@ -1,7 +1,7 @@
 import React from 'react'
 import {EyeClosedIcon, EyeIcon, SearchIcon, TriangleDownIcon, XIcon, HeartIcon} from '@primer/octicons-react'
-import {Story, Meta} from '@storybook/react'
-import {Button} from '.'
+import {Meta, StoryFn} from '@storybook/react'
+import {Button2 as Button} from '.'
 import {OcticonArgType} from '../../utils/story-helpers'
 
 export default {
@@ -21,14 +21,14 @@ export default {
     variant: {
       control: {
         type: 'radio',
-        options: ['default', 'primary', 'danger', 'invisible', 'outline'],
       },
+      options: ['default', 'primary', 'danger', 'invisible', 'outline'],
     },
     alignContent: {
       control: {
         type: 'radio',
-        options: ['center', 'start'],
       },
+      options: ['center', 'start'],
     },
     block: {
       control: {
@@ -57,7 +57,7 @@ export default {
   },
 } as Meta<typeof Button>
 
-export const Playground: Story<typeof Button & {trailingVisualCount: number}> = args => {
+export const Playground: StoryFn = args => {
   const {trailingVisualCount, ...rest} = args
   return (
     <Button {...rest}>

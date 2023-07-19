@@ -26,8 +26,6 @@ exports[`@primer/react should not update exports without a semver change 1`] = `
   "CounterLabel",
   "Details",
   "Dialog",
-  "FilterList",
-  "FilteredSearch",
   "Flash",
   "FormControl",
   "Header",
@@ -39,6 +37,7 @@ exports[`@primer/react should not update exports without a semver change 1`] = `
   "Link",
   "LinkButton",
   "NavList",
+  "Octicon",
   "Overlay",
   "PageLayout",
   "Pagehead",
@@ -110,12 +109,14 @@ exports[`@primer/react/decprecated should not update exports without a semver ch
   "ButtonTableList",
   "DropdownButton",
   "DropdownMenu",
+  "FilterList",
+  "FilteredSearch",
 ]
 `;
 
 exports[`@primer/react/drafts should not update exports without a semver change 1`] = `
 [
-  "Button",
+  "Blankslate",
   "Content",
   "DataTable",
   "Dialog",

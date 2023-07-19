@@ -481,7 +481,96 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
       type="text"
     />
   </span>,
-  .c0 {
+  .c5 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  min-width: 0;
+}
+
+.c6 {
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  font-weight: 400;
+}
+
+.c4 {
+  height: 20px;
+  min-width: 16px;
+  max-width: 20px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  margin-right: 8px;
+}
+
+.c4 rect {
+  fill: #ffffff;
+  stroke: #d0d7de;
+  shape-rendering: auto;
+}
+
+.c4 path {
+  fill: #ffffff;
+  box-shadow: 0 1px 0 rgba(31,35,40,0.04);
+  opacity: 0;
+}
+
+.c7 {
+  height: 20px;
+  min-width: 16px;
+  max-width: 20px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  margin-right: 8px;
+  color: #656d76;
+}
+
+.c7 svg {
+  font-size: 12px;
+}
+
+[data-variant="danger"]:hover .c7,
+[data-variant="danger"]:active .c7 {
+  color: #1F2328;
+}
+
+.c0 {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -494,186 +583,110 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
   border-width: 0;
 }
 
-.c2 {
-  margin-top: 8px;
-  margin-bottom: 8px;
+.c1 {
+  margin: 0;
+  padding-inline-start: 0;
+  padding-top: 8px;
+  padding-bottom: 8px;
 }
 
-.c8 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  min-width: 0;
+.c3 {
   position: relative;
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
-}
-
-.c9 {
-  -webkit-align-items: baseline;
-  -webkit-box-align: baseline;
-  -ms-flex-align: baseline;
-  align-items: baseline;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  min-width: 0;
-  -webkit-flex-direction: var(--main-content-flex-direction);
-  -ms-flex-direction: var(--main-content-flex-direction);
-  flex-direction: var(--main-content-flex-direction);
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
-}
-
-.c4 {
-  padding: 6px 8px;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  border-radius: 6px;
-  color: #1F2328;
-  -webkit-transition: background 33.333ms linear;
-  transition: background 33.333ms linear;
-  -webkit-text-decoration: none;
-  text-decoration: none;
+  padding-left: 8px;
+  padding-right: 8px;
+  font-size: 14px;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  line-height: 20px;
+  min-height: 5px;
   margin-left: 8px;
   margin-right: 8px;
+  border-radius: 6px;
+  -webkit-transition: background 33.333ms linear;
+  transition: background 33.333ms linear;
+  color: #1F2328;
+  cursor: pointer;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: unset;
+  border: unset;
+  width: calc(100% - 16px);
+  font-family: unset;
+  text-align: unset;
+  margin-top: unset;
+  margin-bottom: unset;
 }
 
-.c4:not(:first-of-type):not(.c12 + .c3):not(.c11 + .c3) {
-  margin-top: 0;
+.c3[aria-disabled] {
+  cursor: not-allowed;
 }
 
-.c4:not(:first-of-type):not(.c12 + .c3):not(.c11 + .c3) .c7::before {
-  content: ' ';
+.c3 [data-component="ActionList.Item--DividerContainer"] {
+  position: relative;
+}
+
+.c3 [data-component="ActionList.Item--DividerContainer"]::before {
+  content: " ";
   display: block;
   position: absolute;
   width: 100%;
   top: -7px;
-  border: 0 solid hsla(210,18%,87%,1);
+  border: 0 solid;
   border-top-width: 0;
+  border-color: var(--divider-color,transparent);
 }
 
-.c4:hover .c7::before,
-.c4:hover + * .c7::before {
-  border-color: var(--item-hover-divider-border-color-override,transparent) !important;
+.c3:not(:first-of-type) {
+  --divider-color: rgba(208,215,222,0.48);
 }
 
-.c4:focus .c7::before,
-.c4:focus + * .c7::before,
-.c4[data-is-active-descendant] .c7::before,
-[data-is-active-descendant] + .c4 .c7::before {
-  border-color: transparent !important;
+[data-component="ActionList.Divider"] + .c3 {
+  --divider-color: transparent !important;
 }
 
-.c4[data-is-active-descendant='activated-directly'] {
-  background: rgba(208,215,222,0.48);
+.c3:hover:not([aria-disabled]),
+.c3:focus:not([aria-disabled]),
+.c3[data-focus-visible-added]:not([aria-disabled]) {
+  --divider-color: transparent;
 }
 
-.c4[data-is-active-descendant='activated-indirectly'] {
-  background: rgba(208,215,222,0.32);
+.c3:hover:not([aria-disabled]) + .c2,
+.c3[data-focus-visible-added] + li {
+  --divider-color: transparent;
 }
 
-.c4:focus {
-  background: rgba(208,215,222,0.48);
-  outline: none;
-}
-
-.c4:active {
-  background: rgba(208,215,222,0.48);
-}
-
-.c5 {
-  height: 20px;
-  width: 16px;
-  margin-right: 8px;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
-}
-
-.c10 {
-  height: 20px;
-  width: 16px;
-  margin-right: 8px;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-}
-
-.c10 svg {
-  fill: #656d76;
-  font-size: 12px;
-}
-
-.c6 rect {
-  fill: #ffffff;
-  stroke: #d0d7de;
-  shape-rendering: auto;
-}
-
-.c6 path {
-  fill: #ffffff;
-  opacity: 0;
-}
-
-.c1 {
-  font-size: 14px;
-  line-height: 20px;
-}
-
-.c1[data-has-active-descendant],
-.c1:focus-within {
-  --item-hover-bg-override: none;
-  --item-hover-divider-border-color-override: hsla(210,18%,87%,1);
+.c8:hover:not([aria-disabled]) + .c2,
+.c8[data-focus-visible-added] + li {
+  --divider-color: transparent;
 }
 
 @media (hover:hover) and (pointer:fine) {
-  .c4:hover {
-    background: var( --item-hover-bg-override,rgba(208,215,222,0.32) );
-    cursor: pointer;
+  .c3:hover:not([aria-disabled]) {
+    background-color: rgba(208,215,222,0.32);
+    color: #1F2328;
+  }
+
+  .c3:focus-visible,
+  .c3 > a:focus-visible {
+    outline: none;
+    border: 2 solid;
+    box-shadow: 0 0 0 2px #0969da;
+  }
+
+  .c3:active:not([aria-disabled]) {
+    background-color: rgba(208,215,222,0.48);
+    color: #1F2328;
+  }
+}
+
+@media (forced-colors:active) {
+  .c3:focus {
+    outline: solid 1px transparent !important;
   }
 }
 
@@ -681,630 +694,534 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
     className="c0"
   >
     <div>
-      <div
+      <ul
         aria-labelledby="labelId"
         className="c1"
         id="autocompleteId-listbox"
         role="listbox"
       >
-        <div
-          className="c2"
+        <li
+          aria-labelledby="0 "
+          className="c2 c3"
+          data-id="0"
+          onClick={[Function]}
+          onKeyPress={[Function]}
+          role="option"
+          tabIndex={0}
         >
-          <div
-            aria-labelledby="react-aria-1"
-            aria-selected={false}
-            className="c3 c4"
-            data-id={0}
-            onClick={[Function]}
-            onKeyPress={[Function]}
-            role="option"
-            tabIndex={-1}
+          <span
+            className="c4"
           >
-            <div
-              className="c5"
+            <svg
+              aria-hidden="true"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+              xmlns="http://www.w3.org/2000/svg"
             >
-              <svg
-                aria-hidden="true"
-                className="c6"
-                height="16"
-                selected={false}
-                viewBox="0 0 16 16"
-                width="16"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <rect
-                  height="12"
-                  rx="4"
-                  width="12"
-                  x="2"
-                  y="2"
-                />
-                <path
-                  d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
-                  fillRule="evenodd"
-                  strokeWidth="0"
-                />
-              </svg>
-            </div>
-            <div
-              className="c7 c8"
-            >
-              <div
-                className="c9"
-                style={
-                  {
-                    "--main-content-flex-direction": "row",
-                  }
-                }
-              >
-                <span
-                  className=""
-                  id="react-aria-1"
-                >
-                  zero
-                </span>
-              </div>
-            </div>
-          </div>
+              <rect
+                height="12"
+                rx="4"
+                width="12"
+                x="2"
+                y="2"
+              />
+              <path
+                d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
+                fillRule="evenodd"
+                strokeWidth="0"
+              />
+            </svg>
+          </span>
           <div
-            aria-labelledby="react-aria-3"
-            aria-selected={false}
-            className="c3 c4"
-            data-id={1}
-            onClick={[Function]}
-            onKeyPress={[Function]}
-            role="option"
-            tabIndex={-1}
+            className="c5"
+            data-component="ActionList.Item--DividerContainer"
           >
-            <div
-              className="c5"
+            <span
+              className="c6"
+              id="0"
             >
-              <svg
-                aria-hidden="true"
-                className="c6"
-                height="16"
-                selected={false}
-                viewBox="0 0 16 16"
-                width="16"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <rect
-                  height="12"
-                  rx="4"
-                  width="12"
-                  x="2"
-                  y="2"
-                />
-                <path
-                  d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
-                  fillRule="evenodd"
-                  strokeWidth="0"
-                />
-              </svg>
-            </div>
-            <div
-              className="c7 c8"
-            >
-              <div
-                className="c9"
-                style={
-                  {
-                    "--main-content-flex-direction": "row",
-                  }
-                }
-              >
-                <span
-                  className=""
-                  id="react-aria-3"
-                >
-                  one
-                </span>
-              </div>
-            </div>
+              zero
+            </span>
           </div>
+        </li>
+        <li
+          aria-labelledby="1 "
+          className="c2 c3"
+          data-id="1"
+          onClick={[Function]}
+          onKeyPress={[Function]}
+          role="option"
+          tabIndex={0}
+        >
+          <span
+            className="c4"
+          >
+            <svg
+              aria-hidden="true"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect
+                height="12"
+                rx="4"
+                width="12"
+                x="2"
+                y="2"
+              />
+              <path
+                d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
+                fillRule="evenodd"
+                strokeWidth="0"
+              />
+            </svg>
+          </span>
           <div
-            aria-labelledby="react-aria-5"
-            aria-selected={false}
-            className="c3 c4"
-            data-id={2}
-            onClick={[Function]}
-            onKeyPress={[Function]}
-            role="option"
-            tabIndex={-1}
+            className="c5"
+            data-component="ActionList.Item--DividerContainer"
           >
-            <div
-              className="c5"
+            <span
+              className="c6"
+              id="1"
             >
-              <svg
-                aria-hidden="true"
-                className="c6"
-                height="16"
-                selected={false}
-                viewBox="0 0 16 16"
-                width="16"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <rect
-                  height="12"
-                  rx="4"
-                  width="12"
-                  x="2"
-                  y="2"
-                />
-                <path
-                  d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
-                  fillRule="evenodd"
-                  strokeWidth="0"
-                />
-              </svg>
-            </div>
-            <div
-              className="c7 c8"
-            >
-              <div
-                className="c9"
-                style={
-                  {
-                    "--main-content-flex-direction": "row",
-                  }
-                }
-              >
-                <span
-                  className=""
-                  id="react-aria-5"
-                >
-                  two
-                </span>
-              </div>
-            </div>
+              one
+            </span>
           </div>
+        </li>
+        <li
+          aria-labelledby="2 "
+          className="c2 c3"
+          data-id="2"
+          onClick={[Function]}
+          onKeyPress={[Function]}
+          role="option"
+          tabIndex={0}
+        >
+          <span
+            className="c4"
+          >
+            <svg
+              aria-hidden="true"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect
+                height="12"
+                rx="4"
+                width="12"
+                x="2"
+                y="2"
+              />
+              <path
+                d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
+                fillRule="evenodd"
+                strokeWidth="0"
+              />
+            </svg>
+          </span>
           <div
-            aria-labelledby="react-aria-7"
-            aria-selected={false}
-            className="c3 c4"
-            data-id={3}
-            onClick={[Function]}
-            onKeyPress={[Function]}
-            role="option"
-            tabIndex={-1}
+            className="c5"
+            data-component="ActionList.Item--DividerContainer"
           >
-            <div
-              className="c5"
+            <span
+              className="c6"
+              id="2"
             >
-              <svg
-                aria-hidden="true"
-                className="c6"
-                height="16"
-                selected={false}
-                viewBox="0 0 16 16"
-                width="16"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <rect
-                  height="12"
-                  rx="4"
-                  width="12"
-                  x="2"
-                  y="2"
-                />
-                <path
-                  d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
-                  fillRule="evenodd"
-                  strokeWidth="0"
-                />
-              </svg>
-            </div>
-            <div
-              className="c7 c8"
-            >
-              <div
-                className="c9"
-                style={
-                  {
-                    "--main-content-flex-direction": "row",
-                  }
-                }
-              >
-                <span
-                  className=""
-                  id="react-aria-7"
-                >
-                  three
-                </span>
-              </div>
-            </div>
+              two
+            </span>
           </div>
+        </li>
+        <li
+          aria-labelledby="3 "
+          className="c2 c3"
+          data-id="3"
+          onClick={[Function]}
+          onKeyPress={[Function]}
+          role="option"
+          tabIndex={0}
+        >
+          <span
+            className="c4"
+          >
+            <svg
+              aria-hidden="true"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect
+                height="12"
+                rx="4"
+                width="12"
+                x="2"
+                y="2"
+              />
+              <path
+                d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
+                fillRule="evenodd"
+                strokeWidth="0"
+              />
+            </svg>
+          </span>
           <div
-            aria-labelledby="react-aria-9"
-            aria-selected={false}
-            className="c3 c4"
-            data-id={4}
-            onClick={[Function]}
-            onKeyPress={[Function]}
-            role="option"
-            tabIndex={-1}
+            className="c5"
+            data-component="ActionList.Item--DividerContainer"
           >
-            <div
-              className="c5"
+            <span
+              className="c6"
+              id="3"
             >
-              <svg
-                aria-hidden="true"
-                className="c6"
-                height="16"
-                selected={false}
-                viewBox="0 0 16 16"
-                width="16"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <rect
-                  height="12"
-                  rx="4"
-                  width="12"
-                  x="2"
-                  y="2"
-                />
-                <path
-                  d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
-                  fillRule="evenodd"
-                  strokeWidth="0"
-                />
-              </svg>
-            </div>
-            <div
-              className="c7 c8"
-            >
-              <div
-                className="c9"
-                style={
-                  {
-                    "--main-content-flex-direction": "row",
-                  }
-                }
-              >
-                <span
-                  className=""
-                  id="react-aria-9"
-                >
-                  four
-                </span>
-              </div>
-            </div>
+              three
+            </span>
           </div>
+        </li>
+        <li
+          aria-labelledby="4 "
+          className="c2 c3"
+          data-id="4"
+          onClick={[Function]}
+          onKeyPress={[Function]}
+          role="option"
+          tabIndex={0}
+        >
+          <span
+            className="c4"
+          >
+            <svg
+              aria-hidden="true"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect
+                height="12"
+                rx="4"
+                width="12"
+                x="2"
+                y="2"
+              />
+              <path
+                d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
+                fillRule="evenodd"
+                strokeWidth="0"
+              />
+            </svg>
+          </span>
           <div
-            aria-labelledby="react-aria-11"
-            aria-selected={false}
-            className="c3 c4"
-            data-id={5}
-            onClick={[Function]}
-            onKeyPress={[Function]}
-            role="option"
-            tabIndex={-1}
+            className="c5"
+            data-component="ActionList.Item--DividerContainer"
           >
-            <div
-              className="c5"
+            <span
+              className="c6"
+              id="4"
             >
-              <svg
-                aria-hidden="true"
-                className="c6"
-                height="16"
-                selected={false}
-                viewBox="0 0 16 16"
-                width="16"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <rect
-                  height="12"
-                  rx="4"
-                  width="12"
-                  x="2"
-                  y="2"
-                />
-                <path
-                  d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
-                  fillRule="evenodd"
-                  strokeWidth="0"
-                />
-              </svg>
-            </div>
-            <div
-              className="c7 c8"
-            >
-              <div
-                className="c9"
-                style={
-                  {
-                    "--main-content-flex-direction": "row",
-                  }
-                }
-              >
-                <span
-                  className=""
-                  id="react-aria-11"
-                >
-                  five
-                </span>
-              </div>
-            </div>
+              four
+            </span>
           </div>
+        </li>
+        <li
+          aria-labelledby="5 "
+          className="c2 c3"
+          data-id="5"
+          onClick={[Function]}
+          onKeyPress={[Function]}
+          role="option"
+          tabIndex={0}
+        >
+          <span
+            className="c4"
+          >
+            <svg
+              aria-hidden="true"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect
+                height="12"
+                rx="4"
+                width="12"
+                x="2"
+                y="2"
+              />
+              <path
+                d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
+                fillRule="evenodd"
+                strokeWidth="0"
+              />
+            </svg>
+          </span>
           <div
-            aria-labelledby="react-aria-13"
-            aria-selected={false}
-            className="c3 c4"
-            data-id={6}
-            onClick={[Function]}
-            onKeyPress={[Function]}
-            role="option"
-            tabIndex={-1}
+            className="c5"
+            data-component="ActionList.Item--DividerContainer"
           >
-            <div
-              className="c5"
+            <span
+              className="c6"
+              id="5"
             >
-              <svg
-                aria-hidden="true"
-                className="c6"
-                height="16"
-                selected={false}
-                viewBox="0 0 16 16"
-                width="16"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <rect
-                  height="12"
-                  rx="4"
-                  width="12"
-                  x="2"
-                  y="2"
-                />
-                <path
-                  d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
-                  fillRule="evenodd"
-                  strokeWidth="0"
-                />
-              </svg>
-            </div>
-            <div
-              className="c7 c8"
-            >
-              <div
-                className="c9"
-                style={
-                  {
-                    "--main-content-flex-direction": "row",
-                  }
-                }
-              >
-                <span
-                  className=""
-                  id="react-aria-13"
-                >
-                  six
-                </span>
-              </div>
-            </div>
+              five
+            </span>
           </div>
+        </li>
+        <li
+          aria-labelledby="6 "
+          className="c2 c3"
+          data-id="6"
+          onClick={[Function]}
+          onKeyPress={[Function]}
+          role="option"
+          tabIndex={0}
+        >
+          <span
+            className="c4"
+          >
+            <svg
+              aria-hidden="true"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect
+                height="12"
+                rx="4"
+                width="12"
+                x="2"
+                y="2"
+              />
+              <path
+                d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
+                fillRule="evenodd"
+                strokeWidth="0"
+              />
+            </svg>
+          </span>
           <div
-            aria-labelledby="react-aria-15"
-            aria-selected={false}
-            className="c3 c4"
-            data-id={7}
-            onClick={[Function]}
-            onKeyPress={[Function]}
-            role="option"
-            tabIndex={-1}
+            className="c5"
+            data-component="ActionList.Item--DividerContainer"
           >
-            <div
-              className="c5"
+            <span
+              className="c6"
+              id="6"
             >
-              <svg
-                aria-hidden="true"
-                className="c6"
-                height="16"
-                selected={false}
-                viewBox="0 0 16 16"
-                width="16"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <rect
-                  height="12"
-                  rx="4"
-                  width="12"
-                  x="2"
-                  y="2"
-                />
-                <path
-                  d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
-                  fillRule="evenodd"
-                  strokeWidth="0"
-                />
-              </svg>
-            </div>
-            <div
-              className="c7 c8"
-            >
-              <div
-                className="c9"
-                style={
-                  {
-                    "--main-content-flex-direction": "row",
-                  }
-                }
-              >
-                <span
-                  className=""
-                  id="react-aria-15"
-                >
-                  seven
-                </span>
-              </div>
-            </div>
+              six
+            </span>
           </div>
+        </li>
+        <li
+          aria-labelledby="7 "
+          className="c2 c3"
+          data-id="7"
+          onClick={[Function]}
+          onKeyPress={[Function]}
+          role="option"
+          tabIndex={0}
+        >
+          <span
+            className="c4"
+          >
+            <svg
+              aria-hidden="true"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect
+                height="12"
+                rx="4"
+                width="12"
+                x="2"
+                y="2"
+              />
+              <path
+                d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
+                fillRule="evenodd"
+                strokeWidth="0"
+              />
+            </svg>
+          </span>
           <div
-            aria-labelledby="react-aria-17"
-            aria-selected={false}
-            className="c3 c4"
-            data-id={20}
-            onClick={[Function]}
-            onKeyPress={[Function]}
-            role="option"
-            tabIndex={-1}
+            className="c5"
+            data-component="ActionList.Item--DividerContainer"
           >
-            <div
-              className="c5"
+            <span
+              className="c6"
+              id="7"
             >
-              <svg
-                aria-hidden="true"
-                className="c6"
-                height="16"
-                selected={false}
-                viewBox="0 0 16 16"
-                width="16"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <rect
-                  height="12"
-                  rx="4"
-                  width="12"
-                  x="2"
-                  y="2"
-                />
-                <path
-                  d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
-                  fillRule="evenodd"
-                  strokeWidth="0"
-                />
-              </svg>
-            </div>
-            <div
-              className="c7 c8"
-            >
-              <div
-                className="c9"
-                style={
-                  {
-                    "--main-content-flex-direction": "row",
-                  }
-                }
-              >
-                <span
-                  className=""
-                  id="react-aria-17"
-                >
-                  twenty
-                </span>
-              </div>
-            </div>
+              seven
+            </span>
           </div>
+        </li>
+        <li
+          aria-labelledby="20 "
+          className="c2 c3"
+          data-id="20"
+          onClick={[Function]}
+          onKeyPress={[Function]}
+          role="option"
+          tabIndex={0}
+        >
+          <span
+            className="c4"
+          >
+            <svg
+              aria-hidden="true"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect
+                height="12"
+                rx="4"
+                width="12"
+                x="2"
+                y="2"
+              />
+              <path
+                d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
+                fillRule="evenodd"
+                strokeWidth="0"
+              />
+            </svg>
+          </span>
           <div
-            aria-labelledby="react-aria-19"
-            aria-selected={false}
-            className="c3 c4"
-            data-id={21}
-            onClick={[Function]}
-            onKeyPress={[Function]}
-            role="option"
-            tabIndex={-1}
+            className="c5"
+            data-component="ActionList.Item--DividerContainer"
           >
-            <div
-              className="c5"
+            <span
+              className="c6"
+              id="20"
             >
-              <svg
-                aria-hidden="true"
-                className="c6"
-                height="16"
-                selected={false}
-                viewBox="0 0 16 16"
-                width="16"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <rect
-                  height="12"
-                  rx="4"
-                  width="12"
-                  x="2"
-                  y="2"
-                />
-                <path
-                  d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
-                  fillRule="evenodd"
-                  strokeWidth="0"
-                />
-              </svg>
-            </div>
-            <div
-              className="c7 c8"
-            >
-              <div
-                className="c9"
-                style={
-                  {
-                    "--main-content-flex-direction": "row",
-                  }
-                }
-              >
-                <span
-                  className=""
-                  id="react-aria-19"
-                >
-                  twentyone
-                </span>
-              </div>
-            </div>
+              twenty
+            </span>
           </div>
+        </li>
+        <li
+          aria-labelledby="21 "
+          className="c2 c3"
+          data-id="21"
+          onClick={[Function]}
+          onKeyPress={[Function]}
+          role="option"
+          tabIndex={0}
+        >
+          <span
+            className="c4"
+          >
+            <svg
+              aria-hidden="true"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect
+                height="12"
+                rx="4"
+                width="12"
+                x="2"
+                y="2"
+              />
+              <path
+                d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
+                fillRule="evenodd"
+                strokeWidth="0"
+              />
+            </svg>
+          </span>
           <div
-            aria-labelledby="react-aria-21"
-            className="c3 c4"
-            onClick={[Function]}
-            onKeyPress={[Function]}
-            tabIndex={-1}
+            className="c5"
+            data-component="ActionList.Item--DividerContainer"
           >
-            <div
-              className="c10"
+            <span
+              className="c6"
+              id="21"
             >
-              <svg
-                aria-hidden="true"
-                className="octicon octicon-plus"
-                fill="currentColor"
-                focusable="false"
-                height={16}
-                role="img"
-                style={
-                  {
-                    "display": "inline-block",
-                    "overflow": "visible",
-                    "userSelect": "none",
-                    "verticalAlign": "text-bottom",
-                  }
-                }
-                viewBox="0 0 16 16"
-                width={16}
-              >
-                <path
-                  d="M7.75 2a.75.75 0 0 1 .75.75V7h4.25a.75.75 0 0 1 0 1.5H8.5v4.25a.75.75 0 0 1-1.5 0V8.5H2.75a.75.75 0 0 1 0-1.5H7V2.75A.75.75 0 0 1 7.75 2Z"
-                />
-              </svg>
-            </div>
-            <div
-              className="c7 c8"
-            >
-              <div
-                className="c9"
-                style={
-                  {
-                    "--main-content-flex-direction": "row",
-                  }
-                }
-              >
-                <span
-                  className=""
-                  id="react-aria-21"
-                >
-                  Add new item
-                </span>
-              </div>
-            </div>
+              twentyone
+            </span>
           </div>
-        </div>
-      </div>
+        </li>
+        <li
+          aria-labelledby="add-new-item "
+          className="c2 c3"
+          data-id="add-new-item"
+          onClick={[Function]}
+          onKeyPress={[Function]}
+          role="option"
+          tabIndex={0}
+        >
+          <span
+            className="c4"
+          >
+            <svg
+              aria-hidden="true"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect
+                height="12"
+                rx="4"
+                width="12"
+                x="2"
+                y="2"
+              />
+              <path
+                d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
+                fillRule="evenodd"
+                strokeWidth="0"
+              />
+            </svg>
+          </span>
+          <span
+            className="c7"
+          >
+            <svg
+              aria-hidden="true"
+              className="octicon octicon-plus"
+              fill="currentColor"
+              focusable="false"
+              height={16}
+              role="img"
+              style={
+                {
+                  "display": "inline-block",
+                  "overflow": "visible",
+                  "userSelect": "none",
+                  "verticalAlign": "text-bottom",
+                }
+              }
+              viewBox="0 0 16 16"
+              width={16}
+            >
+              <path
+                d="M7.75 2a.75.75 0 0 1 .75.75V7h4.25a.75.75 0 0 1 0 1.5H8.5v4.25a.75.75 0 0 1-1.5 0V8.5H2.75a.75.75 0 0 1 0-1.5H7V2.75A.75.75 0 0 1 7.75 2Z"
+              />
+            </svg>
+          </span>
+          <div
+            className="c5"
+            data-component="ActionList.Item--DividerContainer"
+          >
+            <span
+              className="c6"
+              id="add-new-item"
+            >
+              Add new item
+            </span>
+          </div>
+        </li>
+      </ul>
     </div>
   </span>,
 ]
@@ -1438,119 +1355,33 @@ exports[`snapshots renders a multiselect input 1`] = `
       type="text"
     />
   </span>,
-  .c0 {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  -webkit-clip: rect(0,0,0,0);
-  clip: rect(0,0,0,0);
-  white-space: nowrap;
-  border-width: 0;
-}
-
-.c2 {
-  margin-top: 8px;
-  margin-bottom: 8px;
-}
-
-.c8 {
+  .c5 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  min-width: 0;
-  position: relative;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
   -webkit-box-flex: 1;
   -webkit-flex-grow: 1;
   -ms-flex-positive: 1;
   flex-grow: 1;
+  min-width: 0;
 }
 
-.c9 {
-  -webkit-align-items: baseline;
-  -webkit-box-align: baseline;
-  -ms-flex-align: baseline;
-  align-items: baseline;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  min-width: 0;
-  -webkit-flex-direction: var(--main-content-flex-direction);
-  -ms-flex-direction: var(--main-content-flex-direction);
-  flex-direction: var(--main-content-flex-direction);
+.c6 {
   -webkit-box-flex: 1;
   -webkit-flex-grow: 1;
   -ms-flex-positive: 1;
   flex-grow: 1;
+  font-weight: 400;
 }
 
 .c4 {
-  padding: 6px 8px;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  border-radius: 6px;
-  color: #1F2328;
-  -webkit-transition: background 33.333ms linear;
-  transition: background 33.333ms linear;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  margin-left: 8px;
-  margin-right: 8px;
-}
-
-.c4:not(:first-of-type):not(.c11 + .c3):not(.c10 + .c3) {
-  margin-top: 0;
-}
-
-.c4:not(:first-of-type):not(.c11 + .c3):not(.c10 + .c3) .c7::before {
-  content: ' ';
-  display: block;
-  position: absolute;
-  width: 100%;
-  top: -7px;
-  border: 0 solid hsla(210,18%,87%,1);
-  border-top-width: 0;
-}
-
-.c4:hover .c7::before,
-.c4:hover + * .c7::before {
-  border-color: var(--item-hover-divider-border-color-override,transparent) !important;
-}
-
-.c4:focus .c7::before,
-.c4:focus + * .c7::before,
-.c4[data-is-active-descendant] .c7::before,
-[data-is-active-descendant] + .c4 .c7::before {
-  border-color: transparent !important;
-}
-
-.c4[data-is-active-descendant='activated-directly'] {
-  background: rgba(208,215,222,0.48);
-}
-
-.c4[data-is-active-descendant='activated-indirectly'] {
-  background: rgba(208,215,222,0.32);
-}
-
-.c4:focus {
-  background: rgba(208,215,222,0.48);
-  outline: none;
-}
-
-.c4:active {
-  background: rgba(208,215,222,0.48);
-}
-
-.c5 {
   height: 20px;
-  width: 16px;
-  margin-right: 8px;
+  min-width: 16px;
+  max-width: 20px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -1566,34 +1397,138 @@ exports[`snapshots renders a multiselect input 1`] = `
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
+  margin-right: 8px;
 }
 
-.c6 rect {
+.c4 rect {
   fill: #ffffff;
   stroke: #d0d7de;
   shape-rendering: auto;
 }
 
-.c6 path {
+.c4 path {
   fill: #ffffff;
+  box-shadow: 0 1px 0 rgba(31,35,40,0.04);
   opacity: 0;
 }
 
-.c1 {
-  font-size: 14px;
-  line-height: 20px;
+.c0 {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  -webkit-clip: rect(0,0,0,0);
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border-width: 0;
 }
 
-.c1[data-has-active-descendant],
-.c1:focus-within {
-  --item-hover-bg-override: none;
-  --item-hover-divider-border-color-override: hsla(210,18%,87%,1);
+.c1 {
+  margin: 0;
+  padding-inline-start: 0;
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+.c3 {
+  position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  padding-left: 8px;
+  padding-right: 8px;
+  font-size: 14px;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  line-height: 20px;
+  min-height: 5px;
+  margin-left: 8px;
+  margin-right: 8px;
+  border-radius: 6px;
+  -webkit-transition: background 33.333ms linear;
+  transition: background 33.333ms linear;
+  color: #1F2328;
+  cursor: pointer;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: unset;
+  border: unset;
+  width: calc(100% - 16px);
+  font-family: unset;
+  text-align: unset;
+  margin-top: unset;
+  margin-bottom: unset;
+}
+
+.c3[aria-disabled] {
+  cursor: not-allowed;
+}
+
+.c3 [data-component="ActionList.Item--DividerContainer"] {
+  position: relative;
+}
+
+.c3 [data-component="ActionList.Item--DividerContainer"]::before {
+  content: " ";
+  display: block;
+  position: absolute;
+  width: 100%;
+  top: -7px;
+  border: 0 solid;
+  border-top-width: 0;
+  border-color: var(--divider-color,transparent);
+}
+
+.c3:not(:first-of-type) {
+  --divider-color: rgba(208,215,222,0.48);
+}
+
+[data-component="ActionList.Divider"] + .c3 {
+  --divider-color: transparent !important;
+}
+
+.c3:hover:not([aria-disabled]),
+.c3:focus:not([aria-disabled]),
+.c3[data-focus-visible-added]:not([aria-disabled]) {
+  --divider-color: transparent;
+}
+
+.c3:hover:not([aria-disabled]) + .c2,
+.c3[data-focus-visible-added] + li {
+  --divider-color: transparent;
+}
+
+.c7:hover:not([aria-disabled]) + .c2,
+.c7[data-focus-visible-added] + li {
+  --divider-color: transparent;
 }
 
 @media (hover:hover) and (pointer:fine) {
-  .c4:hover {
-    background: var( --item-hover-bg-override,rgba(208,215,222,0.32) );
-    cursor: pointer;
+  .c3:hover:not([aria-disabled]) {
+    background-color: rgba(208,215,222,0.32);
+    color: #1F2328;
+  }
+
+  .c3:focus-visible,
+  .c3 > a:focus-visible {
+    outline: none;
+    border: 2 solid;
+    box-shadow: 0 0 0 2px #0969da;
+  }
+
+  .c3:active:not([aria-disabled]) {
+    background-color: rgba(208,215,222,0.48);
+    color: #1F2328;
+  }
+}
+
+@media (forced-colors:active) {
+  .c3:focus {
+    outline: solid 1px transparent !important;
   }
 }
 
@@ -1601,577 +1536,463 @@ exports[`snapshots renders a multiselect input 1`] = `
     className="c0"
   >
     <div>
-      <div
+      <ul
         aria-labelledby="labelId"
         className="c1"
         id="autocompleteId-listbox"
         role="listbox"
       >
-        <div
-          className="c2"
+        <li
+          aria-labelledby="0 "
+          className="c2 c3"
+          data-id="0"
+          onClick={[Function]}
+          onKeyPress={[Function]}
+          role="option"
+          tabIndex={0}
         >
-          <div
-            aria-labelledby="react-aria-1"
-            aria-selected={false}
-            className="c3 c4"
-            data-id={0}
-            onClick={[Function]}
-            onKeyPress={[Function]}
-            role="option"
-            tabIndex={-1}
+          <span
+            className="c4"
           >
-            <div
-              className="c5"
+            <svg
+              aria-hidden="true"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+              xmlns="http://www.w3.org/2000/svg"
             >
-              <svg
-                aria-hidden="true"
-                className="c6"
-                height="16"
-                selected={false}
-                viewBox="0 0 16 16"
-                width="16"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <rect
-                  height="12"
-                  rx="4"
-                  width="12"
-                  x="2"
-                  y="2"
-                />
-                <path
-                  d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
-                  fillRule="evenodd"
-                  strokeWidth="0"
-                />
-              </svg>
-            </div>
-            <div
-              className="c7 c8"
-            >
-              <div
-                className="c9"
-                style={
-                  {
-                    "--main-content-flex-direction": "row",
-                  }
-                }
-              >
-                <span
-                  className=""
-                  id="react-aria-1"
-                >
-                  zero
-                </span>
-              </div>
-            </div>
-          </div>
+              <rect
+                height="12"
+                rx="4"
+                width="12"
+                x="2"
+                y="2"
+              />
+              <path
+                d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
+                fillRule="evenodd"
+                strokeWidth="0"
+              />
+            </svg>
+          </span>
           <div
-            aria-labelledby="react-aria-3"
-            aria-selected={false}
-            className="c3 c4"
-            data-id={1}
-            onClick={[Function]}
-            onKeyPress={[Function]}
-            role="option"
-            tabIndex={-1}
+            className="c5"
+            data-component="ActionList.Item--DividerContainer"
           >
-            <div
-              className="c5"
+            <span
+              className="c6"
+              id="0"
             >
-              <svg
-                aria-hidden="true"
-                className="c6"
-                height="16"
-                selected={false}
-                viewBox="0 0 16 16"
-                width="16"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <rect
-                  height="12"
-                  rx="4"
-                  width="12"
-                  x="2"
-                  y="2"
-                />
-                <path
-                  d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
-                  fillRule="evenodd"
-                  strokeWidth="0"
-                />
-              </svg>
-            </div>
-            <div
-              className="c7 c8"
-            >
-              <div
-                className="c9"
-                style={
-                  {
-                    "--main-content-flex-direction": "row",
-                  }
-                }
-              >
-                <span
-                  className=""
-                  id="react-aria-3"
-                >
-                  one
-                </span>
-              </div>
-            </div>
+              zero
+            </span>
           </div>
+        </li>
+        <li
+          aria-labelledby="1 "
+          className="c2 c3"
+          data-id="1"
+          onClick={[Function]}
+          onKeyPress={[Function]}
+          role="option"
+          tabIndex={0}
+        >
+          <span
+            className="c4"
+          >
+            <svg
+              aria-hidden="true"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect
+                height="12"
+                rx="4"
+                width="12"
+                x="2"
+                y="2"
+              />
+              <path
+                d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
+                fillRule="evenodd"
+                strokeWidth="0"
+              />
+            </svg>
+          </span>
           <div
-            aria-labelledby="react-aria-5"
-            aria-selected={false}
-            className="c3 c4"
-            data-id={2}
-            onClick={[Function]}
-            onKeyPress={[Function]}
-            role="option"
-            tabIndex={-1}
+            className="c5"
+            data-component="ActionList.Item--DividerContainer"
           >
-            <div
-              className="c5"
+            <span
+              className="c6"
+              id="1"
             >
-              <svg
-                aria-hidden="true"
-                className="c6"
-                height="16"
-                selected={false}
-                viewBox="0 0 16 16"
-                width="16"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <rect
-                  height="12"
-                  rx="4"
-                  width="12"
-                  x="2"
-                  y="2"
-                />
-                <path
-                  d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
-                  fillRule="evenodd"
-                  strokeWidth="0"
-                />
-              </svg>
-            </div>
-            <div
-              className="c7 c8"
-            >
-              <div
-                className="c9"
-                style={
-                  {
-                    "--main-content-flex-direction": "row",
-                  }
-                }
-              >
-                <span
-                  className=""
-                  id="react-aria-5"
-                >
-                  two
-                </span>
-              </div>
-            </div>
+              one
+            </span>
           </div>
+        </li>
+        <li
+          aria-labelledby="2 "
+          className="c2 c3"
+          data-id="2"
+          onClick={[Function]}
+          onKeyPress={[Function]}
+          role="option"
+          tabIndex={0}
+        >
+          <span
+            className="c4"
+          >
+            <svg
+              aria-hidden="true"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect
+                height="12"
+                rx="4"
+                width="12"
+                x="2"
+                y="2"
+              />
+              <path
+                d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
+                fillRule="evenodd"
+                strokeWidth="0"
+              />
+            </svg>
+          </span>
           <div
-            aria-labelledby="react-aria-7"
-            aria-selected={false}
-            className="c3 c4"
-            data-id={3}
-            onClick={[Function]}
-            onKeyPress={[Function]}
-            role="option"
-            tabIndex={-1}
+            className="c5"
+            data-component="ActionList.Item--DividerContainer"
           >
-            <div
-              className="c5"
+            <span
+              className="c6"
+              id="2"
             >
-              <svg
-                aria-hidden="true"
-                className="c6"
-                height="16"
-                selected={false}
-                viewBox="0 0 16 16"
-                width="16"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <rect
-                  height="12"
-                  rx="4"
-                  width="12"
-                  x="2"
-                  y="2"
-                />
-                <path
-                  d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
-                  fillRule="evenodd"
-                  strokeWidth="0"
-                />
-              </svg>
-            </div>
-            <div
-              className="c7 c8"
-            >
-              <div
-                className="c9"
-                style={
-                  {
-                    "--main-content-flex-direction": "row",
-                  }
-                }
-              >
-                <span
-                  className=""
-                  id="react-aria-7"
-                >
-                  three
-                </span>
-              </div>
-            </div>
+              two
+            </span>
           </div>
+        </li>
+        <li
+          aria-labelledby="3 "
+          className="c2 c3"
+          data-id="3"
+          onClick={[Function]}
+          onKeyPress={[Function]}
+          role="option"
+          tabIndex={0}
+        >
+          <span
+            className="c4"
+          >
+            <svg
+              aria-hidden="true"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect
+                height="12"
+                rx="4"
+                width="12"
+                x="2"
+                y="2"
+              />
+              <path
+                d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
+                fillRule="evenodd"
+                strokeWidth="0"
+              />
+            </svg>
+          </span>
           <div
-            aria-labelledby="react-aria-9"
-            aria-selected={false}
-            className="c3 c4"
-            data-id={4}
-            onClick={[Function]}
-            onKeyPress={[Function]}
-            role="option"
-            tabIndex={-1}
+            className="c5"
+            data-component="ActionList.Item--DividerContainer"
           >
-            <div
-              className="c5"
+            <span
+              className="c6"
+              id="3"
             >
-              <svg
-                aria-hidden="true"
-                className="c6"
-                height="16"
-                selected={false}
-                viewBox="0 0 16 16"
-                width="16"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <rect
-                  height="12"
-                  rx="4"
-                  width="12"
-                  x="2"
-                  y="2"
-                />
-                <path
-                  d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
-                  fillRule="evenodd"
-                  strokeWidth="0"
-                />
-              </svg>
-            </div>
-            <div
-              className="c7 c8"
-            >
-              <div
-                className="c9"
-                style={
-                  {
-                    "--main-content-flex-direction": "row",
-                  }
-                }
-              >
-                <span
-                  className=""
-                  id="react-aria-9"
-                >
-                  four
-                </span>
-              </div>
-            </div>
+              three
+            </span>
           </div>
+        </li>
+        <li
+          aria-labelledby="4 "
+          className="c2 c3"
+          data-id="4"
+          onClick={[Function]}
+          onKeyPress={[Function]}
+          role="option"
+          tabIndex={0}
+        >
+          <span
+            className="c4"
+          >
+            <svg
+              aria-hidden="true"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect
+                height="12"
+                rx="4"
+                width="12"
+                x="2"
+                y="2"
+              />
+              <path
+                d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
+                fillRule="evenodd"
+                strokeWidth="0"
+              />
+            </svg>
+          </span>
           <div
-            aria-labelledby="react-aria-11"
-            aria-selected={false}
-            className="c3 c4"
-            data-id={5}
-            onClick={[Function]}
-            onKeyPress={[Function]}
-            role="option"
-            tabIndex={-1}
+            className="c5"
+            data-component="ActionList.Item--DividerContainer"
           >
-            <div
-              className="c5"
+            <span
+              className="c6"
+              id="4"
             >
-              <svg
-                aria-hidden="true"
-                className="c6"
-                height="16"
-                selected={false}
-                viewBox="0 0 16 16"
-                width="16"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <rect
-                  height="12"
-                  rx="4"
-                  width="12"
-                  x="2"
-                  y="2"
-                />
-                <path
-                  d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
-                  fillRule="evenodd"
-                  strokeWidth="0"
-                />
-              </svg>
-            </div>
-            <div
-              className="c7 c8"
-            >
-              <div
-                className="c9"
-                style={
-                  {
-                    "--main-content-flex-direction": "row",
-                  }
-                }
-              >
-                <span
-                  className=""
-                  id="react-aria-11"
-                >
-                  five
-                </span>
-              </div>
-            </div>
+              four
+            </span>
           </div>
+        </li>
+        <li
+          aria-labelledby="5 "
+          className="c2 c3"
+          data-id="5"
+          onClick={[Function]}
+          onKeyPress={[Function]}
+          role="option"
+          tabIndex={0}
+        >
+          <span
+            className="c4"
+          >
+            <svg
+              aria-hidden="true"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect
+                height="12"
+                rx="4"
+                width="12"
+                x="2"
+                y="2"
+              />
+              <path
+                d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
+                fillRule="evenodd"
+                strokeWidth="0"
+              />
+            </svg>
+          </span>
           <div
-            aria-labelledby="react-aria-13"
-            aria-selected={false}
-            className="c3 c4"
-            data-id={6}
-            onClick={[Function]}
-            onKeyPress={[Function]}
-            role="option"
-            tabIndex={-1}
+            className="c5"
+            data-component="ActionList.Item--DividerContainer"
           >
-            <div
-              className="c5"
+            <span
+              className="c6"
+              id="5"
             >
-              <svg
-                aria-hidden="true"
-                className="c6"
-                height="16"
-                selected={false}
-                viewBox="0 0 16 16"
-                width="16"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <rect
-                  height="12"
-                  rx="4"
-                  width="12"
-                  x="2"
-                  y="2"
-                />
-                <path
-                  d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
-                  fillRule="evenodd"
-                  strokeWidth="0"
-                />
-              </svg>
-            </div>
-            <div
-              className="c7 c8"
-            >
-              <div
-                className="c9"
-                style={
-                  {
-                    "--main-content-flex-direction": "row",
-                  }
-                }
-              >
-                <span
-                  className=""
-                  id="react-aria-13"
-                >
-                  six
-                </span>
-              </div>
-            </div>
+              five
+            </span>
           </div>
+        </li>
+        <li
+          aria-labelledby="6 "
+          className="c2 c3"
+          data-id="6"
+          onClick={[Function]}
+          onKeyPress={[Function]}
+          role="option"
+          tabIndex={0}
+        >
+          <span
+            className="c4"
+          >
+            <svg
+              aria-hidden="true"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect
+                height="12"
+                rx="4"
+                width="12"
+                x="2"
+                y="2"
+              />
+              <path
+                d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
+                fillRule="evenodd"
+                strokeWidth="0"
+              />
+            </svg>
+          </span>
           <div
-            aria-labelledby="react-aria-15"
-            aria-selected={false}
-            className="c3 c4"
-            data-id={7}
-            onClick={[Function]}
-            onKeyPress={[Function]}
-            role="option"
-            tabIndex={-1}
+            className="c5"
+            data-component="ActionList.Item--DividerContainer"
           >
-            <div
-              className="c5"
+            <span
+              className="c6"
+              id="6"
             >
-              <svg
-                aria-hidden="true"
-                className="c6"
-                height="16"
-                selected={false}
-                viewBox="0 0 16 16"
-                width="16"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <rect
-                  height="12"
-                  rx="4"
-                  width="12"
-                  x="2"
-                  y="2"
-                />
-                <path
-                  d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
-                  fillRule="evenodd"
-                  strokeWidth="0"
-                />
-              </svg>
-            </div>
-            <div
-              className="c7 c8"
-            >
-              <div
-                className="c9"
-                style={
-                  {
-                    "--main-content-flex-direction": "row",
-                  }
-                }
-              >
-                <span
-                  className=""
-                  id="react-aria-15"
-                >
-                  seven
-                </span>
-              </div>
-            </div>
+              six
+            </span>
           </div>
+        </li>
+        <li
+          aria-labelledby="7 "
+          className="c2 c3"
+          data-id="7"
+          onClick={[Function]}
+          onKeyPress={[Function]}
+          role="option"
+          tabIndex={0}
+        >
+          <span
+            className="c4"
+          >
+            <svg
+              aria-hidden="true"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect
+                height="12"
+                rx="4"
+                width="12"
+                x="2"
+                y="2"
+              />
+              <path
+                d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
+                fillRule="evenodd"
+                strokeWidth="0"
+              />
+            </svg>
+          </span>
           <div
-            aria-labelledby="react-aria-17"
-            aria-selected={false}
-            className="c3 c4"
-            data-id={20}
-            onClick={[Function]}
-            onKeyPress={[Function]}
-            role="option"
-            tabIndex={-1}
+            className="c5"
+            data-component="ActionList.Item--DividerContainer"
           >
-            <div
-              className="c5"
+            <span
+              className="c6"
+              id="7"
             >
-              <svg
-                aria-hidden="true"
-                className="c6"
-                height="16"
-                selected={false}
-                viewBox="0 0 16 16"
-                width="16"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <rect
-                  height="12"
-                  rx="4"
-                  width="12"
-                  x="2"
-                  y="2"
-                />
-                <path
-                  d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
-                  fillRule="evenodd"
-                  strokeWidth="0"
-                />
-              </svg>
-            </div>
-            <div
-              className="c7 c8"
-            >
-              <div
-                className="c9"
-                style={
-                  {
-                    "--main-content-flex-direction": "row",
-                  }
-                }
-              >
-                <span
-                  className=""
-                  id="react-aria-17"
-                >
-                  twenty
-                </span>
-              </div>
-            </div>
+              seven
+            </span>
           </div>
+        </li>
+        <li
+          aria-labelledby="20 "
+          className="c2 c3"
+          data-id="20"
+          onClick={[Function]}
+          onKeyPress={[Function]}
+          role="option"
+          tabIndex={0}
+        >
+          <span
+            className="c4"
+          >
+            <svg
+              aria-hidden="true"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect
+                height="12"
+                rx="4"
+                width="12"
+                x="2"
+                y="2"
+              />
+              <path
+                d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
+                fillRule="evenodd"
+                strokeWidth="0"
+              />
+            </svg>
+          </span>
           <div
-            aria-labelledby="react-aria-19"
-            aria-selected={false}
-            className="c3 c4"
-            data-id={21}
-            onClick={[Function]}
-            onKeyPress={[Function]}
-            role="option"
-            tabIndex={-1}
+            className="c5"
+            data-component="ActionList.Item--DividerContainer"
           >
-            <div
-              className="c5"
+            <span
+              className="c6"
+              id="20"
             >
-              <svg
-                aria-hidden="true"
-                className="c6"
-                height="16"
-                selected={false}
-                viewBox="0 0 16 16"
-                width="16"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <rect
-                  height="12"
-                  rx="4"
-                  width="12"
-                  x="2"
-                  y="2"
-                />
-                <path
-                  d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
-                  fillRule="evenodd"
-                  strokeWidth="0"
-                />
-              </svg>
-            </div>
-            <div
-              className="c7 c8"
-            >
-              <div
-                className="c9"
-                style={
-                  {
-                    "--main-content-flex-direction": "row",
-                  }
-                }
-              >
-                <span
-                  className=""
-                  id="react-aria-19"
-                >
-                  twentyone
-                </span>
-              </div>
-            </div>
+              twenty
+            </span>
           </div>
-        </div>
-      </div>
+        </li>
+        <li
+          aria-labelledby="21 "
+          className="c2 c3"
+          data-id="21"
+          onClick={[Function]}
+          onKeyPress={[Function]}
+          role="option"
+          tabIndex={0}
+        >
+          <span
+            className="c4"
+          >
+            <svg
+              aria-hidden="true"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect
+                height="12"
+                rx="4"
+                width="12"
+                x="2"
+                y="2"
+              />
+              <path
+                d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
+                fillRule="evenodd"
+                strokeWidth="0"
+              />
+            </svg>
+          </span>
+          <div
+            className="c5"
+            data-component="ActionList.Item--DividerContainer"
+          >
+            <span
+              className="c6"
+              id="21"
+            >
+              twentyone
+            </span>
+          </div>
+        </li>
+      </ul>
     </div>
   </span>,
 ]
@@ -2305,119 +2126,33 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
       type="text"
     />
   </span>,
-  .c0 {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  -webkit-clip: rect(0,0,0,0);
-  clip: rect(0,0,0,0);
-  white-space: nowrap;
-  border-width: 0;
-}
-
-.c2 {
-  margin-top: 8px;
-  margin-bottom: 8px;
-}
-
-.c8 {
+  .c5 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  min-width: 0;
-  position: relative;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
   -webkit-box-flex: 1;
   -webkit-flex-grow: 1;
   -ms-flex-positive: 1;
   flex-grow: 1;
+  min-width: 0;
 }
 
-.c9 {
-  -webkit-align-items: baseline;
-  -webkit-box-align: baseline;
-  -ms-flex-align: baseline;
-  align-items: baseline;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  min-width: 0;
-  -webkit-flex-direction: var(--main-content-flex-direction);
-  -ms-flex-direction: var(--main-content-flex-direction);
-  flex-direction: var(--main-content-flex-direction);
+.c6 {
   -webkit-box-flex: 1;
   -webkit-flex-grow: 1;
   -ms-flex-positive: 1;
   flex-grow: 1;
+  font-weight: 400;
 }
 
-.c4 {
-  padding: 6px 8px;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  border-radius: 6px;
-  color: #1F2328;
-  -webkit-transition: background 33.333ms linear;
-  transition: background 33.333ms linear;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  margin-left: 8px;
-  margin-right: 8px;
-}
-
-.c4:not(:first-of-type):not(.c12 + .c3):not(.c11 + .c3) {
-  margin-top: 0;
-}
-
-.c4:not(:first-of-type):not(.c12 + .c3):not(.c11 + .c3) .c7::before {
-  content: ' ';
-  display: block;
-  position: absolute;
-  width: 100%;
-  top: -7px;
-  border: 0 solid hsla(210,18%,87%,1);
-  border-top-width: 0;
-}
-
-.c4:hover .c7::before,
-.c4:hover + * .c7::before {
-  border-color: var(--item-hover-divider-border-color-override,transparent) !important;
-}
-
-.c4:focus .c7::before,
-.c4:focus + * .c7::before,
-.c4[data-is-active-descendant] .c7::before,
-[data-is-active-descendant] + .c4 .c7::before {
-  border-color: transparent !important;
-}
-
-.c4[data-is-active-descendant='activated-directly'] {
-  background: rgba(208,215,222,0.48);
-}
-
-.c4[data-is-active-descendant='activated-indirectly'] {
-  background: rgba(208,215,222,0.32);
-}
-
-.c4:focus {
-  background: rgba(208,215,222,0.48);
-  outline: none;
-}
-
-.c4:active {
-  background: rgba(208,215,222,0.48);
-}
-
-.c5 {
+.c7 {
   height: 20px;
-  width: 16px;
-  margin-right: 8px;
+  min-width: 16px;
+  max-width: 20px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -2433,45 +2168,172 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
+  margin-right: 8px;
 }
 
-.c10 rect {
+.c7 rect {
   fill: #ffffff;
   stroke: #d0d7de;
   shape-rendering: auto;
 }
 
-.c10 path {
+.c7 path {
   fill: #ffffff;
+  box-shadow: 0 1px 0 rgba(31,35,40,0.04);
   opacity: 0;
 }
 
-.c6 rect {
+.c4 {
+  height: 20px;
+  min-width: 16px;
+  max-width: 20px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  margin-right: 8px;
+}
+
+.c4 rect {
   fill: #0969da;
   stroke: #0969da;
   shape-rendering: auto;
 }
 
-.c6 path {
+.c4 path {
   fill: #ffffff;
+  box-shadow: 0 1px 0 rgba(31,35,40,0.04);
   opacity: 1;
 }
 
-.c1 {
-  font-size: 14px;
-  line-height: 20px;
+.c0 {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  -webkit-clip: rect(0,0,0,0);
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border-width: 0;
 }
 
-.c1[data-has-active-descendant],
-.c1:focus-within {
-  --item-hover-bg-override: none;
-  --item-hover-divider-border-color-override: hsla(210,18%,87%,1);
+.c1 {
+  margin: 0;
+  padding-inline-start: 0;
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+.c3 {
+  position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  padding-left: 8px;
+  padding-right: 8px;
+  font-size: 14px;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  line-height: 20px;
+  min-height: 5px;
+  margin-left: 8px;
+  margin-right: 8px;
+  border-radius: 6px;
+  -webkit-transition: background 33.333ms linear;
+  transition: background 33.333ms linear;
+  color: #1F2328;
+  cursor: pointer;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: unset;
+  border: unset;
+  width: calc(100% - 16px);
+  font-family: unset;
+  text-align: unset;
+  margin-top: unset;
+  margin-bottom: unset;
+}
+
+.c3[aria-disabled] {
+  cursor: not-allowed;
+}
+
+.c3 [data-component="ActionList.Item--DividerContainer"] {
+  position: relative;
+}
+
+.c3 [data-component="ActionList.Item--DividerContainer"]::before {
+  content: " ";
+  display: block;
+  position: absolute;
+  width: 100%;
+  top: -7px;
+  border: 0 solid;
+  border-top-width: 0;
+  border-color: var(--divider-color,transparent);
+}
+
+.c3:not(:first-of-type) {
+  --divider-color: rgba(208,215,222,0.48);
+}
+
+[data-component="ActionList.Divider"] + .c3 {
+  --divider-color: transparent !important;
+}
+
+.c3:hover:not([aria-disabled]),
+.c3:focus:not([aria-disabled]),
+.c3[data-focus-visible-added]:not([aria-disabled]) {
+  --divider-color: transparent;
+}
+
+.c3:hover:not([aria-disabled]) + .c2,
+.c3[data-focus-visible-added] + li {
+  --divider-color: transparent;
+}
+
+.c8:hover:not([aria-disabled]) + .c2,
+.c8[data-focus-visible-added] + li {
+  --divider-color: transparent;
 }
 
 @media (hover:hover) and (pointer:fine) {
-  .c4:hover {
-    background: var( --item-hover-bg-override,rgba(208,215,222,0.32) );
-    cursor: pointer;
+  .c3:hover:not([aria-disabled]) {
+    background-color: rgba(208,215,222,0.32);
+    color: #1F2328;
+  }
+
+  .c3:focus-visible,
+  .c3 > a:focus-visible {
+    outline: none;
+    border: 2 solid;
+    box-shadow: 0 0 0 2px #0969da;
+  }
+
+  .c3:active:not([aria-disabled]) {
+    background-color: rgba(208,215,222,0.48);
+    color: #1F2328;
+  }
+}
+
+@media (forced-colors:active) {
+  .c3:focus {
+    outline: solid 1px transparent !important;
   }
 }
 
@@ -2479,577 +2341,463 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
     className="c0"
   >
     <div>
-      <div
+      <ul
         aria-labelledby="labelId"
         className="c1"
         id="autocompleteId-listbox"
         role="listbox"
       >
-        <div
-          className="c2"
+        <li
+          aria-labelledby="0 "
+          className="c2 c3"
+          data-id="0"
+          onClick={[Function]}
+          onKeyPress={[Function]}
+          role="option"
+          tabIndex={0}
         >
-          <div
-            aria-labelledby="react-aria-1"
-            aria-selected={true}
-            className="c3 c4"
-            data-id={0}
-            onClick={[Function]}
-            onKeyPress={[Function]}
-            role="option"
-            tabIndex={-1}
+          <span
+            className="c4"
           >
-            <div
-              className="c5"
+            <svg
+              aria-hidden="true"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+              xmlns="http://www.w3.org/2000/svg"
             >
-              <svg
-                aria-hidden="true"
-                className="c6"
-                height="16"
-                selected={true}
-                viewBox="0 0 16 16"
-                width="16"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <rect
-                  height="12"
-                  rx="4"
-                  width="12"
-                  x="2"
-                  y="2"
-                />
-                <path
-                  d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
-                  fillRule="evenodd"
-                  strokeWidth="0"
-                />
-              </svg>
-            </div>
-            <div
-              className="c7 c8"
-            >
-              <div
-                className="c9"
-                style={
-                  {
-                    "--main-content-flex-direction": "row",
-                  }
-                }
-              >
-                <span
-                  className=""
-                  id="react-aria-1"
-                >
-                  zero
-                </span>
-              </div>
-            </div>
-          </div>
+              <rect
+                height="12"
+                rx="4"
+                width="12"
+                x="2"
+                y="2"
+              />
+              <path
+                d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
+                fillRule="evenodd"
+                strokeWidth="0"
+              />
+            </svg>
+          </span>
           <div
-            aria-labelledby="react-aria-3"
-            aria-selected={true}
-            className="c3 c4"
-            data-id={1}
-            onClick={[Function]}
-            onKeyPress={[Function]}
-            role="option"
-            tabIndex={-1}
+            className="c5"
+            data-component="ActionList.Item--DividerContainer"
           >
-            <div
-              className="c5"
+            <span
+              className="c6"
+              id="0"
             >
-              <svg
-                aria-hidden="true"
-                className="c6"
-                height="16"
-                selected={true}
-                viewBox="0 0 16 16"
-                width="16"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <rect
-                  height="12"
-                  rx="4"
-                  width="12"
-                  x="2"
-                  y="2"
-                />
-                <path
-                  d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
-                  fillRule="evenodd"
-                  strokeWidth="0"
-                />
-              </svg>
-            </div>
-            <div
-              className="c7 c8"
-            >
-              <div
-                className="c9"
-                style={
-                  {
-                    "--main-content-flex-direction": "row",
-                  }
-                }
-              >
-                <span
-                  className=""
-                  id="react-aria-3"
-                >
-                  one
-                </span>
-              </div>
-            </div>
+              zero
+            </span>
           </div>
+        </li>
+        <li
+          aria-labelledby="1 "
+          className="c2 c3"
+          data-id="1"
+          onClick={[Function]}
+          onKeyPress={[Function]}
+          role="option"
+          tabIndex={0}
+        >
+          <span
+            className="c4"
+          >
+            <svg
+              aria-hidden="true"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect
+                height="12"
+                rx="4"
+                width="12"
+                x="2"
+                y="2"
+              />
+              <path
+                d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
+                fillRule="evenodd"
+                strokeWidth="0"
+              />
+            </svg>
+          </span>
           <div
-            aria-labelledby="react-aria-5"
-            aria-selected={true}
-            className="c3 c4"
-            data-id={2}
-            onClick={[Function]}
-            onKeyPress={[Function]}
-            role="option"
-            tabIndex={-1}
+            className="c5"
+            data-component="ActionList.Item--DividerContainer"
           >
-            <div
-              className="c5"
+            <span
+              className="c6"
+              id="1"
             >
-              <svg
-                aria-hidden="true"
-                className="c6"
-                height="16"
-                selected={true}
-                viewBox="0 0 16 16"
-                width="16"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <rect
-                  height="12"
-                  rx="4"
-                  width="12"
-                  x="2"
-                  y="2"
-                />
-                <path
-                  d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
-                  fillRule="evenodd"
-                  strokeWidth="0"
-                />
-              </svg>
-            </div>
-            <div
-              className="c7 c8"
-            >
-              <div
-                className="c9"
-                style={
-                  {
-                    "--main-content-flex-direction": "row",
-                  }
-                }
-              >
-                <span
-                  className=""
-                  id="react-aria-5"
-                >
-                  two
-                </span>
-              </div>
-            </div>
+              one
+            </span>
           </div>
+        </li>
+        <li
+          aria-labelledby="2 "
+          className="c2 c3"
+          data-id="2"
+          onClick={[Function]}
+          onKeyPress={[Function]}
+          role="option"
+          tabIndex={0}
+        >
+          <span
+            className="c4"
+          >
+            <svg
+              aria-hidden="true"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect
+                height="12"
+                rx="4"
+                width="12"
+                x="2"
+                y="2"
+              />
+              <path
+                d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
+                fillRule="evenodd"
+                strokeWidth="0"
+              />
+            </svg>
+          </span>
           <div
-            aria-labelledby="react-aria-7"
-            aria-selected={false}
-            className="c3 c4"
-            data-id={3}
-            onClick={[Function]}
-            onKeyPress={[Function]}
-            role="option"
-            tabIndex={-1}
+            className="c5"
+            data-component="ActionList.Item--DividerContainer"
           >
-            <div
-              className="c5"
+            <span
+              className="c6"
+              id="2"
             >
-              <svg
-                aria-hidden="true"
-                className="c10"
-                height="16"
-                selected={false}
-                viewBox="0 0 16 16"
-                width="16"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <rect
-                  height="12"
-                  rx="4"
-                  width="12"
-                  x="2"
-                  y="2"
-                />
-                <path
-                  d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
-                  fillRule="evenodd"
-                  strokeWidth="0"
-                />
-              </svg>
-            </div>
-            <div
-              className="c7 c8"
-            >
-              <div
-                className="c9"
-                style={
-                  {
-                    "--main-content-flex-direction": "row",
-                  }
-                }
-              >
-                <span
-                  className=""
-                  id="react-aria-7"
-                >
-                  three
-                </span>
-              </div>
-            </div>
+              two
+            </span>
           </div>
+        </li>
+        <li
+          aria-labelledby="3 "
+          className="c2 c3"
+          data-id="3"
+          onClick={[Function]}
+          onKeyPress={[Function]}
+          role="option"
+          tabIndex={0}
+        >
+          <span
+            className="c7"
+          >
+            <svg
+              aria-hidden="true"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect
+                height="12"
+                rx="4"
+                width="12"
+                x="2"
+                y="2"
+              />
+              <path
+                d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
+                fillRule="evenodd"
+                strokeWidth="0"
+              />
+            </svg>
+          </span>
           <div
-            aria-labelledby="react-aria-9"
-            aria-selected={false}
-            className="c3 c4"
-            data-id={4}
-            onClick={[Function]}
-            onKeyPress={[Function]}
-            role="option"
-            tabIndex={-1}
+            className="c5"
+            data-component="ActionList.Item--DividerContainer"
           >
-            <div
-              className="c5"
+            <span
+              className="c6"
+              id="3"
             >
-              <svg
-                aria-hidden="true"
-                className="c10"
-                height="16"
-                selected={false}
-                viewBox="0 0 16 16"
-                width="16"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <rect
-                  height="12"
-                  rx="4"
-                  width="12"
-                  x="2"
-                  y="2"
-                />
-                <path
-                  d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
-                  fillRule="evenodd"
-                  strokeWidth="0"
-                />
-              </svg>
-            </div>
-            <div
-              className="c7 c8"
-            >
-              <div
-                className="c9"
-                style={
-                  {
-                    "--main-content-flex-direction": "row",
-                  }
-                }
-              >
-                <span
-                  className=""
-                  id="react-aria-9"
-                >
-                  four
-                </span>
-              </div>
-            </div>
+              three
+            </span>
           </div>
+        </li>
+        <li
+          aria-labelledby="4 "
+          className="c2 c3"
+          data-id="4"
+          onClick={[Function]}
+          onKeyPress={[Function]}
+          role="option"
+          tabIndex={0}
+        >
+          <span
+            className="c7"
+          >
+            <svg
+              aria-hidden="true"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect
+                height="12"
+                rx="4"
+                width="12"
+                x="2"
+                y="2"
+              />
+              <path
+                d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
+                fillRule="evenodd"
+                strokeWidth="0"
+              />
+            </svg>
+          </span>
           <div
-            aria-labelledby="react-aria-11"
-            aria-selected={false}
-            className="c3 c4"
-            data-id={5}
-            onClick={[Function]}
-            onKeyPress={[Function]}
-            role="option"
-            tabIndex={-1}
+            className="c5"
+            data-component="ActionList.Item--DividerContainer"
           >
-            <div
-              className="c5"
+            <span
+              className="c6"
+              id="4"
             >
-              <svg
-                aria-hidden="true"
-                className="c10"
-                height="16"
-                selected={false}
-                viewBox="0 0 16 16"
-                width="16"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <rect
-                  height="12"
-                  rx="4"
-                  width="12"
-                  x="2"
-                  y="2"
-                />
-                <path
-                  d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
-                  fillRule="evenodd"
-                  strokeWidth="0"
-                />
-              </svg>
-            </div>
-            <div
-              className="c7 c8"
-            >
-              <div
-                className="c9"
-                style={
-                  {
-                    "--main-content-flex-direction": "row",
-                  }
-                }
-              >
-                <span
-                  className=""
-                  id="react-aria-11"
-                >
-                  five
-                </span>
-              </div>
-            </div>
+              four
+            </span>
           </div>
+        </li>
+        <li
+          aria-labelledby="5 "
+          className="c2 c3"
+          data-id="5"
+          onClick={[Function]}
+          onKeyPress={[Function]}
+          role="option"
+          tabIndex={0}
+        >
+          <span
+            className="c7"
+          >
+            <svg
+              aria-hidden="true"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect
+                height="12"
+                rx="4"
+                width="12"
+                x="2"
+                y="2"
+              />
+              <path
+                d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
+                fillRule="evenodd"
+                strokeWidth="0"
+              />
+            </svg>
+          </span>
           <div
-            aria-labelledby="react-aria-13"
-            aria-selected={false}
-            className="c3 c4"
-            data-id={6}
-            onClick={[Function]}
-            onKeyPress={[Function]}
-            role="option"
-            tabIndex={-1}
+            className="c5"
+            data-component="ActionList.Item--DividerContainer"
           >
-            <div
-              className="c5"
+            <span
+              className="c6"
+              id="5"
             >
-              <svg
-                aria-hidden="true"
-                className="c10"
-                height="16"
-                selected={false}
-                viewBox="0 0 16 16"
-                width="16"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <rect
-                  height="12"
-                  rx="4"
-                  width="12"
-                  x="2"
-                  y="2"
-                />
-                <path
-                  d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
-                  fillRule="evenodd"
-                  strokeWidth="0"
-                />
-              </svg>
-            </div>
-            <div
-              className="c7 c8"
-            >
-              <div
-                className="c9"
-                style={
-                  {
-                    "--main-content-flex-direction": "row",
-                  }
-                }
-              >
-                <span
-                  className=""
-                  id="react-aria-13"
-                >
-                  six
-                </span>
-              </div>
-            </div>
+              five
+            </span>
           </div>
+        </li>
+        <li
+          aria-labelledby="6 "
+          className="c2 c3"
+          data-id="6"
+          onClick={[Function]}
+          onKeyPress={[Function]}
+          role="option"
+          tabIndex={0}
+        >
+          <span
+            className="c7"
+          >
+            <svg
+              aria-hidden="true"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect
+                height="12"
+                rx="4"
+                width="12"
+                x="2"
+                y="2"
+              />
+              <path
+                d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
+                fillRule="evenodd"
+                strokeWidth="0"
+              />
+            </svg>
+          </span>
           <div
-            aria-labelledby="react-aria-15"
-            aria-selected={false}
-            className="c3 c4"
-            data-id={7}
-            onClick={[Function]}
-            onKeyPress={[Function]}
-            role="option"
-            tabIndex={-1}
+            className="c5"
+            data-component="ActionList.Item--DividerContainer"
           >
-            <div
-              className="c5"
+            <span
+              className="c6"
+              id="6"
             >
-              <svg
-                aria-hidden="true"
-                className="c10"
-                height="16"
-                selected={false}
-                viewBox="0 0 16 16"
-                width="16"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <rect
-                  height="12"
-                  rx="4"
-                  width="12"
-                  x="2"
-                  y="2"
-                />
-                <path
-                  d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
-                  fillRule="evenodd"
-                  strokeWidth="0"
-                />
-              </svg>
-            </div>
-            <div
-              className="c7 c8"
-            >
-              <div
-                className="c9"
-                style={
-                  {
-                    "--main-content-flex-direction": "row",
-                  }
-                }
-              >
-                <span
-                  className=""
-                  id="react-aria-15"
-                >
-                  seven
-                </span>
-              </div>
-            </div>
+              six
+            </span>
           </div>
+        </li>
+        <li
+          aria-labelledby="7 "
+          className="c2 c3"
+          data-id="7"
+          onClick={[Function]}
+          onKeyPress={[Function]}
+          role="option"
+          tabIndex={0}
+        >
+          <span
+            className="c7"
+          >
+            <svg
+              aria-hidden="true"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect
+                height="12"
+                rx="4"
+                width="12"
+                x="2"
+                y="2"
+              />
+              <path
+                d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
+                fillRule="evenodd"
+                strokeWidth="0"
+              />
+            </svg>
+          </span>
           <div
-            aria-labelledby="react-aria-17"
-            aria-selected={false}
-            className="c3 c4"
-            data-id={20}
-            onClick={[Function]}
-            onKeyPress={[Function]}
-            role="option"
-            tabIndex={-1}
+            className="c5"
+            data-component="ActionList.Item--DividerContainer"
           >
-            <div
-              className="c5"
+            <span
+              className="c6"
+              id="7"
             >
-              <svg
-                aria-hidden="true"
-                className="c10"
-                height="16"
-                selected={false}
-                viewBox="0 0 16 16"
-                width="16"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <rect
-                  height="12"
-                  rx="4"
-                  width="12"
-                  x="2"
-                  y="2"
-                />
-                <path
-                  d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
-                  fillRule="evenodd"
-                  strokeWidth="0"
-                />
-              </svg>
-            </div>
-            <div
-              className="c7 c8"
-            >
-              <div
-                className="c9"
-                style={
-                  {
-                    "--main-content-flex-direction": "row",
-                  }
-                }
-              >
-                <span
-                  className=""
-                  id="react-aria-17"
-                >
-                  twenty
-                </span>
-              </div>
-            </div>
+              seven
+            </span>
           </div>
+        </li>
+        <li
+          aria-labelledby="20 "
+          className="c2 c3"
+          data-id="20"
+          onClick={[Function]}
+          onKeyPress={[Function]}
+          role="option"
+          tabIndex={0}
+        >
+          <span
+            className="c7"
+          >
+            <svg
+              aria-hidden="true"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect
+                height="12"
+                rx="4"
+                width="12"
+                x="2"
+                y="2"
+              />
+              <path
+                d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
+                fillRule="evenodd"
+                strokeWidth="0"
+              />
+            </svg>
+          </span>
           <div
-            aria-labelledby="react-aria-19"
-            aria-selected={false}
-            className="c3 c4"
-            data-id={21}
-            onClick={[Function]}
-            onKeyPress={[Function]}
-            role="option"
-            tabIndex={-1}
+            className="c5"
+            data-component="ActionList.Item--DividerContainer"
           >
-            <div
-              className="c5"
+            <span
+              className="c6"
+              id="20"
             >
-              <svg
-                aria-hidden="true"
-                className="c10"
-                height="16"
-                selected={false}
-                viewBox="0 0 16 16"
-                width="16"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <rect
-                  height="12"
-                  rx="4"
-                  width="12"
-                  x="2"
-                  y="2"
-                />
-                <path
-                  d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
-                  fillRule="evenodd"
-                  strokeWidth="0"
-                />
-              </svg>
-            </div>
-            <div
-              className="c7 c8"
-            >
-              <div
-                className="c9"
-                style={
-                  {
-                    "--main-content-flex-direction": "row",
-                  }
-                }
-              >
-                <span
-                  className=""
-                  id="react-aria-19"
-                >
-                  twentyone
-                </span>
-              </div>
-            </div>
+              twenty
+            </span>
           </div>
-        </div>
-      </div>
+        </li>
+        <li
+          aria-labelledby="21 "
+          className="c2 c3"
+          data-id="21"
+          onClick={[Function]}
+          onKeyPress={[Function]}
+          role="option"
+          tabIndex={0}
+        >
+          <span
+            className="c7"
+          >
+            <svg
+              aria-hidden="true"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect
+                height="12"
+                rx="4"
+                width="12"
+                x="2"
+                y="2"
+              />
+              <path
+                d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
+                fillRule="evenodd"
+                strokeWidth="0"
+              />
+            </svg>
+          </span>
+          <div
+            className="c5"
+            data-component="ActionList.Item--DividerContainer"
+          >
+            <span
+              className="c6"
+              id="21"
+            >
+              twentyone
+            </span>
+          </div>
+        </li>
+      </ul>
     </div>
   </span>,
 ]
@@ -3183,7 +2931,52 @@ exports[`snapshots renders a single select input 1`] = `
       type="text"
     />
   </span>,
-  .c0 {
+  .c4 {
+  height: 20px;
+  min-width: 16px;
+  max-width: 20px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  margin-right: 8px;
+}
+
+.c5 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  min-width: 0;
+}
+
+.c6 {
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  font-weight: 400;
+}
+
+.c0 {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -3196,117 +2989,110 @@ exports[`snapshots renders a single select input 1`] = `
   border-width: 0;
 }
 
-.c2 {
-  margin-top: 8px;
-  margin-bottom: 8px;
+.c1 {
+  margin: 0;
+  padding-inline-start: 0;
+  padding-top: 8px;
+  padding-bottom: 8px;
 }
 
-.c6 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  min-width: 0;
+.c3 {
   position: relative;
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
-}
-
-.c7 {
-  -webkit-align-items: baseline;
-  -webkit-box-align: baseline;
-  -ms-flex-align: baseline;
-  align-items: baseline;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  min-width: 0;
-  -webkit-flex-direction: var(--main-content-flex-direction);
-  -ms-flex-direction: var(--main-content-flex-direction);
-  flex-direction: var(--main-content-flex-direction);
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
-}
-
-.c4 {
-  padding: 6px 8px;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  border-radius: 6px;
-  color: #1F2328;
-  -webkit-transition: background 33.333ms linear;
-  transition: background 33.333ms linear;
-  -webkit-text-decoration: none;
-  text-decoration: none;
+  padding-left: 8px;
+  padding-right: 8px;
+  font-size: 14px;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  line-height: 20px;
+  min-height: 5px;
   margin-left: 8px;
   margin-right: 8px;
+  border-radius: 6px;
+  -webkit-transition: background 33.333ms linear;
+  transition: background 33.333ms linear;
+  color: #1F2328;
+  cursor: pointer;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: unset;
+  border: unset;
+  width: calc(100% - 16px);
+  font-family: unset;
+  text-align: unset;
+  margin-top: unset;
+  margin-bottom: unset;
 }
 
-.c4:not(:first-of-type):not(.c9 + .c3):not(.c8 + .c3) {
-  margin-top: 0;
+.c3[aria-disabled] {
+  cursor: not-allowed;
 }
 
-.c4:not(:first-of-type):not(.c9 + .c3):not(.c8 + .c3) .c5::before {
-  content: ' ';
+.c3 [data-component="ActionList.Item--DividerContainer"] {
+  position: relative;
+}
+
+.c3 [data-component="ActionList.Item--DividerContainer"]::before {
+  content: " ";
   display: block;
   position: absolute;
   width: 100%;
   top: -7px;
-  border: 0 solid hsla(210,18%,87%,1);
+  border: 0 solid;
   border-top-width: 0;
+  border-color: var(--divider-color,transparent);
 }
 
-.c4:hover .c5::before,
-.c4:hover + * .c5::before {
-  border-color: var(--item-hover-divider-border-color-override,transparent) !important;
+.c3:not(:first-of-type) {
+  --divider-color: rgba(208,215,222,0.48);
 }
 
-.c4:focus .c5::before,
-.c4:focus + * .c5::before,
-.c4[data-is-active-descendant] .c5::before,
-[data-is-active-descendant] + .c4 .c5::before {
-  border-color: transparent !important;
+[data-component="ActionList.Divider"] + .c3 {
+  --divider-color: transparent !important;
 }
 
-.c4[data-is-active-descendant='activated-directly'] {
-  background: rgba(208,215,222,0.48);
+.c3:hover:not([aria-disabled]),
+.c3:focus:not([aria-disabled]),
+.c3[data-focus-visible-added]:not([aria-disabled]) {
+  --divider-color: transparent;
 }
 
-.c4[data-is-active-descendant='activated-indirectly'] {
-  background: rgba(208,215,222,0.32);
+.c3:hover:not([aria-disabled]) + .c2,
+.c3[data-focus-visible-added] + li {
+  --divider-color: transparent;
 }
 
-.c4:focus {
-  background: rgba(208,215,222,0.48);
-  outline: none;
-}
-
-.c4:active {
-  background: rgba(208,215,222,0.48);
-}
-
-.c1 {
-  font-size: 14px;
-  line-height: 20px;
-}
-
-.c1[data-has-active-descendant],
-.c1:focus-within {
-  --item-hover-bg-override: none;
-  --item-hover-divider-border-color-override: hsla(210,18%,87%,1);
+.c7:hover:not([aria-disabled]) + .c2,
+.c7[data-focus-visible-added] + li {
+  --divider-color: transparent;
 }
 
 @media (hover:hover) and (pointer:fine) {
-  .c4:hover {
-    background: var( --item-hover-bg-override,rgba(208,215,222,0.32) );
-    cursor: pointer;
+  .c3:hover:not([aria-disabled]) {
+    background-color: rgba(208,215,222,0.32);
+    color: #1F2328;
+  }
+
+  .c3:focus-visible,
+  .c3 > a:focus-visible {
+    outline: none;
+    border: 2 solid;
+    box-shadow: 0 0 0 2px #0969da;
+  }
+
+  .c3:active:not([aria-disabled]) {
+    background-color: rgba(208,215,222,0.48);
+    color: #1F2328;
+  }
+}
+
+@media (forced-colors:active) {
+  .c3:focus {
+    outline: solid 1px transparent !important;
   }
 }
 
@@ -3314,307 +3100,253 @@ exports[`snapshots renders a single select input 1`] = `
     className="c0"
   >
     <div>
-      <div
+      <ul
         aria-labelledby="labelId"
         className="c1"
         id="autocompleteId-listbox"
         role="listbox"
       >
-        <div
-          className="c2"
+        <li
+          aria-labelledby="0 "
+          className="c2 c3"
+          data-id="0"
+          onClick={[Function]}
+          onKeyPress={[Function]}
+          role="option"
+          tabIndex={0}
         >
+          <span
+            className="c4"
+          />
           <div
-            aria-labelledby="react-aria-1"
-            className="c3 c4"
-            data-id={0}
-            onClick={[Function]}
-            onKeyPress={[Function]}
-            role="option"
-            tabIndex={-1}
+            className="c5"
+            data-component="ActionList.Item--DividerContainer"
           >
-            <div
-              className="c5 c6"
+            <span
+              className="c6"
+              id="0"
             >
-              <div
-                className="c7"
-                style={
-                  {
-                    "--main-content-flex-direction": "row",
-                  }
-                }
-              >
-                <span
-                  className=""
-                  id="react-aria-1"
-                >
-                  zero
-                </span>
-              </div>
-            </div>
+              zero
+            </span>
           </div>
+        </li>
+        <li
+          aria-labelledby="1 "
+          className="c2 c3"
+          data-id="1"
+          onClick={[Function]}
+          onKeyPress={[Function]}
+          role="option"
+          tabIndex={0}
+        >
+          <span
+            className="c4"
+          />
           <div
-            aria-labelledby="react-aria-3"
-            className="c3 c4"
-            data-id={1}
-            onClick={[Function]}
-            onKeyPress={[Function]}
-            role="option"
-            tabIndex={-1}
+            className="c5"
+            data-component="ActionList.Item--DividerContainer"
           >
-            <div
-              className="c5 c6"
+            <span
+              className="c6"
+              id="1"
             >
-              <div
-                className="c7"
-                style={
-                  {
-                    "--main-content-flex-direction": "row",
-                  }
-                }
-              >
-                <span
-                  className=""
-                  id="react-aria-3"
-                >
-                  one
-                </span>
-              </div>
-            </div>
+              one
+            </span>
           </div>
+        </li>
+        <li
+          aria-labelledby="2 "
+          className="c2 c3"
+          data-id="2"
+          onClick={[Function]}
+          onKeyPress={[Function]}
+          role="option"
+          tabIndex={0}
+        >
+          <span
+            className="c4"
+          />
           <div
-            aria-labelledby="react-aria-5"
-            className="c3 c4"
-            data-id={2}
-            onClick={[Function]}
-            onKeyPress={[Function]}
-            role="option"
-            tabIndex={-1}
+            className="c5"
+            data-component="ActionList.Item--DividerContainer"
           >
-            <div
-              className="c5 c6"
+            <span
+              className="c6"
+              id="2"
             >
-              <div
-                className="c7"
-                style={
-                  {
-                    "--main-content-flex-direction": "row",
-                  }
-                }
-              >
-                <span
-                  className=""
-                  id="react-aria-5"
-                >
-                  two
-                </span>
-              </div>
-            </div>
+              two
+            </span>
           </div>
+        </li>
+        <li
+          aria-labelledby="3 "
+          className="c2 c3"
+          data-id="3"
+          onClick={[Function]}
+          onKeyPress={[Function]}
+          role="option"
+          tabIndex={0}
+        >
+          <span
+            className="c4"
+          />
           <div
-            aria-labelledby="react-aria-7"
-            className="c3 c4"
-            data-id={3}
-            onClick={[Function]}
-            onKeyPress={[Function]}
-            role="option"
-            tabIndex={-1}
+            className="c5"
+            data-component="ActionList.Item--DividerContainer"
           >
-            <div
-              className="c5 c6"
+            <span
+              className="c6"
+              id="3"
             >
-              <div
-                className="c7"
-                style={
-                  {
-                    "--main-content-flex-direction": "row",
-                  }
-                }
-              >
-                <span
-                  className=""
-                  id="react-aria-7"
-                >
-                  three
-                </span>
-              </div>
-            </div>
+              three
+            </span>
           </div>
+        </li>
+        <li
+          aria-labelledby="4 "
+          className="c2 c3"
+          data-id="4"
+          onClick={[Function]}
+          onKeyPress={[Function]}
+          role="option"
+          tabIndex={0}
+        >
+          <span
+            className="c4"
+          />
           <div
-            aria-labelledby="react-aria-9"
-            className="c3 c4"
-            data-id={4}
-            onClick={[Function]}
-            onKeyPress={[Function]}
-            role="option"
-            tabIndex={-1}
+            className="c5"
+            data-component="ActionList.Item--DividerContainer"
           >
-            <div
-              className="c5 c6"
+            <span
+              className="c6"
+              id="4"
             >
-              <div
-                className="c7"
-                style={
-                  {
-                    "--main-content-flex-direction": "row",
-                  }
-                }
-              >
-                <span
-                  className=""
-                  id="react-aria-9"
-                >
-                  four
-                </span>
-              </div>
-            </div>
+              four
+            </span>
           </div>
+        </li>
+        <li
+          aria-labelledby="5 "
+          className="c2 c3"
+          data-id="5"
+          onClick={[Function]}
+          onKeyPress={[Function]}
+          role="option"
+          tabIndex={0}
+        >
+          <span
+            className="c4"
+          />
           <div
-            aria-labelledby="react-aria-11"
-            className="c3 c4"
-            data-id={5}
-            onClick={[Function]}
-            onKeyPress={[Function]}
-            role="option"
-            tabIndex={-1}
+            className="c5"
+            data-component="ActionList.Item--DividerContainer"
           >
-            <div
-              className="c5 c6"
+            <span
+              className="c6"
+              id="5"
             >
-              <div
-                className="c7"
-                style={
-                  {
-                    "--main-content-flex-direction": "row",
-                  }
-                }
-              >
-                <span
-                  className=""
-                  id="react-aria-11"
-                >
-                  five
-                </span>
-              </div>
-            </div>
+              five
+            </span>
           </div>
+        </li>
+        <li
+          aria-labelledby="6 "
+          className="c2 c3"
+          data-id="6"
+          onClick={[Function]}
+          onKeyPress={[Function]}
+          role="option"
+          tabIndex={0}
+        >
+          <span
+            className="c4"
+          />
           <div
-            aria-labelledby="react-aria-13"
-            className="c3 c4"
-            data-id={6}
-            onClick={[Function]}
-            onKeyPress={[Function]}
-            role="option"
-            tabIndex={-1}
+            className="c5"
+            data-component="ActionList.Item--DividerContainer"
           >
-            <div
-              className="c5 c6"
+            <span
+              className="c6"
+              id="6"
             >
-              <div
-                className="c7"
-                style={
-                  {
-                    "--main-content-flex-direction": "row",
-                  }
-                }
-              >
-                <span
-                  className=""
-                  id="react-aria-13"
-                >
-                  six
-                </span>
-              </div>
-            </div>
+              six
+            </span>
           </div>
+        </li>
+        <li
+          aria-labelledby="7 "
+          className="c2 c3"
+          data-id="7"
+          onClick={[Function]}
+          onKeyPress={[Function]}
+          role="option"
+          tabIndex={0}
+        >
+          <span
+            className="c4"
+          />
           <div
-            aria-labelledby="react-aria-15"
-            className="c3 c4"
-            data-id={7}
-            onClick={[Function]}
-            onKeyPress={[Function]}
-            role="option"
-            tabIndex={-1}
+            className="c5"
+            data-component="ActionList.Item--DividerContainer"
           >
-            <div
-              className="c5 c6"
+            <span
+              className="c6"
+              id="7"
             >
-              <div
-                className="c7"
-                style={
-                  {
-                    "--main-content-flex-direction": "row",
-                  }
-                }
-              >
-                <span
-                  className=""
-                  id="react-aria-15"
-                >
-                  seven
-                </span>
-              </div>
-            </div>
+              seven
+            </span>
           </div>
+        </li>
+        <li
+          aria-labelledby="20 "
+          className="c2 c3"
+          data-id="20"
+          onClick={[Function]}
+          onKeyPress={[Function]}
+          role="option"
+          tabIndex={0}
+        >
+          <span
+            className="c4"
+          />
           <div
-            aria-labelledby="react-aria-17"
-            className="c3 c4"
-            data-id={20}
-            onClick={[Function]}
-            onKeyPress={[Function]}
-            role="option"
-            tabIndex={-1}
+            className="c5"
+            data-component="ActionList.Item--DividerContainer"
           >
-            <div
-              className="c5 c6"
+            <span
+              className="c6"
+              id="20"
             >
-              <div
-                className="c7"
-                style={
-                  {
-                    "--main-content-flex-direction": "row",
-                  }
-                }
-              >
-                <span
-                  className=""
-                  id="react-aria-17"
-                >
-                  twenty
-                </span>
-              </div>
-            </div>
+              twenty
+            </span>
           </div>
+        </li>
+        <li
+          aria-labelledby="21 "
+          className="c2 c3"
+          data-id="21"
+          onClick={[Function]}
+          onKeyPress={[Function]}
+          role="option"
+          tabIndex={0}
+        >
+          <span
+            className="c4"
+          />
           <div
-            aria-labelledby="react-aria-19"
-            className="c3 c4"
-            data-id={21}
-            onClick={[Function]}
-            onKeyPress={[Function]}
-            role="option"
-            tabIndex={-1}
+            className="c5"
+            data-component="ActionList.Item--DividerContainer"
           >
-            <div
-              className="c5 c6"
+            <span
+              className="c6"
+              id="21"
             >
-              <div
-                className="c7"
-                style={
-                  {
-                    "--main-content-flex-direction": "row",
-                  }
-                }
-              >
-                <span
-                  className=""
-                  id="react-aria-19"
-                >
-                  twentyone
-                </span>
-              </div>
-            </div>
+              twentyone
+            </span>
           </div>
-        </div>
-      </div>
+        </li>
+      </ul>
     </div>
   </span>,
 ]
@@ -3626,7 +3358,52 @@ exports[`snapshots renders with a custom text input component 1`] = `
     id="customInput"
     type="text"
   />,
-  .c0 {
+  .c4 {
+  height: 20px;
+  min-width: 16px;
+  max-width: 20px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  margin-right: 8px;
+}
+
+.c5 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  min-width: 0;
+}
+
+.c6 {
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  font-weight: 400;
+}
+
+.c0 {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -3639,117 +3416,110 @@ exports[`snapshots renders with a custom text input component 1`] = `
   border-width: 0;
 }
 
-.c2 {
-  margin-top: 8px;
-  margin-bottom: 8px;
+.c1 {
+  margin: 0;
+  padding-inline-start: 0;
+  padding-top: 8px;
+  padding-bottom: 8px;
 }
 
-.c6 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  min-width: 0;
+.c3 {
   position: relative;
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
-}
-
-.c7 {
-  -webkit-align-items: baseline;
-  -webkit-box-align: baseline;
-  -ms-flex-align: baseline;
-  align-items: baseline;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  min-width: 0;
-  -webkit-flex-direction: var(--main-content-flex-direction);
-  -ms-flex-direction: var(--main-content-flex-direction);
-  flex-direction: var(--main-content-flex-direction);
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
-}
-
-.c4 {
-  padding: 6px 8px;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  border-radius: 6px;
-  color: #1F2328;
-  -webkit-transition: background 33.333ms linear;
-  transition: background 33.333ms linear;
-  -webkit-text-decoration: none;
-  text-decoration: none;
+  padding-left: 8px;
+  padding-right: 8px;
+  font-size: 14px;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  line-height: 20px;
+  min-height: 5px;
   margin-left: 8px;
   margin-right: 8px;
+  border-radius: 6px;
+  -webkit-transition: background 33.333ms linear;
+  transition: background 33.333ms linear;
+  color: #1F2328;
+  cursor: pointer;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: unset;
+  border: unset;
+  width: calc(100% - 16px);
+  font-family: unset;
+  text-align: unset;
+  margin-top: unset;
+  margin-bottom: unset;
 }
 
-.c4:not(:first-of-type):not(.c9 + .c3):not(.c8 + .c3) {
-  margin-top: 0;
+.c3[aria-disabled] {
+  cursor: not-allowed;
 }
 
-.c4:not(:first-of-type):not(.c9 + .c3):not(.c8 + .c3) .c5::before {
-  content: ' ';
+.c3 [data-component="ActionList.Item--DividerContainer"] {
+  position: relative;
+}
+
+.c3 [data-component="ActionList.Item--DividerContainer"]::before {
+  content: " ";
   display: block;
   position: absolute;
   width: 100%;
   top: -7px;
-  border: 0 solid hsla(210,18%,87%,1);
+  border: 0 solid;
   border-top-width: 0;
+  border-color: var(--divider-color,transparent);
 }
 
-.c4:hover .c5::before,
-.c4:hover + * .c5::before {
-  border-color: var(--item-hover-divider-border-color-override,transparent) !important;
+.c3:not(:first-of-type) {
+  --divider-color: rgba(208,215,222,0.48);
 }
 
-.c4:focus .c5::before,
-.c4:focus + * .c5::before,
-.c4[data-is-active-descendant] .c5::before,
-[data-is-active-descendant] + .c4 .c5::before {
-  border-color: transparent !important;
+[data-component="ActionList.Divider"] + .c3 {
+  --divider-color: transparent !important;
 }
 
-.c4[data-is-active-descendant='activated-directly'] {
-  background: rgba(208,215,222,0.48);
+.c3:hover:not([aria-disabled]),
+.c3:focus:not([aria-disabled]),
+.c3[data-focus-visible-added]:not([aria-disabled]) {
+  --divider-color: transparent;
 }
 
-.c4[data-is-active-descendant='activated-indirectly'] {
-  background: rgba(208,215,222,0.32);
+.c3:hover:not([aria-disabled]) + .c2,
+.c3[data-focus-visible-added] + li {
+  --divider-color: transparent;
 }
 
-.c4:focus {
-  background: rgba(208,215,222,0.48);
-  outline: none;
-}
-
-.c4:active {
-  background: rgba(208,215,222,0.48);
-}
-
-.c1 {
-  font-size: 14px;
-  line-height: 20px;
-}
-
-.c1[data-has-active-descendant],
-.c1:focus-within {
-  --item-hover-bg-override: none;
-  --item-hover-divider-border-color-override: hsla(210,18%,87%,1);
+.c7:hover:not([aria-disabled]) + .c2,
+.c7[data-focus-visible-added] + li {
+  --divider-color: transparent;
 }
 
 @media (hover:hover) and (pointer:fine) {
-  .c4:hover {
-    background: var( --item-hover-bg-override,rgba(208,215,222,0.32) );
-    cursor: pointer;
+  .c3:hover:not([aria-disabled]) {
+    background-color: rgba(208,215,222,0.32);
+    color: #1F2328;
+  }
+
+  .c3:focus-visible,
+  .c3 > a:focus-visible {
+    outline: none;
+    border: 2 solid;
+    box-shadow: 0 0 0 2px #0969da;
+  }
+
+  .c3:active:not([aria-disabled]) {
+    background-color: rgba(208,215,222,0.48);
+    color: #1F2328;
+  }
+}
+
+@media (forced-colors:active) {
+  .c3:focus {
+    outline: solid 1px transparent !important;
   }
 }
 
@@ -3757,307 +3527,253 @@ exports[`snapshots renders with a custom text input component 1`] = `
     className="c0"
   >
     <div>
-      <div
+      <ul
         aria-labelledby="labelId"
         className="c1"
         id="autocompleteId-listbox"
         role="listbox"
       >
-        <div
-          className="c2"
+        <li
+          aria-labelledby="0 "
+          className="c2 c3"
+          data-id="0"
+          onClick={[Function]}
+          onKeyPress={[Function]}
+          role="option"
+          tabIndex={0}
         >
+          <span
+            className="c4"
+          />
           <div
-            aria-labelledby="react-aria-1"
-            className="c3 c4"
-            data-id={0}
-            onClick={[Function]}
-            onKeyPress={[Function]}
-            role="option"
-            tabIndex={-1}
+            className="c5"
+            data-component="ActionList.Item--DividerContainer"
           >
-            <div
-              className="c5 c6"
+            <span
+              className="c6"
+              id="0"
             >
-              <div
-                className="c7"
-                style={
-                  {
-                    "--main-content-flex-direction": "row",
-                  }
-                }
-              >
-                <span
-                  className=""
-                  id="react-aria-1"
-                >
-                  zero
-                </span>
-              </div>
-            </div>
+              zero
+            </span>
           </div>
+        </li>
+        <li
+          aria-labelledby="1 "
+          className="c2 c3"
+          data-id="1"
+          onClick={[Function]}
+          onKeyPress={[Function]}
+          role="option"
+          tabIndex={0}
+        >
+          <span
+            className="c4"
+          />
           <div
-            aria-labelledby="react-aria-3"
-            className="c3 c4"
-            data-id={1}
-            onClick={[Function]}
-            onKeyPress={[Function]}
-            role="option"
-            tabIndex={-1}
+            className="c5"
+            data-component="ActionList.Item--DividerContainer"
           >
-            <div
-              className="c5 c6"
+            <span
+              className="c6"
+              id="1"
             >
-              <div
-                className="c7"
-                style={
-                  {
-                    "--main-content-flex-direction": "row",
-                  }
-                }
-              >
-                <span
-                  className=""
-                  id="react-aria-3"
-                >
-                  one
-                </span>
-              </div>
-            </div>
+              one
+            </span>
           </div>
+        </li>
+        <li
+          aria-labelledby="2 "
+          className="c2 c3"
+          data-id="2"
+          onClick={[Function]}
+          onKeyPress={[Function]}
+          role="option"
+          tabIndex={0}
+        >
+          <span
+            className="c4"
+          />
           <div
-            aria-labelledby="react-aria-5"
-            className="c3 c4"
-            data-id={2}
-            onClick={[Function]}
-            onKeyPress={[Function]}
-            role="option"
-            tabIndex={-1}
+            className="c5"
+            data-component="ActionList.Item--DividerContainer"
           >
-            <div
-              className="c5 c6"
+            <span
+              className="c6"
+              id="2"
             >
-              <div
-                className="c7"
-                style={
-                  {
-                    "--main-content-flex-direction": "row",
-                  }
-                }
-              >
-                <span
-                  className=""
-                  id="react-aria-5"
-                >
-                  two
-                </span>
-              </div>
-            </div>
+              two
+            </span>
           </div>
+        </li>
+        <li
+          aria-labelledby="3 "
+          className="c2 c3"
+          data-id="3"
+          onClick={[Function]}
+          onKeyPress={[Function]}
+          role="option"
+          tabIndex={0}
+        >
+          <span
+            className="c4"
+          />
           <div
-            aria-labelledby="react-aria-7"
-            className="c3 c4"
-            data-id={3}
-            onClick={[Function]}
-            onKeyPress={[Function]}
-            role="option"
-            tabIndex={-1}
+            className="c5"
+            data-component="ActionList.Item--DividerContainer"
           >
-            <div
-              className="c5 c6"
+            <span
+              className="c6"
+              id="3"
             >
-              <div
-                className="c7"
-                style={
-                  {
-                    "--main-content-flex-direction": "row",
-                  }
-                }
-              >
-                <span
-                  className=""
-                  id="react-aria-7"
-                >
-                  three
-                </span>
-              </div>
-            </div>
+              three
+            </span>
           </div>
+        </li>
+        <li
+          aria-labelledby="4 "
+          className="c2 c3"
+          data-id="4"
+          onClick={[Function]}
+          onKeyPress={[Function]}
+          role="option"
+          tabIndex={0}
+        >
+          <span
+            className="c4"
+          />
           <div
-            aria-labelledby="react-aria-9"
-            className="c3 c4"
-            data-id={4}
-            onClick={[Function]}
-            onKeyPress={[Function]}
-            role="option"
-            tabIndex={-1}
+            className="c5"
+            data-component="ActionList.Item--DividerContainer"
           >
-            <div
-              className="c5 c6"
+            <span
+              className="c6"
+              id="4"
             >
-              <div
-                className="c7"
-                style={
-                  {
-                    "--main-content-flex-direction": "row",
-                  }
-                }
-              >
-                <span
-                  className=""
-                  id="react-aria-9"
-                >
-                  four
-                </span>
-              </div>
-            </div>
+              four
+            </span>
           </div>
+        </li>
+        <li
+          aria-labelledby="5 "
+          className="c2 c3"
+          data-id="5"
+          onClick={[Function]}
+          onKeyPress={[Function]}
+          role="option"
+          tabIndex={0}
+        >
+          <span
+            className="c4"
+          />
           <div
-            aria-labelledby="react-aria-11"
-            className="c3 c4"
-            data-id={5}
-            onClick={[Function]}
-            onKeyPress={[Function]}
-            role="option"
-            tabIndex={-1}
+            className="c5"
+            data-component="ActionList.Item--DividerContainer"
           >
-            <div
-              className="c5 c6"
+            <span
+              className="c6"
+              id="5"
             >
-              <div
-                className="c7"
-                style={
-                  {
-                    "--main-content-flex-direction": "row",
-                  }
-                }
-              >
-                <span
-                  className=""
-                  id="react-aria-11"
-                >
-                  five
-                </span>
-              </div>
-            </div>
+              five
+            </span>
           </div>
+        </li>
+        <li
+          aria-labelledby="6 "
+          className="c2 c3"
+          data-id="6"
+          onClick={[Function]}
+          onKeyPress={[Function]}
+          role="option"
+          tabIndex={0}
+        >
+          <span
+            className="c4"
+          />
           <div
-            aria-labelledby="react-aria-13"
-            className="c3 c4"
-            data-id={6}
-            onClick={[Function]}
-            onKeyPress={[Function]}
-            role="option"
-            tabIndex={-1}
+            className="c5"
+            data-component="ActionList.Item--DividerContainer"
           >
-            <div
-              className="c5 c6"
+            <span
+              className="c6"
+              id="6"
             >
-              <div
-                className="c7"
-                style={
-                  {
-                    "--main-content-flex-direction": "row",
-                  }
-                }
-              >
-                <span
-                  className=""
-                  id="react-aria-13"
-                >
-                  six
-                </span>
-              </div>
-            </div>
+              six
+            </span>
           </div>
+        </li>
+        <li
+          aria-labelledby="7 "
+          className="c2 c3"
+          data-id="7"
+          onClick={[Function]}
+          onKeyPress={[Function]}
+          role="option"
+          tabIndex={0}
+        >
+          <span
+            className="c4"
+          />
           <div
-            aria-labelledby="react-aria-15"
-            className="c3 c4"
-            data-id={7}
-            onClick={[Function]}
-            onKeyPress={[Function]}
-            role="option"
-            tabIndex={-1}
+            className="c5"
+            data-component="ActionList.Item--DividerContainer"
           >
-            <div
-              className="c5 c6"
+            <span
+              className="c6"
+              id="7"
             >
-              <div
-                className="c7"
-                style={
-                  {
-                    "--main-content-flex-direction": "row",
-                  }
-                }
-              >
-                <span
-                  className=""
-                  id="react-aria-15"
-                >
-                  seven
-                </span>
-              </div>
-            </div>
+              seven
+            </span>
           </div>
+        </li>
+        <li
+          aria-labelledby="20 "
+          className="c2 c3"
+          data-id="20"
+          onClick={[Function]}
+          onKeyPress={[Function]}
+          role="option"
+          tabIndex={0}
+        >
+          <span
+            className="c4"
+          />
           <div
-            aria-labelledby="react-aria-17"
-            className="c3 c4"
-            data-id={20}
-            onClick={[Function]}
-            onKeyPress={[Function]}
-            role="option"
-            tabIndex={-1}
+            className="c5"
+            data-component="ActionList.Item--DividerContainer"
           >
-            <div
-              className="c5 c6"
+            <span
+              className="c6"
+              id="20"
             >
-              <div
-                className="c7"
-                style={
-                  {
-                    "--main-content-flex-direction": "row",
-                  }
-                }
-              >
-                <span
-                  className=""
-                  id="react-aria-17"
-                >
-                  twenty
-                </span>
-              </div>
-            </div>
+              twenty
+            </span>
           </div>
+        </li>
+        <li
+          aria-labelledby="21 "
+          className="c2 c3"
+          data-id="21"
+          onClick={[Function]}
+          onKeyPress={[Function]}
+          role="option"
+          tabIndex={0}
+        >
+          <span
+            className="c4"
+          />
           <div
-            aria-labelledby="react-aria-19"
-            className="c3 c4"
-            data-id={21}
-            onClick={[Function]}
-            onKeyPress={[Function]}
-            role="option"
-            tabIndex={-1}
+            className="c5"
+            data-component="ActionList.Item--DividerContainer"
           >
-            <div
-              className="c5 c6"
+            <span
+              className="c6"
+              id="21"
             >
-              <div
-                className="c7"
-                style={
-                  {
-                    "--main-content-flex-direction": "row",
-                  }
-                }
-              >
-                <span
-                  className=""
-                  id="react-aria-19"
-                >
-                  twentyone
-                </span>
-              </div>
-            </div>
+              twentyone
+            </span>
           </div>
-        </div>
-      </div>
+        </li>
+      </ul>
     </div>
   </span>,
 ]

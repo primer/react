@@ -72,10 +72,6 @@
       url: /Details
     - title: Dialog
       url: /Dialog
-    - title: FilteredSearch
-      url: /FilteredSearch
-    - title: FilterList
-      url: /FilterList
     - title: Flash
       url: /Flash
     - title: FormControl
@@ -128,8 +124,8 @@
       url: /SplitPageLayout
     - title: StateLabel
       url: /StateLabel
-    - title: StyledOcticon
-      url: /StyledOcticon
+    - title: Octicon
+      url: /Octicon
     - title: SubNav
       url: /SubNav
     - title: ToggleSwitch
@@ -182,5 +178,9 @@
       url: /deprecated/Buttons
     - title: DropdownMenu
       url: /deprecated/DropdownMenu
+    - title: FilteredSearch
+      url: /deprecated/FilteredSearch
+    - title: FilterList
+      url: /deprecated/FilterList
     - title: SideNav
       url: /deprecated/SideNav

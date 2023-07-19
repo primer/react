@@ -9,6 +9,7 @@ import {defaultSxProp} from '../utils/defaultSxProp'
 import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import {ActionListContainerContext} from './ActionListContainerContext'
 import {Description} from './Description'
+import {GroupContext} from './Group'
 import {ActionListProps, ListContext} from './List'
 import {Selection} from './Selection'
 import {ActionListItemProps, getVariantStyles, ItemContext, TEXT_ROW_HEIGHT} from './shared'
@@ -23,7 +24,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       disabled = false,
       selected = undefined,
       active = false,
-      onSelect,
+      onSelect: onSelectUser,
       sx: sxProp = defaultSxProp,
       id,
       role,
@@ -38,9 +39,25 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       description: Description,
     })
     const {variant: listVariant, showDividers, selectionVariant: listSelectionVariant} = React.useContext(ListContext)
+    const {selectionVariant: groupSelectionVariant} = React.useContext(GroupContext)
     const {container, afterSelect, selectionAttribute} = React.useContext(ActionListContainerContext)
 
-    const selectionVariant: ActionListProps['selectionVariant'] = listSelectionVariant
+    const onSelect = React.useCallback(
+      (
+        event: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement>,
+        // eslint-disable-next-line @typescript-eslint/ban-types
+        afterSelect?: Function,
+      ) => {
+        if (typeof onSelectUser === 'function') onSelectUser(event)
+        if (event.defaultPrevented) return
+        if (typeof afterSelect === 'function') afterSelect()
+      },
+      [onSelectUser],
+    )
+
+    const selectionVariant: ActionListProps['selectionVariant'] = groupSelectionVariant
+      ? groupSelectionVariant
+      : listSelectionVariant
 
     /** Infer item role based on the container */
     let itemRole: ActionListItemProps['role']
@@ -136,7 +153,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       '&:hover:not([aria-disabled]), &:focus:not([aria-disabled]), &[data-focus-visible-added]:not([aria-disabled])': {
         '--divider-color': 'transparent',
       },
-      '&:hover:not([aria-disabled]) + &, &:focus:not([aria-disabled]) + &, &[data-focus-visible-added] + li': {
+      '&:hover:not([aria-disabled]) + &, &[data-focus-visible-added] + li': {
         '--divider-color': 'transparent',
       },
       ...(active ? activeStyles : {}),
@@ -145,11 +162,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
     const clickHandler = React.useCallback(
       (event: React.MouseEvent<HTMLLIElement>) => {
         if (disabled) return
-        if (!event.defaultPrevented) {
-          if (typeof onSelect === 'function') onSelect(event)
-          // if this Item is inside a Menu, close the Menu
-          if (typeof afterSelect === 'function') afterSelect()
-        }
+        onSelect(event, afterSelect)
       },
       [onSelect, disabled, afterSelect],
     )
@@ -157,10 +170,8 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
     const keyPressHandler = React.useCallback(
       (event: React.KeyboardEvent<HTMLLIElement>) => {
         if (disabled) return
-        if (!event.defaultPrevented && [' ', 'Enter'].includes(event.key)) {
-          if (typeof onSelect === 'function') onSelect(event)
-          // if this Item is inside a Menu, close the Menu
-          if (typeof afterSelect === 'function') afterSelect()
+        if ([' ', 'Enter'].includes(event.key)) {
+          onSelect(event, afterSelect)
         }
       },
       [onSelect, disabled, afterSelect],
@@ -192,7 +203,13 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
 
     return (
       <ItemContext.Provider value={{variant, disabled, inlineDescriptionId, blockDescriptionId}}>
-        <LiBox ref={forwardedRef} sx={merge<BetterSystemStyleObject>(styles, sxProp)} {...containerProps} {...props}>
+        <LiBox
+          ref={forwardedRef}
+          sx={merge<BetterSystemStyleObject>(styles, sxProp)}
+          data-variant={variant === 'danger' ? variant : undefined}
+          {...containerProps}
+          {...props}
+        >
           <ItemWrapper {...wrapperProps}>
             <Selection selected={selected} />
             {slots.leadingVisual}
@@ -210,7 +227,9 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
                     id={labelId}
                     sx={{
                       flexGrow: slots.description && slots.description.props.variant !== 'block' ? 0 : 1,
-                      fontWeight: slots.description && slots.description.props.variant !== 'block' ? 'bold' : 'normal',
+                      fontWeight: slots.description ? 'bold' : 'normal',
+                      marginBlockEnd:
+                        slots.description && slots.description.props.variant !== 'inline' ? '4px' : undefined,
                     }}
                   >
                     {childrenWithoutSlots}

@@ -7,6 +7,10 @@ exports[`SelectPanel renders consistently 1`] = `
   color: #1F2328;
 }
 
+.c2 {
+  margin-left: 4px;
+}
+
 .c1 {
   position: relative;
   display: inline-block;
@@ -71,20 +75,19 @@ exports[`SelectPanel renders consistently 1`] = `
   border-color: rgba(31,35,40,0.15);
 }
 
-.c2 {
-  margin-left: 4px;
-}
-
 <div
   className="c0"
   color="fg.default"
+  data-color-mode="light"
+  data-dark-theme="dark"
+  data-light-theme="light"
   data-portal-root={true}
   fontFamily="normal"
 >
   <button
     aria-haspopup="true"
     className="c1"
-    id="react-aria-1"
+    id="react-aria-3"
     onClick={[Function]}
     onKeyDown={[Function]}
     tabIndex={0}

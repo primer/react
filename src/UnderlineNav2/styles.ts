@@ -68,7 +68,7 @@ export const moreBtnStyles = {
   boxShadow: 'none',
   paddingY: 1,
   paddingX: 2,
-  '& > span[data-component="trailingIcon"]': {
+  '& > span[data-component="trailingVisual"]': {
     marginLeft: 0,
   },
 }
@@ -85,6 +85,9 @@ export const getLinkStyles = (
   textAlign: 'center',
   textDecoration: 'none',
   lineHeight: 'calc(20/14)',
+  '& span[data-component="icon"]': {
+    color: 'fg.muted',
+  },
   borderRadius: 2,
   ...(props?.variant === 'small' ? smallVariantLinkStyles : defaultVariantLinkStyles),
   '@media (hover:hover)': {
@@ -147,6 +150,7 @@ export const menuItemStyles = {
 
 export const menuStyles = {
   position: 'absolute',
+  zIndex: 1,
   top: '90%',
   right: '0',
   boxShadow: '0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24)',

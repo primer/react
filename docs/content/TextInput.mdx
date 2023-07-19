@@ -152,26 +152,16 @@ render(<WithIconAndLoadingIndicator />)
 </FormControl>
 ```
 
-### With error and warning states
+### With error state
 
 ```jsx live
-<>
-  <TextInput
-    validationStatus="error"
-    aria-label="Zipcode"
-    name="zipcode"
-    placeholder="Error"
-    autoComplete="postal-code"
-  />
-
-  <TextInput
-    validationStatus="warning"
-    aria-label="Zipcode"
-    name="zipcode"
-    placeholder="Warning"
-    autoComplete="postal-code"
-  />
-</>
+<TextInput
+  validationStatus="error"
+  aria-label="Zipcode"
+  name="zipcode"
+  placeholder="Error"
+  autoComplete="postal-code"
+/>
 ```
 
 ### Block text input
@@ -191,7 +181,7 @@ render(<WithIconAndLoadingIndicator />)
 ```jsx live
 <TextInput
   monospace
-  aria-label="personal access token"
+  aria-label="Personal access token"
   name="pat"
   leadingVisual={CheckIcon}
   placeholder="github_pat_abcdefg123456789"

@@ -5,19 +5,13 @@ import {get} from '../constants'
 import sx, {SxProp} from '../sx'
 import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 
-// TODO: remove invalid "extralarge" size name in next breaking change
-/** @deprecated 'extralarge' to be removed to align with size naming ADR https://github.com/github/primer/blob/main/adrs/2022-02-09-size-naming-guidelines.md **/
-type ExtraLarge = 'extralarge'
-export type TokenSizeKeys = 'small' | 'medium' | 'large' | 'xlarge' | ExtraLarge
-
-const xlargeSize = '32px'
+export type TokenSizeKeys = 'small' | 'medium' | 'large' | 'xlarge'
 
 export const tokenSizes: Record<TokenSizeKeys, string> = {
   small: '16px',
   medium: '20px',
   large: '24px',
-  extralarge: xlargeSize,
-  xlarge: xlargeSize,
+  xlarge: '32px',
 }
 
 export const defaultTokenSize: TokenSizeKeys = 'medium'
@@ -112,7 +106,6 @@ const variants = variant<
       paddingLeft: 2,
       paddingRight: 2,
     },
-    extralarge: xlargeVariantStyles,
     xlarge: xlargeVariantStyles,
   },
 })
@@ -135,22 +128,25 @@ const StyledTokenBase = styled.span<
   ${sx}
 `
 
-const TokenBase = React.forwardRef(({onRemove, onKeyDown, id, size = defaultTokenSize, ...rest}, forwardedRef) => {
-  return (
-    <StyledTokenBase
-      onKeyDown={(event: KeyboardEvent<HTMLSpanElement & HTMLAnchorElement & HTMLButtonElement>) => {
-        onKeyDown && onKeyDown(event)
+const TokenBase = React.forwardRef<HTMLButtonElement | HTMLAnchorElement | HTMLSpanElement | undefined, TokenBaseProps>(
+  ({onRemove, onKeyDown, id, size = defaultTokenSize, ...rest}, forwardedRef) => {
+    return (
+      <StyledTokenBase
+        onKeyDown={(event: KeyboardEvent<HTMLSpanElement & HTMLAnchorElement & HTMLButtonElement>) => {
+          onKeyDown && onKeyDown(event)
 
-        if ((event.key === 'Backspace' || event.key === 'Delete') && onRemove) {
-          onRemove()
-        }
-      }}
-      id={id?.toString()}
-      size={size}
-      {...rest}
-      ref={forwardedRef}
-    />
-  )
-}) as PolymorphicForwardRefComponent<'span' | 'a' | 'button', TokenBaseProps & SxProp>
+          if ((event.key === 'Backspace' || event.key === 'Delete') && onRemove) {
+            onRemove()
+          }
+        }}
+        id={id?.toString()}
+        size={size}
+        {...rest}
+        // @ts-expect-error TokenBase wants Anchor, Button, and Span refs
+        ref={forwardedRef}
+      />
+    )
+  },
+) as PolymorphicForwardRefComponent<'span' | 'a' | 'button', TokenBaseProps & SxProp>
 
 export default TokenBase

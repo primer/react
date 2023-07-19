@@ -1,12 +1,791 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`NavList renders a simple list 1`] = `
+.c4 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  min-width: 0;
+}
+
+.c5 {
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  font-weight: 400;
+}
+
 .c0 {
+  margin: 0;
+  padding-inline-start: 0;
   padding-top: 8px;
   padding-bottom: 8px;
 }
 
-.c5 {
+.c2 {
+  position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  padding-left: 0;
+  padding-right: 0;
+  font-size: 14px;
+  padding-top: 0;
+  padding-bottom: 0;
+  line-height: 20px;
+  min-height: 5px;
+  margin-left: 8px;
+  margin-right: 8px;
+  border-radius: 6px;
+  -webkit-transition: background 33.333ms linear;
+  transition: background 33.333ms linear;
+  color: #1F2328;
+  cursor: pointer;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: unset;
+  border: unset;
+  width: calc(100% - 16px);
+  font-family: unset;
+  text-align: unset;
+  margin-top: unset;
+  margin-bottom: unset;
+  font-weight: 600;
+  background-color: rgba(208,215,222,0.24);
+}
+
+.c2[aria-disabled] {
+  cursor: not-allowed;
+}
+
+.c2 [data-component="ActionList.Item--DividerContainer"] {
+  position: relative;
+}
+
+.c2 [data-component="ActionList.Item--DividerContainer"]::before {
+  content: " ";
+  display: block;
+  position: absolute;
+  width: 100%;
+  top: -7px;
+  border: 0 solid;
+  border-top-width: 0;
+  border-color: var(--divider-color,transparent);
+}
+
+.c2:not(:first-of-type) {
+  --divider-color: rgba(208,215,222,0.48);
+}
+
+[data-component="ActionList.Divider"] + .c2 {
+  --divider-color: transparent !important;
+}
+
+.c2:hover:not([aria-disabled]),
+.c2:focus:not([aria-disabled]),
+.c2[data-focus-visible-added]:not([aria-disabled]) {
+  --divider-color: transparent;
+}
+
+.c2:hover:not([aria-disabled]) + .c1,
+.c2[data-focus-visible-added] + li {
+  --divider-color: transparent;
+}
+
+.c2::after {
+  position: absolute;
+  top: calc(50% - 12px);
+  left: -8px;
+  width: 4px;
+  height: 24px;
+  content: "";
+  background-color: #0969da;
+  border-radius: 6px;
+}
+
+.c6 {
+  position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  padding-left: 0;
+  padding-right: 0;
+  font-size: 14px;
+  padding-top: 0;
+  padding-bottom: 0;
+  line-height: 20px;
+  min-height: 5px;
+  margin-left: 8px;
+  margin-right: 8px;
+  border-radius: 6px;
+  -webkit-transition: background 33.333ms linear;
+  transition: background 33.333ms linear;
+  color: #1F2328;
+  cursor: pointer;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: unset;
+  border: unset;
+  width: calc(100% - 16px);
+  font-family: unset;
+  text-align: unset;
+  margin-top: unset;
+  margin-bottom: unset;
+}
+
+.c6[aria-disabled] {
+  cursor: not-allowed;
+}
+
+.c6 [data-component="ActionList.Item--DividerContainer"] {
+  position: relative;
+}
+
+.c6 [data-component="ActionList.Item--DividerContainer"]::before {
+  content: " ";
+  display: block;
+  position: absolute;
+  width: 100%;
+  top: -7px;
+  border: 0 solid;
+  border-top-width: 0;
+  border-color: var(--divider-color,transparent);
+}
+
+.c6:not(:first-of-type) {
+  --divider-color: rgba(208,215,222,0.48);
+}
+
+[data-component="ActionList.Divider"] + .c6 {
+  --divider-color: transparent !important;
+}
+
+.c6:hover:not([aria-disabled]),
+.c6:focus:not([aria-disabled]),
+.c6[data-focus-visible-added]:not([aria-disabled]) {
+  --divider-color: transparent;
+}
+
+.c6:hover:not([aria-disabled]) + .c1,
+.c6[data-focus-visible-added] + li {
+  --divider-color: transparent;
+}
+
+.c3 {
+  color: #0969da;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  padding-left: 8px;
+  padding-right: 8px;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  border-radius: 6px;
+  color: inherit;
+}
+
+.c3:hover {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c3:is(button) {
+  display: inline-block;
+  padding: 0;
+  font-size: inherit;
+  white-space: nowrap;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  background-color: transparent;
+  border: 0;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+.c3:hover {
+  color: inherit;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+@media (hover:hover) and (pointer:fine) {
+  .c2:hover:not([aria-disabled]) {
+    background-color: rgba(208,215,222,0.32);
+    color: #1F2328;
+  }
+
+  .c2:focus-visible,
+  .c2 > a:focus-visible {
+    outline: none;
+    border: 2 solid;
+    box-shadow: 0 0 0 2px #0969da;
+  }
+
+  .c2:active:not([aria-disabled]) {
+    background-color: rgba(208,215,222,0.48);
+    color: #1F2328;
+  }
+}
+
+@media (forced-colors:active) {
+  .c2:focus {
+    outline: solid 1px transparent !important;
+  }
+}
+
+@media (hover:hover) and (pointer:fine) {
+  .c6:hover:not([aria-disabled]) {
+    background-color: rgba(208,215,222,0.32);
+    color: #1F2328;
+  }
+
+  .c6:focus-visible,
+  .c6 > a:focus-visible {
+    outline: none;
+    border: 2 solid;
+    box-shadow: 0 0 0 2px #0969da;
+  }
+
+  .c6:active:not([aria-disabled]) {
+    background-color: rgba(208,215,222,0.48);
+    color: #1F2328;
+  }
+}
+
+@media (forced-colors:active) {
+  .c6:focus {
+    outline: solid 1px transparent !important;
+  }
+}
+
+<div>
+  <nav
+    class=""
+  >
+    <ul
+      class="c0"
+    >
+      <li
+        class="c1 c2"
+      >
+        <a
+          aria-current="page"
+          aria-labelledby="react-aria-1 "
+          class="c3"
+          href="/"
+          tabindex="0"
+        >
+          <div
+            class="c4"
+            data-component="ActionList.Item--DividerContainer"
+          >
+            <span
+              class="c5"
+              id="react-aria-1"
+            >
+              Home
+            </span>
+          </div>
+        </a>
+      </li>
+      <li
+        class="c1 c6"
+      >
+        <a
+          aria-labelledby="react-aria-4 "
+          class="c3"
+          href="/about"
+          tabindex="0"
+        >
+          <div
+            class="c4"
+            data-component="ActionList.Item--DividerContainer"
+          >
+            <span
+              class="c5"
+              id="react-aria-4"
+            >
+              About
+            </span>
+          </div>
+        </a>
+      </li>
+      <li
+        class="c1 c6"
+      >
+        <a
+          aria-labelledby="react-aria-7 "
+          class="c3"
+          href="/contact"
+          tabindex="0"
+        >
+          <div
+            class="c4"
+            data-component="ActionList.Item--DividerContainer"
+          >
+            <span
+              class="c5"
+              id="react-aria-7"
+            >
+              Contact
+            </span>
+          </div>
+        </a>
+      </li>
+    </ul>
+  </nav>
+</div>
+`;
+
+exports[`NavList renders with groups 1`] = `
+.c8 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  min-width: 0;
+}
+
+.c9 {
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  font-weight: 400;
+}
+
+.c1 {
+  height: 1px;
+  background-color: rgba(208,215,222,0.48);
+  margin-top: calc(8px - 1px);
+  margin-bottom: 8px;
+  list-style: none;
+}
+
+.c1:first-child {
+  display: none;
+}
+
+.c2 {
+  list-style: none;
+}
+
+.c2:not(:first-child) {
+  margin-top: 8px;
+}
+
+.c3 {
+  padding-top: 6px;
+  padding-bottom: 6px;
+  padding-left: 16px;
+  padding-right: 16px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #656d76;
+}
+
+.c4 {
+  padding-inline-start: 0;
+}
+
+.c0 {
+  margin: 0;
+  padding-inline-start: 0;
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+.c6 {
+  position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  padding-left: 0;
+  padding-right: 0;
+  font-size: 14px;
+  padding-top: 0;
+  padding-bottom: 0;
+  line-height: 20px;
+  min-height: 5px;
+  margin-left: 8px;
+  margin-right: 8px;
+  border-radius: 6px;
+  -webkit-transition: background 33.333ms linear;
+  transition: background 33.333ms linear;
+  color: #1F2328;
+  cursor: pointer;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: unset;
+  border: unset;
+  width: calc(100% - 16px);
+  font-family: unset;
+  text-align: unset;
+  margin-top: unset;
+  margin-bottom: unset;
+  font-weight: 600;
+  background-color: rgba(208,215,222,0.24);
+}
+
+.c6[aria-disabled] {
+  cursor: not-allowed;
+}
+
+.c6 [data-component="ActionList.Item--DividerContainer"] {
+  position: relative;
+}
+
+.c6 [data-component="ActionList.Item--DividerContainer"]::before {
+  content: " ";
+  display: block;
+  position: absolute;
+  width: 100%;
+  top: -7px;
+  border: 0 solid;
+  border-top-width: 0;
+  border-color: var(--divider-color,transparent);
+}
+
+.c6:not(:first-of-type) {
+  --divider-color: rgba(208,215,222,0.48);
+}
+
+[data-component="ActionList.Divider"] + .c6 {
+  --divider-color: transparent !important;
+}
+
+.c6:hover:not([aria-disabled]),
+.c6:focus:not([aria-disabled]),
+.c6[data-focus-visible-added]:not([aria-disabled]) {
+  --divider-color: transparent;
+}
+
+.c6:hover:not([aria-disabled]) + .c5,
+.c6[data-focus-visible-added] + li {
+  --divider-color: transparent;
+}
+
+.c6::after {
+  position: absolute;
+  top: calc(50% - 12px);
+  left: -8px;
+  width: 4px;
+  height: 24px;
+  content: "";
+  background-color: #0969da;
+  border-radius: 6px;
+}
+
+.c10 {
+  position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  padding-left: 0;
+  padding-right: 0;
+  font-size: 14px;
+  padding-top: 0;
+  padding-bottom: 0;
+  line-height: 20px;
+  min-height: 5px;
+  margin-left: 8px;
+  margin-right: 8px;
+  border-radius: 6px;
+  -webkit-transition: background 33.333ms linear;
+  transition: background 33.333ms linear;
+  color: #1F2328;
+  cursor: pointer;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: unset;
+  border: unset;
+  width: calc(100% - 16px);
+  font-family: unset;
+  text-align: unset;
+  margin-top: unset;
+  margin-bottom: unset;
+}
+
+.c10[aria-disabled] {
+  cursor: not-allowed;
+}
+
+.c10 [data-component="ActionList.Item--DividerContainer"] {
+  position: relative;
+}
+
+.c10 [data-component="ActionList.Item--DividerContainer"]::before {
+  content: " ";
+  display: block;
+  position: absolute;
+  width: 100%;
+  top: -7px;
+  border: 0 solid;
+  border-top-width: 0;
+  border-color: var(--divider-color,transparent);
+}
+
+.c10:not(:first-of-type) {
+  --divider-color: rgba(208,215,222,0.48);
+}
+
+[data-component="ActionList.Divider"] + .c10 {
+  --divider-color: transparent !important;
+}
+
+.c10:hover:not([aria-disabled]),
+.c10:focus:not([aria-disabled]),
+.c10[data-focus-visible-added]:not([aria-disabled]) {
+  --divider-color: transparent;
+}
+
+.c10:hover:not([aria-disabled]) + .c5,
+.c10[data-focus-visible-added] + li {
+  --divider-color: transparent;
+}
+
+.c7 {
+  color: #0969da;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  padding-left: 8px;
+  padding-right: 8px;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  border-radius: 6px;
+  color: inherit;
+}
+
+.c7:hover {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c7:is(button) {
+  display: inline-block;
+  padding: 0;
+  font-size: inherit;
+  white-space: nowrap;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  background-color: transparent;
+  border: 0;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+.c7:hover {
+  color: inherit;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+@media (hover:hover) and (pointer:fine) {
+  .c6:hover:not([aria-disabled]) {
+    background-color: rgba(208,215,222,0.32);
+    color: #1F2328;
+  }
+
+  .c6:focus-visible,
+  .c6 > a:focus-visible {
+    outline: none;
+    border: 2 solid;
+    box-shadow: 0 0 0 2px #0969da;
+  }
+
+  .c6:active:not([aria-disabled]) {
+    background-color: rgba(208,215,222,0.48);
+    color: #1F2328;
+  }
+}
+
+@media (forced-colors:active) {
+  .c6:focus {
+    outline: solid 1px transparent !important;
+  }
+}
+
+@media (hover:hover) and (pointer:fine) {
+  .c10:hover:not([aria-disabled]) {
+    background-color: rgba(208,215,222,0.32);
+    color: #1F2328;
+  }
+
+  .c10:focus-visible,
+  .c10 > a:focus-visible {
+    outline: none;
+    border: 2 solid;
+    box-shadow: 0 0 0 2px #0969da;
+  }
+
+  .c10:active:not([aria-disabled]) {
+    background-color: rgba(208,215,222,0.48);
+    color: #1F2328;
+  }
+}
+
+@media (forced-colors:active) {
+  .c10:focus {
+    outline: solid 1px transparent !important;
+  }
+}
+
+<div>
+  <nav
+    class=""
+  >
+    <ul
+      class="c0"
+    >
+      <li
+        aria-hidden="true"
+        class="c1"
+        data-component="ActionList.Divider"
+      />
+      <li
+        class="c2"
+      >
+        <div
+          aria-hidden="true"
+          class="c3"
+          role="presentation"
+        >
+          <span
+            id="react-aria-1"
+          >
+            Overview
+          </span>
+        </div>
+        <ul
+          aria-labelledby="react-aria-1"
+          class="c4"
+        >
+          <li
+            class="c5 c6"
+          >
+            <a
+              aria-current="page"
+              aria-labelledby="react-aria-2 "
+              class="c7"
+              href="/getting-started"
+              tabindex="0"
+            >
+              <div
+                class="c8"
+                data-component="ActionList.Item--DividerContainer"
+              >
+                <span
+                  class="c9"
+                  id="react-aria-2"
+                >
+                  Getting started
+                </span>
+              </div>
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li
+        aria-hidden="true"
+        class="c1"
+        data-component="ActionList.Divider"
+      />
+      <li
+        class="c2"
+      >
+        <div
+          aria-hidden="true"
+          class="c3"
+          role="presentation"
+        >
+          <span
+            id="react-aria-5"
+          >
+            Components
+          </span>
+        </div>
+        <ul
+          aria-labelledby="react-aria-5"
+          class="c4"
+        >
+          <li
+            class="c5 c10"
+          >
+            <a
+              aria-labelledby="react-aria-6 "
+              class="c7"
+              href="/Avatar"
+              tabindex="0"
+            >
+              <div
+                class="c8"
+                data-component="ActionList.Item--DividerContainer"
+              >
+                <span
+                  class="c9"
+                  id="react-aria-6"
+                >
+                  Avatar
+                </span>
+              </div>
+            </a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </nav>
+</div>
+`;
+
+exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav contains the current item and is open 1`] = `
+.c4 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -30,11 +809,55 @@ exports[`NavList renders a simple list 1`] = `
 }
 
 .c1 {
-  margin: 0;
-  padding-inline-start: 0;
+  list-style: none;
 }
 
-.c3 {
+.c5 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+}
+
+.c9 {
+  padding: 0;
+  margin: 0;
+  display: block;
+}
+
+.c7 {
+  height: 20px;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  color: #656d76;
+  margin-left: 8px;
+  font-weight: initial;
+}
+
+[data-variant="danger"]:hover .c7,
+[data-variant="danger"]:active .c7 {
+  color: #1F2328;
+}
+
+.c8 {
+  -webkit-transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+  transform: rotate(180deg);
+}
+
+.c0 {
+  margin: 0;
+  padding-inline-start: 0;
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+.c10 {
   position: relative;
   display: -webkit-box;
   display: -webkit-flex;
@@ -45,6 +868,584 @@ exports[`NavList renders a simple list 1`] = `
   font-size: 14px;
   padding-top: 0;
   padding-bottom: 0;
+  line-height: 20px;
+  min-height: 5px;
+  margin-left: 8px;
+  margin-right: 8px;
+  border-radius: 6px;
+  -webkit-transition: background 33.333ms linear;
+  transition: background 33.333ms linear;
+  color: #1F2328;
+  cursor: pointer;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: unset;
+  border: unset;
+  width: calc(100% - 16px);
+  font-family: unset;
+  text-align: unset;
+  margin-top: unset;
+  margin-bottom: unset;
+  font-weight: 600;
+  background-color: rgba(208,215,222,0.24);
+}
+
+.c10[aria-disabled] {
+  cursor: not-allowed;
+}
+
+.c10 [data-component="ActionList.Item--DividerContainer"] {
+  position: relative;
+}
+
+.c10 [data-component="ActionList.Item--DividerContainer"]::before {
+  content: " ";
+  display: block;
+  position: absolute;
+  width: 100%;
+  top: -7px;
+  border: 0 solid;
+  border-top-width: 0;
+  border-color: var(--divider-color,transparent);
+}
+
+.c10:not(:first-of-type) {
+  --divider-color: rgba(208,215,222,0.48);
+}
+
+[data-component="ActionList.Divider"] + .c10 {
+  --divider-color: transparent !important;
+}
+
+.c10:hover:not([aria-disabled]),
+.c10:focus:not([aria-disabled]),
+.c10[data-focus-visible-added]:not([aria-disabled]) {
+  --divider-color: transparent;
+}
+
+.c10:hover:not([aria-disabled]) + .c2,
+.c10[data-focus-visible-added] + li {
+  --divider-color: transparent;
+}
+
+.c10::after {
+  position: absolute;
+  top: calc(50% - 12px);
+  left: -8px;
+  width: 4px;
+  height: 24px;
+  content: "";
+  background-color: #0969da;
+  border-radius: 6px;
+}
+
+.c12:hover:not([aria-disabled]) + .c2,
+.c12[data-focus-visible-added] + li {
+  --divider-color: transparent;
+}
+
+.c13:hover:not([aria-disabled]) + .c2,
+.c13[data-focus-visible-added] + li {
+  --divider-color: transparent;
+}
+
+.c14:hover:not([aria-disabled]) + .c2,
+.c14[data-focus-visible-added] + li {
+  --divider-color: transparent;
+}
+
+.c15:hover:not([aria-disabled]) + .c2,
+.c15[data-focus-visible-added] + li {
+  --divider-color: transparent;
+}
+
+.c16:hover:not([aria-disabled]) + .c2,
+.c16[data-focus-visible-added] + li {
+  --divider-color: transparent;
+}
+
+.c17:hover:not([aria-disabled]) + .c2,
+.c17[data-focus-visible-added] + li {
+  --divider-color: transparent;
+}
+
+.c18:hover:not([aria-disabled]) + .c2,
+.c18[data-focus-visible-added] + li {
+  --divider-color: transparent;
+}
+
+.c3 {
+  position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  padding-left: 8px;
+  padding-right: 8px;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  line-height: 20px;
+  min-height: 5px;
+  margin-left: 8px;
+  margin-right: 8px;
+  border-radius: 6px;
+  -webkit-transition: background 33.333ms linear;
+  transition: background 33.333ms linear;
+  color: #1F2328;
+  cursor: pointer;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: unset;
+  border: unset;
+  width: calc(100% - 16px);
+  font-family: unset;
+  text-align: unset;
+  margin-top: unset;
+  margin-bottom: unset;
+  font-weight: 600;
+}
+
+.c3[aria-disabled] {
+  cursor: not-allowed;
+}
+
+.c3 [data-component="ActionList.Item--DividerContainer"] {
+  position: relative;
+}
+
+.c3 [data-component="ActionList.Item--DividerContainer"]::before {
+  content: " ";
+  display: block;
+  position: absolute;
+  width: 100%;
+  top: -7px;
+  border: 0 solid;
+  border-top-width: 0;
+  border-color: var(--divider-color,transparent);
+}
+
+.c3:not(:first-of-type) {
+  --divider-color: rgba(208,215,222,0.48);
+}
+
+[data-component="ActionList.Divider"] + .c3 {
+  --divider-color: transparent !important;
+}
+
+.c3:hover:not([aria-disabled]),
+.c3:focus:not([aria-disabled]),
+.c3[data-focus-visible-added]:not([aria-disabled]) {
+  --divider-color: transparent;
+}
+
+.c3:hover:not([aria-disabled]) + .c2,
+.c3[data-focus-visible-added] + li {
+  --divider-color: transparent;
+}
+
+.c19:hover:not([aria-disabled]) + .c2,
+.c19[data-focus-visible-added] + li {
+  --divider-color: transparent;
+}
+
+.c11 {
+  color: #0969da;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  padding-left: 16px;
+  padding-right: 8px;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  border-radius: 6px;
+  color: inherit;
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.c11:hover {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c11:is(button) {
+  display: inline-block;
+  padding: 0;
+  font-size: inherit;
+  white-space: nowrap;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  background-color: transparent;
+  border: 0;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+.c11:hover {
+  color: inherit;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+@media (hover:hover) and (pointer:fine) {
+  .c10:hover:not([aria-disabled]) {
+    background-color: rgba(208,215,222,0.32);
+    color: #1F2328;
+  }
+
+  .c10:focus-visible,
+  .c10 > a:focus-visible {
+    outline: none;
+    border: 2 solid;
+    box-shadow: 0 0 0 2px #0969da;
+  }
+
+  .c10:active:not([aria-disabled]) {
+    background-color: rgba(208,215,222,0.48);
+    color: #1F2328;
+  }
+}
+
+@media (forced-colors:active) {
+  .c10:focus {
+    outline: solid 1px transparent !important;
+  }
+}
+
+@media (hover:hover) and (pointer:fine) {
+  .c3:hover:not([aria-disabled]) {
+    background-color: rgba(208,215,222,0.32);
+    color: #1F2328;
+  }
+
+  .c3:focus-visible,
+  .c3 > a:focus-visible {
+    outline: none;
+    border: 2 solid;
+    box-shadow: 0 0 0 2px #0969da;
+  }
+
+  .c3:active:not([aria-disabled]) {
+    background-color: rgba(208,215,222,0.48);
+    color: #1F2328;
+  }
+}
+
+@media (forced-colors:active) {
+  .c3:focus {
+    outline: solid 1px transparent !important;
+  }
+}
+
+<div>
+  <nav
+    class=""
+  >
+    <ul
+      class="c0"
+    >
+      <li
+        aria-labelledby="react-aria-1"
+        class="c1"
+      >
+        <button
+          aria-controls="react-aria-2"
+          aria-expanded="true"
+          aria-labelledby="react-aria-1 "
+          class="c2 c3"
+          tabindex="0"
+        >
+          <div
+            class="c4"
+            data-component="ActionList.Item--DividerContainer"
+          >
+            <div
+              class="c5"
+            >
+              <span
+                class="c6"
+                id="react-aria-1"
+              >
+                Item
+              </span>
+              <span
+                class="c7"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="c8"
+                  fill="currentColor"
+                  focusable="false"
+                  height="16"
+                  role="img"
+                  style="display: inline-block; user-select: none; vertical-align: text-bottom; overflow: visible;"
+                  viewBox="0 0 16 16"
+                  width="16"
+                >
+                  <path
+                    d="M12.78 5.22a.749.749 0 0 1 0 1.06l-4.25 4.25a.749.749 0 0 1-1.06 0L3.22 6.28a.749.749 0 1 1 1.06-1.06L8 8.939l3.72-3.719a.749.749 0 0 1 1.06 0Z"
+                  />
+                </svg>
+              </span>
+            </div>
+          </div>
+        </button>
+        <div>
+          <ul
+            aria-labelledby="react-aria-1"
+            class="c9"
+            id="react-aria-2"
+          >
+            <li
+              class="c2 c10"
+            >
+              <a
+                aria-current="page"
+                aria-labelledby="react-aria-3 "
+                class="c11"
+                href="#"
+                tabindex="0"
+              >
+                <div
+                  class="c4"
+                  data-component="ActionList.Item--DividerContainer"
+                >
+                  <span
+                    class="c6"
+                    id="react-aria-3"
+                  >
+                    Sub Item
+                  </span>
+                </div>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </li>
+    </ul>
+  </nav>
+</div>
+`;
+
+exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains the current item and is closed 1`] = `
+.c4 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  min-width: 0;
+}
+
+.c6 {
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  font-weight: 400;
+}
+
+.c1 {
+  list-style: none;
+}
+
+.c5 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+}
+
+.c9 {
+  padding: 0;
+  margin: 0;
+  display: none;
+}
+
+.c7 {
+  height: 20px;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  color: #656d76;
+  margin-left: 8px;
+  font-weight: initial;
+}
+
+[data-variant="danger"]:hover .c7,
+[data-variant="danger"]:active .c7 {
+  color: #1F2328;
+}
+
+.c8 {
+  -webkit-transform: rotate(0deg);
+  -ms-transform: rotate(0deg);
+  transform: rotate(0deg);
+}
+
+.c0 {
+  margin: 0;
+  padding-inline-start: 0;
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+.c10 {
+  position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  padding-left: 0;
+  padding-right: 0;
+  font-size: 14px;
+  padding-top: 0;
+  padding-bottom: 0;
+  line-height: 20px;
+  min-height: 5px;
+  margin-left: 8px;
+  margin-right: 8px;
+  border-radius: 6px;
+  -webkit-transition: background 33.333ms linear;
+  transition: background 33.333ms linear;
+  color: #1F2328;
+  cursor: pointer;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: unset;
+  border: unset;
+  width: calc(100% - 16px);
+  font-family: unset;
+  text-align: unset;
+  margin-top: unset;
+  margin-bottom: unset;
+  font-weight: 600;
+  background-color: rgba(208,215,222,0.24);
+}
+
+.c10[aria-disabled] {
+  cursor: not-allowed;
+}
+
+.c10 [data-component="ActionList.Item--DividerContainer"] {
+  position: relative;
+}
+
+.c10 [data-component="ActionList.Item--DividerContainer"]::before {
+  content: " ";
+  display: block;
+  position: absolute;
+  width: 100%;
+  top: -7px;
+  border: 0 solid;
+  border-top-width: 0;
+  border-color: var(--divider-color,transparent);
+}
+
+.c10:not(:first-of-type) {
+  --divider-color: rgba(208,215,222,0.48);
+}
+
+[data-component="ActionList.Divider"] + .c10 {
+  --divider-color: transparent !important;
+}
+
+.c10:hover:not([aria-disabled]),
+.c10:focus:not([aria-disabled]),
+.c10[data-focus-visible-added]:not([aria-disabled]) {
+  --divider-color: transparent;
+}
+
+.c10:hover:not([aria-disabled]) + .c2,
+.c10[data-focus-visible-added] + li {
+  --divider-color: transparent;
+}
+
+.c10::after {
+  position: absolute;
+  top: calc(50% - 12px);
+  left: -8px;
+  width: 4px;
+  height: 24px;
+  content: "";
+  background-color: #0969da;
+  border-radius: 6px;
+}
+
+.c12:hover:not([aria-disabled]) + .c2,
+.c12[data-focus-visible-added] + li {
+  --divider-color: transparent;
+}
+
+.c13:hover:not([aria-disabled]) + .c2,
+.c13[data-focus-visible-added] + li {
+  --divider-color: transparent;
+}
+
+.c14:hover:not([aria-disabled]) + .c2,
+.c14[data-focus-visible-added] + li {
+  --divider-color: transparent;
+}
+
+.c15:hover:not([aria-disabled]) + .c2,
+.c15[data-focus-visible-added] + li {
+  --divider-color: transparent;
+}
+
+.c16:hover:not([aria-disabled]) + .c2,
+.c16[data-focus-visible-added] + li {
+  --divider-color: transparent;
+}
+
+.c17:hover:not([aria-disabled]) + .c2,
+.c17[data-focus-visible-added] + li {
+  --divider-color: transparent;
+}
+
+.c18:hover:not([aria-disabled]) + .c2,
+.c18[data-focus-visible-added] + li {
+  --divider-color: transparent;
+}
+
+.c19:hover:not([aria-disabled]) + .c2,
+.c19[data-focus-visible-added] + li {
+  --divider-color: transparent;
+}
+
+.c3 {
+  position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  padding-left: 8px;
+  padding-right: 8px;
+  padding-top: 6px;
+  padding-bottom: 6px;
   line-height: 20px;
   min-height: 5px;
   margin-left: 8px;
@@ -102,7 +1503,6 @@ exports[`NavList renders a simple list 1`] = `
 }
 
 .c3:hover:not([aria-disabled]) + .c2,
-.c3:focus:not([aria-disabled]) + .c3,
 .c3[data-focus-visible-added] + li {
   --divider-color: transparent;
 }
@@ -118,82 +1518,11 @@ exports[`NavList renders a simple list 1`] = `
   border-radius: 6px;
 }
 
-.c7 {
-  position: relative;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  padding-left: 0;
-  padding-right: 0;
-  font-size: 14px;
-  padding-top: 0;
-  padding-bottom: 0;
-  line-height: 20px;
-  min-height: 5px;
-  margin-left: 8px;
-  margin-right: 8px;
-  border-radius: 6px;
-  -webkit-transition: background 33.333ms linear;
-  transition: background 33.333ms linear;
-  color: #1F2328;
-  cursor: pointer;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  background: unset;
-  border: unset;
-  width: calc(100% - 16px);
-  font-family: unset;
-  text-align: unset;
-  margin-top: unset;
-  margin-bottom: unset;
-}
-
-.c7[aria-disabled] {
-  cursor: not-allowed;
-}
-
-.c7 [data-component="ActionList.Item--DividerContainer"] {
-  position: relative;
-}
-
-.c7 [data-component="ActionList.Item--DividerContainer"]::before {
-  content: " ";
-  display: block;
-  position: absolute;
-  width: 100%;
-  top: -7px;
-  border: 0 solid;
-  border-top-width: 0;
-  border-color: var(--divider-color,transparent);
-}
-
-.c7:not(:first-of-type) {
-  --divider-color: rgba(208,215,222,0.48);
-}
-
-[data-component="ActionList.Divider"] + .c7 {
-  --divider-color: transparent !important;
-}
-
-.c7:hover:not([aria-disabled]),
-.c7:focus:not([aria-disabled]),
-.c7[data-focus-visible-added]:not([aria-disabled]) {
-  --divider-color: transparent;
-}
-
-.c7:hover:not([aria-disabled]) + .c2,
-.c7:focus:not([aria-disabled]) + .c7,
-.c7[data-focus-visible-added] + li {
-  --divider-color: transparent;
-}
-
-.c4 {
+.c11 {
   color: #0969da;
   -webkit-text-decoration: none;
   text-decoration: none;
-  padding-left: 8px;
+  padding-left: 16px;
   padding-right: 8px;
   padding-top: 6px;
   padding-bottom: 6px;
@@ -207,14 +1536,16 @@ exports[`NavList renders a simple list 1`] = `
   flex-grow: 1;
   border-radius: 6px;
   color: inherit;
+  font-size: 12px;
+  font-weight: 400;
 }
 
-.c4:hover {
+.c11:hover {
   -webkit-text-decoration: underline;
   text-decoration: underline;
 }
 
-.c4:is(button) {
+.c11:is(button) {
   display: inline-block;
   padding: 0;
   font-size: inherit;
@@ -231,10 +1562,35 @@ exports[`NavList renders a simple list 1`] = `
   appearance: none;
 }
 
-.c4:hover {
+.c11:hover {
   color: inherit;
   -webkit-text-decoration: none;
   text-decoration: none;
+}
+
+@media (hover:hover) and (pointer:fine) {
+  .c10:hover:not([aria-disabled]) {
+    background-color: rgba(208,215,222,0.32);
+    color: #1F2328;
+  }
+
+  .c10:focus-visible,
+  .c10 > a:focus-visible {
+    outline: none;
+    border: 2 solid;
+    box-shadow: 0 0 0 2px #0969da;
+  }
+
+  .c10:active:not([aria-disabled]) {
+    background-color: rgba(208,215,222,0.48);
+    color: #1F2328;
+  }
+}
+
+@media (forced-colors:active) {
+  .c10:focus {
+    outline: solid 1px transparent !important;
+  }
 }
 
 @media (hover:hover) and (pointer:fine) {
@@ -262,1490 +1618,92 @@ exports[`NavList renders a simple list 1`] = `
   }
 }
 
-@media (hover:hover) and (pointer:fine) {
-  .c7:hover:not([aria-disabled]) {
-    background-color: rgba(208,215,222,0.32);
-    color: #1F2328;
-  }
-
-  .c7:focus-visible,
-  .c7 > a:focus-visible {
-    outline: none;
-    border: 2 solid;
-    box-shadow: 0 0 0 2px #0969da;
-  }
-
-  .c7:active:not([aria-disabled]) {
-    background-color: rgba(208,215,222,0.48);
-    color: #1F2328;
-  }
-}
-
-@media (forced-colors:active) {
-  .c7:focus {
-    outline: solid 1px transparent !important;
-  }
-}
-
 <div>
   <nav
     class=""
   >
-    <div
+    <ul
       class="c0"
     >
-      <ul
+      <li
+        aria-labelledby="react-aria-1"
         class="c1"
       >
-        <li
+        <button
+          aria-controls="react-aria-2"
+          aria-expanded="false"
+          aria-labelledby="react-aria-1 "
           class="c2 c3"
-        >
-          <a
-            aria-current="page"
-            aria-labelledby="react-aria-2 "
-            class="c4"
-            href="/"
-            tabindex="0"
-          >
-            <div
-              class="c5"
-              data-component="ActionList.Item--DividerContainer"
-            >
-              <span
-                class="c6"
-                id="react-aria-2"
-              >
-                Home
-              </span>
-            </div>
-          </a>
-        </li>
-        <li
-          class="c2 c7"
-        >
-          <a
-            aria-labelledby="react-aria-5 "
-            class="c4"
-            href="/about"
-            tabindex="0"
-          >
-            <div
-              class="c5"
-              data-component="ActionList.Item--DividerContainer"
-            >
-              <span
-                class="c6"
-                id="react-aria-5"
-              >
-                About
-              </span>
-            </div>
-          </a>
-        </li>
-        <li
-          class="c2 c7"
-        >
-          <a
-            aria-labelledby="react-aria-8 "
-            class="c4"
-            href="/contact"
-            tabindex="0"
-          >
-            <div
-              class="c5"
-              data-component="ActionList.Item--DividerContainer"
-            >
-              <span
-                class="c6"
-                id="react-aria-8"
-              >
-                Contact
-              </span>
-            </div>
-          </a>
-        </li>
-      </ul>
-    </div>
-  </nav>
-</div>
-`;
-
-exports[`NavList renders with groups 1`] = `
-.c0 {
-  padding-top: 8px;
-  padding-bottom: 8px;
-}
-
-.c9 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
-  min-width: 0;
-}
-
-.c10 {
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
-  font-weight: 400;
-}
-
-.c2 {
-  height: 1px;
-  background-color: rgba(208,215,222,0.48);
-  margin-top: calc(8px - 1px);
-  margin-bottom: 8px;
-  list-style: none;
-}
-
-.c2:first-child {
-  display: none;
-}
-
-.c3 {
-  padding-top: 6px;
-  padding-bottom: 6px;
-  padding-left: 16px;
-  padding-right: 16px;
-  font-size: 12px;
-  font-weight: 600;
-  color: #656d76;
-  list-style: none;
-}
-
-.c4 {
-  font-size: 12px;
-  font-weight: 600;
-  margin-bottom: 0;
-  margin-top: 0;
-}
-
-.c5 {
-  padding-inline-start: 0;
-}
-
-.c1 {
-  margin: 0;
-  padding-inline-start: 0;
-}
-
-.c7 {
-  position: relative;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  padding-left: 0;
-  padding-right: 0;
-  font-size: 14px;
-  padding-top: 0;
-  padding-bottom: 0;
-  line-height: 20px;
-  min-height: 5px;
-  margin-left: 8px;
-  margin-right: 8px;
-  border-radius: 6px;
-  -webkit-transition: background 33.333ms linear;
-  transition: background 33.333ms linear;
-  color: #1F2328;
-  cursor: pointer;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  background: unset;
-  border: unset;
-  width: calc(100% - 16px);
-  font-family: unset;
-  text-align: unset;
-  margin-top: unset;
-  margin-bottom: unset;
-  font-weight: 600;
-  background-color: rgba(208,215,222,0.24);
-}
-
-.c7[aria-disabled] {
-  cursor: not-allowed;
-}
-
-.c7 [data-component="ActionList.Item--DividerContainer"] {
-  position: relative;
-}
-
-.c7 [data-component="ActionList.Item--DividerContainer"]::before {
-  content: " ";
-  display: block;
-  position: absolute;
-  width: 100%;
-  top: -7px;
-  border: 0 solid;
-  border-top-width: 0;
-  border-color: var(--divider-color,transparent);
-}
-
-.c7:not(:first-of-type) {
-  --divider-color: rgba(208,215,222,0.48);
-}
-
-[data-component="ActionList.Divider"] + .c7 {
-  --divider-color: transparent !important;
-}
-
-.c7:hover:not([aria-disabled]),
-.c7:focus:not([aria-disabled]),
-.c7[data-focus-visible-added]:not([aria-disabled]) {
-  --divider-color: transparent;
-}
-
-.c7:hover:not([aria-disabled]) + .c6,
-.c7:focus:not([aria-disabled]) + .c7,
-.c7[data-focus-visible-added] + li {
-  --divider-color: transparent;
-}
-
-.c7::after {
-  position: absolute;
-  top: calc(50% - 12px);
-  left: -8px;
-  width: 4px;
-  height: 24px;
-  content: "";
-  background-color: #0969da;
-  border-radius: 6px;
-}
-
-.c11 {
-  position: relative;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  padding-left: 0;
-  padding-right: 0;
-  font-size: 14px;
-  padding-top: 0;
-  padding-bottom: 0;
-  line-height: 20px;
-  min-height: 5px;
-  margin-left: 8px;
-  margin-right: 8px;
-  border-radius: 6px;
-  -webkit-transition: background 33.333ms linear;
-  transition: background 33.333ms linear;
-  color: #1F2328;
-  cursor: pointer;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  background: unset;
-  border: unset;
-  width: calc(100% - 16px);
-  font-family: unset;
-  text-align: unset;
-  margin-top: unset;
-  margin-bottom: unset;
-}
-
-.c11[aria-disabled] {
-  cursor: not-allowed;
-}
-
-.c11 [data-component="ActionList.Item--DividerContainer"] {
-  position: relative;
-}
-
-.c11 [data-component="ActionList.Item--DividerContainer"]::before {
-  content: " ";
-  display: block;
-  position: absolute;
-  width: 100%;
-  top: -7px;
-  border: 0 solid;
-  border-top-width: 0;
-  border-color: var(--divider-color,transparent);
-}
-
-.c11:not(:first-of-type) {
-  --divider-color: rgba(208,215,222,0.48);
-}
-
-[data-component="ActionList.Divider"] + .c11 {
-  --divider-color: transparent !important;
-}
-
-.c11:hover:not([aria-disabled]),
-.c11:focus:not([aria-disabled]),
-.c11[data-focus-visible-added]:not([aria-disabled]) {
-  --divider-color: transparent;
-}
-
-.c11:hover:not([aria-disabled]) + .c6,
-.c11:focus:not([aria-disabled]) + .c11,
-.c11[data-focus-visible-added] + li {
-  --divider-color: transparent;
-}
-
-.c8 {
-  color: #0969da;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  padding-left: 8px;
-  padding-right: 8px;
-  padding-top: 6px;
-  padding-bottom: 6px;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
-  border-radius: 6px;
-  color: inherit;
-}
-
-.c8:hover {
-  -webkit-text-decoration: underline;
-  text-decoration: underline;
-}
-
-.c8:is(button) {
-  display: inline-block;
-  padding: 0;
-  font-size: inherit;
-  white-space: nowrap;
-  cursor: pointer;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  background-color: transparent;
-  border: 0;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-}
-
-.c8:hover {
-  color: inherit;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-}
-
-@media (hover:hover) and (pointer:fine) {
-  .c7:hover:not([aria-disabled]) {
-    background-color: rgba(208,215,222,0.32);
-    color: #1F2328;
-  }
-
-  .c7:focus-visible,
-  .c7 > a:focus-visible {
-    outline: none;
-    border: 2 solid;
-    box-shadow: 0 0 0 2px #0969da;
-  }
-
-  .c7:active:not([aria-disabled]) {
-    background-color: rgba(208,215,222,0.48);
-    color: #1F2328;
-  }
-}
-
-@media (forced-colors:active) {
-  .c7:focus {
-    outline: solid 1px transparent !important;
-  }
-}
-
-@media (hover:hover) and (pointer:fine) {
-  .c11:hover:not([aria-disabled]) {
-    background-color: rgba(208,215,222,0.32);
-    color: #1F2328;
-  }
-
-  .c11:focus-visible,
-  .c11 > a:focus-visible {
-    outline: none;
-    border: 2 solid;
-    box-shadow: 0 0 0 2px #0969da;
-  }
-
-  .c11:active:not([aria-disabled]) {
-    background-color: rgba(208,215,222,0.48);
-    color: #1F2328;
-  }
-}
-
-@media (forced-colors:active) {
-  .c11:focus {
-    outline: solid 1px transparent !important;
-  }
-}
-
-<div>
-  <nav
-    class=""
-  >
-    <div
-      class="c0"
-    >
-      <ul
-        class="c1"
-      >
-        <li
-          class=""
+          tabindex="0"
         >
           <div
-            aria-hidden="true"
-            class="c2"
-            data-component="ActionList.Divider"
-            role="separator"
-          />
-          <div
-            class="c3"
+            class="c4"
+            data-component="ActionList.Item--DividerContainer"
           >
-            <h3
-              class="c4"
-              id="react-aria-1"
+            <div
+              class="c5"
             >
-              Overview
-            </h3>
+              <span
+                class="c6"
+                id="react-aria-1"
+              >
+                Item
+              </span>
+              <span
+                class="c7"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="c8"
+                  fill="currentColor"
+                  focusable="false"
+                  height="16"
+                  role="img"
+                  style="display: inline-block; user-select: none; vertical-align: text-bottom; overflow: visible;"
+                  viewBox="0 0 16 16"
+                  width="16"
+                >
+                  <path
+                    d="M12.78 5.22a.749.749 0 0 1 0 1.06l-4.25 4.25a.749.749 0 0 1-1.06 0L3.22 6.28a.749.749 0 1 1 1.06-1.06L8 8.939l3.72-3.719a.749.749 0 0 1 1.06 0Z"
+                  />
+                </svg>
+              </span>
+            </div>
           </div>
+        </button>
+        <div>
           <ul
-            class="c5"
+            aria-labelledby="react-aria-1"
+            class="c9"
+            id="react-aria-2"
           >
             <li
-              class="c6 c7"
+              class="c2 c10"
             >
               <a
                 aria-current="page"
-                aria-labelledby="react-aria-2 "
-                class="c8"
-                href="/getting-started"
+                aria-labelledby="react-aria-3 "
+                class="c11"
+                href="#"
                 tabindex="0"
               >
                 <div
-                  class="c9"
+                  class="c4"
                   data-component="ActionList.Item--DividerContainer"
                 >
                   <span
-                    class="c10"
-                    id="react-aria-2"
+                    class="c6"
+                    id="react-aria-3"
                   >
-                    Getting started
+                    Sub Item
                   </span>
                 </div>
               </a>
             </li>
           </ul>
-        </li>
-        <li
-          class=""
-        >
-          <div
-            aria-hidden="true"
-            class="c2"
-            data-component="ActionList.Divider"
-            role="separator"
-          />
-          <div
-            class="c3"
-          >
-            <h3
-              class="c4"
-              id="react-aria-1"
-            >
-              Components
-            </h3>
-          </div>
-          <ul
-            class="c5"
-          >
-            <li
-              class="c6 c11"
-            >
-              <a
-                aria-labelledby="react-aria-5 "
-                class="c8"
-                href="/Avatar"
-                tabindex="0"
-              >
-                <div
-                  class="c9"
-                  data-component="ActionList.Item--DividerContainer"
-                >
-                  <span
-                    class="c10"
-                    id="react-aria-5"
-                  >
-                    Avatar
-                  </span>
-                </div>
-              </a>
-            </li>
-          </ul>
-        </li>
-      </ul>
-    </div>
-  </nav>
-</div>
-`;
-
-exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav contains the current item and is open 1`] = `
-.c0 {
-  padding-top: 8px;
-  padding-bottom: 8px;
-}
-
-.c5 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
-  min-width: 0;
-}
-
-.c7 {
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
-  font-weight: 400;
-}
-
-.c2 {
-  list-style: none;
-}
-
-.c6 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
-}
-
-.c10 {
-  padding: 0;
-  margin: 0;
-  display: block;
-}
-
-.c8 {
-  height: 20px;
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
-  color: #656d76;
-  margin-left: 8px;
-  font-weight: initial;
-}
-
-.c9 {
-  -webkit-transform: rotate(180deg);
-  -ms-transform: rotate(180deg);
-  transform: rotate(180deg);
-}
-
-.c1 {
-  margin: 0;
-  padding-inline-start: 0;
-}
-
-.c11 {
-  position: relative;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  padding-left: 0;
-  padding-right: 0;
-  font-size: 14px;
-  padding-top: 0;
-  padding-bottom: 0;
-  line-height: 20px;
-  min-height: 5px;
-  margin-left: 8px;
-  margin-right: 8px;
-  border-radius: 6px;
-  -webkit-transition: background 33.333ms linear;
-  transition: background 33.333ms linear;
-  color: #1F2328;
-  cursor: pointer;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  background: unset;
-  border: unset;
-  width: calc(100% - 16px);
-  font-family: unset;
-  text-align: unset;
-  margin-top: unset;
-  margin-bottom: unset;
-  font-weight: 600;
-  background-color: rgba(208,215,222,0.24);
-}
-
-.c11[aria-disabled] {
-  cursor: not-allowed;
-}
-
-.c11 [data-component="ActionList.Item--DividerContainer"] {
-  position: relative;
-}
-
-.c11 [data-component="ActionList.Item--DividerContainer"]::before {
-  content: " ";
-  display: block;
-  position: absolute;
-  width: 100%;
-  top: -7px;
-  border: 0 solid;
-  border-top-width: 0;
-  border-color: var(--divider-color,transparent);
-}
-
-.c11:not(:first-of-type) {
-  --divider-color: rgba(208,215,222,0.48);
-}
-
-[data-component="ActionList.Divider"] + .c11 {
-  --divider-color: transparent !important;
-}
-
-.c11:hover:not([aria-disabled]),
-.c11:focus:not([aria-disabled]),
-.c11[data-focus-visible-added]:not([aria-disabled]) {
-  --divider-color: transparent;
-}
-
-.c11:hover:not([aria-disabled]) + .c3,
-.c11:focus:not([aria-disabled]) + .c11,
-.c11[data-focus-visible-added] + li {
-  --divider-color: transparent;
-}
-
-.c11::after {
-  position: absolute;
-  top: calc(50% - 12px);
-  left: -8px;
-  width: 4px;
-  height: 24px;
-  content: "";
-  background-color: #0969da;
-  border-radius: 6px;
-}
-
-.c13:hover:not([aria-disabled]) + .c3,
-.c13:focus:not([aria-disabled]) + .c13,
-.c13[data-focus-visible-added] + li {
-  --divider-color: transparent;
-}
-
-.c14:hover:not([aria-disabled]) + .c3,
-.c14:focus:not([aria-disabled]) + .c14,
-.c14[data-focus-visible-added] + li {
-  --divider-color: transparent;
-}
-
-.c15:hover:not([aria-disabled]) + .c3,
-.c15:focus:not([aria-disabled]) + .c15,
-.c15[data-focus-visible-added] + li {
-  --divider-color: transparent;
-}
-
-.c16:hover:not([aria-disabled]) + .c3,
-.c16:focus:not([aria-disabled]) + .c16,
-.c16[data-focus-visible-added] + li {
-  --divider-color: transparent;
-}
-
-.c17:hover:not([aria-disabled]) + .c3,
-.c17:focus:not([aria-disabled]) + .c17,
-.c17[data-focus-visible-added] + li {
-  --divider-color: transparent;
-}
-
-.c18:hover:not([aria-disabled]) + .c3,
-.c18:focus:not([aria-disabled]) + .c18,
-.c18[data-focus-visible-added] + li {
-  --divider-color: transparent;
-}
-
-.c19:hover:not([aria-disabled]) + .c3,
-.c19:focus:not([aria-disabled]) + .c19,
-.c19[data-focus-visible-added] + li {
-  --divider-color: transparent;
-}
-
-.c4 {
-  position: relative;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  padding-left: 8px;
-  padding-right: 8px;
-  font-size: 14px;
-  padding-top: 6px;
-  padding-bottom: 6px;
-  line-height: 20px;
-  min-height: 5px;
-  margin-left: 8px;
-  margin-right: 8px;
-  border-radius: 6px;
-  -webkit-transition: background 33.333ms linear;
-  transition: background 33.333ms linear;
-  color: #1F2328;
-  cursor: pointer;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  background: unset;
-  border: unset;
-  width: calc(100% - 16px);
-  font-family: unset;
-  text-align: unset;
-  margin-top: unset;
-  margin-bottom: unset;
-  font-weight: 600;
-}
-
-.c4[aria-disabled] {
-  cursor: not-allowed;
-}
-
-.c4 [data-component="ActionList.Item--DividerContainer"] {
-  position: relative;
-}
-
-.c4 [data-component="ActionList.Item--DividerContainer"]::before {
-  content: " ";
-  display: block;
-  position: absolute;
-  width: 100%;
-  top: -7px;
-  border: 0 solid;
-  border-top-width: 0;
-  border-color: var(--divider-color,transparent);
-}
-
-.c4:not(:first-of-type) {
-  --divider-color: rgba(208,215,222,0.48);
-}
-
-[data-component="ActionList.Divider"] + .c4 {
-  --divider-color: transparent !important;
-}
-
-.c4:hover:not([aria-disabled]),
-.c4:focus:not([aria-disabled]),
-.c4[data-focus-visible-added]:not([aria-disabled]) {
-  --divider-color: transparent;
-}
-
-.c4:hover:not([aria-disabled]) + .c3,
-.c4:focus:not([aria-disabled]) + .c4,
-.c4[data-focus-visible-added] + li {
-  --divider-color: transparent;
-}
-
-.c20:hover:not([aria-disabled]) + .c3,
-.c20:focus:not([aria-disabled]) + .c20,
-.c20[data-focus-visible-added] + li {
-  --divider-color: transparent;
-}
-
-.c12 {
-  color: #0969da;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  padding-left: 32px;
-  padding-right: 8px;
-  padding-top: 6px;
-  padding-bottom: 6px;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
-  border-radius: 6px;
-  color: inherit;
-  font-size: 12px;
-  font-weight: 400;
-}
-
-.c12:hover {
-  -webkit-text-decoration: underline;
-  text-decoration: underline;
-}
-
-.c12:is(button) {
-  display: inline-block;
-  padding: 0;
-  font-size: inherit;
-  white-space: nowrap;
-  cursor: pointer;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  background-color: transparent;
-  border: 0;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-}
-
-.c12:hover {
-  color: inherit;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-}
-
-@media (hover:hover) and (pointer:fine) {
-  .c11:hover:not([aria-disabled]) {
-    background-color: rgba(208,215,222,0.32);
-    color: #1F2328;
-  }
-
-  .c11:focus-visible,
-  .c11 > a:focus-visible {
-    outline: none;
-    border: 2 solid;
-    box-shadow: 0 0 0 2px #0969da;
-  }
-
-  .c11:active:not([aria-disabled]) {
-    background-color: rgba(208,215,222,0.48);
-    color: #1F2328;
-  }
-}
-
-@media (forced-colors:active) {
-  .c11:focus {
-    outline: solid 1px transparent !important;
-  }
-}
-
-@media (hover:hover) and (pointer:fine) {
-  .c4:hover:not([aria-disabled]) {
-    background-color: rgba(208,215,222,0.32);
-    color: #1F2328;
-  }
-
-  .c4:focus-visible,
-  .c4 > a:focus-visible {
-    outline: none;
-    border: 2 solid;
-    box-shadow: 0 0 0 2px #0969da;
-  }
-
-  .c4:active:not([aria-disabled]) {
-    background-color: rgba(208,215,222,0.48);
-    color: #1F2328;
-  }
-}
-
-@media (forced-colors:active) {
-  .c4:focus {
-    outline: solid 1px transparent !important;
-  }
-}
-
-<div>
-  <nav
-    class=""
-  >
-    <div
-      class="c0"
-    >
-      <ul
-        class="c1"
-      >
-        <li
-          aria-labelledby="react-aria-2"
-          class="c2"
-        >
-          <button
-            aria-controls="react-aria-3"
-            aria-expanded="true"
-            aria-labelledby="react-aria-2 "
-            class="c3 c4"
-            tabindex="0"
-          >
-            <div
-              class="c5"
-              data-component="ActionList.Item--DividerContainer"
-            >
-              <div
-                class="c6"
-              >
-                <span
-                  class="c7"
-                  id="react-aria-2"
-                >
-                  Item
-                </span>
-                <span
-                  class="c8"
-                >
-                  <svg
-                    aria-hidden="true"
-                    class="c9"
-                    fill="currentColor"
-                    focusable="false"
-                    height="16"
-                    role="img"
-                    style="display: inline-block; user-select: none; vertical-align: text-bottom; overflow: visible;"
-                    viewBox="0 0 16 16"
-                    width="16"
-                  >
-                    <path
-                      d="M12.78 5.22a.749.749 0 0 1 0 1.06l-4.25 4.25a.749.749 0 0 1-1.06 0L3.22 6.28a.749.749 0 1 1 1.06-1.06L8 8.939l3.72-3.719a.749.749 0 0 1 1.06 0Z"
-                    />
-                  </svg>
-                </span>
-              </div>
-            </div>
-          </button>
-          <div>
-            <ul
-              aria-labelledby="react-aria-2"
-              class="c10"
-              id="react-aria-3"
-            >
-              <li
-                class="c3 c11"
-              >
-                <a
-                  aria-current="page"
-                  aria-labelledby="react-aria-4 "
-                  class="c12"
-                  href="#"
-                  tabindex="0"
-                >
-                  <div
-                    class="c5"
-                    data-component="ActionList.Item--DividerContainer"
-                  >
-                    <span
-                      class="c7"
-                      id="react-aria-4"
-                    >
-                      Sub Item
-                    </span>
-                  </div>
-                </a>
-              </li>
-            </ul>
-          </div>
-        </li>
-      </ul>
-    </div>
-  </nav>
-</div>
-`;
-
-exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains the current item and is closed 1`] = `
-.c0 {
-  padding-top: 8px;
-  padding-bottom: 8px;
-}
-
-.c5 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
-  min-width: 0;
-}
-
-.c7 {
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
-  font-weight: 400;
-}
-
-.c2 {
-  list-style: none;
-}
-
-.c6 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
-}
-
-.c10 {
-  padding: 0;
-  margin: 0;
-  display: none;
-}
-
-.c8 {
-  height: 20px;
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
-  color: #656d76;
-  margin-left: 8px;
-  font-weight: initial;
-}
-
-.c9 {
-  -webkit-transform: rotate(0deg);
-  -ms-transform: rotate(0deg);
-  transform: rotate(0deg);
-}
-
-.c1 {
-  margin: 0;
-  padding-inline-start: 0;
-}
-
-.c11 {
-  position: relative;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  padding-left: 0;
-  padding-right: 0;
-  font-size: 14px;
-  padding-top: 0;
-  padding-bottom: 0;
-  line-height: 20px;
-  min-height: 5px;
-  margin-left: 8px;
-  margin-right: 8px;
-  border-radius: 6px;
-  -webkit-transition: background 33.333ms linear;
-  transition: background 33.333ms linear;
-  color: #1F2328;
-  cursor: pointer;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  background: unset;
-  border: unset;
-  width: calc(100% - 16px);
-  font-family: unset;
-  text-align: unset;
-  margin-top: unset;
-  margin-bottom: unset;
-  font-weight: 600;
-  background-color: rgba(208,215,222,0.24);
-}
-
-.c11[aria-disabled] {
-  cursor: not-allowed;
-}
-
-.c11 [data-component="ActionList.Item--DividerContainer"] {
-  position: relative;
-}
-
-.c11 [data-component="ActionList.Item--DividerContainer"]::before {
-  content: " ";
-  display: block;
-  position: absolute;
-  width: 100%;
-  top: -7px;
-  border: 0 solid;
-  border-top-width: 0;
-  border-color: var(--divider-color,transparent);
-}
-
-.c11:not(:first-of-type) {
-  --divider-color: rgba(208,215,222,0.48);
-}
-
-[data-component="ActionList.Divider"] + .c11 {
-  --divider-color: transparent !important;
-}
-
-.c11:hover:not([aria-disabled]),
-.c11:focus:not([aria-disabled]),
-.c11[data-focus-visible-added]:not([aria-disabled]) {
-  --divider-color: transparent;
-}
-
-.c11:hover:not([aria-disabled]) + .c3,
-.c11:focus:not([aria-disabled]) + .c11,
-.c11[data-focus-visible-added] + li {
-  --divider-color: transparent;
-}
-
-.c11::after {
-  position: absolute;
-  top: calc(50% - 12px);
-  left: -8px;
-  width: 4px;
-  height: 24px;
-  content: "";
-  background-color: #0969da;
-  border-radius: 6px;
-}
-
-.c13:hover:not([aria-disabled]) + .c3,
-.c13:focus:not([aria-disabled]) + .c13,
-.c13[data-focus-visible-added] + li {
-  --divider-color: transparent;
-}
-
-.c14:hover:not([aria-disabled]) + .c3,
-.c14:focus:not([aria-disabled]) + .c14,
-.c14[data-focus-visible-added] + li {
-  --divider-color: transparent;
-}
-
-.c15:hover:not([aria-disabled]) + .c3,
-.c15:focus:not([aria-disabled]) + .c15,
-.c15[data-focus-visible-added] + li {
-  --divider-color: transparent;
-}
-
-.c16:hover:not([aria-disabled]) + .c3,
-.c16:focus:not([aria-disabled]) + .c16,
-.c16[data-focus-visible-added] + li {
-  --divider-color: transparent;
-}
-
-.c17:hover:not([aria-disabled]) + .c3,
-.c17:focus:not([aria-disabled]) + .c17,
-.c17[data-focus-visible-added] + li {
-  --divider-color: transparent;
-}
-
-.c18:hover:not([aria-disabled]) + .c3,
-.c18:focus:not([aria-disabled]) + .c18,
-.c18[data-focus-visible-added] + li {
-  --divider-color: transparent;
-}
-
-.c19:hover:not([aria-disabled]) + .c3,
-.c19:focus:not([aria-disabled]) + .c19,
-.c19[data-focus-visible-added] + li {
-  --divider-color: transparent;
-}
-
-.c20:hover:not([aria-disabled]) + .c3,
-.c20:focus:not([aria-disabled]) + .c20,
-.c20[data-focus-visible-added] + li {
-  --divider-color: transparent;
-}
-
-.c4 {
-  position: relative;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  padding-left: 8px;
-  padding-right: 8px;
-  font-size: 14px;
-  padding-top: 6px;
-  padding-bottom: 6px;
-  line-height: 20px;
-  min-height: 5px;
-  margin-left: 8px;
-  margin-right: 8px;
-  border-radius: 6px;
-  -webkit-transition: background 33.333ms linear;
-  transition: background 33.333ms linear;
-  color: #1F2328;
-  cursor: pointer;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  background: unset;
-  border: unset;
-  width: calc(100% - 16px);
-  font-family: unset;
-  text-align: unset;
-  margin-top: unset;
-  margin-bottom: unset;
-  font-weight: 600;
-  background-color: rgba(208,215,222,0.24);
-}
-
-.c4[aria-disabled] {
-  cursor: not-allowed;
-}
-
-.c4 [data-component="ActionList.Item--DividerContainer"] {
-  position: relative;
-}
-
-.c4 [data-component="ActionList.Item--DividerContainer"]::before {
-  content: " ";
-  display: block;
-  position: absolute;
-  width: 100%;
-  top: -7px;
-  border: 0 solid;
-  border-top-width: 0;
-  border-color: var(--divider-color,transparent);
-}
-
-.c4:not(:first-of-type) {
-  --divider-color: rgba(208,215,222,0.48);
-}
-
-[data-component="ActionList.Divider"] + .c4 {
-  --divider-color: transparent !important;
-}
-
-.c4:hover:not([aria-disabled]),
-.c4:focus:not([aria-disabled]),
-.c4[data-focus-visible-added]:not([aria-disabled]) {
-  --divider-color: transparent;
-}
-
-.c4:hover:not([aria-disabled]) + .c3,
-.c4:focus:not([aria-disabled]) + .c4,
-.c4[data-focus-visible-added] + li {
-  --divider-color: transparent;
-}
-
-.c4::after {
-  position: absolute;
-  top: calc(50% - 12px);
-  left: -8px;
-  width: 4px;
-  height: 24px;
-  content: "";
-  background-color: #0969da;
-  border-radius: 6px;
-}
-
-.c12 {
-  color: #0969da;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  padding-left: 32px;
-  padding-right: 8px;
-  padding-top: 6px;
-  padding-bottom: 6px;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
-  border-radius: 6px;
-  color: inherit;
-  font-size: 12px;
-  font-weight: 400;
-}
-
-.c12:hover {
-  -webkit-text-decoration: underline;
-  text-decoration: underline;
-}
-
-.c12:is(button) {
-  display: inline-block;
-  padding: 0;
-  font-size: inherit;
-  white-space: nowrap;
-  cursor: pointer;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  background-color: transparent;
-  border: 0;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-}
-
-.c12:hover {
-  color: inherit;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-}
-
-@media (hover:hover) and (pointer:fine) {
-  .c11:hover:not([aria-disabled]) {
-    background-color: rgba(208,215,222,0.32);
-    color: #1F2328;
-  }
-
-  .c11:focus-visible,
-  .c11 > a:focus-visible {
-    outline: none;
-    border: 2 solid;
-    box-shadow: 0 0 0 2px #0969da;
-  }
-
-  .c11:active:not([aria-disabled]) {
-    background-color: rgba(208,215,222,0.48);
-    color: #1F2328;
-  }
-}
-
-@media (forced-colors:active) {
-  .c11:focus {
-    outline: solid 1px transparent !important;
-  }
-}
-
-@media (hover:hover) and (pointer:fine) {
-  .c4:hover:not([aria-disabled]) {
-    background-color: rgba(208,215,222,0.32);
-    color: #1F2328;
-  }
-
-  .c4:focus-visible,
-  .c4 > a:focus-visible {
-    outline: none;
-    border: 2 solid;
-    box-shadow: 0 0 0 2px #0969da;
-  }
-
-  .c4:active:not([aria-disabled]) {
-    background-color: rgba(208,215,222,0.48);
-    color: #1F2328;
-  }
-}
-
-@media (forced-colors:active) {
-  .c4:focus {
-    outline: solid 1px transparent !important;
-  }
-}
-
-<div>
-  <nav
-    class=""
-  >
-    <div
-      class="c0"
-    >
-      <ul
-        class="c1"
-      >
-        <li
-          aria-labelledby="react-aria-2"
-          class="c2"
-        >
-          <button
-            aria-controls="react-aria-3"
-            aria-expanded="false"
-            aria-labelledby="react-aria-2 "
-            class="c3 c4"
-            tabindex="0"
-          >
-            <div
-              class="c5"
-              data-component="ActionList.Item--DividerContainer"
-            >
-              <div
-                class="c6"
-              >
-                <span
-                  class="c7"
-                  id="react-aria-2"
-                >
-                  Item
-                </span>
-                <span
-                  class="c8"
-                >
-                  <svg
-                    aria-hidden="true"
-                    class="c9"
-                    fill="currentColor"
-                    focusable="false"
-                    height="16"
-                    role="img"
-                    style="display: inline-block; user-select: none; vertical-align: text-bottom; overflow: visible;"
-                    viewBox="0 0 16 16"
-                    width="16"
-                  >
-                    <path
-                      d="M12.78 5.22a.749.749 0 0 1 0 1.06l-4.25 4.25a.749.749 0 0 1-1.06 0L3.22 6.28a.749.749 0 1 1 1.06-1.06L8 8.939l3.72-3.719a.749.749 0 0 1 1.06 0Z"
-                    />
-                  </svg>
-                </span>
-              </div>
-            </div>
-          </button>
-          <div>
-            <ul
-              aria-labelledby="react-aria-2"
-              class="c10"
-              id="react-aria-3"
-            >
-              <li
-                class="c3 c11"
-              >
-                <a
-                  aria-current="page"
-                  aria-labelledby="react-aria-4 "
-                  class="c12"
-                  href="#"
-                  tabindex="0"
-                >
-                  <div
-                    class="c5"
-                    data-component="ActionList.Item--DividerContainer"
-                  >
-                    <span
-                      class="c7"
-                      id="react-aria-4"
-                    >
-                      Sub Item
-                    </span>
-                  </div>
-                </a>
-              </li>
-            </ul>
-          </div>
-        </li>
-      </ul>
-    </div>
+        </div>
+      </li>
+    </ul>
   </nav>
 </div>
 `;

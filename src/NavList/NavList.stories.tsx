@@ -13,7 +13,7 @@ const meta: Meta = {
 
 export const Simple: Story = () => (
   <PageLayout>
-    <PageLayout.Pane position="start">
+    <PageLayout.Pane>
       <NavList>
         <NavList.Item href="#" aria-current="page">
           Item 1
@@ -26,21 +26,9 @@ export const Simple: Story = () => (
   </PageLayout>
 )
 
-export const WithGroup: Story = () => (
-  <NavList>
-    <NavList.Group title="Group title">
-      <NavList.Item href="#" aria-current="page">
-        Item 1
-      </NavList.Item>
-      <NavList.Item href="#">Item 2</NavList.Item>
-      <NavList.Item href="#">Item 3</NavList.Item>
-    </NavList.Group>
-  </NavList>
-)
-
 export const WithSubItems: Story = () => (
   <PageLayout>
-    <PageLayout.Pane position="start">
+    <PageLayout.Pane>
       <NavList>
         <NavList.Item href="#">Item 1</NavList.Item>
         <NavList.Item>
@@ -48,6 +36,45 @@ export const WithSubItems: Story = () => (
           <NavList.SubNav>
             <NavList.Item href="#" aria-current="page">
               Sub item 1
+            </NavList.Item>
+            <NavList.Item href="#">Sub item 2</NavList.Item>
+          </NavList.SubNav>
+        </NavList.Item>
+        <NavList.Item href="#">Item 3</NavList.Item>
+      </NavList>
+    </PageLayout.Pane>
+    <PageLayout.Content></PageLayout.Content>
+  </PageLayout>
+)
+
+export const WithNestedSubItems: Story = () => (
+  <PageLayout>
+    <PageLayout.Pane>
+      <NavList>
+        <NavList.Item href="#">Item 1</NavList.Item>
+        <NavList.Item href="#">
+          Item 2{/* NOTE: Don't nest SubNavs. For testing purposes only */}
+          <NavList.SubNav>
+            <NavList.Item href="#">
+              Sub item 1
+              <NavList.SubNav>
+                <NavList.Item href="#">
+                  Sub item 1.1
+                  <NavList.SubNav>
+                    <NavList.Item href="#">Sub item 1.1.1</NavList.Item>
+                    <NavList.Item href="#">
+                      Sub item 1.1.2
+                      <NavList.SubNav>
+                        <NavList.Item href="#">Sub item 1.1.2.1</NavList.Item>
+                        <NavList.Item href="#" aria-current="page">
+                          Sub item 1.1.2.2
+                        </NavList.Item>
+                      </NavList.SubNav>
+                    </NavList.Item>
+                  </NavList.SubNav>
+                </NavList.Item>
+                <NavList.Item href="#">Sub item 1.2</NavList.Item>
+              </NavList.SubNav>
             </NavList.Item>
             <NavList.Item href="#">Sub item 2</NavList.Item>
           </NavList.SubNav>
@@ -67,7 +94,7 @@ const ReactRouterLikeLink = React.forwardRef<HTMLAnchorElement, ReactRouterLikeL
 
 export const WithReactRouterLink = () => (
   <PageLayout>
-    <PageLayout.Pane position="start">
+    <PageLayout.Pane>
       <NavList>
         <NavList.Item as={ReactRouterLikeLink} to="#" aria-current="page">
           Item 1
@@ -99,7 +126,7 @@ const NextJSLikeLink = React.forwardRef<HTMLAnchorElement, NextJSLinkProps>(
 
 export const WithNextJSLink = () => (
   <PageLayout>
-    <PageLayout.Pane position="start">
+    <PageLayout.Pane>
       <NavList>
         <NextJSLikeLink href="#">
           <NavList.Item aria-current="page">Item 1</NavList.Item>

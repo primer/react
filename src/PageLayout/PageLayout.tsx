@@ -53,7 +53,7 @@ export type PageLayoutProps = {
   columnGap?: keyof typeof SPACING_MAP
 
   /** Private prop to allow SplitPageLayout to customize slot components */
-  _slotsConfig?: Record<'header' | 'footer', React.ComponentType>
+  _slotsConfig?: Record<'header' | 'footer', React.ElementType>
 } & SxProp
 
 const containerWidths = {
@@ -107,7 +107,18 @@ const Root: React.FC<React.PropsWithChildren<PageLayoutProps>> = ({
           }}
         >
           {slots.header}
-          <Box sx={{display: 'flex', flex: '1 1 100%', flexWrap: 'wrap', maxWidth: '100%'}}>{rest}</Box>
+          <Box
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            sx={(theme: any) => ({
+              display: 'flex',
+              flex: '1 1 100%',
+              flexWrap: 'wrap',
+              maxWidth: '100%',
+              [`@media screen and (min-width: ${theme.breakpoints[1]})`]: {columnGap: SPACING_MAP[columnGap]},
+            })}
+          >
+            {rest}
+          </Box>
           {slots.footer}
         </Box>
       </Box>
@@ -424,21 +435,27 @@ const Content: React.FC<React.PropsWithChildren<PageLayoutContentProps>> = ({
       as="main"
       aria-label={label}
       aria-labelledby={labelledBy}
-      sx={merge<BetterSystemStyleObject>(
-        {
-          display: isHidden ? 'none' : 'flex',
-          flexDirection: 'column',
-          order: REGION_ORDER.content,
-          // Set flex-basis to 0% to allow flex-grow to control the width of the content region.
-          // Without this, the content region could wrap onto a different line
-          // than the pane region on wide viewports if its contents are too wide.
-          flexBasis: 0,
-          flexGrow: 1,
-          flexShrink: 1,
-          minWidth: 1, // Hack to prevent overflowing content from pushing the pane region to the next line
-        },
-        sx,
-      )}
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      sx={(theme: any) =>
+        merge<BetterSystemStyleObject>(
+          {
+            display: isHidden ? 'none' : 'flex',
+            flexDirection: 'column',
+            // Set flex-basis to 0% to allow flex-grow to control the width of the content region.
+            // Without this, the content region could wrap onto a different line
+            // than the pane region on wide viewports if its contents are too wide.
+            flexBasis: 0,
+            flexGrow: 1,
+            flexShrink: 1,
+            minWidth: 1, // Hack to prevent overflowing content from pushing the pane region to the next line
+            [`@media screen and (min-width: ${theme.breakpoints[1]})`]: {
+              width: 'auto',
+              marginY: '0 !important',
+            },
+          },
+          sx,
+        )
+      }
     >
       {/* Track the top of the content region so we can calculate the height of the pane region */}
       <Box ref={contentTopRef} />
@@ -467,7 +484,6 @@ Content.displayName = 'PageLayout.Content'
 // PageLayout.Pane
 
 export type PageLayoutPaneProps = {
-  position?: keyof typeof panePositions | ResponsiveValue<keyof typeof panePositions>
   /**
    * @deprecated Use the `position` prop with a responsive value instead.
    *
@@ -530,8 +546,6 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
     {
       'aria-label': label,
       'aria-labelledby': labelledBy,
-      position: responsivePosition = 'end',
-      positionWhenNarrow = 'inherit',
       width = 'medium',
       minWidth = 256,
       padding = 'none',
@@ -548,14 +562,6 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
     },
     forwardRef,
   ) => {
-    // Combine position and positionWhenNarrow for backwards compatibility
-    const positionProp =
-      !isResponsiveValue(responsivePosition) && positionWhenNarrow !== 'inherit'
-        ? {regular: responsivePosition, narrow: positionWhenNarrow}
-        : responsivePosition
-
-    const position = useResponsiveValue(positionProp, 'end')
-
     // Combine divider and dividerWhenNarrow for backwards compatibility
     const dividerProp =
       !isResponsiveValue(responsiveDivider) && dividerWhenNarrow !== 'inherit'
@@ -678,12 +684,11 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
             {
               // Narrow viewports
               display: isHidden ? 'none' : 'flex',
-              order: panePositions[position],
               width: '100%',
               marginX: 0,
-              ...(position === 'end'
-                ? {flexDirection: 'column', marginTop: SPACING_MAP[rowGap]}
-                : {flexDirection: 'column-reverse', marginBottom: SPACING_MAP[rowGap]}),
+              flexDirection: 'column-reverse',
+              marginBottom: SPACING_MAP[rowGap],
+              marginTop: SPACING_MAP[rowGap],
 
               // Regular and wide viewports
               [`@media screen and (min-width: ${theme.breakpoints[1]})`]: {
@@ -698,9 +703,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
                       maxHeight: 'var(--sticky-pane-height)',
                     }
                   : {}),
-                ...(position === 'end'
-                  ? {flexDirection: 'row', marginLeft: SPACING_MAP[columnGap]}
-                  : {flexDirection: 'row-reverse', marginRight: SPACING_MAP[columnGap]}),
+                flexDirection: 'row-reverse',
               },
             },
             sx,
@@ -708,10 +711,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
         }
       >
         {/* Show a horizontal divider when viewport is narrow. Otherwise, show a vertical divider. */}
-        <HorizontalDivider
-          variant={{narrow: dividerVariant, regular: 'none'}}
-          sx={{[position === 'end' ? 'marginBottom' : 'marginTop']: SPACING_MAP[rowGap]}}
-        />
+        <HorizontalDivider variant={{narrow: dividerVariant, regular: 'none'}} sx={{marginTop: SPACING_MAP[rowGap]}} />
         <VerticalDivider
           variant={{
             narrow: 'none',
@@ -720,10 +720,10 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
           }}
           // If pane is resizable, the divider should be draggable
           draggable={resizable}
-          sx={{[position === 'end' ? 'marginRight' : 'marginLeft']: SPACING_MAP[columnGap]}}
+          sx={{marginLeft: SPACING_MAP[columnGap]}}
           onDrag={delta => {
             // Get the number of pixels the divider was dragged
-            const deltaWithDirection = position === 'end' ? -delta : delta
+            const deltaWithDirection = delta
             updatePaneWidth(paneWidth + deltaWithDirection)
           }}
           // Ensure `paneWidth` state and actual pane width are in sync when the drag ends
@@ -763,7 +763,6 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
           {resizable && (
             <VisuallyHidden>
               <form onSubmit={handleWidthFormSubmit}>
-                {/* eslint-disable-next-line jsx-a11y/label-has-for */}
                 <label htmlFor={`${paneId}-width-input`}>Pane width</label>
                 <p id={`${paneId}-input-hint`}>
                   Use a value between {minPercent}% and {maxPercent}%

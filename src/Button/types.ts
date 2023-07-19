@@ -1,14 +1,14 @@
 import React from 'react'
 import styled from 'styled-components'
 import sx, {SxProp} from '../sx'
-import getGlobalFocusStyles from '../_getGlobalFocusStyles'
+import getGlobalFocusStyles from '../internal/utils/getGlobalFocusStyles'
 
 export const StyledButton = styled.button<SxProp>`
   ${getGlobalFocusStyles('-2px')};
   ${sx};
 `
 
-export type VariantType = 'default' | 'primary' | 'invisible' | 'danger' | 'outline'
+export type VariantType = 'default' | 'primary' | 'invisible' | 'danger'
 
 export type Size = 'small' | 'medium' | 'large'
 
@@ -40,30 +40,36 @@ export type ButtonBaseProps = {
 
 export type ButtonProps = {
   /**
-   * The icon for the IconButton
-   */
-  icon?: React.ComponentType | null | undefined
-  /**
-   * The leading icon comes before button content
-   */
-  leadingIcon?: React.ComponentType | null | undefined
-  /**
-   * The trailing icon comes after button content
-   */
-  trailingIcon?: React.ComponentType | null | undefined
-  /**
-   * Trailing action appears to the right of the trailing visual and is always locked to the end
-   */
-  trailingAction?: React.ComponentType | null | undefined
-  children: React.ReactNode
-  /**
    * Content alignment for when visuals are present
    */
   alignContent?: AlignContent
+
+  /**
+   * The icon for the IconButton
+   */
+  icon?: React.ElementType | null | undefined
+
+  /**
+   * The leading icon comes before button content
+   */
+  leadingVisual?: React.ElementType | null | undefined
+
+  /**
+   * The trailing icon comes after button content
+   */
+  trailingVisual?: React.ElementType | null | undefined
+
+  /**
+   * Trailing action appears to the right of the trailing visual and is always locked to the end
+   */
+  trailingAction?: React.ElementType | null | undefined
+
+  children: React.ReactNode
+  count?: number
 } & ButtonBaseProps
 
 export type IconButtonProps = ButtonA11yProps & {
-  icon: React.ComponentType
+  icon: React.ElementType
 } & Omit<ButtonBaseProps, 'aria-label' | 'aria-labelledby'>
 
 // adopted from React.AnchorHTMLAttributes

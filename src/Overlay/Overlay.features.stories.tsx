@@ -20,7 +20,7 @@ import {
 import type {AnchorSide} from '@primer/behaviors'
 
 export default {
-  title: 'Private components/Overlay',
+  title: 'Private/Components/Overlay',
   component: Overlay,
   args: {
     anchorSide: 'inside-top',
@@ -306,7 +306,7 @@ export const NestedOverlays = () => {
               variant="invisible"
               ref={secondaryButtonRef}
               sx={{px: 2, mx: 2, display: 'flex'}}
-              leadingIcon={PlusIcon}
+              leadingVisual={PlusIcon}
               onClick={() => setCreateListOverlayOpen(!createListOverlayOpen)}
             >
               Create list

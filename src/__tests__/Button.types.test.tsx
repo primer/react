@@ -11,12 +11,12 @@ export function ShouldAcceptKnownButtonPropsAndDomProps() {
   return (
     <Button
       ref={buttonEl}
-      leadingIcon={() => <></>}
-      trailingIcon={() => <></>}
+      leadingVisual={() => <></>}
+      trailingVisual={() => <></>}
       size="medium"
       variant="primary"
       disabled
-      aria-label="some label"
+      aria-label="Test label"
       onClick={e => {
         // current target is assignable to HTMLButtonElement
         buttonEl.current = e.currentTarget

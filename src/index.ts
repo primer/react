@@ -49,7 +49,7 @@ export type {RadioProps} from './Radio'
 export {ActionList} from './ActionList'
 export type {
   ActionListProps,
-  ActionListHeadingProps,
+  ActionListGroupProps,
   ActionListItemProps,
   ActionListLinkItemProps,
   ActionListDividerProps,
@@ -90,10 +90,6 @@ export {default as Dialog} from './Dialog'
 export type {DialogProps, DialogHeaderProps} from './Dialog'
 export type {ConfirmationDialogProps} from './Dialog/ConfirmationDialog'
 export {ConfirmationDialog} from './Dialog/ConfirmationDialog'
-export {default as FilteredSearch} from './FilteredSearch'
-export type {FilteredSearchProps} from './FilteredSearch'
-export {default as FilterList} from './FilterList'
-export type {FilterListProps, FilterListItemProps} from './FilterList'
 export {default as Flash} from './Flash'
 export type {FlashProps} from './Flash'
 export {default as FormControl} from './FormControl'
@@ -117,6 +113,8 @@ export type {
   NavListTrailingVisualProps,
   NavListDividerProps,
 } from './NavList'
+export {default as Octicon} from './Octicon'
+export type {OcticonProps} from './Octicon'
 export {default as Overlay} from './Overlay'
 export type {OverlayProps} from './Overlay'
 export {default as Pagehead} from './Pagehead'

@@ -12,10 +12,9 @@ import VisuallyHidden from '../_VisuallyHidden'
 // TODO: This is a temporary solution until we figure out why these methods are causing type errors.
 export interface TokenProps extends TokenBaseProps, SxProp {
   /**
-   * A function that renders a component before the token text
+   * A component that renders before the token text
    */
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  leadingVisual?: React.ComponentType<React.PropsWithChildren<any>>
+  leadingVisual?: React.ElementType
 }
 
 const tokenBorderWidthPx = 1
@@ -25,7 +24,7 @@ const LeadingVisualContainer: React.FC<React.PropsWithChildren<Pick<TokenBasePro
     sx={{
       flexShrink: 0,
       lineHeight: 0,
-      marginRight: size && ['large', 'extralarge', 'xlarge'].includes(size) ? 2 : 1,
+      marginRight: size && ['large', 'xlarge'].includes(size) ? 2 : 1,
     }}
   >
     {children}
