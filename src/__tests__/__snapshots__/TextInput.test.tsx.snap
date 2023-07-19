@@ -1964,6 +1964,7 @@ exports[`TextInput renders trailingAction icon button 1`] = `
 
 .c3 {
   position: relative;
+  display: inline-block;
 }
 
 .c3::before {
@@ -3031,6 +3032,7 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
 
 .c3 {
   position: relative;
+  display: inline-block;
   display: inline-block;
 }
 
