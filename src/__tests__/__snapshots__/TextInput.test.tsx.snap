@@ -1778,7 +1778,7 @@ exports[`TextInput renders trailingAction icon button 1`] = `
 }
 
 .c5 [data-component=ButtonCounter] {
-  font-size: 14px;
+  font-size: 12px;
 }
 
 .c5[data-component=IconButton] {
@@ -1841,6 +1841,14 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   grid-area: text;
   line-height: calc(20/14);
   white-space: nowrap;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
 }
 
 .c5 [data-component="trailingVisual"] {
@@ -2428,7 +2436,7 @@ exports[`TextInput renders trailingAction text button 1`] = `
 }
 
 .c4 [data-component=ButtonCounter] {
-  font-size: 14px;
+  font-size: 12px;
 }
 
 .c4[data-component=IconButton] {
@@ -2491,6 +2499,14 @@ exports[`TextInput renders trailingAction text button 1`] = `
   grid-area: text;
   line-height: calc(20/14);
   white-space: nowrap;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
 }
 
 .c4 [data-component="trailingVisual"] {
@@ -2833,7 +2849,7 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
 }
 
 .c5 [data-component=ButtonCounter] {
-  font-size: 14px;
+  font-size: 12px;
 }
 
 .c5[data-component=IconButton] {
@@ -2896,6 +2912,14 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   grid-area: text;
   line-height: calc(20/14);
   white-space: nowrap;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
 }
 
 .c5 [data-component="trailingVisual"] {

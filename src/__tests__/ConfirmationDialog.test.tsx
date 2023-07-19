@@ -2,11 +2,10 @@ import {render as HTMLRender, fireEvent} from '@testing-library/react'
 import {axe} from 'jest-axe'
 import React, {useCallback, useRef, useState} from 'react'
 
-import {ActionMenu} from '../ActionMenu'
-import {ActionList} from '../ActionList'
+import {ActionMenu} from '../deprecated/ActionMenu'
 import BaseStyles from '../BaseStyles'
 import Box from '../Box'
-import {Button} from '../Button'
+import Button from '../deprecated/Button/Button'
 import {ConfirmationDialog, useConfirm} from '../Dialog/ConfirmationDialog'
 import theme from '../theme'
 import {ThemeProvider} from '../ThemeProvider'
@@ -63,14 +62,10 @@ const ShorthandHookFromActionMenu = () => {
       <SSRProvider>
         <BaseStyles>
           <Box display="flex" flexDirection="column" alignItems="flex-start">
-            <ActionMenu>
-              <ActionMenu.Button>{text}</ActionMenu.Button>
-              <ActionMenu.Overlay>
-                <ActionList>
-                  <ActionList.Item onSelect={onButtonClick}>Show dialog</ActionList.Item>
-                </ActionList>
-              </ActionMenu.Overlay>
-            </ActionMenu>
+            <ActionMenu
+              renderAnchor={props => <Button {...props}>{text}</Button>}
+              items={[{text: 'Show dialog', onAction: onButtonClick}]}
+            />
           </Box>
         </BaseStyles>
       </SSRProvider>
@@ -100,36 +95,36 @@ describe('ConfirmationDialog', () => {
   })
 
   it('focuses the primary action when opened and the confirmButtonType is not set', async () => {
-    const {getByText, getByRole} = HTMLRender(<Basic />)
+    const {getByText} = HTMLRender(<Basic />)
     fireEvent.click(getByText('Show dialog'))
-    expect(getByRole('button', {name: 'Primary'})).toEqual(document.activeElement)
+    expect(getByText('Primary')).toEqual(document.activeElement)
     expect(getByText('Secondary')).not.toEqual(document.activeElement)
   })
 
   it('focuses the primary action when opened and the confirmButtonType is not danger', async () => {
-    const {getByText, getByRole} = HTMLRender(<Basic confirmButtonType="primary" />)
+    const {getByText} = HTMLRender(<Basic confirmButtonType="primary" />)
     fireEvent.click(getByText('Show dialog'))
-    expect(getByRole('button', {name: 'Primary'})).toEqual(document.activeElement)
+    expect(getByText('Primary')).toEqual(document.activeElement)
     expect(getByText('Secondary')).not.toEqual(document.activeElement)
   })
 
   it('focuses the secondary action when opened and the confirmButtonType is danger', async () => {
-    const {getByText, getByRole} = HTMLRender(<Basic confirmButtonType="danger" />)
+    const {getByText} = HTMLRender(<Basic confirmButtonType="danger" />)
     fireEvent.click(getByText('Show dialog'))
-    expect(getByRole('button', {name: 'Primary'})).not.toEqual(document.activeElement)
-    expect(getByRole('button', {name: 'Secondary'})).toEqual(document.activeElement)
+    expect(getByText('Primary')).not.toEqual(document.activeElement)
+    expect(getByText('Secondary')).toEqual(document.activeElement)
   })
 
   it('supports nested `focusTrap`s', async () => {
     const spy = jest.spyOn(console, 'error').mockImplementationOnce(() => {})
 
-    const {getByText, getByRole} = HTMLRender(<ShorthandHookFromActionMenu />)
+    const {getByText} = HTMLRender(<ShorthandHookFromActionMenu />)
 
     fireEvent.click(getByText('Show menu'))
     fireEvent.click(getByText('Show dialog'))
 
-    expect(getByRole('button', {name: 'Primary'})).toEqual(document.activeElement)
-    expect(getByRole('button', {name: 'Secondary'})).not.toEqual(document.activeElement)
+    expect(getByText('Primary')).toEqual(document.activeElement)
+    expect(getByText('Secondary')).not.toEqual(document.activeElement)
 
     // REACT_VERSION_LATEST should be treated as a constant for the test
     // environment
