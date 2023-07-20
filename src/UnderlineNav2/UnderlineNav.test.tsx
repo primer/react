@@ -173,6 +173,19 @@ describe('UnderlineNav', () => {
     expect(heading.className).toContain('VisuallyHidden')
     expect(heading.textContent).toBe('Repository navigation')
   })
+  it('throws an error when there are multiple items that have aria-current', () => {
+    const spy = jest.spyOn(console, 'error').mockImplementation()
+    expect(() => {
+      render(
+        <UnderlineNav aria-label="Test Navigation">
+          <UnderlineNav.Item aria-current="page">Item 1</UnderlineNav.Item>
+          <UnderlineNav.Item aria-current="page">Item 2</UnderlineNav.Item>
+        </UnderlineNav>,
+      )
+    }).toThrow('Only one current element is allowed')
+    expect(spy).toHaveBeenCalled()
+    spy.mockRestore()
+  })
 })
 
 describe('Keyboard Navigation', () => {

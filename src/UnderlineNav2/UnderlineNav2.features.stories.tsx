@@ -29,16 +29,6 @@ export const Default = () => {
     </UnderlineNav>
   )
 }
-
-export const IllegalState = () => {
-  return (
-    <UnderlineNav aria-label="Repository">
-      <UnderlineNav.Item aria-current="page">Code</UnderlineNav.Item>
-      <UnderlineNav.Item aria-current="page">Issues</UnderlineNav.Item>
-      <UnderlineNav.Item aria-current="page">Pull Requests</UnderlineNav.Item>
-    </UnderlineNav>
-  )
-}
 export const WithIcons = () => {
   return (
     <UnderlineNav aria-label="Repository with icons">
