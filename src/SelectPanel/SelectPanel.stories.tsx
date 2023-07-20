@@ -13,7 +13,7 @@ export default {
 } as ComponentMeta<typeof SelectPanel>
 
 function getColorCircle(color: string) {
-  return function() {
+  return function () {
     return (
       <Box
         sx={{
