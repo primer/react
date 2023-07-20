@@ -11,7 +11,7 @@ exports[`renders consistently 1`] = `
   text-align: right;
 }
 
-.c6 {
+.c5 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -25,7 +25,7 @@ exports[`renders consistently 1`] = `
   align-items: center;
 }
 
-.c7 {
+.c6 {
   color: #ffffff;
   line-height: 0;
   -webkit-box-flex: 1;
@@ -48,7 +48,7 @@ exports[`renders consistently 1`] = `
   transition-duration: 80ms;
 }
 
-.c8 {
+.c7 {
   color: #656d76;
   line-height: 0;
   -webkit-box-flex: 1;
@@ -85,25 +85,13 @@ exports[`renders consistently 1`] = `
   flex-direction: row;
 }
 
-.c5 {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  -webkit-clip: rect(0,0,0,0);
-  clip: rect(0,0,0,0);
-  white-space: nowrap;
-  border-width: 0;
-}
-
 .c1 {
   font-size: 14px;
   color: #1F2328;
   margin-left: 8px;
   margin-right: 8px;
   position: relative;
+  cursor: pointer;
 }
 
 .c4 {
@@ -152,7 +140,7 @@ exports[`renders consistently 1`] = `
   background-color: hsla(210,24%,88%,1);
 }
 
-.c9 {
+.c8 {
   background-color: #ffffff;
   border-width: 1px;
   border-style: solid;
@@ -202,7 +190,7 @@ exports[`renders consistently 1`] = `
 }
 
 @media (prefers-reduced-motion) {
-  .c9 {
+  .c8 {
     -webkit-transition: none;
     transition: none;
   }
@@ -217,6 +205,7 @@ exports[`renders consistently 1`] = `
     className="c1"
     color="fg.default"
     fontSize={1}
+    onClick={[Function]}
   >
     <div
       className="c2"
@@ -230,29 +219,23 @@ exports[`renders consistently 1`] = `
     </div>
   </span>
   <button
-    aria-checked={false}
+    aria-pressed={false}
     checked={false}
     className="c4"
     disabled={false}
     onClick={[Function]}
-    role="switch"
     size="medium"
   >
-    <span
-      className="c5"
-    >
-      Off
-    </span>
     <div
       aria-hidden="true"
-      className="c6"
+      className="c5"
       display="flex"
       height="100%"
       overflow="hidden"
       width="100%"
     >
       <div
-        className="c7"
+        className="c6"
         color="switchTrack.checked.fg"
       >
         <svg
@@ -269,7 +252,7 @@ exports[`renders consistently 1`] = `
         </svg>
       </div>
       <div
-        className="c8"
+        className="c7"
         color="switchTrack.fg"
       >
         <svg
@@ -289,7 +272,7 @@ exports[`renders consistently 1`] = `
     <div
       aria-hidden="true"
       checked={false}
-      className="c9"
+      className="c8"
       disabled={false}
     />
   </button>

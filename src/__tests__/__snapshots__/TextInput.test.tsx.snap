@@ -1740,7 +1740,7 @@ exports[`TextInput renders trailingAction icon button 1`] = `
 }
 
 .c4 [data-component=ButtonCounter] {
-  font-size: 14px;
+  font-size: 12px;
 }
 
 .c4[data-component=IconButton] {
@@ -1803,6 +1803,14 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   grid-area: text;
   line-height: calc(20/14);
   white-space: nowrap;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
 }
 
 .c4 [data-component="trailingVisual"] {
@@ -1954,22 +1962,9 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   padding-right: 0;
 }
 
-.c1 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-}
-
-.c1:focus {
-  outline: 0;
-}
-
 .c3 {
   position: relative;
+  display: inline-block;
 }
 
 .c3::before {
@@ -2192,6 +2187,20 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   left: 10px;
 }
 
+.c1 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c1:focus {
+  outline: 0;
+}
+
 @media (forced-colors:active) {
   .c4:focus {
     outline: solid 1px transparent;
@@ -2236,12 +2245,12 @@ exports[`TextInput renders trailingAction icon button 1`] = `
     className="c2 TextInput-action"
   >
     <span
-      aria-label="iconLabel"
+      aria-label="Icon label"
       className="c3 tooltipped-n"
       role="tooltip"
     >
       <button
-        aria-label="iconLabel"
+        aria-label="Icon label"
         className="c4"
         data-block={null}
         data-component="IconButton"
@@ -2388,7 +2397,7 @@ exports[`TextInput renders trailingAction text button 1`] = `
 }
 
 .c3 [data-component=ButtonCounter] {
-  font-size: 14px;
+  font-size: 12px;
 }
 
 .c3[data-component=IconButton] {
@@ -2451,6 +2460,14 @@ exports[`TextInput renders trailingAction text button 1`] = `
   grid-area: text;
   line-height: calc(20/14);
   white-space: nowrap;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
 }
 
 .c3 [data-component="trailingVisual"] {
@@ -2791,7 +2808,7 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
 }
 
 .c4 [data-component=ButtonCounter] {
-  font-size: 14px;
+  font-size: 12px;
 }
 
 .c4[data-component=IconButton] {
@@ -2854,6 +2871,14 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   grid-area: text;
   line-height: calc(20/14);
   white-space: nowrap;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
 }
 
 .c4 [data-component="trailingVisual"] {
@@ -3005,22 +3030,9 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   padding-right: 0;
 }
 
-.c1 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-}
-
-.c1:focus {
-  outline: 0;
-}
-
 .c3 {
   position: relative;
+  display: inline-block;
   display: inline-block;
 }
 
@@ -3242,6 +3254,20 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
 
 .c3.tooltipped-align-left-2::before {
   left: 10px;
+}
+
+.c1 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c1:focus {
+  outline: 0;
 }
 
 @media (forced-colors:active) {

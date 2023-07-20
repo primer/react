@@ -25,6 +25,9 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
         backgroundColor: 'btn.activeBg',
         borderColor: 'btn.activeBorder',
       },
+      '[data-component="leadingVisual"], [data-component="trailingVisual"], [data-component="trailingAction"]': {
+        color: 'fg.muted',
+      },
     },
     primary: {
       color: 'btn.primary.text',
@@ -186,25 +189,6 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
         borderColor: 'btn.outline.selectedBorder',
       },
     },
-    link: {
-      color: 'accent.fg',
-      backgroundColor: 'transparent',
-      display: 'inline-flex',
-      border: 'none',
-      height: 'unset',
-      padding: 0,
-      '&:hover:not(:disabled)': {
-        textDecoration: 'underline',
-      },
-      '&:focus-visible, &:focus': {
-        outlineOffset: '2px',
-      },
-      '&:disabled, &[aria-disabled=true]': {
-        color: 'primer.fg.disabled',
-        backgroundColor: 'transparent',
-        borderColor: 'transparent',
-      },
-    },
   }
   return style[variant]
 }
@@ -253,7 +237,7 @@ export const getBaseStyles = (theme?: Theme) => ({
     },
   },
   '[data-component=ButtonCounter]': {
-    fontSize: '1',
+    fontSize: '0',
   },
   '&[data-component=IconButton]': {
     display: 'inline-grid',
@@ -314,6 +298,9 @@ export const getButtonStyles = (theme?: Theme) => {
       gridArea: 'text',
       lineHeight: 'calc(20/14)',
       whiteSpace: 'nowrap',
+      // remove flex in next major release
+      display: 'flex',
+      alignItems: 'center',
     },
     '[data-component="trailingVisual"]': {
       gridArea: 'trailingVisual',

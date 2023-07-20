@@ -1,4 +1,4 @@
-import classnames from 'classnames'
+import clsx from 'clsx'
 import React from 'react'
 import styled from 'styled-components'
 import {get} from './constants'
@@ -7,6 +7,7 @@ import {ComponentProps} from './utils/types'
 
 const TooltipBase = styled.span<SxProp>`
   position: relative;
+  display: inline-block;
 
   &::before {
     position: absolute;
@@ -245,7 +246,7 @@ export type TooltipProps = {
 } & ComponentProps<typeof TooltipBase>
 
 function Tooltip({direction = 'n', children, className, text, noDelay, align, wrap, ...rest}: TooltipProps) {
-  const classes = classnames(
+  const classes = clsx(
     className,
     `tooltipped-${direction}`,
     align && `tooltipped-align-${align}-2`,

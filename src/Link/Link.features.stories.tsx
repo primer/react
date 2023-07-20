@@ -1,6 +1,5 @@
 import Link from '../Link'
-import Box from '../Box'
-import {Meta, StoryFn} from '@storybook/react'
+import {Meta} from '@storybook/react'
 import React from 'react'
 import {ComponentProps} from '../utils/types'
 
@@ -20,20 +19,3 @@ export const Underline = () => (
     Link
   </Link>
 )
-
-export const WithinText: StoryFn<typeof Link> = args => (
-  <Box as="p">
-    This{' '}
-    <Link href="#" {...args}>
-      link
-    </Link>{' '}
-    is inside of other text.
-  </Box>
-)
-
-WithinText.args = {
-  muted: false,
-  underline: false,
-}
-
-WithinText.argTypes = {}

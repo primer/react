@@ -53,10 +53,10 @@ describe('PageLayout', () => {
           <PageLayout.Header divider="line" dividerWhenNarrow="filled">
             Header
           </PageLayout.Header>
-          <PageLayout.Content>Content</PageLayout.Content>
-          <PageLayout.Pane position="start" divider="line" dividerWhenNarrow="filled">
+          <PageLayout.Pane divider="line" dividerWhenNarrow="filled">
             Pane
           </PageLayout.Pane>
+          <PageLayout.Content>Content</PageLayout.Content>
           <PageLayout.Footer dividerWhenNarrow="line">Footer</PageLayout.Footer>
         </PageLayout>
       </ThemeProvider>,
@@ -122,17 +122,17 @@ describe('PageLayout', () => {
     render(
       <ThemeProvider>
         <PageLayout>
-          <PageLayout.Header aria-label="header">Header</PageLayout.Header>
-          <PageLayout.Content aria-label="content">Content</PageLayout.Content>
+          <PageLayout.Header aria-label="Header">Header</PageLayout.Header>
+          <PageLayout.Content aria-label="Content">Content</PageLayout.Content>
           <PageLayout.Pane>Pane</PageLayout.Pane>
-          <PageLayout.Footer aria-label="footer">Footer</PageLayout.Footer>
+          <PageLayout.Footer aria-label="Footer">Footer</PageLayout.Footer>
         </PageLayout>
       </ThemeProvider>,
     )
 
-    expect(screen.getByRole('banner')).toHaveAccessibleName('header')
-    expect(screen.getByRole('main')).toHaveAccessibleName('content')
-    expect(screen.getByRole('contentinfo')).toHaveAccessibleName('footer')
+    expect(screen.getByRole('banner')).toHaveAccessibleName('Header')
+    expect(screen.getByRole('main')).toHaveAccessibleName('Content')
+    expect(screen.getByRole('contentinfo')).toHaveAccessibleName('Footer')
   })
 
   it('should support labeling landmarks through `aria-labelledby`', () => {
