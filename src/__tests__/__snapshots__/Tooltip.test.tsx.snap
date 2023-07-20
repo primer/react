@@ -3,6 +3,7 @@
 exports[`Tooltip renders consistently 1`] = `
 .c0 {
   position: relative;
+  display: inline-block;
 }
 
 .c0::before {
