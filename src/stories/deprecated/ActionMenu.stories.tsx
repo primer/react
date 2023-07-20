@@ -9,15 +9,18 @@ import {
   FilterIcon,
   GearIcon,
   ArrowRightIcon,
+  TriangleDownIcon,
 } from '@primer/octicons-react'
 import {Meta} from '@storybook/react'
 import React, {useCallback, useState, useRef} from 'react'
 import styled from 'styled-components'
 import {ThemeProvider} from '../..'
 import Link, {LinkProps} from '../../Link'
-import {ActionMenu, ActionMenuProps, ActionList, DropdownButton, Button} from '../../deprecated'
+import {ActionMenu, ActionMenuProps, ActionList, Button} from '../../deprecated'
 import {ItemProps} from '../../deprecated/ActionList'
 import BaseStyles from '../../BaseStyles'
+// We can remove the as as DropdownButton, after updating the deprecated Button usages
+import {Button as DropdownButton} from '../../Button'
 
 const meta: Meta = {
   title: 'Deprecated/Components/ActionMenu',
@@ -281,6 +284,7 @@ export function ActionMenuWithExternalAnchor(): JSX.Element {
 
 const DoubleClickableAnchor: Exclude<ActionMenuProps['renderAnchor'], null | undefined> = ({
   onClick: callback,
+  children,
   ...rest
 }) => {
   const onClick = useCallback(
@@ -292,7 +296,11 @@ const DoubleClickableAnchor: Exclude<ActionMenuProps['renderAnchor'], null | und
     },
     [callback],
   )
-  return <DropdownButton onClick={onClick} {...rest} />
+  return (
+    <DropdownButton trailingAction={TriangleDownIcon} onClick={onClick} {...rest}>
+      {children}
+    </DropdownButton>
+  )
 }
 export function ActionMenuWithDoubleClickStory(): JSX.Element {
   return (
