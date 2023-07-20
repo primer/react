@@ -51,7 +51,7 @@ export type TextInputNonPassthroughProps = {
 
 export type TextInputProps = Merge<React.ComponentPropsWithoutRef<'input'>, TextInputNonPassthroughProps>
 
-// using forwardRef is important so that other components (ex. SelectMenu) can autofocus the input
+// using forwardRef is important so that other components can autofocus the input
 const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
   (
     {
