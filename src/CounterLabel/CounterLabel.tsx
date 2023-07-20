@@ -34,6 +34,7 @@ const CounterLabel = forwardRef<HTMLSpanElement, CounterLabelProps>(
           )}
           {...props}
           as="span"
+          // @ts-expect-error Box is expecting a divelement, but this component forces a span element
           ref={forwardedRef}
         >
           {children}
