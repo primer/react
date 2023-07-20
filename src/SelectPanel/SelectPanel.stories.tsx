@@ -13,20 +13,22 @@ export default {
 } as ComponentMeta<typeof SelectPanel>
 
 function getColorCircle(color: string) {
-  return (
-    <Box
-      sx={{
-        backgroundColor: color,
-        borderColor: color,
-        width: 14,
-        height: 14,
-        borderRadius: 10,
-        margin: 'auto',
-        borderWidth: '1px',
-        borderStyle: 'solid',
-      }}
-    />
-  )
+  return function() {
+    return (
+      <Box
+        sx={{
+          backgroundColor: color,
+          borderColor: color,
+          width: 14,
+          height: 14,
+          borderRadius: 10,
+          margin: 'auto',
+          borderWidth: '1px',
+          borderStyle: 'solid',
+        }}
+      />
+    )
+  }
 }
 
 const items = [

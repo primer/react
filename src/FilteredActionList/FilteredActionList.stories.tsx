@@ -26,18 +26,20 @@ const meta: Meta = {
 export default meta
 
 function getColorCircle(color: string) {
-  return (
-    <Box
-      bg={color}
-      borderColor={color}
-      width={14}
-      height={14}
-      borderRadius={10}
-      margin="auto"
-      borderWidth="1px"
-      borderStyle="solid"
-    />
-  )
+  return function () {
+    return (
+      <Box
+        bg={color}
+        borderColor={color}
+        width={14}
+        height={14}
+        borderRadius={10}
+        margin="auto"
+        borderWidth="1px"
+        borderStyle="solid"
+      />
+    )
+  }
 }
 
 const items = [

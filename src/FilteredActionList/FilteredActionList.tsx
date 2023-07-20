@@ -14,6 +14,7 @@ import {useProvidedStateOrCreate} from '../hooks/useProvidedStateOrCreate'
 import useScrollFlash from '../hooks/useScrollFlash'
 import {VisuallyHidden} from '../internal/components/VisuallyHidden'
 import {SxProp} from '../sx'
+import {isValidElementType} from 'react-is'
 
 const menuScrollMargins: ScrollIntoViewOptions = {startMargin: 0, endMargin: 8}
 
@@ -21,11 +22,11 @@ export type ItemInput = Partial<
   ActionListItemProps & {
     description?: string | React.ReactElement
     descriptionVariant?: 'inline' | 'block'
-    leadingVisual?: JSX.Element
+    leadingVisual?: React.ElementType
     onAction?: (itemFromAction: ItemInput, event: React.MouseEvent) => void
     selected?: boolean
     text?: string
-    trailingVisual?: string
+    trailingVisual?: React.ElementType | React.ReactNode
   }
 >
 
@@ -50,17 +51,29 @@ const renderFn = ({
   id,
   sx,
   text,
-  trailingVisual,
-  leadingVisual,
+  trailingVisual: TrailingVisual,
+  leadingVisual: LeadingVisual,
   onSelect,
   selected,
 }: ItemInput): React.ReactElement => {
   return (
     <ActionList.Item key={id} sx={sx} role="option" onSelect={onSelect} selected={selected}>
-      {!!leadingVisual && <ActionList.LeadingVisual>{leadingVisual}</ActionList.LeadingVisual>}
+      {!!LeadingVisual && (
+        <ActionList.LeadingVisual>
+          <LeadingVisual />
+        </ActionList.LeadingVisual>
+      )}
       <Box>{text ? text : null}</Box>
       {description ? <ActionList.Description variant={descriptionVariant}>{description}</ActionList.Description> : null}
-      {!!trailingVisual && <ActionList.TrailingVisual>{trailingVisual}</ActionList.TrailingVisual>}
+      {!!TrailingVisual && (
+        <ActionList.TrailingVisual>
+          {typeof TrailingVisual !== 'string' && isValidElementType(TrailingVisual) ? (
+            <TrailingVisual />
+          ) : (
+            TrailingVisual
+          )}
+        </ActionList.TrailingVisual>
+      )}
     </ActionList.Item>
   )
 }
