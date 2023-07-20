@@ -36,7 +36,66 @@ exports[`UnderlineNav renders consistently 1`] = `
   align-items: center;
 }
 
+.c5 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  margin-right: 8px;
+}
+
+.c6 {
+  font-weight: 600;
+}
+
+.c8 {
+  margin-left: 8px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.c9 {
+  display: inline-block;
+  padding: 2px 5px;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1;
+  border-radius: 20px;
+  background-color: rgba(175,184,193,0.2);
+  color: #1F2328;
+}
+
+.c9:empty {
+  display: none;
+}
+
+.c0 {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  -webkit-clip: rect(0,0,0,0);
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
 .c4 {
+  color: #0969da;
+  -webkit-text-decoration: none;
+  text-decoration: none;
   position: relative;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
@@ -53,6 +112,28 @@ exports[`UnderlineNav renders consistently 1`] = `
   padding-right: 8px;
   padding-top: calc((2rem - 1.25rem) / 2);
   padding-bottom: calc((2rem - 1.25rem) / 2);
+}
+
+.c4:hover {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c4:is(button) {
+  display: inline-block;
+  padding: 0;
+  font-size: inherit;
+  white-space: nowrap;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  background-color: transparent;
+  border: 0;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
 }
 
 .c4 span[data-component="icon"] {
@@ -92,63 +173,99 @@ exports[`UnderlineNav renders consistently 1`] = `
   width: 100%;
   height: 2px;
   content: "";
-  background-color: transparent;
+  background-color: #fd8c73;
   border-radius: 0;
   -webkit-transform: translate(50%,-50%);
   -ms-transform: translate(50%,-50%);
   transform: translate(50%,-50%);
 }
 
-.c5 {
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+.c7 {
+  color: #0969da;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  position: relative;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
   display: inline-flex;
-  margin-right: 8px;
-}
-
-.c6 {
-  margin-left: 8px;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-}
-
-.c7 {
-  display: inline-block;
-  padding: 2px 5px;
-  font-size: 12px;
-  font-weight: 600;
-  line-height: 1;
-  border-radius: 20px;
-  background-color: rgba(175,184,193,0.2);
   color: #1F2328;
+  text-align: center;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  line-height: calc(20/14);
+  border-radius: 6px;
+  font-size: 14px;
+  padding-left: 8px;
+  padding-right: 8px;
+  padding-top: calc((2rem - 1.25rem) / 2);
+  padding-bottom: calc((2rem - 1.25rem) / 2);
 }
 
-.c7:empty {
-  display: none;
+.c7:hover {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
 }
 
-.c0 {
-  position: absolute;
-  width: 1px;
-  height: 1px;
+.c7:is(button) {
+  display: inline-block;
   padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  -webkit-clip: rect(0,0,0,0);
-  clip: rect(0,0,0,0);
+  font-size: inherit;
   white-space: nowrap;
-  border-width: 0;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  background-color: transparent;
+  border: 0;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+.c7 span[data-component="icon"] {
+  color: #656d76;
+}
+
+.c7:focus {
+  outline: 2px solid transparent;
+}
+
+.c7:focus {
+  box-shadow: inset 0 0 0 2px #0969da;
+}
+
+.c7:focus:not(:focus-visible) {
+  box-shadow: none;
+}
+
+.c7:focus-visible {
+  outline: 2px solid transparent;
+  box-shadow: inset 0 0 0 2px #0969da;
+}
+
+.c7 span[data-content]::before {
+  content: attr(data-content);
+  display: block;
+  height: 0;
+  font-weight: 600;
+  visibility: hidden;
+  white-space: nowrap;
+}
+
+.c7::after {
+  position: absolute;
+  right: 50%;
+  bottom: calc(50% - 25px);
+  width: 100%;
+  height: 2px;
+  content: "";
+  background-color: transparent;
+  border-radius: 0;
+  -webkit-transform: translate(50%,-50%);
+  -ms-transform: translate(50%,-50%);
+  transform: translate(50%,-50%);
 }
 
 .c2 {
@@ -177,11 +294,29 @@ exports[`UnderlineNav renders consistently 1`] = `
     background-color: rgba(175,184,193,0.2);
     -webkit-transition: background .12s ease-out;
     transition: background .12s ease-out;
+    -webkit-text-decoration: none;
+    text-decoration: none;
   }
 }
 
 @media (forced-colors:active) {
   .c4::after {
+    background-color: LinkText;
+  }
+}
+
+@media (hover:hover) {
+  .c7:hover {
+    background-color: rgba(175,184,193,0.2);
+    -webkit-transition: background .12s ease-out;
+    transition: background .12s ease-out;
+    -webkit-text-decoration: none;
+    text-decoration: none;
+  }
+}
+
+@media (forced-colors:active) {
+  .c7::after {
     background-color: transparent;
   }
 }
@@ -208,7 +343,7 @@ exports[`UnderlineNav renders consistently 1`] = `
           className="c4"
           href="#"
           onClick={[Function]}
-          onKeyPress={[Function]}
+          onKeyDown={[Function]}
         >
           <span
             className="c5"
@@ -238,7 +373,7 @@ exports[`UnderlineNav renders consistently 1`] = `
             </svg>
           </span>
           <span
-            className=""
+            className="c6"
             data-component="text"
             data-content="Code"
           >
@@ -250,10 +385,10 @@ exports[`UnderlineNav renders consistently 1`] = `
         className="c3"
       >
         <a
-          className="c4"
+          className="c7"
           href="#"
           onClick={[Function]}
-          onKeyPress={[Function]}
+          onKeyDown={[Function]}
         >
           <span
             className="c5"
@@ -293,12 +428,12 @@ exports[`UnderlineNav renders consistently 1`] = `
             Issues
           </span>
           <span
-            className="c6"
+            className="c8"
             data-component="counter"
           >
             <span
               aria-hidden="true"
-              className="c7"
+              className="c9"
             >
               120
             </span>
@@ -316,10 +451,10 @@ exports[`UnderlineNav renders consistently 1`] = `
         className="c3"
       >
         <a
-          className="c4"
+          className="c7"
           href="#"
           onClick={[Function]}
-          onKeyPress={[Function]}
+          onKeyDown={[Function]}
         >
           <span
             className="c5"
@@ -356,12 +491,12 @@ exports[`UnderlineNav renders consistently 1`] = `
             Pull Requests
           </span>
           <span
-            className="c6"
+            className="c8"
             data-component="counter"
           >
             <span
               aria-hidden="true"
-              className="c7"
+              className="c9"
             >
               13
             </span>
@@ -379,10 +514,10 @@ exports[`UnderlineNav renders consistently 1`] = `
         className="c3"
       >
         <a
-          className="c4"
+          className="c7"
           href="#"
           onClick={[Function]}
-          onKeyPress={[Function]}
+          onKeyDown={[Function]}
         >
           <span
             className="c5"
@@ -419,12 +554,12 @@ exports[`UnderlineNav renders consistently 1`] = `
             Discussions
           </span>
           <span
-            className="c6"
+            className="c8"
             data-component="counter"
           >
             <span
               aria-hidden="true"
-              className="c7"
+              className="c9"
             >
               5
             </span>
@@ -442,10 +577,10 @@ exports[`UnderlineNav renders consistently 1`] = `
         className="c3"
       >
         <a
-          className="c4"
+          className="c7"
           href="#"
           onClick={[Function]}
-          onKeyPress={[Function]}
+          onKeyDown={[Function]}
         >
           <span
             className=""
@@ -455,12 +590,12 @@ exports[`UnderlineNav renders consistently 1`] = `
             Actions
           </span>
           <span
-            className="c6"
+            className="c8"
             data-component="counter"
           >
             <span
               aria-hidden="true"
-              className="c7"
+              className="c9"
             >
               4
             </span>
@@ -478,10 +613,10 @@ exports[`UnderlineNav renders consistently 1`] = `
         className="c3"
       >
         <a
-          className="c4"
+          className="c7"
           href="#"
           onClick={[Function]}
-          onKeyPress={[Function]}
+          onKeyDown={[Function]}
         >
           <span
             className="c5"
@@ -518,12 +653,12 @@ exports[`UnderlineNav renders consistently 1`] = `
             Projects
           </span>
           <span
-            className="c6"
+            className="c8"
             data-component="counter"
           >
             <span
               aria-hidden="true"
-              className="c7"
+              className="c9"
             >
               9
             </span>
@@ -541,10 +676,10 @@ exports[`UnderlineNav renders consistently 1`] = `
         className="c3"
       >
         <a
-          className="c4"
+          className="c7"
           href="#"
           onClick={[Function]}
-          onKeyPress={[Function]}
+          onKeyDown={[Function]}
         >
           <span
             className="c5"
@@ -586,10 +721,10 @@ exports[`UnderlineNav renders consistently 1`] = `
         className="c3"
       >
         <a
-          className="c4"
+          className="c7"
           href="#"
           onClick={[Function]}
-          onKeyPress={[Function]}
+          onKeyDown={[Function]}
         >
           <span
             className=""
@@ -599,12 +734,12 @@ exports[`UnderlineNav renders consistently 1`] = `
             Settings
           </span>
           <span
-            className="c6"
+            className="c8"
             data-component="counter"
           >
             <span
               aria-hidden="true"
-              className="c7"
+              className="c9"
             >
               10
             </span>
@@ -622,10 +757,10 @@ exports[`UnderlineNav renders consistently 1`] = `
         className="c3"
       >
         <a
-          className="c4"
+          className="c7"
           href="#"
           onClick={[Function]}
-          onKeyPress={[Function]}
+          onKeyDown={[Function]}
         >
           <span
             className="c5"
