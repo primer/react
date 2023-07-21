@@ -175,18 +175,13 @@ export const UnderlineNav = forwardRef(
     // This is the case where the viewport is too narrow to show any list item with the more menu. In this case, we only show the dropdown
     const onlyMenuVisible = responsiveProps.items.length === 0
 
-    if (__DEV__) {
-      // Practically, this is not a conditional hook, it is just making sure this hook runs only on DEV not PROD.
-      // eslint-disable-next-line react-hooks/rules-of-hooks
-      useEffect(() => {
-        // Address illegal state where there are multiple items that have `aria-current='page'` attribute
-        const activeElements = validChildren.filter(child => {
-          return child.props['aria-current'] !== undefined
-        })
-        invariant(activeElements.length <= 1, 'Only one current element is allowed')
-        invariant(ariaLabel, 'Use the `aria-label` prop to provide an accessible label for assistive technology')
-      })
-    }
+    // Address illegal state where there are multiple items that have `aria-current='page'` attribute
+    const activeElements = validChildren.filter(child => {
+      return child.props['aria-current'] !== undefined
+    })
+    invariant(activeElements.length <= 1, 'Only one current element is allowed')
+    // Throw an error if aria-label is not provided
+    invariant(ariaLabel, 'Use the `aria-label` prop to provide an accessible label for assistive technology')
 
     function getItemsWidth(itemText: string): number {
       return noIconChildWidthArray.find(item => item.text === itemText)?.width ?? 0
@@ -310,18 +305,7 @@ export const UnderlineNav = forwardRef(
           ref={navRef}
         >
           <NavigationList sx={ulStyles} ref={listRef} role="list">
-            {listItems.map(listItem => {
-              return (
-                <Box
-                  key={listItem.props.children}
-                  as="li"
-                  sx={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}
-                >
-                  {listItem}
-                </Box>
-              )
-            })}
-
+            {listItems}
             {menuItems.length > 0 && (
               <MoreMenuListItem ref={moreMenuRef}>
                 {!onlyMenuVisible && <Box sx={getDividerStyle(theme)}></Box>}
