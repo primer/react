@@ -149,7 +149,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        shard: [1, 2]
+        shard: [1, 2, 3, 4]
     steps:
       - uses: actions/checkout@v3
       - name: Use Node.js 18.x
@@ -161,8 +161,6 @@ jobs:
         run: npm ci
       - name: Build storybook
         run: npx storybook build
-      - name: Install browsers
-        run: npx playwright install --with-deps
       - name: Run storybook
         id: storybook
         run: |
@@ -171,7 +169,11 @@ jobs:
           echo "pid=$pid" >> $GITHUB_OUTPUT
           sleep 5
       - name: Run VRT
-        run: npx playwright test --grep @vrt --shard="${{ matrix.shard }}/${{ strategy.job-total }}"
+        uses: docker://mcr.microsoft.com/playwright:v1.36.0-jammy
+        env:
+          STORYBOOK_URL: 'http://172.17.0.1:6006'
+        with:
+          args: npx playwright test --grep @vrt --shard="${{ matrix.shard }}/${{ strategy.job-total }}"
       - name: Stop storybook
         run: kill ${{ steps.storybook.outputs.pid }}
       - name: Upload report
