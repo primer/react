@@ -176,8 +176,6 @@
       url: /deprecated/ActionMenu
     - title: Buttons (legacy)
       url: /deprecated/Buttons
-    - title: DropdownMenu
-      url: /deprecated/DropdownMenu
     - title: FilteredSearch
       url: /deprecated/FilteredSearch
     - title: FilterList
