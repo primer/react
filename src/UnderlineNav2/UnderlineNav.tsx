@@ -1,4 +1,4 @@
-import React, {useRef, forwardRef, useCallback, useState, MutableRefObject, RefObject, useEffect} from 'react'
+import React, {useRef, forwardRef, useCallback, useState, MutableRefObject, RefObject} from 'react'
 import Box from '../Box'
 import sx, {merge, BetterSystemStyleObject, SxProp} from '../sx'
 import {UnderlineNavContext} from './UnderlineNavContext'
