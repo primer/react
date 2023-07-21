@@ -178,9 +178,10 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
     )
 
     // use props.id if provided, otherwise generate one.
-    const labelId = useId(id)
-    const inlineDescriptionId = useId(id && `${id}--inline-description`)
-    const blockDescriptionId = useId(id && `${id}--block-description`)
+    const _id = id !== undefined ? id.toString() : undefined
+    const labelId = useId(_id)
+    const inlineDescriptionId = useId(_id && `${_id}--inline-description`)
+    const blockDescriptionId = useId(_id && `${_id}--block-description`)
 
     const ItemWrapper = _PrivateItemWrapper || React.Fragment
 

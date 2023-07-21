@@ -5,7 +5,7 @@ import React, {useState} from 'react'
 import Box from '../Box'
 import {Button} from '../Button'
 import {SelectPanel} from '../SelectPanel'
-import {ItemInput} from '../deprecated/ActionList/List'
+import {ItemInput} from '../FilteredActionList'
 
 export default {
   title: 'Components/SelectPanel',
@@ -32,13 +32,13 @@ function getColorCircle(color: string) {
 }
 
 const items = [
-  {leadingVisual: getColorCircle('#a2eeef'), text: 'enhancement', id: 1},
-  {leadingVisual: getColorCircle('#d73a4a'), text: 'bug', id: 2},
-  {leadingVisual: getColorCircle('#0cf478'), text: 'good first issue', id: 3},
-  {leadingVisual: getColorCircle('#ffd78e'), text: 'design', id: 4},
-  {leadingVisual: getColorCircle('#ff0000'), text: 'blocker', id: 5},
-  {leadingVisual: getColorCircle('#a4f287'), text: 'backend', id: 6},
-  {leadingVisual: getColorCircle('#8dc6fc'), text: 'frontend', id: 7},
+  {leadingVisual: getColorCircle('#a2eeef'), text: 'enhancement', id: '1'},
+  {leadingVisual: getColorCircle('#d73a4a'), text: 'bug', id: '2'},
+  {leadingVisual: getColorCircle('#0cf478'), text: 'good first issue', id: '3'},
+  {leadingVisual: getColorCircle('#ffd78e'), text: 'design', id: '4'},
+  {leadingVisual: getColorCircle('#ff0000'), text: 'blocker', id: '5'},
+  {leadingVisual: getColorCircle('#a4f287'), text: 'backend', id: '6'},
+  {leadingVisual: getColorCircle('#8dc6fc'), text: 'frontend', id: '7'},
 ]
 
 export const Default = () => {
@@ -65,7 +65,6 @@ export const Default = () => {
         selected={selected}
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
-        showItemDividers={true}
         overlayProps={{width: 'small', height: 'xsmall'}}
       />
     </>
