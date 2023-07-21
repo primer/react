@@ -566,10 +566,17 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
     },
     forwardRef,
   ) => {
-    warning(
-      responsivePosition !== undefined,
-      'The `position` prop will be removed on the next major version. You should order your markup as you want it to render instead.',
-    )
+    if (__DEV__ && process.env.NODE_ENV !== 'test') {
+      // We don't want these warnings to show up on tests because it fails the tests (at dotcom) due to not extecting a warning.
+      // Practically, this is not a conditional hook, it is just making sure this hook runs only on DEV not PROD.
+      // eslint-disable-next-line react-hooks/rules-of-hooks
+      React.useEffect(() => {
+        warning(
+          responsivePosition !== undefined,
+          'The `position` prop will be removed on the next major version. You should order your markup as you want it to render instead.',
+        )
+      }, [responsivePosition])
+    }
 
     // Combine position and positionWhenNarrow for backwards compatibility
     const positionProp =
