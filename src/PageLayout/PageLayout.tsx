@@ -482,6 +482,9 @@ Content.displayName = 'PageLayout.Content'
 // PageLayout.Pane
 
 export type PageLayoutPaneProps = {
+  /**
+   * @deprecated position the pane by ordering your markup instead.
+   */
   position?: keyof typeof panePositions | ResponsiveValue<keyof typeof panePositions>
   /**
    * @deprecated Use the `position` prop with a responsive value instead.
@@ -563,12 +566,10 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
     },
     forwardRef,
   ) => {
-    if (responsivePosition !== undefined) {
-      // eslint-disable-next-line no-console
-      console.warn(
-        'The `position` prop will be removed on the next major version. You should order your markup as you want it to render instead.',
-      )
-    }
+    warning(
+      responsivePosition !== undefined,
+      'The `position` prop will be removed on the next major version. You should order your markup as you want it to render instead.',
+    )
 
     // Combine position and positionWhenNarrow for backwards compatibility
     const positionProp =
