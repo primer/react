@@ -242,7 +242,8 @@ export const StressTest = ({width, height, subtitle}: DialogStoryProps) => {
   )
 }
 
-export const MultistepDialogWithConditionalFooter = ({width, height}: DialogStoryProps) => {
+// repro for https://github.com/github/primer/issues/2480
+export const ReproMultistepDialogWithConditionalFooter = ({width, height}: DialogStoryProps) => {
   const [isOpen, setIsOpen] = useState(false)
   const onDialogClose = useCallback(() => setIsOpen(false), [])
   const [step, setStep] = React.useState(1)
