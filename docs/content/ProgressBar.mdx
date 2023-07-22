@@ -14,7 +14,7 @@ import {ProgressBar} from '@primer/react'
 ## Examples
 
 ```jsx live
-<ProgressBar progress={80} />
+<ProgressBar progress={80} aria-label="Upload test.png" />
 ```
 
 ### Inline
@@ -24,7 +24,7 @@ If you'd like to use ProgressBar inline, pass the `inline` boolean prop & **be s
 ```jsx live
 <>
   <Text mr={3}>5 of 10</Text>
-  <ProgressBar progress={50} inline sx={{width: '100px'}} />
+  <ProgressBar progress={50} inline sx={{width: '100px'}} aria-label="Upload test.png" />
 </>
 ```
 
@@ -34,7 +34,7 @@ If you want to show multiple segments in a ProgressBar, pass separate `Item`s as
 
 ```jsx live
 <>
-  <ProgressBar>
+  <ProgressBar aria-label="Upload test.png">
     <ProgressBar.Item progress={33} />
     <ProgressBar.Item progress={33} sx={{backgroundColor: 'danger.emphasis'}} />
   </ProgressBar>
