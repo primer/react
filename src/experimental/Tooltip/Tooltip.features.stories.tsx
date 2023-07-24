@@ -1,8 +1,8 @@
 import React from 'react'
 
-import {IconButton, Button, Box} from '../..'
+import {IconButton, Button, Box, Link, StyledOcticon} from '../..'
 import {Tooltip} from './Tooltip'
-import {SearchIcon} from '@primer/octicons-react'
+import {SearchIcon, BookIcon} from '@primer/octicons-react'
 
 export default {
   title: 'Components/Experimental/Tooltip/Features',
@@ -14,6 +14,16 @@ export const TooltipLabelTypeTooltip = () => (
   <Box sx={{p: 5}}>
     <Tooltip text="Vegetarian" type="label">
       <Button sx={{marginLeft: 3}}>🥦</Button>
+    </Tooltip>
+  </Box>
+)
+
+export const TooltipWithStyledOcticonLink = () => (
+  <Box>
+    <Tooltip text="Contribution Documentation for 'Primer React'" type="label">
+      <Link href="https://github.com/primer/react/contributor-docs/CONTRIBUTING.md" sx={{ml: 1, color: 'fg.muted'}}>
+        <StyledOcticon icon={BookIcon} sx={{color: 'fg.muted'}} />
+      </Link>
     </Tooltip>
   </Box>
 )
