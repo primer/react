@@ -1,6 +1,5 @@
 import React, {forwardRef, useRef} from 'react'
 import styled from 'styled-components'
-import ButtonClose from './deprecated/Button/ButtonClose'
 import {IconButton} from './Button'
 import {get} from './constants'
 import Box from './Box'
