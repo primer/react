@@ -1,5 +1,5 @@
 ---
-"@primer/react": patch
+"@primer/react": major
 ---
 
-Fix `ActionListItem` border-radius on hover for `full` list variant
+Ensure `ActionListItem` has a border-radius on hover for `full` list variant
