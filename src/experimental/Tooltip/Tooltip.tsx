@@ -50,15 +50,6 @@ const StyledTooltip = styled.div`
     white-space: nowrap;
     border-width: 0;
   }
-  // the caret
-  /* &::before {
-    position: absolute;
-    z-index: 1000001;
-    color: ${get('colors.neutral.emphasisPlus')};
-    content: '';
-    border: 6px solid transparent;
-    opacity: 0;
-  } */
 
   // This is needed to keep the tooltip open when the user leaves the trigger element to hover tooltip
   &::after {
@@ -70,45 +61,6 @@ const StyledTooltip = styled.div`
     content: '';
   }
 
-  // delay animation for tooltip
-  @keyframes tooltip-appear {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }
-
-  /* South, East, Southeast, Southwest before */
-
-  &:popover-open[data-direction='n']::before,
-  &:popover-open&[data-direction='ne']::before,
-  &:popover-open&[data-direction='nw']::before {
-    top: 82%;
-    border-top-color: ${get('colors.neutral.emphasisPlus')};
-  }
-  &[data-direction='s']::before,
-  &[data-direction='se']::before,
-  &[data-direction='sw']::before {
-    bottom: 100%;
-    border-bottom-color: ${get('colors.neutral.emphasisPlus')};
-  }
-  &[data-direction='n']:before,
-  &[data-direction='s']:before {
-    right: 50%;
-    margin-right: -6px;
-  }
-  &[data-direction='ne']::before,
-  &[data-direction='se']::before {
-    left: 0;
-    margin-left: 6px;
-  }
-  &[data-direction='sw']::before,
-  &[data-direction='nw']::before {
-    right: 0;
-    margin-right: 6px;
-  }
   /* South, East, Southeast, Southwest after */
   &[data-direction='n']::after,
   &[data-direction='ne']::after,
@@ -120,14 +72,7 @@ const StyledTooltip = styled.div`
   &[data-direction='sw']::after {
     bottom: 100%;
   }
-  /* West before and after */
-  &[data-direction='w']::before {
-    top: 50%;
-    bottom: 50%;
-    left: 100%;
-    margin-top: -6px;
-    border-left-color: ${get('colors.neutral.emphasisPlus')};
-  }
+
   &[data-direction='w']::after {
     position: absolute;
     display: block;
@@ -148,14 +93,16 @@ const StyledTooltip = styled.div`
     right: 100%;
     margin-left: -8px;
   }
-  &[data-direction='e']::before {
-    top: 50%;
-    bottom: 50%;
-    right: 100%;
-    margin-top: -6px;
-    border-right-color: ${get('colors.neutral.emphasisPlus')};
-  }
 
+  /* Animation definition */
+  @keyframes tooltip-appear {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
   /* Animation styles */
   &:popover-open,
   &:popover-open::before {
@@ -172,7 +119,6 @@ const StyledTooltip = styled.div`
       animation-delay: 0s;
     }
   }
-
   ${sx};
 `
 

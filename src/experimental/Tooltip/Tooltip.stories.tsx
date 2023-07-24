@@ -3,7 +3,7 @@ import {Button, Box} from '../..'
 import {Tooltip} from './Tooltip'
 
 export default {
-  title: 'Components/Experimental/Tooltip',
+  title: 'Experimental/Components/Tooltip',
   component: Tooltip,
 }
 
