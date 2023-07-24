@@ -12,7 +12,7 @@ export default {
 // As a label for an icon button
 export const TooltipLabelTypeTooltip = () => (
   <Box sx={{p: 5}}>
-    <Tooltip text="Filter" type="label">
+    <Tooltip text="Vegetarian" type="label">
       <Button sx={{marginLeft: 3}}>🥦</Button>
     </Tooltip>
   </Box>
@@ -21,7 +21,7 @@ export const TooltipLabelTypeTooltip = () => (
 // As a label for an IconButton
 export const TooltipNativeHTMLButton = () => (
   <Box sx={{p: 5}}>
-    <Tooltip text="Filter vegetarian options" direction="e" type="label">
+    <Tooltip text="Vegetarian" direction="e" type="label">
       <button>🥦</button>
     </Tooltip>
   </Box>
@@ -36,10 +36,20 @@ export const TooltipDescriptionTypeTooltip = () => (
   </Box>
 )
 
+// As a label type tooltip for an IconButton
+// This is not a correct use as we will have tooltip on icon buttons by default issue reference https://github.com/primer/react/issues/2008
+// export const TooltipIconButtonWitLabel = () => (
+//   <Box sx={{p: 5}}>
+//     <Tooltip text="Search on tooltip" direction="e" type="label">
+//       <IconButton icon={SearchIcon} aria-label="Search" />
+//     </Tooltip>
+//   </Box>
+// )
+
 // As a supplementary description for an IconButton
 export const TooltipIconButtonWithDescription = () => (
   <Box sx={{p: 5}}>
-    <Tooltip text="Supplementary textSupplementary text" direction="e">
+    <Tooltip text="Supplementary text for icon button" direction="e">
       <IconButton icon={SearchIcon} aria-label="Search" />
     </Tooltip>
   </Box>
@@ -71,8 +81,11 @@ export const TooltipWithDirection = () => (
     <Tooltip direction="sw" text="Supplementary text">
       <Button>Southwest</Button>
     </Tooltip>
-    <Tooltip text="Random long text that needs to be wrapped and be multipline and have some paddings around">
-      <Button>Multiline</Button>
+    <Tooltip
+      direction="s"
+      text="Random long text that needs to be wrapped and be multipline and have some paddings around"
+    >
+      <Button>Multiline South</Button>
     </Tooltip>
   </Box>
 )

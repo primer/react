@@ -7,11 +7,11 @@ export default {
   component: Tooltip,
 }
 
-// As a label for an IconButton
+// Description type, north direction by default
 export const Default = () => (
-  <Box sx={{p: 5}}>
-    <Tooltip aria-label="This change will be applied in the organisational level">
-      <Button>👍</Button>
+  <Box sx={{p: 6}}>
+    <Tooltip text="This change can't be undone.">
+      <Button>Delete</Button>
     </Tooltip>
   </Box>
 )

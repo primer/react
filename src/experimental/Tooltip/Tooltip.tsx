@@ -9,37 +9,11 @@ import {get} from '../../constants'
 import {ComponentProps} from '../../utils/types'
 import {getAnchoredPosition} from '@primer/behaviors'
 import type {AnchorSide, AnchorAlignment} from '@primer/behaviors'
-
-declare global {
-  interface PopoverToggleTargetElementInvoker {
-    popoverTargetElement: HTMLElement | null
-    popoverTargetAction: 'toggle' | 'show' | 'hide'
-  }
-  interface ToggleEvent extends Event {
-    oldState: string
-    newState: string
-  }
-  interface HTMLElement {
-    popover: 'auto' | 'manual' | null
-    showPopover(): void
-    hidePopover(): void
-    togglePopover(): void
-  }
-
-  // eslint-disable-next-line @typescript-eslint/no-empty-interface
-  interface HTMLButtonElement extends PopoverToggleTargetElementInvoker {}
-  // eslint-disable-next-line @typescript-eslint/no-empty-interface
-  interface HTMLInputElement extends PopoverToggleTargetElementInvoker {}
-
-  interface Window {
-    ToggleEvent: ToggleEvent
-  }
-}
+import '@oddbird/popover-polyfill'
 
 const StyledTooltip = styled.div`
   // tooltip element itself
   position: relative;
-  z-index: 1000000;
   padding: 0.5em 0.75em;
   font: normal normal 11px/1.5 ${get('fonts.normal')};
   -webkit-font-smoothing: subpixel-antialiased;
@@ -51,7 +25,7 @@ const StyledTooltip = styled.div`
   letter-spacing: normal;
   word-wrap: break-word;
   white-space: normal;
-  background: ${get('colors.neutral.emphasisPlus')};
+  background: ${get('colors.neutral.emphasisPlus')}; //bg--emphasis-color
   border-radius: ${get('radii.2')};
   border: 0;
   width: max-content;
@@ -109,8 +83,8 @@ const StyledTooltip = styled.div`
   /* South, East, Southeast, Southwest before */
 
   &:popover-open[data-direction='n']::before,
-  &[data-direction='ne']::before,
-  &[data-direction='nw']::before {
+  &:popover-open&[data-direction='ne']::before,
+  &:popover-open&[data-direction='nw']::before {
     top: 82%;
     border-top-color: ${get('colors.neutral.emphasisPlus')};
   }
@@ -183,7 +157,6 @@ const StyledTooltip = styled.div`
   }
 
   /* Animation styles */
-
   &:popover-open,
   &:popover-open::before {
     animation-name: tooltip-appear;
@@ -192,8 +165,6 @@ const StyledTooltip = styled.div`
     animation-timing-function: ease-in;
     animation-delay: 0.4s;
   }
-
-  /* Position of the tooltip element when it is opened. */
 
   &:popover-open {
     &[data-no-delay='true'],
@@ -238,6 +209,7 @@ const directionToPosition: Record<TooltipDirection, {side: AnchorSide; align: An
   w: {side: 'outside-left', align: 'center'},
 }
 
+// map anchoredPosition props to tooltip direction
 const positionToDirection: Record<string, TooltipDirection> = {
   'outside-top-start': 'nw',
   'outside-top-center': 'n',
@@ -250,7 +222,14 @@ const positionToDirection: Record<string, TooltipDirection> = {
 }
 
 // The list is from GitHub's custom-axe-rules https://github.com/github/github/blob/master/app/assets/modules/github/axe-custom-rules.ts#L3
-const interactiveElements = ['a[href]', 'button', 'summary', 'select', 'input:not([type=hidden])', 'textarea']
+const interactiveElements = [
+  'a[href]',
+  'button:not(:disabled)',
+  'summary',
+  'select',
+  'input:not([type=hidden])',
+  'textarea',
+]
 
 const isInteractive = (element: HTMLElement) => {
   return (
@@ -258,65 +237,54 @@ const isInteractive = (element: HTMLElement) => {
     (element.hasAttribute('role') && element.getAttribute('role') === 'button')
   )
 }
-export const Tooltip = ({
-  direction = 'n',
-  // tooltip text
-  text,
-  type = 'description',
-  noDelay,
-  children,
-  ...rest
-}: TooltipProps) => {
+export const Tooltip = ({direction = 'n', text, type = 'description', noDelay, children, ...rest}: TooltipProps) => {
   const id = useId()
   const triggerRef = useRef<HTMLElement>(null)
   const tooltipElRef = useRef<HTMLDivElement>(null)
   const child = Children.only(children)
-  const [open, setOpen] = useState(false)
   const [calculatedDirection, setCalculatedDirection] = useState<TooltipDirection>(direction)
-
-  // we need this check for every render
-  if (__DEV__) {
-    // We don't want these warnings to show up on tests because it fails the tests (at dotcom) due to not extecting a warning.
-    // TODO: We can remove the test check when we update these warnings to invariants.
-    // Practically, this is not a conditional hook, it is just making sure this hook runs only on DEV not PROD.
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    useEffect(() => {
-      if (triggerRef.current) {
-        // Has trigger element or any of its children interactive elements?
-        const isTriggerInteractive = isInteractive(triggerRef.current)
-        const triggerChildren = triggerRef.current.childNodes
-        const hasInteractiveChild = Array.from(triggerChildren).some(child => {
-          return child instanceof HTMLElement && isInteractive(child)
-        })
-        invariant(
-          isTriggerInteractive || hasInteractiveChild,
-          'The `Tooltip` component expects a single React element that contains interactive content. Consider using a `<button>` or equivalent interactive element instead.',
-        )
-        // If the tooltip is used for labelling the interactive element, the trigger element or any of its children should not have aria-label
-        if (type === 'label') {
-          const hasAriaLabel = triggerRef.current.hasAttribute('aria-label')
-          const hasAriaLabelInChildren = Array.from(triggerRef.current.childNodes).some(
-            child => child instanceof HTMLElement && child.hasAttribute('aria-label'),
-          )
-          warning(
-            hasAriaLabel || hasAriaLabelInChildren,
-            'The label type `Tooltip` is going to be used here to label the trigger element. Please remove the aria-label from the trigger element.',
-          )
-        }
-      }
-    })
-  }
 
   const openTooltip = () => {
     if (tooltipElRef.current && triggerRef.current && !tooltipElRef.current.matches(':popover-open')) {
-      //
       tooltipElRef.current.showPopover()
-      setOpen(true)
+    }
+  }
+  const closeTooltip = () => {
+    if (tooltipElRef.current && triggerRef.current && tooltipElRef.current.matches(':popover-open')) {
+      tooltipElRef.current.hidePopover()
     }
   }
 
   useEffect(() => {
     if (!tooltipElRef.current || !triggerRef.current) return
+    /*
+     * ACCESSIBILITY CHECKS
+     */
+    // Has trigger element or any of its children interactive elements?
+    const isTriggerInteractive = isInteractive(triggerRef.current)
+    const triggerChildren = triggerRef.current.childNodes
+    const hasInteractiveChild = Array.from(triggerChildren).some(child => {
+      return child instanceof HTMLElement && isInteractive(child)
+    })
+    invariant(
+      isTriggerInteractive || hasInteractiveChild,
+      'The `Tooltip` component expects a single React element that contains interactive content. Consider using a `<button>` or equivalent interactive element instead.',
+    )
+    // If the tooltip is used for labelling the interactive element, the trigger element or any of its children should not have aria-label
+    if (type === 'label') {
+      const hasAriaLabel = triggerRef.current.hasAttribute('aria-label')
+      const hasAriaLabelInChildren = Array.from(triggerRef.current.childNodes).some(
+        child => child instanceof HTMLElement && child.hasAttribute('aria-label'),
+      )
+      warning(
+        hasAriaLabel || hasAriaLabelInChildren,
+        'The label type `Tooltip` is going to be used here to label the trigger element. Please remove the aria-label from the trigger element.',
+      )
+    }
+
+    /*
+     * TOOLTIP POSITIONING
+     */
     const tooltip = tooltipElRef.current
     const trigger = triggerRef.current
     tooltip.setAttribute('popover', 'auto')
@@ -330,10 +298,9 @@ export const Tooltip = ({
 
       tooltip.style.top = `${top}px`
       tooltip.style.left = `${left}px`
-      // This is required to make sure the popover is positioned correctly i.e. when there is not enough space on the given direction, we set a new direction to position the ::after
+      // This is required to make sure the popover is positioned correctly i.e. when there is not enough space on the specified direction, we set a new direction to position the ::after
       const calculatedDirection = positionToDirection[`${anchorSide}-${anchorAlign}` as string]
       setCalculatedDirection(calculatedDirection)
-      tooltip.setAttribute('data-setting', JSON.stringify({...settings, anchorAlign, anchorSide}))
     }
 
     tooltip.addEventListener('toggle', positionSet)
@@ -341,15 +308,10 @@ export const Tooltip = ({
     return () => {
       tooltip.removeEventListener('toggle', positionSet)
     }
-  }, [tooltipElRef, triggerRef, direction])
+  }, [tooltipElRef, triggerRef, direction, type])
 
   return (
-    <Box
-      sx={{display: 'inline-block'}}
-      onMouseLeave={() => {
-        if (tooltipElRef.current?.matches(':popover-open')) tooltipElRef.current.hidePopover()
-      }}
-    >
+    <Box sx={{display: 'inline-block'}} onMouseLeave={() => closeTooltip()}>
       {React.isValidElement(child) &&
         React.cloneElement(child as React.ReactElement<TriggerPropsType>, {
           ref: triggerRef,
@@ -358,12 +320,11 @@ export const Tooltip = ({
           // If it is a label type, we use tooltip to label the trigger
           'aria-labelledby': type === 'label' ? id : undefined,
           onBlur: (event: React.FocusEvent) => {
-            if (tooltipElRef.current?.matches(':popover-open')) tooltipElRef.current.hidePopover()
+            closeTooltip()
             child.props.onBlur?.(event)
           },
           onFocus: (event: React.FocusEvent) => {
             openTooltip()
-            if (!tooltipElRef.current?.matches(':popover-open')) tooltipElRef.current?.showPopover()
             child.props.onFocus?.(event)
           },
           onMouseEnter: (event: React.MouseEvent) => {
@@ -374,8 +335,6 @@ export const Tooltip = ({
       <StyledTooltip
         ref={tooltipElRef}
         data-direction={calculatedDirection}
-        data-state="open"
-        // data-state={open ? 'open' : undefined}
         data-no-delay={noDelay}
         {...rest}
         // Only need tooltip role if the tooltip is a description for supplementary information
