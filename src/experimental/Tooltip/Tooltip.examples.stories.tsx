@@ -1,5 +1,5 @@
 import React from 'react'
-import {Button, Box, IconButton, Breadcrumbs} from '../..'
+import {Button, IconButton, Breadcrumbs} from '../..'
 import {PageHeader} from '../../PageHeader'
 import {Tooltip} from './Tooltip'
 import {GitBranchIcon, KebabHorizontalIcon} from '@primer/octicons-react'
