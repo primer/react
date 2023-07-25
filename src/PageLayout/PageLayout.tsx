@@ -12,7 +12,6 @@ import {useOverflow} from '../internal/hooks/useOverflow'
 import {warning} from '../utils/warning'
 import VisuallyHidden from '../_VisuallyHidden'
 import {useStickyPaneHeight} from './useStickyPaneHeight'
-import {Property} from 'csstype'
 
 const REGION_ORDER = {
   header: 0,
