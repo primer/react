@@ -114,45 +114,43 @@ export const UnderlineNavItem = forwardRef(
     )
 
     return (
-      <Box as="li" sx={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-        <Link
-          ref={ref}
-          as={Component}
-          href={href}
-          aria-current={ariaCurrent}
-          onKeyDown={keyDownHandler}
-          onClick={clickHandler}
-          sx={merge<BetterSystemStyleObject>(getLinkStyles(theme, ariaCurrent), sxProp as SxProp)}
-          {...props}
-        >
-          {iconsVisible && Icon && (
-            <Box as="span" data-component="icon" sx={iconWrapStyles}>
-              <Icon />
-            </Box>
-          )}
-          {children && (
-            <Box
-              as="span"
-              data-component="text"
-              data-content={children}
-              sx={Boolean(ariaCurrent) && ariaCurrent !== 'false' ? {fontWeight: 600} : {}}
-            >
-              {children}
-            </Box>
-          )}
-          {loadingCounters ? (
+      <Link
+        ref={ref}
+        as={Component}
+        href={href}
+        aria-current={ariaCurrent}
+        onKeyDown={keyDownHandler}
+        onClick={clickHandler}
+        sx={merge<BetterSystemStyleObject>(getLinkStyles(theme, ariaCurrent), sxProp as SxProp)}
+        {...props}
+      >
+        {iconsVisible && Icon && (
+          <Box as="span" data-component="icon" sx={iconWrapStyles}>
+            <Icon />
+          </Box>
+        )}
+        {children && (
+          <Box
+            as="span"
+            data-component="text"
+            data-content={children}
+            sx={Boolean(ariaCurrent) && ariaCurrent !== 'false' ? {fontWeight: 600} : {}}
+          >
+            {children}
+          </Box>
+        )}
+        {loadingCounters ? (
+          <Box as="span" data-component="counter" sx={counterStyles}>
+            <LoadingCounter />
+          </Box>
+        ) : (
+          counter !== undefined && (
             <Box as="span" data-component="counter" sx={counterStyles}>
-              <LoadingCounter />
+              <CounterLabel>{counter}</CounterLabel>
             </Box>
-          ) : (
-            counter !== undefined && (
-              <Box as="span" data-component="counter" sx={counterStyles}>
-                <CounterLabel>{counter}</CounterLabel>
-              </Box>
-            )
-          )}
-        </Link>
-      </Box>
+          )
+        )}
+      </Link>
     )
   },
 ) as PolymorphicForwardRefComponent<'a', UnderlineNavItemProps>
