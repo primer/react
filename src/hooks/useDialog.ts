@@ -1,4 +1,5 @@
 import {useCallback, useEffect} from 'react'
+import {useOnEscapePress} from './useOnEscapePress'
 
 const noop = () => null
 
@@ -103,18 +104,22 @@ function useDialog({
         case 'Tab':
           handleTab(event)
           break
-        case 'Escape':
-          onDismiss()
-          event.stopPropagation()
-          break
       }
     },
-    [handleTab, onDismiss],
+    [handleTab],
   )
 
   const getDialogProps = () => {
     return {onKeyDown}
   }
+
+  useOnEscapePress(
+    (event: KeyboardEvent) => {
+      onDismiss()
+      event.preventDefault()
+    },
+    [onDismiss],
+  )
 
   return {getDialogProps}
 }

@@ -133,7 +133,7 @@
     "@babel/plugin-proposal-optional-chaining": "7.21.0",
     "@babel/plugin-transform-modules-commonjs": "7.21.2",
     "@babel/preset-react": "7.22.5",
-    "@babel/preset-typescript": "7.21.5",
+    "@babel/preset-typescript": "7.22.5",
     "@changesets/changelog-github": "0.4.8",
     "@github/markdownlint-github": "^0.3.0",
     "@github/prettier-config": "0.0.6",
