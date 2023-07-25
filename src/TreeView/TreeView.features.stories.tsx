@@ -744,10 +744,6 @@ export const StressTest: Story = () => {
   )
 }
 
-StressTest.parameters = {
-  chromatic: {disableSnapshot: true},
-}
-
 export const ContainIntrinsicSize: Story = () => {
   return (
     <TreeView aria-label="Files">
@@ -893,10 +889,6 @@ export const InitialFocus: Story = () => (
     <Button>Focusable element after TreeView</Button>
   </div>
 )
-
-ContainIntrinsicSize.parameters = {
-  chromatic: {disableSnapshot: true},
-}
 
 export const WithoutIndentation: Story = () => (
   <nav aria-label="Files changed">
