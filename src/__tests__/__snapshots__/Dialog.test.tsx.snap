@@ -1,16 +1,19 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Dialog Dialog.Header renders consistently 1`] = `
-.c1 {
+.c0 {
+  padding: 16px;
+  background-color: #f6f8fa;
+}
+
+.c2 {
   font-size: 14px;
   font-weight: 600;
   font-family: sans-serif;
   color: #1F2328;
 }
 
-.c0 {
-  padding: 16px;
-  background-color: #f6f8fa;
+.c1 {
   border-radius: 6px 6px 0px 0px;
   border-bottom: 1px solid #d0d7de;
   display: -webkit-box;
@@ -20,16 +23,16 @@ exports[`Dialog Dialog.Header renders consistently 1`] = `
 }
 
 @media screen and (max-width:750px) {
-  .c0 {
+  .c1 {
     border-radius: 0px;
   }
 }
 
 <div
-  className="c0"
+  className="c0 c1"
 >
   <span
-    className="c1"
+    className="c2"
     color="fg.default"
     fontFamily="sans-serif"
     fontSize={1}
@@ -54,10 +57,23 @@ exports[`Dialog renders consistently 1`] = `
   background: rgba(31,35,40,0.5);
 }
 
+@media screen and (max-width:750px) {
+
+}
+
+@media screen and (max-width:750px) {
+
+}
+
 <span
     className="c0"
   />,
-  .c4 {
+  .c2 {
+  padding: 16px;
+  background-color: #f6f8fa;
+}
+
+.c5 {
   padding: 16px;
 }
 
@@ -81,14 +97,14 @@ exports[`Dialog renders consistently 1`] = `
   color: #0969da;
 }
 
-.c3 {
+.c4 {
   font-size: 14px;
   font-weight: 600;
   font-family: sans-serif;
   color: #1F2328;
 }
 
-.c5 {
+.c6 {
   font-family: sans-serif;
 }
 
@@ -109,9 +125,7 @@ exports[`Dialog renders consistently 1`] = `
   outline: none;
 }
 
-.c2 {
-  padding: 16px;
-  background-color: #f6f8fa;
+.c3 {
   border-radius: 6px 6px 0px 0px;
   border-bottom: 1px solid #d0d7de;
   display: -webkit-box;
@@ -130,7 +144,7 @@ exports[`Dialog renders consistently 1`] = `
 }
 
 @media screen and (max-width:750px) {
-  .c2 {
+  .c3 {
     border-radius: 0px;
   }
 }
@@ -172,11 +186,11 @@ exports[`Dialog renders consistently 1`] = `
       </svg>
     </button>
     <div
-      className="c2"
+      className="c2 c3"
       id="header"
     >
       <span
-        className="c3"
+        className="c4"
         color="fg.default"
         fontFamily="sans-serif"
         fontSize={1}
@@ -186,10 +200,10 @@ exports[`Dialog renders consistently 1`] = `
       </span>
     </div>
     <div
-      className="c4"
+      className="c5"
     >
       <span
-        className="c5"
+        className="c6"
         fontFamily="sans-serif"
       >
         Some content
