@@ -97,10 +97,8 @@ exports[`@primer/react should not update exports without a semver change 1`] = `
 
 exports[`@primer/react/decprecated should not update exports without a semver change 1`] = `
 [
-  "Absolute",
   "ActionList",
   "ActionMenu",
-  "BorderBox",
   "Button",
   "ButtonClose",
   "ButtonDanger",
@@ -108,24 +106,8 @@ exports[`@primer/react/decprecated should not update exports without a semver ch
   "ButtonOutline",
   "ButtonPrimary",
   "ButtonTableList",
-  "ChoiceFieldset",
-  "ChoiceInputField",
-  "Dropdown",
-  "DropdownButton",
-  "DropdownMenu",
   "FilterList",
   "FilteredSearch",
-  "Fixed",
-  "Flex",
-  "FormGroup",
-  "Grid",
-  "InputField",
-  "Item",
-  "Label",
-  "Position",
-  "Relative",
-  "SelectMenu",
-  "Sticky",
   "UnderlineNav",
 ]
 `;
