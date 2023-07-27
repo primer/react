@@ -64,7 +64,8 @@ exports[`Pagination renders consistently 1`] = `
   border-color: hsla(210,18%,87%,1);
 }
 
-.c2[rel='prev'],.c2[rel='next'] {
+.c2[rel='prev'],
+.c2[rel='next'] {
   color: #0969da;
 }
 
@@ -89,7 +90,8 @@ exports[`Pagination renders consistently 1`] = `
 
 .c2[aria-disabled],
 .c2[aria-disabled]:hover,
-.c2[role='presentation'],.c2[role='presentation']:hover {
+.c2[role='presentation'],
+.c2[role='presentation']:hover {
   color: #8c959f;
   cursor: default;
   background-color: transparent;
@@ -102,7 +104,8 @@ exports[`Pagination renders consistently 1`] = `
 }
 
 @supports (-webkit-clip-path:polygon(50% 0,100% 50%,50% 100%)) or (clip-path:polygon(50% 0,100% 50%,50% 100%)) {
-  .c2[rel='prev']::before,.c2[rel='next']::after {
+  .c2[rel='prev']::before,
+  .c2[rel='next']::after {
     display: inline-block;
     width: 16px;
     height: 16px;
