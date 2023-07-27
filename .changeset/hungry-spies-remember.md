@@ -2,6 +2,19 @@
 "@primer/react": patch
 ---
 
-Deprecates position prop for PageLayout.Pane. Users will receive a console warning when it is used.
+Deprecates `position` prop for PageLayout.Pane and SplitPageLayout.Pane.
 
-<!-- Changed components: PageLayout -->
+```diff
+-<PageLayout>
+-    <PageLayout.Content />
+-    <PageLayout.Pane position="start" />
+-</PageLayout>
+
++<PageLayout>
++    <PageLayout.Pane />
++    <PageLayout.Content />
++</PageLayout>
+    
+```
+
+<!-- Changed components: PageLayout, SplitPageLayout -->
