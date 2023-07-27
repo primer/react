@@ -544,6 +544,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
     {
       'aria-label': label,
       'aria-labelledby': labelledBy,
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       positionWhenNarrow = 'inherit',
       width = 'medium',
       minWidth = 256,

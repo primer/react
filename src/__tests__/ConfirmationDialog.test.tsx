@@ -114,8 +114,6 @@ describe('ConfirmationDialog', () => {
   })
 
   it('supports nested `focusTrap`s', async () => {
-    const spy = jest.spyOn(console, 'error').mockImplementationOnce(() => {})
-
     const {getByText} = HTMLRender(<ShorthandHookFromActionMenu />)
 
     fireEvent.click(getByText('Show menu'))
