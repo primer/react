@@ -88,11 +88,12 @@ exports[`NavList renders a simple list 1`] = `
   --divider-color: rgba(208,215,222,0.48);
 }
 
-[data-component="ActionList.Divider"] + .c1 {
+[data-component="ActionList.Divider"] + .c2 {
   --divider-color: transparent !important;
 }
 
-.c2:hover:not([aria-disabled]),.c2:focus:not([aria-disabled]),
+.c2:hover:not([aria-disabled]),
+.c2:focus:not([aria-disabled]),
 .c2[data-focus-visible-added]:not([aria-disabled]) {
   --divider-color: transparent;
 }
@@ -168,11 +169,12 @@ exports[`NavList renders a simple list 1`] = `
   --divider-color: rgba(208,215,222,0.48);
 }
 
-[data-component="ActionList.Divider"] + .c1 {
+[data-component="ActionList.Divider"] + .c6 {
   --divider-color: transparent !important;
 }
 
-.c6:hover:not([aria-disabled]),.c6:focus:not([aria-disabled]),
+.c6:hover:not([aria-disabled]),
+.c6:focus:not([aria-disabled]),
 .c6[data-focus-visible-added]:not([aria-disabled]) {
   --divider-color: transparent;
 }
@@ -360,6 +362,29 @@ exports[`NavList renders a simple list 1`] = `
 `;
 
 exports[`NavList renders with groups 1`] = `
+.c8 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  min-width: 0;
+}
+
+.c9 {
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  font-weight: 400;
+}
+
 .c1 {
   height: 1px;
   background-color: rgba(208,215,222,0.48);
@@ -392,29 +417,6 @@ exports[`NavList renders with groups 1`] = `
 
 .c4 {
   padding-inline-start: 0;
-}
-
-.c8 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
-  min-width: 0;
-}
-
-.c9 {
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
-  font-weight: 400;
 }
 
 .c0 {
@@ -481,11 +483,12 @@ exports[`NavList renders with groups 1`] = `
   --divider-color: rgba(208,215,222,0.48);
 }
 
-[data-component="ActionList.Divider"] + .c5 {
+[data-component="ActionList.Divider"] + .c6 {
   --divider-color: transparent !important;
 }
 
-.c6:hover:not([aria-disabled]),.c6:focus:not([aria-disabled]),
+.c6:hover:not([aria-disabled]),
+.c6:focus:not([aria-disabled]),
 .c6[data-focus-visible-added]:not([aria-disabled]) {
   --divider-color: transparent;
 }
@@ -561,11 +564,12 @@ exports[`NavList renders with groups 1`] = `
   --divider-color: rgba(208,215,222,0.48);
 }
 
-[data-component="ActionList.Divider"] + .c5 {
+[data-component="ActionList.Divider"] + .c10 {
   --divider-color: transparent !important;
 }
 
-.c10:hover:not([aria-disabled]),.c10:focus:not([aria-disabled]),
+.c10:hover:not([aria-disabled]),
+.c10:focus:not([aria-disabled]),
 .c10[data-focus-visible-added]:not([aria-disabled]) {
   --divider-color: transparent;
 }
@@ -781,11 +785,7 @@ exports[`NavList renders with groups 1`] = `
 `;
 
 exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav contains the current item and is open 1`] = `
-.c2 {
-  list-style: none;
-}
-
-.c5 {
+.c4 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -801,6 +801,18 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
 }
 
 .c6 {
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  font-weight: 400;
+}
+
+.c1 {
+  list-style: none;
+}
+
+.c5 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -811,15 +823,13 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   flex-grow: 1;
 }
 
-.c7 {
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
-  font-weight: 400;
+.c9 {
+  padding: 0;
+  margin: 0;
+  display: block;
 }
 
-.c8 {
+.c7 {
   height: 20px;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
@@ -829,17 +839,12 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   font-weight: initial;
 }
 
-[data-variant="danger"]:hover .c1,[data-variant="danger"]:active .c8 {
+[data-variant="danger"]:hover .c7,
+[data-variant="danger"]:active .c7 {
   color: #1F2328;
 }
 
-.c10 {
-  padding: 0;
-  margin: 0;
-  display: block;
-}
-
-.c9 {
+.c8 {
   -webkit-transform: rotate(180deg);
   -ms-transform: rotate(180deg);
   transform: rotate(180deg);
@@ -852,16 +857,7 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   padding-bottom: 8px;
 }
 
-[data-component="ActionList.Divider"] + .c3 {
-  --divider-color: transparent !important;
-}
-
-.c13:hover:not([aria-disabled]) + .c3,
-.c13[data-focus-visible-added] + li {
-  --divider-color: transparent;
-}
-
-.c11 {
+.c10 {
   position: relative;
   display: -webkit-box;
   display: -webkit-flex;
@@ -895,15 +891,15 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   background-color: rgba(208,215,222,0.24);
 }
 
-.c11[aria-disabled] {
+.c10[aria-disabled] {
   cursor: not-allowed;
 }
 
-.c11 [data-component="ActionList.Item--DividerContainer"] {
+.c10 [data-component="ActionList.Item--DividerContainer"] {
   position: relative;
 }
 
-.c11 [data-component="ActionList.Item--DividerContainer"]::before {
+.c10 [data-component="ActionList.Item--DividerContainer"]::before {
   content: " ";
   display: block;
   position: absolute;
@@ -914,25 +910,26 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   border-color: var(--divider-color,transparent);
 }
 
-.c11:not(:first-of-type) {
+.c10:not(:first-of-type) {
   --divider-color: rgba(208,215,222,0.48);
 }
 
-[data-component="ActionList.Divider"] + .c3 {
+[data-component="ActionList.Divider"] + .c10 {
   --divider-color: transparent !important;
 }
 
-.c11:hover:not([aria-disabled]),.c11:focus:not([aria-disabled]),
-.c11[data-focus-visible-added]:not([aria-disabled]) {
+.c10:hover:not([aria-disabled]),
+.c10:focus:not([aria-disabled]),
+.c10[data-focus-visible-added]:not([aria-disabled]) {
   --divider-color: transparent;
 }
 
-.c11:hover:not([aria-disabled]) + .c3,
-.c11[data-focus-visible-added] + li {
+.c10:hover:not([aria-disabled]) + .c2,
+.c10[data-focus-visible-added] + li {
   --divider-color: transparent;
 }
 
-.c11::after {
+.c10::after {
   position: absolute;
   top: calc(50% - 12px);
   left: -8px;
@@ -943,7 +940,42 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   border-radius: 6px;
 }
 
-.c4 {
+.c12:hover:not([aria-disabled]) + .c2,
+.c12[data-focus-visible-added] + li {
+  --divider-color: transparent;
+}
+
+.c13:hover:not([aria-disabled]) + .c2,
+.c13[data-focus-visible-added] + li {
+  --divider-color: transparent;
+}
+
+.c14:hover:not([aria-disabled]) + .c2,
+.c14[data-focus-visible-added] + li {
+  --divider-color: transparent;
+}
+
+.c15:hover:not([aria-disabled]) + .c2,
+.c15[data-focus-visible-added] + li {
+  --divider-color: transparent;
+}
+
+.c16:hover:not([aria-disabled]) + .c2,
+.c16[data-focus-visible-added] + li {
+  --divider-color: transparent;
+}
+
+.c17:hover:not([aria-disabled]) + .c2,
+.c17[data-focus-visible-added] + li {
+  --divider-color: transparent;
+}
+
+.c18:hover:not([aria-disabled]) + .c2,
+.c18[data-focus-visible-added] + li {
+  --divider-color: transparent;
+}
+
+.c3 {
   position: relative;
   display: -webkit-box;
   display: -webkit-flex;
@@ -975,15 +1007,15 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   font-weight: 600;
 }
 
-.c4[aria-disabled] {
+.c3[aria-disabled] {
   cursor: not-allowed;
 }
 
-.c4 [data-component="ActionList.Item--DividerContainer"] {
+.c3 [data-component="ActionList.Item--DividerContainer"] {
   position: relative;
 }
 
-.c4 [data-component="ActionList.Item--DividerContainer"]::before {
+.c3 [data-component="ActionList.Item--DividerContainer"]::before {
   content: " ";
   display: block;
   position: absolute;
@@ -994,7 +1026,7 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   border-color: var(--divider-color,transparent);
 }
 
-.c4:not(:first-of-type) {
+.c3:not(:first-of-type) {
   --divider-color: rgba(208,215,222,0.48);
 }
 
@@ -1002,17 +1034,23 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   --divider-color: transparent !important;
 }
 
-.c4:hover:not([aria-disabled]),.c4:focus:not([aria-disabled]),
-.c4[data-focus-visible-added]:not([aria-disabled]) {
+.c3:hover:not([aria-disabled]),
+.c3:focus:not([aria-disabled]),
+.c3[data-focus-visible-added]:not([aria-disabled]) {
   --divider-color: transparent;
 }
 
-.c4:hover:not([aria-disabled]) + .c3,
-.c4[data-focus-visible-added] + li {
+.c3:hover:not([aria-disabled]) + .c2,
+.c3[data-focus-visible-added] + li {
   --divider-color: transparent;
 }
 
-.c12 {
+.c19:hover:not([aria-disabled]) + .c2,
+.c19[data-focus-visible-added] + li {
+  --divider-color: transparent;
+}
+
+.c11 {
   color: #0969da;
   -webkit-text-decoration: none;
   text-decoration: none;
@@ -1034,12 +1072,12 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   font-weight: 400;
 }
 
-.c12:hover {
+.c11:hover {
   -webkit-text-decoration: underline;
   text-decoration: underline;
 }
 
-.c12:is(button) {
+.c11:is(button) {
   display: inline-block;
   padding: 0;
   font-size: inherit;
@@ -1056,66 +1094,58 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   appearance: none;
 }
 
-.c12:hover {
+.c11:hover {
   color: inherit;
   -webkit-text-decoration: none;
   text-decoration: none;
 }
 
 @media (hover:hover) and (pointer:fine) {
-
-}
-
-@media (forced-colors:active) {
-
-}
-
-@media (hover:hover) and (pointer:fine) {
-  .c11:hover:not([aria-disabled]) {
+  .c10:hover:not([aria-disabled]) {
     background-color: rgba(208,215,222,0.32);
     color: #1F2328;
   }
 
-  .c11:focus-visible,
-  .c11 > a:focus-visible {
+  .c10:focus-visible,
+  .c10 > a:focus-visible {
     outline: none;
     border: 2 solid;
     box-shadow: 0 0 0 2px #0969da;
   }
 
-  .c11:active:not([aria-disabled]) {
+  .c10:active:not([aria-disabled]) {
     background-color: rgba(208,215,222,0.48);
     color: #1F2328;
   }
 }
 
 @media (forced-colors:active) {
-  .c11:focus {
+  .c10:focus {
     outline: solid 1px transparent !important;
   }
 }
 
 @media (hover:hover) and (pointer:fine) {
-  .c4:hover:not([aria-disabled]) {
+  .c3:hover:not([aria-disabled]) {
     background-color: rgba(208,215,222,0.32);
     color: #1F2328;
   }
 
-  .c4:focus-visible,
-  .c4 > a:focus-visible {
+  .c3:focus-visible,
+  .c3 > a:focus-visible {
     outline: none;
     border: 2 solid;
     box-shadow: 0 0 0 2px #0969da;
   }
 
-  .c4:active:not([aria-disabled]) {
+  .c3:active:not([aria-disabled]) {
     background-color: rgba(208,215,222,0.48);
     color: #1F2328;
   }
 }
 
 @media (forced-colors:active) {
-  .c4:focus {
+  .c3:focus {
     outline: solid 1px transparent !important;
   }
 }
@@ -1129,34 +1159,34 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
     >
       <li
         aria-labelledby="react-aria-1"
-        class="c1 c2"
+        class="c1"
       >
         <button
           aria-controls="react-aria-2"
           aria-expanded="true"
           aria-labelledby="react-aria-1 "
-          class="c3 c4"
+          class="c2 c3"
           tabindex="0"
         >
           <div
-            class="c1 c5"
+            class="c4"
             data-component="ActionList.Item--DividerContainer"
           >
             <div
-              class="c1 c6"
+              class="c5"
             >
               <span
-                class="c1 c7"
+                class="c6"
                 id="react-aria-1"
               >
                 Item
               </span>
               <span
-                class="c1 c8"
+                class="c7"
               >
                 <svg
                   aria-hidden="true"
-                  class="c9"
+                  class="c8"
                   fill="currentColor"
                   focusable="false"
                   height="16"
@@ -1176,25 +1206,25 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
         <div>
           <ul
             aria-labelledby="react-aria-1"
-            class="c1 c10"
+            class="c9"
             id="react-aria-2"
           >
             <li
-              class="c3 c11"
+              class="c2 c10"
             >
               <a
                 aria-current="page"
                 aria-labelledby="react-aria-3 "
-                class="c12"
+                class="c11"
                 href="#"
                 tabindex="0"
               >
                 <div
-                  class="c1 c5"
+                  class="c4"
                   data-component="ActionList.Item--DividerContainer"
                 >
                   <span
-                    class="c1 c7"
+                    class="c6"
                     id="react-aria-3"
                   >
                     Sub Item
@@ -1211,11 +1241,7 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
 `;
 
 exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains the current item and is closed 1`] = `
-.c2 {
-  list-style: none;
-}
-
-.c5 {
+.c4 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -1231,6 +1257,18 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
 }
 
 .c6 {
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  font-weight: 400;
+}
+
+.c1 {
+  list-style: none;
+}
+
+.c5 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -1241,15 +1279,13 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   flex-grow: 1;
 }
 
-.c7 {
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
-  font-weight: 400;
+.c9 {
+  padding: 0;
+  margin: 0;
+  display: none;
 }
 
-.c8 {
+.c7 {
   height: 20px;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
@@ -1259,17 +1295,12 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   font-weight: initial;
 }
 
-[data-variant="danger"]:hover .c1,[data-variant="danger"]:active .c8 {
+[data-variant="danger"]:hover .c7,
+[data-variant="danger"]:active .c7 {
   color: #1F2328;
 }
 
-.c10 {
-  padding: 0;
-  margin: 0;
-  display: none;
-}
-
-.c9 {
+.c8 {
   -webkit-transform: rotate(0deg);
   -ms-transform: rotate(0deg);
   transform: rotate(0deg);
@@ -1282,16 +1313,7 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   padding-bottom: 8px;
 }
 
-[data-component="ActionList.Divider"] + .c3 {
-  --divider-color: transparent !important;
-}
-
-.c13:hover:not([aria-disabled]) + .c3,
-.c13[data-focus-visible-added] + li {
-  --divider-color: transparent;
-}
-
-.c11 {
+.c10 {
   position: relative;
   display: -webkit-box;
   display: -webkit-flex;
@@ -1325,15 +1347,15 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   background-color: rgba(208,215,222,0.24);
 }
 
-.c11[aria-disabled] {
+.c10[aria-disabled] {
   cursor: not-allowed;
 }
 
-.c11 [data-component="ActionList.Item--DividerContainer"] {
+.c10 [data-component="ActionList.Item--DividerContainer"] {
   position: relative;
 }
 
-.c11 [data-component="ActionList.Item--DividerContainer"]::before {
+.c10 [data-component="ActionList.Item--DividerContainer"]::before {
   content: " ";
   display: block;
   position: absolute;
@@ -1344,25 +1366,26 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   border-color: var(--divider-color,transparent);
 }
 
-.c11:not(:first-of-type) {
+.c10:not(:first-of-type) {
   --divider-color: rgba(208,215,222,0.48);
 }
 
-[data-component="ActionList.Divider"] + .c3 {
+[data-component="ActionList.Divider"] + .c10 {
   --divider-color: transparent !important;
 }
 
-.c11:hover:not([aria-disabled]),.c11:focus:not([aria-disabled]),
-.c11[data-focus-visible-added]:not([aria-disabled]) {
+.c10:hover:not([aria-disabled]),
+.c10:focus:not([aria-disabled]),
+.c10[data-focus-visible-added]:not([aria-disabled]) {
   --divider-color: transparent;
 }
 
-.c11:hover:not([aria-disabled]) + .c3,
-.c11[data-focus-visible-added] + li {
+.c10:hover:not([aria-disabled]) + .c2,
+.c10[data-focus-visible-added] + li {
   --divider-color: transparent;
 }
 
-.c11::after {
+.c10::after {
   position: absolute;
   top: calc(50% - 12px);
   left: -8px;
@@ -1373,16 +1396,47 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   border-radius: 6px;
 }
 
-[data-component="ActionList.Divider"] + .c3 {
-  --divider-color: transparent !important;
+.c12:hover:not([aria-disabled]) + .c2,
+.c12[data-focus-visible-added] + li {
+  --divider-color: transparent;
 }
 
-.c14:hover:not([aria-disabled]) + .c3,
+.c13:hover:not([aria-disabled]) + .c2,
+.c13[data-focus-visible-added] + li {
+  --divider-color: transparent;
+}
+
+.c14:hover:not([aria-disabled]) + .c2,
 .c14[data-focus-visible-added] + li {
   --divider-color: transparent;
 }
 
-.c4 {
+.c15:hover:not([aria-disabled]) + .c2,
+.c15[data-focus-visible-added] + li {
+  --divider-color: transparent;
+}
+
+.c16:hover:not([aria-disabled]) + .c2,
+.c16[data-focus-visible-added] + li {
+  --divider-color: transparent;
+}
+
+.c17:hover:not([aria-disabled]) + .c2,
+.c17[data-focus-visible-added] + li {
+  --divider-color: transparent;
+}
+
+.c18:hover:not([aria-disabled]) + .c2,
+.c18[data-focus-visible-added] + li {
+  --divider-color: transparent;
+}
+
+.c19:hover:not([aria-disabled]) + .c2,
+.c19[data-focus-visible-added] + li {
+  --divider-color: transparent;
+}
+
+.c3 {
   position: relative;
   display: -webkit-box;
   display: -webkit-flex;
@@ -1415,15 +1469,15 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   background-color: rgba(208,215,222,0.24);
 }
 
-.c4[aria-disabled] {
+.c3[aria-disabled] {
   cursor: not-allowed;
 }
 
-.c4 [data-component="ActionList.Item--DividerContainer"] {
+.c3 [data-component="ActionList.Item--DividerContainer"] {
   position: relative;
 }
 
-.c4 [data-component="ActionList.Item--DividerContainer"]::before {
+.c3 [data-component="ActionList.Item--DividerContainer"]::before {
   content: " ";
   display: block;
   position: absolute;
@@ -1434,7 +1488,7 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   border-color: var(--divider-color,transparent);
 }
 
-.c4:not(:first-of-type) {
+.c3:not(:first-of-type) {
   --divider-color: rgba(208,215,222,0.48);
 }
 
@@ -1442,17 +1496,18 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   --divider-color: transparent !important;
 }
 
-.c4:hover:not([aria-disabled]),.c4:focus:not([aria-disabled]),
-.c4[data-focus-visible-added]:not([aria-disabled]) {
+.c3:hover:not([aria-disabled]),
+.c3:focus:not([aria-disabled]),
+.c3[data-focus-visible-added]:not([aria-disabled]) {
   --divider-color: transparent;
 }
 
-.c4:hover:not([aria-disabled]) + .c3,
-.c4[data-focus-visible-added] + li {
+.c3:hover:not([aria-disabled]) + .c2,
+.c3[data-focus-visible-added] + li {
   --divider-color: transparent;
 }
 
-.c4::after {
+.c3::after {
   position: absolute;
   top: calc(50% - 12px);
   left: -8px;
@@ -1463,7 +1518,7 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   border-radius: 6px;
 }
 
-.c12 {
+.c11 {
   color: #0969da;
   -webkit-text-decoration: none;
   text-decoration: none;
@@ -1485,12 +1540,12 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   font-weight: 400;
 }
 
-.c12:hover {
+.c11:hover {
   -webkit-text-decoration: underline;
   text-decoration: underline;
 }
 
-.c12:is(button) {
+.c11:is(button) {
   display: inline-block;
   padding: 0;
   font-size: inherit;
@@ -1507,74 +1562,58 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   appearance: none;
 }
 
-.c12:hover {
+.c11:hover {
   color: inherit;
   -webkit-text-decoration: none;
   text-decoration: none;
 }
 
 @media (hover:hover) and (pointer:fine) {
-
-}
-
-@media (forced-colors:active) {
-
-}
-
-@media (hover:hover) and (pointer:fine) {
-  .c11:hover:not([aria-disabled]) {
+  .c10:hover:not([aria-disabled]) {
     background-color: rgba(208,215,222,0.32);
     color: #1F2328;
   }
 
-  .c11:focus-visible,
-  .c11 > a:focus-visible {
+  .c10:focus-visible,
+  .c10 > a:focus-visible {
     outline: none;
     border: 2 solid;
     box-shadow: 0 0 0 2px #0969da;
   }
 
-  .c11:active:not([aria-disabled]) {
+  .c10:active:not([aria-disabled]) {
     background-color: rgba(208,215,222,0.48);
     color: #1F2328;
   }
 }
 
 @media (forced-colors:active) {
-  .c11:focus {
+  .c10:focus {
     outline: solid 1px transparent !important;
   }
 }
 
 @media (hover:hover) and (pointer:fine) {
-
-}
-
-@media (forced-colors:active) {
-
-}
-
-@media (hover:hover) and (pointer:fine) {
-  .c4:hover:not([aria-disabled]) {
+  .c3:hover:not([aria-disabled]) {
     background-color: rgba(208,215,222,0.32);
     color: #1F2328;
   }
 
-  .c4:focus-visible,
-  .c4 > a:focus-visible {
+  .c3:focus-visible,
+  .c3 > a:focus-visible {
     outline: none;
     border: 2 solid;
     box-shadow: 0 0 0 2px #0969da;
   }
 
-  .c4:active:not([aria-disabled]) {
+  .c3:active:not([aria-disabled]) {
     background-color: rgba(208,215,222,0.48);
     color: #1F2328;
   }
 }
 
 @media (forced-colors:active) {
-  .c4:focus {
+  .c3:focus {
     outline: solid 1px transparent !important;
   }
 }
@@ -1588,34 +1627,34 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
     >
       <li
         aria-labelledby="react-aria-1"
-        class="c1 c2"
+        class="c1"
       >
         <button
           aria-controls="react-aria-2"
           aria-expanded="false"
           aria-labelledby="react-aria-1 "
-          class="c3 c4"
+          class="c2 c3"
           tabindex="0"
         >
           <div
-            class="c1 c5"
+            class="c4"
             data-component="ActionList.Item--DividerContainer"
           >
             <div
-              class="c1 c6"
+              class="c5"
             >
               <span
-                class="c1 c7"
+                class="c6"
                 id="react-aria-1"
               >
                 Item
               </span>
               <span
-                class="c1 c8"
+                class="c7"
               >
                 <svg
                   aria-hidden="true"
-                  class="c9"
+                  class="c8"
                   fill="currentColor"
                   focusable="false"
                   height="16"
@@ -1635,25 +1674,25 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
         <div>
           <ul
             aria-labelledby="react-aria-1"
-            class="c1 c10"
+            class="c9"
             id="react-aria-2"
           >
             <li
-              class="c3 c11"
+              class="c2 c10"
             >
               <a
                 aria-current="page"
                 aria-labelledby="react-aria-3 "
-                class="c12"
+                class="c11"
                 href="#"
                 tabindex="0"
               >
                 <div
-                  class="c1 c5"
+                  class="c4"
                   data-component="ActionList.Item--DividerContainer"
                 >
                   <span
-                    class="c1 c7"
+                    class="c6"
                     id="react-aria-3"
                   >
                     Sub Item
