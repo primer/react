@@ -121,6 +121,7 @@ exports[`@primer/react/drafts should not update exports without a semver change 
   "InlineAutocomplete",
   "MarkdownEditor",
   "MarkdownViewer",
+  "NavList",
   "PageHeader",
   "Table",
   "callbackCancelledResult",

@@ -46,3 +46,14 @@ export * from '../PageHeader'
 export * from '../Hidden'
 
 export * from './hooks'
+
+export {NavList} from '../NavList'
+export type {
+  NavListProps,
+  NavListItemProps,
+  NavListSubNavProps,
+  NavListGroupProps,
+  NavListLeadingVisualProps,
+  NavListTrailingVisualProps,
+  NavListDividerProps,
+} from '../NavList'
