@@ -137,6 +137,7 @@ const StyledTokenBase = styled.span<
 
 const TokenBase = React.forwardRef(({onRemove, onKeyDown, id, size = defaultTokenSize, ...rest}, forwardedRef) => {
   return (
+    // @ts-expect-error the possible props in `...rest` would be different depending on the `as` prop
     <StyledTokenBase
       onKeyDown={(event: KeyboardEvent<HTMLSpanElement & HTMLAnchorElement & HTMLButtonElement>) => {
         onKeyDown && onKeyDown(event)

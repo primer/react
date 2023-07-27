@@ -23,10 +23,6 @@ exports[`Button renders consistently 1`] = `
   text-decoration: none;
   text-align: center;
   font-size: 14px;
-  color: #24292f;
-  background-color: #f6f8fa;
-  border: 1px solid rgba(31,35,40,0.15);
-  box-shadow: 0 1px 0 rgba(31,35,40,0.04),inset 0 1px 0 rgba(255,255,255,0.25);
 }
 
 .c0:hover {
@@ -46,27 +42,34 @@ exports[`Button renders consistently 1`] = `
   opacity: 0.6;
 }
 
-.c0:hover {
+.c1 {
+  color: #24292f;
+  background-color: #f6f8fa;
+  border: 1px solid rgba(31,35,40,0.15);
+  box-shadow: 0 1px 0 rgba(31,35,40,0.04),inset 0 1px 0 rgba(255,255,255,0.25);
+}
+
+.c1:hover {
   background-color: #f3f4f6;
   border-color: rgba(31,35,40,0.15);
 }
 
-.c0:focus {
+.c1:focus {
   outline: solid 2px #0969da;
 }
 
-.c0:active {
+.c1:active {
   background-color: hsla(220,14%,94%,1);
 }
 
-.c0:disabled {
+.c1:disabled {
   color: #8c959f;
   background-color: #f6f8fa;
   border-color: rgba(31,35,40,0.15);
 }
 
 <button
-  className="c0"
+  className="c0 c1"
 />
 `;
 
@@ -93,10 +96,6 @@ exports[`Button respects the "disabled" prop 1`] = `
   text-decoration: none;
   text-align: center;
   font-size: 14px;
-  color: #24292f;
-  background-color: #f6f8fa;
-  border: 1px solid rgba(31,35,40,0.15);
-  box-shadow: 0 1px 0 rgba(31,35,40,0.04),inset 0 1px 0 rgba(255,255,255,0.25);
 }
 
 .c0:hover {
@@ -116,27 +115,34 @@ exports[`Button respects the "disabled" prop 1`] = `
   opacity: 0.6;
 }
 
-.c0:hover {
+.c1 {
+  color: #24292f;
+  background-color: #f6f8fa;
+  border: 1px solid rgba(31,35,40,0.15);
+  box-shadow: 0 1px 0 rgba(31,35,40,0.04),inset 0 1px 0 rgba(255,255,255,0.25);
+}
+
+.c1:hover {
   background-color: #f3f4f6;
   border-color: rgba(31,35,40,0.15);
 }
 
-.c0:focus {
+.c1:focus {
   outline: solid 2px #0969da;
 }
 
-.c0:active {
+.c1:active {
   background-color: hsla(220,14%,94%,1);
 }
 
-.c0:disabled {
+.c1:disabled {
   color: #8c959f;
   background-color: #f6f8fa;
   border-color: rgba(31,35,40,0.15);
 }
 
 <button
-  className="c0"
+  className="c0 c1"
   disabled={true}
 />
 `;
@@ -164,10 +170,6 @@ exports[`ButtonDanger renders consistently 1`] = `
   text-decoration: none;
   text-align: center;
   font-size: 14px;
-  color: #cf222e;
-  border: 1px solid rgba(31,35,40,0.15);
-  background-color: #f6f8fa;
-  box-shadow: 0 1px 0 rgba(31,35,40,0.04);
 }
 
 .c0:hover {
@@ -187,27 +189,34 @@ exports[`ButtonDanger renders consistently 1`] = `
   opacity: 0.6;
 }
 
-.c0:hover {
+.c1 {
+  color: #cf222e;
+  border: 1px solid rgba(31,35,40,0.15);
+  background-color: #f6f8fa;
+  box-shadow: 0 1px 0 rgba(31,35,40,0.04);
+}
+
+.c1:hover {
   color: #ffffff;
   background-color: #a40e26;
   border-color: rgba(31,35,40,0.15);
   box-shadow: 0 1px 0 rgba(31,35,40,0.1);
 }
 
-.c0:active {
+.c1:active {
   color: #ffffff;
   background-color: hsla(356,72%,44%,1);
   box-shadow: inset 0 1px 0 rgba(76,0,20,0.2);
   border-color: rgba(31,35,40,0.15);
 }
 
-.c0:disabled {
+.c1:disabled {
   color: rgba(207,34,46,0.5);
   background-color: #f6f8fa;
 }
 
 <button
-  className="c0"
+  className="c0 c1"
 />
 `;
 
@@ -234,10 +243,6 @@ exports[`ButtonDanger renders correct disabled styles 1`] = `
   text-decoration: none;
   text-align: center;
   font-size: 14px;
-  color: #cf222e;
-  border: 1px solid rgba(31,35,40,0.15);
-  background-color: #f6f8fa;
-  box-shadow: 0 1px 0 rgba(31,35,40,0.04);
 }
 
 .c0:hover {
@@ -257,27 +262,34 @@ exports[`ButtonDanger renders correct disabled styles 1`] = `
   opacity: 0.6;
 }
 
-.c0:hover {
+.c1 {
+  color: #cf222e;
+  border: 1px solid rgba(31,35,40,0.15);
+  background-color: #f6f8fa;
+  box-shadow: 0 1px 0 rgba(31,35,40,0.04);
+}
+
+.c1:hover {
   color: #ffffff;
   background-color: #a40e26;
   border-color: rgba(31,35,40,0.15);
   box-shadow: 0 1px 0 rgba(31,35,40,0.1);
 }
 
-.c0:active {
+.c1:active {
   color: #ffffff;
   background-color: hsla(356,72%,44%,1);
   box-shadow: inset 0 1px 0 rgba(76,0,20,0.2);
   border-color: rgba(31,35,40,0.15);
 }
 
-.c0:disabled {
+.c1:disabled {
   color: rgba(207,34,46,0.5);
   background-color: #f6f8fa;
 }
 
 <button
-  className="c0"
+  className="c0 c1"
   disabled={true}
 />
 `;
@@ -342,10 +354,6 @@ exports[`ButtonInvisible renders consistently 1`] = `
   text-decoration: none;
   text-align: center;
   font-size: 14px;
-  color: #0969da;
-  border: 1px solid rgba(31,35,40,0.15);
-  background-color: #f6f8fa;
-  box-shadow: 0 1px 0 rgba(31,35,40,0.04);
 }
 
 .c0:hover {
@@ -365,28 +373,35 @@ exports[`ButtonInvisible renders consistently 1`] = `
   opacity: 0.6;
 }
 
-.c0:hover {
+.c1 {
+  color: #0969da;
+  border: 1px solid rgba(31,35,40,0.15);
+  background-color: #f6f8fa;
+  box-shadow: 0 1px 0 rgba(31,35,40,0.04);
+}
+
+.c1:hover {
   color: #ffffff;
   background-color: #0969da;
   border-color: rgba(31,35,40,0.15);
   box-shadow: 0 1px 0 rgba(31,35,40,0.1);
 }
 
-.c0:active {
+.c1:active {
   color: #ffffff;
   background-color: hsla(212,92%,42%,1);
   box-shadow: inset 0 1px 0 rgba(0,33,85,0.2);
   border-color: rgba(31,35,40,0.15);
 }
 
-.c0:disabled {
+.c1:disabled {
   color: rgba(9,105,218,0.5);
   background-color: #f6f8fa;
   border-color: rgba(31,35,40,0.15);
 }
 
 <button
-  className="c0"
+  className="c0 c1"
 />
 `;
 
@@ -413,11 +428,6 @@ exports[`ButtonInvisible renders correct disabled styles 1`] = `
   text-decoration: none;
   text-align: center;
   font-size: 14px;
-  color: #0969da;
-  background-color: transparent;
-  border: 0;
-  border-radius: 6px;
-  box-shadow: none;
 }
 
 .c0:hover {
@@ -437,24 +447,32 @@ exports[`ButtonInvisible renders correct disabled styles 1`] = `
   opacity: 0.6;
 }
 
-.c0:disabled {
+.c1 {
+  color: #0969da;
+  background-color: transparent;
+  border: 0;
+  border-radius: 6px;
+  box-shadow: none;
+}
+
+.c1:disabled {
   color: #8c959f;
 }
 
-.c0:focus {
+.c1:focus {
   outline: solid 2px #0969da;
 }
 
-.c0:hover {
+.c1:hover {
   background-color: #f3f4f6;
 }
 
-.c0:active {
+.c1:active {
   background-color: hsla(220,14%,94%,1);
 }
 
 <button
-  className="c0"
+  className="c0 c1"
   disabled={true}
 />
 `;
@@ -482,10 +500,6 @@ exports[`ButtonOutline renders consistently 1`] = `
   text-decoration: none;
   text-align: center;
   font-size: 14px;
-  color: #0969da;
-  border: 1px solid rgba(31,35,40,0.15);
-  background-color: #f6f8fa;
-  box-shadow: 0 1px 0 rgba(31,35,40,0.04);
 }
 
 .c0:hover {
@@ -505,28 +519,35 @@ exports[`ButtonOutline renders consistently 1`] = `
   opacity: 0.6;
 }
 
-.c0:hover {
+.c1 {
+  color: #0969da;
+  border: 1px solid rgba(31,35,40,0.15);
+  background-color: #f6f8fa;
+  box-shadow: 0 1px 0 rgba(31,35,40,0.04);
+}
+
+.c1:hover {
   color: #ffffff;
   background-color: #0969da;
   border-color: rgba(31,35,40,0.15);
   box-shadow: 0 1px 0 rgba(31,35,40,0.1);
 }
 
-.c0:active {
+.c1:active {
   color: #ffffff;
   background-color: hsla(212,92%,42%,1);
   box-shadow: inset 0 1px 0 rgba(0,33,85,0.2);
   border-color: rgba(31,35,40,0.15);
 }
 
-.c0:disabled {
+.c1:disabled {
   color: rgba(9,105,218,0.5);
   background-color: #f6f8fa;
   border-color: rgba(31,35,40,0.15);
 }
 
 <button
-  className="c0"
+  className="c0 c1"
 />
 `;
 
@@ -553,10 +574,6 @@ exports[`ButtonOutline renders correct disabled styles 1`] = `
   text-decoration: none;
   text-align: center;
   font-size: 14px;
-  color: #0969da;
-  border: 1px solid rgba(31,35,40,0.15);
-  background-color: #f6f8fa;
-  box-shadow: 0 1px 0 rgba(31,35,40,0.04);
 }
 
 .c0:hover {
@@ -576,28 +593,35 @@ exports[`ButtonOutline renders correct disabled styles 1`] = `
   opacity: 0.6;
 }
 
-.c0:hover {
+.c1 {
+  color: #0969da;
+  border: 1px solid rgba(31,35,40,0.15);
+  background-color: #f6f8fa;
+  box-shadow: 0 1px 0 rgba(31,35,40,0.04);
+}
+
+.c1:hover {
   color: #ffffff;
   background-color: #0969da;
   border-color: rgba(31,35,40,0.15);
   box-shadow: 0 1px 0 rgba(31,35,40,0.1);
 }
 
-.c0:active {
+.c1:active {
   color: #ffffff;
   background-color: hsla(212,92%,42%,1);
   box-shadow: inset 0 1px 0 rgba(0,33,85,0.2);
   border-color: rgba(31,35,40,0.15);
 }
 
-.c0:disabled {
+.c1:disabled {
   color: rgba(9,105,218,0.5);
   background-color: #f6f8fa;
   border-color: rgba(31,35,40,0.15);
 }
 
 <button
-  className="c0"
+  className="c0 c1"
   disabled={true}
 />
 `;
@@ -625,10 +649,6 @@ exports[`ButtonPrimary renders consistently 1`] = `
   text-decoration: none;
   text-align: center;
   font-size: 14px;
-  color: #ffffff;
-  border: 1px solid rgba(31,35,40,0.15);
-  background-color: #1f883d;
-  box-shadow: 0 1px 0 rgba(31,35,40,0.1);
 }
 
 .c0:hover {
@@ -648,24 +668,31 @@ exports[`ButtonPrimary renders consistently 1`] = `
   opacity: 0.6;
 }
 
-.c0:hover {
+.c1 {
+  color: #ffffff;
+  border: 1px solid rgba(31,35,40,0.15);
+  background-color: #1f883d;
+  box-shadow: 0 1px 0 rgba(31,35,40,0.1);
+}
+
+.c1:hover {
   background-color: #1a7f37;
   border-color: rgba(31,35,40,0.15);
 }
 
-.c0:active {
+.c1:active {
   background-color: hsla(137,66%,28%,1);
   box-shadow: inset 0 1px 0 rgba(0,45,17,0.2);
 }
 
-.c0:disabled {
+.c1:disabled {
   color: rgba(255,255,255,0.8);
   background-color: #94d3a2;
   border-color: rgba(31,35,40,0.15);
 }
 
 <button
-  className="c0"
+  className="c0 c1"
 />
 `;
 
@@ -692,10 +719,6 @@ exports[`ButtonPrimary renders correct disabled styles 1`] = `
   text-decoration: none;
   text-align: center;
   font-size: 14px;
-  color: #ffffff;
-  border: 1px solid rgba(31,35,40,0.15);
-  background-color: #1f883d;
-  box-shadow: 0 1px 0 rgba(31,35,40,0.1);
 }
 
 .c0:hover {
@@ -715,24 +738,31 @@ exports[`ButtonPrimary renders correct disabled styles 1`] = `
   opacity: 0.6;
 }
 
-.c0:hover {
+.c1 {
+  color: #ffffff;
+  border: 1px solid rgba(31,35,40,0.15);
+  background-color: #1f883d;
+  box-shadow: 0 1px 0 rgba(31,35,40,0.1);
+}
+
+.c1:hover {
   background-color: #1a7f37;
   border-color: rgba(31,35,40,0.15);
 }
 
-.c0:active {
+.c1:active {
   background-color: hsla(137,66%,28%,1);
   box-shadow: inset 0 1px 0 rgba(0,45,17,0.2);
 }
 
-.c0:disabled {
+.c1:disabled {
   color: rgba(255,255,255,0.8);
   background-color: #94d3a2;
   border-color: rgba(31,35,40,0.15);
 }
 
 <button
-  className="c0"
+  className="c0 c1"
   disabled={true}
 />
 `;

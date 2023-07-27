@@ -769,8 +769,8 @@ export const InADialog = (args: FormControlArgs<AutocompleteArgs>) => {
 
   return (
     <>
-      <Button onClick={() => setIsDialogOpen(!isDialogOpen)}>Show dialog</Button>
-      <Dialog id="dialog-with-autocomplete" isOpen={isDialogOpen}>
+      <Button onClick={() => setIsDialogOpen(true)}>Show dialog</Button>
+      <Dialog id="dialog-with-autocomplete" isOpen={isDialogOpen} onDismiss={() => setIsDialogOpen(false)}>
         <div ref={outerContainerRef}>
           <Box as="form" sx={{p: 3}}>
             {mounted ? (
