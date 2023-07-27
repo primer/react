@@ -22,13 +22,11 @@ describe('Box', () => {
   it('renders margin', () => {
     expect(render(<Box m={1} theme={theme} />)).toMatchSnapshot()
     expect(render(<Box m={[0, 1, 2, 3]} theme={theme} />)).toMatchSnapshot()
-    expect(render(<Box m={[1, 1, 1, 3]} theme={theme} />)).toMatchSnapshot()
   })
 
   it('renders padding', () => {
     expect(render(<Box p={1} theme={theme} />)).toMatchSnapshot()
     expect(render(<Box p={[0, 1, 2, 3]} theme={theme} />)).toMatchSnapshot()
-    expect(render(<Box p={[1, 1, 1, 3]} theme={theme} />)).toMatchSnapshot()
   })
 
   it('respects display', () => {

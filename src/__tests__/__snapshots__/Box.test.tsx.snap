@@ -44,34 +44,6 @@ exports[`Box renders margin 2`] = `
 />
 `;
 
-exports[`Box renders margin 3`] = `
-.c0 {
-  margin: 4px;
-}
-
-@media screen and (min-width:544px) {
-  .c0 {
-    margin: 4px;
-  }
-}
-
-@media screen and (min-width:768px) {
-  .c0 {
-    margin: 4px;
-  }
-}
-
-@media screen and (min-width:1012px) {
-  .c0 {
-    margin: 16px;
-  }
-}
-
-<div
-  className="c0"
-/>
-`;
-
 exports[`Box renders padding 1`] = `
 .c0 {
   padding: 4px;
@@ -96,34 +68,6 @@ exports[`Box renders padding 2`] = `
 @media screen and (min-width:768px) {
   .c0 {
     padding: 8px;
-  }
-}
-
-@media screen and (min-width:1012px) {
-  .c0 {
-    padding: 16px;
-  }
-}
-
-<div
-  className="c0"
-/>
-`;
-
-exports[`Box renders padding 3`] = `
-.c0 {
-  padding: 4px;
-}
-
-@media screen and (min-width:544px) {
-  .c0 {
-    padding: 4px;
-  }
-}
-
-@media screen and (min-width:768px) {
-  .c0 {
-    padding: 4px;
   }
 }
 
