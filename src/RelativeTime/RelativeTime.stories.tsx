@@ -12,8 +12,6 @@ const meta: Meta = {
       // SX props, and methods we want to otherwise ignore
       exclude: /^(getFormatted.*|datetime|sx|as|theme|forwardedAs|.*Callback|update)$/g,
     },
-    // it's not possible to snapshot test relative time because the output keeps changing
-    chromatic: {disableSnapshot: true},
   },
 }
 

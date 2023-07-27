@@ -324,17 +324,18 @@ describe('Autocomplete', () => {
         />,
       )
       const inputNode = container.querySelector('#autocompleteInput')
-      const itemToClickNode = getByText(mockItems[1].text)
 
-      expect(inputNode?.getAttribute('aria-expanded')).not.toBe('true')
-      inputNode && fireEvent.focus(inputNode)
-      expect(inputNode?.getAttribute('aria-expanded')).toBe('true')
-      fireEvent.click(itemToClickNode)
-      inputNode && (await user.type(inputNode, '{enter}'))
-      expect(inputNode?.getAttribute('aria-expanded')).toBe('true')
+      if (inputNode) {
+        expect(inputNode.getAttribute('aria-expanded')).not.toBe('true')
+        await user.click(inputNode)
+        expect(inputNode.getAttribute('aria-expanded')).toBe('true')
+        await user.click(getByText(mockItems[1].text))
+        expect(inputNode.getAttribute('aria-expanded')).toBe('true')
+      }
     })
 
-    it('closes the menu when clicking an item in the menu if selectionVariant=single', () => {
+    it('closes the menu when clicking an item in the menu if selectionVariant=single', async () => {
+      const user = userEvent.setup()
       const {getByText, container} = HTMLRender(
         <LabelledAutocomplete
           menuProps={{
@@ -346,13 +347,14 @@ describe('Autocomplete', () => {
         />,
       )
       const inputNode = container.querySelector('#autocompleteInput')
-      const itemToClickNode = getByText(mockItems[1].text)
 
-      expect(inputNode?.getAttribute('aria-expanded')).not.toBe('true')
-      inputNode && fireEvent.focus(inputNode)
-      expect(inputNode?.getAttribute('aria-expanded')).toBe('true')
-      fireEvent.click(itemToClickNode)
-      expect(inputNode?.getAttribute('aria-expanded')).not.toBe('true')
+      if (inputNode) {
+        expect(inputNode.getAttribute('aria-expanded')).not.toBe('true')
+        await user.click(inputNode)
+        expect(inputNode.getAttribute('aria-expanded')).toBe('true')
+        await user.click(getByText(mockItems[1].text))
+        expect(inputNode.getAttribute('aria-expanded')).not.toBe('true')
+      }
     })
 
     it('calls handleAddItem with new item data when passing addNewItem', () => {

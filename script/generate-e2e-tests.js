@@ -1366,6 +1366,17 @@ const components = new Map([
     },
   ],
   [
+    'Tooltip',
+    {
+      stories: [
+        {
+          id: 'components-tooltip--default',
+          name: 'Default',
+        },
+      ],
+    },
+  ],
+  [
     'TreeView',
     {
       stories: [

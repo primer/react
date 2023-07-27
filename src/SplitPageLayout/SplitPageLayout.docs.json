@@ -71,8 +71,9 @@
         {
           "name": "position",
           "type": "| 'start' | 'end' | { narrow?: | 'start' | 'end' regular?: | 'start' | 'end' wide?: | 'start' | 'end' }",
-          "defaultValue": "'start'",
-          "description": ""
+          "defaultValue": "start'",
+          "description": "Use source order instead of relying on the `position` prop",
+          "deprecated": true
         },
         {
           "name": "width",
