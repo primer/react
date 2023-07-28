@@ -293,7 +293,7 @@ const LeadingVisualContainer = styled(ColoredVisualContainer)`
 `
 
 const TrailingContent = styled(ColoredVisualContainer)`
-  color: ${({variant, disabled}) => getItemVariant(variant, disabled).annotationColor}};
+  color: ${({variant, disabled}) => getItemVariant(variant, disabled).annotationColor};
   margin-left: ${get('space.2')};
   margin-right: 0;
   width: auto;

@@ -13,7 +13,7 @@ import {
 } from '@primer/octicons-react'
 
 import {UnderlineNav} from '.'
-import {checkExports, checkStoriesForAxeViolations} from '../utils/testing'
+import {behavesAsComponent, checkExports, checkStoriesForAxeViolations} from '../utils/testing'
 
 // window.matchMedia() is not implemented by JSDOM so we have to create a mock:
 // https://jestjs.io/docs/manual-mocks#mocking-methods-which-are-not-implemented-in-jsdom
@@ -72,7 +72,13 @@ const ResponsiveUnderlineNav = ({
 }
 
 describe('UnderlineNav', () => {
-  checkExports('UnderlineNav', {
+  behavesAsComponent({
+    Component: UnderlineNav,
+    options: {skipAs: true, skipSx: true},
+    toRender: () => <ResponsiveUnderlineNav />,
+  })
+
+  checkExports('UnderlineNav2', {
     default: undefined,
     UnderlineNav,
   })
@@ -156,6 +162,19 @@ describe('UnderlineNav', () => {
     expect(heading.className).toContain('VisuallyHidden')
     expect(heading.textContent).toBe('Repository navigation')
   })
+  it('throws an error when there are multiple items that have aria-current', () => {
+    const spy = jest.spyOn(console, 'error').mockImplementation()
+    expect(() => {
+      render(
+        <UnderlineNav aria-label="Test Navigation">
+          <UnderlineNav.Item aria-current="page">Item 1</UnderlineNav.Item>
+          <UnderlineNav.Item aria-current="page">Item 2</UnderlineNav.Item>
+        </UnderlineNav>,
+      )
+    }).toThrow('Only one current element is allowed')
+    expect(spy).toHaveBeenCalled()
+    spy.mockRestore()
+  })
 })
 
 describe('Keyboard Navigation', () => {
@@ -172,4 +191,4 @@ describe('Keyboard Navigation', () => {
   })
 })
 
-checkStoriesForAxeViolations('UnderlineNav.examples', '../UnderlineNav/')
+checkStoriesForAxeViolations('UnderlineNav2.examples', '../UnderlineNav2/')
