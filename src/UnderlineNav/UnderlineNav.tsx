@@ -80,7 +80,7 @@ const overflowEffect = (
     // if we can't fit all the items without their icons, we keep the icons hidden and show the ones that doesn't fit into the list in the overflow menu
     iconsVisible = false
 
-    /* Below is an accessibiility requirement. Never show only one item in the overflow menu.
+    /* Below is an accessibility requirement. Never show only one item in the overflow menu.
      * If there is only one item left to display in the overflow menu according to the calculation,
      * we need to pull another item from the list into the overflow menu.
      */

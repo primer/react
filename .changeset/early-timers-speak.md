@@ -11,8 +11,6 @@ Remove components from draft bundle
 + import {UnderlineNav} from '@primer/react'
 ```
 
-TODO: Add a note about how to switch to the new version of UnderlineNav (codemode)
-
 ....
 * Remove TreeView from drafts
 
@@ -42,4 +40,4 @@ TODO: Add a note about how to switch to the new version of UnderlineNav (codemod
 + import {SplitPageLayout} from '@primer/react'
 ```
 
-<!-- Changed components: UnderlineNav, TreeView, SegmentedControl, NavList, SplitPageLayout--!>
+<!-- Changed components: UnderlineNav, TreeView, SegmentedControl, NavList, SplitPageLayout -->

@@ -38,7 +38,7 @@ export default {
 export const Default: ComponentStory<typeof UnderlineNav> = () => {
   const children = ['Code', 'Pull requests', 'Actions', 'Projects', 'Wiki']
   return (
-    <UnderlineNav>
+    <UnderlineNav aria-label="Repository">
       {children.map((child: string, index: number) => (
         <UnderlineNavItem key={index} href="#" aria-current={index === 0 ? 'page' : undefined}>
           {child}
