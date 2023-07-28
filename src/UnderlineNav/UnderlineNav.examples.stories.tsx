@@ -25,7 +25,7 @@ import {UnderlineNav} from './index'
 import {Avatar, Octicon, Button, Box, Heading, Link, Text, StateLabel, BranchName} from '..'
 
 export default {
-  title: 'Drafts/Components/UnderlineNav/Examples',
+  title: 'Components/UnderlineNav/Examples',
 } as Meta
 
 export const PullRequestPage = () => {

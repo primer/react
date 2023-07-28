@@ -3,7 +3,7 @@ import {Meta} from '@storybook/react'
 import {UnderlineNav} from './index'
 
 export default {
-  title: 'Drafts/Components/UnderlineNav/DevOnly',
+  title: 'Components/UnderlineNav/DevOnly',
 } as Meta
 
 export const IllegalState = () => {

@@ -170,8 +170,6 @@ export {default as Tooltip} from './Tooltip'
 export type {TooltipProps} from './Tooltip'
 export {default as Truncate} from './Truncate'
 export type {TruncateProps} from './Truncate'
-export {default as UnderlineNav} from './UnderlineNav'
-export type {UnderlineNavProps, UnderlineNavLinkProps} from './UnderlineNav'
 
 export {default as Checkbox} from './Checkbox'
 export type {CheckboxProps} from './Checkbox'
@@ -188,7 +186,8 @@ export type {
   TreeViewErrorDialogProps,
 } from './TreeView'
 
-export {UnderlineNav as UnderlineNav2} from './UnderlineNav2'
+export {UnderlineNav} from './UnderlineNav'
+export type {UnderlineNavProps, UnderlineNavItemProps} from './UnderlineNav'
 
 export {SSRProvider, useSSRSafeId} from './utils/ssr'
 export {default as sx, merge} from './sx'

@@ -1,0 +1,31 @@
+---
+componentId: legacy_underline_nav
+title: UnderlineNav (legacy)
+status: Deprecated
+---
+
+import data from '../../../src/deprecated/UnderlineNav/UnderlineNav.docs.json'
+
+Use the UnderlineNav component to style navigation with a minimal underlined selected state, typically used for navigation placed at the top of the page.
+
+## Deprecation
+
+Use [the new version of UnderlineNav](/UnderlineNav) with design and accessibility updates.
+
+**Attention:** Make sure to properly label your `UnderlineNav` with an `aria-label` to provide context about the type of navigation contained in `UnderlineNav`.
+
+## Examples
+
+```jsx live
+<UnderlineNav aria-label="Main">
+  <UnderlineNav.Link href="#home" selected>
+    Home
+  </UnderlineNav.Link>
+  <UnderlineNav.Link href="#documentation">Documentation</UnderlineNav.Link>
+  <UnderlineNav.Link href="#support">Support</UnderlineNav.Link>
+</UnderlineNav>
+```
+
+## Props
+
+<ComponentProps data={data} />

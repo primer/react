@@ -8,7 +8,7 @@ test.describe('UnderlineNav--deprecated', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'components-underlinenav--default',
+            id: 'deprecated-components-underlinenav--default',
             globals: {
               colorScheme: theme,
             },
@@ -20,7 +20,7 @@ test.describe('UnderlineNav--deprecated', () => {
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'components-underlinenav--default',
+            id: 'deprecated-components-underlinenav--default',
             globals: {
               colorScheme: theme,
             },
@@ -36,7 +36,7 @@ test.describe('UnderlineNav--deprecated', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'components-underlinenav--playground',
+            id: 'deprecated-components-underlinenav--playground',
             globals: {
               colorScheme: theme,
             },
@@ -48,7 +48,7 @@ test.describe('UnderlineNav--deprecated', () => {
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'components-underlinenav--playground',
+            id: 'deprecated-components-underlinenav--playground',
             globals: {
               colorScheme: theme,
             },
@@ -64,7 +64,7 @@ test.describe('UnderlineNav--deprecated', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'components-underlinenav-features--actions',
+            id: 'deprecated-components-underlinenav-features--actions',
             globals: {
               colorScheme: theme,
             },
@@ -76,7 +76,7 @@ test.describe('UnderlineNav--deprecated', () => {
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'components-underlinenav-features--actions',
+            id: 'deprecated-components-underlinenav-features--actions',
             globals: {
               colorScheme: theme,
             },

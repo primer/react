@@ -2,10 +2,10 @@ import React from 'react'
 import {Meta} from '@storybook/react'
 import {within, userEvent} from '@storybook/testing-library'
 import {expect} from '@storybook/jest'
-import {OverflowTemplate} from './UnderlineNav2.features.stories'
+import {OverflowTemplate} from './UnderlineNav.features.stories'
 
 export default {
-  title: 'Drafts/Components/UnderlineNav/Interactions',
+  title: 'Components/UnderlineNav/Interactions',
 } as Meta
 
 const SelectAMenuItem = () => {
