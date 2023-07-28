@@ -29,10 +29,6 @@ exports[`AnchoredOverlay renders consistently 1`] = `
   text-decoration: none;
   text-align: center;
   font-size: 14px;
-  color: #24292f;
-  background-color: #f6f8fa;
-  border: 1px solid rgba(31,35,40,0.15);
-  box-shadow: 0 1px 0 rgba(31,35,40,0.04),inset 0 1px 0 rgba(255,255,255,0.25);
 }
 
 .c1:hover {
@@ -52,20 +48,27 @@ exports[`AnchoredOverlay renders consistently 1`] = `
   opacity: 0.6;
 }
 
-.c1:hover {
+.c2 {
+  color: #24292f;
+  background-color: #f6f8fa;
+  border: 1px solid rgba(31,35,40,0.15);
+  box-shadow: 0 1px 0 rgba(31,35,40,0.04),inset 0 1px 0 rgba(255,255,255,0.25);
+}
+
+.c2:hover {
   background-color: #f3f4f6;
   border-color: rgba(31,35,40,0.15);
 }
 
-.c1:focus {
+.c2:focus {
   outline: solid 2px #0969da;
 }
 
-.c1:active {
+.c2:active {
   background-color: hsla(220,14%,94%,1);
 }
 
-.c1:disabled {
+.c2:disabled {
   color: #8c959f;
   background-color: #f6f8fa;
   border-color: rgba(31,35,40,0.15);
@@ -82,7 +85,7 @@ exports[`AnchoredOverlay renders consistently 1`] = `
 >
   <button
     aria-haspopup="true"
-    className="c1"
+    className="c1 c2"
     id="react-aria-1"
     onClick={[Function]}
     onKeyDown={[Function]}
@@ -122,10 +125,6 @@ exports[`AnchoredOverlay should render consistently when open 1`] = `
   text-decoration: none;
   text-align: center;
   font-size: 14px;
-  color: #24292f;
-  background-color: #f6f8fa;
-  border: 1px solid rgba(31,35,40,0.15);
-  box-shadow: 0 1px 0 rgba(31,35,40,0.04),inset 0 1px 0 rgba(255,255,255,0.25);
 }
 
 .c1:hover {
@@ -145,26 +144,33 @@ exports[`AnchoredOverlay should render consistently when open 1`] = `
   opacity: 0.6;
 }
 
-.c1:hover {
+.c2 {
+  color: #24292f;
+  background-color: #f6f8fa;
+  border: 1px solid rgba(31,35,40,0.15);
+  box-shadow: 0 1px 0 rgba(31,35,40,0.04),inset 0 1px 0 rgba(255,255,255,0.25);
+}
+
+.c2:hover {
   background-color: #f3f4f6;
   border-color: rgba(31,35,40,0.15);
 }
 
-.c1:focus {
+.c2:focus {
   outline: solid 2px #0969da;
 }
 
-.c1:active {
+.c2:active {
   background-color: hsla(220,14%,94%,1);
 }
 
-.c1:disabled {
+.c2:disabled {
   color: #8c959f;
   background-color: #f6f8fa;
   border-color: rgba(31,35,40,0.15);
 }
 
-.c2 {
+.c3 {
   background-color: #ffffff;
   box-shadow: 0 1px 3px rgba(31,35,40,0.12),0 8px 24px rgba(66,74,83,0.12);
   position: absolute;
@@ -179,12 +185,12 @@ exports[`AnchoredOverlay should render consistently when open 1`] = `
   visibility: var(--styled-overlay-visibility);
 }
 
-.c2:focus {
+.c3:focus {
   outline: none;
 }
 
 @media (forced-colors:active) {
-  .c2 {
+  .c3 {
     outline: solid 1px transparent;
   }
 }
@@ -202,7 +208,7 @@ exports[`AnchoredOverlay should render consistently when open 1`] = `
     <button
       aria-expanded="true"
       aria-haspopup="true"
-      class="c1"
+      class="c1 c2"
       id="react-aria-1"
       tabindex="0"
     >
@@ -216,7 +222,7 @@ exports[`AnchoredOverlay should render consistently when open 1`] = `
         style="position: relative; z-index: 1;"
       >
         <div
-          class="c2"
+          class="c3"
           data-focus-trap="active"
           height="auto"
           role="none"
