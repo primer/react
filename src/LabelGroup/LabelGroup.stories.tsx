@@ -1,34 +1,102 @@
 import React from 'react'
-import {Meta, ComponentStory} from '@storybook/react'
-import LabelGroup from './LabelGroup'
-import Label from '../Label'
+import styled from 'styled-components'
+import LabelGroup, {LabelGroupProps} from './LabelGroup'
+import {Meta, Story} from '@storybook/react'
+import Label from '../Label/Label'
 
-export default {
+const meta: Meta = {
   title: 'Components/LabelGroup',
   component: LabelGroup,
-} as Meta<typeof LabelGroup>
-
-export const Default = () => (
-  <LabelGroup>
-    <Label>Default label</Label>
-    <Label variant="danger">Label with background indicating a closed PR state</Label>
-    <Label variant="primary">Default outline label</Label>
-  </LabelGroup>
-)
-
-export const Playground: ComponentStory<typeof LabelGroup> = args => (
-  <LabelGroup {...args}>
-    <Label>Default label</Label>
-    <Label variant="danger">Label with background indicating a closed PR state</Label>
-    <Label variant="primary">Default outline label</Label>
-  </LabelGroup>
-)
-
-Playground.argTypes = {
-  sx: {
-    controls: false,
-    table: {
-      disable: true,
+  argTypes: {
+    overflowStyle: {
+      control: {
+        type: 'radio',
+      },
+      options: ['inline', 'overlay'],
+    },
+    autoTruncateTokens: {
+      name: 'Truncate to fit width',
+      defaultValue: false,
+      control: {
+        type: 'boolean',
+      },
+    },
+    visibleChildCount: {
+      control: {
+        type: 'number',
+      },
+      if: {arg: 'autoTruncateTokens', truthy: false},
     },
   },
+  decorators: [
+    Story => {
+      return (
+        <>
+          <Story />
+        </>
+      )
+    },
+  ],
 }
+
+const ResizableContainer = styled.div`
+  outline: 1px solid black;
+  overflow: auto;
+  padding: 0.25rem;
+  resize: horizontal;
+  width: 600px;
+`
+
+export const Default: Story = () => (
+  <LabelGroup>
+    <Label>One</Label>
+    <Label>Two</Label>
+    <Label>Three</Label>
+    <Label>Four</Label>
+    <Label>Five</Label>
+    <Label>Six</Label>
+    <Label>Seven</Label>
+    <Label>Eight</Label>
+    <Label>Nine</Label>
+    <Label>Ten</Label>
+    <Label>Eleven</Label>
+    <Label>Twelve</Label>
+    <Label>Thirteen</Label>
+    <Label>Fourteen</Label>
+    <Label>Fifteen</Label>
+    <Label>Sixteen</Label>
+  </LabelGroup>
+)
+
+export const Playground: Story = ({
+  autoTruncateTokens,
+  visibleChildCount,
+  ...restArgs
+}: LabelGroupProps & {autoTruncateTokens?: boolean}) => {
+  const visibleChildCountValue = autoTruncateTokens ? 'auto' : visibleChildCount
+
+  return (
+    <ResizableContainer>
+      <LabelGroup {...restArgs} visibleChildCount={visibleChildCountValue}>
+        <Label>One</Label>
+        <Label>Two</Label>
+        <Label>Three</Label>
+        <Label>Four</Label>
+        <Label>Five</Label>
+        <Label>Six</Label>
+        <Label>Seven</Label>
+        <Label>Eight</Label>
+        <Label>Nine</Label>
+        <Label>Ten</Label>
+        <Label>Eleven</Label>
+        <Label>Twelve</Label>
+        <Label>Thirteen</Label>
+        <Label>Fourteen</Label>
+        <Label>Fifteen</Label>
+        <Label>Sixteen</Label>
+      </LabelGroup>
+    </ResizableContainer>
+  )
+}
+
+export default meta

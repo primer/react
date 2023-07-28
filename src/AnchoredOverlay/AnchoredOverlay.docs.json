@@ -54,6 +54,18 @@
       "description": ""
     },
     {
+      "name": "alignmentOffset",
+      "type": "number",
+      "defaultValue": "4",
+      "description": "An additional offset, in pixels, to move the floating element from the aligning edge. Positive values move the floating element in the direction of center-alignment. Negative values move the floating element away from center-alignment. When align is `'center`, positive offsets move the floating element right (top or bottom anchor side) or down (left or right anchor side). If using outside positioning, or if `align` is set to `'center'`, this defaults to `0` instead of `4`."
+    },
+    {
+      "name": "anchorOffset",
+      "type": "number",
+      "defaultValue": "4",
+      "description": "The number of pixels between the anchor edge and the floating element. Positive values move the floating element farther from the anchor element (for outside positioning) or further inside the anchor element (for inside positioning). Negative values have the opposite effect. If `side` is set to `'inside-center'`, this defaults to `0` instead of `4`."
+    },
+    {
       "name": "overlayProps",
       "type": "Partial<OverlayProps>",
       "defaultValue": "",

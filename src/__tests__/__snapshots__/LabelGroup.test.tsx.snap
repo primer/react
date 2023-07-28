@@ -1,15 +1,28 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`LabelGroup renders consistently 1`] = `
-.c0 * {
-  margin-right: 4px;
+.c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: nowrap;
+  -ms-flex-wrap: nowrap;
+  flex-wrap: nowrap;
+  gap: 4px;
+  line-height: 1;
+  max-width: 100%;
+  overflow: hidden;
 }
 
-.c0 *:last-child {
-  margin-right: 0;
+.c0[data-overflow='inline'] {
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
 }
 
-<span
+<div
   className="c0"
+  data-overflow="inline"
 />
 `;
