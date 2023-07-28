@@ -108,7 +108,7 @@ const TimelineBody = styled.div<SxProp>`
 `
 
 const TimelineBreak = styled.div<SxProp>`
-  position: relative
+  position: relative;
   z-index: 1;
   height: 24px;
   margin: 0;

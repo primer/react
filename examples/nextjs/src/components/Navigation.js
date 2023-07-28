@@ -11,7 +11,7 @@ import {
   ShieldLockIcon,
 } from '@primer/octicons-react'
 import React from 'react'
-import {UnderlineNav} from '@primer/react/drafts'
+import {UnderlineNav} from '@primer/react'
 import {useRouter} from 'next/router'
 import Link from 'next/link'
 

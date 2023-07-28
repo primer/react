@@ -1,57 +1,188 @@
 import React from 'react'
-import {UnderlineNav} from '..'
-import {render, rendersClass, behavesAsComponent, checkExports} from '../utils/testing'
-import {render as HTMLRender} from '@testing-library/react'
-import {axe} from 'jest-axe'
+import {render} from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
+import {
+  IconProps,
+  CodeIcon,
+  IssueOpenedIcon,
+  GitPullRequestIcon,
+  CommentDiscussionIcon,
+  ProjectIcon,
+  ShieldLockIcon,
+  GraphIcon,
+} from '@primer/octicons-react'
+
+import {UnderlineNav} from '.'
+import {checkExports, checkStoriesForAxeViolations} from '../utils/testing'
+
+// window.matchMedia() is not implemented by JSDOM so we have to create a mock:
+// https://jestjs.io/docs/manual-mocks#mocking-methods-which-are-not-implemented-in-jsdom
+Object.defineProperty(window, 'matchMedia', {
+  writable: true,
+  value: jest.fn().mockImplementation(query => ({
+    matches: false,
+    media: query,
+    onchange: null,
+    addListener: jest.fn(), // deprecated
+    removeListener: jest.fn(), // deprecated
+    addEventListener: jest.fn(),
+    removeEventListener: jest.fn(),
+    dispatchEvent: jest.fn(),
+  })),
+})
+
+const ResponsiveUnderlineNav = ({
+  selectedItemText = 'Code',
+  loadingCounters = false,
+  displayExtraEl = false,
+}: {
+  selectedItemText?: string
+  loadingCounters?: boolean
+  displayExtraEl?: boolean
+}) => {
+  const items: {navigation: string; icon?: React.FC<IconProps>; counter?: number}[] = [
+    {navigation: 'Code', icon: CodeIcon},
+    {navigation: 'Issues', icon: IssueOpenedIcon, counter: 120},
+    {navigation: 'Pull Requests', icon: GitPullRequestIcon, counter: 13},
+    {navigation: 'Discussions', icon: CommentDiscussionIcon, counter: 5},
+    {navigation: 'Actions', counter: 4},
+    {navigation: 'Projects', icon: ProjectIcon, counter: 9},
+    {navigation: 'Insights', icon: GraphIcon},
+    {navigation: 'Settings', counter: 10},
+    {navigation: 'Security', icon: ShieldLockIcon},
+  ]
+
+  return (
+    <div>
+      <UnderlineNav aria-label="Repository" loadingCounters={loadingCounters}>
+        {items.map(item => (
+          <UnderlineNav.Item
+            key={item.navigation}
+            icon={item.icon}
+            aria-current={item.navigation === selectedItemText ? 'page' : undefined}
+            counter={item.counter}
+          >
+            {item.navigation}
+          </UnderlineNav.Item>
+        ))}
+      </UnderlineNav>
+      {displayExtraEl && <button>Custom button</button>}
+    </div>
+  )
+}
 
 describe('UnderlineNav', () => {
-  behavesAsComponent({Component: UnderlineNav})
-
   checkExports('UnderlineNav', {
-    default: UnderlineNav,
+    default: undefined,
+    UnderlineNav,
   })
-
-  it('should have no axe violations', async () => {
-    const {container} = HTMLRender(<UnderlineNav />)
-    const results = await axe(container)
-    expect(results).toHaveNoViolations()
+  it('renders aria-current attribute to be pages when an item is selected', () => {
+    const {getByRole} = render(<ResponsiveUnderlineNav />)
+    const selectedNavLink = getByRole('link', {name: 'Code'})
+    expect(selectedNavLink.getAttribute('aria-current')).toBe('page')
   })
-
-  it('renders a <nav>', () => {
-    expect(render(<UnderlineNav />).type).toEqual('nav')
+  it('renders aria-label attribute correctly', () => {
+    const {container, getByRole} = render(<ResponsiveUnderlineNav />)
+    expect(container.getElementsByTagName('nav').length).toEqual(1)
+    const nav = getByRole('navigation')
+    expect(nav.getAttribute('aria-label')).toBe('Repository')
   })
-
-  it('adds the UnderlineNav class', () => {
-    expect(rendersClass(<UnderlineNav />, 'PRC-UnderlineNav')).toEqual(true)
+  it('renders icons correctly', () => {
+    const {getByRole} = render(<ResponsiveUnderlineNav />)
+    const nav = getByRole('navigation')
+    expect(nav.getElementsByTagName('svg').length).toEqual(7)
   })
-
-  it('respects the "align" prop', () => {
-    expect(rendersClass(<UnderlineNav align="right" />, 'PRC-UnderlineNav--right')).toEqual(true)
-  })
-
-  it('respects the "full" prop', () => {
-    expect(rendersClass(<UnderlineNav full />, 'PRC-UnderlineNav--full')).toEqual(true)
-  })
-
-  it('sets aria-label to the "label" prop', () => {
-    expect(render(<UnderlineNav label="foo" />).props['aria-label']).toEqual('foo')
-  })
-
-  it('wraps its children in an "PRC-UnderlineNav-body" div', () => {
-    const {getByTestId} = HTMLRender(
-      <UnderlineNav>
-        <b data-testid="content">test</b>
+  it('fires onSelect on click', async () => {
+    const onSelect = jest.fn()
+    const {getByRole} = render(
+      <UnderlineNav aria-label="Test Navigation">
+        <UnderlineNav.Item onSelect={onSelect}>Item 1</UnderlineNav.Item>
+        <UnderlineNav.Item onSelect={onSelect}>Item 2</UnderlineNav.Item>
+        <UnderlineNav.Item onSelect={onSelect}>Item 3</UnderlineNav.Item>
       </UnderlineNav>,
     )
-
-    expect(getByTestId('content')).toBeInTheDocument()
-    expect(getByTestId('content').parentElement).toHaveClass('PRC-UnderlineNav-body')
+    const item = getByRole('link', {name: 'Item 1'})
+    const user = userEvent.setup()
+    await user.click(item)
+    expect(onSelect).toHaveBeenCalledTimes(1)
   })
-
-  it('respects the "actions" prop', () => {
-    const {getByTestId} = HTMLRender(<UnderlineNav actions={<span data-testid="action">test</span>} />)
-
-    expect(getByTestId('action')).toBeInTheDocument()
-    expect(getByTestId('action').parentElement).toHaveClass('PRC-UnderlineNav-actions')
+  it('fires onSelect on keypress', async () => {
+    const onSelect = jest.fn()
+    const {getByRole} = render(
+      <UnderlineNav aria-label="Test Navigation">
+        <UnderlineNav.Item onSelect={onSelect}>Item 1</UnderlineNav.Item>
+        <UnderlineNav.Item onSelect={onSelect}>Item 2</UnderlineNav.Item>
+        <UnderlineNav.Item aria-current="page" onSelect={onSelect}>
+          Item 3
+        </UnderlineNav.Item>
+      </UnderlineNav>,
+    )
+    const item = getByRole('link', {name: 'Item 1'})
+    const user = userEvent.setup()
+    await user.tab() // tab into the story, this should focus on the first link
+    expect(item).toEqual(document.activeElement)
+    await user.keyboard('{Enter}')
+    // Enter keypress fires both click and keypress events
+    expect(onSelect).toHaveBeenCalledTimes(2)
+    await user.keyboard(' ') // space
+    expect(onSelect).toHaveBeenCalledTimes(3)
+  })
+  it('respects counter prop', () => {
+    const {getByRole} = render(<ResponsiveUnderlineNav />)
+    const item = getByRole('link', {name: 'Issues (120)'})
+    const counter = item.getElementsByTagName('span')[3]
+    expect(counter.textContent).toBe('120')
+    expect(counter).toHaveAttribute('aria-hidden', 'true')
+  })
+  it('renders the content of visually hidden span properly for screen readers', () => {
+    const {getByRole} = render(<ResponsiveUnderlineNav />)
+    const item = getByRole('link', {name: 'Issues (120)'})
+    const counter = item.getElementsByTagName('span')[4]
+    // non breaking space unified code
+    expect(counter.textContent).toBe('\u00A0(120)')
+  })
+  it('respects loadingCounters prop', () => {
+    const {getByRole} = render(<ResponsiveUnderlineNav loadingCounters={true} />)
+    const item = getByRole('link', {name: 'Actions'})
+    const loadingCounter = item.getElementsByTagName('span')[2]
+    expect(loadingCounter.className).toContain('LoadingCounter')
+    expect(loadingCounter.textContent).toBe('')
+  })
+  it('renders a visually hidden h2 heading for screen readers when aria-label is present', () => {
+    const {getByRole} = render(<ResponsiveUnderlineNav />)
+    const heading = getByRole('heading', {name: 'Repository navigation'})
+    // check if heading is h2 tag
+    expect(heading.tagName).toBe('H2')
+    expect(heading.className).toContain('VisuallyHidden')
+    expect(heading.textContent).toBe('Repository navigation')
+  })
+  it('throws an error when there are multiple items that have aria-current', () => {
+    const spy = jest.spyOn(console, 'error').mockImplementation()
+    expect(() => {
+      render(
+        <UnderlineNav aria-label="Test Navigation">
+          <UnderlineNav.Item aria-current="page">Item 1</UnderlineNav.Item>
+          <UnderlineNav.Item aria-current="page">Item 2</UnderlineNav.Item>
+        </UnderlineNav>,
+      )
+    }).toThrow('Only one current element is allowed')
+    expect(spy).toHaveBeenCalled()
+    spy.mockRestore()
   })
 })
+
+describe('Keyboard Navigation', () => {
+  it('should move focus to the next/previous item on the list with the tab key', async () => {
+    const {getByRole} = render(<ResponsiveUnderlineNav />)
+    const item = getByRole('link', {name: 'Code'})
+    const nextItem = getByRole('link', {name: 'Issues (120)'})
+    const user = userEvent.setup()
+    await user.tab() // tab into the story, this should focus on the first link
+    expect(item).toEqual(document.activeElement) // check if the first item is focused
+    await user.tab()
+    // focus should be on the next item
+    expect(nextItem).toHaveFocus()
+  })
+})
+
+checkStoriesForAxeViolations('UnderlineNav.examples', '../UnderlineNav/')

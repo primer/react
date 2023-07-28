@@ -56,9 +56,7 @@ const StyledCheckbox = styled.input`
     mask-repeat: no-repeat;
     mask-position: center;
 
-    @media screen and (prefers-reduced-motion: no-preference) {
-      animation: checkmarkOut 80ms cubic-bezier(0.65, 0, 0.35, 1) forwards;
-    }
+    animation: checkmarkOut 80ms cubic-bezier(0.65, 0, 0.35, 1) forwards;
   }
 
   &:checked,
@@ -67,9 +65,7 @@ const StyledCheckbox = styled.input`
     border-color: ${get('colors.accent.fg')};
 
     &::before {
-      @media screen and (prefers-reduced-motion: no-preference) {
-        animation: checkmarkIn 80ms cubic-bezier(0.65, 0, 0.35, 1) forwards 80ms;
-      }
+      animation: checkmarkIn 80ms cubic-bezier(0.65, 0, 0.35, 1) forwards 80ms;
     }
   }
 

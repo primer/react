@@ -114,7 +114,12 @@ const Root: React.FC<React.PropsWithChildren<PageLayoutProps>> = ({
               flex: '1 1 100%',
               flexWrap: 'wrap',
               maxWidth: '100%',
-              [`@media screen and (min-width: ${theme.breakpoints[1]})`]: {columnGap: SPACING_MAP[columnGap]},
+              [`@media screen and (max-width: ${theme.breakpoints[2]})`]: {
+                rowGap: SPACING_MAP[rowGap],
+              },
+              [`@media screen and (min-width: ${theme.breakpoints[1]})`]: {
+                columnGap: SPACING_MAP[columnGap],
+              },
             })}
           >
             {rest}
@@ -435,27 +440,20 @@ const Content: React.FC<React.PropsWithChildren<PageLayoutContentProps>> = ({
       as="main"
       aria-label={label}
       aria-labelledby={labelledBy}
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      sx={(theme: any) =>
-        merge<BetterSystemStyleObject>(
-          {
-            display: isHidden ? 'none' : 'flex',
-            flexDirection: 'column',
-            // Set flex-basis to 0% to allow flex-grow to control the width of the content region.
-            // Without this, the content region could wrap onto a different line
-            // than the pane region on wide viewports if its contents are too wide.
-            flexBasis: 0,
-            flexGrow: 1,
-            flexShrink: 1,
-            minWidth: 1, // Hack to prevent overflowing content from pushing the pane region to the next line
-            [`@media screen and (min-width: ${theme.breakpoints[1]})`]: {
-              width: 'auto',
-              marginY: '0 !important',
-            },
-          },
-          sx,
-        )
-      }
+      sx={merge<BetterSystemStyleObject>(
+        {
+          display: isHidden ? 'none' : 'flex',
+          flexDirection: 'column',
+          // Set flex-basis to 0% to allow flex-grow to control the width of the content region.
+          // Without this, the content region could wrap onto a different line
+          // than the pane region on wide viewports if its contents are too wide.
+          flexBasis: 0,
+          flexGrow: 1,
+          flexShrink: 1,
+          minWidth: 1, // Hack to prevent overflowing content from pushing the pane region to the next line
+        },
+        sx,
+      )}
     >
       {/* Track the top of the content region so we can calculate the height of the pane region */}
       <Box ref={contentTopRef} />
@@ -546,6 +544,8 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
     {
       'aria-label': label,
       'aria-labelledby': labelledBy,
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      positionWhenNarrow = 'inherit',
       width = 'medium',
       minWidth = 256,
       padding = 'none',

@@ -1,7 +1,7 @@
 import React from 'react'
 import {Meta, Story} from '@storybook/react'
 import {Button, IconButton, Breadcrumbs, Link, Text, StateLabel, BranchName, Box} from '..'
-import {UnderlineNav} from '../UnderlineNav2'
+import {UnderlineNav} from '../UnderlineNav'
 import Label from '../Label'
 import {
   KebabHorizontalIcon,

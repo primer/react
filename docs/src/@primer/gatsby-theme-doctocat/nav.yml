@@ -160,8 +160,6 @@
       url: /drafts/MarkdownEditor
     - title: MarkdownViewer
       url: /drafts/MarkdownViewer
-    - title: UnderlineNav v2
-      url: /drafts/UnderlineNav2
     - title: PageHeader
       url: /drafts/PageHeader
     - title: Hidden
@@ -180,3 +178,5 @@
       url: /deprecated/FilterList
     - title: SideNav
       url: /deprecated/SideNav
+    - title: UnderlineNav
+      url: /deprecated/UnderlineNav
