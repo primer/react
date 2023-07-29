@@ -4,28 +4,70 @@ title: useSafeTimeout
 
 `useSafeTimeout` is a utility Hook that allows you to safely call `setTimeout` and `clearTimeout` within a component, ensuring that all timeouts are cleared when the component unmounts.
 
+### Installation
+
+First, make sure you have React installed in your project. Then, you can install `useSafeTimeout` using npm or yarn:
+
+```bash
+npm install use-safe-timeout
+```
+
+or
+
+```bash
+yarn add use-safe-timeout
+```
+
 ### Usage
 
+Import the `useSafeTimeout` hook into your component:
+
 ```jsx live
-<State>
-  {([]) => {
-    const {safeSetTimeout, safeClearTimeout} = useSafeTimeout()
-    let timeoutId = null
+import React from 'react';
+import { useSafeTimeout } from 'use-safe-timeout';
 
-    const handleOnClick = () => {
-      timeoutId = safeSetTimeout(() => window.alert('hello!'), 5000)
-    }
+function MyComponent() {
+  const { safeSetTimeout, safeClearTimeout } = useSafeTimeout();
+  let timeoutId = null;
 
-    const cancelTimeout = () => {
-      safeClearTimeout(timeoutId)
-    }
+  const handleOnClick = () => {
+    timeoutId = safeSetTimeout(() => window.alert('hello!'), 5000);
+  };
 
-    return (
-      <>
-        <Button onClick={handleOnClick}>Click me</Button>
-        <Button onClick={cancelTimeout}>Cancel timeout</Button>
-      </>
-    )
-  }}
-</State>
+  const cancelTimeout = () => {
+    safeClearTimeout(timeoutId);
+  };
+
+  return (
+    <>
+      <Button onClick={handleOnClick}>Click me</Button>
+      <Button onClick={cancelTimeout}>Cancel timeout</Button>
+    </>
+  );
+}
 ```
+
+### Explanation
+
+In the example above, we have a functional component called `MyComponent`. We use the `useSafeTimeout` hook to access two functions, `safeSetTimeout` and `safeClearTimeout`.
+
+- `safeSetTimeout`: This function works similarly to the native `setTimeout` but with an important difference. When you call `safeSetTimeout`, it returns a unique identifier for the timeout. This identifier is used to clear the timeout later using `safeClearTimeout`.
+
+- `safeClearTimeout`: This function is used to clear the timeout created by `safeSetTimeout`. It takes the timeout identifier returned by `safeSetTimeout` as an argument and clears the associated timeout.
+
+### Benefits
+
+The primary benefit of using `useSafeTimeout` is that it ensures all timeouts are cleared when the component unmounts. In complex applications, especially those with dynamic routing and frequent component unmounting/remounting, forgetting to clear timeouts can lead to memory leaks and unexpected behavior.
+
+By using `useSafeTimeout`, you can avoid these issues and ensure that any pending timeouts are properly cleared when the component is no longer in the DOM.
+
+### Use Cases
+
+- Showing notifications or alerts to users with a delay and automatically clearing them when the component unmounts.
+- Implementing debouncing or throttling logic in components while safely clearing the timeout when the component is no longer needed.
+
+### Summary
+
+`useSafeTimeout` is a powerful utility hook that helps you manage timeouts safely within your React components. It ensures that all timeouts are cleared appropriately when the component unmounts, preventing memory leaks and unexpected behavior. By using `useSafeTimeout`, you can enhance the reliability of your application and improve user experience.
+
+Happy coding! 🚀
