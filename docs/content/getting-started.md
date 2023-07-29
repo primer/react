@@ -95,7 +95,7 @@ export default () => (
 )
 ```
 
-This will apply the same `color`, `font-family`, and `line-height` styles to the `<body>` as [Primer CSS's base styles](https://github.com/primer/css/blob/master/src/base/base.scss#L15-L20).
+This will apply the same `color`, `font-family`, and `line-height` styles to the `<body>` as [Primer CSS's base styles](https://github.com/primer/css/blob/main/src/base/base.scss#L15-L20).
 
 ## Static CSS rendering
 
