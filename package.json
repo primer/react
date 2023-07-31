@@ -249,7 +249,7 @@
     "size-limit": "8.2.4",
     "storybook": "7.1.0",
     "storybook-addon-turbo-build": "2.0.1",
-    "styled-components": "4.4.1",
+    "styled-components": "6.0.5",
     "terser": "5.17.6",
     "ts-node": "10.9.1",
     "ts-toolbelt": "9.6.0",
