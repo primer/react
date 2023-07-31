@@ -209,6 +209,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
           data-variant={variant === 'danger' ? variant : undefined}
           {...containerProps}
           {...props}
+          aria-selected={selected}
         >
           <ItemWrapper {...wrapperProps}>
             <Selection selected={selected} />
