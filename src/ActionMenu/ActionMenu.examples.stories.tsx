@@ -13,7 +13,10 @@ import {
   XIcon,
   CheckIcon,
   CopyIcon,
+  ChevronRightIcon,
+  ChevronDownIcon,
 } from '@primer/octicons-react'
+import VisuallyHidden from '../_VisuallyHidden'
 
 export default {
   title: 'Components/ActionMenu/Examples',
@@ -301,6 +304,93 @@ export const DelayedMenuClose = () => {
               <ActionList.LeadingVisual>{copyLinkSuccess ? <CheckIcon /> : <CopyIcon />}</ActionList.LeadingVisual>
               {copyLinkSuccess ? 'Copied!' : 'Copy link'}
             </ActionList.Item>
+          </ActionList>
+        </ActionMenu.Overlay>
+      </ActionMenu>
+    </>
+  )
+}
+
+export const SubMenu = () => {
+  type MenuName = 'main' | 'sub1' | 'sub2'
+
+  const [activeMenu, setActiveMenu] = React.useState<MenuName | null>(null)
+  const anchorRef = React.useRef<HTMLButtonElement>(null)
+
+  // Push this to the end of the stack to ensure it happens just after the auto-closing of the main menu
+  const openSubmenu = (menu: MenuName) => setTimeout(() => setActiveMenu(menu))
+
+  return (
+    <>
+      <h1>Sub Menu</h1>
+
+      {/* Per the docs, aria attributes must be explicitly configured on custom anchors */}
+      <Button
+        ref={anchorRef}
+        onClick={() => setActiveMenu('main')}
+        aria-haspopup
+        // Should this only be true when the top-level menu is open? Not sure; decided to make it true for submenu as
+        // well because the submenu is also anchored to this button.
+        aria-expanded={activeMenu !== null}
+        trailingIcon={ChevronDownIcon}
+      >
+        Open menu
+      </Button>
+
+      <ActionMenu
+        anchorRef={anchorRef}
+        open={activeMenu === 'main'}
+        onOpenChange={open => setActiveMenu(open ? 'main' : null)}
+      >
+        <ActionMenu.Overlay>
+          <ActionList>
+            {/* Is there a more semantic way to do this? I also tried `aria-haspopup` on the `menuitem` itself but
+            VoiceOver ignored that, which is expected because that would be very nonstandard. */}
+            <ActionList.Item onSelect={() => openSubmenu('sub1')} aria-haspopup>
+              Change type
+              {/* Wording adapted from the announcement for the top-level menu button "menu popup collapsed" */}
+              {/* Also tried an aria-label on the icon but VoiceOver ignored it. */}
+              <VisuallyHidden>, submenu popup collapsed</VisuallyHidden>
+              <ActionList.TrailingVisual>
+                <ChevronRightIcon />
+              </ActionList.TrailingVisual>
+            </ActionList.Item>
+            <ActionList.Item onSelect={() => openSubmenu('sub2')} aria-haspopup>
+              Change color
+              <VisuallyHidden>, submenu popup collapsed</VisuallyHidden>
+              <ActionList.TrailingVisual>
+                <ChevronRightIcon />
+              </ActionList.TrailingVisual>
+            </ActionList.Item>
+            <ActionList.Item>Some other action</ActionList.Item>
+          </ActionList>
+        </ActionMenu.Overlay>
+      </ActionMenu>
+
+      <ActionMenu
+        anchorRef={anchorRef}
+        open={activeMenu === 'sub1'}
+        onOpenChange={open => setActiveMenu(open ? 'sub1' : null)}
+      >
+        <ActionMenu.Overlay>
+          <ActionList>
+            <ActionList.Item>Type A</ActionList.Item>
+            <ActionList.Item>Type B</ActionList.Item>
+            <ActionList.Item>Type C</ActionList.Item>
+          </ActionList>
+        </ActionMenu.Overlay>
+      </ActionMenu>
+
+      <ActionMenu
+        anchorRef={anchorRef}
+        open={activeMenu === 'sub2'}
+        onOpenChange={open => setActiveMenu(open ? 'sub2' : null)}
+      >
+        <ActionMenu.Overlay>
+          <ActionList>
+            <ActionList.Item>Red</ActionList.Item>
+            <ActionList.Item>Green</ActionList.Item>
+            <ActionList.Item>Blue</ActionList.Item>
           </ActionList>
         </ActionMenu.Overlay>
       </ActionMenu>
