@@ -4,4 +4,4 @@
 
 ActionList: Add ActionList.Heading component
 
-<!-- Changed components: _none_ -->
+<!-- Changed components: ActionList -->
