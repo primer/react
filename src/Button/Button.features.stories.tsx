@@ -1,4 +1,4 @@
-import {EyeIcon, TriangleDownIcon, HeartIcon} from '@primer/octicons-react'
+import {EyeIcon, TriangleDownIcon, HeartIcon, DownloadIcon} from '@primer/octicons-react'
 import React, {useState} from 'react'
 import {Button} from '.'
 
@@ -89,3 +89,17 @@ export const Medium = () => <Button size="medium">Default</Button>
 export const Large = () => <Button size="large">Default</Button>
 
 export const Loading = () => <Button loading>Default</Button>
+
+export const LoadingTrigger = () => {
+  const [isLoading, setIsLoading] = useState(false)
+
+  const handleClick = () => {
+    setIsLoading(true)
+  }
+
+  return (
+    <Button loading={isLoading} onClick={handleClick} leadingIcon={DownloadIcon}>
+      Export
+    </Button>
+  )
+}
