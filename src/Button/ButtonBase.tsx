@@ -60,11 +60,6 @@ const ButtonBase = forwardRef(
       }, [innerRef])
     }
 
-    //     <div>
-    // <button disabled>Loading icon / Export CSV</button>
-    // <span aria-live="polite">visually hidden [message for screen reader]</span>
-    // </div>
-
     return (
       <>
         <StyledButton
