@@ -7,6 +7,7 @@ import {ComponentProps} from './utils/types'
 
 const TooltipBase = styled.span<SxProp>`
   position: relative;
+  display: inline-block;
 
   &::before {
     position: absolute;

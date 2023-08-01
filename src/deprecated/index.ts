@@ -33,6 +33,8 @@ export type {
 } from './Button'
 // end of v35.0.0
 
+export {default as UnderlineNav} from './UnderlineNav'
+export type {UnderlineNavProps, UnderlineNavLinkProps} from './UnderlineNav'
 // Deprecated in v36.0.0 in June 2023
 // TODO: We can remove these 6 months after release: December 2023
 export {default as FilterList} from './FilterList'

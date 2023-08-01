@@ -64,7 +64,7 @@
       ]
     },
     {
-      "name": "CheckboxGroup.Description",
+      "name": "CheckboxGroup.Caption",
       "props": [
         {
           "name": "children",

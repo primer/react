@@ -147,6 +147,7 @@ export default {
       table: {category: 'Content props'},
     },
 
+    // Pane prop controls
     'Pane.id': {
       type: 'string',
       defaultValue: 'customId',

@@ -150,18 +150,16 @@ exports[`SplitPageLayout renders default layout 1`] = `
   }
 }
 
-@media screen and (min-width:768px) {
+@media screen and (max-width:1012px) {
   .c5 {
-    -webkit-column-gap: 0;
-    column-gap: 0;
+    row-gap: 0;
   }
 }
 
 @media screen and (min-width:768px) {
-  .c6 {
-    width: auto;
-    margin-top: 0 !important;
-    margin-bottom: 0 !important;
+  .c5 {
+    -webkit-column-gap: 0;
+    column-gap: 0;
   }
 }
 

@@ -157,7 +157,7 @@ exports[`Dialog renders consistently 1`] = `
 }
 
 .c1 [data-component=ButtonCounter] {
-  font-size: 14px;
+  font-size: 12px;
 }
 
 .c1[data-component=IconButton] {
@@ -220,6 +220,14 @@ exports[`Dialog renders consistently 1`] = `
   grid-area: text;
   line-height: calc(20/14);
   white-space: nowrap;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
 }
 
 .c1 [data-component="trailingVisual"] {

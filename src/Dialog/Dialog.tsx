@@ -1,6 +1,6 @@
 import React, {useCallback, useEffect, useRef, useState} from 'react'
 import styled from 'styled-components'
-import {Button, ButtonProps} from '../Button'
+import Button, {ButtonPrimary, ButtonDanger, ButtonProps} from '../deprecated/Button'
 import Box from '../Box'
 import {get} from '../constants'
 import {useOnEscapePress, useProvidedRefOrCreate} from '../hooks'
@@ -20,11 +20,11 @@ const ANIMATION_DURATION = '200ms'
  * Props that characterize a button to be rendered into the footer of
  * a Dialog.
  */
-export type DialogButtonProps = Omit<ButtonProps, 'children'> & {
+export type DialogButtonProps = ButtonProps & {
   /**
    * The type of Button element to use
    */
-  buttonType?: 'default' | 'primary' | 'danger' | 'normal'
+  buttonType?: 'normal' | 'primary' | 'danger'
 
   /**
    * The Button's inner text
@@ -287,6 +287,22 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
     [onClose],
   )
 
+  React.useEffect(() => {
+    const bodyOverflowStyle = document.body.style.overflow || ''
+    // If the body is already set to overflow: hidden, it likely means
+    // that there is already a modal open. In that case, we should bail
+    // so we don't re-enable scroll after the second dialog is closed.
+    if (bodyOverflowStyle === 'hidden') {
+      return
+    }
+
+    document.body.style.overflow = 'hidden'
+
+    return () => {
+      document.body.style.overflow = bodyOverflowStyle
+    }
+  }, [])
+
   const header = (renderHeader ?? DefaultHeader)(defaultedProps)
   const body = (renderBody ?? DefaultBody)(defaultedProps)
   const footer = (renderFooter ?? DefaultFooter)(defaultedProps)
@@ -366,6 +382,11 @@ const Footer = styled.div<SxProp>`
   ${sx};
 `
 
+const buttonTypes = {
+  normal: Button,
+  primary: ButtonPrimary,
+  danger: ButtonDanger,
+}
 const Buttons: React.FC<React.PropsWithChildren<{buttons: DialogButtonProps[]}>> = ({buttons}) => {
   const autoFocusRef = useProvidedRefOrCreate<HTMLButtonElement>(buttons.find(button => button.autoFocus)?.ref)
   let autoFocusCount = 0
@@ -382,16 +403,17 @@ const Buttons: React.FC<React.PropsWithChildren<{buttons: DialogButtonProps[]}>>
   return (
     <>
       {buttons.map((dialogButtonProps, index) => {
-        const {content, buttonType = 'default', autoFocus = false, ...buttonProps} = dialogButtonProps
+        const {content, buttonType = 'normal', autoFocus = false, ...buttonProps} = dialogButtonProps
+        const ButtonElement = buttonTypes[buttonType]
         return (
-          <Button
+          <ButtonElement
             key={index}
             {...buttonProps}
-            variant={buttonType === 'normal' ? 'default' : buttonType}
+            variant={buttonType}
             ref={autoFocus && autoFocusCount === 0 ? (autoFocusCount++, autoFocusRef) : null}
           >
             {content}
-          </Button>
+          </ButtonElement>
         )
       })}
     </>

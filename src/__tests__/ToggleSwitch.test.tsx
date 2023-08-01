@@ -23,7 +23,7 @@ it('renders a switch that is turned off', () => {
   )
   const toggleSwitch = getByLabelText(SWITCH_LABEL_TEXT)
 
-  expect(toggleSwitch).toHaveAttribute('aria-checked', 'false')
+  expect(toggleSwitch).toHaveAttribute('aria-pressed', 'false')
 })
 it('renders a switch that is turned on', () => {
   const {getByLabelText} = render(
@@ -34,7 +34,7 @@ it('renders a switch that is turned on', () => {
   )
   const toggleSwitch = getByLabelText(SWITCH_LABEL_TEXT)
 
-  expect(toggleSwitch).toHaveAttribute('aria-checked', 'true')
+  expect(toggleSwitch).toHaveAttribute('aria-pressed', 'true')
 })
 it('renders a switch that is disabled', async () => {
   const user = userEvent.setup()
@@ -46,9 +46,9 @@ it('renders a switch that is disabled', async () => {
   )
   const toggleSwitch = getByLabelText(SWITCH_LABEL_TEXT)
 
-  expect(toggleSwitch).toHaveAttribute('aria-checked', 'false')
+  expect(toggleSwitch).toHaveAttribute('aria-pressed', 'false')
   await user.click(toggleSwitch)
-  expect(toggleSwitch).toHaveAttribute('aria-checked', 'false')
+  expect(toggleSwitch).toHaveAttribute('aria-pressed', 'false')
 })
 it("renders a switch who's state is loading", async () => {
   const user = userEvent.setup()
@@ -62,9 +62,9 @@ it("renders a switch who's state is loading", async () => {
   const loadingSpinner = container.querySelector('svg')
 
   expect(loadingSpinner).toBeDefined()
-  expect(toggleSwitch).toHaveAttribute('aria-checked', 'false')
+  expect(toggleSwitch).toHaveAttribute('aria-pressed', 'false')
   await user.click(toggleSwitch)
-  expect(toggleSwitch).toHaveAttribute('aria-checked', 'false')
+  expect(toggleSwitch).toHaveAttribute('aria-pressed', 'false')
 })
 it('switches from off to on uncontrolled', async () => {
   const user = userEvent.setup()
@@ -76,9 +76,24 @@ it('switches from off to on uncontrolled', async () => {
   )
   const toggleSwitch = getByLabelText(SWITCH_LABEL_TEXT)
 
-  expect(toggleSwitch).toHaveAttribute('aria-checked', 'false')
+  expect(toggleSwitch).toHaveAttribute('aria-pressed', 'false')
   await user.click(toggleSwitch)
-  expect(toggleSwitch).toHaveAttribute('aria-checked', 'true')
+  expect(toggleSwitch).toHaveAttribute('aria-pressed', 'true')
+})
+it('switches from off to on uncontrolled when clicking on status label', async () => {
+  const user = userEvent.setup()
+  const {getByLabelText, getByText} = render(
+    <>
+      <div id="switchLabel">{SWITCH_LABEL_TEXT}</div>
+      <ToggleSwitch aria-labelledby="switchLabel" />
+    </>,
+  )
+  const toggleSwitch = getByLabelText(SWITCH_LABEL_TEXT)
+  const toggleSwitchStatusLabel = getByText('Off')
+
+  expect(toggleSwitch).toHaveAttribute('aria-pressed', 'false')
+  await user.click(toggleSwitchStatusLabel)
+  expect(toggleSwitch).toHaveAttribute('aria-pressed', 'true')
 })
 it('switches from off to on with a controlled prop', async () => {
   const user = userEvent.setup()
@@ -99,9 +114,9 @@ it('switches from off to on with a controlled prop', async () => {
   const {getByLabelText} = render(<ControlledSwitchComponent />)
   const toggleSwitch = getByLabelText(SWITCH_LABEL_TEXT)
 
-  expect(toggleSwitch).toHaveAttribute('aria-checked', 'false')
+  expect(toggleSwitch).toHaveAttribute('aria-pressed', 'false')
   await user.click(toggleSwitch)
-  expect(toggleSwitch).toHaveAttribute('aria-checked', 'true')
+  expect(toggleSwitch).toHaveAttribute('aria-pressed', 'true')
 })
 it('calls onChange when the switch is toggled', async () => {
   const user = userEvent.setup()
@@ -125,6 +140,20 @@ it('calls onChange when the switch is toggled', async () => {
 
   await user.click(toggleSwitch)
   expect(handleChange).toHaveBeenCalledWith(true)
+})
+it('can pass data attributes to the rendered component', async () => {
+  const TEST_ID = 'a test id'
+  const ControlledSwitchComponent = () => {
+    return (
+      <>
+        <div id="switchLabel">{SWITCH_LABEL_TEXT}</div>
+        <ToggleSwitch data-testid={TEST_ID} defaultChecked aria-labelledby="switchLabel" />
+      </>
+    )
+  }
+  const {getByTestId} = render(<ControlledSwitchComponent />)
+  const toggleSwitch = getByTestId(TEST_ID)
+  expect(toggleSwitch).toBeInTheDocument()
 })
 
 checkStoriesForAxeViolations('ToggleSwitch.features', '../ToggleSwitch/')

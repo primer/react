@@ -43,7 +43,7 @@ const sizes = {
   xlarge: '1280px',
 }
 
-const fontSizes = ['12px', '14px', '16px', '20px', '24px', '32px', '40px', '48px']
+const fontSizes = ['12px', '14px', '16px', '20px', '24px', '32px', '40px', '48px', '56px']
 
 const space = ['0', '4px', '8px', '16px', '24px', '32px', '40px', '48px', '64px', '80px', '96px', '112px', '128px']
 

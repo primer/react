@@ -201,6 +201,7 @@ const meta: Meta = {
       type: 'boolean',
       table: {category: 'Content props'},
     },
+
     'Pane.width': {
       type: {
         name: 'enum',

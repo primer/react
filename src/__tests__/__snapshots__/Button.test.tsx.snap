@@ -102,7 +102,7 @@ exports[`Button renders consistently 1`] = `
 }
 
 .c0 [data-component=ButtonCounter] {
-  font-size: 14px;
+  font-size: 12px;
 }
 
 .c0[data-component=IconButton] {
@@ -164,6 +164,14 @@ exports[`Button renders consistently 1`] = `
   grid-area: text;
   line-height: calc(20/14);
   white-space: nowrap;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
 }
 
 .c0 [data-component="trailingVisual"] {
@@ -207,6 +215,12 @@ exports[`Button renders consistently 1`] = `
 .c0[aria-expanded=true] {
   background-color: hsla(220,14%,93%,1);
   border-color: rgba(31,35,40,0.15);
+}
+
+.c0 [data-component="leadingVisual"],
+.c0 [data-component="trailingVisual"],
+.c0 [data-component="trailingAction"] {
+  color: #656d76;
 }
 
 @media (forced-colors:active) {
@@ -329,7 +343,7 @@ exports[`Button respects block prop 1`] = `
 }
 
 .c0 [data-component=ButtonCounter] {
-  font-size: 14px;
+  font-size: 12px;
 }
 
 .c0[data-component=IconButton] {
@@ -391,6 +405,14 @@ exports[`Button respects block prop 1`] = `
   grid-area: text;
   line-height: calc(20/14);
   white-space: nowrap;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
 }
 
 .c0 [data-component="trailingVisual"] {
@@ -434,6 +456,12 @@ exports[`Button respects block prop 1`] = `
 .c0[aria-expanded=true] {
   background-color: btn.activeBg;
   border-color: btn.activeBorder;
+}
+
+.c0 [data-component="leadingVisual"],
+.c0 [data-component="trailingVisual"],
+.c0 [data-component="trailingAction"] {
+  color: fg.muted;
 }
 
 @media (forced-colors:active) {
@@ -562,7 +590,7 @@ exports[`Button respects the alignContent prop 1`] = `
 }
 
 .c0 [data-component=ButtonCounter] {
-  font-size: 14px;
+  font-size: 12px;
 }
 
 .c0[data-component=IconButton] {
@@ -624,6 +652,14 @@ exports[`Button respects the alignContent prop 1`] = `
   grid-area: text;
   line-height: calc(20/14);
   white-space: nowrap;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
 }
 
 .c0 [data-component="trailingVisual"] {
@@ -667,6 +703,12 @@ exports[`Button respects the alignContent prop 1`] = `
 .c0[aria-expanded=true] {
   background-color: btn.activeBg;
   border-color: btn.activeBorder;
+}
+
+.c0 [data-component="leadingVisual"],
+.c0 [data-component="trailingVisual"],
+.c0 [data-component="trailingAction"] {
+  color: fg.muted;
 }
 
 @media (forced-colors:active) {
@@ -794,7 +836,7 @@ exports[`Button respects the large size prop 1`] = `
 }
 
 .c0 [data-component=ButtonCounter] {
-  font-size: 14px;
+  font-size: 12px;
 }
 
 .c0[data-component=IconButton] {
@@ -856,6 +898,14 @@ exports[`Button respects the large size prop 1`] = `
   grid-area: text;
   line-height: calc(20/14);
   white-space: nowrap;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
 }
 
 .c0 [data-component="trailingVisual"] {
@@ -899,6 +949,12 @@ exports[`Button respects the large size prop 1`] = `
 .c0[aria-expanded=true] {
   background-color: btn.activeBg;
   border-color: btn.activeBorder;
+}
+
+.c0 [data-component="leadingVisual"],
+.c0 [data-component="trailingVisual"],
+.c0 [data-component="trailingAction"] {
+  color: fg.muted;
 }
 
 @media (forced-colors:active) {
@@ -1027,7 +1083,7 @@ exports[`Button respects the small size prop 1`] = `
 }
 
 .c0 [data-component=ButtonCounter] {
-  font-size: 14px;
+  font-size: 12px;
 }
 
 .c0[data-component=IconButton] {
@@ -1089,6 +1145,14 @@ exports[`Button respects the small size prop 1`] = `
   grid-area: text;
   line-height: calc(20/14);
   white-space: nowrap;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
 }
 
 .c0 [data-component="trailingVisual"] {
@@ -1132,6 +1196,12 @@ exports[`Button respects the small size prop 1`] = `
 .c0[aria-expanded=true] {
   background-color: btn.activeBg;
   border-color: btn.activeBorder;
+}
+
+.c0 [data-component="leadingVisual"],
+.c0 [data-component="trailingVisual"],
+.c0 [data-component="trailingAction"] {
+  color: fg.muted;
 }
 
 @media (forced-colors:active) {
@@ -1263,7 +1333,7 @@ exports[`Button styles danger button appropriately 1`] = `
 }
 
 .c0 [data-component=ButtonCounter] {
-  font-size: 14px;
+  font-size: 12px;
   color: btn.danger.counterFg;
   background-color: btn.danger.counterBg;
 }
@@ -1327,6 +1397,14 @@ exports[`Button styles danger button appropriately 1`] = `
   grid-area: text;
   line-height: calc(20/14);
   white-space: nowrap;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
 }
 
 .c0 [data-component="trailingVisual"] {
@@ -1511,7 +1589,7 @@ exports[`Button styles invisible button appropriately 1`] = `
 }
 
 .c0 [data-component=ButtonCounter] {
-  font-size: 14px;
+  font-size: 12px;
 }
 
 .c0[data-component=IconButton] {
@@ -1574,6 +1652,14 @@ exports[`Button styles invisible button appropriately 1`] = `
   grid-area: text;
   line-height: calc(20/14);
   white-space: nowrap;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
 }
 
 .c0 [data-component="trailingVisual"] {
@@ -1764,7 +1850,7 @@ exports[`Button styles primary button appropriately 1`] = `
 }
 
 .c0 [data-component=ButtonCounter] {
-  font-size: 14px;
+  font-size: 12px;
   background-color: btn.primary.counterBg;
   color: btn.primary.text;
 }
@@ -1828,6 +1914,14 @@ exports[`Button styles primary button appropriately 1`] = `
   grid-area: text;
   line-height: calc(20/14);
   white-space: nowrap;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
 }
 
 .c0 [data-component="trailingVisual"] {
