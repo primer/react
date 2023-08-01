@@ -35,6 +35,11 @@ export default {
         type: 'boolean',
       },
     },
+    loading: {
+      control: {
+        type: 'boolean',
+      },
+    },
     leadingIcon: OcticonArgType([EyeClosedIcon, EyeIcon, SearchIcon, XIcon, HeartIcon]),
     trailingIcon: OcticonArgType([EyeClosedIcon, EyeIcon, SearchIcon, XIcon, HeartIcon]),
     trailingAction: OcticonArgType([TriangleDownIcon]),

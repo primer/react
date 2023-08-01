@@ -35,6 +35,7 @@ export type ButtonBaseProps = {
    * Allow button width to fill its container.
    */
   block?: boolean
+  loading?: boolean
 } & SxProp &
   React.ButtonHTMLAttributes<HTMLButtonElement>
 

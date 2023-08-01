@@ -87,3 +87,5 @@ export const Small = () => <Button size="small">Default</Button>
 export const Medium = () => <Button size="medium">Default</Button>
 
 export const Large = () => <Button size="large">Default</Button>
+
+export const Loading = () => <Button loading>Default</Button>
