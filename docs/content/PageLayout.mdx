@@ -87,12 +87,12 @@ See [storybook](https://primer.style/react/storybook?path=/story/components-page
   <PageLayout.Header>
     <Placeholder label="Header" height={64} />
   </PageLayout.Header>
+  <PageLayout.Pane>
+    <Placeholder label="Pane" height={120} />
+  </PageLayout.Pane>
   <PageLayout.Content>
     <Placeholder label="Content" height={240} />
   </PageLayout.Content>
-  <PageLayout.Pane position="start">
-    <Placeholder label="Pane" height={120} />
-  </PageLayout.Pane>
   <PageLayout.Footer>
     <Placeholder label="Footer" height={64} />
   </PageLayout.Footer>
@@ -106,12 +106,12 @@ See [storybook](https://primer.style/react/storybook?path=/story/components-page
   <PageLayout.Header>
     <Placeholder label="Header" height={64} />
   </PageLayout.Header>
+  <PageLayout.Pane hidden={{narrow: true}}>
+    <Placeholder label="Pane" height={120} />
+  </PageLayout.Pane>
   <PageLayout.Content>
     <Placeholder label="Content" height={240} />
   </PageLayout.Content>
-  <PageLayout.Pane position="start" hidden={{narrow: true}}>
-    <Placeholder label="Pane" height={120} />
-  </PageLayout.Pane>
   <PageLayout.Footer>
     <Placeholder label="Footer" height={64} />
   </PageLayout.Footer>
@@ -193,12 +193,12 @@ Add `offsetHeader` prop to specify the height of the custom sticky header along 
     Custom sticky header
   </Box>
   <PageLayout>
+    <PageLayout.Pane sticky offsetHeader={64}>
+      <Placeholder label="Pane" height={120} />
+    </PageLayout.Pane>
     <PageLayout.Content>
       <Placeholder label="Content" height={320} />
     </PageLayout.Content>
-    <PageLayout.Pane position="start" sticky offsetHeader={64}>
-      <Placeholder label="Pane" height={120} />
-    </PageLayout.Pane>
     <PageLayout.Footer>
       <Placeholder label="Footer" height={64} />
     </PageLayout.Footer>
@@ -221,7 +221,7 @@ navigation container is used for.
   <PageLayout.Header>
     <Placeholder label="Header" height={64} />
   </PageLayout.Header>
-  <PageLayout.Pane position="start" aria-label="Secondary navigation">
+  <PageLayout.Pane aria-label="Secondary navigation">
     <NavList>
       <NavList.Item href="/" aria-current="page">
         Home

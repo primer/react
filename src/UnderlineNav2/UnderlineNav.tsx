@@ -310,18 +310,7 @@ export const UnderlineNav = forwardRef(
           ref={navRef}
         >
           <NavigationList sx={ulStyles} ref={listRef} role="list">
-            {listItems.map(listItem => {
-              return (
-                <Box
-                  key={listItem.props.children}
-                  as="li"
-                  sx={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}
-                >
-                  {listItem}
-                </Box>
-              )
-            })}
-
+            {listItems}
             {menuItems.length > 0 && (
               <MoreMenuListItem ref={moreMenuRef}>
                 {!onlyMenuVisible && <Box sx={getDividerStyle(theme)}></Box>}
