@@ -12,6 +12,11 @@ exports[`SideNav SideNav.Link renders consistently 1`] = `
   text-decoration: underline;
 }
 
+.c0:focus {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
 .c0:is(button) {
   display: inline-block;
   padding: 0;
