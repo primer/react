@@ -13,13 +13,13 @@ const TooltipComponent = (props: TooltipProps) => (
 describe('Tooltip', () => {
   checkStoriesForAxeViolations('Tooltip.features', '../experimental/Tooltip/')
 
-  it('renders `data-direction="n"` by default', () => {
+  it('renders `data-direction="s"` by default', () => {
     const {getByText} = HTMLRender(<TooltipComponent />)
-    expect(getByText('Tooltip text')).toHaveAttribute('data-direction', 'n')
+    expect(getByText('Tooltip text')).toHaveAttribute('data-direction', 's')
   })
   it('renders `data-direction` attribute with the correct value when the `direction` prop is specified', () => {
-    const {getByText} = HTMLRender(<TooltipComponent direction="s" />)
-    expect(getByText('Tooltip text')).toHaveAttribute('data-direction', 's')
+    const {getByText} = HTMLRender(<TooltipComponent direction="n" />)
+    expect(getByText('Tooltip text')).toHaveAttribute('data-direction', 'n')
   })
 
   it('renders `data-no-delay` attribute with the correct value when the `noDelay` prop is specified', () => {
