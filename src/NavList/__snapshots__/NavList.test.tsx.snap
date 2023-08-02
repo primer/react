@@ -844,12 +844,6 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   color: #1F2328;
 }
 
-.c8 {
-  -webkit-transform: rotate(180deg);
-  -ms-transform: rotate(180deg);
-  transform: rotate(180deg);
-}
-
 .c0 {
   margin: 0;
   padding-inline-start: 0;
@@ -1100,6 +1094,12 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   text-decoration: none;
 }
 
+.c8 {
+  -webkit-transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+  transform: rotate(180deg);
+}
+
 @media (hover:hover) and (pointer:fine) {
   .c10:hover:not([aria-disabled]) {
     background-color: rgba(208,215,222,0.32);
@@ -1298,12 +1298,6 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
 [data-variant="danger"]:hover .c7,
 [data-variant="danger"]:active .c7 {
   color: #1F2328;
-}
-
-.c8 {
-  -webkit-transform: rotate(0deg);
-  -ms-transform: rotate(0deg);
-  transform: rotate(0deg);
 }
 
 .c0 {
@@ -1566,6 +1560,12 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   color: inherit;
   -webkit-text-decoration: none;
   text-decoration: none;
+}
+
+.c8 {
+  -webkit-transform: rotate(0deg);
+  -ms-transform: rotate(0deg);
+  transform: rotate(0deg);
 }
 
 @media (hover:hover) and (pointer:fine) {
