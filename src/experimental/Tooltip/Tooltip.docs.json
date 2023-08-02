@@ -6,18 +6,9 @@
   "stories": [],
   "props": [
     {
-      "name": "align",
-      "type": "'left' | 'right'"
-    },
-    {
-      "name": "aria-label",
-      "type": "string",
-      "description": "Should be utilised for label type tooltips and it is going to be used to label the tooltip trigger."
-    },
-    {
       "name": "direction",
       "type": "'n' | 'ne' | 'e' | 'se' | 's' | 'sw' | 'w' | 'nw'",
-      "defaultValue": "n",
+      "defaultValue": "s",
       "description": "Sets where the tooltip renders in relation to the target."
     },
     {
@@ -28,18 +19,13 @@
     {
       "name": "text",
       "type": "string",
-      "description": "Should be utilised for description type tooltips and it is going to be used to describe the tooltip trigger."
+      "description": "The text to be displayed in the tooltip"
     },
     {
       "name": "type",
       "type": "'label' | 'description'",
-      "defaultValue": "label",
+      "defaultValue": "description",
       "description": "The type of tooltip. `label` is used for labelling the element that triggers tooltip. `description` is used for describing or adding a suplementary information to the element that triggers the tooltip."
-    },
-    {
-      "name": "wrap",
-      "type": "boolean",
-      "description": "Use `true` to allow text within tooltip to wrap."
     },
     {
       "name": "sx",

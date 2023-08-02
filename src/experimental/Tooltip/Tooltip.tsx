@@ -12,9 +12,15 @@ import type {AnchorSide, AnchorAlignment} from '@primer/behaviors'
 import '@oddbird/popover-polyfill'
 
 const StyledTooltip = styled.div`
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
   // tooltip element itself
-  position: relative;
-  padding: 0.5em 0.75em;
+  position: fixed;
   font: normal normal 11px/1.5 ${get('fonts.normal')};
   -webkit-font-smoothing: subpixel-antialiased;
   color: ${get('colors.fg.onEmphasis')};
@@ -24,31 +30,45 @@ const StyledTooltip = styled.div`
   text-transform: none;
   letter-spacing: normal;
   word-wrap: break-word;
-  white-space: normal;
   background: ${get('colors.neutral.emphasisPlus')}; //bg--emphasis-color
   border-radius: ${get('radii.2')};
   border: 0;
-  width: max-content;
   opacity: 0;
   max-width: 250px;
   inset: auto;
-  /* for scrollbar */
-  overflow: visible;
+
   @media (forced-colors: active) {
     outline: 1px solid transparent;
   }
+  /* pollyfil */
+  z-index: 2147483647;
+  display: block;
+
+  /* see if you can reduce the duplicateion with is. */
 
   /* tooltip element should be rendered visually hidden when it is not opened.  */
-  &:not(:popover-open) {
-    /* Visually hidden styles */
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border-width: 0;
+  &:popover-open {
+    /* non visually hidden styles */
+    padding: 0.5em 0.75em;
+    width: max-content;
+    height: fit-content;
+    margin: auto;
+    /* for scrollbar */
+    overflow: visible;
+    clip: auto;
+    white-space: normal;
+  }
+
+  &.\\:popover-open {
+    /* non visually hidden styles */
+    padding: 0.5em 0.75em;
+    width: max-content;
+    height: fit-content;
+    margin: auto;
+    /* for scrollbar */
+    overflow: visible;
+    clip: auto;
+    white-space: normal;
   }
 
   // This is needed to keep the tooltip open when the user leaves the trigger element to hover tooltip
@@ -113,12 +133,30 @@ const StyledTooltip = styled.div`
     animation-delay: 0.4s;
   }
 
+  /* Animation styles */
+  &.\\:popover-open,
+  &.\\:popover-open::before {
+    animation-name: tooltip-appear;
+    animation-duration: 0.1s;
+    animation-fill-mode: forwards;
+    animation-timing-function: ease-in;
+    animation-delay: 0.4s;
+  }
+
   &:popover-open {
     &[data-no-delay='true'],
     &[data-no-delay='true']::before {
       animation-delay: 0s;
     }
   }
+
+  &.\\:popover-open {
+    &[data-no-delay='true'],
+    &[data-no-delay='true']::before {
+      animation-delay: 0s;
+    }
+  }
+
   ${sx};
 `
 
@@ -183,7 +221,7 @@ const isInteractive = (element: HTMLElement) => {
     (element.hasAttribute('role') && element.getAttribute('role') === 'button')
   )
 }
-export const Tooltip = ({direction = 'n', text, type = 'description', noDelay, children, ...rest}: TooltipProps) => {
+export const Tooltip = ({direction = 's', text, type = 'description', noDelay, children, ...rest}: TooltipProps) => {
   const id = useId()
   const triggerRef = useRef<HTMLElement>(null)
   const tooltipElRef = useRef<HTMLDivElement>(null)
