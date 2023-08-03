@@ -1,12 +1,13 @@
 import React, {useState, useRef, useCallback} from 'react'
 import {Meta} from '@storybook/react'
 
-import {BaseStyles, ThemeProvider, Box, TextInput} from '..'
-import {Button} from '../Button'
-import {Dialog, DialogProps, DialogWidth, DialogHeight} from '../Dialog/Dialog'
+import {BaseStyles, ThemeProvider, Box, TextInput} from '../..'
+import {Button} from '../../Button'
+import {Dialog, DialogProps, DialogWidth, DialogHeight} from './Dialog'
 
+// TODO: update this title and all other draft component titles to "Drafts/{component name}"
 export default {
-  title: 'Components/Dialog',
+  title: 'Drafts/Components/Dialog',
   component: Dialog,
   decorators: [
     Story => {

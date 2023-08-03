@@ -70,8 +70,6 @@
       url: /CounterLabel
     - title: Details
       url: /Details
-    - title: Dialog
-      url: /Dialog
     - title: Flash
       url: /Flash
     - title: FormControl

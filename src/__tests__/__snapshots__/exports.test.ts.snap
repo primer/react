@@ -22,7 +22,6 @@ exports[`@primer/react should not update exports without a semver change 1`] = `
   "CheckboxGroup",
   "CircleBadge",
   "CircleOcticon",
-  "ConfirmationDialog",
   "CounterLabel",
   "Details",
   "Dialog",
@@ -78,7 +77,6 @@ exports[`@primer/react should not update exports without a semver change 1`] = `
   "theme",
   "themeGet",
   "useColorSchemeVar",
-  "useConfirm",
   "useDetails",
   "useFocusTrap",
   "useFocusZone",
@@ -115,6 +113,7 @@ exports[`@primer/react/decprecated should not update exports without a semver ch
 exports[`@primer/react/drafts should not update exports without a semver change 1`] = `
 [
   "Blankslate",
+  "ConfirmationDialog",
   "DataTable",
   "Dialog",
   "Hidden",
@@ -126,6 +125,7 @@ exports[`@primer/react/drafts should not update exports without a semver change 
   "Table",
   "callbackCancelledResult",
   "useCombobox",
+  "useConfirm",
   "useDynamicTextareaHeight",
   "useIgnoreKeyboardActionsWhileComposing",
   "useSafeAsyncCallback",
