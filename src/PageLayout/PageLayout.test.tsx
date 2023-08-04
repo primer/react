@@ -53,10 +53,10 @@ describe('PageLayout', () => {
           <PageLayout.Header divider="line" dividerWhenNarrow="filled">
             Header
           </PageLayout.Header>
-          <PageLayout.Pane divider="line" dividerWhenNarrow="filled">
+          <PageLayout.Content>Content</PageLayout.Content>
+          <PageLayout.Pane position="start" divider="line" dividerWhenNarrow="filled">
             Pane
           </PageLayout.Pane>
-          <PageLayout.Content>Content</PageLayout.Content>
           <PageLayout.Footer dividerWhenNarrow="line">Footer</PageLayout.Footer>
         </PageLayout>
       </ThemeProvider>,
