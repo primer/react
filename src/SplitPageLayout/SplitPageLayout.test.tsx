@@ -17,6 +17,7 @@ describe('SplitPageLayout', () => {
   })
 
   it('renders default layout', () => {
+    const spy = jest.spyOn(console, 'warn').mockImplementation(() => {})
     const {container} = render(
       <ThemeProvider>
         <SplitPageLayout>
@@ -27,11 +28,13 @@ describe('SplitPageLayout', () => {
         </SplitPageLayout>
       </ThemeProvider>,
     )
+    expect(spy).toHaveBeenCalled()
 
     expect(container).toMatchSnapshot()
   })
 
   it('renders Pane with a custom ID', () => {
+    const spy = jest.spyOn(console, 'warn').mockImplementation(() => {})
     const {getByText} = render(
       <ThemeProvider>
         <SplitPageLayout>
@@ -39,6 +42,7 @@ describe('SplitPageLayout', () => {
         </SplitPageLayout>
       </ThemeProvider>,
     )
+    expect(spy).toHaveBeenCalled()
 
     const pane = getByText('Pane Content')
 
