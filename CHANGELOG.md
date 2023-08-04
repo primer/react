@@ -1,5 +1,15 @@
 # @primer/components
 
+## 35.27.1
+
+### Patch Changes
+
+- [#3589](https://github.com/primer/react/pull/3589) [`d598a53b`](https://github.com/primer/react/commit/d598a53bf4e925f22df6a51aa0f8c933227c85bd) Thanks [@siddharthkp](https://github.com/siddharthkp)! - - PageLayout: Undo deprecation of `position` prop for PageLayout.Pane (Revert primer/react#3389)
+
+  - SplitPageLayout: Undo deprecation of `position` prop for SplitPageLayout.Pane (Revert primer/react#3389)
+
+  <!-- Changed components: PageLayout, SplitPageLayout -->
+
 ## 35.27.0
 
 ### Minor Changes
