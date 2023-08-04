@@ -548,13 +548,6 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
     },
     forwardRef,
   ) => {
-    if (responsivePosition !== undefined) {
-      // eslint-disable-next-line no-console
-      console.warn(
-        'The `position` prop will be removed on the next major version. You should order your markup as you want it to render instead.',
-      )
-    }
-
     // Combine position and positionWhenNarrow for backwards compatibility
     const positionProp =
       !isResponsiveValue(responsivePosition) && positionWhenNarrow !== 'inherit'
