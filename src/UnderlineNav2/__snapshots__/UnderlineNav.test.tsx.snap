@@ -119,11 +119,6 @@ exports[`UnderlineNav renders consistently 1`] = `
   text-decoration: underline;
 }
 
-.c4:focus {
-  -webkit-text-decoration: underline;
-  text-decoration: underline;
-}
-
 .c4:is(button) {
   display: inline-block;
   padding: 0;
@@ -208,11 +203,6 @@ exports[`UnderlineNav renders consistently 1`] = `
 }
 
 .c7:hover {
-  -webkit-text-decoration: underline;
-  text-decoration: underline;
-}
-
-.c7:focus {
   -webkit-text-decoration: underline;
   text-decoration: underline;
 }

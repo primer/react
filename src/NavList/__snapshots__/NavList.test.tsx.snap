@@ -209,11 +209,6 @@ exports[`NavList renders a simple list 1`] = `
   text-decoration: underline;
 }
 
-.c3:focus {
-  -webkit-text-decoration: underline;
-  text-decoration: underline;
-}
-
 .c3:is(button) {
   display: inline-block;
   padding: 0;
@@ -605,11 +600,6 @@ exports[`NavList renders with groups 1`] = `
 }
 
 .c7:hover {
-  -webkit-text-decoration: underline;
-  text-decoration: underline;
-}
-
-.c7:focus {
   -webkit-text-decoration: underline;
   text-decoration: underline;
 }
@@ -1087,11 +1077,6 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   text-decoration: underline;
 }
 
-.c11:focus {
-  -webkit-text-decoration: underline;
-  text-decoration: underline;
-}
-
 .c11:is(button) {
   display: inline-block;
   padding: 0;
@@ -1556,11 +1541,6 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
 }
 
 .c11:hover {
-  -webkit-text-decoration: underline;
-  text-decoration: underline;
-}
-
-.c11:focus {
   -webkit-text-decoration: underline;
   text-decoration: underline;
 }
