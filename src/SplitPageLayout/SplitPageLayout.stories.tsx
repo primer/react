@@ -148,36 +148,9 @@ export default {
     },
 
     // Pane prop controls
-    'Pane.position.regular': {
-      type: {
-        name: 'enum',
-        value: ['start', 'end'],
-      },
-      defaultValue: 'start',
-      control: {type: 'radio'},
-      table: {category: 'Pane props'},
-    },
     'Pane.id': {
       type: 'string',
       defaultValue: 'customId',
-      table: {category: 'Pane props'},
-    },
-    'Pane.position.narrow': {
-      type: {
-        name: 'enum',
-        value: ['start', 'end'],
-      },
-      defaultValue: 'start',
-      control: {type: 'radio'},
-      table: {category: 'Pane props'},
-    },
-    'Pane.position.wide': {
-      type: {
-        name: 'enum',
-        value: ['start', 'end'],
-      },
-      defaultValue: 'start',
-      control: {type: 'radio'},
       table: {category: 'Pane props'},
     },
     'Pane.width': {
@@ -341,11 +314,6 @@ const Template: Story = args => (
     {args['Render pane?'] ? (
       <SplitPageLayout.Pane
         resizable={args['Pane.resizable']}
-        position={{
-          narrow: args['Pane.position.narrow'],
-          regular: args['Pane.position.regular'],
-          wide: args['Pane.position.wide'],
-        }}
         width={args['Pane.width']}
         minWidth={args['Pane.minWidth']}
         sticky={args['Pane.sticky']}
