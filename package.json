@@ -146,7 +146,7 @@
     "@rollup/plugin-terser": "0.4.0",
     "@rollup/plugin-typescript": "11.1.0",
     "@rollup/plugin-virtual": "3.0.1",
-    "@size-limit/preset-big-lib": "8.2.4",
+    "@size-limit/preset-big-lib": "8.2.6",
     "@storybook/addon-a11y": "7.1.0",
     "@storybook/addon-actions": "7.1.0",
     "@storybook/addon-essentials": "7.1.0",
