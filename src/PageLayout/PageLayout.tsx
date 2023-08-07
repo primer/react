@@ -107,23 +107,7 @@ const Root: React.FC<React.PropsWithChildren<PageLayoutProps>> = ({
           }}
         >
           {slots.header}
-          <Box
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            sx={(theme: any) => ({
-              display: 'flex',
-              flex: '1 1 100%',
-              flexWrap: 'wrap',
-              maxWidth: '100%',
-              [`@media screen and (max-width: ${theme.breakpoints[2]})`]: {
-                rowGap: SPACING_MAP[rowGap],
-              },
-              [`@media screen and (min-width: ${theme.breakpoints[1]})`]: {
-                columnGap: SPACING_MAP[columnGap],
-              },
-            })}
-          >
-            {rest}
-          </Box>
+          <Box sx={{display: 'flex', flex: '1 1 100%', flexWrap: 'wrap', maxWidth: '100%'}}>{rest}</Box>
           {slots.footer}
         </Box>
       </Box>
@@ -444,6 +428,7 @@ const Content: React.FC<React.PropsWithChildren<PageLayoutContentProps>> = ({
         {
           display: isHidden ? 'none' : 'flex',
           flexDirection: 'column',
+          order: REGION_ORDER.content,
           // Set flex-basis to 0% to allow flex-grow to control the width of the content region.
           // Without this, the content region could wrap onto a different line
           // than the pane region on wide viewports if its contents are too wide.
@@ -482,25 +467,6 @@ Content.displayName = 'PageLayout.Content'
 // PageLayout.Pane
 
 export type PageLayoutPaneProps = {
-  /**
-   * @deprecated Use source order instead of relying on the `position` prop
-   *
-   * Before:
-   * ```
-   * <PageLayout>
-   *   <PageLayout.Content />
-   *   <PageLayout.Pane position="start" />
-   * </PageLayout>
-   * ```
-   *
-   * After:
-   * ```
-   * <PageLayout>
-   *   <PageLayout.Pane />
-   *   <PageLayout.Content />
-   * </PageLayout>
-   * ```
-   */
   position?: keyof typeof panePositions | ResponsiveValue<keyof typeof panePositions>
   /**
    * @deprecated Use the `position` prop with a responsive value instead.
@@ -564,7 +530,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
     {
       'aria-label': label,
       'aria-labelledby': labelledBy,
-      position: responsivePosition = undefined,
+      position: responsivePosition = 'end',
       positionWhenNarrow = 'inherit',
       width = 'medium',
       minWidth = 256,
@@ -712,9 +678,12 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
             {
               // Narrow viewports
               display: isHidden ? 'none' : 'flex',
-              order: position !== undefined ? panePositions[position] : undefined,
+              order: panePositions[position],
               width: '100%',
               marginX: 0,
+              ...(position === 'end'
+                ? {flexDirection: 'column', marginTop: SPACING_MAP[rowGap]}
+                : {flexDirection: 'column-reverse', marginBottom: SPACING_MAP[rowGap]}),
 
               // Regular and wide viewports
               [`@media screen and (min-width: ${theme.breakpoints[1]})`]: {
@@ -729,7 +698,9 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
                       maxHeight: 'var(--sticky-pane-height)',
                     }
                   : {}),
-                ...(position === 'end' ? {flexDirection: 'row'} : {flexDirection: 'row-reverse'}),
+                ...(position === 'end'
+                  ? {flexDirection: 'row', marginLeft: SPACING_MAP[columnGap]}
+                  : {flexDirection: 'row-reverse', marginRight: SPACING_MAP[columnGap]}),
               },
             },
             sx,

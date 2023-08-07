@@ -58,6 +58,9 @@ exports[`SplitPageLayout renders default layout 1`] = `
   -webkit-flex-direction: column;
   -ms-flex-direction: column;
   flex-direction: column;
+  -webkit-order: 2;
+  -ms-flex-order: 2;
+  order: 2;
   -webkit-flex-basis: 0;
   -ms-flex-preferred-size: 0;
   flex-basis: 0;
@@ -94,6 +97,10 @@ exports[`SplitPageLayout renders default layout 1`] = `
   width: 100%;
   margin-left: 0;
   margin-right: 0;
+  -webkit-flex-direction: column-reverse;
+  -ms-flex-direction: column-reverse;
+  flex-direction: column-reverse;
+  margin-bottom: 0;
 }
 
 .c9 {
@@ -148,19 +155,6 @@ exports[`SplitPageLayout renders default layout 1`] = `
   }
 }
 
-@media screen and (max-width:1012px) {
-  .c5 {
-    row-gap: 0;
-  }
-}
-
-@media screen and (min-width:768px) {
-  .c5 {
-    -webkit-column-gap: 0;
-    column-gap: 0;
-  }
-}
-
 @media screen and (min-width:1012px) {
   .c7 {
     padding: 24px;
@@ -179,6 +173,7 @@ exports[`SplitPageLayout renders default layout 1`] = `
     -webkit-flex-direction: row-reverse;
     -ms-flex-direction: row-reverse;
     flex-direction: row-reverse;
+    margin-right: 0;
   }
 }
 
