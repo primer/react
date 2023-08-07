@@ -73,11 +73,11 @@ const sampleHtml = `
 <li><a href="https://primer.style" rel="nofollow">Primer</a></li>
 <li><a href="https://www.githubuniverse.com/" rel="nofollow">Universe</a></li>
 </ul>
-<h4>Tasks</h4>
+<h4 id="tasks">Tasks</h4>
 <ul class="contains-task-list">
-<li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox"> Task 1</li>
-<li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox"> Task 2</li>
-<li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox"> Task 3</li>
+<li class="task-list-item"><input type="checkbox" aria-labelledby="tasks" id="" disabled="" class="task-list-item-checkbox"> Task 1</li>
+<li class="task-list-item"><input type="checkbox" aria-labelledby="tasks" id="" disabled="" class="task-list-item-checkbox"> Task 2</li>
+<li class="task-list-item"><input type="checkbox" aria-labelledby="tasks" id="" disabled="" class="task-list-item-checkbox"> Task 3</li>
 </ul>`
 
 const htmlObject = {__html: sampleHtml}
