@@ -13,7 +13,7 @@
     "npm": ">=7"
   },
   "dependencies": {
-    "@primer/gatsby-theme-doctocat": "^4.4.3",
+    "@primer/gatsby-theme-doctocat": "^4.6.1",
     "@primer/octicons-react": "^17.7.0",
     "@primer/primitives": "4.1.0",
     "@styled-system/prop-types": "^5.1.0",
