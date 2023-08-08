@@ -245,7 +245,7 @@ const AvatarStack = ({children, alignRight, disableExpand, size, sx: sxProp = de
 
   return (
     <AvatarStackWrapper count={count} className={wrapperClassNames} sx={avatarStackSx}>
-      <Box className={bodyClassNames}> {transformChildren(children)}</Box>
+      <Box className={bodyClassNames}>{transformChildren(children)}</Box>
     </AvatarStackWrapper>
   )
 }
