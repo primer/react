@@ -88,7 +88,9 @@ import {BaseStyles, Box, Heading} from '@primer/react'
 export default () => (
   <BaseStyles>
     <Box m={4}>
-      <Heading sx={{mb: 2}}>Hello, world!</Heading>
+      <Heading as="h2" sx={{mb: 2}}>
+        Hello, world!
+      </Heading>
       <p>This will get Primer text styles.</p>
     </Box>
   </BaseStyles>
