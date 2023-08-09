@@ -96,7 +96,11 @@ const AutocompleteSuggestions = ({
 
       const yOffsetTopSide = triggerCharCoords.top - overlayHeight
 
-      setTop(wouldOverflowBottom ? yOffsetTopSide : yOffsetBottomSide)
+      // Sometimes the value can be NaN if layout is not available (ie, SSR or JSDOM)
+      const result = wouldOverflowBottom ? yOffsetTopSide : yOffsetBottomSide
+      const resultNotNaN = Number.isNaN(result) ? 0 : result
+
+      setTop(resultNotNaN)
     },
     // this is a cheap effect and we want it to run when pretty much anything that could affect position changes
     [triggerCharCoords.top, triggerCharCoords.height, suggestions, visible],
