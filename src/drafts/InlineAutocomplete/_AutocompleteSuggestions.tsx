@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from 'react'
+import React, {useCallback, useLayoutEffect, useRef, useState} from 'react'
 import Spinner from '../../Spinner'
 import {ActionList, ActionListItemProps} from '../../ActionList'
 import Box from '../../Box'
@@ -7,13 +7,12 @@ import Overlay from '../../Overlay'
 
 import {Suggestion, Suggestions, TextInputElement} from './types'
 import {getSuggestionKey, getSuggestionValue} from './utils'
+import {CharacterCoordinates} from '../utils/character-coordinates'
 
 type AutoCompleteSuggestionsProps = {
   suggestions: Suggestions | null
   portalName?: string
-  // make top/left primitives instead of a Coordinates object to avoid extra re-renders
-  top: number
-  left: number
+  triggerCharCoords: CharacterCoordinates
   onClose: () => void
   onCommit: (suggestion: string) => void
   inputRef: React.RefObject<TextInputElement>
@@ -54,14 +53,15 @@ const SuggestionListItem = ({suggestion}: {suggestion: Suggestion}) => {
 const AutocompleteSuggestions = ({
   suggestions,
   portalName,
-  top,
-  left,
+  triggerCharCoords,
   onClose,
   onCommit: externalOnCommit,
   inputRef,
   visible,
   tabInsertsSuggestions,
 }: AutoCompleteSuggestionsProps) => {
+  const overlayRef = useRef<HTMLDivElement | null>(null)
+
   // It seems wierd to use state instead of a ref here, but because the list is inside an
   // AnchoredOverlay it is not always mounted - so we want to reinitialize the Combobox when it mounts
   const [list, setList] = useState<HTMLUListElement | null>(null)
@@ -85,6 +85,22 @@ const AutocompleteSuggestions = ({
     defaultFirstOption: true,
   })
 
+  const [top, setTop] = useState(0)
+  useLayoutEffect(
+    function reCalculateTop() {
+      const overlayHeight = overlayRef.current?.offsetHeight ?? 0
+
+      const yOffsetBottomSide = triggerCharCoords.top + triggerCharCoords.height
+      const wouldOverflowBottom = yOffsetBottomSide + overlayHeight > window.innerHeight
+
+      const yOffsetTopSide = triggerCharCoords.top - overlayHeight
+
+      setTop(wouldOverflowBottom ? yOffsetTopSide : yOffsetBottomSide)
+    },
+    // this is a cheap effect and we want it to run when pretty much anything that could affect position changes
+    [triggerCharCoords.top, triggerCharCoords.height, suggestions, visible],
+  )
+
   // Conditional rendering appears wrong at first - it means that we are reconstructing the
   // Combobox instance every time the suggestions appear. But this is what we want - otherwise
   // the textarea would always have the `combobox` role, which is incorrect (a textarea should
@@ -98,7 +114,9 @@ const AutocompleteSuggestions = ({
       preventFocusOnOpen
       portalContainerName={portalName}
       sx={{position: 'fixed'}}
-      {...{top, left}}
+      top={top}
+      left={triggerCharCoords.left}
+      ref={overlayRef}
     >
       <ActionList ref={setList}>
         {suggestions === 'loading' ? (
