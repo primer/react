@@ -176,7 +176,7 @@ export const SingleSelect = () => {
 }
 
 export const MultiSelect = () => {
-  const [selectedIndices, setSelectedIndices] = React.useState<number[]>([])
+  const [selectedIndices, setSelectedIndices] = React.useState<number[]>([0])
   const handleSelect = (index: number) => {
     if (selectedIndices.includes(index)) {
       setSelectedIndices(selectedIndices.filter(i => i !== index))

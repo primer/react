@@ -211,7 +211,9 @@ test.describe('ActionList', () => {
           })
 
           // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`ActionList.Multi Select.${theme}.png`)
+          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
+            `ActionList.Multi Select.${theme}.png`,
+          )
         })
 
         test('axe @aat', async ({page}) => {
@@ -435,7 +437,9 @@ test.describe('ActionList', () => {
           })
 
           // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`ActionList.Disabled Selected Multiselect.${theme}.png`)
+          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
+            `ActionList.Disabled Selected Multiselect.${theme}.png`,
+          )
         })
 
         test('axe @aat', async ({page}) => {
