@@ -8,6 +8,7 @@ import Overlay from '../../Overlay'
 import {Suggestion, Suggestions, TextInputElement} from './types'
 import {getSuggestionKey, getSuggestionValue} from './utils'
 import {CharacterCoordinates} from '../utils/character-coordinates'
+import useIsomorphicLayoutEffect from '../../utils/useIsomorphicLayoutEffect'
 
 type AutoCompleteSuggestionsProps = {
   suggestions: Suggestions | null
@@ -86,7 +87,7 @@ const AutocompleteSuggestions = ({
   })
 
   const [top, setTop] = useState(0)
-  useLayoutEffect(
+  useIsomorphicLayoutEffect(
     function reCalculateTop() {
       const overlayHeight = overlayRef.current?.offsetHeight ?? 0
 
