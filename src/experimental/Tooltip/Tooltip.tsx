@@ -1,7 +1,7 @@
-import React, {Children, useEffect, useRef, useState} from 'react'
+import React, {Children, useEffect, useRef, useState, forwardRef} from 'react'
 import Box from '../../Box'
 import sx, {SxProp} from '../../sx'
-import {useId} from '../../hooks/useId'
+import {useId, useProvidedRefOrCreate} from '../../hooks'
 import {invariant} from '../../utils/invariant'
 import {warning} from '../../utils/warning'
 import styled from 'styled-components'
@@ -164,9 +164,12 @@ type TooltipDirection = 'nw' | 'n' | 'ne' | 'e' | 'se' | 's' | 'sw' | 'w'
 export type TooltipProps = React.PropsWithChildren<
   {
     direction?: TooltipDirection
-    text?: string
+    text: string
     noDelay?: boolean
     type?: 'label' | 'description'
+    // children: React.ReactElement & {
+    //   ref: React.RefObject<HTMLElement>
+    // }
   } & SxProp &
     ComponentProps<typeof StyledTooltip>
 >
@@ -221,11 +224,15 @@ const isInteractive = (element: HTMLElement) => {
     (element.hasAttribute('role') && element.getAttribute('role') === 'button')
   )
 }
+export const TooltipContext = React.createContext<{tooltipId?: string}>({})
 export const Tooltip = ({direction = 's', text, type = 'description', noDelay, children, ...rest}: TooltipProps) => {
-  const id = useId()
-  const triggerRef = useRef<HTMLElement>(null)
-  const tooltipElRef = useRef<HTMLDivElement>(null)
+  const tooltipId = useId()
   const child = Children.only(children)
+  // @ts-ignore will figure out how to fix this later
+  const childRef = child && child.ref
+  const triggerRef = useProvidedRefOrCreate(childRef)
+  const tooltipElRef = useRef<HTMLDivElement>(null)
+
   const [calculatedDirection, setCalculatedDirection] = useState<TooltipDirection>(direction)
 
   const openTooltip = () => {
@@ -295,40 +302,42 @@ export const Tooltip = ({direction = 's', text, type = 'description', noDelay, c
   }, [tooltipElRef, triggerRef, direction, type])
 
   return (
-    <Box sx={{display: 'inline-block'}} onMouseLeave={() => closeTooltip()}>
-      {React.isValidElement(child) &&
-        React.cloneElement(child as React.ReactElement<TriggerPropsType>, {
-          ref: triggerRef,
-          // If it is a type description, we use tooltip to describe the trigger
-          'aria-describedby': type === 'description' ? id : undefined,
-          // If it is a label type, we use tooltip to label the trigger
-          'aria-labelledby': type === 'label' ? id : undefined,
-          onBlur: (event: React.FocusEvent) => {
-            closeTooltip()
-            child.props.onBlur?.(event)
-          },
-          onFocus: (event: React.FocusEvent) => {
-            openTooltip()
-            child.props.onFocus?.(event)
-          },
-          onMouseEnter: (event: React.MouseEvent) => {
-            openTooltip()
-            child.props.onMouseEnter?.(event)
-          },
-        })}
-      <StyledTooltip
-        ref={tooltipElRef}
-        data-direction={calculatedDirection}
-        data-no-delay={noDelay}
-        {...rest}
-        // Only need tooltip role if the tooltip is a description for supplementary information
-        role={type === 'description' ? 'tooltip' : undefined}
-        // stop AT from announcing the tooltip twice when it is a label type because it will be announced with "aria-labelledby"
-        aria-hidden={type === 'label' ? true : undefined}
-        id={id}
-      >
-        {text}
-      </StyledTooltip>
-    </Box>
+    <TooltipContext.Provider value={{tooltipId}}>
+      <Box sx={{display: 'inline-block'}} onMouseLeave={() => closeTooltip()}>
+        {React.isValidElement(child) &&
+          React.cloneElement(child as React.ReactElement<TriggerPropsType>, {
+            ref: triggerRef,
+            // If it is a type description, we use tooltip to describe the trigger
+            'aria-describedby': type === 'description' ? `tooltip-${tooltipId}` : undefined,
+            // If it is a label type, we use tooltip to label the trigger
+            'aria-labelledby': type === 'label' ? `tooltip-${tooltipId}` : undefined,
+            onBlur: (event: React.FocusEvent) => {
+              closeTooltip()
+              child.props.onBlur?.(event)
+            },
+            onFocus: (event: React.FocusEvent) => {
+              openTooltip()
+              child.props.onFocus?.(event)
+            },
+            onMouseEnter: (event: React.MouseEvent) => {
+              openTooltip()
+              child.props.onMouseEnter?.(event)
+            },
+          })}
+        <StyledTooltip
+          ref={tooltipElRef}
+          data-direction={calculatedDirection}
+          data-no-delay={noDelay}
+          {...rest}
+          // Only need tooltip role if the tooltip is a description for supplementary information
+          role={type === 'description' ? 'tooltip' : undefined}
+          // stop AT from announcing the tooltip twice when it is a label type because it will be announced with "aria-labelledby"
+          aria-hidden={type === 'label' ? true : undefined}
+          id={`tooltip-${tooltipId}`}
+        >
+          {text}
+        </StyledTooltip>
+      </Box>
+    </TooltipContext.Provider>
   )
 }

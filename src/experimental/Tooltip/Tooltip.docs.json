@@ -1,5 +1,5 @@
 {
-  "id": "tooltip",
+"id": "tooltip",
   "name": "Tooltip",
   "status": "alpha",
   "a11yReviewed": false,
@@ -9,7 +9,7 @@
       "name": "direction",
       "type": "'n' | 'ne' | 'e' | 'se' | 's' | 'sw' | 'w' | 'nw'",
       "defaultValue": "s",
-      "description": "Sets where the tooltip renders in relation to the target."
+    "description": "Sets where the tooltip renders in relation to the target."
     },
     {
       "name": "noDelay",

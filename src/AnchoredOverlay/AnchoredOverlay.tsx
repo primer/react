@@ -136,6 +136,8 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
     [open, onOpen, onClose],
   )
 
+  console.log({anchorRef})
+
   const {position} = useAnchoredPosition(
     {
       anchorElementRef: anchorRef,
@@ -161,7 +163,6 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
     ...focusZoneSettings,
   })
   useFocusTrap({containerRef: overlayRef, disabled: !open || !position, ...focusTrapSettings})
-
   return (
     <>
       {renderAnchor &&

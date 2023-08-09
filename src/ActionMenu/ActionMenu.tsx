@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import {TriangleDownIcon} from '@primer/octicons-react'
 import {AnchoredOverlay, AnchoredOverlayProps} from '../AnchoredOverlay'
 import {OverlayProps} from '../Overlay'
@@ -9,6 +9,7 @@ import {Button, ButtonProps} from '../Button'
 import {useId} from '../hooks/useId'
 import {MandateProps} from '../utils/types'
 import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
+import {Tooltip} from '../experimental/Tooltip/Tooltip'
 
 export type MenuContextProps = Pick<
   AnchoredOverlayProps,
@@ -48,13 +49,26 @@ const Menu: React.FC<React.PropsWithChildren<ActionMenuProps>> = ({
   const anchorRef = useProvidedRefOrCreate(externalAnchorRef)
   const anchorId = useId()
   let renderAnchor: AnchoredOverlayProps['renderAnchor'] = null
-
   // 🚨 Hack for good API!
   // we strip out Anchor from children and pass it to AnchoredOverlay to render
   // with additional props for accessibility
   const contents = React.Children.map(children, child => {
     if (child.type === MenuButton || child.type === Anchor) {
-      renderAnchor = anchorProps => React.cloneElement(child, anchorProps)
+      renderAnchor = anchorProps => {
+        // TODO: clean up this part
+        const isTooltip = child.props.children.type === Tooltip
+        const tooltipTrigger = isTooltip ? child.props.children.props.children : null
+        let el = null
+        if (tooltipTrigger !== null) {
+          const tooltipTriggerEl = React.cloneElement(tooltipTrigger, anchorProps)
+          const tooltip = React.cloneElement(child.props.children, {children: tooltipTriggerEl})
+          el = React.cloneElement(child, {children: tooltip})
+        } else {
+          el = React.cloneElement(child, anchorProps)
+        }
+
+        return el
+      }
       return null
     }
     return child
@@ -69,6 +83,7 @@ const Menu: React.FC<React.PropsWithChildren<ActionMenuProps>> = ({
 
 export type ActionMenuAnchorProps = {children: React.ReactElement}
 const Anchor = React.forwardRef<HTMLElement, ActionMenuAnchorProps>(({children, ...anchorProps}, anchorRef) => {
+  console.log('anchor ref in the anchor component', anchorRef)
   return React.cloneElement(children, {...anchorProps, ref: anchorRef})
 })
 
