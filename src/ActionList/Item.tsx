@@ -4,6 +4,7 @@ import Box, {BoxProps} from '../Box'
 import {useId} from '../hooks/useId'
 import {useSlots} from '../hooks/useSlots'
 import sx, {BetterSystemStyleObject, merge, SxProp} from '../sx'
+import {get} from '../constants'
 import {useTheme} from '../ThemeProvider'
 import {defaultSxProp} from '../utils/defaultSxProp'
 import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
@@ -97,7 +98,15 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       transition: 'background 33.333ms linear',
       color: getVariantStyles(variant, disabled).color,
       cursor: 'pointer',
-      '&[aria-disabled]': {cursor: 'not-allowed'},
+      '&[aria-disabled]': {
+        cursor: 'not-allowed',
+        '[data-component="ActionList.Checkbox"]': {
+          background: selected
+            ? // ? `${get('colors.fg.muted')}`
+              'fg.muted'
+            : 'var(--color-input-disabled-bg, rgba(175, 184, 193, 0.2))',
+        },
+      },
 
       // Button reset styles (to support as="button")
       appearance: 'none',
