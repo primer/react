@@ -4,4 +4,4 @@
 
 Expose `useSlots` from `drafts/hooks`
 
-<!-- Changed components: None -->
+<!-- Changed components: _none_ -->
