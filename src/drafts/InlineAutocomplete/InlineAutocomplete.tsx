@@ -5,7 +5,14 @@ import {BetterSystemStyleObject} from '../../sx'
 import {useSyntheticChange} from '../hooks/useSyntheticChange'
 import {getAbsoluteCharacterCoordinates} from '../utils/character-coordinates'
 
-import {ShowSuggestionsEvent, Suggestions, TextInputCompatibleChild, TextInputElement, Trigger} from './types'
+import {
+  ShowSuggestionsEvent,
+  Suggestions,
+  SuggestionsPlacement,
+  TextInputCompatibleChild,
+  TextInputElement,
+  Trigger,
+} from './types'
 import {augmentHandler, calculateSuggestionsQuery, getSuggestionValue, requireChildrenToBeInput} from './utils'
 
 import {useRefObjectAsForwardedRef} from '../../hooks'
@@ -52,6 +59,18 @@ export type InlineAutocompleteProps = {
    * thrown.
    */
   children: TextInputCompatibleChild
+  /**
+   * Control which side of the insertion point the suggestions list appears on by default. This
+   * should almost always be `"below"` because it typically provides a better user experience
+   * (the most-relevant suggestions will appear closest to the text). However, if the input
+   * is always near the bottom of the screen (ie, a chat composition form), it may be better to
+   * display the suggestions above the input.
+   *
+   * In either case, if there is not enough room to display the suggestions in the default direction,
+   * the suggestions will appear in the other direction.
+   * @default "belo"
+   */
+  suggestionsPlacement?: SuggestionsPlacement
 }
 
 const getSelectionStart = (element: TextInputElement) => {
@@ -79,6 +98,7 @@ const InlineAutocomplete = ({
   sx,
   children,
   tabInsertsSuggestions = false,
+  suggestionsPlacement = 'below',
   // Forward accessibility props so it works with FormControl
   ...forwardProps
 }: InlineAutocompleteProps & React.ComponentProps<'textarea' | 'input'>) => {
@@ -200,6 +220,7 @@ const InlineAutocomplete = ({
         triggerCharCoords={triggerCharCoords}
         visible={suggestionsVisible}
         tabInsertsSuggestions={tabInsertsSuggestions}
+        defaultPlacement={suggestionsPlacement}
       />
 
       <Portal>

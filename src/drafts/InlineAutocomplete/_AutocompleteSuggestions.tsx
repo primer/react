@@ -5,7 +5,7 @@ import Box from '../../Box'
 import {ComboboxCommitEvent, useCombobox} from '../hooks/useCombobox'
 import Overlay from '../../Overlay'
 
-import {Suggestion, Suggestions, TextInputElement} from './types'
+import {Suggestion, Suggestions, SuggestionsPlacement, TextInputElement} from './types'
 import {getSuggestionKey, getSuggestionValue} from './utils'
 import {CharacterCoordinates} from '../utils/character-coordinates'
 import useIsomorphicLayoutEffect from '../../utils/useIsomorphicLayoutEffect'
@@ -19,6 +19,7 @@ type AutoCompleteSuggestionsProps = {
   inputRef: React.RefObject<TextInputElement>
   visible: boolean
   tabInsertsSuggestions: boolean
+  defaultPlacement: SuggestionsPlacement
 }
 
 const LoadingIndicator = () => (
@@ -60,6 +61,7 @@ const AutocompleteSuggestions = ({
   inputRef,
   visible,
   tabInsertsSuggestions,
+  defaultPlacement,
 }: AutoCompleteSuggestionsProps) => {
   const overlayRef = useRef<HTMLDivElement | null>(null)
 
@@ -88,22 +90,28 @@ const AutocompleteSuggestions = ({
 
   const [top, setTop] = useState(0)
   useIsomorphicLayoutEffect(
-    function reCalculateTop() {
+    function recalculateTop() {
       const overlayHeight = overlayRef.current?.offsetHeight ?? 0
 
-      const yOffsetBottomSide = triggerCharCoords.top + triggerCharCoords.height
-      const wouldOverflowBottom = yOffsetBottomSide + overlayHeight > window.innerHeight
+      const belowOffset = triggerCharCoords.top + triggerCharCoords.height
+      const wouldOverflowBelow = belowOffset + overlayHeight > window.innerHeight
 
-      const yOffsetTopSide = triggerCharCoords.top - overlayHeight
+      const aboveOffset = triggerCharCoords.top - overlayHeight
+      const wouldOverflowAbove = aboveOffset < 0
+
+      // Only override the default if it would overflow in the default direction and it would not overflow in the override direction
+      const result = {
+        below: wouldOverflowBelow && !wouldOverflowAbove ? aboveOffset : belowOffset,
+        above: wouldOverflowAbove && !wouldOverflowBelow ? belowOffset : aboveOffset,
+      }[defaultPlacement]
 
       // Sometimes the value can be NaN if layout is not available (ie, SSR or JSDOM)
-      const result = wouldOverflowBottom ? yOffsetTopSide : yOffsetBottomSide
       const resultNotNaN = Number.isNaN(result) ? 0 : result
 
       setTop(resultNotNaN)
     },
     // this is a cheap effect and we want it to run when pretty much anything that could affect position changes
-    [triggerCharCoords.top, triggerCharCoords.height, suggestions, visible],
+    [triggerCharCoords.top, triggerCharCoords.height, suggestions, visible, defaultPlacement],
   )
 
   // Conditional rendering appears wrong at first - it means that we are reconstructing the
