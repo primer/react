@@ -1,8 +1,8 @@
 import React from 'react'
 
-import {IconButton, Button, Box, Link, StyledOcticon} from '../..'
+import {IconButton, Button, Box, Link, StyledOcticon, ActionMenu, ActionList} from '../..'
 import {Tooltip} from './Tooltip'
-import {SearchIcon, BookIcon} from '@primer/octicons-react'
+import {SearchIcon, BookIcon, CheckIcon, TriangleDownIcon, GitBranchIcon} from '@primer/octicons-react'
 
 export default {
   title: 'Experimental/Components/Tooltip/Features',
@@ -119,4 +119,82 @@ export const NoDelay = () => (
   <Tooltip noDelay text="Supplemetary text" direction="se">
     <Button>Button</Button>
   </Tooltip>
+)
+
+export const OnActionMenuAnchor = () => (
+  <Box sx={{display: 'flex', padding: 5, gap: 2}}>
+    <ActionMenu>
+      <ActionMenu.Anchor>
+        <Tooltip text="Supplementary text to add here" direction="n">
+          <Button leadingIcon={GitBranchIcon} trailingAction={TriangleDownIcon}>
+            ActionMenu.Anchor w/ t
+          </Button>
+        </Tooltip>
+      </ActionMenu.Anchor>
+      <ActionMenu.Overlay width="medium">
+        <ActionList>
+          <ActionList.Item onSelect={() => alert('Main')}>
+            <ActionList.LeadingVisual>
+              <CheckIcon />
+            </ActionList.LeadingVisual>
+            main <ActionList.TrailingVisual>default</ActionList.TrailingVisual>
+          </ActionList.Item>
+          <ActionList.Item onSelect={() => alert('Branch 1')}>branch-1</ActionList.Item>
+          <ActionList.Item onSelect={() => alert('Branch 2')}>branch-2</ActionList.Item>
+        </ActionList>
+      </ActionMenu.Overlay>
+    </ActionMenu>
+    <ActionMenu>
+      <Tooltip text="Supplementary text to add here" direction="n">
+        <ActionMenu.Button leadingIcon={GitBranchIcon}>ActionMenu.Button w/ t</ActionMenu.Button>
+      </Tooltip>
+      <ActionMenu.Overlay width="medium">
+        <ActionList>
+          <ActionList.Item onSelect={() => alert('Main')}>
+            <ActionList.LeadingVisual>
+              <CheckIcon />
+            </ActionList.LeadingVisual>
+            main <ActionList.TrailingVisual>default</ActionList.TrailingVisual>
+          </ActionList.Item>
+          <ActionList.Item onSelect={() => alert('Branch 1')}>branch-1</ActionList.Item>
+          <ActionList.Item onSelect={() => alert('Branch 2')}>branch-2</ActionList.Item>
+        </ActionList>
+      </ActionMenu.Overlay>
+    </ActionMenu>
+    <ActionMenu>
+      <ActionMenu.Anchor>
+        <Button leadingIcon={GitBranchIcon} trailingAction={TriangleDownIcon}>
+          ActionMenu.Anchor
+        </Button>
+      </ActionMenu.Anchor>
+      <ActionMenu.Overlay width="medium">
+        <ActionList>
+          <ActionList.Item onSelect={() => alert('Main')}>
+            <ActionList.LeadingVisual>
+              <CheckIcon />
+            </ActionList.LeadingVisual>
+            main <ActionList.TrailingVisual>default</ActionList.TrailingVisual>
+          </ActionList.Item>
+          <ActionList.Item onSelect={() => alert('Branch 1')}>branch-1</ActionList.Item>
+          <ActionList.Item onSelect={() => alert('Branch 2')}>branch-2</ActionList.Item>
+        </ActionList>
+      </ActionMenu.Overlay>
+    </ActionMenu>
+    <ActionMenu>
+      <ActionMenu.Button leadingIcon={GitBranchIcon}>ActionMenu.Button</ActionMenu.Button>
+
+      <ActionMenu.Overlay width="medium">
+        <ActionList>
+          <ActionList.Item onSelect={() => alert('Main')}>
+            <ActionList.LeadingVisual>
+              <CheckIcon />
+            </ActionList.LeadingVisual>
+            main <ActionList.TrailingVisual>default</ActionList.TrailingVisual>
+          </ActionList.Item>
+          <ActionList.Item onSelect={() => alert('Branch 1')}>branch-1</ActionList.Item>
+          <ActionList.Item onSelect={() => alert('Branch 2')}>branch-2</ActionList.Item>
+        </ActionList>
+      </ActionMenu.Overlay>
+    </ActionMenu>
+  </Box>
 )

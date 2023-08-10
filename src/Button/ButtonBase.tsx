@@ -46,7 +46,6 @@ const ButtonBase = forwardRef(
        */
       // eslint-disable-next-line react-hooks/rules-of-hooks
       React.useEffect(() => {
-        console.log('ehy button', innerRef.current)
         if (
           innerRef.current &&
           !(innerRef.current instanceof HTMLButtonElement) &&

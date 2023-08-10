@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React from 'react'
 import {TriangleDownIcon} from '@primer/octicons-react'
 import {AnchoredOverlay, AnchoredOverlayProps} from '../AnchoredOverlay'
 import {OverlayProps} from '../Overlay'
@@ -53,9 +53,17 @@ const Menu: React.FC<React.PropsWithChildren<ActionMenuProps>> = ({
   // we strip out Anchor from children and pass it to AnchoredOverlay to render
   // with additional props for accessibility
   const contents = React.Children.map(children, child => {
+    // TODO: clean up this part of the implementation
+    if (child.type === Tooltip && child.props.children.type === MenuButton) {
+      renderAnchor = anchorProps => {
+        const triggerButton = React.cloneElement(child.props.children, anchorProps)
+        const tooltip = React.cloneElement(child, {children: triggerButton})
+        return tooltip
+      }
+      return null
+    }
     if (child.type === MenuButton || child.type === Anchor) {
       renderAnchor = anchorProps => {
-        // TODO: clean up this part
         const isTooltip = child.props.children.type === Tooltip
         const tooltipTrigger = isTooltip ? child.props.children.props.children : null
         let el = null
@@ -83,7 +91,6 @@ const Menu: React.FC<React.PropsWithChildren<ActionMenuProps>> = ({
 
 export type ActionMenuAnchorProps = {children: React.ReactElement}
 const Anchor = React.forwardRef<HTMLElement, ActionMenuAnchorProps>(({children, ...anchorProps}, anchorRef) => {
-  console.log('anchor ref in the anchor component', anchorRef)
   return React.cloneElement(children, {...anchorProps, ref: anchorRef})
 })
 
