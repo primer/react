@@ -18,6 +18,20 @@ exports[`PageLayout renders condensed layout 1`] = `
   padding: 0;
 }
 
+.c5 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex: 1 1 100%;
+  -ms-flex: 1 1 100%;
+  flex: 1 1 100%;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  max-width: 100%;
+}
+
 .c6 {
   display: -webkit-box;
   display: -webkit-flex;
@@ -26,6 +40,9 @@ exports[`PageLayout renders condensed layout 1`] = `
   -webkit-flex-direction: column;
   -ms-flex-direction: column;
   flex-direction: column;
+  -webkit-order: 2;
+  -ms-flex-order: 2;
+  order: 2;
   -webkit-flex-basis: 0;
   -ms-flex-preferred-size: 0;
   flex-basis: 0;
@@ -73,20 +90,6 @@ exports[`PageLayout renders condensed layout 1`] = `
   margin-right: -16px;
   display: none;
   margin-top: 16px;
-}
-
-.c5 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex: 1 1 100%;
-  -ms-flex: 1 1 100%;
-  flex: 1 1 100%;
-  -webkit-flex-wrap: wrap;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
-  max-width: 100%;
 }
 
 .c8 {
@@ -149,19 +152,6 @@ exports[`PageLayout renders condensed layout 1`] = `
   .c4 {
     margin-left: 0 !important;
     margin-right: 0 !important;
-  }
-}
-
-@media screen and (max-width:1012px) {
-  .c5 {
-    row-gap: 16px;
-  }
-}
-
-@media screen and (min-width:768px) {
-  .c5 {
-    -webkit-column-gap: 16px;
-    column-gap: 16px;
   }
 }
 
@@ -311,6 +301,9 @@ exports[`PageLayout renders default layout 1`] = `
   -webkit-flex-direction: column;
   -ms-flex-direction: column;
   flex-direction: column;
+  -webkit-order: 2;
+  -ms-flex-order: 2;
+  order: 2;
   -webkit-flex-basis: 0;
   -ms-flex-preferred-size: 0;
   flex-basis: 0;
@@ -405,19 +398,6 @@ exports[`PageLayout renders default layout 1`] = `
     margin-left: -24px;
     margin-right: -24px;
     margin-top: 24px;
-  }
-}
-
-@media screen and (max-width:1012px) {
-  .c5 {
-    row-gap: 16px;
-  }
-}
-
-@media screen and (min-width:768px) {
-  .c5 {
-    -webkit-column-gap: 16px;
-    column-gap: 16px;
   }
 }
 
@@ -613,6 +593,9 @@ exports[`PageLayout renders pane in different position when narrow 1`] = `
   -webkit-flex-direction: column;
   -ms-flex-direction: column;
   flex-direction: column;
+  -webkit-order: 2;
+  -ms-flex-order: 2;
+  order: 2;
   -webkit-flex-basis: 0;
   -ms-flex-preferred-size: 0;
   flex-basis: 0;
@@ -707,19 +690,6 @@ exports[`PageLayout renders pane in different position when narrow 1`] = `
     margin-left: -24px;
     margin-right: -24px;
     margin-top: 24px;
-  }
-}
-
-@media screen and (max-width:1012px) {
-  .c5 {
-    row-gap: 16px;
-  }
-}
-
-@media screen and (min-width:768px) {
-  .c5 {
-    -webkit-column-gap: 16px;
-    column-gap: 16px;
   }
 }
 
@@ -907,7 +877,7 @@ exports[`PageLayout renders with dividers 1`] = `
   max-width: 100%;
 }
 
-.c9 {
+.c6 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -915,6 +885,9 @@ exports[`PageLayout renders with dividers 1`] = `
   -webkit-flex-direction: column;
   -ms-flex-direction: column;
   flex-direction: column;
+  -webkit-order: 2;
+  -ms-flex-order: 2;
+  order: 2;
   -webkit-flex-basis: 0;
   -ms-flex-preferred-size: 0;
   flex-basis: 0;
@@ -928,7 +901,7 @@ exports[`PageLayout renders with dividers 1`] = `
   min-width: 1px;
 }
 
-.c10 {
+.c7 {
   width: 100%;
   max-width: 100%;
   margin-left: auto;
@@ -940,7 +913,7 @@ exports[`PageLayout renders with dividers 1`] = `
   padding: 0;
 }
 
-.c6 {
+.c8 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -955,14 +928,14 @@ exports[`PageLayout renders with dividers 1`] = `
   margin-top: 16px;
 }
 
-.c7 {
+.c9 {
   height: 100%;
   position: relative;
   display: none;
   margin-left: 16px;
 }
 
-.c8 {
+.c10 {
   --pane-min-width: 256px;
   --pane-max-width-diff: 511px;
   --pane-max-width: calc(100vw - var(--pane-max-width-diff));
@@ -1012,21 +985,8 @@ exports[`PageLayout renders with dividers 1`] = `
   }
 }
 
-@media screen and (max-width:1012px) {
-  .c5 {
-    row-gap: 16px;
-  }
-}
-
 @media screen and (min-width:768px) {
-  .c5 {
-    -webkit-column-gap: 16px;
-    column-gap: 16px;
-  }
-}
-
-@media screen and (min-width:768px) {
-  .c6 {
+  .c8 {
     width: auto;
     margin-top: 0 !important;
     margin-bottom: 0 !important;
@@ -1037,33 +997,33 @@ exports[`PageLayout renders with dividers 1`] = `
 }
 
 @media screen and (min-width:1012px) {
-  .c6 {
+  .c8 {
     margin-bottom: 24px;
     margin-top: 24px;
   }
 }
 
 @media screen and (min-width:1012px) {
-  .c7 {
+  .c9 {
     margin-left: 24px;
   }
 }
 
 @media screen and (min-width:768px) {
-  .c8 {
+  .c10 {
     width: 256px;
     overflow: auto;
   }
 }
 
 @media screen and (min-width:1012px) {
-  .c8 {
+  .c10 {
     width: 296px;
   }
 }
 
 @media screen and (min-width:1280px) {
-  .c8 {
+  .c10 {
     --pane-max-width-diff: 959px;
   }
 }
@@ -1112,30 +1072,14 @@ exports[`PageLayout renders with dividers 1`] = `
       <div
         class="c5"
       >
-        <div
-          class="c6"
-        >
-          <div
-            class="c4"
-          />
-          <div
-            class="c7"
-          />
-          <div
-            class="c8"
-            style="--pane-width: 296px;"
-          >
-            Pane
-          </div>
-        </div>
         <main
-          class="c9"
+          class="c6"
         >
           <div
             class=""
           />
           <div
-            class="c10"
+            class="c7"
           >
             Content
           </div>
@@ -1143,6 +1087,22 @@ exports[`PageLayout renders with dividers 1`] = `
             class=""
           />
         </main>
+        <div
+          class="c8"
+        >
+          <div
+            class="c4"
+          />
+          <div
+            class="c9"
+          />
+          <div
+            class="c10"
+            style="--pane-width: 296px;"
+          >
+            Pane
+          </div>
+        </div>
       </div>
       <footer
         class="c11"
