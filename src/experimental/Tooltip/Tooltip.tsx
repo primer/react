@@ -1,4 +1,4 @@
-import React, {Children, useEffect, useRef, useState, forwardRef} from 'react'
+import React, {Children, useEffect, useRef, useState} from 'react'
 import Box from '../../Box'
 import sx, {SxProp} from '../../sx'
 import {useId, useProvidedRefOrCreate} from '../../hooks'
@@ -167,9 +167,6 @@ export type TooltipProps = React.PropsWithChildren<
     text: string
     noDelay?: boolean
     type?: 'label' | 'description'
-    // children: React.ReactElement & {
-    //   ref: React.RefObject<HTMLElement>
-    // }
   } & SxProp &
     ComponentProps<typeof StyledTooltip>
 >
@@ -227,9 +224,9 @@ const isInteractive = (element: HTMLElement) => {
 export const TooltipContext = React.createContext<{tooltipId?: string}>({})
 export const Tooltip = ({direction = 's', text, type = 'description', noDelay, children, ...rest}: TooltipProps) => {
   const tooltipId = useId()
-  const child = Children.only(children)
-  // @ts-ignore will figure out how to fix this later
-  const childRef = child && child.ref
+  // @ts-ignore fix later
+  const child: React.ReactNode & {ref?: React.RefObject<HTMLElement>} = Children.only(children)
+  const childRef = child.ref
   const triggerRef = useProvidedRefOrCreate(childRef)
   const tooltipElRef = useRef<HTMLDivElement>(null)
 
