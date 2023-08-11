@@ -18,7 +18,7 @@ import FormControlCaption from './_FormControlCaption'
 import FormControlLabel from './_FormControlLabel'
 import FormControlLeadingVisual from './_FormControlLeadingVisual'
 import FormControlValidation from './_FormControlValidation'
-import {isFormControlSupportedChild, forwardsProps} from './supportedChildComponent'
+import {isValidAutoWirableElement, autoWirable} from './auto-wirable'
 
 export type FormControlProps = {
   children?: React.ReactNode
@@ -72,7 +72,7 @@ const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
     const validationMessageId = slots.validation ? `${id}-validationMessage` : undefined
     const captionId = slots.caption ? `${id}-caption` : undefined
     const validationStatus = slots.validation?.props.variant
-    const InputComponent = childrenWithoutSlots.find(isFormControlSupportedChild)
+    const InputComponent = childrenWithoutSlots.find(isValidAutoWirableElement)
     const isChoiceInput =
       React.isValidElement(InputComponent) && (InputComponent.type === Checkbox || InputComponent.type === Radio)
 
@@ -222,5 +222,5 @@ export default Object.assign(FormControl, {
   Label: FormControlLabel,
   LeadingVisual: FormControlLeadingVisual,
   Validation: FormControlValidation,
-  forwardsProps,
+  autoWirable,
 })
