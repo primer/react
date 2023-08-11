@@ -1,4 +1,4 @@
-import {FC, isValidElement} from 'react'
+import {FC, ReactElement, isValidElement} from 'react'
 import {FormValidationStatus} from '../utils/types/FormValidationStatus'
 
 /**
@@ -20,14 +20,11 @@ export interface FormControlForwardedProps {
   validationStatus?: FormValidationStatus
 }
 
-type AutoWirableComponent = React.FC<FormControlForwardedProps>
+type AutoWirableComponent = FC<FormControlForwardedProps> & {
+  [supportsAutoWiring]: unknown
+}
 
-type AutoWirableElement = React.ReactElement<
-  FormControlForwardedProps,
-  AutoWirableComponent & {
-    [supportsAutoWiring]: unknown
-  }
->
+type AutoWirableElement = ReactElement<FormControlForwardedProps, AutoWirableComponent>
 
 /**
  * Mark a component to indicate that it supports `FormControl` autowiring by forwarding the props in
@@ -37,7 +34,7 @@ type AutoWirableElement = React.ReactElement<
  * @tparam C Inferred grab bag of 'other stuff' present on the component besides the function signature. This allows
  * easy use with `forwardRef` and other HOCs that add additional properties to the component.
  */
-
+// use explicit return type to hide the `supportsAutoWiring` symbol from the public API
 export function autoWirable<P extends FormControlForwardedProps, C>(component: FC<P> & C): FC<P> & C {
   return Object.assign(component, {[supportsAutoWiring]: true})
 }
