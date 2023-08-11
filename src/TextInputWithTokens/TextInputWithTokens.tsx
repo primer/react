@@ -14,6 +14,7 @@ import {TokenSizeKeys} from '../Token/TokenBase'
 import TextInputWrapper, {textInputHorizPadding, TextInputSizes} from '../internal/components/TextInputWrapper'
 import UnstyledTextInput from '../internal/components/UnstyledTextInput'
 import TextInputInnerVisualSlot from '../internal/components/TextInputInnerVisualSlot'
+import FormControl from '../FormControl/FormControl'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type AnyReactComponent = React.ComponentType<React.PropsWithChildren<any>>
@@ -369,7 +370,7 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
   )
 }
 
-const TextInputWithTokens = React.forwardRef(TextInputWithTokensInnerComponent)
+const TextInputWithTokens = FormControl.autoWirable(React.forwardRef(TextInputWithTokensInnerComponent))
 
 TextInputWithTokens.displayName = 'TextInputWithTokens'
 

@@ -1,10 +1,10 @@
 import React, {useCallback, useReducer, useRef} from 'react'
-import {ComponentProps} from '../utils/types'
 import {AutocompleteContext} from './AutocompleteContext'
 import AutocompleteInput from './AutocompleteInput'
 import AutocompleteMenu from './AutocompleteMenu'
 import AutocompleteOverlay from './AutocompleteOverlay'
 import {useId} from '../hooks/useId'
+import FormControl from '../FormControl/FormControl'
 
 type Action =
   | {type: 'showMenu' | 'isMenuDirectlyActivated'; payload: boolean}
@@ -45,7 +45,10 @@ const reducer = (state: State, action: Action) => {
   }
 }
 
-const Autocomplete: React.FC<React.PropsWithChildren<{id?: string}>> = ({children, id: idProp}) => {
+type AutocompleteProps = React.PropsWithChildren<{id?: string}>
+
+// FIXME: Does not forward all of the required FormControl props
+const Autocomplete = FormControl.autoWirable(({children, id: idProp}: AutocompleteProps) => {
   const activeDescendantRef = useRef<HTMLElement>(null)
   const scrollContainerRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
@@ -90,9 +93,8 @@ const Autocomplete: React.FC<React.PropsWithChildren<{id?: string}>> = ({childre
       {children}
     </AutocompleteContext.Provider>
   )
-}
+})
 
-export type AutocompleteProps = ComponentProps<typeof Autocomplete>
 export type {AutocompleteInputProps} from './AutocompleteInput'
 export type {AutocompleteMenuProps} from './AutocompleteMenu'
 export type {AutocompleteOverlayProps} from './AutocompleteOverlay'

@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import TextInputWrapper, {StyledWrapperProps} from './internal/components/TextInputWrapper'
+import FormControl from './FormControl/FormControl'
 
 export type SelectProps = Omit<
   Omit<React.ComponentPropsWithoutRef<'select'>, 'size'> & Omit<StyledWrapperProps, 'variant'>,
@@ -63,42 +64,47 @@ const ArrowIndicator = styled(ArrowIndicatorSVG)`
   transform: translateY(-50%);
 `
 
-const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
-  ({block, children, contrast, disabled, placeholder, size, required, validationStatus, ...rest}: SelectProps, ref) => (
-    <TextInputWrapper
-      sx={{
-        overflow: 'hidden',
-        position: 'relative',
-        '@media screen and (forced-colors: active)': {
-          svg: {
-            fill: disabled ? 'GrayText' : 'FieldText',
+const Select = FormControl.autoWirable(
+  React.forwardRef<HTMLSelectElement, SelectProps>(
+    (
+      {block, children, contrast, disabled, placeholder, size, required, validationStatus, ...rest}: SelectProps,
+      ref,
+    ) => (
+      <TextInputWrapper
+        sx={{
+          overflow: 'hidden',
+          position: 'relative',
+          '@media screen and (forced-colors: active)': {
+            svg: {
+              fill: disabled ? 'GrayText' : 'FieldText',
+            },
           },
-        },
-      }}
-      block={block}
-      contrast={contrast}
-      disabled={disabled}
-      size={size}
-      validationStatus={validationStatus}
-    >
-      <StyledSelect
-        ref={ref}
-        required={required}
+        }}
+        block={block}
+        contrast={contrast}
         disabled={disabled}
-        aria-invalid={validationStatus === 'error' ? 'true' : 'false'}
-        data-hasplaceholder={Boolean(placeholder)}
-        defaultValue={placeholder ?? undefined}
-        {...rest}
+        size={size}
+        validationStatus={validationStatus}
       >
-        {placeholder && (
-          <option value="" disabled={required} hidden={required}>
-            {placeholder}
-          </option>
-        )}
-        {children}
-      </StyledSelect>
-      <ArrowIndicator />
-    </TextInputWrapper>
+        <StyledSelect
+          ref={ref}
+          required={required}
+          disabled={disabled}
+          aria-invalid={validationStatus === 'error' ? 'true' : 'false'}
+          data-hasplaceholder={Boolean(placeholder)}
+          defaultValue={placeholder ?? undefined}
+          {...rest}
+        >
+          {placeholder && (
+            <option value="" disabled={required} hidden={required}>
+              {placeholder}
+            </option>
+          )}
+          {children}
+        </StyledSelect>
+        <ArrowIndicator />
+      </TextInputWrapper>
+    ),
   ),
 )
 

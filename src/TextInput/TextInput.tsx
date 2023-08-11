@@ -9,6 +9,7 @@ import {Merge} from '../utils/types'
 import TextInputWrapper, {StyledWrapperProps} from '../internal/components/TextInputWrapper'
 import TextInputAction from '../internal/components/TextInputInnerAction'
 import UnstyledTextInput from '../internal/components/UnstyledTextInput'
+import FormControl from '../FormControl/FormControl'
 
 export type TextInputNonPassthroughProps = {
   /** @deprecated Use `leadingVisual` or `trailingVisual` prop instead */
@@ -52,116 +53,118 @@ export type TextInputNonPassthroughProps = {
 export type TextInputProps = Merge<React.ComponentPropsWithoutRef<'input'>, TextInputNonPassthroughProps>
 
 // using forwardRef is important so that other components (ex. SelectMenu) can autofocus the input
-const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
-  (
-    {
-      icon: IconComponent,
-      leadingVisual: LeadingVisual,
-      trailingVisual: TrailingVisual,
-      trailingAction,
-      block,
-      className,
-      contrast,
-      disabled,
-      loading,
-      loaderPosition = 'auto',
-      monospace,
-      validationStatus,
-      sx: sxProp,
-      size: sizeProp,
-      onFocus,
-      onBlur,
-      // start deprecated props
-      width: widthProp,
-      minWidth: minWidthProp,
-      maxWidth: maxWidthProp,
-      variant: variantProp,
-      // end deprecated props
-      type = 'text',
-      ...inputProps
-    },
-    ref,
-  ) => {
-    const [isInputFocused, setIsInputFocused] = useState<boolean>(false)
-    const inputRef = useProvidedRefOrCreate(ref as React.RefObject<HTMLInputElement>)
-    // this class is necessary to style FilterSearch, plz no touchy!
-    const wrapperClasses = clsx(className, 'TextInput-wrapper')
-    const showLeadingLoadingIndicator =
-      loading && (loaderPosition === 'leading' || Boolean(LeadingVisual && loaderPosition !== 'trailing'))
-    const showTrailingLoadingIndicator =
-      loading && (loaderPosition === 'trailing' || Boolean(loaderPosition === 'auto' && !LeadingVisual))
-    const focusInput: MouseEventHandler = () => {
-      inputRef.current?.focus()
-    }
-    const handleInputFocus = useCallback(
-      (e: React.FocusEvent<HTMLInputElement>) => {
-        setIsInputFocused(true)
-        onFocus && onFocus(e)
+const TextInput = FormControl.autoWirable(
+  React.forwardRef<HTMLInputElement, TextInputProps>(
+    (
+      {
+        icon: IconComponent,
+        leadingVisual: LeadingVisual,
+        trailingVisual: TrailingVisual,
+        trailingAction,
+        block,
+        className,
+        contrast,
+        disabled,
+        loading,
+        loaderPosition = 'auto',
+        monospace,
+        validationStatus,
+        sx: sxProp,
+        size: sizeProp,
+        onFocus,
+        onBlur,
+        // start deprecated props
+        width: widthProp,
+        minWidth: minWidthProp,
+        maxWidth: maxWidthProp,
+        variant: variantProp,
+        // end deprecated props
+        type = 'text',
+        ...inputProps
       },
-      [onFocus],
-    )
-    const handleInputBlur = useCallback(
-      (e: React.FocusEvent<HTMLInputElement>) => {
-        setIsInputFocused(false)
-        onBlur && onBlur(e)
-      },
-      [onBlur],
-    )
+      ref,
+    ) => {
+      const [isInputFocused, setIsInputFocused] = useState<boolean>(false)
+      const inputRef = useProvidedRefOrCreate(ref as React.RefObject<HTMLInputElement>)
+      // this class is necessary to style FilterSearch, plz no touchy!
+      const wrapperClasses = clsx(className, 'TextInput-wrapper')
+      const showLeadingLoadingIndicator =
+        loading && (loaderPosition === 'leading' || Boolean(LeadingVisual && loaderPosition !== 'trailing'))
+      const showTrailingLoadingIndicator =
+        loading && (loaderPosition === 'trailing' || Boolean(loaderPosition === 'auto' && !LeadingVisual))
+      const focusInput: MouseEventHandler = () => {
+        inputRef.current?.focus()
+      }
+      const handleInputFocus = useCallback(
+        (e: React.FocusEvent<HTMLInputElement>) => {
+          setIsInputFocused(true)
+          onFocus && onFocus(e)
+        },
+        [onFocus],
+      )
+      const handleInputBlur = useCallback(
+        (e: React.FocusEvent<HTMLInputElement>) => {
+          setIsInputFocused(false)
+          onBlur && onBlur(e)
+        },
+        [onBlur],
+      )
 
-    return (
-      <TextInputWrapper
-        block={block}
-        className={wrapperClasses}
-        validationStatus={validationStatus}
-        contrast={contrast}
-        disabled={disabled}
-        monospace={monospace}
-        sx={sxProp}
-        size={sizeProp}
-        width={widthProp}
-        minWidth={minWidthProp}
-        maxWidth={maxWidthProp}
-        variant={variantProp}
-        hasLeadingVisual={Boolean(LeadingVisual || showLeadingLoadingIndicator)}
-        hasTrailingVisual={Boolean(TrailingVisual || showTrailingLoadingIndicator)}
-        hasTrailingAction={Boolean(trailingAction)}
-        isInputFocused={isInputFocused}
-        onClick={focusInput}
-        aria-busy={Boolean(loading)}
-      >
-        {IconComponent && <IconComponent className="TextInput-icon" />}
-        <TextInputInnerVisualSlot
-          visualPosition="leading"
-          showLoadingIndicator={showLeadingLoadingIndicator}
-          hasLoadingIndicator={typeof loading === 'boolean'}
-        >
-          {typeof LeadingVisual !== 'string' && isValidElementType(LeadingVisual) ? <LeadingVisual /> : LeadingVisual}
-        </TextInputInnerVisualSlot>
-        <UnstyledTextInput
-          ref={inputRef}
+      return (
+        <TextInputWrapper
+          block={block}
+          className={wrapperClasses}
+          validationStatus={validationStatus}
+          contrast={contrast}
           disabled={disabled}
-          onFocus={handleInputFocus}
-          onBlur={handleInputBlur}
-          type={type}
-          {...inputProps}
-          data-component="input"
-        />
-        <TextInputInnerVisualSlot
-          visualPosition="trailing"
-          showLoadingIndicator={showTrailingLoadingIndicator}
-          hasLoadingIndicator={typeof loading === 'boolean'}
+          monospace={monospace}
+          sx={sxProp}
+          size={sizeProp}
+          width={widthProp}
+          minWidth={minWidthProp}
+          maxWidth={maxWidthProp}
+          variant={variantProp}
+          hasLeadingVisual={Boolean(LeadingVisual || showLeadingLoadingIndicator)}
+          hasTrailingVisual={Boolean(TrailingVisual || showTrailingLoadingIndicator)}
+          hasTrailingAction={Boolean(trailingAction)}
+          isInputFocused={isInputFocused}
+          onClick={focusInput}
+          aria-busy={Boolean(loading)}
         >
-          {typeof TrailingVisual !== 'string' && isValidElementType(TrailingVisual) ? (
-            <TrailingVisual />
-          ) : (
-            TrailingVisual
-          )}
-        </TextInputInnerVisualSlot>
-        {trailingAction}
-      </TextInputWrapper>
-    )
-  },
-) as PolymorphicForwardRefComponent<'input', TextInputProps>
+          {IconComponent && <IconComponent className="TextInput-icon" />}
+          <TextInputInnerVisualSlot
+            visualPosition="leading"
+            showLoadingIndicator={showLeadingLoadingIndicator}
+            hasLoadingIndicator={typeof loading === 'boolean'}
+          >
+            {typeof LeadingVisual !== 'string' && isValidElementType(LeadingVisual) ? <LeadingVisual /> : LeadingVisual}
+          </TextInputInnerVisualSlot>
+          <UnstyledTextInput
+            ref={inputRef}
+            disabled={disabled}
+            onFocus={handleInputFocus}
+            onBlur={handleInputBlur}
+            type={type}
+            {...inputProps}
+            data-component="input"
+          />
+          <TextInputInnerVisualSlot
+            visualPosition="trailing"
+            showLoadingIndicator={showTrailingLoadingIndicator}
+            hasLoadingIndicator={typeof loading === 'boolean'}
+          >
+            {typeof TrailingVisual !== 'string' && isValidElementType(TrailingVisual) ? (
+              <TrailingVisual />
+            ) : (
+              TrailingVisual
+            )}
+          </TextInputInnerVisualSlot>
+          {trailingAction}
+        </TextInputWrapper>
+      )
+    },
+  ) as PolymorphicForwardRefComponent<'input', TextInputProps>,
+)
 
 TextInput.displayName = 'TextInput'
 
