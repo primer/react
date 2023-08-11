@@ -18,6 +18,7 @@ import FormControlCaption from './_FormControlCaption'
 import FormControlLabel from './_FormControlLabel'
 import FormControlLeadingVisual from './_FormControlLeadingVisual'
 import FormControlValidation from './_FormControlValidation'
+import {isFormControlSupportedChild, forwardsProps} from './supportedChildComponent'
 
 export type FormControlProps = {
   children?: React.ReactNode
@@ -71,27 +72,25 @@ const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
     const validationMessageId = slots.validation ? `${id}-validationMessage` : undefined
     const captionId = slots.caption ? `${id}-caption` : undefined
     const validationStatus = slots.validation?.props.variant
-    const InputComponent = childrenWithoutSlots.find(child =>
-      expectedInputComponents.some(inputComponent => React.isValidElement(child) && child.type === inputComponent),
-    )
-    const inputProps = React.isValidElement(InputComponent) && InputComponent.props
+    const InputComponent = childrenWithoutSlots.find(isFormControlSupportedChild)
     const isChoiceInput =
       React.isValidElement(InputComponent) && (InputComponent.type === Checkbox || InputComponent.type === Radio)
 
     if (InputComponent) {
-      if (inputProps?.id) {
+      const inputProps = InputComponent.props
+      if (inputProps.id) {
         // eslint-disable-next-line no-console
         console.warn(
           `instead of passing the 'id' prop directly to the input component, it should be passed to the parent component, <FormControl>`,
         )
       }
-      if (inputProps?.disabled) {
+      if (inputProps.disabled) {
         // eslint-disable-next-line no-console
         console.warn(
           `instead of passing the 'disabled' prop directly to the input component, it should be passed to the parent component, <FormControl>`,
         )
       }
-      if (inputProps?.required) {
+      if (inputProps.required) {
         // eslint-disable-next-line no-console
         console.warn(
           `instead of passing the 'required' prop directly to the input component, it should be passed to the parent component, <FormControl>`,
@@ -197,25 +196,16 @@ const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
             sx={{...(isLabelHidden ? {'> *:not(label) + *': {marginTop: 1}} : {'> * + *': {marginTop: 1}}), ...sx}}
           >
             {slots.label}
-            {React.isValidElement(InputComponent) &&
-              React.cloneElement(
-                InputComponent,
-                Object.assign(
-                  {
-                    id,
-                    required,
-                    disabled,
-                    validationStatus,
-                    ['aria-describedby']: [validationMessageId, captionId].filter(Boolean).join(' '),
-                  },
-                  InputComponent.props,
-                ),
-              )}
-            {childrenWithoutSlots.filter(
-              child =>
-                React.isValidElement(child) &&
-                !expectedInputComponents.some(inputComponent => child.type === inputComponent),
-            )}
+            {InputComponent &&
+              React.cloneElement(InputComponent, {
+                id,
+                required,
+                disabled,
+                validationStatus,
+                ['aria-describedby']: [validationMessageId, captionId].filter(Boolean).join(' '),
+                ...InputComponent.props,
+              })}
+            {childrenWithoutSlots.filter(child => child !== InputComponent)}
             {slots.validation ? (
               <ValidationAnimationContainer show>{slots.validation}</ValidationAnimationContainer>
             ) : null}
@@ -232,4 +222,5 @@ export default Object.assign(FormControl, {
   Label: FormControlLabel,
   LeadingVisual: FormControlLeadingVisual,
   Validation: FormControlValidation,
+  forwardsProps,
 })
