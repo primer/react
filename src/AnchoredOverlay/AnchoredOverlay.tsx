@@ -136,8 +136,6 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
     [open, onOpen, onClose],
   )
 
-  console.log({anchorRef})
-
   const {position} = useAnchoredPosition(
     {
       anchorElementRef: anchorRef,

@@ -164,7 +164,7 @@ type TooltipDirection = 'nw' | 'n' | 'ne' | 'e' | 'se' | 's' | 'sw' | 'w'
 export type TooltipProps = React.PropsWithChildren<
   {
     direction?: TooltipDirection
-    text: string
+    text?: string
     noDelay?: boolean
     type?: 'label' | 'description'
   } & SxProp &
