@@ -20,11 +20,11 @@ export interface FormControlForwardedProps {
   validationStatus?: FormValidationStatus
 }
 
-type FormControlAutoWirableFC<P = object> = FC<P & FormControlForwardedProps>
+type AutoWirableComponent = React.FC<FormControlForwardedProps>
 
-type FormControlAutoWirableElement = React.ReactElement<
+type AutoWirableElement = React.ReactElement<
   FormControlForwardedProps,
-  FormControlAutoWirableFC & {
+  AutoWirableComponent & {
     [supportsAutoWiring]: unknown
   }
 >
@@ -33,18 +33,15 @@ type FormControlAutoWirableElement = React.ReactElement<
  * Mark a component to indicate that it supports `FormControl` autowiring by forwarding the props in
  * `FormControlAutowireComponentProps` to an underlying form element or component. This is useful when
  * wrapping/extending Primer form controls to make them easier to use.
- * @tparam P Public props of the component. May or may not include the forwarded props - those are not required to be
- * public.
- * @tparam C The component type. Generic to work with `forwardRef`.
+ * @tparam P Component props.
+ * @tparam C Inferred grab bag of 'other stuff' present on the component besides the function signature. This allows
+ * easy use with `forwardRef` and other HOCs that add additional properties to the component.
  */
-export function autoWirable<P = object, C extends FormControlAutoWirableFC<P> = FormControlAutoWirableFC<P>>(
-  component: C,
-): C & FormControlAutoWirableFC<P> {
+
+export function autoWirable<P extends FormControlForwardedProps, C>(component: FC<P> & C): FC<P> & C {
   return Object.assign(component, {[supportsAutoWiring]: true})
 }
 
-export function isValidAutoWirableElement(
-  object: Parameters<typeof isValidElement>[0],
-): object is FormControlAutoWirableElement {
+export function isValidAutoWirableElement(object: Parameters<typeof isValidElement>[0]): object is AutoWirableElement {
   return isValidElement(object) && Object.getOwnPropertySymbols(object.type).includes(supportsAutoWiring)
 }

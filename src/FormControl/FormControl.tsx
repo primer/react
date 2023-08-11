@@ -1,24 +1,18 @@
 import React, {useContext} from 'react'
-import Autocomplete from '../Autocomplete'
 import Box from '../Box'
 import Checkbox from '../Checkbox'
 import Radio from '../Radio'
-import Select from '../Select'
-import TextInput from '../TextInput'
-import TextInputWithTokens from '../TextInputWithTokens'
-import Textarea from '../Textarea'
+import {get} from '../constants'
+import {useSlots} from '../hooks/useSlots'
 import {CheckboxOrRadioGroupContext} from '../internal/components/CheckboxOrRadioGroup'
 import ValidationAnimationContainer from '../internal/components/ValidationAnimationContainer'
-import {get} from '../constants'
-import InlineAutocomplete from '../drafts/InlineAutocomplete'
-import {useSlots} from '../hooks/useSlots'
 import {SxProp} from '../sx'
 import {useSSRSafeId} from '../utils/ssr'
 import FormControlCaption from './_FormControlCaption'
 import FormControlLabel from './_FormControlLabel'
 import FormControlLeadingVisual from './_FormControlLeadingVisual'
 import FormControlValidation from './_FormControlValidation'
-import {isValidAutoWirableElement, autoWirable} from './auto-wirable'
+import {autoWirable, isValidAutoWirableElement} from './auto-wirable'
 
 export type FormControlProps = {
   children?: React.ReactNode
@@ -56,16 +50,6 @@ const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
       leadingVisual: FormControlLeadingVisual,
       validation: FormControlValidation,
     })
-    const expectedInputComponents = [
-      Autocomplete,
-      Checkbox,
-      Radio,
-      Select,
-      TextInput,
-      TextInputWithTokens,
-      Textarea,
-      InlineAutocomplete,
-    ]
     const choiceGroupContext = useContext(CheckboxOrRadioGroupContext)
     const disabled = choiceGroupContext.disabled || disabledProp
     const id = useSSRSafeId(idProp)
@@ -73,8 +57,10 @@ const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
     const captionId = slots.caption ? `${id}-caption` : undefined
     const validationStatus = slots.validation?.props.variant
     const InputComponent = childrenWithoutSlots.find(isValidAutoWirableElement)
+
+    // we don't make the mark symbol public, so TS thinks it's impossible that the types could overlap
     const isChoiceInput =
-      React.isValidElement(InputComponent) && (InputComponent.type === Checkbox || InputComponent.type === Radio)
+      InputComponent && ((InputComponent.type as unknown) === Checkbox || (InputComponent.type as unknown) === Radio)
 
     if (InputComponent) {
       const inputProps = InputComponent.props
