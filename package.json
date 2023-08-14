@@ -258,7 +258,7 @@
     "unist-util-find": "1.0.2",
     "unist-util-find-before": "3.0.1",
     "unist-util-flat-filter": "2.0.0",
-    "webpack": "5.83.1",
+    "webpack": "5.88.2",
     "yaml": "2.2.2"
   },
   "peerDependencies": {
