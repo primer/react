@@ -12,7 +12,7 @@ import FormControlCaption from './_FormControlCaption'
 import FormControlLabel from './_FormControlLabel'
 import FormControlLeadingVisual from './_FormControlLeadingVisual'
 import FormControlValidation from './_FormControlValidation'
-import {autoWirable, isValidAutoWirableElement} from './auto-wirable'
+import {autowirable, isValidAutowirableElement} from './autowirable'
 
 export type FormControlProps = {
   children?: React.ReactNode
@@ -56,7 +56,7 @@ const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
     const validationMessageId = slots.validation ? `${id}-validationMessage` : undefined
     const captionId = slots.caption ? `${id}-caption` : undefined
     const validationStatus = slots.validation?.props.variant
-    const InputComponent = childrenWithoutSlots.find(isValidAutoWirableElement)
+    const InputComponent = childrenWithoutSlots.find(isValidAutowirableElement)
 
     // we don't make the mark symbol public, so TS thinks it's impossible that the types could overlap
     const isChoiceInput =
@@ -208,5 +208,5 @@ export default Object.assign(FormControl, {
   Label: FormControlLabel,
   LeadingVisual: FormControlLeadingVisual,
   Validation: FormControlValidation,
-  autoWirable,
+  autowirable,
 })

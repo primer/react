@@ -7,7 +7,7 @@ import getGlobalFocusStyles from '../internal/utils/getGlobalFocusStyles'
 import {get} from '../constants'
 import {sharedCheckboxAndRadioStyles} from '../internal/utils/sharedCheckboxAndRadioStyles'
 // direct import to avoid circular dependency
-import {autoWirable} from '../FormControl/auto-wirable'
+import {autowirable} from '../FormControl/autowirable'
 
 export type RadioProps = {
   /**
@@ -70,7 +70,7 @@ const StyledRadio = styled.input`
 /**
  * An accessible, native radio component for selecting one option from a list.
  */
-const Radio = autoWirable(
+const Radio = autowirable(
   React.forwardRef<HTMLInputElement, RadioProps>(
     (
       {checked, disabled, name: nameProp, onChange, sx: sxProp, required, validationStatus, value, ...rest}: RadioProps,

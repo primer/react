@@ -48,7 +48,7 @@ const reducer = (state: State, action: Action) => {
 type AutocompleteProps = React.PropsWithChildren<{id?: string}>
 
 // FIXME: Does not forward all of the required FormControl props
-const Autocomplete = FormControl.autoWirable(({children, id: idProp}: AutocompleteProps) => {
+const Autocomplete = FormControl.autowirable(({children, id: idProp}: AutocompleteProps) => {
   const activeDescendantRef = useRef<HTMLElement>(null)
   const scrollContainerRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)

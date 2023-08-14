@@ -1,2 +1,2 @@
 export {default} from './FormControl'
-export type {FormControlForwardedProps} from './auto-wirable'
+export type {FormControlForwardedProps} from './autowirable'

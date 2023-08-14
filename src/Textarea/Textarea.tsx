@@ -62,7 +62,7 @@ const StyledTextarea = styled.textarea<TextareaProps>`
  * An accessible, native textarea component that supports validation states.
  * This component accepts all native HTML <textarea> attributes as props.
  */
-const Textarea = FormControl.autoWirable(
+const Textarea = FormControl.autowirable(
   React.forwardRef<HTMLTextAreaElement, TextareaProps>(
     (
       {

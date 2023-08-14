@@ -53,7 +53,7 @@ export type TextInputNonPassthroughProps = {
 export type TextInputProps = Merge<React.ComponentPropsWithoutRef<'input'>, TextInputNonPassthroughProps>
 
 // using forwardRef is important so that other components (ex. SelectMenu) can autofocus the input
-const TextInput = FormControl.autoWirable(
+const TextInput = FormControl.autowirable(
   React.forwardRef<HTMLInputElement, TextInputProps>(
     (
       {

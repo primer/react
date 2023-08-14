@@ -9,7 +9,7 @@ import getGlobalFocusStyles from '../internal/utils/getGlobalFocusStyles'
 import {get} from '../constants'
 import {sharedCheckboxAndRadioStyles} from '../internal/utils/sharedCheckboxAndRadioStyles'
 // direct import to avoid circular dependency
-import {autoWirable} from '../FormControl/auto-wirable'
+import {autowirable} from '../FormControl/autowirable'
 
 export type CheckboxProps = {
   /**
@@ -133,7 +133,7 @@ const StyledCheckbox = styled.input`
 /**
  * An accessible, native checkbox component
  */
-const Checkbox = autoWirable(
+const Checkbox = autowirable(
   React.forwardRef<HTMLInputElement, CheckboxProps>(
     ({checked, indeterminate, disabled, onChange, sx: sxProp, required, validationStatus, value, ...rest}, ref) => {
       const checkboxRef = useProvidedRefOrCreate(ref as React.RefObject<HTMLInputElement>)

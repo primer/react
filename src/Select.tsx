@@ -64,7 +64,7 @@ const ArrowIndicator = styled(ArrowIndicatorSVG)`
   transform: translateY(-50%);
 `
 
-const Select = FormControl.autoWirable(
+const Select = FormControl.autowirable(
   React.forwardRef<HTMLSelectElement, SelectProps>(
     (
       {block, children, contrast, disabled, placeholder, size, required, validationStatus, ...rest}: SelectProps,

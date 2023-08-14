@@ -370,7 +370,7 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
   )
 }
 
-const TextInputWithTokens = FormControl.autoWirable(React.forwardRef(TextInputWithTokensInnerComponent))
+const TextInputWithTokens = FormControl.autowirable(React.forwardRef(TextInputWithTokensInnerComponent))
 
 TextInputWithTokens.displayName = 'TextInputWithTokens'
 

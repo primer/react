@@ -72,7 +72,7 @@ const noop = () => {
 /**
  * Shows suggestions to complete the current word/phrase the user is actively typing.
  */
-const InlineAutocomplete = FormControl.autoWirable(
+const InlineAutocomplete = FormControl.autowirable(
   ({
     triggers,
     suggestions,
