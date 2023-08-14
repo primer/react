@@ -49,7 +49,10 @@ const AvatarStackWrapper = styled.span<StyledAvatarStackWrapperProps>`
     box-shadow: 0 0 0 var(--avatar-border-width) ${get('colors.canvas.default')};
     position: relative;
     overflow: hidden;
-    transition: margin 0.2s ease-in-out, opacity 0.2s ease-in-out, visibility 0.2s ease-in-out,
+    transition:
+      margin 0.2s ease-in-out,
+      opacity 0.2s ease-in-out,
+      visibility 0.2s ease-in-out,
       box-shadow 0.1s ease-in-out;
 
     &:first-child {

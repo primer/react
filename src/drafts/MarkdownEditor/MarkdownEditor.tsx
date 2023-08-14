@@ -227,7 +227,7 @@ const MarkdownEditor = forwardRef<MarkdownEditorHandle, MarkdownEditorProps>(
         ({
           focus: opts => inputRef.current?.focus(opts),
           scrollIntoView: opts => containerRef.current?.scrollIntoView(opts),
-        } as MarkdownEditorHandle),
+        }) as MarkdownEditorHandle,
     )
 
     const inputHeight = useRef(0)
