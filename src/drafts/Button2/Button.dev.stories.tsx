@@ -41,10 +41,10 @@ export const TestSxProp = () => {
       <Button
         size="medium"
         sx={{
-          color: 'deeppink',
+          color: 'firebrick',
         }}
       >
-        Medium Pink
+        Medium Red
       </Button>
       <Button
         size="small"
@@ -53,7 +53,7 @@ export const TestSxProp = () => {
             color: 'deepskyblue',
           },
           [`@media screen and (max-width: 768px)`]: {
-            color: 'salmon',
+            color: 'maroon',
           },
           '@media screen and (min-width: 768px)': {
             ':focus': {
@@ -61,14 +61,14 @@ export const TestSxProp = () => {
             },
           },
           '@media (min-width: 1440)': {
-            color: 'deeppink',
+            color: 'firebrick',
           },
         }}
       >
-        Pink
+        Red
       </Button>
-      <Button leadingIcon={SearchIcon} variant="invisible" sx={{color: 'deeppink'}}>
-        Pink
+      <Button leadingIcon={SearchIcon} variant="invisible" sx={{color: 'firebrick'}}>
+        Red
       </Button>
       <Button
         size="small"

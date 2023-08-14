@@ -50,16 +50,19 @@ const space = ['0', '4px', '8px', '16px', '24px', '32px', '40px', '48px', '64px'
 type Scheme = keyof typeof primitives.colors
 type SchemeValue = Record<'colors' | 'shadows', Partial<typeof primitives.colors.light>>
 
-const colorSchemes: Record<Scheme, SchemeValue> = Object.entries(primitives.colors).reduce((acc, [name, variables]) => {
-  const {colors, shadows} = partitionColors(variables)
-  return {
-    ...acc,
-    [name]: {
-      colors: omitScale(colors),
-      shadows: omitScale(shadows),
-    },
-  }
-}, {} as Record<Scheme, SchemeValue>)
+const colorSchemes: Record<Scheme, SchemeValue> = Object.entries(primitives.colors).reduce(
+  (acc, [name, variables]) => {
+    const {colors, shadows} = partitionColors(variables)
+    return {
+      ...acc,
+      [name]: {
+        colors: omitScale(colors),
+        shadows: omitScale(shadows),
+      },
+    }
+  },
+  {} as Record<Scheme, SchemeValue>,
+)
 
 const theme = {
   animation,

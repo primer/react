@@ -298,9 +298,6 @@ export const getButtonStyles = (theme?: Theme) => {
       gridArea: 'text',
       lineHeight: 'calc(20/14)',
       whiteSpace: 'nowrap',
-      // remove flex in next major release
-      display: 'flex',
-      alignItems: 'center',
     },
     '[data-component="trailingVisual"]': {
       gridArea: 'trailingVisual',
