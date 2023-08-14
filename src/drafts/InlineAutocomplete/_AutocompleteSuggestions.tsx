@@ -1,24 +1,25 @@
-import React, {useCallback, useState} from 'react'
+import React, {useCallback, useRef, useState} from 'react'
 import Spinner from '../../Spinner'
 import {ActionList, ActionListItemProps} from '../../ActionList'
 import Box from '../../Box'
 import {ComboboxCommitEvent, useCombobox} from '../hooks/useCombobox'
 import Overlay from '../../Overlay'
 
-import {Suggestion, Suggestions, TextInputElement} from './types'
+import {Suggestion, Suggestions, SuggestionsPlacement, TextInputElement} from './types'
 import {getSuggestionKey, getSuggestionValue} from './utils'
+import {CharacterCoordinates} from '../utils/character-coordinates'
+import useIsomorphicLayoutEffect from '../../utils/useIsomorphicLayoutEffect'
 
 type AutoCompleteSuggestionsProps = {
   suggestions: Suggestions | null
   portalName?: string
-  // make top/left primitives instead of a Coordinates object to avoid extra re-renders
-  top: number
-  left: number
+  triggerCharCoords: CharacterCoordinates
   onClose: () => void
   onCommit: (suggestion: string) => void
   inputRef: React.RefObject<TextInputElement>
   visible: boolean
   tabInsertsSuggestions: boolean
+  defaultPlacement: SuggestionsPlacement
 }
 
 const LoadingIndicator = () => (
@@ -54,14 +55,16 @@ const SuggestionListItem = ({suggestion}: {suggestion: Suggestion}) => {
 const AutocompleteSuggestions = ({
   suggestions,
   portalName,
-  top,
-  left,
+  triggerCharCoords,
   onClose,
   onCommit: externalOnCommit,
   inputRef,
   visible,
   tabInsertsSuggestions,
+  defaultPlacement,
 }: AutoCompleteSuggestionsProps) => {
+  const overlayRef = useRef<HTMLDivElement | null>(null)
+
   // It seems wierd to use state instead of a ref here, but because the list is inside an
   // AnchoredOverlay it is not always mounted - so we want to reinitialize the Combobox when it mounts
   const [list, setList] = useState<HTMLUListElement | null>(null)
@@ -85,6 +88,32 @@ const AutocompleteSuggestions = ({
     defaultFirstOption: true,
   })
 
+  const [top, setTop] = useState(0)
+  useIsomorphicLayoutEffect(
+    function recalculateTop() {
+      const overlayHeight = overlayRef.current?.offsetHeight ?? 0
+
+      const belowOffset = triggerCharCoords.top + triggerCharCoords.height
+      const wouldOverflowBelow = belowOffset + overlayHeight > window.innerHeight
+
+      const aboveOffset = triggerCharCoords.top - overlayHeight
+      const wouldOverflowAbove = aboveOffset < 0
+
+      // Only override the default if it would overflow in the default direction and it would not overflow in the override direction
+      const result = {
+        below: wouldOverflowBelow && !wouldOverflowAbove ? aboveOffset : belowOffset,
+        above: wouldOverflowAbove && !wouldOverflowBelow ? belowOffset : aboveOffset,
+      }[defaultPlacement]
+
+      // Sometimes the value can be NaN if layout is not available (ie, SSR or JSDOM)
+      const resultNotNaN = Number.isNaN(result) ? 0 : result
+
+      setTop(resultNotNaN)
+    },
+    // this is a cheap effect and we want it to run when pretty much anything that could affect position changes
+    [triggerCharCoords.top, triggerCharCoords.height, suggestions, visible, defaultPlacement],
+  )
+
   // Conditional rendering appears wrong at first - it means that we are reconstructing the
   // Combobox instance every time the suggestions appear. But this is what we want - otherwise
   // the textarea would always have the `combobox` role, which is incorrect (a textarea should
@@ -98,7 +127,9 @@ const AutocompleteSuggestions = ({
       preventFocusOnOpen
       portalContainerName={portalName}
       sx={{position: 'fixed'}}
-      {...{top, left}}
+      top={top}
+      left={triggerCharCoords.left}
+      ref={overlayRef}
     >
       <ActionList ref={setList}>
         {suggestions === 'loading' ? (

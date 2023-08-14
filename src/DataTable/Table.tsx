@@ -238,6 +238,7 @@ const StyledTable = styled.table<React.ComponentPropsWithoutRef<'table'>>`
       display: grid;
       grid-template-columns: subgrid;
       grid-column: -1 /1;
+    }
   }
 `
 

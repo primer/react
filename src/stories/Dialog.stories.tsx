@@ -1,7 +1,7 @@
 import React, {useState, useRef, useCallback} from 'react'
 import {Meta} from '@storybook/react'
 
-import {BaseStyles, ThemeProvider, Box} from '..'
+import {BaseStyles, ThemeProvider, Box, TextInput} from '..'
 import {Button} from '../Button'
 import {Dialog, DialogProps, DialogWidth, DialogHeight} from '../Dialog/Dialog'
 
@@ -235,6 +235,57 @@ export const StressTest = ({width, height, subtitle}: DialogStoryProps) => {
             <Dialog title="Inner dialog!" onClose={onSecondDialogClose} width="small">
               Hello world
             </Dialog>
+          )}
+        </Dialog>
+      )}
+    </>
+  )
+}
+
+// repro for https://github.com/github/primer/issues/2480
+export const ReproMultistepDialogWithConditionalFooter = ({width, height}: DialogStoryProps) => {
+  const [isOpen, setIsOpen] = useState(false)
+  const onDialogClose = useCallback(() => setIsOpen(false), [])
+  const [step, setStep] = React.useState(1)
+
+  const renderFooterConditionally = () => {
+    if (step === 1) return null
+
+    return (
+      <Dialog.Footer>
+        <Button variant="primary">Submit</Button>
+      </Dialog.Footer>
+    )
+  }
+
+  return (
+    <>
+      <Button onClick={() => setIsOpen(!isOpen)}>Show dialog</Button>
+      {isOpen && (
+        <Dialog
+          title={`Step ${step}`}
+          width={width}
+          height={height}
+          renderFooter={renderFooterConditionally}
+          onClose={onDialogClose}
+          footerButtons={[{buttonType: 'primary', content: 'Proceed'}]}
+        >
+          {step === 1 ? (
+            <Box sx={{display: 'flex', flexDirection: 'column', gap: 4}}>
+              <Box sx={{display: 'flex', justifyContent: 'space-between'}}>
+                Bug Report <Button onClick={() => setStep(2)}>Choose</Button>
+              </Box>
+              <Box sx={{display: 'flex', justifyContent: 'space-between'}}>
+                Feature request <Button onClick={() => setStep(2)}>Choose</Button>
+              </Box>
+            </Box>
+          ) : (
+            <p>
+              <Box sx={{display: 'flex', flexDirection: 'column', gap: 1}}>
+                <label htmlFor="description">Description</label>
+                <TextInput id="description" placeholder="Write the description here" />
+              </Box>
+            </p>
           )}
         </Dialog>
       )}

@@ -60,8 +60,11 @@ export function useSlots<T extends SlotConfig>(
 
 /** Map the values of an object */
 function mapValues<T extends Record<string, unknown>, V>(obj: T, fn: (value: T[keyof T]) => V) {
-  return Object.keys(obj).reduce((result, key: keyof T) => {
-    result[key] = fn(obj[key])
-    return result
-  }, {} as Record<keyof T, V>)
+  return Object.keys(obj).reduce(
+    (result, key: keyof T) => {
+      result[key] = fn(obj[key])
+      return result
+    },
+    {} as Record<keyof T, V>,
+  )
 }
