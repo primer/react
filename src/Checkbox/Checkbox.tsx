@@ -8,6 +8,7 @@ import {CheckboxGroupContext} from '../CheckboxGroup/CheckboxGroupContext'
 import getGlobalFocusStyles from '../internal/utils/getGlobalFocusStyles'
 import {get} from '../constants'
 import {sharedCheckboxAndRadioStyles} from '../internal/utils/sharedCheckboxAndRadioStyles'
+import {useFormControlForwardedProps} from '../FormControl/_FormControlContext'
 
 export type CheckboxProps = {
   /**
@@ -131,43 +132,50 @@ const StyledCheckbox = styled.input`
 /**
  * An accessible, native checkbox component
  */
-const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
-  (
-    {checked, indeterminate, disabled, onChange, sx: sxProp, required, validationStatus, value, ...rest}: CheckboxProps,
-    ref,
-  ): ReactElement => {
-    const checkboxRef = useProvidedRefOrCreate(ref as React.RefObject<HTMLInputElement>)
-    const checkboxGroupContext = useContext(CheckboxGroupContext)
-    const handleOnChange: ChangeEventHandler<HTMLInputElement> = e => {
-      checkboxGroupContext.onChange && checkboxGroupContext.onChange(e)
-      onChange && onChange(e)
+const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>((props, ref): ReactElement => {
+  const {
+    checked,
+    indeterminate,
+    disabled,
+    onChange,
+    sx: sxProp,
+    required,
+    validationStatus,
+    value,
+    ...rest
+  } = useFormControlForwardedProps(props)
+
+  const checkboxRef = useProvidedRefOrCreate(ref as React.RefObject<HTMLInputElement>)
+  const checkboxGroupContext = useContext(CheckboxGroupContext)
+  const handleOnChange: ChangeEventHandler<HTMLInputElement> = e => {
+    checkboxGroupContext.onChange && checkboxGroupContext.onChange(e)
+    onChange && onChange(e)
+  }
+
+  useLayoutEffect(() => {
+    if (checkboxRef.current) {
+      checkboxRef.current.indeterminate = indeterminate || false
     }
+  }, [indeterminate, checked, checkboxRef])
 
-    useLayoutEffect(() => {
-      if (checkboxRef.current) {
-        checkboxRef.current.indeterminate = indeterminate || false
-      }
-    }, [indeterminate, checked, checkboxRef])
-
-    return (
-      <StyledCheckbox
-        type="checkbox"
-        disabled={disabled}
-        ref={ref || checkboxRef}
-        checked={indeterminate ? false : checked}
-        aria-checked={indeterminate ? 'mixed' : checked ? 'true' : 'false'}
-        sx={sxProp}
-        required={required}
-        aria-required={required ? 'true' : 'false'}
-        aria-invalid={validationStatus === 'error' ? 'true' : 'false'}
-        onChange={handleOnChange}
-        value={value}
-        name={value}
-        {...rest}
-      />
-    )
-  },
-)
+  return (
+    <StyledCheckbox
+      type="checkbox"
+      disabled={disabled}
+      ref={ref || checkboxRef}
+      checked={indeterminate ? false : checked}
+      aria-checked={indeterminate ? 'mixed' : checked ? 'true' : 'false'}
+      sx={sxProp}
+      required={required}
+      aria-required={required ? 'true' : 'false'}
+      aria-invalid={validationStatus === 'error' ? 'true' : 'false'}
+      onChange={handleOnChange}
+      value={value}
+      name={value}
+      {...rest}
+    />
+  )
+})
 
 Checkbox.displayName = 'Checkbox'
 

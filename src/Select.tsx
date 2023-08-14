@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import TextInputWrapper, {StyledWrapperProps} from './internal/components/TextInputWrapper'
+import FormControl from './FormControl/FormControl'
 
 export type SelectProps = Omit<
   Omit<React.ComponentPropsWithoutRef<'select'>, 'size'> & Omit<StyledWrapperProps, 'variant'>,
@@ -63,8 +64,11 @@ const ArrowIndicator = styled(ArrowIndicatorSVG)`
   transform: translateY(-50%);
 `
 
-const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
-  ({block, children, contrast, disabled, placeholder, size, required, validationStatus, ...rest}: SelectProps, ref) => (
+const Select = React.forwardRef<HTMLSelectElement, SelectProps>((props, ref) => {
+  const {block, children, contrast, disabled, placeholder, size, required, validationStatus, ...rest} =
+    FormControl.useForwardedProps(props)
+
+  return (
     <TextInputWrapper
       sx={{
         overflow: 'hidden',
@@ -99,8 +103,8 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
       </StyledSelect>
       <ArrowIndicator />
     </TextInputWrapper>
-  ),
-)
+  )
+})
 
 const Option: React.FC<React.PropsWithChildren<React.HTMLProps<HTMLOptionElement> & {value: string}>> = props => (
   <option {...props} />

@@ -10,6 +10,7 @@ import {augmentHandler, calculateSuggestionsQuery, getSuggestionValue, requireCh
 
 import {useRefObjectAsForwardedRef} from '../../hooks'
 import AutocompleteSuggestions from './_AutocompleteSuggestions'
+import FormControl from '../../FormControl/FormControl'
 
 export type InlineAutocompleteProps = {
   /** Register the triggers that can cause suggestions to appear. */
@@ -71,17 +72,19 @@ const noop = () => {
 /**
  * Shows suggestions to complete the current word/phrase the user is actively typing.
  */
-const InlineAutocomplete = ({
-  triggers,
-  suggestions,
-  onShowSuggestions,
-  onHideSuggestions,
-  sx,
-  children,
-  tabInsertsSuggestions = false,
-  // Forward accessibility props so it works with FormControl
-  ...forwardProps
-}: InlineAutocompleteProps & React.ComponentProps<'textarea' | 'input'>) => {
+const InlineAutocomplete = (props: InlineAutocompleteProps & React.ComponentProps<'textarea' | 'input'>) => {
+  const {
+    triggers,
+    suggestions,
+    onShowSuggestions,
+    onHideSuggestions,
+    sx,
+    children,
+    tabInsertsSuggestions = false,
+    // Forward accessibility props so it works with FormControl
+    ...forwardProps
+  } = FormControl.useForwardedProps(props)
+
   const inputRef = useRef<HTMLInputElement & HTMLTextAreaElement>(null)
   useRefObjectAsForwardedRef(children.ref ?? noop, inputRef)
 

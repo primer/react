@@ -2,10 +2,10 @@ import React from 'react'
 import Box from '../Box'
 import {get} from '../constants'
 import {SxProp} from '../sx'
-import {FormControlContext} from './FormControl'
+import {FormControlContext} from './_FormControlContext'
 
 const FormControlLeadingVisual: React.FC<React.PropsWithChildren<SxProp>> = ({children, sx}) => {
-  const {disabled, captionId} = React.useContext(FormControlContext)
+  const {disabled, captionId} = React.useContext(FormControlContext) ?? {}
   return (
     <Box
       color={disabled ? 'fg.muted' : 'fg.default'}

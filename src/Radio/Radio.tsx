@@ -6,6 +6,7 @@ import {RadioGroupContext} from '../RadioGroup/RadioGroup'
 import getGlobalFocusStyles from '../internal/utils/getGlobalFocusStyles'
 import {get} from '../constants'
 import {sharedCheckboxAndRadioStyles} from '../internal/utils/sharedCheckboxAndRadioStyles'
+import {useFormControlForwardedProps} from '../FormControl/_FormControlContext'
 
 export type RadioProps = {
   /**
@@ -68,44 +69,51 @@ const StyledRadio = styled.input`
 /**
  * An accessible, native radio component for selecting one option from a list.
  */
-const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
-  (
-    {checked, disabled, name: nameProp, onChange, sx: sxProp, required, validationStatus, value, ...rest}: RadioProps,
-    ref,
-  ): ReactElement => {
-    const radioGroupContext = useContext(RadioGroupContext)
-    const handleOnChange: ChangeEventHandler<HTMLInputElement> = e => {
-      radioGroupContext?.onChange && radioGroupContext.onChange(e)
-      onChange && onChange(e)
-    }
-    const name = nameProp || radioGroupContext?.name
+const Radio = React.forwardRef<HTMLInputElement, RadioProps>((props, ref): ReactElement => {
+  const {
+    checked,
+    disabled,
+    name: nameProp,
+    onChange,
+    sx: sxProp,
+    required,
+    validationStatus,
+    value,
+    ...rest
+  } = useFormControlForwardedProps(props)
 
-    if (!name) {
-      // eslint-disable-next-line no-console
-      console.warn(
-        'A radio input must have a `name` attribute. Pass `name` as a prop directly to each Radio, or nest them in a `RadioGroup` component with a `name` prop',
-      )
-    }
+  const radioGroupContext = useContext(RadioGroupContext)
+  const handleOnChange: ChangeEventHandler<HTMLInputElement> = e => {
+    radioGroupContext?.onChange && radioGroupContext.onChange(e)
+    onChange && onChange(e)
+  }
+  const name = nameProp || radioGroupContext?.name
 
-    return (
-      <StyledRadio
-        type="radio"
-        value={value}
-        name={name}
-        ref={ref}
-        disabled={disabled}
-        checked={checked}
-        aria-checked={checked ? 'true' : 'false'}
-        required={required}
-        aria-required={required ? 'true' : 'false'}
-        aria-invalid={validationStatus === 'error' ? 'true' : 'false'}
-        sx={sxProp}
-        onChange={handleOnChange}
-        {...rest}
-      />
+  if (!name) {
+    // eslint-disable-next-line no-console
+    console.warn(
+      'A radio input must have a `name` attribute. Pass `name` as a prop directly to each Radio, or nest them in a `RadioGroup` component with a `name` prop',
     )
-  },
-)
+  }
+
+  return (
+    <StyledRadio
+      type="radio"
+      value={value}
+      name={name}
+      ref={ref}
+      disabled={disabled}
+      checked={checked}
+      aria-checked={checked ? 'true' : 'false'}
+      required={required}
+      aria-required={required ? 'true' : 'false'}
+      aria-invalid={validationStatus === 'error' ? 'true' : 'false'}
+      sx={sxProp}
+      onChange={handleOnChange}
+      {...rest}
+    />
+  )
+})
 
 Radio.displayName = 'Radio'
 
