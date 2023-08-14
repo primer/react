@@ -79,7 +79,6 @@ const InlineAutocomplete = ({
   sx,
   children,
   tabInsertsSuggestions = false,
-  // Forward accessibility props so it works with FormControl
   ...forwardProps
 }: InlineAutocompleteProps & React.ComponentProps<'textarea' | 'input'>) => {
   const inputRef = useRef<HTMLInputElement & HTMLTextAreaElement>(null)
