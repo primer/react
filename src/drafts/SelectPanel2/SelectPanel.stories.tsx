@@ -6,6 +6,10 @@ import Box from '../../Box'
 import {Button} from '../../Button'
 import {SelectPanel} from '.'
 import {ItemInput} from '../../deprecated/ActionList/List'
+import {ActionList} from '../../ActionList'
+import Avatar from '../../Avatar'
+import Select from '../../Select'
+import Heading from '../../Heading'
 
 export default {
   title: 'Drafts/Components/SelectPanel',
@@ -41,6 +45,34 @@ const items = [
   {leadingVisual: getColorCircle('#8dc6fc'), text: 'frontend', id: 7},
 ]
 
+/////
+
+const SelectPanel2 = props => {
+  return (
+    <div>
+      {props.children}
+      <Button>Cancel</Button>
+      <Button variant="primary">Submit</Button>
+    </div>
+  )
+}
+SelectPanel2.Title = props => {
+  return <Heading {...props} />
+}
+
+// option 1:
+SelectPanel2.SecondaryButton = props => {
+  return <Button {...props} />
+}
+SelectPanel2.SecondaryLink = props => {
+  return <a {...props} />
+}
+
+// option 2:
+SelectPanel2.SecondaryActionSlot = props => {
+  return <div id="left-layout">{props.children}</div>
+}
+
 export const Default = () => {
   const [selected, setSelected] = React.useState<ItemInput[]>([items[0], items[1]])
   const [filter, setFilter] = React.useState('')
@@ -50,24 +82,85 @@ export const Default = () => {
   return (
     <>
       <h1>Multi Select Panel</h1>
-      <SelectPanel
-        title="Select labels"
-        subtitle="Use labels to organize issues and pull requests"
-        renderAnchor={({children, 'aria-labelledby': ariaLabelledBy, ...anchorProps}) => (
-          <Button trailingAction={TriangleDownIcon} aria-labelledby={` ${ariaLabelledBy}`} {...anchorProps}>
-            {children ?? 'Select Labels'}
-          </Button>
-        )}
-        placeholderText="Filter labels"
-        open={open}
-        onOpenChange={setOpen}
-        items={filteredItems}
-        selected={selected}
-        onSelectedChange={setSelected}
-        onFilterChange={setFilter}
-        showItemDividers={true}
-        overlayProps={{width: 'small', height: 'xsmall'}}
-      />
+
+      <button>open the panel</button>
+
+      <SelectPanel2>
+        <SelectPanel2.Title as="h3">Select authors</SelectPanel2.Title>
+
+        <ActionList showDividers>
+          <ActionList.Item>
+            <ActionList.LeadingVisual>
+              <Avatar src="https://github.com/mona.png" />
+            </ActionList.LeadingVisual>
+            mona
+            <ActionList.Description>Monalisa Octocat</ActionList.Description>
+          </ActionList.Item>
+          <ActionList.Item>
+            <ActionList.LeadingVisual>
+              <Avatar src="https://github.com/hubot.png" />
+            </ActionList.LeadingVisual>
+            hubot
+            <ActionList.Description>Hubot</ActionList.Description>
+          </ActionList.Item>
+          <ActionList.Item>
+            <ActionList.LeadingVisual>
+              <Avatar src="https://github.com/primer-css.png" />
+            </ActionList.LeadingVisual>
+            primer-css
+            <ActionList.Description>GitHub Design Systems Bot</ActionList.Description>
+          </ActionList.Item>
+        </ActionList>
+
+        <SelectPanel2.SecondaryButton as="a">View authors</SelectPanel2.SecondaryButton>
+      </SelectPanel2>
+
+      <hr />
+
+      <div id="overlay">
+        <div id="header">
+          <h2>Select authors</h2>
+          <Button>clear</Button>
+          <Button>close</Button>
+          <input type="search" />
+        </div>
+        <form>
+          <div id="body">
+            <ActionList showDividers>
+              <ActionList.Item>
+                <ActionList.LeadingVisual>
+                  <Avatar src="https://github.com/mona.png" />
+                </ActionList.LeadingVisual>
+                mona
+                <ActionList.Description>Monalisa Octocat</ActionList.Description>
+              </ActionList.Item>
+              <ActionList.Item>
+                <ActionList.LeadingVisual>
+                  <Avatar src="https://github.com/hubot.png" />
+                </ActionList.LeadingVisual>
+                hubot
+                <ActionList.Description>Hubot</ActionList.Description>
+              </ActionList.Item>
+              <ActionList.Item>
+                <ActionList.LeadingVisual>
+                  <Avatar src="https://github.com/primer-css.png" />
+                </ActionList.LeadingVisual>
+                primer-css
+                <ActionList.Description>GitHub Design Systems Bot</ActionList.Description>
+              </ActionList.Item>
+            </ActionList>
+          </div>
+          <div id="footer">
+            <div id="form-actions">
+              <Button type="button">Cancel</Button>
+              <Button type="submit">Save</Button>
+            </div>
+            <div id="secondary-action">
+              <Button type="button">View authors</Button>
+            </div>
+          </div>
+        </form>
+      </div>
     </>
   )
 }
