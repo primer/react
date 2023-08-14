@@ -9,6 +9,14 @@ exports[`Flash renders consistently 1`] = `
   border-width: 1px;
   border-radius: 6px;
   margin-top: 0;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
   color: #1F2328;
   background-color: #ddf4ff;
   border-color: rgba(84,174,255,0.4);
@@ -19,6 +27,14 @@ exports[`Flash renders consistently 1`] = `
 }
 
 .c0 svg {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-self: flex-start;
+  -ms-flex-item-align: start;
+  align-self: flex-start;
+  margin-top: 4px;
   margin-right: 8px;
 }
 

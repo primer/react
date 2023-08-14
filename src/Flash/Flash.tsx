@@ -56,12 +56,16 @@ const StyledFlash = styled.div<StyledFlashProps>`
   border-width: ${props => (props.full ? '1px 0px' : '1px')};
   border-radius: ${props => (props.full ? '0' : get('radii.2'))};
   margin-top: ${props => (props.full ? '-1px' : '0')};
-
+  display: flex;
+  align-items: center;
   p:last-child {
     margin-bottom: 0;
   }
 
   svg {
+    display: flex;
+    align-self: flex-start;
+    margin-top: ${get('space.1')};
     margin-right: ${get('space.2')};
   }
 
