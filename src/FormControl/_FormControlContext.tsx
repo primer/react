@@ -53,7 +53,7 @@ export function useFormControlForwardedProps<P extends FormControlForwardedProps
     id: context.id,
     required: context.required,
     validationStatus: context.validationStatus,
-    ['aria-describedby']: [context.validationMessageId, context.captionId].filter(Boolean).join(' '),
+    ['aria-describedby']: [context.validationMessageId, context.captionId].filter(Boolean).join(' ') || undefined,
     ...externalProps,
   }
 }
