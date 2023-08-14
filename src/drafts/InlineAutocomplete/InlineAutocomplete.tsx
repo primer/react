@@ -68,7 +68,7 @@ export type InlineAutocompleteProps = {
    *
    * In either case, if there is not enough room to display the suggestions in the default direction,
    * the suggestions will appear in the other direction.
-   * @default "belo"
+   * @default "below"
    */
   suggestionsPlacement?: SuggestionsPlacement
 }
