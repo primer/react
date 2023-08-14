@@ -6,6 +6,7 @@ import {RadioGroupContext} from '../RadioGroup/RadioGroup'
 import getGlobalFocusStyles from '../internal/utils/getGlobalFocusStyles'
 import {get} from '../constants'
 import {sharedCheckboxAndRadioStyles} from '../internal/utils/sharedCheckboxAndRadioStyles'
+// Avoid circular dependency loop by directly importing the hook
 import {useFormControlForwardedProps} from '../FormControl/_FormControlContext'
 
 export type RadioProps = {
