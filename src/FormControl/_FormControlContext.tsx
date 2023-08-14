@@ -27,21 +27,21 @@ export function useFormControlForwardedProps<P extends FormControlForwardedProps
   const context = useContext(FormControlContext)
   if (!context) return externalProps
 
-  if (externalProps.id) {
+  if (externalProps.id && externalProps.id !== context.id) {
     // eslint-disable-next-line no-console
     console.warn(
       `instead of passing the 'id' prop directly to the input component, it should be passed to the parent component, <FormControl>`,
     )
   }
 
-  if (externalProps.disabled) {
+  if (externalProps.disabled !== undefined) {
     // eslint-disable-next-line no-console
     console.warn(
       `instead of passing the 'disabled' prop directly to the input component, it should be passed to the parent component, <FormControl>`,
     )
   }
 
-  if (externalProps.required) {
+  if (externalProps.required !== undefined) {
     // eslint-disable-next-line no-console
     console.warn(
       `instead of passing the 'required' prop directly to the input component, it should be passed to the parent component, <FormControl>`,
