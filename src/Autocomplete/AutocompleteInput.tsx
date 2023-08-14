@@ -166,6 +166,7 @@ const AutocompleteInput = React.forwardRef(
         aria-haspopup="listbox"
         aria-owns={`${id}-listbox`}
         autoComplete="off"
+        id={id}
         {...props}
       />
     )
