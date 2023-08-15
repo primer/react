@@ -75,9 +75,9 @@ const sampleHtml = `
 </ul>
 <h4>Tasks</h4>
 <ul class="contains-task-list">
-<li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox"> Task 1</li>
-<li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox"> Task 2</li>
-<li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox"> Task 3</li>
+<li class="task-list-item"><label><input type="checkbox" id="" disabled="" class="task-list-item-checkbox"> Task 1</label></li>
+<li class="task-list-item"><label><input type="checkbox" id="" disabled="" class="task-list-item-checkbox"> Task 2</label></li>
+<li class="task-list-item"><label><input type="checkbox" id="" disabled="" class="task-list-item-checkbox"> Task 3</label></li>
 </ul>`
 
 const htmlObject = {__html: sampleHtml}
