@@ -207,7 +207,6 @@ const renderPreview = async () => {
   return 'Previewing Markdown is not supported in this example.'
 }
 
-
 export const CustomToolbar = ({
   disabled,
   fullHeight,
