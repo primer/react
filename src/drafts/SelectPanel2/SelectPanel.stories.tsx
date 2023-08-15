@@ -1,8 +1,20 @@
 import {FocusKeys} from '@primer/behaviors'
 import {SearchIcon, XCircleFillIcon, XIcon} from '@primer/octicons-react'
 import React from 'react'
-import {Button, IconButton, ActionList, Avatar, Heading, Box, AnchoredOverlay, ThemeProvider, Tooltip} from '../../../'
-import TextInput from '../../TextInput'
+import {
+  Button,
+  IconButton,
+  ActionList,
+  Heading,
+  Box,
+  AnchoredOverlay,
+  ThemeProvider,
+  Tooltip,
+  TextInput,
+  AnchoredOverlayProps,
+} from '../../../'
+import {useSlots} from '../../hooks/useSlots'
+
 import repository from './mock-data'
 
 function getCircle(color: string) {
@@ -40,64 +52,88 @@ const ClearIcon = props => {
 const SelectPanel2 = props => {
   const anchorRef = React.useRef<HTMLButtonElement>(null)
 
+  // 🚨 Hack for good API!
+  // we strip out Anchor from children and pass it to AnchoredOverlay to render
+  // with additional props for accessibility
+  let renderAnchor: AnchoredOverlayProps['renderAnchor'] = null
+  const contents = React.Children.map(props.children, child => {
+    if (child.type === SelectPanelButton) {
+      renderAnchor = anchorProps => React.cloneElement(child, anchorProps)
+      return null
+    }
+    return child
+  })
+
   return (
     <>
-      <Button ref={anchorRef}>lol</Button>
       <AnchoredOverlay
         open={true}
         anchorRef={anchorRef}
-        renderAnchor={null}
+        renderAnchor={renderAnchor}
         width="medium"
+        height="large"
         focusZoneSettings={{bindKeys: FocusKeys.Tab}}
       >
         {/* TODO: Keyboard navigation of actionlist should be arrow keys
             with tabs to enter and escape
         */}
-        <div id="body">{props.children}</div>
+        <Box sx={{display: 'flex', flexDirection: 'column', height: '100%'}}>{contents}</Box>
       </AnchoredOverlay>
     </>
   )
 }
+
+const SelectPanelButton = React.forwardRef((props, anchorRef) => {
+  return <Button ref={anchorRef} {...props} />
+})
+SelectPanel2.Button = SelectPanelButton
+
 SelectPanel2.Header = props => {
   return (
-    <div>
-      <Box sx={{padding: 2, border: '1px solid', borderColor: 'border.default'}}>
-        <Box sx={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingBottom: 2}}>
-          <Heading {...props} sx={{fontSize: 14, fontWeight: 600, marginLeft: 2}} />
-          {/* Will not need tooltip after https://github.com/primer/react/issues/2008 */}
-          <Box>
-            <Tooltip text="Clear selection" direction="s">
-              <IconButton variant="invisible" icon={ClearIcon} aria-label="Clear selection" />
-            </Tooltip>
-            <Tooltip text="Close" direction="s">
-              <IconButton variant="invisible" icon={XIcon} aria-label="Close" />
-            </Tooltip>
-          </Box>
+    <Box id="header" sx={{padding: 2, border: '1px solid', borderColor: 'border.default'}}>
+      <Box sx={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingBottom: 2}}>
+        <Heading {...props} sx={{fontSize: 14, fontWeight: 600, marginLeft: 2}} />
+        {/* Will not need tooltip after https://github.com/primer/react/issues/2008 */}
+        <Box>
+          <Tooltip text="Clear selection" direction="s">
+            <IconButton variant="invisible" icon={ClearIcon} aria-label="Clear selection" />
+          </Tooltip>
+          <Tooltip text="Close" direction="s">
+            <IconButton variant="invisible" icon={XIcon} aria-label="Close" />
+          </Tooltip>
         </Box>
-        <TextInput
-          block
-          leadingVisual={SearchIcon}
-          placeholder="Search"
-          trailingAction={
-            <TextInput.Action icon={XCircleFillIcon} aria-label="Clear" sx={{color: 'fg.subtle', bg: 'none'}} />
-          }
-          sx={
-            {
-              /* TODO: uncommenting this breaks keyboard navigation, that's odd */
-              // '& input:empty + .TextInput-action': {display: 'none'},
-            }
-          }
-        />
       </Box>
-    </div>
+      <TextInput
+        // this autofocus doesn't seem to apply 🤔
+        // probably because the focus zone overrides autoFocus
+        autoFocus
+        block
+        leadingVisual={SearchIcon}
+        placeholder="Search"
+        trailingAction={
+          <TextInput.Action icon={XCircleFillIcon} aria-label="Clear" sx={{color: 'fg.subtle', bg: 'none'}} />
+        }
+        sx={
+          {
+            /* TODO: uncommenting this breaks keyboard navigation, that's odd */
+            // '& input:empty + .TextInput-action': {display: 'none'},
+          }
+        }
+      />
+    </Box>
   )
 }
 SelectPanel2.Body = props => {
-  return <div>{props.children}</div>
+  return (
+    <Box id="body" sx={{flexShrink: 1, flexGrow: 1, overflowY: 'scroll'}}>
+      {props.children}
+    </Box>
+  )
 }
 SelectPanel2.Footer = props => {
   return (
     <Box
+      id="footer"
       sx={{
         display: 'flex',
         justifyContent: 'space-between',
@@ -135,18 +171,12 @@ export const Default = () => {
     <ThemeProvider>
       <h1>Multi Select Panel</h1>
 
-      <button>open the panel</button>
-
       <SelectPanel2>
+        <SelectPanel2.Button>Assign label</SelectPanel2.Button>
+
         <SelectPanel2.Header as="h3">Select authors</SelectPanel2.Header>
         <SelectPanel2.Body>
-          <ActionList
-            sx={{
-              /* TODO: pull up */
-              height: '400px',
-              overflowY: 'scroll',
-            }}
-          >
+          <ActionList>
             {repository.labels.map(label => (
               <ActionList.Item key={label.id}>
                 <ActionList.LeadingVisual>{getCircle(label.color)}</ActionList.LeadingVisual>
@@ -162,51 +192,6 @@ export const Default = () => {
       </SelectPanel2>
 
       <hr />
-
-      <div id="overlay">
-        <div id="header">
-          <h2>Select authors</h2>
-          <Button>clear</Button>
-          <Button>close</Button>
-          <input type="search" />
-        </div>
-        <form>
-          <div id="body">
-            <ActionList showDividers>
-              <ActionList.Item>
-                <ActionList.LeadingVisual>
-                  <Avatar src="https://github.com/mona.png" />
-                </ActionList.LeadingVisual>
-                mona
-                <ActionList.Description>Monalisa Octocat</ActionList.Description>
-              </ActionList.Item>
-              <ActionList.Item>
-                <ActionList.LeadingVisual>
-                  <Avatar src="https://github.com/hubot.png" />
-                </ActionList.LeadingVisual>
-                hubot
-                <ActionList.Description>Hubot</ActionList.Description>
-              </ActionList.Item>
-              <ActionList.Item>
-                <ActionList.LeadingVisual>
-                  <Avatar src="https://github.com/primer-css.png" />
-                </ActionList.LeadingVisual>
-                primer-css
-                <ActionList.Description>GitHub Design Systems Bot</ActionList.Description>
-              </ActionList.Item>
-            </ActionList>
-          </div>
-          <div id="footer">
-            <div id="form-actions">
-              <Button type="button">Cancel</Button>
-              <Button type="submit">Save</Button>
-            </div>
-            <div id="secondary-action">
-              <Button type="button">View authors</Button>
-            </div>
-          </div>
-        </form>
-      </div>
     </ThemeProvider>
   )
 }
