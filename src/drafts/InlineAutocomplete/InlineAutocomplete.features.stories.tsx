@@ -105,3 +105,64 @@ export const CustomRendering = ({loading, tabInserts}: ArgProps) => {
     </FormControl>
   )
 }
+
+export const AbovePositioning = () => {
+  const [suggestions, setSuggestions] = useState<Suggestions | null>(null)
+
+  const onShowSuggestions = (event: ShowSuggestionsEvent) => {
+    setSuggestions(
+      filteredUsers(event.query).map(user => ({
+        value: user.login,
+        render: props => <UserSuggestion user={user} {...props} />,
+      })),
+    )
+  }
+
+  const onHideSuggestions = () => setSuggestions(null)
+
+  return (
+    <FormControl sx={{position: 'absolute', bottom: '15px'}}>
+      <FormControl.Label>Inline Autocomplete Demo</FormControl.Label>
+      <FormControl.Caption>Try typing &apos;@&apos; to show user suggestions.</FormControl.Caption>
+      <InlineAutocomplete
+        triggers={[{triggerChar: '@'}]}
+        suggestions={suggestions}
+        onShowSuggestions={onShowSuggestions}
+        onHideSuggestions={onHideSuggestions}
+        suggestionsPlacement="above"
+      >
+        <Textarea sx={{height: '70px'}} />
+      </InlineAutocomplete>
+    </FormControl>
+  )
+}
+
+export const AutoPositioning = () => {
+  const [suggestions, setSuggestions] = useState<Suggestions | null>(null)
+
+  const onShowSuggestions = (event: ShowSuggestionsEvent) => {
+    setSuggestions(
+      filteredUsers(event.query).map(user => ({
+        value: user.login,
+        render: props => <UserSuggestion user={user} {...props} />,
+      })),
+    )
+  }
+
+  const onHideSuggestions = () => setSuggestions(null)
+
+  return (
+    <FormControl sx={{position: 'absolute', bottom: '15px'}}>
+      <FormControl.Label>Inline Autocomplete Demo</FormControl.Label>
+      <FormControl.Caption>Try typing &apos;@&apos; to show user suggestions.</FormControl.Caption>
+      <InlineAutocomplete
+        triggers={[{triggerChar: '@'}]}
+        suggestions={suggestions}
+        onShowSuggestions={onShowSuggestions}
+        onHideSuggestions={onHideSuggestions}
+      >
+        <Textarea sx={{height: '70px'}} />
+      </InlineAutocomplete>
+    </FormControl>
+  )
+}
