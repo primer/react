@@ -199,17 +199,16 @@ const TextInputWrapper = styled(TextInputBaseWrapper)<StyledWrapperProps>`
     flex-shrink: 0;
   }
 
-  ${props =>
-    css`
-      padding-left: ${props.hasLeadingVisual ? textInputHorizPadding : 0};
-      padding-right: ${props.hasTrailingVisual && !props.hasTrailingAction ? textInputHorizPadding : 0};
+  ${props => css`
+    padding-left: ${props.hasLeadingVisual ? textInputHorizPadding : 0};
+    padding-right: ${props.hasTrailingVisual && !props.hasTrailingAction ? textInputHorizPadding : 0};
 
-      > input,
-      > select {
-        padding-left: ${!props.hasLeadingVisual ? textInputHorizPadding : 0};
-        padding-right: ${!props.hasTrailingVisual && !props.hasTrailingAction ? textInputHorizPadding : 0};
-      }
-    `}
+    > input,
+    > select {
+      padding-left: ${!props.hasLeadingVisual ? textInputHorizPadding : 0};
+      padding-right: ${!props.hasTrailingVisual && !props.hasTrailingAction ? textInputHorizPadding : 0};
+    }
+  `}
 
   ${props =>
     props.validationStatus === 'warning' &&
