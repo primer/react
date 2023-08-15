@@ -26,6 +26,7 @@ const allowlist = [
   'Header',
   'Heading',
   'IconButton',
+  'InlineAutocomplete',
   'FilteredActionList',
   'Link',
   'Pagehead',
