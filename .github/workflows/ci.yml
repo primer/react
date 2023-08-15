@@ -182,7 +182,6 @@ jobs:
         with:
           name: vrt
           path: blob-report
-          retention-days: 1
 
   vrt:
     if: ${{ always() }}
@@ -209,7 +208,6 @@ jobs:
         with:
           name: vrt
           path: playwright-report
-          retention-days: 14
       - name: check vrt-runner job status
         if: ${{ needs.vrt-runner.result == 'failure' }}
         run: exit 1
@@ -278,7 +276,6 @@ jobs:
         with:
           name: axe
           path: playwright-report
-          retention-days: 14
       - name: Check aat-runner job status
         if: ${{ needs.aat-runner.result == 'failure' }}
         run: exit 1
