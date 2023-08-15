@@ -107,23 +107,7 @@ const Root: React.FC<React.PropsWithChildren<PageLayoutProps>> = ({
           }}
         >
           {slots.header}
-          <Box
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            sx={(theme: any) => ({
-              display: 'flex',
-              flex: '1 1 100%',
-              flexWrap: 'wrap',
-              maxWidth: '100%',
-              [`@media screen and (max-width: ${theme.breakpoints[2]})`]: {
-                rowGap: SPACING_MAP[rowGap],
-              },
-              [`@media screen and (min-width: ${theme.breakpoints[1]})`]: {
-                columnGap: SPACING_MAP[columnGap],
-              },
-            })}
-          >
-            {rest}
-          </Box>
+          <Box sx={{display: 'flex', flex: '1 1 100%', flexWrap: 'wrap', maxWidth: '100%'}}>{rest}</Box>
           {slots.footer}
         </Box>
       </Box>
@@ -444,6 +428,7 @@ const Content: React.FC<React.PropsWithChildren<PageLayoutContentProps>> = ({
         {
           display: isHidden ? 'none' : 'flex',
           flexDirection: 'column',
+          order: REGION_ORDER.content,
           // Set flex-basis to 0% to allow flex-grow to control the width of the content region.
           // Without this, the content region could wrap onto a different line
           // than the pane region on wide viewports if its contents are too wide.
