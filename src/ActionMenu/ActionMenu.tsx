@@ -52,30 +52,29 @@ const Menu: React.FC<React.PropsWithChildren<ActionMenuProps>> = ({
   // 🚨 Hack for good API!
   // we strip out Anchor from children and pass it to AnchoredOverlay to render
   // with additional props for accessibility
+  // 🚨 Accounting for Tooltip wrapping ActionMenu.Button or being a direct child of ActionMenu.Anchor.
   const contents = React.Children.map(children, child => {
-    // TODO: clean up this part of the implementation
-    if (child.type === Tooltip && child.props.children.type === MenuButton) {
+    const anchorChildren = child.props.children
+    // Is ActionMenu.Button wrapped with Tooltip? If this is the case, our anchor is the tooltip's trigger
+    if (child.type === Tooltip && anchorChildren.type === MenuButton) {
       renderAnchor = anchorProps => {
-        const triggerButton = React.cloneElement(child.props.children, anchorProps)
-        const tooltip = React.cloneElement(child, {children: triggerButton})
-        return tooltip
+        const triggerButton = React.cloneElement(anchorChildren, {...anchorProps})
+        return React.cloneElement(child, {children: triggerButton, ref: anchorRef})
       }
       return null
     }
     if (child.type === MenuButton || child.type === Anchor) {
       renderAnchor = anchorProps => {
-        const isTooltip = child.props.children.type === Tooltip
-        const tooltipTrigger = isTooltip ? child.props.children.props.children : null
-        let el = null
+        // ActionMenu.Anchor's children can be wrapped with Tooltip. If this is the case, our anchor is the tooltip's trigger
+        const tooltipTrigger = anchorChildren.type === Tooltip ? anchorChildren.props.children : null
         if (tooltipTrigger !== null) {
-          const tooltipTriggerEl = React.cloneElement(tooltipTrigger, anchorProps)
-          const tooltip = React.cloneElement(child.props.children, {children: tooltipTriggerEl})
-          el = React.cloneElement(child, {children: tooltip})
+          // We need to attach the anchor props to the tooltip trigger not the tooltip itself.
+          const tooltipTriggerEl = React.cloneElement(tooltipTrigger, {...anchorProps})
+          const tooltip = React.cloneElement(anchorChildren, {children: tooltipTriggerEl})
+          return React.cloneElement(child, {children: tooltip, ref: anchorRef})
         } else {
-          el = React.cloneElement(child, anchorProps)
+          return React.cloneElement(child, anchorProps)
         }
-
-        return el
       }
       return null
     }
