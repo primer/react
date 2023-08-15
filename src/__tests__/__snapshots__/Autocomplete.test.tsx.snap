@@ -21,10 +21,6 @@ exports[`snapshots renders a custom empty state message 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
-  background-repeat: no-repeat;
-  background-position: right 8px center;
-  padding-left: 0;
-  padding-right: 0;
 }
 
 .c0 input,
@@ -62,12 +58,19 @@ exports[`snapshots renders a custom empty state message 1`] = `
   padding: 12px;
 }
 
-.c0 > :not(:last-child) {
+.c1 {
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.c1 > :not(:last-child) {
   margin-right: 8px;
 }
 
-.c0 .TextInput-icon,
-.c0 .TextInput-action {
+.c1 .TextInput-icon,
+.c1 .TextInput-action {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
@@ -77,13 +80,13 @@ exports[`snapshots renders a custom empty state message 1`] = `
   flex-shrink: 0;
 }
 
-.c0 > input,
-.c0 > select {
+.c1 > input,
+.c1 > select {
   padding-left: 12px;
   padding-right: 12px;
 }
 
-.c1 {
+.c2 {
   border: 0;
   font-size: inherit;
   font-family: inherit;
@@ -93,7 +96,7 @@ exports[`snapshots renders a custom empty state message 1`] = `
   width: 100%;
 }
 
-.c1:focus {
+.c2:focus {
   outline: 0;
 }
 
@@ -105,7 +108,7 @@ exports[`snapshots renders a custom empty state message 1`] = `
 
 <span
     aria-busy={false}
-    className="c0 TextInput-wrapper"
+    className="c0 c1 TextInput-wrapper"
     onClick={[Function]}
   >
     <input
@@ -115,7 +118,7 @@ exports[`snapshots renders a custom empty state message 1`] = `
       aria-haspopup="listbox"
       aria-owns="autocompleteId-listbox"
       autoComplete="off"
-      className="c1"
+      className="c2"
       data-component="input"
       id="autocompleteId"
       onBlur={[Function]}
@@ -143,6 +146,10 @@ exports[`snapshots renders a custom empty state message 1`] = `
   clip: rect(0,0,0,0);
   white-space: nowrap;
   border-width: 0;
+}
+
+@media (min-width:768px) {
+
 }
 
 <span
@@ -180,10 +187,6 @@ exports[`snapshots renders a loading state 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
-  background-repeat: no-repeat;
-  background-position: right 8px center;
-  padding-left: 0;
-  padding-right: 0;
 }
 
 .c0 input,
@@ -221,12 +224,19 @@ exports[`snapshots renders a loading state 1`] = `
   padding: 12px;
 }
 
-.c0 > :not(:last-child) {
+.c1 {
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.c1 > :not(:last-child) {
   margin-right: 8px;
 }
 
-.c0 .TextInput-icon,
-.c0 .TextInput-action {
+.c1 .TextInput-icon,
+.c1 .TextInput-action {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
@@ -236,13 +246,13 @@ exports[`snapshots renders a loading state 1`] = `
   flex-shrink: 0;
 }
 
-.c0 > input,
-.c0 > select {
+.c1 > input,
+.c1 > select {
   padding-left: 12px;
   padding-right: 12px;
 }
 
-.c1 {
+.c2 {
   border: 0;
   font-size: inherit;
   font-family: inherit;
@@ -252,7 +262,7 @@ exports[`snapshots renders a loading state 1`] = `
   width: 100%;
 }
 
-.c1:focus {
+.c2:focus {
   outline: 0;
 }
 
@@ -264,7 +274,7 @@ exports[`snapshots renders a loading state 1`] = `
 
 <span
     aria-busy={false}
-    className="c0 TextInput-wrapper"
+    className="c0 c1 TextInput-wrapper"
     onClick={[Function]}
   >
     <input
@@ -274,7 +284,7 @@ exports[`snapshots renders a loading state 1`] = `
       aria-haspopup="listbox"
       aria-owns="autocompleteId-listbox"
       autoComplete="off"
-      className="c1"
+      className="c2"
       data-component="input"
       id="autocompleteId"
       onBlur={[Function]}
@@ -315,6 +325,10 @@ exports[`snapshots renders a loading state 1`] = `
 .c2 {
   -webkit-animation: rotate-keyframes 1s linear infinite;
   animation: rotate-keyframes 1s linear infinite;
+}
+
+@media (min-width:768px) {
+
 }
 
 <span
@@ -374,10 +388,6 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
-  background-repeat: no-repeat;
-  background-position: right 8px center;
-  padding-left: 0;
-  padding-right: 0;
 }
 
 .c0 input,
@@ -415,12 +425,19 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
   padding: 12px;
 }
 
-.c0 > :not(:last-child) {
+.c1 {
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.c1 > :not(:last-child) {
   margin-right: 8px;
 }
 
-.c0 .TextInput-icon,
-.c0 .TextInput-action {
+.c1 .TextInput-icon,
+.c1 .TextInput-action {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
@@ -430,13 +447,13 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
   flex-shrink: 0;
 }
 
-.c0 > input,
-.c0 > select {
+.c1 > input,
+.c1 > select {
   padding-left: 12px;
   padding-right: 12px;
 }
 
-.c1 {
+.c2 {
   border: 0;
   font-size: inherit;
   font-family: inherit;
@@ -446,8 +463,16 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
   width: 100%;
 }
 
-.c1:focus {
+.c2:focus {
   outline: 0;
+}
+
+@media (hover:hover) and (pointer:fine) {
+
+}
+
+@media (forced-colors:active) {
+
 }
 
 @media (min-width:768px) {
@@ -458,7 +483,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
 
 <span
     aria-busy={false}
-    className="c0 TextInput-wrapper"
+    className="c0 c1 TextInput-wrapper"
     onClick={[Function]}
   >
     <input
@@ -468,7 +493,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
       aria-haspopup="listbox"
       aria-owns="autocompleteId-listbox"
       autoComplete="off"
-      className="c1"
+      className="c2"
       data-component="input"
       id="autocompleteId"
       onBlur={[Function]}
@@ -482,6 +507,40 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
     />
   </span>,
   .c5 {
+  height: 20px;
+  min-width: 16px;
+  max-width: 20px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  margin-right: 8px;
+}
+
+.c5 rect {
+  fill: #ffffff;
+  stroke: #d0d7de;
+  shape-rendering: auto;
+}
+
+.c5 path {
+  fill: #ffffff;
+  box-shadow: 0 1px 0 rgba(31,35,40,0.04);
+  opacity: 0;
+}
+
+.c6 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -496,7 +555,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
   min-width: 0;
 }
 
-.c6 {
+.c7 {
   -webkit-box-flex: 1;
   -webkit-flex-grow: 1;
   -ms-flex-positive: 1;
@@ -504,41 +563,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
   font-weight: 400;
 }
 
-.c4 {
-  height: 20px;
-  min-width: 16px;
-  max-width: 20px;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
-  margin-right: 8px;
-}
-
-.c4 rect {
-  fill: #ffffff;
-  stroke: #d0d7de;
-  shape-rendering: auto;
-}
-
-.c4 path {
-  fill: #ffffff;
-  box-shadow: 0 1px 0 rgba(31,35,40,0.04);
-  opacity: 0;
-}
-
-.c7 {
+.c8 {
   height: 20px;
   min-width: 16px;
   max-width: 20px;
@@ -561,12 +586,11 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
   color: #656d76;
 }
 
-.c7 svg {
+.c8 svg {
   font-size: 12px;
 }
 
-[data-variant="danger"]:hover .c7,
-[data-variant="danger"]:active .c7 {
+[data-variant="danger"]:hover .c4,[data-variant="danger"]:active .c8 {
   color: #1F2328;
 }
 
@@ -645,23 +669,17 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
   --divider-color: rgba(208,215,222,0.48);
 }
 
-[data-component="ActionList.Divider"] + .c3 {
+[data-component="ActionList.Divider"] + .c2 {
   --divider-color: transparent !important;
 }
 
-.c3:hover:not([aria-disabled]),
-.c3:focus:not([aria-disabled]),
+.c3:hover:not([aria-disabled]),.c3:focus:not([aria-disabled]),
 .c3[data-focus-visible-added]:not([aria-disabled]) {
   --divider-color: transparent;
 }
 
 .c3:hover:not([aria-disabled]) + .c2,
 .c3[data-focus-visible-added] + li {
-  --divider-color: transparent;
-}
-
-.c8:hover:not([aria-disabled]) + .c2,
-.c8[data-focus-visible-added] + li {
   --divider-color: transparent;
 }
 
@@ -690,6 +708,10 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
   }
 }
 
+@media (min-width:768px) {
+
+}
+
 <span
     className="c0"
   >
@@ -710,7 +732,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
           tabIndex={0}
         >
           <span
-            className="c4"
+            className="c4 c5"
           >
             <svg
               aria-hidden="true"
@@ -734,11 +756,11 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
             </svg>
           </span>
           <div
-            className="c5"
+            className="c4 c6"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              className="c6"
+              className="c4 c7"
               id="0"
             >
               zero
@@ -755,7 +777,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
           tabIndex={0}
         >
           <span
-            className="c4"
+            className="c4 c5"
           >
             <svg
               aria-hidden="true"
@@ -779,11 +801,11 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
             </svg>
           </span>
           <div
-            className="c5"
+            className="c4 c6"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              className="c6"
+              className="c4 c7"
               id="1"
             >
               one
@@ -800,7 +822,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
           tabIndex={0}
         >
           <span
-            className="c4"
+            className="c4 c5"
           >
             <svg
               aria-hidden="true"
@@ -824,11 +846,11 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
             </svg>
           </span>
           <div
-            className="c5"
+            className="c4 c6"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              className="c6"
+              className="c4 c7"
               id="2"
             >
               two
@@ -845,7 +867,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
           tabIndex={0}
         >
           <span
-            className="c4"
+            className="c4 c5"
           >
             <svg
               aria-hidden="true"
@@ -869,11 +891,11 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
             </svg>
           </span>
           <div
-            className="c5"
+            className="c4 c6"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              className="c6"
+              className="c4 c7"
               id="3"
             >
               three
@@ -890,7 +912,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
           tabIndex={0}
         >
           <span
-            className="c4"
+            className="c4 c5"
           >
             <svg
               aria-hidden="true"
@@ -914,11 +936,11 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
             </svg>
           </span>
           <div
-            className="c5"
+            className="c4 c6"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              className="c6"
+              className="c4 c7"
               id="4"
             >
               four
@@ -935,7 +957,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
           tabIndex={0}
         >
           <span
-            className="c4"
+            className="c4 c5"
           >
             <svg
               aria-hidden="true"
@@ -959,11 +981,11 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
             </svg>
           </span>
           <div
-            className="c5"
+            className="c4 c6"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              className="c6"
+              className="c4 c7"
               id="5"
             >
               five
@@ -980,7 +1002,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
           tabIndex={0}
         >
           <span
-            className="c4"
+            className="c4 c5"
           >
             <svg
               aria-hidden="true"
@@ -1004,11 +1026,11 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
             </svg>
           </span>
           <div
-            className="c5"
+            className="c4 c6"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              className="c6"
+              className="c4 c7"
               id="6"
             >
               six
@@ -1025,7 +1047,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
           tabIndex={0}
         >
           <span
-            className="c4"
+            className="c4 c5"
           >
             <svg
               aria-hidden="true"
@@ -1049,11 +1071,11 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
             </svg>
           </span>
           <div
-            className="c5"
+            className="c4 c6"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              className="c6"
+              className="c4 c7"
               id="7"
             >
               seven
@@ -1070,7 +1092,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
           tabIndex={0}
         >
           <span
-            className="c4"
+            className="c4 c5"
           >
             <svg
               aria-hidden="true"
@@ -1094,11 +1116,11 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
             </svg>
           </span>
           <div
-            className="c5"
+            className="c4 c6"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              className="c6"
+              className="c4 c7"
               id="20"
             >
               twenty
@@ -1115,7 +1137,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
           tabIndex={0}
         >
           <span
-            className="c4"
+            className="c4 c5"
           >
             <svg
               aria-hidden="true"
@@ -1139,11 +1161,11 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
             </svg>
           </span>
           <div
-            className="c5"
+            className="c4 c6"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              className="c6"
+              className="c4 c7"
               id="21"
             >
               twentyone
@@ -1160,7 +1182,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
           tabIndex={0}
         >
           <span
-            className="c4"
+            className="c4 c5"
           >
             <svg
               aria-hidden="true"
@@ -1184,7 +1206,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
             </svg>
           </span>
           <span
-            className="c7"
+            className="c4 c8"
           >
             <svg
               aria-hidden="true"
@@ -1210,11 +1232,11 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
             </svg>
           </span>
           <div
-            className="c5"
+            className="c4 c6"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              className="c6"
+              className="c4 c7"
               id="add-new-item"
             >
               Add new item
@@ -1248,10 +1270,6 @@ exports[`snapshots renders a multiselect input 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
-  background-repeat: no-repeat;
-  background-position: right 8px center;
-  padding-left: 0;
-  padding-right: 0;
 }
 
 .c0 input,
@@ -1289,12 +1307,19 @@ exports[`snapshots renders a multiselect input 1`] = `
   padding: 12px;
 }
 
-.c0 > :not(:last-child) {
+.c1 {
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.c1 > :not(:last-child) {
   margin-right: 8px;
 }
 
-.c0 .TextInput-icon,
-.c0 .TextInput-action {
+.c1 .TextInput-icon,
+.c1 .TextInput-action {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
@@ -1304,13 +1329,13 @@ exports[`snapshots renders a multiselect input 1`] = `
   flex-shrink: 0;
 }
 
-.c0 > input,
-.c0 > select {
+.c1 > input,
+.c1 > select {
   padding-left: 12px;
   padding-right: 12px;
 }
 
-.c1 {
+.c2 {
   border: 0;
   font-size: inherit;
   font-family: inherit;
@@ -1320,8 +1345,16 @@ exports[`snapshots renders a multiselect input 1`] = `
   width: 100%;
 }
 
-.c1:focus {
+.c2:focus {
   outline: 0;
+}
+
+@media (hover:hover) and (pointer:fine) {
+
+}
+
+@media (forced-colors:active) {
+
 }
 
 @media (min-width:768px) {
@@ -1332,7 +1365,7 @@ exports[`snapshots renders a multiselect input 1`] = `
 
 <span
     aria-busy={false}
-    className="c0 TextInput-wrapper"
+    className="c0 c1 TextInput-wrapper"
     onClick={[Function]}
   >
     <input
@@ -1342,7 +1375,7 @@ exports[`snapshots renders a multiselect input 1`] = `
       aria-haspopup="listbox"
       aria-owns="autocompleteId-listbox"
       autoComplete="off"
-      className="c1"
+      className="c2"
       data-component="input"
       id="autocompleteId"
       onBlur={[Function]}
@@ -1355,30 +1388,7 @@ exports[`snapshots renders a multiselect input 1`] = `
       type="text"
     />
   </span>,
-  .c5 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
-  min-width: 0;
-}
-
-.c6 {
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
-  font-weight: 400;
-}
-
-.c4 {
+  .c4 {
   height: 20px;
   min-width: 16px;
   max-width: 20px;
@@ -1410,6 +1420,29 @@ exports[`snapshots renders a multiselect input 1`] = `
   fill: #ffffff;
   box-shadow: 0 1px 0 rgba(31,35,40,0.04);
   opacity: 0;
+}
+
+.c5 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  min-width: 0;
+}
+
+.c6 {
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  font-weight: 400;
 }
 
 .c0 {
@@ -1487,23 +1520,17 @@ exports[`snapshots renders a multiselect input 1`] = `
   --divider-color: rgba(208,215,222,0.48);
 }
 
-[data-component="ActionList.Divider"] + .c3 {
+[data-component="ActionList.Divider"] + .c2 {
   --divider-color: transparent !important;
 }
 
-.c3:hover:not([aria-disabled]),
-.c3:focus:not([aria-disabled]),
+.c3:hover:not([aria-disabled]),.c3:focus:not([aria-disabled]),
 .c3[data-focus-visible-added]:not([aria-disabled]) {
   --divider-color: transparent;
 }
 
 .c3:hover:not([aria-disabled]) + .c2,
 .c3[data-focus-visible-added] + li {
-  --divider-color: transparent;
-}
-
-.c7:hover:not([aria-disabled]) + .c2,
-.c7[data-focus-visible-added] + li {
   --divider-color: transparent;
 }
 
@@ -1530,6 +1557,10 @@ exports[`snapshots renders a multiselect input 1`] = `
   .c3:focus {
     outline: solid 1px transparent !important;
   }
+}
+
+@media (min-width:768px) {
+
 }
 
 <span
@@ -2019,10 +2050,6 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
-  background-repeat: no-repeat;
-  background-position: right 8px center;
-  padding-left: 0;
-  padding-right: 0;
 }
 
 .c0 input,
@@ -2060,12 +2087,19 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
   padding: 12px;
 }
 
-.c0 > :not(:last-child) {
+.c1 {
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.c1 > :not(:last-child) {
   margin-right: 8px;
 }
 
-.c0 .TextInput-icon,
-.c0 .TextInput-action {
+.c1 .TextInput-icon,
+.c1 .TextInput-action {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
@@ -2075,13 +2109,13 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
   flex-shrink: 0;
 }
 
-.c0 > input,
-.c0 > select {
+.c1 > input,
+.c1 > select {
   padding-left: 12px;
   padding-right: 12px;
 }
 
-.c1 {
+.c2 {
   border: 0;
   font-size: inherit;
   font-family: inherit;
@@ -2091,8 +2125,16 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
   width: 100%;
 }
 
-.c1:focus {
+.c2:focus {
   outline: 0;
+}
+
+@media (hover:hover) and (pointer:fine) {
+
+}
+
+@media (forced-colors:active) {
+
 }
 
 @media (min-width:768px) {
@@ -2103,7 +2145,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
 
 <span
     aria-busy={false}
-    className="c0 TextInput-wrapper"
+    className="c0 c1 TextInput-wrapper"
     onClick={[Function]}
   >
     <input
@@ -2113,7 +2155,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
       aria-haspopup="listbox"
       aria-owns="autocompleteId-listbox"
       autoComplete="off"
-      className="c1"
+      className="c2"
       data-component="input"
       id="autocompleteId"
       onBlur={[Function]}
@@ -2126,7 +2168,41 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
       type="text"
     />
   </span>,
-  .c5 {
+  .c4 {
+  height: 20px;
+  min-width: 16px;
+  max-width: 20px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  margin-right: 8px;
+}
+
+.c4 rect {
+  fill: #0969da;
+  stroke: #0969da;
+  shape-rendering: auto;
+}
+
+.c4 path {
+  fill: #ffffff;
+  box-shadow: 0 1px 0 rgba(31,35,40,0.04);
+  opacity: 1;
+}
+
+.c5 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -2181,40 +2257,6 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
   fill: #ffffff;
   box-shadow: 0 1px 0 rgba(31,35,40,0.04);
   opacity: 0;
-}
-
-.c4 {
-  height: 20px;
-  min-width: 16px;
-  max-width: 20px;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
-  margin-right: 8px;
-}
-
-.c4 rect {
-  fill: #0969da;
-  stroke: #0969da;
-  shape-rendering: auto;
-}
-
-.c4 path {
-  fill: #ffffff;
-  box-shadow: 0 1px 0 rgba(31,35,40,0.04);
-  opacity: 1;
 }
 
 .c0 {
@@ -2292,23 +2334,17 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
   --divider-color: rgba(208,215,222,0.48);
 }
 
-[data-component="ActionList.Divider"] + .c3 {
+[data-component="ActionList.Divider"] + .c2 {
   --divider-color: transparent !important;
 }
 
-.c3:hover:not([aria-disabled]),
-.c3:focus:not([aria-disabled]),
+.c3:hover:not([aria-disabled]),.c3:focus:not([aria-disabled]),
 .c3[data-focus-visible-added]:not([aria-disabled]) {
   --divider-color: transparent;
 }
 
 .c3:hover:not([aria-disabled]) + .c2,
 .c3[data-focus-visible-added] + li {
-  --divider-color: transparent;
-}
-
-.c8:hover:not([aria-disabled]) + .c2,
-.c8[data-focus-visible-added] + li {
   --divider-color: transparent;
 }
 
@@ -2335,6 +2371,10 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
   .c3:focus {
     outline: solid 1px transparent !important;
   }
+}
+
+@media (min-width:768px) {
+
 }
 
 <span
@@ -2824,10 +2864,6 @@ exports[`snapshots renders a single select input 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
-  background-repeat: no-repeat;
-  background-position: right 8px center;
-  padding-left: 0;
-  padding-right: 0;
 }
 
 .c0 input,
@@ -2865,12 +2901,19 @@ exports[`snapshots renders a single select input 1`] = `
   padding: 12px;
 }
 
-.c0 > :not(:last-child) {
+.c1 {
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.c1 > :not(:last-child) {
   margin-right: 8px;
 }
 
-.c0 .TextInput-icon,
-.c0 .TextInput-action {
+.c1 .TextInput-icon,
+.c1 .TextInput-action {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
@@ -2880,13 +2923,13 @@ exports[`snapshots renders a single select input 1`] = `
   flex-shrink: 0;
 }
 
-.c0 > input,
-.c0 > select {
+.c1 > input,
+.c1 > select {
   padding-left: 12px;
   padding-right: 12px;
 }
 
-.c1 {
+.c2 {
   border: 0;
   font-size: inherit;
   font-family: inherit;
@@ -2896,8 +2939,16 @@ exports[`snapshots renders a single select input 1`] = `
   width: 100%;
 }
 
-.c1:focus {
+.c2:focus {
   outline: 0;
+}
+
+@media (hover:hover) and (pointer:fine) {
+
+}
+
+@media (forced-colors:active) {
+
 }
 
 @media (min-width:768px) {
@@ -2908,7 +2959,7 @@ exports[`snapshots renders a single select input 1`] = `
 
 <span
     aria-busy={false}
-    className="c0 TextInput-wrapper"
+    className="c0 c1 TextInput-wrapper"
     onClick={[Function]}
   >
     <input
@@ -2918,7 +2969,7 @@ exports[`snapshots renders a single select input 1`] = `
       aria-haspopup="listbox"
       aria-owns="autocompleteId-listbox"
       autoComplete="off"
-      className="c1"
+      className="c2"
       data-component="input"
       id="autocompleteId"
       onBlur={[Function]}
@@ -3051,23 +3102,17 @@ exports[`snapshots renders a single select input 1`] = `
   --divider-color: rgba(208,215,222,0.48);
 }
 
-[data-component="ActionList.Divider"] + .c3 {
+[data-component="ActionList.Divider"] + .c2 {
   --divider-color: transparent !important;
 }
 
-.c3:hover:not([aria-disabled]),
-.c3:focus:not([aria-disabled]),
+.c3:hover:not([aria-disabled]),.c3:focus:not([aria-disabled]),
 .c3[data-focus-visible-added]:not([aria-disabled]) {
   --divider-color: transparent;
 }
 
 .c3:hover:not([aria-disabled]) + .c2,
 .c3[data-focus-visible-added] + li {
-  --divider-color: transparent;
-}
-
-.c7:hover:not([aria-disabled]) + .c2,
-.c7[data-focus-visible-added] + li {
   --divider-color: transparent;
 }
 
@@ -3094,6 +3139,10 @@ exports[`snapshots renders a single select input 1`] = `
   .c3:focus {
     outline: solid 1px transparent !important;
   }
+}
+
+@media (min-width:768px) {
+
 }
 
 <span
@@ -3354,7 +3403,15 @@ exports[`snapshots renders a single select input 1`] = `
 
 exports[`snapshots renders with a custom text input component 1`] = `
 [
-  <input
+  @media (hover:hover) and (pointer:fine) {
+
+}
+
+@media (forced-colors:active) {
+
+}
+
+<input
     id="customInput"
     type="text"
   />,
@@ -3478,23 +3535,17 @@ exports[`snapshots renders with a custom text input component 1`] = `
   --divider-color: rgba(208,215,222,0.48);
 }
 
-[data-component="ActionList.Divider"] + .c3 {
+[data-component="ActionList.Divider"] + .c2 {
   --divider-color: transparent !important;
 }
 
-.c3:hover:not([aria-disabled]),
-.c3:focus:not([aria-disabled]),
+.c3:hover:not([aria-disabled]),.c3:focus:not([aria-disabled]),
 .c3[data-focus-visible-added]:not([aria-disabled]) {
   --divider-color: transparent;
 }
 
 .c3:hover:not([aria-disabled]) + .c2,
 .c3[data-focus-visible-added] + li {
-  --divider-color: transparent;
-}
-
-.c7:hover:not([aria-disabled]) + .c2,
-.c7[data-focus-visible-added] + li {
   --divider-color: transparent;
 }
 
@@ -3800,10 +3851,6 @@ exports[`snapshots renders with an input value 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
-  background-repeat: no-repeat;
-  background-position: right 8px center;
-  padding-left: 0;
-  padding-right: 0;
 }
 
 .c0 input,
@@ -3841,12 +3888,19 @@ exports[`snapshots renders with an input value 1`] = `
   padding: 12px;
 }
 
-.c0 > :not(:last-child) {
+.c1 {
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.c1 > :not(:last-child) {
   margin-right: 8px;
 }
 
-.c0 .TextInput-icon,
-.c0 .TextInput-action {
+.c1 .TextInput-icon,
+.c1 .TextInput-action {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
@@ -3856,13 +3910,13 @@ exports[`snapshots renders with an input value 1`] = `
   flex-shrink: 0;
 }
 
-.c0 > input,
-.c0 > select {
+.c1 > input,
+.c1 > select {
   padding-left: 12px;
   padding-right: 12px;
 }
 
-.c1 {
+.c2 {
   border: 0;
   font-size: inherit;
   font-family: inherit;
@@ -3872,8 +3926,16 @@ exports[`snapshots renders with an input value 1`] = `
   width: 100%;
 }
 
-.c1:focus {
+.c2:focus {
   outline: 0;
+}
+
+@media (hover:hover) and (pointer:fine) {
+
+}
+
+@media (forced-colors:active) {
+
 }
 
 @media (min-width:768px) {
@@ -3884,7 +3946,7 @@ exports[`snapshots renders with an input value 1`] = `
 
 <span
     aria-busy={false}
-    className="c0 TextInput-wrapper"
+    className="c0 c1 TextInput-wrapper"
     onClick={[Function]}
   >
     <input
@@ -3894,7 +3956,7 @@ exports[`snapshots renders with an input value 1`] = `
       aria-haspopup="listbox"
       aria-owns="autocompleteId-listbox"
       autoComplete="off"
-      className="c1"
+      className="c2"
       data-component="input"
       id="autocompleteId"
       onBlur={[Function]}
@@ -3922,6 +3984,18 @@ exports[`snapshots renders with an input value 1`] = `
   clip: rect(0,0,0,0);
   white-space: nowrap;
   border-width: 0;
+}
+
+@media (hover:hover) and (pointer:fine) {
+
+}
+
+@media (forced-colors:active) {
+
+}
+
+@media (min-width:768px) {
+
 }
 
 <span
