@@ -49,3 +49,5 @@ export type TextInputCompatibleChild = React.ReactElement<
   JSX.IntrinsicElements['textarea'] | JSX.IntrinsicElements['input']
 > &
   React.RefAttributes<HTMLInputElement & HTMLTextAreaElement>
+
+export type SuggestionsPlacement = 'above' | 'below'

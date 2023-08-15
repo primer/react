@@ -164,14 +164,6 @@ exports[`Button renders consistently 1`] = `
   grid-area: text;
   line-height: calc(20/14);
   white-space: nowrap;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
 }
 
 .c0 [data-component="trailingVisual"] {
@@ -405,14 +397,6 @@ exports[`Button respects block prop 1`] = `
   grid-area: text;
   line-height: calc(20/14);
   white-space: nowrap;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
 }
 
 .c0 [data-component="trailingVisual"] {
@@ -652,14 +636,6 @@ exports[`Button respects the alignContent prop 1`] = `
   grid-area: text;
   line-height: calc(20/14);
   white-space: nowrap;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
 }
 
 .c0 [data-component="trailingVisual"] {
@@ -898,14 +874,6 @@ exports[`Button respects the large size prop 1`] = `
   grid-area: text;
   line-height: calc(20/14);
   white-space: nowrap;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
 }
 
 .c0 [data-component="trailingVisual"] {
@@ -1145,14 +1113,6 @@ exports[`Button respects the small size prop 1`] = `
   grid-area: text;
   line-height: calc(20/14);
   white-space: nowrap;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
 }
 
 .c0 [data-component="trailingVisual"] {
@@ -1397,14 +1357,6 @@ exports[`Button styles danger button appropriately 1`] = `
   grid-area: text;
   line-height: calc(20/14);
   white-space: nowrap;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
 }
 
 .c0 [data-component="trailingVisual"] {
@@ -1652,14 +1604,6 @@ exports[`Button styles invisible button appropriately 1`] = `
   grid-area: text;
   line-height: calc(20/14);
   white-space: nowrap;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
 }
 
 .c0 [data-component="trailingVisual"] {
@@ -1914,14 +1858,6 @@ exports[`Button styles primary button appropriately 1`] = `
   grid-area: text;
   line-height: calc(20/14);
   white-space: nowrap;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
 }
 
 .c0 [data-component="trailingVisual"] {
