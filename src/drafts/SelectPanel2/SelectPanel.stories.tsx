@@ -88,13 +88,18 @@ const SelectPanelButton = React.forwardRef((props, anchorRef) => {
 })
 SelectPanel2.Button = SelectPanelButton
 
-SelectPanel2.Header = props => {
+const SelectPanelHeader: React.FC<React.PropsWithChildren> = ({children, ...props}) => {
+  const [slots] = useSlots(children, {
+    heading: SelectPanelHeading,
+    searchInput: SelectPanelSearchInput,
+  })
+
   return (
-    <Box id="header" sx={{padding: 2, border: '1px solid', borderColor: 'border.default'}}>
+    <Box id="header" sx={{padding: 2, border: '1px solid', borderColor: 'border.default'}} {...props}>
       <Box sx={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingBottom: 2}}>
-        <Heading {...props} sx={{fontSize: 14, fontWeight: 600, marginLeft: 2}} />
-        {/* Will not need tooltip after https://github.com/primer/react/issues/2008 */}
+        {slots.heading}
         <Box>
+          {/* Will not need tooltip after https://github.com/primer/react/issues/2008 */}
           <Tooltip text="Clear selection" direction="s">
             <IconButton variant="invisible" icon={ClearIcon} aria-label="Clear selection" />
           </Tooltip>
@@ -103,26 +108,47 @@ SelectPanel2.Header = props => {
           </Tooltip>
         </Box>
       </Box>
-      <TextInput
-        // this autofocus doesn't seem to apply 🤔
-        // probably because the focus zone overrides autoFocus
-        autoFocus
-        block
-        leadingVisual={SearchIcon}
-        placeholder="Search"
-        trailingAction={
-          <TextInput.Action icon={XCircleFillIcon} aria-label="Clear" sx={{color: 'fg.subtle', bg: 'none'}} />
-        }
-        sx={
-          {
-            /* TODO: uncommenting this breaks keyboard navigation, that's odd */
-            // '& input:empty + .TextInput-action': {display: 'none'},
-          }
-        }
-      />
+      {slots.searchInput}
     </Box>
   )
 }
+SelectPanel2.Header = SelectPanelHeader
+
+const SelectPanelHeading: React.FC<
+  React.PropsWithChildren<{as: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'; children: string}>
+> = ({as, children, ...props}) => {
+  return (
+    <Heading as={as} sx={{fontSize: 14, fontWeight: 600, marginLeft: 2}} {...props}>
+      {children}
+    </Heading>
+  )
+}
+SelectPanel2.Heading = SelectPanelHeading
+
+const SelectPanelSearchInput = props => {
+  return (
+    <TextInput
+      // this autofocus doesn't seem to apply 🤔
+      // probably because the focus zone overrides autoFocus
+      autoFocus
+      block
+      leadingVisual={SearchIcon}
+      placeholder="Search"
+      trailingAction={
+        <TextInput.Action icon={XCircleFillIcon} aria-label="Clear" sx={{color: 'fg.subtle', bg: 'none'}} />
+      }
+      sx={
+        {
+          /* TODO: uncommenting this breaks keyboard navigation, that's odd */
+          // '& input:empty + .TextInput-action': {display: 'none'},
+        }
+      }
+      {...props}
+    />
+  )
+}
+SelectPanel2.SearchInput = SelectPanelSearchInput
+
 SelectPanel2.Body = props => {
   return (
     <Box id="body" sx={{flexShrink: 1, flexGrow: 1, overflowY: 'scroll'}}>
@@ -172,9 +198,18 @@ export const Default = () => {
       <h1>Multi Select Panel</h1>
 
       <SelectPanel2>
+        {/* TODO: the ref types don't match here, use useProvidedRefOrCreate */}
         <SelectPanel2.Button>Assign label</SelectPanel2.Button>
+        {/* TODO: header and heading is confusing */}
+        <SelectPanel2.Header>
+          <SelectPanel2.Heading as="h3">Select authors</SelectPanel2.Heading>
 
-        <SelectPanel2.Header as="h3">Select authors</SelectPanel2.Header>
+          <SelectPanel2.SearchInput
+            onChange={() => {
+              //  handle search
+            }}
+          />
+        </SelectPanel2.Header>
         <SelectPanel2.Body>
           <ActionList>
             {repository.labels.map(label => (
