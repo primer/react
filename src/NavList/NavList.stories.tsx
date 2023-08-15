@@ -154,7 +154,7 @@ export const WithReloads: Story = () => {
   return (
     <>
       <PageLayout>
-        <PageLayout.Pane position="start">
+        <PageLayout.Pane>
           <NavList>
             <NavList.Item href={`${urlBase}&itemId=1`} aria-current={itemId === '1' ? 'page' : 'false'}>
               Item 1
