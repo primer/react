@@ -4,4 +4,4 @@
 
 SelectPanel anchors should have aria-haspopup="listbox"
 
-<!-- Changed components: _none_ -->
+<!-- Changed components: SelectPanel -->
