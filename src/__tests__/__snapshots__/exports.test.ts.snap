@@ -77,7 +77,6 @@ exports[`@primer/react should not update exports without a semver change 1`] = `
   "theme",
   "themeGet",
   "useColorSchemeVar",
-  "useConfirm",
   "useDetails",
   "useFocusTrap",
   "useFocusZone",
