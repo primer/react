@@ -227,7 +227,7 @@ SelectPanel2.SecondaryButton = props => {
   return <Button {...props} size="small" type="button" />
 }
 SelectPanel2.SecondaryLink = props => {
-  return <a {...props} />
+  return <a {...props}>{props.children}</a>
 }
 
 // option 2:
@@ -287,6 +287,8 @@ export const Default = () => {
 
   const onSave = (selectedLabelIds: string[]) => {
     data.issue.labelIds = selectedLabelIds // pretending to persist changes
+
+    // eslint-disable-next-line no-console
     console.log('form submitted')
   }
 
@@ -303,6 +305,7 @@ export const Default = () => {
         onSubmit={onSubmit}
         onCancel={() => {
           /* optional callback, for example: for multi-step overlay or to fire sync actions */
+          // eslint-disable-next-line no-console
           console.log('panel was closed')
         }}
         // TODO: onClearSelection feels even more odd on the parent, instead of on the header.
