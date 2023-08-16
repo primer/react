@@ -12,7 +12,7 @@ import {
   Tooltip,
   TextInput,
   AnchoredOverlayProps,
-} from '../../../'
+} from '../../../src/index'
 import {useSlots} from '../../hooks/useSlots'
 
 import data from './mock-data'
