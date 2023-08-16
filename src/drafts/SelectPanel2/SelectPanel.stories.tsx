@@ -49,7 +49,7 @@ const ClearIcon = props => {
 
 ///// component start
 
-const SelectPanelContext = React.createContext({onCancel: () => {}})
+const SelectPanelContext = React.createContext({onCancel: () => {}, onClearSelection: () => {}})
 
 const SelectPanel2 = props => {
   const anchorRef = React.useRef<HTMLButtonElement>(null)
@@ -78,6 +78,11 @@ const SelectPanel2 = props => {
     if (typeof props.onSubmit === 'function') props.onSubmit(event)
   }
 
+  const onInternalClearSelection = () => {
+    setOpen(false)
+    if (typeof props.onSubmit === 'function') props.onClearSelection()
+  }
+
   return (
     <>
       <AnchoredOverlay
@@ -93,7 +98,7 @@ const SelectPanel2 = props => {
         {/* TODO: Keyboard navigation of actionlist should be arrow keys
             with tabs to enter and escape
         */}
-        <SelectPanelContext.Provider value={{onCancel: onInternalClose}}>
+        <SelectPanelContext.Provider value={{onCancel: onInternalClose, onClearSelection: onInternalClearSelection}}>
           <Box as="form" onSubmit={onInternalSubmit} sx={{display: 'flex', flexDirection: 'column', height: '100%'}}>
             {contents}
           </Box>
@@ -114,7 +119,7 @@ const SelectPanelHeader: React.FC<React.PropsWithChildren> = ({children, ...prop
     searchInput: SelectPanelSearchInput,
   })
 
-  const {onCancel} = React.useContext(SelectPanelContext)
+  const {onCancel, onClearSelection} = React.useContext(SelectPanelContext)
 
   return (
     <Box id="header" sx={{padding: 2, borderBottom: '1px solid', borderColor: 'border.default'}} {...props}>
@@ -122,7 +127,7 @@ const SelectPanelHeader: React.FC<React.PropsWithChildren> = ({children, ...prop
         {slots.heading}
         <Box>
           {/* Will not need tooltip after https://github.com/primer/react/issues/2008 */}
-          <Tooltip text="Clear selection" direction="s">
+          <Tooltip text="Clear selection" direction="s" onClick={onClearSelection}>
             <IconButton type="button" variant="invisible" icon={ClearIcon} aria-label="Clear selection" />
           </Tooltip>
           <Tooltip text="Close" direction="s">
@@ -148,16 +153,27 @@ const SelectPanelHeading: React.FC<
 SelectPanel2.Heading = SelectPanelHeading
 
 const SelectPanelSearchInput = props => {
+  const inputRef = React.createRef<HTMLInputElement>()
+
   return (
     <TextInput
       // this autofocus doesn't seem to apply 🤔
       // probably because the focus zone overrides autoFocus
       autoFocus
+      ref={inputRef}
       block
       leadingVisual={SearchIcon}
       placeholder="Search"
       trailingAction={
-        <TextInput.Action icon={XCircleFillIcon} aria-label="Clear" sx={{color: 'fg.subtle', bg: 'none'}} />
+        <TextInput.Action
+          icon={XCircleFillIcon}
+          aria-label="Clear"
+          sx={{color: 'fg.subtle', bg: 'none'}}
+          onClick={() => {
+            if (inputRef.current) inputRef.current.value = ''
+            if (typeof props.onChange === 'function') props.onChange({target: inputRef.current})
+          }}
+        />
       }
       sx={
         {
@@ -226,11 +242,17 @@ export const Default = () => {
   // TODO/question: should the search work uncontrolled as well?
   const [filteredLabels, setFilteredLabels] = React.useState(data.labels)
 
-  const defaultSelectedLabels = data.issue.labelIds
-  const [selectedLabelIds, setSelectedLabelIds] = React.useState<string[]>(defaultSelectedLabels)
+  const initialSelectedLabels = [] // initial state: no labels
+  // const initialSelectedLabels = data.issue.labelIds // initial state: has labels
 
+  const [selectedLabelIds, setSelectedLabelIds] = React.useState<string[]>(initialSelectedLabels)
+
+  const [query, setQuery] = React.useState('')
+
+  // TODO: should this be baked-in
   const searchOnChange = event => {
     const query = event.target.value
+    setQuery(query)
 
     if (query === '') setFilteredLabels(data.labels)
     else {
@@ -256,10 +278,16 @@ export const Default = () => {
 
   const onSubmit = event => {
     event.preventDefault() // coz form submit, innit
+    onSave(selectedLabelIds)
+  }
 
-    // pretending to persist changes
-    data.issue.labelIds = selectedLabelIds
+  const onClearSelection = () => {
+    setSelectedLabelIds([])
+    onSave([])
+  }
 
+  const onSave = (selectedLabelIds: string[]) => {
+    data.issue.labelIds = selectedLabelIds // pretending to persist changes
     console.log('form submitted')
   }
 
@@ -278,6 +306,11 @@ export const Default = () => {
           /* optional callback, for example: for multi-step overlay or to fire sync actions */
           console.log('panel was closed')
         }}
+        // TODO: onClearSelection feels even more odd on the parent, instead of on the header.
+        onClearSelection={event => {
+          // not optional, we don't control the selection, so we just pass this through
+          onClearSelection(event)
+        }}
       >
         {/* TODO: the ref types don't match here, use useProvidedRefOrCreate */}
         <SelectPanel2.Button>Assign label</SelectPanel2.Button>
@@ -293,24 +326,9 @@ export const Default = () => {
         </SelectPanel2.Header>
 
         <SelectPanel2.Body>
-          {/* TODO: this should be automatic, you can change it to single */}
           <ActionList selectionVariant="multiple">
-            {filteredLabels
-
-              /* TODO: should this sorting be baked-in OR we only validate + warn OR do nothing
-                 need to either own or accept the selection state to make that automatic
-                 OR provide a API for sorting in ActionList like sort by key or sort fn
-              */
-              .sort((a, b) => {
-                /* Important! This sorting is only for initial selected ids, not for subsequent changes!
-                   deterministic sorting for better UX: don't change positions with other selected items.
-                */
-                if (defaultSelectedLabels.includes(a.id) && defaultSelectedLabels.includes(b.id)) return 1
-                else if (defaultSelectedLabels.includes(a.id)) return -1
-                else if (defaultSelectedLabels.includes(b.id)) return 1
-                else return 1
-              })
-              .map(label => (
+            {query ? (
+              filteredLabels.map(label => (
                 <ActionList.Item
                   key={label.id}
                   onSelect={() => onLabelSelect(label.id)}
@@ -320,15 +338,58 @@ export const Default = () => {
                   {label.name}
                   <ActionList.Description>{label.description}</ActionList.Description>
                 </ActionList.Item>
-              ))}
+              ))
+            ) : (
+              <>
+                {data.labels
+                  .filter(label => selectedLabelIds.includes(label.id))
+                  .sort((a, b) => {
+                    /* Important! This sorting is only for initial selected ids, not for subsequent changes!
+                      deterministic sorting for better UX: don't change positions with other selected items.
+
+                      TODO: should this sorting be baked-in OR we only validate + warn OR do nothing
+                      need to either own or accept the selection state to make that automatic
+                      OR provide a API for sorting in ActionList like sort by key or sort fn
+                    */
+                    if (selectedLabelIds.includes(a.id) && selectedLabelIds.includes(b.id)) return 1
+                    else if (selectedLabelIds.includes(a.id)) return -1
+                    else if (selectedLabelIds.includes(b.id)) return 1
+                    else return 1
+                  })
+                  .map(label => (
+                    <ActionList.Item
+                      key={label.id}
+                      onSelect={() => onLabelSelect(label.id)}
+                      selected={selectedLabelIds.includes(label.id)}
+                    >
+                      <ActionList.LeadingVisual>{getCircle(label.color)}</ActionList.LeadingVisual>
+                      {label.name}
+                      <ActionList.Description>{label.description}</ActionList.Description>
+                    </ActionList.Item>
+                  ))}
+                {selectedLabelIds.length > 0 ? <ActionList.Divider /> : null}
+
+                {data.labels
+                  .filter(label => !selectedLabelIds.includes(label.id))
+                  .map(label => (
+                    <ActionList.Item
+                      key={label.id}
+                      onSelect={() => onLabelSelect(label.id)}
+                      selected={selectedLabelIds.includes(label.id)}
+                    >
+                      <ActionList.LeadingVisual>{getCircle(label.color)}</ActionList.LeadingVisual>
+                      {label.name}
+                      <ActionList.Description>{label.description}</ActionList.Description>
+                    </ActionList.Item>
+                  ))}
+              </>
+            )}
           </ActionList>
         </SelectPanel2.Body>
         <SelectPanel2.Footer>
           <SelectPanel2.SecondaryButton>View authors</SelectPanel2.SecondaryButton>
         </SelectPanel2.Footer>
       </SelectPanel2>
-
-      <hr />
     </ThemeProvider>
   )
 }
