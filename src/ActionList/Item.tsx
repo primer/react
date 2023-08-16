@@ -207,7 +207,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
           ref={forwardedRef}
           sx={merge<BetterSystemStyleObject>(styles, sxProp)}
           data-variant={variant === 'danger' ? variant : undefined}
-          {...(containerProps.role === 'option' && {'aria-selected': selected})}
+          aria-selected={containerProps.role === 'option' ? selected : undefined}
           {...containerProps}
           {...props}
         >
