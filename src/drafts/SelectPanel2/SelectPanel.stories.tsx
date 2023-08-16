@@ -49,6 +49,8 @@ const ClearIcon = props => {
 
 ///// component start
 
+const SelectPanelContext = React.createContext({onCancel: () => {}})
+
 const SelectPanel2 = props => {
   const anchorRef = React.useRef<HTMLButtonElement>(null)
 
@@ -64,12 +66,26 @@ const SelectPanel2 = props => {
     return child
   })
 
+  const [open, setOpen] = React.useState(false)
+
+  const onInternalClose = () => {
+    setOpen(false)
+    // TODO: cancel should reset the internal state of the component
+    if (typeof props.onCancel === 'function') props.onCancel()
+  }
+  const onInternalSubmit = event => {
+    setOpen(false)
+    if (typeof props.onSubmit === 'function') props.onSubmit(event)
+  }
+
   return (
     <>
       <AnchoredOverlay
-        open={true}
         anchorRef={anchorRef}
         renderAnchor={renderAnchor}
+        open={open}
+        onOpen={() => setOpen(true)}
+        onClose={onInternalClose}
         width="medium"
         height="large"
         focusZoneSettings={{bindKeys: FocusKeys.Tab}}
@@ -77,7 +93,11 @@ const SelectPanel2 = props => {
         {/* TODO: Keyboard navigation of actionlist should be arrow keys
             with tabs to enter and escape
         */}
-        <Box sx={{display: 'flex', flexDirection: 'column', height: '100%'}}>{contents}</Box>
+        <SelectPanelContext.Provider value={{onCancel: onInternalClose}}>
+          <Box as="form" onSubmit={onInternalSubmit} sx={{display: 'flex', flexDirection: 'column', height: '100%'}}>
+            {contents}
+          </Box>
+        </SelectPanelContext.Provider>
       </AnchoredOverlay>
     </>
   )
@@ -94,6 +114,8 @@ const SelectPanelHeader: React.FC<React.PropsWithChildren> = ({children, ...prop
     searchInput: SelectPanelSearchInput,
   })
 
+  const {onCancel} = React.useContext(SelectPanelContext)
+
   return (
     <Box id="header" sx={{padding: 2, borderBottom: '1px solid', borderColor: 'border.default'}} {...props}>
       <Box sx={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingBottom: 2}}>
@@ -101,10 +123,10 @@ const SelectPanelHeader: React.FC<React.PropsWithChildren> = ({children, ...prop
         <Box>
           {/* Will not need tooltip after https://github.com/primer/react/issues/2008 */}
           <Tooltip text="Clear selection" direction="s">
-            <IconButton variant="invisible" icon={ClearIcon} aria-label="Clear selection" />
+            <IconButton type="button" variant="invisible" icon={ClearIcon} aria-label="Clear selection" />
           </Tooltip>
           <Tooltip text="Close" direction="s">
-            <IconButton variant="invisible" icon={XIcon} aria-label="Close" />
+            <IconButton type="button" variant="invisible" icon={XIcon} aria-label="Close" onClick={() => onCancel()} />
           </Tooltip>
         </Box>
       </Box>
@@ -156,7 +178,10 @@ SelectPanel2.Body = props => {
     </Box>
   )
 }
-SelectPanel2.Footer = props => {
+
+const SelectPanelFooter = ({...props}) => {
+  const {onCancel} = React.useContext(SelectPanelContext)
+
   return (
     <Box
       id="footer"
@@ -170,18 +195,21 @@ SelectPanel2.Footer = props => {
     >
       {props.children}
       <Box sx={{display: 'flex', gap: 2}}>
-        <Button size="small">Cancel</Button>
-        <Button size="small" variant="primary">
+        <Button size="small" type="button" onClick={() => onCancel()}>
+          Cancel
+        </Button>
+        <Button size="small" type="submit" variant="primary">
           Submit
         </Button>
       </Box>
     </Box>
   )
 }
+SelectPanel2.Footer = SelectPanelFooter
 
 // option 1 (not used):
 SelectPanel2.SecondaryButton = props => {
-  return <Button {...props} size="small" />
+  return <Button {...props} size="small" type="button" />
 }
 SelectPanel2.SecondaryLink = props => {
   return <a {...props} />
@@ -226,12 +254,31 @@ export const Default = () => {
     else setSelectedLabelIds(selectedLabelIds.filter(id => id !== labelId))
   }
 
+  const onSubmit = event => {
+    event.preventDefault() // coz form submit, innit
+
+    // pretending to persist changes
+    data.issue.labelIds = selectedLabelIds
+
+    console.log('form submitted')
+  }
+
   return (
     <ThemeProvider>
       <h1>Multi Select Panel</h1>
 
       {/* TODO: overlayProps on SelectPanel vs SelectPanel.Overlay */}
-      <SelectPanel2>
+
+      <SelectPanel2
+        // onSubmit and onCancel feel out of place here instead of the footer,
+        // but cancel can be called from 4 different actions - Cancel button, X iconbutton up top, press escape key, click outside
+        // also, what if there is no footer? onSubmit is maybe not needed, but we need to put the onCancel callback somewhere.
+        onSubmit={onSubmit}
+        onCancel={() => {
+          /* optional callback, for example: for multi-step overlay or to fire sync actions */
+          console.log('panel was closed')
+        }}
+      >
         {/* TODO: the ref types don't match here, use useProvidedRefOrCreate */}
         <SelectPanel2.Button>Assign label</SelectPanel2.Button>
 
