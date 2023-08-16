@@ -724,6 +724,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
       >
         <li
           aria-labelledby="0 "
+          aria-selected={false}
           className="c2 c3"
           data-id="0"
           onClick={[Function]}
@@ -769,6 +770,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
         </li>
         <li
           aria-labelledby="1 "
+          aria-selected={false}
           className="c2 c3"
           data-id="1"
           onClick={[Function]}
@@ -814,6 +816,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
         </li>
         <li
           aria-labelledby="2 "
+          aria-selected={false}
           className="c2 c3"
           data-id="2"
           onClick={[Function]}
@@ -859,6 +862,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
         </li>
         <li
           aria-labelledby="3 "
+          aria-selected={false}
           className="c2 c3"
           data-id="3"
           onClick={[Function]}
@@ -904,6 +908,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
         </li>
         <li
           aria-labelledby="4 "
+          aria-selected={false}
           className="c2 c3"
           data-id="4"
           onClick={[Function]}
@@ -949,6 +954,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
         </li>
         <li
           aria-labelledby="5 "
+          aria-selected={false}
           className="c2 c3"
           data-id="5"
           onClick={[Function]}
@@ -994,6 +1000,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
         </li>
         <li
           aria-labelledby="6 "
+          aria-selected={false}
           className="c2 c3"
           data-id="6"
           onClick={[Function]}
@@ -1039,6 +1046,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
         </li>
         <li
           aria-labelledby="7 "
+          aria-selected={false}
           className="c2 c3"
           data-id="7"
           onClick={[Function]}
@@ -1084,6 +1092,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
         </li>
         <li
           aria-labelledby="20 "
+          aria-selected={false}
           className="c2 c3"
           data-id="20"
           onClick={[Function]}
@@ -1129,6 +1138,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
         </li>
         <li
           aria-labelledby="21 "
+          aria-selected={false}
           className="c2 c3"
           data-id="21"
           onClick={[Function]}
@@ -1174,6 +1184,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
         </li>
         <li
           aria-labelledby="add-new-item "
+          aria-selected={false}
           className="c2 c3"
           data-id="add-new-item"
           onClick={[Function]}
@@ -1575,6 +1586,7 @@ exports[`snapshots renders a multiselect input 1`] = `
       >
         <li
           aria-labelledby="0 "
+          aria-selected={false}
           className="c2 c3"
           data-id="0"
           onClick={[Function]}
@@ -1620,6 +1632,7 @@ exports[`snapshots renders a multiselect input 1`] = `
         </li>
         <li
           aria-labelledby="1 "
+          aria-selected={false}
           className="c2 c3"
           data-id="1"
           onClick={[Function]}
@@ -1665,6 +1678,7 @@ exports[`snapshots renders a multiselect input 1`] = `
         </li>
         <li
           aria-labelledby="2 "
+          aria-selected={false}
           className="c2 c3"
           data-id="2"
           onClick={[Function]}
@@ -1710,6 +1724,7 @@ exports[`snapshots renders a multiselect input 1`] = `
         </li>
         <li
           aria-labelledby="3 "
+          aria-selected={false}
           className="c2 c3"
           data-id="3"
           onClick={[Function]}
@@ -1755,6 +1770,7 @@ exports[`snapshots renders a multiselect input 1`] = `
         </li>
         <li
           aria-labelledby="4 "
+          aria-selected={false}
           className="c2 c3"
           data-id="4"
           onClick={[Function]}
@@ -1800,6 +1816,7 @@ exports[`snapshots renders a multiselect input 1`] = `
         </li>
         <li
           aria-labelledby="5 "
+          aria-selected={false}
           className="c2 c3"
           data-id="5"
           onClick={[Function]}
@@ -1845,6 +1862,7 @@ exports[`snapshots renders a multiselect input 1`] = `
         </li>
         <li
           aria-labelledby="6 "
+          aria-selected={false}
           className="c2 c3"
           data-id="6"
           onClick={[Function]}
@@ -1890,6 +1908,7 @@ exports[`snapshots renders a multiselect input 1`] = `
         </li>
         <li
           aria-labelledby="7 "
+          aria-selected={false}
           className="c2 c3"
           data-id="7"
           onClick={[Function]}
@@ -1935,6 +1954,7 @@ exports[`snapshots renders a multiselect input 1`] = `
         </li>
         <li
           aria-labelledby="20 "
+          aria-selected={false}
           className="c2 c3"
           data-id="20"
           onClick={[Function]}
@@ -1980,6 +2000,7 @@ exports[`snapshots renders a multiselect input 1`] = `
         </li>
         <li
           aria-labelledby="21 "
+          aria-selected={false}
           className="c2 c3"
           data-id="21"
           onClick={[Function]}
@@ -2389,6 +2410,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
       >
         <li
           aria-labelledby="0 "
+          aria-selected={true}
           className="c2 c3"
           data-id="0"
           onClick={[Function]}
@@ -2434,6 +2456,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
         </li>
         <li
           aria-labelledby="1 "
+          aria-selected={true}
           className="c2 c3"
           data-id="1"
           onClick={[Function]}
@@ -2479,6 +2502,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
         </li>
         <li
           aria-labelledby="2 "
+          aria-selected={true}
           className="c2 c3"
           data-id="2"
           onClick={[Function]}
@@ -2524,6 +2548,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
         </li>
         <li
           aria-labelledby="3 "
+          aria-selected={false}
           className="c2 c3"
           data-id="3"
           onClick={[Function]}
@@ -2569,6 +2594,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
         </li>
         <li
           aria-labelledby="4 "
+          aria-selected={false}
           className="c2 c3"
           data-id="4"
           onClick={[Function]}
@@ -2614,6 +2640,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
         </li>
         <li
           aria-labelledby="5 "
+          aria-selected={false}
           className="c2 c3"
           data-id="5"
           onClick={[Function]}
@@ -2659,6 +2686,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
         </li>
         <li
           aria-labelledby="6 "
+          aria-selected={false}
           className="c2 c3"
           data-id="6"
           onClick={[Function]}
@@ -2704,6 +2732,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
         </li>
         <li
           aria-labelledby="7 "
+          aria-selected={false}
           className="c2 c3"
           data-id="7"
           onClick={[Function]}
@@ -2749,6 +2778,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
         </li>
         <li
           aria-labelledby="20 "
+          aria-selected={false}
           className="c2 c3"
           data-id="20"
           onClick={[Function]}
@@ -2794,6 +2824,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
         </li>
         <li
           aria-labelledby="21 "
+          aria-selected={false}
           className="c2 c3"
           data-id="21"
           onClick={[Function]}

@@ -1,54 +1,58 @@
 {
-  "id": "dialog",
+  "id": "drafts_dialog",
   "name": "Dialog",
-  "status": "alpha",
+  "status": "draft",
   "a11yReviewed": false,
   "stories": [],
   "props": [
     {
-      "name": "isOpen",
-      "type": "boolean",
-      "description": "Whether or not the dialog is open"
+      "name": "title",
+      "type": "React.ReactNode",
+      "description": "Title of the Dialog. Also serves as the aria-label for this Dialog."
     },
     {
-      "name": "onDismiss",
-      "type": "() => void",
-      "description": "Function that will be called when the dialog is closed"
+      "name": "subtitle",
+      "type": "React.ReactNode",
+      "description": "The Dialog's subtitle. Optional. Rendered below the title in smaller type with less contrast. Also serves as the aria-describedby for this Dialog."
     },
     {
-      "name": "returnFocusRef",
-      "type": " React.RefObject<HTMLElement>",
-      "description": "The element to restore focus back to after the `Dialog` is closed"
+      "name": "renderHeader",
+      "type": "React.FunctionComponent<React.PropsWithChildren<DialogHeaderProps>>",
+      "description": "Provide a custom renderer for the dialog header. This content is rendered directly into the dialog body area, full bleed from edge to edge, top to the start of the body element. Warning: using a custom renderer may violate Primer UX principles."
     },
     {
-      "name": "initialFocusRef",
-      "type": " React.RefObject<HTMLElement>",
-      "description": "Element inside of the `Dialog` you'd like to be focused when the Dialog is opened. If nothing is passed to `initialFocusRef` the close button is focused."
+      "name": "renderBody",
+      "type": "React.FunctionComponent<React.PropsWithChildren<DialogProps>>",
+      "description": "Provide a custom render function for the dialog body. This content is rendered directly into the dialog body area, full bleed from edge to edge, header to footer. Warning: using a custom renderer may violate Primer UX principles."
     },
     {
-      "name": "aria-labelledby",
-      "type": "string",
-      "description": "Pass an id to use for the aria-label. Use either a `aria-label` or an `aria-labelledby` but not both."
+      "name": "renderFooter",
+      "type": "React.FunctionComponent<React.PropsWithChildren<DialogProps>>",
+      "description": "Provide a custom render function for the dialog footer. This content is rendered directly into the dialog footer area, full bleed from edge to edge, end of the body element to bottom. Warning: using a custom renderer may violate Primer UX principles."
     },
     {
-      "name": "aria-label",
-      "type": "string",
-      "description": "Pass a label to be used to describe the Dialog. Use either a `aria-label` or an `aria-labelledby` but not both."
+      "name": "footerButtons",
+      "type": "DialogButtonProps[]",
+      "description": "Specifies the buttons to be rendered in the Dialog footer."
     },
     {
-      "name": "sx",
-      "type": "SystemStyleObject"
+      "name": "onClose",
+      "type": "(gesture: 'close-button' | 'escape') => void",
+      "description": "This method is invoked when a gesture to close the dialog is used (either an Escape key press or clicking the 'X' in the top-right corner). The gesture argument indicates the gesture that was used to close the dialog (either 'close-button' or 'escape')."
+    },
+    {
+      "name": "role",
+      "type": "'dialog' | 'alertdialog'",
+      "description": "The ARIA role to assign to this dialog."
+    },
+    {
+      "name": "width",
+      "type": "'small' | 'medium' | 'large' | 'xlarge'"
+    },
+    {
+      "name": "height",
+      "type": "'small' | 'large' | 'auto'"
     }
   ],
-  "subcomponents": [
-    {
-      "name": "Dialog.Header",
-      "props": [
-        {
-          "name": "sx",
-          "type": "SystemStyleObject"
-        }
-      ]
-    }
-  ]
+  "subcomponents": []
 }

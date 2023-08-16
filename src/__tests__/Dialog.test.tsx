@@ -1,5 +1,5 @@
 import React, {useState, useRef} from 'react'
-import {Box, Dialog, Text} from '..'
+import {Dialog, Box, Text} from '..'
 import {Button} from '../deprecated'
 import {render as HTMLRender, fireEvent} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
@@ -78,7 +78,7 @@ describe('Dialog', () => {
     options: {skipAs: true, skipSx: true},
   })
 
-  checkExports('Dialog/Dialog', {
+  checkExports('Dialog', {
     default: Dialog,
   })
 
