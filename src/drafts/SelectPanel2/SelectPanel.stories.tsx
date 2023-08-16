@@ -79,7 +79,6 @@ const SelectPanel2 = props => {
   }
 
   const onInternalClearSelection = () => {
-    setOpen(false)
     if (typeof props.onSubmit === 'function') props.onClearSelection()
   }
 
