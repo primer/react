@@ -1,4 +1,7 @@
 const data = {
+  issue: {
+    labelIds: ['MDU6TGFiZWw4Mzk2MzgxMTU=', 'MDU6TGFiZWw4Mzk2MzgxMjE='],
+  },
   labels: [
     {
       color: 'd73a4a',

@@ -15,7 +15,7 @@ import {
 } from '../../../'
 import {useSlots} from '../../hooks/useSlots'
 
-import repository from './mock-data'
+import data from './mock-data'
 
 function getCircle(color: string) {
   return (
@@ -47,7 +47,7 @@ const ClearIcon = props => {
   )
 }
 
-/////
+///// component start
 
 const SelectPanel2 = props => {
   const anchorRef = React.useRef<HTMLButtonElement>(null)
@@ -95,7 +95,7 @@ const SelectPanelHeader: React.FC<React.PropsWithChildren> = ({children, ...prop
   })
 
   return (
-    <Box id="header" sx={{padding: 2, border: '1px solid', borderColor: 'border.default'}} {...props}>
+    <Box id="header" sx={{padding: 2, borderBottom: '1px solid', borderColor: 'border.default'}} {...props}>
       <Box sx={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingBottom: 2}}>
         {slots.heading}
         <Box>
@@ -179,7 +179,7 @@ SelectPanel2.Footer = props => {
   )
 }
 
-// option 1:
+// option 1 (not used):
 SelectPanel2.SecondaryButton = props => {
   return <Button {...props} size="small" />
 }
@@ -192,33 +192,88 @@ SelectPanel2.SecondaryActionSlot = props => {
   return <div id="left-layout">{props.children}</div>
 }
 
+///// component end
+
 export const Default = () => {
+  // TODO/question: should the search work uncontrolled as well?
+  const [filteredLabels, setFilteredLabels] = React.useState(data.labels)
+
+  const defaultSelectedLabels = data.issue.labelIds
+  const [selectedLabelIds, setSelectedLabelIds] = React.useState<string[]>(defaultSelectedLabels)
+
+  const searchOnChange = event => {
+    const query = event.target.value
+
+    if (query === '') setFilteredLabels(data.labels)
+    else {
+      // TODO: should probably add a highlight for matching text
+      setFilteredLabels(
+        data.labels
+          .map(label => {
+            if (label.name.toLowerCase().startsWith(query)) return {priority: 1, label}
+            else if (label.name.toLowerCase().includes(query)) return {priority: 2, label}
+            else if (label.description?.toLowerCase().includes(query)) return {priority: 3, label}
+            else return {priority: -1, label}
+          })
+          .filter(result => result.priority > 0)
+          .map(result => result.label),
+      )
+    }
+  }
+
+  const onLabelSelect = (labelId: string) => {
+    if (!selectedLabelIds.includes(labelId)) setSelectedLabelIds([...selectedLabelIds, labelId])
+    else setSelectedLabelIds(selectedLabelIds.filter(id => id !== labelId))
+  }
+
   return (
     <ThemeProvider>
       <h1>Multi Select Panel</h1>
 
+      {/* TODO: overlayProps on SelectPanel vs SelectPanel.Overlay */}
       <SelectPanel2>
         {/* TODO: the ref types don't match here, use useProvidedRefOrCreate */}
         <SelectPanel2.Button>Assign label</SelectPanel2.Button>
-        {/* TODO: header and heading is confusing */}
-        <SelectPanel2.Header>
-          <SelectPanel2.Heading as="h3">Select authors</SelectPanel2.Heading>
 
-          <SelectPanel2.SearchInput
-            onChange={() => {
-              //  handle search
-            }}
-          />
+        {/* TODO: header and heading is confusing. maybe skip header completely. */}
+        <SelectPanel2.Header>
+          {/* TODO: Heading is not optional, but what if you don't give it
+              Should we throw a big error or should we make that impossible in the API?
+          */}
+          <SelectPanel2.Heading as="h4">Select authors</SelectPanel2.Heading>
+
+          <SelectPanel2.SearchInput onChange={searchOnChange} />
         </SelectPanel2.Header>
+
         <SelectPanel2.Body>
-          <ActionList>
-            {repository.labels.map(label => (
-              <ActionList.Item key={label.id}>
-                <ActionList.LeadingVisual>{getCircle(label.color)}</ActionList.LeadingVisual>
-                {label.name}
-                <ActionList.Description>{label.description}</ActionList.Description>
-              </ActionList.Item>
-            ))}
+          {/* TODO: this should be automatic, you can change it to single */}
+          <ActionList selectionVariant="multiple">
+            {filteredLabels
+
+              /* TODO: should this sorting be baked-in OR we only validate + warn OR do nothing
+                 need to either own or accept the selection state to make that automatic
+                 OR provide a API for sorting in ActionList like sort by key or sort fn
+              */
+              .sort((a, b) => {
+                /* Important! This sorting is only for initial selected ids, not for subsequent changes!
+                   deterministic sorting for better UX: don't change positions with other selected items.
+                */
+                if (defaultSelectedLabels.includes(a.id) && defaultSelectedLabels.includes(b.id)) return 1
+                else if (defaultSelectedLabels.includes(a.id)) return -1
+                else if (defaultSelectedLabels.includes(b.id)) return 1
+                else return 1
+              })
+              .map(label => (
+                <ActionList.Item
+                  key={label.id}
+                  onSelect={() => onLabelSelect(label.id)}
+                  selected={selectedLabelIds.includes(label.id)}
+                >
+                  <ActionList.LeadingVisual>{getCircle(label.color)}</ActionList.LeadingVisual>
+                  {label.name}
+                  <ActionList.Description>{label.description}</ActionList.Description>
+                </ActionList.Item>
+              ))}
           </ActionList>
         </SelectPanel2.Body>
         <SelectPanel2.Footer>
