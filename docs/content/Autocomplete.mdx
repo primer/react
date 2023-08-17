@@ -643,6 +643,57 @@ export function AutocompleteWithContextInternal() {
 }
 ```
 
+#### Rendered inside of a `Dialog`
+
+If you attempt to render an Autocomplete inside of a [Dialog](/Dialog) (or any other component that overlays the page), the menu will be rendered below the parent overlay.
+
+There are two ways to get around this:
+
+1. Register a new `Portal` root inside the `Dialog`, then pass the name of that `Portal` root to `Autocomplete.Overlay`: `<Autocomplete.Overlay portalContainerName="portal-inside-dialog">`
+2. Wait to render the `Autocomplete.Overlay` until after the `Dialog` has opened
+
+```javascript live noinline
+export function InADialog() {
+  const outerContainerRef = React.useRef(null)
+  const [mounted, setMounted] = React.useState(false)
+  const [isDialogOpen, setIsDialogOpen] = React.useState(false)
+
+  useEffect(() => {
+    if (outerContainerRef.current instanceof HTMLElement) {
+      registerPortalRoot(outerContainerRef.current, 'outerContainer')
+      setMounted(true)
+    }
+  }, [isDialogOpen])
+
+  return (
+    <>
+      <Button onClick={() => setIsDialogOpen(!isDialogOpen)}>Show dialog</Button>
+      <Dialog id="dialog-with-autocomplete" isOpen={isDialogOpen}>
+        <div ref={outerContainerRef}>
+          {mounted ? (
+            <FormControl>
+              <FormControl.Label id="autocompleteLabel" />
+              <Autocomplete>
+                <Autocomplete.Input data-testid="autocompleteInput" />
+                <Autocomplete.Overlay portalContainerName="outerContainer">
+                  <Autocomplete.Menu items={items} selectedItemIds={[]} aria-labelledby="autocompleteLabel" />
+                </Autocomplete.Overlay>
+              </Autocomplete>
+            </FormControl>
+          ) : null}
+        </div>
+      </Dialog>
+      <p>
+        The Autocomplete.Overlay is portalled to a div inside the Dialog to ensure it appears above the dialog in the
+        stacking context.
+      </p>
+    </>
+  )
+}
+
+render(<InADialog />)
+```
+
 ## Props
 
 <ComponentProps data={data} />

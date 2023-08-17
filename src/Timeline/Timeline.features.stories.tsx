@@ -2,7 +2,7 @@ import React from 'react'
 import {Meta} from '@storybook/react'
 import {ComponentProps} from '../utils/types'
 import Timeline from './Timeline'
-import StyledOcticon from '../StyledOcticon'
+import Octicon from '../Octicon'
 import {GitBranchIcon, GitCommitIcon, GitMergeIcon} from '@primer/octicons-react'
 import Link from '../Link'
 
@@ -21,7 +21,7 @@ export const ClipSidebar = () => (
   <Timeline clipSidebar>
     <Timeline.Item>
       <Timeline.Badge>
-        <StyledOcticon icon={GitCommitIcon} />
+        <Octicon icon={GitCommitIcon} />
       </Timeline.Badge>
       <Timeline.Body>This is a message</Timeline.Body>
     </Timeline.Item>
@@ -32,13 +32,13 @@ export const CondensedItems = () => (
   <Timeline>
     <Timeline.Item condensed>
       <Timeline.Badge>
-        <StyledOcticon icon={GitCommitIcon} />
+        <Octicon icon={GitCommitIcon} />
       </Timeline.Badge>
       <Timeline.Body>This is a message</Timeline.Body>
     </Timeline.Item>
     <Timeline.Item condensed>
       <Timeline.Badge>
-        <StyledOcticon icon={GitCommitIcon} />
+        <Octicon icon={GitCommitIcon} />
       </Timeline.Badge>
       <Timeline.Body>This is a message</Timeline.Body>
     </Timeline.Item>
@@ -49,14 +49,14 @@ export const TimelineBreak = () => (
   <Timeline>
     <Timeline.Item>
       <Timeline.Badge sx={{bg: 'done.emphasis'}}>
-        <StyledOcticon icon={GitMergeIcon} color="fg.onEmphasis" />
+        <Octicon icon={GitMergeIcon} color="fg.onEmphasis" />
       </Timeline.Badge>
       <Timeline.Body>This is a message</Timeline.Body>
     </Timeline.Item>
     <Timeline.Break />
     <Timeline.Item>
       <Timeline.Badge>
-        <StyledOcticon icon={GitBranchIcon} />
+        <Octicon icon={GitBranchIcon} />
       </Timeline.Badge>
       <Timeline.Body>This is a message</Timeline.Body>
     </Timeline.Item>
@@ -67,7 +67,7 @@ export const WithInlineLinks = () => (
   <Timeline>
     <Timeline.Item>
       <Timeline.Badge>
-        <StyledOcticon icon={GitCommitIcon} />
+        <Octicon icon={GitCommitIcon} />
       </Timeline.Badge>
       <Timeline.Body>
         <Link href="#" sx={{fontWeight: 'bold', color: 'fg.default', mr: 1}} muted>

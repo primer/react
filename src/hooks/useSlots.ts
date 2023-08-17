@@ -2,7 +2,7 @@ import React from 'react'
 import {warning} from '../utils/warning'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type SlotConfig = Record<string, React.ComponentType<any>>
+export type SlotConfig = Record<string, React.ElementType<any>>
 
 type SlotElements<Type extends SlotConfig> = {
   [Property in keyof Type]: React.ReactElement<React.ComponentPropsWithoutRef<Type[Property]>, Type[Property]>
@@ -60,8 +60,11 @@ export function useSlots<T extends SlotConfig>(
 
 /** Map the values of an object */
 function mapValues<T extends Record<string, unknown>, V>(obj: T, fn: (value: T[keyof T]) => V) {
-  return Object.keys(obj).reduce((result, key: keyof T) => {
-    result[key] = fn(obj[key])
-    return result
-  }, {} as Record<keyof T, V>)
+  return Object.keys(obj).reduce(
+    (result, key: keyof T) => {
+      result[key] = fn(obj[key])
+      return result
+    },
+    {} as Record<keyof T, V>,
+  )
 }

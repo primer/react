@@ -1,0 +1,24 @@
+name: Changesets
+'on':
+  pull_request:
+    types: [opened, synchronize, reopened, labeled, unlabeled]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: 'npm'
+      - name: Install dependencies
+        run: npm ci
+      # This step generates the generated/components.json file expected by the
+      # validator action
+      - name: Build
+        run: npm run build
+      - uses: gr2m/primer-release-changesets-validator-action@v1

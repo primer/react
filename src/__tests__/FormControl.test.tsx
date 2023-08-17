@@ -385,15 +385,13 @@ describe('FormControl', () => {
               <FormControl.Label>{LABEL_TEXT}</FormControl.Label>
               <Checkbox />
               <FormControl.LeadingVisual>
-                <MarkGithubIcon aria-label="leadingVisualIcon" />
+                <MarkGithubIcon aria-label="Icon label" />
               </FormControl.LeadingVisual>
             </FormControl>
           </SSRProvider>,
         )
 
-        const leadingVisual = getByLabelText('leadingVisualIcon')
-
-        expect(leadingVisual).toBeDefined()
+        expect(getByLabelText('Icon label')).toBeDefined()
       })
     })
 

@@ -171,7 +171,7 @@ const stylePropsMap = {
   SideNav: [...COMMON],
   Spinner: [...COMMON],
   StateLabel: [...COMMON],
-  StyledOcticon: [...COMMON],
+  Octicon: [...COMMON],
   SubNav: [...COMMON, ...FLEX],
   TabNav: [...COMMON],
   TabNavLink: [...COMMON, ...TYPOGRAPHY],

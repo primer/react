@@ -22,7 +22,7 @@ function Example(): JSX.Element {
                 <ActionList.Divider />
                 <ActionList.Item>Copy link</ActionList.Item>
                 <ActionList.Item>Edit file</ActionList.Item>
-                <ActionList.Item variant="danger" onClick={event => event.preventDefault()}>
+                <ActionList.Item variant="danger" onSelect={event => event.preventDefault()}>
                   Delete file
                 </ActionList.Item>
                 <ActionList.LinkItem href="//github.com" title="anchor" aria-keyshortcuts="s">
@@ -137,7 +137,10 @@ describe('ActionMenu', () => {
         <MixedSelection />
       </ThemeProvider>,
     )
-    const button = component.getByLabelText('Group by')
+
+    const button = component.getByRole('button', {
+      name: 'Group by Stage',
+    })
 
     const user = userEvent.setup()
     await user.click(button)

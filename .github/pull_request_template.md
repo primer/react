@@ -10,6 +10,7 @@ Please provide before/after screenshots for any visual changes
 
 - [ ] Added/updated tests
 - [ ] Added/updated documentation
+- [ ] Changes are [SSR compatible](https://github.com/primer/react/blob/main/contributor-docs/CONTRIBUTING.md#ssr-compatibility)
 - [ ] Tested in Chrome
 - [ ] Tested in Firefox
 - [ ] Tested in Safari

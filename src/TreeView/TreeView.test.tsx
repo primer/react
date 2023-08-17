@@ -247,6 +247,43 @@ describe('Markup', () => {
     const item2 = getByRole('treeitem', {name: /Item 2/})
     expect(item2).toHaveFocus()
   })
+
+  it('should toggle when receiving focus from chevron click', async () => {
+    const user = userEvent.setup({delay: null})
+    const {getByRole} = renderWithTheme(
+      <div>
+        <button>Focusable element</button>
+        <TreeView aria-label="Test tree">
+          <TreeView.Item id="item-1">
+            Item 1
+            <TreeView.SubTree>
+              <TreeView.Item id="subitem-1">SubItem 1</TreeView.Item>
+              <TreeView.Item id="subitem-2">SubItem 2</TreeView.Item>
+              <TreeView.Item id="subitem-3">SubItem 3</TreeView.Item>
+            </TreeView.SubTree>
+          </TreeView.Item>
+          <TreeView.Item id="item-2" current>
+            Item 2
+          </TreeView.Item>
+          <TreeView.Item id="item-3">Item 3</TreeView.Item>
+        </TreeView>
+      </div>,
+    )
+
+    // Focus button
+    const button = getByRole('button', {name: /Focusable element/})
+    await user.click(button)
+    expect(button).toHaveFocus()
+
+    // Move focus to tree
+    const item1 = getByRole('treeitem', {name: /Item 1/})
+    const toggle = item1.querySelector('.PRIVATE_TreeView-item-toggle')
+    await user.click(toggle!)
+
+    // Focus should be on current treeitem
+    const subItem1 = getByRole('treeitem', {name: /SubItem 1/})
+    expect(subItem1).toBeInTheDocument()
+  })
 })
 
 describe('Keyboard interactions', () => {

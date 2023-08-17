@@ -1,4 +1,5 @@
 import {DataTable} from './DataTable'
+import {ErrorDialog} from './ErrorDialog'
 import {
   Table as TableImpl,
   TableHead,
@@ -30,6 +31,7 @@ const Table = Object.assign(TableImpl, {
   Cell: TableCell,
   CellPlaceholder: TableCellPlaceholder,
   Pagination,
+  ErrorDialog,
 })
 
 export {DataTable, Table}

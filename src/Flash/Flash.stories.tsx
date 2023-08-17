@@ -22,12 +22,6 @@ Playground.argTypes = {
       disable: true,
     },
   },
-  forwardedAs: {
-    controls: false,
-    table: {
-      disable: true,
-    },
-  },
   ref: {
     controls: false,
     table: {
@@ -35,12 +29,6 @@ Playground.argTypes = {
     },
   },
   sx: {
-    controls: false,
-    table: {
-      disable: true,
-    },
-  },
-  theme: {
     controls: false,
     table: {
       disable: true,

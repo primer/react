@@ -1,4 +1,4 @@
-import classnames from 'classnames'
+import clsx from 'clsx'
 import React, {useContext, useEffect} from 'react'
 import styled, {css} from 'styled-components'
 import {get} from '../../constants'
@@ -72,7 +72,7 @@ const SelectMenuTab = ({tabName = '', index, className, onClick, ...rest}: Selec
   return (
     <StyledTab
       role="tab"
-      className={classnames('SelectMenuTab', className)}
+      className={clsx('SelectMenuTab', className)}
       aria-selected={isSelected}
       onClick={handleClick}
       {...rest}

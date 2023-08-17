@@ -2,20 +2,13 @@
 
 exports[`ActionList renders consistently 1`] = `
 .c0 {
+  margin: 0;
+  padding-inline-start: 0;
   padding-top: 8px;
   padding-bottom: 8px;
 }
 
-.c1 {
-  margin: 0;
-  padding-inline-start: 0;
-}
-
-<div
+<ul
   className="c0"
->
-  <ul
-    className="c1"
-  />
-</div>
+/>
 `;
