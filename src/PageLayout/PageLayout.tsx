@@ -466,25 +466,6 @@ Content.displayName = 'PageLayout.Content'
 // ----------------------------------------------------------------------------
 // PageLayout.Pane
 
-type Measurement = `${number}px`
-
-type CustomWidthOptions = {
-  min: Measurement
-  default: Measurement
-  max: Measurement
-}
-
-type PaneWidth = keyof typeof paneWidths
-
-const isCustomWidthOptions = (width: PaneWidth | CustomWidthOptions): width is CustomWidthOptions => {
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-  return (width as CustomWidthOptions).default !== undefined
-}
-
-const isPaneWidth = (width: PaneWidth | CustomWidthOptions): width is PaneWidth => {
-  return ['small', 'medium', 'large'].includes(width as PaneWidth)
-}
-
 export type PageLayoutPaneProps = {
   position?: keyof typeof panePositions | ResponsiveValue<keyof typeof panePositions>
   /**
@@ -504,7 +485,7 @@ export type PageLayoutPaneProps = {
   positionWhenNarrow?: 'inherit' | keyof typeof panePositions
   'aria-labelledby'?: string
   'aria-label'?: string
-  width?: PaneWidth | CustomWidthOptions
+  width?: keyof typeof paneWidths
   minWidth?: number
   resizable?: boolean
   widthStorageKey?: string
@@ -595,18 +576,9 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
       }
     }, [sticky, enableStickyPane, disableStickyPane, offsetHeader])
 
-    const getDefaultPaneWidth = (width: PaneWidth | CustomWidthOptions): number => {
-      if (isPaneWidth(width)) {
-        return defaultPaneWidth[width]
-      } else if (isCustomWidthOptions(width)) {
-        return Number(width.default.split('px')[0])
-      }
-      return 0
-    }
-
     const [paneWidth, setPaneWidth] = React.useState(() => {
       if (!canUseDOM) {
-        return getDefaultPaneWidth(width)
+        return defaultPaneWidth[width]
       }
 
       let storedWidth
@@ -617,7 +589,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
         storedWidth = null
       }
 
-      return storedWidth && !isNaN(Number(storedWidth)) ? Number(storedWidth) : getDefaultPaneWidth(width)
+      return storedWidth && !isNaN(Number(storedWidth)) ? Number(storedWidth) : defaultPaneWidth[width]
     })
 
     const updatePaneWidth = (width: number) => {
@@ -761,7 +733,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
             updatePaneWidth(paneRect.width)
           }}
           // Reset pane width on double click
-          onDoubleClick={() => updatePaneWidth(getDefaultPaneWidth(width))}
+          onDoubleClick={() => updatePaneWidth(defaultPaneWidth[width])}
         />
 
         <Box
@@ -771,14 +743,12 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
             '--pane-width': `${paneWidth}px`,
           }}
           sx={(theme: Theme) => ({
-            '--pane-min-width': isCustomWidthOptions(width) ? width.min : `${minWidth}px`,
+            '--pane-min-width': `${minWidth}px`,
             '--pane-max-width-diff': '511px',
-            '--pane-max-width': isCustomWidthOptions(width) ? width.max : `calc(100vw - var(--pane-max-width-diff))`,
+            '--pane-max-width': `calc(100vw - var(--pane-max-width-diff))`,
             width: resizable
               ? ['100%', null, 'clamp(var(--pane-min-width), var(--pane-width), var(--pane-max-width))']
-              : isPaneWidth(width)
-              ? paneWidths[width]
-              : width.default,
+              : paneWidths[width],
             padding: SPACING_MAP[padding],
             overflow: [null, null, 'auto'],
 

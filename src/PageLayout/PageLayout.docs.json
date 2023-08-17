@@ -148,9 +148,9 @@
         },
         {
           "name": "width",
-          "type": "| 'small' | 'medium' | 'large' | { min: string max: string default: string }",
+          "type": "| 'small' | 'medium' | 'large'",
           "defaultValue": "'medium'",
-          "description": "The width of the pane. If using custom widths, provide an object with keys 'min', 'max' and 'default'."
+          "description": "The width of the pane."
         },
         {
           "name": "minWidth",
