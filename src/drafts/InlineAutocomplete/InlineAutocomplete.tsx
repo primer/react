@@ -30,7 +30,7 @@ export type InlineAutocompleteProps = {
   /** Called when a suggestion is selected.
    *  Allows to overwrite the value that is inserted into the wrapped component
    */
-  onSelectSuggestion?: (suggestion: string) => string
+  onSelectSuggestion?: (suggestion: string) => void
 
   /** Called when suggestions should be hidden. Set `suggestions` to `null` in this case. */
   onHideSuggestions: () => void
@@ -170,17 +170,17 @@ const InlineAutocomplete = ({
     if (!inputRef.current || !showEventRef.current) return
     const {query, trigger} = showEventRef.current
 
+    if (onSelectSuggestion) {
+      onSelectSuggestion(suggestion)
+    }
+
     const currentCaretPosition = getSelectionStart(inputRef.current) ?? 0
     const deleteLength = query.length + trigger.triggerChar.length
     const startIndex = currentCaretPosition - deleteLength
 
     const keepTriggerChar = trigger.keepTriggerCharOnCommit ?? true
     const maybeTriggerChar = keepTriggerChar ? trigger.triggerChar : ''
-    let replacement = `${maybeTriggerChar}${suggestion} `
-
-    if (onSelectSuggestion) {
-      replacement = onSelectSuggestion(suggestion)
-    }
+    const replacement = `${maybeTriggerChar}${suggestion} `
 
     emitSyntheticChange(replacement, [startIndex, startIndex + deleteLength])
     onHideSuggestions()
