@@ -28,7 +28,6 @@ export type InlineAutocompleteProps = {
   onShowSuggestions: (event: ShowSuggestionsEvent) => void
 
   /** Called when a suggestion is selected.
-   *  Allows to overwrite the value that is inserted into the wrapped component
    */
   onSelectSuggestion?: (suggestion: string) => void
 
