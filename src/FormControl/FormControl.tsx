@@ -12,7 +12,7 @@ import FormControlCaption from './_FormControlCaption'
 import FormControlLabel from './_FormControlLabel'
 import FormControlLeadingVisual from './_FormControlLeadingVisual'
 import FormControlValidation from './_FormControlValidation'
-import {FormControlContext, useFormControlForwardedProps} from './_FormControlContext'
+import {FormControlContextProvider, useFormControlForwardedProps} from './_FormControlContext'
 
 export type FormControlProps = {
   children?: React.ReactNode
@@ -86,7 +86,7 @@ const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
     const isLabelHidden = slots.label?.props.visuallyHidden
 
     return (
-      <FormControlContext.Provider
+      <FormControlContextProvider
         value={{
           captionId,
           disabled,
@@ -142,7 +142,7 @@ const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
             {slots.caption}
           </Box>
         )}
-      </FormControlContext.Provider>
+      </FormControlContextProvider>
     )
   },
 )

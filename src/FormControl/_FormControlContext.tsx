@@ -8,7 +8,16 @@ export interface FormControlContext extends Pick<FormControlProps, 'disabled' | 
   validationStatus?: FormValidationStatus
 }
 
-export const FormControlContext = createContext<FormControlContext | null>(null)
+const FormControlContext = createContext<FormControlContext | null>(null)
+
+export const FormControlContextProvider = FormControlContext.Provider
+
+/**
+ * This is the private/internal interface for subcomponents of `FormControl`.
+ */
+export function useFormControlContext(): FormControlContext {
+  return useContext(FormControlContext) ?? {}
+}
 
 interface FormControlForwardedProps extends Omit<FormControlContext, 'captionId' | 'validationMessageId'> {
   ['aria-describedby']?: string
