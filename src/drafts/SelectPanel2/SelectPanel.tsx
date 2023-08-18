@@ -36,7 +36,7 @@ const SelectPanel = props => {
 
   const onInternalClose = () => {
     setOpen(false)
-    // TODO: cancel should reset the internal state of the component
+
     if (typeof props.onCancel === 'function') props.onCancel()
   }
   const onInternalSubmit = event => {
@@ -108,7 +108,7 @@ SelectPanel.Header = SelectPanelHeader
 
 const SelectPanelHeading: React.FC<
   React.PropsWithChildren<{as: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'; children: string}>
-> = ({as, children, ...props}) => {
+> = ({as = 'h1', children, ...props}) => {
   return (
     <Heading as={as} sx={{fontSize: 14, fontWeight: 600, marginLeft: 2}} {...props}>
       {children}

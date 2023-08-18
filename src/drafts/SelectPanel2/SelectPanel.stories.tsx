@@ -1,5 +1,4 @@
 import React from 'react'
-
 import {SelectPanel} from './SelectPanel'
 import {ActionList, Box} from '../../../src/index'
 import data from './mock-data'
@@ -10,7 +9,9 @@ const getCircle = (color: string) => (
 
 type Label = (typeof data.labels)[0]
 
-export const Controlled = () => {
+export const AMinimalExample = () => <h1>TODO</h1>
+
+export const CControlled = () => {
   // TODO/question: should the search work uncontrolled as well?
 
   const [filteredLabels, setFilteredLabels] = React.useState<Array<Label>>(data.labels)
@@ -80,8 +81,6 @@ export const Controlled = () => {
     <>
       <h1>Controlled SelectPanel</h1>
 
-      {/* TODO: overlayProps on SelectPanel vs SelectPanel.Overlay */}
-
       <SelectPanel
         // onSubmit and onCancel feel out of place here instead of the footer,
         // but cancel can be called from 4 different actions - Cancel button, X iconbutton up top, press escape key, click outside
@@ -99,6 +98,7 @@ export const Controlled = () => {
         }}
       >
         {/* TODO: the ref types don't match here, use useProvidedRefOrCreate */}
+
         <SelectPanel.Button>Assign label</SelectPanel.Button>
 
         {/* TODO: header and heading is confusing. maybe skip header completely. */}
@@ -106,6 +106,7 @@ export const Controlled = () => {
           {/* TODO: Heading is not optional, but what if you don't give it
               Should we throw a big error or should we make that impossible in the API?
           */}
+          {/* TODO: is the heading tag customisable? */}
           <SelectPanel.Heading as="h4">Select authors</SelectPanel.Heading>
 
           <SelectPanel.SearchInput onChange={searchOnChange} />
@@ -119,7 +120,7 @@ export const Controlled = () => {
           <ActionList selectionVariant="multiple">
             {/* slightly different view for search results view and list view */}
             {query ? (
-              filteredLabels.sort(sortingFn).map(label => (
+              filteredLabels.map(label => (
                 <ActionList.Item
                   key={label.id}
                   onSelect={() => onLabelSelect(label.id)}
@@ -175,7 +176,7 @@ export const Controlled = () => {
   )
 }
 
-export const Uncontrolled = () => {
+export const BUncontrolled = () => {
   // features to implement:
   // search
   // selection
@@ -185,6 +186,7 @@ export const Uncontrolled = () => {
   // default to multiple select
   // submit -> pass data / pull from form
   // cancel callback
+  // empty state
   // Question: Is the title always h1
 
   const onSubmit = event => {
@@ -197,28 +199,20 @@ export const Uncontrolled = () => {
     console.log('form submitted')
   }
 
+  const onCancel = () => {
+    // eslint-disable-next-line no-console
+    console.log('panel was closed')
+  }
+
   return (
     <>
-      <h1>Does not work: Uncontrolled SelectPanel</h1>
+      <h1>Does not work yet: Uncontrolled SelectPanel</h1>
 
-      {/* TODO: overlayProps on SelectPanel vs SelectPanel.Overlay */}
-
-      <SelectPanel
-        // onSubmit and onCancel feel out of place here instead of the footer,
-        // but cancel can be called from 4 different actions - Cancel button, X iconbutton up top, press escape key, click outside
-        // also, what if there is no footer? onSubmit is maybe not needed, but we need to put the onCancel callback somewhere.
-        onSubmit={onSubmit}
-        onCancel={() => {
-          /* optional callback, for example: for multi-step overlay or to fire sync actions */
-          // eslint-disable-next-line no-console
-          console.log('panel was closed')
-        }}
-      >
+      <SelectPanel onSubmit={onSubmit} onCancel={onCancel}>
         <SelectPanel.Button>Assign label</SelectPanel.Button>
 
-        {/* TODO: header and heading is confusing. maybe skip header completely. */}
         <SelectPanel.Header>
-          <SelectPanel.Heading as="h4">Select authors</SelectPanel.Heading>
+          <SelectPanel.Heading as="h1">Select authors</SelectPanel.Heading>
           <SelectPanel.SearchInput />
         </SelectPanel.Header>
 
@@ -233,6 +227,7 @@ export const Uncontrolled = () => {
             ))}
           </ActionList>
         </SelectPanel.Body>
+
         <SelectPanel.Footer>
           <SelectPanel.SecondaryButton>View authors</SelectPanel.SecondaryButton>
         </SelectPanel.Footer>
@@ -240,6 +235,8 @@ export const Uncontrolled = () => {
     </>
   )
 }
+
+export const DWithSuspense = () => <h1>TODO</h1>
 
 export default {
   title: 'Drafts/Components/SelectPanel',

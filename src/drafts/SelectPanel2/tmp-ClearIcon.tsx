@@ -1,3 +1,5 @@
+/** We would like to move this to primer octicons */
+
 import React from 'react'
 
 export const ClearIcon = props => {
