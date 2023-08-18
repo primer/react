@@ -11,11 +11,17 @@ import {
   Tooltip,
   TextInput,
   AnchoredOverlayProps,
+  ActionList,
 } from '../../../src/index'
 import {useSlots} from '../../hooks/useSlots'
 import {ClearIcon} from './tmp-ClearIcon'
 
-const SelectPanelContext = React.createContext({onCancel: () => {}, onClearSelection: () => {}})
+const SelectPanelContext = React.createContext({
+  onCancel: () => {},
+  onClearSelection: () => {},
+  searchQuery: '',
+  setSearchQuery: query => {},
+})
 
 const SelectPanel = props => {
   const anchorRef = React.useRef<HTMLButtonElement>(null)
@@ -48,6 +54,9 @@ const SelectPanel = props => {
     if (typeof props.onSubmit === 'function') props.onClearSelection()
   }
 
+  /* Search/Filter */
+  const [searchQuery, setSearchQuery] = React.useState('')
+
   return (
     <>
       <AnchoredOverlay
@@ -63,7 +72,9 @@ const SelectPanel = props => {
         {/* TODO: Keyboard navigation of actionlist should be arrow keys
             with tabs to enter and escape
         */}
-        <SelectPanelContext.Provider value={{onCancel: onInternalClose, onClearSelection: onInternalClearSelection}}>
+        <SelectPanelContext.Provider
+          value={{onCancel: onInternalClose, onClearSelection: onInternalClearSelection, searchQuery, setSearchQuery}}
+        >
           <Box as="form" onSubmit={onInternalSubmit} sx={{display: 'flex', flexDirection: 'column', height: '100%'}}>
             {contents}
           </Box>
@@ -107,7 +118,7 @@ const SelectPanelHeader: React.FC<React.PropsWithChildren> = ({children, ...prop
 SelectPanel.Header = SelectPanelHeader
 
 const SelectPanelHeading: React.FC<
-  React.PropsWithChildren<{as: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'; children: string}>
+  React.PropsWithChildren<{as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'; children: string}>
 > = ({as = 'h1', children, ...props}) => {
   return (
     <Heading as={as} sx={{fontSize: 14, fontWeight: 600, marginLeft: 2}} {...props}>
@@ -119,6 +130,15 @@ SelectPanel.Heading = SelectPanelHeading
 
 const SelectPanelSearchInput = props => {
   const inputRef = React.createRef<HTMLInputElement>()
+
+  const {setSearchQuery} = React.useContext(SelectPanelContext)
+
+  const internalOnChange = event => {
+    // If props.onChange is given, the application controls search,
+    // otherwise the component does
+    if (typeof props.onChange === 'function') props(props.onChange)
+    else setSearchQuery(event.target.value)
+  }
 
   return (
     <TextInput
@@ -146,19 +166,38 @@ const SelectPanelSearchInput = props => {
           // '& input:empty + .TextInput-action': {display: 'none'},
         }
       }
+      onChange={internalOnChange}
       {...props}
     />
   )
 }
 SelectPanel.SearchInput = SelectPanelSearchInput
 
-SelectPanel.Body = props => {
+// TODO: type this with ActionList props
+const SelectPanelActionList: React.FC<React.PropsWithChildren> = props => {
+  const {searchQuery} = React.useContext(SelectPanelContext)
+
+  /* features to implement:
+     2. sort
+     2. divider
+     1. search
+     3. different results view
+  */
+
   return (
-    <Box id="body" sx={{flexShrink: 1, flexGrow: 1, overflowY: 'scroll'}}>
-      {props.children}
-    </Box>
+    <>
+      <ActionList
+        id="body"
+        sx={{flexShrink: 1, flexGrow: 1, overflowY: 'scroll'}}
+        selectionVariant="multiple"
+        {...props}
+      >
+        {props.children}
+      </ActionList>
+    </>
   )
 }
+SelectPanel.ActionList = SelectPanelActionList
 
 const SelectPanelFooter = ({...props}) => {
   const {onCancel} = React.useContext(SelectPanelContext)
