@@ -112,32 +112,33 @@ export const CControlled = () => {
           <SelectPanel.SearchInput onChange={searchOnChange} />
         </SelectPanel.Header>
 
-        <SelectPanel.Body>
-          {/* TODO: selectionVariant=multiple should be automated
-              if you want single selection, should it be here or on the 
-              parent SelectPanel?
-          */}
-          <ActionList selectionVariant="multiple">
-            {/* slightly different view for search results view and list view */}
-            {query ? (
-              filteredLabels.map(label => (
-                <ActionList.Item
-                  key={label.id}
-                  onSelect={() => onLabelSelect(label.id)}
-                  selected={selectedLabelIds.includes(label.id)}
-                >
-                  <ActionList.LeadingVisual>{getCircle(label.color)}</ActionList.LeadingVisual>
-                  {label.name}
-                  <ActionList.Description>{label.description}</ActionList.Description>
-                </ActionList.Item>
-              ))
-            ) : (
-              <>
-                {/* we want to split this into 2 sections with a divider in between */}
-                {data.labels
-                  .filter(label => selectedLabelIds.includes(label.id))
-                  .sort(sortingFn)
-                  .map(label => (
+        <SelectPanel.ActionList>
+          {/* slightly different view for search results view and list view */}
+          {query ? (
+            filteredLabels.map(label => (
+              <ActionList.Item
+                key={label.id}
+                onSelect={() => onLabelSelect(label.id)}
+                selected={selectedLabelIds.includes(label.id)}
+              >
+                <ActionList.LeadingVisual>{getCircle(label.color)}</ActionList.LeadingVisual>
+                {label.name}
+                <ActionList.Description>{label.description}</ActionList.Description>
+              </ActionList.Item>
+            ))
+          ) : (
+            <>
+              {data.labels.sort(sortingFn).map((label, index) => {
+                /* 
+                  we want to render a divider between the group of selected and unselected items.
+                  kinda hack: if this is the last item that is selected, render an divider after it
+                  TODO: can this be cleaner?
+                */
+                const nextLabel = data.labels.sort(sortingFn)[index + 1]
+                const showDivider = selectedLabelIds.includes(label.id) && !selectedLabelIds.includes(nextLabel?.id)
+
+                return (
+                  <>
                     <ActionList.Item
                       key={label.id}
                       onSelect={() => onLabelSelect(label.id)}
@@ -147,27 +148,14 @@ export const CControlled = () => {
                       {label.name}
                       <ActionList.Description>{label.description}</ActionList.Description>
                     </ActionList.Item>
-                  ))}
+                    {showDivider ? <ActionList.Divider /> : null}
+                  </>
+                )
+              })}
+            </>
+          )}
+        </SelectPanel.ActionList>
 
-                {selectedLabelIds.length > 0 ? <ActionList.Divider /> : null}
-
-                {data.labels
-                  .filter(label => !selectedLabelIds.includes(label.id))
-                  .map(label => (
-                    <ActionList.Item
-                      key={label.id}
-                      onSelect={() => onLabelSelect(label.id)}
-                      selected={selectedLabelIds.includes(label.id)}
-                    >
-                      <ActionList.LeadingVisual>{getCircle(label.color)}</ActionList.LeadingVisual>
-                      {label.name}
-                      <ActionList.Description>{label.description}</ActionList.Description>
-                    </ActionList.Item>
-                  ))}
-              </>
-            )}
-          </ActionList>
-        </SelectPanel.Body>
         <SelectPanel.Footer>
           <SelectPanel.SecondaryButton>View authors</SelectPanel.SecondaryButton>
         </SelectPanel.Footer>
@@ -177,17 +165,16 @@ export const CControlled = () => {
 }
 
 export const BUncontrolled = () => {
-  // features to implement:
-  // search
-  // selection
-  // clear selection
-  // sort + divider
-  // different results view
-  // default to multiple select
-  // submit -> pass data / pull from form
-  // cancel callback
-  // empty state
-  // Question: Is the title always h1
+  /* features to implement:
+     1. search
+     2. sort + divider
+     3. selection
+     4. clear selection
+     5. different results view
+     6. submit -> pass data / pull from form
+     8. cancel callback
+     9. empty state
+  */
 
   const onSubmit = event => {
     event.preventDefault() // coz form submit, innit
@@ -216,17 +203,15 @@ export const BUncontrolled = () => {
           <SelectPanel.SearchInput />
         </SelectPanel.Header>
 
-        <SelectPanel.Body>
-          <ActionList selectionVariant="multiple">
-            {data.labels.map(label => (
-              <ActionList.Item key={label.id}>
-                <ActionList.LeadingVisual>{getCircle(label.color)}</ActionList.LeadingVisual>
-                {label.name}
-                <ActionList.Description>{label.description}</ActionList.Description>
-              </ActionList.Item>
-            ))}
-          </ActionList>
-        </SelectPanel.Body>
+        <SelectPanel.ActionList>
+          {data.labels.map(label => (
+            <ActionList.Item key={label.id}>
+              <ActionList.LeadingVisual>{getCircle(label.color)}</ActionList.LeadingVisual>
+              {label.name}
+              <ActionList.Description>{label.description}</ActionList.Description>
+            </ActionList.Item>
+          ))}
+        </SelectPanel.ActionList>
 
         <SelectPanel.Footer>
           <SelectPanel.SecondaryButton>View authors</SelectPanel.SecondaryButton>
@@ -237,6 +222,8 @@ export const BUncontrolled = () => {
 }
 
 export const DWithSuspense = () => <h1>TODO</h1>
+
+export const ESingleSelection = () => <h1>TODO</h1>
 
 export default {
   title: 'Drafts/Components/SelectPanel',
