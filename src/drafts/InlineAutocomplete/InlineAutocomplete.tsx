@@ -26,6 +26,12 @@ export type InlineAutocompleteProps = {
    * `suggestions` prop accordingly.
    */
   onShowSuggestions: (event: ShowSuggestionsEvent) => void
+
+  /** Called when a suggestion is selected.
+   *  Allows to overwrite the value that is inserted into the wrapped component
+   */
+  onSelectSuggestion?: (suggestion: string) => string
+
   /** Called when suggestions should be hidden. Set `suggestions` to `null` in this case. */
   onHideSuggestions: () => void
   /**
@@ -95,6 +101,7 @@ const InlineAutocomplete = ({
   suggestions,
   onShowSuggestions,
   onHideSuggestions,
+  onSelectSuggestion,
   sx,
   children,
   tabInsertsSuggestions = false,
@@ -169,7 +176,11 @@ const InlineAutocomplete = ({
 
     const keepTriggerChar = trigger.keepTriggerCharOnCommit ?? true
     const maybeTriggerChar = keepTriggerChar ? trigger.triggerChar : ''
-    const replacement = `${maybeTriggerChar}${suggestion} `
+    let replacement = `${maybeTriggerChar}${suggestion} `
+
+    if (onSelectSuggestion) {
+      replacement = onSelectSuggestion(suggestion)
+    }
 
     emitSyntheticChange(replacement, [startIndex, startIndex + deleteLength])
     onHideSuggestions()
@@ -184,7 +195,7 @@ const InlineAutocomplete = ({
   })
 
   /**
-   * Even thoughn we apply all the aria attributes, screen readers don't fully support this
+   * Even though we apply all the aria attributes, screen readers don't fully support this
    * dynamic use case and so they don't have a native way to indicate to the user when
    * there are suggestions available. So we use some hidden text with aria-live to politely
    * indicate what's available and how to use it.
