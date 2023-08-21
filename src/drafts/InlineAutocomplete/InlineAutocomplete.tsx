@@ -169,9 +169,7 @@ const InlineAutocomplete = ({
     if (!inputRef.current || !showEventRef.current) return
     const {query, trigger} = showEventRef.current
 
-    if (onSelectSuggestion) {
-      onSelectSuggestion(suggestion)
-    }
+    onSelectSuggestion?.(suggestion)
 
     const currentCaretPosition = getSelectionStart(inputRef.current) ?? 0
     const deleteLength = query.length + trigger.triggerChar.length
