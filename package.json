@@ -98,7 +98,7 @@
     "@github/markdown-toolbar-element": "^2.1.0",
     "@github/paste-markdown": "^1.4.0",
     "@github/relative-time-element": "^4.1.2",
-    "@lit-labs/react": "^1.1.1",
+    "@lit-labs/react": "^2.0.1",
     "@primer/behaviors": "^1.3.4",
     "@primer/octicons-react": "^19.3.0",
     "@primer/primitives": "^7.11.11",
