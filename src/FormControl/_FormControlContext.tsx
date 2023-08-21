@@ -2,7 +2,7 @@ import {createContext, useContext} from 'react'
 import {FormValidationStatus} from '../utils/types/FormValidationStatus'
 import {FormControlProps} from './FormControl'
 
-export interface FormControlContext extends Pick<FormControlProps, 'disabled' | 'id' | 'required'> {
+interface FormControlContext extends Pick<FormControlProps, 'disabled' | 'id' | 'required'> {
   captionId?: string
   validationMessageId?: string
   validationStatus?: FormValidationStatus
