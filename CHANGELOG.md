@@ -1,5 +1,43 @@
 # @primer/components
 
+## 35.28.0
+
+### Minor Changes
+
+- [#3563](https://github.com/primer/react/pull/3563) [`3bb6dc8c`](https://github.com/primer/react/commit/3bb6dc8cea75fa07974493cfaf95f7e51504c9d3) Thanks [@radglob](https://github.com/radglob)! - Add option to specify custom widths for PageLayout.Pane via the `width` prop.
+
+  <!-- Changed components: PageLayout -->
+
+### Patch Changes
+
+- [#3619](https://github.com/primer/react/pull/3619) [`d4ae582b`](https://github.com/primer/react/commit/d4ae582b7d2420fd460bb14c2fa45f36be714311) Thanks [@gr2m](https://github.com/gr2m)! - Include `border*Color` properties in sx to support named Primer colors
+
+  <!-- Changed components: _none_ -->
+
+- [#3561](https://github.com/primer/react/pull/3561) [`94e8d38f`](https://github.com/primer/react/commit/94e8d38f92975b12d1ded61228597c5b322a78ea) Thanks [@joshblack](https://github.com/joshblack)! - Update @react-aria/ssr dependency to ^3.5.0 to address server-side rendering mismatch when using React StrictMode
+
+  <!-- Changed components: FormControl -->
+
+- [#3613](https://github.com/primer/react/pull/3613) [`dbcd4072`](https://github.com/primer/react/commit/dbcd40727993a0faebe3033ee1556549fb5baa1a) Thanks [@langermank](https://github.com/langermank)! - [Bug] Remove `flex` from Button labels
+
+  <!-- Changed components: Button -->
+
+- [#3579](https://github.com/primer/react/pull/3579) [`66482a72`](https://github.com/primer/react/commit/66482a72000a0f1baf021e2b554e98942081d685) Thanks [@radglob](https://github.com/radglob)! - Add aria-selected value to ActionList.Item.
+
+  <!-- Changed components: ActionList -->
+
+- [#3614](https://github.com/primer/react/pull/3614) [`709024ff`](https://github.com/primer/react/commit/709024ff45a68c73ed6736e72d9db22b0a25cd33) Thanks [@iansan5653](https://github.com/iansan5653)! - Automatically reposition `InlineAutocomplete` suggestions depending on available space
+
+  <!-- Changed components: InlineAutocomplete -->
+
+- [#3609](https://github.com/primer/react/pull/3609) [`f487a8d6`](https://github.com/primer/react/commit/f487a8d653329d73f238b908eca6085f94ca3c93) Thanks [@iansan5653](https://github.com/iansan5653)! - Expose `useSlots` from `drafts/hooks`
+
+  <!-- Changed components: _none_ -->
+
+- [#3611](https://github.com/primer/react/pull/3611) [`ace603d8`](https://github.com/primer/react/commit/ace603d85e2966fbf8b3bb8b54da42bf00a56679) Thanks [@siddharthkp](https://github.com/siddharthkp)! - NavList: Fix when subNav opens automatically and shows current indicator
+
+  <!-- Changed components: NavList -->
+
 ## 35.27.1
 
 ### Patch Changes
