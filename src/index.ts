@@ -189,6 +189,7 @@ export type {
 export {UnderlineNav} from './UnderlineNav'
 export type {UnderlineNavProps, UnderlineNavItemProps} from './UnderlineNav'
 
+// eslint-disable-next-line no-restricted-imports
 export {SSRProvider, useSSRSafeId} from './utils/ssr'
 export {default as sx, merge} from './sx'
 export type {SxProp} from './sx'
