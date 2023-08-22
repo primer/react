@@ -3,7 +3,6 @@ import React, {TextareaHTMLAttributes, ReactElement} from 'react'
 import {TextInputBaseWrapper} from '../internal/components/TextInputWrapper'
 import {FormValidationStatus} from '../utils/types/FormValidationStatus'
 import sx, {SxProp} from '../sx'
-import FormControl from '../FormControl/FormControl'
 
 export const DEFAULT_TEXTAREA_ROWS = 7
 export const DEFAULT_TEXTAREA_COLS = 30
@@ -62,37 +61,40 @@ const StyledTextarea = styled.textarea<TextareaProps>`
  * An accessible, native textarea component that supports validation states.
  * This component accepts all native HTML <textarea> attributes as props.
  */
-const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>((props, ref): ReactElement => {
-  const {
-    value,
-    disabled,
-    sx: sxProp,
-    required,
-    validationStatus,
-    rows = DEFAULT_TEXTAREA_ROWS,
-    cols = DEFAULT_TEXTAREA_COLS,
-    resize = DEFAULT_TEXTAREA_RESIZE,
-    block,
-    ...rest
-  } = FormControl.useForwardedProps(props)
-
-  return (
-    <TextInputBaseWrapper sx={sxProp} validationStatus={validationStatus} disabled={disabled} block={block}>
-      <StyledTextarea
-        value={value}
-        resize={resize}
-        required={required}
-        aria-required={required ? 'true' : 'false'}
-        aria-invalid={validationStatus === 'error' ? 'true' : 'false'}
-        ref={ref}
-        disabled={disabled}
-        rows={rows}
-        cols={cols}
-        {...rest}
-      />
-    </TextInputBaseWrapper>
-  )
-})
+const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
+  (
+    {
+      value,
+      disabled,
+      sx: sxProp,
+      required,
+      validationStatus,
+      rows = DEFAULT_TEXTAREA_ROWS,
+      cols = DEFAULT_TEXTAREA_COLS,
+      resize = DEFAULT_TEXTAREA_RESIZE,
+      block,
+      ...rest
+    }: TextareaProps,
+    ref,
+  ): ReactElement => {
+    return (
+      <TextInputBaseWrapper sx={sxProp} validationStatus={validationStatus} disabled={disabled} block={block}>
+        <StyledTextarea
+          value={value}
+          resize={resize}
+          required={required}
+          aria-required={required ? 'true' : 'false'}
+          aria-invalid={validationStatus === 'error' ? 'true' : 'false'}
+          ref={ref}
+          disabled={disabled}
+          rows={rows}
+          cols={cols}
+          {...rest}
+        />
+      </TextInputBaseWrapper>
+    )
+  },
+)
 
 Textarea.displayName = 'Textarea'
 

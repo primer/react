@@ -14,7 +14,6 @@ import {TokenSizeKeys} from '../Token/TokenBase'
 import TextInputWrapper, {textInputHorizPadding, TextInputSizes} from '../internal/components/TextInputWrapper'
 import UnstyledTextInput from '../internal/components/UnstyledTextInput'
 import TextInputInnerVisualSlot from '../internal/components/TextInputInnerVisualSlot'
-import FormControl from '../FormControl/FormControl'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type AnyReactComponent = React.ComponentType<React.PropsWithChildren<any>>
@@ -69,10 +68,7 @@ const overflowCountFontSizeMap: Record<TokenSizeKeys, number> = {
 
 // using forwardRef is important so that other components (ex. Autocomplete) can use the ref
 function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactComponent>(
-  props: TextInputWithTokensProps<TokenComponentType | typeof Token>,
-  forwardedRef: React.ForwardedRef<HTMLInputElement>,
-) {
-  const {
+  {
     icon: IconComponent,
     leadingVisual: LeadingVisual,
     trailingVisual: TrailingVisual,
@@ -97,8 +93,9 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
     variant: variantProp, // deprecated. use `size` instead
     visibleTokenCount,
     ...rest
-  } = FormControl.useForwardedProps(props)
-
+  }: TextInputWithTokensProps<TokenComponentType | typeof Token>,
+  forwardedRef: React.ForwardedRef<HTMLInputElement>,
+) {
   const {onBlur, onFocus, onKeyDown, ...inputPropsRest} = omit(rest)
   const ref = useRef<HTMLInputElement>(null)
   useRefObjectAsForwardedRef(forwardedRef, ref)
