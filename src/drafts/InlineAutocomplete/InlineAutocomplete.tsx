@@ -28,7 +28,12 @@ export type InlineAutocompleteProps = {
    */
   onShowSuggestions: (event: ShowSuggestionsEvent) => void
 
-  /** Called when a suggestion is selected.
+  /**
+   * Called when a suggestion is selected.
+   *
+   * @note This should be used only for performing side effects, not for modifying
+   * the inserted text. Do not call `setState` in this handler or the user's cursor
+   * position / undo history could be lost.
    */
   onSelectSuggestion?: (event: SelectSuggestionsEvent) => void
 
