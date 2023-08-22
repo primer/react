@@ -11,7 +11,7 @@ const TooltipComponent = (props: TooltipProps) => (
 )
 
 describe('Tooltip', () => {
-  checkStoriesForAxeViolations('Tooltip.features', '../experimental/Tooltip/')
+  checkStoriesForAxeViolations('Tooltip.features', '../drafts/Tooltip/')
 
   it('renders `data-direction="s"` by default', () => {
     const {getByText} = HTMLRender(<TooltipComponent />)

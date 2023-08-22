@@ -6,7 +6,7 @@ import {GitBranchIcon, KebabHorizontalIcon, TriangleDownIcon, CheckIcon} from '@
 import {default as VisuallyHidden} from '../../_VisuallyHidden'
 
 export default {
-  title: 'Experimental/Components/Tooltip/Examples',
+  title: 'Drafts/Components/Tooltip/Examples',
   component: Tooltip,
 }
 
