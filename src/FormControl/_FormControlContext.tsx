@@ -12,9 +12,7 @@ const FormControlContext = createContext<FormControlContext | null>(null)
 
 export const FormControlContextProvider = FormControlContext.Provider
 
-/**
- * This is the private/internal interface for subcomponents of `FormControl`.
- */
+/** This is the private/internal interface for subcomponents of `FormControl`. */
 export function useFormControlContext(): FormControlContext {
   return useContext(FormControlContext) ?? {}
 }
@@ -25,14 +23,20 @@ interface FormControlForwardedProps extends Omit<FormControlContext, 'captionId'
 
 /**
  * Make any component compatible with `FormControl`'s automatic wiring up of accessibility attributes & validation by
- * reading the props from this hook and handling them / assigning them to the underlying form control. If used outside
- * of `FormControl`, this hook has no effect.
+ * reading the props from this hook and merging them with the passed-in props. If used outside of `FormControl`, this
+ * hook has no effect.
  *
  * @param externalProps The external props passed to this component. If provided, these props will be merged with the
- * `FormControl` props, with external props taking priority. This is also used for validating the external props,
- * logging warnings to the console if there are conflicts.
+ * `FormControl` props, with external props taking priority.
  */
-export function useFormControlForwardedProps<P extends FormControlForwardedProps>(externalProps: P): P {
+export function useFormControlForwardedProps<P extends FormControlForwardedProps>(externalProps: P): P
+/**
+ * Make any component compatible with `FormControl`'s automatic wiring up of accessibility attributes & validation by
+ * reading the props from this hook and handling them / assigning them to the underlying form control. If used outside
+ * of `FormControl`, this hook has no effect.
+ */
+export function useFormControlForwardedProps(): FormControlForwardedProps
+export function useFormControlForwardedProps(externalProps: FormControlForwardedProps = {}) {
   const context = useContext(FormControlContext)
   if (!context) return externalProps
 
