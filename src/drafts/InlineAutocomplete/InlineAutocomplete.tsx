@@ -6,6 +6,7 @@ import {useSyntheticChange} from '../hooks/useSyntheticChange'
 import {getAbsoluteCharacterCoordinates} from '../utils/character-coordinates'
 
 import {
+  SelectSuggestionsEvent,
   ShowSuggestionsEvent,
   Suggestions,
   SuggestionsPlacement,
@@ -29,7 +30,7 @@ export type InlineAutocompleteProps = {
 
   /** Called when a suggestion is selected.
    */
-  onSelectSuggestion?: (suggestion: string) => void
+  onSelectSuggestion?: (event: SelectSuggestionsEvent) => void
 
   /** Called when suggestions should be hidden. Set `suggestions` to `null` in this case. */
   onHideSuggestions: () => void
@@ -169,7 +170,7 @@ const InlineAutocomplete = ({
     if (!inputRef.current || !showEventRef.current) return
     const {query, trigger} = showEventRef.current
 
-    onSelectSuggestion?.(suggestion)
+    onSelectSuggestion?.({suggestion, trigger, query})
 
     const currentCaretPosition = getSelectionStart(inputRef.current) ?? 0
     const deleteLength = query.length + trigger.triggerChar.length
