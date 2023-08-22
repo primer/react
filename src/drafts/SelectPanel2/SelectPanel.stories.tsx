@@ -9,9 +9,7 @@ const getCircle = (color: string) => (
 
 type Label = (typeof data.labels)[0]
 
-export const AMinimalExample = () => <h1>TODO</h1>
-
-export const CControlled = () => {
+export const AControlled = () => {
   // TODO/question: should the search work uncontrolled as well?
 
   const [filteredLabels, setFilteredLabels] = React.useState<Array<Label>>(data.labels)
@@ -164,7 +162,7 @@ export const CControlled = () => {
   )
 }
 
-export const BUncontrolled = () => {
+export const CUncontrolledTODO = () => {
   /* features to implement:
      1. search
      2. sort + divider
@@ -221,7 +219,9 @@ export const BUncontrolled = () => {
   )
 }
 
-export const DWithSuspendedList = () => {
+export const CMinimalExampleTODO = () => <h1>TODO</h1>
+
+export const BWithSuspendedList = () => {
   const [query, setQuery] = React.useState('')
 
   const onSearchInputChange = (event: React.KeyboardEvent<HTMLInputElement>) => {
@@ -235,10 +235,9 @@ export const DWithSuspendedList = () => {
       <p>Fetching items once when the panel is opened (like repo labels)</p>
       <SelectPanel>
         <SelectPanel.Button>Assign label</SelectPanel.Button>
-        <SelectPanel.Header>
-          <SelectPanel.Heading as="h4">Select authors</SelectPanel.Heading>
-          <SelectPanel.SearchInput onChange={onSearchInputChange} />
-        </SelectPanel.Header>
+
+        <SelectPanel.Heading as="h4">Select authors</SelectPanel.Heading>
+        <SelectPanel.SearchInput onChange={onSearchInputChange} />
 
         <React.Suspense fallback={<SelectPanel.Loading>Fetching labels...</SelectPanel.Loading>}>
           <SuspendedActionList query={query} />
@@ -318,7 +317,7 @@ const SuspendedActionList: React.FC<{query: string}> = ({query}) => {
   )
 }
 
-export const EWithAsyncSearch = () => {
+export const EWithAsyncSearchTODO = () => {
   // Note: async search makes handling state more complicated
 
   const [query, setQuery] = React.useState('')
@@ -333,7 +332,7 @@ export const EWithAsyncSearch = () => {
       <p>Fetching items on every keystroke search (like github users)</p>
       <Flash variant="danger"> Not implemented yet!</Flash>
 
-      <SelectPanel>
+      <SelectPanel defaultOpen={true}>
         <SelectPanel.Button>Assign label</SelectPanel.Button>
         <SelectPanel.Header>
           <SelectPanel.Heading as="h4">Select authors</SelectPanel.Heading>
@@ -348,7 +347,7 @@ export const EWithAsyncSearch = () => {
   )
 }
 
-export const FSingleSelection = () => <h1>TODO</h1>
+export const FSingleSelectionTODO = () => <h1>TODO</h1>
 
 // ----- Suspense implementation details ----
 
