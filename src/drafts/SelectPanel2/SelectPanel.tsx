@@ -177,11 +177,12 @@ SelectPanel.SearchInput = SelectPanelSearchInput
 const SelectPanelActionList: React.FC<React.PropsWithChildren> = props => {
   const {searchQuery} = React.useContext(SelectPanelContext)
 
-  /* features to implement:
+  /* features to implement for uncontrolled:
+     1. select
      2. sort
-     2. divider
-     1. search
-     3. different results view
+     3. divider
+     4. search
+     5. different results view
   */
 
   return (
@@ -241,3 +242,22 @@ SelectPanel.SecondaryActionSlot = props => {
 }
 
 export {SelectPanel}
+
+// This is probably a horrible idea and we would not ship this...
+// const deriveItemsFromActionList = (actionListItems: React.ReactNode[]) => {
+//   return React.Children.toArray(actionListItems).map(actionListItemNode => {
+//     const itemProps = actionListItemNode.props
+
+//     const [slots, childrenWithoutSlots] = useSlots(itemProps.children, {
+//       leadingVisual: ActionList.LeadingVisual,
+//       trailingVisual: ActionList.TrailingVisual,
+//       description: ActionList.Description,
+//     })
+
+//     return {
+//       description: slots.description?.props.children,
+//       name: childrenWithoutSlots[0],
+//       selected: itemProps.selected,
+//     }
+//   })
+// }

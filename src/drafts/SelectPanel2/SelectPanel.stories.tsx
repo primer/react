@@ -1,6 +1,6 @@
 import React from 'react'
 import {SelectPanel} from './SelectPanel'
-import {ActionList, Box} from '../../../src/index'
+import {ActionList, Box, Button, Spinner} from '../../../src/index'
 import data from './mock-data'
 
 const getCircle = (color: string) => (
@@ -55,7 +55,7 @@ export const CControlled = () => {
     setSelectedLabelIds([])
   }
 
-  const onSubmit = event => {
+  const onSubmit = (event: {preventDefault: () => void}) => {
     event.preventDefault() // coz form submit, innit
     data.issue.labelIds = selectedLabelIds // pretending to persist changes
 
@@ -63,7 +63,7 @@ export const CControlled = () => {
     console.log('form submitted')
   }
 
-  const sortingFn = (labelA, labelB) => {
+  const sortingFn = (labelA: {id: string}, labelB: {id: string}) => {
     /* Important! This sorting is only for initial selected ids, not for subsequent changes!
       deterministic sorting for better UX: don't change positions with other selected items.
 
@@ -92,7 +92,7 @@ export const CControlled = () => {
           console.log('panel was closed')
         }}
         // TODO: onClearSelection feels even more odd on the parent, instead of on the header.
-        onClearSelection={event => {
+        onClearSelection={(event: any) => {
           // not optional, we don't control the selection, so we just pass this through
           onClearSelection(event)
         }}
@@ -176,7 +176,7 @@ export const BUncontrolled = () => {
      9. empty state
   */
 
-  const onSubmit = event => {
+  const onSubmit = (event: {preventDefault: () => void}) => {
     event.preventDefault() // coz form submit, innit
 
     // TODO: where does saved data come from?
@@ -221,9 +221,215 @@ export const BUncontrolled = () => {
   )
 }
 
-export const DWithSuspense = () => <h1>TODO</h1>
+export const DWithSuspense = () => {
+  const searchOnChange = () => {}
+
+  return (
+    <>
+      <h2>Suspend entire SelectPanel (not recommended)</h2>
+      <React.Suspense
+        fallback={
+          <SelectPanel.Button disabled trailingIcon={() => <Spinner size="small" />}>
+            Assign label
+          </SelectPanel.Button>
+        }
+      >
+        <SuspendedEntireSelectPanel />
+      </React.Suspense>
+      <br />
+      <br />
+      <h2>Suspended SelectPanel body (recommended)</h2>
+      <SelectPanel>
+        <SelectPanel.Button>Assign label</SelectPanel.Button>
+        <SelectPanel.Header>
+          <SelectPanel.Heading as="h4">Select authors</SelectPanel.Heading>
+          <SelectPanel.SearchInput onChange={searchOnChange} />
+        </SelectPanel.Header>
+
+        <React.Suspense fallback="loading...">loading...</React.Suspense>
+      </SelectPanel>
+    </>
+  )
+}
+
+const SuspendedEntireSelectPanel = () => {
+  const fetchedData: typeof data = use(getData())
+
+  const [filteredLabels, setFilteredLabels] = React.useState<Array<Label>>(fetchedData.labels)
+
+  const initialSelectedLabels = fetchedData.issue.labelIds
+  const [selectedLabelIds, setSelectedLabelIds] = React.useState<string[]>(initialSelectedLabels)
+
+  const [query, setQuery] = React.useState('')
+
+  // TODO: should this be baked-in
+  const searchOnChange = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    const query = event.currentTarget.value
+    setQuery(query)
+
+    if (query === '') setFilteredLabels(fetchedData.labels)
+    else {
+      setFilteredLabels(
+        fetchedData.labels
+          .map(label => {
+            if (label.name.toLowerCase().startsWith(query)) return {priority: 1, label}
+            else if (label.name.toLowerCase().includes(query)) return {priority: 2, label}
+            else if (label.description?.toLowerCase().includes(query)) return {priority: 3, label}
+            else return {priority: -1, label}
+          })
+          .filter(result => result.priority > 0)
+          .map(result => result.label),
+      )
+    }
+  }
+
+  const onLabelSelect = (labelId: string) => {
+    if (!selectedLabelIds.includes(labelId)) setSelectedLabelIds([...selectedLabelIds, labelId])
+    else setSelectedLabelIds(selectedLabelIds.filter(id => id !== labelId))
+  }
+
+  const onClearSelection = () => {
+    // soft set, does not save until submit
+    setSelectedLabelIds([])
+  }
+
+  const onSubmit = (event: {preventDefault: () => void}) => {
+    event.preventDefault() // coz form submit, innit
+    fetchedData.issue.labelIds = selectedLabelIds // pretending to persist changes
+
+    // eslint-disable-next-line no-console
+    console.log('form submitted')
+  }
+
+  const sortingFn = (labelA: {id: string}, labelB: {id: string}) => {
+    if (selectedLabelIds.includes(labelA.id) && selectedLabelIds.includes(labelB.id)) return 1
+    else if (selectedLabelIds.includes(labelA.id)) return -1
+    else if (selectedLabelIds.includes(labelB.id)) return 1
+    else return 1
+  }
+
+  return (
+    <>
+      <SelectPanel
+        onSubmit={onSubmit}
+        onCancel={() => {
+          console.log('panel was closed')
+        }}
+        onClearSelection={(event: any) => {
+          // not optional, we don't control the selection, so we just pass this through
+          onClearSelection(event)
+        }}
+      >
+        <SelectPanel.Button>Assign label</SelectPanel.Button>
+
+        <SelectPanel.Header>
+          <SelectPanel.Heading as="h4">Select authors</SelectPanel.Heading>
+          <SelectPanel.SearchInput onChange={searchOnChange} />
+        </SelectPanel.Header>
+
+        <SelectPanel.ActionList>
+          {/* slightly different view for search results view and list view */}
+          {query ? (
+            filteredLabels.map(label => (
+              <ActionList.Item
+                key={label.id}
+                onSelect={() => onLabelSelect(label.id)}
+                selected={selectedLabelIds.includes(label.id)}
+              >
+                <ActionList.LeadingVisual>{getCircle(label.color)}</ActionList.LeadingVisual>
+                {label.name}
+                <ActionList.Description>{label.description}</ActionList.Description>
+              </ActionList.Item>
+            ))
+          ) : (
+            <>
+              {fetchedData.labels.sort(sortingFn).map((label, index) => {
+                const nextLabel = fetchedData.labels.sort(sortingFn)[index + 1]
+                const showDivider = selectedLabelIds.includes(label.id) && !selectedLabelIds.includes(nextLabel?.id)
+
+                return (
+                  <>
+                    <ActionList.Item
+                      key={label.id}
+                      onSelect={() => onLabelSelect(label.id)}
+                      selected={selectedLabelIds.includes(label.id)}
+                    >
+                      <ActionList.LeadingVisual>{getCircle(label.color)}</ActionList.LeadingVisual>
+                      {label.name}
+                      <ActionList.Description>{label.description}</ActionList.Description>
+                    </ActionList.Item>
+                    {showDivider ? <ActionList.Divider /> : null}
+                  </>
+                )
+              })}
+            </>
+          )}
+        </SelectPanel.ActionList>
+
+        <SelectPanel.Footer>
+          <SelectPanel.SecondaryButton>View authors</SelectPanel.SecondaryButton>
+        </SelectPanel.Footer>
+      </SelectPanel>
+    </>
+  )
+}
 
 export const ESingleSelection = () => <h1>TODO</h1>
+
+const SuspendedComponent = () => {
+  const fetchedData = use(getData())
+  return <h1>hallo</h1>
+}
+
+export const FTemp = () => {
+  return (
+    <React.Suspense fallback="loading">
+      <SuspendedComponent />
+    </React.Suspense>
+  )
+}
+
+// -----
+
+const cache = new Map()
+function getData() {
+  if (!cache.has('labels')) cache.set('labels', fetchData())
+  return cache.get('labels')
+}
+
+const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))
+// return a promise!
+async function fetchData() {
+  await sleep(1000)
+  return data
+}
+
+/* lifted from the examples at https://react.dev/reference/react/Suspense */
+// @ts-ignore copied from untyped example
+function use(promise) {
+  if (promise.status === 'fulfilled') {
+    return promise.value
+  } else if (promise.status === 'rejected') {
+    throw promise.reason
+  } else if (promise.status === 'pending') {
+    throw promise
+  } else {
+    promise.status = 'pending'
+
+    // eslint-disable-next-line github/no-then
+    promise.then(
+      (result: Record<string, unknown>) => {
+        promise.status = 'fulfilled'
+        promise.value = result
+      },
+      (error: Error) => {
+        promise.status = 'rejected'
+        promise.reason = error
+      },
+    )
+    throw promise
+  }
+}
 
 export default {
   title: 'Drafts/Components/SelectPanel',
