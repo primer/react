@@ -21,8 +21,6 @@ jobs:
           client-id: ${{ vars.PRIMER_APP_CLIENT_ID_SHARED }}
           client-secret: ${{ secrets.PRIMER_APP_CLIENT_SECRET_SHARED }}
           installation-id: ${{ vars.PRIMER_APP_INSTALLATION_ID_SHARED }}
-        env:
-          GITHUB_TOKEN: ${{ steps.get-access-token.outputs.access-token }}
       - name: Add react label to issue
         run: |
           gh api graphql --header 'GraphQL-Features: projects_next_graphql' -f query='
@@ -31,6 +29,8 @@ jobs:
                 clientMutationId
               }
             }' -f reactLabelId=$REACT_LABEL_ID -f issue=$ISSUE_ID --jq '.data.addProjectNextItem.projectNextItem.id'
+        env:
+          GITHUB_TOKEN: ${{ steps.get-access-token.outputs.access-token }}
       - name: Add issue to project
         run: |
           gh api graphql --header 'GraphQL-Features: projects_next_graphql' -f query='
