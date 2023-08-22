@@ -38,7 +38,9 @@ const SelectPanel = props => {
     return child
   })
 
-  const [open, setOpen] = React.useState(false)
+  // TODO: defaultOpen is not for debugging, I don't intend to make
+  // it part of the API
+  const [open, setOpen] = React.useState(props.defaultOpen)
 
   const onInternalClose = () => {
     setOpen(false)

@@ -27,3 +27,8 @@
 1. where should the callback for `submit` be? the button lives in the footer but would feel strange not close to cancel and clear selection
 1. where should the callback for `clear selection` be? the button lives in the header but would feel strange not close to cancel and submit
 1. where do you say `selectionVariant="single"` on the ActionList or on SelectPanel?
+
+### Implementation notes
+
+1. Add controlled state for `open` (use cases: 1. fetch data when opened, 2. nested menus, 3. keep panel open till it's saved: https://github.com/github/primer/issues/2403)
+2. We probably (need to check) should not even render Overlay contents until it's opened

@@ -1,6 +1,6 @@
 import React from 'react'
 import {SelectPanel} from './SelectPanel'
-import {ActionList, Box, Button, Spinner} from '../../../src/index'
+import {ActionList, Box, Spinner} from '../../../src/index'
 import data from './mock-data'
 
 const getCircle = (color: string) => (
@@ -226,7 +226,28 @@ export const DWithSuspense = () => {
 
   return (
     <>
-      <h2>Suspend entire SelectPanel (not recommended)</h2>
+      <h2>Suspended parts of body (recommended)</h2>
+      <p>with fetching data once when opened (like repo labels)</p>
+      <SelectPanel>
+        <SelectPanel.Button>Assign label</SelectPanel.Button>
+        <SelectPanel.Header>
+          <SelectPanel.Heading as="h4">Select authors</SelectPanel.Heading>
+          <SelectPanel.SearchInput onChange={searchOnChange} />
+        </SelectPanel.Header>
+
+        <React.Suspense fallback={<Spinner size="medium" />}>
+          <SuspendedActionList />
+        </React.Suspense>
+      </SelectPanel>
+      <br />
+      <br />
+      <h2>Suspended parts of body (recommended)</h2>
+      <p>fetching data on every keystroke search (like github users)</p>
+      TODO!
+      <br />
+      <br />
+      <h2>Suspend entire SelectPanel</h2>
+      <p>(possible, but not recommended)</p>
       <React.Suspense
         fallback={
           <SelectPanel.Button disabled trailingIcon={() => <Spinner size="small" />}>
@@ -236,24 +257,78 @@ export const DWithSuspense = () => {
       >
         <SuspendedEntireSelectPanel />
       </React.Suspense>
-      <br />
-      <br />
-      <h2>Suspended SelectPanel body (recommended)</h2>
-      <SelectPanel>
-        <SelectPanel.Button>Assign label</SelectPanel.Button>
-        <SelectPanel.Header>
-          <SelectPanel.Heading as="h4">Select authors</SelectPanel.Heading>
-          <SelectPanel.SearchInput onChange={searchOnChange} />
-        </SelectPanel.Header>
-
-        <React.Suspense fallback="loading...">loading...</React.Suspense>
-      </SelectPanel>
     </>
   )
 }
 
+const SuspendedActionList = () => {
+  const fetchedData: typeof data = use(getData({key: '1', delay: 2000}))
+
+  // ----- still need to implement
+  let query = '' // this would come from
+  let filteredLabels = []
+
+  // -----
+
+  const initialSelectedLabels: string[] = fetchedData.issue.labelIds
+  const [selectedLabelIds, setSelectedLabelIds] = React.useState<string[]>(initialSelectedLabels)
+
+  const onLabelSelect = (labelId: string) => {
+    if (!selectedLabelIds.includes(labelId)) setSelectedLabelIds([...selectedLabelIds, labelId])
+    else setSelectedLabelIds(selectedLabelIds.filter(id => id !== labelId))
+  }
+
+  const sortingFn = (labelA: {id: string}, labelB: {id: string}) => {
+    if (selectedLabelIds.includes(labelA.id) && selectedLabelIds.includes(labelB.id)) return 1
+    else if (selectedLabelIds.includes(labelA.id)) return -1
+    else if (selectedLabelIds.includes(labelB.id)) return 1
+    else return 1
+  }
+
+  return (
+    <SelectPanel.ActionList>
+      {/* slightly different view for search results view and list view */}
+      {query ? (
+        filteredLabels.map(label => (
+          <ActionList.Item
+            key={label.id}
+            onSelect={() => onLabelSelect(label.id)}
+            selected={selectedLabelIds.includes(label.id)}
+          >
+            <ActionList.LeadingVisual>{getCircle(label.color)}</ActionList.LeadingVisual>
+            {label.name}
+            <ActionList.Description>{label.description}</ActionList.Description>
+          </ActionList.Item>
+        ))
+      ) : (
+        <>
+          {fetchedData.labels.sort(sortingFn).map((label, index) => {
+            const nextLabel = fetchedData.labels.sort(sortingFn)[index + 1]
+            const showDivider = selectedLabelIds.includes(label.id) && !selectedLabelIds.includes(nextLabel?.id)
+
+            return (
+              <>
+                <ActionList.Item
+                  key={label.id}
+                  onSelect={() => onLabelSelect(label.id)}
+                  selected={selectedLabelIds.includes(label.id)}
+                >
+                  <ActionList.LeadingVisual>{getCircle(label.color)}</ActionList.LeadingVisual>
+                  {label.name}
+                  <ActionList.Description>{label.description}</ActionList.Description>
+                </ActionList.Item>
+                {showDivider ? <ActionList.Divider /> : null}
+              </>
+            )
+          })}
+        </>
+      )}
+    </SelectPanel.ActionList>
+  )
+}
+
 const SuspendedEntireSelectPanel = () => {
-  const fetchedData: typeof data = use(getData())
+  const fetchedData: typeof data = use(getData({key: '2', delay: 1000}))
 
   const [filteredLabels, setFilteredLabels] = React.useState<Array<Label>>(fetchedData.labels)
 
@@ -392,15 +467,15 @@ export const FTemp = () => {
 // -----
 
 const cache = new Map()
-function getData() {
-  if (!cache.has('labels')) cache.set('labels', fetchData())
-  return cache.get('labels')
+function getData({key, delay}: {key: string; delay: number} = {key: '0', delay: 1000}) {
+  if (!cache.has(key)) cache.set(key, fetchData(delay))
+  return cache.get(key)
 }
 
 const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))
 // return a promise!
-async function fetchData() {
-  await sleep(1000)
+async function fetchData(delay: number) {
+  await sleep(delay)
   return data
 }
 
