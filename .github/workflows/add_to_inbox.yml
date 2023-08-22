@@ -9,11 +9,18 @@ jobs:
     if: ${{ github.repository == 'primer/react' && (github.event.action == 'opened' || github.event.action == 'reopened') }}
     runs-on: ubuntu-latest
     env:
-      GITHUB_TOKEN: ${{ secrets.GPR_AUTH_TOKEN_SHARED }}
       ISSUE_ID: ${{ github.event.issue.node_id }}
       REACT_LABEL_ID: 'LA_kwDOB0K8ws7Oq_eD'
       PROJECT_ID: 'PN_kwDNJr_NNKA'
     steps:
+      - id: get-access-token
+        uses: camertron/github-app-installation-auth-action@v1
+        with:
+          app-id: ${{ vars.PRIMER_APP_ID_SHARED }}
+          private-key: ${{ secrets.PRIMER_APP_PRIVATE_KEY_SHARED }}
+          client-id: ${{ vars.PRIMER_APP_CLIENT_ID_SHARED }}
+          client-secret: ${{ secrets.PRIMER_APP_CLIENT_SECRET_SHARED }}
+          installation-id: ${{ vars.PRIMER_APP_INSTALLATION_ID_SHARED }}
       - name: Add react label to issue
         run: |
           gh api graphql --header 'GraphQL-Features: projects_next_graphql' -f query='
@@ -22,6 +29,8 @@ jobs:
                 clientMutationId
               }
             }' -f reactLabelId=$REACT_LABEL_ID -f issue=$ISSUE_ID --jq '.data.addProjectNextItem.projectNextItem.id'
+        env:
+          GITHUB_TOKEN: ${{ steps.get-access-token.outputs.access-token }}
       - name: Add issue to project
         run: |
           gh api graphql --header 'GraphQL-Features: projects_next_graphql' -f query='
@@ -32,3 +41,5 @@ jobs:
                 }
               }
             }' -f project=$PROJECT_ID -f issue=$ISSUE_ID --jq '.data.addProjectNextItem.projectNextItem.id'
+        env:
+          GITHUB_TOKEN: ${{ steps.get-access-token.outputs.access-token }}
