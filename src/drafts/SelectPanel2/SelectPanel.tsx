@@ -12,6 +12,8 @@ import {
   TextInput,
   AnchoredOverlayProps,
   ActionList,
+  Spinner,
+  Text,
 } from '../../../src/index'
 import {useSlots} from '../../hooks/useSlots'
 import {ClearIcon} from './tmp-ClearIcon'
@@ -158,7 +160,9 @@ const SelectPanelSearchInput = props => {
           sx={{color: 'fg.subtle', bg: 'none'}}
           onClick={() => {
             if (inputRef.current) inputRef.current.value = ''
-            if (typeof props.onChange === 'function') props.onChange({target: inputRef.current})
+            if (typeof props.onChange === 'function') {
+              props.onChange({target: inputRef.current, currentTarget: inputRef.current})
+            }
           }}
         />
       }
@@ -242,6 +246,26 @@ SelectPanel.SecondaryLink = props => {
 SelectPanel.SecondaryActionSlot = props => {
   return <div id="left-layout">{props.children}</div>
 }
+
+const SelectPanelLoading: React.FC<{children: string}> = ({children = 'Fetching items...'}) => {
+  return (
+    <Box
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        flexGrow: 1,
+        gap: 3,
+      }}
+    >
+      <Spinner size="medium" />
+      <Text sx={{fontSize: 1, color: 'fg.muted'}}>{children}</Text>
+    </Box>
+  )
+}
+
+SelectPanel.Loading = SelectPanelLoading
 
 export {SelectPanel}
 

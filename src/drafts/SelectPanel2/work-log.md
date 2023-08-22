@@ -32,3 +32,4 @@
 
 1. Add controlled state for `open` (use cases: 1. fetch data when opened, 2. nested menus, 3. keep panel open till it's saved: https://github.com/github/primer/issues/2403)
 2. We probably (need to check) should not even render Overlay contents until it's opened
+3. Implement empty states like "no results"

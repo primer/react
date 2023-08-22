@@ -1,6 +1,6 @@
 import React from 'react'
 import {SelectPanel} from './SelectPanel'
-import {ActionList, Box, Spinner} from '../../../src/index'
+import {ActionList, Box, Flash, Select, Spinner, Text} from '../../../src/index'
 import data from './mock-data'
 
 const getCircle = (color: string) => (
@@ -24,7 +24,7 @@ export const CControlled = () => {
   const [query, setQuery] = React.useState('')
 
   // TODO: should this be baked-in
-  const searchOnChange = (event: React.KeyboardEvent<HTMLInputElement>) => {
+  const onSearchInputChange = (event: React.KeyboardEvent<HTMLInputElement>) => {
     const query = event.currentTarget.value
     setQuery(query)
 
@@ -109,7 +109,7 @@ export const CControlled = () => {
           {/* TODO: is the heading tag customisable? */}
           <SelectPanel.Heading as="h4">Select authors</SelectPanel.Heading>
 
-          <SelectPanel.SearchInput onChange={searchOnChange} />
+          <SelectPanel.SearchInput onChange={onSearchInputChange} />
         </SelectPanel.Header>
 
         <SelectPanel.ActionList>
@@ -221,54 +221,35 @@ export const BUncontrolled = () => {
   )
 }
 
-export const DWithSuspense = () => {
-  const searchOnChange = () => {}
+export const DWithSuspendedList = () => {
+  const [query, setQuery] = React.useState('')
+
+  const onSearchInputChange = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    const query = event.currentTarget.value
+    setQuery(query)
+  }
 
   return (
     <>
-      <h2>Suspended parts of body (recommended)</h2>
-      <p>with fetching data once when opened (like repo labels)</p>
+      <h1>Suspended list</h1>
+      <p>Fetching items once when the panel is opened (like repo labels)</p>
       <SelectPanel>
         <SelectPanel.Button>Assign label</SelectPanel.Button>
         <SelectPanel.Header>
           <SelectPanel.Heading as="h4">Select authors</SelectPanel.Heading>
-          <SelectPanel.SearchInput onChange={searchOnChange} />
+          <SelectPanel.SearchInput onChange={onSearchInputChange} />
         </SelectPanel.Header>
 
-        <React.Suspense fallback={<Spinner size="medium" />}>
-          <SuspendedActionList />
+        <React.Suspense fallback={<SelectPanel.Loading>Fetching labels...</SelectPanel.Loading>}>
+          <SuspendedActionList query={query} />
         </React.Suspense>
       </SelectPanel>
-      <br />
-      <br />
-      <h2>Suspended parts of body (recommended)</h2>
-      <p>fetching data on every keystroke search (like github users)</p>
-      TODO!
-      <br />
-      <br />
-      <h2>Suspend entire SelectPanel</h2>
-      <p>(possible, but not recommended)</p>
-      <React.Suspense
-        fallback={
-          <SelectPanel.Button disabled trailingIcon={() => <Spinner size="small" />}>
-            Assign label
-          </SelectPanel.Button>
-        }
-      >
-        <SuspendedEntireSelectPanel />
-      </React.Suspense>
     </>
   )
 }
 
-const SuspendedActionList = () => {
-  const fetchedData: typeof data = use(getData({key: '1', delay: 2000}))
-
-  // ----- still need to implement
-  let query = '' // this would come from
-  let filteredLabels = []
-
-  // -----
+const SuspendedActionList: React.FC<{query: string}> = ({query}) => {
+  const fetchedData: typeof data = use(getData({key: 'suspended-action-list', delay: 1000}))
 
   const initialSelectedLabels: string[] = fetchedData.issue.labelIds
   const [selectedLabelIds, setSelectedLabelIds] = React.useState<string[]>(initialSelectedLabels)
@@ -284,6 +265,16 @@ const SuspendedActionList = () => {
     else if (selectedLabelIds.includes(labelB.id)) return 1
     else return 1
   }
+
+  const filteredLabels = fetchedData.labels
+    .map(label => {
+      if (label.name.toLowerCase().startsWith(query)) return {priority: 1, label}
+      else if (label.name.toLowerCase().includes(query)) return {priority: 2, label}
+      else if (label.description?.toLowerCase().includes(query)) return {priority: 3, label}
+      else return {priority: -1, label}
+    })
+    .filter(result => result.priority > 0)
+    .map(result => result.label)
 
   return (
     <SelectPanel.ActionList>
@@ -327,144 +318,39 @@ const SuspendedActionList = () => {
   )
 }
 
-const SuspendedEntireSelectPanel = () => {
-  const fetchedData: typeof data = use(getData({key: '2', delay: 1000}))
-
-  const [filteredLabels, setFilteredLabels] = React.useState<Array<Label>>(fetchedData.labels)
-
-  const initialSelectedLabels = fetchedData.issue.labelIds
-  const [selectedLabelIds, setSelectedLabelIds] = React.useState<string[]>(initialSelectedLabels)
+export const EWithAsyncSearch = () => {
+  // Note: async search makes handling state more complicated
 
   const [query, setQuery] = React.useState('')
-
-  // TODO: should this be baked-in
-  const searchOnChange = (event: React.KeyboardEvent<HTMLInputElement>) => {
+  const onSearchInputChange = (event: React.KeyboardEvent<HTMLInputElement>) => {
     const query = event.currentTarget.value
     setQuery(query)
-
-    if (query === '') setFilteredLabels(fetchedData.labels)
-    else {
-      setFilteredLabels(
-        fetchedData.labels
-          .map(label => {
-            if (label.name.toLowerCase().startsWith(query)) return {priority: 1, label}
-            else if (label.name.toLowerCase().includes(query)) return {priority: 2, label}
-            else if (label.description?.toLowerCase().includes(query)) return {priority: 3, label}
-            else return {priority: -1, label}
-          })
-          .filter(result => result.priority > 0)
-          .map(result => result.label),
-      )
-    }
-  }
-
-  const onLabelSelect = (labelId: string) => {
-    if (!selectedLabelIds.includes(labelId)) setSelectedLabelIds([...selectedLabelIds, labelId])
-    else setSelectedLabelIds(selectedLabelIds.filter(id => id !== labelId))
-  }
-
-  const onClearSelection = () => {
-    // soft set, does not save until submit
-    setSelectedLabelIds([])
-  }
-
-  const onSubmit = (event: {preventDefault: () => void}) => {
-    event.preventDefault() // coz form submit, innit
-    fetchedData.issue.labelIds = selectedLabelIds // pretending to persist changes
-
-    // eslint-disable-next-line no-console
-    console.log('form submitted')
-  }
-
-  const sortingFn = (labelA: {id: string}, labelB: {id: string}) => {
-    if (selectedLabelIds.includes(labelA.id) && selectedLabelIds.includes(labelB.id)) return 1
-    else if (selectedLabelIds.includes(labelA.id)) return -1
-    else if (selectedLabelIds.includes(labelB.id)) return 1
-    else return 1
   }
 
   return (
     <>
-      <SelectPanel
-        onSubmit={onSubmit}
-        onCancel={() => {
-          console.log('panel was closed')
-        }}
-        onClearSelection={(event: any) => {
-          // not optional, we don't control the selection, so we just pass this through
-          onClearSelection(event)
-        }}
-      >
-        <SelectPanel.Button>Assign label</SelectPanel.Button>
+      <h1>WIP: Suspended list items / Async search</h1>
+      <p>Fetching items on every keystroke search (like github users)</p>
+      <Flash variant="danger"> Not implemented yet!</Flash>
 
+      <SelectPanel>
+        <SelectPanel.Button>Assign label</SelectPanel.Button>
         <SelectPanel.Header>
           <SelectPanel.Heading as="h4">Select authors</SelectPanel.Heading>
-          <SelectPanel.SearchInput onChange={searchOnChange} />
+          <SelectPanel.SearchInput onChange={onSearchInputChange} />
         </SelectPanel.Header>
 
-        <SelectPanel.ActionList>
-          {/* slightly different view for search results view and list view */}
-          {query ? (
-            filteredLabels.map(label => (
-              <ActionList.Item
-                key={label.id}
-                onSelect={() => onLabelSelect(label.id)}
-                selected={selectedLabelIds.includes(label.id)}
-              >
-                <ActionList.LeadingVisual>{getCircle(label.color)}</ActionList.LeadingVisual>
-                {label.name}
-                <ActionList.Description>{label.description}</ActionList.Description>
-              </ActionList.Item>
-            ))
-          ) : (
-            <>
-              {fetchedData.labels.sort(sortingFn).map((label, index) => {
-                const nextLabel = fetchedData.labels.sort(sortingFn)[index + 1]
-                const showDivider = selectedLabelIds.includes(label.id) && !selectedLabelIds.includes(nextLabel?.id)
-
-                return (
-                  <>
-                    <ActionList.Item
-                      key={label.id}
-                      onSelect={() => onLabelSelect(label.id)}
-                      selected={selectedLabelIds.includes(label.id)}
-                    >
-                      <ActionList.LeadingVisual>{getCircle(label.color)}</ActionList.LeadingVisual>
-                      {label.name}
-                      <ActionList.Description>{label.description}</ActionList.Description>
-                    </ActionList.Item>
-                    {showDivider ? <ActionList.Divider /> : null}
-                  </>
-                )
-              })}
-            </>
-          )}
-        </SelectPanel.ActionList>
-
-        <SelectPanel.Footer>
-          <SelectPanel.SecondaryButton>View authors</SelectPanel.SecondaryButton>
-        </SelectPanel.Footer>
+        <React.Suspense fallback={<SelectPanel.Loading>Fetching labels...</SelectPanel.Loading>}>
+          <SuspendedActionList query={query} />
+        </React.Suspense>
       </SelectPanel>
     </>
   )
 }
 
-export const ESingleSelection = () => <h1>TODO</h1>
+export const FSingleSelection = () => <h1>TODO</h1>
 
-const SuspendedComponent = () => {
-  const fetchedData = use(getData())
-  return <h1>hallo</h1>
-}
-
-export const FTemp = () => {
-  return (
-    <React.Suspense fallback="loading">
-      <SuspendedComponent />
-    </React.Suspense>
-  )
-}
-
-// -----
+// ----- Suspense implementation details ----
 
 const cache = new Map()
 function getData({key, delay}: {key: string; delay: number} = {key: '0', delay: 1000}) {
