@@ -6,7 +6,7 @@ import {useFocusZone} from '../hooks/useFocusZone'
 import {ComponentProps, MandateProps} from '../utils/types'
 import Box from '../Box'
 import Spinner from '../Spinner'
-import {useSSRSafeId} from '../utils/ssr'
+import {useId} from '../hooks/useId'
 import {AutocompleteContext} from './AutocompleteContext'
 import {PlusIcon} from '@primer/octicons-react'
 import VisuallyHidden from '../_VisuallyHidden'
@@ -146,7 +146,7 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
   const listContainerRef = useRef<HTMLDivElement>(null)
   const [highlightedItem, setHighlightedItem] = useState<T>()
   const [sortedItemIds, setSortedItemIds] = useState<Array<number | string>>(items.map(({id: itemId}) => itemId))
-  const generatedUniqueId = useSSRSafeId(id)
+  const generatedUniqueId = useId(id)
 
   const selectableItems = useMemo(
     () =>
