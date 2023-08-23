@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import Box from '../../../Box'
 import ValidationAnimationContainer from '../ValidationAnimationContainer'
 import {get} from '../../../constants'
-import {useSSRSafeId} from '../../../utils/ssr'
+import {useId} from '../../../hooks/useId'
 import CheckboxOrRadioGroupCaption from './CheckboxOrRadioGroupCaption'
 import CheckboxOrRadioGroupLabel from './CheckboxOrRadioGroupLabel'
 import CheckboxOrRadioGroupValidation from './CheckboxOrRadioGroupValidation'
@@ -72,7 +72,7 @@ const CheckboxOrRadioGroup: React.FC<React.PropsWithChildren<CheckboxOrRadioGrou
   const captionChild = React.Children.toArray(children).find(child =>
     React.isValidElement(child) && child.type === CheckboxOrRadioGroupCaption ? child : null,
   )
-  const id = useSSRSafeId(idProp)
+  const id = useId(idProp)
   const validationMessageId = validationChild ? `${id}-validationMessage` : undefined
   const captionId = captionChild ? `${id}-caption` : undefined
 

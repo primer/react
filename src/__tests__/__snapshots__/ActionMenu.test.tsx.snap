@@ -178,14 +178,6 @@ exports[`ActionMenu renders consistently 1`] = `
   grid-area: text;
   line-height: calc(20/14);
   white-space: nowrap;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
 }
 
 .c1 [data-component="trailingVisual"] {
