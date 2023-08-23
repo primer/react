@@ -6,7 +6,7 @@ import Box from '../Box'
 import Spinner from '../Spinner'
 import TextInput, {TextInputProps} from '../TextInput'
 import {get} from '../constants'
-import {ActionList, ActionListProps, ActionListItemProps} from '../ActionList'
+import {ActionList, ActionListProps, ActionListItemProps, ActionListGroupProps} from '../ActionList'
 import {useFocusZone} from '../hooks/useFocusZone'
 import {useId} from '../hooks/useId'
 import {useProvidedRefOrCreate} from '../hooks/useProvidedRefOrCreate'
@@ -27,8 +27,14 @@ export type ItemInput = Partial<
     selected?: boolean
     text?: string
     trailingVisual?: React.ElementType | React.ReactNode
+    groupId?: string
   }
 >
+
+export type ItemGroup = {
+  groupId: string
+  header?: Pick<ActionListGroupProps, 'title' | 'auxiliaryText' | 'variant'>
+}
 
 export interface FilteredActionListProps extends ActionListProps, SxProp {
   loading?: boolean
@@ -38,6 +44,7 @@ export interface FilteredActionListProps extends ActionListProps, SxProp {
   textInputProps?: Partial<Omit<TextInputProps, 'onChange'>>
   inputRef?: React.RefObject<HTMLInputElement>
   items: ItemInput[]
+  groupMetadata?: ItemGroup[]
 }
 
 const StyledHeader = styled.div`
@@ -84,6 +91,7 @@ export function FilteredActionList({
   filterValue: externalFilterValue,
   onFilterChange,
   items,
+  groupMetadata = [],
   textInputProps,
   inputRef: providedInputRef,
   sx,
@@ -182,7 +190,13 @@ export function FilteredActionList({
             id={listId}
             aria-label={`${placeholderText} options`}
           >
-            {items.map(renderFn)}
+            {groupMetadata.length > 0
+              ? groupMetadata.map(({header, groupId}) => (
+                  <ActionList.Group key={groupId} {...header}>
+                    {items.filter(item => item.groupId === groupId).map(renderFn)}
+                  </ActionList.Group>
+                ))
+              : items.map(renderFn)}
           </ActionList>
         )}
       </Box>

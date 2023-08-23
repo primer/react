@@ -303,3 +303,49 @@ export const SelectPanelHeightAndScroll = () => {
   )
 }
 SelectPanelHeightAndScroll.storyName = 'SelectPanel, Height and Scroll'
+
+type ItemGroup = {
+  groupId: string
+  header?: {
+    title: string
+    variant?: 'subtle' | 'filled'
+  }
+}
+const recentGroup: ItemGroup = {groupId: 'recent', header: {title: 'Recent', variant: 'filled'}}
+const repoGroup: ItemGroup = {groupId: 'repository', header: {title: 'Repository', variant: 'filled'}}
+const orgGroup: ItemGroup = {groupId: 'organization', header: {title: 'Organization', variant: 'filled'}}
+
+const projects = [
+  {key: 0, text: 'Primer Team Backlog', id: 0, groupId: recentGroup.groupId},
+  {key: 1, text: 'Primer Roadmap', id: 1, groupId: recentGroup.groupId},
+  {key: 2, text: 'Primer Design System', id: 2, groupId: repoGroup.groupId},
+  {key: 3, text: 'Engineering', id: 3, groupId: orgGroup.groupId},
+]
+
+const groups = [recentGroup, repoGroup, orgGroup]
+
+export const SelectPanelwithGroupedItems = () => {
+  const [selected, setSelected] = React.useState<ItemInput | undefined>(projects[0])
+  const [filter, setFilter] = React.useState('')
+  const filteredProjects = projects.filter(project => project.text.toLowerCase().startsWith(filter.toLowerCase()))
+  const [open, setOpen] = useState(false)
+  return (
+    <SelectPanel
+      renderAnchor={({children, 'aria-labelledby': ariaLabelledBy, ...anchorProps}) => (
+        <Button trailingAction={TriangleDownIcon} aria-labelledby={` ${ariaLabelledBy}`} {...anchorProps}>
+          {children ?? 'Select Labels'}
+        </Button>
+      )}
+      placeholderText="filter projects"
+      items={filteredProjects}
+      selected={selected}
+      open={open}
+      onOpenChange={setOpen}
+      onSelectedChange={setSelected}
+      filterValue={filter}
+      onFilterChange={setFilter}
+      overlayProps={{width: 'medium', height: filteredProjects.length <= 2 ? 'auto' : 'large'}}
+      groupMetadata={filteredProjects.length > 0 ? groups : undefined}
+    />
+  )
+}
