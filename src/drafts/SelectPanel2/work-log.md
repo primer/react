@@ -6,7 +6,7 @@
 
 ### Open accessibility questions
 
-No open questions
+1. Should the text for Submit/Save button be customisable based on the page context? So that it says something like "Assign users" or "Add labels" instead of just "Save" or "Submit". Or is optional because the context is already established?
 
 ### Answered accessibility questions
 
@@ -17,6 +17,7 @@ No open questions
 
 ### Design questions
 
+1. How strongly does Maxime feel about adding count of changes in the submit button? (he had it in his prototype)
 1. Should we highlight matching text for filter results, especially because we search across title and description (example: https://github.com/primer/react/assets/1863771/d8d2d6e1-4075-4096-bc8a-db46e9b69351)
 
 ### API decisions still to make
@@ -30,14 +31,16 @@ No open questions
 1. where should the callback for `submit` be? the button lives in the footer but would feel strange not close to cancel and clear selection
 1. where should the callback for `clear selection` be? the button lives in the header but would feel strange not close to cancel and submit
 1. where do you say `selectionVariant="single"` on the ActionList or on SelectPanel? what all does it change? should we not use ActionMenu for that anymore?
-1. Is SelectPanel.Footer optional or no
+1. when you do not add a `<SelectPanel.Footer>`, should we add it for you? 😈 = it's present by default, you can only choose to modify the secondary action
+1. Can we automate empty message? We do need some information from the context, so maybe not entirely. Can we add a default that can be customised.
 
 ### Implementation notes
 
-1. Improve divider logic in stories (we don't need 2 branches, instead a ConditionalDivider component or a showDividerAtIndex variable)
+1. [Next for Sid] Improve divider logic in stories (we don't need 2 branches, instead a ConditionalDivider component or a showDividerAtIndex variable)
+1. Is there a way to absorb divider logic, right now it's the application's responsibility
 1. Add controlled state for `open` (use cases: 1. fetch data when opened, 2. nested menus, 3. keep panel open till it's saved: https://github.com/github/primer/issues/2403)
 1. We probably (need to check) should not even render Overlay contents until it's opened
-1. Implement empty states like "no results" https://github.com/github/primer/issues/2362
+1. Add SelectPanel.EmptyMessage to all stories
 1. SelectPanel.Overlay
-1. Is there a way to absorb divider logic, right now it's the application's responsibility
 1. The flicker in story with useTransition is unfortunate, is there already a way to add a minimum time to avoid this (debounce)? and is it possible/ergonomic to bake that in the component or should it be delegated to the application
+1. I think it's nice that there is a `<SelectPanel.Footer>` because you can wrap it in suspense along with the search results

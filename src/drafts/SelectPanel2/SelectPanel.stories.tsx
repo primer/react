@@ -7,12 +7,10 @@ const getCircle = (color: string) => (
   <Box sx={{width: 14, height: 14, borderRadius: '100%'}} style={{backgroundColor: `#${color}`}} />
 )
 
-type Label = (typeof data.labels)[0]
-
 export const AControlled = () => {
-  const [filteredLabels, setFilteredLabels] = React.useState<Array<Label>>(data.labels)
+  const [filteredLabels, setFilteredLabels] = React.useState(data.labels)
 
-  const initialSelectedLabels: Array<Label['id']> = [] // initial state: no labels
+  const initialSelectedLabels: string[] = [] // initial state: no labels
   // const initialSelectedLabels = data.issue.labelIds // initial state: has labels
 
   const [selectedLabelIds, setSelectedLabelIds] = React.useState<string[]>(initialSelectedLabels)
@@ -102,26 +100,28 @@ export const AControlled = () => {
           {/* TODO: Heading is not optional, but what if you don't give it
               Should we throw a big error or should we make that impossible in the API?
           */}
-          {/* TODO: is the heading tag customisable? */}
-          <SelectPanel.Heading as="h4">Select labels</SelectPanel.Heading>
-
+          <SelectPanel.Heading>Select labels</SelectPanel.Heading>
           <SelectPanel.SearchInput onChange={onSearchInputChange} />
         </SelectPanel.Header>
 
         <SelectPanel.ActionList>
           {/* slightly different view for search results view and list view */}
           {query ? (
-            filteredLabels.map(label => (
-              <ActionList.Item
-                key={label.id}
-                onSelect={() => onLabelSelect(label.id)}
-                selected={selectedLabelIds.includes(label.id)}
-              >
-                <ActionList.LeadingVisual>{getCircle(label.color)}</ActionList.LeadingVisual>
-                {label.name}
-                <ActionList.Description variant="block">{label.description}</ActionList.Description>
-              </ActionList.Item>
-            ))
+            filteredLabels.length > 1 ? (
+              filteredLabels.map(label => (
+                <ActionList.Item
+                  key={label.id}
+                  onSelect={() => onLabelSelect(label.id)}
+                  selected={selectedLabelIds.includes(label.id)}
+                >
+                  <ActionList.LeadingVisual>{getCircle(label.color)}</ActionList.LeadingVisual>
+                  {label.name}
+                  <ActionList.Description variant="block">{label.description}</ActionList.Description>
+                </ActionList.Item>
+              ))
+            ) : (
+              <SelectPanel.EmptyMessage>No labels found for &quot;{query}&quot;</SelectPanel.EmptyMessage>
+            )
           ) : (
             <>
               {data.labels.sort(sortingFn).map((label, index) => {
@@ -176,7 +176,7 @@ export const BWithSuspendedList = () => {
         <SelectPanel.Button>Assign label</SelectPanel.Button>
 
         <SelectPanel.Header>
-          <SelectPanel.Heading as="h4">Select labels</SelectPanel.Heading>
+          <SelectPanel.Heading>Select labels</SelectPanel.Heading>
           <SelectPanel.SearchInput onChange={onSearchInputChange} />
         </SelectPanel.Header>
 
@@ -261,7 +261,7 @@ const SuspendedActionList: React.FC<{query: string}> = ({query}) => {
   )
 }
 
-export const EAsyncSearchWithSuspenseKey = () => {
+export const CAsyncSearchWithSuspenseKey = () => {
   // issue `data` is already pre-fetched
   // `users` are fetched async on search
 
@@ -279,7 +279,7 @@ export const EAsyncSearchWithSuspenseKey = () => {
       <SelectPanel defaultOpen={true}>
         <SelectPanel.Button>Select assignees</SelectPanel.Button>
         <SelectPanel.Header>
-          <SelectPanel.Heading as="h4">Select collaborators</SelectPanel.Heading>
+          <SelectPanel.Heading>Select collaborators</SelectPanel.Heading>
           <SelectPanel.SearchInput onChange={onSearchInputChange} />
         </SelectPanel.Header>
 
@@ -367,7 +367,7 @@ const SearchableUserList: React.FC<{query: string; showLoading?: boolean}> = ({q
   }
 }
 
-export const FAsyncSearchWithUseTransition = () => {
+export const DAsyncSearchWithUseTransition = () => {
   // issue `data` is already pre-fetched
   // `users` are fetched async on search
 
@@ -387,7 +387,7 @@ export const FAsyncSearchWithUseTransition = () => {
       <SelectPanel defaultOpen={true}>
         <SelectPanel.Button>Select assignees</SelectPanel.Button>
         <SelectPanel.Header>
-          <SelectPanel.Heading as="h4">Select collaborators</SelectPanel.Heading>
+          <SelectPanel.Heading>Select collaborators</SelectPanel.Heading>
           <SelectPanel.SearchInput onChange={onSearchInputChange} />
         </SelectPanel.Header>
 
@@ -435,7 +435,7 @@ export const TODO1Uncontrolled = () => {
         <SelectPanel.Button>Assign label</SelectPanel.Button>
 
         <SelectPanel.Header>
-          <SelectPanel.Heading as="h1">Select labels</SelectPanel.Heading>
+          <SelectPanel.Heading>Select labels</SelectPanel.Heading>
           <SelectPanel.SearchInput />
         </SelectPanel.Header>
 
@@ -462,8 +462,8 @@ export const TODO2SingleSelection = () => <h1>TODO</h1>
 export const TODO3NoCustomisation = () => {
   return (
     <>
-      <h1>WIP: Suspended list items</h1>
-      <p>some items might already be present, some need to be fetched</p>
+      <h1>TODO: Without any customisation</h1>
+      <p>Address after TODO: Uncontrolled</p>
     </>
   )
 }

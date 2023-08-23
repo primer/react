@@ -121,11 +121,11 @@ const SelectPanelHeader: React.FC<React.PropsWithChildren> = ({children, ...prop
 }
 SelectPanel.Header = SelectPanelHeader
 
-const SelectPanelHeading: React.FC<
-  React.PropsWithChildren<{as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'; children: string}>
-> = ({as = 'h1', children, ...props}) => {
+const SelectPanelHeading: React.FC<React.PropsWithChildren<{children: string}>> = ({children, ...props}) => {
+  // heading element is intentionally hardcoded to h1, it is not customisable
+  // see https://github.com/github/primer/issues/2578 for context
   return (
-    <Heading as={as} sx={{fontSize: 14, fontWeight: 600, marginLeft: 2}} {...props}>
+    <Heading as="h1" sx={{fontSize: 14, fontWeight: 600, marginLeft: 2}} {...props}>
       {children}
     </Heading>
   )
@@ -221,7 +221,7 @@ const SelectPanelFooter = ({...props}) => {
           Cancel
         </Button>
         <Button size="small" type="submit" variant="primary">
-          Submit
+          Save
         </Button>
       </Box>
     </Box>
@@ -261,6 +261,27 @@ const SelectPanelLoading: React.FC<{children: string}> = ({children = 'Fetching 
 }
 
 SelectPanel.Loading = SelectPanelLoading
+
+const SelectPanelEmptyMessage: React.FC<{children: string | React.ReactNode}> = ({children = 'No items found...'}) => {
+  return (
+    <Box
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        flexGrow: 1,
+        height: '100%',
+        gap: 2,
+      }}
+    >
+      <Text sx={{fontSize: 1}}>{children}</Text>
+      <Text sx={{fontSize: 0, color: 'fg.muted'}}>Try a different search term</Text>
+    </Box>
+  )
+}
+
+SelectPanel.EmptyMessage = SelectPanelEmptyMessage
 
 export {SelectPanel}
 
