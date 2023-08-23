@@ -1,7 +1,8 @@
 import React from 'react'
 import {SelectPanel} from './SelectPanel'
-import {ActionList, Box, Flash, Select, Spinner, Text} from '../../../src/index'
+import {ActionList, Avatar, Box, Flash} from '../../../src/index'
 import data from './mock-data'
+import {repos} from '../../DataTable/storybook/data'
 
 const getCircle = (color: string) => (
   <Box sx={{width: 14, height: 14, borderRadius: '100%'}} style={{backgroundColor: `#${color}`}} />
@@ -105,7 +106,7 @@ export const AControlled = () => {
               Should we throw a big error or should we make that impossible in the API?
           */}
           {/* TODO: is the heading tag customisable? */}
-          <SelectPanel.Heading as="h4">Select authors</SelectPanel.Heading>
+          <SelectPanel.Heading as="h4">Select labels</SelectPanel.Heading>
 
           <SelectPanel.SearchInput onChange={onSearchInputChange} />
         </SelectPanel.Header>
@@ -121,7 +122,7 @@ export const AControlled = () => {
               >
                 <ActionList.LeadingVisual>{getCircle(label.color)}</ActionList.LeadingVisual>
                 {label.name}
-                <ActionList.Description>{label.description}</ActionList.Description>
+                <ActionList.Description variant="block">{label.description}</ActionList.Description>
               </ActionList.Item>
             ))
           ) : (
@@ -144,7 +145,7 @@ export const AControlled = () => {
                     >
                       <ActionList.LeadingVisual>{getCircle(label.color)}</ActionList.LeadingVisual>
                       {label.name}
-                      <ActionList.Description>{label.description}</ActionList.Description>
+                      <ActionList.Description variant="block">{label.description}</ActionList.Description>
                     </ActionList.Item>
                     {showDivider ? <ActionList.Divider /> : null}
                   </>
@@ -155,9 +156,18 @@ export const AControlled = () => {
         </SelectPanel.ActionList>
 
         <SelectPanel.Footer>
-          <SelectPanel.SecondaryButton>View authors</SelectPanel.SecondaryButton>
+          <SelectPanel.SecondaryButton>Edit labels</SelectPanel.SecondaryButton>
         </SelectPanel.Footer>
       </SelectPanel>
+    </>
+  )
+}
+
+export const MinimalExampleTODO = () => {
+  return (
+    <>
+      <h1>WIP: Suspended list items</h1>
+      <p>some items might already be present, some need to be fetched</p>
     </>
   )
 }
@@ -197,7 +207,7 @@ export const CUncontrolledTODO = () => {
         <SelectPanel.Button>Assign label</SelectPanel.Button>
 
         <SelectPanel.Header>
-          <SelectPanel.Heading as="h1">Select authors</SelectPanel.Heading>
+          <SelectPanel.Heading as="h1">Select labels</SelectPanel.Heading>
           <SelectPanel.SearchInput />
         </SelectPanel.Header>
 
@@ -206,20 +216,18 @@ export const CUncontrolledTODO = () => {
             <ActionList.Item key={label.id}>
               <ActionList.LeadingVisual>{getCircle(label.color)}</ActionList.LeadingVisual>
               {label.name}
-              <ActionList.Description>{label.description}</ActionList.Description>
+              <ActionList.Description variant="block">{label.description}</ActionList.Description>
             </ActionList.Item>
           ))}
         </SelectPanel.ActionList>
 
         <SelectPanel.Footer>
-          <SelectPanel.SecondaryButton>View authors</SelectPanel.SecondaryButton>
+          <SelectPanel.SecondaryButton>Edit labels</SelectPanel.SecondaryButton>
         </SelectPanel.Footer>
       </SelectPanel>
     </>
   )
 }
-
-export const CMinimalExampleTODO = () => <h1>TODO</h1>
 
 export const BWithSuspendedList = () => {
   const [query, setQuery] = React.useState('')
@@ -236,11 +244,16 @@ export const BWithSuspendedList = () => {
       <SelectPanel>
         <SelectPanel.Button>Assign label</SelectPanel.Button>
 
-        <SelectPanel.Heading as="h4">Select authors</SelectPanel.Heading>
-        <SelectPanel.SearchInput onChange={onSearchInputChange} />
+        <SelectPanel.Header>
+          <SelectPanel.Heading as="h4">Select labels</SelectPanel.Heading>
+          <SelectPanel.SearchInput onChange={onSearchInputChange} />
+        </SelectPanel.Header>
 
         <React.Suspense fallback={<SelectPanel.Loading>Fetching labels...</SelectPanel.Loading>}>
           <SuspendedActionList query={query} />
+          <SelectPanel.Footer>
+            <SelectPanel.SecondaryButton>Edit labels</SelectPanel.SecondaryButton>
+          </SelectPanel.Footer>
         </React.Suspense>
       </SelectPanel>
     </>
@@ -248,7 +261,7 @@ export const BWithSuspendedList = () => {
 }
 
 const SuspendedActionList: React.FC<{query: string}> = ({query}) => {
-  const fetchedData: typeof data = use(getData({key: 'suspended-action-list', delay: 1000}))
+  const fetchedData: typeof data = use(getData({key: 'suspended-action-list'}))
 
   const initialSelectedLabels: string[] = fetchedData.issue.labelIds
   const [selectedLabelIds, setSelectedLabelIds] = React.useState<string[]>(initialSelectedLabels)
@@ -287,7 +300,7 @@ const SuspendedActionList: React.FC<{query: string}> = ({query}) => {
           >
             <ActionList.LeadingVisual>{getCircle(label.color)}</ActionList.LeadingVisual>
             {label.name}
-            <ActionList.Description>{label.description}</ActionList.Description>
+            <ActionList.Description variant="block">{label.description}</ActionList.Description>
           </ActionList.Item>
         ))
       ) : (
@@ -305,7 +318,7 @@ const SuspendedActionList: React.FC<{query: string}> = ({query}) => {
                 >
                   <ActionList.LeadingVisual>{getCircle(label.color)}</ActionList.LeadingVisual>
                   {label.name}
-                  <ActionList.Description>{label.description}</ActionList.Description>
+                  <ActionList.Description variant="block">{label.description}</ActionList.Description>
                 </ActionList.Item>
                 {showDivider ? <ActionList.Divider /> : null}
               </>
@@ -318,33 +331,107 @@ const SuspendedActionList: React.FC<{query: string}> = ({query}) => {
 }
 
 export const EWithAsyncSearchTODO = () => {
-  // Note: async search makes handling state more complicated
+  // issue `data` is already pre-fetched
+  // `users` are fetched async on search
+
+  const [isPending, startTransition] = React.useTransition()
 
   const [query, setQuery] = React.useState('')
   const onSearchInputChange = (event: React.KeyboardEvent<HTMLInputElement>) => {
     const query = event.currentTarget.value
-    setQuery(query)
+    startTransition(() => setQuery(query))
   }
 
   return (
     <>
-      <h1>WIP: Suspended list items / Async search</h1>
+      <h1>WIP: Async search with useTransition</h1>
       <p>Fetching items on every keystroke search (like github users)</p>
       <Flash variant="danger"> Not implemented yet!</Flash>
 
       <SelectPanel defaultOpen={true}>
-        <SelectPanel.Button>Assign label</SelectPanel.Button>
+        <SelectPanel.Button>Select assignees</SelectPanel.Button>
         <SelectPanel.Header>
-          <SelectPanel.Heading as="h4">Select authors</SelectPanel.Heading>
+          <SelectPanel.Heading as="h4">Select collaborators</SelectPanel.Heading>
           <SelectPanel.SearchInput onChange={onSearchInputChange} />
         </SelectPanel.Header>
 
-        <React.Suspense fallback={<SelectPanel.Loading>Fetching labels...</SelectPanel.Loading>}>
-          <SuspendedActionList query={query} />
+        <React.Suspense fallback={<SelectPanel.Loading>Fetching users...</SelectPanel.Loading>}>
+          <SearchableUserList query={query} isPending={isPending} />
+          <SelectPanel.Footer />
         </React.Suspense>
       </SelectPanel>
     </>
   )
+}
+
+const SearchableUserList: React.FC<{query: string; isPending: boolean}> = ({query, isPending = false}) => {
+  // issue `data` is already pre-fetched
+  const repository = {collaborators: data.collaborators}
+  // `users` are fetched async on search
+  const filteredUsers: typeof data.users = query ? use(queryUsers({query})) : []
+
+  const initialSelectedUsers: string[] = data.issue.assigneeIds
+  const [selectedUserIds, setSelectedUserIds] = React.useState<string[]>(initialSelectedUsers)
+
+  const onUserSelect = (userId: string) => {
+    if (!selectedUserIds.includes(userId)) setSelectedUserIds([...selectedUserIds, userId])
+    else setSelectedUserIds(selectedUserIds.filter(id => id !== userId))
+  }
+
+  const sortingFn = (userA: {id: string}, userB: {id: string}) => {
+    if (selectedUserIds.includes(userA.id) && selectedUserIds.includes(userB.id)) return 1
+    else if (selectedUserIds.includes(userA.id)) return -1
+    else if (selectedUserIds.includes(userB.id)) return 1
+    else return 1
+  }
+
+  if (isPending) return <SelectPanel.Loading>Search for users...</SelectPanel.Loading>
+
+  /* slightly different view for search results view and list view */
+  if (query) {
+    return (
+      <SelectPanel.ActionList>
+        {filteredUsers.map(user => (
+          <ActionList.Item
+            key={user.id}
+            onSelect={() => onUserSelect(user.id)}
+            selected={selectedUserIds.includes(user.id)}
+          >
+            <ActionList.LeadingVisual>
+              <Avatar src={`https://github.com/${user.login}.png`} />
+            </ActionList.LeadingVisual>
+            {user.login}
+            <ActionList.Description>{user.name}</ActionList.Description>
+          </ActionList.Item>
+        ))}
+      </SelectPanel.ActionList>
+    )
+  } else {
+    return (
+      <SelectPanel.ActionList>
+        {repository.collaborators.sort(sortingFn).map((user, index) => {
+          const nextUser = repository.collaborators.sort(sortingFn)[index + 1]
+          const showDivider = selectedUserIds.includes(user.id) && !selectedUserIds.includes(nextUser?.id)
+          return (
+            <>
+              <ActionList.Item
+                key={user.id}
+                onSelect={() => onUserSelect(user.id)}
+                selected={selectedUserIds.includes(user.id)}
+              >
+                <ActionList.LeadingVisual>
+                  <Avatar src={`https://github.com/${user.login}.png`} />
+                </ActionList.LeadingVisual>
+                {user.login}
+                <ActionList.Description>{user.name}</ActionList.Description>
+              </ActionList.Item>
+              {showDivider ? <ActionList.Divider /> : null}
+            </>
+          )
+        })}
+      </SelectPanel.ActionList>
+    )
+  }
 }
 
 export const FSingleSelectionTODO = () => <h1>TODO</h1>
@@ -352,16 +439,48 @@ export const FSingleSelectionTODO = () => <h1>TODO</h1>
 // ----- Suspense implementation details ----
 
 const cache = new Map()
-function getData({key, delay}: {key: string; delay: number} = {key: '0', delay: 1000}) {
+const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))
+
+const getData = ({key = '0', delay = 1000}: {key: string; delay?: number}) => {
   if (!cache.has(key)) cache.set(key, fetchData(delay))
   return cache.get(key)
 }
-
-const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))
 // return a promise!
-async function fetchData(delay: number) {
+const fetchData = async (delay: number) => {
   await sleep(delay)
   return data
+}
+
+const queryUsers = ({query = '', delay = 500}: {query: string; delay?: number}) => {
+  const key = `users-${query}`
+  if (!cache.has(key)) cache.set(key, fetchUsers(query, delay))
+  return cache.get(key)
+}
+const fetchUsers = async (query: string, delay: number) => {
+  await sleep(delay)
+  return data.users.filter(user => {
+    return (
+      user.login.toLowerCase().includes(query.toLowerCase()) || user.name.toLowerCase().includes(query.toLowerCase())
+    )
+  })
+  // i went harder on this than is necessary 😅
+  // .map(user => {
+  //   if (user.login.toLowerCase().startsWith(query)) return {priority: 1, user}
+  //   else if (user.login.toLowerCase().includes(query)) return {priority: 2, user}
+  //   else if (user.name.toLowerCase().includes(query)) return {priority: 3, user}
+  //   else return {priority: 4, user}
+  // })
+  // .sort((userA, userB) => (userA.priority > userB.priority ? 1 : -1))
+  // .sort((userA, userB) => {
+  //   // second level sort: collaborators show up first
+  //   if (
+  //     data.collaborators.find(c => c.id === userA.user.id) &&
+  //     !data.collaborators.find(c => c.id === userB.user.id)
+  //   ) {
+  //     return -1
+  //   } else return 1
+  // })
+  // .map(result => result.user)
 }
 
 /* lifted from the examples at https://react.dev/reference/react/Suspense */

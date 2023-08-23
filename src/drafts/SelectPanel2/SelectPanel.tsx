@@ -193,12 +193,7 @@ const SelectPanelActionList: React.FC<React.PropsWithChildren> = props => {
 
   return (
     <>
-      <ActionList
-        id="body"
-        sx={{flexShrink: 1, flexGrow: 1, overflowY: 'scroll'}}
-        selectionVariant="multiple"
-        {...props}
-      >
+      <ActionList id="body" sx={{flexShrink: 1, flexGrow: 1, overflowY: 'auto'}} selectionVariant="multiple" {...props}>
         {props.children}
       </ActionList>
     </>
@@ -220,7 +215,7 @@ const SelectPanelFooter = ({...props}) => {
         borderColor: 'border.default',
       }}
     >
-      {props.children}
+      <div>{props.children}</div>
       <Box sx={{display: 'flex', gap: 2}}>
         <Button size="small" type="button" onClick={() => onCancel()}>
           Cancel
