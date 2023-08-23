@@ -194,6 +194,7 @@ export type {
 
 export {UnderlineNav as UnderlineNav2} from './UnderlineNav2'
 
+// eslint-disable-next-line no-restricted-imports
 export {SSRProvider, useSSRSafeId} from './utils/ssr'
 export {default as sx, merge} from './sx'
 export type {SxProp} from './sx'
