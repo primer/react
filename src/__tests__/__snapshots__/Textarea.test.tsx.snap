@@ -7,7 +7,7 @@ exports[`Textarea renders consistently 1`] = `
   color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
-  border: 1px solid #d0d7de;
+  border: 1px solid var(--control-borderColor-rest,#d0d7de);
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
