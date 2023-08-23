@@ -18,9 +18,12 @@ function transform(file, api) {
       return specifier.imported.name === 'UnderlineNav'
     })
 
-    identifier = specifier.local.name
+    if (specifier) {
+      identifier = specifier.local.name
+      return true
+    }
 
-    return !!specifier
+    return false
   })
 
   if (!imported || identifier === null) {
@@ -52,7 +55,31 @@ function transform(file, api) {
           },
         })
         .forEach(attributePath => {
-          j(attributePath).replaceWith(j.jsxAttribute(j.jsxIdentifier('aria-current'), j.stringLiteral('page')))
+          // If there is no value for the attribute, we're using the shorthand:
+          // `<UnderlineNav.Link selected />`
+          if (attributePath.node.value === null) {
+            j(attributePath).replaceWith(j.jsxAttribute(j.jsxIdentifier('aria-current'), j.stringLiteral('page')))
+          } else {
+            // Otherwise, we have an expression being used to set the value of
+            // the prop:
+            // `<UnderlineNav.Link selected={expression} />`
+            //
+            // To transform this, we will use that expression and put it in a
+            // ternary that will set whether `'page'` or `undefined` will be the
+            // value of `aria-current`
+            j(attributePath).replaceWith(
+              j.jsxAttribute(
+                j.jsxIdentifier('aria-current'),
+                j.jsxExpressionContainer(
+                  j.conditionalExpression(
+                    attributePath.node.value.expression,
+                    j.stringLiteral('page'),
+                    j.identifier('undefined'),
+                  ),
+                ),
+              ),
+            )
+          }
         })
 
       // Remove `full` prop
