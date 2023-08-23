@@ -1,7 +1,7 @@
 'use strict';
 
-const prettier = require('prettier');
-const config = prettier.resolveConfig.sync(process.cwd());
+const prettier = require('@prettier/sync');
+const config = prettier.resolveConfig(process.cwd());
 
 function format(file, source) {
   return prettier.format(source, {
