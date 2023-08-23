@@ -34,8 +34,10 @@ No open questions
 
 ### Implementation notes
 
+1. Improve divider logic in stories (we don't need 2 branches, instead a ConditionalDivider component or a showDividerAtIndex variable)
 1. Add controlled state for `open` (use cases: 1. fetch data when opened, 2. nested menus, 3. keep panel open till it's saved: https://github.com/github/primer/issues/2403)
-2. We probably (need to check) should not even render Overlay contents until it's opened
-3. Implement empty states like "no results" https://github.com/github/primer/issues/2362
-4. SelectPanel.Overlay
-5. The flicker in async story is unfortunate, is there already a way to avoid this? and is it possible/ergonomic to bake that in the component?
+1. We probably (need to check) should not even render Overlay contents until it's opened
+1. Implement empty states like "no results" https://github.com/github/primer/issues/2362
+1. SelectPanel.Overlay
+1. Is there a way to absorb divider logic, right now it's the application's responsibility
+1. The flicker in story with useTransition is unfortunate, is there already a way to add a minimum time to avoid this (debounce)? and is it possible/ergonomic to bake that in the component or should it be delegated to the application

@@ -1,8 +1,7 @@
 import React from 'react'
 import {SelectPanel} from './SelectPanel'
-import {ActionList, Avatar, Box, Flash} from '../../../src/index'
+import {ActionList, Avatar, Box} from '../../../src/index'
 import data from './mock-data'
-import {repos} from '../../DataTable/storybook/data'
 
 const getCircle = (color: string) => (
   <Box sx={{width: 14, height: 14, borderRadius: '100%'}} style={{backgroundColor: `#${color}`}} />
@@ -11,8 +10,6 @@ const getCircle = (color: string) => (
 type Label = (typeof data.labels)[0]
 
 export const AControlled = () => {
-  // TODO/question: should the search work uncontrolled as well?
-
   const [filteredLabels, setFilteredLabels] = React.useState<Array<Label>>(data.labels)
 
   const initialSelectedLabels: Array<Label['id']> = [] // initial state: no labels
@@ -163,72 +160,6 @@ export const AControlled = () => {
   )
 }
 
-export const MinimalExampleTODO = () => {
-  return (
-    <>
-      <h1>WIP: Suspended list items</h1>
-      <p>some items might already be present, some need to be fetched</p>
-    </>
-  )
-}
-
-export const CUncontrolledTODO = () => {
-  /* features to implement:
-     1. search
-     2. sort + divider
-     3. selection
-     4. clear selection
-     5. different results view
-     6. submit -> pass data / pull from form
-     8. cancel callback
-     9. empty state
-  */
-
-  const onSubmit = (event: {preventDefault: () => void}) => {
-    event.preventDefault() // coz form submit, innit
-
-    // TODO: where does saved data come from?
-    // data.issue.labelIds = selectedLabelIds // pretending to persist changes
-
-    // eslint-disable-next-line no-console
-    console.log('form submitted')
-  }
-
-  const onCancel = () => {
-    // eslint-disable-next-line no-console
-    console.log('panel was closed')
-  }
-
-  return (
-    <>
-      <h1>Does not work yet: Uncontrolled SelectPanel</h1>
-
-      <SelectPanel onSubmit={onSubmit} onCancel={onCancel}>
-        <SelectPanel.Button>Assign label</SelectPanel.Button>
-
-        <SelectPanel.Header>
-          <SelectPanel.Heading as="h1">Select labels</SelectPanel.Heading>
-          <SelectPanel.SearchInput />
-        </SelectPanel.Header>
-
-        <SelectPanel.ActionList>
-          {data.labels.map(label => (
-            <ActionList.Item key={label.id}>
-              <ActionList.LeadingVisual>{getCircle(label.color)}</ActionList.LeadingVisual>
-              {label.name}
-              <ActionList.Description variant="block">{label.description}</ActionList.Description>
-            </ActionList.Item>
-          ))}
-        </SelectPanel.ActionList>
-
-        <SelectPanel.Footer>
-          <SelectPanel.SecondaryButton>Edit labels</SelectPanel.SecondaryButton>
-        </SelectPanel.Footer>
-      </SelectPanel>
-    </>
-  )
-}
-
 export const BWithSuspendedList = () => {
   const [query, setQuery] = React.useState('')
 
@@ -330,23 +261,20 @@ const SuspendedActionList: React.FC<{query: string}> = ({query}) => {
   )
 }
 
-export const EWithAsyncSearchTODO = () => {
+export const EAsyncSearchWithSuspenseKey = () => {
   // issue `data` is already pre-fetched
   // `users` are fetched async on search
-
-  const [isPending, startTransition] = React.useTransition()
 
   const [query, setQuery] = React.useState('')
   const onSearchInputChange = (event: React.KeyboardEvent<HTMLInputElement>) => {
     const query = event.currentTarget.value
-    startTransition(() => setQuery(query))
+    setQuery(query)
   }
 
   return (
     <>
-      <h1>WIP: Async search with useTransition</h1>
+      <h1>Async search with useTransition</h1>
       <p>Fetching items on every keystroke search (like github users)</p>
-      <Flash variant="danger"> Not implemented yet!</Flash>
 
       <SelectPanel defaultOpen={true}>
         <SelectPanel.Button>Select assignees</SelectPanel.Button>
@@ -355,8 +283,11 @@ export const EWithAsyncSearchTODO = () => {
           <SelectPanel.SearchInput onChange={onSearchInputChange} />
         </SelectPanel.Header>
 
-        <React.Suspense fallback={<SelectPanel.Loading>Fetching users...</SelectPanel.Loading>}>
-          <SearchableUserList query={query} isPending={isPending} />
+        {/* Reset suspense boundary to trigger refetch on query
+            Docs reference: https://react.dev/reference/react/Suspense#resetting-suspense-boundaries-on-navigation
+        */}
+        <React.Suspense key={query} fallback={<SelectPanel.Loading>Fetching users...</SelectPanel.Loading>}>
+          <SearchableUserList query={query} />
           <SelectPanel.Footer />
         </React.Suspense>
       </SelectPanel>
@@ -364,7 +295,7 @@ export const EWithAsyncSearchTODO = () => {
   )
 }
 
-const SearchableUserList: React.FC<{query: string; isPending: boolean}> = ({query, isPending = false}) => {
+const SearchableUserList: React.FC<{query: string; showLoading?: boolean}> = ({query, showLoading = false}) => {
   // issue `data` is already pre-fetched
   const repository = {collaborators: data.collaborators}
   // `users` are fetched async on search
@@ -385,7 +316,8 @@ const SearchableUserList: React.FC<{query: string; isPending: boolean}> = ({quer
     else return 1
   }
 
-  if (isPending) return <SelectPanel.Loading>Search for users...</SelectPanel.Loading>
+  // only used with useTransition example
+  if (showLoading) return <SelectPanel.Loading>Search for users...</SelectPanel.Loading>
 
   /* slightly different view for search results view and list view */
   if (query) {
@@ -410,6 +342,7 @@ const SearchableUserList: React.FC<{query: string; isPending: boolean}> = ({quer
     return (
       <SelectPanel.ActionList>
         {repository.collaborators.sort(sortingFn).map((user, index) => {
+          // tiny bit of additional logic to show divider
           const nextUser = repository.collaborators.sort(sortingFn)[index + 1]
           const showDivider = selectedUserIds.includes(user.id) && !selectedUserIds.includes(nextUser?.id)
           return (
@@ -434,7 +367,106 @@ const SearchableUserList: React.FC<{query: string; isPending: boolean}> = ({quer
   }
 }
 
-export const FSingleSelectionTODO = () => <h1>TODO</h1>
+export const FAsyncSearchWithUseTransition = () => {
+  // issue `data` is already pre-fetched
+  // `users` are fetched async on search
+
+  const [isPending, startTransition] = React.useTransition()
+
+  const [query, setQuery] = React.useState('')
+  const onSearchInputChange = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    const query = event.currentTarget.value
+    startTransition(() => setQuery(query))
+  }
+
+  return (
+    <>
+      <h1>Async search with useTransition</h1>
+      <p>Fetching items on every keystroke search (like github users)</p>
+
+      <SelectPanel defaultOpen={true}>
+        <SelectPanel.Button>Select assignees</SelectPanel.Button>
+        <SelectPanel.Header>
+          <SelectPanel.Heading as="h4">Select collaborators</SelectPanel.Heading>
+          <SelectPanel.SearchInput onChange={onSearchInputChange} />
+        </SelectPanel.Header>
+
+        <React.Suspense fallback={<SelectPanel.Loading>Fetching users...</SelectPanel.Loading>}>
+          <SearchableUserList query={query} showLoading={isPending} />
+          <SelectPanel.Footer />
+        </React.Suspense>
+      </SelectPanel>
+    </>
+  )
+}
+
+export const TODO1Uncontrolled = () => {
+  /* features to implement:
+     1. search
+     2. sort + divider
+     3. selection
+     4. clear selection
+     5. different results view
+     6. submit -> pass data / pull from form
+     8. cancel callback
+     9. empty state
+  */
+
+  const onSubmit = (event: {preventDefault: () => void}) => {
+    event.preventDefault() // coz form submit, innit
+
+    // TODO: where does saved data come from?
+    // data.issue.labelIds = selectedLabelIds // pretending to persist changes
+
+    // eslint-disable-next-line no-console
+    console.log('form submitted')
+  }
+
+  const onCancel = () => {
+    // eslint-disable-next-line no-console
+    console.log('panel was closed')
+  }
+
+  return (
+    <>
+      <h1>Does not work yet: Uncontrolled SelectPanel</h1>
+
+      <SelectPanel onSubmit={onSubmit} onCancel={onCancel}>
+        <SelectPanel.Button>Assign label</SelectPanel.Button>
+
+        <SelectPanel.Header>
+          <SelectPanel.Heading as="h1">Select labels</SelectPanel.Heading>
+          <SelectPanel.SearchInput />
+        </SelectPanel.Header>
+
+        <SelectPanel.ActionList>
+          {data.labels.map(label => (
+            <ActionList.Item key={label.id}>
+              <ActionList.LeadingVisual>{getCircle(label.color)}</ActionList.LeadingVisual>
+              {label.name}
+              <ActionList.Description variant="block">{label.description}</ActionList.Description>
+            </ActionList.Item>
+          ))}
+        </SelectPanel.ActionList>
+
+        <SelectPanel.Footer>
+          <SelectPanel.SecondaryButton>Edit labels</SelectPanel.SecondaryButton>
+        </SelectPanel.Footer>
+      </SelectPanel>
+    </>
+  )
+}
+
+export const TODO2SingleSelection = () => <h1>TODO</h1>
+
+export const TODO3NoCustomisation = () => {
+  return (
+    <>
+      <h1>WIP: Suspended list items</h1>
+      <p>some items might already be present, some need to be fetched</p>
+    </>
+  )
+}
 
 // ----- Suspense implementation details ----
 
