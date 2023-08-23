@@ -38,29 +38,30 @@ export type ButtonBaseProps = {
 } & SxProp &
   React.ButtonHTMLAttributes<HTMLButtonElement>
 
-export type ButtonProps = {
-  /**
-   * The icon for the IconButton
-   */
-  icon?: React.ElementType | null | undefined
-  /**
-   * The leading icon comes before button content
-   */
-  leadingIcon?: React.ElementType | null | undefined
-  /**
-   * The trailing icon comes after button content
-   */
-  trailingIcon?: React.ElementType | null | undefined
-  /**
-   * Trailing action appears to the right of the trailing visual and is always locked to the end
-   */
-  trailingAction?: React.ElementType | null | undefined
-  children: React.ReactNode
-  /**
-   * Content alignment for when visuals are present
-   */
-  alignContent?: AlignContent
-} & ButtonBaseProps
+export type ButtonProps = React.PropsWithChildren<
+  {
+    /**
+     * The icon for the IconButton
+     */
+    icon?: React.ElementType | null | undefined
+    /**
+     * The leading icon comes before button content
+     */
+    leadingIcon?: React.ElementType | null | undefined
+    /**
+     * The trailing icon comes after button content
+     */
+    trailingIcon?: React.ElementType | null | undefined
+    /**
+     * Trailing action appears to the right of the trailing visual and is always locked to the end
+     */
+    trailingAction?: React.ElementType | null | undefined
+    /**
+     * Content alignment for when visuals are present
+     */
+    alignContent?: AlignContent
+  } & ButtonBaseProps
+>
 
 export type IconButtonProps = ButtonA11yProps & {
   icon: React.ElementType
