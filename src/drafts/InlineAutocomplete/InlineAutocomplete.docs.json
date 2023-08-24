@@ -22,7 +22,7 @@
     {
       "name": "onSelectSuggestion",
       "type": "(event: SelectSuggestionsEvent) => void",
-      "defaultValue": null,
+      "defaultValue": "",
       "description": "Called when a suggestion is selected. This should be used only for performing side effects, not for modifying\nthe inserted text. Do not call `setState` in this handler or the user's cursor\nposition / undo history could be lost."
     },
     {
