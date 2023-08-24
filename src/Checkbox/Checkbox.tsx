@@ -41,7 +41,9 @@ export type CheckboxProps = {
 const StyledCheckbox = styled.input`
   ${sharedCheckboxAndRadioStyles};
   border-radius: ${get('radii.1')};
-  transition: background-color, border-color 80ms cubic-bezier(0.33, 1, 0.68, 1); /* checked -> unchecked - add 120ms delay to fully see animation-out */
+  transition:
+    background-color,
+    border-color 80ms cubic-bezier(0.33, 1, 0.68, 1); /* checked -> unchecked - add 120ms delay to fully see animation-out */
 
   &::before {
     width: var(--base-size-16, 16px);
@@ -70,7 +72,9 @@ const StyledCheckbox = styled.input`
   }
 
   &:checked {
-    transition: background-color, border-color 80ms cubic-bezier(0.32, 0, 0.67, 0) 0ms;
+    transition:
+      background-color,
+      border-color 80ms cubic-bezier(0.32, 0, 0.67, 0) 0ms;
 
     &::before {
       visibility: visible;

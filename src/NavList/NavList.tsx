@@ -116,8 +116,10 @@ function ItemWithSubNav({children, subNav, depth, sx: sxProp = defaultSxProp}: I
   useIsomorphicLayoutEffect(() => {
     if (subNavRef.current) {
       // Check if SubNav contains current item
-      const currentItem = subNavRef.current.querySelector('[aria-current]')
-      if (currentItem && currentItem.getAttribute('aria-current') !== 'false') {
+      // valid values: page, step, location, date, time, true and false
+      const currentItem = subNavRef.current.querySelector('[aria-current]:not([aria-current=false])')
+
+      if (currentItem) {
         setContainsCurrentItem(true)
         setIsOpen(true)
       }

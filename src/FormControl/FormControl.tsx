@@ -13,7 +13,7 @@ import {get} from '../constants'
 import InlineAutocomplete from '../drafts/InlineAutocomplete'
 import {useSlots} from '../hooks/useSlots'
 import {SxProp} from '../sx'
-import {useSSRSafeId} from '../utils/ssr'
+import {useId} from '../hooks/useId'
 import FormControlCaption from './_FormControlCaption'
 import FormControlLabel from './_FormControlLabel'
 import FormControlLeadingVisual from './_FormControlLeadingVisual'
@@ -67,7 +67,7 @@ const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
     ]
     const choiceGroupContext = useContext(CheckboxOrRadioGroupContext)
     const disabled = choiceGroupContext.disabled || disabledProp
-    const id = useSSRSafeId(idProp)
+    const id = useId(idProp)
     const validationMessageId = slots.validation ? `${id}-validationMessage` : undefined
     const captionId = slots.caption ? `${id}-caption` : undefined
     const validationStatus = slots.validation?.props.variant
