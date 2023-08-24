@@ -60,14 +60,14 @@ Take this example of composition:
 <img width="377" alt="flash with icon" src="https://user-images.githubusercontent.com/1863771/144945208-308393e0-013d-45a9-a14d-a51bf4d4cfad.png">
 
 ```jsx
-import {Flash} from '@primer/react'
-import {CheckIcon} from '@primer/octicons-react'
+import { Flash } from "@primer/react";
+import { CheckIcon } from "@primer/octicons-react";
 
 render(
   <Flash variant="success">
     <CheckIcon /> Changes saved!
-  </Flash>,
-)
+  </Flash>
+);
 ```
 
 <br/>
@@ -97,11 +97,19 @@ render(
    <img width="375" alt="flash with icon and close" src="https://user-images.githubusercontent.com/1863771/144945209-1480b9f5-895d-458d-8c68-4ce7b6d6b7b4.png">
 
    ```jsx
-   <Flash variant="success" sx={{display: 'flex', justifyContent: 'space-between'}}>
+   <Flash
+     variant="success"
+     sx={{ display: "flex", justifyContent: "space-between" }}
+   >
      <span>
        <CheckIcon /> Changes saved!
      </span>
-     <Button variant="invisible" icon={CheckIcon} aria-label="Hide flash message" onClick={onDismiss} />
+     <Button
+       variant="invisible"
+       icon={CheckIcon}
+       aria-label="Hide flash message"
+       onClick={onDismiss}
+     />
    </Flash>
    ```
 
@@ -144,7 +152,7 @@ When intentionally going off the happy path, developers can still drop down an a
 
 ```jsx
 <Flash variant="success">
-  <CheckIcon size={20} color="success.emphasis" sx={{marginRight: 2}} />
+  <CheckIcon size={20} color="success.emphasis" sx={{ marginRight: 2 }} />
   Changes saved!
 </Flash>
 ```
@@ -260,9 +268,11 @@ For Example, [legacy ActionMenu](https://primer.style/react/deprecated/ActionMen
 <img width="337" alt="image 10" src="https://user-images.githubusercontent.com/1863771/144945221-b6a4e7f0-5134-4485-bfd0-1e4b2e77a70e.png">
 
 ```jsx
-<ActionMenu overlayProps={{width: 'medium'}} anchorContent="Open column menu">
-</ActionMenu>
-````
+<ActionMenu
+  overlayProps={{ width: "medium" }}
+  anchorContent="Open column menu"
+></ActionMenu>
+```
 
 <br/>
 
@@ -324,7 +334,8 @@ _Sidenote: It’s tempting to change `icon` to `Flash.Icon` here so that it’s 
   <Flash.Icon icon={CheckIcon} />
   <Flash.Title>Changes saved</Flash.Title>
   <Flash.Description>
-    These changes will be applied to your next build. <a href="/docs/builds">Learn more about builds.</a>
+    These changes will be applied to your next build.{" "}
+    <a href="/docs/builds">Learn more about builds.</a>
   </Flash.Description>
 </Flash>
 ```
