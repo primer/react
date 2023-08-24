@@ -210,16 +210,20 @@ export const DisabledSelectedMultiselect = () => (
     <ActionList.Item role="menuitemcheckbox" selected aria-checked disabled>
       Selected disabled item
     </ActionList.Item>
-    <ActionList.Item>Item 2</ActionList.Item>
+    <ActionList.Item role="menuitemcheckbox" selected={false} aria-checked={false}>
+      Item 2
+    </ActionList.Item>
   </ActionList>
 )
 
 export const DisabledMultiselect = () => (
   <ActionList selectionVariant="multiple" role="menu" aria-label="Project">
-    <ActionList.Item role="menuitemcheckbox" disabled>
+    <ActionList.Item role="menuitemcheckbox" selected={false} aria-checked={false} disabled>
       Disabled item
     </ActionList.Item>
-    <ActionList.Item>Item 2</ActionList.Item>
+    <ActionList.Item role="menuitemcheckbox" selected={false} aria-checked={false}>
+      Item 2
+    </ActionList.Item>
   </ActionList>
 )
 
