@@ -235,7 +235,7 @@ We use this pattern as well in `Button`, `Button.Counter` is a restricted versio
 
 <img width="184" alt="image 8" src="https://user-images.githubusercontent.com/1863771/144945218-5154b8a1-8854-4335-926c-08a4ffac6d9d.png">
 
-````jsx
+```jsx
 <Button>
   Watch <Button.Counter>1</Button.Counter>
 </Button>
@@ -243,6 +243,7 @@ We use this pattern as well in `Button`, `Button.Counter` is a restricted versio
 <Button variant="primary">
   Upvote <Button.Counter>1</Button.Counter>
 </Button>
+```
 
 <br/>
 
