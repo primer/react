@@ -155,7 +155,6 @@ export const MarkdownInput = forwardRef<HTMLTextAreaElement, MarkdownInputProps>
             borderStyle: 'none',
             boxShadow: 'none',
             height: fullHeight ? '100%' : undefined,
-            p: 2,
             outline: theme => {
               return isDraggedOver ? `dashed 2px ${theme.colors.border.muted}` : undefined
             },
@@ -167,7 +166,7 @@ export const MarkdownInput = forwardRef<HTMLTextAreaElement, MarkdownInputProps>
             '& textarea': {
               lineHeight: 1.2,
               resize: fullHeight ? 'none' : 'vertical',
-              p: 2,
+              p: 3,
               fontFamily: monospace ? 'mono' : 'normal',
               ...heightStyles,
             },
