@@ -1,1 +1,2 @@
-export {default, DetailsProps} from './Details'
+export {default} from './Details'
+export type {DetailsProps} from './Details'

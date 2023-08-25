@@ -1,1 +1,2 @@
-export {default, CircleOcticonProps} from './CircleOcticon'
+export {default} from './CircleOcticon'
+export type {CircleOcticonProps} from './CircleOcticon'
