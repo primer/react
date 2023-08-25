@@ -1,26 +1,26 @@
 # Work log
 
-### Clear action items
+## Clear action items
 
 1. Move ClearIcon to primer octicons
 
-### Open accessibility questions
+## Open accessibility questions
 
 1. Should the text for Submit/Save button be customisable based on the page context? So that it says something like "Assign users" or "Add labels" instead of just "Save" or "Submit". Or is optional because the context is already established?
 
-### Answered accessibility questions
+## Answered accessibility questions
 
 1. [Not implemented yet] What's the keyboard navigation story?: Answer: https://github.com/github/primer/issues/2579
 1. [Not implemented yet] Does the SelectPanel renders a html `<dialog>` or not? (SelectPanel v1 did not use a `<dialog>`) Answer: https://github.com/github/primer/issues/2579
 1. [Not implemented yet] Is the heading element dependent on context or would it always be h1 aka do we hardcode it or allow product developers to change it based on context? Answer: https://github.com/github/primer/issues/2578
 1. [Implemented] is the divider purely aesthetic or should we create two sections with role=group? https://github.com/github/primer/issues/2580#issuecomment-1689259264
 
-### Design questions
+## Design questions
 
 1. How strongly does Maxime feel about adding count of changes in the submit button? (he had it in his prototype)
 1. Should we highlight matching text for filter results, especially because we search across title and description (example: https://github.com/primer/react/assets/1863771/d8d2d6e1-4075-4096-bc8a-db46e9b69351)
 
-### API decisions still to make
+## API decisions still to make
 
 1. If heading element is not customisable (update: it is not), we can fold that into header as it only needs title
 1. If heading element is not customisable (update: it is not), we can unfurl "SelectPanel.Header" into 2 elements
@@ -33,7 +33,7 @@
 1. when you do not add a `<SelectPanel.Footer>`, should we add it for you? 😈 = it's present by default, you can only choose to modify the secondary action
 1. Can we automate empty message? We do need some information from the context, so maybe not entirely. Can we add a default that can be customised.
 
-### Implementation notes
+## Implementation notes
 
 1. [Next for Sid] Improve divider logic in stories (we don't need 2 branches, instead a ConditionalDivider component or a showDividerAtIndex variable) (we don't even need it anymore, + also leave a comment in the code to the issue where we decided not to do it)
 1. Is there a way to absorb divider logic, right now it's the application's responsibility
