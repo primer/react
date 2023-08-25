@@ -441,27 +441,14 @@ const MarkdownEditor = forwardRef<MarkdownEditorHandle, MarkdownEditorProps>(
                   />
                 </Box>
 
-                <Box
-                  sx={{
-                    display: 'flex',
-                    justifyContent: 'flex-end',
-                    alignItems: 'center',
-                    flexGrow: 1,
-                    borderBottom: '1px solid',
-                    borderBottomColor: 'border.muted',
-                    pl: 2,
-                    pr: 1,
-                  }}
-                >
-                  <SavedRepliesContext.Provider value={savedRepliesContext}>
-                    {view === 'edit' &&
-                      (slots.toolbar ?? (
-                        <CoreToolbar>
-                          <DefaultToolbarButtons />
-                        </CoreToolbar>
-                      ))}
-                  </SavedRepliesContext.Provider>
-                </Box>
+                <SavedRepliesContext.Provider value={savedRepliesContext}>
+                  {view === 'edit' &&
+                    (slots.toolbar ?? (
+                      <CoreToolbar>
+                        <DefaultToolbarButtons />
+                      </CoreToolbar>
+                    ))}
+                </SavedRepliesContext.Provider>
               </Box>
 
               <MarkdownInput

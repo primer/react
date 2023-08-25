@@ -149,7 +149,18 @@ export const CoreToolbar = ({children}: {children?: React.ReactNode}) => {
       ref={containerRef}
       aria-label="Formatting tools"
       role="toolbar"
-      sx={{display: 'flex', flexWrap: 'wrap', justifyContent: 'flex-end', gap: 0}}
+      sx={{
+        display: 'flex',
+        flexWrap: 'wrap',
+        justifyContent: 'flex-end',
+        gap: 0,
+        alignItems: 'center',
+        flexGrow: 1,
+        borderBottom: '1px solid',
+        borderBottomColor: 'border.muted',
+        pl: 2,
+        pr: 1,
+      }}
     >
       {children}
     </Box>
