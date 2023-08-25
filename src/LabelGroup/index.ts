@@ -1,1 +1,2 @@
-export {default, LabelGroupProps} from './LabelGroup'
+export {default} from './LabelGroup'
+export type {LabelGroupProps} from './LabelGroup'
