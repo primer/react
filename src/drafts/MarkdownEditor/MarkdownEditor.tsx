@@ -36,6 +36,7 @@ import {Emoji} from './suggestions/_useEmojiSuggestions'
 import {Mentionable} from './suggestions/_useMentionSuggestions'
 import {Reference} from './suggestions/_useReferenceSuggestions'
 import {isModifierKey} from './utils'
+import {ErrorMessage} from './_ErrorMessage'
 
 export type MarkdownEditorProps = SxProp & {
   /** Current value of the editor as a multiline markdown string. */
@@ -227,7 +228,7 @@ const MarkdownEditor = forwardRef<MarkdownEditorHandle, MarkdownEditorProps>(
         ({
           focus: opts => inputRef.current?.focus(opts),
           scrollIntoView: opts => containerRef.current?.scrollIntoView(opts),
-        }) as MarkdownEditorHandle,
+        } as MarkdownEditorHandle),
     )
 
     const inputHeight = useRef(0)
@@ -396,11 +397,16 @@ const MarkdownEditor = forwardRef<MarkdownEditorHandle, MarkdownEditorProps>(
               borderWidth: 1,
               borderStyle: 'solid',
               borderRadius: 2,
-              p: 2,
               height: fullHeight ? '100%' : undefined,
               minInlineSize: 'auto',
               bg: 'canvas.default',
               color: disabled ? 'fg.subtle' : 'fg.default',
+              '&: focus-within':
+                view === 'edit'
+                  ? {
+                      outline: '2px solid var(--borderColor-accent-emphasis)',
+                    }
+                  : {},
               ...sx,
             }}
             ref={containerRef}
@@ -410,15 +416,37 @@ const MarkdownEditor = forwardRef<MarkdownEditorHandle, MarkdownEditorProps>(
               {view === 'preview' ? ' preview mode selected.' : ' edit mode selected.'}
             </VisuallyHidden>
 
-            <Box sx={{display: 'flex', pb: 2, gap: 2, justifyContent: 'space-between'}} as="header">
-              <ViewSwitch
-                selectedView={view}
-                onViewSelect={setView}
-                disabled={fileHandler?.uploadProgress !== undefined}
-                onLoadPreview={loadPreview}
-              />
+            <Box
+              sx={{
+                display: 'flex',
+                backgroundColor: 'canvas.subtle',
+                borderTopLeftRadius: 2,
+                borderTopRightRadius: 2,
+                justifyContent: 'space-between',
+              }}
+              as="header"
+            >
+              <Box sx={{ml: '-1px', mt: '-1px', display: 'flex', alignItems: 'flex-end'}}>
+                <ViewSwitch
+                  selectedView={view}
+                  onViewSelect={setView}
+                  disabled={fileHandler?.uploadProgress !== undefined}
+                  onLoadPreview={loadPreview}
+                />
+              </Box>
 
-              <Box sx={{display: 'flex'}}>
+              <Box
+                sx={{
+                  display: 'flex',
+                  justifyContent: 'flex-end',
+                  alignItems: 'center',
+                  flexGrow: 1,
+                  borderBottom: '1px solid',
+                  borderBottomColor: 'border.muted',
+                  pl: 2,
+                  pr: 1,
+                }}
+              >
                 <SavedRepliesContext.Provider value={savedRepliesContext}>
                   {view === 'edit' &&
                     (slots.toolbar ?? (
@@ -454,11 +482,12 @@ const MarkdownEditor = forwardRef<MarkdownEditorHandle, MarkdownEditorProps>(
               {...fileHandler?.pasteTargetProps}
               {...fileHandler?.dropTargetProps}
             />
+            {view === 'edit' && fileHandler?.errorMessage && <ErrorMessage message={fileHandler.errorMessage} />}
 
             {view === 'preview' && (
               <Box
                 sx={{
-                  p: 1,
+                  p: 3,
                   overflow: 'auto',
                   height: fullHeight ? '100%' : undefined,
                   minHeight: inputHeight.current,
@@ -475,10 +504,10 @@ const MarkdownEditor = forwardRef<MarkdownEditorHandle, MarkdownEditorProps>(
                 />
               </Box>
             )}
-            {slots.footer ?? (
-              <CoreFooter>{React.isValidElement(slots.actions) && slots.actions.props.children}</CoreFooter>
-            )}
           </Box>
+          {slots.footer ?? (
+            <CoreFooter>{React.isValidElement(slots.actions) && slots.actions.props.children}</CoreFooter>
+          )}
         </fieldset>
       </MarkdownEditorContext.Provider>
     )
