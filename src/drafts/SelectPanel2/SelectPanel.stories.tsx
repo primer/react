@@ -94,9 +94,8 @@ export const AControlled = () => {
         }}
       >
         {/* TODO: the ref types don't match here, use useProvidedRefOrCreate */}
-
+        {/* @ts-ignore todo */}
         <SelectPanel.Button>Assign label</SelectPanel.Button>
-
         {/* TODO: header and heading is confusing. maybe skip header completely. */}
         <SelectPanel.Header>
           {/* TODO: Heading is not optional, but what if you don't give it
@@ -105,7 +104,6 @@ export const AControlled = () => {
           <SelectPanel.Heading>Select labels</SelectPanel.Heading>
           <SelectPanel.SearchInput onChange={onSearchInputChange} />
         </SelectPanel.Header>
-
         <SelectPanel.ActionList>
           {/* slightly different view for search results view and list view */}
           {query ? (
@@ -153,7 +151,6 @@ export const AControlled = () => {
             </>
           )}
         </SelectPanel.ActionList>
-
         <SelectPanel.Footer>
           <SelectPanel.SecondaryButton>Edit labels</SelectPanel.SecondaryButton>
         </SelectPanel.Footer>
@@ -175,6 +172,7 @@ export const BWithSuspendedList = () => {
       <h1>Suspended list</h1>
       <p>Fetching items once when the panel is opened (like repo labels)</p>
       <SelectPanel>
+        {/* @ts-ignore todo */}
         <SelectPanel.Button>Assign label</SelectPanel.Button>
 
         <SelectPanel.Header>
@@ -279,6 +277,7 @@ export const CAsyncSearchWithSuspenseKey = () => {
       <p>Fetching items on every keystroke search (like github users)</p>
 
       <SelectPanel defaultOpen={true}>
+        {/* @ts-ignore todo */}
         <SelectPanel.Button>Select assignees</SelectPanel.Button>
         <SelectPanel.Header>
           <SelectPanel.Heading>Select collaborators</SelectPanel.Heading>
@@ -387,6 +386,7 @@ export const DAsyncSearchWithUseTransition = () => {
       <p>Fetching items on every keystroke search (like github users)</p>
 
       <SelectPanel defaultOpen={true}>
+        {/* @ts-ignore todo */}
         <SelectPanel.Button>Select assignees</SelectPanel.Button>
         <SelectPanel.Header>
           <SelectPanel.Heading>Select collaborators</SelectPanel.Heading>
@@ -434,6 +434,7 @@ export const TODO1Uncontrolled = () => {
       <h1>Does not work yet: Uncontrolled SelectPanel</h1>
 
       <SelectPanel onSubmit={onSubmit} onCancel={onCancel}>
+        {/* @ts-ignore todo */}
         <SelectPanel.Button>Assign label</SelectPanel.Button>
 
         <SelectPanel.Header>
