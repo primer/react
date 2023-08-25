@@ -1,1 +1,2 @@
-export {default, HeadingProps} from './Heading'
+export {default} from './Heading'
+export type {HeadingProps} from './Heading'

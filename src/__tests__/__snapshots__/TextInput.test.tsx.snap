@@ -7,7 +7,7 @@ exports[`TextInput renders 1`] = `
   color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
-  border: 1px solid #d0d7de;
+  border: 1px solid var(--control-borderColor-rest,#d0d7de);
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
@@ -128,7 +128,7 @@ exports[`TextInput renders block 1`] = `
   color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
-  border: 1px solid #d0d7de;
+  border: 1px solid var(--control-borderColor-rest,#d0d7de);
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
@@ -257,7 +257,7 @@ exports[`TextInput renders consistently 1`] = `
   color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
-  border: 1px solid #d0d7de;
+  border: 1px solid var(--control-borderColor-rest,#d0d7de);
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
@@ -377,7 +377,7 @@ exports[`TextInput renders contrast 1`] = `
   color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
-  border: 1px solid #d0d7de;
+  border: 1px solid var(--control-borderColor-rest,#d0d7de);
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
@@ -499,7 +499,7 @@ exports[`TextInput renders error 1`] = `
   color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
-  border: 1px solid #d0d7de;
+  border: 1px solid var(--control-borderColor-rest,#d0d7de);
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
@@ -627,7 +627,7 @@ exports[`TextInput renders large 1`] = `
   color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
-  border: 1px solid #d0d7de;
+  border: 1px solid var(--control-borderColor-rest,#d0d7de);
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
@@ -755,7 +755,7 @@ exports[`TextInput renders leadingVisual 1`] = `
   color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
-  border: 1px solid #d0d7de;
+  border: 1px solid var(--control-borderColor-rest,#d0d7de);
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
@@ -903,7 +903,7 @@ exports[`TextInput renders leadingVisual 2`] = `
   color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
-  border: 1px solid #d0d7de;
+  border: 1px solid var(--control-borderColor-rest,#d0d7de);
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
@@ -1051,7 +1051,7 @@ exports[`TextInput renders leadingVisual 3`] = `
   color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
-  border: 1px solid #d0d7de;
+  border: 1px solid var(--control-borderColor-rest,#d0d7de);
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
@@ -1180,7 +1180,7 @@ exports[`TextInput renders leadingVisual 4`] = `
   color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
-  border: 1px solid #d0d7de;
+  border: 1px solid var(--control-borderColor-rest,#d0d7de);
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
@@ -1309,7 +1309,7 @@ exports[`TextInput renders monospace 1`] = `
   color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
-  border: 1px solid #d0d7de;
+  border: 1px solid var(--control-borderColor-rest,#d0d7de);
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
@@ -1431,7 +1431,7 @@ exports[`TextInput renders placeholder 1`] = `
   color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
-  border: 1px solid #d0d7de;
+  border: 1px solid var(--control-borderColor-rest,#d0d7de);
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
@@ -1553,7 +1553,7 @@ exports[`TextInput renders small 1`] = `
   color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
-  border: 1px solid #d0d7de;
+  border: 1px solid var(--control-borderColor-rest,#d0d7de);
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
@@ -1923,7 +1923,7 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
-  border: 1px solid #d0d7de;
+  border: 1px solid var(--control-borderColor-rest,#d0d7de);
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
@@ -2574,7 +2574,7 @@ exports[`TextInput renders trailingAction text button 1`] = `
   color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
-  border: 1px solid #d0d7de;
+  border: 1px solid var(--control-borderColor-rest,#d0d7de);
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
@@ -2979,7 +2979,7 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
-  border: 1px solid #d0d7de;
+  border: 1px solid var(--control-borderColor-rest,#d0d7de);
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
@@ -3369,7 +3369,7 @@ exports[`TextInput renders trailingVisual 1`] = `
   color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
-  border: 1px solid #d0d7de;
+  border: 1px solid var(--control-borderColor-rest,#d0d7de);
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
@@ -3517,7 +3517,7 @@ exports[`TextInput renders trailingVisual 2`] = `
   color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
-  border: 1px solid #d0d7de;
+  border: 1px solid var(--control-borderColor-rest,#d0d7de);
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
@@ -3665,7 +3665,7 @@ exports[`TextInput renders trailingVisual 3`] = `
   color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
-  border: 1px solid #d0d7de;
+  border: 1px solid var(--control-borderColor-rest,#d0d7de);
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
@@ -3794,7 +3794,7 @@ exports[`TextInput renders trailingVisual 4`] = `
   color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
-  border: 1px solid #d0d7de;
+  border: 1px solid var(--control-borderColor-rest,#d0d7de);
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
@@ -3938,7 +3938,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
-  border: 1px solid #d0d7de;
+  border: 1px solid var(--control-borderColor-rest,#d0d7de);
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
@@ -4121,7 +4121,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
-  border: 1px solid #d0d7de;
+  border: 1px solid var(--control-borderColor-rest,#d0d7de);
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
@@ -4336,7 +4336,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
-  border: 1px solid #d0d7de;
+  border: 1px solid var(--control-borderColor-rest,#d0d7de);
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
@@ -4528,7 +4528,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
-  border: 1px solid #d0d7de;
+  border: 1px solid var(--control-borderColor-rest,#d0d7de);
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
@@ -4789,7 +4789,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
-  border: 1px solid #d0d7de;
+  border: 1px solid var(--control-borderColor-rest,#d0d7de);
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
@@ -5050,7 +5050,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
-  border: 1px solid #d0d7de;
+  border: 1px solid var(--control-borderColor-rest,#d0d7de);
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
@@ -5305,7 +5305,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
-  border: 1px solid #d0d7de;
+  border: 1px solid var(--control-borderColor-rest,#d0d7de);
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
@@ -5528,7 +5528,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
-  border: 1px solid #d0d7de;
+  border: 1px solid var(--control-borderColor-rest,#d0d7de);
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
@@ -5783,7 +5783,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
-  border: 1px solid #d0d7de;
+  border: 1px solid var(--control-borderColor-rest,#d0d7de);
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
@@ -6015,7 +6015,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
-  border: 1px solid #d0d7de;
+  border: 1px solid var(--control-borderColor-rest,#d0d7de);
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
@@ -6325,7 +6325,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
-  border: 1px solid #d0d7de;
+  border: 1px solid var(--control-borderColor-rest,#d0d7de);
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
@@ -6626,7 +6626,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
-  border: 1px solid #d0d7de;
+  border: 1px solid var(--control-borderColor-rest,#d0d7de);
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
@@ -6900,7 +6900,7 @@ exports[`TextInput should render a password input 1`] = `
   color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
-  border: 1px solid #d0d7de;
+  border: 1px solid var(--control-borderColor-rest,#d0d7de);
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);

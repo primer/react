@@ -6,5 +6,4 @@ const UnderlineNav = Object.assign(Nav, {
 })
 
 export {UnderlineNav}
-
 export type {UnderlineNavProps, UnderlineNavItemProps}

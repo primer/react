@@ -58,7 +58,7 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
   color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
-  border: 1px solid #d0d7de;
+  border: 1px solid var(--control-borderColor-rest,#d0d7de);
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
@@ -838,7 +838,7 @@ exports[`TextInputWithTokens renders a truncated set of tokens 1`] = `
   color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
-  border: 1px solid #d0d7de;
+  border: 1px solid var(--control-borderColor-rest,#d0d7de);
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
@@ -1250,7 +1250,7 @@ exports[`TextInputWithTokens renders as block layout 1`] = `
   color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
-  border: 1px solid #d0d7de;
+  border: 1px solid var(--control-borderColor-rest,#d0d7de);
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
@@ -1457,7 +1457,7 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
   color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
-  border: 1px solid #d0d7de;
+  border: 1px solid var(--control-borderColor-rest,#d0d7de);
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
@@ -2184,7 +2184,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
   color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
-  border: 1px solid #d0d7de;
+  border: 1px solid var(--control-borderColor-rest,#d0d7de);
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
@@ -2912,7 +2912,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
   color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
-  border: 1px solid #d0d7de;
+  border: 1px solid var(--control-borderColor-rest,#d0d7de);
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
@@ -3640,7 +3640,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
   color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
-  border: 1px solid #d0d7de;
+  border: 1px solid var(--control-borderColor-rest,#d0d7de);
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
@@ -4365,7 +4365,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
   color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
-  border: 1px solid #d0d7de;
+  border: 1px solid var(--control-borderColor-rest,#d0d7de);
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
@@ -5092,7 +5092,7 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
   color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
-  border: 1px solid #d0d7de;
+  border: 1px solid var(--control-borderColor-rest,#d0d7de);
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
@@ -5817,7 +5817,7 @@ exports[`TextInputWithTokens renders tokens without a remove button when specifi
   color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
-  border: 1px solid #d0d7de;
+  border: 1px solid var(--control-borderColor-rest,#d0d7de);
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
@@ -6265,7 +6265,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
-  border: 1px solid #d0d7de;
+  border: 1px solid var(--control-borderColor-rest,#d0d7de);
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
@@ -7047,7 +7047,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
-  border: 1px solid #d0d7de;
+  border: 1px solid var(--control-borderColor-rest,#d0d7de);
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
@@ -7861,7 +7861,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
-  border: 1px solid #d0d7de;
+  border: 1px solid var(--control-borderColor-rest,#d0d7de);
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
@@ -8652,7 +8652,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
-  border: 1px solid #d0d7de;
+  border: 1px solid var(--control-borderColor-rest,#d0d7de);
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
@@ -9512,7 +9512,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
-  border: 1px solid #d0d7de;
+  border: 1px solid var(--control-borderColor-rest,#d0d7de);
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
@@ -10372,7 +10372,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
-  border: 1px solid #d0d7de;
+  border: 1px solid var(--control-borderColor-rest,#d0d7de);
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
@@ -11226,7 +11226,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
-  border: 1px solid #d0d7de;
+  border: 1px solid var(--control-borderColor-rest,#d0d7de);
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
@@ -12048,7 +12048,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
-  border: 1px solid #d0d7de;
+  border: 1px solid var(--control-borderColor-rest,#d0d7de);
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
@@ -12902,7 +12902,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
-  border: 1px solid #d0d7de;
+  border: 1px solid var(--control-borderColor-rest,#d0d7de);
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
@@ -13733,7 +13733,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
-  border: 1px solid #d0d7de;
+  border: 1px solid var(--control-borderColor-rest,#d0d7de);
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
@@ -14638,7 +14638,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
-  border: 1px solid #d0d7de;
+  border: 1px solid var(--control-borderColor-rest,#d0d7de);
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
@@ -15538,7 +15538,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
-  border: 1px solid #d0d7de;
+  border: 1px solid var(--control-borderColor-rest,#d0d7de);
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
@@ -16402,7 +16402,7 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
   color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
-  border: 1px solid #d0d7de;
+  border: 1px solid var(--control-borderColor-rest,#d0d7de);
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
@@ -17112,7 +17112,7 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
   color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
-  border: 1px solid #d0d7de;
+  border: 1px solid var(--control-borderColor-rest,#d0d7de);
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
@@ -17794,7 +17794,7 @@ exports[`TextInputWithTokens renders without tokens 1`] = `
   color: #1F2328;
   vertical-align: middle;
   background-color: #ffffff;
-  border: 1px solid #d0d7de;
+  border: 1px solid var(--control-borderColor-rest,#d0d7de);
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
