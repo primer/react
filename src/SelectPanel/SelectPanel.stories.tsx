@@ -58,7 +58,7 @@ export const Default = () => {
             trailingAction={TriangleDownIcon}
             aria-labelledby={` ${ariaLabelledBy}`}
             {...anchorProps}
-            aria-haspopup="listbox"
+            aria-haspopup="dialog"
           >
             {children ?? 'Select Labels'}
           </Button>
