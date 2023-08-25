@@ -38,6 +38,7 @@ export const ViewSwitch = ({selectedView, onViewSelect, onLoadPreview, disabled}
           {...sharedProps}
           as="button"
           selected={selectedView === 'edit'}
+          disabled={disabled}
           sx={{cursor: 'pointer', color: selectedView === 'edit' ? 'fg.default' : 'fg.muted', borderTopLeftRadius: 1}}
         >
           Write
@@ -46,6 +47,7 @@ export const ViewSwitch = ({selectedView, onViewSelect, onLoadPreview, disabled}
           {...sharedProps}
           as="button"
           selected={selectedView === 'preview'}
+          disabled={disabled}
           sx={{
             cursor: 'pointer',
             color: selectedView === 'preview' ? 'fg.default' : 'fg.muted',
