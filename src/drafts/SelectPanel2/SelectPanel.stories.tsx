@@ -86,8 +86,10 @@ export const AControlled = () => {
           console.log('panel was closed')
         }}
         // TODO: onClearSelection feels even more odd on the parent, instead of on the header.
-        onClearSelection={(event: any) => {
+        // @ts-ignore todo
+        onClearSelection={event => {
           // not optional, we don't control the selection, so we just pass this through
+          // @ts-ignore todo
           onClearSelection(event)
         }}
       >

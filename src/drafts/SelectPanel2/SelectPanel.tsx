@@ -22,9 +22,10 @@ const SelectPanelContext = React.createContext({
   onCancel: () => {},
   onClearSelection: () => {},
   searchQuery: '',
-  setSearchQuery: query => {},
+  setSearchQuery: () => {},
 })
 
+// @ts-ignore todo
 const SelectPanel = props => {
   const anchorRef = React.useRef<HTMLButtonElement>(null)
 
@@ -49,6 +50,7 @@ const SelectPanel = props => {
 
     if (typeof props.onCancel === 'function') props.onCancel()
   }
+  // @ts-ignore todo
   const onInternalSubmit = event => {
     setOpen(false)
     if (typeof props.onSubmit === 'function') props.onSubmit(event)
@@ -77,7 +79,13 @@ const SelectPanel = props => {
             with tabs to enter and escape
         */}
         <SelectPanelContext.Provider
-          value={{onCancel: onInternalClose, onClearSelection: onInternalClearSelection, searchQuery, setSearchQuery}}
+          value={{
+            onCancel: onInternalClose,
+            onClearSelection: onInternalClearSelection,
+            searchQuery,
+            // @ts-ignore todo
+            setSearchQuery,
+          }}
         >
           <Box as="form" onSubmit={onInternalSubmit} sx={{display: 'flex', flexDirection: 'column', height: '100%'}}>
             {contents}
@@ -89,6 +97,7 @@ const SelectPanel = props => {
 }
 
 const SelectPanelButton = React.forwardRef((props, anchorRef) => {
+  // @ts-ignore todo
   return <Button ref={anchorRef} {...props} />
 })
 SelectPanel.Button = SelectPanelButton
@@ -132,15 +141,18 @@ const SelectPanelHeading: React.FC<React.PropsWithChildren<{children: string}>> 
 }
 SelectPanel.Heading = SelectPanelHeading
 
+// @ts-ignore todo
 const SelectPanelSearchInput = props => {
   const inputRef = React.createRef<HTMLInputElement>()
 
   const {setSearchQuery} = React.useContext(SelectPanelContext)
 
+  // @ts-ignore todo
   const internalOnChange = event => {
     // If props.onChange is given, the application controls search,
     // otherwise the component does
     if (typeof props.onChange === 'function') props(props.onChange)
+    // @ts-ignore todo
     else setSearchQuery(event.target.value)
   }
 
@@ -181,8 +193,6 @@ SelectPanel.SearchInput = SelectPanelSearchInput
 
 // TODO: type this with ActionList props
 const SelectPanelActionList: React.FC<React.PropsWithChildren> = props => {
-  const {searchQuery} = React.useContext(SelectPanelContext)
-
   /* features to implement for uncontrolled:
      1. select
      2. sort
@@ -229,18 +239,13 @@ const SelectPanelFooter = ({...props}) => {
 }
 SelectPanel.Footer = SelectPanelFooter
 
-// option 1 (not used):
+// @ts-ignore todo
 SelectPanel.SecondaryButton = props => {
   return <Button {...props} size="small" type="button" />
 }
-SelectPanel.SecondaryLink = props => {
-  return <a {...props}>{props.children}</a>
-}
-
-// option 2:
-SelectPanel.SecondaryActionSlot = props => {
-  return <div id="left-layout">{props.children}</div>
-}
+// SelectPanel.SecondaryLink = props => {
+//   return <a {...props}>{props.children}</a>
+// }
 
 const SelectPanelLoading: React.FC<{children: string}> = ({children = 'Fetching items...'}) => {
   return (

@@ -25,7 +25,6 @@
 1. If heading element is not customisable (update: it is not), we can fold that into header as it only needs title
 1. If heading element is not customisable (update: it is not), we can unfurl "SelectPanel.Header" into 2 elements
 1. Search should work on item name and description (does on production). Can we bake that in or do we need to delegate search.
-1. (yes, users!) Do we need to support async search?
 1. Where should overlay props go? `<SelectPanel overlayProps={{}}>` or `<SelectPanel.Overlay>` (width, height, position wrt anchor, returnFocusRef)
 1. where should the callback for `cancel` be? it can called from multiple events like x button in header, cancel button in footer, clicking outside, keypressing escape. top level concern?
 1. where should the callback for `submit` be? the button lives in the footer but would feel strange not close to cancel and clear selection
@@ -36,7 +35,7 @@
 
 ### Implementation notes
 
-1. [Next for Sid] Improve divider logic in stories (we don't need 2 branches, instead a ConditionalDivider component or a showDividerAtIndex variable)
+1. [Next for Sid] Improve divider logic in stories (we don't need 2 branches, instead a ConditionalDivider component or a showDividerAtIndex variable) (we don't even need it anymore, + also leave a comment in the code to the issue where we decided not to do it)
 1. Is there a way to absorb divider logic, right now it's the application's responsibility
 1. Add controlled state for `open` (use cases: 1. fetch data when opened, 2. nested menus, 3. keep panel open till it's saved: https://github.com/github/primer/issues/2403)
 1. We probably (need to check) should not even render Overlay contents until it's opened
