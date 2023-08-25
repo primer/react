@@ -5,6 +5,7 @@ node_modules
 coverage/
 dist/
 lib/
+!codemods/lib/
 lib-esm/
 css/
 public/
