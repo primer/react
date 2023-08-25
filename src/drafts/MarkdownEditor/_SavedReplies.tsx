@@ -9,7 +9,6 @@ import React, {
   useState,
 } from 'react'
 import {SelectPanel, SelectPanelProps} from '../../SelectPanel'
-import Truncate from '../../Truncate'
 import {ToolbarButton} from './Toolbar'
 
 export type SavedReply = {
@@ -54,11 +53,7 @@ export const SavedRepliesButton = () => {
     .map(
       (reply, i): Item => ({
         text: reply.name,
-        description: (
-          <Truncate maxWidth="100%" title={reply.content}>
-            {reply.content}
-          </Truncate>
-        ),
+        description: reply.content,
         descriptionVariant: 'block',
         trailingVisual: i < 9 ? `Ctrl + ${i + 1}` : undefined,
         sx: {
@@ -71,7 +66,6 @@ export const SavedRepliesButton = () => {
             maxWidth: '100%',
           },
         },
-        id: i.toString(),
       }),
     )
 

@@ -3,11 +3,12 @@ import React, {useCallback, useMemo} from 'react'
 import {AnchoredOverlay, AnchoredOverlayProps} from '../AnchoredOverlay'
 import {AnchoredOverlayWrapperAnchorProps} from '../AnchoredOverlay/AnchoredOverlay'
 import Box from '../Box'
-import {FilteredActionList, FilteredActionListProps, ItemInput} from '../FilteredActionList'
-import {ActionListItemProps} from '../ActionList'
+import {FilteredActionList, FilteredActionListProps} from '../FilteredActionList'
 import Heading from '../Heading'
 import {OverlayProps} from '../Overlay'
 import {TextInputProps} from '../TextInput'
+import {ItemProps} from '../deprecated/ActionList'
+import {ItemInput} from '../deprecated/ActionList/List'
 import {Button} from '../Button'
 import {useProvidedRefOrCreate} from '../hooks'
 import {FocusZoneHookSettings} from '../hooks/useFocusZone'
@@ -129,7 +130,9 @@ export function SelectPanel({
         ...item,
         role: 'option',
         selected: 'selected' in item && item.selected === undefined ? undefined : isItemSelected,
-        onSelect: (event: React.MouseEvent | React.KeyboardEvent) => {
+        onAction: (itemFromAction, event) => {
+          item.onAction?.(itemFromAction, event)
+
           if (event.defaultPrevented) {
             return
           }
@@ -148,7 +151,7 @@ export function SelectPanel({
           singleSelectOnChange(item === selected ? undefined : item)
           onClose('selection')
         },
-      } as ActionListItemProps
+      } as ItemProps
     })
   }, [onClose, onSelectedChange, items, selected])
 
@@ -209,10 +212,10 @@ export function SelectPanel({
             filterValue={filterValue}
             onFilterChange={onFilterChange}
             placeholderText={placeholderText}
+            {...listProps}
             role="listbox"
             aria-multiselectable={isMultiSelectVariant(selected) ? 'true' : 'false'}
             selectionVariant={isMultiSelectVariant(selected) ? 'multiple' : 'single'}
-            {...listProps}
             items={itemsToRender}
             textInputProps={extendedTextInputProps}
             inputRef={inputRef}

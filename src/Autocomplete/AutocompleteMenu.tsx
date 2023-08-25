@@ -149,7 +149,7 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
   const listContainerRef = useRef<HTMLDivElement>(null)
   const allItemsToRenderRef = useRef<T[]>([])
   const [highlightedItem, setHighlightedItem] = useState<T>()
-  const [sortedItemIds, setSortedItemIds] = useState<Array<string>>(items.map(({id: itemId}) => itemId.toString()))
+  const [sortedItemIds, setSortedItemIds] = useState<Array<string>>(items.map(({id: itemId}) => itemId))
   const generatedUniqueId = useId(id)
 
   const selectableItems = useMemo(
@@ -160,11 +160,10 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
           role: 'option',
           id: selectableItem.id,
           active: highlightedItem?.id === selectableItem.id,
-          selected:
-            selectionVariant === 'multiple' ? selectedItemIds.includes(selectableItem.id.toString()) : undefined,
+          selected: selectionVariant === 'multiple' ? selectedItemIds.includes(selectableItem.id) : undefined,
           onAction: (item: T) => {
             const otherSelectedItemIds = selectedItemIds.filter(selectedItemId => selectedItemId !== item.id)
-            const newSelectedItemIds = selectedItemIds.includes(item.id.toString())
+            const newSelectedItemIds = selectedItemIds.includes(item.id)
               ? otherSelectedItemIds
               : [...otherSelectedItemIds, item.id]
             const onSelectedChangeFn = onSelectedChange
@@ -172,7 +171,7 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
               : getdefaultCheckedSelectionChange(setInputValue)
 
             onSelectedChangeFn(
-              newSelectedItemIds.map(newSelectedItemId => getItemById(newSelectedItemId.toString(), items)) as T[],
+              newSelectedItemIds.map(newSelectedItemId => getItemById(newSelectedItemId, items)) as T[],
             )
 
             if (selectionVariant === 'multiple') {
@@ -229,8 +228,7 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
               role: 'option',
               key: addNewItem.id,
               active: highlightedItem?.id === addNewItem.id,
-              selected:
-                selectionVariant === 'multiple' ? selectedItemIds.includes(addNewItem.id.toString()) : undefined,
+              selected: selectionVariant === 'multiple' ? selectedItemIds.includes(addNewItem.id) : undefined,
               leadingVisual: () => <PlusIcon />,
               onAction: (item: T) => {
                 // TODO: make it possible to pass a leadingVisual when using `addNewItem`
@@ -291,7 +289,7 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
   )
 
   useEffect(() => {
-    if (highlightedItem?.text?.startsWith(inputValue) && !selectedItemIds.includes(highlightedItem.id.toString())) {
+    if (highlightedItem?.text?.startsWith(inputValue) && !selectedItemIds.includes(highlightedItem.id)) {
       setAutocompleteSuggestion(highlightedItem.text)
     } else {
       setAutocompleteSuggestion('')
