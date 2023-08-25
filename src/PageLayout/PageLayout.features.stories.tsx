@@ -340,3 +340,20 @@ export const ScrollContainerWithinPageLayoutPane: Story = () => (
     </Box>
   </Box>
 )
+
+export const CustomPaneWidths: Story = () => (
+  <PageLayout containerWidth="full">
+    <PageLayout.Header>
+      <Placeholder height={64} label="Header" />
+    </PageLayout.Header>
+    <PageLayout.Pane resizable width={{min: '200px', default: '300px', max: '400px'}}>
+      <Placeholder height={320} label="Pane" />
+    </PageLayout.Pane>
+    <PageLayout.Content>
+      <Placeholder height={640} label="Content" />
+    </PageLayout.Content>
+    <PageLayout.Footer>
+      <Placeholder height={64} label="Footer" />
+    </PageLayout.Footer>
+  </PageLayout>
+)

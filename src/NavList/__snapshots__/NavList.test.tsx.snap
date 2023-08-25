@@ -69,6 +69,11 @@ exports[`NavList renders a simple list 1`] = `
   cursor: not-allowed;
 }
 
+.c2[aria-disabled] [data-component="ActionList.Checkbox"] {
+  background-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
+  border-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
+}
+
 .c2 [data-component="ActionList.Item--DividerContainer"] {
   position: relative;
 }
@@ -148,6 +153,11 @@ exports[`NavList renders a simple list 1`] = `
 
 .c6[aria-disabled] {
   cursor: not-allowed;
+}
+
+.c6[aria-disabled] [data-component="ActionList.Checkbox"] {
+  background-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
+  border-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
 }
 
 .c6 [data-component="ActionList.Item--DividerContainer"] {
@@ -464,6 +474,11 @@ exports[`NavList renders with groups 1`] = `
   cursor: not-allowed;
 }
 
+.c6[aria-disabled] [data-component="ActionList.Checkbox"] {
+  background-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
+  border-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
+}
+
 .c6 [data-component="ActionList.Item--DividerContainer"] {
   position: relative;
 }
@@ -543,6 +558,11 @@ exports[`NavList renders with groups 1`] = `
 
 .c10[aria-disabled] {
   cursor: not-allowed;
+}
+
+.c10[aria-disabled] [data-component="ActionList.Checkbox"] {
+  background-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
+  border-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
 }
 
 .c10 [data-component="ActionList.Item--DividerContainer"] {
@@ -895,6 +915,11 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   cursor: not-allowed;
 }
 
+.c10[aria-disabled] [data-component="ActionList.Checkbox"] {
+  background-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
+  border-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
+}
+
 .c10 [data-component="ActionList.Item--DividerContainer"] {
   position: relative;
 }
@@ -1009,6 +1034,11 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
 
 .c3[aria-disabled] {
   cursor: not-allowed;
+}
+
+.c3[aria-disabled] [data-component="ActionList.Checkbox"] {
+  background-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
+  border-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
 }
 
 .c3 [data-component="ActionList.Item--DividerContainer"] {
@@ -1351,6 +1381,11 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   cursor: not-allowed;
 }
 
+.c10[aria-disabled] [data-component="ActionList.Checkbox"] {
+  background-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
+  border-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
+}
+
 .c10 [data-component="ActionList.Item--DividerContainer"] {
   position: relative;
 }
@@ -1471,6 +1506,11 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
 
 .c3[aria-disabled] {
   cursor: not-allowed;
+}
+
+.c3[aria-disabled] [data-component="ActionList.Checkbox"] {
+  background-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
+  border-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
 }
 
 .c3 [data-component="ActionList.Item--DividerContainer"] {

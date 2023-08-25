@@ -97,7 +97,13 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       transition: 'background 33.333ms linear',
       color: getVariantStyles(variant, disabled).color,
       cursor: 'pointer',
-      '&[aria-disabled]': {cursor: 'not-allowed'},
+      '&[aria-disabled]': {
+        cursor: 'not-allowed',
+        '[data-component="ActionList.Checkbox"]': {
+          bg: selected ? 'fg.muted' : 'var(--color-input-disabled-bg, rgba(175, 184, 193, 0.2))',
+          borderColor: selected ? 'fg.muted' : 'var(--color-input-disabled-bg, rgba(175, 184, 193, 0.2))',
+        },
+      },
 
       // Button reset styles (to support as="button")
       appearance: 'none',
@@ -207,6 +213,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
           ref={forwardedRef}
           sx={merge<BetterSystemStyleObject>(styles, sxProp)}
           data-variant={variant === 'danger' ? variant : undefined}
+          aria-selected={containerProps.role === 'option' ? selected : undefined}
           {...containerProps}
           {...props}
         >

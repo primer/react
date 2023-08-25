@@ -34,7 +34,7 @@ export default defineConfig({
   },
   reporter: [
     ['line'],
-    ['html', {open: 'never', outputFolder: path.join(__dirname, '.playwright/report')}],
+    process.env.CI ? ['blob'] : ['html', {open: 'never', outputFolder: path.join(__dirname, '.playwright/report')}],
     [
       'json',
       {
