@@ -3,7 +3,11 @@
   "name": "PageHeader",
   "status": "draft",
   "a11yReviewed": false,
-  "stories": [],
+  "stories": [
+    {
+      "id": "drafts-components-pageheader--default"
+    }
+  ],
   "props": [
     {
       "name": "aria-label",
