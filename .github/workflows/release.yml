@@ -11,7 +11,7 @@ jobs:
   get-access-token:
     runs-on: ubuntu-latest
     outputs:
-      access-token: ${{ steps.get-access-token.outputs.access-token }}
+      access-token: ${{ steps.decrypt-access-token.outputs.result }}
     steps:
       - id: get-access-token
         uses: camertron/github-app-installation-auth-action@v1
@@ -22,11 +22,6 @@ jobs:
           client-secret: ${{ secrets.PRIMER_APP_CLIENT_SECRET_SHARED }}
           installation-id: ${{ vars.PRIMER_APP_INSTALLATION_ID_SHARED }}
           encrypt: true
-
-  decrypt-access-token:
-    runs-on: ubuntu-latest
-    needs: get-access-token
-    steps:
       - id: decrypt-access-token
         uses: actions/github-script@v6
         with:
@@ -40,24 +35,24 @@ jobs:
           result-encoding: string
         env:
           PRIVATE_KEY: ${{ secrets.PRIMER_APP_PRIVATE_KEY_SHARED }}
-          ACCESS_TOKEN: ${{ needs.get-access-token.outputs.access-token }}
+          ACCESS_TOKEN: ${{ steps.get-access-token.outputs.access-token }}
 
   release-main:
     # if: github.ref_name == 'main'
     name: Main
-    needs: decrypt-access-token
+    needs: get-access-token
     uses: primer/.github/.github/workflows/release.yml@main
     secrets:
-      gh_token: ${{ needs.decrypt-access-token.steps.decrypt-access-token.outputs.result }}
+      gh_token: ${{ needs.get-access-token.outputs.access-token }}
       npm_token: ${{ secrets.NPM_AUTH_TOKEN_SHARED }}
 
   release-next-major:
     if: github.ref_name == 'next-major'
     name: Next major
-    needs: decrypt-access-token
+    needs: get-access-token
     uses: primer/.github/.github/workflows/release.yml@main
     with:
       title: Release tracking (next major)
     secrets:
-      gh_token: ${{ needs.decrypt-access-token.steps.decrypt-access-token.outputs.result }}
+      gh_token: ${{ needs.get-access-token.outputs.access-token }}
       npm_token: ${{ secrets.NPM_AUTH_TOKEN_SHARED }}
