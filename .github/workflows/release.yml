@@ -10,6 +10,8 @@ on:
 jobs:
   get-access-token:
     runs-on: ubuntu-latest
+    outputs:
+      access-token: ${{ steps.get-access-token.outputs.access-token }}
     steps:
       - id: get-access-token
         uses: camertron/github-app-installation-auth-action@v1
@@ -38,7 +40,7 @@ jobs:
           result-encoding: string
         env:
           PRIVATE_KEY: ${{ secrets.PRIMER_APP_PRIVATE_KEY_SHARED }}
-          ACCESS_TOKEN: ${{ needs.get-access-token.steps.get-access-token.outputs.access-token }}
+          ACCESS_TOKEN: ${{ needs.get-access-token.outputs.access-token }}
 
   release-main:
     # if: github.ref_name == 'main'
