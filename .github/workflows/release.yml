@@ -3,13 +3,12 @@ name: Release
 on:
   push:
     branches:
-      - github_token_release
-      # - main
-      # - next-major
+      - main
+      - next-major
 
 jobs:
   release-main:
-    # if: github.ref_name == 'main'
+    if: github.ref_name == 'main'
     name: Main
     uses: primer/.github/.github/workflows/release_with_app.yml@main
     secrets:
