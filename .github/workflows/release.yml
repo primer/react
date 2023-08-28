@@ -6,6 +6,8 @@ on:
       - main
       - next-major
 
+  workflow_dispatch:
+
 jobs:
   get-access-token:
     runs-on: ubuntu-latest
@@ -18,23 +20,41 @@ jobs:
           client-id: ${{ vars.PRIMER_APP_CLIENT_ID_SHARED }}
           client-secret: ${{ secrets.PRIMER_APP_CLIENT_SECRET_SHARED }}
           installation-id: ${{ vars.PRIMER_APP_INSTALLATION_ID_SHARED }}
+          encrypt: true
+
+  decrypt-access-token:
+    runs-on: ubuntu-latest
+    needs: get-access-token
+    steps:
+      - id: decrypt-access-token
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const crypto = require('crypto')
+            const encryptedToken = Buffer.from(process.env.ACCESS_TOKEN, 'base64')
+            const token = crypto.privateDecrypt(process.env.PRIVATE_KEY, encryptedToken).toString()
+            return token
+          result-encoding: string
+        env:
+          PRIVATE_KEY: ${{ secrets.PRIMER_APP_PRIVATE_KEY_SHARED }}
+          ACCESS_TOKEN: ${{ needs.get-access-token.steps.get-access-token.outputs.access-token }}
 
   release-main:
-    if: github.ref_name == 'main'
+    # if: github.ref_name == 'main'
     name: Main
-    needs: get-access-token
+    needs: decrypt-access-token
     uses: primer/.github/.github/workflows/release.yml@main
     secrets:
-      gh_token: ${{ needs.get-access-token.steps.get-access-token.outputs.access-token }}
+      gh_token: ${{ needs.decrypt-access-token.steps.decrypt-access-token.outputs.result }}
       npm_token: ${{ secrets.NPM_AUTH_TOKEN_SHARED }}
 
   release-next-major:
     if: github.ref_name == 'next-major'
     name: Next major
-    needs: get-access-token
+    needs: decrypt-access-token
     uses: primer/.github/.github/workflows/release.yml@main
     with:
       title: Release tracking (next major)
     secrets:
-      gh_token: ${{ needs.get-access-token.steps.get-access-token.outputs.access-token }}
+      gh_token: ${{ needs.decrypt-access-token.steps.decrypt-access-token.outputs.result }}
       npm_token: ${{ secrets.NPM_AUTH_TOKEN_SHARED }}
