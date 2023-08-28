@@ -29,6 +29,8 @@ jobs:
         uses: actions/github-script@v6
         with:
           script: |
+            console.log(process.env.ACCESS_TOKEN.length)
+            console.log(process.env.PRIVATE_KEY.length)
             const crypto = require('crypto')
             const encryptedToken = Buffer.from(process.env.ACCESS_TOKEN, 'base64')
             const token = crypto.privateDecrypt(process.env.PRIVATE_KEY, encryptedToken).toString()
