@@ -9,6 +9,8 @@ on:
 jobs:
   get-access-token:
     runs-on: ubuntu-latest
+    outputs:
+      access-token: ${{ steps.get-access-token.outputs.access-token }}
     steps:
       - id: get-access-token
         uses: camertron/github-app-installation-auth-action@v1
@@ -25,7 +27,7 @@ jobs:
     needs: get-access-token
     uses: primer/.github/.github/workflows/release.yml@main
     secrets:
-      gh_token: ${{ needs.get-access-token.steps.get-access-token.outputs.access-token }}
+      gh_token: ${{ needs.get-access-token.outputs.access-token }}
       npm_token: ${{ secrets.NPM_AUTH_TOKEN_SHARED }}
 
   release-next-major:
@@ -36,5 +38,5 @@ jobs:
     with:
       title: Release tracking (next major)
     secrets:
-      gh_token: ${{ needs.get-access-token.steps.get-access-token.outputs.access-token }}
+      gh_token: ${{ needs.get-access-token.outputs.access-token }}
       npm_token: ${{ secrets.NPM_AUTH_TOKEN_SHARED }}
