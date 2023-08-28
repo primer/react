@@ -1,5 +1,23 @@
 # @primer/components
 
+## 35.29.0
+
+### Minor Changes
+
+- [#3607](https://github.com/primer/react/pull/3607) [`c0e22fc1`](https://github.com/primer/react/commit/c0e22fc14697627c81c8a21137c72350e8d1a703) Thanks [@langermank](https://github.com/langermank)! - Update ActionList checkbox styles to form checkbox styles (impacts ActionMenu and SelectPanel)
+
+  <!-- Changed components: ActionList -->
+
+### Patch Changes
+
+- [#3662](https://github.com/primer/react/pull/3662) [`2ca670a8`](https://github.com/primer/react/commit/2ca670a882925ce2cbd447d52f1ac390efe29253) Thanks [@joshblack](https://github.com/joshblack)! - Update type exports to prevent missing export warnings
+
+  <!-- Changed components: _none_ -->
+
+- [#3654](https://github.com/primer/react/pull/3654) [`556d826a`](https://github.com/primer/react/commit/556d826af1dd9cc74f8bf22e7f0f521d185a87d2) Thanks [@langermank](https://github.com/langermank)! - Use `control` CSS var with fallback for form component border-color
+
+  <!-- Changed components: _none_ -->
+
 ## 35.28.0
 
 ### Minor Changes
