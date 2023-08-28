@@ -3,10 +3,9 @@ name: Release
 on:
   push:
     branches:
-      - main
-      - next-major
-
-  workflow_dispatch:
+      - github_token_release
+      # - main
+      # - next-major
 
 jobs:
   get-access-token:
