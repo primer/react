@@ -7,34 +7,28 @@ on:
       - next-major
 
 jobs:
-  get-access-token:
-    runs-on: ubuntu-latest
-    steps:
-      - id: get-access-token
-        uses: camertron/github-app-installation-auth-action@v1
-        with:
-          app-id: ${{ vars.PRIMER_APP_ID_SHARED }}
-          private-key: ${{ secrets.PRIMER_APP_PRIVATE_KEY_SHARED }}
-          client-id: ${{ vars.PRIMER_APP_CLIENT_ID_SHARED }}
-          client-secret: ${{ secrets.PRIMER_APP_CLIENT_SECRET_SHARED }}
-          installation-id: ${{ vars.PRIMER_APP_INSTALLATION_ID_SHARED }}
-
   release-main:
     if: github.ref_name == 'main'
     name: Main
-    needs: get-access-token
-    uses: primer/.github/.github/workflows/release.yml@main
+    uses: primer/.github/.github/workflows/release_with_app.yml@main
     secrets:
-      gh_token: ${{ needs.get-access-token.steps.get-access-token.outputs.access-token }}
       npm_token: ${{ secrets.NPM_AUTH_TOKEN_SHARED }}
+      app-id: ${{ vars.PRIMER_APP_ID_SHARED }}
+      private-key: ${{ secrets.PRIMER_APP_PRIVATE_KEY_SHARED }}
+      client-id: ${{ vars.PRIMER_APP_CLIENT_ID_SHARED }}
+      client-secret: ${{ secrets.PRIMER_APP_CLIENT_SECRET_SHARED }}
+      installation-id: ${{ vars.PRIMER_APP_INSTALLATION_ID_SHARED }}
 
   release-next-major:
     if: github.ref_name == 'next-major'
     name: Next major
-    needs: get-access-token
-    uses: primer/.github/.github/workflows/release.yml@main
+    uses: primer/.github/.github/workflows/release_with_app.yml@main
     with:
       title: Release tracking (next major)
     secrets:
-      gh_token: ${{ needs.get-access-token.steps.get-access-token.outputs.access-token }}
       npm_token: ${{ secrets.NPM_AUTH_TOKEN_SHARED }}
+      app-id: ${{ vars.PRIMER_APP_ID_SHARED }}
+      private-key: ${{ secrets.PRIMER_APP_PRIVATE_KEY_SHARED }}
+      client-id: ${{ vars.PRIMER_APP_CLIENT_ID_SHARED }}
+      client-secret: ${{ secrets.PRIMER_APP_CLIENT_SECRET_SHARED }}
+      installation-id: ${{ vars.PRIMER_APP_INSTALLATION_ID_SHARED }}
