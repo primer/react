@@ -1,6 +1,7 @@
 # Build folders
 dist/
 lib/
+!codemods/lib/
 lib-esm/
 css/
 /generated

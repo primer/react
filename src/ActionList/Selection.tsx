@@ -4,6 +4,7 @@ import {ListContext, ActionListProps} from './List'
 import {GroupContext, ActionListGroupProps} from './Group'
 import {ActionListItemProps} from './shared'
 import {LeadingVisualContainer} from './Visuals'
+import Box from '../Box'
 
 type SelectionProps = Pick<ActionListItemProps, 'selected'>
 export const Selection: React.FC<React.PropsWithChildren<SelectionProps>> = ({selected}) => {
@@ -34,33 +35,69 @@ export const Selection: React.FC<React.PropsWithChildren<SelectionProps>> = ({se
 
   /**
    * selectionVariant is multiple
-   * we use a svg instead of an input because there should not
+   * we use a styled div instead of an input because there should not
    * be an interactive element inside an option
-   * svg copied from primer/css
    */
+  const checkmarkIn = {
+    from: {
+      clipPath: 'inset(var(--base-size-16, 16px) 0 0 0)',
+    },
+
+    to: {
+      clipPath: 'inset(0 0 0 0)',
+    },
+  }
+
+  const checkmarkOut = {
+    from: {
+      clipPath: 'inset(0 0 0 0)',
+    },
+
+    to: {
+      clipPath: 'inset(var(--base-size-16, 16px) 0 0 0)',
+    },
+  }
+
   return (
-    <LeadingVisualContainer
-      sx={{
-        rect: {
-          fill: selected ? 'accent.fg' : 'canvas.default',
-          stroke: selected ? 'accent.fg' : 'border.default',
-          shapeRendering: 'auto', // this is a workaround to override global style in github/github, see primer/react#1666
-        },
-        path: {
-          fill: 'fg.onEmphasis',
-          boxShadow: 'shadow.small',
-          opacity: selected ? 1 : 0,
-        },
-      }}
-    >
-      <svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <rect x="2" y="2" width="12" height="12" rx="4"></rect>
-        <path
-          fillRule="evenodd"
-          strokeWidth="0"
-          d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
-        />
-      </svg>
+    <LeadingVisualContainer>
+      <Box
+        sx={{
+          borderColor: selected ? 'accent.fg' : 'neutral.emphasis',
+          borderStyle: 'solid',
+          borderWidth: '1',
+          borderRadius: '1',
+          cursor: 'pointer',
+          display: 'grid',
+          height: 'var(--base-size-16, 16px)',
+          margin: '0',
+          placeContent: 'center',
+          width: 'var(--base-size-16, 16px)',
+          backgroundColor: selected ? 'accent.fg' : 'canvas.default',
+          transition: selected
+            ? 'background-color, border-color 80ms cubic-bezier(0.33, 1, 0.68, 1)'
+            : 'background-color, border-color 80ms cubic-bezier(0.32, 0, 0.67, 0) 0ms',
+          '::before': {
+            width: 'var(--base-size-16, 16px)',
+            height: 'var(--base-size-16, 16px)',
+            visibility: selected ? 'visible' : 'hidden',
+            content: '""',
+            backgroundColor: 'fg.onEmphasis',
+            transition: selected ? 'visibility 0s linear 0s' : 'visibility 0s linear 230ms',
+            clipPath: 'inset(var(--base-size-16, 16px) 0 0 0)',
+            maskImage:
+              "url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIiIGhlaWdodD0iOSIgdmlld0JveD0iMCAwIDEyIDkiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxwYXRoIGZpbGwtcnVsZT0iZXZlbm9kZCIgY2xpcC1ydWxlPSJldmVub2RkIiBkPSJNMTEuNzgwMyAwLjIxOTYyNUMxMS45MjEgMC4zNjA0MjcgMTIgMC41NTEzMDUgMTIgMC43NTAzMTNDMTIgMC45NDkzMjEgMTEuOTIxIDEuMTQwMTkgMTEuNzgwMyAxLjI4MUw0LjUxODYgOC41NDA0MkM0LjM3Nzc1IDguNjgxIDQuMTg2ODIgOC43NiAzLjk4Nzc0IDguNzZDMy43ODg2NyA4Ljc2IDMuNTk3NzMgOC42ODEgMy40NTY4OSA4LjU0MDQyTDAuMjAxNjIyIDUuMjg2MkMwLjA2ODkyNzcgNS4xNDM4MyAtMC4wMDMzMDkwNSA0Ljk1NTU1IDAuMDAwMTE2NDkzIDQuNzYwOThDMC4wMDM1NTIwNSA0LjU2NjQzIDAuMDgyMzg5NCA0LjM4MDgxIDAuMjIwMDMyIDQuMjQzMjFDMC4zNTc2NjUgNC4xMDU2MiAwLjU0MzM1NSA0LjAyNjgxIDAuNzM3OTcgNC4wMjMzOEMwLjkzMjU4NCA0LjAxOTk0IDEuMTIwOTMgNC4wOTIxNyAxLjI2MzM0IDQuMjI0ODJMMy45ODc3NCA2Ljk0ODM1TDEwLjcxODYgMC4yMTk2MjVDMTAuODU5NSAwLjA3ODk5MjMgMTEuMDUwNCAwIDExLjI0OTUgMEMxMS40NDg1IDAgMTEuNjM5NSAwLjA3ODk5MjMgMTEuNzgwMyAwLjIxOTYyNVoiIGZpbGw9IndoaXRlIi8+Cjwvc3ZnPgo=')",
+            maskSize: '75%',
+            maskRepeat: 'no-repeat',
+            maskPosition: 'center',
+            animation: selected
+              ? 'checkmarkIn 80ms cubic-bezier(0.65, 0, 0.35, 1) forwards 80ms'
+              : 'checkmarkOut 80ms cubic-bezier(0.65, 0, 0.35, 1) forwards',
+            '@keyframes checkmarkIn': checkmarkIn,
+            '@keyframes checkmarkOut': checkmarkOut,
+          },
+        }}
+        data-component="ActionList.Checkbox"
+      />
     </LeadingVisualContainer>
   )
 }
