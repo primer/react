@@ -66,33 +66,34 @@ export function generateCustomSxProp(
   props: Partial<Pick<ButtonProps, 'size' | 'block' | 'leadingIcon' | 'trailingIcon' | 'trailingAction'>>,
   providedSx: BetterSystemStyleObject,
 ) {
-  const cssSelectorList = []
   // Possible data attributes for button component: data-size, data-block, data-no-visuals
   const size = props.size && props.size !== 'medium' ? `[data-size="${props.size}"]` : '' // medium is a default size therefore it doesn't have a data attribute that used for styling
   const block = props.block ? `[data-block="block"]` : ''
   const noVisuals = props.leadingIcon || props.trailingIcon || props.trailingAction ? '' : '[data-no-visuals="true"]'
   // We need to make sure we add the data attributes to the base css class (& -> &[data-attributename="value"]]) otherwise sx styles are applied due to data attribute has more specificity than class selector
   const cssSelector = `&${size}${block}${noVisuals}` // &[data-size="small"][data-block="block"][data-no-visuals="true"]
-  cssSelectorList.push(cssSelector)
-
-  // Possible data attributes for children of button component: data-component="leadingVisual", data-component="trailingVisual", data-component="trailingAction"
-  // When sx is used in the parent button component, these styles aren't applied to its children (leadingIcon, trailingIcon, trailingAction)
-  // Because sx only applies to the base selector which is  "&", but we want it to be applied to '& [data-component="leadingVisual"]'
-  if (props.leadingIcon) cssSelectorList.push(`& [data-component="leadingVisual"]`)
-  if (props.trailingIcon) cssSelectorList.push(`& [data-component="trailingVisual"]`)
-  if (props.trailingAction) cssSelectorList.push(`& [data-component="trailingAction"]`)
 
   const customSxProp: {
     [key: string]: BetterSystemStyleObject
   } = {}
 
-  if (!providedSx) return customSxProp
-  else {
-    for (const selector of cssSelectorList) {
-      customSxProp[selector] = providedSx
-    }
-    return customSxProp
+  customSxProp[cssSelector] = providedSx as BetterSystemStyleObject & {color?: string}
+
+  // Possible data attributes for children of button component: data-component="leadingVisual", data-component="trailingVisual", data-component="trailingAction"
+  // When sx is used in the parent button component, these styles aren't applied to its children (leadingIcon, trailingIcon, trailingAction)
+  // Because sx only applies to the base selector which is  "&", but we want it to be applied to '& [data-component="leadingVisual"]'
+  const cssSelectorList = []
+  if (props.leadingIcon) cssSelectorList.push(`& [data-component="leadingVisual"]`)
+  if (props.trailingIcon) cssSelectorList.push(`& [data-component="trailingVisual"]`)
+  if (props.trailingAction) cssSelectorList.push(`& [data-component="trailingAction"]`)
+
+  // @ts-ignore - We are sure that color exists in providedSx
+  const {color} = providedSx
+  if (!color) return customSxProp
+  for (const selector of cssSelectorList) {
+    customSxProp[selector] = {color} // We only want to apply the color to the children of button component, because it is the one that we are overriding with data attributes that has more specificity than the parent button component.
   }
+  return customSxProp
 }
 
 ButtonComponent.displayName = 'Button'
