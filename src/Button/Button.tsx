@@ -66,13 +66,21 @@ export function generateCustomSxProp(
   props: Partial<Pick<ButtonProps, 'size' | 'block' | 'leadingIcon' | 'trailingIcon' | 'trailingAction'>>,
   providedSx: BetterSystemStyleObject,
 ) {
-  // Possible data attributes: data-size, data-block, data-no-visuals
+  const cssSelectorList = []
+  // Possible data attributes for button component: data-size, data-block, data-no-visuals
   const size = props.size && props.size !== 'medium' ? `[data-size="${props.size}"]` : '' // medium is a default size therefore it doesn't have a data attribute that used for styling
   const block = props.block ? `[data-block="block"]` : ''
   const noVisuals = props.leadingIcon || props.trailingIcon || props.trailingAction ? '' : '[data-no-visuals="true"]'
-
-  // this is custom selector. We need to make sure we add the data attributes to the base css class (& -> &[data-attributename="value"]])
+  // We need to make sure we add the data attributes to the base css class (& -> &[data-attributename="value"]]) otherwise sx styles are applied due to data attribute has more specificity than class selector
   const cssSelector = `&${size}${block}${noVisuals}` // &[data-size="small"][data-block="block"][data-no-visuals="true"]
+  cssSelectorList.push(cssSelector)
+
+  // Possible data attributes for children of button component: data-component="leadingVisual", data-component="trailingVisual", data-component="trailingAction"
+  // When sx is used in the parent button component, these styles aren't applied to its children (leadingIcon, trailingIcon, trailingAction)
+  // Because sx only applies to the base selector which is  "&", but we want it to be applied to '& [data-component="leadingVisual"]'
+  if (props.leadingIcon) cssSelectorList.push(`& [data-component="leadingVisual"]`)
+  if (props.trailingIcon) cssSelectorList.push(`& [data-component="trailingVisual"]`)
+  if (props.trailingAction) cssSelectorList.push(`& [data-component="trailingAction"]`)
 
   const customSxProp: {
     [key: string]: BetterSystemStyleObject
@@ -80,7 +88,9 @@ export function generateCustomSxProp(
 
   if (!providedSx) return customSxProp
   else {
-    customSxProp[cssSelector] = providedSx
+    for (const selector of cssSelectorList) {
+      customSxProp[selector] = providedSx
+    }
     return customSxProp
   }
 }

@@ -1,6 +1,7 @@
-import {SearchIcon, TriangleDownIcon, EyeIcon} from '@primer/octicons-react'
+import {SearchIcon, TriangleDownIcon, EyeIcon, IssueClosedIcon} from '@primer/octicons-react'
 import React from 'react'
 import {Button, IconButton} from '.'
+import {default as Text} from '../Text'
 
 export default {
   title: 'Components/Button/DevOnly',
@@ -69,6 +70,9 @@ export const TestSxProp = () => {
       </Button>
       <Button leadingIcon={SearchIcon} variant="invisible" sx={{color: 'firebrick'}}>
         Red
+      </Button>
+      <Button leadingIcon={IssueClosedIcon} sx={{color: 'done.fg'}}>
+        <Text sx={{color: 'fg.default'}}>Close issue</Text>
       </Button>
       <Button
         size="small"
