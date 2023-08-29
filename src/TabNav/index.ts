@@ -1,1 +1,2 @@
-export {default, TabNavProps, TabNavLinkProps} from './TabNav'
+export {default} from './TabNav'
+export type {TabNavProps, TabNavLinkProps} from './TabNav'
