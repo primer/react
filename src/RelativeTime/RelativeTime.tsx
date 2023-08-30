@@ -5,7 +5,13 @@ import {createComponent} from '@lit-labs/react'
 import {ComponentProps} from '../utils/types'
 import sx from '../sx'
 
-const RelativeTime = styled(createComponent(React, 'relative-time', RelativeTimeElement))(sx)
+const RelativeTime = styled(
+  createComponent({
+    react: React,
+    tagName: 'relative-time',
+    elementClass: RelativeTimeElement,
+  }),
+)(sx)
 
 export type RelativeTimeProps = ComponentProps<typeof RelativeTime>
 export default RelativeTime

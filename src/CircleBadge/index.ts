@@ -1,1 +1,2 @@
-export {default, CircleBadgeProps, CircleBadgeIconProps} from './CircleBadge'
+export {default} from './CircleBadge'
+export type {CircleBadgeProps, CircleBadgeIconProps} from './CircleBadge'
