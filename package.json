@@ -98,7 +98,7 @@
     "@github/markdown-toolbar-element": "^2.1.0",
     "@github/paste-markdown": "^1.4.0",
     "@github/relative-time-element": "^4.1.2",
-    "@lit-labs/react": "^1.1.1",
+    "@lit-labs/react": "^2.0.1",
     "@primer/behaviors": "^1.3.4",
     "@primer/octicons-react": "^19.3.0",
     "@primer/primitives": "^7.11.11",
@@ -126,7 +126,7 @@
   },
   "devDependencies": {
     "@actions/core": "1.10.0",
-    "@babel/cli": "7.22.5",
+    "@babel/cli": "7.22.10",
     "@babel/core": "7.22.5",
     "@babel/eslint-parser": "7.21.3",
     "@babel/plugin-proposal-nullish-coalescing-operator": "7.18.6",
