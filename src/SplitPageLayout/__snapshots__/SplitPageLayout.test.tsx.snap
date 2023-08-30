@@ -251,7 +251,7 @@ exports[`SplitPageLayout renders default layout 1`] = `
       <div
         class="c5"
       >
-        <main
+        <div
           class="c6"
         >
           <div
@@ -265,7 +265,7 @@ exports[`SplitPageLayout renders default layout 1`] = `
           <div
             class=""
           />
-        </main>
+        </div>
         <div
           class="c8"
         >

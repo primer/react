@@ -23,7 +23,9 @@ describe('PageLayout', () => {
       <ThemeProvider>
         <PageLayout>
           <PageLayout.Header>Header</PageLayout.Header>
-          <PageLayout.Content>Content</PageLayout.Content>
+          <PageLayout.Content>
+            <main aria-label="Content">Content</main>
+          </PageLayout.Content>
           <PageLayout.Pane>Pane</PageLayout.Pane>
           <PageLayout.Footer>Footer</PageLayout.Footer>
         </PageLayout>
@@ -131,7 +133,7 @@ describe('PageLayout', () => {
     )
 
     expect(screen.getByRole('banner')).toHaveAccessibleName('Header')
-    expect(screen.getByRole('main')).toHaveAccessibleName('Content')
+    expect(screen.getByLabelText('Content')).toHaveAccessibleName('Content')
     expect(screen.getByRole('contentinfo')).toHaveAccessibleName('Footer')
   })
 
@@ -154,7 +156,7 @@ describe('PageLayout', () => {
     )
 
     expect(screen.getByRole('banner')).toHaveAccessibleName('header')
-    expect(screen.getByRole('main')).toHaveAccessibleName('content')
+    expect(screen.getByLabelText('content')).toBeInTheDocument()
     expect(screen.getByRole('contentinfo')).toHaveAccessibleName('footer')
   })
 
