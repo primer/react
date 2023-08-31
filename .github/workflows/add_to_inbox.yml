@@ -9,7 +9,7 @@ jobs:
     if: ${{ github.repository == 'primer/react' && (github.event.action == 'opened' || github.event.action == 'reopened') }}
     runs-on: ubuntu-latest
     env:
-      ISSUE_URL: ${{ github.event.issue.url }}
+      ISSUE_URL: ${{ github.event.issue.html_url }}
       PROJECT_ID: 4503
     steps:
       - id: get-primer-access-token
