@@ -261,6 +261,7 @@ describe('MarkdownEditor', () => {
     it('renders custom action buttons', async () => {
       const {getActionButton} = await render(
         <UncontrolledEditor>
+          {/* eslint-disable-next-line primer-react/direct-slot-children */}
           <MarkdownEditor.Actions>
             <MarkdownEditor.ActionButton>Example</MarkdownEditor.ActionButton>
           </MarkdownEditor.Actions>
@@ -272,6 +273,7 @@ describe('MarkdownEditor', () => {
     it('disables custom action buttons when the editor is disabled (unless explicitly overridden)', async () => {
       const {getActionButton} = await render(
         <UncontrolledEditor disabled>
+          {/* eslint-disable-next-line primer-react/direct-slot-children */}
           <MarkdownEditor.Actions>
             <MarkdownEditor.ActionButton>A</MarkdownEditor.ActionButton>
             <MarkdownEditor.ActionButton disabled={false}>B</MarkdownEditor.ActionButton>
@@ -287,6 +289,7 @@ describe('MarkdownEditor', () => {
       const ref: React.RefObject<HTMLButtonElement> = {current: null}
       await render(
         <UncontrolledEditor>
+          {/* eslint-disable-next-line primer-react/direct-slot-children */}
           <MarkdownEditor.Actions>
             <MarkdownEditor.ActionButton ref={ref}>Example</MarkdownEditor.ActionButton>
           </MarkdownEditor.Actions>
@@ -353,6 +356,7 @@ describe('MarkdownEditor', () => {
     it('renders custom toolbar buttons', async () => {
       const {getToolbarButton} = await render(
         <UncontrolledEditor>
+          {/* eslint-disable-next-line primer-react/direct-slot-children */}
           <MarkdownEditor.Toolbar>
             <MarkdownEditor.ToolbarButton icon={DiffAddedIcon} aria-label="Test Button" />
           </MarkdownEditor.Toolbar>
@@ -366,6 +370,7 @@ describe('MarkdownEditor', () => {
       const ref: React.RefObject<HTMLButtonElement> = {current: null}
       await render(
         <UncontrolledEditor>
+          {/* eslint-disable-next-line primer-react/direct-slot-children */}
           <MarkdownEditor.Toolbar>
             <MarkdownEditor.ToolbarButton ref={ref} icon={DiffAddedIcon} aria-label="Test Button" />
           </MarkdownEditor.Toolbar>
@@ -378,6 +383,7 @@ describe('MarkdownEditor', () => {
       const onClick = jest.fn()
       const {getInput, getToolbarButton, user} = await render(
         <UncontrolledEditor>
+          {/* eslint-disable-next-line primer-react/direct-slot-children */}
           <MarkdownEditor.Toolbar>
             <MarkdownEditor.ToolbarButton icon={DiffAddedIcon} aria-label="Test Button" onClick={onClick} />
           </MarkdownEditor.Toolbar>
@@ -395,6 +401,7 @@ describe('MarkdownEditor', () => {
     it('disables buttons when editor is disabled (unless explicitly overridden)', async () => {
       const {getToolbarButton} = await render(
         <UncontrolledEditor disabled>
+          {/* eslint-disable-next-line primer-react/direct-slot-children */}
           <MarkdownEditor.Toolbar>
             <MarkdownEditor.ToolbarButton aria-label="Test Button A" icon={DiffAddedIcon} />
             <MarkdownEditor.ToolbarButton aria-label="Test Button B" icon={DiffAddedIcon} disabled={false} />
@@ -453,6 +460,7 @@ describe('MarkdownEditor', () => {
       it('includes custom buttons', async () => {
         const {getToolbarButton, user} = await render(
           <UncontrolledEditor>
+            {/* eslint-disable-next-line primer-react/direct-slot-children */}
             <MarkdownEditor.Toolbar>
               <MarkdownEditor.ToolbarButton aria-label="Test Button A" icon={DiffAddedIcon} />
               <MarkdownEditor.ToolbarButton aria-label="Test Button B" icon={DiffAddedIcon} />

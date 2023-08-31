@@ -2102,6 +2102,13 @@ exports[`ChoiceFieldset renders with a success validation message 1`] = `
   margin-top: 8px;
 }
 
+@media (prefers-reduced-motion) {
+  .c11 {
+    -webkit-animation: none;
+    animation: none;
+  }
+}
+
 @media (forced-colors:active) {
   .c6 {
     background-color: canvastext;
@@ -2406,6 +2413,13 @@ exports[`ChoiceFieldset renders with an error validation message 1`] = `
 
 .c3 > li + li {
   margin-top: 8px;
+}
+
+@media (prefers-reduced-motion) {
+  .c11 {
+    -webkit-animation: none;
+    animation: none;
+  }
 }
 
 @media (forced-colors:active) {
