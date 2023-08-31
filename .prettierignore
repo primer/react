@@ -1,6 +1,7 @@
 .changeset
 dist
 lib
+!codemods/lib/**
 lib-esm
 storybook-static
 docs/.cache
