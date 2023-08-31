@@ -103,7 +103,7 @@ export function acceptsASubsetOfDomProps() {
       <Token text="Token test" title="token-title" />
       <Token text="Token test" tabIndex={0} />
       <Token text="Token test" role="button" />
-      <Token text="Token test" aria-label="token-aria-label" />
+      <Token text="Token test" aria-label="Test label" />
     </>
   )
 }

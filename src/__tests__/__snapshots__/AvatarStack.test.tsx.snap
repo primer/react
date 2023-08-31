@@ -1,32 +1,38 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Avatar renders consistently 1`] = `
-.c1 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  width: 38px;
-  position: absolute;
-}
-
 .c0 {
+  --avatar-border-width: 1px;
+  --avatar-two-margin: calc(var(--avatar-stack-size) * -0.55);
+  --avatar-three-margin: calc(var(--avatar-stack-size) * -0.85);
+  --avatar-stack-three-plus-min-width: calc( var(--avatar-stack-size) + calc( calc(var(--avatar-stack-size) + var(--avatar-two-margin)) + calc(var(--avatar-stack-size) + var(--avatar-three-margin)) * 2 ) + calc(var(--avatar-border-width) * 3) );
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
   position: relative;
-  height: 20px;
+  height: var(--avatar-stack-size);
   min-width: 38px;
+  --avatar-stack-size: 20px;
+}
+
+.c0 .pc-AvatarStackBody {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  position: absolute;
+  width: var(--avatar-stack-three-plus-min-width);
 }
 
 .c0 .pc-AvatarItem {
+  --avatar-size: var(--avatar-stack-size);
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
-  height: 20px;
-  width: 20px;
-  box-shadow: 0 0 0 1px #ffffff;
+  height: var(--avatar-stack-size);
+  width: var(--avatar-stack-size);
+  box-shadow: 0 0 0 var(--avatar-border-width) #ffffff;
   position: relative;
   overflow: hidden;
   -webkit-transition: margin 0.2s ease-in-out,opacity 0.2s ease-in-out,visibility 0.2s ease-in-out,box-shadow 0.1s ease-in-out;
@@ -39,12 +45,12 @@ exports[`Avatar renders consistently 1`] = `
 }
 
 .c0 .pc-AvatarItem:nth-child(n + 2) {
-  margin-left: -11px;
+  margin-left: var(--avatar-two-margin);
   z-index: 9;
 }
 
 .c0 .pc-AvatarItem:nth-child(n + 3) {
-  margin-left: -17px;
+  margin-left: var(--avatar-three-margin);
   opacity: 55%;
   z-index: 8;
 }
@@ -65,11 +71,11 @@ exports[`Avatar renders consistently 1`] = `
 }
 
 .c0.pc-AvatarStack--two {
-  min-width: 30px;
+  min-width: calc( var(--avatar-stack-size) + calc(var(--avatar-stack-size) + var(--avatar-two-margin)) + var(--avatar-border-width) );
 }
 
 .c0.pc-AvatarStack--three-plus {
-  min-width: 38px;
+  min-width: var(--avatar-stack-three-plus-min-width);
 }
 
 .c0.pc-AvatarStack--right {
@@ -88,11 +94,11 @@ exports[`Avatar renders consistently 1`] = `
 }
 
 .c0.pc-AvatarStack--right .pc-AvatarItem:nth-child(n + 2) {
-  margin-right: -11px;
+  margin-right: var(--avatar-two-margin);
 }
 
 .c0.pc-AvatarStack--right .pc-AvatarItem:nth-child(n + 3) {
-  margin-right: -17px;
+  margin-right: var(--avatar-three-margin);
 }
 
 .c0.pc-AvatarStack--right .pc-AvatarStackBody {
@@ -110,18 +116,18 @@ exports[`Avatar renders consistently 1`] = `
   margin-right: 0 !important;
 }
 
-.c0 .pc-AvatarStackBody:hover {
+.c0 .pc-AvatarStackBody:not(.pc-AvatarStack--disableExpand):hover {
   width: auto;
 }
 
-.c0 .pc-AvatarStackBody:hover .pc-AvatarItem {
+.c0 .pc-AvatarStackBody:not(.pc-AvatarStack--disableExpand):hover .pc-AvatarItem {
   margin-left: 4px;
   opacity: 100%;
   visibility: visible;
   box-shadow: 0 0 0 4px #ffffff;
 }
 
-.c0 .pc-AvatarStackBody:hover .pc-AvatarItem:first-child {
+.c0 .pc-AvatarStackBody:not(.pc-AvatarStack--disableExpand):hover .pc-AvatarItem:first-child {
   margin-left: 0;
 }
 
@@ -129,10 +135,9 @@ exports[`Avatar renders consistently 1`] = `
   className="c0 pc-AvatarStack--three-plus"
 >
   <div
-    className="c1 pc-AvatarStackBody"
-    display="flex"
-    width="38px"
+    className="pc-AvatarStackBody"
   >
+     
     <img
       alt=""
       className="pc-AvatarItem"
@@ -158,32 +163,38 @@ exports[`Avatar renders consistently 1`] = `
 `;
 
 exports[`Avatar respects alignRight props 1`] = `
-.c1 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  width: 38px;
-  position: absolute;
-}
-
 .c0 {
+  --avatar-border-width: 1px;
+  --avatar-two-margin: calc(var(--avatar-stack-size) * -0.55);
+  --avatar-three-margin: calc(var(--avatar-stack-size) * -0.85);
+  --avatar-stack-three-plus-min-width: calc( var(--avatar-stack-size) + calc( calc(var(--avatar-stack-size) + var(--avatar-two-margin)) + calc(var(--avatar-stack-size) + var(--avatar-three-margin)) * 2 ) + calc(var(--avatar-border-width) * 3) );
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
   position: relative;
-  height: 20px;
+  height: var(--avatar-stack-size);
   min-width: 38px;
+  --avatar-stack-size: 20px;
+}
+
+.c0 .pc-AvatarStackBody {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  position: absolute;
+  width: var(--avatar-stack-three-plus-min-width);
 }
 
 .c0 .pc-AvatarItem {
+  --avatar-size: var(--avatar-stack-size);
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
-  height: 20px;
-  width: 20px;
-  box-shadow: 0 0 0 1px #ffffff;
+  height: var(--avatar-stack-size);
+  width: var(--avatar-stack-size);
+  box-shadow: 0 0 0 var(--avatar-border-width) #ffffff;
   position: relative;
   overflow: hidden;
   -webkit-transition: margin 0.2s ease-in-out,opacity 0.2s ease-in-out,visibility 0.2s ease-in-out,box-shadow 0.1s ease-in-out;
@@ -196,12 +207,12 @@ exports[`Avatar respects alignRight props 1`] = `
 }
 
 .c0 .pc-AvatarItem:nth-child(n + 2) {
-  margin-left: -11px;
+  margin-left: var(--avatar-two-margin);
   z-index: 9;
 }
 
 .c0 .pc-AvatarItem:nth-child(n + 3) {
-  margin-left: -17px;
+  margin-left: var(--avatar-three-margin);
   opacity: 55%;
   z-index: 8;
 }
@@ -222,11 +233,11 @@ exports[`Avatar respects alignRight props 1`] = `
 }
 
 .c0.pc-AvatarStack--two {
-  min-width: 30px;
+  min-width: calc( var(--avatar-stack-size) + calc(var(--avatar-stack-size) + var(--avatar-two-margin)) + var(--avatar-border-width) );
 }
 
 .c0.pc-AvatarStack--three-plus {
-  min-width: 38px;
+  min-width: var(--avatar-stack-three-plus-min-width);
 }
 
 .c0.pc-AvatarStack--right {
@@ -245,11 +256,11 @@ exports[`Avatar respects alignRight props 1`] = `
 }
 
 .c0.pc-AvatarStack--right .pc-AvatarItem:nth-child(n + 2) {
-  margin-right: -11px;
+  margin-right: var(--avatar-two-margin);
 }
 
 .c0.pc-AvatarStack--right .pc-AvatarItem:nth-child(n + 3) {
-  margin-right: -17px;
+  margin-right: var(--avatar-three-margin);
 }
 
 .c0.pc-AvatarStack--right .pc-AvatarStackBody {
@@ -267,18 +278,18 @@ exports[`Avatar respects alignRight props 1`] = `
   margin-right: 0 !important;
 }
 
-.c0 .pc-AvatarStackBody:hover {
+.c0 .pc-AvatarStackBody:not(.pc-AvatarStack--disableExpand):hover {
   width: auto;
 }
 
-.c0 .pc-AvatarStackBody:hover .pc-AvatarItem {
+.c0 .pc-AvatarStackBody:not(.pc-AvatarStack--disableExpand):hover .pc-AvatarItem {
   margin-left: 4px;
   opacity: 100%;
   visibility: visible;
   box-shadow: 0 0 0 4px #ffffff;
 }
 
-.c0 .pc-AvatarStackBody:hover .pc-AvatarItem:first-child {
+.c0 .pc-AvatarStackBody:not(.pc-AvatarStack--disableExpand):hover .pc-AvatarItem:first-child {
   margin-left: 0;
 }
 
@@ -286,10 +297,9 @@ exports[`Avatar respects alignRight props 1`] = `
   className="c0 pc-AvatarStack--three-plus pc-AvatarStack--right"
 >
   <div
-    className="c1 pc-AvatarStackBody"
-    display="flex"
-    width="38px"
+    className="pc-AvatarStackBody"
   >
+     
     <img
       alt=""
       className="pc-AvatarItem"

@@ -80,7 +80,7 @@ interface AnchoredOverlayBaseProps extends Pick<OverlayProps, 'height' | 'width'
 
 export type AnchoredOverlayProps = AnchoredOverlayBaseProps &
   (AnchoredOverlayPropsWithAnchor | AnchoredOverlayPropsWithoutAnchor) &
-  Partial<Pick<PositionSettings, 'align' | 'side'>>
+  Partial<Pick<PositionSettings, 'align' | 'side' | 'anchorOffset' | 'alignmentOffset'>>
 
 /**
  * An `AnchoredOverlay` provides an anchor that will open a floating overlay positioned relative to the anchor.
@@ -101,6 +101,8 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
   focusZoneSettings,
   side = 'outside-bottom',
   align = 'start',
+  alignmentOffset,
+  anchorOffset,
 }) => {
   const anchorRef = useProvidedRefOrCreate(externalAnchorRef)
   const [overlayRef, updateOverlayRef] = useRenderForcingRef<HTMLDivElement>()
@@ -140,6 +142,8 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
       floatingElementRef: overlayRef,
       side,
       align,
+      alignmentOffset,
+      anchorOffset,
     },
     [overlayRef.current],
   )

@@ -6,7 +6,7 @@ import {get} from '../constants'
 import {useOnEscapePress, useProvidedRefOrCreate} from '../hooks'
 import {useFocusTrap} from '../hooks/useFocusTrap'
 import sx, {SxProp} from '../sx'
-import StyledOcticon from '../StyledOcticon'
+import Octicon from '../Octicon'
 import {XIcon} from '@primer/octicons-react'
 import {useFocusZone} from '../hooks/useFocusZone'
 import {FocusKeys} from '@primer/behaviors'
@@ -151,7 +151,7 @@ const Backdrop = styled('div')`
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: ${get('colors.primer.canvas.backdrop')};
   animation: dialog-backdrop-appear ${ANIMATION_DURATION} ${get('animation.easeOutCubic')};
 
   @keyframes dialog-backdrop-appear {
@@ -287,6 +287,22 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
     [onClose],
   )
 
+  React.useEffect(() => {
+    const bodyOverflowStyle = document.body.style.overflow || ''
+    // If the body is already set to overflow: hidden, it likely means
+    // that there is already a modal open. In that case, we should bail
+    // so we don't re-enable scroll after the second dialog is closed.
+    if (bodyOverflowStyle === 'hidden') {
+      return
+    }
+
+    document.body.style.overflow = 'hidden'
+
+    return () => {
+      document.body.style.overflow = bodyOverflowStyle
+    }
+  }, [])
+
   const header = (renderHeader ?? DefaultHeader)(defaultedProps)
   const body = (renderBody ?? DefaultBody)(defaultedProps)
   const footer = (renderFooter ?? DefaultFooter)(defaultedProps)
@@ -417,7 +433,7 @@ const DialogCloseButton = styled(Button)`
 const CloseButton: React.FC<React.PropsWithChildren<{onClose: () => void}>> = ({onClose}) => {
   return (
     <DialogCloseButton aria-label="Close" onClick={onClose}>
-      <StyledOcticon icon={XIcon} />
+      <Octicon icon={XIcon} />
     </DialogCloseButton>
   )
 }

@@ -42,7 +42,6 @@ function SingleSelectListStory(): JSX.Element {
           key={index}
           role="option"
           selected={index === selectedIndex}
-          aria-selected={index === selectedIndex}
           onSelect={() => setSelectedIndex(index)}
           disabled={project.disabled}
         >
@@ -135,7 +134,7 @@ describe('ActionList', () => {
           </ActionList.Item>
         </ActionList>,
       )
-    }).toThrow('For Item to be selected, ActionList needs to have a selectionVariant defined')
+    }).toThrow('For Item to be selected, ActionList or ActionList.Group needs to have a selectionVariant defined')
 
     mockError.mockRestore()
   })

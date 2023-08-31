@@ -29,28 +29,28 @@ defineInlineTest(
   removeSystemProps,
   {},
   `
-import {Button, StyledOcticon} from '@primer/components'
+import {Button, Octicon} from '@primer/components'
 import {CheckIcon, ClippyIcon} from '@primer/octicons-react'
 
 const ClipboardCopy = ({value}) => <Button px={2}>
   {copied ? (
-    <StyledOcticon icon={CheckIcon} color="green.5" />
+    <Octicon icon={CheckIcon} color="green.5" />
   ) : (
-    <StyledOcticon icon={ClippyIcon} color="gray.5" />
+    <Octicon icon={ClippyIcon} color="gray.5" />
   )}
 </Button>
 
 `.trim(),
   `
-import {Button, StyledOcticon} from '@primer/components'
+import {Button, Octicon} from '@primer/components'
 import {CheckIcon, ClippyIcon} from '@primer/octicons-react'
 
 const ClipboardCopy = ({value}) => (
   <Button sx={{px: 2}}>
     {copied ? (
-      <StyledOcticon icon={CheckIcon} sx={{color: 'green.5'}} />
+      <Octicon icon={CheckIcon} sx={{color: 'green.5'}} />
     ) : (
-      <StyledOcticon icon={ClippyIcon} sx={{color: 'gray.5'}} />
+      <Octicon icon={ClippyIcon} sx={{color: 'gray.5'}} />
     )}
   </Button>
 )`.trim(),

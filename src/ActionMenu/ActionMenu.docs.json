@@ -2,7 +2,7 @@
   "id": "action_menu",
   "name": "ActionMenu",
   "status": "beta",
-  "a11yReviewed": true,
+  "a11yReviewed": false,
   "stories": [],
   "props": [
     {

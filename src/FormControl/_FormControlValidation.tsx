@@ -1,5 +1,5 @@
 import React from 'react'
-import InputValidation from '../_InputValidation'
+import InputValidation from '../internal/components/InputValidation'
 import {SxProp} from '../sx'
 import {FormValidationStatus} from '../utils/types/FormValidationStatus'
 import {FormControlContext} from './FormControl'

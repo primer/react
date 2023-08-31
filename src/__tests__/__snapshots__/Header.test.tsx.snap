@@ -73,7 +73,7 @@ exports[`Header renders consistently 1`] = `
   flex-wrap: nowrap;
 }
 
-<div
+<header
   className="c0"
 />
 `;

@@ -1,4 +1,4 @@
-import {DiffIcon} from '@primer/octicons-react'
+import {DiffIcon, PlusIcon} from '@primer/octicons-react'
 import React, {Meta} from '@storybook/react'
 import {useRef, useState} from 'react'
 import BaseStyles from '../../BaseStyles'
@@ -117,6 +117,10 @@ const meta: Meta = {
       name: 'onDiffClick',
       action: 'diff-clicked',
     },
+    onFooterClick: {
+      name: 'onFooterClick',
+      action: 'footer-clicked',
+    },
   },
 }
 
@@ -135,6 +139,7 @@ type ArgProps = {
   pasteUrlsAsPlainText: boolean
   onSubmit: () => void
   onDiffClick: () => void
+  onFooterClick: () => void
 }
 
 const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))
@@ -245,7 +250,7 @@ export const Default = ({
   )
 }
 
-export const CustomButtons = ({
+export const CustomToolbar = ({
   disabled,
   fullHeight,
   monospace,
@@ -288,6 +293,113 @@ export const CustomButtons = ({
           <MarkdownEditor.ToolbarButton icon={DiffIcon} onClick={onDiffClick} aria-label="Custom Button" />
           <MarkdownEditor.DefaultToolbarButtons />
         </MarkdownEditor.Toolbar>
+      </MarkdownEditor>
+      <p>Note: for demo purposes, files starting with &quot;A&quot; will be rejected.</p>
+    </>
+  )
+}
+
+export const CustomFooter = ({
+  disabled,
+  fullHeight,
+  monospace,
+  minHeightLines,
+  maxHeightLines,
+  hideLabel,
+  required,
+  fileUploadsEnabled,
+  onSubmit,
+  onFooterClick,
+  savedRepliesEnabled,
+  pasteUrlsAsPlainText,
+}: ArgProps) => {
+  const [value, setValue] = useState('')
+
+  return (
+    <>
+      <MarkdownEditor
+        value={value}
+        onChange={setValue}
+        onPrimaryAction={onSubmit}
+        disabled={disabled}
+        fullHeight={fullHeight}
+        monospace={monospace}
+        minHeightLines={minHeightLines}
+        maxHeightLines={maxHeightLines}
+        placeholder="Enter some Markdown..."
+        onRenderPreview={renderPreview}
+        onUploadFile={fileUploadsEnabled ? onUploadFile : undefined}
+        emojiSuggestions={emojis}
+        mentionSuggestions={mentionables}
+        referenceSuggestions={references}
+        required={required}
+        savedReplies={savedRepliesEnabled ? savedReplies : undefined}
+        pasteUrlsAsPlainText={pasteUrlsAsPlainText}
+      >
+        <MarkdownEditor.Label visuallyHidden={hideLabel}>Markdown Editor Example - Custom Footer</MarkdownEditor.Label>
+
+        <MarkdownEditor.Footer>
+          <MarkdownEditor.FooterButton
+            variant="invisible"
+            onClick={onFooterClick}
+            leadingIcon={PlusIcon}
+            sx={{borderRadius: '14px', color: 'fg.muted', borderColor: 'border.muted'}}
+          >
+            Add Button
+          </MarkdownEditor.FooterButton>
+
+          <MarkdownEditor.Actions>
+            <MarkdownEditor.ActionButton variant="danger" onClick={() => setValue('')}>
+              Reset
+            </MarkdownEditor.ActionButton>
+            <MarkdownEditor.ActionButton variant="primary" onClick={onSubmit}>
+              Submit
+            </MarkdownEditor.ActionButton>
+          </MarkdownEditor.Actions>
+        </MarkdownEditor.Footer>
+      </MarkdownEditor>
+      <p>Note: for demo purposes, files starting with &quot;A&quot; will be rejected.</p>
+    </>
+  )
+}
+
+export const CustomFooterActions = ({
+  disabled,
+  fullHeight,
+  monospace,
+  minHeightLines,
+  maxHeightLines,
+  hideLabel,
+  required,
+  fileUploadsEnabled,
+  onSubmit,
+  savedRepliesEnabled,
+  pasteUrlsAsPlainText,
+}: ArgProps) => {
+  const [value, setValue] = useState('')
+
+  return (
+    <>
+      <MarkdownEditor
+        value={value}
+        onChange={setValue}
+        onPrimaryAction={onSubmit}
+        disabled={disabled}
+        fullHeight={fullHeight}
+        monospace={monospace}
+        minHeightLines={minHeightLines}
+        maxHeightLines={maxHeightLines}
+        placeholder="Enter some Markdown..."
+        onRenderPreview={renderPreview}
+        onUploadFile={fileUploadsEnabled ? onUploadFile : undefined}
+        emojiSuggestions={emojis}
+        mentionSuggestions={mentionables}
+        referenceSuggestions={references}
+        required={required}
+        savedReplies={savedRepliesEnabled ? savedReplies : undefined}
+        pasteUrlsAsPlainText={pasteUrlsAsPlainText}
+      >
+        <MarkdownEditor.Label visuallyHidden={hideLabel}>Markdown Editor Example</MarkdownEditor.Label>
 
         <MarkdownEditor.Actions>
           <MarkdownEditor.ActionButton variant="danger" onClick={() => setValue('')}>

@@ -128,8 +128,8 @@
       url: /SplitPageLayout
     - title: StateLabel
       url: /StateLabel
-    - title: StyledOcticon
-      url: /StyledOcticon
+    - title: Octicon
+      url: /Octicon
     - title: SubNav
       url: /SubNav
     - title: ToggleSwitch

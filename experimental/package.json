@@ -1,0 +1,8 @@
+{
+  "_comment1": "this is required only for typescript. once this is fixed https://github.com/microsoft/TypeScript/issues/33079 we can remove this hack",
+  "name": "@primer/react/experimental",
+  "types": "../lib-esm/experimental/index.d.ts",
+  "main": "../lib-esm/experimental/index.js",
+  "type": "module",
+  "sideEffects": false
+}

@@ -1,4 +1,4 @@
-import theme from '../theme-preval'
+import theme from '../theme'
 
 // TODO: Update the hard-coded values when the primitives are ready
 export const PrimerBreakpoints = {

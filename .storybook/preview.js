@@ -2,6 +2,12 @@ import {addons} from '@storybook/addons'
 import {withThemeProvider, withSurroundingElements, toolbarTypes} from '../src/utils/story-helpers'
 import {PrimerBreakpoints} from '../src/utils/layout'
 
+// primitives v8
+import './primitives-v8.css'
+// primitives v7 for fallback, commented out by default
+// uncomment it for testing
+// import './primitives-v7.css'
+
 export const globalTypes = toolbarTypes
 export const decorators = [withThemeProvider, withSurroundingElements]
 
@@ -15,12 +21,6 @@ Object.entries(PrimerBreakpoints).forEach(([viewport, value]) => {
       height: '100%',
     },
   }
-})
-
-addons.setConfig({
-  // Some stories may set up keyboard event handlers, which can be interfered
-  // with by these keyboard shortcuts.
-  enableShortcuts: false,
 })
 
 export const parameters = {
@@ -50,8 +50,9 @@ export const parameters = {
         ],
         'Behaviors',
         'Hooks',
-        'Private components',
-        'Deprecated components',
+        'Deprecated',
+        'Drafts',
+        'Private',
         '*',
       ]
 

@@ -1,1 +1,2 @@
-export {default, AvatarStackProps} from './AvatarStack'
+export {default} from './AvatarStack'
+export type {AvatarStackProps} from './AvatarStack'

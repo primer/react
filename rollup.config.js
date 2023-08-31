@@ -5,12 +5,16 @@ import replace from '@rollup/plugin-replace'
 import terser from '@rollup/plugin-terser'
 import glob from 'fast-glob'
 import {visualizer} from 'rollup-plugin-visualizer'
+import postcss from 'rollup-plugin-postcss'
 import packageJson from './package.json'
 
 const input = new Set([
   // "exports"
   // "."
   'src/index.ts',
+
+  // "./experimental"
+  'src/experimental/index.ts',
 
   // "./drafts"
   'src/drafts/index.ts',
@@ -70,8 +74,6 @@ function createPackageRegex(name) {
 const baseConfig = {
   input: Array.from(input),
   plugins: [
-    // Note: it's important that the babel-plugin-preval is loaded first
-    // to work as-intended
     babel({
       extensions,
       exclude: /node_modules/,
@@ -89,7 +91,6 @@ const baseConfig = {
       ],
       plugins: [
         'macros',
-        'preval',
         'add-react-displayname',
         'dev-expression',
         'babel-plugin-styled-components',
@@ -105,13 +106,28 @@ const baseConfig = {
         ],
       ],
     }),
-    commonjs({
-      extensions,
-    }),
     resolve({
       extensions,
     }),
+    commonjs({
+      extensions,
+    }),
+    postcss({
+      extract: 'components.css',
+      autoModules: false,
+      modules: {generateScopedName: 'prc_[local]_[hash:base64:5]'},
+      // plugins are defined in postcss.config.js
+    }),
   ],
+  onwarn(warning, defaultHandler) {
+    // Dependencies or modules may use "use client" as an indicator for React
+    // Server Components that this module should only be loaded on the client.
+    if (warning.code === 'MODULE_LEVEL_DIRECTIVE' && warning.message.includes('use client')) {
+      return
+    }
+
+    defaultHandler(warning)
+  },
 }
 
 export default [

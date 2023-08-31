@@ -42,7 +42,7 @@ const versions = new Map([
         },
         {
           name: '@types/react-dom',
-          version: '18.0.9',
+          version: '18.2.6',
         },
         {
           name: 'react',

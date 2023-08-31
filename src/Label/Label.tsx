@@ -1,7 +1,9 @@
+import React from 'react'
 import styled from 'styled-components'
 import {variant} from 'styled-system'
 import {get} from '../constants'
 import sx, {BetterSystemStyleObject, SxProp} from '../sx'
+import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 
 export type LabelProps = {
   /** The color of the label */
@@ -76,7 +78,7 @@ const sizes: Record<LabelSizeKeys, BetterSystemStyleObject> = {
   },
 }
 
-const Label = styled.span<LabelProps>`
+const StyledLabel = styled.span<LabelProps>`
   align-items: center;
   background-color: transparent;
   border-width: 1px;
@@ -92,11 +94,8 @@ const Label = styled.span<LabelProps>`
   ${sx};
 `
 
-// TODO: Remove defaultProps to be compatible with the next major version of React
-// Reference: https://github.com/primer/react/issues/2758
-Label.defaultProps = {
-  size: 'small',
-  variant: 'default',
-}
+const Label = React.forwardRef(function Label({as, size = 'small', variant = 'default', ...rest}, ref) {
+  return <StyledLabel as={as} size={size} variant={variant} ref={ref} {...rest} />
+}) as PolymorphicForwardRefComponent<'span', LabelProps>
 
 export default Label

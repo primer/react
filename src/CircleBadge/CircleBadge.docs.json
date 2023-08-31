@@ -44,12 +44,12 @@
         {
           "name": "as",
           "type": "React.ElementType",
-          "defaultValue": "StyledOcticon"
+          "defaultValue": "Octicon"
         }
       ],
       "passthrough": {
-        "element": "StyledOcticon",
-        "url": "/StyledOcticon"
+        "element": "Octicon",
+        "url": "/Octicon"
       }
     }
   ]

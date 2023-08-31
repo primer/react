@@ -22,7 +22,7 @@ import {
 } from '@primer/octicons-react'
 import {Meta} from '@storybook/react'
 import {UnderlineNav} from './index'
-import {Avatar, StyledOcticon, Button, Box, Heading, Link, Text, StateLabel, BranchName} from '..'
+import {Avatar, Octicon, Button, Box, Heading, Link, Text, StateLabel, BranchName} from '..'
 
 export default {
   title: 'Drafts/Components/UnderlineNav/Examples',
@@ -131,7 +131,7 @@ export const ProfilePage = () => {
             <Button block>Edit Profile</Button>
 
             <Box sx={{display: 'flex', flexDirection: 'row', alignItems: 'center', marginTop: 3}}>
-              <StyledOcticon icon={PeopleIcon} size={16} sx={{marginRight: 1}} />
+              <Octicon icon={PeopleIcon} size={16} sx={{marginRight: 1}} />
               <Link href="https://github.com" muted sx={{marginRight: 2}}>
                 47 Followers
               </Link>

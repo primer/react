@@ -2,7 +2,10 @@
 
 ## Status
 
-Accepted
+| Stage    | Status |
+| -------- | ------ |
+| Approved | ✅     |
+| Adopted  | ✅     |
 
 ## Context
 
@@ -84,7 +87,7 @@ Primer React's [recent addition of the Relative Time component](https://github.c
 
 ```typescript
 const root = (typeof globalThis !== 'undefined' ? globalThis : window) as typeof window
-const HTMLElement = root.HTMLElement || (null as unknown as typeof window['HTMLElement'])
+const HTMLElement = root.HTMLElement || (null as unknown as (typeof window)['HTMLElement'])
 ```
 
 These lines could also be added to the global context, to avoid adding it to each element.

@@ -4,7 +4,7 @@ import {MarkGithubIcon} from '@primer/octicons-react'
 
 import Header from './Header'
 import Avatar from '../Avatar'
-import StyledOcticon from '../StyledOcticon'
+import Octicon from '../Octicon'
 
 export default {
   title: 'Components/Header',
@@ -15,7 +15,7 @@ export const Default = () => (
   <Header>
     <Header.Item>
       <Header.Link href="#" sx={{fontSize: 2}}>
-        <StyledOcticon icon={MarkGithubIcon} size={32} sx={{mr: 2}} />
+        <Octicon icon={MarkGithubIcon} size={32} sx={{mr: 2}} />
         <span>GitHub</span>
       </Header.Link>
     </Header.Item>
@@ -30,7 +30,7 @@ export const Playground: ComponentStory<typeof Avatar> = args => (
   <Header {...args}>
     <Header.Item>
       <Header.Link href="#" sx={{fontSize: 2}}>
-        <StyledOcticon icon={MarkGithubIcon} size={32} sx={{mr: 2}} />
+        <Octicon icon={MarkGithubIcon} size={32} sx={{mr: 2}} />
         <span>GitHub</span>
       </Header.Link>
     </Header.Item>

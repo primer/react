@@ -4,14 +4,14 @@ import {ThemeProvider as SCThemeProvider} from 'styled-components'
 import defaultTheme from './theme'
 import deepmerge from 'deepmerge'
 
-const defaultColorMode = 'day'
+export const defaultColorMode = 'day'
 const defaultDayScheme = 'light'
 const defaultNightScheme = 'dark'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type Theme = {[key: string]: any}
 type ColorMode = 'day' | 'night' | 'light' | 'dark'
-type ColorModeWithAuto = ColorMode | 'auto'
+export type ColorModeWithAuto = ColorMode | 'auto'
 
 export type ThemeProviderProps = {
   theme?: Theme

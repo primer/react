@@ -2,7 +2,7 @@ import {CheckIcon} from '@primer/octicons-react'
 import React, {forwardRef, useContext, useRef} from 'react'
 import styled, {css} from 'styled-components'
 import {get} from '../../constants'
-import StyledOcticon from '../../StyledOcticon'
+import Octicon from '../../Octicon'
 import sx, {SxProp} from '../../sx'
 import {ComponentProps} from '../../utils/types'
 import {MenuContext} from './SelectMenuContext'
@@ -47,7 +47,9 @@ export const listItemStyles = css`
 
   .SelectMenu-selected-icon {
     visibility: hidden;
-    transition: transform 0.12s cubic-bezier(0.5, 0.1, 1, 0.5), visibility 0s 0.12s linear;
+    transition:
+      transform 0.12s cubic-bezier(0.5, 0.1, 1, 0.5),
+      visibility 0s 0.12s linear;
     transform: scale(0);
   }
 
@@ -58,7 +60,9 @@ export const listItemStyles = css`
 
     .SelectMenu-selected-icon {
       visibility: visible;
-      transition: transform 0.12s cubic-bezier(0, 0, 0.2, 1), visibility 0s linear;
+      transition:
+        transform 0.12s cubic-bezier(0, 0, 0.2, 1),
+        visibility 0s linear;
       transform: scale(1);
     }
   }
@@ -119,7 +123,7 @@ const SelectMenuItem = forwardRef<HTMLAnchorElement, SelectMenuItemInteralProps>
     }
     return (
       <StyledItem ref={itemRef} {...rest} theme={theme} onClick={handleClick} aria-checked={selected}>
-        <StyledOcticon theme={theme} className="SelectMenu-icon SelectMenu-selected-icon" icon={CheckIcon} />
+        <Octicon theme={theme} className="SelectMenu-icon SelectMenu-selected-icon" icon={CheckIcon} />
         {children}
       </StyledItem>
     )

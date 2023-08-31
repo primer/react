@@ -15,6 +15,7 @@ type StyledOverlayProps = {
   width?: keyof typeof widthMap
   height?: keyof typeof heightMap
   maxHeight?: keyof Omit<typeof heightMap, 'auto' | 'initial'>
+  maxWidth?: keyof Omit<typeof widthMap, 'auto'>
   visibility?: 'visible' | 'hidden'
   anchorSide?: AnchorSide
 } & SxProp
@@ -58,7 +59,7 @@ const StyledOverlay = styled.div<StyledOverlayProps>`
   box-shadow: ${get('shadows.overlay.shadow')};
   position: absolute;
   min-width: 192px;
-  max-width: 640px;
+  max-width: ${props => props.maxWidth && widthMap[props.maxWidth]};
   height: ${props => heightMap[props.height || 'auto']};
   max-height: ${props => props.maxHeight && heightMap[props.maxHeight]};
   width: ${props => widthMap[props.width || 'auto']};

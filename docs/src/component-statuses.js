@@ -1,5 +1,5 @@
 import componentMetadata from '@primer/component-metadata'
-import {Link, Label, StyledOcticon} from '@primer/react'
+import {Link, Label, Octicon} from '@primer/react'
 import {AccessibilityInsetIcon} from '@primer/octicons-react'
 import StatusLabel from '@primer/gatsby-theme-doctocat/src/components/status-label'
 import Table from '@primer/gatsby-theme-doctocat/src/components/table'
@@ -79,7 +79,7 @@ export function ComponentStatuses() {
                         borderColor: 'transparent',
                       }}
                     >
-                      <StyledOcticon icon={AccessibilityInsetIcon} sx={{fill: 'done.fg'}} />
+                      <Octicon icon={AccessibilityInsetIcon} sx={{fill: 'done.fg'}} />
                       Reviewed
                     </Label>
                   ) : (

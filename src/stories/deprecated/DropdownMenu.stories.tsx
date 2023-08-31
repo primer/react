@@ -8,7 +8,7 @@ import {DropdownMenu, DropdownButton} from '../../deprecated'
 import TextInput from '../../TextInput'
 
 const meta: Meta = {
-  title: 'Deprecated components/DropdownMenu',
+  title: 'Deprecated/Components/DropdownMenu',
   component: DropdownMenu,
   decorators: [
     (Story: React.ComponentType<React.PropsWithChildren<unknown>>): JSX.Element => {

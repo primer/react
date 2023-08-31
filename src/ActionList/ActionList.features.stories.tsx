@@ -3,6 +3,7 @@ import {Meta} from '@storybook/react'
 import {ActionList} from '.'
 import {Item} from './Item'
 import {LinkItem} from './LinkItem'
+import {Group} from './Group'
 import {Divider} from './Divider'
 import {Description} from './Description'
 import Avatar from '../Avatar'
@@ -27,7 +28,7 @@ import {
 export default {
   title: 'Components/ActionList/Features',
   component: ActionList,
-  subcomponents: {Item, LinkItem, Divider, Description},
+  subcomponents: {Item, LinkItem, Group, Divider, Description},
 } as Meta<typeof ActionList>
 
 export const SimpleList = () => (
@@ -175,16 +176,23 @@ export const SingleSelect = () => {
 }
 
 export const MultiSelect = () => {
-  const [selectedIndex, setSelectedIndex] = React.useState(0)
+  const [selectedIndices, setSelectedIndices] = React.useState<number[]>([0])
+  const handleSelect = (index: number) => {
+    if (selectedIndices.includes(index)) {
+      setSelectedIndices(selectedIndices.filter(i => i !== index))
+    } else {
+      setSelectedIndices([...selectedIndices, index])
+    }
+  }
   return (
     <ActionList selectionVariant="multiple" showDividers role="menu" aria-label="Project">
       {projects.map((project, index) => (
         <ActionList.Item
           key={index}
-          role="menuitemradio"
-          selected={index === selectedIndex}
-          aria-checked={index === selectedIndex}
-          onSelect={() => setSelectedIndex(index)}
+          role="menuitemcheckbox"
+          selected={selectedIndices.includes(index)}
+          aria-checked={selectedIndices.includes(index)}
+          onSelect={() => handleSelect(index)}
         >
           <ActionList.LeadingVisual>
             <TableIcon />
@@ -196,6 +204,28 @@ export const MultiSelect = () => {
     </ActionList>
   )
 }
+
+export const DisabledSelectedMultiselect = () => (
+  <ActionList selectionVariant="multiple" role="menu" aria-label="Project">
+    <ActionList.Item role="menuitemcheckbox" selected aria-checked disabled>
+      Selected disabled item
+    </ActionList.Item>
+    <ActionList.Item role="menuitemcheckbox" selected={false} aria-checked={false}>
+      Item 2
+    </ActionList.Item>
+  </ActionList>
+)
+
+export const DisabledMultiselect = () => (
+  <ActionList selectionVariant="multiple" role="menu" aria-label="Project">
+    <ActionList.Item role="menuitemcheckbox" selected={false} aria-checked={false} disabled>
+      Disabled item
+    </ActionList.Item>
+    <ActionList.Item role="menuitemcheckbox" selected={false} aria-checked={false}>
+      Item 2
+    </ActionList.Item>
+  </ActionList>
+)
 
 export const DisabledItem = () => {
   const [selectedIndex, setSelectedIndex] = React.useState(0)
@@ -418,7 +448,7 @@ export const InsideOverlay = () => {
 export const GroupWithSubtleTitle = () => {
   const [assignees, setAssignees] = React.useState(users.slice(0, 1))
 
-  const toggleAssignee = (assignee: typeof users[number]) => {
+  const toggleAssignee = (assignee: (typeof users)[number]) => {
     const assigneeIndex = assignees.findIndex(a => a.login === assignee.login)
 
     if (assigneeIndex === -1) setAssignees([...assignees, assignee])
@@ -427,22 +457,23 @@ export const GroupWithSubtleTitle = () => {
 
   return (
     <ActionList selectionVariant="multiple" role="menu" showDividers aria-label="Reviewers">
-      <ActionList.Heading title="Everyone" />
-      {users.slice(2).map(user => (
-        <ActionList.Item
-          role="menuitemcheckbox"
-          key={user.login}
-          selected={Boolean(assignees.find(assignee => assignee.login === user.login))}
-          aria-checked={Boolean(assignees.find(assignee => assignee.login === user.login))}
-          onSelect={() => toggleAssignee(user)}
-        >
-          <ActionList.LeadingVisual>
-            <Avatar src={`https://github.com/${user.login}.png`} />
-          </ActionList.LeadingVisual>
-          {user.login}
-          <ActionList.Description>{user.name}</ActionList.Description>
-        </ActionList.Item>
-      ))}
+      <ActionList.Group title="Everyone">
+        {users.slice(2).map(user => (
+          <ActionList.Item
+            role="menuitemcheckbox"
+            key={user.login}
+            selected={Boolean(assignees.find(assignee => assignee.login === user.login))}
+            aria-checked={Boolean(assignees.find(assignee => assignee.login === user.login))}
+            onSelect={() => toggleAssignee(user)}
+          >
+            <ActionList.LeadingVisual>
+              <Avatar src={`https://github.com/${user.login}.png`} />
+            </ActionList.LeadingVisual>
+            {user.login}
+            <ActionList.Description>{user.name}</ActionList.Description>
+          </ActionList.Item>
+        ))}
+      </ActionList.Group>
     </ActionList>
   )
 }
@@ -450,7 +481,7 @@ export const GroupWithSubtleTitle = () => {
 export const GroupWithFilledTitle = () => {
   const [assignees, setAssignees] = React.useState(users.slice(0, 1))
 
-  const toggleAssignee = (assignee: typeof users[number]) => {
+  const toggleAssignee = (assignee: (typeof users)[number]) => {
     const assigneeIndex = assignees.findIndex(a => a.login === assignee.login)
 
     if (assigneeIndex === -1) setAssignees([...assignees, assignee])
@@ -459,22 +490,23 @@ export const GroupWithFilledTitle = () => {
 
   return (
     <ActionList selectionVariant="multiple" role="menu" showDividers aria-label="Reviewers">
-      <ActionList.Heading title="Everyone" variant="filled" />
-      {users.slice(2).map(user => (
-        <ActionList.Item
-          role="menuitemcheckbox"
-          key={user.login}
-          selected={Boolean(assignees.find(assignee => assignee.login === user.login))}
-          aria-checked={Boolean(assignees.find(assignee => assignee.login === user.login))}
-          onSelect={() => toggleAssignee(user)}
-        >
-          <ActionList.LeadingVisual>
-            <Avatar src={`https://github.com/${user.login}.png`} />
-          </ActionList.LeadingVisual>
-          {user.login}
-          <ActionList.Description>{user.name}</ActionList.Description>
-        </ActionList.Item>
-      ))}
+      <ActionList.Group title="Everyone" variant="filled">
+        {users.slice(2).map(user => (
+          <ActionList.Item
+            role="menuitemcheckbox"
+            key={user.login}
+            selected={Boolean(assignees.find(assignee => assignee.login === user.login))}
+            aria-checked={Boolean(assignees.find(assignee => assignee.login === user.login))}
+            onSelect={() => toggleAssignee(user)}
+          >
+            <ActionList.LeadingVisual>
+              <Avatar src={`https://github.com/${user.login}.png`} />
+            </ActionList.LeadingVisual>
+            {user.login}
+            <ActionList.Description>{user.name}</ActionList.Description>
+          </ActionList.Item>
+        ))}
+      </ActionList.Group>
     </ActionList>
   )
 }
