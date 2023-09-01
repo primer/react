@@ -29,9 +29,7 @@ interface FormControlForwardedProps extends Omit<FormControlContext, 'captionId'
  * @param externalProps The external props passed to this component. If provided, these props will be merged with the
  * `FormControl` props, with external props taking priority.
  */
-export function useFormControlForwardedProps<P extends FormControlForwardedProps>(
-  externalProps: P,
-): P & FormControlForwardedProps
+export function useFormControlForwardedProps<P>(externalProps: P): P & FormControlForwardedProps
 /**
  * Make any component compatible with `FormControl`'s automatic wiring up of accessibility attributes & validation by
  * reading the props from this hook and handling them / assigning them to the underlying form control. If used outside
