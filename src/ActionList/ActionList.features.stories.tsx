@@ -24,6 +24,8 @@ import {
   AlertIcon,
   TableIcon,
   PeopleIcon,
+  FileDirectoryIcon,
+  PlusCircleIcon,
 } from '@primer/octicons-react'
 
 export default {
@@ -42,39 +44,56 @@ export const SimpleList = () => (
   </ActionList>
 )
 
-export const WithHeading = () => (
+export const WithVisualListHeading = () => (
   <ActionList>
-    <ActionList.Heading as="h1">Details</ActionList.Heading>
-    <ActionList.LinkItem href="https://github.com/primer/react#readme">
-      <ActionList.LeadingVisual>
-        <BookIcon />
-      </ActionList.LeadingVisual>
-      Readme
-    </ActionList.LinkItem>
-    <ActionList.LinkItem href="https://github.com/primer/react/blob/main/LICENSE">
-      <ActionList.LeadingVisual>
-        <LawIcon />
-      </ActionList.LeadingVisual>
-      MIT License
-    </ActionList.LinkItem>
-    <ActionList.LinkItem href="https://github.com/primer/react/stargazers">
-      <ActionList.LeadingVisual>
-        <StarIcon />
-      </ActionList.LeadingVisual>
-      <strong>1.5k</strong> stars
-    </ActionList.LinkItem>
-    <ActionList.LinkItem href="https://github.com/primer/react/watchers">
-      <ActionList.LeadingVisual>
-        <EyeIcon />
-      </ActionList.LeadingVisual>
-      <strong>21</strong> watching
-    </ActionList.LinkItem>
-    <ActionList.LinkItem href="https://github.com/primer/react/network/members">
-      <ActionList.LeadingVisual>
-        <RepoForkedIcon />
-      </ActionList.LeadingVisual>
-      <strong>225</strong> forks
-    </ActionList.LinkItem>
+    <ActionList.Heading as="h2">Filter by</ActionList.Heading>
+    <ActionList.Group title="Path">
+      <ActionList.Item onClick={() => {}}>
+        <ActionList.LeadingVisual>
+          <FileDirectoryIcon />
+        </ActionList.LeadingVisual>
+        app/assets/modules
+      </ActionList.Item>
+      <ActionList.Item onClick={() => {}}>
+        <ActionList.LeadingVisual>
+          <FileDirectoryIcon />
+        </ActionList.LeadingVisual>
+        src/react/components
+      </ActionList.Item>
+      <ActionList.Item onClick={() => {}}>
+        <ActionList.LeadingVisual>
+          <FileDirectoryIcon />
+        </ActionList.LeadingVisual>
+        memex/shared-ui/components
+      </ActionList.Item>
+      <ActionList.Item onClick={() => {}}>
+        <ActionList.LeadingVisual>
+          <FileDirectoryIcon />
+        </ActionList.LeadingVisual>
+        views/assets/modules
+      </ActionList.Item>
+    </ActionList.Group>
+
+    <ActionList.Group title="Advanced">
+      <ActionList.Item onClick={() => {}}>
+        <ActionList.LeadingVisual>
+          <PlusCircleIcon />
+        </ActionList.LeadingVisual>
+        Owner
+      </ActionList.Item>
+      <ActionList.Item onClick={() => {}}>
+        <ActionList.LeadingVisual>
+          <PlusCircleIcon />
+        </ActionList.LeadingVisual>
+        Symbol
+      </ActionList.Item>
+      <ActionList.Item onClick={() => {}}>
+        <ActionList.LeadingVisual>
+          <PlusCircleIcon />
+        </ActionList.LeadingVisual>
+        Exclude archived
+      </ActionList.Item>
+    </ActionList.Group>
   </ActionList>
 )
 
@@ -114,37 +133,9 @@ export const WithHeadingInFullVariant = () => (
   </ActionList>
 )
 
-export const WithHeadingInMenu = () => (
-  <ActionMenu>
-    <ActionMenu.Button>Open menu</ActionMenu.Button>
-    <ActionMenu.Overlay width="medium">
-      <ActionList>
-        <ActionList.Heading as="h4">Details</ActionList.Heading>
-        <ActionList.Item onSelect={() => alert('Copy link clicked')}>
-          Copy link
-          <ActionList.TrailingVisual>⌘C</ActionList.TrailingVisual>
-        </ActionList.Item>
-        <ActionList.Item onSelect={() => alert('Quote reply clicked')}>
-          Quote reply
-          <ActionList.TrailingVisual>⌘Q</ActionList.TrailingVisual>
-        </ActionList.Item>
-        <ActionList.Item onSelect={() => alert('Edit comment clicked')}>
-          Edit comment
-          <ActionList.TrailingVisual>⌘E</ActionList.TrailingVisual>
-        </ActionList.Item>
-        <ActionList.Divider />
-        <ActionList.Item variant="danger" onSelect={() => alert('Delete file clicked')}>
-          Delete file
-          <ActionList.TrailingVisual>⌘D</ActionList.TrailingVisual>
-        </ActionList.Item>
-      </ActionList>
-    </ActionMenu.Overlay>
-  </ActionMenu>
-)
-
 export const WithCustomHeading = () => (
   <>
-    <Heading as="h1" id="list-heading" sx={{fontSize: 1}}>
+    <Heading as="h1" id="list-heading" sx={{fontSize: 3, marginX: 3}}>
       Details
     </Heading>
     <ActionList aria-labelledby="list-heading">
