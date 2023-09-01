@@ -8,17 +8,6 @@ import ThemeProvider from '../../ThemeProvider'
 
 const meta: Meta = {
   title: 'Drafts/Components/MarkdownEditor/Features',
-  decorators: [
-    Story => {
-      return (
-        <ThemeProvider>
-          <BaseStyles>
-            <Box sx={{maxWidth: 800}}>{Story()}</Box>
-          </BaseStyles>
-        </ThemeProvider>
-      )
-    },
-  ],
   parameters: {
     controls: {
       include: [
