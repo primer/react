@@ -17,7 +17,7 @@ import FormControlCaption from './_FormControlCaption'
 import FormControlLabel from './_FormControlLabel'
 import FormControlLeadingVisual from './_FormControlLeadingVisual'
 import FormControlValidation from './_FormControlValidation'
-import {FormControlContextProvider, useFormControlForwardedProps} from './_FormControlContext'
+import {FormControlContextProvider} from './_FormControlContext'
 
 export type FormControlProps = {
   children?: React.ReactNode
@@ -216,5 +216,4 @@ export default Object.assign(FormControl, {
   Label: FormControlLabel,
   LeadingVisual: FormControlLeadingVisual,
   Validation: FormControlValidation,
-  useForwardedProps: useFormControlForwardedProps,
 })
