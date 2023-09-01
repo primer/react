@@ -702,6 +702,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
     }
 
     return (
+      <>{heading && <Heading as={headingLevel}>{heading}</Heading>}
       <Box
         ref={measuredRef}
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -794,7 +795,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
           {...labelProp}
           {...(id && {id: paneId})}
         >
-          {heading && <Heading as={headingLevel}>{heading}</Heading>}
+          
           {resizable && (
             <VisuallyHidden>
               <form onSubmit={handleWidthFormSubmit}>
@@ -823,6 +824,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
           {children}
         </Box>
       </Box>
+      </>
     )
   },
 )
