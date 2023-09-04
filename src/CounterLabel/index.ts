@@ -1,1 +1,2 @@
-export {default, CounterLabelProps} from './CounterLabel'
+export {default} from './CounterLabel'
+export type {CounterLabelProps} from './CounterLabel'
