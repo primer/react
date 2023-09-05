@@ -65,7 +65,9 @@ const Item = React.forwardRef<HTMLAnchorElement, NavListItemProps>(
       isValidElement(child) ? child.type !== SubNav : true,
     )
 
-    if (!isValidElement(subNav) && defaultOpen) console.error('NavList.Item must have a NavList.SubNav to use defaultOpen.')
+    if (!isValidElement(subNav) && defaultOpen) 
+    // eslint-disable-next-line no-console
+    console.error('NavList.Item must have a NavList.SubNav to use defaultOpen.')
 
     // Render ItemWithSubNav if SubNav is present
     if (subNav && isValidElement(subNav)) {
@@ -113,7 +115,7 @@ const ItemWithSubNavContext = React.createContext<{buttonId: string; subNavId: s
 function ItemWithSubNav({children, subNav, depth, defaultOpen, sx: sxProp = defaultSxProp}: ItemWithSubNavProps) {
   const buttonId = useId()
   const subNavId = useId()
-  const [isOpen, setIsOpen] = React.useState(defaultOpen ?? false)
+  const [isOpen, setIsOpen] = React.useState((defaultOpen || null) ?? false)
   const subNavRef = React.useRef<HTMLDivElement>(null)
   const [containsCurrentItem, setContainsCurrentItem] = React.useState(false)
 
