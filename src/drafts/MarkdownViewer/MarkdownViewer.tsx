@@ -78,7 +78,7 @@ const MarkdownViewer = ({
         await externalOnChange?.(value)
       } catch (error) {
         if (htmlContainer) {
-          htmlContainer.innerHTML = dangerousRenderedHTML.__html.toString()
+          htmlContainer.innerHTML = dangerousRenderedHTML.__html as string
         }
       }
     },
