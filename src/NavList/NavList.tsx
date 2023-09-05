@@ -65,9 +65,9 @@ const Item = React.forwardRef<HTMLAnchorElement, NavListItemProps>(
       isValidElement(child) ? child.type !== SubNav : true,
     )
 
-    if (!isValidElement(subNav) && defaultOpen) 
-    // eslint-disable-next-line no-console
-    console.error('NavList.Item must have a NavList.SubNav to use defaultOpen.')
+    if (!isValidElement(subNav) && defaultOpen)
+      // eslint-disable-next-line no-console
+      console.error('NavList.Item must have a NavList.SubNav to use defaultOpen.')
 
     // Render ItemWithSubNav if SubNav is present
     if (subNav && isValidElement(subNav)) {
