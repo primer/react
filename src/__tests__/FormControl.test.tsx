@@ -1,5 +1,6 @@
 import React from 'react'
-import {render, renderHook} from '@testing-library/react'
+import {render} from '@testing-library/react'
+import {renderHook} from '@testing-library/react-hooks'
 import {axe, toHaveNoViolations} from 'jest-axe'
 import {
   Autocomplete,
@@ -475,7 +476,7 @@ describe('useFormControlForwardedProps', () => {
     const id = 'test-id'
 
     const {result} = renderHook(() => useFormControlForwardedProps(), {
-      wrapper: ({children}) => (
+      wrapper: ({children}: {children: React.ReactNode}) => (
         <FormControl id={id} disabled required>
           <FormControl.Label>Label</FormControl.Label>
           {children}
@@ -492,7 +493,7 @@ describe('useFormControlForwardedProps', () => {
     const props = {id: 'override-id', xyz: 'someValue'}
 
     const {result} = renderHook(() => useFormControlForwardedProps(props), {
-      wrapper: ({children}) => (
+      wrapper: ({children}: {children: React.ReactNode}) => (
         <FormControl id="form-control-id" disabled>
           <FormControl.Label>Label</FormControl.Label>
           {children}
