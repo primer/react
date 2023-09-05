@@ -3,5 +3,6 @@
 exports[`RelativeTime renders consistently 1`] = `
 <relative-time
   class=""
+  suppressHydrationWarning={true}
 />
 `;
