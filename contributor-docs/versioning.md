@@ -10,6 +10,7 @@
 - [Reference](#reference)
   - [The type of a prop is broadened](#the-type-of-a-prop-is-broadened)
   - [The type of a prop is narrowed](#the-type-of-a-prop-is-narrowed)
+  - [The `display` property used for the container of `children` is changed](#the-display-property-used-for-the-container-of-children-is-changed)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 <!-- prettier-ignore-end -->
@@ -39,21 +40,22 @@ For a full list of releases, visit our [releases](https://github.com/primer/reac
 
 ## Changes
 
-| Category  | Type of change                                                               | semver bump |
-| :-------- | :--------------------------------------------------------------------------- | :---------- |
-| Component | A component is added                                                         | `minor`     |
-|           | A component is deprecated                                                    | `minor`     |
-|           | A component is removed                                                       | `major`     |
-| Props     | A prop is added                                                              | `minor`     |
-|           | [The type of a prop is broadened](#the-type-of-a-prop-is-broadened)          | `minor`     |
-|           | [The type of a prop is narrowed](#the-type-of-a-prop-is-narrowed)            | `major`     |
-|           | A prop is deprecated                                                         | `minor`     |
-|           | A prop is removed                                                            | `major`     |
-| Package   | A dependency is added                                                        | `minor`     |
-|           | A dependency is removed and it does not affect the public API of the package | `minor`     |
-|           | A dependency is removed and it does affect the public API of the package     | `major`     |
-|           | The version of a dependency is increased to a newer minor or patch version   | `minor`     |
-|           | The version of a dependency is increased to a newer major version            | `major`     |
+| Category  | Type of change                                                                                                                                | semver bump         |
+| :-------- | :-------------------------------------------------------------------------------------------------------------------------------------------- | :------------------ |
+| Component | A component is added                                                                                                                          | `minor`             |
+|           | A component is deprecated                                                                                                                     | `minor`             |
+|           | A component is removed                                                                                                                        | `major`             |
+| Props     | A prop is added                                                                                                                               | `minor`             |
+|           | [The type of a prop is broadened](#the-type-of-a-prop-is-broadened)                                                                           | `minor`             |
+|           | [The type of a prop is narrowed](#the-type-of-a-prop-is-narrowed)                                                                             | `major`             |
+|           | A prop is deprecated                                                                                                                          | `minor`             |
+|           | A prop is removed                                                                                                                             | `major`             |
+| Package   | A dependency is added                                                                                                                         | `minor`             |
+|           | A dependency is removed and it does not affect the public API of the package                                                                  | `minor`             |
+|           | A dependency is removed and it does affect the public API of the package                                                                      | `major`             |
+|           | The version of a dependency is increased to a newer minor or patch version                                                                    | `minor`             |
+|           | The version of a dependency is increased to a newer major version                                                                             | `major`             |
+| CSS       | [The `display` property used for the container of `children` is changed](#the-display-property-used-for-the-container-of-children-is-changed) | potentially `major` |
 
 ## Reference
 
@@ -96,3 +98,28 @@ work.
 // change
 const t1: Example = 'd';
 ```
+
+### The `display` property used for the container of `children` is changed
+
+semver bump: potentially **major**
+
+When a React component accepts `children` as an argument, changing the value of
+the `display` property for that container may be considered a breaking change.
+
+Consider the situation where we move from `block` to `flex` and how this might
+change the flow layout of the contents of the component. In situations where
+this order is preserved, this may **not** be considered a breaking change and
+could be considered a refactor.
+
+However, depending on the type of elements used as children, moving from `block`
+to `flex` could also cause unexpected layout changes unrelated to its flow
+layout. For example, there may be whitespace that is important in the following
+markup:
+
+```html
+<button type="button" class="custom-button">Save <span class="custom-class">changes</span></button>
+```
+
+In this situation, changing the layout of the `button` to `flex` would collapse
+the whitespace present between the text "Save" and "changes" and would be
+considered a breaking change.

@@ -96,7 +96,7 @@ export const TextInputBaseWrapper = styled.span<StyledBaseWrapperProps>`
   color: ${get('colors.fg.default')};
   vertical-align: middle;
   background-color: ${get('colors.canvas.default')};
-  border: 1px solid ${get('colors.border.default')};
+  border: 1px solid var(--control-borderColor-rest, ${get('colors.border.default')});
   border-radius: ${get('radii.2')};
   outline: none;
   box-shadow: ${get('shadows.primer.shadow.inset')};
@@ -199,17 +199,16 @@ const TextInputWrapper = styled(TextInputBaseWrapper)<StyledWrapperProps>`
     flex-shrink: 0;
   }
 
-  ${props =>
-    css`
-      padding-left: ${props.hasLeadingVisual ? textInputHorizPadding : 0};
-      padding-right: ${props.hasTrailingVisual && !props.hasTrailingAction ? textInputHorizPadding : 0};
+  ${props => css`
+    padding-left: ${props.hasLeadingVisual ? textInputHorizPadding : 0};
+    padding-right: ${props.hasTrailingVisual && !props.hasTrailingAction ? textInputHorizPadding : 0};
 
-      > input,
-      > select {
-        padding-left: ${!props.hasLeadingVisual ? textInputHorizPadding : 0};
-        padding-right: ${!props.hasTrailingVisual && !props.hasTrailingAction ? textInputHorizPadding : 0};
-      }
-    `}
+    > input,
+    > select {
+      padding-left: ${!props.hasLeadingVisual ? textInputHorizPadding : 0};
+      padding-right: ${!props.hasTrailingVisual && !props.hasTrailingAction ? textInputHorizPadding : 0};
+    }
+  `}
 
   ${props =>
     props.validationStatus === 'warning' &&

@@ -195,6 +195,7 @@ export const ComplexAncestry = () => {
           overflow: 'auto',
           position: 'relative',
         }}
+        tabIndex={0}
       >
         Clipping container - this element has <code>overflow</code> set to something other than <code>visible</code>
         <Box m={space} p={space} sx={{border: '1px solid #000', backgroundColor: 'blue.2', position: 'relative'}}>

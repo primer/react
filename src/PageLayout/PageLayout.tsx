@@ -107,23 +107,7 @@ const Root: React.FC<React.PropsWithChildren<PageLayoutProps>> = ({
           }}
         >
           {slots.header}
-          <Box
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            sx={(theme: any) => ({
-              display: 'flex',
-              flex: '1 1 100%',
-              flexWrap: 'wrap',
-              maxWidth: '100%',
-              [`@media screen and (max-width: ${theme.breakpoints[2]})`]: {
-                rowGap: SPACING_MAP[rowGap],
-              },
-              [`@media screen and (min-width: ${theme.breakpoints[1]})`]: {
-                columnGap: SPACING_MAP[columnGap],
-              },
-            })}
-          >
-            {rest}
-          </Box>
+          <Box sx={{display: 'flex', flex: '1 1 100%', flexWrap: 'wrap', maxWidth: '100%'}}>{rest}</Box>
           {slots.footer}
         </Box>
       </Box>
@@ -437,13 +421,13 @@ const Content: React.FC<React.PropsWithChildren<PageLayoutContentProps>> = ({
 
   return (
     <Box
-      as="main"
       aria-label={label}
       aria-labelledby={labelledBy}
       sx={merge<BetterSystemStyleObject>(
         {
           display: isHidden ? 'none' : 'flex',
           flexDirection: 'column',
+          order: REGION_ORDER.content,
           // Set flex-basis to 0% to allow flex-grow to control the width of the content region.
           // Without this, the content region could wrap onto a different line
           // than the pane region on wide viewports if its contents are too wide.
@@ -481,6 +465,25 @@ Content.displayName = 'PageLayout.Content'
 // ----------------------------------------------------------------------------
 // PageLayout.Pane
 
+type Measurement = `${number}px`
+
+type CustomWidthOptions = {
+  min: Measurement
+  default: Measurement
+  max: Measurement
+}
+
+type PaneWidth = keyof typeof paneWidths
+
+const isCustomWidthOptions = (width: PaneWidth | CustomWidthOptions): width is CustomWidthOptions => {
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+  return (width as CustomWidthOptions).default !== undefined
+}
+
+const isPaneWidth = (width: PaneWidth | CustomWidthOptions): width is PaneWidth => {
+  return ['small', 'medium', 'large'].includes(width as PaneWidth)
+}
+
 export type PageLayoutPaneProps = {
   position?: keyof typeof panePositions | ResponsiveValue<keyof typeof panePositions>
   /**
@@ -500,7 +503,7 @@ export type PageLayoutPaneProps = {
   positionWhenNarrow?: 'inherit' | keyof typeof panePositions
   'aria-labelledby'?: string
   'aria-label'?: string
-  width?: keyof typeof paneWidths
+  width?: PaneWidth | CustomWidthOptions
   minWidth?: number
   resizable?: boolean
   widthStorageKey?: string
@@ -545,7 +548,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
     {
       'aria-label': label,
       'aria-labelledby': labelledBy,
-      position: responsivePosition = undefined,
+      position: responsivePosition = 'end',
       positionWhenNarrow = 'inherit',
       width = 'medium',
       minWidth = 256,
@@ -563,13 +566,6 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
     },
     forwardRef,
   ) => {
-    if (responsivePosition !== undefined) {
-      // eslint-disable-next-line no-console
-      console.warn(
-        'The `position` prop will be removed on the next major version. You should order your markup as you want it to render instead.',
-      )
-    }
-
     // Combine position and positionWhenNarrow for backwards compatibility
     const positionProp =
       !isResponsiveValue(responsivePosition) && positionWhenNarrow !== 'inherit'
@@ -598,9 +594,18 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
       }
     }, [sticky, enableStickyPane, disableStickyPane, offsetHeader])
 
+    const getDefaultPaneWidth = (width: PaneWidth | CustomWidthOptions): number => {
+      if (isPaneWidth(width)) {
+        return defaultPaneWidth[width]
+      } else if (isCustomWidthOptions(width)) {
+        return Number(width.default.split('px')[0])
+      }
+      return 0
+    }
+
     const [paneWidth, setPaneWidth] = React.useState(() => {
       if (!canUseDOM) {
-        return defaultPaneWidth[width]
+        return getDefaultPaneWidth(width)
       }
 
       let storedWidth
@@ -611,7 +616,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
         storedWidth = null
       }
 
-      return storedWidth && !isNaN(Number(storedWidth)) ? Number(storedWidth) : defaultPaneWidth[width]
+      return storedWidth && !isNaN(Number(storedWidth)) ? Number(storedWidth) : getDefaultPaneWidth(width)
     })
 
     const updatePaneWidth = (width: number) => {
@@ -700,9 +705,12 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
             {
               // Narrow viewports
               display: isHidden ? 'none' : 'flex',
-              order: position !== undefined ? panePositions[position] : undefined,
+              order: panePositions[position],
               width: '100%',
               marginX: 0,
+              ...(position === 'end'
+                ? {flexDirection: 'column', marginTop: SPACING_MAP[rowGap]}
+                : {flexDirection: 'column-reverse', marginBottom: SPACING_MAP[rowGap]}),
 
               // Regular and wide viewports
               [`@media screen and (min-width: ${theme.breakpoints[1]})`]: {
@@ -717,7 +725,9 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
                       maxHeight: 'var(--sticky-pane-height)',
                     }
                   : {}),
-                ...(position === 'end' ? {flexDirection: 'row'} : {flexDirection: 'row-reverse'}),
+                ...(position === 'end'
+                  ? {flexDirection: 'row', marginLeft: SPACING_MAP[columnGap]}
+                  : {flexDirection: 'row-reverse', marginRight: SPACING_MAP[columnGap]}),
               },
             },
             sx,
@@ -750,7 +760,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
             updatePaneWidth(paneRect.width)
           }}
           // Reset pane width on double click
-          onDoubleClick={() => updatePaneWidth(defaultPaneWidth[width])}
+          onDoubleClick={() => updatePaneWidth(getDefaultPaneWidth(width))}
         />
 
         <Box
@@ -760,12 +770,14 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
             '--pane-width': `${paneWidth}px`,
           }}
           sx={(theme: Theme) => ({
-            '--pane-min-width': `${minWidth}px`,
+            '--pane-min-width': isCustomWidthOptions(width) ? width.min : `${minWidth}px`,
             '--pane-max-width-diff': '511px',
-            '--pane-max-width': `calc(100vw - var(--pane-max-width-diff))`,
+            '--pane-max-width': isCustomWidthOptions(width) ? width.max : `calc(100vw - var(--pane-max-width-diff))`,
             width: resizable
               ? ['100%', null, 'clamp(var(--pane-min-width), var(--pane-width), var(--pane-max-width))']
-              : paneWidths[width],
+              : isPaneWidth(width)
+              ? paneWidths[width]
+              : width.default,
             padding: SPACING_MAP[padding],
             overflow: [null, null, 'auto'],
 

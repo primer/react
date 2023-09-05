@@ -1,1 +1,2 @@
-export {default, TruncateProps} from './Truncate'
+export {default} from './Truncate'
+export type {TruncateProps} from './Truncate'

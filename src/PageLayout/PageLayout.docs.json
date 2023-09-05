@@ -85,18 +85,6 @@
       "name": "PageLayout.Content",
       "props": [
         {
-          "name": "aria-label",
-          "type": "string | undefined",
-          "defaultValue": "",
-          "description": "A unique label for the rendered main landmark"
-        },
-        {
-          "name": "aria-labelledby",
-          "type": "string | undefined",
-          "defaultValue": "",
-          "description": "An id to an element which uniquely labels the rendered main landmark"
-        },
-        {
           "name": "width",
           "type": "| 'full' | 'medium' | 'large' | 'xlarge'",
           "defaultValue": "'full'",
@@ -137,8 +125,7 @@
           "name": "position",
           "type": "| 'start' | 'end' | { narrow?: | 'start' | 'end' regular?: | 'start' | 'end' wide?: | 'start' | 'end' }",
           "defaultValue": "'end'",
-          "description": "",
-          "deprecated": true
+          "description": ""
         },
         {
           "name": "positionWhenNarrow",
@@ -149,9 +136,9 @@
         },
         {
           "name": "width",
-          "type": "| 'small' | 'medium' | 'large'",
+          "type": "| 'small' | 'medium' | 'large' | { min: string max: string default: string }",
           "defaultValue": "'medium'",
-          "description": "The width of the pane."
+          "description": "The width of the pane. If using custom widths, provide an object with keys 'min', 'max' and 'default'."
         },
         {
           "name": "minWidth",

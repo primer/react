@@ -7,7 +7,7 @@ import {pascalCase} from 'change-case'
 import glob from 'fast-glob'
 import fs from 'fs'
 import keyBy from 'lodash.keyby'
-import prettier from 'prettier'
+import prettier from '@prettier/sync'
 import componentSchema from './component.schema.json'
 import outputSchema from './output.schema.json'
 
