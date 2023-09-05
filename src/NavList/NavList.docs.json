@@ -50,7 +50,7 @@
         {
           "name": "defaultOpen",
           "type": "boolean",
-          "description": "The open state of the item when it is initially rendered."
+          "description": "The open state of the item when it is initially rendered if the item has a SubNav."
         },
         {
           "name": "ref",
