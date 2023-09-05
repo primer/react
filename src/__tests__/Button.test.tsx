@@ -101,7 +101,7 @@ describe('Button', () => {
         <Button sx={{width: '80%'}} block>
           Block button
         </Button>
-        <Button variant="invisible" sx={{color: 'pink'}}>
+        <Button variant="invisible" sx={{color: 'firebrick'}}>
           Invisible button
         </Button>
         <Button leadingIcon={IssueClosedIcon} trailingIcon={SearchIcon} sx={{color: 'purple'}}>
@@ -123,7 +123,7 @@ describe('Button', () => {
     expect(blockBtn).toHaveStyle('width: 80%')
     const noVisualsBtn = container.getByRole('button', {name: 'Invisible button'})
     // [data-no-visuals] sets color to accent.fg for invisible , it should be overrideable with sx prop
-    expect(noVisualsBtn).toHaveStyle('color: pink')
+    expect(noVisualsBtn).toHaveStyle('color: firebrick')
     const btnWithVisuals = container.getByRole('button', {name: 'Button with visuals'})
     const leadingIcon = btnWithVisuals.querySelector('[data-component="leadingVisual"]')
     // [data-component="leadingVisual"] sets color to fg.muted  for leading icon for default buttons, it should be overrideable with sx prop
