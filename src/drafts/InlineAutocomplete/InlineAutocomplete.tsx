@@ -17,6 +17,7 @@ import {augmentHandler, calculateSuggestionsQuery, getSuggestionValue, requireCh
 
 import {useRefObjectAsForwardedRef} from '../../hooks'
 import AutocompleteSuggestions from './_AutocompleteSuggestions'
+import {useFormControlForwardedProps} from '../../FormControl'
 
 export type InlineAutocompleteProps = {
   /** Register the triggers that can cause suggestions to appear. */
@@ -99,9 +100,10 @@ const InlineAutocomplete = ({
   children,
   tabInsertsSuggestions = false,
   suggestionsPlacement = 'below',
-  // Forward accessibility props so it works with FormControl
-  ...forwardProps
+  ...externalInputProps
 }: InlineAutocompleteProps & React.ComponentProps<'textarea' | 'input'>) => {
+  const inputProps = useFormControlForwardedProps(externalInputProps)
+
   const inputRef = useRef<HTMLInputElement & HTMLTextAreaElement>(null)
   useRefObjectAsForwardedRef(children.ref ?? noop, inputRef)
 
@@ -176,7 +178,7 @@ const InlineAutocomplete = ({
   }
 
   const input = cloneElement(externalInput, {
-    ...forwardProps,
+    ...inputProps,
     onBlur: augmentHandler(externalInput.props.onBlur, onBlur),
     onKeyDown: augmentHandler(externalInput.props.onKeyDown, onKeyDown),
     onChange: augmentHandler(externalInput.props.onChange, onChange),
