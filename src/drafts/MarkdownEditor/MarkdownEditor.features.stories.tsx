@@ -8,6 +8,17 @@ import ThemeProvider from '../../ThemeProvider'
 
 const meta: Meta = {
   title: 'Drafts/Components/MarkdownEditor/Features',
+  decorators: [
+    Story => {
+      return (
+        <ThemeProvider>
+          <BaseStyles>
+            <Box sx={{maxWidth: 800}}>{Story()}</Box>
+          </BaseStyles>
+        </ThemeProvider>
+      )
+    },
+  ],
   parameters: {
     controls: {
       include: [
@@ -213,7 +224,7 @@ export const CustomToolbar = ({
   const [value, setValue] = useState('')
 
   return (
-    <Box sx={{maxWidth:800}}>
+    <Box sx={{maxWidth: 800}}>
       <MarkdownEditor
         value={value}
         onChange={setValue}
@@ -357,7 +368,7 @@ export const CustomFooterActions = ({
         </MarkdownEditor.Actions>
       </MarkdownEditor>
       <p>Note: for demo purposes, files starting with &quot;A&quot; will be rejected.</p>
-      </Box>
+    </Box>
   )
 }
 
