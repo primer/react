@@ -213,7 +213,7 @@ export const CustomToolbar = ({
   const [value, setValue] = useState('')
 
   return (
-    <>
+    <Box sx={{maxWidth:800}}>
       <MarkdownEditor
         value={value}
         onChange={setValue}
