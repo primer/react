@@ -115,10 +115,12 @@ function useDialog({
 
   useOnEscapePress(
     (event: KeyboardEvent) => {
-      onDismiss()
-      event.preventDefault()
+      if (isOpen) {
+        onDismiss()
+        event.preventDefault()
+      }
     },
-    [onDismiss],
+    [isOpen, onDismiss],
   )
 
   return {getDialogProps}
