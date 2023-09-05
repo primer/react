@@ -122,7 +122,7 @@ describe('Button', () => {
     // [data-block="block"] sets width to 100% in the styles, it should be overrideable with sx prop
     expect(blockBtn).toHaveStyle('width: 80%')
     const noVisualsBtn = container.getByRole('button', {name: 'Invisible button'})
-    // [data-no-visuals="true"] sets color to accent.fg for invisible , it should be overrideable with sx prop
+    // [data-no-visuals] sets color to accent.fg for invisible , it should be overrideable with sx prop
     expect(noVisualsBtn).toHaveStyle('color: pink')
     const btnWithVisuals = container.getByRole('button', {name: 'Button with visuals'})
     const leadingIcon = btnWithVisuals.querySelector('[data-component="leadingVisual"]')

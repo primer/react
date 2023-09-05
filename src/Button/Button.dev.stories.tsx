@@ -68,8 +68,8 @@ export const TestSxProp = () => {
       >
         Red
       </Button>
-      <Button leadingIcon={SearchIcon} variant="invisible" sx={{color: 'firebrick'}}>
-        Red
+      <Button variant="invisible" sx={{color: 'firebrick'}}>
+        Invariant color overridden
       </Button>
       <Button leadingIcon={IssueClosedIcon} sx={{color: 'done.fg'}}>
         <Text sx={{color: 'fg.default'}}>Close issue</Text>
