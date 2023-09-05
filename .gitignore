@@ -1,16 +1,37 @@
-.test
-node_modules
-.DS_Store
-.idea
-coverage/
+# Build folders
 dist/
 lib/
 !codemods/lib/
 lib-esm/
 css/
-public/
-stats.html
-.env
-storybook-static
-.tool-versions
 /generated
+
+# Editor
+.DS_Store
+*.swp
+.idea
+.vscode
+.tool-versions
+
+# Environment
+.env
+
+# Dependencies
+node_modules
+
+# Gatsby
+public/
+
+# Storybook
+storybook-static
+
+# Next.js
+.next
+
+# Jest
+.test
+coverage/
+
+# Playwright
+stats.html
+blob-report
