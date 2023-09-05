@@ -262,7 +262,7 @@ export const CustomFooter = ({
   const [value, setValue] = useState('')
 
   return (
-    <>
+    <Box sx={{maxWidth: 800}}>
       <MarkdownEditor
         value={value}
         onChange={setValue}
@@ -305,7 +305,7 @@ export const CustomFooter = ({
         </MarkdownEditor.Footer>
       </MarkdownEditor>
       <p>Note: for demo purposes, files starting with &quot;A&quot; will be rejected.</p>
-    </>
+    </Box>
   )
 }
 
@@ -325,7 +325,7 @@ export const CustomFooterActions = ({
   const [value, setValue] = useState('')
 
   return (
-    <>
+    <Box sx={{maxWidth: 800}}>
       <MarkdownEditor
         value={value}
         onChange={setValue}
@@ -357,7 +357,7 @@ export const CustomFooterActions = ({
         </MarkdownEditor.Actions>
       </MarkdownEditor>
       <p>Note: for demo purposes, files starting with &quot;A&quot; will be rejected.</p>
-    </>
+      </Box>
   )
 }
 
@@ -398,7 +398,7 @@ export const LazyLoadedSuggestions = ({
   const referenceSuggestions = useLazySuggestions(references)
 
   return (
-    <>
+    <Box sx={{maxWidth: 800}}>
       <MarkdownEditor
         value={value}
         onChange={setValue}
@@ -421,6 +421,6 @@ export const LazyLoadedSuggestions = ({
         <MarkdownEditor.Label visuallyHidden={hideLabel}>Markdown Editor Example</MarkdownEditor.Label>
       </MarkdownEditor>
       <p>Note: for demo purposes, files starting with &quot;A&quot; will be rejected.</p>
-    </>
+    </Box>
   )
 }
