@@ -203,6 +203,7 @@ module.exports = {
         'no-unused-vars': 'off',
         'prettier/prettier': 'off',
         'react/jsx-no-undef': 'off',
+        'primer-react/direct-slot-children': 'off',
       },
     },
 
