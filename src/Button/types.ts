@@ -42,20 +42,35 @@ export type ButtonProps = {
   /**
    * The icon for the IconButton
    */
-  icon?: React.ElementType | null | undefined
+  icon?: React.ElementType | null
+
+  /**
+   * The leading visual which comes before the button content
+   */
+  leadingVisual?: React.ElementType | null
+
   /**
    * The leading icon comes before button content
    */
-  leadingIcon?: React.ElementType | null | undefined
+  leadingIcon?: React.ElementType | null
+
   /**
    * The trailing icon comes after button content
    */
-  trailingIcon?: React.ElementType | null | undefined
+  trailingIcon?: React.ElementType | null
+
+  /**
+   * The trailing visual which comes after the button content
+   */
+  trailingVisual?: React.ElementType | null
+
   /**
    * Trailing action appears to the right of the trailing visual and is always locked to the end
    */
-  trailingAction?: React.ElementType | null | undefined
+  trailingAction?: React.ElementType | null
+
   children: React.ReactNode
+
   /**
    * Content alignment for when visuals are present
    */
