@@ -68,6 +68,14 @@ const components = new Map([
           id: 'components-actionlist-features--with-icons',
           name: 'With Icons',
         },
+        {
+          id: 'components-actionlist-features--disabled-multiselect',
+          name: 'Disabled Multiselect',
+        },
+        {
+          id: 'components-actionlist-features--disabled-selected-multiselect',
+          name: 'Disabled Selected Multiselect',
+        },
       ],
     },
   ],

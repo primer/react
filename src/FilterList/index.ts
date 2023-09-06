@@ -1,1 +1,2 @@
-export {default, FilterListProps, FilterListItemProps} from './FilterList'
+export {default} from './FilterList'
+export type {FilterListProps, FilterListItemProps} from './FilterList'

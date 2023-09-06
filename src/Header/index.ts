@@ -1,1 +1,2 @@
-export {default, HeaderProps, HeaderItemProps, HeaderLinkProps} from './Header'
+export {default} from './Header'
+export type {HeaderProps, HeaderItemProps, HeaderLinkProps} from './Header'
