@@ -68,3 +68,7 @@ export function iconButtonShouldNotAcceptOutlandishProps() {
   // @ts-expect-error system props should not be accepted
   return <Button icon={StopIcon} aria-label="Stop icon" anOutlandshPropThatShouldNotBeAllowedOnA={'Button'} />
 }
+
+export function supportsNoChildren() {
+  return <Button />
+}
