@@ -20,6 +20,12 @@
       "description": "Register the triggers that can cause suggestions to appear."
     },
     {
+      "name": "onSelectSuggestion",
+      "type": "(event: SelectSuggestionsEvent) => void",
+      "defaultValue": "",
+      "description": "Called when a suggestion is selected. This should be used only for performing side effects, not for modifying\nthe inserted text. Do not call `setState` in this handler or the user's cursor\nposition / undo history could be lost."
+    },
+    {
       "name": "onShowSuggestions",
       "type": "(event: ShowSuggestionsEvent) => void",
       "defaultValue": "",
