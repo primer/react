@@ -1,6 +1,5 @@
 import React from 'react'
 import {Meta} from '@storybook/react'
-import {ActionMenu} from '../ActionMenu'
 import {ActionList} from '.'
 import {Item} from './Item'
 import {LinkItem} from './LinkItem'

@@ -6,18 +6,28 @@ import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/po
 import {default as HeadingComponent} from '../Heading'
 import {ListContext} from './List'
 import VisuallyHidden from '../_VisuallyHidden'
+import {ActionListContainerContext} from './ActionListContainerContext'
+import {invariant} from '../utils/invariant'
 
+type HeadingLevels = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
 export type ActionListHeadingProps = {
-  as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
+  as: HeadingLevels
   visuallyHidden?: boolean
 } & SxProp
 
 export const Heading = forwardRef(
-  ({as: Component = 'h3', children, sx = defaultSxProp, visuallyHidden = false, ...props}, forwardedRef) => {
+  ({as, children, sx = defaultSxProp, visuallyHidden = false, ...props}, forwardedRef) => {
     const innerRef = React.useRef<HTMLHeadingElement>(null)
     useRefObjectAsForwardedRef(forwardedRef, innerRef)
 
     const {headingId: headingId, variant: listVariant} = React.useContext(ListContext)
+    const {container} = React.useContext(ActionListContainerContext)
+
+    // Semantic <menu>s don't have a place for headers within them, they should be aria-labelledby the menu button's name.
+    invariant(
+      container !== 'ActionMenu',
+      `ActionList.Heading shouldn't be used within an ActionMenu container. Menus are labelled by the menu button's name.`,
+    )
 
     const styles = {
       marginBottom: 2,
@@ -27,7 +37,7 @@ export const Heading = forwardRef(
     return (
       <VisuallyHidden isVisible={!visuallyHidden}>
         <HeadingComponent
-          as={Component}
+          as={as}
           ref={innerRef}
           // use custom id if it is provided. Otherwise, use the id from the context
           id={props.id ?? headingId}
@@ -39,6 +49,6 @@ export const Heading = forwardRef(
       </VisuallyHidden>
     )
   },
-) as PolymorphicForwardRefComponent<'h3', ActionListHeadingProps>
+) as PolymorphicForwardRefComponent<HeadingLevels, ActionListHeadingProps>
 
 Heading.displayName = 'ActionList.Heading'
