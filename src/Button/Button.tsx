@@ -7,12 +7,14 @@ import {BetterSystemStyleObject} from '../sx'
 
 const ButtonComponent = forwardRef(({children, sx: sxProp = defaultSxProp, ...props}, forwardedRef): JSX.Element => {
   let sxStyles = sxProp
+  const leadingVisual = props.leadingVisual ?? props.leadingIcon
+  const trailingVisual = props.trailingVisual ?? props.trailingIcon
 
   // grap the button props that have associated data attributes in the styles
-  const {block, size, leadingIcon, trailingIcon, trailingAction} = props
+  const {block, size, trailingAction} = props
 
   if (sxProp !== null && Object.keys(sxProp).length > 0) {
-    sxStyles = generateCustomSxProp({block, size, leadingIcon, trailingIcon, trailingAction}, sxProp)
+    sxStyles = generateCustomSxProp({block, size, leadingVisual, trailingVisual, trailingAction}, sxProp)
   }
 
   return (
@@ -63,13 +65,14 @@ sx={{
 // We need to make sure we append the customCSSSelector to the original class selector. i.e & - > &[data-attribute="Icon"][data-size="small"]
 */
 export function generateCustomSxProp(
-  props: Partial<Pick<ButtonProps, 'size' | 'block' | 'leadingIcon' | 'trailingIcon' | 'trailingAction'>>,
+  props: Partial<Pick<ButtonProps, 'size' | 'block' | 'leadingVisual' | 'trailingVisual' | 'trailingAction'>>,
   providedSx: BetterSystemStyleObject,
 ) {
   // Possible data attributes: data-size, data-block, data-no-visuals
   const size = props.size && props.size !== 'medium' ? `[data-size="${props.size}"]` : '' // medium is a default size therefore it doesn't have a data attribute that used for styling
   const block = props.block ? `[data-block="block"]` : ''
-  const noVisuals = props.leadingIcon || props.trailingIcon || props.trailingAction ? '' : '[data-no-visuals="true"]'
+  const noVisuals =
+    props.leadingVisual || props.trailingVisual || props.trailingAction ? '' : '[data-no-visuals="true"]'
 
   // this is custom selector. We need to make sure we add the data attributes to the base css class (& -> &[data-attributename="value"]])
   const cssSelector = `&${size}${block}${noVisuals}` // &[data-size="small"][data-block="block"][data-no-visuals="true"]
