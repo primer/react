@@ -51,7 +51,12 @@ export const WithNestedSubItems: Story = () => (
   <PageLayout>
     <PageLayout.Pane position="start">
       <NavList>
-        <NavList.Item href="#">Item 1</NavList.Item>
+        <NavList.Item defaultOpen={true} href="#">
+          Item 1
+          <NavList.SubNav>
+            <NavList.Item href="#">Sub item 1</NavList.Item>
+          </NavList.SubNav>
+        </NavList.Item>
         <NavList.Item href="#">
           Item 2{/* NOTE: Don't nest SubNavs. For testing purposes only */}
           <NavList.SubNav>

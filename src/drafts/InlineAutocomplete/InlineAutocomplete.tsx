@@ -6,6 +6,7 @@ import {useSyntheticChange} from '../hooks/useSyntheticChange'
 import {getAbsoluteCharacterCoordinates} from '../utils/character-coordinates'
 
 import {
+  SelectSuggestionsEvent,
   ShowSuggestionsEvent,
   Suggestions,
   SuggestionsPlacement,
@@ -17,6 +18,7 @@ import {augmentHandler, calculateSuggestionsQuery, getSuggestionValue, requireCh
 
 import {useRefObjectAsForwardedRef} from '../../hooks'
 import AutocompleteSuggestions from './_AutocompleteSuggestions'
+import {useFormControlForwardedProps} from '../../FormControl'
 
 export type InlineAutocompleteProps = {
   /** Register the triggers that can cause suggestions to appear. */
@@ -26,6 +28,16 @@ export type InlineAutocompleteProps = {
    * `suggestions` prop accordingly.
    */
   onShowSuggestions: (event: ShowSuggestionsEvent) => void
+
+  /**
+   * Called when a suggestion is selected.
+   *
+   * @note This should be used only for performing side effects, not for modifying
+   * the inserted text. Do not call `setState` in this handler or the user's cursor
+   * position / undo history could be lost.
+   */
+  onSelectSuggestion?: (event: SelectSuggestionsEvent) => void
+
   /** Called when suggestions should be hidden. Set `suggestions` to `null` in this case. */
   onHideSuggestions: () => void
   /**
@@ -95,13 +107,15 @@ const InlineAutocomplete = ({
   suggestions,
   onShowSuggestions,
   onHideSuggestions,
+  onSelectSuggestion,
   sx,
   children,
   tabInsertsSuggestions = false,
   suggestionsPlacement = 'below',
-  // Forward accessibility props so it works with FormControl
-  ...forwardProps
+  ...externalInputProps
 }: InlineAutocompleteProps & React.ComponentProps<'textarea' | 'input'>) => {
+  const inputProps = useFormControlForwardedProps(externalInputProps)
+
   const inputRef = useRef<HTMLInputElement & HTMLTextAreaElement>(null)
   useRefObjectAsForwardedRef(children.ref ?? noop, inputRef)
 
@@ -163,6 +177,8 @@ const InlineAutocomplete = ({
     if (!inputRef.current || !showEventRef.current) return
     const {query, trigger} = showEventRef.current
 
+    onSelectSuggestion?.({suggestion, trigger, query})
+
     const currentCaretPosition = getSelectionStart(inputRef.current) ?? 0
     const deleteLength = query.length + trigger.triggerChar.length
     const startIndex = currentCaretPosition - deleteLength
@@ -176,7 +192,7 @@ const InlineAutocomplete = ({
   }
 
   const input = cloneElement(externalInput, {
-    ...forwardProps,
+    ...inputProps,
     onBlur: augmentHandler(externalInput.props.onBlur, onBlur),
     onKeyDown: augmentHandler(externalInput.props.onKeyDown, onKeyDown),
     onChange: augmentHandler(externalInput.props.onChange, onChange),
@@ -184,7 +200,7 @@ const InlineAutocomplete = ({
   })
 
   /**
-   * Even thoughn we apply all the aria attributes, screen readers don't fully support this
+   * Even though we apply all the aria attributes, screen readers don't fully support this
    * dynamic use case and so they don't have a native way to indicate to the user when
    * there are suggestions available. So we use some hidden text with aria-live to politely
    * indicate what's available and how to use it.
