@@ -43,3 +43,4 @@
 1. SelectPanel.Overlay
 1. The flicker in story with useTransition is unfortunate, is there already a way to add a minimum time to avoid this (debounce)? and is it possible/ergonomic to bake that in the component or should it be delegated to the application
 1. I think it's nice that there is a `<SelectPanel.Footer>` because you can wrap it in suspense along with the search results
+1. Need to make Save and Cancel optional
