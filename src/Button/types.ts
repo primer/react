@@ -69,7 +69,7 @@ export type ButtonProps = {
    */
   trailingAction?: React.ElementType | null
 
-  children: React.ReactNode
+  children?: React.ReactNode
 
   /**
    * Content alignment for when visuals are present

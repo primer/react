@@ -69,6 +69,10 @@ export function iconButtonShouldNotAcceptOutlandishProps() {
   return <Button icon={StopIcon} aria-label="Stop icon" anOutlandshPropThatShouldNotBeAllowedOnA={'Button'} />
 }
 
+export function supportsNoChildren() {
+  return <Button />
+}
+
 export function supportsLeadingVisual() {
   return <Button leadingVisual={() => <span />}>child</Button>
 }
