@@ -4,7 +4,7 @@ import {Prose, ProseProps} from '.'
 import {KitchenSinkChildren} from './_ProseStorybookHelpers'
 
 export default {
-  title: 'Components/Prose',
+  title: 'Drafts/Components/Prose',
   component: Prose,
   argTypes: {
     fullWidth: {

@@ -4,7 +4,7 @@ import {Prose} from '.'
 import {ContainerToFill, KitchenSinkChildren} from './_ProseStorybookHelpers'
 
 export default {
-  title: 'Components/Prose/Features',
+  title: 'Drafts/Components/Prose/Features',
   component: Prose,
 } as Meta<typeof Prose>
 

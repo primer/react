@@ -29,10 +29,6 @@ export const KitchenSinkChildren = () => (
       Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut tempor lectus ipsum, consectetur convallis diam
       pretium quis. Proin ut felis ut eros tristique tincidunt.
     </p>
-    <blockquote>
-      Nulla ac odio eu magna hendrerit porta. Donec nec eros quis tortor tincidunt vulputate. Aenean id pharetra diam,
-      sit amet auctor leo. Aliquam erat volutpat.
-    </blockquote>
     <p>
       Integer pellentesque pretium nulla viverra molestie. Praesent quis pretium sapien. Sed convallis eget lectus et
       pulvinar:

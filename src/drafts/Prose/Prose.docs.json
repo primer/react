@@ -1,0 +1,24 @@
+{
+    "id": "prose",
+    "name": "Prose",
+    "status": "draft",
+    "a11yReviewed": false,
+    "stories": [
+      {
+        "id": "components-prose-default"
+      }
+    ],
+    "props": [
+      {
+        "name": "as",
+        "type": "'div' | 'section' | 'article' | 'main'",
+        "defaultValue": "'div'",
+        "description": "The semantic HTML element to render the component as."
+      },
+      {
+        "name": "fullWidth",
+        "type": "boolean",
+        "description": "Whether the width of the component should fill its parent. The default behavior is to enhance readability by limiting the width to keep line-lengths shorter."
+      }
+    ]
+}
