@@ -1,6 +1,6 @@
 import {StopIcon} from '@primer/octicons-react'
 import React, {useRef} from 'react'
-import {Button, IconButton} from '../Button'
+import {Button, IconButton} from '../../Button'
 
 export function shouldAcceptOnlyAChildProp() {
   return <Button>child</Button>
@@ -67,4 +67,12 @@ export function iconButtonOptionalProps() {
 export function iconButtonShouldNotAcceptOutlandishProps() {
   // @ts-expect-error system props should not be accepted
   return <Button icon={StopIcon} aria-label="Stop icon" anOutlandshPropThatShouldNotBeAllowedOnA={'Button'} />
+}
+
+export function supportsLeadingVisual() {
+  return <Button leadingVisual={() => <span />}>child</Button>
+}
+
+export function supportsTrailingVisual() {
+  return <Button trailingVisual={() => <span />}>child</Button>
 }
