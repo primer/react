@@ -1,5 +1,5 @@
 import React, {useLayoutEffect, useState} from 'react'
-import {fireEvent, render, within} from '@testing-library/react'
+import {fireEvent, render, within, screen} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import InlineAutocomplete, {ShowSuggestionsEvent, Suggestions, Trigger} from '.'
 import FormControl from '../../FormControl'
@@ -361,7 +361,7 @@ describe('InlineAutocomplete', () => {
     await user.keyboard('{ArrowDown}')
 
     expect(input).toHaveFocus()
-    expect(input).toHaveAttribute('aria-activedescendant', expect.stringContaining('option-1'))
+    expect(input).toHaveAttribute('aria-activedescendant', 'github')
     expect(within(getByRole('listbox')).queryAllByRole('option')[1]).toHaveAttribute('aria-selected', 'true')
 
     await user.keyboard('{Enter}')
