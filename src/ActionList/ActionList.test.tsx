@@ -5,7 +5,6 @@ import theme from '../theme'
 import {ActionList} from '.'
 import {behavesAsComponent, checkExports} from '../utils/testing'
 import {BaseStyles, ThemeProvider, SSRProvider, ActionMenu} from '..'
-import userEvent from '@testing-library/user-event'
 
 function SimpleActionList(): JSX.Element {
   return (
