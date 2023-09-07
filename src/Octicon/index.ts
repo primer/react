@@ -1,1 +1,2 @@
-export {default, OcticonProps} from './Octicon'
+export {default} from './Octicon'
+export type {OcticonProps} from './Octicon'

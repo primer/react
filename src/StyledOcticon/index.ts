@@ -1,1 +1,2 @@
-export {default, StyledOcticonProps} from './StyledOcticon'
+export {default} from './StyledOcticon'
+export type {StyledOcticonProps} from './StyledOcticon'

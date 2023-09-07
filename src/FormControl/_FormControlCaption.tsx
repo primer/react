@@ -1,10 +1,10 @@
 import React from 'react'
 import InputCaption from '../internal/components/InputCaption'
 import {SxProp} from '../sx'
-import {FormControlContext} from './FormControl'
+import {useFormControlContext} from './_FormControlContext'
 
 const FormControlCaption: React.FC<React.PropsWithChildren<{id?: string} & SxProp>> = ({children, sx, id}) => {
-  const {captionId, disabled} = React.useContext(FormControlContext)
+  const {captionId, disabled} = useFormControlContext()
   return (
     <InputCaption id={id || captionId || ''} disabled={disabled} sx={sx}>
       {children}

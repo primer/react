@@ -1,1 +1,2 @@
-export {default, StateLabelProps} from './StateLabel'
+export {default} from './StateLabel'
+export type {StateLabelProps} from './StateLabel'

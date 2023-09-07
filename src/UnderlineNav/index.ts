@@ -1,1 +1,2 @@
-export {default, UnderlineNavProps, UnderlineNavLinkProps} from './UnderlineNav'
+export {default} from './UnderlineNav'
+export type {UnderlineNavProps, UnderlineNavLinkProps} from './UnderlineNav'

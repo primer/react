@@ -20,7 +20,7 @@ const ANIMATION_DURATION = '200ms'
  * Props that characterize a button to be rendered into the footer of
  * a Dialog.
  */
-export type DialogButtonProps = ButtonProps & {
+export type DialogButtonProps = Omit<ButtonProps, 'content'> & {
   /**
    * The type of Button element to use
    */

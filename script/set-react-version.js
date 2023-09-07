@@ -3,6 +3,7 @@
 const fs = require('node:fs/promises')
 const os = require('node:os')
 const path = require('node:path')
+const packageJson = require('../package.json')
 
 const versions = new Map([
   [
@@ -38,27 +39,27 @@ const versions = new Map([
       devDependencies: [
         {
           name: '@types/react',
-          version: '18.0.28',
+          version: getPackageVersion('@types/react'),
         },
         {
           name: '@types/react-dom',
-          version: '18.2.6',
+          version: getPackageVersion('@types/react-dom'),
         },
         {
           name: 'react',
-          version: '18.2.0',
+          version: getPackageVersion('react'),
         },
         {
           name: 'react-dom',
-          version: '18.2.0',
+          version: getPackageVersion('react-dom'),
         },
         {
           name: 'react-test-renderer',
-          version: '18.2.0',
+          version: getPackageVersion('react-test-renderer'),
         },
         {
           name: '@testing-library/react',
-          version: '14.0.0',
+          version: getPackageVersion('@testing-library/react'),
         },
       ],
     },
@@ -80,6 +81,15 @@ async function main(version = 17) {
 
   const contents = `${JSON.stringify(packageJson, null, 2)}${os.EOL}`
   await fs.writeFile(packageJsonPath, contents)
+}
+
+function getPackageVersion(name) {
+  const {devDependencies} = packageJson
+  if (devDependencies[name]) {
+    return devDependencies[name]
+  }
+
+  throw new Error(`Unable to find version for package: ${name}`)
 }
 
 const [version] = process.argv.slice(2)
