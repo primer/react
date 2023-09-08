@@ -1,5 +1,51 @@
 # @primer/components
 
+## 35.29.0
+
+### Minor Changes
+
+- [#3692](https://github.com/primer/react/pull/3692) [`4046e058`](https://github.com/primer/react/commit/4046e058253cd9b2fb0f7e45cc01d12049bfd306) Thanks [@broccolinisoup](https://github.com/broccolinisoup)! - Octicons: Upgrade react-octicons to v19.7.0
+
+  <!-- Changed components: _none_ -->
+
+- [#3647](https://github.com/primer/react/pull/3647) [`e480a4a4`](https://github.com/primer/react/commit/e480a4a42d33e21c7db0c4ba364bc0fc0372ec93) Thanks [@paxos](https://github.com/paxos)! - Adds onSelectSuggestion callback to <InlineAutocomplete />
+
+  <!-- Changed components: _none_ -->
+
+- [#3607](https://github.com/primer/react/pull/3607) [`c0e22fc1`](https://github.com/primer/react/commit/c0e22fc14697627c81c8a21137c72350e8d1a703) Thanks [@langermank](https://github.com/langermank)! - Update ActionList checkbox styles to form checkbox styles (impacts ActionMenu and SelectPanel)
+
+  <!-- Changed components: ActionList -->
+
+- [#3632](https://github.com/primer/react/pull/3632) [`3a8b841c`](https://github.com/primer/react/commit/3a8b841ce7d1d411142619b7a942e896d3eb01c9) Thanks [@iansan5653](https://github.com/iansan5653)! - Allow consumers to make components that are compatible with `FormControl` by reading forwarded props in from the `useFormControlForwardedProps` hook
+
+  <!-- Changed components: FormControl -->
+
+### Patch Changes
+
+- [#3675](https://github.com/primer/react/pull/3675) [`ade10e64`](https://github.com/primer/react/commit/ade10e64afd320a5299eea68f214718a638fc290) Thanks [@radglob](https://github.com/radglob)! - PageLayout.Content no longer renders as `main` by default. Instead, developers may add a `main` landmark within `Pagelayout.Content` themselves.
+
+  <!-- Changed components: PageLayout -->
+
+- [#3709](https://github.com/primer/react/pull/3709) [`edc0168e`](https://github.com/primer/react/commit/edc0168ea0a9747d7cbe06f0f2973a8f10937db5) Thanks [@mperrotti](https://github.com/mperrotti)! - Fixes a bug where children of AvatarStack would still show a transition when the component re-renders with a different number of children. Fixes https://github.com/primer/react/issues/3688
+
+  <!-- Changed components: AvatarStack -->
+
+- [#3698](https://github.com/primer/react/pull/3698) [`d759fd32`](https://github.com/primer/react/commit/d759fd32c36369b9ef4b7efafe1a5463baa48c14) Thanks [@gracepark](https://github.com/gracepark)! - Adds the defaultOpen prop to NavList.Item
+
+  <!-- Changed components: _none_ -->
+
+- [#3662](https://github.com/primer/react/pull/3662) [`2ca670a8`](https://github.com/primer/react/commit/2ca670a882925ce2cbd447d52f1ac390efe29253) Thanks [@joshblack](https://github.com/joshblack)! - Update type exports to prevent missing export warnings
+
+  <!-- Changed components: _none_ -->
+
+- [#3654](https://github.com/primer/react/pull/3654) [`556d826a`](https://github.com/primer/react/commit/556d826af1dd9cc74f8bf22e7f0f521d185a87d2) Thanks [@langermank](https://github.com/langermank)! - Use `control` CSS var with fallback for form component border-color
+
+  <!-- Changed components: _none_ -->
+
+- [#3689](https://github.com/primer/react/pull/3689) [`5d992715`](https://github.com/primer/react/commit/5d9927154518e9076fa6e7d5a83d1d7ff94c6aee) Thanks [@jdrush89](https://github.com/jdrush89)! - Fix dialog bug where escape would move focus when dialog was closed
+
+  <!-- Changed components: _none_ -->
+
 ## 35.28.0
 
 ### Minor Changes

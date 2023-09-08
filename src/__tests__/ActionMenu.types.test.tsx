@@ -2,7 +2,7 @@ import {ActionMenu} from '..'
 import React from 'react'
 
 export function actionButtonWithoutProps() {
-  //@ts-expect-error requires children
+  // @ts-expect-error requires children
   return <ActionMenu.Button />
 }
 
