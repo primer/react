@@ -5,12 +5,19 @@ Closes #
 
 <!-- Provide an overview of the changes, including before/after screenshots, videos, or graphs when helpful -->
 
-#### Risk Assessment
-  <!-- Please select from one of the following and detail why this level was chosen. Keep in mind how many component uses cases may be affected by your changes when assessing risk. -->
+#### Changelog & rollout strategy
+<!-- Under the headings below, list out relevant API changes that this Pull Request introduces -->
+### New
 
-- [ ] **Low risk** the change is small, highly observable, and easily rolled back.
-- [ ] **Medium risk** changes that are isolated, reduced in scope or could impact few users. The change will not impact library availability.
-- [ ] **High risk** changes are those that could impact customers and SLOs, low or no test coverage, low observability, or slow to rollback.
+### Changed
+
+### Removed
+
+### Rollout strategy
+<!-- How do you recommend this change to be rolled out? Refer to [contributor docs on Versioning](https://github.com/primer/react/blob/main/contributor-docs/versioning.md) for details. -->
+- [ ] Patch release
+- [ ] Minor release
+- [ ] Major release; if selected, include a written rollout or migration plan
 
 ### What approach did you choose and why?
 <!-- This section is a place for you to describe your thought process in making these changes.
