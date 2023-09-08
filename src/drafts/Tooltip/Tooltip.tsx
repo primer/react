@@ -9,7 +9,7 @@ import {get} from '../../constants'
 import {ComponentProps} from '../../utils/types'
 import {getAnchoredPosition} from '@primer/behaviors'
 import type {AnchorSide, AnchorAlignment} from '@primer/behaviors'
-import '@oddbird/popover-polyfill'
+import {isSupported, apply} from '@oddbird/popover-polyfill/fn'
 
 const StyledTooltip = styled.div`
   width: 1px;
@@ -268,6 +268,13 @@ export const Tooltip = React.forwardRef(
           hasAriaLabel || hasAriaLabelInChildren,
           'The label type `Tooltip` is going to be used here to label the trigger element. Please remove the aria-label from the trigger element.',
         )
+      }
+
+      // SSR safe polyfill apply
+      if (typeof window !== 'undefined') {
+        if (!isSupported()) {
+          apply()
+        }
       }
 
       /*
