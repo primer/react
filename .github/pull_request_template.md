@@ -1,22 +1,12 @@
-_Authors: Please fill out this form carefully and completely._
-
-_Reviewers: By approving this Pull Request you are approving the code change, as well as its deployment and mitigation plans._
-_Please read this description carefully. If you feel there is anything unclear or missing, please ask for updates._
-
-#### List the issues that this change affects.
-<!--Every code change must address _at least 1_ issue. Fixes a bug, completes a task, every change
-      should have a corresponding issue listed here. If one does not already exist, create one. -->
-      
-Closes # (type the GitHub issue number after #)
-
 ### What are you trying to accomplish?
-<!-- Provide a description of the changes. -->
+<!-- Provide the GitHub issue that this issue closes. Start typing the number or name of the issue after the # below. -->
+      
+Closes #
 
-### Screenshots
-<!-- Provide before/after screenshots, videos, or graphs for any visual changes; otherwise, remove this section -->
+<!-- Provide an overview of the changes, including before/after screenshots, videos, or graphs when helpful -->
 
 #### Risk Assessment
-  <!-- Please select from one of the following and detail why this level was chosen -->
+  <!-- Please select from one of the following and detail why this level was chosen. Keep in mind how many component uses cases may be affected by your changes when assessing risk. -->
 
 - [ ] **Low risk** the change is small, highly observable, and easily rolled back.
 - [ ] **Medium risk** changes that are isolated, reduced in scope or could impact few users. The change will not impact library availability.
@@ -28,10 +18,9 @@ Closes # (type the GitHub issue number after #)
      Identify any work you did to mitigate risk.
      Describe any alternative approaches you considered and why you discarded them. -->
 
-### Anything you want to highlight for special attention from reviewers?
-<!-- This is your chance to identify remaining risks and confess any uncertainties you may have about the correctness of the changes.
-     Highlight anything on which you would like a second (or third) opinion.
-     Keep in mind how many component uses cases may be affected by your changes when assessing risk. -->
+### Testing & Reviewing
+<!-- Describe any specific details to help reviewers test or review this Pull Request -->
+
 
 ### Accessibility
 <!--
