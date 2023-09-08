@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useRef, useState} from 'react'
 import {createPortal} from 'react-dom'
 import useLayoutEffect from '../utils/useIsomorphicLayoutEffect'
 
@@ -65,16 +65,33 @@ export const Portal: React.FC<React.PropsWithChildren<PortalProps>> = ({
   onMount,
   containerName: _containerName,
 }) => {
-  const hostElement = document.createElement('div')
+  const [element, setElement] = useState<HTMLDivElement | null>(() => {
+    // If we're in SSR, return null so that nothing is rendered
+    if (typeof document === 'undefined') return null
+    return document.createElement('div')
+  })
 
-  // Portaled content should get their own stacking context so they don't interfere
-  // with each other in unexpected ways. One should never find themselves tempted
-  // to change the zIndex to a value other than "1".
-  hostElement.style.position = 'relative'
-  hostElement.style.zIndex = '1'
-  const elementRef = React.useRef(hostElement)
+  // Set a new element if none exists yet
+  useLayoutEffect(() => {
+    setElement(prev => {
+      return prev ?? document.createElement('div')
+    })
+  }, [])
+
+  // track onMount in a ref so that we can access the latest value in the effect below without re-running the effect
+  const onMountRef = useRef(onMount)
+  useLayoutEffect(() => {
+    onMountRef.current = onMount
+  })
 
   useLayoutEffect(() => {
+    if (!element) return
+    // Portaled content should get their own stacking context so they don't interfere
+    // with each other in unexpected ways. One should never find themselves tempted
+    // to change the zIndex to a value other than "1".
+
+    element.style.position = 'relative'
+    element.style.zIndex = '1'
     let containerName = _containerName
     if (containerName === undefined) {
       containerName = DEFAULT_PORTAL_CONTAINER_NAME
@@ -87,15 +104,14 @@ export const Portal: React.FC<React.PropsWithChildren<PortalProps>> = ({
         `Portal container '${_containerName}' is not yet registered. Container must be registered with registerPortal before use.`,
       )
     }
-    const element = elementRef.current
     parentElement.appendChild(element)
-    onMount?.()
+    onMountRef.current?.()
 
     return () => {
       parentElement.removeChild(element)
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [elementRef])
+  }, [element, _containerName])
 
-  return createPortal(children, elementRef.current)
+  if (!element) return null
+  return createPortal(children, element)
 }
