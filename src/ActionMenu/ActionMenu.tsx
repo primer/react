@@ -91,7 +91,12 @@ type MenuOverlayProps = Partial<OverlayProps> &
      */
     children: React.ReactNode
   }
-const Overlay: React.FC<React.PropsWithChildren<MenuOverlayProps>> = ({children, align = 'start', ...overlayProps}) => {
+const Overlay: React.FC<React.PropsWithChildren<MenuOverlayProps>> = ({
+  children,
+  align = 'start',
+  'aria-labelledby': ariaLabelledby,
+  ...overlayProps
+}) => {
   // we typecast anchorRef as required instead of optional
   // because we know that we're setting it in context in Menu
   const {anchorRef, renderAnchor, anchorId, open, onOpen, onClose} = React.useContext(MenuContext) as MandateProps<
@@ -119,7 +124,7 @@ const Overlay: React.FC<React.PropsWithChildren<MenuOverlayProps>> = ({children,
           value={{
             container: 'ActionMenu',
             listRole: 'menu',
-            listLabelledBy: anchorId,
+            listLabelledBy: ariaLabelledby || anchorId,
             selectionAttribute: 'aria-checked', // Should this be here?
             afterSelect: onClose,
           }}
