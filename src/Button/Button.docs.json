@@ -25,12 +25,24 @@
     {
       "name": "leadingIcon",
       "type": "React.ComponentType<OcticonProps>",
-      "description": "An icon to display before the button text."
+      "description": "An icon to display before the button text.",
+      "deprecated": true
+    },
+    {
+      "name": "leadingVisual",
+      "type": "React.ElementType",
+      "description": "A visual to display before the button text."
     },
     {
       "name": "trailingIcon",
       "type": "React.ComponentType<OcticonProps>",
-      "description": "An icon to display after the button text."
+      "description": "An icon to display after the button text.",
+      "deprecated": true
+    },
+    {
+      "name": "trailingVisual",
+      "type": "React.ElementType",
+      "description": "A visual to display after the button text."
     },
     {
       "name": "as",
