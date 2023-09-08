@@ -117,6 +117,8 @@ exports[`@primer/react/decprecated should not update exports without a semver ch
   "Dropdown",
   "DropdownButton",
   "DropdownMenu",
+  "FilterList",
+  "FilteredSearch",
   "Fixed",
   "Flex",
   "FormGroup",
@@ -128,6 +130,7 @@ exports[`@primer/react/decprecated should not update exports without a semver ch
   "Relative",
   "SelectMenu",
   "Sticky",
+  "UnderlineNav",
 ]
 `;
 
