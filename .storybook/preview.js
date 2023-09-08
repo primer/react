@@ -50,8 +50,9 @@ export const parameters = {
         ],
         'Behaviors',
         'Hooks',
-        'Private components',
-        'Deprecated components',
+        'Deprecated',
+        'Drafts',
+        'Private',
         '*',
       ]
 

@@ -1,6 +1,8 @@
 name: Release Schedule
 on:
   workflow_dispatch:
+  schedule:
+    - cron: '0 0 * * TUE'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.workflow_run.head_branch }}
@@ -105,7 +107,7 @@ jobs:
               '<!-- Provide updates for release activities, like cutting releases and different integration points -->',
               '',
               ...eachDayOfInterval({ start, end }).map((day) => {
-                return `- ${format(day, 'EEEE do')}`;
+                return `- ${format(day, 'EEEE, LLLL do')}`;
               }),
               '',
             ].join('\n');

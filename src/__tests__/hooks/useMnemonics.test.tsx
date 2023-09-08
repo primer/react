@@ -19,9 +19,7 @@ const Fixture = ({
   return (
     <>
       <div ref={refNotAttached ? undefined : containerRef} data-testid="container">
-        {/* eslint-disable-next-line jsx-a11y/no-autofocus */}
         {hasInput && <input autoFocus type="text" placeholder="Filter options" />}
-        {/* eslint-disable-next-line jsx-a11y/no-autofocus */}
         {hasTextarea && <textarea autoFocus placeholder="Filter options" />}
         <button onKeyDown={onSelect}>button 1</button>
         <button onKeyDown={onSelect}>Button 2</button>

@@ -68,6 +68,14 @@ const components = new Map([
           id: 'components-actionlist-features--with-icons',
           name: 'With Icons',
         },
+        {
+          id: 'components-actionlist-features--disabled-multiselect',
+          name: 'Disabled Multiselect',
+        },
+        {
+          id: 'components-actionlist-features--disabled-selected-multiselect',
+          name: 'Disabled Selected Multiselect',
+        },
       ],
     },
   ],
@@ -569,6 +577,29 @@ const components = new Map([
         {
           id: 'components-iconbutton-features--small',
           name: 'Small',
+        },
+      ],
+    },
+  ],
+  [
+    'InlineAutocomplete',
+    {
+      stories: [
+        {
+          id: 'components-forms-inlineautocomplete--default',
+          name: 'Default',
+        },
+        {
+          id: 'components-forms-inlineautocomplete--playground',
+          name: 'Playground',
+        },
+        {
+          id: 'components-forms-inlineautocomplete-features--custom-rendering',
+          name: 'Custom Rendering',
+        },
+        {
+          id: 'components-forms-inlineautocomplete-features--single-line',
+          name: 'Single Line',
         },
       ],
     },
@@ -1095,6 +1126,21 @@ const components = new Map([
     },
   ],
   [
+    'StyledOcticon',
+    {
+      stories: [
+        {
+          id: 'components-styledocticon--default',
+          name: 'Default',
+        },
+        {
+          id: 'components-styledocticon--playground',
+          name: 'Playground',
+        },
+      ],
+    },
+  ],
+  [
     'Text',
     {
       stories: [
@@ -1343,6 +1389,17 @@ const components = new Map([
         {
           id: 'components-toggleswitch-features--with-caption',
           name: 'With Caption',
+        },
+      ],
+    },
+  ],
+  [
+    'Tooltip',
+    {
+      stories: [
+        {
+          id: 'components-tooltip--default',
+          name: 'Default',
         },
       ],
     },

@@ -1,1 +1,2 @@
-export {default, FilteredSearchProps} from './FilteredSearch'
+export {default} from './FilteredSearch'
+export type {FilteredSearchProps} from './FilteredSearch'

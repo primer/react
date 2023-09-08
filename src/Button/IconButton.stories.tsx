@@ -10,8 +10,8 @@ const meta: Meta<ComponentProps<typeof IconButton>> = {
     size: {
       control: {
         type: 'radio',
-        options: ['small', 'medium', 'large'],
       },
+      options: ['small', 'medium', 'large'],
     },
     disabled: {
       control: {
@@ -21,8 +21,8 @@ const meta: Meta<ComponentProps<typeof IconButton>> = {
     variant: {
       control: {
         type: 'radio',
-        options: ['default', 'primary', 'danger', 'invisible'],
       },
+      options: ['default', 'primary', 'danger', 'invisible'],
     },
     icon: OcticonArgType([EyeClosedIcon, EyeIcon, SearchIcon, XIcon, HeartIcon]),
   },

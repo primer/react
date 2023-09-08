@@ -245,7 +245,7 @@ Using `aria-label` along with `PageLayout.Header` or `PageLayout.Footer` creates
 
 ```jsx live
 <PageLayout>
-  <PageLayout.Header aria-label="header">
+  <PageLayout.Header aria-label="Header">
     <Placeholder label="Header" height={64} />
   </PageLayout.Header>
   <PageLayout.Content>
@@ -254,7 +254,7 @@ Using `aria-label` along with `PageLayout.Header` or `PageLayout.Footer` creates
   <PageLayout.Pane>
     <Placeholder label="Pane" height={120} />
   </PageLayout.Pane>
-  <PageLayout.Footer aria-label="footer">
+  <PageLayout.Footer aria-label="Footer">
     <Placeholder label="Footer" height={64} />
   </PageLayout.Footer>
 </PageLayout>
@@ -338,15 +338,15 @@ Each component may be labeled through either `aria-label` or `aria-labelledby` i
 - [WCAG, ARIA11 Technique](https://www.w3.org/WAI/WCAG22/Techniques/aria/ARIA11)
 - [MDN, Landmark roles](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/landmark_role)
 
-### `PageLayout.Content`
+### `PageLayout.Content` as landmark
 
 The `PageLayout.Content` component does not provide a default `<main>` landmark role.
 If you want to utilize a `<main>` landmark with this component, you may supply one directly [as a child of `PageLayout.Content`](#with-main-landmark).
 When using `<main>` ensure that no other `<main>` landmark exists on the page, as there should only be one per page.
 
-- [`main` usage](https://www.w3.org/WAI/ARIA/apg/patterns/landmarks/examples/main.html)
+- [`main` landmark usage](https://www.w3.org/WAI/ARIA/apg/patterns/landmarks/examples/main.html)
 
-### `PageLayout.Pane`
+### `PageLayout.Pane` as landmark
 
 The `PageLayout.Pane` component does not provide a default landmark role as the
 content of this component may have different roles. When using this component,

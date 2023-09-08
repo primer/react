@@ -1,4 +1,4 @@
-name: Release
+name: Canary Release
 on:
   push:
     branches-ignore:
@@ -7,8 +7,8 @@ on:
       - 'changeset-release/**'
 
 jobs:
-  release-canary:
-    name: Canary
+  release:
+    concurrency: npm-canary
     uses: primer/.github/.github/workflows/release_canary.yml@main
     secrets:
       gh_token: ${{ secrets.GITHUB_TOKEN }}

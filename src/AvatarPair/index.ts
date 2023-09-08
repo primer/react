@@ -1,1 +1,2 @@
-export {default, AvatarPairProps} from './AvatarPair'
+export {default} from './AvatarPair'
+export type {AvatarPairProps} from './AvatarPair'

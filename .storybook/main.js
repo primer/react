@@ -21,13 +21,13 @@ module.exports = {
       },
     },
     {
-      name: 'storybook-css-modules',
-      // TODO: replace with @storybook/addon-styling for storybook v7
+      name: '@storybook/addon-styling',
       options: {
-        cssModulesLoaderOptions: {
-          modules: {
-            localIdentName: 'prc_[local]-[hash:base64:5]',
-          },
+        cssModules: {
+          localIdentName: 'prc_[local]-[hash:base64:5]',
+        },
+        postCss: {
+          implementation: require('postcss'),
         },
       },
     },
@@ -48,6 +48,6 @@ module.exports = {
     },
   },
   docs: {
-    autodocs: true,
+    autodocs: false,
   },
 }

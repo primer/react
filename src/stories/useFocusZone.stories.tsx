@@ -1,6 +1,6 @@
 import React, {useCallback, useRef, useState} from 'react'
 import {Meta} from '@storybook/react'
-import styled, {createGlobalStyle} from 'styled-components'
+import styled from 'styled-components'
 import {Box, BaseStyles, Flash, theme, ThemeProvider} from '..'
 import {Button} from '../Button'
 import {FocusKeys} from '@primer/behaviors'
@@ -24,14 +24,6 @@ export default {
   ],
 } as Meta
 
-// NOTE: the below styles are solely intended as a visual aid for
-// this Storybook story, but they're not recommended for a real site!
-const HelperGlobalStyling = createGlobalStyle`
-  *:focus {
-    outline: 2px solid ${themeGet('colors.border.info')} !important;
-  }
-`
-
 const MarginButton = styled(Button)`
   margin: ${themeGet('space.1')};
 `
@@ -52,7 +44,6 @@ export const BasicFocusZone = () => {
 
   return (
     <>
-      <HelperGlobalStyling />
       <Box display="flex" flexDirection="column" alignItems="flex-start" onKeyDownCapture={reportKey}>
         <Box position="absolute" right={5} top={2}>
           Last key pressed: {lastKey}
@@ -105,7 +96,6 @@ export const FocusOutBehavior = () => {
 
   return (
     <>
-      <HelperGlobalStyling />
       <Box display="flex" flexDirection="column" alignItems="flex-start" onKeyDownCapture={reportKey}>
         <Box position="absolute" right={5} top={2}>
           Last key pressed: {lastKey}
@@ -223,7 +213,6 @@ export const CustomFocusMovement = () => {
 
   return (
     <>
-      <HelperGlobalStyling />
       <Box display="flex" flexDirection="column" alignItems="flex-start" onKeyDownCapture={reportKey}>
         <Box position="absolute" right={5} top={2}>
           Last key pressed: {lastKey}
@@ -294,7 +283,6 @@ export const FocusInStrategy = () => {
 
   return (
     <>
-      <HelperGlobalStyling />
       <Box display="flex" flexDirection="column" alignItems="flex-start" onKeyDownCapture={reportKey}>
         <Box position="absolute" right={5} top={2}>
           Last key pressed: {lastKey}
@@ -393,7 +381,6 @@ export const SpecialSituations = () => {
 
   return (
     <>
-      <HelperGlobalStyling />
       <Box display="flex" flexDirection="column" alignItems="flex-start" onKeyDownCapture={reportKey}>
         <Flash sx={{mb: 3}}>
           This story is very esoteric! It only exists to show some of the nuance of the arrow key focus behavior in
@@ -415,16 +402,23 @@ export const SpecialSituations = () => {
           borderStyle="solid"
           borderRadius={2}
         >
-          <strong>Bound keys: Up, Down, PageUp, PageDown, W, S, J, K, Home, End, Tab</strong>
+          <strong id="focus-label">Bound keys: Up, Down, PageUp, PageDown, W, S, J, K, Home, End, Tab</strong>
           <Box display="flex" flexDirection="column" alignItems="flex-start">
-            <input style={{width: '250px'}} type="text" defaultValue="Printable characters won't move focus" />
+            <input
+              style={{width: '250px'}}
+              type="text"
+              defaultValue="Printable characters won't move focus"
+              aria-labelledby="focus-label"
+            />
+
             <MarginButton>Regular button</MarginButton>
-            <select>
+            <select aria-labelledby="focus-label">
               <option>Down arrow invokes dropdown</option>
               <option>Unless Cmd (mac)/Ctrl (Windows)</option>
               <option>Is held</option>
             </select>
             <textarea
+              aria-labelledby="focus-label"
               style={{width: '250px', height: '95px'}}
               defaultValue="Up/Down only works when at beginning/end. PageUp and PageDown completely disabled. Printable characters will never move focus."
             ></textarea>
@@ -439,11 +433,14 @@ export const SpecialSituations = () => {
           borderStyle="solid"
           borderRadius={2}
         >
-          <strong>Use Left Arrow and Right Arrow to move focus within this box. Focus is circular.</strong>
+          <label htmlFor="focus-input">
+            <strong>Use Left Arrow and Right Arrow to move focus within this box. Focus is circular.</strong>
+          </label>
 
           <Box display="flex" flexDirection="row" alignItems="center">
             <MarginButton>Grapefruit</MarginButton>
             <input
+              id="focus-input"
               style={{width: '300px'}}
               type="text"
               defaultValue="Left/Right only work at beginning/end of input."
@@ -488,7 +485,6 @@ export const ChangingSubtree = () => {
 
   return (
     <>
-      <HelperGlobalStyling />
       <Box display="flex" flexDirection="column" alignItems="flex-start" onKeyDownCapture={reportKey}>
         <Flash sx={{mb: 3}}>
           This story demonstrates that focusZone is consistent even when the container&rsquo;s subtree changes.
@@ -544,7 +540,6 @@ export const NestedZones = () => {
 
   return (
     <>
-      <HelperGlobalStyling />
       <Box display="flex" flexDirection="column" alignItems="flex-start" onKeyDownCapture={reportKey}>
         <Box position="absolute" right={5} top={2}>
           Last key pressed: {lastKey}
@@ -606,7 +601,7 @@ export const ActiveDescendant = () => {
     bindKeys: FocusKeys.ArrowVertical,
     onActiveDescendantChanged: (current, previous) => {
       if (current) {
-        current.style.outline = `2px solid ${themeFromContext?.colors.border.info}`
+        current.style.outline = `2px solid ${themeFromContext?.colors.accent.fg}`
       }
       if (previous) {
         previous.style.outline = ''
@@ -617,7 +612,6 @@ export const ActiveDescendant = () => {
 
   return (
     <>
-      <HelperGlobalStyling />
       <Box display="flex" flexDirection="column" alignItems="flex-start" onKeyDownCapture={reportKey}>
         <Flash sx={{mb: 3}}>
           This story demonstrates using the `aria-activedescendant` pattern for managing both a focused element and an
@@ -631,13 +625,16 @@ export const ActiveDescendant = () => {
         <MarginButton>Banana</MarginButton>
         <MarginButton>Cantaloupe</MarginButton>
         <Box borderColor="gray.5" m={4} p={4} borderWidth="1px" borderStyle="solid" borderRadius={2}>
-          <strong>Bound keys: Arrow Up and Arrow Down</strong>
+          <label htmlFor="focus-input">
+            <strong>Bound keys: Arrow Up and Arrow Down</strong>
+          </label>
           <Box display="flex" flexDirection="column" alignItems="flex-start">
             <input
               ref={controllingElementRef as React.RefObject<HTMLInputElement>}
               type="text"
               defaultValue="Focus remains here."
               aria-controls="list"
+              id="focus-input"
             />
             <Box
               display="flex"

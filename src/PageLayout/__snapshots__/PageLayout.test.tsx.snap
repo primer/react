@@ -502,7 +502,11 @@ exports[`PageLayout renders default layout 1`] = `
           <div
             class="c7"
           >
-            Content
+            <main
+              aria-label="Content"
+            >
+              Content
+            </main>
           </div>
           <div
             class=""

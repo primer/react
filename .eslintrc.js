@@ -64,12 +64,6 @@ module.exports = {
     'react/prop-types': 'off',
     'react/display-name': 'off',
     'react-hooks/exhaustive-deps': 'error',
-    'jsx-a11y/label-has-for': [
-      2,
-      {
-        components: [],
-      },
-    ],
     camelcase: [
       'error',
       {
@@ -150,7 +144,13 @@ module.exports = {
                 message: 'Please use the `useId` hook from `src/hooks/useId.ts` instead',
               },
             ],
-            patterns: [],
+            patterns: [
+              {
+                group: ['**/utils/ssr'],
+                importNames: ['useSSRSafeId'],
+                message: 'Please use the `useId` hook from `src/hooks/useId.ts` instead',
+              },
+            ],
           },
         ],
       },
@@ -203,6 +203,7 @@ module.exports = {
         'no-unused-vars': 'off',
         'prettier/prettier': 'off',
         'react/jsx-no-undef': 'off',
+        'primer-react/direct-slot-children': 'off',
       },
     },
 

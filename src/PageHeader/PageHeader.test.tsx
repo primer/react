@@ -152,7 +152,7 @@ describe('PageHeader', () => {
         <PageHeader.TitleArea variant="large">
           <PageHeader.LeadingAction>
             Leading Action
-            <IconButton aria-label="expand" icon={SidebarExpandIcon} variant="invisible" />
+            <IconButton aria-label="Expand" icon={SidebarExpandIcon} variant="invisible" />
           </PageHeader.LeadingAction>
           <PageHeader.LeadingVisual>
             Leading Visual
@@ -161,7 +161,7 @@ describe('PageHeader', () => {
           <PageHeader.Title>Title</PageHeader.Title>
           <PageHeader.TrailingAction>
             Trailing Action
-            <IconButton aria-label="edit" icon={PencilIcon} variant="invisible" />
+            <IconButton aria-label="Edit" icon={PencilIcon} variant="invisible" />
           </PageHeader.TrailingAction>
           <PageHeader.TrailingVisual>
             Trailing Visual

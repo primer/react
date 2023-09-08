@@ -72,3 +72,11 @@ export type {
   ButtonCloseProps,
 } from './Button'
 // end of v35.0.0
+
+// Deprecated in v36
+export {default as FilterList} from '../FilterList'
+export type {FilterListProps, FilterListItemProps} from '../FilterList'
+export {default as FilteredSearch} from '../FilteredSearch'
+export type {FilteredSearchProps} from '../FilteredSearch'
+export {default as UnderlineNav} from '../UnderlineNav'
+export type {UnderlineNavProps, UnderlineNavLinkProps} from '../UnderlineNav'

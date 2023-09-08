@@ -1,16 +1,17 @@
 import {SearchIcon} from '@primer/octicons-react'
 import React, {useCallback, useMemo} from 'react'
-import {FilteredActionList, FilteredActionListProps, ItemInput} from '../FilteredActionList'
-import {OverlayProps} from '../Overlay'
-import {FocusZoneHookSettings} from '../hooks/useFocusZone'
-import {DropdownButton} from '../deprecated/DropdownMenu'
-import {ActionListItemProps} from '../ActionList'
 import {AnchoredOverlay, AnchoredOverlayProps} from '../AnchoredOverlay'
 import {AnchoredOverlayWrapperAnchorProps} from '../AnchoredOverlay/AnchoredOverlay'
 import Box from '../Box'
+import {FilteredActionList, FilteredActionListProps} from '../FilteredActionList'
 import Heading from '../Heading'
+import {OverlayProps} from '../Overlay'
 import {TextInputProps} from '../TextInput'
+import {ItemProps} from '../deprecated/ActionList'
+import {ItemInput} from '../deprecated/ActionList/List'
+import {DropdownButton} from '../deprecated/DropdownMenu'
 import {useProvidedRefOrCreate} from '../hooks'
+import {FocusZoneHookSettings} from '../hooks/useFocusZone'
 import {useId} from '../hooks/useId'
 import {useProvidedStateOrCreate} from '../hooks/useProvidedStateOrCreate'
 import {LiveRegion, LiveRegionOutlet, Message} from '../internal/components/LiveRegion'
@@ -28,6 +29,7 @@ interface SelectPanelMultiSelection {
 interface SelectPanelBaseProps {
   // TODO: Make `title` required in the next major version
   title?: string | React.ReactElement
+  subtitle?: string | React.ReactElement
   onOpenChange: (
     open: boolean,
     gesture: 'anchor-click' | 'anchor-key-press' | 'click-outside' | 'escape' | 'selection',
@@ -42,8 +44,7 @@ export type SelectPanelProps = SelectPanelBaseProps &
   Omit<FilteredActionListProps, 'selectionVariant'> &
   Pick<AnchoredOverlayProps, 'open'> &
   AnchoredOverlayWrapperAnchorProps &
-  // TODO: 23-05-23 - Remove showItemDividers after next-major release
-  (SelectPanelSingleSelection | SelectPanelMultiSelection) & {showItemDividers?: boolean}
+  (SelectPanelSingleSelection | SelectPanelMultiSelection)
 
 function isMultiSelectVariant(
   selected: SelectPanelSingleSelection['selected'] | SelectPanelMultiSelection['selected'],
@@ -66,6 +67,7 @@ export function SelectPanel({
   inputLabel = placeholderText,
   selected,
   title = isMultiSelectVariant(selected) ? 'Select items' : 'Select an item',
+  subtitle,
   onSelectedChange,
   filterValue: externalFilterValue,
   onFilterChange: externalOnFilterChange,
@@ -76,6 +78,7 @@ export function SelectPanel({
   ...listProps
 }: SelectPanelProps): JSX.Element {
   const titleId = useId()
+  const subtitleId = useId()
   const [filterValue, setInternalFilterValue] = useProvidedStateOrCreate(externalFilterValue, undefined, '')
   const onFilterChange: FilteredActionListProps['onFilterChange'] = useCallback(
     (value, e) => {
@@ -120,7 +123,9 @@ export function SelectPanel({
         ...item,
         role: 'option',
         selected: 'selected' in item && item.selected === undefined ? undefined : isItemSelected,
-        onSelect: (event: React.MouseEvent | React.KeyboardEvent) => {
+        onAction: (itemFromAction, event) => {
+          item.onAction?.(itemFromAction, event)
+
           if (event.defaultPrevented) {
             return
           }
@@ -139,7 +144,7 @@ export function SelectPanel({
           singleSelectOnChange(item === selected ? undefined : item)
           onClose('selection')
         },
-      } as ActionListItemProps
+      } as ItemProps
     })
   }, [onClose, onSelectedChange, items, selected])
 
@@ -166,7 +171,12 @@ export function SelectPanel({
         open={open}
         onOpen={onOpen}
         onClose={onClose}
-        overlayProps={{role: 'dialog', 'aria-labelledby': titleId, ...overlayProps}}
+        overlayProps={{
+          role: 'dialog',
+          'aria-labelledby': titleId,
+          'aria-describedby': subtitle ? subtitleId : undefined,
+          ...overlayProps,
+        }}
         focusTrapSettings={focusTrapSettings}
         focusZoneSettings={focusZoneSettings}
       >
@@ -185,14 +195,20 @@ export function SelectPanel({
             <Heading as="h1" id={titleId} sx={{fontSize: 1}}>
               {title}
             </Heading>
+            {subtitle ? (
+              <Box id={subtitleId} sx={{fontSize: 0, color: 'fg.muted'}}>
+                {subtitle}
+              </Box>
+            ) : null}
           </Box>
           <FilteredActionList
             filterValue={filterValue}
             onFilterChange={onFilterChange}
+            placeholderText={placeholderText}
+            {...listProps}
             role="listbox"
             aria-multiselectable={isMultiSelectVariant(selected) ? 'true' : 'false'}
             selectionVariant={isMultiSelectVariant(selected) ? 'multiple' : 'single'}
-            {...listProps}
             items={itemsToRender}
             textInputProps={extendedTextInputProps}
             inputRef={inputRef}

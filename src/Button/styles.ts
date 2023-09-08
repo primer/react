@@ -25,6 +25,9 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
         backgroundColor: 'btn.activeBg',
         borderColor: 'btn.activeBorder',
       },
+      '[data-component="leadingVisual"], [data-component="trailingVisual"], [data-component="trailingAction"]': {
+        color: 'fg.muted',
+      },
     },
     primary: {
       color: 'btn.primary.text',
@@ -114,7 +117,7 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
       },
       '&:disabled': {
         color: 'primer.fg.disabled',
-        '[data-component=ButtonCounter]': {
+        '[data-component=ButtonCounter], [data-component="leadingVisual"], [data-component="trailingAction"]': {
           color: 'inherit',
         },
       },
@@ -234,7 +237,7 @@ export const getBaseStyles = (theme?: Theme) => ({
     },
   },
   '[data-component=ButtonCounter]': {
-    fontSize: '1',
+    fontSize: '0',
   },
   '&[data-component=IconButton]': {
     display: 'inline-grid',

@@ -3,8 +3,23 @@ import styled from 'styled-components'
 import Box from '../Box'
 import {get} from '../constants'
 import sx, {SxProp} from '../sx'
-import getGlobalFocusStyles from '../_getGlobalFocusStyles'
+import getGlobalFocusStyles from '../internal/utils/getGlobalFocusStyles'
 import {buildComponentData, buildPaginationModel} from './model'
+import {ResponsiveValue, viewportRanges} from '../hooks/useResponsiveValue'
+
+const getViewportRangesToHidePages = (showPages: PaginationProps['showPages']) => {
+  if (showPages && typeof showPages !== 'boolean') {
+    return Object.keys(showPages).filter(key => !showPages[key as keyof typeof viewportRanges]) as Array<
+      keyof typeof viewportRanges
+    >
+  }
+
+  if (showPages) {
+    return []
+  } else {
+    return Object.keys(viewportRanges) as Array<keyof typeof viewportRanges>
+  }
+}
 
 const Page = styled.a`
   display: inline-block;
@@ -130,7 +145,7 @@ type UsePaginationPagesParameters = {
   onPageChange: (e: React.MouseEvent, n: number) => void
   hrefBuilder: (n: number) => string
   marginPageCount: number
-  showPages?: boolean
+  showPages?: PaginationProps['showPages']
   surroundingPageCount: number
 }
 
@@ -168,6 +183,30 @@ const PaginationContainer = styled.nav<SxProp>`
   margin-top: 20px;
   margin-bottom: 15px;
   text-align: center;
+
+  ${
+    // Hides pages based on the viewport range passed to `showPages`
+    Object.keys(viewportRanges)
+      .map(viewportRangeKey => {
+        return `
+      @media (${viewportRanges[viewportRangeKey as keyof typeof viewportRanges]}) {
+        .TablePaginationSteps[data-hidden-viewport-ranges*='${viewportRangeKey}'] > *:not(:first-child):not(:last-child) {
+          display: none;
+        }
+
+        .TablePaginationSteps[data-hidden-viewport-ranges*='${viewportRangeKey}'] > *:first-child {
+          margin-inline-end: 0;
+        }
+        
+        .TablePaginationSteps[data-hidden-viewport-ranges*='${viewportRangeKey}'] > *:last-child {
+          margin-inline-start: 0;
+        }
+      }
+    `
+      })
+      .join('')
+  }
+
   ${sx};
 `
 
@@ -178,7 +217,7 @@ export type PaginationProps = {
   onPageChange?: (e: React.MouseEvent, n: number) => void
   hrefBuilder?: (n: number) => string
   marginPageCount?: number
-  showPages?: boolean
+  showPages?: boolean | ResponsiveValue<boolean>
   surroundingPageCount?: number
 }
 
@@ -205,7 +244,12 @@ function Pagination({
   })
   return (
     <PaginationContainer aria-label="Pagination" {...rest} theme={theme}>
-      <Box display="inline-block" theme={theme}>
+      <Box
+        display="inline-block"
+        theme={theme}
+        className="TablePaginationSteps"
+        data-hidden-viewport-ranges={getViewportRangesToHidePages(showPages).join(' ')}
+      >
         {pageElements}
       </Box>
     </PaginationContainer>

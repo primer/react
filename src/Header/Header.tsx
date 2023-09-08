@@ -8,7 +8,7 @@ type StyledHeaderItemProps = {full?: boolean} & SxProp
 type StyledHeaderProps = SxProp
 type StyledHeaderLinkProps = {to?: Location | Pathname} & SxProp
 
-const Header = styled.div<StyledHeaderProps>`
+const Header = styled.header<StyledHeaderProps>`
   z-index: 32;
   display: flex;
   padding: ${get('space.3')};

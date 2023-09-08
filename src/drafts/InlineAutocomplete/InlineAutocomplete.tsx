@@ -5,11 +5,20 @@ import {BetterSystemStyleObject} from '../../sx'
 import {useSyntheticChange} from '../hooks/useSyntheticChange'
 import {getAbsoluteCharacterCoordinates} from '../utils/character-coordinates'
 
-import {ShowSuggestionsEvent, Suggestions, TextInputCompatibleChild, TextInputElement, Trigger} from './types'
+import {
+  SelectSuggestionsEvent,
+  ShowSuggestionsEvent,
+  Suggestions,
+  SuggestionsPlacement,
+  TextInputCompatibleChild,
+  TextInputElement,
+  Trigger,
+} from './types'
 import {augmentHandler, calculateSuggestionsQuery, getSuggestionValue, requireChildrenToBeInput} from './utils'
 
 import {useRefObjectAsForwardedRef} from '../../hooks'
 import AutocompleteSuggestions from './_AutocompleteSuggestions'
+import {useFormControlForwardedProps} from '../../FormControl'
 
 export type InlineAutocompleteProps = {
   /** Register the triggers that can cause suggestions to appear. */
@@ -19,6 +28,16 @@ export type InlineAutocompleteProps = {
    * `suggestions` prop accordingly.
    */
   onShowSuggestions: (event: ShowSuggestionsEvent) => void
+
+  /**
+   * Called when a suggestion is selected.
+   *
+   * @note This should be used only for performing side effects, not for modifying
+   * the inserted text. Do not call `setState` in this handler or the user's cursor
+   * position / undo history could be lost.
+   */
+  onSelectSuggestion?: (event: SelectSuggestionsEvent) => void
+
   /** Called when suggestions should be hidden. Set `suggestions` to `null` in this case. */
   onHideSuggestions: () => void
   /**
@@ -52,6 +71,18 @@ export type InlineAutocompleteProps = {
    * thrown.
    */
   children: TextInputCompatibleChild
+  /**
+   * Control which side of the insertion point the suggestions list appears on by default. This
+   * should almost always be `"below"` because it typically provides a better user experience
+   * (the most-relevant suggestions will appear closest to the text). However, if the input
+   * is always near the bottom of the screen (ie, a chat composition form), it may be better to
+   * display the suggestions above the input.
+   *
+   * In either case, if there is not enough room to display the suggestions in the default direction,
+   * the suggestions will appear in the other direction.
+   * @default "below"
+   */
+  suggestionsPlacement?: SuggestionsPlacement
 }
 
 const getSelectionStart = (element: TextInputElement) => {
@@ -76,12 +107,15 @@ const InlineAutocomplete = ({
   suggestions,
   onShowSuggestions,
   onHideSuggestions,
+  onSelectSuggestion,
   sx,
   children,
   tabInsertsSuggestions = false,
-  // Forward accessibility props so it works with FormControl
-  ...forwardProps
+  suggestionsPlacement = 'below',
+  ...externalInputProps
 }: InlineAutocompleteProps & React.ComponentProps<'textarea' | 'input'>) => {
+  const inputProps = useFormControlForwardedProps(externalInputProps)
+
   const inputRef = useRef<HTMLInputElement & HTMLTextAreaElement>(null)
   useRefObjectAsForwardedRef(children.ref ?? noop, inputRef)
 
@@ -108,7 +142,6 @@ const InlineAutocomplete = ({
           (getSelectionStart(inputRef.current) ?? 0) - showEventRef.current.query.length,
         )
       : {top: 0, left: 0, height: 0}
-  const suggestionsOffset = {top: triggerCharCoords.top + triggerCharCoords.height, left: triggerCharCoords.left}
 
   // User can blur while suggestions are visible with shift+tab
   const onBlur: React.FocusEventHandler<TextInputElement> = () => {
@@ -144,6 +177,8 @@ const InlineAutocomplete = ({
     if (!inputRef.current || !showEventRef.current) return
     const {query, trigger} = showEventRef.current
 
+    onSelectSuggestion?.({suggestion, trigger, query})
+
     const currentCaretPosition = getSelectionStart(inputRef.current) ?? 0
     const deleteLength = query.length + trigger.triggerChar.length
     const startIndex = currentCaretPosition - deleteLength
@@ -157,7 +192,7 @@ const InlineAutocomplete = ({
   }
 
   const input = cloneElement(externalInput, {
-    ...forwardProps,
+    ...inputProps,
     onBlur: augmentHandler(externalInput.props.onBlur, onBlur),
     onKeyDown: augmentHandler(externalInput.props.onKeyDown, onKeyDown),
     onChange: augmentHandler(externalInput.props.onChange, onChange),
@@ -165,7 +200,7 @@ const InlineAutocomplete = ({
   })
 
   /**
-   * Even thoughn we apply all the aria attributes, screen readers don't fully support this
+   * Even though we apply all the aria attributes, screen readers don't fully support this
    * dynamic use case and so they don't have a native way to indicate to the user when
    * there are suggestions available. So we use some hidden text with aria-live to politely
    * indicate what's available and how to use it.
@@ -198,10 +233,10 @@ const InlineAutocomplete = ({
         inputRef={inputRef}
         onCommit={onCommit}
         onClose={onHideSuggestions}
-        top={suggestionsOffset.top || 0}
-        left={suggestionsOffset.left || 0}
+        triggerCharCoords={triggerCharCoords}
         visible={suggestionsVisible}
         tabInsertsSuggestions={tabInsertsSuggestions}
+        defaultPlacement={suggestionsPlacement}
       />
 
       <Portal>
