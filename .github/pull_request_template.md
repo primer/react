@@ -19,12 +19,6 @@ Closes #
 - [ ] Minor release
 - [ ] Major release; if selected, include a written rollout or migration plan
 
-### What approach did you choose and why?
-<!-- This section is a place for you to describe your thought process in making these changes.
-     List any tradeoffs you made to take on or pay down tech debt.
-     Identify any work you did to mitigate risk.
-     Describe any alternative approaches you considered and why you discarded them. -->
-
 ### Testing & Reviewing
 <!-- Describe any specific details to help reviewers test or review this Pull Request -->
 
