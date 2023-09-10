@@ -1,4 +1,4 @@
-import React, {useId} from 'react'
+import React from 'react'
 import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import styled from 'styled-components'
 import sx, {SxProp, merge} from '../sx'
@@ -7,6 +7,7 @@ import {ActionListContainerContext} from './ActionListContainerContext'
 import {defaultSxProp} from '../utils/defaultSxProp'
 import {useSlots} from '../hooks/useSlots'
 import {Heading} from './Heading'
+import {useId} from '../hooks/useId'
 
 export type ActionListProps = React.PropsWithChildren<{
   /**
