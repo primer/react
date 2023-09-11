@@ -1114,15 +1114,15 @@ const components = new Map([
     },
   ],
   [
-    'Octicon',
+    'StyledOcticon',
     {
       stories: [
         {
-          id: 'components-octicon--default',
+          id: 'components-styledocticon--default',
           name: 'Default',
         },
         {
-          id: 'components-octicon--playground',
+          id: 'components-styledocticon--playground',
           name: 'Playground',
         },
       ],
