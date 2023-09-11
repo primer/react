@@ -1,81 +1,14 @@
-// @ts-nocheck
-
 import {existsSync} from 'node:fs'
 import fs from 'node:fs/promises'
 import path from 'node:path'
 import * as parser from '@babel/parser'
 import {traverse} from '@babel/core'
 
-// eslint-disable-next-line import/no-namespace
-// import * as Index from '..'
-// eslint-disable-next-line import/no-namespace
-// import * as Drafts from '../drafts'
-// eslint-disable-next-line import/no-namespace
-// import * as Deprecated from '../deprecated'
-
-const ROOT_DIR = path.resolve(__dirname, '..', '..')
-let project = null
-
-beforeAll(async () => {
-  project = await setup()
-})
-
-describe('@primer/react', () => {
-  it('should not update exports without a semver change', () => {
-    const moduleExports = project
-      .getModuleExports(path.join(ROOT_DIR, 'src', 'index.ts'))
-      .sort((a, b) => {
-        return a.identifier.localeCompare(b.identifier)
-      })
-      .map(exportInfo => {
-        if (exportInfo.exportKind === 'type') {
-          return `type ${exportInfo.identifier}`
-        }
-        return exportInfo.identifier
-      })
-    expect(moduleExports).toMatchSnapshot()
-  })
-})
-
-describe('@primer/react/experimental', () => {
-  it('should not update exports without a semver change', () => {
-    const moduleExports = project
-      .getModuleExports(path.join(ROOT_DIR, 'src', 'experimental', 'index.ts'))
-      .sort((a, b) => {
-        return a.identifier.localeCompare(b.identifier)
-      })
-      .map(exportInfo => {
-        if (exportInfo.exportKind === 'type') {
-          return `type ${exportInfo.identifier}`
-        }
-        return exportInfo.identifier
-      })
-    expect(moduleExports).toMatchSnapshot()
-  })
-})
-
-describe('@primer/react/decprecated', () => {
-  it('should not update exports without a semver change', () => {
-    const moduleExports = project
-      .getModuleExports(path.join(ROOT_DIR, 'src', 'deprecated', 'index.ts'))
-      .sort((a, b) => {
-        return a.identifier.localeCompare(b.identifier)
-      })
-      .map(exportInfo => {
-        if (exportInfo.exportKind === 'type') {
-          return `type ${exportInfo.identifier}`
-        }
-        return exportInfo.identifier
-      })
-    expect(moduleExports).toMatchSnapshot()
-  })
-})
-
-async function setup() {
+async function main() {
   const graph = new Map()
   const queue = [
     // main
-    path.join(ROOT_DIR, 'src', 'index.ts'),
+    path.join(process.cwd(), 'src', 'index.ts'),
 
     // deprecated
     path.join(process.cwd(), 'src', 'deprecated', 'index.ts'),
@@ -373,6 +306,11 @@ async function setup() {
     getModuleExports,
   }
 }
+
+main().catch(error => {
+  console.log(error)
+  process.exit(1)
+})
 
 const extensions = ['.tsx', '.ts', '.js', '.jsx', '.mjs', '.cjs']
 
