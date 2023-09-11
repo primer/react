@@ -75,6 +75,12 @@
           "type": "start | center | end",
           "defaultValue": "start",
           "description": ""
+        },
+        {
+          "name": "side",
+          "type": "| 'inside-top' | 'inside-bottom' | 'inside-left' | 'inside-right' | 'inside-center' | 'outside-top' | 'outside-bottom' | 'outside-left' | 'outside-right'",
+          "defaultValue": "'outside-bottom'",
+          "description": "Controls which side of the anchor the menu will appear"
         }
       ],
       "passthrough": {
