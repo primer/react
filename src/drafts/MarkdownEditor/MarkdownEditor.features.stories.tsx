@@ -1,10 +1,8 @@
 import {DiffIcon, PlusIcon} from '@primer/octicons-react'
 import React, {Meta} from '@storybook/react'
 import {useRef, useState} from 'react'
-import BaseStyles from '../../BaseStyles'
 import Box from '../../Box'
 import MarkdownEditor, {Emoji, Mentionable, Reference, SavedReply} from '.'
-import ThemeProvider from '../../ThemeProvider'
 
 const meta: Meta = {
   title: 'Drafts/Components/MarkdownEditor/Features',
