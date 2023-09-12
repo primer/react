@@ -1,7 +1,7 @@
 import React from 'react'
 import InputLabel from '../internal/components/InputLabel'
 import {SxProp} from '../sx'
-import {FormControlContext} from './FormControl'
+import {useFormControlContext} from './_FormControlContext'
 
 export type Props = {
   /**
@@ -14,7 +14,7 @@ export type Props = {
 const FormControlLabel: React.FC<
   React.PropsWithChildren<{htmlFor?: string} & React.ComponentProps<typeof InputLabel> & Props>
 > = ({as, children, htmlFor, id, visuallyHidden, sx, ...props}) => {
-  const {disabled, id: formControlId, required} = React.useContext(FormControlContext)
+  const {disabled, id: formControlId, required} = useFormControlContext()
 
   /**
    * Ensure we can pass through props correctly, since legend/span accept no defined 'htmlFor'
