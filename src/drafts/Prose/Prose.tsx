@@ -113,8 +113,6 @@ const StyledProse = styled.div<ProseProps>`
     display: block;
     max-width: 100%;
     height: auto;
-    margin-left: auto;
-    margin-right: auto;
     margin-block-end: var(--spacing);
   }
 
@@ -123,7 +121,7 @@ const StyledProse = styled.div<ProseProps>`
   /* ------------------------------------------------------------ */
   a {
     color: var(--fgColor-link);
-    text-decoration: underline;
+    text-decoration: var(--prefers-link-underlines, underline);
   }
 
   /* ------------------------------------------------------------ */
