@@ -6,10 +6,8 @@ import {defaultSxProp} from '../utils/defaultSxProp'
 import {BetterSystemStyleObject} from '../sx'
 
 const ButtonComponent = forwardRef(({children, sx: sxProp = defaultSxProp, ...props}, forwardedRef): JSX.Element => {
-  let sxStyles = sxProp
-
-  // grap the button props that have associated data attributes in the styles
   const {block, size, leadingVisual, trailingVisual, trailingAction} = props
+  let sxStyles = sxProp
 
   if (sxProp !== null && Object.keys(sxProp).length > 0) {
     sxStyles = generateCustomSxProp({block, size, leadingVisual, trailingVisual, trailingAction}, sxProp)

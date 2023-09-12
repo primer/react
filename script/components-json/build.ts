@@ -14,6 +14,7 @@ import outputSchema from './output.schema.json'
 // Only includes fields we use in this script
 type Component = {
   name: string
+  status: 'draft' | 'experimental' | 'alpha' | 'beta' | 'stable' | 'deprecated'
   stories: Array<{id: string; code?: string}>
 }
 
@@ -37,8 +38,17 @@ const components = docsFiles.map(docsFilepath => {
   // Example: src/components/Box/Box.docs.json -> src/components/Box/Box.stories.tsx
   const defaultStoryFilepath = docsFilepath.replace(/\.docs\.json$/, '.stories.tsx')
 
+  // Get the story name prefix for the default story id
+  const storyPrefix = {
+    draft: 'draft-',
+    experimental: 'experimental-',
+    deprecated: 'deprecated-',
+    alpha: '',
+    beta: '',
+    stable: '',
+  }
   // Get the default story id
-  const defaultStoryId = `components-${String(docs.name).toLowerCase()}--default`
+  const defaultStoryId = `${storyPrefix[docs.status]}components-${String(docs.name).toLowerCase()}--default`
 
   // Get source code for default story
   const {Default: defaultStoryCode} = getStorySourceCode(defaultStoryFilepath)
