@@ -1,4 +1,5 @@
-import {useCallback, useEffect, useLayoutEffect, useRef} from 'react'
+import {useCallback, useEffect, useRef} from 'react'
+import useIsomorphicLayoutEffect from '../../utils/useIsomorphicLayoutEffect'
 
 export const callbackCancelledResult = Symbol('callbackCancelledResult')
 export type CallbackCancelledResult = typeof callbackCancelledResult
@@ -27,7 +28,7 @@ export const useSafeAsyncCallback = <A extends unknown[], R>(
   allowCallingAfterUnmount = false,
 ): ((...args: A) => R | CallbackCancelledResult) => {
   const trackingRef = useRef(fn)
-  useLayoutEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     trackingRef.current = fn
   }, [fn])
 
