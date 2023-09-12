@@ -85,7 +85,7 @@ const MenuButton = React.forwardRef(({...props}, anchorRef) => {
 }) as PolymorphicForwardRefComponent<'button', ActionMenuButtonProps>
 
 type MenuOverlayProps = Partial<OverlayProps> &
-  Pick<AnchoredOverlayProps, 'align'> & {
+  Pick<AnchoredOverlayProps, 'align' | 'side'> & {
     /**
      * Recommended: `ActionList`
      */
@@ -94,6 +94,7 @@ type MenuOverlayProps = Partial<OverlayProps> &
 const Overlay: React.FC<React.PropsWithChildren<MenuOverlayProps>> = ({
   children,
   align = 'start',
+  side = 'outside-bottom',
   'aria-labelledby': ariaLabelledby,
   ...overlayProps
 }) => {
@@ -116,6 +117,7 @@ const Overlay: React.FC<React.PropsWithChildren<MenuOverlayProps>> = ({
       onOpen={onOpen}
       onClose={onClose}
       align={align}
+      side={side}
       overlayProps={overlayProps}
       focusZoneSettings={{focusOutBehavior: 'wrap'}}
     >

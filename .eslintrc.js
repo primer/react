@@ -143,6 +143,12 @@ module.exports = {
                 importNames: ['useSSRSafeId'],
                 message: 'Please use the `useId` hook from `src/hooks/useId.ts` instead',
               },
+              {
+                name: 'react',
+                importNames: ['useLayoutEffect'],
+                message:
+                  'Please use the `useIsomorphicLayoutEffect` hook from `src/hooks/useIsomorphicLayoutEffect.ts` instead',
+              },
             ],
             patterns: [
               {
