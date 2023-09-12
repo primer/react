@@ -1,10 +1,9 @@
-import React from 'react'
-import {IconButton, Button} from '../Button'
-import {behavesAsComponent} from '../utils/testing'
-import {render, fireEvent} from '@testing-library/react'
-import {axe, toHaveNoViolations} from 'jest-axe'
 import {SearchIcon} from '@primer/octicons-react'
-expect.extend(toHaveNoViolations)
+import {render, screen, fireEvent} from '@testing-library/react'
+import {axe} from 'jest-axe'
+import React from 'react'
+import {IconButton, Button} from '../../Button'
+import {behavesAsComponent} from '../../utils/testing'
 
 describe('Button', () => {
   behavesAsComponent({Component: Button, options: {skipSx: true}})
@@ -88,5 +87,30 @@ describe('Button', () => {
     const container = render(<Button alignContent="start">Align start</Button>)
     const button = container.getByRole('button')
     expect(button).toMatchSnapshot()
+  })
+
+  it('should render the leadingVisual prop before the button content', () => {
+    render(
+      <Button leadingVisual={() => <span data-testid="leadingVisual" />}>
+        <span>content</span>
+      </Button>,
+    )
+
+    expect(screen.getByTestId('leadingVisual')).toBeInTheDocument()
+
+    const position = screen.getByText('content').compareDocumentPosition(screen.getByTestId('leadingVisual'))
+    expect(position).toBe(Node.DOCUMENT_POSITION_PRECEDING)
+  })
+
+  it('should render the trailingVisual prop after the button content', () => {
+    render(
+      <Button trailingVisual={() => <span data-testid="trailingVisual" />}>
+        <span>content</span>
+      </Button>,
+    )
+    expect(screen.getByTestId('trailingVisual')).toBeInTheDocument()
+
+    const position = screen.getByText('content').compareDocumentPosition(screen.getByTestId('trailingVisual'))
+    expect(position).toBe(Node.DOCUMENT_POSITION_FOLLOWING)
   })
 })
