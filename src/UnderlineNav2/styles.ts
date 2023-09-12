@@ -1,5 +1,4 @@
 import {Theme} from '../ThemeProvider'
-import {UnderlineNavProps} from './UnderlineNav'
 
 // The gap between the list items. It is a constant because the gap is used to calculate the possible number of items that can fit in the container.
 export const GAP = 8
@@ -10,26 +9,16 @@ export const iconWrapStyles = {
   marginRight: 2,
 }
 
-const smallVariantLinkStyles = {
-  paddingX: 1,
-  fontSize: 0,
-}
-const defaultVariantLinkStyles = {
-  fontSize: 1,
-  paddingX: 2,
-  paddingY: 'calc((2rem - 1.25rem) / 2)',
-}
-
 export const counterStyles = {
   marginLeft: 2,
   display: 'flex',
   alignItems: 'center',
 }
 
-export const getNavStyles = (theme?: Theme, props?: Partial<Pick<UnderlineNavProps, 'align'>>) => ({
+export const getNavStyles = (theme?: Theme) => ({
   display: 'flex',
   paddingX: 3,
-  justifyContent: props?.align === 'right' ? 'flex-end' : 'flex-start',
+  justifyContent: 'flex-start',
   borderBottom: '1px solid',
   borderBottomColor: `${theme?.colors.border.muted}`,
   align: 'row',
@@ -73,12 +62,7 @@ export const moreBtnStyles = {
   },
 }
 
-export const getLinkStyles = (
-  theme?: Theme,
-  props?: Partial<Pick<UnderlineNavProps, 'variant'>>,
-  selectedLink?: React.RefObject<HTMLElement>,
-  ref?: React.RefObject<HTMLElement>,
-) => ({
+export const getLinkStyles = (theme?: Theme, ariaCurrent?: string | boolean) => ({
   position: 'relative',
   display: 'inline-flex',
   color: 'fg.default',
@@ -89,11 +73,14 @@ export const getLinkStyles = (
     color: 'fg.muted',
   },
   borderRadius: 2,
-  ...(props?.variant === 'small' ? smallVariantLinkStyles : defaultVariantLinkStyles),
+  fontSize: 1,
+  paddingX: 2,
+  paddingY: 'calc((2rem - 1.25rem) / 2)',
   '@media (hover:hover)': {
     '&:hover ': {
       backgroundColor: theme?.colors.neutral.muted,
       transition: 'background .12s ease-out',
+      textDecoration: 'none',
     },
   },
   '&:focus': {
@@ -127,14 +114,15 @@ export const getLinkStyles = (
     width: '100%',
     height: 2,
     content: '""',
-    bg: selectedLink === ref ? theme?.colors.primer.border.active : 'transparent',
+    backgroundColor:
+      Boolean(ariaCurrent) && ariaCurrent !== 'false' ? theme?.colors.primer.border.active : 'transparent',
     borderRadius: 0,
     transform: 'translate(50%, -50%)',
   },
   '@media (forced-colors: active)': {
     '::after': {
       // Support for Window Force Color Mode https://learn.microsoft.com/en-us/fluent-ui/web-components/design-system/high-contrast
-      bg: selectedLink === ref ? 'LinkText' : 'transparent',
+      backgroundColor: Boolean(ariaCurrent) && ariaCurrent ? 'LinkText' : 'transparent',
     },
   },
 })

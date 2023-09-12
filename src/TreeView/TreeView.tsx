@@ -4,7 +4,7 @@ import {
   FileDirectoryFillIcon,
   FileDirectoryOpenFillIcon,
 } from '@primer/octicons-react'
-import classnames from 'classnames'
+import clsx from 'clsx'
 import React, {useCallback, useEffect} from 'react'
 import styled, {keyframes} from 'styled-components'
 import {ConfirmationDialog} from '../Dialog/ConfirmationDialog'
@@ -482,7 +482,7 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
             {hasSubTree ? (
               // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
               <div
-                className={classnames(
+                className={clsx(
                   'PRIVATE_TreeView-item-toggle',
                   onSelect && 'PRIVATE_TreeView-item-toggle--hover',
                   level === 1 && 'PRIVATE_TreeView-item-toggle--end',

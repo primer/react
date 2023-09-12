@@ -41,7 +41,9 @@ export type CheckboxProps = {
 const StyledCheckbox = styled.input`
   ${sharedCheckboxAndRadioStyles};
   border-radius: ${get('radii.1')};
-  transition: background-color, border-color 80ms cubic-bezier(0.33, 1, 0.68, 1); /* checked -> unchecked - add 120ms delay to fully see animation-out */
+  transition:
+    background-color,
+    border-color 80ms cubic-bezier(0.33, 1, 0.68, 1); /* checked -> unchecked - add 120ms delay to fully see animation-out */
 
   &::before {
     width: var(--base-size-16, 16px);
@@ -56,9 +58,7 @@ const StyledCheckbox = styled.input`
     mask-repeat: no-repeat;
     mask-position: center;
 
-    @media screen and (prefers-reduced-motion: no-preference) {
-      animation: checkmarkOut 80ms cubic-bezier(0.65, 0, 0.35, 1) forwards;
-    }
+    animation: checkmarkOut 80ms cubic-bezier(0.65, 0, 0.35, 1) forwards;
   }
 
   &:checked,
@@ -67,14 +67,14 @@ const StyledCheckbox = styled.input`
     border-color: ${get('colors.accent.fg')};
 
     &::before {
-      @media screen and (prefers-reduced-motion: no-preference) {
-        animation: checkmarkIn 80ms cubic-bezier(0.65, 0, 0.35, 1) forwards 80ms;
-      }
+      animation: checkmarkIn 80ms cubic-bezier(0.65, 0, 0.35, 1) forwards 80ms;
     }
   }
 
   &:checked {
-    transition: background-color, border-color 80ms cubic-bezier(0.32, 0, 0.67, 0) 0ms;
+    transition:
+      background-color,
+      border-color 80ms cubic-bezier(0.32, 0, 0.67, 0) 0ms;
 
     &::before {
       visibility: visible;

@@ -97,13 +97,19 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       transition: 'background 33.333ms linear',
       color: getVariantStyles(variant, disabled).color,
       cursor: 'pointer',
-      '&[aria-disabled]': {cursor: 'not-allowed'},
+      '&[aria-disabled]': {
+        cursor: 'not-allowed',
+        '[data-component="ActionList.Checkbox"]': {
+          bg: selected ? 'fg.muted' : 'var(--color-input-disabled-bg, rgba(175, 184, 193, 0.2))',
+          borderColor: selected ? 'fg.muted' : 'var(--color-input-disabled-bg, rgba(175, 184, 193, 0.2))',
+        },
+      },
 
       // Button reset styles (to support as="button")
       appearance: 'none',
       background: 'unset',
       border: 'unset',
-      width: 'calc(100% - 16px)',
+      width: listVariant === 'inset' ? 'calc(100% - 16px)' : '100%',
       fontFamily: 'unset',
       textAlign: 'unset',
       marginY: 'unset',
@@ -153,7 +159,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       '&:hover:not([aria-disabled]), &:focus:not([aria-disabled]), &[data-focus-visible-added]:not([aria-disabled])': {
         '--divider-color': 'transparent',
       },
-      '&:hover:not([aria-disabled]) + &, &:focus:not([aria-disabled]) + &, &[data-focus-visible-added] + li': {
+      '&:hover:not([aria-disabled]) + &, &[data-focus-visible-added] + li': {
         '--divider-color': 'transparent',
       },
       ...(active ? activeStyles : {}),
@@ -203,7 +209,14 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
 
     return (
       <ItemContext.Provider value={{variant, disabled, inlineDescriptionId, blockDescriptionId}}>
-        <LiBox ref={forwardedRef} sx={merge<BetterSystemStyleObject>(styles, sxProp)} {...containerProps} {...props}>
+        <LiBox
+          ref={forwardedRef}
+          sx={merge<BetterSystemStyleObject>(styles, sxProp)}
+          data-variant={variant === 'danger' ? variant : undefined}
+          aria-selected={containerProps.role === 'option' ? selected : undefined}
+          {...containerProps}
+          {...props}
+        >
           <ItemWrapper {...wrapperProps}>
             <Selection selected={selected} />
             {slots.leadingVisual}
@@ -221,7 +234,9 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
                     id={labelId}
                     sx={{
                       flexGrow: slots.description && slots.description.props.variant !== 'block' ? 0 : 1,
-                      fontWeight: slots.description && slots.description.props.variant !== 'block' ? 'bold' : 'normal',
+                      fontWeight: slots.description ? 'bold' : 'normal',
+                      marginBlockEnd:
+                        slots.description && slots.description.props.variant !== 'inline' ? '4px' : undefined,
                     }}
                   >
                     {childrenWithoutSlots}

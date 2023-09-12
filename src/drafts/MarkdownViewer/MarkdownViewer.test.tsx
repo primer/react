@@ -28,6 +28,56 @@ text before list
 - [ ] item 2
 
 text after list`
+    const hierarchyBeforeTaskListNoItemsChecked = `
+text before list
+
+\`\`\`[tasklist]
+- [ ] item A
+- [ ] item B
+\`\`\`
+
+- [ ] item 1
+- [ ] item 2
+
+text after list`
+    const hierarchyBeforeTaskListOneItemChecked = `
+text before list
+
+\`\`\`[tasklist]
+- [ ] item A
+- [ ] item B
+\`\`\`
+
+- [x] item 1
+- [ ] item 2
+
+text after list`
+    const hierarchyBeforeTaskListNoItemsCheckedTildes = `
+text before list
+
+~~~[tasklist]
+- [ ] item A
+- [ ] item B
+\`\`\`
+~~~~~~
+
+- [ ] item 1
+- [ ] item 2
+
+text after list`
+    const hierarchyBeforeTaskListOneItemCheckedTildes = `
+text before list
+
+~~~[tasklist]
+- [ ] item A
+- [ ] item B
+\`\`\`
+~~~~~~
+
+- [x] item 1
+- [ ] item 2
+
+text after list`
 
     it('enables checklists by default', () => {
       const {getAllByRole} = render(
@@ -73,6 +123,36 @@ text after list`
       const items = getAllByRole('checkbox')
       fireEvent.change(items[0])
       await waitFor(() => expect(onChangeMock).toHaveBeenCalledWith(firstItemCheckedMarkdown))
+    })
+
+    it('calls `onChange` with the updated Markdown when a task is checked and hierarchy is present', async () => {
+      const onChangeMock = jest.fn()
+      const {getAllByRole} = render(
+        <MarkdownViewer
+          dangerousRenderedHTML={htmlObject}
+          markdownValue={hierarchyBeforeTaskListNoItemsChecked}
+          onChange={onChangeMock}
+          disabled
+        />,
+      )
+      const items = getAllByRole('checkbox')
+      fireEvent.change(items[0])
+      await waitFor(() => expect(onChangeMock).toHaveBeenCalledWith(hierarchyBeforeTaskListOneItemChecked))
+    })
+
+    it('calls `onChange` with the updated Markdown when a task is checked and hierarchy is present with tildes', async () => {
+      const onChangeMock = jest.fn()
+      const {getAllByRole} = render(
+        <MarkdownViewer
+          dangerousRenderedHTML={htmlObject}
+          markdownValue={hierarchyBeforeTaskListNoItemsCheckedTildes}
+          onChange={onChangeMock}
+          disabled
+        />,
+      )
+      const items = getAllByRole('checkbox')
+      fireEvent.change(items[0])
+      await waitFor(() => expect(onChangeMock).toHaveBeenCalledWith(hierarchyBeforeTaskListOneItemCheckedTildes))
     })
 
     it('calls `onChange` with the updated Markdown when a task is unchecked', async () => {

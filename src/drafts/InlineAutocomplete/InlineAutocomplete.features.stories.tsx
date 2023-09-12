@@ -56,6 +56,36 @@ export const SingleLine = ({loading, tabInserts}: ArgProps) => {
   )
 }
 
+export const OnSelectSuggestion = ({loading, tabInserts}: ArgProps) => {
+  const [suggestions, setSuggestions] = useState<Suggestions | null>(null)
+
+  const onShowSuggestions = (event: ShowSuggestionsEvent) => {
+    if (loading) {
+      setSuggestions('loading')
+      return
+    }
+
+    setSuggestions(filteredUsers(event.query).map(user => user.login))
+  }
+
+  return (
+    <FormControl>
+      <FormControl.Label>Inline Autocomplete Demo</FormControl.Label>
+      <FormControl.Caption>Try typing &apos;@&apos; to show user suggestions.</FormControl.Caption>
+      <InlineAutocomplete
+        triggers={[{triggerChar: '@'}]}
+        onSelectSuggestion={suggestion => window.alert(`Selected ${suggestion}`)}
+        suggestions={suggestions}
+        onShowSuggestions={onShowSuggestions}
+        onHideSuggestions={() => setSuggestions(null)}
+        tabInsertsSuggestions={tabInserts}
+      >
+        <TextInput sx={{lineHeight: 1.2}} />
+      </InlineAutocomplete>
+    </FormControl>
+  )
+}
+
 const UserSuggestion = ({user, ...props}: {user: User} & ActionListItemProps) => (
   <ActionList.Item {...props}>
     <ActionList.LeadingVisual>
@@ -101,6 +131,67 @@ export const CustomRendering = ({loading, tabInserts}: ArgProps) => {
         tabInsertsSuggestions={tabInserts}
       >
         <Textarea />
+      </InlineAutocomplete>
+    </FormControl>
+  )
+}
+
+export const AbovePositioning = () => {
+  const [suggestions, setSuggestions] = useState<Suggestions | null>(null)
+
+  const onShowSuggestions = (event: ShowSuggestionsEvent) => {
+    setSuggestions(
+      filteredUsers(event.query).map(user => ({
+        value: user.login,
+        render: props => <UserSuggestion user={user} {...props} />,
+      })),
+    )
+  }
+
+  const onHideSuggestions = () => setSuggestions(null)
+
+  return (
+    <FormControl sx={{position: 'absolute', bottom: '15px'}}>
+      <FormControl.Label>Inline Autocomplete Demo</FormControl.Label>
+      <FormControl.Caption>Try typing &apos;@&apos; to show user suggestions.</FormControl.Caption>
+      <InlineAutocomplete
+        triggers={[{triggerChar: '@'}]}
+        suggestions={suggestions}
+        onShowSuggestions={onShowSuggestions}
+        onHideSuggestions={onHideSuggestions}
+        suggestionsPlacement="above"
+      >
+        <Textarea sx={{height: '70px'}} />
+      </InlineAutocomplete>
+    </FormControl>
+  )
+}
+
+export const AutoPositioning = () => {
+  const [suggestions, setSuggestions] = useState<Suggestions | null>(null)
+
+  const onShowSuggestions = (event: ShowSuggestionsEvent) => {
+    setSuggestions(
+      filteredUsers(event.query).map(user => ({
+        value: user.login,
+        render: props => <UserSuggestion user={user} {...props} />,
+      })),
+    )
+  }
+
+  const onHideSuggestions = () => setSuggestions(null)
+
+  return (
+    <FormControl sx={{position: 'absolute', bottom: '15px'}}>
+      <FormControl.Label>Inline Autocomplete Demo</FormControl.Label>
+      <FormControl.Caption>Try typing &apos;@&apos; to show user suggestions.</FormControl.Caption>
+      <InlineAutocomplete
+        triggers={[{triggerChar: '@'}]}
+        suggestions={suggestions}
+        onShowSuggestions={onShowSuggestions}
+        onHideSuggestions={onHideSuggestions}
+      >
+        <Textarea sx={{height: '70px'}} />
       </InlineAutocomplete>
     </FormControl>
   )

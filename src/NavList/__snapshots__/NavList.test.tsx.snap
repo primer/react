@@ -69,6 +69,11 @@ exports[`NavList renders a simple list 1`] = `
   cursor: not-allowed;
 }
 
+.c2[aria-disabled] [data-component="ActionList.Checkbox"] {
+  background-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
+  border-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
+}
+
 .c2 [data-component="ActionList.Item--DividerContainer"] {
   position: relative;
 }
@@ -99,7 +104,6 @@ exports[`NavList renders a simple list 1`] = `
 }
 
 .c2:hover:not([aria-disabled]) + .c1,
-.c2:focus:not([aria-disabled]) + .c2,
 .c2[data-focus-visible-added] + li {
   --divider-color: transparent;
 }
@@ -151,6 +155,11 @@ exports[`NavList renders a simple list 1`] = `
   cursor: not-allowed;
 }
 
+.c6[aria-disabled] [data-component="ActionList.Checkbox"] {
+  background-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
+  border-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
+}
+
 .c6 [data-component="ActionList.Item--DividerContainer"] {
   position: relative;
 }
@@ -181,7 +190,6 @@ exports[`NavList renders a simple list 1`] = `
 }
 
 .c6:hover:not([aria-disabled]) + .c1,
-.c6:focus:not([aria-disabled]) + .c6,
 .c6[data-focus-visible-added] + li {
   --divider-color: transparent;
 }
@@ -466,6 +474,11 @@ exports[`NavList renders with groups 1`] = `
   cursor: not-allowed;
 }
 
+.c6[aria-disabled] [data-component="ActionList.Checkbox"] {
+  background-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
+  border-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
+}
+
 .c6 [data-component="ActionList.Item--DividerContainer"] {
   position: relative;
 }
@@ -496,7 +509,6 @@ exports[`NavList renders with groups 1`] = `
 }
 
 .c6:hover:not([aria-disabled]) + .c5,
-.c6:focus:not([aria-disabled]) + .c6,
 .c6[data-focus-visible-added] + li {
   --divider-color: transparent;
 }
@@ -548,6 +560,11 @@ exports[`NavList renders with groups 1`] = `
   cursor: not-allowed;
 }
 
+.c10[aria-disabled] [data-component="ActionList.Checkbox"] {
+  background-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
+  border-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
+}
+
 .c10 [data-component="ActionList.Item--DividerContainer"] {
   position: relative;
 }
@@ -578,7 +595,6 @@ exports[`NavList renders with groups 1`] = `
 }
 
 .c10:hover:not([aria-disabled]) + .c5,
-.c10:focus:not([aria-disabled]) + .c10,
 .c10[data-focus-visible-added] + li {
   --divider-color: transparent;
 }
@@ -843,6 +859,11 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   font-weight: initial;
 }
 
+[data-variant="danger"]:hover .c7,
+[data-variant="danger"]:active .c7 {
+  color: #1F2328;
+}
+
 .c8 {
   -webkit-transform: rotate(180deg);
   -ms-transform: rotate(180deg);
@@ -894,6 +915,11 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   cursor: not-allowed;
 }
 
+.c10[aria-disabled] [data-component="ActionList.Checkbox"] {
+  background-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
+  border-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
+}
+
 .c10 [data-component="ActionList.Item--DividerContainer"] {
   position: relative;
 }
@@ -924,7 +950,6 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
 }
 
 .c10:hover:not([aria-disabled]) + .c2,
-.c10:focus:not([aria-disabled]) + .c10,
 .c10[data-focus-visible-added] + li {
   --divider-color: transparent;
 }
@@ -941,43 +966,36 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
 }
 
 .c12:hover:not([aria-disabled]) + .c2,
-.c12:focus:not([aria-disabled]) + .c12,
 .c12[data-focus-visible-added] + li {
   --divider-color: transparent;
 }
 
 .c13:hover:not([aria-disabled]) + .c2,
-.c13:focus:not([aria-disabled]) + .c13,
 .c13[data-focus-visible-added] + li {
   --divider-color: transparent;
 }
 
 .c14:hover:not([aria-disabled]) + .c2,
-.c14:focus:not([aria-disabled]) + .c14,
 .c14[data-focus-visible-added] + li {
   --divider-color: transparent;
 }
 
 .c15:hover:not([aria-disabled]) + .c2,
-.c15:focus:not([aria-disabled]) + .c15,
 .c15[data-focus-visible-added] + li {
   --divider-color: transparent;
 }
 
 .c16:hover:not([aria-disabled]) + .c2,
-.c16:focus:not([aria-disabled]) + .c16,
 .c16[data-focus-visible-added] + li {
   --divider-color: transparent;
 }
 
 .c17:hover:not([aria-disabled]) + .c2,
-.c17:focus:not([aria-disabled]) + .c17,
 .c17[data-focus-visible-added] + li {
   --divider-color: transparent;
 }
 
 .c18:hover:not([aria-disabled]) + .c2,
-.c18:focus:not([aria-disabled]) + .c18,
 .c18[data-focus-visible-added] + li {
   --divider-color: transparent;
 }
@@ -1018,6 +1036,11 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   cursor: not-allowed;
 }
 
+.c3[aria-disabled] [data-component="ActionList.Checkbox"] {
+  background-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
+  border-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
+}
+
 .c3 [data-component="ActionList.Item--DividerContainer"] {
   position: relative;
 }
@@ -1048,13 +1071,11 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
 }
 
 .c3:hover:not([aria-disabled]) + .c2,
-.c3:focus:not([aria-disabled]) + .c3,
 .c3[data-focus-visible-added] + li {
   --divider-color: transparent;
 }
 
 .c19:hover:not([aria-disabled]) + .c2,
-.c19:focus:not([aria-disabled]) + .c19,
 .c19[data-focus-visible-added] + li {
   --divider-color: transparent;
 }
@@ -1304,6 +1325,11 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   font-weight: initial;
 }
 
+[data-variant="danger"]:hover .c7,
+[data-variant="danger"]:active .c7 {
+  color: #1F2328;
+}
+
 .c8 {
   -webkit-transform: rotate(0deg);
   -ms-transform: rotate(0deg);
@@ -1355,6 +1381,11 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   cursor: not-allowed;
 }
 
+.c10[aria-disabled] [data-component="ActionList.Checkbox"] {
+  background-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
+  border-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
+}
+
 .c10 [data-component="ActionList.Item--DividerContainer"] {
   position: relative;
 }
@@ -1385,7 +1416,6 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
 }
 
 .c10:hover:not([aria-disabled]) + .c2,
-.c10:focus:not([aria-disabled]) + .c10,
 .c10[data-focus-visible-added] + li {
   --divider-color: transparent;
 }
@@ -1402,49 +1432,41 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
 }
 
 .c12:hover:not([aria-disabled]) + .c2,
-.c12:focus:not([aria-disabled]) + .c12,
 .c12[data-focus-visible-added] + li {
   --divider-color: transparent;
 }
 
 .c13:hover:not([aria-disabled]) + .c2,
-.c13:focus:not([aria-disabled]) + .c13,
 .c13[data-focus-visible-added] + li {
   --divider-color: transparent;
 }
 
 .c14:hover:not([aria-disabled]) + .c2,
-.c14:focus:not([aria-disabled]) + .c14,
 .c14[data-focus-visible-added] + li {
   --divider-color: transparent;
 }
 
 .c15:hover:not([aria-disabled]) + .c2,
-.c15:focus:not([aria-disabled]) + .c15,
 .c15[data-focus-visible-added] + li {
   --divider-color: transparent;
 }
 
 .c16:hover:not([aria-disabled]) + .c2,
-.c16:focus:not([aria-disabled]) + .c16,
 .c16[data-focus-visible-added] + li {
   --divider-color: transparent;
 }
 
 .c17:hover:not([aria-disabled]) + .c2,
-.c17:focus:not([aria-disabled]) + .c17,
 .c17[data-focus-visible-added] + li {
   --divider-color: transparent;
 }
 
 .c18:hover:not([aria-disabled]) + .c2,
-.c18:focus:not([aria-disabled]) + .c18,
 .c18[data-focus-visible-added] + li {
   --divider-color: transparent;
 }
 
 .c19:hover:not([aria-disabled]) + .c2,
-.c19:focus:not([aria-disabled]) + .c19,
 .c19[data-focus-visible-added] + li {
   --divider-color: transparent;
 }
@@ -1486,6 +1508,11 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   cursor: not-allowed;
 }
 
+.c3[aria-disabled] [data-component="ActionList.Checkbox"] {
+  background-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
+  border-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
+}
+
 .c3 [data-component="ActionList.Item--DividerContainer"] {
   position: relative;
 }
@@ -1516,7 +1543,6 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
 }
 
 .c3:hover:not([aria-disabled]) + .c2,
-.c3:focus:not([aria-disabled]) + .c3,
 .c3[data-focus-visible-added] + li {
   --divider-color: transparent;
 }

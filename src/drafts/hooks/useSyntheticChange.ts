@@ -94,7 +94,7 @@ export const useSyntheticChange = ({inputRef, fallbackEventHandler}: UseSyntheti
       const input = inputRef.current
       if (!input) return
 
-      input.focus() // the input must be focused to execute execCommand
+      input.focus()
 
       const replaceRange = replaceRange_ ?? [
         input.selectionStart ?? input.value.length,
@@ -113,6 +113,10 @@ export const useSyntheticChange = ({inputRef, fallbackEventHandler}: UseSyntheti
       // but it's a deprecated API and there's no alternative. It also doesn't work in test environments
       let execCommandResult = false
       try {
+        // There is no guarantee the input is focused even after calling `focus()` on it. For example, the focus could
+        // be trapped by an overlay. In that case we must prevent the change from happening in some unexpected target.
+        if (document.activeElement !== input) throw new Error('Input must be focused to use execCommand')
+
         // expand selection to the whole range and replace it with the new value
         input.setSelectionRange(replaceRange[0], replaceRange[1])
         execCommandResult =

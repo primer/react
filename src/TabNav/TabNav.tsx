@@ -1,5 +1,5 @@
 import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
-import classnames from 'classnames'
+import clsx from 'clsx'
 import {To} from 'history'
 import React, {useRef, useState} from 'react'
 import styled from 'styled-components'
@@ -82,7 +82,7 @@ export type TabNavLinkProps = React.DetailedHTMLProps<React.HTMLAttributes<HTMLA
 
 const TabNavLink = styled.a.attrs<TabNavLinkProps>(props => ({
   activeClassName: typeof props.to === 'string' ? 'selected' : undefined,
-  className: classnames(ITEM_CLASS, props.selected && SELECTED_CLASS, props.className),
+  className: clsx(ITEM_CLASS, props.selected && SELECTED_CLASS, props.className),
   role: 'tab',
   'aria-selected': !!props.selected,
   tabIndex: -1,

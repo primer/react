@@ -19,7 +19,11 @@ exports[`ProgressBar renders consistently 1`] = `
 }
 
 <span
+  aria-busy={false}
+  aria-valuemax={100}
+  aria-valuemin={0}
   className="c0"
+  role="progressbar"
 >
   <span
     className="c1"
@@ -46,7 +50,13 @@ exports[`ProgressBar respects the "progress" prop 1`] = `
 }
 
 <span
+  aria-busy={true}
+  aria-label="Upload test.png"
+  aria-valuemax={100}
+  aria-valuemin={0}
+  aria-valuenow={80}
   className="c0"
+  role="progressbar"
 >
   <span
     className="c1"

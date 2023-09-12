@@ -402,16 +402,23 @@ export const SpecialSituations = () => {
           borderStyle="solid"
           borderRadius={2}
         >
-          <strong>Bound keys: Up, Down, PageUp, PageDown, W, S, J, K, Home, End, Tab</strong>
+          <strong id="focus-label">Bound keys: Up, Down, PageUp, PageDown, W, S, J, K, Home, End, Tab</strong>
           <Box display="flex" flexDirection="column" alignItems="flex-start">
-            <input style={{width: '250px'}} type="text" defaultValue="Printable characters won't move focus" />
+            <input
+              style={{width: '250px'}}
+              type="text"
+              defaultValue="Printable characters won't move focus"
+              aria-labelledby="focus-label"
+            />
+
             <MarginButton>Regular button</MarginButton>
-            <select>
+            <select aria-labelledby="focus-label">
               <option>Down arrow invokes dropdown</option>
               <option>Unless Cmd (mac)/Ctrl (Windows)</option>
               <option>Is held</option>
             </select>
             <textarea
+              aria-labelledby="focus-label"
               style={{width: '250px', height: '95px'}}
               defaultValue="Up/Down only works when at beginning/end. PageUp and PageDown completely disabled. Printable characters will never move focus."
             ></textarea>
@@ -426,11 +433,14 @@ export const SpecialSituations = () => {
           borderStyle="solid"
           borderRadius={2}
         >
-          <strong>Use Left Arrow and Right Arrow to move focus within this box. Focus is circular.</strong>
+          <label htmlFor="focus-input">
+            <strong>Use Left Arrow and Right Arrow to move focus within this box. Focus is circular.</strong>
+          </label>
 
           <Box display="flex" flexDirection="row" alignItems="center">
             <MarginButton>Grapefruit</MarginButton>
             <input
+              id="focus-input"
               style={{width: '300px'}}
               type="text"
               defaultValue="Left/Right only work at beginning/end of input."
@@ -615,13 +625,16 @@ export const ActiveDescendant = () => {
         <MarginButton>Banana</MarginButton>
         <MarginButton>Cantaloupe</MarginButton>
         <Box borderColor="gray.5" m={4} p={4} borderWidth="1px" borderStyle="solid" borderRadius={2}>
-          <strong>Bound keys: Arrow Up and Arrow Down</strong>
+          <label htmlFor="focus-input">
+            <strong>Bound keys: Arrow Up and Arrow Down</strong>
+          </label>
           <Box display="flex" flexDirection="column" alignItems="flex-start">
             <input
               ref={controllingElementRef as React.RefObject<HTMLInputElement>}
               type="text"
               defaultValue="Focus remains here."
               aria-controls="list"
+              id="focus-input"
             />
             <Box
               display="flex"

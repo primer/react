@@ -2,7 +2,12 @@
 
 ## Status
 
-Proposed
+Superseded by [ADR 010](./adr-010-drafts-are-experimental.md)
+
+| Stage    | Status |
+| -------- | ------ |
+| Approved | ✅     |
+| Adopted  | ✅     |
 
 ## Context
 

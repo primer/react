@@ -1,14 +1,14 @@
 import React, {MouseEventHandler, useCallback, useState} from 'react'
 import {isValidElementType} from 'react-is'
 import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
-import classnames from 'classnames'
+import clsx from 'clsx'
 
 import TextInputInnerVisualSlot from '../internal/components/TextInputInnerVisualSlot'
 import {useProvidedRefOrCreate} from '../hooks'
 import {Merge} from '../utils/types'
 import TextInputWrapper, {StyledWrapperProps} from '../internal/components/TextInputWrapper'
+import TextInputAction from '../internal/components/TextInputInnerAction'
 import UnstyledTextInput from '../internal/components/UnstyledTextInput'
-import TextInputAction from '../_TextInputInnerAction'
 
 export type TextInputNonPassthroughProps = {
   /** @deprecated Use `leadingVisual` or `trailingVisual` prop instead */
@@ -85,7 +85,7 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
     const [isInputFocused, setIsInputFocused] = useState<boolean>(false)
     const inputRef = useProvidedRefOrCreate(ref as React.RefObject<HTMLInputElement>)
     // this class is necessary to style FilterSearch, plz no touchy!
-    const wrapperClasses = classnames(className, 'TextInput-wrapper')
+    const wrapperClasses = clsx(className, 'TextInput-wrapper')
     const showLeadingLoadingIndicator =
       loading && (loaderPosition === 'leading' || Boolean(LeadingVisual && loaderPosition !== 'trailing'))
     const showTrailingLoadingIndicator =

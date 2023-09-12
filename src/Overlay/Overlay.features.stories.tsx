@@ -20,7 +20,7 @@ import {
 import type {AnchorSide} from '@primer/behaviors'
 
 export default {
-  title: 'Private components/Overlay',
+  title: 'Private/Components/Overlay',
   component: Overlay,
   args: {
     anchorSide: 'inside-top',
