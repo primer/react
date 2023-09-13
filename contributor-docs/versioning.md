@@ -59,7 +59,7 @@ For a full list of releases, visit our [releases](https://github.com/primer/reac
 |               | The version of a dependency is increased to a newer major version                                                                             | `major`             |
 | CSS           | [The `display` property used for the container of `children` is changed](#the-display-property-used-for-the-container-of-children-is-changed) | potentially `major` |
 | Accessibility | [A component includes a landmark role](#a-component-includes-a-landmark-role)                                                                 | potentially `major` |
-|               | [A component no longer includes a landmark role](#a-component-no-longer-includes-a-landmark-role)                                             | `major`             |
+|               | [A component no longer includes a landmark role](#a-component-no-longer-includes-a-landmark-role)                                             | potentially `major` |
 
 ## Reference
 
