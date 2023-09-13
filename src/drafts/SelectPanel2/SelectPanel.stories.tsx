@@ -472,7 +472,7 @@ export const TODO3NoCustomisation = () => {
   )
 }
 
-export const TODO4WithTabs = () => {
+export const TODO4WithTabsWithSelectPanelTabs = () => {
   const [filteredLabels, setFilteredLabels] = React.useState(data.branches)
 
   const initialSelectedLabels: string[] = ['main']
@@ -530,7 +530,7 @@ export const TODO4WithTabs = () => {
 
   return (
     <>
-      <h1>With Tabs</h1>
+      <h1>With Tabs with SelectPanel.Tabs</h1>
 
       <SelectPanel
         defaultOpen
@@ -562,6 +562,149 @@ export const TODO4WithTabs = () => {
               Tags
             </SelectPanel.Tab>
           </SelectPanel.Tabs>
+        </SelectPanel.Header>
+
+        <SelectPanel.ActionList selectionVariant="single">
+          {/* slightly different view for search results view and list view */}
+          {query ? (
+            filteredLabels.length > 1 ? (
+              filteredLabels.map(label => (
+                <ActionList.Item
+                  key={label.id}
+                  onSelect={() => onLabelSelect(label.id)}
+                  selected={selectedLabelIds.includes(label.id)}
+                >
+                  {label.name}
+                  <ActionList.TrailingVisual>{label.trailingInfo}</ActionList.TrailingVisual>
+                </ActionList.Item>
+              ))
+            ) : (
+              <SelectPanel.EmptyMessage>No labels found for &quot;{query}&quot;</SelectPanel.EmptyMessage>
+            )
+          ) : (
+            <>
+              {data[selectedTab].sort(sortingFn).map(branch => {
+                return (
+                  <>
+                    <ActionList.Item
+                      key={branch.id}
+                      onSelect={() => onLabelSelect(branch.id)}
+                      selected={selectedLabelIds.includes(branch.id)}
+                    >
+                      {branch.name}
+                      <ActionList.TrailingVisual>{branch.trailingInfo}</ActionList.TrailingVisual>
+                    </ActionList.Item>
+                  </>
+                )
+              })}
+            </>
+          )}
+        </SelectPanel.ActionList>
+        <SelectPanel.Footer>
+          {/* TODO: Can't disable Cancel and Save yet */}
+          <SelectPanel.SecondaryButton as="a" href="/branches">
+            See all branches
+          </SelectPanel.SecondaryButton>
+        </SelectPanel.Footer>
+      </SelectPanel>
+    </>
+  )
+}
+
+export const TODO5WithTabsWithCustomButton = () => {
+  const [filteredLabels, setFilteredLabels] = React.useState(data.branches)
+
+  const initialSelectedLabels: string[] = ['main']
+
+  // TODO: Single selection doesn't need an array
+  const [selectedLabelIds, setSelectedLabelIds] = React.useState<string[]>(initialSelectedLabels)
+
+  const [query, setQuery] = React.useState('')
+
+  const onSearchInputChange = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    const query = event.currentTarget.value
+    setQuery(query)
+
+    if (query === '') setFilteredLabels(data.labels)
+    else {
+      // TODO: should probably add a highlight for matching text
+      setFilteredLabels(
+        data.labels
+          .map(label => {
+            if (label.name.toLowerCase().startsWith(query)) return {priority: 1, label}
+            else if (label.name.toLowerCase().includes(query)) return {priority: 2, label}
+            else if (label.description?.toLowerCase().includes(query)) return {priority: 3, label}
+            else return {priority: -1, label}
+          })
+          .filter(result => result.priority > 0)
+          .map(result => result.label),
+      )
+    }
+  }
+
+  const [selectedTab, setSelectedTab] = React.useState<'branches' | 'tags'>('branches')
+
+  const onLabelSelect = (labelId: string) => {
+    if (!selectedLabelIds.includes(labelId)) setSelectedLabelIds([...selectedLabelIds, labelId])
+    else setSelectedLabelIds(selectedLabelIds.filter(id => id !== labelId))
+  }
+
+  const onSubmit = (event: {preventDefault: () => void}) => {
+    event.preventDefault() // coz form submit, innit
+    data.issue.labelIds = selectedLabelIds // pretending to persist changes
+
+    // eslint-disable-next-line no-console
+    console.log('form submitted')
+  }
+
+  const sortingFn = (branchA: {id: string}, branchB: {id: string}) => {
+    /* Important! This sorting is only for initial selected ids, not for subsequent changes!
+      deterministic sorting for better UX: don't change positions with other selected items.
+    */
+    if (selectedLabelIds.includes(branchA.id) && selectedLabelIds.includes(branchB.id)) return 1
+    else if (selectedLabelIds.includes(branchA.id)) return -1
+    else if (selectedLabelIds.includes(branchB.id)) return 1
+    else return 1
+  }
+
+  return (
+    <>
+      <h1>With Tabs with Custom Buttons</h1>
+
+      <SelectPanel
+        defaultOpen
+        onSubmit={onSubmit}
+        onCancel={() => {
+          // eslint-disable-next-line no-console
+          console.log('panel was closed')
+        }}
+      >
+        {/* TODO: the ref types don't match here, use useProvidedRefOrCreate */}
+        {/* @ts-ignore todo */}
+        <SelectPanel.Button leadingIcon={GitBranchIcon} trailingIcon={TriangleDownIcon}>
+          main
+        </SelectPanel.Button>
+
+        <SelectPanel.Header>
+          <SelectPanel.Heading>Switch branches/tags</SelectPanel.Heading>
+          <SelectPanel.SearchInput onChange={onSearchInputChange} sx={{marginBottom: 2}} />
+
+          <Box id="filters" sx={{display: 'flex'}}>
+            <Button
+              variant="invisible"
+              sx={{fontWeight: selectedTab === 'tags' ? 'semibold' : 'normal', color: 'fg.default'}}
+              onClick={() => setSelectedTab('branches')}
+            >
+              Branches <Button.Counter>{20}</Button.Counter>
+            </Button>
+            <Button
+              variant="invisible"
+              sx={{fontWeight: selectedTab === 'tags' ? 'semibold' : 'normal', color: 'fg.default'}}
+              onClick={() => setSelectedTab('tags')}
+            >
+              Tags <Button.Counter>{8}</Button.Counter>
+            </Button>
+          </Box>
         </SelectPanel.Header>
 
         <SelectPanel.ActionList selectionVariant="single">
