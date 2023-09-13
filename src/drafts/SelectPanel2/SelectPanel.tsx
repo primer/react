@@ -19,9 +19,14 @@ import {
 import {useSlots} from '../../hooks/useSlots'
 import {ClearIcon} from './tmp-ClearIcon'
 
-const SelectPanelContext = React.createContext({
+const SelectPanelContext = React.createContext<{
+  onCancel: () => void
+  onClearSelection: undefined | (() => void)
+  searchQuery: string
+  setSearchQuery: () => void
+}>({
   onCancel: () => {},
-  onClearSelection: () => {},
+  onClearSelection: undefined,
   searchQuery: '',
   setSearchQuery: () => {},
 })
@@ -82,7 +87,7 @@ const SelectPanel = props => {
         <SelectPanelContext.Provider
           value={{
             onCancel: onInternalClose,
-            onClearSelection: onInternalClearSelection,
+            onClearSelection: props.onClearSelection ? onInternalClearSelection : undefined,
             searchQuery,
             // @ts-ignore todo
             setSearchQuery,
@@ -117,9 +122,11 @@ const SelectPanelHeader: React.FC<React.PropsWithChildren> = ({children, ...prop
         {slots.heading}
         <Box>
           {/* Will not need tooltip after https://github.com/primer/react/issues/2008 */}
-          <Tooltip text="Clear selection" direction="s" onClick={onClearSelection}>
-            <IconButton type="button" variant="invisible" icon={ClearIcon} aria-label="Clear selection" />
-          </Tooltip>
+          {onClearSelection ? (
+            <Tooltip text="Clear selection" direction="s" onClick={onClearSelection}>
+              <IconButton type="button" variant="invisible" icon={ClearIcon} aria-label="Clear selection" />
+            </Tooltip>
+          ) : null}
           <Tooltip text="Close" direction="s">
             <IconButton type="button" variant="invisible" icon={XIcon} aria-label="Close" onClick={() => onCancel()} />
           </Tooltip>
