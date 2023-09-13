@@ -503,7 +503,7 @@ export const TODO4WithFilterButtons = () => {
     }
   }
 
-  const [selectedTab, setSelectedTab] = React.useState<'branches' | 'tags'>('branches')
+  const [selectedFilter, setSelectedFilter] = React.useState<'branches' | 'tags'>('branches')
 
   const onLabelSelect = (labelId: string) => {
     if (!selectedLabelIds.includes(labelId)) setSelectedLabelIds([...selectedLabelIds, labelId])
@@ -553,15 +553,15 @@ export const TODO4WithFilterButtons = () => {
           <Box id="filters" sx={{display: 'flex'}}>
             <Button
               variant="invisible"
-              sx={{fontWeight: selectedTab === 'tags' ? 'semibold' : 'normal', color: 'fg.default'}}
-              onClick={() => setSelectedTab('branches')}
+              sx={{fontWeight: selectedFilter === 'tags' ? 'semibold' : 'normal', color: 'fg.default'}}
+              onClick={() => setSelectedFilter('branches')}
             >
               Branches <Button.Counter>{20}</Button.Counter>
             </Button>
             <Button
               variant="invisible"
-              sx={{fontWeight: selectedTab === 'tags' ? 'semibold' : 'normal', color: 'fg.default'}}
-              onClick={() => setSelectedTab('tags')}
+              sx={{fontWeight: selectedFilter === 'tags' ? 'semibold' : 'normal', color: 'fg.default'}}
+              onClick={() => setSelectedFilter('tags')}
             >
               Tags <Button.Counter>{8}</Button.Counter>
             </Button>
@@ -587,16 +587,16 @@ export const TODO4WithFilterButtons = () => {
             )
           ) : (
             <>
-              {data[selectedTab].sort(sortingFn).map(branch => {
+              {data[selectedFilter].sort(sortingFn).map(item => {
                 return (
                   <>
                     <ActionList.Item
-                      key={branch.id}
-                      onSelect={() => onLabelSelect(branch.id)}
-                      selected={selectedLabelIds.includes(branch.id)}
+                      key={item.id}
+                      onSelect={() => onLabelSelect(item.id)}
+                      selected={selectedLabelIds.includes(item.id)}
                     >
-                      {branch.name}
-                      <ActionList.TrailingVisual>{branch.trailingInfo}</ActionList.TrailingVisual>
+                      {item.name}
+                      <ActionList.TrailingVisual>{item.trailingInfo}</ActionList.TrailingVisual>
                     </ActionList.Item>
                   </>
                 )
