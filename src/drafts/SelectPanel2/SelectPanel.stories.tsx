@@ -530,7 +530,7 @@ export const TODO4WithFilterButtons = () => {
 
   return (
     <>
-      <h1>With Filter Buttons in Header</h1>
+      <h1>With Filter Buttons</h1>
 
       <SelectPanel
         defaultOpen

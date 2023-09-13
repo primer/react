@@ -12,6 +12,7 @@ import {
   TextInput,
   AnchoredOverlayProps,
   ActionList,
+  ActionListProps,
   Spinner,
   Text,
 } from '../../../src/index'
@@ -192,8 +193,7 @@ const SelectPanelSearchInput = props => {
 }
 SelectPanel.SearchInput = SelectPanelSearchInput
 
-// TODO: type this with ActionList props
-const SelectPanelActionList: React.FC<React.PropsWithChildren> = props => {
+const SelectPanelActionList: React.FC<React.PropsWithChildren<ActionListProps>> = props => {
   /* features to implement for uncontrolled:
      1. select
      2. sort
