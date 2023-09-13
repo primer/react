@@ -548,14 +548,12 @@ export const TODO4WithTabs = () => {
           <SelectPanel.Heading>Switch branches/tags</SelectPanel.Heading>
           <SelectPanel.SearchInput onChange={onSearchInputChange} sx={{marginBottom: 2}} />
 
-          <Box id="filters" sx={{display: 'flex'}}>
-            <Button variant="invisible" sx={{color: 'fg.default'}}>
-              Branches <Button.Counter>{0}</Button.Counter>
-            </Button>
-            <Button variant="invisible" sx={{fontWeight: 'normal', color: 'fg.default'}}>
-              Tags <Button.Counter>{0}</Button.Counter>
-            </Button>
-          </Box>
+          <SelectPanel.Tabs>
+            <SelectPanel.Tab count={20} selected={true}>
+              Branches
+            </SelectPanel.Tab>
+            <SelectPanel.Tab count={8}>Tags</SelectPanel.Tab>
+          </SelectPanel.Tabs>
         </SelectPanel.Header>
 
         <SelectPanel.ActionList selectionVariant="single">

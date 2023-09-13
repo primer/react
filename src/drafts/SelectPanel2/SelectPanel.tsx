@@ -200,6 +200,27 @@ const SelectPanelSearchInput = props => {
 }
 SelectPanel.SearchInput = SelectPanelSearchInput
 
+// @ts-ignore todo untyped props
+const SelectPanelTabs = props => {
+  return <Box sx={{display: 'flex'}} {...props} />
+}
+// @ts-ignore todo untyped props
+const SelectPanelTab = ({selected = false, count, ...props}) => {
+  return (
+    <Button
+      variant="invisible"
+      aria-current={selected}
+      sx={{fontWeight: selected ? 'semibold' : 'normal', color: 'fg.default'}}
+      {...props}
+    >
+      {props.children}
+      {count ? <Button.Counter>{count}</Button.Counter> : null}
+    </Button>
+  )
+}
+SelectPanel.Tabs = SelectPanelTabs
+SelectPanel.Tab = SelectPanelTab
+
 const SelectPanelActionList: React.FC<React.PropsWithChildren<ActionListProps>> = props => {
   /* features to implement for uncontrolled:
      1. select
