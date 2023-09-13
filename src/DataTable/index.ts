@@ -49,3 +49,5 @@ export type {
   TableActionsProps,
   TableSkeletonProps,
 } from './Table'
+export {createColumnHelper} from './column'
+export type {Column} from './column'
