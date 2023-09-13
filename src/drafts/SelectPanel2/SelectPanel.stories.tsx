@@ -477,11 +477,11 @@ export const TODO4WithTabs = () => {
 
   const initialSelectedLabels: string[] = ['main']
 
+  // TODO: Single selection doesn't need an array
   const [selectedLabelIds, setSelectedLabelIds] = React.useState<string[]>(initialSelectedLabels)
 
   const [query, setQuery] = React.useState('')
 
-  // TODO: should this be baked-in
   const onSearchInputChange = (event: React.KeyboardEvent<HTMLInputElement>) => {
     const query = event.currentTarget.value
     setQuery(query)
@@ -502,6 +502,8 @@ export const TODO4WithTabs = () => {
       )
     }
   }
+
+  const [selectedTab, setSelectedTab] = React.useState<'branches' | 'tags'>('branches')
 
   const onLabelSelect = (labelId: string) => {
     if (!selectedLabelIds.includes(labelId)) setSelectedLabelIds([...selectedLabelIds, labelId])
@@ -549,10 +551,16 @@ export const TODO4WithTabs = () => {
           <SelectPanel.SearchInput onChange={onSearchInputChange} sx={{marginBottom: 2}} />
 
           <SelectPanel.Tabs>
-            <SelectPanel.Tab count={20} selected={true}>
+            <SelectPanel.Tab
+              count={20}
+              selected={selectedTab === 'branches'}
+              onClick={() => setSelectedTab('branches')}
+            >
               Branches
             </SelectPanel.Tab>
-            <SelectPanel.Tab count={8}>Tags</SelectPanel.Tab>
+            <SelectPanel.Tab count={8} selected={selectedTab === 'tags'} onClick={() => setSelectedTab('tags')}>
+              Tags
+            </SelectPanel.Tab>
           </SelectPanel.Tabs>
         </SelectPanel.Header>
 
@@ -575,7 +583,7 @@ export const TODO4WithTabs = () => {
             )
           ) : (
             <>
-              {data.branches.sort(sortingFn).map(branch => {
+              {data[selectedTab].sort(sortingFn).map(branch => {
                 return (
                   <>
                     <ActionList.Item
