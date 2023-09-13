@@ -35,6 +35,9 @@ const input = new Set([
 
       // "./lib-esm/utils/*"
       'src/utils/*',
+
+      // for backward compatbility, see
+      'src/ActionMenu/index.ts',
     ],
     {
       cwd: __dirname,
