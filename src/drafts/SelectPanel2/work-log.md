@@ -19,6 +19,7 @@
 
 1. How strongly does Maxime feel about adding count of changes in the submit button? (he had it in his prototype)
 1. Should we highlight matching text for filter results, especially because we search across title and description (example: https://github.com/primer/react/assets/1863771/d8d2d6e1-4075-4096-bc8a-db46e9b69351)
+1. Should clearSelection always be optional, or only missing/optional when selectionVariant=single
 
 ## API decisions still to make
 
