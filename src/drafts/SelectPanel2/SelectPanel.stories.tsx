@@ -472,7 +472,7 @@ export const TODO3NoCustomisation = () => {
   )
 }
 
-export const TODO4WithTabsWithSelectPanelTabs = () => {
+export const TODO4WithTabsWithCustomButton = () => {
   const [filteredLabels, setFilteredLabels] = React.useState(data.branches)
 
   const initialSelectedLabels: string[] = ['main']
@@ -530,7 +530,7 @@ export const TODO4WithTabsWithSelectPanelTabs = () => {
 
   return (
     <>
-      <h1>With Tabs with SelectPanel.Tabs</h1>
+      <h1>With Filter Buttons in Header</h1>
 
       <SelectPanel
         defaultOpen
@@ -550,18 +550,22 @@ export const TODO4WithTabsWithSelectPanelTabs = () => {
           <SelectPanel.Heading>Switch branches/tags</SelectPanel.Heading>
           <SelectPanel.SearchInput onChange={onSearchInputChange} sx={{marginBottom: 2}} />
 
-          <SelectPanel.Tabs>
-            <SelectPanel.Tab
-              count={20}
-              selected={selectedTab === 'branches'}
+          <Box id="filters" sx={{display: 'flex'}}>
+            <Button
+              variant="invisible"
+              sx={{fontWeight: selectedTab === 'tags' ? 'semibold' : 'normal', color: 'fg.default'}}
               onClick={() => setSelectedTab('branches')}
             >
-              Branches
-            </SelectPanel.Tab>
-            <SelectPanel.Tab count={8} selected={selectedTab === 'tags'} onClick={() => setSelectedTab('tags')}>
-              Tags
-            </SelectPanel.Tab>
-          </SelectPanel.Tabs>
+              Branches <Button.Counter>{20}</Button.Counter>
+            </Button>
+            <Button
+              variant="invisible"
+              sx={{fontWeight: selectedTab === 'tags' ? 'semibold' : 'normal', color: 'fg.default'}}
+              onClick={() => setSelectedTab('tags')}
+            >
+              Tags <Button.Counter>{8}</Button.Counter>
+            </Button>
+          </Box>
         </SelectPanel.Header>
 
         <SelectPanel.ActionList selectionVariant="single">
@@ -611,7 +615,7 @@ export const TODO4WithTabsWithSelectPanelTabs = () => {
   )
 }
 
-export const TODO5WithTabsWithCustomButton = () => {
+export const TODO5WithTabsWithSelectPanelTabs = () => {
   const [filteredLabels, setFilteredLabels] = React.useState(data.branches)
 
   const initialSelectedLabels: string[] = ['main']
@@ -669,7 +673,7 @@ export const TODO5WithTabsWithCustomButton = () => {
 
   return (
     <>
-      <h1>With Tabs with Custom Buttons</h1>
+      <h1>With SelectPanel.Tabs</h1>
 
       <SelectPanel
         defaultOpen
@@ -689,22 +693,18 @@ export const TODO5WithTabsWithCustomButton = () => {
           <SelectPanel.Heading>Switch branches/tags</SelectPanel.Heading>
           <SelectPanel.SearchInput onChange={onSearchInputChange} sx={{marginBottom: 2}} />
 
-          <Box id="filters" sx={{display: 'flex'}}>
-            <Button
-              variant="invisible"
-              sx={{fontWeight: selectedTab === 'tags' ? 'semibold' : 'normal', color: 'fg.default'}}
+          <SelectPanel.Tabs>
+            <SelectPanel.Tab
+              count={20}
+              selected={selectedTab === 'branches'}
               onClick={() => setSelectedTab('branches')}
             >
-              Branches <Button.Counter>{20}</Button.Counter>
-            </Button>
-            <Button
-              variant="invisible"
-              sx={{fontWeight: selectedTab === 'tags' ? 'semibold' : 'normal', color: 'fg.default'}}
-              onClick={() => setSelectedTab('tags')}
-            >
-              Tags <Button.Counter>{8}</Button.Counter>
-            </Button>
-          </Box>
+              Branches
+            </SelectPanel.Tab>
+            <SelectPanel.Tab count={8} selected={selectedTab === 'tags'} onClick={() => setSelectedTab('tags')}>
+              Tags
+            </SelectPanel.Tab>
+          </SelectPanel.Tabs>
         </SelectPanel.Header>
 
         <SelectPanel.ActionList selectionVariant="single">

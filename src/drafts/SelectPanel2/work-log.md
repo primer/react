@@ -32,6 +32,7 @@
 1. where do you say `selectionVariant="single"` on the ActionList or on SelectPanel? what all does it change? should we not use ActionMenu for that anymore?
 1. when you do not add a `<SelectPanel.Footer>`, should we add it for you? 😈 = it's present by default, you can only choose to modify the secondary action
 1. Can we automate empty message? We do need some information from the context, so maybe not entirely. Can we add a default that can be customised.
+1. Checkbox in secondary action, should secondary action be an open slot?
 
 ## Implementation notes
 
