@@ -103,7 +103,7 @@ const SelectPanelButton = React.forwardRef((props, anchorRef) => {
 SelectPanel.Button = SelectPanelButton
 
 const SelectPanelHeader: React.FC<React.PropsWithChildren> = ({children, ...props}) => {
-  const [slots] = useSlots(children, {
+  const [slots, childrenWithoutSlots] = useSlots(children, {
     heading: SelectPanelHeading,
     searchInput: SelectPanelSearchInput,
   })
@@ -125,6 +125,7 @@ const SelectPanelHeader: React.FC<React.PropsWithChildren> = ({children, ...prop
         </Box>
       </Box>
       {slots.searchInput}
+      {childrenWithoutSlots}
     </Box>
   )
 }
