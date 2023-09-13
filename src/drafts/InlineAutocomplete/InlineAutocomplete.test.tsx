@@ -1,4 +1,4 @@
-import React, {useLayoutEffect, useState} from 'react'
+import React, {useState} from 'react'
 import {fireEvent, render, within} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import InlineAutocomplete, {ShowSuggestionsEvent, Suggestions, Trigger} from '.'
@@ -6,6 +6,7 @@ import FormControl from '../../FormControl'
 import {ActionList} from '../../ActionList'
 import Textarea from '../../Textarea'
 import ThemeProvider from '../../ThemeProvider'
+import useIsomorphicLayoutEffect from '../../utils/useIsomorphicLayoutEffect'
 
 const label = 'Inline Autocomplete'
 
@@ -82,7 +83,7 @@ const UncontrolledInlineAutocomplete = ({
     }
   }
 
-  useLayoutEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     // combobox-nav attempts to filter out 'hidden' options by checking if the option has an
     // offsetHeight or width > 0. In JSDom, all elements have offsetHeight = offsetWidth = 0,
     // so we need to override at least one to make the class recognize that any options exist.
