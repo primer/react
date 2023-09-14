@@ -26,14 +26,6 @@ export const LabelType = () => (
   </Box>
 )
 
-export const WithNativeButtonLabelType = () => (
-  <Box sx={{p: 5}}>
-    <Tooltip text="Vegetarian" direction="e" type="label">
-      <button>🥦</button>
-    </Tooltip>
-  </Box>
-)
-
 // As a supplementary description for a button
 export const DescriptionType = () => (
   <Box sx={{p: 5}}>
@@ -42,16 +34,6 @@ export const DescriptionType = () => (
     </Tooltip>
   </Box>
 )
-
-// As a label type tooltip for an IconButton
-// This is not a correct use as we will have tooltip on icon buttons by default issue reference https://github.com/primer/react/issues/2008
-// export const IconButtonWitLabel = () => (
-//   <Box sx={{p: 5}}>
-//     <Tooltip text="Search on tooltip" direction="e" type="label">
-//       <IconButton icon={SearchIcon} aria-label="Search" />
-//     </Tooltip>
-//   </Box>
-// )
 
 // As a supplementary description for an IconButton
 export const IconButtonWithDescription = () => (
@@ -97,18 +79,18 @@ export const MultilineText = () => (
       direction="e"
       text="Random long text that needs to be wrapped and be multipline and have some paddings around"
     >
-      <Button>Multiline South</Button>
+      <Button>Multiline East</Button>
     </Tooltip>
   </Box>
 )
 
 export const CalculatedDirection = () => (
   <Box sx={{padding: 5, display: 'flex', gap: '8px'}}>
-    <Tooltip direction="w" text="But appears on east due to not having enough space">
+    <Tooltip direction="w" text="But appears in the east direction due to not having enough space in the west">
       <Button>West</Button>
     </Tooltip>
 
-    <Tooltip text="The direction here is north by default but there is not enough space on the north therefore the tooltip appears on the south">
+    <Tooltip text="The direction here is north by default but there is not enough space in the north therefore the tooltip appears in the south">
       <Button>North</Button>
     </Tooltip>
   </Box>

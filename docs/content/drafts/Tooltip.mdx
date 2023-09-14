@@ -6,7 +6,7 @@ status: Alpha
 
 import data from '../../../src/drafts/Tooltip/Tooltip.docs.json'
 
-The Tooltip component adds a tooltip to add context to interactive elements on the page.
+The Tooltip component is used to add context to interactive elements on the page.
 
 **_⚠️ Usage warning! ⚠️_**
 
@@ -14,27 +14,25 @@ Tooltips as a UI pattern should be our last resort for conveying information bec
 
 Before adding a tooltip, please consider: Is this information essential and necessary? Can the UI be made clearer? Can the information be shown on the page by default? See [Tooltip alternatives](https://primer.style/design/accessibility/tooltip-alternatives) for more accessible alternatives.
 
-**Attention:** we use `aria-label` for tooltip contents. However, `aria-label` replaces the text content of an element in screen readers, so only use Tooltip on elements with no existing text content.
-
-A tooltip may only be used on an element that is interactive such as a button or a link. Even if an element is focusable, a tooltip may only be used if the element does something when it's clicked.
+Tooltip should only be used on an element that is interactive such as a button or a link.
 
 ## Examples
 
-### Default (As a label type)
+### Default (As a description type)
 
 ```jsx live
-<Tooltip aria-label="Search on the documentation">
-  <Button>
-    <SearchIcon />
-  </Button>
+<Tooltip text="This change cannot be undone.">
+  <Button>Delete</Button>
 </Tooltip>
 ```
 
-### As a description type
+### As a label type
 
 ```jsx live
-<Tooltip text="This is a supplementary text for the save button" type="description">
-  <Button>Save</Button>
+<Tooltip text="Contribution Documentation for 'Primer React'" type="label">
+  <Link href="https://github.com/primer/react/contributor-docs/CONTRIBUTING.md" sx={{ml: 1, color: 'fg.muted'}}>
+    <StyledOcticon icon={BookIcon} sx={{color: 'fg.muted'}} />
+  </Link>
 </Tooltip>
 ```
 
@@ -69,38 +67,12 @@ A tooltip may only be used on an element that is interactive such as a button or
 </Box>
 ```
 
-### With wrap
-
-```jsx live
-<Tooltip
-  direction="n"
-  wrap
-  text="Random long text that needs to be wrapped and be multipline and have some paddings around"
-  type="description"
->
-  <Button>Multiline</Button>
-</Tooltip>
-```
-
 ### With no delay
 
 ```jsx live
-<Tooltip noDelay text="Supplemetary text" type="description" direction="se">
+<Tooltip noDelay text="Supplemetary text">
   <Button>Button</Button>
 </Tooltip>
-```
-
-### With align
-
-```jsx live
-<Box sx={{padding: 5, display: 'flex', gap: '8px'}}>
-  <Tooltip align="left" text="Supplemetary text" type="description">
-    <Button>Align Left</Button>
-  </Tooltip>
-  <Tooltip align="right" text="Supplemetary text" type="description">
-    <Button>Align Right</Button>
-  </Tooltip>
-</Box>
 ```
 
 ## Props

@@ -11,7 +11,32 @@ import {getAnchoredPosition} from '@primer/behaviors'
 import type {AnchorSide, AnchorAlignment} from '@primer/behaviors'
 import {isSupported, apply} from '@oddbird/popover-polyfill/fn'
 
+// Reusable styles to use for :popover-open (Chrome, Edge) and \:popover-open (Safari, Firefox) classes
+const popoverStyles = `
+    padding: 0.5em 0.75em;
+    width: max-content;
+    height: fit-content;
+    margin: auto;
+    clip: auto;
+    white-space: normal;
+    /* for scrollbar */
+    overflow: visible;
+`
+
+const animationStyles = `
+  animation-name: tooltip-appear;
+  animation-duration: 0.1s;
+  animation-fill-mode: forwards;
+  animation-timing-function: ease-in;
+  animation-delay: 0.4s;
+`
+
+const noDelayAnimationStyles = `
+  animation-delay: 0s;
+`
+
 const StyledTooltip = styled.div`
+  /* tooltip element should be rendered visually hidden when it is not opened.  */
   width: 1px;
   height: 1px;
   padding: 0;
@@ -19,16 +44,12 @@ const StyledTooltip = styled.div`
   overflow: hidden;
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
-  // tooltip element itself
   position: fixed;
   font: normal normal 11px/1.5 ${get('fonts.normal')};
   -webkit-font-smoothing: subpixel-antialiased;
   color: ${get('colors.fg.onEmphasis')};
   text-align: center;
-  text-decoration: none;
-  text-shadow: none;
-  text-transform: none;
-  letter-spacing: normal;
+
   word-wrap: break-word;
   background: ${get('colors.neutral.emphasisPlus')}; //bg--emphasis-color
   border-radius: ${get('radii.2')};
@@ -44,31 +65,14 @@ const StyledTooltip = styled.div`
   z-index: 2147483647;
   display: block;
 
-  /* see if you can reduce the duplicateion with is. */
-
-  /* tooltip element should be rendered visually hidden when it is not opened.  */
+  /* class name in chrome is :popover-open */
   &:popover-open {
-    /* non visually hidden styles */
-    padding: 0.5em 0.75em;
-    width: max-content;
-    height: fit-content;
-    margin: auto;
-    /* for scrollbar */
-    overflow: visible;
-    clip: auto;
-    white-space: normal;
+    ${popoverStyles}
   }
 
+  /* class name in firefox and safari is \:popover-open */
   &.\\:popover-open {
-    /* non visually hidden styles */
-    padding: 0.5em 0.75em;
-    width: max-content;
-    height: fit-content;
-    margin: auto;
-    /* for scrollbar */
-    overflow: visible;
-    clip: auto;
-    white-space: normal;
+    ${popoverStyles}
   }
 
   // This is needed to keep the tooltip open when the user leaves the trigger element to hover tooltip
@@ -126,34 +130,26 @@ const StyledTooltip = styled.div`
   /* Animation styles */
   &:popover-open,
   &:popover-open::before {
-    animation-name: tooltip-appear;
-    animation-duration: 0.1s;
-    animation-fill-mode: forwards;
-    animation-timing-function: ease-in;
-    animation-delay: 0.4s;
+    ${animationStyles}
   }
 
   /* Animation styles */
   &.\\:popover-open,
   &.\\:popover-open::before {
-    animation-name: tooltip-appear;
-    animation-duration: 0.1s;
-    animation-fill-mode: forwards;
-    animation-timing-function: ease-in;
-    animation-delay: 0.4s;
+    ${animationStyles}
   }
 
   &:popover-open {
     &[data-no-delay='true'],
     &[data-no-delay='true']::before {
-      animation-delay: 0s;
+      ${noDelayAnimationStyles}
     }
   }
 
   &.\\:popover-open {
     &[data-no-delay='true'],
     &[data-no-delay='true']::before {
-      animation-delay: 0s;
+      ${noDelayAnimationStyles}
     }
   }
 
