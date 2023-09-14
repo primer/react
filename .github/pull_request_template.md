@@ -4,7 +4,7 @@ Closes #
 
 <!-- Provide an overview of the changes, including before/after screenshots, videos, or graphs when helpful -->
 
-#### Changelog & rollout strategy
+### Changelog
 <!-- Under the headings below, list out relevant API changes that this Pull Request introduces -->
 ### New
 
