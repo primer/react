@@ -9,7 +9,7 @@
 export {Blankslate} from '../Blankslate'
 export type {BlankslateProps} from '../Blankslate'
 
-export {DataTable, Table} from '../DataTable'
+export {DataTable, Table, createColumnHelper} from '../DataTable'
 export type {
   DataTableProps,
   TableProps,
@@ -22,6 +22,7 @@ export type {
   TableTitleProps,
   TableSubtitleProps,
   TableActionsProps,
+  Column,
 } from '../DataTable'
 
 export * from '../Dialog/Dialog'

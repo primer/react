@@ -1,13 +1,4 @@
-import React, {
-  forwardRef,
-  useCallback,
-  useEffect,
-  useImperativeHandle,
-  useLayoutEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react'
+import React, {forwardRef, useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState} from 'react'
 import Box from '../../Box'
 import VisuallyHidden from '../../_VisuallyHidden'
 import {useId} from '../../hooks/useId'
@@ -36,6 +27,7 @@ import {Emoji} from './suggestions/_useEmojiSuggestions'
 import {Mentionable} from './suggestions/_useMentionSuggestions'
 import {Reference} from './suggestions/_useReferenceSuggestions'
 import {isModifierKey} from './utils'
+import useIsomorphicLayoutEffect from '../../utils/useIsomorphicLayoutEffect'
 
 export type MarkdownEditorProps = SxProp & {
   /** Current value of the editor as a multiline markdown string. */
@@ -268,7 +260,7 @@ const MarkdownEditor = forwardRef<MarkdownEditorHandle, MarkdownEditorProps>(
     useResizeObserver(onResize, containerRef)
 
     // workaround for Safari bug where layout is otherwise not recalculated
-    useLayoutEffect(() => {
+    useIsomorphicLayoutEffect(() => {
       const container = containerRef.current
       if (!container) return
 
