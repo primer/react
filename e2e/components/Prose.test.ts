@@ -33,6 +33,20 @@ test.describe('Prose', () => {
           })
         })
       })
+
+      test.describe('with forced underlines', () => {
+        test('default @vrt', async ({page}) => {
+          await visit(page, {
+            id: 'drafts-components-prose--default',
+            globals: {
+              colorScheme: 'light',
+              prefersLinkUnderlines: 'true',
+            },
+          })
+
+          expect(await page.screenshot()).toMatchSnapshot('Prose.Default.light.forcedUnderlines.png')
+        })
+      })
     }
   })
 
