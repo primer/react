@@ -473,37 +473,44 @@ export const TODO3NoCustomisation = () => {
 }
 
 export const TODO4WithFilterButtons = () => {
-  const [filteredLabels, setFilteredLabels] = React.useState(data.branches)
+  const [selectedFilter, setSelectedFilter] = React.useState<'branches' | 'tags'>('branches')
+  const [filteredRefs, setFilteredRefs] = React.useState(data.branches)
 
   const initialSelectedLabels: string[] = ['main']
 
   // TODO: Single selection doesn't need an array
   const [selectedLabelIds, setSelectedLabelIds] = React.useState<string[]>(initialSelectedLabels)
 
-  const [query, setQuery] = React.useState('')
-
-  const onSearchInputChange = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    const query = event.currentTarget.value
-    setQuery(query)
-
-    if (query === '') setFilteredLabels(data.labels)
+  const setSearchResults = (query: string, selectedFilter: 'branches' | 'tags') => {
+    if (query === '') setFilteredRefs(data[selectedFilter])
     else {
       // TODO: should probably add a highlight for matching text
-      setFilteredLabels(
-        data.labels
-          .map(label => {
-            if (label.name.toLowerCase().startsWith(query)) return {priority: 1, label}
-            else if (label.name.toLowerCase().includes(query)) return {priority: 2, label}
-            else if (label.description?.toLowerCase().includes(query)) return {priority: 3, label}
-            else return {priority: -1, label}
+      // TODO: This should be a joined array, not seperate, only separated at the render level
+      setFilteredRefs(
+        data[selectedFilter]
+          .map(item => {
+            if (item.name.toLowerCase().startsWith(query)) return {priority: 1, item}
+            else if (item.name.toLowerCase().includes(query)) return {priority: 2, item}
+            else return {priority: -1, item}
           })
           .filter(result => result.priority > 0)
-          .map(result => result.label),
+          .map(result => result.item),
       )
     }
   }
 
-  const [selectedFilter, setSelectedFilter] = React.useState<'branches' | 'tags'>('branches')
+  const [query, setQuery] = React.useState('')
+  const onSearchInputChange = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    const query = event.currentTarget.value
+    setQuery(query)
+  }
+
+  React.useEffect(
+    function updateSearchResults() {
+      setSearchResults(query, selectedFilter)
+    },
+    [query, selectedFilter],
+  )
 
   const onLabelSelect = (labelId: string) => {
     if (!selectedLabelIds.includes(labelId)) setSelectedLabelIds([...selectedLabelIds, labelId])
@@ -553,7 +560,7 @@ export const TODO4WithFilterButtons = () => {
           <Box id="filters" sx={{display: 'flex'}}>
             <Button
               variant="invisible"
-              sx={{fontWeight: selectedFilter === 'tags' ? 'semibold' : 'normal', color: 'fg.default'}}
+              sx={{fontWeight: selectedFilter === 'branches' ? 'semibold' : 'normal', color: 'fg.default'}}
               onClick={() => setSelectedFilter('branches')}
             >
               Branches <Button.Counter>{20}</Button.Counter>
@@ -571,8 +578,8 @@ export const TODO4WithFilterButtons = () => {
         <SelectPanel.ActionList selectionVariant="single">
           {/* slightly different view for search results view and list view */}
           {query ? (
-            filteredLabels.length > 1 ? (
-              filteredLabels.map(label => (
+            filteredRefs.length > 1 ? (
+              filteredRefs.map(label => (
                 <ActionList.Item
                   key={label.id}
                   onSelect={() => onLabelSelect(label.id)}
@@ -583,7 +590,9 @@ export const TODO4WithFilterButtons = () => {
                 </ActionList.Item>
               ))
             ) : (
-              <SelectPanel.EmptyMessage>No labels found for &quot;{query}&quot;</SelectPanel.EmptyMessage>
+              <SelectPanel.EmptyMessage>
+                No {selectedFilter} found for &quot;{query}&quot;
+              </SelectPanel.EmptyMessage>
             )
           ) : (
             <>
@@ -606,8 +615,8 @@ export const TODO4WithFilterButtons = () => {
         </SelectPanel.ActionList>
         <SelectPanel.Footer>
           {/* TODO: Can't disable Cancel and Save yet */}
-          <SelectPanel.SecondaryButton as="a" href="/branches">
-            See all branches
+          <SelectPanel.SecondaryButton as="a" href={`/${selectedFilter}`}>
+            View all {selectedFilter}
           </SelectPanel.SecondaryButton>
         </SelectPanel.Footer>
       </SelectPanel>
