@@ -1,4 +1,3 @@
-### What are you trying to accomplish?
 <!-- Provide the GitHub issue that this issue closes. Start typing the number or name of the issue after the # below. -->
       
 Closes #
