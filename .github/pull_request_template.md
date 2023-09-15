@@ -6,7 +6,17 @@ Closes #
 
 ### Changelog
 <!-- Under the headings below, list out relevant API changes that this Pull Request introduces -->
-### New
+#### New
+
+<!-- List of things added in this PR -->
+
+#### Changed
+
+<!-- List of things changed in this PR -->
+
+#### Removed
+
+<!-- List of things removed in this PR -->
 
 ### Changed
 
