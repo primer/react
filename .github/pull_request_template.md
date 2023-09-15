@@ -18,10 +18,6 @@ Closes #
 
 <!-- List of things removed in this PR -->
 
-### Changed
-
-### Removed
-
 ### Rollout strategy
 <!-- How do you recommend this change to be rolled out? Refer to [contributor docs on Versioning](https://github.com/primer/react/blob/main/contributor-docs/versioning.md) for details. -->
 - [ ] Patch release
@@ -31,18 +27,7 @@ Closes #
 ### Testing & Reviewing
 <!-- Describe any specific details to help reviewers test or review this Pull Request -->
 
-
-### Accessibility
-<!--
-  You may remove this section and the "Accessibility" heading above _only_ if the changes in this pull request do not impact UI. Delete all those that don't apply.
-  If there are any accessibility-related updates, please describe them here.
--->
-* **Fixes axe scan violation** - This change fixes an existing [axe scan](https://thehub.github.com/epd/engineering/dev-practicals/frontend/accessibility/readiness-routine/development/#axe-scans) violation.
-* **No new axe scan violation** - This change does not introduce any new [axe scan](https://thehub.github.com/epd/engineering/dev-practicals/frontend/accessibility/readiness-routine/development/#axe-scans) violations.
-* **New axe violation** - This change introduces a new [axe scan](https://thehub.github.com/epd/engineering/dev-practicals/frontend/accessibility/readiness-routine/development/#axe-scans) violation. Please describe why the violation cannot be resolved below.
-
 ### Merge checklist
-
 - [ ] Added/updated tests
 - [ ] Added/updated documentation
 - [ ] Added/updated previews (Storybook)
