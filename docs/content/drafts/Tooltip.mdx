@@ -18,7 +18,9 @@ Tooltip should only be used on an element that is interactive such as a button o
 
 ## Examples
 
-### Default (As a description type)
+### Default (For additional context)
+
+Default tooltip is suitable for interactive controls that require additional context.
 
 ```jsx live
 <Tooltip text="This change cannot be undone.">
@@ -26,7 +28,9 @@ Tooltip should only be used on an element that is interactive such as a button o
 </Tooltip>
 ```
 
-### As a label type
+### As a label
+
+Tooltip can be used to label interactive controls that has no visible text label such as interactive icon links.
 
 ```jsx live
 <Tooltip text="Contribution Documentation for 'Primer React'" type="label">
@@ -40,28 +44,28 @@ Tooltip should only be used on an element that is interactive such as a button o
 
 ```jsx live
 <Box sx={{padding: 5, display: 'flex', gap: '8px'}}>
-  <Tooltip direction="n" text="Supplementary text" type="description">
+  <Tooltip direction="n" text="Supplementary text">
     <Button>North</Button>
   </Tooltip>
-  <Tooltip direction="s" text="Supplementary text" type="description">
+  <Tooltip direction="s" text="Supplementary text">
     <Button>South</Button>
   </Tooltip>
-  <Tooltip direction="e" text="Supplementary text" type="description">
+  <Tooltip direction="e" text="Supplementary text">
     <Button>East</Button>
   </Tooltip>
-  <Tooltip direction="w" text="Supplementary text" type="description">
+  <Tooltip direction="w" text="Supplementary text">
     <Button>West</Button>
   </Tooltip>
-  <Tooltip direction="ne" text="Supplementary text" type="description">
+  <Tooltip direction="ne" text="Supplementary text">
     <Button>North East</Button>
   </Tooltip>
-  <Tooltip direction="nw" text="Supplementary text" type="description">
+  <Tooltip direction="nw" text="Supplementary text">
     <Button>North West</Button>
   </Tooltip>
-  <Tooltip direction="se" text="Supplementary text" type="description">
+  <Tooltip direction="se" text="Supplementary text">
     <Button>Southeast</Button>
   </Tooltip>
-  <Tooltip direction="sw" text="Supplementary text" type="description">
+  <Tooltip direction="sw" text="Supplementary text">
     <Button>Southwest</Button>
   </Tooltip>
 </Box>
