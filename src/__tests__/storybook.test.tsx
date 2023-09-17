@@ -29,6 +29,7 @@ const allowlist = [
   'FilteredActionList',
   'Link',
   'MarkdownViewer',
+  'MarkdownEditor',
   'Pagehead',
   'Pagination',
   'ProgressBar',
