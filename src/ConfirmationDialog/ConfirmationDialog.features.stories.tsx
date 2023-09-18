@@ -1,5 +1,5 @@
 import React, {useState, useRef, useCallback} from 'react'
-import {Meta} from '@storybook/react'
+import {ComponentMeta, Meta} from '@storybook/react'
 import {BaseStyles, Box, ThemeProvider, useTheme} from '..'
 import {Button} from '../Button'
 import {ActionMenu} from '../ActionMenu'
@@ -7,29 +7,12 @@ import {ActionList} from '../ActionList'
 import {ConfirmationDialog, useConfirm} from './ConfirmationDialog'
 
 
-export const BasicConfirmationDialog = () => {
-  const [isOpen, setIsOpen] = useState(false)
-  const buttonRef = useRef<HTMLButtonElement>(null)
-  const onDialogClose = useCallback(() => setIsOpen(false), [])
-  return (
-    <>
-      <Button ref={buttonRef} onClick={() => setIsOpen(!isOpen)}>
-        Show dialog
-      </Button>
-      {isOpen && (
-        <ConfirmationDialog
-          title="Delete universe?"
-          onClose={onDialogClose}
-          confirmButtonContent="Delete it!"
-          confirmButtonType="danger"
-        >
-          Deleting the universe could have disastrous effects, including but not limited to destroying all life on
-          Earth.
-        </ConfirmationDialog>
-      )}
-    </>
-  )
-}
+export default {
+  title: 'Components/ConfirmationDialog/Features',
+  component: ConfirmationDialog,
+} as ComponentMeta<typeof ConfirmationDialog>
+
+
 
 export const ShorthandHook = () => {
   const confirm = useConfirm()

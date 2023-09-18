@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { useCallback, useRef, useState } from 'react'
 import {Meta} from '@storybook/react'
-import {BaseStyles,  ThemeProvider} from '..'
+import {BaseStyles,  Button,  ThemeProvider} from '..'
 import {ConfirmationDialog} from './ConfirmationDialog'
 
 export default {
@@ -21,3 +21,26 @@ export default {
   ],
 } as Meta
 
+export const Default = () => {
+  const [isOpen, setIsOpen] = useState(false)
+  const buttonRef = useRef<HTMLButtonElement>(null)
+  const onDialogClose = useCallback(() => setIsOpen(false), [])
+  return (
+    <>
+      <Button ref={buttonRef} onClick={() => setIsOpen(!isOpen)}>
+        Show dialog
+      </Button>
+      {isOpen && (
+        <ConfirmationDialog
+          title="Delete universe?"
+          onClose={onDialogClose}
+          confirmButtonContent="Delete it!"
+          confirmButtonType="danger"
+        >
+          Deleting the universe could have disastrous effects, including but not limited to destroying all life on
+          Earth.
+        </ConfirmationDialog>
+      )}
+    </>
+  )
+}

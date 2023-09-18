@@ -1,14 +1,14 @@
 import React, {useState, useRef, useCallback} from 'react'
 import {Meta} from '@storybook/react'
 
-import {BaseStyles, ThemeProvider} from '..'
+import {BaseStyles, ThemeProvider, Box, TextInput} from '..'
 import {Button} from '../Button'
-import {Dialog, DialogWidth, DialogHeight} from './Dialog'
+import {Dialog, DialogProps, DialogWidth, DialogHeight} from './Dialog'
 
 /* Dialog Version 2 */
 
 export default {
-  title: 'Components/Dialog',
+  title: 'Components/Dialog/Features',
   component: Dialog,
   decorators: [
     Story => {
@@ -107,13 +107,75 @@ interface DialogStoryProps {
   height: DialogHeight
   subtitle: boolean
 }
-export const Default = ({width, height, subtitle}: DialogStoryProps) => {
+
+
+function CustomHeader({
+  title,
+  subtitle,
+  dialogLabelId,
+  dialogDescriptionId,
+  onClose,
+}: React.PropsWithChildren<DialogProps & {dialogLabelId: string; dialogDescriptionId: string}>) {
+  const onCloseClick = useCallback(() => {
+    onClose('close-button')
+  }, [onClose])
+  if (typeof title === 'string' && typeof subtitle === 'string') {
+    return (
+      <Box bg="accent.subtle">
+        <h1 id={dialogLabelId}>{title.toUpperCase()}</h1>
+        <h2 id={dialogDescriptionId}>{subtitle.toLowerCase()}</h2>
+        <Dialog.CloseButton onClose={onCloseClick} />
+      </Box>
+    )
+  }
+  return null
+}
+function CustomBody({children}: React.PropsWithChildren<DialogProps>) {
+  return <Dialog.Body sx={{bg: 'danger.subtle'}}>{children}</Dialog.Body>
+}
+function CustomFooter({footerButtons}: React.PropsWithChildren<DialogProps>) {
+  return (
+    <Dialog.Footer sx={{bg: 'attention.subtle'}}>
+      {footerButtons ? <Dialog.Buttons buttons={footerButtons} /> : null}
+    </Dialog.Footer>
+  )
+}
+export const WithCustomRenderers = ({width, height, subtitle}: DialogStoryProps) => {
+  const [isOpen, setIsOpen] = useState(false)
+  const onDialogClose = useCallback(() => setIsOpen(false), [])
+  return (
+    <>
+      <Button onClick={() => setIsOpen(!isOpen)}>Show dialog</Button>
+      {isOpen && (
+        <Dialog
+          title="My Dialog"
+          subtitle={subtitle ? 'This is a subtitle!' : undefined}
+          width={width}
+          height={height}
+          renderHeader={CustomHeader}
+          renderBody={CustomBody}
+          renderFooter={CustomFooter}
+          onClose={onDialogClose}
+          footerButtons={[
+            {buttonType: 'danger', content: 'Delete the universe', onClick: onDialogClose},
+            {buttonType: 'primary', content: 'Proceed'},
+          ]}
+        >
+          {lipsum}
+        </Dialog>
+      )}
+    </>
+  )
+}
+
+export const StressTest = ({width, height, subtitle}: DialogStoryProps) => {
   const [isOpen, setIsOpen] = useState(false)
   const [secondOpen, setSecondOpen] = useState(false)
   const buttonRef = useRef<HTMLButtonElement>(null)
   const onDialogClose = useCallback(() => setIsOpen(false), [])
   const onSecondDialogClose = useCallback(() => setSecondOpen(false), [])
   const openSecondDialog = useCallback(() => setSecondOpen(true), [])
+  const manyButtons = new Array(10).fill(undefined).map((_, i) => ({content: `Button ${i}`}))
   return (
     <>
       <Button ref={buttonRef} onClick={() => setIsOpen(!isOpen)}>
@@ -121,13 +183,17 @@ export const Default = ({width, height, subtitle}: DialogStoryProps) => {
       </Button>
       {isOpen && (
         <Dialog
-          title="My Dialog"
-          subtitle={subtitle ? 'This is a subtitle!' : undefined}
+          title="This dialog has a really long title. So long, in fact, that it should cause wrapping, going to multiple lines!."
+          subtitle={
+            subtitle
+              ? "It's not a common scenario, sure, but what if the subtitle is generated from a really long value? Do we just break the dialog? Or do we handle it because we are pros?"
+              : undefined
+          }
           onClose={onDialogClose}
           width={width}
           height={height}
           footerButtons={[
-            {buttonType: 'normal', content: 'Open Second Dialog', onClick: openSecondDialog,},
+            ...manyButtons,
             {buttonType: 'danger', content: 'Delete the universe', onClick: onDialogClose},
             {buttonType: 'primary', content: 'Proceed', onClick: openSecondDialog, autoFocus: true},
           ]}
@@ -137,6 +203,57 @@ export const Default = ({width, height, subtitle}: DialogStoryProps) => {
             <Dialog title="Inner dialog!" onClose={onSecondDialogClose} width="small">
               Hello world
             </Dialog>
+          )}
+        </Dialog>
+      )}
+    </>
+  )
+}
+
+// repro for https://github.com/github/primer/issues/2480
+export const ReproMultistepDialogWithConditionalFooter = ({width, height}: DialogStoryProps) => {
+  const [isOpen, setIsOpen] = useState(false)
+  const onDialogClose = useCallback(() => setIsOpen(false), [])
+  const [step, setStep] = React.useState(1)
+
+  const renderFooterConditionally = () => {
+    if (step === 1) return null
+
+    return (
+      <Dialog.Footer>
+        <Button variant="primary">Submit</Button>
+      </Dialog.Footer>
+    )
+  }
+
+  return (
+    <>
+      <Button onClick={() => setIsOpen(!isOpen)}>Show dialog</Button>
+      {isOpen && (
+        <Dialog
+          title={`Step ${step}`}
+          width={width}
+          height={height}
+          renderFooter={renderFooterConditionally}
+          onClose={onDialogClose}
+          footerButtons={[{buttonType: 'primary', content: 'Proceed'}]}
+        >
+          {step === 1 ? (
+            <Box sx={{display: 'flex', flexDirection: 'column', gap: 4}}>
+              <Box sx={{display: 'flex', justifyContent: 'space-between'}}>
+                Bug Report <Button onClick={() => setStep(2)}>Choose</Button>
+              </Box>
+              <Box sx={{display: 'flex', justifyContent: 'space-between'}}>
+                Feature request <Button onClick={() => setStep(2)}>Choose</Button>
+              </Box>
+            </Box>
+          ) : (
+            <p>
+              <Box sx={{display: 'flex', flexDirection: 'column', gap: 1}}>
+                <label htmlFor="description">Description</label>
+                <TextInput id="description" placeholder="Write the description here" />
+              </Box>
+            </p>
           )}
         </Dialog>
       )}
