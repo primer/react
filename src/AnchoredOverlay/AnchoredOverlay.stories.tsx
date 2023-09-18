@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from 'react'
+import React, {useState} from 'react'
 import {Args, Meta} from '@storybook/react'
 
 import {Box} from '..'
