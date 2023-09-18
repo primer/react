@@ -50,17 +50,6 @@ export default {
       },
     },
   },
-  decorators: [
-    Story => {
-      return (
-        <ThemeProvider>
-          <BaseStyles>
-            <Story />
-          </BaseStyles>
-        </ThemeProvider>
-      )
-    },
-  ],
 } as Meta
 
 export const Default = () => {
