@@ -10,16 +10,14 @@ export default {
   title: 'Components/AnchoredOverlay',
   component: AnchoredOverlay,
   args: {
-    'With Anchor?': true,
+    
     width: 'small',
     height: 'auto',
     portalContainerName: 'Portal name',
     side: 'outside-bottom',
   },
   argTypes: {
-    'With Anchor?': {
-      type: 'boolean',
-    },
+
     width: {
       type: {
         name: 'enum',
@@ -95,8 +93,6 @@ export const Playground = (args: Args) => {
   )
 
   return (
-    <>
-      {args['With Anchor?'] ? (
         <AnchoredOverlay
           open={open}
           onOpen={() => {
@@ -117,28 +113,5 @@ export const Playground = (args: Args) => {
             <img src={`//placekitten.com/200/300`} alt="kitten" />
           </Box>
         </AnchoredOverlay>
-      ) : (
-        <>
-          <button ref={ref} onClick={onAnchorClick}>
-            Ref button
-          </button>
-          <AnchoredOverlay
-            open={open}
-            onOpen={onOpen}
-            onClose={onClose}
-            width={args.width}
-            height={args.height}
-            renderAnchor={null}
-            anchorRef={ref}
-            overlayProps={args.portalContainerName}
-            side={args.side}
-          >
-            <Box width="100%" height="100%" backgroundColor="thistle" display="flex" flexDirection="column">
-              <img src={`//placekitten.com/200/300`} alt="kitten" />
-            </Box>
-          </AnchoredOverlay>
-        </>
-      )}
-    </>
-  )
+      ) 
 }
