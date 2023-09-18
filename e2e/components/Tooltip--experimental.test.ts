@@ -34,37 +34,6 @@ test.describe('Tooltip--experimental', () => {
     }
   })
 
-  test.describe('All Directions', () => {
-    for (const theme of themes) {
-      test.describe(theme, () => {
-        test('default @vrt', async ({page}) => {
-          await visit(page, {
-            id: 'drafts-components-tooltip-features--all-directions',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-
-          // Default state
-          await page.keyboard.press('Tab')
-          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
-            `Tooltip--experimental.North.${theme}.png`,
-          )
-        })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'drafts-components-tooltip-features--all-directions',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations()
-        })
-      })
-    }
-  })
-
   test.describe('Anchor Has Margin', () => {
     for (const theme of themes) {
       test.describe(theme, () => {
@@ -241,37 +210,6 @@ test.describe('Tooltip--experimental', () => {
         test('axe @aat', async ({page}) => {
           await visit(page, {
             id: 'drafts-components-tooltip-features--on-action-menu-anchor',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations()
-        })
-      })
-    }
-  })
-
-  test.describe('Files Page Example', () => {
-    for (const theme of themes) {
-      test.describe(theme, () => {
-        test('default @vrt', async ({page}) => {
-          await visit(page, {
-            id: 'drafts-components-tooltip-examples--files-page',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-
-          // Default state
-          await page.keyboard.press('Tab')
-          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
-            `Tooltip--experimental.Files Page Example.${theme}.png`,
-          )
-        })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'drafts-components-tooltip-examples--files-page',
             globals: {
               colorScheme: theme,
             },

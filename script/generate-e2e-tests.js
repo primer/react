@@ -1413,10 +1413,6 @@ const components = new Map([
           name: 'Default',
         },
         {
-          id: 'drafts-components-tooltip-features--all-directions',
-          name: 'All Directions',
-        },
-        {
           id: 'drafts-components-tooltip-features--anchor-has-margin',
           name: 'Anchor Has Margin',
         },
