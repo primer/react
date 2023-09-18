@@ -3,7 +3,9 @@ import {Meta} from '@storybook/react'
 
 import {BaseStyles, ThemeProvider, Box, TextInput} from '..'
 import {Button} from '../Button'
-import {Dialog, DialogProps, DialogWidth, DialogHeight} from '../Dialog/Dialog'
+import {Dialog, DialogProps, DialogWidth, DialogHeight} from './Dialog'
+
+/* Dialog Version 2 */
 
 export default {
   title: 'Components/Dialog',

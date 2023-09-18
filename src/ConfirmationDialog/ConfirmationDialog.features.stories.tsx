@@ -4,25 +4,8 @@ import {BaseStyles, Box, ThemeProvider, useTheme} from '..'
 import {Button} from '../Button'
 import {ActionMenu} from '../ActionMenu'
 import {ActionList} from '../ActionList'
-import {ConfirmationDialog, useConfirm} from '../Dialog/ConfirmationDialog'
+import {ConfirmationDialog, useConfirm} from './ConfirmationDialog'
 
-export default {
-  title: 'Components/ConfirmationDialog',
-  component: ConfirmationDialog,
-  decorators: [
-    Story => {
-      // Since portal roots are registered globally, we need this line so that each storybook
-      // story works in isolation.
-      return (
-        <ThemeProvider>
-          <BaseStyles>
-            <Story />
-          </BaseStyles>
-        </ThemeProvider>
-      )
-    },
-  ],
-} as Meta
 
 export const BasicConfirmationDialog = () => {
   const [isOpen, setIsOpen] = useState(false)
