@@ -95,8 +95,14 @@ export const Playground = (args: Args) => {
       {args['With Anchor?'] ? (
         <AnchoredOverlay
           open={open}
-          onOpen={() => setOpen(true)}
-          onClose={() => setOpen(false)}
+          onOpen={() => {
+            setOpen(true)
+            action('onOpen')()
+          }}
+          onClose={() => {
+            setOpen(false)
+            action('onClose')()
+          }}
           width={args.width}
           height={args.height}
           renderAnchor={props => <Button {...props}>Button</Button>}
