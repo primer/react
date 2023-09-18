@@ -72,10 +72,6 @@ export const Default = () => {
 export const Playground = (args: Args) => {
   const [open, setOpen] = useState(false)
 
-  const onOpen = useCallback(() => setOpen(true), [])
-  const onClose = useCallback(() => setOpen(false), [])
-
-
   return (
     <AnchoredOverlay
       open={open}
