@@ -567,10 +567,14 @@ describe('DataTable', () => {
             },
             {
               id: 3,
-              value: 3,
+              value: '',
             },
             {
               id: 4,
+              value: 3,
+            },
+            {
+              id: 5,
               value: 1,
             },
           ]}
@@ -604,7 +608,7 @@ describe('DataTable', () => {
           return cell.textContent
         })
 
-      expect(rows).toEqual(['3', '2', '1', ''])
+      expect(rows).toEqual(['3', '2', '1', '', ''])
 
       // Change to ascending
       await user.click(screen.getByText('Value'))
@@ -619,7 +623,7 @@ describe('DataTable', () => {
           return cell.textContent
         })
 
-      expect(rows).toEqual(['1', '2', '3', ''])
+      expect(rows).toEqual(['1', '2', '3', '', ''])
     })
 
     it('should change the sort direction on mouse click', async () => {
