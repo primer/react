@@ -156,12 +156,23 @@ export function useTable<Data extends UniqueRow>({
         const valueA = get(a, header.column.field)
         const valueB = get(b, header.column.field)
 
-        if (state.direction === SortDirection.ASC) {
+        if (valueA && valueB) {
+          if (state.direction === SortDirection.ASC) {
+            // @ts-ignore todo
+            return sortMethod(valueA, valueB)
+          }
           // @ts-ignore todo
-          return sortMethod(valueA, valueB)
+          return sortMethod(valueB, valueA)
         }
-        // @ts-ignore todo
-        return sortMethod(valueB, valueA)
+
+        if (valueA) {
+          return -1
+        }
+
+        if (valueB) {
+          return 1
+        }
+        return 0
       })
     })
   }
