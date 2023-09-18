@@ -1,9 +1,10 @@
 import React, {useCallback, useRef, useState} from 'react'
 import {Args, Meta} from '@storybook/react'
 
-import {BaseStyles, Box, ThemeProvider} from '..'
+import {Box} from '..'
 import {AnchoredOverlay} from '../AnchoredOverlay'
 import {Button} from '../Button'
+import { action } from '@storybook/addon-actions'
 
 export default {
   title: 'Components/AnchoredOverlay',
@@ -49,6 +50,9 @@ export default {
         ],
       },
     },
+    open: {
+      control: false
+    }
   },
 } as Meta
 
