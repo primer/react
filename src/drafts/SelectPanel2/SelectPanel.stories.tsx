@@ -3,6 +3,7 @@ import {SelectPanel} from './SelectPanel'
 import {ActionList, Avatar, Box, Button} from '../../../src/index'
 import data from './mock-data'
 import {GitBranchIcon, TriangleDownIcon} from '@primer/octicons-react'
+import {useMenuKeyboardNavigation} from '../../hooks/useMenuKeyboardNavigation'
 
 const getCircle = (color: string) => (
   <Box sx={{width: 14, height: 14, borderRadius: '100%'}} style={{backgroundColor: `#${color}`}} />
@@ -397,6 +398,40 @@ export const DAsyncSearchWithUseTransition = () => {
         <React.Suspense fallback={<SelectPanel.Loading>Fetching users...</SelectPanel.Loading>}>
           <SearchableUserList query={query} showLoading={isPending} />
           <SelectPanel.Footer />
+        </React.Suspense>
+      </SelectPanel>
+    </>
+  )
+}
+
+export const TODOuseMenuKeyboardNavigation = () => {
+  // This is the story we are building to experiment with keyboard navigation, currently using useMenuKeyboardNavigation which I found in ActionMenu.tsx
+
+  const [query, setQuery] = React.useState('')
+
+  const onSearchInputChange = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    const query = event.currentTarget.value
+    setQuery(query)
+  }
+
+  return (
+    <>
+      <h1>Suspended list</h1>
+      <p>Fetching items once when the panel is opened (like repo labels)</p>
+      <SelectPanel>
+        {/* @ts-ignore todo */}
+        <SelectPanel.Button>Assign label</SelectPanel.Button>
+
+        <SelectPanel.Header>
+          <SelectPanel.Heading>Select labels</SelectPanel.Heading>
+          <SelectPanel.SearchInput onChange={onSearchInputChange} />
+        </SelectPanel.Header>
+
+        <React.Suspense fallback={<SelectPanel.Loading>Fetching labels...</SelectPanel.Loading>}>
+          <SuspendedActionList query={query} />
+          <SelectPanel.Footer>
+            <SelectPanel.SecondaryButton>Edit labels</SelectPanel.SecondaryButton>
+          </SelectPanel.Footer>
         </React.Suspense>
       </SelectPanel>
     </>

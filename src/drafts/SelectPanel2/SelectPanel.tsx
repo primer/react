@@ -18,6 +18,13 @@ import {
 } from '../../../src/index'
 import {useSlots} from '../../hooks/useSlots'
 import {ClearIcon} from './tmp-ClearIcon'
+import {DropdownButton} from '../deprecated/DropdownMenu'
+import {useProvidedRefOrCreate} from '../hooks'
+import {FocusZoneHookSettings} from '../hooks/useFocusZone'
+import {useId} from '../hooks/useId'
+import {useProvidedStateOrCreate} from '../hooks/useProvidedStateOrCreate'
+import {LiveRegion, LiveRegionOutlet, Message} from '../internal/components/LiveRegion'
+import {useMenuKeyboardNavigation} from '../hooks/useMenuKeyboardNavigation'
 
 const SelectPanelContext = React.createContext<{
   onCancel: () => void
@@ -68,7 +75,10 @@ const SelectPanel = props => {
 
   /* Search/Filter */
   const [searchQuery, setSearchQuery] = React.useState('')
-
+  const titleId = useId()
+  const subtitleId = useId()
+  const useMenuKeyboardNavigation = useId()
+  
   return (
     <>
       <AnchoredOverlay
@@ -84,6 +94,27 @@ const SelectPanel = props => {
         {/* TODO: Keyboard navigation of actionlist should be arrow keys
             with tabs to enter and escape
         */}
+        interface SelectPanelSingleSelection {
+          selected: ItemInput | undefined
+          onSelectedChange: (selected: ItemInput | undefined) => void
+        }
+
+        interface SelectPanelMultiSelection {
+          selected: ItemInput[]
+          onSelectedChange: (selected: ItemInput[]) => void
+        }
+
+        function isMultiSelectVariant(
+          selected: SelectPanelSingleSelection['selected'] | SelectPanelMultiSelection['selected'],
+        ): selected is SelectPanelMultiSelection['selected'] {
+          return Array.isArray(selected)
+        }
+
+        const focusZoneSettings: Partial<FocusZoneHookSettings> = {
+          // Let FilteredActionList handle focus zone
+          disabled: true,
+        }
+
         <SelectPanelContext.Provider
           value={{
             onCancel: onInternalClose,

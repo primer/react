@@ -15,6 +15,7 @@ import {FocusZoneHookSettings} from '../hooks/useFocusZone'
 import {useId} from '../hooks/useId'
 import {useProvidedStateOrCreate} from '../hooks/useProvidedStateOrCreate'
 import {LiveRegion, LiveRegionOutlet, Message} from '../internal/components/LiveRegion'
+import {useMenuKeyboardNavigation} from '../hooks/useMenuKeyboardNavigation'
 
 interface SelectPanelSingleSelection {
   selected: ItemInput | undefined
@@ -79,6 +80,7 @@ export function SelectPanel({
 }: SelectPanelProps): JSX.Element {
   const titleId = useId()
   const subtitleId = useId()
+  const useMenuKeyboardNavigation = useId()
   const [filterValue, setInternalFilterValue] = useProvidedStateOrCreate(externalFilterValue, undefined, '')
   const onFilterChange: FilteredActionListProps['onFilterChange'] = useCallback(
     (value, e) => {
