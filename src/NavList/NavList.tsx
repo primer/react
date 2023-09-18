@@ -48,12 +48,13 @@ Root.displayName = 'NavList'
 
 export type NavListItemProps = {
   children: React.ReactNode
+  defaultOpen?: boolean
   href?: string
   'aria-current'?: 'page' | 'step' | 'location' | 'date' | 'time' | 'true' | 'false' | boolean
 } & SxProp
 
 const Item = React.forwardRef<HTMLAnchorElement, NavListItemProps>(
-  ({'aria-current': ariaCurrent, children, sx: sxProp = defaultSxProp, ...props}, ref) => {
+  ({'aria-current': ariaCurrent, children, defaultOpen, sx: sxProp = defaultSxProp, ...props}, ref) => {
     const {depth} = React.useContext(SubNavContext)
 
     // Get SubNav from children
@@ -64,10 +65,14 @@ const Item = React.forwardRef<HTMLAnchorElement, NavListItemProps>(
       isValidElement(child) ? child.type !== SubNav : true,
     )
 
+    if (!isValidElement(subNav) && defaultOpen)
+      // eslint-disable-next-line no-console
+      console.error('NavList.Item must have a NavList.SubNav to use defaultOpen.')
+
     // Render ItemWithSubNav if SubNav is present
     if (subNav && isValidElement(subNav)) {
       return (
-        <ItemWithSubNav subNav={subNav} depth={depth} sx={sxProp}>
+        <ItemWithSubNav subNav={subNav} depth={depth} defaultOpen={defaultOpen} sx={sxProp}>
           {childrenWithoutSubNav}
         </ItemWithSubNav>
       )
@@ -96,6 +101,7 @@ type ItemWithSubNavProps = {
   children: React.ReactNode
   subNav: React.ReactNode
   depth: number
+  defaultOpen?: boolean
 } & SxProp
 
 const ItemWithSubNavContext = React.createContext<{buttonId: string; subNavId: string; isOpen: boolean}>({
@@ -106,10 +112,10 @@ const ItemWithSubNavContext = React.createContext<{buttonId: string; subNavId: s
 
 // TODO: ref prop
 // TODO: Animate open/close transition
-function ItemWithSubNav({children, subNav, depth, sx: sxProp = defaultSxProp}: ItemWithSubNavProps) {
+function ItemWithSubNav({children, subNav, depth, defaultOpen, sx: sxProp = defaultSxProp}: ItemWithSubNavProps) {
   const buttonId = useId()
   const subNavId = useId()
-  const [isOpen, setIsOpen] = React.useState(false)
+  const [isOpen, setIsOpen] = React.useState((defaultOpen || null) ?? false)
   const subNavRef = React.useRef<HTMLDivElement>(null)
   const [containsCurrentItem, setContainsCurrentItem] = React.useState(false)
 
@@ -124,7 +130,7 @@ function ItemWithSubNav({children, subNav, depth, sx: sxProp = defaultSxProp}: I
         setIsOpen(true)
       }
     }
-  }, [subNav])
+  }, [subNav, buttonId])
 
   return (
     <ItemWithSubNavContext.Provider value={{buttonId, subNavId, isOpen}}>

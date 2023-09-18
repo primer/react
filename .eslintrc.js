@@ -143,6 +143,12 @@ module.exports = {
                 importNames: ['useSSRSafeId'],
                 message: 'Please use the `useId` hook from `src/hooks/useId.ts` instead',
               },
+              {
+                name: 'react',
+                importNames: ['useLayoutEffect'],
+                message:
+                  'Please use the `useIsomorphicLayoutEffect` hook from `src/hooks/useIsomorphicLayoutEffect.ts` instead',
+              },
             ],
             patterns: [
               {
@@ -203,6 +209,7 @@ module.exports = {
         'no-unused-vars': 'off',
         'prettier/prettier': 'off',
         'react/jsx-no-undef': 'off',
+        'primer-react/direct-slot-children': 'off',
       },
     },
 

@@ -1,6 +1,7 @@
 import Combobox from '@github/combobox-nav'
-import {useCallback, useEffect, useLayoutEffect, useRef, useState} from 'react'
+import {useCallback, useEffect, useRef, useState} from 'react'
 import {useId} from '../../hooks/useId'
+import useIsomorphicLayoutEffect from '../../utils/useIsomorphicLayoutEffect'
 
 export type ComboboxCommitEvent<T> = {
   /** The underlying `combobox-commit` event. */
@@ -138,7 +139,7 @@ export const useCombobox = <T>({
     [onCommit, list],
   )
 
-  useLayoutEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     const optionElements = getOptionElements()
     // Ensure each option has a unique ID (required by the Combobox class), but respect user provided IDs
     for (const [i, option] of optionElements.entries()) {
