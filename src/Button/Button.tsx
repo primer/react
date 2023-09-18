@@ -3,10 +3,11 @@ import {ButtonProps} from './types'
 import {ButtonBase} from './ButtonBase'
 import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import {defaultSxProp} from '../utils/defaultSxProp'
-import {BetterSystemStyleObject} from '../sx'
+import {BetterSystemStyleObject, CSSCustomProperties} from '../sx'
 
 const ButtonComponent = forwardRef(({children, sx: sxProp = defaultSxProp, ...props}, forwardedRef): JSX.Element => {
   let sxStyles = sxProp
+  const style: CSSCustomProperties = {}
   const leadingVisual = props.leadingVisual ?? props.leadingIcon
   const trailingVisual = props.trailingVisual ?? props.trailingIcon
 
@@ -15,10 +16,14 @@ const ButtonComponent = forwardRef(({children, sx: sxProp = defaultSxProp, ...pr
 
   if (sxProp !== null && Object.keys(sxProp).length > 0) {
     sxStyles = generateCustomSxProp({block, size, leadingVisual, trailingVisual, trailingAction}, sxProp)
+
+    // @ts-ignore sxProp can have color attribute
+    const {color} = sxProp
+    if (color) style['--button-color'] = color
   }
 
   return (
-    <ButtonBase ref={forwardedRef} as="button" sx={sxStyles} type="button" {...props}>
+    <ButtonBase ref={forwardedRef} as="button" sx={sxStyles} style={style} type="button" {...props}>
       {children}
     </ButtonBase>
   )
@@ -80,24 +85,11 @@ export function generateCustomSxProp(
     [key: string]: BetterSystemStyleObject
   } = {}
 
-  customSxProp[cssSelector] = providedSx as BetterSystemStyleObject & {color?: string}
-
-  // Possible data attributes for children of button component: data-component="leadingVisual", data-component="trailingVisual", data-component="trailingAction"
-  // When sx is used in the parent button component, these styles aren't applied to its children (leadingIcon, trailingIcon, trailingAction)
-  // Because sx only applies to the base selector which is  "&", but we want it to be applied to '& [data-component="leadingVisual"]'
-  const cssSelectorList = []
-  if (props.leadingVisual) cssSelectorList.push(`& [data-component="leadingVisual"]`)
-  if (props.trailingVisual) cssSelectorList.push(`& [data-component="trailingVisual"]`)
-  if (props.trailingAction) cssSelectorList.push(`& [data-component="trailingAction"]`)
-
-  // @ts-ignore for now
-  const {color} = providedSx
-  if (!color) return customSxProp
-  for (const selector of cssSelectorList) {
-    // We only want to apply the color to the children of button component, because it is the one that we are overriding with data attributes that has more specificity than the parent button component.https://github.com/primer/react/blob/main/src/Button/styles.ts#L29
-    customSxProp[selector] = {color}
+  if (!providedSx) return customSxProp
+  else {
+    customSxProp[cssSelector] = providedSx
+    return customSxProp
   }
-  return customSxProp
 }
 
 ButtonComponent.displayName = 'Button'
