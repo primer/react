@@ -1,23 +1,21 @@
-import React, {useCallback, useRef, useState} from 'react'
+import React, {useCallback, useState} from 'react'
 import {Args, Meta} from '@storybook/react'
 
 import {Box} from '..'
 import {AnchoredOverlay} from '../AnchoredOverlay'
 import {Button} from '../Button'
-import { action } from '@storybook/addon-actions'
+import {action} from '@storybook/addon-actions'
 
 export default {
   title: 'Components/AnchoredOverlay',
   component: AnchoredOverlay,
   args: {
-    
     width: 'small',
     height: 'auto',
     portalContainerName: 'Portal name',
     side: 'outside-bottom',
   },
   argTypes: {
-
     width: {
       type: {
         name: 'enum',
@@ -49,8 +47,8 @@ export default {
       },
     },
     open: {
-      control: false
-    }
+      control: false,
+    },
   },
 } as Meta
 
@@ -73,45 +71,31 @@ export const Default = () => {
 
 export const Playground = (args: Args) => {
   const [open, setOpen] = useState(false)
-  const ref = useRef<HTMLButtonElement>(null)
 
   const onOpen = useCallback(() => setOpen(true), [])
   const onClose = useCallback(() => setOpen(false), [])
 
-  const onAnchorClick = useCallback(
-    (event: React.MouseEvent<HTMLElement>) => {
-      if (event.defaultPrevented || event.button !== 0) {
-        return
-      }
-      if (!open) {
-        onOpen()
-      } else {
-        onClose()
-      }
-    },
-    [open, onOpen, onClose],
-  )
 
   return (
-        <AnchoredOverlay
-          open={open}
-          onOpen={() => {
-            setOpen(true)
-            action('onOpen')()
-          }}
-          onClose={() => {
-            setOpen(false)
-            action('onClose')()
-          }}
-          width={args.width}
-          height={args.height}
-          renderAnchor={props => <Button {...props}>Button</Button>}
-          overlayProps={args.portalContainerName}
-          side={args.side}
-        >
-          <Box width="100%" height="100%" backgroundColor="thistle" display="flex" flexDirection="column">
-            <img src={`//placekitten.com/200/300`} alt="kitten" />
-          </Box>
-        </AnchoredOverlay>
-      ) 
+    <AnchoredOverlay
+      open={open}
+      onOpen={() => {
+        setOpen(true)
+        action('onOpen')()
+      }}
+      onClose={() => {
+        setOpen(false)
+        action('onClose')()
+      }}
+      width={args.width}
+      height={args.height}
+      renderAnchor={props => <Button {...props}>Button</Button>}
+      overlayProps={args.portalContainerName}
+      side={args.side}
+    >
+      <Box width="100%" height="100%" backgroundColor="thistle" display="flex" flexDirection="column">
+        <img src={`//placekitten.com/200/300`} alt="kitten" />
+      </Box>
+    </AnchoredOverlay>
+  )
 }
