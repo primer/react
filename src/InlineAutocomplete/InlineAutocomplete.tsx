@@ -18,7 +18,7 @@ import {augmentHandler, calculateSuggestionsQuery, getSuggestionValue, requireCh
 
 import {useRefObjectAsForwardedRef} from '../hooks'
 import AutocompleteSuggestions from './_AutocompleteSuggestions'
-import {useFormControlForwardedProps} from '../../FormControl'
+import {useFormControlForwardedProps} from '../FormControl'
 
 export type InlineAutocompleteProps = {
   /** Register the triggers that can cause suggestions to appear. */
