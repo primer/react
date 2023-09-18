@@ -28,10 +28,6 @@ const animationStyles = `
   animation-duration: 0.1s;
   animation-fill-mode: forwards;
   animation-timing-function: ease-in;
-  animation-delay: 0.4s;
-`
-
-const noDelayAnimationStyles = `
   animation-delay: 0s;
 `
 
@@ -139,20 +135,6 @@ const StyledTooltip = styled.div`
     ${animationStyles}
   }
 
-  &:popover-open {
-    &[data-no-delay='true'],
-    &[data-no-delay='true']::before {
-      ${noDelayAnimationStyles}
-    }
-  }
-
-  &.\\:popover-open {
-    &[data-no-delay='true'],
-    &[data-no-delay='true']::before {
-      ${noDelayAnimationStyles}
-    }
-  }
-
   ${sx};
 `
 
@@ -161,7 +143,6 @@ export type TooltipProps = React.PropsWithChildren<
   {
     direction?: TooltipDirection
     text?: string
-    noDelay?: boolean
     type?: 'label' | 'description'
   } & SxProp &
     ComponentProps<typeof StyledTooltip>
@@ -220,7 +201,7 @@ const isInteractive = (element: HTMLElement) => {
 export const TooltipContext = React.createContext<{tooltipId?: string}>({})
 
 export const Tooltip = React.forwardRef(
-  ({direction = 's', text, type = 'description', noDelay, children, ...rest}: TooltipProps, forwardedRef) => {
+  ({direction = 's', text, type = 'description', children, ...rest}: TooltipProps, forwardedRef) => {
     const tooltipId = useId()
     const child = Children.only(children)
     const triggerRef = useProvidedRefOrCreate(forwardedRef as React.RefObject<HTMLElement>)
@@ -327,7 +308,6 @@ export const Tooltip = React.forwardRef(
           <StyledTooltip
             ref={tooltipElRef}
             data-direction={calculatedDirection}
-            data-no-delay={noDelay}
             {...rest}
             // Only need tooltip role if the tooltip is a description for supplementary information
             role={type === 'description' ? 'tooltip' : undefined}

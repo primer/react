@@ -97,12 +97,6 @@ export const CalculatedDirection = () => (
   </Box>
 )
 
-export const NoDelay = () => (
-  <Tooltip noDelay text="Supplemetary text" direction="se">
-    <Button>Button</Button>
-  </Tooltip>
-)
-
 export const OnActionMenuAnchor = () => (
   <Box sx={{display: 'flex', padding: 5, gap: 2}}>
     <ActionMenu>

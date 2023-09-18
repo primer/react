@@ -21,11 +21,6 @@ describe('Tooltip', () => {
     const {getByText} = HTMLRender(<TooltipComponent direction="n" />)
     expect(getByText('Tooltip text')).toHaveAttribute('data-direction', 'n')
   })
-
-  it('renders `data-no-delay` attribute with the correct value when the `noDelay` prop is specified', () => {
-    const {getByText} = HTMLRender(<TooltipComponent noDelay />)
-    expect(getByText('Tooltip text')).toHaveAttribute('data-no-delay', 'true')
-  })
   it('should label the trigger element by its tooltip when the tooltip type is label', () => {
     const {getByRole, getByText} = HTMLRender(<TooltipComponent type="label" />)
     const triggerEL = getByRole('button')

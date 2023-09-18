@@ -10,7 +10,6 @@ export default {
   args: {
     text: 'This is the tooltip text',
     direction: 's',
-    noDelay: false,
     type: 'description',
   },
 } as Meta<typeof Tooltip>
