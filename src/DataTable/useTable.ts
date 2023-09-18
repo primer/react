@@ -116,7 +116,8 @@ export function useTable<Data extends UniqueRow>({
   }
 
   /**
-   * Sort the rows of a table with the given column sort state
+   * Sort the rows of a table with the given column sort state. If the data in the table is sparse,
+   * blank values will be ordered last regardless of the sort direction.
    */
   function sortRows(state: Exclude<ColumnSortState, null>) {
     const header = headers.find(header => {
