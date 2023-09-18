@@ -386,6 +386,12 @@ Header.displayName = 'PageLayout.Header'
 
 export type PageLayoutContentProps = {
   /**
+   * Provide an optional element type for the outermost element rendered by the component.
+   * @default 'main'
+   */
+  as?: React.ElementType
+
+  /**
    * A unique label for the rendered main landmark
    */
   'aria-label'?: React.AriaAttributes['aria-label']
@@ -408,6 +414,7 @@ const contentWidths = {
 }
 
 const Content: React.FC<React.PropsWithChildren<PageLayoutContentProps>> = ({
+  as = 'main',
   'aria-label': label,
   'aria-labelledby': labelledBy,
   width = 'full',
@@ -421,6 +428,7 @@ const Content: React.FC<React.PropsWithChildren<PageLayoutContentProps>> = ({
 
   return (
     <Box
+      as={as}
       aria-label={label}
       aria-labelledby={labelledBy}
       sx={merge<BetterSystemStyleObject>(

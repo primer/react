@@ -16,7 +16,7 @@ const IconButton = forwardRef(({sx: sxProp = defaultSxProp, icon: Icon, ...props
 
   return (
     // @ts-expect-error StyledButton wants both Anchor and Button refs
-    <ButtonBase icon={Icon} data-component="IconButton" sx={sxStyles} {...props} ref={forwardedRef} />
+    <ButtonBase icon={Icon} data-component="IconButton" sx={sxStyles} type="button" {...props} ref={forwardedRef} />
   )
 }) as PolymorphicForwardRefComponent<'button' | 'a', IconButtonProps>
 

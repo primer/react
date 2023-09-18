@@ -29,6 +29,7 @@ const allowlist = [
   'InlineAutocomplete',
   'FilteredActionList',
   'Link',
+  'MarkdownEditor',
   'Pagehead',
   'Pagination',
   'ProgressBar',
