@@ -9,7 +9,7 @@ status: Alpha
 import data from '../../src/Pagehead/Pagehead.docs.json'
 import DeprecationBanner from '../components/DeprecationBanner'
 
-<DeprecationBanner replacementUrl={`/design/components/pagehead/react`} />
+<DeprecationBanner replacementUrl={'/design/components/pagehead/react'} />
 
 ```js
 import {Pagehead} from '@primer/react'
