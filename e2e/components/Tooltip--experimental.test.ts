@@ -18,6 +18,9 @@ test.describe('Tooltip--experimental', () => {
           await page.keyboard.press('Tab')
           expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
             `Tooltip--experimental.Default.${theme}.png`,
+            {
+              threshold: 0.1,
+            },
           )
         })
 
@@ -49,6 +52,9 @@ test.describe('Tooltip--experimental', () => {
           await page.keyboard.press('Tab')
           expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
             `Tooltip--experimental.Anchor Has Margin.${theme}.png`,
+            {
+              threshold: 0.1,
+            },
           )
         })
 
@@ -80,6 +86,9 @@ test.describe('Tooltip--experimental', () => {
           await page.keyboard.press('Tab')
           expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
             `Tooltip--experimental.Calculated Direction.${theme}.png`,
+            {
+              threshold: 0.1,
+            },
           )
         })
 
@@ -111,6 +120,9 @@ test.describe('Tooltip--experimental', () => {
           await page.keyboard.press('Tab')
           expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
             `Tooltip--experimental.Icon Button With Description.${theme}.png`,
+            {
+              threshold: 0.1,
+            },
           )
         })
 
@@ -142,6 +154,9 @@ test.describe('Tooltip--experimental', () => {
           await page.keyboard.press('Tab')
           expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
             `Tooltip--experimental.Label Type.${theme}.png`,
+            {
+              threshold: 0.1,
+            },
           )
         })
 
@@ -173,6 +188,9 @@ test.describe('Tooltip--experimental', () => {
           await page.keyboard.press('Tab')
           expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
             `Tooltip--experimental.Multiline Text.${theme}.png`,
+            {
+              threshold: 0.1,
+            },
           )
         })
 
@@ -204,6 +222,9 @@ test.describe('Tooltip--experimental', () => {
           await page.keyboard.press('Tab')
           expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
             `Tooltip--experimental.On Action Menu Anchor.${theme}.png`,
+            {
+              threshold: 0.1,
+            },
           )
         })
 
