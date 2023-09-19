@@ -65,20 +65,26 @@ const Menu: React.FC<React.PropsWithChildren<ActionMenuProps>> = ({
         }
       }
       return null
-    } else if (child.type === MenuButton || child.type === Anchor) {
+    } else if (child.type === Anchor) {
       const anchorChildren = child.props.children
-      renderAnchor = anchorProps => {
-        // ActionMenu.Anchor's children can be wrapped with Tooltip. If this is the case, our anchor is the tooltip's trigger
-        const tooltipTrigger = anchorChildren.type === Tooltip ? anchorChildren.props.children : null
-        if (tooltipTrigger !== null) {
-          // We need to attach the anchor props to the tooltip trigger not the tooltip itself.
-          const tooltipTriggerEl = React.cloneElement(tooltipTrigger, {...anchorProps})
-          const tooltip = React.cloneElement(anchorChildren, {children: tooltipTriggerEl})
-          return React.cloneElement(child, {children: tooltip, ref: anchorRef})
-        } else {
-          return React.cloneElement(child, anchorProps)
+      const isWrappedWithTooltip = anchorChildren !== undefined ? anchorChildren.type === Tooltip : false
+      if (isWrappedWithTooltip) {
+        if (anchorChildren.props.children !== null) {
+          renderAnchor = anchorProps => {
+            // ActionMenu.Anchor's children can be wrapped with Tooltip. If this is the case, our anchor is the tooltip's trigger
+            const tooltipTrigger = anchorChildren.props.children
+            // We need to attach the anchor props to the tooltip trigger not the tooltip itself.
+            const tooltipTriggerEl = React.cloneElement(tooltipTrigger, {...anchorProps})
+            const tooltip = React.cloneElement(anchorChildren, {children: tooltipTriggerEl})
+            return React.cloneElement(child, {children: tooltip, ref: anchorRef})
+          }
         }
+      } else {
+        renderAnchor = anchorProps => React.cloneElement(child, anchorProps)
       }
+      return null
+    } else if (child.type === MenuButton) {
+      renderAnchor = anchorProps => React.cloneElement(child, anchorProps)
       return null
     } else {
       return child
