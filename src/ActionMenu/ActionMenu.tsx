@@ -54,16 +54,19 @@ const Menu: React.FC<React.PropsWithChildren<ActionMenuProps>> = ({
   // with additional props for accessibility
   // 🚨 Accounting for Tooltip wrapping ActionMenu.Button or being a direct child of ActionMenu.Anchor.
   const contents = React.Children.map(children, child => {
-    const anchorChildren = child.props.children
     // Is ActionMenu.Button wrapped with Tooltip? If this is the case, our anchor is the tooltip's trigger
-    if (child.type === Tooltip && anchorChildren !== undefined && anchorChildren.type === MenuButton) {
-      renderAnchor = anchorProps => {
-        const triggerButton = React.cloneElement(anchorChildren, {...anchorProps})
-        return React.cloneElement(child, {children: triggerButton, ref: anchorRef})
+    if (child.type === Tooltip) {
+      // tooltip trigger
+      const anchorChildren = child.props.children
+      if (anchorChildren.type === MenuButton) {
+        renderAnchor = anchorProps => {
+          const triggerButton = React.cloneElement(anchorChildren, {...anchorProps})
+          return React.cloneElement(child, {children: triggerButton, ref: anchorRef})
+        }
       }
       return null
-    }
-    if (child.type === MenuButton || child.type === Anchor) {
+    } else if (child.type === MenuButton || child.type === Anchor) {
+      const anchorChildren = child.props.children
       renderAnchor = anchorProps => {
         // ActionMenu.Anchor's children can be wrapped with Tooltip. If this is the case, our anchor is the tooltip's trigger
         const tooltipTrigger = anchorChildren.type === Tooltip ? anchorChildren.props.children : null
@@ -77,8 +80,9 @@ const Menu: React.FC<React.PropsWithChildren<ActionMenuProps>> = ({
         }
       }
       return null
+    } else {
+      return child
     }
-    return child
   })
 
   return (
