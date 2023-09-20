@@ -125,6 +125,7 @@ exports[`@primer/react/drafts should not update exports without a semver change 
   "PageHeader",
   "Table",
   "callbackCancelledResult",
+  "createColumnHelper",
   "useCombobox",
   "useDynamicTextareaHeight",
   "useIgnoreKeyboardActionsWhileComposing",

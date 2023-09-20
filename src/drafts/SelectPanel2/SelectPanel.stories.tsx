@@ -1,6 +1,7 @@
 import React from 'react'
 import {SelectPanel} from './SelectPanel'
-import {ActionList, Avatar, Box} from '../../../src/index'
+import {ActionList, Avatar, Box, Button} from '../../../src/index'
+import {GitBranchIcon, TriangleDownIcon} from '@primer/octicons-react'
 import data from './mock-data'
 
 const getCircle = (color: string) => (
@@ -467,6 +468,158 @@ export const TODO3NoCustomisation = () => {
     <>
       <h1>TODO: Without any customisation</h1>
       <p>Address after TODO: Uncontrolled</p>
+    </>
+  )
+}
+
+export const TODO4WithFilterButtons = () => {
+  const [selectedFilter, setSelectedFilter] = React.useState<'branches' | 'tags'>('branches')
+  const [filteredRefs, setFilteredRefs] = React.useState(data.branches)
+
+  const initialSelectedLabels: string[] = ['main']
+
+  // TODO: Single selection doesn't need an array
+  const [selectedLabelIds, setSelectedLabelIds] = React.useState<string[]>(initialSelectedLabels)
+
+  const setSearchResults = (query: string, selectedFilter: 'branches' | 'tags') => {
+    if (query === '') setFilteredRefs(data[selectedFilter])
+    else {
+      // TODO: should probably add a highlight for matching text
+      // TODO: This should be a joined array, not seperate, only separated at the render level
+      setFilteredRefs(
+        data[selectedFilter]
+          .map(item => {
+            if (item.name.toLowerCase().startsWith(query)) return {priority: 1, item}
+            else if (item.name.toLowerCase().includes(query)) return {priority: 2, item}
+            else return {priority: -1, item}
+          })
+          .filter(result => result.priority > 0)
+          .map(result => result.item),
+      )
+    }
+  }
+
+  const [query, setQuery] = React.useState('')
+  const onSearchInputChange = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    const query = event.currentTarget.value
+    setQuery(query)
+  }
+
+  React.useEffect(
+    function updateSearchResults() {
+      setSearchResults(query, selectedFilter)
+    },
+    [query, selectedFilter],
+  )
+
+  const onLabelSelect = (labelId: string) => {
+    if (!selectedLabelIds.includes(labelId)) setSelectedLabelIds([...selectedLabelIds, labelId])
+    else setSelectedLabelIds(selectedLabelIds.filter(id => id !== labelId))
+  }
+
+  const onSubmit = (event: {preventDefault: () => void}) => {
+    event.preventDefault() // coz form submit, innit
+    data.issue.labelIds = selectedLabelIds // pretending to persist changes
+
+    // eslint-disable-next-line no-console
+    console.log('form submitted')
+  }
+
+  const sortingFn = (branchA: {id: string}, branchB: {id: string}) => {
+    /* Important! This sorting is only for initial selected ids, not for subsequent changes!
+      deterministic sorting for better UX: don't change positions with other selected items.
+    */
+    if (selectedLabelIds.includes(branchA.id) && selectedLabelIds.includes(branchB.id)) return 1
+    else if (selectedLabelIds.includes(branchA.id)) return -1
+    else if (selectedLabelIds.includes(branchB.id)) return 1
+    else return 1
+  }
+
+  return (
+    <>
+      <h1>With Filter Buttons</h1>
+
+      <SelectPanel
+        defaultOpen
+        onSubmit={onSubmit}
+        onCancel={() => {
+          // eslint-disable-next-line no-console
+          console.log('panel was closed')
+        }}
+      >
+        {/* TODO: the ref types don't match here, use useProvidedRefOrCreate */}
+        {/* @ts-ignore todo */}
+        <SelectPanel.Button leadingIcon={GitBranchIcon} trailingIcon={TriangleDownIcon}>
+          main
+        </SelectPanel.Button>
+
+        <SelectPanel.Header>
+          <SelectPanel.Heading>Switch branches/tags</SelectPanel.Heading>
+          <SelectPanel.SearchInput onChange={onSearchInputChange} sx={{marginBottom: 2}} />
+
+          <Box id="filters" sx={{display: 'flex'}}>
+            <Button
+              variant="invisible"
+              sx={{fontWeight: selectedFilter === 'branches' ? 'semibold' : 'normal', color: 'fg.default'}}
+              onClick={() => setSelectedFilter('branches')}
+            >
+              Branches <Button.Counter>{20}</Button.Counter>
+            </Button>
+            <Button
+              variant="invisible"
+              sx={{fontWeight: selectedFilter === 'tags' ? 'semibold' : 'normal', color: 'fg.default'}}
+              onClick={() => setSelectedFilter('tags')}
+            >
+              Tags <Button.Counter>{8}</Button.Counter>
+            </Button>
+          </Box>
+        </SelectPanel.Header>
+
+        <SelectPanel.ActionList selectionVariant="single">
+          {/* slightly different view for search results view and list view */}
+          {query ? (
+            filteredRefs.length > 1 ? (
+              filteredRefs.map(label => (
+                <ActionList.Item
+                  key={label.id}
+                  onSelect={() => onLabelSelect(label.id)}
+                  selected={selectedLabelIds.includes(label.id)}
+                >
+                  {label.name}
+                  <ActionList.TrailingVisual>{label.trailingInfo}</ActionList.TrailingVisual>
+                </ActionList.Item>
+              ))
+            ) : (
+              <SelectPanel.EmptyMessage>
+                No {selectedFilter} found for &quot;{query}&quot;
+              </SelectPanel.EmptyMessage>
+            )
+          ) : (
+            <>
+              {data[selectedFilter].sort(sortingFn).map(item => {
+                return (
+                  <>
+                    <ActionList.Item
+                      key={item.id}
+                      onSelect={() => onLabelSelect(item.id)}
+                      selected={selectedLabelIds.includes(item.id)}
+                    >
+                      {item.name}
+                      <ActionList.TrailingVisual>{item.trailingInfo}</ActionList.TrailingVisual>
+                    </ActionList.Item>
+                  </>
+                )
+              })}
+            </>
+          )}
+        </SelectPanel.ActionList>
+        <SelectPanel.Footer>
+          {/* TODO: Can't disable Cancel and Save yet */}
+          <SelectPanel.SecondaryButton as="a" href={`/${selectedFilter}`}>
+            View all {selectedFilter}
+          </SelectPanel.SecondaryButton>
+        </SelectPanel.Footer>
+      </SelectPanel>
     </>
   )
 }
