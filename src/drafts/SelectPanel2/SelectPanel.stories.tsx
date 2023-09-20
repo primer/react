@@ -153,6 +153,7 @@ export const BWithSuspendedList = () => {
 const SuspendedActionList: React.FC<{query: string}> = ({query}) => {
   const fetchedData: typeof data = use(getData({key: 'suspended-action-list'}))
 
+  /* Selection */
   const initialSelectedLabels: string[] = fetchedData.issue.labelIds
   const [selectedLabelIds, setSelectedLabelIds] = React.useState<string[]>(initialSelectedLabels)
 
@@ -161,13 +162,7 @@ const SuspendedActionList: React.FC<{query: string}> = ({query}) => {
     else setSelectedLabelIds(selectedLabelIds.filter(id => id !== labelId))
   }
 
-  const sortingFn = (labelA: {id: string}, labelB: {id: string}) => {
-    if (selectedLabelIds.includes(labelA.id) && selectedLabelIds.includes(labelB.id)) return 1
-    else if (selectedLabelIds.includes(labelA.id)) return -1
-    else if (selectedLabelIds.includes(labelB.id)) return 1
-    else return 1
-  }
-
+  /* Filtering */
   const filteredLabels = fetchedData.labels
     .map(label => {
       if (label.name.toLowerCase().startsWith(query)) return {priority: 1, label}
@@ -178,11 +173,14 @@ const SuspendedActionList: React.FC<{query: string}> = ({query}) => {
     .filter(result => result.priority > 0)
     .map(result => result.label)
 
+  const itemsToShow = query ? filteredLabels : data.labels
+
   return (
     <SelectPanel.ActionList>
-      {/* slightly different view for search results view and list view */}
-      {query ? (
-        filteredLabels.map(label => (
+      {itemsToShow.length === 0 ? (
+        <SelectPanel.EmptyMessage>No labels found for &quot;{query}&quot;</SelectPanel.EmptyMessage>
+      ) : (
+        itemsToShow.map(label => (
           <ActionList.Item
             key={label.id}
             onSelect={() => onLabelSelect(label.id)}
@@ -193,28 +191,6 @@ const SuspendedActionList: React.FC<{query: string}> = ({query}) => {
             <ActionList.Description variant="block">{label.description}</ActionList.Description>
           </ActionList.Item>
         ))
-      ) : (
-        <>
-          {fetchedData.labels.sort(sortingFn).map((label, index) => {
-            const nextLabel = fetchedData.labels.sort(sortingFn)[index + 1]
-            const showDivider = selectedLabelIds.includes(label.id) && !selectedLabelIds.includes(nextLabel?.id)
-
-            return (
-              <>
-                <ActionList.Item
-                  key={label.id}
-                  onSelect={() => onLabelSelect(label.id)}
-                  selected={selectedLabelIds.includes(label.id)}
-                >
-                  <ActionList.LeadingVisual>{getCircle(label.color)}</ActionList.LeadingVisual>
-                  {label.name}
-                  <ActionList.Description variant="block">{label.description}</ActionList.Description>
-                </ActionList.Item>
-                {showDivider ? <ActionList.Divider /> : null}
-              </>
-            )
-          })}
-        </>
       )}
     </SelectPanel.ActionList>
   )
