@@ -9,13 +9,30 @@ const getCircle = (color: string) => (
 )
 
 export const AControlled = () => {
-  const [filteredLabels, setFilteredLabels] = React.useState(data.labels)
-
-  // const initialSelectedLabels: string[] = [] // initial state: no labels
-  const initialSelectedLabels = data.issue.labelIds // initial state: has labels
-
+  const initialSelectedLabels = data.issue.labelIds // mock initial state: has selected labels
   const [selectedLabelIds, setSelectedLabelIds] = React.useState<string[]>(initialSelectedLabels)
 
+  /* Selection */
+  const onLabelSelect = (labelId: string) => {
+    if (!selectedLabelIds.includes(labelId)) setSelectedLabelIds([...selectedLabelIds, labelId])
+    else setSelectedLabelIds(selectedLabelIds.filter(id => id !== labelId))
+  }
+
+  const onClearSelection = () => {
+    // soft set, does not save until submit
+    setSelectedLabelIds([])
+  }
+
+  const onSubmit = (event: {preventDefault: () => void}) => {
+    event.preventDefault() // coz form submit, innit
+    data.issue.labelIds = selectedLabelIds // pretending to persist changes
+
+    // eslint-disable-next-line no-console
+    console.log('form submitted')
+  }
+
+  /* Filtering */
+  const [filteredLabels, setFilteredLabels] = React.useState(data.labels)
   const [query, setQuery] = React.useState('')
 
   // TODO: should this be baked-in
@@ -40,25 +57,7 @@ export const AControlled = () => {
     }
   }
 
-  const onLabelSelect = (labelId: string) => {
-    if (!selectedLabelIds.includes(labelId)) setSelectedLabelIds([...selectedLabelIds, labelId])
-    else setSelectedLabelIds(selectedLabelIds.filter(id => id !== labelId))
-  }
-
-  const onClearSelection = () => {
-    // soft set, does not save until submit
-    setSelectedLabelIds([])
-  }
-
-  const onSubmit = (event: {preventDefault: () => void}) => {
-    event.preventDefault() // coz form submit, innit
-    data.issue.labelIds = selectedLabelIds // pretending to persist changes
-
-    // eslint-disable-next-line no-console
-    console.log('form submitted')
-  }
-
-  const labelsToShow = query ? filteredLabels : data.labels
+  const itemsToShow = query ? filteredLabels : data.labels
 
   return (
     <>
@@ -95,8 +94,10 @@ export const AControlled = () => {
           <SelectPanel.SearchInput onChange={onSearchInputChange} />
         </SelectPanel.Header>
         <SelectPanel.ActionList>
-          {labelsToShow.length > 1 ? (
-            labelsToShow.map(label => (
+          {itemsToShow.length === 0 ? (
+            <SelectPanel.EmptyMessage>No labels found for &quot;{query}&quot;</SelectPanel.EmptyMessage>
+          ) : (
+            itemsToShow.map(label => (
               <ActionList.Item
                 key={label.id}
                 onSelect={() => onLabelSelect(label.id)}
@@ -107,8 +108,6 @@ export const AControlled = () => {
                 <ActionList.Description variant="block">{label.description}</ActionList.Description>
               </ActionList.Item>
             ))
-          ) : (
-            <SelectPanel.EmptyMessage>No labels found for &quot;{query}&quot;</SelectPanel.EmptyMessage>
           )}
         </SelectPanel.ActionList>
         <SelectPanel.Footer>
