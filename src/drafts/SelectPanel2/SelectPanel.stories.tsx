@@ -231,35 +231,33 @@ export const CAsyncSearchWithSuspenseKey = () => {
   )
 }
 
+/* 
+  `data` is already pre-fetched with the issue 
+  `users` are fetched async on search
+*/
 const SearchableUserList: React.FC<{query: string; showLoading?: boolean}> = ({query, showLoading = false}) => {
-  // issue `data` is already pre-fetched
   const repository = {collaborators: data.collaborators}
-  // `users` are fetched async on search
-  const filteredUsers: typeof data.users = query ? use(queryUsers({query})) : []
 
+  /* Selection */
   const initialSelectedUsers: string[] = data.issue.assigneeIds
   const [selectedUserIds, setSelectedUserIds] = React.useState<string[]>(initialSelectedUsers)
-
   const onUserSelect = (userId: string) => {
     if (!selectedUserIds.includes(userId)) setSelectedUserIds([...selectedUserIds, userId])
     else setSelectedUserIds(selectedUserIds.filter(id => id !== userId))
   }
 
-  const sortingFn = (userA: {id: string}, userB: {id: string}) => {
-    if (selectedUserIds.includes(userA.id) && selectedUserIds.includes(userB.id)) return 1
-    else if (selectedUserIds.includes(userA.id)) return -1
-    else if (selectedUserIds.includes(userB.id)) return 1
-    else return 1
-  }
+  /* Filtering */
+  const filteredUsers: typeof data.users = query ? use(queryUsers({query})) : []
 
-  // only used with useTransition example
   if (showLoading) return <SelectPanel.Loading>Search for users...</SelectPanel.Loading>
+  const itemsToShow = query ? filteredUsers : repository.collaborators
 
-  /* slightly different view for search results view and list view */
-  if (query) {
-    return (
-      <SelectPanel.ActionList>
-        {filteredUsers.map(user => (
+  return (
+    <SelectPanel.ActionList>
+      {itemsToShow.length === 0 ? (
+        <SelectPanel.EmptyMessage>No users found for &quot;{query}&quot;</SelectPanel.EmptyMessage>
+      ) : (
+        itemsToShow.map(user => (
           <ActionList.Item
             key={user.id}
             onSelect={() => onUserSelect(user.id)}
@@ -271,42 +269,17 @@ const SearchableUserList: React.FC<{query: string; showLoading?: boolean}> = ({q
             {user.login}
             <ActionList.Description>{user.name}</ActionList.Description>
           </ActionList.Item>
-        ))}
-      </SelectPanel.ActionList>
-    )
-  } else {
-    return (
-      <SelectPanel.ActionList>
-        {repository.collaborators.sort(sortingFn).map((user, index) => {
-          // tiny bit of additional logic to show divider
-          const nextUser = repository.collaborators.sort(sortingFn)[index + 1]
-          const showDivider = selectedUserIds.includes(user.id) && !selectedUserIds.includes(nextUser?.id)
-          return (
-            <>
-              <ActionList.Item
-                key={user.id}
-                onSelect={() => onUserSelect(user.id)}
-                selected={selectedUserIds.includes(user.id)}
-              >
-                <ActionList.LeadingVisual>
-                  <Avatar src={`https://github.com/${user.login}.png`} />
-                </ActionList.LeadingVisual>
-                {user.login}
-                <ActionList.Description>{user.name}</ActionList.Description>
-              </ActionList.Item>
-              {showDivider ? <ActionList.Divider /> : null}
-            </>
-          )
-        })}
-      </SelectPanel.ActionList>
-    )
-  }
+        ))
+      )}
+    </SelectPanel.ActionList>
+  )
 }
 
+/* 
+  `data` is already pre-fetched with the issue 
+  `users` are fetched async on search
+*/
 export const DAsyncSearchWithUseTransition = () => {
-  // issue `data` is already pre-fetched
-  // `users` are fetched async on search
-
   const [isPending, startTransition] = React.useTransition()
 
   const [query, setQuery] = React.useState('')
@@ -340,7 +313,7 @@ export const DAsyncSearchWithUseTransition = () => {
 export const TODO1Uncontrolled = () => {
   /* features to implement:
      1. search
-     2. sort + divider
+     2. sort
      3. selection
      4. clear selection
      5. different results view
