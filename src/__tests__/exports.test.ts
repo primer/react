@@ -1,27 +1,15 @@
-// @ts-nocheck
-
 import {existsSync} from 'node:fs'
 import fs from 'node:fs/promises'
 import path from 'node:path'
 import * as parser from '@babel/parser'
 import {traverse} from '@babel/core'
-
-// eslint-disable-next-line import/no-namespace
-// import * as Index from '..'
-// eslint-disable-next-line import/no-namespace
-// import * as Drafts from '../drafts'
-// eslint-disable-next-line import/no-namespace
-// import * as Deprecated from '../deprecated'
+import {createHash} from 'node:crypto'
 
 const ROOT_DIR = path.resolve(__dirname, '..', '..')
-let project = null
-
-beforeAll(async () => {
-  project = await setup()
-})
 
 describe('@primer/react', () => {
-  it('should not update exports without a semver change', () => {
+  it('should not update exports without a semver change', async () => {
+    const project = await getProject()
     const moduleExports = project
       .getModuleExports(path.join(ROOT_DIR, 'src', 'index.ts'))
       .sort((a, b) => {
@@ -38,7 +26,8 @@ describe('@primer/react', () => {
 })
 
 describe('@primer/react/experimental', () => {
-  it('should not update exports without a semver change', () => {
+  it('should not update exports without a semver change', async () => {
+    const project = await getProject()
     const moduleExports = project
       .getModuleExports(path.join(ROOT_DIR, 'src', 'experimental', 'index.ts'))
       .sort((a, b) => {
@@ -55,7 +44,8 @@ describe('@primer/react/experimental', () => {
 })
 
 describe('@primer/react/decprecated', () => {
-  it('should not update exports without a semver change', () => {
+  it('should not update exports without a semver change', async () => {
+    const project = await getProject()
     const moduleExports = project
       .getModuleExports(path.join(ROOT_DIR, 'src', 'deprecated', 'index.ts'))
       .sort((a, b) => {
@@ -71,8 +61,62 @@ describe('@primer/react/decprecated', () => {
   })
 })
 
+interface Project {
+  getModuleExports(
+    filepath: string,
+  ): Array<{identifier: string; type?: string; source?: string; exportKind?: string | null}>
+}
+
+type ExportAllDeclaration = {
+  type: 'ExportAllDeclaration'
+  source: string
+}
+
+type ExportDefaultDeclaration = {
+  type: 'ExportDefaultDeclaration'
+  declaration: string
+  source?: string
+}
+
+type ExportSpecifier = {
+  type: 'ExportSpecifier'
+  local: string
+  exported: string
+  exportKind?: 'value' | 'type' | null
+  source?: string
+  declaration?: string
+}
+
+type ExportInfo = ExportAllDeclaration | ExportDefaultDeclaration | ExportSpecifier
+
+interface SourceModule {
+  type: 'source'
+  id: string
+  filepath: string
+  addSource(source: string): ReturnType<typeof resolve> | null
+  getSourceModuleId(source: string): string
+  addDependency(dependencyId: string): void
+  addExport(exportInfo: ExportInfo): void
+  getExports(): Array<{identifier: string; type?: string; source?: string; exportKind?: string | null}>
+}
+
+interface BareModule {
+  type: 'bare'
+  id: string
+  specifier: string
+}
+
+let project: Project | null = null
+
+async function getProject(): Promise<Project> {
+  if (!project) {
+    project = await setup()
+  }
+  return project
+}
+
 async function setup() {
-  const graph = new Map()
+  const graph = new Map<string, SourceModule | BareModule>()
   const queue = [
     // main
     path.join(ROOT_DIR, 'src', 'index.ts'),
@@ -84,27 +128,27 @@ async function setup() {
     path.join(process.cwd(), 'src', 'experimental', 'index.ts'),
   ]
   const BareModule = {
-    create(specifier) {
+    create(specifier: string): BareModule {
       return {
         type: 'bare',
         id: BareModule.getModuleId(specifier),
         specifier,
       }
     },
-    getModuleId(specifier) {
+    getModuleId(specifier: string) {
       return hash(specifier)
     },
   }
   const SourceModule = {
-    create(filepath) {
+    create(filepath: string) {
       const dependencies = new Set()
       const sources = new Map()
-      const exportsInfo = []
-      const mod = {
+      const exportsInfo: Array<ExportInfo> = []
+      const mod: SourceModule = {
         type: 'source',
         id: SourceModule.getModuleId(filepath),
         filepath,
-        addSource(source) {
+        addSource(source: string) {
           if (sources.has(source)) {
             return null
           }
@@ -115,7 +159,7 @@ async function setup() {
           }
 
           const resolved = resolve(source, mod.filepath)
-          if (resolved.error) {
+          if (resolved.type === 'error') {
             console.log('Unable to resolve source')
             console.log(resolved.error)
             return null
@@ -143,16 +187,16 @@ async function setup() {
 
           return resolved
         },
-        getSourceModuleId(source) {
+        getSourceModuleId(source: string) {
           if (sources.has(source)) {
             return sources.get(source)
           }
           throw new Error(`Unable to find source: ${source}`)
         },
-        addDependency(dependencyId) {
+        addDependency(dependencyId: string) {
           dependencies.add(dependencyId)
         },
-        addExport(exportInfo) {
+        addExport(exportInfo: ExportInfo) {
           exportsInfo.push({
             ...exportInfo,
             source: exportInfo.source ? mod.getSourceModuleId(exportInfo.source) : null,
@@ -174,12 +218,20 @@ async function setup() {
                 identifier: 'default',
                 type: exportInfo.declaration,
                 source: exportInfo.source,
-                exportKind: exportInfo.exportKind,
+                exportKind: 'exportKind' in exportInfo ? (exportInfo.exportKind as 'type' | 'value') : null,
               }
             }
 
             if (exportInfo.type === 'ExportAllDeclaration') {
               const sourceModule = graph.get(exportInfo.source)
+              if (!sourceModule) {
+                return []
+              }
+
+              if (sourceModule.type === 'bare') {
+                return []
+              }
+
               return sourceModule.getExports().map(exportInfo => {
                 return {
                   ...exportInfo,
@@ -195,13 +247,17 @@ async function setup() {
 
       return mod
     },
-    getModuleId(filepath) {
+    getModuleId(filepath: string) {
       return hash(filepath)
     },
   }
 
   while (queue.length !== 0) {
     const filepath = queue.shift()
+    if (!filepath) {
+      continue
+    }
+
     const id = SourceModule.getModuleId(filepath)
     if (graph.has(id)) {
       continue
@@ -233,7 +289,7 @@ async function setup() {
       ],
     })
 
-    const sources = []
+    const sources: Array<string> = []
 
     traverse(ast, {
       ImportDeclaration(path) {
@@ -241,7 +297,9 @@ async function setup() {
       },
 
       ExportDefaultDeclaration(path) {
+        // @ts-ignore this should exist on the type
         if (path.node.source) {
+          // @ts-ignore this should exist on the type
           sources.push(path.node.source.value)
         }
       },
@@ -259,7 +317,11 @@ async function setup() {
 
     for (const source of sources) {
       const resolved = mod.addSource(source)
-      if (resolved?.type === 'relative') {
+      if (resolved === null) {
+        continue
+      }
+
+      if (resolved.type === 'relative') {
         queue.push(resolved.value)
       }
     }
@@ -297,7 +359,7 @@ async function setup() {
       ],
     })
 
-    const exports = []
+    const exports: Array<ExportInfo> = []
 
     traverse(ast, {
       ExportAllDeclaration(path) {
@@ -311,6 +373,8 @@ async function setup() {
         exports.push({
           type: 'ExportDefaultDeclaration',
           declaration: path.node.declaration.type,
+          // @ts-ignore this value may exist when using:
+          // export default from 'mod'
           source: path.node.source?.value,
         })
       },
@@ -321,7 +385,9 @@ async function setup() {
 
           exports.push({
             type: 'ExportSpecifier',
+            // @ts-ignore this is available due to type narrowing
             local: specifier.local.name,
+            // @ts-ignore this is available due to type narrowing
             exported: specifier.exported.name,
             exportKind: path.node.exportKind,
             source,
@@ -333,7 +399,9 @@ async function setup() {
             for (const declarator of path.node.declaration.declarations) {
               exports.push({
                 type: 'ExportSpecifier',
+                // @ts-ignore
                 local: declarator.id.name,
+                // @ts-ignore
                 exported: declarator.id.name,
                 exportKind: path.node.exportKind,
                 declaration: path.node.declaration.type,
@@ -341,7 +409,9 @@ async function setup() {
             }
           }
 
+          // @ts-ignore this value should exist due to type narrowing
           if (path.node.declaration.id) {
+            // @ts-ignore this value should exist due to type narrowing
             const exported = path.node.declaration.id.name
 
             exports.push({
@@ -361,7 +431,7 @@ async function setup() {
     }
   }
 
-  function getModuleExports(filepath) {
+  function getModuleExports(filepath: string) {
     const id = SourceModule.getModuleId(filepath)
     if (graph.has(id)) {
       return graph.get(id).getExports()
@@ -377,7 +447,32 @@ async function setup() {
 const extensions = ['.tsx', '.ts', '.js', '.jsx', '.mjs', '.cjs']
 
 // Terminology: https://nodejs.org/api/esm.html#terminology
-function resolve(source, filepath) {
+
+type ResolveError = {
+  type: 'error'
+  error: Error
+}
+
+type ResolveRelativeModule = {
+  type: 'relative'
+  value: string
+}
+
+type ResolveBareModule = {
+  type: 'bare'
+  value: string
+  path: string
+}
+
+type ResolveAbsoluteModule = {
+  type: 'absolute'
+  value: string
+}
+
+function resolve(
+  source: string,
+  filepath: string,
+): ResolveBareModule | ResolveRelativeModule | ResolveAbsoluteModule | ResolveError {
   if (source.startsWith('.')) {
     const directory = path.dirname(filepath)
     const extension = path.extname(source)
@@ -429,6 +524,13 @@ function resolve(source, filepath) {
     }
   }
 
+  if (source.startsWith('/')) {
+    return {
+      type: 'absolute',
+      value: source,
+    }
+  }
+
   if (source.startsWith('@')) {
     const [scope, name] = source.split('/')
     return {
@@ -447,69 +549,6 @@ function resolve(source, filepath) {
   }
 }
 
-/**
- * JS Implementation of MurmurHash3 (r136) (as of May 20, 2011)
- *
- * @author <a href="mailto:gary.court@gmail.com">Gary Court</a>
- * @see http://github.com/garycourt/murmurhash-js
- * @author <a href="mailto:aappleby@gmail.com">Austin Appleby</a>
- * @see http://sites.google.com/site/murmurhash/
- *
- * @param {string} key ASCII only
- * @param {number} seed Positive integer only
- * @return {number} 32-bit positive integer hash
- */
-function hash(key, seed) {
-  var remainder, bytes, h1, h1b, c1, c1b, c2, c2b, k1, i
-
-  remainder = key.length & 3 // key.length % 4
-  bytes = key.length - remainder
-  h1 = seed
-  c1 = 0xcc9e2d51
-  c2 = 0x1b873593
-  i = 0
-
-  while (i < bytes) {
-    k1 =
-      (key.charCodeAt(i) & 0xff) |
-      ((key.charCodeAt(++i) & 0xff) << 8) |
-      ((key.charCodeAt(++i) & 0xff) << 16) |
-      ((key.charCodeAt(++i) & 0xff) << 24)
-    ++i
-
-    k1 = ((k1 & 0xffff) * c1 + ((((k1 >>> 16) * c1) & 0xffff) << 16)) & 0xffffffff
-    k1 = (k1 << 15) | (k1 >>> 17)
-    k1 = ((k1 & 0xffff) * c2 + ((((k1 >>> 16) * c2) & 0xffff) << 16)) & 0xffffffff
-
-    h1 ^= k1
-    h1 = (h1 << 13) | (h1 >>> 19)
-    h1b = ((h1 & 0xffff) * 5 + ((((h1 >>> 16) * 5) & 0xffff) << 16)) & 0xffffffff
-    h1 = (h1b & 0xffff) + 0x6b64 + ((((h1b >>> 16) + 0xe654) & 0xffff) << 16)
-  }
-
-  k1 = 0
-
-  switch (remainder) {
-    case 3:
-      k1 ^= (key.charCodeAt(i + 2) & 0xff) << 16
-    case 2:
-      k1 ^= (key.charCodeAt(i + 1) & 0xff) << 8
-    case 1:
-      k1 ^= key.charCodeAt(i) & 0xff
-
-      k1 = ((k1 & 0xffff) * c1 + ((((k1 >>> 16) * c1) & 0xffff) << 16)) & 0xffffffff
-      k1 = (k1 << 15) | (k1 >>> 17)
-      k1 = ((k1 & 0xffff) * c2 + ((((k1 >>> 16) * c2) & 0xffff) << 16)) & 0xffffffff
-      h1 ^= k1
-  }
-
-  h1 ^= key.length
-
-  h1 ^= h1 >>> 16
-  h1 = ((h1 & 0xffff) * 0x85ebca6b + ((((h1 >>> 16) * 0x85ebca6b) & 0xffff) << 16)) & 0xffffffff
-  h1 ^= h1 >>> 13
-  h1 = ((h1 & 0xffff) * 0xc2b2ae35 + ((((h1 >>> 16) * 0xc2b2ae35) & 0xffff) << 16)) & 0xffffffff
-  h1 ^= h1 >>> 16
-
-  return h1 >>> 0
+function hash(data: string): string {
+  return createHash('sha1').update(data).digest('base64url')
 }
