@@ -11,8 +11,8 @@ const getCircle = (color: string) => (
 export const AControlled = () => {
   const [filteredLabels, setFilteredLabels] = React.useState(data.labels)
 
-  const initialSelectedLabels: string[] = [] // initial state: no labels
-  // const initialSelectedLabels = data.issue.labelIds // initial state: has labels
+  // const initialSelectedLabels: string[] = [] // initial state: no labels
+  const initialSelectedLabels = data.issue.labelIds // initial state: has labels
 
   const [selectedLabelIds, setSelectedLabelIds] = React.useState<string[]>(initialSelectedLabels)
 
@@ -58,25 +58,14 @@ export const AControlled = () => {
     console.log('form submitted')
   }
 
-  const sortingFn = (labelA: {id: string}, labelB: {id: string}) => {
-    /* Important! This sorting is only for initial selected ids, not for subsequent changes!
-      deterministic sorting for better UX: don't change positions with other selected items.
-
-      TODO: should this sorting be baked-in OR we only validate + warn OR do nothing
-      need to either own or accept the selection state to make that automatic
-      OR provide a API for sorting in ActionList like sort by key or sort fn
-    */
-    if (selectedLabelIds.includes(labelA.id) && selectedLabelIds.includes(labelB.id)) return 1
-    else if (selectedLabelIds.includes(labelA.id)) return -1
-    else if (selectedLabelIds.includes(labelB.id)) return 1
-    else return 1
-  }
+  const labelsToShow = query ? filteredLabels : data.labels
 
   return (
     <>
       <h1>Controlled SelectPanel</h1>
 
       <SelectPanel
+        defaultOpen
         // onSubmit and onCancel feel out of place here instead of the footer,
         // but cancel can be called from 4 different actions - Cancel button, X iconbutton up top, press escape key, click outside
         // also, what if there is no footer? onSubmit is maybe not needed, but we need to put the onCancel callback somewhere.
@@ -106,50 +95,20 @@ export const AControlled = () => {
           <SelectPanel.SearchInput onChange={onSearchInputChange} />
         </SelectPanel.Header>
         <SelectPanel.ActionList>
-          {/* slightly different view for search results view and list view */}
-          {query ? (
-            filteredLabels.length > 1 ? (
-              filteredLabels.map(label => (
-                <ActionList.Item
-                  key={label.id}
-                  onSelect={() => onLabelSelect(label.id)}
-                  selected={selectedLabelIds.includes(label.id)}
-                >
-                  <ActionList.LeadingVisual>{getCircle(label.color)}</ActionList.LeadingVisual>
-                  {label.name}
-                  <ActionList.Description variant="block">{label.description}</ActionList.Description>
-                </ActionList.Item>
-              ))
-            ) : (
-              <SelectPanel.EmptyMessage>No labels found for &quot;{query}&quot;</SelectPanel.EmptyMessage>
-            )
+          {labelsToShow.length > 1 ? (
+            labelsToShow.map(label => (
+              <ActionList.Item
+                key={label.id}
+                onSelect={() => onLabelSelect(label.id)}
+                selected={selectedLabelIds.includes(label.id)}
+              >
+                <ActionList.LeadingVisual>{getCircle(label.color)}</ActionList.LeadingVisual>
+                {label.name}
+                <ActionList.Description variant="block">{label.description}</ActionList.Description>
+              </ActionList.Item>
+            ))
           ) : (
-            <>
-              {data.labels.sort(sortingFn).map((label, index) => {
-                /* 
-                  we want to render a divider between the group of selected and unselected items.
-                  kinda hack: if this is the last item that is selected, render an divider after it
-                  TODO: can this be cleaner?
-                */
-                const nextLabel = data.labels.sort(sortingFn)[index + 1]
-                const showDivider = selectedLabelIds.includes(label.id) && !selectedLabelIds.includes(nextLabel?.id)
-
-                return (
-                  <>
-                    <ActionList.Item
-                      key={label.id}
-                      onSelect={() => onLabelSelect(label.id)}
-                      selected={selectedLabelIds.includes(label.id)}
-                    >
-                      <ActionList.LeadingVisual>{getCircle(label.color)}</ActionList.LeadingVisual>
-                      {label.name}
-                      <ActionList.Description variant="block">{label.description}</ActionList.Description>
-                    </ActionList.Item>
-                    {showDivider ? <ActionList.Divider /> : null}
-                  </>
-                )
-              })}
-            </>
+            <SelectPanel.EmptyMessage>No labels found for &quot;{query}&quot;</SelectPanel.EmptyMessage>
           )}
         </SelectPanel.ActionList>
         <SelectPanel.Footer>
