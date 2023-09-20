@@ -23,9 +23,7 @@ describe('PageLayout', () => {
       <ThemeProvider>
         <PageLayout>
           <PageLayout.Header>Header</PageLayout.Header>
-          <PageLayout.Content>
-            <main aria-label="Content">Content</main>
-          </PageLayout.Content>
+          <PageLayout.Content>Content</PageLayout.Content>
           <PageLayout.Pane>Pane</PageLayout.Pane>
           <PageLayout.Footer>Footer</PageLayout.Footer>
         </PageLayout>
@@ -133,7 +131,7 @@ describe('PageLayout', () => {
     )
 
     expect(screen.getByRole('banner')).toHaveAccessibleName('Header')
-    expect(screen.getByLabelText('Content')).toHaveAccessibleName('Content')
+    expect(screen.getByRole('main')).toHaveAccessibleName('Content')
     expect(screen.getByRole('contentinfo')).toHaveAccessibleName('Footer')
   })
 
@@ -156,7 +154,7 @@ describe('PageLayout', () => {
     )
 
     expect(screen.getByRole('banner')).toHaveAccessibleName('header')
-    expect(screen.getByLabelText('content')).toBeInTheDocument()
+    expect(screen.getByRole('main')).toHaveAccessibleName('content')
     expect(screen.getByRole('contentinfo')).toHaveAccessibleName('footer')
   })
 
@@ -200,6 +198,17 @@ describe('PageLayout', () => {
       fireEvent.mouseUp(divider)
       const finalWidth = (pane as HTMLElement).style.getPropertyValue('--pane-width')
       expect(finalWidth).not.toEqual(initialWidth)
+    })
+  })
+
+  describe('PageLayout.Content', () => {
+    it('should support a custom element type with the `as` prop', () => {
+      const {container} = render(
+        <PageLayout.Content as="div">
+          <main>Content</main>
+        </PageLayout.Content>,
+      )
+      expect(container.firstChild?.nodeName).toEqual('DIV')
     })
   })
 })

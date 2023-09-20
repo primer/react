@@ -381,6 +381,7 @@ exports[`Dialog renders consistently 1`] = `
       data-component="IconButton"
       data-no-visuals={true}
       onClick={[Function]}
+      type="button"
     >
       <svg
         aria-hidden="true"
