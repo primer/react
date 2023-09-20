@@ -909,6 +909,27 @@ const data = {
       login: 'tylerjohnst',
     },
   ],
+  branches: [
+    {id: 'main', name: 'main', trailingInfo: 'Default'},
+    {id: 'b', name: 'next-major'},
+    {id: 'c', name: 'changeset-release/main'},
+    {id: 'd', name: 'changeset-release/next-major'},
+    {id: 'e', name: 'selectpanel-2'},
+    {id: 'f', name: 'bs/actionlist-heading'},
+    {id: 'g', name: 'refactor/support-alt-names'},
+    {id: 'h', name: 'fix/update-action-list'},
+    {id: 'i', name: 'dependabot/markdownlint-github-0.4.1'},
+  ],
+  tags: [
+    {id: 'a', name: 'v35.29.0', trailingInfo: 'Latest'},
+    {id: 'b', name: 'v35.28.0'},
+    {id: 'c', name: 'v35.27.1'},
+    {id: 'd', name: 'v35.27.0'},
+    {id: 'e', name: 'v35.26.1'},
+    {id: 'f', name: 'v35.26.0'},
+    {id: 'g', name: 'v35.0.0'},
+    {id: 'h', name: 'v34.0.0'},
+  ],
 }
 
 export default data

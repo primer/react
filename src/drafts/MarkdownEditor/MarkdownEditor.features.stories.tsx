@@ -1,23 +1,11 @@
+import {DiffIcon, PlusIcon} from '@primer/octicons-react'
 import React, {Meta} from '@storybook/react'
-import {useState} from 'react'
-import BaseStyles from '../../BaseStyles'
+import {useRef, useState} from 'react'
 import Box from '../../Box'
 import MarkdownEditor, {Emoji, Mentionable, Reference, SavedReply} from '.'
-import ThemeProvider from '../../ThemeProvider'
 
 const meta: Meta = {
-  title: 'Drafts/Components/MarkdownEditor',
-  decorators: [
-    Story => {
-      return (
-        <ThemeProvider>
-          <BaseStyles>
-            <Box sx={{maxWidth: 800}}>{Story()}</Box>
-          </BaseStyles>
-        </ThemeProvider>
-      )
-    },
-  ],
+  title: 'Drafts/Components/MarkdownEditor/Features',
   parameters: {
     controls: {
       include: [
@@ -206,26 +194,7 @@ const renderPreview = async () => {
   return 'Previewing Markdown is not supported in this example.'
 }
 
-export const Default = () => {
-  const [value, setValue] = useState('')
-
-  return (
-    <>
-      <MarkdownEditor
-        value={value}
-        onChange={setValue}
-        placeholder="Enter some Markdown..."
-        onRenderPreview={renderPreview}
-        emojiSuggestions={emojis}
-      >
-        <MarkdownEditor.Label>Markdown Editor Example</MarkdownEditor.Label>
-      </MarkdownEditor>
-      <p>Note: for demo purposes, files starting with &quot;A&quot; will be rejected.</p>
-    </>
-  )
-}
-
-export const Playground = ({
+export const CustomToolbar = ({
   disabled,
   fullHeight,
   monospace,
@@ -235,13 +204,14 @@ export const Playground = ({
   required,
   fileUploadsEnabled,
   onSubmit,
+  onDiffClick,
   savedRepliesEnabled,
   pasteUrlsAsPlainText,
 }: ArgProps) => {
   const [value, setValue] = useState('')
 
   return (
-    <>
+    <Box sx={{maxWidth: 800}}>
       <MarkdownEditor
         value={value}
         onChange={setValue}
@@ -257,6 +227,191 @@ export const Playground = ({
         emojiSuggestions={emojis}
         mentionSuggestions={mentionables}
         referenceSuggestions={references}
+        required={required}
+        savedReplies={savedRepliesEnabled ? savedReplies : undefined}
+        pasteUrlsAsPlainText={pasteUrlsAsPlainText}
+      >
+        <MarkdownEditor.Label visuallyHidden={hideLabel}>Markdown Editor Example</MarkdownEditor.Label>
+
+        <MarkdownEditor.Toolbar>
+          <MarkdownEditor.ToolbarButton icon={DiffIcon} onClick={onDiffClick} aria-label="Custom Button" />
+          <MarkdownEditor.DefaultToolbarButtons />
+        </MarkdownEditor.Toolbar>
+      </MarkdownEditor>
+      <p>Note: for demo purposes, files starting with &quot;A&quot; will be rejected.</p>
+    </Box>
+  )
+}
+
+export const CustomFooter = ({
+  disabled,
+  fullHeight,
+  monospace,
+  minHeightLines,
+  maxHeightLines,
+  hideLabel,
+  required,
+  fileUploadsEnabled,
+  onSubmit,
+  onFooterClick,
+  savedRepliesEnabled,
+  pasteUrlsAsPlainText,
+}: ArgProps) => {
+  const [value, setValue] = useState('')
+
+  return (
+    <Box sx={{maxWidth: 800}}>
+      <MarkdownEditor
+        value={value}
+        onChange={setValue}
+        onPrimaryAction={onSubmit}
+        disabled={disabled}
+        fullHeight={fullHeight}
+        monospace={monospace}
+        minHeightLines={minHeightLines}
+        maxHeightLines={maxHeightLines}
+        placeholder="Enter some Markdown..."
+        onRenderPreview={renderPreview}
+        onUploadFile={fileUploadsEnabled ? onUploadFile : undefined}
+        emojiSuggestions={emojis}
+        mentionSuggestions={mentionables}
+        referenceSuggestions={references}
+        required={required}
+        savedReplies={savedRepliesEnabled ? savedReplies : undefined}
+        pasteUrlsAsPlainText={pasteUrlsAsPlainText}
+      >
+        <MarkdownEditor.Label visuallyHidden={hideLabel}>Markdown Editor Example - Custom Footer</MarkdownEditor.Label>
+
+        <MarkdownEditor.Footer>
+          <MarkdownEditor.FooterButton
+            variant="invisible"
+            onClick={onFooterClick}
+            leadingIcon={PlusIcon}
+            sx={{borderRadius: '14px', color: 'fg.muted', borderColor: 'border.muted'}}
+          >
+            Add Button
+          </MarkdownEditor.FooterButton>
+
+          <MarkdownEditor.Actions>
+            <MarkdownEditor.ActionButton variant="danger" onClick={() => setValue('')}>
+              Reset
+            </MarkdownEditor.ActionButton>
+            <MarkdownEditor.ActionButton variant="primary" onClick={onSubmit}>
+              Submit
+            </MarkdownEditor.ActionButton>
+          </MarkdownEditor.Actions>
+        </MarkdownEditor.Footer>
+      </MarkdownEditor>
+      <p>Note: for demo purposes, files starting with &quot;A&quot; will be rejected.</p>
+    </Box>
+  )
+}
+
+export const CustomFooterActions = ({
+  disabled,
+  fullHeight,
+  monospace,
+  minHeightLines,
+  maxHeightLines,
+  hideLabel,
+  required,
+  fileUploadsEnabled,
+  onSubmit,
+  savedRepliesEnabled,
+  pasteUrlsAsPlainText,
+}: ArgProps) => {
+  const [value, setValue] = useState('')
+
+  return (
+    <Box sx={{maxWidth: 800}}>
+      <MarkdownEditor
+        value={value}
+        onChange={setValue}
+        onPrimaryAction={onSubmit}
+        disabled={disabled}
+        fullHeight={fullHeight}
+        monospace={monospace}
+        minHeightLines={minHeightLines}
+        maxHeightLines={maxHeightLines}
+        placeholder="Enter some Markdown..."
+        onRenderPreview={renderPreview}
+        onUploadFile={fileUploadsEnabled ? onUploadFile : undefined}
+        emojiSuggestions={emojis}
+        mentionSuggestions={mentionables}
+        referenceSuggestions={references}
+        required={required}
+        savedReplies={savedRepliesEnabled ? savedReplies : undefined}
+        pasteUrlsAsPlainText={pasteUrlsAsPlainText}
+      >
+        <MarkdownEditor.Label visuallyHidden={hideLabel}>Markdown Editor Example</MarkdownEditor.Label>
+
+        <MarkdownEditor.Actions>
+          <MarkdownEditor.ActionButton variant="danger" onClick={() => setValue('')}>
+            Reset
+          </MarkdownEditor.ActionButton>
+          <MarkdownEditor.ActionButton variant="primary" onClick={onSubmit}>
+            Submit
+          </MarkdownEditor.ActionButton>
+        </MarkdownEditor.Actions>
+      </MarkdownEditor>
+      <p>Note: for demo purposes, files starting with &quot;A&quot; will be rejected.</p>
+    </Box>
+  )
+}
+
+function useLazySuggestions<T>(suggestions: T[]) {
+  const promiseRef = useRef<Promise<T[]> | null>(null)
+
+  return () => {
+    // This simulates waiting to make an API  request until the first time the suggestions are needed
+    // Then, once we have made the API request we keep returning the same Promise which will already
+    // be resolved with the cached data
+    if (!promiseRef.current) {
+      promiseRef.current = new Promise(resolve => {
+        setTimeout(() => resolve(suggestions), 500)
+      })
+    }
+
+    return promiseRef.current
+  }
+}
+
+export const LazyLoadedSuggestions = ({
+  disabled,
+  fullHeight,
+  monospace,
+  minHeightLines,
+  maxHeightLines,
+  hideLabel,
+  required,
+  fileUploadsEnabled,
+  onSubmit,
+  savedRepliesEnabled,
+  pasteUrlsAsPlainText,
+}: ArgProps) => {
+  const [value, setValue] = useState('')
+
+  const emojiSuggestions = useLazySuggestions(emojis)
+  const mentionSuggestions = useLazySuggestions(mentionables)
+  const referenceSuggestions = useLazySuggestions(references)
+
+  return (
+    <Box sx={{maxWidth: 800}}>
+      <MarkdownEditor
+        value={value}
+        onChange={setValue}
+        onPrimaryAction={onSubmit}
+        disabled={disabled}
+        fullHeight={fullHeight}
+        monospace={monospace}
+        minHeightLines={minHeightLines}
+        maxHeightLines={maxHeightLines}
+        placeholder="Enter some Markdown..."
+        onRenderPreview={renderPreview}
+        onUploadFile={fileUploadsEnabled ? onUploadFile : undefined}
+        emojiSuggestions={emojiSuggestions}
+        mentionSuggestions={mentionSuggestions}
+        referenceSuggestions={referenceSuggestions}
         savedReplies={savedRepliesEnabled ? savedReplies : undefined}
         required={required}
         pasteUrlsAsPlainText={pasteUrlsAsPlainText}
@@ -264,6 +419,6 @@ export const Playground = ({
         <MarkdownEditor.Label visuallyHidden={hideLabel}>Markdown Editor Example</MarkdownEditor.Label>
       </MarkdownEditor>
       <p>Note: for demo purposes, files starting with &quot;A&quot; will be rejected.</p>
-    </>
+    </Box>
   )
 }
