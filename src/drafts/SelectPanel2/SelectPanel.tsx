@@ -58,6 +58,7 @@ const SelectPanel = props => {
   }
   // @ts-ignore todo
   const onInternalSubmit = event => {
+    event.preventDefault()
     setOpen(false)
     if (typeof props.onSubmit === 'function') props.onSubmit(event)
   }
