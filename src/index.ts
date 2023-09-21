@@ -97,6 +97,7 @@ export type {FilterListProps, FilterListItemProps} from './FilterList'
 export {default as Flash} from './Flash'
 export type {FlashProps} from './Flash'
 export {default as FormControl} from './FormControl'
+export {useFormControlForwardedProps} from './FormControl'
 export {default as Header} from './Header'
 export type {HeaderProps, HeaderItemProps, HeaderLinkProps} from './Header'
 export {default as Heading} from './Heading'
@@ -194,6 +195,7 @@ export type {
 
 export {UnderlineNav as UnderlineNav2} from './UnderlineNav2'
 
+// eslint-disable-next-line no-restricted-imports
 export {SSRProvider, useSSRSafeId} from './utils/ssr'
 export {default as sx, merge} from './sx'
 export type {SxProp} from './sx'

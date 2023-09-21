@@ -13,8 +13,10 @@ import Spinner from '../Spinner'
 const ButtonBase = forwardRef(
   ({children, as: Component = 'button', sx: sxProp = defaultSxProp, ...props}, forwardedRef): JSX.Element => {
     const {
-      leadingIcon: LeadingIcon,
-      trailingIcon: TrailingIcon,
+      leadingIcon,
+      leadingVisual,
+      trailingIcon,
+      trailingVisual,
       trailingAction: TrailingAction,
       icon: Icon,
       variant = 'default',
@@ -24,6 +26,8 @@ const ButtonBase = forwardRef(
       loading = false,
       ...rest
     } = props
+    const LeadingVisual = leadingVisual ?? leadingIcon
+    const TrailingVisual = trailingVisual ?? trailingIcon
 
     const innerRef = React.useRef<HTMLButtonElement>(null)
     useRefObjectAsForwardedRef(forwardedRef, innerRef)
@@ -69,7 +73,7 @@ const ButtonBase = forwardRef(
           ref={innerRef}
           data-block={block ? 'block' : null}
           data-size={size === 'small' || size === 'large' ? size : undefined}
-          data-no-visuals={!LeadingIcon && !TrailingIcon && !TrailingAction ? true : undefined}
+          data-no-visuals={!LeadingVisual && !TrailingVisual && !TrailingAction ? true : undefined}
           aria-disabled={loading ? true : undefined}
         >
           {Icon ? (
@@ -82,13 +86,13 @@ const ButtonBase = forwardRef(
                     <Spinner size="small" />
                   </Box>
                 )}
-                {LeadingIcon && !loading && (
+                {LeadingVisual && !loading && (
                   <Box as="span" data-component="leadingVisual" sx={{...iconWrapStyles}}>
                     <LeadingIcon />
                   </Box>
                 )}
                 {children && <span data-component="text">{children}</span>}
-                {TrailingIcon && (
+                {TrailingVisual && (
                   <Box as="span" data-component="trailingVisual" sx={{...iconWrapStyles}}>
                     <TrailingIcon />
                   </Box>

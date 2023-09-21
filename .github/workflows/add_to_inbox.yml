@@ -9,26 +9,31 @@ jobs:
     if: ${{ github.repository == 'primer/react' && (github.event.action == 'opened' || github.event.action == 'reopened') }}
     runs-on: ubuntu-latest
     env:
-      GITHUB_TOKEN: ${{ secrets.GPR_AUTH_TOKEN_SHARED }}
-      ISSUE_ID: ${{ github.event.issue.node_id }}
-      REACT_LABEL_ID: 'LA_kwDOB0K8ws7Oq_eD'
-      PROJECT_ID: 'PN_kwDNJr_NNKA'
+      ISSUE_URL: ${{ github.event.issue.html_url }}
+      PROJECT_ID: 4503
     steps:
+      - id: get-primer-access-token
+        uses: camertron/github-app-installation-auth-action@v1
+        with:
+          app-id: ${{ vars.PRIMER_ISSUE_TRIAGE_APP_ID }}
+          private-key: ${{ secrets.PRIMER_ISSUE_TRIAGE_APP_PRIVATE_KEY }}
+          client-id: ${{ vars.PRIMER_ISSUE_TRIAGE_APP_CLIENT_ID }}
+          client-secret: ${{ secrets.PRIMER_ISSUE_TRIAGE_APP_CLIENT_SECRET }}
+          installation-id: ${{ vars.PRIMER_ISSUE_TRIAGE_APP_INSTALLATION_ID }}
       - name: Add react label to issue
         run: |
-          gh api graphql --header 'GraphQL-Features: projects_next_graphql' -f query='
-            mutation($reactLabelId: ID!, $issue: ID!) {
-              addLabelsToLabelable(input: { labelIds: [$reactLabelId], labelableId: $issue }) {
-                clientMutationId
-              }
-            }' -f reactLabelId=$REACT_LABEL_ID -f issue=$ISSUE_ID --jq '.data.addProjectNextItem.projectNextItem.id'
+          gh issue edit $ISSUE_URL --add-label react
+        env:
+          GH_TOKEN: ${{ steps.get-primer-access-token.outputs.access-token }}
+      - id: get-github-access-token
+        uses: camertron/github-app-installation-auth-action@v1
+        with:
+          app-id: ${{ vars.PRIMER_ISSUE_TRIAGE_APP_ID_FOR_GITHUB }}
+          private-key: ${{ secrets.PRIMER_ISSUE_TRIAGE_APP_PRIVATE_KEY_FOR_GITHUB }}
+          client-id: ${{ vars.PRIMER_ISSUE_TRIAGE_APP_CLIENT_ID_FOR_GITHUB }}
+          client-secret: ${{ secrets.PRIMER_ISSUE_TRIAGE_APP_CLIENT_SECRET_FOR_GITHUB }}
+          installation-id: ${{ vars.PRIMER_ISSUE_TRIAGE_APP_INSTALLATION_ID_FOR_GITHUB }}
       - name: Add issue to project
-        run: |
-          gh api graphql --header 'GraphQL-Features: projects_next_graphql' -f query='
-            mutation($project:ID!,$issue:ID!) {
-              addProjectV2ItemById(input: {projectId: $project, contentId: $issue}) {
-                projectNextItem {
-                  id
-                }
-              }
-            }' -f project=$PROJECT_ID -f issue=$ISSUE_ID --jq '.data.addProjectNextItem.projectNextItem.id'
+        run: gh project item-add $PROJECT_ID --url $ISSUE_URL --owner github
+        env:
+          GH_TOKEN: ${{ steps.get-github-access-token.outputs.access-token }}

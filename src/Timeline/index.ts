@@ -1,5 +1,5 @@
-export {
-  default,
+export {default} from './Timeline'
+export type {
   TimelineProps,
   TimelineItemsProps,
   TimelineBadgeProps,

@@ -1,1 +1,2 @@
-export {default, FlashProps} from './Flash'
+export {default} from './Flash'
+export type {FlashProps} from './Flash'

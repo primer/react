@@ -137,4 +137,15 @@ describe('Dialog', () => {
     const triggerButton = getByTestId('trigger-button')
     expect(document.activeElement).toEqual(triggerButton)
   })
+
+  it('Returns focus to returnFocusRef on escape', async () => {
+    const {getByTestId, queryByTestId} = HTMLRender(<Component />)
+
+    expect(getByTestId('inner')).toBeTruthy()
+    fireEvent.keyDown(document.body, {key: 'Escape'})
+
+    expect(queryByTestId('inner')).toBeNull()
+    const triggerButton = getByTestId('trigger-button')
+    expect(document.activeElement).toEqual(triggerButton)
+  })
 })

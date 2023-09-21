@@ -14,9 +14,9 @@ export const Invisible = () => <Button variant="invisible">Invisible</Button>
 
 export const Outline = () => <Button variant="outline">Outline</Button>
 
-export const LeadingVisual = () => <Button leadingIcon={HeartIcon}>Leading visual</Button>
+export const LeadingVisual = () => <Button leadingVisual={HeartIcon}>Leading visual</Button>
 
-export const TrailingVisual = () => <Button trailingIcon={EyeIcon}>Trailing visual</Button>
+export const TrailingVisual = () => <Button trailingVisual={EyeIcon}>Trailing visual</Button>
 
 export const TrailingCounter = () => {
   const [count, setCount] = useState(0)

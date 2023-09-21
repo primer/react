@@ -1,7 +1,8 @@
-import {RefObject, useCallback, useEffect, useLayoutEffect, useState} from 'react'
+import {RefObject, useCallback, useEffect, useState} from 'react'
 
 import {SxProp} from '../../sx'
 import {getCharacterCoordinates} from '../utils/character-coordinates'
+import useIsomorphicLayoutEffect from '../../utils/useIsomorphicLayoutEffect'
 
 type UseDynamicTextareaHeightSettings = {
   disabled?: boolean
@@ -63,7 +64,7 @@ export const useDynamicTextareaHeight = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [minHeightLines, maxHeightLines, value, elementRef, disabled])
 
-  useLayoutEffect(refreshHeight, [refreshHeight])
+  useIsomorphicLayoutEffect(refreshHeight, [refreshHeight])
 
   // With Slots, initial render of the component is delayed and so the initial layout effect can occur
   // before the target element has actually been calculated in the DOM. But if we only use regular effects,
