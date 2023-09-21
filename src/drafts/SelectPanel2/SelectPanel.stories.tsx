@@ -328,12 +328,26 @@ export const DAsyncSearchWithUseTransition = () => {
     startTransition(() => setQuery(query))
   }
 
+  /* Selection */
+  const initialAssigneeIds: string[] = data.issue.assigneeIds
+  const [selectedUserIds, setSelectedUserIds] = React.useState<string[]>(initialAssigneeIds)
+  const onUserSelect = (userId: string) => {
+    if (!selectedUserIds.includes(userId)) setSelectedUserIds([...selectedUserIds, userId])
+    else setSelectedUserIds(selectedUserIds.filter(id => id !== userId))
+  }
+
+  const onSubmit = () => {
+    data.issue.assigneeIds = selectedUserIds // pretending to persist changes
+    // eslint-disable-next-line no-console
+    console.log('form submitted')
+  }
+
   return (
     <>
       <h1>Async search with useTransition</h1>
       <p>Fetching items on every keystroke search (like github users)</p>
 
-      <SelectPanel defaultOpen={true}>
+      <SelectPanel defaultOpen={true} onSubmit={onSubmit}>
         {/* @ts-ignore todo */}
         <SelectPanel.Button>Select assignees</SelectPanel.Button>
         <SelectPanel.Header>
@@ -342,7 +356,13 @@ export const DAsyncSearchWithUseTransition = () => {
         </SelectPanel.Header>
 
         <React.Suspense fallback={<SelectPanel.Loading>Fetching users...</SelectPanel.Loading>}>
-          <SearchableUserList query={query} showLoading={isPending} />
+          <SearchableUserList
+            query={query}
+            showLoading={isPending}
+            initialAssigneeIds={initialAssigneeIds}
+            selectedUserIds={selectedUserIds}
+            onUserSelect={onUserSelect}
+          />
           <SelectPanel.Footer />
         </React.Suspense>
       </SelectPanel>
