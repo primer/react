@@ -23,8 +23,7 @@ export const AControlled = () => {
     setSelectedLabelIds([])
   }
 
-  const onSubmit = (event: {preventDefault: () => void}) => {
-    event.preventDefault() // coz form submit, innit
+  const onSubmit = () => {
     data.issue.labelIds = selectedLabelIds // pretending to persist changes
 
     // eslint-disable-next-line no-console
@@ -181,7 +180,15 @@ const SuspendedActionList: React.FC<{query: string}> = ({query}) => {
     .filter(result => result.priority > 0)
     .map(result => result.label)
 
-  const itemsToShow = query ? filteredLabels : data.labels
+  const sortingFn = (itemA: {id: string}, itemB: {id: string}) => {
+    const initialSelectedIds = data.issue.labelIds
+    if (initialSelectedIds.includes(itemA.id) && initialSelectedIds.includes(itemB.id)) return 1
+    else if (initialSelectedIds.includes(itemA.id)) return -1
+    else if (initialSelectedIds.includes(itemB.id)) return 1
+    else return 1
+  }
+
+  const itemsToShow = query ? filteredLabels : data.labels.sort(sortingFn)
 
   return (
     <SelectPanel.ActionList>
@@ -214,12 +221,27 @@ export const CAsyncSearchWithSuspenseKey = () => {
     setQuery(query)
   }
 
+  /* Selection */
+  const initialAssigneeIds: string[] = data.issue.assigneeIds
+  const [selectedUserIds, setSelectedUserIds] = React.useState<string[]>(initialAssigneeIds)
+  const onUserSelect = (userId: string) => {
+    if (!selectedUserIds.includes(userId)) setSelectedUserIds([...selectedUserIds, userId])
+    else setSelectedUserIds(selectedUserIds.filter(id => id !== userId))
+  }
+
+  const onSubmit = () => {
+    data.issue.assigneeIds = selectedUserIds // pretending to persist changes
+
+    // eslint-disable-next-line no-console
+    console.log('form submitted')
+  }
+
   return (
     <>
       <h1>Async search with useTransition</h1>
       <p>Fetching items on every keystroke search (like github users)</p>
 
-      <SelectPanel defaultOpen={true}>
+      <SelectPanel defaultOpen={true} onSubmit={onSubmit}>
         {/* @ts-ignore todo */}
         <SelectPanel.Button>Select assignees</SelectPanel.Button>
         <SelectPanel.Header>
@@ -231,7 +253,12 @@ export const CAsyncSearchWithSuspenseKey = () => {
             Docs reference: https://react.dev/reference/react/Suspense#resetting-suspense-boundaries-on-navigation
         */}
         <React.Suspense key={query} fallback={<SelectPanel.Loading>Fetching users...</SelectPanel.Loading>}>
-          <SearchableUserList query={query} />
+          <SearchableUserList
+            query={query}
+            initialAssigneeIds={initialAssigneeIds}
+            selectedUserIds={selectedUserIds}
+            onUserSelect={onUserSelect}
+          />
           <SelectPanel.Footer />
         </React.Suspense>
       </SelectPanel>
@@ -243,22 +270,27 @@ export const CAsyncSearchWithSuspenseKey = () => {
   `data` is already pre-fetched with the issue 
   `users` are fetched async on search
 */
-const SearchableUserList: React.FC<{query: string; showLoading?: boolean}> = ({query, showLoading = false}) => {
+const SearchableUserList: React.FC<{
+  query: string
+  showLoading?: boolean
+  initialAssigneeIds: string[]
+  selectedUserIds: string[]
+  onUserSelect: (id: string) => void
+}> = ({query, showLoading = false, initialAssigneeIds, selectedUserIds, onUserSelect}) => {
   const repository = {collaborators: data.collaborators}
-
-  /* Selection */
-  const initialSelectedUsers: string[] = data.issue.assigneeIds
-  const [selectedUserIds, setSelectedUserIds] = React.useState<string[]>(initialSelectedUsers)
-  const onUserSelect = (userId: string) => {
-    if (!selectedUserIds.includes(userId)) setSelectedUserIds([...selectedUserIds, userId])
-    else setSelectedUserIds(selectedUserIds.filter(id => id !== userId))
-  }
 
   /* Filtering */
   const filteredUsers: typeof data.users = query ? use(queryUsers({query})) : []
 
   if (showLoading) return <SelectPanel.Loading>Search for users...</SelectPanel.Loading>
-  const itemsToShow = query ? filteredUsers : repository.collaborators
+
+  const sortingFn = (itemA: {id: string}, itemB: {id: string}) => {
+    if (initialAssigneeIds.includes(itemA.id) && initialAssigneeIds.includes(itemB.id)) return 1
+    else if (initialAssigneeIds.includes(itemA.id)) return -1
+    else if (initialAssigneeIds.includes(itemB.id)) return 1
+    else return 1
+  }
+  const itemsToShow = query ? filteredUsers : repository.collaborators.sort(sortingFn)
 
   return (
     <SelectPanel.ActionList>
@@ -330,9 +362,7 @@ export const TODO1Uncontrolled = () => {
      9. empty state
   */
 
-  const onSubmit = (event: {preventDefault: () => void}) => {
-    event.preventDefault() // coz form submit, innit
-
+  const onSubmit = () => {
     // TODO: where does saved data come from?
     // data.issue.labelIds = selectedLabelIds // pretending to persist changes
 
@@ -432,8 +462,7 @@ export const TODO4WithFilterButtons = () => {
     else setSelectedLabelIds(selectedLabelIds.filter(id => id !== labelId))
   }
 
-  const onSubmit = (event: {preventDefault: () => void}) => {
-    event.preventDefault() // coz form submit, innit
+  const onSubmit = () => {
     data.issue.labelIds = selectedLabelIds // pretending to persist changes
 
     // eslint-disable-next-line no-console
