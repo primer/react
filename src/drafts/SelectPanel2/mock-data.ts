@@ -1,7 +1,7 @@
 const data = {
   issue: {
     labelIds: ['MDU6TGFiZWw4Mzk2MzgxMTU=', 'MDU6TGFiZWw4Mzk2MzgxMjE='],
-    assigneeIds: [],
+    assigneeIds: ['MDQ6VXNlcjQxNzI2OA=='],
   },
   collaborators: [
     {

@@ -37,12 +37,16 @@
 
 ## Implementation notes
 
-1. [Next for Sid] Improve divider logic in stories (we don't need 2 branches, instead a ConditionalDivider component or a showDividerAtIndex variable) (we don't even need it anymore, + also leave a comment in the code to the issue where we decided not to do it)
 1. Is there a way to absorb divider logic, right now it's the application's responsibility
-1. Add controlled state for `open` (use cases: 1. fetch data when opened, 2. nested menus, 3. keep panel open till it's saved: https://github.com/github/primer/issues/2403)
+1. Add controlled state for `open` (use cases: 1. fetch data when opened, 2. nested menus
+1. keep panel open till it's saved: https://github.com/github/primer/issues/2403)
 1. We probably (need to check) should not even render Overlay contents until it's opened
-1. Add SelectPanel.EmptyMessage to all stories
-1. SelectPanel.Overlay
-1. The flicker in story with useTransition is unfortunate, is there already a way to add a minimum time to avoid this (debounce)? and is it possible/ergonomic to bake that in the component or should it be delegated to the application
+1. SelectPanel.Overlay API
 1. I think it's nice that there is a `<SelectPanel.Footer>` because you can wrap it in suspense along with the search results
 1. Need to make Save and Cancel optional (selectionVariant="instant"?)
+
+### Stories
+
+1. [Next for Sid] Improve divider logic in stories (we don't need 2 branches, instead a ConditionalDivider component or a showDividerAtIndex variable) (we don't even need it anymore, + also leave a comment in the code to the issue where we decided not to do it)
+1. Add SelectPanel.EmptyMessage to all stories
+1. The flicker in story with useTransition is unfortunate, is there already a way to add a minimum time to avoid this (debounce)? and is it possible/ergonomic to bake that in the component or should it be delegated to the application
