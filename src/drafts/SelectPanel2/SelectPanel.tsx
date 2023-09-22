@@ -72,6 +72,8 @@ const SelectPanel = props => {
   /* Search/Filter */
   const [searchQuery, setSearchQuery] = React.useState('')
 
+  const [slots, childrenInBody] = useSlots(contents, {header: SelectPanelHeader, footer: SelectPanelFooter})
+
   return (
     <>
       <AnchoredOverlay
@@ -98,7 +100,11 @@ const SelectPanel = props => {
           }}
         >
           <Box as="form" onSubmit={onInternalSubmit} sx={{display: 'flex', flexDirection: 'column', height: '100%'}}>
-            {contents}
+            {/* render default header as fallback */}
+            {slots.header || <SelectPanel.Header />}
+            {childrenInBody}
+            {/* render default footer as fallback */}
+            {slots.footer || <SelectPanel.Footer />}
           </Box>
         </SelectPanelContext.Provider>
       </AnchoredOverlay>
@@ -120,8 +126,18 @@ const SelectPanelHeader: React.FC<React.PropsWithChildren> = ({children, ...prop
   const {title, onCancel, onClearSelection} = React.useContext(SelectPanelContext)
 
   return (
-    <Box id="header" sx={{padding: 2, borderBottom: '1px solid', borderColor: 'border.default'}} {...props}>
-      <Box sx={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingBottom: 2}}>
+    <Box
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 2,
+        padding: 2,
+        borderBottom: '1px solid',
+        borderColor: 'border.default',
+      }}
+      {...props}
+    >
+      <Box sx={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
         {/* heading element is intentionally hardcoded to h1, it is not customisable 
             see https://github.com/github/primer/issues/2578 for context
         */}
@@ -209,7 +225,7 @@ const SelectPanelActionList: React.FC<React.PropsWithChildren<ActionListProps>> 
 
   return (
     <>
-      <ActionList id="body" sx={{flexShrink: 1, flexGrow: 1, overflowY: 'auto'}} selectionVariant="multiple" {...props}>
+      <ActionList sx={{flexShrink: 1, flexGrow: 1, overflowY: 'auto'}} selectionVariant="multiple" {...props}>
         {props.children}
       </ActionList>
     </>
@@ -222,7 +238,6 @@ const SelectPanelFooter = ({...props}) => {
 
   return (
     <Box
-      id="footer"
       sx={{
         display: 'flex',
         justifyContent: 'space-between',
