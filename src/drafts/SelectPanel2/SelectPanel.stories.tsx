@@ -71,6 +71,7 @@ export const AControlled = () => {
       <h1>Controlled SelectPanel</h1>
 
       <SelectPanel
+        title="Select labels"
         defaultOpen
         // onSubmit and onCancel feel out of place here instead of the footer,
         // but cancel can be called from 4 different actions - Cancel button, X iconbutton up top, press escape key, click outside
@@ -94,10 +95,6 @@ export const AControlled = () => {
         <SelectPanel.Button>Assign label</SelectPanel.Button>
         {/* TODO: header and heading is confusing. maybe skip header completely. */}
         <SelectPanel.Header>
-          {/* TODO: Heading is not optional, but what if you don't give it
-              Should we throw a big error or should we make that impossible in the API?
-          */}
-          <SelectPanel.Heading>Select labels</SelectPanel.Heading>
           <SelectPanel.SearchInput onChange={onSearchInputChange} />
         </SelectPanel.Header>
         <SelectPanel.ActionList>
@@ -137,12 +134,11 @@ export const BWithSuspendedList = () => {
     <>
       <h1>Suspended list</h1>
       <p>Fetching items once when the panel is opened (like repo labels)</p>
-      <SelectPanel>
+      <SelectPanel title="Select labels">
         {/* @ts-ignore todo */}
         <SelectPanel.Button>Assign label</SelectPanel.Button>
 
         <SelectPanel.Header>
-          <SelectPanel.Heading>Select labels</SelectPanel.Heading>
           <SelectPanel.SearchInput onChange={onSearchInputChange} />
         </SelectPanel.Header>
 
@@ -241,11 +237,10 @@ export const CAsyncSearchWithSuspenseKey = () => {
       <h1>Async search with useTransition</h1>
       <p>Fetching items on every keystroke search (like github users)</p>
 
-      <SelectPanel defaultOpen={true} onSubmit={onSubmit}>
+      <SelectPanel title="Select collaborators" defaultOpen={true} onSubmit={onSubmit}>
         {/* @ts-ignore todo */}
         <SelectPanel.Button>Select assignees</SelectPanel.Button>
         <SelectPanel.Header>
-          <SelectPanel.Heading>Select collaborators</SelectPanel.Heading>
           <SelectPanel.SearchInput onChange={onSearchInputChange} />
         </SelectPanel.Header>
 
@@ -347,11 +342,10 @@ export const DAsyncSearchWithUseTransition = () => {
       <h1>Async search with useTransition</h1>
       <p>Fetching items on every keystroke search (like github users)</p>
 
-      <SelectPanel defaultOpen={true} onSubmit={onSubmit}>
+      <SelectPanel title="Select collaborators" defaultOpen={true} onSubmit={onSubmit}>
         {/* @ts-ignore todo */}
         <SelectPanel.Button>Select assignees</SelectPanel.Button>
         <SelectPanel.Header>
-          <SelectPanel.Heading>Select collaborators</SelectPanel.Heading>
           <SelectPanel.SearchInput onChange={onSearchInputChange} />
         </SelectPanel.Header>
 
@@ -399,12 +393,11 @@ export const TODO1Uncontrolled = () => {
     <>
       <h1>Does not work yet: Uncontrolled SelectPanel</h1>
 
-      <SelectPanel onSubmit={onSubmit} onCancel={onCancel}>
+      <SelectPanel title="Select labels" onSubmit={onSubmit} onCancel={onCancel}>
         {/* @ts-ignore todo */}
         <SelectPanel.Button>Assign label</SelectPanel.Button>
 
         <SelectPanel.Header>
-          <SelectPanel.Heading>Select labels</SelectPanel.Heading>
           <SelectPanel.SearchInput />
         </SelectPanel.Header>
 
@@ -504,6 +497,7 @@ export const TODO4WithFilterButtons = () => {
       <h1>With Filter Buttons</h1>
 
       <SelectPanel
+        title="Switch branches/tags"
         defaultOpen
         onSubmit={onSubmit}
         onCancel={() => {
@@ -518,7 +512,6 @@ export const TODO4WithFilterButtons = () => {
         </SelectPanel.Button>
 
         <SelectPanel.Header>
-          <SelectPanel.Heading>Switch branches/tags</SelectPanel.Heading>
           <SelectPanel.SearchInput onChange={onSearchInputChange} sx={{marginBottom: 2}} />
 
           <Box id="filters" sx={{display: 'flex'}}>

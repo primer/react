@@ -20,11 +20,13 @@ import {useSlots} from '../../hooks/useSlots'
 import {ClearIcon} from './tmp-ClearIcon'
 
 const SelectPanelContext = React.createContext<{
+  title: string
   onCancel: () => void
   onClearSelection: undefined | (() => void)
   searchQuery: string
   setSearchQuery: () => void
 }>({
+  title: '',
   onCancel: () => {},
   onClearSelection: undefined,
   searchQuery: '',
@@ -87,6 +89,7 @@ const SelectPanel = props => {
         */}
         <SelectPanelContext.Provider
           value={{
+            title: props.title,
             onCancel: onInternalClose,
             onClearSelection: props.onClearSelection ? onInternalClearSelection : undefined,
             searchQuery,
@@ -111,16 +114,21 @@ SelectPanel.Button = SelectPanelButton
 
 const SelectPanelHeader: React.FC<React.PropsWithChildren> = ({children, ...props}) => {
   const [slots, childrenWithoutSlots] = useSlots(children, {
-    heading: SelectPanelHeading,
     searchInput: SelectPanelSearchInput,
   })
 
-  const {onCancel, onClearSelection} = React.useContext(SelectPanelContext)
+  const {title, onCancel, onClearSelection} = React.useContext(SelectPanelContext)
 
   return (
     <Box id="header" sx={{padding: 2, borderBottom: '1px solid', borderColor: 'border.default'}} {...props}>
       <Box sx={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingBottom: 2}}>
-        {slots.heading}
+        {/* heading element is intentionally hardcoded to h1, it is not customisable 
+            see https://github.com/github/primer/issues/2578 for context
+        */}
+
+        <Heading as="h1" sx={{fontSize: 14, fontWeight: 600, marginLeft: 2}} {...props}>
+          {title}
+        </Heading>
         <Box>
           {/* Will not need tooltip after https://github.com/primer/react/issues/2008 */}
           {onClearSelection ? (
@@ -139,17 +147,6 @@ const SelectPanelHeader: React.FC<React.PropsWithChildren> = ({children, ...prop
   )
 }
 SelectPanel.Header = SelectPanelHeader
-
-const SelectPanelHeading: React.FC<React.PropsWithChildren<{children: string}>> = ({children, ...props}) => {
-  // heading element is intentionally hardcoded to h1, it is not customisable
-  // see https://github.com/github/primer/issues/2578 for context
-  return (
-    <Heading as="h1" sx={{fontSize: 14, fontWeight: 600, marginLeft: 2}} {...props}>
-      {children}
-    </Heading>
-  )
-}
-SelectPanel.Heading = SelectPanelHeading
 
 // @ts-ignore todo
 const SelectPanelSearchInput = props => {
