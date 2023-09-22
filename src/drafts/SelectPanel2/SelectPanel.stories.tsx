@@ -9,13 +9,29 @@ const getCircle = (color: string) => (
 )
 
 export const AControlled = () => {
-  const [filteredLabels, setFilteredLabels] = React.useState(data.labels)
-
-  const initialSelectedLabels: string[] = [] // initial state: no labels
-  // const initialSelectedLabels = data.issue.labelIds // initial state: has labels
-
+  const initialSelectedLabels = data.issue.labelIds // mock initial state: has selected labels
   const [selectedLabelIds, setSelectedLabelIds] = React.useState<string[]>(initialSelectedLabels)
 
+  /* Selection */
+  const onLabelSelect = (labelId: string) => {
+    if (!selectedLabelIds.includes(labelId)) setSelectedLabelIds([...selectedLabelIds, labelId])
+    else setSelectedLabelIds(selectedLabelIds.filter(id => id !== labelId))
+  }
+
+  const onClearSelection = () => {
+    // soft set, does not save until submit
+    setSelectedLabelIds([])
+  }
+
+  const onSubmit = () => {
+    data.issue.labelIds = selectedLabelIds // pretending to persist changes
+
+    // eslint-disable-next-line no-console
+    console.log('form submitted')
+  }
+
+  /* Filtering */
+  const [filteredLabels, setFilteredLabels] = React.useState(data.labels)
   const [query, setQuery] = React.useState('')
 
   // TODO: should this be baked-in
@@ -40,43 +56,22 @@ export const AControlled = () => {
     }
   }
 
-  const onLabelSelect = (labelId: string) => {
-    if (!selectedLabelIds.includes(labelId)) setSelectedLabelIds([...selectedLabelIds, labelId])
-    else setSelectedLabelIds(selectedLabelIds.filter(id => id !== labelId))
-  }
-
-  const onClearSelection = () => {
-    // soft set, does not save until submit
-    setSelectedLabelIds([])
-  }
-
-  const onSubmit = (event: {preventDefault: () => void}) => {
-    event.preventDefault() // coz form submit, innit
-    data.issue.labelIds = selectedLabelIds // pretending to persist changes
-
-    // eslint-disable-next-line no-console
-    console.log('form submitted')
-  }
-
-  const sortingFn = (labelA: {id: string}, labelB: {id: string}) => {
-    /* Important! This sorting is only for initial selected ids, not for subsequent changes!
-      deterministic sorting for better UX: don't change positions with other selected items.
-
-      TODO: should this sorting be baked-in OR we only validate + warn OR do nothing
-      need to either own or accept the selection state to make that automatic
-      OR provide a API for sorting in ActionList like sort by key or sort fn
-    */
-    if (selectedLabelIds.includes(labelA.id) && selectedLabelIds.includes(labelB.id)) return 1
-    else if (selectedLabelIds.includes(labelA.id)) return -1
-    else if (selectedLabelIds.includes(labelB.id)) return 1
+  const sortingFn = (itemA: {id: string}, itemB: {id: string}) => {
+    const initialSelectedIds = data.issue.labelIds
+    if (initialSelectedIds.includes(itemA.id) && initialSelectedIds.includes(itemB.id)) return 1
+    else if (initialSelectedIds.includes(itemA.id)) return -1
+    else if (initialSelectedIds.includes(itemB.id)) return 1
     else return 1
   }
+
+  const itemsToShow = query ? filteredLabels : data.labels.sort(sortingFn)
 
   return (
     <>
       <h1>Controlled SelectPanel</h1>
 
       <SelectPanel
+        defaultOpen
         // onSubmit and onCancel feel out of place here instead of the footer,
         // but cancel can be called from 4 different actions - Cancel button, X iconbutton up top, press escape key, click outside
         // also, what if there is no footer? onSubmit is maybe not needed, but we need to put the onCancel callback somewhere.
@@ -106,50 +101,20 @@ export const AControlled = () => {
           <SelectPanel.SearchInput onChange={onSearchInputChange} />
         </SelectPanel.Header>
         <SelectPanel.ActionList>
-          {/* slightly different view for search results view and list view */}
-          {query ? (
-            filteredLabels.length > 1 ? (
-              filteredLabels.map(label => (
-                <ActionList.Item
-                  key={label.id}
-                  onSelect={() => onLabelSelect(label.id)}
-                  selected={selectedLabelIds.includes(label.id)}
-                >
-                  <ActionList.LeadingVisual>{getCircle(label.color)}</ActionList.LeadingVisual>
-                  {label.name}
-                  <ActionList.Description variant="block">{label.description}</ActionList.Description>
-                </ActionList.Item>
-              ))
-            ) : (
-              <SelectPanel.EmptyMessage>No labels found for &quot;{query}&quot;</SelectPanel.EmptyMessage>
-            )
+          {itemsToShow.length === 0 ? (
+            <SelectPanel.EmptyMessage>No labels found for &quot;{query}&quot;</SelectPanel.EmptyMessage>
           ) : (
-            <>
-              {data.labels.sort(sortingFn).map((label, index) => {
-                /* 
-                  we want to render a divider between the group of selected and unselected items.
-                  kinda hack: if this is the last item that is selected, render an divider after it
-                  TODO: can this be cleaner?
-                */
-                const nextLabel = data.labels.sort(sortingFn)[index + 1]
-                const showDivider = selectedLabelIds.includes(label.id) && !selectedLabelIds.includes(nextLabel?.id)
-
-                return (
-                  <>
-                    <ActionList.Item
-                      key={label.id}
-                      onSelect={() => onLabelSelect(label.id)}
-                      selected={selectedLabelIds.includes(label.id)}
-                    >
-                      <ActionList.LeadingVisual>{getCircle(label.color)}</ActionList.LeadingVisual>
-                      {label.name}
-                      <ActionList.Description variant="block">{label.description}</ActionList.Description>
-                    </ActionList.Item>
-                    {showDivider ? <ActionList.Divider /> : null}
-                  </>
-                )
-              })}
-            </>
+            itemsToShow.map(label => (
+              <ActionList.Item
+                key={label.id}
+                onSelect={() => onLabelSelect(label.id)}
+                selected={selectedLabelIds.includes(label.id)}
+              >
+                <ActionList.LeadingVisual>{getCircle(label.color)}</ActionList.LeadingVisual>
+                {label.name}
+                <ActionList.Description variant="block">{label.description}</ActionList.Description>
+              </ActionList.Item>
+            ))
           )}
         </SelectPanel.ActionList>
         <SelectPanel.Footer>
@@ -195,6 +160,7 @@ export const BWithSuspendedList = () => {
 const SuspendedActionList: React.FC<{query: string}> = ({query}) => {
   const fetchedData: typeof data = use(getData({key: 'suspended-action-list'}))
 
+  /* Selection */
   const initialSelectedLabels: string[] = fetchedData.issue.labelIds
   const [selectedLabelIds, setSelectedLabelIds] = React.useState<string[]>(initialSelectedLabels)
 
@@ -203,13 +169,7 @@ const SuspendedActionList: React.FC<{query: string}> = ({query}) => {
     else setSelectedLabelIds(selectedLabelIds.filter(id => id !== labelId))
   }
 
-  const sortingFn = (labelA: {id: string}, labelB: {id: string}) => {
-    if (selectedLabelIds.includes(labelA.id) && selectedLabelIds.includes(labelB.id)) return 1
-    else if (selectedLabelIds.includes(labelA.id)) return -1
-    else if (selectedLabelIds.includes(labelB.id)) return 1
-    else return 1
-  }
-
+  /* Filtering */
   const filteredLabels = fetchedData.labels
     .map(label => {
       if (label.name.toLowerCase().startsWith(query)) return {priority: 1, label}
@@ -220,11 +180,22 @@ const SuspendedActionList: React.FC<{query: string}> = ({query}) => {
     .filter(result => result.priority > 0)
     .map(result => result.label)
 
+  const sortingFn = (itemA: {id: string}, itemB: {id: string}) => {
+    const initialSelectedIds = data.issue.labelIds
+    if (initialSelectedIds.includes(itemA.id) && initialSelectedIds.includes(itemB.id)) return 1
+    else if (initialSelectedIds.includes(itemA.id)) return -1
+    else if (initialSelectedIds.includes(itemB.id)) return 1
+    else return 1
+  }
+
+  const itemsToShow = query ? filteredLabels : data.labels.sort(sortingFn)
+
   return (
     <SelectPanel.ActionList>
-      {/* slightly different view for search results view and list view */}
-      {query ? (
-        filteredLabels.map(label => (
+      {itemsToShow.length === 0 ? (
+        <SelectPanel.EmptyMessage>No labels found for &quot;{query}&quot;</SelectPanel.EmptyMessage>
+      ) : (
+        itemsToShow.map(label => (
           <ActionList.Item
             key={label.id}
             onSelect={() => onLabelSelect(label.id)}
@@ -235,28 +206,6 @@ const SuspendedActionList: React.FC<{query: string}> = ({query}) => {
             <ActionList.Description variant="block">{label.description}</ActionList.Description>
           </ActionList.Item>
         ))
-      ) : (
-        <>
-          {fetchedData.labels.sort(sortingFn).map((label, index) => {
-            const nextLabel = fetchedData.labels.sort(sortingFn)[index + 1]
-            const showDivider = selectedLabelIds.includes(label.id) && !selectedLabelIds.includes(nextLabel?.id)
-
-            return (
-              <>
-                <ActionList.Item
-                  key={label.id}
-                  onSelect={() => onLabelSelect(label.id)}
-                  selected={selectedLabelIds.includes(label.id)}
-                >
-                  <ActionList.LeadingVisual>{getCircle(label.color)}</ActionList.LeadingVisual>
-                  {label.name}
-                  <ActionList.Description variant="block">{label.description}</ActionList.Description>
-                </ActionList.Item>
-                {showDivider ? <ActionList.Divider /> : null}
-              </>
-            )
-          })}
-        </>
       )}
     </SelectPanel.ActionList>
   )
@@ -272,12 +221,27 @@ export const CAsyncSearchWithSuspenseKey = () => {
     setQuery(query)
   }
 
+  /* Selection */
+  const initialAssigneeIds: string[] = data.issue.assigneeIds
+  const [selectedUserIds, setSelectedUserIds] = React.useState<string[]>(initialAssigneeIds)
+  const onUserSelect = (userId: string) => {
+    if (!selectedUserIds.includes(userId)) setSelectedUserIds([...selectedUserIds, userId])
+    else setSelectedUserIds(selectedUserIds.filter(id => id !== userId))
+  }
+
+  const onSubmit = () => {
+    data.issue.assigneeIds = selectedUserIds // pretending to persist changes
+
+    // eslint-disable-next-line no-console
+    console.log('form submitted')
+  }
+
   return (
     <>
       <h1>Async search with useTransition</h1>
       <p>Fetching items on every keystroke search (like github users)</p>
 
-      <SelectPanel defaultOpen={true}>
+      <SelectPanel defaultOpen={true} onSubmit={onSubmit}>
         {/* @ts-ignore todo */}
         <SelectPanel.Button>Select assignees</SelectPanel.Button>
         <SelectPanel.Header>
@@ -289,7 +253,12 @@ export const CAsyncSearchWithSuspenseKey = () => {
             Docs reference: https://react.dev/reference/react/Suspense#resetting-suspense-boundaries-on-navigation
         */}
         <React.Suspense key={query} fallback={<SelectPanel.Loading>Fetching users...</SelectPanel.Loading>}>
-          <SearchableUserList query={query} />
+          <SearchableUserList
+            query={query}
+            initialAssigneeIds={initialAssigneeIds}
+            selectedUserIds={selectedUserIds}
+            onUserSelect={onUserSelect}
+          />
           <SelectPanel.Footer />
         </React.Suspense>
       </SelectPanel>
@@ -297,35 +266,38 @@ export const CAsyncSearchWithSuspenseKey = () => {
   )
 }
 
-const SearchableUserList: React.FC<{query: string; showLoading?: boolean}> = ({query, showLoading = false}) => {
-  // issue `data` is already pre-fetched
+/* 
+  `data` is already pre-fetched with the issue 
+  `users` are fetched async on search
+*/
+const SearchableUserList: React.FC<{
+  query: string
+  showLoading?: boolean
+  initialAssigneeIds: string[]
+  selectedUserIds: string[]
+  onUserSelect: (id: string) => void
+}> = ({query, showLoading = false, initialAssigneeIds, selectedUserIds, onUserSelect}) => {
   const repository = {collaborators: data.collaborators}
-  // `users` are fetched async on search
+
+  /* Filtering */
   const filteredUsers: typeof data.users = query ? use(queryUsers({query})) : []
 
-  const initialSelectedUsers: string[] = data.issue.assigneeIds
-  const [selectedUserIds, setSelectedUserIds] = React.useState<string[]>(initialSelectedUsers)
-
-  const onUserSelect = (userId: string) => {
-    if (!selectedUserIds.includes(userId)) setSelectedUserIds([...selectedUserIds, userId])
-    else setSelectedUserIds(selectedUserIds.filter(id => id !== userId))
-  }
-
-  const sortingFn = (userA: {id: string}, userB: {id: string}) => {
-    if (selectedUserIds.includes(userA.id) && selectedUserIds.includes(userB.id)) return 1
-    else if (selectedUserIds.includes(userA.id)) return -1
-    else if (selectedUserIds.includes(userB.id)) return 1
-    else return 1
-  }
-
-  // only used with useTransition example
   if (showLoading) return <SelectPanel.Loading>Search for users...</SelectPanel.Loading>
 
-  /* slightly different view for search results view and list view */
-  if (query) {
-    return (
-      <SelectPanel.ActionList>
-        {filteredUsers.map(user => (
+  const sortingFn = (itemA: {id: string}, itemB: {id: string}) => {
+    if (initialAssigneeIds.includes(itemA.id) && initialAssigneeIds.includes(itemB.id)) return 1
+    else if (initialAssigneeIds.includes(itemA.id)) return -1
+    else if (initialAssigneeIds.includes(itemB.id)) return 1
+    else return 1
+  }
+  const itemsToShow = query ? filteredUsers : repository.collaborators.sort(sortingFn)
+
+  return (
+    <SelectPanel.ActionList>
+      {itemsToShow.length === 0 ? (
+        <SelectPanel.EmptyMessage>No users found for &quot;{query}&quot;</SelectPanel.EmptyMessage>
+      ) : (
+        itemsToShow.map(user => (
           <ActionList.Item
             key={user.id}
             onSelect={() => onUserSelect(user.id)}
@@ -337,42 +309,17 @@ const SearchableUserList: React.FC<{query: string; showLoading?: boolean}> = ({q
             {user.login}
             <ActionList.Description>{user.name}</ActionList.Description>
           </ActionList.Item>
-        ))}
-      </SelectPanel.ActionList>
-    )
-  } else {
-    return (
-      <SelectPanel.ActionList>
-        {repository.collaborators.sort(sortingFn).map((user, index) => {
-          // tiny bit of additional logic to show divider
-          const nextUser = repository.collaborators.sort(sortingFn)[index + 1]
-          const showDivider = selectedUserIds.includes(user.id) && !selectedUserIds.includes(nextUser?.id)
-          return (
-            <>
-              <ActionList.Item
-                key={user.id}
-                onSelect={() => onUserSelect(user.id)}
-                selected={selectedUserIds.includes(user.id)}
-              >
-                <ActionList.LeadingVisual>
-                  <Avatar src={`https://github.com/${user.login}.png`} />
-                </ActionList.LeadingVisual>
-                {user.login}
-                <ActionList.Description>{user.name}</ActionList.Description>
-              </ActionList.Item>
-              {showDivider ? <ActionList.Divider /> : null}
-            </>
-          )
-        })}
-      </SelectPanel.ActionList>
-    )
-  }
+        ))
+      )}
+    </SelectPanel.ActionList>
+  )
 }
 
+/* 
+  `data` is already pre-fetched with the issue 
+  `users` are fetched async on search
+*/
 export const DAsyncSearchWithUseTransition = () => {
-  // issue `data` is already pre-fetched
-  // `users` are fetched async on search
-
   const [isPending, startTransition] = React.useTransition()
 
   const [query, setQuery] = React.useState('')
@@ -381,12 +328,26 @@ export const DAsyncSearchWithUseTransition = () => {
     startTransition(() => setQuery(query))
   }
 
+  /* Selection */
+  const initialAssigneeIds: string[] = data.issue.assigneeIds
+  const [selectedUserIds, setSelectedUserIds] = React.useState<string[]>(initialAssigneeIds)
+  const onUserSelect = (userId: string) => {
+    if (!selectedUserIds.includes(userId)) setSelectedUserIds([...selectedUserIds, userId])
+    else setSelectedUserIds(selectedUserIds.filter(id => id !== userId))
+  }
+
+  const onSubmit = () => {
+    data.issue.assigneeIds = selectedUserIds // pretending to persist changes
+    // eslint-disable-next-line no-console
+    console.log('form submitted')
+  }
+
   return (
     <>
       <h1>Async search with useTransition</h1>
       <p>Fetching items on every keystroke search (like github users)</p>
 
-      <SelectPanel defaultOpen={true}>
+      <SelectPanel defaultOpen={true} onSubmit={onSubmit}>
         {/* @ts-ignore todo */}
         <SelectPanel.Button>Select assignees</SelectPanel.Button>
         <SelectPanel.Header>
@@ -395,7 +356,13 @@ export const DAsyncSearchWithUseTransition = () => {
         </SelectPanel.Header>
 
         <React.Suspense fallback={<SelectPanel.Loading>Fetching users...</SelectPanel.Loading>}>
-          <SearchableUserList query={query} showLoading={isPending} />
+          <SearchableUserList
+            query={query}
+            showLoading={isPending}
+            initialAssigneeIds={initialAssigneeIds}
+            selectedUserIds={selectedUserIds}
+            onUserSelect={onUserSelect}
+          />
           <SelectPanel.Footer />
         </React.Suspense>
       </SelectPanel>
@@ -406,7 +373,7 @@ export const DAsyncSearchWithUseTransition = () => {
 export const TODO1Uncontrolled = () => {
   /* features to implement:
      1. search
-     2. sort + divider
+     2. sort
      3. selection
      4. clear selection
      5. different results view
@@ -415,9 +382,7 @@ export const TODO1Uncontrolled = () => {
      9. empty state
   */
 
-  const onSubmit = (event: {preventDefault: () => void}) => {
-    event.preventDefault() // coz form submit, innit
-
+  const onSubmit = () => {
     // TODO: where does saved data come from?
     // data.issue.labelIds = selectedLabelIds // pretending to persist changes
 
@@ -517,8 +482,7 @@ export const TODO4WithFilterButtons = () => {
     else setSelectedLabelIds(selectedLabelIds.filter(id => id !== labelId))
   }
 
-  const onSubmit = (event: {preventDefault: () => void}) => {
-    event.preventDefault() // coz form submit, innit
+  const onSubmit = () => {
     data.issue.labelIds = selectedLabelIds // pretending to persist changes
 
     // eslint-disable-next-line no-console
