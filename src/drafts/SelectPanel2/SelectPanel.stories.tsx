@@ -618,21 +618,17 @@ export const EMinimal = () => {
         <SelectPanel.Button>Assign label</SelectPanel.Button>
 
         <SelectPanel.ActionList>
-          {itemsToShow.length === 0 ? (
-            <SelectPanel.EmptyMessage>No labels found for &quot;{query}&quot;</SelectPanel.EmptyMessage>
-          ) : (
-            itemsToShow.map(label => (
-              <ActionList.Item
-                key={label.id}
-                onSelect={() => onLabelSelect(label.id)}
-                selected={selectedLabelIds.includes(label.id)}
-              >
-                <ActionList.LeadingVisual>{getCircle(label.color)}</ActionList.LeadingVisual>
-                {label.name}
-                <ActionList.Description variant="block">{label.description}</ActionList.Description>
-              </ActionList.Item>
-            ))
-          )}
+          {itemsToShow.map(label => (
+            <ActionList.Item
+              key={label.id}
+              onSelect={() => onLabelSelect(label.id)}
+              selected={selectedLabelIds.includes(label.id)}
+            >
+              <ActionList.LeadingVisual>{getCircle(label.color)}</ActionList.LeadingVisual>
+              {label.name}
+              <ActionList.Description variant="block">{label.description}</ActionList.Description>
+            </ActionList.Item>
+          ))}
         </SelectPanel.ActionList>
       </SelectPanel>
     </>
