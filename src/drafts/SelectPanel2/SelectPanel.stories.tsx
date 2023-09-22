@@ -512,7 +512,7 @@ export const TODO4WithFilterButtons = () => {
         </SelectPanel.Button>
 
         <SelectPanel.Header>
-          <SelectPanel.SearchInput onChange={onSearchInputChange} sx={{marginBottom: 2}} />
+          <SelectPanel.SearchInput onChange={onSearchInputChange} />
 
           <Box id="filters" sx={{display: 'flex'}}>
             <Button
@@ -576,6 +576,64 @@ export const TODO4WithFilterButtons = () => {
             View all {selectedFilter}
           </SelectPanel.SecondaryButton>
         </SelectPanel.Footer>
+      </SelectPanel>
+    </>
+  )
+}
+
+export const EMinimal = () => {
+  const initialSelectedLabels = data.issue.labelIds // mock initial state: has selected labels
+  const [selectedLabelIds, setSelectedLabelIds] = React.useState<string[]>(initialSelectedLabels)
+
+  /* Selection */
+  const onLabelSelect = (labelId: string) => {
+    if (!selectedLabelIds.includes(labelId)) setSelectedLabelIds([...selectedLabelIds, labelId])
+    else setSelectedLabelIds(selectedLabelIds.filter(id => id !== labelId))
+  }
+
+  const onSubmit = () => {
+    data.issue.labelIds = selectedLabelIds // pretending to persist changes
+
+    // eslint-disable-next-line no-console
+    console.log('form submitted')
+  }
+
+  const sortingFn = (itemA: {id: string}, itemB: {id: string}) => {
+    const initialSelectedIds = data.issue.labelIds
+    if (initialSelectedIds.includes(itemA.id) && initialSelectedIds.includes(itemB.id)) return 1
+    else if (initialSelectedIds.includes(itemA.id)) return -1
+    else if (initialSelectedIds.includes(itemB.id)) return 1
+    else return 1
+  }
+
+  const itemsToShow = data.labels.sort(sortingFn)
+
+  return (
+    <>
+      <h1>Minimal SelectPanel</h1>
+
+      <SelectPanel title="Select labels" defaultOpen onSubmit={onSubmit}>
+        {/* TODO: the ref types don't match here, use useProvidedRefOrCreate */}
+        {/* @ts-ignore todo */}
+        <SelectPanel.Button>Assign label</SelectPanel.Button>
+
+        <SelectPanel.ActionList>
+          {itemsToShow.length === 0 ? (
+            <SelectPanel.EmptyMessage>No labels found for &quot;{query}&quot;</SelectPanel.EmptyMessage>
+          ) : (
+            itemsToShow.map(label => (
+              <ActionList.Item
+                key={label.id}
+                onSelect={() => onLabelSelect(label.id)}
+                selected={selectedLabelIds.includes(label.id)}
+              >
+                <ActionList.LeadingVisual>{getCircle(label.color)}</ActionList.LeadingVisual>
+                {label.name}
+                <ActionList.Description variant="block">{label.description}</ActionList.Description>
+              </ActionList.Item>
+            ))
+          )}
+        </SelectPanel.ActionList>
       </SelectPanel>
     </>
   )
