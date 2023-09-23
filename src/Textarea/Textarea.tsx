@@ -57,7 +57,6 @@ const StyledTextarea = styled.textarea<TextareaProps>`
     css`
       resize: none;
     `}
-    
   ${sx};
 `
 
