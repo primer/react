@@ -11,8 +11,6 @@ import {
   Tooltip,
   TextInput,
   AnchoredOverlayProps,
-  ActionList,
-  ActionListProps,
   Spinner,
   Text,
 } from '../../../src/index'
