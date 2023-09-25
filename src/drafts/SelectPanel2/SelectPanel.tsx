@@ -18,6 +18,7 @@ import {
 } from '../../../src/index'
 import {useSlots} from '../../hooks/useSlots'
 import {ClearIcon} from './tmp-ClearIcon'
+import {useProvidedRefOrCreate} from '../../hooks'
 
 const SelectPanelContext = React.createContext<{
   title: string
@@ -35,7 +36,7 @@ const SelectPanelContext = React.createContext<{
 
 // @ts-ignore todo
 const SelectPanel = props => {
-  const anchorRef = React.useRef<HTMLButtonElement>(null)
+  const anchorRef = useProvidedRefOrCreate(props.anchorRef)
 
   // 🚨 Hack for good API!
   // we strip out Anchor from children and pass it to AnchoredOverlay to render
@@ -49,19 +50,18 @@ const SelectPanel = props => {
     return child
   })
 
-  // TODO: defaultOpen is not for debugging, I don't intend to make
-  // it part of the API
-  const [open, setOpen] = React.useState(props.defaultOpen)
+  const [internalOpen, setInternalOpen] = React.useState(props.defaultOpen)
+  // sync open state
+  React.useEffect(() => setInternalOpen(props.open), [props.open])
 
   const onInternalClose = () => {
-    setOpen(false)
-
+    if (props.open === 'undefined') setInternalOpen(false)
     if (typeof props.onCancel === 'function') props.onCancel()
   }
   // @ts-ignore todo
   const onInternalSubmit = event => {
     event.preventDefault()
-    setOpen(false)
+    if (props.open === 'undefined') setInternalOpen(false)
     if (typeof props.onSubmit === 'function') props.onSubmit(event)
   }
 
@@ -77,13 +77,14 @@ const SelectPanel = props => {
   return (
     <>
       <AnchoredOverlay
+        // @ts-ignore todo
         anchorRef={anchorRef}
         renderAnchor={renderAnchor}
-        open={open}
-        onOpen={() => setOpen(true)}
+        open={internalOpen}
+        onOpen={() => setInternalOpen(true)}
         onClose={onInternalClose}
-        width="medium"
-        height="large"
+        width={props.width || 'medium'}
+        height={props.height || 'large'}
         focusZoneSettings={{bindKeys: FocusKeys.Tab}}
       >
         {/* TODO: Keyboard navigation of actionlist should be arrow keys
