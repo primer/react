@@ -660,31 +660,23 @@ export const FExternalAnchor = () => {
 }
 
 export const GOpenFromMenu = () => {
-  const initialSelectedLabels = data.issue.labelIds // mock initial state: has selected labels
-  const [selectedLabelIds, setSelectedLabelIds] = React.useState<string[]>(initialSelectedLabels)
-
   /* Selection */
-  const onLabelSelect = (labelId: string) => {
-    if (!selectedLabelIds.includes(labelId)) setSelectedLabelIds([...selectedLabelIds, labelId])
-    else setSelectedLabelIds(selectedLabelIds.filter(id => id !== labelId))
+
+  const [selectedEvents, setSelectedEvents] = React.useState<string[]>([])
+
+  const onEventSelect = (event: string) => {
+    if (!selectedEvents.includes(event)) setSelectedEvents([...selectedEvents, event])
+    else setSelectedEvents(selectedEvents.filter(name => name !== event))
   }
 
   const onSubmit = () => {
-    data.issue.labelIds = selectedLabelIds // pretending to persist changes
+    data.issue.labelIds = selectedEvents // pretending to persist changes
 
     // eslint-disable-next-line no-console
     console.log('form submitted')
   }
 
-  const sortingFn = (itemA: {id: string}, itemB: {id: string}) => {
-    const initialSelectedIds = data.issue.labelIds
-    if (initialSelectedIds.includes(itemA.id) && initialSelectedIds.includes(itemB.id)) return 1
-    else if (initialSelectedIds.includes(itemA.id)) return -1
-    else if (initialSelectedIds.includes(itemB.id)) return 1
-    else return 1
-  }
-
-  const itemsToShow = data.labels.sort(sortingFn)
+  const itemsToShow = ['Issues', 'Pull requests', 'Releases', 'Discussions', 'Security alerts']
 
   const [selectPanelOpen, setSelectPanelOpen] = React.useState(false)
   const buttonRef = React.useRef<HTMLButtonElement>(null)
@@ -737,7 +729,7 @@ export const GOpenFromMenu = () => {
       </ActionMenu>
 
       <SelectPanel
-        title="Select labels"
+        title="Custom"
         open={selectPanelOpen}
         anchorRef={buttonRef}
         onSubmit={() => {
@@ -745,17 +737,12 @@ export const GOpenFromMenu = () => {
           onSubmit()
         }}
         onCancel={() => setSelectPanelOpen(false)}
+        height="medium"
       >
         <SelectPanel.ActionList>
-          {itemsToShow.map(label => (
-            <ActionList.Item
-              key={label.id}
-              onSelect={() => onLabelSelect(label.id)}
-              selected={selectedLabelIds.includes(label.id)}
-            >
-              <ActionList.LeadingVisual>{getCircle(label.color)}</ActionList.LeadingVisual>
-              {label.name}
-              <ActionList.Description variant="block">{label.description}</ActionList.Description>
+          {itemsToShow.map(item => (
+            <ActionList.Item key={item} onSelect={() => onEventSelect(item)} selected={selectedEvents.includes(item)}>
+              {item}
             </ActionList.Item>
           ))}
         </SelectPanel.ActionList>

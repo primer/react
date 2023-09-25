@@ -83,8 +83,8 @@ const SelectPanel = props => {
         open={internalOpen}
         onOpen={() => setInternalOpen(true)}
         onClose={onInternalClose}
-        width="medium"
-        height="large"
+        width={props.width || 'medium'}
+        height={props.height || 'large'}
         focusZoneSettings={{bindKeys: FocusKeys.Tab}}
       >
         {/* TODO: Keyboard navigation of actionlist should be arrow keys
