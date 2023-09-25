@@ -625,7 +625,13 @@ export const FExternalAnchor = () => {
         with `onSubmit` and `onCancel`
       </p>
 
-      <Button ref={anchorRef} variant="primary" onClick={() => setOpen(!open)}>
+      <Button
+        ref={anchorRef}
+        variant="primary"
+        onClick={() => setOpen(!open)}
+        aria-haspopup
+        aria-expanded={open ? true : undefined}
+      >
         Assign label
       </Button>
 
@@ -658,8 +664,13 @@ export const FExternalAnchor = () => {
 }
 
 export const GOpenFromMenu = () => {
-  /* Selection */
+  /* Open state */
+  const [menuOpen, setMenuOpen] = React.useState(false)
+  const [selectPanelOpen, setSelectPanelOpen] = React.useState(false)
+  const buttonRef = React.useRef<HTMLButtonElement>(null)
 
+  /* Selection */
+  const [selectedSetting, setSelectedSetting] = React.useState<string>('All activity')
   const [selectedEvents, setSelectedEvents] = React.useState<string[]>([])
 
   const onEventSelect = (event: string) => {
@@ -667,53 +678,63 @@ export const GOpenFromMenu = () => {
     else setSelectedEvents(selectedEvents.filter(name => name !== event))
   }
 
-  const onSubmit = () => {
-    data.issue.labelIds = selectedEvents // pretending to persist changes
-
-    // eslint-disable-next-line no-console
-    console.log('form submitted')
+  const onSelectPanelSubmit = () => {
+    setSelectedSetting('Custom')
   }
 
   const itemsToShow = ['Issues', 'Pull requests', 'Releases', 'Discussions', 'Security alerts']
-
-  const [selectPanelOpen, setSelectPanelOpen] = React.useState(false)
-  const buttonRef = React.useRef<HTMLButtonElement>(null)
 
   return (
     <>
       <h1>Open from ActionMenu</h1>
       <p>
         To open SelectPanel from a menu, you would need to use an external anchor and pass `anchorRef` to `SelectPanel`.
-        You would also need to control the `open` state with `onSubmit` and `onCancel`.
+        You would also need to control the `open` state for both ActionMenu and SelectPanel.
         <br />
         <br />
-        Important: Pass the same `anchorRef` to both ActionMenu and SelectPanel, otherwise the SelectPanel would not be
-        visible.
+        Important: Pass the same `anchorRef` to both ActionMenu and SelectPanel
       </p>
 
-      <ActionMenu anchorRef={buttonRef}>
-        <ActionMenu.Button leadingVisual={EyeIcon} ref={buttonRef}>
-          Unwatch
-        </ActionMenu.Button>
+      <Button
+        ref={buttonRef}
+        leadingVisual={EyeIcon}
+        trailingAction={TriangleDownIcon}
+        aria-haspopup
+        aria-expanded={menuOpen || selectPanelOpen ? true : undefined}
+        onClick={() => {
+          if (menuOpen) setMenuOpen(false)
+          else if (selectPanelOpen) setSelectPanelOpen(false)
+          else setMenuOpen(true)
+        }}
+      >
+        {selectedSetting === 'Ignore' ? 'Watch' : 'Unwatch'}
+      </Button>
+      <ActionMenu anchorRef={buttonRef} open={menuOpen} onOpenChange={value => setMenuOpen(value)}>
         <ActionMenu.Overlay width="medium">
           <ActionList selectionVariant="single">
-            <ActionList.Item>
+            <ActionList.Item
+              selected={selectedSetting === 'Participating and @mentions'}
+              onSelect={() => setSelectedSetting('Participating and @mentions')}
+            >
               Participating and @mentions
               <ActionList.Description variant="block">
                 Only receive notifications from this repository when participating or @mentioned.
               </ActionList.Description>
             </ActionList.Item>
-            <ActionList.Item selected={true}>
+            <ActionList.Item
+              selected={selectedSetting === 'All activity'}
+              onSelect={() => setSelectedSetting('All activity')}
+            >
               All activity
               <ActionList.Description variant="block">
                 Notified of all notifications on this repository.
               </ActionList.Description>
             </ActionList.Item>
-            <ActionList.Item>
+            <ActionList.Item selected={selectedSetting === 'Ignore'} onSelect={() => setSelectedSetting('Ignore')}>
               Ignore
               <ActionList.Description variant="block">Never be notified.</ActionList.Description>
             </ActionList.Item>
-            <ActionList.Item onSelect={() => setSelectPanelOpen(true)}>
+            <ActionList.Item selected={selectedSetting === 'Custom'} onSelect={() => setSelectPanelOpen(true)}>
               Custom
               <ActionList.TrailingVisual>
                 <ArrowRightIcon />
@@ -732,9 +753,12 @@ export const GOpenFromMenu = () => {
         anchorRef={buttonRef}
         onSubmit={() => {
           setSelectPanelOpen(false)
-          onSubmit()
+          onSelectPanelSubmit()
         }}
-        onCancel={() => setSelectPanelOpen(false)}
+        onCancel={() => {
+          setSelectPanelOpen(false)
+          setMenuOpen(true)
+        }}
         height="medium"
       >
         <SelectPanel.ActionList>
