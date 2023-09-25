@@ -421,7 +421,7 @@ export const TODO1Uncontrolled = () => {
 
 export const TODO2SingleSelection = () => <h1>TODO</h1>
 
-export const FWithFilterButtons = () => {
+export const HWithFilterButtons = () => {
   const [selectedFilter, setSelectedFilter] = React.useState<'branches' | 'tags'>('branches')
 
   /* Selection */
