@@ -1,7 +1,6 @@
 import React from 'react'
 import {IconButton, Button, Box, Link, StyledOcticon, ActionMenu, ActionList} from '../..'
 import {Tooltip} from './Tooltip'
-import {default as TooltipV1} from '../../Tooltip'
 import {SearchIcon, BookIcon, CheckIcon, TriangleDownIcon, GitBranchIcon} from '@primer/octicons-react'
 
 export default {
@@ -173,19 +172,4 @@ export const OnActionMenuAnchor = () => (
       </ActionMenu.Overlay>
     </ActionMenu>
   </Box>
-)
-
-export const TestOldTooltipWithActionMenu = () => (
-  <TooltipV1 aria-label="Tooltip informatuon" direction="s">
-    <ActionMenu>
-      <ActionMenu.Button variant={'primary'} size="small" disabled aria-disabled>
-        ActionMenu
-      </ActionMenu.Button>
-      <ActionMenu.Overlay>
-        <ActionList>
-          <ActionList.Item>Item</ActionList.Item>
-        </ActionList>
-      </ActionMenu.Overlay>
-    </ActionMenu>
-  </TooltipV1>
 )
