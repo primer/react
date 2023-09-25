@@ -120,6 +120,8 @@ const SelectPanel = props => {
             <ActionListContainerContext.Provider
               value={{
                 container: 'SelectPanel',
+                listRole: 'listbox',
+                selectionAttribute: 'aria-selected',
                 selectionVariant: props.selectionVariant || 'multiple',
               }}
             >
