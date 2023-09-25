@@ -117,7 +117,12 @@ const SelectPanel = props => {
           >
             {/* render default header as fallback */}
             {slots.header || <SelectPanel.Header />}
-            <ActionListContainerContext.Provider value={{selectionVariant: props.selectionVariant || 'multiple'}}>
+            <ActionListContainerContext.Provider
+              value={{
+                container: 'SelectPanel',
+                selectionVariant: props.selectionVariant || 'multiple',
+              }}
+            >
               {childrenInBody}
             </ActionListContainerContext.Provider>
             {/* render default footer as fallback */}
