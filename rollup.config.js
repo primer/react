@@ -35,6 +35,9 @@ const input = new Set([
 
       // "./lib-esm/utils/*"
       'src/utils/*',
+
+      // for backward compatbility, see https://github.com/primer/react/pull/3740
+      'src/ActionMenu/index.ts',
     ],
     {
       cwd: __dirname,
@@ -119,6 +122,15 @@ const baseConfig = {
       // plugins are defined in postcss.config.js
     }),
   ],
+  onwarn(warning, defaultHandler) {
+    // Dependencies or modules may use "use client" as an indicator for React
+    // Server Components that this module should only be loaded on the client.
+    if (warning.code === 'MODULE_LEVEL_DIRECTIVE' && warning.message.includes('use client')) {
+      return
+    }
+
+    defaultHandler(warning)
+  },
 }
 
 export default [

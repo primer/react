@@ -12,11 +12,6 @@ exports[`Link applies button styles when rendering a button element 1`] = `
   text-decoration: underline;
 }
 
-.c0:focus {
-  -webkit-text-decoration: underline;
-  text-decoration: underline;
-}
-
 .c0:is(button) {
   display: inline-block;
   padding: 0;
@@ -47,11 +42,6 @@ exports[`Link passes href down to link element 1`] = `
 }
 
 .c0:hover {
-  -webkit-text-decoration: underline;
-  text-decoration: underline;
-}
-
-.c0:focus {
   -webkit-text-decoration: underline;
   text-decoration: underline;
 }
@@ -91,11 +81,6 @@ exports[`Link renders consistently 1`] = `
   text-decoration: underline;
 }
 
-.c0:focus {
-  -webkit-text-decoration: underline;
-  text-decoration: underline;
-}
-
 .c0:is(button) {
   display: inline-block;
   padding: 0;
@@ -126,12 +111,6 @@ exports[`Link respects hoverColor prop 1`] = `
 }
 
 .c0:hover {
-  -webkit-text-decoration: underline;
-  text-decoration: underline;
-  color: #0969da;
-}
-
-.c0:focus {
   -webkit-text-decoration: underline;
   text-decoration: underline;
   color: #0969da;
@@ -168,14 +147,8 @@ exports[`Link respects the  "sx" prop when "muted" prop is also passed 1`] = `
 }
 
 .c0:hover {
-  -webkit-text-decoration: underline;
-  text-decoration: underline;
-  color: #0969da;
-}
-
-.c0:focus {
-  -webkit-text-decoration: underline;
-  text-decoration: underline;
+  -webkit-text-decoration: none;
+  text-decoration: none;
   color: #0969da;
 }
 
@@ -210,14 +183,8 @@ exports[`Link respects the "muted" prop 1`] = `
 }
 
 .c0:hover {
-  -webkit-text-decoration: underline;
-  text-decoration: underline;
-  color: #0969da;
-}
-
-.c0:focus {
-  -webkit-text-decoration: underline;
-  text-decoration: underline;
+  -webkit-text-decoration: none;
+  text-decoration: none;
   color: #0969da;
 }
 

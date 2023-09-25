@@ -16,6 +16,11 @@ export type Trigger = {
   keepTriggerCharOnCommit?: boolean
 }
 
+export type SelectSuggestionsEvent = ShowSuggestionsEvent & {
+  /** The suggestion that was selected. */
+  suggestion: Suggestion
+}
+
 export type ShowSuggestionsEvent = {
   /** The trigger that caused this query. */
   trigger: Trigger
@@ -49,3 +54,5 @@ export type TextInputCompatibleChild = React.ReactElement<
   JSX.IntrinsicElements['textarea'] | JSX.IntrinsicElements['input']
 > &
   React.RefAttributes<HTMLInputElement & HTMLTextAreaElement>
+
+export type SuggestionsPlacement = 'above' | 'below'

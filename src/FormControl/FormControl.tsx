@@ -10,14 +10,14 @@ import Textarea from '../Textarea'
 import {CheckboxOrRadioGroupContext} from '../internal/components/CheckboxOrRadioGroup'
 import ValidationAnimationContainer from '../internal/components/ValidationAnimationContainer'
 import {get} from '../constants'
-import InlineAutocomplete from '../drafts/InlineAutocomplete'
 import {useSlots} from '../hooks/useSlots'
 import {SxProp} from '../sx'
-import {useSSRSafeId} from '../utils/ssr'
+import {useId} from '../hooks/useId'
 import FormControlCaption from './_FormControlCaption'
 import FormControlLabel from './_FormControlLabel'
 import FormControlLeadingVisual from './_FormControlLeadingVisual'
 import FormControlValidation from './_FormControlValidation'
+import {FormControlContextProvider} from './_FormControlContext'
 
 export type FormControlProps = {
   children?: React.ReactNode
@@ -40,13 +40,6 @@ export type FormControlProps = {
   layout?: 'horizontal' | 'vertical'
 } & SxProp
 
-export interface FormControlContext extends Pick<FormControlProps, 'disabled' | 'id' | 'required'> {
-  captionId?: string
-  validationMessageId?: string
-}
-
-export const FormControlContext = React.createContext<FormControlContext>({})
-
 const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
   ({children, disabled: disabledProp, layout = 'vertical', id: idProp, required, sx}, ref) => {
     const [slots, childrenWithoutSlots] = useSlots(children, {
@@ -55,19 +48,10 @@ const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
       leadingVisual: FormControlLeadingVisual,
       validation: FormControlValidation,
     })
-    const expectedInputComponents = [
-      Autocomplete,
-      Checkbox,
-      Radio,
-      Select,
-      TextInput,
-      TextInputWithTokens,
-      Textarea,
-      InlineAutocomplete,
-    ]
+    const expectedInputComponents = [Autocomplete, Checkbox, Radio, Select, TextInput, TextInputWithTokens, Textarea]
     const choiceGroupContext = useContext(CheckboxOrRadioGroupContext)
     const disabled = choiceGroupContext.disabled || disabledProp
-    const id = useSSRSafeId(idProp)
+    const id = useId(idProp)
     const validationMessageId = slots.validation ? `${id}-validationMessage` : undefined
     const captionId = slots.caption ? `${id}-caption` : undefined
     const validationStatus = slots.validation?.props.variant
@@ -130,7 +114,7 @@ const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
     const isLabelHidden = slots.label?.props.visuallyHidden
 
     return (
-      <FormControlContext.Provider
+      <FormControlContextProvider
         value={{
           captionId,
           disabled,
@@ -222,7 +206,7 @@ const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
             {slots.caption}
           </Box>
         )}
-      </FormControlContext.Provider>
+      </FormControlContextProvider>
     )
   },
 )

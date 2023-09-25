@@ -176,16 +176,23 @@ export const SingleSelect = () => {
 }
 
 export const MultiSelect = () => {
-  const [selectedIndex, setSelectedIndex] = React.useState(0)
+  const [selectedIndices, setSelectedIndices] = React.useState<number[]>([0])
+  const handleSelect = (index: number) => {
+    if (selectedIndices.includes(index)) {
+      setSelectedIndices(selectedIndices.filter(i => i !== index))
+    } else {
+      setSelectedIndices([...selectedIndices, index])
+    }
+  }
   return (
     <ActionList selectionVariant="multiple" showDividers role="menu" aria-label="Project">
       {projects.map((project, index) => (
         <ActionList.Item
           key={index}
-          role="menuitemradio"
-          selected={index === selectedIndex}
-          aria-checked={index === selectedIndex}
-          onSelect={() => setSelectedIndex(index)}
+          role="menuitemcheckbox"
+          selected={selectedIndices.includes(index)}
+          aria-checked={selectedIndices.includes(index)}
+          onSelect={() => handleSelect(index)}
         >
           <ActionList.LeadingVisual>
             <TableIcon />
@@ -197,6 +204,28 @@ export const MultiSelect = () => {
     </ActionList>
   )
 }
+
+export const DisabledSelectedMultiselect = () => (
+  <ActionList selectionVariant="multiple" role="menu" aria-label="Project">
+    <ActionList.Item role="menuitemcheckbox" selected aria-checked disabled>
+      Selected disabled item
+    </ActionList.Item>
+    <ActionList.Item role="menuitemcheckbox" selected={false} aria-checked={false}>
+      Item 2
+    </ActionList.Item>
+  </ActionList>
+)
+
+export const DisabledMultiselect = () => (
+  <ActionList selectionVariant="multiple" role="menu" aria-label="Project">
+    <ActionList.Item role="menuitemcheckbox" selected={false} aria-checked={false} disabled>
+      Disabled item
+    </ActionList.Item>
+    <ActionList.Item role="menuitemcheckbox" selected={false} aria-checked={false}>
+      Item 2
+    </ActionList.Item>
+  </ActionList>
+)
 
 export const DisabledItem = () => {
   const [selectedIndex, setSelectedIndex] = React.useState(0)

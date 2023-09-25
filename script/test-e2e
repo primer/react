@@ -6,5 +6,5 @@ docker run --rm \
   --network host \
   -v $(pwd):/workspace \
   -w /workspace \
-  -it mcr.microsoft.com/playwright:v1.36.0-jammy \
+  -it mcr.microsoft.com/playwright:v1.37.0-jammy \
   /bin/bash -c "npm install && STORYBOOK_URL=http://host.docker.internal:6006 npx playwright test $@"

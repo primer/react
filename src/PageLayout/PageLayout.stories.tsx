@@ -34,6 +34,9 @@ const meta: Meta = {
     'Content.hidden.regular': false,
     'Content.hidden.narrow': false,
     'Content.hidden.wide': false,
+    'Pane.position.regular': 'end',
+    'Pane.position.narrow': 'end',
+    'Pane.position.wide': 'end',
     'Pane.width': 'medium',
     'Pane.sticky': false,
     'Pane.resizable': false,
@@ -202,6 +205,31 @@ const meta: Meta = {
       table: {category: 'Content props'},
     },
 
+    // Pane prop controls
+    'Pane.position.regular': {
+      type: {
+        name: 'enum',
+        value: ['start', 'end'],
+      },
+      control: {type: 'radio'},
+      table: {category: 'Pane props'},
+    },
+    'Pane.position.narrow': {
+      type: {
+        name: 'enum',
+        value: ['start', 'end'],
+      },
+      control: {type: 'radio'},
+      table: {category: 'Pane props'},
+    },
+    'Pane.position.wide': {
+      type: {
+        name: 'enum',
+        value: ['start', 'end'],
+      },
+      control: {type: 'radio'},
+      table: {category: 'Pane props'},
+    },
     'Pane.width': {
       type: {
         name: 'enum',
@@ -354,6 +382,11 @@ const Template: Story = args => (
     </PageLayout.Content>
     {args['Render pane?'] ? (
       <PageLayout.Pane
+        position={{
+          narrow: args['Pane.position.narrow'],
+          regular: args['Pane.position.regular'],
+          wide: args['Pane.position.wide'],
+        }}
         width={args['Pane.width']}
         minWidth={args['Pane.minWidth']}
         sticky={args['Pane.sticky']}

@@ -1,1 +1,2 @@
-export {default as Blankslate, BlankslateProps} from './Blankslate'
+export {default as Blankslate} from './Blankslate'
+export type {BlankslateProps} from './Blankslate'

@@ -35,8 +35,6 @@ exports[`Avatar renders consistently 1`] = `
   box-shadow: 0 0 0 var(--avatar-border-width) #ffffff;
   position: relative;
   overflow: hidden;
-  -webkit-transition: margin 0.2s ease-in-out,opacity 0.2s ease-in-out,visibility 0.2s ease-in-out,box-shadow 0.1s ease-in-out;
-  transition: margin 0.2s ease-in-out,opacity 0.2s ease-in-out,visibility 0.2s ease-in-out,box-shadow 0.1s ease-in-out;
 }
 
 .c0 .pc-AvatarItem:first-child {
@@ -125,6 +123,8 @@ exports[`Avatar renders consistently 1`] = `
   opacity: 100%;
   visibility: visible;
   box-shadow: 0 0 0 4px #ffffff;
+  -webkit-transition: margin 0.2s ease-in-out,opacity 0.2s ease-in-out,visibility 0.2s ease-in-out,box-shadow 0.1s ease-in-out;
+  transition: margin 0.2s ease-in-out,opacity 0.2s ease-in-out,visibility 0.2s ease-in-out,box-shadow 0.1s ease-in-out;
 }
 
 .c0 .pc-AvatarStackBody:not(.pc-AvatarStack--disableExpand):hover .pc-AvatarItem:first-child {
@@ -197,8 +197,6 @@ exports[`Avatar respects alignRight props 1`] = `
   box-shadow: 0 0 0 var(--avatar-border-width) #ffffff;
   position: relative;
   overflow: hidden;
-  -webkit-transition: margin 0.2s ease-in-out,opacity 0.2s ease-in-out,visibility 0.2s ease-in-out,box-shadow 0.1s ease-in-out;
-  transition: margin 0.2s ease-in-out,opacity 0.2s ease-in-out,visibility 0.2s ease-in-out,box-shadow 0.1s ease-in-out;
 }
 
 .c0 .pc-AvatarItem:first-child {
@@ -287,6 +285,8 @@ exports[`Avatar respects alignRight props 1`] = `
   opacity: 100%;
   visibility: visible;
   box-shadow: 0 0 0 4px #ffffff;
+  -webkit-transition: margin 0.2s ease-in-out,opacity 0.2s ease-in-out,visibility 0.2s ease-in-out,box-shadow 0.1s ease-in-out;
+  transition: margin 0.2s ease-in-out,opacity 0.2s ease-in-out,visibility 0.2s ease-in-out,box-shadow 0.1s ease-in-out;
 }
 
 .c0 .pc-AvatarStackBody:not(.pc-AvatarStack--disableExpand):hover .pc-AvatarItem:first-child {

@@ -53,10 +53,10 @@ describe('PageLayout', () => {
           <PageLayout.Header divider="line" dividerWhenNarrow="filled">
             Header
           </PageLayout.Header>
-          <PageLayout.Pane divider="line" dividerWhenNarrow="filled">
+          <PageLayout.Content>Content</PageLayout.Content>
+          <PageLayout.Pane position="start" divider="line" dividerWhenNarrow="filled">
             Pane
           </PageLayout.Pane>
-          <PageLayout.Content>Content</PageLayout.Content>
           <PageLayout.Footer dividerWhenNarrow="line">Footer</PageLayout.Footer>
         </PageLayout>
       </ThemeProvider>,
@@ -198,6 +198,17 @@ describe('PageLayout', () => {
       fireEvent.mouseUp(divider)
       const finalWidth = (pane as HTMLElement).style.getPropertyValue('--pane-width')
       expect(finalWidth).not.toEqual(initialWidth)
+    })
+  })
+
+  describe('PageLayout.Content', () => {
+    it('should support a custom element type with the `as` prop', () => {
+      const {container} = render(
+        <PageLayout.Content as="div">
+          <main>Content</main>
+        </PageLayout.Content>,
+      )
+      expect(container.firstChild?.nodeName).toEqual('DIV')
     })
   })
 })

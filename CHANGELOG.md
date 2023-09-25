@@ -1,5 +1,137 @@
 # @primer/components
 
+## 35.30.0
+
+### Minor Changes
+
+- [#3714](https://github.com/primer/react/pull/3714) [`88340269`](https://github.com/primer/react/commit/883402697efa8c9ff5c434753d4af36737b65e4b) Thanks [@iansan5653](https://github.com/iansan5653)! - Add support for controlling which side `ActionMenu` renders on (via a `side` prop on `ActionMenu.Overlay`)
+
+  <!-- Changed components: ActionMenu -->
+
+- [#3715](https://github.com/primer/react/pull/3715) [`1f889281`](https://github.com/primer/react/commit/1f88928117acf86a3acd75c405b0064f080a66e3) Thanks [@joshblack](https://github.com/joshblack)! - Add support for leadingVisual and trailingVisual props to Button
+
+  <!-- Changed components: Button -->
+
+- [#3739](https://github.com/primer/react/pull/3739) [`b90e5476`](https://github.com/primer/react/commit/b90e547639a7a906ef21cbf1a1c702c3d92210bc) Thanks [@joshblack](https://github.com/joshblack)! - Add the Column type and createColumnHelper function to easily define columns for DataTable
+
+  <!-- Changed components: DataTable -->
+
+- [#3719](https://github.com/primer/react/pull/3719) [`500e529d`](https://github.com/primer/react/commit/500e529df47ae5def4bf5cedc55fc099251c25a1) Thanks [@joshblack](https://github.com/joshblack)! - The UnderlineNav, FilterList, and FilteredSearch components will be deprecated in v36 and have been moved to the deprecated entrypoint. To use the new UnderlineNav, migrate to the component available in drafts.
+
+  <!-- Changed components: FilterList, FilteredSearch, UnderlineNav -->
+
+- [#3732](https://github.com/primer/react/pull/3732) [`8928acc3`](https://github.com/primer/react/commit/8928acc38fa32e5d752c57cb80070e5368c66314) Thanks [@joshblack](https://github.com/joshblack)! - Add default `type="button"` to `IconButton` component
+
+  <!-- Changed components: IconButton -->
+
+### Patch Changes
+
+- [#3661](https://github.com/primer/react/pull/3661) [`25693b08`](https://github.com/primer/react/commit/25693b08e8f2c89af1199c2f9d4fe38777f8a70b) Thanks [@joshblack](https://github.com/joshblack)! - Update the `children` prop for `Button` to be optional
+
+  <!-- Changed components: Button, IconButton -->
+
+- [#3737](https://github.com/primer/react/pull/3737) [`a93eca21`](https://github.com/primer/react/commit/a93eca218043a3009ac0d6768e818fe3e15bb6c9) Thanks [@joshblack](https://github.com/joshblack)! - Restore default main landmark in PageLayout.Content
+
+  <!-- Changed components: PageLayout, SplitPageLayout -->
+
+- [#3722](https://github.com/primer/react/pull/3722) [`0baa5a7f`](https://github.com/primer/react/commit/0baa5a7f6a009e6a7c77cd380f9b9ad93fdfd7cd) Thanks [@mattcosta7](https://github.com/mattcosta7)! - use isomorphic layout effects only
+
+  <!-- Changed components: InlineAutocomplete, MarkdownEditor -->
+
+## 35.29.0
+
+### Minor Changes
+
+- [#3692](https://github.com/primer/react/pull/3692) [`4046e058`](https://github.com/primer/react/commit/4046e058253cd9b2fb0f7e45cc01d12049bfd306) Thanks [@broccolinisoup](https://github.com/broccolinisoup)! - Octicons: Upgrade react-octicons to v19.7.0
+
+  <!-- Changed components: _none_ -->
+
+- [#3647](https://github.com/primer/react/pull/3647) [`e480a4a4`](https://github.com/primer/react/commit/e480a4a42d33e21c7db0c4ba364bc0fc0372ec93) Thanks [@paxos](https://github.com/paxos)! - Adds onSelectSuggestion callback to <InlineAutocomplete />
+
+  <!-- Changed components: _none_ -->
+
+- [#3607](https://github.com/primer/react/pull/3607) [`c0e22fc1`](https://github.com/primer/react/commit/c0e22fc14697627c81c8a21137c72350e8d1a703) Thanks [@langermank](https://github.com/langermank)! - Update ActionList checkbox styles to form checkbox styles (impacts ActionMenu and SelectPanel)
+
+  <!-- Changed components: ActionList -->
+
+- [#3632](https://github.com/primer/react/pull/3632) [`3a8b841c`](https://github.com/primer/react/commit/3a8b841ce7d1d411142619b7a942e896d3eb01c9) Thanks [@iansan5653](https://github.com/iansan5653)! - Allow consumers to make components that are compatible with `FormControl` by reading forwarded props in from the `useFormControlForwardedProps` hook
+
+  <!-- Changed components: FormControl -->
+
+### Patch Changes
+
+- [#3675](https://github.com/primer/react/pull/3675) [`ade10e64`](https://github.com/primer/react/commit/ade10e64afd320a5299eea68f214718a638fc290) Thanks [@radglob](https://github.com/radglob)! - PageLayout.Content no longer renders as `main` by default. Instead, developers may add a `main` landmark within `Pagelayout.Content` themselves.
+
+  <!-- Changed components: PageLayout -->
+
+- [#3709](https://github.com/primer/react/pull/3709) [`edc0168e`](https://github.com/primer/react/commit/edc0168ea0a9747d7cbe06f0f2973a8f10937db5) Thanks [@mperrotti](https://github.com/mperrotti)! - Fixes a bug where children of AvatarStack would still show a transition when the component re-renders with a different number of children. Fixes https://github.com/primer/react/issues/3688
+
+  <!-- Changed components: AvatarStack -->
+
+- [#3698](https://github.com/primer/react/pull/3698) [`d759fd32`](https://github.com/primer/react/commit/d759fd32c36369b9ef4b7efafe1a5463baa48c14) Thanks [@gracepark](https://github.com/gracepark)! - Adds the defaultOpen prop to NavList.Item
+
+  <!-- Changed components: _none_ -->
+
+- [#3662](https://github.com/primer/react/pull/3662) [`2ca670a8`](https://github.com/primer/react/commit/2ca670a882925ce2cbd447d52f1ac390efe29253) Thanks [@joshblack](https://github.com/joshblack)! - Update type exports to prevent missing export warnings
+
+  <!-- Changed components: _none_ -->
+
+- [#3654](https://github.com/primer/react/pull/3654) [`556d826a`](https://github.com/primer/react/commit/556d826af1dd9cc74f8bf22e7f0f521d185a87d2) Thanks [@langermank](https://github.com/langermank)! - Use `control` CSS var with fallback for form component border-color
+
+  <!-- Changed components: _none_ -->
+
+- [#3689](https://github.com/primer/react/pull/3689) [`5d992715`](https://github.com/primer/react/commit/5d9927154518e9076fa6e7d5a83d1d7ff94c6aee) Thanks [@jdrush89](https://github.com/jdrush89)! - Fix dialog bug where escape would move focus when dialog was closed
+
+  <!-- Changed components: _none_ -->
+
+## 35.28.0
+
+### Minor Changes
+
+- [#3563](https://github.com/primer/react/pull/3563) [`3bb6dc8c`](https://github.com/primer/react/commit/3bb6dc8cea75fa07974493cfaf95f7e51504c9d3) Thanks [@radglob](https://github.com/radglob)! - Add option to specify custom widths for PageLayout.Pane via the `width` prop.
+
+  <!-- Changed components: PageLayout -->
+
+### Patch Changes
+
+- [#3619](https://github.com/primer/react/pull/3619) [`d4ae582b`](https://github.com/primer/react/commit/d4ae582b7d2420fd460bb14c2fa45f36be714311) Thanks [@gr2m](https://github.com/gr2m)! - Include `border*Color` properties in sx to support named Primer colors
+
+  <!-- Changed components: _none_ -->
+
+- [#3561](https://github.com/primer/react/pull/3561) [`94e8d38f`](https://github.com/primer/react/commit/94e8d38f92975b12d1ded61228597c5b322a78ea) Thanks [@joshblack](https://github.com/joshblack)! - Update @react-aria/ssr dependency to ^3.5.0 to address server-side rendering mismatch when using React StrictMode
+
+  <!-- Changed components: FormControl -->
+
+- [#3613](https://github.com/primer/react/pull/3613) [`dbcd4072`](https://github.com/primer/react/commit/dbcd40727993a0faebe3033ee1556549fb5baa1a) Thanks [@langermank](https://github.com/langermank)! - [Bug] Remove `flex` from Button labels
+
+  <!-- Changed components: Button -->
+
+- [#3579](https://github.com/primer/react/pull/3579) [`66482a72`](https://github.com/primer/react/commit/66482a72000a0f1baf021e2b554e98942081d685) Thanks [@radglob](https://github.com/radglob)! - Add aria-selected value to ActionList.Item.
+
+  <!-- Changed components: ActionList -->
+
+- [#3614](https://github.com/primer/react/pull/3614) [`709024ff`](https://github.com/primer/react/commit/709024ff45a68c73ed6736e72d9db22b0a25cd33) Thanks [@iansan5653](https://github.com/iansan5653)! - Automatically reposition `InlineAutocomplete` suggestions depending on available space
+
+  <!-- Changed components: InlineAutocomplete -->
+
+- [#3609](https://github.com/primer/react/pull/3609) [`f487a8d6`](https://github.com/primer/react/commit/f487a8d653329d73f238b908eca6085f94ca3c93) Thanks [@iansan5653](https://github.com/iansan5653)! - Expose `useSlots` from `drafts/hooks`
+
+  <!-- Changed components: _none_ -->
+
+- [#3611](https://github.com/primer/react/pull/3611) [`ace603d8`](https://github.com/primer/react/commit/ace603d85e2966fbf8b3bb8b54da42bf00a56679) Thanks [@siddharthkp](https://github.com/siddharthkp)! - NavList: Fix when subNav opens automatically and shows current indicator
+
+  <!-- Changed components: NavList -->
+
+## 35.27.1
+
+### Patch Changes
+
+- [#3589](https://github.com/primer/react/pull/3589) [`d598a53b`](https://github.com/primer/react/commit/d598a53bf4e925f22df6a51aa0f8c933227c85bd) Thanks [@siddharthkp](https://github.com/siddharthkp)! - - PageLayout: Undo deprecation of `position` prop for PageLayout.Pane (Revert primer/react#3389)
+
+  - SplitPageLayout: Undo deprecation of `position` prop for SplitPageLayout.Pane (Revert primer/react#3389)
+
+  <!-- Changed components: PageLayout, SplitPageLayout -->
+
 ## 35.27.0
 
 ### Minor Changes

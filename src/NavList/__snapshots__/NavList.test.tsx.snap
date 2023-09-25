@@ -69,6 +69,11 @@ exports[`NavList renders a simple list 1`] = `
   cursor: not-allowed;
 }
 
+.c2[aria-disabled] [data-component="ActionList.Checkbox"] {
+  background-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
+  border-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
+}
+
 .c2 [data-component="ActionList.Item--DividerContainer"] {
   position: relative;
 }
@@ -150,6 +155,11 @@ exports[`NavList renders a simple list 1`] = `
   cursor: not-allowed;
 }
 
+.c6[aria-disabled] [data-component="ActionList.Checkbox"] {
+  background-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
+  border-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
+}
+
 .c6 [data-component="ActionList.Item--DividerContainer"] {
   position: relative;
 }
@@ -205,11 +215,6 @@ exports[`NavList renders a simple list 1`] = `
 }
 
 .c3:hover {
-  -webkit-text-decoration: underline;
-  text-decoration: underline;
-}
-
-.c3:focus {
   -webkit-text-decoration: underline;
   text-decoration: underline;
 }
@@ -469,6 +474,11 @@ exports[`NavList renders with groups 1`] = `
   cursor: not-allowed;
 }
 
+.c6[aria-disabled] [data-component="ActionList.Checkbox"] {
+  background-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
+  border-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
+}
+
 .c6 [data-component="ActionList.Item--DividerContainer"] {
   position: relative;
 }
@@ -550,6 +560,11 @@ exports[`NavList renders with groups 1`] = `
   cursor: not-allowed;
 }
 
+.c10[aria-disabled] [data-component="ActionList.Checkbox"] {
+  background-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
+  border-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
+}
+
 .c10 [data-component="ActionList.Item--DividerContainer"] {
   position: relative;
 }
@@ -605,11 +620,6 @@ exports[`NavList renders with groups 1`] = `
 }
 
 .c7:hover {
-  -webkit-text-decoration: underline;
-  text-decoration: underline;
-}
-
-.c7:focus {
   -webkit-text-decoration: underline;
   text-decoration: underline;
 }
@@ -905,6 +915,11 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   cursor: not-allowed;
 }
 
+.c10[aria-disabled] [data-component="ActionList.Checkbox"] {
+  background-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
+  border-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
+}
+
 .c10 [data-component="ActionList.Item--DividerContainer"] {
   position: relative;
 }
@@ -1021,6 +1036,11 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   cursor: not-allowed;
 }
 
+.c3[aria-disabled] [data-component="ActionList.Checkbox"] {
+  background-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
+  border-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
+}
+
 .c3 [data-component="ActionList.Item--DividerContainer"] {
   position: relative;
 }
@@ -1083,11 +1103,6 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
 }
 
 .c11:hover {
-  -webkit-text-decoration: underline;
-  text-decoration: underline;
-}
-
-.c11:focus {
   -webkit-text-decoration: underline;
   text-decoration: underline;
 }
@@ -1366,6 +1381,11 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   cursor: not-allowed;
 }
 
+.c10[aria-disabled] [data-component="ActionList.Checkbox"] {
+  background-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
+  border-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
+}
+
 .c10 [data-component="ActionList.Item--DividerContainer"] {
   position: relative;
 }
@@ -1488,6 +1508,11 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   cursor: not-allowed;
 }
 
+.c3[aria-disabled] [data-component="ActionList.Checkbox"] {
+  background-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
+  border-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
+}
+
 .c3 [data-component="ActionList.Item--DividerContainer"] {
   position: relative;
 }
@@ -1556,11 +1581,6 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
 }
 
 .c11:hover {
-  -webkit-text-decoration: underline;
-  text-decoration: underline;
-}
-
-.c11:focus {
   -webkit-text-decoration: underline;
   text-decoration: underline;
 }
