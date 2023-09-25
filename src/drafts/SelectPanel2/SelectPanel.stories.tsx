@@ -421,41 +421,21 @@ export const TODO1Uncontrolled = () => {
 
 export const TODO2SingleSelection = () => <h1>TODO</h1>
 
-export const TODO3NoCustomisation = () => {
-  return (
-    <>
-      <h1>TODO: Without any customisation</h1>
-      <p>Address after TODO: Uncontrolled</p>
-    </>
-  )
-}
-
 export const TODO4WithFilterButtons = () => {
   const [selectedFilter, setSelectedFilter] = React.useState<'branches' | 'tags'>('branches')
-  const [filteredRefs, setFilteredRefs] = React.useState(data.branches)
 
-  const initialSelectedLabels: string[] = ['main']
+  /* Selection */
+  const initialSelectedRef = data.ref // 'main'
+  const [selectedRef, setSelectedRef] = React.useState(initialSelectedRef)
 
-  // TODO: Single selection doesn't need an array
-  const [selectedLabelIds, setSelectedLabelIds] = React.useState<string[]>(initialSelectedLabels)
+  const onSubmit = () => {
+    data.ref = selectedRef // pretending to persist changes
 
-  const setSearchResults = (query: string, selectedFilter: 'branches' | 'tags') => {
-    if (query === '') setFilteredRefs(data[selectedFilter])
-    else {
-      // TODO: should probably add a highlight for matching text
-      // TODO: This should be a joined array, not seperate, only separated at the render level
-      setFilteredRefs(
-        data[selectedFilter]
-          .map(item => {
-            if (item.name.toLowerCase().startsWith(query)) return {priority: 1, item}
-            else if (item.name.toLowerCase().includes(query)) return {priority: 2, item}
-            else return {priority: -1, item}
-          })
-          .filter(result => result.priority > 0)
-          .map(result => result.item),
-      )
-    }
+    // eslint-disable-next-line no-console
+    console.log('form submitted')
   }
+
+  /* Filter */
 
   const [query, setQuery] = React.useState('')
   const onSearchInputChange = (event: React.KeyboardEvent<HTMLInputElement>) => {
@@ -463,52 +443,48 @@ export const TODO4WithFilterButtons = () => {
     setQuery(query)
   }
 
-  React.useEffect(
-    function updateSearchResults() {
-      setSearchResults(query, selectedFilter)
-    },
-    [query, selectedFilter],
-  )
+  const [filteredRefs, setFilteredRefs] = React.useState(data.branches)
+  // const setSearchResults = (query: string, selectedFilter: 'branches' | 'tags') => {
+  //   if (query === '') setFilteredRefs(data[selectedFilter])
+  //   else {
+  //     // TODO: should probably add a highlight for matching text
+  //     // TODO: This should be a joined array, not seperate, only separated at the render level
+  //     setFilteredRefs(
+  //       data[selectedFilter]
+  //         .map(item => {
+  //           if (item.name.toLowerCase().startsWith(query)) return {priority: 1, item}
+  //           else if (item.name.toLowerCase().includes(query)) return {priority: 2, item}
+  //           else return {priority: -1, item}
+  //         })
+  //         .filter(result => result.priority > 0)
+  //         .map(result => result.item),
+  //     )
+  //   }
+  // }
 
-  const onLabelSelect = (labelId: string) => {
-    if (!selectedLabelIds.includes(labelId)) setSelectedLabelIds([...selectedLabelIds, labelId])
-    else setSelectedLabelIds(selectedLabelIds.filter(id => id !== labelId))
-  }
+  // React.useEffect(
+  //   function updateSearchResults() {
+  //     setSearchResults(query, selectedFilter)
+  //   },
+  //   [query, selectedFilter],
+  // )
 
-  const onSubmit = () => {
-    data.issue.labelIds = selectedLabelIds // pretending to persist changes
-
-    // eslint-disable-next-line no-console
-    console.log('form submitted')
-  }
-
-  const sortingFn = (branchA: {id: string}, branchB: {id: string}) => {
-    /* Important! This sorting is only for initial selected ids, not for subsequent changes!
-      deterministic sorting for better UX: don't change positions with other selected items.
-    */
-    if (selectedLabelIds.includes(branchA.id) && selectedLabelIds.includes(branchB.id)) return 1
-    else if (selectedLabelIds.includes(branchA.id)) return -1
-    else if (selectedLabelIds.includes(branchB.id)) return 1
+  const sortingFn = (ref: {id: string}) => {
+    if (ref.id === initialSelectedRef) return -1
     else return 1
   }
+
+  const itemsToShow = query ? filteredRefs : data[selectedFilter].sort(sortingFn)
 
   return (
     <>
       <h1>With Filter Buttons</h1>
 
-      <SelectPanel
-        title="Switch branches/tags"
-        defaultOpen
-        onSubmit={onSubmit}
-        onCancel={() => {
-          // eslint-disable-next-line no-console
-          console.log('panel was closed')
-        }}
-      >
+      <SelectPanel title="Switch branches/tags" defaultOpen onSubmit={onSubmit}>
         {/* TODO: the ref types don't match here, use useProvidedRefOrCreate */}
         {/* @ts-ignore todo */}
         <SelectPanel.Button leadingIcon={GitBranchIcon} trailingIcon={TriangleDownIcon}>
-          main
+          {selectedRef}
         </SelectPanel.Button>
 
         <SelectPanel.Header>
@@ -533,45 +509,23 @@ export const TODO4WithFilterButtons = () => {
         </SelectPanel.Header>
 
         <SelectPanel.ActionList selectionVariant="single">
-          {/* slightly different view for search results view and list view */}
-          {query ? (
-            filteredRefs.length > 1 ? (
-              filteredRefs.map(label => (
-                <ActionList.Item
-                  key={label.id}
-                  onSelect={() => onLabelSelect(label.id)}
-                  selected={selectedLabelIds.includes(label.id)}
-                >
-                  {label.name}
-                  <ActionList.TrailingVisual>{label.trailingInfo}</ActionList.TrailingVisual>
-                </ActionList.Item>
-              ))
-            ) : (
-              <SelectPanel.EmptyMessage>
-                No {selectedFilter} found for &quot;{query}&quot;
-              </SelectPanel.EmptyMessage>
-            )
+          {itemsToShow.length === 0 ? (
+            <SelectPanel.EmptyMessage>No labels found for &quot;{'query'}&quot;</SelectPanel.EmptyMessage>
           ) : (
-            <>
-              {data[selectedFilter].sort(sortingFn).map(item => {
-                return (
-                  <>
-                    <ActionList.Item
-                      key={item.id}
-                      onSelect={() => onLabelSelect(item.id)}
-                      selected={selectedLabelIds.includes(item.id)}
-                    >
-                      {item.name}
-                      <ActionList.TrailingVisual>{item.trailingInfo}</ActionList.TrailingVisual>
-                    </ActionList.Item>
-                  </>
-                )
-              })}
-            </>
+            itemsToShow.map(item => (
+              <ActionList.Item
+                key={item.id}
+                selected={selectedRef === item.id}
+                onSelect={() => setSelectedRef(item.id)}
+              >
+                {item.name}
+                <ActionList.TrailingVisual>{item.trailingInfo}</ActionList.TrailingVisual>
+              </ActionList.Item>
+            ))
           )}
         </SelectPanel.ActionList>
+
         <SelectPanel.Footer>
-          {/* TODO: Can't disable Cancel and Save yet */}
           <SelectPanel.SecondaryButton as="a" href={`/${selectedFilter}`}>
             View all {selectedFilter}
           </SelectPanel.SecondaryButton>
