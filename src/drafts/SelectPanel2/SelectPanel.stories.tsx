@@ -97,7 +97,7 @@ export const AControlled = () => {
         <SelectPanel.Header>
           <SelectPanel.SearchInput onChange={onSearchInputChange} />
         </SelectPanel.Header>
-        <SelectPanel.ActionList>
+        <ActionList>
           {itemsToShow.length === 0 ? (
             <SelectPanel.EmptyMessage>No labels found for &quot;{query}&quot;</SelectPanel.EmptyMessage>
           ) : (
@@ -113,7 +113,7 @@ export const AControlled = () => {
               </ActionList.Item>
             ))
           )}
-        </SelectPanel.ActionList>
+        </ActionList>
         <SelectPanel.Footer>
           <SelectPanel.SecondaryButton>Edit labels</SelectPanel.SecondaryButton>
         </SelectPanel.Footer>
@@ -187,7 +187,7 @@ const SuspendedActionList: React.FC<{query: string}> = ({query}) => {
   const itemsToShow = query ? filteredLabels : data.labels.sort(sortingFn)
 
   return (
-    <SelectPanel.ActionList>
+    <ActionList>
       {itemsToShow.length === 0 ? (
         <SelectPanel.EmptyMessage>No labels found for &quot;{query}&quot;</SelectPanel.EmptyMessage>
       ) : (
@@ -203,7 +203,7 @@ const SuspendedActionList: React.FC<{query: string}> = ({query}) => {
           </ActionList.Item>
         ))
       )}
-    </SelectPanel.ActionList>
+    </ActionList>
   )
 }
 
@@ -288,7 +288,7 @@ const SearchableUserList: React.FC<{
   const itemsToShow = query ? filteredUsers : repository.collaborators.sort(sortingFn)
 
   return (
-    <SelectPanel.ActionList>
+    <ActionList>
       {itemsToShow.length === 0 ? (
         <SelectPanel.EmptyMessage>No users found for &quot;{query}&quot;</SelectPanel.EmptyMessage>
       ) : (
@@ -306,7 +306,7 @@ const SearchableUserList: React.FC<{
           </ActionList.Item>
         ))
       )}
-    </SelectPanel.ActionList>
+    </ActionList>
   )
 }
 
@@ -401,7 +401,7 @@ export const TODO1Uncontrolled = () => {
           <SelectPanel.SearchInput />
         </SelectPanel.Header>
 
-        <SelectPanel.ActionList>
+        <ActionList>
           {data.labels.map(label => (
             <ActionList.Item key={label.id}>
               <ActionList.LeadingVisual>{getCircle(label.color)}</ActionList.LeadingVisual>
@@ -409,7 +409,7 @@ export const TODO1Uncontrolled = () => {
               <ActionList.Description variant="block">{label.description}</ActionList.Description>
             </ActionList.Item>
           ))}
-        </SelectPanel.ActionList>
+        </ActionList>
 
         <SelectPanel.Footer>
           <SelectPanel.SecondaryButton>Edit labels</SelectPanel.SecondaryButton>
@@ -506,7 +506,7 @@ export const HWithFilterButtons = () => {
           </Box>
         </SelectPanel.Header>
 
-        <SelectPanel.ActionList selectionVariant="single">
+        <ActionList selectionVariant="single">
           {itemsToShow.length === 0 ? (
             <SelectPanel.EmptyMessage>No labels found for &quot;{'query'}&quot;</SelectPanel.EmptyMessage>
           ) : (
@@ -521,7 +521,7 @@ export const HWithFilterButtons = () => {
               </ActionList.Item>
             ))
           )}
-        </SelectPanel.ActionList>
+        </ActionList>
 
         <SelectPanel.Footer>
           <SelectPanel.SecondaryButton as="a" href={`/${selectedFilter}`}>
@@ -569,7 +569,7 @@ export const EMinimal = () => {
         {/* @ts-ignore todo */}
         <SelectPanel.Button>Assign label</SelectPanel.Button>
 
-        <SelectPanel.ActionList>
+        <ActionList>
           {itemsToShow.map(label => (
             <ActionList.Item
               key={label.id}
@@ -581,7 +581,7 @@ export const EMinimal = () => {
               <ActionList.Description variant="block">{label.description}</ActionList.Description>
             </ActionList.Item>
           ))}
-        </SelectPanel.ActionList>
+        </ActionList>
       </SelectPanel>
     </>
   )
@@ -639,7 +639,7 @@ export const FExternalAnchor = () => {
         }}
         onCancel={() => setOpen(false)} // close on cancel
       >
-        <SelectPanel.ActionList>
+        <ActionList>
           {itemsToShow.map(label => (
             <ActionList.Item
               key={label.id}
@@ -651,7 +651,7 @@ export const FExternalAnchor = () => {
               <ActionList.Description variant="block">{label.description}</ActionList.Description>
             </ActionList.Item>
           ))}
-        </SelectPanel.ActionList>
+        </ActionList>
       </SelectPanel>
     </>
   )
@@ -737,13 +737,13 @@ export const GOpenFromMenu = () => {
         onCancel={() => setSelectPanelOpen(false)}
         height="medium"
       >
-        <SelectPanel.ActionList>
+        <ActionList>
           {itemsToShow.map(item => (
             <ActionList.Item key={item} onSelect={() => onEventSelect(item)} selected={selectedEvents.includes(item)}>
               {item}
             </ActionList.Item>
           ))}
-        </SelectPanel.ActionList>
+        </ActionList>
       </SelectPanel>
     </>
   )

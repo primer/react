@@ -54,6 +54,7 @@ export const List = React.forwardRef<HTMLUListElement, ActionListProps>(
         sx={merge(styles, sxProp as SxProp)}
         role={role || listRole}
         aria-labelledby={listLabelledBy}
+        data-component="ActionList"
         {...props}
         ref={forwardedRef}
       >

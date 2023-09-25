@@ -16,6 +16,7 @@ import {
   Spinner,
   Text,
 } from '../../../src/index'
+import {ActionListContainerContext} from '../../../src/ActionList/ActionListContainerContext'
 import {useSlots} from '../../hooks/useSlots'
 import {ClearIcon} from './tmp-ClearIcon'
 import {useProvidedRefOrCreate} from '../../hooks'
@@ -60,7 +61,7 @@ const SelectPanel = props => {
   }
   // @ts-ignore todo
   const onInternalSubmit = event => {
-    event.preventDefault()
+    event?.preventDefault()
     if (props.open === 'undefined') setInternalOpen(false)
     if (typeof props.onSubmit === 'function') props.onSubmit(event)
   }
@@ -100,10 +101,25 @@ const SelectPanel = props => {
             setSearchQuery,
           }}
         >
-          <Box as="form" onSubmit={onInternalSubmit} sx={{display: 'flex', flexDirection: 'column', height: '100%'}}>
+          <Box
+            as="form"
+            onSubmit={onInternalSubmit}
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              height: '100%',
+              '[data-component=ActionList]': {
+                flexShrink: 1,
+                flexGrow: 1,
+                overflowY: 'auto',
+              },
+            }}
+          >
             {/* render default header as fallback */}
             {slots.header || <SelectPanel.Header />}
-            {childrenInBody}
+            <ActionListContainerContext.Provider value={{selectionVariant: props.selectionVariant || 'multiple'}}>
+              {childrenInBody}
+            </ActionListContainerContext.Provider>
             {/* render default footer as fallback */}
             {slots.footer || <SelectPanel.Footer />}
           </Box>
@@ -214,25 +230,6 @@ const SelectPanelSearchInput = props => {
   )
 }
 SelectPanel.SearchInput = SelectPanelSearchInput
-
-const SelectPanelActionList: React.FC<React.PropsWithChildren<ActionListProps>> = props => {
-  /* features to implement for uncontrolled:
-     1. select
-     2. sort
-     3. divider
-     4. search
-     5. different results view
-  */
-
-  return (
-    <>
-      <ActionList sx={{flexShrink: 1, flexGrow: 1, overflowY: 'auto'}} selectionVariant="multiple" {...props}>
-        {props.children}
-      </ActionList>
-    </>
-  )
-}
-SelectPanel.ActionList = SelectPanelActionList
 
 const SelectPanelFooter = ({...props}) => {
   const {onCancel} = React.useContext(SelectPanelContext)
