@@ -298,6 +298,7 @@ exports[`NavList renders a simple list 1`] = `
   >
     <ul
       class="c0"
+      data-component="ActionList"
     >
       <li
         class="c1 c2"
@@ -703,6 +704,7 @@ exports[`NavList renders with groups 1`] = `
   >
     <ul
       class="c0"
+      data-component="ActionList"
     >
       <li
         aria-hidden="true"
@@ -1186,6 +1188,7 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   >
     <ul
       class="c0"
+      data-component="ActionList"
     >
       <li
         aria-labelledby="react-aria-1"
@@ -1664,6 +1667,7 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   >
     <ul
       class="c0"
+      data-component="ActionList"
     >
       <li
         aria-labelledby="react-aria-1"
