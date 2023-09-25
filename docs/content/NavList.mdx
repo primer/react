@@ -8,6 +8,9 @@ storybook: '/react/storybook/?path=/story/components-navlist--simple'
 ---
 
 import data from '../../src/NavList/NavList.docs.json'
+import DeprecationBanner from '../components/DeprecationBanner'
+
+<DeprecationBanner replacementUrl={'/design/components/nav-list/react'} />
 
 ```js
 import {NavList} from '@primer/react'

@@ -40,7 +40,7 @@ const components = docsFiles.map(docsFilepath => {
 
   // Get the story name prefix for the default story id
   const storyPrefix = {
-    draft: 'draft-',
+    draft: 'drafts-',
     experimental: 'experimental-',
     deprecated: 'deprecated-',
     alpha: '',
