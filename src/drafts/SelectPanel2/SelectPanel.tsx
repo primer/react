@@ -20,11 +20,13 @@ import {useSlots} from '../../hooks/useSlots'
 import {ClearIcon} from './tmp-ClearIcon'
 
 const SelectPanelContext = React.createContext<{
+  title: string
   onCancel: () => void
   onClearSelection: undefined | (() => void)
   searchQuery: string
   setSearchQuery: () => void
 }>({
+  title: '',
   onCancel: () => {},
   onClearSelection: undefined,
   searchQuery: '',
@@ -70,6 +72,8 @@ const SelectPanel = props => {
   /* Search/Filter */
   const [searchQuery, setSearchQuery] = React.useState('')
 
+  const [slots, childrenInBody] = useSlots(contents, {header: SelectPanelHeader, footer: SelectPanelFooter})
+
   return (
     <>
       <AnchoredOverlay
@@ -87,6 +91,7 @@ const SelectPanel = props => {
         */}
         <SelectPanelContext.Provider
           value={{
+            title: props.title,
             onCancel: onInternalClose,
             onClearSelection: props.onClearSelection ? onInternalClearSelection : undefined,
             searchQuery,
@@ -95,7 +100,11 @@ const SelectPanel = props => {
           }}
         >
           <Box as="form" onSubmit={onInternalSubmit} sx={{display: 'flex', flexDirection: 'column', height: '100%'}}>
-            {contents}
+            {/* render default header as fallback */}
+            {slots.header || <SelectPanel.Header />}
+            {childrenInBody}
+            {/* render default footer as fallback */}
+            {slots.footer || <SelectPanel.Footer />}
           </Box>
         </SelectPanelContext.Provider>
       </AnchoredOverlay>
@@ -111,16 +120,31 @@ SelectPanel.Button = SelectPanelButton
 
 const SelectPanelHeader: React.FC<React.PropsWithChildren> = ({children, ...props}) => {
   const [slots, childrenWithoutSlots] = useSlots(children, {
-    heading: SelectPanelHeading,
     searchInput: SelectPanelSearchInput,
   })
 
-  const {onCancel, onClearSelection} = React.useContext(SelectPanelContext)
+  const {title, onCancel, onClearSelection} = React.useContext(SelectPanelContext)
 
   return (
-    <Box id="header" sx={{padding: 2, borderBottom: '1px solid', borderColor: 'border.default'}} {...props}>
-      <Box sx={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingBottom: 2}}>
-        {slots.heading}
+    <Box
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 2,
+        padding: 2,
+        borderBottom: '1px solid',
+        borderColor: 'border.default',
+      }}
+      {...props}
+    >
+      <Box sx={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+        {/* heading element is intentionally hardcoded to h1, it is not customisable 
+            see https://github.com/github/primer/issues/2578 for context
+        */}
+
+        <Heading as="h1" sx={{fontSize: 14, fontWeight: 600, marginLeft: 2}} {...props}>
+          {title}
+        </Heading>
         <Box>
           {/* Will not need tooltip after https://github.com/primer/react/issues/2008 */}
           {onClearSelection ? (
@@ -139,17 +163,6 @@ const SelectPanelHeader: React.FC<React.PropsWithChildren> = ({children, ...prop
   )
 }
 SelectPanel.Header = SelectPanelHeader
-
-const SelectPanelHeading: React.FC<React.PropsWithChildren<{children: string}>> = ({children, ...props}) => {
-  // heading element is intentionally hardcoded to h1, it is not customisable
-  // see https://github.com/github/primer/issues/2578 for context
-  return (
-    <Heading as="h1" sx={{fontSize: 14, fontWeight: 600, marginLeft: 2}} {...props}>
-      {children}
-    </Heading>
-  )
-}
-SelectPanel.Heading = SelectPanelHeading
 
 // @ts-ignore todo
 const SelectPanelSearchInput = props => {
@@ -212,7 +225,7 @@ const SelectPanelActionList: React.FC<React.PropsWithChildren<ActionListProps>> 
 
   return (
     <>
-      <ActionList id="body" sx={{flexShrink: 1, flexGrow: 1, overflowY: 'auto'}} selectionVariant="multiple" {...props}>
+      <ActionList sx={{flexShrink: 1, flexGrow: 1, overflowY: 'auto'}} selectionVariant="multiple" {...props}>
         {props.children}
       </ActionList>
     </>
@@ -225,7 +238,6 @@ const SelectPanelFooter = ({...props}) => {
 
   return (
     <Box
-      id="footer"
       sx={{
         display: 'flex',
         justifyContent: 'space-between',
