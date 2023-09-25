@@ -1,7 +1,7 @@
 import React from 'react'
 import {SelectPanel} from './SelectPanel'
-import {ActionList, Avatar, Box, Button} from '../../../src/index'
-import {GitBranchIcon, TriangleDownIcon} from '@primer/octicons-react'
+import {ActionList, ActionMenu, Avatar, Box, Button} from '../../../src/index'
+import {ArrowRightIcon, EyeIcon, GitBranchIcon, TriangleDownIcon} from '@primer/octicons-react'
 import data from './mock-data'
 
 const getCircle = (color: string) => (
@@ -571,6 +571,181 @@ export const EMinimal = () => {
         {/* @ts-ignore todo */}
         <SelectPanel.Button>Assign label</SelectPanel.Button>
 
+        <SelectPanel.ActionList>
+          {itemsToShow.map(label => (
+            <ActionList.Item
+              key={label.id}
+              onSelect={() => onLabelSelect(label.id)}
+              selected={selectedLabelIds.includes(label.id)}
+            >
+              <ActionList.LeadingVisual>{getCircle(label.color)}</ActionList.LeadingVisual>
+              {label.name}
+              <ActionList.Description variant="block">{label.description}</ActionList.Description>
+            </ActionList.Item>
+          ))}
+        </SelectPanel.ActionList>
+      </SelectPanel>
+    </>
+  )
+}
+
+export const FExternalAnchor = () => {
+  const initialSelectedLabels = data.issue.labelIds // mock initial state: has selected labels
+  const [selectedLabelIds, setSelectedLabelIds] = React.useState<string[]>(initialSelectedLabels)
+
+  /* Selection */
+  const onLabelSelect = (labelId: string) => {
+    if (!selectedLabelIds.includes(labelId)) setSelectedLabelIds([...selectedLabelIds, labelId])
+    else setSelectedLabelIds(selectedLabelIds.filter(id => id !== labelId))
+  }
+
+  const onSubmit = () => {
+    data.issue.labelIds = selectedLabelIds // pretending to persist changes
+
+    // eslint-disable-next-line no-console
+    console.log('form submitted')
+  }
+
+  const sortingFn = (itemA: {id: string}, itemB: {id: string}) => {
+    const initialSelectedIds = data.issue.labelIds
+    if (initialSelectedIds.includes(itemA.id) && initialSelectedIds.includes(itemB.id)) return 1
+    else if (initialSelectedIds.includes(itemA.id)) return -1
+    else if (initialSelectedIds.includes(itemB.id)) return 1
+    else return 1
+  }
+
+  const itemsToShow = data.labels.sort(sortingFn)
+
+  const anchorRef = React.useRef<HTMLButtonElement>(null)
+  const [open, setOpen] = React.useState(false)
+
+  return (
+    <>
+      <h1>With External Anchor</h1>
+      <p>
+        To use an external anchor, pass an `anchorRef` to `SelectPanel`. You would also need to control the `open` state
+        with `onSubmit` and `onCancel`
+      </p>
+
+      <Button ref={anchorRef} variant="primary" onClick={() => setOpen(!open)}>
+        Assign label
+      </Button>
+
+      <SelectPanel
+        title="Select labels"
+        anchorRef={anchorRef}
+        open={open} // this needs to be set with the button
+        onSubmit={() => {
+          setOpen(false) // close on submit
+          onSubmit()
+        }}
+        onCancel={() => setOpen(false)} // close on cancel
+      >
+        <SelectPanel.ActionList>
+          {itemsToShow.map(label => (
+            <ActionList.Item
+              key={label.id}
+              onSelect={() => onLabelSelect(label.id)}
+              selected={selectedLabelIds.includes(label.id)}
+            >
+              <ActionList.LeadingVisual>{getCircle(label.color)}</ActionList.LeadingVisual>
+              {label.name}
+              <ActionList.Description variant="block">{label.description}</ActionList.Description>
+            </ActionList.Item>
+          ))}
+        </SelectPanel.ActionList>
+      </SelectPanel>
+    </>
+  )
+}
+
+export const GOpenFromMenu = () => {
+  const initialSelectedLabels = data.issue.labelIds // mock initial state: has selected labels
+  const [selectedLabelIds, setSelectedLabelIds] = React.useState<string[]>(initialSelectedLabels)
+
+  /* Selection */
+  const onLabelSelect = (labelId: string) => {
+    if (!selectedLabelIds.includes(labelId)) setSelectedLabelIds([...selectedLabelIds, labelId])
+    else setSelectedLabelIds(selectedLabelIds.filter(id => id !== labelId))
+  }
+
+  const onSubmit = () => {
+    data.issue.labelIds = selectedLabelIds // pretending to persist changes
+
+    // eslint-disable-next-line no-console
+    console.log('form submitted')
+  }
+
+  const sortingFn = (itemA: {id: string}, itemB: {id: string}) => {
+    const initialSelectedIds = data.issue.labelIds
+    if (initialSelectedIds.includes(itemA.id) && initialSelectedIds.includes(itemB.id)) return 1
+    else if (initialSelectedIds.includes(itemA.id)) return -1
+    else if (initialSelectedIds.includes(itemB.id)) return 1
+    else return 1
+  }
+
+  const itemsToShow = data.labels.sort(sortingFn)
+
+  const [selectPanelOpen, setSelectPanelOpen] = React.useState(false)
+  const buttonRef = React.useRef<HTMLButtonElement>(null)
+
+  return (
+    <>
+      <h1>Open from ActionMenu</h1>
+      <p>
+        To open SelectPanel from a menu, you would need to use an external anchor and pass `anchorRef` to `SelectPanel`.
+        You would also need to control the `open` state with `onSubmit` and `onCancel`.
+        <br />
+        <br />
+        Important: Pass the same `anchorRef` to both ActionMenu and SelectPanel, otherwise the SelectPanel would not be
+        visible.
+      </p>
+
+      <ActionMenu anchorRef={buttonRef}>
+        <ActionMenu.Button leadingVisual={EyeIcon} ref={buttonRef}>
+          Unwatch
+        </ActionMenu.Button>
+        <ActionMenu.Overlay width="medium">
+          <ActionList selectionVariant="single">
+            <ActionList.Item>
+              Participating and @mentions
+              <ActionList.Description variant="block">
+                Only receive notifications from this repository when participating or @mentioned.
+              </ActionList.Description>
+            </ActionList.Item>
+            <ActionList.Item selected={true}>
+              All activity
+              <ActionList.Description variant="block">
+                Notified of all notifications on this repository.
+              </ActionList.Description>
+            </ActionList.Item>
+            <ActionList.Item>
+              Ignore
+              <ActionList.Description variant="block">Never be notified.</ActionList.Description>
+            </ActionList.Item>
+            <ActionList.Item onSelect={() => setSelectPanelOpen(true)}>
+              Custom
+              <ActionList.TrailingVisual>
+                <ArrowRightIcon />
+              </ActionList.TrailingVisual>
+              <ActionList.Description variant="block">
+                Select events you want to be notified of in addition to participating and @mentions.
+              </ActionList.Description>
+            </ActionList.Item>
+          </ActionList>
+        </ActionMenu.Overlay>
+      </ActionMenu>
+
+      <SelectPanel
+        title="Select labels"
+        open={selectPanelOpen}
+        anchorRef={buttonRef}
+        onSubmit={() => {
+          setSelectPanelOpen(false)
+          onSubmit()
+        }}
+        onCancel={() => setSelectPanelOpen(false)}
+      >
         <SelectPanel.ActionList>
           {itemsToShow.map(label => (
             <ActionList.Item
