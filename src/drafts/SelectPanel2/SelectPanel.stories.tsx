@@ -421,14 +421,15 @@ export const TODO1Uncontrolled = () => {
 
 export const TODO2SingleSelection = () => <h1>TODO</h1>
 
-export const TODO4WithFilterButtons = () => {
+export const FWithFilterButtons = () => {
   const [selectedFilter, setSelectedFilter] = React.useState<'branches' | 'tags'>('branches')
 
   /* Selection */
-  const initialSelectedRef = data.ref // 'main'
-  const [selectedRef, setSelectedRef] = React.useState(initialSelectedRef)
+  const [savedInitialRef, setSavedInitialRef] = React.useState(data.ref)
+  const [selectedRef, setSelectedRef] = React.useState(savedInitialRef)
 
   const onSubmit = () => {
+    setSavedInitialRef(selectedRef)
     data.ref = selectedRef // pretending to persist changes
 
     // eslint-disable-next-line no-console
@@ -436,7 +437,6 @@ export const TODO4WithFilterButtons = () => {
   }
 
   /* Filter */
-
   const [query, setQuery] = React.useState('')
   const onSearchInputChange = (event: React.KeyboardEvent<HTMLInputElement>) => {
     const query = event.currentTarget.value
@@ -444,33 +444,31 @@ export const TODO4WithFilterButtons = () => {
   }
 
   const [filteredRefs, setFilteredRefs] = React.useState(data.branches)
-  // const setSearchResults = (query: string, selectedFilter: 'branches' | 'tags') => {
-  //   if (query === '') setFilteredRefs(data[selectedFilter])
-  //   else {
-  //     // TODO: should probably add a highlight for matching text
-  //     // TODO: This should be a joined array, not seperate, only separated at the render level
-  //     setFilteredRefs(
-  //       data[selectedFilter]
-  //         .map(item => {
-  //           if (item.name.toLowerCase().startsWith(query)) return {priority: 1, item}
-  //           else if (item.name.toLowerCase().includes(query)) return {priority: 2, item}
-  //           else return {priority: -1, item}
-  //         })
-  //         .filter(result => result.priority > 0)
-  //         .map(result => result.item),
-  //     )
-  //   }
-  // }
+  const setSearchResults = (query: string, selectedFilter: 'branches' | 'tags') => {
+    if (query === '') setFilteredRefs(data[selectedFilter])
+    else {
+      setFilteredRefs(
+        data[selectedFilter]
+          .map(item => {
+            if (item.name.toLowerCase().startsWith(query)) return {priority: 1, item}
+            else if (item.name.toLowerCase().includes(query)) return {priority: 2, item}
+            else return {priority: -1, item}
+          })
+          .filter(result => result.priority > 0)
+          .map(result => result.item),
+      )
+    }
+  }
 
-  // React.useEffect(
-  //   function updateSearchResults() {
-  //     setSearchResults(query, selectedFilter)
-  //   },
-  //   [query, selectedFilter],
-  // )
+  React.useEffect(
+    function updateSearchResults() {
+      setSearchResults(query, selectedFilter)
+    },
+    [query, selectedFilter],
+  )
 
   const sortingFn = (ref: {id: string}) => {
-    if (ref.id === initialSelectedRef) return -1
+    if (ref.id === savedInitialRef) return -1
     else return 1
   }
 
@@ -484,7 +482,7 @@ export const TODO4WithFilterButtons = () => {
         {/* TODO: the ref types don't match here, use useProvidedRefOrCreate */}
         {/* @ts-ignore todo */}
         <SelectPanel.Button leadingIcon={GitBranchIcon} trailingIcon={TriangleDownIcon}>
-          {selectedRef}
+          {savedInitialRef}
         </SelectPanel.Button>
 
         <SelectPanel.Header>
