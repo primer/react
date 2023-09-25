@@ -625,7 +625,13 @@ export const FExternalAnchor = () => {
         with `onSubmit` and `onCancel`
       </p>
 
-      <Button ref={anchorRef} variant="primary" onClick={() => setOpen(!open)}>
+      <Button
+        ref={anchorRef}
+        variant="primary"
+        onClick={() => setOpen(!open)}
+        aria-haspopup
+        aria-expanded={open ? true : undefined}
+      >
         Assign label
       </Button>
 
