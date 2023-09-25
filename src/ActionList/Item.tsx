@@ -70,9 +70,8 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       if (selectionVariant === 'single') itemRole = 'menuitemradio'
       else if (selectionVariant === 'multiple') itemRole = 'menuitemcheckbox'
       else itemRole = 'menuitem'
-    } else if (listRole === 'listbox') {
+    } else if (container === 'SelectPanel' && listRole === 'listbox') {
       if (selectionVariant !== undefined) itemRole = 'option'
-      else itemRole = 'listitem'
     }
 
     const {theme} = useTheme()
