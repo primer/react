@@ -22,16 +22,16 @@ outputs:
     value: ${{ steps.pagerduty.outputs.id }}
   previous-schedule-start:
     description: 'The start date for the previous final schedule'
-    value: ${{ steps.pagetduty.outputs.previous-schedule-start }}
+    value: ${{ steps.pagerduty.outputs.previous-schedule-start }}
   previous-schedule-end:
     description: 'The end date for the previous final schedule'
-    value: ${{ steps.pagetduty.outputs.previous-schedule-end }}
+    value: ${{ steps.pagerduty.outputs.previous-schedule-end }}
   previous-schedule-id:
     description: 'The id for the previous final schedule'
-    value: ${{ steps.pagetduty.outputs.previous-schedule-id }}
+    value: ${{ steps.pagerduty.outputs.previous-schedule-id }}
   previous-schedule-user:
     description: 'The individual on call for the previous final schedule'
-    value: ${{ steps.pagetduty.outputs.previous-schedule-user }}
+    value: ${{ steps.pagerduty.outputs.previous-schedule-user }}
 runs:
   using: 'composite'
   steps:
@@ -61,14 +61,6 @@ runs:
 
           // Get previous schedule
           const previousSchedule = await getSchedule(previousScheduleEnd);
-
-          core.info('Debug schedule:');
-          core.info(JSON.stringify({
-            start: previousSchedule.start,
-            end: previousSchedule.end,
-            id: previousSchedule.id,
-            user: previousSchedule.user,
-          }, null, 2));
 
           core.setOutput('previous-schedule-start', previousSchedule.start);
           core.setOutput('previous-schedule-end', previousSchedule.end);
