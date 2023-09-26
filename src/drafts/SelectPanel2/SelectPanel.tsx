@@ -105,7 +105,7 @@ const SelectPanel = props => {
             {slots.header || <SelectPanel.Header />}
             {childrenInBody}
             {/* render default footer as fallback */}
-            {slots.footer || <SelectPanel.Footer />}
+            {slots.footer}
           </Box>
         </SelectPanelContext.Provider>
       </AnchoredOverlay>

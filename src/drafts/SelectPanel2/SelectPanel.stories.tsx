@@ -582,6 +582,7 @@ export const EMinimal = () => {
             </ActionList.Item>
           ))}
         </SelectPanel.ActionList>
+        <SelectPanel.Footer />
       </SelectPanel>
     </>
   )
@@ -658,6 +659,7 @@ export const FExternalAnchor = () => {
             </ActionList.Item>
           ))}
         </SelectPanel.ActionList>
+        <SelectPanel.Footer />
       </SelectPanel>
     </>
   )
@@ -768,6 +770,7 @@ export const GOpenFromMenu = () => {
             </ActionList.Item>
           ))}
         </SelectPanel.ActionList>
+        <SelectPanel.Footer />
       </SelectPanel>
     </>
   )
