@@ -11,8 +11,7 @@ concurrency:
 permissions: {}
 
 jobs:
-  create-tracking-issue:
-    needs: release-conductor
+  create-release-issue:
     runs-on: ubuntu-latest
     permissions:
       issues: write
