@@ -8,9 +8,9 @@ import {
   Heading,
   Box,
   AnchoredOverlay,
+  AnchoredOverlayProps,
   Tooltip,
   TextInput,
-  AnchoredOverlayProps,
   Spinner,
   Text,
 } from '../../../src/index'
@@ -18,6 +18,7 @@ import {ActionListContainerContext} from '../../../src/ActionList/ActionListCont
 import {useSlots} from '../../hooks/useSlots'
 import {ClearIcon} from './tmp-ClearIcon'
 import {useProvidedRefOrCreate} from '../../hooks'
+import {useFocusZone} from '../../hooks/useFocusZone'
 
 const SelectPanelContext = React.createContext<{
   title: string
@@ -54,12 +55,14 @@ const SelectPanel = props => {
   React.useEffect(() => setInternalOpen(props.open), [props.open])
 
   const onInternalClose = () => {
+    // TODO: Lol this is wrong, it should be undefined, not string "undefined"
     if (props.open === 'undefined') setInternalOpen(false)
     if (typeof props.onCancel === 'function') props.onCancel()
   }
   // @ts-ignore todo
   const onInternalSubmit = event => {
     event.preventDefault()
+    // TODO: Lol this is wrong, it should be undefined, not string "undefined"
     if (props.open === 'undefined') setInternalOpen(false)
     if (typeof props.onSubmit === 'function') props.onSubmit(event)
   }
@@ -73,6 +76,11 @@ const SelectPanel = props => {
 
   const [slots, childrenInBody] = useSlots(contents, {header: SelectPanelHeader, footer: SelectPanelFooter})
 
+  const {containerRef: listContainerRef} = useFocusZone(
+    {bindKeys: FocusKeys.ArrowVertical | FocusKeys.HomeAndEnd | FocusKeys.PageUpDown},
+    [internalOpen],
+  )
+
   return (
     <>
       <AnchoredOverlay
@@ -84,11 +92,13 @@ const SelectPanel = props => {
         onClose={onInternalClose}
         width={props.width || 'medium'}
         height={props.height || 'large'}
-        focusZoneSettings={{bindKeys: FocusKeys.Tab}}
+        focusZoneSettings={{
+          // we only want focus trap from the overlay,
+          // we don't want focus zone on the whole overlay because
+          // we have a focus zone on the list
+          disabled: true,
+        }}
       >
-        {/* TODO: Keyboard navigation of actionlist should be arrow keys
-            with tabs to enter and escape
-        */}
         <SelectPanelContext.Provider
           value={{
             title: props.title,
@@ -106,25 +116,30 @@ const SelectPanel = props => {
               display: 'flex',
               flexDirection: 'column',
               height: '100%',
-              '[data-component=ActionList]': {
-                flexShrink: 1,
-                flexGrow: 1,
-                overflowY: 'auto',
-              },
             }}
           >
             {/* render default header as fallback */}
             {slots.header || <SelectPanel.Header />}
-            <ActionListContainerContext.Provider
-              value={{
-                container: 'SelectPanel',
-                listRole: 'listbox',
-                selectionAttribute: 'aria-selected',
-                selectionVariant: props.selectionVariant || 'multiple',
+            <Box
+              as="div"
+              ref={listContainerRef as React.RefObject<HTMLDivElement>}
+              sx={{
+                flexShrink: 1,
+                flexGrow: 1,
+                overflowY: 'auto',
               }}
             >
-              {childrenInBody}
-            </ActionListContainerContext.Provider>
+              <ActionListContainerContext.Provider
+                value={{
+                  container: 'SelectPanel',
+                  listRole: 'listbox',
+                  selectionAttribute: 'aria-selected',
+                  selectionVariant: props.selectionVariant || 'multiple',
+                }}
+              >
+                {childrenInBody}
+              </ActionListContainerContext.Provider>
+            </Box>
             {/* render default footer as fallback */}
             {slots.footer || <SelectPanel.Footer />}
           </Box>
