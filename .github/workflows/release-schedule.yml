@@ -1,6 +1,10 @@
 name: Release Schedule
 on:
   workflow_dispatch:
+    inputs:
+      debug:
+        type: boolean
+        description: 'Run in debug mode. This will not create any issues'
   schedule:
     - cron: '30 13 * * MON'
 
@@ -39,6 +43,7 @@ jobs:
           PREVIOUS_SCHEDULE_START: ${{ steps.pagerduty.outputs.previous-schedule-start }}
           PREVIOUS_SCHEDULE_END: ${{ steps.pagerduty.outputs.previous-schedule-end }}
           PREVIOUS_SCHEDULE_ID: ${{ steps.pagerduty.outputs.previous-schedule-id }}
+          DEBUG_FLAG: ${{ github.event.inputs.debug }}
         with:
           script: |
             const {
@@ -57,11 +62,13 @@ jobs:
               PREVIOUS_SCHEDULE_START,
               PREVIOUS_SCHEDULE_END,
               PREVIOUS_SCHEDULE_ID,
+              DEBUG_FLAG,
             } = process.env;
 
-            core.info(`Running for schedule [${FINAL_SCHEDULE_ID}] from ${SCHEDULE_START} till ${SCHEDULE_END}`);
+            core.info(`Running for schedule [${SCHEDULE_ID}] from ${SCHEDULE_START} till ${SCHEDULE_END}`);
             core.info(`Release conductor: ${RELEASE_CONDUCTOR}`);
 
+            const debug = DEBUG_FLAG === 'true';
             const today = new Date();
             const start = parseISO(SCHEDULE_START);
             const end = parseISO(SCHEDULE_END);
@@ -158,13 +165,20 @@ jobs:
               ISSUE_BODY += '\n';
               ISSUE_BODY += notes;
 
-              await github.rest.issues.create({
+              const issue = {
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 title: ISSUE_TITLE,
                 body: ISSUE_BODY,
                 assignees: [RELEASE_CONDUCTOR],
-              });
+              };
+
+              if (debug) {
+                core.info('Creating issue:');
+                core.info(issue);
+              } else {
+                await github.rest.issues.create(issue);
+              }
               return;
             }
 
@@ -172,6 +186,7 @@ jobs:
 
             // We already have an issue open for the current release
             if (releaseIssue.body.includes(id)) {
+              core.info(`A release issue already exists with id: ${id}`);
               return;
             }
 
@@ -194,21 +209,32 @@ jobs:
               ISSUE_BODY += '\n';
               ISSUE_BODY += notes;
 
-              // Create the current release issue
-              await github.rest.issues.create({
+              const issue = {
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 title: ISSUE_TITLE,
                 body: ISSUE_BODY,
                 assignees: [RELEASE_CONDUCTOR],
-              });
+              };
+
+              // Create the current release issue
+              if (debug) {
+                core.info('Creating issue:');
+                core.info(issue);
+              } else {
+                await github.rest.issues.create(issue);
+              }
 
               // Close the previous release issue
-              await github.rest.issues.update({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                issue_number: releaseIssue.number,
-                state: 'closed',
-                state_reason: 'completed',
-              });
+              if (debug) {
+                core.info(`Closing issue: ${releaseIssue.number}`);
+              } else {
+                await github.rest.issues.update({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: releaseIssue.number,
+                  state: 'closed',
+                  state_reason: 'completed',
+                });
+              }
             }
