@@ -17,6 +17,8 @@ jobs:
     permissions:
       issues: write
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
       - uses: ./.github/actions/pagerduty
         id: pagerduty
         with:
