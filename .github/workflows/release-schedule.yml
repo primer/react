@@ -2,59 +2,26 @@ name: Release Schedule
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 0 * * TUE'
+    - cron: '30 13 * * MON'
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.event.workflow_run.head_branch }}
+  group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 permissions: {}
 
 jobs:
-  release-conductor:
-    if: ${{ github.repository == 'primer/react' }}
-    runs-on: ubuntu-latest
-    outputs:
-      conductor: ${{ steps.pagerduty.outputs.result }}
-    steps:
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18
-      - name: Fetch user from pagerduty schedule
-        id: pagerduty
-        uses: actions/github-script@v6
-        env:
-          PAGERDUTY_API_KEY: ${{ secrets.PAGERDUTY_API_KEY_SID }}
-        with:
-          result-encoding: string
-          script: |
-            const { PAGERDUTY_API_KEY } = process.env;
-
-            const today = new Date().toISOString().slice(0, 10); // format: 2022-11-24
-            const url = new URL('https://api.pagerduty.com/schedules/P3IIVC4');
-            url.searchParams.append('since', today);
-            url.searchParams.append('until', today);
-
-            const response = await fetch(url, {
-              headers: {
-               'Content-Type': 'application/json',
-               'Authorization': `Token token=${PAGERDUTY_API_KEY}`
-              }
-            });
-            const data = await response.json();
-            const conductor = data.schedule.final_schedule.rendered_schedule_entries[0].user.summary;
-
-            core.info(`${conductor} is release conductor`);
-
-            return conductor;
-
   create-tracking-issue:
     needs: release-conductor
     runs-on: ubuntu-latest
     permissions:
       issues: write
     steps:
+      - uses: ./.github/actions/pagerduty
+        id: pagerduty
+        with:
+          schedule-id: 'P3IIVC4'
+          token: ${{ secrets.PAGERDUTY_API_KEY_SID }}
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
@@ -64,51 +31,73 @@ jobs:
       - name: Create Release Issue
         uses: actions/github-script@v6
         env:
-          RELEASE_CONDUCTOR: ${{ needs.release-conductor.outputs.conductor }}
+          RELEASE_CONDUCTOR: ${{ steps.pagerduty.outputs.user }}
+          SCHEDULE_START: ${{ steps.pagerduty.outputs.start }}
+          SCHEDULE_END: ${{ steps.pagerduty.outputs.end }}
+          SCHEDULE_ID: ${{ steps.pagerduty.outputs.id }}
+          PREVIOUS_SCHEDULE_START: ${{ steps.pagerduty.outputs.previous-schedule-start }}
+          PREVIOUS_SCHEDULE_END: ${{ steps.pagerduty.outputs.previous-schedule-end }}
+          PREVIOUS_SCHEDULE_ID: ${{ steps.pagerduty.outputs.previous-schedule-id }}
         with:
           script: |
-            const eachDayOfInterval = require('date-fns/eachDayOfInterval');
-            const startOfWeek = require('date-fns/startOfWeek');
-            const nextFriday = require('date-fns/nextFriday');
-            const format = require('date-fns/format');
-            const previousMonday = require('date-fns/previousMonday');
+            const {
+              eachDayOfInterval,
+              format,
+              isSaturday,
+              isSunday,
+              parseISO,
+            } = require('date-fns');
 
-            const { RELEASE_CONDUCTOR } = process.env;
+            const {
+              RELEASE_CONDUCTOR,
+              SCHEDULE_START,
+              SCHEDULE_END,
+              SCHEDULE_ID,
+              PREVIOUS_SCHEDULE_START,
+              PREVIOUS_SCHEDULE_END,
+              PREVIOUS_SCHEDULE_ID,
+            } = process.env;
 
+            core.info(`Running for schedule [${FINAL_SCHEDULE_ID}] from ${SCHEDULE_START} till ${SCHEDULE_END}`);
             core.info(`Release conductor: ${RELEASE_CONDUCTOR}`);
 
-            // Current schedule
             const today = new Date();
-            const start = startOfWeek(today, { weekStartsOn: 1 });
-            const end = nextFriday(start);
+            const start = parseISO(SCHEDULE_START);
+            const end = parseISO(SCHEDULE_END);
 
-            // Previous schedule
-            const previousStart = previousMonday(start);
-            const previousEnd = nextFriday(previousStart);
+            // Issue ID
+            const id = `primer-release-schedule:${SCHEDULE_ID}`;
+            const previousId = `primer-release-schedule:${PREVIOUS_SCHEDULE_ID}`;
 
-            // Issue IDs
-            const id = `primer-release-schedule:${format(start, 'yyyy-MM-dd')}`;
-            const previousId = `primer-release-schedule:${format(previousStart, 'yyyy-MM-dd')}`;
-
+            // Debug previous schedule
             core.startGroup(`Previous schedule: ${previousId}`);
-            core.info(`Start: ${previousStart}`);
-            core.info(`End: ${previousEnd}`)
+            core.info(`Start: ${parseISO(PREVIOUS_SCHEDULE_START)}`);
+            core.info(`End: ${parseISO(PREVIOUS_SCHEDULE_END)}`)
             core.endGroup();
 
+            // Debug current schedule
             core.startGroup(`Current schedule: ${id}`);
             core.info(`Start: ${start}`);
             core.info(`End: ${end}`)
             core.endGroup();
 
+            // Issue markup
             const ISSUE_TITLE = 'Release Tracking';
             const timeline = [
               '## Timeline',
               '',
               '<!-- Provide updates for release activities, like cutting releases and different integration points -->',
               '',
-              ...eachDayOfInterval({ start, end }).map((day) => {
-                return `- ${format(day, 'EEEE, LLLL do')}`;
-              }),
+              ...eachDayOfInterval({ start, end })
+                // Only include business days in the timeline
+                .filter((day) => {
+                  if (isSunday(day) || isSaturday(day)) {
+                    return false;
+                  }
+                  return true;
+                }).map((day) => {
+                  return `- ${format(day, 'EEEE, LLLL do')}`;
+                }),
               '',
             ].join('\n');
             const checklist = [
@@ -131,6 +120,7 @@ jobs:
 
             ISSUE_BODY += `_This is a scheduled issue for tracking the release between ${format(start, 'EEEE do')} and ${format(end, 'EEEE do')}_\n\n`;
 
+            // Find the latest existing release issue
             const iterator = github.paginate.iterator(
               github.rest.issues.listForRepo,
               {
