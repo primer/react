@@ -294,7 +294,7 @@ const SelectPanelLoading: React.FC<{children: string}> = ({children = 'Fetching 
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        flexGrow: 1,
+        height: '100%',
         gap: 3,
       }}
     >
