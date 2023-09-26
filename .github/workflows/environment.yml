@@ -15,10 +15,10 @@ jobs:
     steps:
       - name: Generate token
         id: generate_token
-        uses: tibdex/github-app-token@v2
+        uses: actions/create-github-app-token@v1
         with:
-          app_id: ${{ secrets.APP_ID }}
-          private_key: ${{ secrets.PRIVATE_KEY }}
+          app_id: ${{ vars.PRIMER_APP_ID_SHARED }}
+          private_key: ${{ secrets.PRIMER_APP_PRIVATE_KEY_SHARED }}
       - uses: actions/github-script@v6
         with:
           github-token: ${{ steps.generate_token.outputs.token }}
