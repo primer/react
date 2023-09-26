@@ -187,11 +187,8 @@ jobs:
             // We already have an issue open for the current release
             if (releaseIssue.body.includes(id)) {
               core.info(`A release issue already exists with id: ${id}`);
-              return;
-            }
-
-            // This is the previous release issue
-            if (releaseIssue.body.includes(previousId)) {
+            } else if (releaseIssue.body.includes(previousId)) {
+              // This is the previous release issue
               const assignees = releaseIssue.assignees.map((assignee) => {
                 return assignee.login;
               }).join(' ');
@@ -237,4 +234,7 @@ jobs:
                   state_reason: 'completed',
                 });
               }
+            } else {
+              // This is a release issue that we cannot identify
+              core.info(`Unable to match a current or previous release id for issue #${releaseIssue.number}`);
             }
