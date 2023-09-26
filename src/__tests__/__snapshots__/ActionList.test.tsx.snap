@@ -10,6 +10,5 @@ exports[`ActionList renders consistently 1`] = `
 
 <ul
   className="c0"
-  data-component="ActionList"
 />
 `;

@@ -106,25 +106,28 @@ const SelectPanel = props => {
               display: 'flex',
               flexDirection: 'column',
               height: '100%',
-              '[data-component=ActionList]': {
-                flexShrink: 1,
-                flexGrow: 1,
-                overflowY: 'auto',
-              },
             }}
           >
             {/* render default header as fallback */}
             {slots.header || <SelectPanel.Header />}
-            <ActionListContainerContext.Provider
-              value={{
-                container: 'SelectPanel',
-                listRole: 'listbox',
-                selectionAttribute: 'aria-selected',
-                selectionVariant: props.selectionVariant || 'multiple',
+            <Box
+              sx={{
+                flexShrink: 1,
+                flexGrow: 1,
+                overflowY: 'auto',
               }}
             >
-              {childrenInBody}
-            </ActionListContainerContext.Provider>
+              <ActionListContainerContext.Provider
+                value={{
+                  container: 'SelectPanel',
+                  listRole: 'listbox',
+                  selectionAttribute: 'aria-selected',
+                  selectionVariant: props.selectionVariant || 'multiple',
+                }}
+              >
+                {childrenInBody}
+              </ActionListContainerContext.Provider>
+            </Box>
             {/* render default footer as fallback */}
             {slots.footer || <SelectPanel.Footer />}
           </Box>
@@ -279,7 +282,7 @@ const SelectPanelLoading: React.FC<{children: string}> = ({children = 'Fetching 
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        flexGrow: 1,
+        height: '100%',
         gap: 3,
       }}
     >
