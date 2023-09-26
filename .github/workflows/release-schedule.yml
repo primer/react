@@ -2,9 +2,9 @@ name: Release Schedule
 on:
   workflow_dispatch:
     inputs:
-      debug:
+      dry:
         type: boolean
-        description: 'Run in debug mode. This will not create any issues'
+        description: 'Run in dry mode. This option will disable creating and closing issues'
   schedule:
     - cron: '30 13 * * MON'
 
@@ -43,7 +43,7 @@ jobs:
           PREVIOUS_SCHEDULE_START: ${{ steps.pagerduty.outputs.previous-schedule-start }}
           PREVIOUS_SCHEDULE_END: ${{ steps.pagerduty.outputs.previous-schedule-end }}
           PREVIOUS_SCHEDULE_ID: ${{ steps.pagerduty.outputs.previous-schedule-id }}
-          DEBUG_FLAG: ${{ github.event.inputs.debug }}
+          DRY: ${{ github.event.inputs.dry }}
         with:
           script: |
             const {
@@ -62,13 +62,13 @@ jobs:
               PREVIOUS_SCHEDULE_START,
               PREVIOUS_SCHEDULE_END,
               PREVIOUS_SCHEDULE_ID,
-              DEBUG_FLAG,
+              DRY,
             } = process.env;
 
-            core.info(`Running for schedule [${SCHEDULE_ID}] from ${SCHEDULE_START} till ${SCHEDULE_END}`);
+            core.info(`Running for schedule ${SCHEDULE_ID} from ${SCHEDULE_START} till ${SCHEDULE_END}`);
             core.info(`Release conductor: ${RELEASE_CONDUCTOR}`);
 
-            const debug = DEBUG_FLAG === 'true';
+            const dry = DRY === 'true';
             const today = new Date();
             const start = parseISO(SCHEDULE_START);
             const end = parseISO(SCHEDULE_END);
@@ -173,9 +173,9 @@ jobs:
                 assignees: [RELEASE_CONDUCTOR],
               };
 
-              if (debug) {
+              if (dry) {
                 core.info('Creating issue:');
-                core.info(issue);
+                core.info(JSON.stringify(issue, null, 2));
               } else {
                 await github.rest.issues.create(issue);
               }
@@ -218,15 +218,15 @@ jobs:
               };
 
               // Create the current release issue
-              if (debug) {
+              if (dry) {
                 core.info('Creating issue:');
-                core.info(issue);
+                core.info(JSON.stringify(issue, null, 2));
               } else {
                 await github.rest.issues.create(issue);
               }
 
               // Close the previous release issue
-              if (debug) {
+              if (dry) {
                 core.info(`Closing issue: ${releaseIssue.number}`);
               } else {
                 await github.rest.issues.update({

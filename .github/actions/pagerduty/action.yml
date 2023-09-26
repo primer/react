@@ -57,10 +57,18 @@ runs:
           core.setOutput('id', schedule.id);
 
           const previousScheduleEnd = new Date(schedule.start);
-          previousScheduleEnd.setDate(previousScheduleEnd.getDate() - 1)
+          previousScheduleEnd.setDate(previousScheduleEnd.getDate() - 1);
 
           // Get previous schedule
           const previousSchedule = await getSchedule(previousScheduleEnd);
+
+          core.info('Debug schedule:');
+          core.info(JSON.stringify({
+            start: previousSchedule.start,
+            end: previousSchedule.end,
+            id: previousSchedule.id,
+            user: previousSchedule.user,
+          }, null, 2));
 
           core.setOutput('previous-schedule-start', previousSchedule.start);
           core.setOutput('previous-schedule-end', previousSchedule.end);
