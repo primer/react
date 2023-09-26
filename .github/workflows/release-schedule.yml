@@ -67,7 +67,7 @@ jobs:
             const start = parseISO(SCHEDULE_START);
             const end = parseISO(SCHEDULE_END);
 
-            // Issue ID
+            // Issue IDs
             const id = `primer-release-schedule:${SCHEDULE_ID}`;
             const previousId = `primer-release-schedule:${PREVIOUS_SCHEDULE_ID}`;
 
