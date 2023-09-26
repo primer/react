@@ -5,7 +5,7 @@ inputs:
     description: 'The id of the schedule'
     required: true
   token:
-    description: 'The API token to be used for making requests'
+    description: 'The API token used for making requests to PagerDuty'
     required: true
 outputs:
   user:
