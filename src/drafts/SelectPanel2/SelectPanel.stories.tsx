@@ -97,11 +97,12 @@ export const AControlled = () => {
         <SelectPanel.Header>
           <SelectPanel.SearchInput onChange={onSearchInputChange} />
         </SelectPanel.Header>
-        <ActionList>
-          {itemsToShow.length === 0 ? (
-            <SelectPanel.EmptyMessage>No labels found for &quot;{query}&quot;</SelectPanel.EmptyMessage>
-          ) : (
-            itemsToShow.map(label => (
+
+        {itemsToShow.length === 0 ? (
+          <SelectPanel.EmptyMessage>No labels found for &quot;{query}&quot;</SelectPanel.EmptyMessage>
+        ) : (
+          <ActionList>
+            {itemsToShow.map(label => (
               <ActionList.Item
                 key={label.id}
                 onSelect={() => onLabelSelect(label.id)}
@@ -111,9 +112,10 @@ export const AControlled = () => {
                 {label.name}
                 <ActionList.Description variant="block">{label.description}</ActionList.Description>
               </ActionList.Item>
-            ))
-          )}
-        </ActionList>
+            ))}
+          </ActionList>
+        )}
+
         <SelectPanel.Footer>
           <SelectPanel.SecondaryButton>Edit labels</SelectPanel.SecondaryButton>
         </SelectPanel.Footer>
@@ -186,23 +188,21 @@ const SuspendedActionList: React.FC<{query: string}> = ({query}) => {
 
   const itemsToShow = query ? filteredLabels : data.labels.sort(sortingFn)
 
-  return (
+  return itemsToShow.length === 0 ? (
+    <SelectPanel.EmptyMessage>No labels found for &quot;{query}&quot;</SelectPanel.EmptyMessage>
+  ) : (
     <ActionList>
-      {itemsToShow.length === 0 ? (
-        <SelectPanel.EmptyMessage>No labels found for &quot;{query}&quot;</SelectPanel.EmptyMessage>
-      ) : (
-        itemsToShow.map(label => (
-          <ActionList.Item
-            key={label.id}
-            onSelect={() => onLabelSelect(label.id)}
-            selected={selectedLabelIds.includes(label.id)}
-          >
-            <ActionList.LeadingVisual>{getCircle(label.color)}</ActionList.LeadingVisual>
-            {label.name}
-            <ActionList.Description variant="block">{label.description}</ActionList.Description>
-          </ActionList.Item>
-        ))
-      )}
+      {itemsToShow.map(label => (
+        <ActionList.Item
+          key={label.id}
+          onSelect={() => onLabelSelect(label.id)}
+          selected={selectedLabelIds.includes(label.id)}
+        >
+          <ActionList.LeadingVisual>{getCircle(label.color)}</ActionList.LeadingVisual>
+          {label.name}
+          <ActionList.Description variant="block">{label.description}</ActionList.Description>
+        </ActionList.Item>
+      ))}
     </ActionList>
   )
 }
@@ -287,25 +287,23 @@ const SearchableUserList: React.FC<{
   }
   const itemsToShow = query ? filteredUsers : repository.collaborators.sort(sortingFn)
 
-  return (
+  return itemsToShow.length === 0 ? (
+    <SelectPanel.EmptyMessage>No users found for &quot;{query}&quot;</SelectPanel.EmptyMessage>
+  ) : (
     <ActionList>
-      {itemsToShow.length === 0 ? (
-        <SelectPanel.EmptyMessage>No users found for &quot;{query}&quot;</SelectPanel.EmptyMessage>
-      ) : (
-        itemsToShow.map(user => (
-          <ActionList.Item
-            key={user.id}
-            onSelect={() => onUserSelect(user.id)}
-            selected={selectedUserIds.includes(user.id)}
-          >
-            <ActionList.LeadingVisual>
-              <Avatar src={`https://github.com/${user.login}.png`} />
-            </ActionList.LeadingVisual>
-            {user.login}
-            <ActionList.Description>{user.name}</ActionList.Description>
-          </ActionList.Item>
-        ))
-      )}
+      {itemsToShow.map(user => (
+        <ActionList.Item
+          key={user.id}
+          onSelect={() => onUserSelect(user.id)}
+          selected={selectedUserIds.includes(user.id)}
+        >
+          <ActionList.LeadingVisual>
+            <Avatar src={`https://github.com/${user.login}.png`} />
+          </ActionList.LeadingVisual>
+          {user.login}
+          <ActionList.Description>{user.name}</ActionList.Description>
+        </ActionList.Item>
+      ))}
     </ActionList>
   )
 }
@@ -506,11 +504,11 @@ export const HWithFilterButtons = () => {
           </Box>
         </SelectPanel.Header>
 
-        <ActionList selectionVariant="single">
-          {itemsToShow.length === 0 ? (
-            <SelectPanel.EmptyMessage>No labels found for &quot;{'query'}&quot;</SelectPanel.EmptyMessage>
-          ) : (
-            itemsToShow.map(item => (
+        {itemsToShow.length === 0 ? (
+          <SelectPanel.EmptyMessage>No labels found for &quot;{'query'}&quot;</SelectPanel.EmptyMessage>
+        ) : (
+          <ActionList selectionVariant="single">
+            {itemsToShow.map(item => (
               <ActionList.Item
                 key={item.id}
                 selected={selectedRef === item.id}
@@ -519,9 +517,9 @@ export const HWithFilterButtons = () => {
                 {item.name}
                 <ActionList.TrailingVisual>{item.trailingInfo}</ActionList.TrailingVisual>
               </ActionList.Item>
-            ))
-          )}
-        </ActionList>
+            ))}
+          </ActionList>
+        )}
 
         <SelectPanel.Footer>
           <SelectPanel.SecondaryButton as="a" href={`/${selectedFilter}`}>
