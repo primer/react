@@ -74,8 +74,12 @@ const SelectPanel = props => {
 
   const [slots, childrenInBody] = useSlots(contents, {header: SelectPanelHeader, footer: SelectPanelFooter})
 
+  /* Arrow keys navigation for list items */
   const {containerRef: listContainerRef} = useFocusZone(
-    {bindKeys: FocusKeys.ArrowVertical | FocusKeys.HomeAndEnd | FocusKeys.PageUpDown},
+    {
+      bindKeys: FocusKeys.ArrowVertical | FocusKeys.HomeAndEnd | FocusKeys.PageUpDown,
+      focusableElementFilter: element => element.tagName === 'LI',
+    },
     [internalOpen],
   )
 
