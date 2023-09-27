@@ -1,5 +1,21 @@
 # @primer/components
 
+## 35.31.0
+
+### Minor Changes
+
+- [#3394](https://github.com/primer/react/pull/3394) [`9cd50f70`](https://github.com/primer/react/commit/9cd50f700eb9ebcee5d49181437fd497ec19c055) Thanks [@broccolinisoup](https://github.com/broccolinisoup)! - Tooltip: Release Tooltip v2 as a draft/experimental
+
+  <!-- Changed components: _none_ -->
+
+- [#3749](https://github.com/primer/react/pull/3749) [`b4fe331e`](https://github.com/primer/react/commit/b4fe331e3264a34ee4f1aec56e87f4e2b034f45c) Thanks [@thyeggman](https://github.com/thyeggman)! - Add suport for sparse sorting to DataTable
+
+  <!-- Changed components: DataTable -->
+
+- [#3581](https://github.com/primer/react/pull/3581) [`cc12464d`](https://github.com/primer/react/commit/cc12464df2492d5e38ce0aafa3ce523e62a8e567) Thanks [@broccolinisoup](https://github.com/broccolinisoup)! - ActionList: Add ActionList.Heading component
+
+  <!-- Changed components: ActionList -->
+
 ## 35.30.0
 
 ### Minor Changes
