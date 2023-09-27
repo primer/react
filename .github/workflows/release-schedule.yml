@@ -126,7 +126,7 @@ jobs:
 
             let ISSUE_BODY = `<!-- ${id} -->\n\n`;
 
-            ISSUE_BODY += `_This is a scheduled issue for tracking the release between ${format(start, 'EEEE do')} and ${format(end, 'EEEE do')}_\n\n`;
+            ISSUE_BODY += `_This is a scheduled issue for tracking the release between ${format(start, 'EEEE, LLLL do')} and ${format(end, 'EEEE, LLLL do')}_\n\n`;
 
             // Find the latest existing release issue
             const iterator = github.paginate.iterator(
