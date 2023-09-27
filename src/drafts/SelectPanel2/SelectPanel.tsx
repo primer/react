@@ -55,15 +55,13 @@ const SelectPanel = props => {
   React.useEffect(() => setInternalOpen(props.open), [props.open])
 
   const onInternalClose = () => {
-    // TODO: Lol this is wrong, it should be undefined, not string "undefined"
-    if (props.open === 'undefined') setInternalOpen(false)
+    if (props.open === undefined) setInternalOpen(false)
     if (typeof props.onCancel === 'function') props.onCancel()
   }
   // @ts-ignore todo
   const onInternalSubmit = event => {
     event.preventDefault()
-    // TODO: Lol this is wrong, it should be undefined, not string "undefined"
-    if (props.open === 'undefined') setInternalOpen(false)
+    if (props.open === undefined) setInternalOpen(false)
     if (typeof props.onSubmit === 'function') props.onSubmit(event)
   }
 
@@ -126,7 +124,12 @@ const SelectPanel = props => {
               sx={{
                 flexShrink: 1,
                 flexGrow: 1,
-                overflowY: 'auto',
+                overflow: 'hidden',
+
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'space-between',
+                ul: {overflowY: 'auto', flexGrow: 1},
               }}
             >
               <ActionListContainerContext.Provider
@@ -140,8 +143,7 @@ const SelectPanel = props => {
                 {childrenInBody}
               </ActionListContainerContext.Provider>
             </Box>
-            {/* render default footer as fallback */}
-            {slots.footer || <SelectPanel.Footer />}
+            {slots.footer}
           </Box>
         </SelectPanelContext.Provider>
       </AnchoredOverlay>

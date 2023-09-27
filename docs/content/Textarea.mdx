@@ -10,6 +10,9 @@ storybook: '/react/storybook?path=/story/components-forms-textarea--textarea-sto
 import data from '../../src/Textarea/Textarea.docs.json'
 
 import {Textarea} from '@primer/react'
+import DeprecationBanner from '../components/DeprecationBanner'
+
+<DeprecationBanner replacementUrl={'/design/components/textarea/react'} />
 
 <Box sx={{border: '1px solid', borderColor: 'border.default', borderRadius: 2, padding: 6, marginBottom: 3}}>
   <Textarea />
