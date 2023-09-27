@@ -12,22 +12,31 @@ import {
   TextInput,
   AnchoredOverlayProps,
   ActionList,
+  ActionListProps,
   Spinner,
   Text,
 } from '../../../src/index'
 import {useSlots} from '../../hooks/useSlots'
 import {ClearIcon} from './tmp-ClearIcon'
+import {useProvidedRefOrCreate} from '../../hooks'
 
-const SelectPanelContext = React.createContext({
+const SelectPanelContext = React.createContext<{
+  title: string
+  onCancel: () => void
+  onClearSelection: undefined | (() => void)
+  searchQuery: string
+  setSearchQuery: () => void
+}>({
+  title: '',
   onCancel: () => {},
-  onClearSelection: () => {},
+  onClearSelection: undefined,
   searchQuery: '',
   setSearchQuery: () => {},
 })
 
 // @ts-ignore todo
 const SelectPanel = props => {
-  const anchorRef = React.useRef<HTMLButtonElement>(null)
+  const anchorRef = useProvidedRefOrCreate(props.anchorRef)
 
   // 🚨 Hack for good API!
   // we strip out Anchor from children and pass it to AnchoredOverlay to render
@@ -41,18 +50,18 @@ const SelectPanel = props => {
     return child
   })
 
-  // TODO: defaultOpen is not for debugging, I don't intend to make
-  // it part of the API
-  const [open, setOpen] = React.useState(props.defaultOpen)
+  const [internalOpen, setInternalOpen] = React.useState(props.defaultOpen)
+  // sync open state
+  React.useEffect(() => setInternalOpen(props.open), [props.open])
 
   const onInternalClose = () => {
-    setOpen(false)
-
+    if (props.open === 'undefined') setInternalOpen(false)
     if (typeof props.onCancel === 'function') props.onCancel()
   }
   // @ts-ignore todo
   const onInternalSubmit = event => {
-    setOpen(false)
+    event.preventDefault()
+    if (props.open === 'undefined') setInternalOpen(false)
     if (typeof props.onSubmit === 'function') props.onSubmit(event)
   }
 
@@ -63,16 +72,19 @@ const SelectPanel = props => {
   /* Search/Filter */
   const [searchQuery, setSearchQuery] = React.useState('')
 
+  const [slots, childrenInBody] = useSlots(contents, {header: SelectPanelHeader, footer: SelectPanelFooter})
+
   return (
     <>
       <AnchoredOverlay
+        // @ts-ignore todo
         anchorRef={anchorRef}
         renderAnchor={renderAnchor}
-        open={open}
-        onOpen={() => setOpen(true)}
+        open={internalOpen}
+        onOpen={() => setInternalOpen(true)}
         onClose={onInternalClose}
-        width="medium"
-        height="large"
+        width={props.width || 'medium'}
+        height={props.height || 'large'}
         focusZoneSettings={{bindKeys: FocusKeys.Tab}}
       >
         {/* TODO: Keyboard navigation of actionlist should be arrow keys
@@ -80,15 +92,20 @@ const SelectPanel = props => {
         */}
         <SelectPanelContext.Provider
           value={{
+            title: props.title,
             onCancel: onInternalClose,
-            onClearSelection: onInternalClearSelection,
+            onClearSelection: props.onClearSelection ? onInternalClearSelection : undefined,
             searchQuery,
             // @ts-ignore todo
             setSearchQuery,
           }}
         >
           <Box as="form" onSubmit={onInternalSubmit} sx={{display: 'flex', flexDirection: 'column', height: '100%'}}>
-            {contents}
+            {/* render default header as fallback */}
+            {slots.header || <SelectPanel.Header />}
+            {childrenInBody}
+            {/* render default footer as fallback */}
+            {slots.footer || <SelectPanel.Footer />}
           </Box>
         </SelectPanelContext.Provider>
       </AnchoredOverlay>
@@ -103,43 +120,50 @@ const SelectPanelButton = React.forwardRef((props, anchorRef) => {
 SelectPanel.Button = SelectPanelButton
 
 const SelectPanelHeader: React.FC<React.PropsWithChildren> = ({children, ...props}) => {
-  const [slots] = useSlots(children, {
-    heading: SelectPanelHeading,
+  const [slots, childrenWithoutSlots] = useSlots(children, {
     searchInput: SelectPanelSearchInput,
   })
 
-  const {onCancel, onClearSelection} = React.useContext(SelectPanelContext)
+  const {title, onCancel, onClearSelection} = React.useContext(SelectPanelContext)
 
   return (
-    <Box id="header" sx={{padding: 2, borderBottom: '1px solid', borderColor: 'border.default'}} {...props}>
-      <Box sx={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingBottom: 2}}>
-        {slots.heading}
+    <Box
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 2,
+        padding: 2,
+        borderBottom: '1px solid',
+        borderColor: 'border.default',
+      }}
+      {...props}
+    >
+      <Box sx={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+        {/* heading element is intentionally hardcoded to h1, it is not customisable 
+            see https://github.com/github/primer/issues/2578 for context
+        */}
+
+        <Heading as="h1" sx={{fontSize: 14, fontWeight: 600, marginLeft: 2}} {...props}>
+          {title}
+        </Heading>
         <Box>
           {/* Will not need tooltip after https://github.com/primer/react/issues/2008 */}
-          <Tooltip text="Clear selection" direction="s" onClick={onClearSelection}>
-            <IconButton type="button" variant="invisible" icon={ClearIcon} aria-label="Clear selection" />
-          </Tooltip>
+          {onClearSelection ? (
+            <Tooltip text="Clear selection" direction="s" onClick={onClearSelection}>
+              <IconButton type="button" variant="invisible" icon={ClearIcon} aria-label="Clear selection" />
+            </Tooltip>
+          ) : null}
           <Tooltip text="Close" direction="s">
             <IconButton type="button" variant="invisible" icon={XIcon} aria-label="Close" onClick={() => onCancel()} />
           </Tooltip>
         </Box>
       </Box>
       {slots.searchInput}
+      {childrenWithoutSlots}
     </Box>
   )
 }
 SelectPanel.Header = SelectPanelHeader
-
-const SelectPanelHeading: React.FC<React.PropsWithChildren<{children: string}>> = ({children, ...props}) => {
-  // heading element is intentionally hardcoded to h1, it is not customisable
-  // see https://github.com/github/primer/issues/2578 for context
-  return (
-    <Heading as="h1" sx={{fontSize: 14, fontWeight: 600, marginLeft: 2}} {...props}>
-      {children}
-    </Heading>
-  )
-}
-SelectPanel.Heading = SelectPanelHeading
 
 // @ts-ignore todo
 const SelectPanelSearchInput = props => {
@@ -191,8 +215,7 @@ const SelectPanelSearchInput = props => {
 }
 SelectPanel.SearchInput = SelectPanelSearchInput
 
-// TODO: type this with ActionList props
-const SelectPanelActionList: React.FC<React.PropsWithChildren> = props => {
+const SelectPanelActionList: React.FC<React.PropsWithChildren<ActionListProps>> = props => {
   /* features to implement for uncontrolled:
      1. select
      2. sort
@@ -203,7 +226,7 @@ const SelectPanelActionList: React.FC<React.PropsWithChildren> = props => {
 
   return (
     <>
-      <ActionList id="body" sx={{flexShrink: 1, flexGrow: 1, overflowY: 'auto'}} selectionVariant="multiple" {...props}>
+      <ActionList sx={{flexShrink: 1, flexGrow: 1, overflowY: 'auto'}} selectionVariant="multiple" {...props}>
         {props.children}
       </ActionList>
     </>
@@ -216,7 +239,6 @@ const SelectPanelFooter = ({...props}) => {
 
   return (
     <Box
-      id="footer"
       sx={{
         display: 'flex',
         justifyContent: 'space-between',
