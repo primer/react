@@ -11,6 +11,10 @@ import {defaultSxProp} from '../utils/defaultSxProp'
 const ButtonBase = forwardRef(
   ({children, as: Component = 'button', sx: sxProp = defaultSxProp, ...props}, forwardedRef): JSX.Element => {
     const {
+      leadingIcon,
+      leadingVisual,
+      trailingIcon,
+      trailingVisual,
       trailingAction: TrailingAction,
       icon: Icon,
       variant = 'default',
@@ -19,8 +23,8 @@ const ButtonBase = forwardRef(
       block = false,
       ...rest
     } = props
-    const LeadingVisual = props.leadingVisual ?? props.leadingIcon
-    const TrailingVisual = props.trailingVisual ?? props.trailingIcon
+    const LeadingVisual = leadingVisual ?? leadingIcon
+    const TrailingVisual = trailingVisual ?? trailingIcon
 
     const innerRef = React.useRef<HTMLButtonElement>(null)
     useRefObjectAsForwardedRef(forwardedRef, innerRef)

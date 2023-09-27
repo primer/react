@@ -1,5 +1,43 @@
 # @primer/components
 
+## 35.30.0
+
+### Minor Changes
+
+- [#3714](https://github.com/primer/react/pull/3714) [`88340269`](https://github.com/primer/react/commit/883402697efa8c9ff5c434753d4af36737b65e4b) Thanks [@iansan5653](https://github.com/iansan5653)! - Add support for controlling which side `ActionMenu` renders on (via a `side` prop on `ActionMenu.Overlay`)
+
+  <!-- Changed components: ActionMenu -->
+
+- [#3715](https://github.com/primer/react/pull/3715) [`1f889281`](https://github.com/primer/react/commit/1f88928117acf86a3acd75c405b0064f080a66e3) Thanks [@joshblack](https://github.com/joshblack)! - Add support for leadingVisual and trailingVisual props to Button
+
+  <!-- Changed components: Button -->
+
+- [#3739](https://github.com/primer/react/pull/3739) [`b90e5476`](https://github.com/primer/react/commit/b90e547639a7a906ef21cbf1a1c702c3d92210bc) Thanks [@joshblack](https://github.com/joshblack)! - Add the Column type and createColumnHelper function to easily define columns for DataTable
+
+  <!-- Changed components: DataTable -->
+
+- [#3719](https://github.com/primer/react/pull/3719) [`500e529d`](https://github.com/primer/react/commit/500e529df47ae5def4bf5cedc55fc099251c25a1) Thanks [@joshblack](https://github.com/joshblack)! - The UnderlineNav, FilterList, and FilteredSearch components will be deprecated in v36 and have been moved to the deprecated entrypoint. To use the new UnderlineNav, migrate to the component available in drafts.
+
+  <!-- Changed components: FilterList, FilteredSearch, UnderlineNav -->
+
+- [#3732](https://github.com/primer/react/pull/3732) [`8928acc3`](https://github.com/primer/react/commit/8928acc38fa32e5d752c57cb80070e5368c66314) Thanks [@joshblack](https://github.com/joshblack)! - Add default `type="button"` to `IconButton` component
+
+  <!-- Changed components: IconButton -->
+
+### Patch Changes
+
+- [#3661](https://github.com/primer/react/pull/3661) [`25693b08`](https://github.com/primer/react/commit/25693b08e8f2c89af1199c2f9d4fe38777f8a70b) Thanks [@joshblack](https://github.com/joshblack)! - Update the `children` prop for `Button` to be optional
+
+  <!-- Changed components: Button, IconButton -->
+
+- [#3737](https://github.com/primer/react/pull/3737) [`a93eca21`](https://github.com/primer/react/commit/a93eca218043a3009ac0d6768e818fe3e15bb6c9) Thanks [@joshblack](https://github.com/joshblack)! - Restore default main landmark in PageLayout.Content
+
+  <!-- Changed components: PageLayout, SplitPageLayout -->
+
+- [#3722](https://github.com/primer/react/pull/3722) [`0baa5a7f`](https://github.com/primer/react/commit/0baa5a7f6a009e6a7c77cd380f9b9ad93fdfd7cd) Thanks [@mattcosta7](https://github.com/mattcosta7)! - use isomorphic layout effects only
+
+  <!-- Changed components: InlineAutocomplete, MarkdownEditor -->
+
 ## 35.29.0
 
 ### Minor Changes
