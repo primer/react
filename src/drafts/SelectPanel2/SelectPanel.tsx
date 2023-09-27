@@ -119,9 +119,7 @@ const SelectPanel = props => {
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'space-between',
-                ul: {
-                  overflowY: 'auto',
-                },
+                ul: {overflowY: 'auto', flexGrow: 1},
               }}
             >
               <ActionListContainerContext.Provider
@@ -134,9 +132,8 @@ const SelectPanel = props => {
               >
                 {childrenInBody}
               </ActionListContainerContext.Provider>
-              {slots.footer}
             </Box>
-            {/* render default footer as fallback */}
+            {slots.footer}
           </Box>
         </SelectPanelContext.Provider>
       </AnchoredOverlay>
