@@ -1,0 +1,93 @@
+name: 'PagerDuty Schedule'
+description: 'Get information about the given PagerDuty Schedule'
+inputs:
+  schedule-id:
+    description: 'The id of the schedule'
+    required: true
+  token:
+    description: 'The API token used for making requests to PagerDuty'
+    required: true
+outputs:
+  user:
+    description: 'The user who is on call for the final schedule'
+    value: ${{ steps.pagerduty.outputs.user }}
+  start:
+    description: 'The start date for the final schedule'
+    value: ${{ steps.pagerduty.outputs.start }}
+  end:
+    description: 'The end date for the final schedule'
+    value: ${{ steps.pagerduty.outputs.end }}
+  id:
+    description: 'The id for the final schedule'
+    value: ${{ steps.pagerduty.outputs.id }}
+  previous-schedule-start:
+    description: 'The start date for the previous final schedule'
+    value: ${{ steps.pagerduty.outputs.previous-schedule-start }}
+  previous-schedule-end:
+    description: 'The end date for the previous final schedule'
+    value: ${{ steps.pagerduty.outputs.previous-schedule-end }}
+  previous-schedule-id:
+    description: 'The id for the previous final schedule'
+    value: ${{ steps.pagerduty.outputs.previous-schedule-id }}
+  previous-schedule-user:
+    description: 'The individual on call for the previous final schedule'
+    value: ${{ steps.pagerduty.outputs.previous-schedule-user }}
+runs:
+  using: 'composite'
+  steps:
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: 18
+    - name: Get PagerDuty Schedule
+      id: pagerduty
+      uses: actions/github-script@v6
+      with:
+        script: |
+          const { PAGERDUTY_API_KEY } = process.env;
+
+          const today = new Date()
+
+          // Get current schedule
+          const schedule = await getSchedule(today);
+
+          core.setOutput('user', schedule.user.summary);
+          core.setOutput('start', schedule.start);
+          core.setOutput('end', schedule.end);
+          core.setOutput('id', schedule.id);
+
+          const previousScheduleEnd = new Date(schedule.start);
+          previousScheduleEnd.setDate(previousScheduleEnd.getDate() - 1);
+
+          // Get previous schedule
+          const previousSchedule = await getSchedule(previousScheduleEnd);
+
+          core.setOutput('previous-schedule-start', previousSchedule.start);
+          core.setOutput('previous-schedule-end', previousSchedule.end);
+          core.setOutput('previous-schedule-id', previousSchedule.id);
+          core.setOutput('previous-schedule-user', previousSchedule.user.summary);
+
+          // Get a schedule
+          // @see https://developer.pagerduty.com/api-reference/3f03afb2c84a4-get-a-schedule
+          async function getSchedule(date) {
+            const url = new URL('https://api.pagerduty.com/schedules/${{ inputs.schedule-id }}')
+
+            url.searchParams.append('since', date.toISOString())
+            url.searchParams.append('until', date.toISOString())
+
+            const response = await fetch(url, {
+              headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+                Authorization: 'Token token=${{ inputs.token }}',
+              },
+            })
+
+            const data = await response.json()
+            if (!data.schedule) {
+              throw new Error('Unable to get schedule for id: ${{ inputs.schedule-id }}')
+            }
+
+            const [schedule] = data.schedule.final_schedule.rendered_schedule_entries
+            return schedule;
+          }
