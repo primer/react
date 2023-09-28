@@ -1,70 +1,82 @@
 import {existsSync} from 'node:fs'
 import fs from 'node:fs/promises'
 import path from 'node:path'
+// eslint-disable-next-line import/no-namespace
 import * as parser from '@babel/parser'
 import {traverse} from '@babel/core'
 import {createHash} from 'node:crypto'
 
 const ROOT_DIR = path.resolve(__dirname, '..', '..')
 
+let project!: Project
+
+beforeAll(async () => {
+  project = await setup()
+})
+
 describe('@primer/react', () => {
   it('should not update exports without a semver change', async () => {
-    const project = await getProject()
-    const moduleExports = project
-      .getModuleExports(path.join(ROOT_DIR, 'src', 'index.ts'))
-      .sort((a, b) => {
-        return a.identifier.localeCompare(b.identifier)
-      })
-      .map(exportInfo => {
-        if (exportInfo.exportKind === 'type') {
+    const exports = project.getEntrypointExports(path.join(ROOT_DIR, 'src', 'index.ts'))
+    expect(
+      exports.map(exportInfo => {
+        if (exportInfo.type === 'type') {
           return `type ${exportInfo.identifier}`
         }
         return exportInfo.identifier
-      })
-    expect(moduleExports).toMatchSnapshot()
+      }),
+    ).toMatchSnapshot()
   })
 })
 
 describe('@primer/react/experimental', () => {
   it('should not update exports without a semver change', async () => {
-    const project = await getProject()
-    const moduleExports = project
-      .getModuleExports(path.join(ROOT_DIR, 'src', 'experimental', 'index.ts'))
-      .sort((a, b) => {
-        return a.identifier.localeCompare(b.identifier)
-      })
-      .map(exportInfo => {
-        if (exportInfo.exportKind === 'type') {
+    const exports = project.getEntrypointExports(path.join(ROOT_DIR, 'src', 'experimental', 'index.ts'))
+    expect(
+      exports.map(exportInfo => {
+        if (exportInfo.type === 'type') {
           return `type ${exportInfo.identifier}`
         }
         return exportInfo.identifier
-      })
-    expect(moduleExports).toMatchSnapshot()
+      }),
+    ).toMatchSnapshot()
   })
 })
 
-describe('@primer/react/decprecated', () => {
+describe('@primer/react/drafts', () => {
   it('should not update exports without a semver change', async () => {
-    const project = await getProject()
-    const moduleExports = project
-      .getModuleExports(path.join(ROOT_DIR, 'src', 'deprecated', 'index.ts'))
-      .sort((a, b) => {
-        return a.identifier.localeCompare(b.identifier)
-      })
-      .map(exportInfo => {
-        if (exportInfo.exportKind === 'type') {
+    const exports = project.getEntrypointExports(path.join(ROOT_DIR, 'src', 'drafts', 'index.ts'))
+    expect(
+      exports.map(exportInfo => {
+        if (exportInfo.type === 'type') {
           return `type ${exportInfo.identifier}`
         }
         return exportInfo.identifier
-      })
-    expect(moduleExports).toMatchSnapshot()
+      }),
+    ).toMatchSnapshot()
+  })
+})
+
+describe('@primer/react/deprecated', () => {
+  it('should not update exports without a semver change', async () => {
+    const exports = project.getEntrypointExports(path.join(ROOT_DIR, 'src', 'deprecated', 'index.ts'))
+    expect(
+      exports.map(exportInfo => {
+        if (exportInfo.type === 'type') {
+          return `type ${exportInfo.identifier}`
+        }
+        return exportInfo.identifier
+      }),
+    ).toMatchSnapshot()
   })
 })
 
 interface Project {
-  getModuleExports(
-    filepath: string,
-  ): Array<{identifier: string; type?: string; source?: string; exportKind?: string | null}>
+  getEntrypointExports(filepath: string): Array<EntrypointExport>
+}
+
+type EntrypointExport = {
+  identifier: string
+  type: 'value' | 'type'
 }
 
 type ExportAllDeclaration = {
@@ -89,6 +101,13 @@ type ExportSpecifier = {
 
 type ExportInfo = ExportAllDeclaration | ExportDefaultDeclaration | ExportSpecifier
 
+type Export = {
+  identifier: string
+  type: string | null
+  source: string | null
+  exportKind: 'value' | 'type'
+}
+
 interface SourceModule {
   type: 'source'
   id: string
@@ -97,7 +116,7 @@ interface SourceModule {
   getSourceModuleId(source: string): string
   addDependency(dependencyId: string): void
   addExport(exportInfo: ExportInfo): void
-  getExports(): Array<{identifier: string; type?: string; source?: string; exportKind?: string | null}>
+  getExports(): Array<Export>
 }
 
 interface BareModule {
@@ -106,16 +125,7 @@ interface BareModule {
   specifier: string
 }
 
-let project: Project | null = null
-
-async function getProject(): Promise<Project> {
-  if (!project) {
-    project = await setup()
-  }
-  return project
-}
-
-async function setup() {
+async function setup(): Promise<Project> {
   const graph = new Map<string, SourceModule | BareModule>()
   const queue = [
     // main
@@ -160,7 +170,9 @@ async function setup() {
 
           const resolved = resolve(source, mod.filepath)
           if (resolved.type === 'error') {
+            // eslint-disable-next-line no-console
             console.log('Unable to resolve source')
+            // eslint-disable-next-line no-console
             console.log(resolved.error)
             return null
           }
@@ -197,19 +209,24 @@ async function setup() {
           dependencies.add(dependencyId)
         },
         addExport(exportInfo: ExportInfo) {
-          exportsInfo.push({
+          const info = {
             ...exportInfo,
-            source: exportInfo.source ? mod.getSourceModuleId(exportInfo.source) : null,
-          })
+          }
+
+          if (exportInfo.source) {
+            info.source = mod.getSourceModuleId(exportInfo.source)
+          }
+
+          exportsInfo.push(info)
         },
         getExports() {
           return exportsInfo.flatMap(exportInfo => {
             if (exportInfo.type === 'ExportSpecifier') {
               return {
                 identifier: exportInfo.exported,
-                type: exportInfo.declaration,
-                source: exportInfo.source,
-                exportKind: exportInfo.exportKind,
+                type: exportInfo.declaration ?? null,
+                source: exportInfo.source ?? null,
+                exportKind: exportInfo.exportKind ?? 'value',
               }
             }
 
@@ -217,30 +234,27 @@ async function setup() {
               return {
                 identifier: 'default',
                 type: exportInfo.declaration,
+                source: exportInfo.source ?? null,
+                exportKind: 'exportKind' in exportInfo ? (exportInfo.exportKind as 'type' | 'value') : 'value',
+              }
+            }
+
+            // This branch matches exportInfo.type === 'ExportAllDeclaration'
+            const sourceModule = graph.get(exportInfo.source)
+            if (!sourceModule) {
+              return []
+            }
+
+            if (sourceModule.type === 'bare') {
+              return []
+            }
+
+            return sourceModule.getExports().map(exportInfo => {
+              return {
+                ...exportInfo,
                 source: exportInfo.source,
-                exportKind: 'exportKind' in exportInfo ? (exportInfo.exportKind as 'type' | 'value') : null,
               }
-            }
-
-            if (exportInfo.type === 'ExportAllDeclaration') {
-              const sourceModule = graph.get(exportInfo.source)
-              if (!sourceModule) {
-                return []
-              }
-
-              if (sourceModule.type === 'bare') {
-                return []
-              }
-
-              return sourceModule.getExports().map(exportInfo => {
-                return {
-                  ...exportInfo,
-                  source: exportInfo.source,
-                }
-              })
-            }
-
-            throw new Error('unimplemented')
+            })
           })
         },
       }
@@ -399,9 +413,9 @@ async function setup() {
             for (const declarator of path.node.declaration.declarations) {
               exports.push({
                 type: 'ExportSpecifier',
-                // @ts-ignore
+                // @ts-ignore this value should exist due to type narrowing
                 local: declarator.id.name,
-                // @ts-ignore
+                // @ts-ignore this value should exist due to type narrowing
                 exported: declarator.id.name,
                 exportKind: path.node.exportKind,
                 declaration: path.node.declaration.type,
@@ -431,16 +445,37 @@ async function setup() {
     }
   }
 
-  function getModuleExports(filepath: string) {
-    const id = SourceModule.getModuleId(filepath)
-    if (graph.has(id)) {
-      return graph.get(id).getExports()
-    }
-    throw new Error(`Unable to find module for: ${filepath}`)
-  }
-
   return {
-    getModuleExports,
+    getEntrypointExports(filepath: string): Array<EntrypointExport> {
+      const id = SourceModule.getModuleId(filepath)
+      if (graph.has(id)) {
+        const mod = graph.get(id)
+        if (mod?.type === 'source') {
+          const moduleExports = mod.getExports()
+          return moduleExports
+            .map(exportInfo => {
+              return {
+                identifier: exportInfo.identifier,
+                type: exportInfo.exportKind,
+              }
+            })
+            .sort((a, b) => {
+              if (a.identifier === b.identifier) {
+                if (a.type === 'value') {
+                  return -1
+                }
+
+                if (b.type === 'value') {
+                  return 1
+                }
+              }
+              return a.identifier.localeCompare(b.identifier)
+            })
+        }
+      }
+
+      throw new Error(`Unable to find entrypoint with filepath: ${filepath}`)
+    },
   }
 }
 
@@ -448,27 +483,43 @@ const extensions = ['.tsx', '.ts', '.js', '.jsx', '.mjs', '.cjs']
 
 // Terminology: https://nodejs.org/api/esm.html#terminology
 
+/**
+ * Represents an error when resolving the given import or export source
+ */
 type ResolveError = {
   type: 'error'
   error: Error
 }
 
+/**
+ * import mod from './some/local/file';
+ */
 type ResolveRelativeModule = {
   type: 'relative'
   value: string
 }
 
+/**
+ * import mod from 'mod';
+ */
 type ResolveBareModule = {
   type: 'bare'
   value: string
   path: string
 }
 
+/**
+ * import mod from '/mod';
+ */
 type ResolveAbsoluteModule = {
   type: 'absolute'
   value: string
 }
 
+/**
+ * Resolve the given import or export source. If the source is a filepath, it
+ * will attempt to resolve the module relative to the given filepath.
+ */
 function resolve(
   source: string,
   filepath: string,
@@ -508,6 +559,7 @@ function resolve(
       }
 
       return {
+        type: 'error',
         error: new Error(`Unable to find file: ${source} from: ${filepath}`),
       }
     }
@@ -515,6 +567,7 @@ function resolve(
     const resolvedPath = path.resolve(directory, source)
     if (!existsSync(resolvedPath)) {
       return {
+        type: 'error',
         error: new Error(`Unable to find file: ${source} from: ${filepath}`),
       }
     }
