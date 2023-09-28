@@ -63,6 +63,7 @@ const ESM_ONLY = new Set([
   '@github/paste-markdown',
   '@github/relative-time-element',
   '@lit-labs/react',
+  '@oddbird/popover-polyfill',
 ])
 const dependencies = [
   ...Object.keys(packageJson.peerDependencies ?? {}),

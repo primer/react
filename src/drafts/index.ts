@@ -57,6 +57,7 @@ export * from '../TreeView'
 export * from '../NavList'
 export * from '../SegmentedControl'
 export * from '../SplitPageLayout'
+export * from './Tooltip'
 
 // CSS Experiment
 // export * from './CSSComponent'

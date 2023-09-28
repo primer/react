@@ -2,9 +2,9 @@ import {render as HTMLRender, waitFor, fireEvent} from '@testing-library/react'
 import {axe} from 'jest-axe'
 import React from 'react'
 import theme from '../theme'
-import {ActionList} from '../ActionList'
+import {ActionList} from '.'
 import {behavesAsComponent, checkExports} from '../utils/testing'
-import {BaseStyles, ThemeProvider, SSRProvider} from '..'
+import {BaseStyles, ThemeProvider, SSRProvider, ActionMenu} from '..'
 
 function SimpleActionList(): JSX.Element {
   return (
@@ -165,5 +165,53 @@ describe('ActionList', () => {
     const link = await waitFor(() => component.getByRole('link'))
     fireEvent.click(link)
     expect(onClick).toHaveBeenCalled()
+  })
+
+  it('should render the ActionList.Heading component as a heading with the given heading level', async () => {
+    const container = HTMLRender(
+      <ActionList>
+        <ActionList.Heading as="h1">Heading</ActionList.Heading>
+      </ActionList>,
+    )
+    const heading = container.getByRole('heading', {level: 1})
+    expect(heading).toBeInTheDocument()
+    expect(heading).toHaveTextContent('Heading')
+  })
+  it('should label the action list with the heading id', async () => {
+    const {container, getByRole} = HTMLRender(
+      <ActionList>
+        <ActionList.Heading as="h1">Heading</ActionList.Heading>
+        <ActionList.Item>Item</ActionList.Item>
+      </ActionList>,
+    )
+    const list = container.querySelector('ul')
+    const heading = getByRole('heading', {level: 1})
+    expect(list).toHaveAttribute('aria-labelledby', heading.id)
+  })
+  it('should throw an error when ActionList.Heading is used within ActionMenu context', async () => {
+    const spy = jest.spyOn(console, 'error').mockImplementation(() => jest.fn())
+    expect(() =>
+      HTMLRender(
+        <ThemeProvider theme={theme}>
+          <SSRProvider>
+            <BaseStyles>
+              <ActionMenu open={true}>
+                <ActionMenu.Button>Trigger</ActionMenu.Button>
+                <ActionMenu.Overlay>
+                  <ActionList>
+                    <ActionList.Heading as="h1">Heading</ActionList.Heading>
+                    <ActionList.Item>Item</ActionList.Item>
+                  </ActionList>
+                </ActionMenu.Overlay>
+              </ActionMenu>
+            </BaseStyles>
+          </SSRProvider>
+        </ThemeProvider>,
+      ),
+    ).toThrow(
+      "ActionList.Heading shouldn't be used within an ActionMenu container. Menus are labelled by the menu button's name.",
+    )
+    expect(spy).toHaveBeenCalled()
+    spy.mockRestore()
   })
 })
