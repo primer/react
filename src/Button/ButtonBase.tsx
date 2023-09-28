@@ -88,13 +88,13 @@ const ButtonBase = forwardRef(
                 )}
                 {LeadingVisual && !loading && (
                   <Box as="span" data-component="leadingVisual" sx={{...iconWrapStyles}}>
-                    <LeadingIcon />
+                    <LeadingVisual />
                   </Box>
                 )}
                 {children && <span data-component="text">{children}</span>}
                 {TrailingVisual && (
                   <Box as="span" data-component="trailingVisual" sx={{...iconWrapStyles}}>
-                    <TrailingIcon />
+                    <TrailingVisual />
                   </Box>
                 )}
               </Box>
