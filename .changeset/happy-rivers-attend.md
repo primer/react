@@ -2,6 +2,6 @@
 "@primer/react": minor
 ---
 
-Adds draft Prose component to support styling within text blocks
+Updates link styles to support underline link preferences.
 
-<!-- Changed components: ActionList, BranchName, Breadcrumbs, Button, Button2, Heading, Link, Prose -->
+<!-- Changed components: ActionList, BranchName, Breadcrumbs, Button, Button2, Heading, Link -->
