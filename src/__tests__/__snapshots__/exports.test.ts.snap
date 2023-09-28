@@ -124,6 +124,8 @@ exports[`@primer/react/drafts should not update exports without a semver change 
   "NavList",
   "PageHeader",
   "Table",
+  "Tooltip",
+  "TooltipContext",
   "callbackCancelledResult",
   "createColumnHelper",
   "useCombobox",

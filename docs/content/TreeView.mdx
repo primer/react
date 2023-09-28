@@ -9,6 +9,9 @@ storybook: '/react/storybook?path=/story/components-treeview'
 ---
 
 import data from '../../src/TreeView/TreeView.docs.json'
+import DeprecationBanner from '../components/DeprecationBanner'
+
+<DeprecationBanner replacementUrl={'/design/components/tree-view/react'} />
 
 ```js
 import {TreeView} from '@primer/react'

@@ -58,3 +58,4 @@ export type {
   NavListTrailingVisualProps,
   NavListDividerProps,
 } from '../NavList'
+export * from './Tooltip'

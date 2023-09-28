@@ -7,6 +7,9 @@ storybook: '/react/storybook/?path=/story/components-link--default'
 ---
 
 import data from '../../src/Link/Link.docs.json'
+import DeprecationBanner from '../components/DeprecationBanner'
+
+<DeprecationBanner replacementUrl={'/design/components/link/react'} />
 
 The Link component styles anchor tags with default hyperlink color cues and hover text decoration. `Link` is used for destinations, or moving from one page to another.
 
