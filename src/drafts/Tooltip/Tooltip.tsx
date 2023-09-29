@@ -1,152 +1,20 @@
 import React, {Children, useEffect, useRef, useState} from 'react'
-import Box from '../../Box'
-import sx, {SxProp} from '../../sx'
 import {useId, useProvidedRefOrCreate} from '../../hooks'
 import {invariant} from '../../utils/invariant'
 import {warning} from '../../utils/warning'
-import styled from 'styled-components'
-import {get} from '../../constants'
 import {ComponentProps} from '../../utils/types'
 import {getAnchoredPosition} from '@primer/behaviors'
 import type {AnchorSide, AnchorAlignment} from '@primer/behaviors'
 import {isSupported, apply} from '@oddbird/popover-polyfill/fn'
-
-// Reusable styles to use for :popover-open (Chrome, Edge) and \:popover-open (Safari, Firefox) classes
-const popoverStyles = `
-    padding: 0.5em 0.75em;
-    width: max-content;
-    height: fit-content;
-    margin: auto;
-    clip: auto;
-    white-space: normal;
-    /* for scrollbar */
-    overflow: visible;
-`
-
-const animationStyles = `
-  animation-name: tooltip-appear;
-  animation-duration: 0.1s;
-  animation-fill-mode: forwards;
-  animation-timing-function: ease-in;
-  animation-delay: 0s;
-`
-
-const StyledTooltip = styled.div`
-  /* tooltip element should be rendered visually hidden when it is not opened.  */
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  position: fixed;
-  font: normal normal 11px/1.5 ${get('fonts.normal')};
-  -webkit-font-smoothing: subpixel-antialiased;
-  color: ${get('colors.fg.onEmphasis')};
-  text-align: center;
-
-  word-wrap: break-word;
-  background: ${get('colors.neutral.emphasisPlus')}; //bg--emphasis-color
-  border-radius: ${get('radii.2')};
-  border: 0;
-  opacity: 0;
-  max-width: 250px;
-  inset: auto;
-
-  @media (forced-colors: active) {
-    outline: 1px solid transparent;
-  }
-  /* pollyfil */
-  z-index: 2147483647;
-  display: block;
-
-  /* class name in chrome is :popover-open */
-  &:popover-open {
-    ${popoverStyles}
-  }
-
-  /* class name in firefox and safari is \:popover-open */
-  &.\\:popover-open {
-    ${popoverStyles}
-  }
-
-  // This is needed to keep the tooltip open when the user leaves the trigger element to hover tooltip
-  &::after {
-    position: absolute;
-    display: block;
-    right: 0;
-    left: 0;
-    height: 8px;
-    content: '';
-  }
-
-  /* South, East, Southeast, Southwest after */
-  &[data-direction='n']::after,
-  &[data-direction='ne']::after,
-  &[data-direction='nw']::after {
-    top: 100%;
-  }
-  &[data-direction='s']::after,
-  &[data-direction='se']::after,
-  &[data-direction='sw']::after {
-    bottom: 100%;
-  }
-
-  &[data-direction='w']::after {
-    position: absolute;
-    display: block;
-    height: 100%;
-    width: 8px;
-    content: '';
-    bottom: 0;
-    left: 100%;
-  }
-  /* East before and after */
-  &[data-direction='e']::after {
-    position: absolute;
-    display: block;
-    height: 100%;
-    width: 8px;
-    content: '';
-    bottom: 0;
-    right: 100%;
-    margin-left: -8px;
-  }
-
-  /* Animation definition */
-  @keyframes tooltip-appear {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }
-  /* Animation styles */
-  &:popover-open,
-  &:popover-open::before {
-    ${animationStyles}
-  }
-
-  /* Animation styles */
-  &.\\:popover-open,
-  &.\\:popover-open::before {
-    ${animationStyles}
-  }
-
-  ${sx};
-`
+import clsx from 'clsx'
+import styles from './tooltip.module.css'
 
 type TooltipDirection = 'nw' | 'n' | 'ne' | 'e' | 'se' | 's' | 'sw' | 'w'
-export type TooltipProps = React.PropsWithChildren<
-  {
-    direction?: TooltipDirection
-    text?: string
-    type?: 'label' | 'description'
-  } & SxProp &
-    ComponentProps<typeof StyledTooltip>
->
+export type TooltipProps = React.PropsWithChildren<{
+  direction?: TooltipDirection
+  text?: string
+  type?: 'label' | 'description'
+}>
 
 export type TriggerPropsType = {
   'aria-describedby'?: string
@@ -284,7 +152,7 @@ export const Tooltip = React.forwardRef(
 
     return (
       <TooltipContext.Provider value={{tooltipId}}>
-        <Box sx={{display: 'inline-block'}} onMouseLeave={() => closeTooltip()}>
+        <div className={styles['Tooltip-wrap']} onMouseLeave={() => closeTooltip()}>
           {React.isValidElement(child) &&
             React.cloneElement(child as React.ReactElement<TriggerPropsType>, {
               ref: triggerRef,
@@ -305,9 +173,10 @@ export const Tooltip = React.forwardRef(
                 child.props.onMouseEnter?.(event)
               },
             })}
-          <StyledTooltip
+          <div
             ref={tooltipElRef}
             data-direction={calculatedDirection}
+            className={styles.Tooltip}
             {...rest}
             // Only need tooltip role if the tooltip is a description for supplementary information
             role={type === 'description' ? 'tooltip' : undefined}
@@ -316,8 +185,8 @@ export const Tooltip = React.forwardRef(
             id={`tooltip-${tooltipId}`}
           >
             {text}
-          </StyledTooltip>
-        </Box>
+          </div>
+        </div>
       </TooltipContext.Provider>
     )
   },
