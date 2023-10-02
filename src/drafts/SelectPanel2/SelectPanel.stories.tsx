@@ -795,7 +795,7 @@ export const IInstantSelectionVariant = () => {
     <>
       <h1>Instant selection variant</h1>
 
-      <SelectPanel title="Choose a tag" selectionVariant="instant" onSubmit={onSubmit} defaultOpen>
+      <SelectPanel title="Choose a tag" selectionVariant="instant" onSubmit={onSubmit} height="medium" defaultOpen>
         {/* @ts-ignore todo */}
         <SelectPanel.Button leadingIcon={TagIcon}>{selectedTag || 'Choose a tag'}</SelectPanel.Button>
 
@@ -806,7 +806,9 @@ export const IInstantSelectionVariant = () => {
             </ActionList.Item>
           ))}
         </ActionList>
-        {/* no footer */}
+        <SelectPanel.Footer>
+          <SelectPanel.SecondaryButton>Edit tags</SelectPanel.SecondaryButton>
+        </SelectPanel.Footer>
       </SelectPanel>
     </>
   )
