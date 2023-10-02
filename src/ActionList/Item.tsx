@@ -38,7 +38,12 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       trailingVisual: TrailingVisual,
       description: Description,
     })
-    const {variant: listVariant, showDividers, selectionVariant: listSelectionVariant} = React.useContext(ListContext)
+    const {
+      variant: listVariant,
+      role: listRole,
+      showDividers,
+      selectionVariant: listSelectionVariant,
+    } = React.useContext(ListContext)
     const {selectionVariant: groupSelectionVariant} = React.useContext(GroupContext)
     const {container, afterSelect, selectionAttribute} = React.useContext(ActionListContainerContext)
 
@@ -65,6 +70,8 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       if (selectionVariant === 'single') itemRole = 'menuitemradio'
       else if (selectionVariant === 'multiple') itemRole = 'menuitemcheckbox'
       else itemRole = 'menuitem'
+    } else if (container === 'SelectPanel' && listRole === 'listbox') {
+      if (selectionVariant !== undefined) itemRole = 'option'
     }
 
     const {theme} = useTheme()
