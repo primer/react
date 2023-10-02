@@ -1,7 +1,7 @@
 import React from 'react'
 import {SelectPanel} from './SelectPanel'
-import {ActionList, ActionMenu, Avatar, Box, Button} from '../../../src/index'
-import {ArrowRightIcon, EyeIcon, GitBranchIcon, TriangleDownIcon} from '@primer/octicons-react'
+import {ActionList, ActionMenu, Avatar, Box, Button, Flash} from '../../../src/index'
+import {ArrowRightIcon, AlertIcon, EyeIcon, GitBranchIcon, TriangleDownIcon} from '@primer/octicons-react'
 import data from './mock-data'
 
 const getCircle = (color: string) => (
@@ -582,6 +582,7 @@ export const EMinimal = () => {
             </ActionList.Item>
           ))}
         </SelectPanel.ActionList>
+        <SelectPanel.Footer />
       </SelectPanel>
     </>
   )
@@ -658,6 +659,7 @@ export const FExternalAnchor = () => {
             </ActionList.Item>
           ))}
         </SelectPanel.ActionList>
+        <SelectPanel.Footer />
       </SelectPanel>
     </>
   )
@@ -687,6 +689,13 @@ export const GOpenFromMenu = () => {
   return (
     <>
       <h1>Open from ActionMenu</h1>
+      <Flash variant="danger">
+        <AlertIcon />
+        This implementation will most likely change.{' '}
+        <a href="https://github.com/github/primer/discussions/2614#discussioncomment-6879407">
+          See decision log for more details.
+        </a>
+      </Flash>
       <p>
         To open SelectPanel from a menu, you would need to use an external anchor and pass `anchorRef` to `SelectPanel`.
         You would also need to control the `open` state for both ActionMenu and SelectPanel.
@@ -768,6 +777,7 @@ export const GOpenFromMenu = () => {
             </ActionList.Item>
           ))}
         </SelectPanel.ActionList>
+        <SelectPanel.Footer />
       </SelectPanel>
     </>
   )
