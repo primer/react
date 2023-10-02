@@ -57,15 +57,19 @@ const SelectPanel = props => {
     if (props.open === undefined) setInternalOpen(false)
     if (typeof props.onCancel === 'function') props.onCancel()
   }
-  // @ts-ignore todo
-  const onInternalSubmit = event => {
-    event.preventDefault()
+
+  const onInternalSubmit = (event?: React.SyntheticEvent) => {
+    event?.preventDefault() // there is no event with selectionVariant=instant
     if (props.open === undefined) setInternalOpen(false)
     if (typeof props.onSubmit === 'function') props.onSubmit(event)
   }
 
   const onInternalClearSelection = () => {
     if (typeof props.onSubmit === 'function') props.onClearSelection()
+  }
+
+  const internalAfterSelect = () => {
+    if (props.selectionVariant === 'instant') onInternalSubmit()
   }
 
   /* Search/Filter */
@@ -127,7 +131,9 @@ const SelectPanel = props => {
                   container: 'SelectPanel',
                   listRole: 'listbox',
                   selectionAttribute: 'aria-selected',
-                  selectionVariant: props.selectionVariant || 'multiple',
+                  selectionVariant:
+                    props.selectionVariant === 'instant' ? 'single' : props.selectionVariant || 'multiple',
+                  afterSelect: internalAfterSelect,
                 }}
               >
                 {childrenInBody}
