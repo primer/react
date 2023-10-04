@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState, useRef} from 'react'
 import {Box, ActionMenu, ActionList, Button, IconButton} from '../'
 import {
   GearIcon,
@@ -14,6 +14,7 @@ import {
   CheckIcon,
   CopyIcon,
 } from '@primer/octicons-react'
+import Dialog from '../Dialog'
 
 export default {
   title: 'Components/ActionMenu/Examples',
@@ -184,6 +185,67 @@ export const CustomAnchor = () => (
     </ActionMenu.Overlay>
   </ActionMenu>
 )
+
+export const OpenDialogFromMenuItem = () => {
+  const [isOpen, setIsOpen] = useState(false)
+  const [isDialogOpen, setIsDialogOpen] = useState(false)
+  const closeDialog = () => setIsDialogOpen(false)
+  const buttonRef = React.useRef(null)
+  return (
+    <>
+      <IconButton
+        ref={buttonRef}
+        icon={KebabHorizontalIcon}
+        aria-label="Open menu"
+        onClick={() => setIsOpen(!isOpen)}
+      />
+      <ActionMenu open={isOpen} anchorRef={buttonRef} onOpenChange={value => setIsOpen(value)}>
+        <ActionMenu.Overlay width="medium">
+          <ActionList>
+            <ActionList.Item onSelect={() => setIsDialogOpen(true)}>
+              <ActionList.LeadingVisual>
+                <IssueOpenedIcon />
+              </ActionList.LeadingVisual>
+              Change Issue Type
+            </ActionList.Item>
+            <ActionList.Item onSelect={() => alert('Copy link clicked')}>
+              Copy link
+              <ActionList.TrailingVisual>⌘C</ActionList.TrailingVisual>
+            </ActionList.Item>
+            <ActionList.Item onSelect={() => alert('Quote reply clicked')}>
+              Quote reply
+              <ActionList.TrailingVisual>⌘Q</ActionList.TrailingVisual>
+            </ActionList.Item>
+            <ActionList.Item onSelect={() => alert('Edit comment clicked')}>
+              Edit comment
+              <ActionList.TrailingVisual>⌘E</ActionList.TrailingVisual>
+            </ActionList.Item>
+            <ActionList.Divider />
+            <ActionList.Item variant="danger" onSelect={() => alert('Delete file clicked')}>
+              Delete file
+              <ActionList.TrailingVisual>⌘D</ActionList.TrailingVisual>
+            </ActionList.Item>
+          </ActionList>
+        </ActionMenu.Overlay>
+      </ActionMenu>
+
+      <Dialog
+        returnFocusRef={buttonRef}
+        isOpen={isDialogOpen}
+        onDismiss={() => {
+          closeDialog()
+        }}
+      >
+        <Dialog.Header id="header-id">Title</Dialog.Header>
+        some content
+        <Box display="flex" mt={3} justifyContent="flex-end">
+          <Button sx={{mr: 1}}>Cancel</Button>
+          <Button variant="danger">Delete</Button>
+        </Box>
+      </Dialog>
+    </>
+  )
+}
 
 export const MixedSelection = () => {
   const [selectedIndex, setSelectedIndex] = React.useState<number | null>(1)
