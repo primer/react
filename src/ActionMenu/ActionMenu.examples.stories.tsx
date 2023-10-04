@@ -1,4 +1,4 @@
-import React, {useState, useRef} from 'react'
+import React, {useState} from 'react'
 import {Box, ActionMenu, ActionList, Button, IconButton} from '../'
 import {
   GearIcon,
