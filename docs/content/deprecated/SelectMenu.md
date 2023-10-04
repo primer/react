@@ -3,6 +3,10 @@ title: SelectMenu
 status: Deprecated
 ---
 
+import DeprecationBanner from '../../components/DeprecationBanner'
+
+<DeprecationBanner replacementUrl={'/design/deprecated-components/select-menu'} />
+
 ## Deprecation
 
 Use [ActionMenu](/ActionMenu) instead.

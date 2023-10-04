@@ -8,6 +8,9 @@ storybook: '/react/storybook?path=/story/private-components-overlay--dropdown-ov
 ---
 
 import data from '../../src/Overlay/Overlay.docs.json'
+import DeprecationBanner from '../components/DeprecationBanner'
+
+<DeprecationBanner replacementUrl={'/design/components/overlay/react'} />
 
 ```js
 import {Overlay} from '@primer/react'

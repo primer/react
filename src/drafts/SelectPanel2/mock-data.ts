@@ -1,8 +1,9 @@
 const data = {
   issue: {
     labelIds: ['MDU6TGFiZWw4Mzk2MzgxMTU=', 'MDU6TGFiZWw4Mzk2MzgxMjE='],
-    assigneeIds: [],
+    assigneeIds: ['MDQ6VXNlcjQxNzI2OA=='],
   },
+  ref: 'main',
   collaborators: [
     {
       id: 'MDQ6VXNlcjQxNzI2OA==',
@@ -908,6 +909,27 @@ const data = {
       name: 'Tyler Johnston',
       login: 'tylerjohnst',
     },
+  ],
+  branches: [
+    {id: 'main', name: 'main', trailingInfo: 'Default'},
+    {id: 'next-major', name: 'next-major'},
+    {id: 'changeset-release/main', name: 'changeset-release/main'},
+    {id: 'changeset-release/next-major', name: 'changeset-release/next-major'},
+    {id: 'selectpanel-2', name: 'selectpanel-2'},
+    {id: 'bs/actionlist-heading', name: 'bs/actionlist-heading'},
+    {id: 'refactor/support-alt-names', name: 'refactor/support-alt-names'},
+    {id: 'fix/update-action-list', name: 'fix/update-action-list'},
+    {id: 'dependabot/markdownlint-github-0.4.1', name: 'dependabot/markdownlint-github-0.4.1'},
+  ],
+  tags: [
+    {id: 'v35.29.0', name: 'v35.29.0', trailingInfo: 'Latest'},
+    {id: 'v35.28.0', name: 'v35.28.0'},
+    {id: 'v35.27.1', name: 'v35.27.1'},
+    {id: 'v35.27.0', name: 'v35.27.0'},
+    {id: 'v35.26.1', name: 'v35.26.1'},
+    {id: 'v35.26.0', name: 'v35.26.0'},
+    {id: 'v35.0.0', name: 'v35.0.0'},
+    {id: 'v34.0.0', name: 'v34.0.0'},
   ],
 }
 
