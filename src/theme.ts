@@ -1,8 +1,13 @@
 import {KeyPaths} from './utils/types/KeyPaths'
 import primitives from './legacy-theme/js/index.js'
 import {partitionColors, fontStack, omitScale} from './utils/theme'
+// console.log(JSON.stringify(primitives.typography.normal.lineHeight, null, 2))
+const {lineHeight: lineHeights} = primitives.typography
 
-const {lineHeight: lineHeights} = primitives.typography.normal
+console.log(primitives)
+console.log(primitives.typography)
+// console.log(primitives.typography.normal)
+console.log(primitives.typography.lineHeight)
 
 const animation = {
   easeOutCubic: 'cubic-bezier(0.33, 1, 0.68, 1)',

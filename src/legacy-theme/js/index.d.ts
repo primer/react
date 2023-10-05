@@ -4601,12 +4601,10 @@ declare const _default: {
     }
   }
   typography: {
-    normal: {
-      lineHeight: {
-        condensedUltra: number
-        condensed: number
-        default: number
-      }
+    lineHeight: {
+      condensedUltra: number
+      condensed: number
+      default: number
     }
   }
 }

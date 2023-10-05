@@ -1,6 +1,4 @@
-'use strict'
-Object.defineProperty(exports, '__esModule', {value: true})
-exports.default = {
+const colors = {
   canvasDefaultTransparent: 'rgba(34,39,46,0)',
   pageHeaderBg: '#22272e',
   marketingIcon: {
@@ -600,3 +598,5 @@ exports.default = {
     ],
   },
 }
+
+export default colors
