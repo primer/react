@@ -597,6 +597,6 @@ const colors = {
       '#510901',
     ],
   },
-}
+} as const
 
 export default colors
