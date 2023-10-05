@@ -2,7 +2,7 @@ import {KeyPaths} from './utils/types/KeyPaths'
 import primitives from './legacy-theme/js/index.js'
 import {partitionColors, fontStack, omitScale} from './utils/theme'
 
-const {lineHeight: lineHeights} = primitives.typography
+// const {lineHeight: lineHeights} = primitives.typography
 
 const animation = {
   easeOutCubic: 'cubic-bezier(0.33, 1, 0.68, 1)',
@@ -23,6 +23,12 @@ const fonts = {
     'Segoe UI Emoji',
   ]),
   mono: fontStack(['SFMono-Regular', 'Consolas', 'Liberation Mono', 'Menlo', 'Courier', 'monospace']),
+}
+
+const lineHeights = {
+  condensedUltra: 1,
+  condensed: 1.25,
+  default: 1.5,
 }
 
 const fontWeights = {
