@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 'use strict'
 
 import light from './light'
