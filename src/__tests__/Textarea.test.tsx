@@ -111,7 +111,7 @@ describe('Textarea', () => {
     expect(textareaElement.disabled).toEqual(true)
     expect(textareaElement).toHaveAttribute('disabled')
 
-    user.click(textareaElement)
+    await user.click(textareaElement)
 
     expect(handleChange).not.toHaveBeenCalled()
 
