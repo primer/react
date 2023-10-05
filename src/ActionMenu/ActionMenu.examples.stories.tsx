@@ -193,13 +193,10 @@ export const OpenDialogFromMenuItem = () => {
   const buttonRef = React.useRef(null)
   return (
     <>
-      <IconButton
-        ref={buttonRef}
-        icon={KebabHorizontalIcon}
-        aria-label="Open menu"
-        onClick={() => setIsOpen(!isOpen)}
-      />
-      <ActionMenu open={isOpen} anchorRef={buttonRef} onOpenChange={value => setIsOpen(value)}>
+      <ActionMenu anchorRef={buttonRef}>
+        <ActionMenu.Anchor>
+          <IconButton ref={buttonRef} icon={KebabHorizontalIcon} aria-label="Open menu" />
+        </ActionMenu.Anchor>
         <ActionMenu.Overlay width="medium">
           <ActionList>
             <ActionList.Item onSelect={() => setIsDialogOpen(true)}>
