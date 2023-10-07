@@ -149,7 +149,6 @@ exports[`@primer/react/drafts should not update exports without a semver change 
   "NavList",
   "PageHeader",
   "Pane",
-  "Prose",
   "Root",
   "SegmentedControl",
   "SplitPageLayout",
