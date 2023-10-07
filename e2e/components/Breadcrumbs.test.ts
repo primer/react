@@ -43,5 +43,19 @@ test.describe('Breadcrumbs', () => {
         })
       })
     }
+
+    test.describe('with forced underlines', () => {
+      test('default @vrt', async ({page}) => {
+        await visit(page, {
+          id: 'components-breadcrumbs--default',
+          globals: {
+            colorScheme: 'light',
+            prefersLinkUnderlines: 'true',
+          },
+        })
+
+        expect(await page.screenshot()).toMatchSnapshot('Breadcrumbs.Default.light.forcedUnderlines.png')
+      })
+    })
   })
 })
