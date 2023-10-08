@@ -821,7 +821,7 @@ export const IWithRemoveFilterIcon = () => {
         {/* @ts-ignore todo */}
         <SelectPanel.Button>Assign label</SelectPanel.Button>
 
-        <SelectPanel.ActionList>
+        <ActionList>
           {itemsToShow.map(label => (
             <ActionList.Item
               key={label.id}
@@ -833,7 +833,7 @@ export const IWithRemoveFilterIcon = () => {
               <ActionList.Description variant="block">{label.description}</ActionList.Description>
             </ActionList.Item>
           ))}
-        </SelectPanel.ActionList>
+        </ActionList>
       </SelectPanel>
     </>
   )
