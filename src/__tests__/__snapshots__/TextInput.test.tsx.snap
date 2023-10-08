@@ -1710,11 +1710,13 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
   display: inline-flex;
+  -webkit-text-decoration: var(--prefers-link-underlines,underline);
+  text-decoration: var(--prefers-link-underlines,underline);
 }
 
 .c4[href]:hover {
-  -webkit-text-decoration: none;
-  text-decoration: none;
+  -webkit-text-decoration: var(--prefers-link-underlines,underline);
+  text-decoration: var(--prefers-link-underlines,underline);
 }
 
 .c4:hover {
@@ -2359,11 +2361,13 @@ exports[`TextInput renders trailingAction text button 1`] = `
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
   display: inline-flex;
+  -webkit-text-decoration: var(--prefers-link-underlines,underline);
+  text-decoration: var(--prefers-link-underlines,underline);
 }
 
 .c3[href]:hover {
-  -webkit-text-decoration: none;
-  text-decoration: none;
+  -webkit-text-decoration: var(--prefers-link-underlines,underline);
+  text-decoration: var(--prefers-link-underlines,underline);
 }
 
 .c3:hover {
@@ -2762,11 +2766,13 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
   display: inline-flex;
+  -webkit-text-decoration: var(--prefers-link-underlines,underline);
+  text-decoration: var(--prefers-link-underlines,underline);
 }
 
 .c4[href]:hover {
-  -webkit-text-decoration: none;
-  text-decoration: none;
+  -webkit-text-decoration: var(--prefers-link-underlines,underline);
+  text-decoration: var(--prefers-link-underlines,underline);
 }
 
 .c4:hover {

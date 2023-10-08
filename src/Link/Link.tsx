@@ -22,9 +22,9 @@ const hoverColor = system({
 
 const StyledLink = styled.a<StyledLinkProps>`
   color: ${props => (props.muted ? get('colors.fg.muted')(props) : get('colors.accent.fg')(props))};
-  text-decoration: ${props => (props.underline ? 'underline' : 'none')};
+  text-decoration: ${props => (props.underline ? 'underline' : 'var(--prefers-link-underlines, underline)')};
   &:hover {
-    text-decoration: ${props => (props.muted ? 'none' : 'underline')};
+    text-decoration: ${props => (props.muted ? 'var(--prefers-link-underlines, underline)' : 'underline')};
     ${props => (props.hoverColor ? hoverColor : props.muted ? `color: ${get('colors.accent.fg')(props)}` : '')};
   }
   &:is(button) {

@@ -137,6 +137,20 @@ test.describe('LinkButton', () => {
         })
       })
     }
+
+    test.describe('with forced underlines', () => {
+      test('default @vrt', async ({page}) => {
+        await visit(page, {
+          id: 'components-linkbutton-features--invisible',
+          globals: {
+            colorScheme: 'light',
+            prefersLinkUnderlines: 'true',
+          },
+        })
+
+        expect(await page.screenshot()).toMatchSnapshot('LinkButton.Invisible.light.forcedUnderlines.png')
+      })
+    })
   })
 
   test.describe('Large', () => {
