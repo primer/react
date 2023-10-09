@@ -147,11 +147,13 @@ exports[`Dialog renders consistently 1`] = `
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
   display: inline-flex;
+  -webkit-text-decoration: var(--prefers-link-underlines,underline);
+  text-decoration: var(--prefers-link-underlines,underline);
 }
 
 .c1[href]:hover {
-  -webkit-text-decoration: none;
-  text-decoration: none;
+  -webkit-text-decoration: var(--prefers-link-underlines,underline);
+  text-decoration: var(--prefers-link-underlines,underline);
 }
 
 .c1:hover {
@@ -171,7 +173,8 @@ exports[`Dialog renders consistently 1`] = `
 }
 
 .c1:disabled [data-component=ButtonCounter],
-.c1:disabled [data-component="leadingVisual"],.c1:disabled [data-component="trailingAction"] {
+.c1:disabled [data-component="leadingVisual"],
+.c1:disabled [data-component="trailingAction"] {
   color: inherit;
 }
 

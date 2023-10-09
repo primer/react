@@ -97,7 +97,8 @@ exports[`NavList renders a simple list 1`] = `
   --divider-color: transparent !important;
 }
 
-.c2:hover:not([aria-disabled]),.c2:focus:not([aria-disabled]),
+.c2:hover:not([aria-disabled]),
+.c2:focus:not([aria-disabled]),
 .c2[data-focus-visible-added]:not([aria-disabled]) {
   --divider-color: transparent;
 }
@@ -182,7 +183,8 @@ exports[`NavList renders a simple list 1`] = `
   --divider-color: transparent !important;
 }
 
-.c6:hover:not([aria-disabled]),.c6:focus:not([aria-disabled]),
+.c6:hover:not([aria-disabled]),
+.c6:focus:not([aria-disabled]),
 .c6[data-focus-visible-added]:not([aria-disabled]) {
   --divider-color: transparent;
 }
@@ -194,8 +196,8 @@ exports[`NavList renders a simple list 1`] = `
 
 .c3 {
   color: #0969da;
-  -webkit-text-decoration: none;
-  text-decoration: none;
+  -webkit-text-decoration: var(--prefers-link-underlines,underline);
+  text-decoration: var(--prefers-link-underlines,underline);
   padding-left: 8px;
   padding-right: 8px;
   padding-top: 6px;
@@ -210,6 +212,8 @@ exports[`NavList renders a simple list 1`] = `
   flex-grow: 1;
   border-radius: 6px;
   color: inherit;
+  -webkit-text-decoration: none;
+  text-decoration: none;
 }
 
 .c3:hover {
@@ -500,7 +504,8 @@ exports[`NavList renders with groups 1`] = `
   --divider-color: transparent !important;
 }
 
-.c6:hover:not([aria-disabled]),.c6:focus:not([aria-disabled]),
+.c6:hover:not([aria-disabled]),
+.c6:focus:not([aria-disabled]),
 .c6[data-focus-visible-added]:not([aria-disabled]) {
   --divider-color: transparent;
 }
@@ -585,7 +590,8 @@ exports[`NavList renders with groups 1`] = `
   --divider-color: transparent !important;
 }
 
-.c10:hover:not([aria-disabled]),.c10:focus:not([aria-disabled]),
+.c10:hover:not([aria-disabled]),
+.c10:focus:not([aria-disabled]),
 .c10[data-focus-visible-added]:not([aria-disabled]) {
   --divider-color: transparent;
 }
@@ -597,8 +603,8 @@ exports[`NavList renders with groups 1`] = `
 
 .c7 {
   color: #0969da;
-  -webkit-text-decoration: none;
-  text-decoration: none;
+  -webkit-text-decoration: var(--prefers-link-underlines,underline);
+  text-decoration: var(--prefers-link-underlines,underline);
   padding-left: 8px;
   padding-right: 8px;
   padding-top: 6px;
@@ -613,6 +619,8 @@ exports[`NavList renders with groups 1`] = `
   flex-grow: 1;
   border-radius: 6px;
   color: inherit;
+  -webkit-text-decoration: none;
+  text-decoration: none;
 }
 
 .c7:hover {
@@ -849,7 +857,8 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   font-weight: initial;
 }
 
-[data-variant="danger"]:hover .c1,[data-variant="danger"]:active .c8 {
+[data-variant="danger"]:hover .c1,
+[data-variant="danger"]:active .c8 {
   color: #1F2328;
 }
 
@@ -947,7 +956,8 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   --divider-color: transparent !important;
 }
 
-.c11:hover:not([aria-disabled]),.c11:focus:not([aria-disabled]),
+.c11:hover:not([aria-disabled]),
+.c11:focus:not([aria-disabled]),
 .c11[data-focus-visible-added]:not([aria-disabled]) {
   --divider-color: transparent;
 }
@@ -1032,7 +1042,8 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   --divider-color: transparent !important;
 }
 
-.c4:hover:not([aria-disabled]),.c4:focus:not([aria-disabled]),
+.c4:hover:not([aria-disabled]),
+.c4:focus:not([aria-disabled]),
 .c4[data-focus-visible-added]:not([aria-disabled]) {
   --divider-color: transparent;
 }
@@ -1044,8 +1055,8 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
 
 .c12 {
   color: #0969da;
-  -webkit-text-decoration: none;
-  text-decoration: none;
+  -webkit-text-decoration: var(--prefers-link-underlines,underline);
+  text-decoration: var(--prefers-link-underlines,underline);
   padding-left: 16px;
   padding-right: 8px;
   padding-top: 6px;
@@ -1060,6 +1071,8 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   flex-grow: 1;
   border-radius: 6px;
   color: inherit;
+  -webkit-text-decoration: none;
+  text-decoration: none;
   font-size: 12px;
   font-weight: 400;
 }
@@ -1289,7 +1302,8 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   font-weight: initial;
 }
 
-[data-variant="danger"]:hover .c1,[data-variant="danger"]:active .c8 {
+[data-variant="danger"]:hover .c1,
+[data-variant="danger"]:active .c8 {
   color: #1F2328;
 }
 
@@ -1387,7 +1401,8 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   --divider-color: transparent !important;
 }
 
-.c11:hover:not([aria-disabled]),.c11:focus:not([aria-disabled]),
+.c11:hover:not([aria-disabled]),
+.c11:focus:not([aria-disabled]),
 .c11[data-focus-visible-added]:not([aria-disabled]) {
   --divider-color: transparent;
 }
@@ -1482,7 +1497,8 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   --divider-color: transparent !important;
 }
 
-.c4:hover:not([aria-disabled]),.c4:focus:not([aria-disabled]),
+.c4:hover:not([aria-disabled]),
+.c4:focus:not([aria-disabled]),
 .c4[data-focus-visible-added]:not([aria-disabled]) {
   --divider-color: transparent;
 }
@@ -1505,8 +1521,8 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
 
 .c12 {
   color: #0969da;
-  -webkit-text-decoration: none;
-  text-decoration: none;
+  -webkit-text-decoration: var(--prefers-link-underlines,underline);
+  text-decoration: var(--prefers-link-underlines,underline);
   padding-left: 16px;
   padding-right: 8px;
   padding-top: 6px;
@@ -1521,6 +1537,8 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   flex-grow: 1;
   border-radius: 6px;
   color: inherit;
+  -webkit-text-decoration: none;
+  text-decoration: none;
   font-size: 12px;
   font-weight: 400;
 }

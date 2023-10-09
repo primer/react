@@ -209,7 +209,9 @@ exports[`Button renders consistently 1`] = `
   border-color: rgba(31,35,40,0.15);
 }
 
-.c0 [data-component="leadingVisual"],.c0 [data-component="trailingVisual"],.c0 [data-component="trailingAction"] {
+.c0 [data-component="leadingVisual"],
+.c0 [data-component="trailingVisual"],
+.c0 [data-component="trailingAction"] {
   color: #656d76;
 }
 
@@ -440,7 +442,9 @@ exports[`Button respects block prop 1`] = `
   border-color: btn.activeBorder;
 }
 
-.c0 [data-component="leadingVisual"],.c0 [data-component="trailingVisual"],.c0 [data-component="trailingAction"] {
+.c0 [data-component="leadingVisual"],
+.c0 [data-component="trailingVisual"],
+.c0 [data-component="trailingAction"] {
   color: fg.muted;
 }
 
@@ -677,7 +681,9 @@ exports[`Button respects the alignContent prop 1`] = `
   border-color: btn.activeBorder;
 }
 
-.c0 [data-component="leadingVisual"],.c0 [data-component="trailingVisual"],.c0 [data-component="trailingAction"] {
+.c0 [data-component="leadingVisual"],
+.c0 [data-component="trailingVisual"],
+.c0 [data-component="trailingAction"] {
   color: fg.muted;
 }
 
@@ -913,7 +919,9 @@ exports[`Button respects the large size prop 1`] = `
   border-color: btn.activeBorder;
 }
 
-.c0 [data-component="leadingVisual"],.c0 [data-component="trailingVisual"],.c0 [data-component="trailingAction"] {
+.c0 [data-component="leadingVisual"],
+.c0 [data-component="trailingVisual"],
+.c0 [data-component="trailingAction"] {
   color: fg.muted;
 }
 
@@ -1150,7 +1158,9 @@ exports[`Button respects the small size prop 1`] = `
   border-color: btn.activeBorder;
 }
 
-.c0 [data-component="leadingVisual"],.c0 [data-component="trailingVisual"],.c0 [data-component="trailingAction"] {
+.c0 [data-component="leadingVisual"],
+.c0 [data-component="trailingVisual"],
+.c0 [data-component="trailingAction"] {
   color: fg.muted;
 }
 
@@ -1501,11 +1511,13 @@ exports[`Button styles invisible button appropriately 1`] = `
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
   display: inline-flex;
+  -webkit-text-decoration: var(--prefers-link-underlines,underline);
+  text-decoration: var(--prefers-link-underlines,underline);
 }
 
 .c0[href]:hover {
-  -webkit-text-decoration: none;
-  text-decoration: none;
+  -webkit-text-decoration: var(--prefers-link-underlines,underline);
+  text-decoration: var(--prefers-link-underlines,underline);
 }
 
 .c0:hover {
@@ -1525,7 +1537,8 @@ exports[`Button styles invisible button appropriately 1`] = `
 }
 
 .c0:disabled [data-component=ButtonCounter],
-.c0:disabled [data-component="leadingVisual"],.c0:disabled [data-component="trailingAction"] {
+.c0:disabled [data-component="leadingVisual"],
+.c0:disabled [data-component="trailingAction"] {
   color: inherit;
 }
 

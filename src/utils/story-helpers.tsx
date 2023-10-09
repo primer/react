@@ -9,7 +9,7 @@ import {Icon} from '@primer/octicons-react'
 // we don't import StoryContext from storybook because of exports that conflict
 // with primer/react more: https://github.com/primer/react/runs/6129115026?check_suite_focus=true
 type StoryContext = Record<string, unknown> & {
-  globals: {colorScheme: string; showSurroundingElements?: boolean}
+  globals: {colorScheme: string; showSurroundingElements?: boolean; prefersLinkUnderlines?: 'true' | 'false'}
   parameters: Record<string, unknown>
 }
 
@@ -59,7 +59,7 @@ export const withThemeProvider = (Story: React.FC<React.PropsWithChildren<StoryC
   // used for testing ThemeProvider.stories.tsx
   if (context.parameters.disableThemeDecorator) return Story(context)
 
-  const {colorScheme} = context.globals
+  const {colorScheme, prefersLinkUnderlines} = context.globals
 
   if (colorScheme === 'all') {
     return (
@@ -87,7 +87,9 @@ export const withThemeProvider = (Story: React.FC<React.PropsWithChildren<StoryC
                   color: 'fg.default',
                 }}
               >
-                <div id={`html-addon-root-${scheme}`}>{Story(context)}</div>
+                <div id={`html-addon-root-${scheme}`} data-a11y-link-underlines={prefersLinkUnderlines}>
+                  {Story(context)}
+                </div>
               </Box>
             </BaseStyles>
           </ThemeProvider>
@@ -100,7 +102,9 @@ export const withThemeProvider = (Story: React.FC<React.PropsWithChildren<StoryC
     <ThemeProvider colorMode="day" dayScheme={colorScheme}>
       <GlobalStyle />
       <BaseStyles>
-        <div id="html-addon-root">{Story(context)}</div>
+        <div id="html-addon-root" data-a11y-link-underlines={prefersLinkUnderlines}>
+          {Story(context)}
+        </div>
       </BaseStyles>
     </ThemeProvider>
   )
@@ -117,6 +121,16 @@ export const toolbarTypes = {
       title: 'Color scheme',
     },
     showSurroundingElements: {},
+  },
+  prefersLinkUnderlines: {
+    name: 'Force link underlines',
+    description: 'Whether to force underlines on links that are not otherwise underlined',
+    defaultValue: 'false',
+    toolbar: {
+      icon: 'link',
+      items: ['true', 'false'],
+      title: 'Force link underlines',
+    },
   },
 }
 

@@ -3,8 +3,8 @@
 exports[`SideNav SideNav.Link renders consistently 1`] = `
 .c0 {
   color: #0969da;
-  -webkit-text-decoration: none;
-  text-decoration: none;
+  -webkit-text-decoration: var(--prefers-link-underlines,underline);
+  text-decoration: var(--prefers-link-underlines,underline);
 }
 
 .c0:hover {
