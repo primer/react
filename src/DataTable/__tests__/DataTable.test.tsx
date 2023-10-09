@@ -551,6 +551,81 @@ describe('DataTable', () => {
       })
     })
 
+    it('should sort sparsely populated columns with blank values at the end', async () => {
+      const user = userEvent.setup()
+
+      render(
+        <DataTable
+          data={[
+            {
+              id: 1,
+              value: null,
+            },
+            {
+              id: 2,
+              value: 2,
+            },
+            {
+              id: 3,
+              value: '',
+            },
+            {
+              id: 4,
+              value: 3,
+            },
+            {
+              id: 5,
+              value: 1,
+            },
+          ]}
+          columns={[
+            {
+              header: 'Value',
+              field: 'value',
+              sortBy: true,
+            },
+          ]}
+          initialSortColumn="value"
+          initialSortDirection="ASC"
+        />,
+      )
+
+      const header = screen.getByRole('columnheader', {
+        name: 'Value',
+      })
+      expect(header).toHaveAttribute('aria-sort', 'ascending')
+
+      // Change to descending
+      await user.click(screen.getByText('Value'))
+
+      let rows = screen
+        .getAllByRole('row')
+        .filter(row => {
+          return queryByRole(row, 'cell')
+        })
+        .map(row => {
+          const cell = getByRole(row, 'cell')
+          return cell.textContent
+        })
+
+      expect(rows).toEqual(['3', '2', '1', '', ''])
+
+      // Change to ascending
+      await user.click(screen.getByText('Value'))
+
+      rows = screen
+        .getAllByRole('row')
+        .filter(row => {
+          return queryByRole(row, 'cell')
+        })
+        .map(row => {
+          const cell = getByRole(row, 'cell')
+          return cell.textContent
+        })
+
+      expect(rows).toEqual(['1', '2', '3', '', ''])
+    })
+
     it('should change the sort direction on mouse click', async () => {
       const user = userEvent.setup()
       render(
