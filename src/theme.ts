@@ -1,5 +1,5 @@
 import {KeyPaths} from './utils/types/KeyPaths'
-import primitives from './legacy-theme/js/index'
+import {colors} from './legacy-theme/js/colors'
 import {partitionColors, fontStack, omitScale} from './utils/theme'
 
 // const {lineHeight: lineHeights} = primitives.typography
@@ -53,10 +53,10 @@ const fontSizes = ['12px', '14px', '16px', '20px', '24px', '32px', '40px', '48px
 
 const space = ['0', '4px', '8px', '16px', '24px', '32px', '40px', '48px', '64px', '80px', '96px', '112px', '128px']
 
-type Scheme = keyof typeof primitives.colors
-type SchemeValue = Record<'colors' | 'shadows', Partial<typeof primitives.colors.light>>
+type Scheme = keyof typeof colors
+type SchemeValue = Record<'colors' | 'shadows', Partial<typeof colors.light>>
 
-const colorSchemes: Record<Scheme, SchemeValue> = Object.entries(primitives.colors).reduce(
+const colorSchemes: Record<Scheme, SchemeValue> = Object.entries(colors).reduce(
   (acc, [name, variables]) => {
     const {colors, shadows} = partitionColors(variables)
     return {
