@@ -101,7 +101,7 @@ export const OnActionMenuAnchor = () => (
     <ActionMenu>
       <ActionMenu.Anchor>
         <Tooltip text="Supplementary text to add here" direction="n">
-          <Button leadingIcon={GitBranchIcon} trailingAction={TriangleDownIcon}>
+          <Button leadingVisual={GitBranchIcon} trailingAction={TriangleDownIcon}>
             ActionMenu.Anchor w/ t
           </Button>
         </Tooltip>
@@ -121,7 +121,7 @@ export const OnActionMenuAnchor = () => (
     </ActionMenu>
     <ActionMenu>
       <Tooltip text="Supplementary text to add here" direction="n">
-        <ActionMenu.Button leadingIcon={GitBranchIcon}>ActionMenu.Button w/ t</ActionMenu.Button>
+        <ActionMenu.Button leadingVisual={GitBranchIcon}>ActionMenu.Button w/ t</ActionMenu.Button>
       </Tooltip>
       <ActionMenu.Overlay width="medium">
         <ActionList>
@@ -138,7 +138,7 @@ export const OnActionMenuAnchor = () => (
     </ActionMenu>
     <ActionMenu>
       <ActionMenu.Anchor>
-        <Button leadingIcon={GitBranchIcon} trailingAction={TriangleDownIcon}>
+        <Button leadingVisual={GitBranchIcon} trailingAction={TriangleDownIcon}>
           ActionMenu.Anchor
         </Button>
       </ActionMenu.Anchor>
@@ -156,7 +156,7 @@ export const OnActionMenuAnchor = () => (
       </ActionMenu.Overlay>
     </ActionMenu>
     <ActionMenu>
-      <ActionMenu.Button leadingIcon={GitBranchIcon}>ActionMenu.Button</ActionMenu.Button>
+      <ActionMenu.Button leadingVisual={GitBranchIcon}>ActionMenu.Button</ActionMenu.Button>
 
       <ActionMenu.Overlay width="medium">
         <ActionList>
