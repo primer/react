@@ -53,7 +53,7 @@
     "lint": "eslint '**/*.{js,ts,tsx,md,mdx}' --max-warnings=0",
     "lint:fix": "npm run lint -- --fix",
     "lint:md": "markdownlint-cli2 \"**/*.{md,mdx}\" \"!.github\" \"!.changeset\" \"!node_modules\" \"!CHANGELOG.md\"",
-    "stylelint": "stylelint --quiet --rd 'src/DataTable/Table.tsx'",
+    "stylelint": "stylelint --quiet --rd 'src/**/*.tsx'",
     "stylelint:fix": "npm run stylelint -- --fix",
     "test": "jest",
     "test:storybook": "test-storybook",

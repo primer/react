@@ -1,0 +1,4 @@
+*.json
+*.md
+node_modules
+examples/
