@@ -28,6 +28,8 @@ const allowlist = [
   'IconButton',
   'FilteredActionList',
   'Link',
+  'MarkdownViewer',
+  'MarkdownEditor',
   'Pagehead',
   'Pagination',
   'ProgressBar',

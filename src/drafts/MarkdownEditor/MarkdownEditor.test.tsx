@@ -45,6 +45,7 @@ const assertNotNull: <T>(t: T | null) => asserts t is T = t => expect(t).not.toB
 
 const render = async (ui: React.ReactElement) => {
   const result = _render(ui)
+  // eslint-disable-next-line testing-library/await-async-events
   const user = userEvent.setup()
 
   const getInput = () => result.getByRole('textbox') as HTMLTextAreaElement
