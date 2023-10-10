@@ -9,11 +9,30 @@ import theme from '../theme'
 import {BaseStyles, SSRProvider, ThemeProvider} from '..'
 import {act} from 'react-test-renderer'
 import {viewportRanges} from '../hooks/useResponsiveValue'
+import Label from '../Label'
 
 const segmentData = [
-  {label: 'Preview', id: 'preview', iconLabel: 'EyeIcon', icon: () => <EyeIcon aria-label="EyeIcon" />},
-  {label: 'Raw', id: 'raw', iconLabel: 'FileCodeIcon', icon: () => <FileCodeIcon aria-label="FileCodeIcon" />},
-  {label: 'Blame', id: 'blame', iconLabel: 'PeopleIcon', icon: () => <PeopleIcon aria-label="PeopleIcon" />},
+  {
+    label: 'Preview',
+    id: 'preview',
+    iconLabel: 'EyeIcon',
+    icon: () => <EyeIcon aria-label="EyeIcon" />,
+    trailingVisualLabel: <Label data-testid="label-a">A</Label>,
+  },
+  {
+    label: 'Raw',
+    id: 'raw',
+    iconLabel: 'FileCodeIcon',
+    icon: () => <FileCodeIcon aria-label="FileCodeIcon" />,
+    trailingVisualLabel: <Label data-testid="label-b">B</Label>,
+  },
+  {
+    label: 'Blame',
+    id: 'blame',
+    iconLabel: 'PeopleIcon',
+    icon: () => <PeopleIcon aria-label="PeopleIcon" />,
+    trailingVisualLabel: <Label data-testid="label-c">C</Label>,
+  },
 ]
 
 let matchMedia: MatchMediaMock
@@ -59,6 +78,29 @@ describe('SegmentedControl', () => {
     const selectedButton = getByText('Raw').closest('button')
 
     expect(selectedButton?.getAttribute('aria-current')).toBe('true')
+  })
+
+  it('renders with a trailingVisualLabel', () => {
+    const {getByText, getByTestId} = render(
+      <SegmentedControl aria-label="File view">
+        {segmentData.map(({label, icon, trailingVisualLabel}, index) => (
+          <SegmentedControl.Button
+            leadingIcon={icon}
+            trailingVisualLabel={trailingVisualLabel}
+            selected={index === 1}
+            key={label}
+          >
+            {label}
+          </SegmentedControl.Button>
+        ))}
+      </SegmentedControl>,
+    )
+
+    const selectedButton = getByText('Raw').closest('button')
+    expect(selectedButton?.getAttribute('aria-current')).toBe('true')
+    expect(getByTestId('label-a')).toHaveTextContent('A')
+    expect(getByTestId('label-b')).toHaveTextContent('B')
+    expect(getByTestId('label-c')).toHaveTextContent('C')
   })
 
   it('renders with a selected segment - uncontrolled', () => {

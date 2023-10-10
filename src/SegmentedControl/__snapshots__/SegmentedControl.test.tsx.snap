@@ -40,6 +40,10 @@ exports[`SegmentedControl renders consistently 1`] = `
 }
 
 .c3 {
+  margin-left: 4px;
+}
+
+.c4 {
   display: block;
   position: relative;
   -webkit-box-flex: 1;
@@ -51,11 +55,11 @@ exports[`SegmentedControl renders consistently 1`] = `
   --separator-color: #d0d7de;
 }
 
-.c3:not(:last-child) {
+.c4:not(:last-child) {
   margin-right: 1px;
 }
 
-.c3:not(:last-child):after {
+.c4:not(:last-child):after {
   background-color: var(--separator-color);
   content: "";
   position: absolute;
@@ -65,15 +69,15 @@ exports[`SegmentedControl renders consistently 1`] = `
   width: 1px;
 }
 
-.c3:focus-within:has(:focus-visible) {
+.c4:focus-within:has(:focus-visible) {
   --separator-color: transparent;
 }
 
-.c3:first-child {
+.c4:first-child {
   margin-left: -1px;
 }
 
-.c3:last-child {
+.c4:last-child {
   margin-right: -1px;
 }
 
@@ -128,77 +132,6 @@ exports[`SegmentedControl renders consistently 1`] = `
 
 .c2 .segmentedControl-text:after {
   content: "Preview";
-  display: block;
-  font-weight: 600;
-  height: 0;
-  overflow: hidden;
-  pointer-events: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  visibility: hidden;
-}
-
-.c4 {
-  --segmented-control-button-inner-padding: 12px;
-  --segmented-control-button-bg-inset: 4px;
-  --segmented-control-outer-radius: 6px;
-  background-color: transparent;
-  border-color: transparent;
-  border-radius: var(--segmented-control-outer-radius);
-  border-width: 0;
-  color: currentColor;
-  cursor: pointer;
-  font-family: inherit;
-  font-size: inherit;
-  font-weight: 400;
-  padding: var(--segmented-control-button-bg-inset);
-  height: 100%;
-  width: 100%;
-}
-
-.c4 .segmentedControl-content {
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  background-color: transparent;
-  border-color: transparent;
-  border-style: solid;
-  border-width: 1px;
-  border-radius: calc(var(--segmented-control-outer-radius) - var(--segmented-control-button-bg-inset) / 2);
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  height: 100%;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  padding-left: calc(var(--segmented-control-button-inner-padding) - var(--segmented-control-button-bg-inset));
-  padding-right: calc(var(--segmented-control-button-inner-padding) - var(--segmented-control-button-bg-inset));
-}
-
-.c4 svg {
-  fill: #656d76;
-}
-
-.c4:hover .segmentedControl-content {
-  background-color: rgba(175,184,193,0.2);
-}
-
-.c4:active .segmentedControl-content {
-  background-color: rgba(175,184,193,0.4);
-}
-
-.c4:focus:focus-visible:not(:last-child):after {
-  width: 0;
-}
-
-.c4 .segmentedControl-text:after {
-  content: "Raw";
   display: block;
   font-weight: 600;
   height: 0;
@@ -269,6 +202,77 @@ exports[`SegmentedControl renders consistently 1`] = `
 }
 
 .c5 .segmentedControl-text:after {
+  content: "Raw";
+  display: block;
+  font-weight: 600;
+  height: 0;
+  overflow: hidden;
+  pointer-events: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  visibility: hidden;
+}
+
+.c6 {
+  --segmented-control-button-inner-padding: 12px;
+  --segmented-control-button-bg-inset: 4px;
+  --segmented-control-outer-radius: 6px;
+  background-color: transparent;
+  border-color: transparent;
+  border-radius: var(--segmented-control-outer-radius);
+  border-width: 0;
+  color: currentColor;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: 400;
+  padding: var(--segmented-control-button-bg-inset);
+  height: 100%;
+  width: 100%;
+}
+
+.c6 .segmentedControl-content {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  background-color: transparent;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 1px;
+  border-radius: calc(var(--segmented-control-outer-radius) - var(--segmented-control-button-bg-inset) / 2);
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  height: 100%;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  padding-left: calc(var(--segmented-control-button-inner-padding) - var(--segmented-control-button-bg-inset));
+  padding-right: calc(var(--segmented-control-button-inner-padding) - var(--segmented-control-button-bg-inset));
+}
+
+.c6 svg {
+  fill: #656d76;
+}
+
+.c6:hover .segmentedControl-content {
+  background-color: rgba(175,184,193,0.2);
+}
+
+.c6:active .segmentedControl-content {
+  background-color: rgba(175,184,193,0.4);
+}
+
+.c6:focus:focus-visible:not(:last-child):after {
+  width: 0;
+}
+
+.c6 .segmentedControl-text:after {
   content: "Blame";
   display: block;
   font-weight: 600;
@@ -310,7 +314,7 @@ exports[`SegmentedControl renders consistently 1`] = `
 }
 
 @media (pointer:coarse) {
-  .c4:before {
+  .c5:before {
     content: "";
     position: absolute;
     left: 0;
@@ -324,7 +328,7 @@ exports[`SegmentedControl renders consistently 1`] = `
 }
 
 @media (pointer:coarse) {
-  .c5:before {
+  .c6:before {
     content: "";
     position: absolute;
     left: 0;
@@ -357,30 +361,14 @@ exports[`SegmentedControl renders consistently 1`] = `
         >
           Preview
         </div>
-      </span>
-    </button>
-  </li>
-  <li
-    className="c3"
-  >
-    <button
-      aria-current={false}
-      className="c4"
-      onClick={[Function]}
-    >
-      <span
-        className="segmentedControl-content"
-      >
         <div
-          className="segmentedControl-text"
-        >
-          Raw
-        </div>
+          className="c3"
+        />
       </span>
     </button>
   </li>
   <li
-    className="c3"
+    className="c4"
   >
     <button
       aria-current={false}
@@ -393,8 +381,33 @@ exports[`SegmentedControl renders consistently 1`] = `
         <div
           className="segmentedControl-text"
         >
+          Raw
+        </div>
+        <div
+          className="c3"
+        />
+      </span>
+    </button>
+  </li>
+  <li
+    className="c4"
+  >
+    <button
+      aria-current={false}
+      className="c6"
+      onClick={[Function]}
+    >
+      <span
+        className="segmentedControl-content"
+      >
+        <div
+          className="segmentedControl-text"
+        >
           Blame
         </div>
+        <div
+          className="c3"
+        />
       </span>
     </button>
   </li>
