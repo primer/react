@@ -5,6 +5,7 @@ import Box from '../Box'
 import sx, {merge, SxProp} from '../sx'
 import {getSegmentedControlButtonStyles, getSegmentedControlListItemStyles} from './getSegmentedControlStyles'
 import {defaultSxProp} from '../utils/defaultSxProp'
+import {LabelProps} from '../Label'
 
 export type SegmentedControlButtonProps = {
   /** The visible label rendered in the button */
@@ -15,6 +16,8 @@ export type SegmentedControlButtonProps = {
   defaultSelected?: boolean
   /** The leading icon comes before item label */
   leadingIcon?: React.FunctionComponent<React.PropsWithChildren<IconProps>>
+  /** The trailing te label after the item */
+  trailingVisualLabel?: React.ReactElement<React.PropsWithChildren<LabelProps>>
 } & SxProp &
   ButtonHTMLAttributes<HTMLButtonElement | HTMLLIElement>
 
@@ -26,6 +29,7 @@ const SegmentedControlButton: React.FC<React.PropsWithChildren<SegmentedControlB
   children,
   leadingIcon: LeadingIcon,
   selected,
+  trailingVisualLabel: TrailingVisualLabel = null,
   sx: sxProp = defaultSxProp,
   ...rest
 }) => {
@@ -45,6 +49,7 @@ const SegmentedControlButton: React.FC<React.PropsWithChildren<SegmentedControlB
             </Box>
           )}
           <Box className="segmentedControl-text">{children}</Box>
+          {TrailingVisualLabel}
         </span>
       </SegmentedControlButtonStyled>
     </Box>

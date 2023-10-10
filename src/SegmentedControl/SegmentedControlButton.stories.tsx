@@ -3,18 +3,23 @@ import {Meta, StoryFn} from '@storybook/react'
 import SegmentedControlButton, {SegmentedControlButtonProps} from './SegmentedControlButton'
 import {SegmentedControl} from '.'
 import {EyeIcon, FileCodeIcon, PeopleIcon} from '@primer/octicons-react'
+import Label from '../Label'
 
 const unset = undefined
 const icons = {unset, FileCodeIcon, EyeIcon, PeopleIcon}
+
+const discountLabel = <Label>-8%</Label>
+const labels = {unset, discountLabel}
 
 export default {
   title: 'Components/SegmentedControl/SegmentedControl.Button',
   component: SegmentedControlButton,
   args: {
-    children: 'Option',
+    children: 'Yearly',
     leadingIcon: undefined,
     selected: false,
     defaultSelected: false,
+    trailingVisualLabel: undefined,
   },
   argTypes: {
     children: {
@@ -30,6 +35,11 @@ export default {
     },
     defaultSelected: {
       type: 'boolean',
+    },
+    trailingVisualLabel: {
+      control: 'select',
+      options: Object.keys(labels),
+      mapping: labels,
     },
   },
   decorators: [
