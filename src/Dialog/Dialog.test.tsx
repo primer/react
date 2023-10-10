@@ -80,7 +80,7 @@ describe('Dialog', () => {
     options: {skipAs: true, skipSx: true},
   })
 
-  checkExports('Dialog/Dialog', {
+  checkExports('Dialog', {
     default: Dialog,
   })
 
