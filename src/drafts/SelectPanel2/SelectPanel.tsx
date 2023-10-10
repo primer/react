@@ -1,5 +1,5 @@
 import React from 'react'
-import {SearchIcon, XCircleFillIcon, XIcon} from '@primer/octicons-react'
+import {SearchIcon, XCircleFillIcon, XIcon, FilterRemoveIcon} from '@primer/octicons-react'
 import {FocusKeys} from '@primer/behaviors'
 
 import {
@@ -16,7 +16,6 @@ import {
 } from '../../../src/index'
 import {ActionListContainerContext} from '../../../src/ActionList/ActionListContainerContext'
 import {useSlots} from '../../hooks/useSlots'
-import {ClearIcon} from './tmp-ClearIcon'
 import {useProvidedRefOrCreate} from '../../hooks'
 
 const SelectPanelContext = React.createContext<{
@@ -178,7 +177,7 @@ const SelectPanelHeader: React.FC<React.PropsWithChildren> = ({children, ...prop
           {/* Will not need tooltip after https://github.com/primer/react/issues/2008 */}
           {onClearSelection ? (
             <Tooltip text="Clear selection" direction="s" onClick={onClearSelection}>
-              <IconButton type="button" variant="invisible" icon={ClearIcon} aria-label="Clear selection" />
+              <IconButton type="button" variant="invisible" icon={FilterRemoveIcon} aria-label="Clear selection" />
             </Tooltip>
           ) : null}
           <Tooltip text="Close" direction="s">
