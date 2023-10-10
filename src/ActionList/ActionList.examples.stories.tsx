@@ -18,6 +18,7 @@ import TextInput from '../TextInput'
 import Spinner from '../Spinner'
 import Box from '../Box'
 import Text from '../Text'
+import VisuallyHidden from '../_VisuallyHidden'
 
 const meta: Meta = {
   title: 'Components/ActionList/Examples',
@@ -188,9 +189,16 @@ export function AsyncListWithSpinner(): JSX.Element {
       </p>
 
       <TextInput onChange={filter} placeholder="Search branches" sx={{m: 2, mb: 0, width: 'calc(100% - 16px)'}} />
-      {results.length === 0 ? (
-        <Text sx={{display: 'block', fontSize: 1, m: 2}}>No branches match that query</Text>
-      ) : null}
+      <VisuallyHidden
+        isVisible={results.length === 0}
+        aria-live="polite"
+        aria-atomic="true"
+        as={Text}
+        sx={{display: 'block', fontSize: 1, m: 2}}
+      >
+        {results.length === 0 ? 'No branches match that query' : `${results.length} branches match that query`}
+      </VisuallyHidden>
+
       <ActionList selectionVariant="single" role="listbox" aria-label="Branch" sx={{height: 208, overflow: 'auto'}}>
         {loading ? (
           <Box sx={{display: 'flex', justifyContent: 'center', pt: 2}}>
