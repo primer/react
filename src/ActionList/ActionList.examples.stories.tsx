@@ -19,6 +19,7 @@ import Spinner from '../Spinner'
 import Box from '../Box'
 import Text from '../Text'
 import VisuallyHidden from '../_VisuallyHidden'
+import FormControl from '../FormControl'
 
 const meta: Meta = {
   title: 'Components/ActionList/Examples',
@@ -188,7 +189,10 @@ export function AsyncListWithSpinner(): JSX.Element {
         filter. This pattern can be found in branch selection menus via the SelectPanel component.
       </p>
 
-      <TextInput onChange={filter} placeholder="Search branches" sx={{m: 2, mb: 0, width: 'calc(100% - 16px)'}} />
+      <FormControl sx={{m: 2, mb: 0, width: 'calc(100% - 16px)'}}>
+        <FormControl.Label>Search branches</FormControl.Label>
+        <TextInput onChange={filter} block />
+      </FormControl>
       <VisuallyHidden
         isVisible={results.length === 0}
         aria-live="polite"
