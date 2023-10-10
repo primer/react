@@ -8,7 +8,7 @@ import {Dialog, DialogWidth, DialogHeight} from './Dialog/Dialog'
 /* Dialog Version 1? */
 
 export default {
-  title: 'Dialog',
+  title: 'Components/DialogV1',
   component: Dialog,
   decorators: [
     Story => {
