@@ -3,10 +3,12 @@ import {Meta} from '@storybook/react'
 
 import {BaseStyles, ThemeProvider, Box, TextInput} from '..'
 import {Button} from '../Button'
-import {Dialog, DialogProps, DialogWidth, DialogHeight} from '../Dialog/Dialog'
+import {Dialog, DialogProps, DialogWidth, DialogHeight} from './Dialog'
+
+/* Dialog Version 2 */
 
 export default {
-  title: 'Components/Dialog',
+  title: 'Components/Dialog/Features',
   component: Dialog,
   decorators: [
     Story => {
@@ -104,41 +106,6 @@ interface DialogStoryProps {
   width: DialogWidth
   height: DialogHeight
   subtitle: boolean
-}
-export const BasicDialog = ({width, height, subtitle}: DialogStoryProps) => {
-  const [isOpen, setIsOpen] = useState(false)
-  const [secondOpen, setSecondOpen] = useState(false)
-  const buttonRef = useRef<HTMLButtonElement>(null)
-  const onDialogClose = useCallback(() => setIsOpen(false), [])
-  const onSecondDialogClose = useCallback(() => setSecondOpen(false), [])
-  const openSecondDialog = useCallback(() => setSecondOpen(true), [])
-  return (
-    <>
-      <Button ref={buttonRef} onClick={() => setIsOpen(!isOpen)}>
-        Show dialog
-      </Button>
-      {isOpen && (
-        <Dialog
-          title="My Dialog"
-          subtitle={subtitle ? 'This is a subtitle!' : undefined}
-          onClose={onDialogClose}
-          width={width}
-          height={height}
-          footerButtons={[
-            {buttonType: 'danger', content: 'Delete the universe', onClick: onDialogClose},
-            {buttonType: 'primary', content: 'Proceed', onClick: openSecondDialog, autoFocus: true},
-          ]}
-        >
-          {lipsum}
-          {secondOpen && (
-            <Dialog title="Inner dialog!" onClose={onSecondDialogClose} width="small">
-              Hello world
-            </Dialog>
-          )}
-        </Dialog>
-      )}
-    </>
-  )
 }
 
 function CustomHeader({
