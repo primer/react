@@ -9,6 +9,7 @@ const ROOT_DIRECTORY = path.resolve(__dirname, '..', '..')
 const allowlist = [
   'ActionList',
   'ActionMenu',
+  'AnchoredOverlay',
   'Avatar',
   'AvatarStack',
   'AvatarPair',
@@ -30,6 +31,7 @@ const allowlist = [
   'IconButton',
   'FilteredActionList',
   'Link',
+  'MarkdownViewer',
   'MarkdownEditor',
   'Pagehead',
   'Pagination',
