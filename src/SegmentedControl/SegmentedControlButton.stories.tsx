@@ -15,7 +15,7 @@ export default {
   title: 'Components/SegmentedControl/SegmentedControl.Button',
   component: SegmentedControlButton,
   args: {
-    children: 'Yearly',
+    children: 'Option',
     leadingIcon: undefined,
     selected: false,
     defaultSelected: false,
