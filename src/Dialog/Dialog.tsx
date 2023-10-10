@@ -14,6 +14,8 @@ import Portal from '../Portal'
 import {useRefObjectAsForwardedRef} from '../hooks/useRefObjectAsForwardedRef'
 import {useId} from '../hooks/useId'
 
+/* Dialog Version 2 */
+
 const ANIMATION_DURATION = '200ms'
 
 /**

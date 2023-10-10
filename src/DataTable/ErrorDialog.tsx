@@ -1,5 +1,5 @@
 import React from 'react'
-import {ConfirmationDialog} from '../Dialog/ConfirmationDialog'
+import {ConfirmationDialog} from '../ConfirmationDialog/ConfirmationDialog'
 
 export type TableErrorDialogProps = React.PropsWithChildren<{
   /**
