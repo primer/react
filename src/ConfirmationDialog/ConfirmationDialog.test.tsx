@@ -6,7 +6,7 @@ import {ActionMenu} from '../deprecated/ActionMenu'
 import BaseStyles from '../BaseStyles'
 import Box from '../Box'
 import Button from '../deprecated/Button/Button'
-import {ConfirmationDialog, useConfirm} from '../Dialog/ConfirmationDialog'
+import {ConfirmationDialog, useConfirm} from './ConfirmationDialog'
 import theme from '../theme'
 import {ThemeProvider} from '../ThemeProvider'
 import {SSRProvider} from '../utils/ssr'
@@ -80,7 +80,7 @@ describe('ConfirmationDialog', () => {
     options: {skipAs: true, skipSx: true},
   })
 
-  checkExports('Dialog/ConfirmationDialog', {
+  checkExports('ConfirmationDialog/ConfirmationDialog', {
     default: undefined,
     useConfirm,
     ConfirmationDialog,
