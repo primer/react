@@ -49,7 +49,7 @@ const SegmentedControlButton: React.FC<React.PropsWithChildren<SegmentedControlB
             </Box>
           )}
           <Box className="segmentedControl-text">{children}</Box>
-          {TrailingVisualLabel}
+          <Box ml={1}>{TrailingVisualLabel}</Box>
         </span>
       </SegmentedControlButtonStyled>
     </Box>
