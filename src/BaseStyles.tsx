@@ -26,6 +26,13 @@ const GlobalStyle = createGlobalStyle<{colorScheme?: 'light' | 'dark'}>`
   details-dialog:focus:not(:focus-visible):not(.focus-visible) {
     outline: none;
   }
+
+  /* Used to fake conditional styles using a technique by Lea Verou: https://lea.verou.me/blog/2020/10/the-var-space-hack-to-toggle-multiple-values-with-one-custom-property/ */
+  /* We have to use a zero-width space character (\u200B) as the value instead of a regular whitespace character because styled-components strips out properties that just have a whitespace value. */
+  :root {--prefers-link-underlines: \u200B;}
+  [data-a11y-link-underlines='true'] {
+    --prefers-link-underlines: initial;
+  }
 `
 
 const Base = styled.div<SystemTypographyProps & SystemCommonProps>`

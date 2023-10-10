@@ -28,7 +28,7 @@ export async function visit(page: Page, options: Options) {
     let params = ''
     for (const [key, value] of Object.entries(globals)) {
       if (params !== '') {
-        params += '&'
+        params += ';'
       }
       params += `${key}:${value}`
     }

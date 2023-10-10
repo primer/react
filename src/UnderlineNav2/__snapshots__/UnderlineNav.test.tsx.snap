@@ -94,8 +94,8 @@ exports[`UnderlineNav renders consistently 1`] = `
 
 .c4 {
   color: #0969da;
-  -webkit-text-decoration: none;
-  text-decoration: none;
+  -webkit-text-decoration: var(--prefers-link-underlines,underline);
+  text-decoration: var(--prefers-link-underlines,underline);
   position: relative;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
@@ -182,8 +182,8 @@ exports[`UnderlineNav renders consistently 1`] = `
 
 .c7 {
   color: #0969da;
-  -webkit-text-decoration: none;
-  text-decoration: none;
+  -webkit-text-decoration: var(--prefers-link-underlines,underline);
+  text-decoration: var(--prefers-link-underlines,underline);
   position: relative;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;

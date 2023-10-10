@@ -22,6 +22,8 @@ The dialog component is the Primer implementation of the ARIA design pattern [Di
 
 **Dialogs are modal**. Dialogs can be dismissed by clicking on the close button, by interacting with another button in the overlay, or by clicking outside of the overlay.
 
+Dialogs should not be dismissed by clicking outside the dialog's content area if used to add, update, or remove information. This would be the equivalent of a cancel action and may cause accidental data loss.
+
 **(Coming soon) Make sure larger dialogs remain mobile-friendly**. Even large dialogs need to be responsive. A dialog's width and height will be readjusted depending on the screen size and should never exceed the available space. Use responsive solutions to adjust the UI so they behave well on smaller screens.
 
 **(Coming soon) Simple and small dialogs can remain as-is on mobile**. As more elements are added to it, mobile-specific style variations such as **Bottom sheet** and **Full-screen** should be considered.

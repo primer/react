@@ -3,6 +3,10 @@ title: Dropdown
 status: Deprecated
 ---
 
+import DeprecationBanner from '../../components/DeprecationBanner'
+
+<DeprecationBanner replacementUrl={'/design/deprecated-components/dropdown'} />
+
 ## Deprecation
 
 Use [ActionMenu](/ActionMenu) instead.
