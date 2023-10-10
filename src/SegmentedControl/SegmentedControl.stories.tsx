@@ -4,8 +4,6 @@ import {SegmentedControl} from '.'
 import SegmentedControlIconButton from './SegmentedControlIconButton'
 import SegmentedControlButton from './SegmentedControlButton'
 import {EyeIcon, FileCodeIcon, PeopleIcon} from '@primer/octicons-react'
-import Label from '../Label'
-import Box from '../Box'
 
 type ResponsiveVariantOptions = 'dropdown' | 'hideLabels' | 'default'
 type Args = {
@@ -132,25 +130,4 @@ export const Default = () => (
     <SegmentedControl.Button>Raw</SegmentedControl.Button>
     <SegmentedControl.Button>Blame</SegmentedControl.Button>
   </SegmentedControl>
-)
-
-export const TrailingVisualLabel = () => (
-  <>
-    <Box>
-      <SegmentedControl aria-label="Billing duration" size={'small'}>
-        <SegmentedControl.Button defaultSelected>Monthly</SegmentedControl.Button>
-        <SegmentedControl.Button trailingVisualLabel={<Label variant="accent">-8%</Label>}>
-          Yearly
-        </SegmentedControl.Button>
-      </SegmentedControl>
-    </Box>
-    <Box mt={3}>
-      <SegmentedControl aria-label="Billing duration" size={'medium'}>
-        <SegmentedControl.Button defaultSelected>Monthly</SegmentedControl.Button>
-        <SegmentedControl.Button trailingVisualLabel={<Label variant="accent">-8%</Label>}>
-          Yearly
-        </SegmentedControl.Button>
-      </SegmentedControl>
-    </Box>
-  </>
 )
