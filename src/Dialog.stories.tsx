@@ -1,9 +1,9 @@
-import React, { useState, useRef, useCallback } from 'react'
-import { Meta } from '@storybook/react'
+import React, {useState, useRef, useCallback} from 'react'
+import {Meta} from '@storybook/react'
 
-import { BaseStyles, ThemeProvider } from '.'
-import { Button } from './Button'
-import { Dialog, DialogWidth, DialogHeight } from './Dialog/Dialog'
+import {BaseStyles, ThemeProvider} from '.'
+import {Button} from './Button'
+import {Dialog, DialogWidth, DialogHeight} from './Dialog/Dialog'
 
 /* Dialog Version 1? */
 
@@ -47,22 +47,22 @@ export default {
         type: 'boolean',
       },
     },
-    title: { table: { disable: true } },
+    title: {table: {disable: true}},
 
-    renderHeader: { table: { disable: true } },
-    renderBody: { table: { disable: true } },
-    renderFooter: { table: { disable: true } },
-    onClose: { table: { disable: true } },
-    role: { table: { disable: true } },
-    ref: { table: { disable: true } },
-    key: { table: { disable: true } },
-    footerButtons: { table: { disable: true } },
+    renderHeader: {table: {disable: true}},
+    renderBody: {table: {disable: true}},
+    renderFooter: {table: {disable: true}},
+    onClose: {table: {disable: true}},
+    role: {table: {disable: true}},
+    ref: {table: {disable: true}},
+    key: {table: {disable: true}},
+    footerButtons: {table: {disable: true}},
   },
 } as Meta
 
 const lipsum = (
-  <div style={{ fontSize: '14px' }}>
-    <p style={{ marginBlockStart: 0 }}>
+  <div style={{fontSize: '14px'}}>
+    <p style={{marginBlockStart: 0}}>
       Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque sollicitudin mauris maximus elit sagittis, nec
       lobortis ligula elementum. Nam iaculis, urna nec lobortis posuere, eros urna venenatis eros, vel accumsan turpis
       nunc vitae enim. Maecenas et lorem lectus. Vivamus iaculis tortor eget ante placerat, nec posuere nisl tincidunt.
@@ -107,7 +107,7 @@ interface DialogStoryProps {
   height: DialogHeight
   subtitle: boolean
 }
-export const Default = ({ width, height, subtitle }: DialogStoryProps) => {
+export const Default = ({width, height, subtitle}: DialogStoryProps) => {
   const [isOpen, setIsOpen] = useState(false)
   const [secondOpen, setSecondOpen] = useState(false)
   const buttonRef = useRef<HTMLButtonElement>(null)
@@ -127,9 +127,9 @@ export const Default = ({ width, height, subtitle }: DialogStoryProps) => {
           width={width}
           height={height}
           footerButtons={[
-            { buttonType: 'normal', content: 'Open Second Dialog', onClick: openSecondDialog },
-            { buttonType: 'danger', content: 'Delete the universe', onClick: onDialogClose },
-            { buttonType: 'primary', content: 'Proceed', onClick: openSecondDialog, autoFocus: true },
+            {buttonType: 'normal', content: 'Open Second Dialog', onClick: openSecondDialog},
+            {buttonType: 'danger', content: 'Delete the universe', onClick: onDialogClose},
+            {buttonType: 'primary', content: 'Proceed', onClick: openSecondDialog, autoFocus: true},
           ]}
         >
           {lipsum}
