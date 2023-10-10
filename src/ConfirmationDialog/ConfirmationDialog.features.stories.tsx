@@ -1,18 +1,15 @@
-import React, {useState, useRef, useCallback} from 'react'
-import {ComponentMeta, Meta} from '@storybook/react'
-import {BaseStyles, Box, ThemeProvider, useTheme} from '..'
+import React, {useState, useCallback} from 'react'
+import {ComponentMeta} from '@storybook/react'
+import {Box, useTheme} from '..'
 import {Button} from '../Button'
 import {ActionMenu} from '../ActionMenu'
 import {ActionList} from '../ActionList'
 import {ConfirmationDialog, useConfirm} from './ConfirmationDialog'
 
-
 export default {
   title: 'Components/ConfirmationDialog/Features',
   component: ConfirmationDialog,
 } as ComponentMeta<typeof ConfirmationDialog>
-
-
 
 export const ShorthandHook = () => {
   const confirm = useConfirm()

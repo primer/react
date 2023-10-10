@@ -3,7 +3,6 @@ import {Dialog} from './Dialog'
 
 /* Dialog Version 2? */
 
-
 export function shouldAcceptCallWithNoProps() {
   return <Dialog onClose={() => null} />
 }

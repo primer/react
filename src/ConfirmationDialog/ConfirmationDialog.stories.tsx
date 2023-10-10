@@ -1,6 +1,6 @@
-import React, { useCallback, useRef, useState } from 'react'
+import React, {useCallback, useRef, useState} from 'react'
 import {Meta} from '@storybook/react'
-import {BaseStyles,  Button,  ThemeProvider} from '..'
+import {BaseStyles, Button, ThemeProvider} from '..'
 import {ConfirmationDialog} from './ConfirmationDialog'
 
 export default {

@@ -127,7 +127,7 @@ export const Default = ({width, height, subtitle}: DialogStoryProps) => {
           width={width}
           height={height}
           footerButtons={[
-            {buttonType: 'normal', content: 'Open Second Dialog', onClick: openSecondDialog,},
+            {buttonType: 'normal', content: 'Open Second Dialog', onClick: openSecondDialog},
             {buttonType: 'danger', content: 'Delete the universe', onClick: onDialogClose},
             {buttonType: 'primary', content: 'Proceed', onClick: openSecondDialog, autoFocus: true},
           ]}

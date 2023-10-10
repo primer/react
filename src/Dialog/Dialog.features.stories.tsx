@@ -108,7 +108,6 @@ interface DialogStoryProps {
   subtitle: boolean
 }
 
-
 function CustomHeader({
   title,
   subtitle,
