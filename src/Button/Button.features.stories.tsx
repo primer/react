@@ -106,3 +106,9 @@ export const LoadingTrigger = () => {
     </Button>
   )
 }
+
+export const LoadingCustomMessage = () => (
+  <Button loading loadingMessage="This is a custom loading message">
+    Default
+  </Button>
+)

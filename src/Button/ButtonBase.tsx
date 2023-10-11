@@ -24,6 +24,7 @@ const ButtonBase = forwardRef(
       alignContent = 'center',
       block = false,
       loading = false,
+      loadingMessage = 'Loading',
       ...rest
     } = props
     const LeadingVisual = leadingVisual ?? leadingIcon
@@ -114,7 +115,7 @@ const ButtonBase = forwardRef(
         {loading && (
           <VisuallyHidden>
             <span aria-live="polite" aria-busy="true" id="loading-message">
-              Loading
+              {loadingMessage}
             </span>
           </VisuallyHidden>
         )}
