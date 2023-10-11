@@ -341,6 +341,60 @@ export const ScrollContainerWithinPageLayoutPane: Story = () => (
   </Box>
 )
 
+export const ScrollWithFixedHeaderFooter: Story = (args) => (
+  <Box sx={{display: 'grid', gridTemplateRows: 'auto 1fr auto', height: '100vh'}}>
+    <Box
+      as="header"
+      data-testid="sticky-header"
+      sx={{
+        position: 'sticky',
+        top: 0,
+        height: args.offsetHeader,
+        display: 'grid',
+        placeItems: 'center',
+        backgroundColor: 'canvas.subtle',
+        borderBottom: '1px solid',
+        borderColor: 'border.default',
+        zIndex: 100,
+      }}
+    >
+      Custom sticky header
+    </Box>
+    <Box >
+      <PageLayout rowGap="none" columnGap="none" padding="none" containerWidth="full">
+        <PageLayout.Pane width={{min: '20vh', default: '25vh', max: '30vh'}} position="start" padding="normal" divider="line" sticky aria-label="Sticky pane left">
+          <Box sx={{overflow: 'auto'}}>
+              <Placeholder label="Inner scroll container left" height={1500} />
+          </Box>
+        </PageLayout.Pane>
+        <PageLayout.Pane width={{min: '70vh', default: '75vh', max: '80vh'}} position="end" padding="normal" divider="line" sticky aria-label="Sticky pane right">
+          <Box sx={{overflow: 'auto'}}>
+              <Placeholder label="Inner scroll container right" height={1200} />
+
+          </Box>
+        </PageLayout.Pane>
+      </PageLayout>
+    </Box>
+    <Box
+      as="footer"
+      data-testid="sticky-footer"
+      sx={{
+        position: 'sticky',
+        top: 0,
+        height: 64,
+        display: 'grid',
+        placeItems: 'center',
+        backgroundColor: 'canvas.subtle',
+        borderBottom: '1px solid',
+        borderColor: 'border.default',
+        zIndex: 100,
+      }}
+    >
+      Custom sticky footer
+    </Box>
+  </Box>
+)
+
 export const CustomPaneWidths: Story = () => (
   <PageLayout containerWidth="full">
     <PageLayout.Header>

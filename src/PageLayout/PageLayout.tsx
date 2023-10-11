@@ -473,7 +473,7 @@ Content.displayName = 'PageLayout.Content'
 // ----------------------------------------------------------------------------
 // PageLayout.Pane
 
-type Measurement = `${number}px`
+type Measurement = `${number}px` | `${number}vh`
 
 type CustomWidthOptions = {
   min: Measurement
