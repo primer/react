@@ -5,8 +5,8 @@ exports[`Breadcrumbs.Item adds activeClassName={SELECTED_CLASS} when it gets a "
   color: #0969da;
   display: inline-block;
   font-size: 14px;
-  -webkit-text-decoration: none;
-  text-decoration: none;
+  -webkit-text-decoration: var(--prefers-link-underlines,underline);
+  text-decoration: var(--prefers-link-underlines,underline);
 }
 
 .c0:hover {
@@ -32,8 +32,8 @@ exports[`Breadcrumbs.Item renders consistently 1`] = `
   color: #0969da;
   display: inline-block;
   font-size: 14px;
-  -webkit-text-decoration: none;
-  text-decoration: none;
+  -webkit-text-decoration: var(--prefers-link-underlines,underline);
+  text-decoration: var(--prefers-link-underlines,underline);
 }
 
 .c0:hover {
@@ -57,8 +57,8 @@ exports[`Breadcrumbs.Item respects the "selected" prop 1`] = `
   color: #0969da;
   display: inline-block;
   font-size: 14px;
-  -webkit-text-decoration: none;
-  text-decoration: none;
+  -webkit-text-decoration: var(--prefers-link-underlines,underline);
+  text-decoration: var(--prefers-link-underlines,underline);
 }
 
 .c0:hover {

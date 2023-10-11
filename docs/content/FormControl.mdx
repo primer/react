@@ -8,6 +8,8 @@ storybook: '/react/storybook?path=/story/components-forms-autocomplete'
 ---
 
 import data from '../../src/FormControl/FormControl.docs.json'
+import DeprecationBanner from '../components/DeprecationBanner'
+import {MarkGithubIcon} from '@primer/octicons-react'
 
 import {
   FormControl,
@@ -21,7 +23,8 @@ import {
   RadioGroup,
   Text,
 } from '@primer/react'
-import {MarkGithubIcon} from '@primer/octicons-react'
+
+<DeprecationBanner replacementUrl={'/design/components/form-control/react'} />
 
 ## Examples
 

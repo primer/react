@@ -38,7 +38,12 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       trailingVisual: TrailingVisual,
       description: Description,
     })
-    const {variant: listVariant, showDividers, selectionVariant: listSelectionVariant} = React.useContext(ListContext)
+    const {
+      variant: listVariant,
+      role: listRole,
+      showDividers,
+      selectionVariant: listSelectionVariant,
+    } = React.useContext(ListContext)
     const {selectionVariant: groupSelectionVariant} = React.useContext(GroupContext)
     const {container, afterSelect, selectionAttribute} = React.useContext(ActionListContainerContext)
 
@@ -65,6 +70,8 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       if (selectionVariant === 'single') itemRole = 'menuitemradio'
       else if (selectionVariant === 'multiple') itemRole = 'menuitemcheckbox'
       else itemRole = 'menuitem'
+    } else if (container === 'SelectPanel' && listRole === 'listbox') {
+      if (selectionVariant !== undefined) itemRole = 'option'
     }
 
     const {theme} = useTheme()
@@ -183,10 +190,10 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       [onSelect, disabled, afterSelect],
     )
 
-    // use props.id if provided, otherwise generate one.
-    const labelId = useId(id)
-    const inlineDescriptionId = useId(id && `${id}--inline-description`)
-    const blockDescriptionId = useId(id && `${id}--block-description`)
+    const itemId = useId(id)
+    const labelId = `${itemId}--label`
+    const inlineDescriptionId = `${itemId}--inline-description`
+    const blockDescriptionId = `${itemId}--block-description`
 
     const ItemWrapper = _PrivateItemWrapper || React.Fragment
 
@@ -201,6 +208,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       'aria-describedby': slots.description?.props.variant === 'block' ? blockDescriptionId : undefined,
       ...(selectionAttribute && {[selectionAttribute]: selected}),
       role: role || itemRole,
+      id: itemId,
     }
 
     const containerProps = _PrivateItemWrapper ? {role: role || itemRole ? 'none' : undefined} : menuItemProps
@@ -213,7 +221,6 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
           ref={forwardedRef}
           sx={merge<BetterSystemStyleObject>(styles, sxProp)}
           data-variant={variant === 'danger' ? variant : undefined}
-          aria-selected={containerProps.role === 'option' ? selected : undefined}
           {...containerProps}
           {...props}
         >
