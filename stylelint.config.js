@@ -1,6 +1,10 @@
+'use strict'
+
+/**
+ * @type {import('stylelint').Config}
+ */
 module.exports = {
   extends: ['@primer/stylelint-config'],
-  customSyntax: 'postcss-styled-syntax',
   rules: {
     'order/properties-order': null,
     'rule-empty-line-before': null,
@@ -20,6 +24,10 @@ module.exports = {
         inlineFallback: true,
       },
     ],
+    // Note: this rule currently uses `globby` under-the-hood which follows the
+    // symlinks in this project in an infinite loop. Disable until we can fix
+    // this issue upstream or until the project no longer uses symlinks.
+    'primer/no-unused-vars': null,
     'primer/no-scale-colors': null,
     'primer/utilities': null,
     'property-no-unknown': [
@@ -31,4 +39,10 @@ module.exports = {
     'scss/at-rule-no-unknown': null,
     'primer/no-override': null,
   },
+  overrides: [
+    {
+      files: ['**/*.tsx'],
+      customSyntax: 'postcss-styled-syntax',
+    },
+  ],
 }

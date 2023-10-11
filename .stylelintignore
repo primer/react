@@ -1,4 +1,5 @@
 *.json
 *.md
-node_modules
-examples/
+**/node_modules/**
+**/examples/**
+**/.test/**
