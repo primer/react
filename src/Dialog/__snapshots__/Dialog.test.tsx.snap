@@ -291,6 +291,9 @@ exports[`Dialog renders consistently 1`] = `
 
 .c1[data-no-visuals] {
   color: #0969da;
+  position: absolute;
+  top: 8px;
+  right: 16px;
 }
 
 .c1:has([data-component="ButtonCounter"]) {
@@ -303,12 +306,6 @@ exports[`Dialog renders consistently 1`] = `
 
 .c1:disabled[data-no-visuals] [data-component=ButtonCounter] {
   color: inherit;
-}
-
-.c1[data-no-visuals="true"] {
-  position: absolute;
-  top: 8px;
-  right: 16px;
 }
 
 .c4 {

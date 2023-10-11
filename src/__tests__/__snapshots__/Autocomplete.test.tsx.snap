@@ -781,10 +781,10 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
         role="listbox"
       >
         <li
-          aria-labelledby="0 "
-          aria-selected={false}
+          aria-labelledby="0--label "
           className="c2 c3"
           data-id="0"
+          id="0"
           onClick={[Function]}
           onKeyPress={[Function]}
           role="option"
@@ -804,17 +804,17 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
           >
             <span
               className="c4 c8"
-              id="0"
+              id="0--label"
             >
               zero
             </span>
           </div>
         </li>
         <li
-          aria-labelledby="1 "
-          aria-selected={false}
+          aria-labelledby="1--label "
           className="c2 c3"
           data-id="1"
+          id="1"
           onClick={[Function]}
           onKeyPress={[Function]}
           role="option"
@@ -834,17 +834,17 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
           >
             <span
               className="c4 c8"
-              id="1"
+              id="1--label"
             >
               one
             </span>
           </div>
         </li>
         <li
-          aria-labelledby="2 "
-          aria-selected={false}
+          aria-labelledby="2--label "
           className="c2 c3"
           data-id="2"
+          id="2"
           onClick={[Function]}
           onKeyPress={[Function]}
           role="option"
@@ -864,17 +864,17 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
           >
             <span
               className="c4 c8"
-              id="2"
+              id="2--label"
             >
               two
             </span>
           </div>
         </li>
         <li
-          aria-labelledby="3 "
-          aria-selected={false}
+          aria-labelledby="3--label "
           className="c2 c3"
           data-id="3"
+          id="3"
           onClick={[Function]}
           onKeyPress={[Function]}
           role="option"
@@ -894,17 +894,17 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
           >
             <span
               className="c4 c8"
-              id="3"
+              id="3--label"
             >
               three
             </span>
           </div>
         </li>
         <li
-          aria-labelledby="4 "
-          aria-selected={false}
+          aria-labelledby="4--label "
           className="c2 c3"
           data-id="4"
+          id="4"
           onClick={[Function]}
           onKeyPress={[Function]}
           role="option"
@@ -924,17 +924,17 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
           >
             <span
               className="c4 c8"
-              id="4"
+              id="4--label"
             >
               four
             </span>
           </div>
         </li>
         <li
-          aria-labelledby="5 "
-          aria-selected={false}
+          aria-labelledby="5--label "
           className="c2 c3"
           data-id="5"
+          id="5"
           onClick={[Function]}
           onKeyPress={[Function]}
           role="option"
@@ -954,17 +954,17 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
           >
             <span
               className="c4 c8"
-              id="5"
+              id="5--label"
             >
               five
             </span>
           </div>
         </li>
         <li
-          aria-labelledby="6 "
-          aria-selected={false}
+          aria-labelledby="6--label "
           className="c2 c3"
           data-id="6"
+          id="6"
           onClick={[Function]}
           onKeyPress={[Function]}
           role="option"
@@ -984,17 +984,17 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
           >
             <span
               className="c4 c8"
-              id="6"
+              id="6--label"
             >
               six
             </span>
           </div>
         </li>
         <li
-          aria-labelledby="7 "
-          aria-selected={false}
+          aria-labelledby="7--label "
           className="c2 c3"
           data-id="7"
+          id="7"
           onClick={[Function]}
           onKeyPress={[Function]}
           role="option"
@@ -1014,17 +1014,17 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
           >
             <span
               className="c4 c8"
-              id="7"
+              id="7--label"
             >
               seven
             </span>
           </div>
         </li>
         <li
-          aria-labelledby="20 "
-          aria-selected={false}
+          aria-labelledby="20--label "
           className="c2 c3"
           data-id="20"
+          id="20"
           onClick={[Function]}
           onKeyPress={[Function]}
           role="option"
@@ -1044,17 +1044,17 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
           >
             <span
               className="c4 c8"
-              id="20"
+              id="20--label"
             >
               twenty
             </span>
           </div>
         </li>
         <li
-          aria-labelledby="21 "
-          aria-selected={false}
+          aria-labelledby="21--label "
           className="c2 c3"
           data-id="21"
+          id="21"
           onClick={[Function]}
           onKeyPress={[Function]}
           role="option"
@@ -1074,17 +1074,17 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
           >
             <span
               className="c4 c8"
-              id="21"
+              id="21--label"
             >
               twentyone
             </span>
           </div>
         </li>
         <li
-          aria-labelledby="add-new-item "
-          aria-selected={false}
+          aria-labelledby="add-new-item--label "
           className="c2 c3"
           data-id="add-new-item"
+          id="add-new-item"
           onClick={[Function]}
           onKeyPress={[Function]}
           role="option"
@@ -1130,7 +1130,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
           >
             <span
               className="c4 c8"
-              id="add-new-item"
+              id="add-new-item--label"
             >
               Add new item
             </span>
@@ -1499,10 +1499,10 @@ exports[`snapshots renders a multiselect input 1`] = `
         role="listbox"
       >
         <li
-          aria-labelledby="0 "
-          aria-selected={false}
+          aria-labelledby="0--label "
           className="c2 c3"
           data-id="0"
+          id="0"
           onClick={[Function]}
           onKeyPress={[Function]}
           role="option"
@@ -1522,17 +1522,17 @@ exports[`snapshots renders a multiselect input 1`] = `
           >
             <span
               className="c7"
-              id="0"
+              id="0--label"
             >
               zero
             </span>
           </div>
         </li>
         <li
-          aria-labelledby="1 "
-          aria-selected={false}
+          aria-labelledby="1--label "
           className="c2 c3"
           data-id="1"
+          id="1"
           onClick={[Function]}
           onKeyPress={[Function]}
           role="option"
@@ -1552,17 +1552,17 @@ exports[`snapshots renders a multiselect input 1`] = `
           >
             <span
               className="c7"
-              id="1"
+              id="1--label"
             >
               one
             </span>
           </div>
         </li>
         <li
-          aria-labelledby="2 "
-          aria-selected={false}
+          aria-labelledby="2--label "
           className="c2 c3"
           data-id="2"
+          id="2"
           onClick={[Function]}
           onKeyPress={[Function]}
           role="option"
@@ -1582,17 +1582,17 @@ exports[`snapshots renders a multiselect input 1`] = `
           >
             <span
               className="c7"
-              id="2"
+              id="2--label"
             >
               two
             </span>
           </div>
         </li>
         <li
-          aria-labelledby="3 "
-          aria-selected={false}
+          aria-labelledby="3--label "
           className="c2 c3"
           data-id="3"
+          id="3"
           onClick={[Function]}
           onKeyPress={[Function]}
           role="option"
@@ -1612,17 +1612,17 @@ exports[`snapshots renders a multiselect input 1`] = `
           >
             <span
               className="c7"
-              id="3"
+              id="3--label"
             >
               three
             </span>
           </div>
         </li>
         <li
-          aria-labelledby="4 "
-          aria-selected={false}
+          aria-labelledby="4--label "
           className="c2 c3"
           data-id="4"
+          id="4"
           onClick={[Function]}
           onKeyPress={[Function]}
           role="option"
@@ -1642,17 +1642,17 @@ exports[`snapshots renders a multiselect input 1`] = `
           >
             <span
               className="c7"
-              id="4"
+              id="4--label"
             >
               four
             </span>
           </div>
         </li>
         <li
-          aria-labelledby="5 "
-          aria-selected={false}
+          aria-labelledby="5--label "
           className="c2 c3"
           data-id="5"
+          id="5"
           onClick={[Function]}
           onKeyPress={[Function]}
           role="option"
@@ -1672,17 +1672,17 @@ exports[`snapshots renders a multiselect input 1`] = `
           >
             <span
               className="c7"
-              id="5"
+              id="5--label"
             >
               five
             </span>
           </div>
         </li>
         <li
-          aria-labelledby="6 "
-          aria-selected={false}
+          aria-labelledby="6--label "
           className="c2 c3"
           data-id="6"
+          id="6"
           onClick={[Function]}
           onKeyPress={[Function]}
           role="option"
@@ -1702,17 +1702,17 @@ exports[`snapshots renders a multiselect input 1`] = `
           >
             <span
               className="c7"
-              id="6"
+              id="6--label"
             >
               six
             </span>
           </div>
         </li>
         <li
-          aria-labelledby="7 "
-          aria-selected={false}
+          aria-labelledby="7--label "
           className="c2 c3"
           data-id="7"
+          id="7"
           onClick={[Function]}
           onKeyPress={[Function]}
           role="option"
@@ -1732,17 +1732,17 @@ exports[`snapshots renders a multiselect input 1`] = `
           >
             <span
               className="c7"
-              id="7"
+              id="7--label"
             >
               seven
             </span>
           </div>
         </li>
         <li
-          aria-labelledby="20 "
-          aria-selected={false}
+          aria-labelledby="20--label "
           className="c2 c3"
           data-id="20"
+          id="20"
           onClick={[Function]}
           onKeyPress={[Function]}
           role="option"
@@ -1762,17 +1762,17 @@ exports[`snapshots renders a multiselect input 1`] = `
           >
             <span
               className="c7"
-              id="20"
+              id="20--label"
             >
               twenty
             </span>
           </div>
         </li>
         <li
-          aria-labelledby="21 "
-          aria-selected={false}
+          aria-labelledby="21--label "
           className="c2 c3"
           data-id="21"
+          id="21"
           onClick={[Function]}
           onKeyPress={[Function]}
           role="option"
@@ -1792,7 +1792,7 @@ exports[`snapshots renders a multiselect input 1`] = `
           >
             <span
               className="c7"
-              id="21"
+              id="21--label"
             >
               twentyone
             </span>
@@ -2307,10 +2307,10 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
         role="listbox"
       >
         <li
-          aria-labelledby="0 "
-          aria-selected={true}
+          aria-labelledby="0--label "
           className="c2 c3"
           data-id="0"
+          id="0"
           onClick={[Function]}
           onKeyPress={[Function]}
           role="option"
@@ -2330,17 +2330,17 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
           >
             <span
               className="c7"
-              id="0"
+              id="0--label"
             >
               zero
             </span>
           </div>
         </li>
         <li
-          aria-labelledby="1 "
-          aria-selected={true}
+          aria-labelledby="1--label "
           className="c2 c3"
           data-id="1"
+          id="1"
           onClick={[Function]}
           onKeyPress={[Function]}
           role="option"
@@ -2360,17 +2360,17 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
           >
             <span
               className="c7"
-              id="1"
+              id="1--label"
             >
               one
             </span>
           </div>
         </li>
         <li
-          aria-labelledby="2 "
-          aria-selected={true}
+          aria-labelledby="2--label "
           className="c2 c3"
           data-id="2"
+          id="2"
           onClick={[Function]}
           onKeyPress={[Function]}
           role="option"
@@ -2390,17 +2390,17 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
           >
             <span
               className="c7"
-              id="2"
+              id="2--label"
             >
               two
             </span>
           </div>
         </li>
         <li
-          aria-labelledby="3 "
-          aria-selected={false}
+          aria-labelledby="3--label "
           className="c2 c8"
           data-id="3"
+          id="3"
           onClick={[Function]}
           onKeyPress={[Function]}
           role="option"
@@ -2420,17 +2420,17 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
           >
             <span
               className="c7"
-              id="3"
+              id="3--label"
             >
               three
             </span>
           </div>
         </li>
         <li
-          aria-labelledby="4 "
-          aria-selected={false}
+          aria-labelledby="4--label "
           className="c2 c8"
           data-id="4"
+          id="4"
           onClick={[Function]}
           onKeyPress={[Function]}
           role="option"
@@ -2450,17 +2450,17 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
           >
             <span
               className="c7"
-              id="4"
+              id="4--label"
             >
               four
             </span>
           </div>
         </li>
         <li
-          aria-labelledby="5 "
-          aria-selected={false}
+          aria-labelledby="5--label "
           className="c2 c8"
           data-id="5"
+          id="5"
           onClick={[Function]}
           onKeyPress={[Function]}
           role="option"
@@ -2480,17 +2480,17 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
           >
             <span
               className="c7"
-              id="5"
+              id="5--label"
             >
               five
             </span>
           </div>
         </li>
         <li
-          aria-labelledby="6 "
-          aria-selected={false}
+          aria-labelledby="6--label "
           className="c2 c8"
           data-id="6"
+          id="6"
           onClick={[Function]}
           onKeyPress={[Function]}
           role="option"
@@ -2510,17 +2510,17 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
           >
             <span
               className="c7"
-              id="6"
+              id="6--label"
             >
               six
             </span>
           </div>
         </li>
         <li
-          aria-labelledby="7 "
-          aria-selected={false}
+          aria-labelledby="7--label "
           className="c2 c8"
           data-id="7"
+          id="7"
           onClick={[Function]}
           onKeyPress={[Function]}
           role="option"
@@ -2540,17 +2540,17 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
           >
             <span
               className="c7"
-              id="7"
+              id="7--label"
             >
               seven
             </span>
           </div>
         </li>
         <li
-          aria-labelledby="20 "
-          aria-selected={false}
+          aria-labelledby="20--label "
           className="c2 c8"
           data-id="20"
+          id="20"
           onClick={[Function]}
           onKeyPress={[Function]}
           role="option"
@@ -2570,17 +2570,17 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
           >
             <span
               className="c7"
-              id="20"
+              id="20--label"
             >
               twenty
             </span>
           </div>
         </li>
         <li
-          aria-labelledby="21 "
-          aria-selected={false}
+          aria-labelledby="21--label "
           className="c2 c8"
           data-id="21"
+          id="21"
           onClick={[Function]}
           onKeyPress={[Function]}
           role="option"
@@ -2600,7 +2600,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
           >
             <span
               className="c7"
-              id="21"
+              id="21--label"
             >
               twentyone
             </span>
@@ -2931,9 +2931,10 @@ exports[`snapshots renders a single select input 1`] = `
         role="listbox"
       >
         <li
-          aria-labelledby="0 "
+          aria-labelledby="0--label "
           className="c2 c3"
           data-id="0"
+          id="0"
           onClick={[Function]}
           onKeyPress={[Function]}
           role="option"
@@ -2948,16 +2949,17 @@ exports[`snapshots renders a single select input 1`] = `
           >
             <span
               className="c6"
-              id="0"
+              id="0--label"
             >
               zero
             </span>
           </div>
         </li>
         <li
-          aria-labelledby="1 "
+          aria-labelledby="1--label "
           className="c2 c3"
           data-id="1"
+          id="1"
           onClick={[Function]}
           onKeyPress={[Function]}
           role="option"
@@ -2972,16 +2974,17 @@ exports[`snapshots renders a single select input 1`] = `
           >
             <span
               className="c6"
-              id="1"
+              id="1--label"
             >
               one
             </span>
           </div>
         </li>
         <li
-          aria-labelledby="2 "
+          aria-labelledby="2--label "
           className="c2 c3"
           data-id="2"
+          id="2"
           onClick={[Function]}
           onKeyPress={[Function]}
           role="option"
@@ -2996,16 +2999,17 @@ exports[`snapshots renders a single select input 1`] = `
           >
             <span
               className="c6"
-              id="2"
+              id="2--label"
             >
               two
             </span>
           </div>
         </li>
         <li
-          aria-labelledby="3 "
+          aria-labelledby="3--label "
           className="c2 c3"
           data-id="3"
+          id="3"
           onClick={[Function]}
           onKeyPress={[Function]}
           role="option"
@@ -3020,16 +3024,17 @@ exports[`snapshots renders a single select input 1`] = `
           >
             <span
               className="c6"
-              id="3"
+              id="3--label"
             >
               three
             </span>
           </div>
         </li>
         <li
-          aria-labelledby="4 "
+          aria-labelledby="4--label "
           className="c2 c3"
           data-id="4"
+          id="4"
           onClick={[Function]}
           onKeyPress={[Function]}
           role="option"
@@ -3044,16 +3049,17 @@ exports[`snapshots renders a single select input 1`] = `
           >
             <span
               className="c6"
-              id="4"
+              id="4--label"
             >
               four
             </span>
           </div>
         </li>
         <li
-          aria-labelledby="5 "
+          aria-labelledby="5--label "
           className="c2 c3"
           data-id="5"
+          id="5"
           onClick={[Function]}
           onKeyPress={[Function]}
           role="option"
@@ -3068,16 +3074,17 @@ exports[`snapshots renders a single select input 1`] = `
           >
             <span
               className="c6"
-              id="5"
+              id="5--label"
             >
               five
             </span>
           </div>
         </li>
         <li
-          aria-labelledby="6 "
+          aria-labelledby="6--label "
           className="c2 c3"
           data-id="6"
+          id="6"
           onClick={[Function]}
           onKeyPress={[Function]}
           role="option"
@@ -3092,16 +3099,17 @@ exports[`snapshots renders a single select input 1`] = `
           >
             <span
               className="c6"
-              id="6"
+              id="6--label"
             >
               six
             </span>
           </div>
         </li>
         <li
-          aria-labelledby="7 "
+          aria-labelledby="7--label "
           className="c2 c3"
           data-id="7"
+          id="7"
           onClick={[Function]}
           onKeyPress={[Function]}
           role="option"
@@ -3116,16 +3124,17 @@ exports[`snapshots renders a single select input 1`] = `
           >
             <span
               className="c6"
-              id="7"
+              id="7--label"
             >
               seven
             </span>
           </div>
         </li>
         <li
-          aria-labelledby="20 "
+          aria-labelledby="20--label "
           className="c2 c3"
           data-id="20"
+          id="20"
           onClick={[Function]}
           onKeyPress={[Function]}
           role="option"
@@ -3140,16 +3149,17 @@ exports[`snapshots renders a single select input 1`] = `
           >
             <span
               className="c6"
-              id="20"
+              id="20--label"
             >
               twenty
             </span>
           </div>
         </li>
         <li
-          aria-labelledby="21 "
+          aria-labelledby="21--label "
           className="c2 c3"
           data-id="21"
+          id="21"
           onClick={[Function]}
           onKeyPress={[Function]}
           role="option"
@@ -3164,7 +3174,7 @@ exports[`snapshots renders a single select input 1`] = `
           >
             <span
               className="c6"
-              id="21"
+              id="21--label"
             >
               twentyone
             </span>
@@ -3366,9 +3376,10 @@ exports[`snapshots renders with a custom text input component 1`] = `
         role="listbox"
       >
         <li
-          aria-labelledby="0 "
+          aria-labelledby="0--label "
           className="c2 c3"
           data-id="0"
+          id="0"
           onClick={[Function]}
           onKeyPress={[Function]}
           role="option"
@@ -3383,16 +3394,17 @@ exports[`snapshots renders with a custom text input component 1`] = `
           >
             <span
               className="c6"
-              id="0"
+              id="0--label"
             >
               zero
             </span>
           </div>
         </li>
         <li
-          aria-labelledby="1 "
+          aria-labelledby="1--label "
           className="c2 c3"
           data-id="1"
+          id="1"
           onClick={[Function]}
           onKeyPress={[Function]}
           role="option"
@@ -3407,16 +3419,17 @@ exports[`snapshots renders with a custom text input component 1`] = `
           >
             <span
               className="c6"
-              id="1"
+              id="1--label"
             >
               one
             </span>
           </div>
         </li>
         <li
-          aria-labelledby="2 "
+          aria-labelledby="2--label "
           className="c2 c3"
           data-id="2"
+          id="2"
           onClick={[Function]}
           onKeyPress={[Function]}
           role="option"
@@ -3431,16 +3444,17 @@ exports[`snapshots renders with a custom text input component 1`] = `
           >
             <span
               className="c6"
-              id="2"
+              id="2--label"
             >
               two
             </span>
           </div>
         </li>
         <li
-          aria-labelledby="3 "
+          aria-labelledby="3--label "
           className="c2 c3"
           data-id="3"
+          id="3"
           onClick={[Function]}
           onKeyPress={[Function]}
           role="option"
@@ -3455,16 +3469,17 @@ exports[`snapshots renders with a custom text input component 1`] = `
           >
             <span
               className="c6"
-              id="3"
+              id="3--label"
             >
               three
             </span>
           </div>
         </li>
         <li
-          aria-labelledby="4 "
+          aria-labelledby="4--label "
           className="c2 c3"
           data-id="4"
+          id="4"
           onClick={[Function]}
           onKeyPress={[Function]}
           role="option"
@@ -3479,16 +3494,17 @@ exports[`snapshots renders with a custom text input component 1`] = `
           >
             <span
               className="c6"
-              id="4"
+              id="4--label"
             >
               four
             </span>
           </div>
         </li>
         <li
-          aria-labelledby="5 "
+          aria-labelledby="5--label "
           className="c2 c3"
           data-id="5"
+          id="5"
           onClick={[Function]}
           onKeyPress={[Function]}
           role="option"
@@ -3503,16 +3519,17 @@ exports[`snapshots renders with a custom text input component 1`] = `
           >
             <span
               className="c6"
-              id="5"
+              id="5--label"
             >
               five
             </span>
           </div>
         </li>
         <li
-          aria-labelledby="6 "
+          aria-labelledby="6--label "
           className="c2 c3"
           data-id="6"
+          id="6"
           onClick={[Function]}
           onKeyPress={[Function]}
           role="option"
@@ -3527,16 +3544,17 @@ exports[`snapshots renders with a custom text input component 1`] = `
           >
             <span
               className="c6"
-              id="6"
+              id="6--label"
             >
               six
             </span>
           </div>
         </li>
         <li
-          aria-labelledby="7 "
+          aria-labelledby="7--label "
           className="c2 c3"
           data-id="7"
+          id="7"
           onClick={[Function]}
           onKeyPress={[Function]}
           role="option"
@@ -3551,16 +3569,17 @@ exports[`snapshots renders with a custom text input component 1`] = `
           >
             <span
               className="c6"
-              id="7"
+              id="7--label"
             >
               seven
             </span>
           </div>
         </li>
         <li
-          aria-labelledby="20 "
+          aria-labelledby="20--label "
           className="c2 c3"
           data-id="20"
+          id="20"
           onClick={[Function]}
           onKeyPress={[Function]}
           role="option"
@@ -3575,16 +3594,17 @@ exports[`snapshots renders with a custom text input component 1`] = `
           >
             <span
               className="c6"
-              id="20"
+              id="20--label"
             >
               twenty
             </span>
           </div>
         </li>
         <li
-          aria-labelledby="21 "
+          aria-labelledby="21--label "
           className="c2 c3"
           data-id="21"
+          id="21"
           onClick={[Function]}
           onKeyPress={[Function]}
           role="option"
@@ -3599,7 +3619,7 @@ exports[`snapshots renders with a custom text input component 1`] = `
           >
             <span
               className="c6"
-              id="21"
+              id="21--label"
             >
               twentyone
             </span>
