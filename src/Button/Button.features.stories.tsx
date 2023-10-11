@@ -95,6 +95,9 @@ export const LoadingTrigger = () => {
 
   const handleClick = () => {
     setIsLoading(true)
+    setTimeout(() => {
+      setIsLoading(false)
+    }, 3000)
   }
 
   return (

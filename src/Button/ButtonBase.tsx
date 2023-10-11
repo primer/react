@@ -75,9 +75,14 @@ const ButtonBase = forwardRef(
           data-size={size === 'small' || size === 'large' ? size : undefined}
           data-no-visuals={!LeadingVisual && !TrailingVisual && !TrailingAction ? true : undefined}
           aria-disabled={loading ? true : undefined}
+          aria-describedby={loading ? 'loading-message' : undefined}
         >
           {Icon ? (
-            <Icon />
+            loading ? (
+              <Spinner size="small" />
+            ) : (
+              <Icon />
+            )
           ) : (
             <>
               <Box as="span" data-component="buttonContent" sx={getAlignContentSize(alignContent)}>
@@ -108,7 +113,9 @@ const ButtonBase = forwardRef(
         </StyledButton>
         {loading && (
           <VisuallyHidden>
-            <span aria-live="polite">Loading</span>
+            <span aria-live="polite" aria-busy="true" id="loading-message">
+              Loading
+            </span>
           </VisuallyHidden>
         )}
       </>
