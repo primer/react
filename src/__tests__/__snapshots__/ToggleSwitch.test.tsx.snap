@@ -239,6 +239,7 @@ exports[`renders consistently 1`] = `
         color="switchTrack.checked.fg"
       >
         <svg
+          aria-hidden="true"
           fill="currentColor"
           height="16"
           viewBox="0 0 16 16"
@@ -256,6 +257,7 @@ exports[`renders consistently 1`] = `
         color="switchTrack.fg"
       >
         <svg
+          aria-hidden="true"
           fill="currentColor"
           height="16"
           viewBox="0 0 16 16"
