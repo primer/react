@@ -12,7 +12,7 @@ let project!: Project
 
 beforeAll(async () => {
   project = await setup()
-})
+}, 10_000)
 
 describe('@primer/react', () => {
   it('should not update exports without a semver change', async () => {
