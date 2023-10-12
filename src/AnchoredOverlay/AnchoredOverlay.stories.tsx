@@ -9,47 +9,6 @@ import {action} from '@storybook/addon-actions'
 export default {
   title: 'Components/AnchoredOverlay',
   component: AnchoredOverlay,
-  args: {
-    width: 'small',
-    height: 'auto',
-    portalContainerName: 'Portal name',
-    side: 'outside-bottom',
-  },
-  argTypes: {
-    width: {
-      type: {
-        name: 'enum',
-        value: ['small', 'medium', 'large', 'xlarge', 'xxlarge', 'auto'],
-      },
-      portalContainerName: {type: 'string'},
-    },
-    height: {
-      type: {
-        name: 'enum',
-        value: ['xsmall', 'small', 'medium', 'large', 'xlarge', 'auto', 'initial'],
-      },
-      portalContainerName: {type: 'string'},
-    },
-    side: {
-      type: {
-        name: 'enum',
-        value: [
-          'inside-top',
-          'inside-bottom',
-          'inside-left',
-          'inside-right',
-          'inside-center',
-          'outside-top',
-          'outside-bottom',
-          'outside-left',
-          'outside-right',
-        ],
-      },
-    },
-    open: {
-      control: false,
-    },
-  },
 } as Meta
 
 export const Default = () => {
@@ -94,4 +53,45 @@ export const Playground = (args: Args) => {
       </Box>
     </AnchoredOverlay>
   )
+}
+Playground.args = {
+  width: 'small',
+  height: 'auto',
+  portalContainerName: 'Portal name',
+  side: 'outside-bottom',
+}
+Playground.argTypes = {
+  width: {
+    type: {
+      name: 'enum',
+      value: ['small', 'medium', 'large', 'xlarge', 'xxlarge', 'auto'],
+    },
+    portalContainerName: {type: 'string'},
+  },
+  height: {
+    type: {
+      name: 'enum',
+      value: ['xsmall', 'small', 'medium', 'large', 'xlarge', 'auto', 'initial'],
+    },
+    portalContainerName: {type: 'string'},
+  },
+  side: {
+    type: {
+      name: 'enum',
+      value: [
+        'inside-top',
+        'inside-bottom',
+        'inside-left',
+        'inside-right',
+        'inside-center',
+        'outside-top',
+        'outside-bottom',
+        'outside-left',
+        'outside-right',
+      ],
+    },
+  },
+  open: {
+    control: false,
+  },
 }

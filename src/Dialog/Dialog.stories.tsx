@@ -23,41 +23,6 @@ export default {
       )
     },
   ],
-  args: {
-    width: 'xlarge',
-    height: 'auto',
-    subtitle: true,
-  },
-  argTypes: {
-    width: {
-      control: {
-        type: 'radio',
-      },
-      options: ['small', 'medium', 'large', 'xlarge'],
-    },
-    height: {
-      control: {
-        type: 'radio',
-      },
-      options: ['small', 'large', 'auto'],
-    },
-    subtitle: {
-      name: 'show subtitle',
-      control: {
-        type: 'boolean',
-      },
-    },
-    title: {table: {disable: true}},
-
-    renderHeader: {table: {disable: true}},
-    renderBody: {table: {disable: true}},
-    renderFooter: {table: {disable: true}},
-    onClose: {table: {disable: true}},
-    role: {table: {disable: true}},
-    ref: {table: {disable: true}},
-    key: {table: {disable: true}},
-    footerButtons: {table: {disable: true}},
-  },
 } as Meta
 
 const lipsum = (
@@ -107,7 +72,41 @@ interface DialogStoryProps {
   height: DialogHeight
   subtitle: boolean
 }
-export const Default = ({width, height, subtitle}: DialogStoryProps) => {
+export const Default = () => {
+  const [isOpen, setIsOpen] = useState(false)
+  const [secondOpen, setSecondOpen] = useState(false)
+  const buttonRef = useRef<HTMLButtonElement>(null)
+  const onDialogClose = useCallback(() => setIsOpen(false), [])
+  const onSecondDialogClose = useCallback(() => setSecondOpen(false), [])
+  const openSecondDialog = useCallback(() => setSecondOpen(true), [])
+  return (
+    <>
+      <Button ref={buttonRef} onClick={() => setIsOpen(!isOpen)}>
+        Show dialog
+      </Button>
+      {isOpen && (
+        <Dialog
+          title="My Dialog"
+          onClose={onDialogClose}
+          footerButtons={[
+            {buttonType: 'normal', content: 'Open Second Dialog', onClick: openSecondDialog},
+            {buttonType: 'danger', content: 'Delete the universe', onClick: onDialogClose},
+            {buttonType: 'primary', content: 'Proceed', onClick: openSecondDialog, autoFocus: true},
+          ]}
+        >
+          {lipsum}
+          {secondOpen && (
+            <Dialog title="Inner dialog!" onClose={onSecondDialogClose} width="small">
+              Hello world
+            </Dialog>
+          )}
+        </Dialog>
+      )}
+    </>
+  )
+}
+
+export const Playground = ({width, height, subtitle}: DialogStoryProps) => {
   const [isOpen, setIsOpen] = useState(false)
   const [secondOpen, setSecondOpen] = useState(false)
   const buttonRef = useRef<HTMLButtonElement>(null)
@@ -142,4 +141,39 @@ export const Default = ({width, height, subtitle}: DialogStoryProps) => {
       )}
     </>
   )
+}
+Playground.args = {
+  width: 'xlarge',
+  height: 'auto',
+  subtitle: true,
+}
+Playground.argTypes = {
+  width: {
+    control: {
+      type: 'radio',
+    },
+    options: ['small', 'medium', 'large', 'xlarge'],
+  },
+  height: {
+    control: {
+      type: 'radio',
+    },
+    options: ['small', 'large', 'auto'],
+  },
+  subtitle: {
+    name: 'show subtitle',
+    control: {
+      type: 'boolean',
+    },
+  },
+  title: {table: {disable: true}},
+
+  renderHeader: {table: {disable: true}},
+  renderBody: {table: {disable: true}},
+  renderFooter: {table: {disable: true}},
+  onClose: {table: {disable: true}},
+  role: {table: {disable: true}},
+  ref: {table: {disable: true}},
+  key: {table: {disable: true}},
+  footerButtons: {table: {disable: true}},
 }
