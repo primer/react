@@ -18,6 +18,11 @@ export default {
         type: 'boolean',
       },
     },
+    inactive: {
+      control: {
+        type: 'boolean',
+      },
+    },
     variant: {
       control: {
         type: 'radio',
@@ -48,6 +53,7 @@ export default {
     block: false,
     size: 'medium',
     disabled: false,
+    inactive: false,
     variant: 'default',
     alignContent: 'center',
     trailingVisual: null,

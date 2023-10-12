@@ -5,22 +5,24 @@ import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../../utils
 import {defaultSxProp} from '../../utils/defaultSxProp'
 import {BetterSystemStyleObject} from '../../sx'
 
-const ButtonComponent = forwardRef(({children, sx: sxProp = defaultSxProp, ...props}, forwardedRef): JSX.Element => {
-  let sxStyles = sxProp
+const ButtonComponent = forwardRef(
+  ({children, sx: sxProp = defaultSxProp, inactive, ...props}, forwardedRef): JSX.Element => {
+    let sxStyles = sxProp
 
-  // grap the button props that have associated data attributes in the styles
-  const {block, size, leadingIcon, trailingIcon, trailingAction} = props
+    // grap the button props that have associated data attributes in the styles
+    const {block, size, leadingIcon, trailingIcon, trailingAction} = props
 
-  if (sxProp !== null && Object.keys(sxProp).length > 0) {
-    sxStyles = generateCustomSxProp({block, size, leadingIcon, trailingIcon, trailingAction}, sxProp)
-  }
+    if (sxProp !== null && Object.keys(sxProp).length > 0) {
+      sxStyles = generateCustomSxProp({block, size, leadingIcon, trailingIcon, trailingAction}, sxProp)
+    }
 
-  return (
-    <ButtonBase ref={forwardedRef} as="button" sx={sxStyles} type="button" {...props}>
-      {children}
-    </ButtonBase>
-  )
-}) as PolymorphicForwardRefComponent<'button', ButtonProps>
+    return (
+      <ButtonBase ref={forwardedRef} as="button" sx={sxStyles} type="button" aria-disabled={inactive} {...props}>
+        {children}
+      </ButtonBase>
+    )
+  },
+) as PolymorphicForwardRefComponent<'button', ButtonProps>
 
 // This function is used to generate a custom cssSelector for the sxProp
 

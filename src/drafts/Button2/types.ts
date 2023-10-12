@@ -32,6 +32,11 @@ export type ButtonBaseProps = {
    */
   disabled?: boolean
   /**
+   * Whether the button looks visually disabled, but can still accept all the same
+   * interactions as an enabled button.
+   */
+  inactive?: boolean
+  /**
    * Allow button width to fill its container.
    */
   block?: boolean

@@ -34,6 +34,8 @@ export const Block = () => <Button block>Default</Button>
 
 export const Disabled = () => <Button disabled>Default</Button>
 
+export const Inactive = () => <Button inactive>Default</Button>
+
 export const Small = () => <Button size="small">Default</Button>
 
 export const Medium = () => <Button size="medium">Default</Button>

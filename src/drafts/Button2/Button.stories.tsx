@@ -6,55 +6,6 @@ import {OcticonArgType} from '../../utils/story-helpers'
 
 export default {
   title: 'Drafts/Components/Button',
-  argTypes: {
-    size: {
-      control: {
-        type: 'radio',
-      },
-      options: ['small', 'medium', 'large'],
-    },
-    disabled: {
-      control: {
-        type: 'boolean',
-      },
-    },
-    variant: {
-      control: {
-        type: 'radio',
-      },
-      options: ['default', 'primary', 'danger', 'invisible', 'outline'],
-    },
-    alignContent: {
-      control: {
-        type: 'radio',
-      },
-      options: ['center', 'start'],
-    },
-    block: {
-      control: {
-        type: 'boolean',
-      },
-    },
-    leadingIcon: OcticonArgType([EyeClosedIcon, EyeIcon, SearchIcon, XIcon, HeartIcon]),
-    trailingIcon: OcticonArgType([EyeClosedIcon, EyeIcon, SearchIcon, XIcon, HeartIcon]),
-    trailingAction: OcticonArgType([TriangleDownIcon]),
-    trailingVisualCount: {
-      control: {
-        type: 'number',
-      },
-    },
-  },
-  args: {
-    block: false,
-    size: 'medium',
-    disabled: false,
-    variant: 'default',
-    alignContent: 'center',
-    trailingIcon: null,
-    leadingIcon: null,
-    trailingAction: null,
-    trailingVisualCount: undefined,
-  },
 } as Meta<typeof Button>
 
 export const Playground: StoryFn = args => {
@@ -65,6 +16,63 @@ export const Playground: StoryFn = args => {
       {typeof trailingVisualCount === 'undefined' ? null : <Button.Counter>{trailingVisualCount}</Button.Counter>}
     </Button>
   )
+}
+
+Playground.argTypes = {
+  size: {
+    control: {
+      type: 'radio',
+    },
+    options: ['small', 'medium', 'large'],
+  },
+  disabled: {
+    control: {
+      type: 'boolean',
+    },
+  },
+  inactive: {
+    control: {
+      type: 'boolean',
+    },
+  },
+  variant: {
+    control: {
+      type: 'radio',
+    },
+    options: ['default', 'primary', 'danger', 'invisible', 'outline'],
+  },
+  alignContent: {
+    control: {
+      type: 'radio',
+    },
+    options: ['center', 'start'],
+  },
+  block: {
+    control: {
+      type: 'boolean',
+    },
+  },
+  leadingIcon: OcticonArgType([EyeClosedIcon, EyeIcon, SearchIcon, XIcon, HeartIcon]),
+  trailingIcon: OcticonArgType([EyeClosedIcon, EyeIcon, SearchIcon, XIcon, HeartIcon]),
+  trailingAction: OcticonArgType([TriangleDownIcon]),
+  trailingVisualCount: {
+    control: {
+      type: 'number',
+    },
+  },
+}
+
+Playground.args = {
+  block: false,
+  size: 'medium',
+  disabled: false,
+  inactive: false,
+  variant: 'default',
+  alignContent: 'center',
+  trailingIcon: null,
+  leadingIcon: null,
+  trailingAction: null,
+  trailingVisualCount: undefined,
 }
 
 export const Default = () => <Button>Default</Button>

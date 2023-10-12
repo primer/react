@@ -45,6 +45,11 @@
       "description": "A visual to display after the button text."
     },
     {
+      "name": "inactive",
+      "type": "boolean",
+      "description": "Whether the button looks visually disabled, but can still accept all the same interactions as an enabled button."
+    },
+    {
       "name": "as",
       "type": "React.ElementType",
       "defaultValue": "'button'"

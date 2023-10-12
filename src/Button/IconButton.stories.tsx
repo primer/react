@@ -18,6 +18,11 @@ const meta: Meta<ComponentProps<typeof IconButton>> = {
         type: 'boolean',
       },
     },
+    inactive: {
+      control: {
+        type: 'boolean',
+      },
+    },
     variant: {
       control: {
         type: 'radio',
