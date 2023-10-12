@@ -1,7 +1,7 @@
 import React from 'react'
 import {SelectPanel} from './SelectPanel'
-import {ActionList, Avatar, Box, Button} from '../../../src/index'
-import {GitBranchIcon, TriangleDownIcon} from '@primer/octicons-react'
+import {ActionList, ActionMenu, Avatar, Box, Button, Flash} from '../../../src/index'
+import {ArrowRightIcon, AlertIcon, EyeIcon, GitBranchIcon, TriangleDownIcon} from '@primer/octicons-react'
 import data from './mock-data'
 
 const getCircle = (color: string) => (
@@ -71,6 +71,7 @@ export const AControlled = () => {
       <h1>Controlled SelectPanel</h1>
 
       <SelectPanel
+        title="Select labels"
         defaultOpen
         // onSubmit and onCancel feel out of place here instead of the footer,
         // but cancel can be called from 4 different actions - Cancel button, X iconbutton up top, press escape key, click outside
@@ -94,17 +95,14 @@ export const AControlled = () => {
         <SelectPanel.Button>Assign label</SelectPanel.Button>
         {/* TODO: header and heading is confusing. maybe skip header completely. */}
         <SelectPanel.Header>
-          {/* TODO: Heading is not optional, but what if you don't give it
-              Should we throw a big error or should we make that impossible in the API?
-          */}
-          <SelectPanel.Heading>Select labels</SelectPanel.Heading>
           <SelectPanel.SearchInput onChange={onSearchInputChange} />
         </SelectPanel.Header>
-        <SelectPanel.ActionList>
-          {itemsToShow.length === 0 ? (
-            <SelectPanel.EmptyMessage>No labels found for &quot;{query}&quot;</SelectPanel.EmptyMessage>
-          ) : (
-            itemsToShow.map(label => (
+
+        {itemsToShow.length === 0 ? (
+          <SelectPanel.EmptyMessage>No labels found for &quot;{query}&quot;</SelectPanel.EmptyMessage>
+        ) : (
+          <ActionList>
+            {itemsToShow.map(label => (
               <ActionList.Item
                 key={label.id}
                 onSelect={() => onLabelSelect(label.id)}
@@ -114,9 +112,10 @@ export const AControlled = () => {
                 {label.name}
                 <ActionList.Description variant="block">{label.description}</ActionList.Description>
               </ActionList.Item>
-            ))
-          )}
-        </SelectPanel.ActionList>
+            ))}
+          </ActionList>
+        )}
+
         <SelectPanel.Footer>
           <SelectPanel.SecondaryButton>Edit labels</SelectPanel.SecondaryButton>
         </SelectPanel.Footer>
@@ -137,12 +136,11 @@ export const BWithSuspendedList = () => {
     <>
       <h1>Suspended list</h1>
       <p>Fetching items once when the panel is opened (like repo labels)</p>
-      <SelectPanel>
+      <SelectPanel title="Select labels">
         {/* @ts-ignore todo */}
         <SelectPanel.Button>Assign label</SelectPanel.Button>
 
         <SelectPanel.Header>
-          <SelectPanel.Heading>Select labels</SelectPanel.Heading>
           <SelectPanel.SearchInput onChange={onSearchInputChange} />
         </SelectPanel.Header>
 
@@ -190,24 +188,22 @@ const SuspendedActionList: React.FC<{query: string}> = ({query}) => {
 
   const itemsToShow = query ? filteredLabels : data.labels.sort(sortingFn)
 
-  return (
-    <SelectPanel.ActionList>
-      {itemsToShow.length === 0 ? (
-        <SelectPanel.EmptyMessage>No labels found for &quot;{query}&quot;</SelectPanel.EmptyMessage>
-      ) : (
-        itemsToShow.map(label => (
-          <ActionList.Item
-            key={label.id}
-            onSelect={() => onLabelSelect(label.id)}
-            selected={selectedLabelIds.includes(label.id)}
-          >
-            <ActionList.LeadingVisual>{getCircle(label.color)}</ActionList.LeadingVisual>
-            {label.name}
-            <ActionList.Description variant="block">{label.description}</ActionList.Description>
-          </ActionList.Item>
-        ))
-      )}
-    </SelectPanel.ActionList>
+  return itemsToShow.length === 0 ? (
+    <SelectPanel.EmptyMessage>No labels found for &quot;{query}&quot;</SelectPanel.EmptyMessage>
+  ) : (
+    <ActionList>
+      {itemsToShow.map(label => (
+        <ActionList.Item
+          key={label.id}
+          onSelect={() => onLabelSelect(label.id)}
+          selected={selectedLabelIds.includes(label.id)}
+        >
+          <ActionList.LeadingVisual>{getCircle(label.color)}</ActionList.LeadingVisual>
+          {label.name}
+          <ActionList.Description variant="block">{label.description}</ActionList.Description>
+        </ActionList.Item>
+      ))}
+    </ActionList>
   )
 }
 
@@ -241,11 +237,10 @@ export const CAsyncSearchWithSuspenseKey = () => {
       <h1>Async search with useTransition</h1>
       <p>Fetching items on every keystroke search (like github users)</p>
 
-      <SelectPanel defaultOpen={true} onSubmit={onSubmit}>
+      <SelectPanel title="Select collaborators" defaultOpen={true} onSubmit={onSubmit}>
         {/* @ts-ignore todo */}
         <SelectPanel.Button>Select assignees</SelectPanel.Button>
         <SelectPanel.Header>
-          <SelectPanel.Heading>Select collaborators</SelectPanel.Heading>
           <SelectPanel.SearchInput onChange={onSearchInputChange} />
         </SelectPanel.Header>
 
@@ -292,26 +287,24 @@ const SearchableUserList: React.FC<{
   }
   const itemsToShow = query ? filteredUsers : repository.collaborators.sort(sortingFn)
 
-  return (
-    <SelectPanel.ActionList>
-      {itemsToShow.length === 0 ? (
-        <SelectPanel.EmptyMessage>No users found for &quot;{query}&quot;</SelectPanel.EmptyMessage>
-      ) : (
-        itemsToShow.map(user => (
-          <ActionList.Item
-            key={user.id}
-            onSelect={() => onUserSelect(user.id)}
-            selected={selectedUserIds.includes(user.id)}
-          >
-            <ActionList.LeadingVisual>
-              <Avatar src={`https://github.com/${user.login}.png`} />
-            </ActionList.LeadingVisual>
-            {user.login}
-            <ActionList.Description>{user.name}</ActionList.Description>
-          </ActionList.Item>
-        ))
-      )}
-    </SelectPanel.ActionList>
+  return itemsToShow.length === 0 ? (
+    <SelectPanel.EmptyMessage>No users found for &quot;{query}&quot;</SelectPanel.EmptyMessage>
+  ) : (
+    <ActionList>
+      {itemsToShow.map(user => (
+        <ActionList.Item
+          key={user.id}
+          onSelect={() => onUserSelect(user.id)}
+          selected={selectedUserIds.includes(user.id)}
+        >
+          <ActionList.LeadingVisual>
+            <Avatar src={`https://github.com/${user.login}.png`} />
+          </ActionList.LeadingVisual>
+          {user.login}
+          <ActionList.Description>{user.name}</ActionList.Description>
+        </ActionList.Item>
+      ))}
+    </ActionList>
   )
 }
 
@@ -347,11 +340,10 @@ export const DAsyncSearchWithUseTransition = () => {
       <h1>Async search with useTransition</h1>
       <p>Fetching items on every keystroke search (like github users)</p>
 
-      <SelectPanel defaultOpen={true} onSubmit={onSubmit}>
+      <SelectPanel title="Select collaborators" defaultOpen={true} onSubmit={onSubmit}>
         {/* @ts-ignore todo */}
         <SelectPanel.Button>Select assignees</SelectPanel.Button>
         <SelectPanel.Header>
-          <SelectPanel.Heading>Select collaborators</SelectPanel.Heading>
           <SelectPanel.SearchInput onChange={onSearchInputChange} />
         </SelectPanel.Header>
 
@@ -399,16 +391,15 @@ export const TODO1Uncontrolled = () => {
     <>
       <h1>Does not work yet: Uncontrolled SelectPanel</h1>
 
-      <SelectPanel onSubmit={onSubmit} onCancel={onCancel}>
+      <SelectPanel title="Select labels" onSubmit={onSubmit} onCancel={onCancel}>
         {/* @ts-ignore todo */}
         <SelectPanel.Button>Assign label</SelectPanel.Button>
 
         <SelectPanel.Header>
-          <SelectPanel.Heading>Select labels</SelectPanel.Heading>
           <SelectPanel.SearchInput />
         </SelectPanel.Header>
 
-        <SelectPanel.ActionList>
+        <ActionList>
           {data.labels.map(label => (
             <ActionList.Item key={label.id}>
               <ActionList.LeadingVisual>{getCircle(label.color)}</ActionList.LeadingVisual>
@@ -416,7 +407,7 @@ export const TODO1Uncontrolled = () => {
               <ActionList.Description variant="block">{label.description}</ActionList.Description>
             </ActionList.Item>
           ))}
-        </SelectPanel.ActionList>
+        </ActionList>
 
         <SelectPanel.Footer>
           <SelectPanel.SecondaryButton>Edit labels</SelectPanel.SecondaryButton>
@@ -428,29 +419,32 @@ export const TODO1Uncontrolled = () => {
 
 export const TODO2SingleSelection = () => <h1>TODO</h1>
 
-export const TODO3NoCustomisation = () => {
-  return (
-    <>
-      <h1>TODO: Without any customisation</h1>
-      <p>Address after TODO: Uncontrolled</p>
-    </>
-  )
-}
-
-export const TODO4WithFilterButtons = () => {
+export const HWithFilterButtons = () => {
   const [selectedFilter, setSelectedFilter] = React.useState<'branches' | 'tags'>('branches')
+
+  /* Selection */
+  const [savedInitialRef, setSavedInitialRef] = React.useState(data.ref)
+  const [selectedRef, setSelectedRef] = React.useState(savedInitialRef)
+
+  const onSubmit = () => {
+    setSavedInitialRef(selectedRef)
+    data.ref = selectedRef // pretending to persist changes
+
+    // eslint-disable-next-line no-console
+    console.log('form submitted')
+  }
+
+  /* Filter */
+  const [query, setQuery] = React.useState('')
+  const onSearchInputChange = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    const query = event.currentTarget.value
+    setQuery(query)
+  }
+
   const [filteredRefs, setFilteredRefs] = React.useState(data.branches)
-
-  const initialSelectedLabels: string[] = ['main']
-
-  // TODO: Single selection doesn't need an array
-  const [selectedLabelIds, setSelectedLabelIds] = React.useState<string[]>(initialSelectedLabels)
-
   const setSearchResults = (query: string, selectedFilter: 'branches' | 'tags') => {
     if (query === '') setFilteredRefs(data[selectedFilter])
     else {
-      // TODO: should probably add a highlight for matching text
-      // TODO: This should be a joined array, not seperate, only separated at the render level
       setFilteredRefs(
         data[selectedFilter]
           .map(item => {
@@ -464,12 +458,6 @@ export const TODO4WithFilterButtons = () => {
     }
   }
 
-  const [query, setQuery] = React.useState('')
-  const onSearchInputChange = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    const query = event.currentTarget.value
-    setQuery(query)
-  }
-
   React.useEffect(
     function updateSearchResults() {
       setSearchResults(query, selectedFilter)
@@ -477,49 +465,26 @@ export const TODO4WithFilterButtons = () => {
     [query, selectedFilter],
   )
 
-  const onLabelSelect = (labelId: string) => {
-    if (!selectedLabelIds.includes(labelId)) setSelectedLabelIds([...selectedLabelIds, labelId])
-    else setSelectedLabelIds(selectedLabelIds.filter(id => id !== labelId))
-  }
-
-  const onSubmit = () => {
-    data.issue.labelIds = selectedLabelIds // pretending to persist changes
-
-    // eslint-disable-next-line no-console
-    console.log('form submitted')
-  }
-
-  const sortingFn = (branchA: {id: string}, branchB: {id: string}) => {
-    /* Important! This sorting is only for initial selected ids, not for subsequent changes!
-      deterministic sorting for better UX: don't change positions with other selected items.
-    */
-    if (selectedLabelIds.includes(branchA.id) && selectedLabelIds.includes(branchB.id)) return 1
-    else if (selectedLabelIds.includes(branchA.id)) return -1
-    else if (selectedLabelIds.includes(branchB.id)) return 1
+  const sortingFn = (ref: {id: string}) => {
+    if (ref.id === savedInitialRef) return -1
     else return 1
   }
+
+  const itemsToShow = query ? filteredRefs : data[selectedFilter].sort(sortingFn)
 
   return (
     <>
       <h1>With Filter Buttons</h1>
 
-      <SelectPanel
-        defaultOpen
-        onSubmit={onSubmit}
-        onCancel={() => {
-          // eslint-disable-next-line no-console
-          console.log('panel was closed')
-        }}
-      >
+      <SelectPanel title="Switch branches/tags" defaultOpen onSubmit={onSubmit}>
         {/* TODO: the ref types don't match here, use useProvidedRefOrCreate */}
         {/* @ts-ignore todo */}
         <SelectPanel.Button leadingIcon={GitBranchIcon} trailingIcon={TriangleDownIcon}>
-          main
+          {savedInitialRef}
         </SelectPanel.Button>
 
         <SelectPanel.Header>
-          <SelectPanel.Heading>Switch branches/tags</SelectPanel.Heading>
-          <SelectPanel.SearchInput onChange={onSearchInputChange} sx={{marginBottom: 2}} />
+          <SelectPanel.SearchInput onChange={onSearchInputChange} />
 
           <Box id="filters" sx={{display: 'flex'}}>
             <Button
@@ -539,50 +504,336 @@ export const TODO4WithFilterButtons = () => {
           </Box>
         </SelectPanel.Header>
 
-        <SelectPanel.ActionList selectionVariant="single">
-          {/* slightly different view for search results view and list view */}
-          {query ? (
-            filteredRefs.length > 1 ? (
-              filteredRefs.map(label => (
-                <ActionList.Item
-                  key={label.id}
-                  onSelect={() => onLabelSelect(label.id)}
-                  selected={selectedLabelIds.includes(label.id)}
-                >
-                  {label.name}
-                  <ActionList.TrailingVisual>{label.trailingInfo}</ActionList.TrailingVisual>
-                </ActionList.Item>
-              ))
-            ) : (
-              <SelectPanel.EmptyMessage>
-                No {selectedFilter} found for &quot;{query}&quot;
-              </SelectPanel.EmptyMessage>
-            )
-          ) : (
-            <>
-              {data[selectedFilter].sort(sortingFn).map(item => {
-                return (
-                  <>
-                    <ActionList.Item
-                      key={item.id}
-                      onSelect={() => onLabelSelect(item.id)}
-                      selected={selectedLabelIds.includes(item.id)}
-                    >
-                      {item.name}
-                      <ActionList.TrailingVisual>{item.trailingInfo}</ActionList.TrailingVisual>
-                    </ActionList.Item>
-                  </>
-                )
-              })}
-            </>
-          )}
-        </SelectPanel.ActionList>
+        {itemsToShow.length === 0 ? (
+          <SelectPanel.EmptyMessage>No labels found for &quot;{'query'}&quot;</SelectPanel.EmptyMessage>
+        ) : (
+          <ActionList selectionVariant="single">
+            {itemsToShow.map(item => (
+              <ActionList.Item
+                key={item.id}
+                selected={selectedRef === item.id}
+                onSelect={() => setSelectedRef(item.id)}
+              >
+                {item.name}
+                <ActionList.TrailingVisual>{item.trailingInfo}</ActionList.TrailingVisual>
+              </ActionList.Item>
+            ))}
+          </ActionList>
+        )}
+
         <SelectPanel.Footer>
-          {/* TODO: Can't disable Cancel and Save yet */}
           <SelectPanel.SecondaryButton as="a" href={`/${selectedFilter}`}>
             View all {selectedFilter}
           </SelectPanel.SecondaryButton>
         </SelectPanel.Footer>
+      </SelectPanel>
+    </>
+  )
+}
+
+export const EMinimal = () => {
+  const initialSelectedLabels = data.issue.labelIds // mock initial state: has selected labels
+  const [selectedLabelIds, setSelectedLabelIds] = React.useState<string[]>(initialSelectedLabels)
+
+  /* Selection */
+  const onLabelSelect = (labelId: string) => {
+    if (!selectedLabelIds.includes(labelId)) setSelectedLabelIds([...selectedLabelIds, labelId])
+    else setSelectedLabelIds(selectedLabelIds.filter(id => id !== labelId))
+  }
+
+  const onSubmit = () => {
+    data.issue.labelIds = selectedLabelIds // pretending to persist changes
+
+    // eslint-disable-next-line no-console
+    console.log('form submitted')
+  }
+
+  const sortingFn = (itemA: {id: string}, itemB: {id: string}) => {
+    const initialSelectedIds = data.issue.labelIds
+    if (initialSelectedIds.includes(itemA.id) && initialSelectedIds.includes(itemB.id)) return 1
+    else if (initialSelectedIds.includes(itemA.id)) return -1
+    else if (initialSelectedIds.includes(itemB.id)) return 1
+    else return 1
+  }
+
+  const itemsToShow = data.labels.sort(sortingFn)
+
+  return (
+    <>
+      <h1>Minimal SelectPanel</h1>
+
+      <SelectPanel title="Select labels" defaultOpen onSubmit={onSubmit}>
+        {/* TODO: the ref types don't match here, use useProvidedRefOrCreate */}
+        {/* @ts-ignore todo */}
+        <SelectPanel.Button>Assign label</SelectPanel.Button>
+
+        <ActionList>
+          {itemsToShow.map(label => (
+            <ActionList.Item
+              key={label.id}
+              onSelect={() => onLabelSelect(label.id)}
+              selected={selectedLabelIds.includes(label.id)}
+            >
+              <ActionList.LeadingVisual>{getCircle(label.color)}</ActionList.LeadingVisual>
+              {label.name}
+              <ActionList.Description variant="block">{label.description}</ActionList.Description>
+            </ActionList.Item>
+          ))}
+        </ActionList>
+        <SelectPanel.Footer />
+      </SelectPanel>
+    </>
+  )
+}
+
+export const FExternalAnchor = () => {
+  const initialSelectedLabels = data.issue.labelIds // mock initial state: has selected labels
+  const [selectedLabelIds, setSelectedLabelIds] = React.useState<string[]>(initialSelectedLabels)
+
+  /* Selection */
+  const onLabelSelect = (labelId: string) => {
+    if (!selectedLabelIds.includes(labelId)) setSelectedLabelIds([...selectedLabelIds, labelId])
+    else setSelectedLabelIds(selectedLabelIds.filter(id => id !== labelId))
+  }
+
+  const onSubmit = () => {
+    data.issue.labelIds = selectedLabelIds // pretending to persist changes
+
+    // eslint-disable-next-line no-console
+    console.log('form submitted')
+  }
+
+  const sortingFn = (itemA: {id: string}, itemB: {id: string}) => {
+    const initialSelectedIds = data.issue.labelIds
+    if (initialSelectedIds.includes(itemA.id) && initialSelectedIds.includes(itemB.id)) return 1
+    else if (initialSelectedIds.includes(itemA.id)) return -1
+    else if (initialSelectedIds.includes(itemB.id)) return 1
+    else return 1
+  }
+
+  const itemsToShow = data.labels.sort(sortingFn)
+
+  const anchorRef = React.useRef<HTMLButtonElement>(null)
+  const [open, setOpen] = React.useState(false)
+
+  return (
+    <>
+      <h1>With External Anchor</h1>
+      <p>
+        To use an external anchor, pass an `anchorRef` to `SelectPanel`. You would also need to control the `open` state
+        with `onSubmit` and `onCancel`
+      </p>
+
+      <Button
+        ref={anchorRef}
+        variant="primary"
+        onClick={() => setOpen(!open)}
+        aria-haspopup
+        aria-expanded={open ? true : undefined}
+      >
+        Assign label
+      </Button>
+
+      <SelectPanel
+        title="Select labels"
+        anchorRef={anchorRef}
+        open={open} // this needs to be set with the button
+        onSubmit={() => {
+          setOpen(false) // close on submit
+          onSubmit()
+        }}
+        onCancel={() => setOpen(false)} // close on cancel
+      >
+        <ActionList>
+          {itemsToShow.map(label => (
+            <ActionList.Item
+              key={label.id}
+              onSelect={() => onLabelSelect(label.id)}
+              selected={selectedLabelIds.includes(label.id)}
+            >
+              <ActionList.LeadingVisual>{getCircle(label.color)}</ActionList.LeadingVisual>
+              {label.name}
+              <ActionList.Description variant="block">{label.description}</ActionList.Description>
+            </ActionList.Item>
+          ))}
+        </ActionList>
+        <SelectPanel.Footer />
+      </SelectPanel>
+    </>
+  )
+}
+
+export const GOpenFromMenu = () => {
+  /* Open state */
+  const [menuOpen, setMenuOpen] = React.useState(false)
+  const [selectPanelOpen, setSelectPanelOpen] = React.useState(false)
+  const buttonRef = React.useRef<HTMLButtonElement>(null)
+
+  /* Selection */
+  const [selectedSetting, setSelectedSetting] = React.useState<string>('All activity')
+  const [selectedEvents, setSelectedEvents] = React.useState<string[]>([])
+
+  const onEventSelect = (event: string) => {
+    if (!selectedEvents.includes(event)) setSelectedEvents([...selectedEvents, event])
+    else setSelectedEvents(selectedEvents.filter(name => name !== event))
+  }
+
+  const onSelectPanelSubmit = () => {
+    setSelectedSetting('Custom')
+  }
+
+  const itemsToShow = ['Issues', 'Pull requests', 'Releases', 'Discussions', 'Security alerts']
+
+  return (
+    <>
+      <h1>Open from ActionMenu</h1>
+      <Flash variant="danger">
+        <AlertIcon />
+        This implementation will most likely change.{' '}
+        <a href="https://github.com/github/primer/discussions/2614#discussioncomment-6879407">
+          See decision log for more details.
+        </a>
+      </Flash>
+      <p>
+        To open SelectPanel from a menu, you would need to use an external anchor and pass `anchorRef` to `SelectPanel`.
+        You would also need to control the `open` state for both ActionMenu and SelectPanel.
+        <br />
+        <br />
+        Important: Pass the same `anchorRef` to both ActionMenu and SelectPanel
+      </p>
+
+      <Button
+        ref={buttonRef}
+        leadingVisual={EyeIcon}
+        trailingAction={TriangleDownIcon}
+        aria-haspopup
+        aria-expanded={menuOpen || selectPanelOpen ? true : undefined}
+        onClick={() => {
+          if (menuOpen) setMenuOpen(false)
+          else if (selectPanelOpen) setSelectPanelOpen(false)
+          else setMenuOpen(true)
+        }}
+      >
+        {selectedSetting === 'Ignore' ? 'Watch' : 'Unwatch'}
+      </Button>
+      <ActionMenu anchorRef={buttonRef} open={menuOpen} onOpenChange={value => setMenuOpen(value)}>
+        <ActionMenu.Overlay width="medium">
+          <ActionList selectionVariant="single">
+            <ActionList.Item
+              selected={selectedSetting === 'Participating and @mentions'}
+              onSelect={() => setSelectedSetting('Participating and @mentions')}
+            >
+              Participating and @mentions
+              <ActionList.Description variant="block">
+                Only receive notifications from this repository when participating or @mentioned.
+              </ActionList.Description>
+            </ActionList.Item>
+            <ActionList.Item
+              selected={selectedSetting === 'All activity'}
+              onSelect={() => setSelectedSetting('All activity')}
+            >
+              All activity
+              <ActionList.Description variant="block">
+                Notified of all notifications on this repository.
+              </ActionList.Description>
+            </ActionList.Item>
+            <ActionList.Item selected={selectedSetting === 'Ignore'} onSelect={() => setSelectedSetting('Ignore')}>
+              Ignore
+              <ActionList.Description variant="block">Never be notified.</ActionList.Description>
+            </ActionList.Item>
+            <ActionList.Item selected={selectedSetting === 'Custom'} onSelect={() => setSelectPanelOpen(true)}>
+              Custom
+              <ActionList.TrailingVisual>
+                <ArrowRightIcon />
+              </ActionList.TrailingVisual>
+              <ActionList.Description variant="block">
+                Select events you want to be notified of in addition to participating and @mentions.
+              </ActionList.Description>
+            </ActionList.Item>
+          </ActionList>
+        </ActionMenu.Overlay>
+      </ActionMenu>
+
+      <SelectPanel
+        title="Custom"
+        open={selectPanelOpen}
+        anchorRef={buttonRef}
+        onSubmit={() => {
+          setSelectPanelOpen(false)
+          onSelectPanelSubmit()
+        }}
+        onCancel={() => {
+          setSelectPanelOpen(false)
+          setMenuOpen(true)
+        }}
+        height="medium"
+      >
+        <ActionList>
+          {itemsToShow.map(item => (
+            <ActionList.Item key={item} onSelect={() => onEventSelect(item)} selected={selectedEvents.includes(item)}>
+              {item}
+            </ActionList.Item>
+          ))}
+        </ActionList>
+        <SelectPanel.Footer />
+      </SelectPanel>
+    </>
+  )
+}
+
+export const IWithRemoveFilterIcon = () => {
+  const initialSelectedLabels = data.issue.labelIds // mock initial state: has selected labels
+  const [selectedLabelIds, setSelectedLabelIds] = React.useState<string[]>(initialSelectedLabels)
+
+  /* Selection */
+  const onLabelSelect = (labelId: string) => {
+    if (!selectedLabelIds.includes(labelId)) setSelectedLabelIds([...selectedLabelIds, labelId])
+    else setSelectedLabelIds(selectedLabelIds.filter(id => id !== labelId))
+  }
+
+  const onSubmit = () => {
+    data.issue.labelIds = selectedLabelIds // pretending to persist changes
+
+    // eslint-disable-next-line no-console
+    console.log('form submitted')
+  }
+
+  const onClearSelection = () => {
+    setSelectedLabelIds([])
+  }
+
+  const sortingFn = (itemA: {id: string}, itemB: {id: string}) => {
+    const initialSelectedIds = data.issue.labelIds
+    if (initialSelectedIds.includes(itemA.id) && initialSelectedIds.includes(itemB.id)) return 1
+    else if (initialSelectedIds.includes(itemA.id)) return -1
+    else if (initialSelectedIds.includes(itemB.id)) return 1
+    else return 1
+  }
+
+  const itemsToShow = data.labels.sort(sortingFn)
+
+  return (
+    <>
+      <h1>Minimal SelectPanel</h1>
+
+      <SelectPanel title="Select labels" defaultOpen onSubmit={onSubmit} onClearSelection={onClearSelection}>
+        {/* TODO: the ref types don't match here, use useProvidedRefOrCreate */}
+        {/* @ts-ignore todo */}
+        <SelectPanel.Button>Assign label</SelectPanel.Button>
+
+        <ActionList>
+          {itemsToShow.map(label => (
+            <ActionList.Item
+              key={label.id}
+              onSelect={() => onLabelSelect(label.id)}
+              selected={selectedLabelIds.includes(label.id)}
+            >
+              <ActionList.LeadingVisual>{getCircle(label.color)}</ActionList.LeadingVisual>
+              {label.name}
+              <ActionList.Description variant="block">{label.description}</ActionList.Description>
+            </ActionList.Item>
+          ))}
+        </ActionList>
       </SelectPanel>
     </>
   )

@@ -11,7 +11,7 @@ const BranchName = styled.a<SxProp>`
   color: ${get('colors.accent.fg')};
   background-color: ${get('colors.accent.subtle')};
   border-radius: ${get('radii.2')};
-  text-decoration: none;
+  text-decoration: var(--prefers-link-underlines, underline);
 
   ${sx};
 `

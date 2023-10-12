@@ -8,6 +8,6 @@ exports[`Heading renders consistently 1`] = `
 }
 
 <h2
-  className="c0"
+  className="c0 pc-Heading"
 />
 `;

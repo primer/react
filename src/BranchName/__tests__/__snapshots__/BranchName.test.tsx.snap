@@ -9,8 +9,8 @@ exports[`BranchName renders consistently 1`] = `
   color: #0969da;
   background-color: #ddf4ff;
   border-radius: 6px;
-  -webkit-text-decoration: none;
-  text-decoration: none;
+  -webkit-text-decoration: var(--prefers-link-underlines,underline);
+  text-decoration: var(--prefers-link-underlines,underline);
 }
 
 <a

@@ -26,7 +26,7 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
         borderColor: 'btn.activeBorder',
       },
       '[data-component="leadingVisual"], [data-component="trailingVisual"], [data-component="trailingAction"]': {
-        color: 'fg.muted',
+        color: `var(--button-color, ${theme?.colors.fg.muted})`,
       },
     },
     primary: {
@@ -109,6 +109,12 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
       backgroundColor: 'transparent',
       borderColor: 'transparent',
       boxShadow: 'none',
+      '&[href]': {
+        textDecoration: 'var(--prefers-link-underlines, underline)',
+        '&:hover': {
+          textDecoration: 'var(--prefers-link-underlines, underline)',
+        },
+      },
       '&:hover:not([disabled])': {
         backgroundColor: 'btn.hoverBg',
       },
