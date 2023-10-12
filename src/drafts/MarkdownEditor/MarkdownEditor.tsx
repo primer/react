@@ -1,13 +1,4 @@
-import React, {
-  forwardRef,
-  useCallback,
-  useEffect,
-  useImperativeHandle,
-  useLayoutEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react'
+import React, {forwardRef, useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState} from 'react'
 import Box from '../../Box'
 import VisuallyHidden from '../../_VisuallyHidden'
 import {useId} from '../../hooks/useId'
@@ -22,7 +13,7 @@ import {FileType} from '../hooks/useUnifiedFileSelect'
 import {Actions} from './Actions'
 import {Label} from './Label'
 import {CoreToolbar, DefaultToolbarButtons, Toolbar} from './Toolbar'
-import {Footer} from './_Footer'
+import {CoreFooter, Footer} from './Footer'
 import {FormattingTools} from './_FormattingTools'
 import {MarkdownEditorContext} from './_MarkdownEditorContext'
 import {MarkdownInput} from './_MarkdownInput'
@@ -36,6 +27,7 @@ import {Emoji} from './suggestions/_useEmojiSuggestions'
 import {Mentionable} from './suggestions/_useMentionSuggestions'
 import {Reference} from './suggestions/_useReferenceSuggestions'
 import {isModifierKey} from './utils'
+import useIsomorphicLayoutEffect from '../../utils/useIsomorphicLayoutEffect'
 
 export type MarkdownEditorProps = SxProp & {
   /** Current value of the editor as a multiline markdown string. */
@@ -192,6 +184,7 @@ const MarkdownEditor = forwardRef<MarkdownEditorHandle, MarkdownEditorProps>(
       toolbar: Toolbar,
       actions: Actions,
       label: Label,
+      footer: Footer,
     })
     const [uncontrolledViewMode, uncontrolledSetViewMode] = useState<MarkdownViewMode>('edit')
     const [view, setView] =
@@ -226,7 +219,7 @@ const MarkdownEditor = forwardRef<MarkdownEditorHandle, MarkdownEditorProps>(
         ({
           focus: opts => inputRef.current?.focus(opts),
           scrollIntoView: opts => containerRef.current?.scrollIntoView(opts),
-        } as MarkdownEditorHandle),
+        }) as MarkdownEditorHandle,
     )
 
     const inputHeight = useRef(0)
@@ -267,7 +260,7 @@ const MarkdownEditor = forwardRef<MarkdownEditorHandle, MarkdownEditorProps>(
     useResizeObserver(onResize, containerRef)
 
     // workaround for Safari bug where layout is otherwise not recalculated
-    useLayoutEffect(() => {
+    useIsomorphicLayoutEffect(() => {
       const container = containerRef.current
       if (!container) return
 
@@ -350,8 +343,27 @@ const MarkdownEditor = forwardRef<MarkdownEditorHandle, MarkdownEditorProps>(
 
     // If we don't memoize the context object, every child will rerender on every render even if memoized
     const context = useMemo(
-      () => ({disabled, formattingToolsRef, condensed, required}),
-      [disabled, formattingToolsRef, condensed, required],
+      () => ({
+        disabled,
+        formattingToolsRef,
+        condensed,
+        required,
+        fileDraggedOver: fileHandler?.isDraggedOver ?? false,
+        fileUploadProgress: fileHandler?.uploadProgress,
+        uploadButtonProps: fileHandler?.clickTargetProps ?? null,
+        errorMessage: fileHandler?.errorMessage,
+        previewMode: view === 'preview',
+      }),
+      [
+        disabled,
+        condensed,
+        required,
+        fileHandler?.isDraggedOver,
+        fileHandler?.uploadProgress,
+        fileHandler?.clickTargetProps,
+        fileHandler?.errorMessage,
+        view,
+      ],
     )
 
     // We are using MarkdownEditorContext instead of the built-in Slots context because Slots' context is not typesafe
@@ -455,15 +467,9 @@ const MarkdownEditor = forwardRef<MarkdownEditorHandle, MarkdownEditorProps>(
                 />
               </Box>
             )}
-
-            <Footer
-              actionButtons={slots.actions}
-              fileDraggedOver={fileHandler?.isDraggedOver ?? false}
-              fileUploadProgress={fileHandler?.uploadProgress}
-              uploadButtonProps={fileHandler?.clickTargetProps ?? null}
-              errorMessage={fileHandler?.errorMessage}
-              previewMode={view === 'preview'}
-            />
+            {slots.footer ?? (
+              <CoreFooter>{React.isValidElement(slots.actions) && slots.actions.props.children}</CoreFooter>
+            )}
           </Box>
         </fieldset>
       </MarkdownEditorContext.Provider>

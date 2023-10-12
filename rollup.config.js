@@ -13,6 +13,9 @@ const input = new Set([
   // "."
   'src/index.ts',
 
+  // "./experimental"
+  'src/experimental/index.ts',
+
   // "./drafts"
   'src/drafts/index.ts',
 
@@ -32,6 +35,9 @@ const input = new Set([
 
       // "./lib-esm/utils/*"
       'src/utils/*',
+
+      // for backward compatbility, see https://github.com/primer/react/pull/3740
+      'src/ActionMenu/index.ts',
     ],
     {
       cwd: __dirname,
@@ -57,6 +63,7 @@ const ESM_ONLY = new Set([
   '@github/paste-markdown',
   '@github/relative-time-element',
   '@lit-labs/react',
+  '@oddbird/popover-polyfill',
 ])
 const dependencies = [
   ...Object.keys(packageJson.peerDependencies ?? {}),
@@ -112,9 +119,19 @@ const baseConfig = {
     postcss({
       extract: 'components.css',
       autoModules: false,
-      modules: {generateScopedName: 'prc_[local]-[hash:base64:5]'},
+      modules: {generateScopedName: 'prc_[local]_[hash:base64:5]'},
+      // plugins are defined in postcss.config.js
     }),
   ],
+  onwarn(warning, defaultHandler) {
+    // Dependencies or modules may use "use client" as an indicator for React
+    // Server Components that this module should only be loaded on the client.
+    if (warning.code === 'MODULE_LEVEL_DIRECTIVE' && warning.message.includes('use client')) {
+      return
+    }
+
+    defaultHandler(warning)
+  },
 }
 
 export default [

@@ -1,10 +1,12 @@
 import css, {SystemCssProperties, SystemStyleObject} from '@styled-system/css'
 import {ThemeColorPaths, ThemeShadowPaths} from './theme'
-import {ColorProps, ShadowProps} from 'styled-system'
+import {ColorProps, BorderColorProps, ShadowProps} from 'styled-system'
 import merge from 'deepmerge'
 
 export type BetterCssProperties = {
   [K in keyof SystemCssProperties]: K extends keyof ColorProps
+    ? ThemeColorPaths | SystemCssProperties[K]
+    : K extends keyof BorderColorProps
     ? ThemeColorPaths | SystemCssProperties[K]
     : K extends keyof ShadowProps
     ? ThemeShadowPaths | SystemCssProperties[K]
@@ -12,7 +14,7 @@ export type BetterCssProperties = {
 }
 
 // Support CSS custom properties in the `sx` prop
-type CSSCustomProperties = {
+export type CSSCustomProperties = {
   [key: `--${string}`]: string | number
 }
 

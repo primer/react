@@ -1,85 +1,54 @@
-import React from 'react'
-import {ListContext} from './List'
-import Box from '../Box'
-import {get} from '../constants'
-import {SxProp, merge} from '../sx'
-import {useId} from '../hooks/useId'
+import React, {forwardRef} from 'react'
+import {BetterSystemStyleObject, SxProp, merge} from '../sx'
 import {defaultSxProp} from '../utils/defaultSxProp'
+import {useRefObjectAsForwardedRef} from '../hooks'
+import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
+import {default as HeadingComponent} from '../Heading'
+import {ListContext} from './List'
+import VisuallyHidden from '../_VisuallyHidden'
+import {ActionListContainerContext} from './ActionListContainerContext'
+import {invariant} from '../utils/invariant'
 
+type HeadingLevels = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
 export type ActionListHeadingProps = {
-  variant?: 'subtle' | 'filled'
-  title: string
-  subtitle?: string
-  as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
+  as: HeadingLevels
+  visuallyHidden?: boolean
 } & SxProp
 
-/**
- * Displays the name and description of the ActionList.
- *
- * For visual presentation only. It's hidden from screen readers.
- */
-export const Heading: React.FC<React.PropsWithChildren<ActionListHeadingProps>> = ({
-  variant,
-  title,
-  subtitle,
-  as = 'h3',
-  sx = defaultSxProp,
-  ...props
-}) => {
-  const {variant: listVariant, headingId: headingId} = React.useContext(ListContext)
+export const Heading = forwardRef(
+  ({as, children, sx = defaultSxProp, visuallyHidden = false, ...props}, forwardedRef) => {
+    const innerRef = React.useRef<HTMLHeadingElement>(null)
+    useRefObjectAsForwardedRef(forwardedRef, innerRef)
 
-  const styles = {
-    paddingY: '6px',
-    paddingX: listVariant === 'full' ? 2 : 3,
-    fontSize: 0,
-    fontWeight: 'bold',
-    color: 'fg.muted',
-    listStyle: 'none',
-    ...(variant === 'filled' && {
-      backgroundColor: 'canvas.subtle',
-      marginX: 0,
+    const {headingId: headingId, variant: listVariant} = React.useContext(ListContext)
+    const {container} = React.useContext(ActionListContainerContext)
+
+    // Semantic <menu>s don't have a place for headers within them, they should be aria-labelledby the menu button's name.
+    invariant(
+      container !== 'ActionMenu',
+      `ActionList.Heading shouldn't be used within an ActionMenu container. Menus are labelled by the menu button's name.`,
+    )
+
+    const styles = {
       marginBottom: 2,
-      borderTop: '1px solid',
-      borderBottom: '1px solid',
-      borderColor: 'neutral.muted',
-    }),
-  }
+      marginX: listVariant === 'full' ? 2 : 3,
+    }
 
-  const id = useId(headingId)
+    return (
+      <VisuallyHidden isVisible={!visuallyHidden}>
+        <HeadingComponent
+          as={as}
+          ref={innerRef}
+          // use custom id if it is provided. Otherwise, use the id from the context
+          id={props.id ?? headingId}
+          sx={merge<BetterSystemStyleObject>(styles, sx)}
+          {...props}
+        >
+          {children}
+        </HeadingComponent>
+      </VisuallyHidden>
+    )
+  },
+) as PolymorphicForwardRefComponent<HeadingLevels, ActionListHeadingProps>
 
-  const Title = (
-    <Box
-      as={as}
-      sx={{
-        color: get('colors.fg.muted'),
-        fontSize: get('fontSizes.0'),
-        fontWeight: get('fontWeights.bold'),
-        marginBottom: 0,
-        marginTop: 0,
-      }}
-      id={id}
-    >
-      {title}
-    </Box>
-  )
-
-  const Subtitle = (
-    <Box
-      as="span"
-      sx={{
-        color: get('colors.fg.muted'),
-        fontSize: get('fontSizes.0'),
-        fontWeight: get('fontWeights.normal'),
-      }}
-    >
-      {subtitle}
-    </Box>
-  )
-
-  return (
-    <Box as="div" sx={merge(styles, sx as SxProp)} {...props}>
-      {Title}
-      {subtitle && Subtitle}
-    </Box>
-  )
-}
+Heading.displayName = 'ActionList.Heading'

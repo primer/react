@@ -20,7 +20,7 @@ jobs:
       # If it's 0, we deploy.
       should_deploy: ${{ steps.changeset-count.outputs.change_count == 0 && steps.has-pages.outputs.pages == 1 }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - id: changeset-count
         run: echo "::set-output name=change_count::$(ls .changeset/*.md | grep -v README | wc -l | xargs)"
@@ -33,9 +33,9 @@ jobs:
         name: Check if pages is configured
         run: |
           if gh api --silent https://api.github.com/repos/${{ github.repository }}/pages ; then
-            echo "::set-output name=pages::1"
+            echo "pages=1" >> $GITHUB_OUTPUT
           else
-            echo "::set-output name=pages::0"
+            echo "pages=0" >> $GITHUB_OUTPUT
           fi
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

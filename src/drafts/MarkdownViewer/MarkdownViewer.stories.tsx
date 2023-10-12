@@ -8,7 +8,7 @@ import {useSafeAsyncCallback} from '../hooks/useSafeAsyncCallback'
 import MarkdownViewer from './MarkdownViewer'
 
 const meta: Meta = {
-  title: 'Components/Forms/MarkdownViewer',
+  title: 'Drafts/Components/MarkdownViewer',
   decorators: [
     Story => {
       return (
@@ -75,9 +75,9 @@ const sampleHtml = `
 </ul>
 <h4>Tasks</h4>
 <ul class="contains-task-list">
-<li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox"> Task 1</li>
-<li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox"> Task 2</li>
-<li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox"> Task 3</li>
+<li class="task-list-item"><label><input type="checkbox" id="" disabled="" class="task-list-item-checkbox"> Task 1</label></li>
+<li class="task-list-item"><label><input type="checkbox" id="" disabled="" class="task-list-item-checkbox"> Task 2</label></li>
+<li class="task-list-item"><label><input type="checkbox" id="" disabled="" class="task-list-item-checkbox"> Task 3</label></li>
 </ul>`
 
 const htmlObject = {__html: sampleHtml}
@@ -113,18 +113,7 @@ export const Default = ({loading, linksInNewTab}: ArgProps) => (
   <MarkdownViewer loading={loading} openLinksInNewTab={linksInNewTab} dangerousRenderedHTML={htmlObject} />
 )
 
-export const LinkInterception = ({loading}: ArgProps) => (
-  <MarkdownViewer
-    loading={loading}
-    onLinkClick={event => {
-      event.preventDefault()
-      alert(`Link clicked: ${event.target instanceof HTMLAnchorElement ? event.target.href : 'unknown'}`)
-    }}
-    dangerousRenderedHTML={htmlObject}
-  />
-)
-
-export const Interactive = ({loading, linksInNewTab}: ArgProps) => {
+export const Playground = ({loading, linksInNewTab}: ArgProps) => {
   const [markdown, setMarkdown] = useState(sampleMarkdownSource)
   const [disabled, setDisabled] = useState(false)
 

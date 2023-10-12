@@ -97,7 +97,7 @@ describe('SelectMenu', () => {
   it('shows correct initial tab', () => {
     const testInstance = renderRoot(<MenuWithTabs />)
     // `findByProps` is a method on the renderer, not testing-library
-    // eslint-disable-next-line testing-library/await-async-query
+    // eslint-disable-next-line testing-library/await-async-queries
     expect(testInstance.findByProps({'aria-selected': true}).props.children).toBe('Organization')
   })
 
@@ -113,7 +113,7 @@ describe('SelectMenu', () => {
   it('selected items have aria-checked', () => {
     const testInstance = renderRoot(<BasicSelectMenu />)
     // `findByProps` is a method on the renderer, not testing-library
-    // eslint-disable-next-line testing-library/await-async-query
+    // eslint-disable-next-line testing-library/await-async-queries
     expect(testInstance.findByProps({'aria-checked': true}).props.children[1]).toBe('Primer Components bugs')
   })
 

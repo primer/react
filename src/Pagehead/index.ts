@@ -1,1 +1,2 @@
-export {default, PageheadProps} from './Pagehead'
+export {default} from './Pagehead'
+export type {PageheadProps} from './Pagehead'

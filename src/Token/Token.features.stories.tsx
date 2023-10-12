@@ -152,7 +152,7 @@ export const IssueLabelTokenCustomColors = () => {
           text="Link"
           fillColor="#0366d6"
         />
-        <IssueLabelToken as="button" onClick={action('clicked')} text="Button" fillColor="deeppink" />
+        <IssueLabelToken as="button" onClick={action('clicked')} text="Button" fillColor="lightpink" />
         <IssueLabelToken as="span" tabIndex={0} onFocus={action('focused')} text="Focusable Span" fillColor="coral" />
       </Box>
       <h3>Color examples</h3>
@@ -276,7 +276,7 @@ export const IssueLabelTokenCustomColors = () => {
           as="a"
           href="/?path=/story/components-token-features--issue-label-token-custom-colors"
           text="💡 Light"
-          fillColor="#f2107d"
+          fillColor="#E40C74"
         />
       </Box>
     </Box>

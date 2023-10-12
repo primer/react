@@ -38,11 +38,11 @@ describe('Header', () => {
   })
 
   it('renders a <div> and <a>', () => {
-    expect(render(<Header />).type).toEqual('div')
+    expect(render(<Header />).type).toEqual('header')
     expect(render(<Header.Link />).type).toEqual('a')
   })
 
   it('sets aria-label appropriately', () => {
-    expect(render(<Header aria-label="foo" />).props['aria-label']).toEqual('foo')
+    expect(render(<Header aria-label="Test label" />).props['aria-label']).toEqual('Test label')
   })
 })

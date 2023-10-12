@@ -29,7 +29,6 @@ export const Default = () => {
     </UnderlineNav>
   )
 }
-
 export const WithIcons = () => {
   return (
     <UnderlineNav aria-label="Repository with icons">

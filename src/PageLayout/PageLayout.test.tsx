@@ -122,19 +122,17 @@ describe('PageLayout', () => {
     render(
       <ThemeProvider>
         <PageLayout>
-          <PageLayout.Header aria-label="header">Header</PageLayout.Header>
-          <PageLayout.Content>
-            <main aria-label="content">Content</main>
-          </PageLayout.Content>
+          <PageLayout.Header aria-label="Header">Header</PageLayout.Header>
+          <PageLayout.Content aria-label="Content">Content</PageLayout.Content>
           <PageLayout.Pane>Pane</PageLayout.Pane>
-          <PageLayout.Footer aria-label="footer">Footer</PageLayout.Footer>
+          <PageLayout.Footer aria-label="Footer">Footer</PageLayout.Footer>
         </PageLayout>
       </ThemeProvider>,
     )
 
-    expect(screen.getByRole('banner')).toHaveAccessibleName('header')
-    expect(screen.getByRole('main')).toHaveAccessibleName('content')
-    expect(screen.getByRole('contentinfo')).toHaveAccessibleName('footer')
+    expect(screen.getByRole('banner')).toHaveAccessibleName('Header')
+    expect(screen.getByRole('main')).toHaveAccessibleName('Content')
+    expect(screen.getByRole('contentinfo')).toHaveAccessibleName('Footer')
   })
 
   it('should support labeling landmarks through `aria-labelledby`', () => {
@@ -156,7 +154,7 @@ describe('PageLayout', () => {
     )
 
     expect(screen.getByRole('banner')).toHaveAccessibleName('header')
-    expect(screen.getByLabelText('content')).toBeInTheDocument()
+    expect(screen.getByRole('main')).toHaveAccessibleName('content')
     expect(screen.getByRole('contentinfo')).toHaveAccessibleName('footer')
   })
 
@@ -200,6 +198,17 @@ describe('PageLayout', () => {
       fireEvent.mouseUp(divider)
       const finalWidth = (pane as HTMLElement).style.getPropertyValue('--pane-width')
       expect(finalWidth).not.toEqual(initialWidth)
+    })
+  })
+
+  describe('PageLayout.Content', () => {
+    it('should support a custom element type with the `as` prop', () => {
+      const {container} = render(
+        <PageLayout.Content as="div">
+          <main>Content</main>
+        </PageLayout.Content>,
+      )
+      expect(container.firstChild?.nodeName).toEqual('DIV')
     })
   })
 })

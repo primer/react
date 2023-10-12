@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import TextInputWrapper, {StyledWrapperProps} from '../_TextInputWrapper'
+import TextInputWrapper, {StyledWrapperProps} from '../internal/components/TextInputWrapper'
 
 export type SelectProps = Omit<
   Omit<React.ComponentPropsWithoutRef<'select'>, 'size'> & Omit<StyledWrapperProps, 'variant'>,

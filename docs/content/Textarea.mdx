@@ -3,13 +3,16 @@ componentId: textarea
 title: Textarea
 description: Use Textarea for multi-line text input form fields
 status: Alpha
-source: https://github.com/primer/react/blob/main/src/Textarea.tsx
+source: https://github.com/primer/react/blob/main/src/Textarea
 storybook: '/react/storybook?path=/story/components-forms-textarea--textarea-story'
 ---
 
 import data from '../../src/Textarea/Textarea.docs.json'
 
 import {Textarea} from '@primer/react'
+import DeprecationBanner from '../components/DeprecationBanner'
+
+<DeprecationBanner replacementUrl={'/design/components/textarea/react'} />
 
 <Box sx={{border: '1px solid', borderColor: 'border.default', borderRadius: 2, padding: 6, marginBottom: 3}}>
   <Textarea />

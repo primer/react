@@ -87,7 +87,7 @@ exports[`SelectPanel renders consistently 1`] = `
   <button
     aria-haspopup="true"
     className="c1"
-    id="react-aria-1"
+    id="react-aria-3"
     onClick={[Function]}
     onKeyDown={[Function]}
     tabIndex={0}

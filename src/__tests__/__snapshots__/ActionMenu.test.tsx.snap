@@ -116,7 +116,7 @@ exports[`ActionMenu renders consistently 1`] = `
 }
 
 .c1 [data-component=ButtonCounter] {
-  font-size: 14px;
+  font-size: 12px;
 }
 
 .c1[data-component=IconButton] {
@@ -223,6 +223,12 @@ exports[`ActionMenu renders consistently 1`] = `
   border-color: rgba(31,35,40,0.15);
 }
 
+.c1 [data-component="leadingVisual"],
+.c1 [data-component="trailingVisual"],
+.c1 [data-component="trailingAction"] {
+  color: var(--button-color,#656d76);
+}
+
 @media (forced-colors:active) {
   .c1:focus {
     outline: solid 1px transparent;
@@ -245,6 +251,7 @@ exports[`ActionMenu renders consistently 1`] = `
     id="react-aria-1"
     onClick={[Function]}
     onKeyDown={[Function]}
+    style={{}}
     tabIndex={0}
     type="button"
   >

@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import sx, {SxProp} from '../sx'
-import getGlobalFocusStyles from '../_getGlobalFocusStyles'
+import getGlobalFocusStyles from '../internal/utils/getGlobalFocusStyles'
 
 export const StyledButton = styled.button<SxProp>`
   ${getGlobalFocusStyles('-2px')};
@@ -42,20 +42,35 @@ export type ButtonProps = {
   /**
    * The icon for the IconButton
    */
-  icon?: React.ComponentType | null | undefined
+  icon?: React.ElementType | null
+
+  /**
+   * The leading visual which comes before the button content
+   */
+  leadingVisual?: React.ElementType | null
+
   /**
    * The leading icon comes before button content
    */
-  leadingIcon?: React.ComponentType | null | undefined
+  leadingIcon?: React.ElementType | null
+
   /**
    * The trailing icon comes after button content
    */
-  trailingIcon?: React.ComponentType | null | undefined
+  trailingIcon?: React.ElementType | null
+
+  /**
+   * The trailing visual which comes after the button content
+   */
+  trailingVisual?: React.ElementType | null
+
   /**
    * Trailing action appears to the right of the trailing visual and is always locked to the end
    */
-  trailingAction?: React.ComponentType | null | undefined
-  children: React.ReactNode
+  trailingAction?: React.ElementType | null
+
+  children?: React.ReactNode
+
   /**
    * Content alignment for when visuals are present
    */
@@ -63,7 +78,7 @@ export type ButtonProps = {
 } & ButtonBaseProps
 
 export type IconButtonProps = ButtonA11yProps & {
-  icon: React.ComponentType
+  icon: React.ElementType
 } & Omit<ButtonBaseProps, 'aria-label' | 'aria-labelledby'>
 
 // adopted from React.AnchorHTMLAttributes

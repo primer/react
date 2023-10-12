@@ -5,9 +5,8 @@ import sx, {SxProp, merge} from '../sx'
 import {AriaRole} from '../utils/types'
 import {ActionListContainerContext} from './ActionListContainerContext'
 import {defaultSxProp} from '../utils/defaultSxProp'
-import {Heading} from './Heading'
-import Box from '../Box'
 import {useSlots} from '../hooks/useSlots'
+import {Heading} from './Heading'
 import {useId} from '../hooks/useId'
 
 export type ActionListProps = React.PropsWithChildren<{
@@ -43,14 +42,17 @@ export const List = React.forwardRef<HTMLUListElement, ActionListProps>(
     {variant = 'inset', selectionVariant, showDividers = false, role, sx: sxProp = defaultSxProp, ...props},
     forwardedRef,
   ): JSX.Element => {
-    const outerStyles = {
+    const styles = {
+      margin: 0,
+      paddingInlineStart: 0, // reset ul styles
       paddingY: variant === 'inset' ? 2 : 0,
     }
 
-    const innerStyles = {
-      margin: 0,
-      paddingInlineStart: 0, // reset ul styles
-    }
+    const [slots, childrenWithoutSlots] = useSlots(props.children, {
+      heading: Heading,
+    })
+
+    const headingId = useId()
 
     /** if list is inside a Menu, it will get a role from the Menu */
     const {
@@ -59,33 +61,29 @@ export const List = React.forwardRef<HTMLUListElement, ActionListProps>(
       selectionVariant: containerSelectionVariant, // TODO: Remove after DropdownMenu2 deprecation
     } = React.useContext(ActionListContainerContext)
 
-    const [slots, rest] = useSlots(props.children, {heading: Heading})
-
-    const headingId = useId()
+    const ariaLabelledBy = slots.heading ? slots.heading.props.id ?? headingId : listLabelledBy
 
     return (
-      <Box sx={merge(outerStyles, sxProp as SxProp)}>
-        <ListContext.Provider
-          value={{
-            variant,
-            selectionVariant: selectionVariant || containerSelectionVariant,
-            showDividers,
-            role: role || listRole,
-            headingId,
-          }}
+      <ListContext.Provider
+        value={{
+          variant,
+          selectionVariant: selectionVariant || containerSelectionVariant,
+          showDividers,
+          role: role || listRole,
+          headingId,
+        }}
+      >
+        {slots.heading}
+        <ListBox
+          sx={merge(styles, sxProp as SxProp)}
+          role={role || listRole}
+          aria-labelledby={ariaLabelledBy}
+          {...props}
+          ref={forwardedRef}
         >
-          {slots.heading}
-          <ListBox
-            sx={innerStyles}
-            role={role || listRole}
-            aria-labelledby={slots.heading ? headingId : listLabelledBy}
-            {...props}
-            ref={forwardedRef}
-          >
-            {rest}
-          </ListBox>
-        </ListContext.Provider>
-      </Box>
+          {childrenWithoutSlots}
+        </ListBox>
+      </ListContext.Provider>
     )
   },
 ) as PolymorphicForwardRefComponent<'ul', ActionListProps>

@@ -6,11 +6,9 @@ import {ActionMenu} from '../ActionMenu'
 import {useTheme} from '../ThemeProvider'
 import sx, {merge, SxProp} from '../sx'
 import {ResponsiveValue, useResponsiveValue} from '../hooks/useResponsiveValue'
-import {ViewportRangeKeys} from '../utils/types/ViewportRangeKeys'
+import {WidthOnlyViewportRangeKeys} from '../utils/types/ViewportRangeKeys'
 import styled from 'styled-components'
 import {defaultSxProp} from '../utils/defaultSxProp'
-
-type WidthOnlyViewportRangeKeys = Exclude<ViewportRangeKeys, 'narrowLandscape' | 'portrait' | 'landscape'>
 
 // Needed because passing a ref to `Box` causes a type error
 const SegmentedControlList = styled.ul`

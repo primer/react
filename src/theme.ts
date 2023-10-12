@@ -43,23 +43,26 @@ const sizes = {
   xlarge: '1280px',
 }
 
-const fontSizes = ['12px', '14px', '16px', '20px', '24px', '32px', '40px', '48px']
+const fontSizes = ['12px', '14px', '16px', '20px', '24px', '32px', '40px', '48px', '56px']
 
 const space = ['0', '4px', '8px', '16px', '24px', '32px', '40px', '48px', '64px', '80px', '96px', '112px', '128px']
 
 type Scheme = keyof typeof primitives.colors
 type SchemeValue = Record<'colors' | 'shadows', Partial<typeof primitives.colors.light>>
 
-const colorSchemes: Record<Scheme, SchemeValue> = Object.entries(primitives.colors).reduce((acc, [name, variables]) => {
-  const {colors, shadows} = partitionColors(variables)
-  return {
-    ...acc,
-    [name]: {
-      colors: omitScale(colors),
-      shadows: omitScale(shadows),
-    },
-  }
-}, {} as Record<Scheme, SchemeValue>)
+const colorSchemes: Record<Scheme, SchemeValue> = Object.entries(primitives.colors).reduce(
+  (acc, [name, variables]) => {
+    const {colors, shadows} = partitionColors(variables)
+    return {
+      ...acc,
+      [name]: {
+        colors: omitScale(colors),
+        shadows: omitScale(shadows),
+      },
+    }
+  },
+  {} as Record<Scheme, SchemeValue>,
+)
 
 const theme = {
   animation,

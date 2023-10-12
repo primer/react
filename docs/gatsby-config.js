@@ -3,6 +3,9 @@ const path = require('path')
 module.exports = {
   siteMetadata: {
     title: 'Primer React',
+    header: {
+      title: 'Primer Design System',
+    },
     shortName: 'React',
     description: 'React components for the Primer design system',
   },

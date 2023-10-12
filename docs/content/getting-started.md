@@ -2,6 +2,10 @@
 title: Getting started
 ---
 
+import DeprecationBanner from '../components/DeprecationBanner'
+
+<DeprecationBanner replacementUrl={'/design/guides/development/react'} />
+
 ## Installation
 
 To get started using Primer React, install the package and its peer dependencies with your package manager of choice:
@@ -88,14 +92,16 @@ import {BaseStyles, Box, Heading} from '@primer/react'
 export default () => (
   <BaseStyles>
     <Box m={4}>
-      <Heading sx={{mb: 2}}>Hello, world!</Heading>
+      <Heading as="h2" sx={{mb: 2}}>
+        Hello, world!
+      </Heading>
       <p>This will get Primer text styles.</p>
     </Box>
   </BaseStyles>
 )
 ```
 
-This will apply the same `color`, `font-family`, and `line-height` styles to the `<body>` as [Primer CSS's base styles](https://github.com/primer/css/blob/master/src/base/base.scss#L15-L20).
+This will apply the same `color`, `font-family`, and `line-height` styles to the `<body>` as [Primer CSS's base styles](https://github.com/primer/css/blob/main/src/base/base.scss#L15-L20).
 
 ## Static CSS rendering
 

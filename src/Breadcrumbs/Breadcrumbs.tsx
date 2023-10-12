@@ -1,4 +1,4 @@
-import classnames from 'classnames'
+import clsx from 'clsx'
 import {To} from 'history'
 import React from 'react'
 import styled from 'styled-components'
@@ -60,13 +60,13 @@ type StyledBreadcrumbsItemProps = {
 
 const BreadcrumbsItem = styled.a.attrs<StyledBreadcrumbsItemProps>(props => ({
   activeClassName: typeof props.to === 'string' ? 'selected' : undefined,
-  className: classnames(props.selected && SELECTED_CLASS, props.className),
+  className: clsx(props.selected && SELECTED_CLASS, props.className),
   'aria-current': props.selected ? 'page' : null,
 }))<StyledBreadcrumbsItemProps>`
   color: ${get('colors.accent.fg')};
   display: inline-block;
   font-size: ${get('fontSizes.1')};
-  text-decoration: none;
+  text-decoration: var(--prefers-link-underlines, underline);
   &:hover {
     text-decoration: underline;
   }

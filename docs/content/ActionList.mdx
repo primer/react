@@ -12,6 +12,9 @@ import data from '../../src/ActionList/ActionList.docs.json'
 import {ActionList, Avatar} from '@primer/react'
 import {LinkIcon, AlertIcon, ArrowRightIcon} from '@primer/octicons-react'
 import InlineCode from '@primer/gatsby-theme-doctocat/src/components/inline-code'
+import DeprecationBanner from '../components/DeprecationBanner'
+
+<DeprecationBanner replacementUrl={'/design/components/action-list/react'} />
 
 <Box sx={{border: '1px solid', borderColor: 'border.default', borderRadius: 2, padding: 6, marginBottom: 3}}>
   <ActionList sx={{width: 320}}>
@@ -170,7 +173,7 @@ When you want to add links to the List instead of actions, use `ActionList.LinkI
 </ActionList>
 ```
 
-### With headings
+### With groups
 
 ```javascript live noinline
 const SelectFields = () => {
@@ -196,30 +199,29 @@ const SelectFields = () => {
   }
 
   return (
-    <>
-      <ActionList selectionVariant="multiple">
-        <ActionList.Heading title="Visible fields" />
+    <ActionList selectionVariant="multiple">
+      <ActionList.Group title="Visible fields">
         {visibleOptions.map(option => (
           <ActionList.Item key={option.text} selected={true} onSelect={() => toggle(option.text)}>
             {option.text}
           </ActionList.Item>
         ))}
-      </ActionList>
-      <ActionList
+      </ActionList.Group>
+      <ActionList.Group
+        title="Hidden fields"
         selectionVariant={
           /** selectionVariant override on Group: disable selection if there are no options */
           hiddenOptions.length ? 'multiple' : false
         }
       >
-        <ActionList.Heading title="Hidden fields" />
         {hiddenOptions.map((option, index) => (
           <ActionList.Item key={option.text} selected={false} onSelect={() => toggle(option.text)}>
             {option.text}
           </ActionList.Item>
         ))}
         {hiddenOptions.length === 0 && <ActionList.Item disabled>No hidden fields</ActionList.Item>}
-      </ActionList>
-    </>
+      </ActionList.Group>
+    </ActionList>
   )
 }
 

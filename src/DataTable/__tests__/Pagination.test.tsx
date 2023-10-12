@@ -5,27 +5,27 @@ import userEvent from '@testing-library/user-event'
 
 describe('Table.Pagination', () => {
   it('should render a navigation landmark with an accessible name provided by `aria-label`', () => {
-    render(<Pagination aria-label="test" totalCount={100} />)
+    render(<Pagination aria-label="Pagination" totalCount={100} />)
     expect(
       screen.getByRole('navigation', {
-        name: 'test',
+        name: 'Pagination',
       }),
     ).toBeInTheDocument()
   })
 
   it('should set the initial selected page to the first page', () => {
-    render(<Pagination aria-label="test" totalCount={100} />)
+    render(<Pagination aria-label="Pagination" totalCount={100} />)
     expect(getCurrentPage()).toEqual(getFirstPage())
   })
 
   it('should initialize `pageIndex` to `defaultPageIndex`', () => {
-    render(<Pagination aria-label="test" defaultPageIndex={3} pageSize={25} totalCount={100} />)
+    render(<Pagination aria-label="Pagination" defaultPageIndex={3} pageSize={25} totalCount={100} />)
     expect(getCurrentPage()).toEqual(getLastPage())
   })
 
   it('should warn if `defaultPageIndex` is not a valid `pageIndex`', () => {
     const spy = jest.spyOn(console, 'warn').mockImplementation(() => {})
-    render(<Pagination aria-label="test" defaultPageIndex={4} pageSize={25} totalCount={100} />)
+    render(<Pagination aria-label="Pagination" defaultPageIndex={4} pageSize={25} totalCount={100} />)
     expect(spy).toHaveBeenCalledWith(
       'Warning:',
       expect.stringMatching(
@@ -36,17 +36,17 @@ describe('Table.Pagination', () => {
   })
 
   it('should set the `id` prop on the rendered navigation landmark', () => {
-    render(<Pagination aria-label="test-label" id="test-id" totalCount={100} />)
+    render(<Pagination aria-label="Test label" id="test-id" totalCount={100} />)
     expect(
       screen.getByRole('navigation', {
-        name: 'test-label',
+        name: 'Test label',
       }),
     ).toHaveAttribute('id', 'test-id')
   })
 
   describe('with one page', () => {
     it('should only display one page', () => {
-      render(<Pagination aria-label="test-label" pageSize={25} totalCount={25} />)
+      render(<Pagination aria-label="Test label" pageSize={25} totalCount={25} />)
 
       expect(getPages()).toHaveLength(1)
       expect(getCurrentPage()).toEqual(getPage(0))
@@ -57,7 +57,7 @@ describe('Table.Pagination', () => {
       const user = userEvent.setup()
       const onChange = jest.fn()
 
-      render(<Pagination aria-label="test-label" onChange={onChange} pageSize={25} totalCount={25} />)
+      render(<Pagination aria-label="Test label" onChange={onChange} pageSize={25} totalCount={25} />)
 
       expect(getPages()).toHaveLength(1)
       expect(getCurrentPage()).toEqual(getPage(0))
@@ -76,7 +76,7 @@ describe('Table.Pagination', () => {
 
   describe('with two pages', () => {
     it('should display two pages', () => {
-      render(<Pagination aria-label="test-label" pageSize={25} totalCount={50} />)
+      render(<Pagination aria-label="Test label" pageSize={25} totalCount={50} />)
 
       expect(getPages()).toHaveLength(2)
       expect(getCurrentPage()).toEqual(getPage(0))
@@ -87,7 +87,7 @@ describe('Table.Pagination', () => {
       const user = userEvent.setup()
       const onChange = jest.fn()
 
-      render(<Pagination aria-label="test-label" onChange={onChange} pageSize={25} totalCount={50} />)
+      render(<Pagination aria-label="Test label" onChange={onChange} pageSize={25} totalCount={50} />)
 
       await user.click(getPage(1))
       expect(onChange).toHaveBeenCalledWith({
@@ -106,7 +106,7 @@ describe('Table.Pagination', () => {
       const user = userEvent.setup()
       const onChange = jest.fn()
 
-      render(<Pagination aria-label="test-label" onChange={onChange} pageSize={25} totalCount={50} />)
+      render(<Pagination aria-label="Test label" onChange={onChange} pageSize={25} totalCount={50} />)
 
       await user.tab()
       expect(getPreviousPage()).toHaveFocus()
@@ -137,7 +137,7 @@ describe('Table.Pagination', () => {
       const user = userEvent.setup()
       const onChange = jest.fn()
 
-      render(<Pagination aria-label="test-label" onChange={onChange} pageSize={25} totalCount={50} />)
+      render(<Pagination aria-label="Test label" onChange={onChange} pageSize={25} totalCount={50} />)
 
       await user.click(getPreviousPage())
       expect(onChange).not.toHaveBeenCalled()
@@ -157,7 +157,7 @@ describe('Table.Pagination', () => {
       const user = userEvent.setup()
       const onChange = jest.fn()
 
-      render(<Pagination aria-label="test-label" onChange={onChange} pageSize={25} totalCount={50} />)
+      render(<Pagination aria-label="Test label" onChange={onChange} pageSize={25} totalCount={50} />)
 
       await user.tab()
       expect(getPreviousPage()).toHaveFocus()
@@ -189,7 +189,7 @@ describe('Table.Pagination', () => {
 
   describe('with three or more pages', () => {
     it('should have trailing truncation if there are more than two pages between the last page and the last visible page', () => {
-      render(<Pagination aria-label="test-label" pageSize={10} totalCount={100} />)
+      render(<Pagination aria-label="Test label" pageSize={10} totalCount={100} />)
 
       const lastPage = getLastPage()
       const previousStep = getPreviousStep(lastPage)
@@ -199,7 +199,7 @@ describe('Table.Pagination', () => {
     })
 
     it('should have leading truncation if there are more than two pages between the first page and the first visible page', () => {
-      render(<Pagination aria-label="test-label" defaultPageIndex={9} pageSize={10} totalCount={100} />)
+      render(<Pagination aria-label="Test label" defaultPageIndex={9} pageSize={10} totalCount={100} />)
 
       const firstPage = getFirstPage()
       const nextStep = getNextStep(firstPage)
@@ -209,7 +209,7 @@ describe('Table.Pagination', () => {
     })
 
     it('should have leading and trailing truncation if there are more than two pages between visible pages and first and last pages', () => {
-      render(<Pagination aria-label="test-label" defaultPageIndex={49} pageSize={10} totalCount={1000} />)
+      render(<Pagination aria-label="Test label" defaultPageIndex={49} pageSize={10} totalCount={1000} />)
 
       const firstPage = getFirstPage()
       const nextStep = getNextStep(firstPage)

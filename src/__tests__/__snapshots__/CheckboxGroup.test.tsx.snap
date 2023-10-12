@@ -111,12 +111,20 @@ exports[`CheckboxGroup renders consistently 1`] = `
   mask-repeat: no-repeat;
   -webkit-mask-position: center;
   mask-position: center;
+  -webkit-animation: checkmarkOut 80ms cubic-bezier(0.65,0,0.35,1) forwards;
+  animation: checkmarkOut 80ms cubic-bezier(0.65,0,0.35,1) forwards;
 }
 
 .c6:checked,
 .c6:indeterminate {
   background: #0969da;
   border-color: #0969da;
+}
+
+.c6:checked::before,
+.c6:indeterminate::before {
+  -webkit-animation: checkmarkIn 80ms cubic-bezier(0.65,0,0.35,1) forwards 80ms;
+  animation: checkmarkIn 80ms cubic-bezier(0.65,0,0.35,1) forwards 80ms;
 }
 
 .c6:checked {
@@ -165,21 +173,6 @@ exports[`CheckboxGroup renders consistently 1`] = `
   box-shadow: none;
   outline: 2px solid #0969da;
   outline-offset: 2px;
-}
-
-@media screen and (prefers-reduced-motion:no-preference) {
-  .c6::before {
-    -webkit-animation: checkmarkOut 80ms cubic-bezier(0.65,0,0.35,1) forwards;
-    animation: checkmarkOut 80ms cubic-bezier(0.65,0,0.35,1) forwards;
-  }
-}
-
-@media screen and (prefers-reduced-motion:no-preference) {
-  .c6:checked::before,
-  .c6:indeterminate::before {
-    -webkit-animation: checkmarkIn 80ms cubic-bezier(0.65,0,0.35,1) forwards 80ms;
-    animation: checkmarkIn 80ms cubic-bezier(0.65,0,0.35,1) forwards 80ms;
-  }
 }
 
 @media (forced-colors:active) {

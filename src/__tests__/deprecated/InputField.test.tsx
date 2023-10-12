@@ -6,6 +6,7 @@ import InputField from '../../deprecated/InputField'
 expect.extend(toHaveNoViolations)
 
 const TEXTINPUTFIELD_LABEL_TEXT = 'Name'
+const TEXTINPUTFIELD_LABEL_TEXT_WITH_ASTERISK = 'Name *'
 const TEXTINPUTFIELD_CAPTION_TEXT = 'Hint: your first name'
 const TEXTINPUTFIELD_SUCCESS_TEXT = 'This name is valid'
 const TEXTINPUTFIELD_ERROR_TEXT = 'This name is invalid'
@@ -66,7 +67,7 @@ describe('InputField', () => {
         </SSRProvider>,
       )
 
-      const input = getByRole('textbox', {name: TEXTINPUTFIELD_LABEL_TEXT})
+      const input = getByRole('textbox', {name: TEXTINPUTFIELD_LABEL_TEXT_WITH_ASTERISK})
 
       expect(input.getAttribute('required')).not.toBeNull()
     })

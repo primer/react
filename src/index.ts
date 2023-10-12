@@ -34,7 +34,7 @@ export type {TouchOrMouseEvent} from './hooks/useOnOutsideClick'
 export {useOpenAndCloseFocus} from './hooks/useOpenAndCloseFocus'
 export {useOnEscapePress} from './hooks/useOnEscapePress'
 export {useOverlay} from './hooks/useOverlay'
-export {useConfirm} from './Dialog/ConfirmationDialog'
+export {useConfirm} from './ConfirmationDialog/ConfirmationDialog'
 export {useFocusTrap} from './hooks/useFocusTrap'
 export type {FocusTrapHookSettings} from './hooks/useFocusTrap'
 export {useFocusZone} from './hooks/useFocusZone'
@@ -49,7 +49,7 @@ export type {RadioProps} from './Radio'
 export {ActionList} from './ActionList'
 export type {
   ActionListProps,
-  ActionListHeadingProps,
+  ActionListGroupProps,
   ActionListItemProps,
   ActionListLinkItemProps,
   ActionListDividerProps,
@@ -88,8 +88,8 @@ export {default as Details} from './Details'
 export type {DetailsProps} from './Details'
 export {default as Dialog} from './Dialog'
 export type {DialogProps, DialogHeaderProps} from './Dialog'
-export type {ConfirmationDialogProps} from './Dialog/ConfirmationDialog'
-export {ConfirmationDialog} from './Dialog/ConfirmationDialog'
+export type {ConfirmationDialogProps} from './ConfirmationDialog/ConfirmationDialog'
+export {ConfirmationDialog} from './ConfirmationDialog/ConfirmationDialog'
 export {default as FilteredSearch} from './FilteredSearch'
 export type {FilteredSearchProps} from './FilteredSearch'
 export {default as FilterList} from './FilterList'
@@ -97,6 +97,7 @@ export type {FilterListProps, FilterListItemProps} from './FilterList'
 export {default as Flash} from './Flash'
 export type {FlashProps} from './Flash'
 export {default as FormControl} from './FormControl'
+export {useFormControlForwardedProps} from './FormControl'
 export {default as Header} from './Header'
 export type {HeaderProps, HeaderItemProps, HeaderLinkProps} from './Header'
 export {default as Heading} from './Heading'
@@ -194,6 +195,7 @@ export type {
 
 export {UnderlineNav as UnderlineNav2} from './UnderlineNav2'
 
+// eslint-disable-next-line no-restricted-imports
 export {SSRProvider, useSSRSafeId} from './utils/ssr'
 export {default as sx, merge} from './sx'
 export type {SxProp} from './sx'

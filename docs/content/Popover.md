@@ -3,10 +3,13 @@ title: Popover
 description: Use Popovers to bring attention to specific user interface elements and suggest an action or to guide users through a new experience
 componentId: popover
 status: Alpha
-source: https://github.com/primer/react/blob/main/src/Popover.tsx
+source: https://github.com/primer/react/blob/main/src/Popover
 ---
 
 import data from '../../src/Popover/Popover.docs.json'
+import DeprecationBanner from '../components/DeprecationBanner'
+
+<DeprecationBanner replacementUrl={'/design/components/popover/react'} />
 
 ```js
 import {Popover} from '@primer/react'
