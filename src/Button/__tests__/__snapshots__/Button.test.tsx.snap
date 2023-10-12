@@ -91,14 +91,13 @@ exports[`Button renders consistently 1`] = `
   transition: none;
 }
 
+.c0[aria-disabled] {
+  cursor: auto;
+}
+
 .c0:disabled {
   cursor: not-allowed;
   box-shadow: none;
-  color: #8c959f;
-}
-
-.c0:disabled [data-component=ButtonCounter] {
-  color: inherit;
 }
 
 .c0 [data-component=ButtonCounter] {
@@ -194,14 +193,24 @@ exports[`Button renders consistently 1`] = `
   margin-right: 8px;
 }
 
-.c0:hover:not([disabled]) {
+.c0:hover:not([disabled]):not([aria-disabled]) {
   background-color: #f3f4f6;
   border-color: rgba(31,35,40,0.15);
 }
 
-.c0:active:not([disabled]) {
+.c0:active:not([disabled]):not([aria-disabled]) {
   background-color: hsla(220,14%,93%,1);
   border-color: rgba(31,35,40,0.15);
+}
+
+.c0:disabled,
+.c0[aria-disabled] {
+  color: #8c959f;
+}
+
+.c0:disabled [data-component=ButtonCounter],
+.c0[aria-disabled] [data-component=ButtonCounter] {
+  color: inherit;
 }
 
 .c0[aria-expanded=true] {
@@ -325,14 +334,13 @@ exports[`Button respects block prop 1`] = `
   transition: none;
 }
 
+.c0[aria-disabled] {
+  cursor: auto;
+}
+
 .c0:disabled {
   cursor: not-allowed;
   box-shadow: none;
-  color: primer.fg.disabled;
-}
-
-.c0:disabled [data-component=ButtonCounter] {
-  color: inherit;
 }
 
 .c0 [data-component=ButtonCounter] {
@@ -428,14 +436,24 @@ exports[`Button respects block prop 1`] = `
   margin-right: 8px;
 }
 
-.c0:hover:not([disabled]) {
+.c0:hover:not([disabled]):not([aria-disabled]) {
   background-color: btn.hoverBg;
   border-color: btn.hoverBorder;
 }
 
-.c0:active:not([disabled]) {
+.c0:active:not([disabled]):not([aria-disabled]) {
   background-color: btn.activeBg;
   border-color: btn.activeBorder;
+}
+
+.c0:disabled,
+.c0[aria-disabled] {
+  color: primer.fg.disabled;
+}
+
+.c0:disabled [data-component=ButtonCounter],
+.c0[aria-disabled] [data-component=ButtonCounter] {
+  color: inherit;
 }
 
 .c0[aria-expanded=true] {
@@ -564,14 +582,13 @@ exports[`Button respects the alignContent prop 1`] = `
   transition: none;
 }
 
+.c0[aria-disabled] {
+  cursor: auto;
+}
+
 .c0:disabled {
   cursor: not-allowed;
   box-shadow: none;
-  color: primer.fg.disabled;
-}
-
-.c0:disabled [data-component=ButtonCounter] {
-  color: inherit;
 }
 
 .c0 [data-component=ButtonCounter] {
@@ -667,14 +684,24 @@ exports[`Button respects the alignContent prop 1`] = `
   margin-right: 8px;
 }
 
-.c0:hover:not([disabled]) {
+.c0:hover:not([disabled]):not([aria-disabled]) {
   background-color: btn.hoverBg;
   border-color: btn.hoverBorder;
 }
 
-.c0:active:not([disabled]) {
+.c0:active:not([disabled]):not([aria-disabled]) {
   background-color: btn.activeBg;
   border-color: btn.activeBorder;
+}
+
+.c0:disabled,
+.c0[aria-disabled] {
+  color: primer.fg.disabled;
+}
+
+.c0:disabled [data-component=ButtonCounter],
+.c0[aria-disabled] [data-component=ButtonCounter] {
+  color: inherit;
 }
 
 .c0[aria-expanded=true] {
@@ -802,14 +829,13 @@ exports[`Button respects the large size prop 1`] = `
   transition: none;
 }
 
+.c0[aria-disabled] {
+  cursor: auto;
+}
+
 .c0:disabled {
   cursor: not-allowed;
   box-shadow: none;
-  color: primer.fg.disabled;
-}
-
-.c0:disabled [data-component=ButtonCounter] {
-  color: inherit;
 }
 
 .c0 [data-component=ButtonCounter] {
@@ -905,14 +931,24 @@ exports[`Button respects the large size prop 1`] = `
   margin-right: 8px;
 }
 
-.c0:hover:not([disabled]) {
+.c0:hover:not([disabled]):not([aria-disabled]) {
   background-color: btn.hoverBg;
   border-color: btn.hoverBorder;
 }
 
-.c0:active:not([disabled]) {
+.c0:active:not([disabled]):not([aria-disabled]) {
   background-color: btn.activeBg;
   border-color: btn.activeBorder;
+}
+
+.c0:disabled,
+.c0[aria-disabled] {
+  color: primer.fg.disabled;
+}
+
+.c0:disabled [data-component=ButtonCounter],
+.c0[aria-disabled] [data-component=ButtonCounter] {
+  color: inherit;
 }
 
 .c0[aria-expanded=true] {
@@ -1041,14 +1077,13 @@ exports[`Button respects the small size prop 1`] = `
   transition: none;
 }
 
+.c0[aria-disabled] {
+  cursor: auto;
+}
+
 .c0:disabled {
   cursor: not-allowed;
   box-shadow: none;
-  color: primer.fg.disabled;
-}
-
-.c0:disabled [data-component=ButtonCounter] {
-  color: inherit;
 }
 
 .c0 [data-component=ButtonCounter] {
@@ -1144,14 +1179,24 @@ exports[`Button respects the small size prop 1`] = `
   margin-right: 8px;
 }
 
-.c0:hover:not([disabled]) {
+.c0:hover:not([disabled]):not([aria-disabled]) {
   background-color: btn.hoverBg;
   border-color: btn.hoverBorder;
 }
 
-.c0:active:not([disabled]) {
+.c0:active:not([disabled]):not([aria-disabled]) {
   background-color: btn.activeBg;
   border-color: btn.activeBorder;
+}
+
+.c0:disabled,
+.c0[aria-disabled] {
+  color: primer.fg.disabled;
+}
+
+.c0:disabled [data-component=ButtonCounter],
+.c0[aria-disabled] [data-component=ButtonCounter] {
+  color: inherit;
 }
 
 .c0[aria-expanded=true] {
@@ -1280,17 +1325,13 @@ exports[`Button styles danger button appropriately 1`] = `
   transition: none;
 }
 
+.c0[aria-disabled] {
+  cursor: auto;
+}
+
 .c0:disabled {
   cursor: not-allowed;
   box-shadow: none;
-  color: btn.danger.disabledText;
-  background-color: btn.danger.disabledBg;
-  border-color: btn.danger.disabledBorder;
-}
-
-.c0:disabled [data-component=ButtonCounter] {
-  color: btn.danger.disabledCounterFg;
-  background-color: btn.danger.disabledCounterBg;
 }
 
 .c0 [data-component=ButtonCounter] {
@@ -1388,23 +1429,36 @@ exports[`Button styles danger button appropriately 1`] = `
   margin-right: 8px;
 }
 
-.c0:hover:not([disabled]) {
+.c0:hover:not([disabled]):not([aria-disabled]) {
   color: btn.danger.hoverText;
   background-color: btn.danger.hoverBg;
   border-color: btn.danger.hoverBorder;
   box-shadow: undefined;
 }
 
-.c0:hover:not([disabled]) [data-component=ButtonCounter] {
+.c0:hover:not([disabled]):not([aria-disabled]) [data-component=ButtonCounter] {
   background-color: btn.danger.hoverCounterBg;
   color: btn.danger.hoverCounterFg;
 }
 
-.c0:active:not([disabled]) {
+.c0:active:not([disabled]):not([aria-disabled]) {
   color: btn.danger.selectedText;
   background-color: btn.danger.selectedBg;
   box-shadow: undefined;
   border-color: btn.danger.selectedBorder;
+}
+
+.c0:disabled,
+.c0[aria-disabled] {
+  color: btn.danger.disabledText;
+  background-color: btn.danger.disabledBg;
+  border-color: btn.danger.disabledBorder;
+}
+
+.c0:disabled [data-component=ButtonCounter],
+.c0[aria-disabled] [data-component=ButtonCounter] {
+  color: btn.danger.disabledCounterFg;
+  background-color: btn.danger.disabledCounterBg;
 }
 
 .c0[aria-expanded=true] {
@@ -1531,16 +1585,13 @@ exports[`Button styles invisible button appropriately 1`] = `
   transition: none;
 }
 
+.c0[aria-disabled] {
+  cursor: auto;
+}
+
 .c0:disabled {
   cursor: not-allowed;
   box-shadow: none;
-  color: primer.fg.disabled;
-}
-
-.c0:disabled [data-component=ButtonCounter],
-.c0:disabled [data-component="leadingVisual"],
-.c0:disabled [data-component="trailingAction"] {
-  color: inherit;
 }
 
 .c0 [data-component=ButtonCounter] {
@@ -1638,12 +1689,26 @@ exports[`Button styles invisible button appropriately 1`] = `
   margin-right: 8px;
 }
 
-.c0:hover:not([disabled]) {
+.c0:hover:not([disabled]):not([aria-disabled]) {
   background-color: btn.hoverBg;
 }
 
-.c0:active:not([disabled]) {
+.c0:active:not([disabled]):not([aria-disabled]) {
   background-color: btn.selectedBg;
+}
+
+.c0:disabled,
+.c0[aria-disabled] {
+  color: primer.fg.disabled;
+}
+
+.c0:disabled [data-component=ButtonCounter],
+.c0[aria-disabled] [data-component=ButtonCounter],
+.c0:disabled [data-component="leadingVisual"],
+.c0[aria-disabled] [data-component="leadingVisual"],
+.c0:disabled [data-component="trailingAction"],
+.c0[aria-disabled] [data-component="trailingAction"] {
+  color: inherit;
 }
 
 .c0[aria-expanded=true] {
@@ -1785,15 +1850,13 @@ exports[`Button styles primary button appropriately 1`] = `
   transition: none;
 }
 
+.c0[aria-disabled] {
+  cursor: auto;
+}
+
 .c0:disabled {
   cursor: not-allowed;
   box-shadow: none;
-  color: btn.primary.disabledText;
-  background-color: btn.primary.disabledBg;
-}
-
-.c0:disabled [data-component=ButtonCounter] {
-  color: inherit;
 }
 
 .c0 [data-component=ButtonCounter] {
@@ -1891,7 +1954,7 @@ exports[`Button styles primary button appropriately 1`] = `
   margin-right: 8px;
 }
 
-.c0:hover:not([disabled]) {
+.c0:hover:not([disabled]):not([aria-disabled]) {
   color: btn.primary.hoverText;
   background-color: btn.primary.hoverBg;
 }
@@ -1904,9 +1967,20 @@ exports[`Button styles primary button appropriately 1`] = `
   box-shadow: inset 0 0 0 3px;
 }
 
-.c0:active:not([disabled]) {
+.c0:active:not([disabled]):not([aria-disabled]) {
   background-color: btn.primary.selectedBg;
   box-shadow: undefined;
+}
+
+.c0:disabled,
+.c0[aria-disabled] {
+  color: btn.primary.disabledText;
+  background-color: btn.primary.disabledBg;
+}
+
+.c0:disabled [data-component=ButtonCounter],
+.c0[aria-disabled] [data-component=ButtonCounter] {
+  color: inherit;
 }
 
 .c0[aria-expanded=true] {

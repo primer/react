@@ -1729,16 +1729,13 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   transition: none;
 }
 
+.c4[aria-disabled] {
+  cursor: auto;
+}
+
 .c4:disabled {
   cursor: not-allowed;
   box-shadow: none;
-  color: #8c959f;
-}
-
-.c4:disabled [data-component=ButtonCounter],
-.c4:disabled [data-component="leadingVisual"],
-.c4:disabled [data-component="trailingAction"] {
-  color: inherit;
 }
 
 .c4 [data-component=ButtonCounter] {
@@ -1836,12 +1833,26 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   margin-right: 8px;
 }
 
-.c4:hover:not([disabled]) {
+.c4:hover:not([disabled]):not([aria-disabled]) {
   background-color: #f3f4f6;
 }
 
-.c4:active:not([disabled]) {
+.c4:active:not([disabled]):not([aria-disabled]) {
   background-color: hsla(220,14%,94%,1);
+}
+
+.c4:disabled,
+.c4[aria-disabled] {
+  color: #8c959f;
+}
+
+.c4:disabled [data-component=ButtonCounter],
+.c4[aria-disabled] [data-component=ButtonCounter],
+.c4:disabled [data-component="leadingVisual"],
+.c4[aria-disabled] [data-component="leadingVisual"],
+.c4:disabled [data-component="trailingAction"],
+.c4[aria-disabled] [data-component="trailingAction"] {
+  color: inherit;
 }
 
 .c4[aria-expanded=true] {
@@ -2380,16 +2391,13 @@ exports[`TextInput renders trailingAction text button 1`] = `
   transition: none;
 }
 
+.c3[aria-disabled] {
+  cursor: auto;
+}
+
 .c3:disabled {
   cursor: not-allowed;
   box-shadow: none;
-  color: #8c959f;
-}
-
-.c3:disabled [data-component=ButtonCounter],
-.c3:disabled [data-component="leadingVisual"],
-.c3:disabled [data-component="trailingAction"] {
-  color: inherit;
 }
 
 .c3 [data-component=ButtonCounter] {
@@ -2487,12 +2495,26 @@ exports[`TextInput renders trailingAction text button 1`] = `
   margin-right: 8px;
 }
 
-.c3:hover:not([disabled]) {
+.c3:hover:not([disabled]):not([aria-disabled]) {
   background-color: #f3f4f6;
 }
 
-.c3:active:not([disabled]) {
+.c3:active:not([disabled]):not([aria-disabled]) {
   background-color: hsla(220,14%,94%,1);
+}
+
+.c3:disabled,
+.c3[aria-disabled] {
+  color: #8c959f;
+}
+
+.c3:disabled [data-component=ButtonCounter],
+.c3[aria-disabled] [data-component=ButtonCounter],
+.c3:disabled [data-component="leadingVisual"],
+.c3[aria-disabled] [data-component="leadingVisual"],
+.c3:disabled [data-component="trailingAction"],
+.c3[aria-disabled] [data-component="trailingAction"] {
+  color: inherit;
 }
 
 .c3[aria-expanded=true] {
@@ -2783,16 +2805,13 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   transition: none;
 }
 
+.c4[aria-disabled] {
+  cursor: auto;
+}
+
 .c4:disabled {
   cursor: not-allowed;
   box-shadow: none;
-  color: #8c959f;
-}
-
-.c4:disabled [data-component=ButtonCounter],
-.c4:disabled [data-component="leadingVisual"],
-.c4:disabled [data-component="trailingAction"] {
-  color: inherit;
 }
 
 .c4 [data-component=ButtonCounter] {
@@ -2890,12 +2909,26 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   margin-right: 8px;
 }
 
-.c4:hover:not([disabled]) {
+.c4:hover:not([disabled]):not([aria-disabled]) {
   background-color: #f3f4f6;
 }
 
-.c4:active:not([disabled]) {
+.c4:active:not([disabled]):not([aria-disabled]) {
   background-color: hsla(220,14%,94%,1);
+}
+
+.c4:disabled,
+.c4[aria-disabled] {
+  color: #8c959f;
+}
+
+.c4:disabled [data-component=ButtonCounter],
+.c4[aria-disabled] [data-component=ButtonCounter],
+.c4:disabled [data-component="leadingVisual"],
+.c4[aria-disabled] [data-component="leadingVisual"],
+.c4:disabled [data-component="trailingAction"],
+.c4[aria-disabled] [data-component="trailingAction"] {
+  color: inherit;
 }
 
 .c4[aria-expanded=true] {
