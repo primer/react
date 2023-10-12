@@ -160,6 +160,8 @@
   children:
     - title: Dialog v2
       url: /drafts/Dialog
+    - title: Hidden
+      url: /drafts/Hidden
     - title: InlineAutocomplete
       url: /drafts/InlineAutocomplete
     - title: MarkdownEditor
@@ -170,8 +172,8 @@
       url: /drafts/UnderlineNav2
     - title: PageHeader
       url: /drafts/PageHeader
-    - title: Hidden
-      url: /drafts/Hidden
+    - title: Tooltip v2
+      url: /drafts/Tooltip
 - title: Deprecated
   children:
     - title: ActionList (legacy)
