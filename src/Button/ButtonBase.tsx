@@ -24,6 +24,7 @@ const ButtonBase = forwardRef(
       alignContent = 'center',
       block = false,
       loading = false,
+      loadingMessage = 'Loading',
       ...rest
     } = props
     const LeadingVisual = leadingVisual ?? leadingIcon
@@ -75,9 +76,14 @@ const ButtonBase = forwardRef(
           data-size={size === 'small' || size === 'large' ? size : undefined}
           data-no-visuals={!LeadingVisual && !TrailingVisual && !TrailingAction ? true : undefined}
           aria-disabled={loading ? true : undefined}
+          aria-describedby={loading ? 'loading-message' : undefined}
         >
           {Icon ? (
-            <Icon />
+            loading ? (
+              <Spinner size="small" />
+            ) : (
+              <Icon />
+            )
           ) : (
             <>
               <Box as="span" data-component="buttonContent" sx={getAlignContentSize(alignContent)}>
@@ -88,13 +94,13 @@ const ButtonBase = forwardRef(
                 )}
                 {LeadingVisual && !loading && (
                   <Box as="span" data-component="leadingVisual" sx={{...iconWrapStyles}}>
-                    <LeadingIcon />
+                    <LeadingVisual />
                   </Box>
                 )}
                 {children && <span data-component="text">{children}</span>}
                 {TrailingVisual && (
                   <Box as="span" data-component="trailingVisual" sx={{...iconWrapStyles}}>
-                    <TrailingIcon />
+                    <TrailingVisual />
                   </Box>
                 )}
               </Box>
@@ -108,7 +114,9 @@ const ButtonBase = forwardRef(
         </StyledButton>
         {loading && (
           <VisuallyHidden>
-            <span aria-live="polite">Loading</span>
+            <span aria-live="polite" aria-busy="true" id="loading-message">
+              {loadingMessage}
+            </span>
           </VisuallyHidden>
         )}
       </>

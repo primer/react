@@ -781,6 +781,64 @@ export const GOpenFromMenu = () => {
   )
 }
 
+export const IWithRemoveFilterIcon = () => {
+  const initialSelectedLabels = data.issue.labelIds // mock initial state: has selected labels
+  const [selectedLabelIds, setSelectedLabelIds] = React.useState<string[]>(initialSelectedLabels)
+
+  /* Selection */
+  const onLabelSelect = (labelId: string) => {
+    if (!selectedLabelIds.includes(labelId)) setSelectedLabelIds([...selectedLabelIds, labelId])
+    else setSelectedLabelIds(selectedLabelIds.filter(id => id !== labelId))
+  }
+
+  const onSubmit = () => {
+    data.issue.labelIds = selectedLabelIds // pretending to persist changes
+
+    // eslint-disable-next-line no-console
+    console.log('form submitted')
+  }
+
+  const onClearSelection = () => {
+    setSelectedLabelIds([])
+  }
+
+  const sortingFn = (itemA: {id: string}, itemB: {id: string}) => {
+    const initialSelectedIds = data.issue.labelIds
+    if (initialSelectedIds.includes(itemA.id) && initialSelectedIds.includes(itemB.id)) return 1
+    else if (initialSelectedIds.includes(itemA.id)) return -1
+    else if (initialSelectedIds.includes(itemB.id)) return 1
+    else return 1
+  }
+
+  const itemsToShow = data.labels.sort(sortingFn)
+
+  return (
+    <>
+      <h1>Minimal SelectPanel</h1>
+
+      <SelectPanel title="Select labels" defaultOpen onSubmit={onSubmit} onClearSelection={onClearSelection}>
+        {/* TODO: the ref types don't match here, use useProvidedRefOrCreate */}
+        {/* @ts-ignore todo */}
+        <SelectPanel.Button>Assign label</SelectPanel.Button>
+
+        <ActionList>
+          {itemsToShow.map(label => (
+            <ActionList.Item
+              key={label.id}
+              onSelect={() => onLabelSelect(label.id)}
+              selected={selectedLabelIds.includes(label.id)}
+            >
+              <ActionList.LeadingVisual>{getCircle(label.color)}</ActionList.LeadingVisual>
+              {label.name}
+              <ActionList.Description variant="block">{label.description}</ActionList.Description>
+            </ActionList.Item>
+          ))}
+        </ActionList>
+      </SelectPanel>
+    </>
+  )
+}
+
 // ----- Suspense implementation details ----
 
 const cache = new Map()
