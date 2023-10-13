@@ -53,7 +53,7 @@ const SelectPanel = props => {
   React.useEffect(() => setInternalOpen(props.open), [props.open])
 
   const onInternalOpen = () => {
-    if (props.open === undefined) setInternalOpen(true)
+    setInternalOpen(true)
     if (typeof props.onOpen === 'function') props.onOpen()
   }
   const onInternalClose = () => {
