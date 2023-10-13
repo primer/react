@@ -2,6 +2,12 @@ name: Assign Release Conductor
 
 on:
   pull_request:
+  workflow_dispatch:
+    inputs:
+      pull-request:
+        type: number
+        description: Pull Request Number
+        required: true
 
 jobs:
   assign-release-conductor:
@@ -22,16 +28,17 @@ jobs:
       - name: Add user as assignee and reviewer
         uses: actions/github-script@v6
         env:
+          PR_NUMBER: ${{ github.event.inputs.pull-request || github.event.pull_request.number }}
           RELEASE_CONDUCTOR: ${{ steps.pagerduty.outputs.user }}
           PREV_RELEASE_CONDUCTOR: ${{ steps.pagerduty.outputs.previous-schedule-user }}
         with:
           script: |
-            const { RELEASE_CONDUCTOR, PREV_RELEASE_CONDUCTOR } = process.env;
+            const { PR_NUMBER, RELEASE_CONDUCTOR, PREV_RELEASE_CONDUCTOR } = process.env;
 
             const { data: pull } = await github.rest.pulls.get({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              pull_number: context.pull.number,
+              pull_number: PR_NUMBER,
             });
 
             // If the previous release conductor was added as an assignee, remove them
@@ -43,7 +50,7 @@ jobs:
               await github.rest.issues.removeAssignees({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
-                issue_number: context.pull.number,
+                issue_number: PR_NUMBER,
                 assignees: [PREV_RELEASE_CONDUCTOR],
               });
             }
@@ -52,7 +59,7 @@ jobs:
             const { data: requestedReviewers } = await github.rest.pulls.listRequestedReviewers({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              issue_number: context.issue.number,
+              issue_number: PR_NUMBER,
             });
             const hasPreviousReviewer = requestedReviewers.users.find((user) => {
               return user.login === PREV_RELEASE_CONDUCTOR;
@@ -62,7 +69,7 @@ jobs:
               await github.rest.pulls.removeRequestedReviewers({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
-                pull_number: context.pull.number,
+                pull_number: PR_NUMBER,
                 reviewers: [PREV_RELEASE_CONDUCTOR],
               });
             }
@@ -73,9 +80,9 @@ jobs:
             });
             if (!hasAssignee) {
               await github.rest.issues.addAssignees({
-                issue_number: context.issue.number,
                 owner: context.repo.owner,
                 repo: context.repo.repo,
+                issue_number: PR_NUMBER,
                 assignees: [RELEASE_CONDUCTOR]
               })
             }
@@ -87,9 +94,9 @@ jobs:
 
             if (!hasReviewer) {
               await github.rest.pulls.requestReviewers({
-                pull_number: context.issue.number,
                 owner: context.repo.owner,
                 repo: context.repo.repo,
+                pull_number: PR_NUMBER,
                 reviewers: [RELEASE_CONDUCTOR]
               })
             }
