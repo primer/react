@@ -193,15 +193,13 @@ export function AsyncListWithSpinner(): JSX.Element {
         <FormControl.Label>Search branches</FormControl.Label>
         <TextInput onChange={filter} block />
       </FormControl>
-      <VisuallyHidden
-        isVisible={results.length === 0}
-        aria-live="polite"
-        aria-atomic="true"
-        as={Text}
-        sx={{display: 'block', fontSize: 1, m: 2}}
-      >
-        {results.length === 0 ? 'No branches match that query' : `${results.length} branches match that query`}
-      </VisuallyHidden>
+      <div role="status">
+        {results.length === 0 ? (
+          <Text sx={{display: 'block', fontSize: 1, m: 2}}>No branches match that query</Text>
+        ) : (
+          <VisuallyHidden>{results.length} branches match that query</VisuallyHidden>
+        )}
+      </div>
 
       <ActionList selectionVariant="single" role="listbox" aria-label="Branch" sx={{height: 208, overflow: 'auto'}}>
         {loading ? (
