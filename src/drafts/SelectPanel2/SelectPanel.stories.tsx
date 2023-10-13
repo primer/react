@@ -556,19 +556,27 @@ export const EMinimal = () => {
     else return 1
   }
 
-  const itemsToShow = data.labels.sort(sortingFn)
+  const [sortedLabels, setSortedLabels] = React.useState([])
 
   return (
     <>
       <h1>Minimal SelectPanel</h1>
 
-      <SelectPanel title="Select labels" defaultOpen onSubmit={onSubmit}>
+      <SelectPanel
+        title="Select labels"
+        defaultOpen
+        onSubmit={onSubmit}
+        onOpen={() => {
+          // console.log('onOpen')
+          setSortedLabels(data.labels.sort(sortingFn))
+        }}
+      >
         {/* TODO: the ref types don't match here, use useProvidedRefOrCreate */}
         {/* @ts-ignore todo */}
         <SelectPanel.Button>Assign label</SelectPanel.Button>
 
         <ActionList>
-          {itemsToShow.map(label => (
+          {sortedLabels.map(label => (
             <ActionList.Item
               key={label.id}
               onSelect={() => onLabelSelect(label.id)}

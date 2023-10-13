@@ -52,6 +52,10 @@ const SelectPanel = props => {
   // sync open state
   React.useEffect(() => setInternalOpen(props.open), [props.open])
 
+  const onInternalOpen = () => {
+    if (props.open === undefined) setInternalOpen(true)
+    if (typeof props.onOpen === 'function') props.onOpen()
+  }
   const onInternalClose = () => {
     if (props.open === undefined) setInternalOpen(false)
     if (typeof props.onCancel === 'function') props.onCancel()
@@ -79,7 +83,7 @@ const SelectPanel = props => {
         anchorRef={anchorRef}
         renderAnchor={renderAnchor}
         open={internalOpen}
-        onOpen={() => setInternalOpen(true)}
+        onOpen={onInternalOpen}
         onClose={onInternalClose}
         width={props.width || 'medium'}
         height={props.height || 'large'}
