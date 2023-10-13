@@ -3,10 +3,11 @@ import {ButtonProps} from './types'
 import {ButtonBase} from './ButtonBase'
 import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import {defaultSxProp} from '../utils/defaultSxProp'
-import {BetterSystemStyleObject} from '../sx'
+import {BetterSystemStyleObject, CSSCustomProperties} from '../sx'
 
 const ButtonComponent = forwardRef(({children, sx: sxProp = defaultSxProp, ...props}, forwardedRef): JSX.Element => {
   let sxStyles = sxProp
+  const style: CSSCustomProperties = {}
   const leadingVisual = props.leadingVisual ?? props.leadingIcon
   const trailingVisual = props.trailingVisual ?? props.trailingIcon
 
@@ -15,10 +16,14 @@ const ButtonComponent = forwardRef(({children, sx: sxProp = defaultSxProp, ...pr
 
   if (sxProp !== null && Object.keys(sxProp).length > 0) {
     sxStyles = generateCustomSxProp({block, size, leadingVisual, trailingVisual, trailingAction}, sxProp)
+
+    // @ts-ignore sxProp can have color attribute
+    const {color} = sxProp
+    if (color) style['--button-color'] = color
   }
 
   return (
-    <ButtonBase ref={forwardedRef} as="button" sx={sxStyles} type="button" {...props}>
+    <ButtonBase ref={forwardedRef} as="button" sx={sxStyles} style={style} type="button" {...props}>
       {children}
     </ButtonBase>
   )
@@ -71,11 +76,10 @@ export function generateCustomSxProp(
   // Possible data attributes: data-size, data-block, data-no-visuals
   const size = props.size && props.size !== 'medium' ? `[data-size="${props.size}"]` : '' // medium is a default size therefore it doesn't have a data attribute that used for styling
   const block = props.block ? `[data-block="block"]` : ''
-  const noVisuals =
-    props.leadingVisual || props.trailingVisual || props.trailingAction ? '' : '[data-no-visuals="true"]'
+  const noVisuals = props.leadingVisual || props.trailingVisual || props.trailingAction ? '' : '[data-no-visuals]'
 
-  // this is custom selector. We need to make sure we add the data attributes to the base css class (& -> &[data-attributename="value"]])
-  const cssSelector = `&${size}${block}${noVisuals}` // &[data-size="small"][data-block="block"][data-no-visuals="true"]
+  // this is a custom selector. We need to make sure we add the data attributes to the base css class (& -> &[data-attributename="value"]])
+  const cssSelector = `&${size}${block}${noVisuals}` // &[data-size="small"][data-block="block"][data-no-visuals]
 
   const customSxProp: {
     [key: string]: BetterSystemStyleObject
