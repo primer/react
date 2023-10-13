@@ -91,7 +91,7 @@ export const WithLeadingVisualHiddenOnRegularViewport = () => (
     <PageHeader>
       <PageHeader.TitleArea>
         <PageHeader.LeadingVisual hidden={{regular: true}}>
-          <GitPullRequestIcon aria-label="something" />
+          <GitPullRequestIcon />
         </PageHeader.LeadingVisual>
         <PageHeader.Title>Title</PageHeader.Title>
         <PageHeader.TrailingVisual>
