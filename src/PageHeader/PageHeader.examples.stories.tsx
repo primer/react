@@ -272,9 +272,6 @@ export const FilesPageOnNarrowViewport = () => {
 }
 
 export const WithPageLayout = () => {
-  const assignYourself = () => {
-    console.log('Assign yourself')
-  }
   return (
     <PageLayout>
       <PageLayout.Header>
@@ -359,7 +356,13 @@ export const WithPageLayout = () => {
             <Text sx={{fontSize: 0, fontWeight: 'bold', display: 'block', color: 'fg.muted'}}>Assignees</Text>
             <Text sx={{fontSize: 0, color: 'fg.muted', lineHeight: 'condensed', display: 'flex', alignItems: 'center'}}>
               No one —
-              <Button variant="invisible" onClick={() => {}} sx={{color: 'fg.muted'}}>
+              <Button
+                variant="invisible"
+                onClick={() => {
+                  alert('Assign yourself')
+                }}
+                sx={{color: 'fg.muted'}}
+              >
                 assign yourself
               </Button>
             </Text>
