@@ -248,7 +248,7 @@ exports[`NavList renders a simple list 1`] = `
   .c2:hover:not([aria-disabled]) {
     background-color: rgba(208,215,222,0.32);
     color: #1F2328;
-    box-shadow: inset 0 0 0 max(1px,0.0625rem) hsla(210,18%,87%,1);
+    box-shadow: inset 0 0 0 max(1px,0.0625rem) rgba(0,0,0,0);
   }
 
   .c2:focus-visible,
@@ -274,7 +274,7 @@ exports[`NavList renders a simple list 1`] = `
   .c6:hover:not([aria-disabled]) {
     background-color: rgba(208,215,222,0.32);
     color: #1F2328;
-    box-shadow: inset 0 0 0 max(1px,0.0625rem) hsla(210,18%,87%,1);
+    box-shadow: inset 0 0 0 max(1px,0.0625rem) rgba(0,0,0,0);
   }
 
   .c6:focus-visible,
@@ -660,7 +660,7 @@ exports[`NavList renders with groups 1`] = `
   .c6:hover:not([aria-disabled]) {
     background-color: rgba(208,215,222,0.32);
     color: #1F2328;
-    box-shadow: inset 0 0 0 max(1px,0.0625rem) hsla(210,18%,87%,1);
+    box-shadow: inset 0 0 0 max(1px,0.0625rem) rgba(0,0,0,0);
   }
 
   .c6:focus-visible,
@@ -686,7 +686,7 @@ exports[`NavList renders with groups 1`] = `
   .c10:hover:not([aria-disabled]) {
     background-color: rgba(208,215,222,0.32);
     color: #1F2328;
-    box-shadow: inset 0 0 0 max(1px,0.0625rem) hsla(210,18%,87%,1);
+    box-shadow: inset 0 0 0 max(1px,0.0625rem) rgba(0,0,0,0);
   }
 
   .c10:focus-visible,
@@ -1149,7 +1149,7 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   .c10:hover:not([aria-disabled]) {
     background-color: rgba(208,215,222,0.32);
     color: #1F2328;
-    box-shadow: inset 0 0 0 max(1px,0.0625rem) hsla(210,18%,87%,1);
+    box-shadow: inset 0 0 0 max(1px,0.0625rem) rgba(0,0,0,0);
   }
 
   .c10:focus-visible,
@@ -1175,7 +1175,7 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   .c3:hover:not([aria-disabled]) {
     background-color: rgba(208,215,222,0.32);
     color: #1F2328;
-    box-shadow: inset 0 0 0 max(1px,0.0625rem) hsla(210,18%,87%,1);
+    box-shadow: inset 0 0 0 max(1px,0.0625rem) rgba(0,0,0,0);
   }
 
   .c3:focus-visible,
@@ -1633,7 +1633,7 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   .c10:hover:not([aria-disabled]) {
     background-color: rgba(208,215,222,0.32);
     color: #1F2328;
-    box-shadow: inset 0 0 0 max(1px,0.0625rem) hsla(210,18%,87%,1);
+    box-shadow: inset 0 0 0 max(1px,0.0625rem) rgba(0,0,0,0);
   }
 
   .c10:focus-visible,
@@ -1659,7 +1659,7 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   .c3:hover:not([aria-disabled]) {
     background-color: rgba(208,215,222,0.32);
     color: #1F2328;
-    box-shadow: inset 0 0 0 max(1px,0.0625rem) hsla(210,18%,87%,1);
+    box-shadow: inset 0 0 0 max(1px,0.0625rem) rgba(0,0,0,0);
   }
 
   .c3:focus-visible,
