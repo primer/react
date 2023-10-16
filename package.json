@@ -237,7 +237,7 @@
     "micromark-extension-frontmatter": "2.0.0",
     "micromark-extension-mdxjs": "2.0.0",
     "postcss-custom-properties-fallback": "1.0.2",
-    "postcss-preset-env": "9.0.0",
+    "postcss-preset-env": "9.2.0",
     "prettier": "3.0.1",
     "react": "18.2.0",
     "react-dnd": "14.0.4",
