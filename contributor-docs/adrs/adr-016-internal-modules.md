@@ -59,6 +59,6 @@ This pattern would remove any files and folders within `src/internal` from the p
 
 ### Impact
 
-* Update the `"exports"` field in `package.json` to exclude `./lib-esm/internal` from usage
-* (In a major release) Move internal-only files into internal folder
-* For internal modules that are being created after this ADR is accepted, add them to the `src/internal` folder
+- Update the `"exports"` field in `package.json` to exclude `./lib-esm/internal` from usage
+- (In a major release) Move internal-only files into internal folder
+- For internal modules that are being created after this ADR is accepted, add them to the `src/internal` folder

@@ -48,8 +48,8 @@ The `focusZone` behavior supports different sets of keys for moving focus around
 
 The `focusZone` behavior supports two modes of operation: DOM Focus and Active Descendant.
 
-* DOM Focus is the default mode and by far the most commonly needed. When a key is used to move focus, we call `.focus()` directly on the element to receive focus. This results in `document.activeElement` getting set to this new element, and it will receive any necessary styles via `:focus` and `:focus-within`.
-* Active Descendant mode does _not_ move DOM focus. Instead, focus remains on the _control_ element, and its `aria-activedescendant` attribute is set to the ID of the relevant element. Because there are no `:focus` styles applied and no `focus` events fired, you can supply an `onActiveDescendantChanged` callback to handle any necessary styles or other logic as the active descendant changes. For more information on the Active Descendant focus pattern, see [6.6.2 Managing Focus in Composites Using `aria-activedescendant`](https://www.w3.org/TR/wai-aria-practices-1.1/#kbd_focus_activedescendant) from the ARIA Authoring Practices document.
+- DOM Focus is the default mode and by far the most commonly needed. When a key is used to move focus, we call `.focus()` directly on the element to receive focus. This results in `document.activeElement` getting set to this new element, and it will receive any necessary styles via `:focus` and `:focus-within`.
+- Active Descendant mode does _not_ move DOM focus. Instead, focus remains on the _control_ element, and its `aria-activedescendant` attribute is set to the ID of the relevant element. Because there are no `:focus` styles applied and no `focus` events fired, you can supply an `onActiveDescendantChanged` callback to handle any necessary styles or other logic as the active descendant changes. For more information on the Active Descendant focus pattern, see [6.6.2 Managing Focus in Composites Using `aria-activedescendant`](https://www.w3.org/TR/wai-aria-practices-1.1/#kbd_focus_activedescendant) from the ARIA Authoring Practices document.
 
 ### Demo
 

@@ -3,7 +3,10 @@ const githubMarkdownOpinions = require('@github/markdownlint-github')
 // Rules we want to turn on but currently have too many violations
 const rulesToEnforce = {
   'fenced-code-language': false,
-  'no-duplicate-header': false, // Fix https://github.com/primer/doctocat/issues/527, then set this rule to `siblings_only: true`
+  // Fix https://github.com/primer/doctocat/issues/527, then set this rule to `siblings_only: true`
+  'no-duplicate-header': false,
+  // This currently conflicts with how prettier autoformats
+  'ul-style': false,
 }
 // Rules we don't care to enforce (usually stylistic)
 const rulesToNotEnforce = {

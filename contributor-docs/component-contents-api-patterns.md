@@ -61,9 +61,9 @@ This is the most common way to define the structure of content in React. In fact
 
 Though less common, sometimes the HTML schema puts tight restrictions on the kinds of children an element may contain:
 
-* `<select>` elements may only contain `<option>` and `<optgroup>` children.
-* `<ul>` may only contain `<li>` children.
-* `<span>` elements may only contain [phrasing content](https://html.spec.whatwg.org/multipage/dom.html#phrasing-content-2).
+- `<select>` elements may only contain `<option>` and `<optgroup>` children.
+- `<ul>` may only contain `<li>` children.
+- `<span>` elements may only contain [phrasing content](https://html.spec.whatwg.org/multipage/dom.html#phrasing-content-2).
 
 Furthermore, for custom React components, there is a first-class approach for rendering your component's children:
 
@@ -271,36 +271,36 @@ At this point we have shown that both patterns are valid, so how do we know whic
 
 ### Advantages of data contract
 
-* Strongly typed
-* All use cases are clearly defined
-* Easy to manipulate data
-* Easy to define a "pit of success" and lead the user there
-* Can support "escape hatches"
-* Component retains ownership of rendered contents
-* Usually less code in the implementation
+- Strongly typed
+- All use cases are clearly defined
+- Easy to manipulate data
+- Easy to define a "pit of success" and lead the user there
+- Can support "escape hatches"
+- Component retains ownership of rendered contents
+- Usually less code in the implementation
 
 ### Advantages of children-based contract
 
-* Indicates flexibility
-* Leaves room for a flexible implementation
-* Recognizable from HTML
-* Easier to read
-* Ownership of contents remains with a parent or ancestor component
+- Indicates flexibility
+- Leaves room for a flexible implementation
+- Recognizable from HTML
+- Easier to read
+- Ownership of contents remains with a parent or ancestor component
 
 Based on these observations, here are some guidelines to decide which type of API to build:
 
 ### When to use a data contract
 
-* Data doesn't cleanly transfer to an element structure
-* Data needs to be manipulated before being converted to an element structure
-* Certain well-defined scenarios need to be supported
-* You want to control the types and structure of child elements
-* The default rendering of the component is useful in many cases
-* You are building a composite component
+- Data doesn't cleanly transfer to an element structure
+- Data needs to be manipulated before being converted to an element structure
+- Certain well-defined scenarios need to be supported
+- You want to control the types and structure of child elements
+- The default rendering of the component is useful in many cases
+- You are building a composite component
 
 ### When to use a children-based contract
 
-* Your component doesn't care about the structure of children
-* Your component doesn't need to use `React.Children`
-* Your component is flexible enough to accommodate almost any child structure
-* You are building an intermediate component that provides behaviors or styles to a container
+- Your component doesn't care about the structure of children
+- Your component doesn't need to use `React.Children`
+- Your component is flexible enough to accommodate almost any child structure
+- You are building an intermediate component that provides behaviors or styles to a container

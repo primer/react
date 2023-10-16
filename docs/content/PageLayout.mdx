@@ -337,9 +337,9 @@ Each component may be labeled through either `aria-label` or `aria-labelledby` i
 
 ### Links & Resources
 
-* [W3C, Landmark roles](https://w3c.github.io/aria/#landmark_roles)
-* [WCAG, ARIA11 Technique](https://www.w3.org/WAI/WCAG22/Techniques/aria/ARIA11)
-* [MDN, Landmark roles](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/landmark_role)
+- [W3C, Landmark roles](https://w3c.github.io/aria/#landmark_roles)
+- [WCAG, ARIA11 Technique](https://www.w3.org/WAI/WCAG22/Techniques/aria/ARIA11)
+- [MDN, Landmark roles](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/landmark_role)
 
 ### `PageLayout.Content` as landmark
 
@@ -347,7 +347,7 @@ The `PageLayout.Content` component does not provide a default `<main>` landmark 
 If you want to utilize a `<main>` landmark with this component, you may supply one directly [as a child of `PageLayout.Content`](#with-main-landmark).
 When using `<main>` ensure that no other `<main>` landmark exists on the page, as there should only be one per page.
 
-* [`main` landmark usage](https://www.w3.org/WAI/ARIA/apg/patterns/landmarks/examples/main.html)
+- [`main` landmark usage](https://www.w3.org/WAI/ARIA/apg/patterns/landmarks/examples/main.html)
 
 ### `PageLayout.Pane` as landmark
 
@@ -356,8 +356,8 @@ content of this component may have different roles. When using this component,
 consider the type of content being rendered inside of `PageLayout.Pane` and if
 it requires a landmark role. Common landmark roles include:
 
-* [`aside`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/aside)
-* [`navigation`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/aside)
+- [`aside`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/aside)
+- [`navigation`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/aside)
 
 Some components, such as `NavList` may already include a landmark role. In these
 situation, these components use an appropriate landmark role and no further

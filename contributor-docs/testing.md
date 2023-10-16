@@ -31,29 +31,29 @@ We aim to follow the behavioral testing paradigm as our testing strategy where w
 
 As we heavily rely on the behavioral testing paradigm to test our components, the traditional percentage-base testing coverage is not always helpful for us to use as a metric. To measure the level of our testing coverage or in other words, the definition of "Tested" for us is more like a checklist than a number. Below are some examples can be used as a starting point to help measure the test coverage:
 
-* Variants of the component (I.e. default, primary, success, error)
-* The states of the component (I.e. open/closed, selected, disabled)
-* The look/appereance of the component
-* The layouts of the component
-  * Does component have a different layout on various viewports?
-  * Does component have a different layout on various states?
-  * Does component have a different layout on various variants?
-* The behaviour of the component
-  * Does component behave differently on various viewports?
-  * Does component behave differently on various states?
-  * Does component behave differently on various variants?
-* Component API (props, events and callback)
-  * Does the component have `hidden` prop `true` when it is on narrow viewport?
-  * Does it trigger `afterSelect` callback function when the link item is selected?
-  * Does it trigger `onClick` event when clicking outside of the dialog?
-* Accessibility
-  * Does [axe](https://www.deque.com/axe/) check stories for accessibility violations?
+- Variants of the component (I.e. default, primary, success, error)
+- The states of the component (I.e. open/closed, selected, disabled)
+- The look/appereance of the component
+- The layouts of the component
+  - Does component have a different layout on various viewports?
+  - Does component have a different layout on various states?
+  - Does component have a different layout on various variants?
+- The behaviour of the component
+  - Does component behave differently on various viewports?
+  - Does component behave differently on various states?
+  - Does component behave differently on various variants?
+- Component API (props, events and callback)
+  - Does the component have `hidden` prop `true` when it is on narrow viewport?
+  - Does it trigger `afterSelect` callback function when the link item is selected?
+  - Does it trigger `onClick` event when clicking outside of the dialog?
+- Accessibility
+  - Does [axe](https://www.deque.com/axe/) check stories for accessibility violations?
 
 We also have extra set of functions to test common functionalities of components. They are
 
-* BehavesAsComponent
-* checkExports
-* checkStoriesForAxeViolations
+- BehavesAsComponent
+- checkExports
+- checkStoriesForAxeViolations
 
 We make sure that every component has [these fundamental unit tests](https://github.com/primer/react/blob/main/src/utils/testing.tsx).
 
@@ -65,10 +65,10 @@ We use [Jest](https://jestjs.io/) as our test runner to write and run our unit t
 
 We predominantly use [@testing-library/react](https://testing-library.com/docs/react-testing-library/intro/)'s testing helpers such as
 
-* [render](https://testing-library.com/docs/react-testing-library/api#render) to render components
-* [userEvent](https://testing-library.com/docs/user-event/intro/) or [Event API](https://testing-library.com/docs/dom-testing-library/api-events/) to fire events and simulate user interaction on the component\*
-* `screen`
-* `act`
+- [render](https://testing-library.com/docs/react-testing-library/api#render) to render components
+- [userEvent](https://testing-library.com/docs/user-event/intro/) or [Event API](https://testing-library.com/docs/dom-testing-library/api-events/) to fire events and simulate user interaction on the component\*
+- `screen`
+- `act`
 
 To make assertions about the elements we use [Jest](https://jestjs.io/) and [jest-dom](https://github.com/testing-library/jest-dom).
 

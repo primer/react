@@ -4,10 +4,10 @@
 
 [The 4.0.0-beta release](https://github.com/primer/react/releases/v4.0.0-beta) renames some components:
 
-* `FlexContainer` is now named `Flex`
-* `FlexItem` is now `Flex.Item`
-* `UnderlineNavItem` is now `UnderlineNav.Item`
-* `FilterListItem` is now `FilterList.Item`
+- `FlexContainer` is now named `Flex`
+- `FlexItem` is now `Flex.Item`
+- `UnderlineNavItem` is now `UnderlineNav.Item`
+- `FilterListItem` is now `FilterList.Item`
 
 There is a [codemod](#codemods) available to upgrade component identifiers from [v3.x.x-beta](#300-beta):
 
@@ -17,8 +17,8 @@ npx jscodeshift -t node_modules/@primer/components/codemods/v4.js path/to/src
 
 The following breaking changes must be accounted for manually:
 
-* `Label` no longer has a `scheme` prop, but now respects `size` and `dropshadow` props.
-* `StateLabel` **does** have a `scheme` prop (instead of `state`), and takes different values.
+- `Label` no longer has a `scheme` prop, but now respects `size` and `dropshadow` props.
+- `StateLabel` **does** have a `scheme` prop (instead of `state`), and takes different values.
 
 ## `3.0.0-beta`
 
@@ -26,9 +26,9 @@ The following breaking changes must be accounted for manually:
 
 [The 3.0.0-beta release](https://github.com/primer/react/releases/v3.0.0-beta) contains the following breaking changes:
 
-* The `MergeStatus` component is gone. Use a `StateLabel` instead.
-* The `Link` component no longer accepts `scheme` or `muted` props, and has no underline by default.
-* `DonutChart` is now simply `Donut`, and `DonutSlice` is `Donut.Slice`.
+- The `MergeStatus` component is gone. Use a `StateLabel` instead.
+- The `Link` component no longer accepts `scheme` or `muted` props, and has no underline by default.
+- `DonutChart` is now simply `Donut`, and `DonutSlice` is `Donut.Slice`.
 
 There is a [codemod](#codemods) available to upgrade from [2.x.x-beta](#200-beta) and updating the package name:
 
@@ -40,9 +40,9 @@ npx jscodeshift -t node_modules/@primer/components/codemods/v3.js path/to/src
 
 [The 2.0.0-beta release](https://github.com/primer/react/releases/v2.0.0-beta) is a major version bump because it renames several components:
 
-* `Box` is now `BorderBox`
-* `Block` is now `Box`
-* `CaretBox` is now `PointerBox`
+- `Box` is now `BorderBox`
+- `Block` is now `Box`
+- `CaretBox` is now `PointerBox`
 
 We suggest that you rename your components in the above order, since renaming `Block` to `Box` before renaming the old `Box` component to `BorderBox` will cause problems.
 
@@ -70,21 +70,21 @@ This release also introduces early support for [theming](#theming).
 
 ### Props changes
 
-* The `tag` prop has been renamed to `is` to match [styled-system] conventions.
+- The `tag` prop has been renamed to `is` to match [styled-system] conventions.
 
-* Color props will require refactoring:
+- Color props will require refactoring:
 
-  * The `fg` prop has been renamed to `color` across the board.
+  - The `fg` prop has been renamed to `color` across the board.
 
-  * Color prop (`bg`, `color`, and `borderColor`) values are now object paths that represent nested fields in the `colors` object of our [default theme]. Because all of our [color gradations] are expressed as arrays, the `gray`, `blue`, `green`, `orange`, `purple`, `red`, and `yellow` values need to be updated to include the `.5` suffix so that they receive the value closest to the middle of each hue gradation (`red.5` maps to `theme.colors.red[5]`).
+  - Color prop (`bg`, `color`, and `borderColor`) values are now object paths that represent nested fields in the `colors` object of our [default theme]. Because all of our [color gradations] are expressed as arrays, the `gray`, `blue`, `green`, `orange`, `purple`, `red`, and `yellow` values need to be updated to include the `.5` suffix so that they receive the value closest to the middle of each hue gradation (`red.5` maps to `theme.colors.red[5]`).
 
     In other words, `color="red"` becomes `color="red.5"`, `bg="purple"` becomes `bg="purple.5"`, and so on. See [the full list of changes](#color-props) below.
 
-* [Some typography props](#typography-props) will require refactoring.
+- [Some typography props](#typography-props) will require refactoring.
 
-* [Some `Block` props](#block-props) have changed.
+- [Some `Block` props](#block-props) have changed.
 
-* [Some `FlexContainer` and `FlexItem` props](#flex-props) have changed.
+- [Some `FlexContainer` and `FlexItem` props](#flex-props) have changed.
 
 ### Theming
 
@@ -187,11 +187,11 @@ Remember that all `fg` props must be renamed to `color`.
 
 ### Typography props
 
-* Typography props are still only available on the `Text` and `Heading` components.
+- Typography props are still only available on the `Text` and `Heading` components.
 
-* The `fontSize` prop works as before, but now treats any value that doesn't represent an index of `theme.fontSizes` as a literal CSS value.
+- The `fontSize` prop works as before, but now treats any value that doesn't represent an index of `theme.fontSizes` as a literal CSS value.
 
-* The `lineHeight` prop now accepts one of the keys from `theme.lineHeights`: `default`, `condensed`, or `condensedUltra`. Any other value will be passed along as a literal CSS value.
+- The `lineHeight` prop now accepts one of the keys from `theme.lineHeights`: `default`, `condensed`, or `condensedUltra`. Any other value will be passed along as a literal CSS value.
 
 The following table lists typography-related prop substitutions:
 

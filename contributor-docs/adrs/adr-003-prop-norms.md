@@ -11,9 +11,9 @@
 
 Our component prop APIs have, at times been a bit of a mess. We've seen:
 
-* Implicit conventions not documented anywhere but consistently reflected in our code (e.g., the type of the `sx` prop)
-* Explicit plans to change some of those (e.g., the deprecation of Styled System props)
-* Inconsistencies in our implementation (e.g., when components accept a `ref` prop)
+- Implicit conventions not documented anywhere but consistently reflected in our code (e.g., the type of the `sx` prop)
+- Explicit plans to change some of those (e.g., the deprecation of Styled System props)
+- Inconsistencies in our implementation (e.g., when components accept a `ref` prop)
 
 This ADR aims to unify some of these conversations about prop APIs, codify our decisions, and sequence the work to get there.
 
@@ -35,8 +35,8 @@ See also: [Discussion on `ref` props (internal)](https://github.com/github/prime
 
 Only components with a clear need for polymorphism should accept an `as` prop. Reasonable cases include:
 
-* Components that need functionality from the component passed to the `as` prop, like a `<Button>` that renders a React Router link.
-* Components whose accessibility are improved by using semantically appropriate HTML elements, like an ActionList
+- Components that need functionality from the component passed to the `as` prop, like a `<Button>` that renders a React Router link.
+- Components whose accessibility are improved by using semantically appropriate HTML elements, like an ActionList
 
 When a Primer component user passes an `as` prop to a component, it should be done in a way that is consistent with the component’s intended use. In some situations we can enforce that with a narrowed type for our `as` prop.
 
