@@ -53,6 +53,7 @@ type InnerIconProps = {size?: ToggleSwitchProps['size']}
 
 const CircleIcon: React.FC<React.PropsWithChildren<InnerIconProps>> = ({size}) => (
   <svg
+    aria-hidden="true"
     width={size === 'small' ? '12' : '16'}
     height={size === 'small' ? '12' : '16'}
     viewBox="0 0 16 16"
@@ -64,6 +65,7 @@ const CircleIcon: React.FC<React.PropsWithChildren<InnerIconProps>> = ({size}) =
 )
 const LineIcon: React.FC<React.PropsWithChildren<InnerIconProps>> = ({size}) => (
   <svg
+    aria-hidden="true"
     width={size === 'small' ? '12' : '16'}
     height={size === 'small' ? '12' : '16'}
     viewBox="0 0 16 16"

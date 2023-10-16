@@ -2,6 +2,12 @@ name: Assign Release Conductor
 
 on:
   pull_request:
+  workflow_dispatch:
+    inputs:
+      pull-request:
+        type: number
+        description: Pull Request Number
+        required: true
 
 jobs:
   assign-release-conductor:
@@ -13,39 +19,84 @@ jobs:
         with:
           node-version: 18
       - run: npm ci
-      - name: Fetch user from pagerduty schedule
+      - uses: ./.github/actions/pagerduty
         id: pagerduty
-        uses: actions/github-script@v5
         with:
-          script: |
-            const fetch = require('node-fetch');
-            const today = new Date().toISOString().slice(0, 10) // format: 2022-11-24
-            const url = `https://api.pagerduty.com/schedules/P3IIVC4?since=${today}&until=${today}`
-            const response = await fetch(url, {
-              headers: {
-               'Content-Type': 'application/json',
-               'Authorization': 'Token token=${{ secrets.PAGERDUTY_API_KEY_SID }}'
-              }
-            })
-            const data = await response.json()            
-            return data.schedule.final_schedule.rendered_schedule_entries[0].user.summary
-
-      - run: echo ${{ steps.pagerduty.outputs.result }} is release conductor
-
+          schedule-id: 'P3IIVC4'
+          token: ${{ secrets.PAGERDUTY_API_KEY_SID }}
+      - run: echo ${{ steps.pagerduty.outputs.user }} is release conductor
       - name: Add user as assignee and reviewer
         uses: actions/github-script@v6
+        env:
+          PR_NUMBER: ${{ github.event.inputs.pull-request || github.event.pull_request.number }}
+          RELEASE_CONDUCTOR: ${{ steps.pagerduty.outputs.user }}
+          PREV_RELEASE_CONDUCTOR: ${{ steps.pagerduty.outputs.previous-schedule-user }}
         with:
           script: |
-            github.rest.issues.addAssignees({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              assignees: [${{ steps.pagerduty.outputs.result }}]
-            })
+            const { PR_NUMBER, RELEASE_CONDUCTOR, PREV_RELEASE_CONDUCTOR } = process.env;
 
-            github.rest.pulls.requestReviewers({
-              pull_number: context.issue.number,
+            const { data: pull } = await github.rest.pulls.get({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              reviewers: [${{ steps.pagerduty.outputs.result }}]
-            })
+              pull_number: PR_NUMBER,
+            });
+
+            // If the previous release conductor was added as an assignee, remove them
+            const hasPreviousAssignee = pull.assignees.find((assignee) => {
+              return assignee.login === PREV_RELEASE_CONDUCTOR;
+            });
+
+            if (hasPreviousAssignee) {
+              await github.rest.issues.removeAssignees({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: PR_NUMBER,
+                assignees: [PREV_RELEASE_CONDUCTOR],
+              });
+            }
+
+            // If the previous release conductor was added as a reviewer, remove them
+            const { data: requestedReviewers } = await github.rest.pulls.listRequestedReviewers({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: PR_NUMBER,
+            });
+            const hasPreviousReviewer = requestedReviewers.users.find((user) => {
+              return user.login === PREV_RELEASE_CONDUCTOR;
+            });
+
+            if (hasPreviousReviewer) {
+              await github.rest.pulls.removeRequestedReviewers({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                pull_number: PR_NUMBER,
+                reviewers: [PREV_RELEASE_CONDUCTOR],
+              });
+            }
+
+            // Add the current release conductor as an assignee if they are not currently assigned
+            const hasAssignee = pull.assignees.find((assignee) => {
+              return assignee.login === RELEASE_CONDUCTOR;
+            });
+            if (!hasAssignee) {
+              await github.rest.issues.addAssignees({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: PR_NUMBER,
+                assignees: [RELEASE_CONDUCTOR]
+              })
+            }
+
+            // Request the current release conductor as a reviewer if they are not currently requested
+            const hasReviewer = requestedReviewers.users.find((user) => {
+              return user.login === RELEASE_CONDUCTOR;
+            });
+
+            if (!hasReviewer) {
+              await github.rest.pulls.requestReviewers({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                pull_number: PR_NUMBER,
+                reviewers: [RELEASE_CONDUCTOR]
+              })
+            }

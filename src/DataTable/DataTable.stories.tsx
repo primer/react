@@ -11,7 +11,6 @@ import {getColumnWidthArgTypes, ColWidthArgTypes} from './storyHelpers'
 export default {
   title: 'Components/DataTable',
   component: DataTable,
-  argTypes: getColumnWidthArgTypes(5),
 } as Meta<typeof DataTable>
 
 const now = Date.now()
@@ -326,4 +325,5 @@ Playground.argTypes = {
       value: ['condensed', 'normal', 'spacious'],
     },
   },
+  ...getColumnWidthArgTypes(5),
 }
