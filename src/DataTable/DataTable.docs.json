@@ -5,40 +5,40 @@
   "a11yReviewed": false,
   "stories": [
     {
-      "id": "components-datatable-features--with-title"
+      "id": "drafts-components-datatable-features--with-title"
     },
     {
-      "id": "components-datatable-features--with-title-and-subtitle"
+      "id": "drafts-components-datatable-features--with-title-and-subtitle"
     },
     {
-      "id": "components-datatable-features--with-sorting"
+      "id": "drafts-components-datatable-features--with-sorting"
     },
     {
-      "id": "components-datatable-features--with-actions"
+      "id": "drafts-components-datatable-features--with-actions"
     },
     {
-      "id": "components-datatable-features--with-action"
+      "id": "drafts-components-datatable-features--with-action"
     },
     {
-      "id": "components-datatable-features--with-row-action"
+      "id": "drafts-components-datatable-features--with-row-action"
     },
     {
-      "id": "components-datatable-features--with-row-actions"
+      "id": "drafts-components-datatable-features--with-row-actions"
     },
     {
-      "id": "components-datatable-features--with-row-action-menu"
+      "id": "drafts-components-datatable-features--with-row-action-menu"
     },
     {
-      "id": "components-datatable-features--with-custom-heading"
+      "id": "drafts-components-datatable-features--with-custom-heading"
     },
     {
-      "id": "components-datatable-features--with-no-content"
+      "id": "drafts-components-datatable-features--with-no-content"
     },
     {
-      "id": "components-datatable-features--with-loading"
+      "id": "drafts-components-datatable-features--with-loading"
     },
     {
-      "id": "components-datatable-features--with-pagination"
+      "id": "drafts-components-datatable-features--with-pagination"
     }
   ],
   "props": [
