@@ -783,6 +783,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
           {...(id && {id: paneId})}
         >
           {resizable && (
+            // eslint-disable-next-line github/a11y-no-visually-hidden-interactive-element
             <VisuallyHidden>
               <form onSubmit={handleWidthFormSubmit}>
                 <label htmlFor={`${paneId}-width-input`}>Pane width</label>

@@ -58,4 +58,5 @@ export type {
   NavListTrailingVisualProps,
   NavListDividerProps,
 } from '../NavList'
+export * from './SelectPanel2'
 export * from './Tooltip'

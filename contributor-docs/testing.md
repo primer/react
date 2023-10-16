@@ -5,22 +5,22 @@
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 ## Table of Contents
 
-- [Strategy](#strategy)
-- [Unit Tests](#unit-tests)
-  - [Overview](#overview)
-  - [Running Tests](#running-tests)
-- [Visual Regression Tests](#visual-regression-tests)
-  - [Overview](#overview)
-  - [Prerequisites](#prerequisites)
-  - [Components](#components)
-    - [Visual Regression Testing](#visual-regression-testing)
-    - [Accessibility Verification Testing](#accessibility-verification-testing)
-- [Interaction Tests](#interaction-tests)
-  - [As A Part Of Unit Tests](#as-a-part-of-unit-tests)
-  - [Storybook Interaction Tests](#storybook-interaction-tests)
-- [Continuous Integration](#continuous-integration)
-- [FAQ](#faq)
-  - [Why am I seeing `browserType.launch: Executable doesn't exist at ../path`?](#why-am-i-seeing-browsertypelaunch-executable-doesnt-exist-at-path)
+* [Strategy](#strategy)
+* [Unit Tests](#unit-tests)
+  * [Overview](#overview)
+  * [Running Tests](#running-tests)
+* [Visual Regression Tests](#visual-regression-tests)
+  * [Overview](#overview)
+  * [Prerequisites](#prerequisites)
+  * [Components](#components)
+    * [Visual Regression Testing](#visual-regression-testing)
+    * [Accessibility Verification Testing](#accessibility-verification-testing)
+* [Interaction Tests](#interaction-tests)
+  * [As A Part Of Unit Tests](#as-a-part-of-unit-tests)
+  * [Storybook Interaction Tests](#storybook-interaction-tests)
+* [Continuous Integration](#continuous-integration)
+* [FAQ](#faq)
+  * [Why am I seeing `browserType.launch: Executable doesn't exist at ../path`?](#why-am-i-seeing-browsertypelaunch-executable-doesnt-exist-at-path)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 <!-- prettier-ignore-end -->

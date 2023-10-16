@@ -125,6 +125,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
         ':hover:not([aria-disabled])': {
           backgroundColor: `actionListItem.${variant}.hoverBg`,
           color: getVariantStyles(variant, disabled).hoverColor,
+          boxShadow: `inset 0 0 0 max(1px, 0.0625rem) ${theme?.colors.actionListItem.default.activeBorder}`,
         },
         '&:focus-visible, > a:focus-visible': {
           outline: 'none',
