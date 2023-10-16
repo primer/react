@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`renders consistently 1`] = `
+exports[`ToggleSwitch renders consistently 1`] = `
 .c0 {
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
