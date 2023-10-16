@@ -71,7 +71,7 @@ const ButtonBase = forwardRef(
         data-block={block ? 'block' : null}
         data-size={size === 'small' || size === 'large' ? size : undefined}
         data-no-visuals={!LeadingVisual && !TrailingVisual && !TrailingAction ? true : undefined}
-        aria-disabled={inactive}
+        aria-disabled={inactive ? true : undefined}
       >
         {Icon ? (
           <Icon />
