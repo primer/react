@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`renders consistently 1`] = `
+exports[`ToggleSwitch renders consistently 1`] = `
 .c2 {
   text-align: right;
   visibility: hidden;
