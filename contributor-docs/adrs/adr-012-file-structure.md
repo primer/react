@@ -33,12 +33,12 @@ primer-react/
 
 ### Rules
 
-- Every component should have its own PascalCased directory directly under `src/`
-- Subcomponents should be properties of the exported parent component (e.g., `Breadcrumbs.Item`)
-- Replacements of existing components should use an incrementing number (e.g., `Breadcrumbs2` rather than `NewBreadcrumbs`)
+* Every component should have its own PascalCased directory directly under `src/`
+* Subcomponents should be properties of the exported parent component (e.g., `Breadcrumbs.Item`)
+* Replacements of existing components should use an incrementing number (e.g., `Breadcrumbs2` rather than `NewBreadcrumbs`)
 
 ## Implementation
 
-- [ ] Migrate components into this structure (as part of [Storybook refactor work](https://github.com/github/primer/issues/1488))
-- [ ] Set up tests for the component structure
-- [ ] Mark this ADR as adopted
+* [ ] Migrate components into this structure (as part of [Storybook refactor work](https://github.com/github/primer/issues/1488))
+* [ ] Set up tests for the component structure
+* [ ] Mark this ADR as adopted

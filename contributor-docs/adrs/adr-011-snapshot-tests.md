@@ -42,14 +42,14 @@ exports[`renders correctly 1`] = `
 
 As the number of snapshots within a project grows, there are a couple of challenges that emerge:
 
-- Components with wide or deep trees emit large snapshots
-- Debugging what change lead to a broken snapshot can be difficult
-- It is unclear what the intent may be of a snapshot test when something does fail, in other words it does not always answer the question: what is this testing?
+* Components with wide or deep trees emit large snapshots
+* Debugging what change lead to a broken snapshot can be difficult
+* It is unclear what the intent may be of a snapshot test when something does fail, in other words it does not always answer the question: what is this testing?
 
 ## Decision
 
-- Avoid using "catch-all" snapshot tests for React components
-- Snapshots may be used for static objects which have a clear signal as to what to do if they are modified (such as the exports of a package)
+* Avoid using "catch-all" snapshot tests for React components
+* Snapshots may be used for static objects which have a clear signal as to what to do if they are modified (such as the exports of a package)
 
 <table>
 <thead><tr><th>Unpreferred</th><th>Preferred</th></tr></thead>
@@ -79,7 +79,7 @@ it('renders an element with role="link"', () => {
 
 This decision will impact our test suite in two ways:
 
-- Tests with calls to `toMatchSnapshot()` may need to be removed if the snapshot
+* Tests with calls to `toMatchSnapshot()` may need to be removed if the snapshot
   test is capturing the render tree
-- The `behavesAsComponent` helper, which uses `toMatchSnapshot` under-the-hood,
+* The `behavesAsComponent` helper, which uses `toMatchSnapshot` under-the-hood,
   will need to be updated to no longer include a snapshot test

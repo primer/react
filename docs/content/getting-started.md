@@ -60,9 +60,9 @@ Primer React ships with a few libraries labeled as peer dependencies. These libr
 
 Primer React requires the following libraries to be installed along with it:
 
-- `styled-components` at version 4.0.0 or higher
-- `react` at versions 17.x or higher
-- `react-dom` at versions 17.x or higher
+* `styled-components` at version 4.0.0 or higher
+* `react` at versions 17.x or higher
+* `react-dom` at versions 17.x or higher
 
 ## ThemeProvider
 

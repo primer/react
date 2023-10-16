@@ -56,16 +56,16 @@ Setup the project to use [`npm` workspaces](https://docs.npmjs.com/cli/v7/using-
 
 The following items will be installed and ran at the root-level:
 
-- Linting
-  - `eslint`
-  - `markdownlint`
-- Testing
-  - Jest
-  - Playwright
-- Development
-  - Storybook
-- Type checking
-  - TypeScript
+* Linting
+  * `eslint`
+  * `markdownlint`
+* Testing
+  * Jest
+  * Playwright
+* Development
+  * Storybook
+* Type checking
+  * TypeScript
 
 Certain configuration items, like for TypeScript or Babel, may need configuration defined at the top-level and extended by child workspaces.
 
@@ -73,13 +73,13 @@ The current `@primer/react` package will move to the `packages/react` package. W
 
 ### Impact
 
-- Scripts need to be updated
-- GitHub Action paths need to be updated
-- TypeScript refactor for base config
-- Changeset support
-- Performance from installing node modules for entire workspace
-- Find workarounds in cases where legacy-peer-deps is required as an option
+* Scripts need to be updated
+* GitHub Action paths need to be updated
+* TypeScript refactor for base config
+* Changeset support
+* Performance from installing node modules for entire workspace
+* Find workarounds in cases where legacy-peer-deps is required as an option
 
 ### Looking forward
 
-- Exploration into https://nx.dev/ for build tooling as npm workspaces does not support topological script ordering
+* Exploration into https://nx.dev/ for build tooling as npm workspaces does not support topological script ordering

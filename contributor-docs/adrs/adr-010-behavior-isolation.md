@@ -11,8 +11,8 @@
 
 While [ADR 002](https://github.com/primer/react/blob/main/contributor-docs/adrs/adr-002-behavior-isolation.md) landed on the decision to:
 
-- Share JavaScript behaviour as "vanilla" functions which can be used between Primer View Components (PVC) and Primer React (PRC), consumed via React Hooks in PRC.
-- Not use Custom Elements to drive behaviour of components.
+* Share JavaScript behaviour as "vanilla" functions which can be used between Primer View Components (PVC) and Primer React (PRC), consumed via React Hooks in PRC.
+* Not use Custom Elements to drive behaviour of components.
 
 Our perspective on the ADR has changed since its approval and this document will address those changes.
 
@@ -24,15 +24,15 @@ Currently, we share some behaviours across PVC and PRC as JavaScript functions. 
 
 The drawbacks to using JavaScript functions that we can currently see, is that they:
 
-- Do not have standard invocation pattern, they are called like functions but the arguments they take can become complex quickly.
-- They need to be "wired in" manually into our components, requiring the passing of containing elements and other state.
-- They're difficult for engineers to use as they do not apply the standard component pattern of each of the respective frameworks. For example an engineer cannot add a `FocusTrap` component to an element to make it trap focus, instead an engineer must create their own component which calls into this behaviour.
+* Do not have standard invocation pattern, they are called like functions but the arguments they take can become complex quickly.
+* They need to be "wired in" manually into our components, requiring the passing of containing elements and other state.
+* They're difficult for engineers to use as they do not apply the standard component pattern of each of the respective frameworks. For example an engineer cannot add a `FocusTrap` component to an element to make it trap focus, instead an engineer must create their own component which calls into this behaviour.
 
 This complexity bears the biggest weight in Primer React, as we add abstractions of these behaviours out into Hooks, which creates another layer of complexity and indirection. If we remodelled these as Web Components, we'd vastly simplify a lot of this:
 
-- Web Components have a standard invocation pattern and can be adopted into the component model of each respective framework (see below).
-- Web Components do not need to be wired in manually, as they are part of the tree that they share association with. This means they can manage their own internal state and be driven by other components far more easily.
-- Engineers _can_ easily drop a Web Component into their tree to add the desired behavior. For example an engineer can add a `<focus-trap>` element into their tree to make it trap focus. This does not require additional components or hooks to deliver the functionality.
+* Web Components have a standard invocation pattern and can be adopted into the component model of each respective framework (see below).
+* Web Components do not need to be wired in manually, as they are part of the tree that they share association with. This means they can manage their own internal state and be driven by other components far more easily.
+* Engineers _can_ easily drop a Web Component into their tree to add the desired behavior. For example an engineer can add a `<focus-trap>` element into their tree to make it trap focus. This does not require additional components or hooks to deliver the functionality.
 
 Taking a closer look at an example behaviour can clarify this. Looking at `focusTrap` as an example, we can see for it to work it needs a container element. It also needs to know where the initial focus is (another element), and we need to able to manage the lifecycle of how Focus Trap works, so it gets an abort signal too. These are all passed in as arguments into the `focusTrap` function.
 
@@ -128,9 +128,9 @@ ADR 002 claimed that some custom elements (citing examples such as `details-dial
 
 It is generally good practice for Custom Elements to be flexible with regards to their children. But there are three common patterns which we see where these are restricted:
 
-- Custom Elements (and built in elements) can have a strict association with children via manual slot assignment. They are able to render only direct child nodes that match a set criteria. Creating Portals around these elements will not work.
-- Custom Elements may rely on event propagation from children. While Portals will capture events and redistribute them in accordance with the React tree, they do so using React's synthetic event system, and so creating Portals around children of Custom Elements may cause issues here.
-- Custom Elements (and built in elements) may rely on the "IDRef" pattern, where the custom element is pointed to the ID of another element via attribute (for example the `from` attribute). This pattern can work well with React Portals, as the Custom Element has a unique pointer to search for a single element within the entire DOM tree, not just its children. However due to the way React may add and remove elements from Portals during ts lifecycle, careful attention needs to be paid within the Custom Element to ensure it observes when its idref element is attached/detached from the document.
+* Custom Elements (and built in elements) can have a strict association with children via manual slot assignment. They are able to render only direct child nodes that match a set criteria. Creating Portals around these elements will not work.
+* Custom Elements may rely on event propagation from children. While Portals will capture events and redistribute them in accordance with the React tree, they do so using React's synthetic event system, and so creating Portals around children of Custom Elements may cause issues here.
+* Custom Elements (and built in elements) may rely on the "IDRef" pattern, where the custom element is pointed to the ID of another element via attribute (for example the `from` attribute). This pattern can work well with React Portals, as the Custom Element has a unique pointer to search for a single element within the entire DOM tree, not just its children. However due to the way React may add and remove elements from Portals during ts lifecycle, careful attention needs to be paid within the Custom Element to ensure it observes when its idref element is attached/detached from the document.
 
 For many Custom Elements, this will simply not be an issue, but these three patterns may cause issues.
 
@@ -186,26 +186,26 @@ Organizational overhead of shared dependencies is something that we will have to
 
 ### Custom elements
 
-- We may use Custom Elements to share behaviour between PVC and PRC.
-- Where existing built in HTML elements provide the necessary semantics and UI required, we should continue to use those. This is to say that Custom Elements to not provide a stand-in for _all_ elements on the page.
-- Where there is no client side behaviour nor no benefit to using ShadowDOM, a Custom Element should not be used.
+* We may use Custom Elements to share behaviour between PVC and PRC.
+* Where existing built in HTML elements provide the necessary semantics and UI required, we should continue to use those. This is to say that Custom Elements to not provide a stand-in for _all_ elements on the page.
+* Where there is no client side behaviour nor no benefit to using ShadowDOM, a Custom Element should not be used.
 
 ## Not Decided
 
 ### Custom Elements
 
-- This ADR does not conclude with a decision on how custom elements should be written. It does not enforce a decision on language or tooling.
-- This ADR does not enforce a decision that custom elements _must be written_ in any circumstances. It merely decides that we _may_ chose to use this technology as we see fit.
+* This ADR does not conclude with a decision on how custom elements should be written. It does not enforce a decision on language or tooling.
+* This ADR does not enforce a decision that custom elements _must be written_ in any circumstances. It merely decides that we _may_ chose to use this technology as we see fit.
 
 ### Repositories
 
-- This ADR does not conclude with a decision on where custom elements should live. We _may_ continue to use the existing set of custom elements we have, which are in various repositories, or we _may_ write custom elements in a monorepo. This is not a decision enforced by this ADR.
+* This ADR does not conclude with a decision on where custom elements should live. We _may_ continue to use the existing set of custom elements we have, which are in various repositories, or we _may_ write custom elements in a monorepo. This is not a decision enforced by this ADR.
 
 ### Rewrites
 
-- This ADR does not conclude with a decision to rewrite any existing component or behavior in use today. We _may_ consider the use of custom elements during refactors but this ADR does not enforce a decision to rewrite any existing code.
+* This ADR does not conclude with a decision to rewrite any existing component or behavior in use today. We _may_ consider the use of custom elements during refactors but this ADR does not enforce a decision to rewrite any existing code.
 
 ## Consequences
 
-- By using `@lit-labs/ssr` today, we introduce a new dependency into Primer React. This may be removed later should React support Custom Elements out of the box (which seems likely for React 19), but for now we will need to continue to ship this dependency.
-- This decision may expediate the need to resolve organisational overhead issues. Deciding to use custom elements to share more code among PVC and PRC may highlight other areas which need to be addressed in subsequen PRs.
+* By using `@lit-labs/ssr` today, we introduce a new dependency into Primer React. This may be removed later should React support Custom Elements out of the box (which seems likely for React 19), but for now we will need to continue to ship this dependency.
+* This decision may expediate the need to resolve organisational overhead issues. Deciding to use custom elements to share more code among PVC and PRC may highlight other areas which need to be addressed in subsequen PRs.

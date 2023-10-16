@@ -17,8 +17,8 @@ is included in production code. As a result, it would be helpful to establish
 patterns around how to provide warnings to developers in order to make sure
 that:
 
-- Calls to `console.warn()` do not appear in production
-- Code related to development checks, warnings, or messages are removed from
+* Calls to `console.warn()` do not appear in production
+* Code related to development checks, warnings, or messages are removed from
   production code
 
 ## Decision
@@ -59,5 +59,5 @@ For more complex conditions, a contributor may combine `console.warn()` with
 
 ### Impact
 
-- Calls to `console.warn()` will be replaced by `warning()` or will be wrapped
+* Calls to `console.warn()` will be replaced by `warning()` or will be wrapped
   in a `__DEV__` block

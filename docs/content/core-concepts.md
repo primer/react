@@ -35,15 +35,15 @@ Please note that you will need to have the **[styled-components babel plugin](ht
 
 We categorize our components into 3 general types. Building block components, pattern components, and helper components. Understanding how these types of components interact with each other can help you better understand how to get the most out of Primer React.
 
-- Building Blocks
+* Building Blocks
 
 Building block components are components that are basic in their functions and can be used together with other components to build just about any UI. Some examples of building block components are `Box`, `Avatar`, `Details`, and `Link`.
 
-- Pattern Components
+* Pattern Components
 
 Pattern components are components that are made up of several building block components to represent a commonly used pattern in our UI. Some examples of pattern components are `UnderlineNav` and `FilterList`. We plan on expanding our offering of pattern components in the near future.
 
-- Helper Components
+* Helper Components
 
 Helper components are components that help the user achieve common CSS patterns while maintaining some control over values used. An example of a helper component is `Box`.
 

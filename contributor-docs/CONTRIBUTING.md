@@ -4,20 +4,20 @@
 2. [Before Getting Started](#before-getting-started)
 3. [Discussing non-public features or products](#discussing-non-public-features-or-products)
 4. [Developing Components](#developing-components)
-   - [Tools we use](#tools-we-use)
-   - [File Structure](#file-structure)
-   - [Component patterns](#component-patterns)
-   - [SSR compatibility](#ssr-compatibility)
-   - [Adding the sx prop](#adding-the-sx-prop)
-   - [Linting](#linting)
-   - [TypeScript support](#typescript-support)
-   - [Additional resources](#additional-resources)
+   * [Tools we use](#tools-we-use)
+   * [File Structure](#file-structure)
+   * [Component patterns](#component-patterns)
+   * [SSR compatibility](#ssr-compatibility)
+   * [Adding the sx prop](#adding-the-sx-prop)
+   * [Linting](#linting)
+   * [TypeScript support](#typescript-support)
+   * [Additional resources](#additional-resources)
 5. [Writing documentation](#writing-documentation)
 6. [Creating a pull request](#creating-a-pull-request)
-   - [Adding changeset to your pull request](#adding-changeset-to-your-pull-request)
-   - [What to expect after opening a pull request](#what-to-expect-after-opening-a-pull-request)
-     - [What we look for in reviews](#what-we-look-for-in-reviews)
-   - [Previewing your changes](#previewing-your-changes)
+   * [Adding changeset to your pull request](#adding-changeset-to-your-pull-request)
+   * [What to expect after opening a pull request](#what-to-expect-after-opening-a-pull-request)
+     * [What we look for in reviews](#what-we-look-for-in-reviews)
+   * [Previewing your changes](#previewing-your-changes)
 7. [Deploying](#deploying)
 8. [Troubleshooting](#troubleshooting)
 
@@ -29,9 +29,9 @@ If you're looking for ways to contribute, a great place to start is our issues l
 
 A common question asked about Primer Components is how to know what should be added to Primer Components and what is best left as a local component in a consuming application. Though there are no hard & fast rules about what can and cannot be added to Primer Components, here are a few things we take into consideration:
 
-- Is the new feature an existing pattern in Primer CSS or related to UI built at GitHub? Primer Components is first and foremost a library for building UI at GitHub - patterns that aren't currently being used in GitHub UI (either on github.com or in a GitHub owned project outside of github.com) probably shouldn't be added to Primer Components. Exceptions to this could be helper components that don't necessarily render UI but help with the development process (like `Box`).
+* Is the new feature an existing pattern in Primer CSS or related to UI built at GitHub? Primer Components is first and foremost a library for building UI at GitHub - patterns that aren't currently being used in GitHub UI (either on github.com or in a GitHub owned project outside of github.com) probably shouldn't be added to Primer Components. Exceptions to this could be helper components that don't necessarily render UI but help with the development process (like `Box`).
 
-- Does the proposed component get used in more than one or two places across GitHub UI? A component that's only meant to be used in one place and doesn't have potential to be reused in many places probably should exist as a local component. An example of something like this might be a component that renders content specific to a single GitHub product.
+* Does the proposed component get used in more than one or two places across GitHub UI? A component that's only meant to be used in one place and doesn't have potential to be reused in many places probably should exist as a local component. An example of something like this might be a component that renders content specific to a single GitHub product.
 
 ### Proposing new components
 
@@ -62,13 +62,13 @@ Navigate to http://localhost:6006/ to see Primer react components in your browse
 
 ### Tools we use
 
-- [React](https://reactjs.org/)
-- [TypeScript](https://www.typescriptlang.org/)
-- [Jest](https://jestjs.io/)
-- [Storybook](https://storybook.js.org/)
-- [Prettier](https://prettier.io/)
-- [ESLint](https://eslint.org/)
-- [Playwright](https://playwright.dev/)
+* [React](https://reactjs.org/)
+* [TypeScript](https://www.typescriptlang.org/)
+* [Jest](https://jestjs.io/)
+* [Storybook](https://storybook.js.org/)
+* [Prettier](https://prettier.io/)
+* [ESLint](https://eslint.org/)
+* [Playwright](https://playwright.dev/)
 
 ### File structure
 
@@ -92,10 +92,10 @@ primer-react/
 
 Please review the related docs and ADRs below for more information on how to structure your component and the best practices we follow:
 
-- [ADR 1: File structure](https://github.com/primer/react/blob/main/contributor-docs/adrs/adr-012-file-structure.md)
-- [ADR 2: Snapshot tests](https://github.com/primer/react/blob/main/contributor-docs/adrs/adr-011-snapshot-tests.md)
-- [ADR 3: Storybook formatting](https://github.com/github/primer/blob/main/adrs/2022-10-07-storybook-lookbook-story-format.md)
-- [Testing docs](https://github.com/primer/react/blob/main/contributor-docs/testing.md)
+* [ADR 1: File structure](https://github.com/primer/react/blob/main/contributor-docs/adrs/adr-012-file-structure.md)
+* [ADR 2: Snapshot tests](https://github.com/primer/react/blob/main/contributor-docs/adrs/adr-011-snapshot-tests.md)
+* [ADR 3: Storybook formatting](https://github.com/github/primer/blob/main/adrs/2022-10-07-storybook-lookbook-story-format.md)
+* [Testing docs](https://github.com/primer/react/blob/main/contributor-docs/testing.md)
 
 ### Component patterns
 
@@ -207,8 +207,8 @@ npm run test:type-check
 
 ### Additional resources
 
-- [Primer Components Philosophy](https://primer.style/components/philosophy)
-- [Primer Components Core Concepts](https://primer.style/components/core-concepts)
+* [Primer Components Philosophy](https://primer.style/components/philosophy)
+* [Primer Components Core Concepts](https://primer.style/components/core-concepts)
 
 ## Writing documentation
 
@@ -247,14 +247,14 @@ After opening a pull request, you should be receiving a response from Primer tea
 
 #### What we look for in reviews
 
-- Does the component follow our [Primer Components code style](#component-patterns)?
-- Does the component use theme values for most CSS values?
-- Is the component API intuitive?
-- Does the component have the appropriate [type definitions in `index.d.ts`](#typescript-support)?
-- Is the component documented accurately?
-- Does the component have sufficient tests?
-- Does the pull request increase the bundle size significantly?
-- Does all the checks pass?
+* Does the component follow our [Primer Components code style](#component-patterns)?
+* Does the component use theme values for most CSS values?
+* Is the component API intuitive?
+* Does the component have the appropriate [type definitions in `index.d.ts`](#typescript-support)?
+* Is the component documented accurately?
+* Does the component have sufficient tests?
+* Does the pull request increase the bundle size significantly?
+* Does all the checks pass?
 
 If everything looks great, the reviewer will approve the pull request and and feel free to merge it afterwards. Minor and patch changes are released weekly, and we bundle up breaking changes and release a major version of `@primer/react` twice a year. If your pull request is time-sensitive, please let Primer team know.
 

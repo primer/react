@@ -14,10 +14,10 @@ While we aim to standardize design in Primer React, we also provide additional s
 
 Our components can roughly be categorized into two different component types:
 
-- Pattern Components
+* Pattern Components
 
 Pattern components help us repeat commonly used UI patterns and interactions in order to maintain our brand and provide a great user experience. Some examples of pattern components are `Button`, `Avatar`, or `Label`.
 
-- Helper Components
+* Helper Components
 
 Helper components are components that help the user achieve common CSS patterns while maintaining some control over values used. An example of a helper component is `Box`.
