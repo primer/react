@@ -59,7 +59,7 @@ jobs:
             const { data: requestedReviewers } = await github.rest.pulls.listRequestedReviewers({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              issue_number: PR_NUMBER,
+              pull_number: PR_NUMBER,
             });
             const hasPreviousReviewer = requestedReviewers.users.find((user) => {
               return user.login === PREV_RELEASE_CONDUCTOR;

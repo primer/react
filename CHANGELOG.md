@@ -1,5 +1,35 @@
 # @primer/components
 
+## 35.32.0
+
+### Minor Changes
+
+- [#3720](https://github.com/primer/react/pull/3720) [`521b02f4`](https://github.com/primer/react/commit/521b02f4fa1fcba6375f3642e0cf1a9b01a4bda7) Thanks [@mperrotti](https://github.com/mperrotti)! - Updates link styles to support underline link preferences.
+
+  <!-- Changed components: ActionList, BranchName, Breadcrumbs, Button, Button2, Heading, Link -->
+
+- [#3813](https://github.com/primer/react/pull/3813) [`1fcfc478`](https://github.com/primer/react/commit/1fcfc47885c5c152264d7402e243700f7d02ec31) Thanks [@joshblack](https://github.com/joshblack)! - Add support for a `ref` on the inner <button> in ToggleSwitch
+
+### Patch Changes
+
+- [#3815](https://github.com/primer/react/pull/3815) [`794a477c`](https://github.com/primer/react/commit/794a477c9065f37c5ab789e99cddaee010e6af4c) Thanks [@pksjce](https://github.com/pksjce)! - Update hover styles for ActionList item
+
+- [#3691](https://github.com/primer/react/pull/3691) [`f4648b19`](https://github.com/primer/react/commit/f4648b19d664ba07d4a921bcafadd26f151093bd) Thanks [@joshblack](https://github.com/joshblack)! - Update ActionList to place `id` on item with an ARIA role
+
+  <!-- Changed components: ActionList -->
+
+- [#3809](https://github.com/primer/react/pull/3809) [`6b18eaec`](https://github.com/primer/react/commit/6b18eaecbd99f81f92b2dd654b771c85b53f365b) Thanks [@gr2m](https://github.com/gr2m)! - export `SelectPanel` from `@primer/react/drafts`
+
+  <!-- Changed components: _none_ -->
+
+- [#3683](https://github.com/primer/react/pull/3683) [`a84a1498`](https://github.com/primer/react/commit/a84a149826f658ddca715c4948d5a5002a648e4e) Thanks [@broccolinisoup](https://github.com/broccolinisoup)! - Button: Allow leadingIcon, trailingIcon, trailingAction to be overridable with sx
+
+  <!-- Changed components: Button -->
+
+- [#3784](https://github.com/primer/react/pull/3784) [`6f4fe7d2`](https://github.com/primer/react/commit/6f4fe7d2a91786569f2f1492168268c58eca2b53) Thanks [@radglob](https://github.com/radglob)! - Revert "Add aria-selected value to ActionList.Item."
+
+  <!-- Changed components: ActionList -->
+
 ## 35.31.0
 
 ### Minor Changes
