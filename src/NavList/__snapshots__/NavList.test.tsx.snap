@@ -196,8 +196,8 @@ exports[`NavList renders a simple list 1`] = `
 
 .c3 {
   color: #0969da;
-  -webkit-text-decoration: var(--prefers-link-underlines,underline);
-  text-decoration: var(--prefers-link-underlines,underline);
+  -webkit-text-decoration: none;
+  text-decoration: none;
   padding-left: 8px;
   padding-right: 8px;
   padding-top: 6px;
@@ -212,8 +212,6 @@ exports[`NavList renders a simple list 1`] = `
   flex-grow: 1;
   border-radius: 6px;
   color: inherit;
-  -webkit-text-decoration: none;
-  text-decoration: none;
 }
 
 .c3:hover {
@@ -608,8 +606,8 @@ exports[`NavList renders with groups 1`] = `
 
 .c7 {
   color: #0969da;
-  -webkit-text-decoration: var(--prefers-link-underlines,underline);
-  text-decoration: var(--prefers-link-underlines,underline);
+  -webkit-text-decoration: none;
+  text-decoration: none;
   padding-left: 8px;
   padding-right: 8px;
   padding-top: 6px;
@@ -624,8 +622,6 @@ exports[`NavList renders with groups 1`] = `
   flex-grow: 1;
   border-radius: 6px;
   color: inherit;
-  -webkit-text-decoration: none;
-  text-decoration: none;
 }
 
 .c7:hover {
@@ -1095,8 +1091,8 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
 
 .c11 {
   color: #0969da;
-  -webkit-text-decoration: var(--prefers-link-underlines,underline);
-  text-decoration: var(--prefers-link-underlines,underline);
+  -webkit-text-decoration: none;
+  text-decoration: none;
   padding-left: 16px;
   padding-right: 8px;
   padding-top: 6px;
@@ -1111,8 +1107,6 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   flex-grow: 1;
   border-radius: 6px;
   color: inherit;
-  -webkit-text-decoration: none;
-  text-decoration: none;
   font-size: 12px;
   font-weight: 400;
 }
@@ -1579,8 +1573,8 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
 
 .c11 {
   color: #0969da;
-  -webkit-text-decoration: var(--prefers-link-underlines,underline);
-  text-decoration: var(--prefers-link-underlines,underline);
+  -webkit-text-decoration: none;
+  text-decoration: none;
   padding-left: 16px;
   padding-right: 8px;
   padding-top: 6px;
@@ -1595,8 +1589,6 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   flex-grow: 1;
   border-radius: 6px;
   color: inherit;
-  -webkit-text-decoration: none;
-  text-decoration: none;
   font-size: 12px;
   font-weight: 400;
 }
