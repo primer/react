@@ -33,7 +33,7 @@ As we heavily rely on the behavioral testing paradigm to test our components, th
 
 - Variants of the component (I.e. default, primary, success, error)
 - The states of the component (I.e. open/closed, selected, disabled)
-- The look/appereance of the component
+- The look/appearance of the component
 - The layouts of the component
   - Does component have a different layout on various viewports?
   - Does component have a different layout on various states?
@@ -61,7 +61,7 @@ We make sure that every component has [these fundamental unit tests](https://git
 
 ### Overview
 
-We use [Jest](https://jestjs.io/) as our test runner to write and run our unit tests. Our prefered way of structuring tests is with `describe/it` block format and they are authored within the components's source directory with the file name of `ComponentName.test.tsx`
+We use [Jest](https://jestjs.io/) as our test runner to write and run our unit tests. Our preferred way of structuring tests is with `describe/it` block format and they are authored within the components's source directory with the file name of `ComponentName.test.tsx`
 
 We predominantly use [@testing-library/react](https://testing-library.com/docs/react-testing-library/intro/)'s testing helpers such as
 
@@ -76,7 +76,7 @@ To make assertions about the elements we use [Jest](https://jestjs.io/) and [jes
 
 ### Snapshots
 
-We are slowly moving away from using `Jest` snapshots as a way to test visual changes of our components. You can read more about the decision in this [ADR](https://github.com/primer/react/blob/main/contributor-docs/adrs/adr-011-snapshot-tests.md). We are in the proces of migrating our existing snapshot tests to use [Playwright](https://playwright.dev/) for visual regression testing. If you are writing a new test and you need to test the visual changes of the component, please refer to the [Visual Regression Tests](#visual-regression-tests) section.
+We are slowly moving away from using `Jest` snapshots as a way to test visual changes of our components. You can read more about the decision in this [ADR](https://github.com/primer/react/blob/main/contributor-docs/adrs/adr-011-snapshot-tests.md). We are in the process of migrating our existing snapshot tests to use [Playwright](https://playwright.dev/) for visual regression testing. If you are writing a new test and you need to test the visual changes of the component, please refer to the [Visual Regression Tests](#visual-regression-tests) section.
 
 #### Updating `theme-preval` snapshots
 
