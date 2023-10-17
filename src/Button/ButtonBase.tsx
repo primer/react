@@ -87,7 +87,12 @@ const ButtonBase = forwardRef(
           ) : (
             <>
               <Box as="span" data-component="buttonContent" sx={getAlignContentSize(alignContent)}>
-                {loading && (
+                {loading && !LeadingVisual && !TrailingVisual && (
+                  <Box as="span" data-component="loadingSpinner" sx={{...iconWrapStyles}}>
+                    <Spinner size="small" />
+                  </Box>
+                )}
+                {LeadingVisual && loading && (
                   <Box as="span" data-component="leadingVisual" sx={{...iconWrapStyles}}>
                     <Spinner size="small" />
                   </Box>
@@ -98,9 +103,14 @@ const ButtonBase = forwardRef(
                   </Box>
                 )}
                 {children && <span data-component="text">{children}</span>}
-                {TrailingVisual && (
+                {TrailingVisual && !loading && (
                   <Box as="span" data-component="trailingVisual" sx={{...iconWrapStyles}}>
                     <TrailingVisual />
+                  </Box>
+                )}
+                {TrailingVisual && loading && (
+                  <Box as="span" data-component="trailingVisual" sx={{...iconWrapStyles}}>
+                    <Spinner size="small" />
                   </Box>
                 )}
               </Box>

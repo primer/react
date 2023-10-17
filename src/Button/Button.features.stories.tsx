@@ -88,9 +88,7 @@ export const Medium = () => <Button size="medium">Default</Button>
 
 export const Large = () => <Button size="large">Default</Button>
 
-export const Loading = () => <Button loading>Default</Button>
-
-export const LoadingTrigger = () => {
+export const LoadingWithLeadingVisual = () => {
   const [isLoading, setIsLoading] = useState(false)
 
   const handleClick = () => {
@@ -112,3 +110,37 @@ export const LoadingCustomMessage = () => (
     Default
   </Button>
 )
+
+export const LoadingWithNoVisuals = () => {
+  const [isLoading, setIsLoading] = useState(false)
+
+  const handleClick = () => {
+    setIsLoading(true)
+    setTimeout(() => {
+      setIsLoading(false)
+    }, 3000)
+  }
+
+  return (
+    <Button loading={isLoading} onClick={handleClick}>
+      Export
+    </Button>
+  )
+}
+
+export const LoadingWithTrailingVisual = () => {
+  const [isLoading, setIsLoading] = useState(false)
+
+  const handleClick = () => {
+    setIsLoading(true)
+    setTimeout(() => {
+      setIsLoading(false)
+    }, 3000)
+  }
+
+  return (
+    <Button loading={isLoading} onClick={handleClick} trailingIcon={DownloadIcon}>
+      Export
+    </Button>
+  )
+}
