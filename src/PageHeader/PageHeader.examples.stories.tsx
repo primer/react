@@ -38,22 +38,18 @@ const setViewportParamToNarrow = {
 export const Webhooks = () => (
   <Box sx={{padding: 3}}>
     <PageHeader>
+      <PageHeader.Title as="h2">Webhooks</PageHeader.Title>
       <PageHeader.ContextArea>
         <PageHeader.ParentLink href="http://github.com">Repository settings</PageHeader.ParentLink>
       </PageHeader.ContextArea>
-      <PageHeader.TitleArea>
-        <PageHeader.Title as="h2">Webhooks</PageHeader.Title>
-
-        <PageHeader.Actions>
-          <Hidden when={['narrow']}>
-            <Button variant="primary">New webhook</Button>
-          </Hidden>
-
-          <Hidden when={['regular', 'wide']}>
-            <Button variant="primary">New</Button>
-          </Hidden>
-        </PageHeader.Actions>
-      </PageHeader.TitleArea>
+      <PageHeader.Actions>
+        <Hidden when={['narrow']}>
+          <Button variant="primary">New webhook</Button>
+        </Hidden>
+        <Hidden when={['regular', 'wide']}>
+          <Button variant="primary">New</Button>
+        </Hidden>
+      </PageHeader.Actions>
     </PageHeader>
   </Box>
 )
@@ -146,61 +142,11 @@ export const FilesPage = () => (
   <Box sx={{padding: 3}}>
     <PageHeader>
       <PageHeader.TitleArea>
-        <Breadcrumbs>
-          <Breadcrumbs.Item href="https://github.com/primer/react/tree/main">react</Breadcrumbs.Item>
-          <Breadcrumbs.Item href="https://github.com/primer/react/tree/main/src">src</Breadcrumbs.Item>
-          <Breadcrumbs.Item href="https://github.com/primer/react/tree/main/src/PageHeader">
-            PageHeader
-          </Breadcrumbs.Item>
-          <Breadcrumbs.Item href="https://github.com/primer/react/blob/main/src/PageHeader/PageHeader.tsx">
-            PageHeader.tsx
-          </Breadcrumbs.Item>
-        </Breadcrumbs>
-        <VisuallyHidden as="h2">PageHeader.tsx</VisuallyHidden>
-        <PageHeader.Actions hidden={{narrow: true}}>
-          <ActionMenu>
-            <ActionMenu.Anchor>
-              <IconButton size="small" aria-label="More file actions" icon={KebabHorizontalIcon} />
-            </ActionMenu.Anchor>
-            <ActionMenu.Overlay width="medium">
-              <ActionList>
-                <ActionList.Group title="Raw file content">
-                  <ActionList.Item onSelect={() => alert('Download')}>Download</ActionList.Item>
-                </ActionList.Group>
-                <ActionList.Divider />
-                <ActionList.Item onSelect={() => alert('Jump to line')}>
-                  Jump to line
-                  <ActionList.TrailingVisual>L</ActionList.TrailingVisual>
-                </ActionList.Item>
-                <ActionList.Divider />
-                <ActionList.Item onSelect={() => alert('Copy path')}>
-                  Copy path
-                  <ActionList.TrailingVisual>⌘⇧.</ActionList.TrailingVisual>
-                </ActionList.Item>
-                <ActionList.Item onSelect={() => alert('Copy permalink')}>
-                  Copy permalink
-                  <ActionList.TrailingVisual>⌘⇧,</ActionList.TrailingVisual>
-                </ActionList.Item>
-                <ActionList.Divider />
-                <ActionList.Group title="View Options">
-                  <ActionList.Item onSelect={() => alert('Show code folding buttons')}>
-                    Show code folding buttons
-                  </ActionList.Item>
-                  <ActionList.Item onSelect={() => alert('Wrap lines')}>Wrap lines</ActionList.Item>
-                  <ActionList.Item onSelect={() => alert('Center content')}>Center content</ActionList.Item>
-                </ActionList.Group>
-                <ActionList.Divider />
-                <ActionList.Item variant="danger" onSelect={() => alert('Delete file clicked')}>
-                  Delete file
-                  <ActionList.TrailingVisual>⌘D</ActionList.TrailingVisual>
-                </ActionList.Item>
-              </ActionList>
-            </ActionMenu.Overlay>
-          </ActionMenu>
-        </PageHeader.Actions>
+        <PageHeader.Title as="h1">PageHeader.tsx</PageHeader.Title>
       </PageHeader.TitleArea>
+
       <PageHeader.ContextArea>
-        <PageHeader.ParentLink>Files</PageHeader.ParentLink>
+        <PageHeader.ParentLink href="/">Files</PageHeader.ParentLink>
         <PageHeader.ContextAreaActions>
           <ActionMenu>
             <ActionMenu.Anchor>
@@ -263,6 +209,57 @@ export const FilesPage = () => (
           </ActionMenu>
         </PageHeader.ContextAreaActions>
       </PageHeader.ContextArea>
+      <PageHeader.LeadingAction hidden={false}>
+        <Breadcrumbs>
+          <Breadcrumbs.Item href="https://github.com/primer/react/tree/main">react</Breadcrumbs.Item>
+          <Breadcrumbs.Item href="https://github.com/primer/react/tree/main/src">src</Breadcrumbs.Item>
+          <Breadcrumbs.Item href="https://github.com/primer/react/tree/main/src/PageHeader">
+            PageHeader
+          </Breadcrumbs.Item>
+        </Breadcrumbs>
+      </PageHeader.LeadingAction>
+
+      <PageHeader.Actions hidden={{narrow: true}}>
+        <ActionMenu>
+          <ActionMenu.Anchor>
+            <IconButton size="small" aria-label="More file actions" icon={KebabHorizontalIcon} />
+          </ActionMenu.Anchor>
+          <ActionMenu.Overlay width="medium">
+            <ActionList>
+              <ActionList.Group title="Raw file content">
+                <ActionList.Item onSelect={() => alert('Download')}>Download</ActionList.Item>
+              </ActionList.Group>
+              <ActionList.Divider />
+              <ActionList.Item onSelect={() => alert('Jump to line')}>
+                Jump to line
+                <ActionList.TrailingVisual>L</ActionList.TrailingVisual>
+              </ActionList.Item>
+              <ActionList.Divider />
+              <ActionList.Item onSelect={() => alert('Copy path')}>
+                Copy path
+                <ActionList.TrailingVisual>⌘⇧.</ActionList.TrailingVisual>
+              </ActionList.Item>
+              <ActionList.Item onSelect={() => alert('Copy permalink')}>
+                Copy permalink
+                <ActionList.TrailingVisual>⌘⇧,</ActionList.TrailingVisual>
+              </ActionList.Item>
+              <ActionList.Divider />
+              <ActionList.Group title="View Options">
+                <ActionList.Item onSelect={() => alert('Show code folding buttons')}>
+                  Show code folding buttons
+                </ActionList.Item>
+                <ActionList.Item onSelect={() => alert('Wrap lines')}>Wrap lines</ActionList.Item>
+                <ActionList.Item onSelect={() => alert('Center content')}>Center content</ActionList.Item>
+              </ActionList.Group>
+              <ActionList.Divider />
+              <ActionList.Item variant="danger" onSelect={() => alert('Delete file clicked')}>
+                Delete file
+                <ActionList.TrailingVisual>⌘D</ActionList.TrailingVisual>
+              </ActionList.Item>
+            </ActionList>
+          </ActionMenu.Overlay>
+        </ActionMenu>
+      </PageHeader.Actions>
     </PageHeader>
   </Box>
 )

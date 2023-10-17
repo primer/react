@@ -10,24 +10,24 @@ import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/po
 import {getBreakpointDeclarations} from '../utils/getBreakpointDeclarations'
 const REGION_ORDER = {
   ContextArea: 0,
-  TitleArea: 1,
-  Description: 2,
-  Navigation: 3,
+  LeadingAction: 1,
+  TitleArea: 2,
+  TrailingAction: 3,
+  Actions: 4,
+  Description: 5,
+  Navigation: 6,
+}
+
+const TITLE_AREA_REGION_ORDER = {
+  LeadingVisual: 0,
+  Title: 1,
+  TrailingVisual: 2,
 }
 
 const CONTEXT_AREA_REGION_ORDER = {
   ParentLink: 0,
   ContextBar: 1,
   ContextAreaActions: 2,
-}
-
-const TITLE_AREA_REGION_ORDER = {
-  LeadingAction: 0,
-  LeadingVisual: 1,
-  Title: 2,
-  TrailingVisual: 3,
-  TrailingAction: 4,
-  Actions: 5,
 }
 
 // Types that are shared between PageHeader children components
@@ -64,7 +64,7 @@ const Root: React.FC<React.PropsWithChildren<PageHeaderProps>> = ({children, sx 
     gap: '0.5rem',
   }
   return (
-    <Box as={as} sx={merge<BetterSystemStyleObject>(rootStyles, sx)}>
+    <Box data-component="pageheader" as={as} sx={merge<BetterSystemStyleObject>(rootStyles, sx)}>
       {children}
     </Box>
   )
@@ -90,7 +90,11 @@ const ContextArea: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
     }),
   }
 
-  return <Box sx={merge<BetterSystemStyleObject>(contentNavStyles, sx)}>{children}</Box>
+  return (
+    <Box data-component="pageheader-contextarea" sx={merge<BetterSystemStyleObject>(contentNavStyles, sx)}>
+      {children}
+    </Box>
+  )
 }
 type LinkProps = Pick<
   React.AnchorHTMLAttributes<HTMLAnchorElement> & BaseLinkProps,
@@ -106,6 +110,7 @@ const ParentLink = React.forwardRef<HTMLAnchorElement, ParentLinkProps>(
     return (
       <>
         <Link
+          data-component="pageheader-parentlink"
           ref={ref}
           as={as}
           aria-label={ariaLabel}
@@ -143,6 +148,7 @@ const ContextBar: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
 }) => {
   return (
     <Box
+      data-component="pageheader-contextbar"
       sx={merge<BetterSystemStyleObject>(
         {
           display: 'flex',
@@ -168,6 +174,7 @@ const ContextAreaActions: React.FC<React.PropsWithChildren<ChildrenPropTypes>> =
 }) => {
   return (
     <Box
+      data-component="pageheader-contextarea-actions"
       sx={merge<BetterSystemStyleObject>(
         {
           display: 'flex',
@@ -219,6 +226,7 @@ const TitleArea: React.FC<React.PropsWithChildren<TitleAreaProps>> = ({
   return (
     <TitleAreaContext.Provider value={{titleVariant: currentVariant, titleAreaHeight: height}}>
       <Box
+        data-component="pageheader-titlearea"
         sx={merge<BetterSystemStyleObject>(
           {
             display: 'flex',
@@ -253,7 +261,7 @@ const LeadingAction: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
       sx={merge<BetterSystemStyleObject>(
         {
           display: 'flex',
-          order: TITLE_AREA_REGION_ORDER.LeadingAction,
+          order: REGION_ORDER.LeadingAction,
           ...getBreakpointDeclarations(hidden, 'display', value => {
             return value ? 'none' : 'flex'
           }),
@@ -368,7 +376,7 @@ const TrailingAction: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
       sx={merge<BetterSystemStyleObject>(
         {
           display: 'flex',
-          order: TITLE_AREA_REGION_ORDER.TrailingAction,
+          order: REGION_ORDER.TrailingAction,
           ...getBreakpointDeclarations(hidden, 'display', value => {
             return value ? 'none' : 'flex'
           }),
@@ -390,7 +398,7 @@ const Actions: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({children
       sx={merge<BetterSystemStyleObject>(
         {
           display: 'flex',
-          order: TITLE_AREA_REGION_ORDER.Actions,
+          order: REGION_ORDER.Actions,
           ...getBreakpointDeclarations(hidden, 'display', value => {
             return value ? 'none' : 'flex'
           }),
@@ -483,11 +491,11 @@ export const PageHeader = Object.assign(Root, {
   ParentLink,
   ContextBar,
   ContextAreaActions,
-  TitleArea,
   LeadingAction,
   LeadingVisual,
   Title,
   TrailingVisual,
+  TitleArea,
   TrailingAction,
   Actions,
   Description,
