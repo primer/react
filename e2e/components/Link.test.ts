@@ -170,4 +170,60 @@ test.describe('Link', () => {
       })
     })
   })
+
+  test.describe('No Underline', () => {
+    for (const theme of themes) {
+      test.describe(theme, () => {
+        test('default @vrt', async ({page}) => {
+          await visit(page, {
+            id: 'components-link-features--no-underline',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+
+          // Default state
+          expect(await page.screenshot()).toMatchSnapshot(`Link.NoUnderline.${theme}.png`)
+
+          // Hover state
+          await page.getByRole('link').hover()
+          expect(await page.screenshot()).toMatchSnapshot(`Link.NoUnderline.${theme}.hover.png`)
+
+          // Focus state
+          await page.keyboard.press('Tab')
+          expect(await page.screenshot()).toMatchSnapshot(`Link.NoUnderline.${theme}.focus.png`)
+        })
+
+        test('axe @aat', async ({page}) => {
+          await visit(page, {
+            id: 'components-link-features--no-underline',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+          await expect(page).toHaveNoViolations({
+            rules: {
+              'color-contrast': {
+                enabled: theme !== 'dark_dimmed',
+              },
+            },
+          })
+        })
+      })
+    }
+
+    test.describe('with forced underlines', () => {
+      test('default @vrt', async ({page}) => {
+        await visit(page, {
+          id: 'components-link-features--underline',
+          globals: {
+            colorScheme: 'light',
+            prefersLinkUnderlines: 'true',
+          },
+        })
+
+        expect(await page.screenshot()).toMatchSnapshot('Link.NoUnderline.light.forcedUnderlines.png')
+      })
+    })
+  })
 })

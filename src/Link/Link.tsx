@@ -22,11 +22,23 @@ const hoverColor = system({
 
 const StyledLink = styled.a<StyledLinkProps>`
   color: ${props => (props.muted ? get('colors.fg.muted')(props) : get('colors.accent.fg')(props))};
-  text-decoration: ${props => (props.underline ? 'underline' : 'var(--prefers-link-underlines, underline)')};
+  text-decoration: ${props => {
+    if (props.underline === undefined) {
+      return 'var(--prefers-link-underlines, underline)'
+    }
+
+    if (props.underline) {
+      return 'underline'
+    }
+
+    return 'none'
+  }};
+
   &:hover {
     text-decoration: ${props => (props.muted ? 'var(--prefers-link-underlines, underline)' : 'underline')};
     ${props => (props.hoverColor ? hoverColor : props.muted ? `color: ${get('colors.accent.fg')(props)}` : '')};
   }
+
   &:is(button) {
     display: inline-block;
     padding: 0;
@@ -69,14 +81,7 @@ const Link = forwardRef(({as: Component = 'a', ...props}, forwardedRef) => {
     }, [innerRef])
   }
 
-  return (
-    <StyledLink
-      as={Component}
-      {...props}
-      // @ts-ignore shh
-      ref={innerRef}
-    />
-  )
+  return <StyledLink as={Component} {...props} ref={innerRef} />
 }) as PolymorphicForwardRefComponent<'a', StyledLinkProps>
 
 Link.displayName = 'Link'

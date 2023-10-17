@@ -19,3 +19,9 @@ export const Underline = () => (
     Link
   </Link>
 )
+
+export const NoUnderline = () => (
+  <Link href="#" underline={false}>
+    Link
+  </Link>
+)
