@@ -32,6 +32,10 @@ Closes #
 
 <!-- Describe any specific details to help reviewers test or review this Pull Request -->
 
+- [ ] Integration tests are run at github/github (Optional and only available for GitHub staff)
+
+You can refer to [the testing primer react pull requests documentation](https://github.com/github/primer-engineering/blob/main/how-we-work/testing-primer-react-pr-at-dotcom.md) to learn how to run integrations test at github/github.
+
 ### Merge checklist
 
 - [ ] Added/updated tests
