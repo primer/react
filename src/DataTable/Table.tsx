@@ -66,7 +66,8 @@ const StyledTable = styled.table<React.ComponentPropsWithoutRef<'table'>>`
   .TableHeader,
   .TableCell {
     text-align: start;
-    vertical-align: middle;
+    display: flex;
+    align-items: center;
     border-bottom: 1px solid ${get('colors.border.default')};
     padding: var(--table-cell-padding);
   }
@@ -156,7 +157,8 @@ const StyledTable = styled.table<React.ComponentPropsWithoutRef<'table'>>`
 
   /* TableCell */
   .TableCell[scope='row'] {
-    vertical-align: middle;
+    align-items: center;
+    display: flex;
     color: ${get('colors.fg.default')};
     font-weight: 600;
   }
