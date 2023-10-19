@@ -340,6 +340,7 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
                 const {
                   id,
                   onAction,
+                  children,
                   text,
                   leadingVisual: LeadingVisual,
                   trailingVisual: TrailingVisual,
@@ -352,7 +353,7 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
                         <LeadingVisual />
                       </ActionList.LeadingVisual>
                     )}
-                    {text}
+                    {children ?? text}
                     {TrailingVisual && (
                       <ActionList.TrailingVisual>
                         <TrailingVisual />

@@ -1,4 +1,4 @@
-import {render as HTMLRender, fireEvent, waitFor} from '@testing-library/react'
+import {render as HTMLRender, fireEvent, waitFor, screen} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import React from 'react'
 import Autocomplete, {AutocompleteInputProps} from '../Autocomplete'
@@ -399,6 +399,40 @@ describe('Autocomplete', () => {
       }).toThrow('Autocomplete: selectionVariant "single" cannot be used with multiple selected items')
 
       spy.mockRestore()
+    })
+
+    it('renders items with the `children` field', () => {
+      HTMLRender(
+        <>
+          <span id="label">test-label</span>
+          <Autocomplete>
+            <Autocomplete.Menu
+              filterFn={() => true}
+              items={[
+                {
+                  id: '0',
+                  children: <span>One</span>,
+                },
+                {
+                  id: '1',
+                  children: <span>Two</span>,
+                },
+                {
+                  id: '2',
+                  children: <span>Three</span>,
+                },
+              ]}
+              selectedItemIds={[]}
+              selectionVariant="single"
+              aria-labelledby="label"
+            />
+          </Autocomplete>
+        </>,
+      )
+
+      expect(screen.getByText('One')).toBeInTheDocument()
+      expect(screen.getByText('Two')).toBeInTheDocument()
+      expect(screen.getByText('Three')).toBeInTheDocument()
     })
   })
 
