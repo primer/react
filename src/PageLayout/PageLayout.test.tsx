@@ -200,4 +200,15 @@ describe('PageLayout', () => {
       expect(finalWidth).not.toEqual(initialWidth)
     })
   })
+
+  describe('PageLayout.Content', () => {
+    it('should support a custom element type with the `as` prop', () => {
+      const {container} = render(
+        <PageLayout.Content as="div">
+          <main>Content</main>
+        </PageLayout.Content>,
+      )
+      expect(container.firstChild?.nodeName).toEqual('DIV')
+    })
+  })
 })

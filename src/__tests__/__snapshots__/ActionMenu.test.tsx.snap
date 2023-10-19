@@ -226,7 +226,7 @@ exports[`ActionMenu renders consistently 1`] = `
 .c1 [data-component="leadingVisual"],
 .c1 [data-component="trailingVisual"],
 .c1 [data-component="trailingAction"] {
-  color: #656d76;
+  color: var(--button-color,#656d76);
 }
 
 @media (forced-colors:active) {
@@ -251,6 +251,7 @@ exports[`ActionMenu renders consistently 1`] = `
     id="react-aria-1"
     onClick={[Function]}
     onKeyDown={[Function]}
+    style={{}}
     tabIndex={0}
     type="button"
   >

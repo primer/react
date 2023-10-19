@@ -48,6 +48,11 @@
           "description": "Set `aria-current` to `\"page\"` to indicate that the item represents the current page. Set `aria-current` to `\"location\"` to indicate that the item represents the current location on a page. For more information about `aria-current`, see [MDN](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-current)."
         },
         {
+          "name": "defaultOpen",
+          "type": "boolean",
+          "description": "The open state of the item when it is initially rendered if the item has a SubNav."
+        },
+        {
           "name": "ref",
           "type": "React.RefObject<HTMLAnchorElement>"
         },

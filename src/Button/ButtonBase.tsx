@@ -11,8 +11,10 @@ import {defaultSxProp} from '../utils/defaultSxProp'
 const ButtonBase = forwardRef(
   ({children, as: Component = 'button', sx: sxProp = defaultSxProp, ...props}, forwardedRef): JSX.Element => {
     const {
-      leadingIcon: LeadingIcon,
-      trailingIcon: TrailingIcon,
+      leadingIcon,
+      leadingVisual,
+      trailingIcon,
+      trailingVisual,
       trailingAction: TrailingAction,
       icon: Icon,
       variant = 'default',
@@ -21,6 +23,8 @@ const ButtonBase = forwardRef(
       block = false,
       ...rest
     } = props
+    const LeadingVisual = leadingVisual ?? leadingIcon
+    const TrailingVisual = trailingVisual ?? trailingIcon
 
     const innerRef = React.useRef<HTMLButtonElement>(null)
     useRefObjectAsForwardedRef(forwardedRef, innerRef)
@@ -65,22 +69,22 @@ const ButtonBase = forwardRef(
         ref={innerRef}
         data-block={block ? 'block' : null}
         data-size={size === 'small' || size === 'large' ? size : undefined}
-        data-no-visuals={!LeadingIcon && !TrailingIcon && !TrailingAction ? true : undefined}
+        data-no-visuals={!LeadingVisual && !TrailingVisual && !TrailingAction ? true : undefined}
       >
         {Icon ? (
           <Icon />
         ) : (
           <>
             <Box as="span" data-component="buttonContent" sx={getAlignContentSize(alignContent)}>
-              {LeadingIcon && (
+              {LeadingVisual && (
                 <Box as="span" data-component="leadingVisual" sx={{...iconWrapStyles}}>
-                  <LeadingIcon />
+                  <LeadingVisual />
                 </Box>
               )}
               {children && <span data-component="text">{children}</span>}
-              {TrailingIcon && (
+              {TrailingVisual && (
                 <Box as="span" data-component="trailingVisual" sx={{...iconWrapStyles}}>
-                  <TrailingIcon />
+                  <TrailingVisual />
                 </Box>
               )}
             </Box>

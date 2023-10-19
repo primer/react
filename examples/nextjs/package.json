@@ -10,9 +10,9 @@
   "dependencies": {
     "@primer/octicons-react": "^18.2.0",
     "@primer/react": "file:../../",
-    "next": "^13.2.4",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
+    "next": "^13.5.4",
+    "react": "file:../../node_modules/react",
+    "react-dom": "file:../../node_modules/react-dom",
     "styled-components": "4.4.1"
   }
 }

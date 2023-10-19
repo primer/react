@@ -386,6 +386,12 @@ Header.displayName = 'PageLayout.Header'
 
 export type PageLayoutContentProps = {
   /**
+   * Provide an optional element type for the outermost element rendered by the component.
+   * @default 'main'
+   */
+  as?: React.ElementType
+
+  /**
    * A unique label for the rendered main landmark
    */
   'aria-label'?: React.AriaAttributes['aria-label']
@@ -408,6 +414,7 @@ const contentWidths = {
 }
 
 const Content: React.FC<React.PropsWithChildren<PageLayoutContentProps>> = ({
+  as = 'main',
   'aria-label': label,
   'aria-labelledby': labelledBy,
   width = 'full',
@@ -421,7 +428,7 @@ const Content: React.FC<React.PropsWithChildren<PageLayoutContentProps>> = ({
 
   return (
     <Box
-      as="main"
+      as={as}
       aria-label={label}
       aria-labelledby={labelledBy}
       sx={merge<BetterSystemStyleObject>(
@@ -791,6 +798,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
           {...(id && {id: paneId})}
         >
           {resizable && (
+            // eslint-disable-next-line github/a11y-no-visually-hidden-interactive-element
             <VisuallyHidden>
               <form onSubmit={handleWidthFormSubmit}>
                 <label htmlFor={`${paneId}-width-input`}>Pane width</label>
