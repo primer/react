@@ -32,7 +32,6 @@ export const LinkItem = React.forwardRef(({sx = {}, active, as: Component, ...pr
 
     // inherit Item styles
     color: 'inherit',
-    textDecoration: 'none',
     '&:hover': {color: 'inherit', textDecoration: 'none'},
   }
 

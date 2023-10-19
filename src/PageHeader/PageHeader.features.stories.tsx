@@ -174,14 +174,14 @@ export const WithLeadingAndTrailingActions = () => (
   <Box sx={{padding: 3}}>
     <PageHeader>
       <PageHeader.TitleArea>
-        <PageHeader.LeadingAction>
-          <IconButton aria-label="Expand" icon={SidebarExpandIcon} variant="invisible" />
-        </PageHeader.LeadingAction>
         <PageHeader.Title>Title</PageHeader.Title>
-        <PageHeader.TrailingAction>
-          <IconButton aria-label="Edit" icon={PencilIcon} variant="invisible" />
-        </PageHeader.TrailingAction>
       </PageHeader.TitleArea>
+      <PageHeader.LeadingAction>
+        <IconButton aria-label="Expand" icon={SidebarExpandIcon} variant="invisible" />
+      </PageHeader.LeadingAction>
+      <PageHeader.TrailingAction>
+        <IconButton aria-label="Edit" icon={PencilIcon} variant="invisible" />
+      </PageHeader.TrailingAction>
     </PageHeader>
   </Box>
 )

@@ -376,6 +376,7 @@ export const WithPageLayout = () => {
         <Box sx={{display: 'flex', flexDirection: 'column', gap: 3}}>
           <Box>
             <Text sx={{fontSize: 0, fontWeight: 'bold', display: 'block', color: 'fg.muted'}}>Assignees</Text>
+
             <Text sx={{fontSize: 0, color: 'fg.muted', lineHeight: 'condensed', display: 'flex', alignItems: 'center'}}>
               No one —
               <Button
