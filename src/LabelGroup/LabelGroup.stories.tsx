@@ -7,36 +7,6 @@ import Label from '../Label/Label'
 const meta: Meta = {
   title: 'Components/LabelGroup',
   component: LabelGroup,
-  argTypes: {
-    overflowStyle: {
-      control: {
-        type: 'radio',
-      },
-      options: ['inline', 'overlay'],
-    },
-    autoTruncateTokens: {
-      name: 'Truncate to fit width',
-      defaultValue: false,
-      control: {
-        type: 'boolean',
-      },
-    },
-    visibleChildCount: {
-      control: {
-        type: 'number',
-      },
-      if: {arg: 'autoTruncateTokens', truthy: false},
-    },
-  },
-  decorators: [
-    Story => {
-      return (
-        <>
-          <Story />
-        </>
-      )
-    },
-  ],
 }
 
 const ResizableContainer = styled.div`
@@ -97,6 +67,27 @@ export const Playground: Story = ({
       </LabelGroup>
     </ResizableContainer>
   )
+}
+Playground.argTypes = {
+  overflowStyle: {
+    control: {
+      type: 'radio',
+    },
+    options: ['inline', 'overlay'],
+  },
+  autoTruncateTokens: {
+    name: 'Truncate to fit width',
+    defaultValue: false,
+    control: {
+      type: 'boolean',
+    },
+  },
+  visibleChildCount: {
+    control: {
+      type: 'number',
+    },
+    if: {arg: 'autoTruncateTokens', truthy: false},
+  },
 }
 
 export default meta

@@ -26,7 +26,7 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
         borderColor: 'btn.activeBorder',
       },
       '[data-component="leadingVisual"], [data-component="trailingVisual"], [data-component="trailingAction"]': {
-        color: 'fg.muted',
+        color: `var(--button-color, ${theme?.colors.fg.muted})`,
       },
     },
     primary: {
