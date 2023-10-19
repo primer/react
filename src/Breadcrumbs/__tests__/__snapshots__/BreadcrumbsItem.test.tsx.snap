@@ -5,8 +5,8 @@ exports[`Breadcrumbs.Item renders consistently 1`] = `
   color: #0969da;
   display: inline-block;
   font-size: 14px;
-  -webkit-text-decoration: var(--prefers-link-underlines,underline);
-  text-decoration: var(--prefers-link-underlines,underline);
+  -webkit-text-decoration: none;
+  text-decoration: none;
 }
 
 .c0:hover {
@@ -30,8 +30,8 @@ exports[`Breadcrumbs.Item respects the "selected" prop 1`] = `
   color: #0969da;
   display: inline-block;
   font-size: 14px;
-  -webkit-text-decoration: var(--prefers-link-underlines,underline);
-  text-decoration: var(--prefers-link-underlines,underline);
+  -webkit-text-decoration: none;
+  text-decoration: none;
 }
 
 .c0:hover {

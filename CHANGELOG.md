@@ -1,5 +1,13 @@
 # @primer/components
 
+## 35.32.1
+
+### Patch Changes
+
+- [#3839](https://github.com/primer/react/pull/3839) [`d463d547`](https://github.com/primer/react/commit/d463d547f564d225786df7b702b735c0c7da6fd6) Thanks [@joshblack](https://github.com/joshblack)! - Restore Link underline preference to original behavior
+
+- [#3836](https://github.com/primer/react/pull/3836) [`038a7899`](https://github.com/primer/react/commit/038a7899ccaa28f57bc5ececa5aed301bab3495d) Thanks [@xiaolou86](https://github.com/xiaolou86)! - docs: fix typo
+
 ## 35.32.0
 
 ### Minor Changes
