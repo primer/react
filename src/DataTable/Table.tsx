@@ -68,6 +68,7 @@ const StyledTable = styled.table<React.ComponentPropsWithoutRef<'table'>>`
     text-align: start;
     vertical-align: middle;
     border-bottom: 1px solid ${get('colors.border.default')};
+    padding: var(--table-cell-padding);
   }
 
   .TableHeader[data-cell-align='end'],
@@ -101,12 +102,6 @@ const StyledTable = styled.table<React.ComponentPropsWithoutRef<'table'>>`
 
   .TableOverflowWrapper:last-child & .TableBody .TableRow:last-of-type .TableCell:last-child {
     border-bottom-right-radius: var(--table-border-radius);
-  }
-
-  /* TableHeader, TableCell */
-  .TableCell,
-  .TableHeader {
-    padding: var(--table-cell-padding);
   }
 
   /**
