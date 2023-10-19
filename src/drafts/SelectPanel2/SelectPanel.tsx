@@ -135,8 +135,7 @@ const SelectPanel = props => {
                   container: 'SelectPanel',
                   listRole: 'listbox',
                   selectionAttribute: 'aria-selected',
-                  selectionVariant:
-                    props.selectionVariant === 'instant' ? 'single' : props.selectionVariant || 'multiple',
+                  selectionVariant: props.selectionVariant === 'instant' ? 'single' : props.selectionVariant,
                   afterSelect: internalAfterSelect,
                 }}
               >
