@@ -8,14 +8,14 @@ import Link, {LinkProps as BaseLinkProps} from '../Link'
 
 import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import {getBreakpointDeclarations} from '../utils/getBreakpointDeclarations'
-const REGION_ORDER = {
-  ContextArea: 0,
-  LeadingAction: 1,
+const GRID_ROW_ORDER = {
+  ContextArea: 1,
+  LeadingAction: 2,
   TitleArea: 2,
-  TrailingAction: 3,
-  Actions: 4,
-  Description: 5,
-  Navigation: 6,
+  TrailingAction: 2,
+  Actions: 2,
+  Description: 3,
+  Navigation: 4,
 }
 
 const TITLE_AREA_REGION_ORDER = {
@@ -58,10 +58,16 @@ export type PageHeaderProps = {
 
 const Root: React.FC<React.PropsWithChildren<PageHeaderProps>> = ({children, sx = {}, as = 'div'}) => {
   const rootStyles = {
-    display: 'flex',
-    flexDirection: 'column',
+    display: 'grid',
+    gridTemplateRows: '1fr', // 4 rows
+
+    // gridAutoFlow: 'column',
+    // The current with the columsn now is taht it doesn't wrap the long pull request title.
+    gridTemplateColumns: 'max-content minmax(min-content, max-content) max-content 1fr', // 4 columns
+    // gridTemplateColumns: 'repeat(auto-fit, minmax(min-content, max-content))',
     // TODO: We used hard-coded values for the spacing and font size in this component. Update them to use new design tokens when they are ready to use.
     gap: '0.5rem',
+    alignItems: 'center',
   }
   return (
     <Box data-component="pageheader" as={as} sx={merge<BetterSystemStyleObject>(rootStyles, sx)}>
@@ -80,11 +86,13 @@ const ContextArea: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
   sx = {},
 }) => {
   const contentNavStyles = {
+    gridRow: GRID_ROW_ORDER.ContextArea,
+    gridColumn: '1 / -1', // take the full row
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
     gap: '0.5rem',
-    order: REGION_ORDER.ContextArea,
+
     ...getBreakpointDeclarations(hidden, 'display', value => {
       return value ? 'none' : 'flex'
     }),
@@ -229,14 +237,17 @@ const TitleArea: React.FC<React.PropsWithChildren<TitleAreaProps>> = ({
         data-component="pageheader-titlearea"
         sx={merge<BetterSystemStyleObject>(
           {
+            gridRow: 2,
+            // gridAutoFlow: 'column',
+            // gridArea: 'titlearea',
             display: 'flex',
             gap: '0.5rem',
-            order: REGION_ORDER.TitleArea,
+            // order: REGION_ORDER.TitleArea,
             ...getBreakpointDeclarations(hidden, 'display', value => {
               return value ? 'none' : 'flex'
             }),
             flexDirection: 'row',
-            alignItems: 'flex-start',
+            alignItems: 'center',
           },
           sx,
         )}
@@ -258,10 +269,13 @@ const LeadingAction: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
 
   return (
     <Box
+      data-component="pageheader-leadingaction"
       sx={merge<BetterSystemStyleObject>(
         {
+          gridRow: 2,
+          gridColumn: 1,
           display: 'flex',
-          order: REGION_ORDER.LeadingAction,
+          // order: REGION_ORDER.LeadingAction,
           ...getBreakpointDeclarations(hidden, 'display', value => {
             return value ? 'none' : 'flex'
           }),
@@ -373,10 +387,12 @@ const TrailingAction: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
 
   return (
     <Box
+      data-component="pageheader-trailingaction"
       sx={merge<BetterSystemStyleObject>(
         {
+          gridRow: 2,
           display: 'flex',
-          order: REGION_ORDER.TrailingAction,
+          // order: REGION_ORDER.TrailingAction,
           ...getBreakpointDeclarations(hidden, 'display', value => {
             return value ? 'none' : 'flex'
           }),
@@ -395,10 +411,13 @@ const Actions: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({children
   const {titleAreaHeight} = React.useContext(TitleAreaContext)
   return (
     <Box
+      data-component="pageheader-actions"
       sx={merge<BetterSystemStyleObject>(
         {
+          gridRow: 2,
+          gridColumn: 4,
           display: 'flex',
-          order: REGION_ORDER.Actions,
+          // order: REGION_ORDER.Actions,
           ...getBreakpointDeclarations(hidden, 'display', value => {
             return value ? 'none' : 'flex'
           }),
@@ -424,7 +443,8 @@ const Description: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({chil
       sx={merge<BetterSystemStyleObject>(
         {
           display: 'flex',
-          order: REGION_ORDER.Description,
+          gridRow: 3,
+          // order: REGION_ORDER.Description,
           ...getBreakpointDeclarations(hidden, 'display', value => {
             return value ? 'none' : 'flex'
           }),
@@ -473,7 +493,8 @@ const Navigation: React.FC<React.PropsWithChildren<NavigationProps>> = ({
       sx={merge<BetterSystemStyleObject>(
         {
           display: 'flex',
-          order: REGION_ORDER.Navigation,
+          gridRow: 4,
+          // order: REGION_ORDER.Navigation,
           ...getBreakpointDeclarations(hidden, 'display', value => {
             return value ? 'none' : 'block'
           }),

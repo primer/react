@@ -12,6 +12,7 @@ import {
   ArrowRightIcon,
   TriangleDownIcon,
   CheckIcon,
+  CopyIcon,
 } from '@primer/octicons-react'
 
 import {PageHeader} from './PageHeader'
@@ -19,7 +20,6 @@ import {Hidden} from '../Hidden'
 import {UnderlineNav} from '../UnderlineNav2'
 import {ActionMenu} from '../ActionMenu'
 import {ActionList} from '../ActionList'
-import VisuallyHidden from '../_VisuallyHidden'
 
 const meta: Meta = {
   title: 'Drafts/Components/PageHeader/Examples',
@@ -38,10 +38,28 @@ const setViewportParamToNarrow = {
 export const Webhooks = () => (
   <Box sx={{padding: 3}}>
     <PageHeader>
-      <PageHeader.Title as="h2">Webhooks</PageHeader.Title>
+      <PageHeader.TitleArea>
+        <PageHeader.LeadingVisual>
+          <GitBranchIcon />
+        </PageHeader.LeadingVisual>
+        <PageHeader.Title as="h2">Webhooks</PageHeader.Title>
+        <PageHeader.TrailingVisual>
+          <GitBranchIcon />
+        </PageHeader.TrailingVisual>
+      </PageHeader.TitleArea>
       <PageHeader.ContextArea>
         <PageHeader.ParentLink href="http://github.com">Repository settings</PageHeader.ParentLink>
+        <PageHeader.ContextBar>context bar</PageHeader.ContextBar>
+        <PageHeader.ContextAreaActions>
+          <Button>Context action</Button>
+        </PageHeader.ContextAreaActions>
       </PageHeader.ContextArea>
+      <PageHeader.LeadingAction>
+        <IconButton aria-label="More webhooks actions" icon={KebabHorizontalIcon} />
+      </PageHeader.LeadingAction>
+      <PageHeader.TrailingAction>
+        <IconButton aria-label="More webhooks actions" icon={KebabHorizontalIcon} />
+      </PageHeader.TrailingAction>
       <PageHeader.Actions>
         <Hidden when={['narrow']}>
           <Button variant="primary">New webhook</Button>
@@ -63,36 +81,37 @@ WebhooksOnNarrowViewport.parameters = setViewportParamToNarrow
 export const PullRequestPage = () => (
   <Box sx={{padding: 3}}>
     <PageHeader>
+      <PageHeader.TitleArea>
+        <PageHeader.Title as="h1" sx={{fontSize: 5}}>
+          PageHeader: Address dom order issues (screen reader experience feedback from sign-off) longer longer longer
+          longer
+        </PageHeader.Title>
+      </PageHeader.TitleArea>
       <PageHeader.ContextArea>
         <PageHeader.ParentLink href="http://github.com">Pull requests</PageHeader.ParentLink>
       </PageHeader.ContextArea>
-      <PageHeader.TitleArea>
-        <PageHeader.Title as="h1">
-          PageHeader component initial layout explorations extra long pull request title
-        </PageHeader.Title>
-        <PageHeader.Actions>
-          <Hidden when={['regular', 'wide']}>
-            <ActionMenu>
-              <ActionMenu.Anchor>
-                <IconButton aria-label="More pull request actions" icon={KebabHorizontalIcon} />
-              </ActionMenu.Anchor>
-              <ActionMenu.Overlay width="small">
-                <ActionList>
-                  <ActionList.Item onSelect={() => alert('Edit button action')}>Edit</ActionList.Item>
-                  <ActionList.Item onSelect={() => alert('Code button action')}>Code</ActionList.Item>
-                </ActionList>
-              </ActionMenu.Overlay>
-            </ActionMenu>
-          </Hidden>
+      <PageHeader.Actions>
+        <Hidden when={['regular', 'wide']}>
+          <ActionMenu>
+            <ActionMenu.Anchor>
+              <IconButton aria-label="More pull request actions" icon={KebabHorizontalIcon} />
+            </ActionMenu.Anchor>
+            <ActionMenu.Overlay width="small">
+              <ActionList>
+                <ActionList.Item onSelect={() => alert('Edit button action')}>Edit</ActionList.Item>
+                <ActionList.Item onSelect={() => alert('Code button action')}>Code</ActionList.Item>
+              </ActionList>
+            </ActionMenu.Overlay>
+          </ActionMenu>
+        </Hidden>
 
-          <Hidden when={['narrow']}>
-            <Box sx={{display: 'flex'}}>
-              <Button>Edit</Button>
-              <Button leadingIcon={CodeIcon}>Code</Button>
-            </Box>
-          </Hidden>
-        </PageHeader.Actions>
-      </PageHeader.TitleArea>
+        <Hidden when={['narrow']}>
+          <Box sx={{display: 'flex'}}>
+            <Button>Edit</Button>
+            <Button leadingIcon={CodeIcon}>Code</Button>
+          </Box>
+        </Hidden>
+      </PageHeader.Actions>
       <PageHeader.Description>
         <StateLabel status="pullOpened">Open</StateLabel>
         <Hidden when={['narrow']}>
@@ -142,7 +161,10 @@ export const FilesPage = () => (
   <Box sx={{padding: 3}}>
     <PageHeader>
       <PageHeader.TitleArea>
-        <PageHeader.Title as="h1">PageHeader.tsx</PageHeader.Title>
+        <Text sx={{color: 'rgb(101, 109, 118)'}}>/</Text>
+        <PageHeader.Title as="h1" sx={{fontSize: 1}}>
+          PageHeader.tsx
+        </PageHeader.Title>
       </PageHeader.TitleArea>
 
       <PageHeader.ContextArea>
@@ -218,8 +240,11 @@ export const FilesPage = () => (
           </Breadcrumbs.Item>
         </Breadcrumbs>
       </PageHeader.LeadingAction>
+      <PageHeader.TrailingAction hidden={false}>
+        <IconButton size="small" variant="invisible" aria-label="Copy to clipboard" icon={CopyIcon} />
+      </PageHeader.TrailingAction>
 
-      <PageHeader.Actions hidden={{narrow: true}}>
+      <PageHeader.Actions hidden={false}>
         <ActionMenu>
           <ActionMenu.Anchor>
             <IconButton size="small" aria-label="More file actions" icon={KebabHorizontalIcon} />
@@ -273,38 +298,38 @@ export const WithPageLayout = () => {
     <PageLayout>
       <PageLayout.Header>
         <PageHeader>
-          <PageHeader.ContextArea>
-            <PageHeader.ParentLink href="http://github.com">Pull requests</PageHeader.ParentLink>
-          </PageHeader.ContextArea>
           <PageHeader.TitleArea>
             <PageHeader.Title as="h1">
               PageHeader component initial layout explorations extra long pull request title &nbsp;
               <Text sx={{color: 'fg.muted', fontWeight: 'light'}}>#1831</Text>
             </PageHeader.Title>
-            <PageHeader.Actions>
-              <Hidden when={['regular', 'wide']}>
-                {/* Pop up actions */}
-                <ActionMenu>
-                  <ActionMenu.Anchor>
-                    <IconButton aria-label="More pull request actions" icon={KebabHorizontalIcon} />
-                  </ActionMenu.Anchor>
-                  <ActionMenu.Overlay width="small">
-                    <ActionList>
-                      <ActionList.Item onSelect={() => alert('Edit button action')}>Edit</ActionList.Item>
-                      <ActionList.Item onSelect={() => alert('Code button action')}>Code</ActionList.Item>
-                    </ActionList>
-                  </ActionMenu.Overlay>
-                </ActionMenu>
-              </Hidden>
-
-              <Hidden when={['narrow']}>
-                <Box sx={{display: 'flex'}}>
-                  <Button>Edit</Button>
-                  <Button leadingIcon={CodeIcon}>Code</Button>
-                </Box>
-              </Hidden>
-            </PageHeader.Actions>
           </PageHeader.TitleArea>
+          <PageHeader.ContextArea>
+            <PageHeader.ParentLink href="http://github.com">Pull requests</PageHeader.ParentLink>
+          </PageHeader.ContextArea>
+          <PageHeader.Actions>
+            <Hidden when={['regular', 'wide']}>
+              {/* Pop up actions */}
+              <ActionMenu>
+                <ActionMenu.Anchor>
+                  <IconButton aria-label="More pull request actions" icon={KebabHorizontalIcon} />
+                </ActionMenu.Anchor>
+                <ActionMenu.Overlay width="small">
+                  <ActionList>
+                    <ActionList.Item onSelect={() => alert('Edit button action')}>Edit</ActionList.Item>
+                    <ActionList.Item onSelect={() => alert('Code button action')}>Code</ActionList.Item>
+                  </ActionList>
+                </ActionMenu.Overlay>
+              </ActionMenu>
+            </Hidden>
+
+            <Hidden when={['narrow']}>
+              <Box sx={{display: 'flex'}}>
+                <Button>Edit</Button>
+                <Button leadingIcon={CodeIcon}>Code</Button>
+              </Box>
+            </Hidden>
+          </PageHeader.Actions>
           <PageHeader.Description>
             <StateLabel status="pullOpened">Open</StateLabel>
             <Hidden when={['narrow']}>
