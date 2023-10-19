@@ -246,7 +246,7 @@ describe('Table', () => {
           </Table.Body>
         </Table>,
       )
-      expect(screen.getByRole('cell')).toHaveStyle('vertical-align: middle')
+      expect(screen.getByRole('cell')).toHaveStyle('align-items: center')
     })
   })
 
