@@ -276,7 +276,6 @@ const Table = React.forwardRef<HTMLTableElement, TableProps>(function Table(
         aria-labelledby={labelledby}
         data-cell-padding={cellPadding}
         className={clsx('Table', className)}
-        role="table"
         ref={ref}
         style={{'--grid-template-columns': gridTemplateColumns} as React.CSSProperties}
       />
