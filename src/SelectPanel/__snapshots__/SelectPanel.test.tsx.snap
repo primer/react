@@ -29,10 +29,6 @@ exports[`SelectPanel renders consistently 1`] = `
   text-decoration: none;
   text-align: center;
   font-size: 14px;
-  color: #24292f;
-  background-color: #f6f8fa;
-  border: 1px solid rgba(31,35,40,0.15);
-  box-shadow: 0 1px 0 rgba(31,35,40,0.04),inset 0 1px 0 rgba(255,255,255,0.25);
 }
 
 .c1:hover {
@@ -52,26 +48,33 @@ exports[`SelectPanel renders consistently 1`] = `
   opacity: 0.6;
 }
 
-.c1:hover {
+.c2 {
+  color: #24292f;
+  background-color: #f6f8fa;
+  border: 1px solid rgba(31,35,40,0.15);
+  box-shadow: 0 1px 0 rgba(31,35,40,0.04),inset 0 1px 0 rgba(255,255,255,0.25);
+}
+
+.c2:hover {
   background-color: #f3f4f6;
   border-color: rgba(31,35,40,0.15);
 }
 
-.c1:focus {
+.c2:focus {
   outline: solid 2px #0969da;
 }
 
-.c1:active {
+.c2:active {
   background-color: hsla(220,14%,94%,1);
 }
 
-.c1:disabled {
+.c2:disabled {
   color: #8c959f;
   background-color: #f6f8fa;
   border-color: rgba(31,35,40,0.15);
 }
 
-.c2 {
+.c3 {
   margin-left: 4px;
 }
 
@@ -86,7 +89,7 @@ exports[`SelectPanel renders consistently 1`] = `
 >
   <button
     aria-haspopup="true"
-    className="c1"
+    className="c1 c2"
     id="react-aria-3"
     onClick={[Function]}
     onKeyDown={[Function]}
@@ -96,7 +99,7 @@ exports[`SelectPanel renders consistently 1`] = `
     Select Items
     <svg
       aria-hidden="true"
-      className="c2"
+      className="c3"
       fill="currentColor"
       focusable="false"
       height={16}
