@@ -453,8 +453,19 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
             event.stopPropagation()
           }}
           onBlur={() => setIsFocused(false)}
+          onClick={event => {
+            if (onSelect) {
+              onSelect(event)
+            } else {
+              toggle(event)
+            }
+          }}
+          onAuxClick={event => {
+            if (onSelect && event.button === 1) {
+              onSelect(event)
+            }
+          }}
         >
-          {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions */}
           <div
             className="PRIVATE_TreeView-item-container"
             style={{
@@ -463,35 +474,17 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
               contentVisibility: containIntrinsicSize ? 'auto' : undefined,
               containIntrinsicSize,
             }}
-            onClick={event => {
-              if (onSelect) {
-                onSelect(event)
-              } else {
-                toggle(event)
-              }
-            }}
-            onAuxClick={event => {
-              if (onSelect && event.button === 1) {
-                onSelect(event)
-              }
-            }}
           >
             <div style={{gridArea: 'spacer', display: 'flex'}}>
               <LevelIndicatorLines level={level} />
             </div>
             {hasSubTree ? (
-              // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
               <div
                 className={clsx(
                   'PRIVATE_TreeView-item-toggle',
                   onSelect && 'PRIVATE_TreeView-item-toggle--hover',
                   level === 1 && 'PRIVATE_TreeView-item-toggle--end',
                 )}
-                onClick={event => {
-                  if (onSelect) {
-                    toggle(event)
-                  }
-                }}
               >
                 {isExpanded ? <ChevronDownIcon size={12} /> : <ChevronRightIcon size={12} />}
               </div>

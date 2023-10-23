@@ -7,9 +7,13 @@ import {Placeholder} from '@primer/react/Placeholder'
 import React from 'react'
 import State from '../../../components/State'
 
-const ReactRouterLink = ({to, ...props}) => {
+const ReactRouterLink = ({to, children, ...props}) => {
   // eslint-disable-next-line jsx-a11y/anchor-has-content
-  return <a href={to} {...props} />
+  return (
+    <a href={to} {...props}>
+      {children}
+    </a>
+  )
 }
 
 // Exclude octicons-react's default export because it's deprecated
