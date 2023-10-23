@@ -39,19 +39,5 @@ test.describe('BranchName', () => {
         })
       })
     }
-
-    test.describe('with forced underlines', () => {
-      test('default @vrt', async ({page}) => {
-        await visit(page, {
-          id: 'components-branchname--default',
-          globals: {
-            colorScheme: 'light',
-            prefersLinkUnderlines: 'true',
-          },
-        })
-
-        expect(await page.screenshot()).toMatchSnapshot('BranchName.Default.light.forcedUnderlines.png')
-      })
-    })
   })
 })

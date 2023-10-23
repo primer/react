@@ -54,7 +54,12 @@ export const Default = () => {
         title="Select labels"
         subtitle="Use labels to organize issues and pull requests"
         renderAnchor={({children, 'aria-labelledby': ariaLabelledBy, ...anchorProps}) => (
-          <Button trailingAction={TriangleDownIcon} aria-labelledby={` ${ariaLabelledBy}`} {...anchorProps}>
+          <Button
+            trailingAction={TriangleDownIcon}
+            aria-labelledby={` ${ariaLabelledBy}`}
+            {...anchorProps}
+            aria-haspopup="dialog"
+          >
             {children ?? 'Select Labels'}
           </Button>
         )}

@@ -5,14 +5,14 @@
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 ## Table of Contents
 
-- [Overview](#overview)
-- [Changes](#changes)
-- [Reference](#reference)
-  - [The type of a prop is broadened](#the-type-of-a-prop-is-broadened)
-  - [The type of a prop is narrowed](#the-type-of-a-prop-is-narrowed)
-  - [The `display` property used for the container of `children` is changed](#the-display-property-used-for-the-container-of-children-is-changed)
-  - [A component includes a landmark role](#a-component-includes-a-landmark-role)
-  - [A component no longer includes a landmark role](#a-component-no-longer-includes-a-landmark-role)
+* [Overview](#overview)
+* [Changes](#changes)
+* [Reference](#reference)
+  * [The type of a prop is broadened](#the-type-of-a-prop-is-broadened)
+  * [The type of a prop is narrowed](#the-type-of-a-prop-is-narrowed)
+  * [The `display` property used for the container of `children` is changed](#the-display-property-used-for-the-container-of-children-is-changed)
+  * [A component includes a landmark role](#a-component-includes-a-landmark-role)
+  * [A component no longer includes a landmark role](#a-component-no-longer-includes-a-landmark-role)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 <!-- prettier-ignore-end -->

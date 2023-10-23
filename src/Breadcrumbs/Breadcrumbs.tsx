@@ -66,7 +66,7 @@ const BreadcrumbsItem = styled.a.attrs<StyledBreadcrumbsItemProps>(props => ({
   color: ${get('colors.accent.fg')};
   display: inline-block;
   font-size: ${get('fontSizes.1')};
-  text-decoration: var(--prefers-link-underlines, underline);
+  text-decoration: none;
   &:hover {
     text-decoration: underline;
   }
