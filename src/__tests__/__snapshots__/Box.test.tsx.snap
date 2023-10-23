@@ -50,6 +50,18 @@ exports[`Box renders margin 3`] = `
 }
 
 @media screen and (min-width:544px) {
+
+}
+
+@media screen and (min-width:768px) {
+
+}
+
+@media screen and (min-width:1012px) {
+
+}
+
+@media screen and (min-width:544px) {
   .c0 {
     margin: 4px;
   }
@@ -113,6 +125,18 @@ exports[`Box renders padding 2`] = `
 exports[`Box renders padding 3`] = `
 .c0 {
   padding: 4px;
+}
+
+@media screen and (min-width:544px) {
+
+}
+
+@media screen and (min-width:768px) {
+
+}
+
+@media screen and (min-width:1012px) {
+
 }
 
 @media screen and (min-width:544px) {
