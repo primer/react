@@ -8,7 +8,6 @@ import React from 'react'
 import State from '../../../components/State'
 
 const ReactRouterLink = ({to, children, ...props}) => {
-  // eslint-disable-next-line jsx-a11y/anchor-has-content
   return (
     <a href={to} {...props}>
       {children}
