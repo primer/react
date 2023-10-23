@@ -224,7 +224,7 @@
     "jest-matchmedia-mock": "1.1.0",
     "jest-styled-components": "7.2.0",
     "jest-watch-typeahead": "2.2.2",
-    "jscodeshift": "0.14.0",
+    "jscodeshift": "0.15.0",
     "lint-staged": "14.0.1",
     "lodash.groupby": "4.6.0",
     "lodash.keyby": "4.6.0",
