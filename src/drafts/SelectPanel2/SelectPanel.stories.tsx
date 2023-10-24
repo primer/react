@@ -781,7 +781,7 @@ export const GOpenFromMenu = () => {
   )
 }
 
-export const IInstantSelectionVariant = () => {
+export const FInstantSelectionVariant = () => {
   const [selectedTag, setSelectedTag] = React.useState<string>()
 
   const onSubmit = () => {
