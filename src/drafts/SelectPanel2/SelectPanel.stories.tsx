@@ -781,39 +781,6 @@ export const GOpenFromMenu = () => {
   )
 }
 
-export const FInstantSelectionVariant = () => {
-  const [selectedTag, setSelectedTag] = React.useState<string>()
-
-  const onSubmit = () => {
-    if (!selectedTag) return
-    data.ref = selectedTag // pretending to persist changes
-  }
-
-  const itemsToShow = data.tags
-
-  return (
-    <>
-      <h1>Instant selection variant</h1>
-
-      <SelectPanel title="Choose a tag" selectionVariant="instant" onSubmit={onSubmit} height="medium" defaultOpen>
-        {/* @ts-ignore todo */}
-        <SelectPanel.Button leadingIcon={TagIcon}>{selectedTag || 'Choose a tag'}</SelectPanel.Button>
-
-        <ActionList>
-          {itemsToShow.map(tag => (
-            <ActionList.Item key={tag.id} onSelect={() => setSelectedTag(tag.id)} selected={selectedTag === tag.id}>
-              {tag.name}
-            </ActionList.Item>
-          ))}
-        </ActionList>
-        <SelectPanel.Footer>
-          <SelectPanel.SecondaryButton>Edit tags</SelectPanel.SecondaryButton>
-        </SelectPanel.Footer>
-      </SelectPanel>
-    </>
-  )
-}
-
 // ----- Suspense implementation details ----
 
 const cache = new Map()
