@@ -1,7 +1,7 @@
 import React from 'react'
 import {SelectPanel} from './SelectPanel'
 import {ActionList, ActionMenu, Avatar, Box, Button, Flash} from '../../../src/index'
-import {ArrowRightIcon, AlertIcon, EyeIcon, GitBranchIcon, TriangleDownIcon} from '@primer/octicons-react'
+import {ArrowRightIcon, AlertIcon, EyeIcon, GitBranchIcon, TriangleDownIcon, TagIcon} from '@primer/octicons-react'
 import data from './mock-data'
 
 const getCircle = (color: string) => (
@@ -834,6 +834,39 @@ export const IWithRemoveFilterIcon = () => {
             </ActionList.Item>
           ))}
         </ActionList>
+      </SelectPanel>
+    </>
+  )
+}
+
+export const FInstantSelectionVariant = () => {
+  const [selectedTag, setSelectedTag] = React.useState<string>()
+
+  const onSubmit = () => {
+    if (!selectedTag) return
+    data.ref = selectedTag // pretending to persist changes
+  }
+
+  const itemsToShow = data.tags
+
+  return (
+    <>
+      <h1>Instant selection variant</h1>
+
+      <SelectPanel title="Choose a tag" selectionVariant="instant" onSubmit={onSubmit} height="medium" defaultOpen>
+        {/* @ts-ignore todo */}
+        <SelectPanel.Button leadingIcon={TagIcon}>{selectedTag || 'Choose a tag'}</SelectPanel.Button>
+
+        <ActionList>
+          {itemsToShow.map(tag => (
+            <ActionList.Item key={tag.id} onSelect={() => setSelectedTag(tag.id)} selected={selectedTag === tag.id}>
+              {tag.name}
+            </ActionList.Item>
+          ))}
+        </ActionList>
+        <SelectPanel.Footer>
+          <SelectPanel.SecondaryButton>Edit tags</SelectPanel.SecondaryButton>
+        </SelectPanel.Footer>
       </SelectPanel>
     </>
   )
