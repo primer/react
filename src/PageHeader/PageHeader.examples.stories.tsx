@@ -10,11 +10,16 @@ import {
   ChecklistIcon,
   FileDiffIcon,
   ArrowRightIcon,
+  TriangleDownIcon,
+  CheckIcon,
 } from '@primer/octicons-react'
 
 import {PageHeader} from './PageHeader'
 import {Hidden} from '../Hidden'
 import {UnderlineNav} from '../UnderlineNav2'
+import {ActionMenu} from '../ActionMenu'
+import {ActionList} from '../ActionList'
+import VisuallyHidden from '../_VisuallyHidden'
 
 const meta: Meta = {
   title: 'Drafts/Components/PageHeader/Examples',
@@ -66,17 +71,26 @@ export const PullRequestPage = () => (
         <PageHeader.ParentLink href="http://github.com">Pull requests</PageHeader.ParentLink>
       </PageHeader.ContextArea>
       <PageHeader.TitleArea>
-        <PageHeader.Title as="h2">
+        <PageHeader.Title as="h1">
           PageHeader component initial layout explorations extra long pull request title
         </PageHeader.Title>
         <PageHeader.Actions>
           <Hidden when={['regular', 'wide']}>
-            <IconButton aria-label="More" icon={KebabHorizontalIcon} />
-            {/* Pop up actions */}
+            <ActionMenu>
+              <ActionMenu.Anchor>
+                <IconButton aria-label="More pull request actions" icon={KebabHorizontalIcon} />
+              </ActionMenu.Anchor>
+              <ActionMenu.Overlay width="small">
+                <ActionList>
+                  <ActionList.Item onSelect={() => alert('Edit button action')}>Edit</ActionList.Item>
+                  <ActionList.Item onSelect={() => alert('Code button action')}>Code</ActionList.Item>
+                </ActionList>
+              </ActionMenu.Overlay>
+            </ActionMenu>
           </Hidden>
 
           <Hidden when={['narrow']}>
-            <Box sx={{display: 'flex', gap: 2}}>
+            <Box sx={{display: 'flex'}}>
               <Button>Edit</Button>
               <Button leadingIcon={CodeIcon}>Code</Button>
             </Box>
@@ -87,18 +101,18 @@ export const PullRequestPage = () => (
         <StateLabel status="pullOpened">Open</StateLabel>
         <Hidden when={['narrow']}>
           <Text sx={{fontSize: 1, color: 'fg.muted'}}>
-            <Link href="#" muted sx={{fontWeight: 'bold'}}>
+            <Link href="https://github.com/broccolinisoup" sx={{fontWeight: 'bold'}}>
               broccolinisoup
             </Link>{' '}
-            wants to merge 3 commits into <BranchName href="#">main</BranchName> from{' '}
-            <BranchName href="#">broccolinisoup/switch-to-new-underlineNav</BranchName>
+            wants to merge 3 commits into <BranchName href="https://github.com/primer/react">main</BranchName> from{' '}
+            <BranchName href="https://github.com/primer/react">bs/pageheader-title</BranchName>
           </Text>
         </Hidden>
         <Hidden when={['regular', 'wide']}>
           <Text sx={{fontSize: 1, color: 'fg.muted'}}>
-            <BranchName href="#">main</BranchName>
+            <BranchName href="https://github.com/primer/react">main</BranchName>
             <ArrowRightIcon />
-            <BranchName href="#">page-header-initial</BranchName>
+            <BranchName href="https://github.com/primer/react">page-header-initial</BranchName>
           </Text>
         </Hidden>
       </PageHeader.Description>
@@ -134,21 +148,120 @@ export const FilesPage = () => (
       <PageHeader.ContextArea>
         <PageHeader.ParentLink>Files</PageHeader.ParentLink>
         <PageHeader.ContextAreaActions>
-          <Button size="small" leadingIcon={GitBranchIcon}>
-            Main
-          </Button>
-          <IconButton size="small" aria-label="More" icon={KebabHorizontalIcon} />
+          <ActionMenu>
+            <ActionMenu.Anchor>
+              <Button size="small" leadingIcon={GitBranchIcon} trailingIcon={TriangleDownIcon}>
+                Main
+              </Button>
+            </ActionMenu.Anchor>
+            <ActionMenu.Overlay width="medium">
+              <ActionList>
+                <ActionList.Item onSelect={() => alert('Main')}>
+                  <ActionList.LeadingVisual>
+                    <CheckIcon />
+                  </ActionList.LeadingVisual>
+                  main <ActionList.TrailingVisual>default</ActionList.TrailingVisual>
+                </ActionList.Item>
+                <ActionList.Item onSelect={() => alert('Branch 1')}>branch-1</ActionList.Item>
+                <ActionList.Item onSelect={() => alert('Branch 2')}>branch-2</ActionList.Item>
+              </ActionList>
+            </ActionMenu.Overlay>
+          </ActionMenu>
+
+          <ActionMenu>
+            <ActionMenu.Anchor>
+              <IconButton size="small" aria-label="More file actions" icon={KebabHorizontalIcon} />
+            </ActionMenu.Anchor>
+            <ActionMenu.Overlay width="medium">
+              <ActionList>
+                <ActionList.Group title="Raw file content">
+                  <ActionList.Item onSelect={() => alert('Download')}>Download</ActionList.Item>
+                </ActionList.Group>
+                <ActionList.Divider />
+                <ActionList.Item onSelect={() => alert('Jump to line')}>
+                  Jump to line
+                  <ActionList.TrailingVisual>L</ActionList.TrailingVisual>
+                </ActionList.Item>
+                <ActionList.Divider />
+                <ActionList.Item onSelect={() => alert('Copy path')}>
+                  Copy path
+                  <ActionList.TrailingVisual>⌘⇧.</ActionList.TrailingVisual>
+                </ActionList.Item>
+                <ActionList.Item onSelect={() => alert('Copy permalink')}>
+                  Copy permalink
+                  <ActionList.TrailingVisual>⌘⇧,</ActionList.TrailingVisual>
+                </ActionList.Item>
+                <ActionList.Divider />
+                <ActionList.Group title="View Options">
+                  <ActionList.Item onSelect={() => alert('Show code folding buttons')}>
+                    Show code folding buttons
+                  </ActionList.Item>
+                  <ActionList.Item onSelect={() => alert('Wrap lines')}>Wrap lines</ActionList.Item>
+                  <ActionList.Item onSelect={() => alert('Center content')}>Center content</ActionList.Item>
+                </ActionList.Group>
+                <ActionList.Divider />
+                <ActionList.Item variant="danger" onSelect={() => alert('Delete file clicked')}>
+                  Delete file
+                  <ActionList.TrailingVisual>⌘D</ActionList.TrailingVisual>
+                </ActionList.Item>
+              </ActionList>
+            </ActionMenu.Overlay>
+          </ActionMenu>
         </PageHeader.ContextAreaActions>
       </PageHeader.ContextArea>
       <PageHeader.TitleArea>
         <Breadcrumbs>
-          <Breadcrumbs.Item href="#">...</Breadcrumbs.Item>
-          <Breadcrumbs.Item href="#">primer</Breadcrumbs.Item>
-          <Breadcrumbs.Item href="#">react</Breadcrumbs.Item>
-          <Breadcrumbs.Item href="#">src</Breadcrumbs.Item>
-          <Breadcrumbs.Item href="#">PageHeader</Breadcrumbs.Item>
-          <Breadcrumbs.Item href="#">PageHeader.tsx</Breadcrumbs.Item>
+          <Breadcrumbs.Item href="https://github.com/primer/react/tree/main">react</Breadcrumbs.Item>
+          <Breadcrumbs.Item href="https://github.com/primer/react/tree/main/src">src</Breadcrumbs.Item>
+          <Breadcrumbs.Item href="https://github.com/primer/react/tree/main/src/PageHeader">
+            PageHeader
+          </Breadcrumbs.Item>
+          <Breadcrumbs.Item href="https://github.com/primer/react/blob/main/src/PageHeader/PageHeader.tsx">
+            PageHeader.tsx
+          </Breadcrumbs.Item>
         </Breadcrumbs>
+        <VisuallyHidden as="h2">PageHeader.tsx</VisuallyHidden>
+        <PageHeader.Actions hidden={{narrow: true}}>
+          <ActionMenu>
+            <ActionMenu.Anchor>
+              <IconButton size="small" aria-label="More file actions" icon={KebabHorizontalIcon} />
+            </ActionMenu.Anchor>
+            <ActionMenu.Overlay width="medium">
+              <ActionList>
+                <ActionList.Group title="Raw file content">
+                  <ActionList.Item onSelect={() => alert('Download')}>Download</ActionList.Item>
+                </ActionList.Group>
+                <ActionList.Divider />
+                <ActionList.Item onSelect={() => alert('Jump to line')}>
+                  Jump to line
+                  <ActionList.TrailingVisual>L</ActionList.TrailingVisual>
+                </ActionList.Item>
+                <ActionList.Divider />
+                <ActionList.Item onSelect={() => alert('Copy path')}>
+                  Copy path
+                  <ActionList.TrailingVisual>⌘⇧.</ActionList.TrailingVisual>
+                </ActionList.Item>
+                <ActionList.Item onSelect={() => alert('Copy permalink')}>
+                  Copy permalink
+                  <ActionList.TrailingVisual>⌘⇧,</ActionList.TrailingVisual>
+                </ActionList.Item>
+                <ActionList.Divider />
+                <ActionList.Group title="View Options">
+                  <ActionList.Item onSelect={() => alert('Show code folding buttons')}>
+                    Show code folding buttons
+                  </ActionList.Item>
+                  <ActionList.Item onSelect={() => alert('Wrap lines')}>Wrap lines</ActionList.Item>
+                  <ActionList.Item onSelect={() => alert('Center content')}>Center content</ActionList.Item>
+                </ActionList.Group>
+                <ActionList.Divider />
+                <ActionList.Item variant="danger" onSelect={() => alert('Delete file clicked')}>
+                  Delete file
+                  <ActionList.TrailingVisual>⌘D</ActionList.TrailingVisual>
+                </ActionList.Item>
+              </ActionList>
+            </ActionMenu.Overlay>
+          </ActionMenu>
+        </PageHeader.Actions>
       </PageHeader.TitleArea>
     </PageHeader>
   </Box>
@@ -167,14 +280,24 @@ export const WithPageLayout = () => {
             <PageHeader.ParentLink href="http://github.com">Pull requests</PageHeader.ParentLink>
           </PageHeader.ContextArea>
           <PageHeader.TitleArea>
-            <PageHeader.Title as="h2">
+            <PageHeader.Title as="h1">
               PageHeader component initial layout explorations extra long pull request title &nbsp;
               <Text sx={{color: 'fg.muted', fontWeight: 'light'}}>#1831</Text>
             </PageHeader.Title>
             <PageHeader.Actions>
               <Hidden when={['regular', 'wide']}>
-                <IconButton aria-label="More" icon={KebabHorizontalIcon} />
                 {/* Pop up actions */}
+                <ActionMenu>
+                  <ActionMenu.Anchor>
+                    <IconButton aria-label="More pull request actions" icon={KebabHorizontalIcon} />
+                  </ActionMenu.Anchor>
+                  <ActionMenu.Overlay width="small">
+                    <ActionList>
+                      <ActionList.Item onSelect={() => alert('Edit button action')}>Edit</ActionList.Item>
+                      <ActionList.Item onSelect={() => alert('Code button action')}>Code</ActionList.Item>
+                    </ActionList>
+                  </ActionMenu.Overlay>
+                </ActionMenu>
               </Hidden>
 
               <Hidden when={['narrow']}>
@@ -189,18 +312,20 @@ export const WithPageLayout = () => {
             <StateLabel status="pullOpened">Open</StateLabel>
             <Hidden when={['narrow']}>
               <Text sx={{fontSize: 1, color: 'fg.muted'}}>
-                <Link href="#" muted sx={{fontWeight: 'bold'}}>
+                <Link href="https://github.com/broccolinisoup" sx={{fontWeight: 'bold'}}>
                   broccolinisoup
                 </Link>{' '}
-                wants to merge 3 commits into <BranchName href="#">main</BranchName> from{' '}
-                <BranchName href="#">broccolinisoup/switch-to-new-underlineNav</BranchName>
+                wants to merge 3 commits into <BranchName href="https://github.com/primer/react">main</BranchName> from{' '}
+                <BranchName href="https://github.com/primer/react">
+                  broccolinisoup/switch-to-new-underlineNav
+                </BranchName>
               </Text>
             </Hidden>
             <Hidden when={['regular', 'wide']}>
               <Text sx={{fontSize: 1, color: 'fg.muted'}}>
-                <BranchName href="#">main</BranchName>
+                <BranchName href="https://github.com/primer/react">main</BranchName>
                 <ArrowRightIcon />
-                <BranchName href="#">page-header-initial</BranchName>
+                <BranchName href="https://github.com/primer/react">page-header-initial</BranchName>
               </Text>
             </Hidden>
           </PageHeader.Description>
@@ -224,32 +349,22 @@ export const WithPageLayout = () => {
       </PageLayout.Header>
       <PageLayout.Content>
         <Box sx={{border: '1px solid', borderRadius: 2, borderColor: 'border.default', height: 200}}></Box>
-        <Box
-          sx={{
-            maxWidth: '100%',
-            overflowX: 'auto',
-            border: '1px solid',
-            whiteSpace: 'nowrap',
-            borderColor: 'border.default',
-            mt: 3,
-            p: 3,
-            borderRadius: 2,
-          }}
-          tabIndex={0}
-        >
-          This box has really long content. If it is too long, it will cause x overflow and should show a scrollbar.
-          When this overflows, it should not break to overall page layout!
-        </Box>
       </PageLayout.Content>
       <PageLayout.Pane>
         <Box sx={{display: 'flex', flexDirection: 'column', gap: 3}}>
           <Box>
             <Text sx={{fontSize: 0, fontWeight: 'bold', display: 'block', color: 'fg.muted'}}>Assignees</Text>
-            <Text sx={{fontSize: 0, color: 'fg.muted', lineHeight: 'condensed'}}>
-              No one –{' '}
-              <Link href="#" muted>
+            <Text sx={{fontSize: 0, color: 'fg.muted', lineHeight: 'condensed', display: 'flex', alignItems: 'center'}}>
+              No one —
+              <Button
+                variant="invisible"
+                onClick={() => {
+                  alert('Assign yourself')
+                }}
+                sx={{color: 'fg.muted'}}
+              >
                 assign yourself
-              </Link>
+              </Button>
             </Text>
           </Box>
           <Box role="separator" sx={{width: '100%', height: 1, backgroundColor: 'border.default'}}></Box>

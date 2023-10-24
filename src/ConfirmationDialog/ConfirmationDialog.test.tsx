@@ -6,13 +6,11 @@ import {ActionMenu} from '../deprecated/ActionMenu'
 import BaseStyles from '../BaseStyles'
 import Box from '../Box'
 import Button from '../deprecated/Button/Button'
-import {ConfirmationDialog, useConfirm} from '../Dialog/ConfirmationDialog'
+import {ConfirmationDialog, useConfirm} from './ConfirmationDialog'
 import theme from '../theme'
 import {ThemeProvider} from '../ThemeProvider'
 import {SSRProvider} from '../utils/ssr'
 import {behavesAsComponent, checkExports} from '../utils/testing'
-
-declare const REACT_VERSION_LATEST: boolean
 
 const Basic = ({confirmButtonType}: Pick<React.ComponentProps<typeof ConfirmationDialog>, 'confirmButtonType'>) => {
   const [isOpen, setIsOpen] = useState(false)
@@ -80,7 +78,7 @@ describe('ConfirmationDialog', () => {
     options: {skipAs: true, skipSx: true},
   })
 
-  checkExports('Dialog/ConfirmationDialog', {
+  checkExports('ConfirmationDialog/ConfirmationDialog', {
     default: undefined,
     useConfirm,
     ConfirmationDialog,
@@ -126,14 +124,10 @@ describe('ConfirmationDialog', () => {
     expect(getByText('Primary')).toEqual(document.activeElement)
     expect(getByText('Secondary')).not.toEqual(document.activeElement)
 
-    // REACT_VERSION_LATEST should be treated as a constant for the test
-    // environment
-    if (REACT_VERSION_LATEST) {
-      expect(spy).toHaveBeenCalledTimes(1)
-      expect(spy).toHaveBeenCalledWith(
-        expect.stringContaining('Warning: ReactDOM.render is no longer supported in React 18'),
-      )
-    }
+    expect(spy).toHaveBeenCalledTimes(1)
+    expect(spy).toHaveBeenCalledWith(
+      expect.stringContaining('Warning: ReactDOM.render is no longer supported in React 18'),
+    )
     spy.mockRestore()
   })
 })
