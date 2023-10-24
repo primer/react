@@ -107,7 +107,17 @@ const Root: React.FC<React.PropsWithChildren<PageLayoutProps>> = ({
           }}
         >
           {slots.header}
-          <Box sx={{display: 'flex', flex: '1 1 100%', flexWrap: 'wrap', maxWidth: '100%'}}>{rest}</Box>
+          <Box
+            sx={{
+              display: 'flex',
+              flex: '1 1 100%',
+              flexWrap: 'wrap',
+              maxWidth: '100%',
+              columnGap: SPACING_MAP[columnGap],
+            }}
+          >
+            {rest}
+          </Box>
           {slots.footer}
         </Box>
       </Box>
@@ -435,7 +445,6 @@ const Content: React.FC<React.PropsWithChildren<PageLayoutContentProps>> = ({
         {
           display: isHidden ? 'none' : 'flex',
           flexDirection: 'column',
-          order: REGION_ORDER.content,
           // Set flex-basis to 0% to allow flex-grow to control the width of the content region.
           // Without this, the content region could wrap onto a different line
           // than the pane region on wide viewports if its contents are too wide.
@@ -877,7 +886,6 @@ const Footer: React.FC<React.PropsWithChildren<PageLayoutFooterProps>> = ({
       hidden={isHidden}
       sx={merge<BetterSystemStyleObject>(
         {
-          order: REGION_ORDER.footer,
           width: '100%',
           marginTop: SPACING_MAP[rowGap],
         },
