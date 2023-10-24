@@ -9,7 +9,7 @@ exports[`CircleBadge CircleBadge.Icon renders consistently 1`] = `
 
 <svg
   aria-hidden="true"
-  className=" c0"
+  className="c0"
   fill="currentColor"
   focusable="false"
   height={16}

@@ -23,6 +23,10 @@ exports[`SelectMenu right-aligned modal has right: 0px 1`] = `
   text-decoration: none;
   text-align: center;
   font-size: 14px;
+  color: #24292f;
+  background-color: #f6f8fa;
+  border: 1px solid rgba(31,35,40,0.15);
+  box-shadow: 0 1px 0 rgba(31,35,40,0.04),inset 0 1px 0 rgba(255,255,255,0.25);
 }
 
 .c1:hover {
@@ -42,33 +46,26 @@ exports[`SelectMenu right-aligned modal has right: 0px 1`] = `
   opacity: 0.6;
 }
 
-.c2 {
-  color: #24292f;
-  background-color: #f6f8fa;
-  border: 1px solid rgba(31,35,40,0.15);
-  box-shadow: 0 1px 0 rgba(31,35,40,0.04),inset 0 1px 0 rgba(255,255,255,0.25);
-}
-
-.c2:hover {
+.c1:hover {
   background-color: #f3f4f6;
   border-color: rgba(31,35,40,0.15);
 }
 
-.c2:focus {
+.c1:focus {
   outline: solid 2px #0969da;
 }
 
-.c2:active {
+.c1:active {
   background-color: hsla(220,14%,94%,1);
 }
 
-.c2:disabled {
+.c1:disabled {
   color: #8c959f;
   background-color: #f6f8fa;
   border-color: rgba(31,35,40,0.15);
 }
 
-.c7 {
+.c6 {
   padding: 4px 16px;
   margin: 0;
   font-size: 12px;
@@ -78,7 +75,7 @@ exports[`SelectMenu right-aligned modal has right: 0px 1`] = `
   border-bottom: 1px solid hsla(210,18%,87%,1);
 }
 
-.c8 {
+.c7 {
   margin-top: -1px;
   padding: 8px 16px;
   font-size: 12px;
@@ -87,7 +84,7 @@ exports[`SelectMenu right-aligned modal has right: 0px 1`] = `
   border-top: 1px solid hsla(210,18%,87%,1);
 }
 
-.c6 {
+.c5 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -111,20 +108,20 @@ exports[`SelectMenu right-aligned modal has right: 0px 1`] = `
   width: 100%;
 }
 
-.c6:hover {
+.c5:hover {
   -webkit-text-decoration: none;
   text-decoration: none;
 }
 
-.c6:focus {
+.c5:focus {
   outline: none;
 }
 
-.c6[hidden] {
+.c5[hidden] {
   display: none !important;
 }
 
-.c6 .SelectMenu-icon {
+.c5 .SelectMenu-icon {
   width: 16px;
   margin-right: 8px;
   -webkit-flex-shrink: 0;
@@ -132,7 +129,7 @@ exports[`SelectMenu right-aligned modal has right: 0px 1`] = `
   flex-shrink: 0;
 }
 
-.c6 .SelectMenu-selected-icon {
+.c5 .SelectMenu-selected-icon {
   visibility: hidden;
   -webkit-transition: -webkit-transform 0.12s cubic-bezier(0.5,0.1,1,0.5),visibility 0s 0.12s linear;
   -webkit-transition: transform 0.12s cubic-bezier(0.5,0.1,1,0.5),visibility 0s 0.12s linear;
@@ -142,12 +139,12 @@ exports[`SelectMenu right-aligned modal has right: 0px 1`] = `
   transform: scale(0);
 }
 
-.c6[aria-checked='true'] {
+.c5[aria-checked='true'] {
   font-weight: 500;
   color: #1F2328;
 }
 
-.c6[aria-checked='true'] .SelectMenu-selected-icon {
+.c5[aria-checked='true'] .SelectMenu-selected-icon {
   visibility: visible;
   -webkit-transition: -webkit-transform 0.12s cubic-bezier(0,0,0.2,1),visibility 0s linear;
   -webkit-transition: transform 0.12s cubic-bezier(0,0,0.2,1),visibility 0s linear;
@@ -157,7 +154,7 @@ exports[`SelectMenu right-aligned modal has right: 0px 1`] = `
   transform: scale(1);
 }
 
-.c5 {
+.c4 {
   position: relative;
   padding: 0;
   margin: 0;
@@ -170,7 +167,7 @@ exports[`SelectMenu right-aligned modal has right: 0px 1`] = `
   -webkit-overflow-scrolling: touch;
 }
 
-.c4 {
+.c3 {
   position: relative;
   z-index: 99;
   display: -webkit-box;
@@ -187,12 +184,12 @@ exports[`SelectMenu right-aligned modal has right: 0px 1`] = `
   background-color: #ffffff;
   border-radius: 6px;
   box-shadow: 0 1px 0 rgba(31,35,40,0.04);
-  -webkit-animation: dlgnuT 0.12s cubic-bezier(0,0.1,0.1,1) backwards;
-  animation: dlgnuT 0.12s cubic-bezier(0,0.1,0.1,1) backwards;
+  -webkit-animation: lejQAW 0.12s cubic-bezier(0,0.1,0.1,1) backwards;
+  animation: lejQAW 0.12s cubic-bezier(0,0.1,0.1,1) backwards;
   width: 300px;
 }
 
-.c3 {
+.c2 {
   position: fixed;
   top: 0;
   right: 0;
@@ -210,7 +207,7 @@ exports[`SelectMenu right-aligned modal has right: 0px 1`] = `
   flex-direction: column;
 }
 
-.c3::before {
+.c2::before {
   position: absolute;
   top: 0;
   right: 0;
@@ -234,55 +231,55 @@ exports[`SelectMenu right-aligned modal has right: 0px 1`] = `
 }
 
 @media (min-width:544px) {
-  .c8 {
+  .c7 {
     padding: 4px 8px;
   }
 }
 
 @media (min-width:544px) {
-  .c6 {
+  .c5 {
     padding-top: 8px;
     padding-bottom: 8px;
   }
 }
 
 @media (hover:hover) {
-  .c6:hover,
-  .c6:active,
-  .c6:focus {
+  .c5:hover,
+  .c5:active,
+  .c5:focus {
     background-color: rgba(234,238,242,0.5);
   }
 }
 
 @media (hover:none) {
-  .c6 {
+  .c5 {
     -webkit-tap-highlight-color: rgba(175,184,193,0.5);
   }
 
-  .c6:focus,
-  .c6:active {
+  .c5:focus,
+  .c5:active {
     background-color: #f6f8fa;
   }
 }
 
 @media (hover:hover) {
-  .c5 .SelectMenuTab:focus {
+  .c4 .SelectMenuTab:focus {
     background-color: #b6e3ff;
   }
 
-  .c5 .SelectMenuTab:not([aria-checked='true']):hover {
+  .c4 .SelectMenuTab:not([aria-checked='true']):hover {
     color: #1F2328;
     background-color: #f6f8fa;
   }
 
-  .c5 .SelectMenuTab:not([aria-checked='true']):active {
+  .c4 .SelectMenuTab:not([aria-checked='true']):active {
     color: #1F2328;
     background-color: #f6f8fa;
   }
 }
 
 @media (min-width:544px) {
-  .c4 {
+  .c3 {
     height: auto;
     max-height: 350px;
     margin: 4px 0 16px 0;
@@ -294,13 +291,13 @@ exports[`SelectMenu right-aligned modal has right: 0px 1`] = `
 }
 
 @media (min-width:544px) {
-  .c3::before {
+  .c2::before {
     display: none;
   }
 }
 
 @media (min-width:544px) {
-  .c3 {
+  .c2 {
     position: absolute;
     top: auto;
     right: 0;
@@ -316,25 +313,25 @@ exports[`SelectMenu right-aligned modal has right: 0px 1`] = `
   open={false}
 >
   <summary
-    className="c1 c2"
+    className="c1"
   >
     Projects
   </summary>
   <div
-    className="c3"
+    className="c2"
     role="menu"
     title="Projects"
   >
     <div
-      className="c4"
+      className="c3"
       width="300px"
     >
       <div
-        className="c5"
+        className="c4"
       >
         <a
           aria-checked={true}
-          className="c6"
+          className="c5"
           href="#"
           onClick={[Function]}
           role="menuitemcheckbox"
@@ -365,7 +362,7 @@ exports[`SelectMenu right-aligned modal has right: 0px 1`] = `
         </a>
         <a
           aria-checked={false}
-          className="c6"
+          className="c5"
           data-test="menu-item"
           href="#"
           onClick={[Function]}
@@ -396,13 +393,13 @@ exports[`SelectMenu right-aligned modal has right: 0px 1`] = `
           Primer Components roadmap
         </a>
         <div
-          className="c7"
+          className="c6"
         >
           stuff
         </div>
         <a
           aria-checked={false}
-          className="c6"
+          className="c5"
           href="#"
           onClick={[Function]}
           role="menuitemcheckbox"
@@ -433,7 +430,7 @@ exports[`SelectMenu right-aligned modal has right: 0px 1`] = `
         </a>
         <a
           aria-checked={false}
-          className="c6"
+          className="c5"
           href="#"
           onClick={[Function]}
           role="menuitemcheckbox"
@@ -463,7 +460,7 @@ exports[`SelectMenu right-aligned modal has right: 0px 1`] = `
           Project 4
         </a>
         <footer
-          className="c8"
+          className="c7"
         >
           footer
         </footer>
