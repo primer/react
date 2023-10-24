@@ -9,11 +9,11 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
       boxShadow: `${theme?.shadows.btn.shadow}, ${theme?.shadows.btn.insetShadow}`,
       '&:hover:not([disabled])': {
         backgroundColor: 'btn.hoverBg',
-        borderColor: `var(--button-default-borderColor-hover, ${theme?.color.btn.hoverBorder})`,
+        borderColor: `var(--button-default-borderColor-hover, ${theme?.colors.btn.hoverBorder})`,
       },
       '&:active:not([disabled])': {
         backgroundColor: 'btn.activeBg',
-        borderColor: `var(--button-default-borderColor-active, ${theme?.color.btn.activeBorder})`,
+        borderColor: `var(--button-default-borderColor-active, ${theme?.colors.btn.activeBorder})`,
       },
       '&:disabled': {
         color: 'primer.fg.disabled',
@@ -23,7 +23,7 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
       },
       '&[aria-expanded=true]': {
         backgroundColor: 'btn.activeBg',
-        borderColor: `var(--button-default-borderColor-active, ${theme?.color.btn.activeBorder})`,
+        borderColor: `var(--button-default-borderColor-active, ${theme?.colors.btn.activeBorder})`,
       },
       '[data-component="leadingVisual"], [data-component="trailingVisual"], [data-component="trailingAction"]': {
         color: `var(--button-color, ${theme?.colors.fg.muted})`,
@@ -149,13 +149,13 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
     outline: {
       color: 'btn.outline.text',
       boxShadow: `${theme?.shadows.btn.shadow}`,
-      borderColor: `var(--button-default-borderColor-rest, ${theme?.color.btn.border})`,
+      borderColor: `var(--button-default-borderColor-rest, ${theme?.colors.btn.border})`,
       backgroundColor: 'btn.bg',
 
       '&:hover:not([disabled])': {
         color: 'btn.outline.hoverText',
         backgroundColor: 'btn.outline.hoverBg',
-        borderColor: `var(--button-default-borderColor-hover, ${theme?.color.btn.outline.hoverBorder})`,
+        borderColor: `var(--button-default-borderColor-hover, ${theme?.colors.btn.outline.hoverBorder})`,
         boxShadow: `${theme?.shadows.btn.outline.hoverShadow}`,
         '[data-component=ButtonCounter]': {
           backgroundColor: 'btn.outline.hoverCounterBg',
@@ -166,7 +166,7 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
         color: 'btn.outline.selectedText',
         backgroundColor: 'btn.outline.selectedBg',
         boxShadow: `${theme?.shadows.btn.outline.selectedShadow}`,
-        borderColor: `var(--button-default-borderColor-active, ${theme?.color.btn.outline.selectedBorder})`,
+        borderColor: `var(--button-default-borderColor-active, ${theme?.colors.btn.outline.selectedBorder})`,
       },
 
       '&:disabled': {
@@ -186,7 +186,7 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
         color: 'btn.outline.selectedText',
         backgroundColor: 'btn.outline.selectedBg',
         boxShadow: `${theme?.shadows.btn.outline.selectedShadow}`,
-        borderColor: `var(--button-default-borderColor-active, ${theme?.color.btn.outline.selectedBorder})`,
+        borderColor: `var(--button-default-borderColor-active, ${theme?.colors.btn.outline.selectedBorder})`,
       },
     },
   }
