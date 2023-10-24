@@ -1,5 +1,7 @@
 ---
-"@primer/react": patch
+"@primer/react": major
 ---
 
-Use createRoot instead of ReactDOM.render for React 18 compatibility.
+ConfirmationDialog: Use createRoot instead of ReactDOM.render for React 18 compatibility.
+
+<!-- Changed components: ConfirmationDialog -->
