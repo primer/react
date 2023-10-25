@@ -108,7 +108,7 @@ const StyledPagination = styled.nav`
         .TablePaginationSteps[data-hidden-viewport-ranges*='${viewportRangeKey}'] > *:first-child {
           margin-inline-end: 0;
         }
-        
+
         .TablePaginationSteps[data-hidden-viewport-ranges*='${viewportRangeKey}'] > *:last-child {
           margin-inline-start: 0;
         }
@@ -260,17 +260,23 @@ export function Pagination({
               </Page>
             </Step>
           ) : null}
+          {hasLeadingTruncation ? <TruncationStep key="truncation-0" /> : null}
           {pageCount > 2
             ? Array.from({length: truncatedPageCount}).map((_, i) => {
-                if (i === 0 && hasLeadingTruncation) {
-                  return <TruncationStep key={`truncation-${i}`} />
+                let page = offsetStartIndex + i
+
+                // In order to prevent the loop from adding steps that go beyond the maximum number of pages,
+                // we must reset the `page` offset to start from the very first step after the leading truncation
+                if (hasLeadingTruncation && !hasTrailingTruncation) {
+                  // The last page is always visible, so we need to remove that from consideration
+                  const pagesAvailableToTruncate = pageCount - 1
+                  const firstTruncatedPageFromEnd = pagesAvailableToTruncate - truncatedPageCount
+
+                  if (page >= firstTruncatedPageFromEnd) {
+                    page = firstTruncatedPageFromEnd + i
+                  }
                 }
 
-                if (i === truncatedPageCount - 1 && hasTrailingTruncation) {
-                  return <TruncationStep key={`truncation-${i}`} />
-                }
-
-                const page = offsetStartIndex + i
                 return (
                   <Step key={i}>
                     <Page
@@ -288,6 +294,7 @@ export function Pagination({
                 )
               })
             : null}
+          {hasTrailingTruncation ? <TruncationStep key="truncation-1" /> : null}
           {pageCount > 1 ? (
             <Step>
               <Page
