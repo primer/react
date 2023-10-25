@@ -155,7 +155,7 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
       '&:hover:not([disabled])': {
         color: 'btn.outline.hoverText',
         backgroundColor: 'btn.outline.hoverBg',
-        borderColor: `var(--button-default-borderColor-hover, ${theme?.colors.btn.outline.hoverBorder})`,
+        borderColor: `${theme?.colors.btn.outline.hoverBorder}`,
         boxShadow: `${theme?.shadows.btn.outline.hoverShadow}`,
         '[data-component=ButtonCounter]': {
           backgroundColor: 'btn.outline.hoverCounterBg',
@@ -166,7 +166,7 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
         color: 'btn.outline.selectedText',
         backgroundColor: 'btn.outline.selectedBg',
         boxShadow: `${theme?.shadows.btn.outline.selectedShadow}`,
-        borderColor: `var(--button-default-borderColor-active, ${theme?.colors.btn.outline.selectedBorder})`,
+        borderColor: `${theme?.colors.btn.outline.selectedBorder}`,
       },
 
       '&:disabled': {
