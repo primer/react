@@ -168,8 +168,15 @@ const SelectPanelHeader: React.FC<React.PropsWithChildren> = ({children, ...prop
       }}
       {...props}
     >
-      <Box sx={{display: 'flex', justifyContent: 'space-between', alignItems: 'start', marginBottom: 2}}>
-        <Box sx={{marginLeft: 2}}>
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: description ? 'start' : 'center',
+          marginBottom: 2,
+        }}
+      >
+        <Box sx={{marginLeft: 2, marginTop: description ? '2px' : 0}}>
           {/* heading element is intentionally hardcoded to h1, it is not customisable 
             see https://github.com/github/primer/issues/2578 for context
           */}
