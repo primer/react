@@ -70,7 +70,7 @@ describe('PageLayout', () => {
         <PageLayout>
           <PageLayout.Header>Header</PageLayout.Header>
           <PageLayout.Content>Content</PageLayout.Content>
-          <PageLayout.Pane positionWhenNarrow="start">Pane</PageLayout.Pane>
+          <PageLayout.Pane>Pane</PageLayout.Pane>
           <PageLayout.Footer>Footer</PageLayout.Footer>
         </PageLayout>
       </ThemeProvider>,

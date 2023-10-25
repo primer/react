@@ -493,21 +493,6 @@ const isPaneWidth = (width: PaneWidth | CustomWidthOptions): width is PaneWidth 
 }
 
 export type PageLayoutPaneProps = {
-  /**
-   * @deprecated Use the `position` prop with a responsive value instead.
-   *
-   * Before:
-   * ```
-   * position="start"
-   * positionWhenNarrow="end"
-   * ```
-   *
-   * After:
-   * ```
-   * position={{regular: 'start', narrow: 'end'}}
-   * ```
-   */
-  positionWhenNarrow?: 'inherit' | keyof typeof panePositions
   'aria-labelledby'?: string
   'aria-label'?: string
   width?: PaneWidth | CustomWidthOptions
@@ -537,11 +522,6 @@ export type PageLayoutPaneProps = {
   id?: string
 } & SxProp
 
-const panePositions = {
-  start: REGION_ORDER.paneStart,
-  end: REGION_ORDER.paneEnd,
-}
-
 const paneWidths = {
   small: ['100%', null, '240px', '256px'],
   medium: ['100%', null, '256px', '296px'],
@@ -555,8 +535,6 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
     {
       'aria-label': label,
       'aria-labelledby': labelledBy,
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      positionWhenNarrow = 'inherit',
       width = 'medium',
       minWidth = 256,
       padding = 'none',
