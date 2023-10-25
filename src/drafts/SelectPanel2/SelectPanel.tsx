@@ -13,6 +13,7 @@ import {
   AnchoredOverlayProps,
   Spinner,
   Text,
+  ActionListProps,
 } from '../../../src/index'
 import {ActionListContainerContext} from '../../../src/ActionList/ActionListContainerContext'
 import {useSlots} from '../../hooks/useSlots'
@@ -25,6 +26,7 @@ const SelectPanelContext = React.createContext<{
   onClearSelection: undefined | (() => void)
   searchQuery: string
   setSearchQuery: () => void
+  selectionVariant: ActionListProps['selectionVariant'] | 'instant'
 }>({
   title: '',
   description: '',
@@ -32,6 +34,7 @@ const SelectPanelContext = React.createContext<{
   onClearSelection: undefined,
   searchQuery: '',
   setSearchQuery: () => {},
+  selectionVariant: 'multiple',
 })
 
 // @ts-ignore todo
@@ -58,15 +61,19 @@ const SelectPanel = props => {
     if (props.open === undefined) setInternalOpen(false)
     if (typeof props.onCancel === 'function') props.onCancel()
   }
-  // @ts-ignore todo
-  const onInternalSubmit = event => {
-    event.preventDefault()
+
+  const onInternalSubmit = (event?: React.SyntheticEvent) => {
+    event?.preventDefault() // there is no event with selectionVariant=instant
     if (props.open === undefined) setInternalOpen(false)
     if (typeof props.onSubmit === 'function') props.onSubmit(event)
   }
 
   const onInternalClearSelection = () => {
     if (typeof props.onSubmit === 'function') props.onClearSelection()
+  }
+
+  const internalAfterSelect = () => {
+    if (props.selectionVariant === 'instant') onInternalSubmit()
   }
 
   /* Search/Filter */
@@ -99,6 +106,7 @@ const SelectPanel = props => {
             searchQuery,
             // @ts-ignore todo
             setSearchQuery,
+            selectionVariant: props.selectionVariant,
           }}
         >
           <Box
@@ -129,7 +137,9 @@ const SelectPanel = props => {
                   container: 'SelectPanel',
                   listRole: 'listbox',
                   selectionAttribute: 'aria-selected',
-                  selectionVariant: props.selectionVariant || 'multiple',
+                  selectionVariant:
+                    props.selectionVariant === 'instant' ? 'single' : props.selectionVariant || 'multiple',
+                  afterSelect: internalAfterSelect,
                 }}
               >
                 {childrenInBody}
@@ -257,7 +267,15 @@ const SelectPanelSearchInput = props => {
 SelectPanel.SearchInput = SelectPanelSearchInput
 
 const SelectPanelFooter = ({...props}) => {
-  const {onCancel} = React.useContext(SelectPanelContext)
+  const {onCancel, selectionVariant} = React.useContext(SelectPanelContext)
+
+  const hidePrimaryActions = selectionVariant === 'instant'
+
+  if (hidePrimaryActions && !props.children) {
+    // nothing to render
+    // todo: we can inform them the developer footer will render nothing
+    return null
+  }
 
   return (
     <Box
@@ -269,15 +287,18 @@ const SelectPanelFooter = ({...props}) => {
         borderColor: 'border.default',
       }}
     >
-      <div>{props.children}</div>
-      <Box sx={{display: 'flex', gap: 2}}>
-        <Button size="small" type="button" onClick={() => onCancel()}>
-          Cancel
-        </Button>
-        <Button size="small" type="submit" variant="primary">
-          Save
-        </Button>
-      </Box>
+      <Box sx={{flexGrow: hidePrimaryActions ? 1 : 0}}>{props.children}</Box>
+
+      {hidePrimaryActions ? null : (
+        <Box sx={{display: 'flex', gap: 2}}>
+          <Button size="small" type="button" onClick={() => onCancel()}>
+            Cancel
+          </Button>
+          <Button size="small" type="submit" variant="primary">
+            Save
+          </Button>
+        </Box>
+      )}
     </Box>
   )
 }
@@ -285,7 +306,7 @@ SelectPanel.Footer = SelectPanelFooter
 
 // @ts-ignore todo
 SelectPanel.SecondaryButton = props => {
-  return <Button {...props} size="small" type="button" />
+  return <Button {...props} size="small" type="button" block />
 }
 // SelectPanel.SecondaryLink = props => {
 //   return <a {...props}>{props.children}</a>
