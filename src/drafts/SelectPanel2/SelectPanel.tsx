@@ -20,12 +20,14 @@ import {useProvidedRefOrCreate} from '../../hooks'
 
 const SelectPanelContext = React.createContext<{
   title: string
+  description: string
   onCancel: () => void
   onClearSelection: undefined | (() => void)
   searchQuery: string
   setSearchQuery: () => void
 }>({
   title: '',
+  description: '',
   onCancel: () => {},
   onClearSelection: undefined,
   searchQuery: '',
@@ -91,6 +93,7 @@ const SelectPanel = props => {
         <SelectPanelContext.Provider
           value={{
             title: props.title,
+            description: props.description,
             onCancel: onInternalClose,
             onClearSelection: props.onClearSelection ? onInternalClearSelection : undefined,
             searchQuery,
@@ -151,28 +154,31 @@ const SelectPanelHeader: React.FC<React.PropsWithChildren> = ({children, ...prop
     searchInput: SelectPanelSearchInput,
   })
 
-  const {title, onCancel, onClearSelection} = React.useContext(SelectPanelContext)
+  const {title, description, onCancel, onClearSelection} = React.useContext(SelectPanelContext)
 
   return (
     <Box
       sx={{
         display: 'flex',
         flexDirection: 'column',
-        gap: 2,
+        // gap: 2,
         padding: 2,
         borderBottom: '1px solid',
         borderColor: 'border.default',
       }}
       {...props}
     >
-      <Box sx={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
-        {/* heading element is intentionally hardcoded to h1, it is not customisable 
+      <Box sx={{display: 'flex', justifyContent: 'space-between', alignItems: 'start', marginBottom: 2}}>
+        <Box sx={{marginLeft: 2}}>
+          {/* heading element is intentionally hardcoded to h1, it is not customisable 
             see https://github.com/github/primer/issues/2578 for context
-        */}
+          */}
+          <Heading as="h1" sx={{fontSize: 14, fontWeight: 600}} {...props}>
+            {title}
+          </Heading>
+          {description ? <Text sx={{fontSize: 0, color: 'fg.muted', display: 'block'}}>{description}</Text> : null}
+        </Box>
 
-        <Heading as="h1" sx={{fontSize: 14, fontWeight: 600, marginLeft: 2}} {...props}>
-          {title}
-        </Heading>
         <Box>
           {/* Will not need tooltip after https://github.com/primer/react/issues/2008 */}
           {onClearSelection ? (
@@ -185,6 +191,7 @@ const SelectPanelHeader: React.FC<React.PropsWithChildren> = ({children, ...prop
           </Tooltip>
         </Box>
       </Box>
+
       {slots.searchInput}
       {childrenWithoutSlots}
     </Box>
