@@ -1,7 +1,3 @@
-.Blankslate-Container {
-  container-type: inline-size;
-}
-
 .Blankslate {
   --blankslate-outer-padding-block: var(--base-size-32);
   --blankslate-outer-padding-inline: var(--base-size-32);
