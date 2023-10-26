@@ -1,41 +1,8 @@
 import React from 'react'
-import styled from 'styled-components'
 import Box from '../Box'
 import {Button} from '../Button'
-import {get} from '../constants'
 import Link from '../Link'
-
-const StyledBlankslate = styled.div`
-  display: grid;
-  justify-items: center;
-  padding: ${get('space.5')};
-
-  &[data-border='true'] {
-    border: ${get('borderWidths.1')} solid ${get('colors.border.default')};
-    border-radius: ${get('radii.2')};
-  }
-
-  &[data-narrow='true'] {
-    margin: 0 auto;
-    max-width: 485px;
-  }
-
-  &[data-spacious='true'] {
-    padding: ${get('space.9')} ${get('space.6')};
-  }
-
-  .BlankSlateAction {
-    margin-top: ${get('space.3')};
-  }
-
-  .BlankSlateAction:first-of-type {
-    margin-top: ${get('space.4')};
-  }
-
-  .BlankSlateAction:last-of-type {
-    margin-bottom: ${get('space.2')};
-  }
-`
+import classNames from './blankslate.module.css'
 
 export type BlankslateProps = React.PropsWithChildren<{
   /**
@@ -56,16 +23,18 @@ export type BlankslateProps = React.PropsWithChildren<{
 
 function Blankslate({border, children, narrow, spacious}: BlankslateProps) {
   return (
-    <StyledBlankslate data-border={border} data-narrow={narrow} data-spacious={spacious}>
-      {children}
-    </StyledBlankslate>
+    <div className={classNames['Blankslate-Container']}>
+      <div className={classNames.Blankslate} data-border={border} data-narrow={narrow} data-spacious={spacious}>
+        {children}
+      </div>
+    </div>
   )
 }
 
 export type VisualProps = React.PropsWithChildren
 
 function Visual({children}: VisualProps) {
-  return <Box sx={{color: 'fg.muted', mb: 3}}>{children}</Box>
+  return <span className={classNames['Blankslate-Visual']}>{children}</span>
 }
 
 export type HeadingProps = React.PropsWithChildren<{
@@ -74,7 +43,7 @@ export type HeadingProps = React.PropsWithChildren<{
 
 function Heading({as = 'h2', children}: HeadingProps) {
   return (
-    <Box as={as} sx={{m: 0, mb: 2}}>
+    <Box as={as} className={classNames['Blankslate-Heading']}>
       {children}
     </Box>
   )
@@ -83,11 +52,7 @@ function Heading({as = 'h2', children}: HeadingProps) {
 export type DescriptionProps = React.PropsWithChildren
 
 function Description({children}: DescriptionProps) {
-  return (
-    <Box as="p" sx={{color: 'fg.muted', m: 0, mb: 2}}>
-      {children}
-    </Box>
-  )
+  return <p className={classNames['Blankslate-Description']}>{children}</p>
 }
 
 export type PrimaryActionProps = React.PropsWithChildren<{
@@ -96,7 +61,7 @@ export type PrimaryActionProps = React.PropsWithChildren<{
 
 function PrimaryAction({children, href}: PrimaryActionProps) {
   return (
-    <div className="BlankSlateAction">
+    <div className={classNames['Blankslate-Action']}>
       <Button as="a" href={href} variant="primary">
         {children}
       </Button>
@@ -110,7 +75,7 @@ export type SecondaryActionProps = React.PropsWithChildren<{
 
 function SecondaryAction({children, href}: SecondaryActionProps) {
   return (
-    <div className="BlankSlateAction">
+    <div className={classNames['Blankslate-Action']}>
       <Link href={href}>{children}</Link>
     </div>
   )
