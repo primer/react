@@ -25,7 +25,7 @@ exports[`ActionMenu renders consistently 1`] = `
 .c1 {
   border-radius: 6px;
   border: 1px solid;
-  border-color: rgba(31,35,40,0.15);
+  border-color: var(--button-default-borderColor-rest,rgba(31,35,40,0.15));
   font-family: inherit;
   font-weight: 500;
   font-size: 14px;
@@ -210,17 +210,17 @@ exports[`ActionMenu renders consistently 1`] = `
 
 .c1:hover:not([disabled]) {
   background-color: #f3f4f6;
-  border-color: rgba(31,35,40,0.15);
+  border-color: var(--button-default-borderColor-hover,rgba(31,35,40,0.15));
 }
 
 .c1:active:not([disabled]) {
   background-color: hsla(220,14%,93%,1);
-  border-color: rgba(31,35,40,0.15);
+  border-color: var(--button-default-borderColor-active,rgba(31,35,40,0.15));
 }
 
 .c1[aria-expanded=true] {
   background-color: hsla(220,14%,93%,1);
-  border-color: rgba(31,35,40,0.15);
+  border-color: var(--button-default-borderColor-active,rgba(31,35,40,0.15));
 }
 
 .c1 [data-component="leadingVisual"],

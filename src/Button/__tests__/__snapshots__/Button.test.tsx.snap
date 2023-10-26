@@ -11,7 +11,7 @@ exports[`Button renders consistently 1`] = `
 .c0 {
   border-radius: 6px;
   border: 1px solid;
-  border-color: rgba(31,35,40,0.15);
+  border-color: var(--button-default-borderColor-rest,rgba(31,35,40,0.15));
   font-family: inherit;
   font-weight: 500;
   font-size: 14px;
@@ -196,17 +196,17 @@ exports[`Button renders consistently 1`] = `
 
 .c0:hover:not([disabled]) {
   background-color: #f3f4f6;
-  border-color: rgba(31,35,40,0.15);
+  border-color: var(--button-default-borderColor-hover,rgba(31,35,40,0.15));
 }
 
 .c0:active:not([disabled]) {
   background-color: hsla(220,14%,93%,1);
-  border-color: rgba(31,35,40,0.15);
+  border-color: var(--button-default-borderColor-active,rgba(31,35,40,0.15));
 }
 
 .c0[aria-expanded=true] {
   background-color: hsla(220,14%,93%,1);
-  border-color: rgba(31,35,40,0.15);
+  border-color: var(--button-default-borderColor-active,rgba(31,35,40,0.15));
 }
 
 .c0 [data-component="leadingVisual"],
@@ -246,6 +246,7 @@ exports[`Button respects block prop 1`] = `
 .c0 {
   border-radius: 2;
   border: 1px solid;
+  border-color: var(--button-default-borderColor-rest,undefined);
   font-family: inherit;
   font-weight: semibold;
   font-size: 14px;
@@ -430,17 +431,17 @@ exports[`Button respects block prop 1`] = `
 
 .c0:hover:not([disabled]) {
   background-color: btn.hoverBg;
-  border-color: btn.hoverBorder;
+  border-color: var(--button-default-borderColor-hover,undefined);
 }
 
 .c0:active:not([disabled]) {
   background-color: btn.activeBg;
-  border-color: btn.activeBorder;
+  border-color: var(--button-default-borderColor-active,undefined);
 }
 
 .c0[aria-expanded=true] {
   background-color: btn.activeBg;
-  border-color: btn.activeBorder;
+  border-color: var(--button-default-borderColor-active,undefined);
 }
 
 .c0 [data-component="leadingVisual"],
@@ -485,6 +486,7 @@ exports[`Button respects the alignContent prop 1`] = `
 .c0 {
   border-radius: 2;
   border: 1px solid;
+  border-color: var(--button-default-borderColor-rest,undefined);
   font-family: inherit;
   font-weight: semibold;
   font-size: 14px;
@@ -669,17 +671,17 @@ exports[`Button respects the alignContent prop 1`] = `
 
 .c0:hover:not([disabled]) {
   background-color: btn.hoverBg;
-  border-color: btn.hoverBorder;
+  border-color: var(--button-default-borderColor-hover,undefined);
 }
 
 .c0:active:not([disabled]) {
   background-color: btn.activeBg;
-  border-color: btn.activeBorder;
+  border-color: var(--button-default-borderColor-active,undefined);
 }
 
 .c0[aria-expanded=true] {
   background-color: btn.activeBg;
-  border-color: btn.activeBorder;
+  border-color: var(--button-default-borderColor-active,undefined);
 }
 
 .c0 [data-component="leadingVisual"],
@@ -723,6 +725,7 @@ exports[`Button respects the large size prop 1`] = `
 .c0 {
   border-radius: 2;
   border: 1px solid;
+  border-color: var(--button-default-borderColor-rest,undefined);
   font-family: inherit;
   font-weight: semibold;
   font-size: 14px;
@@ -907,17 +910,17 @@ exports[`Button respects the large size prop 1`] = `
 
 .c0:hover:not([disabled]) {
   background-color: btn.hoverBg;
-  border-color: btn.hoverBorder;
+  border-color: var(--button-default-borderColor-hover,undefined);
 }
 
 .c0:active:not([disabled]) {
   background-color: btn.activeBg;
-  border-color: btn.activeBorder;
+  border-color: var(--button-default-borderColor-active,undefined);
 }
 
 .c0[aria-expanded=true] {
   background-color: btn.activeBg;
-  border-color: btn.activeBorder;
+  border-color: var(--button-default-borderColor-active,undefined);
 }
 
 .c0 [data-component="leadingVisual"],
@@ -962,6 +965,7 @@ exports[`Button respects the small size prop 1`] = `
 .c0 {
   border-radius: 2;
   border: 1px solid;
+  border-color: var(--button-default-borderColor-rest,undefined);
   font-family: inherit;
   font-weight: semibold;
   font-size: 14px;
@@ -1146,17 +1150,17 @@ exports[`Button respects the small size prop 1`] = `
 
 .c0:hover:not([disabled]) {
   background-color: btn.hoverBg;
-  border-color: btn.hoverBorder;
+  border-color: var(--button-default-borderColor-hover,undefined);
 }
 
 .c0:active:not([disabled]) {
   background-color: btn.activeBg;
-  border-color: btn.activeBorder;
+  border-color: var(--button-default-borderColor-active,undefined);
 }
 
 .c0[aria-expanded=true] {
   background-color: btn.activeBg;
-  border-color: btn.activeBorder;
+  border-color: var(--button-default-borderColor-active,undefined);
 }
 
 .c0 [data-component="leadingVisual"],
@@ -1201,6 +1205,7 @@ exports[`Button styles danger button appropriately 1`] = `
 .c0 {
   border-radius: 2;
   border: 1px solid;
+  border-color: var(--button-default-borderColor-rest,undefined);
   font-family: inherit;
   font-weight: semibold;
   font-size: 14px;
