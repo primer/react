@@ -91,6 +91,9 @@ exports[`SplitPageLayout renders default layout 1`] = `
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
+  -webkit-order: 1;
+  -ms-flex-order: 1;
+  order: 1;
   width: 100%;
   margin-left: 0;
   margin-right: 0;
@@ -98,7 +101,6 @@ exports[`SplitPageLayout renders default layout 1`] = `
   -ms-flex-direction: column-reverse;
   flex-direction: column-reverse;
   margin-bottom: 0;
-  margin-top: 0;
 }
 
 .c9 {
@@ -187,6 +189,7 @@ exports[`SplitPageLayout renders default layout 1`] = `
     -webkit-flex-direction: row-reverse;
     -ms-flex-direction: row-reverse;
     flex-direction: row-reverse;
+    margin-right: 0;
   }
 }
 

@@ -493,6 +493,22 @@ const isPaneWidth = (width: PaneWidth | CustomWidthOptions): width is PaneWidth 
 }
 
 export type PageLayoutPaneProps = {
+  position?: keyof typeof panePositions | ResponsiveValue<keyof typeof panePositions>
+  /**
+   * @deprecated Use the `position` prop with a responsive value instead.
+   *
+   * Before:
+   * ```
+   * position="start"
+   * positionWhenNarrow="end"
+   * ```
+   *
+   * After:
+   * ```
+   * position={{regular: 'start', narrow: 'end'}}
+   * ```
+   */
+  positionWhenNarrow?: 'inherit' | keyof typeof panePositions
   'aria-labelledby'?: string
   'aria-label'?: string
   width?: PaneWidth | CustomWidthOptions
@@ -522,6 +538,11 @@ export type PageLayoutPaneProps = {
   id?: string
 } & SxProp
 
+const panePositions = {
+  start: REGION_ORDER.paneStart,
+  end: REGION_ORDER.paneEnd,
+}
+
 const paneWidths = {
   small: ['100%', null, '240px', '256px'],
   medium: ['100%', null, '256px', '296px'],
@@ -535,6 +556,8 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
     {
       'aria-label': label,
       'aria-labelledby': labelledBy,
+      position: responsivePosition = 'end',
+      positionWhenNarrow = 'inherit',
       width = 'medium',
       minWidth = 256,
       padding = 'none',
@@ -551,6 +574,14 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
     },
     forwardRef,
   ) => {
+    // Combine position and positionWhenNarrow for backwards compatibility
+    const positionProp =
+      !isResponsiveValue(responsivePosition) && positionWhenNarrow !== 'inherit'
+        ? {regular: responsivePosition, narrow: positionWhenNarrow}
+        : responsivePosition
+
+    const position = useResponsiveValue(positionProp, 'end')
+
     // Combine divider and dividerWhenNarrow for backwards compatibility
     const dividerProp =
       !isResponsiveValue(responsiveDivider) && dividerWhenNarrow !== 'inherit'
@@ -682,11 +713,12 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
             {
               // Narrow viewports
               display: isHidden ? 'none' : 'flex',
+              order: panePositions[position],
               width: '100%',
               marginX: 0,
-              flexDirection: 'column-reverse',
-              marginBottom: SPACING_MAP[rowGap],
-              marginTop: SPACING_MAP[rowGap],
+              ...(position === 'end'
+                ? {flexDirection: 'column', marginTop: SPACING_MAP[rowGap]}
+                : {flexDirection: 'column-reverse', marginBottom: SPACING_MAP[rowGap]}),
 
               // Regular and wide viewports
               [`@media screen and (min-width: ${theme.breakpoints[1]})`]: {
@@ -701,7 +733,9 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
                       maxHeight: 'var(--sticky-pane-height)',
                     }
                   : {}),
-                flexDirection: 'row-reverse',
+                ...(position === 'end'
+                  ? {flexDirection: 'row', marginLeft: SPACING_MAP[columnGap]}
+                  : {flexDirection: 'row-reverse', marginRight: SPACING_MAP[columnGap]}),
               },
             },
             sx,
@@ -709,7 +743,10 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
         }
       >
         {/* Show a horizontal divider when viewport is narrow. Otherwise, show a vertical divider. */}
-        <HorizontalDivider variant={{narrow: dividerVariant, regular: 'none'}} sx={{marginTop: SPACING_MAP[rowGap]}} />
+        <HorizontalDivider
+          variant={{narrow: dividerVariant, regular: 'none'}}
+          sx={{[position === 'end' ? 'marginBottom' : 'marginTop']: SPACING_MAP[rowGap]}}
+        />
         <VerticalDivider
           variant={{
             narrow: 'none',
@@ -718,10 +755,10 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
           }}
           // If pane is resizable, the divider should be draggable
           draggable={resizable}
-          sx={{marginLeft: SPACING_MAP[columnGap]}}
+          sx={{[position === 'end' ? 'marginRight' : 'marginLeft']: SPACING_MAP[columnGap]}}
           onDrag={delta => {
             // Get the number of pixels the divider was dragged
-            const deltaWithDirection = delta
+            const deltaWithDirection = position === 'end' ? -delta : delta
             updatePaneWidth(paneWidth + deltaWithDirection)
           }}
           // Ensure `paneWidth` state and actual pane width are in sync when the drag ends
