@@ -34,6 +34,9 @@ const meta: Meta = {
     'Content.hidden.regular': false,
     'Content.hidden.narrow': false,
     'Content.hidden.wide': false,
+    'Pane.position.regular': 'end',
+    'Pane.position.narrow': 'end',
+    'Pane.position.wide': 'end',
     'Pane.width': 'medium',
     'Pane.sticky': false,
     'Pane.resizable': false,
@@ -203,6 +206,30 @@ const meta: Meta = {
     },
 
     // Pane prop controls
+    'Pane.position.regular': {
+      type: {
+        name: 'enum',
+        value: ['start', 'end'],
+      },
+      control: {type: 'radio'},
+      table: {category: 'Pane props'},
+    },
+    'Pane.position.narrow': {
+      type: {
+        name: 'enum',
+        value: ['start', 'end'],
+      },
+      control: {type: 'radio'},
+      table: {category: 'Pane props'},
+    },
+    'Pane.position.wide': {
+      type: {
+        name: 'enum',
+        value: ['start', 'end'],
+      },
+      control: {type: 'radio'},
+      table: {category: 'Pane props'},
+    },
     'Pane.width': {
       type: {
         name: 'enum',
@@ -342,8 +369,24 @@ const Template: Story = args => (
         <Placeholder height={args['Header placeholder height']} label="Header" />
       </PageLayout.Header>
     ) : null}
+    <PageLayout.Content
+      width={args['Content.width']}
+      padding={args['Content.padding']}
+      hidden={{
+        narrow: args['Content.hidden.narrow'],
+        regular: args['Content.hidden.regular'],
+        wide: args['Content.hidden.wide'],
+      }}
+    >
+      <Placeholder height={args['Content placeholder height']} label="Content" />
+    </PageLayout.Content>
     {args['Render pane?'] ? (
       <PageLayout.Pane
+        position={{
+          narrow: args['Pane.position.narrow'],
+          regular: args['Pane.position.regular'],
+          wide: args['Pane.position.wide'],
+        }}
         width={args['Pane.width']}
         minWidth={args['Pane.minWidth']}
         sticky={args['Pane.sticky']}
@@ -363,17 +406,6 @@ const Template: Story = args => (
         <Placeholder height={args['Pane placeholder height']} label="Pane" />
       </PageLayout.Pane>
     ) : null}
-    <PageLayout.Content
-      width={args['Content.width']}
-      padding={args['Content.padding']}
-      hidden={{
-        narrow: args['Content.hidden.narrow'],
-        regular: args['Content.hidden.regular'],
-        wide: args['Content.hidden.wide'],
-      }}
-    >
-      <Placeholder height={args['Content placeholder height']} label="Content" />
-    </PageLayout.Content>
     {args['Render footer?'] ? (
       <PageLayout.Footer
         padding={args['Footer.padding']}
