@@ -51,15 +51,15 @@
 /* Blankslate.Action */
 /* ------------------------------ */
 .Blankslate-Action {
-  margin-top: var(--base-size-16);
+  margin-top: var(--stack-gap-normal);
 }
 
 .Blankslate-Action:first-of-type {
-  margin-top: var(--base-size-20);
+  margin-top: var(--stack-gap-spacious);
 }
 
 .Blankslate-Action:last-of-type {
-  margin-bottom: var(--base-size-8);
+  margin-bottom: var(--stack-gap-condensed);
 }
 
 /* Container query to adapt to
@@ -105,14 +105,14 @@
   /* Blankslate.Action */
   /* ------------------------------ */
   .Blankslate-Action {
-    margin-top: var(--base-size-12);
+    margin-top: var(--stack-gap-condensed);
   }
 
   .Blankslate-Action:first-of-type {
-    margin-top: var(--base-size-16);
+    margin-top: var(--stack-gap-normal);
   }
 
   .Blankslate-Action:last-of-type {
-    margin-bottom: var(--base-size-4);
+    margin-bottom: calc(var(--base-size-4) / 2);
   }
 }
