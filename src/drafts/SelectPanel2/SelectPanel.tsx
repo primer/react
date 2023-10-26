@@ -8,15 +8,17 @@ import {
   Heading,
   Box,
   AnchoredOverlay,
+  AnchoredOverlayProps,
   Tooltip,
   TextInput,
-  AnchoredOverlayProps,
   Spinner,
   Text,
+  ActionListProps,
 } from '../../../src/index'
 import {ActionListContainerContext} from '../../../src/ActionList/ActionListContainerContext'
 import {useSlots} from '../../hooks/useSlots'
 import {useProvidedRefOrCreate} from '../../hooks'
+import {useFocusZone} from '../../hooks/useFocusZone'
 
 const SelectPanelContext = React.createContext<{
   title: string
@@ -24,12 +26,14 @@ const SelectPanelContext = React.createContext<{
   onClearSelection: undefined | (() => void)
   searchQuery: string
   setSearchQuery: () => void
+  selectionVariant: ActionListProps['selectionVariant'] | 'instant'
 }>({
   title: '',
   onCancel: () => {},
   onClearSelection: undefined,
   searchQuery: '',
   setSearchQuery: () => {},
+  selectionVariant: 'multiple',
 })
 
 // @ts-ignore todo
@@ -56,9 +60,9 @@ const SelectPanel = props => {
     if (props.open === undefined) setInternalOpen(false)
     if (typeof props.onCancel === 'function') props.onCancel()
   }
-  // @ts-ignore todo
-  const onInternalSubmit = event => {
-    event.preventDefault()
+
+  const onInternalSubmit = (event?: React.SyntheticEvent) => {
+    event?.preventDefault() // there is no event with selectionVariant=instant
     if (props.open === undefined) setInternalOpen(false)
     if (typeof props.onSubmit === 'function') props.onSubmit(event)
   }
@@ -67,10 +71,23 @@ const SelectPanel = props => {
     if (typeof props.onSubmit === 'function') props.onClearSelection()
   }
 
+  const internalAfterSelect = () => {
+    if (props.selectionVariant === 'instant') onInternalSubmit()
+  }
+
   /* Search/Filter */
   const [searchQuery, setSearchQuery] = React.useState('')
 
   const [slots, childrenInBody] = useSlots(contents, {header: SelectPanelHeader, footer: SelectPanelFooter})
+
+  /* Arrow keys navigation for list items */
+  const {containerRef: listContainerRef} = useFocusZone(
+    {
+      bindKeys: FocusKeys.ArrowVertical | FocusKeys.HomeAndEnd | FocusKeys.PageUpDown,
+      focusableElementFilter: element => element.tagName === 'LI',
+    },
+    [internalOpen],
+  )
 
   return (
     <>
@@ -83,11 +100,13 @@ const SelectPanel = props => {
         onClose={onInternalClose}
         width={props.width || 'medium'}
         height={props.height || 'large'}
-        focusZoneSettings={{bindKeys: FocusKeys.Tab}}
+        focusZoneSettings={{
+          // we only want focus trap from the overlay,
+          // we don't want focus zone on the whole overlay because
+          // we have a focus zone on the list
+          disabled: true,
+        }}
       >
-        {/* TODO: Keyboard navigation of actionlist should be arrow keys
-            with tabs to enter and escape
-        */}
         <SelectPanelContext.Provider
           value={{
             title: props.title,
@@ -96,6 +115,7 @@ const SelectPanel = props => {
             searchQuery,
             // @ts-ignore todo
             setSearchQuery,
+            selectionVariant: props.selectionVariant,
           }}
         >
           <Box
@@ -110,6 +130,8 @@ const SelectPanel = props => {
             {/* render default header as fallback */}
             {slots.header || <SelectPanel.Header />}
             <Box
+              as="div"
+              ref={listContainerRef as React.RefObject<HTMLDivElement>}
               sx={{
                 flexShrink: 1,
                 flexGrow: 1,
@@ -126,7 +148,9 @@ const SelectPanel = props => {
                   container: 'SelectPanel',
                   listRole: 'listbox',
                   selectionAttribute: 'aria-selected',
-                  selectionVariant: props.selectionVariant || 'multiple',
+                  selectionVariant:
+                    props.selectionVariant === 'instant' ? 'single' : props.selectionVariant || 'multiple',
+                  afterSelect: internalAfterSelect,
                 }}
               >
                 {childrenInBody}
@@ -243,7 +267,15 @@ const SelectPanelSearchInput = props => {
 SelectPanel.SearchInput = SelectPanelSearchInput
 
 const SelectPanelFooter = ({...props}) => {
-  const {onCancel} = React.useContext(SelectPanelContext)
+  const {onCancel, selectionVariant} = React.useContext(SelectPanelContext)
+
+  const hidePrimaryActions = selectionVariant === 'instant'
+
+  if (hidePrimaryActions && !props.children) {
+    // nothing to render
+    // todo: we can inform them the developer footer will render nothing
+    return null
+  }
 
   return (
     <Box
@@ -255,15 +287,18 @@ const SelectPanelFooter = ({...props}) => {
         borderColor: 'border.default',
       }}
     >
-      <div>{props.children}</div>
-      <Box sx={{display: 'flex', gap: 2}}>
-        <Button size="small" type="button" onClick={() => onCancel()}>
-          Cancel
-        </Button>
-        <Button size="small" type="submit" variant="primary">
-          Save
-        </Button>
-      </Box>
+      <Box sx={{flexGrow: hidePrimaryActions ? 1 : 0}}>{props.children}</Box>
+
+      {hidePrimaryActions ? null : (
+        <Box sx={{display: 'flex', gap: 2}}>
+          <Button size="small" type="button" onClick={() => onCancel()}>
+            Cancel
+          </Button>
+          <Button size="small" type="submit" variant="primary">
+            Save
+          </Button>
+        </Box>
+      )}
     </Box>
   )
 }
@@ -271,7 +306,7 @@ SelectPanel.Footer = SelectPanelFooter
 
 // @ts-ignore todo
 SelectPanel.SecondaryButton = props => {
-  return <Button {...props} size="small" type="button" />
+  return <Button {...props} size="small" type="button" block />
 }
 // SelectPanel.SecondaryLink = props => {
 //   return <a {...props}>{props.children}</a>
