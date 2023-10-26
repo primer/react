@@ -16,7 +16,7 @@
 }
 
 .Blankslate[data-border='true'] {
-  border: var(--borderWidth-thin) solid var(--borderColor-default);
+  border: var(--borderWidth-thin) solid var(--borderColor-default, var(--borderColor-default-local-fallback));
   border-radius: var(--borderRadius-medium);
 }
 
@@ -28,7 +28,7 @@
 /* Blankslate.Visual */
 /* ------------------------------ */
 .Blankslate-Visual {
-  color: var(--fgColor-muted);
+  color: var(--fgColor-muted, var(--fgColor-muted-local-fallback));
   margin-bottom: var(--base-size-16);
 }
 
@@ -48,7 +48,7 @@
 /* Blankslate.Description */
 /* ------------------------------ */
 .Blankslate-Description {
-  color: var(--fgColor-muted);
+  color: var(--fgColor-muted, var(--fgColor-muted-local-fallback));
   font-size: var(--text-body-size-large);
 }
 

@@ -2,7 +2,9 @@ import React from 'react'
 import Box from '../Box'
 import {Button} from '../Button'
 import Link from '../Link'
+import {get} from '../constants'
 import classNames from './blankslate.module.css'
+import styled from 'styled-components'
 
 export type BlankslateProps = React.PropsWithChildren<{
   /**
@@ -21,13 +23,19 @@ export type BlankslateProps = React.PropsWithChildren<{
   spacious?: boolean
 }>
 
+const StyledBlankslate = styled.div`
+  --borderColor-default-local-fallback: ${get('colors.border.default')};
+  --fgColor-muted-local-fallback: ${get('colors.fg.muted')};
+  container-type: inline-size;
+`
+
 function Blankslate({border, children, narrow, spacious}: BlankslateProps) {
   return (
-    <div className={classNames['Blankslate-Container']}>
+    <StyledBlankslate>
       <div className={classNames.Blankslate} data-border={border} data-narrow={narrow} data-spacious={spacious}>
         {children}
       </div>
-    </div>
+    </StyledBlankslate>
   )
 }
 
