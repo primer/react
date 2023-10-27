@@ -107,6 +107,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       '&[aria-disabled]': {
         cursor: 'not-allowed',
         '[data-component="ActionList.Checkbox"]': {
+          cursor: 'not-allowed',
           bg: selected ? 'fg.muted' : 'var(--color-input-disabled-bg, rgba(175, 184, 193, 0.2))',
           borderColor: selected ? 'fg.muted' : 'var(--color-input-disabled-bg, rgba(175, 184, 193, 0.2))',
         },
