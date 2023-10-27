@@ -25,7 +25,7 @@
 /* ------------------------------ */
 .Blankslate-Visual {
   color: var(--fgColor-muted, var(--fgColor-muted-local-fallback));
-  margin-bottom: var(--base-size-16);
+  margin-bottom: var(--stack-gap-normal);
 }
 
 /* Blankslate.Heading */
@@ -33,7 +33,7 @@
 .Blankslate-Heading,
 .Blankslate-Description {
   margin: 0;
-  margin-bottom: var(--base-size-8);
+  margin-bottom: var(--stack-gap-condensed);
 }
 
 .Blankslate-Heading {
@@ -82,7 +82,7 @@
   /* Blankslate.Heading */
   /* ------------------------------ */
   .Blankslate-Visual {
-    margin-bottom: var(--base-size-8);
+    margin-bottom: var(--stack-gap-condensed);
     max-width: var(--base-size-24);
   }
 
@@ -113,6 +113,6 @@
   }
 
   .Blankslate-Action:last-of-type {
-    margin-bottom: calc(var(--base-size-4) / 2);
+    margin-bottom: calc(var(--stack-gap-condensed) / 2);
   }
 }
