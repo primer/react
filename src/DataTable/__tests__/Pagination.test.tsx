@@ -32,7 +32,7 @@ describe('Table.Pagination', () => {
   it('should show the expected steps when `defaultPageIndex` is provided', () => {
     render(<Pagination aria-label="Pagination" defaultPageIndex={6} pageSize={10} totalCount={100} />)
     const pages = getPages().map(p => p.textContent?.replace(/[a-z]|\s+/gi, ''))
-    expect(pages).toEqual(['1…', '3', '4', '5', '6', '7', '8', '9', '10'])
+    expect(pages).toEqual(['1…', '4', '5', '6', '7', '8', '9', '10'])
   })
 
   it('should warn if `defaultPageIndex` is not a valid `pageIndex`', () => {
@@ -234,6 +234,12 @@ describe('Table.Pagination', () => {
 
       expect(previousStep).toHaveAttribute('aria-hidden', 'true')
       expect(previousStep).toHaveTextContent('…')
+    })
+
+    it('should not have more than 7 pages when leading and trailing truncation are present', () => {
+      render(<Pagination aria-label="Test label" defaultPageIndex={49} pageSize={10} totalCount={1000} />)
+      const pages = getPages()
+      expect(pages).toHaveLength(7)
     })
   })
 })
