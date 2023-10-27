@@ -37,8 +37,8 @@
 }
 
 .Blankslate-Heading {
-  font-size: var(--text-title-size-large);
-  font-weight: var(--text-title-weight-large);
+  font-size: var(--text-title-size-medium);
+  font-weight: var(--text-title-weight-medium);
 }
 
 /* Blankslate.Description */
@@ -93,7 +93,7 @@
   /* Blankslate.Heading */
   /* ------------------------------ */
   .Blankslate-Heading {
-    font-size: var(--text-title-size-medium);
+    font-size: var(--text-title-size-small);
   }
 
   /* Blankslate.Description */
