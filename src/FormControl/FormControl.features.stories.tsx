@@ -19,7 +19,7 @@ import {
 import {MarkGithubIcon} from '@primer/octicons-react'
 
 export default {
-  title: 'Components/FormControl/features',
+  title: 'Components/FormControl/Features',
   decorators: [
     Story => {
       return (
