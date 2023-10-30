@@ -1,5 +1,13 @@
 # @primer/components
 
+## 35.32.2
+
+### Patch Changes
+
+- [#3861](https://github.com/primer/react/pull/3861) [`85d9e515`](https://github.com/primer/react/commit/85d9e51503ebecf558ff7d2bef8b4c1e217084da) Thanks [@langermank](https://github.com/langermank)! - Use `button` CSS vars for border-color to support a feature flag
+
+- [#3862](https://github.com/primer/react/pull/3862) [`8cd6007e`](https://github.com/primer/react/commit/8cd6007e589d33fd89a1ab2a93547b9977e274b2) Thanks [@TylerJDev](https://github.com/TylerJDev)! - Adds `aria-disabled` to inactive pagination buttons.
+
 ## 35.32.1
 
 ### Patch Changes

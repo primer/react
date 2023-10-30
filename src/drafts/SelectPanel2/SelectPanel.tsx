@@ -8,9 +8,9 @@ import {
   Heading,
   Box,
   AnchoredOverlay,
+  AnchoredOverlayProps,
   Tooltip,
   TextInput,
-  AnchoredOverlayProps,
   Spinner,
   Text,
   ActionListProps,
@@ -18,6 +18,7 @@ import {
 import {ActionListContainerContext} from '../../../src/ActionList/ActionListContainerContext'
 import {useSlots} from '../../hooks/useSlots'
 import {useProvidedRefOrCreate, useId} from '../../hooks'
+import {useFocusZone} from '../../hooks/useFocusZone'
 
 const SelectPanelContext = React.createContext<{
   title: string
@@ -85,6 +86,15 @@ const SelectPanel = props => {
   const panelId = useId(props.id)
   const [slots, childrenInBody] = useSlots(contents, {header: SelectPanelHeader, footer: SelectPanelFooter})
 
+  /* Arrow keys navigation for list items */
+  const {containerRef: listContainerRef} = useFocusZone(
+    {
+      bindKeys: FocusKeys.ArrowVertical | FocusKeys.HomeAndEnd | FocusKeys.PageUpDown,
+      focusableElementFilter: element => element.tagName === 'LI',
+    },
+    [internalOpen],
+  )
+
   return (
     <>
       <AnchoredOverlay
@@ -96,16 +106,18 @@ const SelectPanel = props => {
         onClose={onInternalClose}
         width={props.width || 'medium'}
         height={props.height || 'large'}
-        focusZoneSettings={{bindKeys: FocusKeys.Tab}}
+        focusZoneSettings={{
+          // we only want focus trap from the overlay,
+          // we don't want focus zone on the whole overlay because
+          // we have a focus zone on the list
+          disabled: true,
+        }}
         overlayProps={{
           role: 'dialog',
           'aria-labelledby': `${panelId}--title`,
           'aria-describedby': props.description ? `${panelId}--description` : undefined,
         }}
       >
-        {/* TODO: Keyboard navigation of actionlist should be arrow keys
-            with tabs to enter and escape
-        */}
         <SelectPanelContext.Provider
           value={{
             panelId,
@@ -131,6 +143,8 @@ const SelectPanel = props => {
             {/* render default header as fallback */}
             {slots.header || <SelectPanel.Header />}
             <Box
+              as="div"
+              ref={listContainerRef as React.RefObject<HTMLDivElement>}
               sx={{
                 flexShrink: 1,
                 flexGrow: 1,
