@@ -1,27 +1,107 @@
 import React from 'react'
-import {ComponentStory, ComponentMeta} from '@storybook/react'
-import FormControl, {FormControlProps} from './FormControl'
+import {Meta} from '@storybook/react'
+import {
+  BaseStyles,
+  Checkbox,
+  FormControl,
+  TextInputWithTokens,
+  ThemeProvider,
+  theme,
+  useFormControlForwardedProps,
+} from '..'
 
 export default {
   title: 'Components/FormControl',
-  component: FormControl,
-} as ComponentMeta<typeof FormControl>
-export const Default: ComponentStory<typeof FormControl> = () => <FormControl>Default H2 FormControl</FormControl>
+  decorators: [
+    Story => {
+      return (
+        <ThemeProvider theme={theme}>
+          <BaseStyles>
+            <Story />
+          </BaseStyles>
+        </ThemeProvider>
+      )
+    },
+  ],
+  argTypes: {
+    disabled: {
+      type: 'boolean',
+    },
+    required: {
+      type: 'boolean',
+    },
+    label: {
+      type: 'string',
+    },
+    caption: {
+      type: 'string',
+    },
+  },
+} as Meta
 
-export const Playground: ComponentStory<typeof FormControl> = args => <FormControl {...args}>FormControl</FormControl>
+interface ArgTypes {
+  disabled: boolean
+  required: boolean
+  label: string
+  caption: string
+}
+const mockTokens = [
+  {text: 'zero', id: 0},
+  {text: 'one', id: 1},
+  {text: 'two', id: 2},
+  {text: 'three', id: 3},
+  {text: 'four', id: 4},
+  {text: 'five', id: 5},
+  {text: 'six', id: 6},
+  {text: 'seven', id: 7},
+  {text: 'twenty', id: 20},
+  {text: 'twentyone', id: 21},
+]
 
-// Playground.args = {
-//   children: `<h1>hi</h1>`,
-//   // required: false,
-//   disabled: false,
-//   layout: 'horizontal',
-// } as FormControlProps
+export const Playground = ({
+  label = 'Input',
+  caption = 'This is the caption',
+  required = false,
+  disabled = false,
+}: ArgTypes) => (
+  <FormControl disabled={disabled} required={required}>
+    <FormControl.Label>{label}</FormControl.Label>
+    {caption && <FormControl.Caption>{caption}</FormControl.Caption>}
+    <Checkbox />
 
-// Playground.argTypes = {
-//   // as: {
-//   //   control: {
-//   //     type: 'select',
-//   //     options: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'],
-//   //   },
-//   // },
-// }
+    <FormControl.Validation variant="error">Some error</FormControl.Validation>
+    <TextInputWithTokens
+      tokens={[
+        {text: 'zero', id: 0},
+        {text: 'one', id: 1},
+        {text: 'two', id: 2},
+      ]}
+      onTokenRemove={() => true}
+    />
+  </FormControl>
+)
+
+export const Default = ({
+  label = 'Input',
+  caption = 'This is the caption',
+  required = false,
+  disabled = false,
+}: ArgTypes) => (
+  <FormControl disabled={disabled} required={required}>
+    <FormControl.Label>{label}</FormControl.Label>
+    {caption && <FormControl.Caption>{caption}</FormControl.Caption>}
+    <Checkbox />
+
+    <FormControl.Validation variant="error">Some error</FormControl.Validation>
+    <TextInputWithTokens
+      tokens={[
+        {text: 'zero', id: 0},
+        {text: 'one', id: 1},
+        {text: 'two', id: 2},
+      ]}
+      onTokenRemove={() => true}
+    />
+  </FormControl>
+)
+
+// options: ['text', 'number', 'password', 'email', 'search', 'tel', 'url'],
