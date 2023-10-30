@@ -27,7 +27,7 @@ export const FilesPage = () => (
         <ActionMenu>
           <ActionMenu.Anchor>
             <Tooltip text="Supplementary text to add here">
-              <Button size="small" leadingIcon={GitBranchIcon} trailingAction={TriangleDownIcon}>
+              <Button size="small" leadingVisual={GitBranchIcon} trailingAction={TriangleDownIcon}>
                 main
               </Button>
             </Tooltip>

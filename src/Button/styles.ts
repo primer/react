@@ -105,15 +105,15 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
       },
     },
     invisible: {
-      color: 'accent.fg',
+      color: 'btn.text',
       backgroundColor: 'transparent',
       borderColor: 'transparent',
       boxShadow: 'none',
       '&:hover:not([disabled])': {
-        backgroundColor: 'btn.hoverBg',
+        backgroundColor: 'actionListItem.default.hoverBg',
       },
       '&:active:not([disabled])': {
-        backgroundColor: 'btn.selectedBg',
+        backgroundColor: 'actionListItem.default.activeBg',
       },
       '&:disabled': {
         color: 'primer.fg.disabled',
@@ -122,7 +122,7 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
         },
       },
       '&[aria-expanded=true]': {
-        backgroundColor: 'btn.selectedBg',
+        backgroundColor: 'actionListItem.default.selectedBg',
       },
       '&[data-component="IconButton"][data-no-visuals]': {
         color: 'fg.muted',
@@ -137,7 +137,7 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
         color: 'accent.fg',
       },
       '&:has([data-component="ButtonCounter"])': {
-        color: 'accent.fg',
+        color: 'btn.text',
       },
       '&:disabled[data-no-visuals]': {
         color: 'primer.fg.disabled',

@@ -7,15 +7,15 @@ import {ButtonProps, StyledButton} from './types'
 import {getVariantStyles, getButtonStyles, getAlignContentSize} from './styles'
 import {useRefObjectAsForwardedRef} from '../hooks/useRefObjectAsForwardedRef'
 import {defaultSxProp} from '../utils/defaultSxProp'
+import CounterLabel from '../CounterLabel'
 
 const ButtonBase = forwardRef(
   ({children, as: Component = 'button', sx: sxProp = defaultSxProp, ...props}, forwardedRef): JSX.Element => {
     const {
-      leadingIcon,
-      leadingVisual,
-      trailingIcon,
-      trailingVisual,
+      leadingVisual: LeadingVisual,
+      trailingVisual: TrailingVisual,
       trailingAction: TrailingAction,
+      count,
       icon: Icon,
       variant = 'default',
       size = 'medium',
@@ -23,8 +23,6 @@ const ButtonBase = forwardRef(
       block = false,
       ...rest
     } = props
-    const LeadingVisual = leadingVisual ?? leadingIcon
-    const TrailingVisual = trailingVisual ?? trailingIcon
 
     const innerRef = React.useRef<HTMLButtonElement>(null)
     useRefObjectAsForwardedRef(forwardedRef, innerRef)
@@ -82,11 +80,15 @@ const ButtonBase = forwardRef(
                 </Box>
               )}
               {children && <span data-component="text">{children}</span>}
-              {TrailingVisual && (
+              {count !== undefined && !TrailingVisual ? (
+                <Box as="span" data-component="trailingVisual" sx={{...iconWrapStyles}}>
+                  <CounterLabel data-component="ButtonCounter">{count}</CounterLabel>
+                </Box>
+              ) : TrailingVisual ? (
                 <Box as="span" data-component="trailingVisual" sx={{...iconWrapStyles}}>
                   <TrailingVisual />
                 </Box>
-              )}
+              ) : null}
             </Box>
             {TrailingAction && (
               <Box as="span" data-component="trailingAction" sx={{...iconWrapStyles}}>

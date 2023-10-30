@@ -72,10 +72,6 @@
       url: /Details
     - title: Dialog
       url: /Dialog
-    - title: FilteredSearch
-      url: /FilteredSearch
-    - title: FilterList
-      url: /FilterList
     - title: Flash
       url: /Flash
     - title: FormControl
@@ -168,8 +164,6 @@
       url: /drafts/MarkdownEditor
     - title: MarkdownViewer
       url: /drafts/MarkdownViewer
-    - title: UnderlineNav v2
-      url: /drafts/UnderlineNav2
     - title: PageHeader
       url: /drafts/PageHeader
     - title: Tooltip v2
@@ -180,31 +174,13 @@
       url: /deprecated/ActionList
     - title: ActionMenu (legacy)
       url: /deprecated/ActionMenu
-    - title: BorderBox
-      url: /deprecated/BorderBox
     - title: Buttons (legacy)
       url: /deprecated/Buttons
-    - title: ChoiceFieldset
-      url: /deprecated/ChoiceFieldset
-    - title: ChoiceInputField
-      url: /deprecated/ChoiceInputField
-    - title: Dropdown
-      url: /deprecated/Dropdown
-    - title: DropdownMenu
-      url: /deprecated/DropdownMenu
-    - title: Flex
-      url: /deprecated/Flex
-    - title: FormGroup
-      url: /deprecated/FormGroup
-    - title: Grid
-      url: /deprecated/Grid
-    - title: InputField
-      url: /deprecated/InputField
-    - title: Label
-      url: /deprecated/Label
-    - title: Position
-      url: /deprecated/Position
-    - title: SelectMenu
-      url: /deprecated/SelectMenu
+    - title: FilteredSearch
+      url: /deprecated/FilteredSearch
+    - title: FilterList
+      url: /deprecated/FilterList
     - title: SideNav
       url: /deprecated/SideNav
+    - title: UnderlineNav
+      url: /deprecated/UnderlineNav

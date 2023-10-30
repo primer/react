@@ -42,23 +42,21 @@ export type {MarkdownViewerProps, InteractiveMarkdownViewerProps} from './Markdo
 export {default as MarkdownEditor} from './MarkdownEditor'
 export * from './MarkdownEditor'
 
-export * from '../UnderlineNav2'
-
 export * from '../PageHeader'
 
 export * from '../Hidden'
 
 export * from './hooks'
 
+export {NavList} from '../NavList'
+export type {
+  NavListProps,
+  NavListItemProps,
+  NavListSubNavProps,
+  NavListGroupProps,
+  NavListLeadingVisualProps,
+  NavListTrailingVisualProps,
+  NavListDividerProps,
+} from '../NavList'
 export * from './SelectPanel2'
-
-// TODO: Remove these components from the drafts bundle in the next major release
-export * from '../TreeView'
-export * from '../NavList'
-export * from '../SegmentedControl'
-export * from '../SplitPageLayout'
 export * from './Tooltip'
-
-// CSS Experiment
-// export * from './CSSComponent'
-// export * from './Button2'

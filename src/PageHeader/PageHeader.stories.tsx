@@ -1,7 +1,7 @@
 import React from 'react'
 import {Meta, Story} from '@storybook/react'
 import {Button, IconButton, Breadcrumbs, Link, Text, StateLabel, BranchName, Box} from '..'
-import {UnderlineNav} from '../UnderlineNav2'
+import {UnderlineNav} from '../UnderlineNav'
 import Label from '../Label'
 import {
   KebabHorizontalIcon,
@@ -205,7 +205,7 @@ export const Playground: Story = args => (
         </PageHeader.ContextBar>
 
         <PageHeader.ContextAreaActions hidden={!args.hasContextAreaAction}>
-          <Button size="small" leadingIcon={GitBranchIcon}>
+          <Button size="small" leadingVisual={GitBranchIcon}>
             Main
           </Button>
           <IconButton size="small" aria-label="More" icon={KebabHorizontalIcon} />
