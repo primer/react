@@ -1,11 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Dropdown renders consistently 1`] = `
-.c0 {
-  position: relative;
-  display: inline-block;
-}
-
 .c0 > summary {
   list-style: none;
 }
@@ -14,8 +9,13 @@ exports[`Dropdown renders consistently 1`] = `
   display: none;
 }
 
+.c1 {
+  position: relative;
+  display: inline-block;
+}
+
 <details
-  className="c0"
+  className="c0 c1"
   onToggle={[Function]}
 >
   Hello!
@@ -45,10 +45,6 @@ exports[`Dropdown.Button renders consistently 1`] = `
   text-decoration: none;
   text-align: center;
   font-size: 14px;
-  color: #24292f;
-  background-color: #f6f8fa;
-  border: 1px solid rgba(31,35,40,0.15);
-  box-shadow: 0 1px 0 rgba(31,35,40,0.04),inset 0 1px 0 rgba(255,255,255,0.25);
 }
 
 .c0:hover {
@@ -68,26 +64,33 @@ exports[`Dropdown.Button renders consistently 1`] = `
   opacity: 0.6;
 }
 
-.c0:hover {
+.c1 {
+  color: #24292f;
+  background-color: #f6f8fa;
+  border: 1px solid rgba(31,35,40,0.15);
+  box-shadow: 0 1px 0 rgba(31,35,40,0.04),inset 0 1px 0 rgba(255,255,255,0.25);
+}
+
+.c1:hover {
   background-color: #f3f4f6;
   border-color: rgba(31,35,40,0.15);
 }
 
-.c0:focus {
+.c1:focus {
   outline: solid 2px #0969da;
 }
 
-.c0:active {
+.c1:active {
   background-color: hsla(220,14%,94%,1);
 }
 
-.c0:disabled {
+.c1:disabled {
   color: #8c959f;
   background-color: #f6f8fa;
   border-color: rgba(31,35,40,0.15);
 }
 
-.c1 {
+.c2 {
   border: 4px solid transparent;
   margin-left: 12px;
   border-top-color: currentcolor;
@@ -101,11 +104,11 @@ exports[`Dropdown.Button renders consistently 1`] = `
 
 <summary
   aria-haspopup="true"
-  className="c0"
+  className="c0 c1"
 >
   Hello!
   <div
-    className="c1"
+    className="c2"
   />
 </summary>
 `;

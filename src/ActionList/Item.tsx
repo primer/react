@@ -125,6 +125,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
         ':hover:not([aria-disabled])': {
           backgroundColor: `actionListItem.${variant}.hoverBg`,
           color: getVariantStyles(variant, disabled).hoverColor,
+          boxShadow: `inset 0 0 0 max(1px, 0.0625rem) ${theme?.colors.actionListItem.default.activeBorder}`,
         },
         '&:focus-visible, > a:focus-visible': {
           outline: 'none',
@@ -190,10 +191,10 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       [onSelect, disabled, afterSelect],
     )
 
-    // use props.id if provided, otherwise generate one.
-    const labelId = useId(id)
-    const inlineDescriptionId = useId(id && `${id}--inline-description`)
-    const blockDescriptionId = useId(id && `${id}--block-description`)
+    const itemId = useId(id)
+    const labelId = `${itemId}--label`
+    const inlineDescriptionId = `${itemId}--inline-description`
+    const blockDescriptionId = `${itemId}--block-description`
 
     const ItemWrapper = _PrivateItemWrapper || React.Fragment
 
@@ -208,6 +209,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       'aria-describedby': slots.description?.props.variant === 'block' ? blockDescriptionId : undefined,
       ...(selectionAttribute && {[selectionAttribute]: selected}),
       role: role || itemRole,
+      id: itemId,
     }
 
     const containerProps = _PrivateItemWrapper ? {role: role || itemRole ? 'none' : undefined} : menuItemProps
