@@ -1,18 +1,6 @@
 import React, {useState} from 'react'
 import {Meta} from '@storybook/react'
-import {
-  BaseStyles,
-  Box,
-  Checkbox,
-  FormControl,
-  Header,
-  Heading,
-  TextInput,
-  TextInputWithTokens,
-  ThemeProvider,
-  theme,
-  useFormControlForwardedProps,
-} from '..'
+import {BaseStyles, Box, Checkbox, FormControl, TextInput, TextInputWithTokens, ThemeProvider, theme} from '..'
 import {FormValidationStatus} from '../utils/types/FormValidationStatus'
 
 export default {
@@ -103,9 +91,12 @@ export const Playground = ({
         {caption && <FormControl.Caption>{caption}</FormControl.Caption>}
         <Checkbox />
 
-        {variantMessage && variant && (
-          <FormControl.Validation variant={variant}>{variantMessage}</FormControl.Validation>
-        )}
+        {
+          // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+          variantMessage !== '' && variant && (
+            <FormControl.Validation variant={variant}>{variantMessage}</FormControl.Validation>
+          )
+        }
       </FormControl>
       <FormControl>
         <FormControl.Label>Default label</FormControl.Label>
@@ -114,5 +105,3 @@ export const Playground = ({
     </Box>
   )
 }
-
-// options: ['text', 'number', 'password', 'email', 'search', 'tel', 'url'],

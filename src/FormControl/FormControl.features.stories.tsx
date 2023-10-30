@@ -15,7 +15,6 @@ import {
   Textarea,
   ThemeProvider,
   theme,
-  useFormControlForwardedProps,
 } from '..'
 import {MarkGithubIcon} from '@primer/octicons-react'
 
@@ -164,7 +163,7 @@ export const FormControlWithCustomInput = () => {
           </FormControl.Validation>
         )}
         <FormControl.Caption id="custom-input-caption">
-          With or without "@". For example "monalisa" or "@monalisa"
+          With or without &quot;@&quot;. For example &quot;monalisa&quot; or &quot;@monalisa&quot;
         </FormControl.Caption>
       </FormControl>
 
@@ -257,7 +256,9 @@ export const ValidationExample = () => {
       {validationResult === 'validName' && (
         <FormControl.Validation variant="success">Valid name</FormControl.Validation>
       )}
-      <FormControl.Caption>With or without "@". For example "monalisa" or "@monalisa"</FormControl.Caption>
+      <FormControl.Caption>
+        With or without &quot;@&quot;. For example &quot;monalisa&quot; or &quot;@monalisa&quot;
+      </FormControl.Caption>
     </FormControl>
   )
 }
@@ -282,5 +283,3 @@ export const WithLeadingVisual = () => (
     </FormControl>
   </Box>
 )
-
-// options: ['text', 'number', 'password', 'email', 'search', 'tel', 'url'],
