@@ -84,20 +84,20 @@ type ItemMetadata = {
 }
 
 type Datum = {
-  id: string | number
+  id: string
   text: string
   selected?: boolean
   metadata?: ItemMetadata
 }
 
 const items: Datum[] = [
-  {text: 'css', id: 0},
-  {text: 'css-in-js', id: 1},
-  {text: 'styled-system', id: 2},
-  {text: 'javascript', id: 3},
-  {text: 'typescript', id: 4},
-  {text: 'react', id: 5},
-  {text: 'design-systems', id: 6},
+  {text: 'css', id: '0'},
+  {text: 'css-in-js', id: '1'},
+  {text: 'styled-system', id: '2'},
+  {text: 'javascript', id: '3'},
+  {text: 'typescript', id: '4'},
+  {text: 'react', id: '5'},
+  {text: 'design-systems', id: '6'},
 ]
 
 const autocompleteStoryMeta: Meta = {
@@ -219,7 +219,7 @@ export const Default = (args: FormControlArgs<AutocompleteArgs>) => {
   const {parentArgs, labelArgs, captionArgs, validationArgs} = getFormControlArgsByChildComponent(args)
   const {menuArgs, overlayArgs, textInputArgs} = getArgsByChildComponent(args)
   const isMultiselect = menuArgs.selectionVariant === 'multiple'
-  const [selectedItemIds, setSelectedItemIds] = useState<Array<string | number>>([])
+  const [selectedItemIds, setSelectedItemIds] = useState<Array<string>>([])
   const onSelectedChange = (newlySelectedItems: Datum | Datum[]) => {
     if (!Array.isArray(newlySelectedItems)) {
       return
@@ -255,12 +255,12 @@ export const Default = (args: FormControlArgs<AutocompleteArgs>) => {
 
 Default.play = async ({canvasElement}: {canvasElement: HTMLElement}) => {
   const canvas = within(canvasElement)
-  const inputBox = await canvas.getByTestId('autocompleteInput')
+  const inputBox = canvas.getByTestId('autocompleteInput')
   await userEvent.click(inputBox)
   const firstAutoCompleteOption = canvas.getByText('css')
-  await expect(firstAutoCompleteOption).toBeInTheDocument()
+  expect(firstAutoCompleteOption).toBeInTheDocument()
   await userEvent.type(firstAutoCompleteOption, '{enter}')
-  await expect(inputBox).toHaveValue('css')
+  expect(inputBox).toHaveValue('css')
 }
 
 export default autocompleteStoryMeta
