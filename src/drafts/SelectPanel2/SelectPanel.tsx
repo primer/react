@@ -17,12 +17,13 @@ import {
 } from '../../../src/index'
 import {ActionListContainerContext} from '../../../src/ActionList/ActionListContainerContext'
 import {useSlots} from '../../hooks/useSlots'
-import {useProvidedRefOrCreate} from '../../hooks'
+import {useProvidedRefOrCreate, useId} from '../../hooks'
 import {useFocusZone} from '../../hooks/useFocusZone'
 
 const SelectPanelContext = React.createContext<{
   title: string
   description: string
+  panelId: string
   onCancel: () => void
   onClearSelection: undefined | (() => void)
   searchQuery: string
@@ -31,6 +32,7 @@ const SelectPanelContext = React.createContext<{
 }>({
   title: '',
   description: '',
+  panelId: '',
   onCancel: () => {},
   onClearSelection: undefined,
   searchQuery: '',
@@ -80,6 +82,8 @@ const SelectPanel = props => {
   /* Search/Filter */
   const [searchQuery, setSearchQuery] = React.useState('')
 
+  /* Panel plumbing */
+  const panelId = useId(props.id)
   const [slots, childrenInBody] = useSlots(contents, {header: SelectPanelHeader, footer: SelectPanelFooter})
 
   /* Arrow keys navigation for list items */
@@ -108,9 +112,15 @@ const SelectPanel = props => {
           // we have a focus zone on the list
           disabled: true,
         }}
+        overlayProps={{
+          role: 'dialog',
+          'aria-labelledby': `${panelId}--title`,
+          'aria-describedby': props.description ? `${panelId}--description` : undefined,
+        }}
       >
         <SelectPanelContext.Provider
           value={{
+            panelId,
             title: props.title,
             description: props.description,
             onCancel: onInternalClose,
@@ -178,7 +188,7 @@ const SelectPanelHeader: React.FC<React.PropsWithChildren> = ({children, ...prop
     searchInput: SelectPanelSearchInput,
   })
 
-  const {title, description, onCancel, onClearSelection} = React.useContext(SelectPanelContext)
+  const {title, description, panelId, onCancel, onClearSelection} = React.useContext(SelectPanelContext)
 
   return (
     <Box
@@ -204,10 +214,14 @@ const SelectPanelHeader: React.FC<React.PropsWithChildren> = ({children, ...prop
           {/* heading element is intentionally hardcoded to h1, it is not customisable 
             see https://github.com/github/primer/issues/2578 for context
           */}
-          <Heading as="h1" sx={{fontSize: 14, fontWeight: 600}} {...props}>
+          <Heading as="h1" id={`${panelId}--title`} sx={{fontSize: 14, fontWeight: 600}} {...props}>
             {title}
           </Heading>
-          {description ? <Text sx={{fontSize: 0, color: 'fg.muted', display: 'block'}}>{description}</Text> : null}
+          {description ? (
+            <Text id={`${panelId}--description`} sx={{fontSize: 0, color: 'fg.muted', display: 'block'}}>
+              {description}
+            </Text>
+          ) : null}
         </Box>
 
         <Box>
