@@ -103,7 +103,7 @@ const items: Datum[] = [
 const mockTokens: Datum[] = [...items].slice(0, 3)
 
 const autocompleteStoryMeta: Meta = {
-  title: 'Components/Forms/Autocomplete/Features',
+  title: 'Components/Autocomplete/Features',
   decorators: [
     Story => {
       const [lastKey, setLastKey] = useState('none')
