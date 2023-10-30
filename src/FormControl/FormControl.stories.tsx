@@ -1,14 +1,19 @@
-import React from 'react'
+import React, {useState} from 'react'
 import {Meta} from '@storybook/react'
 import {
   BaseStyles,
+  Box,
   Checkbox,
   FormControl,
+  Header,
+  Heading,
+  TextInput,
   TextInputWithTokens,
   ThemeProvider,
   theme,
   useFormControlForwardedProps,
 } from '..'
+import {FormValidationStatus} from '../utils/types/FormValidationStatus'
 
 export default {
   title: 'Components/FormControl',
@@ -36,6 +41,13 @@ export default {
     caption: {
       type: 'string',
     },
+    variant: {
+      control: {
+        type: 'radio',
+      },
+      options: ['error', 'success', 'warning'],
+    },
+    variantMessage: {type: 'string'},
   },
 } as Meta
 
@@ -44,6 +56,8 @@ interface ArgTypes {
   required: boolean
   label: string
   caption: string
+  variant: FormValidationStatus
+  variantMessage: string
 }
 const mockTokens = [
   {text: 'zero', id: 0},
@@ -58,50 +72,47 @@ const mockTokens = [
   {text: 'twentyone', id: 21},
 ]
 
+export const Default = () => (
+  <FormControl required={true}>
+    <FormControl.Label>Form Input Label</FormControl.Label>
+    <FormControl.Caption>This is a caption</FormControl.Caption>
+    <Checkbox />
+  </FormControl>
+)
+
 export const Playground = ({
   label = 'Input',
   caption = 'This is the caption',
   required = false,
   disabled = false,
-}: ArgTypes) => (
-  <FormControl disabled={disabled} required={required}>
-    <FormControl.Label>{label}</FormControl.Label>
-    {caption && <FormControl.Caption>{caption}</FormControl.Caption>}
-    <Checkbox />
+  variant = 'success',
+  variantMessage = 'Success!',
+}: ArgTypes) => {
+  const [tokens, setTokens] = useState([...mockTokens].slice(0, 5))
+  const onTokenRemove: (tokenId: string | number) => void = tokenId => {
+    setTokens(tokens.filter(token => token.id !== tokenId))
+  }
 
-    <FormControl.Validation variant="error">Some error</FormControl.Validation>
-    <TextInputWithTokens
-      tokens={[
-        {text: 'zero', id: 0},
-        {text: 'one', id: 1},
-        {text: 'two', id: 2},
-      ]}
-      onTokenRemove={() => true}
-    />
-  </FormControl>
-)
+  return (
+    <Box>
+      <FormControl disabled={disabled} required={required}>
+        <FormControl.Label>Name</FormControl.Label>
+        <TextInput />
 
-export const Default = ({
-  label = 'Input',
-  caption = 'This is the caption',
-  required = false,
-  disabled = false,
-}: ArgTypes) => (
-  <FormControl disabled={disabled} required={required}>
-    <FormControl.Label>{label}</FormControl.Label>
-    {caption && <FormControl.Caption>{caption}</FormControl.Caption>}
-    <Checkbox />
+        <FormControl.Label>{label}</FormControl.Label>
+        {caption && <FormControl.Caption>{caption}</FormControl.Caption>}
+        <Checkbox />
 
-    <FormControl.Validation variant="error">Some error</FormControl.Validation>
-    <TextInputWithTokens
-      tokens={[
-        {text: 'zero', id: 0},
-        {text: 'one', id: 1},
-        {text: 'two', id: 2},
-      ]}
-      onTokenRemove={() => true}
-    />
-  </FormControl>
-)
+        {variantMessage && variant && (
+          <FormControl.Validation variant={variant}>{variantMessage}</FormControl.Validation>
+        )}
+      </FormControl>
+      <FormControl>
+        <FormControl.Label>Default label</FormControl.Label>
+        <TextInputWithTokens tokens={tokens} onTokenRemove={onTokenRemove} />
+      </FormControl>
+    </Box>
+  )
+}
 
 // options: ['text', 'number', 'password', 'email', 'search', 'tel', 'url'],
