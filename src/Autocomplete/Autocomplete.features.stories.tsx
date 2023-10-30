@@ -3,7 +3,7 @@ import {Meta} from '@storybook/react'
 
 import {BaseStyles, Box, Dialog, ThemeProvider, registerPortalRoot} from '..'
 import TextInputTokens from '../TextInputWithTokens'
-import Autocomplete from '../Autocomplete/Autocomplete'
+import Autocomplete from './Autocomplete'
 import {AnchoredOverlay} from '../AnchoredOverlay'
 import FormControl from '../FormControl'
 import {Button} from '../Button'
@@ -16,8 +16,6 @@ import {
   getTextInputArgTypes,
   textInputWithTokensArgTypes,
 } from '../utils/story-helpers'
-import {within, userEvent} from '@storybook/testing-library'
-import {expect} from '@storybook/jest'
 
 type AutocompleteOverlayArgs = ComponentProps<typeof Autocomplete.Overlay>
 type AutocompleteMenuArgs = ComponentProps<typeof Autocomplete.Menu>
@@ -105,7 +103,7 @@ const items: Datum[] = [
 const mockTokens: Datum[] = [...items].slice(0, 3)
 
 const autocompleteStoryMeta: Meta = {
-  title: 'Components/Forms/Autocomplete',
+  title: 'Components/Autocomplete/Features',
   decorators: [
     Story => {
       const [lastKey, setLastKey] = useState('none')
@@ -218,54 +216,6 @@ const autocompleteStoryMeta: Meta = {
     ...formControlArgTypes,
   },
 } as Meta
-
-export const Default = (args: FormControlArgs<AutocompleteArgs>) => {
-  const {parentArgs, labelArgs, captionArgs, validationArgs} = getFormControlArgsByChildComponent(args)
-  const {menuArgs, overlayArgs, textInputArgs} = getArgsByChildComponent(args)
-  const isMultiselect = menuArgs.selectionVariant === 'multiple'
-  const [selectedItemIds, setSelectedItemIds] = useState<Array<string | number>>([])
-  const onSelectedChange = (newlySelectedItems: Datum | Datum[]) => {
-    if (!Array.isArray(newlySelectedItems)) {
-      return
-    }
-
-    setSelectedItemIds(newlySelectedItems.map(item => item.id))
-  }
-
-  return (
-    <Box as="form" sx={{p: 3}}>
-      <FormControl {...parentArgs}>
-        <FormControl.Label id="autocompleteLabel" {...labelArgs} />
-        <Autocomplete>
-          <Autocomplete.Input {...textInputArgs} size={textInputArgs.inputSize} data-testid="autocompleteInput" />
-          <Autocomplete.Overlay {...overlayArgs}>
-            <Autocomplete.Menu
-              items={items}
-              selectedItemIds={isMultiselect ? selectedItemIds : []}
-              onSelectedChange={isMultiselect ? onSelectedChange : undefined}
-              aria-labelledby="autocompleteLabel"
-              {...menuArgs}
-            />
-          </Autocomplete.Overlay>
-        </Autocomplete>
-        {captionArgs.children && <FormControl.Caption {...captionArgs} />}
-        {validationArgs.children && validationArgs.variant && (
-          <FormControl.Validation {...validationArgs} variant={validationArgs.variant} />
-        )}
-      </FormControl>
-    </Box>
-  )
-}
-
-Default.play = async ({canvasElement}: {canvasElement: HTMLElement}) => {
-  const canvas = within(canvasElement)
-  const inputBox = await canvas.getByTestId('autocompleteInput')
-  await userEvent.click(inputBox)
-  const firstAutoCompleteOption = canvas.getByText('css')
-  await expect(firstAutoCompleteOption).toBeInTheDocument()
-  await userEvent.type(firstAutoCompleteOption, '{enter}')
-  await expect(inputBox).toHaveValue('css')
-}
 
 export const WithTokenInput = (args: FormControlArgs<AutocompleteArgs>) => {
   const {parentArgs, labelArgs, captionArgs, validationArgs} = getFormControlArgsByChildComponent(args)
