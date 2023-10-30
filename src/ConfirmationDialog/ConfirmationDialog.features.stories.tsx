@@ -1,52 +1,15 @@
-import React, {useState, useRef, useCallback} from 'react'
-import {Meta} from '@storybook/react'
-import {BaseStyles, Box, ThemeProvider, useTheme} from '..'
+import React, {useState, useCallback} from 'react'
+import {ComponentMeta} from '@storybook/react'
+import {Box, useTheme} from '..'
 import {Button} from '../Button'
 import {ActionMenu} from '../ActionMenu'
 import {ActionList} from '../ActionList'
-import {ConfirmationDialog, useConfirm} from '../Dialog/ConfirmationDialog'
+import {ConfirmationDialog, useConfirm} from './ConfirmationDialog'
 
 export default {
-  title: 'Components/ConfirmationDialog',
+  title: 'Components/ConfirmationDialog/Features',
   component: ConfirmationDialog,
-  decorators: [
-    Story => {
-      // Since portal roots are registered globally, we need this line so that each storybook
-      // story works in isolation.
-      return (
-        <ThemeProvider>
-          <BaseStyles>
-            <Story />
-          </BaseStyles>
-        </ThemeProvider>
-      )
-    },
-  ],
-} as Meta
-
-export const BasicConfirmationDialog = () => {
-  const [isOpen, setIsOpen] = useState(false)
-  const buttonRef = useRef<HTMLButtonElement>(null)
-  const onDialogClose = useCallback(() => setIsOpen(false), [])
-  return (
-    <>
-      <Button ref={buttonRef} onClick={() => setIsOpen(!isOpen)}>
-        Show dialog
-      </Button>
-      {isOpen && (
-        <ConfirmationDialog
-          title="Delete universe?"
-          onClose={onDialogClose}
-          confirmButtonContent="Delete it!"
-          confirmButtonType="danger"
-        >
-          Deleting the universe could have disastrous effects, including but not limited to destroying all life on
-          Earth.
-        </ConfirmationDialog>
-      )}
-    </>
-  )
-}
+} as ComponentMeta<typeof ConfirmationDialog>
 
 export const ShorthandHook = () => {
   const confirm = useConfirm()

@@ -226,6 +226,7 @@ export function Pagination({
               className="TablePaginationAction"
               type="button"
               data-has-page={hasPreviousPage ? true : undefined}
+              aria-disabled={!hasPreviousPage ? true : undefined}
               onClick={() => {
                 if (!hasPreviousPage) {
                   return
@@ -306,6 +307,7 @@ export function Pagination({
               className="TablePaginationAction"
               type="button"
               data-has-page={hasNextPage ? true : undefined}
+              aria-disabled={!hasNextPage ? true : undefined}
               onClick={() => {
                 if (!hasNextPage) {
                   return

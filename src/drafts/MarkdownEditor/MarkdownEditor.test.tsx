@@ -7,8 +7,6 @@ import {act} from 'react-dom/test-utils'
 import MarkdownEditor, {MarkdownEditorHandle, MarkdownEditorProps, Mentionable, Reference, SavedReply} from '.'
 import ThemeProvider from '../../ThemeProvider'
 
-declare const REACT_VERSION_LATEST: boolean
-
 type UncontrolledEditorProps = Omit<MarkdownEditorProps, 'value' | 'onChange' | 'onRenderPreview' | 'children'> &
   Partial<Pick<MarkdownEditorProps, 'onChange' | 'onRenderPreview' | 'children'>> & {
     hideLabel?: boolean
@@ -1212,11 +1210,7 @@ describe('MarkdownEditor', () => {
       //
       // At the moment, it doesn't seem clear how to appropriately wrap this
       // interaction in an act() in order to cover this warning
-      if (REACT_VERSION_LATEST) {
-        expect(spy).toHaveBeenCalled()
-      } else {
-        expect(spy).not.toHaveBeenCalled()
-      }
+      expect(spy).toHaveBeenCalled()
       expect(queryByRole('listbox')).toBeInTheDocument()
 
       spy.mockClear()
@@ -1254,11 +1248,7 @@ describe('MarkdownEditor', () => {
       // Note: this spy assertion for console.error() is for an act() violation.
       // It's not clear where this act() violation is located as wrapping the
       // above code does not address this.
-      if (REACT_VERSION_LATEST) {
-        expect(spy).toHaveBeenCalled()
-      } else {
-        expect(spy).not.toHaveBeenCalled()
-      }
+      expect(spy).toHaveBeenCalled()
       spy.mockRestore()
     })
 

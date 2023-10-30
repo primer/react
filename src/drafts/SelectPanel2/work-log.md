@@ -6,6 +6,7 @@
 
 ## Open accessibility questions
 
+1. Should pressing ArrowDown on SearchInput jump to first list item? Or only with Tab
 1. Should the text for Submit/Save button be customisable based on the page context? So that it says something like "Assign users" or "Add labels" instead of just "Save" or "Submit". Or is optional because the context is already established?
 
 ## Answered accessibility questions

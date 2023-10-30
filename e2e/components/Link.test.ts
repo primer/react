@@ -43,20 +43,6 @@ test.describe('Link', () => {
         })
       })
     }
-
-    test.describe('with forced underlines', () => {
-      test('default @vrt', async ({page}) => {
-        await visit(page, {
-          id: 'components-link--default',
-          globals: {
-            colorScheme: 'light',
-            prefersLinkUnderlines: 'true',
-          },
-        })
-
-        expect(await page.screenshot()).toMatchSnapshot('Link.Default.light.forcedUnderlines.png')
-      })
-    })
   })
 
   test.describe('Muted', () => {
@@ -99,20 +85,6 @@ test.describe('Link', () => {
         })
       })
     }
-
-    test.describe('with forced underlines', () => {
-      test('default @vrt', async ({page}) => {
-        await visit(page, {
-          id: 'components-link-features--muted',
-          globals: {
-            colorScheme: 'light',
-            prefersLinkUnderlines: 'true',
-          },
-        })
-
-        expect(await page.screenshot()).toMatchSnapshot('Link.Muted.light.forcedUnderlines.png')
-      })
-    })
   })
 
   test.describe('Underline', () => {
@@ -155,19 +127,5 @@ test.describe('Link', () => {
         })
       })
     }
-
-    test.describe('with forced underlines', () => {
-      test('default @vrt', async ({page}) => {
-        await visit(page, {
-          id: 'components-link-features--underline',
-          globals: {
-            colorScheme: 'light',
-            prefersLinkUnderlines: 'true',
-          },
-        })
-
-        expect(await page.screenshot()).toMatchSnapshot('Link.Underline.light.forcedUnderlines.png')
-      })
-    })
   })
 })

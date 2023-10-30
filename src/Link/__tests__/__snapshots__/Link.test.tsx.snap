@@ -3,8 +3,8 @@
 exports[`Link applies button styles when rendering a button element 1`] = `
 .c0 {
   color: #0969da;
-  -webkit-text-decoration: var(--prefers-link-underlines,underline);
-  text-decoration: var(--prefers-link-underlines,underline);
+  -webkit-text-decoration: none;
+  text-decoration: none;
 }
 
 .c0:hover {
@@ -37,8 +37,8 @@ exports[`Link applies button styles when rendering a button element 1`] = `
 exports[`Link passes href down to link element 1`] = `
 .c0 {
   color: #0969da;
-  -webkit-text-decoration: var(--prefers-link-underlines,underline);
-  text-decoration: var(--prefers-link-underlines,underline);
+  -webkit-text-decoration: none;
+  text-decoration: none;
 }
 
 .c0:hover {
@@ -72,8 +72,8 @@ exports[`Link passes href down to link element 1`] = `
 exports[`Link renders consistently 1`] = `
 .c0 {
   color: #0969da;
-  -webkit-text-decoration: var(--prefers-link-underlines,underline);
-  text-decoration: var(--prefers-link-underlines,underline);
+  -webkit-text-decoration: none;
+  text-decoration: none;
 }
 
 .c0:hover {
@@ -106,8 +106,8 @@ exports[`Link renders consistently 1`] = `
 exports[`Link respects hoverColor prop 1`] = `
 .c0 {
   color: #0969da;
-  -webkit-text-decoration: var(--prefers-link-underlines,underline);
-  text-decoration: var(--prefers-link-underlines,underline);
+  -webkit-text-decoration: none;
+  text-decoration: none;
 }
 
 .c0:hover {
@@ -141,14 +141,14 @@ exports[`Link respects hoverColor prop 1`] = `
 exports[`Link respects the  "sx" prop when "muted" prop is also passed 1`] = `
 .c0 {
   color: #656d76;
-  -webkit-text-decoration: var(--prefers-link-underlines,underline);
-  text-decoration: var(--prefers-link-underlines,underline);
+  -webkit-text-decoration: none;
+  text-decoration: none;
   color: #ffffff;
 }
 
 .c0:hover {
-  -webkit-text-decoration: var(--prefers-link-underlines,underline);
-  text-decoration: var(--prefers-link-underlines,underline);
+  -webkit-text-decoration: none;
+  text-decoration: none;
   color: #0969da;
 }
 
@@ -178,13 +178,13 @@ exports[`Link respects the  "sx" prop when "muted" prop is also passed 1`] = `
 exports[`Link respects the "muted" prop 1`] = `
 .c0 {
   color: #656d76;
-  -webkit-text-decoration: var(--prefers-link-underlines,underline);
-  text-decoration: var(--prefers-link-underlines,underline);
+  -webkit-text-decoration: none;
+  text-decoration: none;
 }
 
 .c0:hover {
-  -webkit-text-decoration: var(--prefers-link-underlines,underline);
-  text-decoration: var(--prefers-link-underlines,underline);
+  -webkit-text-decoration: none;
+  text-decoration: none;
   color: #0969da;
 }
 

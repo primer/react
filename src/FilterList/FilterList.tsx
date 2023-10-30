@@ -60,11 +60,7 @@ export type FilterListItemProps = {count?: number} & ComponentProps<typeof Filte
 const FilterListItem = ({children, count, ...rest}: React.PropsWithChildren<FilterListItemProps>) => {
   return (
     <FilterListItemBase {...rest}>
-      {count && (
-        <span title="results" className="count">
-          {count}
-        </span>
-      )}
+      {count && <span className="count">{count}</span>}
       {children}
     </FilterListItemBase>
   )
