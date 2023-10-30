@@ -10,6 +10,7 @@ const allowlist = [
   'ActionList',
   'ActionMenu',
   'AnchoredOverlay',
+  'Autocomplete',
   'Avatar',
   'AvatarStack',
   'AvatarPair',

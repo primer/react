@@ -872,6 +872,113 @@ export const FInstantSelectionVariant = () => {
   )
 }
 
+export const TODO3WithValidation = () => {
+  const initialSelectedLabels = data.issue.labelIds // mock initial state: has selected labels
+  const [selectedLabelIds, setSelectedLabelIds] = React.useState<string[]>(initialSelectedLabels)
+
+  /* Selection */
+  const onLabelSelect = (labelId: string) => {
+    if (!selectedLabelIds.includes(labelId)) setSelectedLabelIds([...selectedLabelIds, labelId])
+    else setSelectedLabelIds(selectedLabelIds.filter(id => id !== labelId))
+  }
+
+  const onClearSelection = () => {
+    // soft set, does not save until submit
+    setSelectedLabelIds([])
+  }
+
+  const onSubmit = () => {
+    data.issue.labelIds = selectedLabelIds // pretending to persist changes
+
+    // eslint-disable-next-line no-console
+    console.log('form submitted')
+  }
+
+  /* Filtering */
+  const [filteredLabels, setFilteredLabels] = React.useState(data.labels)
+  const [query, setQuery] = React.useState('')
+
+  // TODO: should this be baked-in
+  const onSearchInputChange = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    const query = event.currentTarget.value
+    setQuery(query)
+
+    if (query === '') setFilteredLabels(data.labels)
+    else {
+      // TODO: should probably add a highlight for matching text
+      setFilteredLabels(
+        data.labels
+          .map(label => {
+            if (label.name.toLowerCase().startsWith(query)) return {priority: 1, label}
+            else if (label.name.toLowerCase().includes(query)) return {priority: 2, label}
+            else if (label.description?.toLowerCase().includes(query)) return {priority: 3, label}
+            else return {priority: -1, label}
+          })
+          .filter(result => result.priority > 0)
+          .map(result => result.label),
+      )
+    }
+  }
+
+  const sortingFn = (itemA: {id: string}, itemB: {id: string}) => {
+    const initialSelectedIds = data.issue.labelIds
+    if (initialSelectedIds.includes(itemA.id) && initialSelectedIds.includes(itemB.id)) return 1
+    else if (initialSelectedIds.includes(itemA.id)) return -1
+    else if (initialSelectedIds.includes(itemB.id)) return 1
+    else return 1
+  }
+
+  const itemsToShow = query ? filteredLabels : data.labels.sort(sortingFn)
+
+  return (
+    <>
+      <h1>SelectPanel with validation</h1>
+
+      <SelectPanel
+        title="Select labels"
+        description="Add up to 10 labels to this issue"
+        defaultOpen
+        onSubmit={onSubmit}
+        // @ts-ignore todo
+        onClearSelection={event => {
+          // @ts-ignore todo
+          onClearSelection(event)
+        }}
+      >
+        {/* TODO: the ref types don't match here, use useProvidedRefOrCreate */}
+        {/* @ts-ignore todo */}
+        <SelectPanel.Button>Assign label</SelectPanel.Button>
+        {/* TODO: header and heading is confusing. maybe skip header completely. */}
+        <SelectPanel.Header>
+          <SelectPanel.SearchInput onChange={onSearchInputChange} />
+        </SelectPanel.Header>
+
+        {itemsToShow.length === 0 ? (
+          <SelectPanel.EmptyMessage>No labels found for &quot;{query}&quot;</SelectPanel.EmptyMessage>
+        ) : (
+          <ActionList>
+            {itemsToShow.map(label => (
+              <ActionList.Item
+                key={label.id}
+                onSelect={() => onLabelSelect(label.id)}
+                selected={selectedLabelIds.includes(label.id)}
+              >
+                <ActionList.LeadingVisual>{getCircle(label.color)}</ActionList.LeadingVisual>
+                {label.name}
+                <ActionList.Description variant="block">{label.description}</ActionList.Description>
+              </ActionList.Item>
+            ))}
+          </ActionList>
+        )}
+
+        <SelectPanel.Footer>
+          <SelectPanel.SecondaryButton>Edit labels</SelectPanel.SecondaryButton>
+        </SelectPanel.Footer>
+      </SelectPanel>
+    </>
+  )
+}
+
 // ----- Suspense implementation details ----
 
 const cache = new Map()

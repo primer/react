@@ -97,7 +97,7 @@ export const withThemeProvider = (Story: React.FC<React.PropsWithChildren<StoryC
   }
 
   return (
-    <ThemeProvider colorMode="day" dayScheme={colorScheme}>
+    <ThemeProvider colorMode="day" dayScheme={colorScheme} nightScheme={colorScheme}>
       <GlobalStyle />
       <BaseStyles>
         <div id="html-addon-root">{Story(context)}</div>
