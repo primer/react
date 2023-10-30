@@ -362,7 +362,7 @@ describe('InlineAutocomplete', () => {
     await user.keyboard('{ArrowDown}')
 
     expect(input).toHaveFocus()
-    expect(input).toHaveAttribute('aria-activedescendant', expect.stringContaining('option-1'))
+    expect(input).toHaveAttribute('aria-activedescendant', 'github')
     expect(within(getByRole('listbox')).queryAllByRole('option')[1]).toHaveAttribute('aria-selected', 'true')
 
     await user.keyboard('{Enter}')

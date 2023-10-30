@@ -14,7 +14,7 @@ export type BetterCssProperties = {
 }
 
 // Support CSS custom properties in the `sx` prop
-type CSSCustomProperties = {
+export type CSSCustomProperties = {
   [key: `--${string}`]: string | number
 }
 

@@ -1,5 +1,105 @@
 # @primer/components
 
+## 35.32.2
+
+### Patch Changes
+
+- [#3861](https://github.com/primer/react/pull/3861) [`85d9e515`](https://github.com/primer/react/commit/85d9e51503ebecf558ff7d2bef8b4c1e217084da) Thanks [@langermank](https://github.com/langermank)! - Use `button` CSS vars for border-color to support a feature flag
+
+- [#3862](https://github.com/primer/react/pull/3862) [`8cd6007e`](https://github.com/primer/react/commit/8cd6007e589d33fd89a1ab2a93547b9977e274b2) Thanks [@TylerJDev](https://github.com/TylerJDev)! - Adds `aria-disabled` to inactive pagination buttons.
+
+## 35.32.1
+
+### Patch Changes
+
+- [#3839](https://github.com/primer/react/pull/3839) [`d463d547`](https://github.com/primer/react/commit/d463d547f564d225786df7b702b735c0c7da6fd6) Thanks [@joshblack](https://github.com/joshblack)! - Restore Link underline preference to original behavior
+
+- [#3836](https://github.com/primer/react/pull/3836) [`038a7899`](https://github.com/primer/react/commit/038a7899ccaa28f57bc5ececa5aed301bab3495d) Thanks [@xiaolou86](https://github.com/xiaolou86)! - docs: fix typo
+
+## 35.32.0
+
+### Minor Changes
+
+- [#3720](https://github.com/primer/react/pull/3720) [`521b02f4`](https://github.com/primer/react/commit/521b02f4fa1fcba6375f3642e0cf1a9b01a4bda7) Thanks [@mperrotti](https://github.com/mperrotti)! - Updates link styles to support underline link preferences.
+
+  <!-- Changed components: ActionList, BranchName, Breadcrumbs, Button, Button2, Heading, Link -->
+
+- [#3813](https://github.com/primer/react/pull/3813) [`1fcfc478`](https://github.com/primer/react/commit/1fcfc47885c5c152264d7402e243700f7d02ec31) Thanks [@joshblack](https://github.com/joshblack)! - Add support for a `ref` on the inner <button> in ToggleSwitch
+
+### Patch Changes
+
+- [#3815](https://github.com/primer/react/pull/3815) [`794a477c`](https://github.com/primer/react/commit/794a477c9065f37c5ab789e99cddaee010e6af4c) Thanks [@pksjce](https://github.com/pksjce)! - Update hover styles for ActionList item
+
+- [#3691](https://github.com/primer/react/pull/3691) [`f4648b19`](https://github.com/primer/react/commit/f4648b19d664ba07d4a921bcafadd26f151093bd) Thanks [@joshblack](https://github.com/joshblack)! - Update ActionList to place `id` on item with an ARIA role
+
+  <!-- Changed components: ActionList -->
+
+- [#3809](https://github.com/primer/react/pull/3809) [`6b18eaec`](https://github.com/primer/react/commit/6b18eaecbd99f81f92b2dd654b771c85b53f365b) Thanks [@gr2m](https://github.com/gr2m)! - export `SelectPanel` from `@primer/react/drafts`
+
+  <!-- Changed components: _none_ -->
+
+- [#3683](https://github.com/primer/react/pull/3683) [`a84a1498`](https://github.com/primer/react/commit/a84a149826f658ddca715c4948d5a5002a648e4e) Thanks [@broccolinisoup](https://github.com/broccolinisoup)! - Button: Allow leadingIcon, trailingIcon, trailingAction to be overridable with sx
+
+  <!-- Changed components: Button -->
+
+- [#3784](https://github.com/primer/react/pull/3784) [`6f4fe7d2`](https://github.com/primer/react/commit/6f4fe7d2a91786569f2f1492168268c58eca2b53) Thanks [@radglob](https://github.com/radglob)! - Revert "Add aria-selected value to ActionList.Item."
+
+  <!-- Changed components: ActionList -->
+
+## 35.31.0
+
+### Minor Changes
+
+- [#3394](https://github.com/primer/react/pull/3394) [`9cd50f70`](https://github.com/primer/react/commit/9cd50f700eb9ebcee5d49181437fd497ec19c055) Thanks [@broccolinisoup](https://github.com/broccolinisoup)! - Tooltip: Release Tooltip v2 as a draft/experimental
+
+  <!-- Changed components: _none_ -->
+
+- [#3749](https://github.com/primer/react/pull/3749) [`b4fe331e`](https://github.com/primer/react/commit/b4fe331e3264a34ee4f1aec56e87f4e2b034f45c) Thanks [@thyeggman](https://github.com/thyeggman)! - Add suport for sparse sorting to DataTable
+
+  <!-- Changed components: DataTable -->
+
+- [#3581](https://github.com/primer/react/pull/3581) [`cc12464d`](https://github.com/primer/react/commit/cc12464df2492d5e38ce0aafa3ce523e62a8e567) Thanks [@broccolinisoup](https://github.com/broccolinisoup)! - ActionList: Add ActionList.Heading component
+
+  <!-- Changed components: ActionList -->
+
+## 35.30.0
+
+### Minor Changes
+
+- [#3714](https://github.com/primer/react/pull/3714) [`88340269`](https://github.com/primer/react/commit/883402697efa8c9ff5c434753d4af36737b65e4b) Thanks [@iansan5653](https://github.com/iansan5653)! - Add support for controlling which side `ActionMenu` renders on (via a `side` prop on `ActionMenu.Overlay`)
+
+  <!-- Changed components: ActionMenu -->
+
+- [#3715](https://github.com/primer/react/pull/3715) [`1f889281`](https://github.com/primer/react/commit/1f88928117acf86a3acd75c405b0064f080a66e3) Thanks [@joshblack](https://github.com/joshblack)! - Add support for leadingVisual and trailingVisual props to Button
+
+  <!-- Changed components: Button -->
+
+- [#3739](https://github.com/primer/react/pull/3739) [`b90e5476`](https://github.com/primer/react/commit/b90e547639a7a906ef21cbf1a1c702c3d92210bc) Thanks [@joshblack](https://github.com/joshblack)! - Add the Column type and createColumnHelper function to easily define columns for DataTable
+
+  <!-- Changed components: DataTable -->
+
+- [#3719](https://github.com/primer/react/pull/3719) [`500e529d`](https://github.com/primer/react/commit/500e529df47ae5def4bf5cedc55fc099251c25a1) Thanks [@joshblack](https://github.com/joshblack)! - The UnderlineNav, FilterList, and FilteredSearch components will be deprecated in v36 and have been moved to the deprecated entrypoint. To use the new UnderlineNav, migrate to the component available in drafts.
+
+  <!-- Changed components: FilterList, FilteredSearch, UnderlineNav -->
+
+- [#3732](https://github.com/primer/react/pull/3732) [`8928acc3`](https://github.com/primer/react/commit/8928acc38fa32e5d752c57cb80070e5368c66314) Thanks [@joshblack](https://github.com/joshblack)! - Add default `type="button"` to `IconButton` component
+
+  <!-- Changed components: IconButton -->
+
+### Patch Changes
+
+- [#3661](https://github.com/primer/react/pull/3661) [`25693b08`](https://github.com/primer/react/commit/25693b08e8f2c89af1199c2f9d4fe38777f8a70b) Thanks [@joshblack](https://github.com/joshblack)! - Update the `children` prop for `Button` to be optional
+
+  <!-- Changed components: Button, IconButton -->
+
+- [#3737](https://github.com/primer/react/pull/3737) [`a93eca21`](https://github.com/primer/react/commit/a93eca218043a3009ac0d6768e818fe3e15bb6c9) Thanks [@joshblack](https://github.com/joshblack)! - Restore default main landmark in PageLayout.Content
+
+  <!-- Changed components: PageLayout, SplitPageLayout -->
+
+- [#3722](https://github.com/primer/react/pull/3722) [`0baa5a7f`](https://github.com/primer/react/commit/0baa5a7f6a009e6a7c77cd380f9b9ad93fdfd7cd) Thanks [@mattcosta7](https://github.com/mattcosta7)! - use isomorphic layout effects only
+
+  <!-- Changed components: InlineAutocomplete, MarkdownEditor -->
+
 ## 35.29.0
 
 ### Minor Changes

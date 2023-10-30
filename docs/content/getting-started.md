@@ -2,16 +2,20 @@
 title: Getting started
 ---
 
+import DeprecationBanner from '../components/DeprecationBanner'
+
+<DeprecationBanner replacementUrl={'/design/guides/development/react'} />
+
 ## Installation
 
 To get started using Primer React, install the package and its peer dependencies with your package manager of choice:
 
 ```bash
 # with npm
-npm install @primer/react react react-dom styled-components
+npm install @primer/react react react-dom styled-components@5
 
 # with yarn
-yarn add @primer/react react react-dom styled-components
+yarn add @primer/react react react-dom styled-components@5
 ```
 
 You can now import Primer React from the main package module:
