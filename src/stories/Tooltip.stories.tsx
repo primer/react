@@ -25,7 +25,7 @@ export default {
 export const Default = () => (
   <Box sx={{p: 5}}>
     <Tooltip aria-label="Hello, Tooltip!">
-      <Button>Hover me</Button>
+      <Button>Hover over me</Button>
     </Tooltip>
   </Box>
 )
