@@ -47,6 +47,7 @@ const allowlist = [
   'Textarea',
   'TextInput',
   'TextInputWithTokens',
+  'Tooltip',
   'TreeView',
   'Timeline',
   'ToggleSwitch',
