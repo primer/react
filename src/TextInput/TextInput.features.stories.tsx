@@ -140,7 +140,7 @@ export const WithTrailingAction = () => {
               icon={XCircleFillIcon}
               aria-label="Clear input"
               sx={{
-                color: 'fg.subtle',
+                color: 'fg.muted',
                 backgroundColor:'transparent',
                 '&:hover': {color: 'rgba(192, 192, 192, 2)'}
                 }}
