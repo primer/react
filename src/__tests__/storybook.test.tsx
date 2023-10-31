@@ -27,6 +27,7 @@ const allowlist = [
   'Details',
   'Dialog',
   'Flash',
+  'FormControl',
   'Header',
   'Heading',
   'IconButton',
