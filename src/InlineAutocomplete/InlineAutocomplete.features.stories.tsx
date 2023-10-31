@@ -4,7 +4,7 @@ import {ActionList, Avatar, ActionListItemProps, Textarea, TextInput, FormContro
 import InlineAutocomplete, {ShowSuggestionsEvent, Suggestions} from '.'
 
 export default {
-  title: 'Components/InlineAutocomplete/Features',
+  title: 'Drafts/Components/InlineAutocomplete/Features',
   component: InlineAutocomplete,
 } as Meta<typeof InlineAutocomplete>
 
