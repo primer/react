@@ -32,10 +32,6 @@ Closes #
 
 <!-- Describe any specific details to help reviewers test or review this Pull Request -->
 
-- [ ] Integration tests passed at github/github (Optional and only available for GitHub staff)
-
-You can refer to the [testing primer react pull requests documentation](https://github.com/github/primer-engineering/blob/main/how-we-work/testing-primer-react-pr-at-dotcom.md) to learn how to run integrations test at github/github.
-
 ### Merge checklist
 
 - [ ] Added/updated tests
@@ -46,5 +42,6 @@ You can refer to the [testing primer react pull requests documentation](https://
 - [ ] Tested in Firefox
 - [ ] Tested in Safari
 - [ ] Tested in Edge
+- [ ] Integration tests pass at github/github ([Learn more about how to run integration tests](https://github.com/github/primer-engineering/blob/main/how-we-work/testing-primer-react-pr-at-dotcom.md))
 
 Take a look at the [What we look for in reviews](https://github.com/primer/react/blob/main/contributor-docs/CONTRIBUTING.md#what-we-look-for-in-reviews) section of the contributing guidelines for more information on how we review PRs.
