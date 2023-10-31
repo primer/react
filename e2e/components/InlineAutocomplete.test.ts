@@ -76,7 +76,7 @@ test.describe('InlineAutocomplete', () => {
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'components-inlineautocomplete-features--custom-rendering',
+            id: 'drafts-components-inlineautocomplete-features--custom-rendering',
             globals: {
               colorScheme: theme,
             },
