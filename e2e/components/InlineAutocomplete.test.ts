@@ -36,7 +36,7 @@ test.describe('InlineAutocomplete', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'components-inlineautocomplete--playground',
+            id: 'drafts-components-inlineautocomplete--playground',
             globals: {
               colorScheme: theme,
             },
