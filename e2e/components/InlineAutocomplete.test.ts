@@ -48,7 +48,7 @@ test.describe('InlineAutocomplete', () => {
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'components-inlineautocomplete--playground',
+            id: 'drafts-components-inlineautocomplete--playground',
             globals: {
               colorScheme: theme,
             },
