@@ -179,7 +179,7 @@ export const WithTooltipDirection = () => {
               sx={{
                 color: 'fg.muted',
                 backgroundColor:'transparent',
-                '&:hover': {color: 'rgba(192, 192, 192, 2)'}
+                '&:hover': {color: 'fg.subtle'}
                 }}
             /> ) : undefined
           }
