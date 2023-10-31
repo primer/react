@@ -8,7 +8,7 @@ test.describe('InlineAutocomplete', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'components-inlineautocomplete--default',
+            id: 'drafts-components-inlineautocomplete--default',
             globals: {
               colorScheme: theme,
             },
