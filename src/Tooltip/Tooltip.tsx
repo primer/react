@@ -1,9 +1,11 @@
 import clsx from 'clsx'
 import React from 'react'
 import styled from 'styled-components'
-import {get} from './constants'
-import sx, {SxProp} from './sx'
-import {ComponentProps} from './utils/types'
+import {get} from '../constants'
+import sx, {SxProp} from '../sx'
+import {ComponentProps} from '../utils/types'
+
+/* Tooltip v1 */
 
 const TooltipBase = styled.span<SxProp>`
   position: relative;
