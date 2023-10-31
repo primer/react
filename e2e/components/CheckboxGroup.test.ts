@@ -174,38 +174,4 @@ test.describe('CheckboxGroup', () => {
       })
     }
   })
-
-  test.describe('Warning', () => {
-    for (const theme of themes) {
-      test.describe(theme, () => {
-        test('default @vrt', async ({page}) => {
-          await visit(page, {
-            id: 'components-checkboxgroup-features--warning',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-
-          // Default state
-          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(`CheckboxGroup.Warning.${theme}.png`)
-        })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-checkboxgroup-features--warning',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: false,
-              },
-            },
-          })
-        })
-      })
-    }
-  })
 })

@@ -35,10 +35,6 @@ describe('TextInput', () => {
     expect(render(<TextInput name="zipcode" block />)).toMatchSnapshot()
   })
 
-  it('renders warning', () => {
-    expect(render(<TextInput name="zipcode" validationStatus="warning" />)).toMatchSnapshot()
-  })
-
   it('renders error', () => {
     expect(render(<TextInput name="zipcode" validationStatus="error" />)).toMatchSnapshot()
   })

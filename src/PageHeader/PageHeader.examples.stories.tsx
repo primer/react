@@ -16,7 +16,7 @@ import {
 
 import {PageHeader} from './PageHeader'
 import {Hidden} from '../Hidden'
-import {UnderlineNav} from '../UnderlineNav2'
+import {UnderlineNav} from '../UnderlineNav'
 import {ActionMenu} from '../ActionMenu'
 import {ActionList} from '../ActionList'
 import VisuallyHidden from '../_VisuallyHidden'
@@ -92,7 +92,7 @@ export const PullRequestPage = () => (
           <Hidden when={['narrow']}>
             <Box sx={{display: 'flex'}}>
               <Button>Edit</Button>
-              <Button leadingIcon={CodeIcon}>Code</Button>
+              <Button leadingVisual={CodeIcon}>Code</Button>
             </Box>
           </Hidden>
         </PageHeader.Actions>
@@ -150,7 +150,7 @@ export const FilesPage = () => (
         <PageHeader.ContextAreaActions>
           <ActionMenu>
             <ActionMenu.Anchor>
-              <Button size="small" leadingIcon={GitBranchIcon} trailingIcon={TriangleDownIcon}>
+              <Button size="small" leadingVisual={GitBranchIcon} trailingVisual={TriangleDownIcon}>
                 Main
               </Button>
             </ActionMenu.Anchor>
@@ -303,7 +303,7 @@ export const WithPageLayout = () => {
               <Hidden when={['narrow']}>
                 <Box sx={{display: 'flex'}}>
                   <Button>Edit</Button>
-                  <Button leadingIcon={CodeIcon}>Code</Button>
+                  <Button leadingVisual={CodeIcon}>Code</Button>
                 </Box>
               </Hidden>
             </PageHeader.Actions>

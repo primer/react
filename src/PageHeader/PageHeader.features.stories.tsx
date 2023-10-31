@@ -1,6 +1,6 @@
 import React from 'react'
 import {Meta} from '@storybook/react'
-import {IconButton, Breadcrumbs, Text, Link, Button, Box, Label, UnderlineNav2} from '..'
+import {IconButton, Breadcrumbs, Text, Link, Button, Box, Label, UnderlineNav} from '..'
 import {
   PencilIcon,
   SidebarExpandIcon,
@@ -116,7 +116,7 @@ export const WithActions = () => (
         <PageHeader.Actions>
           <IconButton aria-label="Workflows" icon={WorkflowIcon} />
           <IconButton aria-label="Insights" icon={GraphIcon} />
-          <Button variant="primary" trailingIcon={TriangleDownIcon}>
+          <Button variant="primary" trailingVisual={TriangleDownIcon}>
             Add Item
           </Button>
           <IconButton aria-label="Settings" icon={GearIcon} />
@@ -149,20 +149,20 @@ export const WithNavigationSlot = () => (
         <PageHeader.Title>Pull request title</PageHeader.Title>
       </PageHeader.TitleArea>
       <PageHeader.Navigation>
-        <UnderlineNav2 aria-label="Pull Request">
-          <UnderlineNav2.Item icon={CommentDiscussionIcon} counter="12" aria-current="page">
+        <UnderlineNav aria-label="Pull Request">
+          <UnderlineNav.Item icon={CommentDiscussionIcon} counter="12" aria-current="page">
             Conversation
-          </UnderlineNav2.Item>
-          <UnderlineNav2.Item counter={3} icon={CommitIcon}>
+          </UnderlineNav.Item>
+          <UnderlineNav.Item counter={3} icon={CommitIcon}>
             Commits
-          </UnderlineNav2.Item>
-          <UnderlineNav2.Item counter={7} icon={ChecklistIcon}>
+          </UnderlineNav.Item>
+          <UnderlineNav.Item counter={7} icon={ChecklistIcon}>
             Checks
-          </UnderlineNav2.Item>
-          <UnderlineNav2.Item counter={4} icon={FileDiffIcon}>
+          </UnderlineNav.Item>
+          <UnderlineNav.Item counter={4} icon={FileDiffIcon}>
             Files Changes
-          </UnderlineNav2.Item>
-        </UnderlineNav2>
+          </UnderlineNav.Item>
+        </UnderlineNav>
       </PageHeader.Navigation>
     </PageHeader>
   </Box>
@@ -249,7 +249,7 @@ export const WithContextBarAndActionsOfContextArea = () => (
           </Breadcrumbs>
         </PageHeader.ContextBar>
         <PageHeader.ContextAreaActions>
-          <Button size="small" leadingIcon={GitBranchIcon}>
+          <Button size="small" leadingVisual={GitBranchIcon}>
             Main
           </Button>
           <IconButton size="small" aria-label="More Options" icon={KebabHorizontalIcon} />

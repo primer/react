@@ -210,13 +210,6 @@ const TextInputWrapper = styled(TextInputBaseWrapper)<StyledWrapperProps>`
     }
   `}
 
-  ${props =>
-    props.validationStatus === 'warning' &&
-    css`
-      border-color: ${get('colors.attention.emphasis')};
-      ${renderFocusStyles(Boolean(props.hasTrailingAction), Boolean(props.isInputFocused))}
-    `}
-
   ${sx};
 `
 

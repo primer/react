@@ -44,16 +44,6 @@ export const Error = () => (
   </Box>
 )
 
-export const Warning = () => (
-  <Box as="form">
-    <FormControl>
-      <FormControl.Label>Default label</FormControl.Label>
-      <Textarea />
-      <FormControl.Validation variant="warning">Something happened</FormControl.Validation>
-    </FormControl>
-  </Box>
-)
-
 export const Success = () => (
   <Box as="form">
     <FormControl>
