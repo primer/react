@@ -4,6 +4,8 @@ import Box from '../Box'
 import {SxProp} from '../sx'
 import {ListContext, ActionListProps} from './List'
 import {AriaRole} from '../utils/types'
+import {Heading} from './Heading'
+import {useSlots} from '../hooks/useSlots'
 
 export type ActionListGroupProps = {
   /**
@@ -47,6 +49,12 @@ export const Group: React.FC<React.PropsWithChildren<ActionListGroupProps>> = ({
   const labelId = useId()
   const {role: listRole} = React.useContext(ListContext)
 
+  const [slots, childrenWithoutSlots] = useSlots(props.children, {
+    heading: Heading,
+  })
+
+  const ariaLabelledBy = slots.heading ? slots.heading.props.id ?? labelId : title ? labelId : undefined
+
   return (
     <Box
       as="li"
@@ -58,15 +66,13 @@ export const Group: React.FC<React.PropsWithChildren<ActionListGroupProps>> = ({
       }}
       {...props}
     >
-      {title && <Header title={title} variant={variant} auxiliaryText={auxiliaryText} labelId={labelId} />}
+      {/* If ActionList.GroupHeading exists, render it; if not, fall back to rendering title prop - title prop will be deprecated in v37 */}
+      {slots.heading
+        ? slots.heading
+        : title && <Header title={title} variant={variant} auxiliaryText={auxiliaryText} labelId={labelId} />}
       <GroupContext.Provider value={{selectionVariant}}>
-        <Box
-          as="ul"
-          sx={{paddingInlineStart: 0}}
-          aria-labelledby={title ? labelId : undefined}
-          role={role || (listRole && 'group')}
-        >
-          {props.children}
+        <Box as="ul" sx={{paddingInlineStart: 0}} aria-labelledby={ariaLabelledBy} role={role || (listRole && 'group')}>
+          {childrenWithoutSlots}
         </Box>
       </GroupContext.Provider>
     </Box>

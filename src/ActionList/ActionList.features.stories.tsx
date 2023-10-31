@@ -44,56 +44,112 @@ export const SimpleList = () => (
 )
 
 export const WithVisualListHeading = () => (
-  <ActionList>
-    <ActionList.Heading as="h2">Filter by</ActionList.Heading>
-    <ActionList.Group title="Path">
-      <ActionList.Item onClick={() => {}}>
-        <ActionList.LeadingVisual>
-          <FileDirectoryIcon />
-        </ActionList.LeadingVisual>
-        app/assets/modules
-      </ActionList.Item>
-      <ActionList.Item onClick={() => {}}>
-        <ActionList.LeadingVisual>
-          <FileDirectoryIcon />
-        </ActionList.LeadingVisual>
-        src/react/components
-      </ActionList.Item>
-      <ActionList.Item onClick={() => {}}>
-        <ActionList.LeadingVisual>
-          <FileDirectoryIcon />
-        </ActionList.LeadingVisual>
-        memex/shared-ui/components
-      </ActionList.Item>
-      <ActionList.Item onClick={() => {}}>
-        <ActionList.LeadingVisual>
-          <FileDirectoryIcon />
-        </ActionList.LeadingVisual>
-        views/assets/modules
-      </ActionList.Item>
-    </ActionList.Group>
+  <>
+    <div>Deprecated API</div>
+    <ActionList>
+      <ActionList.Heading as="h2">Filter by</ActionList.Heading>
+      <ActionList.Group title="Path">
+        <ActionList.Item onClick={() => {}}>
+          <ActionList.LeadingVisual>
+            <FileDirectoryIcon />
+          </ActionList.LeadingVisual>
+          app/assets/modules
+        </ActionList.Item>
+        <ActionList.Item onClick={() => {}}>
+          <ActionList.LeadingVisual>
+            <FileDirectoryIcon />
+          </ActionList.LeadingVisual>
+          src/react/components
+        </ActionList.Item>
+        <ActionList.Item onClick={() => {}}>
+          <ActionList.LeadingVisual>
+            <FileDirectoryIcon />
+          </ActionList.LeadingVisual>
+          memex/shared-ui/components
+        </ActionList.Item>
+        <ActionList.Item onClick={() => {}}>
+          <ActionList.LeadingVisual>
+            <FileDirectoryIcon />
+          </ActionList.LeadingVisual>
+          views/assets/modules
+        </ActionList.Item>
+      </ActionList.Group>
 
-    <ActionList.Group title="Advanced">
-      <ActionList.Item onClick={() => {}}>
-        <ActionList.LeadingVisual>
-          <PlusCircleIcon />
-        </ActionList.LeadingVisual>
-        Owner
-      </ActionList.Item>
-      <ActionList.Item onClick={() => {}}>
-        <ActionList.LeadingVisual>
-          <PlusCircleIcon />
-        </ActionList.LeadingVisual>
-        Symbol
-      </ActionList.Item>
-      <ActionList.Item onClick={() => {}}>
-        <ActionList.LeadingVisual>
-          <PlusCircleIcon />
-        </ActionList.LeadingVisual>
-        Exclude archived
-      </ActionList.Item>
-    </ActionList.Group>
-  </ActionList>
+      <ActionList.Group title="Advanced">
+        <ActionList.Item onClick={() => {}}>
+          <ActionList.LeadingVisual>
+            <PlusCircleIcon />
+          </ActionList.LeadingVisual>
+          Owner
+        </ActionList.Item>
+        <ActionList.Item onClick={() => {}}>
+          <ActionList.LeadingVisual>
+            <PlusCircleIcon />
+          </ActionList.LeadingVisual>
+          Symbol
+        </ActionList.Item>
+        <ActionList.Item onClick={() => {}}>
+          <ActionList.LeadingVisual>
+            <PlusCircleIcon />
+          </ActionList.LeadingVisual>
+          Exclude archived
+        </ActionList.Item>
+      </ActionList.Group>
+    </ActionList>
+    <div>New API</div>
+    <ActionList>
+      <ActionList.Heading as="h2">Filter by</ActionList.Heading>
+      <ActionList.Group>
+        <ActionList.GroupHeading as="h2">Path</ActionList.GroupHeading>
+        <ActionList.Item onClick={() => {}}>
+          <ActionList.LeadingVisual>
+            <FileDirectoryIcon />
+          </ActionList.LeadingVisual>
+          app/assets/modules
+        </ActionList.Item>
+        <ActionList.Item onClick={() => {}}>
+          <ActionList.LeadingVisual>
+            <FileDirectoryIcon />
+          </ActionList.LeadingVisual>
+          src/react/components
+        </ActionList.Item>
+        <ActionList.Item onClick={() => {}}>
+          <ActionList.LeadingVisual>
+            <FileDirectoryIcon />
+          </ActionList.LeadingVisual>
+          memex/shared-ui/components
+        </ActionList.Item>
+        <ActionList.Item onClick={() => {}}>
+          <ActionList.LeadingVisual>
+            <FileDirectoryIcon />
+          </ActionList.LeadingVisual>
+          views/assets/modules
+        </ActionList.Item>
+      </ActionList.Group>
+
+      <ActionList.Group>
+        <ActionList.GroupHeading as="h2">Advanced</ActionList.GroupHeading>
+        <ActionList.Item onClick={() => {}}>
+          <ActionList.LeadingVisual>
+            <PlusCircleIcon />
+          </ActionList.LeadingVisual>
+          Owner
+        </ActionList.Item>
+        <ActionList.Item onClick={() => {}}>
+          <ActionList.LeadingVisual>
+            <PlusCircleIcon />
+          </ActionList.LeadingVisual>
+          Symbol
+        </ActionList.Item>
+        <ActionList.Item onClick={() => {}}>
+          <ActionList.LeadingVisual>
+            <PlusCircleIcon />
+          </ActionList.LeadingVisual>
+          Exclude archived
+        </ActionList.Item>
+      </ActionList.Group>
+    </ActionList>
+  </>
 )
 
 export const WithCustomHeading = () => (
@@ -583,24 +639,48 @@ export const GroupWithFilledTitle = () => {
   }
 
   return (
-    <ActionList selectionVariant="multiple" role="menu" showDividers aria-label="Reviewers">
-      <ActionList.Group title="Everyone" variant="filled">
-        {users.slice(2).map(user => (
-          <ActionList.Item
-            role="menuitemcheckbox"
-            key={user.login}
-            selected={Boolean(assignees.find(assignee => assignee.login === user.login))}
-            aria-checked={Boolean(assignees.find(assignee => assignee.login === user.login))}
-            onSelect={() => toggleAssignee(user)}
-          >
-            <ActionList.LeadingVisual>
-              <Avatar src={`https://github.com/${user.login}.png`} />
-            </ActionList.LeadingVisual>
-            {user.login}
-            <ActionList.Description>{user.name}</ActionList.Description>
-          </ActionList.Item>
-        ))}
-      </ActionList.Group>
-    </ActionList>
+    <>
+      <div>Deprecated API</div>
+      <ActionList selectionVariant="multiple" role="menu" showDividers aria-label="Reviewers">
+        <ActionList.Group title="Everyone" variant="filled">
+          {users.slice(2).map(user => (
+            <ActionList.Item
+              role="menuitemcheckbox"
+              key={user.login}
+              selected={Boolean(assignees.find(assignee => assignee.login === user.login))}
+              aria-checked={Boolean(assignees.find(assignee => assignee.login === user.login))}
+              onSelect={() => toggleAssignee(user)}
+            >
+              <ActionList.LeadingVisual>
+                <Avatar src={`https://github.com/${user.login}.png`} />
+              </ActionList.LeadingVisual>
+              {user.login}
+              <ActionList.Description>{user.name}</ActionList.Description>
+            </ActionList.Item>
+          ))}
+        </ActionList.Group>
+      </ActionList>
+      <div>New API</div>
+      <ActionList selectionVariant="multiple" role="menu" showDividers aria-label="Reviewers">
+        <ActionList.Group>
+          <ActionList.GroupHeading as="h3">Everyone</ActionList.GroupHeading>
+          {users.slice(2).map(user => (
+            <ActionList.Item
+              role="menuitemcheckbox"
+              key={user.login}
+              selected={Boolean(assignees.find(assignee => assignee.login === user.login))}
+              aria-checked={Boolean(assignees.find(assignee => assignee.login === user.login))}
+              onSelect={() => toggleAssignee(user)}
+            >
+              <ActionList.LeadingVisual>
+                <Avatar src={`https://github.com/${user.login}.png`} />
+              </ActionList.LeadingVisual>
+              {user.login}
+              <ActionList.Description>{user.name}</ActionList.Description>
+            </ActionList.Item>
+          ))}
+        </ActionList.Group>
+      </ActionList>
+    </>
   )
 }

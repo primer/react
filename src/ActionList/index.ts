@@ -43,4 +43,7 @@ export const ActionList = Object.assign(List, {
 
   /** Heading for an `ActionList`. */
   Heading,
+
+  /** Heading for ActionList.Group */
+  GroupHeading: Heading,
 })
