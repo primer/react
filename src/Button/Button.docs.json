@@ -12,6 +12,12 @@
       "description": "The content of the button."
     },
     {
+      "name": "count",
+      "required": true,
+      "type": "number | string",
+      "description": "For counter buttons, the number to display."
+    },
+    {
       "name": "variant",
       "type": "| 'default'\n| 'primary'\n| 'danger'\n| 'outline'\n| 'invisible'",
       "defaultValue": "'default'",
@@ -61,22 +67,5 @@
   "passthrough": {
     "element": "button",
     "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#attributes"
-  },
-  "subcomponents": [
-    {
-      "name": "Button.Counter",
-      "props": [
-        {
-          "name": "children",
-          "required": true,
-          "type": "number",
-          "description": "The counter value."
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject"
-        }
-      ]
-    }
-  ]
+  }
 }

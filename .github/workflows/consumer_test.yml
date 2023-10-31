@@ -11,41 +11,33 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 18
           cache: npm
-
-      # `prepare` is a special case in `npm` and likes to run all the time, even
-      # with `--ignore-scripts` and even when using `npm link @primer/react
-      # --ignore-scripts`. This just removes it entirely for the duration of
-      # this workflow.
-      - name: Remove "prepare" script
-        run: npm pkg delete scripts.prepare
-
       - name: Install dependencies
         run: npm ci
-
       - name: Build
         run: npm run build
-
-      - name: Install only production dependencies
-        run: npm ci --production
-
-      - name: Link
-        run: npm link
-
-      - name: Link and test
-        id: link-and-test
+      # Output the artifact as a tarball in `consumer-test`. Write the
+      # information for this package in `consumer-test/pack.json` so we can read
+      # from it later to install the package
+      - name: Create a tarball for the package
+        run: npm pack --pack-destination consumer-test --json > consumer-test/pack.json
+      - name: Clean package directory
+        run: |
+          npm run clean
+          rm -rf node_modules
+      - name: Test
+        id: test
         working-directory: consumer-test
         run: |
+          # Read the filename for the tarball from `pack.json`
+          npm install $(jq -r '.[0].filename' pack.json)
           npm install
-          npm link @primer/react
           npm run check
-
       - name: Add annotation
-        if: failure() && steps.link-and-test.conclusion == 'failure'
+        if: failure() && steps.test.conclusion == 'failure'
         run: |
           echo "::error file=tsconfig.build.json::Test package could not build. See https://github.com/primer/react/blob/main/consumer-test"

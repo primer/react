@@ -153,7 +153,7 @@ export const inputWrapperArgTypes: ArgTypes = {
   },
   validationStatus: {
     defaultValue: undefined,
-    options: ['error', 'success', 'warning', undefined],
+    options: ['error', 'success', undefined],
     control: {type: 'radio'},
   },
 }
@@ -308,7 +308,7 @@ export const formControlArgTypes: ArgTypes = {
     control: {
       type: 'radio',
     },
-    options: ['error', 'success', 'warning'],
+    options: ['error', 'success'],
     table: {
       category: 'FormControl.Validation',
     },
