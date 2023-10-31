@@ -492,14 +492,14 @@ export const HWithFilterButtons = () => {
               sx={{fontWeight: selectedFilter === 'branches' ? 'semibold' : 'normal', color: 'fg.default'}}
               onClick={() => setSelectedFilter('branches')}
             >
-              Branches <Button.Counter>{20}</Button.Counter>
+              Branches <Button count={20} />
             </Button>
             <Button
               variant="invisible"
               sx={{fontWeight: selectedFilter === 'tags' ? 'semibold' : 'normal', color: 'fg.default'}}
               onClick={() => setSelectedFilter('tags')}
             >
-              Tags <Button.Counter>{8}</Button.Counter>
+              Tags <Button count={8} />
             </Button>
           </Box>
         </SelectPanel.Header>

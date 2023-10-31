@@ -1,9 +1,8 @@
 import {DiffAddedIcon} from '@primer/octicons-react'
-import {fireEvent, render as _render, waitFor, within} from '@testing-library/react'
+import {fireEvent, render as _render, waitFor, within, act} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import {UserEvent} from '@testing-library/user-event/dist/types/setup/setup'
 import React, {forwardRef, useRef, useState} from 'react'
-import {act} from 'react-dom/test-utils'
 import MarkdownEditor, {MarkdownEditorHandle, MarkdownEditorProps, Mentionable, Reference, SavedReply} from '.'
 import ThemeProvider from '../../ThemeProvider'
 

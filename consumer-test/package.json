@@ -3,7 +3,13 @@
     "check": "tsc --noEmit"
   },
   "dependencies": {
+    "@types/react": "^18.2.14",
+    "@types/react-dom": "^18.2.6",
+    "@types/styled-components": "^5.1.11",
     "@primer/react": "*",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
+    "styled-components": "^5.3.11",
     "typescript": "~4.7.2"
   }
 }

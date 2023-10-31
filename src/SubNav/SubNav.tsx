@@ -63,7 +63,6 @@ type StyledSubNavLinkProps = {
 } & SxProp
 
 const SubNavLink = styled.a.attrs<StyledSubNavLinkProps>(props => ({
-  activeClassName: typeof props.to === 'string' ? 'selected' : undefined,
   className: clsx(ITEM_CLASS, props.selected && SELECTED_CLASS, props.className),
 }))<StyledSubNavLinkProps>`
   padding-left: ${get('space.3')};

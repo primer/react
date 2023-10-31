@@ -1723,7 +1723,7 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   transition: 80ms cubic-bezier(0.65,0,0.35,1);
   -webkit-transition-property: color,fill,background-color,border-color;
   transition-property: color,fill,background-color,border-color;
-  color: #0969da;
+  color: #24292f;
   background-color: transparent;
   box-shadow: none;
 }
@@ -1874,15 +1874,15 @@ exports[`TextInput renders trailingAction icon button 1`] = `
 }
 
 .c5:hover:not([disabled]) {
-  background-color: #f3f4f6;
+  background-color: rgba(208,215,222,0.32);
 }
 
 .c5:active:not([disabled]) {
-  background-color: hsla(220,14%,94%,1);
+  background-color: rgba(208,215,222,0.48);
 }
 
 .c5[aria-expanded=true] {
-  background-color: hsla(220,14%,94%,1);
+  background-color: rgba(208,215,222,0.24);
 }
 
 .c5[data-component="IconButton"][data-no-visuals] {
@@ -1894,7 +1894,7 @@ exports[`TextInput renders trailingAction icon button 1`] = `
 }
 
 .c5:has([data-component="ButtonCounter"]) {
-  color: #0969da;
+  color: #24292f;
 }
 
 .c5:disabled[data-no-visuals] {
@@ -2375,7 +2375,7 @@ exports[`TextInput renders trailingAction text button 1`] = `
   transition: 80ms cubic-bezier(0.65,0,0.35,1);
   -webkit-transition-property: color,fill,background-color,border-color;
   transition-property: color,fill,background-color,border-color;
-  color: #0969da;
+  color: #24292f;
   background-color: transparent;
   box-shadow: none;
 }
@@ -2526,15 +2526,15 @@ exports[`TextInput renders trailingAction text button 1`] = `
 }
 
 .c4:hover:not([disabled]) {
-  background-color: #f3f4f6;
+  background-color: rgba(208,215,222,0.32);
 }
 
 .c4:active:not([disabled]) {
-  background-color: hsla(220,14%,94%,1);
+  background-color: rgba(208,215,222,0.48);
 }
 
 .c4[aria-expanded=true] {
-  background-color: hsla(220,14%,94%,1);
+  background-color: rgba(208,215,222,0.24);
 }
 
 .c4[data-component="IconButton"][data-no-visuals] {
@@ -2556,7 +2556,7 @@ exports[`TextInput renders trailingAction text button 1`] = `
 }
 
 .c4:has([data-component="ButtonCounter"]) {
-  color: #0969da;
+  color: #24292f;
 }
 
 .c4:disabled[data-no-visuals] {
@@ -2779,7 +2779,7 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   transition: 80ms cubic-bezier(0.65,0,0.35,1);
   -webkit-transition-property: color,fill,background-color,border-color;
   transition-property: color,fill,background-color,border-color;
-  color: #0969da;
+  color: #24292f;
   background-color: transparent;
   box-shadow: none;
 }
@@ -2930,15 +2930,15 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
 }
 
 .c5:hover:not([disabled]) {
-  background-color: #f3f4f6;
+  background-color: rgba(208,215,222,0.32);
 }
 
 .c5:active:not([disabled]) {
-  background-color: hsla(220,14%,94%,1);
+  background-color: rgba(208,215,222,0.48);
 }
 
 .c5[aria-expanded=true] {
-  background-color: hsla(220,14%,94%,1);
+  background-color: rgba(208,215,222,0.24);
 }
 
 .c5[data-component="IconButton"][data-no-visuals] {
@@ -2960,7 +2960,7 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
 }
 
 .c5:has([data-component="ButtonCounter"]) {
-  color: #0969da;
+  color: #24292f;
 }
 
 .c5:disabled[data-no-visuals] {
@@ -3912,134 +3912,6 @@ exports[`TextInput renders trailingVisual 4`] = `
       Trailing
     </div>
   </span>
-</span>
-`;
-
-exports[`TextInput renders warning 1`] = `
-.c0 {
-  font-size: 14px;
-  line-height: 20px;
-  color: #1F2328;
-  vertical-align: middle;
-  background-color: #ffffff;
-  border: 1px solid var(--control-borderColor-rest,#d0d7de);
-  border-radius: 6px;
-  outline: none;
-  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-align-items: stretch;
-  -webkit-box-align: stretch;
-  -ms-flex-align: stretch;
-  align-items: stretch;
-  min-height: 32px;
-}
-
-.c0 input,
-.c0 textarea {
-  cursor: text;
-}
-
-.c0 select {
-  cursor: pointer;
-}
-
-.c0::-webkit-input-placeholder {
-  color: #6e7781;
-}
-
-.c0::-moz-placeholder {
-  color: #6e7781;
-}
-
-.c0:-ms-input-placeholder {
-  color: #6e7781;
-}
-
-.c0::placeholder {
-  color: #6e7781;
-}
-
-.c0:focus-within {
-  border-color: #0969da;
-  outline: none;
-  box-shadow: inset 0 0 0 1px #0969da;
-}
-
-.c0 > textarea {
-  padding: 12px;
-}
-
-.c1 {
-  background-repeat: no-repeat;
-  background-position: right 8px center;
-  padding-left: 0;
-  padding-right: 0;
-  border-color: #9a6700;
-}
-
-.c1 > :not(:last-child) {
-  margin-right: 8px;
-}
-
-.c1 .TextInput-icon,
-.c1 .TextInput-action {
-  -webkit-align-self: center;
-  -ms-flex-item-align: center;
-  align-self: center;
-  color: #656d76;
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
-}
-
-.c1 > input,
-.c1 > select {
-  padding-left: 12px;
-  padding-right: 12px;
-}
-
-.c1:focus-within {
-  border-color: #0969da;
-  outline: none;
-  box-shadow: inset 0 0 0 1px #0969da;
-}
-
-.c2 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-}
-
-.c2:focus {
-  outline: 0;
-}
-
-@media (min-width:768px) {
-  .c0 {
-    font-size: 14px;
-  }
-}
-
-<span
-  aria-busy={false}
-  className="c0 c1 TextInput-wrapper"
-  onClick={[Function]}
->
-  <input
-    className="c2"
-    data-component="input"
-    name="zipcode"
-    onBlur={[Function]}
-    onFocus={[Function]}
-    type="text"
-  />
 </span>
 `;
 

@@ -84,20 +84,20 @@ type ItemMetadata = {
 }
 
 type Datum = {
-  id: string | number
+  id: string
   text: string
   selected?: boolean
   metadata?: ItemMetadata
 }
 
 const items: Datum[] = [
-  {text: 'css', id: 0},
-  {text: 'css-in-js', id: 1},
-  {text: 'styled-system', id: 2},
-  {text: 'javascript', id: 3},
-  {text: 'typescript', id: 4},
-  {text: 'react', id: 5},
-  {text: 'design-systems', id: 6},
+  {text: 'css', id: '0'},
+  {text: 'css-in-js', id: '1'},
+  {text: 'styled-system', id: '2'},
+  {text: 'javascript', id: '3'},
+  {text: 'typescript', id: '4'},
+  {text: 'react', id: '5'},
+  {text: 'design-systems', id: '6'},
 ]
 
 const mockTokens: Datum[] = [...items].slice(0, 3)
@@ -220,9 +220,9 @@ const autocompleteStoryMeta: Meta = {
 export const WithTokenInput = (args: FormControlArgs<AutocompleteArgs>) => {
   const {parentArgs, labelArgs, captionArgs, validationArgs} = getFormControlArgsByChildComponent(args)
   const {menuArgs, overlayArgs, textInputWithTokensArgs} = getArgsByChildComponent(args)
-  const [tokens, setTokens] = useState<Datum[]>([]) // [items[0], items[2]]
+  const [tokens, setTokens] = useState<Datum[]>([])
   const selectedTokenIds = tokens.map(token => token.id)
-  const [selectedItemIds, setSelectedItemIds] = useState<Array<string | number>>(selectedTokenIds)
+  const [selectedItemIds, setSelectedItemIds] = useState<Array<string>>(selectedTokenIds)
   const onTokenRemove: (tokenId: string | number) => void = tokenId => {
     setTokens(tokens.filter(token => token.id !== tokenId))
     setSelectedItemIds(selectedItemIds.filter(id => id !== tokenId))
@@ -295,12 +295,12 @@ WithTokenInput.parameters = {
 
 export const AddNewItem = (args: FormControlArgs<AutocompleteArgs>) => {
   const {parentArgs, labelArgs, captionArgs, validationArgs} = getFormControlArgsByChildComponent(args)
-  const {menuArgs, overlayArgs, textInputArgs} = getArgsByChildComponent(args)
+  const {menuArgs, overlayArgs, textInputWithTokensArgs} = getArgsByChildComponent(args)
   const [localItemsState, setLocalItemsState] = useState<Datum[]>(items)
   const [filterVal, setFilterVal] = useState<string>('')
   const [tokens, setTokens] = useState<Datum[]>(mockTokens)
   const selectedTokenIds = tokens.map(token => token.id)
-  const [selectedItemIds, setSelectedItemIds] = useState<Array<string | number>>(selectedTokenIds)
+  const [selectedItemIds, setSelectedItemIds] = useState<Array<string>>(selectedTokenIds)
   const onTokenRemove: (tokenId: string | number) => void = tokenId => {
     setTokens(tokens.filter(token => token.id !== tokenId))
     setSelectedItemIds(selectedItemIds.filter(id => id !== tokenId))
@@ -345,16 +345,17 @@ export const AddNewItem = (args: FormControlArgs<AutocompleteArgs>) => {
         <Autocomplete>
           <Autocomplete.Input
             as={TextInputTokens}
-            tokens={[]}
+            tokens={tokens}
             onTokenRemove={onTokenRemove}
             onChange={handleChange}
-            {...textInputArgs}
+            {...textInputWithTokensArgs}
           />
           <Autocomplete.Overlay {...overlayArgs}>
             <Autocomplete.Menu
               addNewItem={
                 filterVal && !localItemsState.map(localItem => localItem.text).includes(filterVal)
                   ? {
+                      id: filterVal,
                       text: `Add '${filterVal}'`,
                       handleAddItem: item => {
                         onItemSelect({
@@ -438,8 +439,8 @@ CustomSearchFilterFn.args = {
 export const CustomSortAfterMenuClose = (args: FormControlArgs<AutocompleteArgs>) => {
   const {parentArgs, labelArgs, captionArgs, validationArgs} = getFormControlArgsByChildComponent(args)
   const {menuArgs, overlayArgs, textInputArgs} = getArgsByChildComponent(args)
-  const [selectedItemIds, setSelectedItemIds] = useState<Array<string | number>>([])
-  const isItemSelected = (itemId: string | number) => selectedItemIds.includes(itemId)
+  const [selectedItemIds, setSelectedItemIds] = useState<Array<string>>([])
+  const isItemSelected = (itemId: string) => selectedItemIds.includes(itemId)
   const onSelectedChange = (newlySelectedItems: Datum | Datum[]) => {
     if (!Array.isArray(newlySelectedItems)) {
       return
@@ -447,7 +448,7 @@ export const CustomSortAfterMenuClose = (args: FormControlArgs<AutocompleteArgs>
 
     setSelectedItemIds(newlySelectedItems.map(item => item.id))
   }
-  const customSortFn = (itemIdA: string | number, itemIdB: string | number) =>
+  const customSortFn = (itemIdA: string, itemIdB: string) =>
     isItemSelected(itemIdA) === isItemSelected(itemIdB) ? 0 : isItemSelected(itemIdA) ? 1 : -1
 
   return (

@@ -286,7 +286,7 @@ export const CustomFooter = ({
           <MarkdownEditor.FooterButton
             variant="invisible"
             onClick={onFooterClick}
-            leadingIcon={PlusIcon}
+            leadingVisual={PlusIcon}
             sx={{borderRadius: '14px', color: 'fg.muted', borderColor: 'border.muted'}}
           >
             Add Button
