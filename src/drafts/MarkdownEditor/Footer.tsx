@@ -1,7 +1,8 @@
 import React, {memo, forwardRef, useContext} from 'react'
 import {AlertIcon, ImageIcon, MarkdownIcon} from '@primer/octicons-react'
 
-import {Spinner, Button, ButtonProps, LinkButton, Box, Text} from '../..'
+import {Spinner, LinkButton, Box, Text} from '../..'
+import {Button, ButtonProps} from '../../Button'
 import {MarkdownEditorContext} from './_MarkdownEditorContext'
 import {useSlots} from '../../hooks/useSlots'
 
@@ -80,7 +81,7 @@ const FileUploadButton = memo(({fileDraggedOver, ...props}: Partial<ButtonProps>
   return (
     <Button
       variant="invisible"
-      leadingIcon={ImageIcon}
+      leadingVisual={ImageIcon}
       size="small"
       sx={{color: 'fg.default', fontWeight: fileDraggedOver ? 'bold' : 'normal', px: 2}}
       onMouseDown={(e: React.MouseEvent) => {
@@ -104,7 +105,7 @@ const MarkdownSupportedHint = memo(() => {
 
   return (
     <LinkButton
-      leadingIcon={MarkdownIcon}
+      leadingVisual={MarkdownIcon}
       variant="invisible"
       size="small"
       sx={{color: 'inherit', fontWeight: 'normal', px: 2}}

@@ -114,7 +114,7 @@ Primer React includes TypeScript support and ships with its own typings. You wil
 Once installed, you can import components and their prop type interfaces from the `@primer/react` package:
 
 ```typescript
-import {BorderBox, BorderBoxProps} from '@primer/react'
+import {Button, ButtonProps} from '@primer/react'
 ```
 
 ### Fixing "Duplicate identifier 'FormData'"

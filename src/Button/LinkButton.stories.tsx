@@ -40,11 +40,6 @@ Playground.argTypes = {
   leadingIcon: OcticonArgType([EyeClosedIcon, EyeIcon, SearchIcon, XIcon, HeartIcon]),
   trailingIcon: OcticonArgType([EyeClosedIcon, EyeIcon, SearchIcon, XIcon, HeartIcon]),
   trailingAction: OcticonArgType([ChevronRightIcon]),
-  trailingVisualCount: {
-    control: {
-      type: 'number',
-    },
-  },
   href: {control: 'text'},
 }
 Playground.args = {
