@@ -75,7 +75,7 @@ export const WithComplexInputs = () => {
   return (
     <Box display="grid">
       <FormControl>
-        <FormControl.Label>TextInputWithTokens</FormControl.Label>
+        <FormControl.Label id="form-label">TextInputWithTokens</FormControl.Label>
         <TextInputWithTokens onTokenRemove={onTokenRemove} tokens={tokens} />
       </FormControl>
       <FormControl>
@@ -84,14 +84,15 @@ export const WithComplexInputs = () => {
           <Autocomplete.Input block />
           <Autocomplete.Overlay>
             <Autocomplete.Menu
+              aria-labelledby="form-label"
               items={[
-                {text: 'css', id: 0},
-                {text: 'css-in-js', id: 1},
-                {text: 'styled-system', id: 2},
-                {text: 'javascript', id: 3},
-                {text: 'typescript', id: 4},
-                {text: 'react', id: 5},
-                {text: 'design-systems', id: 6},
+                {text: 'css', id: '0'},
+                {text: 'css-in-js', id: '1'},
+                {text: 'styled-system', id: '2'},
+                {text: 'javascript', id: '3'},
+                {text: 'typescript', id: '4'},
+                {text: 'react', id: '5'},
+                {text: 'design-systems', id: '6'},
               ]}
               selectedItemIds={[]}
             />
