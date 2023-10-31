@@ -1,7 +1,8 @@
 import React, {memo, forwardRef, useContext} from 'react'
 import {PaperclipIcon} from '@primer/octicons-react'
 
-import {Spinner, Button, ButtonProps, Box, Text} from '../..'
+import {Spinner, Box, Text} from '../..'
+import {Button, ButtonProps} from '../../Button'
 import {MarkdownEditorContext} from './_MarkdownEditorContext'
 import {useSlots} from '../../hooks/useSlots'
 
@@ -58,7 +59,7 @@ const FileUploadButton = memo(({fileDraggedOver, ...props}: Partial<ButtonProps>
   return (
     <Button
       variant="invisible"
-      leadingIcon={PaperclipIcon}
+      leadingVisual={PaperclipIcon}
       size="small"
       sx={{color: 'fg.muted', fontWeight: 'normal', px: 2}}
       onMouseDown={(e: React.MouseEvent) => {

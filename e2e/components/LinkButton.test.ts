@@ -137,20 +137,6 @@ test.describe('LinkButton', () => {
         })
       })
     }
-
-    test.describe('with forced underlines', () => {
-      test('default @vrt', async ({page}) => {
-        await visit(page, {
-          id: 'components-linkbutton-features--invisible',
-          globals: {
-            colorScheme: 'light',
-            prefersLinkUnderlines: 'true',
-          },
-        })
-
-        expect(await page.screenshot()).toMatchSnapshot('LinkButton.Invisible.light.forcedUnderlines.png')
-      })
-    })
   })
 
   test.describe('Large', () => {
@@ -239,40 +225,6 @@ test.describe('LinkButton', () => {
         test('axe @aat', async ({page}) => {
           await visit(page, {
             id: 'components-linkbutton-features--medium',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
-        })
-      })
-    }
-  })
-
-  test.describe('Outline', () => {
-    for (const theme of themes) {
-      test.describe(theme, () => {
-        test('default @vrt', async ({page}) => {
-          await visit(page, {
-            id: 'components-linkbutton-features--outline',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-
-          // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`LinkButton.Outline.${theme}.png`)
-        })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-linkbutton-features--outline',
             globals: {
               colorScheme: theme,
             },

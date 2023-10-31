@@ -361,9 +361,12 @@ SizeStressTestingStory.storyName = 'Size Stress Testing'
 
 type ReactRouterLikeLinkProps = {to: string; children: React.ReactNode}
 const ReactRouterLikeLink = forwardRef<HTMLAnchorElement, ReactRouterLikeLinkProps>(
-  ({to, ...props}: {to: string; children: React.ReactNode}, ref) => {
-    // eslint-disable-next-line jsx-a11y/anchor-has-content
-    return <a ref={ref} href={to} {...props} />
+  ({to, children, ...props}: {to: string; children: React.ReactNode}, ref) => {
+    return (
+      <a ref={ref} href={to} {...props}>
+        {children}
+      </a>
+    )
   },
 )
 

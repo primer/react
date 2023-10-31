@@ -89,18 +89,6 @@ describe('Button', () => {
     expect(button).toMatchSnapshot()
   })
 
-  it('should render the leadingIcon prop before the button content', () => {
-    render(
-      <Button leadingIcon={() => <span data-testid="leadingIcon" />}>
-        <span>content</span>
-      </Button>,
-    )
-    expect(screen.getByTestId('leadingIcon')).toBeInTheDocument()
-
-    const position = screen.getByText('content').compareDocumentPosition(screen.getByTestId('leadingIcon'))
-    expect(position).toBe(Node.DOCUMENT_POSITION_PRECEDING)
-  })
-
   it('should render the leadingVisual prop before the button content', () => {
     render(
       <Button leadingVisual={() => <span data-testid="leadingVisual" />}>
@@ -114,32 +102,6 @@ describe('Button', () => {
     expect(position).toBe(Node.DOCUMENT_POSITION_PRECEDING)
   })
 
-  it('should only render the leadingVisual prop if leadingIcon is also defined', () => {
-    render(
-      <Button
-        leadingVisual={() => <span data-testid="leadingVisual" />}
-        leadingIcon={() => <span data-testid="leadingIcon" />}
-      >
-        <span>content</span>
-      </Button>,
-    )
-
-    expect(screen.getByTestId('leadingVisual')).toBeInTheDocument()
-    expect(screen.queryByText('leadingIcon')).toEqual(null)
-  })
-
-  it('should render the trailingIcon prop after the button content', () => {
-    render(
-      <Button trailingIcon={() => <span data-testid="trailingIcon" />}>
-        <span>content</span>
-      </Button>,
-    )
-    expect(screen.getByTestId('trailingIcon')).toBeInTheDocument()
-
-    const position = screen.getByText('content').compareDocumentPosition(screen.getByTestId('trailingIcon'))
-    expect(position).toBe(Node.DOCUMENT_POSITION_FOLLOWING)
-  })
-
   it('should render the trailingVisual prop after the button content', () => {
     render(
       <Button trailingVisual={() => <span data-testid="trailingVisual" />}>
@@ -150,19 +112,5 @@ describe('Button', () => {
 
     const position = screen.getByText('content').compareDocumentPosition(screen.getByTestId('trailingVisual'))
     expect(position).toBe(Node.DOCUMENT_POSITION_FOLLOWING)
-  })
-
-  it('should only render the trailingVisual prop if trailingIcon is also defined', () => {
-    render(
-      <Button
-        trailingVisual={() => <span data-testid="trailingVisual" />}
-        trailingIcon={() => <span data-testid="trailingIcon" />}
-      >
-        <span>content</span>
-      </Button>,
-    )
-
-    expect(screen.getByTestId('trailingVisual')).toBeInTheDocument()
-    expect(screen.queryByText('trailingIcon')).toEqual(null)
   })
 })

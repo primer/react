@@ -1,13 +1,10 @@
 import {DiffAddedIcon} from '@primer/octicons-react'
-import {fireEvent, render as _render, waitFor, within} from '@testing-library/react'
+import {fireEvent, render as _render, waitFor, within, act} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import {UserEvent} from '@testing-library/user-event/dist/types/setup/setup'
 import React, {forwardRef, useRef, useState} from 'react'
-import {act} from 'react-dom/test-utils'
 import MarkdownEditor, {MarkdownEditorHandle, MarkdownEditorProps, Mentionable, Reference, SavedReply} from '.'
 import ThemeProvider from '../../ThemeProvider'
-
-declare const REACT_VERSION_LATEST: boolean
 
 type UncontrolledEditorProps = Omit<MarkdownEditorProps, 'value' | 'onChange' | 'onRenderPreview' | 'children'> &
   Partial<Pick<MarkdownEditorProps, 'onChange' | 'onRenderPreview' | 'children'>> & {
@@ -1202,11 +1199,7 @@ describe('MarkdownEditor', () => {
       //
       // At the moment, it doesn't seem clear how to appropriately wrap this
       // interaction in an act() in order to cover this warning
-      if (REACT_VERSION_LATEST) {
-        expect(spy).toHaveBeenCalled()
-      } else {
-        expect(spy).not.toHaveBeenCalled()
-      }
+      expect(spy).toHaveBeenCalled()
       expect(queryByRole('listbox')).toBeInTheDocument()
 
       spy.mockClear()
@@ -1244,11 +1237,7 @@ describe('MarkdownEditor', () => {
       // Note: this spy assertion for console.error() is for an act() violation.
       // It's not clear where this act() violation is located as wrapping the
       // above code does not address this.
-      if (REACT_VERSION_LATEST) {
-        expect(spy).toHaveBeenCalled()
-      } else {
-        expect(spy).not.toHaveBeenCalled()
-      }
+      expect(spy).toHaveBeenCalled()
       spy.mockRestore()
     })
 

@@ -3,16 +3,11 @@
 'use strict'
 
 const path = require('node:path')
-const {REACT_VERSION_17} = process.env
 
 /**
  * @type {import('jest').Config}
  */
 module.exports = {
-  globals: {
-    REACT_VERSION_LATEST: REACT_VERSION_17 ? REACT_VERSION_17 !== 'true' : true,
-    REACT_VERSION_17: REACT_VERSION_17 === 'true',
-  },
   testEnvironment: 'jsdom',
   cacheDirectory: '.test',
   collectCoverageFrom: ['src/**/*.{js,jsx,ts,tsx}', '!src/stories/**', '!**/*.stories.{js,jsx,ts,tsx}'],

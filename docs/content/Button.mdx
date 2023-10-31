@@ -34,14 +34,6 @@ The `danger` variant of `Button` is used to warn users about potentially destruc
 <Button variant="danger">Danger</Button>
 ```
 
-### Outline button
-
-The `outline` variant of `Button` is typically used as a secondary button
-
-```jsx live
-<Button variant="outline">Outline</Button>
-```
-
 ### Invisible button
 
 The `invisible` variant of `Button` indicates that the action is a low priority one.
@@ -71,11 +63,11 @@ It is recommended to use an octicon here.
 
 ```jsx live
 <>
-  <Button leadingIcon={SearchIcon}>Search</Button>
-  <Button trailingIcon={SearchIcon} sx={{mt: 2}}>
+  <Button leadingVisual={SearchIcon}>Search</Button>
+  <Button trailingVisual={SearchIcon} sx={{mt: 2}}>
     Search
   </Button>
-  <Button leadingIcon={SearchIcon} trailingIcon={CheckIcon} sx={{mt: 2}}>
+  <Button leadingVisual={SearchIcon} trailingVisual={CheckIcon} sx={{mt: 2}}>
     Search
   </Button>
 </>
@@ -101,17 +93,12 @@ A separate component called `IconButton` is used if the action shows only an ico
 </>
 ```
 
-### Counter component
+### Button with counter
 
-A common use case for primer is a button with a counter component which shows the child count value.
-We provide `Button.Counter` as a composite component which requires you to provide a number as child.
-The counter will match the `variant` styles of the parent button.
+To show a count value as a trailing visual inside `Button`, pass a value to the `count` prop. The counter will match the `variant` styles of the parent button.
 
 ```jsx live
-<Button>
-  Watch
-  <Button.Counter>1</Button.Counter>
-</Button>
+<Button count="1">Watch</Button>
 ```
 
 ### Block button

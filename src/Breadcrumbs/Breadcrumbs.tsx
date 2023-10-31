@@ -59,14 +59,13 @@ type StyledBreadcrumbsItemProps = {
 } & SxProp
 
 const BreadcrumbsItem = styled.a.attrs<StyledBreadcrumbsItemProps>(props => ({
-  activeClassName: typeof props.to === 'string' ? 'selected' : undefined,
   className: clsx(props.selected && SELECTED_CLASS, props.className),
   'aria-current': props.selected ? 'page' : null,
 }))<StyledBreadcrumbsItemProps>`
   color: ${get('colors.accent.fg')};
   display: inline-block;
   font-size: ${get('fontSizes.1')};
-  text-decoration: var(--prefers-link-underlines, underline);
+  text-decoration: none;
   &:hover {
     text-decoration: underline;
   }
