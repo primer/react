@@ -1,7 +1,7 @@
 {
   "id": "data_table",
   "name": "DataTable",
-  "status": "draft",
+  "status": "experimental",
   "a11yReviewed": false,
   "stories": [
     {
