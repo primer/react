@@ -59,7 +59,6 @@ type StyledBreadcrumbsItemProps = {
 } & SxProp
 
 const BreadcrumbsItem = styled.a.attrs<StyledBreadcrumbsItemProps>(props => ({
-  activeClassName: typeof props.to === 'string' ? 'selected' : undefined,
   className: clsx(props.selected && SELECTED_CLASS, props.className),
   'aria-current': props.selected ? 'page' : null,
 }))<StyledBreadcrumbsItemProps>`
