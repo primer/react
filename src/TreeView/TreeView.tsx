@@ -479,12 +479,22 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
               <LevelIndicatorLines level={level} />
             </div>
             {hasSubTree ? (
+              // This lint rule is disabled due to the guidelines in the `TreeView` api docs.
+              // https://github.com/github/primer/blob/main/apis/tree-view-api.md#the-expandcollapse-chevron-toggle
+              // This has specific advice that the chevron be available only to pointer event.
+              // If they take up a button role, they become unnecessary and numerous tab stops.
+              // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
               <div
                 className={clsx(
                   'PRIVATE_TreeView-item-toggle',
                   onSelect && 'PRIVATE_TreeView-item-toggle--hover',
                   level === 1 && 'PRIVATE_TreeView-item-toggle--end',
                 )}
+                onClick={event => {
+                  if (onSelect) {
+                    toggle(event)
+                  }
+                }}
               >
                 {isExpanded ? <ChevronDownIcon size={12} /> : <ChevronRightIcon size={12} />}
               </div>
