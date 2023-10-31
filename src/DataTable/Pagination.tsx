@@ -189,6 +189,13 @@ export function Pagination({
     pageSize,
     totalCount,
   })
+  const truncatedPageCount = pageCount > 2 ? Math.min(pageCount - 2, MAX_TRUNCATED_STEP_COUNT) : 0
+  const [offsetStartIndex, setOffsetStartIndex] = useState(() => {
+    return getDefaultOffsetStartIndex(pageIndex, pageCount, truncatedPageCount)
+  })
+  const offsetEndIndex = offsetStartIndex + truncatedPageCount - 1
+  const hasLeadingTruncation = offsetStartIndex >= 2
+  const hasTrailingTruncation = pageCount - 1 - offsetEndIndex > 1
   const getViewportRangesToHidePages = useCallback(() => {
     if (typeof showPages !== 'boolean') {
       return Object.keys(showPages).filter(key => !showPages[key as keyof typeof viewportRanges]) as Array<
@@ -203,70 +210,6 @@ export function Pagination({
     }
   }, [showPages])
 
-  // Build the pagination steps
-  const truncatedPageCount = pageCount > 2 ? Math.min(pageCount, MAX_TRUNCATED_STEP_COUNT) : 0
-
-  // The page index is 0-based, but we want to display 1-based page numbers
-  const page = pageIndex + 1
-
-  // To keep the array strictly numeric types, truncation steps will be indicated by -1
-  // example output given a current page of 6 (pageIndex of 5): [1, -1, 4, 5, 6, 7, 8, -1, 10]
-
-  // We want to start with the currently selected page in the array,
-  // and we're gonna build the array from the middle out, so the currently selected page
-  // will always in the middle when there's truncation on both sides.
-  const steps = [page]
-  const firstPage = 1
-  const lastPage = pageCount
-
-  // Build the rest of the page steps from the middle out,
-  // limited to the maximum number of steps we want to show (including truncation)
-  while (steps.length < truncatedPageCount) {
-    if (steps[0] > firstPage) {
-      // add a step before the first step
-      steps.unshift(steps[0] - 1)
-    }
-    if (steps[steps.length - 1] < lastPage) {
-      // add a step after the last step
-      steps.push(steps[steps.length - 1] + 1)
-    }
-  }
-
-  // Figure out if we will need to display truncation steps (...) on either side
-  const hasLeadingTruncation = steps[0] >= firstPage + 1
-  const hasTrailingTruncation = steps[steps.length - 1] <= lastPage - 1
-
-  if (hasLeadingTruncation) {
-    // replace the current first page with a truncation step (-1 indicates truncation in this array)
-    if (steps[0] !== firstPage + 1) {
-      if (hasTrailingTruncation) {
-        // if there's already trailing truncation, we will *replace* the first step
-        steps[0] = -1
-      } else {
-        // otherwise, insert the truncation step
-        steps.unshift(-1)
-      }
-    }
-
-    // insert the actual first page, which is always shown
-    steps.unshift(firstPage)
-  }
-
-  if (hasTrailingTruncation) {
-    if (steps[steps.length - 1] !== lastPage - 1) {
-      // replace the current last page with a truncation step (-1 indicates truncation in this array)
-      if (hasLeadingTruncation) {
-        // if there's already leading truncation, we will *replace* the last step to retain the correct amount of steps
-        steps[steps.length - 1] = -1
-      } else {
-        steps.push(-1)
-      }
-    }
-
-    // insert the actual last page, which is always shown
-    steps.push(lastPage)
-  }
-
   return (
     <LiveRegion>
       <LiveRegionOutlet />
@@ -278,12 +221,18 @@ export function Pagination({
               className="TablePaginationAction"
               type="button"
               data-has-page={hasPreviousPage ? true : undefined}
+              aria-disabled={!hasPreviousPage ? true : undefined}
               onClick={() => {
                 if (!hasPreviousPage) {
                   return
                 }
 
                 selectPreviousPage()
+                if (hasLeadingTruncation) {
+                  if (pageIndex - 1 < offsetStartIndex + 1) {
+                    setOffsetStartIndex(offsetStartIndex - 1)
+                  }
+                }
               }}
             >
               {hasPreviousPage ? <ChevronLeftIcon /> : null}
@@ -291,37 +240,80 @@ export function Pagination({
               <VisuallyHidden>&nbsp;page</VisuallyHidden>
             </Button>
           </Step>
-          {steps.map((pageNumber, i) => {
-            if (pageNumber === -1) {
-              // a -1 in the steps array represents a truncation step (...)
-              return <TruncationStep key={`truncation-${i}`} />
-            }
+          {pageCount > 0 ? (
+            <Step>
+              <Page
+                active={pageIndex === 0}
+                onClick={() => {
+                  selectPage(0)
+                  if (pageCount > 1) {
+                    setOffsetStartIndex(1)
+                  }
+                }}
+              >
+                {1}
+                {hasLeadingTruncation ? <VisuallyHidden>…</VisuallyHidden> : null}
+              </Page>
+            </Step>
+          ) : null}
+          {pageCount > 2
+            ? Array.from({length: truncatedPageCount}).map((_, i) => {
+                if (i === 0 && hasLeadingTruncation) {
+                  return <TruncationStep key={`truncation-${i}`} />
+                }
 
-            return (
-              <Step key={i}>
-                <Page
-                  active={pageIndex === pageNumber - 1}
-                  onClick={() => {
-                    selectPage(pageNumber - 1)
-                  }}
-                >
-                  {pageNumber}
-                  {steps[i + 1] === -1 ? <VisuallyHidden>…</VisuallyHidden> : null}
-                </Page>
-              </Step>
-            )
-          })}
+                if (i === truncatedPageCount - 1 && hasTrailingTruncation) {
+                  return <TruncationStep key={`truncation-${i}`} />
+                }
+
+                const page = offsetStartIndex + i
+                return (
+                  <Step key={i}>
+                    <Page
+                      active={pageIndex === page}
+                      onClick={() => {
+                        selectPage(page)
+                      }}
+                    >
+                      {page + 1}
+                      {i === truncatedPageCount - 2 && hasTrailingTruncation ? (
+                        <VisuallyHidden>…</VisuallyHidden>
+                      ) : null}
+                    </Page>
+                  </Step>
+                )
+              })
+            : null}
+          {pageCount > 1 ? (
+            <Step>
+              <Page
+                active={pageIndex === pageCount - 1}
+                onClick={() => {
+                  selectPage(pageCount - 1)
+                  setOffsetStartIndex(pageCount - 1 - truncatedPageCount)
+                }}
+              >
+                {pageCount}
+              </Page>
+            </Step>
+          ) : null}
           <Step>
             <Button
               className="TablePaginationAction"
               type="button"
               data-has-page={hasNextPage ? true : undefined}
+              aria-disabled={!hasNextPage ? true : undefined}
               onClick={() => {
                 if (!hasNextPage) {
                   return
                 }
 
                 selectNextPage()
+                if (hasTrailingTruncation) {
+                  if (pageIndex + 1 > offsetEndIndex - 1) {
+                    setOffsetStartIndex(offsetStartIndex + 1)
+                  }
+                }
               }}
             >
               <span className="TablePaginationActionLabel">Next</span>
@@ -333,6 +325,30 @@ export function Pagination({
       </StyledPagination>
     </LiveRegion>
   )
+}
+
+function getDefaultOffsetStartIndex(pageIndex: number, pageCount: number, truncatedPageCount: number): number {
+  // When the current page is closer to the end of the list than the beginning
+  if (pageIndex > pageCount - 1 - pageIndex) {
+    if (pageCount - 1 - pageIndex >= truncatedPageCount) {
+      return pageIndex - 3
+    }
+    return pageCount - 1 - truncatedPageCount
+  }
+
+  // When the current page is closer to the beginning of the list than the end
+  if (pageIndex < pageCount - 1 - pageIndex) {
+    if (pageIndex >= truncatedPageCount) {
+      return pageIndex - 3
+    }
+    return 1
+  }
+
+  // When the current page is the midpoint between the beginning and the end
+  if (pageIndex < truncatedPageCount) {
+    return pageIndex
+  }
+  return pageIndex - 3
 }
 
 type RangeProps = {
