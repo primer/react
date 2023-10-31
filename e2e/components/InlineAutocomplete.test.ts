@@ -92,7 +92,7 @@ test.describe('InlineAutocomplete', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'components-inlineautocomplete-features--single-line',
+            id: 'drafts-components-inlineautocomplete-features--single-line',
             globals: {
               colorScheme: theme,
             },
