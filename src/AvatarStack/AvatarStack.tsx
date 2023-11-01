@@ -116,7 +116,7 @@ const AvatarStackWrapper = styled.span<StyledAvatarStackWrapperProps>`
     .pc-AvatarStackBody {
       flex-direction: row-reverse;
 
-      &:not(.pc-AvatarStack--disableExpand):hover{
+      &:hover{
         .pc-AvatarItem {
           margin-right: ${get('space.1')}!important;
           margin-left: 0 !important;
