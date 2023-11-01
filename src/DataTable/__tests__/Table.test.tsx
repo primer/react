@@ -230,6 +230,24 @@ describe('Table', () => {
       )
       expect(screen.getByRole('rowheader', {name: 'Cell'})).toBeInTheDocument()
     })
+
+    it('should vertically align cell contents', () => {
+      render(
+        <Table>
+          <Table.Head>
+            <Table.Row>
+              <Table.Header>Column</Table.Header>
+            </Table.Row>
+          </Table.Head>
+          <Table.Body>
+            <Table.Row>
+              <Table.Cell>Cell</Table.Cell>
+            </Table.Row>
+          </Table.Body>
+        </Table>,
+      )
+      expect(screen.getByRole('cell')).toHaveStyle('align-items: center')
+    })
   })
 
   describe('Table.Skeleton', () => {

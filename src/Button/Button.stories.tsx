@@ -1,21 +1,18 @@
 import React from 'react'
 import {EyeClosedIcon, EyeIcon, SearchIcon, TriangleDownIcon, XIcon, HeartIcon} from '@primer/octicons-react'
-import {Meta, StoryFn} from '@storybook/react'
+import type {Meta, StoryObj} from '@storybook/react'
 import {Button} from '.'
 import {OcticonArgType} from '../utils/story-helpers'
 
-export default {
+const meta: Meta<typeof Button> = {
   title: 'Components/Button',
 } as Meta<typeof Button>
 
-export const Playground: StoryFn = args => {
-  const {trailingVisualCount, ...rest} = args
-  return (
-    <Button {...rest}>
-      Default
-      {typeof trailingVisualCount === 'undefined' ? null : <Button.Counter>{trailingVisualCount}</Button.Counter>}
-    </Button>
-  )
+export default meta
+type Story = StoryObj<typeof Button>
+
+export const Playground: Story = {
+  render: args => <Button {...args}>Button</Button>,
 }
 Playground.argTypes = {
   size: {
@@ -49,11 +46,6 @@ Playground.argTypes = {
   leadingVisual: OcticonArgType([EyeClosedIcon, EyeIcon, SearchIcon, XIcon, HeartIcon]),
   trailingVisual: OcticonArgType([EyeClosedIcon, EyeIcon, SearchIcon, XIcon, HeartIcon]),
   trailingAction: OcticonArgType([TriangleDownIcon]),
-  trailingVisualCount: {
-    control: {
-      type: 'number',
-    },
-  },
 }
 Playground.args = {
   block: false,
@@ -64,7 +56,6 @@ Playground.args = {
   trailingVisual: null,
   leadingVisual: null,
   trailingAction: null,
-  trailingVisualCount: undefined,
 }
 
 export const Default = () => <Button>Default</Button>
