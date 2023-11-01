@@ -1,9 +1,10 @@
 import React from 'react'
 import {Meta} from '@storybook/react'
-import {BaseStyles, ThemeProvider, IconButton, Button} from '..'
+import {BaseStyles, ThemeProvider, Button} from '..'
 import Box from '../Box'
-import Tooltip from '../Tooltip'
-import {SearchIcon} from '@primer/octicons-react'
+import Tooltip from './Tooltip'
+
+/* Tooltip v1 */
 
 export default {
   title: 'Components/Tooltip',
@@ -26,14 +27,6 @@ export const Default = () => (
   <Box sx={{p: 5}}>
     <Tooltip aria-label="Hello, Tooltip!">
       <Button>Hover me</Button>
-    </Tooltip>
-  </Box>
-)
-
-export const IconButtonTooltip = () => (
-  <Box sx={{p: 5}}>
-    <Tooltip aria-label="Search">
-      <IconButton icon={SearchIcon} aria-label="Search" />
     </Tooltip>
   </Box>
 )
