@@ -120,16 +120,24 @@ export const WithTrailingAction = () => {
       <FormControl>
         <FormControl.Label>Default label</FormControl.Label>
         <TextInput
+       
           trailingAction={
+            value.length > 0 ? (
             <TextInput.Action
               onClick={() => {
                 setValue('')
               }}
               icon={XCircleFillIcon}
               aria-label="Clear input"
-              sx={{color: 'fg.subtle'}}
-            />
-          }
+              sx={{
+                color: 'fg.muted',
+                backgroundColor:'transparent',
+                '&:hover': {color: 'fg.subtle'}
+                }}
+              /> ) : undefined
+          
+        }
+        
           value={value}
           onChange={handleChange}
         />
@@ -150,6 +158,7 @@ export const WithTooltipDirection = () => {
         <FormControl.Label>Default label</FormControl.Label>
         <TextInput
           trailingAction={
+            value.length > 0 ? (
             <TextInput.Action
               onClick={() => {
                 setValue('')
@@ -157,8 +166,12 @@ export const WithTooltipDirection = () => {
               icon={XCircleFillIcon}
               aria-label="Clear input"
               tooltipDirection="nw"
-              sx={{color: 'fg.subtle'}}
-            />
+              sx={{
+                color: 'fg.muted',
+                backgroundColor:'transparent',
+                '&:hover': {color: 'fg.subtle'}
+                }}
+            /> ) : undefined
           }
           value={value}
           onChange={handleChange}
