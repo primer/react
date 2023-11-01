@@ -30,7 +30,7 @@ Playground.argTypes = {
     control: {
       type: 'radio',
     },
-    options: ['default', 'primary', 'danger', 'invisible', 'outline'],
+    options: ['default', 'primary', 'danger', 'invisible'],
   },
   alignContent: {
     control: {
