@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import TextInputWrapper, {StyledWrapperProps} from './internal/components/TextInputWrapper'
+import {SxProp, merge, BetterSystemStyleObject} from './sx'
 
 export type SelectProps = Omit<
   Omit<React.ComponentPropsWithoutRef<'select'>, 'size'> & Omit<StyledWrapperProps, 'variant'>,
@@ -72,25 +73,29 @@ const ArrowIndicator = styled(ArrowIndicatorSVG)`
 
 const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
   (
-    {block, children, contrast, disabled, placeholder, size, required, validationStatus, sx, ...rest}: SelectProps,
+    {block, children, contrast, disabled, placeholder, size, required, validationStatus, sx = {}, ...rest}: SelectProps,
     ref,
   ) => (
     <TextInputWrapper
-      sx={{
-        overflow: 'hidden',
-        position: 'relative',
-        '@media screen and (forced-colors: active)': {
-          svg: {
-            fill: disabled ? 'GrayText' : 'FieldText',
-          },
-        },
-        ...sx,
-      }}
       block={block}
       contrast={contrast}
       disabled={disabled}
       size={size}
       validationStatus={validationStatus}
+      sx={
+        merge(
+          {
+            overflow: 'hidden',
+            position: 'relative',
+            '@media screen and (forced-colors: active)': {
+              svg: {
+                fill: disabled ? 'GrayText' : 'FieldText',
+              },
+            },
+          },
+          sx as SxProp,
+        ) as BetterSystemStyleObject
+      }
     >
       <StyledSelect
         ref={ref}
