@@ -8,6 +8,7 @@ import {defaultSxProp} from '../utils/defaultSxProp'
 import {useSlots} from '../hooks/useSlots'
 import {Heading} from './Heading'
 import {useId} from '../hooks/useId'
+import Box from '../Box'
 
 export type ActionListProps = React.PropsWithChildren<{
   /**
@@ -34,8 +35,6 @@ type ContextProps = Pick<ActionListProps, 'variant' | 'selectionVariant' | 'show
 }
 
 export const ListContext = React.createContext<ContextProps>({})
-
-const ListBox = styled.ul<SxProp>(sx)
 
 export const List = React.forwardRef<HTMLUListElement, ActionListProps>(
   (
@@ -74,7 +73,9 @@ export const List = React.forwardRef<HTMLUListElement, ActionListProps>(
         }}
       >
         {slots.heading}
-        <ListBox
+        <Box
+          // If role is specified (listbox or menu), we will render this wrapper as div, otherwise we will render it as ul
+          as={role || listRole ? undefined : 'ul'}
           sx={merge(styles, sxProp as SxProp)}
           role={role || listRole}
           aria-labelledby={ariaLabelledBy}
@@ -82,7 +83,7 @@ export const List = React.forwardRef<HTMLUListElement, ActionListProps>(
           ref={forwardedRef}
         >
           {childrenWithoutSlots}
-        </ListBox>
+        </Box>
       </ListContext.Provider>
     )
   },

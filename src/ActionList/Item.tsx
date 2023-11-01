@@ -1,9 +1,8 @@
 import React from 'react'
-import styled from 'styled-components'
 import Box, {BoxProps} from '../Box'
 import {useId} from '../hooks/useId'
 import {useSlots} from '../hooks/useSlots'
-import sx, {BetterSystemStyleObject, merge, SxProp} from '../sx'
+import {BetterSystemStyleObject, merge} from '../sx'
 import {useTheme} from '../ThemeProvider'
 import {defaultSxProp} from '../utils/defaultSxProp'
 import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
@@ -14,8 +13,6 @@ import {ActionListProps, ListContext} from './List'
 import {Selection} from './Selection'
 import {ActionListItemProps, getVariantStyles, ItemContext, TEXT_ROW_HEIGHT} from './shared'
 import {LeadingVisual, TrailingVisual} from './Visuals'
-
-const LiBox = styled.li<SxProp>(sx)
 
 export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
   (
@@ -212,13 +209,16 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       id: itemId,
     }
 
-    const containerProps = _PrivateItemWrapper ? {role: role || itemRole ? 'none' : undefined} : menuItemProps
-
+    // If there is a private item wrapper, menu props are passed to the ItemWrapper, otherwise to the outer container
+    const containerProps = _PrivateItemWrapper ? {} : menuItemProps
     const wrapperProps = _PrivateItemWrapper ? menuItemProps : {}
 
     return (
       <ItemContext.Provider value={{variant, disabled, inlineDescriptionId, blockDescriptionId}}>
-        <LiBox
+        <Box
+          data-component="ActionList.Item--Container"
+          // If role is specified on the item, or gathered from the list, we render the wrapper as a div, otherwise as a li
+          as={role || itemRole ? undefined : 'li'}
           ref={forwardedRef}
           sx={merge<BetterSystemStyleObject>(styles, sxProp)}
           data-variant={variant === 'danger' ? variant : undefined}
@@ -256,7 +256,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
               {slots.description?.props.variant === 'block' ? slots.description : null}
             </Box>
           </ItemWrapper>
-        </LiBox>
+        </Box>
       </ItemContext.Provider>
     )
   },

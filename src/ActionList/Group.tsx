@@ -55,10 +55,30 @@ export const Group: React.FC<React.PropsWithChildren<ActionListGroupProps>> = ({
 
   const ariaLabelledBy = slots.heading ? slots.heading.props.id ?? labelId : title ? labelId : undefined
 
-  return (
+  const isOtherThanList = listRole && listRole !== 'list'
+
+  return isOtherThanList ? (
+    <Box
+      role={role || 'group'}
+      sx={{
+        '&:not(:first-child)': {marginTop: 2},
+        listStyle: 'none', // hide the ::marker inserted by browser's stylesheet
+        ...sx,
+      }}
+      aria-labelledby={ariaLabelledBy}
+      {...props}
+    >
+      {/* If ActionList.GroupHeading exists, render it; if not, fall back to rendering title prop - title prop will be deprecated in v37 */}
+      {slots.heading ? (
+        <Box id={slots.heading.props.id ?? labelId}>{slots.heading.props.children}</Box>
+      ) : (
+        title && <Header title={title} variant={variant} auxiliaryText={auxiliaryText} labelId={labelId} />
+      )}
+      <GroupContext.Provider value={{selectionVariant}}>{childrenWithoutSlots}</GroupContext.Provider>
+    </Box>
+  ) : (
     <Box
       as="li"
-      role={listRole ? 'none' : undefined}
       sx={{
         '&:not(:first-child)': {marginTop: 2},
         listStyle: 'none', // hide the ::marker inserted by browser's stylesheet
@@ -71,7 +91,7 @@ export const Group: React.FC<React.PropsWithChildren<ActionListGroupProps>> = ({
         ? slots.heading
         : title && <Header title={title} variant={variant} auxiliaryText={auxiliaryText} labelId={labelId} />}
       <GroupContext.Provider value={{selectionVariant}}>
-        <Box as="ul" sx={{paddingInlineStart: 0}} aria-labelledby={ariaLabelledBy} role={role || (listRole && 'group')}>
+        <Box as="ul" sx={{paddingInlineStart: 0}} aria-labelledby={ariaLabelledBy} role={role}>
           {childrenWithoutSlots}
         </Box>
       </GroupContext.Provider>
