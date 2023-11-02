@@ -104,6 +104,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       '&[aria-disabled]': {
         cursor: 'not-allowed',
         '[data-component="ActionList.Checkbox"]': {
+          cursor: 'not-allowed',
           bg: selected ? 'fg.muted' : 'var(--color-input-disabled-bg, rgba(175, 184, 193, 0.2))',
           borderColor: selected ? 'fg.muted' : 'var(--color-input-disabled-bg, rgba(175, 184, 193, 0.2))',
         },
@@ -209,14 +210,13 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       id: itemId,
     }
 
-    // If there is a private item wrapper, menu props are passed to the ItemWrapper, otherwise to the outer container
-    const containerProps = _PrivateItemWrapper ? {} : menuItemProps
+    const containerProps = _PrivateItemWrapper ? {role: role || itemRole ? 'none' : undefined} : menuItemProps
+
     const wrapperProps = _PrivateItemWrapper ? menuItemProps : {}
 
     return (
       <ItemContext.Provider value={{variant, disabled, inlineDescriptionId, blockDescriptionId}}>
         <Box
-          data-component="ActionList.Item--Container"
           // If role is specified on the item, or gathered from the list, we render the wrapper as a div, otherwise as a li
           as={role || itemRole ? undefined : 'li'}
           ref={forwardedRef}

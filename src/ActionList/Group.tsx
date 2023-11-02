@@ -4,7 +4,7 @@ import Box from '../Box'
 import {SxProp} from '../sx'
 import {ListContext, ActionListProps} from './List'
 import {AriaRole} from '../utils/types'
-import {Heading} from './Heading'
+import {GroupHeading} from './Heading'
 import {useSlots} from '../hooks/useSlots'
 
 export type ActionListGroupProps = {
@@ -34,7 +34,7 @@ export type ActionListGroupProps = {
     selectionVariant?: ActionListProps['selectionVariant'] | false
   }
 
-type ContextProps = Pick<ActionListGroupProps, 'selectionVariant'>
+type ContextProps = Pick<ActionListGroupProps, 'selectionVariant'> & {groupHeadingId: string}
 export const GroupContext = React.createContext<ContextProps>({})
 
 export const Group: React.FC<React.PropsWithChildren<ActionListGroupProps>> = ({
@@ -50,41 +50,22 @@ export const Group: React.FC<React.PropsWithChildren<ActionListGroupProps>> = ({
   const {role: listRole} = React.useContext(ListContext)
 
   const [slots, childrenWithoutSlots] = useSlots(props.children, {
-    heading: Heading,
+    groupHeading: GroupHeading,
   })
 
-  const ariaLabelledBy = slots.heading ? slots.heading.props.id ?? labelId : title ? labelId : undefined
+  const ariaLabelledBy = slots.groupHeading ? slots.groupHeading.props.id ?? labelId : title ? labelId : undefined
 
   const isOtherThanList = listRole && listRole !== 'list'
 
   // intentionally not using as prop to be able to render the box as div
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const {children, id, as, ...headingProps} = slots.heading?.props ?? {}
+  const {children, id, as, ...headingProps} = slots.groupHeading?.props ?? {}
 
-  return isOtherThanList ? (
-    <Box
-      role={role || 'group'}
-      sx={{
-        '&:not(:first-child)': {marginTop: 2},
-        listStyle: 'none', // hide the ::marker inserted by browser's stylesheet
-        ...sx,
-      }}
-      aria-labelledby={ariaLabelledBy}
-      {...props}
-    >
-      {/* If ActionList.GroupHeading exists, render it; if not, fall back to rendering title prop - title prop will be deprecated in v37 */}
-      {slots.heading ? (
-        <Box id={id ?? labelId} {...headingProps}>
-          {children}
-        </Box>
-      ) : (
-        title && <Header title={title} variant={variant} auxiliaryText={auxiliaryText} labelId={labelId} />
-      )}
-      <GroupContext.Provider value={{selectionVariant}}>{childrenWithoutSlots}</GroupContext.Provider>
-    </Box>
-  ) : (
+  return (
     <Box
       as="li"
+      role={listRole ? role || 'group' : undefined} // if listRole is specified, set the role either to the role prop or to 'group' otherwise don't render role because li will set the right semantics
+      aria-labelledby={listRole ? ariaLabelledBy : undefined} // if listRole is specified, set aria-labelledby to the labelId or to undefined otherwise don't render aria-labelledby because li will set the right semantics
       sx={{
         '&:not(:first-child)': {marginTop: 2},
         listStyle: 'none', // hide the ::marker inserted by browser's stylesheet
@@ -93,13 +74,27 @@ export const Group: React.FC<React.PropsWithChildren<ActionListGroupProps>> = ({
       {...props}
     >
       {/* If ActionList.GroupHeading exists, render it; if not, fall back to rendering title prop - title prop will be deprecated in v37 */}
-      {slots.heading
-        ? slots.heading
-        : title && <Header title={title} variant={variant} auxiliaryText={auxiliaryText} labelId={labelId} />}
-      <GroupContext.Provider value={{selectionVariant}}>
-        <Box as="ul" sx={{paddingInlineStart: 0}} aria-labelledby={ariaLabelledBy} role={role}>
-          {childrenWithoutSlots}
-        </Box>
+      <GroupContext.Provider value={{groupHeadingId: labelId}}>
+        {slots.groupHeading ? (
+          isOtherThanList ? (
+            <Box id={id ?? labelId} {...headingProps}>
+              {children}
+            </Box>
+          ) : (
+            slots.groupHeading
+          )
+        ) : (
+          title && <Header title={title} variant={variant} auxiliaryText={auxiliaryText} labelId={labelId} />
+        )}
+      </GroupContext.Provider>
+      <GroupContext.Provider value={{selectionVariant, groupHeadingId: labelId}}>
+        {isOtherThanList ? (
+          childrenWithoutSlots
+        ) : (
+          <Box as="ul" sx={{paddingInlineStart: 0}} aria-labelledby={ariaLabelledBy} role={role}>
+            {childrenWithoutSlots}
+          </Box>
+        )}
       </GroupContext.Provider>
     </Box>
   )
