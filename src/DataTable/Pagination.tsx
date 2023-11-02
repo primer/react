@@ -1,5 +1,5 @@
 import {ChevronLeftIcon, ChevronRightIcon} from '@primer/octicons-react'
-import React, {useCallback, useState} from 'react'
+import React, {useCallback, useState, useEffect} from 'react'
 import styled from 'styled-components'
 import {get} from '../constants'
 import {Button} from '../internal/components/ButtonReset'
@@ -489,6 +489,13 @@ function usePagination(config: PaginationConfig): PaginationResult {
 
     return 0
   })
+
+  useEffect(() => {
+    if (defaultPageIndex && defaultPageIndex >= 0 && defaultPageIndex < pageCount) {
+      setPageIndex(defaultPageIndex)
+    }
+  }, [defaultPageIndex, pageCount])
+
   const pageStart = pageIndex * pageSize
   const pageEnd = Math.min(pageIndex * pageSize + pageSize, totalCount - 1)
   const hasNextPage = pageIndex + 1 < pageCount
