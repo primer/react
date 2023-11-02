@@ -57,6 +57,10 @@ export const Group: React.FC<React.PropsWithChildren<ActionListGroupProps>> = ({
 
   const isOtherThanList = listRole && listRole !== 'list'
 
+  // intentionally not using as prop to be able to render the box as div
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const {children, id, as, ...headingProps} = slots.heading?.props ?? {}
+
   return isOtherThanList ? (
     <Box
       role={role || 'group'}
@@ -70,7 +74,9 @@ export const Group: React.FC<React.PropsWithChildren<ActionListGroupProps>> = ({
     >
       {/* If ActionList.GroupHeading exists, render it; if not, fall back to rendering title prop - title prop will be deprecated in v37 */}
       {slots.heading ? (
-        <Box id={slots.heading.props.id ?? labelId}>{slots.heading.props.children}</Box>
+        <Box id={id ?? labelId} {...headingProps}>
+          {children}
+        </Box>
       ) : (
         title && <Header title={title} variant={variant} auxiliaryText={auxiliaryText} labelId={labelId} />
       )}
