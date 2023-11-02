@@ -1,0 +1,137 @@
+/* tooltip element should be rendered visually hidden when it is not opened.  */
+/* .Tooltip--variant {}
+.Tooltip-title {} */
+.Tooltip-wrap {
+  display: inline-block;
+}
+
+.Tooltip {
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  position: fixed;
+  font: var(--text-body-shorthand-small);
+  -webkit-font-smoothing: subpixel-antialiased;
+  color: var(--fgColor-onEmphasis);
+  text-align: center;
+  word-wrap: break-word;
+  background: var(--bgColor-emphasis);
+  border-radius: var(--borderRadius-medium);
+  border: 0;
+  opacity: 0;
+  max-width: var(--overlay-width-small);
+  inset: auto;
+  /* pollyfil */
+  z-index: 2147483647;
+  display: block;
+
+  @media (forced-colors: active) {
+    outline: 1px solid transparent;
+  }
+
+  /* class name in chrome is :popover-open */
+  &:popover-open {
+    padding: var(--overlay-paddingBlock-condensed) var(--overlay-padding-condensed);
+    width: max-content;
+    height: fit-content;
+    margin: auto;
+    clip: auto;
+    white-space: normal;
+    /* for scrollbar */
+    overflow: visible;
+  }
+
+  /* class name in firefox and safari is \:popover-open */
+  &.\\:popover-open {
+    padding: var(--overlay-paddingBlock-condensed) var(--overlay-padding-condensed);
+    width: max-content;
+    height: fit-content;
+    margin: auto;
+    clip: auto;
+    white-space: normal;
+    /* for scrollbar */
+    overflow: visible;
+  }
+
+  /* This is needed to keep the tooltip open when the user leaves the trigger element to hover tooltip */
+  &::after {
+    position: absolute;
+    display: block;
+    right: 0;
+    left: 0;
+    height: 8px;
+    content: '';
+  }
+
+  /* South, East, Southeast, Southwest after */
+  &[data-direction='n']::after,
+  &[data-direction='ne']::after,
+  &[data-direction='nw']::after {
+    top: 100%;
+  }
+
+  &[data-direction='s']::after,
+  &[data-direction='se']::after,
+  &[data-direction='sw']::after {
+    bottom: 100%;
+  }
+
+  &[data-direction='w']::after {
+    position: absolute;
+    display: block;
+    height: 100%;
+    width: var(--base-size-8);
+    content: '';
+    bottom: 0;
+    left: 100%;
+  }
+
+  /* East before and after */
+  &[data-direction='e']::after {
+    position: absolute;
+    display: block;
+    height: 100%;
+    width: var(--base-size-8);
+    content: '';
+    bottom: 0;
+    right: 100%;
+    margin-left: calc(var(--base-size-8) * -1);
+  }
+
+  /* Animation definition */
+  /* @keyframes tooltip-appear {
+    from {
+      opacity: 0;
+    }
+
+    to {
+      opacity: 1;
+    }
+  } */
+
+  /* Animation styles */
+  &:popover-open,
+  &:popover-open::before {
+    /* animation-name: tooltip-appear;
+    animation-duration: 0.1s;
+    animation-fill-mode: forwards;
+    animation-timing-function: ease-in;
+    animation-delay: 0s; */
+    opacity: 1;
+  }
+
+  /* Animation styles */
+  &.\\:popover-open,
+  &.\\:popover-open::before {
+    /* animation-name: tooltip-appear;
+    animation-duration: 0.1s;
+    animation-fill-mode: forwards;
+    animation-timing-function: ease-in;
+    animation-delay: 0s; */
+    opacity: 1;
+  }
+}
