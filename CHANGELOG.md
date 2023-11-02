@@ -1,5 +1,25 @@
 # @primer/components
 
+## 36.1.0
+
+### Minor Changes
+
+- [#3843](https://github.com/primer/react/pull/3843) [`4ea8bcf7`](https://github.com/primer/react/commit/4ea8bcf74719947854f28d55210269e0d4431ebb) Thanks [@thyeggman](https://github.com/thyeggman)! - Vertically align cell contents in `DataTable`
+
+### Patch Changes
+
+- [#3866](https://github.com/primer/react/pull/3866) [`22fa0928`](https://github.com/primer/react/commit/22fa0928a162bd19b509773a90631c9e53e24de5) Thanks [@strackoverflow](https://github.com/strackoverflow)! - DataTable: fix incorrect pagination steps when defaultPageIndex is provided
+
+  <!-- Changed components: DataTable -->
+
+- [#3888](https://github.com/primer/react/pull/3888) [`3e20ab1f`](https://github.com/primer/react/commit/3e20ab1fe9ae1ff6c34abd4a8139e7ff008f7c18) Thanks [@strackoverflow](https://github.com/strackoverflow)! - Select: Add support for `sx` prop
+
+  <!-- Changed components: Select -->
+
+- [#3870](https://github.com/primer/react/pull/3870) [`2c24d6a8`](https://github.com/primer/react/commit/2c24d6a876df5c4d0e3ba83fcbdccc685a07b8fb) Thanks [@siddharthkp](https://github.com/siddharthkp)! - ActionList: Checkbox inside a disabled item should have `not-allowed` cusor
+
+  <!-- Changed components: ActionList -->
+
 ## 36.0.0
 
 ### Major Changes
