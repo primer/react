@@ -119,7 +119,7 @@ export const GroupHeading: React.FC<React.PropsWithChildren<GroupHeadingProps>> 
   // for list role, the headings are proper heading tags, for menu and listbox, they are just representational and divs
   warning(
     listRole === undefined && children !== null && as === undefined,
-    `You are setting a heading for a list, that requires a heading level. Please use ` as ` prop to set the proper heading level.`,
+    `You are setting a heading for a list, that requires a heading level. Please use 'as' prop to set a proper heading level.`,
   )
 
   const styles = {
