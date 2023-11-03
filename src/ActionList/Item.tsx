@@ -158,7 +158,10 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
         borderColor: 'var(--divider-color, transparent)',
       },
       // show between 2 items
-      ':not(:first-of-type)': {'--divider-color': theme?.colors.actionListItem.inlineDivider},
+      // all elements except the "first of type" amongst all the data-component="ActionList.Item"
+      ':not(:first-of-type) + &[data-component="ActionList.Item"]': {
+        '--divider-color': theme?.colors.actionListItem.inlineDivider,
+      },
       // hide divider after dividers & group header, with higher importance!
       '[data-component="ActionList.Divider"] + &': {'--divider-color': 'transparent !important'},
       // hide border on current and previous item
@@ -217,6 +220,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
     return (
       <ItemContext.Provider value={{variant, disabled, inlineDescriptionId, blockDescriptionId}}>
         <Box
+          data-component="ActionList.Item"
           // If role is specified on the item, or gathered from the list, we render the wrapper as a div, otherwise as a li
           as={role || itemRole ? undefined : 'li'}
           ref={forwardedRef}

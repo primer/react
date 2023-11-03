@@ -73,21 +73,13 @@ export const Group: React.FC<React.PropsWithChildren<ActionListGroupProps>> = ({
       }}
       {...props}
     >
-      {/* If ActionList.GroupHeading exists, render it; if not, fall back to rendering title prop - title prop will be deprecated in v37 */}
-      <GroupContext.Provider value={{groupHeadingId: labelId}}>
-        {slots.groupHeading ? (
-          isOtherThanList ? (
-            <Box id={id ?? labelId} {...headingProps}>
-              {children}
-            </Box>
-          ) : (
-            slots.groupHeading
-          )
-        ) : (
-          title && <Header title={title} variant={variant} auxiliaryText={auxiliaryText} labelId={labelId} />
-        )}
-      </GroupContext.Provider>
       <GroupContext.Provider value={{selectionVariant, groupHeadingId: labelId}}>
+        {/* Group Heading */}
+        {/* If ActionList.GroupHeading exists, render it; if not, fall back to rendering the title prop - title prop will be deprecated in v37 */}
+        {slots.groupHeading
+          ? slots.groupHeading
+          : title && <Header title={title} variant={variant} auxiliaryText={auxiliaryText} labelId={labelId} />}
+        {/* Group items */}
         {isOtherThanList ? (
           childrenWithoutSlots
         ) : (
