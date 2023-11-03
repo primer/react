@@ -102,7 +102,7 @@ const Header: React.FC<React.PropsWithChildren<HeaderProps>> = ({variant, title,
   }
 
   return (
-    <Box sx={styles} role="presentation" aria-hidden="true" {...props}>
+    <Box sx={styles} role="presentation" {...props}>
       <span id={labelId}>{title}</span>
       {auxiliaryText && <span>{auxiliaryText}</span>}
     </Box>
