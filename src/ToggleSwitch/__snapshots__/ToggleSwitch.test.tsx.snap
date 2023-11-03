@@ -219,10 +219,10 @@ exports[`ToggleSwitch renders consistently 1`] = `
     </div>
   </span>
   <button
+    aria-disabled={false}
     aria-pressed={false}
     checked={false}
     className="c4"
-    disabled={false}
     onClick={[Function]}
     size="medium"
   >
@@ -272,10 +272,10 @@ exports[`ToggleSwitch renders consistently 1`] = `
       </div>
     </div>
     <div
+      aria-disabled={false}
       aria-hidden="true"
       checked={false}
       className="c8"
-      disabled={false}
     />
   </button>
 </div>
