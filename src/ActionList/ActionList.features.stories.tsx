@@ -96,6 +96,146 @@ export const WithVisualListHeading = () => (
   </ActionList>
 )
 
+export const ListWithNewGroupHeadingAPI = () => (
+  <ActionList>
+    <ActionList.Heading as="h2">List Heading</ActionList.Heading>
+    <ActionList.Group>
+      <ActionList.GroupHeading as="h3">Group 1 Heading</ActionList.GroupHeading>
+      <ActionList.Item onClick={() => {}}>
+        <ActionList.LeadingVisual>
+          <FileDirectoryIcon />
+        </ActionList.LeadingVisual>
+        app/assets/modules
+      </ActionList.Item>
+      <ActionList.Item onClick={() => {}}>
+        <ActionList.LeadingVisual>
+          <FileDirectoryIcon />
+        </ActionList.LeadingVisual>
+        src/react/components
+      </ActionList.Item>
+      <ActionList.Item onClick={() => {}}>
+        <ActionList.LeadingVisual>
+          <FileDirectoryIcon />
+        </ActionList.LeadingVisual>
+        memex/shared-ui/components
+      </ActionList.Item>
+      <ActionList.Item onClick={() => {}}>
+        <ActionList.LeadingVisual>
+          <FileDirectoryIcon />
+        </ActionList.LeadingVisual>
+        views/assets/modules
+      </ActionList.Item>
+    </ActionList.Group>
+
+    <ActionList.Group>
+      <ActionList.GroupHeading as="h3">Group 2 Heading</ActionList.GroupHeading>
+      <ActionList.Item onClick={() => {}}>
+        <ActionList.LeadingVisual>
+          <PlusCircleIcon />
+        </ActionList.LeadingVisual>
+        Owner
+      </ActionList.Item>
+      <ActionList.Item onClick={() => {}}>
+        <ActionList.LeadingVisual>
+          <PlusCircleIcon />
+        </ActionList.LeadingVisual>
+        Symbol
+      </ActionList.Item>
+      <ActionList.Item onClick={() => {}}>
+        <ActionList.LeadingVisual>
+          <PlusCircleIcon />
+        </ActionList.LeadingVisual>
+        Exclude archived
+      </ActionList.Item>
+    </ActionList.Group>
+  </ActionList>
+)
+
+export const MenuWithNewGroupHeadingAPI = () => {
+  const [assignees, setAssignees] = React.useState(users.slice(0, 1))
+
+  const toggleAssignee = (assignee: (typeof users)[number]) => {
+    const assigneeIndex = assignees.findIndex(a => a.login === assignee.login)
+
+    if (assigneeIndex === -1) setAssignees([...assignees, assignee])
+    else setAssignees(assignees.filter((_, index) => index !== assigneeIndex))
+  }
+
+  return (
+    <ActionList selectionVariant="multiple" role="menu" showDividers aria-label="Reviewers">
+      <ActionList.Group>
+        <ActionList.GroupHeading>Everyone</ActionList.GroupHeading>
+        {users.slice(2).map(user => (
+          <ActionList.Item
+            role="menuitemcheckbox"
+            key={user.login}
+            selected={Boolean(assignees.find(assignee => assignee.login === user.login))}
+            aria-checked={Boolean(assignees.find(assignee => assignee.login === user.login))}
+            onSelect={() => toggleAssignee(user)}
+          >
+            <ActionList.LeadingVisual>
+              <Avatar src={`https://github.com/${user.login}.png`} />
+            </ActionList.LeadingVisual>
+            {user.login}
+            <ActionList.Description>{user.name}</ActionList.Description>
+          </ActionList.Item>
+        ))}
+      </ActionList.Group>
+    </ActionList>
+  )
+}
+
+export const ListboxWithNewGroupHeadingAPI = () => {
+  const [assignees, setAssignees] = React.useState(users.slice(0, 1))
+
+  const toggleAssignee = (assignee: (typeof users)[number]) => {
+    const assigneeIndex = assignees.findIndex(a => a.login === assignee.login)
+
+    if (assigneeIndex === -1) setAssignees([...assignees, assignee])
+    else setAssignees(assignees.filter((_, index) => index !== assigneeIndex))
+  }
+
+  return (
+    <ActionList selectionVariant="multiple" role="listbox" showDividers aria-label="Reviewers">
+      <ActionList.Group>
+        <ActionList.GroupHeading>Everyone</ActionList.GroupHeading>
+        {users.slice(2).map(user => (
+          <ActionList.Item
+            role="option"
+            key={user.login}
+            selected={Boolean(assignees.find(assignee => assignee.login === user.login))}
+            aria-checked={Boolean(assignees.find(assignee => assignee.login === user.login))}
+            onSelect={() => toggleAssignee(user)}
+          >
+            <ActionList.LeadingVisual>
+              <Avatar src={`https://github.com/${user.login}.png`} />
+            </ActionList.LeadingVisual>
+            {user.login}
+            <ActionList.Description>{user.name}</ActionList.Description>
+          </ActionList.Item>
+        ))}
+      </ActionList.Group>
+      <ActionList.Group>
+        <ActionList.GroupHeading>Review Requested</ActionList.GroupHeading>
+        {users.slice(2).map(user => (
+          <ActionList.Item
+            role="option"
+            key={user.login}
+            selected={Boolean(assignees.find(assignee => assignee.login === user.login))}
+            aria-checked={Boolean(assignees.find(assignee => assignee.login === user.login))}
+            onSelect={() => toggleAssignee(user)}
+          >
+            <ActionList.LeadingVisual>
+              <Avatar src={`https://github.com/${user.login}.png`} />
+            </ActionList.LeadingVisual>
+            {user.login}
+            <ActionList.Description>{user.name}</ActionList.Description>
+          </ActionList.Item>
+        ))}
+      </ActionList.Group>
+    </ActionList>
+  )
+}
 export const WithCustomHeading = () => (
   <>
     <Heading as="h1" id="list-heading" sx={{fontSize: 3, marginX: 3}}>

@@ -1,9 +1,13 @@
 import React from 'react'
 import {useId} from '../hooks/useId'
 import Box from '../Box'
-import {SxProp} from '../sx'
+import {SxProp, BetterSystemStyleObject, merge} from '../sx'
 import {ListContext, ActionListProps} from './List'
 import {AriaRole} from '../utils/types'
+import {default as Heading} from '../Heading'
+import {useSlots} from '../hooks/useSlots'
+import {defaultSxProp} from '../utils/defaultSxProp'
+import {warning} from '../utils/warning'
 
 export type ActionListGroupProps = {
   /**
@@ -44,8 +48,14 @@ export const Group: React.FC<React.PropsWithChildren<ActionListGroupProps>> = ({
   sx = {},
   ...props
 }) => {
-  const labelId = useId()
+  const id = useId()
   const {role: listRole} = React.useContext(ListContext)
+
+  const [slots, childrenWithoutSlots] = useSlots(props.children, {
+    groupHeading: GroupHeading,
+  })
+
+  const headingId = slots.groupHeading ? slots.groupHeading.props.id ?? id : title ? id : undefined
 
   return (
     <Box
@@ -58,32 +68,59 @@ export const Group: React.FC<React.PropsWithChildren<ActionListGroupProps>> = ({
       }}
       {...props}
     >
-      {title && <Header title={title} variant={variant} auxiliaryText={auxiliaryText} labelId={labelId} />}
+      {(title || slots.groupHeading) && (
+        <GroupHeading
+          title={title}
+          variant={variant}
+          auxiliaryText={auxiliaryText}
+          labelId={headingId}
+          as={slots.groupHeading?.props.as}
+        >
+          {slots.groupHeading ? slots.groupHeading.props.children : null}
+        </GroupHeading>
+      )}
       <GroupContext.Provider value={{selectionVariant}}>
         <Box
           as="ul"
           sx={{paddingInlineStart: 0}}
-          aria-labelledby={title ? labelId : undefined}
+          aria-labelledby={listRole ? undefined : headingId}
+          aria-label={listRole ? title ?? (slots.groupHeading?.props.children as string) : undefined}
           role={role || (listRole && 'group')}
         >
-          {props.children}
+          {slots.groupHeading ? childrenWithoutSlots : props.children}
         </Box>
       </GroupContext.Provider>
     </Box>
   )
 }
 
-export type HeaderProps = Pick<ActionListGroupProps, 'variant' | 'title' | 'auxiliaryText'> & {
-  labelId: string
-}
+export type GroupHeadingProps = Pick<ActionListGroupProps, 'variant' | 'title' | 'auxiliaryText'> & {
+  as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
+  labelId?: string
+  id?: string
+} & SxProp
 
 /**
  * Displays the name and description of a `Group`.
  *
- * For visual presentation only. It's hidden from screen readers.
+ * For visual presentation only.
  */
-const Header: React.FC<React.PropsWithChildren<HeaderProps>> = ({variant, title, auxiliaryText, labelId, ...props}) => {
-  const {variant: listVariant} = React.useContext(ListContext)
+export const GroupHeading: React.FC<React.PropsWithChildren<GroupHeadingProps>> = ({
+  as,
+  variant,
+  title,
+  auxiliaryText,
+  labelId,
+  children,
+  sx = defaultSxProp,
+  ...props
+}) => {
+  const {variant: listVariant, role: listRole} = React.useContext(ListContext)
+  // for list role, the headings are proper heading tags, for menu and listbox, they are just representational and divs
+  warning(
+    listRole === undefined && children !== null && as === undefined,
+    `You are setting a heading for a list, that requires a heading level. Please use ` as ` prop to set the proper heading level.`,
+  )
 
   const styles = {
     paddingY: '6px',
@@ -102,9 +139,23 @@ const Header: React.FC<React.PropsWithChildren<HeaderProps>> = ({variant, title,
   }
 
   return (
-    <Box sx={styles} role="presentation" aria-hidden="true" {...props}>
-      <span id={labelId}>{title}</span>
-      {auxiliaryText && <span>{auxiliaryText}</span>}
-    </Box>
+    <>
+      {listRole ? (
+        <Box sx={styles} role="presentation" aria-hidden="true" {...props}>
+          <span id={labelId}>{title ?? children}</span>
+          {auxiliaryText && <span>{auxiliaryText}</span>}
+        </Box>
+      ) : (
+        <Heading
+          as={as || 'h3'}
+          // use custom id if it is provided. Otherwise, use the id from the context
+          id={labelId}
+          sx={merge<BetterSystemStyleObject>(styles, sx)}
+          {...props}
+        >
+          {title ?? children}
+        </Heading>
+      )}
+    </>
   )
 }
