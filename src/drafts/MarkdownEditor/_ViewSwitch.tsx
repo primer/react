@@ -33,7 +33,7 @@ export const ViewSwitch = ({selectedView, onViewSelect, onLoadPreview, disabled}
 
   return (
     <Box sx={{display: 'flex', flexDirection: 'row'}}>
-      <TabNav aria-label="Main">
+      <TabNav aria-label="View mode">
         <TabNav.Link
           {...sharedProps}
           as="button"
