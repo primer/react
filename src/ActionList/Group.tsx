@@ -35,7 +35,10 @@ export type ActionListGroupProps = {
   }
 
 type ContextProps = Pick<ActionListGroupProps, 'selectionVariant'> & {groupHeadingId: string}
-export const GroupContext = React.createContext<ContextProps>({})
+export const GroupContext = React.createContext<ContextProps>({
+  selectionVariant: undefined,
+  groupHeadingId: '',
+})
 
 export const Group: React.FC<React.PropsWithChildren<ActionListGroupProps>> = ({
   title,
