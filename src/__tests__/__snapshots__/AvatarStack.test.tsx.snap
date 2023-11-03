@@ -105,12 +105,12 @@ exports[`Avatar renders consistently 1`] = `
   flex-direction: row-reverse;
 }
 
-.c0.pc-AvatarStack--right .pc-AvatarStackBody:hover .pc-AvatarItem {
+.c0.pc-AvatarStack--right .pc-AvatarStackBody:not(.pc-AvatarStack--disableExpand):hover .pc-AvatarItem {
   margin-right: 4px!important;
   margin-left: 0 !important;
 }
 
-.c0.pc-AvatarStack--right .pc-AvatarStackBody:hover .pc-AvatarItem:first-child {
+.c0.pc-AvatarStack--right .pc-AvatarStackBody:not(.pc-AvatarStack--disableExpand):hover .pc-AvatarItem:first-child {
   margin-right: 0 !important;
 }
 
@@ -267,12 +267,12 @@ exports[`Avatar respects alignRight props 1`] = `
   flex-direction: row-reverse;
 }
 
-.c0.pc-AvatarStack--right .pc-AvatarStackBody:hover .pc-AvatarItem {
+.c0.pc-AvatarStack--right .pc-AvatarStackBody:not(.pc-AvatarStack--disableExpand):hover .pc-AvatarItem {
   margin-right: 4px!important;
   margin-left: 0 !important;
 }
 
-.c0.pc-AvatarStack--right .pc-AvatarStackBody:hover .pc-AvatarItem:first-child {
+.c0.pc-AvatarStack--right .pc-AvatarStackBody:not(.pc-AvatarStack--disableExpand):hover .pc-AvatarItem:first-child {
   margin-right: 0 !important;
 }
 
