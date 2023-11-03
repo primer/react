@@ -103,6 +103,22 @@ describe('ToggleSwitch', () => {
     expect(toggleSwitch).toHaveAttribute('aria-pressed', 'true')
   })
 
+  it('ensures the status label cannot toggle a disabled switch', async () => {
+    const user = userEvent.setup()
+    const {getByLabelText, getByText} = render(
+      <>
+        <div id="switchLabel">{SWITCH_LABEL_TEXT}</div>
+        <ToggleSwitch aria-labelledby="switchLabel" disabled />
+      </>,
+    )
+    const toggleSwitch = getByLabelText(SWITCH_LABEL_TEXT)
+    const toggleSwitchStatusLabel = getByText('Off')
+
+    expect(toggleSwitch).toHaveAttribute('aria-pressed', 'false')
+    await user.click(toggleSwitchStatusLabel)
+    expect(toggleSwitch).toHaveAttribute('aria-pressed', 'false')
+  })
+
   it('switches from off to on with a controlled prop', async () => {
     const user = userEvent.setup()
     const ControlledSwitchComponent = () => {
