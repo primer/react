@@ -30,7 +30,7 @@ const PageLayoutContext = React.createContext<{
   padding: keyof typeof SPACING_MAP
   rowGap: keyof typeof SPACING_MAP
   columnGap: keyof typeof SPACING_MAP
-  paneRef?: React.RefObject<HTMLDivElement>
+  paneRef: React.RefObject<HTMLDivElement>
   enableStickyPane?: (top: number | string) => void
   disableStickyPane?: () => void
   contentTopRef?: (node?: Element | null | undefined) => void
@@ -39,6 +39,7 @@ const PageLayoutContext = React.createContext<{
   padding: 'normal',
   rowGap: 'normal',
   columnGap: 'normal',
+  paneRef: {current: null},
 })
 
 // ----------------------------------------------------------------------------
@@ -240,11 +241,11 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
   const [currentWidth, setCurrentWidth] = React.useState(0)
 
   React.useEffect(() => {
-    if (paneRef?.current !== null) {
-      const paneStyles = getComputedStyle(paneRef?.current as Element)
+    if (paneRef.current !== null) {
+      const paneStyles = getComputedStyle(paneRef.current as Element)
       const maxPaneWidthDiffPixels = paneStyles.getPropertyValue('--pane-max-width-diff')
       const minWidthPixels = paneStyles.getPropertyValue('--pane-min-width')
-      const paneWidth = paneRef?.current.getBoundingClientRect().width
+      const paneWidth = paneRef.current.getBoundingClientRect().width
       const maxPaneWidthDiff = Number(maxPaneWidthDiffPixels.split('px')[0])
       const minPaneWidth = Number(minWidthPixels.split('px')[0])
       const viewportWidth = window.innerWidth
@@ -315,7 +316,7 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
       window.removeEventListener('mouseup', handleDragEnd)
       document.body.removeAttribute('data-page-layout-dragging')
     }
-  }, [isDragging, isKeyboardDrag])
+  }, [isDragging, isKeyboardDrag, currentWidth, minWidth, maxWidth])
 
   return (
     <Box
@@ -655,9 +656,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
 
     const isHidden = useResponsiveValue(responsiveHidden, false)
 
-    const {rowGap, columnGap, enableStickyPane, disableStickyPane} = React.useContext(PageLayoutContext)
-    let {paneRef} = React.useContext(PageLayoutContext)
-    paneRef = paneRef || useRef<HTMLDivElement>(null)
+    const {rowGap, columnGap, enableStickyPane, disableStickyPane, paneRef} = React.useContext(PageLayoutContext)
 
     React.useEffect(() => {
       if (sticky) {
@@ -787,7 +786,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
           }}
           // Ensure `paneWidth` state and actual pane width are in sync when the drag ends
           onDragEnd={() => {
-            const paneRect = paneRef?.current?.getBoundingClientRect()
+            const paneRect = paneRef.current?.getBoundingClientRect()
             if (!paneRect) return
             updatePaneWidth(paneRect.width)
           }}
