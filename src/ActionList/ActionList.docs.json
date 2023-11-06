@@ -62,7 +62,7 @@
           "name": "onSelect",
           "type": "(event: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement>) => void",
           "defaultValue": "",
-          "description": "Callback that is called when the item is selected using either the mouse or keyboard. `event.preventDefault()` will prevent a menu from closing when within an `<ActionMenu />`"
+          "description": "Callback that is called when the item is selected using either the mouse or keyboard. `event.preventDefault()` will prevent a menu from closing when within an `<ActionMenu />`. This is not called for disabled or inactive items."
         },
         {
           "name": "selected",
@@ -81,6 +81,12 @@
           "type": "boolean",
           "defaultValue": "false",
           "description": "Items that are disabled can not be clicked, selected, or navigated to."
+        },
+        {
+          "name": "inactiveText",
+          "type": "string",
+          "defaultValue": "",
+          "description": "Text describing why the item is inactive. This may be used when an item's usual functionality is unavailable due to a system error such as a database outage."
         },
         {
           "name": "role",
