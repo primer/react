@@ -212,7 +212,7 @@
     "eslint-plugin-storybook": "0.6.13",
     "eslint-plugin-testing-library": "6.0.2",
     "fast-glob": "3.3.1",
-    "filesize": "10.0.12",
+    "filesize": "10.1.0",
     "front-matter": "4.0.2",
     "gzip-size": "6.0.0",
     "husky": "8.0.3",
