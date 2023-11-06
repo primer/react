@@ -13,6 +13,7 @@ import {isSupported, apply} from '@oddbird/popover-polyfill/fn'
 
 // Reusable styles to use for :popover-open (Chrome, Edge) and \:popover-open (Safari, Firefox) classes
 const popoverStyles = `
+    display: block;
     padding: 0.5em 0.75em;
     width: max-content;
     height: fit-content;
@@ -32,22 +33,16 @@ const animationStyles = `
 `
 
 const StyledTooltip = styled.div`
-  /* tooltip element should be rendered visually hidden when it is not opened.  */
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
+  /* tooltip element shouldn't be in the DOM when it is not open  */
+  display: none;
   white-space: nowrap;
   position: fixed;
   font: normal normal 11px/1.5 ${get('fonts.normal')};
   -webkit-font-smoothing: subpixel-antialiased;
   color: ${get('colors.fg.onEmphasis')};
   text-align: center;
-
   word-wrap: break-word;
-  background: ${get('colors.neutral.emphasisPlus')}; //bg--emphasis-color
+  background: ${get('colors.neutral.emphasisPlus')};
   border-radius: ${get('radii.2')};
   border: 0;
   opacity: 0;
@@ -59,7 +54,6 @@ const StyledTooltip = styled.div`
   }
   /* pollyfil */
   z-index: 2147483647;
-  display: block;
 
   /* class name in chrome is :popover-open */
   &:popover-open {
