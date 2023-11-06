@@ -27,6 +27,7 @@ import {Emoji} from './suggestions/_useEmojiSuggestions'
 import {Mentionable} from './suggestions/_useMentionSuggestions'
 import {Reference} from './suggestions/_useReferenceSuggestions'
 import {isModifierKey} from './utils'
+import {ErrorMessage} from './_ErrorMessage'
 import useIsomorphicLayoutEffect from '../../utils/useIsomorphicLayoutEffect'
 
 export type MarkdownEditorProps = SxProp & {
@@ -383,34 +384,55 @@ const MarkdownEditor = forwardRef<MarkdownEditorHandle, MarkdownEditorProps>(
             sx={{
               display: 'flex',
               flexDirection: 'column',
-              width: '100%',
-              borderColor: 'border.default',
-              borderWidth: 1,
-              borderStyle: 'solid',
-              borderRadius: 2,
-              p: 2,
-              height: fullHeight ? '100%' : undefined,
-              minInlineSize: 'auto',
-              bg: 'canvas.default',
-              color: disabled ? 'fg.subtle' : 'fg.default',
-              ...sx,
             }}
             ref={containerRef}
           >
-            <VisuallyHidden id={descriptionId} aria-live="polite">
-              Markdown input:
-              {view === 'preview' ? ' preview mode selected.' : ' edit mode selected.'}
-            </VisuallyHidden>
+            <Box
+              sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                width: '100%',
+                borderColor: 'border.default',
+                borderWidth: 1,
+                borderStyle: 'solid',
+                borderRadius: 2,
+                height: fullHeight ? '100%' : undefined,
+                minInlineSize: 'auto',
+                bg: 'canvas.default',
+                color: disabled ? 'fg.subtle' : 'fg.default',
+                '&: focus-within':
+                  view === 'edit'
+                    ? {
+                        outline: '2px solid var(--borderColor-accent-emphasis)',
+                      }
+                    : {},
+                ...sx,
+              }}
+            >
+              <VisuallyHidden id={descriptionId} aria-live="polite">
+                Markdown input:
+                {view === 'preview' ? ' preview mode selected.' : ' edit mode selected.'}
+              </VisuallyHidden>
 
-            <Box sx={{display: 'flex', pb: 2, gap: 2, justifyContent: 'space-between'}} as="header">
-              <ViewSwitch
-                selectedView={view}
-                onViewSelect={setView}
-                disabled={fileHandler?.uploadProgress !== undefined}
-                onLoadPreview={loadPreview}
-              />
+              <Box
+                sx={{
+                  display: 'flex',
+                  backgroundColor: 'canvas.subtle',
+                  borderTopLeftRadius: 2,
+                  borderTopRightRadius: 2,
+                  justifyContent: 'space-between',
+                }}
+                as="header"
+              >
+                <Box sx={{ml: '-1px', mt: '-1px', display: 'flex', alignItems: 'flex-end'}}>
+                  <ViewSwitch
+                    selectedView={view}
+                    onViewSelect={setView}
+                    disabled={fileHandler?.uploadProgress !== undefined}
+                    onLoadPreview={loadPreview}
+                  />
+                </Box>
 
-              <Box sx={{display: 'flex'}}>
                 <SavedRepliesContext.Provider value={savedRepliesContext}>
                   {view === 'edit' &&
                     (slots.toolbar ?? (
@@ -420,53 +442,54 @@ const MarkdownEditor = forwardRef<MarkdownEditorHandle, MarkdownEditorProps>(
                     ))}
                 </SavedRepliesContext.Provider>
               </Box>
+
+              <MarkdownInput
+                value={value}
+                onChange={onInputChange}
+                emojiSuggestions={emojiSuggestions}
+                mentionSuggestions={mentionSuggestions}
+                referenceSuggestions={referenceSuggestions}
+                disabled={disabled}
+                placeholder={placeholder}
+                id={id}
+                maxLength={maxLength}
+                ref={inputRef}
+                fullHeight={fullHeight}
+                isDraggedOver={fileHandler?.isDraggedOver ?? false}
+                minHeightLines={minHeightLines}
+                maxHeightLines={maxHeightLines}
+                visible={view === 'edit'}
+                monospace={monospace}
+                required={required}
+                name={name}
+                pasteUrlsAsPlainText={pasteUrlsAsPlainText}
+                {...inputCompositionProps}
+                {...fileHandler?.pasteTargetProps}
+                {...fileHandler?.dropTargetProps}
+              />
+              {view === 'edit' && fileHandler?.errorMessage && <ErrorMessage message={fileHandler.errorMessage} />}
+
+              {view === 'preview' && (
+                <Box
+                  sx={{
+                    p: 3,
+                    overflow: 'auto',
+                    height: fullHeight ? '100%' : undefined,
+                    minHeight: inputHeight.current,
+                    boxSizing: 'border-box',
+                  }}
+                  aria-live="polite"
+                  tabIndex={-1}
+                >
+                  <h2 style={a11yOnlyStyle}>Rendered Markdown Preview</h2>
+                  <MarkdownViewer
+                    dangerousRenderedHTML={{__html: html || 'Nothing to preview'}}
+                    loading={html === null}
+                    openLinksInNewTab
+                  />
+                </Box>
+              )}
             </Box>
-
-            <MarkdownInput
-              value={value}
-              onChange={onInputChange}
-              emojiSuggestions={emojiSuggestions}
-              mentionSuggestions={mentionSuggestions}
-              referenceSuggestions={referenceSuggestions}
-              disabled={disabled}
-              placeholder={placeholder}
-              id={id}
-              maxLength={maxLength}
-              ref={inputRef}
-              fullHeight={fullHeight}
-              isDraggedOver={fileHandler?.isDraggedOver ?? false}
-              minHeightLines={minHeightLines}
-              maxHeightLines={maxHeightLines}
-              visible={view === 'edit'}
-              monospace={monospace}
-              required={required}
-              name={name}
-              pasteUrlsAsPlainText={pasteUrlsAsPlainText}
-              {...inputCompositionProps}
-              {...fileHandler?.pasteTargetProps}
-              {...fileHandler?.dropTargetProps}
-            />
-
-            {view === 'preview' && (
-              <Box
-                sx={{
-                  p: 1,
-                  overflow: 'auto',
-                  height: fullHeight ? '100%' : undefined,
-                  minHeight: inputHeight.current,
-                  boxSizing: 'border-box',
-                }}
-                aria-live="polite"
-                tabIndex={-1}
-              >
-                <h2 style={a11yOnlyStyle}>Rendered Markdown Preview</h2>
-                <MarkdownViewer
-                  dangerousRenderedHTML={{__html: html || 'Nothing to preview'}}
-                  loading={html === null}
-                  openLinksInNewTab
-                />
-              </Box>
-            )}
             {slots.footer ?? (
               <CoreFooter>{React.isValidElement(slots.actions) && slots.actions.props.children}</CoreFooter>
             )}
