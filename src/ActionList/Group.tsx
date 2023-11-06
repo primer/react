@@ -5,6 +5,7 @@ import {SxProp, BetterSystemStyleObject, merge} from '../sx'
 import {ListContext, ActionListProps} from './List'
 import {AriaRole} from '../utils/types'
 import {default as Heading} from '../Heading'
+import type {ActionListHeadingProps} from './Heading'
 import {useSlots} from '../hooks/useSlots'
 import {defaultSxProp} from '../utils/defaultSxProp'
 import {warning} from '../utils/warning'
@@ -55,7 +56,17 @@ export const Group: React.FC<React.PropsWithChildren<ActionListGroupProps>> = ({
     groupHeading: GroupHeading,
   })
 
-  const headingId = slots.groupHeading ? slots.groupHeading.props.id ?? id : title ? id : undefined
+  let groupHeadingId = undefined
+
+  // ActionList.GroupHeading
+  if (slots.groupHeading) {
+    // If there is an id prop passed in the ActionList.GroupHeading, use it otherwise use the generated id.
+    groupHeadingId = slots.groupHeading.props.id ?? id
+  }
+  // Supports the deprecated `title` prop
+  if (title) {
+    groupHeadingId = id
+  }
 
   return (
     <Box
@@ -68,12 +79,12 @@ export const Group: React.FC<React.PropsWithChildren<ActionListGroupProps>> = ({
       }}
       {...props}
     >
-      {(title || slots.groupHeading) && (
+      {(slots.groupHeading || title) && (
         <GroupHeading
           title={title}
           variant={variant}
           auxiliaryText={auxiliaryText}
-          labelId={headingId}
+          groupHeadingId={groupHeadingId}
           as={slots.groupHeading?.props.as}
         >
           {slots.groupHeading ? slots.groupHeading.props.children : null}
@@ -83,7 +94,10 @@ export const Group: React.FC<React.PropsWithChildren<ActionListGroupProps>> = ({
         <Box
           as="ul"
           sx={{paddingInlineStart: 0}}
-          aria-labelledby={listRole ? undefined : headingId}
+          // if listRole is set (listbox or menu), we don't label the list with the groupHeadingId
+          // because the heading is hidden from the accessibility tree and only used for presentation role.
+          // We will instead use aria-label to label the list. See a line below.
+          aria-labelledby={listRole ? undefined : groupHeadingId}
           aria-label={listRole ? title ?? (slots.groupHeading?.props.children as string) : undefined}
           role={role || (listRole && 'group')}
         >
@@ -94,11 +108,13 @@ export const Group: React.FC<React.PropsWithChildren<ActionListGroupProps>> = ({
   )
 }
 
-export type GroupHeadingProps = Pick<ActionListGroupProps, 'variant' | 'title' | 'auxiliaryText'> & {
-  as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
-  labelId?: string
-  id?: string
-} & SxProp
+export type GroupHeadingProps = Pick<ActionListGroupProps, 'variant' | 'title' | 'auxiliaryText'> &
+  Omit<ActionListHeadingProps, 'as'> &
+  SxProp &
+  React.HTMLAttributes<HTMLElement> & {
+    as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
+    groupHeadingId?: string
+  }
 
 /**
  * Displays the name and description of a `Group`.
@@ -110,7 +126,7 @@ export const GroupHeading: React.FC<React.PropsWithChildren<GroupHeadingProps>> 
   variant,
   title,
   auxiliaryText,
-  labelId,
+  groupHeadingId,
   children,
   sx = defaultSxProp,
   ...props
@@ -142,19 +158,16 @@ export const GroupHeading: React.FC<React.PropsWithChildren<GroupHeadingProps>> 
     <>
       {listRole ? (
         <Box sx={styles} role="presentation" aria-hidden="true" {...props}>
-          <span id={labelId}>{title ?? children}</span>
+          <span id={groupHeadingId}>{title ?? children}</span>
           {auxiliaryText && <span>{auxiliaryText}</span>}
         </Box>
       ) : (
-        <Heading
-          as={as || 'h3'}
-          // use custom id if it is provided. Otherwise, use the id from the context
-          id={labelId}
-          sx={merge<BetterSystemStyleObject>(styles, sx)}
-          {...props}
-        >
-          {title ?? children}
-        </Heading>
+        <>
+          <Heading as={as || 'h3'} id={groupHeadingId} sx={merge<BetterSystemStyleObject>(styles, sx)} {...props}>
+            {title ?? children}
+          </Heading>
+          {auxiliaryText && <span>{auxiliaryText}</span>}
+        </>
       )}
     </>
   )

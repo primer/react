@@ -99,7 +99,7 @@ export const WithVisualListHeading = () => (
 export const ListWithNewGroupHeadingAPI = () => (
   <ActionList>
     <ActionList.Heading as="h2">List Heading</ActionList.Heading>
-    <ActionList.Group>
+    <ActionList.Group data-test-id="ActionList.Group">
       <ActionList.GroupHeading as="h3">Group 1 Heading</ActionList.GroupHeading>
       <ActionList.Item onClick={() => {}}>
         <ActionList.LeadingVisual>
