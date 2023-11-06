@@ -403,7 +403,8 @@ const MarkdownEditor = forwardRef<MarkdownEditorHandle, MarkdownEditorProps>(
                 '&: focus-within':
                   view === 'edit'
                     ? {
-                        outline: theme => `2px solid ${theme.colors.accent.emphasis}`,
+                        outline: '2px solid',
+                        outlineColor: 'accent.emphasis'
                       }
                     : {},
                 ...sx,
