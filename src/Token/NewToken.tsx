@@ -55,10 +55,10 @@ export type variantColor = {
 }
 
 const variantColors = (variant: TokenVariants, colorScheme: colorSchemes): variantColor => ({
-  backgroundColor: `var(--presentational-color-${variant}-0)`,
-  backgroundColorHover: `var(--presentational-color-${variant}-1)`,
-  textColor: `var(--presentational-color-${variant}-7)`,
-  borderColor: colorScheme.endsWith('high_contrast') ? `var(--presentational-color-${variant}-5)` : undefined,
+  backgroundColor: `var(--color-presentational-${variant}-0)`,
+  backgroundColorHover: `var(--color-presentational-${variant}-1)`,
+  textColor: `var(--color-presentational-${variant}-7)`,
+  borderColor: colorScheme.endsWith('high_contrast') ? `var(--color-presentational-${variant}-5)` : undefined,
 })
 
 const getLabelColors = (
