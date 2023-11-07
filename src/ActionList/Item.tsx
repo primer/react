@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import {AlertIcon} from '@primer/octicons-react'
 import Box, {BoxProps} from '../Box'
-import {Tooltip} from '../drafts'
+import {Tooltip, TooltipProps} from '../drafts'
 import {useId} from '../hooks/useId'
 import {useSlots} from '../hooks/useSlots'
 import sx, {BetterSystemStyleObject, merge, SxProp} from '../sx'
@@ -15,9 +15,32 @@ import {GroupContext} from './Group'
 import {ActionListProps, ListContext} from './List'
 import {Selection} from './Selection'
 import {ActionListItemProps, getVariantStyles, ItemContext, TEXT_ROW_HEIGHT} from './shared'
-import {LeadingVisual, TrailingVisual} from './Visuals'
+import {LeadingVisual, TrailingVisual, VisualProps} from './Visuals'
 
 const LiBox = styled.li<SxProp>(sx)
+
+const InactiveIndicator: React.FC<{
+  text: TooltipProps['text']
+  visualComponent: React.FC<React.PropsWithChildren<VisualProps>>
+}> = ({text, visualComponent: VisualComponent}) => (
+  <Tooltip text={text}>
+    <Box
+      as="button"
+      sx={{
+        background: 'none',
+        color: 'inherit',
+        border: 'none',
+        padding: 0,
+        font: 'inherit',
+        cursor: 'pointer',
+      }}
+    >
+      <VisualComponent>
+        <AlertIcon />
+      </VisualComponent>
+    </Box>
+  </Tooltip>
+)
 
 export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
   (
@@ -50,6 +73,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
     const {selectionVariant: groupSelectionVariant} = React.useContext(GroupContext)
     const {container, afterSelect, selectionAttribute} = React.useContext(ActionListContainerContext)
     const inactive = Boolean(inactiveText)
+    const showInactiveIndicator = inactive && container === undefined
 
     const onSelect = React.useCallback(
       (
@@ -201,7 +225,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
     const labelId = `${itemId}--label`
     const inlineDescriptionId = `${itemId}--inline-description`
     const blockDescriptionId = `${itemId}--block-description`
-    const inactiveWarningId = inactive ? `${itemId}--warning-message` : undefined
+    const inactiveWarningId = inactive && !showInactiveIndicator ? `${itemId}--warning-message` : undefined
 
     const ItemWrapper = _PrivateItemWrapper || React.Fragment
 
@@ -210,7 +234,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       onKeyPress: keyPressHandler,
       'aria-disabled': disabled ? true : undefined,
       'data-inactive': inactive ? true : undefined,
-      tabIndex: disabled || (inactive && container === undefined) ? undefined : 0,
+      tabIndex: disabled || showInactiveIndicator ? undefined : 0,
       'aria-labelledby': `${labelId} ${
         slots.description && slots.description.props.variant !== 'block' ? inlineDescriptionId : ''
       }`,
@@ -241,33 +265,15 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
           <ItemWrapper {...wrapperProps}>
             <Selection selected={selected} />
             {
-              // If it's inactive and isn't rendered in a container like ActionMenu or SelectPanel, render a leading visual with a tooltip
-              inactive && container === undefined ? (
-                <Tooltip text={inactiveText}>
-                  <Box
-                    as="button"
-                    sx={{
-                      background: 'none',
-                      color: 'inherit',
-                      border: 'none',
-                      padding: 0,
-                      font: 'inherit',
-                      cursor: 'pointer',
-                    }}
-                  >
-                    {slots.leadingVisual ? (
-                      // If it's inactive and has a leading visual passed, the LeadingVisual component will render an alert icon
-                      slots.leadingVisual
-                    ) : (
-                      // If it's inactive and doesn't have a leading visual passed, manually render an alert icon as the leading visual
-                      <LeadingVisual>
-                        <AlertIcon />
-                      </LeadingVisual>
-                    )}
-                  </Box>
-                </Tooltip>
+              // If we're showing an inactive indicator and a leading visual has been passed,
+              // replace the leading visual with the inactive indicator.
+              //
+              // Inactive items without a leading visual place the inactive indicator in the
+              // trailing visual slot. This preserves the left alignment of item text.
+              showInactiveIndicator && slots.leadingVisual ? (
+                <InactiveIndicator text={inactiveText} visualComponent={LeadingVisual} />
               ) : (
-                // if it's not inactive, just render the leading visual slot
+                // If it's not inactive, just render the leading visual slot
                 slots.leadingVisual
               )
             }
@@ -275,7 +281,10 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
               data-component="ActionList.Item--DividerContainer"
               sx={{display: 'flex', flexDirection: 'column', flexGrow: 1, minWidth: 0}}
             >
-              <ConditionalBox if={Boolean(slots.trailingVisual)} sx={{display: 'flex', flexGrow: 1}}>
+              <ConditionalBox
+                if={Boolean(slots.trailingVisual) || (showInactiveIndicator && !slots.leadingVisual)}
+                sx={{display: 'flex', flexGrow: 1}}
+              >
                 <ConditionalBox
                   if={!!slots.description && slots.description.props.variant !== 'block'}
                   sx={{display: 'flex', flexGrow: 1, alignItems: 'baseline', minWidth: 0}}
@@ -294,22 +303,38 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
                   </Box>
                   {slots.description?.props.variant !== 'block' ? slots.description : null}
                 </ConditionalBox>
-                {slots.trailingVisual}
+                {
+                  // If we're showing an inactive indicator and a leading visual has NOT been passed,
+                  // replace the trailing visual with the inactive indicator.
+                  //
+                  // This preserves the left alignment of item text.
+                  showInactiveIndicator && !slots.leadingVisual ? (
+                    <InactiveIndicator text={inactiveText} visualComponent={TrailingVisual} />
+                  ) : (
+                    // If it's not inactive, or it has a leading visual that can be replaced,
+                    // just render the trailing visual slot.
+                    slots.trailingVisual
+                  )
+                }
               </ConditionalBox>
               {slots.description?.props.variant === 'block' ? slots.description : null}
-              {container ? (
-                <Box
-                  as="span"
-                  sx={{
-                    fontSize: 0,
-                    lineHeight: '16px',
-                    color: 'attention.fg',
-                  }}
-                  id={inactiveWarningId}
-                >
-                  {inactiveText}
-                </Box>
-              ) : null}
+              {
+                // If the item is inactive, but it's not in an overlay (e.g. ActionMenu, SelectPanel),
+                // render the inactive warning message directly in the item.
+                inactive && container ? (
+                  <Box
+                    as="span"
+                    sx={{
+                      fontSize: 0,
+                      lineHeight: '16px',
+                      color: 'attention.fg',
+                    }}
+                    id={inactiveWarningId}
+                  >
+                    {inactiveText}
+                  </Box>
+                ) : null
+              }
             </Box>
           </ItemWrapper>
         </LiBox>

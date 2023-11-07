@@ -454,6 +454,12 @@ export function AllCombinations(): JSX.Element {
             </ActionList.TrailingVisual>
           </ActionList.Item>
           <ActionList.Item inactiveText="Unavailable due to an outage">
+            L + B + T<ActionList.Description variant="block">Block description</ActionList.Description>
+          </ActionList.Item>
+          <ActionList.Item inactiveText="Unavailable due to an outage">
+            L + B + T<ActionList.Description variant="inline">Inline description</ActionList.Description>
+          </ActionList.Item>
+          <ActionList.Item inactiveText="Unavailable due to an outage">
             <ActionList.LeadingVisual>
               <StarIcon />
             </ActionList.LeadingVisual>
@@ -466,6 +472,12 @@ export function AllCombinations(): JSX.Element {
             <ActionList.LeadingVisual>
               <StarIcon />
             </ActionList.LeadingVisual>
+            L + B + T<ActionList.Description variant="block">Block description</ActionList.Description>
+            <ActionList.TrailingVisual>
+              <StarIcon />
+            </ActionList.TrailingVisual>
+          </ActionList.Item>
+          <ActionList.Item inactiveText="Unavailable due to an outage">
             L + B + T<ActionList.Description variant="block">Block description</ActionList.Description>
             <ActionList.TrailingVisual>
               <StarIcon />

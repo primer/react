@@ -3,9 +3,8 @@ import Box from '../Box'
 import {get} from '../constants'
 import {SxProp, merge} from '../sx'
 import {ItemContext, TEXT_ROW_HEIGHT, getVariantStyles} from './shared'
-import {AlertIcon} from '@primer/octicons-react'
 
-type VisualProps = SxProp & React.HTMLAttributes<HTMLSpanElement>
+export type VisualProps = SxProp & React.HTMLAttributes<HTMLSpanElement>
 
 export const LeadingVisualContainer: React.FC<React.PropsWithChildren<VisualProps>> = ({sx = {}, ...props}) => {
   return (
@@ -46,7 +45,7 @@ export const LeadingVisual: React.FC<React.PropsWithChildren<VisualProps>> = ({s
       )}
       {...props}
     >
-      {inactive ? <AlertIcon /> : props.children}
+      {props.children}
     </LeadingVisualContainer>
   )
 }
