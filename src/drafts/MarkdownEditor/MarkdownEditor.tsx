@@ -403,7 +403,8 @@ const MarkdownEditor = forwardRef<MarkdownEditorHandle, MarkdownEditorProps>(
                 '&: focus-within':
                   view === 'edit'
                     ? {
-                        outline: '2px solid var(--borderColor-accent-emphasis)',
+                        outline: '2px solid',
+                        outlineColor: 'accent.emphasis',
                       }
                     : {},
                 ...sx,
@@ -424,12 +425,28 @@ const MarkdownEditor = forwardRef<MarkdownEditorHandle, MarkdownEditorProps>(
                 }}
                 as="header"
               >
-                <Box sx={{ml: '-1px', mt: '-1px', display: 'flex', alignItems: 'flex-end'}}>
+                <Box
+                  sx={{
+                    ml: '-1px',
+                    mt: '-1px',
+                    display: 'flex',
+                    alignItems: 'flex-end',
+                    flexGrow: 1,
+                    flexBasis: 0,
+                  }}
+                >
                   <ViewSwitch
                     selectedView={view}
                     onViewSelect={setView}
                     disabled={fileHandler?.uploadProgress !== undefined}
                     onLoadPreview={loadPreview}
+                  />
+                  <Box
+                    sx={{
+                      borderBottom: '1px solid',
+                      borderBottomColor: 'border.subtle',
+                      flexGrow: 1,
+                    }}
                   />
                 </Box>
 
