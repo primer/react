@@ -47,7 +47,7 @@ const Menu: React.FC<React.PropsWithChildren<ActionMenuProps>> = ({
   const onClose = React.useCallback(() => setCombinedOpenState(false), [setCombinedOpenState])
 
   const menuButtonChild = React.Children.toArray(children).find(
-    child => React.isValidElement<ActionMenuButtonProps>(child) && child.type === MenuButton,
+    child => React.isValidElement<ActionMenuButtonProps>(child) && (child.type === MenuButton || child.type === Anchor),
   )
   const menuButtonChildId = React.isValidElement(menuButtonChild) ? menuButtonChild.props.id : undefined
 
