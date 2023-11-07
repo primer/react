@@ -846,7 +846,7 @@ export const HWithWarning = () => {
 
         {selectedLabelIds.length >= MAX_LIMIT ? (
           <SelectPanel.Warning>
-            You have reached the limit of {MAX_LIMIT} labels on your Free account.{' '}
+            You have reached the limit of {MAX_LIMIT} labels on your free account.{' '}
             <Link href="/upgrade">Upgrade your account.</Link>
           </SelectPanel.Warning>
         ) : (
