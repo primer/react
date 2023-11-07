@@ -21,6 +21,7 @@ const animationStyles = `
 
 const StyledTooltip = styled.div`
   /* Overriding the default popover styles */
+  display: none;
   &[popover] {
     padding: 0.5em 0.75em;
     width: max-content;
@@ -40,6 +41,14 @@ const StyledTooltip = styled.div`
     inset: auto;
     /* for scrollbar */
     overflow: visible;
+  }
+  /* class name in chrome is :popover-open */
+  &[popover]:popover-open {
+    display: block;
+  }
+  /* class name in firefox and safari is \:popover-open */
+  &[popover].\\:popover-open {
+    display: block;
   }
 
   @media (forced-colors: active) {
