@@ -14,13 +14,15 @@ import Portal from '../Portal'
 import {useRefObjectAsForwardedRef} from '../hooks/useRefObjectAsForwardedRef'
 import {useId} from '../hooks/useId'
 
+/* Dialog Version 2 */
+
 const ANIMATION_DURATION = '200ms'
 
 /**
  * Props that characterize a button to be rendered into the footer of
  * a Dialog.
  */
-export type DialogButtonProps = ButtonProps & {
+export type DialogButtonProps = Omit<ButtonProps, 'content'> & {
   /**
    * The type of Button element to use
    */

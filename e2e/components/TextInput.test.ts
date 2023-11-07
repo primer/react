@@ -227,34 +227,6 @@ test.describe('TextInput', () => {
     }
   })
 
-  test.describe('Warning', () => {
-    for (const theme of themes) {
-      test.describe(theme, () => {
-        test('default @vrt', async ({page}) => {
-          await visit(page, {
-            id: 'components-textinput-features--warning',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-
-          // Default state
-          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(`TextInput.Warning.${theme}.png`)
-        })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-textinput-features--warning',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations()
-        })
-      })
-    }
-  })
-
   test.describe('With Caption', () => {
     for (const theme of themes) {
       test.describe(theme, () => {

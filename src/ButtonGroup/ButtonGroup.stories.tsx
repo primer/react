@@ -39,7 +39,7 @@ Playground.argTypes = {
     control: {
       type: 'radio',
     },
-    options: ['small', 'medium', 'large'],
+    options: ['small', 'medium'],
   },
   disabled: {
     control: {

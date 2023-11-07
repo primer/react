@@ -142,6 +142,14 @@ exports[`SplitPageLayout renders default layout 1`] = `
   margin-bottom: 0;
 }
 
+@media screen and (min-width:544px) {
+
+}
+
+@media screen and (min-width:768px) {
+
+}
+
 @media screen and (min-width:1012px) {
   .c3 {
     padding: 24px;
@@ -153,6 +161,14 @@ exports[`SplitPageLayout renders default layout 1`] = `
     margin-left: 0 !important;
     margin-right: 0 !important;
   }
+}
+
+@media screen and (min-width:544px) {
+
+}
+
+@media screen and (min-width:768px) {
+
 }
 
 @media screen and (min-width:1012px) {
@@ -182,6 +198,10 @@ exports[`SplitPageLayout renders default layout 1`] = `
     margin-left: 0 !important;
     margin-right: 0 !important;
   }
+}
+
+@media screen and (min-width:544px) {
+
 }
 
 @media screen and (min-width:768px) {
@@ -234,7 +254,7 @@ exports[`SplitPageLayout renders default layout 1`] = `
       <div
         class="c5"
       >
-        <div
+        <main
           class="c6"
         >
           <div
@@ -248,7 +268,7 @@ exports[`SplitPageLayout renders default layout 1`] = `
           <div
             class=""
           />
-        </div>
+        </main>
         <div
           class="c8"
         >

@@ -69,12 +69,6 @@
       "name": "SplitPageLayout.Pane",
       "props": [
         {
-          "name": "position",
-          "type": "| 'start' | 'end' | { narrow?: | 'start' | 'end' regular?: | 'start' | 'end' wide?: | 'start' | 'end' }",
-          "defaultValue": "'start'",
-          "description": ""
-        },
-        {
           "name": "width",
           "type": "| 'small' | 'medium' | 'large'",
           "defaultValue": "'medium'",

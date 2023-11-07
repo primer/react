@@ -1,5 +1,5 @@
 import React from 'react'
-import {SearchIcon, XCircleFillIcon, XIcon} from '@primer/octicons-react'
+import {SearchIcon, XCircleFillIcon, XIcon, FilterRemoveIcon} from '@primer/octicons-react'
 import {FocusKeys} from '@primer/behaviors'
 
 import {
@@ -8,26 +8,41 @@ import {
   Heading,
   Box,
   AnchoredOverlay,
+  AnchoredOverlayProps,
   Tooltip,
   TextInput,
-  AnchoredOverlayProps,
-  ActionList,
   Spinner,
   Text,
+  ActionListProps,
 } from '../../../src/index'
+import {ActionListContainerContext} from '../../../src/ActionList/ActionListContainerContext'
 import {useSlots} from '../../hooks/useSlots'
-import {ClearIcon} from './tmp-ClearIcon'
+import {useProvidedRefOrCreate, useId} from '../../hooks'
+import {useFocusZone} from '../../hooks/useFocusZone'
 
-const SelectPanelContext = React.createContext({
+const SelectPanelContext = React.createContext<{
+  title: string
+  description: string
+  panelId: string
+  onCancel: () => void
+  onClearSelection: undefined | (() => void)
+  searchQuery: string
+  setSearchQuery: () => void
+  selectionVariant: ActionListProps['selectionVariant'] | 'instant'
+}>({
+  title: '',
+  description: '',
+  panelId: '',
   onCancel: () => {},
-  onClearSelection: () => {},
+  onClearSelection: undefined,
   searchQuery: '',
   setSearchQuery: () => {},
+  selectionVariant: 'multiple',
 })
 
 // @ts-ignore todo
 const SelectPanel = props => {
-  const anchorRef = React.useRef<HTMLButtonElement>(null)
+  const anchorRef = useProvidedRefOrCreate(props.anchorRef)
 
   // 🚨 Hack for good API!
   // we strip out Anchor from children and pass it to AnchoredOverlay to render
@@ -41,18 +56,18 @@ const SelectPanel = props => {
     return child
   })
 
-  // TODO: defaultOpen is not for debugging, I don't intend to make
-  // it part of the API
-  const [open, setOpen] = React.useState(props.defaultOpen)
+  const [internalOpen, setInternalOpen] = React.useState(props.defaultOpen)
+  // sync open state
+  React.useEffect(() => setInternalOpen(props.open), [props.open])
 
   const onInternalClose = () => {
-    setOpen(false)
-
+    if (props.open === undefined) setInternalOpen(false)
     if (typeof props.onCancel === 'function') props.onCancel()
   }
-  // @ts-ignore todo
-  const onInternalSubmit = event => {
-    setOpen(false)
+
+  const onInternalSubmit = (event?: React.SyntheticEvent) => {
+    event?.preventDefault() // there is no event with selectionVariant=instant
+    if (props.open === undefined) setInternalOpen(false)
     if (typeof props.onSubmit === 'function') props.onSubmit(event)
   }
 
@@ -60,35 +75,101 @@ const SelectPanel = props => {
     if (typeof props.onSubmit === 'function') props.onClearSelection()
   }
 
+  const internalAfterSelect = () => {
+    if (props.selectionVariant === 'instant') onInternalSubmit()
+  }
+
   /* Search/Filter */
   const [searchQuery, setSearchQuery] = React.useState('')
+
+  /* Panel plumbing */
+  const panelId = useId(props.id)
+  const [slots, childrenInBody] = useSlots(contents, {header: SelectPanelHeader, footer: SelectPanelFooter})
+
+  /* Arrow keys navigation for list items */
+  const {containerRef: listContainerRef} = useFocusZone(
+    {
+      bindKeys: FocusKeys.ArrowVertical | FocusKeys.HomeAndEnd | FocusKeys.PageUpDown,
+      focusableElementFilter: element => element.tagName === 'LI',
+    },
+    [internalOpen],
+  )
 
   return (
     <>
       <AnchoredOverlay
+        // @ts-ignore todo
         anchorRef={anchorRef}
         renderAnchor={renderAnchor}
-        open={open}
-        onOpen={() => setOpen(true)}
+        open={internalOpen}
+        onOpen={() => setInternalOpen(true)}
         onClose={onInternalClose}
-        width="medium"
-        height="large"
-        focusZoneSettings={{bindKeys: FocusKeys.Tab}}
+        width={props.width || 'medium'}
+        height={props.height || 'large'}
+        focusZoneSettings={{
+          // we only want focus trap from the overlay,
+          // we don't want focus zone on the whole overlay because
+          // we have a focus zone on the list
+          disabled: true,
+        }}
+        overlayProps={{
+          role: 'dialog',
+          'aria-labelledby': `${panelId}--title`,
+          'aria-describedby': props.description ? `${panelId}--description` : undefined,
+        }}
       >
-        {/* TODO: Keyboard navigation of actionlist should be arrow keys
-            with tabs to enter and escape
-        */}
         <SelectPanelContext.Provider
           value={{
+            panelId,
+            title: props.title,
+            description: props.description,
             onCancel: onInternalClose,
-            onClearSelection: onInternalClearSelection,
+            onClearSelection: props.onClearSelection ? onInternalClearSelection : undefined,
             searchQuery,
             // @ts-ignore todo
             setSearchQuery,
+            selectionVariant: props.selectionVariant,
           }}
         >
-          <Box as="form" onSubmit={onInternalSubmit} sx={{display: 'flex', flexDirection: 'column', height: '100%'}}>
-            {contents}
+          <Box
+            as="form"
+            onSubmit={onInternalSubmit}
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              height: '100%',
+            }}
+          >
+            {/* render default header as fallback */}
+            {slots.header || <SelectPanel.Header />}
+            <Box
+              as="div"
+              ref={listContainerRef as React.RefObject<HTMLDivElement>}
+              sx={{
+                flexShrink: 1,
+                flexGrow: 1,
+                overflow: 'hidden',
+
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'space-between',
+                ul: {overflowY: 'auto', flexGrow: 1},
+              }}
+            >
+              <ActionListContainerContext.Provider
+                value={{
+                  container: 'SelectPanel',
+                  listRole: 'listbox',
+                  selectionAttribute: 'aria-selected',
+                  selectionVariant:
+                    props.selectionVariant === 'instant' ? 'single' : props.selectionVariant || 'multiple',
+                  afterSelect: internalAfterSelect,
+                }}
+              >
+                {childrenInBody}
+              </ActionListContainerContext.Provider>
+            </Box>
+            {slots.footer}
           </Box>
         </SelectPanelContext.Provider>
       </AnchoredOverlay>
@@ -103,43 +184,65 @@ const SelectPanelButton = React.forwardRef((props, anchorRef) => {
 SelectPanel.Button = SelectPanelButton
 
 const SelectPanelHeader: React.FC<React.PropsWithChildren> = ({children, ...props}) => {
-  const [slots] = useSlots(children, {
-    heading: SelectPanelHeading,
+  const [slots, childrenWithoutSlots] = useSlots(children, {
     searchInput: SelectPanelSearchInput,
   })
 
-  const {onCancel, onClearSelection} = React.useContext(SelectPanelContext)
+  const {title, description, panelId, onCancel, onClearSelection} = React.useContext(SelectPanelContext)
 
   return (
-    <Box id="header" sx={{padding: 2, borderBottom: '1px solid', borderColor: 'border.default'}} {...props}>
-      <Box sx={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingBottom: 2}}>
-        {slots.heading}
+    <Box
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        // gap: 2,
+        padding: 2,
+        borderBottom: '1px solid',
+        borderColor: 'border.default',
+      }}
+      {...props}
+    >
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: description ? 'start' : 'center',
+          marginBottom: 2,
+        }}
+      >
+        <Box sx={{marginLeft: 2, marginTop: description ? '2px' : 0}}>
+          {/* heading element is intentionally hardcoded to h1, it is not customisable 
+            see https://github.com/github/primer/issues/2578 for context
+          */}
+          <Heading as="h1" id={`${panelId}--title`} sx={{fontSize: 14, fontWeight: 600}} {...props}>
+            {title}
+          </Heading>
+          {description ? (
+            <Text id={`${panelId}--description`} sx={{fontSize: 0, color: 'fg.muted', display: 'block'}}>
+              {description}
+            </Text>
+          ) : null}
+        </Box>
+
         <Box>
           {/* Will not need tooltip after https://github.com/primer/react/issues/2008 */}
-          <Tooltip text="Clear selection" direction="s" onClick={onClearSelection}>
-            <IconButton type="button" variant="invisible" icon={ClearIcon} aria-label="Clear selection" />
-          </Tooltip>
+          {onClearSelection ? (
+            <Tooltip text="Clear selection" direction="s" onClick={onClearSelection}>
+              <IconButton type="button" variant="invisible" icon={FilterRemoveIcon} aria-label="Clear selection" />
+            </Tooltip>
+          ) : null}
           <Tooltip text="Close" direction="s">
             <IconButton type="button" variant="invisible" icon={XIcon} aria-label="Close" onClick={() => onCancel()} />
           </Tooltip>
         </Box>
       </Box>
+
       {slots.searchInput}
+      {childrenWithoutSlots}
     </Box>
   )
 }
 SelectPanel.Header = SelectPanelHeader
-
-const SelectPanelHeading: React.FC<React.PropsWithChildren<{children: string}>> = ({children, ...props}) => {
-  // heading element is intentionally hardcoded to h1, it is not customisable
-  // see https://github.com/github/primer/issues/2578 for context
-  return (
-    <Heading as="h1" sx={{fontSize: 14, fontWeight: 600, marginLeft: 2}} {...props}>
-      {children}
-    </Heading>
-  )
-}
-SelectPanel.Heading = SelectPanelHeading
 
 // @ts-ignore todo
 const SelectPanelSearchInput = props => {
@@ -191,32 +294,19 @@ const SelectPanelSearchInput = props => {
 }
 SelectPanel.SearchInput = SelectPanelSearchInput
 
-// TODO: type this with ActionList props
-const SelectPanelActionList: React.FC<React.PropsWithChildren> = props => {
-  /* features to implement for uncontrolled:
-     1. select
-     2. sort
-     3. divider
-     4. search
-     5. different results view
-  */
-
-  return (
-    <>
-      <ActionList id="body" sx={{flexShrink: 1, flexGrow: 1, overflowY: 'auto'}} selectionVariant="multiple" {...props}>
-        {props.children}
-      </ActionList>
-    </>
-  )
-}
-SelectPanel.ActionList = SelectPanelActionList
-
 const SelectPanelFooter = ({...props}) => {
-  const {onCancel} = React.useContext(SelectPanelContext)
+  const {onCancel, selectionVariant} = React.useContext(SelectPanelContext)
+
+  const hidePrimaryActions = selectionVariant === 'instant'
+
+  if (hidePrimaryActions && !props.children) {
+    // nothing to render
+    // todo: we can inform them the developer footer will render nothing
+    return null
+  }
 
   return (
     <Box
-      id="footer"
       sx={{
         display: 'flex',
         justifyContent: 'space-between',
@@ -225,15 +315,18 @@ const SelectPanelFooter = ({...props}) => {
         borderColor: 'border.default',
       }}
     >
-      <div>{props.children}</div>
-      <Box sx={{display: 'flex', gap: 2}}>
-        <Button size="small" type="button" onClick={() => onCancel()}>
-          Cancel
-        </Button>
-        <Button size="small" type="submit" variant="primary">
-          Save
-        </Button>
-      </Box>
+      <Box sx={{flexGrow: hidePrimaryActions ? 1 : 0}}>{props.children}</Box>
+
+      {hidePrimaryActions ? null : (
+        <Box sx={{display: 'flex', gap: 2}}>
+          <Button size="small" type="button" onClick={() => onCancel()}>
+            Cancel
+          </Button>
+          <Button size="small" type="submit" variant="primary">
+            Save
+          </Button>
+        </Box>
+      )}
     </Box>
   )
 }
@@ -241,7 +334,7 @@ SelectPanel.Footer = SelectPanelFooter
 
 // @ts-ignore todo
 SelectPanel.SecondaryButton = props => {
-  return <Button {...props} size="small" type="button" />
+  return <Button {...props} size="small" type="button" block />
 }
 // SelectPanel.SecondaryLink = props => {
 //   return <a {...props}>{props.children}</a>
@@ -255,7 +348,7 @@ const SelectPanelLoading: React.FC<{children: string}> = ({children = 'Fetching 
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        flexGrow: 1,
+        height: '100%',
         gap: 3,
       }}
     >

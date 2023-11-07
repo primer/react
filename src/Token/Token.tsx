@@ -24,7 +24,7 @@ const LeadingVisualContainer: React.FC<React.PropsWithChildren<Pick<TokenBasePro
     sx={{
       flexShrink: 0,
       lineHeight: 0,
-      marginRight: size && ['large', 'extralarge', 'xlarge'].includes(size) ? 2 : 1,
+      marginRight: size && ['large', 'xlarge'].includes(size) ? 2 : 1,
     }}
   >
     {children}
