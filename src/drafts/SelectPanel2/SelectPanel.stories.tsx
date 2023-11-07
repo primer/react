@@ -1,6 +1,6 @@
 import React from 'react'
 import {SelectPanel} from './SelectPanel'
-import {ActionList, ActionMenu, Avatar, Box, Button, Flash} from '../../../src/index'
+import {ActionList, ActionMenu, Avatar, Box, Button, Flash, Link} from '../../../src/index'
 import {ArrowRightIcon, AlertIcon, EyeIcon, GitBranchIcon, TriangleDownIcon, TagIcon} from '@primer/octicons-react'
 import data from './mock-data'
 
@@ -845,7 +845,10 @@ export const HWithWarning = () => {
         </SelectPanel.Header>
 
         {selectedLabelIds.length >= MAX_LIMIT ? (
-          <SelectPanel.Warning>You&apos;ve reached the maximum selection of {MAX_LIMIT} labels</SelectPanel.Warning>
+          <SelectPanel.Warning>
+            You have reached the limit of {MAX_LIMIT} labels on your Free account.{' '}
+            <Link href="/upgrade">Upgrade your account.</Link>
+          </SelectPanel.Warning>
         ) : (
           <></>
         )}

@@ -374,6 +374,7 @@ const SelectPanelWarning: React.FC<{children: React.ReactNode}> = ({children}) =
         color: 'attention.fg',
         borderBottom: '1px solid',
         borderBottomColor: 'attention.muted',
+        a: {color: 'inherit', textDecoration: 'underline'},
       }}
     >
       <Box sx={{display: 'grid', pt: '1px'}}>
