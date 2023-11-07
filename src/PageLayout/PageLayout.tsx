@@ -314,6 +314,8 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
     return () => {
       window.removeEventListener('mousemove', handleDrag)
       window.removeEventListener('mouseup', handleDragEnd)
+      window.removeEventListener('keydown', handleKeyDrag)
+      window.removeEventListener('keyup', handleKeyDragEnd)
       document.body.removeAttribute('data-page-layout-dragging')
     }
   }, [isDragging, isKeyboardDrag, currentWidth, minWidth, maxWidth])
