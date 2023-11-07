@@ -155,3 +155,19 @@ export const Large = () => (
     </FormControl>
   </Box>
 )
+
+export const WithCustomStyling = () => (
+  <Box as="form">
+    <FormControl>
+      <FormControl.Label>Default label</FormControl.Label>
+      <Select sx={{borderRadius: '12px', border: '1px dashed #000000'}}>
+        <Select.Option value="one">Choice one</Select.Option>
+        <Select.Option value="two">Choice two</Select.Option>
+        <Select.Option value="three">Choice three</Select.Option>
+        <Select.Option value="four">Choice four</Select.Option>
+        <Select.Option value="five">Choice five</Select.Option>
+        <Select.Option value="six">Choice six</Select.Option>
+      </Select>
+    </FormControl>
+  </Box>
+)
