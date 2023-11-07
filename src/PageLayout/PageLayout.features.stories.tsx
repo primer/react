@@ -357,3 +357,23 @@ export const CustomPaneWidths: Story = () => (
     </PageLayout.Footer>
   </PageLayout>
 )
+
+export const WithCustomPaneHeading: Story = () => (
+  <PageLayout containerWidth="full">
+    <PageLayout.Header>
+      <Placeholder height={64} label="Header" />
+    </PageLayout.Header>
+    <PageLayout.Pane resizable position="end">
+      <Placeholder height={320} label="Pane" />
+      <PageLayout.PaneHeading as="h2" sx={{fontSize: 3}} id="pane-heading">
+        Pane Heading
+      </PageLayout.PaneHeading>
+    </PageLayout.Pane>
+    <PageLayout.Content>
+      <Placeholder height={640} label="Content" />
+    </PageLayout.Content>
+    <PageLayout.Footer>
+      <Placeholder height={64} label="Footer" />
+    </PageLayout.Footer>
+  </PageLayout>
+)
