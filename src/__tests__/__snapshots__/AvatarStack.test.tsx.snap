@@ -122,9 +122,12 @@ exports[`Avatar renders consistently 1`] = `
   margin-left: 4px;
   opacity: 100%;
   visibility: visible;
-  box-shadow: 0 0 0 4px #ffffff;
   -webkit-transition: margin 0.2s ease-in-out,opacity 0.2s ease-in-out,visibility 0.2s ease-in-out,box-shadow 0.1s ease-in-out;
   transition: margin 0.2s ease-in-out,opacity 0.2s ease-in-out,visibility 0.2s ease-in-out,box-shadow 0.1s ease-in-out;
+}
+
+.c0 .pc-AvatarStackBody:not(.pc-AvatarStack--disableExpand):hover .pc-AvatarItem box-shadow:0 0 0 4px function (props) {
+  return: (0,_core.get)(props.theme,path,fallback);
 }
 
 .c0 .pc-AvatarStackBody:not(.pc-AvatarStack--disableExpand):hover .pc-AvatarItem:first-child {
@@ -284,9 +287,12 @@ exports[`Avatar respects alignRight props 1`] = `
   margin-left: 4px;
   opacity: 100%;
   visibility: visible;
-  box-shadow: 0 0 0 4px #ffffff;
   -webkit-transition: margin 0.2s ease-in-out,opacity 0.2s ease-in-out,visibility 0.2s ease-in-out,box-shadow 0.1s ease-in-out;
   transition: margin 0.2s ease-in-out,opacity 0.2s ease-in-out,visibility 0.2s ease-in-out,box-shadow 0.1s ease-in-out;
+}
+
+.c0 .pc-AvatarStackBody:not(.pc-AvatarStack--disableExpand):hover .pc-AvatarItem box-shadow:0 0 0 4px function (props) {
+  return: (0,_core.get)(props.theme,path,fallback);
 }
 
 .c0 .pc-AvatarStackBody:not(.pc-AvatarStack--disableExpand):hover .pc-AvatarItem:first-child {
