@@ -1,7 +1,7 @@
 import {getContrast} from 'color2k'
 import {Hsluv} from 'hsluv'
 
-export const getColorsFromHex = (colorHex: string, colorScheme = 'light', isSelected = false) => {
+export const getColorsFromHex = (colorHex: string, colorScheme = 'light', isSelected = false, bgColor: string) => {
   let bgLightness = 96
   let lightnessIncrement = -1
   let ratio = 4.5
@@ -11,7 +11,12 @@ export const getColorsFromHex = (colorHex: string, colorScheme = 'light', isSele
     ratio = 5.5
   }
   const {h, s} = hexToHsluv(colorHex)
-  const backgroundColor = hsluvToHex({h, s, l: bgLightness})
+  const backgroundColor = getColorWithContrast(
+    hsluvToHex({h, s, l: bgLightness}),
+    bgColor,
+    1.2,
+    lightnessIncrement as 1 | -1,
+  )
   const textColor = getColorWithContrast(
     hsluvToHex({h, s, l: 50}),
     backgroundColor,

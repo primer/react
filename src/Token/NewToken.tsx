@@ -65,6 +65,7 @@ const getLabelColors = (
   variant?: TokenVariants,
   fillColor?: hexString,
   resolvedColorScheme: colorSchemes = 'light',
+  bgColor = '#ffffff',
 ): variantColor => {
   // valid variant
   if (variant) {
@@ -72,7 +73,7 @@ const getLabelColors = (
   }
   // valid hex string
   if (fillColor && isHex(fillColor)) {
-    return getColorsFromHex(fillColor, resolvedColorScheme as colorSchemes)
+    return getColorsFromHex(fillColor, resolvedColorScheme as colorSchemes, false, bgColor)
   }
   // if invalid variant and invalid hex string, return default
   return variantColors('blue', resolvedColorScheme as colorSchemes)
@@ -100,20 +101,22 @@ const NewToken = forwardRef((props, forwardedRef) => {
     onClick,
   }
 
-  const {resolvedColorScheme} = useTheme()
-  // const bgColor = theme?.colors.canvas.default || '#ffffff'
+  const {resolvedColorScheme, theme} = useTheme()
+  const bgColor = theme?.colors.canvas.default || '#ffffff'
 
   const hasMultipleActionTargets = isTokenInteractive(props) && Boolean(onRemove) && !hideRemoveButton
+
   const onRemoveClick: MouseEventHandler = e => {
     e.stopPropagation()
     onRemove && onRemove()
   }
+
   const labelStyles: CSSObject = useMemo(() => {
     const {backgroundColor, textColor, borderColor, backgroundColorHover, backgroundColorPressed} = getLabelColors(
       variant,
       fillColor,
       resolvedColorScheme as colorSchemes,
-      // bgColor,
+      bgColor,
     )
 
     return {
@@ -135,7 +138,7 @@ const NewToken = forwardRef((props, forwardedRef) => {
           }
         : {}),
     }
-  }, [fillColor, variant, resolvedColorScheme, hideRemoveButton, onRemove, props])
+  }, [variant, fillColor, resolvedColorScheme, bgColor, hideRemoveButton, onRemove, props])
 
   return (
     <TokenBase

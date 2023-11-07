@@ -1,8 +1,8 @@
 /**/
 [data-color-mode='light'][data-light-theme^='light'],
 [data-color-mode='auto'][data-dark-theme^='light'] {
-  --color-presentational-gray-0: #e8ecf2;
-  --color-presentational-gray-1: #d2dae4;
+  --color-presentational-gray-0: #dbe2eb;
+  --color-presentational-gray-1: #c9d2de;
   --color-presentational-gray-2: #b4c0cf;
   --color-presentational-gray-3: #9ba9bb;
   --color-presentational-gray-4: #808fa3;
@@ -11,8 +11,8 @@
   --color-presentational-gray-7: #40444a;
   --color-presentational-gray-8: #2f3032;
   --color-presentational-gray-9: #1e1f1f;
-  --color-presentational-auburn-0: #f2e9e9;
-  --color-presentational-auburn-1: #e5d4d2;
+  --color-presentational-auburn-0: #ece0df;
+  --color-presentational-auburn-1: #e1cecc;
   --color-presentational-auburn-2: #d4b8b5;
   --color-presentational-auburn-3: #c5a09b;
   --color-presentational-auburn-4: #b2817b;
@@ -21,8 +21,8 @@
   --color-presentational-auburn-7: #5d3b37;
   --color-presentational-auburn-8: #432a28;
   --color-presentational-auburn-9: #2d1c1a;
-  --color-presentational-brown-0: #f0eae5;
-  --color-presentational-brown-1: #e3d7ce;
+  --color-presentational-brown-0: #e9dfd8;
+  --color-presentational-brown-1: #ddcfc5;
   --color-presentational-brown-2: #d0bcae;
   --color-presentational-brown-3: #bea08e;
   --color-presentational-brown-4: #ad8771;
@@ -31,8 +31,8 @@
   --color-presentational-brown-7: #573e32;
   --color-presentational-brown-8: #412d25;
   --color-presentational-brown-9: #2a1d18;
-  --color-presentational-orange-0: #ffe7d1;
-  --color-presentational-orange-1: #fecfaa;
+  --color-presentational-orange-0: #ffdcbd;
+  --color-presentational-orange-1: #fdc79b;
   --color-presentational-orange-2: #fbaf74;
   --color-presentational-orange-3: #f68c41;
   --color-presentational-orange-4: #eb670f;
@@ -41,8 +41,8 @@
   --color-presentational-orange-7: #72310d;
   --color-presentational-orange-8: #51220b;
   --color-presentational-orange-9: #351608;
-  --color-presentational-amber-0: #ffe9bd;
-  --color-presentational-amber-1: #ffd48a;
+  --color-presentational-amber-0: #ffdd99;
+  --color-presentational-amber-1: #ffc96b;
   --color-presentational-amber-2: #ffaf38;
   --color-presentational-amber-3: #f58b00;
   --color-presentational-amber-4: #d67200;
@@ -51,8 +51,8 @@
   --color-presentational-amber-7: #703100;
   --color-presentational-amber-8: #522100;
   --color-presentational-amber-9: #381500;
-  --color-presentational-yellow-0: #ffeba8;
-  --color-presentational-yellow-1: #ffd65c;
+  --color-presentational-yellow-0: #ffe07a;
+  --color-presentational-yellow-1: #ffcc33;
   --color-presentational-yellow-2: #f5b400;
   --color-presentational-yellow-3: #db9d00;
   --color-presentational-yellow-4: #bd8400;
@@ -61,8 +61,8 @@
   --color-presentational-yellow-7: #5c3c00;
   --color-presentational-yellow-8: #422a00;
   --color-presentational-yellow-9: #2e1c00;
-  --color-presentational-lemon-0: #f7eea1;
-  --color-presentational-lemon-1: #f0db3d;
+  --color-presentational-lemon-0: #f2e56e;
+  --color-presentational-lemon-1: #e8cf11;
   --color-presentational-lemon-2: #d8bd0e;
   --color-presentational-lemon-3: #c2a60a;
   --color-presentational-lemon-4: #a68c07;
@@ -71,8 +71,8 @@
   --color-presentational-lemon-7: #513f01;
   --color-presentational-lemon-8: #3d2f00;
   --color-presentational-lemon-9: #291f00;
-  --color-presentational-olive-0: #f1f183;
-  --color-presentational-olive-1: #dae236;
+  --color-presentational-olive-0: #e9e93a;
+  --color-presentational-olive-1: #d1db1f;
   --color-presentational-olive-2: #b7c723;
   --color-presentational-olive-3: #9cb125;
   --color-presentational-olive-4: #809726;
@@ -81,8 +81,8 @@
   --color-presentational-olive-7: #37461b;
   --color-presentational-olive-8: #273215;
   --color-presentational-olive-9: #1a2211;
-  --color-presentational-lime-0: #e0f5a3;
-  --color-presentational-lime-1: #bfe85e;
+  --color-presentational-lime-0: #d0ef71;
+  --color-presentational-lime-1: #b0e33b;
   --color-presentational-lime-2: #94d025;
   --color-presentational-lime-3: #7fb927;
   --color-presentational-lime-4: #679b27;
@@ -91,8 +91,8 @@
   --color-presentational-lime-7: #2e4a1c;
   --color-presentational-lime-8: #223617;
   --color-presentational-lime-9: #162211;
-  --color-presentational-green-0: #caf7ca;
-  --color-presentational-green-1: #9ceda0;
+  --color-presentational-green-0: #aff3af;
+  --color-presentational-green-1: #82e887;
   --color-presentational-green-2: #54d961;
   --color-presentational-green-3: #31bf46;
   --color-presentational-green-4: #30a147;
@@ -101,8 +101,8 @@
   --color-presentational-green-7: #214a2f;
   --color-presentational-green-8: #1b3726;
   --color-presentational-green-9: #14241b;
-  --color-presentational-pine-0: #9effcf;
-  --color-presentational-pine-1: #24f992;
+  --color-presentational-pine-0: #52ffa8;
+  --color-presentational-pine-1: #06ef7e;
   --color-presentational-pine-2: #0bda7a;
   --color-presentational-pine-3: #10c171;
   --color-presentational-pine-4: #12a163;
@@ -111,8 +111,8 @@
   --color-presentational-pine-7: #104c35;
   --color-presentational-pine-8: #0d3526;
   --color-presentational-pine-9: #0a241b;
-  --color-presentational-teal-0: #c7f5ef;
-  --color-presentational-teal-1: #89ebe1;
+  --color-presentational-teal-0: #a8f0e6;
+  --color-presentational-teal-1: #6be6da;
   --color-presentational-teal-2: #22d3c7;
   --color-presentational-teal-3: #1db9b4;
   --color-presentational-teal-4: #179b9b;
@@ -121,8 +121,8 @@
   --color-presentational-teal-7: #0b4a51;
   --color-presentational-teal-8: #07343b;
   --color-presentational-teal-9: #052329;
-  --color-presentational-cyan-0: #bdf4ff;
-  --color-presentational-cyan-1: #7ae9ff;
+  --color-presentational-cyan-0: #9eefff;
+  --color-presentational-cyan-1: #57e3ff;
   --color-presentational-cyan-2: #00d0fa;
   --color-presentational-cyan-3: #00b7db;
   --color-presentational-cyan-4: #0099b8;
@@ -131,8 +131,8 @@
   --color-presentational-cyan-7: #004857;
   --color-presentational-cyan-8: #003742;
   --color-presentational-cyan-9: #002229;
-  --color-presentational-blue-0: #d1f0ff;
-  --color-presentational-blue-1: #ade1ff;
+  --color-presentational-blue-0: #bde9ff;
+  --color-presentational-blue-1: #99daff;
   --color-presentational-blue-2: #75c8ff;
   --color-presentational-blue-3: #47afff;
   --color-presentational-blue-4: #0f8fff;
@@ -141,8 +141,8 @@
   --color-presentational-blue-7: #004094;
   --color-presentational-blue-8: #002d70;
   --color-presentational-blue-9: #001c4d;
-  --color-presentational-indigo-0: #e5e9ff;
-  --color-presentational-indigo-1: #d2d7fe;
+  --color-presentational-indigo-0: #dbe0ff;
+  --color-presentational-indigo-1: #c8cffe;
   --color-presentational-indigo-2: #b1b9fb;
   --color-presentational-indigo-3: #979ff7;
   --color-presentational-indigo-4: #7a82f0;
@@ -151,8 +151,8 @@
   --color-presentational-indigo-7: #282bbd;
   --color-presentational-indigo-8: #212183;
   --color-presentational-indigo-9: #191853;
-  --color-presentational-purple-0: #f1e5ff;
-  --color-presentational-purple-1: #e6d2fe;
+  --color-presentational-purple-0: #ecdbff;
+  --color-presentational-purple-1: #e0c8fe;
   --color-presentational-purple-2: #d1b1fc;
   --color-presentational-purple-3: #bc91f8;
   --color-presentational-purple-4: #a672f3;
@@ -161,8 +161,8 @@
   --color-presentational-purple-7: #501daf;
   --color-presentational-purple-8: #39187c;
   --color-presentational-purple-9: #271254;
-  --color-presentational-plum-0: #f8e5ff;
-  --color-presentational-plum-1: #f0cdfe;
+  --color-presentational-plum-0: #f4d6ff;
+  --color-presentational-plum-1: #edc3fe;
   --color-presentational-plum-2: #e2a7fb;
   --color-presentational-plum-3: #d487f7;
   --color-presentational-plum-4: #c264f2;
@@ -171,8 +171,8 @@
   --color-presentational-plum-7: #651895;
   --color-presentational-plum-8: #48146b;
   --color-presentational-plum-9: #301047;
-  --color-presentational-pink-0: #ffe5f1;
-  --color-presentational-pink-1: #fdc9e2;
+  --color-presentational-pink-0: #ffd6e9;
+  --color-presentational-pink-1: #fdbfdd;
   --color-presentational-pink-2: #f8a5cf;
   --color-presentational-pink-3: #f184bc;
   --color-presentational-pink-4: #e55da5;
@@ -181,8 +181,8 @@
   --color-presentational-pink-7: #742553;
   --color-presentational-pink-8: #511f3d;
   --color-presentational-pink-9: #311627;
-  --color-presentational-red-0: #ffe2e0;
-  --color-presentational-red-1: #fecdcd;
+  --color-presentational-red-0: #ffd8d6;
+  --color-presentational-red-1: #fec3c2;
   --color-presentational-red-2: #fda5a7;
   --color-presentational-red-3: #fb8389;
   --color-presentational-red-4: #f85461;
@@ -191,8 +191,8 @@
   --color-presentational-red-7: #8a0a22;
   --color-presentational-red-8: #63091c;
   --color-presentational-red-9: #460717;
-  --color-presentational-coral-0: #ffe4db;
-  --color-presentational-coral-1: #fecdbe;
+  --color-presentational-coral-0: #ffd9cc;
+  --color-presentational-coral-1: #fec5b4;
   --color-presentational-coral-2: #fca992;
   --color-presentational-coral-3: #f8896d;
   --color-presentational-coral-4: #f25c3a;
@@ -204,8 +204,8 @@
 }
 [data-color-mode='dark'][data-dark-theme^='dark'],
 [data-color-mode='auto'][data-light-theme^='dark'] {
-  --color-presentational-gray-0: #1c1c1c;
-  --color-presentational-gray-1: #2a2c2d;
+  --color-presentational-gray-0: #232424;
+  --color-presentational-gray-1: #2f3132;
   --color-presentational-gray-2: #393e41;
   --color-presentational-gray-3: #454e54;
   --color-presentational-gray-4: #54626d;
@@ -214,8 +214,8 @@
   --color-presentational-gray-7: #9babbf;
   --color-presentational-gray-8: #b3bfd1;
   --color-presentational-gray-9: #c8d0e0;
-  --color-presentational-yellow-0: #291800;
-  --color-presentational-yellow-1: #3d2600;
+  --color-presentational-yellow-0: #331f00;
+  --color-presentational-yellow-1: #472c00;
   --color-presentational-yellow-2: #563701;
   --color-presentational-yellow-3: #694502;
   --color-presentational-yellow-4: #825803;
@@ -224,8 +224,8 @@
   --color-presentational-yellow-7: #dda108;
   --color-presentational-yellow-8: #f0b30a;
   --color-presentational-yellow-9: #f6c941;
-  --color-presentational-lemon-0: #291b00;
-  --color-presentational-lemon-1: #382601;
+  --color-presentational-lemon-0: #332200;
+  --color-presentational-lemon-1: #422d01;
   --color-presentational-lemon-2: #503802;
   --color-presentational-lemon-3: #634803;
   --color-presentational-lemon-4: #7f5f05;
@@ -234,8 +234,8 @@
   --color-presentational-lemon-7: #d1a710;
   --color-presentational-lemon-8: #e6bc14;
   --color-presentational-lemon-9: #eccd41;
-  --color-presentational-olive-0: #171e0b;
-  --color-presentational-olive-1: #252d10;
+  --color-presentational-olive-0: #20290f;
+  --color-presentational-olive-1: #2b3513;
   --color-presentational-olive-2: #374115;
   --color-presentational-olive-3: #485219;
   --color-presentational-olive-4: #5e681d;
@@ -244,8 +244,8 @@
   --color-presentational-olive-7: #b2af24;
   --color-presentational-olive-8: #cbc025;
   --color-presentational-olive-9: #e2d04b;
-  --color-presentational-lime-0: #141f0f;
-  --color-presentational-lime-1: #1f3116;
+  --color-presentational-lime-0: #1a2914;
+  --color-presentational-lime-1: #223418;
   --color-presentational-lime-2: #2c441d;
   --color-presentational-lime-3: #375421;
   --color-presentational-lime-4: #496c28;
@@ -254,8 +254,8 @@
   --color-presentational-lime-7: #89ba36;
   --color-presentational-lime-8: #9fcc3e;
   --color-presentational-lime-9: #bcda67;
-  --color-presentational-green-0: #0f1f17;
-  --color-presentational-green-1: #163222;
+  --color-presentational-green-0: #14291f;
+  --color-presentational-green-1: #173525;
   --color-presentational-green-2: #1c452c;
   --color-presentational-green-3: #205a35;
   --color-presentational-green-4: #24703b;
@@ -264,8 +264,8 @@
   --color-presentational-green-7: #2cc343;
   --color-presentational-green-8: #3bd84b;
   --color-presentational-green-9: #6fe775;
-  --color-presentational-pine-0: #091f18;
-  --color-presentational-pine-1: #0d3024;
+  --color-presentational-pine-0: #0d2b21;
+  --color-presentational-pine-1: #10382a;
   --color-presentational-pine-2: #124432;
   --color-presentational-pine-3: #165a40;
   --color-presentational-pine-4: #1a704d;
@@ -274,8 +274,8 @@
   --color-presentational-pine-7: #25c17b;
   --color-presentational-pine-8: #26d985;
   --color-presentational-pine-9: #65e6a8;
-  --color-presentational-teal-0: #042525;
-  --color-presentational-teal-1: #063230;
+  --color-presentational-teal-0: #052929;
+  --color-presentational-teal-1: #073635;
   --color-presentational-teal-2: #094440;
   --color-presentational-teal-3: #0c5a52;
   --color-presentational-teal-4: #107063;
@@ -284,8 +284,8 @@
   --color-presentational-teal-7: #1fc19b;
   --color-presentational-teal-8: #24d6a6;
   --color-presentational-teal-9: #67e4bf;
-  --color-presentational-cyan-0: #002229;
-  --color-presentational-cyan-1: #003038;
+  --color-presentational-cyan-0: #002b33;
+  --color-presentational-cyan-1: #00343d;
   --color-presentational-cyan-2: #004752;
   --color-presentational-cyan-3: #005661;
   --color-presentational-cyan-4: #006e7a;
@@ -294,8 +294,8 @@
   --color-presentational-cyan-7: #00bdc7;
   --color-presentational-cyan-8: #00d4db;
   --color-presentational-cyan-9: #00e7eb;
-  --color-presentational-blue-0: #001a47;
-  --color-presentational-blue-1: #002861;
+  --color-presentational-blue-0: #002057;
+  --color-presentational-blue-1: #002d6b;
   --color-presentational-blue-2: #003c80;
   --color-presentational-blue-3: #004c94;
   --color-presentational-blue-4: #0062ad;
@@ -304,8 +304,8 @@
   --color-presentational-blue-7: #00b7ff;
   --color-presentational-blue-8: #24ccff;
   --color-presentational-blue-9: #52dfff;
-  --color-presentational-indigo-0: #161547;
-  --color-presentational-indigo-1: #1d1d72;
+  --color-presentational-indigo-0: #1c1b5a;
+  --color-presentational-indigo-1: #20207e;
   --color-presentational-indigo-2: #2527a7;
   --color-presentational-indigo-3: #282dd7;
   --color-presentational-indigo-4: #454de3;
@@ -314,8 +314,8 @@
   --color-presentational-indigo-7: #9aa3f9;
   --color-presentational-indigo-8: #b0b9fd;
   --color-presentational-indigo-9: #c7cfff;
-  --color-presentational-purple-0: #230f48;
-  --color-presentational-purple-1: #34146c;
+  --color-presentational-purple-0: #2b1358;
+  --color-presentational-purple-1: #3a1679;
   --color-presentational-purple-2: #4a189a;
   --color-presentational-purple-3: #5f1ac7;
   --color-presentational-purple-4: #7a2be9;
@@ -324,8 +324,8 @@
   --color-presentational-purple-7: #c393fb;
   --color-presentational-purple-8: #d5affe;
   --color-presentational-purple-9: #e0c2ff;
-  --color-presentational-plum-0: #2a0d3f;
-  --color-presentational-plum-1: #3f115f;
+  --color-presentational-plum-0: #351150;
+  --color-presentational-plum-1: #47146c;
   --color-presentational-plum-2: #5b1589;
   --color-presentational-plum-3: #7517b0;
   --color-presentational-plum-4: #9217d9;
@@ -334,8 +334,8 @@
   --color-presentational-plum-7: #d88efb;
   --color-presentational-plum-8: #e4aafe;
   --color-presentational-plum-9: #eec2ff;
-  --color-presentational-pink-0: #2d1525;
-  --color-presentational-pink-1: #451c37;
+  --color-presentational-pink-0: #381a2e;
+  --color-presentational-pink-1: #4c1f3c;
   --color-presentational-pink-2: #65244d;
   --color-presentational-pink-3: #842a61;
   --color-presentational-pink-4: #ac2f7a;
@@ -344,8 +344,8 @@
   --color-presentational-pink-7: #ec89bf;
   --color-presentational-pink-8: #f4a9d1;
   --color-presentational-pink-9: #f9bedc;
-  --color-presentational-red-0: #3c0613;
-  --color-presentational-red-1: #590818;
+  --color-presentational-red-0: #4a0717;
+  --color-presentational-red-1: #62091b;
   --color-presentational-red-2: #7a0b1d;
   --color-presentational-red-3: #9c0d20;
   --color-presentational-red-4: #c20f21;
@@ -354,8 +354,8 @@
   --color-presentational-red-7: #f88b8b;
   --color-presentational-red-8: #faaba8;
   --color-presentational-red-9: #fcc4c0;
-  --color-presentational-coral-0: #390f09;
-  --color-presentational-coral-1: #50150b;
+  --color-presentational-coral-0: #46120b;
+  --color-presentational-coral-1: #5e180d;
   --color-presentational-coral-2: #761e0f;
   --color-presentational-coral-3: #942610;
   --color-presentational-coral-4: #b72f10;
@@ -364,8 +364,8 @@
   --color-presentational-coral-7: #fa8d6b;
   --color-presentational-coral-8: #fda88c;
   --color-presentational-coral-9: #ffc0a9;
-  --color-presentational-auburn-0: #271917;
-  --color-presentational-auburn-1: #3a2522;
+  --color-presentational-auburn-0: #301f1c;
+  --color-presentational-auburn-1: #402926;
   --color-presentational-auburn-2: #543531;
   --color-presentational-auburn-3: #6a433e;
   --color-presentational-auburn-4: #84544d;
@@ -374,8 +374,8 @@
   --color-presentational-auburn-7: #c6a39f;
   --color-presentational-auburn-8: #d4b9b5;
   --color-presentational-auburn-9: #dfcbc8;
-  --color-presentational-brown-0: #231915;
-  --color-presentational-brown-1: #372720;
+  --color-presentational-brown-0: #2d201a;
+  --color-presentational-brown-1: #3e2b23;
   --color-presentational-brown-2: #4e362c;
   --color-presentational-brown-3: #664638;
   --color-presentational-brown-4: #815846;
@@ -384,8 +384,8 @@
   --color-presentational-brown-7: #c8a392;
   --color-presentational-brown-8: #d5b7aa;
   --color-presentational-brown-9: #e1cbc1;
-  --color-presentational-amber-0: #331200;
-  --color-presentational-amber-1: #4d1d00;
+  --color-presentational-amber-0: #421700;
+  --color-presentational-amber-1: #521f00;
   --color-presentational-amber-2: #662b00;
   --color-presentational-amber-3: #803900;
   --color-presentational-amber-4: #994a00;
@@ -394,8 +394,8 @@
   --color-presentational-amber-7: #fa9200;
   --color-presentational-amber-8: #ffab24;
   --color-presentational-amber-9: #ffc65c;
-  --color-presentational-orange-0: #301408;
-  --color-presentational-orange-1: #471e0b;
+  --color-presentational-orange-0: #3d1a0a;
+  --color-presentational-orange-1: #50210c;
   --color-presentational-orange-2: #682c0d;
   --color-presentational-orange-3: #81360e;
   --color-presentational-orange-4: #a3450f;
