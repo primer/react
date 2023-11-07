@@ -19,13 +19,13 @@
     },
     {
       "name": "variant",
-      "type": "| 'default'\n| 'primary'\n| 'danger'\n| 'outline'\n| 'invisible'",
+      "type": "'default'\n| 'primary'\n| 'danger'\n| 'invisible'",
       "defaultValue": "'default'",
       "description": "Change the visual style of the button."
     },
     {
       "name": "size",
-      "type": "| 'small'\n| 'medium'\n| 'large'",
+      "type": "'small'\n| 'medium'\n| 'large'",
       "defaultValue": "'medium'"
     },
     {
