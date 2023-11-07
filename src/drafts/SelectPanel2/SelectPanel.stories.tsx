@@ -761,7 +761,7 @@ export const FInstantSelectionVariant = () => {
   )
 }
 
-export const HWithWarning = () => {
+export const IWithWarning = () => {
   const initialSelectedLabels = data.issue.labelIds // mock initial state: has selected labels
   const [selectedLabelIds, setSelectedLabelIds] = React.useState<string[]>(initialSelectedLabels)
 
