@@ -37,8 +37,11 @@ export type ActionListGroupProps = {
     selectionVariant?: ActionListProps['selectionVariant'] | false
   }
 
-type ContextProps = Pick<ActionListGroupProps, 'selectionVariant'>
-export const GroupContext = React.createContext<ContextProps>({})
+type ContextProps = Pick<ActionListGroupProps, 'selectionVariant'> & {groupHeadingId: string | undefined}
+export const GroupContext = React.createContext<ContextProps>({
+  groupHeadingId: undefined,
+  selectionVariant: undefined,
+})
 
 export const Group: React.FC<React.PropsWithChildren<ActionListGroupProps>> = ({
   title,
@@ -79,18 +82,12 @@ export const Group: React.FC<React.PropsWithChildren<ActionListGroupProps>> = ({
       }}
       {...props}
     >
-      {(slots.groupHeading || title) && (
-        <GroupHeading
-          title={title}
-          variant={variant}
-          auxiliaryText={auxiliaryText}
-          groupHeadingId={groupHeadingId}
-          as={slots.groupHeading?.props.as}
-        >
-          {slots.groupHeading ? slots.groupHeading.props.children : null}
-        </GroupHeading>
-      )}
-      <GroupContext.Provider value={{selectionVariant}}>
+      <GroupContext.Provider value={{selectionVariant, groupHeadingId}}>
+        {slots.groupHeading || title ? (
+          <GroupHeading title={title} variant={variant} auxiliaryText={auxiliaryText} as={slots.groupHeading?.props.as}>
+            {slots.groupHeading ? slots.groupHeading.props.children : null}
+          </GroupHeading>
+        ) : null}
         <Box
           as="ul"
           sx={{paddingInlineStart: 0}}
@@ -113,7 +110,6 @@ export type GroupHeadingProps = Pick<ActionListGroupProps, 'variant' | 'title' |
   SxProp &
   React.HTMLAttributes<HTMLElement> & {
     as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
-    groupHeadingId?: string
   }
 
 /**
@@ -126,12 +122,12 @@ export const GroupHeading: React.FC<React.PropsWithChildren<GroupHeadingProps>> 
   variant,
   title,
   auxiliaryText,
-  groupHeadingId,
   children,
   sx = defaultSxProp,
   ...props
 }) => {
   const {variant: listVariant, role: listRole} = React.useContext(ListContext)
+  const {groupHeadingId} = React.useContext(GroupContext)
   // for list role, the headings are proper heading tags, for menu and listbox, they are just representational and divs
   warning(
     listRole === undefined && children !== null && as === undefined,
