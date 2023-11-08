@@ -162,11 +162,6 @@ export default {
       defaultValue: 'customId',
       table: {category: 'Pane props'},
     },
-    'Pane.heading': {
-      type: 'string',
-      defaultValue: '',
-      table: {category: 'Pane props'},
-    },
     'Pane.position.narrow': {
       type: {
         name: 'enum',

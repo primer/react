@@ -2,4 +2,4 @@
 '@primer/react': minor
 ---
 
-Added Heading to SplitPageLayout.Pane
+Added `PageLayout.PaneHeading` slot to `PageLayout` which utilizes `<Heading>` as its base.

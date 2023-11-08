@@ -6,6 +6,7 @@ import {
   PageLayoutFooterProps,
   PageLayoutHeaderProps,
   PageLayoutPaneProps,
+  PageLayoutPaneHeadingProps,
 } from '../PageLayout'
 
 // ----------------------------------------------------------------------------
@@ -103,6 +104,17 @@ export const Footer: React.FC<React.PropsWithChildren<SplitPageLayoutFooterProps
 Footer.displayName = 'SplitPageLayout.Footer'
 
 // ----------------------------------------------------------------------------
+// SplitPageLayout.PaneHeading
+
+export type SplitPageLayoutPaneHeadingProps = PageLayoutPaneHeadingProps
+
+export const PaneHeading: React.FC<React.PropsWithChildren<SplitPageLayoutPaneHeadingProps>> = ({as, ...props}) => {
+  return <PageLayout.PaneHeading as={as} {...props} />
+}
+
+PaneHeading.displayName = 'SplitPageLayout.PaneHeading'
+
+// ----------------------------------------------------------------------------
 // Export
 
 export const SplitPageLayout = Object.assign(Root, {
@@ -110,4 +122,5 @@ export const SplitPageLayout = Object.assign(Root, {
   Content,
   Pane,
   Footer,
+  PaneHeading,
 })
