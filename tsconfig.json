@@ -1,18 +1,18 @@
 {
   "compilerOptions": {
     "target": "esnext",
-    "module": "commonjs",
+    "module": "ESNext",
     "allowJs": true,
-    "checkJs": false,
     "jsx": "preserve",
     "declaration": true,
     "outDir": "./lib",
     "strict": true,
-    "moduleResolution": "node",
+    "moduleResolution": "Bundler",
     "rootDirs": ["src"],
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
+    "isolatedModules": true,
+    "moduleDetection": "force",
     "resolveJsonModule": true,
     "typeRoots": ["./node_modules/@types", "./@types"],
     "plugins": [{"name": "typescript-plugin-css-modules"}]
