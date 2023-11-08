@@ -49,11 +49,13 @@ describe('SplitPageLayout', () => {
     const {getByText} = render(
       <ThemeProvider>
         <SplitPageLayout>
-          <SplitPageLayout.Pane heading="Custom heading" />
+          <SplitPageLayout.Pane>
+            <SplitPageLayout.PaneHeading as="h2">Custom Heading</SplitPageLayout.PaneHeading>
+          </SplitPageLayout.Pane>
         </SplitPageLayout>
       </ThemeProvider>,
     )
-    const heading = getByText('Custom heading')
+    const heading = getByText('Custom Heading')
 
     expect(heading.tagName).toBe('H2')
   })
@@ -62,12 +64,33 @@ describe('SplitPageLayout', () => {
     const {getByText} = render(
       <ThemeProvider>
         <SplitPageLayout>
-          <SplitPageLayout.Pane heading="Custom heading" headingLevel="h3" />
+          <SplitPageLayout.Pane>
+            <SplitPageLayout.PaneHeading as="h3">Custom Heading</SplitPageLayout.PaneHeading>
+          </SplitPageLayout.Pane>
         </SplitPageLayout>
       </ThemeProvider>,
     )
-    const heading = getByText('Custom heading')
+    const heading = getByText('Custom Heading')
 
     expect(heading.tagName).toBe('H3')
+  })
+
+  it('renders Pane with a heading in the correct spot', () => {
+    const {getByText, getAllByTestId} = render(
+      <ThemeProvider>
+        <SplitPageLayout>
+          <SplitPageLayout.Pane aria-label="Custom Pane">
+            <div data-testid="content">Some Content</div>
+            <SplitPageLayout.PaneHeading as="h3" data-testid="content">
+              Custom Heading
+            </SplitPageLayout.PaneHeading>
+          </SplitPageLayout.Pane>
+        </SplitPageLayout>
+      </ThemeProvider>,
+    )
+    const paneContents = getAllByTestId('content')[0]
+    const heading = getByText('Custom Heading')
+
+    expect(paneContents).toBe(heading)
   })
 })

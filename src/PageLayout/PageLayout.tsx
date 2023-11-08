@@ -13,6 +13,7 @@ import {useOverflow} from '../internal/hooks/useOverflow'
 import {warning} from '../utils/warning'
 import VisuallyHidden from '../_VisuallyHidden'
 import {useStickyPaneHeight} from './useStickyPaneHeight'
+import {SplitPageLayout} from '../SplitPageLayout'
 
 const REGION_ORDER = {
   header: 0,
@@ -709,6 +710,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
 
     const [slots, childrenWithoutSlots] = useSlots(children, {
       paneHeading: PaneHeading,
+      splitPaneHeading: SplitPageLayout.PaneHeading,
     })
 
     return (
@@ -804,7 +806,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
           {...labelProp}
           {...(id && {id: paneId})}
         >
-          {slots.paneHeading}
+          {slots.paneHeading || slots.splitPaneHeading}
           {resizable && (
             // eslint-disable-next-line github/a11y-no-visually-hidden-interactive-element
             <VisuallyHidden>
