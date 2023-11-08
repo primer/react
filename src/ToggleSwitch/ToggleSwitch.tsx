@@ -139,7 +139,7 @@ const SwitchButton = styled.button<SwitchButtonProps>`
         @media (forced-colors: active) {
           border-color: GrayText;
         }
-        
+
         background-color: ${get('colors.switchTrack.disabledBg')};
         border-color: transparent;
         cursor: not-allowed;
@@ -204,7 +204,7 @@ const ToggleKnob = styled.div<{checked?: boolean}>`
         @media (forced-colors: active) {
           color: GrayText;
         }
-        
+
         border-color: ${get('colors.switchTrack.disabledBg')};
       `
     }
@@ -305,7 +305,7 @@ const ToggleSwitch = React.forwardRef<HTMLButtonElement, React.PropsWithChildren
             </span>
           </VisuallyHidden>
         ) : null}
-        {loading ? <Spinner size="small" aria-describedby={loadingLabelId} /> : null}
+        {loading ? <Spinner size="small" /> : null}
         <Text
           color={acceptsInteraction ? 'fg.default' : 'fg.muted'}
           fontSize={size === 'small' ? 0 : 1}
@@ -325,7 +325,7 @@ const ToggleSwitch = React.forwardRef<HTMLButtonElement, React.PropsWithChildren
           ref={ref}
           onClick={handleToggleClick}
           aria-labelledby={ariaLabelledby}
-          aria-describedby={ariaDescribedby}
+          aria-describedby={`${ariaDescribedby} ${loadingLabelId}`}
           aria-pressed={isOn}
           checked={isOn}
           size={size}
