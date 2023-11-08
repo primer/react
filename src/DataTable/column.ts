@@ -29,13 +29,13 @@ export interface Column<Data extends UniqueRow> {
   field?: ObjectPaths<Data>
 
   /**
-   * The minimum width the column can shrink to
+   * The maximum width the column can grow to
    */
   // TODO: uncomment ResponsiveValue<T> when I'm ready to implement the responsive part
   maxWidth?: React.CSSProperties['maxWidth'] /*| ResponsiveValue<React.CSSProperties['maxWidth']>*/
 
   /**
-   * The maximum width the column can grow to
+   * The minimum width the column can shrink to
    */
   // TODO: uncomment ResponsiveValue<T> when I'm ready to implement the responsive part
   minWidth?: React.CSSProperties['minWidth'] /*| ResponsiveValue<React.CSSProperties['minWidth']>*/
