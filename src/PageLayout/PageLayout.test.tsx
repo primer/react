@@ -78,6 +78,23 @@ describe('PageLayout', () => {
     expect(container).toMatchSnapshot()
   })
 
+  it('renders paneheading in the correct position', () => {
+    const {container} = render(
+      <ThemeProvider>
+        <PageLayout>
+          <PageLayout.Header>Header</PageLayout.Header>
+          <PageLayout.Content>Content</PageLayout.Content>
+          <PageLayout.Pane>
+            <span>Pane content</span>
+            <PageLayout.PaneHeading as="h2">Pane Heading</PageLayout.PaneHeading>
+          </PageLayout.Pane>
+          <PageLayout.Footer>Footer</PageLayout.Footer>
+        </PageLayout>
+      </ThemeProvider>,
+    )
+    expect(container).toMatchSnapshot()
+  })
+
   it('can hide pane when narrow', () => {
     // Set narrow viewport
     act(() => {
