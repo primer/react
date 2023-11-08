@@ -57,6 +57,10 @@ exports[`Dialog renders consistently 1`] = `
   background: rgba(31,35,40,0.5);
 }
 
+@media (forced-colors:active) {
+
+}
+
 @media screen and (max-width:750px) {
 
 }
@@ -78,23 +82,228 @@ exports[`Dialog renders consistently 1`] = `
 }
 
 .c1 {
-  border: none;
-  padding: 0;
-  background: transparent;
-  cursor: pointer;
   border-radius: 6px;
-  color: #656d76;
-  position: absolute;
-  top: 16px;
-  right: 16px;
+  border: 1px solid;
+  border-color: transparent;
+  font-family: inherit;
+  font-weight: 500;
+  font-size: 14px;
+  cursor: pointer;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  text-align: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  height: 32px;
+  padding: 0 12px;
+  gap: 8px;
+  min-width: -webkit-max-content;
+  min-width: -moz-max-content;
+  min-width: max-content;
+  -webkit-transition: 80ms cubic-bezier(0.65,0,0.35,1);
+  transition: 80ms cubic-bezier(0.65,0,0.35,1);
+  -webkit-transition-property: color,fill,background-color,border-color;
+  transition-property: color,fill,background-color,border-color;
+  color: #24292f;
+  background-color: transparent;
+  box-shadow: none;
 }
 
-.c1:focus {
-  outline: solid 2px #0969da;
+.c1:focus:not(:disabled) {
+  box-shadow: none;
+  outline: 2px solid #0969da;
+  outline-offset: -2px;
+}
+
+.c1:focus:not(:disabled):not(:focus-visible) {
+  outline: solid 1px transparent;
+}
+
+.c1:focus-visible:not(:disabled) {
+  box-shadow: none;
+  outline: 2px solid #0969da;
+  outline-offset: -2px;
+}
+
+.c1[href] {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+}
+
+.c1[href]:hover {
+  -webkit-text-decoration: none;
+  text-decoration: none;
 }
 
 .c1:hover {
+  -webkit-transition-duration: 80ms;
+  transition-duration: 80ms;
+}
+
+.c1:active {
+  -webkit-transition: none;
+  transition: none;
+}
+
+.c1:disabled {
+  cursor: not-allowed;
+  box-shadow: none;
+  color: #8c959f;
+}
+
+.c1:disabled [data-component=ButtonCounter],
+.c1:disabled [data-component="leadingVisual"],
+.c1:disabled [data-component="trailingAction"] {
+  color: inherit;
+}
+
+.c1 [data-component=ButtonCounter] {
+  font-size: 12px;
+}
+
+.c1[data-component=IconButton] {
+  display: inline-grid;
+  padding: unset;
+  place-content: center;
+  width: 32px;
+  min-width: unset;
+}
+
+.c1[data-size="small"] {
+  padding: 0 8px;
+  height: 28px;
+  gap: 4px;
+  font-size: 12px;
+}
+
+.c1[data-size="small"] [data-component="text"] {
+  line-height: calc(20 / 12);
+}
+
+.c1[data-size="small"] [data-component=ButtonCounter] {
+  font-size: 12px;
+}
+
+.c1[data-size="small"] [data-component="buttonContent"] > :not(:last-child) {
+  margin-right: 4px;
+}
+
+.c1[data-size="small"][data-component=IconButton] {
+  width: 28px;
+  padding: unset;
+}
+
+.c1[data-size="large"] {
+  padding: 0 16px;
+  height: 40px;
+  gap: 8px;
+}
+
+.c1[data-size="large"] [data-component="buttonContent"] > :not(:last-child) {
+  margin-right: 8px;
+}
+
+.c1[data-size="large"][data-component=IconButton] {
+  width: 40px;
+  padding: unset;
+}
+
+.c1[data-block="block"] {
+  width: 100%;
+}
+
+.c1 [data-component="leadingVisual"] {
+  grid-area: leadingVisual;
+  color: #656d76;
+}
+
+.c1 [data-component="text"] {
+  grid-area: text;
+  line-height: calc(20/14);
+  white-space: nowrap;
+}
+
+.c1 [data-component="trailingVisual"] {
+  grid-area: trailingVisual;
+}
+
+.c1 [data-component="trailingAction"] {
+  margin-right: -4px;
+  color: #656d76;
+}
+
+.c1 [data-component="buttonContent"] {
+  -webkit-flex: 1 0 auto;
+  -ms-flex: 1 0 auto;
+  flex: 1 0 auto;
+  display: grid;
+  grid-template-areas: "leadingVisual text trailingVisual";
+  grid-template-columns: min-content minmax(0,auto) min-content;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-align-content: center;
+  -ms-flex-line-pack: center;
+  align-content: center;
+}
+
+.c1 [data-component="buttonContent"] > :not(:last-child) {
+  margin-right: 8px;
+}
+
+.c1:hover:not([disabled]) {
+  background-color: rgba(208,215,222,0.32);
+}
+
+.c1:active:not([disabled]) {
+  background-color: rgba(208,215,222,0.48);
+}
+
+.c1[aria-expanded=true] {
+  background-color: rgba(208,215,222,0.24);
+}
+
+.c1[data-component="IconButton"][data-no-visuals] {
+  color: #656d76;
+}
+
+.c1[data-no-visuals] {
   color: #0969da;
+  position: absolute;
+  top: 8px;
+  right: 16px;
+}
+
+.c1:has([data-component="ButtonCounter"]) {
+  color: #24292f;
+}
+
+.c1:disabled[data-no-visuals] {
+  color: #8c959f;
+}
+
+.c1:disabled[data-no-visuals] [data-component=ButtonCounter] {
+  color: inherit;
 }
 
 .c4 {
@@ -134,6 +343,12 @@ exports[`Dialog renders consistently 1`] = `
   display: flex;
 }
 
+@media (forced-colors:active) {
+  .c1:focus {
+    outline: solid 1px transparent;
+  }
+}
+
 @media screen and (max-width:750px) {
   .c0 {
     width: 100vw;
@@ -160,7 +375,11 @@ exports[`Dialog renders consistently 1`] = `
     <button
       aria-label="Close"
       className="c1"
+      data-block={null}
+      data-component="IconButton"
+      data-no-visuals={true}
       onClick={[Function]}
+      type="button"
     >
       <svg
         aria-hidden="true"

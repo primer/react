@@ -143,34 +143,6 @@ test.describe('RadioGroup', () => {
     }
   })
 
-  test.describe('Warning', () => {
-    for (const theme of themes) {
-      test.describe(theme, () => {
-        test('default @vrt', async ({page}) => {
-          await visit(page, {
-            id: 'components-radiogroup-features--warning',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-
-          // Default state
-          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(`RadioGroup.Warning.${theme}.png`)
-        })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-radiogroup-features--warning',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations()
-        })
-      })
-    }
-  })
-
   test.describe('With External Label', () => {
     for (const theme of themes) {
       test.describe(theme, () => {

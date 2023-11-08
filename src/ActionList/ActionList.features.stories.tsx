@@ -287,6 +287,7 @@ export const MultiSelect = () => {
           selected={selectedIndices.includes(index)}
           aria-checked={selectedIndices.includes(index)}
           onSelect={() => handleSelect(index)}
+          disabled={index === 3 ? true : undefined}
         >
           <ActionList.LeadingVisual>
             <TableIcon />
