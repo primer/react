@@ -154,6 +154,8 @@
       url: /UnderlineNav
 - title: Drafts
   children:
+    - title: DataTable
+      url: /drafts/DataTable
     - title: Dialog v2
       url: /drafts/Dialog
     - title: Hidden
