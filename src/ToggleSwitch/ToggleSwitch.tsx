@@ -197,6 +197,10 @@ const ToggleKnob = styled.div<{checked?: boolean}>`
   ${props => {
     if (props['aria-disabled']) {
       return css`
+        @media (forced-colors: active) {
+          color: GrayText;
+        }
+        
         border-color: ${get('colors.switchTrack.disabledBg')};
       `
     }
