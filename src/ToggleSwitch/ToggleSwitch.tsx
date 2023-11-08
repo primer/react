@@ -136,6 +136,10 @@ const SwitchButton = styled.button<SwitchButtonProps>`
   ${props => {
     if (props['aria-disabled']) {
       return css`
+        @media (forced-colors: active) {
+          border-color: GrayText;
+        }
+        
         background-color: ${get('colors.switchTrack.disabledBg')};
         border-color: transparent;
         cursor: not-allowed;
