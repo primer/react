@@ -219,6 +219,7 @@ exports[`ToggleSwitch renders consistently 1`] = `
     </div>
   </span>
   <button
+    aria-describedby="loadingLabel"
     aria-disabled={false}
     aria-pressed={false}
     checked={false}

@@ -290,6 +290,9 @@ const ToggleSwitch = React.forwardRef<HTMLButtonElement, React.PropsWithChildren
       resetLoadingLabel()
     }
 
+    let switchButtonDescribedBy = loadingLabelId
+    if (ariaDescribedby) switchButtonDescribedBy = `${switchButtonDescribedBy} ${ariaDescribedby}`
+
     return (
       <Box
         display="inline-flex"
@@ -325,7 +328,7 @@ const ToggleSwitch = React.forwardRef<HTMLButtonElement, React.PropsWithChildren
           ref={ref}
           onClick={handleToggleClick}
           aria-labelledby={ariaLabelledby}
-          aria-describedby={`${ariaDescribedby} ${loadingLabelId}`}
+          aria-describedby={switchButtonDescribedBy}
           aria-pressed={isOn}
           checked={isOn}
           size={size}
