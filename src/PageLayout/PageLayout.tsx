@@ -916,7 +916,7 @@ const Footer: React.FC<React.PropsWithChildren<PageLayoutFooterProps>> = ({
 Footer.displayName = 'PageLayout.Footer'
 
 // ----------------------------------------------------------------------------
-// PageLayout.Heading
+// PageLayout.PaneHeading
 
 type HeadingLevels = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
 
