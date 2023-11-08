@@ -375,7 +375,7 @@ const Footer = styled.div<SxProp>`
   flex-shrink: 0;
 
   button {
-    margin-left: ${get('space.1')};
+    margin-left: ${get('space.2')};
     &:first-child {
       margin-left: 0;
     }
