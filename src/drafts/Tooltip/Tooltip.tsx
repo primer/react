@@ -11,18 +11,6 @@ import {getAnchoredPosition} from '@primer/behaviors'
 import type {AnchorSide, AnchorAlignment} from '@primer/behaviors'
 import {isSupported, apply} from '@oddbird/popover-polyfill/fn'
 
-// Reusable styles to use for :popover-open (Chrome, Edge) and \:popover-open (Safari, Firefox) classes
-const popoverStyles = `
-    padding: 0.5em 0.75em;
-    width: max-content;
-    height: fit-content;
-    margin: auto;
-    clip: auto;
-    white-space: normal;
-    /* for scrollbar */
-    overflow: visible;
-`
-
 const animationStyles = `
   animation-name: tooltip-appear;
   animation-duration: 0.1s;
@@ -32,43 +20,39 @@ const animationStyles = `
 `
 
 const StyledTooltip = styled.div`
-  /* tooltip element should be rendered visually hidden when it is not opened.  */
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  position: fixed;
-  font: normal normal 11px/1.5 ${get('fonts.normal')};
-  -webkit-font-smoothing: subpixel-antialiased;
-  color: ${get('colors.fg.onEmphasis')};
-  text-align: center;
-
-  word-wrap: break-word;
-  background: ${get('colors.neutral.emphasisPlus')}; //bg--emphasis-color
-  border-radius: ${get('radii.2')};
-  border: 0;
-  opacity: 0;
-  max-width: 250px;
-  inset: auto;
+  /* Overriding the default popover styles */
+  display: none;
+  &[popover] {
+    padding: 0.5em 0.75em;
+    width: max-content;
+    margin: auto;
+    clip: auto;
+    white-space: normal;
+    font: normal normal 11px/1.5 ${get('fonts.normal')};
+    -webkit-font-smoothing: subpixel-antialiased;
+    color: ${get('colors.fg.onEmphasis')};
+    text-align: center;
+    word-wrap: break-word;
+    background: ${get('colors.neutral.emphasisPlus')};
+    border-radius: ${get('radii.2')};
+    border: 0;
+    opacity: 0;
+    max-width: 250px;
+    inset: auto;
+    /* for scrollbar */
+    overflow: visible;
+  }
+  /* class name in chrome is :popover-open */
+  &[popover]:popover-open {
+    display: block;
+  }
+  /* class name in firefox and safari is \:popover-open */
+  &[popover].\\:popover-open {
+    display: block;
+  }
 
   @media (forced-colors: active) {
     outline: 1px solid transparent;
-  }
-  /* pollyfil */
-  z-index: 2147483647;
-  display: block;
-
-  /* class name in chrome is :popover-open */
-  &:popover-open {
-    ${popoverStyles}
-  }
-
-  /* class name in firefox and safari is \:popover-open */
-  &.\\:popover-open {
-    ${popoverStyles}
   }
 
   // This is needed to keep the tooltip open when the user leaves the trigger element to hover tooltip
@@ -284,7 +268,7 @@ export const Tooltip = React.forwardRef(
 
     return (
       <TooltipContext.Provider value={{tooltipId}}>
-        <Box sx={{display: 'inline-block'}} onMouseLeave={() => closeTooltip()}>
+        <Box onMouseLeave={() => closeTooltip()}>
           {React.isValidElement(child) &&
             React.cloneElement(child as React.ReactElement<TriggerPropsType>, {
               ref: triggerRef,
