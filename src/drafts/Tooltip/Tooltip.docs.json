@@ -13,6 +13,7 @@
     },
     {
       "name": "text",
+      "required": true,
       "type": "string",
       "description": "The text to be displayed in the tooltip"
     },
