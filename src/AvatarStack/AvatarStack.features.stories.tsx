@@ -88,3 +88,9 @@ export const CustomSizeOnChildrenResponsive = () => (
     />
   </AvatarStack>
 )
+
+export const WithSingleAvatar = () => (
+  <AvatarStack>
+    <Avatar alt="Primer logo" src="https://avatars.githubusercontent.com/primer" />
+  </AvatarStack>
+)
