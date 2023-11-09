@@ -76,7 +76,7 @@ const getLabelColors = (
     return getColorsFromHex(fillColor, resolvedColorScheme as colorSchemes, false, bgColor)
   }
   // if invalid variant and invalid hex string, return default
-  return variantColors('blue', resolvedColorScheme as colorSchemes)
+  return variantColors('gray', resolvedColorScheme as colorSchemes)
 }
 
 const NewToken = forwardRef((props, forwardedRef) => {

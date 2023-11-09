@@ -31,9 +31,14 @@ const variants: TokenVariants[] = [
 const getRandomLabels = (amount: number, size: TokenSizeKeys, asVariant = true): React.ReactNode[] => {
   const labels: {
     variant: TokenVariants
-    hex?: string
+    hex: hexString
     text: string
   }[] = [
+    {
+      variant: 'coral',
+      hex: '#ff8b31',
+      text: 'deep dive 🐙',
+    },
     {
       variant: 'red',
       hex: '#ff1212',
@@ -123,11 +128,6 @@ const getRandomLabels = (amount: number, size: TokenSizeKeys, asVariant = true):
       variant: 'plum',
       hex: '#2f00ff',
       text: 'beautify',
-    },
-    {
-      variant: 'coral',
-      hex: '#ff8b31',
-      text: 'deep dive 🐙',
     },
     {
       variant: 'indigo',

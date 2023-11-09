@@ -10,13 +10,25 @@ export const getColorsFromHex = (colorHex: string, colorScheme = 'light', isSele
     lightnessIncrement = 1
     ratio = 5.5
   }
-  const {h, s} = hexToHsluv(colorHex)
+
+  // eslint-disable-next-line prefer-const
+  let {h, s} = hexToHsluv(colorHex)
+  // avoid intense bright colors
+  if (h >= 58 && h <= 198 && s > 70) {
+    s = 70
+  }
+
   const backgroundColor = getColorWithContrast(
     hsluvToHex({h, s, l: bgLightness}),
     bgColor,
     1.2,
     lightnessIncrement as 1 | -1,
   )
+
+  // avoid intense bright colors
+  if (h >= 58 && h <= 316 && s > 80) {
+    s = 80
+  }
   const textColor = getColorWithContrast(
     hsluvToHex({h, s, l: 50}),
     backgroundColor,
