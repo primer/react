@@ -39,7 +39,6 @@ const Heading = forwardRef(({as: Component = 'h2', ...props}, forwardedRef) => {
   return (
     <StyledHeading
       as={Component}
-      className="pc-Heading"
       {...props}
       // @ts-ignore shh
       ref={innerRef}

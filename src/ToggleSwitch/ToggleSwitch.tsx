@@ -206,106 +206,114 @@ const hiddenTextStyles: BetterSystemStyleObject = {
   height: 0,
 }
 
-const ToggleSwitch: React.FC<React.PropsWithChildren<ToggleSwitchProps>> = ({
-  'aria-labelledby': ariaLabelledby,
-  'aria-describedby': ariaDescribedby,
-  defaultChecked,
-  disabled,
-  loading,
-  checked,
-  onChange,
-  onClick,
-  size = 'medium',
-  statusLabelPosition = 'start',
-  sx: sxProp,
-  ...props
-}) => {
-  const isControlled = typeof checked !== 'undefined'
-  const [isOn, setIsOn] = useProvidedStateOrCreate<boolean>(checked, onChange, Boolean(defaultChecked))
-  const acceptsInteraction = !disabled && !loading
-  const handleToggleClick: MouseEventHandler = useCallback(
-    e => {
-      if (!isControlled) {
-        setIsOn(!isOn)
+const ToggleSwitch = React.forwardRef<HTMLButtonElement, React.PropsWithChildren<ToggleSwitchProps>>(
+  function ToggleSwitch(props, ref) {
+    const {
+      'aria-labelledby': ariaLabelledby,
+      'aria-describedby': ariaDescribedby,
+      defaultChecked,
+      disabled,
+      loading,
+      checked,
+      onChange,
+      onClick,
+      size = 'medium',
+      statusLabelPosition = 'start',
+      sx: sxProp,
+      ...rest
+    } = props
+    const isControlled = typeof checked !== 'undefined'
+    const [isOn, setIsOn] = useProvidedStateOrCreate<boolean>(checked, onChange, Boolean(defaultChecked))
+    const acceptsInteraction = !disabled && !loading
+    const handleToggleClick: MouseEventHandler = useCallback(
+      e => {
+        if (!isControlled) {
+          setIsOn(!isOn)
+        }
+        onClick && onClick(e)
+      },
+      [onClick, isControlled, isOn, setIsOn],
+    )
+
+    useEffect(() => {
+      if (onChange && isControlled) {
+        onChange(Boolean(checked))
       }
-      onClick && onClick(e)
-    },
-    [onClick, isControlled, isOn, setIsOn],
-  )
+    }, [onChange, checked, isControlled])
 
-  useEffect(() => {
-    if (onChange && isControlled) {
-      onChange(Boolean(checked))
-    }
-  }, [onChange, checked, isControlled])
+    return (
+      <Box
+        display="inline-flex"
+        alignItems="center"
+        flexDirection={statusLabelPosition === 'start' ? 'row' : 'row-reverse'}
+        sx={sxProp}
+        {...rest}
+      >
+        {loading ? <Spinner size="small" /> : null}
+        <Text
+          color={acceptsInteraction ? 'fg.default' : 'fg.muted'}
+          fontSize={size === 'small' ? 0 : 1}
+          mx={2}
+          aria-hidden="true"
+          sx={{position: 'relative', cursor: 'pointer'}}
+          onClick={handleToggleClick}
+        >
+          <Box textAlign="right" sx={isOn ? null : hiddenTextStyles}>
+            On
+          </Box>
+          <Box textAlign="right" sx={isOn ? hiddenTextStyles : null}>
+            Off
+          </Box>
+        </Text>
+        <SwitchButton
+          ref={ref}
+          onClick={handleToggleClick}
+          aria-labelledby={ariaLabelledby}
+          aria-describedby={ariaDescribedby}
+          aria-pressed={isOn}
+          checked={isOn}
+          size={size}
+          disabled={!acceptsInteraction}
+        >
+          <Box aria-hidden="true" display="flex" alignItems="center" width="100%" height="100%" overflow="hidden">
+            <Box
+              flexGrow={1}
+              flexShrink={0}
+              flexBasis="50%"
+              color={acceptsInteraction ? 'switchTrack.checked.fg' : 'switchTrack.checked.disabledFg'}
+              lineHeight="0"
+              sx={{
+                transform: `translateX(${isOn ? '0' : '-100%'})`,
+                transitionProperty: 'transform',
+                transitionDuration: TRANSITION_DURATION,
+              }}
+            >
+              <LineIcon size={size} />
+            </Box>
+            <Box
+              flexGrow={1}
+              flexShrink={0}
+              flexBasis="50%"
+              color={acceptsInteraction ? 'switchTrack.fg' : 'switchTrack.disabledFg'}
+              lineHeight="0"
+              sx={{
+                transform: `translateX(${isOn ? '100%' : '0'})`,
+                transitionProperty: 'transform',
+                transitionDuration: TRANSITION_DURATION,
+              }}
+            >
+              <CircleIcon size={size} />
+            </Box>
+          </Box>
+          <ToggleKnob aria-hidden="true" disabled={!acceptsInteraction} checked={isOn} />
+        </SwitchButton>
+      </Box>
+    )
+  },
+)
 
-  return (
-    <Box
-      display="inline-flex"
-      alignItems="center"
-      flexDirection={statusLabelPosition === 'start' ? 'row' : 'row-reverse'}
-      sx={sxProp}
-      {...props}
-    >
-      {loading ? <Spinner size="small" /> : null}
-      <Text
-        color={acceptsInteraction ? 'fg.default' : 'fg.muted'}
-        fontSize={size === 'small' ? 0 : 1}
-        mx={2}
-        aria-hidden="true"
-        sx={{position: 'relative', cursor: 'pointer'}}
-        onClick={handleToggleClick}
-      >
-        <Box textAlign="right" sx={isOn ? null : hiddenTextStyles}>
-          On
-        </Box>
-        <Box textAlign="right" sx={isOn ? hiddenTextStyles : null}>
-          Off
-        </Box>
-      </Text>
-      <SwitchButton
-        onClick={handleToggleClick}
-        aria-labelledby={ariaLabelledby}
-        aria-describedby={ariaDescribedby}
-        aria-pressed={isOn}
-        checked={isOn}
-        size={size}
-        disabled={!acceptsInteraction}
-      >
-        <Box aria-hidden="true" display="flex" alignItems="center" width="100%" height="100%" overflow="hidden">
-          <Box
-            flexGrow={1}
-            flexShrink={0}
-            flexBasis="50%"
-            color={acceptsInteraction ? 'switchTrack.checked.fg' : 'switchTrack.checked.disabledFg'}
-            lineHeight="0"
-            sx={{
-              transform: `translateX(${isOn ? '0' : '-100%'})`,
-              transitionProperty: 'transform',
-              transitionDuration: TRANSITION_DURATION,
-            }}
-          >
-            <LineIcon size={size} />
-          </Box>
-          <Box
-            flexGrow={1}
-            flexShrink={0}
-            flexBasis="50%"
-            color={acceptsInteraction ? 'switchTrack.fg' : 'switchTrack.disabledFg'}
-            lineHeight="0"
-            sx={{
-              transform: `translateX(${isOn ? '100%' : '0'})`,
-              transitionProperty: 'transform',
-              transitionDuration: TRANSITION_DURATION,
-            }}
-          >
-            <CircleIcon size={size} />
-          </Box>
-        </Box>
-        <ToggleKnob aria-hidden="true" disabled={!acceptsInteraction} checked={isOn} />
-      </SwitchButton>
-    </Box>
-  )
+if (__DEV__) {
+  ToggleSwitch.displayName = 'ToggleSwitch'
 }
 
 export default ToggleSwitch

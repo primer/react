@@ -92,10 +92,15 @@ export const WithNestedSubItems: Story = () => (
 )
 
 type ReactRouterLikeLinkProps = {to: string; children: React.ReactNode}
-const ReactRouterLikeLink = React.forwardRef<HTMLAnchorElement, ReactRouterLikeLinkProps>(({to, ...props}, ref) => {
-  // eslint-disable-next-line jsx-a11y/anchor-has-content
-  return <a ref={ref} href={to} {...props} />
-})
+const ReactRouterLikeLink = React.forwardRef<HTMLAnchorElement, ReactRouterLikeLinkProps>(
+  ({to, children, ...props}, ref) => {
+    return (
+      <a ref={ref} href={to} {...props}>
+        {children}
+      </a>
+    )
+  },
+)
 
 export const WithReactRouterLink = () => (
   <PageLayout>

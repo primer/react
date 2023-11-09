@@ -922,7 +922,9 @@ const data = {
     {id: 'dependabot/markdownlint-github-0.4.1', name: 'dependabot/markdownlint-github-0.4.1'},
   ],
   tags: [
-    {id: 'v35.29.0', name: 'v35.29.0', trailingInfo: 'Latest'},
+    {id: 'v35.31.0', name: 'v35.31.0', trailingInfo: 'Latest'},
+    {id: 'v35.30.0', name: 'v35.30.0'},
+    {id: 'v35.29.0', name: 'v35.29.0'},
     {id: 'v35.28.0', name: 'v35.28.0'},
     {id: 'v35.27.1', name: 'v35.27.1'},
     {id: 'v35.27.0', name: 'v35.27.0'},

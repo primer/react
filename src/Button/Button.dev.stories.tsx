@@ -12,23 +12,20 @@ export const InvisibleVariants = () => {
   return (
     <div style={{display: 'flex', flexDirection: 'row', gap: '1rem'}}>
       <Button variant="invisible">Button</Button>
-      <Button variant="invisible" leadingIcon={SearchIcon}>
+      <Button variant="invisible" leadingVisual={SearchIcon}>
         Button
       </Button>
       <Button variant="invisible" trailingAction={TriangleDownIcon}>
         Button
       </Button>
-      <Button variant="primary">
+      <Button variant="primary" count={count}>
         Button
-        <Button.Counter>{count}</Button.Counter>
       </Button>
-      <Button variant="invisible" leadingIcon={EyeIcon}>
+      <Button variant="invisible" leadingVisual={EyeIcon} count={count}>
         Button
-        <Button.Counter>{count}</Button.Counter>
       </Button>
-      <Button variant="invisible" leadingIcon={EyeIcon} trailingAction={TriangleDownIcon}>
+      <Button variant="invisible" leadingVisual={EyeIcon} trailingAction={TriangleDownIcon} count={count}>
         Button
-        <Button.Counter>{count}</Button.Counter>
       </Button>
       <IconButton icon={TriangleDownIcon} variant="invisible" aria-label="Invisible" />
     </div>
@@ -71,7 +68,7 @@ export const TestSxProp = () => {
       <Button variant="invisible" sx={{color: 'firebrick'}}>
         Invariant color overridden
       </Button>
-      <Button leadingIcon={IssueClosedIcon} sx={{color: 'done.fg'}}>
+      <Button leadingVisual={IssueClosedIcon} sx={{color: 'done.fg'}}>
         <Text sx={{color: 'fg.default'}}>Close issue</Text>
       </Button>
       <Button
@@ -93,9 +90,8 @@ export const TestSxProp = () => {
       <Button size="small" block variant="invisible" sx={{width: 320}}>
         Overriden Block
       </Button>
-      <Button>
+      <Button sx={{fontSize: 32}} count={count}>
         Watch
-        <Button.Counter sx={{fontSize: 32}}>{count}</Button.Counter>
       </Button>
     </div>
   )

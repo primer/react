@@ -2,7 +2,7 @@ import React from 'react'
 import Box from '../../../Box'
 import VisuallyHidden from '../../../_VisuallyHidden'
 import {SxProp} from '../../../sx'
-import {CheckboxOrRadioGroupContext} from './CheckboxOrRadioGroup'
+import CheckboxOrRadioGroupContext from './CheckboxOrRadioGroupContext'
 
 export type CheckboxOrRadioGroupLabelProps = {
   /**

@@ -1,7 +1,7 @@
 import React from 'react'
 import {SelectPanel} from './SelectPanel'
 import {ActionList, ActionMenu, Avatar, Box, Button, Flash} from '../../../src/index'
-import {ArrowRightIcon, AlertIcon, EyeIcon, GitBranchIcon, TriangleDownIcon} from '@primer/octicons-react'
+import {ArrowRightIcon, AlertIcon, EyeIcon, GitBranchIcon, TriangleDownIcon, TagIcon} from '@primer/octicons-react'
 import data from './mock-data'
 
 const getCircle = (color: string) => (
@@ -362,61 +362,6 @@ export const DAsyncSearchWithUseTransition = () => {
   )
 }
 
-export const TODO1Uncontrolled = () => {
-  /* features to implement:
-     1. search
-     2. sort
-     3. selection
-     4. clear selection
-     5. different results view
-     6. submit -> pass data / pull from form
-     8. cancel callback
-     9. empty state
-  */
-
-  const onSubmit = () => {
-    // TODO: where does saved data come from?
-    // data.issue.labelIds = selectedLabelIds // pretending to persist changes
-
-    // eslint-disable-next-line no-console
-    console.log('form submitted')
-  }
-
-  const onCancel = () => {
-    // eslint-disable-next-line no-console
-    console.log('panel was closed')
-  }
-
-  return (
-    <>
-      <h1>Does not work yet: Uncontrolled SelectPanel</h1>
-
-      <SelectPanel title="Select labels" onSubmit={onSubmit} onCancel={onCancel}>
-        {/* @ts-ignore todo */}
-        <SelectPanel.Button>Assign label</SelectPanel.Button>
-
-        <SelectPanel.Header>
-          <SelectPanel.SearchInput />
-        </SelectPanel.Header>
-
-        <ActionList>
-          {data.labels.map(label => (
-            <ActionList.Item key={label.id}>
-              <ActionList.LeadingVisual>{getCircle(label.color)}</ActionList.LeadingVisual>
-              {label.name}
-              <ActionList.Description variant="block">{label.description}</ActionList.Description>
-            </ActionList.Item>
-          ))}
-        </ActionList>
-
-        <SelectPanel.Footer>
-          <SelectPanel.SecondaryButton>Edit labels</SelectPanel.SecondaryButton>
-        </SelectPanel.Footer>
-      </SelectPanel>
-    </>
-  )
-}
-
 export const TODO2SingleSelection = () => <h1>TODO</h1>
 
 export const HWithFilterButtons = () => {
@@ -479,27 +424,29 @@ export const HWithFilterButtons = () => {
       <SelectPanel title="Switch branches/tags" defaultOpen onSubmit={onSubmit}>
         {/* TODO: the ref types don't match here, use useProvidedRefOrCreate */}
         {/* @ts-ignore todo */}
-        <SelectPanel.Button leadingIcon={GitBranchIcon} trailingIcon={TriangleDownIcon}>
+        <SelectPanel.Button leadingVisual={GitBranchIcon} trailingVisual={TriangleDownIcon}>
           {savedInitialRef}
         </SelectPanel.Button>
 
         <SelectPanel.Header>
           <SelectPanel.SearchInput onChange={onSearchInputChange} />
 
-          <Box id="filters" sx={{display: 'flex'}}>
+          <Box id="filters" sx={{display: 'flex', marginTop: 1}}>
             <Button
               variant="invisible"
               sx={{fontWeight: selectedFilter === 'branches' ? 'semibold' : 'normal', color: 'fg.default'}}
               onClick={() => setSelectedFilter('branches')}
+              count={20}
             >
-              Branches <Button.Counter>{20}</Button.Counter>
+              Branches
             </Button>
             <Button
               variant="invisible"
               sx={{fontWeight: selectedFilter === 'tags' ? 'semibold' : 'normal', color: 'fg.default'}}
               onClick={() => setSelectedFilter('tags')}
+              count={8}
             >
-              Tags <Button.Counter>{8}</Button.Counter>
+              Tags
             </Button>
           </Box>
         </SelectPanel.Header>
@@ -781,7 +728,40 @@ export const GOpenFromMenu = () => {
   )
 }
 
-export const IWithRemoveFilterIcon = () => {
+export const FInstantSelectionVariant = () => {
+  const [selectedTag, setSelectedTag] = React.useState<string>()
+
+  const onSubmit = () => {
+    if (!selectedTag) return
+    data.ref = selectedTag // pretending to persist changes
+  }
+
+  const itemsToShow = data.tags
+
+  return (
+    <>
+      <h1>Instant selection variant</h1>
+
+      <SelectPanel title="Choose a tag" selectionVariant="instant" onSubmit={onSubmit} height="medium" defaultOpen>
+        {/* @ts-ignore todo */}
+        <SelectPanel.Button leadingVisual={TagIcon}>{selectedTag || 'Choose a tag'}</SelectPanel.Button>
+
+        <ActionList>
+          {itemsToShow.map(tag => (
+            <ActionList.Item key={tag.id} onSelect={() => setSelectedTag(tag.id)} selected={selectedTag === tag.id}>
+              {tag.name}
+            </ActionList.Item>
+          ))}
+        </ActionList>
+        <SelectPanel.Footer>
+          <SelectPanel.SecondaryButton>Edit tags</SelectPanel.SecondaryButton>
+        </SelectPanel.Footer>
+      </SelectPanel>
+    </>
+  )
+}
+
+export const TODO3WithValidation = () => {
   const initialSelectedLabels = data.issue.labelIds // mock initial state: has selected labels
   const [selectedLabelIds, setSelectedLabelIds] = React.useState<string[]>(initialSelectedLabels)
 
@@ -791,6 +771,11 @@ export const IWithRemoveFilterIcon = () => {
     else setSelectedLabelIds(selectedLabelIds.filter(id => id !== labelId))
   }
 
+  const onClearSelection = () => {
+    // soft set, does not save until submit
+    setSelectedLabelIds([])
+  }
+
   const onSubmit = () => {
     data.issue.labelIds = selectedLabelIds // pretending to persist changes
 
@@ -798,8 +783,30 @@ export const IWithRemoveFilterIcon = () => {
     console.log('form submitted')
   }
 
-  const onClearSelection = () => {
-    setSelectedLabelIds([])
+  /* Filtering */
+  const [filteredLabels, setFilteredLabels] = React.useState(data.labels)
+  const [query, setQuery] = React.useState('')
+
+  // TODO: should this be baked-in
+  const onSearchInputChange = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    const query = event.currentTarget.value
+    setQuery(query)
+
+    if (query === '') setFilteredLabels(data.labels)
+    else {
+      // TODO: should probably add a highlight for matching text
+      setFilteredLabels(
+        data.labels
+          .map(label => {
+            if (label.name.toLowerCase().startsWith(query)) return {priority: 1, label}
+            else if (label.name.toLowerCase().includes(query)) return {priority: 2, label}
+            else if (label.description?.toLowerCase().includes(query)) return {priority: 3, label}
+            else return {priority: -1, label}
+          })
+          .filter(result => result.priority > 0)
+          .map(result => result.label),
+      )
+    }
   }
 
   const sortingFn = (itemA: {id: string}, itemB: {id: string}) => {
@@ -810,30 +817,52 @@ export const IWithRemoveFilterIcon = () => {
     else return 1
   }
 
-  const itemsToShow = data.labels.sort(sortingFn)
+  const itemsToShow = query ? filteredLabels : data.labels.sort(sortingFn)
 
   return (
     <>
-      <h1>Minimal SelectPanel</h1>
+      <h1>SelectPanel with validation</h1>
 
-      <SelectPanel title="Select labels" defaultOpen onSubmit={onSubmit} onClearSelection={onClearSelection}>
+      <SelectPanel
+        title="Select labels"
+        description="Add up to 10 labels to this issue"
+        defaultOpen
+        onSubmit={onSubmit}
+        // @ts-ignore todo
+        onClearSelection={event => {
+          // @ts-ignore todo
+          onClearSelection(event)
+        }}
+      >
         {/* TODO: the ref types don't match here, use useProvidedRefOrCreate */}
         {/* @ts-ignore todo */}
         <SelectPanel.Button>Assign label</SelectPanel.Button>
+        {/* TODO: header and heading is confusing. maybe skip header completely. */}
+        <SelectPanel.Header>
+          <SelectPanel.SearchInput onChange={onSearchInputChange} />
+        </SelectPanel.Header>
 
-        <ActionList>
-          {itemsToShow.map(label => (
-            <ActionList.Item
-              key={label.id}
-              onSelect={() => onLabelSelect(label.id)}
-              selected={selectedLabelIds.includes(label.id)}
-            >
-              <ActionList.LeadingVisual>{getCircle(label.color)}</ActionList.LeadingVisual>
-              {label.name}
-              <ActionList.Description variant="block">{label.description}</ActionList.Description>
-            </ActionList.Item>
-          ))}
-        </ActionList>
+        {itemsToShow.length === 0 ? (
+          <SelectPanel.EmptyMessage>No labels found for &quot;{query}&quot;</SelectPanel.EmptyMessage>
+        ) : (
+          <ActionList>
+            {itemsToShow.map(label => (
+              <ActionList.Item
+                key={label.id}
+                onSelect={() => onLabelSelect(label.id)}
+                selected={selectedLabelIds.includes(label.id)}
+              >
+                <ActionList.LeadingVisual>{getCircle(label.color)}</ActionList.LeadingVisual>
+                {label.name}
+                <ActionList.Description variant="block">{label.description}</ActionList.Description>
+              </ActionList.Item>
+            ))}
+          </ActionList>
+        )}
+
+        <SelectPanel.Footer>
+          <SelectPanel.SecondaryButton>Edit labels</SelectPanel.SecondaryButton>
+        </SelectPanel.Footer>
       </SelectPanel>
     </>
   )

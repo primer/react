@@ -114,8 +114,6 @@ describe('ConfirmationDialog', () => {
   })
 
   it('supports nested `focusTrap`s', async () => {
-    const spy = jest.spyOn(console, 'error').mockImplementationOnce(() => {})
-
     const {getByText} = HTMLRender(<ShorthandHookFromActionMenu />)
 
     fireEvent.click(getByText('Show menu'))
@@ -123,11 +121,5 @@ describe('ConfirmationDialog', () => {
 
     expect(getByText('Primary')).toEqual(document.activeElement)
     expect(getByText('Secondary')).not.toEqual(document.activeElement)
-
-    expect(spy).toHaveBeenCalledTimes(1)
-    expect(spy).toHaveBeenCalledWith(
-      expect.stringContaining('Warning: ReactDOM.render is no longer supported in React 18'),
-    )
-    spy.mockRestore()
   })
 })
