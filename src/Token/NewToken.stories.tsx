@@ -28,89 +28,110 @@ const variants: TokenVariants[] = [
   'auburn',
 ]
 
-const getRandomLabels = (amount: number, size: TokenSizeKeys): React.ReactNode[] => {
+const getRandomLabels = (amount: number, size: TokenSizeKeys, asVariant = true): React.ReactNode[] => {
   const labels: {
     variant: TokenVariants
+    hex?: string
     text: string
   }[] = [
     {
       variant: 'red',
+      hex: '#ff1212',
       text: '🐛 bug',
     },
     {
       variant: 'amber',
+      hex: '#ffa411',
       text: '🔥 hot',
     },
     {
       variant: 'brown',
+      hex: '#fff100',
       text: 'boring',
     },
     {
       variant: 'auburn',
-      text: 'susainable',
+      hex: '#c0fa00',
+      text: 'sustainable',
     },
     {
       variant: 'blue',
+      hex: '#00faf6',
       text: 'new',
     },
     {
       variant: 'purple',
+      hex: '#003ba8',
       text: 'info needed',
     },
     {
       variant: 'gray',
+      hex: '#000000',
       text: 'wontfix',
     },
     {
       variant: 'olive',
+      hex: '#699909',
       text: '🫒 lunch',
     },
     {
       variant: 'cyan',
+      hex: '#00fac2',
       text: '📥 Inbox',
     },
     {
       variant: 'yellow',
+      hex: '#ff8600',
       text: 'question',
     },
     {
       variant: 'pine',
+      hex: '#518c5c',
       text: 'documentation',
     },
     {
       variant: 'teal',
+      hex: '#37ff00',
       text: '✅ Done',
     },
     {
       variant: 'green',
+      hex: '#aaf88a',
       text: 'enhancement',
     },
     {
       variant: 'orange',
+      hex: '#5a5939',
       text: 'figma',
     },
     {
       variant: 'lemon',
+      hex: '#fff100',
       text: 'squeeze 🍋',
     },
     {
       variant: 'lime',
+      hex: '#26ff00',
       text: 'lame 🍈',
     },
     {
       variant: 'pink',
+      hex: '#fa00ce',
       text: 'unicorn',
     },
     {
       variant: 'plum',
+      hex: '#2f00ff',
       text: 'beautify',
     },
     {
       variant: 'coral',
+      hex: '#ff8b31',
       text: 'deep dive 🐙',
     },
     {
       variant: 'indigo',
+      hex: '#c100ff',
       text: 'mysterious',
     },
   ]
@@ -121,8 +142,16 @@ const getRandomLabels = (amount: number, size: TokenSizeKeys): React.ReactNode[]
     if (i - substract > labels.length - 1) {
       substract += labels.length
     }
-    const {variant, text} = labels[i - substract]
-    result.push(<NewToken key={i} size={size} variant={variant} text={text} />)
+    const {variant, hex, text} = labels[i - substract]
+    result.push(
+      <NewToken
+        key={i}
+        size={size}
+        variant={asVariant ? variant : undefined}
+        fillColor={!asVariant ? hex : undefined}
+        text={text}
+      />,
+    )
   }
   return result
 }
@@ -193,6 +222,7 @@ Default.args = {
 
 export const Hex = ({
   hex,
+  numberOfTokens,
   text,
   size,
   interactive,
@@ -204,7 +234,26 @@ export const Hex = ({
   interactive: boolean
   text: string
 }) => {
-  return <NewToken {...args} size={size} text={text} fillColor={hex} onClick={interactive ? () => {} : undefined} />
+  const [tokens, setTokens] = useState<React.ReactNode[] | null>(null)
+
+  useEffect(() => {
+    setTokens(getRandomLabels(numberOfTokens - 1, size, false))
+  }, [numberOfTokens, size])
+
+  return (
+    <Box
+      sx={{
+        display: 'flex',
+        flexWrap: 'wrap',
+        gap: 2,
+        overflow: 'hidden',
+        padding: 2,
+      }}
+    >
+      <NewToken {...args} size={size} text={text} fillColor={hex} onClick={interactive ? () => {} : undefined} />
+      {tokens}
+    </Box>
+  )
 }
 Hex.args = {
   hex: '#59B200',
@@ -216,7 +265,6 @@ Hex.args = {
 Hex.argTypes = {
   hex: {control: {type: 'color'}},
   variant: {control: {disable: true}},
-  numberOfTokens: {control: {disable: true}},
   interactive: {control: {type: 'boolean'}},
 }
 
