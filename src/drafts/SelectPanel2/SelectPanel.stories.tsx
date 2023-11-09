@@ -1,7 +1,15 @@
 import React from 'react'
 import {SelectPanel} from './SelectPanel'
 import {ActionList, ActionMenu, Avatar, Box, Button, Flash, Link} from '../../../src/index'
-import {ArrowRightIcon, AlertIcon, EyeIcon, GitBranchIcon, TriangleDownIcon, TagIcon} from '@primer/octicons-react'
+import {
+  ArrowRightIcon,
+  AlertIcon,
+  EyeIcon,
+  GitBranchIcon,
+  TriangleDownIcon,
+  TagIcon,
+  GearIcon,
+} from '@primer/octicons-react'
 import data from './mock-data'
 
 const getCircle = (color: string) => (
@@ -762,72 +770,65 @@ export const FInstantSelectionVariant = () => {
 }
 
 export const IWithWarning = () => {
-  const initialSelectedLabels = data.issue.labelIds // mock initial state: has selected labels
-  const [selectedLabelIds, setSelectedLabelIds] = React.useState<string[]>(initialSelectedLabels)
-
   /* Selection */
+
+  const initialAssigneeIds = data.issue.assigneeIds // mock initial state
+  const [selectedAssigneeIds, setSelectedAssigneeIds] = React.useState<string[]>(initialAssigneeIds)
   const MAX_LIMIT = 3
 
-  const onLabelSelect = (labelId: string) => {
-    if (!selectedLabelIds.includes(labelId)) setSelectedLabelIds([...selectedLabelIds, labelId])
-    else setSelectedLabelIds(selectedLabelIds.filter(id => id !== labelId))
+  const onCollaboratorSelect = (colloratorId: string) => {
+    if (!selectedAssigneeIds.includes(colloratorId)) setSelectedAssigneeIds([...selectedAssigneeIds, colloratorId])
+    else setSelectedAssigneeIds(selectedAssigneeIds.filter(id => id !== colloratorId))
   }
 
-  const onClearSelection = () => {
-    // soft set, does not save until submit
-    setSelectedLabelIds([])
-  }
-
+  const onClearSelection = () => setSelectedAssigneeIds([])
   const onSubmit = () => {
-    data.issue.labelIds = selectedLabelIds // pretending to persist changes
-
-    // eslint-disable-next-line no-console
-    console.log('form submitted')
+    data.issue.assigneeIds = selectedAssigneeIds // pretending to persist changes
   }
 
   /* Filtering */
-  const [filteredLabels, setFilteredLabels] = React.useState(data.labels)
+  const [filteredUsers, setFilteredUsers] = React.useState(data.collaborators)
   const [query, setQuery] = React.useState('')
 
-  // TODO: should this be baked-in
   const onSearchInputChange = (event: React.KeyboardEvent<HTMLInputElement>) => {
     const query = event.currentTarget.value
     setQuery(query)
 
-    if (query === '') setFilteredLabels(data.labels)
+    if (query === '') setFilteredUsers(data.collaborators)
     else {
       // TODO: should probably add a highlight for matching text
-      setFilteredLabels(
-        data.labels
-          .map(label => {
-            if (label.name.toLowerCase().startsWith(query)) return {priority: 1, label}
-            else if (label.name.toLowerCase().includes(query)) return {priority: 2, label}
-            else if (label.description?.toLowerCase().includes(query)) return {priority: 3, label}
-            else return {priority: -1, label}
+      setFilteredUsers(
+        data.collaborators
+          .map(collaborator => {
+            if (collaborator.login.toLowerCase().startsWith(query)) return {priority: 1, collaborator}
+            else if (collaborator.name.startsWith(query)) return {priority: 2, collaborator}
+            else if (collaborator.login.toLowerCase().includes(query)) return {priority: 3, collaborator}
+            else if (collaborator.name.toLowerCase().includes(query)) return {priority: 4, collaborator}
+            else return {priority: -1, collaborator}
           })
           .filter(result => result.priority > 0)
-          .map(result => result.label),
+          .map(result => result.collaborator),
       )
     }
   }
 
   const sortingFn = (itemA: {id: string}, itemB: {id: string}) => {
-    const initialSelectedIds = data.issue.labelIds
+    const initialSelectedIds = data.issue.assigneeIds
     if (initialSelectedIds.includes(itemA.id) && initialSelectedIds.includes(itemB.id)) return 1
     else if (initialSelectedIds.includes(itemA.id)) return -1
     else if (initialSelectedIds.includes(itemB.id)) return 1
     else return 1
   }
 
-  const itemsToShow = query ? filteredLabels : data.labels.sort(sortingFn)
+  const itemsToShow = query ? filteredUsers : data.collaborators.sort(sortingFn)
 
   return (
     <>
       <h1>SelectPanel with warning</h1>
 
       <SelectPanel
-        title="Select labels"
-        description={`Add up to ${MAX_LIMIT} labels to this issue`}
+        title="Set assignees"
+        description={`Select up to ${MAX_LIMIT} people`}
         defaultOpen
         onSubmit={onSubmit}
         // @ts-ignore todo
@@ -838,15 +839,21 @@ export const IWithWarning = () => {
       >
         {/* TODO: the ref types don't match here, use useProvidedRefOrCreate */}
         {/* @ts-ignore todo */}
-        <SelectPanel.Button>Assign label</SelectPanel.Button>
+        <SelectPanel.Button
+          variant="invisible"
+          trailingAction={GearIcon}
+          sx={{width: '200px', '[data-component=buttonContent]': {justifyContent: 'start'}}}
+        >
+          Assignees
+        </SelectPanel.Button>
         {/* TODO: header and heading is confusing. maybe skip header completely. */}
         <SelectPanel.Header>
           <SelectPanel.SearchInput onChange={onSearchInputChange} />
         </SelectPanel.Header>
 
-        {selectedLabelIds.length >= MAX_LIMIT ? (
+        {selectedAssigneeIds.length >= MAX_LIMIT ? (
           <SelectPanel.Warning>
-            You have reached the limit of {MAX_LIMIT} labels on your free account.{' '}
+            You have reached the limit of {MAX_LIMIT} assignees on your free account.{' '}
             <Link href="/upgrade">Upgrade your account.</Link>
           </SelectPanel.Warning>
         ) : (
@@ -857,24 +864,24 @@ export const IWithWarning = () => {
           <SelectPanel.EmptyMessage>No labels found for &quot;{query}&quot;</SelectPanel.EmptyMessage>
         ) : (
           <ActionList>
-            {itemsToShow.map(label => (
+            {itemsToShow.map(collaborator => (
               <ActionList.Item
-                key={label.id}
-                onSelect={() => onLabelSelect(label.id)}
-                selected={selectedLabelIds.includes(label.id)}
-                disabled={selectedLabelIds.length >= MAX_LIMIT && !selectedLabelIds.includes(label.id)}
+                key={collaborator.id}
+                onSelect={() => onCollaboratorSelect(collaborator.id)}
+                selected={selectedAssigneeIds.includes(collaborator.id)}
+                disabled={selectedAssigneeIds.length >= MAX_LIMIT && !selectedAssigneeIds.includes(collaborator.id)}
               >
-                <ActionList.LeadingVisual>{getCircle(label.color)}</ActionList.LeadingVisual>
-                {label.name}
-                <ActionList.Description variant="block">{label.description}</ActionList.Description>
+                <ActionList.LeadingVisual>
+                  <Avatar src={`https://github.com/${collaborator.login}.png`} />
+                </ActionList.LeadingVisual>
+                {collaborator.login}
+                <ActionList.Description>{collaborator.login}</ActionList.Description>
               </ActionList.Item>
             ))}
           </ActionList>
         )}
 
-        <SelectPanel.Footer>
-          <SelectPanel.SecondaryButton>Edit labels</SelectPanel.SecondaryButton>
-        </SelectPanel.Footer>
+        <SelectPanel.Footer />
       </SelectPanel>
     </>
   )
