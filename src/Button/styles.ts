@@ -1,7 +1,7 @@
 import {VariantType, AlignContent} from './types'
 import {Theme} from '../ThemeProvider'
 
-export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme) => {
+export const getVariantStyles = (variant: VariantType = 'default', inactive?: boolean, theme?: Theme) => {
   const style = {
     default: {
       color: 'btn.text',
@@ -190,6 +190,15 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
       },
     },
   }
+
+  if (inactive) {
+    return {
+      backgroundColor: `var(--button-inactive-bgColor, ${theme?.colors.btn.inactive.bg})`,
+      border: 0,
+      color: `var(--button-inactive-fgColor, ${theme?.colors.btn.inactive.text})`,
+    }
+  }
+
   return style[variant]
 }
 
@@ -226,7 +235,7 @@ export const getBaseStyles = (theme?: Theme) => ({
   '&:active': {
     transition: 'none',
   },
-  '&[aria-disabled]': {
+  '&[aria-disabled], &[data-inactive]': {
     cursor: 'auto',
   },
   '&:disabled': {

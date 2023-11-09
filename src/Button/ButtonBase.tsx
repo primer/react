@@ -30,8 +30,8 @@ const ButtonBase = forwardRef(
 
     const {theme} = useTheme()
     const baseStyles = useMemo(() => {
-      return merge.all([getButtonStyles(theme), getVariantStyles(variant, theme)])
-    }, [theme, variant])
+      return merge.all([getButtonStyles(theme), getVariantStyles(variant, inactive, theme)])
+    }, [theme, variant, inactive])
     const sxStyles = useMemo(() => {
       return merge<BetterSystemStyleObject>(baseStyles, sxProp)
     }, [baseStyles, sxProp])
@@ -69,7 +69,7 @@ const ButtonBase = forwardRef(
         data-block={block ? 'block' : null}
         data-size={size === 'small' || size === 'large' ? size : undefined}
         data-no-visuals={!LeadingVisual && !TrailingVisual && !TrailingAction ? true : undefined}
-        aria-disabled={inactive ? true : undefined}
+        data-inactive={inactive ? true : undefined}
       >
         {Icon ? (
           <Icon />

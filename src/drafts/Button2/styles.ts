@@ -1,7 +1,7 @@
 import {VariantType, AlignContent} from './types'
 import {Theme} from '../../ThemeProvider'
 
-export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme) => {
+export const getVariantStyles = (variant: VariantType = 'default', inactive?: boolean, theme?: Theme) => {
   const style = {
     default: {
       color: 'btn.text',
@@ -181,6 +181,13 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
       },
     },
   }
+
+  if (inactive) {
+    return {
+      color: 'pink',
+    }
+  }
+
   return style[variant]
 }
 

@@ -5,24 +5,22 @@ import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../../utils
 import {defaultSxProp} from '../../utils/defaultSxProp'
 import {BetterSystemStyleObject} from '../../sx'
 
-const ButtonComponent = forwardRef(
-  ({children, sx: sxProp = defaultSxProp, inactive, ...props}, forwardedRef): JSX.Element => {
-    let sxStyles = sxProp
+const ButtonComponent = forwardRef(({children, sx: sxProp = defaultSxProp, ...props}, forwardedRef): JSX.Element => {
+  let sxStyles = sxProp
 
-    // grap the button props that have associated data attributes in the styles
-    const {block, size, leadingIcon, trailingIcon, trailingAction} = props
+  // grab the button props that have associated data attributes in the styles
+  const {block, size, leadingIcon, trailingIcon, trailingAction, inactive} = props
 
-    if (sxProp !== null && Object.keys(sxProp).length > 0) {
-      sxStyles = generateCustomSxProp({block, size, leadingIcon, trailingIcon, trailingAction}, sxProp)
-    }
+  if (sxProp !== null && Object.keys(sxProp).length > 0) {
+    sxStyles = generateCustomSxProp({block, size, leadingIcon, trailingIcon, trailingAction, inactive}, sxProp)
+  }
 
-    return (
-      <ButtonBase ref={forwardedRef} as="button" sx={sxStyles} type="button" aria-disabled={inactive} {...props}>
-        {children}
-      </ButtonBase>
-    )
-  },
-) as PolymorphicForwardRefComponent<'button', ButtonProps>
+  return (
+    <ButtonBase ref={forwardedRef} as="button" sx={sxStyles} type="button" {...props}>
+      {children}
+    </ButtonBase>
+  )
+}) as PolymorphicForwardRefComponent<'button', ButtonProps>
 
 // This function is used to generate a custom cssSelector for the sxProp
 
@@ -65,16 +63,17 @@ sx={{
 // We need to make sure we append the customCSSSelector to the original class selector. i.e & - > &[data-attribute="Icon"][data-size="small"]
 */
 export function generateCustomSxProp(
-  props: Partial<Pick<ButtonProps, 'size' | 'block' | 'leadingIcon' | 'trailingIcon' | 'trailingAction'>>,
+  props: Partial<Pick<ButtonProps, 'size' | 'block' | 'leadingIcon' | 'trailingIcon' | 'trailingAction' | 'inactive'>>,
   providedSx: BetterSystemStyleObject,
 ) {
   // Possible data attributes: data-size, data-block, data-no-visuals
   const size = props.size && props.size !== 'medium' ? `[data-size="${props.size}"]` : '' // medium is a default size therefore it doesn't have a data attribute that used for styling
   const block = props.block ? `[data-block="block"]` : ''
   const noVisuals = props.leadingIcon || props.trailingIcon || props.trailingAction ? '' : '[data-no-visuals="true"]'
+  const inactive = props.inactive ? '[data-inactive="true"]' : ''
 
   // this is custom selector. We need to make sure we add the data attributes to the base css class (& -> &[data-attributename="value"]])
-  const cssSelector = `&${size}${block}${noVisuals}` // &[data-size="small"][data-block="block"][data-no-visuals="true"]
+  const cssSelector = `&${size}${block}${noVisuals}${inactive}` // &[data-size="small"][data-block="block"][data-no-visuals="true"]
 
   const customSxProp: {
     [key: string]: BetterSystemStyleObject
