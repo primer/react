@@ -14,11 +14,13 @@ import {
   Spinner,
   Text,
   ActionListProps,
+  Octicon,
 } from '../../../src/index'
 import {ActionListContainerContext} from '../../../src/ActionList/ActionListContainerContext'
 import {useSlots} from '../../hooks/useSlots'
 import {useProvidedRefOrCreate, useId} from '../../hooks'
 import {useFocusZone} from '../../hooks/useFocusZone'
+import {BetterSystemStyleObject} from '../../sx'
 
 const SelectPanelContext = React.createContext<{
   title: string
@@ -360,7 +362,10 @@ const SelectPanelLoading: React.FC<{children: string}> = ({children = 'Fetching 
 
 SelectPanel.Loading = SelectPanelLoading
 
-const SelectPanelWarning: React.FC<{children: React.ReactNode}> = ({children}) => {
+const SelectPanelWarning: React.FC<{children: React.ReactNode; sx?: BetterSystemStyleObject}> = ({
+  children,
+  sx = {},
+}) => {
   return (
     <Box
       aria-live="polite"
@@ -375,6 +380,7 @@ const SelectPanelWarning: React.FC<{children: React.ReactNode}> = ({children}) =
         borderBottom: '1px solid',
         borderBottomColor: 'attention.muted',
         a: {color: 'inherit', textDecoration: 'underline'},
+        ...sx, // TODO: deep merge!
       }}
     >
       <Box sx={{display: 'grid', pt: '1px'}}>
@@ -407,6 +413,30 @@ const SelectPanelEmptyMessage: React.FC<{children: string | React.ReactNode}> = 
 }
 
 SelectPanel.EmptyMessage = SelectPanelEmptyMessage
+
+const SelectPanelErrorMessage: React.FC<{children: string | React.ReactNode}> = ({children = 'No items found...'}) => {
+  return (
+    <Box
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        flexGrow: 1,
+        height: '100%',
+        gap: 1,
+        paddingX: 4,
+        textAlign: 'center',
+        a: {color: 'inherit', textDecoration: 'underline'},
+      }}
+    >
+      <Octicon icon={AlertIcon} sx={{color: 'danger.fg', marginBottom: 2}} />
+      {children}
+    </Box>
+  )
+}
+
+SelectPanel.ErrorMessage = SelectPanelErrorMessage
 
 export {SelectPanel}
 

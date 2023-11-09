@@ -1,6 +1,6 @@
 import React from 'react'
 import {SelectPanel} from './SelectPanel'
-import {ActionList, ActionMenu, Avatar, Box, Button, Flash, Link} from '../../../src/index'
+import {ActionList, ActionMenu, Avatar, Box, Button, Flash, Link, Text, ToggleSwitch} from '../../../src/index'
 import {
   ArrowRightIcon,
   AlertIcon,
@@ -879,6 +879,175 @@ export const IWithWarning = () => {
               </ActionList.Item>
             ))}
           </ActionList>
+        )}
+
+        <SelectPanel.Footer />
+      </SelectPanel>
+    </>
+  )
+}
+
+export const JWithErrors = () => {
+  const [searchBroken, setSearchBroken] = React.useState(true)
+  const [issuesBroken, setIssuesBroken] = React.useState(false)
+
+  /* Selection */
+  const initialAssigneeIds = data.collaborators.slice(0, 3).map(c => c.id) // mock initial state
+  const [selectedAssigneeIds, setSelectedAssigneeIds] = React.useState<string[]>(initialAssigneeIds)
+
+  const onCollaboratorSelect = (colloratorId: string) => {
+    if (!selectedAssigneeIds.includes(colloratorId)) setSelectedAssigneeIds([...selectedAssigneeIds, colloratorId])
+    else setSelectedAssigneeIds(selectedAssigneeIds.filter(id => id !== colloratorId))
+  }
+
+  const onClearSelection = () => setSelectedAssigneeIds([])
+  const onSubmit = () => {
+    data.issue.assigneeIds = selectedAssigneeIds // pretending to persist changes
+  }
+
+  /* Filtering */
+
+  // if search is broken, only show assignees, not all collaborators
+  const allCollaborators = searchBroken
+    ? data.collaborators.filter(c => initialAssigneeIds.includes(c.id))
+    : data.collaborators
+
+  const [filteredUsers, setFilteredUsers] = React.useState(
+    searchBroken ? data.collaborators.filter(c => initialAssigneeIds.includes(c.id)) : data.collaborators,
+  )
+
+  const [query, setQuery] = React.useState('')
+
+  const onSearchInputChange = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    const query = event.currentTarget.value
+    setQuery(query)
+
+    if (query === '') setFilteredUsers(data.collaborators)
+    else {
+      // if search is broken, only show assignees, not all collaborators
+      const allCollaborators = searchBroken
+        ? data.collaborators.filter(c => initialAssigneeIds.includes(c.id))
+        : data.collaborators
+
+      setFilteredUsers(
+        allCollaborators
+          .map(collaborator => {
+            if (collaborator.login.toLowerCase().startsWith(query)) return {priority: 1, collaborator}
+            else if (collaborator.name.startsWith(query)) return {priority: 2, collaborator}
+            else if (collaborator.login.toLowerCase().includes(query)) return {priority: 3, collaborator}
+            else if (collaborator.name.toLowerCase().includes(query)) return {priority: 4, collaborator}
+            else return {priority: -1, collaborator}
+          })
+          .filter(result => result.priority > 0)
+          .map(result => result.collaborator),
+      )
+    }
+  }
+
+  const sortingFn = (itemA: {id: string}, itemB: {id: string}) => {
+    const initialSelectedIds = data.issue.assigneeIds
+    if (initialSelectedIds.includes(itemA.id) && initialSelectedIds.includes(itemB.id)) return 1
+    else if (initialSelectedIds.includes(itemA.id)) return -1
+    else if (initialSelectedIds.includes(itemB.id)) return 1
+    else return 1
+  }
+
+  const itemsToShow = query ? filteredUsers : data.collaborators.sort(sortingFn)
+
+  return (
+    <>
+      <h1>SelectPanel with Errors</h1>
+
+      <Box sx={{display: 'flex', maxWidth: 600, marginBottom: 2}}>
+        <Box sx={{flexGrow: 1}}>
+          <Text sx={{fontSize: 2, fontWeight: 'bold', display: 'block'}} id="switch-label">
+            Break search API
+          </Text>
+          <Text sx={{fontSize: 1, color: 'fg.subtle'}} id="switch-caption">
+            Turn on to show error message while searching
+          </Text>
+        </Box>
+        <ToggleSwitch
+          defaultChecked={true}
+          onChange={enabled => setSearchBroken(enabled)}
+          aria-labelledby="switch-label"
+          aria-describedby="switch-caption"
+        />
+      </Box>
+      <Box sx={{display: 'flex', marginBottom: 5, maxWidth: 600}}>
+        <Box sx={{flexGrow: 1}}>
+          <Text id="break-issues-label" sx={{fontSize: 2, fontWeight: 'bold', display: 'block'}}>
+            Break issues API
+          </Text>
+          <Text id="break-issues-caption" sx={{fontSize: 1, color: 'fg.subtle'}}>
+            Turn on to break everything and show big error in panel
+          </Text>
+        </Box>
+        <ToggleSwitch
+          defaultChecked={false}
+          onChange={enabled => setIssuesBroken(enabled)}
+          aria-labelledby="break-issues-label"
+          aria-describedby="break-issues-caption"
+        />
+      </Box>
+
+      <SelectPanel
+        title="Set assignees"
+        defaultOpen
+        onSubmit={onSubmit}
+        // @ts-ignore todo
+        onClearSelection={onClearSelection}
+      >
+        {/* TODO: the ref types don't match here, use useProvidedRefOrCreate */}
+        {/* @ts-ignore todo */}
+        <SelectPanel.Button
+          variant="invisible"
+          trailingAction={GearIcon}
+          sx={{width: '200px', '[data-component=buttonContent]': {justifyContent: 'start'}}}
+        >
+          Assignees
+        </SelectPanel.Button>
+        <SelectPanel.Header>
+          <SelectPanel.SearchInput onChange={onSearchInputChange} />
+        </SelectPanel.Header>
+
+        {issuesBroken ? (
+          <SelectPanel.ErrorMessage>
+            <Text sx={{fontSize: 1, fontWeight: 'semibold'}}>We couldn&apos;t load collaborators</Text>
+            <Text sx={{fontSize: 1, color: 'fg.muted'}}>
+              Try again or if the problem persists, <Link href="/support">contact support</Link>
+            </Text>
+          </SelectPanel.ErrorMessage>
+        ) : (
+          <>
+            {query && searchBroken ? (
+              <SelectPanel.Warning
+                sx={{backgroundColor: 'danger.subtle', borderColor: 'danger.muted', color: 'danger.fg'}}
+              >
+                We couldn&apos;t load all collaborators. Try again or if the problem persists,{' '}
+                <Link href="/support">contact support</Link>
+              </SelectPanel.Warning>
+            ) : null}
+            {itemsToShow.length === 0 ? (
+              <SelectPanel.EmptyMessage>No labels found for &quot;{query}&quot;</SelectPanel.EmptyMessage>
+            ) : (
+              <ActionList>
+                {itemsToShow.map(collaborator => (
+                  <ActionList.Item
+                    key={collaborator.id}
+                    onSelect={() => onCollaboratorSelect(collaborator.id)}
+                    selected={selectedAssigneeIds.includes(collaborator.id)}
+                  >
+                    <ActionList.LeadingVisual>
+                      <Avatar src={`https://github.com/${collaborator.login}.png`} />
+                    </ActionList.LeadingVisual>
+                    {collaborator.login}
+                    <ActionList.Description>{collaborator.login}</ActionList.Description>
+                  </ActionList.Item>
+                ))}
+              </ActionList>
+            )}
+          </>
         )}
 
         <SelectPanel.Footer />
