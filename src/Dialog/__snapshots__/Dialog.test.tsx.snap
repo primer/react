@@ -164,16 +164,13 @@ exports[`Dialog renders consistently 1`] = `
   transition: none;
 }
 
+.c1[aria-disabled] {
+  cursor: auto;
+}
+
 .c1:disabled {
   cursor: not-allowed;
   box-shadow: none;
-  color: #8c959f;
-}
-
-.c1:disabled [data-component=ButtonCounter],
-.c1:disabled [data-component="leadingVisual"],
-.c1:disabled [data-component="trailingAction"] {
-  color: inherit;
 }
 
 .c1 [data-component=ButtonCounter] {
@@ -277,6 +274,20 @@ exports[`Dialog renders consistently 1`] = `
 
 .c1:active:not([disabled]) {
   background-color: rgba(208,215,222,0.48);
+}
+
+.c1:disabled,
+.c1[aria-disabled] {
+  color: #8c959f;
+}
+
+.c1:disabled [data-component=ButtonCounter],
+.c1[aria-disabled] [data-component=ButtonCounter],
+.c1:disabled [data-component="leadingVisual"],
+.c1[aria-disabled] [data-component="leadingVisual"],
+.c1:disabled [data-component="trailingAction"],
+.c1[aria-disabled] [data-component="trailingAction"] {
+  color: inherit;
 }
 
 .c1[aria-expanded=true] {

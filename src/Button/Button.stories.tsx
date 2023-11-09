@@ -56,6 +56,7 @@ Playground.args = {
   block: false,
   size: 'medium',
   disabled: false,
+  inactive: false,
   variant: 'default',
   alignContent: 'center',
   trailingVisual: null,
