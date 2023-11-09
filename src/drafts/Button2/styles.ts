@@ -182,12 +182,6 @@ export const getVariantStyles = (variant: VariantType = 'default', inactive?: bo
     },
   }
 
-  if (inactive) {
-    return {
-      color: 'pink',
-    }
-  }
-
   return style[variant]
 }
 
@@ -288,6 +282,11 @@ export const getButtonStyles = (theme?: Theme) => {
     ...getBaseStyles(theme),
     '&[data-block="block"]': {
       width: '100%',
+    },
+    '&[data-inactive]:not([disabled]):not([aria-disabled])': {
+      backgroundColor: `var(--button-inactive-bgColor, ${theme?.colors.btn.inactive.bg})`,
+      border: 0,
+      color: `var(--button-inactive-fgColor, ${theme?.colors.btn.inactive.text})`,
     },
     '[data-component="leadingVisual"]': {
       gridArea: 'leadingVisual',

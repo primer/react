@@ -30,8 +30,8 @@ const ButtonBase = forwardRef(
 
     const {theme} = useTheme()
     const baseStyles = useMemo(() => {
-      return merge.all([getButtonStyles(theme), getVariantStyles(variant, inactive, theme)])
-    }, [theme, variant, inactive])
+      return merge.all([getButtonStyles(theme), getVariantStyles(variant, theme)])
+    }, [theme, variant])
     const sxStyles = useMemo(() => {
       return merge<BetterSystemStyleObject>(baseStyles, sxProp)
     }, [baseStyles, sxProp])

@@ -1,7 +1,7 @@
 import {VariantType, AlignContent} from './types'
 import {Theme} from '../ThemeProvider'
 
-export const getVariantStyles = (variant: VariantType = 'default', inactive?: boolean, theme?: Theme) => {
+export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme) => {
   const style = {
     default: {
       color: 'btn.text',
@@ -191,13 +191,15 @@ export const getVariantStyles = (variant: VariantType = 'default', inactive?: bo
     },
   }
 
-  if (inactive) {
-    return {
-      backgroundColor: `var(--button-inactive-bgColor, ${theme?.colors.btn.inactive.bg})`,
-      border: 0,
-      color: `var(--button-inactive-fgColor, ${theme?.colors.btn.inactive.text})`,
-    }
-  }
+  // if (inactive) {
+  //   return {
+  //     '&[data-inactive]:not([disabled]):not([aria-disabled])': {
+  //       backgroundColor: `var(--button-inactive-bgColor, ${theme?.colors.btn.inactive.bg})`,
+  //       border: 0,
+  //       color: `var(--button-inactive-fgColor, ${theme?.colors.btn.inactive.text})`,
+  //     },
+  //   }
+  // }
 
   return style[variant]
 }
@@ -302,6 +304,11 @@ export const getButtonStyles = (theme?: Theme) => {
     ...getBaseStyles(theme),
     '&[data-block="block"]': {
       width: '100%',
+    },
+    '&[data-inactive]:not([disabled]):not([aria-disabled])': {
+      backgroundColor: `var(--button-inactive-bgColor, ${theme?.colors.btn.inactive.bg})`,
+      border: 0,
+      color: `var(--button-inactive-fgColor, ${theme?.colors.btn.inactive.text})`,
     },
     '[data-component="leadingVisual"]': {
       gridArea: 'leadingVisual',
