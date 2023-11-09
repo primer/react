@@ -20,9 +20,10 @@ import {LeadingVisual, TrailingVisual, VisualProps} from './Visuals'
 const LiBox = styled.li<SxProp>(sx)
 
 const InactiveIndicator: React.FC<{
+  labelId: string
   text: TooltipProps['text']
   visualComponent: React.FC<React.PropsWithChildren<VisualProps>>
-}> = ({text, visualComponent: VisualComponent}) => (
+}> = ({labelId, text, visualComponent: VisualComponent}) => (
   <Tooltip text={text}>
     <Box
       as="button"
@@ -34,6 +35,7 @@ const InactiveIndicator: React.FC<{
         font: 'inherit',
         cursor: 'pointer',
       }}
+      aria-labelledby={labelId}
     >
       <VisualComponent>
         <AlertIcon />
@@ -271,7 +273,9 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
               // Inactive items without a leading visual place the inactive indicator in the
               // trailing visual slot. This preserves the left alignment of item text.
               showInactiveIndicator && slots.leadingVisual ? (
-                <InactiveIndicator text={inactiveText} visualComponent={LeadingVisual} />
+                // using a non-null assertion for `inactiveText` since we check for it in `showInactiveIndicator`
+                // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+                <InactiveIndicator labelId={labelId} text={inactiveText!} visualComponent={LeadingVisual} />
               ) : (
                 // If it's not inactive, just render the leading visual slot
                 slots.leadingVisual
@@ -309,7 +313,9 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
                   //
                   // This preserves the left alignment of item text.
                   showInactiveIndicator && !slots.leadingVisual ? (
-                    <InactiveIndicator text={inactiveText} visualComponent={TrailingVisual} />
+                    // using a non-null assertion for `inactiveText` since we check for it in `showInactiveIndicator`
+                    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+                    <InactiveIndicator labelId={labelId} text={inactiveText!} visualComponent={TrailingVisual} />
                   ) : (
                     // If it's not inactive, or it has a leading visual that can be replaced,
                     // just render the trailing visual slot.
