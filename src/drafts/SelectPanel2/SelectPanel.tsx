@@ -361,9 +361,17 @@ const SelectPanelLoading: React.FC<{children: string}> = ({children = 'Fetching 
 
 SelectPanel.Loading = SelectPanelLoading
 
-type SelectPanelMessageProps = {title?: string; children: React.ReactNode} & (
-  | {variant: 'empty'; size?: 'full'} // empty + inline = invalid combination
-  | {variant: 'warning' | 'error'; size?: 'inline' | 'full'}
+type SelectPanelMessageProps = {children: React.ReactNode} & (
+  | {
+      size?: 'full'
+      title: string // title is required with size:full
+      variant: 'warning' | 'error' | 'empty' // default: warning
+    }
+  | {
+      size?: 'inline'
+      title?: never // title is invalid with size:inline
+      variant: 'warning' | 'error' // variant:empty + size:inline = invalid combination
+    }
 )
 
 const SelectPanelMessage: React.FC<SelectPanelMessageProps> = ({
