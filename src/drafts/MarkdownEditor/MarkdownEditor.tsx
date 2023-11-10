@@ -373,7 +373,7 @@ const MarkdownEditor = forwardRef<MarkdownEditorHandle, MarkdownEditorProps>(
         <fieldset
           aria-disabled={disabled /* if we set disabled={true}, we can't enable the buttons that should be enabled */}
           aria-describedby={describedBy ? `${descriptionId} ${describedBy}` : descriptionId}
-          style={{appearance: 'none', border: 'none', minInlineSize: 'auto'}}
+          style={{appearance: 'none', border: 'none', minInlineSize: 'auto', height: fullHeight ? '100%' : undefined}}
         >
           <FormattingTools ref={formattingToolsRef} forInputId={id} />
           <div style={{display: 'none'}}>{childrenWithoutSlots}</div>

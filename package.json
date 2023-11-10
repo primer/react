@@ -257,7 +257,7 @@
     "terser": "5.17.6",
     "ts-node": "10.9.1",
     "ts-toolbelt": "9.6.0",
-    "typescript": "4.9.5",
+    "typescript": "5.2.2",
     "typescript-plugin-css-modules": "5.0.1",
     "unist-util-find": "3.0.0",
     "unist-util-find-before": "4.0.0",

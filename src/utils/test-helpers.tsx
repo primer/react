@@ -9,6 +9,7 @@ global.ResizeObserver = jest.fn().mockImplementation(() => {
   }
 })
 
+// @ts-expect-error only declare properties used internally
 global.CSS = {
   escape: jest.fn(),
   supports: jest.fn().mockImplementation(() => {
