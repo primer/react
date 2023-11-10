@@ -4,6 +4,7 @@ import {FocusKeys} from '@primer/behaviors'
 
 import {
   Button,
+  ButtonProps,
   IconButton,
   Heading,
   Box,
@@ -212,8 +213,7 @@ const Panel: React.FC<SelectPanelProps> = ({
   )
 }
 
-const SelectPanelButton = React.forwardRef((props, anchorRef) => {
-  // @ts-ignore todo
+const SelectPanelButton = React.forwardRef<HTMLButtonElement, ButtonProps>((props, anchorRef) => {
   return <Button ref={anchorRef} {...props} />
 })
 
@@ -364,9 +364,8 @@ const SelectPanelFooter = ({...props}) => {
   )
 }
 
-// @ts-ignore todo
-const SelectPanelSecondaryButton = props => {
-  return <Button {...props} size="small" type="button" block />
+const SelectPanelSecondaryButton: React.FC<ButtonProps> = props => {
+  return <Button type="button" size="small" block {...props} />
 }
 // SelectPanel.SecondaryLink = props => {
 //   return <a {...props}>{props.children}</a>
