@@ -362,59 +362,13 @@ const SelectPanelLoading: React.FC<{children: string}> = ({children = 'Fetching 
 
 SelectPanel.Loading = SelectPanelLoading
 
-const SelectPanelErrorMessage: React.FC<{title: string; children: React.ReactNode}> = ({title, children}) => {
-  return (
-    <Box
-      sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-        flexGrow: 1,
-        height: '100%',
-        gap: 1,
-        paddingX: 4,
-        textAlign: 'center',
-        a: {color: 'inherit', textDecoration: 'underline'},
-      }}
-    >
-      <Octicon icon={AlertIcon} sx={{color: 'danger.fg', marginBottom: 2}} />
-      <Text sx={{fontSize: 1, fontWeight: 'semibold'}}>{title}</Text>
-      <Text sx={{fontSize: 1, color: 'fg.muted'}}>{children}</Text>
-    </Box>
-  )
-}
-
-SelectPanel.ErrorMessage = SelectPanelErrorMessage
-
-const SelectPanelInlineErrorMessage: React.FC<{children: React.ReactNode}> = props => {
-  return (
-    <SelectPanelWarning
-      sx={{backgroundColor: 'danger.subtle', borderColor: 'danger.muted', color: 'danger.fg'}}
-      {...props}
-    />
-  )
-}
-
-SelectPanel.InlineErrorMessage = SelectPanelInlineErrorMessage
-
 // TODO: variant: 'empty' and size: 'inline' is not possible combination
 const SelectPanelMessage: React.FC<{
   variant: 'warning' | 'error' | 'empty'
-  size?: 'full' | 'inline' // TODO: is this the variant and the other is level?
+  size?: 'full' | 'inline'
   title?: string
   children: React.ReactNode
-}> = ({variant = 'warning', size = 'full', title, children}) => {
-  const variantStyles = {
-    empty: {},
-    warning: {
-      backgroundColor: 'attention.subtle',
-      color: 'attention.fg',
-      borderBottomColor: 'attention.muted',
-    },
-    error: {},
-  }
-
+}> = ({variant = 'warning', size = variant === 'empty' ? 'full' : 'inline', title, children}) => {
   if (size === 'full') {
     return (
       <Box
@@ -430,15 +384,30 @@ const SelectPanelMessage: React.FC<{
           paddingX: 4,
           textAlign: 'center',
           a: {color: 'inherit', textDecoration: 'underline'},
-          ...variantStyles[variant],
         }}
       >
-        {variant === 'error' ? <Octicon icon={AlertIcon} sx={{color: 'danger.fg', marginBottom: 2}} /> : null}
+        {variant !== 'empty' ? (
+          <Octicon icon={AlertIcon} sx={{color: variant === 'error' ? 'danger.fg' : 'attention.fg', marginBottom: 2}} />
+        ) : null}
         <Text sx={{fontSize: 1, fontWeight: 'semibold'}}>{title}</Text>
         <Text sx={{fontSize: 1, color: 'fg.muted'}}>{children}</Text>
       </Box>
     )
   } else {
+    const inlineVariantStyles = {
+      empty: {},
+      warning: {
+        backgroundColor: 'attention.subtle',
+        color: 'attention.fg',
+        borderBottomColor: 'attention.muted',
+      },
+      error: {
+        backgroundColor: 'danger.subtle',
+        color: 'danger.fg',
+        borderColor: 'danger.muted',
+      },
+    }
+
     return (
       <Box
         aria-live={variant === 'empty' ? undefined : 'polite'}
@@ -450,7 +419,7 @@ const SelectPanelMessage: React.FC<{
           fontSize: 0,
           borderBottom: '1px solid',
           a: {color: 'inherit', textDecoration: 'underline'},
-          ...variantStyles[variant],
+          ...inlineVariantStyles[variant],
         }}
       >
         <AlertIcon size={16} />

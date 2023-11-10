@@ -1020,16 +1020,16 @@ export const JWithErrors = () => {
         </SelectPanel.Header>
 
         {issuesBroken ? (
-          <SelectPanel.ErrorMessage title="We couldn't load collaborators">
+          <SelectPanel.Message variant="error" size="full" title="We couldn't load collaborators">
             Try again or if the problem persists, <Link href="/support">contact support</Link>
-          </SelectPanel.ErrorMessage>
+          </SelectPanel.Message>
         ) : (
           <>
             {query && searchBroken ? (
-              <SelectPanel.InlineErrorMessage>
+              <SelectPanel.Message variant="error" size="inline">
                 We couldn&apos;t load all collaborators. Try again or if the problem persists,{' '}
                 <Link href="/support">contact support</Link>
-              </SelectPanel.InlineErrorMessage>
+              </SelectPanel.Message>
             ) : null}
             {itemsToShow.length === 0 ? (
               <SelectPanel.Message variant="empty" title={`No labels found for "${query}"`}>
