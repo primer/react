@@ -89,11 +89,11 @@ export const AControlled = () => {
           // eslint-disable-next-line no-console
           console.log('panel was closed')
         }}
-        // TODO: onClearSelection feels even more odd on the parent, instead of on the header.
+        // API TODO: onClearSelection feels even more odd on the parent, instead of on the header.
         onClearSelection={onClearSelection}
       >
         <SelectPanel.Button>Assign label</SelectPanel.Button>
-        {/* TODO: header and heading is confusing. maybe skip header completely. */}
+        {/* API TODO: header and heading is confusing. maybe skip header completely. */}
         <SelectPanel.Header>
           <SelectPanel.SearchInput onChange={onSearchInputChange} />
         </SelectPanel.Header>
@@ -789,7 +789,6 @@ export const IWithWarning = () => {
 
     if (query === '') setFilteredUsers(data.collaborators)
     else {
-      // TODO: should probably add a highlight for matching text
       setFilteredUsers(
         data.collaborators
           .map(collaborator => {
@@ -833,7 +832,6 @@ export const IWithWarning = () => {
         >
           Assignees
         </SelectPanel.Button>
-        {/* TODO: header and heading is confusing. maybe skip header completely. */}
         <SelectPanel.Header>
           <SelectPanel.SearchInput onChange={onSearchInputChange} />
         </SelectPanel.Header>

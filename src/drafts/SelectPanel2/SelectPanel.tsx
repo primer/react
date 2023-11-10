@@ -364,6 +364,7 @@ const SelectPanelFooter = ({...props}) => {
   )
 }
 
+// TODO: is this the right way to add button props?
 const SelectPanelSecondaryButton: React.FC<ButtonProps> = props => {
   return <Button type="button" size="small" block {...props} />
 }
