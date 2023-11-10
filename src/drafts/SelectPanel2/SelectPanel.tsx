@@ -362,13 +362,17 @@ const SelectPanelLoading: React.FC<{children: string}> = ({children = 'Fetching 
 
 SelectPanel.Loading = SelectPanelLoading
 
-// TODO: variant: 'empty' and size: 'inline' is not possible combination
-const SelectPanelMessage: React.FC<{
-  variant: 'warning' | 'error' | 'empty'
-  size?: 'full' | 'inline'
-  title?: string
-  children: React.ReactNode
-}> = ({variant = 'warning', size = variant === 'empty' ? 'full' : 'inline', title, children}) => {
+type SelectPanelMessageProps = {title?: string; children: React.ReactNode} & (
+  | {variant: 'empty'; size?: 'full'} // empty + inline = invalid combination
+  | {variant: 'warning' | 'error'; size?: 'inline' | 'full'}
+)
+
+const SelectPanelMessage: React.FC<SelectPanelMessageProps> = ({
+  variant = 'warning',
+  size = variant === 'empty' ? 'full' : 'inline',
+  title,
+  children,
+}) => {
   if (size === 'full') {
     return (
       <Box
