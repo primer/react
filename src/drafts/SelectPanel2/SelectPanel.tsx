@@ -28,7 +28,7 @@ const SelectPanelContext = React.createContext<{
   onCancel: () => void
   onClearSelection: undefined | (() => void)
   searchQuery: string
-  setSearchQuery: () => void
+  setSearchQuery: React.Dispatch<React.SetStateAction<string>>
   selectionVariant: ActionListProps['selectionVariant'] | 'instant'
 }>({
   title: '',
@@ -49,7 +49,7 @@ export type SelectPanelProps = {
 
   defaultOpen?: boolean
   open?: boolean
-  anchorRef?: React.RefObject<unknown>
+  anchorRef?: React.RefObject<HTMLButtonElement>
 
   onCancel?: () => void
   onClearSelection?: undefined | (() => void)
@@ -62,7 +62,6 @@ export type SelectPanelProps = {
   children: React.ReactNode
 }
 
-// @ts-ignore todo
 const Panel: React.FC<SelectPanelProps> = ({
   title,
   description,
@@ -119,7 +118,7 @@ const Panel: React.FC<SelectPanelProps> = ({
   }
 
   /* Search/Filter */
-  const [searchQuery, setSearchQuery] = React.useState('')
+  const [searchQuery, setSearchQuery] = React.useState<string>('')
 
   /* Panel plumbing */
   const panelId = useId(id)
@@ -137,7 +136,6 @@ const Panel: React.FC<SelectPanelProps> = ({
   return (
     <>
       <AnchoredOverlay
-        // @ts-ignore todo
         anchorRef={anchorRef}
         renderAnchor={renderAnchor}
         open={internalOpen}
@@ -165,7 +163,6 @@ const Panel: React.FC<SelectPanelProps> = ({
             onCancel: onInternalClose,
             onClearSelection: propsOnClearSelection ? onInternalClearSelection : undefined,
             searchQuery,
-            // @ts-ignore todo
             setSearchQuery,
             selectionVariant,
           }}
@@ -280,18 +277,18 @@ const SelectPanelHeader: React.FC<React.PropsWithChildren> = ({children, ...prop
   )
 }
 
-// @ts-ignore todo
-const SelectPanelSearchInput = props => {
+type SearchInputProps = {
+  onChange: React.ChangeEventHandler<HTMLInputElement>
+}
+const SelectPanelSearchInput: React.FC<SearchInputProps> = ({onChange: propsOnChange, ...props}) => {
   const inputRef = React.createRef<HTMLInputElement>()
 
   const {setSearchQuery} = React.useContext(SelectPanelContext)
 
-  // @ts-ignore todo
-  const internalOnChange = event => {
+  const internalOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     // If props.onChange is given, the application controls search,
     // otherwise the component does
-    if (typeof props.onChange === 'function') props(props.onChange)
-    // @ts-ignore todo
+    if (typeof propsOnChange === 'function') propsOnChange(event)
     else setSearchQuery(event.target.value)
   }
 
@@ -311,8 +308,9 @@ const SelectPanelSearchInput = props => {
           sx={{color: 'fg.subtle', bg: 'none'}}
           onClick={() => {
             if (inputRef.current) inputRef.current.value = ''
-            if (typeof props.onChange === 'function') {
-              props.onChange({target: inputRef.current, currentTarget: inputRef.current})
+            if (typeof propsOnChange === 'function') {
+              // @ts-ignore TODO this is a hacky solution to clear
+              propsOnChange({target: inputRef.current, currentTarget: inputRef.current})
             }
           }}
         />
