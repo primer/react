@@ -50,7 +50,7 @@ const SelectPanel = props => {
   // with additional props for accessibility
   let renderAnchor: AnchoredOverlayProps['renderAnchor'] = null
   const contents = React.Children.map(props.children, child => {
-    if (child.type === SelectPanelButton) {
+    if (child?.type === SelectPanelButton) {
       renderAnchor = anchorProps => React.cloneElement(child, anchorProps)
       return null
     }
