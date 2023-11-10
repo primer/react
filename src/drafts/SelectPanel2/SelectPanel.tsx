@@ -393,7 +393,7 @@ const SelectPanelWarning: React.FC<{children: React.ReactNode; sx?: BetterSystem
 
 SelectPanel.Warning = SelectPanelWarning
 
-const SelectPanelEmptyMessage: React.FC<{children: string | React.ReactNode}> = ({children = 'No items found...'}) => {
+const SelectPanelEmptyMessage: React.FC<{children: React.ReactNode}> = ({children = 'No items found...'}) => {
   return (
     <Box
       sx={{
@@ -414,7 +414,7 @@ const SelectPanelEmptyMessage: React.FC<{children: string | React.ReactNode}> = 
 
 SelectPanel.EmptyMessage = SelectPanelEmptyMessage
 
-const SelectPanelErrorMessage: React.FC<{children: string | React.ReactNode}> = ({children = 'No items found...'}) => {
+const SelectPanelErrorMessage: React.FC<{title: string; children: React.ReactNode}> = ({title, children}) => {
   return (
     <Box
       sx={{
@@ -431,12 +431,24 @@ const SelectPanelErrorMessage: React.FC<{children: string | React.ReactNode}> = 
       }}
     >
       <Octicon icon={AlertIcon} sx={{color: 'danger.fg', marginBottom: 2}} />
-      {children}
+      <Text sx={{fontSize: 1, fontWeight: 'semibold'}}>{title}</Text>
+      <Text sx={{fontSize: 1, color: 'fg.muted'}}>{children}</Text>
     </Box>
   )
 }
 
 SelectPanel.ErrorMessage = SelectPanelErrorMessage
+
+const SelectPanelInlineErrorMessage: React.FC<{children: React.ReactNode}> = props => {
+  return (
+    <SelectPanelWarning
+      sx={{backgroundColor: 'danger.subtle', borderColor: 'danger.muted', color: 'danger.fg'}}
+      {...props}
+    />
+  )
+}
+
+SelectPanel.InlineErrorMessage = SelectPanelInlineErrorMessage
 
 export {SelectPanel}
 
