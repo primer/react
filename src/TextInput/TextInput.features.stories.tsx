@@ -110,31 +110,40 @@ export const WithTrailingIcon = () => (
 )
 
 export const WithTrailingAction = () => {
-  const [value, setValue] = useState('')
+  const [value, setValue] = useState('Sample Text')
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value)
   }
+
   return (
     <Box as="form">
       <FormControl>
         <FormControl.Label>Default label</FormControl.Label>
         <TextInput
           trailingAction={
-            value.length > 0 ? (
-              <TextInput.Action
-                onClick={() => {
-                  setValue('')
-                }}
-                icon={XCircleFillIcon}
-                aria-label="Clear input"
-                sx={{
-                  color: 'fg.muted',
-                  backgroundColor: 'transparent',
-                  '&:hover': {color: 'fg.subtle'},
-                }}
-              />
-            ) : undefined
+            <Box
+              sx={{
+                width: '30px',
+                display: 'flex',
+                alignItems: 'center',
+              }}
+            >
+              {value.length > 0 && (
+                <TextInput.Action
+                  onClick={() => {
+                    setValue('')
+                  }}
+                  icon={XCircleFillIcon}
+                  aria-label="Clear input"
+                  sx={{
+                    color: 'fg.muted',
+                    backgroundColor: 'transparent',
+                    '&:hover': {color: 'fg.subtle'},
+                  }}
+                />
+              )}
+            </Box>
           }
           value={value}
           onChange={handleChange}
@@ -145,32 +154,41 @@ export const WithTrailingAction = () => {
 }
 
 export const WithTooltipDirection = () => {
-  const [value, setValue] = useState('')
+  const [value, setValue] = useState('Sample Text')
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value)
   }
+
   return (
     <Box as="form">
       <FormControl>
         <FormControl.Label>Default label</FormControl.Label>
         <TextInput
           trailingAction={
-            value.length > 0 ? (
-              <TextInput.Action
-                onClick={() => {
-                  setValue('')
-                }}
-                icon={XCircleFillIcon}
-                aria-label="Clear input"
-                tooltipDirection="nw"
-                sx={{
-                  color: 'fg.muted',
-                  backgroundColor: 'transparent',
-                  '&:hover': {color: 'fg.subtle'},
-                }}
-              />
-            ) : undefined
+            <Box
+              sx={{
+                width: '30px',
+                display: 'flex',
+                alignItems: 'center',
+              }}
+            >
+              {value.length > 0 && (
+                <TextInput.Action
+                  onClick={() => {
+                    setValue('')
+                  }}
+                  icon={XCircleFillIcon}
+                  aria-label="Clear input"
+                  tooltipDirection="nw"
+                  sx={{
+                    color: 'fg.muted',
+                    backgroundColor: 'transparent',
+                    '&:hover': {color: 'fg.subtle'},
+                  }}
+                />
+              )}
+            </Box>
           }
           value={value}
           onChange={handleChange}
