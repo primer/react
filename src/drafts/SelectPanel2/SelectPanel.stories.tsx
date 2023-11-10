@@ -107,7 +107,9 @@ export const AControlled = () => {
         </SelectPanel.Header>
 
         {itemsToShow.length === 0 ? (
-          <SelectPanel.EmptyMessage>No labels found for &quot;{query}&quot;</SelectPanel.EmptyMessage>
+          <SelectPanel.Message variant="empty" title={`No labels found for "${query}"`}>
+            Try a different search term
+          </SelectPanel.Message>
         ) : (
           <ActionList>
             {itemsToShow.map(label => (
@@ -197,7 +199,9 @@ const SuspendedActionList: React.FC<{query: string}> = ({query}) => {
   const itemsToShow = query ? filteredLabels : data.labels.sort(sortingFn)
 
   return itemsToShow.length === 0 ? (
-    <SelectPanel.EmptyMessage>No labels found for &quot;{query}&quot;</SelectPanel.EmptyMessage>
+    <SelectPanel.Message variant="empty" title={`No labels found for "${query}"`}>
+      Try a different search term
+    </SelectPanel.Message>
   ) : (
     <ActionList>
       {itemsToShow.map(label => (
@@ -296,7 +300,9 @@ const SearchableUserList: React.FC<{
   const itemsToShow = query ? filteredUsers : repository.collaborators.sort(sortingFn)
 
   return itemsToShow.length === 0 ? (
-    <SelectPanel.EmptyMessage>No users found for &quot;{query}&quot;</SelectPanel.EmptyMessage>
+    <SelectPanel.Message variant="empty" title={`No users found for "${query}"`}>
+      Try a different search term
+    </SelectPanel.Message>
   ) : (
     <ActionList>
       {itemsToShow.map(user => (
@@ -460,7 +466,9 @@ export const HWithFilterButtons = () => {
         </SelectPanel.Header>
 
         {itemsToShow.length === 0 ? (
-          <SelectPanel.EmptyMessage>No labels found for &quot;{'query'}&quot;</SelectPanel.EmptyMessage>
+          <SelectPanel.Message variant="empty" title={`No labels found for "${query}"`}>
+            Try a different search term
+          </SelectPanel.Message>
         ) : (
           <ActionList selectionVariant="single">
             {itemsToShow.map(item => (
@@ -861,7 +869,9 @@ export const IWithWarning = () => {
         )}
 
         {itemsToShow.length === 0 ? (
-          <SelectPanel.EmptyMessage>No labels found for &quot;{query}&quot;</SelectPanel.EmptyMessage>
+          <SelectPanel.Message variant="empty" title={`No labels found for "${query}"`}>
+            Try a different search term
+          </SelectPanel.Message>
         ) : (
           <ActionList>
             {itemsToShow.map(collaborator => (
@@ -1024,7 +1034,9 @@ export const JWithErrors = () => {
               </SelectPanel.InlineErrorMessage>
             ) : null}
             {itemsToShow.length === 0 ? (
-              <SelectPanel.EmptyMessage>No labels found for &quot;{query}&quot;</SelectPanel.EmptyMessage>
+              <SelectPanel.Message variant="empty" title={`No labels found for "${query}"`}>
+                Try a different search term
+              </SelectPanel.Message>
             ) : (
               <ActionList>
                 {itemsToShow.map(collaborator => (

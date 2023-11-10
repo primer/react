@@ -393,27 +393,6 @@ const SelectPanelWarning: React.FC<{children: React.ReactNode; sx?: BetterSystem
 
 SelectPanel.Warning = SelectPanelWarning
 
-const SelectPanelEmptyMessage: React.FC<{children: React.ReactNode}> = ({children = 'No items found...'}) => {
-  return (
-    <Box
-      sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-        flexGrow: 1,
-        height: '100%',
-        gap: 2,
-      }}
-    >
-      <Text sx={{fontSize: 1}}>{children}</Text>
-      <Text sx={{fontSize: 0, color: 'fg.muted'}}>Try a different search term</Text>
-    </Box>
-  )
-}
-
-SelectPanel.EmptyMessage = SelectPanelEmptyMessage
-
 const SelectPanelErrorMessage: React.FC<{title: string; children: React.ReactNode}> = ({title, children}) => {
   return (
     <Box
@@ -449,6 +428,42 @@ const SelectPanelInlineErrorMessage: React.FC<{children: React.ReactNode}> = pro
 }
 
 SelectPanel.InlineErrorMessage = SelectPanelInlineErrorMessage
+
+// TODO: variant: 'empty' and size: 'inline' is not possible combination
+const SelectPanelMessage: React.FC<{
+  variant: 'warning' | 'error' | 'empty'
+  size?: 'full' | 'inline'
+  title?: string
+  children: React.ReactNode
+}> = ({variant = 'warning', size = 'full', title, children}) => {
+  if (size === 'full') {
+    return (
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+          flexGrow: 1,
+          height: '100%',
+          gap: 1,
+          paddingX: 4,
+          textAlign: 'center',
+          a: {color: 'inherit', textDecoration: 'underline'},
+        }}
+      >
+        {variant === 'error' ? <Octicon icon={AlertIcon} sx={{color: 'danger.fg', marginBottom: 2}} /> : null}
+        <Text sx={{fontSize: 1, fontWeight: 'semibold'}}>{title}</Text>
+        <Text sx={{fontSize: 1, color: 'fg.muted'}}>{children}</Text>
+      </Box>
+    )
+  } else {
+    // todo
+    return null
+  }
+}
+
+SelectPanel.Message = SelectPanelMessage
 
 export {SelectPanel}
 
