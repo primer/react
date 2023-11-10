@@ -5,7 +5,7 @@ import {render as HTMLRender} from '@testing-library/react'
 import theme from '../../../theme'
 import {Button, ActionMenu, ActionList, ThemeProvider, SSRProvider, BaseStyles} from '../../../'
 
-const TooltipComponent = (props: TooltipProps) => (
+const TooltipComponent = (props: Omit<TooltipProps, 'text'> & {text?: string}) => (
   <Tooltip text="Tooltip text" {...props}>
     <Button>Button Text</Button>
   </Tooltip>

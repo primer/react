@@ -207,14 +207,14 @@ const SelectPanelHeader: React.FC<React.PropsWithChildren> = ({children, ...prop
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: description ? 'start' : 'center',
-          marginBottom: 2,
+          marginBottom: slots.searchInput ? 2 : 0,
         }}
       >
         <Box sx={{marginLeft: 2, marginTop: description ? '2px' : 0}}>
           {/* heading element is intentionally hardcoded to h1, it is not customisable 
             see https://github.com/github/primer/issues/2578 for context
           */}
-          <Heading as="h1" id={`${panelId}--title`} sx={{fontSize: 14, fontWeight: 600}} {...props}>
+          <Heading as="h1" id={`${panelId}--title`} sx={{fontSize: 14, fontWeight: 600}}>
             {title}
           </Heading>
           {description ? (
