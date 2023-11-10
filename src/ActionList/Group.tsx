@@ -83,11 +83,10 @@ export const Group: React.FC<React.PropsWithChildren<ActionListGroupProps>> = ({
       {...props}
     >
       <GroupContext.Provider value={{selectionVariant, groupHeadingId}}>
-        {slots.groupHeading || title ? (
-          <GroupHeading title={title} variant={variant} auxiliaryText={auxiliaryText} as={slots.groupHeading?.props.as}>
-            {slots.groupHeading ? slots.groupHeading.props.children : null}
-          </GroupHeading>
+        {title && !slots.groupHeading ? (
+          <GroupHeading title={title} variant={variant} auxiliaryText={auxiliaryText} />
         ) : null}
+        {!title && slots.groupHeading ? React.cloneElement(slots.groupHeading) : null}
         <Box
           as="ul"
           sx={{paddingInlineStart: 0}}
@@ -113,9 +112,12 @@ export type GroupHeadingProps = Pick<ActionListGroupProps, 'variant' | 'title' |
   }
 
 /**
- * Displays the name and description of a `Group`.
+ * Heading of  a `Group`.
  *
- * For visual presentation only.
+ * As default, the role of ActionList is "list" and therefore group heading is rendered as a proper heading tag.
+ * If the role is "listbox" or "menu" (ActionMenu), the group heading is rendered as a div with presentation role and it is
+ * hidden from the accessibility tree due to the limitation of listbox children. https://w3c.github.io/aria/#listbox
+ * groups under menu or listbox are labelled by `aria-label`
  */
 export const GroupHeading: React.FC<React.PropsWithChildren<GroupHeadingProps>> = ({
   as,
@@ -130,7 +132,7 @@ export const GroupHeading: React.FC<React.PropsWithChildren<GroupHeadingProps>> 
   const {groupHeadingId} = React.useContext(GroupContext)
   // for list role, the headings are proper heading tags, for menu and listbox, they are just representational and divs
   warning(
-    listRole === undefined && children !== null && as === undefined,
+    listRole === undefined && children !== undefined && as === undefined,
     `You are setting a heading for a list, that requires a heading level. Please use 'as' prop to set a proper heading level.`,
   )
 
