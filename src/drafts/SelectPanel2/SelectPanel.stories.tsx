@@ -860,13 +860,11 @@ export const IWithWarning = () => {
         </SelectPanel.Header>
 
         {selectedAssigneeIds.length >= MAX_LIMIT ? (
-          <SelectPanel.Warning>
+          <SelectPanel.Message variant="warning" size="inline">
             You have reached the limit of {MAX_LIMIT} assignees on your free account.{' '}
             <Link href="/upgrade">Upgrade your account.</Link>
-          </SelectPanel.Warning>
-        ) : (
-          <></>
-        )}
+          </SelectPanel.Message>
+        ) : null}
 
         {itemsToShow.length === 0 ? (
           <SelectPanel.Message variant="empty" title={`No labels found for "${query}"`}>

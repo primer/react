@@ -362,37 +362,6 @@ const SelectPanelLoading: React.FC<{children: string}> = ({children = 'Fetching 
 
 SelectPanel.Loading = SelectPanelLoading
 
-const SelectPanelWarning: React.FC<{children: React.ReactNode; sx?: BetterSystemStyleObject}> = ({
-  children,
-  sx = {},
-}) => {
-  return (
-    <Box
-      aria-live="polite"
-      sx={{
-        display: 'flex',
-        gap: 2,
-        paddingX: 3,
-        paddingY: '12px',
-        fontSize: 0,
-        backgroundColor: 'attention.subtle',
-        color: 'attention.fg',
-        borderBottom: '1px solid',
-        borderBottomColor: 'attention.muted',
-        a: {color: 'inherit', textDecoration: 'underline'},
-        ...sx, // TODO: deep merge!
-      }}
-    >
-      <Box sx={{display: 'grid', pt: '1px'}}>
-        <AlertIcon size={16} />
-      </Box>
-      <Box>{children}</Box>
-    </Box>
-  )
-}
-
-SelectPanel.Warning = SelectPanelWarning
-
 const SelectPanelErrorMessage: React.FC<{title: string; children: React.ReactNode}> = ({title, children}) => {
   return (
     <Box
@@ -432,13 +401,24 @@ SelectPanel.InlineErrorMessage = SelectPanelInlineErrorMessage
 // TODO: variant: 'empty' and size: 'inline' is not possible combination
 const SelectPanelMessage: React.FC<{
   variant: 'warning' | 'error' | 'empty'
-  size?: 'full' | 'inline'
+  size?: 'full' | 'inline' // TODO: is this the variant and the other is level?
   title?: string
   children: React.ReactNode
 }> = ({variant = 'warning', size = 'full', title, children}) => {
+  const variantStyles = {
+    empty: {},
+    warning: {
+      backgroundColor: 'attention.subtle',
+      color: 'attention.fg',
+      borderBottomColor: 'attention.muted',
+    },
+    error: {},
+  }
+
   if (size === 'full') {
     return (
       <Box
+        aria-live={variant === 'empty' ? undefined : 'polite'}
         sx={{
           display: 'flex',
           flexDirection: 'column',
@@ -450,6 +430,7 @@ const SelectPanelMessage: React.FC<{
           paddingX: 4,
           textAlign: 'center',
           a: {color: 'inherit', textDecoration: 'underline'},
+          ...variantStyles[variant],
         }}
       >
         {variant === 'error' ? <Octicon icon={AlertIcon} sx={{color: 'danger.fg', marginBottom: 2}} /> : null}
@@ -458,8 +439,24 @@ const SelectPanelMessage: React.FC<{
       </Box>
     )
   } else {
-    // todo
-    return null
+    return (
+      <Box
+        aria-live={variant === 'empty' ? undefined : 'polite'}
+        sx={{
+          display: 'flex',
+          gap: 2,
+          paddingX: 3,
+          paddingY: '12px',
+          fontSize: 0,
+          borderBottom: '1px solid',
+          a: {color: 'inherit', textDecoration: 'underline'},
+          ...variantStyles[variant],
+        }}
+      >
+        <AlertIcon size={16} />
+        <Box>{children}</Box>
+      </Box>
+    )
   }
 }
 
