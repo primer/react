@@ -20,7 +20,6 @@ import {ActionListContainerContext} from '../../../src/ActionList/ActionListCont
 import {useSlots} from '../../hooks/useSlots'
 import {useProvidedRefOrCreate, useId} from '../../hooks'
 import {useFocusZone} from '../../hooks/useFocusZone'
-import {BetterSystemStyleObject} from '../../sx'
 
 const SelectPanelContext = React.createContext<{
   title: string

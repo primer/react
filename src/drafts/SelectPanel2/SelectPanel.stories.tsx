@@ -914,12 +914,6 @@ export const JWithErrors = () => {
   }
 
   /* Filtering */
-
-  // if search is broken, only show assignees, not all collaborators
-  const allCollaborators = searchBroken
-    ? data.collaborators.filter(c => initialAssigneeIds.includes(c.id))
-    : data.collaborators
-
   const [filteredUsers, setFilteredUsers] = React.useState(
     searchBroken ? data.collaborators.filter(c => initialAssigneeIds.includes(c.id)) : data.collaborators,
   )
