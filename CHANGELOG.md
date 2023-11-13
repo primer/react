@@ -1,5 +1,35 @@
 # @primer/components
 
+## 36.2.0
+
+### Minor Changes
+
+- [#3900](https://github.com/primer/react/pull/3900) [`2f9b5869`](https://github.com/primer/react/commit/2f9b58691ed2531b3af263e0f0547737ade9e717) Thanks [@broccolinisoup](https://github.com/broccolinisoup)! - ActionList: Add ActionList.GroupHeading component to label the group lists and update labelling semantics for accessibility
+
+- [#3143](https://github.com/primer/react/pull/3143) [`cc0c16e9`](https://github.com/primer/react/commit/cc0c16e9bb05f16d5aaec7d35431649a9652f056) Thanks [@green6erry](https://github.com/green6erry)! - Adjusts position of children within `PageLayout.Pane` to live above adjustable resize form.
+
+### Patch Changes
+
+- [#3935](https://github.com/primer/react/pull/3935) [`89702725`](https://github.com/primer/react/commit/89702725bc4174cc37d7e0ec77ed1a4f7d7db3cf) Thanks [@broccolinisoup](https://github.com/broccolinisoup)! - Dialog: Add sx back to dialog footer
+
+- [#3918](https://github.com/primer/react/pull/3918) [`e8d0c15f`](https://github.com/primer/react/commit/e8d0c15f169f51a87c414a411f819e71338e661b) Thanks [@dylanatsmith](https://github.com/dylanatsmith)! - Update the spacing for buttons in the footer of a Dialog.
+
+- [#3893](https://github.com/primer/react/pull/3893) [`a4006e2f`](https://github.com/primer/react/commit/a4006e2fee11bd6a5efa99b8ddbd3eddec9ff274) Thanks [@stkao05](https://github.com/stkao05)! - Fix MarkdownEditor fullHeight support
+
+- [#3895](https://github.com/primer/react/pull/3895) [`9daea96b`](https://github.com/primer/react/commit/9daea96bd25310420b729125f187a25ddcbdd971) Thanks [@cs25-esc](https://github.com/cs25-esc)! - AvatarStack: Both `disableExpand` and `rightAlign` can be passed together now
+
+- [#3667](https://github.com/primer/react/pull/3667) [`791c9838`](https://github.com/primer/react/commit/791c983846115438bbea54768b73272260736007) Thanks [@six7](https://github.com/six7)! - Changes visual appearance of MarkdownEditor
+
+  <!-- Changed components: MarkdownEditor -->
+
+- [#3910](https://github.com/primer/react/pull/3910) [`988b297d`](https://github.com/primer/react/commit/988b297d7c42da662326d2255360d24f0b01fe98) Thanks [@broccolinisoup](https://github.com/broccolinisoup)! - Tooltip (draft): Do not expose the tooltip text to AT when it is not visible
+
+- [#3924](https://github.com/primer/react/pull/3924) [`e512c049`](https://github.com/primer/react/commit/e512c0499b3a9d4143d930570ce62d5a40da1515) Thanks [@thyeggman](https://github.com/thyeggman)! - Fix issue in DataTable so that sort order is determined after column headers are created
+
+- [#3916](https://github.com/primer/react/pull/3916) [`c2f81b3c`](https://github.com/primer/react/commit/c2f81b3c175c18c76acef1d9d1e537aeb6387a8c) Thanks [@strackoverflow](https://github.com/strackoverflow)! - Fix inconsistent border treatment when there is one avatar in an AvatarStack
+
+- [#3925](https://github.com/primer/react/pull/3925) [`6b362b2a`](https://github.com/primer/react/commit/6b362b2a3603bb06736a70e64eafccd8b1207006) Thanks [@broccolinisoup](https://github.com/broccolinisoup)! - Tooltip2: make the text prop required
+
 ## 36.1.0
 
 ### Minor Changes
