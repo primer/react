@@ -363,11 +363,11 @@ export const WithCustomPaneHeading: Story = () => (
     <PageLayout.Header>
       <Placeholder height={64} label="Header" />
     </PageLayout.Header>
-    <PageLayout.Pane resizable position="end">
-      <Placeholder height={320} label="Pane" />
-      <PageLayout.PaneHeading as="h2" sx={{fontSize: 3}} id="pane-heading">
+    <PageLayout.Pane resizable position="start">
+      <Heading as="h2" sx={{fontSize: 3}} id="pane-heading">
         Pane Heading
-      </PageLayout.PaneHeading>
+      </Heading>
+      <Placeholder height={320} label="Pane" />
     </PageLayout.Pane>
     <PageLayout.Content>
       <Placeholder height={640} label="Content" />

@@ -13,7 +13,6 @@ import {useOverflow} from '../internal/hooks/useOverflow'
 import {warning} from '../utils/warning'
 import VisuallyHidden from '../_VisuallyHidden'
 import {useStickyPaneHeight} from './useStickyPaneHeight'
-import {SplitPageLayout} from '../SplitPageLayout'
 
 const REGION_ORDER = {
   header: 0,
@@ -708,11 +707,6 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
       }
     }
 
-    const [slots, childrenWithoutSlots] = useSlots(children, {
-      paneHeading: PaneHeading,
-      splitPaneHeading: SplitPageLayout.PaneHeading,
-    })
-
     return (
       <Box
         ref={measuredRef}
@@ -806,7 +800,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
           {...labelProp}
           {...(id && {id: paneId})}
         >
-          {slots.paneHeading || slots.splitPaneHeading}
+          {children}
           {resizable && (
             // eslint-disable-next-line github/a11y-no-visually-hidden-interactive-element
             <VisuallyHidden>
@@ -833,7 +827,6 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
               </form>
             </VisuallyHidden>
           )}
-          {childrenWithoutSlots}
         </Box>
       </Box>
     )
@@ -918,26 +911,6 @@ const Footer: React.FC<React.PropsWithChildren<PageLayoutFooterProps>> = ({
 Footer.displayName = 'PageLayout.Footer'
 
 // ----------------------------------------------------------------------------
-// PageLayout.PaneHeading
-
-type HeadingLevels = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
-
-export type PageLayoutPaneHeadingProps = {
-  as: HeadingLevels
-} & SxProp &
-  React.HTMLAttributes<HTMLHeadingElement>
-
-const PaneHeading: React.FC<React.PropsWithChildren<PageLayoutPaneHeadingProps>> = ({as, children, ...props}) => {
-  return (
-    <Heading as={as} {...props}>
-      {children}
-    </Heading>
-  )
-}
-
-PaneHeading.displayName = 'PageLayout.PaneHeading'
-
-// ----------------------------------------------------------------------------
 // Export
 
 export const PageLayout = Object.assign(Root, {
@@ -945,5 +918,4 @@ export const PageLayout = Object.assign(Root, {
   Content,
   Pane,
   Footer,
-  PaneHeading,
 })
