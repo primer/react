@@ -125,7 +125,7 @@
     "styled-system": "^5.1.5"
   },
   "devDependencies": {
-    "@actions/core": "1.10.0",
+    "@actions/core": "1.10.1",
     "@babel/cli": "7.22.10",
     "@babel/core": "7.22.5",
     "@babel/eslint-parser": "7.23.3",
@@ -133,7 +133,7 @@
     "@babel/plugin-proposal-nullish-coalescing-operator": "7.18.6",
     "@babel/plugin-proposal-optional-chaining": "7.21.0",
     "@babel/plugin-transform-modules-commonjs": "7.22.15",
-    "@babel/preset-react": "7.22.15",
+    "@babel/preset-react": "7.23.3",
     "@babel/preset-typescript": "7.22.15",
     "@changesets/changelog-github": "0.4.8",
     "@changesets/cli": "2.26.2",
@@ -231,7 +231,7 @@
     "markdownlint-cli2": "^0.10.0",
     "markdownlint-cli2-formatter-pretty": "0.0.3",
     "mdast-util-from-markdown": "2.0.0",
-    "mdast-util-frontmatter": "1.0.1",
+    "mdast-util-frontmatter": "2.0.1",
     "mdast-util-mdx": "3.0.0",
     "mdast-util-to-string": "4.0.0",
     "micromark-extension-frontmatter": "2.0.0",
