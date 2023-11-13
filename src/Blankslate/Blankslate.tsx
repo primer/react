@@ -76,6 +76,8 @@ const StyledBlankslate = styled.div`
     margin-bottom: var(--stack-gap-condensed);
   }
 
+  /* At the time these styles were written,
+   34rem was our "small" breakpoint width */
   @container (max-width: 34rem) {
     .Blankslate {
       --blankslate-outer-padding-block: var(--base-size-20);
