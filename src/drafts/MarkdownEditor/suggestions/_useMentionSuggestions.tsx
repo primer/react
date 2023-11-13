@@ -2,7 +2,7 @@ import {score} from 'fzy.js'
 import React, {useMemo} from 'react'
 import {suggestionsCalculator, UseSuggestionsHook} from '.'
 import {ActionList} from '../../../ActionList'
-import {Suggestion, Trigger} from '../../InlineAutocomplete'
+import {Suggestion, Trigger} from '../../../InlineAutocomplete'
 import Text from '../../../Text'
 
 /** Could be a user, team, or organization - anything that can be mentioned. */

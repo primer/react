@@ -1,9 +1,14 @@
 import React from 'react'
 import {useId} from '../hooks/useId'
 import Box from '../Box'
-import {SxProp} from '../sx'
+import {SxProp, BetterSystemStyleObject, merge} from '../sx'
 import {ListContext, ActionListProps} from './List'
 import {AriaRole} from '../utils/types'
+import {default as Heading} from '../Heading'
+import type {ActionListHeadingProps} from './Heading'
+import {useSlots} from '../hooks/useSlots'
+import {defaultSxProp} from '../utils/defaultSxProp'
+import {warning} from '../utils/warning'
 
 export type ActionListGroupProps = {
   /**
@@ -32,8 +37,11 @@ export type ActionListGroupProps = {
     selectionVariant?: ActionListProps['selectionVariant'] | false
   }
 
-type ContextProps = Pick<ActionListGroupProps, 'selectionVariant'>
-export const GroupContext = React.createContext<ContextProps>({})
+type ContextProps = Pick<ActionListGroupProps, 'selectionVariant'> & {groupHeadingId: string | undefined}
+export const GroupContext = React.createContext<ContextProps>({
+  groupHeadingId: undefined,
+  selectionVariant: undefined,
+})
 
 export const Group: React.FC<React.PropsWithChildren<ActionListGroupProps>> = ({
   title,
@@ -44,8 +52,24 @@ export const Group: React.FC<React.PropsWithChildren<ActionListGroupProps>> = ({
   sx = {},
   ...props
 }) => {
-  const labelId = useId()
+  const id = useId()
   const {role: listRole} = React.useContext(ListContext)
+
+  const [slots, childrenWithoutSlots] = useSlots(props.children, {
+    groupHeading: GroupHeading,
+  })
+
+  let groupHeadingId = undefined
+
+  // ActionList.GroupHeading
+  if (slots.groupHeading) {
+    // If there is an id prop passed in the ActionList.GroupHeading, use it otherwise use the generated id.
+    groupHeadingId = slots.groupHeading.props.id ?? id
+  }
+  // Supports the deprecated `title` prop
+  if (title) {
+    groupHeadingId = id
+  }
 
   return (
     <Box
@@ -58,32 +82,59 @@ export const Group: React.FC<React.PropsWithChildren<ActionListGroupProps>> = ({
       }}
       {...props}
     >
-      {title && <Header title={title} variant={variant} auxiliaryText={auxiliaryText} labelId={labelId} />}
-      <GroupContext.Provider value={{selectionVariant}}>
+      <GroupContext.Provider value={{selectionVariant, groupHeadingId}}>
+        {title && !slots.groupHeading ? (
+          <GroupHeading title={title} variant={variant} auxiliaryText={auxiliaryText} />
+        ) : null}
+        {!title && slots.groupHeading ? React.cloneElement(slots.groupHeading) : null}
         <Box
           as="ul"
           sx={{paddingInlineStart: 0}}
-          aria-labelledby={title ? labelId : undefined}
+          // if listRole is set (listbox or menu), we don't label the list with the groupHeadingId
+          // because the heading is hidden from the accessibility tree and only used for presentation role.
+          // We will instead use aria-label to label the list. See a line below.
+          aria-labelledby={listRole ? undefined : groupHeadingId}
+          aria-label={listRole ? title ?? (slots.groupHeading?.props.children as string) : undefined}
           role={role || (listRole && 'group')}
         >
-          {props.children}
+          {slots.groupHeading ? childrenWithoutSlots : props.children}
         </Box>
       </GroupContext.Provider>
     </Box>
   )
 }
 
-export type HeaderProps = Pick<ActionListGroupProps, 'variant' | 'title' | 'auxiliaryText'> & {
-  labelId: string
-}
+export type GroupHeadingProps = Pick<ActionListGroupProps, 'variant' | 'title' | 'auxiliaryText'> &
+  Omit<ActionListHeadingProps, 'as'> &
+  SxProp &
+  React.HTMLAttributes<HTMLElement> & {
+    as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
+  }
 
 /**
- * Displays the name and description of a `Group`.
+ * Heading of  a `Group`.
  *
- * For visual presentation only. It's hidden from screen readers.
+ * As default, the role of ActionList is "list" and therefore group heading is rendered as a proper heading tag.
+ * If the role is "listbox" or "menu" (ActionMenu), the group heading is rendered as a div with presentation role and it is
+ * hidden from the accessibility tree due to the limitation of listbox children. https://w3c.github.io/aria/#listbox
+ * groups under menu or listbox are labelled by `aria-label`
  */
-const Header: React.FC<React.PropsWithChildren<HeaderProps>> = ({variant, title, auxiliaryText, labelId, ...props}) => {
-  const {variant: listVariant} = React.useContext(ListContext)
+export const GroupHeading: React.FC<React.PropsWithChildren<GroupHeadingProps>> = ({
+  as,
+  variant,
+  title,
+  auxiliaryText,
+  children,
+  sx = defaultSxProp,
+  ...props
+}) => {
+  const {variant: listVariant, role: listRole} = React.useContext(ListContext)
+  const {groupHeadingId} = React.useContext(GroupContext)
+  // for list role, the headings are proper heading tags, for menu and listbox, they are just representational and divs
+  warning(
+    listRole === undefined && children !== undefined && as === undefined,
+    `You are setting a heading for a list, that requires a heading level. Please use 'as' prop to set a proper heading level.`,
+  )
 
   const styles = {
     paddingY: '6px',
@@ -102,9 +153,20 @@ const Header: React.FC<React.PropsWithChildren<HeaderProps>> = ({variant, title,
   }
 
   return (
-    <Box sx={styles} role="presentation" aria-hidden="true" {...props}>
-      <span id={labelId}>{title}</span>
-      {auxiliaryText && <span>{auxiliaryText}</span>}
-    </Box>
+    <>
+      {listRole ? (
+        <Box sx={styles} role="presentation" aria-hidden="true" {...props}>
+          <span id={groupHeadingId}>{title ?? children}</span>
+          {auxiliaryText && <span>{auxiliaryText}</span>}
+        </Box>
+      ) : (
+        <>
+          <Heading as={as || 'h3'} id={groupHeadingId} sx={merge<BetterSystemStyleObject>(styles, sx)} {...props}>
+            {title ?? children}
+          </Heading>
+          {auxiliaryText && <span>{auxiliaryText}</span>}
+        </>
+      )}
+    </>
   )
 }

@@ -1,22 +1,25 @@
 import React, {useContext, useEffect, useMemo, useRef, useState} from 'react'
 import {scrollIntoView} from '@primer/behaviors'
 import type {ScrollIntoViewOptions} from '@primer/behaviors'
-import {ActionList, ItemProps} from '../deprecated/ActionList'
+import {ActionList, ActionListItemProps} from '../ActionList'
 import {useFocusZone} from '../hooks/useFocusZone'
 import {ComponentProps, MandateProps} from '../utils/types'
 import Box from '../Box'
 import Spinner from '../Spinner'
 import {useId} from '../hooks/useId'
 import {AutocompleteContext} from './AutocompleteContext'
-import {PlusIcon} from '@primer/octicons-react'
+import {IconProps, PlusIcon} from '@primer/octicons-react'
 import VisuallyHidden from '../_VisuallyHidden'
 
 type OnSelectedChange<T> = (item: T | T[]) => void
-type AutocompleteMenuItem = MandateProps<ItemProps, 'id'>
+export type AutocompleteMenuItem = MandateProps<ActionListItemProps, 'id'> & {
+  leadingVisual?: React.FunctionComponent<React.PropsWithChildren<IconProps>>
+  text?: string
+  trailingVisual?: React.FunctionComponent<React.PropsWithChildren<IconProps>>
+}
 
-const getDefaultSortFn =
-  (isItemSelectedFn: (itemId: string | number) => boolean) => (itemIdA: string | number, itemIdB: string | number) =>
-    isItemSelectedFn(itemIdA) === isItemSelectedFn(itemIdB) ? 0 : isItemSelectedFn(itemIdA) ? -1 : 1
+const getDefaultSortFn = (isItemSelectedFn: (itemId: string) => boolean) => (itemIdA: string, itemIdB: string) =>
+  isItemSelectedFn(itemIdA) === isItemSelectedFn(itemIdB) ? 0 : isItemSelectedFn(itemIdA) ? -1 : 1
 const menuScrollMargins: ScrollIntoViewOptions = {startMargin: 0, endMargin: 8}
 
 function getDefaultItemFilter<T extends AutocompleteMenuItem>(filterValue: string) {
@@ -34,23 +37,21 @@ function getdefaultCheckedSelectionChange<T extends AutocompleteMenuItem>(
   }
 }
 
-const isItemSelected = (itemId: string | number, selectedItemIds: Array<string | number>) =>
-  selectedItemIds.includes(itemId)
+const isItemSelected = (itemId: string, selectedItemIds: Array<string>) => selectedItemIds.includes(itemId)
 
-function getItemById<T extends AutocompleteMenuItem>(itemId: string | number, items: T[]) {
+function getItemById<T extends AutocompleteMenuItem>(itemId: string, items: T[]) {
   return items.find(item => item.id === itemId)
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type AutocompleteItemProps<T = Record<string, any>> = AutocompleteMenuItem & {metadata?: T}
 
-// TODO: we should make `aria-labelledby` required for a11y
 export type AutocompleteMenuInternalProps<T extends AutocompleteItemProps> = {
   /**
    * A menu item that is used to allow users make a selection that is not available in the array passed to the `items` prop.
    * This menu item gets appended to the end of the list of options.
    */
-  addNewItem?: Omit<T, 'onAction' | 'leadingVisual' | 'id'> & {
+  addNewItem?: T & {
     handleAddItem: (item: Omit<T, 'onAction' | 'leadingVisual'>) => void
   }
 
@@ -80,13 +81,13 @@ export type AutocompleteMenuInternalProps<T extends AutocompleteItemProps> = {
    * The IDs of the selected items
    */
   // NOTE: this diverges from the SelectPanel component API, where we pass an array of objects to the `selected` prop
-  selectedItemIds: Array<string | number>
+  selectedItemIds: string[]
 
   /**
    * The sort function that is applied to the options in the array passed to the `items` prop after the user closes the menu.
    * By default, selected items are sorted to the top after the user closes the menu.
    */
-  sortOnCloseFn?: (itemIdA: string | number, itemIdB: string | number) => number
+  sortOnCloseFn?: (itemIdA: string, itemIdB: string) => number
 
   /**
    * Whether there can be one item selected from the menu or multiple items selected from the menu
@@ -109,7 +110,9 @@ export type AutocompleteMenuInternalProps<T extends AutocompleteItemProps> = {
    * scrolls when the user highlights an item in the menu that is outside the scroll container
    */
   customScrollContainerRef?: React.MutableRefObject<HTMLElement | null>
-} & Pick<React.AriaAttributes, 'aria-labelledby'>
+  // TODO: instead of making this required, maybe we can infer aria-labelledby from the ID of the text input somehow?
+  ['aria-labelledby']: string
+}
 
 function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMenuInternalProps<T>) {
   const autocompleteContext = useContext(AutocompleteContext)
@@ -144,8 +147,9 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
     customScrollContainerRef,
   } = props
   const listContainerRef = useRef<HTMLDivElement>(null)
+  const allItemsToRenderRef = useRef<T[]>([])
   const [highlightedItem, setHighlightedItem] = useState<T>()
-  const [sortedItemIds, setSortedItemIds] = useState<Array<number | string>>(items.map(({id: itemId}) => itemId))
+  const [sortedItemIds, setSortedItemIds] = useState<Array<string>>(items.map(({id: itemId}) => itemId))
   const generatedUniqueId = useId(id)
 
   const selectableItems = useMemo(
@@ -155,6 +159,7 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
           ...selectableItem,
           role: 'option',
           id: selectableItem.id,
+          active: highlightedItem?.id === selectableItem.id,
           selected: selectionVariant === 'multiple' ? selectedItemIds.includes(selectableItem.id) : undefined,
           onAction: (item: T) => {
             const otherSelectedItemIds = selectedItemIds.filter(selectedItemId => selectedItemId !== item.id)
@@ -180,6 +185,7 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
         }
       }),
     [
+      highlightedItem,
       items,
       selectedItemIds,
       inputRef,
@@ -193,7 +199,7 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
 
   const itemSortOrderData = useMemo(
     () =>
-      sortedItemIds.reduce<Record<string | number, number>>((acc, curr, i) => {
+      sortedItemIds.reduce<Record<string, number>>((acc, curr, i) => {
         acc[curr] = i
 
         return acc
@@ -219,6 +225,10 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
         ? [
             {
               ...addNewItem,
+              role: 'option',
+              key: addNewItem.id,
+              active: highlightedItem?.id === addNewItem.id,
+              selected: selectionVariant === 'multiple' ? selectedItemIds.includes(addNewItem.id) : undefined,
               leadingVisual: () => <PlusIcon />,
               onAction: (item: T) => {
                 // TODO: make it possible to pass a leadingVisual when using `addNewItem`
@@ -240,8 +250,14 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
       selectionVariant,
       setInputValue,
       generatedUniqueId,
+      highlightedItem,
+      selectedItemIds,
     ],
   )
+
+  React.useEffect(() => {
+    allItemsToRenderRef.current = allItemsToRender
+  })
 
   useFocusZone(
     {
@@ -254,7 +270,9 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
       onActiveDescendantChanged: (current, _previous, directlyActivated) => {
         activeDescendantRef.current = current || null
         if (current) {
-          const selectedItem = selectableItems.find(item => item.id.toString() === current.getAttribute('data-id'))
+          const selectedItem = allItemsToRenderRef.current.find(item => {
+            return item.id === current.closest('li')?.getAttribute('data-id')
+          })
 
           setHighlightedItem(selectedItem)
           setIsMenuDirectlyActivated(directlyActivated)
@@ -299,6 +317,10 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
     }
   }, [selectedItemIds, setSelectedItemLength])
 
+  if (selectionVariant === 'single' && selectedItemIds.length > 1) {
+    throw new Error('Autocomplete: selectionVariant "single" cannot be used with multiple selected items')
+  }
+
   return (
     <VisuallyHidden isVisible={showMenu}>
       {loading ? (
@@ -309,14 +331,38 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
         <div ref={listContainerRef}>
           {allItemsToRender.length ? (
             <ActionList
-              selectionVariant="multiple"
-              // have to typecast to `ItemProps` because we have an extra property
-              // on `items` for Autocomplete: `metadata`
-              items={allItemsToRender as ItemProps[]}
+              selectionVariant={selectionVariant} // TODO: make this configurable
               role="listbox"
               id={`${id}-listbox`}
               aria-labelledby={ariaLabelledBy}
-            />
+            >
+              {allItemsToRender.map(item => {
+                const {
+                  id,
+                  onAction,
+                  children,
+                  text,
+                  leadingVisual: LeadingVisual,
+                  trailingVisual: TrailingVisual,
+                  ...itemProps
+                } = item
+                return (
+                  <ActionList.Item key={id} onSelect={() => onAction(item)} {...itemProps} id={id} data-id={id}>
+                    {LeadingVisual && (
+                      <ActionList.LeadingVisual>
+                        <LeadingVisual />
+                      </ActionList.LeadingVisual>
+                    )}
+                    {children ?? text}
+                    {TrailingVisual && (
+                      <ActionList.TrailingVisual>
+                        <TrailingVisual />
+                      </ActionList.TrailingVisual>
+                    )}
+                  </ActionList.Item>
+                )
+              })}
+            </ActionList>
           ) : (
             <Box p={3}>{emptyStateText}</Box>
           )}

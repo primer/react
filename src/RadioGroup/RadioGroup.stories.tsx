@@ -90,7 +90,7 @@ Playground.argTypes = {
     control: {
       type: 'radio',
     },
-    options: ['error', 'success', 'warning'],
+    options: ['error', 'success'],
     table: {
       category: 'CheckboxGroup.Validation',
     },

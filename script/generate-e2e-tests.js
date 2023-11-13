@@ -334,10 +334,6 @@ const components = new Map([
           id: 'components-checkboxgroup-features--visually-hidden-label',
           name: 'Visually Hidden Label',
         },
-        {
-          id: 'components-checkboxgroup-features--warning',
-          name: 'Warning',
-        },
       ],
     },
   ],
@@ -986,10 +982,6 @@ const components = new Map([
           name: 'Visually Hidden Label',
         },
         {
-          id: 'components-radiogroup-features--warning',
-          name: 'Warning',
-        },
-        {
           id: 'components-radiogroup-features--with-external-label',
           name: 'With External Label',
         },
@@ -1031,10 +1023,6 @@ const components = new Map([
         {
           id: 'components-select-features--visually-hidden-label',
           name: 'Visually Hidden Label',
-        },
-        {
-          id: 'components-select-features--warning',
-          name: 'Warning',
         },
         {
           id: 'components-select-features--with-caption',
@@ -1126,15 +1114,15 @@ const components = new Map([
     },
   ],
   [
-    'StyledOcticon',
+    'Octicon',
     {
       stories: [
         {
-          id: 'components-styledocticon--default',
+          id: 'components-octicon--default',
           name: 'Default',
         },
         {
-          id: 'components-styledocticon--playground',
+          id: 'components-octicon--playground',
           name: 'Playground',
         },
       ],
@@ -1184,10 +1172,6 @@ const components = new Map([
           name: 'Visually Hidden Label',
         },
         {
-          id: 'components-textarea-features--warning',
-          name: 'Warning',
-        },
-        {
           id: 'components-textarea-features--with-caption',
           name: 'With Caption',
         },
@@ -1229,10 +1213,6 @@ const components = new Map([
         {
           id: 'components-textinput-features--visually-hidden-label',
           name: 'Visually Hidden Label',
-        },
-        {
-          id: 'components-textinput-features--warning',
-          name: 'Warning',
         },
         {
           id: 'components-textinput-features--with-caption',
@@ -1278,35 +1258,35 @@ const components = new Map([
     {
       stories: [
         {
-          id: 'drafts-components-underlinenav-examples--profile-page',
+          id: 'components-underlinenav-examples--profile-page',
           name: 'Profile Page',
         },
         {
-          id: 'drafts-components-underlinenav-examples--pull-request-page',
+          id: 'components-underlinenav-examples--pull-request-page',
           name: 'Pull Request Page',
         },
         {
-          id: 'drafts-components-underlinenav-examples--repos-page',
+          id: 'components-underlinenav-examples--repos-page',
           name: 'Repos Page',
         },
         {
-          id: 'drafts-components-underlinenav-features--counters-loading-state',
+          id: 'components-underlinenav-features--counters-loading-state',
           name: 'Counters Loading State',
         },
         {
-          id: 'drafts-components-underlinenav-features--default',
+          id: 'components-underlinenav-features--default',
           name: 'Default',
         },
         {
-          id: 'drafts-components-underlinenav-features--overflow-template',
+          id: 'components-underlinenav-features--overflow-template',
           name: 'Overflow Template',
         },
         {
-          id: 'drafts-components-underlinenav-features--with-counter-labels',
+          id: 'components-underlinenav-features--with-counter-labels',
           name: 'With Counter Labels',
         },
         {
-          id: 'drafts-components-underlinenav-features--with-icons',
+          id: 'components-underlinenav-features--with-icons',
           name: 'With Icons',
         },
       ],
@@ -1525,15 +1505,15 @@ const components = new Map([
     {
       stories: [
         {
-          id: 'components-underlinenav--default',
+          id: 'deprecated-components-underlinenav--default',
           name: 'Default',
         },
         {
-          id: 'components-underlinenav--playground',
+          id: 'deprecated-components-underlinenav--playground',
           name: 'Playground',
         },
         {
-          id: 'components-underlinenav-features--actions',
+          id: 'deprecated-components-underlinenav-features--actions',
           name: 'Actions',
         },
       ],
