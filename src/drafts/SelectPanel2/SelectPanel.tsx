@@ -17,11 +17,13 @@ import {
 } from '../../../src/index'
 import {ActionListContainerContext} from '../../../src/ActionList/ActionListContainerContext'
 import {useSlots} from '../../hooks/useSlots'
-import {useProvidedRefOrCreate} from '../../hooks'
+import {useProvidedRefOrCreate, useId} from '../../hooks'
 import {useFocusZone} from '../../hooks/useFocusZone'
 
 const SelectPanelContext = React.createContext<{
   title: string
+  description: string
+  panelId: string
   onCancel: () => void
   onClearSelection: undefined | (() => void)
   searchQuery: string
@@ -29,6 +31,8 @@ const SelectPanelContext = React.createContext<{
   selectionVariant: ActionListProps['selectionVariant'] | 'instant'
 }>({
   title: '',
+  description: '',
+  panelId: '',
   onCancel: () => {},
   onClearSelection: undefined,
   searchQuery: '',
@@ -78,6 +82,8 @@ const SelectPanel = props => {
   /* Search/Filter */
   const [searchQuery, setSearchQuery] = React.useState('')
 
+  /* Panel plumbing */
+  const panelId = useId(props.id)
   const [slots, childrenInBody] = useSlots(contents, {header: SelectPanelHeader, footer: SelectPanelFooter})
 
   /* Arrow keys navigation for list items */
@@ -106,10 +112,17 @@ const SelectPanel = props => {
           // we have a focus zone on the list
           disabled: true,
         }}
+        overlayProps={{
+          role: 'dialog',
+          'aria-labelledby': `${panelId}--title`,
+          'aria-describedby': props.description ? `${panelId}--description` : undefined,
+        }}
       >
         <SelectPanelContext.Provider
           value={{
+            panelId,
             title: props.title,
+            description: props.description,
             onCancel: onInternalClose,
             onClearSelection: props.onClearSelection ? onInternalClearSelection : undefined,
             searchQuery,
@@ -175,28 +188,42 @@ const SelectPanelHeader: React.FC<React.PropsWithChildren> = ({children, ...prop
     searchInput: SelectPanelSearchInput,
   })
 
-  const {title, onCancel, onClearSelection} = React.useContext(SelectPanelContext)
+  const {title, description, panelId, onCancel, onClearSelection} = React.useContext(SelectPanelContext)
 
   return (
     <Box
       sx={{
         display: 'flex',
         flexDirection: 'column',
-        gap: 2,
+        // gap: 2,
         padding: 2,
         borderBottom: '1px solid',
         borderColor: 'border.default',
       }}
       {...props}
     >
-      <Box sx={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
-        {/* heading element is intentionally hardcoded to h1, it is not customisable 
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: description ? 'start' : 'center',
+          marginBottom: slots.searchInput ? 2 : 0,
+        }}
+      >
+        <Box sx={{marginLeft: 2, marginTop: description ? '2px' : 0}}>
+          {/* heading element is intentionally hardcoded to h1, it is not customisable 
             see https://github.com/github/primer/issues/2578 for context
-        */}
+          */}
+          <Heading as="h1" id={`${panelId}--title`} sx={{fontSize: 14, fontWeight: 600}}>
+            {title}
+          </Heading>
+          {description ? (
+            <Text id={`${panelId}--description`} sx={{fontSize: 0, color: 'fg.muted', display: 'block'}}>
+              {description}
+            </Text>
+          ) : null}
+        </Box>
 
-        <Heading as="h1" sx={{fontSize: 14, fontWeight: 600, marginLeft: 2}} {...props}>
-          {title}
-        </Heading>
         <Box>
           {/* Will not need tooltip after https://github.com/primer/react/issues/2008 */}
           {onClearSelection ? (
@@ -209,6 +236,7 @@ const SelectPanelHeader: React.FC<React.PropsWithChildren> = ({children, ...prop
           </Tooltip>
         </Box>
       </Box>
+
       {slots.searchInput}
       {childrenWithoutSlots}
     </Box>
