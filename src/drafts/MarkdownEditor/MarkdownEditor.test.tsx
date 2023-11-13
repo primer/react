@@ -55,10 +55,12 @@ const render = async (ui: React.ReactElement) => {
 
   const queryForToolbarButton = (label: string) => within(getToolbar()).queryByRole('button', {name: label})
 
+  const getDefaultFooterButton = () => within(getFooter()).getByRole('link', {name: 'Markdown documentation'})
+
   const getActionButton = (label: string) => within(getFooter()).getByRole('button', {name: label})
 
   const getViewSwitch = () => {
-    const button = result.queryByRole('tab', {name: 'Preview'}) || result.queryByRole('tab', {name: 'Edit'})
+    const button = result.queryByRole('button', {name: 'Preview'}) || result.queryByRole('button', {name: 'Edit'})
     if (!button) throw new Error('View switch button not found')
     return button
   }
@@ -95,6 +97,7 @@ const render = async (ui: React.ReactElement) => {
     user,
     queryForUploadButton,
     getFooter,
+    getDefaultFooterButton,
     getViewSwitch,
     getPreview,
     queryForPreview,
@@ -295,8 +298,13 @@ describe('MarkdownEditor', () => {
   })
 
   describe('footer', () => {
+    it('renders default when not using custom footer', async () => {
+      const {getDefaultFooterButton} = await render(<UncontrolledEditor></UncontrolledEditor>)
+      expect(getDefaultFooterButton()).toBeInTheDocument()
+    })
+
     it('renders custom buttons', async () => {
-      const {getActionButton} = await render(
+      const {getActionButton, getDefaultFooterButton} = await render(
         <UncontrolledEditor>
           <MarkdownEditor.Footer>
             <MarkdownEditor.FooterButton>Footer A</MarkdownEditor.FooterButton>
@@ -307,11 +315,12 @@ describe('MarkdownEditor', () => {
         </UncontrolledEditor>,
       )
       expect(getActionButton('Footer A')).toBeInTheDocument()
+      expect(getDefaultFooterButton()).toBeInTheDocument()
       expect(getActionButton('Action A')).toBeInTheDocument()
     })
 
     it('disables buttons when the editor is disabled (unless explicitly overridden)', async () => {
-      const {getActionButton} = await render(
+      const {getActionButton, getDefaultFooterButton} = await render(
         <UncontrolledEditor disabled>
           <MarkdownEditor.Footer>
             <MarkdownEditor.FooterButton>Footer A</MarkdownEditor.FooterButton>
@@ -323,6 +332,7 @@ describe('MarkdownEditor', () => {
         </UncontrolledEditor>,
       )
       expect(getActionButton('Footer A')).toBeDisabled()
+      expect(getDefaultFooterButton()).not.toBeDisabled()
       expect(getActionButton('Action A')).toBeDisabled()
       expect(getActionButton('Action B')).not.toBeDisabled()
     })
@@ -700,7 +710,7 @@ describe('MarkdownEditor', () => {
 
       it('rejects disallows file types while accepting allowed ones', async () => {
         const onChange = jest.fn()
-        const {getInput, getEditorContainer} = await render(
+        const {getInput, getFooter} = await render(
           <UncontrolledEditor onUploadFile={mockUploadFile} onChange={onChange} acceptedFileTypes={['image/*']} />,
         )
         const input = getInput()
@@ -715,7 +725,7 @@ describe('MarkdownEditor', () => {
 
         await expectFilesToBeAdded(onChange, fileB)
 
-        expect(getEditorContainer()).toHaveTextContent('File type not allowed: .app')
+        expect(getFooter()).toHaveTextContent('File type not allowed: .app')
       })
 
       it('inserts "failed to upload" note on failure', async () => {

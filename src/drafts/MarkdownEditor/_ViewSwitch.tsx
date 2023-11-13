@@ -1,7 +1,9 @@
-import React from 'react'
+import React, {useContext} from 'react'
+import {EyeIcon, PencilIcon} from '@primer/octicons-react'
 
 import Box from '../../Box'
-import TabNav from '../../TabNav'
+import {Button, IconButton} from '../../Button'
+import {MarkdownEditorContext} from './_MarkdownEditorContext'
 
 export type MarkdownViewMode = 'preview' | 'edit'
 
@@ -16,47 +18,39 @@ type ViewSwitchProps = {
 // no point in memoizing this component because onLoadPreview depends on value, so it would still re-render on every change
 export const ViewSwitch = ({selectedView, onViewSelect, onLoadPreview, disabled}: ViewSwitchProps) => {
   // don't get disabled from context - the switch is not disabled when the editor is disabled
+  const {condensed} = useContext(MarkdownEditorContext)
 
-  const sharedProps =
+  const {label, icon, ...sharedProps} =
     selectedView === 'preview'
       ? {
+          variant: 'invisible' as const,
+          sx: {color: 'fg.default', px: 2},
           onClick: () => onViewSelect?.('edit'),
+          icon: PencilIcon,
+          label: 'Edit',
         }
       : {
+          variant: 'invisible' as const,
+          sx: {color: 'fg.default', px: 2},
           onClick: () => {
             onLoadPreview()
             onViewSelect?.('preview')
           },
           onMouseOver: () => onLoadPreview(),
           onFocus: () => onLoadPreview(),
+          icon: EyeIcon,
+          label: 'Preview',
         }
 
   return (
     <Box sx={{display: 'flex', flexDirection: 'row'}}>
-      <TabNav aria-label="View mode">
-        <TabNav.Link
-          {...sharedProps}
-          as="button"
-          selected={selectedView === 'edit'}
-          disabled={disabled}
-          sx={{cursor: 'pointer', color: selectedView === 'edit' ? 'fg.default' : 'fg.muted', borderTopLeftRadius: 1}}
-        >
-          Write
-        </TabNav.Link>
-        <TabNav.Link
-          {...sharedProps}
-          as="button"
-          selected={selectedView === 'preview'}
-          disabled={disabled}
-          sx={{
-            cursor: 'pointer',
-            color: selectedView === 'preview' ? 'fg.default' : 'fg.muted',
-            borderTopLeftRadius: 1,
-          }}
-        >
-          Preview
-        </TabNav.Link>
-      </TabNav>
+      {condensed ? (
+        <IconButton {...sharedProps} disabled={disabled} icon={icon} aria-label={label} />
+      ) : (
+        <Button {...sharedProps} leadingVisual={icon} disabled={disabled}>
+          {label}
+        </Button>
+      )}
     </Box>
   )
 }

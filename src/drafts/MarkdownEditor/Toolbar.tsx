@@ -22,35 +22,22 @@ import {MarkdownEditorContext} from './_MarkdownEditorContext'
 import {SavedRepliesButton} from './_SavedReplies'
 
 export const ToolbarButton = forwardRef<HTMLButtonElement, IconButtonProps>((props, ref) => {
-  const {disabled, condensed} = useContext(MarkdownEditorContext)
+  const {disabled} = useContext(MarkdownEditorContext)
 
   return (
     <IconButton
+      size="small"
       ref={ref}
-      size={condensed ? 'small' : 'medium'}
       variant="invisible"
       disabled={disabled}
       // Prevent focus leaving input:
       onMouseDown={(e: React.MouseEvent) => e.preventDefault()}
       {...props}
-      sx={{color: 'fg.muted', ...props.sx}}
+      sx={{color: 'fg.default', ...props.sx}}
     />
   )
 })
 ToolbarButton.displayName = 'MarkdownEditor.ToolbarButton'
-
-const Divider = () => {
-  return (
-    <Box
-      sx={{
-        display: 'inline-grid',
-        margin: '0 var(--controlStack-medium-gap-condensed, 8px)',
-        height: 'calc(var(--control-medium-size, 32px)/2)',
-        borderLeft: 'var(--borderWidth-thin, 1px) solid var(--borderColor-muted)',
-      }}
-    />
-  )
-}
 
 export const DefaultToolbarButtons = memo(() => {
   const {condensed, formattingToolsRef} = useContext(MarkdownEditorContext)
@@ -78,7 +65,6 @@ export const DefaultToolbarButtons = memo(() => {
         />
       </Box>
       <Box>
-        <Divider />
         <ToolbarButton
           onClick={() => formattingToolsRef.current?.quote()}
           icon={QuoteIcon}
@@ -96,7 +82,6 @@ export const DefaultToolbarButtons = memo(() => {
         />
       </Box>
       <Box>
-        <Divider />
         <ToolbarButton
           onClick={() => formattingToolsRef.current?.unorderedList()}
           icon={ListUnorderedIcon}
@@ -115,7 +100,6 @@ export const DefaultToolbarButtons = memo(() => {
       </Box>
       {!condensed && (
         <Box>
-          <Divider />
           <ToolbarButton
             onClick={() => formattingToolsRef.current?.mention()}
             icon={MentionIcon}
@@ -135,6 +119,8 @@ export const DefaultToolbarButtons = memo(() => {
 DefaultToolbarButtons.displayName = 'MarkdownEditor.DefaultToolbarButtons'
 
 export const CoreToolbar = ({children}: {children?: React.ReactNode}) => {
+  const {condensed} = useContext(MarkdownEditorContext)
+
   const containerRef = useRef<HTMLDivElement>(null)
 
   useFocusZone({
@@ -149,18 +135,7 @@ export const CoreToolbar = ({children}: {children?: React.ReactNode}) => {
       ref={containerRef}
       aria-label="Formatting tools"
       role="toolbar"
-      sx={{
-        display: 'flex',
-        flexWrap: 'wrap',
-        justifyContent: 'flex-end',
-        gap: 0,
-        alignItems: 'center',
-        flexGrow: 1,
-        borderBottom: '1px solid',
-        borderBottomColor: 'border.muted',
-        pl: 2,
-        pr: 1,
-      }}
+      sx={{display: 'flex', flexWrap: 'wrap', justifyContent: 'flex-end', gap: condensed ? 0 : 3}}
     >
       {children}
     </Box>

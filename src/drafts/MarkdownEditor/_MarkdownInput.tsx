@@ -152,21 +152,18 @@ export const MarkdownInput = forwardRef<HTMLTextAreaElement, MarkdownInputProps>
           aria-label="Markdown value"
           onChange={onChange}
           sx={{
+            width: '100%',
             borderStyle: 'none',
             boxShadow: 'none',
             height: fullHeight ? '100%' : undefined,
             outline: theme => {
-              return isDraggedOver ? `dashed 2px ${theme.colors.border.muted}` : undefined
+              return isDraggedOver ? `solid 2px ${theme.colors.accent.fg}` : undefined
             },
-            outlineOffset: '-4px',
             display: visible ? undefined : 'none',
-            '&: focus-within': {
-              boxShadow: 'none',
-            },
             '& textarea': {
               lineHeight: 1.2,
               resize: fullHeight ? 'none' : 'vertical',
-              p: 3,
+              p: 2,
               fontFamily: monospace ? 'mono' : 'normal',
               ...heightStyles,
             },
