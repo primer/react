@@ -453,7 +453,7 @@ const components = new Map([
           name: 'Default',
         },
         {
-          id: 'components-dialog--features--stress-test',
+          id: 'components-dialog-features--stress-test',
           name: 'Stress Test',
         },
         {

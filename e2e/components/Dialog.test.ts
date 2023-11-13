@@ -37,7 +37,7 @@ test.describe('Dialog', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'components-dialog--features--stress-test',
+            id: 'components-dialog-features--stress-test',
             globals: {
               colorScheme: theme,
             },
@@ -49,7 +49,7 @@ test.describe('Dialog', () => {
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'components-dialog--features--stress-test',
+            id: 'components-dialog-features--stress-test',
             globals: {
               colorScheme: theme,
             },
