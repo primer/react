@@ -1521,15 +1521,17 @@ const components = new Map([
   ],
 ])
 
-for (const [component, info] of components) {
-  const filepath = path.join(E2E_DIR, path.format({name: `${component}.test`, ext: '.ts'}))
+async function generateE2ETests() {
+  try {
+    for (const [component, info] of components) {
+      const filepath = path.join(E2E_DIR, path.format({name: `${component}.test`, ext: '.ts'}))
 
-  if (fs.existsSync(filepath)) {
-    continue
-  }
+      if (fs.existsSync(filepath)) {
+        continue
+      }
 
-  const stories = info.stories.map(story => {
-    return `test.describe('${story.name}', () => {
+      const stories = info.stories.map(story => {
+        return `test.describe('${story.name}', () => {
   for (const theme of themes) {
     test.describe(theme, () => {
       test('default @vrt', async ({page}) => {
@@ -1556,9 +1558,9 @@ for (const [component, info] of components) {
     });
   }
 })`
-  })
+      })
 
-  const source = recast.parse(`import {test, expect} from '@playwright/test'
+      const source = recast.parse(`import {test, expect} from '@playwright/test'
 import {visit} from '../test-helpers/storybook'
 import {themes} from '../test-helpers/themes'
 
@@ -1566,10 +1568,18 @@ test.describe('${component}', () => {
   ${stories.join('\n\n')}
 })`)
 
-  const {code} = recast.print(source)
-  const formatted = prettier.format(code, {
-    parser: 'typescript',
-    ...prettierConfig,
-  })
-  fs.writeFileSync(filepath, formatted, 'utf8')
+      const {code} = recast.print(source)
+
+      const formatted = await prettier.format(code, {
+        parser: 'typescript',
+        ...prettierConfig,
+      })
+      fs.writeFileSync(filepath, formatted, 'utf8')
+    }
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.log(error)
+  }
 }
+
+generateE2ETests()
