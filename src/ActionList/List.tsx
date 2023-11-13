@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useMemo} from 'react'
 import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import styled from 'styled-components'
 import sx, {SxProp, merge} from '../sx'
@@ -63,16 +63,20 @@ export const List = React.forwardRef<HTMLUListElement, ActionListProps>(
 
     const ariaLabelledBy = slots.heading ? slots.heading.props.id ?? headingId : listLabelledBy
 
+    // If we don't memoize the context object, every child will rerender on every render even if memoized
+    const context = useMemo(
+      () => ({
+        variant,
+        selectionVariant: selectionVariant || containerSelectionVariant,
+        showDividers,
+        role: role || listRole,
+        headingId,
+      }),
+      [variant, selectionVariant, containerSelectionVariant, showDividers, role, listRole, headingId],
+    )
+
     return (
-      <ListContext.Provider
-        value={{
-          variant,
-          selectionVariant: selectionVariant || containerSelectionVariant,
-          showDividers,
-          role: role || listRole,
-          headingId,
-        }}
-      >
+      <ListContext.Provider value={context}>
         {slots.heading}
         <ListBox
           sx={merge(styles, sxProp as SxProp)}
