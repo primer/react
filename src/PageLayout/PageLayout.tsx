@@ -1,7 +1,6 @@
 import React from 'react'
 import {createGlobalStyle} from 'styled-components'
 import Box from '../Box'
-import Heading from '../Heading'
 import {useId} from '../hooks/useId'
 import {useRefObjectAsForwardedRef} from '../hooks/useRefObjectAsForwardedRef'
 import {isResponsiveValue, ResponsiveValue, useResponsiveValue} from '../hooks/useResponsiveValue'
