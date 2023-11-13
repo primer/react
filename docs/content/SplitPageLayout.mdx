@@ -237,13 +237,13 @@ If you need a more flexible layout component, consider using the [PageLayout](/P
 </Box>
 ```
 
-### With pane heading
+### With heading
 
 ```jsx live drafts
 <Box sx={{height: 320, overflowY: 'auto', border: '1px solid', borderColor: 'border.default'}}>
   <SplitPageLayout>
     <SplitPageLayout.Pane>
-      <SplitPageLayout.PaneHeading as="h2">Pane Heading</SplitPageLayout.PaneHeading>
+      <Heading as="h2">Pane Heading</Heading>
       <Placeholder label="Pane" height={120} />
     </SplitPageLayout.Pane>
     <SplitPageLayout.Content>

@@ -517,8 +517,6 @@ export type PageLayoutPaneProps = {
   resizable?: boolean
   widthStorageKey?: string
   padding?: keyof typeof SPACING_MAP
-  heading?: string
-  headingLevel?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
   divider?: 'none' | 'line' | ResponsiveValue<'none' | 'line', 'none' | 'line' | 'filled'>
   /**
    * @deprecated Use the `divider` prop with a responsive value instead.

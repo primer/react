@@ -2,4 +2,4 @@
 '@primer/react': minor
 ---
 
-Added `PageLayout.PaneHeading` slot to `PageLayout` which utilizes `<Heading>` as its base.
+Adjusts position of children within `PageLayout.Pane` to live above adjustable resize form.

@@ -154,21 +154,6 @@
           "type": "SystemStyleObject"
         }
       ]
-    },
-    {
-      "name": "SplitPageLayout.PaneHeading",
-      "props": [
-        {
-          "name": "as",
-          "type": "'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'",
-          "required": true,
-          "defaultValue": ""
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject"
-        }
-      ]
     }
   ]
 }

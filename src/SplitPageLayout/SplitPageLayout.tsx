@@ -6,7 +6,6 @@ import {
   PageLayoutFooterProps,
   PageLayoutHeaderProps,
   PageLayoutPaneProps,
-  PageLayoutPaneHeadingProps,
 } from '../PageLayout'
 
 // ----------------------------------------------------------------------------
