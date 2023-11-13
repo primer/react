@@ -231,7 +231,7 @@
     "markdownlint-cli2": "^0.10.0",
     "markdownlint-cli2-formatter-pretty": "0.0.3",
     "mdast-util-from-markdown": "2.0.0",
-    "mdast-util-frontmatter": "1.0.1",
+    "mdast-util-frontmatter": "2.0.1",
     "mdast-util-mdx": "3.0.0",
     "mdast-util-to-string": "4.0.0",
     "micromark-extension-frontmatter": "2.0.0",
