@@ -37,6 +37,8 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       leadingVisual: LeadingVisual,
       trailingVisual: TrailingVisual,
       description: Description,
+      // blockDescription: [Description, props => props.variant === 'block'],
+      // inlineDescription: [Description, props => props.variant !== 'inline'],
     })
     const {
       variant: listVariant,

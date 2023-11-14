@@ -34,7 +34,12 @@ export function useSlots<T extends SlotConfig>(
     }
 
     const index = values.findIndex(value => {
-      return child.type === value
+      if (Array.isArray(value)) {
+        const [component, fn] = value
+        return child.type === component && fn(child.props)
+      } else {
+        return child.type === value
+      }
     })
 
     // If the child is not a slot, add it to the `rest` array
