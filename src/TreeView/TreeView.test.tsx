@@ -851,21 +851,42 @@ describe('Keyboard interactions', () => {
   })
 
   describe('Enter', () => {
-    it('calls onSelect function if provided', () => {
+    it('calls onSelect function if provided and checks if the item has been selected', () => {
       const onSelect = jest.fn()
-      const {getByRole} = renderWithTheme(
+      const {getByRole, debug} = renderWithTheme(
         <TreeView aria-label="Test tree">
-          <TreeView.Item id="item" onSelect={onSelect}>
-            Item
+          <TreeView.Item id="parent-1" onSelect={onSelect}>
+            Parent 1
+            <TreeView.SubTree>
+              <TreeView.Item id="child-1" onSelect={onSelect}>
+                Child 1
+              </TreeView.Item>
+            </TreeView.SubTree>
+          </TreeView.Item>
+          <TreeView.Item id="parent-2" onSelect={onSelect} expanded>
+            Parent 2
+            <TreeView.SubTree>
+              <TreeView.Item id="child-2" onSelect={onSelect}>
+                Child2
+              </TreeView.Item>
+            </TreeView.SubTree>
+          </TreeView.Item>
+          <TreeView.Item id="parent-3" onSelect={onSelect}>
+            Parent 3
+            <TreeView.SubTree>
+              <TreeView.Item id="child-3" onSelect={onSelect}>
+                Child 3
+              </TreeView.Item>
+            </TreeView.SubTree>
           </TreeView.Item>
         </TreeView>,
       )
-
-      const item = getByRole('treeitem')
+      debug()
+      const itemChild = getByRole('treeitem', {name: 'Child2'})
 
       act(() => {
         // Focus first item
-        item.focus()
+        itemChild.focus()
       })
 
       // Press Enter
@@ -1153,8 +1174,9 @@ describe('State', () => {
       )
     }
 
-    const {getByRole} = renderWithTheme(<TestTree />)
+    const {getByRole, debug} = renderWithTheme(<TestTree />)
 
+    debug()
     const parent = getByRole('treeitem', {name: 'Parent'})
     const child = getByRole('treeitem', {name: 'Child'})
 

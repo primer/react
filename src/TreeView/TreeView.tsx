@@ -395,6 +395,7 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
             } else {
               toggle(event)
             }
+            event.stopPropagation()
             break
           case 'ArrowRight':
             // Ignore if modifier keys are pressed
@@ -459,11 +460,13 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
             } else {
               toggle(event)
             }
+            event.stopPropagation()
           }}
           onAuxClick={event => {
             if (onSelect && event.button === 1) {
               onSelect(event)
             }
+            event.stopPropagation()
           }}
         >
           <div
