@@ -75,58 +75,67 @@ const StyledBlankslate = styled.div`
   .Blankslate-Action:last-of-type {
     margin-bottom: var(--stack-gap-condensed);
   }
+`
 
+const BlankslateContainerQuery = `
   /* At the time these styles were written,
-   34rem was our "small" breakpoint width */
+  34rem was our "small" breakpoint width */
   @container (max-width: 34rem) {
-    .Blankslate {
-      --blankslate-outer-padding-block: var(--base-size-20);
-      --blankslate-outer-padding-inline: var(--base-size-20);
-    }
+    ${StyledBlankslate} .Blankslate {
+    --blankslate-outer-padding-block: var(--base-size-20);
+    --blankslate-outer-padding-inline: var(--base-size-20);
+  }
 
-    .Blankslate[data-spacious='true'] {
-      --blankslate-outer-padding-block: var(--base-size-44);
-      --blankslate-outer-padding-inline: var(--base-size-28);
-    }
+  ${StyledBlankslate} .Blankslate[data-spacious='true'] {
+    --blankslate-outer-padding-block: var(--base-size-44);
+    --blankslate-outer-padding-inline: var(--base-size-28);
+  }
 
-    .Blankslate-Visual {
-      margin-bottom: var(--stack-gap-condensed);
-      max-width: var(--base-size-24);
-    }
+  ${StyledBlankslate} .Blankslate-Visual {
+    margin-bottom: var(--stack-gap-condensed);
+    max-width: var(--base-size-24);
+  }
 
-    .Blankslate-Visual svg {
-      width: 100%;
-    }
+  ${StyledBlankslate} .Blankslate-Visual svg {
+    width: 100%;
+  }
 
-    .Blankslate-Heading {
-      font-size: var(--text-title-size-small);
-    }
+  ${StyledBlankslate} .Blankslate-Heading {
+    font-size: var(--text-title-size-small);
+  }
 
-    .Blankslate-Description {
-      font-size: var(--text-body-size-medium);
-    }
+  ${StyledBlankslate} .Blankslate-Description {
+    font-size: var(--text-body-size-medium);
+  }
 
-    .Blankslate-Action {
-      margin-top: var(--stack-gap-condensed);
-    }
+  ${StyledBlankslate} .Blankslate-Action {
+    margin-top: var(--stack-gap-condensed);
+  }
 
-    .Blankslate-Action:first-of-type {
-      margin-top: var(--stack-gap-normal);
-    }
+  ${StyledBlankslate} .Blankslate-Action:first-of-type {
+    margin-top: var(--stack-gap-normal);
+  }
 
-    .Blankslate-Action:last-of-type {
-      margin-bottom: calc(var(--stack-gap-condensed) / 2);
-    }
+  ${StyledBlankslate} .Blankslate-Action:last-of-type {
+    margin-bottom: calc(var(--stack-gap-condensed) / 2);
+  }
   }
 `
 
 function Blankslate({border, children, narrow, spacious}: BlankslateProps) {
   return (
-    <StyledBlankslate>
-      <div className="Blankslate" data-border={border} data-narrow={narrow} data-spacious={spacious}>
-        {children}
-      </div>
-    </StyledBlankslate>
+    <>
+      {/*
+        This is a workaround so we can use `@container` without upgrading `styled-components` to 6.x
+        See [this comment](https://github.com/primer/react/pull/3869#discussion_r1392523030) for more info
+      */}
+      <style type="text/css">{BlankslateContainerQuery}</style>
+      <StyledBlankslate>
+        <div className="Blankslate" data-border={border} data-narrow={narrow} data-spacious={spacious}>
+          {children}
+        </div>
+      </StyledBlankslate>
+    </>
   )
 }
 

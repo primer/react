@@ -178,7 +178,7 @@
     "@types/node": "18.16.19",
     "@types/react": "18.2.21",
     "@types/react-dom": "18.2.6",
-    "@types/styled-components": "5.1.30",
+    "@types/styled-components": "^5.1.26",
     "@types/semver": "7.5.3",
     "@typescript-eslint/eslint-plugin": "5.59.6",
     "@typescript-eslint/parser": "5.62.0",
@@ -253,7 +253,7 @@
     "size-limit": "8.2.4",
     "storybook": "7.1.0",
     "storybook-addon-turbo-build": "2.0.1",
-    "styled-components": "6.1.0",
+    "styled-components": "5.3.11",
     "terser": "5.17.6",
     "ts-node": "10.9.1",
     "ts-toolbelt": "9.6.0",
@@ -268,10 +268,10 @@
   "peerDependencies": {
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",
-    "@types/styled-components": "5.1.30",
+    "@types/styled-components": "^5.1.11",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
-    "styled-components": "6.x"
+    "styled-components": "5.x"
   },
   "peerDependenciesMeta": {
     "@types/react": {
