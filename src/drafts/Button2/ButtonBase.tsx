@@ -19,6 +19,7 @@ const ButtonBase = forwardRef(
       size = 'medium',
       alignContent = 'center',
       block = false,
+      inactive,
       ...rest
     } = props
 
@@ -27,8 +28,8 @@ const ButtonBase = forwardRef(
 
     const {theme} = useTheme()
     const baseStyles = useMemo(() => {
-      return merge.all([getButtonStyles(theme), getVariantStyles(variant, theme)])
-    }, [theme, variant])
+      return merge.all([getButtonStyles(theme), getVariantStyles(variant, inactive, theme)])
+    }, [inactive, theme, variant])
     const sxStyles = useMemo(() => {
       return merge<BetterSystemStyleObject>(baseStyles, sxProp)
     }, [baseStyles, sxProp])
@@ -66,6 +67,7 @@ const ButtonBase = forwardRef(
         data-block={block ? 'block' : null}
         data-size={size === 'small' || size === 'large' ? size : undefined}
         data-no-visuals={!LeadingIcon && !TrailingIcon && !TrailingAction ? true : undefined}
+        data-inactive={inactive ? true : undefined}
       >
         {Icon ? (
           <Icon />
