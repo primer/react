@@ -1,5 +1,5 @@
 import React from 'react'
-import {SearchIcon, XCircleFillIcon, XIcon, FilterRemoveIcon} from '@primer/octicons-react'
+import {SearchIcon, XCircleFillIcon, XIcon, FilterRemoveIcon, AlertIcon} from '@primer/octicons-react'
 import {FocusKeys} from '@primer/behaviors'
 
 import {
@@ -14,6 +14,7 @@ import {
   Spinner,
   Text,
   ActionListProps,
+  Octicon,
 } from '../../../src/index'
 import {ActionListContainerContext} from '../../../src/ActionList/ActionListContainerContext'
 import {useSlots} from '../../hooks/useSlots'
@@ -49,7 +50,7 @@ const SelectPanel = props => {
   // with additional props for accessibility
   let renderAnchor: AnchoredOverlayProps['renderAnchor'] = null
   const contents = React.Children.map(props.children, child => {
-    if (child.type === SelectPanelButton) {
+    if (child?.type === SelectPanelButton) {
       renderAnchor = anchorProps => React.cloneElement(child, anchorProps)
       return null
     }
@@ -360,26 +361,86 @@ const SelectPanelLoading: React.FC<{children: string}> = ({children = 'Fetching 
 
 SelectPanel.Loading = SelectPanelLoading
 
-const SelectPanelEmptyMessage: React.FC<{children: string | React.ReactNode}> = ({children = 'No items found...'}) => {
-  return (
-    <Box
-      sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-        flexGrow: 1,
-        height: '100%',
-        gap: 2,
-      }}
-    >
-      <Text sx={{fontSize: 1}}>{children}</Text>
-      <Text sx={{fontSize: 0, color: 'fg.muted'}}>Try a different search term</Text>
-    </Box>
-  )
+type SelectPanelMessageProps = {children: React.ReactNode} & (
+  | {
+      size?: 'full'
+      title: string // title is required with size:full
+      variant: 'warning' | 'error' | 'empty' // default: warning
+    }
+  | {
+      size?: 'inline'
+      title?: never // title is invalid with size:inline
+      variant: 'warning' | 'error' // variant:empty + size:inline = invalid combination
+    }
+)
+
+const SelectPanelMessage: React.FC<SelectPanelMessageProps> = ({
+  variant = 'warning',
+  size = variant === 'empty' ? 'full' : 'inline',
+  title,
+  children,
+}) => {
+  if (size === 'full') {
+    return (
+      <Box
+        aria-live={variant === 'empty' ? undefined : 'polite'}
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+          flexGrow: 1,
+          height: '100%',
+          gap: 1,
+          paddingX: 4,
+          textAlign: 'center',
+          a: {color: 'inherit', textDecoration: 'underline'},
+        }}
+      >
+        {variant !== 'empty' ? (
+          <Octicon icon={AlertIcon} sx={{color: variant === 'error' ? 'danger.fg' : 'attention.fg', marginBottom: 2}} />
+        ) : null}
+        <Text sx={{fontSize: 1, fontWeight: 'semibold'}}>{title}</Text>
+        <Text sx={{fontSize: 1, color: 'fg.muted'}}>{children}</Text>
+      </Box>
+    )
+  } else {
+    const inlineVariantStyles = {
+      empty: {},
+      warning: {
+        backgroundColor: 'attention.subtle',
+        color: 'attention.fg',
+        borderBottomColor: 'attention.muted',
+      },
+      error: {
+        backgroundColor: 'danger.subtle',
+        color: 'danger.fg',
+        borderColor: 'danger.muted',
+      },
+    }
+
+    return (
+      <Box
+        aria-live={variant === 'empty' ? undefined : 'polite'}
+        sx={{
+          display: 'flex',
+          gap: 2,
+          paddingX: 3,
+          paddingY: '12px',
+          fontSize: 0,
+          borderBottom: '1px solid',
+          a: {color: 'inherit', textDecoration: 'underline'},
+          ...inlineVariantStyles[variant],
+        }}
+      >
+        <AlertIcon size={16} />
+        <Box>{children}</Box>
+      </Box>
+    )
+  }
 }
 
-SelectPanel.EmptyMessage = SelectPanelEmptyMessage
+SelectPanel.Message = SelectPanelMessage
 
 export {SelectPanel}
 
