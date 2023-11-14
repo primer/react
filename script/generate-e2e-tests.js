@@ -445,6 +445,36 @@ const components = new Map([
     },
   ],
   [
+    'Dialog',
+    {
+      stories: [
+        {
+          id: 'components-dialog--default',
+          name: 'Default',
+        },
+        {
+          id: 'components-dialog-features--stress-test',
+          name: 'Stress Test',
+        },
+        {
+          id: 'components-dialog-features--with-custom-renderers',
+          name: 'With Custom Renderers',
+        },
+      ],
+    },
+  ],
+  [
+    'Dialog v1',
+    {
+      stories: [
+        {
+          id: 'components-dialogv1--default',
+          name: 'Default',
+        },
+      ],
+    },
+  ],
+  [
     'FilteredSearch',
     {
       stories: [
