@@ -853,7 +853,7 @@ describe('Keyboard interactions', () => {
   describe('Enter', () => {
     it('calls onSelect function if provided and checks if the item has been selected', () => {
       const onSelect = jest.fn()
-      const {getByRole, debug} = renderWithTheme(
+      const {getByRole} = renderWithTheme(
         <TreeView aria-label="Test tree">
           <TreeView.Item id="parent-1" onSelect={onSelect}>
             Parent 1
@@ -881,7 +881,6 @@ describe('Keyboard interactions', () => {
           </TreeView.Item>
         </TreeView>,
       )
-      debug()
       const itemChild = getByRole('treeitem', {name: 'Child2'})
 
       act(() => {
@@ -1174,9 +1173,8 @@ describe('State', () => {
       )
     }
 
-    const {getByRole, debug} = renderWithTheme(<TestTree />)
+    const {getByRole} = renderWithTheme(<TestTree />)
 
-    debug()
     const parent = getByRole('treeitem', {name: 'Parent'})
     const child = getByRole('treeitem', {name: 'Child'})
 
