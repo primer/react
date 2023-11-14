@@ -31,3 +31,5 @@ To run `@primer/react` locally when adding or updating components:
 3. Run the dev app: `npm start`
 
 > 👉 See [the contributing docs](https://github.com/primer/react/blob/main/contributor-docs/CONTRIBUTING.md) for more info on code style, testing, and coverage.
+
+This is just to make a garbage commit to test if CI has errors on `main`
