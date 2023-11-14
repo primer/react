@@ -164,7 +164,7 @@ exports[`Dialog renders consistently 1`] = `
   transition: none;
 }
 
-.c1[aria-disabled] {
+.c1[data-inactive] {
   cursor: auto;
 }
 
@@ -226,6 +226,12 @@ exports[`Dialog renders consistently 1`] = `
 
 .c1[data-block="block"] {
   width: 100%;
+}
+
+.c1[data-inactive]:not([disabled]):not([aria-disabled]) {
+  background-color: var(--button-inactive-bgColor,#d0d7de);
+  border: 0;
+  color: var(--button-inactive-fgColor,#656d76);
 }
 
 .c1 [data-component="leadingVisual"] {

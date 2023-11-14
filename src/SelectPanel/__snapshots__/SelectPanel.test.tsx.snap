@@ -105,7 +105,7 @@ exports[`SelectPanel renders consistently 1`] = `
   transition: none;
 }
 
-.c1[aria-disabled] {
+.c1[data-inactive] {
   cursor: auto;
 }
 
@@ -169,6 +169,12 @@ exports[`SelectPanel renders consistently 1`] = `
   width: 100%;
 }
 
+.c1[data-inactive]:not([disabled]):not([aria-disabled]) {
+  background-color: var(--button-inactive-bgColor,#d0d7de);
+  border: 0;
+  color: var(--button-inactive-fgColor,#656d76);
+}
+
 .c1 [data-component="leadingVisual"] {
   grid-area: leadingVisual;
 }
@@ -207,12 +213,12 @@ exports[`SelectPanel renders consistently 1`] = `
   margin-right: 8px;
 }
 
-.c1:hover:not([disabled]):not([aria-disabled]) {
+.c1:hover:not([disabled]):not([aria-disabled]):not([data-inactive]) {
   background-color: #f3f4f6;
   border-color: var(--button-default-borderColor-hover,rgba(31,35,40,0.15));
 }
 
-.c1:active:not([disabled]):not([aria-disabled]) {
+.c1:active:not([disabled]):not([aria-disabled]):not([data-inactive]) {
   background-color: hsla(220,14%,93%,1);
   border-color: var(--button-default-borderColor-active,rgba(31,35,40,0.15));
 }

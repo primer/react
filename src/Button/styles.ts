@@ -227,7 +227,7 @@ export const getBaseStyles = (theme?: Theme) => ({
   '&:active': {
     transition: 'none',
   },
-  '&[aria-disabled], &[data-inactive]': {
+  '&[data-inactive]': {
     cursor: 'auto',
   },
   '&:disabled': {

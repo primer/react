@@ -218,6 +218,9 @@ export const getBaseStyles = (theme?: Theme) => ({
   '&:active': {
     transition: 'none',
   },
+  '&[data-inactive]': {
+    cursor: 'auto',
+  },
   '&:disabled': {
     cursor: 'not-allowed',
     boxShadow: 'none',
