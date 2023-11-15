@@ -333,12 +333,7 @@ export const InactiveMultiselect = () => {
   }
   return (
     <ActionList selectionVariant="multiple" role="menu" aria-label="Project">
-      <ActionList.Item
-        role="menuitemcheckbox"
-        selected={false}
-        aria-checked={false}
-        inactiveText="Unavailable due to an outage"
-      >
+      <ActionList.Item selected={false} aria-checked={false} inactiveText="Unavailable due to an outage">
         Inactive item
       </ActionList.Item>
       <ActionList.Item
