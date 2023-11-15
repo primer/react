@@ -24,20 +24,14 @@ export const Invisible = () => (
   </Button>
 )
 
-export const Outline = () => (
-  <Button as="a" href="/" variant="outline">
-    Invisible
-  </Button>
-)
-
 export const LeadingVisual = () => (
-  <Button as="a" href="/" leadingIcon={HeartIcon}>
+  <Button as="a" href="/" leadingVisual={HeartIcon}>
     Leading visual
   </Button>
 )
 
 export const TrailingVisual = () => (
-  <Button as="a" href="/" trailingIcon={EyeIcon}>
+  <Button as="a" href="/" trailingVisual={EyeIcon}>
     Trailing visual
   </Button>
 )
@@ -74,9 +68,12 @@ export const Large = () => (
 
 type ReactRouterLikeLinkProps = {to: string; children: React.ReactNode}
 const ReactRouterLikeLink = forwardRef<HTMLAnchorElement, ReactRouterLikeLinkProps>(
-  ({to, ...props}: {to: string; children: React.ReactNode}, ref) => {
-    // eslint-disable-next-line jsx-a11y/anchor-has-content
-    return <a ref={ref} href={to} {...props} />
+  ({to, children, ...props}: {to: string; children: React.ReactNode}, ref) => {
+    return (
+      <a ref={ref} href={to} {...props}>
+        {children}
+      </a>
+    )
   },
 )
 

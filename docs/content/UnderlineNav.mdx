@@ -1,8 +1,11 @@
 ---
-componentId: underline_nav
 title: UnderlineNav
+componentId: underline_nav
 status: Alpha
+a11yReviewed: true
+description: Use an underlined nav to allow tab like navigation with overflow behaviour in your UI.
 source: https://github.com/primer/react/tree/main/src/UnderlineNav
+storybook: '/react/storybook/?path=/story/components-underlinenav--playground'
 ---
 
 import data from '../../src/UnderlineNav/UnderlineNav.docs.json'
@@ -10,31 +13,185 @@ import DeprecationBanner from '../components/DeprecationBanner'
 
 <DeprecationBanner replacementUrl={'/design/components/underline-nav/react'} />
 
-Use the UnderlineNav component to style navigation with a minimal underlined selected state, typically used for navigation placed at the top of the page.
-
-## Deprecation
-
-UnderlineNav is deprecated and will be replaced by the draft `UnderlineNav` in the next major release. See [the draft UnderlineNav's docs](/drafts/UnderlineNav2) for more details.
-
-To use UnderlineNav with [react-router](https://github.com/ReactTraining/react-router) or
-[react-router-dom](https://www.npmjs.com/package/react-router-dom), pass
-`as={NavLink}` and omit the `selected` prop.
-This ensures that the NavLink gets `activeClassName='selected'`
-
-**Attention:** Make sure to properly label your `UnderlineNav` with an `aria-label` to provide context about the type of navigation contained in `UnderlineNav`.
+```js
+import {UnderlineNav} from '@primer/react'
+```
 
 ## Examples
 
-```jsx live
-<UnderlineNav aria-label="Main">
-  <UnderlineNav.Link href="#home" selected>
-    Home
-  </UnderlineNav.Link>
-  <UnderlineNav.Link href="#documentation">Documentation</UnderlineNav.Link>
-  <UnderlineNav.Link href="#support">Support</UnderlineNav.Link>
+### Simple
+
+```jsx live drafts
+<UnderlineNav aria-label="Repository">
+  <UnderlineNav.Item aria-current="page">Code</UnderlineNav.Item>
+  <UnderlineNav.Item>Issues</UnderlineNav.Item>
+  <UnderlineNav.Item>Pull Requests</UnderlineNav.Item>
 </UnderlineNav>
+```
+
+### With Icons
+
+```jsx live drafts
+<UnderlineNav aria-label="Repository">
+  <UnderlineNav.Item aria-current="page" icon={CodeIcon}>
+    Code
+  </UnderlineNav.Item>
+  <UnderlineNav.Item icon={IssueOpenedIcon} counter={30}>
+    Issues
+  </UnderlineNav.Item>
+  <UnderlineNav.Item icon={GitPullRequestIcon} counter={3}>
+    Pull Requests
+  </UnderlineNav.Item>
+  <UnderlineNav.Item icon={CommentDiscussionIcon}>Discussions</UnderlineNav.Item>
+  <UnderlineNav.Item icon={EyeIcon} counter={9}>
+    Actions
+  </UnderlineNav.Item>
+  <UnderlineNav.Item icon={EyeIcon} counter={7}>
+    Projects
+  </UnderlineNav.Item>
+</UnderlineNav>
+```
+
+### Overflow Behaviour
+
+Component first hides icons if they present to optimize for space and show as many items as possible. If there is still an overflow, it will display the items that don't fit in the `More` menu.
+
+```javascript noinline live drafts
+const Navigation = () => {
+  const items = [
+    {navigation: 'Code', icon: CodeIcon},
+    {navigation: 'Issues', icon: IssueOpenedIcon, counter: 120},
+    {navigation: 'Pull Requests', icon: GitPullRequestIcon, counter: 13},
+    {navigation: 'Discussions', icon: CommentDiscussionIcon, counter: 5},
+    {navigation: 'Actions', icon: PlayIcon, counter: 4},
+    {navigation: 'Projects', icon: ProjectIcon, counter: 9},
+    {navigation: 'Insights', icon: GraphIcon},
+    {navigation: 'Settings', icon: GearIcon, counter: 10},
+    {navigation: 'Security', icon: ShieldLockIcon},
+  ]
+  const [selectedIndex, setSelectedIndex] = React.useState(0)
+  return (
+    <Box sx={{width: 750, border: '1px solid', borderBottom: 0, borderColor: 'border.default'}}>
+      <UnderlineNav aria-label="Repository">
+        {items.map((item, index) => (
+          <UnderlineNav.Item
+            key={item.navigation}
+            icon={item.icon}
+            aria-current={index === selectedIndex ? 'page' : undefined}
+            onSelect={e => {
+              setSelectedIndex(index)
+              e.preventDefault()
+            }}
+            counter={item.counter}
+          >
+            {item.navigation}
+          </UnderlineNav.Item>
+        ))}
+      </UnderlineNav>
+    </Box>
+  )
+}
+render(<Navigation />)
+```
+
+### Loading State For Counters
+
+```jsx live drafts
+<UnderlineNav aria-label="Repository" loadingCounters={true}>
+  <UnderlineNav.Item counter={4} aria-current="page">
+    Code
+  </UnderlineNav.Item>
+  <UnderlineNav.Item counter={44}>Issues</UnderlineNav.Item>
+  <UnderlineNav.Item>Pull Requests</UnderlineNav.Item>
+</UnderlineNav>
+```
+
+### With React Router
+
+```jsx
+import {Link, useMatch, useResolvedPath} from 'react-router-dom'
+import {UnderlineNav} from '@primer/react'
+
+function UnderlineNavItem({to, children, ...rest}) {
+  const resolved = useResolvedPath(to)
+  const isCurrent = useMatch({path: resolved.pathname, end: true})
+  return (
+    <UnderlineNav.Item as={Link} to={to} aria-current={isCurrent ? 'page' : undefined} {...rest}>
+      {children}
+    </UnderlineNav.Item>
+  )
+}
+
+const Navigation = () => {
+  return (
+    <UnderlineNav aria-label="Repository">
+      <UnderlineNavItem to="/code" counter={4}>
+        Code
+      </UnderlineNavItem>
+      <UnderlineNavItem to="/issues" counter={44}>
+        Issues
+      </UnderlineNavItem>
+      <UnderlineNavItem to="/pulls">Pull Requests</UnderlineNavItem>
+    </UnderlineNav>
+  )
+}
+```
+
+### With Next.js
+
+```jsx
+import {useRouter} from 'next/router'
+import Link from 'next/link'
+import {UnderlineNav} from '@primer/react'
+
+function UnderlineNavItem({href, children, ...rest}) {
+  const router = useRouter()
+  const isCurrent = typeof href === 'string' ? router.asPath === href : router.pathname === href.pathname
+  return (
+    <UnderlineNav.Item as={Link} href={href} aria-current={isCurrent ? 'page' : undefined} {...rest}>
+      {children}
+    </UnderlineNav.Item>
+  )
+}
+
+const Navigation = () => {
+  return (
+    <UnderlineNav aria-label="Repository">
+      <UnderlineNavItem href="/code" counter={4}>
+        Code
+      </UnderlineNavItem>
+      <UnderlineNavItem href="/issues" counter={44}>
+        Issues
+      </UnderlineNavItem>
+      <UnderlineNavItem href="/pulls">Pull Requests</UnderlineNavItem>
+    </UnderlineNav>
+  )
+}
 ```
 
 ## Props
 
 <ComponentProps data={data} />
+
+## Status
+
+<ComponentChecklist
+  items={{
+    propsDocumented: true,
+    noUnnecessaryDeps: true,
+    adaptsToThemes: true,
+    adaptsToScreenSizes: true,
+    fullTestCoverage: true,
+    visualRegressionCoverage: true,
+    noAxeViolations: true,
+    usedInProduction: false,
+    usageExamplesDocumented: true,
+    hasStorybookStories: true,
+    designReviewed: true,
+    a11yReviewed: true,
+    stableApi: false,
+    addressedApiFeedback: false,
+    hasDesignGuidelines: false,
+    hasFigmaComponent: false,
+  }}
+/>

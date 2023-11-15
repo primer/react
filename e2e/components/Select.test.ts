@@ -279,41 +279,6 @@ test.describe('Select', () => {
     }
   })
 
-  test.describe('Warning', () => {
-    for (const theme of themes) {
-      test.describe(theme, () => {
-        test('default @vrt', async ({page}) => {
-          await visit(page, {
-            id: 'components-select-features--warning',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-
-          // Default state
-          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(`Select.Warning.${theme}.png`)
-        })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-select-features--warning',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page.getByText('Warning')).toBeVisible()
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
-        })
-      })
-    }
-  })
-
   test.describe('With Caption', () => {
     for (const theme of themes) {
       test.describe(theme, () => {

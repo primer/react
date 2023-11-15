@@ -31,7 +31,7 @@
     },
     {
       "name": "validationStatus",
-      "type": "'error' | 'success' | 'warning'",
+      "type": "'error' | 'success'",
       "defaultValue": "",
       "description": "Style the input to match the status"
     }

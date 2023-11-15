@@ -66,7 +66,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
 
     /** Infer item role based on the container */
     let itemRole: ActionListItemProps['role']
-    if (container === 'ActionMenu' || container === 'DropdownMenu') {
+    if (container === 'ActionMenu') {
       if (selectionVariant === 'single') itemRole = 'menuitemradio'
       else if (selectionVariant === 'multiple') itemRole = 'menuitemcheckbox'
       else itemRole = 'menuitem'
@@ -100,13 +100,14 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       lineHeight: TEXT_ROW_HEIGHT,
       minHeight: 5,
       marginX: listVariant === 'inset' ? 2 : 0,
-      borderRadius: listVariant === 'inset' ? 2 : 0,
+      borderRadius: 2,
       transition: 'background 33.333ms linear',
       color: getVariantStyles(variant, disabled).color,
       cursor: 'pointer',
       '&[aria-disabled]': {
         cursor: 'not-allowed',
         '[data-component="ActionList.Checkbox"]': {
+          cursor: 'not-allowed',
           bg: selected ? 'fg.muted' : 'var(--color-input-disabled-bg, rgba(175, 184, 193, 0.2))',
           borderColor: selected ? 'fg.muted' : 'var(--color-input-disabled-bg, rgba(175, 184, 193, 0.2))',
         },
