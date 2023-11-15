@@ -1,13 +1,17 @@
 import React from 'react'
 import {warning} from '../utils/warning'
 
-/* slot config allows 2 options:
-   1. Component to match, example: { leadingVisual: LeadingVisual }
-   2. Component to match + a test function, example: { blockDescription: [Description, props => props.variant === 'block'] }
-*/
+// slot config allows 2 options:
+// 1. Component to match, example: { leadingVisual: LeadingVisual }
+type ComponentMatcher = React.ElementType<Props>
+// 2. Component to match + a test function, example: { blockDescription: [Description, props => props.variant === 'block'] }
+type ComponentAndPropsMatcher = [ComponentMatcher, (props: Props) => boolean]
 
+export type SlotConfig = Record<string, ComponentMatcher | ComponentAndPropsMatcher>
+
+// We don't know what the props are yet, we set them later based on slot config
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type SlotConfig = Record<string, React.ElementType<any> | [React.ElementType<any>, (props: any) => boolean]>
+type Props = any
 
 type SlotElements<Config extends SlotConfig> = {
   [Property in keyof Config]: SlotValue<Config, Property>
@@ -18,10 +22,10 @@ type SlotValue<Config, Property extends keyof Config> = Config[Property] extends
   : Config[Property] extends readonly [
       infer ElementType extends React.ElementType, // config option 2, infer array[0] as component
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      infer testFn, // even though we don't use testFn, we need to infer it to support types for slots.*.props
+      infer _testFn, // even though we don't use testFn, we need to infer it to support types for slots.*.props
     ]
   ? React.ReactElement<React.ComponentPropsWithoutRef<ElementType>, ElementType>
-  : never
+  : never // useful for narrowing types, third option is not possible
 
 /**
  * Extract components from `children` so we can render them in different places,
