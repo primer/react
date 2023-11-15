@@ -11,6 +11,8 @@ type StyledLinkProps = {
   hoverColor?: string
   muted?: boolean
   underline?: boolean
+  // Link inside a text block
+  inline?: boolean
 } & SxProp
 
 const hoverColor = system({
@@ -22,7 +24,14 @@ const hoverColor = system({
 
 const StyledLink = styled.a<StyledLinkProps>`
   color: ${props => (props.muted ? get('colors.fg.muted')(props) : get('colors.accent.fg')(props))};
+
+  /* Inline links (inside a text block) should have underline based on accessibility setting set in data-attribute */
+  [data-a11y-link-underlines='true'] & {
+    text-decoration: ${props => (props.inline ? 'underline' : undefined)};
+  }
+  /** props.underline can set underline  */
   text-decoration: ${props => (props.underline ? 'underline' : 'none')};
+
   &:hover {
     text-decoration: ${props => (props.muted ? 'none' : 'underline')};
     ${props => (props.hoverColor ? hoverColor : props.muted ? `color: ${get('colors.accent.fg')(props)}` : '')};

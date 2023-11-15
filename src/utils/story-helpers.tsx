@@ -367,7 +367,7 @@ export const withSurroundingElements = (
   return (
     <>
       {showSurroundingElements ? <a href="https://github.com/primer/react">Primer documentation</a> : ''}
-      {Story(context)}
+      <main data-a11y-link-underlines={showSurroundingElements ? true : undefined}>{Story(context)}</main>
       {showSurroundingElements ? <a href="https://github.com/primer/react">Primer documentation</a> : ''}
     </>
   )
