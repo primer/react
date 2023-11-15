@@ -10,16 +10,18 @@ import {warning} from '../utils/warning'
 export type SlotConfig = Record<string, React.ElementType<any> | [React.ElementType<any>, (props: any) => boolean]>
 
 type SlotElements<Config extends SlotConfig> = {
-  [Property in keyof Config]: Config[Property] extends React.ElementType // config option 1
-    ? React.ReactElement<React.ComponentPropsWithoutRef<Config[Property]>, Config[Property]>
-    : Config[Property] extends readonly [
-        infer ElementType extends React.ElementType, // config option 2, infer array[0] as component
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        infer testFn, // even though we don't use testFn, we need to infer it to support types for props
-      ]
-    ? React.ReactElement<React.ComponentPropsWithoutRef<ElementType>, ElementType>
-    : never // third option is not possible
+  [Property in keyof Config]: SlotValue<Config, Property>
 }
+
+type SlotValue<Config, Property extends keyof Config> = Config[Property] extends React.ElementType // config option 1
+  ? React.ReactElement<React.ComponentPropsWithoutRef<Config[Property]>, Config[Property]>
+  : Config[Property] extends readonly [
+      infer ElementType extends React.ElementType, // config option 2, infer array[0] as component
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      infer testFn, // even though we don't use testFn, we need to infer it to support types for slots.*.props
+    ]
+  ? React.ReactElement<React.ComponentPropsWithoutRef<ElementType>, ElementType>
+  : never
 
 /**
  * Extract components from `children` so we can render them in different places,
@@ -70,17 +72,8 @@ export function useSlots<Config extends SlotConfig>(
     }
 
     // If the child is a slot, add it to the `slots` object
-    type ChildType = Config[keyof Config] extends React.ElementType // config option 1
-      ? React.ReactElement<React.ComponentPropsWithoutRef<Config[keyof Config]>, Config[keyof Config]>
-      : Config[keyof Config] extends readonly [
-          infer ElementType extends React.ElementType, // config option 2, infer array[0] as component
-          // eslint-disable-next-line @typescript-eslint/no-unused-vars
-          infer testFn, // even though we don't use testFn, we need to infer it to support types for props
-        ]
-      ? React.ReactElement<React.ComponentPropsWithoutRef<ElementType>, ElementType>
-      : never
 
-    slots[slotKey] = child as ChildType
+    slots[slotKey] = child as SlotValue<Config, keyof Config>
   })
 
   return [slots, rest]
