@@ -37,6 +37,7 @@ export const ViewSwitch = ({selectedView, onViewSelect, onLoadPreview, disabled}
         <TabNav.Link
           {...sharedProps}
           as="button"
+          type="button"
           selected={selectedView === 'edit'}
           disabled={disabled}
           sx={{cursor: 'pointer', color: selectedView === 'edit' ? 'fg.default' : 'fg.muted', borderTopLeftRadius: 1}}
@@ -46,6 +47,7 @@ export const ViewSwitch = ({selectedView, onViewSelect, onLoadPreview, disabled}
         <TabNav.Link
           {...sharedProps}
           as="button"
+          type="button"
           selected={selectedView === 'preview'}
           disabled={disabled}
           sx={{
