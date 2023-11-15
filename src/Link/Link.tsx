@@ -25,12 +25,17 @@ const hoverColor = system({
 const StyledLink = styled.a<StyledLinkProps>`
   color: ${props => (props.muted ? get('colors.fg.muted')(props) : get('colors.accent.fg')(props))};
 
-  /* Inline links (inside a text block) should have underline based on accessibility setting set in data-attribute */
-  [data-a11y-link-underlines='true'] & {
-    text-decoration: ${props => (props.inline ? 'underline' : undefined)};
+  /* By default, Link does not have underline */
+  text-decoration: none;
+
+  /* You can add one by setting underline={true} */
+  text-decoration: ${props => (props.underline ? 'underline' : undefined)};
+
+  /* Inline links (inside a text block), however, should have underline based on accessibility setting set in data-attribute */
+  /* Note: setting underline={false} does not override this */
+  [data-a11y-link-underlines='true'] &[data-inline='true'] {
+    text-decoration: underline;
   }
-  /** props.underline can set underline  */
-  text-decoration: ${props => (props.underline ? 'underline' : 'none')};
 
   &:hover {
     text-decoration: ${props => (props.muted ? 'none' : 'underline')};
@@ -81,6 +86,7 @@ const Link = forwardRef(({as: Component = 'a', ...props}, forwardedRef) => {
   return (
     <StyledLink
       as={Component}
+      data-inline={props.inline}
       {...props}
       // @ts-ignore shh
       ref={innerRef}
