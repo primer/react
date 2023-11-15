@@ -122,11 +122,13 @@ test('extracts elements based on condition in config object', () => {
     <TestComponentA key="b" variant="b" />,
     <div key="hello">Hello World</div>,
   ]
-  const slotsConfig = {
-    a: [TestComponentA, (props: TestComponentAProps) => props.variant === 'a'],
-    b: [TestComponentA, (props: TestComponentAProps) => props.variant === 'b'],
-  }
-  const {result} = renderHook(() => useSlots(children, slotsConfig))
+
+  const {result} = renderHook(() =>
+    useSlots(children, {
+      a: [TestComponentA, (props: TestComponentAProps) => props.variant === 'a'],
+      b: [TestComponentA, (props: TestComponentAProps) => props.variant === 'b'],
+    }),
+  )
   expect(result.current).toMatchInlineSnapshot(`
     [
       {

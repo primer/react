@@ -1,15 +1,24 @@
 import React from 'react'
 import {warning} from '../utils/warning'
 
+/* slot config allows 2 options:
+   1. Component to match, example: { leadingVisual: LeadingVisual }
+   2. Component to match + a test function, example: { blockDescription: [Description, props => props.variant === 'block'] }
+*/
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type SlotConfig = Record<string, React.ElementType<any> | [React.ElementType<any>, (props: any) => boolean]>
 
-type SlotElements<Type extends SlotConfig> = {
-  [Property in keyof Type]: Type[Property] extends React.ElementType
-    ? React.ReactElement<React.ComponentPropsWithoutRef<Type[Property]>, Type[Property]>
-    : Type[Property] extends readonly [infer ElementType extends React.ElementType]
+type SlotElements<Config extends SlotConfig> = {
+  [Property in keyof Config]: Config[Property] extends React.ElementType // config option 1
+    ? React.ReactElement<React.ComponentPropsWithoutRef<Config[Property]>, Config[Property]>
+    : Config[Property] extends readonly [
+        infer ElementType extends React.ElementType, // config option 2, infer array[0] as component
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        infer testFn, // even though we don't use testFn, we need to infer it to support types for props
+      ]
     ? React.ReactElement<React.ComponentPropsWithoutRef<ElementType>, ElementType>
-    : never
+    : never // third option is not possible
 }
 
 /**
@@ -17,17 +26,17 @@ type SlotElements<Type extends SlotConfig> = {
  * allowing us to implement components with SSR-compatible slot APIs.
  * Note: We can only extract direct children, not nested ones.
  */
-export function useSlots<T extends SlotConfig>(
+export function useSlots<Config extends SlotConfig>(
   children: React.ReactNode,
-  config: T,
-): [Partial<SlotElements<T>>, React.ReactNode[]] {
+  config: Config,
+): [Partial<SlotElements<Config>>, React.ReactNode[]] {
   // Object mapping slot names to their elements
-  const slots: Partial<SlotElements<T>> = mapValues(config, () => undefined)
+  const slots: Partial<SlotElements<Config>> = mapValues(config, () => undefined)
 
   // Array of elements that are not slots
   const rest: React.ReactNode[] = []
 
-  const keys = Object.keys(config) as Array<keyof T>
+  const keys = Object.keys(config) as Array<keyof Config>
   const values = Object.values(config)
 
   // eslint-disable-next-line github/array-foreach
@@ -39,8 +48,8 @@ export function useSlots<T extends SlotConfig>(
 
     const index = values.findIndex(value => {
       if (Array.isArray(value)) {
-        const [component, fn] = value
-        return child.type === component && fn(child.props)
+        const [component, testFn] = value
+        return child.type === component && testFn(child.props)
       } else {
         return child.type === value
       }
@@ -61,7 +70,17 @@ export function useSlots<T extends SlotConfig>(
     }
 
     // If the child is a slot, add it to the `slots` object
-    slots[slotKey] = child as React.ReactElement<React.ComponentPropsWithoutRef<T[keyof T]>, T[keyof T]>
+    type ChildType = Config[keyof Config] extends React.ElementType // config option 1
+      ? React.ReactElement<React.ComponentPropsWithoutRef<Config[keyof Config]>, Config[keyof Config]>
+      : Config[keyof Config] extends readonly [
+          infer ElementType extends React.ElementType, // config option 2, infer array[0] as component
+          // eslint-disable-next-line @typescript-eslint/no-unused-vars
+          infer testFn, // even though we don't use testFn, we need to infer it to support types for props
+        ]
+      ? React.ReactElement<React.ComponentPropsWithoutRef<ElementType>, ElementType>
+      : never
+
+    slots[slotKey] = child as ChildType
   })
 
   return [slots, rest]
