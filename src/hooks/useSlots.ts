@@ -2,10 +2,14 @@ import React from 'react'
 import {warning} from '../utils/warning'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type SlotConfig = Record<string, React.ElementType<any>>
+export type SlotConfig = Record<string, React.ElementType<any> | [React.ElementType<any>, (props: any) => boolean]>
 
 type SlotElements<Type extends SlotConfig> = {
-  [Property in keyof Type]: React.ReactElement<React.ComponentPropsWithoutRef<Type[Property]>, Type[Property]>
+  [Property in keyof Type]: Type[Property] extends React.ElementType
+    ? React.ReactElement<React.ComponentPropsWithoutRef<Type[Property]>, Type[Property]>
+    : Type[Property] extends readonly [infer ElementType extends React.ElementType]
+    ? React.ReactElement<React.ComponentPropsWithoutRef<ElementType>, ElementType>
+    : never
 }
 
 /**
