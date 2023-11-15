@@ -51,6 +51,10 @@ export const Inline = () => (
       <Link inline={false} underline={false} href="#">
         inline: false, underline: false
       </Link>
+      <br />
+      <Link muted={true} inline={true} href="#">
+        inline: true, muted: true
+      </Link>
     </div>
     <br />
     <div style={{display: 'flex', flexDirection: 'column'}} data-a11y-link-underlines="false">
@@ -81,6 +85,10 @@ export const Inline = () => (
       </Link>
       <Link inline={false} underline={false} href="#">
         inline: false, underline: false
+      </Link>
+      <br />
+      <Link muted={true} inline={true} href="#">
+        inline: true, muted: true
       </Link>
     </div>
   </div>
