@@ -170,7 +170,7 @@ exports[`ActionMenu renders consistently 1`] = `
 }
 
 .c1[data-inactive]:not([disabled]):not([aria-disabled]) {
-  background-color: var(--button-inactive-bgColor,#d0d7de);
+  background-color: var(--button-inactive-bgColor,#eaeef2);
   border: 0;
   color: var(--button-inactive-fgColor,#656d76);
 }
