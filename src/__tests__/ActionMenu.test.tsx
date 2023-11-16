@@ -364,4 +364,36 @@ describe('ActionMenu', () => {
     button.focus()
     expect(component.getByRole('tooltip')).toBeInTheDocument()
   })
+
+  it('should pass the "id" prop from ActionMenu.Button to the HTML button', async () => {
+    const buttonId = 'toggle-menu-custom-id'
+    const component = HTMLRender(
+      <ThemeProvider theme={theme}>
+        <SSRProvider>
+          <BaseStyles>
+            <ActionMenu>
+              <ActionMenu.Button id={buttonId}>Toggle Menu</ActionMenu.Button>
+              <ActionMenu.Overlay>
+                <ActionList>
+                  <ActionList.Item>New file</ActionList.Item>
+                  <ActionList.Divider />
+                  <ActionList.Item>Copy link</ActionList.Item>
+                  <ActionList.Item>Edit file</ActionList.Item>
+                  <ActionList.Item variant="danger" onSelect={event => event.preventDefault()}>
+                    Delete file
+                  </ActionList.Item>
+                  <ActionList.LinkItem href="//github.com" title="anchor" aria-keyshortcuts="s">
+                    Github
+                  </ActionList.LinkItem>
+                </ActionList>
+              </ActionMenu.Overlay>
+            </ActionMenu>
+          </BaseStyles>
+        </SSRProvider>
+      </ThemeProvider>,
+    )
+    const button = component.getByRole('button')
+
+    expect(button.id).toBe(buttonId)
+  })
 })

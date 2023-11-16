@@ -46,8 +46,13 @@ const Menu: React.FC<React.PropsWithChildren<ActionMenuProps>> = ({
   const onOpen = React.useCallback(() => setCombinedOpenState(true), [setCombinedOpenState])
   const onClose = React.useCallback(() => setCombinedOpenState(false), [setCombinedOpenState])
 
+  const menuButtonChild = React.Children.toArray(children).find(
+    child => React.isValidElement<ActionMenuButtonProps>(child) && (child.type === MenuButton || child.type === Anchor),
+  )
+  const menuButtonChildId = React.isValidElement(menuButtonChild) ? menuButtonChild.props.id : undefined
+
   const anchorRef = useProvidedRefOrCreate(externalAnchorRef)
-  const anchorId = useId()
+  const anchorId = useId(menuButtonChildId)
   let renderAnchor: AnchoredOverlayProps['renderAnchor'] = null
   // 🚨 Hack for good API!
   // we strip out Anchor from children and pass it to AnchoredOverlay to render
