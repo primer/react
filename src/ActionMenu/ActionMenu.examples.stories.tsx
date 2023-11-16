@@ -339,7 +339,7 @@ export const SettingMaxHeight = () => {
   return (
     <ActionMenu>
       <ActionMenu.Button>Open menu</ActionMenu.Button>
-      <ActionMenu.Overlay width="auto" maxHeight="large">
+      <ActionMenu.Overlay width="auto" maxHeight="large" overflow="auto">
         <ActionList>
           {Array.from({length: 100}, (_, i) => (
             <ActionList.Item key={`item-${i}`} onSelect={() => alert(`Item ${i + 1} clicked`)}>
