@@ -62,9 +62,7 @@ const Root: React.FC<React.PropsWithChildren<PageHeaderProps>> = ({children, sx 
     gridTemplateRows: '1fr', // 4 rows
 
     // gridAutoFlow: 'column',
-    // The current with the columsn now is taht it doesn't wrap the long pull request title.
-    gridTemplateColumns: 'max-content minmax(min-content, max-content) max-content 1fr', // 4 columns
-    // gridTemplateColumns: 'repeat(auto-fit, minmax(min-content, max-content))',
+    gridTemplateColumns: 'auto minmax(min-content, max-content) max-content 1fr', // 4 columns
     // TODO: We used hard-coded values for the spacing and font size in this component. Update them to use new design tokens when they are ready to use.
     gap: '0.5rem',
     alignItems: 'center',
@@ -343,7 +341,7 @@ const Title: React.FC<React.PropsWithChildren<TitleProps>> = ({children, sx = {}
           display: 'flex',
           order: TITLE_AREA_REGION_ORDER.Title,
           ...getBreakpointDeclarations(hidden, 'display', value => {
-            return value ? 'none' : 'flex'
+            return value ? 'none' : 'block'
           }),
         },
         sx,
@@ -494,6 +492,7 @@ const Navigation: React.FC<React.PropsWithChildren<NavigationProps>> = ({
         {
           display: 'flex',
           gridRow: 4,
+          gridColumn: '1 / -1',
           // order: REGION_ORDER.Navigation,
           ...getBreakpointDeclarations(hidden, 'display', value => {
             return value ? 'none' : 'block'
