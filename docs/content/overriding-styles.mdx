@@ -36,15 +36,21 @@ This example demonstrates applying a bottom border to `Heading`, a component tha
 
 ## Responsive values
 
-Just like [values passed to system props](https://styled-system.com/responsive-styles), values in the `sx` prop can be provided as arrays to provide responsive styling.
+Values in the `sx` prop can be provided as arrays to provide responsive styling.
 
 ```jsx live
 <Box
   sx={{
-    backgroundColor: ['danger.emphasis', 'accent.emphasis', 'done.emphasis', 'open.emphasis', 'attention.emphasis'],
+    backgroundColor: [
+      'open.emphasis', // default
+      'done.emphasis', // small       (min-width: 544px)
+      'accent.emphasis', // medium    (min-width: 768px)
+      'danger.emphasis', // large     (min-width: 1012px)
+      'attention.emphasis', // xlarge (min-width: 1280px)
+    ],
+    padding: [2, 4],
     color: 'fg.onEmphasis',
     borderRadius: 2,
-    padding: 2,
   }}
 >
   Resize window to see responsive background color
@@ -55,24 +61,25 @@ This generates the following CSS:
 
 ```css
 .Box-hsdYAF {
-  background-color: var(--bgColor-danger-emphasis); /* default, smaller than sm */
-  color: rgb(255, 255, 255);
-  border-radius: 6px;
+  background-color: var(--bgColor-open-emphasis); /* default */
   padding: 8px;
+  color: var(--fgColor-onEmphasis);
+  border-radius: 6px;
 }
-@media screen and (min-width: 544px /* sm */) {
+@media screen and (min-width: 544px /* small */) {
+  .Box-hsdYAF {
+    background-color: var(--bgColor-done-emphasis);
+    padding: 16px;
+  }
+}
+@media screen and (min-width: 768px /* medium */) {
   .Box-hsdYAF {
     background-color: var(--bgColor-accent-emphasis);
   }
 }
-@media screen and (min-width: 768px /* md */) {
+@media screen and (min-width: 1012px /* large */) {
   .Box-hsdYAF {
-    background-color: var(--bgColor-done-emphasis);
-  }
-}
-@media screen and (min-width: 1012px /* lg */) {
-  .Box-hsdYAF {
-    background-color: var(--bgColor-open-emphasis);
+    background-color: var(--bgColor-danger-emphasis);
   }
 }
 @media screen and (min-width: 1280px /* xlarge */) {
