@@ -269,6 +269,25 @@ export const SingleSelect = () => {
   )
 }
 
+export const InactiveSingleSelect = () => {
+  const [selectedIndex, setSelectedIndex] = React.useState(1)
+  return (
+    <ActionList selectionVariant="single" showDividers role="menu" aria-label="Project">
+      <ActionList.Item role="menuitem" selected={false} inactiveText="Unavailable due to an outage">
+        Inactive item
+      </ActionList.Item>
+      <ActionList.Item
+        role="menuitemradio"
+        selected={selectedIndex === 1}
+        aria-checked={selectedIndex === 1}
+        onSelect={() => setSelectedIndex(1)}
+      >
+        Item 2
+      </ActionList.Item>
+    </ActionList>
+  )
+}
+
 export const MultiSelect = () => {
   const [selectedIndices, setSelectedIndices] = React.useState<number[]>([0])
   const handleSelect = (index: number) => {
