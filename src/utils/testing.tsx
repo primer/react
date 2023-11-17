@@ -3,7 +3,7 @@ import {promisify} from 'util'
 import renderer from 'react-test-renderer'
 import {render as HTMLRender} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
-import type {Story as StoryType} from '@storybook/react'
+import type {StoryFn} from '@storybook/react'
 import {ThemeProvider} from '..'
 import {default as defaultTheme} from '../theme'
 
@@ -245,8 +245,8 @@ export function checkStoriesForAxeViolations(name: string, storyDir?: string) {
   const {default: _meta, ...Stories} = stories
   Object.values(Stories).map(Story => {
     if (typeof Story !== 'function') return
-
-    const {storyName, name: StoryFunctionName} = Story as StoryType
+    const StoryComponent = Story as StoryFn
+    const {storyName, name: StoryFunctionName} = StoryComponent
 
     beforeEach(() => {
       // IntersectionObserver isn't available in test environment
@@ -262,7 +262,7 @@ export function checkStoriesForAxeViolations(name: string, storyDir?: string) {
     it(`story ${storyName || StoryFunctionName} should have no axe violations`, async () => {
       const {container} = HTMLRender(
         <ThemeProvider theme={defaultTheme}>
-          <Story />
+          <StoryComponent />
         </ThemeProvider>,
       )
 

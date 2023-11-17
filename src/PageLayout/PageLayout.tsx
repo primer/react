@@ -797,6 +797,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
           {...labelProp}
           {...(id && {id: paneId})}
         >
+          {children}
           {resizable && (
             // eslint-disable-next-line github/a11y-no-visually-hidden-interactive-element
             <VisuallyHidden>
@@ -823,7 +824,6 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
               </form>
             </VisuallyHidden>
           )}
-          {children}
         </Box>
       </Box>
     )

@@ -399,16 +399,6 @@ exports[`NavList renders with groups 1`] = `
   margin-top: 8px;
 }
 
-.c3 {
-  padding-top: 6px;
-  padding-bottom: 6px;
-  padding-left: 16px;
-  padding-right: 16px;
-  font-size: 12px;
-  font-weight: 600;
-  color: #656d76;
-}
-
 .c4 {
   padding-inline-start: 0;
 }
@@ -434,6 +424,19 @@ exports[`NavList renders with groups 1`] = `
   -ms-flex-positive: 1;
   flex-grow: 1;
   font-weight: 400;
+}
+
+.c3 {
+  font-weight: 600;
+  font-size: 32px;
+  margin: 0;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  padding-left: 16px;
+  padding-right: 16px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #656d76;
 }
 
 .c0 {
@@ -723,17 +726,12 @@ exports[`NavList renders with groups 1`] = `
       <li
         class="c2"
       >
-        <div
-          aria-hidden="true"
+        <h3
           class="c3"
-          role="presentation"
+          id="react-aria-2"
         >
-          <span
-            id="react-aria-2"
-          >
-            Overview
-          </span>
-        </div>
+          Overview
+        </h3>
         <ul
           aria-labelledby="react-aria-2"
           class="c4"
@@ -772,17 +770,12 @@ exports[`NavList renders with groups 1`] = `
       <li
         class="c2"
       >
-        <div
-          aria-hidden="true"
+        <h3
           class="c3"
-          role="presentation"
+          id="react-aria-4"
         >
-          <span
-            id="react-aria-4"
-          >
-            Components
-          </span>
-        </div>
+          Components
+        </h3>
         <ul
           aria-labelledby="react-aria-4"
           class="c4"
