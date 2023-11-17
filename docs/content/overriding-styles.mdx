@@ -40,14 +40,38 @@ Just like [values passed to system props](https://styled-system.com/responsive-s
 
 ```jsx live
 <Box
-  sx={{
-    display: ['flex', 'flex', 'block', 'block'],
+ sx={{
+    backgroundColor: ['danger.emphasis', 'accent.emphasis', 'done.emphasis', 'open.emphasis', 'attention.emphasis'],
+    color: 'fg.onEmphasis',
     borderRadius: 2,
-    padding: 2,
+    padding: 2
   }}
 >
-  Responsive background color
+  Resize window to see responsive background color
 </Box>
+```
+
+This generates the css equivalent of:
+
+```css
+.Box {
+  background-color: var(--bgColor-danger-emphasis); /* default, smaller than sm */
+  color: rgb(255, 255, 255);
+  border-radius: 6px;
+  padding: 8px;
+}
+@media screen and (min-width: 544px) { // sm
+  .Box { background-color: var(--bgColor-accent-emphasis); }
+}
+@media screen and (min-width: 768px) { // md
+  .Box { background-color: var(--bgColor-done-emphasis); }
+}
+@media screen and (min-width: 1012px) { // lg
+  .Box { background-color: var(--bgColor-open-emphasis); }
+}
+@media screen and (min-width: 1280px) { // xlarge
+  .Box { background-color: var(--bgColor-attention-emphasis); }
+}
 ```
 
 ## Nesting, pseudo-classes, and pseudo-elements
