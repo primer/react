@@ -263,7 +263,7 @@
     "unist-util-find-before": "4.0.0",
     "unist-util-flat-filter": "2.0.0",
     "webpack": "5.88.2",
-    "yaml": "2.2.2"
+    "yaml": "2.3.4"
   },
   "peerDependencies": {
     "@types/react": "^18.0.0",
