@@ -9,7 +9,7 @@ export default {
 export const LinksAndActions = () => (
   <ActionMenu>
     <ActionMenu.Button>Open menu</ActionMenu.Button>
-    <ActionMenu.Overlay width="auto">
+    <ActionMenu.Overlay>
       <ActionList>
         <ActionList.Item onSelect={() => alert('Workflows clicked')}>
           Workflows
@@ -76,7 +76,7 @@ export const SingleSelect = () => {
   return (
     <ActionMenu>
       <ActionMenu.Button>Options: {selectedType.name}</ActionMenu.Button>
-      <ActionMenu.Overlay width="auto">
+      <ActionMenu.Overlay>
         <ActionList selectionVariant="single">
           {options.map((options, index) => (
             <ActionList.Item key={index} selected={index === selectedIndex} onSelect={() => setSelectedIndex(index)}>
@@ -110,7 +110,7 @@ export const MultiSelect = () => {
   return (
     <ActionMenu>
       <ActionMenu.Button>Display</ActionMenu.Button>
-      <ActionMenu.Overlay width="auto">
+      <ActionMenu.Overlay>
         <ActionList selectionVariant="multiple">
           {options.map(options => (
             <ActionList.Item key={options.name} selected={options.selected} onSelect={() => toggle(options.name)}>

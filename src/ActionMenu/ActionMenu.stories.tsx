@@ -12,7 +12,7 @@ export default {
 export const Default = () => (
   <ActionMenu>
     <ActionMenu.Button>Open menu</ActionMenu.Button>
-    <ActionMenu.Overlay width="medium">
+    <ActionMenu.Overlay>
       <ActionList>
         <ActionList.Item onSelect={() => alert('Copy link clicked')}>
           Copy link
