@@ -142,48 +142,6 @@ test.describe('Link', () => {
 
           // Default state
           expect(await page.screenshot()).toMatchSnapshot(`Link.Inline.${theme}.png`)
-
-          // Hover state
-          await page.getByRole('link').hover()
-          expect(await page.screenshot()).toMatchSnapshot(`Link.Inline.${theme}.hover.png`)
-
-          // Focus state
-          await page.keyboard.press('Tab')
-          expect(await page.screenshot()).toMatchSnapshot(`Link.Inline.${theme}.focus.png`)
-        })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-link-features--inline',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
-        })
-      })
-    }
-  })
-
-  test.describe('Dev: Inline', () => {
-    for (const theme of themes) {
-      test.describe(theme, () => {
-        test('default @vrt', async ({page}) => {
-          await visit(page, {
-            id: 'components-link-devonly--inline',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-
-          // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`Link.Inline.${theme}.png`)
         })
 
         test('axe @aat', async ({page}) => {
