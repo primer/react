@@ -6,7 +6,7 @@ export default defineConfig({
   // https://playwright.dev/docs/api/class-testconfig#test-config-test-dir
   testDir: path.join(__dirname, 'e2e'),
   testIgnore: ['**/matchers/**', '**/test-helpers/**'],
-  testMatch: '**/Link.test.ts',
+  testMatch: '**/*.test.ts',
 
   // https://playwright.dev/docs/api/class-testconfig#test-config-timeout
   timeout: 1000 * 15,
