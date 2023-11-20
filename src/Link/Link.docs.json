@@ -18,6 +18,12 @@
       "description": "Uses a less prominent shade for Link color, and the default link shade on hover"
     },
     {
+      "name": "inline",
+      "type": "boolean",
+      "defaultValue": "false",
+      "description": "Tag link inside a text block"
+    },
+    {
       "name": "underline",
       "type": "boolean",
       "defaultValue": "false",
