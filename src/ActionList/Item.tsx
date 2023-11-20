@@ -146,6 +146,9 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
         },
       },
 
+      /** If ActionList is inside an Overlay with width=auto, don't wrap automatically */
+      '[data-overlay-width="auto"] &': {whiteSpace: 'nowrap'},
+
       /** Divider styles */
       '[data-component="ActionList.Item--DividerContainer"]': {
         position: 'relative',
