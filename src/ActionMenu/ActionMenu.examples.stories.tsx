@@ -33,7 +33,7 @@ export const GroupsAndDescriptions = () => {
       <ActionMenu.Button variant="default" trailingVisual={GearIcon}>
         Milestone
       </ActionMenu.Button>
-      <ActionMenu.Overlay width="medium">
+      <ActionMenu.Overlay>
         <ActionList selectionVariant="single" showDividers>
           <ActionList.Group title="Open">
             {milestones
@@ -82,7 +82,7 @@ export const CustomOverlayProps = () => {
     <Box sx={{display: 'flex', justifyContent: 'center'}}>
       <ActionMenu open={open} onOpenChange={setOpen}>
         <ActionMenu.Button>Menu</ActionMenu.Button>
-        <ActionMenu.Overlay width="large" align="center">
+        <ActionMenu.Overlay align="center">
           <ActionList>
             <ActionList.Item>Option 1</ActionList.Item>
             <ActionList.Item>Option 2</ActionList.Item>
@@ -161,7 +161,7 @@ export const CustomAnchor = () => (
     <ActionMenu.Anchor>
       <IconButton icon={KebabHorizontalIcon} aria-label="Open menu" />
     </ActionMenu.Anchor>
-    <ActionMenu.Overlay width="medium">
+    <ActionMenu.Overlay>
       <ActionList>
         <ActionList.Item onSelect={() => alert('Copy link clicked')}>
           Copy link
@@ -204,7 +204,7 @@ export const MixedSelection = () => {
       <ActionMenu.Button leadingVisual={selectedOption ? selectedOption.icon : undefined}>
         {selectedOption ? `Group by ${selectedOption.text}` : 'Group items by'}
       </ActionMenu.Button>
-      <ActionMenu.Overlay width="medium">
+      <ActionMenu.Overlay>
         <ActionList>
           <ActionList.Group selectionVariant="single" title="Group by">
             {options.map((option, index) => (
@@ -243,7 +243,7 @@ export const MultipleSections = () => {
       <ActionMenu.Anchor>
         <IconButton icon={KebabHorizontalIcon} aria-label="Open menu" />
       </ActionMenu.Anchor>
-      <ActionMenu.Overlay width="small">
+      <ActionMenu.Overlay>
         <ActionList>
           <ActionList.Group title="Raw file content">
             <ActionList.Item onSelect={() => alert('Workflows clicked')}>Download</ActionList.Item>
@@ -311,7 +311,7 @@ export const DelayedMenuClose = () => {
 export const OnRightSide = () => (
   <ActionMenu>
     <ActionMenu.Button>Open menu</ActionMenu.Button>
-    <ActionMenu.Overlay width="medium" side="outside-right">
+    <ActionMenu.Overlay side="outside-right">
       <ActionList>
         <ActionList.Item onSelect={() => alert('Copy link clicked')}>
           Copy link
