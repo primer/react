@@ -1,18 +1,23 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`SideNav SideNav.Link renders consistently 1`] = `
-.c0 {
+.c1 {
   color: #0969da;
   -webkit-text-decoration: none;
   text-decoration: none;
 }
 
-.c0:hover {
+[data-a11y-link-underlines='true'] .c0[data-inline='true'] {
   -webkit-text-decoration: underline;
   text-decoration: underline;
 }
 
-.c0:is(button) {
+.c1:hover {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c1:is(button) {
   display: inline-block;
   padding: 0;
   font-size: inherit;
@@ -29,7 +34,7 @@ exports[`SideNav SideNav.Link renders consistently 1`] = `
   appearance: none;
 }
 
-.c1 {
+.c2 {
   position: relative;
   display: block;
   width: 100%;
@@ -38,7 +43,7 @@ exports[`SideNav SideNav.Link renders consistently 1`] = `
 }
 
 <a
-  className="c0 c1"
+  className="c0 c1 c2"
 />
 `;
 
