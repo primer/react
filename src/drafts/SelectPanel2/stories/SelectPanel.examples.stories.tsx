@@ -150,59 +150,6 @@ const SuspendedActionList: React.FC<{query: string}> = ({query}) => {
   )
 }
 
-export const AsyncSearchWithSuspenseKey = () => {
-  // issue `data` is already pre-fetched
-  // `users` are fetched async on search
-
-  const [query, setQuery] = React.useState('')
-  const onSearchInputChange: React.ChangeEventHandler<HTMLInputElement> = event => {
-    const query = event.currentTarget.value
-    setQuery(query)
-  }
-
-  /* Selection */
-  const initialAssigneeIds: string[] = data.issue.assigneeIds
-  const [selectedUserIds, setSelectedUserIds] = React.useState<string[]>(initialAssigneeIds)
-  const onUserSelect = (userId: string) => {
-    if (!selectedUserIds.includes(userId)) setSelectedUserIds([...selectedUserIds, userId])
-    else setSelectedUserIds(selectedUserIds.filter(id => id !== userId))
-  }
-
-  const onSubmit = () => {
-    data.issue.assigneeIds = selectedUserIds // pretending to persist changes
-
-    // eslint-disable-next-line no-console
-    console.log('form submitted')
-  }
-
-  return (
-    <>
-      <h1>Async search with useTransition</h1>
-      <p>Fetching items on every keystroke search (like github users)</p>
-
-      <SelectPanel title="Select collaborators" onSubmit={onSubmit}>
-        <SelectPanel.Button>Select assignees</SelectPanel.Button>
-        <SelectPanel.Header>
-          <SelectPanel.SearchInput onChange={onSearchInputChange} />
-        </SelectPanel.Header>
-
-        {/* Reset suspense boundary to trigger refetch on query
-            Docs reference: https://react.dev/reference/react/Suspense#resetting-suspense-boundaries-on-navigation
-        */}
-        <React.Suspense key={query} fallback={<SelectPanel.Loading>Fetching users...</SelectPanel.Loading>}>
-          <SearchableUserList
-            query={query}
-            initialAssigneeIds={initialAssigneeIds}
-            selectedUserIds={selectedUserIds}
-            onUserSelect={onUserSelect}
-          />
-          <SelectPanel.Footer />
-        </React.Suspense>
-      </SelectPanel>
-    </>
-  )
-}
-
 /* 
   `data` is already pre-fetched with the issue 
   `users` are fetched async on search
