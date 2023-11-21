@@ -59,13 +59,20 @@ export type PageHeaderProps = {
 const Root: React.FC<React.PropsWithChildren<PageHeaderProps>> = ({children, sx = {}, as = 'div'}) => {
   const rootStyles = {
     display: 'grid',
-    gridTemplateRows: '1fr', // 4 rows
-
-    // gridAutoFlow: 'column',
-    gridTemplateColumns: 'auto minmax(min-content, max-content) max-content 1fr', // 4 columns
+    // We have max 4 columns.
+    gridTemplateColumns: 'auto auto auto 1fr',
+    // First column is for context area and takes the full row. Context area items are displayed with flexbox inside.
+    // Second column is for leading and trailing action, leading and trailing visuals and the title.
+    // Third column is for navigation and takes the full row.
+    // Fourth column is for description and takes the full row.
+    gridTemplateAreas: `
+      'context-area context-area context-area context-area'
+      'leading-action title-area trailing-action actions'
+      'navigation navigation navigation navigation'
+      'description description description description'
+    `,
     // TODO: We used hard-coded values for the spacing and font size in this component. Update them to use new design tokens when they are ready to use.
     gap: '0.5rem',
-    alignItems: 'center',
   }
   return (
     <Box data-component="pageheader" as={as} sx={merge<BetterSystemStyleObject>(rootStyles, sx)}>
@@ -85,7 +92,7 @@ const ContextArea: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
 }) => {
   const contentNavStyles = {
     gridRow: GRID_ROW_ORDER.ContextArea,
-    gridColumn: '1 / -1', // take the full row
+    gridArea: 'context-area',
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
@@ -235,12 +242,10 @@ const TitleArea: React.FC<React.PropsWithChildren<TitleAreaProps>> = ({
         data-component="pageheader-titlearea"
         sx={merge<BetterSystemStyleObject>(
           {
-            gridRow: 2,
-            // gridAutoFlow: 'column',
-            // gridArea: 'titlearea',
+            gridRow: GRID_ROW_ORDER.TitleArea,
+            gridArea: 'title-area',
             display: 'flex',
             gap: '0.5rem',
-            // order: REGION_ORDER.TitleArea,
             ...getBreakpointDeclarations(hidden, 'display', value => {
               return value ? 'none' : 'flex'
             }),
@@ -270,10 +275,9 @@ const LeadingAction: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
       data-component="pageheader-leadingaction"
       sx={merge<BetterSystemStyleObject>(
         {
-          gridRow: 2,
-          gridColumn: 1,
+          gridRow: GRID_ROW_ORDER.LeadingAction,
+          gridArea: 'leading-action',
           display: 'flex',
-          // order: REGION_ORDER.LeadingAction,
           ...getBreakpointDeclarations(hidden, 'display', value => {
             return value ? 'none' : 'flex'
           }),
@@ -295,6 +299,7 @@ const LeadingVisual: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({ch
     <Box
       sx={merge<BetterSystemStyleObject>(
         {
+          // using flex and order to display the leading visual in the title area.
           display: 'flex',
           order: TITLE_AREA_REGION_ORDER.LeadingVisual,
           ...getBreakpointDeclarations(hidden, 'display', value => {
@@ -338,6 +343,7 @@ const Title: React.FC<React.PropsWithChildren<TitleProps>> = ({children, sx = {}
             medium: '600',
             subtitle: '400',
           }[titleVariant],
+          // using flex and order to display the title in the title area.
           display: 'flex',
           order: TITLE_AREA_REGION_ORDER.Title,
           ...getBreakpointDeclarations(hidden, 'display', value => {
@@ -360,6 +366,7 @@ const TrailingVisual: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({c
     <Box
       sx={merge<BetterSystemStyleObject>(
         {
+          // using flex and order to display the trailing visual in the title area.
           display: 'flex',
           order: TITLE_AREA_REGION_ORDER.TrailingVisual,
           ...getBreakpointDeclarations(hidden, 'display', value => {
@@ -388,9 +395,9 @@ const TrailingAction: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
       data-component="pageheader-trailingaction"
       sx={merge<BetterSystemStyleObject>(
         {
-          gridRow: 2,
+          gridRow: GRID_ROW_ORDER.TrailingAction,
+          gridArea: 'trailing-action',
           display: 'flex',
-          // order: REGION_ORDER.TrailingAction,
           ...getBreakpointDeclarations(hidden, 'display', value => {
             return value ? 'none' : 'flex'
           }),
@@ -412,10 +419,9 @@ const Actions: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({children
       data-component="pageheader-actions"
       sx={merge<BetterSystemStyleObject>(
         {
-          gridRow: 2,
-          gridColumn: 4,
+          gridRow: GRID_ROW_ORDER.Actions,
+          gridArea: 'actions',
           display: 'flex',
-          // order: REGION_ORDER.Actions,
           ...getBreakpointDeclarations(hidden, 'display', value => {
             return value ? 'none' : 'flex'
           }),
@@ -438,11 +444,12 @@ const Actions: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({children
 const Description: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({children, sx = {}, hidden = false}) => {
   return (
     <Box
+      data-component="pageheader-description"
       sx={merge<BetterSystemStyleObject>(
         {
+          gridRow: GRID_ROW_ORDER.Description,
+          gridArea: 'description',
           display: 'flex',
-          gridRow: 3,
-          // order: REGION_ORDER.Description,
           ...getBreakpointDeclarations(hidden, 'display', value => {
             return value ? 'none' : 'flex'
           }),
@@ -484,16 +491,16 @@ const Navigation: React.FC<React.PropsWithChildren<NavigationProps>> = ({
   }
   return (
     <Box
+      data-component="pageheader-navigation"
       as={as}
       // Render `aria-label` and `aria-labelledby` only on `nav` elements
       aria-label={as === 'nav' ? ariaLabel : undefined}
       aria-labelledby={as === 'nav' ? ariaLabelledBy : undefined}
       sx={merge<BetterSystemStyleObject>(
         {
+          gridRow: GRID_ROW_ORDER.Navigation,
+          gridArea: 'navigation',
           display: 'flex',
-          gridRow: 4,
-          gridColumn: '1 / -1',
-          // order: REGION_ORDER.Navigation,
           ...getBreakpointDeclarations(hidden, 'display', value => {
             return value ? 'none' : 'block'
           }),
