@@ -158,7 +158,7 @@ exports[`Button renders consistently 1`] = `
 .c0[data-inactive]:not([disabled]):not([aria-disabled]) {
   background-color: var(--button-inactive-bgColor,#eaeef2);
   border: 0;
-  color: var(--button-inactive-fgColor,#656d76);
+  color: var(--button-inactive-fgColor,#57606a);
 }
 
 .c0 [data-component="leadingVisual"] {
