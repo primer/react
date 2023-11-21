@@ -475,5 +475,6 @@ export const SelectPanel = Object.assign(Panel, {
   SearchInput: SelectPanelSearchInput,
   Footer: SelectPanelFooter,
   SecondaryButton: SelectPanelSecondaryButton,
+  Loading: SelectPanelLoading,
   Message: SelectPanelMessage,
 })
