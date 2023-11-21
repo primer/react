@@ -67,7 +67,7 @@ const Panel: React.FC<SelectPanelProps> = ({
   description,
   selectionVariant = 'multiple',
   id,
-  open: propsOpen = false,
+  open: propsOpen,
   anchorRef: providedAnchorRef,
 
   onCancel: propsOnCancel,
@@ -92,7 +92,7 @@ const Panel: React.FC<SelectPanelProps> = ({
     return child
   })
 
-  const [internalOpen, setInternalOpen] = React.useState(propsOpen)
+  const [internalOpen, setInternalOpen] = React.useState(propsOpen || false)
   // sync open state
   React.useEffect(() => setInternalOpen(propsOpen || false), [propsOpen])
 
