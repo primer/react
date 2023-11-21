@@ -86,6 +86,11 @@
           "name": "onChange",
           "type": "React.ChangeEventHandler<HTMLInputElement>",
           "description": "Callback when input text changes, use this for search/filter"
+        },
+        {
+          "name": "loading",
+          "type": "boolean",
+          "description": "Useful for subtle loading states while fetching items asynchronously"
         }
       ],
       "passthrough": {
