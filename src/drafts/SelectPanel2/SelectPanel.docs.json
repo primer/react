@@ -95,6 +95,15 @@
             ]
         },
         {
+          "name": "SelectPanel.Loading",
+          "props": [
+            {
+              "name": "children",
+              "type": "string"
+            }
+          ]
+        },
+        {
             "name":"SelectPanel.Message",
             "props": [
                 {
