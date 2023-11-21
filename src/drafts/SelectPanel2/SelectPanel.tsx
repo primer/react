@@ -67,8 +67,7 @@ const Panel: React.FC<SelectPanelProps> = ({
   description,
   selectionVariant = 'multiple',
   id,
-
-  open: propsOpen,
+  open: propsOpen = false,
   anchorRef: providedAnchorRef,
 
   onCancel: propsOnCancel,
