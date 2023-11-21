@@ -1,4 +1,5 @@
 import React from 'react'
+import {Meta, StoryFn} from '@storybook/react'
 import {SelectPanel} from '../SelectPanel'
 import {ActionList, Box} from '../../../index'
 import data from './mock-data'
@@ -6,28 +7,37 @@ import data from './mock-data'
 export default {
   title: 'Drafts/Components/SelectPanel/Playground',
   component: SelectPanel,
-}
 
-export const Playground = () => {
-  const initialSelectedLabels = data.issue.labelIds // mock initial state: has selected labels
+  args: {
+    title: 'Select labels',
+    selectionVariant: 'multiple',
+  },
+  argTypes: {
+    secondaryButtonText: {
+      name: 'Secondary button text',
+      type: 'string',
+    },
+  },
+} as Meta<typeof SelectPanel>
+
+export const Playground: StoryFn = args => {
+  const initialSelectedLabels = [data.issue.labelIds[0]] // mock initial state: has selected labels
   const [selectedLabelIds, setSelectedLabelIds] = React.useState<string[]>(initialSelectedLabels)
 
   /* Selection */
   const onLabelSelect = (labelId: string) => {
-    if (!selectedLabelIds.includes(labelId)) setSelectedLabelIds([...selectedLabelIds, labelId])
-    else setSelectedLabelIds(selectedLabelIds.filter(id => id !== labelId))
+    if (args.selectionVariant === 'single' || args.selectionVariant === 'instant') {
+      setSelectedLabelIds([labelId])
+    } else {
+      if (!selectedLabelIds.includes(labelId)) setSelectedLabelIds([...selectedLabelIds, labelId])
+      else setSelectedLabelIds(selectedLabelIds.filter(id => id !== labelId))
+    }
   }
 
-  const onClearSelection = () => {
-    // soft set, does not save until submit
-    setSelectedLabelIds([])
-  }
+  const onClearSelection = () => setSelectedLabelIds([])
 
   const onSubmit = () => {
     data.issue.labelIds = selectedLabelIds // pretending to persist changes
-
-    // eslint-disable-next-line no-console
-    console.log('form submitted')
   }
 
   /* Filtering */
@@ -68,21 +78,16 @@ export const Playground = () => {
   return (
     <>
       <SelectPanel
-        title="Select labels"
-        // onSubmit and onCancel feel out of place here instead of the footer,
-        // but cancel can be called from 4 different actions - Cancel button, X iconbutton up top, press escape key, click outside
-        // also, what if there is no footer? onSubmit is maybe not needed, but we need to put the onCancel callback somewhere.
+        title={args.title}
+        description={args.description}
+        selectionVariant={args.selectionVariant}
         onSubmit={onSubmit}
-        onCancel={() => {
-          /* optional callback, for example: for multi-step overlay or to fire sync actions */
-          // eslint-disable-next-line no-console
-          console.log('panel was closed')
-        }}
-        // API TODO: onClearSelection feels even more odd on the parent, instead of on the header.
         onClearSelection={onClearSelection}
+        width={args.width}
+        height={args.height}
       >
         <SelectPanel.Button>Assign label</SelectPanel.Button>
-        {/* API TODO: header and heading is confusing. maybe skip header completely. */}
+
         <SelectPanel.Header>
           <SelectPanel.SearchInput onChange={onSearchInputChange} />
         </SelectPanel.Header>
@@ -113,7 +118,9 @@ export const Playground = () => {
         )}
 
         <SelectPanel.Footer>
-          <SelectPanel.SecondaryButton>Edit labels</SelectPanel.SecondaryButton>
+          {args.secondaryButtonText ? (
+            <SelectPanel.SecondaryButton>{args.secondaryButtonText}</SelectPanel.SecondaryButton>
+          ) : null}
         </SelectPanel.Footer>
       </SelectPanel>
     </>
