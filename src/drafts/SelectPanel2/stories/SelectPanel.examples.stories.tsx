@@ -1,6 +1,6 @@
 import React from 'react'
-import {SelectPanel} from './SelectPanel'
-import {ActionList, ActionMenu, Avatar, Box, Button, Flash, Link, Text, ToggleSwitch} from '../../../src/index'
+import {SelectPanel} from '../SelectPanel'
+import {ActionList, ActionMenu, Avatar, Box, Button, Flash, Link, Text, ToggleSwitch} from '../../../index'
 import {
   ArrowRightIcon,
   AlertIcon,
@@ -11,6 +11,11 @@ import {
   GearIcon,
 } from '@primer/octicons-react'
 import data from './mock-data'
+
+export default {
+  title: 'Drafts/Components/SelectPanel/Examples',
+  component: SelectPanel,
+}
 
 const getCircle = (color: string) => (
   <Box sx={{width: 14, height: 14, borderRadius: '100%'}} style={{backgroundColor: `#${color}`}} />
@@ -1051,24 +1056,6 @@ const fetchUsers = async (query: string, delay: number) => {
       user.login.toLowerCase().includes(query.toLowerCase()) || user.name.toLowerCase().includes(query.toLowerCase())
     )
   })
-  // i went harder on this than is necessary 😅
-  // .map(user => {
-  //   if (user.login.toLowerCase().startsWith(query)) return {priority: 1, user}
-  //   else if (user.login.toLowerCase().includes(query)) return {priority: 2, user}
-  //   else if (user.name.toLowerCase().includes(query)) return {priority: 3, user}
-  //   else return {priority: 4, user}
-  // })
-  // .sort((userA, userB) => (userA.priority > userB.priority ? 1 : -1))
-  // .sort((userA, userB) => {
-  //   // second level sort: collaborators show up first
-  //   if (
-  //     data.collaborators.find(c => c.id === userA.user.id) &&
-  //     !data.collaborators.find(c => c.id === userB.user.id)
-  //   ) {
-  //     return -1
-  //   } else return 1
-  // })
-  // .map(result => result.user)
 }
 
 /* lifted from the examples at https://react.dev/reference/react/Suspense */
@@ -1096,9 +1083,4 @@ function use(promise) {
     )
     throw promise
   }
-}
-
-export default {
-  title: 'Drafts/Components/SelectPanel',
-  component: SelectPanel,
 }
