@@ -8,16 +8,18 @@
     {
       "name": "title",
       "type": "string",
-      "required": true
+      "required": true,
+      "description": "A descriptive title for the panel"
     },
     {
       "name": "description",
-      "type": "string"
+      "type": "string",
+      "description": "When provided, a description is displayed below the title"
     },
     {
       "name": "selectionVariant",
       "type": "'multiple' | 'single' | 'instant'",
-      "default": "multiple"
+      "defaultValue": "multiple"
     },
     {
       "name": "onSubmit",
@@ -36,12 +38,19 @@
     },
     {
       "name": "anchorRef",
-      "type": "React.RefObject<HTMLButtonElement>"
+      "type": "React.RefObject<HTMLButtonElement>",
+      "description": "Useful for defining an external anchor"
     },
     {
       "name": "open",
       "type": "boolean",
-      "default": "false"
+      "defaultValue": "false",
+      "description": "If defined, will control the open/closed state of the panel."
+    },
+    {
+      "name": "children",
+      "type": "React.ReactNode[]",
+      "description": "Recommended: `SelectPanel.Button`, `SelectPanel.Header`, `ActionList`, `SelectPanel.Loading`, `SelectPanel.Message`, `SelectPanel.Footer`"
     }
   ],
   "subcomponents": [
@@ -66,7 +75,7 @@
         {
           "name": "children",
           "type": "React.ReactNode",
-          "description": "Rendered before the list. Recommended `<SelectPanel.SearchInput />`"
+          "description": "Rendered before the list. Recommended: `SelectPanel.SearchInput`"
         }
       ]
     },
@@ -75,7 +84,8 @@
       "props": [
         {
           "name": "onChange",
-          "type": "React.ChangeEventHandler<HTMLInputElement>"
+          "type": "React.ChangeEventHandler<HTMLInputElement>",
+          "description": "Callback when input text changes, use this for search/filter"
         }
       ],
       "passthrough": {
@@ -116,7 +126,7 @@
         {
           "name": "title",
           "type": "string",
-          "description": "`inline` variant does not need title"
+          "description": "`inline` variant does not accept `title`"
         },
         {
           "name": "children",
