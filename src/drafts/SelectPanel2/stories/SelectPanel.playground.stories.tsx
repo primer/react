@@ -67,11 +67,8 @@ export const Playground = () => {
 
   return (
     <>
-      <h1>Controlled SelectPanel</h1>
-
       <SelectPanel
         title="Select labels"
-        defaultOpen
         // onSubmit and onCancel feel out of place here instead of the footer,
         // but cancel can be called from 4 different actions - Cancel button, X iconbutton up top, press escape key, click outside
         // also, what if there is no footer? onSubmit is maybe not needed, but we need to put the onCancel callback somewhere.

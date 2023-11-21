@@ -27,7 +27,7 @@ export const InstantSelectionVariant = () => {
     <>
       <h1>Instant selection variant</h1>
 
-      <SelectPanel title="Choose a tag" selectionVariant="instant" onSubmit={onSubmit} height="medium" defaultOpen>
+      <SelectPanel title="Choose a tag" selectionVariant="instant" onSubmit={onSubmit} height="medium">
         <SelectPanel.Button leadingVisual={TagIcon}>{selectedTag || 'Choose a tag'}</SelectPanel.Button>
 
         <ActionList>
@@ -106,7 +106,6 @@ export const WithWarning = () => {
       <SelectPanel
         title="Set assignees"
         description={`Select up to ${MAX_LIMIT} people`}
-        defaultOpen
         onSubmit={onSubmit}
         onClearSelection={onClearSelection}
       >
@@ -255,7 +254,7 @@ export const WithErrors = () => {
         />
       </Box>
 
-      <SelectPanel title="Set assignees" defaultOpen onSubmit={onSubmit} onClearSelection={onClearSelection}>
+      <SelectPanel title="Set assignees" onSubmit={onSubmit} onClearSelection={onClearSelection}>
         <SelectPanel.Button
           variant="invisible"
           trailingAction={GearIcon}

@@ -61,11 +61,8 @@ export const Default = () => {
 
   return (
     <>
-      <h1>Controlled SelectPanel</h1>
-
       <SelectPanel
         title="Select labels"
-        defaultOpen
         onSubmit={onSubmit}
         onCancel={() => {
           /* optional callback, for example: for multi-step overlay or to fire sync actions */

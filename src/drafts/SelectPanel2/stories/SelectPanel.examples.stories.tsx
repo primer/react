@@ -44,7 +44,7 @@ export const Minimal = () => {
     <>
       <h1>Minimal SelectPanel</h1>
 
-      <SelectPanel title="Select labels" defaultOpen onSubmit={onSubmit}>
+      <SelectPanel title="Select labels" onSubmit={onSubmit}>
         <SelectPanel.Button>Assign label</SelectPanel.Button>
 
         <ActionList>
@@ -180,7 +180,7 @@ export const AsyncSearchWithSuspenseKey = () => {
       <h1>Async search with useTransition</h1>
       <p>Fetching items on every keystroke search (like github users)</p>
 
-      <SelectPanel title="Select collaborators" defaultOpen={true} onSubmit={onSubmit}>
+      <SelectPanel title="Select collaborators" onSubmit={onSubmit}>
         <SelectPanel.Button>Select assignees</SelectPanel.Button>
         <SelectPanel.Header>
           <SelectPanel.SearchInput onChange={onSearchInputChange} />
@@ -284,7 +284,7 @@ export const AsyncSearchWithUseTransition = () => {
       <h1>Async search with useTransition</h1>
       <p>Fetching items on every keystroke search (like github users)</p>
 
-      <SelectPanel title="Select collaborators" defaultOpen={true} onSubmit={onSubmit}>
+      <SelectPanel title="Select collaborators" onSubmit={onSubmit}>
         <SelectPanel.Button>Select assignees</SelectPanel.Button>
         <SelectPanel.Header>
           <SelectPanel.SearchInput onChange={onSearchInputChange} />
@@ -480,7 +480,7 @@ export const WithFilterButtons = () => {
     <>
       <h1>With Filter Buttons</h1>
 
-      <SelectPanel title="Switch branches/tags" defaultOpen onSubmit={onSubmit}>
+      <SelectPanel title="Switch branches/tags" onSubmit={onSubmit}>
         <SelectPanel.Button leadingVisual={GitBranchIcon} trailingVisual={TriangleDownIcon}>
           {savedInitialRef}
         </SelectPanel.Button>
