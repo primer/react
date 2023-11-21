@@ -66,7 +66,7 @@ export const Minimal = () => {
   )
 }
 
-export const WithSuspendedList = () => {
+export const AsyncWithSuspendedList = () => {
   const [query, setQuery] = React.useState('')
 
   const onSearchInputChange: React.ChangeEventHandler<HTMLInputElement> = event => {
@@ -76,7 +76,7 @@ export const WithSuspendedList = () => {
 
   return (
     <>
-      <h1>Suspended list</h1>
+      <h1>Async: Suspended list</h1>
       <p>Fetching items once when the panel is opened (like repo labels)</p>
       <SelectPanel title="Select labels">
         <SelectPanel.Button>Assign label</SelectPanel.Button>
@@ -228,25 +228,22 @@ export const AsyncSearchWithUseTransition = () => {
 
   return (
     <>
-      <h1>Async search with useTransition</h1>
+      <h1>Async: search with useTransition</h1>
       <p>Fetching items on every keystroke search (like github users)</p>
 
       <SelectPanel title="Select collaborators" onSubmit={onSubmit}>
         <SelectPanel.Button>Select assignees</SelectPanel.Button>
         <SelectPanel.Header>
-          <SelectPanel.SearchInput onChange={onSearchInputChange} />
+          <SelectPanel.SearchInput loading={isPending} onChange={onSearchInputChange} />
         </SelectPanel.Header>
 
-        <React.Suspense fallback={<SelectPanel.Loading>Fetching users...</SelectPanel.Loading>}>
-          <SearchableUserList
-            query={query}
-            showLoading={isPending}
-            initialAssigneeIds={initialAssigneeIds}
-            selectedUserIds={selectedUserIds}
-            onUserSelect={onUserSelect}
-          />
-          <SelectPanel.Footer />
-        </React.Suspense>
+        <SearchableUserList
+          query={query}
+          initialAssigneeIds={initialAssigneeIds}
+          selectedUserIds={selectedUserIds}
+          onUserSelect={onUserSelect}
+        />
+        <SelectPanel.Footer />
       </SelectPanel>
     </>
   )
