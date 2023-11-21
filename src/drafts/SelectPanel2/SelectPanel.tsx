@@ -48,7 +48,6 @@ export type SelectPanelProps = {
   selectionVariant?: ActionListProps['selectionVariant'] | 'instant'
   id?: string
 
-  defaultOpen?: boolean
   open?: boolean
   anchorRef?: React.RefObject<HTMLButtonElement>
 
@@ -69,7 +68,6 @@ const Panel: React.FC<SelectPanelProps> = ({
   selectionVariant = 'multiple',
   id,
 
-  defaultOpen = false,
   open: propsOpen,
   anchorRef: providedAnchorRef,
 
@@ -95,7 +93,7 @@ const Panel: React.FC<SelectPanelProps> = ({
     return child
   })
 
-  const [internalOpen, setInternalOpen] = React.useState(defaultOpen)
+  const [internalOpen, setInternalOpen] = React.useState(propsOpen)
   // sync open state
   React.useEffect(() => setInternalOpen(propsOpen || false), [propsOpen])
 
