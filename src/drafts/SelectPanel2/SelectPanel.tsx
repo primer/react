@@ -12,6 +12,7 @@ import {
   AnchoredOverlayProps,
   Tooltip,
   TextInput,
+  TextInputProps,
   Spinner,
   Text,
   ActionListProps,
@@ -277,10 +278,7 @@ const SelectPanelHeader: React.FC<React.PropsWithChildren> = ({children, ...prop
   )
 }
 
-type SearchInputProps = {
-  onChange: React.ChangeEventHandler<HTMLInputElement>
-}
-const SelectPanelSearchInput: React.FC<SearchInputProps> = ({onChange: propsOnChange, ...props}) => {
+const SelectPanelSearchInput: React.FC<TextInputProps> = ({onChange: propsOnChange, ...props}) => {
   const inputRef = React.createRef<HTMLInputElement>()
 
   const {setSearchQuery} = React.useContext(SelectPanelContext)
