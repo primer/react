@@ -17,17 +17,12 @@ export const Default = () => {
     if (!selectedLabelIds.includes(labelId)) setSelectedLabelIds([...selectedLabelIds, labelId])
     else setSelectedLabelIds(selectedLabelIds.filter(id => id !== labelId))
   }
-
   const onClearSelection = () => {
-    // soft set, does not save until submit
     setSelectedLabelIds([])
   }
 
   const onSubmit = () => {
     data.issue.labelIds = selectedLabelIds // pretending to persist changes
-
-    // eslint-disable-next-line no-console
-    console.log('form submitted')
   }
 
   /* Filtering */
@@ -40,7 +35,6 @@ export const Default = () => {
 
     if (query === '') setFilteredLabels(data.labels)
     else {
-      // Note: in the future, we should probably add a highlight for matching text
       setFilteredLabels(
         data.labels
           .map(label => {
@@ -72,20 +66,16 @@ export const Default = () => {
       <SelectPanel
         title="Select labels"
         defaultOpen
-        // onSubmit and onCancel feel out of place here instead of the footer,
-        // but cancel can be called from 4 different actions - Cancel button, X iconbutton up top, press escape key, click outside
-        // also, what if there is no footer? onSubmit is maybe not needed, but we need to put the onCancel callback somewhere.
         onSubmit={onSubmit}
         onCancel={() => {
           /* optional callback, for example: for multi-step overlay or to fire sync actions */
           // eslint-disable-next-line no-console
           console.log('panel was closed')
         }}
-        // API TODO: onClearSelection feels even more odd on the parent, instead of on the header.
         onClearSelection={onClearSelection}
       >
         <SelectPanel.Button>Assign label</SelectPanel.Button>
-        {/* API TODO: header and heading is confusing. maybe skip header completely. */}
+
         <SelectPanel.Header>
           <SelectPanel.SearchInput onChange={onSearchInputChange} />
         </SelectPanel.Header>
