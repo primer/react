@@ -50,11 +50,9 @@ describe('PageHeader', () => {
     const expectedStyles = {
       '-ms-flex-align': 'center',
       '-ms-flex-direction': 'row',
-      '-ms-flex-order': '0',
       '-webkit-align-items': 'center',
       '-webkit-box-align': 'center',
       '-webkit-flex-direction': 'row',
-      '-webkit-order': '0',
       [`@media screen and (max-width:calc(768px - 0.02px))`]: {
         display: 'flex',
       },
@@ -65,7 +63,8 @@ describe('PageHeader', () => {
       display: 'flex',
       'flex-direction': 'row',
       gap: '0.5rem',
-      order: '0',
+      'grid-area': 'context-area',
+      'grid-row': '1',
     }
 
     expect(renderStyles(<PageHeader.ContextArea>ContextArea</PageHeader.ContextArea>)).toEqual(
@@ -76,11 +75,9 @@ describe('PageHeader', () => {
     const expectedStyles = {
       '-ms-flex-align': 'center',
       '-ms-flex-direction': 'row',
-      '-ms-flex-order': '0',
       '-webkit-align-items': 'center',
       '-webkit-box-align': 'center',
       '-webkit-flex-direction': 'row',
-      '-webkit-order': '0',
       [`@media screen and (max-width:calc(768px - 0.02px))`]: {
         display: 'flex',
       },
@@ -94,7 +91,8 @@ describe('PageHeader', () => {
       display: 'flex',
       'flex-direction': 'row',
       gap: '0.5rem',
-      order: '0',
+      'grid-area': 'context-area',
+      'grid-row': '1',
     }
 
     expect(
