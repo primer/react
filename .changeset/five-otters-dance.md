@@ -2,4 +2,4 @@
 "@primer/react": patch
 ---
 
-Update to new version of @primer/behaviors
+Update to @primer/behaviors v1.5.1
