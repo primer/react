@@ -16,7 +16,6 @@ import {
   GitBranchIcon,
   KebabHorizontalIcon,
 } from '@primer/octicons-react'
-import VisuallyHidden from '../_VisuallyHidden'
 
 import {PageHeader} from './PageHeader'
 import {Hidden} from '../Hidden'

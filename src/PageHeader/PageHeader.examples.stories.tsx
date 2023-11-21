@@ -82,9 +82,8 @@ export const PullRequestPage = () => (
   <Box sx={{padding: 3}}>
     <PageHeader>
       <PageHeader.TitleArea>
-        <PageHeader.Title as="h1" sx={{fontSize: 5}}>
-          PageHeader: Address dom order issues (screen reader experience feedback from sign-off) longer longer longer
-          longer
+        <PageHeader.Title as="h1">
+          PageHeader component initial layout explorations extra long pull request title
         </PageHeader.Title>
       </PageHeader.TitleArea>
       <PageHeader.ContextArea>
@@ -230,7 +229,7 @@ export const FilesPage = () => (
           </ActionMenu>
         </PageHeader.ContextAreaActions>
       </PageHeader.ContextArea>
-      <PageHeader.LeadingAction hidden={false}>
+      <PageHeader.LeadingAction>
         <Breadcrumbs>
           <Breadcrumbs.Item href="https://github.com/primer/react/tree/main">react</Breadcrumbs.Item>
           <Breadcrumbs.Item href="https://github.com/primer/react/tree/main/src">src</Breadcrumbs.Item>
@@ -239,11 +238,11 @@ export const FilesPage = () => (
           </Breadcrumbs.Item>
         </Breadcrumbs>
       </PageHeader.LeadingAction>
-      <PageHeader.TrailingAction hidden={false}>
+      <PageHeader.TrailingAction>
         <IconButton size="small" variant="invisible" aria-label="Copy to clipboard" icon={CopyIcon} />
       </PageHeader.TrailingAction>
 
-      <PageHeader.Actions hidden={false}>
+      <PageHeader.Actions>
         <ActionMenu>
           <ActionMenu.Anchor>
             <IconButton size="small" aria-label="More file actions" icon={KebabHorizontalIcon} />
