@@ -278,10 +278,10 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
 
     function handleKeyDrag(event: KeyboardEvent) {
       let delta = 0
-      // Hardcoded a delta for every key press to move the splitter. Should I perhaps expose this as a prop?
-      if (event.key === 'ArrowLeft' && currentWidth > minWidth) {
+      // https://github.com/github/accessibility/issues/5101#issuecomment-1822870655
+      if ((event.key === 'ArrowLeft' || event.key === 'ArrowDown') && currentWidth > minWidth) {
         delta = -3
-      } else if (event.key === 'ArrowRight' && currentWidth < maxWidth) {
+      } else if ((event.key === 'ArrowRight' || event.key === 'ArrowUp') && currentWidth < maxWidth) {
         delta = 3
       } else {
         return
@@ -349,7 +349,6 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
             aria-label="Draggable pane splitter"
             aria-valuemin={minWidth}
             aria-valuemax={maxWidth}
-            aria-orientation="vertical"
             aria-valuenow={currentWidth}
             aria-valuetext={`Pane width ${currentWidth} pixels`}
             tabIndex={0}
