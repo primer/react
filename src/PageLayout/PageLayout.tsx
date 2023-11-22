@@ -346,7 +346,7 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
               },
             }}
             role="slider"
-            aria-label="Draggable splitter"
+            aria-label="Draggable pane splitter"
             aria-valuemin={minWidth}
             aria-valuemax={maxWidth}
             aria-orientation="vertical"
