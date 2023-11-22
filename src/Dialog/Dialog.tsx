@@ -14,6 +14,8 @@ import Portal from '../Portal'
 import {useRefObjectAsForwardedRef} from '../hooks/useRefObjectAsForwardedRef'
 import {useId} from '../hooks/useId'
 
+/* Dialog Version 2 */
+
 const ANIMATION_DURATION = '200ms'
 
 /**
@@ -369,15 +371,9 @@ const Footer = styled.div<SxProp>`
   display: flex;
   flex-flow: wrap;
   justify-content: flex-end;
+  gap: ${get('space.2')};
   z-index: 1;
   flex-shrink: 0;
-
-  button {
-    margin-left: ${get('space.1')};
-    &:first-child {
-      margin-left: 0;
-    }
-  }
 
   ${sx};
 `

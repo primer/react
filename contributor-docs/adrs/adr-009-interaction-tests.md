@@ -1,5 +1,8 @@
 # ADR 009: Use Interaction testing in storybook to maintain components
 
+> **Warning**
+> This ADR is superceded by [`ADR 018`](./adr-018-interaction-tests-revisited.md)
+
 ## Status
 
 | Stage    | Status |

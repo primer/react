@@ -8,7 +8,7 @@ test.describe('DataTable', () => {
       test.describe(theme, () => {
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'components-datatable--default',
+            id: 'drafts-components-datatable--default',
             globals: {
               colorScheme: theme,
             },
@@ -24,7 +24,7 @@ test.describe('DataTable', () => {
       test.describe(theme, () => {
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'components-datatable-features--with-title',
+            id: 'drafts-components-datatable-features--with-title',
             globals: {
               colorScheme: theme,
             },
@@ -40,7 +40,7 @@ test.describe('DataTable', () => {
       test.describe(theme, () => {
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'components-datatable-features--with-title-and-subtitle',
+            id: 'drafts-components-datatable-features--with-title-and-subtitle',
             globals: {
               colorScheme: theme,
             },
@@ -56,7 +56,7 @@ test.describe('DataTable', () => {
       test.describe(theme, () => {
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'components-datatable-features--with-sorting',
+            id: 'drafts-components-datatable-features--with-sorting',
             globals: {
               colorScheme: theme,
             },
@@ -72,7 +72,7 @@ test.describe('DataTable', () => {
       test.describe(theme, () => {
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'components-datatable-features--with-actions',
+            id: 'drafts-components-datatable-features--with-actions',
             globals: {
               colorScheme: theme,
             },
@@ -88,7 +88,7 @@ test.describe('DataTable', () => {
       test.describe(theme, () => {
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'components-datatable-features--with-action',
+            id: 'drafts-components-datatable-features--with-action',
             globals: {
               colorScheme: theme,
             },
@@ -104,7 +104,7 @@ test.describe('DataTable', () => {
       test.describe(theme, () => {
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'components-datatable-features--with-row-action',
+            id: 'drafts-components-datatable-features--with-row-action',
             globals: {
               colorScheme: theme,
             },
@@ -120,7 +120,7 @@ test.describe('DataTable', () => {
       test.describe(theme, () => {
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'components-datatable-features--with-row-actions',
+            id: 'drafts-components-datatable-features--with-row-actions',
             globals: {
               colorScheme: theme,
             },
@@ -136,7 +136,7 @@ test.describe('DataTable', () => {
       test.describe(theme, () => {
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'components-datatable-features--with-row-action-menu',
+            id: 'drafts-components-datatable-features--with-row-action-menu',
             globals: {
               colorScheme: theme,
             },
@@ -152,7 +152,7 @@ test.describe('DataTable', () => {
       test.describe(theme, () => {
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'components-datatable-features--with-custom-heading',
+            id: 'drafts-components-datatable-features--with-custom-heading',
             globals: {
               colorScheme: theme,
             },
@@ -166,7 +166,7 @@ test.describe('DataTable', () => {
   test.describe('With Overflow', () => {
     test('focusable region for overflow', async ({page}) => {
       await visit(page, {
-        id: 'components-datatable-features--with-overflow',
+        id: 'drafts-components-datatable-features--with-overflow',
       })
 
       const heading = page.getByRole('heading', {name: 'Repositories'})
@@ -190,7 +190,7 @@ test.describe('DataTable', () => {
       test.describe(theme, () => {
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'components-datatable-features--with-overflow',
+            id: 'drafts-components-datatable-features--with-overflow',
             globals: {
               colorScheme: theme,
             },

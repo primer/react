@@ -3,7 +3,8 @@ import userEvent from '@testing-library/user-event'
 import {axe, toHaveNoViolations} from 'jest-axe'
 import React from 'react'
 import theme from '../theme'
-import {ActionMenu, ActionList, BaseStyles, ThemeProvider, SSRProvider} from '..'
+import {ActionMenu, ActionList, BaseStyles, ThemeProvider, SSRProvider, Tooltip, Button} from '..'
+import {Tooltip as TooltipV2} from '../drafts/Tooltip/Tooltip'
 import {behavesAsComponent, checkExports} from '../utils/testing'
 import {SingleSelect} from '../ActionMenu/ActionMenu.features.stories'
 import {MixedSelection} from '../ActionMenu/ActionMenu.examples.stories'
@@ -28,6 +29,46 @@ function Example(): JSX.Element {
                 <ActionList.LinkItem href="//github.com" title="anchor" aria-keyshortcuts="s">
                   Github
                 </ActionList.LinkItem>
+              </ActionList>
+            </ActionMenu.Overlay>
+          </ActionMenu>
+        </BaseStyles>
+      </SSRProvider>
+    </ThemeProvider>
+  )
+}
+
+function ExampleWithTooltip(): JSX.Element {
+  return (
+    <ThemeProvider theme={theme}>
+      <SSRProvider>
+        <BaseStyles>
+          <Tooltip aria-label="Additional context about the menu button" direction="s">
+            <ActionMenu>
+              <ActionMenu.Button>Toggle Menu</ActionMenu.Button>
+              <ActionMenu.Overlay>
+                <ActionList>
+                  <ActionList.Item>New file</ActionList.Item>
+                </ActionList>
+              </ActionMenu.Overlay>
+            </ActionMenu>
+          </Tooltip>
+        </BaseStyles>
+      </SSRProvider>
+    </ThemeProvider>
+  )
+}
+
+function ExampleWithTooltipV2(actionMenuTrigger: React.ReactElement): JSX.Element {
+  return (
+    <ThemeProvider theme={theme}>
+      <SSRProvider>
+        <BaseStyles>
+          <ActionMenu>
+            {actionMenuTrigger}
+            <ActionMenu.Overlay>
+              <ActionList>
+                <ActionList.Item>New file</ActionList.Item>
               </ActionList>
             </ActionMenu.Overlay>
           </ActionMenu>
@@ -243,5 +284,116 @@ describe('ActionMenu', () => {
     const {container} = HTMLRender(<Example />)
     const results = await axe(container)
     expect(results).toHaveNoViolations()
+  })
+
+  it('should open menu on menu button click and it is wrapped with tooltip', async () => {
+    const component = HTMLRender(<ExampleWithTooltip />)
+    const button = component.getByRole('button')
+
+    const user = userEvent.setup()
+    await user.click(button)
+
+    expect(component.getByRole('menu')).toBeInTheDocument()
+  })
+
+  it('should open menu on menu button click and it is wrapped with tooltip v2', async () => {
+    const component = HTMLRender(
+      ExampleWithTooltipV2(
+        <TooltipV2 text="Additional context about the menu button" direction="s">
+          <ActionMenu.Button>Toggle Menu</ActionMenu.Button>
+        </TooltipV2>,
+      ),
+    )
+    const button = component.getByRole('button')
+
+    const user = userEvent.setup()
+    await user.click(button)
+
+    expect(component.getByRole('menu')).toBeInTheDocument()
+  })
+
+  it('should display tooltip when menu button is focused', async () => {
+    const component = HTMLRender(<ExampleWithTooltip />)
+    const button = component.getByRole('button')
+    button.focus()
+    expect(component.getByRole('tooltip')).toBeInTheDocument()
+  })
+
+  it('should display tooltip v2 when menu button is focused', async () => {
+    const component = HTMLRender(
+      ExampleWithTooltipV2(
+        <TooltipV2 text="Additional context about the menu button" direction="s">
+          <ActionMenu.Button>Toggle Menu</ActionMenu.Button>
+        </TooltipV2>,
+      ),
+    )
+    const button = component.getByRole('button')
+    button.focus()
+    expect(component.getByRole('tooltip')).toBeInTheDocument()
+  })
+
+  it('should open menu on menu anchor click and it is wrapped with tooltip v2', async () => {
+    const component = HTMLRender(
+      ExampleWithTooltipV2(
+        <ActionMenu.Anchor>
+          <TooltipV2 text="Additional context about the menu button" direction="n">
+            <Button>Toggle Menu</Button>
+          </TooltipV2>
+        </ActionMenu.Anchor>,
+      ),
+    )
+    const button = component.getByRole('button')
+
+    const user = userEvent.setup()
+    await user.click(button)
+
+    expect(component.getByRole('menu')).toBeInTheDocument()
+  })
+
+  it('should display tooltip v2 and menu anchor is focused', async () => {
+    const component = HTMLRender(
+      ExampleWithTooltipV2(
+        <ActionMenu.Anchor>
+          <TooltipV2 text="Additional context about the menu button" direction="n">
+            <Button>Toggle Menu</Button>
+          </TooltipV2>
+        </ActionMenu.Anchor>,
+      ),
+    )
+    const button = component.getByRole('button')
+    button.focus()
+    expect(component.getByRole('tooltip')).toBeInTheDocument()
+  })
+
+  it('should pass the "id" prop from ActionMenu.Button to the HTML button', async () => {
+    const buttonId = 'toggle-menu-custom-id'
+    const component = HTMLRender(
+      <ThemeProvider theme={theme}>
+        <SSRProvider>
+          <BaseStyles>
+            <ActionMenu>
+              <ActionMenu.Button id={buttonId}>Toggle Menu</ActionMenu.Button>
+              <ActionMenu.Overlay>
+                <ActionList>
+                  <ActionList.Item>New file</ActionList.Item>
+                  <ActionList.Divider />
+                  <ActionList.Item>Copy link</ActionList.Item>
+                  <ActionList.Item>Edit file</ActionList.Item>
+                  <ActionList.Item variant="danger" onSelect={event => event.preventDefault()}>
+                    Delete file
+                  </ActionList.Item>
+                  <ActionList.LinkItem href="//github.com" title="anchor" aria-keyshortcuts="s">
+                    Github
+                  </ActionList.LinkItem>
+                </ActionList>
+              </ActionMenu.Overlay>
+            </ActionMenu>
+          </BaseStyles>
+        </SSRProvider>
+      </ThemeProvider>,
+    )
+    const button = component.getByRole('button')
+
+    expect(button.id).toBe(buttonId)
   })
 })

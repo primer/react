@@ -35,6 +35,9 @@ const input = new Set([
 
       // "./lib-esm/utils/*"
       'src/utils/*',
+
+      // for backward compatbility, see https://github.com/primer/react/pull/3740
+      'src/ActionMenu/index.ts',
     ],
     {
       cwd: __dirname,
@@ -60,6 +63,7 @@ const ESM_ONLY = new Set([
   '@github/paste-markdown',
   '@github/relative-time-element',
   '@lit-labs/react',
+  '@oddbird/popover-polyfill',
 ])
 const dependencies = [
   ...Object.keys(packageJson.peerDependencies ?? {}),

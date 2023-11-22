@@ -108,7 +108,7 @@ const StyledPagination = styled.nav`
         .TablePaginationSteps[data-hidden-viewport-ranges*='${viewportRangeKey}'] > *:first-child {
           margin-inline-end: 0;
         }
-        
+
         .TablePaginationSteps[data-hidden-viewport-ranges*='${viewportRangeKey}'] > *:last-child {
           margin-inline-start: 0;
         }
@@ -191,12 +191,7 @@ export function Pagination({
   })
   const truncatedPageCount = pageCount > 2 ? Math.min(pageCount - 2, MAX_TRUNCATED_STEP_COUNT) : 0
   const [offsetStartIndex, setOffsetStartIndex] = useState(() => {
-    // Set the offset start index to the page at index 1 since we will have the
-    // first page already visible
-    if (pageIndex === 0) {
-      return 1
-    }
-    return pageIndex
+    return getDefaultOffsetStartIndex(pageIndex, pageCount, truncatedPageCount)
   })
   const offsetEndIndex = offsetStartIndex + truncatedPageCount - 1
   const hasLeadingTruncation = offsetStartIndex >= 2
@@ -226,6 +221,7 @@ export function Pagination({
               className="TablePaginationAction"
               type="button"
               data-has-page={hasPreviousPage ? true : undefined}
+              aria-disabled={!hasPreviousPage ? true : undefined}
               onClick={() => {
                 if (!hasPreviousPage) {
                   return
@@ -306,6 +302,7 @@ export function Pagination({
               className="TablePaginationAction"
               type="button"
               data-has-page={hasNextPage ? true : undefined}
+              aria-disabled={!hasNextPage ? true : undefined}
               onClick={() => {
                 if (!hasNextPage) {
                   return
@@ -328,6 +325,30 @@ export function Pagination({
       </StyledPagination>
     </LiveRegion>
   )
+}
+
+function getDefaultOffsetStartIndex(pageIndex: number, pageCount: number, truncatedPageCount: number): number {
+  // When the current page is closer to the end of the list than the beginning
+  if (pageIndex > pageCount - 1 - pageIndex) {
+    if (pageCount - 1 - pageIndex >= truncatedPageCount) {
+      return pageIndex - 3
+    }
+    return pageCount - 1 - truncatedPageCount
+  }
+
+  // When the current page is closer to the beginning of the list than the end
+  if (pageIndex < pageCount - 1 - pageIndex) {
+    if (pageIndex >= truncatedPageCount) {
+      return pageIndex - 3
+    }
+    return 1
+  }
+
+  // When the current page is the midpoint between the beginning and the end
+  if (pageIndex < truncatedPageCount) {
+    return pageIndex
+  }
+  return pageIndex - 3
 }
 
 type RangeProps = {

@@ -36,9 +36,16 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
     const [slots, childrenWithoutSlots] = useSlots(props.children, {
       leadingVisual: LeadingVisual,
       trailingVisual: TrailingVisual,
-      description: Description,
+      blockDescription: [Description, props => props.variant === 'block'],
+      inlineDescription: [Description, props => props.variant !== 'block'],
     })
-    const {variant: listVariant, showDividers, selectionVariant: listSelectionVariant} = React.useContext(ListContext)
+
+    const {
+      variant: listVariant,
+      role: listRole,
+      showDividers,
+      selectionVariant: listSelectionVariant,
+    } = React.useContext(ListContext)
     const {selectionVariant: groupSelectionVariant} = React.useContext(GroupContext)
     const {container, afterSelect, selectionAttribute} = React.useContext(ActionListContainerContext)
 
@@ -61,10 +68,12 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
 
     /** Infer item role based on the container */
     let itemRole: ActionListItemProps['role']
-    if (container === 'ActionMenu' || container === 'DropdownMenu') {
+    if (container === 'ActionMenu') {
       if (selectionVariant === 'single') itemRole = 'menuitemradio'
       else if (selectionVariant === 'multiple') itemRole = 'menuitemcheckbox'
       else itemRole = 'menuitem'
+    } else if (container === 'SelectPanel' && listRole === 'listbox') {
+      if (selectionVariant !== undefined) itemRole = 'option'
     }
 
     const {theme} = useTheme()
@@ -93,13 +102,14 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       lineHeight: TEXT_ROW_HEIGHT,
       minHeight: 5,
       marginX: listVariant === 'inset' ? 2 : 0,
-      borderRadius: listVariant === 'inset' ? 2 : 0,
+      borderRadius: 2,
       transition: 'background 33.333ms linear',
       color: getVariantStyles(variant, disabled).color,
       cursor: 'pointer',
       '&[aria-disabled]': {
         cursor: 'not-allowed',
         '[data-component="ActionList.Checkbox"]': {
+          cursor: 'not-allowed',
           bg: selected ? 'fg.muted' : 'var(--color-input-disabled-bg, rgba(175, 184, 193, 0.2))',
           borderColor: selected ? 'fg.muted' : 'var(--color-input-disabled-bg, rgba(175, 184, 193, 0.2))',
         },
@@ -118,6 +128,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
         ':hover:not([aria-disabled])': {
           backgroundColor: `actionListItem.${variant}.hoverBg`,
           color: getVariantStyles(variant, disabled).hoverColor,
+          boxShadow: `inset 0 0 0 max(1px, 0.0625rem) ${theme?.colors.actionListItem.default.activeBorder}`,
         },
         '&:focus-visible, > a:focus-visible': {
           outline: 'none',
@@ -183,10 +194,10 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       [onSelect, disabled, afterSelect],
     )
 
-    // use props.id if provided, otherwise generate one.
-    const labelId = useId(id)
-    const inlineDescriptionId = useId(id && `${id}--inline-description`)
-    const blockDescriptionId = useId(id && `${id}--block-description`)
+    const itemId = useId(id)
+    const labelId = `${itemId}--label`
+    const inlineDescriptionId = `${itemId}--inline-description`
+    const blockDescriptionId = `${itemId}--block-description`
 
     const ItemWrapper = _PrivateItemWrapper || React.Fragment
 
@@ -195,12 +206,11 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       onKeyPress: keyPressHandler,
       'aria-disabled': disabled ? true : undefined,
       tabIndex: disabled ? undefined : 0,
-      'aria-labelledby': `${labelId} ${
-        slots.description && slots.description.props.variant !== 'block' ? inlineDescriptionId : ''
-      }`,
-      'aria-describedby': slots.description?.props.variant === 'block' ? blockDescriptionId : undefined,
+      'aria-labelledby': `${labelId} ${slots.inlineDescription ? inlineDescriptionId : ''}`,
+      'aria-describedby': slots.blockDescription ? blockDescriptionId : undefined,
       ...(selectionAttribute && {[selectionAttribute]: selected}),
       role: role || itemRole,
+      id: itemId,
     }
 
     const containerProps = _PrivateItemWrapper ? {role: role || itemRole ? 'none' : undefined} : menuItemProps
@@ -213,7 +223,6 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
           ref={forwardedRef}
           sx={merge<BetterSystemStyleObject>(styles, sxProp)}
           data-variant={variant === 'danger' ? variant : undefined}
-          aria-selected={containerProps.role === 'option' ? selected : undefined}
           {...containerProps}
           {...props}
         >
@@ -226,26 +235,25 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
             >
               <ConditionalBox if={Boolean(slots.trailingVisual)} sx={{display: 'flex', flexGrow: 1}}>
                 <ConditionalBox
-                  if={!!slots.description && slots.description.props.variant !== 'block'}
+                  if={!!slots.inlineDescription}
                   sx={{display: 'flex', flexGrow: 1, alignItems: 'baseline', minWidth: 0}}
                 >
                   <Box
                     as="span"
                     id={labelId}
                     sx={{
-                      flexGrow: slots.description && slots.description.props.variant !== 'block' ? 0 : 1,
-                      fontWeight: slots.description ? 'bold' : 'normal',
-                      marginBlockEnd:
-                        slots.description && slots.description.props.variant !== 'inline' ? '4px' : undefined,
+                      flexGrow: slots.inlineDescription ? 0 : 1,
+                      fontWeight: slots.inlineDescription || slots.blockDescription ? 'bold' : 'normal',
+                      marginBlockEnd: slots.blockDescription ? '4px' : undefined,
                     }}
                   >
                     {childrenWithoutSlots}
                   </Box>
-                  {slots.description?.props.variant !== 'block' ? slots.description : null}
+                  {slots.inlineDescription}
                 </ConditionalBox>
                 {slots.trailingVisual}
               </ConditionalBox>
-              {slots.description?.props.variant === 'block' ? slots.description : null}
+              {slots.blockDescription}
             </Box>
           </ItemWrapper>
         </LiBox>

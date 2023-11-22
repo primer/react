@@ -9,7 +9,7 @@
 export {Blankslate} from '../Blankslate'
 export type {BlankslateProps} from '../Blankslate'
 
-export {DataTable, Table} from '../DataTable'
+export {DataTable, Table, createColumnHelper} from '../DataTable'
 export type {
   DataTableProps,
   TableProps,
@@ -22,18 +22,19 @@ export type {
   TableTitleProps,
   TableSubtitleProps,
   TableActionsProps,
+  Column,
 } from '../DataTable'
 
 export * from '../Dialog/Dialog'
 
-export {default as InlineAutocomplete} from './InlineAutocomplete'
+export {default as InlineAutocomplete} from '../InlineAutocomplete'
 export type {
   InlineAutocompleteProps,
   ShowSuggestionsEvent,
   Suggestion,
   Suggestions,
   Trigger,
-} from './InlineAutocomplete'
+} from '../InlineAutocomplete'
 
 export {default as MarkdownViewer} from './MarkdownViewer'
 export type {MarkdownViewerProps, InteractiveMarkdownViewerProps} from './MarkdownViewer'
@@ -41,20 +42,21 @@ export type {MarkdownViewerProps, InteractiveMarkdownViewerProps} from './Markdo
 export {default as MarkdownEditor} from './MarkdownEditor'
 export * from './MarkdownEditor'
 
-export * from '../UnderlineNav2'
-
 export * from '../PageHeader'
 
 export * from '../Hidden'
 
 export * from './hooks'
 
-// TODO: Remove these components from the drafts bundle in the next major release
-export * from '../TreeView'
-export * from '../NavList'
-export * from '../SegmentedControl'
-export * from '../SplitPageLayout'
-
-// CSS Experiment
-// export * from './CSSComponent'
-// export * from './Button2'
+export {NavList} from '../NavList'
+export type {
+  NavListProps,
+  NavListItemProps,
+  NavListSubNavProps,
+  NavListGroupProps,
+  NavListLeadingVisualProps,
+  NavListTrailingVisualProps,
+  NavListDividerProps,
+} from '../NavList'
+export * from './SelectPanel2'
+export * from './Tooltip'

@@ -9,7 +9,7 @@ test.describe('UnderlineNav', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-underlinenav-examples--profile-page',
+            id: 'components-underlinenav-examples--profile-page',
             globals: {
               colorScheme: theme,
             },
@@ -21,7 +21,7 @@ test.describe('UnderlineNav', () => {
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-underlinenav-examples--profile-page',
+            id: 'components-underlinenav-examples--profile-page',
             globals: {
               colorScheme: theme,
             },
@@ -43,7 +43,7 @@ test.describe('UnderlineNav', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-underlinenav-examples--pull-request-page',
+            id: 'components-underlinenav-examples--pull-request-page',
             globals: {
               colorScheme: theme,
             },
@@ -55,7 +55,7 @@ test.describe('UnderlineNav', () => {
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-underlinenav-examples--pull-request-page',
+            id: 'components-underlinenav-examples--pull-request-page',
             globals: {
               colorScheme: theme,
             },
@@ -82,7 +82,7 @@ test.describe('UnderlineNav', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-underlinenav-examples--repos-page',
+            id: 'components-underlinenav-examples--repos-page',
             globals: {
               colorScheme: theme,
             },
@@ -94,7 +94,7 @@ test.describe('UnderlineNav', () => {
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-underlinenav-examples--repos-page',
+            id: 'components-underlinenav-examples--repos-page',
             globals: {
               colorScheme: theme,
             },
@@ -116,7 +116,7 @@ test.describe('UnderlineNav', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-underlinenav-features--counters-loading-state',
+            id: 'components-underlinenav-features--counters-loading-state',
             globals: {
               colorScheme: theme,
             },
@@ -128,7 +128,7 @@ test.describe('UnderlineNav', () => {
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-underlinenav-features--counters-loading-state',
+            id: 'components-underlinenav-features--counters-loading-state',
             globals: {
               colorScheme: theme,
             },
@@ -150,7 +150,7 @@ test.describe('UnderlineNav', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-underlinenav-features--default',
+            id: 'components-underlinenav-features--default',
             globals: {
               colorScheme: theme,
             },
@@ -162,7 +162,7 @@ test.describe('UnderlineNav', () => {
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-underlinenav-features--default',
+            id: 'components-underlinenav-features--default',
             globals: {
               colorScheme: theme,
             },
@@ -184,7 +184,7 @@ test.describe('UnderlineNav', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-underlinenav-features--overflow-template',
+            id: 'components-underlinenav-features--overflow-template',
             globals: {
               colorScheme: theme,
             },
@@ -196,7 +196,7 @@ test.describe('UnderlineNav', () => {
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-underlinenav-features--overflow-template',
+            id: 'components-underlinenav-features--overflow-template',
             globals: {
               colorScheme: theme,
             },
@@ -218,7 +218,7 @@ test.describe('UnderlineNav', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-underlinenav-features--with-counter-labels',
+            id: 'components-underlinenav-features--with-counter-labels',
             globals: {
               colorScheme: theme,
             },
@@ -230,7 +230,7 @@ test.describe('UnderlineNav', () => {
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-underlinenav-features--with-counter-labels',
+            id: 'components-underlinenav-features--with-counter-labels',
             globals: {
               colorScheme: theme,
             },
@@ -252,7 +252,7 @@ test.describe('UnderlineNav', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-underlinenav-features--with-icons',
+            id: 'components-underlinenav-features--with-icons',
             globals: {
               colorScheme: theme,
             },
@@ -264,7 +264,7 @@ test.describe('UnderlineNav', () => {
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-underlinenav-features--with-icons',
+            id: 'components-underlinenav-features--with-icons',
             globals: {
               colorScheme: theme,
             },
@@ -286,7 +286,7 @@ test.describe('UnderlineNav', () => {
       test.describe(theme, () => {
         test('Overflow interaction @vrt', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-underlinenav-features--overflow-template',
+            id: 'components-underlinenav-features--overflow-template',
             globals: {
               colorScheme: theme,
             },
@@ -310,7 +310,7 @@ test.describe('UnderlineNav', () => {
 
         test('Hide icons when there is not enough space to display all list items @vrt', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-underlinenav-features--overflow-template',
+            id: 'components-underlinenav-features--overflow-template',
             globals: {
               colorScheme: theme,
             },
@@ -328,7 +328,7 @@ test.describe('UnderlineNav', () => {
 
         test('Keep selected item visible @vrt', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-underlinenav-features--overflow-template',
+            id: 'components-underlinenav-features--overflow-template',
             globals: {
               colorScheme: theme,
             },
@@ -376,7 +376,7 @@ test.describe('UnderlineNav', () => {
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-underlinenav-features--overflow-template',
+            id: 'components-underlinenav-features--overflow-template',
             globals: {
               colorScheme: theme,
             },

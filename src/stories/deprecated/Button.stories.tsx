@@ -1,15 +1,7 @@
 import React from 'react'
 import {Meta} from '@storybook/react'
 
-import {
-  Button,
-  ButtonClose,
-  ButtonDanger,
-  ButtonInvisible,
-  ButtonOutline,
-  ButtonPrimary,
-  ButtonTableList,
-} from '../../deprecated'
+import {Button, ButtonClose, ButtonDanger, ButtonInvisible, ButtonPrimary, ButtonTableList} from '../../deprecated'
 import {ButtonStyleProps} from 'styled-system'
 import {ButtonBaseProps} from '../../deprecated/Button/ButtonBase'
 type StrictButtonStyleProps = ButtonStyleProps & {variant: ButtonBaseProps['variant']}
@@ -48,10 +40,6 @@ defaultButton.args = {variant: 'medium'}
 // eslint-disable-next-line storybook/prefer-pascal-case
 export const dangerButton = (args: StrictButtonStyleProps) => <ButtonDanger {...args}>Danger Button</ButtonDanger>
 dangerButton.args = {variant: 'medium'}
-
-// eslint-disable-next-line storybook/prefer-pascal-case
-export const outlineButton = (args: StrictButtonStyleProps) => <ButtonOutline {...args}>Outline Button</ButtonOutline>
-outlineButton.args = {variant: 'medium'}
 
 // eslint-disable-next-line storybook/prefer-pascal-case
 export const primaryButton = (args: StrictButtonStyleProps) => <ButtonPrimary {...args}>Primary Button</ButtonPrimary>

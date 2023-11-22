@@ -9,6 +9,9 @@ a11yReviewed: true
 ---
 
 import data from '../../src/SplitPageLayout/SplitPageLayout.docs.json'
+import DeprecationBanner from '../components/DeprecationBanner'
+
+<DeprecationBanner replacementUrl={'/design/components/split-page-layout/react'} />
 
 ```js
 import {SplitPageLayout} from '@primer/react'
@@ -225,6 +228,22 @@ If you need a more flexible layout component, consider using the [PageLayout](/P
 <Box sx={{height: 320, overflowY: 'auto', border: '1px solid', borderColor: 'border.default'}}>
   <SplitPageLayout>
     <SplitPageLayout.Pane>
+      <Placeholder label="Pane" height={120} />
+    </SplitPageLayout.Pane>
+    <SplitPageLayout.Content>
+      <Placeholder label="Content" height={480} />
+    </SplitPageLayout.Content>
+  </SplitPageLayout>
+</Box>
+```
+
+### With heading
+
+```jsx live drafts
+<Box sx={{height: 320, overflowY: 'auto', border: '1px solid', borderColor: 'border.default'}}>
+  <SplitPageLayout>
+    <SplitPageLayout.Pane>
+      <Heading as="h2">Pane Heading</Heading>
       <Placeholder label="Pane" height={120} />
     </SplitPageLayout.Pane>
     <SplitPageLayout.Content>
