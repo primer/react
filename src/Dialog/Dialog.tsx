@@ -374,6 +374,8 @@ const Footer = styled.div<SxProp>`
   gap: ${get('space.2')};
   z-index: 1;
   flex-shrink: 0;
+
+  ${sx};
 `
 
 const buttonTypes = {

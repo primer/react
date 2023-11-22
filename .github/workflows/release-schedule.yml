@@ -34,7 +34,7 @@ jobs:
       - name: Install packages for github-script
         run: npm i date-fns
       - name: Create Release Issue
-        uses: actions/github-script@v6
+        uses: actions/github-script@v7
         env:
           RELEASE_CONDUCTOR: ${{ steps.pagerduty.outputs.user }}
           SCHEDULE_START: ${{ steps.pagerduty.outputs.start }}
