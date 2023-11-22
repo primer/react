@@ -14,6 +14,8 @@ import {ActionListProps, ListContext} from './List'
 import {Selection} from './Selection'
 import {ActionListItemProps, getVariantStyles, ItemContext, TEXT_ROW_HEIGHT} from './shared'
 import {LeadingVisual, TrailingVisual} from './Visuals'
+import {Button} from '../Button'
+import type {MenuItemProps} from './shared'
 
 const LiBox = styled.li<SxProp>(sx)
 
@@ -29,6 +31,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       id,
       role,
       _PrivateItemWrapper,
+      as,
       ...props
     },
     forwardedRef,
@@ -116,13 +119,13 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       },
 
       // Button reset styles (to support as="button")
-      appearance: 'none',
-      background: 'unset',
-      border: 'unset',
-      width: listVariant === 'inset' ? 'calc(100% - 16px)' : '100%',
-      fontFamily: 'unset',
-      textAlign: 'unset',
-      marginY: 'unset',
+      // appearance: 'none',
+      // background: 'unset',
+      // border: 'unset',
+      // width: listVariant === 'inset' ? 'calc(100% - 16px)' : '100%',
+      // fontFamily: 'unset',
+      // textAlign: 'unset',
+      // marginY: 'unset',
 
       '@media (hover: hover) and (pointer: fine)': {
         ':hover:not([aria-disabled])': {
@@ -199,12 +202,49 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
     const inlineDescriptionId = `${itemId}--inline-description`
     const blockDescriptionId = `${itemId}--block-description`
 
-    const ItemWrapper = _PrivateItemWrapper || React.Fragment
+    const buttonStyles = {
+      appearance: 'none',
+      background: 'unset',
+      border: 'unset',
+      width: listVariant === 'inset' ? 'calc(100% - 16px)' : '100%',
+      fontFamily: 'unset',
+      textAlign: 'unset',
+      marginY: 'unset',
+      height: '100%',
+      display: 'flex',
+      // position: 'relative',
+      // paddingX: 2,
+      // fontSize: 1,
+      // // paddingY: '6px', // custom value off the scale
+      // lineHeight: TEXT_ROW_HEIGHT,
+      // minHeight: 5,
+      // marginX: listVariant === 'inset' ? 2 : 0,
+      // borderRadius: 2,
+      // transition: 'background 33.333ms linear',
+      // color: getVariantStyles(variant, disabled).color,
+      // cursor: 'pointer',
+    }
+
+    const _DefaultItemWrapper: React.FC<React.PropsWithChildren<MenuItemProps>> = ({children, ...props}) => {
+      return (
+        <Box as="button" sx={merge<BetterSystemStyleObject>(buttonStyles, sx as SxProp)} {...props}>
+          {children}
+        </Box>
+      )
+    }
+
+    // 1. ActionList.item has an inferred role due to its parent container
+    // 2. ActionList.item has an explicit role
+    // This could get richer. I only do the basic role conditionals for now.
+    // const hasRole = role || itemRole
+
+    const ItemWrapper = _PrivateItemWrapper ?? _DefaultItemWrapper
 
     const menuItemProps = {
       onClick: clickHandler,
       onKeyPress: keyPressHandler,
       'aria-disabled': disabled ? true : undefined,
+      // we need tabindex for only menu or listbox - because default is buton and it is focusable by default
       tabIndex: disabled ? undefined : 0,
       'aria-labelledby': `${labelId} ${slots.inlineDescription ? inlineDescriptionId : ''}`,
       'aria-describedby': slots.blockDescription ? blockDescriptionId : undefined,
@@ -213,9 +253,13 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       id: itemId,
     }
 
-    const containerProps = _PrivateItemWrapper ? {role: role || itemRole ? 'none' : undefined} : menuItemProps
+    // This is on the li element. We don't need any props on the li, just need to reset the role for menu/listbox
+    const containerProps = {role: role || itemRole ? 'none' : undefined}
 
-    const wrapperProps = _PrivateItemWrapper ? menuItemProps : {}
+    // we render menuitemProps in the anchor element for action list link but for default we render it on the li??
+    // I think what needs to be on the li when there is no role for the item (not in a menu or something): role, tabindex, maybe id
+    // I think what needs to be on the anchor/button: onClick, onKeyPress, aria-disabled, aria-labelledby, aria-describedby
+    // const wrapperProps = menuItemProps
 
     return (
       <ItemContext.Provider value={{variant, disabled, inlineDescriptionId, blockDescriptionId}}>
@@ -226,7 +270,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
           {...containerProps}
           {...props}
         >
-          <ItemWrapper {...wrapperProps}>
+          <ItemWrapper {...menuItemProps}>
             <Selection selected={selected} />
             {slots.leadingVisual}
             <Box

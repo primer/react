@@ -42,9 +42,10 @@ export type ActionListItemProps = {
    * Private API for use internally only. Used by LinkItem to wrap contents in an anchor
    */
   _PrivateItemWrapper?: React.FC<React.PropsWithChildren<MenuItemProps>>
+  as?: 'button' | 'a' | 'div'
 } & SxProp
 
-type MenuItemProps = {
+export type MenuItemProps = {
   onClick?: (event: React.MouseEvent) => void
   onKeyPress?: (event: React.KeyboardEvent) => void
   'aria-disabled'?: boolean
