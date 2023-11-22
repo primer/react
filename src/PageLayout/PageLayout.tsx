@@ -357,7 +357,12 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
               onDragStart?.()
             }}
             onKeyDown={event => {
-              if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
+              if (
+                event.key === 'ArrowLeft' ||
+                event.key === 'ArrowRight' ||
+                event.key === 'ArrowUp' ||
+                event.key === 'ArrowDown'
+              ) {
                 setIsKeyboardDrag(true)
                 onDragStart?.()
               }
