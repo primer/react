@@ -345,7 +345,7 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
                 bg: isDragging || isKeyboardDrag ? 'accent.fg' : 'neutral.muted',
               },
             }}
-            role="separator"
+            role="slider"
             aria-label="Draggable splitter"
             aria-valuemin={minWidth}
             aria-valuemax={maxWidth}
