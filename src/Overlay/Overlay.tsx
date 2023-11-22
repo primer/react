@@ -199,7 +199,6 @@ const Overlay = React.forwardRef<HTMLDivElement, OwnOverlayProps>(
           height={height}
           width={width}
           role={role}
-          data-overlay-width={width}
           {...rest}
           ref={overlayRef}
           style={
