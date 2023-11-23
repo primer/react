@@ -2,4 +2,4 @@
 "@primer/react": patch
 ---
 
-Dialog: Close button uses the IconButton now to ensure it has the correct border radius
+Dialog: Enhance the design by implementing our new Button in the footer and the IconButton in the header, and setting subtitles to regular.
