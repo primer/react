@@ -215,6 +215,7 @@ export const Playground = (args: DataTableProps<UniqueRow> & ColWidthArgTypes) =
             minWidth: args.minColWidth0,
             maxWidth: args.maxColWidth0,
             align,
+            sortBy: 'alphanumeric',
           },
           {
             header: 'Type',
@@ -237,6 +238,7 @@ export const Playground = (args: DataTableProps<UniqueRow> & ColWidthArgTypes) =
             minWidth: args.minColWidth2,
             maxWidth: args.maxColWidth2,
             align,
+            sortBy: 'datetime',
           },
           {
             header: 'Dependabot',
@@ -323,6 +325,20 @@ Playground.argTypes = {
     type: {
       name: 'enum',
       value: ['condensed', 'normal', 'spacious'],
+    },
+  },
+  initialSortColumn: {
+    control: {
+      type: 'text',
+    },
+  },
+  initialSortDirection: {
+    control: {
+      type: 'radio',
+    },
+    type: {
+      name: 'enum',
+      value: ['ASC', 'DESC'],
     },
   },
   ...getColumnWidthArgTypes(5),

@@ -1,4 +1,4 @@
-import {useState} from 'react'
+import {useMemo, useState} from 'react'
 import {Column} from './column'
 import {UniqueRow} from './row'
 import {DEFAULT_SORT_DIRECTION, SortDirection, transition, strategies} from './sorting'
@@ -48,16 +48,16 @@ export function useTable<Data extends UniqueRow>({
   initialSortColumn,
   initialSortDirection,
 }: TableConfig<Data>): Table<Data> {
-  const [rowOrder, setRowOrder] = useState(data)
-  const [prevData, setPrevData] = useState(data)
   const [prevColumns, setPrevColumns] = useState(columns)
   const [sortByColumn, setSortByColumn] = useState<ColumnSortState>(() => {
     return getInitialSortState(columns, initialSortColumn, initialSortDirection)
   })
   const {gridTemplateColumns} = useTableLayout(columns)
 
-  // Reset the `sortByColumn` state if the columns change and that column is no
-  // longer provided
+  /**
+   * Reset the `sortByColumn` state if the columns change and that column is no
+   * longer provided
+   */
   if (columns !== prevColumns) {
     setPrevColumns(columns)
     if (sortByColumn) {
@@ -71,36 +71,29 @@ export function useTable<Data extends UniqueRow>({
     }
   }
 
-  const headers = columns.map(column => {
-    const id = column.id ?? column.field
-    if (id === undefined) {
-      throw new Error(`Expected either an \`id\` or \`field\` to be defined for a Column`)
-    }
+  const headers = useMemo(() => {
+    return columns.map(column => {
+      const id = column.id ?? column.field
+      if (id === undefined) {
+        throw new Error(`Expected either an \`id\` or \`field\` to be defined for a Column`)
+      }
 
-    const sortable = column.sortBy !== undefined && column.sortBy !== false
-    return {
-      id,
-      column,
-      isSortable() {
-        return sortable
-      },
-      getSortDirection() {
-        if (sortByColumn && sortByColumn.id === id) {
-          return sortByColumn.direction
-        }
-        return SortDirection.NONE
-      },
-    }
-  })
-
-  // Update the row order and apply the current sort column to the incoming data
-  if (data !== prevData) {
-    setPrevData(data)
-    setRowOrder(data)
-    if (sortByColumn) {
-      sortRows(sortByColumn)
-    }
-  }
+      const sortable = column.sortBy !== undefined && column.sortBy !== false
+      return {
+        id,
+        column,
+        isSortable() {
+          return sortable
+        },
+        getSortDirection() {
+          if (sortByColumn && sortByColumn.id === id) {
+            return sortByColumn.direction
+          }
+          return SortDirection.NONE
+        },
+      }
+    })
+  }, [columns, sortByColumn])
 
   /**
    * Sort the input row data by the given header
@@ -112,19 +105,21 @@ export function useTable<Data extends UniqueRow>({
         sortByColumn && sortByColumn.id === header.id ? transition(sortByColumn.direction) : DEFAULT_SORT_DIRECTION,
     }
     setSortByColumn(sortState)
-    sortRows(sortState)
   }
 
   /**
    * Sort the rows of a table with the given column sort state. If the data in the table is sparse,
    * blank values will be ordered last regardless of the sort direction.
    */
-  function sortRows(state: Exclude<ColumnSortState, null>) {
+  const sortedRows = useMemo(() => {
+    if (sortByColumn === null) {
+      return data
+    }
     const header = headers.find(header => {
-      return header.id === state.id
+      return header.id === sortByColumn.id
     })
     if (!header) {
-      throw new Error(`Unable to find header with id: ${state.id}`)
+      throw new Error(`Unable to find header with id: ${sortByColumn.id}`)
     }
 
     if (header.column.sortBy === false || header.column.sortBy === undefined) {
@@ -138,49 +133,47 @@ export function useTable<Data extends UniqueRow>({
         ? strategies[header.column.sortBy]
         : header.column.sortBy
 
-    setRowOrder(rowOrder => {
-      return rowOrder.slice().sort((a, b) => {
-        if (header.column.field === undefined) {
-          return 0
-        }
-
-        // Custom sort functions operate on the row versus the field
-        if (typeof header.column.sortBy === 'function') {
-          if (state.direction === SortDirection.ASC) {
-            // @ts-ignore todo
-            return sortMethod(a, b)
-          }
-          // @ts-ignore todo
-          return sortMethod(b, a)
-        }
-
-        const valueA = get(a, header.column.field)
-        const valueB = get(b, header.column.field)
-
-        if (valueA && valueB) {
-          if (state.direction === SortDirection.ASC) {
-            // @ts-ignore todo
-            return sortMethod(valueA, valueB)
-          }
-          // @ts-ignore todo
-          return sortMethod(valueB, valueA)
-        }
-
-        if (valueA) {
-          return -1
-        }
-
-        if (valueB) {
-          return 1
-        }
+    return data.slice().sort((a, b) => {
+      if (header.column.field === undefined) {
         return 0
-      })
+      }
+
+      // Custom sort functions operate on the row versus the field
+      if (typeof header.column.sortBy === 'function') {
+        if (sortByColumn.direction === SortDirection.ASC) {
+          // @ts-ignore todo
+          return sortMethod(a, b)
+        }
+        // @ts-ignore todo
+        return sortMethod(b, a)
+      }
+
+      const valueA = get(a, header.column.field)
+      const valueB = get(b, header.column.field)
+
+      if (valueA && valueB) {
+        if (sortByColumn.direction === SortDirection.ASC) {
+          // @ts-ignore todo
+          return sortMethod(valueA, valueB)
+        }
+        // @ts-ignore todo
+        return sortMethod(valueB, valueA)
+      }
+
+      if (valueA) {
+        return -1
+      }
+
+      if (valueB) {
+        return 1
+      }
+      return 0
     })
-  }
+  }, [sortByColumn, data, headers])
 
   return {
     headers,
-    rows: rowOrder.map(row => {
+    rows: sortedRows.map(row => {
       return {
         id: `${row.id}`,
         getValue() {

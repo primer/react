@@ -301,14 +301,14 @@ describe('DataTable', () => {
               },
             ]}
             initialSortColumn="value"
-            initialSortDirection="ASC"
+            initialSortDirection="DESC"
           />,
         )
 
         const header = screen.getByRole('columnheader', {
           name: 'Value',
         })
-        expect(header).toHaveAttribute('aria-sort', 'ascending')
+        expect(header).toHaveAttribute('aria-sort', 'descending')
 
         const rows = screen
           .getAllByRole('row')
@@ -319,7 +319,7 @@ describe('DataTable', () => {
             const cell = getByRole(row, 'cell')
             return cell.textContent
           })
-        expect(rows).toEqual(['1', '2', '3'])
+        expect(rows).toEqual(['3', '2', '1'])
       })
 
       it('should set the default sort state if `initialSortColumn` is provided', () => {
@@ -500,9 +500,9 @@ describe('DataTable', () => {
           return cells
         })
         expect(rows).toEqual([
-          ['a', 'c'],
-          ['b', 'b'],
           ['c', 'a'],
+          ['b', 'b'],
+          ['a', 'c'],
         ])
       })
 
