@@ -2,6 +2,8 @@ import React, {useCallback, useEffect, useRef, useState} from 'react'
 import styled from 'styled-components'
 import Button, {ButtonPrimary, ButtonDanger, ButtonProps} from '../deprecated/Button'
 import Box from '../Box'
+import {IconButton} from '../index'
+
 import {get} from '../constants'
 import {useOnEscapePress, useProvidedRefOrCreate} from '../hooks'
 import {useFocusTrap} from '../hooks/useFocusTrap'
@@ -215,6 +217,10 @@ const StyledDialog = styled.div<StyledDialogProps>`
   ${sx};
 `
 
+const CloseButton = ({onClose}: {onClose: () => void}) => {
+  return <IconButton aria-label="Close" onClick={onClose} variant="invisible" icon={XIcon} />
+}
+
 const DefaultHeader: React.FC<React.PropsWithChildren<DialogHeaderProps>> = ({
   dialogLabelId,
   title,
@@ -232,7 +238,7 @@ const DefaultHeader: React.FC<React.PropsWithChildren<DialogHeaderProps>> = ({
           <Dialog.Title id={dialogLabelId}>{title ?? 'Dialog'}</Dialog.Title>
           {subtitle && <Dialog.Subtitle id={dialogDescriptionId}>{subtitle}</Dialog.Subtitle>}
         </Box>
-        <Dialog.CloseButton onClose={onCloseClick} />
+        <CloseButton onClose={onCloseClick} />
       </Box>
     </Dialog.Header>
   )
@@ -415,24 +421,6 @@ const Buttons: React.FC<React.PropsWithChildren<{buttons: DialogButtonProps[]}>>
     </>
   )
 }
-const DialogCloseButton = styled(Button)`
-  border-radius: 4px;
-  background: transparent;
-  border: 0;
-  vertical-align: middle;
-  color: ${get('colors.fg.muted')};
-  padding: ${get('space.2')};
-  align-self: flex-start;
-  line-height: normal;
-  box-shadow: none;
-`
-const CloseButton: React.FC<React.PropsWithChildren<{onClose: () => void}>> = ({onClose}) => {
-  return (
-    <DialogCloseButton aria-label="Close" onClick={onClose}>
-      <Octicon icon={XIcon} />
-    </DialogCloseButton>
-  )
-}
 
 /**
  * A dialog is a type of overlay that can be used for confirming actions, asking
@@ -461,6 +449,6 @@ export const Dialog = Object.assign(_Dialog, {
   Subtitle,
   Body,
   Footer,
-  Buttons,
   CloseButton,
+  Buttons,
 })
