@@ -1,8 +1,7 @@
 import React, {useCallback, useEffect, useRef, useState} from 'react'
 import styled from 'styled-components'
-import Button, {ButtonPrimary, ButtonDanger, ButtonProps} from '../deprecated/Button'
 import Box from '../Box'
-import {IconButton} from '../index'
+import {IconButton, Button, ButtonProps} from '../index'
 
 import {get} from '../constants'
 import {useOnEscapePress, useProvidedRefOrCreate} from '../hooks'
@@ -27,7 +26,7 @@ export type DialogButtonProps = Omit<ButtonProps, 'content'> & {
   /**
    * The type of Button element to use
    */
-  buttonType?: 'normal' | 'primary' | 'danger'
+  buttonType?: 'normal' | 'default' | 'primary' | 'danger' // 'normal' to avoid a breaking change.
 
   /**
    * The Button's inner text
@@ -356,6 +355,7 @@ const Title = styled.h1<SxProp>`
 const Subtitle = styled.h2<SxProp>`
   font-size: ${get('fontSizes.0')};
   color: ${get('colors.fg.muted')};
+  font-weight: ${get('fontWeights.normal')};
   margin: 0; /* override default margin */
   margin-top: ${get('space.1')};
 
@@ -383,11 +383,6 @@ const Footer = styled.div<SxProp>`
   ${sx};
 `
 
-const buttonTypes = {
-  normal: Button,
-  primary: ButtonPrimary,
-  danger: ButtonDanger,
-}
 const Buttons: React.FC<React.PropsWithChildren<{buttons: DialogButtonProps[]}>> = ({buttons}) => {
   const autoFocusRef = useProvidedRefOrCreate<HTMLButtonElement>(buttons.find(button => button.autoFocus)?.ref)
   let autoFocusCount = 0
@@ -405,16 +400,15 @@ const Buttons: React.FC<React.PropsWithChildren<{buttons: DialogButtonProps[]}>>
     <>
       {buttons.map((dialogButtonProps, index) => {
         const {content, buttonType = 'normal', autoFocus = false, ...buttonProps} = dialogButtonProps
-        const ButtonElement = buttonTypes[buttonType]
         return (
-          <ButtonElement
+          <Button
             key={index}
+            variant={buttonType === 'normal' ? 'default' : buttonType}
             {...buttonProps}
-            variant={buttonType}
             ref={autoFocus && autoFocusCount === 0 ? (autoFocusCount++, autoFocusRef) : null}
           >
             {content}
-          </ButtonElement>
+          </Button>
         )
       })}
     </>
