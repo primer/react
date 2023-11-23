@@ -122,26 +122,10 @@ export const WithTrailingAction = () => {
         <FormControl.Label>Default label</FormControl.Label>
         <TextInput
           trailingAction={
-            <Box
-              sx={{
-                width: '30px',
-                display: 'flex',
-                alignItems: 'center',
-              }}
-            >
+            <Box sx={{width: '30px', display: 'flex', alignItems: 'center'}}>
+              {/* TODO this behavior should ideally be baked into the component for actions like clear */}
               {value.length > 0 && (
-                <TextInput.Action
-                  onClick={() => {
-                    setValue('')
-                  }}
-                  icon={XCircleFillIcon}
-                  aria-label="Clear input"
-                  sx={{
-                    color: 'fg.muted',
-                    backgroundColor: 'transparent',
-                    '&:hover': {color: 'fg.subtle'},
-                  }}
-                />
+                <TextInput.Action onClick={() => setValue('')} icon={XCircleFillIcon} aria-label="Clear input" />
               )}
             </Box>
           }

@@ -31,6 +31,10 @@ const invisibleButtonStyleOverrides = {
   paddingLeft: '4px',
   position: 'relative',
 
+  backgroundColor: 'transparent',
+  color: 'fg.subtle',
+  '&:hover': {color: 'fg.muted'},
+
   '&[data-component="IconButton"]': {
     width: 'var(--inner-action-size)',
     height: 'var(--inner-action-size)',
