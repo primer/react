@@ -61,18 +61,13 @@ const Root: React.FC<React.PropsWithChildren<PageHeaderProps>> = ({children, sx 
     display: 'grid',
     // We have max 4 columns.
     gridTemplateColumns: 'auto auto auto 1fr',
-    // First column is for context area and takes the full row. Context area items are displayed with flexbox inside.
-    // Second column is for leading and trailing action, leading and trailing visuals and the title.
-    // Third column is for navigation and takes the full row.
-    // Fourth column is for description and takes the full row.
     gridTemplateAreas: `
       'context-area context-area context-area context-area'
       'leading-action title-area trailing-action actions'
       'navigation navigation navigation navigation'
       'description description description description'
     `,
-    // TODO: We used hard-coded values for the spacing and font size in this component. Update them to use new design tokens when they are ready to use.
-    gap: '0.5rem',
+    gap: 'var(--stack-gap-condensed, 0.5rem)',
   }
   return (
     <Box data-component="pageheader" as={as} sx={merge<BetterSystemStyleObject>(rootStyles, sx)}>

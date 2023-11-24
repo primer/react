@@ -229,7 +229,8 @@ export const FilesPage = () => (
           </ActionMenu>
         </PageHeader.ContextAreaActions>
       </PageHeader.ContextArea>
-      <PageHeader.LeadingAction>
+      {/* This is a hack for now. Breadcrumbs are not leading visuals but for now we are displaying them under until we get the layout right. */}
+      <PageHeader.LeadingAction hidden={false}>
         <Breadcrumbs>
           <Breadcrumbs.Item href="https://github.com/primer/react/tree/main">react</Breadcrumbs.Item>
           <Breadcrumbs.Item href="https://github.com/primer/react/tree/main/src">src</Breadcrumbs.Item>

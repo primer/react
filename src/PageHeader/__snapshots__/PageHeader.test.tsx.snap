@@ -5,7 +5,7 @@ exports[`PageHeader renders consistently 1`] = `
   display: grid;
   grid-template-columns: auto auto auto 1fr;
   grid-template-areas: 'context-area context-area context-area context-area' 'leading-action title-area trailing-action actions' 'navigation navigation navigation navigation' 'description description description description';
-  gap: 0.5rem;
+  gap: var(--stack-gap-condensed,0.5rem);
 }
 
 .c1 {
@@ -108,7 +108,7 @@ exports[`PageHeader renders default layout 1`] = `
   display: grid;
   grid-template-columns: auto auto auto 1fr;
   grid-template-areas: 'context-area context-area context-area context-area' 'leading-action title-area trailing-action actions' 'navigation navigation navigation navigation' 'description description description description';
-  gap: 0.5rem;
+  gap: var(--stack-gap-condensed,0.5rem);
 }
 
 .c1 {
