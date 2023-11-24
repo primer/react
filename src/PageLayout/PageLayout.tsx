@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useRef} from 'react'
 import {createGlobalStyle} from 'styled-components'
 import Box from '../Box'
 import {useId} from '../hooks/useId'
@@ -10,7 +10,6 @@ import {Theme} from '../ThemeProvider'
 import {canUseDOM} from '../utils/environment'
 import {useOverflow} from '../internal/hooks/useOverflow'
 import {warning} from '../utils/warning'
-import VisuallyHidden from '../_VisuallyHidden'
 import {useStickyPaneHeight} from './useStickyPaneHeight'
 
 const REGION_ORDER = {
@@ -31,6 +30,7 @@ const PageLayoutContext = React.createContext<{
   padding: keyof typeof SPACING_MAP
   rowGap: keyof typeof SPACING_MAP
   columnGap: keyof typeof SPACING_MAP
+  paneRef: React.RefObject<HTMLDivElement>
   enableStickyPane?: (top: number | string) => void
   disableStickyPane?: () => void
   contentTopRef?: (node?: Element | null | undefined) => void
@@ -39,6 +39,7 @@ const PageLayoutContext = React.createContext<{
   padding: 'normal',
   rowGap: 'normal',
   columnGap: 'normal',
+  paneRef: {current: null},
 })
 
 // ----------------------------------------------------------------------------
@@ -76,6 +77,8 @@ const Root: React.FC<React.PropsWithChildren<PageLayoutProps>> = ({
   const {rootRef, enableStickyPane, disableStickyPane, contentTopRef, contentBottomRef, stickyPaneHeight} =
     useStickyPaneHeight()
 
+  const paneRef = useRef<HTMLDivElement>(null)
+
   const [slots, rest] = useSlots(children, slotsConfig ?? {header: Header, footer: Footer})
 
   return (
@@ -88,6 +91,7 @@ const Root: React.FC<React.PropsWithChildren<PageLayoutProps>> = ({
         disableStickyPane,
         contentTopRef,
         contentBottomRef,
+        paneRef,
       }}
     >
       <Box
@@ -197,7 +201,7 @@ const verticalDividerVariants = {
 type DraggableDividerProps = {
   draggable?: boolean
   onDragStart?: () => void
-  onDrag?: (delta: number) => void
+  onDrag?: (delta: number, isKeyboard: boolean) => void
   onDragEnd?: () => void
   onDoubleClick?: () => void
 }
@@ -224,10 +228,33 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
   sx = {},
 }) => {
   const [isDragging, setIsDragging] = React.useState(false)
+  const [isKeyboardDrag, setIsKeyboardDrag] = React.useState(false)
   const responsiveVariant = useResponsiveValue(variant, 'none')
 
   const stableOnDrag = React.useRef(onDrag)
   const stableOnDragEnd = React.useRef(onDragEnd)
+
+  const {paneRef} = React.useContext(PageLayoutContext)
+
+  const [minWidth, setMinWidth] = React.useState(0)
+  const [maxWidth, setMaxWidth] = React.useState(0)
+  const [currentWidth, setCurrentWidth] = React.useState(0)
+
+  React.useEffect(() => {
+    if (paneRef.current !== null) {
+      const paneStyles = getComputedStyle(paneRef.current as Element)
+      const maxPaneWidthDiffPixels = paneStyles.getPropertyValue('--pane-max-width-diff')
+      const minWidthPixels = paneStyles.getPropertyValue('--pane-min-width')
+      const paneWidth = paneRef.current.getBoundingClientRect().width
+      const maxPaneWidthDiff = Number(maxPaneWidthDiffPixels.split('px')[0])
+      const minPaneWidth = Number(minWidthPixels.split('px')[0])
+      const viewportWidth = window.innerWidth
+      const maxPaneWidth = viewportWidth > maxPaneWidthDiff ? viewportWidth - maxPaneWidthDiff : viewportWidth
+      setMinWidth(minPaneWidth)
+      setMaxWidth(maxPaneWidth)
+      setCurrentWidth(paneWidth || 0)
+    }
+  }, [paneRef, isKeyboardDrag, isDragging])
 
   React.useEffect(() => {
     stableOnDrag.current = onDrag
@@ -239,7 +266,7 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
 
   React.useEffect(() => {
     function handleDrag(event: MouseEvent) {
-      stableOnDrag.current?.(event.movementX)
+      stableOnDrag.current?.(event.movementX, false)
       event.preventDefault()
     }
 
@@ -249,23 +276,49 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
       event.preventDefault()
     }
 
+    function handleKeyDrag(event: KeyboardEvent) {
+      let delta = 0
+      // https://github.com/github/accessibility/issues/5101#issuecomment-1822870655
+      if ((event.key === 'ArrowLeft' || event.key === 'ArrowDown') && currentWidth > minWidth) {
+        delta = -3
+      } else if ((event.key === 'ArrowRight' || event.key === 'ArrowUp') && currentWidth < maxWidth) {
+        delta = 3
+      } else {
+        return
+      }
+      setCurrentWidth(currentWidth + delta)
+      stableOnDrag.current?.(delta, true)
+      event.preventDefault()
+    }
+
+    function handleKeyDragEnd(event: KeyboardEvent) {
+      setIsKeyboardDrag(false)
+      stableOnDragEnd.current?.()
+      event.preventDefault()
+    }
     // TODO: Support touch events
-    if (isDragging) {
+    if (isDragging || isKeyboardDrag) {
       window.addEventListener('mousemove', handleDrag)
+      window.addEventListener('keydown', handleKeyDrag)
       window.addEventListener('mouseup', handleDragEnd)
+      window.addEventListener('keyup', handleKeyDragEnd)
       document.body.setAttribute('data-page-layout-dragging', 'true')
     } else {
       window.removeEventListener('mousemove', handleDrag)
       window.removeEventListener('mouseup', handleDragEnd)
+      window.removeEventListener('keydown', handleKeyDrag)
+      window.removeEventListener('keyup', handleKeyDragEnd)
       document.body.removeAttribute('data-page-layout-dragging')
     }
 
     return () => {
       window.removeEventListener('mousemove', handleDrag)
       window.removeEventListener('mouseup', handleDragEnd)
+      window.removeEventListener('keydown', handleKeyDrag)
+      window.removeEventListener('keyup', handleKeyDragEnd)
       document.body.removeAttribute('data-page-layout-dragging')
     }
-  }, [isDragging])
+  }, [isDragging, isKeyboardDrag, currentWidth, minWidth, maxWidth])
 
   return (
     <Box
@@ -286,16 +339,33 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
               position: 'absolute',
               inset: '0 -2px',
               cursor: 'col-resize',
-              bg: isDragging ? 'accent.fg' : 'transparent',
+              bg: isDragging || isKeyboardDrag ? 'accent.fg' : 'transparent',
               transitionDelay: '0.1s',
               '&:hover': {
-                bg: isDragging ? 'accent.fg' : 'neutral.muted',
+                bg: isDragging || isKeyboardDrag ? 'accent.fg' : 'neutral.muted',
               },
             }}
-            role="separator"
+            role="slider"
+            aria-label="Draggable pane splitter"
+            aria-valuemin={minWidth}
+            aria-valuemax={maxWidth}
+            aria-valuenow={currentWidth}
+            aria-valuetext={`Pane width ${currentWidth} pixels`}
+            tabIndex={0}
             onMouseDown={() => {
               setIsDragging(true)
               onDragStart?.()
+            }}
+            onKeyDown={event => {
+              if (
+                event.key === 'ArrowLeft' ||
+                event.key === 'ArrowRight' ||
+                event.key === 'ArrowUp' ||
+                event.key === 'ArrowDown'
+              ) {
+                setIsKeyboardDrag(true)
+                onDragStart?.()
+              }
             }}
             onDoubleClick={onDoubleClick}
           />
@@ -592,7 +662,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
 
     const isHidden = useResponsiveValue(responsiveHidden, false)
 
-    const {rowGap, columnGap, enableStickyPane, disableStickyPane} = React.useContext(PageLayoutContext)
+    const {rowGap, columnGap, enableStickyPane, disableStickyPane, paneRef} = React.useContext(PageLayoutContext)
 
     React.useEffect(() => {
       if (sticky) {
@@ -637,54 +707,9 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
       }
     }
 
-    const paneRef = React.useRef<HTMLDivElement>(null)
     useRefObjectAsForwardedRef(forwardRef, paneRef)
 
-    const [minPercent, setMinPercent] = React.useState(0)
-    const [maxPercent, setMaxPercent] = React.useState(0)
     const hasOverflow = useOverflow(paneRef)
-
-    const measuredRef = React.useCallback(() => {
-      if (paneRef.current !== null) {
-        const maxPaneWidthDiffPixels = getComputedStyle(paneRef.current as Element).getPropertyValue(
-          '--pane-max-width-diff',
-        )
-        const paneWidth = paneRef.current.getBoundingClientRect().width
-        const maxPaneWidthDiff = Number(maxPaneWidthDiffPixels.split('px')[0])
-        const viewportWidth = window.innerWidth
-        const maxPaneWidth = viewportWidth > maxPaneWidthDiff ? viewportWidth - maxPaneWidthDiff : viewportWidth
-
-        const minPercent = Math.round((100 * minWidth) / viewportWidth)
-        setMinPercent(minPercent)
-
-        const maxPercent = Math.round((100 * maxPaneWidth) / viewportWidth)
-        setMaxPercent(maxPercent)
-
-        const widthPercent = Math.round((100 * paneWidth) / viewportWidth)
-        setWidthPercent(widthPercent.toString())
-      }
-    }, [paneRef, minWidth])
-
-    const [widthPercent, setWidthPercent] = React.useState('')
-    const [prevPercent, setPrevPercent] = React.useState('')
-
-    const handleWidthFormSubmit = (event: React.FormEvent<HTMLElement>) => {
-      event.preventDefault()
-      let percent = Number(widthPercent)
-      if (Number.isNaN(percent)) {
-        percent = Number(prevPercent) || minPercent
-      } else if (percent > maxPercent) {
-        percent = maxPercent
-      } else if (percent < minPercent) {
-        percent = minPercent
-      }
-
-      setWidthPercent(percent.toString())
-      // Cache previous valid percent.
-      setPrevPercent(percent.toString())
-
-      updatePaneWidth((percent / 100) * window.innerWidth)
-    }
 
     const paneId = useId(id)
 
@@ -706,7 +731,6 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
 
     return (
       <Box
-        ref={measuredRef}
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         sx={(theme: any) =>
           merge<BetterSystemStyleObject>(
@@ -756,9 +780,14 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
           // If pane is resizable, the divider should be draggable
           draggable={resizable}
           sx={{[position === 'end' ? 'marginRight' : 'marginLeft']: SPACING_MAP[columnGap]}}
-          onDrag={delta => {
+          onDrag={(delta, isKeyboard = false) => {
             // Get the number of pixels the divider was dragged
-            const deltaWithDirection = position === 'end' ? -delta : delta
+            let deltaWithDirection
+            if (isKeyboard) {
+              deltaWithDirection = delta
+            } else {
+              deltaWithDirection = position === 'end' ? -delta : delta
+            }
             updatePaneWidth(paneWidth + deltaWithDirection)
           }}
           // Ensure `paneWidth` state and actual pane width are in sync when the drag ends
@@ -798,32 +827,6 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
           {...(id && {id: paneId})}
         >
           {children}
-          {resizable && (
-            // eslint-disable-next-line github/a11y-no-visually-hidden-interactive-element
-            <VisuallyHidden>
-              <form onSubmit={handleWidthFormSubmit}>
-                <label htmlFor={`${paneId}-width-input`}>Pane width</label>
-                <p id={`${paneId}-input-hint`}>
-                  Use a value between {minPercent}% and {maxPercent}%
-                </p>
-                <input
-                  id={`${paneId}-width-input`}
-                  aria-describedby={`${paneId}-input-hint`}
-                  name="pane-width"
-                  inputMode="numeric"
-                  pattern="[0-9]*"
-                  value={widthPercent}
-                  autoCorrect="off"
-                  autoComplete="off"
-                  type="text"
-                  onChange={event => {
-                    setWidthPercent(event.target.value)
-                  }}
-                />
-                <button type="submit">Change width</button>
-              </form>
-            </VisuallyHidden>
-          )}
         </Box>
       </Box>
     )

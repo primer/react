@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`NavList renders a simple list 1`] = `
-.c4 {
+.c5 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -16,7 +16,7 @@ exports[`NavList renders a simple list 1`] = `
   min-width: 0;
 }
 
-.c5 {
+.c6 {
   -webkit-box-flex: 1;
   -webkit-flex-grow: 1;
   -ms-flex-positive: 1;
@@ -120,7 +120,7 @@ exports[`NavList renders a simple list 1`] = `
   border-radius: 6px;
 }
 
-.c6 {
+.c7 {
   position: relative;
   display: -webkit-box;
   display: -webkit-flex;
@@ -152,21 +152,21 @@ exports[`NavList renders a simple list 1`] = `
   margin-bottom: unset;
 }
 
-.c6[aria-disabled] {
+.c7[aria-disabled] {
   cursor: not-allowed;
 }
 
-.c6[aria-disabled] [data-component="ActionList.Checkbox"] {
+.c7[aria-disabled] [data-component="ActionList.Checkbox"] {
   cursor: not-allowed;
   background-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
   border-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
 }
 
-.c6 [data-component="ActionList.Item--DividerContainer"] {
+.c7 [data-component="ActionList.Item--DividerContainer"] {
   position: relative;
 }
 
-.c6 [data-component="ActionList.Item--DividerContainer"]::before {
+.c7 [data-component="ActionList.Item--DividerContainer"]::before {
   content: " ";
   display: block;
   position: absolute;
@@ -177,7 +177,7 @@ exports[`NavList renders a simple list 1`] = `
   border-color: var(--divider-color,transparent);
 }
 
-.c6:not(:first-of-type) {
+.c7:not(:first-of-type) {
   --divider-color: rgba(208,215,222,0.48);
 }
 
@@ -185,18 +185,18 @@ exports[`NavList renders a simple list 1`] = `
   --divider-color: transparent !important;
 }
 
-.c6:hover:not([aria-disabled]),
-.c6:focus:not([aria-disabled]),
-.c6[data-focus-visible-added]:not([aria-disabled]) {
+.c7:hover:not([aria-disabled]),
+.c7:focus:not([aria-disabled]),
+.c7[data-focus-visible-added]:not([aria-disabled]) {
   --divider-color: transparent;
 }
 
-.c6:hover:not([aria-disabled]) + .c1,
-.c6[data-focus-visible-added] + li {
+.c7:hover:not([aria-disabled]) + .c1,
+.c7[data-focus-visible-added] + li {
   --divider-color: transparent;
 }
 
-.c3 {
+.c4 {
   color: #0969da;
   -webkit-text-decoration: none;
   text-decoration: none;
@@ -216,12 +216,17 @@ exports[`NavList renders a simple list 1`] = `
   color: inherit;
 }
 
-.c3:hover {
+[data-a11y-link-underlines='true'] .c3[data-inline='true'] {
   -webkit-text-decoration: underline;
   text-decoration: underline;
 }
 
-.c3:is(button) {
+.c4:hover {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c4:is(button) {
   display: inline-block;
   padding: 0;
   font-size: inherit;
@@ -238,7 +243,7 @@ exports[`NavList renders a simple list 1`] = `
   appearance: none;
 }
 
-.c3:hover {
+.c4:hover {
   color: inherit;
   -webkit-text-decoration: none;
   text-decoration: none;
@@ -271,27 +276,27 @@ exports[`NavList renders a simple list 1`] = `
 }
 
 @media (hover:hover) and (pointer:fine) {
-  .c6:hover:not([aria-disabled]) {
+  .c7:hover:not([aria-disabled]) {
     background-color: rgba(208,215,222,0.32);
     color: #1F2328;
     box-shadow: inset 0 0 0 max(1px,0.0625rem) rgba(0,0,0,0);
   }
 
-  .c6:focus-visible,
-  .c6 > a:focus-visible {
+  .c7:focus-visible,
+  .c7 > a:focus-visible {
     outline: none;
     border: 2 solid;
     box-shadow: 0 0 0 2px #0969da;
   }
 
-  .c6:active:not([aria-disabled]) {
+  .c7:active:not([aria-disabled]) {
     background-color: rgba(208,215,222,0.48);
     color: #1F2328;
   }
 }
 
 @media (forced-colors:active) {
-  .c6:focus {
+  .c7:focus {
     outline: solid 1px transparent !important;
   }
 }
@@ -309,17 +314,17 @@ exports[`NavList renders a simple list 1`] = `
         <a
           aria-current="page"
           aria-labelledby="react-aria-2--label "
-          class="c3"
+          class="c3 c4"
           href="/"
           id="react-aria-2"
           tabindex="0"
         >
           <div
-            class="c4"
+            class="c5"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              class="c5"
+              class="c6"
               id="react-aria-2--label"
             >
               Home
@@ -328,21 +333,21 @@ exports[`NavList renders a simple list 1`] = `
         </a>
       </li>
       <li
-        class="c1 c6"
+        class="c1 c7"
       >
         <a
           aria-labelledby="react-aria-3--label "
-          class="c3"
+          class="c3 c4"
           href="/about"
           id="react-aria-3"
           tabindex="0"
         >
           <div
-            class="c4"
+            class="c5"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              class="c5"
+              class="c6"
               id="react-aria-3--label"
             >
               About
@@ -351,21 +356,21 @@ exports[`NavList renders a simple list 1`] = `
         </a>
       </li>
       <li
-        class="c1 c6"
+        class="c1 c7"
       >
         <a
           aria-labelledby="react-aria-4--label "
-          class="c3"
+          class="c3 c4"
           href="/contact"
           id="react-aria-4"
           tabindex="0"
         >
           <div
-            class="c4"
+            class="c5"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              class="c5"
+              class="c6"
               id="react-aria-4--label"
             >
               Contact
@@ -403,7 +408,7 @@ exports[`NavList renders with groups 1`] = `
   padding-inline-start: 0;
 }
 
-.c8 {
+.c9 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -418,7 +423,7 @@ exports[`NavList renders with groups 1`] = `
   min-width: 0;
 }
 
-.c9 {
+.c10 {
   -webkit-box-flex: 1;
   -webkit-flex-grow: 1;
   -ms-flex-positive: 1;
@@ -535,7 +540,7 @@ exports[`NavList renders with groups 1`] = `
   border-radius: 6px;
 }
 
-.c10 {
+.c11 {
   position: relative;
   display: -webkit-box;
   display: -webkit-flex;
@@ -567,21 +572,21 @@ exports[`NavList renders with groups 1`] = `
   margin-bottom: unset;
 }
 
-.c10[aria-disabled] {
+.c11[aria-disabled] {
   cursor: not-allowed;
 }
 
-.c10[aria-disabled] [data-component="ActionList.Checkbox"] {
+.c11[aria-disabled] [data-component="ActionList.Checkbox"] {
   cursor: not-allowed;
   background-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
   border-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
 }
 
-.c10 [data-component="ActionList.Item--DividerContainer"] {
+.c11 [data-component="ActionList.Item--DividerContainer"] {
   position: relative;
 }
 
-.c10 [data-component="ActionList.Item--DividerContainer"]::before {
+.c11 [data-component="ActionList.Item--DividerContainer"]::before {
   content: " ";
   display: block;
   position: absolute;
@@ -592,7 +597,7 @@ exports[`NavList renders with groups 1`] = `
   border-color: var(--divider-color,transparent);
 }
 
-.c10:not(:first-of-type) {
+.c11:not(:first-of-type) {
   --divider-color: rgba(208,215,222,0.48);
 }
 
@@ -600,18 +605,18 @@ exports[`NavList renders with groups 1`] = `
   --divider-color: transparent !important;
 }
 
-.c10:hover:not([aria-disabled]),
-.c10:focus:not([aria-disabled]),
-.c10[data-focus-visible-added]:not([aria-disabled]) {
+.c11:hover:not([aria-disabled]),
+.c11:focus:not([aria-disabled]),
+.c11[data-focus-visible-added]:not([aria-disabled]) {
   --divider-color: transparent;
 }
 
-.c10:hover:not([aria-disabled]) + .c5,
-.c10[data-focus-visible-added] + li {
+.c11:hover:not([aria-disabled]) + .c5,
+.c11[data-focus-visible-added] + li {
   --divider-color: transparent;
 }
 
-.c7 {
+.c8 {
   color: #0969da;
   -webkit-text-decoration: none;
   text-decoration: none;
@@ -631,12 +636,17 @@ exports[`NavList renders with groups 1`] = `
   color: inherit;
 }
 
-.c7:hover {
+[data-a11y-link-underlines='true'] .c7[data-inline='true'] {
   -webkit-text-decoration: underline;
   text-decoration: underline;
 }
 
-.c7:is(button) {
+.c8:hover {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c8:is(button) {
   display: inline-block;
   padding: 0;
   font-size: inherit;
@@ -653,7 +663,7 @@ exports[`NavList renders with groups 1`] = `
   appearance: none;
 }
 
-.c7:hover {
+.c8:hover {
   color: inherit;
   -webkit-text-decoration: none;
   text-decoration: none;
@@ -686,27 +696,27 @@ exports[`NavList renders with groups 1`] = `
 }
 
 @media (hover:hover) and (pointer:fine) {
-  .c10:hover:not([aria-disabled]) {
+  .c11:hover:not([aria-disabled]) {
     background-color: rgba(208,215,222,0.32);
     color: #1F2328;
     box-shadow: inset 0 0 0 max(1px,0.0625rem) rgba(0,0,0,0);
   }
 
-  .c10:focus-visible,
-  .c10 > a:focus-visible {
+  .c11:focus-visible,
+  .c11 > a:focus-visible {
     outline: none;
     border: 2 solid;
     box-shadow: 0 0 0 2px #0969da;
   }
 
-  .c10:active:not([aria-disabled]) {
+  .c11:active:not([aria-disabled]) {
     background-color: rgba(208,215,222,0.48);
     color: #1F2328;
   }
 }
 
 @media (forced-colors:active) {
-  .c10:focus {
+  .c11:focus {
     outline: solid 1px transparent !important;
   }
 }
@@ -742,17 +752,17 @@ exports[`NavList renders with groups 1`] = `
             <a
               aria-current="page"
               aria-labelledby="react-aria-3--label "
-              class="c7"
+              class="c7 c8"
               href="/getting-started"
               id="react-aria-3"
               tabindex="0"
             >
               <div
-                class="c8"
+                class="c9"
                 data-component="ActionList.Item--DividerContainer"
               >
                 <span
-                  class="c9"
+                  class="c10"
                   id="react-aria-3--label"
                 >
                   Getting started
@@ -781,21 +791,21 @@ exports[`NavList renders with groups 1`] = `
           class="c4"
         >
           <li
-            class="c5 c10"
+            class="c5 c11"
           >
             <a
               aria-labelledby="react-aria-5--label "
-              class="c7"
+              class="c7 c8"
               href="/Avatar"
               id="react-aria-5"
               tabindex="0"
             >
               <div
-                class="c8"
+                class="c9"
                 data-component="ActionList.Item--DividerContainer"
               >
                 <span
-                  class="c9"
+                  class="c10"
                   id="react-aria-5--label"
                 >
                   Avatar
@@ -887,8 +897,8 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   --divider-color: transparent !important;
 }
 
-.c13:hover:not([aria-disabled]) + .c3,
-.c13[data-focus-visible-added] + li {
+.c14:hover:not([aria-disabled]) + .c3,
+.c14[data-focus-visible-added] + li {
   --divider-color: transparent;
 }
 
@@ -1057,7 +1067,7 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   --divider-color: transparent;
 }
 
-.c12 {
+.c13 {
   color: #0969da;
   -webkit-text-decoration: none;
   text-decoration: none;
@@ -1079,12 +1089,17 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   font-weight: 400;
 }
 
-.c12:hover {
+[data-a11y-link-underlines='true'] .c12[data-inline='true'] {
   -webkit-text-decoration: underline;
   text-decoration: underline;
 }
 
-.c12:is(button) {
+.c13:hover {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c13:is(button) {
   display: inline-block;
   padding: 0;
   font-size: inherit;
@@ -1101,7 +1116,7 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   appearance: none;
 }
 
-.c12:hover {
+.c13:hover {
   color: inherit;
   -webkit-text-decoration: none;
   text-decoration: none;
@@ -1233,7 +1248,7 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
               <a
                 aria-current="page"
                 aria-labelledby="react-aria-4--label "
-                class="c12"
+                class="c12 c13"
                 href="#"
                 id="react-aria-4"
                 tabindex="0"
@@ -1336,8 +1351,8 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   --divider-color: transparent !important;
 }
 
-.c13:hover:not([aria-disabled]) + .c3,
-.c13[data-focus-visible-added] + li {
+.c14:hover:not([aria-disabled]) + .c3,
+.c14[data-focus-visible-added] + li {
   --divider-color: transparent;
 }
 
@@ -1434,8 +1449,8 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   --divider-color: transparent !important;
 }
 
-.c14:hover:not([aria-disabled]) + .c3,
-.c14[data-focus-visible-added] + li {
+.c15:hover:not([aria-disabled]) + .c3,
+.c15[data-focus-visible-added] + li {
   --divider-color: transparent;
 }
 
@@ -1527,7 +1542,7 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   border-radius: 6px;
 }
 
-.c12 {
+.c13 {
   color: #0969da;
   -webkit-text-decoration: none;
   text-decoration: none;
@@ -1549,12 +1564,17 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   font-weight: 400;
 }
 
-.c12:hover {
+[data-a11y-link-underlines='true'] .c12[data-inline='true'] {
   -webkit-text-decoration: underline;
   text-decoration: underline;
 }
 
-.c12:is(button) {
+.c13:hover {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c13:is(button) {
   display: inline-block;
   padding: 0;
   font-size: inherit;
@@ -1571,7 +1591,7 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   appearance: none;
 }
 
-.c12:hover {
+.c13:hover {
   color: inherit;
   -webkit-text-decoration: none;
   text-decoration: none;
@@ -1711,7 +1731,7 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
               <a
                 aria-current="page"
                 aria-labelledby="react-aria-4--label "
-                class="c12"
+                class="c12 c13"
                 href="#"
                 id="react-aria-4"
                 tabindex="0"

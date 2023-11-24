@@ -36,8 +36,10 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
     const [slots, childrenWithoutSlots] = useSlots(props.children, {
       leadingVisual: LeadingVisual,
       trailingVisual: TrailingVisual,
-      description: Description,
+      blockDescription: [Description, props => props.variant === 'block'],
+      inlineDescription: [Description, props => props.variant !== 'block'],
     })
+
     const {
       variant: listVariant,
       role: listRole,
@@ -204,10 +206,8 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       onKeyPress: keyPressHandler,
       'aria-disabled': disabled ? true : undefined,
       tabIndex: disabled ? undefined : 0,
-      'aria-labelledby': `${labelId} ${
-        slots.description && slots.description.props.variant !== 'block' ? inlineDescriptionId : ''
-      }`,
-      'aria-describedby': slots.description?.props.variant === 'block' ? blockDescriptionId : undefined,
+      'aria-labelledby': `${labelId} ${slots.inlineDescription ? inlineDescriptionId : ''}`,
+      'aria-describedby': slots.blockDescription ? blockDescriptionId : undefined,
       ...(selectionAttribute && {[selectionAttribute]: selected}),
       role: role || itemRole,
       id: itemId,
@@ -235,26 +235,25 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
             >
               <ConditionalBox if={Boolean(slots.trailingVisual)} sx={{display: 'flex', flexGrow: 1}}>
                 <ConditionalBox
-                  if={!!slots.description && slots.description.props.variant !== 'block'}
+                  if={!!slots.inlineDescription}
                   sx={{display: 'flex', flexGrow: 1, alignItems: 'baseline', minWidth: 0}}
                 >
                   <Box
                     as="span"
                     id={labelId}
                     sx={{
-                      flexGrow: slots.description && slots.description.props.variant !== 'block' ? 0 : 1,
-                      fontWeight: slots.description ? 'bold' : 'normal',
-                      marginBlockEnd:
-                        slots.description && slots.description.props.variant !== 'inline' ? '4px' : undefined,
+                      flexGrow: slots.inlineDescription ? 0 : 1,
+                      fontWeight: slots.inlineDescription || slots.blockDescription ? 'bold' : 'normal',
+                      marginBlockEnd: slots.blockDescription ? '4px' : undefined,
                     }}
                   >
                     {childrenWithoutSlots}
                   </Box>
-                  {slots.description?.props.variant !== 'block' ? slots.description : null}
+                  {slots.inlineDescription}
                 </ConditionalBox>
                 {slots.trailingVisual}
               </ConditionalBox>
-              {slots.description?.props.variant === 'block' ? slots.description : null}
+              {slots.blockDescription}
             </Box>
           </ItemWrapper>
         </LiBox>
