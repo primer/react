@@ -275,7 +275,7 @@ export const Responsive = ({width, height}: DialogStoryProps) => {
         <Dialog
           title="Your title"
           onClose={onDialogClose}
-          type={['full-screen', 'full-screen', 'default']}
+          type={{narrow: 'full-screen', regular: 'default', wide: 'default'}}
           width={width}
           height={height}
           footerButtons={[

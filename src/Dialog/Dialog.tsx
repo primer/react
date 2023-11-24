@@ -7,7 +7,7 @@ import {get} from '../constants'
 import {useOnEscapePress, useProvidedRefOrCreate} from '../hooks'
 import {useFocusTrap} from '../hooks/useFocusTrap'
 import sx, {SxProp} from '../sx'
-import {ResponsiveValue} from '../hooks/useResponsiveValue'
+import {ResponsiveValue, useResponsiveValue} from '../hooks/useResponsiveValue'
 import {XIcon} from '@primer/octicons-react'
 import {useFocusZone} from '../hooks/useFocusZone'
 import {FocusKeys} from '@primer/behaviors'
@@ -115,7 +115,7 @@ export interface DialogProps extends SxProp {
    * Generally used to display the dialog full screen on mobile breakpoints.
    * When full-screen the width and height is ignored.
    */
-  type?: DialogType | ResponsiveValue<DialogType>
+  type?: DialogType | ResponsiveValue<'default' | 'full-screen'>
 
   /**
    * The width of the dialog.
@@ -309,6 +309,7 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
     }
   }
   const defaultedProps = {...props, title, subtitle, role, dialogLabelId, dialogDescriptionId}
+  const responsiveType = useResponsiveValue(type, 'default')
 
   const dialogRef = useRef<HTMLDivElement>(null)
   useRefObjectAsForwardedRef(forwardedRef, dialogRef)
@@ -343,10 +344,12 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
   const body = (renderBody ?? DefaultBody)(defaultedProps)
   const footer = (renderFooter ?? DefaultFooter)(defaultedProps)
 
+  console.log(responsiveType)
+  console.log(responsiveType === 'full-screen')
   return (
     <>
       <Portal>
-        {type === 'full-screen' ? (
+        {responsiveType === 'full-screen' ? (
           <FullScreenDialog
             ref={dialogRef}
             role={role}
