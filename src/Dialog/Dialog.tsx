@@ -34,6 +34,16 @@ export type DialogButtonProps = Omit<ButtonProps, 'content'> & {
   content: React.ReactNode
 
   /**
+   * The HTML element to use.
+   */
+  as?: 'button' | 'a'
+
+  /**
+   * The URL to link to if this is a link (a) button.
+   */
+  href?: string
+
+  /**
    * If true, and if this is the only button with autoFocus set to true,
    * focus this button automatically when the dialog appears.
    */
