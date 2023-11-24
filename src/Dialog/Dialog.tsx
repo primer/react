@@ -22,6 +22,7 @@ const ANIMATION_DURATION = '200ms'
  * Props that characterize a button to be rendered into the footer of
  * a Dialog.
  */
+
 export type DialogButtonProps = Omit<ButtonProps, 'content'> & {
   /**
    * The type of Button element to use
@@ -40,16 +41,22 @@ export type DialogButtonProps = Omit<ButtonProps, 'content'> & {
   autoFocus?: boolean
 
   /**
+   * The HTML element to use.
+   */
+  as?: 'button' | 'a'
+
+  /**
+   * The URL to link to if this is a link (a) button.
+   */
+  href?: string
+
+  /**
    * A reference to the rendered Button’s DOM node, used together with
    * `autoFocus` for `focusTrap`’s `initialFocus`.
    */
   ref?: React.RefObject<HTMLButtonElement>
-
-  /**
-   * Other custom props.
-   */
-  sx?: SxProp
-}
+} & SxProp &
+  React.ButtonHTMLAttributes<HTMLButtonElement>
 
 /**
  * Props to customize the rendering of the Dialog.
