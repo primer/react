@@ -115,7 +115,7 @@ export interface DialogProps extends SxProp {
    * Generally used to display the dialog full screen on mobile breakpoints.
    * When full-screen the width and height is ignored.
    */
-  type?: DialogType | ResponsiveValue<'default' | 'full-screen'>
+  type?: DialogType | ResponsiveValue<DialogType>
 
   /**
    * The width of the dialog.
