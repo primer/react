@@ -6,6 +6,7 @@ import {SxProp, merge, BetterSystemStyleObject} from '../sx'
 import Heading from '../Heading'
 import {ArrowLeftIcon} from '@primer/octicons-react'
 import Link, {LinkProps as BaseLinkProps} from '../Link'
+import {useProvidedRefOrCreate} from '../hooks'
 
 import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import {getBreakpointDeclarations} from '../utils/getBreakpointDeclarations'
@@ -89,7 +90,7 @@ const Root: React.FC<React.PropsWithChildren<PageHeaderProps>> = ({children, sx 
       gridTemplateAreas.navigation = 'navigation navigation navigation navigation'
     }
   })
-  console.log(gridTemplateAreas.contextArea)
+  // console.log(gridTemplateAreas.contextArea)
   // }
 
   // const gridTemplateArea = children ? `'navigation navigation navigation navigation'` : undefined
@@ -106,9 +107,63 @@ const Root: React.FC<React.PropsWithChildren<PageHeaderProps>> = ({children, sx 
     `,
     gap: 'var(--stack-gap-condensed, 0.5rem)',
   }
+
+  const childRefs = React.useRef<(React.RefObject<HTMLElement> | null)[]>([])
+
+  // Initialize refs
+  React.Children.forEach(children, (_, i) => {
+    childRefs.current[i] = React.createRef()
+  })
+
+  React.useEffect(() => {
+    console.log(childRefs.current)
+  })
+
+  // State to store whether the ref is visible
+  const [isVisible, setIsVisible] = React.useState(false)
+
+  const [visibility, setVisibility] = React.useState({
+    contextArea: false,
+    titleArea: false,
+    description: false,
+    navigation: false,
+  })
+
+  React.useEffect(() => {
+    const observer = new IntersectionObserver(([entry]) => {
+      console.log('Entry:', entry.target.getAttribute('data-component'), entry.isIntersecting)
+      // Update isVisible state when the visibility of the ref changes
+      setVisibility(prev => ({...prev, [entry.target.getAttribute('data-component') as string]: entry.isIntersecting}))
+      // setIsVisible(entry.isIntersecting)
+    })
+
+    React.Children.forEach(children, (_, i) => {
+      if (childRefs.current[i].current) {
+        observer.observe(childRefs.current[i].current)
+      }
+    })
+
+    return () => {
+      // Clean up the observer when the component unmounts
+      React.Children.forEach(children, (_, i) => {
+        if (childRefs.current[i].current) {
+          observer.unobserve(childRefs.current[i].current)
+        }
+      })
+    }
+  }, [children])
+
+  React.useEffect(() => {
+    console.log('visibility map:', visibility)
+    //  we can render the gaps based on the visibility map
+  }, [visibility])
+
   return (
     <Box data-component="pageheader" as={as} sx={merge<BetterSystemStyleObject>(rootStyles, sx)}>
-      {children}
+      {/* {children} */}
+      {React.Children.map(children, (child, i) =>
+        React.isValidElement(child) ? React.cloneElement(child, {ref: childRefs.current[i]}) : child,
+      )}
     </Box>
   )
 }
@@ -117,30 +172,56 @@ const Root: React.FC<React.PropsWithChildren<PageHeaderProps>> = ({children, sx 
 // to manage their custom visibility but consumers should be careful if they choose to hide this on narrow viewports.
 // PageHeader.ContextArea Sub Components: PageHeader.ParentLink, PageHeader.ContextBar, PageHeader.ContextAreaActions
 // ---------------------------------------------------------------------
-const ContextArea: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
-  children,
-  hidden = hiddenOnRegularAndWide,
-  sx = {},
-}) => {
-  const contentNavStyles = {
-    gridRow: GRID_ROW_ORDER.ContextArea,
-    gridArea: 'context-area',
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: '0.5rem',
+// const ContextArea: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
+//   children,
+//   hidden = hiddenOnRegularAndWide,
+//   sx = {},
+// }) => {
+//   const contentNavStyles = {
+//     gridRow: GRID_ROW_ORDER.ContextArea,
+//     gridArea: 'context-area',
+//     display: 'flex',
+//     flexDirection: 'row',
+//     alignItems: 'center',
+//     gap: '0.5rem',
 
-    ...getBreakpointDeclarations(hidden, 'display', value => {
-      return value ? 'none' : 'flex'
-    }),
-  }
+//     ...getBreakpointDeclarations(hidden, 'display', value => {
+//       return value ? 'none' : 'flex'
+//     }),
+//   }
 
-  return (
-    <Box data-component="pageheader-contextarea" sx={merge<BetterSystemStyleObject>(contentNavStyles, sx)}>
-      {children}
-    </Box>
-  )
-}
+//   return (
+//     <Box data-component="pageheader-contextarea" sx={merge<BetterSystemStyleObject>(contentNavStyles, sx)}>
+//       {children}
+//     </Box>
+//   )
+// }
+
+const ContextArea = React.forwardRef<HTMLElement, React.PropsWithChildren<ChildrenPropTypes>>(
+  ({children, hidden = hiddenOnRegularAndWide, sx = {}}, forwardedRef) => {
+    const contentNavStyles = {
+      gridRow: GRID_ROW_ORDER.ContextArea,
+      gridArea: 'context-area',
+      display: 'flex',
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: '0.5rem',
+
+      ...getBreakpointDeclarations(hidden, 'display', value => {
+        return value ? 'none' : 'flex'
+      }),
+    }
+
+    const ref = useProvidedRefOrCreate(forwardedRef as React.RefObject<HTMLElement>)
+
+    return (
+      <Box data-component="pageheader-contextarea" ref={ref} sx={merge<BetterSystemStyleObject>(contentNavStyles, sx)}>
+        {children}
+      </Box>
+    )
+  },
+) as PolymorphicForwardRefComponent<'div', ChildrenPropTypes>
+
 type LinkProps = Pick<
   React.AnchorHTMLAttributes<HTMLAnchorElement> & BaseLinkProps,
   'download' | 'href' | 'hrefLang' | 'media' | 'ping' | 'rel' | 'target' | 'type' | 'referrerPolicy' | 'as'
