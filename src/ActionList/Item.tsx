@@ -241,6 +241,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
           {...containerProps}
           {...props}
         >
+          {/* @ts-ignore types later */}
           <ItemWrapper as={as} styles={styles} {...menuItemProps}>
             <Selection selected={selected} />
             {slots.leadingVisual}
