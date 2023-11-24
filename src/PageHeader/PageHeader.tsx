@@ -1,3 +1,4 @@
+/* eslint-disable github/array-foreach */
 import React from 'react'
 import {Box} from '..'
 import {useResponsiveValue, ResponsiveValue} from '../hooks/useResponsiveValue'
@@ -57,22 +58,53 @@ export type PageHeaderProps = {
 } & SxProp
 
 const Root: React.FC<React.PropsWithChildren<PageHeaderProps>> = ({children, sx = {}, as = 'div'}) => {
+  // if (children !== undefined && children !== null && Array.isArray(children)) {
+  //  @ts-ignore ssh
+  const gridTemplateAreas: {
+    contextArea: string | undefined
+    titleArea: string | undefined
+    description: string | undefined
+    navigation: string | undefined
+  } = {
+    contextArea: undefined,
+    titleArea: undefined,
+    description: undefined,
+    navigation: undefined,
+  }
+
+  React.Children.forEach(children, child => {
+    if (child.type === ContextArea) {
+      gridTemplateAreas.contextArea = 'context-area context-area context-area context-area'
+    } else if (child.type === LeadingAction) {
+      gridTemplateAreas.titleArea = 'leading-action title-area title-area title-area'
+    } else if (child.type === TitleArea) {
+      gridTemplateAreas.titleArea = 'leading-action title-area trailing-action actions'
+    } else if (child.type === TrailingAction) {
+      gridTemplateAreas.titleArea = 'leading-action title-area trailing-action trailing-action'
+    } else if (child.type === Actions) {
+      gridTemplateAreas.titleArea = 'leading-action title-area trailing-action actions'
+    } else if (child.type === Description) {
+      gridTemplateAreas.description = 'description description description description'
+    } else if (child.type === Navigation) {
+      gridTemplateAreas.navigation = 'navigation navigation navigation navigation'
+    }
+  })
+  console.log(gridTemplateAreas.contextArea)
+  // }
+
+  // const gridTemplateArea = children ? `'navigation navigation navigation navigation'` : undefined
+  // default: 'leading-action title-area trailing-action actions'
   const rootStyles = {
     display: 'grid',
-    // We have max 4 columns.
+    // We have 4 columns.
     gridTemplateColumns: 'auto auto auto 1fr',
-    // First column is for context area and takes the full row. Context area items are displayed with flexbox inside.
-    // Second column is for leading and trailing action, leading and trailing visuals and the title.
-    // Third column is for navigation and takes the full row.
-    // Fourth column is for description and takes the full row.
     gridTemplateAreas: `
-      'context-area context-area context-area context-area'
-      'leading-action title-area trailing-action actions'
-      'navigation navigation navigation navigation'
-      'description description description description'
+      '${gridTemplateAreas.contextArea || ''}'
+      '${gridTemplateAreas.titleArea || ''}'
+      '${gridTemplateAreas.description || ''}'
+      '${gridTemplateAreas.navigation || ''}'
     `,
-    // TODO: We used hard-coded values for the spacing and font size in this component. Update them to use new design tokens when they are ready to use.
-    gap: '0.5rem',
+    gap: 'var(--stack-gap-condensed, 0.5rem)',
   }
   return (
     <Box data-component="pageheader" as={as} sx={merge<BetterSystemStyleObject>(rootStyles, sx)}>

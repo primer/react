@@ -229,7 +229,7 @@ export const FilesPage = () => (
           </ActionMenu>
         </PageHeader.ContextAreaActions>
       </PageHeader.ContextArea>
-      <PageHeader.LeadingAction>
+      <PageHeader.LeadingAction hidden={false}>
         <Breadcrumbs>
           <Breadcrumbs.Item href="https://github.com/primer/react/tree/main">react</Breadcrumbs.Item>
           <Breadcrumbs.Item href="https://github.com/primer/react/tree/main/src">src</Breadcrumbs.Item>
