@@ -1,5 +1,5 @@
 import React from 'react'
-import {SxProp} from '../sx'
+import {SxProp, BetterSystemStyleObject} from '../sx'
 import {AriaRole} from '../utils/types'
 
 export type ActionListItemProps = {
@@ -53,6 +53,7 @@ export type MenuItemProps = {
   'aria-labelledby'?: string
   'aria-describedby'?: string
   role?: string
+  styles: BetterSystemStyleObject
 }
 
 export type ItemContext = Pick<ActionListItemProps, 'variant' | 'disabled'> & {

@@ -14,7 +14,6 @@ import {ActionListProps, ListContext} from './List'
 import {Selection} from './Selection'
 import {ActionListItemProps, getVariantStyles, ItemContext, TEXT_ROW_HEIGHT} from './shared'
 import {LeadingVisual, TrailingVisual} from './Visuals'
-import {Button} from '../Button'
 import type {MenuItemProps} from './shared'
 
 const LiBox = styled.li<SxProp>(sx)
@@ -119,13 +118,13 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       },
 
       // Button reset styles (to support as="button")
-      // appearance: 'none',
-      // background: 'unset',
-      // border: 'unset',
-      // width: listVariant === 'inset' ? 'calc(100% - 16px)' : '100%',
-      // fontFamily: 'unset',
-      // textAlign: 'unset',
-      // marginY: 'unset',
+      appearance: 'none',
+      background: 'unset',
+      border: 'unset',
+      width: listVariant === 'inset' ? 'calc(100% - 16px)' : '100%',
+      fontFamily: 'unset',
+      textAlign: 'unset',
+      marginY: 'unset',
 
       '@media (hover: hover) and (pointer: fine)': {
         ':hover:not([aria-disabled])': {
@@ -202,43 +201,15 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
     const inlineDescriptionId = `${itemId}--inline-description`
     const blockDescriptionId = `${itemId}--block-description`
 
-    const buttonStyles = {
-      appearance: 'none',
-      background: 'unset',
-      border: 'unset',
-      width: listVariant === 'inset' ? 'calc(100% - 16px)' : '100%',
-      fontFamily: 'unset',
-      textAlign: 'unset',
-      marginY: 'unset',
-      height: '100%',
-      display: 'flex',
-      // position: 'relative',
-      // paddingX: 2,
-      // fontSize: 1,
-      // // paddingY: '6px', // custom value off the scale
-      // lineHeight: TEXT_ROW_HEIGHT,
-      // minHeight: 5,
-      // marginX: listVariant === 'inset' ? 2 : 0,
-      // borderRadius: 2,
-      // transition: 'background 33.333ms linear',
-      // color: getVariantStyles(variant, disabled).color,
-      // cursor: 'pointer',
-    }
-
-    const _DefaultItemWrapper: React.FC<React.PropsWithChildren<MenuItemProps>> = ({children, ...props}) => {
+    const DefaultItemWrapper: React.FC<React.PropsWithChildren<MenuItemProps>> = ({children, styles, ...props}) => {
       return (
-        <Box as="button" sx={merge<BetterSystemStyleObject>(buttonStyles, sx as SxProp)} {...props}>
+        <Box as="button" sx={merge<BetterSystemStyleObject>(styles, sx as SxProp)} {...props}>
           {children}
         </Box>
       )
     }
 
-    // 1. ActionList.item has an inferred role due to its parent container
-    // 2. ActionList.item has an explicit role
-    // This could get richer. I only do the basic role conditionals for now.
-    // const hasRole = role || itemRole
-
-    const ItemWrapper = _PrivateItemWrapper ?? _DefaultItemWrapper
+    const ItemWrapper = _PrivateItemWrapper ?? DefaultItemWrapper
 
     const menuItemProps = {
       onClick: clickHandler,
@@ -265,12 +236,12 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       <ItemContext.Provider value={{variant, disabled, inlineDescriptionId, blockDescriptionId}}>
         <LiBox
           ref={forwardedRef}
-          sx={merge<BetterSystemStyleObject>(styles, sxProp)}
+          sx={merge<BetterSystemStyleObject>({display: 'flex'}, sxProp)}
           data-variant={variant === 'danger' ? variant : undefined}
           {...containerProps}
           {...props}
         >
-          <ItemWrapper {...menuItemProps}>
+          <ItemWrapper as={as} styles={styles} {...menuItemProps}>
             <Selection selected={selected} />
             {slots.leadingVisual}
             <Box
