@@ -7,6 +7,7 @@ import {get} from '../constants'
 import {useOnEscapePress, useProvidedRefOrCreate} from '../hooks'
 import {useFocusTrap} from '../hooks/useFocusTrap'
 import sx, {SxProp} from '../sx'
+import {defaultSxProp} from '../utils/defaultSxProp'
 import {XIcon} from '@primer/octicons-react'
 import {useFocusZone} from '../hooks/useFocusZone'
 import {FocusKeys} from '@primer/behaviors'
@@ -41,22 +42,11 @@ export type DialogButtonProps = Omit<ButtonProps, 'content'> & {
   autoFocus?: boolean
 
   /**
-   * The HTML element to use.
-   */
-  as?: 'button' | 'a'
-
-  /**
-   * The URL to link to if this is a link (a) button.
-   */
-  href?: string
-
-  /**
    * A reference to the rendered Button’s DOM node, used together with
    * `autoFocus` for `focusTrap`’s `initialFocus`.
    */
   ref?: React.RefObject<HTMLButtonElement>
-} & SxProp &
-  React.ButtonHTMLAttributes<HTMLButtonElement>
+}
 
 /**
  * Props to customize the rendering of the Dialog.
@@ -411,12 +401,12 @@ const Buttons: React.FC<React.PropsWithChildren<{buttons: DialogButtonProps[]}>>
   return (
     <>
       {buttons.map((dialogButtonProps, index) => {
-        const {content, buttonType = 'normal', autoFocus = false, ...buttonProps} = dialogButtonProps
+        const {content, buttonType = 'normal', autoFocus = false, ...rest} = dialogButtonProps
         return (
           <Button
             key={index}
             variant={buttonType === 'normal' ? 'default' : buttonType}
-            {...buttonProps}
+            {...rest}
             ref={autoFocus && autoFocusCount === 0 ? (autoFocusCount++, autoFocusRef) : null}
           >
             {content}
