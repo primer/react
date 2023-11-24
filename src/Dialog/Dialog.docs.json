@@ -46,6 +46,11 @@
       "description": "The ARIA role to assign to this dialog."
     },
     {
+      "name": "type",
+      "type": "'default' | 'full-screen'",
+      "description": "The type of dialog to render. 'default' renders a dialog in the center of the screen. 'full-screen' renders the dialog full screen and ignored the width and height. 'full-screen' is often used for mobile breakpoints."
+    },
+    {
       "name": "width",
       "type": "'small' | 'medium' | 'large' | 'xlarge'"
     },

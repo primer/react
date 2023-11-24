@@ -226,7 +226,7 @@ export const SmallButtons = ({width, height}: DialogStoryProps) => {
           height={height}
           footerButtons={[
             {buttonType: 'normal', content: 'Cancel', onClick: onDialogClose, size: 'small'},
-            {buttonType: 'primary', content: 'Submit', autoFocus: true, size: 'small'},
+            {buttonType: 'primary', content: 'Submit', autoFocus: true, size: 'small', sx: {ml: 5}},
           ]}
         >
           {lipsum}
@@ -253,6 +253,34 @@ export const ButtonLink = ({width, height}: DialogStoryProps) => {
           height={height}
           footerButtons={[
             {buttonType: 'default', content: 'View all', as: 'a', href: 'https://github.com', autoFocus: true},
+          ]}
+        >
+          {lipsum}
+        </Dialog>
+      )}
+    </>
+  )
+}
+
+export const Responsive = ({width, height}: DialogStoryProps) => {
+  const [isOpen, setIsOpen] = useState(false)
+  const buttonRef = useRef<HTMLButtonElement>(null)
+  const onDialogClose = useCallback(() => setIsOpen(false), [])
+  return (
+    <>
+      <Button ref={buttonRef} onClick={() => setIsOpen(!isOpen)}>
+        Show dialog
+      </Button>
+      {isOpen && (
+        <Dialog
+          title="Your title"
+          onClose={onDialogClose}
+          type={['full-screen', 'full-screen', 'default']}
+          width={width}
+          height={height}
+          footerButtons={[
+            {buttonType: 'normal', content: 'Cancel', onClick: onDialogClose},
+            {buttonType: 'primary', content: 'Submit', autoFocus: true},
           ]}
         >
           {lipsum}

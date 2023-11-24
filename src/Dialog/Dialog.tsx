@@ -7,7 +7,7 @@ import {get} from '../constants'
 import {useOnEscapePress, useProvidedRefOrCreate} from '../hooks'
 import {useFocusTrap} from '../hooks/useFocusTrap'
 import sx, {SxProp} from '../sx'
-import {defaultSxProp} from '../utils/defaultSxProp'
+import {ResponsiveValue} from '../hooks/useResponsiveValue'
 import {XIcon} from '@primer/octicons-react'
 import {useFocusZone} from '../hooks/useFocusZone'
 import {FocusKeys} from '@primer/behaviors'
@@ -112,6 +112,12 @@ export interface DialogProps extends SxProp {
   role?: 'dialog' | 'alertdialog'
 
   /**
+   * Generally used to display the dialog full screen on mobile breakpoints.
+   * When full-screen the width and height is ignored.
+   */
+  type?: DialogType | ResponsiveValue<DialogType>
+
+  /**
    * The width of the dialog.
    * small: 296px
    * medium: 320px
@@ -183,6 +189,7 @@ const widthMap = {
 
 export type DialogWidth = keyof typeof widthMap
 export type DialogHeight = keyof typeof heightMap
+export type DialogType = 'default' | 'full-screen'
 
 type StyledDialogProps = {
   width?: DialogWidth
@@ -214,6 +221,26 @@ const StyledDialog = styled.div<StyledDialogProps>`
     }
   }
 
+  ${sx};
+`
+
+const FullScreenDialog = styled.div<StyledDialogProps>`
+  display: flex;
+  flex-direction: column;
+  background-color: ${get('colors.canvas.overlay')};
+  width: 100vw;
+  height: 100vh;
+  opacity: 1;
+  animation: overlay--dialog-appear ${ANIMATION_DURATION} ${get('animation.easeOutCubic')};
+
+  @keyframes overlay--dialog-appear {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
   ${sx};
 `
 
@@ -262,6 +289,7 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
   const {
     title = 'Dialog',
     subtitle = '',
+    type = 'default',
     renderHeader,
     renderBody,
     renderFooter,
@@ -318,10 +346,8 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
   return (
     <>
       <Portal>
-        <Backdrop ref={backdropRef}>
-          <StyledDialog
-            width={width}
-            height={height}
+        {type === 'full-screen' ? (
+          <FullScreenDialog
             ref={dialogRef}
             role={role}
             aria-labelledby={dialogLabelId}
@@ -332,8 +358,25 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
             {header}
             {body}
             {footer}
-          </StyledDialog>
-        </Backdrop>
+          </FullScreenDialog>
+        ) : (
+          <Backdrop ref={backdropRef}>
+            <StyledDialog
+              width={width}
+              height={height}
+              ref={dialogRef}
+              role={role}
+              aria-labelledby={dialogLabelId}
+              aria-describedby={dialogDescriptionId}
+              aria-modal
+              sx={sx}
+            >
+              {header}
+              {body}
+              {footer}
+            </StyledDialog>
+          </Backdrop>
+        )}
       </Portal>
     </>
   )
