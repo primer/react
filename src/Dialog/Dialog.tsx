@@ -26,22 +26,12 @@ export type DialogButtonProps = Omit<ButtonProps, 'content'> & {
   /**
    * The type of Button element to use
    */
-  buttonType?: 'normal' | 'default' | 'primary' | 'danger' // 'normal' to avoid a breaking change.
+  buttonType?: 'normal' | 'default' | 'primary' | 'danger' // 'normal' to avoid a breaking change. Remove in the future in favor of 'variant`
 
   /**
    * The Button's inner text
    */
   content: React.ReactNode
-
-  /**
-   * The HTML element to use.
-   */
-  as?: 'button' | 'a'
-
-  /**
-   * The URL to link to if this is a link (a) button.
-   */
-  href?: string
 
   /**
    * If true, and if this is the only button with autoFocus set to true,
@@ -54,6 +44,11 @@ export type DialogButtonProps = Omit<ButtonProps, 'content'> & {
    * `autoFocus` for `focusTrap`’s `initialFocus`.
    */
   ref?: React.RefObject<HTMLButtonElement>
+
+  /**
+   * Other custom props.
+   */
+  sx?: SxProp
 }
 
 /**
