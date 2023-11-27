@@ -1,0 +1,143 @@
+{
+  "id": "selectpanel_v2",
+  "name": "SelectPanel v2",
+  "status": "draft",
+  "a11yReviewed": false,
+  "stories": [],
+  "props": [
+    {
+      "name": "title",
+      "type": "string",
+      "required": true,
+      "description": "A descriptive title for the panel"
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "description": "When provided, a description is displayed below the title"
+    },
+    {
+      "name": "selectionVariant",
+      "type": "'multiple' | 'single' | 'instant'",
+      "defaultValue": "multiple"
+    },
+    {
+      "name": "onSubmit",
+      "type": "(event: React.FormEvent) => void",
+      "description": "Function that will be called when the panel is closed"
+    },
+    {
+      "name": "onCancel",
+      "type": "() => void",
+      "description": "Function that will be called when the selection is submitted"
+    },
+    {
+      "name": "onClearSelection",
+      "type": "() => void",
+      "description": "Function that will be called when the clear selection is selection"
+    },
+    {
+      "name": "anchorRef",
+      "type": "React.RefObject<HTMLButtonElement>",
+      "description": "Useful for defining an external anchor"
+    },
+    {
+      "name": "open",
+      "type": "boolean",
+      "defaultValue": "false",
+      "description": "If defined, will control the open/closed state of the panel."
+    },
+    {
+      "name": "children",
+      "type": "React.ReactNode[]",
+      "description": "Recommended: `SelectPanel.Button`, `SelectPanel.Header`, `ActionList`, `SelectPanel.Loading`, `SelectPanel.Message`, `SelectPanel.Footer`"
+    }
+  ],
+  "subcomponents": [
+    {
+      "name": "SelectPanel.Button",
+      "props": [
+        {
+          "name": "children",
+          "type": "React.ReactElement",
+          "required": true,
+          "defaultValue": ""
+        }
+      ],
+      "passthrough": {
+        "element": "Button",
+        "url": "/react/Button"
+      }
+    },
+    {
+      "name": "SelectPanel.Header",
+      "props": [
+        {
+          "name": "children",
+          "type": "React.ReactNode",
+          "description": "Rendered before the list. Recommended: `SelectPanel.SearchInput`"
+        }
+      ]
+    },
+    {
+      "name": "SelectPanel.SearchInput",
+      "props": [
+        {
+          "name": "onChange",
+          "type": "React.ChangeEventHandler<HTMLInputElement>",
+          "description": "Callback when input text changes, use this for search/filter"
+        },
+        {
+          "name": "loading",
+          "type": "boolean",
+          "description": "Useful for subtle loading states while fetching items asynchronously"
+        }
+      ],
+      "passthrough": {
+        "element": "TextInput",
+        "url": "/react/TextInput"
+      }
+    },
+    {
+      "name": "SelectPanel.Footer",
+      "props": [
+        {
+          "name": "children",
+          "type": "React.ReactNode",
+          "description": "Optional: `<SelectPanel.SecondaryButton>`"
+        }
+      ]
+    },
+    {
+      "name": "SelectPanel.Loading",
+      "props": [
+        {
+          "name": "children",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "SelectPanel.Message",
+      "props": [
+        {
+          "name": "variant",
+          "type": "'warning' | 'error' | 'empty'"
+        },
+        {
+          "name": "size",
+          "type": "'inline' | 'full'"
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "description": "`inline` variant does not accept `title`"
+        },
+        {
+          "name": "children",
+          "type": "React.ReactNode"
+        }
+      ]
+    }
+  ]
+}
