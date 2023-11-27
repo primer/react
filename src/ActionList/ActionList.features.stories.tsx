@@ -228,7 +228,7 @@ export const InlineDescription = () => (
 export const BlockDescription = () => (
   <ActionList>
     {users.map(user => (
-      <ActionList.Item as="button" key={user.login}>
+      <ActionList.Item key={user.login}>
         <ActionList.LeadingVisual>
           <Avatar src={`https://github.com/${user.login}.png`} />
         </ActionList.LeadingVisual>

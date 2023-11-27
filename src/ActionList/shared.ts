@@ -10,7 +10,7 @@ export type ActionListItemProps = {
   /**
    * Callback that will trigger both on click selection and keyboard selection.
    */
-  onSelect?: (event: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement>) => void
+  onSelect?: (event: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>) => void
   /**
    * Is the `Item` is currently selected?
    */
@@ -41,11 +41,10 @@ export type ActionListItemProps = {
   /**
    * Private API for use internally only. Used by LinkItem to wrap contents in an anchor
    */
-  _PrivateItemWrapper?: React.FC<React.PropsWithChildren<MenuItemProps>>
-  as?: 'button' | 'a' | 'div'
+  _PrivateItemWrapper?: React.FC<React.PropsWithChildren<ItemWrapperProps>>
 } & SxProp
 
-export type MenuItemProps = {
+export type ItemWrapperProps = {
   onClick?: (event: React.MouseEvent) => void
   onKeyPress?: (event: React.KeyboardEvent) => void
   'aria-disabled'?: boolean
@@ -53,7 +52,7 @@ export type MenuItemProps = {
   'aria-labelledby'?: string
   'aria-describedby'?: string
   role?: string
-  styles: BetterSystemStyleObject
+  styles?: BetterSystemStyleObject
 }
 
 export type ItemContext = Pick<ActionListItemProps, 'variant' | 'disabled'> & {

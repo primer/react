@@ -14,7 +14,6 @@ import {ActionListProps, ListContext} from './List'
 import {Selection} from './Selection'
 import {ActionListItemProps, getVariantStyles, ItemContext, TEXT_ROW_HEIGHT} from './shared'
 import {LeadingVisual, TrailingVisual} from './Visuals'
-import type {MenuItemProps} from './shared'
 
 const LiBox = styled.li<SxProp>(sx)
 
@@ -30,12 +29,12 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       id,
       role,
       _PrivateItemWrapper,
-      as,
-      ...props
+      children,
+      ...rest
     },
     forwardedRef,
   ): JSX.Element => {
-    const [slots, childrenWithoutSlots] = useSlots(props.children, {
+    const [slots, childrenWithoutSlots] = useSlots(children, {
       leadingVisual: LeadingVisual,
       trailingVisual: TrailingVisual,
       blockDescription: [Description, props => props.variant === 'block'],
@@ -53,7 +52,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
 
     const onSelect = React.useCallback(
       (
-        event: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement>,
+        event: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>,
         // eslint-disable-next-line @typescript-eslint/ban-types
         afterSelect?: Function,
       ) => {
@@ -179,7 +178,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
     }
 
     const clickHandler = React.useCallback(
-      (event: React.MouseEvent<HTMLLIElement>) => {
+      (event: React.MouseEvent<HTMLElement>) => {
         if (disabled) return
         onSelect(event, afterSelect)
       },
@@ -187,7 +186,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
     )
 
     const keyPressHandler = React.useCallback(
-      (event: React.KeyboardEvent<HTMLLIElement>) => {
+      (event: React.KeyboardEvent<HTMLElement>) => {
         if (disabled) return
         if ([' ', 'Enter'].includes(event.key)) {
           onSelect(event, afterSelect)
@@ -201,48 +200,46 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
     const inlineDescriptionId = `${itemId}--inline-description`
     const blockDescriptionId = `${itemId}--block-description`
 
-    const DefaultItemWrapper: React.FC<React.PropsWithChildren<MenuItemProps>> = ({children, styles, ...props}) => {
-      return (
-        <Box as="button" sx={merge<BetterSystemStyleObject>(styles, sx as SxProp)} {...props}>
-          {children}
-        </Box>
-      )
-    }
+    type ActionListDefaultItemProps = ActionListItemProps & React.ButtonHTMLAttributes<HTMLButtonElement>
+
+    const DefaultItemWrapper = React.forwardRef(
+      ({sx = {}, as: Component = 'button', children, ...props}, forwardedRef) => {
+        return (
+          <Box as={Component} sx={merge<BetterSystemStyleObject>(styles, sx as SxProp)} ref={forwardedRef} {...props}>
+            {children}
+          </Box>
+        )
+      },
+    ) as PolymorphicForwardRefComponent<'button', ActionListDefaultItemProps>
 
     const ItemWrapper = _PrivateItemWrapper ?? DefaultItemWrapper
 
-    const menuItemProps = {
+    const itemProps = {
       onClick: clickHandler,
       onKeyPress: keyPressHandler,
       'aria-disabled': disabled ? true : undefined,
-      // we need tabindex for only menu or listbox - because default is buton and it is focusable by default
+      // we need tabindex for only menu or listbox - because default is button and it is focusable by default
       tabIndex: disabled ? undefined : 0,
       'aria-labelledby': `${labelId} ${slots.inlineDescription ? inlineDescriptionId : ''}`,
       'aria-describedby': slots.blockDescription ? blockDescriptionId : undefined,
       ...(selectionAttribute && {[selectionAttribute]: selected}),
       role: role || itemRole,
       id: itemId,
+      styles,
     }
 
-    // This is on the li element. We don't need any props on the li, just need to reset the role for menu/listbox
+    // This is on the li element. We don't need any props on the li, just need to undo the role for menu/listbox
     const containerProps = {role: role || itemRole ? 'none' : undefined}
-
-    // we render menuitemProps in the anchor element for action list link but for default we render it on the li??
-    // I think what needs to be on the li when there is no role for the item (not in a menu or something): role, tabindex, maybe id
-    // I think what needs to be on the anchor/button: onClick, onKeyPress, aria-disabled, aria-labelledby, aria-describedby
-    // const wrapperProps = menuItemProps
 
     return (
       <ItemContext.Provider value={{variant, disabled, inlineDescriptionId, blockDescriptionId}}>
         <LiBox
-          ref={forwardedRef}
           sx={merge<BetterSystemStyleObject>({display: 'flex'}, sxProp)}
           data-variant={variant === 'danger' ? variant : undefined}
           {...containerProps}
-          {...props}
         >
-          {/* @ts-ignore types later */}
-          <ItemWrapper as={as} styles={styles} {...menuItemProps}>
+          {/* @ts-ignore I don't know what is the best type for event params */}
+          <ItemWrapper {...itemProps} ref={forwardedRef} {...rest}>
             <Selection selected={selected} />
             {slots.leadingVisual}
             <Box
