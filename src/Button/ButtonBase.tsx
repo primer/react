@@ -1,4 +1,5 @@
 import React, {ComponentPropsWithRef, forwardRef, useMemo} from 'react'
+import {isValidElementType} from 'react-is'
 import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import Box from '../Box'
 import {BetterSystemStyleObject, merge} from '../sx'
@@ -76,7 +77,7 @@ const ButtonBase = forwardRef(
             <Box as="span" data-component="buttonContent" sx={getAlignContentSize(alignContent)}>
               {LeadingVisual && (
                 <Box as="span" data-component="leadingVisual" sx={{...iconWrapStyles}}>
-                  <LeadingVisual />
+                  {isValidElementType(LeadingVisual) ? <LeadingVisual /> : LeadingVisual}
                 </Box>
               )}
               {children && <span data-component="text">{children}</span>}
@@ -86,13 +87,13 @@ const ButtonBase = forwardRef(
                 </Box>
               ) : TrailingVisual ? (
                 <Box as="span" data-component="trailingVisual" sx={{...iconWrapStyles}}>
-                  <TrailingVisual />
+                  {isValidElementType(TrailingVisual) ? <TrailingVisual /> : TrailingVisual}
                 </Box>
               ) : null}
             </Box>
             {TrailingAction && (
               <Box as="span" data-component="trailingAction" sx={{...iconWrapStyles}}>
-                <TrailingAction />
+                {isValidElementType(TrailingAction) ? <TrailingAction /> : TrailingAction}
               </Box>
             )}
           </>

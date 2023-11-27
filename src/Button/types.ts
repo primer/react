@@ -52,17 +52,17 @@ export type ButtonProps = {
   /**
    * The leading visual which comes before the button content
    */
-  leadingVisual?: React.ElementType | null
+  leadingVisual?: React.ReactNode | React.ElementType | null
 
   /**
    * The trailing visual which comes after the button content
    */
-  trailingVisual?: React.ElementType | null
+  trailingVisual?: React.ReactNode | React.ElementType | null
 
   /**
    * Trailing action appears to the right of the trailing visual and is always locked to the end
    */
-  trailingAction?: React.ElementType | null
+  trailingAction?: React.ReactNode | React.ElementType | null
 
   children?: React.ReactNode
 

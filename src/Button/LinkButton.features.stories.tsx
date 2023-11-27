@@ -25,13 +25,13 @@ export const Invisible = () => (
 )
 
 export const LeadingVisual = () => (
-  <Button as="a" href="/" leadingVisual={HeartIcon}>
+  <Button as="a" href="/" leadingVisual={<HeartIcon />}>
     Leading visual
   </Button>
 )
 
 export const TrailingVisual = () => (
-  <Button as="a" href="/" trailingVisual={EyeIcon}>
+  <Button as="a" href="/" trailingVisual={<EyeIcon />}>
     Trailing visual
   </Button>
 )
