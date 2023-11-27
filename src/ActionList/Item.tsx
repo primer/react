@@ -94,6 +94,12 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       },
     }
 
+    const listItemStyles = {
+      display: 'flex',
+      // show between 2 items
+      ':not(:first-of-type)': {'--divider-color': theme?.colors.actionListItem.inlineDivider},
+    }
+
     const styles = {
       position: 'relative',
       display: 'flex',
@@ -163,8 +169,6 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
         borderTopWidth: showDividers ? `1px` : '0',
         borderColor: 'var(--divider-color, transparent)',
       },
-      // show between 2 items
-      ':not(:first-of-type)': {'--divider-color': theme?.colors.actionListItem.inlineDivider},
       // hide divider after dividers & group header, with higher importance!
       '[data-component="ActionList.Divider"] + &': {'--divider-color': 'transparent !important'},
       // hide border on current and previous item
@@ -234,7 +238,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
     return (
       <ItemContext.Provider value={{variant, disabled, inlineDescriptionId, blockDescriptionId}}>
         <LiBox
-          sx={merge<BetterSystemStyleObject>({display: 'flex'}, sxProp)}
+          sx={merge<BetterSystemStyleObject>(listItemStyles, sxProp)}
           data-variant={variant === 'danger' ? variant : undefined}
           {...containerProps}
         >
