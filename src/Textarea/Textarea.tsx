@@ -25,6 +25,10 @@ export type TextareaProps = {
    * Allows resizing of the textarea
    */
   resize?: 'none' | 'both' | 'horizontal' | 'vertical'
+  /**
+   * apply a high contrast color to background
+   */
+  contrast?: boolean
 } & TextareaHTMLAttributes<HTMLTextAreaElement> &
   SxProp
 
@@ -53,7 +57,6 @@ const StyledTextarea = styled.textarea<TextareaProps>`
     css`
       resize: none;
     `}
-
   ${sx};
 `
 
@@ -73,12 +76,19 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
       cols = DEFAULT_TEXTAREA_COLS,
       resize = DEFAULT_TEXTAREA_RESIZE,
       block,
+      contrast,
       ...rest
     }: TextareaProps,
     ref,
   ): ReactElement => {
     return (
-      <TextInputBaseWrapper sx={sxProp} validationStatus={validationStatus} disabled={disabled} block={block}>
+      <TextInputBaseWrapper
+        sx={sxProp}
+        validationStatus={validationStatus}
+        disabled={disabled}
+        block={block}
+        contrast={contrast}
+      >
         <StyledTextarea
           value={value}
           resize={resize}
