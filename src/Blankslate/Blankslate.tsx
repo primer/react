@@ -119,7 +119,6 @@ const BlankslateContainerQuery = `
   ${StyledBlankslate} .Blankslate-Action:last-of-type {
     margin-bottom: calc(var(--stack-gap-condensed) / 2);
   }
-  }
 `
 
 function Blankslate({border, children, narrow, spacious}: BlankslateProps) {
