@@ -62,7 +62,7 @@ export const parseListItem = (line: string): ListItem | null => {
 export const listItemToString = (item: ListItem) =>
   `${item.leadingWhitespace}${typeof item.delimeter === 'number' ? `${item.delimeter}.` : item.delimeter}${
     item.middleWhitespace
-  }${item.taskBox ? ` ${item.taskBox}` : ''} ${item.text}`
+  }${item.taskBox || ''} ${item.text}`
 
 /**
  * Provides support for list editing in the Markdown editor. This includes inserting new
