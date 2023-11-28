@@ -1,7 +1,7 @@
 import React from 'react'
 import {SelectPanel} from '../SelectPanel'
-import {ActionList, ActionMenu, Avatar, Box, Button, Flash} from '../../../index'
-import {ArrowRightIcon, AlertIcon, EyeIcon, GitBranchIcon, TriangleDownIcon} from '@primer/octicons-react'
+import {ActionList, ActionMenu, Avatar, Box, Button, Flash, Link} from '../../../index'
+import {ArrowRightIcon, AlertIcon, EyeIcon, GitBranchIcon, TriangleDownIcon, GearIcon} from '@primer/octicons-react'
 import data from './mock-data'
 
 export default {
@@ -60,6 +60,123 @@ export const Minimal = () => {
             </ActionList.Item>
           ))}
         </ActionList>
+        <SelectPanel.Footer />
+      </SelectPanel>
+    </>
+  )
+}
+
+export const WithGroups = () => {
+  /* Selection */
+  const initialAssigneeIds = data.issue.assigneeIds // mock initial state
+  const [selectedAssigneeIds, setSelectedAssigneeIds] = React.useState<string[]>(initialAssigneeIds)
+
+  const onCollaboratorSelect = (colloratorId: string) => {
+    if (!selectedAssigneeIds.includes(colloratorId)) setSelectedAssigneeIds([...selectedAssigneeIds, colloratorId])
+    else setSelectedAssigneeIds(selectedAssigneeIds.filter(id => id !== colloratorId))
+  }
+
+  const onClearSelection = () => setSelectedAssigneeIds([])
+  const onSubmit = () => {
+    data.issue.assigneeIds = selectedAssigneeIds // pretending to persist changes
+  }
+
+  /* Filtering */
+  const [filteredUsers, setFilteredUsers] = React.useState(data.collaborators)
+  const [query, setQuery] = React.useState('')
+
+  const onSearchInputChange: React.ChangeEventHandler<HTMLInputElement> = event => {
+    const query = event.currentTarget.value
+    setQuery(query)
+
+    if (query === '') setFilteredUsers(data.collaborators)
+    else {
+      setFilteredUsers(
+        data.collaborators
+          .map(collaborator => {
+            if (collaborator.login.toLowerCase().startsWith(query)) return {priority: 1, collaborator}
+            else if (collaborator.name.startsWith(query)) return {priority: 2, collaborator}
+            else if (collaborator.login.toLowerCase().includes(query)) return {priority: 3, collaborator}
+            else if (collaborator.name.toLowerCase().includes(query)) return {priority: 4, collaborator}
+            else return {priority: -1, collaborator}
+          })
+          .filter(result => result.priority > 0)
+          .map(result => result.collaborator),
+      )
+    }
+  }
+
+  const sortingFn = (itemA: {id: string}, itemB: {id: string}) => {
+    const initialSelectedIds = data.issue.assigneeIds
+    if (initialSelectedIds.includes(itemA.id) && initialSelectedIds.includes(itemB.id)) return 1
+    else if (initialSelectedIds.includes(itemA.id)) return -1
+    else if (initialSelectedIds.includes(itemB.id)) return 1
+    else return 1
+  }
+
+  const itemsToShow = query ? filteredUsers : data.collaborators.sort(sortingFn)
+
+  return (
+    <>
+      <h1>SelectPanel with groups</h1>
+
+      <SelectPanel title="Request up to 100 reviewers" onSubmit={onSubmit} onClearSelection={onClearSelection}>
+        <SelectPanel.Button
+          variant="invisible"
+          trailingAction={GearIcon}
+          sx={{width: '200px', '[data-component=buttonContent]': {justifyContent: 'start'}}}
+        >
+          Reviewers
+        </SelectPanel.Button>
+        <SelectPanel.Header>
+          <SelectPanel.SearchInput onChange={onSearchInputChange} />
+        </SelectPanel.Header>
+
+        {itemsToShow.length === 0 ? (
+          <SelectPanel.Message variant="empty" title={`No labels found for "${query}"`}>
+            Try a different search term
+          </SelectPanel.Message>
+        ) : (
+          <ActionList>
+            <ActionList.Group>
+              <ActionList.GroupHeading variant="filled">Suggestions</ActionList.GroupHeading>
+              {itemsToShow
+                .filter(collaborator => collaborator.recommended)
+                .map(collaborator => (
+                  <ActionList.Item
+                    key={collaborator.id}
+                    onSelect={() => onCollaboratorSelect(collaborator.id)}
+                    selected={selectedAssigneeIds.includes(collaborator.id)}
+                  >
+                    <ActionList.LeadingVisual>
+                      <Avatar src={`https://github.com/${collaborator.login}.png`} />
+                    </ActionList.LeadingVisual>
+                    {collaborator.login}
+                    <ActionList.Description>{collaborator.login}</ActionList.Description>
+                  </ActionList.Item>
+                ))}
+            </ActionList.Group>
+            <ActionList.Group>
+              <ActionList.GroupHeading variant="filled">Everyone else</ActionList.GroupHeading>
+              {itemsToShow
+                .filter(collaborator => !collaborator.recommended)
+                .map(collaborator => (
+                  <ActionList.Item
+                    key={collaborator.id}
+                    onSelect={() => onCollaboratorSelect(collaborator.id)}
+                    selected={selectedAssigneeIds.includes(collaborator.id)}
+                  >
+                    <ActionList.LeadingVisual>
+                      <Avatar src={`https://github.com/${collaborator.login}.png`} />
+                    </ActionList.LeadingVisual>
+                    {collaborator.login}
+                    <ActionList.Description>{collaborator.login}</ActionList.Description>
+                  </ActionList.Item>
+                ))}
+            </ActionList.Group>
+          </ActionList>
+        )}
+
         <SelectPanel.Footer />
       </SelectPanel>
     </>
