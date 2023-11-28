@@ -322,6 +322,14 @@ export const getButtonStyles = (theme?: Theme) => {
     '[data-component="buttonContent"] > :not(:last-child)': {
       mr: '8px',
     },
+    '[data-component="loadingSpinner"]': {
+      gridArea: 'text',
+      marginRight: '0px !important',
+      placeSelf: 'center',
+    },
+    '[data-component="loadingSpinner"] + [data-component="text"]': {
+      visibility: 'hidden',
+    },
   }
   return styles
 }
