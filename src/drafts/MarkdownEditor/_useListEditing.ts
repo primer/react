@@ -29,10 +29,11 @@ const calculateNextListItemStarter = ({leadingWhitespace = '', delimeter, taskBo
  *  3. Task box (optional)
  *  4. Everything following
  */
-export const listItemRegex = /^(\s*)([*-]|(\d+)\.)\s(?:(\[[\sx]\])\s)?(.*)/i
+export const listItemRegex = /^(\s*)([*-]|(\d+)\.)(\s{1,4})(?:(\[[\sx]\])\s)?(.*)/i
 
 export type ListItem = {
   leadingWhitespace: string
+  middleWhitespace: string
   text: string
   delimeter: '-' | '*' | number
   taskBox: '[ ]' | '[x]' | null
@@ -45,7 +46,7 @@ const isNumericListItem = (item: ListItem | null): item is NumericListItem => ty
 export const parseListItem = (line: string): ListItem | null => {
   const result = listItemRegex.exec(line)
   if (!result) return null
-  const [, leadingWhitespace = '', fullDelimeter, itemNumberStr = '', taskBox = null, text] = result
+  const [, leadingWhitespace = '', fullDelimeter, itemNumberStr = '', middleWhitespace, taskBox = null, text] = result
   const itemNumber = Number.parseInt(itemNumberStr, 10)
   const delimeter = Number.isNaN(itemNumber) ? (fullDelimeter as '*' | '-') : itemNumber
 
@@ -53,14 +54,15 @@ export const parseListItem = (line: string): ListItem | null => {
     leadingWhitespace,
     text,
     delimeter,
+    middleWhitespace,
     taskBox: taskBox as '[ ]' | '[x]' | null,
   }
 }
 
 export const listItemToString = (item: ListItem) =>
   `${item.leadingWhitespace}${typeof item.delimeter === 'number' ? `${item.delimeter}.` : item.delimeter}${
-    item.taskBox ? ` ${item.taskBox}` : ''
-  } ${item.text}`
+    item.middleWhitespace
+  }${item.taskBox || ''} ${item.text}`
 
 /**
  * Provides support for list editing in the Markdown editor. This includes inserting new
