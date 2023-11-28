@@ -43,6 +43,11 @@ export default {
         type: 'number',
       },
     },
+    loading: {
+      control: {
+        type: 'boolean',
+      },
+    },
   },
   args: {
     block: false,
@@ -52,6 +57,7 @@ export default {
     alignContent: 'center',
     trailingIcon: null,
     leadingIcon: null,
+    loading: false,
     trailingAction: null,
     trailingVisualCount: undefined,
   },

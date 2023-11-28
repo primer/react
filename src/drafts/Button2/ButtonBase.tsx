@@ -7,6 +7,9 @@ import {ButtonProps, StyledButton} from './types'
 import {getVariantStyles, getButtonStyles, getAlignContentSize} from './styles'
 import {useRefObjectAsForwardedRef} from '../../hooks/useRefObjectAsForwardedRef'
 import {defaultSxProp} from '../../utils/defaultSxProp'
+import Spinner from '../../Spinner'
+import {useId} from '../../hooks'
+import {VisuallyHidden} from '../../internal/components/VisuallyHidden'
 
 const ButtonBase = forwardRef(
   ({children, as: Component = 'button', sx: sxProp = defaultSxProp, ...props}, forwardedRef): JSX.Element => {
@@ -14,11 +17,14 @@ const ButtonBase = forwardRef(
       leadingIcon: LeadingIcon,
       trailingIcon: TrailingIcon,
       trailingAction: TrailingAction,
+      ['aria-describedby']: ariaDescribedby,
       icon: Icon,
       variant = 'default',
       size = 'medium',
       alignContent = 'center',
       block = false,
+      loading = false,
+      loadingAnnouncement = 'Loading',
       ...rest
     } = props
 
@@ -36,6 +42,7 @@ const ButtonBase = forwardRef(
       display: 'flex',
       pointerEvents: 'none',
     }
+    const loadingAnnouncementID = useId()
 
     if (__DEV__) {
       /**
@@ -58,40 +65,70 @@ const ButtonBase = forwardRef(
     }
 
     return (
-      <StyledButton
-        as={Component}
-        sx={sxStyles}
-        {...rest}
-        ref={innerRef}
-        data-block={block ? 'block' : null}
-        data-size={size === 'small' || size === 'large' ? size : undefined}
-        data-no-visuals={!LeadingIcon && !TrailingIcon && !TrailingAction ? true : undefined}
-      >
-        {Icon ? (
-          <Icon />
-        ) : (
-          <>
-            <Box as="span" data-component="buttonContent" sx={getAlignContentSize(alignContent)}>
-              {LeadingIcon && (
-                <Box as="span" data-component="leadingVisual" sx={{...iconWrapStyles}}>
-                  <LeadingIcon />
-                </Box>
-              )}
-              {children && <span data-component="text">{children}</span>}
-              {TrailingIcon && (
-                <Box as="span" data-component="trailingVisual" sx={{...iconWrapStyles}}>
-                  <TrailingIcon />
-                </Box>
-              )}
-            </Box>
-            {TrailingAction && (
-              <Box as="span" data-component="trailingAction" sx={{...iconWrapStyles}}>
-                <TrailingAction />
+      <>
+        <StyledButton
+          as={Component}
+          sx={sxStyles}
+          {...rest}
+          ref={innerRef}
+          data-block={block ? 'block' : null}
+          data-size={size === 'small' || size === 'large' ? size : undefined}
+          data-no-visuals={!LeadingIcon && !TrailingIcon && !TrailingAction ? true : undefined}
+          aria-disabled={loading ? true : undefined}
+          aria-describedby={loading ? loadingAnnouncementID : ariaDescribedby}
+        >
+          {Icon ? (
+            loading ? (
+              <Spinner size="small" />
+            ) : (
+              <Icon />
+            )
+          ) : (
+            <>
+              <Box as="span" data-component="buttonContent" sx={getAlignContentSize(alignContent)}>
+                {loading && !LeadingIcon && !TrailingIcon && (
+                  <Box as="span" data-component="loadingSpinner" sx={{...iconWrapStyles}}>
+                    <Spinner size="small" />
+                  </Box>
+                )}
+                {LeadingIcon && loading && (
+                  <Box as="span" data-component="leadingVisual" sx={{...iconWrapStyles}}>
+                    <Spinner size="small" />
+                  </Box>
+                )}
+                {LeadingIcon && !loading && (
+                  <Box as="span" data-component="leadingVisual" sx={{...iconWrapStyles}}>
+                    <LeadingIcon />
+                  </Box>
+                )}
+                {children && <span data-component="text">{children}</span>}
+                {TrailingIcon && loading && (
+                  <Box as="span" data-component="trailingVisual" sx={{...iconWrapStyles}}>
+                    <Spinner size="small" />
+                  </Box>
+                )}
+                {TrailingIcon && !loading && (
+                  <Box as="span" data-component="trailingVisual" sx={{...iconWrapStyles}}>
+                    <TrailingIcon />
+                  </Box>
+                )}
               </Box>
-            )}
-          </>
+              {TrailingAction && (
+                <Box as="span" data-component="trailingAction" sx={{...iconWrapStyles}}>
+                  <TrailingAction />
+                </Box>
+              )}
+            </>
+          )}
+        </StyledButton>
+        {loading && (
+          <VisuallyHidden>
+            <span aria-live="polite" id={loadingAnnouncementID}>
+              {loadingAnnouncement}
+            </span>
+          </VisuallyHidden>
         )}
-      </StyledButton>
+      </>
     )
   },
 ) as PolymorphicForwardRefComponent<'button' | 'a', ButtonProps>
