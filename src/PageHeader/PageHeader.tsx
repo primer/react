@@ -70,7 +70,7 @@ const Root: React.FC<React.PropsWithChildren<PageHeaderProps>> = ({children, sx 
     gap: 'var(--stack-gap-condensed, 0.5rem)',
   }
   return (
-    <Box data-component="pageheader" as={as} sx={merge<BetterSystemStyleObject>(rootStyles, sx)}>
+    <Box as={as} sx={merge<BetterSystemStyleObject>(rootStyles, sx)}>
       {children}
     </Box>
   )
@@ -98,11 +98,7 @@ const ContextArea: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
     }),
   }
 
-  return (
-    <Box data-component="pageheader-contextarea" sx={merge<BetterSystemStyleObject>(contentNavStyles, sx)}>
-      {children}
-    </Box>
-  )
+  return <Box sx={merge<BetterSystemStyleObject>(contentNavStyles, sx)}>{children}</Box>
 }
 type LinkProps = Pick<
   React.AnchorHTMLAttributes<HTMLAnchorElement> & BaseLinkProps,
@@ -118,7 +114,6 @@ const ParentLink = React.forwardRef<HTMLAnchorElement, ParentLinkProps>(
     return (
       <>
         <Link
-          data-component="pageheader-parentlink"
           ref={ref}
           as={as}
           aria-label={ariaLabel}
@@ -156,7 +151,6 @@ const ContextBar: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
 }) => {
   return (
     <Box
-      data-component="pageheader-contextbar"
       sx={merge<BetterSystemStyleObject>(
         {
           display: 'flex',
@@ -182,7 +176,6 @@ const ContextAreaActions: React.FC<React.PropsWithChildren<ChildrenPropTypes>> =
 }) => {
   return (
     <Box
-      data-component="pageheader-contextarea-actions"
       sx={merge<BetterSystemStyleObject>(
         {
           display: 'flex',
@@ -234,7 +227,6 @@ const TitleArea: React.FC<React.PropsWithChildren<TitleAreaProps>> = ({
   return (
     <TitleAreaContext.Provider value={{titleVariant: currentVariant, titleAreaHeight: height}}>
       <Box
-        data-component="pageheader-titlearea"
         sx={merge<BetterSystemStyleObject>(
           {
             gridRow: GRID_ROW_ORDER.TitleArea,
@@ -267,7 +259,6 @@ const LeadingAction: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
 
   return (
     <Box
-      data-component="pageheader-leadingaction"
       sx={merge<BetterSystemStyleObject>(
         {
           gridRow: GRID_ROW_ORDER.LeadingAction,
@@ -387,7 +378,6 @@ const TrailingAction: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
 
   return (
     <Box
-      data-component="pageheader-trailingaction"
       sx={merge<BetterSystemStyleObject>(
         {
           gridRow: GRID_ROW_ORDER.TrailingAction,
@@ -411,7 +401,6 @@ const Actions: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({children
   const {titleAreaHeight} = React.useContext(TitleAreaContext)
   return (
     <Box
-      data-component="pageheader-actions"
       sx={merge<BetterSystemStyleObject>(
         {
           gridRow: GRID_ROW_ORDER.Actions,
@@ -439,7 +428,6 @@ const Actions: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({children
 const Description: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({children, sx = {}, hidden = false}) => {
   return (
     <Box
-      data-component="pageheader-description"
       sx={merge<BetterSystemStyleObject>(
         {
           gridRow: GRID_ROW_ORDER.Description,
@@ -486,7 +474,6 @@ const Navigation: React.FC<React.PropsWithChildren<NavigationProps>> = ({
   }
   return (
     <Box
-      data-component="pageheader-navigation"
       as={as}
       // Render `aria-label` and `aria-labelledby` only on `nav` elements
       aria-label={as === 'nav' ? ariaLabel : undefined}
@@ -512,12 +499,12 @@ export const PageHeader = Object.assign(Root, {
   ContextArea,
   ParentLink,
   ContextBar,
+  TitleArea,
   ContextAreaActions,
   LeadingAction,
   LeadingVisual,
   Title,
   TrailingVisual,
-  TitleArea,
   TrailingAction,
   Actions,
   Description,
