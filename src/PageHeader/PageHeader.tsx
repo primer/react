@@ -5,6 +5,7 @@ import {SxProp, merge, BetterSystemStyleObject} from '../sx'
 import Heading from '../Heading'
 import {ArrowLeftIcon} from '@primer/octicons-react'
 import Link, {LinkProps as BaseLinkProps} from '../Link'
+import {useProvidedRefOrCreate} from '../hooks'
 
 import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import {getBreakpointDeclarations} from '../utils/getBreakpointDeclarations'
@@ -56,25 +57,93 @@ export type PageHeaderProps = {
   as?: React.ElementType | 'header' | 'div'
 } & SxProp
 
-const Root: React.FC<React.PropsWithChildren<PageHeaderProps>> = ({children, sx = {}, as = 'div'}) => {
-  const rootStyles = {
-    display: 'grid',
-    // We have max 4 columns.
-    gridTemplateColumns: 'auto auto auto 1fr',
-    gridTemplateAreas: `
-      'context-area context-area context-area context-area'
-      'leading-action title-area trailing-action actions'
-      'navigation navigation navigation navigation'
-      'description description description description'
-    `,
-    gap: 'var(--stack-gap-condensed, 0.5rem)',
-  }
-  return (
-    <Box as={as} sx={merge<BetterSystemStyleObject>(rootStyles, sx)}>
-      {children}
-    </Box>
-  )
-}
+const Root = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageHeaderProps>>(
+  ({children, sx = {}, as = 'div'}, forwardedRef) => {
+    const rootRef = useProvidedRefOrCreate<HTMLDivElement>(forwardedRef as React.RefObject<HTMLDivElement>)
+
+    const [contextArea, setContextArea] = React.useState<string>('contextArea contextArea contextArea contextArea')
+    const [titleArea, setTitleArea] = React.useState<string>('titleArea titleArea titleArea titleArea')
+    const [description, setDescription] = React.useState<string>('description description description description')
+    const [navigation, setNavigation] = React.useState<string>('navigation navigation navigation navigation')
+
+    const [templateAreaStructure, setTemplateAreaStructure] = React.useState<string>('')
+    const rootStyles = {
+      display: 'grid',
+      // We have 4 columns.
+      gridTemplateColumns: 'auto auto auto 1fr',
+      gridTemplateAreas: templateAreaStructure,
+      gap: 'var(--stack-gap-condensed, 0.5rem)',
+    }
+
+    const [visibility, setVisibility] = React.useState({
+      contextArea: false,
+      titleArea: false,
+      leadingAction: false,
+      trailingAction: false,
+      actions: false,
+      description: false,
+      navigation: false,
+    })
+
+    React.useEffect(() => {
+      const observer = new IntersectionObserver((entries: IntersectionObserverEntry[]) => {
+        for (const entry of entries) {
+          setVisibility(prev => ({
+            ...prev,
+            [entry.target.getAttribute('data-component') as string]: entry.isIntersecting,
+          }))
+          setVisibility(prev => ({
+            ...prev,
+            [entry.target.getAttribute('data-component') as string]: entry.isIntersecting,
+          }))
+        }
+      })
+
+      for (const item of rootRef.current?.children || []) {
+        observer.observe(item)
+      }
+
+      return () => observer.disconnect()
+    }, [rootRef])
+
+    React.useEffect(() => {
+      // This is not the best way to handle this. TODO: make it better
+      setContextArea('')
+      setTitleArea('')
+      setDescription('')
+      setNavigation('')
+      setTemplateAreaStructure('')
+      if (visibility.contextArea) {
+        setContextArea('contextArea contextArea contextArea contextArea')
+      }
+      if (visibility.description) {
+        setDescription('description description description description')
+      }
+      if (visibility.navigation) {
+        setNavigation('navigation navigation navigation navigation')
+      }
+      if (visibility.titleArea) {
+        const leadingAction = visibility.leadingAction ? 'leadingAction' : 'titleArea'
+        const trailingAction = visibility.trailingAction ? 'trailingAction' : 'titleArea'
+        const actions = visibility.actions ? 'actions' : 'titleArea'
+        const title = 'titleArea'
+        const titleArea = `${leadingAction} ${title} ${trailingAction} ${actions}`
+        setTitleArea(titleArea)
+      }
+      const templateAreaStructureL = `${contextArea !== '' ? `'${contextArea}' ` : ''}${
+        titleArea ? `'${titleArea}' ` : ''
+      }${description ? `'${description}' ` : ''}${navigation ? `'${navigation}' ` : ''}`.trim()
+
+      setTemplateAreaStructure(templateAreaStructureL)
+    }, [visibility, contextArea, titleArea, description, navigation])
+
+    return (
+      <Box ref={rootRef} data-component="pageheader" as={as} sx={merge<BetterSystemStyleObject>(rootStyles, sx)}>
+        {children}
+      </Box>
+    )
+  },
+) as PolymorphicForwardRefComponent<'div', PageHeaderProps>
 
 // PageHeader.ContextArea : Only visible on narrow viewports by default to provide user context of where they are at their journey. `hidden` prop available
 // to manage their custom visibility but consumers should be careful if they choose to hide this on narrow viewports.
@@ -87,7 +156,7 @@ const ContextArea: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
 }) => {
   const contentNavStyles = {
     gridRow: GRID_ROW_ORDER.ContextArea,
-    gridArea: 'context-area',
+    gridArea: 'contextArea',
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
@@ -97,9 +166,14 @@ const ContextArea: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
       return value ? 'none' : 'flex'
     }),
   }
-
+  return (
+    <Box data-component="contextArea" sx={merge<BetterSystemStyleObject>(contentNavStyles, sx)}>
+      {children}
+    </Box>
+  )
   return <Box sx={merge<BetterSystemStyleObject>(contentNavStyles, sx)}>{children}</Box>
 }
+
 type LinkProps = Pick<
   React.AnchorHTMLAttributes<HTMLAnchorElement> & BaseLinkProps,
   'download' | 'href' | 'hrefLang' | 'media' | 'ping' | 'rel' | 'target' | 'type' | 'referrerPolicy' | 'as'
@@ -114,6 +188,7 @@ const ParentLink = React.forwardRef<HTMLAnchorElement, ParentLinkProps>(
     return (
       <>
         <Link
+          data-component="parentLink"
           ref={ref}
           as={as}
           aria-label={ariaLabel}
@@ -151,6 +226,7 @@ const ContextBar: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
 }) => {
   return (
     <Box
+      data-component="contextBar"
       sx={merge<BetterSystemStyleObject>(
         {
           display: 'flex',
@@ -176,6 +252,7 @@ const ContextAreaActions: React.FC<React.PropsWithChildren<ChildrenPropTypes>> =
 }) => {
   return (
     <Box
+      data-component="contextareaActions"
       sx={merge<BetterSystemStyleObject>(
         {
           display: 'flex',
@@ -227,10 +304,11 @@ const TitleArea: React.FC<React.PropsWithChildren<TitleAreaProps>> = ({
   return (
     <TitleAreaContext.Provider value={{titleVariant: currentVariant, titleAreaHeight: height}}>
       <Box
+        data-component="titleArea"
         sx={merge<BetterSystemStyleObject>(
           {
             gridRow: GRID_ROW_ORDER.TitleArea,
-            gridArea: 'title-area',
+            gridArea: 'titleArea',
             display: 'flex',
             gap: '0.5rem',
             ...getBreakpointDeclarations(hidden, 'display', value => {
@@ -259,10 +337,11 @@ const LeadingAction: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
 
   return (
     <Box
+      data-component="leadingAction"
       sx={merge<BetterSystemStyleObject>(
         {
           gridRow: GRID_ROW_ORDER.LeadingAction,
-          gridArea: 'leading-action',
+          gridArea: 'leadingAction',
           display: 'flex',
           ...getBreakpointDeclarations(hidden, 'display', value => {
             return value ? 'none' : 'flex'
@@ -378,10 +457,11 @@ const TrailingAction: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
 
   return (
     <Box
+      data-component="trailingAction"
       sx={merge<BetterSystemStyleObject>(
         {
           gridRow: GRID_ROW_ORDER.TrailingAction,
-          gridArea: 'trailing-action',
+          gridArea: 'trailingAction',
           display: 'flex',
           ...getBreakpointDeclarations(hidden, 'display', value => {
             return value ? 'none' : 'flex'
@@ -401,6 +481,7 @@ const Actions: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({children
   const {titleAreaHeight} = React.useContext(TitleAreaContext)
   return (
     <Box
+      data-component="actions"
       sx={merge<BetterSystemStyleObject>(
         {
           gridRow: GRID_ROW_ORDER.Actions,
@@ -428,6 +509,7 @@ const Actions: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({children
 const Description: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({children, sx = {}, hidden = false}) => {
   return (
     <Box
+      data-component="description"
       sx={merge<BetterSystemStyleObject>(
         {
           gridRow: GRID_ROW_ORDER.Description,
@@ -474,6 +556,7 @@ const Navigation: React.FC<React.PropsWithChildren<NavigationProps>> = ({
   }
   return (
     <Box
+      data-component="navigation"
       as={as}
       // Render `aria-label` and `aria-labelledby` only on `nav` elements
       aria-label={as === 'nav' ? ariaLabel : undefined}

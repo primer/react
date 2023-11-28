@@ -149,6 +149,65 @@ export const PullRequestPage = () => (
   </Box>
 )
 
+export const IssuesPage = () => (
+  <Box sx={{padding: 3}}>
+    <PageHeader>
+      <PageHeader.TitleArea>
+        <PageHeader.Title as="h1">
+          PageHeader component initial layout explorations extra long pull request title
+          <Link
+            sx={{color: 'rgb(101, 109, 118)', textDecoration: 'none', fontWeight: '400', paddingLeft: '4px'}}
+            href="https://github.com/github/primer/issues/3978"
+          >
+            #3978
+          </Link>
+        </PageHeader.Title>
+      </PageHeader.TitleArea>
+      <PageHeader.ContextArea>
+        <PageHeader.ParentLink href="http://github.com">Pull requests</PageHeader.ParentLink>
+      </PageHeader.ContextArea>
+      <PageHeader.Actions>
+        <Hidden when={['regular', 'wide']}>
+          <ActionMenu>
+            <ActionMenu.Anchor>
+              <IconButton aria-label="More pull request actions" icon={KebabHorizontalIcon} />
+            </ActionMenu.Anchor>
+            <ActionMenu.Overlay width="small">
+              <ActionList>
+                <ActionList.Item onSelect={() => alert('Edit button action')}>Edit</ActionList.Item>
+                <ActionList.Item onSelect={() => alert('Code button action')}>Code</ActionList.Item>
+              </ActionList>
+            </ActionMenu.Overlay>
+          </ActionMenu>
+        </Hidden>
+        <Hidden when={['narrow']}>
+          <Box sx={{display: 'flex', gap: '8px'}}>
+            <Button>Edit</Button>
+            <Button variant="primary">New Issue</Button>
+            <IconButton size="small" variant="invisible" aria-label="Copy to clipboard" icon={CopyIcon} />
+            <Hidden when={['narrow']}>
+              <ActionMenu>
+                <ActionMenu.Anchor>
+                  <IconButton variant="invisible" aria-label="More pull request actions" icon={KebabHorizontalIcon} />
+                </ActionMenu.Anchor>
+                <ActionMenu.Overlay width="small">
+                  <ActionList>
+                    <ActionList.Item onSelect={() => alert('Edit button action')}>Edit</ActionList.Item>
+                    <ActionList.Item onSelect={() => alert('Code button action')}>Code</ActionList.Item>
+                  </ActionList>
+                </ActionMenu.Overlay>
+              </ActionMenu>
+            </Hidden>
+          </Box>
+        </Hidden>
+      </PageHeader.Actions>
+      <PageHeader.Description>
+        <StateLabel status="pullOpened">Open</StateLabel>
+      </PageHeader.Description>
+    </PageHeader>
+  </Box>
+)
+
 export const PullRequestPageOnNarrowViewport = () => {
   return <PullRequestPage />
 }
