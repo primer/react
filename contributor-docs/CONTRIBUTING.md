@@ -151,7 +151,7 @@ If your component doesn't use DOM globals, it likely won't cause layout shift du
 
 ### Adding the `sx` prop
 
-Each component should accept a prop called `sx` that allows for setting theme-aware ad-hoc styles. See the [overriding styles](https://primer.style/components/overriding-styles) doc for more information on using the prop.
+Each component should accept a prop called `sx` that allows for setting theme-aware ad-hoc styles. See the [overriding styles](https://primer.style/react/overriding-styles) doc for more information on using the prop.
 
 To add the `sx` prop to your component: import the default export from the `sx` module, add it to your style definition, and add the appropriate prop types. **The `sx` prop should go at the _very end_ of your style definition.**
 
