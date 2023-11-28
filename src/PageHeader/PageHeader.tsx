@@ -166,12 +166,12 @@ const ContextArea: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
       return value ? 'none' : 'flex'
     }),
   }
-
   return (
     <Box data-component="contextArea" sx={merge<BetterSystemStyleObject>(contentNavStyles, sx)}>
       {children}
     </Box>
   )
+  return <Box sx={merge<BetterSystemStyleObject>(contentNavStyles, sx)}>{children}</Box>
 }
 
 type LinkProps = Pick<
@@ -582,12 +582,12 @@ export const PageHeader = Object.assign(Root, {
   ContextArea,
   ParentLink,
   ContextBar,
+  TitleArea,
   ContextAreaActions,
   LeadingAction,
   LeadingVisual,
   Title,
   TrailingVisual,
-  TitleArea,
   TrailingAction,
   Actions,
   Description,
