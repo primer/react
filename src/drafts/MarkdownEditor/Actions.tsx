@@ -7,6 +7,6 @@ Actions.displayName = 'MarkdownEditor.Actions'
 
 export const ActionButton = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {
   const {disabled} = useContext(MarkdownEditorContext)
-  return <Button ref={ref} size="small" disabled={disabled} {...props} />
+  return <Button ref={ref} disabled={disabled} {...props} />
 })
 ActionButton.displayName = 'MarkdownEditor.ActionButton'

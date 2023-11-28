@@ -12,10 +12,10 @@ To get started using Primer React, install the package and its peer dependencies
 
 ```bash
 # with npm
-npm install @primer/react react react-dom styled-components
+npm install @primer/react react react-dom styled-components@5
 
 # with yarn
-yarn add @primer/react react react-dom styled-components
+yarn add @primer/react react react-dom styled-components@5
 ```
 
 You can now import Primer React from the main package module:
@@ -114,7 +114,7 @@ Primer React includes TypeScript support and ships with its own typings. You wil
 Once installed, you can import components and their prop type interfaces from the `@primer/react` package:
 
 ```typescript
-import {BorderBox, BorderBoxProps} from '@primer/react'
+import {Button, ButtonProps} from '@primer/react'
 ```
 
 ### Fixing "Duplicate identifier 'FormData'"

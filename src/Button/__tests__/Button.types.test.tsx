@@ -11,8 +11,8 @@ export function ShouldAcceptKnownButtonPropsAndDomProps() {
   return (
     <Button
       ref={buttonEl}
-      leadingIcon={() => <></>}
-      trailingIcon={() => <></>}
+      leadingVisual={() => <></>}
+      trailingVisual={() => <></>}
       size="medium"
       variant="primary"
       disabled

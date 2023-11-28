@@ -7,6 +7,7 @@ import {useId} from '../../../hooks/useId'
 import CheckboxOrRadioGroupCaption from './CheckboxOrRadioGroupCaption'
 import CheckboxOrRadioGroupLabel from './CheckboxOrRadioGroupLabel'
 import CheckboxOrRadioGroupValidation from './CheckboxOrRadioGroupValidation'
+import CheckboxOrRadioGroupContext from './CheckboxOrRadioGroupContext'
 import VisuallyHidden from '../../../_VisuallyHidden'
 import {useSlots} from '../../../hooks/useSlots'
 import {SxProp} from '../../../sx'
@@ -30,13 +31,6 @@ export type CheckboxOrRadioGroupProps = {
    */
   required?: boolean
 } & SxProp
-
-export type CheckboxOrRadioGroupContext = {
-  validationMessageId?: string
-  captionId?: string
-} & CheckboxOrRadioGroupProps
-
-export const CheckboxOrRadioGroupContext = React.createContext<CheckboxOrRadioGroupContext>({})
 
 const Body = styled.div`
   display: flex;

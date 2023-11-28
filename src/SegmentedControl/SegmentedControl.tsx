@@ -109,7 +109,7 @@ const Root: React.FC<React.PropsWithChildren<SegmentedControlProps>> = ({
           The aria-label is only provided as a backup when the designer or engineer neglects to show a label for the SegmentedControl.
           The best thing to do is to have a visual label who's id is referenced using the `aria-labelledby` prop.
         */}
-        <ActionMenu.Button aria-label={ariaLabel} leadingIcon={getChildIcon(selectedChild)}>
+        <ActionMenu.Button aria-label={ariaLabel} leadingVisual={getChildIcon(selectedChild)}>
           {getChildText(selectedChild)}
         </ActionMenu.Button>
         <ActionMenu.Overlay aria-labelledby={ariaLabelledby}>

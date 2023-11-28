@@ -9,15 +9,15 @@ import {useRefObjectAsForwardedRef} from '../hooks/useRefObjectAsForwardedRef'
 import {defaultSxProp} from '../utils/defaultSxProp'
 import VisuallyHidden from '../_VisuallyHidden'
 import Spinner from '../Spinner'
+import CounterLabel from '../CounterLabel'
 
 const ButtonBase = forwardRef(
   ({children, as: Component = 'button', sx: sxProp = defaultSxProp, ...props}, forwardedRef): JSX.Element => {
     const {
-      leadingIcon,
-      leadingVisual,
-      trailingIcon,
-      trailingVisual,
+      leadingVisual: LeadingVisual,
+      trailingVisual: TrailingVisual,
       trailingAction: TrailingAction,
+      count,
       icon: Icon,
       variant = 'default',
       size = 'medium',
@@ -27,8 +27,6 @@ const ButtonBase = forwardRef(
       loadingMessage = 'Loading',
       ...rest
     } = props
-    const LeadingVisual = leadingVisual ?? leadingIcon
-    const TrailingVisual = trailingVisual ?? trailingIcon
 
     const innerRef = React.useRef<HTMLButtonElement>(null)
     useRefObjectAsForwardedRef(forwardedRef, innerRef)
@@ -87,7 +85,7 @@ const ButtonBase = forwardRef(
           ) : (
             <>
               <Box as="span" data-component="buttonContent" sx={getAlignContentSize(alignContent)}>
-                {loading && !LeadingVisual && !TrailingVisual && (
+                {loading && !LeadingVisual && !TrailingVisual && count === undefined && (
                   <Box as="span" data-component="loadingSpinner" sx={{...iconWrapStyles}}>
                     <Spinner size="small" />
                   </Box>
@@ -103,15 +101,21 @@ const ButtonBase = forwardRef(
                   </Box>
                 )}
                 {children && <span data-component="text">{children}</span>}
-                {TrailingVisual && !loading && (
+                {count !== undefined && !TrailingVisual && !loading ? (
+                  <Box as="span" data-component="trailingVisual" sx={{...iconWrapStyles}}>
+                    <CounterLabel data-component="ButtonCounter">{count}</CounterLabel>
+                  </Box>
+                ) : TrailingVisual && !loading ? (
                   <Box as="span" data-component="trailingVisual" sx={{...iconWrapStyles}}>
                     <TrailingVisual />
                   </Box>
-                )}
-                {TrailingVisual && loading && (
-                  <Box as="span" data-component="trailingVisual" sx={{...iconWrapStyles}}>
-                    <Spinner size="small" />
-                  </Box>
+                ) : (
+                  (TrailingVisual || count !== undefined) &&
+                  loading && (
+                    <Box as="span" data-component="trailingVisual" sx={{...iconWrapStyles}}>
+                      <Spinner size="small" />
+                    </Box>
+                  )
                 )}
               </Box>
               {TrailingAction && (
