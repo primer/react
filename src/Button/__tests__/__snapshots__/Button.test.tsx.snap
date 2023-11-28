@@ -91,13 +91,15 @@ exports[`Button renders consistently 1`] = `
   transition: none;
 }
 
-.c0:disabled {
+.c0:disabled,
+.c0[aria-disabled] {
   cursor: not-allowed;
   box-shadow: none;
   color: #8c959f;
 }
 
-.c0:disabled [data-component=ButtonCounter] {
+.c0:disabled [data-component=ButtonCounter],
+.c0[aria-disabled] [data-component=ButtonCounter] {
   color: inherit;
 }
 
@@ -194,12 +196,22 @@ exports[`Button renders consistently 1`] = `
   margin-right: 8px;
 }
 
-.c0:hover:not([disabled]) {
+.c0 [data-component="loadingSpinner"] {
+  grid-area: text;
+  margin-right: 0px !important;
+  place-self: center;
+}
+
+.c0 [data-component="loadingSpinner"] + [data-component="text"] {
+  visibility: hidden;
+}
+
+.c0:hover:not([disabled]):not([aria-disabled]) {
   background-color: #f3f4f6;
   border-color: var(--button-default-borderColor-hover,rgba(31,35,40,0.15));
 }
 
-.c0:active:not([disabled]) {
+.c0:active:not([disabled]):not([aria-disabled]) {
   background-color: hsla(220,14%,93%,1);
   border-color: var(--button-default-borderColor-active,rgba(31,35,40,0.15));
 }
@@ -326,13 +338,15 @@ exports[`Button respects block prop 1`] = `
   transition: none;
 }
 
-.c0:disabled {
+.c0:disabled,
+.c0[aria-disabled] {
   cursor: not-allowed;
   box-shadow: none;
   color: primer.fg.disabled;
 }
 
-.c0:disabled [data-component=ButtonCounter] {
+.c0:disabled [data-component=ButtonCounter],
+.c0[aria-disabled] [data-component=ButtonCounter] {
   color: inherit;
 }
 
@@ -429,12 +443,22 @@ exports[`Button respects block prop 1`] = `
   margin-right: 8px;
 }
 
-.c0:hover:not([disabled]) {
+.c0 [data-component="loadingSpinner"] {
+  grid-area: text;
+  margin-right: 0px !important;
+  place-self: center;
+}
+
+.c0 [data-component="loadingSpinner"] + [data-component="text"] {
+  visibility: hidden;
+}
+
+.c0:hover:not([disabled]):not([aria-disabled]) {
   background-color: btn.hoverBg;
   border-color: var(--button-default-borderColor-hover,undefined);
 }
 
-.c0:active:not([disabled]) {
+.c0:active:not([disabled]):not([aria-disabled]) {
   background-color: btn.activeBg;
   border-color: var(--button-default-borderColor-active,undefined);
 }
@@ -566,13 +590,15 @@ exports[`Button respects the alignContent prop 1`] = `
   transition: none;
 }
 
-.c0:disabled {
+.c0:disabled,
+.c0[aria-disabled] {
   cursor: not-allowed;
   box-shadow: none;
   color: primer.fg.disabled;
 }
 
-.c0:disabled [data-component=ButtonCounter] {
+.c0:disabled [data-component=ButtonCounter],
+.c0[aria-disabled] [data-component=ButtonCounter] {
   color: inherit;
 }
 
@@ -669,12 +695,22 @@ exports[`Button respects the alignContent prop 1`] = `
   margin-right: 8px;
 }
 
-.c0:hover:not([disabled]) {
+.c0 [data-component="loadingSpinner"] {
+  grid-area: text;
+  margin-right: 0px !important;
+  place-self: center;
+}
+
+.c0 [data-component="loadingSpinner"] + [data-component="text"] {
+  visibility: hidden;
+}
+
+.c0:hover:not([disabled]):not([aria-disabled]) {
   background-color: btn.hoverBg;
   border-color: var(--button-default-borderColor-hover,undefined);
 }
 
-.c0:active:not([disabled]) {
+.c0:active:not([disabled]):not([aria-disabled]) {
   background-color: btn.activeBg;
   border-color: var(--button-default-borderColor-active,undefined);
 }
@@ -805,13 +841,15 @@ exports[`Button respects the large size prop 1`] = `
   transition: none;
 }
 
-.c0:disabled {
+.c0:disabled,
+.c0[aria-disabled] {
   cursor: not-allowed;
   box-shadow: none;
   color: primer.fg.disabled;
 }
 
-.c0:disabled [data-component=ButtonCounter] {
+.c0:disabled [data-component=ButtonCounter],
+.c0[aria-disabled] [data-component=ButtonCounter] {
   color: inherit;
 }
 
@@ -908,12 +946,22 @@ exports[`Button respects the large size prop 1`] = `
   margin-right: 8px;
 }
 
-.c0:hover:not([disabled]) {
+.c0 [data-component="loadingSpinner"] {
+  grid-area: text;
+  margin-right: 0px !important;
+  place-self: center;
+}
+
+.c0 [data-component="loadingSpinner"] + [data-component="text"] {
+  visibility: hidden;
+}
+
+.c0:hover:not([disabled]):not([aria-disabled]) {
   background-color: btn.hoverBg;
   border-color: var(--button-default-borderColor-hover,undefined);
 }
 
-.c0:active:not([disabled]) {
+.c0:active:not([disabled]):not([aria-disabled]) {
   background-color: btn.activeBg;
   border-color: var(--button-default-borderColor-active,undefined);
 }
@@ -1045,13 +1093,15 @@ exports[`Button respects the small size prop 1`] = `
   transition: none;
 }
 
-.c0:disabled {
+.c0:disabled,
+.c0[aria-disabled] {
   cursor: not-allowed;
   box-shadow: none;
   color: primer.fg.disabled;
 }
 
-.c0:disabled [data-component=ButtonCounter] {
+.c0:disabled [data-component=ButtonCounter],
+.c0[aria-disabled] [data-component=ButtonCounter] {
   color: inherit;
 }
 
@@ -1148,12 +1198,22 @@ exports[`Button respects the small size prop 1`] = `
   margin-right: 8px;
 }
 
-.c0:hover:not([disabled]) {
+.c0 [data-component="loadingSpinner"] {
+  grid-area: text;
+  margin-right: 0px !important;
+  place-self: center;
+}
+
+.c0 [data-component="loadingSpinner"] + [data-component="text"] {
+  visibility: hidden;
+}
+
+.c0:hover:not([disabled]):not([aria-disabled]) {
   background-color: btn.hoverBg;
   border-color: var(--button-default-borderColor-hover,undefined);
 }
 
-.c0:active:not([disabled]) {
+.c0:active:not([disabled]):not([aria-disabled]) {
   background-color: btn.activeBg;
   border-color: var(--button-default-borderColor-active,undefined);
 }
@@ -1285,7 +1345,8 @@ exports[`Button styles danger button appropriately 1`] = `
   transition: none;
 }
 
-.c0:disabled {
+.c0:disabled,
+.c0[aria-disabled] {
   cursor: not-allowed;
   box-shadow: none;
   color: btn.danger.disabledText;
@@ -1293,7 +1354,8 @@ exports[`Button styles danger button appropriately 1`] = `
   border-color: btn.danger.disabledBorder;
 }
 
-.c0:disabled [data-component=ButtonCounter] {
+.c0:disabled [data-component=ButtonCounter],
+.c0[aria-disabled] [data-component=ButtonCounter] {
   color: btn.danger.disabledCounterFg;
   background-color: btn.danger.disabledCounterBg;
 }
@@ -1393,19 +1455,29 @@ exports[`Button styles danger button appropriately 1`] = `
   margin-right: 8px;
 }
 
-.c0:hover:not([disabled]) {
+.c0 [data-component="loadingSpinner"] {
+  grid-area: text;
+  margin-right: 0px !important;
+  place-self: center;
+}
+
+.c0 [data-component="loadingSpinner"] + [data-component="text"] {
+  visibility: hidden;
+}
+
+.c0:hover:not([disabled]):not([aria-disabled]) {
   color: btn.danger.hoverText;
   background-color: btn.danger.hoverBg;
   border-color: btn.danger.hoverBorder;
   box-shadow: undefined;
 }
 
-.c0:hover:not([disabled]) [data-component=ButtonCounter] {
+.c0:hover:not([disabled]):not([aria-disabled]) [data-component=ButtonCounter] {
   background-color: btn.danger.hoverCounterBg;
   color: btn.danger.hoverCounterFg;
 }
 
-.c0:active:not([disabled]) {
+.c0:active:not([disabled]):not([aria-disabled]) {
   color: btn.danger.selectedText;
   background-color: btn.danger.selectedBg;
   box-shadow: undefined;
@@ -1517,11 +1589,13 @@ exports[`Button styles invisible button appropriately 1`] = `
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
   display: inline-flex;
+  -webkit-text-decoration: var(--prefers-link-underlines,underline);
+  text-decoration: var(--prefers-link-underlines,underline);
 }
 
 .c0[href]:hover {
-  -webkit-text-decoration: none;
-  text-decoration: none;
+  -webkit-text-decoration: var(--prefers-link-underlines,underline);
+  text-decoration: var(--prefers-link-underlines,underline);
 }
 
 .c0:hover {
@@ -1534,15 +1608,19 @@ exports[`Button styles invisible button appropriately 1`] = `
   transition: none;
 }
 
-.c0:disabled {
+.c0:disabled,
+.c0[aria-disabled] {
   cursor: not-allowed;
   box-shadow: none;
   color: primer.fg.disabled;
 }
 
 .c0:disabled [data-component=ButtonCounter],
+.c0[aria-disabled] [data-component=ButtonCounter],
 .c0:disabled [data-component="leadingVisual"],
-.c0:disabled [data-component="trailingAction"] {
+.c0[aria-disabled] [data-component="leadingVisual"],
+.c0:disabled [data-component="trailingAction"],
+.c0[aria-disabled] [data-component="trailingAction"] {
   color: inherit;
 }
 
@@ -1641,11 +1719,21 @@ exports[`Button styles invisible button appropriately 1`] = `
   margin-right: 8px;
 }
 
-.c0:hover:not([disabled]) {
+.c0 [data-component="loadingSpinner"] {
+  grid-area: text;
+  margin-right: 0px !important;
+  place-self: center;
+}
+
+.c0 [data-component="loadingSpinner"] + [data-component="text"] {
+  visibility: hidden;
+}
+
+.c0:hover:not([disabled]):not([aria-disabled]) {
   background-color: actionListItem.default.hoverBg;
 }
 
-.c0:active:not([disabled]) {
+.c0:active:not([disabled]):not([aria-disabled]) {
   background-color: actionListItem.default.activeBg;
 }
 
@@ -1665,11 +1753,13 @@ exports[`Button styles invisible button appropriately 1`] = `
   color: btn.text;
 }
 
-.c0:disabled[data-no-visuals] {
+.c0:disabled[data-no-visuals],
+.c0[aria-disabled][data-no-visuals] {
   color: primer.fg.disabled;
 }
 
-.c0:disabled[data-no-visuals] [data-component=ButtonCounter] {
+.c0:disabled[data-no-visuals] [data-component=ButtonCounter],
+.c0[aria-disabled][data-no-visuals] [data-component=ButtonCounter] {
   color: inherit;
 }
 
@@ -1788,14 +1878,16 @@ exports[`Button styles primary button appropriately 1`] = `
   transition: none;
 }
 
-.c0:disabled {
+.c0:disabled,
+.c0[aria-disabled] {
   cursor: not-allowed;
   box-shadow: none;
   color: btn.primary.disabledText;
   background-color: btn.primary.disabledBg;
 }
 
-.c0:disabled [data-component=ButtonCounter] {
+.c0:disabled [data-component=ButtonCounter],
+.c0[aria-disabled] [data-component=ButtonCounter] {
   color: inherit;
 }
 
@@ -1894,20 +1986,30 @@ exports[`Button styles primary button appropriately 1`] = `
   margin-right: 8px;
 }
 
-.c0:hover:not([disabled]) {
+.c0 [data-component="loadingSpinner"] {
+  grid-area: text;
+  margin-right: 0px !important;
+  place-self: center;
+}
+
+.c0 [data-component="loadingSpinner"] + [data-component="text"] {
+  visibility: hidden;
+}
+
+.c0:hover:not([disabled]):not([aria-disabled]) {
   color: btn.primary.hoverText;
   background-color: btn.primary.hoverBg;
 }
 
-.c0:focus:not([disabled]) {
+.c0:focus:not([disabled]):not([aria-disabled]) {
   box-shadow: inset 0 0 0 3px;
 }
 
-.c0:focus-visible:not([disabled]) {
+.c0:focus-visible:not([disabled]):not([aria-disabled]) {
   box-shadow: inset 0 0 0 3px;
 }
 
-.c0:active:not([disabled]) {
+.c0:active:not([disabled]):not([aria-disabled]) {
   background-color: btn.primary.selectedBg;
   box-shadow: undefined;
 }

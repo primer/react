@@ -105,13 +105,15 @@ exports[`ActionMenu renders consistently 1`] = `
   transition: none;
 }
 
-.c1:disabled {
+.c1:disabled,
+.c1[aria-disabled] {
   cursor: not-allowed;
   box-shadow: none;
   color: #8c959f;
 }
 
-.c1:disabled [data-component=ButtonCounter] {
+.c1:disabled [data-component=ButtonCounter],
+.c1[aria-disabled] [data-component=ButtonCounter] {
   color: inherit;
 }
 
@@ -208,12 +210,22 @@ exports[`ActionMenu renders consistently 1`] = `
   margin-right: 8px;
 }
 
-.c1:hover:not([disabled]) {
+.c1 [data-component="loadingSpinner"] {
+  grid-area: text;
+  margin-right: 0px !important;
+  place-self: center;
+}
+
+.c1 [data-component="loadingSpinner"] + [data-component="text"] {
+  visibility: hidden;
+}
+
+.c1:hover:not([disabled]):not([aria-disabled]) {
   background-color: #f3f4f6;
   border-color: var(--button-default-borderColor-hover,rgba(31,35,40,0.15));
 }
 
-.c1:active:not([disabled]) {
+.c1:active:not([disabled]):not([aria-disabled]) {
   background-color: hsla(220,14%,93%,1);
   border-color: var(--button-default-borderColor-active,rgba(31,35,40,0.15));
 }

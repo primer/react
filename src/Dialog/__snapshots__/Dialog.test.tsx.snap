@@ -147,11 +147,13 @@ exports[`Dialog renders consistently 1`] = `
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
   display: inline-flex;
+  -webkit-text-decoration: var(--prefers-link-underlines,underline);
+  text-decoration: var(--prefers-link-underlines,underline);
 }
 
 .c1[href]:hover {
-  -webkit-text-decoration: none;
-  text-decoration: none;
+  -webkit-text-decoration: var(--prefers-link-underlines,underline);
+  text-decoration: var(--prefers-link-underlines,underline);
 }
 
 .c1:hover {
@@ -164,15 +166,19 @@ exports[`Dialog renders consistently 1`] = `
   transition: none;
 }
 
-.c1:disabled {
+.c1:disabled,
+.c1[aria-disabled] {
   cursor: not-allowed;
   box-shadow: none;
   color: #8c959f;
 }
 
 .c1:disabled [data-component=ButtonCounter],
+.c1[aria-disabled] [data-component=ButtonCounter],
 .c1:disabled [data-component="leadingVisual"],
-.c1:disabled [data-component="trailingAction"] {
+.c1[aria-disabled] [data-component="leadingVisual"],
+.c1:disabled [data-component="trailingAction"],
+.c1[aria-disabled] [data-component="trailingAction"] {
   color: inherit;
 }
 
@@ -271,11 +277,21 @@ exports[`Dialog renders consistently 1`] = `
   margin-right: 8px;
 }
 
-.c1:hover:not([disabled]) {
+.c1 [data-component="loadingSpinner"] {
+  grid-area: text;
+  margin-right: 0px !important;
+  place-self: center;
+}
+
+.c1 [data-component="loadingSpinner"] + [data-component="text"] {
+  visibility: hidden;
+}
+
+.c1:hover:not([disabled]):not([aria-disabled]) {
   background-color: rgba(208,215,222,0.32);
 }
 
-.c1:active:not([disabled]) {
+.c1:active:not([disabled]):not([aria-disabled]) {
   background-color: rgba(208,215,222,0.48);
 }
 
@@ -298,11 +314,13 @@ exports[`Dialog renders consistently 1`] = `
   color: #24292f;
 }
 
-.c1:disabled[data-no-visuals] {
+.c1:disabled[data-no-visuals],
+.c1[aria-disabled][data-no-visuals] {
   color: #8c959f;
 }
 
-.c1:disabled[data-no-visuals] [data-component=ButtonCounter] {
+.c1:disabled[data-no-visuals] [data-component=ButtonCounter],
+.c1[aria-disabled][data-no-visuals] [data-component=ButtonCounter] {
   color: inherit;
 }
 
