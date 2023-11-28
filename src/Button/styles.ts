@@ -109,12 +109,6 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
       backgroundColor: 'transparent',
       borderColor: 'transparent',
       boxShadow: 'none',
-      '&[href]': {
-        textDecoration: 'var(--prefers-link-underlines, underline)',
-        '&:hover': {
-          textDecoration: 'var(--prefers-link-underlines, underline)',
-        },
-      },
       '&:hover:not([disabled]):not([aria-disabled])': {
         backgroundColor: 'actionListItem.default.hoverBg',
       },
