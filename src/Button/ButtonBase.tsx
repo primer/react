@@ -26,7 +26,7 @@ const ButtonBase = forwardRef(
       alignContent = 'center',
       block = false,
       loading = false,
-      loadingMessage = 'Loading',
+      loadingAnnouncement = 'Loading',
       ...rest
     } = props
 
@@ -44,7 +44,7 @@ const ButtonBase = forwardRef(
       display: 'flex',
       pointerEvents: 'none',
     }
-    const loadingMessageID = useId()
+    const loadingAnnouncementID = useId()
 
     if (__DEV__) {
       /**
@@ -77,7 +77,7 @@ const ButtonBase = forwardRef(
           data-size={size === 'small' || size === 'large' ? size : undefined}
           data-no-visuals={!LeadingVisual && !TrailingVisual && !TrailingAction ? true : undefined}
           aria-disabled={loading ? true : undefined}
-          aria-describedby={loading ? loadingMessageID : ariaDescribedby}
+          aria-describedby={loading ? loadingAnnouncementID : ariaDescribedby}
         >
           {Icon ? (
             loading ? (
@@ -131,8 +131,8 @@ const ButtonBase = forwardRef(
         </StyledButton>
         {loading && (
           <VisuallyHidden>
-            <span aria-live="polite" id={loadingMessageID}>
-              {loadingMessage}
+            <span aria-live="polite" id={loadingAnnouncementID}>
+              {loadingAnnouncement}
             </span>
           </VisuallyHidden>
         )}

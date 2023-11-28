@@ -36,7 +36,7 @@ export type ButtonBaseProps = {
    */
   block?: boolean
   loading?: boolean
-  loadingMessage?: string
+  loadingAnnouncement?: string
 } & SxProp &
   React.ButtonHTMLAttributes<HTMLButtonElement>
 

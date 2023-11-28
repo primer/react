@@ -88,7 +88,7 @@ export const LoadingWithLeadingVisual = () => {
 }
 
 export const LoadingCustomMessage = () => (
-  <Button loading loadingMessage="This is a custom loading message">
+  <Button loading loadingAnnouncement="This is a custom loading message">
     Default
   </Button>
 )
