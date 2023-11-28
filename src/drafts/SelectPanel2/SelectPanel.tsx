@@ -98,7 +98,7 @@ const Panel: React.FC<SelectPanelProps> = ({
 
   const [internalOpen, setInternalOpen] = React.useState(defaultOpen)
   // sync open state
-  React.useEffect(() => setInternalOpen(propsOpen || false), [propsOpen])
+  if (propsOpen !== undefined && internalOpen !== propsOpen) setInternalOpen(propsOpen)
 
   const onInternalClose = () => {
     if (propsOpen === undefined) setInternalOpen(false)
