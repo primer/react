@@ -61,10 +61,10 @@ const Root = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageHeader
   ({children, sx = {}, as = 'div'}, forwardedRef) => {
     const rootRef = useProvidedRefOrCreate<HTMLDivElement>(forwardedRef as React.RefObject<HTMLDivElement>)
 
-    const [contextArea, setContextArea] = React.useState<string>('')
-    const [titleArea, setTitleArea] = React.useState<string>('')
-    const [description, setDescription] = React.useState<string>('')
-    const [navigation, setNavigation] = React.useState<string>('')
+    const [contextArea, setContextArea] = React.useState<string>('contextArea contextArea contextArea contextArea')
+    const [titleArea, setTitleArea] = React.useState<string>('titleArea titleArea titleArea titleArea')
+    const [description, setDescription] = React.useState<string>('description description description description')
+    const [navigation, setNavigation] = React.useState<string>('navigation navigation navigation navigation')
 
     const [templateAreaStructure, setTemplateAreaStructure] = React.useState<string>('')
     const rootStyles = {
