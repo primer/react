@@ -10,6 +10,7 @@ import {defaultSxProp} from '../utils/defaultSxProp'
 import VisuallyHidden from '../_VisuallyHidden'
 import Spinner from '../Spinner'
 import CounterLabel from '../CounterLabel'
+import {useId} from '../hooks'
 
 const ButtonBase = forwardRef(
   ({children, as: Component = 'button', sx: sxProp = defaultSxProp, ...props}, forwardedRef): JSX.Element => {
@@ -17,6 +18,7 @@ const ButtonBase = forwardRef(
       leadingVisual: LeadingVisual,
       trailingVisual: TrailingVisual,
       trailingAction: TrailingAction,
+      ['aria-describedby']: ariaDescribedby,
       count,
       icon: Icon,
       variant = 'default',
@@ -42,6 +44,7 @@ const ButtonBase = forwardRef(
       display: 'flex',
       pointerEvents: 'none',
     }
+    const loadingMessageID = useId()
 
     if (__DEV__) {
       /**
@@ -74,7 +77,7 @@ const ButtonBase = forwardRef(
           data-size={size === 'small' || size === 'large' ? size : undefined}
           data-no-visuals={!LeadingVisual && !TrailingVisual && !TrailingAction ? true : undefined}
           aria-disabled={loading ? true : undefined}
-          aria-describedby={loading ? 'loading-message' : undefined}
+          aria-describedby={loading ? loadingMessageID : ariaDescribedby}
         >
           {Icon ? (
             loading ? (
@@ -128,7 +131,7 @@ const ButtonBase = forwardRef(
         </StyledButton>
         {loading && (
           <VisuallyHidden>
-            <span aria-live="polite" aria-busy="true" id="loading-message">
+            <span aria-live="polite" id={loadingMessageID}>
               {loadingMessage}
             </span>
           </VisuallyHidden>
