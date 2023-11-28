@@ -275,6 +275,33 @@ test.describe('StateLabel', () => {
     }
   })
 
+  test.describe('Unavailable', () => {
+    for (const theme of themes) {
+      test.describe(theme, () => {
+        test('default @vrt', async ({page}) => {
+          await visit(page, {
+            id: 'components-statelabel-features--unavailable',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+
+          // Default state
+          expect(await page.screenshot()).toMatchSnapshot(`StateLabel.Unavailable.${theme}.png`)
+        })
+
+        test('axe @aat', async ({page}) => {
+          await visit(page, {
+            id: 'components-statelabel-features--unavailable',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+        })
+      })
+    }
+  })
+
   test.describe('Small', () => {
     for (const theme of themes) {
       test.describe(theme, () => {
