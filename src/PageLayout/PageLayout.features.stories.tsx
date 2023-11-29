@@ -308,6 +308,7 @@ export const ResizablePane: Story = () => (
     </PageLayout.Header>
     <PageLayout.Pane resizable position="start">
       <Placeholder height={320} label="Pane" />
+      <button>Pane Button</button>
     </PageLayout.Pane>
     <PageLayout.Content>
       <Placeholder height={640} label="Content" />
@@ -363,7 +364,7 @@ export const WithCustomPaneHeading: Story = () => (
     <PageLayout.Header>
       <Placeholder height={64} label="Header" />
     </PageLayout.Header>
-    <PageLayout.Pane resizable position="start">
+    <PageLayout.Pane resizable position="end">
       <Heading as="h2" sx={{fontSize: 3}} id="pane-heading">
         Pane Heading
       </Heading>
