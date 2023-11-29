@@ -88,7 +88,7 @@ const ButtonBase = forwardRef(
           ) : (
             <>
               <Box as="span" data-component="buttonContent" sx={getAlignContentSize(alignContent)}>
-                {loading && !LeadingVisual && !TrailingVisual && count === undefined && (
+                {loading && !LeadingVisual && !TrailingVisual && (
                   <Box as="span" data-component="loadingSpinner" sx={{...iconWrapStyles}}>
                     <Spinner size="small" />
                   </Box>
@@ -103,22 +103,25 @@ const ButtonBase = forwardRef(
                     <LeadingVisual />
                   </Box>
                 )}
-                {children && <span data-component="text">{children}</span>}
-                {count !== undefined && !TrailingVisual && !loading ? (
-                  <Box as="span" data-component="trailingVisual" sx={{...iconWrapStyles}}>
-                    <CounterLabel data-component="ButtonCounter">{count}</CounterLabel>
-                  </Box>
-                ) : TrailingVisual && !loading ? (
+                {children && (
+                  <span data-component="text">
+                    {children}
+                    {count !== undefined && !TrailingVisual && (
+                      <CounterLabel data-component="ButtonCounter" sx={{ml: 2}}>
+                        {count}
+                      </CounterLabel>
+                    )}
+                  </span>
+                )}
+                {TrailingVisual && !loading && (
                   <Box as="span" data-component="trailingVisual" sx={{...iconWrapStyles}}>
                     <TrailingVisual />
                   </Box>
-                ) : (
-                  (TrailingVisual || count !== undefined) &&
-                  loading && (
-                    <Box as="span" data-component="trailingVisual" sx={{...iconWrapStyles}}>
-                      <Spinner size="small" />
-                    </Box>
-                  )
+                )}
+                {TrailingVisual && loading && (
+                  <Box as="span" data-component="trailingVisual" sx={{...iconWrapStyles}}>
+                    <Spinner size="small" />
+                  </Box>
                 )}
               </Box>
               {TrailingAction && (
