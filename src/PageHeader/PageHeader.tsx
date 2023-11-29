@@ -127,7 +127,7 @@ const Root = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageHeader
       if (visibility.titleArea) {
         const leadingAction = visibility.leadingAction ? 'leadingAction' : 'titleArea'
         const trailingAction = visibility.trailingAction ? 'trailingAction' : 'titleArea'
-        const actions = visibility.actions ? 'actions' : ''
+        const actions = visibility.actions ? 'actions' : '.'
         const title = 'titleArea'
         const titleArea = `${leadingAction} ${title} ${trailingAction} ${actions}`
         setTitleArea(titleArea)
