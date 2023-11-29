@@ -48,12 +48,6 @@ export const Webhooks = () => (
           <Button>Context action</Button>
         </PageHeader.ContextAreaActions>
       </PageHeader.ContextArea>
-      <PageHeader.LeadingAction>
-        <IconButton aria-label="More webhooks actions" icon={KebabHorizontalIcon} />
-      </PageHeader.LeadingAction>
-      <PageHeader.TrailingAction>
-        <IconButton aria-label="More webhooks actions" icon={KebabHorizontalIcon} />
-      </PageHeader.TrailingAction>
       <PageHeader.Actions>
         <Hidden when={['narrow']}>
           <Button variant="primary">New webhook</Button>
