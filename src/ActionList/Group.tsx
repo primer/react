@@ -72,7 +72,7 @@ export const Group: React.FC<React.PropsWithChildren<ActionListGroupProps>> = ({
   }
 
   warning(
-    title,
+    title && listRole === undefined,
     'title prop is deprecated in ActionList.Group. Please use ActionList.GroupHeading instead for improved semantics',
   )
 
