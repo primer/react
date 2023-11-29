@@ -590,3 +590,5 @@ export const PageHeader = Object.assign(Root, {
   Description,
   Navigation,
 })
+
+PageHeader.displayName = 'PageHeader'

@@ -11,6 +11,16 @@ let matchmedia: MatchMediaMock
 describe('PageHeader', () => {
   beforeAll(() => {
     matchmedia = new MatchMediaMock()
+    const observe = jest.fn()
+    window.IntersectionObserver = jest.fn(() => ({
+      observe,
+      unobserve: jest.fn(),
+      takeRecords: jest.fn(),
+      disconnect: jest.fn(),
+      root: null,
+      rootMargin: '',
+      thresholds: [],
+    })) as jest.Mock<IntersectionObserver>
   })
   afterAll(() => {
     matchmedia.clear()
@@ -63,7 +73,7 @@ describe('PageHeader', () => {
       display: 'flex',
       'flex-direction': 'row',
       gap: '0.5rem',
-      'grid-area': 'context-area',
+      'grid-area': 'contextArea',
       'grid-row': '1',
     }
 
@@ -91,7 +101,7 @@ describe('PageHeader', () => {
       display: 'flex',
       'flex-direction': 'row',
       gap: '0.5rem',
-      'grid-area': 'context-area',
+      'grid-area': 'contextArea',
       'grid-row': '1',
     }
 

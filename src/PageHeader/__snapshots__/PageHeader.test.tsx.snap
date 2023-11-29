@@ -4,13 +4,13 @@ exports[`PageHeader renders consistently 1`] = `
 .c0 {
   display: grid;
   grid-template-columns: auto auto auto 1fr;
-  grid-template-areas: 'context-area context-area context-area context-area' 'leading-action title-area trailing-action actions' 'navigation navigation navigation navigation' 'description description description description';
+  grid-template-areas: 'leadingAction titleArea trailingAction actions';
   gap: var(--stack-gap-condensed,0.5rem);
 }
 
 .c1 {
   grid-row: 1;
-  grid-area: context-area;
+  grid-area: contextArea;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -27,7 +27,7 @@ exports[`PageHeader renders consistently 1`] = `
 
 .c2 {
   grid-row: 2;
-  grid-area: title-area;
+  grid-area: titleArea;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -86,34 +86,27 @@ exports[`PageHeader renders consistently 1`] = `
 >
   <div
     className="c1"
-    data-component="pageheader-contextarea"
+    data-component="contextArea"
   />
   <div
     className="c2"
-    data-component="pageheader-titlearea"
+    data-component="titleArea"
   />
   <div
     className="c3"
-    data-component="pageheader-description"
+    data-component="description"
   />
   <div
     className="c4"
-    data-component="pageheader-navigation"
+    data-component="navigation"
   />
 </div>
 `;
 
 exports[`PageHeader renders default layout 1`] = `
-.c0 {
-  display: grid;
-  grid-template-columns: auto auto auto 1fr;
-  grid-template-areas: 'context-area context-area context-area context-area' 'leading-action title-area trailing-action actions' 'navigation navigation navigation navigation' 'description description description description';
-  gap: var(--stack-gap-condensed,0.5rem);
-}
-
 .c1 {
   grid-row: 1;
-  grid-area: context-area;
+  grid-area: contextArea;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -130,7 +123,7 @@ exports[`PageHeader renders default layout 1`] = `
 
 .c2 {
   grid-row: 2;
-  grid-area: title-area;
+  grid-area: titleArea;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -168,6 +161,12 @@ exports[`PageHeader renders default layout 1`] = `
   display: block;
 }
 
+.c0 {
+  display: grid;
+  grid-template-columns: auto auto auto 1fr;
+  gap: var(--stack-gap-condensed,0.5rem);
+}
+
 @media screen and (max-width:calc(768px - 0.02px)) {
   .c1 {
     display: -webkit-box;
@@ -190,25 +189,25 @@ exports[`PageHeader renders default layout 1`] = `
   >
     <div
       class="c1"
-      data-component="pageheader-contextarea"
+      data-component="contextArea"
     >
       ContextArea
     </div>
     <div
       class="c2"
-      data-component="pageheader-titlearea"
+      data-component="titleArea"
     >
       TitleArea
     </div>
     <div
       class="c3"
-      data-component="pageheader-description"
+      data-component="description"
     >
       Description
     </div>
     <div
       class="c4"
-      data-component="pageheader-navigation"
+      data-component="navigation"
     >
       Navigation
     </div>
