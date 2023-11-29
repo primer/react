@@ -758,8 +758,8 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
                     }
                   : {}),
                 ...(position === 'end'
-                  ? {flexDirection: 'row', marginLeft: SPACING_MAP[columnGap]}
-                  : {flexDirection: 'row-reverse', marginRight: SPACING_MAP[columnGap]}),
+                  ? {flexDirection: 'row-reverse', marginLeft: SPACING_MAP[columnGap]}
+                  : {flexDirection: 'row', marginRight: SPACING_MAP[columnGap]}),
               },
             },
             sx,
@@ -771,35 +771,6 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
           variant={{narrow: dividerVariant, regular: 'none'}}
           sx={{[position === 'end' ? 'marginBottom' : 'marginTop']: SPACING_MAP[rowGap]}}
         />
-        <VerticalDivider
-          variant={{
-            narrow: 'none',
-            // If pane is resizable, always show a vertical divider on regular viewports
-            regular: resizable ? 'line' : dividerVariant,
-          }}
-          // If pane is resizable, the divider should be draggable
-          draggable={resizable}
-          sx={{[position === 'end' ? 'marginRight' : 'marginLeft']: SPACING_MAP[columnGap]}}
-          onDrag={(delta, isKeyboard = false) => {
-            // Get the number of pixels the divider was dragged
-            let deltaWithDirection
-            if (isKeyboard) {
-              deltaWithDirection = delta
-            } else {
-              deltaWithDirection = position === 'end' ? -delta : delta
-            }
-            updatePaneWidth(paneWidth + deltaWithDirection)
-          }}
-          // Ensure `paneWidth` state and actual pane width are in sync when the drag ends
-          onDragEnd={() => {
-            const paneRect = paneRef.current?.getBoundingClientRect()
-            if (!paneRect) return
-            updatePaneWidth(paneRect.width)
-          }}
-          // Reset pane width on double click
-          onDoubleClick={() => updatePaneWidth(getDefaultPaneWidth(width))}
-        />
-
         <Box
           ref={paneRef}
           style={{
@@ -828,6 +799,35 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
         >
           {children}
         </Box>
+
+        <VerticalDivider
+          variant={{
+            narrow: 'none',
+            // If pane is resizable, always show a vertical divider on regular viewports
+            regular: resizable ? 'line' : dividerVariant,
+          }}
+          // If pane is resizable, the divider should be draggable
+          draggable={resizable}
+          sx={{[position === 'end' ? 'marginRight' : 'marginLeft']: SPACING_MAP[columnGap]}}
+          onDrag={(delta, isKeyboard = false) => {
+            // Get the number of pixels the divider was dragged
+            let deltaWithDirection
+            if (isKeyboard) {
+              deltaWithDirection = delta
+            } else {
+              deltaWithDirection = position === 'end' ? -delta : delta
+            }
+            updatePaneWidth(paneWidth + deltaWithDirection)
+          }}
+          // Ensure `paneWidth` state and actual pane width are in sync when the drag ends
+          onDragEnd={() => {
+            const paneRect = paneRef.current?.getBoundingClientRect()
+            if (!paneRect) return
+            updatePaneWidth(paneRect.width)
+          }}
+          // Reset pane width on double click
+          onDoubleClick={() => updatePaneWidth(getDefaultPaneWidth(width))}
+        />
       </Box>
     )
   },
