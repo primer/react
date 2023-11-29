@@ -39,13 +39,7 @@ export const Webhooks = () => (
   <Box sx={{padding: 3}}>
     <PageHeader>
       <PageHeader.TitleArea>
-        <PageHeader.LeadingVisual>
-          <GitBranchIcon />
-        </PageHeader.LeadingVisual>
         <PageHeader.Title as="h2">Webhooks</PageHeader.Title>
-        <PageHeader.TrailingVisual>
-          <GitBranchIcon />
-        </PageHeader.TrailingVisual>
       </PageHeader.TitleArea>
       <PageHeader.ContextArea>
         <PageHeader.ParentLink href="http://github.com">Repository settings</PageHeader.ParentLink>

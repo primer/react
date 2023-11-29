@@ -61,17 +61,21 @@ const Root = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageHeader
   ({children, sx = {}, as = 'div'}, forwardedRef) => {
     const rootRef = useProvidedRefOrCreate<HTMLDivElement>(forwardedRef as React.RefObject<HTMLDivElement>)
 
-    const [contextArea, setContextArea] = React.useState<string>('contextArea contextArea contextArea contextArea')
-    const [titleArea, setTitleArea] = React.useState<string>('titleArea titleArea titleArea titleArea')
-    const [description, setDescription] = React.useState<string>('description description description description')
-    const [navigation, setNavigation] = React.useState<string>('navigation navigation navigation navigation')
+    const [contextArea, setContextArea] = React.useState<string>('')
+    const [titleArea, setTitleArea] = React.useState<string>('leadingAction titleArea trailingAction actions')
+    const [description, setDescription] = React.useState<string>('')
+    const [navigation, setNavigation] = React.useState<string>('')
 
-    const [templateAreaStructure, setTemplateAreaStructure] = React.useState<string>('')
+    const gridTemplateAreas = `${contextArea !== '' ? `'${contextArea}' ` : ''}${titleArea ? `'${titleArea}' ` : ''}${
+      description ? `'${description}' ` : ''
+    }${navigation ? `'${navigation}' ` : ''}`.trim()
+
     const rootStyles = {
       display: 'grid',
       // We have 4 columns.
       gridTemplateColumns: 'auto auto auto 1fr',
-      gridTemplateAreas: templateAreaStructure,
+      // We are rendering the template areas dynamically based on the children's visibility.
+      gridTemplateAreas,
       gap: 'var(--stack-gap-condensed, 0.5rem)',
     }
 
@@ -92,10 +96,6 @@ const Root = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageHeader
             ...prev,
             [entry.target.getAttribute('data-component') as string]: entry.isIntersecting,
           }))
-          setVisibility(prev => ({
-            ...prev,
-            [entry.target.getAttribute('data-component') as string]: entry.isIntersecting,
-          }))
         }
       })
 
@@ -107,34 +107,31 @@ const Root = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageHeader
     }, [rootRef])
 
     React.useEffect(() => {
-      // This is not the best way to handle this. TODO: make it better
+      // reset the grid template area strings when visibility is changed.
       setContextArea('')
       setTitleArea('')
       setDescription('')
       setNavigation('')
-      setTemplateAreaStructure('')
       if (visibility.contextArea) {
+        // If the context area is present, take the full row to display it.
         setContextArea('contextArea contextArea contextArea contextArea')
       }
       if (visibility.description) {
+        // If the description area is present, take the full row to display it.
         setDescription('description description description description')
       }
       if (visibility.navigation) {
+        // If the navigation area is present, take the full row to display it.
         setNavigation('navigation navigation navigation navigation')
       }
       if (visibility.titleArea) {
         const leadingAction = visibility.leadingAction ? 'leadingAction' : 'titleArea'
         const trailingAction = visibility.trailingAction ? 'trailingAction' : 'titleArea'
-        const actions = visibility.actions ? 'actions' : 'titleArea'
+        const actions = visibility.actions ? 'actions' : ''
         const title = 'titleArea'
         const titleArea = `${leadingAction} ${title} ${trailingAction} ${actions}`
         setTitleArea(titleArea)
       }
-      const templateAreaStructureL = `${contextArea !== '' ? `'${contextArea}' ` : ''}${
-        titleArea ? `'${titleArea}' ` : ''
-      }${description ? `'${description}' ` : ''}${navigation ? `'${navigation}' ` : ''}`.trim()
-
-      setTemplateAreaStructure(templateAreaStructureL)
     }, [visibility, contextArea, titleArea, description, navigation])
 
     return (
