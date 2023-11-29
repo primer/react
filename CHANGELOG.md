@@ -1,5 +1,33 @@
 # @primer/components
 
+## 36.3.0
+
+### Minor Changes
+
+- [#3963](https://github.com/primer/react/pull/3963) [`e16927b5a`](https://github.com/primer/react/commit/e16927b5aef72a2d6b78705066fd26b3741b73df) Thanks [@mperrotti](https://github.com/mperrotti)! - Adds "unavailable" status to StateLabel
+
+  <!-- Changed components: StateLabel -->
+
+- [#3484](https://github.com/primer/react/pull/3484) [`e40378951`](https://github.com/primer/react/commit/e4037895105c7e86e79c5bb6fbafb86e715337ba) Thanks [@ValbertMartins](https://github.com/ValbertMartins)! - TextArea: Add contrast property
+
+### Patch Changes
+
+- [#3897](https://github.com/primer/react/pull/3897) [`6b0c118b3`](https://github.com/primer/react/commit/6b0c118b34e97c558991ebdc17a13350296245a8) Thanks [@mperrotti](https://github.com/mperrotti)! - When passing an `id` prop to ActionMenu.Button, it will be passed as the rendered button element's `id` attribute instead of being set as an automatically generated ID.
+
+  <!-- Changed components: ActionMenu -->
+
+- [#3960](https://github.com/primer/react/pull/3960) [`ec8a2cadd`](https://github.com/primer/react/commit/ec8a2cadda01a3a3463380b911922b9c28e4e241) Thanks [@pksjce](https://github.com/pksjce)! - Update to @primer/behaviors v1.5.1
+
+- [#3945](https://github.com/primer/react/pull/3945) [`40b29787e`](https://github.com/primer/react/commit/40b29787ec4c8f709e7522147e58bd03e51b28e7) Thanks [@siddharthkp](https://github.com/siddharthkp)! - ActionList: Fix bug that did not allow both inline and block description at the same time
+
+- [#3903](https://github.com/primer/react/pull/3903) [`f62ec728a`](https://github.com/primer/react/commit/f62ec728acd5c90f105c3e3c5162a69dbe0c4b6d) Thanks [@pksjce](https://github.com/pksjce)! - Make resize vertical splitter keyboard accessible
+
+- [#3946](https://github.com/primer/react/pull/3946) [`e08432d54`](https://github.com/primer/react/commit/e08432d54dd45a5e793719509dc78657570dde0b) Thanks [@siddharthkp](https://github.com/siddharthkp)! - Link: Add `inline` prop to tag links inside a text block, underlined with accessibility setting `[data-a11y-link-underlines]`
+
+- [#3983](https://github.com/primer/react/pull/3983) [`43d1dce4a`](https://github.com/primer/react/commit/43d1dce4a103b5e23064e8a32a7bb27677dbbb95) Thanks [@TylerJDev](https://github.com/TylerJDev)! - Readjust order of `PageLayout.Pane` contents
+
+- [#3972](https://github.com/primer/react/pull/3972) [`87028d2b9`](https://github.com/primer/react/commit/87028d2b963b788f1525f6f9326ed7eb1b7346d6) Thanks [@iulia-b](https://github.com/iulia-b)! - Update MarkdownEditor to correctly identify non-standard formatted tasklist items
+
 ## 36.2.0
 
 ### Minor Changes
