@@ -111,18 +111,18 @@ exports[`SplitPageLayout renders default layout 1`] = `
 }
 
 .c10 {
-  height: 100%;
-  position: relative;
-  display: none;
-  margin-left: 0;
-}
-
-.c11 {
   --pane-min-width: 256px;
   --pane-max-width-diff: 511px;
   --pane-max-width: calc(100vw - var(--pane-max-width-diff));
   width: 100%;
   padding: 16px;
+}
+
+.c11 {
+  height: 100%;
+  position: relative;
+  display: none;
+  margin-left: 0;
 }
 
 .c12 {
@@ -186,9 +186,9 @@ exports[`SplitPageLayout renders default layout 1`] = `
     position: sticky;
     top: 0px;
     max-height: var(--sticky-pane-height);
-    -webkit-flex-direction: row-reverse;
-    -ms-flex-direction: row-reverse;
-    flex-direction: row-reverse;
+    -webkit-flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row;
     margin-right: 0;
   }
 }
@@ -205,21 +205,21 @@ exports[`SplitPageLayout renders default layout 1`] = `
 }
 
 @media screen and (min-width:768px) {
-  .c11 {
+  .c10 {
     width: 256px;
     overflow: auto;
   }
 }
 
 @media screen and (min-width:1012px) {
-  .c11 {
+  .c10 {
     width: 296px;
     padding: 24px;
   }
 }
 
 @media screen and (min-width:1280px) {
-  .c11 {
+  .c10 {
     --pane-max-width-diff: 959px;
   }
 }
@@ -277,13 +277,13 @@ exports[`SplitPageLayout renders default layout 1`] = `
           />
           <div
             class="c10"
-          />
-          <div
-            class="c11"
             style="--pane-width: 296px;"
           >
             Pane
           </div>
+          <div
+            class="c11"
+          />
         </div>
       </div>
       <footer
