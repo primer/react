@@ -2,8 +2,8 @@ import {Children, EventHandler, SyntheticEvent} from 'react'
 
 import {ShowSuggestionsEvent, Suggestion, TextInputCompatibleChild, Trigger} from './types'
 
-const singleWordTriggerTerminators = new Set([' ', '\n'])
-const multiWordTriggerTerminators = new Set(['.', '\n'])
+const singleWordTriggerTerminators = new Set([' ', '\n', '\r\n'])
+const multiWordTriggerTerminators = new Set(['.', '\n', '\r\n'])
 
 const isWhitespace = (char: string) => /\s/.test(char)
 
