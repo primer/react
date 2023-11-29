@@ -19,7 +19,7 @@ export type ActionListGroupProps = {
    */
   variant?: 'subtle' | 'filled'
   /**
-   * Primary text which names a `Group`.
+   * @deprecated('Use `ActionList.GroupHeading` instead')
    */
   title?: string
   /**
@@ -70,6 +70,11 @@ export const Group: React.FC<React.PropsWithChildren<ActionListGroupProps>> = ({
   if (title) {
     groupHeadingId = id
   }
+
+  warning(
+    title,
+    'title prop is deprecated in ActionList.Group. Please use ActionList.GroupHeading instead for improved semantics',
+  )
 
   return (
     <Box
