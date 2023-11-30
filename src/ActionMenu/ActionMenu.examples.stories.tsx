@@ -28,7 +28,7 @@ export const GroupsAndDescriptions = () => {
   const [selectedMilestone, setSelectedMilestone] = React.useState<(typeof milestones)[0] | undefined>(milestones[2])
 
   return (
-    <ActionMenu>
+    <ActionMenu open>
       <ActionMenu.Button variant="default">
         <Box sx={{display: 'inline-block', color: 'fg.muted'}}>Milestone:</Box>{' '}
         {selectedMilestone?.name || 'Make a selection'}
