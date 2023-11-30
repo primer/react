@@ -62,6 +62,7 @@ export const TrailingAction = () => <Button trailingAction={TriangleDownIcon}>Tr
 export const Block = () => <Button block>Default</Button>
 
 export const Disabled = () => <Button disabled>Default</Button>
+export const AriaDisabled = () => <Button aria-disabled>Default</Button>
 
 export const Inactive = () => (
   <Button variant="primary" inactive>

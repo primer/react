@@ -26,6 +26,12 @@ Playground.argTypes = {
       type: 'boolean',
     },
   },
+  'aria-disabled': {
+    control: {
+      type: 'radio',
+    },
+    options: [false, true, 'true', 'false'],
+  },
   inactive: {
     control: {
       type: 'boolean',
@@ -55,6 +61,7 @@ Playground.argTypes = {
 Playground.args = {
   block: false,
   size: 'medium',
+  'aria-disabled': undefined,
   disabled: false,
   inactive: false,
   variant: 'default',
