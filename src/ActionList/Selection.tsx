@@ -29,7 +29,7 @@ export const Selection: React.FC<React.PropsWithChildren<SelectionProps>> = ({se
     }
   }
 
-  if (selectionVariant === 'single' || (listRole === 'menu' && selectionVariant === 'multiple')) {
+  if (selectionVariant === 'single' || listRole === 'menu') {
     return <LeadingVisualContainer>{selected && <CheckIcon />}</LeadingVisualContainer>
   }
 
