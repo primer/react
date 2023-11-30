@@ -395,6 +395,7 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
             } else {
               toggle(event)
             }
+            event.stopPropagation()
             break
           case 'ArrowRight':
             // Ignore if modifier keys are pressed
@@ -453,8 +454,21 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
             event.stopPropagation()
           }}
           onBlur={() => setIsFocused(false)}
+          onClick={event => {
+            if (onSelect) {
+              onSelect(event)
+            } else {
+              toggle(event)
+            }
+            event.stopPropagation()
+          }}
+          onAuxClick={event => {
+            if (onSelect && event.button === 1) {
+              onSelect(event)
+            }
+            event.stopPropagation()
+          }}
         >
-          {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions */}
           <div
             className="PRIVATE_TreeView-item-container"
             style={{
@@ -463,23 +477,15 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
               contentVisibility: containIntrinsicSize ? 'auto' : undefined,
               containIntrinsicSize,
             }}
-            onClick={event => {
-              if (onSelect) {
-                onSelect(event)
-              } else {
-                toggle(event)
-              }
-            }}
-            onAuxClick={event => {
-              if (onSelect && event.button === 1) {
-                onSelect(event)
-              }
-            }}
           >
             <div style={{gridArea: 'spacer', display: 'flex'}}>
               <LevelIndicatorLines level={level} />
             </div>
             {hasSubTree ? (
+              // This lint rule is disabled due to the guidelines in the `TreeView` api docs.
+              // https://github.com/github/primer/blob/main/apis/tree-view-api.md#the-expandcollapse-chevron-toggle
+              // This has specific advice that the chevron be available only to pointer event.
+              // If they take up a button role, they become unnecessary and numerous tab stops.
               // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
               <div
                 className={clsx(

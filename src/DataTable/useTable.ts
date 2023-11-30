@@ -71,15 +71,6 @@ export function useTable<Data extends UniqueRow>({
     }
   }
 
-  // Update the row order and apply the current sort column to the incoming data
-  if (data !== prevData) {
-    setPrevData(data)
-    setRowOrder(data)
-    if (sortByColumn) {
-      sortRows(sortByColumn)
-    }
-  }
-
   const headers = columns.map(column => {
     const id = column.id ?? column.field
     if (id === undefined) {
@@ -101,6 +92,15 @@ export function useTable<Data extends UniqueRow>({
       },
     }
   })
+
+  // Update the row order and apply the current sort column to the incoming data
+  if (data !== prevData) {
+    setPrevData(data)
+    setRowOrder(data)
+    if (sortByColumn) {
+      sortRows(sortByColumn)
+    }
+  }
 
   /**
    * Sort the input row data by the given header
