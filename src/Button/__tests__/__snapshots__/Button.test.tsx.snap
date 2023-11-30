@@ -162,8 +162,12 @@ exports[`Button renders consistently 1`] = `
 
 .c0[data-inactive]:not([disabled]) {
   background-color: var(--button-inactive-bgColor,#eaeef2);
-  border: 0;
+  border-color: var(--button-inactive-bgColor,#eaeef2);
   color: var(--button-inactive-fgColor,#57606a);
+}
+
+.c0[data-inactive]:not([disabled]):focus-visible {
+  box-shadow: none;
 }
 
 .c0 [data-component="leadingVisual"] {
@@ -407,8 +411,12 @@ exports[`Button respects block prop 1`] = `
 
 .c0[data-inactive]:not([disabled]) {
   background-color: var(--button-inactive-bgColor,undefined);
-  border: 0;
+  border-color: var(--button-inactive-bgColor,undefined);
   color: var(--button-inactive-fgColor,undefined);
+}
+
+.c0[data-inactive]:not([disabled]):focus-visible {
+  box-shadow: none;
 }
 
 .c0 [data-component="leadingVisual"] {
@@ -657,8 +665,12 @@ exports[`Button respects the alignContent prop 1`] = `
 
 .c0[data-inactive]:not([disabled]) {
   background-color: var(--button-inactive-bgColor,undefined);
-  border: 0;
+  border-color: var(--button-inactive-bgColor,undefined);
   color: var(--button-inactive-fgColor,undefined);
+}
+
+.c0[data-inactive]:not([disabled]):focus-visible {
+  box-shadow: none;
 }
 
 .c0 [data-component="leadingVisual"] {
@@ -906,8 +918,12 @@ exports[`Button respects the large size prop 1`] = `
 
 .c0[data-inactive]:not([disabled]) {
   background-color: var(--button-inactive-bgColor,undefined);
-  border: 0;
+  border-color: var(--button-inactive-bgColor,undefined);
   color: var(--button-inactive-fgColor,undefined);
+}
+
+.c0[data-inactive]:not([disabled]):focus-visible {
+  box-shadow: none;
 }
 
 .c0 [data-component="leadingVisual"] {
@@ -1156,8 +1172,12 @@ exports[`Button respects the small size prop 1`] = `
 
 .c0[data-inactive]:not([disabled]) {
   background-color: var(--button-inactive-bgColor,undefined);
-  border: 0;
+  border-color: var(--button-inactive-bgColor,undefined);
   color: var(--button-inactive-fgColor,undefined);
+}
+
+.c0[data-inactive]:not([disabled]):focus-visible {
+  box-shadow: none;
 }
 
 .c0 [data-component="leadingVisual"] {
@@ -1411,8 +1431,12 @@ exports[`Button styles danger button appropriately 1`] = `
 
 .c0[data-inactive]:not([disabled]) {
   background-color: var(--button-inactive-bgColor,undefined);
-  border: 0;
+  border-color: var(--button-inactive-bgColor,undefined);
   color: var(--button-inactive-fgColor,undefined);
+}
+
+.c0[data-inactive]:not([disabled]):focus-visible {
+  box-shadow: none;
 }
 
 .c0 [data-component="leadingVisual"] {
@@ -1667,8 +1691,12 @@ exports[`Button styles invisible button appropriately 1`] = `
 
 .c0[data-inactive]:not([disabled]) {
   background-color: var(--button-inactive-bgColor,undefined);
-  border: 0;
+  border-color: var(--button-inactive-bgColor,undefined);
   color: var(--button-inactive-fgColor,undefined);
+}
+
+.c0[data-inactive]:not([disabled]):focus-visible {
+  box-shadow: none;
 }
 
 .c0 [data-component="leadingVisual"] {
@@ -1932,8 +1960,12 @@ exports[`Button styles primary button appropriately 1`] = `
 
 .c0[data-inactive]:not([disabled]) {
   background-color: var(--button-inactive-bgColor,undefined);
-  border: 0;
+  border-color: var(--button-inactive-bgColor,undefined);
   color: var(--button-inactive-fgColor,undefined);
+}
+
+.c0[data-inactive]:not([disabled]):focus-visible {
+  box-shadow: none;
 }
 
 .c0 [data-component="leadingVisual"] {

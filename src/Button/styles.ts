@@ -297,8 +297,11 @@ export const getButtonStyles = (theme?: Theme) => {
     },
     '&[data-inactive]:not([disabled])': {
       backgroundColor: `var(--button-inactive-bgColor, ${theme?.colors.btn.inactive.bg})`,
-      border: 0,
+      borderColor: `var(--button-inactive-bgColor, ${theme?.colors.btn.inactive.bg})`,
       color: `var(--button-inactive-fgColor, ${theme?.colors.btn.inactive.text})`,
+    },
+    '&[data-inactive]:not([disabled]):focus-visible': {
+      boxShadow: 'none',
     },
     '[data-component="leadingVisual"]': {
       gridArea: 'leadingVisual',
