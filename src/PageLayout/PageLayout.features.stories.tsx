@@ -124,6 +124,9 @@ export const StickyPane: Story = args => (
             </Box>
           )
         })}
+        <Box as="p">
+          Donec sit amet massa purus. <a href="#foo">Plura de lorem Ispum.</a>
+        </Box>
       </Box>
     </PageLayout.Pane>
     <PageLayout.Footer padding="normal" divider="line">
