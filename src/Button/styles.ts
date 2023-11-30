@@ -7,15 +7,15 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
       color: 'btn.text',
       backgroundColor: 'btn.bg',
       boxShadow: `${theme?.shadows.btn.shadow}, ${theme?.shadows.btn.insetShadow}`,
-      '&:hover:not([disabled]):not([aria-disabled]):not([data-inactive])': {
+      '&:hover:not([disabled]):not([data-inactive])': {
         backgroundColor: 'btn.hoverBg',
         borderColor: `var(--button-default-borderColor-hover, ${theme?.colors.btn.hoverBorder})`,
       },
-      '&:active:not([disabled]):not([aria-disabled]):not([data-inactive])': {
+      '&:active:not([disabled]):not([data-inactive])': {
         backgroundColor: 'btn.activeBg',
         borderColor: `var(--button-default-borderColor-active, ${theme?.colors.btn.activeBorder})`,
       },
-      '&:disabled, &[aria-disabled]': {
+      '&:disabled': {
         color: 'primer.fg.disabled',
         '[data-component=ButtonCounter]': {
           color: 'inherit',
@@ -34,7 +34,7 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
       backgroundColor: 'btn.primary.bg',
       borderColor: 'btn.primary.border',
       boxShadow: `${theme?.shadows.btn.primary.shadow}`,
-      '&:hover:not([disabled]):not([aria-disabled]):not([data-inactive])': {
+      '&:hover:not([disabled]):not([data-inactive])': {
         color: 'btn.primary.hoverText',
         backgroundColor: 'btn.primary.hoverBg',
       },
@@ -44,11 +44,11 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
       '&:focus-visible:not([disabled])': {
         boxShadow: 'inset 0 0 0 3px',
       },
-      '&:active:not([disabled]):not([aria-disabled]):not([data-inactive])': {
+      '&:active:not([disabled]):not([data-inactive])': {
         backgroundColor: 'btn.primary.selectedBg',
         boxShadow: `${theme?.shadows.btn.primary.selectedShadow}`,
       },
-      '&:disabled, &[aria-disabled]': {
+      '&:disabled': {
         color: 'btn.primary.disabledText',
         backgroundColor: 'btn.primary.disabledBg',
         '[data-component=ButtonCounter]': {
@@ -68,7 +68,7 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
       color: 'btn.danger.text',
       backgroundColor: 'btn.bg',
       boxShadow: `${theme?.shadows.btn.shadow}`,
-      '&:hover:not([disabled]):not([aria-disabled]):not([data-inactive])': {
+      '&:hover:not([disabled]):not([data-inactive])': {
         color: 'btn.danger.hoverText',
         backgroundColor: 'btn.danger.hoverBg',
         borderColor: 'btn.danger.hoverBorder',
@@ -78,13 +78,13 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
           color: 'btn.danger.hoverCounterFg',
         },
       },
-      '&:active:not([disabled]):not([aria-disabled]):not([data-inactive])': {
+      '&:active:not([disabled]):not([data-inactive])': {
         color: 'btn.danger.selectedText',
         backgroundColor: 'btn.danger.selectedBg',
         boxShadow: `${theme?.shadows.btn.danger.selectedShadow}`,
         borderColor: 'btn.danger.selectedBorder',
       },
-      '&:disabled, &[aria-disabled]': {
+      '&:disabled': {
         color: 'btn.danger.disabledText',
         backgroundColor: 'btn.danger.disabledBg',
         borderColor: 'btn.danger.disabledBorder',
@@ -115,7 +115,7 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
       '&:active:not([disabled])': {
         backgroundColor: 'actionListItem.default.activeBg',
       },
-      '&:disabled, &[aria-disabled]': {
+      '&:disabled': {
         color: 'primer.fg.disabled',
         '[data-component=ButtonCounter], [data-component="leadingVisual"], [data-component="trailingAction"]': {
           color: 'inherit',
@@ -152,7 +152,7 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
       borderColor: `var(--button-default-borderColor-rest, ${theme?.colors.btn.border})`,
       backgroundColor: 'btn.bg',
 
-      '&:hover:not([disabled]):not([aria-disabled]):not([data-inactive])': {
+      '&:hover:not([disabled]):not([data-inactive])': {
         color: 'btn.outline.hoverText',
         backgroundColor: 'btn.outline.hoverBg',
         borderColor: `${theme?.colors.btn.outline.hoverBorder}`,
@@ -162,14 +162,14 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
           color: 'btn.outline.hoverCounterFg',
         },
       },
-      '&:active:not([disabled]):not([aria-disabled]):not([data-inactive])': {
+      '&:active:not([disabled]):not([data-inactive])': {
         color: 'btn.outline.selectedText',
         backgroundColor: 'btn.outline.selectedBg',
         boxShadow: `${theme?.shadows.btn.outline.selectedShadow}`,
         borderColor: `${theme?.colors.btn.outline.selectedBorder}`,
       },
 
-      '&:disabled, &[aria-disabled]': {
+      '&:disabled': {
         color: 'btn.outline.disabledText',
         backgroundColor: 'btn.outline.disabledBg',
         borderColor: 'btn.border',
@@ -295,7 +295,7 @@ export const getButtonStyles = (theme?: Theme) => {
     '&[data-block="block"]': {
       width: '100%',
     },
-    '&[data-inactive]:not([disabled]):not([aria-disabled])': {
+    '&[data-inactive]:not([disabled])': {
       backgroundColor: `var(--button-inactive-bgColor, ${theme?.colors.btn.inactive.bg})`,
       border: 0,
       color: `var(--button-inactive-fgColor, ${theme?.colors.btn.inactive.text})`,

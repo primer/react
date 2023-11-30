@@ -1773,6 +1773,13 @@ exports[`TextInput renders trailingAction icon button 1`] = `
 .c5:disabled {
   cursor: not-allowed;
   box-shadow: none;
+  color: #8c959f;
+}
+
+.c5:disabled [data-component=ButtonCounter],
+.c5:disabled [data-component="leadingVisual"],
+.c5:disabled [data-component="trailingAction"] {
+  color: inherit;
 }
 
 .c5 [data-component=ButtonCounter] {
@@ -1830,7 +1837,7 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   width: 100%;
 }
 
-.c5[data-inactive]:not([disabled]):not([aria-disabled]) {
+.c5[data-inactive]:not([disabled]) {
   background-color: var(--button-inactive-bgColor,#eaeef2);
   border: 0;
   color: var(--button-inactive-fgColor,#57606a);
@@ -1882,20 +1889,6 @@ exports[`TextInput renders trailingAction icon button 1`] = `
 
 .c5:active:not([disabled]) {
   background-color: rgba(208,215,222,0.48);
-}
-
-.c5:disabled,
-.c5[aria-disabled] {
-  color: #8c959f;
-}
-
-.c5:disabled [data-component=ButtonCounter],
-.c5[aria-disabled] [data-component=ButtonCounter],
-.c5:disabled [data-component="leadingVisual"],
-.c5[aria-disabled] [data-component="leadingVisual"],
-.c5:disabled [data-component="trailingAction"],
-.c5[aria-disabled] [data-component="trailingAction"] {
-  color: inherit;
 }
 
 .c5[aria-expanded=true] {
@@ -2442,6 +2435,13 @@ exports[`TextInput renders trailingAction text button 1`] = `
 .c4:disabled {
   cursor: not-allowed;
   box-shadow: none;
+  color: #8c959f;
+}
+
+.c4:disabled [data-component=ButtonCounter],
+.c4:disabled [data-component="leadingVisual"],
+.c4:disabled [data-component="trailingAction"] {
+  color: inherit;
 }
 
 .c4 [data-component=ButtonCounter] {
@@ -2499,7 +2499,7 @@ exports[`TextInput renders trailingAction text button 1`] = `
   width: 100%;
 }
 
-.c4[data-inactive]:not([disabled]):not([aria-disabled]) {
+.c4[data-inactive]:not([disabled]) {
   background-color: var(--button-inactive-bgColor,#eaeef2);
   border: 0;
   color: var(--button-inactive-fgColor,#57606a);
@@ -2551,20 +2551,6 @@ exports[`TextInput renders trailingAction text button 1`] = `
 
 .c4:active:not([disabled]) {
   background-color: rgba(208,215,222,0.48);
-}
-
-.c4:disabled,
-.c4[aria-disabled] {
-  color: #8c959f;
-}
-
-.c4:disabled [data-component=ButtonCounter],
-.c4[aria-disabled] [data-component=ButtonCounter],
-.c4:disabled [data-component="leadingVisual"],
-.c4[aria-disabled] [data-component="leadingVisual"],
-.c4:disabled [data-component="trailingAction"],
-.c4[aria-disabled] [data-component="trailingAction"] {
-  color: inherit;
 }
 
 .c4[aria-expanded=true] {
@@ -2863,6 +2849,13 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
 .c5:disabled {
   cursor: not-allowed;
   box-shadow: none;
+  color: #8c959f;
+}
+
+.c5:disabled [data-component=ButtonCounter],
+.c5:disabled [data-component="leadingVisual"],
+.c5:disabled [data-component="trailingAction"] {
+  color: inherit;
 }
 
 .c5 [data-component=ButtonCounter] {
@@ -2920,7 +2913,7 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   width: 100%;
 }
 
-.c5[data-inactive]:not([disabled]):not([aria-disabled]) {
+.c5[data-inactive]:not([disabled]) {
   background-color: var(--button-inactive-bgColor,#eaeef2);
   border: 0;
   color: var(--button-inactive-fgColor,#57606a);
@@ -2972,20 +2965,6 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
 
 .c5:active:not([disabled]) {
   background-color: rgba(208,215,222,0.48);
-}
-
-.c5:disabled,
-.c5[aria-disabled] {
-  color: #8c959f;
-}
-
-.c5:disabled [data-component=ButtonCounter],
-.c5[aria-disabled] [data-component=ButtonCounter],
-.c5:disabled [data-component="leadingVisual"],
-.c5[aria-disabled] [data-component="leadingVisual"],
-.c5:disabled [data-component="trailingAction"],
-.c5[aria-disabled] [data-component="trailingAction"] {
-  color: inherit;
 }
 
 .c5[aria-expanded=true] {
