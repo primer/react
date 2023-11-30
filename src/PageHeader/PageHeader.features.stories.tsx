@@ -107,17 +107,19 @@ export const WithActions = () => (
 
 export const WithDescriptionSlot = () => (
   <Box sx={{padding: 3}}>
-    <PageHeader.TitleArea>
-      <PageHeader.Title>add-pageheader-docs</PageHeader.Title>
-    </PageHeader.TitleArea>
-    <PageHeader.Description>
-      <Text sx={{fontSize: 1, color: 'fg.muted'}}>
-        <Link href="https://github.com/broccolinisoup" sx={{fontWeight: 'bold'}}>
-          broccolinisoup
-        </Link>{' '}
-        created this branch 5 days ago · 14 commits · updated today
-      </Text>
-    </PageHeader.Description>
+    <PageHeader>
+      <PageHeader.TitleArea>
+        <PageHeader.Title>add-pageheader-docs</PageHeader.Title>
+      </PageHeader.TitleArea>
+      <PageHeader.Description>
+        <Text sx={{fontSize: 1, color: 'fg.muted'}}>
+          <Link href="https://github.com/broccolinisoup" sx={{fontWeight: 'bold'}}>
+            broccolinisoup
+          </Link>{' '}
+          created this branch 5 days ago · 14 commits · updated today
+        </Text>
+      </PageHeader.Description>
+    </PageHeader>
   </Box>
 )
 
