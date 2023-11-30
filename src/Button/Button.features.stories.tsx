@@ -1,6 +1,8 @@
 import {EyeIcon, TriangleDownIcon, HeartIcon} from '@primer/octicons-react'
 import React, {useState} from 'react'
 import {Button} from '.'
+import {Tooltip} from '../drafts'
+import {ToggleSwitch, Text, Box, Dialog} from '../'
 
 export default {
   title: 'Components/Button/Features',
@@ -74,3 +76,50 @@ export const Small = () => <Button size="small">Default</Button>
 export const Medium = () => <Button size="medium">Default</Button>
 
 export const Large = () => <Button size="large">Default</Button>
+
+const InactiveButtonHover = () => <Button inactive>Hover over me during outage</Button>
+
+export const InactiveButtonWithTooltip = () => {
+  const [isOn, setIsOn] = React.useState(false)
+  const onClick = React.useCallback(() => {
+    setIsOn(!isOn)
+  }, [setIsOn, isOn])
+
+  return (
+    <Box>
+      <Text id="toggle" fontWeight={'bold'} fontSize={2}>
+        Simulate outage
+      </Text>
+      <ToggleSwitch aria-labelledby="toggle" onClick={onClick} />
+      {isOn ? (
+        <Tooltip text="This button is inactive due to an outage!">
+          <InactiveButtonHover />
+        </Tooltip>
+      ) : (
+        <InactiveButtonHover />
+      )}
+    </Box>
+  )
+}
+
+export const InactiveButtonShowsDialog = () => {
+  const [isOpen, setIsOpen] = React.useState(false)
+  const onDialogClose = React.useCallback(() => {
+    setIsOpen(false)
+  }, [setIsOpen])
+  const onAnchorClick = React.useCallback(() => {
+    setIsOpen(true)
+  }, [setIsOpen])
+  return (
+    <Box>
+      <Button inactive onClick={onAnchorClick}>
+        Click on me during outage
+      </Button>
+      {isOpen && (
+        <Dialog title="My Dialog" subtitle="This is a subtitle!" onClose={onDialogClose}>
+          There is an outage so you cant read whats supposed to be here
+        </Dialog>
+      )}
+    </Box>
+  )
+}
