@@ -177,7 +177,7 @@ const SwitchButton = styled.button<SwitchButtonProps>`
   ${sx}
   ${sizeVariants}
 `
-const ToggleKnob = styled.div<{checked?: boolean}>`
+const ToggleKnob = styled.div<{checked?: boolean; 'aria-disabled': React.AriaAttributes['aria-disabled']}>`
   background-color: ${get('colors.switchKnob.bg')};
   border-width: 1px;
   border-style: solid;
@@ -314,7 +314,7 @@ const ToggleSwitch = React.forwardRef<HTMLButtonElement, React.PropsWithChildren
           fontSize={size === 'small' ? 0 : 1}
           mx={2}
           aria-hidden="true"
-          sx={{position: 'relative', cursor: 'pointer'}}
+          sx={{position: 'relative', cursor: acceptsInteraction ? 'pointer' : 'not-allowed'}}
           onClick={handleToggleClick}
         >
           <Box textAlign="right" sx={isOn ? null : hiddenTextStyles}>
