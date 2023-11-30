@@ -1,5 +1,5 @@
 import React from 'react'
-import {ActionMenu, ActionList} from '../'
+import {ActionMenu, ActionList, Box} from '../'
 import {WorkflowIcon, ArchiveIcon, GearIcon, CopyIcon, RocketIcon, CommentIcon, BookIcon} from '@primer/octicons-react'
 
 export default {
@@ -36,7 +36,7 @@ export const LinksAndActions = () => (
           </ActionList.LeadingVisual>
         </ActionList.Item>
         <ActionList.Divider />
-        <ActionList.Group title="Github projects">
+        <ActionList.Group title="GitHub projects">
           <ActionList.LinkItem href="/">
             What&apos;s new
             <ActionList.LeadingVisual>
@@ -75,7 +75,9 @@ export const SingleSelect = () => {
 
   return (
     <ActionMenu>
-      <ActionMenu.Button>Options: {selectedType.name}</ActionMenu.Button>
+      <ActionMenu.Button>
+        <Box sx={{color: 'fg.muted', display: 'inline-block'}}>Options:</Box> {selectedType.name}
+      </ActionMenu.Button>
       <ActionMenu.Overlay width="auto">
         <ActionList selectionVariant="single">
           {options.map((options, index) => (
@@ -93,7 +95,7 @@ export const MultiSelect = () => {
   type Option = {name: string; selected: boolean}
 
   const [options, setOptions] = React.useState<Option[]>([
-    {name: 'Show code folding buttons', selected: false},
+    {name: 'Show code folding buttons', selected: true},
     {name: 'Wrap lines', selected: false},
     {name: 'Center content', selected: false},
   ])
