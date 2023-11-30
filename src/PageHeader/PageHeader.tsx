@@ -64,10 +64,10 @@ const Root: React.FC<React.PropsWithChildren<PageHeaderProps>> = ({children, sx 
     gridTemplateAreas: `
       'context-area context-area context-area context-area'
       'leading-action title-area trailing-action actions'
-      'navigation navigation navigation navigation'
       'description description description description'
+      'navigation navigation navigation navigation'
     `,
-    gap: 'var(--stack-gap-condensed, 0.5rem)',
+    // gap: 'var(--stack-gap-condensed, 0.5rem)',
   }
   return (
     <Box as={as} sx={merge<BetterSystemStyleObject>(rootStyles, sx)}>
@@ -91,6 +91,7 @@ const ContextArea: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
+    paddingBottom: '0.5rem',
     gap: '0.5rem',
 
     ...getBreakpointDeclarations(hidden, 'display', value => {
@@ -263,6 +264,7 @@ const LeadingAction: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
         {
           gridRow: GRID_ROW_ORDER.LeadingAction,
           gridArea: 'leading-action',
+          paddingRight: '0.5rem',
           display: 'flex',
           ...getBreakpointDeclarations(hidden, 'display', value => {
             return value ? 'none' : 'flex'
@@ -382,6 +384,7 @@ const TrailingAction: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
         {
           gridRow: GRID_ROW_ORDER.TrailingAction,
           gridArea: 'trailing-action',
+          paddingLeft: '0.5rem',
           display: 'flex',
           ...getBreakpointDeclarations(hidden, 'display', value => {
             return value ? 'none' : 'flex'
@@ -438,6 +441,7 @@ const Description: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({chil
           }),
           flexDirection: 'row',
           alignItems: 'center',
+          paddingTop: '0.5rem',
           gap: '0.5rem',
         },
         sx,
@@ -482,6 +486,7 @@ const Navigation: React.FC<React.PropsWithChildren<NavigationProps>> = ({
         {
           gridRow: GRID_ROW_ORDER.Navigation,
           gridArea: 'navigation',
+          paddingTop: '0.5rem',
           display: 'flex',
           ...getBreakpointDeclarations(hidden, 'display', value => {
             return value ? 'none' : 'block'
