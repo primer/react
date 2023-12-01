@@ -5,9 +5,11 @@ import {SxProp, merge, BetterSystemStyleObject} from '../sx'
 import Heading from '../Heading'
 import {ArrowLeftIcon} from '@primer/octicons-react'
 import Link, {LinkProps as BaseLinkProps} from '../Link'
+import {useProvidedRefOrCreate} from '../hooks'
 
 import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import {getBreakpointDeclarations} from '../utils/getBreakpointDeclarations'
+import {invariant} from '../utils/invariant'
 const GRID_ROW_ORDER = {
   ContextArea: 1,
   LeadingAction: 2,
@@ -56,25 +58,74 @@ export type PageHeaderProps = {
   as?: React.ElementType | 'header' | 'div'
 } & SxProp
 
-const Root: React.FC<React.PropsWithChildren<PageHeaderProps>> = ({children, sx = {}, as = 'div'}) => {
-  const rootStyles = {
-    display: 'grid',
-    // We have max 4 columns.
-    gridTemplateColumns: 'auto auto auto 1fr',
-    gridTemplateAreas: `
+const Root = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageHeaderProps>>(
+  ({children, sx = {}, as = 'div'}, forwardedRef) => {
+    const rootStyles = {
+      display: 'grid',
+      // We have max 4 columns.
+      gridTemplateColumns: 'auto auto auto 1fr',
+      gridTemplateAreas: `
       'context-area context-area context-area context-area'
       'leading-action title-area trailing-action actions'
       'description description description description'
       'navigation navigation navigation navigation'
     `,
-    // gap: 'var(--stack-gap-condensed, 0.5rem)',
-  }
-  return (
-    <Box as={as} sx={merge<BetterSystemStyleObject>(rootStyles, sx)}>
-      {children}
-    </Box>
-  )
-}
+    }
+
+    const rootRef = useProvidedRefOrCreate<HTMLDivElement>(forwardedRef as React.RefObject<HTMLDivElement>)
+
+    const isInteractive = (element: HTMLElement) => {
+      return (
+        ['a', 'button'].some(selector => element.matches(selector)) ||
+        (element.hasAttribute('role') && element.getAttribute('role') === 'button') ||
+        (element.hasAttribute('link') && element.getAttribute('role') === 'link') ||
+        element.hasAttribute('tabindex')
+      )
+    }
+
+    React.useEffect(() => {
+      const titleArea = Array.from(rootRef.current?.children as HTMLCollection).find(child => {
+        return child instanceof HTMLElement && child.getAttribute('data-component') === 'TitleArea'
+      })
+
+      if (titleArea === undefined) {
+        invariant(titleArea, 'PageHeader.TitleArea is missing.')
+        return
+      }
+
+      const hasContextArea = React.Children.toArray(children).some(
+        child => React.isValidElement(child) && child.type === ContextArea,
+      )
+      const hasLeadingAction = React.Children.toArray(children).some(
+        child => React.isValidElement(child) && child.type === LeadingAction,
+      )
+
+      const hasInteractiveContent = Array.from(titleArea.childNodes).some(child => {
+        return (
+          (child instanceof HTMLElement && isInteractive(child)) ||
+          Array.from(child.childNodes).some(child => {
+            return child instanceof HTMLElement && isInteractive(child)
+          })
+        )
+      })
+
+      // PageHeader.TitleArea should be the first element in the DOM if ContextArea or LeadingAction is present.
+      // Motivation for this is to make sure context area and leading action are always rendered after the title (heading tag)
+      // so that screen reader users who are navigating via heading menu won't miss any actions.
+      if (hasContextArea || hasLeadingAction) {
+        invariant(
+          !hasInteractiveContent,
+          'When PageHeader.ContextArea or PageHeader.LeadingAction is present, PageHeader.TitleArea cannot include interactive elements to make sure focus order is intact.',
+        )
+      }
+    }, [children, rootRef])
+    return (
+      <Box ref={rootRef} as={as} sx={merge<BetterSystemStyleObject>(rootStyles, sx)}>
+        {children}
+      </Box>
+    )
+  },
+) as PolymorphicForwardRefComponent<'div', PageHeaderProps>
 
 // PageHeader.ContextArea : Only visible on narrow viewports by default to provide user context of where they are at their journey. `hidden` prop available
 // to manage their custom visibility but consumers should be careful if they choose to hide this on narrow viewports.
@@ -213,8 +264,8 @@ type TitleAreaProps = {
   variant?: 'subtitle' | 'medium' | 'large' | ResponsiveValue<'subtitle' | 'medium' | 'large'>
 } & ChildrenPropTypes
 // PageHeader.TitleArea: The main title area of the page. Visible on all viewports.
-// PageHeader.TitleArea Sub Components: PageHeader.LeadingAction, PageHeader.LeadingVisual,
-// PageHeader.Title, PageTitle.TrailingVisual, PageHeader.TrailingAction, PageHeader.Actions
+// PageHeader.TitleArea Sub Components: PageHeader.LeadingVisual,
+// PageHeader.Title, PageTitle.TrailingVisual
 // ---------------------------------------------------------------------
 
 const TitleArea: React.FC<React.PropsWithChildren<TitleAreaProps>> = ({
@@ -228,6 +279,7 @@ const TitleArea: React.FC<React.PropsWithChildren<TitleAreaProps>> = ({
   return (
     <TitleAreaContext.Provider value={{titleVariant: currentVariant, titleAreaHeight: height}}>
       <Box
+        data-component="TitleArea"
         sx={merge<BetterSystemStyleObject>(
           {
             gridRow: GRID_ROW_ORDER.TitleArea,
@@ -310,6 +362,7 @@ export type TitleProps = {
 
 const Title: React.FC<React.PropsWithChildren<TitleProps>> = ({children, sx = {}, hidden = false, as = 'h2'}) => {
   const {titleVariant} = React.useContext(TitleAreaContext)
+
   return (
     <Heading
       as={as}
@@ -413,6 +466,7 @@ const Actions: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({children
             return value ? 'none' : 'flex'
           }),
           flexDirection: 'row',
+          paddingLeft: '0.5rem',
           gap: '0.5rem',
           flexGrow: '1',
           justifyContent: 'right',
