@@ -76,16 +76,16 @@ const renderFocusStyles = (hasTrailingAction: boolean, isInputFocused: boolean) 
       isInputFocused &&
       css`
         border-color: ${get('colors.accent.fg')};
-        outline: 2px solid ${get('colors.accent.fg')};
-        outline-offset: -1px;
+        outline: none;
+        box-shadow: inset 0 0 0 1px ${get('colors.accent.fg')};
       `
     )
   }
   return css`
     &:focus-within {
       border-color: ${get('colors.accent.fg')};
-      outline: 2px solid ${get('colors.accent.fg')};
-      outline-offset: -1px;
+      outline: none;
+      box-shadow: inset 0 0 0 1px ${get('colors.accent.fg')};
     }
   `
 }
@@ -103,7 +103,6 @@ export const TextInputBaseWrapper = styled.span<StyledBaseWrapperProps>`
   display: inline-flex;
   align-items: stretch;
   min-height: 32px;
-  overflow: hidden;
 
   input,
   textarea {

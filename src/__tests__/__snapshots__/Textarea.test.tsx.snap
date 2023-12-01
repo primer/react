@@ -20,7 +20,6 @@ exports[`Textarea renders consistently 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
-  overflow: hidden;
 }
 
 .c0 input,
@@ -50,8 +49,8 @@ exports[`Textarea renders consistently 1`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  outline: 2px solid #0969da;
-  outline-offset: -1px;
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {

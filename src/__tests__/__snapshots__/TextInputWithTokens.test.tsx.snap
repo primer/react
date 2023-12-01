@@ -71,7 +71,6 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
-  overflow: hidden;
   --inner-action-size: 24px;
   padding-left: 12px;
   padding-top: calc(12px / 2);
@@ -105,8 +104,8 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  outline: 2px solid #0969da;
-  outline-offset: -1px;
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -852,7 +851,6 @@ exports[`TextInputWithTokens renders a truncated set of tokens 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
-  overflow: hidden;
   --inner-action-size: 24px;
   padding-left: 12px;
   padding-top: calc(12px / 2);
@@ -886,8 +884,8 @@ exports[`TextInputWithTokens renders a truncated set of tokens 1`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  outline: 2px solid #0969da;
-  outline-offset: -1px;
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -1265,7 +1263,6 @@ exports[`TextInputWithTokens renders as block layout 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
-  overflow: hidden;
   width: 100%;
   display: -webkit-box;
   display: -webkit-flex;
@@ -1312,8 +1309,8 @@ exports[`TextInputWithTokens renders as block layout 1`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  outline: 2px solid #0969da;
-  outline-offset: -1px;
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -1473,7 +1470,6 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
-  overflow: hidden;
   --inner-action-size: 24px;
   padding-left: 12px;
   padding-top: calc(12px / 2);
@@ -1509,8 +1505,8 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  outline: 2px solid #0969da;
-  outline-offset: -1px;
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -2201,7 +2197,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
-  overflow: hidden;
   --inner-action-size: 20px;
   min-height: 28px;
   padding-left: 8px;
@@ -2242,8 +2237,8 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  outline: 2px solid #0969da;
-  outline-offset: -1px;
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -2930,7 +2925,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
-  overflow: hidden;
   --inner-action-size: 20px;
   min-height: 28px;
   padding-left: 8px;
@@ -2971,8 +2965,8 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  outline: 2px solid #0969da;
-  outline-offset: -1px;
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -3659,7 +3653,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
-  overflow: hidden;
   --inner-action-size: 24px;
   padding-left: 12px;
   padding-top: calc(12px / 2);
@@ -3693,8 +3686,8 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  outline: 2px solid #0969da;
-  outline-offset: -1px;
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -4385,7 +4378,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
-  overflow: hidden;
   --inner-action-size: 24px;
   padding-left: 12px;
   padding-top: calc(12px / 2);
@@ -4419,8 +4411,8 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  outline: 2px solid #0969da;
-  outline-offset: -1px;
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -5113,7 +5105,6 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
-  overflow: hidden;
   --inner-action-size: 24px;
   padding-left: 12px;
   padding-top: calc(12px / 2);
@@ -5148,8 +5139,8 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
 
 .c0:focus-within {
   border-color: #0969da;
-  outline: 2px solid #0969da;
-  outline-offset: -1px;
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -5839,7 +5830,6 @@ exports[`TextInputWithTokens renders tokens without a remove button when specifi
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
-  overflow: hidden;
   --inner-action-size: 24px;
   padding-left: 12px;
   padding-top: calc(12px / 2);
@@ -5873,8 +5863,8 @@ exports[`TextInputWithTokens renders tokens without a remove button when specifi
 
 .c0:focus-within {
   border-color: #0969da;
-  outline: 2px solid #0969da;
-  outline-offset: -1px;
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -6288,7 +6278,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
-  overflow: hidden;
   --inner-action-size: 24px;
   padding-left: 12px;
   padding-top: calc(12px / 2);
@@ -6322,8 +6311,8 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  outline: 2px solid #0969da;
-  outline-offset: -1px;
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -7071,7 +7060,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
-  overflow: hidden;
   --inner-action-size: 24px;
   padding-left: 12px;
   padding-top: calc(12px / 2);
@@ -7105,8 +7093,8 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  outline: 2px solid #0969da;
-  outline-offset: -1px;
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -7886,7 +7874,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
-  overflow: hidden;
   --inner-action-size: 24px;
   padding-left: 12px;
   padding-top: calc(12px / 2);
@@ -7920,8 +7907,8 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  outline: 2px solid #0969da;
-  outline-offset: -1px;
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -8678,7 +8665,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
-  overflow: hidden;
   --inner-action-size: 24px;
   padding-left: 12px;
   padding-top: calc(12px / 2);
@@ -8712,8 +8698,8 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  outline: 2px solid #0969da;
-  outline-offset: -1px;
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -9539,7 +9525,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
-  overflow: hidden;
   --inner-action-size: 24px;
   padding-left: 12px;
   padding-top: calc(12px / 2);
@@ -9573,8 +9558,8 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  outline: 2px solid #0969da;
-  outline-offset: -1px;
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -10400,7 +10385,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
-  overflow: hidden;
   --inner-action-size: 24px;
   padding-left: 12px;
   padding-top: calc(12px / 2);
@@ -10434,8 +10418,8 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  outline: 2px solid #0969da;
-  outline-offset: -1px;
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -11255,7 +11239,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
-  overflow: hidden;
   --inner-action-size: 24px;
   padding-left: 12px;
   padding-top: calc(12px / 2);
@@ -11289,8 +11272,8 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  outline: 2px solid #0969da;
-  outline-offset: -1px;
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -12078,7 +12061,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
-  overflow: hidden;
   --inner-action-size: 24px;
   padding-left: 12px;
   padding-top: calc(12px / 2);
@@ -12112,8 +12094,8 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  outline: 2px solid #0969da;
-  outline-offset: -1px;
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -12933,7 +12915,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
-  overflow: hidden;
   --inner-action-size: 24px;
   padding-left: 12px;
   padding-top: calc(12px / 2);
@@ -12967,8 +12948,8 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  outline: 2px solid #0969da;
-  outline-offset: -1px;
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -13765,7 +13746,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
-  overflow: hidden;
   --inner-action-size: 20px;
   min-height: 28px;
   padding-left: 8px;
@@ -13806,8 +13786,8 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  outline: 2px solid #0969da;
-  outline-offset: -1px;
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -14671,7 +14651,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
-  overflow: hidden;
   --inner-action-size: 24px;
   padding-left: 12px;
   padding-top: calc(12px / 2);
@@ -14705,8 +14684,8 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  outline: 2px solid #0969da;
-  outline-offset: -1px;
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -15572,7 +15551,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
-  overflow: hidden;
   --inner-action-size: 24px;
   padding-left: 12px;
   padding-top: calc(12px / 2);
@@ -15606,8 +15584,8 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  outline: 2px solid #0969da;
-  outline-offset: -1px;
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -16437,7 +16415,6 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
-  overflow: hidden;
   --inner-action-size: 24px;
   padding-left: 12px;
   padding-top: calc(12px / 2);
@@ -16471,8 +16448,8 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  outline: 2px solid #0969da;
-  outline-offset: -1px;
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -17148,7 +17125,6 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
-  overflow: hidden;
   --inner-action-size: 24px;
   padding-left: 12px;
   padding-top: calc(12px / 2);
@@ -17182,8 +17158,8 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
 
 .c0:focus-within {
   border-color: #0969da;
-  outline: 2px solid #0969da;
-  outline-offset: -1px;
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -17831,7 +17807,6 @@ exports[`TextInputWithTokens renders without tokens 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
-  overflow: hidden;
   --inner-action-size: 24px;
   padding-left: 12px;
   padding-top: calc(12px / 2);
@@ -17865,8 +17840,8 @@ exports[`TextInputWithTokens renders without tokens 1`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  outline: 2px solid #0969da;
-  outline-offset: -1px;
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
