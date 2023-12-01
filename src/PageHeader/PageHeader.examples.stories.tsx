@@ -49,12 +49,7 @@ export const Webhooks = () => (
         </PageHeader.ContextAreaActions>
       </PageHeader.ContextArea>
       <PageHeader.Actions>
-        <Hidden when={['narrow']}>
-          <Button variant="primary">New webhook</Button>
-        </Hidden>
-        <Hidden when={['regular', 'wide']}>
-          <Button variant="primary">New</Button>
-        </Hidden>
+        <Button variant="primary">New webhook</Button>
       </PageHeader.Actions>
     </PageHeader>
   </Box>
@@ -100,22 +95,13 @@ export const PullRequestPage = () => (
       </PageHeader.Actions>
       <PageHeader.Description>
         <StateLabel status="pullOpened">Open</StateLabel>
-        <Hidden when={['narrow']}>
-          <Text sx={{fontSize: 1, color: 'fg.muted'}}>
-            <Link href="https://github.com/broccolinisoup" sx={{fontWeight: 'bold'}}>
-              broccolinisoup
-            </Link>{' '}
-            wants to merge 3 commits into <BranchName href="https://github.com/primer/react">main</BranchName> from{' '}
-            <BranchName href="https://github.com/primer/react">bs/pageheader-title</BranchName>
-          </Text>
-        </Hidden>
-        <Hidden when={['regular', 'wide']}>
-          <Text sx={{fontSize: 1, color: 'fg.muted'}}>
-            <BranchName href="https://github.com/primer/react">main</BranchName>
-            <ArrowRightIcon />
-            <BranchName href="https://github.com/primer/react">page-header-initial</BranchName>
-          </Text>
-        </Hidden>
+        <Text sx={{fontSize: 1, color: 'fg.muted'}}>
+          <Link href="https://github.com/broccolinisoup" sx={{fontWeight: 'bold'}}>
+            broccolinisoup
+          </Link>{' '}
+          wants to merge 3 commits into <BranchName href="https://github.com/primer/react">main</BranchName> from{' '}
+          <BranchName href="https://github.com/primer/react">bs/pageheader-title</BranchName>
+        </Text>
       </PageHeader.Description>
       <PageHeader.Navigation>
         <UnderlineNav aria-label="Pull Request">
