@@ -1,5 +1,11 @@
 # @primer/components
 
+## 36.3.1
+
+### Patch Changes
+
+- [#3998](https://github.com/primer/react/pull/3998) [`dd285e2ac`](https://github.com/primer/react/commit/dd285e2ac83eb282ae7c111fd44e2dffaf15ccb2) Thanks [@joshblack](https://github.com/joshblack)! - Remove changes to focus outline to prevent double focus rings from showing
+
 ## 36.3.0
 
 ### Minor Changes

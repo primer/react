@@ -20,7 +20,6 @@ exports[`TextInput renders 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
-  overflow: hidden;
 }
 
 .c0 input,
@@ -50,8 +49,8 @@ exports[`TextInput renders 1`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  outline: 2px solid #0969da;
-  outline-offset: -1px;
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -142,7 +141,6 @@ exports[`TextInput renders block 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
-  overflow: hidden;
   width: 100%;
   display: -webkit-box;
   display: -webkit-flex;
@@ -180,8 +178,8 @@ exports[`TextInput renders block 1`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  outline: 2px solid #0969da;
-  outline-offset: -1px;
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -272,7 +270,6 @@ exports[`TextInput renders consistently 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
-  overflow: hidden;
 }
 
 .c0 input,
@@ -302,8 +299,8 @@ exports[`TextInput renders consistently 1`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  outline: 2px solid #0969da;
-  outline-offset: -1px;
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -393,7 +390,6 @@ exports[`TextInput renders contrast 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
-  overflow: hidden;
   background-color: #f6f8fa;
 }
 
@@ -424,8 +420,8 @@ exports[`TextInput renders contrast 1`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  outline: 2px solid #0969da;
-  outline-offset: -1px;
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -516,7 +512,6 @@ exports[`TextInput renders error 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
-  overflow: hidden;
   border-color: #cf222e;
 }
 
@@ -547,8 +542,8 @@ exports[`TextInput renders error 1`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  outline: 2px solid #0969da;
-  outline-offset: -1px;
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -557,8 +552,8 @@ exports[`TextInput renders error 1`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  outline: 2px solid #0969da;
-  outline-offset: -1px;
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c1 {
@@ -645,7 +640,6 @@ exports[`TextInput renders large 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
-  overflow: hidden;
   --inner-action-size: 28px;
   padding-left: 8px;
   padding-right: 8px;
@@ -681,8 +675,8 @@ exports[`TextInput renders large 1`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  outline: 2px solid #0969da;
-  outline-offset: -1px;
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -774,7 +768,6 @@ exports[`TextInput renders leadingVisual 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
-  overflow: hidden;
 }
 
 .c0 input,
@@ -804,8 +797,8 @@ exports[`TextInput renders leadingVisual 1`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  outline: 2px solid #0969da;
-  outline-offset: -1px;
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -923,7 +916,6 @@ exports[`TextInput renders leadingVisual 2`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
-  overflow: hidden;
 }
 
 .c0 input,
@@ -953,8 +945,8 @@ exports[`TextInput renders leadingVisual 2`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  outline: 2px solid #0969da;
-  outline-offset: -1px;
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -1072,7 +1064,6 @@ exports[`TextInput renders leadingVisual 3`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
-  overflow: hidden;
 }
 
 .c0 input,
@@ -1102,8 +1093,8 @@ exports[`TextInput renders leadingVisual 3`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  outline: 2px solid #0969da;
-  outline-offset: -1px;
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -1202,7 +1193,6 @@ exports[`TextInput renders leadingVisual 4`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
-  overflow: hidden;
 }
 
 .c0 input,
@@ -1232,8 +1222,8 @@ exports[`TextInput renders leadingVisual 4`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  outline: 2px solid #0969da;
-  outline-offset: -1px;
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -1332,7 +1322,6 @@ exports[`TextInput renders monospace 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
-  overflow: hidden;
   font-family: SFMono-Regular,Consolas,"Liberation Mono",Menlo,Courier,monospace;
 }
 
@@ -1363,8 +1352,8 @@ exports[`TextInput renders monospace 1`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  outline: 2px solid #0969da;
-  outline-offset: -1px;
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -1455,7 +1444,6 @@ exports[`TextInput renders placeholder 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
-  overflow: hidden;
 }
 
 .c0 input,
@@ -1485,8 +1473,8 @@ exports[`TextInput renders placeholder 1`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  outline: 2px solid #0969da;
-  outline-offset: -1px;
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -1578,7 +1566,6 @@ exports[`TextInput renders small 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
-  overflow: hidden;
   --inner-action-size: 20px;
   min-height: 28px;
   padding-left: 8px;
@@ -1616,8 +1603,8 @@ exports[`TextInput renders small 1`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  outline: 2px solid #0969da;
-  outline-offset: -1px;
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -1979,7 +1966,6 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
-  overflow: hidden;
 }
 
 .c0 input,
@@ -2668,7 +2654,6 @@ exports[`TextInput renders trailingAction text button 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
-  overflow: hidden;
 }
 
 .c0 input,
@@ -3113,7 +3098,6 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
-  overflow: hidden;
 }
 
 .c0 input,
@@ -3516,7 +3500,6 @@ exports[`TextInput renders trailingVisual 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
-  overflow: hidden;
 }
 
 .c0 input,
@@ -3546,8 +3529,8 @@ exports[`TextInput renders trailingVisual 1`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  outline: 2px solid #0969da;
-  outline-offset: -1px;
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -3665,7 +3648,6 @@ exports[`TextInput renders trailingVisual 2`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
-  overflow: hidden;
 }
 
 .c0 input,
@@ -3695,8 +3677,8 @@ exports[`TextInput renders trailingVisual 2`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  outline: 2px solid #0969da;
-  outline-offset: -1px;
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -3814,7 +3796,6 @@ exports[`TextInput renders trailingVisual 3`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
-  overflow: hidden;
 }
 
 .c0 input,
@@ -3844,8 +3825,8 @@ exports[`TextInput renders trailingVisual 3`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  outline: 2px solid #0969da;
-  outline-offset: -1px;
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -3944,7 +3925,6 @@ exports[`TextInput renders trailingVisual 4`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
-  overflow: hidden;
 }
 
 .c0 input,
@@ -3974,8 +3954,8 @@ exports[`TextInput renders trailingVisual 4`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  outline: 2px solid #0969da;
-  outline-offset: -1px;
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -4089,7 +4069,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
-  overflow: hidden;
 }
 
 .c0 input,
@@ -4119,8 +4098,8 @@ exports[`TextInput renders with a loading indicator 1`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  outline: 2px solid #0969da;
-  outline-offset: -1px;
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -4273,7 +4252,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
-  overflow: hidden;
 }
 
 .c0 input,
@@ -4303,8 +4281,8 @@ exports[`TextInput renders with a loading indicator 1`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  outline: 2px solid #0969da;
-  outline-offset: -1px;
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -4489,7 +4467,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
-  overflow: hidden;
 }
 
 .c0 input,
@@ -4519,8 +4496,8 @@ exports[`TextInput renders with a loading indicator 1`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  outline: 2px solid #0969da;
-  outline-offset: -1px;
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -4682,7 +4659,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
-  overflow: hidden;
 }
 
 .c0 input,
@@ -4712,8 +4688,8 @@ exports[`TextInput renders with a loading indicator 1`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  outline: 2px solid #0969da;
-  outline-offset: -1px;
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -4944,7 +4920,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
-  overflow: hidden;
 }
 
 .c0 input,
@@ -4974,8 +4949,8 @@ exports[`TextInput renders with a loading indicator 1`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  outline: 2px solid #0969da;
-  outline-offset: -1px;
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -5206,7 +5181,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
-  overflow: hidden;
 }
 
 .c0 input,
@@ -5236,8 +5210,8 @@ exports[`TextInput renders with a loading indicator 1`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  outline: 2px solid #0969da;
-  outline-offset: -1px;
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -5462,7 +5436,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
-  overflow: hidden;
 }
 
 .c0 input,
@@ -5492,8 +5465,8 @@ exports[`TextInput renders with a loading indicator 1`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  outline: 2px solid #0969da;
-  outline-offset: -1px;
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -5686,7 +5659,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
-  overflow: hidden;
 }
 
 .c0 input,
@@ -5716,8 +5688,8 @@ exports[`TextInput renders with a loading indicator 1`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  outline: 2px solid #0969da;
-  outline-offset: -1px;
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -5942,7 +5914,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
-  overflow: hidden;
 }
 
 .c0 input,
@@ -5972,8 +5943,8 @@ exports[`TextInput renders with a loading indicator 1`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  outline: 2px solid #0969da;
-  outline-offset: -1px;
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -6175,7 +6146,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
-  overflow: hidden;
   --inner-action-size: 20px;
   min-height: 28px;
   padding-left: 8px;
@@ -6213,8 +6183,8 @@ exports[`TextInput renders with a loading indicator 1`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  outline: 2px solid #0969da;
-  outline-offset: -1px;
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -6486,7 +6456,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
-  overflow: hidden;
 }
 
 .c0 input,
@@ -6516,8 +6485,8 @@ exports[`TextInput renders with a loading indicator 1`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  outline: 2px solid #0969da;
-  outline-offset: -1px;
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -6788,7 +6757,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
-  overflow: hidden;
   --inner-action-size: 28px;
   padding-left: 8px;
   padding-right: 8px;
@@ -6824,8 +6792,8 @@ exports[`TextInput renders with a loading indicator 1`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  outline: 2px solid #0969da;
-  outline-offset: -1px;
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -7063,7 +7031,6 @@ exports[`TextInput should render a password input 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
-  overflow: hidden;
 }
 
 .c0 input,
@@ -7093,8 +7060,8 @@ exports[`TextInput should render a password input 1`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  outline: 2px solid #0969da;
-  outline-offset: -1px;
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
