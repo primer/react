@@ -249,31 +249,28 @@ exports[`Button renders consistently 1`] = `
       data-component="buttonContent"
     />
   </button>,
-  .c0 {
-  position: absolute;
-  width: 1px;
+  .c0:not(:focus):not(:active):not(:focus-within) {
+  -webkit-clip-path: inset(50%);
+  clip-path: inset(50%);
   height: 1px;
-  padding: 0;
-  margin: -1px;
   overflow: hidden;
-  -webkit-clip: rect(0,0,0,0);
-  clip: rect(0,0,0,0);
+  position: absolute;
   white-space: nowrap;
-  border-width: 0;
+  width: 1px;
 }
 
 @media (forced-colors:active) {
 
 }
 
-<span
+<div
     className="c0"
   >
     <span
       aria-live="polite"
       id="test-button-loading-announcement"
     />
-  </span>,
+  </div>,
 ]
 `;
 

@@ -241,17 +241,14 @@ exports[`ActionMenu renders consistently 1`] = `
   color: var(--button-color,#656d76);
 }
 
-.c4 {
-  position: absolute;
-  width: 1px;
+.c4:not(:focus):not(:active):not(:focus-within) {
+  -webkit-clip-path: inset(50%);
+  clip-path: inset(50%);
   height: 1px;
-  padding: 0;
-  margin: -1px;
   overflow: hidden;
-  -webkit-clip: rect(0,0,0,0);
-  clip: rect(0,0,0,0);
+  position: absolute;
   white-space: nowrap;
-  border-width: 0;
+  width: 1px;
 }
 
 @media (forced-colors:active) {
@@ -321,13 +318,13 @@ exports[`ActionMenu renders consistently 1`] = `
       </svg>
     </span>
   </button>
-  <span
+  <div
     className="c4"
   >
     <span
       aria-live="polite"
       id="react-aria-1-loading-announcement"
     />
-  </span>
+  </div>
 </div>
 `;

@@ -322,17 +322,14 @@ exports[`Dialog renders consistently 1`] = `
   color: inherit;
 }
 
-.c2 {
-  position: absolute;
-  width: 1px;
+.c2:not(:focus):not(:active):not(:focus-within) {
+  -webkit-clip-path: inset(50%);
+  clip-path: inset(50%);
   height: 1px;
-  padding: 0;
-  margin: -1px;
   overflow: hidden;
-  -webkit-clip: rect(0,0,0,0);
-  clip: rect(0,0,0,0);
+  position: absolute;
   white-space: nowrap;
-  border-width: 0;
+  width: 1px;
 }
 
 .c5 {
@@ -402,9 +399,9 @@ exports[`Dialog renders consistently 1`] = `
     tabIndex={-1}
   >
     <button
-      aria-describedby="react-aria9840109049-1-loading-announcement"
+      aria-describedby="react-aria6337371852-1-loading-announcement"
       aria-label="Close"
-      aria-labelledby="react-aria9840109049-1-label"
+      aria-labelledby="react-aria6337371852-1-label"
       className="c1"
       data-block={null}
       data-component="IconButton"
@@ -435,14 +432,14 @@ exports[`Dialog renders consistently 1`] = `
         />
       </svg>
     </button>
-    <span
+    <div
       className="c2"
     >
       <span
         aria-live="polite"
-        id="react-aria9840109049-1-loading-announcement"
+        id="react-aria6337371852-1-loading-announcement"
       />
-    </span>
+    </div>
     <div
       className="c3 c4"
       id="header"
