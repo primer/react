@@ -1,7 +1,6 @@
 import {EyeIcon, TriangleDownIcon, HeartIcon, DownloadIcon} from '@primer/octicons-react'
 import React, {useState} from 'react'
 import {Button} from '.'
-import {Box, Flash} from '..'
 
 export default {
   title: 'Components/Button/Features',
@@ -124,65 +123,5 @@ export const LoadingWithTrailingVisual = () => {
     <Button loading={isLoading} onClick={handleClick} trailingVisual={DownloadIcon}>
       Export
     </Button>
-  )
-}
-
-export const LoadingWithErrorMessageInvisible = () => {
-  const [isLoading, setIsLoading] = useState(false)
-  const [hasError, setHasError] = useState(false)
-
-  const handleClick = () => {
-    setIsLoading(true)
-    setTimeout(() => {
-      setIsLoading(false)
-      setHasError(true)
-    }, 1500)
-  }
-
-  return (
-    <>
-      <Button loading={isLoading} onClick={handleClick}>
-        Export
-      </Button>
-      <Box
-        role="alert"
-        sx={{
-          clipPath: 'inset(50%)',
-          height: '1px',
-          overflow: 'hidden',
-          position: 'absolute',
-          whiteSpace: 'nowrap',
-          width: '1px',
-        }}
-      >
-        {hasError ? 'Export failed' : null}
-      </Box>
-    </>
-  )
-}
-
-export const LoadingWithErrorMessageVisible = () => {
-  const [isLoading, setIsLoading] = useState(false)
-  const [hasError, setHasError] = useState(false)
-
-  const handleClick = () => {
-    setIsLoading(true)
-    setTimeout(() => {
-      setIsLoading(false)
-      setHasError(true)
-    }, 1500)
-  }
-
-  return (
-    <>
-      {hasError && (
-        <Flash variant="danger" sx={{marginBlockEnd: '0.5rem'}}>
-          Export failed
-        </Flash>
-      )}
-      <Button loading={isLoading} onClick={handleClick}>
-        Export
-      </Button>
-    </>
   )
 }
