@@ -7,7 +7,7 @@ import {ButtonProps, StyledButton} from './types'
 import {getVariantStyles, getButtonStyles, getAlignContentSize} from './styles'
 import {useRefObjectAsForwardedRef} from '../hooks/useRefObjectAsForwardedRef'
 import {defaultSxProp} from '../utils/defaultSxProp'
-import VisuallyHidden from '../_VisuallyHidden'
+import {VisuallyHidden} from '../internal/components/VisuallyHidden'
 import Spinner from '../Spinner'
 import CounterLabel from '../CounterLabel'
 import {useId} from '../hooks'
@@ -18,9 +18,11 @@ const ButtonBase = forwardRef(
       leadingVisual: LeadingVisual,
       trailingVisual: TrailingVisual,
       trailingAction: TrailingAction,
-      ['aria-describedby']: ariaDescribedby,
+      ['aria-describedby']: ariaDescribedBy,
+      ['aria-labelledby']: ariaLabelledBy,
       count,
       icon: Icon,
+      id,
       variant = 'default',
       size = 'medium',
       alignContent = 'center',
@@ -44,7 +46,9 @@ const ButtonBase = forwardRef(
       display: 'flex',
       pointerEvents: 'none',
     }
-    const loadingAnnouncementID = useId()
+    const uuid = useId(id)
+    const loadingAnnouncementID = `${uuid}-loading-announcement`
+    const buttonLabelID = ariaLabelledBy || `${uuid}-label`
 
     if (__DEV__) {
       /**
@@ -77,7 +81,12 @@ const ButtonBase = forwardRef(
           data-size={size === 'small' || size === 'large' ? size : undefined}
           data-no-visuals={!LeadingVisual && !TrailingVisual && !TrailingAction ? true : undefined}
           aria-disabled={loading ? true : undefined}
-          aria-describedby={loading ? loadingAnnouncementID : ariaDescribedby}
+          aria-describedby={[loadingAnnouncementID, ariaDescribedBy]
+            .filter(descriptionID => Boolean(descriptionID))
+            .join(' ')}
+          // aria-labelledby is needed because the accessible name becomes unset when the button is in a loading state
+          aria-labelledby={buttonLabelID}
+          id={id}
         >
           {Icon ? (
             loading ? (
@@ -104,7 +113,7 @@ const ButtonBase = forwardRef(
                   </Box>
                 )}
                 {children && (
-                  <span data-component="text">
+                  <span data-component="text" id={buttonLabelID}>
                     {children}
                     {count !== undefined && !TrailingVisual && (
                       <CounterLabel data-component="ButtonCounter" sx={{ml: 2}}>
@@ -132,13 +141,11 @@ const ButtonBase = forwardRef(
             </>
           )}
         </StyledButton>
-        {loading && (
-          <VisuallyHidden>
-            <span aria-live="polite" id={loadingAnnouncementID}>
-              {loadingAnnouncement}
-            </span>
-          </VisuallyHidden>
-        )}
+        <VisuallyHidden>
+          <span aria-live="polite" id={loadingAnnouncementID}>
+            {loading && loadingAnnouncement}
+          </span>
+        </VisuallyHidden>
       </>
     )
   },
