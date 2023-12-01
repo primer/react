@@ -241,6 +241,19 @@ exports[`SelectPanel renders consistently 1`] = `
   color: var(--button-color,#656d76);
 }
 
+.c4 {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  -webkit-clip: rect(0,0,0,0);
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
 @media (forced-colors:active) {
   .c1:focus {
     outline: solid 1px transparent;
@@ -257,7 +270,9 @@ exports[`SelectPanel renders consistently 1`] = `
   fontFamily="normal"
 >
   <button
+    aria-describedby="react-aria-3-loading-announcement"
     aria-haspopup="true"
+    aria-labelledby="react-aria-3-label"
     className="c1"
     data-block={null}
     id="react-aria-3"
@@ -273,6 +288,7 @@ exports[`SelectPanel renders consistently 1`] = `
     >
       <span
         data-component="text"
+        id="react-aria-3-label"
       >
         Select Items
       </span>
@@ -305,6 +321,14 @@ exports[`SelectPanel renders consistently 1`] = `
       </svg>
     </span>
   </button>
+  <span
+    className="c4"
+  >
+    <span
+      aria-live="polite"
+      id="react-aria-3-loading-announcement"
+    />
+  </span>
   <div
     id="portal-root"
   />

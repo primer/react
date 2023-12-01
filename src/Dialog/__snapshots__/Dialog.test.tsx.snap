@@ -72,12 +72,12 @@ exports[`Dialog renders consistently 1`] = `
 <span
     className="c0"
   />,
-  .c2 {
+  .c3 {
   padding: 16px;
   background-color: #f6f8fa;
 }
 
-.c5 {
+.c6 {
   padding: 16px;
 }
 
@@ -322,14 +322,27 @@ exports[`Dialog renders consistently 1`] = `
   color: inherit;
 }
 
-.c4 {
+.c2 {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  -webkit-clip: rect(0,0,0,0);
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+.c5 {
   font-size: 14px;
   font-weight: 600;
   font-family: sans-serif;
   color: #1F2328;
 }
 
-.c6 {
+.c7 {
   font-family: sans-serif;
 }
 
@@ -350,7 +363,7 @@ exports[`Dialog renders consistently 1`] = `
   outline: none;
 }
 
-.c3 {
+.c4 {
   border-radius: 6px 6px 0px 0px;
   border-bottom: 1px solid #d0d7de;
   display: -webkit-box;
@@ -375,7 +388,7 @@ exports[`Dialog renders consistently 1`] = `
 }
 
 @media screen and (max-width:750px) {
-  .c3 {
+  .c4 {
     border-radius: 0px;
   }
 }
@@ -389,7 +402,9 @@ exports[`Dialog renders consistently 1`] = `
     tabIndex={-1}
   >
     <button
+      aria-describedby="react-aria9840109049-1-loading-announcement"
       aria-label="Close"
+      aria-labelledby="react-aria9840109049-1-label"
       className="c1"
       data-block={null}
       data-component="IconButton"
@@ -420,12 +435,20 @@ exports[`Dialog renders consistently 1`] = `
         />
       </svg>
     </button>
+    <span
+      className="c2"
+    >
+      <span
+        aria-live="polite"
+        id="react-aria9840109049-1-loading-announcement"
+      />
+    </span>
     <div
-      className="c2 c3"
+      className="c3 c4"
       id="header"
     >
       <span
-        className="c4"
+        className="c5"
         color="fg.default"
         fontFamily="sans-serif"
         fontSize={1}
@@ -435,10 +458,10 @@ exports[`Dialog renders consistently 1`] = `
       </span>
     </div>
     <div
-      className="c5"
+      className="c6"
     >
       <span
-        className="c6"
+        className="c7"
         fontFamily="sans-serif"
       >
         Some content

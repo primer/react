@@ -1,7 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Button renders consistently 1`] = `
-.c1 {
+[
+  .c1 {
   -webkit-box-pack: center;
   -webkit-justify-content: center;
   -ms-flex-pack: center;
@@ -234,17 +235,46 @@ exports[`Button renders consistently 1`] = `
 }
 
 <button
-  className="c0"
-  data-block={null}
-  data-no-visuals={true}
-  style={{}}
-  type="button"
->
-  <span
-    className="c1"
-    data-component="buttonContent"
-  />
-</button>
+    aria-describedby="test-button-loading-announcement"
+    aria-labelledby="test-button-label"
+    className="c0"
+    data-block={null}
+    data-no-visuals={true}
+    id="test-button"
+    style={{}}
+    type="button"
+  >
+    <span
+      className="c1"
+      data-component="buttonContent"
+    />
+  </button>,
+  .c0 {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  -webkit-clip: rect(0,0,0,0);
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+@media (forced-colors:active) {
+
+}
+
+<span
+    className="c0"
+  >
+    <span
+      aria-live="polite"
+      id="test-button-loading-announcement"
+    />
+  </span>,
+]
 `;
 
 exports[`Button respects block prop 1`] = `
@@ -481,9 +511,12 @@ exports[`Button respects block prop 1`] = `
 }
 
 <button
+  aria-describedby="test-button-loading-announcement"
+  aria-labelledby="test-button-label"
   class="c0"
   data-block="block"
   data-no-visuals="true"
+  id="test-button"
   type="button"
 >
   <span
@@ -492,6 +525,7 @@ exports[`Button respects block prop 1`] = `
   >
     <span
       data-component="text"
+      id="test-button-label"
     >
       Block
     </span>
@@ -733,8 +767,11 @@ exports[`Button respects the alignContent prop 1`] = `
 }
 
 <button
+  aria-describedby="test-button-loading-announcement"
+  aria-labelledby="test-button-label"
   class="c0"
   data-no-visuals="true"
+  id="test-button"
   type="button"
 >
   <span
@@ -743,6 +780,7 @@ exports[`Button respects the alignContent prop 1`] = `
   >
     <span
       data-component="text"
+      id="test-button-label"
     >
       Align start
     </span>
@@ -984,9 +1022,12 @@ exports[`Button respects the large size prop 1`] = `
 }
 
 <button
+  aria-describedby="test-button-loading-announcement"
+  aria-labelledby="test-button-label"
   class="c0"
   data-no-visuals="true"
   data-size="large"
+  id="test-button"
   type="button"
 >
   <span
@@ -995,6 +1036,7 @@ exports[`Button respects the large size prop 1`] = `
   >
     <span
       data-component="text"
+      id="test-button-label"
     >
       Smol
     </span>
@@ -1236,9 +1278,12 @@ exports[`Button respects the small size prop 1`] = `
 }
 
 <button
+  aria-describedby="test-button-loading-announcement"
+  aria-labelledby="test-button-label"
   class="c0"
   data-no-visuals="true"
   data-size="small"
+  id="test-button"
   type="button"
 >
   <span
@@ -1247,6 +1292,7 @@ exports[`Button respects the small size prop 1`] = `
   >
     <span
       data-component="text"
+      id="test-button-label"
     >
       Smol
     </span>
@@ -1498,8 +1544,11 @@ exports[`Button styles danger button appropriately 1`] = `
 }
 
 <button
+  aria-describedby="test-button-loading-announcement"
+  aria-labelledby="test-button-label"
   class="c0"
   data-no-visuals="true"
+  id="test-button"
   type="button"
 >
   <span
@@ -1508,6 +1557,7 @@ exports[`Button styles danger button appropriately 1`] = `
   >
     <span
       data-component="text"
+      id="test-button-label"
     >
       Danger
     </span>
@@ -1768,8 +1818,11 @@ exports[`Button styles invisible button appropriately 1`] = `
 }
 
 <button
+  aria-describedby="test-button-loading-announcement"
+  aria-labelledby="test-button-label"
   class="c0"
   data-no-visuals="true"
+  id="test-button"
   type="button"
 >
   <span
@@ -1778,6 +1831,7 @@ exports[`Button styles invisible button appropriately 1`] = `
   >
     <span
       data-component="text"
+      id="test-button-label"
     >
       Invisible
     </span>
@@ -2024,8 +2078,11 @@ exports[`Button styles primary button appropriately 1`] = `
 }
 
 <button
+  aria-describedby="test-button-loading-announcement"
+  aria-labelledby="test-button-label"
   class="c0"
   data-no-visuals="true"
+  id="test-button"
   type="button"
 >
   <span
@@ -2034,6 +2091,7 @@ exports[`Button styles primary button appropriately 1`] = `
   >
     <span
       data-component="text"
+      id="test-button-label"
     >
       Primary
     </span>
