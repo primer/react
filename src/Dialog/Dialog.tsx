@@ -6,6 +6,7 @@ import {get} from '../constants'
 import {useOnEscapePress, useProvidedRefOrCreate} from '../hooks'
 import {useFocusTrap} from '../hooks/useFocusTrap'
 import sx, {SxProp} from '../sx'
+import {ResponsiveValue, useResponsiveValue} from '../hooks/useResponsiveValue'
 import Octicon from '../Octicon'
 import {XIcon} from '@primer/octicons-react'
 import {useFocusZone} from '../hooks/useFocusZone'
@@ -110,6 +111,13 @@ export interface DialogProps extends SxProp {
   role?: 'dialog' | 'alertdialog'
 
   /**
+   * Normally a dialog is display in the center of a viewport but sometimes
+   * it is useful to display this full screen on mobile viewports to allow for
+   * more space for content. When full-screen the width and height is ignored.
+   */
+  type?: DialogType | ResponsiveValue<DialogType>
+
+  /**
    * The width of the dialog.
    * small: 296px
    * medium: 320px
@@ -144,28 +152,6 @@ export interface DialogHeaderProps extends DialogProps {
   dialogDescriptionId: string
 }
 
-const Backdrop = styled('div')`
-  position: fixed;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: ${get('colors.primer.canvas.backdrop')};
-  animation: dialog-backdrop-appear ${ANIMATION_DURATION} ${get('animation.easeOutCubic')};
-
-  @keyframes dialog-backdrop-appear {
-    0% {
-      opacity: 0;
-    }
-    100% {
-      opacity: 1;
-    }
-  }
-`
-
 const heightMap = {
   small: '480px',
   large: '640px',
@@ -181,39 +167,12 @@ const widthMap = {
 
 export type DialogWidth = keyof typeof widthMap
 export type DialogHeight = keyof typeof heightMap
+export type DialogType = 'default' | 'full-screen' | 'action-sheet'
 
 type StyledDialogProps = {
   width?: DialogWidth
   height?: DialogHeight
 } & SxProp
-
-const StyledDialog = styled.div<StyledDialogProps>`
-  display: flex;
-  flex-direction: column;
-  background-color: ${get('colors.canvas.overlay')};
-  box-shadow: ${get('shadows.overlay.shadow')};
-  min-width: 296px;
-  max-width: calc(100vw - 64px);
-  max-height: calc(100vh - 64px);
-  width: ${props => widthMap[props.width ?? ('xlarge' as const)]};
-  height: ${props => heightMap[props.height ?? ('auto' as const)]};
-  border-radius: 12px;
-  opacity: 1;
-  animation: overlay--dialog-appear ${ANIMATION_DURATION} ${get('animation.easeOutCubic')};
-
-  @keyframes overlay--dialog-appear {
-    0% {
-      opacity: 0;
-      transform: scale(0.5);
-    }
-    100% {
-      opacity: 1;
-      transform: scale(1);
-    }
-  }
-
-  ${sx};
-`
 
 const DefaultHeader: React.FC<React.PropsWithChildren<DialogHeaderProps>> = ({
   dialogLabelId,
@@ -263,6 +222,7 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
     role = 'dialog',
     width = 'xlarge',
     height = 'auto',
+    type = 'default',
     footerButtons = [],
     sx,
   } = props
@@ -275,6 +235,7 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
     }
   }
   const defaultedProps = {...props, title, subtitle, role, dialogLabelId, dialogDescriptionId}
+  const responsiveType = useResponsiveValue(type, 'default')
 
   const dialogRef = useRef<HTMLDivElement>(null)
   useRefObjectAsForwardedRef(forwardedRef, dialogRef)
@@ -312,10 +273,8 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
   return (
     <>
       <Portal>
-        <Backdrop ref={backdropRef}>
-          <StyledDialog
-            width={width}
-            height={height}
+        {responsiveType === 'full-screen' ? (
+          <FullScreenDialog
             ref={dialogRef}
             role={role}
             aria-labelledby={dialogLabelId}
@@ -326,57 +285,30 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
             {header}
             {body}
             {footer}
-          </StyledDialog>
-        </Backdrop>
+          </FullScreenDialog>
+        ) : (
+          <Backdrop ref={backdropRef}>
+            <NormalDialog
+              width={width}
+              height={height}
+              ref={dialogRef}
+              role={role}
+              aria-labelledby={dialogLabelId}
+              aria-describedby={dialogDescriptionId}
+              aria-modal
+              sx={sx}
+            >
+              {header}
+              {body}
+              {footer}
+            </NormalDialog>
+          </Backdrop>
+        )}
       </Portal>
     </>
   )
 })
 _Dialog.displayName = 'Dialog'
-
-const Header = styled.div<SxProp>`
-  box-shadow: 0 1px 0 ${get('colors.border.default')};
-  padding: ${get('space.2')};
-  z-index: 1;
-  flex-shrink: 0;
-`
-
-const Title = styled.h1<SxProp>`
-  font-size: ${get('fontSizes.1')};
-  font-weight: ${get('fontWeights.bold')};
-  margin: 0; /* override default margin */
-  ${sx};
-`
-
-const Subtitle = styled.h2<SxProp>`
-  font-size: ${get('fontSizes.0')};
-  color: ${get('colors.fg.muted')};
-  margin: 0; /* override default margin */
-  margin-top: ${get('space.1')};
-
-  ${sx};
-`
-
-const Body = styled.div<SxProp>`
-  flex-grow: 1;
-  overflow: auto;
-  padding: ${get('space.3')};
-
-  ${sx};
-`
-
-const Footer = styled.div<SxProp>`
-  box-shadow: 0 -1px 0 ${get('colors.border.default')};
-  padding: ${get('space.3')};
-  display: flex;
-  flex-flow: wrap;
-  justify-content: flex-end;
-  gap: ${get('space.2')};
-  z-index: 1;
-  flex-shrink: 0;
-
-  ${sx};
-`
 
 const buttonTypes = {
   normal: Button,
@@ -415,6 +347,125 @@ const Buttons: React.FC<React.PropsWithChildren<{buttons: DialogButtonProps[]}>>
     </>
   )
 }
+
+/**
+ * Styled wrappers
+ */
+
+const Backdrop = styled('div')`
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: ${get('colors.primer.canvas.backdrop')};
+  animation: dialog-backdrop-appear ${ANIMATION_DURATION} ${get('animation.easeOutCubic')};
+
+  @keyframes dialog-backdrop-appear {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+`
+
+const NormalDialog = styled.div<StyledDialogProps>`
+  display: flex;
+  flex-direction: column;
+  background-color: ${get('colors.canvas.overlay')};
+  box-shadow: ${get('shadows.overlay.shadow')};
+  min-width: 296px;
+  max-width: calc(100vw - 64px);
+  max-height: calc(100vh - 64px);
+  width: ${props => widthMap[props.width ?? ('xlarge' as const)]};
+  height: ${props => heightMap[props.height ?? ('auto' as const)]};
+  border-radius: 12px;
+  opacity: 1;
+  animation: overlay--dialog-appear ${ANIMATION_DURATION} ${get('animation.easeOutCubic')};
+
+  @keyframes overlay--dialog-appear {
+    0% {
+      opacity: 0;
+      transform: scale(0.5);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  ${sx};
+`
+
+const FullScreenDialog = styled.div<StyledDialogProps>`
+  display: flex;
+  flex-direction: column;
+  background-color: ${get('colors.canvas.overlay')};
+  width: 100vw;
+  height: 100vh;
+  opacity: 1;
+  animation: overlay--dialog-appear ${ANIMATION_DURATION} ${get('animation.easeOutCubic')};
+  @keyframes overlay--dialog-appear {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  ${sx};
+`
+
+const Header = styled.div<SxProp>`
+  box-shadow: 0 1px 0 ${get('colors.border.default')};
+  padding: ${get('space.2')};
+  z-index: 1;
+  flex-shrink: 0;
+`
+
+const Title = styled.h1<SxProp>`
+  font-size: ${get('fontSizes.1')};
+  font-weight: ${get('fontWeights.bold')};
+  margin: 0; /* override default margin */
+  ${sx};
+`
+
+const Subtitle = styled.h2<SxProp>`
+  font-size: ${get('fontSizes.0')};
+  font-weight: ${get('fontWeights.normal')};
+  color: ${get('colors.fg.muted')};
+  margin: 0; /* override default margin */
+  margin-top: ${get('space.1')};
+
+  ${sx};
+`
+
+const Body = styled.div<SxProp>`
+  flex-grow: 1;
+  overflow: auto;
+  padding: ${get('space.3')};
+
+  ${sx};
+`
+
+const Footer = styled.div<SxProp>`
+  box-shadow: 0 -1px 0 ${get('colors.border.default')};
+  padding: ${get('space.3')};
+  display: flex;
+  flex-flow: wrap;
+  justify-content: flex-end;
+  gap: ${get('space.2')};
+  z-index: 1;
+  flex-shrink: 0;
+
+  ${sx};
+`
+
 const DialogCloseButton = styled(Button)`
   border-radius: 4px;
   background: transparent;
@@ -426,6 +477,7 @@ const DialogCloseButton = styled(Button)`
   line-height: normal;
   box-shadow: none;
 `
+
 const CloseButton: React.FC<React.PropsWithChildren<{onClose: () => void}>> = ({onClose}) => {
   return (
     <DialogCloseButton aria-label="Close" onClick={onClose}>

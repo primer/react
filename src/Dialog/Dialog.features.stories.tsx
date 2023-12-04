@@ -209,6 +209,34 @@ export const StressTest = ({width, height, subtitle}: DialogStoryProps) => {
   )
 }
 
+export const Responsive = ({width, height}: DialogStoryProps) => {
+  const [isOpen, setIsOpen] = useState(false)
+  const buttonRef = useRef<HTMLButtonElement>(null)
+  const onDialogClose = useCallback(() => setIsOpen(false), [])
+  return (
+    <>
+      <Button ref={buttonRef} onClick={() => setIsOpen(!isOpen)}>
+        Show dialog
+      </Button>
+      {isOpen && (
+        <Dialog
+          title="Your title"
+          onClose={onDialogClose}
+          type={{narrow: 'full-screen', regular: 'default', wide: 'default'}}
+          width={width}
+          height={height}
+          footerButtons={[
+            {buttonType: 'normal', content: 'Cancel', onClick: onDialogClose},
+            {buttonType: 'primary', content: 'Submit', autoFocus: true},
+          ]}
+        >
+          {lipsum}
+        </Dialog>
+      )}
+    </>
+  )
+}
+
 // repro for https://github.com/github/primer/issues/2480
 export const ReproMultistepDialogWithConditionalFooter = ({width, height}: DialogStoryProps) => {
   const [isOpen, setIsOpen] = useState(false)
