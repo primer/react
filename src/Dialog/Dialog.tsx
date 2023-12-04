@@ -2,6 +2,7 @@ import React, {useCallback, useEffect, useRef, useState} from 'react'
 import styled from 'styled-components'
 import Button, {ButtonPrimary, ButtonDanger, ButtonProps} from '../deprecated/Button'
 import Box from '../Box'
+import DialogActionSheet from './DialogActionSheet'
 import {get} from '../constants'
 import {useOnEscapePress, useProvidedRefOrCreate} from '../hooks'
 import {useFocusTrap} from '../hooks/useFocusTrap'
@@ -101,7 +102,7 @@ export interface DialogProps extends SxProp {
    * gesture argument indicates the gesture that was used to close the dialog
    * (either 'close-button' or 'escape').
    */
-  onClose: (gesture: 'close-button' | 'escape') => void
+  onClose: (gesture: 'close-button' | 'escape' | 'drag' | 'overlay') => void
 
   /**
    * Default: "dialog". The ARIA role to assign to this dialog.
@@ -270,42 +271,54 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
   const body = (renderBody ?? DefaultBody)(defaultedProps)
   const footer = (renderFooter ?? DefaultFooter)(defaultedProps)
 
-  return (
-    <>
+  if (responsiveType === 'full-screen') {
+    return (
       <Portal>
-        {responsiveType === 'full-screen' ? (
-          <FullScreenDialog
-            ref={dialogRef}
-            role={role}
-            aria-labelledby={dialogLabelId}
-            aria-describedby={dialogDescriptionId}
-            aria-modal
-            sx={sx}
-          >
-            {header}
-            {body}
-            {footer}
-          </FullScreenDialog>
-        ) : (
-          <Backdrop ref={backdropRef}>
-            <NormalDialog
-              width={width}
-              height={height}
-              ref={dialogRef}
-              role={role}
-              aria-labelledby={dialogLabelId}
-              aria-describedby={dialogDescriptionId}
-              aria-modal
-              sx={sx}
-            >
-              {header}
-              {body}
-              {footer}
-            </NormalDialog>
-          </Backdrop>
-        )}
+        <FullScreenDialog
+          ref={dialogRef}
+          role={role}
+          aria-labelledby={dialogLabelId}
+          aria-describedby={dialogDescriptionId}
+          aria-modal
+          sx={sx}
+        >
+          {header}
+          {body}
+          {footer}
+        </FullScreenDialog>
       </Portal>
-    </>
+    )
+  }
+
+  if (responsiveType === 'action-sheet') {
+    return (
+      <DialogActionSheet open={true} onClose={onClose}>
+        {header}
+        {body}
+        {footer}
+      </DialogActionSheet>
+    )
+  }
+
+  return (
+    <Portal>
+      <Backdrop ref={backdropRef}>
+        <NormalDialog
+          width={width}
+          height={height}
+          ref={dialogRef}
+          role={role}
+          aria-labelledby={dialogLabelId}
+          aria-describedby={dialogDescriptionId}
+          aria-modal
+          sx={sx}
+        >
+          {header}
+          {body}
+          {footer}
+        </NormalDialog>
+      </Backdrop>
+    </Portal>
   )
 })
 _Dialog.displayName = 'Dialog'
