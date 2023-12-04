@@ -4,17 +4,17 @@ exports[`PageHeader renders consistently 1`] = `
 .c0 {
   display: grid;
   grid-template-columns: auto auto auto 1fr;
-  grid-template-areas: 'leadingAction titleArea trailingAction actions';
-  gap: var(--stack-gap-condensed,0.5rem);
+  grid-template-areas: 'context-area context-area context-area context-area' 'leading-action title-area trailing-action actions' 'description description description description' 'navigation navigation navigation navigation';
 }
 
 .c1 {
-  grid-row: 1;
-  grid-area: contextArea;
+  grid-row: 2;
+  grid-area: title-area;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
+  gap: 0.5rem;
   -webkit-flex-direction: row;
   -ms-flex-direction: row;
   flex-direction: row;
@@ -22,17 +22,15 @@ exports[`PageHeader renders consistently 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  gap: 0.5rem;
 }
 
 .c2 {
-  grid-row: 2;
-  grid-area: titleArea;
+  grid-row: 1;
+  grid-area: context-area;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  gap: 0.5rem;
   -webkit-flex-direction: row;
   -ms-flex-direction: row;
   flex-direction: row;
@@ -40,6 +38,8 @@ exports[`PageHeader renders consistently 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
+  padding-bottom: 0.5rem;
+  gap: 0.5rem;
 }
 
 .c3 {
@@ -56,17 +56,19 @@ exports[`PageHeader renders consistently 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
+  padding-top: 0.5rem;
   gap: 0.5rem;
 }
 
 .c4 {
   grid-row: 4;
   grid-area: navigation;
+  padding-top: 0.5rem;
   display: block;
 }
 
 @media screen and (max-width:calc(768px - 0.02px)) {
-  .c1 {
+  .c2 {
     display: -webkit-box;
     display: -webkit-flex;
     display: -ms-flexbox;
@@ -75,42 +77,45 @@ exports[`PageHeader renders consistently 1`] = `
 }
 
 @media screen and (min-width:768px) {
-  .c1 {
+  .c2 {
     display: none;
   }
 }
 
 <div
   className="c0"
-  data-component="pageheader"
 >
   <div
     className="c1"
-    data-component="contextArea"
+    data-component="TitleArea"
   />
   <div
     className="c2"
-    data-component="titleArea"
   />
   <div
     className="c3"
-    data-component="description"
   />
   <div
     className="c4"
-    data-component="navigation"
   />
 </div>
 `;
 
 exports[`PageHeader renders default layout 1`] = `
+.c0 {
+  display: grid;
+  grid-template-columns: auto auto auto 1fr;
+  grid-template-areas: 'context-area context-area context-area context-area' 'leading-action title-area trailing-action actions' 'description description description description' 'navigation navigation navigation navigation';
+}
+
 .c1 {
-  grid-row: 1;
-  grid-area: contextArea;
+  grid-row: 2;
+  grid-area: title-area;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
+  gap: 0.5rem;
   -webkit-flex-direction: row;
   -ms-flex-direction: row;
   flex-direction: row;
@@ -118,17 +123,15 @@ exports[`PageHeader renders default layout 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  gap: 0.5rem;
 }
 
 .c2 {
-  grid-row: 2;
-  grid-area: titleArea;
+  grid-row: 1;
+  grid-area: context-area;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  gap: 0.5rem;
   -webkit-flex-direction: row;
   -ms-flex-direction: row;
   flex-direction: row;
@@ -136,6 +139,8 @@ exports[`PageHeader renders default layout 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
+  padding-bottom: 0.5rem;
+  gap: 0.5rem;
 }
 
 .c3 {
@@ -152,23 +157,19 @@ exports[`PageHeader renders default layout 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
+  padding-top: 0.5rem;
   gap: 0.5rem;
 }
 
 .c4 {
   grid-row: 4;
   grid-area: navigation;
+  padding-top: 0.5rem;
   display: block;
 }
 
-.c0 {
-  display: grid;
-  grid-template-columns: auto auto auto 1fr;
-  gap: var(--stack-gap-condensed,0.5rem);
-}
-
 @media screen and (max-width:calc(768px - 0.02px)) {
-  .c1 {
+  .c2 {
     display: -webkit-box;
     display: -webkit-flex;
     display: -ms-flexbox;
@@ -177,7 +178,7 @@ exports[`PageHeader renders default layout 1`] = `
 }
 
 @media screen and (min-width:768px) {
-  .c1 {
+  .c2 {
     display: none;
   }
 }
@@ -185,29 +186,25 @@ exports[`PageHeader renders default layout 1`] = `
 <div>
   <div
     class="c0"
-    data-component="pageheader"
   >
     <div
       class="c1"
-      data-component="contextArea"
-    >
-      ContextArea
-    </div>
-    <div
-      class="c2"
-      data-component="titleArea"
+      data-component="TitleArea"
     >
       TitleArea
     </div>
     <div
+      class="c2"
+    >
+      ContextArea
+    </div>
+    <div
       class="c3"
-      data-component="description"
     >
       Description
     </div>
     <div
       class="c4"
-      data-component="navigation"
     >
       Navigation
     </div>

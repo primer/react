@@ -83,23 +83,27 @@ const Root = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageHeader
       )
     }
 
+    const [hasContextArea, setHasContextArea] = React.useState(false)
+    const [hasLeadingAction, setHasLeadingAction] = React.useState(false)
+
     React.useEffect(() => {
-      const titleArea = Array.from(rootRef.current?.children as HTMLCollection).find(child => {
+      if (!rootRef.current || rootRef.current.children.length <= 0) return
+      const titleArea = Array.from(rootRef.current.children as HTMLCollection).find(child => {
         return child instanceof HTMLElement && child.getAttribute('data-component') === 'TitleArea'
       })
 
-      if (titleArea === undefined) {
-        invariant(titleArea, 'PageHeader.TitleArea is missing.')
-        return
+      // It is very unlikely to have a PageHeader without a TitleArea, but we still want to make sure we don't break the page if that happens.
+      if (!titleArea) return
+
+      for (const child of React.Children.toArray(children)) {
+        if (React.isValidElement(child) && child.type === ContextArea) {
+          setHasContextArea(true)
+        }
+        if (React.isValidElement(child) && child.type === LeadingAction) {
+          setHasLeadingAction(true)
+        }
       }
-
-      const hasContextArea = React.Children.toArray(children).some(
-        child => React.isValidElement(child) && child.type === ContextArea,
-      )
-      const hasLeadingAction = React.Children.toArray(children).some(
-        child => React.isValidElement(child) && child.type === LeadingAction,
-      )
-
+      // Check if TitleArea has any interactive children or grandchildren.
       const hasInteractiveContent = Array.from(titleArea.childNodes).some(child => {
         return (
           (child instanceof HTMLElement && isInteractive(child)) ||
@@ -110,15 +114,15 @@ const Root = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageHeader
       })
 
       // PageHeader.TitleArea should be the first element in the DOM if ContextArea or LeadingAction is present.
-      // Motivation for this is to make sure context area and leading action are always rendered after the title (heading tag)
-      // so that screen reader users who are navigating via heading menu won't miss any actions.
+      // Motivation behind this rule to make sure context area and leading action are always rendered after the title (a heading tag)
+      // so that screen reader users who are navigating via heading menu won't miss these actions.
       if (hasContextArea || hasLeadingAction) {
         invariant(
           !hasInteractiveContent,
-          'When PageHeader.ContextArea or PageHeader.LeadingAction is present, PageHeader.TitleArea cannot include interactive elements to make sure focus order is intact.',
+          'When PageHeader.ContextArea or PageHeader.LeadingAction is present, PageHeader.TitleArea cannot include interactive elements to make sure the focus order is intact.',
         )
       }
-    }, [children, rootRef])
+    }, [children, rootRef, hasContextArea, hasLeadingAction])
     return (
       <Box ref={rootRef} as={as} sx={merge<BetterSystemStyleObject>(rootStyles, sx)}>
         {children}

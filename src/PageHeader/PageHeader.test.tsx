@@ -30,8 +30,8 @@ describe('PageHeader', () => {
     options: {skipAs: true, skipSx: true},
     toRender: () => (
       <PageHeader>
-        <PageHeader.ContextArea></PageHeader.ContextArea>
         <PageHeader.TitleArea></PageHeader.TitleArea>
+        <PageHeader.ContextArea></PageHeader.ContextArea>
         <PageHeader.Description></PageHeader.Description>
         <PageHeader.Navigation></PageHeader.Navigation>
       </PageHeader>
@@ -44,8 +44,8 @@ describe('PageHeader', () => {
   it('renders default layout', () => {
     const {container} = render(
       <PageHeader>
-        <PageHeader.ContextArea>ContextArea</PageHeader.ContextArea>
         <PageHeader.TitleArea>TitleArea</PageHeader.TitleArea>
+        <PageHeader.ContextArea>ContextArea</PageHeader.ContextArea>
         <PageHeader.Description>Description</PageHeader.Description>
         <PageHeader.Navigation>Navigation</PageHeader.Navigation>
       </PageHeader>,
@@ -73,7 +73,8 @@ describe('PageHeader', () => {
       display: 'flex',
       'flex-direction': 'row',
       gap: '0.5rem',
-      'grid-area': 'contextArea',
+      'grid-area': 'context-area',
+      'padding-bottom': '0.5rem',
       'grid-row': '1',
     }
 
@@ -101,8 +102,9 @@ describe('PageHeader', () => {
       display: 'flex',
       'flex-direction': 'row',
       gap: '0.5rem',
-      'grid-area': 'contextArea',
+      'grid-area': 'context-area',
       'grid-row': '1',
+      'padding-bottom': '0.5rem',
     }
 
     expect(
@@ -145,10 +147,10 @@ describe('PageHeader', () => {
   it('respects the title variant prop', () => {
     const {getByText} = render(
       <PageHeader>
-        <PageHeader.ContextArea>ContextArea</PageHeader.ContextArea>
         <PageHeader.TitleArea variant="large">
           <PageHeader.Title>Title</PageHeader.Title>
         </PageHeader.TitleArea>
+        <PageHeader.ContextArea>ContextArea</PageHeader.ContextArea>
       </PageHeader>,
     )
     expect(getByText('Title')).toHaveStyle('font-size: 2rem')
@@ -156,26 +158,26 @@ describe('PageHeader', () => {
   it("respects the title variant prop and updates the children components' container height accordingly", () => {
     const {getByText} = render(
       <PageHeader>
-        <PageHeader.ContextArea>ContextArea</PageHeader.ContextArea>
         <PageHeader.TitleArea variant="large">
-          <PageHeader.LeadingAction>
-            Leading Action
-            <IconButton aria-label="Expand" icon={SidebarExpandIcon} variant="invisible" />
-          </PageHeader.LeadingAction>
           <PageHeader.LeadingVisual>
             Leading Visual
             <GitBranchIcon />
           </PageHeader.LeadingVisual>
           <PageHeader.Title>Title</PageHeader.Title>
-          <PageHeader.TrailingAction>
-            Trailing Action
-            <IconButton aria-label="Edit" icon={PencilIcon} variant="invisible" />
-          </PageHeader.TrailingAction>
           <PageHeader.TrailingVisual>
             Trailing Visual
             <ChevronLeftIcon />
           </PageHeader.TrailingVisual>
         </PageHeader.TitleArea>
+        <PageHeader.ContextArea>ContextArea</PageHeader.ContextArea>
+        <PageHeader.LeadingAction>
+          Leading Action
+          <IconButton aria-label="Expand" icon={SidebarExpandIcon} variant="invisible" />
+        </PageHeader.LeadingAction>
+        <PageHeader.TrailingAction>
+          Trailing Action
+          <IconButton aria-label="Edit" icon={PencilIcon} variant="invisible" />
+        </PageHeader.TrailingAction>
       </PageHeader>,
     )
 
@@ -188,6 +190,9 @@ describe('PageHeader', () => {
   it('renders "aria-label" prop when Navigation is rendered as "nav" landmark', () => {
     const {getByLabelText, getByText} = render(
       <PageHeader>
+        <PageHeader.TitleArea>
+          <PageHeader.Title>Title</PageHeader.Title>
+        </PageHeader.TitleArea>
         <PageHeader.Navigation as="nav" aria-label="Custom">
           Navigation
         </PageHeader.Navigation>
@@ -199,6 +204,9 @@ describe('PageHeader', () => {
   it('does not renders "aria-label" prop when Navigation is rendered as "div"', () => {
     const {getByText} = render(
       <PageHeader>
+        <PageHeader.TitleArea>
+          <PageHeader.Title>Title</PageHeader.Title>
+        </PageHeader.TitleArea>
         <PageHeader.Navigation aria-label="Custom">Navigation</PageHeader.Navigation>
       </PageHeader>,
     )
@@ -208,6 +216,9 @@ describe('PageHeader', () => {
     const consoleSpy = jest.spyOn(global.console, 'warn').mockImplementation()
     render(
       <PageHeader>
+        <PageHeader.TitleArea>
+          <PageHeader.Title>Title</PageHeader.Title>
+        </PageHeader.TitleArea>
         <PageHeader.Navigation as="nav">Navigation</PageHeader.Navigation>
       </PageHeader>,
     )
