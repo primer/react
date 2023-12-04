@@ -14,6 +14,7 @@ Playground.args = {
   href: '#',
   muted: false,
   underline: false,
+  inline: false,
 }
 
 export const Default = () => <Link href="#">Link</Link>
