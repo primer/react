@@ -8,8 +8,6 @@ import {
   IconButton,
   Heading,
   Box,
-  AnchoredOverlay,
-  AnchoredOverlayProps,
   Tooltip,
   TextInput,
   TextInputProps,
@@ -20,8 +18,9 @@ import {
 } from '../../../src/index'
 import {ActionListContainerContext} from '../../../src/ActionList/ActionListContainerContext'
 import {useSlots} from '../../hooks/useSlots'
-import {useProvidedRefOrCreate, useId} from '../../hooks'
+import {useProvidedRefOrCreate, useId, useOnEscapePress, useAnchoredPosition} from '../../hooks'
 import {useFocusZone} from '../../hooks/useFocusZone'
+import {StyledOverlay, OverlayProps} from '../../Overlay/Overlay'
 
 const SelectPanelContext = React.createContext<{
   title: string
@@ -58,8 +57,8 @@ export type SelectPanelProps = {
   onSubmit?: (event?: React.FormEvent<HTMLFormElement>) => void
 
   // TODO: move these to SelectPanel.Overlay or overlayProps
-  width?: AnchoredOverlayProps['width']
-  height?: AnchoredOverlayProps['height']
+  width?: OverlayProps['width']
+  height?: OverlayProps['height']
 
   children: React.ReactNode
 }
@@ -82,15 +81,27 @@ const Panel: React.FC<SelectPanelProps> = ({
   height = 'large',
   ...props
 }) => {
+  // 🚨 Hack for good API!
+  // we strip out Anchor from children and wire it up to Dialog
+  // with additional props for accessibility
+  let Anchor: React.ReactElement | undefined
   const anchorRef = useProvidedRefOrCreate(providedAnchorRef)
 
-  // 🚨 Hack for good API!
-  // we strip out Anchor from children and pass it to AnchoredOverlay to render
-  // with additional props for accessibility
-  let renderAnchor: AnchoredOverlayProps['renderAnchor'] = null
+  const onAnchorClick = () => {
+    if (!internalOpen) setInternalOpen(true)
+    else onInternalClose()
+  }
+
   const contents = React.Children.map(props.children, child => {
     if (React.isValidElement(child) && child.type === SelectPanelButton) {
-      renderAnchor = anchorProps => React.cloneElement(child, anchorProps)
+      Anchor = React.cloneElement(child, {
+        // @ts-ignore TODO
+        ref: anchorRef,
+        onClick: onAnchorClick,
+        'aria-haspopup': true,
+        'aria-expanded': internalOpen,
+      })
+
       return null
     }
     return child
@@ -135,26 +146,48 @@ const Panel: React.FC<SelectPanelProps> = ({
     [internalOpen],
   )
 
+  /* Dialog */
+  const dialogRef = React.useRef<HTMLDialogElement>(null)
+  if (internalOpen) dialogRef.current?.show()
+  else dialogRef.current?.close()
+
+  useOnEscapePress(() => {
+    if (!internalOpen) return
+    // TODO for modal: this is only useful when dialog is not modal
+    onInternalClose()
+  })
+
+  /* Anchored */
+  const {position} = useAnchoredPosition(
+    {
+      anchorElementRef: anchorRef,
+      floatingElementRef: dialogRef,
+      side: 'outside-bottom',
+      align: 'start',
+      alignmentOffset: undefined,
+      anchorOffset: undefined,
+      allowOutOfBounds: undefined,
+    },
+    [anchorRef.current, dialogRef.current],
+  )
+
   return (
     <>
-      <AnchoredOverlay
-        anchorRef={anchorRef}
-        renderAnchor={renderAnchor}
-        open={internalOpen}
-        onOpen={() => setInternalOpen(true)}
-        onClose={onInternalClose}
+      {Anchor}
+
+      <StyledOverlay
+        as="dialog"
+        ref={dialogRef}
+        aria-labelledby={`${panelId}--title`}
+        aria-describedby={description ? `${panelId}--description` : undefined}
         width={width}
         height={height}
-        focusZoneSettings={{
-          // we only want focus trap from the overlay,
-          // we don't want focus zone on the whole overlay because
-          // we have a focus zone on the list
-          disabled: true,
-        }}
-        overlayProps={{
-          role: 'dialog',
-          'aria-labelledby': `${panelId}--title`,
-          'aria-describedby': description ? `${panelId}--description` : undefined,
+        sx={{
+          ...position,
+          // reset dialog default styles
+          border: 'none',
+          padding: 0,
+          margin: 0,
         }}
       >
         <SelectPanelContext.Provider
@@ -171,6 +204,7 @@ const Panel: React.FC<SelectPanelProps> = ({
         >
           <Box
             as="form"
+            method="dialog"
             onSubmit={onInternalSubmit}
             sx={{
               display: 'flex',
@@ -209,7 +243,7 @@ const Panel: React.FC<SelectPanelProps> = ({
             {slots.footer}
           </Box>
         </SelectPanelContext.Provider>
-      </AnchoredOverlay>
+      </StyledOverlay>
     </>
   )
 }
@@ -290,11 +324,11 @@ const SelectPanelSearchInput: React.FC<TextInputProps> = ({onChange: propsOnChan
     else setSearchQuery(event.target.value)
   }
 
+  // sad but React doesn't handle autofocus inside dialog yet: https://github.com/facebook/react/issues/23301
+  React.useEffect(() => inputRef.current?.setAttribute('autofocus', 'true'), [inputRef])
+
   return (
     <TextInput
-      // this autofocus doesn't seem to apply 🤔
-      // probably because the focus zone overrides autoFocus
-      autoFocus
       ref={inputRef}
       block
       leadingVisual={SearchIcon}
@@ -313,12 +347,10 @@ const SelectPanelSearchInput: React.FC<TextInputProps> = ({onChange: propsOnChan
           }}
         />
       }
-      sx={
-        {
-          /* TODO: uncommenting this breaks keyboard navigation, that's odd */
-          // '& input:empty + .TextInput-action': {display: 'none'},
-        }
-      }
+      sx={{
+        // UX nicety: If input is empty, hide clear action
+        '& input:placeholder-shown + .TextInput-action': {display: 'none'},
+      }}
       onChange={internalOnChange}
       {...props}
     />
