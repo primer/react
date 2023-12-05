@@ -16,7 +16,7 @@ export interface ConfirmationDialogProps {
    * Required. This callback is invoked when a gesture to close the dialog
    * is performed. The first argument indicates the gesture.
    */
-  onClose: (gesture: 'confirm' | 'cancel' | 'close-button' | 'cancel' | 'escape') => void
+  onClose: (gesture: 'confirm' | 'close-button' | 'cancel' | 'escape') => void
 
   /**
    * Required. The title of the ConfirmationDialog. This is usually a brief
@@ -145,11 +145,14 @@ export const ConfirmationDialog: React.FC<React.PropsWithChildren<ConfirmationDi
   )
 }
 
+let hostElement: Element | null = null
 export type ConfirmOptions = Omit<ConfirmationDialogProps, 'onClose'> & {content: React.ReactNode}
 async function confirm(themeProps: ThemeProviderProps, options: ConfirmOptions): Promise<boolean> {
   const {content, ...confirmationDialogProps} = options
   return new Promise(resolve => {
-    const root = createRoot(document.createElement('div'))
+    hostElement = document.createElement('div')
+    if (!hostElement.isConnected) document.body.append(hostElement)
+    const root = createRoot(hostElement)
     const onClose: ConfirmationDialogProps['onClose'] = gesture => {
       root.unmount()
       if (gesture === 'confirm') {

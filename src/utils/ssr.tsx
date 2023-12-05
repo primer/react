@@ -1,2 +1,8 @@
-// eslint-disable-next-line no-restricted-imports
-export {SSRProvider, useSSRSafeId} from '@react-aria/ssr'
+import type {PropsWithChildren} from 'react'
+import {useId} from '../hooks/useId'
+
+export function SSRProvider({children}: PropsWithChildren) {
+  return children
+}
+
+export const useSSRSafeId = useId

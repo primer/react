@@ -162,6 +162,7 @@ export const MarkdownInput = forwardRef<HTMLTextAreaElement, MarkdownInputProps>
             display: visible ? undefined : 'none',
             '&: focus-within': {
               boxShadow: 'none',
+              outline: 'none',
             },
             '& textarea': {
               lineHeight: 1.2,
