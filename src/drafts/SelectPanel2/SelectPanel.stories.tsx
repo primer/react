@@ -42,14 +42,13 @@ export const AControlled = () => {
   const [filteredLabels, setFilteredLabels] = React.useState(data.labels)
   const [query, setQuery] = React.useState('')
 
-  // TODO: should this be baked-in
-  const onSearchInputChange = (event: React.KeyboardEvent<HTMLInputElement>) => {
+  const onSearchInputChange: React.ChangeEventHandler<HTMLInputElement> = event => {
     const query = event.currentTarget.value
     setQuery(query)
 
     if (query === '') setFilteredLabels(data.labels)
     else {
-      // TODO: should probably add a highlight for matching text
+      // Note: in the future, we should probably add a highlight for matching text
       setFilteredLabels(
         data.labels
           .map(label => {
@@ -90,18 +89,11 @@ export const AControlled = () => {
           // eslint-disable-next-line no-console
           console.log('panel was closed')
         }}
-        // TODO: onClearSelection feels even more odd on the parent, instead of on the header.
-        // @ts-ignore todo
-        onClearSelection={event => {
-          // not optional, we don't control the selection, so we just pass this through
-          // @ts-ignore todo
-          onClearSelection(event)
-        }}
+        // API TODO: onClearSelection feels even more odd on the parent, instead of on the header.
+        onClearSelection={onClearSelection}
       >
-        {/* TODO: the ref types don't match here, use useProvidedRefOrCreate */}
-        {/* @ts-ignore todo */}
         <SelectPanel.Button>Assign label</SelectPanel.Button>
-        {/* TODO: header and heading is confusing. maybe skip header completely. */}
+        {/* API TODO: header and heading is confusing. maybe skip header completely. */}
         <SelectPanel.Header>
           <SelectPanel.SearchInput onChange={onSearchInputChange} />
         </SelectPanel.Header>
@@ -137,7 +129,7 @@ export const AControlled = () => {
 export const BWithSuspendedList = () => {
   const [query, setQuery] = React.useState('')
 
-  const onSearchInputChange = (event: React.KeyboardEvent<HTMLInputElement>) => {
+  const onSearchInputChange: React.ChangeEventHandler<HTMLInputElement> = event => {
     const query = event.currentTarget.value
     setQuery(query)
   }
@@ -147,7 +139,6 @@ export const BWithSuspendedList = () => {
       <h1>Suspended list</h1>
       <p>Fetching items once when the panel is opened (like repo labels)</p>
       <SelectPanel title="Select labels">
-        {/* @ts-ignore todo */}
         <SelectPanel.Button>Assign label</SelectPanel.Button>
 
         <SelectPanel.Header>
@@ -224,7 +215,7 @@ export const CAsyncSearchWithSuspenseKey = () => {
   // `users` are fetched async on search
 
   const [query, setQuery] = React.useState('')
-  const onSearchInputChange = (event: React.KeyboardEvent<HTMLInputElement>) => {
+  const onSearchInputChange: React.ChangeEventHandler<HTMLInputElement> = event => {
     const query = event.currentTarget.value
     setQuery(query)
   }
@@ -250,7 +241,6 @@ export const CAsyncSearchWithSuspenseKey = () => {
       <p>Fetching items on every keystroke search (like github users)</p>
 
       <SelectPanel title="Select collaborators" defaultOpen={true} onSubmit={onSubmit}>
-        {/* @ts-ignore todo */}
         <SelectPanel.Button>Select assignees</SelectPanel.Button>
         <SelectPanel.Header>
           <SelectPanel.SearchInput onChange={onSearchInputChange} />
@@ -330,7 +320,7 @@ export const DAsyncSearchWithUseTransition = () => {
   const [isPending, startTransition] = React.useTransition()
 
   const [query, setQuery] = React.useState('')
-  const onSearchInputChange = (event: React.KeyboardEvent<HTMLInputElement>) => {
+  const onSearchInputChange: React.ChangeEventHandler<HTMLInputElement> = event => {
     const query = event.currentTarget.value
     startTransition(() => setQuery(query))
   }
@@ -355,7 +345,6 @@ export const DAsyncSearchWithUseTransition = () => {
       <p>Fetching items on every keystroke search (like github users)</p>
 
       <SelectPanel title="Select collaborators" defaultOpen={true} onSubmit={onSubmit}>
-        {/* @ts-ignore todo */}
         <SelectPanel.Button>Select assignees</SelectPanel.Button>
         <SelectPanel.Header>
           <SelectPanel.SearchInput onChange={onSearchInputChange} />
@@ -395,7 +384,7 @@ export const HWithFilterButtons = () => {
 
   /* Filter */
   const [query, setQuery] = React.useState('')
-  const onSearchInputChange = (event: React.KeyboardEvent<HTMLInputElement>) => {
+  const onSearchInputChange: React.ChangeEventHandler<HTMLInputElement> = event => {
     const query = event.currentTarget.value
     setQuery(query)
   }
@@ -436,8 +425,6 @@ export const HWithFilterButtons = () => {
       <h1>With Filter Buttons</h1>
 
       <SelectPanel title="Switch branches/tags" defaultOpen onSubmit={onSubmit}>
-        {/* TODO: the ref types don't match here, use useProvidedRefOrCreate */}
-        {/* @ts-ignore todo */}
         <SelectPanel.Button leadingVisual={GitBranchIcon} trailingVisual={TriangleDownIcon}>
           {savedInitialRef}
         </SelectPanel.Button>
@@ -485,6 +472,7 @@ export const HWithFilterButtons = () => {
         )}
 
         <SelectPanel.Footer>
+          {/* @ts-ignore TODO as prop is not identified by button? */}
           <SelectPanel.SecondaryButton as="a" href={`/${selectedFilter}`}>
             View all {selectedFilter}
           </SelectPanel.SecondaryButton>
@@ -526,8 +514,6 @@ export const EMinimal = () => {
       <h1>Minimal SelectPanel</h1>
 
       <SelectPanel title="Select labels" defaultOpen onSubmit={onSubmit}>
-        {/* TODO: the ref types don't match here, use useProvidedRefOrCreate */}
-        {/* @ts-ignore todo */}
         <SelectPanel.Button>Assign label</SelectPanel.Button>
 
         <ActionList>
@@ -759,7 +745,6 @@ export const FInstantSelectionVariant = () => {
       <h1>Instant selection variant</h1>
 
       <SelectPanel title="Choose a tag" selectionVariant="instant" onSubmit={onSubmit} height="medium" defaultOpen>
-        {/* @ts-ignore todo */}
         <SelectPanel.Button leadingVisual={TagIcon}>{selectedTag || 'Choose a tag'}</SelectPanel.Button>
 
         <ActionList>
@@ -798,13 +783,12 @@ export const IWithWarning = () => {
   const [filteredUsers, setFilteredUsers] = React.useState(data.collaborators)
   const [query, setQuery] = React.useState('')
 
-  const onSearchInputChange = (event: React.KeyboardEvent<HTMLInputElement>) => {
+  const onSearchInputChange: React.ChangeEventHandler<HTMLInputElement> = event => {
     const query = event.currentTarget.value
     setQuery(query)
 
     if (query === '') setFilteredUsers(data.collaborators)
     else {
-      // TODO: should probably add a highlight for matching text
       setFilteredUsers(
         data.collaborators
           .map(collaborator => {
@@ -839,14 +823,8 @@ export const IWithWarning = () => {
         description={`Select up to ${MAX_LIMIT} people`}
         defaultOpen
         onSubmit={onSubmit}
-        // @ts-ignore todo
-        onClearSelection={event => {
-          // @ts-ignore todo
-          onClearSelection(event)
-        }}
+        onClearSelection={onClearSelection}
       >
-        {/* TODO: the ref types don't match here, use useProvidedRefOrCreate */}
-        {/* @ts-ignore todo */}
         <SelectPanel.Button
           variant="invisible"
           trailingAction={GearIcon}
@@ -854,7 +832,6 @@ export const IWithWarning = () => {
         >
           Assignees
         </SelectPanel.Button>
-        {/* TODO: header and heading is confusing. maybe skip header completely. */}
         <SelectPanel.Header>
           <SelectPanel.SearchInput onChange={onSearchInputChange} />
         </SelectPanel.Header>
@@ -920,7 +897,7 @@ export const JWithErrors = () => {
 
   const [query, setQuery] = React.useState('')
 
-  const onSearchInputChange = (event: React.KeyboardEvent<HTMLInputElement>) => {
+  const onSearchInputChange: React.ChangeEventHandler<HTMLInputElement> = event => {
     const query = event.currentTarget.value
     setQuery(query)
 
@@ -993,15 +970,7 @@ export const JWithErrors = () => {
         />
       </Box>
 
-      <SelectPanel
-        title="Set assignees"
-        defaultOpen
-        onSubmit={onSubmit}
-        // @ts-ignore todo
-        onClearSelection={onClearSelection}
-      >
-        {/* TODO: the ref types don't match here, use useProvidedRefOrCreate */}
-        {/* @ts-ignore todo */}
+      <SelectPanel title="Set assignees" defaultOpen onSubmit={onSubmit} onClearSelection={onClearSelection}>
         <SelectPanel.Button
           variant="invisible"
           trailingAction={GearIcon}
