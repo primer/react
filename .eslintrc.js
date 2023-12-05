@@ -139,11 +139,6 @@ module.exports = {
           {
             paths: [
               {
-                name: '@react-aria/ssr',
-                importNames: ['useSSRSafeId'],
-                message: 'Please use the `useId` hook from `src/hooks/useId.ts` instead',
-              },
-              {
                 name: 'react',
                 importNames: ['useLayoutEffect'],
                 message:
