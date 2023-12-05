@@ -81,6 +81,11 @@ const Panel: React.FC<SelectPanelProps> = ({
   height = 'large',
   ...props
 }) => {
+  const [internalOpen, setInternalOpen] = React.useState(defaultOpen)
+
+  // sync open state with props
+  if (propsOpen !== undefined && internalOpen !== propsOpen) setInternalOpen(propsOpen)
+
   // 🚨 Hack for good API!
   // we strip out Anchor from children and wire it up to Dialog
   // with additional props for accessibility
@@ -106,10 +111,6 @@ const Panel: React.FC<SelectPanelProps> = ({
     }
     return child
   })
-
-  const [internalOpen, setInternalOpen] = React.useState(defaultOpen)
-  // sync open state
-  if (propsOpen !== undefined && internalOpen !== propsOpen) setInternalOpen(propsOpen)
 
   const onInternalClose = () => {
     if (propsOpen === undefined) setInternalOpen(false)
