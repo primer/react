@@ -112,6 +112,7 @@ exports[`TextInput renders 1`] = `
   onClick={[Function]}
 >
   <input
+    aria-required="false"
     className="c2"
     data-component="input"
     name="zipcode"
@@ -242,6 +243,7 @@ exports[`TextInput renders block 1`] = `
   onClick={[Function]}
 >
   <input
+    aria-required="false"
     className="c2"
     data-component="input"
     name="zipcode"
@@ -364,6 +366,7 @@ exports[`TextInput renders consistently 1`] = `
   onClick={[Function]}
 >
   <input
+    aria-required="false"
     className="c2"
     data-component="input"
     onBlur={[Function]}
@@ -486,6 +489,7 @@ exports[`TextInput renders contrast 1`] = `
   onClick={[Function]}
 >
   <input
+    aria-required="false"
     className="c2"
     data-component="input"
     name="zipcode"
@@ -615,6 +619,7 @@ exports[`TextInput renders error 1`] = `
   onClick={[Function]}
 >
   <input
+    aria-required="false"
     className="c2"
     data-component="input"
     name="zipcode"
@@ -744,6 +749,7 @@ exports[`TextInput renders large 1`] = `
   size="large"
 >
   <input
+    aria-required="false"
     className="c2"
     data-component="input"
     name="zipcode"
@@ -892,6 +898,7 @@ exports[`TextInput renders leadingVisual 1`] = `
     </svg>
   </span>
   <input
+    aria-required="false"
     className="c2"
     data-component="input"
     name="search"
@@ -1041,6 +1048,7 @@ exports[`TextInput renders leadingVisual 2`] = `
     </svg>
   </span>
   <input
+    aria-required="false"
     className="c2"
     data-component="input"
     name="search"
@@ -1171,6 +1179,7 @@ exports[`TextInput renders leadingVisual 3`] = `
     </div>
   </span>
   <input
+    aria-required="false"
     className="c2"
     data-component="input"
     name="search"
@@ -1301,6 +1310,7 @@ exports[`TextInput renders leadingVisual 4`] = `
     </div>
   </span>
   <input
+    aria-required="false"
     className="c2"
     data-component="input"
     name="search"
@@ -1425,6 +1435,7 @@ exports[`TextInput renders monospace 1`] = `
   onClick={[Function]}
 >
   <input
+    aria-required="false"
     className="c2"
     data-component="input"
     name="zipcode"
@@ -1547,6 +1558,7 @@ exports[`TextInput renders placeholder 1`] = `
   onClick={[Function]}
 >
   <input
+    aria-required="false"
     className="c2"
     data-component="input"
     name="zipcode"
@@ -1679,6 +1691,7 @@ exports[`TextInput renders small 1`] = `
   size="small"
 >
   <input
+    aria-required="false"
     className="c2"
     data-component="input"
     name="zipcode"
@@ -2295,6 +2308,7 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   onClick={[Function]}
 >
   <input
+    aria-required="false"
     className="c2"
     data-component="input"
     name="search"
@@ -2734,6 +2748,7 @@ exports[`TextInput renders trailingAction text button 1`] = `
   onClick={[Function]}
 >
   <input
+    aria-required="false"
     className="c2"
     data-component="input"
     name="search"
@@ -3379,6 +3394,7 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   onClick={[Function]}
 >
   <input
+    aria-required="false"
     className="c2"
     data-component="input"
     name="search"
@@ -3531,6 +3547,7 @@ exports[`TextInput renders trailingVisual 1`] = `
   onClick={[Function]}
 >
   <input
+    aria-required="false"
     className="c2"
     data-component="input"
     name="search"
@@ -3680,6 +3697,7 @@ exports[`TextInput renders trailingVisual 2`] = `
   onClick={[Function]}
 >
   <input
+    aria-required="false"
     className="c2"
     data-component="input"
     name="search"
@@ -3829,6 +3847,7 @@ exports[`TextInput renders trailingVisual 3`] = `
   onClick={[Function]}
 >
   <input
+    aria-required="false"
     className="c2"
     data-component="input"
     name="search"
@@ -3959,6 +3978,7 @@ exports[`TextInput renders trailingVisual 4`] = `
   onClick={[Function]}
 >
   <input
+    aria-required="false"
     className="c2"
     data-component="input"
     name="search"
@@ -4112,6 +4132,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
     onClick={[Function]}
   >
     <input
+      aria-required="false"
       className="c2"
       data-component="input"
       onBlur={[Function]}
@@ -4334,6 +4355,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
       </div>
     </span>
     <input
+      aria-required="false"
       className="c4"
       data-component="input"
       onBlur={[Function]}
@@ -4512,6 +4534,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
     onClick={[Function]}
   >
     <input
+      aria-required="false"
       className="c2"
       data-component="input"
       onBlur={[Function]}
@@ -4774,6 +4797,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
       </div>
     </span>
     <input
+      aria-required="false"
       className="c5"
       data-component="input"
       onBlur={[Function]}
@@ -5036,6 +5060,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
       </div>
     </span>
     <input
+      aria-required="false"
       className="c5"
       data-component="input"
       onBlur={[Function]}
@@ -5298,6 +5323,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
       </div>
     </span>
     <input
+      aria-required="false"
       className="c5"
       data-component="input"
       onBlur={[Function]}
@@ -5485,6 +5511,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
     onClick={[Function]}
   >
     <input
+      aria-required="false"
       className="c2"
       data-component="input"
       onBlur={[Function]}
@@ -5747,6 +5774,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
       </div>
     </span>
     <input
+      aria-required="false"
       className="c4"
       data-component="input"
       onBlur={[Function]}
@@ -5965,6 +5993,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
     onClick={[Function]}
   >
     <input
+      aria-required="false"
       className="c2"
       data-component="input"
       onBlur={[Function]}
@@ -6276,6 +6305,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
       </div>
     </span>
     <input
+      aria-required="false"
       className="c5"
       data-component="input"
       onBlur={[Function]}
@@ -6578,6 +6608,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
       </div>
     </span>
     <input
+      aria-required="false"
       className="c5"
       data-component="input"
       onBlur={[Function]}
@@ -6887,6 +6918,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
       </div>
     </span>
     <input
+      aria-required="false"
       className="c5"
       data-component="input"
       onBlur={[Function]}
@@ -7078,6 +7110,7 @@ exports[`TextInput should render a password input 1`] = `
   onClick={[Function]}
 >
   <input
+    aria-required="false"
     className="c2"
     data-component="input"
     name="password"
