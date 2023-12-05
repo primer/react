@@ -18,7 +18,7 @@ import {
 } from '../../../src/index'
 import {ActionListContainerContext} from '../../../src/ActionList/ActionListContainerContext'
 import {useSlots} from '../../hooks/useSlots'
-import {useProvidedRefOrCreate, useId, useOnEscapePress, useAnchoredPosition} from '../../hooks'
+import {useProvidedRefOrCreate, useId, useAnchoredPosition} from '../../hooks'
 import {useFocusZone} from '../../hooks/useFocusZone'
 import {StyledOverlay, OverlayProps} from '../../Overlay/Overlay'
 
@@ -149,14 +149,8 @@ const Panel: React.FC<SelectPanelProps> = ({
 
   /* Dialog */
   const dialogRef = React.useRef<HTMLDialogElement>(null)
-  if (internalOpen) dialogRef.current?.show()
+  if (internalOpen) dialogRef.current?.showModal()
   else dialogRef.current?.close()
-
-  useOnEscapePress(() => {
-    if (!internalOpen) return
-    // TODO for modal: this is only useful when dialog is not modal
-    onInternalClose()
-  })
 
   /* Anchored */
   const {position} = useAnchoredPosition(
