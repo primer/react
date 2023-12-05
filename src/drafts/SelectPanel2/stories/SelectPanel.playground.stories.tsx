@@ -1,6 +1,6 @@
 import React from 'react'
 import {Meta, StoryFn} from '@storybook/react'
-import {SelectPanel} from '../SelectPanel'
+import {SelectPanel, SelectPanelProps} from '../SelectPanel'
 import {ActionList, Box} from '../../../index'
 import data from './mock-data'
 
@@ -34,11 +34,17 @@ export const Playground: StoryFn = args => {
     }
   }
 
-  const onClearSelection = () => setSelectedLabelIds([])
-
-  const onSubmit = () => {
-    data.issue.labelIds = selectedLabelIds // pretending to persist changes
+  const onClearSelection = () => {
+    setSelectedLabelIds([])
+    args.onClearSelection() // call storybook action
   }
+
+  const onSubmit: SelectPanelProps['onSubmit'] = event => {
+    data.issue.labelIds = selectedLabelIds // pretending to persist changes
+    args.onSubmit(event) // call storybook action
+  }
+
+  const onCancel = () => args.onCancel() // call storybook action
 
   /* Filtering */
   const [filteredLabels, setFilteredLabels] = React.useState(data.labels)
@@ -82,6 +88,7 @@ export const Playground: StoryFn = args => {
         description={args.description}
         selectionVariant={args.selectionVariant}
         onSubmit={onSubmit}
+        onCancel={onCancel}
         onClearSelection={onClearSelection}
         width={args.width}
         height={args.height}
