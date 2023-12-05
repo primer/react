@@ -61,7 +61,7 @@ export const parseListItem = (line: string): ListItem | null => {
 
 export const listItemToString = (item: ListItem) =>
   typeof item.delimeter === 'number'
-    ? `${item.leadingWhitespace}${`${item.delimeter}.`} ${item.text}`
+    ? `${item.leadingWhitespace}${`${item.delimeter}.`}${item.middleWhitespace}${item.text}`
     : `${item.leadingWhitespace}${item.delimeter}${item.middleWhitespace}${item.taskBox || ''} ${item.text}`
 
 /**
