@@ -36,6 +36,12 @@
       "description": "Changes the resize behavior"
     },
     {
+      "name": "contrast",
+      "type": "boolean",
+      "defaultValue": "false",
+      "description": "Changes background color to a higher contrast color"
+    },
+    {
       "name": "validationStatus",
       "type": "'success' | 'error' | undefined",
       "defaultValue": "",
