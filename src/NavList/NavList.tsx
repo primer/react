@@ -134,37 +134,35 @@ function ItemWithSubNav({children, subNav, depth, defaultOpen, sx: sxProp = defa
 
   return (
     <ItemWithSubNavContext.Provider value={{buttonId, subNavId, isOpen}}>
-      <Box as="li" aria-labelledby={buttonId} sx={{listStyle: 'none'}}>
-        <ActionList.Item
-          as="button"
-          id={buttonId}
-          aria-expanded={isOpen}
-          aria-controls={subNavId}
-          // When the subNav is closed, how should we indicated that the subNav contains the current item?
-          active={!isOpen && containsCurrentItem}
-          onClick={() => setIsOpen(open => !open)}
-          sx={merge<SxProp['sx']>(
-            {
-              ...getSubnavStyles(depth),
-              fontWeight: containsCurrentItem ? 'bold' : null, // Parent item is bold if any of it's sub-items are current
-            },
-            sxProp,
-          )}
-        >
-          {children}
-          {/* What happens if the user provides a TrailingVisual? */}
-          <ActionList.TrailingVisual>
-            <Octicon
-              icon={ChevronDownIcon}
-              sx={{
-                transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)',
-              }}
-            />
-          </ActionList.TrailingVisual>
-        </ActionList.Item>
+      <ActionList.Item
+        as="button"
+        id={buttonId}
+        aria-expanded={isOpen}
+        aria-controls={subNavId}
+        // When the subNav is closed, how should we indicated that the subNav contains the current item?
+        active={!isOpen && containsCurrentItem}
+        onClick={() => setIsOpen(open => !open)}
+        sx={merge<SxProp['sx']>(
+          {
+            ...getSubnavStyles(depth),
+            fontWeight: containsCurrentItem ? 'bold' : null, // Parent item is bold if any of it's sub-items are current
+          },
+          sxProp,
+        )}
+      >
+        {children}
+        {/* What happens if the user provides a TrailingVisual? */}
+        <ActionList.TrailingVisual>
+          <Octicon
+            icon={ChevronDownIcon}
+            sx={{
+              transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)',
+            }}
+          />
+        </ActionList.TrailingVisual>
+      </ActionList.Item>
 
-        <div ref={subNavRef}>{subNav}</div>
-      </Box>
+      <div ref={subNavRef}>{subNav}</div>
     </ItemWithSubNavContext.Provider>
   )
 }

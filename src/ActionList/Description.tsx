@@ -27,7 +27,7 @@ export const Description: React.FC<React.PropsWithChildren<ActionListDescription
     minWidth: 0,
     marginLeft: variant === 'block' ? 0 : 2,
     color: 'fg.muted',
-    'li[aria-disabled="true"] &': {
+    'li > [aria-disabled="true"] &': {
       color: 'inherit',
     },
     'li[data-variant="danger"]:hover &, li[data-variant="danger"]:active &': {

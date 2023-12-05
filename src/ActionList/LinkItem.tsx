@@ -1,7 +1,7 @@
 import React from 'react'
 import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import Link from '../Link'
-import {SxProp, merge} from '../sx'
+import {BetterSystemStyleObject, SxProp, merge} from '../sx'
 import {Item} from './Item'
 import {ActionListItemProps} from './shared'
 
@@ -22,24 +22,11 @@ type LinkProps = {
 export type ActionListLinkItemProps = Pick<ActionListItemProps, 'active' | 'children' | 'sx'> & LinkProps
 
 export const LinkItem = React.forwardRef(({sx = {}, active, as: Component, ...props}, forwardedRef) => {
-  const styles = {
-    // occupy full size of Item
-    paddingX: 2,
-    paddingY: '6px', // custom value off the scale
-    display: 'flex',
-    flexGrow: 1, // full width
-    borderRadius: 2,
-
-    // inherit Item styles
-    color: 'inherit',
-    '&:hover': {color: 'inherit', textDecoration: 'none'},
-  }
-
   return (
     <Item
       active={active}
       sx={{paddingY: 0, paddingX: 0}}
-      _PrivateItemWrapper={({children, onClick, ...rest}) => {
+      _PrivateItemWrapper={({children, styles, onClick, ...rest}) => {
         const clickHandler = (event: React.MouseEvent) => {
           onClick && onClick(event)
           props.onClick && props.onClick(event as React.MouseEvent<HTMLAnchorElement>)
@@ -47,7 +34,15 @@ export const LinkItem = React.forwardRef(({sx = {}, active, as: Component, ...pr
         return (
           <Link
             as={Component}
-            sx={merge(styles, sx as SxProp)}
+            sx={merge<BetterSystemStyleObject>(
+              {
+                ...styles, // shared style from Item
+                flexGrow: 1, // full width
+                color: 'inherit',
+                '&:hover': {color: 'inherit', textDecoration: 'none'},
+              },
+              sx as SxProp,
+            )}
             {...rest}
             {...props}
             onClick={clickHandler}

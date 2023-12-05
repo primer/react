@@ -29,11 +29,12 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       id,
       role,
       _PrivateItemWrapper,
-      ...props
+      children,
+      ...rest
     },
     forwardedRef,
   ): JSX.Element => {
-    const [slots, childrenWithoutSlots] = useSlots(props.children, {
+    const [slots, childrenWithoutSlots] = useSlots(children, {
       leadingVisual: LeadingVisual,
       trailingVisual: TrailingVisual,
       blockDescription: [Description, props => props.variant === 'block'],
@@ -51,7 +52,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
 
     const onSelect = React.useCallback(
       (
-        event: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement>,
+        event: React.MouseEvent<HTMLButtonElement> | React.KeyboardEvent<HTMLButtonElement>,
         // eslint-disable-next-line @typescript-eslint/ban-types
         afterSelect?: Function,
       ) => {
@@ -91,6 +92,12 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
         bg: 'accent.fg',
         borderRadius: 2,
       },
+    }
+
+    const listItemStyles = {
+      display: 'flex',
+      // show between 2 items
+      ':not(:first-of-type)': {'--divider-color': theme?.colors.actionListItem.inlineDivider},
     }
 
     const styles = {
@@ -162,8 +169,6 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
         borderTopWidth: showDividers ? `1px` : '0',
         borderColor: 'var(--divider-color, transparent)',
       },
-      // show between 2 items
-      ':not(:first-of-type)': {'--divider-color': theme?.colors.actionListItem.inlineDivider},
       // hide divider after dividers & group header, with higher importance!
       '[data-component="ActionList.Divider"] + &': {'--divider-color': 'transparent !important'},
       // hide border on current and previous item
@@ -177,7 +182,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
     }
 
     const clickHandler = React.useCallback(
-      (event: React.MouseEvent<HTMLLIElement>) => {
+      (event: React.MouseEvent<HTMLButtonElement>) => {
         if (disabled) return
         onSelect(event, afterSelect)
       },
@@ -185,7 +190,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
     )
 
     const keyPressHandler = React.useCallback(
-      (event: React.KeyboardEvent<HTMLLIElement>) => {
+      (event: React.KeyboardEvent<HTMLButtonElement>) => {
         if (disabled) return
         if ([' ', 'Enter'].includes(event.key)) {
           onSelect(event, afterSelect)
@@ -199,34 +204,46 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
     const inlineDescriptionId = `${itemId}--inline-description`
     const blockDescriptionId = `${itemId}--block-description`
 
-    const ItemWrapper = _PrivateItemWrapper || React.Fragment
+    type ActionListDefaultItemProps = ActionListItemProps & React.ButtonHTMLAttributes<HTMLButtonElement>
 
-    const menuItemProps = {
+    const DefaultItemWrapper = React.forwardRef(
+      ({sx = {}, as: Component = 'button', children, ...props}, forwardedRef) => {
+        return (
+          <Box as={Component} sx={merge<BetterSystemStyleObject>(styles, sx as SxProp)} ref={forwardedRef} {...props}>
+            {children}
+          </Box>
+        )
+      },
+    ) as PolymorphicForwardRefComponent<'button', ActionListDefaultItemProps>
+
+    const ItemWrapper = _PrivateItemWrapper ?? DefaultItemWrapper
+
+    const itemProps = {
       onClick: clickHandler,
       onKeyPress: keyPressHandler,
       'aria-disabled': disabled ? true : undefined,
+      // we need tabindex for only menu or listbox - because default is button and it is focusable by default
       tabIndex: disabled ? undefined : 0,
       'aria-labelledby': `${labelId} ${slots.inlineDescription ? inlineDescriptionId : ''}`,
       'aria-describedby': slots.blockDescription ? blockDescriptionId : undefined,
       ...(selectionAttribute && {[selectionAttribute]: selected}),
       role: role || itemRole,
       id: itemId,
+      styles,
     }
 
-    const containerProps = _PrivateItemWrapper ? {role: role || itemRole ? 'none' : undefined} : menuItemProps
-
-    const wrapperProps = _PrivateItemWrapper ? menuItemProps : {}
+    // This is on the li element. We don't need any props on the li, just need to undo the role for menu/listbox
+    const containerProps = {role: role || itemRole ? 'none' : undefined}
 
     return (
       <ItemContext.Provider value={{variant, disabled, inlineDescriptionId, blockDescriptionId}}>
         <LiBox
-          ref={forwardedRef}
-          sx={merge<BetterSystemStyleObject>(styles, sxProp)}
+          sx={merge<BetterSystemStyleObject>(listItemStyles, sxProp)}
           data-variant={variant === 'danger' ? variant : undefined}
           {...containerProps}
-          {...props}
         >
-          <ItemWrapper {...wrapperProps}>
+          {/* @ts-ignore I don't know what is the best type for event params */}
+          <ItemWrapper {...itemProps} ref={forwardedRef} {...rest}>
             <Selection selected={selected} />
             {slots.leadingVisual}
             <Box
