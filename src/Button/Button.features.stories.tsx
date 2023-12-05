@@ -69,59 +69,22 @@ export const Medium = () => <Button size="medium">Default</Button>
 
 export const Large = () => <Button size="large">Default</Button>
 
-export const LoadingWithLeadingVisual = () => {
-  const [isLoading, setIsLoading] = useState(false)
+export const Loading = () => <Button loading>Default</Button>
 
-  const handleClick = () => {
-    setIsLoading(true)
-    setTimeout(() => {
-      setIsLoading(false)
-    }, 3000)
-  }
-
-  return (
-    <Button loading={isLoading} onClick={handleClick} leadingVisual={DownloadIcon}>
-      Export
-    </Button>
-  )
-}
-
-export const LoadingCustomMessage = () => (
-  <Button loading loadingAnnouncement="This is a custom loading message">
+export const LoadingCustomAnnouncement = () => (
+  <Button loading loadingAnnouncement="This is a custom loading announcement">
     Default
   </Button>
 )
 
-export const LoadingWithNoVisuals = () => {
-  const [isLoading, setIsLoading] = useState(false)
+export const LoadingWithLeadingVisual = () => (
+  <Button loading leadingVisual={DownloadIcon}>
+    Export
+  </Button>
+)
 
-  const handleClick = () => {
-    setIsLoading(true)
-    setTimeout(() => {
-      setIsLoading(false)
-    }, 3000)
-  }
-
-  return (
-    <Button loading={isLoading} onClick={handleClick}>
-      Export
-    </Button>
-  )
-}
-
-export const LoadingWithTrailingVisual = () => {
-  const [isLoading, setIsLoading] = useState(false)
-
-  const handleClick = () => {
-    setIsLoading(true)
-    setTimeout(() => {
-      setIsLoading(false)
-    }, 3000)
-  }
-
-  return (
-    <Button loading={isLoading} onClick={handleClick} trailingVisual={DownloadIcon}>
-      Export
-    </Button>
-  )
-}
+export const LoadingWithTrailingVisual = () => (
+  <Button loading trailingVisual={DownloadIcon}>
+    Export
+  </Button>
+)
