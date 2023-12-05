@@ -40,6 +40,7 @@ const ButtonBase = forwardRef(
       block = false,
       loading = false,
       loadingAnnouncement = 'Loading',
+      inactive,
       ...rest
     } = props
 
@@ -94,6 +95,7 @@ const ButtonBase = forwardRef(
           // aria-labelledby is needed because the accessible name becomes unset when the button is in a loading state
           aria-labelledby={buttonLabelID}
           id={id}
+          data-inactive={inactive ? true : undefined}
         >
           {Icon ? (
             loading ? (

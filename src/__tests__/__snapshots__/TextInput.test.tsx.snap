@@ -1779,6 +1779,10 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   transition: none;
 }
 
+.c5[data-inactive] {
+  cursor: auto;
+}
+
 .c5:disabled,
 .c5[aria-disabled] {
   cursor: not-allowed;
@@ -1848,6 +1852,16 @@ exports[`TextInput renders trailingAction icon button 1`] = `
 
 .c5[data-block="block"] {
   width: 100%;
+}
+
+.c5[data-inactive]:not([disabled]) {
+  background-color: var(--button-inactive-bgColor,#eaeef2);
+  border-color: var(--button-inactive-bgColor,#eaeef2);
+  color: var(--button-inactive-fgColor,#57606a);
+}
+
+.c5[data-inactive]:not([disabled]):focus-visible {
+  box-shadow: none;
 }
 
 .c5 [data-component="leadingVisual"] {
@@ -2324,9 +2338,9 @@ exports[`TextInput renders trailingAction icon button 1`] = `
       role="tooltip"
     >
       <button
-        aria-describedby="react-aria1271530265-3-loading-announcement"
+        aria-describedby=":r2:-loading-announcement"
         aria-label="Icon label"
-        aria-labelledby="react-aria1271530265-3-label"
+        aria-labelledby=":r2:-label"
         className="c5"
         data-block={null}
         data-component="IconButton"
@@ -2363,7 +2377,7 @@ exports[`TextInput renders trailingAction icon button 1`] = `
       >
         <span
           aria-live="polite"
-          id="react-aria1271530265-3-loading-announcement"
+          id=":r2:-loading-announcement"
         />
       </div>
     </span>
@@ -2468,6 +2482,10 @@ exports[`TextInput renders trailingAction text button 1`] = `
   transition: none;
 }
 
+.c4[data-inactive] {
+  cursor: auto;
+}
+
 .c4:disabled,
 .c4[aria-disabled] {
   cursor: not-allowed;
@@ -2537,6 +2555,16 @@ exports[`TextInput renders trailingAction text button 1`] = `
 
 .c4[data-block="block"] {
   width: 100%;
+}
+
+.c4[data-inactive]:not([disabled]) {
+  background-color: var(--button-inactive-bgColor,#eaeef2);
+  border-color: var(--button-inactive-bgColor,#eaeef2);
+  color: var(--button-inactive-fgColor,#57606a);
+}
+
+.c4[data-inactive]:not([disabled]):focus-visible {
+  box-shadow: none;
 }
 
 .c4 [data-component="leadingVisual"] {
@@ -2780,8 +2808,8 @@ exports[`TextInput renders trailingAction text button 1`] = `
     className="c3 TextInput-action"
   >
     <button
-      aria-describedby="react-aria1271530265-1-loading-announcement"
-      aria-labelledby="react-aria1271530265-1-label"
+      aria-describedby=":r0:-loading-announcement"
+      aria-labelledby=":r0:-label"
       className="c4"
       data-block={null}
       data-no-visuals={true}
@@ -2795,7 +2823,7 @@ exports[`TextInput renders trailingAction text button 1`] = `
       >
         <span
           data-component="text"
-          id="react-aria1271530265-1-label"
+          id=":r0:-label"
         >
           Clear
         </span>
@@ -2806,7 +2834,7 @@ exports[`TextInput renders trailingAction text button 1`] = `
     >
       <span
         aria-live="polite"
-        id="react-aria1271530265-1-loading-announcement"
+        id=":r0:-loading-announcement"
       />
     </div>
   </span>
@@ -2910,6 +2938,10 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   transition: none;
 }
 
+.c5[data-inactive] {
+  cursor: auto;
+}
+
 .c5:disabled,
 .c5[aria-disabled] {
   cursor: not-allowed;
@@ -2979,6 +3011,16 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
 
 .c5[data-block="block"] {
   width: 100%;
+}
+
+.c5[data-inactive]:not([disabled]) {
+  background-color: var(--button-inactive-bgColor,#eaeef2);
+  border-color: var(--button-inactive-bgColor,#eaeef2);
+  color: var(--button-inactive-fgColor,#57606a);
+}
+
+.c5[data-inactive]:not([disabled]):focus-visible {
+  box-shadow: none;
 }
 
 .c5 [data-component="leadingVisual"] {
@@ -3453,8 +3495,8 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
       role="tooltip"
     >
       <button
-        aria-describedby="react-aria1271530265-2-loading-announcement"
-        aria-labelledby="react-aria1271530265-2-label"
+        aria-describedby=":r1:-loading-announcement"
+        aria-labelledby=":r1:-label"
         className="c5"
         data-block={null}
         data-no-visuals={true}
@@ -3468,7 +3510,7 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
         >
           <span
             data-component="text"
-            id="react-aria1271530265-2-label"
+            id=":r1:-label"
           >
             Clear
           </span>
@@ -3479,7 +3521,7 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
       >
         <span
           aria-live="polite"
-          id="react-aria1271530265-2-loading-announcement"
+          id=":r1:-loading-announcement"
         />
       </div>
     </span>

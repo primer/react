@@ -43,6 +43,11 @@ export type ButtonBaseProps = {
    * The content to announce to screen readers when loading.
    */
   loadingAnnouncement?: string
+  /*
+   * Whether the button looks visually disabled, but can still accept all the same
+   * interactions as an enabled button.
+   */
+  inactive?: boolean
 } & SxProp &
   React.ButtonHTMLAttributes<HTMLButtonElement>
 

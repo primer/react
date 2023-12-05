@@ -92,6 +92,10 @@ exports[`Button renders consistently 1`] = `
   transition: none;
 }
 
+.c0[data-inactive] {
+  cursor: auto;
+}
+
 .c0:disabled,
 .c0[aria-disabled] {
   cursor: not-allowed;
@@ -159,6 +163,16 @@ exports[`Button renders consistently 1`] = `
   width: 100%;
 }
 
+.c0[data-inactive]:not([disabled]) {
+  background-color: var(--button-inactive-bgColor,#eaeef2);
+  border-color: var(--button-inactive-bgColor,#eaeef2);
+  color: var(--button-inactive-fgColor,#57606a);
+}
+
+.c0[data-inactive]:not([disabled]):focus-visible {
+  box-shadow: none;
+}
+
 .c0 [data-component="leadingVisual"] {
   grid-area: leadingVisual;
 }
@@ -207,12 +221,12 @@ exports[`Button renders consistently 1`] = `
   visibility: hidden;
 }
 
-.c0:hover:not([disabled]):not([aria-disabled]) {
+.c0:hover:not([disabled]):not([aria-disabled]):not([data-inactive]) {
   background-color: #f3f4f6;
   border-color: var(--button-default-borderColor-hover,rgba(31,35,40,0.15));
 }
 
-.c0:active:not([disabled]):not([aria-disabled]) {
+.c0:active:not([disabled]):not([aria-disabled]):not([data-inactive]) {
   background-color: hsla(220,14%,93%,1);
   border-color: var(--button-default-borderColor-active,rgba(31,35,40,0.15));
 }
@@ -365,6 +379,10 @@ exports[`Button respects block prop 1`] = `
   transition: none;
 }
 
+.c0[data-inactive] {
+  cursor: auto;
+}
+
 .c0:disabled,
 .c0[aria-disabled] {
   cursor: not-allowed;
@@ -432,6 +450,16 @@ exports[`Button respects block prop 1`] = `
   width: 100%;
 }
 
+.c0[data-inactive]:not([disabled]) {
+  background-color: var(--button-inactive-bgColor,undefined);
+  border-color: var(--button-inactive-bgColor,undefined);
+  color: var(--button-inactive-fgColor,undefined);
+}
+
+.c0[data-inactive]:not([disabled]):focus-visible {
+  box-shadow: none;
+}
+
 .c0 [data-component="leadingVisual"] {
   grid-area: leadingVisual;
 }
@@ -480,12 +508,12 @@ exports[`Button respects block prop 1`] = `
   visibility: hidden;
 }
 
-.c0:hover:not([disabled]):not([aria-disabled]) {
+.c0:hover:not([disabled]):not([aria-disabled]):not([data-inactive]) {
   background-color: btn.hoverBg;
   border-color: var(--button-default-borderColor-hover,undefined);
 }
 
-.c0:active:not([disabled]):not([aria-disabled]) {
+.c0:active:not([disabled]):not([aria-disabled]):not([data-inactive]) {
   background-color: btn.activeBg;
   border-color: var(--button-default-borderColor-active,undefined);
 }
@@ -621,6 +649,10 @@ exports[`Button respects the alignContent prop 1`] = `
   transition: none;
 }
 
+.c0[data-inactive] {
+  cursor: auto;
+}
+
 .c0:disabled,
 .c0[aria-disabled] {
   cursor: not-allowed;
@@ -688,6 +720,16 @@ exports[`Button respects the alignContent prop 1`] = `
   width: 100%;
 }
 
+.c0[data-inactive]:not([disabled]) {
+  background-color: var(--button-inactive-bgColor,undefined);
+  border-color: var(--button-inactive-bgColor,undefined);
+  color: var(--button-inactive-fgColor,undefined);
+}
+
+.c0[data-inactive]:not([disabled]):focus-visible {
+  box-shadow: none;
+}
+
 .c0 [data-component="leadingVisual"] {
   grid-area: leadingVisual;
 }
@@ -736,12 +778,12 @@ exports[`Button respects the alignContent prop 1`] = `
   visibility: hidden;
 }
 
-.c0:hover:not([disabled]):not([aria-disabled]) {
+.c0:hover:not([disabled]):not([aria-disabled]):not([data-inactive]) {
   background-color: btn.hoverBg;
   border-color: var(--button-default-borderColor-hover,undefined);
 }
 
-.c0:active:not([disabled]):not([aria-disabled]) {
+.c0:active:not([disabled]):not([aria-disabled]):not([data-inactive]) {
   background-color: btn.activeBg;
   border-color: var(--button-default-borderColor-active,undefined);
 }
@@ -876,6 +918,10 @@ exports[`Button respects the large size prop 1`] = `
   transition: none;
 }
 
+.c0[data-inactive] {
+  cursor: auto;
+}
+
 .c0:disabled,
 .c0[aria-disabled] {
   cursor: not-allowed;
@@ -943,6 +989,16 @@ exports[`Button respects the large size prop 1`] = `
   width: 100%;
 }
 
+.c0[data-inactive]:not([disabled]) {
+  background-color: var(--button-inactive-bgColor,undefined);
+  border-color: var(--button-inactive-bgColor,undefined);
+  color: var(--button-inactive-fgColor,undefined);
+}
+
+.c0[data-inactive]:not([disabled]):focus-visible {
+  box-shadow: none;
+}
+
 .c0 [data-component="leadingVisual"] {
   grid-area: leadingVisual;
 }
@@ -991,12 +1047,12 @@ exports[`Button respects the large size prop 1`] = `
   visibility: hidden;
 }
 
-.c0:hover:not([disabled]):not([aria-disabled]) {
+.c0:hover:not([disabled]):not([aria-disabled]):not([data-inactive]) {
   background-color: btn.hoverBg;
   border-color: var(--button-default-borderColor-hover,undefined);
 }
 
-.c0:active:not([disabled]):not([aria-disabled]) {
+.c0:active:not([disabled]):not([aria-disabled]):not([data-inactive]) {
   background-color: btn.activeBg;
   border-color: var(--button-default-borderColor-active,undefined);
 }
@@ -1132,6 +1188,10 @@ exports[`Button respects the small size prop 1`] = `
   transition: none;
 }
 
+.c0[data-inactive] {
+  cursor: auto;
+}
+
 .c0:disabled,
 .c0[aria-disabled] {
   cursor: not-allowed;
@@ -1199,6 +1259,16 @@ exports[`Button respects the small size prop 1`] = `
   width: 100%;
 }
 
+.c0[data-inactive]:not([disabled]) {
+  background-color: var(--button-inactive-bgColor,undefined);
+  border-color: var(--button-inactive-bgColor,undefined);
+  color: var(--button-inactive-fgColor,undefined);
+}
+
+.c0[data-inactive]:not([disabled]):focus-visible {
+  box-shadow: none;
+}
+
 .c0 [data-component="leadingVisual"] {
   grid-area: leadingVisual;
 }
@@ -1247,12 +1317,12 @@ exports[`Button respects the small size prop 1`] = `
   visibility: hidden;
 }
 
-.c0:hover:not([disabled]):not([aria-disabled]) {
+.c0:hover:not([disabled]):not([aria-disabled]):not([data-inactive]) {
   background-color: btn.hoverBg;
   border-color: var(--button-default-borderColor-hover,undefined);
 }
 
-.c0:active:not([disabled]):not([aria-disabled]) {
+.c0:active:not([disabled]):not([aria-disabled]):not([data-inactive]) {
   background-color: btn.activeBg;
   border-color: var(--button-default-borderColor-active,undefined);
 }
@@ -1388,6 +1458,10 @@ exports[`Button styles danger button appropriately 1`] = `
   transition: none;
 }
 
+.c0[data-inactive] {
+  cursor: auto;
+}
+
 .c0:disabled,
 .c0[aria-disabled] {
   cursor: not-allowed;
@@ -1460,6 +1534,16 @@ exports[`Button styles danger button appropriately 1`] = `
   width: 100%;
 }
 
+.c0[data-inactive]:not([disabled]) {
+  background-color: var(--button-inactive-bgColor,undefined);
+  border-color: var(--button-inactive-bgColor,undefined);
+  color: var(--button-inactive-fgColor,undefined);
+}
+
+.c0[data-inactive]:not([disabled]):focus-visible {
+  box-shadow: none;
+}
+
 .c0 [data-component="leadingVisual"] {
   grid-area: leadingVisual;
 }
@@ -1508,19 +1592,19 @@ exports[`Button styles danger button appropriately 1`] = `
   visibility: hidden;
 }
 
-.c0:hover:not([disabled]):not([aria-disabled]) {
+.c0:hover:not([disabled]):not([aria-disabled]):not([data-inactive]) {
   color: btn.danger.hoverText;
   background-color: btn.danger.hoverBg;
   border-color: btn.danger.hoverBorder;
   box-shadow: undefined;
 }
 
-.c0:hover:not([disabled]):not([aria-disabled]) [data-component=ButtonCounter] {
+.c0:hover:not([disabled]):not([aria-disabled]):not([data-inactive]) [data-component=ButtonCounter] {
   background-color: btn.danger.hoverCounterBg;
   color: btn.danger.hoverCounterFg;
 }
 
-.c0:active:not([disabled]):not([aria-disabled]) {
+.c0:active:not([disabled]):not([aria-disabled]):not([data-inactive]) {
   color: btn.danger.selectedText;
   background-color: btn.danger.selectedBg;
   box-shadow: undefined;
@@ -1653,6 +1737,10 @@ exports[`Button styles invisible button appropriately 1`] = `
   transition: none;
 }
 
+.c0[data-inactive] {
+  cursor: auto;
+}
+
 .c0:disabled,
 .c0[aria-disabled] {
   cursor: not-allowed;
@@ -1722,6 +1810,16 @@ exports[`Button styles invisible button appropriately 1`] = `
 
 .c0[data-block="block"] {
   width: 100%;
+}
+
+.c0[data-inactive]:not([disabled]) {
+  background-color: var(--button-inactive-bgColor,undefined);
+  border-color: var(--button-inactive-bgColor,undefined);
+  color: var(--button-inactive-fgColor,undefined);
+}
+
+.c0[data-inactive]:not([disabled]):focus-visible {
+  box-shadow: none;
 }
 
 .c0 [data-component="leadingVisual"] {
@@ -1927,6 +2025,10 @@ exports[`Button styles primary button appropriately 1`] = `
   transition: none;
 }
 
+.c0[data-inactive] {
+  cursor: auto;
+}
+
 .c0:disabled,
 .c0[aria-disabled] {
   cursor: not-allowed;
@@ -1997,6 +2099,16 @@ exports[`Button styles primary button appropriately 1`] = `
   width: 100%;
 }
 
+.c0[data-inactive]:not([disabled]) {
+  background-color: var(--button-inactive-bgColor,undefined);
+  border-color: var(--button-inactive-bgColor,undefined);
+  color: var(--button-inactive-fgColor,undefined);
+}
+
+.c0[data-inactive]:not([disabled]):focus-visible {
+  box-shadow: none;
+}
+
 .c0 [data-component="leadingVisual"] {
   grid-area: leadingVisual;
 }
@@ -2045,7 +2157,7 @@ exports[`Button styles primary button appropriately 1`] = `
   visibility: hidden;
 }
 
-.c0:hover:not([disabled]):not([aria-disabled]) {
+.c0:hover:not([disabled]):not([aria-disabled]):not([data-inactive]) {
   color: btn.primary.hoverText;
   background-color: btn.primary.hoverBg;
 }
@@ -2058,7 +2170,7 @@ exports[`Button styles primary button appropriately 1`] = `
   box-shadow: inset 0 0 0 3px;
 }
 
-.c0:active:not([disabled]):not([aria-disabled]) {
+.c0:active:not([disabled]):not([aria-disabled]):not([data-inactive]) {
   background-color: btn.primary.selectedBg;
   box-shadow: undefined;
 }

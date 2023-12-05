@@ -26,6 +26,11 @@ Playground.argTypes = {
       type: 'boolean',
     },
   },
+  inactive: {
+    control: {
+      type: 'boolean',
+    },
+  },
   variant: {
     control: {
       type: 'radio',
@@ -61,6 +66,7 @@ Playground.args = {
   block: false,
   size: 'medium',
   disabled: false,
+  inactive: false,
   variant: 'default',
   alignContent: 'center',
   loading: false,
