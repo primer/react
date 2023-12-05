@@ -10,7 +10,7 @@ export type ActionListItemProps = {
   /**
    * Callback that will trigger both on click selection and keyboard selection.
    */
-  onSelect?: (event: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>) => void
+  onSelect?: (event: React.MouseEvent<HTMLButtonElement> | React.KeyboardEvent<HTMLButtonElement>) => void
   /**
    * Is the `Item` is currently selected?
    */
