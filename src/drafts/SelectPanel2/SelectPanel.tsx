@@ -183,6 +183,7 @@ const Panel: React.FC<SelectPanelProps> = ({
           border: 'none',
           padding: 0,
           margin: 0,
+          '::backdrop': {background: 'transparent'},
         }}
       >
         <SelectPanelContext.Provider
