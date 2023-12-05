@@ -1,6 +1,5 @@
 import {useState, useEffect, useRef} from 'react'
 import Box from '../Box'
-import {DialogProps} from './Dialog'
 
 const DialogActionSheet: React.FC<
   React.PropsWithChildren<{
@@ -24,11 +23,10 @@ const DialogActionSheet: React.FC<
     window.matchMedia(`(prefers-reduced-motion: reduce)`).matches === true
 
   const showBottomSheet = () => {
-    onClose(false)
     updateSheetHeight(50)
     document.body.style.overflowY = 'hidden'
   }
-  const hideBottomSheet = (gesture: 'close-button' | 'escape' | 'overlay') => {
+  const hideBottomSheet = (gesture: 'close-button' | 'escape' | 'drag' | 'overlay') => {
     onClose(gesture)
     document.body.style.overflowY = 'auto'
   }
@@ -69,23 +67,27 @@ const DialogActionSheet: React.FC<
 
   useEffect(() => {
     document.addEventListener('mouseup', dragStop)
-    dragIconRef.current.addEventListener('mousedown', dragStart)
+    dragIconRef.current?.addEventListener('mousedown', dragStart)
     document.addEventListener('mousemove', dragging)
 
     document.addEventListener('touchend', dragStop)
-    dragIconRef.current.addEventListener('touchstart', dragStart)
+    dragIconRef.current?.addEventListener('touchstart', dragStart)
     document.addEventListener('touchmove', dragging)
 
     return () => {
       document.removeEventListener('mouseup', dragStop)
-      dragIconRef.current.removeEventListener('mousedown', dragStart)
+      dragIconRef.current?.removeEventListener('mousedown', dragStart)
       document.removeEventListener('mousemove', dragging)
 
       document.removeEventListener('touchend', dragStop)
-      dragIconRef.current.removeEventListener('touchstart', dragStart)
+      dragIconRef.current?.removeEventListener('touchstart', dragStart)
       document.removeEventListener('touchmove', dragging)
     }
   }, [])
+
+  useEffect(() => {
+    showBottomSheet()
+  }, [showBottomSheet])
 
   const isFullScreen = sheetHeight?.current === 100
 
@@ -124,12 +126,15 @@ const DialogActionSheet: React.FC<
         id="content"
         ref={sheetContentRef}
         sx={{
+          display: 'flex',
+          flexDirection: 'column',
           bg: 'canvas.default',
           height: '50vh',
           maxHeight: '100vh',
           width: '100%',
-          borderRadius: isFullScreen ? 0 : '10px 10px 0 0',
+          borderRadius: isFullScreen ? 0 : '12px 12px 0 0',
           overflowY: isFullScreen && 'hidden',
+          overflowX: 'hidden',
           position: 'relative',
           transform: open ? 'translateY(0%)' : 'translateY(100%)',
         }}
@@ -139,6 +144,10 @@ const DialogActionSheet: React.FC<
           sx={{
             display: 'flex',
             justifyContent: 'center',
+            position: 'absolute',
+            top: 0,
+            right: 0,
+            left: 0,
           }}
         >
           <Box
@@ -151,11 +160,12 @@ const DialogActionSheet: React.FC<
             <Box
               as="span"
               sx={{
-                height: 10,
-                width: 100,
+                height: 6,
+                width: 70,
+                mt: 2,
                 display: 'block',
-                bg: 'blue',
-                borderRadius: 5,
+                bg: 'border.default',
+                borderRadius: 3,
               }}
             ></Box>
           </Box>

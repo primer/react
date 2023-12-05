@@ -113,8 +113,9 @@ export interface DialogProps extends SxProp {
 
   /**
    * Normally a dialog is display in the center of a viewport but sometimes
-   * it is useful to display this full screen on mobile viewports to allow for
-   * more space for content. When full-screen the width and height is ignored.
+   * it is useful to display this full screen or as an action sheet on mobile viewports
+   * to allow for more space for content. When full-screen or action sheet the width
+   * and height is ignored.
    */
   type?: DialogType | ResponsiveValue<DialogType>
 
