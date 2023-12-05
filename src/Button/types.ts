@@ -35,7 +35,13 @@ export type ButtonBaseProps = {
    * Allow button width to fill its container.
    */
   block?: boolean
+  /**
+   * When true, the button is in a loading state.
+   */
   loading?: boolean
+  /**
+   * The content to announce to screen readers when loading.
+   */
   loadingAnnouncement?: string
 } & SxProp &
   React.ButtonHTMLAttributes<HTMLButtonElement>
