@@ -12,6 +12,17 @@ import Spinner from '../Spinner'
 import CounterLabel from '../CounterLabel'
 import {useId} from '../hooks'
 
+const iconWrapStyles = {
+  display: 'flex',
+  pointerEvents: 'none',
+}
+
+const renderVisual = (Visual: React.ElementType, loading: boolean, visualName: string) => (
+  <Box as="span" data-component={visualName} sx={{...iconWrapStyles}}>
+    {loading ? <Spinner size="small" /> : <Visual />}
+  </Box>
+)
+
 const ButtonBase = forwardRef(
   ({children, as: Component = 'button', sx: sxProp = defaultSxProp, ...props}, forwardedRef): JSX.Element => {
     const {
@@ -42,10 +53,6 @@ const ButtonBase = forwardRef(
     const sxStyles = useMemo(() => {
       return merge<BetterSystemStyleObject>(baseStyles, sxProp)
     }, [baseStyles, sxProp])
-    const iconWrapStyles = {
-      display: 'flex',
-      pointerEvents: 'none',
-    }
     const uuid = useId(id)
     const loadingAnnouncementID = `${uuid}-loading-announcement`
     const buttonLabelID = ariaLabelledBy || `${uuid}-label`
@@ -97,21 +104,8 @@ const ButtonBase = forwardRef(
           ) : (
             <>
               <Box as="span" data-component="buttonContent" sx={getAlignContentSize(alignContent)}>
-                {loading && !LeadingVisual && !TrailingVisual && (
-                  <Box as="span" data-component="loadingSpinner" sx={{...iconWrapStyles}}>
-                    <Spinner size="small" />
-                  </Box>
-                )}
-                {LeadingVisual && loading && (
-                  <Box as="span" data-component="leadingVisual" sx={{...iconWrapStyles}}>
-                    <Spinner size="small" />
-                  </Box>
-                )}
-                {LeadingVisual && !loading && (
-                  <Box as="span" data-component="leadingVisual" sx={{...iconWrapStyles}}>
-                    <LeadingVisual />
-                  </Box>
-                )}
+                {loading && !LeadingVisual && !TrailingVisual && renderVisual(Spinner, loading, 'loadingSpinner')}
+                {LeadingVisual && renderVisual(LeadingVisual, loading, 'leadingVisual')}
                 {children && (
                   <span data-component="text" id={buttonLabelID}>
                     {children}
@@ -122,16 +116,7 @@ const ButtonBase = forwardRef(
                     )}
                   </span>
                 )}
-                {TrailingVisual && !loading && (
-                  <Box as="span" data-component="trailingVisual" sx={{...iconWrapStyles}}>
-                    <TrailingVisual />
-                  </Box>
-                )}
-                {TrailingVisual && loading && (
-                  <Box as="span" data-component="trailingVisual" sx={{...iconWrapStyles}}>
-                    <Spinner size="small" />
-                  </Box>
-                )}
+                {TrailingVisual && renderVisual(TrailingVisual, loading, 'trailingVisual')}
               </Box>
               {TrailingAction && (
                 <Box as="span" data-component="trailingAction" sx={{...iconWrapStyles}}>
