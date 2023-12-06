@@ -293,27 +293,29 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
 
   if (responsiveType === 'action-sheet') {
     return (
-      <DialogActionSheet open={true} onClose={onClose}>
-        {header}
-        {body}
-        {footer}
-      </DialogActionSheet>
+      <Portal>
+        <DialogActionSheet
+          ref={dialogRef}
+          role={role}
+          aria-labelledby={dialogLabelId}
+          aria-describedby={dialogDescriptionId}
+          aria-modal
+          open={true}
+          onClose={onClose}
+          sx={sx}
+        >
+          {header}
+          {body}
+          {footer}
+        </DialogActionSheet>
+      </Portal>
     )
   }
 
   return (
     <Portal>
       <Backdrop ref={backdropRef}>
-        <NormalDialog
-          width={width}
-          height={height}
-          ref={dialogRef}
-          role={role}
-          aria-labelledby={dialogLabelId}
-          aria-describedby={dialogDescriptionId}
-          aria-modal
-          sx={sx}
-        >
+        <NormalDialog width={width} height={height} ref={dialogRef} sx={sx}>
           {header}
           {body}
           {footer}
