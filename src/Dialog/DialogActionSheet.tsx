@@ -156,6 +156,9 @@ const DialogActionSheet: React.FC<
             sx={{
               cursor: 'grab',
               userSelect: 'none',
+              'span:hover': {
+                bg: 'border.default',
+              },
             }}
           >
             <Box
@@ -165,7 +168,7 @@ const DialogActionSheet: React.FC<
                 width: 70,
                 mt: 2,
                 display: 'block',
-                bg: 'border.default',
+                bg: 'border.muted',
                 borderRadius: 3,
               }}
             ></Box>
