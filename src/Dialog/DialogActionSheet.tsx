@@ -146,6 +146,7 @@ const DialogActionSheet: React.FC<
             justifyContent: 'center',
             position: 'absolute',
             top: 0,
+            zIndex: 2,
             right: 0,
             left: 0,
           }}
@@ -171,15 +172,7 @@ const DialogActionSheet: React.FC<
           </Box>
         </Box>
 
-        <Box
-          className="body"
-          sx={{
-            overflowY: 'auto',
-            height: '100%',
-          }}
-        >
-          {children}
-        </Box>
+        {children}
       </Box>
     </Box>
   )
