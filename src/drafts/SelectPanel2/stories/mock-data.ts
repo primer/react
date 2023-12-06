@@ -9,11 +9,13 @@ const data = {
       id: 'MDQ6VXNlcjQxNzI2OA==',
       name: 'Pavithra Kodmad',
       login: 'pksjce',
+      recommended: true,
     },
     {
       id: 'MDQ6VXNlcjE0NDY1MDM=',
       name: 'Armağan',
       login: 'broccolinisoup',
+      recommended: true,
     },
     {
       id: 'MDQ6VXNlcjE4NjM3NzE=',
@@ -29,6 +31,7 @@ const data = {
       id: 'MDQ6VXNlcjM5MDE3NjQ=',
       name: 'Josh Black',
       login: 'joshblack',
+      recommended: true,
     },
     {
       id: 'MDQ6VXNlcjE4NjYxMDMw',

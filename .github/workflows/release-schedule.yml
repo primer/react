@@ -6,7 +6,7 @@ on:
         type: boolean
         description: 'Run in dry mode. This option will disable creating and closing issues'
   schedule:
-    - cron: '30 15 * * MON'
+    - cron: '30 16 * * MON'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
