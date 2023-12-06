@@ -1,6 +1,8 @@
 import {
   GitMergeIcon,
   GitPullRequestIcon,
+  GitPullRequestClosedIcon,
+  GitPullRequestDraftIcon,
   IssueClosedIcon,
   SkipIcon,
   IssueDraftIcon,
