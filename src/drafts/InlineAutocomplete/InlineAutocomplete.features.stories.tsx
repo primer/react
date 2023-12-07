@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import {Meta} from '@storybook/react'
-import {ActionList, Avatar, ActionListItemProps, Textarea, TextInput, FormControl} from '..'
+import {ActionList, Avatar, ActionListItemProps, Textarea, TextInput, FormControl} from '../..'
 import InlineAutocomplete, {ShowSuggestionsEvent, Suggestions} from '.'
 
 export default {
