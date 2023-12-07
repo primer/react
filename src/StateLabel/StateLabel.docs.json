@@ -12,7 +12,7 @@
     },
     {
       "name": "status",
-      "type": "'issueOpened' | 'issueClosed' | 'issueClosedNotPlanned' | 'pullOpened' | 'pullClosed' | 'pullMerged' | 'draft' | 'issueDraft'",
+      "type": "'issueOpened' | 'issueClosed' | 'issueClosedNotPlanned' | 'pullOpened' | 'pullClosed' | 'pullMerged' | 'draft' | 'issueDraft' | 'unavailable'",
       "required": true
     },
     {

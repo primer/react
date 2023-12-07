@@ -155,7 +155,7 @@ exports[`RadioGroup renders consistently 1`] = `
             aria-invalid="false"
             aria-required="false"
             className="c6"
-            id="react-aria-2"
+            id=":r1:"
             name="choices"
             onChange={[Function]}
             type="radio"
@@ -168,7 +168,7 @@ exports[`RadioGroup renders consistently 1`] = `
         >
           <label
             className="c8"
-            htmlFor="react-aria-2"
+            htmlFor=":r1:"
           >
             Choice one
           </label>
@@ -186,7 +186,7 @@ exports[`RadioGroup renders consistently 1`] = `
             aria-invalid="false"
             aria-required="false"
             className="c6"
-            id="react-aria-3"
+            id=":r2:"
             name="choices"
             onChange={[Function]}
             type="radio"
@@ -199,7 +199,7 @@ exports[`RadioGroup renders consistently 1`] = `
         >
           <label
             className="c8"
-            htmlFor="react-aria-3"
+            htmlFor=":r2:"
           >
             Choice two
           </label>
@@ -217,7 +217,7 @@ exports[`RadioGroup renders consistently 1`] = `
             aria-invalid="false"
             aria-required="false"
             className="c6"
-            id="react-aria-4"
+            id=":r3:"
             name="choices"
             onChange={[Function]}
             type="radio"
@@ -230,7 +230,7 @@ exports[`RadioGroup renders consistently 1`] = `
         >
           <label
             className="c8"
-            htmlFor="react-aria-4"
+            htmlFor=":r3:"
           >
             Choice three
           </label>
