@@ -352,9 +352,11 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
             aria-valuenow={currentWidth}
             aria-valuetext={`Pane width ${currentWidth} pixels`}
             tabIndex={0}
-            onMouseDown={() => {
-              setIsDragging(true)
-              onDragStart?.()
+            onMouseDown={event => {
+              if (event.button === 0) {
+                setIsDragging(true)
+                onDragStart?.()
+              }
             }}
             onKeyDown={event => {
               if (
