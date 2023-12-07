@@ -18,6 +18,8 @@ import {CompositionEventHandler, KeyboardEventHandler, useCallback, useMemo, use
  * composing.
  *
  * @returns props which should be spread onto an `<input>` element
+ *
+ * @deprecated Will be removed in v37.
  **/
 export const useIgnoreKeyboardActionsWhileComposing = (
   onKeyDown: KeyboardEventHandler<HTMLInputElement | HTMLTextAreaElement | HTMLDivElement>,

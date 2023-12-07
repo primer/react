@@ -23,6 +23,8 @@ type UseDynamicTextareaHeightSettings = {
  *
  * NOTE: for the most accurate results, be sure that the `lineHeight` of the element is
  * explicitly set in CSS.
+ *
+ * @deprecated Will be removed in v37.
  */
 export const useDynamicTextareaHeight = ({
   disabled,
