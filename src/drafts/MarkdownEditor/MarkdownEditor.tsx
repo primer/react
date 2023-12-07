@@ -405,6 +405,7 @@ const MarkdownEditor = forwardRef<MarkdownEditorHandle, MarkdownEditorProps>(
                     ? {
                         outline: '2px solid',
                         outlineColor: 'accent.emphasis',
+                        outlineOffset: '-1px',
                       }
                     : {},
                 ...sx,

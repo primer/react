@@ -23,6 +23,11 @@ Playground.argTypes = {
       type: 'boolean',
     },
   },
+  inactive: {
+    control: {
+      type: 'boolean',
+    },
+  },
   variant: {
     control: {
       type: 'radio',
@@ -34,6 +39,7 @@ Playground.argTypes = {
 Playground.args = {
   size: 'medium',
   disabled: false,
+  inactive: false,
   variant: 'default',
   'aria-label': 'Icon button description',
   icon: XIcon,
