@@ -158,9 +158,6 @@ const Panel: React.FC<SelectPanelProps> = ({
       floatingElementRef: dialogRef,
       side: 'outside-bottom',
       align: 'start',
-      alignmentOffset: undefined,
-      anchorOffset: undefined,
-      allowOutOfBounds: undefined,
     },
     [anchorRef.current, dialogRef.current],
   )
