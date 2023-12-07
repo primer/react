@@ -55,6 +55,7 @@ type NoninteractiveMarkdownViewerProps = CoreMarkdownViewerProps & {
 
 export type MarkdownViewerProps = NoninteractiveMarkdownViewerProps | InteractiveMarkdownViewerProps
 
+/** @deprecated Will be removed in v37. */
 const MarkdownViewer = ({
   dangerousRenderedHTML,
   loading = false,
