@@ -112,7 +112,7 @@ const mimeTypeRegex = /([^/]+)\/([^;]);?(.*)/
  * single `onSelect` event. Does not manage its own state as far as which files are
  * currently selected - this should be done in the parent component.
  *
- * @deprecated Will be removed in v37.
+ * @deprecated Will be removed in v37 (https://github.com/primer/react/issues/3604)
  */
 export function useUnifiedFileSelect(props: FileSelectProps): UnifiedFileSelectResult {
   const clickTargetProps = useClickFileSelect(props)
@@ -134,7 +134,7 @@ export function useUnifiedFileSelect(props: FileSelectProps): UnifiedFileSelectR
  * Provides a click event handler for opening a file select dialog. Calls `onSelect` upon
  * completion.
  *
- * @deprecated Will be removed in v37.
+ * @deprecated Will be removed in v37 (https://github.com/primer/react/issues/3604)
  */
 export function useClickFileSelect(props: FileSelectProps): ClickTargetProps {
   const onSelectFiles = useOnSelectFiles(props)
@@ -199,7 +199,7 @@ const isFileDragEvent = (event: React.DragEvent) =>
  * is dragged over the drop target and `dropTargetProps` should be spread to the drop
  * target.
  *
- * @deprecated Will be removed in v37.
+ * @deprecated Will be removed in v37 (https://github.com/primer/react/issues/3604)
  */
 export function useDropFileSelect(props: FileSelectProps): [isDraggedOver: boolean, dropTargetProps: DropTargetProps] {
   const onSelectFiles = useOnSelectFiles(props)
@@ -249,7 +249,7 @@ export function useDropFileSelect(props: FileSelectProps): [isDraggedOver: boole
  * Provides a paste event handler for pasting files. Props should be spread on an element
  * with `contenteditable` or a text input/textarea.
  *
- * @deprecated Will be removed in v37.
+ * @deprecated Will be removed in v37 (https://github.com/primer/react/issues/3604)
  */
 export function usePasteFileSelect(props: FileSelectProps): PasteTargetProps {
   const onSelectFiles = useOnSelectFiles(props)

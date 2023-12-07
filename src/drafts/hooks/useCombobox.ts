@@ -56,7 +56,7 @@ type UseComboboxSettings<T> = {
  * `role="option"` on list items in order for them to be 'seen' by the combobox. Style the
  * currently highlighted option with the `[aria-selected="true"]` selector.
  *
- * @deprecated Will be removed in v37.
+ * @deprecated Will be removed in v37 (https://github.com/primer/react/issues/3604)
  */
 export const useCombobox = <T>({
   isOpen,

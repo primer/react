@@ -19,7 +19,7 @@ import {CompositionEventHandler, KeyboardEventHandler, useCallback, useMemo, use
  *
  * @returns props which should be spread onto an `<input>` element
  *
- * @deprecated Will be removed in v37.
+ * @deprecated Will be removed in v37 (https://github.com/primer/react/issues/3604)
  **/
 export const useIgnoreKeyboardActionsWhileComposing = (
   onKeyDown: KeyboardEventHandler<HTMLInputElement | HTMLTextAreaElement | HTMLDivElement>,

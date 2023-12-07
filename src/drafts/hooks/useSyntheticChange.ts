@@ -88,7 +88,7 @@ export type SyntheticChangeEmitter = (
  * action. Failing this (ie, in test environments or certain browsers), the fallback handler
  * will be called with a fake constructed `ChangeEvent` that looks like a real event.
  *
- * @deprecated Will be removed in v37.
+ * @deprecated Will be removed in v37 (https://github.com/primer/react/issues/3604)
  */
 export const useSyntheticChange = ({inputRef, fallbackEventHandler}: UseSyntheticChangeSettings) =>
   useCallback<SyntheticChangeEmitter>(
