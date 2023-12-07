@@ -307,6 +307,8 @@ export const getButtonStyles = (theme?: Theme) => {
       gridArea: 'leadingVisual',
     },
     '[data-component="text"]': {
+      alignItems: 'center',
+      display: 'flex',
       gridArea: 'text',
       lineHeight: 'calc(20/14)',
       whiteSpace: 'nowrap',

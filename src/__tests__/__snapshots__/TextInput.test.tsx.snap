@@ -1870,6 +1870,14 @@ exports[`TextInput renders trailingAction icon button 1`] = `
 }
 
 .c5 [data-component="text"] {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
   grid-area: text;
   line-height: calc(20/14);
   white-space: nowrap;
@@ -2573,6 +2581,14 @@ exports[`TextInput renders trailingAction text button 1`] = `
 }
 
 .c4 [data-component="text"] {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
   grid-area: text;
   line-height: calc(20/14);
   white-space: nowrap;
@@ -3029,6 +3045,14 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
 }
 
 .c5 [data-component="text"] {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
   grid-area: text;
   line-height: calc(20/14);
   white-space: nowrap;

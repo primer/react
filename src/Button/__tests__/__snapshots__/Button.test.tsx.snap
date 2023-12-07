@@ -178,6 +178,14 @@ exports[`Button renders consistently 1`] = `
 }
 
 .c0 [data-component="text"] {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
   grid-area: text;
   line-height: calc(20/14);
   white-space: nowrap;
@@ -465,6 +473,14 @@ exports[`Button respects block prop 1`] = `
 }
 
 .c0 [data-component="text"] {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
   grid-area: text;
   line-height: calc(20/14);
   white-space: nowrap;
@@ -735,6 +751,14 @@ exports[`Button respects the alignContent prop 1`] = `
 }
 
 .c0 [data-component="text"] {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
   grid-area: text;
   line-height: calc(20/14);
   white-space: nowrap;
@@ -1004,6 +1028,14 @@ exports[`Button respects the large size prop 1`] = `
 }
 
 .c0 [data-component="text"] {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
   grid-area: text;
   line-height: calc(20/14);
   white-space: nowrap;
@@ -1274,6 +1306,14 @@ exports[`Button respects the small size prop 1`] = `
 }
 
 .c0 [data-component="text"] {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
   grid-area: text;
   line-height: calc(20/14);
   white-space: nowrap;
@@ -1549,6 +1589,14 @@ exports[`Button styles danger button appropriately 1`] = `
 }
 
 .c0 [data-component="text"] {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
   grid-area: text;
   line-height: calc(20/14);
   white-space: nowrap;
@@ -1828,6 +1876,14 @@ exports[`Button styles invisible button appropriately 1`] = `
 }
 
 .c0 [data-component="text"] {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
   grid-area: text;
   line-height: calc(20/14);
   white-space: nowrap;
@@ -2114,6 +2170,14 @@ exports[`Button styles primary button appropriately 1`] = `
 }
 
 .c0 [data-component="text"] {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
   grid-area: text;
   line-height: calc(20/14);
   white-space: nowrap;
