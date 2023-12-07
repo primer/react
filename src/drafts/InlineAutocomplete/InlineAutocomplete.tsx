@@ -101,6 +101,7 @@ const noop = () => {
 
 /**
  * Shows suggestions to complete the current word/phrase the user is actively typing.
+ * @deprecated Will be removed in v37.
  */
 const InlineAutocomplete = ({
   triggers,
