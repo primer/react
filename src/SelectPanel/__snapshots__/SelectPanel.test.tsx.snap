@@ -105,6 +105,10 @@ exports[`SelectPanel renders consistently 1`] = `
   transition: none;
 }
 
+.c1[data-inactive] {
+  cursor: auto;
+}
+
 .c1:disabled {
   cursor: not-allowed;
   box-shadow: none;
@@ -170,6 +174,16 @@ exports[`SelectPanel renders consistently 1`] = `
   width: 100%;
 }
 
+.c1[data-inactive]:not([disabled]) {
+  background-color: var(--button-inactive-bgColor,#eaeef2);
+  border-color: var(--button-inactive-bgColor,#eaeef2);
+  color: var(--button-inactive-fgColor,#57606a);
+}
+
+.c1[data-inactive]:not([disabled]):focus-visible {
+  box-shadow: none;
+}
+
 .c1 [data-component="leadingVisual"] {
   grid-area: leadingVisual;
 }
@@ -208,12 +222,12 @@ exports[`SelectPanel renders consistently 1`] = `
   margin-right: 8px;
 }
 
-.c1:hover:not([disabled]) {
+.c1:hover:not([disabled]):not([data-inactive]) {
   background-color: #f3f4f6;
   border-color: var(--button-default-borderColor-hover,rgba(31,35,40,0.15));
 }
 
-.c1:active:not([disabled]) {
+.c1:active:not([disabled]):not([data-inactive]) {
   background-color: hsla(220,14%,93%,1);
   border-color: var(--button-default-borderColor-active,rgba(31,35,40,0.15));
 }

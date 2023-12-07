@@ -171,6 +171,7 @@ const StyledTable = styled.table<React.ComponentPropsWithoutRef<'table'>>`
   .TableCellSkeletonItems {
     display: flex;
     flex-direction: column;
+    width: 100%;
   }
 
   .TableCellSkeletonItem {
