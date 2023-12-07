@@ -22,6 +22,17 @@ export function useRovingTabIndex({
     getNextFocusable: (direction, from, event) => {
       if (!(from instanceof HTMLElement)) return
 
+      // Skip elements within a modal dialog
+      // This need to be in a try/catch to avoid errors in
+      // non-supported browsers
+      try {
+        if (from.closest('dialog:modal')) {
+          return
+        }
+      } catch {
+        // Don't return
+      }
+
       return getNextFocusableElement(from, event) ?? from
     },
     focusInStrategy: () => {
