@@ -6,6 +6,7 @@ import {Label} from './Label'
 
 export type {MarkdownEditorHandle} from './MarkdownEditor'
 
+/** @deprecated Will be removed in v37. */
 const MarkdownEditor = Object.assign(_MarkdownEditor, {
   /** REQUIRED: An accessible label for the editor. */
   Label,

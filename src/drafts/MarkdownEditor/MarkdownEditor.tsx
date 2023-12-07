@@ -149,6 +149,7 @@ let editorsInPreviewMode: string[] = []
 
 /**
  * Markdown textarea with controls & keyboard shortcuts.
+ * @deprecated Will be removed in v37.
  */
 const MarkdownEditor = forwardRef<MarkdownEditorHandle, MarkdownEditorProps>(
   (
