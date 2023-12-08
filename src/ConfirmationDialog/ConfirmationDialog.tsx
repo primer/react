@@ -150,7 +150,7 @@ export type ConfirmOptions = Omit<ConfirmationDialogProps, 'onClose'> & {content
 async function confirm(themeProps: ThemeProviderProps, options: ConfirmOptions): Promise<boolean> {
   const {content, ...confirmationDialogProps} = options
   return new Promise(resolve => {
-    hostElement = document.createElement('div')
+    hostElement ||= document.createElement('div')
     if (!hostElement.isConnected) document.body.append(hostElement)
     const root = createRoot(hostElement)
     const onClose: ConfirmationDialogProps['onClose'] = gesture => {
