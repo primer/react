@@ -7,6 +7,7 @@ import {FocusKeys} from '@primer/behaviors'
 import {get} from '../constants'
 import {Dialog, DialogProps, DialogHeaderProps, DialogButtonProps} from '../Dialog/Dialog'
 import {useFocusZone} from '../hooks/useFocusZone'
+import BaseStyles from '../BaseStyles'
 
 /**
  * Props to customize the ConfirmationDialog.
@@ -163,9 +164,11 @@ async function confirm(themeProps: ThemeProviderProps, options: ConfirmOptions):
     }
     root.render(
       <ThemeProvider {...themeProps}>
-        <ConfirmationDialog {...confirmationDialogProps} onClose={onClose}>
-          {content}
-        </ConfirmationDialog>
+        <BaseStyles>
+          <ConfirmationDialog {...confirmationDialogProps} onClose={onClose}>
+            {content}
+          </ConfirmationDialog>
+        </BaseStyles>
       </ThemeProvider>,
     )
   })
