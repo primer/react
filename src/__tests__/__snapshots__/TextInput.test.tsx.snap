@@ -1779,6 +1779,10 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   transition: none;
 }
 
+.c5[data-inactive] {
+  cursor: auto;
+}
+
 .c5:disabled {
   cursor: not-allowed;
   box-shadow: none;
@@ -1844,6 +1848,16 @@ exports[`TextInput renders trailingAction icon button 1`] = `
 
 .c5[data-block="block"] {
   width: 100%;
+}
+
+.c5[data-inactive]:not([disabled]) {
+  background-color: var(--button-inactive-bgColor,#eaeef2);
+  border-color: var(--button-inactive-bgColor,#eaeef2);
+  color: var(--button-inactive-fgColor,#57606a);
+}
+
+.c5[data-inactive]:not([disabled]):focus-visible {
+  box-shadow: none;
 }
 
 .c5 [data-component="leadingVisual"] {
@@ -2432,6 +2446,10 @@ exports[`TextInput renders trailingAction text button 1`] = `
   transition: none;
 }
 
+.c4[data-inactive] {
+  cursor: auto;
+}
+
 .c4:disabled {
   cursor: not-allowed;
   box-shadow: none;
@@ -2497,6 +2515,16 @@ exports[`TextInput renders trailingAction text button 1`] = `
 
 .c4[data-block="block"] {
   width: 100%;
+}
+
+.c4[data-inactive]:not([disabled]) {
+  background-color: var(--button-inactive-bgColor,#eaeef2);
+  border-color: var(--button-inactive-bgColor,#eaeef2);
+  color: var(--button-inactive-fgColor,#57606a);
+}
+
+.c4[data-inactive]:not([disabled]):focus-visible {
+  box-shadow: none;
 }
 
 .c4 [data-component="leadingVisual"] {
@@ -2837,6 +2865,10 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   transition: none;
 }
 
+.c5[data-inactive] {
+  cursor: auto;
+}
+
 .c5:disabled {
   cursor: not-allowed;
   box-shadow: none;
@@ -2902,6 +2934,16 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
 
 .c5[data-block="block"] {
   width: 100%;
+}
+
+.c5[data-inactive]:not([disabled]) {
+  background-color: var(--button-inactive-bgColor,#eaeef2);
+  border-color: var(--button-inactive-bgColor,#eaeef2);
+  color: var(--button-inactive-fgColor,#57606a);
+}
+
+.c5[data-inactive]:not([disabled]):focus-visible {
+  box-shadow: none;
 }
 
 .c5 [data-component="leadingVisual"] {
