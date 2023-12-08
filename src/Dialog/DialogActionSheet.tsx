@@ -1,14 +1,32 @@
-import {useState, useEffect, useRef} from 'react'
+import React, {useEffect, useRef, PropsWithChildren, MouseEvent, TouchEvent} from 'react'
 import Box from '../Box'
+import {SxProp} from '../sx'
+import {useRefObjectAsForwardedRef} from '../hooks/useRefObjectAsForwardedRef'
 
-const DialogActionSheet: React.FC<
-  React.PropsWithChildren<{
-    open: boolean
-    onClose: (gesture: 'close-button' | 'escape' | 'drag' | 'overlay') => void
-  }>
-> = ({open, onClose, children}) => {
+/**
+ * Props to customize the rendering of the Dialog.
+ */
+export interface DialogActionSheetProps extends SxProp {
+  /**
+   * Sets the visibility op the dialog
+   */
+  open: boolean
+
+  /**
+   * This method is invoked when a gesture to close the dialog is used
+   */
+  onClose: (gesture: 'close-button' | 'escape' | 'drag' | 'overlay') => void
+}
+
+type DialogActionSheetPropsChildren = PropsWithChildren<DialogActionSheetProps>
+
+const DialogActionSheet = React.forwardRef<HTMLDivElement, DialogActionSheetPropsChildren>((props, forwardedRef) => {
+  const {open, onClose, children, sx} = props
+
+  const dialogRef = useRef<HTMLDivElement>(null)
+  useRefObjectAsForwardedRef(forwardedRef, dialogRef)
+
   // Refs
-  let sheetContentRef = useRef()
   let dragIconRef = useRef()
 
   // Variables
@@ -32,13 +50,16 @@ const DialogActionSheet: React.FC<
   }
 
   const updateSheetHeight = (height: number) => {
-    sheetContentRef.current.style.height = `${height}vh` // updates the height of the sheet content
+    if (!dialogRef.current) return
+    dialogRef.current.style.height = `${height}vh` // updates the height of the sheet content
   }
 
-  const dragStop = e => {
+  const dragStop = () => {
+    if (!dialogRef.current) return
+
     isDragging.current = false
-    const sheetHeight = parseInt(sheetContentRef.current?.style.height ?? 0)
-    sheetContentRef.current.style.transition = isReduced ? 'none' : '0.3s ease'
+    const sheetHeight = parseInt(dialogRef.current?.style.height ?? 0)
+    dialogRef.current.style.transition = isReduced ? 'none' : '0.3s ease'
 
     if (sheetHeight < 25) {
       return hideBottomSheet('drag')
@@ -50,40 +71,23 @@ const DialogActionSheet: React.FC<
 
     updateSheetHeight(50)
   }
-  const dragStart = e => {
+  const dragStart = (e: MouseEvent | TouchEvent) => {
+    if (!dialogRef.current) return
+
     console.log('drag start')
     startY.current = e.pageY || e.touches?.[0].pageY
-    startHeight.current = parseInt(sheetContentRef.current?.style.height ?? 0)
+    startHeight.current = parseInt(dialogRef.current?.style.height ?? 0)
     isDragging.current = true
-    sheetContentRef.current.style.transition = 'none'
+    dialogRef.current.style.transition = 'none'
   }
 
-  const dragging = e => {
+  const dragging = (e: MouseEvent) => {
+    if (!dialogRef.current) return
     if (!isDragging.current) return
     const delta = startY.current - (e.pageY || e.touches?.[0].pageY)
     const newHeight = startHeight.current + (delta / window.innerHeight) * 100
     updateSheetHeight(newHeight)
   }
-
-  useEffect(() => {
-    document.addEventListener('mouseup', dragStop)
-    dragIconRef.current?.addEventListener('mousedown', dragStart)
-    document.addEventListener('mousemove', dragging)
-
-    document.addEventListener('touchend', dragStop)
-    dragIconRef.current?.addEventListener('touchstart', dragStart)
-    document.addEventListener('touchmove', dragging)
-
-    return () => {
-      document.removeEventListener('mouseup', dragStop)
-      dragIconRef.current?.removeEventListener('mousedown', dragStart)
-      document.removeEventListener('mousemove', dragging)
-
-      document.removeEventListener('touchend', dragStop)
-      dragIconRef.current?.removeEventListener('touchstart', dragStart)
-      document.removeEventListener('touchmove', dragging)
-    }
-  }, [])
 
   useEffect(() => {
     showBottomSheet()
@@ -94,6 +98,10 @@ const DialogActionSheet: React.FC<
   return (
     <Box
       id="bottom-sheet"
+      onMouseUp={dragStop}
+      onMouseMove={dragging}
+      onTouchEnd={dragStop}
+      onTouchMove={dragStop}
       sx={{
         position: 'fixed',
         top: 0,
@@ -124,7 +132,7 @@ const DialogActionSheet: React.FC<
       ></Box>
       <Box
         id="content"
-        ref={sheetContentRef}
+        ref={dialogRef}
         sx={{
           display: 'flex',
           flexDirection: 'column',
@@ -137,6 +145,7 @@ const DialogActionSheet: React.FC<
           overflowX: 'hidden',
           position: 'relative',
           transform: open ? 'translateY(0%)' : 'translateY(100%)',
+          ...sx,
         }}
       >
         <Box
@@ -152,7 +161,8 @@ const DialogActionSheet: React.FC<
           }}
         >
           <Box
-            ref={dragIconRef}
+            onMouseDown={dragStart}
+            onTouchStart={dragStart}
             sx={{
               cursor: 'grab',
               userSelect: 'none',
@@ -179,6 +189,6 @@ const DialogActionSheet: React.FC<
       </Box>
     </Box>
   )
-}
+})
 
 export default DialogActionSheet

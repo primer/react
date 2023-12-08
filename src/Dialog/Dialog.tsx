@@ -1,20 +1,22 @@
 import React, {useCallback, useEffect, useRef, useState} from 'react'
 import styled from 'styled-components'
+import {XIcon} from '@primer/octicons-react'
+import {FocusKeys} from '@primer/behaviors'
+
 import Button, {ButtonPrimary, ButtonDanger, ButtonProps} from '../deprecated/Button'
 import Box from '../Box'
-import DialogActionSheet from './DialogActionSheet'
 import {get} from '../constants'
+import Portal from '../Portal'
 import {useOnEscapePress, useProvidedRefOrCreate} from '../hooks'
 import {useFocusTrap} from '../hooks/useFocusTrap'
 import sx, {SxProp} from '../sx'
 import {ResponsiveValue, useResponsiveValue} from '../hooks/useResponsiveValue'
 import Octicon from '../Octicon'
-import {XIcon} from '@primer/octicons-react'
 import {useFocusZone} from '../hooks/useFocusZone'
-import {FocusKeys} from '@primer/behaviors'
-import Portal from '../Portal'
 import {useRefObjectAsForwardedRef} from '../hooks/useRefObjectAsForwardedRef'
 import {useId} from '../hooks/useId'
+
+import DialogActionSheet from './DialogActionSheet'
 
 /* Dialog Version 2 */
 
@@ -297,7 +299,7 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
 
   return (
     <Portal>
-      <Backdrop ref={backdropRef}>
+      <Backdrop>
         <NormalDialog width={width} height={height} ref={dialogRef} sx={sx}>
           {header}
           {body}
