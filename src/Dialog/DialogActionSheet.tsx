@@ -28,15 +28,13 @@ const DialogActionSheet = React.forwardRef<HTMLDivElement, DialogActionSheetProp
   const dialogRef = useRef<HTMLDivElement>(null)
   useRefObjectAsForwardedRef(forwardedRef, dialogRef)
 
-  // Refs
-  let dragIconRef = useRef()
-
-  // Variables
+  // References
   let startY = useRef(0)
   let startHeight = useRef(0)
   let isDragging = useRef(false)
   let sheetHeight = useRef(0)
 
+  // Actions
   const showBottomSheet = () => {
     updateSheetHeight(50)
     document.body.style.overflowY = 'hidden'
@@ -56,15 +54,12 @@ const DialogActionSheet = React.forwardRef<HTMLDivElement, DialogActionSheetProp
 
     isDragging.current = false
     const sheetHeight = parseInt(dialogRef.current?.style.height ?? 0)
-    dialogRef.current.style.transition = '0.3s ease'
 
-    if (sheetHeight < 25) {
-      return hideBottomSheet('drag')
-    }
+    const isReduced = prefersReducedMotion()
+    dialogRef.current.style.transition = isReduced ? 'none' : '0.3s ease'
 
-    if (sheetHeight > 75) {
-      return updateSheetHeight(90)
-    }
+    if (sheetHeight < 25) return hideBottomSheet('drag')
+    if (sheetHeight > 75) return updateSheetHeight(90)
 
     updateSheetHeight(50)
   }
@@ -110,6 +105,11 @@ const DialogActionSheet = React.forwardRef<HTMLDivElement, DialogActionSheetProp
     </FullScreenContainer>
   )
 })
+
+const prefersReducedMotion = () => {
+  const mediaQueryList = window.matchMedia('(prefers-reduced-motion: no-preference)')
+  return !mediaQueryList.matches
+}
 
 const FullScreenContainer = styled.div<{open: boolean}>`
   position: fixed;
