@@ -1,7 +1,9 @@
 import React, {useEffect, useRef, PropsWithChildren, MouseEvent, TouchEvent} from 'react'
-import Box from '../Box'
-import {SxProp} from '../sx'
+import styled from 'styled-components'
+import sx, {SxProp} from '../sx'
 import {useRefObjectAsForwardedRef} from '../hooks/useRefObjectAsForwardedRef'
+import {get} from '../constants'
+import Box from '../Box'
 
 /**
  * Props to customize the rendering of the Dialog.
@@ -35,11 +37,6 @@ const DialogActionSheet = React.forwardRef<HTMLDivElement, DialogActionSheetProp
   let isDragging = useRef(false)
   let sheetHeight = useRef(0)
 
-  // Accessibility
-  const isReduced =
-    window.matchMedia(`(prefers-reduced-motion: reduce)`) === true ||
-    window.matchMedia(`(prefers-reduced-motion: reduce)`).matches === true
-
   const showBottomSheet = () => {
     updateSheetHeight(50)
     document.body.style.overflowY = 'hidden'
@@ -51,7 +48,7 @@ const DialogActionSheet = React.forwardRef<HTMLDivElement, DialogActionSheetProp
 
   const updateSheetHeight = (height: number) => {
     if (!dialogRef.current) return
-    dialogRef.current.style.height = `${height}vh` // updates the height of the sheet content
+    dialogRef.current.style.height = `${height}vh`
   }
 
   const dragStop = () => {
@@ -59,7 +56,7 @@ const DialogActionSheet = React.forwardRef<HTMLDivElement, DialogActionSheetProp
 
     isDragging.current = false
     const sheetHeight = parseInt(dialogRef.current?.style.height ?? 0)
-    dialogRef.current.style.transition = isReduced ? 'none' : '0.3s ease'
+    dialogRef.current.style.transition = '0.3s ease'
 
     if (sheetHeight < 25) {
       return hideBottomSheet('drag')
@@ -96,99 +93,87 @@ const DialogActionSheet = React.forwardRef<HTMLDivElement, DialogActionSheetProp
   const isFullScreen = sheetHeight?.current === 100
 
   return (
-    <Box
-      id="bottom-sheet"
+    <FullScreenContainer
+      open={open}
       onMouseUp={dragStop}
       onMouseMove={dragging}
       onTouchEnd={dragStop}
       onTouchMove={dragStop}
-      sx={{
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        width: '100%',
-        height: '100%',
-        display: 'flex',
-        opacity: open ? 1 : 0,
-        pointerEvents: open ? 'auto' : 'none',
-        flexDirection: 'column',
-        justifyContent: 'flex-end',
-        alignItems: 'center',
-        transition: isReduced ? 'none' : '0.1s linear',
-      }}
     >
-      <Box
-        id="sheet-overlay"
-        onClick={() => hideBottomSheet('overlay')}
-        sx={{
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          zIndex: -1,
-          width: '100%',
-          height: '100%',
-          bg: 'primer.canvas.backdrop',
-        }}
-      ></Box>
-      <Box
-        id="content"
-        ref={dialogRef}
-        sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          bg: 'canvas.default',
-          height: '50vh',
-          maxHeight: '100vh',
-          width: '100%',
-          borderRadius: isFullScreen ? 0 : '12px 12px 0 0',
-          position: 'relative',
-          overflowX: 'hidden',
-          overflowY: isFullScreen ? 'hidden' : 'auto',
-          transform: open ? 'translateY(0%)' : 'translateY(100%)',
-          ...sx,
-        }}
-      >
-        <Box
-          id="header"
-          sx={{
-            display: 'flex',
-            justifyContent: 'center',
-            position: 'absolute',
-            top: 0,
-            zIndex: 2,
-            right: 0,
-            left: 0,
-          }}
-        >
-          <Box
-            onMouseDown={dragStart}
-            onTouchStart={dragStart}
-            sx={{
-              cursor: 'grab',
-              userSelect: 'none',
-              'span:hover': {
-                bg: 'border.default',
-              },
-            }}
-          >
-            <Box
-              as="span"
-              sx={{
-                height: 6,
-                width: 70,
-                mt: 2,
-                display: 'block',
-                bg: 'border.muted',
-                borderRadius: 3,
-              }}
-            ></Box>
-          </Box>
-        </Box>
-
+      <Overlay onClick={() => hideBottomSheet('overlay')}></Overlay>
+      <Content ref={dialogRef} open={open} isFullScreen={isFullScreen}>
+        <DraggableRegion onMouseDown={dragStart} onTouchStart={dragStart}>
+          <DraggableRegionPill />
+        </DraggableRegion>
         {children}
-      </Box>
-    </Box>
+      </Content>
+    </FullScreenContainer>
   )
 })
+
+const FullScreenContainer = styled.div<{open: boolean}>`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  opacity: ${props => (props.open ? 1 : 0)};
+  pointerevents: ${props => (props.open ? 'auto' : 'none')};
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  transition: 0.1s linear;
+  @media (prefers-reduced-motion) {
+    transition: none;
+  }
+`
+const Overlay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  background-color: ${get('colors.primer.canvas.backdrop')};
+`
+
+const DraggableRegionPill = styled.div`
+  height: 6px;
+  width: 70px;
+  margin-top: ${get('space.2')};
+  display: block;
+  background-color: ${get('colors.border.muted')};
+  border-radius: 3px;
+`
+
+const DraggableRegion = styled.div`
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  top: 0;
+  z-index: 2;
+  right: 0;
+  left: 0;
+  cursor: grab;
+  user-select: none;
+  &:hover ${DraggableRegionPill} {
+    background-color: ${get('colors.border.default')};
+  }
+`
+
+const Content = styled.div<{open: boolean; isFullScreen: boolean}>`
+  display: flex;
+  flex-direction: column;
+  background-color: ${get('colors.canvas.default')};
+  height: 50vh;
+  maxheight: 100vh;
+  width: 100%;
+  border-radius: ${props => (props.isFullScreen ? 0 : '12px 12px 0 0')};
+  position: relative;
+  overflow-x: hidden;
+  overflow-y: ${props => (props.isFullScreen ? 'hidden' : 'auto')};
+  transform: ${props => (props.open ? 'translateY(0%)' : 'translateY(100%)')};
+`
 
 export default DialogActionSheet
