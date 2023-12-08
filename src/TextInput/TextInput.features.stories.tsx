@@ -83,6 +83,15 @@ export const Large = () => (
   </Box>
 )
 
+export const Required = () => (
+  <Box as="form">
+    <FormControl required>
+      <FormControl.Label>Default label</FormControl.Label>
+      <TextInput size="large" />
+    </FormControl>
+  </Box>
+)
+
 export const WithLeadingVisual = () => (
   <Box as="form">
     <FormControl>

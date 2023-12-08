@@ -78,6 +78,7 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
       variant: variantProp,
       // end deprecated props
       type = 'text',
+      required,
       ...inputProps
     },
     ref,
@@ -143,6 +144,7 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
           onFocus={handleInputFocus}
           onBlur={handleInputBlur}
           type={type}
+          aria-required={required ? 'true' : 'false'}
           {...inputProps}
           data-component="input"
         />
