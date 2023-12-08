@@ -151,6 +151,9 @@ const Panel: React.FC<SelectPanelProps> = ({
   if (internalOpen) dialogRef.current?.showModal()
   else dialogRef.current?.close()
 
+  // dialog handles Esc automatically, so we have to sync internal state
+  React.useEffect(() => dialogRef.current?.addEventListener('close', onInternalClose))
+
   /* Anchored */
   const {position} = useAnchoredPosition(
     {
@@ -305,6 +308,7 @@ const SelectPanelHeader: React.FC<React.PropsWithChildren> = ({children, ...prop
 }
 
 const SelectPanelSearchInput: React.FC<TextInputProps> = ({onChange: propsOnChange, ...props}) => {
+  // TODO: use forwardedRef
   const inputRef = React.createRef<HTMLInputElement>()
 
   const {setSearchQuery} = React.useContext(SelectPanelContext)
