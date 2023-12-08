@@ -141,9 +141,9 @@ const DialogActionSheet = React.forwardRef<HTMLDivElement, DialogActionSheetProp
           maxHeight: '100vh',
           width: '100%',
           borderRadius: isFullScreen ? 0 : '12px 12px 0 0',
-          overflowY: isFullScreen && 'hidden',
-          overflowX: 'hidden',
           position: 'relative',
+          overflowX: 'hidden',
+          overflowY: isFullScreen ? 'hidden' : 'auto',
           transform: open ? 'translateY(0%)' : 'translateY(100%)',
           ...sx,
         }}
