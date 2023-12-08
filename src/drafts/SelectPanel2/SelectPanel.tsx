@@ -316,11 +316,15 @@ const SelectPanelSearchInput: React.FC<TextInputProps> = ({onChange: propsOnChan
     else setSearchQuery(event.target.value)
   }
 
+  /**
+    React doesn't support autoFocus for dialog: https://github.com/facebook/react/issues/23301
+    tl;dr: react takes over autofocus instead of letting the browser handle it,
+    but not for dialogs yet, so we have to do it
+   */
+  React.useEffect(() => inputRef.current?.focus(), [inputRef])
+
   return (
     <TextInput
-      // this autofocus doesn't seem to apply 🤔
-      // probably because the focus zone overrides autoFocus
-      autoFocus
       ref={inputRef}
       block
       leadingVisual={SearchIcon}
