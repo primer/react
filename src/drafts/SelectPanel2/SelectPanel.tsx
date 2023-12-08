@@ -154,6 +154,13 @@ const Panel: React.FC<SelectPanelProps> = ({
   // dialog handles Esc automatically, so we have to sync internal state
   React.useEffect(() => dialogRef.current?.addEventListener('close', onInternalClose))
 
+  // React doesn't support autoFocus for dialog: https://github.com/facebook/react/issues/23301
+  // tl;dr: react takes over autofocus instead of letting the browser handle it,
+  // but not for dialogs, so we have to do it
+  React.useEffect(() => {
+    if (internalOpen) document.querySelector('input')?.focus()
+  }, [internalOpen])
+
   /* Anchored */
   const {position} = useAnchoredPosition(
     {
@@ -319,13 +326,6 @@ const SelectPanelSearchInput: React.FC<TextInputProps> = ({onChange: propsOnChan
     if (typeof propsOnChange === 'function') propsOnChange(event)
     else setSearchQuery(event.target.value)
   }
-
-  /**
-    React doesn't support autoFocus for dialog: https://github.com/facebook/react/issues/23301
-    tl;dr: react takes over autofocus instead of letting the browser handle it,
-    but not for dialogs yet, so we have to do it
-   */
-  React.useEffect(() => inputRef.current?.focus(), [inputRef])
 
   return (
     <TextInput
