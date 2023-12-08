@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, PropsWithChildren, MouseEvent, TouchEvent} from 'react'
+import React, {useEffect, useRef, useState, PropsWithChildren, MouseEvent, TouchEvent} from 'react'
 import styled from 'styled-components'
 import sx, {SxProp} from '../sx'
 import {useRefObjectAsForwardedRef} from '../hooks/useRefObjectAsForwardedRef'
@@ -23,10 +23,19 @@ export interface DialogActionSheetProps extends SxProp {
 type DialogActionSheetPropsChildren = PropsWithChildren<DialogActionSheetProps>
 
 const DialogActionSheet = React.forwardRef<HTMLDivElement, DialogActionSheetPropsChildren>((props, forwardedRef) => {
-  const {open, onClose, children, sx} = props
+  const {onClose, children, sx} = props
 
   const dialogRef = useRef<HTMLDivElement>(null)
   useRefObjectAsForwardedRef(forwardedRef, dialogRef)
+
+  // States
+  const [open, setIsOpen] = useState<boolean>(false)
+  const [fireDelayedOnClose, setFireDelayedOnClose] = useState<{
+    gesture: 'close-button' | 'escape' | 'drag' | 'overlay' | undefined
+  }>()
+
+  // Accessibility
+  const isReduced = prefersReducedMotion()
 
   // References
   let startY = useRef(0)
@@ -34,14 +43,30 @@ const DialogActionSheet = React.forwardRef<HTMLDivElement, DialogActionSheetProp
   let isDragging = useRef(false)
   let sheetHeight = useRef(0)
 
+  // Hooks
+  useEffect(() => {
+    if (!fireDelayedOnClose) return
+    const timer = setTimeout(() => onClose, 300)
+    return () => clearTimeout(timer)
+  }, [fireDelayedOnClose])
+
+  useEffect(() => {
+    showBottomSheet(true)
+  }, [open])
+
   // Actions
   const showBottomSheet = () => {
+    setIsOpen(true)
     updateSheetHeight(50)
-    document.body.style.overflowY = 'hidden'
   }
-  const hideBottomSheet = (gesture: 'close-button' | 'escape' | 'drag' | 'overlay') => {
-    onClose(gesture)
-    document.body.style.overflowY = 'auto'
+
+  const hideBottomSheet = async (gesture: 'close-button' | 'escape' | 'drag' | 'overlay') => {
+    setIsOpen(false)
+    if (isReduced) {
+      onClose(gesture)
+    } else {
+      setFireDelayedOnClose(gesture)
+    }
   }
 
   const updateSheetHeight = (height: number) => {
@@ -65,8 +90,6 @@ const DialogActionSheet = React.forwardRef<HTMLDivElement, DialogActionSheetProp
   }
   const dragStart = (e: MouseEvent | TouchEvent) => {
     if (!dialogRef.current) return
-
-    console.log('drag start')
     startY.current = e.pageY || e.touches?.[0].pageY
     startHeight.current = parseInt(dialogRef.current?.style.height ?? 0)
     isDragging.current = true
@@ -74,8 +97,7 @@ const DialogActionSheet = React.forwardRef<HTMLDivElement, DialogActionSheetProp
   }
 
   const dragging = (e: MouseEvent) => {
-    if (!dialogRef.current) return
-    if (!isDragging.current) return
+    if (!dialogRef.current || !isDragging.current) return
     const delta = startY.current - (e.pageY || e.touches?.[0].pageY)
     const newHeight = startHeight.current + (delta / window.innerHeight) * 100
     updateSheetHeight(newHeight)
@@ -174,6 +196,7 @@ const Content = styled.div<{open: boolean; isFullScreen: boolean}>`
   overflow-x: hidden;
   overflow-y: ${props => (props.isFullScreen ? 'hidden' : 'auto')};
   transform: ${props => (props.open ? 'translateY(0%)' : 'translateY(100%)')};
+  transition: 0.3s ease;
 `
 
 export default DialogActionSheet

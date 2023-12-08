@@ -288,7 +288,7 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
   if (responsiveType === 'action-sheet') {
     return (
       <Portal>
-        <DialogActionSheet ref={dialogRef} role={role} aria-modal open={true} onClose={onClose} sx={sx}>
+        <DialogActionSheet ref={dialogRef} role={role} aria-modal onClose={onClose} sx={sx}>
           {header}
           {body}
           {footer}
