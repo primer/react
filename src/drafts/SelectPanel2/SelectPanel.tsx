@@ -337,6 +337,7 @@ const SelectPanelSearchInput: React.FC<TextInputProps> = ({onChange: propsOnChan
         <TextInput.Action
           icon={XCircleFillIcon}
           aria-label="Clear"
+          tooltipDirection="w"
           sx={{color: 'fg.subtle', bg: 'none'}}
           onClick={() => {
             if (inputRef.current) inputRef.current.value = ''
