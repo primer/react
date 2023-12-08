@@ -241,7 +241,6 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
 
   const dialogRef = useRef<HTMLDivElement>(null)
   useRefObjectAsForwardedRef(forwardedRef, dialogRef)
-  const backdropRef = useRef<HTMLDivElement>(null)
   useFocusTrap({containerRef: dialogRef, restoreFocusOnCleanUp: true, initialFocusRef: autoFocusedFooterButtonRef})
 
   useOnEscapePress(
@@ -275,14 +274,7 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
   if (responsiveType === 'full-screen') {
     return (
       <Portal>
-        <FullScreenDialog
-          ref={dialogRef}
-          role={role}
-          aria-labelledby={dialogLabelId}
-          aria-describedby={dialogDescriptionId}
-          aria-modal
-          sx={sx}
-        >
+        <FullScreenDialog ref={dialogRef} role={role} aria-modal sx={sx}>
           {header}
           {body}
           {footer}
@@ -294,16 +286,7 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
   if (responsiveType === 'action-sheet') {
     return (
       <Portal>
-        <DialogActionSheet
-          ref={dialogRef}
-          role={role}
-          aria-labelledby={dialogLabelId}
-          aria-describedby={dialogDescriptionId}
-          aria-modal
-          open={true}
-          onClose={onClose}
-          sx={sx}
-        >
+        <DialogActionSheet ref={dialogRef} role={role} aria-modal open={true} onClose={onClose} sx={sx}>
           {header}
           {body}
           {footer}
