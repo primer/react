@@ -288,7 +288,7 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
   if (responsiveType === 'action-sheet') {
     return (
       <Portal>
-        <DialogActionSheet ref={dialogRef} role={role} aria-modal onClose={onClose} sx={sx}>
+        <DialogActionSheet ref={dialogRef} role={role} aria-modal sx={sx}>
           {header}
           {body}
           {footer}
@@ -300,7 +300,7 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
   return (
     <Portal>
       <Backdrop>
-        <NormalDialog width={width} height={height} ref={dialogRef} sx={sx}>
+        <NormalDialog width={width} height={height} ref={dialogRef} sx={sx} aria-modal>
           {header}
           {body}
           {footer}

@@ -10,51 +10,59 @@ import Box from '../Box'
  */
 export interface DialogActionSheetProps extends SxProp {
   /**
-   * Sets the visibility op the dialog
-   */
-  open: boolean
-
-  /**
    * This method is invoked when a gesture to close the dialog is used
    */
   onClose: (gesture: 'close-button' | 'escape' | 'drag' | 'overlay') => void
+
+  /**
+   * Default: "dialog". The ARIA role to assign to this dialog.
+   * @see https://www.w3.org/TR/wai-aria-practices-1.1/#dialog_modal
+   * @see https://www.w3.org/TR/wai-aria-practices-1.1/#alertdialog
+   */
+  role?: 'dialog' | 'alertdialog'
 }
 
 type DialogActionSheetPropsChildren = PropsWithChildren<DialogActionSheetProps>
 
 const DialogActionSheet = React.forwardRef<HTMLDivElement, DialogActionSheetPropsChildren>((props, forwardedRef) => {
-  const {onClose, children, sx} = props
+  const {onClose, children, role, sx} = props
 
-  const dialogRef = useRef<HTMLDivElement>(null)
-  useRefObjectAsForwardedRef(forwardedRef, dialogRef)
-
-  // States
+  // 🔄 States
   const [open, setIsOpen] = useState<boolean>(false)
-  const [fireDelayedOnClose, setFireDelayedOnClose] = useState<{
-    gesture: 'close-button' | 'escape' | 'drag' | 'overlay' | undefined
-  }>()
+  const [fireDelayedOnClose, setFireDelayedOnClose] = useState<
+    'close-button' | 'escape' | 'drag' | 'overlay' | undefined
+  >()
 
-  // Accessibility
+  // 🧑‍🦽 Accessibility
   const isReduced = prefersReducedMotion()
 
-  // References
+  // 📎 References
+  let dialogRef = useRef<HTMLDivElement>(null)
   let startY = useRef(0)
   let startHeight = useRef(0)
   let isDragging = useRef(false)
   let sheetHeight = useRef(0)
 
-  // Hooks
+  useRefObjectAsForwardedRef(forwardedRef, dialogRef)
+
+  // 🪝 Hooks
   useEffect(() => {
     if (!fireDelayedOnClose) return
-    const timer = setTimeout(() => onClose, 300)
+    console.log('Planning to close the dialog...')
+    setIsOpen(false)
+    const timer = setTimeout(() => {
+      console.log('onClose...')
+
+      onClose(fireDelayedOnClose)
+    }, 300)
     return () => clearTimeout(timer)
-  }, [fireDelayedOnClose])
+  }, [fireDelayedOnClose, onClose])
 
   useEffect(() => {
-    showBottomSheet(true)
-  }, [open])
+    showBottomSheet()
+  }, [])
 
-  // Actions
+  // 🥊 Actions
   const showBottomSheet = () => {
     setIsOpen(true)
     updateSheetHeight(50)
@@ -103,10 +111,6 @@ const DialogActionSheet = React.forwardRef<HTMLDivElement, DialogActionSheetProp
     updateSheetHeight(newHeight)
   }
 
-  useEffect(() => {
-    showBottomSheet()
-  }, [showBottomSheet])
-
   const isFullScreen = sheetHeight?.current === 100
 
   return (
@@ -118,7 +122,7 @@ const DialogActionSheet = React.forwardRef<HTMLDivElement, DialogActionSheetProp
       onTouchMove={dragStop}
     >
       <Overlay onClick={() => hideBottomSheet('overlay')}></Overlay>
-      <Content ref={dialogRef} open={open} isFullScreen={isFullScreen}>
+      <Content ref={dialogRef} role={role} open={open} isFullScreen={isFullScreen} sx={sx}>
         <DraggableRegion onMouseDown={dragStart} onTouchStart={dragStart}>
           <DraggableRegionPill />
         </DraggableRegion>
@@ -183,8 +187,12 @@ const DraggableRegion = styled.div`
     background-color: ${get('colors.border.default')};
   }
 `
-
-const Content = styled.div<{open: boolean; isFullScreen: boolean}>`
+const Content = styled.div<
+  {
+    open: boolean
+    isFullScreen: boolean
+  } & SxProp
+>`
   display: flex;
   flex-direction: column;
   background-color: ${get('colors.canvas.default')};
