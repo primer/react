@@ -167,6 +167,8 @@ function useSystemColorMode() {
 
     // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     if (media) {
+      // just in case the preference changed before the event listener was attached
+      setSystemColorMode(media.matches ? 'night' : 'day')
       // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
       if (media.addEventListener !== undefined) {
         media.addEventListener('change', handleChange)
