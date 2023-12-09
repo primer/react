@@ -90,7 +90,7 @@ function CustomHeader({
   return null
 }
 function CustomBody() {
-  return <Dialog.Body sx={{bg: 'danger.subtle'}}>{children}</Dialog.Body>
+  return <Dialog.Body sx={{bg: 'danger.subtle'}}>{lipsum}</Dialog.Body>
 }
 function CustomFooter({footerButtons}: React.PropsWithChildren<DialogProps>) {
   return (
@@ -161,81 +161,86 @@ export const StressTest = () => {
   )
 }
 
-export const Responsive = () => {
-  const [isOpen, setIsOpen] = useState(false)
-  const buttonRef = useRef<HTMLButtonElement>(null)
-  const onDialogClose = useCallback(() => setIsOpen(false), [])
+export const NonDeclaritive = () => {
   return (
-    <>
-      <Button ref={buttonRef} onClick={() => setIsOpen(!isOpen)}>
-        Show dialog
-      </Button>
-      {isOpen && (
-        <Dialog
-          title="Your title"
-          onClose={onDialogClose}
-          type={{narrow: 'full-screen', regular: 'default', wide: 'default'}}
-          footerButtons={[
-            {buttonType: 'normal', content: 'Cancel', onClick: onDialogClose},
-            {buttonType: 'primary', content: 'Submit', autoFocus: true},
-          ]}
-        >
-          {lipsum}
-        </Dialog>
-      )}
-    </>
+    <Dialog width="small" title="This dialog has no buttons (non declaritive)." onClose={() => {}}>
+      <Text sx={{fontSize: 1}}>
+        It's a common scenario, to show a dialog that's just informational and therefore doesn't have footers in the
+        button
+      </Text>
+    </Dialog>
+  )
+}
+
+export const SizeSmallDialog = () => {
+  return (
+    <Dialog width="small" height="small" title="This is a small dialog." onClose={() => {}}>
+      {lipsum}
+    </Dialog>
+  )
+}
+
+export const SizeXLargeDialog = () => {
+  return (
+    <Dialog width="xlarge" height="auto" title="This is a xlarge dialog." onClose={() => {}}>
+      {lipsum}
+    </Dialog>
+  )
+}
+
+export const SizeLargeDialog = () => {
+  return (
+    <Dialog width="large" height="auto" title="This is a large dialog." onClose={() => {}}>
+      {lipsum}
+    </Dialog>
+  )
+}
+
+export const Responsive = () => {
+  return (
+    <Dialog
+      title="Your title"
+      onClose={() => {}}
+      type={{narrow: 'full-screen', regular: 'default', wide: 'default'}}
+      footerButtons={[
+        {buttonType: 'normal', content: 'Cancel', onClick: () => {}},
+        {buttonType: 'primary', content: 'Submit', autoFocus: true},
+      ]}
+    >
+      {lipsum}
+    </Dialog>
   )
 }
 
 export const FullScreen = () => {
-  const [isOpen, setIsOpen] = useState(false)
-  const buttonRef = useRef<HTMLButtonElement>(null)
-  const onDialogClose = useCallback(() => setIsOpen(false), [])
   return (
-    <>
-      <Button ref={buttonRef} onClick={() => setIsOpen(!isOpen)}>
-        Show dialog
-      </Button>
-      {isOpen && (
-        <Dialog
-          title="Your title"
-          onClose={onDialogClose}
-          type="full-screen"
-          footerButtons={[
-            {buttonType: 'normal', content: 'Cancel', onClick: onDialogClose},
-            {buttonType: 'primary', content: 'Submit', autoFocus: true},
-          ]}
-        >
-          {lipsum}
-        </Dialog>
-      )}
-    </>
+    <Dialog
+      title="Your title"
+      onClose={() => {}}
+      type="full-screen"
+      footerButtons={[
+        {buttonType: 'normal', content: 'Cancel', onClick: () => {}},
+        {buttonType: 'primary', content: 'Submit', autoFocus: true},
+      ]}
+    >
+      {lipsum}
+    </Dialog>
   )
 }
 
 export const ActionSheet = () => {
-  const [isOpen, setIsOpen] = useState(false)
-  const buttonRef = useRef<HTMLButtonElement>(null)
-  const onDialogClose = useCallback(() => setIsOpen(false), [])
   return (
-    <>
-      <Button ref={buttonRef} onClick={() => setIsOpen(!isOpen)}>
-        Show dialog
-      </Button>
-      {isOpen && (
-        <Dialog
-          title="Your title"
-          type="action-sheet"
-          onClose={onDialogClose}
-          footerButtons={[
-            {buttonType: 'normal', content: 'Cancel', onClick: onDialogClose},
-            {buttonType: 'primary', content: 'Submit', autoFocus: true},
-          ]}
-        >
-          {lipsum}
-        </Dialog>
-      )}
-    </>
+    <Dialog
+      title="Your title"
+      type="action-sheet"
+      onClose={() => {}}
+      footerButtons={[
+        {buttonType: 'normal', content: 'Cancel', onClick: () => {}},
+        {buttonType: 'primary', content: 'Submit', autoFocus: true},
+      ]}
+    >
+      {lipsum}
+    </Dialog>
   )
 }
 
