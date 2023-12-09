@@ -22,21 +22,22 @@ export interface DialogActionSheetProps extends SxProp {
   role?: 'dialog' | 'alertdialog'
 }
 
-type DialogActionSheetPropsChildren = PropsWithChildren<DialogActionSheetProps>
-
-const DialogActionSheet = React.forwardRef<HTMLDivElement, DialogActionSheetPropsChildren>((props, forwardedRef) => {
+export default React.forwardRef<HTMLDivElement, PropsWithChildren<DialogActionSheetProps>>((props, forwardedRef) => {
   const {onClose, children, role, sx} = props
 
-  // 🔄 States
+  // 🔄 STATES
+
   const [open, setIsOpen] = useState<boolean>(false)
   const [fireDelayedOnClose, setFireDelayedOnClose] = useState<
     'close-button' | 'escape' | 'drag' | 'overlay' | undefined
   >()
 
-  // 🧑‍🦽 Accessibility
+  // 🧑‍🦽 ACCESSIBILITY
+
   const isReduced = prefersReducedMotion()
 
-  // 📎 References
+  // 📎 REFERENCES
+
   let dialogRef = useRef<HTMLDivElement>(null)
   let startY = useRef(0)
   let startHeight = useRef(0)
@@ -45,7 +46,9 @@ const DialogActionSheet = React.forwardRef<HTMLDivElement, DialogActionSheetProp
 
   useRefObjectAsForwardedRef(forwardedRef, dialogRef)
 
-  // 🪝 Hooks
+  // 🪝 HOOKS
+
+  // Ensures an animation upon closing the component
   useEffect(() => {
     if (!fireDelayedOnClose) return
     console.log('Planning to close the dialog...')
@@ -58,11 +61,13 @@ const DialogActionSheet = React.forwardRef<HTMLDivElement, DialogActionSheetProp
     return () => clearTimeout(timer)
   }, [fireDelayedOnClose, onClose])
 
+  // Animates the bottom sheet in on mount
   useEffect(() => {
     showBottomSheet()
   }, [])
 
-  // 🥊 Actions
+  // 🥊 ACTIONS
+
   const showBottomSheet = () => {
     setIsOpen(true)
     updateSheetHeight(50)
@@ -82,6 +87,8 @@ const DialogActionSheet = React.forwardRef<HTMLDivElement, DialogActionSheetProp
     dialogRef.current.style.height = `${height}vh`
   }
 
+  // 🎪 EVENTS
+
   const dragStop = () => {
     if (!dialogRef.current) return
 
@@ -96,6 +103,7 @@ const DialogActionSheet = React.forwardRef<HTMLDivElement, DialogActionSheetProp
 
     updateSheetHeight(50)
   }
+
   const dragStart = (e: MouseEvent | TouchEvent) => {
     if (!dialogRef.current) return
     startY.current = e.pageY || e.touches?.[0].pageY
@@ -206,5 +214,3 @@ const Content = styled.div<
   transform: ${props => (props.open ? 'translateY(0%)' : 'translateY(100%)')};
   transition: 0.3s ease;
 `
-
-export default DialogActionSheet
