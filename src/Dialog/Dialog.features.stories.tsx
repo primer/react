@@ -68,60 +68,53 @@ const lipsum = (
     </p>
   </Text>
 )
-function CustomHeader({
-  title,
-  subtitle,
-  dialogLabelId,
-  dialogDescriptionId,
-  onClose,
-}: React.PropsWithChildren<DialogProps & {dialogLabelId: string; dialogDescriptionId: string}>) {
-  const onCloseClick = useCallback(() => {
-    onClose('close-button')
-  }, [onClose])
-  if (typeof title === 'string' && typeof subtitle === 'string') {
-    return (
-      <Box bg="accent.subtle">
-        <h1 id={dialogLabelId}>{title.toUpperCase()}</h1>
-        <h2 id={dialogDescriptionId}>{subtitle.toLowerCase()}</h2>
-        <Dialog.CloseButton onClose={onCloseClick} />
-      </Box>
-    )
+
+export const WithCustomRenderers = () => {
+  const CustomHeader = ({
+    title,
+    subtitle,
+    dialogLabelId,
+    dialogDescriptionId,
+    onClose,
+  }: React.PropsWithChildren<DialogProps & {dialogLabelId: string; dialogDescriptionId: string}>) => {
+    const onCloseClick = useCallback(() => {
+      onClose('close-button')
+    }, [onClose])
+    if (typeof title === 'string' && typeof subtitle === 'string') {
+      return (
+        <Box bg="accent.subtle">
+          <h1 id={dialogLabelId}>{title.toUpperCase()}</h1>
+          <h2 id={dialogDescriptionId}>{subtitle.toLowerCase()}</h2>
+          <Dialog.CloseButton onClose={onCloseClick} />
+        </Box>
+      )
+    }
+    return null
   }
-  return null
-}
-function CustomBody() {
-  return <Dialog.Body sx={{bg: 'danger.subtle'}}>{lipsum}</Dialog.Body>
-}
-function CustomFooter({footerButtons}: React.PropsWithChildren<DialogProps>) {
-  return (
+
+  const CustomBody = () => <Dialog.Body sx={{bg: 'danger.subtle'}}>{lipsum}</Dialog.Body>
+
+  const CustomFooter = ({footerButtons}: React.PropsWithChildren<DialogProps>) => (
     <Dialog.Footer sx={{bg: 'attention.subtle'}}>
       {footerButtons ? <Dialog.Buttons buttons={footerButtons} /> : null}
     </Dialog.Footer>
   )
-}
-export const WithCustomRenderers = () => {
-  const [isOpen, setIsOpen] = useState(false)
-  const onDialogClose = useCallback(() => setIsOpen(false), [])
+
   return (
-    <>
-      <Button onClick={() => setIsOpen(!isOpen)}>Show dialog</Button>
-      {isOpen && (
-        <Dialog
-          title="My Dialog"
-          subtitle="This is a subtitle!"
-          renderHeader={CustomHeader}
-          renderBody={CustomBody}
-          renderFooter={CustomFooter}
-          onClose={onDialogClose}
-          footerButtons={[
-            {buttonType: 'danger', content: 'Delete the universe', onClick: onDialogClose},
-            {buttonType: 'primary', content: 'Proceed'},
-          ]}
-        >
-          {lipsum}
-        </Dialog>
-      )}
-    </>
+    <Dialog
+      title="My Dialog"
+      subtitle="This is a subtitle!"
+      renderHeader={CustomHeader}
+      renderBody={CustomBody}
+      renderFooter={CustomFooter}
+      onClose={() => {}}
+      footerButtons={[
+        {buttonType: 'danger', content: 'Delete the universe'},
+        {buttonType: 'primary', content: 'Proceed'},
+      ]}
+    >
+      {lipsum}
+    </Dialog>
   )
 }
 
