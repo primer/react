@@ -3,6 +3,7 @@ import {Meta} from '@storybook/react'
 
 import {BaseStyles, ThemeProvider, Box, TextInput} from '..'
 import {Button} from '../Button'
+import Text from '../Text'
 import {Dialog, DialogProps, DialogWidth, DialogHeight} from './Dialog'
 
 /* Dialog Version 2 */
@@ -23,45 +24,10 @@ export default {
       )
     },
   ],
-  args: {
-    width: 'xlarge',
-    height: 'auto',
-    subtitle: true,
-  },
-  argTypes: {
-    width: {
-      control: {
-        type: 'radio',
-      },
-      options: ['small', 'medium', 'large', 'xlarge'],
-    },
-    height: {
-      control: {
-        type: 'radio',
-      },
-      options: ['small', 'large', 'auto'],
-    },
-    subtitle: {
-      name: 'show subtitle',
-      control: {
-        type: 'boolean',
-      },
-    },
-    title: {table: {disable: true}},
-
-    renderHeader: {table: {disable: true}},
-    renderBody: {table: {disable: true}},
-    renderFooter: {table: {disable: true}},
-    onClose: {table: {disable: true}},
-    role: {table: {disable: true}},
-    ref: {table: {disable: true}},
-    key: {table: {disable: true}},
-    footerButtons: {table: {disable: true}},
-  },
 } as Meta
 
 const lipsum = (
-  <div style={{fontSize: '14px'}}>
+  <Text sx={{fontSize: 1}}>
     <p style={{marginBlockStart: 0}}>
       Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque sollicitudin mauris maximus elit sagittis, nec
       lobortis ligula elementum. Nam iaculis, urna nec lobortis posuere, eros urna venenatis eros, vel accumsan turpis
@@ -100,14 +66,8 @@ const lipsum = (
       pharetra dolor at dictum tempor. Quisque ut est a ligula hendrerit sodales. Curabitur ornare a nulla in laoreet.
       Maecenas semper mi egestas, dignissim nisi et, elementum neque.
     </p>
-  </div>
+  </Text>
 )
-interface DialogStoryProps {
-  width: DialogWidth
-  height: DialogHeight
-  subtitle: boolean
-}
-
 function CustomHeader({
   title,
   subtitle,
@@ -129,7 +89,7 @@ function CustomHeader({
   }
   return null
 }
-function CustomBody({children}: React.PropsWithChildren<DialogProps>) {
+function CustomBody() {
   return <Dialog.Body sx={{bg: 'danger.subtle'}}>{children}</Dialog.Body>
 }
 function CustomFooter({footerButtons}: React.PropsWithChildren<DialogProps>) {
@@ -139,7 +99,7 @@ function CustomFooter({footerButtons}: React.PropsWithChildren<DialogProps>) {
     </Dialog.Footer>
   )
 }
-export const WithCustomRenderers = ({width, height, subtitle}: DialogStoryProps) => {
+export const WithCustomRenderers = () => {
   const [isOpen, setIsOpen] = useState(false)
   const onDialogClose = useCallback(() => setIsOpen(false), [])
   return (
@@ -148,9 +108,7 @@ export const WithCustomRenderers = ({width, height, subtitle}: DialogStoryProps)
       {isOpen && (
         <Dialog
           title="My Dialog"
-          subtitle={subtitle ? 'This is a subtitle!' : undefined}
-          width={width}
-          height={height}
+          subtitle="This is a subtitle!"
           renderHeader={CustomHeader}
           renderBody={CustomBody}
           renderFooter={CustomFooter}
@@ -167,7 +125,7 @@ export const WithCustomRenderers = ({width, height, subtitle}: DialogStoryProps)
   )
 }
 
-export const StressTest = ({width, height, subtitle}: DialogStoryProps) => {
+export const StressTest = () => {
   const [isOpen, setIsOpen] = useState(false)
   const [secondOpen, setSecondOpen] = useState(false)
   const buttonRef = useRef<HTMLButtonElement>(null)
@@ -183,14 +141,8 @@ export const StressTest = ({width, height, subtitle}: DialogStoryProps) => {
       {isOpen && (
         <Dialog
           title="This dialog has a really long title. So long, in fact, that it should cause wrapping, going to multiple lines!."
-          subtitle={
-            subtitle
-              ? "It's not a common scenario, sure, but what if the subtitle is generated from a really long value? Do we just break the dialog? Or do we handle it because we are pros?"
-              : undefined
-          }
+          subtitle="It's not a common scenario, sure, but what if the subtitle is generated from a really long value? Do we just break the dialog? Or do we handle it because we are pros?"
           onClose={onDialogClose}
-          width={width}
-          height={height}
           footerButtons={[
             ...manyButtons,
             {buttonType: 'danger', content: 'Delete the universe', onClick: onDialogClose},
@@ -209,7 +161,7 @@ export const StressTest = ({width, height, subtitle}: DialogStoryProps) => {
   )
 }
 
-export const Responsive = ({width, height}: DialogStoryProps) => {
+export const Responsive = () => {
   const [isOpen, setIsOpen] = useState(false)
   const buttonRef = useRef<HTMLButtonElement>(null)
   const onDialogClose = useCallback(() => setIsOpen(false), [])
@@ -223,8 +175,58 @@ export const Responsive = ({width, height}: DialogStoryProps) => {
           title="Your title"
           onClose={onDialogClose}
           type={{narrow: 'full-screen', regular: 'default', wide: 'default'}}
-          width={width}
-          height={height}
+          footerButtons={[
+            {buttonType: 'normal', content: 'Cancel', onClick: onDialogClose},
+            {buttonType: 'primary', content: 'Submit', autoFocus: true},
+          ]}
+        >
+          {lipsum}
+        </Dialog>
+      )}
+    </>
+  )
+}
+
+export const FullScreen = () => {
+  const [isOpen, setIsOpen] = useState(false)
+  const buttonRef = useRef<HTMLButtonElement>(null)
+  const onDialogClose = useCallback(() => setIsOpen(false), [])
+  return (
+    <>
+      <Button ref={buttonRef} onClick={() => setIsOpen(!isOpen)}>
+        Show dialog
+      </Button>
+      {isOpen && (
+        <Dialog
+          title="Your title"
+          onClose={onDialogClose}
+          type="full-screen"
+          footerButtons={[
+            {buttonType: 'normal', content: 'Cancel', onClick: onDialogClose},
+            {buttonType: 'primary', content: 'Submit', autoFocus: true},
+          ]}
+        >
+          {lipsum}
+        </Dialog>
+      )}
+    </>
+  )
+}
+
+export const ActionSheet = () => {
+  const [isOpen, setIsOpen] = useState(false)
+  const buttonRef = useRef<HTMLButtonElement>(null)
+  const onDialogClose = useCallback(() => setIsOpen(false), [])
+  return (
+    <>
+      <Button ref={buttonRef} onClick={() => setIsOpen(!isOpen)}>
+        Show dialog
+      </Button>
+      {isOpen && (
+        <Dialog
+          title="Your title"
+          type="action-sheet"
+          onClose={onDialogClose}
           footerButtons={[
             {buttonType: 'normal', content: 'Cancel', onClick: onDialogClose},
             {buttonType: 'primary', content: 'Submit', autoFocus: true},
@@ -238,7 +240,7 @@ export const Responsive = ({width, height}: DialogStoryProps) => {
 }
 
 // repro for https://github.com/github/primer/issues/2480
-export const ReproMultistepDialogWithConditionalFooter = ({width, height}: DialogStoryProps) => {
+export const ReproMultistepDialogWithConditionalFooter = () => {
   const [isOpen, setIsOpen] = useState(false)
   const onDialogClose = useCallback(() => setIsOpen(false), [])
   const [step, setStep] = React.useState(1)
@@ -259,8 +261,6 @@ export const ReproMultistepDialogWithConditionalFooter = ({width, height}: Dialo
       {isOpen && (
         <Dialog
           title={`Step ${step}`}
-          width={width}
-          height={height}
           renderFooter={renderFooterConditionally}
           onClose={onDialogClose}
           footerButtons={[{buttonType: 'primary', content: 'Proceed'}]}
