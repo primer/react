@@ -60,26 +60,6 @@ export default React.forwardRef<HTMLDivElement, PropsWithChildren<DialogActionSh
 
   const isReduced = prefersReducedMotion()
 
-  // 🪝 HOOKS
-
-  // Ensures an animation upon closing the component
-  useEffect(() => {
-    if (!fireDelayedOnClose) return
-    console.log('Planning to close the dialog...')
-    setIsOpen(false)
-    const timer = setTimeout(() => {
-      console.log('onClose...')
-
-      onClose(fireDelayedOnClose)
-    }, 300)
-    return () => clearTimeout(timer)
-  }, [fireDelayedOnClose, onClose])
-
-  // Animates the bottom sheet in on mount
-  useEffect(() => {
-    showBottomSheet()
-  }, [])
-
   // 🥊 ACTIONS
 
   const showBottomSheet = () => {
@@ -107,7 +87,7 @@ export default React.forwardRef<HTMLDivElement, PropsWithChildren<DialogActionSh
     if (!dialogRef.current) return
 
     isDragging.current = false
-    const sheetHeight = parseInt(dialogRef.current?.style.height ?? 0)
+    const sheetHeight = parseInt(dialogRef.current.style.height)
 
     const isReduced = prefersReducedMotion()
     dialogRef.current.style.transition = isReduced ? 'none' : '0.3s ease'
@@ -169,6 +149,26 @@ export default React.forwardRef<HTMLDivElement, PropsWithChildren<DialogActionSh
       }
     }
   }
+
+  // 🪝 HOOKS
+
+  // Ensures an animation upon closing the component
+  useEffect(() => {
+    if (!fireDelayedOnClose) return
+    console.log('Planning to close the dialog...')
+    setIsOpen(false)
+    const timer = setTimeout(() => {
+      console.log('onClose...')
+
+      onClose(fireDelayedOnClose)
+    }, 300)
+    return () => clearTimeout(timer)
+  }, [fireDelayedOnClose, onClose])
+
+  // Animates the bottom sheet in on mount
+  useEffect(() => {
+    showBottomSheet()
+  }, [showBottomSheet])
 
   const isFullScreen = sheetHeight?.current === 100
   const currentHeight = sheetHeight?.current ?? 0
