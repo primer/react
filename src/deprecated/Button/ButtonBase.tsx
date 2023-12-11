@@ -7,10 +7,10 @@ const variants = variant({
   variants: {
     small: {
       p: '4px 12px',
-      fontSize: 2,
+      fontSize: 0,
     },
     medium: {
-      fontSize: 2,
+      fontSize: 1,
     },
     large: {
       fontSize: 2,
