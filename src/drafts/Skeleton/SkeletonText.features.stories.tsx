@@ -5,11 +5,9 @@ import {SkeletonText} from './SkeletonText'
 import {Box, Text} from '../..'
 
 export default {
-  title: 'Drafts/Components/Skeleton/SkeletonText',
+  title: 'Drafts/Components/Skeleton/SkeletonText/Features',
   component: SkeletonText,
 } as Meta<ComponentProps<typeof SkeletonText>>
-
-export const Default = () => <SkeletonText />
 
 export const WithMaxWidth = () => <SkeletonText maxWidth={200} />
 
@@ -30,16 +28,3 @@ export const BodyLarge = () => <SkeletonText size="bodyLarge" />
 export const BodyMedium = () => <SkeletonText size="bodyMedium" />
 
 export const BodySmall = () => <SkeletonText size="bodySmall" />
-
-export const TextTest = () => {
-  return (
-    <Box sx={{display: 'grid', '> *': {gridRow: 1, gridColumn: 1}}}>
-      <SkeletonText lines={2} />
-      <Text sx={{fontSize: 'var(--text-body-size-medium)', lineHeight: 'var(--text-body-lineHeight-medium)'}}>
-        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry
-        standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make
-        a type specimen book.
-      </Text>
-    </Box>
-  )
-}
