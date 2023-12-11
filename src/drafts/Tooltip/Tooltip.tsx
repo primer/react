@@ -273,9 +273,9 @@ export const Tooltip = React.forwardRef(
             React.cloneElement(child as React.ReactElement<TriggerPropsType>, {
               ref: triggerRef,
               // If it is a type description, we use tooltip to describe the trigger
-              'aria-describedby': type === 'description' ? `tooltip-${tooltipId}` : undefined,
+              'aria-describedby': type === 'description' ? `tooltip-${tooltipId}` : child.props['aria-describedby'],
               // If it is a label type, we use tooltip to label the trigger
-              'aria-labelledby': type === 'label' ? `tooltip-${tooltipId}` : undefined,
+              'aria-labelledby': type === 'label' ? `tooltip-${tooltipId}` : child.props['aria-labelledby'],
               onBlur: (event: React.FocusEvent) => {
                 closeTooltip()
                 child.props.onBlur?.(event)
