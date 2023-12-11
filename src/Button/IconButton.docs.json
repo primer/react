@@ -25,6 +25,11 @@
       "description": "Changes the size of the icon button component"
     },
     {
+      "name": "inactive",
+      "type": "boolean",
+      "description": "Whether the button looks visually disabled, but can still accept all the same interactions as an enabled button."
+    },
+    {
       "name": "icon",
       "type": "Component",
       "defaultValue": "",

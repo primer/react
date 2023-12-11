@@ -51,6 +51,11 @@
       "description": "A visual to display after the button text."
     },
     {
+      "name": "inactive",
+      "type": "boolean",
+      "description": "Whether the button looks visually disabled, but can still accept all the same interactions as an enabled button.\n This is intended to be used when a system error such as an outage prevents the button from performing its usual action.\n Inactive styles are slightly different from disabled styles because inactive buttons need to have an accessible color contrast ratio. This is because inactive buttons can have tooltips or perform an action such as opening a dialog explaining why it's inactive.\n If both `disabled` and `inactive` are true, `disabled` takes precedence."
+    },
+    {
       "name": "as",
       "type": "React.ElementType",
       "defaultValue": "'button'"

@@ -28,6 +28,7 @@ text before list
 - [ ] item 2
 
 text after list`
+    const noItemsCheckedWithSpecialNewLineMarkdown = `\ntext before list\r\n\r\n- [ ] item 1\n- [ ] item 2\r\n\r\ntext after list`
     const hierarchyBeforeTaskListNoItemsChecked = `
 text before list
 
@@ -116,6 +117,21 @@ text after list`
         <MarkdownViewer
           dangerousRenderedHTML={htmlObject}
           markdownValue={noItemsCheckedMarkdown}
+          onChange={onChangeMock}
+          disabled
+        />,
+      )
+      const items = getAllByRole('checkbox')
+      fireEvent.change(items[0])
+      await waitFor(() => expect(onChangeMock).toHaveBeenCalledWith(firstItemCheckedMarkdown))
+    })
+
+    it('calls `onChange` with the updated Markdown when a task is checked in a text with different new line chars', async () => {
+      const onChangeMock = jest.fn()
+      const {getAllByRole} = render(
+        <MarkdownViewer
+          dangerousRenderedHTML={htmlObject}
+          markdownValue={noItemsCheckedWithSpecialNewLineMarkdown}
           onChange={onChangeMock}
           disabled
         />,
