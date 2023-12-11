@@ -20,6 +20,7 @@ export const SkeletonText: React.FC<SkeletonTextProps & SxProp> = ({
     <BaseSkeletonBone
       data-component="SkeletonText"
       data-text-skeleton-size={size}
+      width="100%"
       sx={merge({maxWidth} as React.CSSProperties, sxProp as SxProp)}
       {...rest}
     />

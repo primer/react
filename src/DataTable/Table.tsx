@@ -1,7 +1,7 @@
 import {SortAscIcon, SortDescIcon} from '@primer/octicons-react'
 import clsx from 'clsx'
 import React from 'react'
-import styled, {keyframes} from 'styled-components'
+import styled from 'styled-components'
 import Box from '../Box'
 import Text from '../Text'
 import {get} from '../constants'
@@ -12,15 +12,12 @@ import {UniqueRow} from './row'
 import {SortDirection} from './sorting'
 import {useTableLayout} from './useTable'
 import {useOverflow} from '../internal/hooks/useOverflow'
+import {SkeletonText} from '../drafts/Skeleton/SkeletonText'
 
 // ----------------------------------------------------------------------------
 // Table
 // ----------------------------------------------------------------------------
 
-const shimmer = keyframes`
-  from { mask-position: 200%; }
-  to { mask-position: 0%; }
-`
 const StyledTable = styled.table<React.ComponentPropsWithoutRef<'table'>>`
   /* Default table styles */
   --table-border-radius: 0.375rem;
@@ -198,30 +195,12 @@ const StyledTable = styled.table<React.ComponentPropsWithoutRef<'table'>>`
     }
   }
 
-  .TableCellSkeletonItem:not(:last-of-type) {
-    border-bottom: 1px solid ${get('colors.border.default')};
+  .TableCellSkeletonItem [data-component='SkeletonText'] {
+    width: var(--skeleton-item-width);
   }
 
-  .TableCellSkeletonItem::before {
-    display: block;
-    content: '';
-    height: 1rem;
-    width: var(--skeleton-item-width, 67%);
-    background-color: ${get('colors.canvas.subtle')};
-    border-radius: 3px;
-
-    @media (prefers-reduced-motion: no-preference) {
-      mask-image: linear-gradient(75deg, #000 30%, rgba(0, 0, 0, 0.65) 80%);
-      mask-size: 200%;
-      animation: ${shimmer};
-      animation-duration: 1s;
-      animation-iteration-count: infinite;
-    }
-
-    @media (forced-colors: active) {
-      outline: 1px solid transparent;
-      outline-offset: -1px;
-    }
+  .TableCellSkeletonItem:not(:last-of-type) {
+    border-bottom: 1px solid ${get('colors.border.default')};
   }
 
   /* Grid layout */
@@ -624,7 +603,11 @@ function TableSkeleton<Data extends UniqueRow>({cellPadding, columns, rows = 10,
                 <VisuallyHidden>Loading</VisuallyHidden>
                 <div className="TableCellSkeletonItems">
                   {Array.from({length: rows}).map((_, i) => {
-                    return <div key={i} className="TableCellSkeletonItem" />
+                    return (
+                      <div key={i} className="TableCellSkeletonItem">
+                        <SkeletonText />
+                      </div>
+                    )
                   })}
                 </div>
               </TableCell>

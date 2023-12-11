@@ -16,7 +16,6 @@ const shimmer = keyframes`
 export const BaseSkeletonBone = styled.div<BaseSkeletonBoneProps>`
   animation: ${shimmer};
   display: block;
-  content: '';
   background-color: var(--bgColor-muted, ${get('colors.canvas.subtle')});
   border-radius: 3px;
   height: ${props => props.height};
@@ -47,18 +46,20 @@ export const BaseSkeletonBone = styled.div<BaseSkeletonBoneProps>`
   &[data-avatar-shape='square'] {
     border-radius: clamp(4px, var(--avatar-size) - 24px, 6px);
   }
+
   &[data-component='SkeletonText'] {
     --font-size: var(--text-body-size-medium, 0.875rem);
     --line-height: var(--text-body-lineHeight-medium, 1.4285);
     --leading: calc(var(--font-size) * var(--line-height) - var(--font-size));
     border-radius: var(--borderRadius-small, 0.1875rem);
     height: var(--font-size);
-    margin-block: var(--leading);
+    /* We divide the total amount of leading between the top and bottom */
+    margin-block: calc(var(--leading) / 2);
   }
 
   /* We double the margin between lines to counteract margin collapse. This keeps the spaces the skeleton lines the same way lines of text are spaced */
   &[data-in-multiline='true'] {
-    margin-bottom: calc(var(--leading) * 2);
+    margin-block-end: calc(var(--leading) * 2);
   }
 
   &[data-in-multiline='true']:last-child {
