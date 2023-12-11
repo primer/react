@@ -89,6 +89,11 @@
           "description": "Text describing why the item is inactive. This may be used when an item's usual functionality is unavailable due to a system error such as a database outage."
         },
         {
+          "name": "loading",
+          "type": "boolean",
+          "description": "Whether the item is loading."
+        },
+        {
           "name": "role",
           "type": "AriaRole",
           "defaultValue": "",

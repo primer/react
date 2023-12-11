@@ -407,6 +407,20 @@ export const InactiveItem = () => {
   )
 }
 
+// TODO: test inactive _and_ loading - inactive should take precedence
+export const LoadingItem = () => {
+  return (
+    <ActionList aria-label="Project">
+      {projects.map((project, index) => (
+        <ActionList.Item key={index} loading={index === 1}>
+          {project.name}
+          <ActionList.Description variant="block">{project.scope}</ActionList.Description>
+        </ActionList.Item>
+      ))}
+    </ActionList>
+  )
+}
+
 export const Links = () => (
   <>
     <Heading as="h1" id="list-heading" sx={{fontSize: 1}}>

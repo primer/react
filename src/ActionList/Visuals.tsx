@@ -1,8 +1,10 @@
 import React from 'react'
-import Box from '../Box'
+import {AlertIcon} from '@primer/octicons-react'
+import {Spinner, Box} from '..'
 import {get} from '../constants'
 import {SxProp, merge} from '../sx'
 import {ItemContext, TEXT_ROW_HEIGHT, getVariantStyles} from './shared'
+import {Tooltip, TooltipProps} from '../drafts/Tooltip/Tooltip'
 
 export type VisualProps = SxProp & React.HTMLAttributes<HTMLSpanElement>
 
@@ -73,5 +75,58 @@ export const TrailingVisual: React.FC<React.PropsWithChildren<VisualProps>> = ({
     >
       {props.children}
     </Box>
+  )
+}
+
+// VisualOrIndicator handles the positioning of indicators and determines whether to show a visual or an indicator.
+//
+// If we're showing an *inactive* or *loading* indicator and a leading visual has NOT been passed,
+// replace the trailing visual with the inactive indicator.
+//
+// This preserves the left alignment of item text.
+export const VisualOrIndicator: React.FC<
+  React.PropsWithChildren<{
+    inactiveText?: TooltipProps['text']
+    itemHasLeadingVisual: boolean
+    labelId?: string
+    loading?: boolean
+    position: 'leading' | 'trailing'
+  }>
+> = ({children, labelId, loading, inactiveText, itemHasLeadingVisual, position}) => {
+  const VisualComponent = position === 'leading' ? LeadingVisual : TrailingVisual
+
+  if (!loading && !inactiveText) return children
+
+  if (
+    (itemHasLeadingVisual && position === 'trailing') || // has a leading visual, and it's in the trailing position, or
+    (!itemHasLeadingVisual && position === 'leading') // it doesn't have a leading visual, and it's in the leading position
+  ) {
+    // => so we don't render the indicator here
+    return children
+  }
+
+  return inactiveText ? (
+    <Tooltip text={inactiveText}>
+      <Box
+        as="button"
+        sx={{
+          background: 'none',
+          color: 'inherit',
+          border: 'none',
+          padding: 0,
+          font: 'inherit',
+          cursor: 'pointer',
+        }}
+        aria-labelledby={labelId}
+      >
+        <VisualComponent>
+          <AlertIcon />
+        </VisualComponent>
+      </Box>
+    </Tooltip>
+  ) : (
+    <VisualComponent>
+      <Spinner size="small" />
+    </VisualComponent>
   )
 }

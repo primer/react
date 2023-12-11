@@ -52,6 +52,7 @@ export type NavListItemProps = {
   href?: string
   'aria-current'?: 'page' | 'step' | 'location' | 'date' | 'time' | 'true' | 'false' | boolean
   inactiveText?: string
+  loading?: boolean
 } & SxProp
 
 const Item = React.forwardRef<HTMLAnchorElement, NavListItemProps>(

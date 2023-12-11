@@ -453,6 +453,7 @@ export function AllCombinations(): JSX.Element {
               <StarIcon />
             </ActionList.TrailingVisual>
           </ActionList.Item>
+          {/* Inactive items */}
           <ActionList.Item inactiveText="Unavailable due to an outage">
             L + B + T<ActionList.Description variant="block">Block description</ActionList.Description>
           </ActionList.Item>
@@ -484,6 +485,44 @@ export function AllCombinations(): JSX.Element {
             </ActionList.TrailingVisual>
           </ActionList.Item>
           <ActionList.Item inactiveText="Unavailable due to an outage">
+            I + B + T<ActionList.Description variant="inline">inline description</ActionList.Description>
+            <ActionList.Description variant="block">Block description</ActionList.Description>
+            <ActionList.TrailingVisual>
+              <StarIcon />
+            </ActionList.TrailingVisual>
+          </ActionList.Item>
+          {/* Loading items */}
+          <ActionList.Item loading>
+            L + B + T<ActionList.Description variant="block">Block description</ActionList.Description>
+          </ActionList.Item>
+          <ActionList.Item loading>
+            L + B + T<ActionList.Description variant="inline">Inline description</ActionList.Description>
+          </ActionList.Item>
+          <ActionList.Item loading>
+            <ActionList.LeadingVisual>
+              <StarIcon />
+            </ActionList.LeadingVisual>
+            L + I + T<ActionList.Description variant="inline">inline description</ActionList.Description>
+            <ActionList.TrailingVisual>
+              <StarIcon />
+            </ActionList.TrailingVisual>
+          </ActionList.Item>
+          <ActionList.Item loading>
+            <ActionList.LeadingVisual>
+              <StarIcon />
+            </ActionList.LeadingVisual>
+            L + B + T<ActionList.Description variant="block">Block description</ActionList.Description>
+            <ActionList.TrailingVisual>
+              <StarIcon />
+            </ActionList.TrailingVisual>
+          </ActionList.Item>
+          <ActionList.Item loading>
+            L + B + T<ActionList.Description variant="block">Block description</ActionList.Description>
+            <ActionList.TrailingVisual>
+              <StarIcon />
+            </ActionList.TrailingVisual>
+          </ActionList.Item>
+          <ActionList.Item loading>
             I + B + T<ActionList.Description variant="inline">inline description</ActionList.Description>
             <ActionList.Description variant="block">Block description</ActionList.Description>
             <ActionList.TrailingVisual>

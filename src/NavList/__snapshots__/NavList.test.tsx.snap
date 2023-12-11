@@ -65,6 +65,10 @@ exports[`NavList renders a simple list 1`] = `
   background-color: rgba(208,215,222,0.24);
 }
 
+.c2[data-loading] {
+  cursor: default;
+}
+
 .c2[aria-disabled],
 .c2[data-inactive] {
   cursor: not-allowed;
@@ -100,13 +104,13 @@ exports[`NavList renders a simple list 1`] = `
   --divider-color: transparent !important;
 }
 
-.c2:hover:not([aria-disabled]):not([data-inactive]),
-.c2:focus:not([aria-disabled]):not([data-inactive]),
+.c2:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]),
+.c2:focus:not([aria-disabled]):not([data-inactive]):not([data-loading]),
 .c2[data-focus-visible-added]:not([aria-disabled]):not([data-inactive]) {
   --divider-color: transparent;
 }
 
-.c2:hover:not([aria-disabled]):not([data-inactive]) + .c1,
+.c2:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]) + .c1,
 .c2[data-focus-visible-added] + li {
   --divider-color: transparent;
 }
@@ -154,6 +158,10 @@ exports[`NavList renders a simple list 1`] = `
   margin-bottom: unset;
 }
 
+.c7[data-loading] {
+  cursor: default;
+}
+
 .c7[aria-disabled],
 .c7[data-inactive] {
   cursor: not-allowed;
@@ -189,13 +197,13 @@ exports[`NavList renders a simple list 1`] = `
   --divider-color: transparent !important;
 }
 
-.c7:hover:not([aria-disabled]):not([data-inactive]),
-.c7:focus:not([aria-disabled]):not([data-inactive]),
+.c7:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]),
+.c7:focus:not([aria-disabled]):not([data-inactive]):not([data-loading]),
 .c7[data-focus-visible-added]:not([aria-disabled]):not([data-inactive]) {
   --divider-color: transparent;
 }
 
-.c7:hover:not([aria-disabled]):not([data-inactive]) + .c1,
+.c7:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]) + .c1,
 .c7[data-focus-visible-added] + li {
   --divider-color: transparent;
 }
@@ -254,7 +262,7 @@ exports[`NavList renders a simple list 1`] = `
 }
 
 @media (hover:hover) and (pointer:fine) {
-  .c2:hover:not([aria-disabled]):not([data-inactive]) {
+  .c2:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]) {
     background-color: rgba(208,215,222,0.32);
     color: #1F2328;
     box-shadow: inset 0 0 0 max(1px,0.0625rem) rgba(0,0,0,0);
@@ -267,7 +275,7 @@ exports[`NavList renders a simple list 1`] = `
     box-shadow: 0 0 0 2px #0969da;
   }
 
-  .c2:active:not([aria-disabled]):not([data-inactive]) {
+  .c2:active:not([aria-disabled]):not([data-inactive]):not([data-loading]) {
     background-color: rgba(208,215,222,0.48);
     color: #1F2328;
   }
@@ -280,7 +288,7 @@ exports[`NavList renders a simple list 1`] = `
 }
 
 @media (hover:hover) and (pointer:fine) {
-  .c7:hover:not([aria-disabled]):not([data-inactive]) {
+  .c7:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]) {
     background-color: rgba(208,215,222,0.32);
     color: #1F2328;
     box-shadow: inset 0 0 0 max(1px,0.0625rem) rgba(0,0,0,0);
@@ -293,7 +301,7 @@ exports[`NavList renders a simple list 1`] = `
     box-shadow: 0 0 0 2px #0969da;
   }
 
-  .c7:active:not([aria-disabled]):not([data-inactive]) {
+  .c7:active:not([aria-disabled]):not([data-inactive]):not([data-loading]) {
     background-color: rgba(208,215,222,0.48);
     color: #1F2328;
   }
@@ -489,6 +497,10 @@ exports[`NavList renders with groups 1`] = `
   background-color: rgba(208,215,222,0.24);
 }
 
+.c6[data-loading] {
+  cursor: default;
+}
+
 .c6[aria-disabled],
 .c6[data-inactive] {
   cursor: not-allowed;
@@ -524,13 +536,13 @@ exports[`NavList renders with groups 1`] = `
   --divider-color: transparent !important;
 }
 
-.c6:hover:not([aria-disabled]):not([data-inactive]),
-.c6:focus:not([aria-disabled]):not([data-inactive]),
+.c6:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]),
+.c6:focus:not([aria-disabled]):not([data-inactive]):not([data-loading]),
 .c6[data-focus-visible-added]:not([aria-disabled]):not([data-inactive]) {
   --divider-color: transparent;
 }
 
-.c6:hover:not([aria-disabled]):not([data-inactive]) + .c5,
+.c6:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]) + .c5,
 .c6[data-focus-visible-added] + li {
   --divider-color: transparent;
 }
@@ -578,6 +590,10 @@ exports[`NavList renders with groups 1`] = `
   margin-bottom: unset;
 }
 
+.c11[data-loading] {
+  cursor: default;
+}
+
 .c11[aria-disabled],
 .c11[data-inactive] {
   cursor: not-allowed;
@@ -613,13 +629,13 @@ exports[`NavList renders with groups 1`] = `
   --divider-color: transparent !important;
 }
 
-.c11:hover:not([aria-disabled]):not([data-inactive]),
-.c11:focus:not([aria-disabled]):not([data-inactive]),
+.c11:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]),
+.c11:focus:not([aria-disabled]):not([data-inactive]):not([data-loading]),
 .c11[data-focus-visible-added]:not([aria-disabled]):not([data-inactive]) {
   --divider-color: transparent;
 }
 
-.c11:hover:not([aria-disabled]):not([data-inactive]) + .c5,
+.c11:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]) + .c5,
 .c11[data-focus-visible-added] + li {
   --divider-color: transparent;
 }
@@ -678,7 +694,7 @@ exports[`NavList renders with groups 1`] = `
 }
 
 @media (hover:hover) and (pointer:fine) {
-  .c6:hover:not([aria-disabled]):not([data-inactive]) {
+  .c6:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]) {
     background-color: rgba(208,215,222,0.32);
     color: #1F2328;
     box-shadow: inset 0 0 0 max(1px,0.0625rem) rgba(0,0,0,0);
@@ -691,7 +707,7 @@ exports[`NavList renders with groups 1`] = `
     box-shadow: 0 0 0 2px #0969da;
   }
 
-  .c6:active:not([aria-disabled]):not([data-inactive]) {
+  .c6:active:not([aria-disabled]):not([data-inactive]):not([data-loading]) {
     background-color: rgba(208,215,222,0.48);
     color: #1F2328;
   }
@@ -704,7 +720,7 @@ exports[`NavList renders with groups 1`] = `
 }
 
 @media (hover:hover) and (pointer:fine) {
-  .c11:hover:not([aria-disabled]):not([data-inactive]) {
+  .c11:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]) {
     background-color: rgba(208,215,222,0.32);
     color: #1F2328;
     box-shadow: inset 0 0 0 max(1px,0.0625rem) rgba(0,0,0,0);
@@ -717,7 +733,7 @@ exports[`NavList renders with groups 1`] = `
     box-shadow: 0 0 0 2px #0969da;
   }
 
-  .c11:active:not([aria-disabled]):not([data-inactive]) {
+  .c11:active:not([aria-disabled]):not([data-inactive]):not([data-loading]) {
     background-color: rgba(208,215,222,0.48);
     color: #1F2328;
   }
@@ -905,7 +921,7 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   --divider-color: transparent !important;
 }
 
-.c14:hover:not([aria-disabled]):not([data-inactive]) + .c3,
+.c14:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]) + .c3,
 .c14[data-focus-visible-added] + li {
   --divider-color: transparent;
 }
@@ -944,6 +960,10 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   background-color: rgba(208,215,222,0.24);
 }
 
+.c11[data-loading] {
+  cursor: default;
+}
+
 .c11[aria-disabled],
 .c11[data-inactive] {
   cursor: not-allowed;
@@ -979,13 +999,13 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   --divider-color: transparent !important;
 }
 
-.c11:hover:not([aria-disabled]):not([data-inactive]),
-.c11:focus:not([aria-disabled]):not([data-inactive]),
+.c11:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]),
+.c11:focus:not([aria-disabled]):not([data-inactive]):not([data-loading]),
 .c11[data-focus-visible-added]:not([aria-disabled]):not([data-inactive]) {
   --divider-color: transparent;
 }
 
-.c11:hover:not([aria-disabled]):not([data-inactive]) + .c3,
+.c11:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]) + .c3,
 .c11[data-focus-visible-added] + li {
   --divider-color: transparent;
 }
@@ -1033,6 +1053,10 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   font-weight: 600;
 }
 
+.c4[data-loading] {
+  cursor: default;
+}
+
 .c4[aria-disabled],
 .c4[data-inactive] {
   cursor: not-allowed;
@@ -1068,13 +1092,13 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   --divider-color: transparent !important;
 }
 
-.c4:hover:not([aria-disabled]):not([data-inactive]),
-.c4:focus:not([aria-disabled]):not([data-inactive]),
+.c4:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]),
+.c4:focus:not([aria-disabled]):not([data-inactive]):not([data-loading]),
 .c4[data-focus-visible-added]:not([aria-disabled]):not([data-inactive]) {
   --divider-color: transparent;
 }
 
-.c4:hover:not([aria-disabled]):not([data-inactive]) + .c3,
+.c4:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]) + .c3,
 .c4[data-focus-visible-added] + li {
   --divider-color: transparent;
 }
@@ -1143,7 +1167,7 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
 }
 
 @media (hover:hover) and (pointer:fine) {
-  .c11:hover:not([aria-disabled]):not([data-inactive]) {
+  .c11:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]) {
     background-color: rgba(208,215,222,0.32);
     color: #1F2328;
     box-shadow: inset 0 0 0 max(1px,0.0625rem) rgba(0,0,0,0);
@@ -1156,7 +1180,7 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
     box-shadow: 0 0 0 2px #0969da;
   }
 
-  .c11:active:not([aria-disabled]):not([data-inactive]) {
+  .c11:active:not([aria-disabled]):not([data-inactive]):not([data-loading]) {
     background-color: rgba(208,215,222,0.48);
     color: #1F2328;
   }
@@ -1169,7 +1193,7 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
 }
 
 @media (hover:hover) and (pointer:fine) {
-  .c4:hover:not([aria-disabled]):not([data-inactive]) {
+  .c4:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]) {
     background-color: rgba(208,215,222,0.32);
     color: #1F2328;
     box-shadow: inset 0 0 0 max(1px,0.0625rem) rgba(0,0,0,0);
@@ -1182,7 +1206,7 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
     box-shadow: 0 0 0 2px #0969da;
   }
 
-  .c4:active:not([aria-disabled]):not([data-inactive]) {
+  .c4:active:not([aria-disabled]):not([data-inactive]):not([data-loading]) {
     background-color: rgba(208,215,222,0.48);
     color: #1F2328;
   }
@@ -1363,7 +1387,7 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   --divider-color: transparent !important;
 }
 
-.c14:hover:not([aria-disabled]):not([data-inactive]) + .c3,
+.c14:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]) + .c3,
 .c14[data-focus-visible-added] + li {
   --divider-color: transparent;
 }
@@ -1402,6 +1426,10 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   background-color: rgba(208,215,222,0.24);
 }
 
+.c11[data-loading] {
+  cursor: default;
+}
+
 .c11[aria-disabled],
 .c11[data-inactive] {
   cursor: not-allowed;
@@ -1437,13 +1465,13 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   --divider-color: transparent !important;
 }
 
-.c11:hover:not([aria-disabled]):not([data-inactive]),
-.c11:focus:not([aria-disabled]):not([data-inactive]),
+.c11:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]),
+.c11:focus:not([aria-disabled]):not([data-inactive]):not([data-loading]),
 .c11[data-focus-visible-added]:not([aria-disabled]):not([data-inactive]) {
   --divider-color: transparent;
 }
 
-.c11:hover:not([aria-disabled]):not([data-inactive]) + .c3,
+.c11:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]) + .c3,
 .c11[data-focus-visible-added] + li {
   --divider-color: transparent;
 }
@@ -1463,7 +1491,7 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   --divider-color: transparent !important;
 }
 
-.c15:hover:not([aria-disabled]):not([data-inactive]) + .c3,
+.c15:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]) + .c3,
 .c15[data-focus-visible-added] + li {
   --divider-color: transparent;
 }
@@ -1501,6 +1529,10 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   background-color: rgba(208,215,222,0.24);
 }
 
+.c4[data-loading] {
+  cursor: default;
+}
+
 .c4[aria-disabled],
 .c4[data-inactive] {
   cursor: not-allowed;
@@ -1536,13 +1568,13 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   --divider-color: transparent !important;
 }
 
-.c4:hover:not([aria-disabled]):not([data-inactive]),
-.c4:focus:not([aria-disabled]):not([data-inactive]),
+.c4:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]),
+.c4:focus:not([aria-disabled]):not([data-inactive]):not([data-loading]),
 .c4[data-focus-visible-added]:not([aria-disabled]):not([data-inactive]) {
   --divider-color: transparent;
 }
 
-.c4:hover:not([aria-disabled]):not([data-inactive]) + .c3,
+.c4:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]) + .c3,
 .c4[data-focus-visible-added] + li {
   --divider-color: transparent;
 }
@@ -1622,7 +1654,7 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
 }
 
 @media (hover:hover) and (pointer:fine) {
-  .c11:hover:not([aria-disabled]):not([data-inactive]) {
+  .c11:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]) {
     background-color: rgba(208,215,222,0.32);
     color: #1F2328;
     box-shadow: inset 0 0 0 max(1px,0.0625rem) rgba(0,0,0,0);
@@ -1635,7 +1667,7 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
     box-shadow: 0 0 0 2px #0969da;
   }
 
-  .c11:active:not([aria-disabled]):not([data-inactive]) {
+  .c11:active:not([aria-disabled]):not([data-inactive]):not([data-loading]) {
     background-color: rgba(208,215,222,0.48);
     color: #1F2328;
   }
@@ -1656,7 +1688,7 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
 }
 
 @media (hover:hover) and (pointer:fine) {
-  .c4:hover:not([aria-disabled]):not([data-inactive]) {
+  .c4:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]) {
     background-color: rgba(208,215,222,0.32);
     color: #1F2328;
     box-shadow: inset 0 0 0 max(1px,0.0625rem) rgba(0,0,0,0);
@@ -1669,7 +1701,7 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
     box-shadow: 0 0 0 2px #0969da;
   }
 
-  .c4:active:not([aria-disabled]):not([data-inactive]) {
+  .c4:active:not([aria-disabled]):not([data-inactive]):not([data-loading]) {
     background-color: rgba(208,215,222,0.48);
     color: #1F2328;
   }
