@@ -2,7 +2,6 @@ import React from 'react'
 import {Meta} from '@storybook/react'
 import {ComponentProps} from '../../utils/types'
 import {SkeletonText} from './SkeletonText'
-import {Box, Text} from '../..'
 
 export default {
   title: 'Drafts/Components/Skeleton/SkeletonText/Features',
