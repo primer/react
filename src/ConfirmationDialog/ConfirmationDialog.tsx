@@ -7,6 +7,7 @@ import {FocusKeys} from '@primer/behaviors'
 import {get} from '../constants'
 import {Dialog, DialogProps, DialogHeaderProps, DialogButtonProps} from '../Dialog/Dialog'
 import {useFocusZone} from '../hooks/useFocusZone'
+import BaseStyles from '../BaseStyles'
 
 /**
  * Props to customize the ConfirmationDialog.
@@ -150,7 +151,7 @@ export type ConfirmOptions = Omit<ConfirmationDialogProps, 'onClose'> & {content
 async function confirm(themeProps: ThemeProviderProps, options: ConfirmOptions): Promise<boolean> {
   const {content, ...confirmationDialogProps} = options
   return new Promise(resolve => {
-    hostElement = document.createElement('div')
+    hostElement ||= document.createElement('div')
     if (!hostElement.isConnected) document.body.append(hostElement)
     const root = createRoot(hostElement)
     const onClose: ConfirmationDialogProps['onClose'] = gesture => {
@@ -163,9 +164,11 @@ async function confirm(themeProps: ThemeProviderProps, options: ConfirmOptions):
     }
     root.render(
       <ThemeProvider {...themeProps}>
-        <ConfirmationDialog {...confirmationDialogProps} onClose={onClose}>
-          {content}
-        </ConfirmationDialog>
+        <BaseStyles>
+          <ConfirmationDialog {...confirmationDialogProps} onClose={onClose}>
+            {content}
+          </ConfirmationDialog>
+        </BaseStyles>
       </ThemeProvider>,
     )
   })
