@@ -20,6 +20,7 @@ exports[`TextInput renders 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
+  overflow: hidden;
 }
 
 .c0 input,
@@ -49,8 +50,8 @@ exports[`TextInput renders 1`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  outline: none;
-  box-shadow: inset 0 0 0 1px #0969da;
+  outline: 2px solid #0969da;
+  outline-offset: -1px;
 }
 
 .c0 > textarea {
@@ -111,6 +112,7 @@ exports[`TextInput renders 1`] = `
   onClick={[Function]}
 >
   <input
+    aria-required="false"
     className="c2"
     data-component="input"
     name="zipcode"
@@ -141,6 +143,7 @@ exports[`TextInput renders block 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
+  overflow: hidden;
   width: 100%;
   display: -webkit-box;
   display: -webkit-flex;
@@ -178,8 +181,8 @@ exports[`TextInput renders block 1`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  outline: none;
-  box-shadow: inset 0 0 0 1px #0969da;
+  outline: 2px solid #0969da;
+  outline-offset: -1px;
 }
 
 .c0 > textarea {
@@ -240,6 +243,7 @@ exports[`TextInput renders block 1`] = `
   onClick={[Function]}
 >
   <input
+    aria-required="false"
     className="c2"
     data-component="input"
     name="zipcode"
@@ -270,6 +274,7 @@ exports[`TextInput renders consistently 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
+  overflow: hidden;
 }
 
 .c0 input,
@@ -299,8 +304,8 @@ exports[`TextInput renders consistently 1`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  outline: none;
-  box-shadow: inset 0 0 0 1px #0969da;
+  outline: 2px solid #0969da;
+  outline-offset: -1px;
 }
 
 .c0 > textarea {
@@ -361,6 +366,7 @@ exports[`TextInput renders consistently 1`] = `
   onClick={[Function]}
 >
   <input
+    aria-required="false"
     className="c2"
     data-component="input"
     onBlur={[Function]}
@@ -390,6 +396,7 @@ exports[`TextInput renders contrast 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
+  overflow: hidden;
   background-color: #f6f8fa;
 }
 
@@ -420,8 +427,8 @@ exports[`TextInput renders contrast 1`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  outline: none;
-  box-shadow: inset 0 0 0 1px #0969da;
+  outline: 2px solid #0969da;
+  outline-offset: -1px;
 }
 
 .c0 > textarea {
@@ -482,6 +489,7 @@ exports[`TextInput renders contrast 1`] = `
   onClick={[Function]}
 >
   <input
+    aria-required="false"
     className="c2"
     data-component="input"
     name="zipcode"
@@ -512,6 +520,7 @@ exports[`TextInput renders error 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
+  overflow: hidden;
   border-color: #cf222e;
 }
 
@@ -542,8 +551,8 @@ exports[`TextInput renders error 1`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  outline: none;
-  box-shadow: inset 0 0 0 1px #0969da;
+  outline: 2px solid #0969da;
+  outline-offset: -1px;
 }
 
 .c0 > textarea {
@@ -552,8 +561,8 @@ exports[`TextInput renders error 1`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  outline: none;
-  box-shadow: inset 0 0 0 1px #0969da;
+  outline: 2px solid #0969da;
+  outline-offset: -1px;
 }
 
 .c1 {
@@ -610,6 +619,7 @@ exports[`TextInput renders error 1`] = `
   onClick={[Function]}
 >
   <input
+    aria-required="false"
     className="c2"
     data-component="input"
     name="zipcode"
@@ -640,6 +650,7 @@ exports[`TextInput renders large 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
+  overflow: hidden;
   --inner-action-size: 28px;
   padding-left: 8px;
   padding-right: 8px;
@@ -675,8 +686,8 @@ exports[`TextInput renders large 1`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  outline: none;
-  box-shadow: inset 0 0 0 1px #0969da;
+  outline: 2px solid #0969da;
+  outline-offset: -1px;
 }
 
 .c0 > textarea {
@@ -738,6 +749,7 @@ exports[`TextInput renders large 1`] = `
   size="large"
 >
   <input
+    aria-required="false"
     className="c2"
     data-component="input"
     name="zipcode"
@@ -768,6 +780,7 @@ exports[`TextInput renders leadingVisual 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
+  overflow: hidden;
 }
 
 .c0 input,
@@ -797,8 +810,8 @@ exports[`TextInput renders leadingVisual 1`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  outline: none;
-  box-shadow: inset 0 0 0 1px #0969da;
+  outline: 2px solid #0969da;
+  outline-offset: -1px;
 }
 
 .c0 > textarea {
@@ -885,6 +898,7 @@ exports[`TextInput renders leadingVisual 1`] = `
     </svg>
   </span>
   <input
+    aria-required="false"
     className="c2"
     data-component="input"
     name="search"
@@ -916,6 +930,7 @@ exports[`TextInput renders leadingVisual 2`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
+  overflow: hidden;
 }
 
 .c0 input,
@@ -945,8 +960,8 @@ exports[`TextInput renders leadingVisual 2`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  outline: none;
-  box-shadow: inset 0 0 0 1px #0969da;
+  outline: 2px solid #0969da;
+  outline-offset: -1px;
 }
 
 .c0 > textarea {
@@ -1033,6 +1048,7 @@ exports[`TextInput renders leadingVisual 2`] = `
     </svg>
   </span>
   <input
+    aria-required="false"
     className="c2"
     data-component="input"
     name="search"
@@ -1064,6 +1080,7 @@ exports[`TextInput renders leadingVisual 3`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
+  overflow: hidden;
 }
 
 .c0 input,
@@ -1093,8 +1110,8 @@ exports[`TextInput renders leadingVisual 3`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  outline: none;
-  box-shadow: inset 0 0 0 1px #0969da;
+  outline: 2px solid #0969da;
+  outline-offset: -1px;
 }
 
 .c0 > textarea {
@@ -1162,6 +1179,7 @@ exports[`TextInput renders leadingVisual 3`] = `
     </div>
   </span>
   <input
+    aria-required="false"
     className="c2"
     data-component="input"
     name="search"
@@ -1193,6 +1211,7 @@ exports[`TextInput renders leadingVisual 4`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
+  overflow: hidden;
 }
 
 .c0 input,
@@ -1222,8 +1241,8 @@ exports[`TextInput renders leadingVisual 4`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  outline: none;
-  box-shadow: inset 0 0 0 1px #0969da;
+  outline: 2px solid #0969da;
+  outline-offset: -1px;
 }
 
 .c0 > textarea {
@@ -1291,6 +1310,7 @@ exports[`TextInput renders leadingVisual 4`] = `
     </div>
   </span>
   <input
+    aria-required="false"
     className="c2"
     data-component="input"
     name="search"
@@ -1322,6 +1342,7 @@ exports[`TextInput renders monospace 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
+  overflow: hidden;
   font-family: SFMono-Regular,Consolas,"Liberation Mono",Menlo,Courier,monospace;
 }
 
@@ -1352,8 +1373,8 @@ exports[`TextInput renders monospace 1`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  outline: none;
-  box-shadow: inset 0 0 0 1px #0969da;
+  outline: 2px solid #0969da;
+  outline-offset: -1px;
 }
 
 .c0 > textarea {
@@ -1414,6 +1435,7 @@ exports[`TextInput renders monospace 1`] = `
   onClick={[Function]}
 >
   <input
+    aria-required="false"
     className="c2"
     data-component="input"
     name="zipcode"
@@ -1444,6 +1466,7 @@ exports[`TextInput renders placeholder 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
+  overflow: hidden;
 }
 
 .c0 input,
@@ -1473,8 +1496,8 @@ exports[`TextInput renders placeholder 1`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  outline: none;
-  box-shadow: inset 0 0 0 1px #0969da;
+  outline: 2px solid #0969da;
+  outline-offset: -1px;
 }
 
 .c0 > textarea {
@@ -1535,6 +1558,7 @@ exports[`TextInput renders placeholder 1`] = `
   onClick={[Function]}
 >
   <input
+    aria-required="false"
     className="c2"
     data-component="input"
     name="zipcode"
@@ -1566,6 +1590,7 @@ exports[`TextInput renders small 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
+  overflow: hidden;
   --inner-action-size: 20px;
   min-height: 28px;
   padding-left: 8px;
@@ -1603,8 +1628,8 @@ exports[`TextInput renders small 1`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  outline: none;
-  box-shadow: inset 0 0 0 1px #0969da;
+  outline: 2px solid #0969da;
+  outline-offset: -1px;
 }
 
 .c0 > textarea {
@@ -1666,6 +1691,7 @@ exports[`TextInput renders small 1`] = `
   size="small"
 >
   <input
+    aria-required="false"
     className="c2"
     data-component="input"
     name="zipcode"
@@ -1766,6 +1792,10 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   transition: none;
 }
 
+.c5[data-inactive] {
+  cursor: auto;
+}
+
 .c5:disabled {
   cursor: not-allowed;
   box-shadow: none;
@@ -1831,6 +1861,16 @@ exports[`TextInput renders trailingAction icon button 1`] = `
 
 .c5[data-block="block"] {
   width: 100%;
+}
+
+.c5[data-inactive]:not([disabled]) {
+  background-color: var(--button-inactive-bgColor,#eaeef2);
+  border-color: var(--button-inactive-bgColor,#eaeef2);
+  color: var(--button-inactive-fgColor,#57606a);
+}
+
+.c5[data-inactive]:not([disabled]):focus-visible {
+  box-shadow: none;
 }
 
 .c5 [data-component="leadingVisual"] {
@@ -1937,6 +1977,7 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
+  overflow: hidden;
 }
 
 .c0 input,
@@ -2267,6 +2308,7 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   onClick={[Function]}
 >
   <input
+    aria-required="false"
     className="c2"
     data-component="input"
     name="search"
@@ -2418,6 +2460,10 @@ exports[`TextInput renders trailingAction text button 1`] = `
   transition: none;
 }
 
+.c4[data-inactive] {
+  cursor: auto;
+}
+
 .c4:disabled {
   cursor: not-allowed;
   box-shadow: none;
@@ -2483,6 +2529,16 @@ exports[`TextInput renders trailingAction text button 1`] = `
 
 .c4[data-block="block"] {
   width: 100%;
+}
+
+.c4[data-inactive]:not([disabled]) {
+  background-color: var(--button-inactive-bgColor,#eaeef2);
+  border-color: var(--button-inactive-bgColor,#eaeef2);
+  color: var(--button-inactive-fgColor,#57606a);
+}
+
+.c4[data-inactive]:not([disabled]):focus-visible {
+  box-shadow: none;
 }
 
 .c4 [data-component="leadingVisual"] {
@@ -2586,6 +2642,7 @@ exports[`TextInput renders trailingAction text button 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
+  overflow: hidden;
 }
 
 .c0 input,
@@ -2691,6 +2748,7 @@ exports[`TextInput renders trailingAction text button 1`] = `
   onClick={[Function]}
 >
   <input
+    aria-required="false"
     className="c2"
     data-component="input"
     name="search"
@@ -2822,6 +2880,10 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   transition: none;
 }
 
+.c5[data-inactive] {
+  cursor: auto;
+}
+
 .c5:disabled {
   cursor: not-allowed;
   box-shadow: none;
@@ -2887,6 +2949,16 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
 
 .c5[data-block="block"] {
   width: 100%;
+}
+
+.c5[data-inactive]:not([disabled]) {
+  background-color: var(--button-inactive-bgColor,#eaeef2);
+  border-color: var(--button-inactive-bgColor,#eaeef2);
+  color: var(--button-inactive-fgColor,#57606a);
+}
+
+.c5[data-inactive]:not([disabled]):focus-visible {
+  box-shadow: none;
 }
 
 .c5 [data-component="leadingVisual"] {
@@ -2990,6 +3062,7 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
+  overflow: hidden;
 }
 
 .c0 input,
@@ -3321,6 +3394,7 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   onClick={[Function]}
 >
   <input
+    aria-required="false"
     className="c2"
     data-component="input"
     name="search"
@@ -3381,6 +3455,7 @@ exports[`TextInput renders trailingVisual 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
+  overflow: hidden;
 }
 
 .c0 input,
@@ -3410,8 +3485,8 @@ exports[`TextInput renders trailingVisual 1`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  outline: none;
-  box-shadow: inset 0 0 0 1px #0969da;
+  outline: 2px solid #0969da;
+  outline-offset: -1px;
 }
 
 .c0 > textarea {
@@ -3472,6 +3547,7 @@ exports[`TextInput renders trailingVisual 1`] = `
   onClick={[Function]}
 >
   <input
+    aria-required="false"
     className="c2"
     data-component="input"
     name="search"
@@ -3529,6 +3605,7 @@ exports[`TextInput renders trailingVisual 2`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
+  overflow: hidden;
 }
 
 .c0 input,
@@ -3558,8 +3635,8 @@ exports[`TextInput renders trailingVisual 2`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  outline: none;
-  box-shadow: inset 0 0 0 1px #0969da;
+  outline: 2px solid #0969da;
+  outline-offset: -1px;
 }
 
 .c0 > textarea {
@@ -3620,6 +3697,7 @@ exports[`TextInput renders trailingVisual 2`] = `
   onClick={[Function]}
 >
   <input
+    aria-required="false"
     className="c2"
     data-component="input"
     name="search"
@@ -3677,6 +3755,7 @@ exports[`TextInput renders trailingVisual 3`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
+  overflow: hidden;
 }
 
 .c0 input,
@@ -3706,8 +3785,8 @@ exports[`TextInput renders trailingVisual 3`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  outline: none;
-  box-shadow: inset 0 0 0 1px #0969da;
+  outline: 2px solid #0969da;
+  outline-offset: -1px;
 }
 
 .c0 > textarea {
@@ -3768,6 +3847,7 @@ exports[`TextInput renders trailingVisual 3`] = `
   onClick={[Function]}
 >
   <input
+    aria-required="false"
     className="c2"
     data-component="input"
     name="search"
@@ -3806,6 +3886,7 @@ exports[`TextInput renders trailingVisual 4`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
+  overflow: hidden;
 }
 
 .c0 input,
@@ -3835,8 +3916,8 @@ exports[`TextInput renders trailingVisual 4`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  outline: none;
-  box-shadow: inset 0 0 0 1px #0969da;
+  outline: 2px solid #0969da;
+  outline-offset: -1px;
 }
 
 .c0 > textarea {
@@ -3897,6 +3978,7 @@ exports[`TextInput renders trailingVisual 4`] = `
   onClick={[Function]}
 >
   <input
+    aria-required="false"
     className="c2"
     data-component="input"
     name="search"
@@ -3950,6 +4032,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
+  overflow: hidden;
 }
 
 .c0 input,
@@ -3979,8 +4062,8 @@ exports[`TextInput renders with a loading indicator 1`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  outline: none;
-  box-shadow: inset 0 0 0 1px #0969da;
+  outline: 2px solid #0969da;
+  outline-offset: -1px;
 }
 
 .c0 > textarea {
@@ -4049,6 +4132,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
     onClick={[Function]}
   >
     <input
+      aria-required="false"
       className="c2"
       data-component="input"
       onBlur={[Function]}
@@ -4133,6 +4217,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
+  overflow: hidden;
 }
 
 .c0 input,
@@ -4162,8 +4247,8 @@ exports[`TextInput renders with a loading indicator 1`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  outline: none;
-  box-shadow: inset 0 0 0 1px #0969da;
+  outline: 2px solid #0969da;
+  outline-offset: -1px;
 }
 
 .c0 > textarea {
@@ -4270,6 +4355,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
       </div>
     </span>
     <input
+      aria-required="false"
       className="c4"
       data-component="input"
       onBlur={[Function]}
@@ -4348,6 +4434,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
+  overflow: hidden;
 }
 
 .c0 input,
@@ -4377,8 +4464,8 @@ exports[`TextInput renders with a loading indicator 1`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  outline: none;
-  box-shadow: inset 0 0 0 1px #0969da;
+  outline: 2px solid #0969da;
+  outline-offset: -1px;
 }
 
 .c0 > textarea {
@@ -4447,6 +4534,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
     onClick={[Function]}
   >
     <input
+      aria-required="false"
       className="c2"
       data-component="input"
       onBlur={[Function]}
@@ -4540,6 +4628,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
+  overflow: hidden;
 }
 
 .c0 input,
@@ -4569,8 +4658,8 @@ exports[`TextInput renders with a loading indicator 1`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  outline: none;
-  box-shadow: inset 0 0 0 1px #0969da;
+  outline: 2px solid #0969da;
+  outline-offset: -1px;
 }
 
 .c0 > textarea {
@@ -4708,6 +4797,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
       </div>
     </span>
     <input
+      aria-required="false"
       className="c5"
       data-component="input"
       onBlur={[Function]}
@@ -4801,6 +4891,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
+  overflow: hidden;
 }
 
 .c0 input,
@@ -4830,8 +4921,8 @@ exports[`TextInput renders with a loading indicator 1`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  outline: none;
-  box-shadow: inset 0 0 0 1px #0969da;
+  outline: 2px solid #0969da;
+  outline-offset: -1px;
 }
 
 .c0 > textarea {
@@ -4969,6 +5060,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
       </div>
     </span>
     <input
+      aria-required="false"
       className="c5"
       data-component="input"
       onBlur={[Function]}
@@ -5062,6 +5154,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
+  overflow: hidden;
 }
 
 .c0 input,
@@ -5091,8 +5184,8 @@ exports[`TextInput renders with a loading indicator 1`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  outline: none;
-  box-shadow: inset 0 0 0 1px #0969da;
+  outline: 2px solid #0969da;
+  outline-offset: -1px;
 }
 
 .c0 > textarea {
@@ -5230,6 +5323,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
       </div>
     </span>
     <input
+      aria-required="false"
       className="c5"
       data-component="input"
       onBlur={[Function]}
@@ -5317,6 +5411,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
+  overflow: hidden;
 }
 
 .c0 input,
@@ -5346,8 +5441,8 @@ exports[`TextInput renders with a loading indicator 1`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  outline: none;
-  box-shadow: inset 0 0 0 1px #0969da;
+  outline: 2px solid #0969da;
+  outline-offset: -1px;
 }
 
 .c0 > textarea {
@@ -5416,6 +5511,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
     onClick={[Function]}
   >
     <input
+      aria-required="false"
       className="c2"
       data-component="input"
       onBlur={[Function]}
@@ -5540,6 +5636,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
+  overflow: hidden;
 }
 
 .c0 input,
@@ -5569,8 +5666,8 @@ exports[`TextInput renders with a loading indicator 1`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  outline: none;
-  box-shadow: inset 0 0 0 1px #0969da;
+  outline: 2px solid #0969da;
+  outline-offset: -1px;
 }
 
 .c0 > textarea {
@@ -5677,6 +5774,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
       </div>
     </span>
     <input
+      aria-required="false"
       className="c4"
       data-component="input"
       onBlur={[Function]}
@@ -5795,6 +5893,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
+  overflow: hidden;
 }
 
 .c0 input,
@@ -5824,8 +5923,8 @@ exports[`TextInput renders with a loading indicator 1`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  outline: none;
-  box-shadow: inset 0 0 0 1px #0969da;
+  outline: 2px solid #0969da;
+  outline-offset: -1px;
 }
 
 .c0 > textarea {
@@ -5894,6 +5993,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
     onClick={[Function]}
   >
     <input
+      aria-required="false"
       className="c2"
       data-component="input"
       onBlur={[Function]}
@@ -6027,6 +6127,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
+  overflow: hidden;
   --inner-action-size: 20px;
   min-height: 28px;
   padding-left: 8px;
@@ -6064,8 +6165,8 @@ exports[`TextInput renders with a loading indicator 1`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  outline: none;
-  box-shadow: inset 0 0 0 1px #0969da;
+  outline: 2px solid #0969da;
+  outline-offset: -1px;
 }
 
 .c0 > textarea {
@@ -6204,6 +6305,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
       </div>
     </span>
     <input
+      aria-required="false"
       className="c5"
       data-component="input"
       onBlur={[Function]}
@@ -6337,6 +6439,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
+  overflow: hidden;
 }
 
 .c0 input,
@@ -6366,8 +6469,8 @@ exports[`TextInput renders with a loading indicator 1`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  outline: none;
-  box-shadow: inset 0 0 0 1px #0969da;
+  outline: 2px solid #0969da;
+  outline-offset: -1px;
 }
 
 .c0 > textarea {
@@ -6505,6 +6608,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
       </div>
     </span>
     <input
+      aria-required="false"
       className="c5"
       data-component="input"
       onBlur={[Function]}
@@ -6638,6 +6742,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
+  overflow: hidden;
   --inner-action-size: 28px;
   padding-left: 8px;
   padding-right: 8px;
@@ -6673,8 +6778,8 @@ exports[`TextInput renders with a loading indicator 1`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  outline: none;
-  box-shadow: inset 0 0 0 1px #0969da;
+  outline: 2px solid #0969da;
+  outline-offset: -1px;
 }
 
 .c0 > textarea {
@@ -6813,6 +6918,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
       </div>
     </span>
     <input
+      aria-required="false"
       className="c5"
       data-component="input"
       onBlur={[Function]}
@@ -6912,6 +7018,7 @@ exports[`TextInput should render a password input 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
+  overflow: hidden;
 }
 
 .c0 input,
@@ -6941,8 +7048,8 @@ exports[`TextInput should render a password input 1`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  outline: none;
-  box-shadow: inset 0 0 0 1px #0969da;
+  outline: 2px solid #0969da;
+  outline-offset: -1px;
 }
 
 .c0 > textarea {
@@ -7003,6 +7110,7 @@ exports[`TextInput should render a password input 1`] = `
   onClick={[Function]}
 >
   <input
+    aria-required="false"
     className="c2"
     data-component="input"
     name="password"

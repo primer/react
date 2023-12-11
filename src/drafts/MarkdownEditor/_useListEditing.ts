@@ -60,9 +60,9 @@ export const parseListItem = (line: string): ListItem | null => {
 }
 
 export const listItemToString = (item: ListItem) =>
-  `${item.leadingWhitespace}${typeof item.delimeter === 'number' ? `${item.delimeter}.` : item.delimeter}${
-    item.middleWhitespace
-  }${item.taskBox || ''} ${item.text}`
+  typeof item.delimeter === 'number'
+    ? `${item.leadingWhitespace}${`${item.delimeter}.`}${item.middleWhitespace}${item.text}`
+    : `${item.leadingWhitespace}${item.delimeter}${item.middleWhitespace}${item.taskBox || ''} ${item.text}`
 
 /**
  * Provides support for list editing in the Markdown editor. This includes inserting new
@@ -79,7 +79,7 @@ export const useListEditing = ({emitChange}: UseListEditingSettings): UseListEdi
 
       // Strip off the leading newline by adding 1
       const followingText = textarea.value.slice(currentLineEnd + 1)
-      const followingLines = followingText.split('\n')
+      const followingLines = followingText.split(/\r?\n/)
 
       const followingNumericListItems: Array<NumericListItem> = []
       let prevItemNumber = currentLineItem.delimeter

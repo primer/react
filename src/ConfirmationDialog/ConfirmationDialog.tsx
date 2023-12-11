@@ -7,6 +7,7 @@ import {FocusKeys} from '@primer/behaviors'
 import {get} from '../constants'
 import {Dialog, DialogProps, DialogHeaderProps, DialogButtonProps} from '../Dialog/Dialog'
 import {useFocusZone} from '../hooks/useFocusZone'
+import BaseStyles from '../BaseStyles'
 
 /**
  * Props to customize the ConfirmationDialog.
@@ -17,7 +18,6 @@ export interface ConfirmationDialogProps {
    * is performed. The first argument indicates the gesture.
    */
   onClose: (gesture: 'confirm' | 'cancel' | 'close-button' | 'escape' | 'drag' | 'overlay') => void
-
   /**
    * Required. The title of the ConfirmationDialog. This is usually a brief
    * question.
@@ -145,11 +145,14 @@ export const ConfirmationDialog: React.FC<React.PropsWithChildren<ConfirmationDi
   )
 }
 
+let hostElement: Element | null = null
 export type ConfirmOptions = Omit<ConfirmationDialogProps, 'onClose'> & {content: React.ReactNode}
 async function confirm(themeProps: ThemeProviderProps, options: ConfirmOptions): Promise<boolean> {
   const {content, ...confirmationDialogProps} = options
   return new Promise(resolve => {
-    const root = createRoot(document.createElement('div'))
+    hostElement ||= document.createElement('div')
+    if (!hostElement.isConnected) document.body.append(hostElement)
+    const root = createRoot(hostElement)
     const onClose: ConfirmationDialogProps['onClose'] = gesture => {
       root.unmount()
       if (gesture === 'confirm') {
@@ -160,9 +163,11 @@ async function confirm(themeProps: ThemeProviderProps, options: ConfirmOptions):
     }
     root.render(
       <ThemeProvider {...themeProps}>
-        <ConfirmationDialog {...confirmationDialogProps} onClose={onClose}>
-          {content}
-        </ConfirmationDialog>
+        <BaseStyles>
+          <ConfirmationDialog {...confirmationDialogProps} onClose={onClose}>
+            {content}
+          </ConfirmationDialog>
+        </BaseStyles>
       </ThemeProvider>,
     )
   })

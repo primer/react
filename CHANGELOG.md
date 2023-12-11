@@ -1,5 +1,35 @@
 # @primer/components
 
+## 36.4.0
+
+### Minor Changes
+
+- [#3982](https://github.com/primer/react/pull/3982) [`968d4ef05`](https://github.com/primer/react/commit/968d4ef05808005efde7de06ca480b4870179485) Thanks [@joshblack](https://github.com/joshblack)! - Update SSRProvider, useSSRSafeId to use the native React 18 useId() instead of @react-aria/ssr
+
+- [#3812](https://github.com/primer/react/pull/3812) [`3f82a1cab`](https://github.com/primer/react/commit/3f82a1cab370951e11b474696fbfdbfe169ce970) Thanks [@mperrotti](https://github.com/mperrotti)! - Adds an 'inactive' state to buttons. An inactive button looks disabled and has aria-disabled, but it can still be clicked and focused. This was added to support buttons that are broken due to availability issues, but can't be removed from the page.
+
+  <!-- Changed components: Button, Button2, IconButton -->
+
+### Patch Changes
+
+- [#4026](https://github.com/primer/react/pull/4026) [`503c7e625`](https://github.com/primer/react/commit/503c7e625a8a3388737949880b64791f5833f027) Thanks [@mperrotti](https://github.com/mperrotti)! - Fixes layout for loading DataTable cells
+
+  <!-- Changed components: DataTable -->
+
+- [#4001](https://github.com/primer/react/pull/4001) [`0e9d841e3`](https://github.com/primer/react/commit/0e9d841e398118843c92f9b92881ead62337c682) Thanks [@langermank](https://github.com/langermank)! - Fix `line-height` on markdown viewer (comment box)
+
+- [#3987](https://github.com/primer/react/pull/3987) [`4321d59e9`](https://github.com/primer/react/commit/4321d59e9de5e319523c438e8e7d238178571301) Thanks [@iulia-b](https://github.com/iulia-b)! - MarkdownEditor & MarkdownViewer: Update new line identifier for formatting markdown
+
+- [#4008](https://github.com/primer/react/pull/4008) [`df7dc2af1`](https://github.com/primer/react/commit/df7dc2af1679a3a6634ec313476de0cb2fc07a19) Thanks [@dipree](https://github.com/dipree)! - Changes the focus styling of input components such as `Textarea`, `TextInput`, `TextInputWithTokens` and `Select` from using `border` and `box-shadow` to use `outline` only for better border rendering and scrollbar support.
+
+- [#4013](https://github.com/primer/react/pull/4013) [`d26aeab32`](https://github.com/primer/react/commit/d26aeab32ad90e084d2cec0073df18d811fda820) Thanks [@keithamus](https://github.com/keithamus)! - Avoid error when using Modal Dialog within TreeView
+
+- [#4012](https://github.com/primer/react/pull/4012) [`5fd025f04`](https://github.com/primer/react/commit/5fd025f0414b343abf3435cfab90bc9b24bdcea7) Thanks [@keithamus](https://github.com/keithamus)! - Ensure ConfirmationDialog adds host element to the DOM
+
+- [#4024](https://github.com/primer/react/pull/4024) [`0ea121af3`](https://github.com/primer/react/commit/0ea121af393e13a22c64514283ed881ae57414e5) Thanks [@colebemis](https://github.com/colebemis)! - StateLabel: Use correct octicons for `draft` and `pullClosed` states
+
+- [#4022](https://github.com/primer/react/pull/4022) [`98ad3203a`](https://github.com/primer/react/commit/98ad3203a33c9caf2579474fa517a0c7a2ba8924) Thanks [@joshblack](https://github.com/joshblack)! - Update the resize behavior of PageLayout to ignore right clicks when resizing
+
 ## 36.3.1
 
 ### Patch Changes
