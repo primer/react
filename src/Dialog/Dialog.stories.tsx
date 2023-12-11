@@ -3,7 +3,7 @@ import {Meta} from '@storybook/react'
 
 import {BaseStyles, ThemeProvider} from '..'
 import {Button} from '../Button'
-import {Dialog, DialogWidth, DialogHeight} from './Dialog'
+import {Dialog, DialogWidth, DialogHeight, DialogType} from './Dialog'
 
 /* Dialog Version 2 */
 
@@ -71,6 +71,7 @@ interface DialogStoryProps {
   width: DialogWidth
   height: DialogHeight
   subtitle: boolean
+  type: DialogType
 }
 export const Default = () => {
   const [isOpen, setIsOpen] = useState(false)
