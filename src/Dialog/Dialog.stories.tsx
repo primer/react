@@ -3,7 +3,7 @@ import {Meta} from '@storybook/react'
 
 import {BaseStyles, ThemeProvider} from '..'
 import {Button} from '../Button'
-import {Dialog, DialogWidth, DialogHeight, DialogType} from './Dialog'
+import {Dialog, DialogWidth, DialogHeight} from './Dialog'
 
 /* Dialog Version 2 */
 

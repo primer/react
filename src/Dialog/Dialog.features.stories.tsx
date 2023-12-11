@@ -158,8 +158,8 @@ export const NonDeclaritive = () => {
   return (
     <Dialog width="small" title="This dialog has no buttons (non declaritive)." onClose={() => {}}>
       <Text sx={{fontSize: 1}}>
-        It's a common scenario, to show a dialog that's just informational and therefore doesn't have footers in the
-        button
+        It&apos;s a common scenario, to show a dialog that&apos;s just informational and therefore doesn&apos;t have
+        footers in the button
       </Text>
     </Dialog>
   )
