@@ -102,7 +102,7 @@ export default React.forwardRef<HTMLDivElement, PropsWithChildren<DialogActionSh
     if (!dialogRef.current) return
 
     if (e.type === 'touchstart' && 'touches' in e) {
-      startY.current = e.touches?.[0].pageY ?? 0
+      startY.current = e.touches[0].pageY ?? 0
     } else if ('clientX' in e) {
       startY.current = e.pageY
     }
@@ -117,7 +117,7 @@ export default React.forwardRef<HTMLDivElement, PropsWithChildren<DialogActionSh
 
     var pageY
     if (e.type === 'touchstart' && 'touches' in e) {
-      pageY = e.touches?.[0].pageY
+      pageY = e.touches[0].pageY
     } else if ('clientX' in e) {
       pageY = e.pageY
     }
