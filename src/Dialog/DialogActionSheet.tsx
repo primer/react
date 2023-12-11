@@ -120,7 +120,13 @@ export default React.forwardRef<HTMLDivElement, PropsWithChildren<DialogActionSh
 
   const dragStart = (e: MouseEvent | TouchEvent) => {
     if (!dialogRef.current) return
-    startY.current = e.pageY || e.touches?.[0].pageY
+
+    if (e.type === 'touchstart' && 'touches' in e) {
+      startY.current = e.touches?.[0].pageY ?? 0
+    } else if ('clientX' in e) {
+      startY.current = e.pageY
+    }
+
     startHeight.current = parseInt(dialogRef.current?.style.height ?? 0)
     isDragging.current = true
     dialogRef.current.style.transition = 'none'
