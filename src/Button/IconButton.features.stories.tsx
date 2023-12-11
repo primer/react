@@ -1,12 +1,23 @@
-import {HeartIcon} from '@primer/octicons-react'
+import {InboxIcon, HeartIcon} from '@primer/octicons-react'
 import React from 'react'
 import {IconButton} from '.'
+import {Tooltip} from '../drafts/Tooltip'
 
 export default {
   title: 'Components/IconButton/Features',
 }
 
-export const Primary = () => <IconButton icon={HeartIcon} variant="primary" aria-label="Primary" />
+export const Primary = () => <IconButton icon={HeartIcon} variant="primary" label="Primary" />
+
+export const WithDescription = () => (
+  <IconButton icon={InboxIcon} label="Notifications" description="You have no unread notifications." />
+)
+
+export const ExternalTooltip = () => (
+  <Tooltip text="this is a supportive description for icon button" direction="se">
+    <IconButton icon={HeartIcon} label="HeartIcon" />
+  </Tooltip>
+)
 
 export const Danger = () => <IconButton icon={HeartIcon} variant="danger" aria-label="Danger" />
 
