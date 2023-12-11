@@ -3,6 +3,10 @@
 exports[`PageHeader renders consistently 1`] = `
 .c0 {
   display: grid;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
   grid-template-columns: auto auto auto 1fr;
   grid-template-areas: 'context-area context-area context-area context-area' 'leading-action title-area trailing-action actions' 'description description description description' 'navigation navigation navigation navigation';
 }
@@ -22,6 +26,24 @@ exports[`PageHeader renders consistently 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
+}
+
+.c1[data-size-variant="large"] [data-component="PH_Title"] {
+  font-size: var(--text-title-size-large,2rem);
+  line-height: var(--text-title-lineHeight-large,1.5);
+  font-weight: var(--base-text-weight-normal,400);
+}
+
+.c1[data-size-variant="medium"] [data-component="PH_Title"] {
+  font-size: var(--text-title-size-medium,1.25rem);
+  line-height: var(--text-title-lineHeight-medium,1.6);
+  font-weight: var(--base-text-weight-semibold,600);
+}
+
+.c1[data-size-variant="subtitle"] [data-component="PH_Title"] {
+  font-size: var(--text-title-size-medium,1.25rem);
+  line-height: var(--text-title-lineHeight-medium,1.6);
+  font-weight: var(--base-text-weight-normal,400);
 }
 
 .c2 {
@@ -88,15 +110,18 @@ exports[`PageHeader renders consistently 1`] = `
   <div
     className="c1"
     data-component="TitleArea"
+    data-size-variant="medium"
   />
   <div
     className="c2"
   />
   <div
     className="c3"
+    data-component="PH_Description"
   />
   <div
     className="c4"
+    data-component="PH_Navigation"
   />
 </div>
 `;
@@ -104,6 +129,10 @@ exports[`PageHeader renders consistently 1`] = `
 exports[`PageHeader renders default layout 1`] = `
 .c0 {
   display: grid;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
   grid-template-columns: auto auto auto 1fr;
   grid-template-areas: 'context-area context-area context-area context-area' 'leading-action title-area trailing-action actions' 'description description description description' 'navigation navigation navigation navigation';
 }
@@ -123,6 +152,24 @@ exports[`PageHeader renders default layout 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
+}
+
+.c1[data-size-variant="large"] [data-component="PH_Title"] {
+  font-size: var(--text-title-size-large,2rem);
+  line-height: var(--text-title-lineHeight-large,1.5);
+  font-weight: var(--base-text-weight-normal,400);
+}
+
+.c1[data-size-variant="medium"] [data-component="PH_Title"] {
+  font-size: var(--text-title-size-medium,1.25rem);
+  line-height: var(--text-title-lineHeight-medium,1.6);
+  font-weight: var(--base-text-weight-semibold,600);
+}
+
+.c1[data-size-variant="subtitle"] [data-component="PH_Title"] {
+  font-size: var(--text-title-size-medium,1.25rem);
+  line-height: var(--text-title-lineHeight-medium,1.6);
+  font-weight: var(--base-text-weight-normal,400);
 }
 
 .c2 {
@@ -190,6 +237,7 @@ exports[`PageHeader renders default layout 1`] = `
     <div
       class="c1"
       data-component="TitleArea"
+      data-size-variant="medium"
     >
       TitleArea
     </div>
@@ -200,11 +248,13 @@ exports[`PageHeader renders default layout 1`] = `
     </div>
     <div
       class="c3"
+      data-component="PH_Description"
     >
       Description
     </div>
     <div
       class="c4"
+      data-component="PH_Navigation"
     >
       Navigation
     </div>

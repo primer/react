@@ -4,7 +4,7 @@ import {PageHeader} from '.'
 import MatchMediaMock from 'jest-matchmedia-mock'
 import {behavesAsComponent, checkExports, renderStyles} from '../utils/testing'
 import {IconButton} from '../Button'
-import {ChevronLeftIcon, GitBranchIcon, PencilIcon, SidebarExpandIcon} from '@primer/octicons-react'
+import {SidebarExpandIcon} from '@primer/octicons-react'
 import {mediaQueries} from '../utils/layout'
 
 let matchmedia: MatchMediaMock
@@ -133,7 +133,6 @@ describe('PageHeader', () => {
         display: 'flex',
       },
       'align-items': 'center',
-      height: '2rem',
     }
 
     expect(
@@ -153,39 +152,7 @@ describe('PageHeader', () => {
         <PageHeader.ContextArea>ContextArea</PageHeader.ContextArea>
       </PageHeader>,
     )
-    expect(getByText('Title')).toHaveStyle('font-size: 2rem')
-  })
-  it("respects the title variant prop and updates the children components' container height accordingly", () => {
-    const {getByText} = render(
-      <PageHeader>
-        <PageHeader.TitleArea variant="large">
-          <PageHeader.LeadingVisual>
-            Leading Visual
-            <GitBranchIcon />
-          </PageHeader.LeadingVisual>
-          <PageHeader.Title>Title</PageHeader.Title>
-          <PageHeader.TrailingVisual>
-            Trailing Visual
-            <ChevronLeftIcon />
-          </PageHeader.TrailingVisual>
-        </PageHeader.TitleArea>
-        <PageHeader.ContextArea>ContextArea</PageHeader.ContextArea>
-        <PageHeader.LeadingAction>
-          Leading Action
-          <IconButton aria-label="Expand" icon={SidebarExpandIcon} variant="invisible" />
-        </PageHeader.LeadingAction>
-        <PageHeader.TrailingAction>
-          Trailing Action
-          <IconButton aria-label="Edit" icon={PencilIcon} variant="invisible" />
-        </PageHeader.TrailingAction>
-      </PageHeader>,
-    )
-
-    expect(getByText('Leading Visual')).toHaveStyle('height: 3rem')
-    expect(getByText('Trailing Visual')).toHaveStyle('height: 3rem')
-    expect(getByText('Leading Action')).toHaveStyle('height: 3rem')
-    expect(getByText('Trailing Action')).toHaveStyle('height: 3rem')
-    // add actions here
+    expect(getByText('Title')).toHaveStyle('font-size: 32px')
   })
   it('renders "aria-label" prop when Navigation is rendered as "nav" landmark', () => {
     const {getByLabelText, getByText} = render(
