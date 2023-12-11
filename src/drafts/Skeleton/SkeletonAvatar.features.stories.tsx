@@ -2,6 +2,7 @@ import React from 'react'
 import {Meta} from '@storybook/react'
 import {ComponentProps} from '../../utils/types'
 import {SkeletonAvatar} from './SkeletonAvatar'
+import {AvatarStack, AvatarPair} from '../../'
 
 export default {
   title: 'Drafts/Components/Skeleton/SkeletonAvatar/Features',
@@ -40,4 +41,20 @@ export const SizeResponsive = () => (
     <SkeletonAvatar size={{narrow: 40, regular: 48, wide: 56}} />
     <SkeletonAvatar size={{narrow: 48, regular: 56, wide: 64}} />
   </div>
+)
+
+export const InAStack = () => (
+  <AvatarStack>
+    <SkeletonAvatar />
+    <SkeletonAvatar />
+    <SkeletonAvatar />
+    <SkeletonAvatar />
+  </AvatarStack>
+)
+
+export const InAnAvatarPair = () => (
+  <AvatarPair>
+    <SkeletonAvatar />
+    <SkeletonAvatar />
+  </AvatarPair>
 )

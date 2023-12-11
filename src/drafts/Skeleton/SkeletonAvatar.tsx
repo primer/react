@@ -12,6 +12,7 @@ export const SkeletonAvatar: React.FC<SkeletonAvatarProps> = ({
   size = DEFAULT_AVATAR_SIZE,
   square,
   sx: sxProp = {},
+  ...rest
 }) => {
   const avatarSx = isResponsiveValue(size)
     ? merge<BetterCssProperties | BetterSystemStyleObject>(
@@ -25,6 +26,11 @@ export const SkeletonAvatar: React.FC<SkeletonAvatarProps> = ({
     : merge({'--avatar-size': `${size}px`} as React.CSSProperties, sxProp as SxProp)
 
   return (
-    <BaseSkeletonBone data-component="SkeletonAvatar" data-avatar-shape={square ? 'square' : undefined} sx={avatarSx} />
+    <BaseSkeletonBone
+      data-component="SkeletonAvatar"
+      data-avatar-shape={square ? 'square' : undefined}
+      sx={avatarSx}
+      {...rest}
+    />
   )
 }
