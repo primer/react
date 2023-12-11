@@ -99,11 +99,13 @@ export interface DialogProps extends SxProp {
   footerButtons?: DialogButtonProps[]
 
   /**
-   * This method is invoked when a gesture to close the dialog is used (either
-   * an Escape key press or clicking the "X" in the top-right corner). The
-   * gesture argument indicates the gesture that was used to close the dialog
-   * (either 'close-button' or 'escape').
+   * This method is invoked when a gesture to close the dialog is used
+   * (either an Escape key press, clicking/tapping on the backdrop,
+   * clicking/tapping the 'X' in the top-right corner or dragging away an
+   * action sheet). The gesture argument indicates the gesture that was
+   * used to close the dialog.
    */
+
   onClose: (gesture: 'close-button' | 'escape' | 'drag' | 'overlay') => void
 
   /**
