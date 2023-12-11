@@ -44,7 +44,6 @@ export const LinkItem = React.forwardRef(({sx = {}, active, inactiveText, as: Co
       inactiveText={inactiveText}
       data-inactive={inactiveText ? true : undefined}
       _PrivateItemWrapper={({children, onClick, ...rest}) => {
-        delete rest['data-inactive'] // this attribute gets set on the parent item
         const clickHandler = (event: React.MouseEvent) => {
           onClick && onClick(event)
           props.onClick && props.onClick(event as React.MouseEvent<HTMLAnchorElement>)

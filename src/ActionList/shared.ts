@@ -58,7 +58,6 @@ type MenuItemProps = {
   'aria-labelledby'?: string
   'aria-describedby'?: string
   role?: string
-  'data-inactive'?: string
 }
 
 export type ItemContext = Pick<ActionListItemProps, 'variant' | 'disabled'> & {
