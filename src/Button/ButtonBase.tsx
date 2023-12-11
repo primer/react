@@ -118,7 +118,7 @@ const ButtonBase = forwardRef(
                     )}
                   </span>
                 )}
-                {TrailingVisual && renderVisual(TrailingVisual, loading, 'trailingVisual')}
+                {TrailingVisual && renderVisual(TrailingVisual, loading && !LeadingVisual, 'trailingVisual')}
               </Box>
               {TrailingAction && (
                 <Box as="span" data-component="trailingAction" sx={{...iconWrapStyles}}>
