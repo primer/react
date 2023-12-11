@@ -1,9 +1,8 @@
 import React, {useEffect, useRef, useState, PropsWithChildren, MouseEvent, TouchEvent} from 'react'
 import styled from 'styled-components'
-import sx, {SxProp} from '../sx'
+import {SxProp} from '../sx'
 import {useRefObjectAsForwardedRef} from '../hooks/useRefObjectAsForwardedRef'
 import {get} from '../constants'
-import Box from '../Box'
 
 /**
  * Props to customize the rendering of the Dialog.
