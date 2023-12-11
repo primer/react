@@ -1,0 +1,26 @@
+{
+    "id": "skeleton_bone",
+    "name": "SkeletonBone",
+    "status": "draft",
+    "a11yReviewed": false,
+    "stories": [],
+    "props": [
+      {
+        "name": "width",
+        "type": "string",
+        "description": "Width of the skeleton 'bone'. Accepts any valid CSS `width` value."
+      },
+      {
+        "name": "height",
+        "defaultValue": "1rem",
+        "type": "string",
+        "description": "Height of the skeleton 'bone'. Accepts any valid CSS `height` value."
+      },
+      {
+        "name": "sx",
+        "type": "SystemStyleObject"
+      }
+    ],
+    "subcomponents": []
+  }
+  
