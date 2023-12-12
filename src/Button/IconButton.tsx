@@ -8,7 +8,7 @@ import {Tooltip, TooltipContext} from '../drafts/Tooltip'
 
 const IconButton = forwardRef(
   (
-    {sx: sxProp = defaultSxProp, icon: Icon, 'aria-label': ariaLabel, label, description, ...props},
+    {sx: sxProp = defaultSxProp, icon: Icon, disabled, 'aria-label': ariaLabel, label, description, ...props},
     forwardedRef,
   ): JSX.Element => {
     let sxStyles = sxProp
@@ -25,7 +25,7 @@ const IconButton = forwardRef(
     // aria-label is going to be deprecated in favor of label but for now we are supporting both.
     const iconButtonLabel = label ?? ariaLabel
 
-    if (!tooltipId) {
+    if (!tooltipId && !disabled) {
       return (
         // if description exists, we use tooltip for adding description to the icon button. Otherwise, we use tooltip for labelling the icon button.
         // @ts-ignore for now
@@ -50,6 +50,7 @@ const IconButton = forwardRef(
           icon={Icon}
           data-component="IconButton"
           sx={sxStyles}
+          disabled={disabled}
           type="button"
           {...props}
           // @ts-expect-error StyledButton wants both Anchor and Button refs
