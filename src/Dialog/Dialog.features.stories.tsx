@@ -223,15 +223,7 @@ export const FullScreen = () => {
 
 export const ActionSheet = () => {
   return (
-    <Dialog
-      title="Your title"
-      type="action-sheet"
-      onClose={() => {}}
-      footerButtons={[
-        {buttonType: 'normal', content: 'Cancel', onClick: () => {}},
-        {buttonType: 'primary', content: 'Submit', autoFocus: true},
-      ]}
-    >
+    <Dialog title="Your title" type="action-sheet" onClose={() => {}}>
       {lipsum}
     </Dialog>
   )

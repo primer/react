@@ -14,6 +14,7 @@ import VisuallyHidden from '../_VisuallyHidden'
 import {useRefObjectAsForwardedRef} from '../hooks/useRefObjectAsForwardedRef'
 import {get} from '../constants'
 
+const ANIMATION_DURATION = 300
 /**
  * Props to customize the rendering of the Dialog.
  */
@@ -155,20 +156,17 @@ export default React.forwardRef<HTMLDivElement, PropsWithChildren<DialogActionSh
   // Ensures an animation upon closing the component
   useEffect(() => {
     if (!fireDelayedOnClose) return
-    console.log('Planning to close the dialog...')
     setIsOpen(false)
     const timer = setTimeout(() => {
-      console.log('onClose...')
-
       onClose(fireDelayedOnClose)
-    }, 300)
+    }, ANIMATION_DURATION)
     return () => clearTimeout(timer)
   }, [fireDelayedOnClose, onClose])
 
   // Animates the bottom sheet in on mount
   useEffect(() => {
     showBottomSheet()
-  }, [showBottomSheet])
+  }, [])
 
   const isFullScreen = sheetHeight?.current === 100
   const currentHeight = sheetHeight?.current ?? 0
@@ -225,7 +223,7 @@ const FullScreenContainer = styled.div<{open: boolean}>`
   flex-direction: column;
   justify-content: flex-end;
   align-items: center;
-  transition: 0.1s linear;
+  transition: ${ANIMATION_DURATION / 3}ms linear;
   @media (prefers-reduced-motion) {
     transition: none;
   }
@@ -293,7 +291,7 @@ const Content = styled.div<
   overflow-x: hidden;
   overflow-y: ${props => (props.isFullScreen ? 'hidden' : 'auto')};
   transform: ${props => (props.open ? 'translateY(0%)' : 'translateY(100%)')};
-  transition: 0.3s ease;
+  transition: ${ANIMATION_DURATION}ms ease;
 `
 
 // 🧑‍🦽 Accessibility
