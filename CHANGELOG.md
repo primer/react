@@ -1,5 +1,69 @@
 # @primer/components
 
+## 36.4.0
+
+### Minor Changes
+
+- [#3982](https://github.com/primer/react/pull/3982) [`968d4ef05`](https://github.com/primer/react/commit/968d4ef05808005efde7de06ca480b4870179485) Thanks [@joshblack](https://github.com/joshblack)! - Update SSRProvider, useSSRSafeId to use the native React 18 useId() instead of @react-aria/ssr
+
+- [#3812](https://github.com/primer/react/pull/3812) [`3f82a1cab`](https://github.com/primer/react/commit/3f82a1cab370951e11b474696fbfdbfe169ce970) Thanks [@mperrotti](https://github.com/mperrotti)! - Adds an 'inactive' state to buttons. An inactive button looks disabled and has aria-disabled, but it can still be clicked and focused. This was added to support buttons that are broken due to availability issues, but can't be removed from the page.
+
+  <!-- Changed components: Button, Button2, IconButton -->
+
+### Patch Changes
+
+- [#4026](https://github.com/primer/react/pull/4026) [`503c7e625`](https://github.com/primer/react/commit/503c7e625a8a3388737949880b64791f5833f027) Thanks [@mperrotti](https://github.com/mperrotti)! - Fixes layout for loading DataTable cells
+
+  <!-- Changed components: DataTable -->
+
+- [#4001](https://github.com/primer/react/pull/4001) [`0e9d841e3`](https://github.com/primer/react/commit/0e9d841e398118843c92f9b92881ead62337c682) Thanks [@langermank](https://github.com/langermank)! - Fix `line-height` on markdown viewer (comment box)
+
+- [#3987](https://github.com/primer/react/pull/3987) [`4321d59e9`](https://github.com/primer/react/commit/4321d59e9de5e319523c438e8e7d238178571301) Thanks [@iulia-b](https://github.com/iulia-b)! - MarkdownEditor & MarkdownViewer: Update new line identifier for formatting markdown
+
+- [#4008](https://github.com/primer/react/pull/4008) [`df7dc2af1`](https://github.com/primer/react/commit/df7dc2af1679a3a6634ec313476de0cb2fc07a19) Thanks [@dipree](https://github.com/dipree)! - Changes the focus styling of input components such as `Textarea`, `TextInput`, `TextInputWithTokens` and `Select` from using `border` and `box-shadow` to use `outline` only for better border rendering and scrollbar support.
+
+- [#4013](https://github.com/primer/react/pull/4013) [`d26aeab32`](https://github.com/primer/react/commit/d26aeab32ad90e084d2cec0073df18d811fda820) Thanks [@keithamus](https://github.com/keithamus)! - Avoid error when using Modal Dialog within TreeView
+
+- [#4012](https://github.com/primer/react/pull/4012) [`5fd025f04`](https://github.com/primer/react/commit/5fd025f0414b343abf3435cfab90bc9b24bdcea7) Thanks [@keithamus](https://github.com/keithamus)! - Ensure ConfirmationDialog adds host element to the DOM
+
+- [#4024](https://github.com/primer/react/pull/4024) [`0ea121af3`](https://github.com/primer/react/commit/0ea121af393e13a22c64514283ed881ae57414e5) Thanks [@colebemis](https://github.com/colebemis)! - StateLabel: Use correct octicons for `draft` and `pullClosed` states
+
+- [#4022](https://github.com/primer/react/pull/4022) [`98ad3203a`](https://github.com/primer/react/commit/98ad3203a33c9caf2579474fa517a0c7a2ba8924) Thanks [@joshblack](https://github.com/joshblack)! - Update the resize behavior of PageLayout to ignore right clicks when resizing
+
+## 36.3.1
+
+### Patch Changes
+
+- [#3998](https://github.com/primer/react/pull/3998) [`dd285e2ac`](https://github.com/primer/react/commit/dd285e2ac83eb282ae7c111fd44e2dffaf15ccb2) Thanks [@joshblack](https://github.com/joshblack)! - Remove changes to focus outline to prevent double focus rings from showing
+
+## 36.3.0
+
+### Minor Changes
+
+- [#3963](https://github.com/primer/react/pull/3963) [`e16927b5a`](https://github.com/primer/react/commit/e16927b5aef72a2d6b78705066fd26b3741b73df) Thanks [@mperrotti](https://github.com/mperrotti)! - Adds "unavailable" status to StateLabel
+
+  <!-- Changed components: StateLabel -->
+
+- [#3484](https://github.com/primer/react/pull/3484) [`e40378951`](https://github.com/primer/react/commit/e4037895105c7e86e79c5bb6fbafb86e715337ba) Thanks [@ValbertMartins](https://github.com/ValbertMartins)! - TextArea: Add contrast property
+
+### Patch Changes
+
+- [#3897](https://github.com/primer/react/pull/3897) [`6b0c118b3`](https://github.com/primer/react/commit/6b0c118b34e97c558991ebdc17a13350296245a8) Thanks [@mperrotti](https://github.com/mperrotti)! - When passing an `id` prop to ActionMenu.Button, it will be passed as the rendered button element's `id` attribute instead of being set as an automatically generated ID.
+
+  <!-- Changed components: ActionMenu -->
+
+- [#3960](https://github.com/primer/react/pull/3960) [`ec8a2cadd`](https://github.com/primer/react/commit/ec8a2cadda01a3a3463380b911922b9c28e4e241) Thanks [@pksjce](https://github.com/pksjce)! - Update to @primer/behaviors v1.5.1
+
+- [#3945](https://github.com/primer/react/pull/3945) [`40b29787e`](https://github.com/primer/react/commit/40b29787ec4c8f709e7522147e58bd03e51b28e7) Thanks [@siddharthkp](https://github.com/siddharthkp)! - ActionList: Fix bug that did not allow both inline and block description at the same time
+
+- [#3903](https://github.com/primer/react/pull/3903) [`f62ec728a`](https://github.com/primer/react/commit/f62ec728acd5c90f105c3e3c5162a69dbe0c4b6d) Thanks [@pksjce](https://github.com/pksjce)! - Make resize vertical splitter keyboard accessible
+
+- [#3946](https://github.com/primer/react/pull/3946) [`e08432d54`](https://github.com/primer/react/commit/e08432d54dd45a5e793719509dc78657570dde0b) Thanks [@siddharthkp](https://github.com/siddharthkp)! - Link: Add `inline` prop to tag links inside a text block, underlined with accessibility setting `[data-a11y-link-underlines]`
+
+- [#3983](https://github.com/primer/react/pull/3983) [`43d1dce4a`](https://github.com/primer/react/commit/43d1dce4a103b5e23064e8a32a7bb27677dbbb95) Thanks [@TylerJDev](https://github.com/TylerJDev)! - Readjust order of `PageLayout.Pane` contents
+
+- [#3972](https://github.com/primer/react/pull/3972) [`87028d2b9`](https://github.com/primer/react/commit/87028d2b963b788f1525f6f9326ed7eb1b7346d6) Thanks [@iulia-b](https://github.com/iulia-b)! - Update MarkdownEditor to correctly identify non-standard formatted tasklist items
+
 ## 36.2.0
 
 ### Minor Changes

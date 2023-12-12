@@ -31,6 +31,41 @@ test.describe('ActionMenu', () => {
     }
   })
 
+  test.describe('Inactive Items', () => {
+    for (const theme of themes) {
+      test.describe(theme, () => {
+        test('default @vrt', async ({page}) => {
+          await visit(page, {
+            id: 'components-actionmenu-features--links-and-actions',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+
+          // Default state
+          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
+            `ActionMenu.Links And Actions.${theme}.png`,
+          )
+
+          // Open menu
+          await page.locator('button', {hasText: 'Open menu'}).waitFor()
+          await page.getByRole('button', {name: 'Open menu'}).click()
+          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot()
+        })
+
+        test('axe @aat', async ({page}) => {
+          await visit(page, {
+            id: 'components-actionmenu-features--links-and-actions',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+          await expect(page).toHaveNoViolations()
+        })
+      })
+    }
+  })
+
   test.describe('Links And Actions', () => {
     for (const theme of themes) {
       test.describe(theme, () => {

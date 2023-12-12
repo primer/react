@@ -213,12 +213,12 @@ describe('MarkdownEditor', () => {
 
   it('does not require the textarea by default', async () => {
     const {getInput} = await render(<UncontrolledEditor />)
-    expect(getInput()).not.toHaveAttribute('required')
+    expect(getInput()).toHaveAttribute('aria-required', 'false')
   })
 
   it('requires the textarea when required', async () => {
     const {getInput} = await render(<UncontrolledEditor required />)
-    expect(getInput()).toHaveAttribute('required')
+    expect(getInput()).toHaveAttribute('aria-required', 'true')
   })
 
   it('does not render a placeholder by default', async () => {
