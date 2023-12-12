@@ -880,8 +880,13 @@ describe('MarkdownEditor', () => {
     })
 
     it('labels the main input with a custom label, when provided', async () => {
-      const {getInput} = await render(<UncontrolledEditor ariaLabel="Add a comment" />)
-      expect(getInput()).toHaveAccessibleName('Add a comment')
+      const {getInput} = await render(
+        <div id="labeling-div">
+          {'Custom aria label'}
+          <UncontrolledEditor aria-describedby="labeling-div" />
+        </div>,
+      )
+      expect(getInput()).toHaveAccessibleDescription('Custom aria label Test Editor')
     })
 
     it('labels the toolbar', async () => {
