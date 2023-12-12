@@ -1,16 +1,6 @@
-import React, {
-  useEffect,
-  useRef,
-  useState,
-  PropsWithChildren,
-  MouseEvent,
-  TouchEvent,
-  KeyboardEvent,
-  FormEventHandler,
-} from 'react'
+import React, {useEffect, useRef, useState, PropsWithChildren, MouseEvent, TouchEvent, ChangeEvent} from 'react'
 import styled from 'styled-components'
 import {SxProp} from '../sx'
-import VisuallyHidden from '../_VisuallyHidden'
 import {useRefObjectAsForwardedRef} from '../hooks/useRefObjectAsForwardedRef'
 import {get} from '../constants'
 
@@ -53,6 +43,7 @@ export default React.forwardRef<HTMLDivElement, PropsWithChildren<DialogActionSh
   let startY = useRef(0)
   let startHeight = useRef(0)
   let isDragging = useRef(false)
+  let isKeyboardDragging = useRef(false)
   let sheetHeight = useRef(0)
 
   useRefObjectAsForwardedRef(forwardedRef, dialogRef)
@@ -128,26 +119,12 @@ export default React.forwardRef<HTMLDivElement, PropsWithChildren<DialogActionSh
     updateSheetHeight(newHeight)
   }
 
-  const onKeyDown = (e: KeyboardEvent<HTMLButtonElement>) => {
-    const height = dialogRef.current?.style.height ?? '0'
-    const sheetHeight = parseInt(height)
-
-    if (e.key === 'ArrowUp' || e.key === 'ArrowRight') {
-      if (sheetHeight === halfHeight) {
-        e.preventDefault()
-        return updateSheetHeight(fullHeight)
-      }
-    }
-    if (e.key === 'ArrowDown' || e.key === 'ArrowLeft') {
-      if (sheetHeight === fullHeight) {
-        e.preventDefault()
-        return updateSheetHeight(halfHeight)
-      }
-
-      if (sheetHeight === halfHeight) {
-        e.preventDefault()
-        return hideBottomSheet('drag')
-      }
+  const onSliderChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.valueAsNumber
+    if (value === 1) {
+      updateSheetHeight(halfHeight)
+    } else if (value === 2) {
+      updateSheetHeight(fullHeight)
     }
   }
 
@@ -170,7 +147,10 @@ export default React.forwardRef<HTMLDivElement, PropsWithChildren<DialogActionSh
 
   const isFullScreen = sheetHeight?.current === 100
   const currentHeight = sheetHeight?.current ?? 0
+  console.log('currentHeight', currentHeight)
+  const currentSliderValue = currentHeight === halfHeight ? 1 : 2
 
+  console.log('currentSliderValue', currentSliderValue)
   return (
     <FullScreenContainer
       open={open}
@@ -184,26 +164,19 @@ export default React.forwardRef<HTMLDivElement, PropsWithChildren<DialogActionSh
         <DraggableRegion
           onMouseDown={dragStart}
           onTouchStart={dragStart}
-          onKeyDown={onKeyDown}
+          onChange={onSliderChange}
+          type="range"
           role="slider"
+          min={1}
+          max={2}
           aria-label="Draggable dialog height resizer"
-          aria-valuemin={halfHeight}
-          aria-valuemax={fullHeight}
-          aria-valuenow={currentHeight}
+          aria-valuemin={0}
+          aria-valuemax={1}
+          aria-valuenow={currentSliderValue}
           aria-valuetext={`Dialog height ${currentHeight}% of the screen`}
-        >
-          <DraggableRegionPill />
-        </DraggableRegion>
-        {children}
-        <HiddenAccessibilityForm
-          onSubmit={size => {
-            if (size === 'small') {
-              updateSheetHeight(halfHeight)
-            } else {
-              updateSheetHeight(fullHeight)
-            }
-          }}
         />
+        <DraggableRegionPill />
+        {children}
       </Content>
     </FullScreenContainer>
   )
@@ -244,9 +217,14 @@ const DraggableRegionPill = styled.div`
   display: block;
   background-color: ${get('colors.border.muted')};
   border-radius: 3px;
+  top: ${get('space.2')};
+  position: absolute;
+  left: 50%;
+  margin-left: -35px;
 `
 
-const DraggableRegion = styled.button`
+const DraggableRegion = styled.input`
+  appearance: none;
   display: flex;
   justify-content: center;
   border: none;
@@ -257,22 +235,23 @@ const DraggableRegion = styled.button`
   right: 0;
   left: 0;
   padding-top: ${get('space.2')};
-  padding-bottom: ${get('space.2')};
   cursor: grab;
   user-select: none;
-  &:hover ${DraggableRegionPill} {
+  &:hover ~ ${DraggableRegionPill} {
     background-color: ${get('colors.border.default')};
   }
   &:focus {
     outline: none;
   }
-  &:focus-visible:not([disabled]) {
-    outline: 2px solid;
-    outline-offset: -${get('space.1')};
-    border-top-left-radius: 11px;
-    border-top-right-radius: 11px;
-    outline-color: ${get('colors.accent.emphasis')};
-  },
+  &:focus-visible:not([disabled]) ~ ${DraggableRegionPill} {
+    background-color: ${get('colors.accent.emphasis')};
+  }
+  ::-moz-range-track {
+    appearance: none;
+  }
+  ::-webkit-slider-thumb {
+    appearance: none;
+  }
 `
 const Content = styled.div<
   {
@@ -286,7 +265,7 @@ const Content = styled.div<
   height: 50vh;
   maxheight: 100vh;
   width: 100%;
-  border-radius: ${props => (props.isFullScreen ? 0 : '12px 12px 0 0')};
+  border-radius: 12px 12px 0 0;
   position: relative;
   overflow-x: hidden;
   overflow-y: ${props => (props.isFullScreen ? 'hidden' : 'auto')};
@@ -299,37 +278,4 @@ const Content = styled.div<
 const prefersReducedMotion = () => {
   const mediaQueryList = window.matchMedia('(prefers-reduced-motion: no-preference)')
   return !mediaQueryList.matches
-}
-
-interface HiddenAccessibilityFormCallbackProps extends HTMLFormElement {
-  dialogSize: HTMLInputElement
-}
-
-interface HiddenAccessibilityFormProps {
-  onSubmit: (size: 'small' | 'large') => void
-}
-
-const HiddenAccessibilityForm = ({onSubmit}: HiddenAccessibilityFormProps) => {
-  const name = 'dialog-size'
-  const handleSubmit: FormEventHandler<HiddenAccessibilityFormCallbackProps> = e => {
-    e.preventDefault()
-    const sizeValue = e.currentTarget[name].value
-    onSubmit(sizeValue)
-  }
-
-  return (
-    <VisuallyHidden>
-      <form onSubmit={handleSubmit}>
-        <h3>Dialog size</h3>
-        <fieldset>
-          <legend>Please select your prefered dialog size?</legend>
-          <input type="radio" name={name} value="small" id="small" defaultChecked={true} />
-          <label htmlFor="small">Small</label>
-          <input type="radio" name={name} value="large" id="large" />
-          <label htmlFor="large">Large</label>
-        </fieldset>
-        <button type="submit">Change dialog size</button>
-      </form>
-    </VisuallyHidden>
-  )
 }
