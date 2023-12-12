@@ -98,7 +98,7 @@ export default React.forwardRef<HTMLDivElement, PropsWithChildren<DialogActionSh
       startY.current = e.pageY
     }
 
-    startHeight.current = parseInt(dialogRef.current?.style.height)
+    startHeight.current = parseInt(dialogRef.current.style.height)
     isDragging.current = true
     dialogRef.current.style.transition = 'none'
   }
@@ -106,7 +106,7 @@ export default React.forwardRef<HTMLDivElement, PropsWithChildren<DialogActionSh
   const dragging = (e: MouseEvent | TouchEvent) => {
     if (!dialogRef.current || !isDragging.current) return
 
-    var pageY
+    let pageY
     if (e.type === 'touchstart' && 'touches' in e) {
       pageY = e.touches[0].pageY
     } else if ('clientX' in e) {
@@ -120,7 +120,6 @@ export default React.forwardRef<HTMLDivElement, PropsWithChildren<DialogActionSh
 
   const onSliderChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (!isDragging.current) {
-      console.log('onSliderChange')
       const value = parseInt(e.target.value)
       if (value === 1) {
         updateSheetHeight(HALF_HEIGHT)
@@ -145,6 +144,7 @@ export default React.forwardRef<HTMLDivElement, PropsWithChildren<DialogActionSh
   // Animates the bottom sheet in on mount
   useEffect(() => {
     showBottomSheet()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const currentSliderValue = snappedHeight === HALF_HEIGHT ? 1 : 2
