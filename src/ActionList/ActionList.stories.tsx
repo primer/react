@@ -120,6 +120,11 @@ ItemPlayground.argTypes = {
       type: 'boolean',
     },
   },
+  inactiveText: {
+    control: {
+      type: 'text',
+    },
+  },
   variant: {
     control: 'radio',
     options: ['default', 'danger'],
@@ -155,6 +160,7 @@ ItemPlayground.args = {
   selected: false,
   active: false,
   disabled: false,
+  inactiveText: '',
   variant: 'default',
   role: 'listitem',
   id: 'item-1',
