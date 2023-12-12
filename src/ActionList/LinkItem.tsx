@@ -4,6 +4,7 @@ import Link from '../Link'
 import {SxProp, merge} from '../sx'
 import {Item} from './Item'
 import {ActionListItemProps} from './shared'
+import {Box} from '..'
 
 // adopted from React.AnchorHTMLAttributes
 type LinkProps = {
@@ -19,9 +20,10 @@ type LinkProps = {
 }
 
 // LinkItem does not support selected, variants, etc.
-export type ActionListLinkItemProps = Pick<ActionListItemProps, 'active' | 'children' | 'sx'> & LinkProps
+export type ActionListLinkItemProps = Pick<ActionListItemProps, 'active' | 'children' | 'sx' | 'inactiveText'> &
+  LinkProps
 
-export const LinkItem = React.forwardRef(({sx = {}, active, as: Component, ...props}, forwardedRef) => {
+export const LinkItem = React.forwardRef(({sx = {}, active, inactiveText, as: Component, ...props}, forwardedRef) => {
   const styles = {
     // occupy full size of Item
     paddingX: 2,
@@ -39,12 +41,18 @@ export const LinkItem = React.forwardRef(({sx = {}, active, as: Component, ...pr
     <Item
       active={active}
       sx={{paddingY: 0, paddingX: 0}}
+      inactiveText={inactiveText}
+      data-inactive={inactiveText ? true : undefined}
       _PrivateItemWrapper={({children, onClick, ...rest}) => {
         const clickHandler = (event: React.MouseEvent) => {
           onClick && onClick(event)
           props.onClick && props.onClick(event as React.MouseEvent<HTMLAnchorElement>)
         }
-        return (
+        return inactiveText ? (
+          <Box sx={merge(styles, sx as SxProp)} {...rest}>
+            {children}
+          </Box>
+        ) : (
           <Link
             as={Component}
             sx={merge(styles, sx as SxProp)}

@@ -687,11 +687,13 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
   margin-bottom: unset;
 }
 
-.c3[aria-disabled] {
+.c3[aria-disabled],
+.c3[data-inactive] {
   cursor: not-allowed;
 }
 
-.c3[aria-disabled] [data-component="ActionList.Checkbox"] {
+.c3[aria-disabled] [data-component="ActionList.Checkbox"],
+.c3[data-inactive] [data-component="ActionList.Checkbox"] {
   cursor: not-allowed;
   background-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
   border-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
@@ -720,13 +722,13 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
   --divider-color: transparent !important;
 }
 
-.c3:hover:not([aria-disabled]),
-.c3:focus:not([aria-disabled]),
-.c3[data-focus-visible-added]:not([aria-disabled]) {
+.c3:hover:not([aria-disabled]):not([data-inactive]),
+.c3:focus:not([aria-disabled]):not([data-inactive]),
+.c3[data-focus-visible-added]:not([aria-disabled]):not([data-inactive]) {
   --divider-color: transparent;
 }
 
-.c3:hover:not([aria-disabled]) + .c2,
+.c3:hover:not([aria-disabled]):not([data-inactive]) + .c2,
 .c3[data-focus-visible-added] + li {
   --divider-color: transparent;
 }
@@ -735,13 +737,13 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
   --divider-color: transparent !important;
 }
 
-.c10:hover:not([aria-disabled]) + .c2,
+.c10:hover:not([aria-disabled]):not([data-inactive]) + .c2,
 .c10[data-focus-visible-added] + li {
   --divider-color: transparent;
 }
 
 @media (hover:hover) and (pointer:fine) {
-  .c3:hover:not([aria-disabled]) {
+  .c3:hover:not([aria-disabled]):not([data-inactive]) {
     background-color: rgba(208,215,222,0.32);
     color: #1F2328;
     box-shadow: inset 0 0 0 max(1px,0.0625rem) rgba(0,0,0,0);
@@ -754,7 +756,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
     box-shadow: 0 0 0 2px #0969da;
   }
 
-  .c3:active:not([aria-disabled]) {
+  .c3:active:not([aria-disabled]):not([data-inactive]) {
     background-color: rgba(208,215,222,0.48);
     color: #1F2328;
   }
@@ -1426,11 +1428,13 @@ exports[`snapshots renders a multiselect input 1`] = `
   margin-bottom: unset;
 }
 
-.c3[aria-disabled] {
+.c3[aria-disabled],
+.c3[data-inactive] {
   cursor: not-allowed;
 }
 
-.c3[aria-disabled] [data-component="ActionList.Checkbox"] {
+.c3[aria-disabled] [data-component="ActionList.Checkbox"],
+.c3[data-inactive] [data-component="ActionList.Checkbox"] {
   cursor: not-allowed;
   background-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
   border-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
@@ -1459,19 +1463,19 @@ exports[`snapshots renders a multiselect input 1`] = `
   --divider-color: transparent !important;
 }
 
-.c3:hover:not([aria-disabled]),
-.c3:focus:not([aria-disabled]),
-.c3[data-focus-visible-added]:not([aria-disabled]) {
+.c3:hover:not([aria-disabled]):not([data-inactive]),
+.c3:focus:not([aria-disabled]):not([data-inactive]),
+.c3[data-focus-visible-added]:not([aria-disabled]):not([data-inactive]) {
   --divider-color: transparent;
 }
 
-.c3:hover:not([aria-disabled]) + .c2,
+.c3:hover:not([aria-disabled]):not([data-inactive]) + .c2,
 .c3[data-focus-visible-added] + li {
   --divider-color: transparent;
 }
 
 @media (hover:hover) and (pointer:fine) {
-  .c3:hover:not([aria-disabled]) {
+  .c3:hover:not([aria-disabled]):not([data-inactive]) {
     background-color: rgba(208,215,222,0.32);
     color: #1F2328;
     box-shadow: inset 0 0 0 max(1px,0.0625rem) rgba(0,0,0,0);
@@ -1484,7 +1488,7 @@ exports[`snapshots renders a multiselect input 1`] = `
     box-shadow: 0 0 0 2px #0969da;
   }
 
-  .c3:active:not([aria-disabled]) {
+  .c3:active:not([aria-disabled]):not([data-inactive]) {
     background-color: rgba(208,215,222,0.48);
     color: #1F2328;
   }
@@ -2138,11 +2142,13 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
   margin-bottom: unset;
 }
 
-.c3[aria-disabled] {
+.c3[aria-disabled],
+.c3[data-inactive] {
   cursor: not-allowed;
 }
 
-.c3[aria-disabled] [data-component="ActionList.Checkbox"] {
+.c3[aria-disabled] [data-component="ActionList.Checkbox"],
+.c3[data-inactive] [data-component="ActionList.Checkbox"] {
   cursor: not-allowed;
   background-color: #656d76;
   border-color: #656d76;
@@ -2171,13 +2177,13 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
   --divider-color: transparent !important;
 }
 
-.c3:hover:not([aria-disabled]),
-.c3:focus:not([aria-disabled]),
-.c3[data-focus-visible-added]:not([aria-disabled]) {
+.c3:hover:not([aria-disabled]):not([data-inactive]),
+.c3:focus:not([aria-disabled]):not([data-inactive]),
+.c3[data-focus-visible-added]:not([aria-disabled]):not([data-inactive]) {
   --divider-color: transparent;
 }
 
-.c3:hover:not([aria-disabled]) + .c2,
+.c3:hover:not([aria-disabled]):not([data-inactive]) + .c2,
 .c3[data-focus-visible-added] + li {
   --divider-color: transparent;
 }
@@ -2214,11 +2220,13 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
   margin-bottom: unset;
 }
 
-.c8[aria-disabled] {
+.c8[aria-disabled],
+.c8[data-inactive] {
   cursor: not-allowed;
 }
 
-.c8[aria-disabled] [data-component="ActionList.Checkbox"] {
+.c8[aria-disabled] [data-component="ActionList.Checkbox"],
+.c8[data-inactive] [data-component="ActionList.Checkbox"] {
   cursor: not-allowed;
   background-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
   border-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
@@ -2247,19 +2255,19 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
   --divider-color: transparent !important;
 }
 
-.c8:hover:not([aria-disabled]),
-.c8:focus:not([aria-disabled]),
-.c8[data-focus-visible-added]:not([aria-disabled]) {
+.c8:hover:not([aria-disabled]):not([data-inactive]),
+.c8:focus:not([aria-disabled]):not([data-inactive]),
+.c8[data-focus-visible-added]:not([aria-disabled]):not([data-inactive]) {
   --divider-color: transparent;
 }
 
-.c8:hover:not([aria-disabled]) + .c2,
+.c8:hover:not([aria-disabled]):not([data-inactive]) + .c2,
 .c8[data-focus-visible-added] + li {
   --divider-color: transparent;
 }
 
 @media (hover:hover) and (pointer:fine) {
-  .c3:hover:not([aria-disabled]) {
+  .c3:hover:not([aria-disabled]):not([data-inactive]) {
     background-color: rgba(208,215,222,0.32);
     color: #1F2328;
     box-shadow: inset 0 0 0 max(1px,0.0625rem) rgba(0,0,0,0);
@@ -2272,7 +2280,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
     box-shadow: 0 0 0 2px #0969da;
   }
 
-  .c3:active:not([aria-disabled]) {
+  .c3:active:not([aria-disabled]):not([data-inactive]) {
     background-color: rgba(208,215,222,0.48);
     color: #1F2328;
   }
@@ -2285,7 +2293,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
 }
 
 @media (hover:hover) and (pointer:fine) {
-  .c8:hover:not([aria-disabled]) {
+  .c8:hover:not([aria-disabled]):not([data-inactive]) {
     background-color: rgba(208,215,222,0.32);
     color: #1F2328;
     box-shadow: inset 0 0 0 max(1px,0.0625rem) rgba(0,0,0,0);
@@ -2298,7 +2306,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
     box-shadow: 0 0 0 2px #0969da;
   }
 
-  .c8:active:not([aria-disabled]) {
+  .c8:active:not([aria-disabled]):not([data-inactive]) {
     background-color: rgba(208,215,222,0.48);
     color: #1F2328;
   }
@@ -2868,11 +2876,13 @@ exports[`snapshots renders a single select input 1`] = `
   margin-bottom: unset;
 }
 
-.c3[aria-disabled] {
+.c3[aria-disabled],
+.c3[data-inactive] {
   cursor: not-allowed;
 }
 
-.c3[aria-disabled] [data-component="ActionList.Checkbox"] {
+.c3[aria-disabled] [data-component="ActionList.Checkbox"],
+.c3[data-inactive] [data-component="ActionList.Checkbox"] {
   cursor: not-allowed;
   background-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
   border-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
@@ -2901,19 +2911,19 @@ exports[`snapshots renders a single select input 1`] = `
   --divider-color: transparent !important;
 }
 
-.c3:hover:not([aria-disabled]),
-.c3:focus:not([aria-disabled]),
-.c3[data-focus-visible-added]:not([aria-disabled]) {
+.c3:hover:not([aria-disabled]):not([data-inactive]),
+.c3:focus:not([aria-disabled]):not([data-inactive]),
+.c3[data-focus-visible-added]:not([aria-disabled]):not([data-inactive]) {
   --divider-color: transparent;
 }
 
-.c3:hover:not([aria-disabled]) + .c2,
+.c3:hover:not([aria-disabled]):not([data-inactive]) + .c2,
 .c3[data-focus-visible-added] + li {
   --divider-color: transparent;
 }
 
 @media (hover:hover) and (pointer:fine) {
-  .c3:hover:not([aria-disabled]) {
+  .c3:hover:not([aria-disabled]):not([data-inactive]) {
     background-color: rgba(208,215,222,0.32);
     color: #1F2328;
     box-shadow: inset 0 0 0 max(1px,0.0625rem) rgba(0,0,0,0);
@@ -2926,7 +2936,7 @@ exports[`snapshots renders a single select input 1`] = `
     box-shadow: 0 0 0 2px #0969da;
   }
 
-  .c3:active:not([aria-disabled]) {
+  .c3:active:not([aria-disabled]):not([data-inactive]) {
     background-color: rgba(208,215,222,0.48);
     color: #1F2328;
   }
@@ -3319,11 +3329,13 @@ exports[`snapshots renders with a custom text input component 1`] = `
   margin-bottom: unset;
 }
 
-.c3[aria-disabled] {
+.c3[aria-disabled],
+.c3[data-inactive] {
   cursor: not-allowed;
 }
 
-.c3[aria-disabled] [data-component="ActionList.Checkbox"] {
+.c3[aria-disabled] [data-component="ActionList.Checkbox"],
+.c3[data-inactive] [data-component="ActionList.Checkbox"] {
   cursor: not-allowed;
   background-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
   border-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
@@ -3352,19 +3364,19 @@ exports[`snapshots renders with a custom text input component 1`] = `
   --divider-color: transparent !important;
 }
 
-.c3:hover:not([aria-disabled]),
-.c3:focus:not([aria-disabled]),
-.c3[data-focus-visible-added]:not([aria-disabled]) {
+.c3:hover:not([aria-disabled]):not([data-inactive]),
+.c3:focus:not([aria-disabled]):not([data-inactive]),
+.c3[data-focus-visible-added]:not([aria-disabled]):not([data-inactive]) {
   --divider-color: transparent;
 }
 
-.c3:hover:not([aria-disabled]) + .c2,
+.c3:hover:not([aria-disabled]):not([data-inactive]) + .c2,
 .c3[data-focus-visible-added] + li {
   --divider-color: transparent;
 }
 
 @media (hover:hover) and (pointer:fine) {
-  .c3:hover:not([aria-disabled]) {
+  .c3:hover:not([aria-disabled]):not([data-inactive]) {
     background-color: rgba(208,215,222,0.32);
     color: #1F2328;
     box-shadow: inset 0 0 0 max(1px,0.0625rem) rgba(0,0,0,0);
@@ -3377,7 +3389,7 @@ exports[`snapshots renders with a custom text input component 1`] = `
     box-shadow: 0 0 0 2px #0969da;
   }
 
-  .c3:active:not([aria-disabled]) {
+  .c3:active:not([aria-disabled]):not([data-inactive]) {
     background-color: rgba(208,215,222,0.48);
     color: #1F2328;
   }
