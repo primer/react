@@ -9,24 +9,25 @@ const ButtonGroup = styled.div`
   isolation: isolate;
 
   && > * {
-    margin-inline-end: -1px;
-    position: relative;
-    border-radius: 0;
+    & > button {
+      margin-inline-end: -1px;
+      position: relative;
+      border-radius: 0;
 
-    :first-child {
+      :focus,
+      :active,
+      :hover {
+        z-index: 1;
+      }
+    }
+
+    &:first-child > button {
       border-top-left-radius: ${get('radii.2')};
       border-bottom-left-radius: ${get('radii.2')};
     }
-
-    :last-child {
+    &:last-child > button {
       border-top-right-radius: ${get('radii.2')};
       border-bottom-right-radius: ${get('radii.2')};
-    }
-
-    :focus,
-    :active,
-    :hover {
-      z-index: 1;
     }
   }
 
