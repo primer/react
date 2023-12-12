@@ -45,6 +45,8 @@ export type MarkdownEditorProps = SxProp & {
   disabled?: boolean
   /** Placeholder text to show when the editor is empty. By default, no placeholder will be shown. */
   placeholder?: string
+  /** Custom label to be user as accessible name. `Markdown value` is the default value. */
+  ariaLabel?: string
   /** Maximum number of characters the markdown can hold (includes formatting characters like `*`). */
   maxLength?: number
   /**
@@ -157,6 +159,7 @@ const MarkdownEditor = forwardRef<MarkdownEditorHandle, MarkdownEditorProps>(
       onChange,
       disabled = false,
       placeholder,
+      ariaLabel,
       maxLength,
       'aria-describedby': describedBy,
       fullHeight,
@@ -468,6 +471,7 @@ const MarkdownEditor = forwardRef<MarkdownEditorHandle, MarkdownEditorProps>(
                 referenceSuggestions={referenceSuggestions}
                 disabled={disabled}
                 placeholder={placeholder}
+                ariaLabel={ariaLabel}
                 id={id}
                 maxLength={maxLength}
                 ref={inputRef}

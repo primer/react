@@ -879,6 +879,11 @@ describe('MarkdownEditor', () => {
       expect(getInput()).toHaveAccessibleName('Markdown value')
     })
 
+    it('labels the main input with a custom label, when provided', async () => {
+      const {getInput} = await render(<UncontrolledEditor ariaLabel="Add a comment" />)
+      expect(getInput()).toHaveAccessibleName('Add a comment')
+    })
+
     it('labels the toolbar', async () => {
       const {getToolbar} = await render(<UncontrolledEditor />)
       expect(getToolbar()).toHaveAccessibleName('Formatting tools')

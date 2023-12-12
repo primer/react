@@ -15,6 +15,7 @@ interface MarkdownInputProps extends Omit<TextareaProps, 'onChange'> {
   onKeyDown?: React.KeyboardEventHandler<HTMLTextAreaElement>
   disabled?: boolean
   placeholder?: string
+  ariaLabel?: string
   id: string
   maxLength?: number
   fullHeight?: boolean
@@ -39,6 +40,7 @@ export const MarkdownInput = forwardRef<HTMLTextAreaElement, MarkdownInputProps>
       onChange,
       disabled,
       placeholder,
+      ariaLabel,
       id,
       maxLength,
       onKeyDown,
@@ -149,7 +151,7 @@ export const MarkdownInput = forwardRef<HTMLTextAreaElement, MarkdownInputProps>
           value={value}
           onKeyDown={onKeyDown}
           disabled={disabled}
-          aria-label="Markdown value"
+          aria-label={ariaLabel || 'Markdown value'}
           onChange={onChange}
           sx={{
             borderStyle: 'none',
