@@ -4,9 +4,9 @@ import {SxProp} from '../sx'
 import {useRefObjectAsForwardedRef} from '../hooks/useRefObjectAsForwardedRef'
 import {get} from '../constants'
 
-const ANIMATION_DURATION: number = 300
-const FULL_HEIGHT: number = 90
-const HALF_HEIGHT: number = 50
+const ANIMATION_DURATION = 300
+const FULL_HEIGHT = 90
+const HALF_HEIGHT = 50
 
 /**
  * Props to customize the rendering of the Dialog.
