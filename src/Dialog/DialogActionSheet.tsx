@@ -119,12 +119,14 @@ export default React.forwardRef<HTMLDivElement, PropsWithChildren<DialogActionSh
   }
 
   const onSliderChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const value = parseInt(e.target.value)
-    console.log('value', value)
-    if (value === 1) {
-      updateSheetHeight(HALF_HEIGHT)
-    } else if (value === 2) {
-      updateSheetHeight(FULL_HEIGHT)
+    if (!isDragging.current) {
+      console.log('onSliderChange')
+      const value = parseInt(e.target.value)
+      if (value === 1) {
+        updateSheetHeight(HALF_HEIGHT)
+      } else if (value === 2) {
+        updateSheetHeight(FULL_HEIGHT)
+      }
     }
   }
 
