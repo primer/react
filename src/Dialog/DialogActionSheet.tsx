@@ -39,10 +39,10 @@ export default React.forwardRef<HTMLDivElement, PropsWithChildren<DialogActionSh
 
   // 📎 REFERENCES
 
-  let dialogRef = useRef<HTMLDivElement>(null)
-  let startY = useRef(0)
-  let startHeight = useRef(0)
-  let isDragging = useRef(false)
+  const dialogRef = useRef<HTMLDivElement>(null)
+  const startY = useRef(0)
+  const startHeight = useRef(0)
+  const isDragging = useRef(false)
 
   useRefObjectAsForwardedRef(forwardedRef, dialogRef)
 
@@ -93,12 +93,12 @@ export default React.forwardRef<HTMLDivElement, PropsWithChildren<DialogActionSh
     if (!dialogRef.current) return
 
     if (e.type === 'touchstart' && 'touches' in e) {
-      startY.current = e.touches[0].pageY ?? 0
+      startY.current = e.touches[0].pageY
     } else if ('clientX' in e) {
       startY.current = e.pageY
     }
 
-    startHeight.current = parseInt(dialogRef.current?.style.height ?? 0)
+    startHeight.current = parseInt(dialogRef.current?.style.height)
     isDragging.current = true
     dialogRef.current.style.transition = 'none'
   }
