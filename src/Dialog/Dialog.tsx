@@ -278,7 +278,14 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
   if (responsiveType === 'full-screen') {
     return (
       <Portal>
-        <FullScreenDialog ref={dialogRef} role={role} aria-modal sx={sx}>
+        <FullScreenDialog
+          ref={dialogRef}
+          role={role}
+          aria-labelledby={dialogLabelId}
+          aria-describedby={dialogDescriptionId}
+          aria-modal
+          sx={sx}
+        >
           {header}
           {body}
           {footer}
@@ -290,7 +297,15 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
   if (responsiveType === 'action-sheet') {
     return (
       <Portal>
-        <DialogActionSheet ref={dialogRef} role={role} onClose={onClose} aria-modal sx={sx}>
+        <DialogActionSheet
+          ref={dialogRef}
+          role={role}
+          onClose={onClose}
+          ariaLabelledby={dialogLabelId}
+          ariaDescribedby={dialogDescriptionId}
+          ariaModal
+          sx={sx}
+        >
           {header}
           {body}
           {footer}
@@ -302,7 +317,16 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
   return (
     <Portal>
       <Backdrop>
-        <NormalDialog width={width} height={height} ref={dialogRef} aria-modal sx={sx}>
+        <NormalDialog
+          width={width}
+          height={height}
+          ref={dialogRef}
+          role={role}
+          aria-labelledby={dialogLabelId}
+          aria-describedby={dialogDescriptionId}
+          aria-modal
+          sx={sx}
+        >
           {header}
           {body}
           {footer}

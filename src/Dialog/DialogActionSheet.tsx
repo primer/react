@@ -23,10 +23,25 @@ export interface DialogActionSheetProps extends SxProp {
    * @see https://www.w3.org/TR/wai-aria-practices-1.1/#alertdialog
    */
   role?: 'dialog' | 'alertdialog'
+
+  /**
+   * Identifies the element (or elements) that labels the element it is applied to.
+   */
+  ariaLabelledby: string
+
+  /**
+   * Identifies the element (or elements) that describes the element on which the attribute is set.
+   */
+  ariaDescribedby: string
+
+  /**
+   * Indicates whether an element is modal when displayed.
+   */
+  ariaModal: boolean
 }
 
 export default React.forwardRef<HTMLDivElement, PropsWithChildren<DialogActionSheetProps>>((props, forwardedRef) => {
-  const {onClose, children, role, sx} = props
+  const {onClose, children, role, ariaLabelledby, ariaDescribedby, ariaModal, sx} = props
 
   // 🔄 STATES
 
@@ -158,7 +173,15 @@ export default React.forwardRef<HTMLDivElement, PropsWithChildren<DialogActionSh
       onTouchMove={dragStop}
     >
       <Overlay onClick={() => hideBottomSheet('overlay')}></Overlay>
-      <Content ref={dialogRef} role={role} open={open} sx={sx}>
+      <Content
+        ref={dialogRef}
+        role={role}
+        open={open}
+        aria-labelledby={ariaLabelledby}
+        aria-describedby={ariaDescribedby}
+        aria-modal={ariaModal}
+        sx={sx}
+      >
         <DraggableRegion
           onMouseDown={dragStart}
           onTouchStart={dragStart}
