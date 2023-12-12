@@ -31,6 +31,8 @@ export default React.forwardRef<HTMLDivElement, PropsWithChildren<DialogActionSh
   // 🔄 STATES
 
   const [open, setIsOpen] = useState<boolean>(false)
+  const [snappedHeight, setSnappedHeight] = useState<number>(HALF_HEIGHT)
+
   const [fireDelayedOnClose, setFireDelayedOnClose] = useState<
     'close-button' | 'escape' | 'drag' | 'overlay' | undefined
   >()
@@ -41,7 +43,6 @@ export default React.forwardRef<HTMLDivElement, PropsWithChildren<DialogActionSh
   let startY = useRef(0)
   let startHeight = useRef(0)
   let isDragging = useRef(false)
-  let sheetHeight = useRef(HALF_HEIGHT)
 
   useRefObjectAsForwardedRef(forwardedRef, dialogRef)
 
@@ -68,7 +69,7 @@ export default React.forwardRef<HTMLDivElement, PropsWithChildren<DialogActionSh
   const updateSheetHeight = (height: number) => {
     if (!dialogRef.current) return
     dialogRef.current.style.height = `${height}vh`
-    sheetHeight.current = height
+    setSnappedHeight(height)
   }
 
   // 🎪 EVENTS
@@ -144,11 +145,8 @@ export default React.forwardRef<HTMLDivElement, PropsWithChildren<DialogActionSh
     showBottomSheet()
   }, [])
 
-  const currentHeight = sheetHeight?.current ?? HALF_HEIGHT
-  const currentSliderValue = currentHeight === HALF_HEIGHT ? 1 : 2
-  console.log('sheetHeight', sheetHeight?.current)
-  console.log('currentHeight', currentHeight)
-  console.log('currentSliderValue', currentSliderValue)
+  const currentSliderValue = snappedHeight === HALF_HEIGHT ? 1 : 2
+
   return (
     <FullScreenContainer
       open={open}
@@ -173,7 +171,7 @@ export default React.forwardRef<HTMLDivElement, PropsWithChildren<DialogActionSh
           aria-valuemin={1}
           aria-valuemax={2}
           aria-valuenow={currentSliderValue}
-          aria-valuetext={`Dialog height ${currentHeight}% of the screen`}
+          aria-valuetext={`Dialog height ${snappedHeight}% of the screen`}
         />
         <DraggableRegionPill />
         {children}
