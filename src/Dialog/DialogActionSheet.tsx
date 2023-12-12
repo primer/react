@@ -232,23 +232,27 @@ const DraggableRegion = styled.input`
   background: transparent;
   top: 0;
   z-index: 2;
+  width: 100%;
   right: 0;
   left: 0;
   padding-top: ${get('space.2')};
   padding-bottom: ${get('space.1')};
   cursor: grab;
   user-select: none;
+  height: 12px;
   &:hover ~ ${DraggableRegionPill} {
     background-color: ${get('colors.border.default')};
   }
   &:focus {
     outline: none;
+    opacity: 0;
   }
   &:focus-visible:not([disabled]) ~ ${DraggableRegionPill} {
     background-color: ${get('colors.accent.emphasis')};
   }
-  ::-moz-range-track {
+  ::-moz-range-thumb {
     appearance: none;
+    visibility: hidden;
   }
   ::-webkit-slider-thumb {
     appearance: none;
