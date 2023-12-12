@@ -82,7 +82,7 @@ describe('FormControl', () => {
 
         const input = getByRole('textbox')
 
-        expect(input.getAttribute('required')).not.toBeNull()
+        expect(input).toHaveAttribute('aria-required', 'true')
       })
 
       it('renders with a caption', () => {
