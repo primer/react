@@ -94,8 +94,10 @@ export default React.forwardRef<HTMLDivElement, PropsWithChildren<DialogActionSh
 
   // 🎪 EVENTS
 
-  const dragStop = () => {
+  const dragStop = (e: MouseEvent | TouchEvent) => {
     if (!dialogRef.current) return
+
+    e.preventDefault()
 
     isDragging.current = false
     const sheetHeight = parseInt(dialogRef.current.style.height)
@@ -112,6 +114,8 @@ export default React.forwardRef<HTMLDivElement, PropsWithChildren<DialogActionSh
   const dragStart = (e: MouseEvent | TouchEvent) => {
     if (!dialogRef.current) return
 
+    e.preventDefault()
+
     if (e.type === 'touchstart' && 'touches' in e) {
       startY.current = e.touches[0].pageY
     } else if ('clientX' in e) {
@@ -125,6 +129,8 @@ export default React.forwardRef<HTMLDivElement, PropsWithChildren<DialogActionSh
 
   const dragging = (e: MouseEvent | TouchEvent) => {
     if (!dialogRef.current || !isDragging.current) return
+
+    e.preventDefault()
 
     let pageY
     if (e.type === 'touchmove' && 'touches' in e) {
