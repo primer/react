@@ -5,7 +5,7 @@ import Box from '../../Box'
 import MarkdownEditor, {Emoji, Mentionable, Reference, SavedReply} from '.'
 
 const meta: Meta = {
-  title: 'Drafts/Components/MarkdownEditor/Features',
+  title: 'Deprecated/Components/MarkdownEditor/Features',
   parameters: {
     controls: {
       include: [

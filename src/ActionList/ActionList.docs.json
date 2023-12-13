@@ -86,7 +86,7 @@
           "name": "inactiveText",
           "type": "string",
           "defaultValue": "",
-          "description": "Text describing why the item is inactive. This may be used when an item's usual functionality is unavailable due to a system error such as a database outage."
+          "description": "Text describing why the item is inactive. This may be used when an item's usual functionality is unavailable due to a system error such as a database outage. \nIf there is a leading visual, the alert icon will replace the leading visual. \n If there is a trailing visual, it will replace the trailing visual.\n If there is no visual passed, it will be shown in the trailing visual slot to preserve left alignment of item content. \nText will appear in a tooltip triggered by the alert icon in ActionList items, but text will appear below the description or title on ActionMenu items."
         },
         {
           "name": "role",
