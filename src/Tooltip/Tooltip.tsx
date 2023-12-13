@@ -247,6 +247,8 @@ export type TooltipProps = {
   wrap?: boolean
 } & ComponentProps<typeof TooltipBase>
 
+export const TooltipContext = React.createContext<{container?: string}>({})
+
 function Tooltip({direction = 'n', children, className, text, noDelay, align, wrap, ...rest}: TooltipProps) {
   const classes = clsx(
     className,
@@ -256,9 +258,12 @@ function Tooltip({direction = 'n', children, className, text, noDelay, align, wr
     wrap && 'tooltipped-multiline',
   )
   return (
-    <TooltipBase role="tooltip" aria-label={text} {...rest} className={classes}>
-      {children}
-    </TooltipBase>
+    // This provider is used to check if an icon button is wrapped with tooltip or not.
+    <TooltipContext.Provider value={{container: 'Tooltip'}}>
+      <TooltipBase role="tooltip" aria-label={text} {...rest} className={classes}>
+        {children}
+      </TooltipBase>
+    </TooltipContext.Provider>
   )
 }
 

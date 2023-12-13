@@ -61,6 +61,10 @@ exports[`Dialog renders consistently 1`] = `
 
 }
 
+@media (forced-colors:active) {
+
+}
+
 @media screen and (max-width:750px) {
 
 }
@@ -72,12 +76,12 @@ exports[`Dialog renders consistently 1`] = `
 <span
     className="c0"
   />,
-  .c2 {
+  .c3 {
   padding: 16px;
   background-color: #f6f8fa;
 }
 
-.c5 {
+.c6 {
   padding: 16px;
 }
 
@@ -320,14 +324,119 @@ exports[`Dialog renders consistently 1`] = `
   color: inherit;
 }
 
-.c4 {
+.c2 {
+  display: none;
+}
+
+.c2[popover] {
+  padding: 0.5em 0.75em;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+  margin: auto;
+  -webkit-clip: auto;
+  clip: auto;
+  white-space: normal;
+  font: normal normal 11px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
+  -webkit-font-smoothing: subpixel-antialiased;
+  color: #ffffff;
+  text-align: center;
+  word-wrap: break-word;
+  background: #24292f;
+  border-radius: 6px;
+  border: 0;
+  opacity: 0;
+  max-width: 250px;
+  inset: auto;
+  overflow: visible;
+}
+
+.c2[popover]:popover-open {
+  display: block;
+}
+
+.c2[popover].\\:popover-open {
+  display: block;
+}
+
+.c2::after {
+  position: absolute;
+  display: block;
+  right: 0;
+  left: 0;
+  height: 8px;
+  content: '';
+}
+
+.c2[data-direction='n']::after,
+.c2[data-direction='ne']::after,
+.c2[data-direction='nw']::after {
+  top: 100%;
+}
+
+.c2[data-direction='s']::after,
+.c2[data-direction='se']::after,
+.c2[data-direction='sw']::after {
+  bottom: 100%;
+}
+
+.c2[data-direction='w']::after {
+  position: absolute;
+  display: block;
+  height: 100%;
+  width: 8px;
+  content: '';
+  bottom: 0;
+  left: 100%;
+}
+
+.c2[data-direction='e']::after {
+  position: absolute;
+  display: block;
+  height: 100%;
+  width: 8px;
+  content: '';
+  bottom: 0;
+  right: 100%;
+  margin-left: -8px;
+}
+
+.c2:popover-open,
+.c2:popover-open::before {
+  -webkit-animation-name: tooltip-appear;
+  animation-name: tooltip-appear;
+  -webkit-animation-duration: 0.1s;
+  animation-duration: 0.1s;
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+  -webkit-animation-timing-function: ease-in;
+  animation-timing-function: ease-in;
+  -webkit-animation-delay: 0s;
+  animation-delay: 0s;
+}
+
+.c2.\\:popover-open,
+.c2.\\:popover-open::before {
+  -webkit-animation-name: tooltip-appear;
+  animation-name: tooltip-appear;
+  -webkit-animation-duration: 0.1s;
+  animation-duration: 0.1s;
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+  -webkit-animation-timing-function: ease-in;
+  animation-timing-function: ease-in;
+  -webkit-animation-delay: 0s;
+  animation-delay: 0s;
+}
+
+.c5 {
   font-size: 14px;
   font-weight: 600;
   font-family: sans-serif;
   color: #1F2328;
 }
 
-.c6 {
+.c7 {
   font-family: sans-serif;
 }
 
@@ -348,7 +457,7 @@ exports[`Dialog renders consistently 1`] = `
   outline: none;
 }
 
-.c3 {
+.c4 {
   border-radius: 6px 6px 0px 0px;
   border-bottom: 1px solid #d0d7de;
   display: -webkit-box;
@@ -363,6 +472,12 @@ exports[`Dialog renders consistently 1`] = `
   }
 }
 
+@media (forced-colors:active) {
+  .c2 {
+    outline: 1px solid transparent;
+  }
+}
+
 @media screen and (max-width:750px) {
   .c0 {
     width: 100vw;
@@ -373,7 +488,7 @@ exports[`Dialog renders consistently 1`] = `
 }
 
 @media screen and (max-width:750px) {
-  .c3 {
+  .c4 {
     border-radius: 0px;
   }
 }
@@ -386,44 +501,60 @@ exports[`Dialog renders consistently 1`] = `
     role="dialog"
     tabIndex={-1}
   >
-    <button
-      aria-label="Close"
-      className="c1"
-      data-block={null}
-      data-component="IconButton"
-      data-no-visuals={true}
-      onClick={[Function]}
-      type="button"
-    >
-      <svg
-        aria-hidden="true"
-        className="octicon octicon-x"
-        fill="currentColor"
-        focusable="false"
-        height={16}
-        role="img"
-        style={
-          {
-            "display": "inline-block",
-            "overflow": "visible",
-            "userSelect": "none",
-            "verticalAlign": "text-bottom",
-          }
-        }
-        viewBox="0 0 16 16"
-        width={16}
-      >
-        <path
-          d="M3.72 3.72a.75.75 0 0 1 1.06 0L8 6.94l3.22-3.22a.749.749 0 0 1 1.275.326.749.749 0 0 1-.215.734L9.06 8l3.22 3.22a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215L8 9.06l-3.22 3.22a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042L6.94 8 3.72 4.78a.75.75 0 0 1 0-1.06Z"
-        />
-      </svg>
-    </button>
     <div
-      className="c2 c3"
+      className=""
+      onMouseLeave={[Function]}
+    >
+      <button
+        aria-labelledby="tooltip-:r0:"
+        className="c1"
+        data-block={null}
+        data-component="IconButton"
+        data-no-visuals={true}
+        onBlur={[Function]}
+        onClick={[Function]}
+        onFocus={[Function]}
+        onMouseEnter={[Function]}
+        type="button"
+      >
+        <svg
+          aria-hidden="true"
+          className="octicon octicon-x"
+          fill="currentColor"
+          focusable="false"
+          height={16}
+          role="img"
+          style={
+            {
+              "display": "inline-block",
+              "overflow": "visible",
+              "userSelect": "none",
+              "verticalAlign": "text-bottom",
+            }
+          }
+          viewBox="0 0 16 16"
+          width={16}
+        >
+          <path
+            d="M3.72 3.72a.75.75 0 0 1 1.06 0L8 6.94l3.22-3.22a.749.749 0 0 1 1.275.326.749.749 0 0 1-.215.734L9.06 8l3.22 3.22a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215L8 9.06l-3.22 3.22a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042L6.94 8 3.72 4.78a.75.75 0 0 1 0-1.06Z"
+          />
+        </svg>
+      </button>
+      <div
+        aria-hidden={true}
+        className="c2"
+        data-direction="s"
+        id="tooltip-:r0:"
+      >
+        Close
+      </div>
+    </div>
+    <div
+      className="c3 c4"
       id="header"
     >
       <span
-        className="c4"
+        className="c5"
         color="fg.default"
         fontFamily="sans-serif"
         fontSize={1}
@@ -433,10 +564,10 @@ exports[`Dialog renders consistently 1`] = `
       </span>
     </div>
     <div
-      className="c5"
+      className="c6"
     >
       <span
-        className="c6"
+        className="c7"
         fontFamily="sans-serif"
       >
         Some content
