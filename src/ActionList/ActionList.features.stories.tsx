@@ -269,6 +269,25 @@ export const SingleSelect = () => {
   )
 }
 
+export const InactiveSingleSelect = () => {
+  const [selectedIndex, setSelectedIndex] = React.useState(1)
+  return (
+    <ActionList selectionVariant="single" showDividers role="menu" aria-label="Project">
+      <ActionList.Item role="menuitem" selected={false} inactiveText="Unavailable due to an outage">
+        Inactive item
+      </ActionList.Item>
+      <ActionList.Item
+        role="menuitemradio"
+        selected={selectedIndex === 1}
+        aria-checked={selectedIndex === 1}
+        onSelect={() => setSelectedIndex(1)}
+      >
+        Item 2
+      </ActionList.Item>
+    </ActionList>
+  )
+}
+
 export const MultiSelect = () => {
   const [selectedIndices, setSelectedIndices] = React.useState<number[]>([0])
   const handleSelect = (index: number) => {
@@ -322,6 +341,32 @@ export const DisabledMultiselect = () => (
   </ActionList>
 )
 
+export const InactiveMultiselect = () => {
+  const [selectedIndices, setSelectedIndices] = React.useState<number[]>([0])
+  const handleSelect = (index: number) => {
+    if (selectedIndices.includes(index)) {
+      setSelectedIndices(selectedIndices.filter(i => i !== index))
+    } else {
+      setSelectedIndices([...selectedIndices, index])
+    }
+  }
+  return (
+    <ActionList selectionVariant="multiple" role="menu" aria-label="Project">
+      <ActionList.Item role="menuitem" selected={false} inactiveText="Unavailable due to an outage">
+        Inactive item
+      </ActionList.Item>
+      <ActionList.Item
+        role="menuitemcheckbox"
+        selected={selectedIndices.includes(1)}
+        aria-checked={selectedIndices.includes(1)}
+        onSelect={() => handleSelect(1)}
+      >
+        Item 2
+      </ActionList.Item>
+    </ActionList>
+  )
+}
+
 export const DisabledItem = () => {
   const [selectedIndex, setSelectedIndex] = React.useState(0)
   return (
@@ -335,6 +380,22 @@ export const DisabledItem = () => {
           onSelect={() => setSelectedIndex(index)}
           disabled={index === 1}
         >
+          <ActionList.LeadingVisual>
+            <TableIcon />
+          </ActionList.LeadingVisual>
+          {project.name}
+          <ActionList.Description variant="block">{project.scope}</ActionList.Description>
+        </ActionList.Item>
+      ))}
+    </ActionList>
+  )
+}
+
+export const InactiveItem = () => {
+  return (
+    <ActionList aria-label="Project">
+      {projects.map((project, index) => (
+        <ActionList.Item key={index} inactiveText={index === 1 ? 'Unavailable due to an outage' : undefined}>
           <ActionList.LeadingVisual>
             <TableIcon />
           </ActionList.LeadingVisual>

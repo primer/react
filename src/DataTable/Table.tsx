@@ -11,7 +11,7 @@ import {Column, CellAlignment} from './column'
 import {UniqueRow} from './row'
 import {SortDirection} from './sorting'
 import {useTableLayout} from './useTable'
-import {useOverflow} from '../internal/hooks/useOverflow'
+import {ScrollableRegion} from '../internal/components/ScrollableRegion'
 
 // ----------------------------------------------------------------------------
 // Table
@@ -661,29 +661,6 @@ const Button = styled.button`
     border: 0;
   }
 `
-
-type ScrollableRegionProps = React.PropsWithChildren<{
-  'aria-labelledby'?: string
-  className?: string
-}>
-
-function ScrollableRegion({'aria-labelledby': labelledby, children, ...rest}: ScrollableRegionProps) {
-  const ref = React.useRef(null)
-  const hasOverflow = useOverflow(ref)
-  const regionProps = hasOverflow
-    ? {
-        'aria-labelledby': labelledby,
-        role: 'region',
-        tabIndex: 0,
-      }
-    : {}
-
-  return (
-    <Box {...rest} {...regionProps} ref={ref} sx={{overflow: 'auto'}}>
-      {children}
-    </Box>
-  )
-}
 
 export {
   TableContainer,

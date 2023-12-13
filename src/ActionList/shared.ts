@@ -9,6 +9,7 @@ export type ActionListItemProps = {
   children?: React.ReactNode
   /**
    * Callback that will trigger both on click selection and keyboard selection.
+   * This is not called for disabled or inactive items.
    */
   onSelect?: (event: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement>) => void
   /**
@@ -39,6 +40,11 @@ export type ActionListItemProps = {
    */
   id?: string
   /**
+   * Text describing why the item is inactive. This may be used when an item's usual functionality
+   * is unavailable due to a system error such as a database outage.
+   */
+  inactiveText?: string
+  /**
    * Private API for use internally only. Used by LinkItem to wrap contents in an anchor
    */
   _PrivateItemWrapper?: React.FC<React.PropsWithChildren<MenuItemProps>>
@@ -57,6 +63,7 @@ type MenuItemProps = {
 export type ItemContext = Pick<ActionListItemProps, 'variant' | 'disabled'> & {
   inlineDescriptionId?: string
   blockDescriptionId?: string
+  inactive?: boolean
 }
 
 export const ItemContext = React.createContext<ItemContext>({})
@@ -64,12 +71,21 @@ export const ItemContext = React.createContext<ItemContext>({})
 export const getVariantStyles = (
   variant: ActionListItemProps['variant'],
   disabled: ActionListItemProps['disabled'],
+  inactive?: boolean,
 ) => {
   if (disabled) {
     return {
       color: 'primer.fg.disabled',
       iconColor: 'primer.fg.disabled',
       annotationColor: 'primer.fg.disabled',
+    }
+  }
+
+  if (inactive) {
+    return {
+      color: 'fg.muted',
+      iconColor: 'fg.muted',
+      annotationColor: 'fg.muted',
     }
   }
 

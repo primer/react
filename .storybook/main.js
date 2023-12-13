@@ -50,4 +50,7 @@ module.exports = {
   docs: {
     autodocs: false,
   },
+  typescript: {
+    reactDocgen: 'react-docgen',
+  },
 }
