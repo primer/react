@@ -4,7 +4,8 @@ import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/po
 import {ButtonBase} from './ButtonBase'
 import {defaultSxProp} from '../utils/defaultSxProp'
 import {generateCustomSxProp} from './Button'
-import {Tooltip, TooltipContext} from '../drafts/Tooltip'
+import {Tooltip, TooltipContext} from '../drafts/Tooltip/Tooltip'
+import {TooltipContext as TooltipV1Context} from '../Tooltip/Tooltip'
 
 const IconButton = forwardRef(
   (
@@ -18,26 +19,24 @@ const IconButton = forwardRef(
     if (sxProp !== null && Object.keys(sxProp).length > 0) {
       sxStyles = generateCustomSxProp({size}, sxProp)
     }
-
     // If the icon button is already wrapped in a tooltip, do not add one.
-    const {tooltipId} = React.useContext(TooltipContext)
+    const {tooltipId} = React.useContext(TooltipContext) // Tooltip v2
+    const {container} = React.useContext(TooltipV1Context) // Tooltip v1
 
     // aria-label is going to be deprecated in favor of label but for now we are supporting both.
     const iconButtonLabel = label ?? ariaLabel
 
-    if (!tooltipId && !disabled) {
+    if (!tooltipId && container !== 'Tooltip' && !disabled) {
       return (
         // if description exists, we use tooltip for adding description to the icon button. Otherwise, we use tooltip for labelling the icon button.
         // @ts-ignore for now
-        <Tooltip text={description ?? iconButtonLabel} type={description ? 'description' : 'label'}>
+        <Tooltip text={description ?? iconButtonLabel} type={description ? 'description' : 'label'} ref={forwardedRef}>
           <ButtonBase
             icon={Icon}
             data-component="IconButton"
             sx={sxStyles}
             type="button"
             {...props}
-            // @ts-expect-error StyledButton wants both Anchor and Button refs
-            ref={forwardedRef}
             // If description exists, we need to explicitly set aria-label to the button for an accessible name
             aria-label={description ? iconButtonLabel : undefined}
           />
