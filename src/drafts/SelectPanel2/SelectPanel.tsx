@@ -86,6 +86,8 @@ const Panel: React.FC<SelectPanelProps> = ({
   // sync open state with props
   if (propsOpen !== undefined && internalOpen !== propsOpen) setInternalOpen(propsOpen)
 
+  // TODO: replace this hack with clone element?
+
   // 🚨 Hack for good API!
   // we strip out Anchor from children and wire it up to Dialog
   // with additional props for accessibility
@@ -215,6 +217,7 @@ const Panel: React.FC<SelectPanelProps> = ({
             }}
           >
             {/* render default header as fallback */}
+
             {slots.header ?? <SelectPanelHeader />}
             <Box
               as="div"
