@@ -518,7 +518,7 @@ test.describe('Button', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'components-button-features--loading-custom-message',
+            id: 'components-button-features--loading-custom-announcement',
             globals: {
               colorScheme: theme,
             },
@@ -530,7 +530,7 @@ test.describe('Button', () => {
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'components-button-features--loading-custom-message',
+            id: 'components-button-features--loading-custom-announcement',
             globals: {
               colorScheme: theme,
             },
