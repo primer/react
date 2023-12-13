@@ -18,6 +18,7 @@ import {useId} from '../hooks/useId'
 import {ScrollableRegion} from '../internal/components/ScrollableRegion'
 
 import DialogActionSheet from './DialogActionSheet'
+import {minHeight} from 'styled-system'
 
 /* Dialog Version 2 */
 
@@ -288,7 +289,7 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
           sx={sx}
         >
           {header}
-          <ScrollableRegion aria-labelledby={dialogLabelId} className="DialogOverflowWrapper">
+          <ScrollableRegion aria-labelledby={dialogLabelId} className="DialogOverflowWrapper" sx={{flex: 1}}>
             {body}
           </ScrollableRegion>
           {footer}
@@ -310,7 +311,7 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
           header={header}
           sx={sx}
         >
-          <ScrollableRegion aria-labelledby={dialogLabelId} className="DialogOverflowWrapper">
+          <ScrollableRegion aria-labelledby={dialogLabelId} className="DialogOverflowWrapper" sx={{flex: 1}}>
             {body}
           </ScrollableRegion>
           {footer}
@@ -485,7 +486,6 @@ const Body = styled.div<SxProp>`
   flex-grow: 1;
   overflow: auto;
   padding: ${get('space.3')};
-
   ${sx};
 `
 
@@ -498,7 +498,6 @@ const Footer = styled.div<SxProp>`
   gap: ${get('space.2')};
   z-index: 1;
   flex-shrink: 0;
-
   ${sx};
 `
 
