@@ -1,7 +1,7 @@
 import {subscribe as subscribeToMarkdownPasting} from '@github/paste-markdown'
 import React, {forwardRef, useEffect, useMemo, useRef, useState} from 'react'
 import {useDynamicTextareaHeight} from '../hooks/useDynamicTextareaHeight'
-import InlineAutocomplete, {ShowSuggestionsEvent, Suggestions} from '../../InlineAutocomplete'
+import InlineAutocomplete, {ShowSuggestionsEvent, Suggestions} from '../InlineAutocomplete'
 import Textarea, {TextareaProps} from '../../Textarea'
 import {Emoji, useEmojiSuggestions} from './suggestions/_useEmojiSuggestions'
 import {Mentionable, useMentionSuggestions} from './suggestions/_useMentionSuggestions'

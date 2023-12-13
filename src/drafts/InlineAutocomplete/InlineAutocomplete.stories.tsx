@@ -1,11 +1,11 @@
 import React, {useState} from 'react'
 import {Meta} from '@storybook/react'
 
-import {BaseStyles, Box, Textarea, ThemeProvider, FormControl} from '..'
+import {BaseStyles, Box, Textarea, ThemeProvider, FormControl} from '../..'
 import InlineAutocomplete, {ShowSuggestionsEvent, Suggestions} from '.'
 
 export default {
-  title: 'Drafts/Components/InlineAutocomplete',
+  title: 'Deprecated/Components/InlineAutocomplete',
   component: InlineAutocomplete,
   decorators: [
     Story => {

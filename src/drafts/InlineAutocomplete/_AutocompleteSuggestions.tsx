@@ -1,14 +1,14 @@
 import React, {useCallback, useRef, useState} from 'react'
-import Spinner from '../Spinner'
-import {ActionList, ActionListItemProps} from '../ActionList'
-import Box from '../Box'
-import {ComboboxCommitEvent, useCombobox} from '../drafts/hooks/useCombobox'
-import Overlay from '../Overlay'
+import Spinner from '../../Spinner'
+import {ActionList, ActionListItemProps} from '../../ActionList'
+import Box from '../../Box'
+import {ComboboxCommitEvent, useCombobox} from '../hooks/useCombobox'
+import Overlay from '../../Overlay'
 
 import {Suggestion, Suggestions, SuggestionsPlacement, TextInputElement} from './types'
 import {getSuggestionKey, getSuggestionValue} from './utils'
-import {CharacterCoordinates} from '../drafts/utils/character-coordinates'
-import useIsomorphicLayoutEffect from '../utils/useIsomorphicLayoutEffect'
+import {CharacterCoordinates} from '../utils/character-coordinates'
+import useIsomorphicLayoutEffect from '../../utils/useIsomorphicLayoutEffect'
 
 type AutoCompleteSuggestionsProps = {
   suggestions: Suggestions | null
