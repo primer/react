@@ -2,10 +2,11 @@ import React, {useEffect, useRef, useState, PropsWithChildren, MouseEvent, Touch
 import styled from 'styled-components'
 import {SxProp} from '../sx'
 import {useRefObjectAsForwardedRef} from '../hooks/useRefObjectAsForwardedRef'
+import Box from '../Box'
 import {get} from '../constants'
 
 const ANIMATION_DURATION = 300
-const FULL_HEIGHT = 90
+const FULL_HEIGHT = 95
 const HALF_HEIGHT = 50
 
 /**
@@ -16,6 +17,11 @@ export interface DialogActionSheetProps extends SxProp {
    * This method is invoked when a gesture to close the dialog is used
    */
   onClose: (gesture: 'close-button' | 'escape' | 'drag' | 'overlay') => void
+
+  /**
+   * Passed through to use as the draggable area of the dialog.
+   */
+  header: React.ReactNode
 
   /**
    * Default: "dialog". The ARIA role to assign to this dialog.
@@ -41,13 +47,12 @@ export interface DialogActionSheetProps extends SxProp {
 }
 
 export default React.forwardRef<HTMLDivElement, PropsWithChildren<DialogActionSheetProps>>((props, forwardedRef) => {
-  const {onClose, children, role, ariaLabelledby, ariaDescribedby, ariaModal, sx} = props
+  const {onClose, children, role, ariaLabelledby, ariaDescribedby, ariaModal, header, sx} = props
 
   // 🔄 STATES
 
   const [open, setIsOpen] = useState<boolean>(false)
   const [snappedHeight, setSnappedHeight] = useState<number>(HALF_HEIGHT)
-
   const [fireDelayedOnClose, setFireDelayedOnClose] = useState<
     'close-button' | 'escape' | 'drag' | 'overlay' | undefined
   >()
@@ -83,7 +88,7 @@ export default React.forwardRef<HTMLDivElement, PropsWithChildren<DialogActionSh
 
   const updateSheetHeight = (height: number) => {
     if (!dialogRef.current) return
-    dialogRef.current.style.height = `${height}vh`
+    dialogRef.current.style.height = `${height}dvh`
     setSnappedHeight(height)
   }
 
@@ -98,7 +103,7 @@ export default React.forwardRef<HTMLDivElement, PropsWithChildren<DialogActionSh
     const isReduced = prefersReducedMotion()
     dialogRef.current.style.transition = isReduced ? 'none' : '0.3s ease'
 
-    if (sheetHeight < 25) return hideBottomSheet('drag')
+    if (sheetHeight < 10) return hideBottomSheet('drag')
     if (sheetHeight > 75) return updateSheetHeight(FULL_HEIGHT)
 
     updateSheetHeight(HALF_HEIGHT)
@@ -122,7 +127,7 @@ export default React.forwardRef<HTMLDivElement, PropsWithChildren<DialogActionSh
     if (!dialogRef.current || !isDragging.current) return
 
     let pageY
-    if (e.type === 'touchstart' && 'touches' in e) {
+    if (e.type === 'touchmove' && 'touches' in e) {
       pageY = e.touches[0].pageY
     } else if ('clientX' in e) {
       pageY = e.pageY
@@ -170,7 +175,7 @@ export default React.forwardRef<HTMLDivElement, PropsWithChildren<DialogActionSh
       onMouseUp={dragStop}
       onMouseMove={dragging}
       onTouchEnd={dragStop}
-      onTouchMove={dragStop}
+      onTouchMove={dragging}
     >
       <Overlay onClick={() => hideBottomSheet('overlay')}></Overlay>
       <Content
@@ -182,23 +187,26 @@ export default React.forwardRef<HTMLDivElement, PropsWithChildren<DialogActionSh
         aria-modal={ariaModal}
         sx={sx}
       >
-        <DraggableRegion
-          onMouseDown={dragStart}
-          onTouchStart={dragStart}
-          onChange={onSliderChange}
-          type="range"
-          role="slider"
-          tabIndex={0}
-          min={1}
-          max={2}
-          value={currentSliderValue}
-          aria-label="Draggable dialog height resizer"
-          aria-valuemin={1}
-          aria-valuemax={2}
-          aria-valuenow={currentSliderValue}
-          aria-valuetext={`Dialog height ${snappedHeight}% of the screen`}
-        />
-        <DraggableRegionPill />
+        <Box sx={{position: 'relative'}}>
+          <DraggableRegion
+            onMouseDown={dragStart}
+            onTouchStart={dragStart}
+            onChange={onSliderChange}
+            type="range"
+            role="slider"
+            tabIndex={0}
+            min={1}
+            max={2}
+            value={currentSliderValue}
+            aria-label="Draggable dialog height resizer"
+            aria-valuemin={1}
+            aria-valuemax={2}
+            aria-valuenow={currentSliderValue}
+            aria-valuetext={`Dialog height ${snappedHeight}% of the screen`}
+          />
+          <DraggableRegionPill />
+          {header}
+        </Box>
         {children}
       </Content>
     </FullScreenContainer>
@@ -242,6 +250,7 @@ const DraggableRegionPill = styled.div`
   border-radius: 3px;
   top: ${get('space.2')};
   position: absolute;
+  pointer-events: none;
   left: 50%;
   margin-left: -35px;
 `
@@ -254,15 +263,15 @@ const DraggableRegion = styled.input`
   position: absolute;
   background: transparent;
   top: 0;
-  z-index: 2;
   width: 100%;
   right: 0;
   left: 0;
+  bottom: 0;
   padding-top: ${get('space.2')};
   padding-bottom: ${get('space.1')};
   cursor: grab;
   user-select: none;
-  height: 12px;
+  min-height: 50px;
   &:hover ~ ${DraggableRegionPill} {
     background-color: ${get('colors.border.default')};
   }
@@ -289,11 +298,13 @@ const Content = styled.div<
   display: flex;
   flex-direction: column;
   background-color: ${get('colors.canvas.default')};
-  height: 50vh;
-  maxheight: 100vh;
   width: 100%;
   border-radius: 12px 12px 0 0;
   position: relative;
+  height: 50vh;
+  height: 50dvh;
+  max-height: 100vh;
+  max-height: 100dvh;
   overflow-x: hidden;
   overflow-y: auto;
   transform: ${props => (props.open ? 'translateY(0%)' : 'translateY(100%)')};

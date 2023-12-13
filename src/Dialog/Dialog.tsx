@@ -304,9 +304,9 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
           ariaLabelledby={dialogLabelId}
           ariaDescribedby={dialogDescriptionId}
           ariaModal
+          header={header}
           sx={sx}
         >
-          {header}
           {body}
           {footer}
         </DialogActionSheet>
@@ -452,6 +452,7 @@ const Header = styled.div<SxProp>`
   box-shadow: 0 1px 0 ${get('colors.border.default')};
   padding: ${get('space.2')};
   z-index: 1;
+  pointer-events: none;
   flex-shrink: 0;
 `
 
@@ -459,6 +460,7 @@ const Title = styled.h1<SxProp>`
   font-size: ${get('fontSizes.1')};
   font-weight: ${get('fontWeights.bold')};
   margin: 0; /* override default margin */
+  width: fit-content;
   ${sx};
 `
 
@@ -468,7 +470,7 @@ const Subtitle = styled.h2<SxProp>`
   color: ${get('colors.fg.muted')};
   margin: 0; /* override default margin */
   margin-top: ${get('space.1')};
-
+  width: fit-content;
   ${sx};
 `
 
@@ -501,6 +503,7 @@ const DialogCloseButton = styled(Button)`
   color: ${get('colors.fg.muted')};
   padding: ${get('space.2')};
   align-self: flex-start;
+  pointer-events: auto; // Allows clicking when combined with a draggable action-sheet header
   line-height: normal;
   box-shadow: none;
 `
