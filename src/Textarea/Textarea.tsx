@@ -92,7 +92,6 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
         <StyledTextarea
           value={value}
           resize={resize}
-          required={required}
           aria-required={required ? 'true' : 'false'}
           aria-invalid={validationStatus === 'error' ? 'true' : 'false'}
           ref={ref}

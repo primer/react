@@ -1,7 +1,7 @@
 import React, {useMemo} from 'react'
 import {suggestionsCalculator, UseSuggestionsHook} from '.'
 import {ActionList} from '../../../ActionList'
-import {Suggestion, Trigger} from '../../../InlineAutocomplete'
+import {Suggestion, Trigger} from '../../InlineAutocomplete'
 
 type BaseEmoji = {
   /** Name (shortcode) of the emoji. Do not include the wrapping `:` symbols. */
