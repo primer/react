@@ -491,7 +491,7 @@ test.describe('Button', () => {
           })
 
           // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`Button.Loading.${theme}.png`)
+          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(`Button.Loading.${theme}.png`)
         })
 
         test('axe @aat', async ({page}) => {
@@ -525,7 +525,9 @@ test.describe('Button', () => {
           })
 
           // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`Button.Loading Custom Announcement.${theme}.png`)
+          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
+            `Button.Loading Custom Announcement.${theme}.png`,
+          )
         })
 
         test('axe @aat', async ({page}) => {
@@ -559,7 +561,9 @@ test.describe('Button', () => {
           })
 
           // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`Button.Loading With Leading Visual.${theme}.png`)
+          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
+            `Button.Loading With Leading Visual.${theme}.png`,
+          )
         })
 
         test('axe @aat', async ({page}) => {
@@ -593,7 +597,9 @@ test.describe('Button', () => {
           })
 
           // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`Button.Loading With Trailing Visual.${theme}.png`)
+          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
+            `Button.Loading With Trailing Visual.${theme}.png`,
+          )
         })
 
         test('axe @aat', async ({page}) => {
