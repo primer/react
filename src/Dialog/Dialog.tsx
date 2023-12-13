@@ -15,6 +15,7 @@ import Octicon from '../Octicon'
 import {useFocusZone} from '../hooks/useFocusZone'
 import {useRefObjectAsForwardedRef} from '../hooks/useRefObjectAsForwardedRef'
 import {useId} from '../hooks/useId'
+import {ScrollableRegion} from '../internal/components/ScrollableRegion'
 
 import DialogActionSheet from './DialogActionSheet'
 
@@ -287,7 +288,9 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
           sx={sx}
         >
           {header}
-          {body}
+          <ScrollableRegion aria-labelledby={dialogLabelId} className="DialogOverflowWrapper">
+            {body}
+          </ScrollableRegion>
           {footer}
         </FullScreenDialog>
       </Portal>
@@ -307,7 +310,9 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
           header={header}
           sx={sx}
         >
-          {body}
+          <ScrollableRegion aria-labelledby={dialogLabelId} className="DialogOverflowWrapper">
+            {body}
+          </ScrollableRegion>
           {footer}
         </DialogActionSheet>
       </Portal>
@@ -328,7 +333,9 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
           sx={sx}
         >
           {header}
-          {body}
+          <ScrollableRegion aria-labelledby={dialogLabelId} className="DialogOverflowWrapper">
+            {body}
+          </ScrollableRegion>
           {footer}
         </NormalDialog>
       </Backdrop>
