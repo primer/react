@@ -144,7 +144,7 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
           onFocus={handleInputFocus}
           onBlur={handleInputBlur}
           type={type}
-          aria-required={required ? 'true' : 'false'}
+          aria-required={required}
           {...inputProps}
           data-component="input"
         />

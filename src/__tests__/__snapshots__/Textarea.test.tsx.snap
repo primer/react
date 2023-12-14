@@ -85,7 +85,6 @@ exports[`Textarea renders consistently 1`] = `
 >
   <textarea
     aria-invalid="false"
-    aria-required="false"
     className="c1"
     cols={30}
     rows={7}
