@@ -216,6 +216,7 @@ LinkItemPlayground.args = {
   disabled: false,
   role: 'listitem',
   id: 'item-1',
+  inactiveText: '',
   leadingVisual: null,
   trailingVisual: null,
 }
@@ -230,6 +231,11 @@ LinkItemPlayground.argTypes = {
   },
   id: {
     type: 'string',
+  },
+  inactiveText: {
+    control: {
+      type: 'text',
+    },
   },
   leadingVisual: {
     control: {
