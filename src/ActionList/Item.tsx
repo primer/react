@@ -1,6 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
+import {AlertIcon} from '@primer/octicons-react'
 import Box, {BoxProps} from '../Box'
+import {Tooltip, TooltipProps} from '../drafts/Tooltip/Tooltip'
 import {useId} from '../hooks/useId'
 import {useSlots} from '../hooks/useSlots'
 import sx, {BetterSystemStyleObject, merge, SxProp} from '../sx'
@@ -13,15 +15,41 @@ import {GroupContext} from './Group'
 import {ActionListProps, ListContext} from './List'
 import {Selection} from './Selection'
 import {ActionListItemProps, getVariantStyles, ItemContext, TEXT_ROW_HEIGHT} from './shared'
-import {LeadingVisual, TrailingVisual} from './Visuals'
+import {LeadingVisual, TrailingVisual, VisualProps} from './Visuals'
 
 const LiBox = styled.li<SxProp>(sx)
+
+const InactiveIndicator: React.FC<{
+  labelId: string
+  text: TooltipProps['text']
+  visualComponent: React.FC<React.PropsWithChildren<VisualProps>>
+}> = ({labelId, text, visualComponent: VisualComponent}) => (
+  <Tooltip text={text}>
+    <Box
+      as="button"
+      sx={{
+        background: 'none',
+        color: 'inherit',
+        border: 'none',
+        padding: 0,
+        font: 'inherit',
+        cursor: 'pointer',
+      }}
+      aria-labelledby={labelId}
+    >
+      <VisualComponent>
+        <AlertIcon />
+      </VisualComponent>
+    </Box>
+  </Tooltip>
+)
 
 export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
   (
     {
       variant = 'default',
       disabled = false,
+      inactiveText,
       selected = undefined,
       active = false,
       onSelect: onSelectUser,
@@ -48,6 +76,8 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
     } = React.useContext(ListContext)
     const {selectionVariant: groupSelectionVariant} = React.useContext(GroupContext)
     const {container, afterSelect, selectionAttribute} = React.useContext(ActionListContainerContext)
+    const inactive = Boolean(inactiveText)
+    const showInactiveIndicator = inactive && container === undefined
 
     const onSelect = React.useCallback(
       (
@@ -104,9 +134,9 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       marginX: listVariant === 'inset' ? 2 : 0,
       borderRadius: 2,
       transition: 'background 33.333ms linear',
-      color: getVariantStyles(variant, disabled).color,
+      color: getVariantStyles(variant, disabled, inactive).color,
       cursor: 'pointer',
-      '&[aria-disabled]': {
+      '&[aria-disabled], &[data-inactive]': {
         cursor: 'not-allowed',
         '[data-component="ActionList.Checkbox"]': {
           cursor: 'not-allowed',
@@ -125,9 +155,9 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       marginY: 'unset',
 
       '@media (hover: hover) and (pointer: fine)': {
-        ':hover:not([aria-disabled])': {
+        ':hover:not([aria-disabled]):not([data-inactive])': {
           backgroundColor: `actionListItem.${variant}.hoverBg`,
-          color: getVariantStyles(variant, disabled).hoverColor,
+          color: getVariantStyles(variant, disabled, inactive).hoverColor,
           boxShadow: `inset 0 0 0 max(1px, 0.0625rem) ${theme?.colors.actionListItem.default.activeBorder}`,
         },
         '&:focus-visible, > a:focus-visible': {
@@ -135,9 +165,9 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
           border: `2 solid`,
           boxShadow: `0 0 0 2px ${theme?.colors.accent.emphasis}`,
         },
-        ':active:not([aria-disabled])': {
+        ':active:not([aria-disabled]):not([data-inactive])': {
           backgroundColor: `actionListItem.${variant}.activeBg`,
-          color: getVariantStyles(variant, disabled).hoverColor,
+          color: getVariantStyles(variant, disabled, inactive).hoverColor,
         },
       },
 
@@ -167,10 +197,11 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       // hide divider after dividers & group header, with higher importance!
       '[data-component="ActionList.Divider"] + &': {'--divider-color': 'transparent !important'},
       // hide border on current and previous item
-      '&:hover:not([aria-disabled]), &:focus:not([aria-disabled]), &[data-focus-visible-added]:not([aria-disabled])': {
-        '--divider-color': 'transparent',
-      },
-      '&:hover:not([aria-disabled]) + &, &[data-focus-visible-added] + li': {
+      '&:hover:not([aria-disabled]):not([data-inactive]), &:focus:not([aria-disabled]):not([data-inactive]), &[data-focus-visible-added]:not([aria-disabled]):not([data-inactive])':
+        {
+          '--divider-color': 'transparent',
+        },
+      '&:hover:not([aria-disabled]):not([data-inactive]) + &, &[data-focus-visible-added] + li': {
         '--divider-color': 'transparent',
       },
       ...(active ? activeStyles : {}),
@@ -178,26 +209,27 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
 
     const clickHandler = React.useCallback(
       (event: React.MouseEvent<HTMLLIElement>) => {
-        if (disabled) return
+        if (disabled || inactive) return
         onSelect(event, afterSelect)
       },
-      [onSelect, disabled, afterSelect],
+      [onSelect, disabled, inactive, afterSelect],
     )
 
     const keyPressHandler = React.useCallback(
       (event: React.KeyboardEvent<HTMLLIElement>) => {
-        if (disabled) return
+        if (disabled || inactive) return
         if ([' ', 'Enter'].includes(event.key)) {
           onSelect(event, afterSelect)
         }
       },
-      [onSelect, disabled, afterSelect],
+      [onSelect, disabled, inactive, afterSelect],
     )
 
     const itemId = useId(id)
     const labelId = `${itemId}--label`
     const inlineDescriptionId = `${itemId}--inline-description`
     const blockDescriptionId = `${itemId}--block-description`
+    const inactiveWarningId = inactive && !showInactiveIndicator ? `${itemId}--warning-message` : undefined
 
     const ItemWrapper = _PrivateItemWrapper || React.Fragment
 
@@ -205,9 +237,12 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       onClick: clickHandler,
       onKeyPress: keyPressHandler,
       'aria-disabled': disabled ? true : undefined,
-      tabIndex: disabled ? undefined : 0,
+      'data-inactive': inactive ? true : undefined,
+      tabIndex: disabled || showInactiveIndicator ? undefined : 0,
       'aria-labelledby': `${labelId} ${slots.inlineDescription ? inlineDescriptionId : ''}`,
-      'aria-describedby': slots.blockDescription ? blockDescriptionId : undefined,
+      'aria-describedby': slots.blockDescription
+        ? [blockDescriptionId, inactiveWarningId].join(' ')
+        : inactiveWarningId,
       ...(selectionAttribute && {[selectionAttribute]: selected}),
       role: role || itemRole,
       id: itemId,
@@ -218,7 +253,9 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
     const wrapperProps = _PrivateItemWrapper ? menuItemProps : {}
 
     return (
-      <ItemContext.Provider value={{variant, disabled, inlineDescriptionId, blockDescriptionId}}>
+      <ItemContext.Provider
+        value={{variant, disabled, inactive: Boolean(inactiveText), inlineDescriptionId, blockDescriptionId}}
+      >
         <LiBox
           ref={forwardedRef}
           sx={merge<BetterSystemStyleObject>(styles, sxProp)}
@@ -228,12 +265,29 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
         >
           <ItemWrapper {...wrapperProps}>
             <Selection selected={selected} />
-            {slots.leadingVisual}
+            {
+              // If we're showing an inactive indicator and a leading visual has been passed,
+              // replace the leading visual with the inactive indicator.
+              //
+              // Inactive items without a leading visual place the inactive indicator in the
+              // trailing visual slot. This preserves the left alignment of item text.
+              showInactiveIndicator && slots.leadingVisual ? (
+                // using a non-null assertion for `inactiveText` since we check for it in `showInactiveIndicator`
+                // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+                <InactiveIndicator labelId={labelId} text={inactiveText!} visualComponent={LeadingVisual} />
+              ) : (
+                // If it's not inactive, just render the leading visual slot
+                slots.leadingVisual
+              )
+            }
             <Box
               data-component="ActionList.Item--DividerContainer"
               sx={{display: 'flex', flexDirection: 'column', flexGrow: 1, minWidth: 0}}
             >
-              <ConditionalBox if={Boolean(slots.trailingVisual)} sx={{display: 'flex', flexGrow: 1}}>
+              <ConditionalBox
+                if={Boolean(slots.trailingVisual) || (showInactiveIndicator && !slots.leadingVisual)}
+                sx={{display: 'flex', flexGrow: 1}}
+              >
                 <ConditionalBox
                   if={!!slots.inlineDescription}
                   sx={{display: 'flex', flexGrow: 1, alignItems: 'baseline', minWidth: 0}}
@@ -251,8 +305,39 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
                   </Box>
                   {slots.inlineDescription}
                 </ConditionalBox>
-                {slots.trailingVisual}
+                {
+                  // If we're showing an inactive indicator and a leading visual has NOT been passed,
+                  // replace the trailing visual with the inactive indicator.
+                  //
+                  // This preserves the left alignment of item text.
+                  showInactiveIndicator && !slots.leadingVisual ? (
+                    // using a non-null assertion for `inactiveText` since we check for it in `showInactiveIndicator`
+                    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+                    <InactiveIndicator labelId={labelId} text={inactiveText!} visualComponent={TrailingVisual} />
+                  ) : (
+                    // If it's not inactive, or it has a leading visual that can be replaced,
+                    // just render the trailing visual slot.
+                    slots.trailingVisual
+                  )
+                }
               </ConditionalBox>
+              {
+                // If the item is inactive, but it's not in an overlay (e.g. ActionMenu, SelectPanel),
+                // render the inactive warning message directly in the item.
+                inactive && container ? (
+                  <Box
+                    as="span"
+                    sx={{
+                      fontSize: 0,
+                      lineHeight: '16px',
+                      color: 'attention.fg',
+                    }}
+                    id={inactiveWarningId}
+                  >
+                    {inactiveText}
+                  </Box>
+                ) : null
+              }
               {slots.blockDescription}
             </Box>
           </ItemWrapper>

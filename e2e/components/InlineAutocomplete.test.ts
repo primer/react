@@ -8,7 +8,7 @@ test.describe('InlineAutocomplete', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-inlineautocomplete--default',
+            id: 'deprecated-components-inlineautocomplete--default',
             globals: {
               colorScheme: theme,
             },
@@ -20,7 +20,7 @@ test.describe('InlineAutocomplete', () => {
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-inlineautocomplete--default',
+            id: 'deprecated-components-inlineautocomplete--default',
             globals: {
               colorScheme: theme,
             },
@@ -36,7 +36,7 @@ test.describe('InlineAutocomplete', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-inlineautocomplete--playground',
+            id: 'deprecated-components-inlineautocomplete--playground',
             globals: {
               colorScheme: theme,
             },
@@ -48,7 +48,7 @@ test.describe('InlineAutocomplete', () => {
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-inlineautocomplete--playground',
+            id: 'deprecated-components-inlineautocomplete--playground',
             globals: {
               colorScheme: theme,
             },
@@ -64,7 +64,7 @@ test.describe('InlineAutocomplete', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-inlineautocomplete-features--custom-rendering',
+            id: 'deprecated-components-inlineautocomplete-features--custom-rendering',
             globals: {
               colorScheme: theme,
             },
@@ -76,7 +76,7 @@ test.describe('InlineAutocomplete', () => {
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-inlineautocomplete-features--custom-rendering',
+            id: 'deprecated-components-inlineautocomplete-features--custom-rendering',
             globals: {
               colorScheme: theme,
             },
@@ -92,7 +92,7 @@ test.describe('InlineAutocomplete', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-inlineautocomplete-features--single-line',
+            id: 'deprecated-components-inlineautocomplete-features--single-line',
             globals: {
               colorScheme: theme,
             },
@@ -104,7 +104,7 @@ test.describe('InlineAutocomplete', () => {
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-inlineautocomplete-features--single-line',
+            id: 'deprecated-components-inlineautocomplete-features--single-line',
             globals: {
               colorScheme: theme,
             },
