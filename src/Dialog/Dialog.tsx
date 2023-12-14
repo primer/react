@@ -17,7 +17,6 @@ import {useRefObjectAsForwardedRef} from '../hooks/useRefObjectAsForwardedRef'
 import {useId} from '../hooks/useId'
 import {ScrollableRegion} from '../internal/components/ScrollableRegion'
 import DialogBottomSheet from './DialogBottomSheet'
-import {minHeight} from 'styled-system'
 
 /* Dialog Version 2 */
 
