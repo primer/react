@@ -10,6 +10,8 @@ import {useProvidedRefOrCreate} from '../hooks'
 import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import {getBreakpointDeclarations} from '../utils/getBreakpointDeclarations'
 import {invariant} from '../utils/invariant'
+import {P} from 'ts-toolbelt/out/Object/_api'
+import {warning} from '../utils/warning'
 const GRID_ROW_ORDER = {
   ContextArea: 1,
   LeadingAction: 2,
@@ -31,6 +33,9 @@ const CONTEXT_AREA_REGION_ORDER = {
   ContextBar: 1,
   ContextAreaActions: 2,
 }
+
+const MEDIUM_TITLE_HEIGHT = '2rem'
+const LARGE_TITLE_HEIGHT = '3rem'
 
 // Types that are shared between PageHeader children components
 export type ChildrenPropTypes = {
@@ -70,6 +75,24 @@ const Root = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageHeader
       'description description description description'
       'navigation navigation navigation navigation'
     `,
+      '&[data-size-variant="large"]': {
+        '[data-component="PH_LeadingAction"], [data-component="PH_TrailingAction"],[data-component="PH_Actions"], [data-component="PH_LeadingVisual"], [data-component="PH_TrailingVisual"]':
+          {
+            height: LARGE_TITLE_HEIGHT,
+          },
+      },
+      '&[data-size-variant="medium"]': {
+        '[data-component="PH_LeadingAction"], [data-component="PH_TrailingAction"],[data-component="PH_Actions"], [data-component="PH_LeadingVisual"], [data-component="PH_TrailingVisual"]':
+          {
+            height: MEDIUM_TITLE_HEIGHT,
+          },
+      },
+      '&[data-size-variant="subtitle"]': {
+        '[data-component="PH_LeadingAction"], [data-component="PH_TrailingAction"],[data-component="PH_Actions"], [data-component="PH_LeadingVisual"], [data-component="PH_TrailingVisual"]':
+          {
+            height: MEDIUM_TITLE_HEIGHT,
+          },
+      },
     }
 
     const rootRef = useProvidedRefOrCreate<HTMLDivElement>(forwardedRef as React.RefObject<HTMLDivElement>)
@@ -85,6 +108,7 @@ const Root = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageHeader
 
     const [hasContextArea, setHasContextArea] = React.useState(false)
     const [hasLeadingAction, setHasLeadingAction] = React.useState(false)
+    const [titleVariant, setTitleVariant] = React.useState<string | undefined>('')
 
     React.useEffect(() => {
       if (!rootRef.current || rootRef.current.children.length <= 0) return
@@ -94,6 +118,13 @@ const Root = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageHeader
 
       // It is very unlikely to have a PageHeader without a TitleArea, but we still want to make sure we don't break the page if that happens.
       if (!titleArea) return
+
+      // How can I get the TitleArea's props?
+
+      // // grab the data-size-variant attribute from the titleArea
+      const sizeVariant = titleArea.getAttribute('data-size-variant')
+      setTitleVariant(sizeVariant as string)
+      // setTitleVariant(setTitleVariant as TitleAreaProps['variant'])
 
       for (const child of React.Children.toArray(children)) {
         if (React.isValidElement(child) && child.type === ContextArea) {
@@ -124,7 +155,7 @@ const Root = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageHeader
       }
     }, [children, rootRef, hasContextArea, hasLeadingAction])
     return (
-      <Box ref={rootRef} as={as} sx={merge<BetterSystemStyleObject>(rootStyles, sx)}>
+      <Box ref={rootRef} as={as} sx={merge<BetterSystemStyleObject>(rootStyles, sx)} data-size-variant={titleVariant}>
         {children}
       </Box>
     )
@@ -253,17 +284,6 @@ const ContextAreaActions: React.FC<React.PropsWithChildren<ChildrenPropTypes>> =
   )
 }
 
-const MEDIUM_TITLE_HEIGHT = '2rem'
-const LARGE_TITLE_HEIGHT = '3rem'
-
-const TitleAreaContext = React.createContext<{
-  titleVariant: 'subtitle' | 'medium' | 'large'
-  titleAreaHeight?: string | number
-}>({
-  titleVariant: 'medium',
-  titleAreaHeight: MEDIUM_TITLE_HEIGHT,
-})
-
 type TitleAreaProps = {
   variant?: 'subtitle' | 'medium' | 'large' | ResponsiveValue<'subtitle' | 'medium' | 'large'>
 } & ChildrenPropTypes
@@ -279,29 +299,43 @@ const TitleArea: React.FC<React.PropsWithChildren<TitleAreaProps>> = ({
   variant = 'medium',
 }) => {
   const currentVariant = useResponsiveValue(variant, 'medium')
-  const height = currentVariant === 'large' ? LARGE_TITLE_HEIGHT : MEDIUM_TITLE_HEIGHT
   return (
-    <TitleAreaContext.Provider value={{titleVariant: currentVariant, titleAreaHeight: height}}>
-      <Box
-        data-component="TitleArea"
-        sx={merge<BetterSystemStyleObject>(
-          {
-            gridRow: GRID_ROW_ORDER.TitleArea,
-            gridArea: 'title-area',
-            display: 'flex',
-            gap: '0.5rem',
-            ...getBreakpointDeclarations(hidden, 'display', value => {
-              return value ? 'none' : 'flex'
-            }),
-            flexDirection: 'row',
-            alignItems: 'center',
+    <Box
+      data-component="TitleArea"
+      data-size-variant={currentVariant}
+      sx={merge<BetterSystemStyleObject>(
+        {
+          gridRow: GRID_ROW_ORDER.TitleArea,
+          gridArea: 'title-area',
+          display: 'flex',
+          gap: '0.5rem',
+          ...getBreakpointDeclarations(hidden, 'display', value => {
+            return value ? 'none' : 'flex'
+          }),
+          flexDirection: 'row',
+          alignItems: 'flex-start',
+          // line-height is calculated with calc(height/font-size) and the below numbers are from @primer/primitives
+          '&[data-size-variant="large"] [data-component="PH_Title"]': {
+            fontSize: 'var(--text-title-size-large, 2rem)',
+            lineHeight: 'var(--text-title-lineHeight-large, 1.5)', // calc(48/32)
+            fontWeight: 'var(--base-text-weight-normal, 400)',
           },
-          sx,
-        )}
-      >
-        {children}
-      </Box>
-    </TitleAreaContext.Provider>
+          '&[data-size-variant="medium"] [data-component="PH_Title"]': {
+            fontSize: 'var(--text-title-size-medium, 1.25rem)',
+            lineHeight: 'var(--text-title-lineHeight-medium, 1.6)', // calc(32/20)
+            fontWeight: 'var(--base-text-weight-semibold, 600)',
+          },
+          '&[data-size-variant="subtitle"] [data-component="PH_Title"]': {
+            fontSize: 'var(--text-title-size-medium, 1.25rem)',
+            lineHeight: 'var(--text-title-lineHeight-medium, 1.6)', // calc(32/20)
+            fontWeight: 'var(--base-text-weight-normal, 400)',
+          },
+        },
+        sx,
+      )}
+    >
+      {children}
+    </Box>
   )
 }
 
@@ -312,10 +346,9 @@ const LeadingAction: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
   sx = {},
   hidden = hiddenOnNarrow,
 }) => {
-  const {titleAreaHeight} = React.useContext(TitleAreaContext)
-
   return (
     <Box
+      data-component="PH_LeadingAction"
       sx={merge<BetterSystemStyleObject>(
         {
           gridRow: GRID_ROW_ORDER.LeadingAction,
@@ -326,7 +359,6 @@ const LeadingAction: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
             return value ? 'none' : 'flex'
           }),
           alignItems: 'center',
-          height: titleAreaHeight,
         },
         sx,
       )}
@@ -338,9 +370,9 @@ const LeadingAction: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
 
 // PageHeader.LeadingVisual and PageHeader.TrailingVisual should remain visible on narrow viewports.
 const LeadingVisual: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({children, sx = {}, hidden = false}) => {
-  const {titleAreaHeight} = React.useContext(TitleAreaContext)
   return (
     <Box
+      data-component="PH_LeadingVisual"
       sx={merge<BetterSystemStyleObject>(
         {
           // using flex and order to display the leading visual in the title area.
@@ -350,7 +382,6 @@ const LeadingVisual: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({ch
             return value ? 'none' : 'flex'
           }),
           alignItems: 'center',
-          height: titleAreaHeight,
         },
         sx,
       )}
@@ -365,29 +396,12 @@ export type TitleProps = {
 } & ChildrenPropTypes
 
 const Title: React.FC<React.PropsWithChildren<TitleProps>> = ({children, sx = {}, hidden = false, as = 'h2'}) => {
-  const {titleVariant} = React.useContext(TitleAreaContext)
-
   return (
     <Heading
+      data-component="PH_Title"
       as={as}
       sx={merge<BetterSystemStyleObject>(
         {
-          fontSize: {
-            large: '2rem',
-            medium: '1.25rem',
-            subtitle: '1.25rem',
-          }[titleVariant],
-          // line-height is calculated with calc(height/font-size) and the below numbers are from @primer/primitives
-          lineHeight: {
-            large: 1.5, // calc(48/32)
-            medium: 1.6, // calc(32/20)
-            subtitle: 1.6, // calc(32/20)
-          }[titleVariant],
-          fontWeight: {
-            large: '400',
-            medium: '600',
-            subtitle: '400',
-          }[titleVariant],
           // using flex and order to display the title in the title area.
           display: 'flex',
           order: TITLE_AREA_REGION_ORDER.Title,
@@ -405,10 +419,9 @@ const Title: React.FC<React.PropsWithChildren<TitleProps>> = ({children, sx = {}
 
 // PageHeader.LeadingVisual and PageHeader.TrailingVisual should remain visible on narrow viewports.
 const TrailingVisual: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({children, sx = {}, hidden = false}) => {
-  const {titleAreaHeight} = React.useContext(TitleAreaContext)
-
   return (
     <Box
+      data-component="PH_TrailingVisual"
       sx={merge<BetterSystemStyleObject>(
         {
           // using flex and order to display the trailing visual in the title area.
@@ -418,7 +431,6 @@ const TrailingVisual: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({c
             return value ? 'none' : 'flex'
           }),
           alignItems: 'center',
-          height: titleAreaHeight,
         },
         sx,
       )}
@@ -433,10 +445,9 @@ const TrailingAction: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
   sx = {},
   hidden = hiddenOnNarrow,
 }) => {
-  const {titleAreaHeight} = React.useContext(TitleAreaContext)
-
   return (
     <Box
+      data-component="PH_TrailingAction"
       sx={merge<BetterSystemStyleObject>(
         {
           gridRow: GRID_ROW_ORDER.TrailingAction,
@@ -447,7 +458,6 @@ const TrailingAction: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
             return value ? 'none' : 'flex'
           }),
           alignItems: 'center',
-          height: titleAreaHeight,
         },
         sx,
       )}
@@ -458,9 +468,9 @@ const TrailingAction: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
 }
 
 const Actions: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({children, sx = {}, hidden = false}) => {
-  const {titleAreaHeight} = React.useContext(TitleAreaContext)
   return (
     <Box
+      data-component="PH_Actions"
       sx={merge<BetterSystemStyleObject>(
         {
           gridRow: GRID_ROW_ORDER.Actions,
@@ -474,7 +484,6 @@ const Actions: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({children
           gap: '0.5rem',
           flexGrow: '1',
           justifyContent: 'right',
-          height: titleAreaHeight,
           alignItems: 'center',
         },
         sx,
@@ -525,15 +534,11 @@ const Navigation: React.FC<React.PropsWithChildren<NavigationProps>> = ({
   'aria-label': ariaLabel,
   'aria-labelledby': ariaLabelledBy,
 }) => {
-  // TODO: use warning utility function when it is merged https://github.com/primer/react/pull/2901/
-  if (__DEV__) {
-    if (as === 'nav' && !ariaLabel && !ariaLabelledBy) {
-      // eslint-disable-next-line no-console
-      console.warn(
-        'Use `aria-label` or `aria-labelledby` prop to provide an accessible label to the `nav` landmark for assistive technology',
-      )
-    }
-  }
+  warning(
+    as === 'nav' && !ariaLabel && !ariaLabelledBy,
+    'Use `aria-label` or `aria-labelledby` prop to provide an accessible label to the `nav` landmark for assistive technology',
+  )
+
   return (
     <Box
       as={as}
