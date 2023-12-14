@@ -1,34 +1,16 @@
-// eslint-disable-next-line no-restricted-imports, import/no-namespace
-import * as React from 'react'
-// eslint-disable-next-line no-restricted-imports
-import {useSSRSafeId} from '@react-aria/ssr'
+import {useId as useReactId} from 'react'
 
 /**
- * Detect if `React.useId()` is present. This strategy is a workaround for:
- * https://github.com/webpack/webpack/issues/14814
+ * Generate a unique id to be used in a component. If an `id` is provided, it
+ * will be used instead.
  *
- * This technique is inspired by Material UI:
- * https://github.com/mui/material-ui/blob/7bc478ec00a3b5625427f36c827e00b0a17be3d0/packages/mui-utils/src/useId.ts#L21
+ * @param id - An optional value to be used instead of generating a unique id.
+ * Useful when accepting an optional `id` as a prop in a component.
  */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any, no-useless-concat
-const useReactId: undefined | (() => string) = (React as any)['useId' + '']
-
-export function useId(id?: string) {
-  // Force useSSRSafeId in test environments to maintain snapshot parity between
-  // major versions of React
-  if (process.env.NODE_ENV === 'test') {
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    return useSSRSafeId(id)
+export function useId(id?: string): string {
+  const uniqueId = useReactId()
+  if (id) {
+    return id
   }
-
-  if (useReactId !== undefined) {
-    if (id) {
-      return id
-    }
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    return useReactId()
-  }
-
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  return useSSRSafeId(id)
+  return uniqueId
 }

@@ -2,7 +2,8 @@ import {renderHook} from '@testing-library/react-hooks'
 import React from 'react'
 import {useSlots} from '../useSlots'
 
-function TestComponentA(props: React.PropsWithChildren<unknown>) {
+type TestComponentAProps = React.PropsWithChildren<{variant?: 'a' | 'b'}>
+function TestComponentA(props: TestComponentAProps) {
   return <div {...props} />
 }
 
@@ -113,4 +114,36 @@ test('warns about duplicate slots', () => {
     ]
   `)
   expect(warnSpy).toHaveBeenCalledTimes(1)
+})
+
+test('extracts elements based on condition in config object', () => {
+  const children = [
+    <TestComponentA key="a" variant="a" />,
+    <TestComponentA key="b" variant="b" />,
+    <div key="hello">Hello World</div>,
+  ]
+
+  const {result} = renderHook(() =>
+    useSlots(children, {
+      a: [TestComponentA, (props: TestComponentAProps) => props.variant === 'a'],
+      b: [TestComponentA, (props: TestComponentAProps) => props.variant === 'b'],
+    }),
+  )
+  expect(result.current).toMatchInlineSnapshot(`
+    [
+      {
+        "a": <TestComponentA
+          variant="a"
+        />,
+        "b": <TestComponentA
+          variant="b"
+        />,
+      },
+      [
+        <div>
+          Hello World
+        </div>,
+      ],
+    ]
+  `)
 })

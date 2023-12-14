@@ -191,7 +191,7 @@ describe('PageLayout', () => {
       const pane = placeholder.parentNode
       const initialWidth = (pane as HTMLElement).style.getPropertyValue('--pane-width')
 
-      const divider = await screen.findByRole('separator')
+      const divider = await screen.findByRole('slider')
       // Moving divider should resize pane.
       fireEvent.mouseDown(divider)
       fireEvent.mouseMove(divider)
