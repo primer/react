@@ -64,4 +64,4 @@ Playground.args = {
   trailingAction: null,
 }
 
-export const Default = () => <Button>This is a super long label omg wow</Button>
+export const Default = () => <Button>Default</Button>
