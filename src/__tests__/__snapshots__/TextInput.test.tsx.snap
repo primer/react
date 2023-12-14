@@ -1797,18 +1797,18 @@ exports[`TextInput renders trailingAction icon button 1`] = `
 }
 
 .c5:disabled,
-.c5[aria-disabled] {
+.c5[aria-disabled][data-loading="false"] {
   cursor: not-allowed;
   box-shadow: none;
   color: #8c959f;
 }
 
 .c5:disabled [data-component=ButtonCounter],
-.c5[aria-disabled] [data-component=ButtonCounter],
+.c5[aria-disabled][data-loading="false"] [data-component=ButtonCounter],
 .c5:disabled [data-component="leadingVisual"],
-.c5[aria-disabled] [data-component="leadingVisual"],
+.c5[aria-disabled][data-loading="false"] [data-component="leadingVisual"],
 .c5:disabled [data-component="trailingAction"],
-.c5[aria-disabled] [data-component="trailingAction"] {
+.c5[aria-disabled][data-loading="false"] [data-component="trailingAction"] {
   color: inherit;
 }
 
@@ -1935,11 +1935,11 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   visibility: hidden;
 }
 
-.c5:hover:not([disabled]):not([aria-disabled]) {
+.c5:hover:not([disabled]):not([aria-disabled][data-loading="false"]) {
   background-color: rgba(208,215,222,0.32);
 }
 
-.c5:active:not([disabled]):not([aria-disabled]) {
+.c5:active:not([disabled]):not([aria-disabled][data-loading="false"]) {
   background-color: rgba(208,215,222,0.48);
 }
 
@@ -1960,12 +1960,12 @@ exports[`TextInput renders trailingAction icon button 1`] = `
 }
 
 .c5:disabled[data-no-visuals],
-.c5[aria-disabled][data-no-visuals] {
+.c5[aria-disabled][data-loading="false"][data-no-visuals] {
   color: #8c959f;
 }
 
 .c5:disabled[data-no-visuals] [data-component=ButtonCounter],
-.c5[aria-disabled][data-no-visuals] [data-component=ButtonCounter] {
+.c5[aria-disabled][data-loading="false"][data-no-visuals] [data-component=ButtonCounter] {
   color: inherit;
 }
 
@@ -2366,6 +2366,7 @@ exports[`TextInput renders trailingAction icon button 1`] = `
         className="c5"
         data-block={null}
         data-component="IconButton"
+        data-loading={false}
         data-no-visuals={true}
         data-size="small"
         onClick={[MockFunction]}
@@ -2509,18 +2510,18 @@ exports[`TextInput renders trailingAction text button 1`] = `
 }
 
 .c4:disabled,
-.c4[aria-disabled] {
+.c4[aria-disabled][data-loading="false"] {
   cursor: not-allowed;
   box-shadow: none;
   color: #8c959f;
 }
 
 .c4:disabled [data-component=ButtonCounter],
-.c4[aria-disabled] [data-component=ButtonCounter],
+.c4[aria-disabled][data-loading="false"] [data-component=ButtonCounter],
 .c4:disabled [data-component="leadingVisual"],
-.c4[aria-disabled] [data-component="leadingVisual"],
+.c4[aria-disabled][data-loading="false"] [data-component="leadingVisual"],
 .c4:disabled [data-component="trailingAction"],
-.c4[aria-disabled] [data-component="trailingAction"] {
+.c4[aria-disabled][data-loading="false"] [data-component="trailingAction"] {
   color: inherit;
 }
 
@@ -2647,11 +2648,11 @@ exports[`TextInput renders trailingAction text button 1`] = `
   visibility: hidden;
 }
 
-.c4:hover:not([disabled]):not([aria-disabled]) {
+.c4:hover:not([disabled]):not([aria-disabled][data-loading="false"]) {
   background-color: rgba(208,215,222,0.32);
 }
 
-.c4:active:not([disabled]):not([aria-disabled]) {
+.c4:active:not([disabled]):not([aria-disabled][data-loading="false"]) {
   background-color: rgba(208,215,222,0.48);
 }
 
@@ -2682,12 +2683,12 @@ exports[`TextInput renders trailingAction text button 1`] = `
 }
 
 .c4:disabled[data-no-visuals],
-.c4[aria-disabled][data-no-visuals] {
+.c4[aria-disabled][data-loading="false"][data-no-visuals] {
   color: #8c959f;
 }
 
 .c4:disabled[data-no-visuals] [data-component=ButtonCounter],
-.c4[aria-disabled][data-no-visuals] [data-component=ButtonCounter] {
+.c4[aria-disabled][data-loading="false"][data-no-visuals] [data-component=ButtonCounter] {
   color: inherit;
 }
 
@@ -2843,6 +2844,7 @@ exports[`TextInput renders trailingAction text button 1`] = `
       aria-labelledby=":r0:-label"
       className="c4"
       data-block={null}
+      data-loading={false}
       data-no-visuals={true}
       onClick={[MockFunction]}
       style={{}}
@@ -2974,18 +2976,18 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
 }
 
 .c5:disabled,
-.c5[aria-disabled] {
+.c5[aria-disabled][data-loading="false"] {
   cursor: not-allowed;
   box-shadow: none;
   color: #8c959f;
 }
 
 .c5:disabled [data-component=ButtonCounter],
-.c5[aria-disabled] [data-component=ButtonCounter],
+.c5[aria-disabled][data-loading="false"] [data-component=ButtonCounter],
 .c5:disabled [data-component="leadingVisual"],
-.c5[aria-disabled] [data-component="leadingVisual"],
+.c5[aria-disabled][data-loading="false"] [data-component="leadingVisual"],
 .c5:disabled [data-component="trailingAction"],
-.c5[aria-disabled] [data-component="trailingAction"] {
+.c5[aria-disabled][data-loading="false"] [data-component="trailingAction"] {
   color: inherit;
 }
 
@@ -3112,11 +3114,11 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   visibility: hidden;
 }
 
-.c5:hover:not([disabled]):not([aria-disabled]) {
+.c5:hover:not([disabled]):not([aria-disabled][data-loading="false"]) {
   background-color: rgba(208,215,222,0.32);
 }
 
-.c5:active:not([disabled]):not([aria-disabled]) {
+.c5:active:not([disabled]):not([aria-disabled][data-loading="false"]) {
   background-color: rgba(208,215,222,0.48);
 }
 
@@ -3147,12 +3149,12 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
 }
 
 .c5:disabled[data-no-visuals],
-.c5[aria-disabled][data-no-visuals] {
+.c5[aria-disabled][data-loading="false"][data-no-visuals] {
   color: #8c959f;
 }
 
 .c5:disabled[data-no-visuals] [data-component=ButtonCounter],
-.c5[aria-disabled][data-no-visuals] [data-component=ButtonCounter] {
+.c5[aria-disabled][data-loading="false"][data-no-visuals] [data-component=ButtonCounter] {
   color: inherit;
 }
 
@@ -3539,6 +3541,7 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
         aria-labelledby=":r1:-label"
         className="c5"
         data-block={null}
+        data-loading={false}
         data-no-visuals={true}
         onClick={[MockFunction]}
         style={{}}

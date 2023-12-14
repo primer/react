@@ -41,6 +41,7 @@ const ButtonBase = forwardRef(
       loading = false,
       loadingAnnouncement = 'Loading',
       inactive,
+      onClick,
       ...rest
     } = props
 
@@ -86,8 +87,10 @@ const ButtonBase = forwardRef(
           {...rest}
           ref={innerRef}
           data-block={block ? 'block' : null}
-          data-size={size === 'small' || size === 'large' ? size : undefined}
+          data-inactive={inactive ? true : undefined}
+          data-loading={Boolean(loading)}
           data-no-visuals={!LeadingVisual && !TrailingVisual && !TrailingAction ? true : undefined}
+          data-size={size === 'small' || size === 'large' ? size : undefined}
           aria-disabled={loading ? true : undefined}
           aria-describedby={[loadingAnnouncementID, ariaDescribedBy]
             .filter(descriptionID => Boolean(descriptionID))
@@ -95,7 +98,7 @@ const ButtonBase = forwardRef(
           // aria-labelledby is needed because the accessible name becomes unset when the button is in a loading state
           aria-labelledby={buttonLabelID}
           id={id}
-          data-inactive={inactive ? true : undefined}
+          onClick={loading ? undefined : onClick}
         >
           {Icon ? (
             loading ? (

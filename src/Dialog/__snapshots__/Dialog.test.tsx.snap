@@ -169,18 +169,18 @@ exports[`Dialog renders consistently 1`] = `
 }
 
 .c1:disabled,
-.c1[aria-disabled] {
+.c1[aria-disabled][data-loading="false"] {
   cursor: not-allowed;
   box-shadow: none;
   color: #8c959f;
 }
 
 .c1:disabled [data-component=ButtonCounter],
-.c1[aria-disabled] [data-component=ButtonCounter],
+.c1[aria-disabled][data-loading="false"] [data-component=ButtonCounter],
 .c1:disabled [data-component="leadingVisual"],
-.c1[aria-disabled] [data-component="leadingVisual"],
+.c1[aria-disabled][data-loading="false"] [data-component="leadingVisual"],
 .c1:disabled [data-component="trailingAction"],
-.c1[aria-disabled] [data-component="trailingAction"] {
+.c1[aria-disabled][data-loading="false"] [data-component="trailingAction"] {
   color: inherit;
 }
 
@@ -307,11 +307,11 @@ exports[`Dialog renders consistently 1`] = `
   visibility: hidden;
 }
 
-.c1:hover:not([disabled]):not([aria-disabled]) {
+.c1:hover:not([disabled]):not([aria-disabled][data-loading="false"]) {
   background-color: rgba(208,215,222,0.32);
 }
 
-.c1:active:not([disabled]):not([aria-disabled]) {
+.c1:active:not([disabled]):not([aria-disabled][data-loading="false"]) {
   background-color: rgba(208,215,222,0.48);
 }
 
@@ -335,12 +335,12 @@ exports[`Dialog renders consistently 1`] = `
 }
 
 .c1:disabled[data-no-visuals],
-.c1[aria-disabled][data-no-visuals] {
+.c1[aria-disabled][data-loading="false"][data-no-visuals] {
   color: #8c959f;
 }
 
 .c1:disabled[data-no-visuals] [data-component=ButtonCounter],
-.c1[aria-disabled][data-no-visuals] [data-component=ButtonCounter] {
+.c1[aria-disabled][data-loading="false"][data-no-visuals] [data-component=ButtonCounter] {
   color: inherit;
 }
 
@@ -427,6 +427,7 @@ exports[`Dialog renders consistently 1`] = `
       className="c1"
       data-block={null}
       data-component="IconButton"
+      data-loading={false}
       data-no-visuals={true}
       onClick={[Function]}
       type="button"

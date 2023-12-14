@@ -504,7 +504,7 @@ test.describe('Button', () => {
           await expect(page).toHaveNoViolations({
             rules: {
               'color-contrast': {
-                enabled: false,
+                enabled: theme !== 'dark_dimmed',
               },
             },
           })
@@ -540,7 +540,7 @@ test.describe('Button', () => {
           await expect(page).toHaveNoViolations({
             rules: {
               'color-contrast': {
-                enabled: false,
+                enabled: theme !== 'dark_dimmed',
               },
             },
           })
@@ -576,7 +576,7 @@ test.describe('Button', () => {
           await expect(page).toHaveNoViolations({
             rules: {
               'color-contrast': {
-                enabled: false,
+                enabled: theme !== 'dark_dimmed',
               },
             },
           })
@@ -612,7 +612,7 @@ test.describe('Button', () => {
           await expect(page).toHaveNoViolations({
             rules: {
               'color-contrast': {
-                enabled: false,
+                enabled: theme !== 'dark_dimmed',
               },
             },
           })
