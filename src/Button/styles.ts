@@ -209,10 +209,9 @@ export const getBaseStyles = (theme?: Theme) => ({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'space-between',
-  height: '32px',
+  minHeight: 'var(--control-medium-size, 32px)',
   padding: '0 12px',
   gap: '8px',
-  minWidth: 'max-content',
   transition: '80ms cubic-bezier(0.65, 0, 0.35, 1)',
   transitionProperty: 'color, fill, background-color, border-color',
   '&[href]': {
@@ -247,12 +246,12 @@ export const getBaseStyles = (theme?: Theme) => ({
     display: 'inline-grid',
     padding: 'unset',
     placeContent: 'center',
-    width: '32px',
+    width: 'var(--control-medium-size, 32px)',
     minWidth: 'unset',
   },
   '&[data-size="small"]': {
     padding: '0 8px',
-    height: '28px',
+    minHeight: 'var(--control-small-size, 28px)',
     gap: '4px',
     fontSize: '0',
 
@@ -269,13 +268,13 @@ export const getBaseStyles = (theme?: Theme) => ({
     },
 
     '&[data-component=IconButton]': {
-      width: '28px',
+      width: 'var(--control-small-size, 28px)',
       padding: 'unset',
     },
   },
   '&[data-size="large"]': {
     padding: '0 16px',
-    height: '40px',
+    minHeight: 'var(--control-large-size, 40px)',
     gap: '8px',
 
     '[data-component="buttonContent"] > :not(:last-child)': {
@@ -283,7 +282,7 @@ export const getBaseStyles = (theme?: Theme) => ({
     },
 
     '&[data-component=IconButton]': {
-      width: '40px',
+      width: 'var(--control-large-size, 40px)',
       padding: 'unset',
     },
   },
@@ -309,7 +308,6 @@ export const getButtonStyles = (theme?: Theme) => {
     '[data-component="text"]': {
       gridArea: 'text',
       lineHeight: 'calc(20/14)',
-      whiteSpace: 'nowrap',
     },
     '[data-component="trailingVisual"]': {
       gridArea: 'trailingVisual',
@@ -318,7 +316,7 @@ export const getButtonStyles = (theme?: Theme) => {
       marginRight: '-4px',
     },
     '[data-component="buttonContent"]': {
-      flex: '1 0 auto',
+      flex: '1 1 auto',
       display: 'grid',
       gridTemplateAreas: '"leadingVisual text trailingVisual"',
       gridTemplateColumns: 'min-content minmax(0, auto) min-content',
