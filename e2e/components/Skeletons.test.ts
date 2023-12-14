@@ -18,7 +18,7 @@ test.describe('Skeleton', () => {
           })
 
           // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`SkeletonAvatar.Default.${theme}.png`)
+          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(`SkeletonAvatar.Default.${theme}.png`)
         })
 
         test('axe @aat', async ({page}) => {
@@ -52,7 +52,9 @@ test.describe('Skeleton', () => {
           })
 
           // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`SkeletonAvatar.InAStack.${theme}.png`)
+          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
+            `SkeletonAvatar.InAStack.${theme}.png`,
+          )
         })
 
         test('axe @aat', async ({page}) => {
@@ -86,7 +88,9 @@ test.describe('Skeleton', () => {
           })
 
           // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`SkeletonAvatar.InAnAvatarPair.${theme}.png`)
+          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
+            `SkeletonAvatar.InAnAvatarPair.${theme}.png`,
+          )
         })
 
         test('axe @aat', async ({page}) => {
@@ -120,7 +124,7 @@ test.describe('Skeleton', () => {
           })
 
           // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`SkeletonAvatar.Size.${theme}.png`)
+          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(`SkeletonAvatar.Size.${theme}.png`)
         })
 
         test('axe @aat', async ({page}) => {
@@ -154,7 +158,9 @@ test.describe('Skeleton', () => {
           })
 
           // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`SkeletonAvatar.SizeResponsive.${theme}.png`)
+          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
+            `SkeletonAvatar.SizeResponsive.${theme}.png`,
+          )
         })
 
         test('axe @aat', async ({page}) => {
@@ -188,7 +194,7 @@ test.describe('Skeleton', () => {
           })
 
           // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`SkeletonAvatar.Square.${theme}.png`)
+          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(`SkeletonAvatar.Square.${theme}.png`)
         })
 
         test('axe @aat', async ({page}) => {
@@ -225,7 +231,7 @@ test.describe('Skeleton', () => {
           })
 
           // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`SkeletonBone.Default.${theme}.png`)
+          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(`SkeletonBone.Default.${theme}.png`)
         })
 
         test('axe @aat', async ({page}) => {
@@ -259,7 +265,7 @@ test.describe('Skeleton', () => {
           })
 
           // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`SkeletonBone.Height.${theme}.png`)
+          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(`SkeletonBone.Height.${theme}.png`)
         })
 
         test('axe @aat', async ({page}) => {
@@ -293,7 +299,7 @@ test.describe('Skeleton', () => {
           })
 
           // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`SkeletonBone.Width.${theme}.png`)
+          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(`SkeletonBone.Width.${theme}.png`)
         })
 
         test('axe @aat', async ({page}) => {
@@ -330,7 +336,7 @@ test.describe('Skeleton', () => {
           })
 
           // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`SkeletonText.Default.${theme}.png`)
+          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(`SkeletonText.Default.${theme}.png`)
         })
 
         test('axe @aat', async ({page}) => {
@@ -364,7 +370,7 @@ test.describe('Skeleton', () => {
           })
 
           // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`SkeletonText.BodyLarge.${theme}.png`)
+          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(`SkeletonText.BodyLarge.${theme}.png`)
         })
 
         test('axe @aat', async ({page}) => {
@@ -398,7 +404,9 @@ test.describe('Skeleton', () => {
           })
 
           // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`SkeletonText.BodyMedium.${theme}.png`)
+          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
+            `SkeletonText.BodyMedium.${theme}.png`,
+          )
         })
 
         test('axe @aat', async ({page}) => {
@@ -432,7 +440,7 @@ test.describe('Skeleton', () => {
           })
 
           // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`SkeletonText.BodySmall.${theme}.png`)
+          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(`SkeletonText.BodySmall.${theme}.png`)
         })
 
         test('axe @aat', async ({page}) => {
@@ -466,7 +474,7 @@ test.describe('Skeleton', () => {
           })
 
           // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`SkeletonText.Display.${theme}.png`)
+          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(`SkeletonText.Display.${theme}.png`)
         })
 
         test('axe @aat', async ({page}) => {
@@ -500,7 +508,7 @@ test.describe('Skeleton', () => {
           })
 
           // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`SkeletonText.Subtitle.${theme}.png`)
+          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(`SkeletonText.Subtitle.${theme}.png`)
         })
 
         test('axe @aat', async ({page}) => {
@@ -534,7 +542,9 @@ test.describe('Skeleton', () => {
           })
 
           // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`SkeletonText.TitleLarge.${theme}.png`)
+          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
+            `SkeletonText.TitleLarge.${theme}.png`,
+          )
         })
 
         test('axe @aat', async ({page}) => {
@@ -568,7 +578,9 @@ test.describe('Skeleton', () => {
           })
 
           // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`SkeletonText.TitleMedium.${theme}.png`)
+          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
+            `SkeletonText.TitleMedium.${theme}.png`,
+          )
         })
 
         test('axe @aat', async ({page}) => {
@@ -602,7 +614,9 @@ test.describe('Skeleton', () => {
           })
 
           // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`SkeletonText.TitleSmall.${theme}.png`)
+          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
+            `SkeletonText.TitleSmall.${theme}.png`,
+          )
         })
 
         test('axe @aat', async ({page}) => {
@@ -636,7 +650,9 @@ test.describe('Skeleton', () => {
           })
 
           // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`SkeletonText.WithMaxWidth.${theme}.png`)
+          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
+            `SkeletonText.WithMaxWidth.${theme}.png`,
+          )
         })
 
         test('axe @aat', async ({page}) => {
@@ -670,7 +686,9 @@ test.describe('Skeleton', () => {
           })
 
           // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`SkeletonText.WithMultipleLines.${theme}.png`)
+          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
+            `SkeletonText.WithMultipleLines.${theme}.png`,
+          )
         })
 
         test('axe @aat', async ({page}) => {
