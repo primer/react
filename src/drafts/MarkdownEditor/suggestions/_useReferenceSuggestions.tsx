@@ -1,7 +1,7 @@
 import React, {useMemo} from 'react'
 import {suggestionsCalculator, UseSuggestionsHook} from '.'
 import {ActionList} from '../../../ActionList'
-import {Suggestion, Trigger} from '../../../InlineAutocomplete'
+import {Suggestion, Trigger} from '../../InlineAutocomplete'
 import Text from '../../../Text'
 import {score} from 'fzy.js'
 
