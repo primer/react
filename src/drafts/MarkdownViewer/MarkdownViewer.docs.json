@@ -1,7 +1,7 @@
 {
   "id": "drafts_markdown_viewer",
   "name": "MarkdownViewer",
-  "status": "draft",
+  "status": "deprecated",
   "a11yReviewed": false,
   "stories": [],
   "props": [

@@ -120,6 +120,11 @@ ItemPlayground.argTypes = {
       type: 'boolean',
     },
   },
+  inactiveText: {
+    control: {
+      type: 'text',
+    },
+  },
   variant: {
     control: 'radio',
     options: ['default', 'danger'],
@@ -155,6 +160,7 @@ ItemPlayground.args = {
   selected: false,
   active: false,
   disabled: false,
+  inactiveText: '',
   variant: 'default',
   role: 'listitem',
   id: 'item-1',
@@ -210,6 +216,7 @@ LinkItemPlayground.args = {
   disabled: false,
   role: 'listitem',
   id: 'item-1',
+  inactiveText: '',
   leadingVisual: null,
   trailingVisual: null,
 }
@@ -224,6 +231,11 @@ LinkItemPlayground.argTypes = {
   },
   id: {
     type: 'string',
+  },
+  inactiveText: {
+    control: {
+      type: 'text',
+    },
   },
   leadingVisual: {
     control: {
