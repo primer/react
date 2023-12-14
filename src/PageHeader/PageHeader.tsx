@@ -10,7 +10,6 @@ import {useProvidedRefOrCreate} from '../hooks'
 import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import {getBreakpointDeclarations} from '../utils/getBreakpointDeclarations'
 import {invariant} from '../utils/invariant'
-import {P} from 'ts-toolbelt/out/Object/_api'
 import {warning} from '../utils/warning'
 const GRID_ROW_ORDER = {
   ContextArea: 1,

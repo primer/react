@@ -92,7 +92,7 @@ export const PullRequestPage = () => (
           </ActionMenu>
         </Hidden>
         <Hidden when={['narrow']}>
-          <Box sx={{display: 'flex'}}>
+          <Box sx={{display: 'flex', gap: '0.5rem'}}>
             <Button>Edit</Button>
             <Button leadingVisual={CodeIcon}>Code</Button>
           </Box>
@@ -313,7 +313,7 @@ export const WithPageLayout = () => {
             </Hidden>
 
             <Hidden when={['narrow']}>
-              <Box sx={{display: 'flex'}}>
+              <Box sx={{display: 'flex', gap: '0.5rem'}}>
                 <Button>Edit</Button>
                 <Button leadingVisual={CodeIcon}>Code</Button>
               </Box>

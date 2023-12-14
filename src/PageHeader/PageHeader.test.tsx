@@ -133,7 +133,10 @@ describe('PageHeader', () => {
         display: 'flex',
       },
       'align-items': 'center',
-      height: '2rem',
+      display: 'flex',
+      'grid-area': 'leading-action',
+      'grid-row': '2',
+      'padding-right': '0.5rem',
     }
 
     expect(
@@ -153,7 +156,7 @@ describe('PageHeader', () => {
         <PageHeader.ContextArea>ContextArea</PageHeader.ContextArea>
       </PageHeader>,
     )
-    expect(getByText('Title')).toHaveStyle('font-size: 2rem')
+    expect(getByText('Title')).toHaveStyle('font-size: 32px')
   })
   it("respects the title variant prop and updates the children components' container height accordingly", () => {
     const {getByText} = render(

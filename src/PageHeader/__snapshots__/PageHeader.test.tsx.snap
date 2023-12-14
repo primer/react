@@ -7,6 +7,30 @@ exports[`PageHeader renders consistently 1`] = `
   grid-template-areas: 'context-area context-area context-area context-area' 'leading-action title-area trailing-action actions' 'description description description description' 'navigation navigation navigation navigation';
 }
 
+.c0[data-size-variant="large"] [data-component="PH_LeadingAction"],
+.c0[data-size-variant="large"] [data-component="PH_TrailingAction"],
+.c0[data-size-variant="large"] [data-component="PH_Actions"],
+.c0[data-size-variant="large"] [data-component="PH_LeadingVisual"],
+.c0[data-size-variant="large"] [data-component="PH_TrailingVisual"] {
+  height: 3rem;
+}
+
+.c0[data-size-variant="medium"] [data-component="PH_LeadingAction"],
+.c0[data-size-variant="medium"] [data-component="PH_TrailingAction"],
+.c0[data-size-variant="medium"] [data-component="PH_Actions"],
+.c0[data-size-variant="medium"] [data-component="PH_LeadingVisual"],
+.c0[data-size-variant="medium"] [data-component="PH_TrailingVisual"] {
+  height: 2rem;
+}
+
+.c0[data-size-variant="subtitle"] [data-component="PH_LeadingAction"],
+.c0[data-size-variant="subtitle"] [data-component="PH_TrailingAction"],
+.c0[data-size-variant="subtitle"] [data-component="PH_Actions"],
+.c0[data-size-variant="subtitle"] [data-component="PH_LeadingVisual"],
+.c0[data-size-variant="subtitle"] [data-component="PH_TrailingVisual"] {
+  height: 2rem;
+}
+
 .c1 {
   grid-row: 2;
   grid-area: title-area;
@@ -18,10 +42,28 @@ exports[`PageHeader renders consistently 1`] = `
   -webkit-flex-direction: row;
   -ms-flex-direction: row;
   flex-direction: row;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+  -webkit-align-items: flex-start;
+  -webkit-box-align: flex-start;
+  -ms-flex-align: flex-start;
+  align-items: flex-start;
+}
+
+.c1[data-size-variant="large"] [data-component="PH_Title"] {
+  font-size: var(--text-title-size-large,2rem);
+  line-height: var(--text-title-lineHeight-large,1.5);
+  font-weight: var(--base-text-weight-normal,400);
+}
+
+.c1[data-size-variant="medium"] [data-component="PH_Title"] {
+  font-size: var(--text-title-size-medium,1.25rem);
+  line-height: var(--text-title-lineHeight-medium,1.6);
+  font-weight: var(--base-text-weight-semibold,600);
+}
+
+.c1[data-size-variant="subtitle"] [data-component="PH_Title"] {
+  font-size: var(--text-title-size-medium,1.25rem);
+  line-height: var(--text-title-lineHeight-medium,1.6);
+  font-weight: var(--base-text-weight-normal,400);
 }
 
 .c2 {
@@ -84,10 +126,12 @@ exports[`PageHeader renders consistently 1`] = `
 
 <div
   className="c0"
+  data-size-variant=""
 >
   <div
     className="c1"
     data-component="TitleArea"
+    data-size-variant="medium"
   />
   <div
     className="c2"
@@ -108,6 +152,30 @@ exports[`PageHeader renders default layout 1`] = `
   grid-template-areas: 'context-area context-area context-area context-area' 'leading-action title-area trailing-action actions' 'description description description description' 'navigation navigation navigation navigation';
 }
 
+.c0[data-size-variant="large"] [data-component="PH_LeadingAction"],
+.c0[data-size-variant="large"] [data-component="PH_TrailingAction"],
+.c0[data-size-variant="large"] [data-component="PH_Actions"],
+.c0[data-size-variant="large"] [data-component="PH_LeadingVisual"],
+.c0[data-size-variant="large"] [data-component="PH_TrailingVisual"] {
+  height: 3rem;
+}
+
+.c0[data-size-variant="medium"] [data-component="PH_LeadingAction"],
+.c0[data-size-variant="medium"] [data-component="PH_TrailingAction"],
+.c0[data-size-variant="medium"] [data-component="PH_Actions"],
+.c0[data-size-variant="medium"] [data-component="PH_LeadingVisual"],
+.c0[data-size-variant="medium"] [data-component="PH_TrailingVisual"] {
+  height: 2rem;
+}
+
+.c0[data-size-variant="subtitle"] [data-component="PH_LeadingAction"],
+.c0[data-size-variant="subtitle"] [data-component="PH_TrailingAction"],
+.c0[data-size-variant="subtitle"] [data-component="PH_Actions"],
+.c0[data-size-variant="subtitle"] [data-component="PH_LeadingVisual"],
+.c0[data-size-variant="subtitle"] [data-component="PH_TrailingVisual"] {
+  height: 2rem;
+}
+
 .c1 {
   grid-row: 2;
   grid-area: title-area;
@@ -119,10 +187,28 @@ exports[`PageHeader renders default layout 1`] = `
   -webkit-flex-direction: row;
   -ms-flex-direction: row;
   flex-direction: row;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+  -webkit-align-items: flex-start;
+  -webkit-box-align: flex-start;
+  -ms-flex-align: flex-start;
+  align-items: flex-start;
+}
+
+.c1[data-size-variant="large"] [data-component="PH_Title"] {
+  font-size: var(--text-title-size-large,2rem);
+  line-height: var(--text-title-lineHeight-large,1.5);
+  font-weight: var(--base-text-weight-normal,400);
+}
+
+.c1[data-size-variant="medium"] [data-component="PH_Title"] {
+  font-size: var(--text-title-size-medium,1.25rem);
+  line-height: var(--text-title-lineHeight-medium,1.6);
+  font-weight: var(--base-text-weight-semibold,600);
+}
+
+.c1[data-size-variant="subtitle"] [data-component="PH_Title"] {
+  font-size: var(--text-title-size-medium,1.25rem);
+  line-height: var(--text-title-lineHeight-medium,1.6);
+  font-weight: var(--base-text-weight-normal,400);
 }
 
 .c2 {
@@ -186,10 +272,12 @@ exports[`PageHeader renders default layout 1`] = `
 <div>
   <div
     class="c0"
+    data-size-variant="medium"
   >
     <div
       class="c1"
       data-component="TitleArea"
+      data-size-variant="medium"
     >
       TitleArea
     </div>
