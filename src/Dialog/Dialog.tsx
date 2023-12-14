@@ -16,8 +16,7 @@ import {useFocusZone} from '../hooks/useFocusZone'
 import {useRefObjectAsForwardedRef} from '../hooks/useRefObjectAsForwardedRef'
 import {useId} from '../hooks/useId'
 import {ScrollableRegion} from '../internal/components/ScrollableRegion'
-
-import DialogActionSheet from './DialogActionSheet'
+import DialogBottomSheet from './DialogBottomSheet'
 import {minHeight} from 'styled-system'
 
 /* Dialog Version 2 */
@@ -103,8 +102,8 @@ export interface DialogProps extends SxProp {
   /**
    * This method is invoked when a gesture to close the dialog is used
    * (either an Escape key press, clicking/tapping on the backdrop,
-   * clicking/tapping the 'X' in the top-right corner or dragging away an
-   * action sheet). The gesture argument indicates the gesture that was
+   * clicking/tapping the 'X' in the top-right corner or dragging away a
+   * bottom sheet). The gesture argument indicates the gesture that was
    * used to close the dialog.
    */
 
@@ -119,8 +118,8 @@ export interface DialogProps extends SxProp {
 
   /**
    * Normally a dialog is display in the center of a viewport but sometimes
-   * it is useful to display this full screen or as an action sheet on mobile viewports
-   * to allow for more space for content. When full-screen or action sheet the width
+   * it is useful to display this full screen or as an bottom sheet on mobile viewports
+   * to allow for more space for content. When full-screen or bottom sheet the width
    * and height is ignored.
    */
   type?: DialogType | ResponsiveValue<DialogType>
@@ -175,7 +174,7 @@ const widthMap = {
 
 export type DialogWidth = keyof typeof widthMap
 export type DialogHeight = keyof typeof heightMap
-export type DialogType = 'default' | 'full-screen' | 'action-sheet'
+export type DialogType = 'default' | 'full-screen' | 'bottom-sheet'
 
 type StyledDialogProps = {
   width?: DialogWidth
@@ -298,10 +297,10 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
     )
   }
 
-  if (responsiveType === 'action-sheet') {
+  if (responsiveType === 'bottom-sheet') {
     return (
       <Portal>
-        <DialogActionSheet
+        <DialogBottomSheet
           ref={dialogRef}
           role={role}
           onClose={onClose}
@@ -315,7 +314,7 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
             {body}
           </ScrollableRegion>
           {footer}
-        </DialogActionSheet>
+        </DialogBottomSheet>
       </Portal>
     )
   }
@@ -509,7 +508,7 @@ const DialogCloseButton = styled(Button)`
   color: ${get('colors.fg.muted')};
   padding: ${get('space.2')};
   align-self: flex-start;
-  pointer-events: auto; // Allows clicking when combined with a draggable action-sheet header
+  pointer-events: auto; // Allows clicking when combined with a draggable bottom-sheet header
   line-height: normal;
   box-shadow: none;
 `

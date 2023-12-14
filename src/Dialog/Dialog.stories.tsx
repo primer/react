@@ -1,6 +1,5 @@
 import React, {useState, useRef, useCallback} from 'react'
 import {Meta} from '@storybook/react'
-
 import {BaseStyles, ThemeProvider} from '..'
 import {Button} from '../Button'
 import {Dialog, DialogWidth, DialogHeight, DialogType} from './Dialog'
@@ -155,7 +154,7 @@ Playground.argTypes = {
     control: {
       type: 'radio',
     },
-    options: ['default', 'full-screen', 'action-sheet'],
+    options: ['default', 'full-screen', 'bottom-sheet'],
   },
   width: {
     control: {

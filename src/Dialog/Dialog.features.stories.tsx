@@ -221,9 +221,9 @@ export const FullScreen = () => {
   )
 }
 
-export const ActionSheet = () => {
+export const BottomSheet = () => {
   return (
-    <Dialog title="Your title" type="action-sheet" onClose={() => {}}>
+    <Dialog title="Your title" type="bottom-sheet" onClose={() => {}}>
       {lipsum}
     </Dialog>
   )

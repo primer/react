@@ -12,7 +12,7 @@ const HALF_HEIGHT = 50
 /**
  * Props to customize the rendering of the Dialog.
  */
-export interface DialogActionSheetProps extends SxProp {
+export interface DialogBottomSheetProps extends SxProp {
   /**
    * This method is invoked when a gesture to close the dialog is used
    */
@@ -46,7 +46,7 @@ export interface DialogActionSheetProps extends SxProp {
   ariaModal: boolean
 }
 
-export default React.forwardRef<HTMLDivElement, PropsWithChildren<DialogActionSheetProps>>((props, forwardedRef) => {
+export default React.forwardRef<HTMLDivElement, PropsWithChildren<DialogBottomSheetProps>>((props, forwardedRef) => {
   const {onClose, children, role, ariaLabelledby, ariaDescribedby, ariaModal, header, sx} = props
 
   // 🔄 STATES
@@ -304,7 +304,9 @@ const Content = styled.div<
   display: flex;
   flex-direction: column;
   background-color: ${get('colors.canvas.default')};
-  width: 100%;
+  width: 100vw;
+  max-width: 100dvh;
+  max-width: 480px;
   border-radius: 12px 12px 0 0;
   position: relative;
   height: 50vh;
