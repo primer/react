@@ -25,7 +25,7 @@ jobs:
         working-directory: docs
       - name: Build docs preview
         run: npm run build:docs:preview
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-pages-artifact@v2
         with:
           name: github-pages
           path: docs/public
@@ -34,7 +34,6 @@ jobs:
     if: ${{ github.repository == 'primer/react' }}
     needs: build
     permissions:
-      actions: read
       pages: write
       id-token: write
     environment:
