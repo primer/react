@@ -27,6 +27,7 @@ Closes #
 - [ ] Patch release
 - [ ] Minor release
 - [ ] Major release; if selected, include a written rollout or migration plan
+- [ ] None; if selected, include a brief description as to why
 
 ### Testing & Reviewing
 
@@ -42,6 +43,6 @@ Closes #
 - [ ] Tested in Firefox
 - [ ] Tested in Safari
 - [ ] Tested in Edge
-- [ ] Integration tests pass at github/github ([Learn more about how to run integration tests](https://github.com/github/primer-engineering/blob/main/how-we-work/testing-primer-react-pr-at-dotcom.md))
+- [ ] (GitHub staff only) Integration tests pass at github/github ([Learn more about how to run integration tests](https://github.com/github/primer-engineering/blob/main/how-we-work/testing-primer-react-pr-at-dotcom.md))
 
-Take a look at the [What we look for in reviews](https://github.com/primer/react/blob/main/contributor-docs/CONTRIBUTING.md#what-we-look-for-in-reviews) section of the contributing guidelines for more information on how we review PRs.
+<!-- Take a look at the [What we look for in reviews](https://github.com/primer/react/blob/main/contributor-docs/CONTRIBUTING.md#what-we-look-for-in-reviews) section of the contributing guidelines for more information on how we review PRs. -->
