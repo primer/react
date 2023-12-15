@@ -12,7 +12,7 @@ exports[`PageHeader renders consistently 1`] = `
 .c0[data-size-variant="large"] [data-component="PH_Actions"],
 .c0[data-size-variant="large"] [data-component="PH_LeadingVisual"],
 .c0[data-size-variant="large"] [data-component="PH_TrailingVisual"] {
-  height: 3rem;
+  height: var(--custom-height,3rem);
 }
 
 .c0[data-size-variant="medium"] [data-component="PH_LeadingAction"],
@@ -20,7 +20,7 @@ exports[`PageHeader renders consistently 1`] = `
 .c0[data-size-variant="medium"] [data-component="PH_Actions"],
 .c0[data-size-variant="medium"] [data-component="PH_LeadingVisual"],
 .c0[data-size-variant="medium"] [data-component="PH_TrailingVisual"] {
-  height: 2rem;
+  height: var(--custom-height,2rem);
 }
 
 .c0[data-size-variant="subtitle"] [data-component="PH_LeadingAction"],
@@ -28,7 +28,7 @@ exports[`PageHeader renders consistently 1`] = `
 .c0[data-size-variant="subtitle"] [data-component="PH_Actions"],
 .c0[data-size-variant="subtitle"] [data-component="PH_LeadingVisual"],
 .c0[data-size-variant="subtitle"] [data-component="PH_TrailingVisual"] {
-  height: 2rem;
+  height: var(--custom-height,2rem);
 }
 
 .c1 {
@@ -49,21 +49,21 @@ exports[`PageHeader renders consistently 1`] = `
 }
 
 .c1[data-size-variant="large"] [data-component="PH_Title"] {
-  font-size: var(--text-title-size-large,2rem);
-  line-height: var(--text-title-lineHeight-large,1.5);
-  font-weight: var(--base-text-weight-normal,400);
+  font-size: var(--custom-font-size,var(--text-title-size-large,2rem));
+  line-height: var(--custom-line-height,var(--text-title-lineHeight-large,1.5));
+  font-weight: var(--custom-font-weight,var(--base-text-weight-normal,400));
 }
 
 .c1[data-size-variant="medium"] [data-component="PH_Title"] {
-  font-size: var(--text-title-size-medium,1.25rem);
-  line-height: var(--text-title-lineHeight-medium,1.6);
-  font-weight: var(--base-text-weight-semibold,600);
+  font-size: var(--custom-font-size,var(--text-title-size-medium,1.25rem));
+  line-height: var(--custom-line-height,var(--text-title-lineHeight-medium,1.6));
+  font-weight: var(--custom-font-weight,var(--base-text-weight-semibold,600));
 }
 
 .c1[data-size-variant="subtitle"] [data-component="PH_Title"] {
-  font-size: var(--text-title-size-medium,1.25rem);
-  line-height: var(--text-title-lineHeight-medium,1.6);
-  font-weight: var(--base-text-weight-normal,400);
+  font-size: var(--custom-font-size,var(--text-title-size-medium,1.25rem));
+  line-height: var(--custom-line-height,var(--text-title-lineHeight-medium,1.6));
+  font-weight: var(--custom-font-weight,var(--base-text-weight-normal,400));
 }
 
 .c2 {
@@ -157,7 +157,7 @@ exports[`PageHeader renders default layout 1`] = `
 .c0[data-size-variant="large"] [data-component="PH_Actions"],
 .c0[data-size-variant="large"] [data-component="PH_LeadingVisual"],
 .c0[data-size-variant="large"] [data-component="PH_TrailingVisual"] {
-  height: 3rem;
+  height: var(--custom-height,3rem);
 }
 
 .c0[data-size-variant="medium"] [data-component="PH_LeadingAction"],
@@ -165,7 +165,7 @@ exports[`PageHeader renders default layout 1`] = `
 .c0[data-size-variant="medium"] [data-component="PH_Actions"],
 .c0[data-size-variant="medium"] [data-component="PH_LeadingVisual"],
 .c0[data-size-variant="medium"] [data-component="PH_TrailingVisual"] {
-  height: 2rem;
+  height: var(--custom-height,2rem);
 }
 
 .c0[data-size-variant="subtitle"] [data-component="PH_LeadingAction"],
@@ -173,7 +173,7 @@ exports[`PageHeader renders default layout 1`] = `
 .c0[data-size-variant="subtitle"] [data-component="PH_Actions"],
 .c0[data-size-variant="subtitle"] [data-component="PH_LeadingVisual"],
 .c0[data-size-variant="subtitle"] [data-component="PH_TrailingVisual"] {
-  height: 2rem;
+  height: var(--custom-height,2rem);
 }
 
 .c1 {
@@ -194,21 +194,21 @@ exports[`PageHeader renders default layout 1`] = `
 }
 
 .c1[data-size-variant="large"] [data-component="PH_Title"] {
-  font-size: var(--text-title-size-large,2rem);
-  line-height: var(--text-title-lineHeight-large,1.5);
-  font-weight: var(--base-text-weight-normal,400);
+  font-size: var(--custom-font-size,var(--text-title-size-large,2rem));
+  line-height: var(--custom-line-height,var(--text-title-lineHeight-large,1.5));
+  font-weight: var(--custom-font-weight,var(--base-text-weight-normal,400));
 }
 
 .c1[data-size-variant="medium"] [data-component="PH_Title"] {
-  font-size: var(--text-title-size-medium,1.25rem);
-  line-height: var(--text-title-lineHeight-medium,1.6);
-  font-weight: var(--base-text-weight-semibold,600);
+  font-size: var(--custom-font-size,var(--text-title-size-medium,1.25rem));
+  line-height: var(--custom-line-height,var(--text-title-lineHeight-medium,1.6));
+  font-weight: var(--custom-font-weight,var(--base-text-weight-semibold,600));
 }
 
 .c1[data-size-variant="subtitle"] [data-component="PH_Title"] {
-  font-size: var(--text-title-size-medium,1.25rem);
-  line-height: var(--text-title-lineHeight-medium,1.6);
-  font-weight: var(--base-text-weight-normal,400);
+  font-size: var(--custom-font-size,var(--text-title-size-medium,1.25rem));
+  line-height: var(--custom-line-height,var(--text-title-lineHeight-medium,1.6));
+  font-weight: var(--custom-font-weight,var(--base-text-weight-normal,400));
 }
 
 .c2 {
