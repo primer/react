@@ -101,7 +101,7 @@ const items: Datum[] = [
 ]
 
 const autocompleteStoryMeta: Meta = {
-  title: 'Components/Forms/Autocomplete',
+  title: 'Components/Autocomplete',
   decorators: [
     Story => {
       const [lastKey, setLastKey] = useState('none')
