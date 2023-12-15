@@ -1656,3 +1656,30 @@ export const WithNetworkError = () => {
     </Table.Container>
   )
 }
+
+export const StressTest = () => (
+  <Table.Container>
+    <Table.Title as="h2" id="repositories">
+      Repositories
+    </Table.Title>
+    <Table.Subtitle as="p" id="repositories-subtitle">
+      A subtitle could appear here to give extra context to the data.
+    </Table.Subtitle>
+    <DataTable
+      aria-labelledby="repositories"
+      aria-describedby="repositories-subtitle"
+      data={Array.from({length: 1000}).map((_, i) => {
+        return {
+          id: i,
+          title: `Item ${i}`,
+        }
+      })}
+      columns={[
+        {
+          header: 'Item',
+          field: 'title',
+        },
+      ]}
+    />
+  </Table.Container>
+)
