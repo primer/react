@@ -146,9 +146,9 @@ PullRequestPageOnNarrowViewport.parameters = setViewportParamToNarrow
 export const FilesPage = () => (
   <Box sx={{padding: 3}}>
     <PageHeader>
-      <PageHeader.TitleArea>
-        <Text sx={{color: 'rgb(101, 109, 118)'}}>/</Text>
-        <PageHeader.Title as="h1" sx={{fontSize: 1}}>
+      <PageHeader.TitleArea sx={{alignItems: 'center'}}>
+        <Text sx={{color: 'rgb(101, 109, 118)', fontSize: '14px'}}>/</Text>
+        <PageHeader.Title as="h1" sx={{fontSize: '14px', height: '21px'}}>
           PageHeader.tsx
         </PageHeader.Title>
       </PageHeader.TitleArea>

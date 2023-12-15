@@ -1,7 +1,7 @@
 import React from 'react'
 import {Box} from '..'
 import {useResponsiveValue, ResponsiveValue} from '../hooks/useResponsiveValue'
-import {SxProp, merge, BetterSystemStyleObject} from '../sx'
+import {SxProp, merge, BetterSystemStyleObject, CSSCustomProperties} from '../sx'
 import Heading from '../Heading'
 import {ArrowLeftIcon} from '@primer/octicons-react'
 import Link, {LinkProps as BaseLinkProps} from '../Link'
@@ -74,22 +74,24 @@ const Root = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageHeader
       'description description description description'
       'navigation navigation navigation navigation'
     `,
+      //  --custom-height is a custom property (passed by sx) that can be used to override the set height.
+      // We don't want these values to be overriden but still want to allow consumers to override them if needed.
       '&[data-size-variant="large"]': {
         '[data-component="PH_LeadingAction"], [data-component="PH_TrailingAction"],[data-component="PH_Actions"], [data-component="PH_LeadingVisual"], [data-component="PH_TrailingVisual"]':
           {
-            height: LARGE_TITLE_HEIGHT,
+            height: `var(--custom-height, ${LARGE_TITLE_HEIGHT})`,
           },
       },
       '&[data-size-variant="medium"]': {
         '[data-component="PH_LeadingAction"], [data-component="PH_TrailingAction"],[data-component="PH_Actions"], [data-component="PH_LeadingVisual"], [data-component="PH_TrailingVisual"]':
           {
-            height: MEDIUM_TITLE_HEIGHT,
+            height: `var(--custom-height, ${MEDIUM_TITLE_HEIGHT})`,
           },
       },
       '&[data-size-variant="subtitle"]': {
         '[data-component="PH_LeadingAction"], [data-component="PH_TrailingAction"],[data-component="PH_Actions"], [data-component="PH_LeadingVisual"], [data-component="PH_TrailingVisual"]':
           {
-            height: MEDIUM_TITLE_HEIGHT,
+            height: `var(--custom-height, ${MEDIUM_TITLE_HEIGHT})`,
           },
       },
     }
@@ -118,12 +120,9 @@ const Root = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageHeader
       // It is very unlikely to have a PageHeader without a TitleArea, but we still want to make sure we don't break the page if that happens.
       if (!titleArea) return
 
-      // How can I get the TitleArea's props?
-
       // // grab the data-size-variant attribute from the titleArea
       const sizeVariant = titleArea.getAttribute('data-size-variant')
       setTitleVariant(sizeVariant as string)
-      // setTitleVariant(setTitleVariant as TitleAreaProps['variant'])
 
       for (const child of React.Children.toArray(children)) {
         if (React.isValidElement(child) && child.type === ContextArea) {
@@ -314,20 +313,22 @@ const TitleArea: React.FC<React.PropsWithChildren<TitleAreaProps>> = ({
           flexDirection: 'row',
           alignItems: 'flex-start',
           // line-height is calculated with calc(height/font-size) and the below numbers are from @primer/primitives
+          //  --custom-font-size, --custom-line-height, --custom-font-weight are custom properties (passed by sx) that can be used to override the below values
+          // We don't want these values to be overriden but still want to allow consumers to override them if needed.
           '&[data-size-variant="large"] [data-component="PH_Title"]': {
-            fontSize: 'var(--text-title-size-large, 2rem)',
-            lineHeight: 'var(--text-title-lineHeight-large, 1.5)', // calc(48/32)
-            fontWeight: 'var(--base-text-weight-normal, 400)',
+            fontSize: 'var(--custom-font-size, var(--text-title-size-large, 2rem))',
+            lineHeight: 'var(--custom-line-height, var(--text-title-lineHeight-large, 1.5))', // calc(48/32)
+            fontWeight: 'var(--custom-font-weight, var(--base-text-weight-normal, 400))',
           },
           '&[data-size-variant="medium"] [data-component="PH_Title"]': {
-            fontSize: 'var(--text-title-size-medium, 1.25rem)',
-            lineHeight: 'var(--text-title-lineHeight-medium, 1.6)', // calc(32/20)
-            fontWeight: 'var(--base-text-weight-semibold, 600)',
+            fontSize: 'var(--custom-font-size, var(--text-title-size-medium, 1.25rem))',
+            lineHeight: 'var(--custom-line-height, var(--text-title-lineHeight-medium, 1.6))', // calc(32/20)
+            fontWeight: 'var(--custom-font-weight, var(--base-text-weight-semibold, 600))',
           },
           '&[data-size-variant="subtitle"] [data-component="PH_Title"]': {
-            fontSize: 'var(--text-title-size-medium, 1.25rem)',
-            lineHeight: 'var(--text-title-lineHeight-medium, 1.6)', // calc(32/20)
-            fontWeight: 'var(--base-text-weight-normal, 400)',
+            fontSize: 'var(--custom-font-size, var(--text-title-size-medium, 1.25rem))',
+            lineHeight: 'var(--custom-line-height, var(--text-title-lineHeight-medium, 1.6))', // calc(32/20)
+            fontWeight: 'var(--custom-font-weight, var(--base-text-weight-normal, 400))',
           },
         },
         sx,
@@ -345,6 +346,10 @@ const LeadingAction: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
   sx = {},
   hidden = hiddenOnNarrow,
 }) => {
+  const style: CSSCustomProperties = {}
+  // @ts-ignore sx has height attribute
+  const {height} = sx
+  if (height) style['--custom-height'] = height
   return (
     <Box
       data-component="PH_LeadingAction"
@@ -361,6 +366,7 @@ const LeadingAction: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
         },
         sx,
       )}
+      style={style}
     >
       {children}
     </Box>
@@ -369,6 +375,10 @@ const LeadingAction: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
 
 // PageHeader.LeadingVisual and PageHeader.TrailingVisual should remain visible on narrow viewports.
 const LeadingVisual: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({children, sx = {}, hidden = false}) => {
+  const style: CSSCustomProperties = {}
+  // @ts-ignore sx has height attribute
+  const {height} = sx
+  if (height) style['--custom-height'] = height
   return (
     <Box
       data-component="PH_LeadingVisual"
@@ -384,6 +394,7 @@ const LeadingVisual: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({ch
         },
         sx,
       )}
+      style={style}
     >
       {children}
     </Box>
@@ -395,10 +406,18 @@ export type TitleProps = {
 } & ChildrenPropTypes
 
 const Title: React.FC<React.PropsWithChildren<TitleProps>> = ({children, sx = {}, hidden = false, as = 'h2'}) => {
+  const style: CSSCustomProperties = {}
+  // @ts-ignore sxProp can have color attribute
+  const {fontSize, lineHeight, fontWeight} = sx
+  if (fontSize) style['--custom-font-size'] = fontSize
+  if (lineHeight) style['--custom-line-height'] = lineHeight
+  if (fontWeight) style['--custom-font-weight'] = fontWeight
+
   return (
     <Heading
       data-component="PH_Title"
       as={as}
+      style={style}
       sx={merge<BetterSystemStyleObject>(
         {
           // using flex and order to display the title in the title area.
@@ -418,6 +437,10 @@ const Title: React.FC<React.PropsWithChildren<TitleProps>> = ({children, sx = {}
 
 // PageHeader.LeadingVisual and PageHeader.TrailingVisual should remain visible on narrow viewports.
 const TrailingVisual: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({children, sx = {}, hidden = false}) => {
+  const style: CSSCustomProperties = {}
+  // @ts-ignore sx has height attribute
+  const {height} = sx
+  if (height) style['--custom-height'] = height
   return (
     <Box
       data-component="PH_TrailingVisual"
@@ -433,6 +456,7 @@ const TrailingVisual: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({c
         },
         sx,
       )}
+      style={style}
     >
       {children}
     </Box>
@@ -444,6 +468,10 @@ const TrailingAction: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
   sx = {},
   hidden = hiddenOnNarrow,
 }) => {
+  const style: CSSCustomProperties = {}
+  // @ts-ignore sx has height attribute
+  const {height} = sx
+  if (height) style['--custom-height'] = height
   return (
     <Box
       data-component="PH_TrailingAction"
@@ -460,6 +488,7 @@ const TrailingAction: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
         },
         sx,
       )}
+      style={style}
     >
       {children}
     </Box>
@@ -467,6 +496,10 @@ const TrailingAction: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
 }
 
 const Actions: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({children, sx = {}, hidden = false}) => {
+  const style: CSSCustomProperties = {}
+  // @ts-ignore sx has height attribute
+  const {height} = sx
+  if (height) style['--custom-height'] = height
   return (
     <Box
       data-component="PH_Actions"
@@ -487,6 +520,7 @@ const Actions: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({children
         },
         sx,
       )}
+      style={style}
     >
       {children}
     </Box>
