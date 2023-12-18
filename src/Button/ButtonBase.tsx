@@ -80,7 +80,7 @@ const ButtonBase = forwardRef(
     }
 
     return (
-      <>
+      <Box sx={{display: 'inline-block'}}>
         <StyledButton
           as={Component}
           sx={sxStyles}
@@ -136,7 +136,7 @@ const ButtonBase = forwardRef(
             {loading && loadingAnnouncement}
           </span>
         </VisuallyHidden>
-      </>
+      </Box>
     )
   },
 ) as PolymorphicForwardRefComponent<'button' | 'a', ButtonProps>

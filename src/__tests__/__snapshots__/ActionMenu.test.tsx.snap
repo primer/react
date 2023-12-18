@@ -7,14 +7,18 @@ exports[`ActionMenu renders consistently 1`] = `
   color: #1F2328;
 }
 
-.c2 {
+.c1 {
+  display: inline-block;
+}
+
+.c3 {
   -webkit-box-pack: center;
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
 }
 
-.c3 {
+.c4 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -22,7 +26,7 @@ exports[`ActionMenu renders consistently 1`] = `
   pointer-events: none;
 }
 
-.c1 {
+.c2 {
   border-radius: 6px;
   border: 1px solid;
   border-color: var(--button-default-borderColor-rest,rgba(31,35,40,0.15));
@@ -67,65 +71,65 @@ exports[`ActionMenu renders consistently 1`] = `
   box-shadow: 0 1px 0 rgba(31,35,40,0.04),inset 0 1px 0 rgba(255,255,255,0.25);
 }
 
-.c1:focus:not(:disabled) {
+.c2:focus:not(:disabled) {
   box-shadow: none;
   outline: 2px solid #0969da;
   outline-offset: -2px;
 }
 
-.c1:focus:not(:disabled):not(:focus-visible) {
+.c2:focus:not(:disabled):not(:focus-visible) {
   outline: solid 1px transparent;
 }
 
-.c1:focus-visible:not(:disabled) {
+.c2:focus-visible:not(:disabled) {
   box-shadow: none;
   outline: 2px solid #0969da;
   outline-offset: -2px;
 }
 
-.c1[href] {
+.c2[href] {
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
   display: inline-flex;
 }
 
-.c1[href]:hover {
+.c2[href]:hover {
   -webkit-text-decoration: none;
   text-decoration: none;
 }
 
-.c1:hover {
+.c2:hover {
   -webkit-transition-duration: 80ms;
   transition-duration: 80ms;
 }
 
-.c1:active {
+.c2:active {
   -webkit-transition: none;
   transition: none;
 }
 
-.c1[data-inactive] {
+.c2[data-inactive] {
   cursor: auto;
 }
 
-.c1:disabled,
-.c1[aria-disabled][data-loading="false"] {
+.c2:disabled,
+.c2[aria-disabled][data-loading="false"] {
   cursor: not-allowed;
   box-shadow: none;
   color: #8c959f;
 }
 
-.c1:disabled [data-component=ButtonCounter],
-.c1[aria-disabled][data-loading="false"] [data-component=ButtonCounter] {
+.c2:disabled [data-component=ButtonCounter],
+.c2[aria-disabled][data-loading="false"] [data-component=ButtonCounter] {
   color: inherit;
 }
 
-.c1 [data-component=ButtonCounter] {
+.c2 [data-component=ButtonCounter] {
   font-size: 12px;
 }
 
-.c1[data-component=IconButton] {
+.c2[data-component=IconButton] {
   display: inline-grid;
   padding: unset;
   place-content: center;
@@ -133,64 +137,64 @@ exports[`ActionMenu renders consistently 1`] = `
   min-width: unset;
 }
 
-.c1[data-size="small"] {
+.c2[data-size="small"] {
   padding: 0 8px;
   height: 28px;
   gap: 4px;
   font-size: 12px;
 }
 
-.c1[data-size="small"] [data-component="text"] {
+.c2[data-size="small"] [data-component="text"] {
   line-height: calc(20 / 12);
 }
 
-.c1[data-size="small"] [data-component=ButtonCounter] {
+.c2[data-size="small"] [data-component=ButtonCounter] {
   font-size: 12px;
 }
 
-.c1[data-size="small"] [data-component="buttonContent"] > :not(:last-child) {
+.c2[data-size="small"] [data-component="buttonContent"] > :not(:last-child) {
   margin-right: 4px;
 }
 
-.c1[data-size="small"][data-component=IconButton] {
+.c2[data-size="small"][data-component=IconButton] {
   width: 28px;
   padding: unset;
 }
 
-.c1[data-size="large"] {
+.c2[data-size="large"] {
   padding: 0 16px;
   height: 40px;
   gap: 8px;
 }
 
-.c1[data-size="large"] [data-component="buttonContent"] > :not(:last-child) {
+.c2[data-size="large"] [data-component="buttonContent"] > :not(:last-child) {
   margin-right: 8px;
 }
 
-.c1[data-size="large"][data-component=IconButton] {
+.c2[data-size="large"][data-component=IconButton] {
   width: 40px;
   padding: unset;
 }
 
-.c1[data-block="block"] {
+.c2[data-block="block"] {
   width: 100%;
 }
 
-.c1[data-inactive]:not([disabled]) {
+.c2[data-inactive]:not([disabled]) {
   background-color: var(--button-inactive-bgColor,#eaeef2);
   border-color: var(--button-inactive-bgColor,#eaeef2);
   color: var(--button-inactive-fgColor,#57606a);
 }
 
-.c1[data-inactive]:not([disabled]):focus-visible {
+.c2[data-inactive]:not([disabled]):focus-visible {
   box-shadow: none;
 }
 
-.c1 [data-component="leadingVisual"] {
+.c2 [data-component="leadingVisual"] {
   grid-area: leadingVisual;
 }
 
-.c1 [data-component="text"] {
+.c2 [data-component="text"] {
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -204,15 +208,15 @@ exports[`ActionMenu renders consistently 1`] = `
   white-space: nowrap;
 }
 
-.c1 [data-component="trailingVisual"] {
+.c2 [data-component="trailingVisual"] {
   grid-area: trailingVisual;
 }
 
-.c1 [data-component="trailingAction"] {
+.c2 [data-component="trailingAction"] {
   margin-right: -4px;
 }
 
-.c1 [data-component="buttonContent"] {
+.c2 [data-component="buttonContent"] {
   -webkit-flex: 1 0 auto;
   -ms-flex: 1 0 auto;
   flex: 1 0 auto;
@@ -228,42 +232,42 @@ exports[`ActionMenu renders consistently 1`] = `
   align-content: center;
 }
 
-.c1 [data-component="buttonContent"] > :not(:last-child) {
+.c2 [data-component="buttonContent"] > :not(:last-child) {
   margin-right: 8px;
 }
 
-.c1 [data-component="loadingSpinner"] {
+.c2 [data-component="loadingSpinner"] {
   grid-area: text;
   margin-right: 0px !important;
   place-self: center;
 }
 
-.c1 [data-component="loadingSpinner"] + [data-component="text"] {
+.c2 [data-component="loadingSpinner"] + [data-component="text"] {
   visibility: hidden;
 }
 
-.c1:hover:not([disabled]):not([aria-disabled][data-loading="false"]):not([data-inactive]) {
+.c2:hover:not([disabled]):not([aria-disabled][data-loading="false"]):not([data-inactive]) {
   background-color: #f3f4f6;
   border-color: var(--button-default-borderColor-hover,rgba(31,35,40,0.15));
 }
 
-.c1:active:not([disabled]):not([aria-disabled][data-loading="false"]):not([data-inactive]) {
+.c2:active:not([disabled]):not([aria-disabled][data-loading="false"]):not([data-inactive]) {
   background-color: hsla(220,14%,93%,1);
   border-color: var(--button-default-borderColor-active,rgba(31,35,40,0.15));
 }
 
-.c1[aria-expanded=true] {
+.c2[aria-expanded=true] {
   background-color: hsla(220,14%,93%,1);
   border-color: var(--button-default-borderColor-active,rgba(31,35,40,0.15));
 }
 
-.c1 [data-component="leadingVisual"],
-.c1 [data-component="trailingVisual"],
-.c1 [data-component="trailingAction"] {
+.c2 [data-component="leadingVisual"],
+.c2 [data-component="trailingVisual"],
+.c2 [data-component="trailingAction"] {
   color: var(--button-color,#656d76);
 }
 
-.c4:not(:focus):not(:active):not(:focus-within) {
+.c5:not(:focus):not(:active):not(:focus-within) {
   -webkit-clip-path: inset(50%);
   clip-path: inset(50%);
   height: 1px;
@@ -274,7 +278,7 @@ exports[`ActionMenu renders consistently 1`] = `
 }
 
 @media (forced-colors:active) {
-  .c1:focus {
+  .c2:focus {
     outline: solid 1px transparent;
   }
 }
@@ -288,66 +292,70 @@ exports[`ActionMenu renders consistently 1`] = `
   data-portal-root={true}
   fontFamily="normal"
 >
-  <button
-    aria-describedby=":r0:-loading-announcement"
-    aria-haspopup="true"
-    aria-labelledby=":r0:-label"
+  <div
     className="c1"
-    data-block={null}
-    data-loading={false}
-    id=":r0:"
-    onClick={[Function]}
-    onKeyDown={[Function]}
-    style={{}}
-    tabIndex={0}
-    type="button"
   >
-    <span
+    <button
+      aria-describedby=":r0:-loading-announcement"
+      aria-haspopup="true"
+      aria-labelledby=":r0:-label"
       className="c2"
-      data-component="buttonContent"
+      data-block={null}
+      data-loading={false}
+      id=":r0:"
+      onClick={[Function]}
+      onKeyDown={[Function]}
+      style={{}}
+      tabIndex={0}
+      type="button"
     >
       <span
-        data-component="text"
-        id=":r0:-label"
+        className="c3"
+        data-component="buttonContent"
       >
-        Toggle Menu
+        <span
+          data-component="text"
+          id=":r0:-label"
+        >
+          Toggle Menu
+        </span>
       </span>
-    </span>
-    <span
-      className="c3"
-      data-component="trailingAction"
-    >
-      <svg
-        aria-hidden="true"
-        className="octicon octicon-triangle-down"
-        fill="currentColor"
-        focusable="false"
-        height={16}
-        role="img"
-        style={
-          {
-            "display": "inline-block",
-            "overflow": "visible",
-            "userSelect": "none",
-            "verticalAlign": "text-bottom",
-          }
-        }
-        viewBox="0 0 16 16"
-        width={16}
+      <span
+        className="c4"
+        data-component="trailingAction"
       >
-        <path
-          d="m4.427 7.427 3.396 3.396a.25.25 0 0 0 .354 0l3.396-3.396A.25.25 0 0 0 11.396 7H4.604a.25.25 0 0 0-.177.427Z"
-        />
-      </svg>
-    </span>
-  </button>
-  <div
-    className="c4"
-  >
-    <span
-      aria-live="polite"
-      id=":r0:-loading-announcement"
-    />
+        <svg
+          aria-hidden="true"
+          className="octicon octicon-triangle-down"
+          fill="currentColor"
+          focusable="false"
+          height={16}
+          role="img"
+          style={
+            {
+              "display": "inline-block",
+              "overflow": "visible",
+              "userSelect": "none",
+              "verticalAlign": "text-bottom",
+            }
+          }
+          viewBox="0 0 16 16"
+          width={16}
+        >
+          <path
+            d="m4.427 7.427 3.396 3.396a.25.25 0 0 0 .354 0l3.396-3.396A.25.25 0 0 0 11.396 7H4.604a.25.25 0 0 0-.177.427Z"
+          />
+        </svg>
+      </span>
+    </button>
+    <div
+      className="c5"
+    >
+      <span
+        aria-live="polite"
+        id=":r0:-loading-announcement"
+      />
+    </div>
   </div>
 </div>
 `;
