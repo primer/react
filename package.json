@@ -203,7 +203,7 @@
     "eslint-plugin-github": "4.10.1",
     "eslint-plugin-jest": "27.2.1",
     "eslint-plugin-jsx-a11y": "6.7.1",
-    "eslint-plugin-mdx": "2.2.0",
+    "eslint-plugin-mdx": "3.0.0",
     "eslint-plugin-playwright": "0.15.1",
     "eslint-plugin-prettier": "5.0.0",
     "eslint-plugin-primer-react": "4.0.2",
