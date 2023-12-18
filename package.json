@@ -256,7 +256,7 @@
     "storybook-addon-turbo-build": "2.0.1",
     "styled-components": "5.3.11",
     "terser": "5.17.6",
-    "ts-node": "10.9.1",
+    "ts-node": "10.9.2",
     "ts-toolbelt": "9.6.0",
     "typescript": "5.2.2",
     "typescript-plugin-css-modules": "5.0.2",
