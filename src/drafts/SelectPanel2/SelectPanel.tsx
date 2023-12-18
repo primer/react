@@ -216,9 +216,8 @@ const Panel: React.FC<SelectPanelProps> = ({
               height: '100%',
             }}
           >
-            {/* render default header as fallback */}
+            {slots.header ?? /* render default header as fallback */ <SelectPanelHeader />}
 
-            {slots.header ?? <SelectPanelHeader />}
             <Box
               as="div"
               ref={listContainerRef as React.RefObject<HTMLDivElement>}
