@@ -210,7 +210,8 @@ export const getBaseStyles = (theme?: Theme) => ({
   alignItems: 'center',
   justifyContent: 'space-between',
   minHeight: 'var(--control-medium-size, 32px)',
-  padding: '0 12px',
+  // calc explained: sets block padding to the correct size, minus 2px for border
+  paddingInline: 'var(--control-medium-paddingInline-normal, 0.75rem)',
   gap: '8px',
   transition: '80ms cubic-bezier(0.65, 0, 0.35, 1)',
   transitionProperty: 'color, fill, background-color, border-color',
@@ -250,10 +251,15 @@ export const getBaseStyles = (theme?: Theme) => ({
     minWidth: 'unset',
   },
   '&[data-size="small"]': {
-    padding: '0 8px',
     minHeight: 'var(--control-small-size, 28px)',
     gap: '4px',
     fontSize: '0',
+    paddingInline: 'var(----control-small-paddingInline-condensed, 0.5rem)',
+
+    '[data-component="buttonContent"]': {
+      // calc explained: sets block padding to the correct size, minus 2px for border
+      paddingBlock: 'calc(var(--control-small-paddingBlock, 0.25rem) - 2px)',
+    },
 
     '[data-component="text"]': {
       lineHeight: 'calc(20 / 12)',
@@ -273,9 +279,14 @@ export const getBaseStyles = (theme?: Theme) => ({
     },
   },
   '&[data-size="large"]': {
-    padding: '0 16px',
     minHeight: 'var(--control-large-size, 40px)',
     gap: '8px',
+    // calc explained: sets block padding to the correct size, minus 2px for border
+    paddingInline: 'var(--control-large-paddingInline-spacious, 1rem)',
+
+    '[data-component="buttonContent"]': {
+      paddingBlock: 'calc(var(--control-large-paddingBlock, 0.625rem) - 2px)',
+    },
 
     '[data-component="buttonContent"] > :not(:last-child)': {
       mr: '8px',
@@ -322,6 +333,9 @@ export const getButtonStyles = (theme?: Theme) => {
       gridTemplateColumns: 'min-content minmax(0, auto) min-content',
       alignItems: 'center',
       alignContent: 'center',
+      alignSelf: 'stretch',
+      // calc explained: sets block padding to the correct size, minus 2px for border
+      paddingBlock: 'calc(var(--control-medium-paddingBlock, 0.375rem) - 2px)',
     },
     '[data-component="buttonContent"] > :not(:last-child)': {
       mr: '8px',

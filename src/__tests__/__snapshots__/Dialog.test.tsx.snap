@@ -111,12 +111,9 @@ exports[`Dialog renders consistently 1`] = `
   -webkit-justify-content: space-between;
   -ms-flex-pack: justify;
   justify-content: space-between;
-  height: 32px;
-  padding: 0 12px;
+  min-height: var(--control-medium-size,32px);
+  padding-inline: var(--control-medium-paddingInline-normal,0.75rem);
   gap: 8px;
-  min-width: -webkit-max-content;
-  min-width: -moz-max-content;
-  min-width: max-content;
   -webkit-transition: 80ms cubic-bezier(0.65,0,0.35,1);
   transition: 80ms cubic-bezier(0.65,0,0.35,1);
   -webkit-transition-property: color,fill,background-color,border-color;
@@ -188,15 +185,19 @@ exports[`Dialog renders consistently 1`] = `
   display: inline-grid;
   padding: unset;
   place-content: center;
-  width: 32px;
+  width: var(--control-medium-size,32px);
   min-width: unset;
 }
 
 .c1[data-size="small"] {
-  padding: 0 8px;
-  height: 28px;
+  min-height: var(--control-small-size,28px);
   gap: 4px;
   font-size: 12px;
+  padding-inline: var(----control-small-paddingInline-condensed,0.5rem);
+}
+
+.c1[data-size="small"] [data-component="buttonContent"] {
+  padding-block: calc(var(--control-small-paddingBlock,0.25rem) - 2px);
 }
 
 .c1[data-size="small"] [data-component="text"] {
@@ -212,14 +213,18 @@ exports[`Dialog renders consistently 1`] = `
 }
 
 .c1[data-size="small"][data-component=IconButton] {
-  width: 28px;
+  width: var(--control-small-size,28px);
   padding: unset;
 }
 
 .c1[data-size="large"] {
-  padding: 0 16px;
-  height: 40px;
+  min-height: var(--control-large-size,40px);
   gap: 8px;
+  padding-inline: var(--control-large-paddingInline-spacious,1rem);
+}
+
+.c1[data-size="large"] [data-component="buttonContent"] {
+  padding-block: calc(var(--control-large-paddingBlock,0.625rem) - 2px);
 }
 
 .c1[data-size="large"] [data-component="buttonContent"] > :not(:last-child) {
@@ -227,7 +232,7 @@ exports[`Dialog renders consistently 1`] = `
 }
 
 .c1[data-size="large"][data-component=IconButton] {
-  width: 40px;
+  width: var(--control-large-size,40px);
   padding: unset;
 }
 
@@ -253,7 +258,6 @@ exports[`Dialog renders consistently 1`] = `
 .c1 [data-component="text"] {
   grid-area: text;
   line-height: calc(20/14);
-  white-space: nowrap;
 }
 
 .c1 [data-component="trailingVisual"] {
@@ -266,9 +270,9 @@ exports[`Dialog renders consistently 1`] = `
 }
 
 .c1 [data-component="buttonContent"] {
-  -webkit-flex: 1 0 auto;
-  -ms-flex: 1 0 auto;
-  flex: 1 0 auto;
+  -webkit-flex: 1 1 auto;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
   display: grid;
   grid-template-areas: "leadingVisual text trailingVisual";
   grid-template-columns: min-content minmax(0,auto) min-content;
@@ -279,6 +283,10 @@ exports[`Dialog renders consistently 1`] = `
   -webkit-align-content: center;
   -ms-flex-line-pack: center;
   align-content: center;
+  -webkit-align-self: stretch;
+  -ms-flex-item-align: stretch;
+  align-self: stretch;
+  padding-block: calc(var(--control-medium-paddingBlock,0.375rem) - 2px);
 }
 
 .c1 [data-component="buttonContent"] > :not(:last-child) {
