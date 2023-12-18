@@ -5,6 +5,7 @@ import {get} from '../constants'
 import sx, {SxProp} from '../sx'
 import {ComponentProps} from '../utils/types'
 import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
+import {AlertIcon, CheckIcon, InfoIcon, StopIcon} from '@primer/octicons-react'
 
 const variants = variant({
   variants: {
@@ -12,7 +13,7 @@ const variants = variant({
       color: 'fg.default',
       backgroundColor: 'accent.subtle',
       borderColor: 'accent.muted',
-      svg: {
+      '[data-component="leadingVisual"]': {
         color: 'accent.fg',
       },
     },
@@ -20,7 +21,7 @@ const variants = variant({
       color: 'fg.default',
       backgroundColor: 'success.subtle',
       borderColor: 'success.muted',
-      svg: {
+      '[data-component="leadingVisual"]': {
         color: 'success.fg',
       },
     },
@@ -28,7 +29,7 @@ const variants = variant({
       color: 'fg.default',
       backgroundColor: 'danger.subtle',
       borderColor: 'danger.muted',
-      svg: {
+      '[data-component="leadingVisual"]': {
         color: 'danger.fg',
       },
     },
@@ -36,7 +37,7 @@ const variants = variant({
       color: 'fg.default',
       backgroundColor: 'attention.subtle',
       borderColor: 'attention.muted',
-      svg: {
+      '[data-component="leadingVisual"]': {
         color: 'attention.fg',
       },
     },
@@ -46,6 +47,7 @@ const variants = variant({
 type StyledFlashProps = {
   variant?: 'default' | 'warning' | 'success' | 'danger'
   full?: boolean
+  renderDefaultVisual?: boolean
 } & SxProp
 
 const StyledFlash = styled.div<StyledFlashProps>`
@@ -61,7 +63,7 @@ const StyledFlash = styled.div<StyledFlashProps>`
     margin-bottom: 0;
   }
 
-  svg {
+  [data-component='leadingVisual'] {
     margin-right: ${get('space.2')};
   }
 
@@ -71,8 +73,26 @@ const StyledFlash = styled.div<StyledFlashProps>`
 
 export type FlashProps = ComponentProps<typeof StyledFlash>
 
-const Flash = React.forwardRef(function Flash({as, variant = 'default', ...rest}, ref) {
-  return <StyledFlash ref={ref} as={as} variant={variant} {...rest} />
+const Flash = React.forwardRef(function Flash({as, children, variant = 'default', renderDefaultVisual, ...rest}, ref) {
+  const defaultLeadingVisuals = {
+    default: InfoIcon,
+    danger: StopIcon,
+    success: CheckIcon,
+    warning: AlertIcon,
+  }
+
+  const DefaultVisual = defaultLeadingVisuals[variant]
+
+  return (
+    <StyledFlash ref={ref} as={as} variant={variant} {...rest}>
+      {renderDefaultVisual && (
+        <span data-component="leadingVisual">
+          <DefaultVisual />
+        </span>
+      )}
+      {children}
+    </StyledFlash>
+  )
 }) as PolymorphicForwardRefComponent<'div', StyledFlashProps>
 
 if (__DEV__) {

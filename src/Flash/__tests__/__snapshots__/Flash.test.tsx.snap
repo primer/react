@@ -18,11 +18,11 @@ exports[`Flash renders consistently 1`] = `
   margin-bottom: 0;
 }
 
-.c0 svg {
+.c0 [data-component='leadingVisual'] {
   margin-right: 8px;
 }
 
-.c0 svg {
+.c0 [data-component="leadingVisual"] {
   color: #0969da;
 }
 
