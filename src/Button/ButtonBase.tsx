@@ -21,6 +21,7 @@ const ButtonBase = forwardRef(
       size = 'medium',
       alignContent = 'center',
       block = false,
+      inactive,
       ...rest
     } = props
 
@@ -68,6 +69,7 @@ const ButtonBase = forwardRef(
         data-block={block ? 'block' : null}
         data-size={size === 'small' || size === 'large' ? size : undefined}
         data-no-visuals={!LeadingVisual && !TrailingVisual && !TrailingAction ? true : undefined}
+        data-inactive={inactive ? true : undefined}
       >
         {Icon ? (
           <Icon />

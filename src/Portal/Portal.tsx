@@ -65,14 +65,18 @@ export const Portal: React.FC<React.PropsWithChildren<PortalProps>> = ({
   onMount,
   containerName: _containerName,
 }) => {
-  const hostElement = document.createElement('div')
+  const elementRef = React.useRef<HTMLDivElement | null>(null)
+  if (!elementRef.current) {
+    const div = document.createElement('div')
+    // Portaled content should get their own stacking context so they don't interfere
+    // with each other in unexpected ways. One should never find themselves tempted
+    // to change the zIndex to a value other than "1".
+    div.style.position = 'relative'
+    div.style.zIndex = '1'
+    elementRef.current = div
+  }
 
-  // Portaled content should get their own stacking context so they don't interfere
-  // with each other in unexpected ways. One should never find themselves tempted
-  // to change the zIndex to a value other than "1".
-  hostElement.style.position = 'relative'
-  hostElement.style.zIndex = '1'
-  const elementRef = React.useRef(hostElement)
+  const element = elementRef.current
 
   useLayoutEffect(() => {
     let containerName = _containerName
@@ -87,7 +91,6 @@ export const Portal: React.FC<React.PropsWithChildren<PortalProps>> = ({
         `Portal container '${_containerName}' is not yet registered. Container must be registered with registerPortal before use.`,
       )
     }
-    const element = elementRef.current
     parentElement.appendChild(element)
     onMount?.()
 
@@ -95,7 +98,7 @@ export const Portal: React.FC<React.PropsWithChildren<PortalProps>> = ({
       parentElement.removeChild(element)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [elementRef])
+  }, [element])
 
-  return createPortal(children, elementRef.current)
+  return createPortal(children, element)
 }

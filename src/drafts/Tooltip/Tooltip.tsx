@@ -1,5 +1,4 @@
 import React, {Children, useEffect, useRef, useState} from 'react'
-import Box from '../../Box'
 import sx, {SxProp} from '../../sx'
 import {useId, useProvidedRefOrCreate} from '../../hooks'
 import {invariant} from '../../utils/invariant'
@@ -139,6 +138,7 @@ export type TriggerPropsType = {
   onBlur?: React.FocusEventHandler
   onFocus?: React.FocusEventHandler
   onMouseEnter?: React.MouseEventHandler
+  onMouseLeave?: React.MouseEventHandler
   ref?: React.RefObject<HTMLElement>
 }
 
@@ -268,14 +268,14 @@ export const Tooltip = React.forwardRef(
 
     return (
       <TooltipContext.Provider value={{tooltipId}}>
-        <Box onMouseLeave={() => closeTooltip()}>
+        <>
           {React.isValidElement(child) &&
             React.cloneElement(child as React.ReactElement<TriggerPropsType>, {
               ref: triggerRef,
               // If it is a type description, we use tooltip to describe the trigger
-              'aria-describedby': type === 'description' ? `tooltip-${tooltipId}` : undefined,
+              'aria-describedby': type === 'description' ? `tooltip-${tooltipId}` : child.props['aria-describedby'],
               // If it is a label type, we use tooltip to label the trigger
-              'aria-labelledby': type === 'label' ? `tooltip-${tooltipId}` : undefined,
+              'aria-labelledby': type === 'label' ? `tooltip-${tooltipId}` : child.props['aria-labelledby'],
               onBlur: (event: React.FocusEvent) => {
                 closeTooltip()
                 child.props.onBlur?.(event)
@@ -288,6 +288,10 @@ export const Tooltip = React.forwardRef(
                 openTooltip()
                 child.props.onMouseEnter?.(event)
               },
+              onMouseLeave: (event: React.MouseEvent) => {
+                closeTooltip()
+                child.props.onMouseLeave?.(event)
+              },
             })}
           <StyledTooltip
             ref={tooltipElRef}
@@ -298,10 +302,13 @@ export const Tooltip = React.forwardRef(
             // stop AT from announcing the tooltip twice when it is a label type because it will be announced with "aria-labelledby"
             aria-hidden={type === 'label' ? true : undefined}
             id={`tooltip-${tooltipId}`}
+            // mouse leave and enter on the tooltip itself is needed to keep the tooltip open when the mouse is over the tooltip
+            onMouseEnter={openTooltip}
+            onMouseLeave={closeTooltip}
           >
             {text}
           </StyledTooltip>
-        </Box>
+        </>
       </TooltipContext.Provider>
     )
   },

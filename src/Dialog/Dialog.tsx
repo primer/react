@@ -13,6 +13,7 @@ import {FocusKeys} from '@primer/behaviors'
 import Portal from '../Portal'
 import {useRefObjectAsForwardedRef} from '../hooks/useRefObjectAsForwardedRef'
 import {useId} from '../hooks/useId'
+import {ScrollableRegion} from '../internal/components/ScrollableRegion'
 
 /* Dialog Version 2 */
 
@@ -324,7 +325,9 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
             sx={sx}
           >
             {header}
-            {body}
+            <ScrollableRegion aria-labelledby={dialogLabelId} className="DialogOverflowWrapper">
+              {body}
+            </ScrollableRegion>
             {footer}
           </StyledDialog>
         </Backdrop>
