@@ -18,9 +18,10 @@ import {
 } from '../../../src/index'
 import {ActionListContainerContext} from '../../../src/ActionList/ActionListContainerContext'
 import {useSlots} from '../../hooks/useSlots'
-import {useProvidedRefOrCreate, useId, useAnchoredPosition} from '../../hooks'
+import {useProvidedRefOrCreate, useId, useAnchoredPosition, useOnOutsideClick} from '../../hooks'
 import {useFocusZone} from '../../hooks/useFocusZone'
 import {StyledOverlay, OverlayProps} from '../../Overlay/Overlay'
+import {P} from 'ts-toolbelt/out/Object/_api'
 
 const SelectPanelContext = React.createContext<{
   title: string
@@ -174,6 +175,19 @@ const Panel: React.FC<SelectPanelProps> = ({
     [anchorRef.current, dialogRef.current],
   )
 
+  /* 
+    We don't close the panel when clicking outside.
+    For many years, we used to save changes and closed the dialog (for label picker)
+    which isn't accessible, clicking outside should discard changes and close the dialog
+    Fixing this a11y bug would confuse users, so as a middle ground,
+    we don't close the menu and nudge the user towards the footer actions
+  */
+  const [footerAnimationEnabled, setFooterAnimationEnabled] = React.useState(false)
+  const onClickOutside = () => {
+    setFooterAnimationEnabled(true)
+    window.setTimeout(() => setFooterAnimationEnabled(false), 500)
+  }
+
   return (
     <>
       {Anchor}
@@ -192,6 +206,20 @@ const Panel: React.FC<SelectPanelProps> = ({
           padding: 0,
           margin: 0,
           '::backdrop': {background: 'transparent'},
+
+          '& [data-selectpanel-primary-actions]': {
+            animation: footerAnimationEnabled ? 'selectpanel-gelatine 0.5s linear' : 'none',
+          },
+          '@keyframes selectpanel-gelatine': {
+            '0%': {transform: 'scale(1, 1)'},
+            '25%': {transform: 'scale(0.9, 1.1)'},
+            '50%': {transform: 'scale(1.1, 0.9)'},
+            '75%': {transform: 'scale(0.95, 1.05)'},
+            '100%': {transform: 'scale(1, 1)'},
+          },
+        }}
+        onClick={event => {
+          if (event.target === event.currentTarget) onClickOutside()
         }}
       >
         <SelectPanelContext.Provider
@@ -386,7 +414,7 @@ const SelectPanelFooter = ({...props}) => {
       <Box sx={{flexGrow: hidePrimaryActions ? 1 : 0}}>{props.children}</Box>
 
       {hidePrimaryActions ? null : (
-        <Box sx={{display: 'flex', gap: 2}}>
+        <Box data-selectpanel-primary-actions sx={{display: 'flex', gap: 2}}>
           <Button size="small" type="button" onClick={() => onCancel()}>
             Cancel
           </Button>
