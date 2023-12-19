@@ -86,32 +86,7 @@ const SelectPanelContainer: React.FC<SelectPanelProps> = ({
   // sync open state with props
   if (propsOpen !== undefined && internalOpen !== propsOpen) setInternalOpen(propsOpen)
 
-  // TODO: replace this hack with clone element?
-
-  // 🚨 Hack for good API!
-  // we strip out Anchor from children and wire it up to Dialog
-  // with additional props for accessibility
-  let Anchor: React.ReactElement | undefined
   const anchorRef = useProvidedRefOrCreate(providedAnchorRef)
-
-  const onAnchorClick = () => {
-    if (!internalOpen) setInternalOpen(true)
-    else onInternalClose()
-  }
-
-  const contents = React.Children.map(props.children, child => {
-    if (React.isValidElement(child) && child.type === SelectPanelButton) {
-      Anchor = React.cloneElement(child, {
-        // @ts-ignore TODO
-        ref: anchorRef,
-        onClick: onAnchorClick,
-        'aria-haspopup': true,
-        'aria-expanded': internalOpen,
-      })
-      return null
-    }
-    return child
-  })
 
   const onInternalClose = () => {
     if (propsOpen === undefined) setInternalOpen(false)
@@ -147,7 +122,72 @@ const SelectPanelContainer: React.FC<SelectPanelProps> = ({
     [internalOpen],
   )
 
-  /* Dialog */
+  return (
+    <SelectPanelContext.Provider
+      value={{
+        panelId,
+        title,
+        description,
+        onCancel: onInternalClose,
+        onClearSelection: propsOnClearSelection ? onInternalClearSelection : undefined,
+        searchQuery,
+        setSearchQuery,
+        selectionVariant,
+
+        // not typed yet:
+        anchorRef,
+
+        width,
+        height,
+
+        internalOpen,
+        setInternalOpen,
+        onInternalSubmit,
+        onInternalClose,
+        internalAfterSelect,
+
+        listContainerRef,
+      }}
+    >
+      {props.children}
+    </SelectPanelContext.Provider>
+  )
+}
+
+const SelectPanelButton = React.forwardRef<HTMLButtonElement, ButtonProps>((props, forwardedRef) => {
+  const {anchorRef, internalOpen, setInternalOpen, onInternalClose} = React.useContext(SelectPanelContext)
+
+  const onClick = () => {
+    if (!internalOpen) setInternalOpen(true)
+    else onInternalClose()
+  }
+
+  return <Button {...props} ref={anchorRef} onClick={onClick} aria-haspopup={true} aria-expanded={internalOpen} />
+})
+
+type SelectPanelDialogProps = {
+  /** open is handled at root SelectPanel, not SelectPanel.Dialog */
+  open?: never
+}
+const SelectPanelDialog: React.FC<React.PropsWithChildren<SelectPanelDialogProps>> = props => {
+  const {
+    width,
+    height,
+
+    description,
+    panelId,
+    onInternalSubmit,
+    selectionVariant,
+    listContainerRef,
+    internalAfterSelect,
+    internalOpen,
+    onInternalClose,
+    anchorRef,
+  } = React.useContext(SelectPanelContext)
+
+  const [slots, childrenInBody] = useSlots(props.children, {header: SelectPanelHeader, footer: SelectPanelFooter})
+
+  /* Dialog plumbing */
   const dialogRef = React.useRef<HTMLDialogElement>(null)
   if (internalOpen) dialogRef.current?.showModal()
   else dialogRef.current?.close()
@@ -172,56 +212,6 @@ const SelectPanelContainer: React.FC<SelectPanelProps> = ({
     },
     [anchorRef.current, dialogRef.current],
   )
-
-  return (
-    <SelectPanelContext.Provider
-      value={{
-        panelId,
-        title,
-        description,
-        onCancel: onInternalClose,
-        onClearSelection: propsOnClearSelection ? onInternalClearSelection : undefined,
-        searchQuery,
-        setSearchQuery,
-        selectionVariant,
-
-        // not typed yet:
-        width,
-        height,
-        position,
-        onInternalSubmit,
-
-        dialogRef,
-        listContainerRef,
-        internalAfterSelect,
-      }}
-    >
-      {Anchor}
-      {props.children}
-    </SelectPanelContext.Provider>
-  )
-}
-
-const SelectPanelButton = React.forwardRef<HTMLButtonElement, ButtonProps>((props, anchorRef) => {
-  return <Button ref={anchorRef} {...props} />
-})
-
-const SelectPanelDialog: React.FC<React.PropsWithChildren> = props => {
-  const {
-    dialogRef,
-    width,
-    height,
-    position,
-    description,
-    panelId,
-    onInternalSubmit,
-    selectionVariant,
-
-    listContainerRef,
-    internalAfterSelect,
-  } = React.useContext(SelectPanelContext)
-
-  const [slots, childrenInBody] = useSlots(props.children, {header: SelectPanelHeader, footer: SelectPanelFooter})
 
   return (
     <StyledOverlay
