@@ -73,38 +73,40 @@ export const Default = () => {
       >
         <SelectPanel.Button>Assign label</SelectPanel.Button>
 
-        <SelectPanel.Header>
-          <SelectPanel.SearchInput onChange={onSearchInputChange} />
-        </SelectPanel.Header>
+        <SelectPanel.Dialog>
+          <SelectPanel.Header>
+            <SelectPanel.SearchInput onChange={onSearchInputChange} />
+          </SelectPanel.Header>
 
-        {itemsToShow.length === 0 ? (
-          <SelectPanel.Message variant="empty" title={`No labels found for "${query}"`}>
-            Try a different search term
-          </SelectPanel.Message>
-        ) : (
-          <ActionList>
-            {itemsToShow.map(label => (
-              <ActionList.Item
-                key={label.id}
-                onSelect={() => onLabelSelect(label.id)}
-                selected={selectedLabelIds.includes(label.id)}
-              >
-                <ActionList.LeadingVisual>
-                  <Box
-                    sx={{width: 14, height: 14, borderRadius: '100%'}}
-                    style={{backgroundColor: `#${label.color}`}}
-                  />
-                </ActionList.LeadingVisual>
-                {label.name}
-                <ActionList.Description variant="block">{label.description}</ActionList.Description>
-              </ActionList.Item>
-            ))}
-          </ActionList>
-        )}
+          {itemsToShow.length === 0 ? (
+            <SelectPanel.Message variant="empty" title={`No labels found for "${query}"`}>
+              Try a different search term
+            </SelectPanel.Message>
+          ) : (
+            <ActionList>
+              {itemsToShow.map(label => (
+                <ActionList.Item
+                  key={label.id}
+                  onSelect={() => onLabelSelect(label.id)}
+                  selected={selectedLabelIds.includes(label.id)}
+                >
+                  <ActionList.LeadingVisual>
+                    <Box
+                      sx={{width: 14, height: 14, borderRadius: '100%'}}
+                      style={{backgroundColor: `#${label.color}`}}
+                    />
+                  </ActionList.LeadingVisual>
+                  {label.name}
+                  <ActionList.Description variant="block">{label.description}</ActionList.Description>
+                </ActionList.Item>
+              ))}
+            </ActionList>
+          )}
 
-        <SelectPanel.Footer>
-          <SelectPanel.SecondaryButton>Edit labels</SelectPanel.SecondaryButton>
-        </SelectPanel.Footer>
+          <SelectPanel.Footer>
+            <SelectPanel.SecondaryButton>Edit labels</SelectPanel.SecondaryButton>
+          </SelectPanel.Footer>
+        </SelectPanel.Dialog>
       </SelectPanel>
     </>
   )

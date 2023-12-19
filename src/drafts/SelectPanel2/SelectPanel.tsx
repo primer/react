@@ -28,8 +28,7 @@ const SelectPanelContext = React.createContext<{
   panelId: string
   onCancel: () => void
   onClearSelection: undefined | (() => void)
-  searchQuery: string
-  setSearchQuery: React.Dispatch<React.SetStateAction<string>>
+
   selectionVariant: ActionListProps['selectionVariant'] | 'instant'
 }>({
   title: '',
@@ -37,8 +36,7 @@ const SelectPanelContext = React.createContext<{
   panelId: '',
   onCancel: () => {},
   onClearSelection: undefined,
-  searchQuery: '',
-  setSearchQuery: () => {},
+
   selectionVariant: 'multiple',
 })
 
@@ -107,20 +105,8 @@ const SelectPanelContainer: React.FC<SelectPanelProps> = ({
     if (selectionVariant === 'instant') onInternalSubmit()
   }
 
-  /* Search/Filter */
-  const [searchQuery, setSearchQuery] = React.useState<string>('')
-
   /* Panel plumbing */
   const panelId = useId(id)
-
-  /* Arrow keys navigation for list items */
-  const {containerRef: listContainerRef} = useFocusZone(
-    {
-      bindKeys: FocusKeys.ArrowVertical | FocusKeys.HomeAndEnd | FocusKeys.PageUpDown,
-      focusableElementFilter: element => element.tagName === 'LI',
-    },
-    [internalOpen],
-  )
 
   return (
     <SelectPanelContext.Provider
@@ -130,8 +116,7 @@ const SelectPanelContainer: React.FC<SelectPanelProps> = ({
         description,
         onCancel: onInternalClose,
         onClearSelection: propsOnClearSelection ? onInternalClearSelection : undefined,
-        searchQuery,
-        setSearchQuery,
+
         selectionVariant,
 
         // not typed yet:
@@ -145,8 +130,6 @@ const SelectPanelContainer: React.FC<SelectPanelProps> = ({
         onInternalSubmit,
         onInternalClose,
         internalAfterSelect,
-
-        listContainerRef,
       }}
     >
       {props.children}
@@ -178,7 +161,7 @@ const SelectPanelDialog: React.FC<React.PropsWithChildren<SelectPanelDialogProps
     panelId,
     onInternalSubmit,
     selectionVariant,
-    listContainerRef,
+
     internalAfterSelect,
     internalOpen,
     onInternalClose,
@@ -211,6 +194,15 @@ const SelectPanelDialog: React.FC<React.PropsWithChildren<SelectPanelDialogProps
       align: 'start',
     },
     [anchorRef.current, dialogRef.current],
+  )
+
+  /* Arrow keys navigation for list items */
+  const {containerRef: listContainerRef} = useFocusZone(
+    {
+      bindKeys: FocusKeys.ArrowVertical | FocusKeys.HomeAndEnd | FocusKeys.PageUpDown,
+      focusableElementFilter: element => element.tagName === 'LI',
+    },
+    [internalOpen],
   )
 
   return (
@@ -338,15 +330,6 @@ const SelectPanelSearchInput: React.FC<TextInputProps> = ({onChange: propsOnChan
   // TODO: use forwardedRef
   const inputRef = React.createRef<HTMLInputElement>()
 
-  const {setSearchQuery} = React.useContext(SelectPanelContext)
-
-  const internalOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    // If props.onChange is given, the application controls search,
-    // otherwise the component does
-    if (typeof propsOnChange === 'function') propsOnChange(event)
-    else setSearchQuery(event.target.value)
-  }
-
   return (
     <TextInput
       ref={inputRef}
@@ -374,7 +357,6 @@ const SelectPanelSearchInput: React.FC<TextInputProps> = ({onChange: propsOnChan
           // '& input:empty + .TextInput-action': {display: 'none'},
         }
       }
-      onChange={internalOnChange}
       {...props}
     />
   )

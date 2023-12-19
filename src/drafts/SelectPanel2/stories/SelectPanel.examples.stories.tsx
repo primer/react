@@ -47,7 +47,7 @@ export const Minimal = () => {
       <SelectPanel title="Select labels" onSubmit={onSubmit}>
         <SelectPanel.Button>Assign label</SelectPanel.Button>
 
-        <SelectPanel.Dialog open>
+        <SelectPanel.Dialog>
           <ActionList>
             {itemsToShow.map(label => (
               <ActionList.Item
