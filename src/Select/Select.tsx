@@ -5,7 +5,9 @@ import TextInputWrapper, {StyledWrapperProps} from '../internal/components/TextI
 export type SelectProps = Omit<
   Omit<React.ComponentPropsWithoutRef<'select'>, 'size'> & Omit<StyledWrapperProps, 'variant'>,
   'multiple' | 'hasLeadingVisual' | 'hasTrailingVisual' | 'as'
->
+> & {
+  placeholder?: string
+}
 
 const arrowRightOffset = '4px'
 

@@ -168,6 +168,8 @@
       url: /drafts/MarkdownViewer
     - title: PageHeader
       url: /drafts/PageHeader
+    - title: SelectPanel v2
+      url: /drafts/SelectPanel
     - title: Tooltip v2
       url: /drafts/Tooltip
 - title: Deprecated

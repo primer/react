@@ -2,7 +2,7 @@
 
 const fs = require('node:fs')
 const path = require('node:path')
-const prettier = require('prettier')
+const prettier = require('@prettier/sync')
 const prettierConfig = require('@github/prettier-config')
 const recast = require('recast')
 
@@ -439,6 +439,36 @@ const components = new Map([
       stories: [
         {
           id: 'components-details--default',
+          name: 'Default',
+        },
+      ],
+    },
+  ],
+  [
+    'Dialog',
+    {
+      stories: [
+        {
+          id: 'components-dialog--default',
+          name: 'Default',
+        },
+        {
+          id: 'components-dialog-features--stress-test',
+          name: 'Stress Test',
+        },
+        {
+          id: 'components-dialog-features--with-custom-renderers',
+          name: 'With Custom Renderers',
+        },
+      ],
+    },
+  ],
+  [
+    'Dialog v1',
+    {
+      stories: [
+        {
+          id: 'components-dialogv1--default',
           name: 'Default',
         },
       ],

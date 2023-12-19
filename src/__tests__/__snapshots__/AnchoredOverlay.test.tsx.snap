@@ -86,7 +86,7 @@ exports[`AnchoredOverlay renders consistently 1`] = `
   <button
     aria-haspopup="true"
     className="c1 c2"
-    id="react-aria-1"
+    id=":r0:"
     onClick={[Function]}
     onKeyDown={[Function]}
     tabIndex={0}
@@ -101,6 +101,24 @@ exports[`AnchoredOverlay should render consistently when open 1`] = `
   font-family: -apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
   line-height: 1.5;
   color: #1F2328;
+}
+
+.c3 {
+  background-color: #ffffff;
+  box-shadow: 0 1px 3px rgba(31,35,40,0.12),0 8px 24px rgba(66,74,83,0.12);
+  position: absolute;
+  min-width: 192px;
+  height: auto;
+  width: auto;
+  border-radius: 12px;
+  overflow: hidden;
+  -webkit-animation: overlay-appear 200ms cubic-bezier(0.33,1,0.68,1);
+  animation: overlay-appear 200ms cubic-bezier(0.33,1,0.68,1);
+  visibility: var(--styled-overlay-visibility);
+}
+
+.c3:focus {
+  outline: none;
 }
 
 .c1 {
@@ -170,24 +188,6 @@ exports[`AnchoredOverlay should render consistently when open 1`] = `
   border-color: rgba(31,35,40,0.15);
 }
 
-.c3 {
-  background-color: #ffffff;
-  box-shadow: 0 1px 3px rgba(31,35,40,0.12),0 8px 24px rgba(66,74,83,0.12);
-  position: absolute;
-  min-width: 192px;
-  height: auto;
-  width: auto;
-  border-radius: 12px;
-  overflow: hidden;
-  -webkit-animation: overlay-appear 200ms cubic-bezier(0.33,1,0.68,1);
-  animation: overlay-appear 200ms cubic-bezier(0.33,1,0.68,1);
-  visibility: var(--styled-overlay-visibility);
-}
-
-.c3:focus {
-  outline: none;
-}
-
 @media (forced-colors:active) {
   .c3 {
     outline: solid 1px transparent;
@@ -208,7 +208,7 @@ exports[`AnchoredOverlay should render consistently when open 1`] = `
       aria-expanded="true"
       aria-haspopup="true"
       class="c1 c2"
-      id="react-aria-1"
+      id=":r6:"
       tabindex="0"
     >
       Anchor Button

@@ -1,7 +1,7 @@
 import {subscribe as subscribeToMarkdownPasting} from '@github/paste-markdown'
 import React, {forwardRef, useEffect, useMemo, useRef, useState} from 'react'
 import {useDynamicTextareaHeight} from '../hooks/useDynamicTextareaHeight'
-import InlineAutocomplete, {ShowSuggestionsEvent, Suggestions} from '../../InlineAutocomplete'
+import InlineAutocomplete, {ShowSuggestionsEvent, Suggestions} from '../InlineAutocomplete'
 import Textarea, {TextareaProps} from '../../Textarea'
 import {Emoji, useEmojiSuggestions} from './suggestions/_useEmojiSuggestions'
 import {Mentionable, useMentionSuggestions} from './suggestions/_useMentionSuggestions'
@@ -162,9 +162,10 @@ export const MarkdownInput = forwardRef<HTMLTextAreaElement, MarkdownInputProps>
             display: visible ? undefined : 'none',
             '&: focus-within': {
               boxShadow: 'none',
+              outline: 'none',
             },
             '& textarea': {
-              lineHeight: 1.2,
+              lineHeight: 'var(--text-body-lineHeight-medium, 1.4285)',
               resize: fullHeight ? 'none' : 'vertical',
               p: 3,
               fontFamily: monospace ? 'mono' : 'normal',
