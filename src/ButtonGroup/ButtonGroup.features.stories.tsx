@@ -1,13 +1,11 @@
-import React from 'react'
-import {ComponentMeta} from '@storybook/react'
+import React, {useState} from 'react'
 import ButtonGroup from './ButtonGroup'
-import {IconButton} from '../Button'
+import {IconButton, Button} from '../Button'
 import {PlusIcon, DashIcon} from '@primer/octicons-react'
 
 export default {
   title: 'Components/ButtonGroup/Features',
-  component: ButtonGroup,
-} as ComponentMeta<typeof ButtonGroup>
+}
 
 export const IconButtons = () => (
   <ButtonGroup>
@@ -15,3 +13,20 @@ export const IconButtons = () => (
     <IconButton icon={DashIcon} aria-label="Subtract" />
   </ButtonGroup>
 )
+
+export const LoadingButtons = () => {
+  const [isLoading, setIsLoading] = useState(false)
+
+  const handleClick = () => {
+    setIsLoading(true)
+  }
+  return (
+    <ButtonGroup>
+      <Button loading={isLoading} onClick={handleClick}>
+        Button 1
+      </Button>
+      <Button>Button 2</Button>
+      <Button>Button 3</Button>
+    </ButtonGroup>
+  )
+}

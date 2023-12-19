@@ -11,6 +11,7 @@ import {VisuallyHidden} from '../internal/components/VisuallyHidden'
 import Spinner from '../Spinner'
 import CounterLabel from '../CounterLabel'
 import {useId} from '../hooks'
+import {ConditionalWrapper} from '../internal/components/ConditionalWrapper'
 
 const iconWrapStyles = {
   display: 'flex',
@@ -80,7 +81,7 @@ const ButtonBase = forwardRef(
     }
 
     return (
-      <Box sx={{display: 'inline-block'}}>
+      <ConditionalWrapper if={Boolean(loading)} sx={{display: 'inlineBlock'}}>
         <StyledButton
           as={Component}
           sx={sxStyles}
@@ -131,12 +132,14 @@ const ButtonBase = forwardRef(
             </>
           )}
         </StyledButton>
-        <VisuallyHidden>
-          <span aria-live="polite" id={loadingAnnouncementID}>
-            {loading && loadingAnnouncement}
-          </span>
-        </VisuallyHidden>
-      </Box>
+        {loading && (
+          <VisuallyHidden>
+            <span aria-live="polite" id={loadingAnnouncementID}>
+              {loadingAnnouncement}
+            </span>
+          </VisuallyHidden>
+        )}
+      </ConditionalWrapper>
     )
   },
 ) as PolymorphicForwardRefComponent<'button' | 'a', ButtonProps>

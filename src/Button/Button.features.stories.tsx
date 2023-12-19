@@ -94,3 +94,17 @@ export const LoadingWithTrailingVisual = () => (
     Export
   </Button>
 )
+
+export const LoadingTrigger = () => {
+  const [isLoading, setIsLoading] = useState(false)
+
+  const handleClick = () => {
+    setIsLoading(true)
+  }
+
+  return (
+    <Button loading={isLoading} onClick={handleClick} leadingVisual={DownloadIcon}>
+      Export
+    </Button>
+  )
+}
