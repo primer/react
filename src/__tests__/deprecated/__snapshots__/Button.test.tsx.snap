@@ -304,23 +304,29 @@ exports[`ButtonGroup renders consistently 1`] = `
   isolation: isolate;
 }
 
+.c0.c0 > * a,
 .c0.c0 > * button {
   margin-inline-end: -1px;
   position: relative;
   border-radius: 0;
 }
 
+.c0.c0 > * a:focus,
 .c0.c0 > * button:focus,
+.c0.c0 > * a:active,
 .c0.c0 > * button:active,
+.c0.c0 > * a:hover,
 .c0.c0 > * button:hover {
   z-index: 1;
 }
 
+.c0.c0 > *:first-child a,
 .c0.c0 > *:first-child button {
   border-top-left-radius: 6px;
   border-bottom-left-radius: 6px;
 }
 
+.c0.c0 > *:last-child a,
 .c0.c0 > *:last-child button {
   border-top-right-radius: 6px;
   border-bottom-right-radius: 6px;
