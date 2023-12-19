@@ -8,7 +8,7 @@ concurrency:
 
 jobs:
   build:
-    if: ${{ github.repository == 'primer/react' }}
+    if: ${{ github.event.pull_request.head.repo.full_name == 'primer/react' }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -31,7 +31,7 @@ jobs:
           path: docs/public
 
   deploy-preview:
-    if: ${{ github.repository == 'primer/react' }}
+    if: ${{ github.event.pull_request.head.repo.full_name == 'primer/react' }}
     needs: build
     permissions:
       pages: write
@@ -51,7 +51,7 @@ jobs:
 
   deploy-storybook:
     name: Preview Storybook
-    if: ${{ github.repository == 'primer/react' }}
+    if: ${{ github.event.pull_request.head.repo.full_name == 'primer/react' }}
     needs: deploy-preview
     permissions:
       deployments: write
