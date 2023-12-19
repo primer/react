@@ -4,7 +4,7 @@ import {get} from '../constants'
 import {SxProp, merge} from '../sx'
 import {ItemContext, TEXT_ROW_HEIGHT, getVariantStyles} from './shared'
 
-type VisualProps = SxProp & React.HTMLAttributes<HTMLSpanElement>
+export type VisualProps = SxProp & React.HTMLAttributes<HTMLSpanElement>
 
 export const LeadingVisualContainer: React.FC<React.PropsWithChildren<VisualProps>> = ({sx = {}, ...props}) => {
   return (
@@ -30,15 +30,15 @@ export const LeadingVisualContainer: React.FC<React.PropsWithChildren<VisualProp
 
 export type ActionListLeadingVisualProps = VisualProps
 export const LeadingVisual: React.FC<React.PropsWithChildren<VisualProps>> = ({sx = {}, ...props}) => {
-  const {variant, disabled} = React.useContext(ItemContext)
+  const {variant, disabled, inactive} = React.useContext(ItemContext)
   return (
     <LeadingVisualContainer
       sx={merge(
         {
-          color: getVariantStyles(variant, disabled).iconColor,
+          color: getVariantStyles(variant, disabled, inactive).iconColor,
           svg: {fontSize: 0},
           '[data-variant="danger"]:hover &, [data-variant="danger"]:active &': {
-            color: getVariantStyles(variant, disabled).hoverColor,
+            color: getVariantStyles(variant, disabled, inactive).hoverColor,
           },
         },
         sx as SxProp,
@@ -52,7 +52,7 @@ export const LeadingVisual: React.FC<React.PropsWithChildren<VisualProps>> = ({s
 
 export type ActionListTrailingVisualProps = VisualProps
 export const TrailingVisual: React.FC<React.PropsWithChildren<VisualProps>> = ({sx = {}, ...props}) => {
-  const {variant, disabled} = React.useContext(ItemContext)
+  const {variant, disabled, inactive} = React.useContext(ItemContext)
   return (
     <Box
       as="span"
@@ -60,11 +60,11 @@ export const TrailingVisual: React.FC<React.PropsWithChildren<VisualProps>> = ({
         {
           height: '20px', // match height of text row
           flexShrink: 0,
-          color: getVariantStyles(variant, disabled).annotationColor,
+          color: getVariantStyles(variant, disabled, inactive).annotationColor,
           marginLeft: 2,
           fontWeight: 'initial',
           '[data-variant="danger"]:hover &, [data-variant="danger"]:active &': {
-            color: getVariantStyles(variant, disabled).hoverColor,
+            color: getVariantStyles(variant, disabled, inactive).hoverColor,
           },
         },
         sx as SxProp,

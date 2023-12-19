@@ -1,5 +1,105 @@
 # @primer/components
 
+## 36.5.0
+
+### Minor Changes
+
+- [#4027](https://github.com/primer/react/pull/4027) [`49f585f9`](https://github.com/primer/react/commit/49f585f91e7839da96eea4f67730fe8d7cf428d0) Thanks [@iansan5653](https://github.com/iansan5653)! - Deprecate `MarkdownEditor`, `MarkdownViewer`, `InlineAutocomplete`, and related hooks
+
+- [#3913](https://github.com/primer/react/pull/3913) [`cf225772`](https://github.com/primer/react/commit/cf225772ff254948cdde63395477d4cb1d0fcaf2) Thanks [@mperrotti](https://github.com/mperrotti)! - Supports inactive ActionList items by letting users pass the required message to the `inactiveText` prop.
+
+  <!-- Changed components: ActionList, ActionMenu, NavList -->
+
+### Patch Changes
+
+- [#4056](https://github.com/primer/react/pull/4056) [`752bea4f`](https://github.com/primer/react/commit/752bea4f2f532281b1d930de605e8beaa27072b7) Thanks [@broccolinisoup](https://github.com/broccolinisoup)! - Tooltip2: Do not wrap the tooltip span and its trigger in a div
+
+- [#4039](https://github.com/primer/react/pull/4039) [`21e75dd8`](https://github.com/primer/react/commit/21e75dd858810df05c2002ed60d3e6c6ee320a47) Thanks [@mattcosta7](https://github.com/mattcosta7)! - Sync theme in effect
+
+- [#4023](https://github.com/primer/react/pull/4023) [`83c125fc`](https://github.com/primer/react/commit/83c125fc58df9c9ea6b43363367575cb28ac354c) Thanks [@mperrotti](https://github.com/mperrotti)! - Use `aria-required` instead of `required` on required form elements
+
+  <!-- Changed components: TextInput, Textarea -->
+
+- [#4058](https://github.com/primer/react/pull/4058) [`4d841b77`](https://github.com/primer/react/commit/4d841b776eadd468dfd8cd63c0b0a17804c51f97) Thanks [@mperrotti](https://github.com/mperrotti)! - TextInput, Textarea: Does not pass `aria-required` attribute to input or textarea if it is undefined. This fixes some tests that were breaking in dotcom.
+
+  <!-- Changed components: TextInput, Textarea -->
+
+- [#3869](https://github.com/primer/react/pull/3869) [`57fcfe6f`](https://github.com/primer/react/commit/57fcfe6fa2478dbf0ecdb29a000dd32fa2e01537) Thanks [@mperrotti](https://github.com/mperrotti)! - Adapts Blankslate to render proportionally in narrow areas.
+
+  <!-- Changed components: Blankslate -->
+
+- [#4000](https://github.com/primer/react/pull/4000) [`a416298c`](https://github.com/primer/react/commit/a416298ccc7f99112d5ccc8f04884014fee3e5b7) Thanks [@strackoverflow](https://github.com/strackoverflow)! - Fix an issue where the scrollable Dialog body could not be focused with the keyboard
+
+- [#4035](https://github.com/primer/react/pull/4035) [`6497f715`](https://github.com/primer/react/commit/6497f71597ff111fd2c81d834f1d3d80cc1cca18) Thanks [@keithamus](https://github.com/keithamus)! - use <BaseStyles> in confirm()
+
+- [#4033](https://github.com/primer/react/pull/4033) [`bca709d0`](https://github.com/primer/react/commit/bca709d03eee5885b0eeec99db17fa76f910b865) Thanks [@keithamus](https://github.com/keithamus)! - Fixed confirm() leaving <div>s in the DOM.
+
+- [#4037](https://github.com/primer/react/pull/4037) [`c2a18b9a`](https://github.com/primer/react/commit/c2a18b9a23af7632ae5bad1240f9155df67655a9) Thanks [@mattcosta7](https://github.com/mattcosta7)! - Portal avoids useless createElement
+
+## 36.4.0
+
+### Minor Changes
+
+- [#3982](https://github.com/primer/react/pull/3982) [`968d4ef05`](https://github.com/primer/react/commit/968d4ef05808005efde7de06ca480b4870179485) Thanks [@joshblack](https://github.com/joshblack)! - Update SSRProvider, useSSRSafeId to use the native React 18 useId() instead of @react-aria/ssr
+
+- [#3812](https://github.com/primer/react/pull/3812) [`3f82a1cab`](https://github.com/primer/react/commit/3f82a1cab370951e11b474696fbfdbfe169ce970) Thanks [@mperrotti](https://github.com/mperrotti)! - Adds an 'inactive' state to buttons. An inactive button looks disabled and has aria-disabled, but it can still be clicked and focused. This was added to support buttons that are broken due to availability issues, but can't be removed from the page.
+
+  <!-- Changed components: Button, Button2, IconButton -->
+
+### Patch Changes
+
+- [#4026](https://github.com/primer/react/pull/4026) [`503c7e625`](https://github.com/primer/react/commit/503c7e625a8a3388737949880b64791f5833f027) Thanks [@mperrotti](https://github.com/mperrotti)! - Fixes layout for loading DataTable cells
+
+  <!-- Changed components: DataTable -->
+
+- [#4001](https://github.com/primer/react/pull/4001) [`0e9d841e3`](https://github.com/primer/react/commit/0e9d841e398118843c92f9b92881ead62337c682) Thanks [@langermank](https://github.com/langermank)! - Fix `line-height` on markdown viewer (comment box)
+
+- [#3987](https://github.com/primer/react/pull/3987) [`4321d59e9`](https://github.com/primer/react/commit/4321d59e9de5e319523c438e8e7d238178571301) Thanks [@iulia-b](https://github.com/iulia-b)! - MarkdownEditor & MarkdownViewer: Update new line identifier for formatting markdown
+
+- [#4008](https://github.com/primer/react/pull/4008) [`df7dc2af1`](https://github.com/primer/react/commit/df7dc2af1679a3a6634ec313476de0cb2fc07a19) Thanks [@dipree](https://github.com/dipree)! - Changes the focus styling of input components such as `Textarea`, `TextInput`, `TextInputWithTokens` and `Select` from using `border` and `box-shadow` to use `outline` only for better border rendering and scrollbar support.
+
+- [#4013](https://github.com/primer/react/pull/4013) [`d26aeab32`](https://github.com/primer/react/commit/d26aeab32ad90e084d2cec0073df18d811fda820) Thanks [@keithamus](https://github.com/keithamus)! - Avoid error when using Modal Dialog within TreeView
+
+- [#4012](https://github.com/primer/react/pull/4012) [`5fd025f04`](https://github.com/primer/react/commit/5fd025f0414b343abf3435cfab90bc9b24bdcea7) Thanks [@keithamus](https://github.com/keithamus)! - Ensure ConfirmationDialog adds host element to the DOM
+
+- [#4024](https://github.com/primer/react/pull/4024) [`0ea121af3`](https://github.com/primer/react/commit/0ea121af393e13a22c64514283ed881ae57414e5) Thanks [@colebemis](https://github.com/colebemis)! - StateLabel: Use correct octicons for `draft` and `pullClosed` states
+
+- [#4022](https://github.com/primer/react/pull/4022) [`98ad3203a`](https://github.com/primer/react/commit/98ad3203a33c9caf2579474fa517a0c7a2ba8924) Thanks [@joshblack](https://github.com/joshblack)! - Update the resize behavior of PageLayout to ignore right clicks when resizing
+
+## 36.3.1
+
+### Patch Changes
+
+- [#3998](https://github.com/primer/react/pull/3998) [`dd285e2ac`](https://github.com/primer/react/commit/dd285e2ac83eb282ae7c111fd44e2dffaf15ccb2) Thanks [@joshblack](https://github.com/joshblack)! - Remove changes to focus outline to prevent double focus rings from showing
+
+## 36.3.0
+
+### Minor Changes
+
+- [#3963](https://github.com/primer/react/pull/3963) [`e16927b5a`](https://github.com/primer/react/commit/e16927b5aef72a2d6b78705066fd26b3741b73df) Thanks [@mperrotti](https://github.com/mperrotti)! - Adds "unavailable" status to StateLabel
+
+  <!-- Changed components: StateLabel -->
+
+- [#3484](https://github.com/primer/react/pull/3484) [`e40378951`](https://github.com/primer/react/commit/e4037895105c7e86e79c5bb6fbafb86e715337ba) Thanks [@ValbertMartins](https://github.com/ValbertMartins)! - TextArea: Add contrast property
+
+### Patch Changes
+
+- [#3897](https://github.com/primer/react/pull/3897) [`6b0c118b3`](https://github.com/primer/react/commit/6b0c118b34e97c558991ebdc17a13350296245a8) Thanks [@mperrotti](https://github.com/mperrotti)! - When passing an `id` prop to ActionMenu.Button, it will be passed as the rendered button element's `id` attribute instead of being set as an automatically generated ID.
+
+  <!-- Changed components: ActionMenu -->
+
+- [#3960](https://github.com/primer/react/pull/3960) [`ec8a2cadd`](https://github.com/primer/react/commit/ec8a2cadda01a3a3463380b911922b9c28e4e241) Thanks [@pksjce](https://github.com/pksjce)! - Update to @primer/behaviors v1.5.1
+
+- [#3945](https://github.com/primer/react/pull/3945) [`40b29787e`](https://github.com/primer/react/commit/40b29787ec4c8f709e7522147e58bd03e51b28e7) Thanks [@siddharthkp](https://github.com/siddharthkp)! - ActionList: Fix bug that did not allow both inline and block description at the same time
+
+- [#3903](https://github.com/primer/react/pull/3903) [`f62ec728a`](https://github.com/primer/react/commit/f62ec728acd5c90f105c3e3c5162a69dbe0c4b6d) Thanks [@pksjce](https://github.com/pksjce)! - Make resize vertical splitter keyboard accessible
+
+- [#3946](https://github.com/primer/react/pull/3946) [`e08432d54`](https://github.com/primer/react/commit/e08432d54dd45a5e793719509dc78657570dde0b) Thanks [@siddharthkp](https://github.com/siddharthkp)! - Link: Add `inline` prop to tag links inside a text block, underlined with accessibility setting `[data-a11y-link-underlines]`
+
+- [#3983](https://github.com/primer/react/pull/3983) [`43d1dce4a`](https://github.com/primer/react/commit/43d1dce4a103b5e23064e8a32a7bb27677dbbb95) Thanks [@TylerJDev](https://github.com/TylerJDev)! - Readjust order of `PageLayout.Pane` contents
+
+- [#3972](https://github.com/primer/react/pull/3972) [`87028d2b9`](https://github.com/primer/react/commit/87028d2b963b788f1525f6f9326ed7eb1b7346d6) Thanks [@iulia-b](https://github.com/iulia-b)! - Update MarkdownEditor to correctly identify non-standard formatted tasklist items
+
 ## 36.2.0
 
 ### Minor Changes
