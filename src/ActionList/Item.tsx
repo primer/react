@@ -34,6 +34,7 @@ const InactiveIndicator: React.FC<{
         padding: 0,
         font: 'inherit',
         cursor: 'pointer',
+        display: 'flex',
       }}
       aria-labelledby={labelId}
     >
