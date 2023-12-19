@@ -18,10 +18,9 @@ import {
 } from '../../../src/index'
 import {ActionListContainerContext} from '../../../src/ActionList/ActionListContainerContext'
 import {useSlots} from '../../hooks/useSlots'
-import {useProvidedRefOrCreate, useId, useAnchoredPosition, useOnOutsideClick} from '../../hooks'
+import {useProvidedRefOrCreate, useId, useAnchoredPosition} from '../../hooks'
 import {useFocusZone} from '../../hooks/useFocusZone'
 import {StyledOverlay, OverlayProps} from '../../Overlay/Overlay'
-import {P} from 'ts-toolbelt/out/Object/_api'
 
 const SelectPanelContext = React.createContext<{
   title: string
