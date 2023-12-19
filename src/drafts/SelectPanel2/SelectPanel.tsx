@@ -54,10 +54,6 @@ export type SelectPanelProps = {
   onClearSelection?: undefined | (() => void)
   onSubmit?: (event?: React.FormEvent<HTMLFormElement>) => void
 
-  // TODO: move these to SelectPanel.Overlay or overlayProps
-  width?: OverlayProps['width']
-  height?: OverlayProps['height']
-
   children: React.ReactNode
 }
 
@@ -75,8 +71,6 @@ const SelectPanelContainer: React.FC<SelectPanelProps> = ({
   onClearSelection: propsOnClearSelection,
   onSubmit: propsOnSubmit,
 
-  width = 'medium',
-  height = 'large',
   ...props
 }) => {
   const [internalOpen, setInternalOpen] = React.useState(defaultOpen)
@@ -105,8 +99,13 @@ const SelectPanelContainer: React.FC<SelectPanelProps> = ({
     if (selectionVariant === 'instant') onInternalSubmit()
   }
 
-  /* Panel plumbing */
+  /* a11y plumbing */
   const panelId = useId(id)
+
+  // used in header: {title, description, panelId, onCancel, onClearSelection}
+  // used in button: {anchorRef, internalOpen, setInternalOpen, onInternalClose}
+  // used in footer: {onCancel, selectionVariant}
+  // used in dialog: const { description, panelId, onInternalSubmit, selectionVariant, internalAfterSelect, internalOpen, onInternalClose, anchorRef}
 
   return (
     <SelectPanelContext.Provider
@@ -121,9 +120,6 @@ const SelectPanelContainer: React.FC<SelectPanelProps> = ({
 
         // not typed yet:
         anchorRef,
-
-        width,
-        height,
 
         internalOpen,
         setInternalOpen,
@@ -151,12 +147,16 @@ const SelectPanelButton = React.forwardRef<HTMLButtonElement, ButtonProps>((prop
 type SelectPanelDialogProps = {
   /** open is handled at root SelectPanel, not SelectPanel.Dialog */
   open?: never
-}
-const SelectPanelDialog: React.FC<React.PropsWithChildren<SelectPanelDialogProps>> = props => {
-  const {
-    width,
-    height,
 
+  width?: OverlayProps['width']
+  height?: OverlayProps['height']
+}
+const SelectPanelDialog: React.FC<React.PropsWithChildren<SelectPanelDialogProps>> = ({
+  width = 'medium',
+  height = 'large',
+  ...props
+}) => {
+  const {
     description,
     panelId,
     onInternalSubmit,
