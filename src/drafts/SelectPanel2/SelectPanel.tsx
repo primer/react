@@ -101,16 +101,16 @@ const SelectPanelContainer: React.FC<SelectPanelProps> = ({
   return (
     <SelectPanelContext.Provider
       value={{
-        title, // used in SelectPanelHeader
-        panelId, // SelectPanelDialog, SelectPanelHeader
-        description, // SelectPanelDialog, SelectPanelHeader
-        selectionVariant, // SelectPanelDialog, SelectPanelFooter
-        onClearSelection: propsOnClearSelection, // SelectPanelHeader
-        internalOpen, // SelectPanelButton, SelectPanelDialog
-        setInternalOpen, // SelectPanelButton
-        onInternalSubmit, // SelectPanelDialog
-        onInternalClose, // SelectPanelButton, SelectPanelDialog, SelectPanelHeader, SelectPanelFooter
-        anchorRef, // SelectPanelButton, SelectPanelDialog
+        title,
+        panelId,
+        description,
+        selectionVariant,
+        onClearSelection: propsOnClearSelection,
+        internalOpen,
+        setInternalOpen,
+        onInternalSubmit,
+        onInternalClose,
+        anchorRef,
       }}
     >
       {slots.button}
