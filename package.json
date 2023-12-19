@@ -177,7 +177,7 @@
     "@types/lodash.isobject": "3.0.7",
     "@types/lodash.keyby": "4.6.7",
     "@types/node": "20.10.3",
-    "@types/react": "18.2.21",
+    "@types/react": "18.2.45",
     "@types/react-dom": "18.2.6",
     "@types/semver": "7.5.3",
     "@types/styled-components": "^5.1.26",
