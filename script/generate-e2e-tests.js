@@ -2,7 +2,7 @@
 
 const fs = require('node:fs')
 const path = require('node:path')
-const prettier = require('prettier')
+const prettier = require('@prettier/sync')
 const prettierConfig = require('@github/prettier-config')
 const recast = require('recast')
 
