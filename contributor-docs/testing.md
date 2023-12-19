@@ -120,8 +120,6 @@ Storybook tests are authored within the components's source directory with the f
 
 ## Visual Regression Tests
 
-### Overview
-
 We use Playwright to run visual regression tests against our components along with automated accessibility checks. These tests are authored within the `e2e` directory and match the file pattern:
 `*-test.ts`.
 
