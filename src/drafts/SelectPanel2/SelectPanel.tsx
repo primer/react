@@ -95,6 +95,9 @@ const SelectPanelContainer: React.FC<SelectPanelProps> = ({
   /* a11y plumbing */
   const panelId = useId(id)
 
+  /* Make SelectPanel.Dialog optional */
+  const [slots, childrenInBody] = useSlots(children, {button: SelectPanelButton, dialog: SelectPanelDialog})
+
   return (
     <SelectPanelContext.Provider
       value={{
@@ -110,7 +113,8 @@ const SelectPanelContainer: React.FC<SelectPanelProps> = ({
         anchorRef, // SelectPanelButton, SelectPanelDialog
       }}
     >
-      {children}
+      {slots.button}
+      {slots.dialog || <SelectPanelDialog>{childrenInBody}</SelectPanelDialog>}
     </SelectPanelContext.Provider>
   )
 }
