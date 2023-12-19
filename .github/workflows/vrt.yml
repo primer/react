@@ -19,7 +19,7 @@ jobs:
           echo $NUMBER > ./PR/number
         env:
           NUMBER: ${{ github.event.number }}
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: pull-request
           path: ./PR
@@ -65,7 +65,7 @@ jobs:
             git ls-files --others --exclude-standard --modified | zip snapshots -@
           fi
       - name: Upload snapshots
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: snapshots-${{ matrix.shard }}
           path: snapshots.zip
