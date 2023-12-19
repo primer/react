@@ -23,31 +23,6 @@ import {useFocusZone} from '../../hooks/useFocusZone'
 import {StyledOverlay, OverlayProps} from '../../Overlay/Overlay'
 import {mergeRefs} from 'react-merge-refs'
 
-const SelectPanelContext = React.createContext<{
-  title: string
-  description?: string
-  panelId: string
-  anchorRef?: React.RefObject<HTMLButtonElement>
-  selectionVariant: ActionListProps['selectionVariant'] | 'instant'
-
-  internalOpen: boolean
-  setInternalOpen: (open: boolean) => void
-  onInternalSubmit: (event?: React.FormEvent<HTMLFormElement>) => void
-  onInternalClose: () => void
-  onClearSelection: undefined | (() => void)
-}>({
-  title: '',
-  description: undefined,
-  panelId: '',
-  selectionVariant: 'multiple',
-
-  internalOpen: false,
-  setInternalOpen: () => {},
-  onInternalSubmit: () => {},
-  onInternalClose: () => {},
-  onClearSelection: undefined,
-})
-
 export type SelectPanelProps = {
   title: string
   description?: string
@@ -65,6 +40,24 @@ export type SelectPanelProps = {
   children: React.ReactNode
 }
 
+const SelectPanelContext = React.createContext<
+  Pick<SelectPanelProps, 'title' | 'description' | 'selectionVariant' | 'onClearSelection'> & {
+    panelId: SelectPanelProps['id']
+    anchorRef?: SelectPanelProps['anchorRef']
+    internalOpen: SelectPanelProps['open']
+    setInternalOpen: (open: boolean) => void
+    onInternalSubmit: (event?: React.FormEvent<HTMLFormElement>) => void
+    onInternalClose: () => void
+  }
+>({
+  title: '',
+  panelId: '',
+  internalOpen: false,
+  setInternalOpen: () => {},
+  onInternalSubmit: () => {},
+  onInternalClose: () => {},
+})
+
 const SelectPanelContainer: React.FC<SelectPanelProps> = ({
   title,
   description,
@@ -79,7 +72,7 @@ const SelectPanelContainer: React.FC<SelectPanelProps> = ({
   onClearSelection: propsOnClearSelection,
   onSubmit: propsOnSubmit,
 
-  ...props
+  children,
 }) => {
   const [internalOpen, setInternalOpen] = React.useState(defaultOpen)
 
@@ -99,41 +92,31 @@ const SelectPanelContainer: React.FC<SelectPanelProps> = ({
     if (typeof propsOnSubmit === 'function') propsOnSubmit(event)
   }
 
-  const onInternalClearSelection = () => {
-    if (typeof propsOnClearSelection === 'function') propsOnClearSelection()
-  }
-
   /* a11y plumbing */
   const panelId = useId(id)
-
-  // used in header: {title, description, panelId, onCancel, onClearSelection}
-  // used in button: {anchorRef, internalOpen, setInternalOpen, onInternalClose}
-  // used in footer: {onCancel, selectionVariant}
-  // used in dialog: const { description, panelId, onInternalSubmit, selectionVariant, internalOpen, onInternalClose, anchorRef}
 
   return (
     <SelectPanelContext.Provider
       value={{
-        panelId,
-        title,
-        description,
-        selectionVariant,
-        onClearSelection: propsOnClearSelection ? onInternalClearSelection : undefined,
-        internalOpen,
-        setInternalOpen,
-        onInternalSubmit,
-        onInternalClose,
-
-        anchorRef,
+        title, // used in SelectPanelHeader
+        panelId, // SelectPanelDialog, SelectPanelHeader
+        description, // SelectPanelDialog, SelectPanelHeader
+        selectionVariant, // SelectPanelDialog, SelectPanelFooter
+        onClearSelection: propsOnClearSelection, // SelectPanelHeader
+        internalOpen, // SelectPanelButton, SelectPanelDialog
+        setInternalOpen, // SelectPanelButton
+        onInternalSubmit, // SelectPanelDialog
+        onInternalClose, // SelectPanelButton, SelectPanelDialog, SelectPanelHeader, SelectPanelFooter
+        anchorRef, // SelectPanelButton, SelectPanelDialog
       }}
     >
-      {props.children}
+      {children}
     </SelectPanelContext.Provider>
   )
 }
 
 const SelectPanelButton = React.forwardRef<HTMLButtonElement, ButtonProps>((props, forwardedRef) => {
-  const {anchorRef, internalOpen, setInternalOpen, onInternalClose} = React.useContext(SelectPanelContext)
+  const {internalOpen, setInternalOpen, onInternalClose, anchorRef} = React.useContext(SelectPanelContext)
 
   const onClick = () => {
     if (!internalOpen) setInternalOpen(true)
