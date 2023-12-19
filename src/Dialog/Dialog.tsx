@@ -1,6 +1,6 @@
 import React, {useCallback, useEffect, useRef, useState} from 'react'
 import styled from 'styled-components'
-import Button, {ButtonPrimary, ButtonDanger, ButtonProps} from '../deprecated/Button'
+import {Button, ButtonProps} from '../Button'
 import Box from '../Box'
 import {get} from '../constants'
 import {useOnEscapePress, useProvidedRefOrCreate} from '../hooks'
@@ -27,7 +27,7 @@ export type DialogButtonProps = Omit<ButtonProps, 'content'> & {
   /**
    * The type of Button element to use
    */
-  buttonType?: 'normal' | 'primary' | 'danger'
+  buttonType?: 'default' | 'primary' | 'danger' | 'normal'
 
   /**
    * The Button's inner text
@@ -381,11 +381,6 @@ const Footer = styled.div<SxProp>`
   ${sx};
 `
 
-const buttonTypes = {
-  normal: Button,
-  primary: ButtonPrimary,
-  danger: ButtonDanger,
-}
 const Buttons: React.FC<React.PropsWithChildren<{buttons: DialogButtonProps[]}>> = ({buttons}) => {
   const autoFocusRef = useProvidedRefOrCreate<HTMLButtonElement>(buttons.find(button => button.autoFocus)?.ref)
   let autoFocusCount = 0
@@ -402,17 +397,17 @@ const Buttons: React.FC<React.PropsWithChildren<{buttons: DialogButtonProps[]}>>
   return (
     <>
       {buttons.map((dialogButtonProps, index) => {
-        const {content, buttonType = 'normal', autoFocus = false, ...buttonProps} = dialogButtonProps
-        const ButtonElement = buttonTypes[buttonType]
+        const {content, buttonType = 'default', autoFocus = false, ...buttonProps} = dialogButtonProps
         return (
-          <ButtonElement
+          <Button
             key={index}
             {...buttonProps}
-            variant={buttonType}
+            // 'normal' value is equivalent to 'default', this is used for backwards compatibility
+            variant={buttonType === 'normal' ? 'default' : buttonType}
             ref={autoFocus && autoFocusCount === 0 ? (autoFocusCount++, autoFocusRef) : null}
           >
             {content}
-          </ButtonElement>
+          </Button>
         )
       })}
     </>
