@@ -471,16 +471,17 @@ export const OpenFromMenu = () => {
           setSelectPanelOpen(false)
           setMenuOpen(true)
         }}
-        height="medium"
       >
-        <ActionList>
-          {itemsToShow.map(item => (
-            <ActionList.Item key={item} onSelect={() => onEventSelect(item)} selected={selectedEvents.includes(item)}>
-              {item}
-            </ActionList.Item>
-          ))}
-        </ActionList>
-        <SelectPanel.Footer />
+        <SelectPanel.Dialog height="medium">
+          <ActionList>
+            {itemsToShow.map(item => (
+              <ActionList.Item key={item} onSelect={() => onEventSelect(item)} selected={selectedEvents.includes(item)}>
+                {item}
+              </ActionList.Item>
+            ))}
+          </ActionList>
+          <SelectPanel.Footer />
+        </SelectPanel.Dialog>
       </SelectPanel>
     </>
   )

@@ -122,6 +122,7 @@
     "react-intersection-observer": "^9.4.3",
     "react-is": "^18.2.0",
     "react-markdown": "8.0.7",
+    "react-merge-refs": "^2.1.1",
     "styled-system": "^5.1.5"
   },
   "devDependencies": {

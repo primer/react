@@ -21,6 +21,7 @@ import {useSlots} from '../../hooks/useSlots'
 import {useProvidedRefOrCreate, useId, useAnchoredPosition} from '../../hooks'
 import {useFocusZone} from '../../hooks/useFocusZone'
 import {StyledOverlay, OverlayProps} from '../../Overlay/Overlay'
+import {mergeRefs} from 'react-merge-refs'
 
 const SelectPanelContext = React.createContext<{
   title: string
@@ -132,7 +133,6 @@ const SelectPanelContainer: React.FC<SelectPanelProps> = ({
 }
 
 const SelectPanelButton = React.forwardRef<HTMLButtonElement, ButtonProps>((props, forwardedRef) => {
-  // TODO: merge forwardedRef
   const {anchorRef, internalOpen, setInternalOpen, onInternalClose} = React.useContext(SelectPanelContext)
 
   const onClick = () => {
@@ -140,7 +140,15 @@ const SelectPanelButton = React.forwardRef<HTMLButtonElement, ButtonProps>((prop
     else onInternalClose()
   }
 
-  return <Button {...props} ref={anchorRef} onClick={onClick} aria-haspopup={true} aria-expanded={internalOpen} />
+  return (
+    <Button
+      {...props}
+      ref={mergeRefs([anchorRef, forwardedRef])}
+      onClick={onClick}
+      aria-haspopup={true}
+      aria-expanded={internalOpen}
+    />
+  )
 })
 
 type SelectPanelDialogProps = {
