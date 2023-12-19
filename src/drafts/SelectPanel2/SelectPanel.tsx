@@ -137,7 +137,6 @@ const SelectPanelContainer: React.FC<SelectPanelProps> = ({
 
   /* Panel plumbing */
   const panelId = useId(id)
-  const [slots, childrenInBody] = useSlots(contents, {header: SelectPanelHeader, footer: SelectPanelFooter})
 
   /* Arrow keys navigation for list items */
   const {containerRef: listContainerRef} = useFocusZone(
@@ -185,67 +184,20 @@ const SelectPanelContainer: React.FC<SelectPanelProps> = ({
         searchQuery,
         setSearchQuery,
         selectionVariant,
+
+        // not typed yet:
+        width,
+        height,
+        position,
+        onInternalSubmit,
+
+        dialogRef,
+        listContainerRef,
+        internalAfterSelect,
       }}
     >
       {Anchor}
-
-      <StyledOverlay
-        as="dialog"
-        ref={dialogRef}
-        aria-labelledby={`${panelId}--title`}
-        aria-describedby={description ? `${panelId}--description` : undefined}
-        width={width}
-        height={height}
-        sx={{
-          ...position,
-          // reset dialog default styles
-          border: 'none',
-          padding: 0,
-          margin: 0,
-          '::backdrop': {background: 'transparent'},
-        }}
-      >
-        <Box
-          as="form"
-          method="dialog"
-          onSubmit={onInternalSubmit}
-          sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            height: '100%',
-          }}
-        >
-          {slots.header ?? /* render default header as fallback */ <SelectPanelHeader />}
-
-          <Box
-            as="div"
-            ref={listContainerRef as React.RefObject<HTMLDivElement>}
-            sx={{
-              flexShrink: 1,
-              flexGrow: 1,
-              overflow: 'hidden',
-
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'space-between',
-              ul: {overflowY: 'auto', flexGrow: 1},
-            }}
-          >
-            <ActionListContainerContext.Provider
-              value={{
-                container: 'SelectPanel',
-                listRole: 'listbox',
-                selectionAttribute: 'aria-selected',
-                selectionVariant: selectionVariant === 'instant' ? 'single' : selectionVariant,
-                afterSelect: internalAfterSelect,
-              }}
-            >
-              {childrenInBody}
-            </ActionListContainerContext.Provider>
-          </Box>
-          {slots.footer}
-        </Box>
-      </StyledOverlay>
+      {props.children}
     </SelectPanelContext.Provider>
   )
 }
@@ -255,7 +207,81 @@ const SelectPanelButton = React.forwardRef<HTMLButtonElement, ButtonProps>((prop
 })
 
 const SelectPanelDialog: React.FC<React.PropsWithChildren> = props => {
-  return props.children
+  const {
+    dialogRef,
+    width,
+    height,
+    position,
+    description,
+    panelId,
+    onInternalSubmit,
+    selectionVariant,
+
+    listContainerRef,
+    internalAfterSelect,
+  } = React.useContext(SelectPanelContext)
+
+  const [slots, childrenInBody] = useSlots(props.children, {header: SelectPanelHeader, footer: SelectPanelFooter})
+
+  return (
+    <StyledOverlay
+      as="dialog"
+      ref={dialogRef}
+      aria-labelledby={`${panelId}--title`}
+      aria-describedby={description ? `${panelId}--description` : undefined}
+      width={width}
+      height={height}
+      sx={{
+        ...position,
+        // reset dialog default styles
+        border: 'none',
+        padding: 0,
+        margin: 0,
+        '::backdrop': {background: 'transparent'},
+      }}
+    >
+      <Box
+        as="form"
+        method="dialog"
+        onSubmit={onInternalSubmit}
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          height: '100%',
+        }}
+      >
+        {slots.header ?? /* render default header as fallback */ <SelectPanelHeader />}
+
+        <Box
+          as="div"
+          ref={listContainerRef as React.RefObject<HTMLDivElement>}
+          sx={{
+            flexShrink: 1,
+            flexGrow: 1,
+            overflow: 'hidden',
+
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'space-between',
+            ul: {overflowY: 'auto', flexGrow: 1},
+          }}
+        >
+          <ActionListContainerContext.Provider
+            value={{
+              container: 'SelectPanel',
+              listRole: 'listbox',
+              selectionAttribute: 'aria-selected',
+              selectionVariant: selectionVariant === 'instant' ? 'single' : selectionVariant,
+              afterSelect: internalAfterSelect,
+            }}
+          >
+            {childrenInBody}
+          </ActionListContainerContext.Provider>
+        </Box>
+        {slots.footer}
+      </Box>
+    </StyledOverlay>
+  )
 }
 
 const SelectPanelHeader: React.FC<React.PropsWithChildren> = ({children, ...props}) => {
