@@ -1,24 +1,82 @@
-name: Deploy (fork)
+name: Deploy Preview (fork)
 on:
   pull_request_target:
 
-permissions:
-  contents: read
-  pages: write
-  id-token: write
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
-  deploy-preview:
+  build:
     # target repository for pull_request is different from source repository
     if: ${{ github.repository != github.event.pull_request.head.repo.full_name }}
-    name: Preview
-    uses: primer/.github/.github/workflows/deploy_preview.yml@0cec9b9914f358846163f2428663b58da41028c9
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+      - name: Install dependencies
+        run: npm ci
+      - name: Install docs dependencies
+        run: npm ci --legacy-peer-deps
+        working-directory: docs
+      - name: Build docs preview
+        run: npm run build:docs:preview
+      - uses: actions/upload-pages-artifact@v2
+        with:
+          name: github-pages
+          path: docs/public
+
+  deploy-preview:
+    if: ${{ github.repository != github.event.pull_request.head.repo.full_name }}
+    needs: build
     permissions:
-      contents: read
       pages: write
       id-token: write
-    with:
-      node_version: 18
-      install: npm ci --legacy-peer-deps && cd docs && npm ci --legacy-peer-deps && cd ..
-      build: npm run build:docs:preview
-      output_dir: docs/public
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    outputs:
+      deployment_url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v3
+        with:
+          preview: true
+
+  deploy-storybook:
+    name: Preview Storybook
+    if: ${{ github.repository != github.event.pull_request.head.repo.full_name }}
+    needs: deploy-preview
+    permissions:
+      deployments: write
+    runs-on: ubuntu-latest
+    steps:
+      - uses: chrnorm/deployment-action@v2.0.5
+        name: Create GitHub deployment for storybook
+        id: storybook
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          environment: storybook-preview-${{ github.event.number }}
+          environment_url: '${{ needs.deploy-preview.outputs.deployment_url }}/storybook'
+      - name: Update storybook deployment status (success)
+        if: success()
+        uses: chrnorm/deployment-status@v2.0.1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          environment-url: '${{ needs.deploy-preview.outputs.deployment_url }}/storybook'
+          state: 'success'
+          deployment-id: ${{ steps.storybook.outputs.deployment_id }}
+      - name: Update storybook deployment status (failure)
+        if: failure()
+        uses: chrnorm/deployment-status@v2.0.1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          state: 'failure'
+          deployment-id: ${{ steps.storybook.outputs.deployment_id }}
