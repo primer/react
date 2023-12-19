@@ -47,20 +47,22 @@ export const Minimal = () => {
       <SelectPanel title="Select labels" onSubmit={onSubmit}>
         <SelectPanel.Button>Assign label</SelectPanel.Button>
 
-        <ActionList>
-          {itemsToShow.map(label => (
-            <ActionList.Item
-              key={label.id}
-              onSelect={() => onLabelSelect(label.id)}
-              selected={selectedLabelIds.includes(label.id)}
-            >
-              <ActionList.LeadingVisual>{getCircle(label.color)}</ActionList.LeadingVisual>
-              {label.name}
-              <ActionList.Description variant="block">{label.description}</ActionList.Description>
-            </ActionList.Item>
-          ))}
-        </ActionList>
-        <SelectPanel.Footer />
+        <SelectPanel.Dialog>
+          <ActionList>
+            {itemsToShow.map(label => (
+              <ActionList.Item
+                key={label.id}
+                onSelect={() => onLabelSelect(label.id)}
+                selected={selectedLabelIds.includes(label.id)}
+              >
+                <ActionList.LeadingVisual>{getCircle(label.color)}</ActionList.LeadingVisual>
+                {label.name}
+                <ActionList.Description variant="block">{label.description}</ActionList.Description>
+              </ActionList.Item>
+            ))}
+          </ActionList>
+          <SelectPanel.Footer />
+        </SelectPanel.Dialog>
       </SelectPanel>
     </>
   )

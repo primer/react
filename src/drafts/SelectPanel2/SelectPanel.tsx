@@ -63,7 +63,7 @@ export type SelectPanelProps = {
   children: React.ReactNode
 }
 
-const Panel: React.FC<SelectPanelProps> = ({
+const SelectPanelContainer: React.FC<SelectPanelProps> = ({
   title,
   description,
   selectionVariant = 'multiple',
@@ -175,7 +175,18 @@ const Panel: React.FC<SelectPanelProps> = ({
   )
 
   return (
-    <>
+    <SelectPanelContext.Provider
+      value={{
+        panelId,
+        title,
+        description,
+        onCancel: onInternalClose,
+        onClearSelection: propsOnClearSelection ? onInternalClearSelection : undefined,
+        searchQuery,
+        setSearchQuery,
+        selectionVariant,
+      }}
+    >
       {Anchor}
 
       <StyledOverlay
@@ -194,67 +205,58 @@ const Panel: React.FC<SelectPanelProps> = ({
           '::backdrop': {background: 'transparent'},
         }}
       >
-        <SelectPanelContext.Provider
-          value={{
-            panelId,
-            title,
-            description,
-            onCancel: onInternalClose,
-            onClearSelection: propsOnClearSelection ? onInternalClearSelection : undefined,
-            searchQuery,
-            setSearchQuery,
-            selectionVariant,
+        <Box
+          as="form"
+          method="dialog"
+          onSubmit={onInternalSubmit}
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            height: '100%',
           }}
         >
+          {slots.header ?? /* render default header as fallback */ <SelectPanelHeader />}
+
           <Box
-            as="form"
-            method="dialog"
-            onSubmit={onInternalSubmit}
+            as="div"
+            ref={listContainerRef as React.RefObject<HTMLDivElement>}
             sx={{
+              flexShrink: 1,
+              flexGrow: 1,
+              overflow: 'hidden',
+
               display: 'flex',
               flexDirection: 'column',
-              height: '100%',
+              justifyContent: 'space-between',
+              ul: {overflowY: 'auto', flexGrow: 1},
             }}
           >
-            {slots.header ?? /* render default header as fallback */ <SelectPanelHeader />}
-
-            <Box
-              as="div"
-              ref={listContainerRef as React.RefObject<HTMLDivElement>}
-              sx={{
-                flexShrink: 1,
-                flexGrow: 1,
-                overflow: 'hidden',
-
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'space-between',
-                ul: {overflowY: 'auto', flexGrow: 1},
+            <ActionListContainerContext.Provider
+              value={{
+                container: 'SelectPanel',
+                listRole: 'listbox',
+                selectionAttribute: 'aria-selected',
+                selectionVariant: selectionVariant === 'instant' ? 'single' : selectionVariant,
+                afterSelect: internalAfterSelect,
               }}
             >
-              <ActionListContainerContext.Provider
-                value={{
-                  container: 'SelectPanel',
-                  listRole: 'listbox',
-                  selectionAttribute: 'aria-selected',
-                  selectionVariant: selectionVariant === 'instant' ? 'single' : selectionVariant,
-                  afterSelect: internalAfterSelect,
-                }}
-              >
-                {childrenInBody}
-              </ActionListContainerContext.Provider>
-            </Box>
-            {slots.footer}
+              {childrenInBody}
+            </ActionListContainerContext.Provider>
           </Box>
-        </SelectPanelContext.Provider>
+          {slots.footer}
+        </Box>
       </StyledOverlay>
-    </>
+    </SelectPanelContext.Provider>
   )
 }
 
 const SelectPanelButton = React.forwardRef<HTMLButtonElement, ButtonProps>((props, anchorRef) => {
   return <Button ref={anchorRef} {...props} />
 })
+
+const SelectPanelDialog: React.FC<React.PropsWithChildren> = props => {
+  return props.children
+}
 
 const SelectPanelHeader: React.FC<React.PropsWithChildren> = ({children, ...props}) => {
   const [slots, childrenWithoutSlots] = useSlots(children, {
@@ -504,7 +506,7 @@ const SelectPanelMessage: React.FC<SelectPanelMessageProps> = ({
   }
 }
 
-export const SelectPanel = Object.assign(Panel, {
+export const SelectPanel = Object.assign(SelectPanelContainer, {
   Button: SelectPanelButton,
   Header: SelectPanelHeader,
   SearchInput: SelectPanelSearchInput,
@@ -512,4 +514,5 @@ export const SelectPanel = Object.assign(Panel, {
   SecondaryButton: SelectPanelSecondaryButton,
   Loading: SelectPanelLoading,
   Message: SelectPanelMessage,
+  Dialog: SelectPanelDialog,
 })
