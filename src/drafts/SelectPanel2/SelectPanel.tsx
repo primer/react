@@ -26,18 +26,25 @@ const SelectPanelContext = React.createContext<{
   title: string
   description?: string
   panelId: string
-  onCancel: () => void
-  onClearSelection: undefined | (() => void)
-
+  anchorRef?: React.RefObject<HTMLButtonElement>
   selectionVariant: ActionListProps['selectionVariant'] | 'instant'
+
+  internalOpen: boolean
+  setInternalOpen: (open: boolean) => void
+  onInternalSubmit: (event?: React.FormEvent<HTMLFormElement>) => void
+  onInternalClose: () => void
+  onClearSelection: undefined | (() => void)
 }>({
   title: '',
   description: undefined,
   panelId: '',
-  onCancel: () => {},
-  onClearSelection: undefined,
-
   selectionVariant: 'multiple',
+
+  internalOpen: false,
+  setInternalOpen: () => {},
+  onInternalSubmit: () => {},
+  onInternalClose: () => {},
+  onClearSelection: undefined,
 })
 
 export type SelectPanelProps = {
@@ -48,7 +55,7 @@ export type SelectPanelProps = {
 
   defaultOpen?: boolean
   open?: boolean
-  anchorRef?: React.RefObject<HTMLButtonElement>
+  anchorRef?: React.RefObject<HTMLButtonElement> // external anchorRef
 
   onCancel?: () => void
   onClearSelection?: undefined | (() => void)
@@ -95,17 +102,13 @@ const SelectPanelContainer: React.FC<SelectPanelProps> = ({
     if (typeof propsOnClearSelection === 'function') propsOnClearSelection()
   }
 
-  const internalAfterSelect = () => {
-    if (selectionVariant === 'instant') onInternalSubmit()
-  }
-
   /* a11y plumbing */
   const panelId = useId(id)
 
   // used in header: {title, description, panelId, onCancel, onClearSelection}
   // used in button: {anchorRef, internalOpen, setInternalOpen, onInternalClose}
   // used in footer: {onCancel, selectionVariant}
-  // used in dialog: const { description, panelId, onInternalSubmit, selectionVariant, internalAfterSelect, internalOpen, onInternalClose, anchorRef}
+  // used in dialog: const { description, panelId, onInternalSubmit, selectionVariant, internalOpen, onInternalClose, anchorRef}
 
   return (
     <SelectPanelContext.Provider
@@ -113,19 +116,14 @@ const SelectPanelContainer: React.FC<SelectPanelProps> = ({
         panelId,
         title,
         description,
-        onCancel: onInternalClose,
-        onClearSelection: propsOnClearSelection ? onInternalClearSelection : undefined,
-
         selectionVariant,
-
-        // not typed yet:
-        anchorRef,
-
+        onClearSelection: propsOnClearSelection ? onInternalClearSelection : undefined,
         internalOpen,
         setInternalOpen,
         onInternalSubmit,
         onInternalClose,
-        internalAfterSelect,
+
+        anchorRef,
       }}
     >
       {props.children}
@@ -134,6 +132,7 @@ const SelectPanelContainer: React.FC<SelectPanelProps> = ({
 }
 
 const SelectPanelButton = React.forwardRef<HTMLButtonElement, ButtonProps>((props, forwardedRef) => {
+  // TODO: merge forwardedRef
   const {anchorRef, internalOpen, setInternalOpen, onInternalClose} = React.useContext(SelectPanelContext)
 
   const onClick = () => {
@@ -156,17 +155,8 @@ const SelectPanelDialog: React.FC<React.PropsWithChildren<SelectPanelDialogProps
   height = 'large',
   ...props
 }) => {
-  const {
-    description,
-    panelId,
-    onInternalSubmit,
-    selectionVariant,
-
-    internalAfterSelect,
-    internalOpen,
-    onInternalClose,
-    anchorRef,
-  } = React.useContext(SelectPanelContext)
+  const {description, panelId, onInternalSubmit, selectionVariant, internalOpen, onInternalClose, anchorRef} =
+    React.useContext(SelectPanelContext)
 
   const [slots, childrenInBody] = useSlots(props.children, {header: SelectPanelHeader, footer: SelectPanelFooter})
 
@@ -193,7 +183,7 @@ const SelectPanelDialog: React.FC<React.PropsWithChildren<SelectPanelDialogProps
       side: 'outside-bottom',
       align: 'start',
     },
-    [anchorRef.current, dialogRef.current],
+    [anchorRef?.current, dialogRef.current],
   )
 
   /* Arrow keys navigation for list items */
@@ -204,6 +194,10 @@ const SelectPanelDialog: React.FC<React.PropsWithChildren<SelectPanelDialogProps
     },
     [internalOpen],
   )
+
+  const internalAfterSelect = () => {
+    if (selectionVariant === 'instant') onInternalSubmit()
+  }
 
   return (
     <StyledOverlay
@@ -271,7 +265,7 @@ const SelectPanelHeader: React.FC<React.PropsWithChildren> = ({children, ...prop
     searchInput: SelectPanelSearchInput,
   })
 
-  const {title, description, panelId, onCancel, onClearSelection} = React.useContext(SelectPanelContext)
+  const {title, description, panelId, onInternalClose, onClearSelection} = React.useContext(SelectPanelContext)
 
   return (
     <Box
@@ -315,7 +309,13 @@ const SelectPanelHeader: React.FC<React.PropsWithChildren> = ({children, ...prop
             </Tooltip>
           ) : null}
           <Tooltip text="Close" direction="s">
-            <IconButton type="button" variant="invisible" icon={XIcon} aria-label="Close" onClick={() => onCancel()} />
+            <IconButton
+              type="button"
+              variant="invisible"
+              icon={XIcon}
+              aria-label="Close"
+              onClick={() => onInternalClose()}
+            />
           </Tooltip>
         </Box>
       </Box>
@@ -363,7 +363,7 @@ const SelectPanelSearchInput: React.FC<TextInputProps> = ({onChange: propsOnChan
 }
 
 const SelectPanelFooter = ({...props}) => {
-  const {onCancel, selectionVariant} = React.useContext(SelectPanelContext)
+  const {onInternalClose, selectionVariant} = React.useContext(SelectPanelContext)
 
   const hidePrimaryActions = selectionVariant === 'instant'
 
@@ -387,7 +387,7 @@ const SelectPanelFooter = ({...props}) => {
 
       {hidePrimaryActions ? null : (
         <Box sx={{display: 'flex', gap: 2}}>
-          <Button size="small" type="button" onClick={() => onCancel()}>
+          <Button size="small" type="button" onClick={() => onInternalClose()}>
             Cancel
           </Button>
           <Button size="small" type="submit" variant="primary">
