@@ -17,6 +17,7 @@ type StyledOverlayProps = {
   maxHeight?: keyof Omit<typeof heightMap, 'auto' | 'initial'>
   maxWidth?: keyof Omit<typeof widthMap, 'auto'>
   visibility?: 'visible' | 'hidden'
+  overflow?: 'auto' | 'hidden' | 'scroll' | 'visible'
   anchorSide?: AnchorSide
 } & SxProp
 
@@ -64,7 +65,7 @@ const StyledOverlay = styled.div<StyledOverlayProps>`
   max-height: ${props => props.maxHeight && heightMap[props.maxHeight]};
   width: ${props => widthMap[props.width || 'auto']};
   border-radius: 12px;
-  overflow: hidden;
+  overflow: ${props => (props.overflow ? props.overflow : 'hidden')};
   animation: overlay-appear ${animationDuration}ms ${get('animation.easeOutCubic')};
 
   @keyframes overlay-appear {
