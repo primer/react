@@ -6,7 +6,9 @@ import {SxProp, merge, BetterSystemStyleObject} from './sx'
 export type SelectProps = Omit<
   Omit<React.ComponentPropsWithoutRef<'select'>, 'size'> & Omit<StyledWrapperProps, 'variant'>,
   'multiple' | 'hasLeadingVisual' | 'hasTrailingVisual' | 'as'
->
+> & {
+  placeholder?: string
+}
 
 const arrowRightOffset = '4px'
 
