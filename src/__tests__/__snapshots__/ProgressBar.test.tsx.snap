@@ -18,6 +18,21 @@ exports[`ProgressBar renders consistently 1`] = `
   height: 8px;
 }
 
+@media (prefers-reduced-motion:no-preference) {
+  .c1[data-animated='true'] {
+    -webkit-mask-image: linear-gradient(75deg,#000 30%,rgba(0,0,0,0.65) 80%);
+    mask-image: linear-gradient(75deg,#000 30%,rgba(0,0,0,0.65) 80%);
+    -webkit-mask-size: 200%;
+    mask-size: 200%;
+    -webkit-animation: jiNfbM;
+    animation: jiNfbM;
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+    -webkit-animation-iteration-count: infinite;
+    animation-iteration-count: infinite;
+  }
+}
+
 <span
   aria-busy={false}
   aria-valuemax={100}
@@ -47,6 +62,21 @@ exports[`ProgressBar respects the "progress" prop 1`] = `
   background-color: #d0d7de;
   border-radius: 3px;
   height: 8px;
+}
+
+@media (prefers-reduced-motion:no-preference) {
+  .c1[data-animated='true'] {
+    -webkit-mask-image: linear-gradient(75deg,#000 30%,rgba(0,0,0,0.65) 80%);
+    mask-image: linear-gradient(75deg,#000 30%,rgba(0,0,0,0.65) 80%);
+    -webkit-mask-size: 200%;
+    mask-size: 200%;
+    -webkit-animation: jiNfbM;
+    animation: jiNfbM;
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+    -webkit-animation-iteration-count: infinite;
+    animation-iteration-count: infinite;
+  }
 }
 
 <span
