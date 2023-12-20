@@ -1,6 +1,7 @@
 import React from 'react'
 import {Box, ActionMenu, ActionList, Button, IconButton} from '../'
 import {
+  GearIcon,
   MilestoneIcon,
   KebabHorizontalIcon,
   IssueOpenedIcon,
