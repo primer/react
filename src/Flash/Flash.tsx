@@ -47,7 +47,7 @@ const variants = variant({
 type StyledFlashProps = {
   variant?: 'default' | 'warning' | 'success' | 'danger'
   full?: boolean
-  renderDefaultVisual?: boolean
+  renderLeadingIcon?: boolean
 } & SxProp
 
 const StyledFlash = styled.div<StyledFlashProps>`
@@ -73,19 +73,19 @@ const StyledFlash = styled.div<StyledFlashProps>`
 
 export type FlashProps = ComponentProps<typeof StyledFlash>
 
-const Flash = React.forwardRef(function Flash({as, children, variant = 'default', renderDefaultVisual, ...rest}, ref) {
-  const defaultLeadingVisuals = {
-    default: InfoIcon,
-    danger: StopIcon,
-    success: CheckIcon,
-    warning: AlertIcon,
-  }
+const defaultLeadingVisuals = {
+  default: InfoIcon,
+  danger: StopIcon,
+  success: CheckIcon,
+  warning: AlertIcon,
+}
 
+const Flash = React.forwardRef(function Flash({as, children, variant = 'default', renderLeadingIcon, ...rest}, ref) {
   const DefaultVisual = defaultLeadingVisuals[variant]
 
   return (
     <StyledFlash ref={ref} as={as} variant={variant} {...rest}>
-      {renderDefaultVisual && (
+      {renderLeadingIcon && (
         <span data-component="leadingVisual">
           <DefaultVisual />
         </span>

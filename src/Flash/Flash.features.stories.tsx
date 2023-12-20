@@ -18,14 +18,14 @@ export const Full = () => <Flash full>Full</Flash>
 
 export const WithDefaultLeadingVisual = () => (
   <Box sx={{display: 'flex', flexDirection: 'column', gap: 3}}>
-    <Flash renderDefaultVisual>Default</Flash>
-    <Flash renderDefaultVisual variant="warning">
+    <Flash renderLeadingIcon>Default</Flash>
+    <Flash renderLeadingIcon variant="warning">
       Warning
     </Flash>
-    <Flash variant="danger" renderDefaultVisual>
+    <Flash variant="danger" renderLeadingIcon>
       Danger
     </Flash>
-    <Flash variant="success" renderDefaultVisual>
+    <Flash variant="success" renderLeadingIcon>
       Success
     </Flash>
   </Box>
