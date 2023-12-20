@@ -8,8 +8,6 @@ import {
   IconButton,
   Heading,
   Box,
-  AnchoredOverlay,
-  AnchoredOverlayProps,
   Tooltip,
   TextInput,
   TextInputProps,
@@ -20,8 +18,9 @@ import {
 } from '../../../src/index'
 import {ActionListContainerContext} from '../../../src/ActionList/ActionListContainerContext'
 import {useSlots} from '../../hooks/useSlots'
-import {useProvidedRefOrCreate, useId} from '../../hooks'
+import {useProvidedRefOrCreate, useId, useAnchoredPosition} from '../../hooks'
 import {useFocusZone} from '../../hooks/useFocusZone'
+import {StyledOverlay, OverlayProps} from '../../Overlay/Overlay'
 
 const SelectPanelContext = React.createContext<{
   title: string
@@ -58,8 +57,8 @@ export type SelectPanelProps = {
   onSubmit?: (event?: React.FormEvent<HTMLFormElement>) => void
 
   // TODO: move these to SelectPanel.Overlay or overlayProps
-  width?: AnchoredOverlayProps['width']
-  height?: AnchoredOverlayProps['height']
+  width?: OverlayProps['width']
+  height?: OverlayProps['height']
 
   children: React.ReactNode
 }
@@ -82,23 +81,37 @@ const Panel: React.FC<SelectPanelProps> = ({
   height = 'large',
   ...props
 }) => {
-  const anchorRef = useProvidedRefOrCreate(providedAnchorRef)
+  const [internalOpen, setInternalOpen] = React.useState(defaultOpen)
+
+  // sync open state with props
+  if (propsOpen !== undefined && internalOpen !== propsOpen) setInternalOpen(propsOpen)
+
+  // TODO: replace this hack with clone element?
 
   // 🚨 Hack for good API!
-  // we strip out Anchor from children and pass it to AnchoredOverlay to render
+  // we strip out Anchor from children and wire it up to Dialog
   // with additional props for accessibility
-  let renderAnchor: AnchoredOverlayProps['renderAnchor'] = null
+  let Anchor: React.ReactElement | undefined
+  const anchorRef = useProvidedRefOrCreate(providedAnchorRef)
+
+  const onAnchorClick = () => {
+    if (!internalOpen) setInternalOpen(true)
+    else onInternalClose()
+  }
+
   const contents = React.Children.map(props.children, child => {
     if (React.isValidElement(child) && child.type === SelectPanelButton) {
-      renderAnchor = anchorProps => React.cloneElement(child, anchorProps)
+      Anchor = React.cloneElement(child, {
+        // @ts-ignore TODO
+        ref: anchorRef,
+        onClick: onAnchorClick,
+        'aria-haspopup': true,
+        'aria-expanded': internalOpen,
+      })
       return null
     }
     return child
   })
-
-  const [internalOpen, setInternalOpen] = React.useState(defaultOpen)
-  // sync open state
-  if (propsOpen !== undefined && internalOpen !== propsOpen) setInternalOpen(propsOpen)
 
   const onInternalClose = () => {
     if (propsOpen === undefined) setInternalOpen(false)
@@ -135,26 +148,77 @@ const Panel: React.FC<SelectPanelProps> = ({
     [internalOpen],
   )
 
+  /* Dialog */
+  const dialogRef = React.useRef<HTMLDialogElement>(null)
+  if (internalOpen) dialogRef.current?.showModal()
+  else dialogRef.current?.close()
+
+  // dialog handles Esc automatically, so we have to sync internal state
+  React.useEffect(() => dialogRef.current?.addEventListener('close', onInternalClose))
+
+  // React doesn't support autoFocus for dialog: https://github.com/facebook/react/issues/23301
+  // tl;dr: react takes over autofocus instead of letting the browser handle it,
+  // but not for dialogs, so we have to do it
+  React.useEffect(() => {
+    if (internalOpen) document.querySelector('input')?.focus()
+  }, [internalOpen])
+
+  /* Anchored */
+  const {position} = useAnchoredPosition(
+    {
+      anchorElementRef: anchorRef,
+      floatingElementRef: dialogRef,
+      side: 'outside-bottom',
+      align: 'start',
+    },
+    [anchorRef.current, dialogRef.current],
+  )
+
+  /* 
+    We don't close the panel when clicking outside.
+    For many years, we used to save changes and closed the dialog (for label picker)
+    which isn't accessible, clicking outside should discard changes and close the dialog
+    Fixing this a11y bug would confuse users, so as a middle ground,
+    we don't close the menu and nudge the user towards the footer actions
+  */
+  const [footerAnimationEnabled, setFooterAnimationEnabled] = React.useState(false)
+  const onClickOutside = () => {
+    setFooterAnimationEnabled(true)
+    window.setTimeout(() => setFooterAnimationEnabled(false), 350)
+  }
+
   return (
     <>
-      <AnchoredOverlay
-        anchorRef={anchorRef}
-        renderAnchor={renderAnchor}
-        open={internalOpen}
-        onOpen={() => setInternalOpen(true)}
-        onClose={onInternalClose}
+      {Anchor}
+
+      <StyledOverlay
+        as="dialog"
+        ref={dialogRef}
+        aria-labelledby={`${panelId}--title`}
+        aria-describedby={description ? `${panelId}--description` : undefined}
         width={width}
         height={height}
-        focusZoneSettings={{
-          // we only want focus trap from the overlay,
-          // we don't want focus zone on the whole overlay because
-          // we have a focus zone on the list
-          disabled: true,
+        sx={{
+          ...position,
+          // reset dialog default styles
+          border: 'none',
+          padding: 0,
+          margin: 0,
+          '::backdrop': {background: 'transparent'},
+
+          '& [data-selectpanel-primary-actions]': {
+            animation: footerAnimationEnabled ? 'selectpanel-gelatine 350ms linear' : 'none',
+          },
+          '@keyframes selectpanel-gelatine': {
+            '0%': {transform: 'scale(1, 1)'},
+            '25%': {transform: 'scale(0.9, 1.1)'},
+            '50%': {transform: 'scale(1.1, 0.9)'},
+            '75%': {transform: 'scale(0.95, 1.05)'},
+            '100%': {transform: 'scale(1, 1)'},
+          },
         }}
-        overlayProps={{
-          role: 'dialog',
-          'aria-labelledby': `${panelId}--title`,
-          'aria-describedby': description ? `${panelId}--description` : undefined,
+        onClick={event => {
+          if (event.target === event.currentTarget) onClickOutside()
         }}
       >
         <SelectPanelContext.Provider
@@ -171,6 +235,7 @@ const Panel: React.FC<SelectPanelProps> = ({
         >
           <Box
             as="form"
+            method="dialog"
             onSubmit={onInternalSubmit}
             sx={{
               display: 'flex',
@@ -178,8 +243,8 @@ const Panel: React.FC<SelectPanelProps> = ({
               height: '100%',
             }}
           >
-            {/* render default header as fallback */}
-            {slots.header ?? <SelectPanelHeader />}
+            {slots.header ?? /* render default header as fallback */ <SelectPanelHeader />}
+
             <Box
               as="div"
               ref={listContainerRef as React.RefObject<HTMLDivElement>}
@@ -209,7 +274,7 @@ const Panel: React.FC<SelectPanelProps> = ({
             {slots.footer}
           </Box>
         </SelectPanelContext.Provider>
-      </AnchoredOverlay>
+      </StyledOverlay>
     </>
   )
 }
@@ -279,6 +344,7 @@ const SelectPanelHeader: React.FC<React.PropsWithChildren> = ({children, ...prop
 }
 
 const SelectPanelSearchInput: React.FC<TextInputProps> = ({onChange: propsOnChange, ...props}) => {
+  // TODO: use forwardedRef
   const inputRef = React.createRef<HTMLInputElement>()
 
   const {setSearchQuery} = React.useContext(SelectPanelContext)
@@ -292,9 +358,6 @@ const SelectPanelSearchInput: React.FC<TextInputProps> = ({onChange: propsOnChan
 
   return (
     <TextInput
-      // this autofocus doesn't seem to apply 🤔
-      // probably because the focus zone overrides autoFocus
-      autoFocus
       ref={inputRef}
       block
       leadingVisual={SearchIcon}
@@ -303,6 +366,7 @@ const SelectPanelSearchInput: React.FC<TextInputProps> = ({onChange: propsOnChan
         <TextInput.Action
           icon={XCircleFillIcon}
           aria-label="Clear"
+          tooltipDirection="w"
           sx={{color: 'fg.subtle', bg: 'none'}}
           onClick={() => {
             if (inputRef.current) inputRef.current.value = ''
@@ -349,7 +413,7 @@ const SelectPanelFooter = ({...props}) => {
       <Box sx={{flexGrow: hidePrimaryActions ? 1 : 0}}>{props.children}</Box>
 
       {hidePrimaryActions ? null : (
-        <Box sx={{display: 'flex', gap: 2}}>
+        <Box data-selectpanel-primary-actions sx={{display: 'flex', gap: 2}}>
           <Button size="small" type="button" onClick={() => onCancel()}>
             Cancel
           </Button>

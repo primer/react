@@ -1,41 +1,5 @@
 # @primer/components
 
-## 36.5.0
-
-### Minor Changes
-
-- [#4027](https://github.com/primer/react/pull/4027) [`49f585f9`](https://github.com/primer/react/commit/49f585f91e7839da96eea4f67730fe8d7cf428d0) Thanks [@iansan5653](https://github.com/iansan5653)! - Deprecate `MarkdownEditor`, `MarkdownViewer`, `InlineAutocomplete`, and related hooks
-
-- [#3913](https://github.com/primer/react/pull/3913) [`cf225772`](https://github.com/primer/react/commit/cf225772ff254948cdde63395477d4cb1d0fcaf2) Thanks [@mperrotti](https://github.com/mperrotti)! - Supports inactive ActionList items by letting users pass the required message to the `inactiveText` prop.
-
-  <!-- Changed components: ActionList, ActionMenu, NavList -->
-
-### Patch Changes
-
-- [#4056](https://github.com/primer/react/pull/4056) [`752bea4f`](https://github.com/primer/react/commit/752bea4f2f532281b1d930de605e8beaa27072b7) Thanks [@broccolinisoup](https://github.com/broccolinisoup)! - Tooltip2: Do not wrap the tooltip span and its trigger in a div
-
-- [#4039](https://github.com/primer/react/pull/4039) [`21e75dd8`](https://github.com/primer/react/commit/21e75dd858810df05c2002ed60d3e6c6ee320a47) Thanks [@mattcosta7](https://github.com/mattcosta7)! - Sync theme in effect
-
-- [#4023](https://github.com/primer/react/pull/4023) [`83c125fc`](https://github.com/primer/react/commit/83c125fc58df9c9ea6b43363367575cb28ac354c) Thanks [@mperrotti](https://github.com/mperrotti)! - Use `aria-required` instead of `required` on required form elements
-
-  <!-- Changed components: TextInput, Textarea -->
-
-- [#4058](https://github.com/primer/react/pull/4058) [`4d841b77`](https://github.com/primer/react/commit/4d841b776eadd468dfd8cd63c0b0a17804c51f97) Thanks [@mperrotti](https://github.com/mperrotti)! - TextInput, Textarea: Does not pass `aria-required` attribute to input or textarea if it is undefined. This fixes some tests that were breaking in dotcom.
-
-  <!-- Changed components: TextInput, Textarea -->
-
-- [#3869](https://github.com/primer/react/pull/3869) [`57fcfe6f`](https://github.com/primer/react/commit/57fcfe6fa2478dbf0ecdb29a000dd32fa2e01537) Thanks [@mperrotti](https://github.com/mperrotti)! - Adapts Blankslate to render proportionally in narrow areas.
-
-  <!-- Changed components: Blankslate -->
-
-- [#4000](https://github.com/primer/react/pull/4000) [`a416298c`](https://github.com/primer/react/commit/a416298ccc7f99112d5ccc8f04884014fee3e5b7) Thanks [@strackoverflow](https://github.com/strackoverflow)! - Fix an issue where the scrollable Dialog body could not be focused with the keyboard
-
-- [#4035](https://github.com/primer/react/pull/4035) [`6497f715`](https://github.com/primer/react/commit/6497f71597ff111fd2c81d834f1d3d80cc1cca18) Thanks [@keithamus](https://github.com/keithamus)! - use <BaseStyles> in confirm()
-
-- [#4033](https://github.com/primer/react/pull/4033) [`bca709d0`](https://github.com/primer/react/commit/bca709d03eee5885b0eeec99db17fa76f910b865) Thanks [@keithamus](https://github.com/keithamus)! - Fixed confirm() leaving <div>s in the DOM.
-
-- [#4037](https://github.com/primer/react/pull/4037) [`c2a18b9a`](https://github.com/primer/react/commit/c2a18b9a23af7632ae5bad1240f9155df67655a9) Thanks [@mattcosta7](https://github.com/mattcosta7)! - Portal avoids useless createElement
-
 ## 36.4.0
 
 ### Minor Changes
