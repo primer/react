@@ -25,8 +25,8 @@ export const LoadingButtons = () => {
       <Button loading={isLoading} onClick={handleClick}>
         Button 1
       </Button>
-      <Button>Button 2</Button>
-      <Button>Button 3</Button>
+      <Button onClick={handleClick}>Button 2</Button>
+      <Button onClick={handleClick}>Button 3</Button>
     </ButtonGroup>
   )
 }
