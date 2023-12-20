@@ -101,14 +101,16 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
     const itemSelectionAttribute: ActionListProps['selectionAttribute'] = selectionAttribute || listSelectionAttribute
 
     /** Infer item role based on the container */
-    let itemRole: ActionListItemProps['role']
+    let inferredItemRole: ActionListItemProps['role']
     if (container === 'ActionMenu') {
-      if (selectionVariant === 'single') itemRole = 'menuitemradio'
-      else if (selectionVariant === 'multiple') itemRole = 'menuitemcheckbox'
-      else itemRole = 'menuitem'
+      if (selectionVariant === 'single') inferredItemRole = 'menuitemradio'
+      else if (selectionVariant === 'multiple') inferredItemRole = 'menuitemcheckbox'
+      else inferredItemRole = 'menuitem'
     } else if (container === 'SelectPanel' && listRole === 'listbox') {
-      if (selectionVariant !== undefined) itemRole = 'option'
+      if (selectionVariant !== undefined) inferredItemRole = 'option'
     }
+
+    const itemRole = role || inferredItemRole
 
     const {theme} = useTheme()
 
@@ -248,11 +250,11 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
         ? [blockDescriptionId, inactiveWarningId].join(' ')
         : inactiveWarningId,
       ...(itemSelectionAttribute && {[itemSelectionAttribute]: selected}),
-      role: role || itemRole,
+      role: itemRole,
       id: itemId,
     }
 
-    const containerProps = _PrivateItemWrapper ? {role: role || itemRole ? 'none' : undefined} : menuItemProps
+    const containerProps = _PrivateItemWrapper ? {role: itemRole ? 'none' : undefined} : menuItemProps
 
     const wrapperProps = _PrivateItemWrapper ? menuItemProps : {}
 
