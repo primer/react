@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import {AlertIcon} from '@primer/octicons-react'
-import Box, {BoxProps} from '../Box'
+import Box from '../Box'
 import {Tooltip, TooltipProps} from '../drafts/Tooltip/Tooltip'
 import {useId} from '../hooks/useId'
 import {useSlots} from '../hooks/useSlots'
