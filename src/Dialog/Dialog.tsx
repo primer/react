@@ -1,18 +1,23 @@
 import React, {useCallback, useEffect, useRef, useState} from 'react'
 import styled from 'styled-components'
+import {FocusKeys} from '@primer/behaviors'
+import {XIcon} from '@primer/octicons-react'
+
+import {useOnEscapePress, useProvidedRefOrCreate} from '../hooks'
+import {useRefObjectAsForwardedRef} from '../hooks/useRefObjectAsForwardedRef'
+import {ResponsiveValue, useResponsiveValue} from '../hooks/useResponsiveValue'
+import {useFocusZone} from '../hooks/useFocusZone'
+import {useFocusTrap} from '../hooks/useFocusTrap'
+import {useId} from '../hooks/useId'
+
+import {ScrollableRegion} from '../internal/components/ScrollableRegion'
+import sx, {SxProp} from '../sx'
+import {get} from '../constants'
 import {Button, ButtonProps} from '../Button'
 import Box from '../Box'
-import {get} from '../constants'
 import Portal from '../Portal'
-import {useOnEscapePress, useProvidedRefOrCreate} from '../hooks'
-import {useFocusTrap} from '../hooks/useFocusTrap'
-import sx, {SxProp} from '../sx'
-import {ResponsiveValue, useResponsiveValue} from '../hooks/useResponsiveValue'
 import Octicon from '../Octicon'
-import {useFocusZone} from '../hooks/useFocusZone'
-import {useRefObjectAsForwardedRef} from '../hooks/useRefObjectAsForwardedRef'
-import {useId} from '../hooks/useId'
-import {ScrollableRegion} from '../internal/components/ScrollableRegion'
+
 import DialogBottomSheet from './DialogBottomSheet'
 
 /* Dialog Version 2 */
@@ -340,11 +345,6 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
 })
 _Dialog.displayName = 'Dialog'
 
-const buttonTypes = {
-  normal: Button,
-  primary: ButtonPrimary,
-  danger: ButtonDanger,
-}
 const Buttons: React.FC<React.PropsWithChildren<{buttons: DialogButtonProps[]}>> = ({buttons}) => {
   const autoFocusRef = useProvidedRefOrCreate<HTMLButtonElement>(buttons.find(button => button.autoFocus)?.ref)
   let autoFocusCount = 0
@@ -361,17 +361,17 @@ const Buttons: React.FC<React.PropsWithChildren<{buttons: DialogButtonProps[]}>>
   return (
     <>
       {buttons.map((dialogButtonProps, index) => {
-        const {content, buttonType = 'normal', autoFocus = false, ...buttonProps} = dialogButtonProps
-        const ButtonElement = buttonTypes[buttonType]
+        const {content, buttonType = 'default', autoFocus = false, ...buttonProps} = dialogButtonProps
         return (
-          <ButtonElement
+          <Button
             key={index}
             {...buttonProps}
-            variant={buttonType}
+            // 'normal' value is equivalent to 'default', this is used for backwards compatibility
+            variant={buttonType === 'normal' ? 'default' : buttonType}
             ref={autoFocus && autoFocusCount === 0 ? (autoFocusCount++, autoFocusRef) : null}
           >
             {content}
-          </ButtonElement>
+          </Button>
         )
       })}
     </>
