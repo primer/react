@@ -8,7 +8,6 @@ import {
   IconButton,
   Heading,
   Box,
-  Tooltip,
   TextInput,
   TextInputProps,
   Spinner,
@@ -16,6 +15,7 @@ import {
   ActionListProps,
   Octicon,
 } from '../../../src/index'
+import {Tooltip} from '../../../src/drafts'
 import {ActionListContainerContext} from '../../../src/ActionList/ActionListContainerContext'
 import {useSlots} from '../../hooks/useSlots'
 import {useProvidedRefOrCreate, useId, useAnchoredPosition} from '../../hooks'
