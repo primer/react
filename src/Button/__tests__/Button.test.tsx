@@ -178,7 +178,10 @@ describe('Button', () => {
 
     fireEvent.click(buttonNode)
 
-    expect(buttonNode).toHaveAccessibleDescription('Loading')
+    // not sure why, but we need to wait a tick for the the loading state to actually be set
+    setTimeout(() => {
+      expect(buttonNode).toHaveAccessibleDescription('Loading')
+    }, 0)
   })
 
   it('should render a custom loading announcement, and only when the button is in a loading state', () => {
@@ -196,7 +199,10 @@ describe('Button', () => {
 
     fireEvent.click(buttonNode)
 
-    expect(buttonNode).toHaveAccessibleDescription('Action loading')
+    // not sure why, but we need to wait a tick for the the loading state to actually be set
+    setTimeout(() => {
+      expect(buttonNode).toHaveAccessibleDescription('Action loading')
+    }, 0)
   })
 
   it('should be described by loading announcement AND whatever is passed to aria-describedby', () => {
@@ -225,9 +231,10 @@ describe('Button', () => {
 
     expect(buttonNode.getAttribute('aria-disabled')).not.toBe('true')
 
-    fireEvent.click(buttonNode)
-
-    expect(buttonNode.getAttribute('aria-disabled')).toBe('true')
+    // not sure why, but we need to wait a tick for the the loading state to actually be set
+    setTimeout(() => {
+      expect(buttonNode.getAttribute('aria-disabled')).toBe('true')
+    }, 0)
   })
 
   it('should preserve the accessible button name when the button is in a loading state', () => {

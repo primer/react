@@ -72,20 +72,16 @@ exports[`Dialog renders consistently 1`] = `
 <span
     className="c0"
   />,
-  .c1 {
-  display: inline-block;
-}
-
-.c4 {
+  .c2 {
   padding: 16px;
   background-color: #f6f8fa;
 }
 
-.c7 {
+.c5 {
   padding: 16px;
 }
 
-.c2 {
+.c1 {
   border-radius: 6px;
   border: 1px solid;
   border-color: transparent;
@@ -130,69 +126,69 @@ exports[`Dialog renders consistently 1`] = `
   box-shadow: none;
 }
 
-.c2:focus:not(:disabled) {
+.c1:focus:not(:disabled) {
   box-shadow: none;
   outline: 2px solid #0969da;
   outline-offset: -2px;
 }
 
-.c2:focus:not(:disabled):not(:focus-visible) {
+.c1:focus:not(:disabled):not(:focus-visible) {
   outline: solid 1px transparent;
 }
 
-.c2:focus-visible:not(:disabled) {
+.c1:focus-visible:not(:disabled) {
   box-shadow: none;
   outline: 2px solid #0969da;
   outline-offset: -2px;
 }
 
-.c2[href] {
+.c1[href] {
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
   display: inline-flex;
 }
 
-.c2[href]:hover {
+.c1[href]:hover {
   -webkit-text-decoration: none;
   text-decoration: none;
 }
 
-.c2:hover {
+.c1:hover {
   -webkit-transition-duration: 80ms;
   transition-duration: 80ms;
 }
 
-.c2:active {
+.c1:active {
   -webkit-transition: none;
   transition: none;
 }
 
-.c2[data-inactive] {
+.c1[data-inactive] {
   cursor: auto;
 }
 
-.c2:disabled,
-.c2[aria-disabled][data-loading="false"] {
+.c1:disabled,
+.c1[aria-disabled][data-loading="false"] {
   cursor: not-allowed;
   box-shadow: none;
   color: #8c959f;
 }
 
-.c2:disabled [data-component=ButtonCounter],
-.c2[aria-disabled][data-loading="false"] [data-component=ButtonCounter],
-.c2:disabled [data-component="leadingVisual"],
-.c2[aria-disabled][data-loading="false"] [data-component="leadingVisual"],
-.c2:disabled [data-component="trailingAction"],
-.c2[aria-disabled][data-loading="false"] [data-component="trailingAction"] {
+.c1:disabled [data-component=ButtonCounter],
+.c1[aria-disabled][data-loading="false"] [data-component=ButtonCounter],
+.c1:disabled [data-component="leadingVisual"],
+.c1[aria-disabled][data-loading="false"] [data-component="leadingVisual"],
+.c1:disabled [data-component="trailingAction"],
+.c1[aria-disabled][data-loading="false"] [data-component="trailingAction"] {
   color: inherit;
 }
 
-.c2 [data-component=ButtonCounter] {
+.c1 [data-component=ButtonCounter] {
   font-size: 12px;
 }
 
-.c2[data-component=IconButton] {
+.c1[data-component=IconButton] {
   display: inline-grid;
   padding: unset;
   place-content: center;
@@ -200,65 +196,65 @@ exports[`Dialog renders consistently 1`] = `
   min-width: unset;
 }
 
-.c2[data-size="small"] {
+.c1[data-size="small"] {
   padding: 0 8px;
   height: 28px;
   gap: 4px;
   font-size: 12px;
 }
 
-.c2[data-size="small"] [data-component="text"] {
+.c1[data-size="small"] [data-component="text"] {
   line-height: calc(20 / 12);
 }
 
-.c2[data-size="small"] [data-component=ButtonCounter] {
+.c1[data-size="small"] [data-component=ButtonCounter] {
   font-size: 12px;
 }
 
-.c2[data-size="small"] [data-component="buttonContent"] > :not(:last-child) {
+.c1[data-size="small"] [data-component="buttonContent"] > :not(:last-child) {
   margin-right: 4px;
 }
 
-.c2[data-size="small"][data-component=IconButton] {
+.c1[data-size="small"][data-component=IconButton] {
   width: 28px;
   padding: unset;
 }
 
-.c2[data-size="large"] {
+.c1[data-size="large"] {
   padding: 0 16px;
   height: 40px;
   gap: 8px;
 }
 
-.c2[data-size="large"] [data-component="buttonContent"] > :not(:last-child) {
+.c1[data-size="large"] [data-component="buttonContent"] > :not(:last-child) {
   margin-right: 8px;
 }
 
-.c2[data-size="large"][data-component=IconButton] {
+.c1[data-size="large"][data-component=IconButton] {
   width: 40px;
   padding: unset;
 }
 
-.c2[data-block="block"] {
+.c1[data-block="block"] {
   width: 100%;
 }
 
-.c2[data-inactive]:not([disabled]) {
+.c1[data-inactive]:not([disabled]) {
   background-color: var(--button-inactive-bgColor,#eaeef2);
   border-color: var(--button-inactive-bgColor,#eaeef2);
   color: var(--button-inactive-fgColor,#57606a);
 }
 
-.c2[data-inactive]:not([disabled]):focus-visible {
+.c1[data-inactive]:not([disabled]):focus-visible {
   box-shadow: none;
 }
 
-.c2 [data-component="leadingVisual"] {
+.c1 [data-component="leadingVisual"] {
   grid-area: leadingVisual;
   color: #656d76;
 }
 
-.c2 [data-component="text"] {
+.c1 [data-component="text"] {
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -272,16 +268,16 @@ exports[`Dialog renders consistently 1`] = `
   white-space: nowrap;
 }
 
-.c2 [data-component="trailingVisual"] {
+.c1 [data-component="trailingVisual"] {
   grid-area: trailingVisual;
 }
 
-.c2 [data-component="trailingAction"] {
+.c1 [data-component="trailingAction"] {
   margin-right: -4px;
   color: #656d76;
 }
 
-.c2 [data-component="buttonContent"] {
+.c1 [data-component="buttonContent"] {
   -webkit-flex: 1 0 auto;
   -ms-flex: 1 0 auto;
   flex: 1 0 auto;
@@ -297,75 +293,65 @@ exports[`Dialog renders consistently 1`] = `
   align-content: center;
 }
 
-.c2 [data-component="buttonContent"] > :not(:last-child) {
+.c1 [data-component="buttonContent"] > :not(:last-child) {
   margin-right: 8px;
 }
 
-.c2 [data-component="loadingSpinner"] {
+.c1 [data-component="loadingSpinner"] {
   grid-area: text;
   margin-right: 0px !important;
   place-self: center;
 }
 
-.c2 [data-component="loadingSpinner"] + [data-component="text"] {
+.c1 [data-component="loadingSpinner"] + [data-component="text"] {
   visibility: hidden;
 }
 
-.c2:hover:not([disabled]):not([aria-disabled][data-loading="false"]) {
+.c1:hover:not([disabled]):not([aria-disabled][data-loading="false"]) {
   background-color: rgba(208,215,222,0.32);
 }
 
-.c2:active:not([disabled]):not([aria-disabled][data-loading="false"]) {
+.c1:active:not([disabled]):not([aria-disabled][data-loading="false"]) {
   background-color: rgba(208,215,222,0.48);
 }
 
-.c2[aria-expanded=true] {
+.c1[aria-expanded=true] {
   background-color: rgba(208,215,222,0.24);
 }
 
-.c2[data-component="IconButton"][data-no-visuals] {
+.c1[data-component="IconButton"][data-no-visuals] {
   color: #656d76;
 }
 
-.c2[data-no-visuals] {
+.c1[data-no-visuals] {
   color: #0969da;
   position: absolute;
   top: 8px;
   right: 16px;
 }
 
-.c2:has([data-component="ButtonCounter"]) {
+.c1:has([data-component="ButtonCounter"]) {
   color: #24292f;
 }
 
-.c2:disabled[data-no-visuals],
-.c2[aria-disabled][data-loading="false"][data-no-visuals] {
+.c1:disabled[data-no-visuals],
+.c1[aria-disabled][data-loading="false"][data-no-visuals] {
   color: #8c959f;
 }
 
-.c2:disabled[data-no-visuals] [data-component=ButtonCounter],
-.c2[aria-disabled][data-loading="false"][data-no-visuals] [data-component=ButtonCounter] {
+.c1:disabled[data-no-visuals] [data-component=ButtonCounter],
+.c1[aria-disabled][data-loading="false"][data-no-visuals] [data-component=ButtonCounter] {
   color: inherit;
 }
 
-.c3:not(:focus):not(:active):not(:focus-within) {
-  -webkit-clip-path: inset(50%);
-  clip-path: inset(50%);
-  height: 1px;
-  overflow: hidden;
-  position: absolute;
-  white-space: nowrap;
-  width: 1px;
-}
-
-.c6 {
+.c4 {
   font-size: 14px;
   font-weight: 600;
   font-family: sans-serif;
   color: #1F2328;
 }
 
-.c8 {
+.c6 {
   font-family: sans-serif;
 }
 
@@ -386,7 +372,7 @@ exports[`Dialog renders consistently 1`] = `
   outline: none;
 }
 
-.c5 {
+.c3 {
   border-radius: 6px 6px 0px 0px;
   border-bottom: 1px solid #d0d7de;
   display: -webkit-box;
@@ -396,7 +382,7 @@ exports[`Dialog renders consistently 1`] = `
 }
 
 @media (forced-colors:active) {
-  .c2:focus {
+  .c1:focus {
     outline: solid 1px transparent;
   }
 }
@@ -411,7 +397,7 @@ exports[`Dialog renders consistently 1`] = `
 }
 
 @media screen and (max-width:750px) {
-  .c5 {
+  .c3 {
     border-radius: 0px;
   }
 }
@@ -424,59 +410,47 @@ exports[`Dialog renders consistently 1`] = `
     role="dialog"
     tabIndex={-1}
   >
-    <div
+    <button
+      aria-describedby=":r0:-loading-announcement"
+      aria-label="Close"
+      aria-labelledby=":r0:-label"
       className="c1"
+      data-block={null}
+      data-component="IconButton"
+      data-loading={false}
+      data-no-visuals={true}
+      onClick={[Function]}
+      type="button"
     >
-      <button
-        aria-describedby=":r0:-loading-announcement"
-        aria-label="Close"
-        aria-labelledby=":r0:-label"
-        className="c2"
-        data-block={null}
-        data-component="IconButton"
-        data-loading={false}
-        data-no-visuals={true}
-        onClick={[Function]}
-        type="button"
-      >
-        <svg
-          aria-hidden="true"
-          className="octicon octicon-x"
-          fill="currentColor"
-          focusable="false"
-          height={16}
-          role="img"
-          style={
-            {
-              "display": "inline-block",
-              "overflow": "visible",
-              "userSelect": "none",
-              "verticalAlign": "text-bottom",
-            }
+      <svg
+        aria-hidden="true"
+        className="octicon octicon-x"
+        fill="currentColor"
+        focusable="false"
+        height={16}
+        role="img"
+        style={
+          {
+            "display": "inline-block",
+            "overflow": "visible",
+            "userSelect": "none",
+            "verticalAlign": "text-bottom",
           }
-          viewBox="0 0 16 16"
-          width={16}
-        >
-          <path
-            d="M3.72 3.72a.75.75 0 0 1 1.06 0L8 6.94l3.22-3.22a.749.749 0 0 1 1.275.326.749.749 0 0 1-.215.734L9.06 8l3.22 3.22a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215L8 9.06l-3.22 3.22a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042L6.94 8 3.72 4.78a.75.75 0 0 1 0-1.06Z"
-          />
-        </svg>
-      </button>
-      <div
-        className="c3"
+        }
+        viewBox="0 0 16 16"
+        width={16}
       >
-        <span
-          aria-live="polite"
-          id=":r0:-loading-announcement"
+        <path
+          d="M3.72 3.72a.75.75 0 0 1 1.06 0L8 6.94l3.22-3.22a.749.749 0 0 1 1.275.326.749.749 0 0 1-.215.734L9.06 8l3.22 3.22a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215L8 9.06l-3.22 3.22a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042L6.94 8 3.72 4.78a.75.75 0 0 1 0-1.06Z"
         />
-      </div>
-    </div>
+      </svg>
+    </button>
     <div
-      className="c4 c5"
+      className="c2 c3"
       id="header"
     >
       <span
-        className="c6"
+        className="c4"
         color="fg.default"
         fontFamily="sans-serif"
         fontSize={1}
@@ -486,10 +460,10 @@ exports[`Dialog renders consistently 1`] = `
       </span>
     </div>
     <div
-      className="c7"
+      className="c5"
     >
       <span
-        className="c8"
+        className="c6"
         fontFamily="sans-serif"
       >
         Some content

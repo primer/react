@@ -304,32 +304,50 @@ exports[`ButtonGroup renders consistently 1`] = `
   isolation: isolate;
 }
 
-.c0.c0 > * a,
-.c0.c0 > * button {
+.c0.c0 > *:not([data-loading-wrapper]) {
   margin-inline-end: -1px;
   position: relative;
   border-radius: 0;
 }
 
-.c0.c0 > * a:focus,
-.c0.c0 > * button:focus,
-.c0.c0 > * a:active,
-.c0.c0 > * button:active,
-.c0.c0 > * a:hover,
-.c0.c0 > * button:hover {
-  z-index: 1;
-}
-
-.c0.c0 > *:first-child a,
-.c0.c0 > *:first-child button {
+.c0.c0 > *:not([data-loading-wrapper]):first-child {
   border-top-left-radius: 6px;
   border-bottom-left-radius: 6px;
 }
 
-.c0.c0 > *:last-child a,
-.c0.c0 > *:last-child button {
+.c0.c0 > *:not([data-loading-wrapper]):last-child {
   border-top-right-radius: 6px;
   border-bottom-right-radius: 6px;
+}
+
+.c0.c0 > *:not([data-loading-wrapper]):focus,
+.c0.c0 > *:not([data-loading-wrapper]):active,
+.c0.c0 > *:not([data-loading-wrapper]):hover {
+  z-index: 1;
+}
+
+.c0 [data-loading-wrapper]:first-child button,
+.c0 [data-loading-wrapper]:first-child a {
+  border-top-left-radius: 6px;
+  border-bottom-left-radius: 6px;
+}
+
+.c0 [data-loading-wrapper]:last-child button,
+.c0 [data-loading-wrapper]:last-child a {
+  border-top-right-radius: 6px;
+  border-bottom-right-radius: 6px;
+}
+
+.c0 [data-loading-wrapper] > * {
+  margin-inline-end: -1px;
+  position: relative;
+  border-radius: 0;
+}
+
+.c0 [data-loading-wrapper] > *:focus,
+.c0 [data-loading-wrapper] > *:active,
+.c0 [data-loading-wrapper] > *:hover {
+  z-index: 1;
 }
 
 <div
