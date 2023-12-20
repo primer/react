@@ -49,34 +49,3 @@ jobs:
         uses: actions/deploy-pages@v3
         with:
           preview: true
-
-  deploy-storybook:
-    name: Preview Storybook
-    if: ${{ github.repository != github.event.pull_request.head.repo.full_name }}
-    needs: deploy-preview
-    permissions:
-      deployments: write
-    runs-on: ubuntu-latest
-    steps:
-      - uses: chrnorm/deployment-action@v2.0.5
-        name: Create GitHub deployment for storybook
-        id: storybook
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          environment: storybook-preview-${{ github.event.number }}
-          environment_url: '${{ needs.deploy-preview.outputs.deployment_url }}/storybook'
-      - name: Update storybook deployment status (success)
-        if: success()
-        uses: chrnorm/deployment-status@v2.0.1
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          environment-url: '${{ needs.deploy-preview.outputs.deployment_url }}/storybook'
-          state: 'success'
-          deployment-id: ${{ steps.storybook.outputs.deployment_id }}
-      - name: Update storybook deployment status (failure)
-        if: failure()
-        uses: chrnorm/deployment-status@v2.0.1
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          state: 'failure'
-          deployment-id: ${{ steps.storybook.outputs.deployment_id }}
