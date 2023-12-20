@@ -22,7 +22,15 @@ const fonts = {
     'Apple Color Emoji',
     'Segoe UI Emoji',
   ]),
-  mono: fontStack(['SFMono-Regular', 'Consolas', 'Liberation Mono', 'Menlo', 'Courier', 'monospace']),
+  mono: fontStack([
+    'var(--fontStack-monospace)',
+    'SFMono-Regular',
+    'Consolas',
+    'Liberation Mono',
+    'Menlo',
+    'Courier',
+    'monospace',
+  ]),
 }
 
 const fontWeights = {

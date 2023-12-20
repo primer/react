@@ -1,5 +1,5 @@
 <p align="center">
-  <img width="300px" src="https://user-images.githubusercontent.com/4608155/127241386-f11da52d-00d9-4366-b01c-6f4c1ebcf7f2.png">
+  <img alt="Primer logo" width="300px" src="https://user-images.githubusercontent.com/4608155/127241386-f11da52d-00d9-4366-b01c-6f4c1ebcf7f2.png">
 </p>
 
 <h1 align="center">Primer React</h1>
@@ -8,17 +8,17 @@
 
 <p align="center">
   <a aria-label="npm package" href="https://www.npmjs.com/package/@primer/react">
-    <img alt="" src="https://img.shields.io/npm/v/@primer/react.svg">
+    <img alt="npm package" src="https://img.shields.io/npm/v/@primer/react.svg">
   </a>
   <a aria-label="contributors graph" href="https://github.com/primer/react/graphs/contributors">
-    <img src="https://img.shields.io/github/contributors/primer/react.svg">
+    <img alt="contributors graph" src="https://img.shields.io/github/contributors/primer/react.svg">
   </a>
   <a aria-label="last commit" href="https://github.com/primer/react/commits/main">
-    <img alt="" src=
+    <img alt="last commit" src=
   "https://img.shields.io/github/last-commit/primer/react.svg">
   </a>
   <a aria-label="license" href="https://github.com/primer/react/blob/main/LICENSE">
-    <img src="https://img.shields.io/github/license/primer/react.svg" alt="">
+    <img alt="license" src="https://img.shields.io/github/license/primer/react.svg" alt="">
   </a>
 </p>
 
