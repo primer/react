@@ -184,7 +184,7 @@ const Panel: React.FC<SelectPanelProps> = ({
   const [footerAnimationEnabled, setFooterAnimationEnabled] = React.useState(false)
   const onClickOutside = () => {
     setFooterAnimationEnabled(true)
-    window.setTimeout(() => setFooterAnimationEnabled(false), 500)
+    window.setTimeout(() => setFooterAnimationEnabled(false), 350)
   }
 
   return (
@@ -207,7 +207,7 @@ const Panel: React.FC<SelectPanelProps> = ({
           '::backdrop': {background: 'transparent'},
 
           '& [data-selectpanel-primary-actions]': {
-            animation: footerAnimationEnabled ? 'selectpanel-gelatine 0.5s linear' : 'none',
+            animation: footerAnimationEnabled ? 'selectpanel-gelatine 350ms linear' : 'none',
           },
           '@keyframes selectpanel-gelatine': {
             '0%': {transform: 'scale(1, 1)'},
