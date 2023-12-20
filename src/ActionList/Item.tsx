@@ -16,6 +16,7 @@ import {ActionListProps, ListContext} from './List'
 import {Selection} from './Selection'
 import {ActionListItemProps, getVariantStyles, ItemContext, TEXT_ROW_HEIGHT} from './shared'
 import {LeadingVisual, TrailingVisual, VisualProps} from './Visuals'
+import {ConditionalWrapper} from '../internal/components/ConditionalWrapper'
 
 const LiBox = styled.li<SxProp>(sx)
 
@@ -285,11 +286,11 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
               data-component="ActionList.Item--DividerContainer"
               sx={{display: 'flex', flexDirection: 'column', flexGrow: 1, minWidth: 0}}
             >
-              <ConditionalBox
+              <ConditionalWrapper
                 if={Boolean(slots.trailingVisual) || (showInactiveIndicator && !slots.leadingVisual)}
                 sx={{display: 'flex', flexGrow: 1}}
               >
-                <ConditionalBox
+                <ConditionalWrapper
                   if={!!slots.inlineDescription}
                   sx={{display: 'flex', flexGrow: 1, alignItems: 'baseline', minWidth: 0}}
                 >
@@ -305,7 +306,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
                     {childrenWithoutSlots}
                   </Box>
                   {slots.inlineDescription}
-                </ConditionalBox>
+                </ConditionalWrapper>
                 {
                   // If we're showing an inactive indicator and a leading visual has NOT been passed,
                   // replace the trailing visual with the inactive indicator.
@@ -321,7 +322,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
                     slots.trailingVisual
                   )
                 }
-              </ConditionalBox>
+              </ConditionalWrapper>
               {
                 // If the item is inactive, but it's not in an overlay (e.g. ActionMenu, SelectPanel),
                 // render the inactive warning message directly in the item.
@@ -349,10 +350,3 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
 ) as PolymorphicForwardRefComponent<'li', ActionListItemProps>
 
 Item.displayName = 'ActionList.Item'
-
-const ConditionalBox: React.FC<React.PropsWithChildren<{if: boolean} & BoxProps>> = props => {
-  const {if: condition, ...rest} = props
-
-  if (condition) return <Box {...rest}>{props.children}</Box>
-  else return <>{props.children}</>
-}
