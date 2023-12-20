@@ -26,15 +26,10 @@ export type ActionListProps = React.PropsWithChildren<{
    * The ARIA role describing the function of `List` component. `listbox` or `menu` are a common values.
    */
   role?: AriaRole
-
-  selectionAttribute?: 'aria-selected' | 'aria-checked'
 }> &
   SxProp
 
-type ContextProps = Pick<
-  ActionListProps,
-  'variant' | 'selectionVariant' | 'showDividers' | 'role' | 'selectionAttribute'
-> & {
+type ContextProps = Pick<ActionListProps, 'variant' | 'selectionVariant' | 'showDividers' | 'role'> & {
   headingId?: string
 }
 
@@ -63,13 +58,11 @@ export const List = React.forwardRef<HTMLUListElement, ActionListProps>(
     const {
       listRole,
       listLabelledBy,
-      selectionAttribute,
       selectionVariant: containerSelectionVariant, // TODO: Remove after DropdownMenu2 deprecation
     } = React.useContext(ActionListContainerContext)
 
     const ariaLabelledBy = slots.heading ? slots.heading.props.id ?? headingId : listLabelledBy
     const listSelectionVariant = selectionVariant || containerSelectionVariant
-    const defaultSelectionAttribute = listSelectionVariant === 'multiple' ? 'aria-checked' : 'aria-selected'
 
     return (
       <ListContext.Provider
@@ -79,7 +72,6 @@ export const List = React.forwardRef<HTMLUListElement, ActionListProps>(
           showDividers,
           role: role || listRole,
           headingId,
-          selectionAttribute: selectionAttribute || defaultSelectionAttribute,
         }}
       >
         {slots.heading}

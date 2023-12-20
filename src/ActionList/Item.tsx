@@ -74,7 +74,6 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       role: listRole,
       showDividers,
       selectionVariant: listSelectionVariant,
-      selectionAttribute: listSelectionAttribute,
     } = React.useContext(ListContext)
     const {selectionVariant: groupSelectionVariant} = React.useContext(GroupContext)
     const {container, afterSelect, selectionAttribute} = React.useContext(ActionListContainerContext)
@@ -98,8 +97,6 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       ? groupSelectionVariant
       : listSelectionVariant
 
-    const itemSelectionAttribute: ActionListProps['selectionAttribute'] = selectionAttribute || listSelectionAttribute
-
     /** Infer item role based on the container */
     let inferredItemRole: ActionListItemProps['role']
     if (container === 'ActionMenu') {
@@ -111,6 +108,13 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
     }
 
     const itemRole = role || inferredItemRole
+
+    /** Infer the proper selection attribute based on the item's role */
+    let inferredSelectionAttribute: 'aria-selected' | 'aria-checked' | undefined
+    if (itemRole === 'menuitemradio' || itemRole === 'menuitemcheckbox') inferredSelectionAttribute = 'aria-checked'
+    else if (itemRole === 'option') inferredSelectionAttribute = 'aria-selected'
+
+    const itemSelectionAttribute = selectionAttribute || inferredSelectionAttribute
 
     const {theme} = useTheme()
 
