@@ -281,6 +281,8 @@ export const Tooltip = React.forwardRef(
                 child.props.onBlur?.(event)
               },
               onFocus: (event: React.FocusEvent) => {
+                // only show tooltip on :focus-visible, not on :focus
+                if (!event.target.matches(':focus-visible')) return;
                 openTooltip()
                 child.props.onFocus?.(event)
               },
