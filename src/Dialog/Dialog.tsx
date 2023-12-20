@@ -1,9 +1,6 @@
 import React, {useCallback, useEffect, useRef, useState} from 'react'
 import styled from 'styled-components'
-import {XIcon} from '@primer/octicons-react'
-import {FocusKeys} from '@primer/behaviors'
-
-import Button, {ButtonPrimary, ButtonDanger, ButtonProps} from '../deprecated/Button'
+import {Button, ButtonProps} from '../Button'
 import Box from '../Box'
 import {get} from '../constants'
 import Portal from '../Portal'
@@ -30,7 +27,7 @@ export type DialogButtonProps = Omit<ButtonProps, 'content'> & {
   /**
    * The type of Button element to use
    */
-  buttonType?: 'normal' | 'primary' | 'danger'
+  buttonType?: 'default' | 'primary' | 'danger' | 'normal'
 
   /**
    * The Button's inner text

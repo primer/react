@@ -18,4 +18,4 @@ npx copyfiles -u 1 "./lib/**/*.d.ts" ./lib-esm
 npx copyfiles --flat ./lib/components.css ./css
 
 # Build components.json file for documentation
-npx ts-node script/components-json/build
+npm run build:components.json

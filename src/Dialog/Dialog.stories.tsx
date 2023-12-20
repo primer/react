@@ -89,7 +89,7 @@ export const Default = () => {
           title="My Dialog"
           onClose={onDialogClose}
           footerButtons={[
-            {buttonType: 'normal', content: 'Open Second Dialog', onClick: openSecondDialog},
+            {buttonType: 'default', content: 'Open Second Dialog', onClick: openSecondDialog},
             {buttonType: 'danger', content: 'Delete the universe', onClick: onDialogClose},
             {buttonType: 'primary', content: 'Proceed', onClick: openSecondDialog, autoFocus: true},
           ]}
@@ -127,7 +127,7 @@ export const Playground = ({width, height, subtitle, type}: DialogStoryProps) =>
           width={width}
           height={height}
           footerButtons={[
-            {buttonType: 'normal', content: 'Open Second Dialog', onClick: openSecondDialog},
+            {buttonType: 'default', content: 'Open Second Dialog', onClick: openSecondDialog},
             {buttonType: 'danger', content: 'Delete the universe', onClick: onDialogClose},
             {buttonType: 'primary', content: 'Proceed', onClick: openSecondDialog, autoFocus: true},
           ]}
