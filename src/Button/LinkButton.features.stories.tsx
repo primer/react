@@ -1,5 +1,5 @@
 import {EyeIcon, ChevronRightIcon, HeartIcon, DownloadIcon} from '@primer/octicons-react'
-import React, {forwardRef, useState} from 'react'
+import React, {forwardRef} from 'react'
 import {Button} from '.'
 
 export default {
