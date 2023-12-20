@@ -239,6 +239,10 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
 
     const ItemWrapper = _PrivateItemWrapper || React.Fragment
 
+    // only apply aria-selected and aria-checked to selectable items
+    const selectableRoles = ['menuitemradio', 'menuitemcheckbox', 'option']
+    const includeSelectionAttribute = itemSelectionAttribute && itemRole && selectableRoles.includes(itemRole)
+
     const menuItemProps = {
       onClick: clickHandler,
       onKeyPress: keyPressHandler,
@@ -249,7 +253,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       'aria-describedby': slots.blockDescription
         ? [blockDescriptionId, inactiveWarningId].join(' ')
         : inactiveWarningId,
-      ...(itemSelectionAttribute && {[itemSelectionAttribute]: selected}),
+      ...(includeSelectionAttribute && {[itemSelectionAttribute]: selected}),
       role: itemRole,
       id: itemId,
     }
