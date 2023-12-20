@@ -74,6 +74,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       role: listRole,
       showDividers,
       selectionVariant: listSelectionVariant,
+      selectionAttribute: listSelectionAttribute,
     } = React.useContext(ListContext)
     const {selectionVariant: groupSelectionVariant} = React.useContext(GroupContext)
     const {container, afterSelect, selectionAttribute} = React.useContext(ActionListContainerContext)
@@ -96,6 +97,8 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
     const selectionVariant: ActionListProps['selectionVariant'] = groupSelectionVariant
       ? groupSelectionVariant
       : listSelectionVariant
+
+    const itemSelectionAttribute: ActionListProps['selectionAttribute'] = selectionAttribute || listSelectionAttribute
 
     /** Infer item role based on the container */
     let itemRole: ActionListItemProps['role']
@@ -244,7 +247,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       'aria-describedby': slots.blockDescription
         ? [blockDescriptionId, inactiveWarningId].join(' ')
         : inactiveWarningId,
-      ...(selectionAttribute && {[selectionAttribute]: selected}),
+      ...(itemSelectionAttribute && {[itemSelectionAttribute]: selected}),
       role: role || itemRole,
       id: itemId,
     }
