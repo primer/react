@@ -62,13 +62,12 @@ export const List = React.forwardRef<HTMLUListElement, ActionListProps>(
     } = React.useContext(ActionListContainerContext)
 
     const ariaLabelledBy = slots.heading ? slots.heading.props.id ?? headingId : listLabelledBy
-    const listSelectionVariant = selectionVariant || containerSelectionVariant
 
     return (
       <ListContext.Provider
         value={{
           variant,
-          selectionVariant: listSelectionVariant,
+          selectionVariant: selectionVariant || containerSelectionVariant,
           showDividers,
           role: role || listRole,
           headingId,
