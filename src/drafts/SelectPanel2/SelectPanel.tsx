@@ -58,7 +58,7 @@ export type SelectPanelProps = {
 
   // TODO: move these to SelectPanel.Overlay or overlayProps
   width?: OverlayProps['width']
-  height?: OverlayProps['height']
+  height?: OverlayProps['height'] | 'fit-content'
 
   children: React.ReactNode
 }
@@ -190,7 +190,7 @@ const Panel: React.FC<SelectPanelProps> = ({
   return (
     <>
       {Anchor}
-
+      {/* @ts-ignore TODO: StyledOverlay does not like height:fit-content */}
       <StyledOverlay
         as="dialog"
         ref={dialogRef}
