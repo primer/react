@@ -25,3 +25,5 @@ export const MultipleItems = () => (
     <ProgressBar.Item progress={14} sx={{backgroundColor: 'severe.emphasis'}} />
   </ProgressBar>
 )
+
+export const Animated = () => <ProgressBar progress="50" aria-label="Upload test.png" animated />
