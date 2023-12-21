@@ -15,8 +15,8 @@ import {
   Text,
   ActionListProps,
   Octicon,
-} from '../../../src/index'
-import {ActionListContainerContext} from '../../../src/ActionList/ActionListContainerContext'
+} from '../../index'
+import {ActionListContainerContext} from '../../ActionList/ActionListContainerContext'
 import {useSlots} from '../../hooks/useSlots'
 import {useProvidedRefOrCreate, useId, useAnchoredPosition} from '../../hooks'
 import {useFocusZone} from '../../hooks/useFocusZone'
