@@ -5,7 +5,7 @@
  * But, they are published on npm and you can import them for experimentation/feedback.
  * example: import {ActionList} from '@primer/react/drafts
  */
-
+'use client'
 export {Blankslate} from '../Blankslate'
 export type {BlankslateProps} from '../Blankslate'
 
