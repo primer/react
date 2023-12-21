@@ -6,6 +6,11 @@
   "stories": [],
   "props": [
     {
+      "name": "animated",
+      "type": "boolean",
+      "description": "Whether the filled in area(s) of the progress bar will be animated or not"
+    },
+    {
       "name": "progress",
       "type": "number",
       "defaultValue": "0",
