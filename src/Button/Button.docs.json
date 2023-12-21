@@ -41,7 +41,7 @@
     {
       "name": "loadingAnnouncement",
       "type": "string",
-      "description": "The content to announce to screen readers when loading."
+      "description": "The content to announce to screen readers when loading. This requires `loading` prop to be true"
     },
 
     {
