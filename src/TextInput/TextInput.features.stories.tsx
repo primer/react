@@ -164,8 +164,6 @@ export const WithTooltipDirection = () => {
                 setValue('')
               }}
               icon={XCircleFillIcon}
-              aria-label="Clear input"
-              tooltipDirection="nw"
               sx={{color: 'fg.subtle'}}
             />
           }

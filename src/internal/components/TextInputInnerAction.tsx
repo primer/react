@@ -93,7 +93,7 @@ const TextInputAction = forwardRef<HTMLButtonElement, TextInputActionProps>(
     return (
       <Box as="span" className="TextInput-action" marginLeft={1} marginRight={1} lineHeight="0">
         {icon && !children ? (
-          <Tooltip direction={tooltipDirection} text={ariaLabel as unknown as string} type="label">
+          <Tooltip direction={tooltipDirection ?? 's'} text={ariaLabel ?? ''} type="label">
             <IconButton
               variant={variant}
               type="button"
