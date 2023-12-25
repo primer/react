@@ -25,7 +25,7 @@ jobs:
         working-directory: docs
       - name: Build docs preview
         run: npm run build:docs:preview
-      - uses: actions/upload-pages-artifact@v2
+      - uses: actions/upload-pages-artifact@v3
         with:
           name: github-pages
           path: docs/public
