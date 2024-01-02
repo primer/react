@@ -789,6 +789,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
       >
         <li
           aria-labelledby="0--label "
+          aria-selected={false}
           className="c2 c3"
           data-id="0"
           id="0"
@@ -819,6 +820,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
         </li>
         <li
           aria-labelledby="1--label "
+          aria-selected={false}
           className="c2 c3"
           data-id="1"
           id="1"
@@ -849,6 +851,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
         </li>
         <li
           aria-labelledby="2--label "
+          aria-selected={false}
           className="c2 c3"
           data-id="2"
           id="2"
@@ -879,6 +882,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
         </li>
         <li
           aria-labelledby="3--label "
+          aria-selected={false}
           className="c2 c3"
           data-id="3"
           id="3"
@@ -909,6 +913,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
         </li>
         <li
           aria-labelledby="4--label "
+          aria-selected={false}
           className="c2 c3"
           data-id="4"
           id="4"
@@ -939,6 +944,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
         </li>
         <li
           aria-labelledby="5--label "
+          aria-selected={false}
           className="c2 c3"
           data-id="5"
           id="5"
@@ -969,6 +975,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
         </li>
         <li
           aria-labelledby="6--label "
+          aria-selected={false}
           className="c2 c3"
           data-id="6"
           id="6"
@@ -999,6 +1006,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
         </li>
         <li
           aria-labelledby="7--label "
+          aria-selected={false}
           className="c2 c3"
           data-id="7"
           id="7"
@@ -1029,6 +1037,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
         </li>
         <li
           aria-labelledby="20--label "
+          aria-selected={false}
           className="c2 c3"
           data-id="20"
           id="20"
@@ -1059,6 +1068,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
         </li>
         <li
           aria-labelledby="21--label "
+          aria-selected={false}
           className="c2 c3"
           data-id="21"
           id="21"
@@ -1089,6 +1099,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
         </li>
         <li
           aria-labelledby="add-new-item--label "
+          aria-selected={false}
           className="c2 c3"
           data-id="add-new-item"
           id="add-new-item"
@@ -1512,6 +1523,7 @@ exports[`snapshots renders a multiselect input 1`] = `
       >
         <li
           aria-labelledby="0--label "
+          aria-selected={false}
           className="c2 c3"
           data-id="0"
           id="0"
@@ -1542,6 +1554,7 @@ exports[`snapshots renders a multiselect input 1`] = `
         </li>
         <li
           aria-labelledby="1--label "
+          aria-selected={false}
           className="c2 c3"
           data-id="1"
           id="1"
@@ -1572,6 +1585,7 @@ exports[`snapshots renders a multiselect input 1`] = `
         </li>
         <li
           aria-labelledby="2--label "
+          aria-selected={false}
           className="c2 c3"
           data-id="2"
           id="2"
@@ -1602,6 +1616,7 @@ exports[`snapshots renders a multiselect input 1`] = `
         </li>
         <li
           aria-labelledby="3--label "
+          aria-selected={false}
           className="c2 c3"
           data-id="3"
           id="3"
@@ -1632,6 +1647,7 @@ exports[`snapshots renders a multiselect input 1`] = `
         </li>
         <li
           aria-labelledby="4--label "
+          aria-selected={false}
           className="c2 c3"
           data-id="4"
           id="4"
@@ -1662,6 +1678,7 @@ exports[`snapshots renders a multiselect input 1`] = `
         </li>
         <li
           aria-labelledby="5--label "
+          aria-selected={false}
           className="c2 c3"
           data-id="5"
           id="5"
@@ -1692,6 +1709,7 @@ exports[`snapshots renders a multiselect input 1`] = `
         </li>
         <li
           aria-labelledby="6--label "
+          aria-selected={false}
           className="c2 c3"
           data-id="6"
           id="6"
@@ -1722,6 +1740,7 @@ exports[`snapshots renders a multiselect input 1`] = `
         </li>
         <li
           aria-labelledby="7--label "
+          aria-selected={false}
           className="c2 c3"
           data-id="7"
           id="7"
@@ -1752,6 +1771,7 @@ exports[`snapshots renders a multiselect input 1`] = `
         </li>
         <li
           aria-labelledby="20--label "
+          aria-selected={false}
           className="c2 c3"
           data-id="20"
           id="20"
@@ -1782,6 +1802,7 @@ exports[`snapshots renders a multiselect input 1`] = `
         </li>
         <li
           aria-labelledby="21--label "
+          aria-selected={false}
           className="c2 c3"
           data-id="21"
           id="21"
@@ -2329,6 +2350,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
       >
         <li
           aria-labelledby="0--label "
+          aria-selected={true}
           className="c2 c3"
           data-id="0"
           id="0"
@@ -2359,6 +2381,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
         </li>
         <li
           aria-labelledby="1--label "
+          aria-selected={true}
           className="c2 c3"
           data-id="1"
           id="1"
@@ -2389,6 +2412,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
         </li>
         <li
           aria-labelledby="2--label "
+          aria-selected={true}
           className="c2 c3"
           data-id="2"
           id="2"
@@ -2419,6 +2443,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
         </li>
         <li
           aria-labelledby="3--label "
+          aria-selected={false}
           className="c2 c8"
           data-id="3"
           id="3"
@@ -2449,6 +2474,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
         </li>
         <li
           aria-labelledby="4--label "
+          aria-selected={false}
           className="c2 c8"
           data-id="4"
           id="4"
@@ -2479,6 +2505,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
         </li>
         <li
           aria-labelledby="5--label "
+          aria-selected={false}
           className="c2 c8"
           data-id="5"
           id="5"
@@ -2509,6 +2536,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
         </li>
         <li
           aria-labelledby="6--label "
+          aria-selected={false}
           className="c2 c8"
           data-id="6"
           id="6"
@@ -2539,6 +2567,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
         </li>
         <li
           aria-labelledby="7--label "
+          aria-selected={false}
           className="c2 c8"
           data-id="7"
           id="7"
@@ -2569,6 +2598,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
         </li>
         <li
           aria-labelledby="20--label "
+          aria-selected={false}
           className="c2 c8"
           data-id="20"
           id="20"
@@ -2599,6 +2629,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
         </li>
         <li
           aria-labelledby="21--label "
+          aria-selected={false}
           className="c2 c8"
           data-id="21"
           id="21"

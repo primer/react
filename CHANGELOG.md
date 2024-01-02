@@ -1,5 +1,67 @@
 # @primer/components
 
+## 36.5.0
+
+### Minor Changes
+
+- [#4090](https://github.com/primer/react/pull/4090) [`6f043bc34`](https://github.com/primer/react/commit/6f043bc34c712991f074c246ba8df718d387b66f) Thanks [@broccolinisoup](https://github.com/broccolinisoup)! - Deprecate `MarkdownEditor`, `MarkdownViewer`, `InlineAutocomplete`, and related hooks
+
+- [#4049](https://github.com/primer/react/pull/4049) [`f0d38bc39`](https://github.com/primer/react/commit/f0d38bc390b9bbe99227f1c7b36730188e37ea5e) Thanks [@TylerJDev](https://github.com/TylerJDev)! - Replaces deprecated `Button` component in `Dialog` with newest version
+
+- [#4061](https://github.com/primer/react/pull/4061) [`f46c07189`](https://github.com/primer/react/commit/f46c07189c849d727f567c85e985695e75acc4cf) Thanks [@mperrotti](https://github.com/mperrotti)! - Adds a new prop, `animated`, to the ProgressBar component. This allows the "filled" segment(s) to animate and indicate some process is still in progress.
+
+  <!-- Changed components: ProgressBar -->
+
+- [#4090](https://github.com/primer/react/pull/4090) [`6f043bc34`](https://github.com/primer/react/commit/6f043bc34c712991f074c246ba8df718d387b66f) Thanks [@broccolinisoup](https://github.com/broccolinisoup)! - Supports inactive ActionList items by letting users pass the required message to the `inactiveText` prop.
+
+  <!-- Changed components: ActionList, ActionMenu, NavList -->
+
+- [#4028](https://github.com/primer/react/pull/4028) [`bbe58b8e1`](https://github.com/primer/react/commit/bbe58b8e1c7cca0ebec46fffd184c1db23bebcdf) Thanks [@joshblack](https://github.com/joshblack)! - Use a CSS variable for the monospace font stack
+
+### Patch Changes
+
+- [#4082](https://github.com/primer/react/pull/4082) [`c2809d677`](https://github.com/primer/react/commit/c2809d677a44686573f0bd31fc1988e73ef80b84) Thanks [@mperrotti](https://github.com/mperrotti)! - - Corrects the math to calculate the width of AvatarStack containers.
+
+  - Prevents `.pc-AvatarStackBody` from being removed from document flow by `position: absolute`. This isn't strictly necessary now that we're correctly setting the width of the stack, but it's an extra level of safety for preserving the correct layout.
+
+  <!-- Changed components: AvatarStack -->
+
+- [#4020](https://github.com/primer/react/pull/4020) [`c2a53a003`](https://github.com/primer/react/commit/c2a53a003fb392b97cd33aa5eea0329e4f726874) Thanks [@siddharthkp](https://github.com/siddharthkp)! - experimental/SelectPanel2: Use `<dialog>` element
+
+- [#4090](https://github.com/primer/react/pull/4090) [`6f043bc34`](https://github.com/primer/react/commit/6f043bc34c712991f074c246ba8df718d387b66f) Thanks [@broccolinisoup](https://github.com/broccolinisoup)! - Tooltip2: Do not wrap the tooltip span and its trigger in a div
+
+- [#4090](https://github.com/primer/react/pull/4090) [`6f043bc34`](https://github.com/primer/react/commit/6f043bc34c712991f074c246ba8df718d387b66f) Thanks [@broccolinisoup](https://github.com/broccolinisoup)! - Sync theme in effect
+
+- [#4090](https://github.com/primer/react/pull/4090) [`6f043bc34`](https://github.com/primer/react/commit/6f043bc34c712991f074c246ba8df718d387b66f) Thanks [@broccolinisoup](https://github.com/broccolinisoup)! - Use `aria-required` instead of `required` on required form elements
+
+  <!-- Changed components: TextInput, Textarea -->
+
+- [#4090](https://github.com/primer/react/pull/4090) [`6f043bc34`](https://github.com/primer/react/commit/6f043bc34c712991f074c246ba8df718d387b66f) Thanks [@broccolinisoup](https://github.com/broccolinisoup)! - TextInput, Textarea: Does not pass `aria-required` attribute to input or textarea if it is undefined. This fixes some tests that were breaking in dotcom.
+
+  <!-- Changed components: TextInput, Textarea -->
+
+- [#4090](https://github.com/primer/react/pull/4090) [`6f043bc34`](https://github.com/primer/react/commit/6f043bc34c712991f074c246ba8df718d387b66f) Thanks [@broccolinisoup](https://github.com/broccolinisoup)! - Adapts Blankslate to render proportionally in narrow areas.
+
+  <!-- Changed components: Blankslate -->
+
+- [#4090](https://github.com/primer/react/pull/4090) [`6f043bc34`](https://github.com/primer/react/commit/6f043bc34c712991f074c246ba8df718d387b66f) Thanks [@broccolinisoup](https://github.com/broccolinisoup)! - Fix an issue where the scrollable Dialog body could not be focused with the keyboard
+
+- [#4002](https://github.com/primer/react/pull/4002) [`1a1d89ce0`](https://github.com/primer/react/commit/1a1d89ce048e51c4d59e9873d8b76c0da07a786a) Thanks [@peterbe](https://github.com/peterbe)! - Adds the ability to unset `emptyStateText` in Autocomplete.Menu. This results in no menu being rendered.
+
+  <!-- Changed components: Autocomplete -->
+
+- [#3926](https://github.com/primer/react/pull/3926) [`4e4c5ec68`](https://github.com/primer/react/commit/4e4c5ec68a9c744aedc15cadb7a9a7024e997426) Thanks [@strackoverflow](https://github.com/strackoverflow)! - Allow overflow scrolling to be controlled via an optional `overflow` property on Overlay
+
+- [#4096](https://github.com/primer/react/pull/4096) [`1b9011da4`](https://github.com/primer/react/commit/1b9011da4e0a0f20547b2e1146bb78f3892b96ea) Thanks [@strackoverflow](https://github.com/strackoverflow)! - Fix missing `aria-selected` & `aria-checked` attributes in ActionList items
+
+- [#4090](https://github.com/primer/react/pull/4090) [`6f043bc34`](https://github.com/primer/react/commit/6f043bc34c712991f074c246ba8df718d387b66f) Thanks [@broccolinisoup](https://github.com/broccolinisoup)! - use <BaseStyles> in confirm()
+
+- [#4090](https://github.com/primer/react/pull/4090) [`6f043bc34`](https://github.com/primer/react/commit/6f043bc34c712991f074c246ba8df718d387b66f) Thanks [@broccolinisoup](https://github.com/broccolinisoup)! - Fixed confirm() leaving <div>s in the DOM.
+
+- [#4074](https://github.com/primer/react/pull/4074) [`06c7c6c1d`](https://github.com/primer/react/commit/06c7c6c1d126520ced0c5641b7e0a69e343aacdd) Thanks [@dependabot](https://github.com/apps/dependabot)! - Update types for Select to include `placeholder`
+
+- [#4090](https://github.com/primer/react/pull/4090) [`6f043bc34`](https://github.com/primer/react/commit/6f043bc34c712991f074c246ba8df718d387b66f) Thanks [@broccolinisoup](https://github.com/broccolinisoup)! - Portal avoids useless createElement
+
 ## 36.4.0
 
 ### Minor Changes
