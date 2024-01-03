@@ -54,6 +54,7 @@ export type SubNavLinksProps = SxProp
 
 const SubNavLinks = styled.ul<SubNavLinksProps>`
   display: flex;
+  list-style: none;
   margin: 0;
   padding: 0;
   ${sx};
@@ -99,7 +100,6 @@ const SubNavLink = styled.a.attrs<StyledSubNavLinkProps>(props => ({
 const SubNavListItem = styled.li`
   display: flex;
   align-items: center;
-  list-style: none;
 
   &:first-of-type .SubNav-link {
     border-top-left-radius: ${get('radii.2')};
