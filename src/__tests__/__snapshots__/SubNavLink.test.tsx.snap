@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`SubNav.Link renders consistently 1`] = `
-.c0 {
+.c1 {
   padding-left: 16px;
   padding-right: 16px;
   font-weight: 500;
@@ -25,19 +25,8 @@ exports[`SubNav.Link renders consistently 1`] = `
   align-items: center;
 }
 
-.c0:first-of-type {
-  border-top-left-radius: 6px;
-  border-bottom-left-radius: 6px;
-  border-left: 1px solid #d0d7de;
-}
-
-.c0:last-of-type {
-  border-top-right-radius: 6px;
-  border-bottom-right-radius: 6px;
-}
-
-.c0:hover,
-.c0:focus {
+.c1:hover,
+.c1:focus {
   -webkit-text-decoration: none;
   text-decoration: none;
   background-color: #f6f8fa;
@@ -45,28 +34,54 @@ exports[`SubNav.Link renders consistently 1`] = `
   transition: background-color 0.2s ease;
 }
 
-.c0:hover .SubNav-octicon,
-.c0:focus .SubNav-octicon {
+.c1:hover .SubNav-octicon,
+.c1:focus .SubNav-octicon {
   color: #656d76;
 }
 
-.c0.selected {
+.c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.c0:first-of-type .SubNav-link {
+  border-top-left-radius: 6px;
+  border-bottom-left-radius: 6px;
+  border-left: 1px solid #d0d7de;
+}
+
+.c0:last-of-type .SubNav-link {
+  border-top-right-radius: 6px;
+  border-bottom-right-radius: 6px;
+}
+
+.c0 .SubNav-link.selected {
   color: #ffffff;
   background-color: #0969da;
   border-color: #0969da;
 }
 
-.c0.selected .SubNav-octicon {
+.c0 .SubNav-link.selected .SubNav-octicon {
   color: #ffffff;
 }
 
-<a
+<li
   className="c0 SubNav-item"
-/>
+>
+  <a
+    className="c1 SubNav-item SubNav-link"
+  />
+</li>
 `;
 
 exports[`SubNav.Link respects the "selected" prop 1`] = `
-.c0 {
+.c1 {
   padding-left: 16px;
   padding-right: 16px;
   font-weight: 500;
@@ -90,19 +105,8 @@ exports[`SubNav.Link respects the "selected" prop 1`] = `
   align-items: center;
 }
 
-.c0:first-of-type {
-  border-top-left-radius: 6px;
-  border-bottom-left-radius: 6px;
-  border-left: 1px solid #d0d7de;
-}
-
-.c0:last-of-type {
-  border-top-right-radius: 6px;
-  border-bottom-right-radius: 6px;
-}
-
-.c0:hover,
-.c0:focus {
+.c1:hover,
+.c1:focus {
   -webkit-text-decoration: none;
   text-decoration: none;
   background-color: #f6f8fa;
@@ -110,23 +114,49 @@ exports[`SubNav.Link respects the "selected" prop 1`] = `
   transition: background-color 0.2s ease;
 }
 
-.c0:hover .SubNav-octicon,
-.c0:focus .SubNav-octicon {
+.c1:hover .SubNav-octicon,
+.c1:focus .SubNav-octicon {
   color: #656d76;
 }
 
-.c0.selected {
+.c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.c0:first-of-type .SubNav-link {
+  border-top-left-radius: 6px;
+  border-bottom-left-radius: 6px;
+  border-left: 1px solid #d0d7de;
+}
+
+.c0:last-of-type .SubNav-link {
+  border-top-right-radius: 6px;
+  border-bottom-right-radius: 6px;
+}
+
+.c0 .SubNav-link.selected {
   color: #ffffff;
   background-color: #0969da;
   border-color: #0969da;
 }
 
-.c0.selected .SubNav-octicon {
+.c0 .SubNav-link.selected .SubNav-octicon {
   color: #ffffff;
 }
 
-<a
-  className="c0 SubNav-item selected"
-  selected={true}
-/>
+<li
+  className="c0 SubNav-item"
+>
+  <a
+    className="c1 SubNav-item selected SubNav-link"
+    selected={true}
+  />
+</li>
 `;
