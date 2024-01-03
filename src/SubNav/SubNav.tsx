@@ -54,6 +54,8 @@ export type SubNavLinksProps = SxProp
 
 const SubNavLinks = styled.ul<SubNavLinksProps>`
   display: flex;
+  margin: 0;
+  padding: 0;
   ${sx};
 `
 
