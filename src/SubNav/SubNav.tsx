@@ -52,7 +52,7 @@ function SubNav({actions, className, children, label, ...rest}: SubNavProps) {
 
 export type SubNavLinksProps = SxProp
 
-const SubNavLinks = styled.div<SubNavLinksProps>`
+const SubNavLinks = styled.ul<SubNavLinksProps>`
   display: flex;
   ${sx};
 `
@@ -63,7 +63,7 @@ type StyledSubNavLinkProps = {
 } & SxProp
 
 const SubNavLink = styled.a.attrs<StyledSubNavLinkProps>(props => ({
-  className: clsx(ITEM_CLASS, props.selected && SELECTED_CLASS, props.className),
+  className: clsx(ITEM_CLASS, props.selected && SELECTED_CLASS, props.className, 'SubNav-link'),
 }))<StyledSubNavLinkProps>`
   padding-left: ${get('space.3')};
   padding-right: ${get('space.3')};
@@ -80,17 +80,6 @@ const SubNavLink = styled.a.attrs<StyledSubNavLinkProps>(props => ({
   display: flex;
   align-items: center;
 
-  &:first-of-type {
-    border-top-left-radius: ${get('radii.2')};
-    border-bottom-left-radius: ${get('radii.2')};
-    border-left: 1px solid ${get('colors.border.default')};
-  }
-
-  &:last-of-type {
-    border-top-right-radius: ${get('radii.2')};
-    border-bottom-right-radius: ${get('radii.2')};
-  }
-
   &:hover,
   &:focus {
     text-decoration: none;
@@ -102,7 +91,26 @@ const SubNavLink = styled.a.attrs<StyledSubNavLinkProps>(props => ({
     }
   }
 
-  &.selected {
+  ${sx};
+`
+
+const SubNavListItem = styled.li`
+  display: flex;
+  align-items: center;
+  list-style: none;
+
+  &:first-of-type .SubNav-link {
+    border-top-left-radius: ${get('radii.2')};
+    border-bottom-left-radius: ${get('radii.2')};
+    border-left: 1px solid ${get('colors.border.default')};
+  }
+
+  &:last-of-type .SubNav-link {
+    border-top-right-radius: ${get('radii.2')};
+    border-bottom-right-radius: ${get('radii.2')};
+  }
+
+  .SubNav-link.selected {
     color: ${get('colors.fg.onEmphasis')};
     background-color: ${get('colors.accent.emphasis')};
     border-color: ${get('colors.accent.emphasis')};
@@ -110,13 +118,18 @@ const SubNavLink = styled.a.attrs<StyledSubNavLinkProps>(props => ({
       color: ${get('colors.fg.onEmphasis')};
     }
   }
-
-  ${sx};
 `
 
-SubNavLink.displayName = 'SubNav.Link'
+function SubNavLinkListItem(props: ComponentProps<typeof SubNavLink>) {
+  return (
+    <SubNavListItem className="SubNav-item">
+      <SubNavLink {...props} />
+    </SubNavListItem>
+  )
+}
+SubNavLinkListItem.displayName = 'SubNav.Link'
 
 SubNavLinks.displayName = 'SubNav.Links'
 
 export type SubNavLinkProps = ComponentProps<typeof SubNavLink>
-export default Object.assign(SubNav, {Link: SubNavLink, Links: SubNavLinks})
+export default Object.assign(SubNav, {Link: SubNavLinkListItem, Links: SubNavLinks})
