@@ -103,7 +103,6 @@ export const TextInputBaseWrapper = styled.span<StyledBaseWrapperProps>`
   display: inline-flex;
   align-items: stretch;
   min-height: 32px;
-  overflow: hidden;
 
   input,
   textarea {
