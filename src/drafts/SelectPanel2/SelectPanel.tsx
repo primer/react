@@ -154,6 +154,8 @@ const Panel: React.FC<SelectPanelProps> = ({
   /* Dialog */
   const dialogRef = React.useRef<HTMLDialogElement>(null)
   if (internalOpen) dialogRef.current?.showModal()
+  // Continue here: TODO/BUG: we have an event listener for close,
+  // which calls onInternalCancel -> propsOnCancel even on submit
   else dialogRef.current?.close()
 
   // dialog handles Esc automatically, so we have to sync internal state
