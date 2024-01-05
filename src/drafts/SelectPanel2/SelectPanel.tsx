@@ -121,6 +121,7 @@ const Panel: React.FC<SelectPanelProps> = ({
   }
 
   const onInternalSubmit = (event?: React.FormEvent<HTMLFormElement>) => {
+    // TODO: do we still need prevent with <dialog>?
     event?.preventDefault() // there is no event with selectionVariant=instant
     if (propsOpen === undefined) setInternalOpen(false)
     if (typeof propsOnSubmit === 'function') propsOnSubmit(event)
@@ -156,8 +157,12 @@ const Panel: React.FC<SelectPanelProps> = ({
   else dialogRef.current?.close()
 
   // dialog handles Esc automatically, so we have to sync internal state
-  // TODO: if it is submit event, calling onInternalClose calls propsOnCancel!
-  React.useEffect(() => dialogRef.current?.addEventListener('close', onInternalClose))
+  // TODO: Bug! if it is submit event, calling onInternalClose calls propsOnCancel!
+  React.useEffect(() => {
+    const dialog = dialogRef.current
+    dialog?.addEventListener('close', onInternalClose)
+    return () => dialog?.removeEventListener('close', onInternalClose)
+  })
 
   // React doesn't support autoFocus for dialog: https://github.com/facebook/react/issues/23301
   // tl;dr: react takes over autofocus instead of letting the browser handle it,

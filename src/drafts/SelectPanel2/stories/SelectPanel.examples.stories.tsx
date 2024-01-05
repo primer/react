@@ -444,7 +444,7 @@ export const OpenFromMenu = () => {
           setMenuOpen(false)
         }}
         onCancel={() => {
-          alert('cancel called')
+          console.log('bug cancel called on submit!')
           setSelectedCustomEvents(initialCustomEvents)
           setSelectPanelOpen(false)
           setMenuOpen(true)
