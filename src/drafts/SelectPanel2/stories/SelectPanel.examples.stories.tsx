@@ -1,7 +1,7 @@
 import React from 'react'
 import {SelectPanel} from '../SelectPanel'
-import {ActionList, ActionMenu, Avatar, Box, Button, Flash} from '../../../index'
-import {ArrowRightIcon, AlertIcon, EyeIcon, GitBranchIcon, TriangleDownIcon, GearIcon} from '@primer/octicons-react'
+import {ActionList, ActionMenu, Avatar, Box, Button} from '../../../index'
+import {ArrowRightIcon, EyeIcon, GitBranchIcon, TriangleDownIcon, GearIcon} from '@primer/octicons-react'
 import data from './mock-data'
 
 export default {
