@@ -161,7 +161,7 @@
     "@storybook/jest": "0.2.3",
     "@storybook/react": "7.6.2",
     "@storybook/react-webpack5": "7.6.2",
-    "@storybook/source-loader": "7.6.2",
+    "@storybook/source-loader": "7.6.7",
     "@storybook/test-runner": "0.16.0",
     "@storybook/testing-library": "0.2.2",
     "@storybook/theming": "7.6.4",
