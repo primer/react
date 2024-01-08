@@ -215,7 +215,23 @@ const autocompleteStoryMeta: Meta = {
   },
 } as Meta
 
-export const Default = (args: FormControlArgs<AutocompleteArgs>) => {
+export const Default = () => {
+  return (
+    <Box as="form" sx={{p: 3}}>
+      <FormControl>
+        <FormControl.Label id="autocompleteLabel" />
+        <Autocomplete>
+          <Autocomplete.Input data-testid="autocompleteInput" />
+          <Autocomplete.Overlay>
+            <Autocomplete.Menu items={items} selectedItemIds={[]} aria-labelledby="autocompleteLabel" />
+          </Autocomplete.Overlay>
+        </Autocomplete>
+      </FormControl>
+    </Box>
+  )
+}
+
+export const Playground = (args: FormControlArgs<AutocompleteArgs>) => {
   const {parentArgs, labelArgs, captionArgs, validationArgs} = getFormControlArgsByChildComponent(args)
   const {menuArgs, overlayArgs, textInputArgs} = getArgsByChildComponent(args)
   const isMultiselect = menuArgs.selectionVariant === 'multiple'
@@ -253,7 +269,7 @@ export const Default = (args: FormControlArgs<AutocompleteArgs>) => {
   )
 }
 
-Default.play = async ({canvasElement}: {canvasElement: HTMLElement}) => {
+Playground.play = async ({canvasElement}: {canvasElement: HTMLElement}) => {
   const canvas = within(canvasElement)
   const inputBox = canvas.getByTestId('autocompleteInput')
   await userEvent.click(inputBox)
