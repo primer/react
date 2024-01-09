@@ -130,7 +130,6 @@
     "@rollup/plugin-terser": "0.4.3",
     "@rollup/plugin-typescript": "11.1.5",
     "@rollup/plugin-virtual": "3.0.2",
-    "@size-limit/preset-big-lib": "8.2.6",
     "@storybook/addon-a11y": "7.6.2",
     "@storybook/addon-actions": "7.6.2",
     "@storybook/addon-essentials": "7.6.2",
@@ -208,7 +207,6 @@
     "rollup-plugin-postcss": "4.0.2",
     "rollup-plugin-visualizer": "5.9.2",
     "semver": "7.5.4",
-    "size-limit": "8.2.4",
     "storybook": "7.6.2",
     "storybook-addon-turbo-build": "2.0.1",
     "styled-components": "5.3.11",
@@ -241,17 +239,5 @@
     "@types/styled-components": {
       "optional": true
     }
-  },
-  "size-limit": [
-    {
-      "path": "dist/browser.esm.js",
-      "webpack": false,
-      "running": false
-    },
-    {
-      "path": "dist/browser.umd.js",
-      "webpack": false,
-      "running": false
-    }
-  ]
+  }
 }

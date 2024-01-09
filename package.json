@@ -44,6 +44,7 @@
     "@github/markdownlint-github": "^0.6.0",
     "@github/prettier-config": "0.0.6",
     "@prettier/sync": "0.3.0",
+    "@size-limit/preset-big-lib": "8.2.6",
     "@types/jest": "29.5.6",
     "@typescript-eslint/eslint-plugin": "5.59.6",
     "@typescript-eslint/parser": "5.62.0",
@@ -68,18 +69,19 @@
     "markdownlint-cli2": "^0.11.0",
     "markdownlint-cli2-formatter-pretty": "0.0.3",
     "prettier": "3.0.3",
+    "size-limit": "8.2.4",
     "rimraf": "5.0.5",
     "typescript": "5.2.2"
   },
   "prettier": "@github/prettier-config",
   "size-limit": [
     {
-      "path": "dist/browser.esm.js",
+      "path": "packages/react/dist/browser.esm.js",
       "webpack": false,
       "running": false
     },
     {
-      "path": "dist/browser.umd.js",
+      "path": "packages/react/dist/browser.umd.js",
       "webpack": false,
       "running": false
     }
