@@ -4,7 +4,6 @@ lib/
 !codemods/lib/
 lib-esm/
 css/
-/generated
 
 # Editor
 .DS_Store

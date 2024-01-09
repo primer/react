@@ -28,6 +28,7 @@
     "test:watch": "npm run test -- --watch",
     "test:coverage": "npm run test -- --coverage",
     "test:type-check": "tsc --noEmit",
+    "type-check": "tsc --noEmit && npm run type-check -ws --if-present",
     "release": "npm run build && changeset publish",
     "size": "size-limit",
     "prepare": "husky install"
@@ -66,7 +67,8 @@
     "lint-staged": "14.0.1",
     "markdownlint-cli2": "^0.11.0",
     "markdownlint-cli2-formatter-pretty": "0.0.3",
-    "prettier": "3.0.3"
+    "prettier": "3.0.3",
+    "typescript": "5.2.2"
   },
   "prettier": "@github/prettier-config",
   "size-limit": [

@@ -5,7 +5,8 @@
   "scripts": {
     "build": "next build",
     "develop": "next",
-    "start": "next start"
+    "start": "next start",
+    "type-check": "tsc --noEmit"
   },
   "dependencies": {
     "@primer/octicons-react": "^18.2.0",
