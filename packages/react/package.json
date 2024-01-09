@@ -255,8 +255,5 @@
       "webpack": false,
       "running": false
     }
-  ],
-  "lint-staged": {
-    "**/*.{js,ts,tsx,md,mdx}": "npm run lint"
-  }
+  ]
 }
