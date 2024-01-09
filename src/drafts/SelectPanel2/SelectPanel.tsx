@@ -96,7 +96,7 @@ const Panel: React.FC<SelectPanelProps> = ({
 
   const onAnchorClick = () => {
     if (!internalOpen) setInternalOpen(true)
-    else onInternalClose()
+    else onInternalCancel()
   }
 
   const contents = React.Children.map(props.children, child => {
@@ -114,13 +114,18 @@ const Panel: React.FC<SelectPanelProps> = ({
   })
 
   const onInternalClose = () => {
+    if (internalOpen === false) return // nothing to do here
     if (propsOpen === undefined) setInternalOpen(false)
+  }
+
+  const onInternalCancel = () => {
+    onInternalClose()
     if (typeof propsOnCancel === 'function') propsOnCancel()
   }
 
   const onInternalSubmit = (event?: React.FormEvent<HTMLFormElement>) => {
     event?.preventDefault() // there is no event with selectionVariant=instant
-    if (propsOpen === undefined) setInternalOpen(false)
+    onInternalClose()
     if (typeof propsOnSubmit === 'function') propsOnSubmit(event)
   }
 
@@ -150,17 +155,29 @@ const Panel: React.FC<SelectPanelProps> = ({
 
   /* Dialog */
   const dialogRef = React.useRef<HTMLDialogElement>(null)
+  // sync dialog state with component state
   if (internalOpen) dialogRef.current?.showModal()
-  else dialogRef.current?.close()
+  else if (dialogRef.current?.open) dialogRef.current.close()
 
   // dialog handles Esc automatically, so we have to sync internal state
+  // but it doesn't call onCancel, so have another effect for that!
   React.useEffect(() => {
     const dialogEl = dialogRef.current
     dialogEl?.addEventListener('close', onInternalClose)
     return () => dialogEl?.removeEventListener('close', onInternalClose)
   })
 
-  // React doesn't support autoFocus for dialog: https://github.com/facebook/react/issues/23301
+  // Esc handler
+  React.useEffect(() => {
+    const dialogEl = dialogRef.current
+    const handler = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') onInternalCancel()
+    }
+    dialogEl?.addEventListener('keydown', handler)
+    return () => dialogEl?.removeEventListener('keydown', handler)
+  })
+
+  // Autofocus hack: React doesn't support autoFocus for dialog: https://github.com/facebook/react/issues/23301
   // tl;dr: react takes over autofocus instead of letting the browser handle it,
   // but not for dialogs, so we have to do it
   React.useEffect(() => {
@@ -230,7 +247,7 @@ const Panel: React.FC<SelectPanelProps> = ({
             panelId,
             title,
             description,
-            onCancel: onInternalClose,
+            onCancel: onInternalCancel,
             onClearSelection: propsOnClearSelection ? onInternalClearSelection : undefined,
             searchQuery,
             setSearchQuery,
