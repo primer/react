@@ -1,3 +1,5 @@
+/* eslint-disable github/unescaped-html-literal */
+
 'use strict'
 
 /**
