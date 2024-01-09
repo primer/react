@@ -154,7 +154,11 @@ const Panel: React.FC<SelectPanelProps> = ({
   else dialogRef.current?.close()
 
   // dialog handles Esc automatically, so we have to sync internal state
-  React.useEffect(() => dialogRef.current?.addEventListener('close', onInternalClose))
+  React.useEffect(() => {
+    const dialogEl = dialogRef.current
+    dialogEl?.addEventListener('close', onInternalClose)
+    return () => dialogEl?.removeEventListener('close', onInternalClose)
+  })
 
   // React doesn't support autoFocus for dialog: https://github.com/facebook/react/issues/23301
   // tl;dr: react takes over autofocus instead of letting the browser handle it,
