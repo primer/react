@@ -1,7 +1,7 @@
 # Build folders
 dist/
 lib/
-!codemods/lib/
+!packages/react/codemods/lib/
 lib-esm/
 css/
 

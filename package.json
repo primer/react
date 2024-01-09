@@ -8,7 +8,7 @@
   ],
   "scripts": {
     "setup": "./script/setup",
-    "build": "npm run build -w @primer/react -w docs --if-present",
+    "build": "npm run build -w @primer/react",
     "clean": "npm run clean -ws --if-present",
     "clean:all": "npm run clean && rimraf node_modules docs/node_modules packages/*/node_modules examples/*/node_modules",
     "format": "prettier --cache --write '**/*.{js,css,md,mdx,ts,tsx,yml}'",
