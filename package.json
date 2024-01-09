@@ -16,7 +16,7 @@
     "start": "concurrently npm:start:*",
     "start:docs": "npm run develop -w docs",
     "start:storybook": "npm run start:storybook -w @primer/react",
-    "build:storybook": "npm run build:storybook -w @primer/react",
+    "build:storybook": "script/build-storybook",
     "build:docs": "NODE_OPTIONS=--openssl-legacy-provider script/build-docs",
     "build:docs:preview": "NODE_OPTIONS=--openssl-legacy-provider script/build-docs preview",
     "build:components.json": "npm run build:components.json -w @primer/react",
