@@ -36,11 +36,9 @@
   "typings": "lib/index.d.ts",
   "sideEffects": false,
   "scripts": {
-    "setup": "./script/setup",
     "build": "./script/build",
     "clean": "rimraf dist lib lib-esm css",
     "start": "concurrently npm:start:*",
-    "start:docs": "cd docs && npm run develop",
     "start:storybook": "STORYBOOK=true storybook dev -p 6006",
     "build:storybook": "script/build-storybook",
     "build:docs": "NODE_OPTIONS=--openssl-legacy-provider script/build-docs",
@@ -48,8 +46,6 @@
     "build:storybook:visual-testing": "storybook build",
     "build:components.json": "tsx script/components-json/build.ts",
     "install:docs": "(cd docs && npm install --legacy-peer-deps)",
-    "release": "npm run build && changeset publish",
-    "size": "size-limit",
     "type-check": "tsc --noEmit"
   },
   "repository": "primer/react",
