@@ -39,8 +39,6 @@
     "setup": "./script/setup",
     "build": "./script/build",
     "clean": "rimraf dist lib lib-esm css",
-    "format": "prettier --cache --write '**/*.{js,css,md,mdx,ts,tsx,yml}'",
-    "format:diff": "prettier --cache --list-different '**/*.{js,css,md,mdx,ts,tsx,yml}'",
     "start": "concurrently npm:start:*",
     "start:docs": "cd docs && npm run develop",
     "start:storybook": "STORYBOOK=true storybook dev -p 6006",
@@ -50,7 +48,6 @@
     "build:storybook:visual-testing": "storybook build",
     "build:components.json": "tsx script/components-json/build.ts",
     "install:docs": "(cd docs && npm install --legacy-peer-deps)",
-    "lint:md": "markdownlint-cli2 \"**/*.{md,mdx}\" \"!.github\" \"!.changeset\" \"!**/node_modules/**\" \"!CHANGELOG.md\"",
     "test": "jest",
     "test:storybook": "test-storybook",
     "test:update": "npm run test -- --updateSnapshot",
@@ -133,10 +130,7 @@
     "@babel/preset-typescript": "7.22.15",
     "@changesets/changelog-github": "0.4.8",
     "@changesets/cli": "2.26.2",
-    "@github/markdownlint-github": "^0.6.0",
-    "@github/prettier-config": "0.0.6",
     "@playwright/test": "1.37.0",
-    "@prettier/sync": "0.3.0",
     "@primer/css": "^21.0.1",
     "@rollup/plugin-babel": "6.0.4",
     "@rollup/plugin-commonjs": "25.0.4",
@@ -207,8 +201,6 @@
     "jscodeshift": "0.15.0",
     "lodash.groupby": "4.6.0",
     "lodash.keyby": "4.6.0",
-    "markdownlint-cli2": "^0.11.0",
-    "markdownlint-cli2-formatter-pretty": "0.0.3",
     "mdast-util-from-markdown": "2.0.0",
     "mdast-util-frontmatter": "2.0.1",
     "mdast-util-mdx": "3.0.0",
@@ -217,7 +209,6 @@
     "micromark-extension-mdxjs": "3.0.0",
     "postcss-custom-properties-fallback": "1.0.2",
     "postcss-preset-env": "9.3.0",
-    "prettier": "3.0.3",
     "react": "18.2.0",
     "react-dnd": "14.0.4",
     "react-dnd-html5-backend": "14.0.2",
@@ -263,7 +254,6 @@
       "optional": true
     }
   },
-  "prettier": "@github/prettier-config",
   "size-limit": [
     {
       "path": "dist/browser.esm.js",

@@ -42,6 +42,8 @@
   "devDependencies": {
     "@babel/eslint-parser": "7.23.3",
     "@github/markdownlint-github": "^0.6.0",
+    "@github/prettier-config": "0.0.6",
+    "@prettier/sync": "0.3.0",
     "@typescript-eslint/eslint-plugin": "5.59.6",
     "@typescript-eslint/parser": "5.62.0",
     "eslint": "8.40.0",
@@ -61,7 +63,8 @@
     "husky": "8.0.3",
     "lint-staged": "14.0.1",
     "markdownlint-cli2": "^0.11.0",
-    "markdownlint-cli2-formatter-pretty": "0.0.3"
+    "markdownlint-cli2-formatter-pretty": "0.0.3",
+    "prettier": "3.0.3"
   },
   "prettier": "@github/prettier-config",
   "size-limit": [
