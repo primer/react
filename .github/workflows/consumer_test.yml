@@ -24,11 +24,10 @@ jobs:
       # information for this package in `consumer-test/pack.json` so we can read
       # from it later to install the package
       - name: Create a tarball for the package
-        run: npm pack --pack-destination consumer-test --json > consumer-test/pack.json
+        run: npm pack --pack-destination consumer-test --json > ../../consumer-test/pack.json
+        working-directory: packages/react
       - name: Clean package directory
-        run: |
-          npm run clean
-          rm -rf node_modules
+        run: npm run clean:all
       - name: Test
         id: test
         working-directory: consumer-test
