@@ -155,9 +155,12 @@ const Panel: React.FC<SelectPanelProps> = ({
 
   /* Dialog */
   const dialogRef = React.useRef<HTMLDialogElement>(null)
-  // sync dialog state with component state
-  if (internalOpen) dialogRef.current?.showModal()
-  else if (dialogRef.current?.open) dialogRef.current.close()
+
+  // sync dialog open state (imperative) with internal component state
+  React.useEffect(() => {
+    if (internalOpen) dialogRef.current?.showModal()
+    else dialogRef.current?.close()
+  }, [internalOpen])
 
   // dialog handles Esc automatically, so we have to sync internal state
   // but it doesn't call onCancel, so have another effect for that!
