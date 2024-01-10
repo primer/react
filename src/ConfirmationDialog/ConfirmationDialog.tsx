@@ -17,7 +17,7 @@ export interface ConfirmationDialogProps {
    * Required. This callback is invoked when a gesture to close the dialog
    * is performed. The first argument indicates the gesture.
    */
-  onClose: (gesture: 'confirm' | 'cancel' | 'close-button' | 'escape' | 'drag' | 'overlay') => void
+  onClose: (gesture: 'confirm' | 'cancel' | 'close-button' | 'escape') => void
   /**
    * Required. The title of the ConfirmationDialog. This is usually a brief
    * question.
@@ -131,7 +131,11 @@ export const ConfirmationDialog: React.FC<React.PropsWithChildren<ConfirmationDi
   const footerButtons = [cancelButton, confirmButton]
   return (
     <Dialog
-      onClose={onClose}
+      onClose={gesture => {
+        if (gesture !== 'overlay' && gesture !== 'drag') {
+          onClose(gesture)
+        }
+      }}
       title={title}
       footerButtons={footerButtons}
       role="alertdialog"
