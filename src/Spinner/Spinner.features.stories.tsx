@@ -1,6 +1,7 @@
 import React from 'react'
 import {ComponentMeta} from '@storybook/react'
 import Spinner from './Spinner'
+import {Box} from '..'
 
 export default {
   title: 'Components/Spinner/Features',
@@ -10,3 +11,10 @@ export default {
 export const Small = () => <Spinner size="small" />
 
 export const Large = () => <Spinner size="large" />
+
+export const SuppressScreenReaderText = () => (
+  <Box sx={{alignItems: 'center', display: 'flex', gap: '0.25rem'}}>
+    <Spinner size="small" srText={null} />
+    <span role="status">Loading...</span>
+  </Box>
+)

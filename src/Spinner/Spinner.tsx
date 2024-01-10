@@ -13,18 +13,19 @@ const sizeMap = {
 export type SpinnerProps = {
   /** Sets the width and height of the spinner. */
   size?: keyof typeof sizeMap
-  /** Sets the text conveyed by assistive technologies such as screen readers. */
-  srText?: string
+  /** Sets the text conveyed by assistive technologies such as screen readers. Set to `null` if the loading state is displayed in a text node somewhere else on the page. */
+  srText?: string | null
   /** @deprecated Use `srText` instead. */
-  'aria-label'?: string
+  'aria-label'?: string | null
 } & HTMLDataAttributes &
   SxProp
 
 function Spinner({size: sizeKey = 'medium', srText = 'Loading', 'aria-label': ariaLabel, ...props}: SpinnerProps) {
   const size = sizeMap[sizeKey]
+  const hasSrAnnouncement = Boolean(srText || ariaLabel)
 
   return (
-    <span role="status">
+    <span role={hasSrAnnouncement ? 'status' : undefined}>
       <svg height={size} width={size} viewBox="0 0 16 16" fill="none" aria-hidden {...props}>
         <circle
           cx="8"
@@ -43,7 +44,7 @@ function Spinner({size: sizeKey = 'medium', srText = 'Loading', 'aria-label': ar
           vectorEffect="non-scaling-stroke"
         />
       </svg>
-      <VisuallyHidden>{srText || ariaLabel}</VisuallyHidden>
+      {hasSrAnnouncement ? <VisuallyHidden>{srText || ariaLabel}</VisuallyHidden> : null}
     </span>
   )
 }
