@@ -1,8 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
 import sx, {SxProp} from '../sx'
-import {ComponentProps} from '../utils/types'
 import {VisuallyHidden} from '../internal/components/VisuallyHidden'
+import {HTMLDataAttributes} from '../internal/internal-types'
 
 const sizeMap = {
   small: '16px',
@@ -10,13 +10,17 @@ const sizeMap = {
   large: '64px',
 }
 
-export interface SpinnerInternalProps {
+export type SpinnerProps = {
   /** Sets the width and height of the spinner. */
   size?: keyof typeof sizeMap
+  /** Sets the text conveyed by assistive technologies such as screen readers. */
   srText?: string
-}
+  /** @deprecated Use `srText` instead. */
+  'aria-label'?: string
+} & HTMLDataAttributes &
+  SxProp
 
-function Spinner({size: sizeKey = 'medium', srText = 'Loading', ...props}: SpinnerInternalProps) {
+function Spinner({size: sizeKey = 'medium', srText = 'Loading', 'aria-label': ariaLabel, ...props}: SpinnerProps) {
   const size = sizeMap[sizeKey]
 
   return (
@@ -39,12 +43,12 @@ function Spinner({size: sizeKey = 'medium', srText = 'Loading', ...props}: Spinn
           vectorEffect="non-scaling-stroke"
         />
       </svg>
-      <VisuallyHidden>{srText}</VisuallyHidden>
+      <VisuallyHidden>{srText || ariaLabel}</VisuallyHidden>
     </span>
   )
 }
 
-const StyledSpinner = styled(Spinner)<SxProp>`
+const StyledSpinner = styled(Spinner)`
   @keyframes rotate-keyframes {
     100% {
       transform: rotate(360deg);
@@ -58,5 +62,4 @@ const StyledSpinner = styled(Spinner)<SxProp>`
 
 StyledSpinner.displayName = 'Spinner'
 
-export type SpinnerProps = ComponentProps<typeof StyledSpinner>
 export default StyledSpinner

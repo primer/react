@@ -9,6 +9,25 @@
       "name": "size",
       "type": "'small' | 'medium' | 'large'",
       "description": "Sets the width and height of the spinner."
+    },
+    {
+      "name": "srText",
+      "type": "string",
+      "description": "Sets the text conveyed by assistive technologies such as screen readers."
+    },
+    {
+      "name": "aria-label",
+      "type": "string",
+      "description": "Sets the text conveyed by assistive technologies such as screen readers.",
+      "deprecated": true
+    },
+    {
+      "name": "data-*",
+      "type": "string"
+    },
+    {
+      "name": "sx",
+      "type": "SystemStyleObject"
     }
   ],
   "subcomponents": []
