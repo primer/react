@@ -158,6 +158,11 @@ export interface DialogHeaderProps extends DialogProps {
    * dialog. This ID should be set to the element that renders the dialog's subtitle.
    */
   dialogDescriptionId: string
+
+  /**
+   * A reference to the close button  DOM node
+   */
+  closeButtonRef?: React.RefObject<HTMLButtonElement>
 }
 
 const heightMap = {
@@ -188,6 +193,7 @@ const DefaultHeader: React.FC<React.PropsWithChildren<DialogHeaderProps>> = ({
   subtitle,
   dialogDescriptionId,
   onClose,
+  closeButtonRef,
 }) => {
   const onCloseClick = useCallback(() => {
     onClose('close-button')
@@ -199,7 +205,7 @@ const DefaultHeader: React.FC<React.PropsWithChildren<DialogHeaderProps>> = ({
           <Dialog.Title id={dialogLabelId}>{title ?? 'Dialog'}</Dialog.Title>
           {subtitle && <Dialog.Subtitle id={dialogDescriptionId}>{subtitle}</Dialog.Subtitle>}
         </Box>
-        <Dialog.CloseButton onClose={onCloseClick} />
+        <Dialog.CloseButton onClose={onCloseClick} ref={closeButtonRef} />
       </Box>
     </Dialog.Header>
   )
@@ -237,17 +243,22 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
   const dialogLabelId = useId()
   const dialogDescriptionId = useId()
   const autoFocusedFooterButtonRef = useRef<HTMLButtonElement>(null)
+  const closeButtonRef = useRef<HTMLButtonElement>(null)
   for (const footerButton of footerButtons) {
     if (footerButton.autoFocus) {
       footerButton.ref = autoFocusedFooterButtonRef
     }
   }
-  const defaultedProps = {...props, title, subtitle, role, dialogLabelId, dialogDescriptionId}
+  const defaultedProps = {...props, title, subtitle, role, dialogLabelId, dialogDescriptionId, closeButtonRef}
   const responsiveType = useResponsiveValue(type, 'default')
 
   const dialogRef = useRef<HTMLDivElement>(null)
   useRefObjectAsForwardedRef(forwardedRef, dialogRef)
-  useFocusTrap({containerRef: dialogRef, restoreFocusOnCleanUp: true, initialFocusRef: autoFocusedFooterButtonRef})
+  useFocusTrap({
+    containerRef: dialogRef,
+    restoreFocusOnCleanUp: true,
+    initialFocusRef: footerButtons.length > 0 ? autoFocusedFooterButtonRef : closeButtonRef,
+  })
 
   useOnEscapePress(
     (event: KeyboardEvent) => {
@@ -514,13 +525,14 @@ const DialogCloseButton = styled(Button)`
   box-shadow: none;
 `
 
-const CloseButton: React.FC<React.PropsWithChildren<{onClose: () => void}>> = ({onClose}) => {
+const CloseButton = React.forwardRef<HTMLButtonElement, {onClose: () => void}>((props, ref) => {
+  const {onClose} = props
   return (
-    <DialogCloseButton aria-label="Close" onClick={onClose}>
+    <DialogCloseButton ref={ref} aria-label="Close" onClick={onClose}>
       <Octicon icon={XIcon} />
     </DialogCloseButton>
   )
-}
+})
 
 /**
  * A dialog is a type of overlay that can be used for confirming actions, asking
