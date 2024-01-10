@@ -102,7 +102,6 @@ export default React.forwardRef<HTMLDivElement, PropsWithChildren<DialogBottomSh
     isDragging.current = false
     const sheetHeight = parseInt(dialogRef.current.style.height)
 
-    const isReduced = prefersReducedMotion()
     dialogRef.current.style.transition = isReduced ? 'none' : '0.3s ease'
 
     if (sheetHeight < 10) return hideBottomSheet('drag')
