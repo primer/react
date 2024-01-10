@@ -324,6 +324,16 @@ exports[`snapshots renders a loading state 1`] = `
   border-width: 0;
 }
 
+.c3:not(:focus):not(:active):not(:focus-within) {
+  -webkit-clip-path: inset(50%);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
 .c2 {
   -webkit-animation: rotate-keyframes 1s linear infinite;
   animation: rotate-keyframes 1s linear infinite;
@@ -340,30 +350,40 @@ exports[`snapshots renders a loading state 1`] = `
       className="c1"
       display="flex"
     >
-      <svg
-        className="c2"
-        fill="none"
-        height="32px"
-        viewBox="0 0 16 16"
-        width="32px"
+      <span
+        role="status"
       >
-        <circle
-          cx="8"
-          cy="8"
-          r="7"
-          stroke="currentColor"
-          strokeOpacity="0.25"
-          strokeWidth="2"
-          vectorEffect="non-scaling-stroke"
-        />
-        <path
-          d="M15 8a7.002 7.002 0 00-7-7"
-          stroke="currentColor"
-          strokeLinecap="round"
-          strokeWidth="2"
-          vectorEffect="non-scaling-stroke"
-        />
-      </svg>
+        <svg
+          aria-hidden={true}
+          className="c2"
+          fill="none"
+          height="32px"
+          viewBox="0 0 16 16"
+          width="32px"
+        >
+          <circle
+            cx="8"
+            cy="8"
+            r="7"
+            stroke="currentColor"
+            strokeOpacity="0.25"
+            strokeWidth="2"
+            vectorEffect="non-scaling-stroke"
+          />
+          <path
+            d="M15 8a7.002 7.002 0 00-7-7"
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeWidth="2"
+            vectorEffect="non-scaling-stroke"
+          />
+        </svg>
+        <div
+          className="c3"
+        >
+          Loading
+        </div>
+      </span>
     </div>
   </span>,
 ]
