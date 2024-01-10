@@ -19,7 +19,7 @@ export interface DialogBottomSheetProps extends SxProp {
   onClose: (gesture: 'close-button' | 'escape' | 'drag' | 'overlay') => void
 
   /**
-   * Passed through to use as the draggable area of the dialog.
+   * Content that appears in the draggable header area.
    */
   header: React.ReactNode
 
