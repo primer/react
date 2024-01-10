@@ -455,15 +455,16 @@ const Header = styled.div<SxProp>`
   box-shadow: 0 1px 0 ${get('colors.border.default')};
   padding: ${get('space.2')};
   z-index: 1;
-  pointer-events: none;
+  pointer-events: none ${/* Allows clicks to pass through the header in bottom sheets */ ''};
   flex-shrink: 0;
+  position: relative;
 `
 
 const Title = styled.h1<SxProp>`
   font-size: ${get('fontSizes.1')};
   font-weight: ${get('fontWeights.bold')};
   margin: 0; /* override default margin */
-  width: fit-content;
+  width: calc(100% - ${get('space.4')});
   ${sx};
 `
 
@@ -503,8 +504,12 @@ const DialogCloseButton = styled(Button)`
   vertical-align: middle;
   color: ${get('colors.fg.muted')};
   padding: ${get('space.2')};
+  z-index: 2;
+  right: 0;
+  margin-right: ${get('space.2')};
+  position: absolute;
   align-self: flex-start;
-  pointer-events: auto; // Allows clicking when combined with a draggable bottom-sheet header
+  pointer-events: auto ${/* Allows clicks to pass through the header in bottom sheets */ ''};
   line-height: normal;
   box-shadow: none;
 `
