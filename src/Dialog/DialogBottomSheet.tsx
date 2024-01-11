@@ -4,6 +4,7 @@ import {SxProp} from '../sx'
 import {useRefObjectAsForwardedRef} from '../hooks/useRefObjectAsForwardedRef'
 import Box from '../Box'
 import {get} from '../constants'
+import {useMedia} from '../hooks/useMedia'
 
 const ANIMATION_DURATION = 300
 const FULL_HEIGHT = 95
@@ -66,7 +67,7 @@ export default React.forwardRef<HTMLDivElement, PropsWithChildren<DialogBottomSh
 
   // 🧑‍🦽 ACCESSIBILITY
 
-  const isReduced = prefersReducedMotion()
+  const isReduced = useMedia('(prefers-reduced-motion: no-preference)', false)
 
   // 🥊 ACTIONS
 
@@ -315,10 +316,3 @@ const Content = styled.div<
   transform: ${props => (props.open ? 'translateY(0%)' : 'translateY(100%)')};
   transition: ${ANIMATION_DURATION}ms ease;
 `
-
-// 🧑‍🦽 Accessibility
-
-const prefersReducedMotion = () => {
-  const mediaQueryList = window.matchMedia('(prefers-reduced-motion: no-preference)')
-  return !mediaQueryList.matches
-}
