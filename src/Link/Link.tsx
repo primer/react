@@ -29,7 +29,6 @@ const StyledLink = styled.a<StyledLinkProps>`
   text-decoration: none;
 
   /* You can add one by setting underline={true} */
-  /** @deprecated */
   text-decoration: ${props => (props.underline ? 'underline' : undefined)};
 
   /* Inline links (inside a text block), however, should have underline based on accessibility setting set in data-attribute */
