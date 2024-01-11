@@ -131,11 +131,7 @@ export const ConfirmationDialog: React.FC<React.PropsWithChildren<ConfirmationDi
   const footerButtons = [cancelButton, confirmButton]
   return (
     <Dialog
-      onClose={gesture => {
-        if (gesture !== 'overlay' && gesture !== 'drag') {
-          onClose(gesture)
-        }
-      }}
+      onClose={onClose}
       title={title}
       footerButtons={footerButtons}
       role="alertdialog"
