@@ -335,6 +335,7 @@ exports[`@primer/react/experimental should not update exports without a semver c
   "type DialogHeaderProps",
   "type DialogHeight",
   "type DialogProps",
+  "type DialogType",
   "type DialogWidth",
   "type Emoji",
   "type FileType",
