@@ -319,6 +319,37 @@ export const MultiSelect = () => {
   )
 }
 
+export const ListBoxMultiSelect = () => {
+  const [selectedIndices, setSelectedIndices] = React.useState<number[]>([0])
+  const handleSelect = (index: number) => {
+    if (selectedIndices.includes(index)) {
+      setSelectedIndices(selectedIndices.filter(i => i !== index))
+    } else {
+      setSelectedIndices([...selectedIndices, index])
+    }
+  }
+  return (
+    <ActionList selectionVariant="multiple" aria-label="Project">
+      {projects.map((project, index) => (
+        <ActionList.Item
+          key={index}
+          role="menuitemcheckbox"
+          selected={selectedIndices.includes(index)}
+          aria-checked={selectedIndices.includes(index)}
+          onSelect={() => handleSelect(index)}
+          disabled={index === 3 ? true : undefined}
+        >
+          <ActionList.LeadingVisual>
+            <TableIcon />
+          </ActionList.LeadingVisual>
+          {project.name}
+          <ActionList.Description variant="block">{project.scope}</ActionList.Description>
+        </ActionList.Item>
+      ))}
+    </ActionList>
+  )
+}
+
 export const DisabledSelectedMultiselect = () => (
   <ActionList selectionVariant="multiple" role="menu" aria-label="Project">
     <ActionList.Item role="menuitemcheckbox" selected aria-checked disabled>
