@@ -67,7 +67,7 @@ export default React.forwardRef<HTMLDivElement, PropsWithChildren<DialogBottomSh
 
   // 🧑‍🦽 ACCESSIBILITY
 
-  const isReduced = useMedia('(prefers-reduced-motion: no-preference)', false)
+  const isReduced = useMedia('(prefers-reduced-motion: no-preference)', false) === false
 
   // 🥊 ACTIONS
 
