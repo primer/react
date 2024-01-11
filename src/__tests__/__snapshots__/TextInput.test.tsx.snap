@@ -3987,1532 +3987,11 @@ exports[`TextInput renders with a loading indicator 1`] = `
   position: relative;
 }
 
-.c5:not(:focus):not(:active):not(:focus-within) {
-  -webkit-clip-path: inset(50%);
-  clip-path: inset(50%);
-  height: 1px;
-  overflow: hidden;
-  position: absolute;
-  white-space: nowrap;
-  width: 1px;
-}
-
 .c4 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
-  visibility: visible;
-}
-
-.c0 {
-  font-size: 14px;
-  line-height: 20px;
-  color: #1F2328;
-  vertical-align: middle;
-  background-color: #ffffff;
-  border: 1px solid var(--control-borderColor-rest,#d0d7de);
-  border-radius: 6px;
-  outline: none;
-  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
   display: inline-flex;
-  -webkit-align-items: stretch;
-  -webkit-box-align: stretch;
-  -ms-flex-align: stretch;
-  align-items: stretch;
-  min-height: 32px;
-  overflow: hidden;
-}
-
-.c0 input,
-.c0 textarea {
-  cursor: text;
-}
-
-.c0 select {
-  cursor: pointer;
-}
-
-.c0::-webkit-input-placeholder {
-  color: #6e7781;
-}
-
-.c0::-moz-placeholder {
-  color: #6e7781;
-}
-
-.c0:-ms-input-placeholder {
-  color: #6e7781;
-}
-
-.c0::placeholder {
-  color: #6e7781;
-}
-
-.c0:focus-within {
-  border-color: #0969da;
-  outline: 2px solid #0969da;
-  outline-offset: -1px;
-}
-
-.c0 > textarea {
-  padding: 12px;
-}
-
-.c1 {
-  background-repeat: no-repeat;
-  background-position: right 8px center;
-  padding-left: 0;
-  padding-right: 12px;
-}
-
-.c1 > :not(:last-child) {
-  margin-right: 8px;
-}
-
-.c1 .TextInput-icon,
-.c1 .TextInput-action {
-  -webkit-align-self: center;
-  -ms-flex-item-align: center;
-  align-self: center;
-  color: #656d76;
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
-}
-
-.c1 > input,
-.c1 > select {
-  padding-left: 12px;
-  padding-right: 0;
-}
-
-.c2 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-}
-
-.c2:focus {
-  outline: 0;
-}
-
-@media (min-width:768px) {
-  .c0 {
-    font-size: 14px;
-  }
-}
-
-@media (min-width:768px) {
-
-}
-
-@media (min-width:768px) {
-
-}
-
-<span
-    aria-busy={true}
-    className="c0 c1 TextInput-wrapper"
-    onClick={[Function]}
-  >
-    <input
-      className="c2"
-      data-component="input"
-      onBlur={[Function]}
-      onFocus={[Function]}
-      type="text"
-    />
-    <span
-      className="TextInput-icon"
-    >
-      <div
-        className="c3"
-        display="flex"
-      >
-        <span
-          role="status"
-        >
-          <svg
-            aria-hidden={true}
-            className="c4"
-            fill="none"
-            height="16px"
-            sx={
-              {
-                "visibility": "visible",
-              }
-            }
-            viewBox="0 0 16 16"
-            width="16px"
-          >
-            <circle
-              cx="8"
-              cy="8"
-              r="7"
-              stroke="currentColor"
-              strokeOpacity="0.25"
-              strokeWidth="2"
-              vectorEffect="non-scaling-stroke"
-            />
-            <path
-              d="M15 8a7.002 7.002 0 00-7-7"
-              stroke="currentColor"
-              strokeLinecap="round"
-              strokeWidth="2"
-              vectorEffect="non-scaling-stroke"
-            />
-          </svg>
-          <div
-            className="c5"
-          >
-            Loading
-          </div>
-        </span>
-      </div>
-    </span>
-  </span>,
-  .c2 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  position: relative;
-}
-
-.c4:not(:focus):not(:active):not(:focus-within) {
-  -webkit-clip-path: inset(50%);
-  clip-path: inset(50%);
-  height: 1px;
-  overflow: hidden;
-  position: absolute;
-  white-space: nowrap;
-  width: 1px;
-}
-
-.c3 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
-  visibility: visible;
-}
-
-.c6 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
-  visibility: hidden;
-}
-
-.c0 {
-  font-size: 14px;
-  line-height: 20px;
-  color: #1F2328;
-  vertical-align: middle;
-  background-color: #ffffff;
-  border: 1px solid var(--control-borderColor-rest,#d0d7de);
-  border-radius: 6px;
-  outline: none;
-  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-align-items: stretch;
-  -webkit-box-align: stretch;
-  -ms-flex-align: stretch;
-  align-items: stretch;
-  min-height: 32px;
-  overflow: hidden;
-}
-
-.c0 input,
-.c0 textarea {
-  cursor: text;
-}
-
-.c0 select {
-  cursor: pointer;
-}
-
-.c0::-webkit-input-placeholder {
-  color: #6e7781;
-}
-
-.c0::-moz-placeholder {
-  color: #6e7781;
-}
-
-.c0:-ms-input-placeholder {
-  color: #6e7781;
-}
-
-.c0::placeholder {
-  color: #6e7781;
-}
-
-.c0:focus-within {
-  border-color: #0969da;
-  outline: 2px solid #0969da;
-  outline-offset: -1px;
-}
-
-.c0 > textarea {
-  padding: 12px;
-}
-
-.c1 {
-  background-repeat: no-repeat;
-  background-position: right 8px center;
-  padding-left: 12px;
-  padding-right: 0;
-}
-
-.c1 > :not(:last-child) {
-  margin-right: 8px;
-}
-
-.c1 .TextInput-icon,
-.c1 .TextInput-action {
-  -webkit-align-self: center;
-  -ms-flex-item-align: center;
-  align-self: center;
-  color: #656d76;
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
-}
-
-.c1 > input,
-.c1 > select {
-  padding-left: 0;
-  padding-right: 12px;
-}
-
-.c5 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-}
-
-.c5:focus {
-  outline: 0;
-}
-
-@media (min-width:768px) {
-  .c0 {
-    font-size: 14px;
-  }
-}
-
-@media (min-width:768px) {
-
-}
-
-@media (min-width:768px) {
-
-}
-
-<span
-    aria-busy={true}
-    className="c0 c1 TextInput-wrapper"
-    onClick={[Function]}
-  >
-    <span
-      className="TextInput-icon"
-    >
-      <div
-        className="c2"
-        display="flex"
-      >
-        <span
-          role="status"
-        >
-          <svg
-            aria-hidden={true}
-            className="c3"
-            fill="none"
-            height="16px"
-            sx={
-              {
-                "visibility": "visible",
-              }
-            }
-            viewBox="0 0 16 16"
-            width="16px"
-          >
-            <circle
-              cx="8"
-              cy="8"
-              r="7"
-              stroke="currentColor"
-              strokeOpacity="0.25"
-              strokeWidth="2"
-              vectorEffect="non-scaling-stroke"
-            />
-            <path
-              d="M15 8a7.002 7.002 0 00-7-7"
-              stroke="currentColor"
-              strokeLinecap="round"
-              strokeWidth="2"
-              vectorEffect="non-scaling-stroke"
-            />
-          </svg>
-          <div
-            className="c4"
-          >
-            Loading
-          </div>
-        </span>
-      </div>
-    </span>
-    <input
-      className="c5"
-      data-component="input"
-      onBlur={[Function]}
-      onFocus={[Function]}
-      type="text"
-    />
-    <span
-      className="TextInput-icon"
-    >
-      <div
-        className="c2"
-        display="flex"
-      >
-        <span
-          role="status"
-        >
-          <svg
-            aria-hidden={true}
-            className="c6"
-            fill="none"
-            height="16px"
-            sx={
-              {
-                "visibility": "hidden",
-              }
-            }
-            viewBox="0 0 16 16"
-            width="16px"
-          >
-            <circle
-              cx="8"
-              cy="8"
-              r="7"
-              stroke="currentColor"
-              strokeOpacity="0.25"
-              strokeWidth="2"
-              vectorEffect="non-scaling-stroke"
-            />
-            <path
-              d="M15 8a7.002 7.002 0 00-7-7"
-              stroke="currentColor"
-              strokeLinecap="round"
-              strokeWidth="2"
-              vectorEffect="non-scaling-stroke"
-            />
-          </svg>
-          <div
-            className="c4"
-          >
-            Loading
-          </div>
-        </span>
-      </div>
-    </span>
-  </span>,
-  .c3 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  position: relative;
-}
-
-.c5:not(:focus):not(:active):not(:focus-within) {
-  -webkit-clip-path: inset(50%);
-  clip-path: inset(50%);
-  height: 1px;
-  overflow: hidden;
-  position: absolute;
-  white-space: nowrap;
-  width: 1px;
-}
-
-.c4 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
-  visibility: visible;
-}
-
-.c0 {
-  font-size: 14px;
-  line-height: 20px;
-  color: #1F2328;
-  vertical-align: middle;
-  background-color: #ffffff;
-  border: 1px solid var(--control-borderColor-rest,#d0d7de);
-  border-radius: 6px;
-  outline: none;
-  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-align-items: stretch;
-  -webkit-box-align: stretch;
-  -ms-flex-align: stretch;
-  align-items: stretch;
-  min-height: 32px;
-  overflow: hidden;
-}
-
-.c0 input,
-.c0 textarea {
-  cursor: text;
-}
-
-.c0 select {
-  cursor: pointer;
-}
-
-.c0::-webkit-input-placeholder {
-  color: #6e7781;
-}
-
-.c0::-moz-placeholder {
-  color: #6e7781;
-}
-
-.c0:-ms-input-placeholder {
-  color: #6e7781;
-}
-
-.c0::placeholder {
-  color: #6e7781;
-}
-
-.c0:focus-within {
-  border-color: #0969da;
-  outline: 2px solid #0969da;
-  outline-offset: -1px;
-}
-
-.c0 > textarea {
-  padding: 12px;
-}
-
-.c1 {
-  background-repeat: no-repeat;
-  background-position: right 8px center;
-  padding-left: 0;
-  padding-right: 12px;
-}
-
-.c1 > :not(:last-child) {
-  margin-right: 8px;
-}
-
-.c1 .TextInput-icon,
-.c1 .TextInput-action {
-  -webkit-align-self: center;
-  -ms-flex-item-align: center;
-  align-self: center;
-  color: #656d76;
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
-}
-
-.c1 > input,
-.c1 > select {
-  padding-left: 12px;
-  padding-right: 0;
-}
-
-.c2 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-}
-
-.c2:focus {
-  outline: 0;
-}
-
-@media (min-width:768px) {
-  .c0 {
-    font-size: 14px;
-  }
-}
-
-@media (min-width:768px) {
-
-}
-
-@media (min-width:768px) {
-
-}
-
-<span
-    aria-busy={true}
-    className="c0 c1 TextInput-wrapper"
-    onClick={[Function]}
-  >
-    <input
-      className="c2"
-      data-component="input"
-      onBlur={[Function]}
-      onFocus={[Function]}
-      type="text"
-    />
-    <span
-      className="TextInput-icon"
-    >
-      <div
-        className="c3"
-        display="flex"
-      >
-        <span
-          role="status"
-        >
-          <svg
-            aria-hidden={true}
-            className="c4"
-            fill="none"
-            height="16px"
-            sx={
-              {
-                "visibility": "visible",
-              }
-            }
-            viewBox="0 0 16 16"
-            width="16px"
-          >
-            <circle
-              cx="8"
-              cy="8"
-              r="7"
-              stroke="currentColor"
-              strokeOpacity="0.25"
-              strokeWidth="2"
-              vectorEffect="non-scaling-stroke"
-            />
-            <path
-              d="M15 8a7.002 7.002 0 00-7-7"
-              stroke="currentColor"
-              strokeLinecap="round"
-              strokeWidth="2"
-              vectorEffect="non-scaling-stroke"
-            />
-          </svg>
-          <div
-            className="c5"
-          >
-            Loading
-          </div>
-        </span>
-      </div>
-    </span>
-  </span>,
-  .c2 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  position: relative;
-}
-
-.c3 {
-  visibility: hidden;
-}
-
-.c5:not(:focus):not(:active):not(:focus-within) {
-  -webkit-clip-path: inset(50%);
-  clip-path: inset(50%);
-  height: 1px;
-  overflow: hidden;
-  position: absolute;
-  white-space: nowrap;
-  width: 1px;
-}
-
-.c7 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
-  visibility: hidden;
-}
-
-.c4 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
-  position: absolute;
-  top: 0;
-  height: 100%;
-  max-width: 100%;
-  visibility: visible;
-  left: 0;
-}
-
-.c0 {
-  font-size: 14px;
-  line-height: 20px;
-  color: #1F2328;
-  vertical-align: middle;
-  background-color: #ffffff;
-  border: 1px solid var(--control-borderColor-rest,#d0d7de);
-  border-radius: 6px;
-  outline: none;
-  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-align-items: stretch;
-  -webkit-box-align: stretch;
-  -ms-flex-align: stretch;
-  align-items: stretch;
-  min-height: 32px;
-  overflow: hidden;
-}
-
-.c0 input,
-.c0 textarea {
-  cursor: text;
-}
-
-.c0 select {
-  cursor: pointer;
-}
-
-.c0::-webkit-input-placeholder {
-  color: #6e7781;
-}
-
-.c0::-moz-placeholder {
-  color: #6e7781;
-}
-
-.c0:-ms-input-placeholder {
-  color: #6e7781;
-}
-
-.c0::placeholder {
-  color: #6e7781;
-}
-
-.c0:focus-within {
-  border-color: #0969da;
-  outline: 2px solid #0969da;
-  outline-offset: -1px;
-}
-
-.c0 > textarea {
-  padding: 12px;
-}
-
-.c1 {
-  background-repeat: no-repeat;
-  background-position: right 8px center;
-  padding-left: 12px;
-  padding-right: 0;
-}
-
-.c1 > :not(:last-child) {
-  margin-right: 8px;
-}
-
-.c1 .TextInput-icon,
-.c1 .TextInput-action {
-  -webkit-align-self: center;
-  -ms-flex-item-align: center;
-  align-self: center;
-  color: #656d76;
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
-}
-
-.c1 > input,
-.c1 > select {
-  padding-left: 0;
-  padding-right: 12px;
-}
-
-.c6 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-}
-
-.c6:focus {
-  outline: 0;
-}
-
-@media (min-width:768px) {
-  .c0 {
-    font-size: 14px;
-  }
-}
-
-@media (min-width:768px) {
-
-}
-
-@media (min-width:768px) {
-
-}
-
-<span
-    aria-busy={true}
-    className="c0 c1 TextInput-wrapper"
-    onClick={[Function]}
-  >
-    <span
-      className="TextInput-icon"
-    >
-      <div
-        className="c2"
-        display="flex"
-      >
-        <div
-          className="c3"
-        >
-          <svg
-            aria-hidden="true"
-            className="octicon octicon-search"
-            fill="currentColor"
-            focusable="false"
-            height={16}
-            role="img"
-            style={
-              {
-                "display": "inline-block",
-                "overflow": "visible",
-                "userSelect": "none",
-                "verticalAlign": "text-bottom",
-              }
-            }
-            viewBox="0 0 16 16"
-            width={16}
-          >
-            <path
-              d="M10.68 11.74a6 6 0 0 1-7.922-8.982 6 6 0 0 1 8.982 7.922l3.04 3.04a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215ZM11.5 7a4.499 4.499 0 1 0-8.997 0A4.499 4.499 0 0 0 11.5 7Z"
-            />
-          </svg>
-        </div>
-        <span
-          role="status"
-        >
-          <svg
-            aria-hidden={true}
-            className="c4"
-            fill="none"
-            height="32px"
-            sx={
-              {
-                "height": "100%",
-                "left": 0,
-                "maxWidth": "100%",
-                "position": "absolute",
-                "top": 0,
-                "visibility": "visible",
-              }
-            }
-            viewBox="0 0 16 16"
-            width="32px"
-          >
-            <circle
-              cx="8"
-              cy="8"
-              r="7"
-              stroke="currentColor"
-              strokeOpacity="0.25"
-              strokeWidth="2"
-              vectorEffect="non-scaling-stroke"
-            />
-            <path
-              d="M15 8a7.002 7.002 0 00-7-7"
-              stroke="currentColor"
-              strokeLinecap="round"
-              strokeWidth="2"
-              vectorEffect="non-scaling-stroke"
-            />
-          </svg>
-          <div
-            className="c5"
-          >
-            Loading
-          </div>
-        </span>
-      </div>
-    </span>
-    <input
-      className="c6"
-      data-component="input"
-      onBlur={[Function]}
-      onFocus={[Function]}
-      type="text"
-    />
-    <span
-      className="TextInput-icon"
-    >
-      <div
-        className="c2"
-        display="flex"
-      >
-        <span
-          role="status"
-        >
-          <svg
-            aria-hidden={true}
-            className="c7"
-            fill="none"
-            height="16px"
-            sx={
-              {
-                "visibility": "hidden",
-              }
-            }
-            viewBox="0 0 16 16"
-            width="16px"
-          >
-            <circle
-              cx="8"
-              cy="8"
-              r="7"
-              stroke="currentColor"
-              strokeOpacity="0.25"
-              strokeWidth="2"
-              vectorEffect="non-scaling-stroke"
-            />
-            <path
-              d="M15 8a7.002 7.002 0 00-7-7"
-              stroke="currentColor"
-              strokeLinecap="round"
-              strokeWidth="2"
-              vectorEffect="non-scaling-stroke"
-            />
-          </svg>
-          <div
-            className="c5"
-          >
-            Loading
-          </div>
-        </span>
-      </div>
-    </span>
-  </span>,
-  .c2 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  position: relative;
-}
-
-.c3 {
-  visibility: hidden;
-}
-
-.c5:not(:focus):not(:active):not(:focus-within) {
-  -webkit-clip-path: inset(50%);
-  clip-path: inset(50%);
-  height: 1px;
-  overflow: hidden;
-  position: absolute;
-  white-space: nowrap;
-  width: 1px;
-}
-
-.c7 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
-  visibility: hidden;
-}
-
-.c4 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
-  position: absolute;
-  top: 0;
-  height: 100%;
-  max-width: 100%;
-  visibility: visible;
-  left: 0;
-}
-
-.c0 {
-  font-size: 14px;
-  line-height: 20px;
-  color: #1F2328;
-  vertical-align: middle;
-  background-color: #ffffff;
-  border: 1px solid var(--control-borderColor-rest,#d0d7de);
-  border-radius: 6px;
-  outline: none;
-  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-align-items: stretch;
-  -webkit-box-align: stretch;
-  -ms-flex-align: stretch;
-  align-items: stretch;
-  min-height: 32px;
-  overflow: hidden;
-}
-
-.c0 input,
-.c0 textarea {
-  cursor: text;
-}
-
-.c0 select {
-  cursor: pointer;
-}
-
-.c0::-webkit-input-placeholder {
-  color: #6e7781;
-}
-
-.c0::-moz-placeholder {
-  color: #6e7781;
-}
-
-.c0:-ms-input-placeholder {
-  color: #6e7781;
-}
-
-.c0::placeholder {
-  color: #6e7781;
-}
-
-.c0:focus-within {
-  border-color: #0969da;
-  outline: 2px solid #0969da;
-  outline-offset: -1px;
-}
-
-.c0 > textarea {
-  padding: 12px;
-}
-
-.c1 {
-  background-repeat: no-repeat;
-  background-position: right 8px center;
-  padding-left: 12px;
-  padding-right: 0;
-}
-
-.c1 > :not(:last-child) {
-  margin-right: 8px;
-}
-
-.c1 .TextInput-icon,
-.c1 .TextInput-action {
-  -webkit-align-self: center;
-  -ms-flex-item-align: center;
-  align-self: center;
-  color: #656d76;
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
-}
-
-.c1 > input,
-.c1 > select {
-  padding-left: 0;
-  padding-right: 12px;
-}
-
-.c6 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-}
-
-.c6:focus {
-  outline: 0;
-}
-
-@media (min-width:768px) {
-  .c0 {
-    font-size: 14px;
-  }
-}
-
-@media (min-width:768px) {
-
-}
-
-@media (min-width:768px) {
-
-}
-
-<span
-    aria-busy={true}
-    className="c0 c1 TextInput-wrapper"
-    onClick={[Function]}
-  >
-    <span
-      className="TextInput-icon"
-    >
-      <div
-        className="c2"
-        display="flex"
-      >
-        <div
-          className="c3"
-        >
-          <svg
-            aria-hidden="true"
-            className="octicon octicon-search"
-            fill="currentColor"
-            focusable="false"
-            height={16}
-            role="img"
-            style={
-              {
-                "display": "inline-block",
-                "overflow": "visible",
-                "userSelect": "none",
-                "verticalAlign": "text-bottom",
-              }
-            }
-            viewBox="0 0 16 16"
-            width={16}
-          >
-            <path
-              d="M10.68 11.74a6 6 0 0 1-7.922-8.982 6 6 0 0 1 8.982 7.922l3.04 3.04a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215ZM11.5 7a4.499 4.499 0 1 0-8.997 0A4.499 4.499 0 0 0 11.5 7Z"
-            />
-          </svg>
-        </div>
-        <span
-          role="status"
-        >
-          <svg
-            aria-hidden={true}
-            className="c4"
-            fill="none"
-            height="32px"
-            sx={
-              {
-                "height": "100%",
-                "left": 0,
-                "maxWidth": "100%",
-                "position": "absolute",
-                "top": 0,
-                "visibility": "visible",
-              }
-            }
-            viewBox="0 0 16 16"
-            width="32px"
-          >
-            <circle
-              cx="8"
-              cy="8"
-              r="7"
-              stroke="currentColor"
-              strokeOpacity="0.25"
-              strokeWidth="2"
-              vectorEffect="non-scaling-stroke"
-            />
-            <path
-              d="M15 8a7.002 7.002 0 00-7-7"
-              stroke="currentColor"
-              strokeLinecap="round"
-              strokeWidth="2"
-              vectorEffect="non-scaling-stroke"
-            />
-          </svg>
-          <div
-            className="c5"
-          >
-            Loading
-          </div>
-        </span>
-      </div>
-    </span>
-    <input
-      className="c6"
-      data-component="input"
-      onBlur={[Function]}
-      onFocus={[Function]}
-      type="text"
-    />
-    <span
-      className="TextInput-icon"
-    >
-      <div
-        className="c2"
-        display="flex"
-      >
-        <span
-          role="status"
-        >
-          <svg
-            aria-hidden={true}
-            className="c7"
-            fill="none"
-            height="16px"
-            sx={
-              {
-                "visibility": "hidden",
-              }
-            }
-            viewBox="0 0 16 16"
-            width="16px"
-          >
-            <circle
-              cx="8"
-              cy="8"
-              r="7"
-              stroke="currentColor"
-              strokeOpacity="0.25"
-              strokeWidth="2"
-              vectorEffect="non-scaling-stroke"
-            />
-            <path
-              d="M15 8a7.002 7.002 0 00-7-7"
-              stroke="currentColor"
-              strokeLinecap="round"
-              strokeWidth="2"
-              vectorEffect="non-scaling-stroke"
-            />
-          </svg>
-          <div
-            className="c5"
-          >
-            Loading
-          </div>
-        </span>
-      </div>
-    </span>
-  </span>,
-  .c2 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  position: relative;
-}
-
-.c3 {
-  visibility: visible;
-}
-
-.c5:not(:focus):not(:active):not(:focus-within) {
-  -webkit-clip-path: inset(50%);
-  clip-path: inset(50%);
-  height: 1px;
-  overflow: hidden;
-  position: absolute;
-  white-space: nowrap;
-  width: 1px;
-}
-
-.c7 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
-  visibility: visible;
-}
-
-.c4 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
-  position: absolute;
-  top: 0;
-  height: 100%;
-  max-width: 100%;
-  visibility: hidden;
-  left: 0;
-}
-
-.c0 {
-  font-size: 14px;
-  line-height: 20px;
-  color: #1F2328;
-  vertical-align: middle;
-  background-color: #ffffff;
-  border: 1px solid var(--control-borderColor-rest,#d0d7de);
-  border-radius: 6px;
-  outline: none;
-  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-align-items: stretch;
-  -webkit-box-align: stretch;
-  -ms-flex-align: stretch;
-  align-items: stretch;
-  min-height: 32px;
-  overflow: hidden;
-}
-
-.c0 input,
-.c0 textarea {
-  cursor: text;
-}
-
-.c0 select {
-  cursor: pointer;
-}
-
-.c0::-webkit-input-placeholder {
-  color: #6e7781;
-}
-
-.c0::-moz-placeholder {
-  color: #6e7781;
-}
-
-.c0:-ms-input-placeholder {
-  color: #6e7781;
-}
-
-.c0::placeholder {
-  color: #6e7781;
-}
-
-.c0:focus-within {
-  border-color: #0969da;
-  outline: 2px solid #0969da;
-  outline-offset: -1px;
-}
-
-.c0 > textarea {
-  padding: 12px;
-}
-
-.c1 {
-  background-repeat: no-repeat;
-  background-position: right 8px center;
-  padding-left: 12px;
-  padding-right: 12px;
-}
-
-.c1 > :not(:last-child) {
-  margin-right: 8px;
-}
-
-.c1 .TextInput-icon,
-.c1 .TextInput-action {
-  -webkit-align-self: center;
-  -ms-flex-item-align: center;
-  align-self: center;
-  color: #656d76;
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
-}
-
-.c1 > input,
-.c1 > select {
-  padding-left: 0;
-  padding-right: 0;
-}
-
-.c6 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-}
-
-.c6:focus {
-  outline: 0;
-}
-
-@media (min-width:768px) {
-  .c0 {
-    font-size: 14px;
-  }
-}
-
-@media (min-width:768px) {
-
-}
-
-@media (min-width:768px) {
-
-}
-
-<span
-    aria-busy={true}
-    className="c0 c1 TextInput-wrapper"
-    onClick={[Function]}
-  >
-    <span
-      className="TextInput-icon"
-    >
-      <div
-        className="c2"
-        display="flex"
-      >
-        <div
-          className="c3"
-        >
-          <svg
-            aria-hidden="true"
-            className="octicon octicon-search"
-            fill="currentColor"
-            focusable="false"
-            height={16}
-            role="img"
-            style={
-              {
-                "display": "inline-block",
-                "overflow": "visible",
-                "userSelect": "none",
-                "verticalAlign": "text-bottom",
-              }
-            }
-            viewBox="0 0 16 16"
-            width={16}
-          >
-            <path
-              d="M10.68 11.74a6 6 0 0 1-7.922-8.982 6 6 0 0 1 8.982 7.922l3.04 3.04a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215ZM11.5 7a4.499 4.499 0 1 0-8.997 0A4.499 4.499 0 0 0 11.5 7Z"
-            />
-          </svg>
-        </div>
-        <span
-          role="status"
-        >
-          <svg
-            aria-hidden={true}
-            className="c4"
-            fill="none"
-            height="32px"
-            sx={
-              {
-                "height": "100%",
-                "left": 0,
-                "maxWidth": "100%",
-                "position": "absolute",
-                "top": 0,
-                "visibility": "hidden",
-              }
-            }
-            viewBox="0 0 16 16"
-            width="32px"
-          >
-            <circle
-              cx="8"
-              cy="8"
-              r="7"
-              stroke="currentColor"
-              strokeOpacity="0.25"
-              strokeWidth="2"
-              vectorEffect="non-scaling-stroke"
-            />
-            <path
-              d="M15 8a7.002 7.002 0 00-7-7"
-              stroke="currentColor"
-              strokeLinecap="round"
-              strokeWidth="2"
-              vectorEffect="non-scaling-stroke"
-            />
-          </svg>
-          <div
-            className="c5"
-          >
-            Loading
-          </div>
-        </span>
-      </div>
-    </span>
-    <input
-      className="c6"
-      data-component="input"
-      onBlur={[Function]}
-      onFocus={[Function]}
-      type="text"
-    />
-    <span
-      className="TextInput-icon"
-    >
-      <div
-        className="c2"
-        display="flex"
-      >
-        <span
-          role="status"
-        >
-          <svg
-            aria-hidden={true}
-            className="c7"
-            fill="none"
-            height="16px"
-            sx={
-              {
-                "visibility": "visible",
-              }
-            }
-            viewBox="0 0 16 16"
-            width="16px"
-          >
-            <circle
-              cx="8"
-              cy="8"
-              r="7"
-              stroke="currentColor"
-              strokeOpacity="0.25"
-              strokeWidth="2"
-              vectorEffect="non-scaling-stroke"
-            />
-            <path
-              d="M15 8a7.002 7.002 0 00-7-7"
-              stroke="currentColor"
-              strokeLinecap="round"
-              strokeWidth="2"
-              vectorEffect="non-scaling-stroke"
-            />
-          </svg>
-          <div
-            className="c5"
-          >
-            Loading
-          </div>
-        </span>
-      </div>
-    </span>
-  </span>,
-  .c3 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  position: relative;
-}
-
-.c4 {
-  visibility: hidden;
 }
 
 .c6:not(:focus):not(:active):not(:focus-within) {
@@ -5528,12 +4007,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
 .c5 {
   -webkit-animation: rotate-keyframes 1s linear infinite;
   animation: rotate-keyframes 1s linear infinite;
-  position: absolute;
-  top: 0;
-  height: 100%;
-  max-width: 100%;
   visibility: visible;
-  right: 0;
 }
 
 .c0 {
@@ -5670,50 +4144,20 @@ exports[`TextInput renders with a loading indicator 1`] = `
       >
         <div
           className="c4"
-        >
-          <svg
-            aria-hidden="true"
-            className="octicon octicon-search"
-            fill="currentColor"
-            focusable="false"
-            height={16}
-            role="img"
-            style={
-              {
-                "display": "inline-block",
-                "overflow": "visible",
-                "userSelect": "none",
-                "verticalAlign": "text-bottom",
-              }
-            }
-            viewBox="0 0 16 16"
-            width={16}
-          >
-            <path
-              d="M10.68 11.74a6 6 0 0 1-7.922-8.982 6 6 0 0 1 8.982 7.922l3.04 3.04a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215ZM11.5 7a4.499 4.499 0 1 0-8.997 0A4.499 4.499 0 0 0 11.5 7Z"
-            />
-          </svg>
-        </div>
-        <span
           role="status"
         >
           <svg
             aria-hidden={true}
             className="c5"
             fill="none"
-            height="32px"
+            height="16px"
             sx={
               {
-                "height": "100%",
-                "maxWidth": "100%",
-                "position": "absolute",
-                "right": 0,
-                "top": 0,
                 "visibility": "visible",
               }
             }
             viewBox="0 0 16 16"
-            width="32px"
+            width="16px"
           >
             <circle
               cx="8"
@@ -5737,7 +4181,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
           >
             Loading
           </div>
-        </span>
+        </div>
       </div>
     </span>
   </span>,
@@ -5749,11 +4193,14 @@ exports[`TextInput renders with a loading indicator 1`] = `
   position: relative;
 }
 
-.c6 {
-  visibility: visible;
+.c3 {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
 }
 
-.c4:not(:focus):not(:active):not(:focus-within) {
+.c5:not(:focus):not(:active):not(:focus-within) {
   -webkit-clip-path: inset(50%);
   clip-path: inset(50%);
   height: 1px;
@@ -5763,7 +4210,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   width: 1px;
 }
 
-.c3 {
+.c4 {
   -webkit-animation: rotate-keyframes 1s linear infinite;
   animation: rotate-keyframes 1s linear infinite;
   visibility: visible;
@@ -5772,12 +4219,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
 .c7 {
   -webkit-animation: rotate-keyframes 1s linear infinite;
   animation: rotate-keyframes 1s linear infinite;
-  position: absolute;
-  top: 0;
-  height: 100%;
-  max-width: 100%;
   visibility: hidden;
-  right: 0;
 }
 
 .c0 {
@@ -5841,7 +4283,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   background-repeat: no-repeat;
   background-position: right 8px center;
   padding-left: 12px;
-  padding-right: 12px;
+  padding-right: 0;
 }
 
 .c1 > :not(:last-child) {
@@ -5862,10 +4304,10 @@ exports[`TextInput renders with a loading indicator 1`] = `
 .c1 > input,
 .c1 > select {
   padding-left: 0;
-  padding-right: 0;
+  padding-right: 12px;
 }
 
-.c5 {
+.c6 {
   border: 0;
   font-size: inherit;
   font-family: inherit;
@@ -5875,7 +4317,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   width: 100%;
 }
 
-.c5:focus {
+.c6:focus {
   outline: 0;
 }
 
@@ -5905,12 +4347,13 @@ exports[`TextInput renders with a loading indicator 1`] = `
         className="c2"
         display="flex"
       >
-        <span
+        <div
+          className="c3"
           role="status"
         >
           <svg
             aria-hidden={true}
-            className="c3"
+            className="c4"
             fill="none"
             height="16px"
             sx={
@@ -5939,15 +4382,15 @@ exports[`TextInput renders with a loading indicator 1`] = `
             />
           </svg>
           <div
-            className="c4"
+            className="c5"
           >
             Loading
           </div>
-        </span>
+        </div>
       </div>
     </span>
     <input
-      className="c5"
+      className="c6"
       data-component="input"
       onBlur={[Function]}
       onFocus={[Function]}
@@ -5961,51 +4404,21 @@ exports[`TextInput renders with a loading indicator 1`] = `
         display="flex"
       >
         <div
-          className="c6"
-        >
-          <svg
-            aria-hidden="true"
-            className="octicon octicon-search"
-            fill="currentColor"
-            focusable="false"
-            height={16}
-            role="img"
-            style={
-              {
-                "display": "inline-block",
-                "overflow": "visible",
-                "userSelect": "none",
-                "verticalAlign": "text-bottom",
-              }
-            }
-            viewBox="0 0 16 16"
-            width={16}
-          >
-            <path
-              d="M10.68 11.74a6 6 0 0 1-7.922-8.982 6 6 0 0 1 8.982 7.922l3.04 3.04a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215ZM11.5 7a4.499 4.499 0 1 0-8.997 0A4.499 4.499 0 0 0 11.5 7Z"
-            />
-          </svg>
-        </div>
-        <span
+          className="c3"
           role="status"
         >
           <svg
             aria-hidden={true}
             className="c7"
             fill="none"
-            height="32px"
+            height="16px"
             sx={
               {
-                "height": "100%",
-                "maxWidth": "100%",
-                "position": "absolute",
-                "right": 0,
-                "top": 0,
                 "visibility": "hidden",
               }
             }
             viewBox="0 0 16 16"
-            width="32px"
+            width="16px"
           >
             <circle
               cx="8"
@@ -6025,11 +4438,11 @@ exports[`TextInput renders with a loading indicator 1`] = `
             />
           </svg>
           <div
-            className="c4"
+            className="c5"
           >
             Loading
           </div>
-        </span>
+        </div>
       </div>
     </span>
   </span>,
@@ -6042,7 +4455,10 @@ exports[`TextInput renders with a loading indicator 1`] = `
 }
 
 .c4 {
-  visibility: hidden;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
 }
 
 .c6:not(:focus):not(:active):not(:focus-within) {
@@ -6058,12 +4474,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
 .c5 {
   -webkit-animation: rotate-keyframes 1s linear infinite;
   animation: rotate-keyframes 1s linear infinite;
-  position: absolute;
-  top: 0;
-  height: 100%;
-  max-width: 100%;
   visibility: visible;
-  right: 0;
 }
 
 .c0 {
@@ -6200,50 +4611,20 @@ exports[`TextInput renders with a loading indicator 1`] = `
       >
         <div
           className="c4"
-        >
-          <svg
-            aria-hidden="true"
-            className="octicon octicon-search"
-            fill="currentColor"
-            focusable="false"
-            height={16}
-            role="img"
-            style={
-              {
-                "display": "inline-block",
-                "overflow": "visible",
-                "userSelect": "none",
-                "verticalAlign": "text-bottom",
-              }
-            }
-            viewBox="0 0 16 16"
-            width={16}
-          >
-            <path
-              d="M10.68 11.74a6 6 0 0 1-7.922-8.982 6 6 0 0 1 8.982 7.922l3.04 3.04a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215ZM11.5 7a4.499 4.499 0 1 0-8.997 0A4.499 4.499 0 0 0 11.5 7Z"
-            />
-          </svg>
-        </div>
-        <span
           role="status"
         >
           <svg
             aria-hidden={true}
             className="c5"
             fill="none"
-            height="32px"
+            height="16px"
             sx={
               {
-                "height": "100%",
-                "maxWidth": "100%",
-                "position": "absolute",
-                "right": 0,
-                "top": 0,
                 "visibility": "visible",
               }
             }
             viewBox="0 0 16 16"
-            width="32px"
+            width="16px"
           >
             <circle
               cx="8"
@@ -6267,7 +4648,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
           >
             Loading
           </div>
-        </span>
+        </div>
       </div>
     </span>
   </span>,
@@ -6279,15 +4660,18 @@ exports[`TextInput renders with a loading indicator 1`] = `
   position: relative;
 }
 
+.c4 {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+}
+
 .c3 {
   visibility: hidden;
 }
 
-.c7 {
-  visibility: visible;
-}
-
-.c5:not(:focus):not(:active):not(:focus-within) {
+.c6:not(:focus):not(:active):not(:focus-within) {
   -webkit-clip-path: inset(50%);
   clip-path: inset(50%);
   height: 1px;
@@ -6295,20 +4679,1720 @@ exports[`TextInput renders with a loading indicator 1`] = `
   position: absolute;
   white-space: nowrap;
   width: 1px;
-}
-
-.c4 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
-  position: absolute;
-  top: 0;
-  height: 100%;
-  max-width: 100%;
-  visibility: visible;
-  left: 0;
 }
 
 .c8 {
+  -webkit-animation: rotate-keyframes 1s linear infinite;
+  animation: rotate-keyframes 1s linear infinite;
+  visibility: hidden;
+}
+
+.c5 {
+  -webkit-animation: rotate-keyframes 1s linear infinite;
+  animation: rotate-keyframes 1s linear infinite;
+  position: absolute;
+  top: 0;
+  height: 100%;
+  max-width: 100%;
+  visibility: visible;
+  left: 0;
+}
+
+.c0 {
+  font-size: 14px;
+  line-height: 20px;
+  color: #1F2328;
+  vertical-align: middle;
+  background-color: #ffffff;
+  border: 1px solid var(--control-borderColor-rest,#d0d7de);
+  border-radius: 6px;
+  outline: none;
+  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: stretch;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  min-height: 32px;
+  overflow: hidden;
+}
+
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
+}
+
+.c0::-webkit-input-placeholder {
+  color: #6e7781;
+}
+
+.c0::-moz-placeholder {
+  color: #6e7781;
+}
+
+.c0:-ms-input-placeholder {
+  color: #6e7781;
+}
+
+.c0::placeholder {
+  color: #6e7781;
+}
+
+.c0:focus-within {
+  border-color: #0969da;
+  outline: 2px solid #0969da;
+  outline-offset: -1px;
+}
+
+.c0 > textarea {
+  padding: 12px;
+}
+
+.c1 {
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  padding-left: 12px;
+  padding-right: 0;
+}
+
+.c1 > :not(:last-child) {
+  margin-right: 8px;
+}
+
+.c1 .TextInput-icon,
+.c1 .TextInput-action {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  color: #656d76;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+}
+
+.c1 > input,
+.c1 > select {
+  padding-left: 0;
+  padding-right: 12px;
+}
+
+.c7 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c7:focus {
+  outline: 0;
+}
+
+@media (min-width:768px) {
+  .c0 {
+    font-size: 14px;
+  }
+}
+
+@media (min-width:768px) {
+
+}
+
+@media (min-width:768px) {
+
+}
+
+<span
+    aria-busy={true}
+    className="c0 c1 TextInput-wrapper"
+    onClick={[Function]}
+  >
+    <span
+      className="TextInput-icon"
+    >
+      <div
+        className="c2"
+        display="flex"
+      >
+        <div
+          className="c3"
+        >
+          <svg
+            aria-hidden="true"
+            className="octicon octicon-search"
+            fill="currentColor"
+            focusable="false"
+            height={16}
+            role="img"
+            style={
+              {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
+                "verticalAlign": "text-bottom",
+              }
+            }
+            viewBox="0 0 16 16"
+            width={16}
+          >
+            <path
+              d="M10.68 11.74a6 6 0 0 1-7.922-8.982 6 6 0 0 1 8.982 7.922l3.04 3.04a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215ZM11.5 7a4.499 4.499 0 1 0-8.997 0A4.499 4.499 0 0 0 11.5 7Z"
+            />
+          </svg>
+        </div>
+        <div
+          className="c4"
+          role="status"
+        >
+          <svg
+            aria-hidden={true}
+            className="c5"
+            fill="none"
+            height="32px"
+            sx={
+              {
+                "height": "100%",
+                "left": 0,
+                "maxWidth": "100%",
+                "position": "absolute",
+                "top": 0,
+                "visibility": "visible",
+              }
+            }
+            viewBox="0 0 16 16"
+            width="32px"
+          >
+            <circle
+              cx="8"
+              cy="8"
+              r="7"
+              stroke="currentColor"
+              strokeOpacity="0.25"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+            <path
+              d="M15 8a7.002 7.002 0 00-7-7"
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+          </svg>
+          <div
+            className="c6"
+          >
+            Loading
+          </div>
+        </div>
+      </div>
+    </span>
+    <input
+      className="c7"
+      data-component="input"
+      onBlur={[Function]}
+      onFocus={[Function]}
+      type="text"
+    />
+    <span
+      className="TextInput-icon"
+    >
+      <div
+        className="c2"
+        display="flex"
+      >
+        <div
+          className="c4"
+          role="status"
+        >
+          <svg
+            aria-hidden={true}
+            className="c8"
+            fill="none"
+            height="16px"
+            sx={
+              {
+                "visibility": "hidden",
+              }
+            }
+            viewBox="0 0 16 16"
+            width="16px"
+          >
+            <circle
+              cx="8"
+              cy="8"
+              r="7"
+              stroke="currentColor"
+              strokeOpacity="0.25"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+            <path
+              d="M15 8a7.002 7.002 0 00-7-7"
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+          </svg>
+          <div
+            className="c6"
+          >
+            Loading
+          </div>
+        </div>
+      </div>
+    </span>
+  </span>,
+  .c2 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  position: relative;
+}
+
+.c4 {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+}
+
+.c3 {
+  visibility: hidden;
+}
+
+.c6:not(:focus):not(:active):not(:focus-within) {
+  -webkit-clip-path: inset(50%);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
+.c8 {
+  -webkit-animation: rotate-keyframes 1s linear infinite;
+  animation: rotate-keyframes 1s linear infinite;
+  visibility: hidden;
+}
+
+.c5 {
+  -webkit-animation: rotate-keyframes 1s linear infinite;
+  animation: rotate-keyframes 1s linear infinite;
+  position: absolute;
+  top: 0;
+  height: 100%;
+  max-width: 100%;
+  visibility: visible;
+  left: 0;
+}
+
+.c0 {
+  font-size: 14px;
+  line-height: 20px;
+  color: #1F2328;
+  vertical-align: middle;
+  background-color: #ffffff;
+  border: 1px solid var(--control-borderColor-rest,#d0d7de);
+  border-radius: 6px;
+  outline: none;
+  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: stretch;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  min-height: 32px;
+  overflow: hidden;
+}
+
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
+}
+
+.c0::-webkit-input-placeholder {
+  color: #6e7781;
+}
+
+.c0::-moz-placeholder {
+  color: #6e7781;
+}
+
+.c0:-ms-input-placeholder {
+  color: #6e7781;
+}
+
+.c0::placeholder {
+  color: #6e7781;
+}
+
+.c0:focus-within {
+  border-color: #0969da;
+  outline: 2px solid #0969da;
+  outline-offset: -1px;
+}
+
+.c0 > textarea {
+  padding: 12px;
+}
+
+.c1 {
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  padding-left: 12px;
+  padding-right: 0;
+}
+
+.c1 > :not(:last-child) {
+  margin-right: 8px;
+}
+
+.c1 .TextInput-icon,
+.c1 .TextInput-action {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  color: #656d76;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+}
+
+.c1 > input,
+.c1 > select {
+  padding-left: 0;
+  padding-right: 12px;
+}
+
+.c7 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c7:focus {
+  outline: 0;
+}
+
+@media (min-width:768px) {
+  .c0 {
+    font-size: 14px;
+  }
+}
+
+@media (min-width:768px) {
+
+}
+
+@media (min-width:768px) {
+
+}
+
+<span
+    aria-busy={true}
+    className="c0 c1 TextInput-wrapper"
+    onClick={[Function]}
+  >
+    <span
+      className="TextInput-icon"
+    >
+      <div
+        className="c2"
+        display="flex"
+      >
+        <div
+          className="c3"
+        >
+          <svg
+            aria-hidden="true"
+            className="octicon octicon-search"
+            fill="currentColor"
+            focusable="false"
+            height={16}
+            role="img"
+            style={
+              {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
+                "verticalAlign": "text-bottom",
+              }
+            }
+            viewBox="0 0 16 16"
+            width={16}
+          >
+            <path
+              d="M10.68 11.74a6 6 0 0 1-7.922-8.982 6 6 0 0 1 8.982 7.922l3.04 3.04a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215ZM11.5 7a4.499 4.499 0 1 0-8.997 0A4.499 4.499 0 0 0 11.5 7Z"
+            />
+          </svg>
+        </div>
+        <div
+          className="c4"
+          role="status"
+        >
+          <svg
+            aria-hidden={true}
+            className="c5"
+            fill="none"
+            height="32px"
+            sx={
+              {
+                "height": "100%",
+                "left": 0,
+                "maxWidth": "100%",
+                "position": "absolute",
+                "top": 0,
+                "visibility": "visible",
+              }
+            }
+            viewBox="0 0 16 16"
+            width="32px"
+          >
+            <circle
+              cx="8"
+              cy="8"
+              r="7"
+              stroke="currentColor"
+              strokeOpacity="0.25"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+            <path
+              d="M15 8a7.002 7.002 0 00-7-7"
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+          </svg>
+          <div
+            className="c6"
+          >
+            Loading
+          </div>
+        </div>
+      </div>
+    </span>
+    <input
+      className="c7"
+      data-component="input"
+      onBlur={[Function]}
+      onFocus={[Function]}
+      type="text"
+    />
+    <span
+      className="TextInput-icon"
+    >
+      <div
+        className="c2"
+        display="flex"
+      >
+        <div
+          className="c4"
+          role="status"
+        >
+          <svg
+            aria-hidden={true}
+            className="c8"
+            fill="none"
+            height="16px"
+            sx={
+              {
+                "visibility": "hidden",
+              }
+            }
+            viewBox="0 0 16 16"
+            width="16px"
+          >
+            <circle
+              cx="8"
+              cy="8"
+              r="7"
+              stroke="currentColor"
+              strokeOpacity="0.25"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+            <path
+              d="M15 8a7.002 7.002 0 00-7-7"
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+          </svg>
+          <div
+            className="c6"
+          >
+            Loading
+          </div>
+        </div>
+      </div>
+    </span>
+  </span>,
+  .c2 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  position: relative;
+}
+
+.c4 {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+}
+
+.c3 {
+  visibility: visible;
+}
+
+.c6:not(:focus):not(:active):not(:focus-within) {
+  -webkit-clip-path: inset(50%);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
+.c8 {
+  -webkit-animation: rotate-keyframes 1s linear infinite;
+  animation: rotate-keyframes 1s linear infinite;
+  visibility: visible;
+}
+
+.c5 {
+  -webkit-animation: rotate-keyframes 1s linear infinite;
+  animation: rotate-keyframes 1s linear infinite;
+  position: absolute;
+  top: 0;
+  height: 100%;
+  max-width: 100%;
+  visibility: hidden;
+  left: 0;
+}
+
+.c0 {
+  font-size: 14px;
+  line-height: 20px;
+  color: #1F2328;
+  vertical-align: middle;
+  background-color: #ffffff;
+  border: 1px solid var(--control-borderColor-rest,#d0d7de);
+  border-radius: 6px;
+  outline: none;
+  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: stretch;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  min-height: 32px;
+  overflow: hidden;
+}
+
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
+}
+
+.c0::-webkit-input-placeholder {
+  color: #6e7781;
+}
+
+.c0::-moz-placeholder {
+  color: #6e7781;
+}
+
+.c0:-ms-input-placeholder {
+  color: #6e7781;
+}
+
+.c0::placeholder {
+  color: #6e7781;
+}
+
+.c0:focus-within {
+  border-color: #0969da;
+  outline: 2px solid #0969da;
+  outline-offset: -1px;
+}
+
+.c0 > textarea {
+  padding: 12px;
+}
+
+.c1 {
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  padding-left: 12px;
+  padding-right: 12px;
+}
+
+.c1 > :not(:last-child) {
+  margin-right: 8px;
+}
+
+.c1 .TextInput-icon,
+.c1 .TextInput-action {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  color: #656d76;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+}
+
+.c1 > input,
+.c1 > select {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.c7 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c7:focus {
+  outline: 0;
+}
+
+@media (min-width:768px) {
+  .c0 {
+    font-size: 14px;
+  }
+}
+
+@media (min-width:768px) {
+
+}
+
+@media (min-width:768px) {
+
+}
+
+<span
+    aria-busy={true}
+    className="c0 c1 TextInput-wrapper"
+    onClick={[Function]}
+  >
+    <span
+      className="TextInput-icon"
+    >
+      <div
+        className="c2"
+        display="flex"
+      >
+        <div
+          className="c3"
+        >
+          <svg
+            aria-hidden="true"
+            className="octicon octicon-search"
+            fill="currentColor"
+            focusable="false"
+            height={16}
+            role="img"
+            style={
+              {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
+                "verticalAlign": "text-bottom",
+              }
+            }
+            viewBox="0 0 16 16"
+            width={16}
+          >
+            <path
+              d="M10.68 11.74a6 6 0 0 1-7.922-8.982 6 6 0 0 1 8.982 7.922l3.04 3.04a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215ZM11.5 7a4.499 4.499 0 1 0-8.997 0A4.499 4.499 0 0 0 11.5 7Z"
+            />
+          </svg>
+        </div>
+        <div
+          className="c4"
+          role="status"
+        >
+          <svg
+            aria-hidden={true}
+            className="c5"
+            fill="none"
+            height="32px"
+            sx={
+              {
+                "height": "100%",
+                "left": 0,
+                "maxWidth": "100%",
+                "position": "absolute",
+                "top": 0,
+                "visibility": "hidden",
+              }
+            }
+            viewBox="0 0 16 16"
+            width="32px"
+          >
+            <circle
+              cx="8"
+              cy="8"
+              r="7"
+              stroke="currentColor"
+              strokeOpacity="0.25"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+            <path
+              d="M15 8a7.002 7.002 0 00-7-7"
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+          </svg>
+          <div
+            className="c6"
+          >
+            Loading
+          </div>
+        </div>
+      </div>
+    </span>
+    <input
+      className="c7"
+      data-component="input"
+      onBlur={[Function]}
+      onFocus={[Function]}
+      type="text"
+    />
+    <span
+      className="TextInput-icon"
+    >
+      <div
+        className="c2"
+        display="flex"
+      >
+        <div
+          className="c4"
+          role="status"
+        >
+          <svg
+            aria-hidden={true}
+            className="c8"
+            fill="none"
+            height="16px"
+            sx={
+              {
+                "visibility": "visible",
+              }
+            }
+            viewBox="0 0 16 16"
+            width="16px"
+          >
+            <circle
+              cx="8"
+              cy="8"
+              r="7"
+              stroke="currentColor"
+              strokeOpacity="0.25"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+            <path
+              d="M15 8a7.002 7.002 0 00-7-7"
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+          </svg>
+          <div
+            className="c6"
+          >
+            Loading
+          </div>
+        </div>
+      </div>
+    </span>
+  </span>,
+  .c3 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  position: relative;
+}
+
+.c5 {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+}
+
+.c4 {
+  visibility: hidden;
+}
+
+.c7:not(:focus):not(:active):not(:focus-within) {
+  -webkit-clip-path: inset(50%);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
+.c6 {
+  -webkit-animation: rotate-keyframes 1s linear infinite;
+  animation: rotate-keyframes 1s linear infinite;
+  position: absolute;
+  top: 0;
+  height: 100%;
+  max-width: 100%;
+  visibility: visible;
+  right: 0;
+}
+
+.c0 {
+  font-size: 14px;
+  line-height: 20px;
+  color: #1F2328;
+  vertical-align: middle;
+  background-color: #ffffff;
+  border: 1px solid var(--control-borderColor-rest,#d0d7de);
+  border-radius: 6px;
+  outline: none;
+  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: stretch;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  min-height: 32px;
+  overflow: hidden;
+}
+
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
+}
+
+.c0::-webkit-input-placeholder {
+  color: #6e7781;
+}
+
+.c0::-moz-placeholder {
+  color: #6e7781;
+}
+
+.c0:-ms-input-placeholder {
+  color: #6e7781;
+}
+
+.c0::placeholder {
+  color: #6e7781;
+}
+
+.c0:focus-within {
+  border-color: #0969da;
+  outline: 2px solid #0969da;
+  outline-offset: -1px;
+}
+
+.c0 > textarea {
+  padding: 12px;
+}
+
+.c1 {
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  padding-left: 0;
+  padding-right: 12px;
+}
+
+.c1 > :not(:last-child) {
+  margin-right: 8px;
+}
+
+.c1 .TextInput-icon,
+.c1 .TextInput-action {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  color: #656d76;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+}
+
+.c1 > input,
+.c1 > select {
+  padding-left: 12px;
+  padding-right: 0;
+}
+
+.c2 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c2:focus {
+  outline: 0;
+}
+
+@media (min-width:768px) {
+  .c0 {
+    font-size: 14px;
+  }
+}
+
+@media (min-width:768px) {
+
+}
+
+@media (min-width:768px) {
+
+}
+
+<span
+    aria-busy={true}
+    className="c0 c1 TextInput-wrapper"
+    onClick={[Function]}
+  >
+    <input
+      className="c2"
+      data-component="input"
+      onBlur={[Function]}
+      onFocus={[Function]}
+      type="text"
+    />
+    <span
+      className="TextInput-icon"
+    >
+      <div
+        className="c3"
+        display="flex"
+      >
+        <div
+          className="c4"
+        >
+          <svg
+            aria-hidden="true"
+            className="octicon octicon-search"
+            fill="currentColor"
+            focusable="false"
+            height={16}
+            role="img"
+            style={
+              {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
+                "verticalAlign": "text-bottom",
+              }
+            }
+            viewBox="0 0 16 16"
+            width={16}
+          >
+            <path
+              d="M10.68 11.74a6 6 0 0 1-7.922-8.982 6 6 0 0 1 8.982 7.922l3.04 3.04a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215ZM11.5 7a4.499 4.499 0 1 0-8.997 0A4.499 4.499 0 0 0 11.5 7Z"
+            />
+          </svg>
+        </div>
+        <div
+          className="c5"
+          role="status"
+        >
+          <svg
+            aria-hidden={true}
+            className="c6"
+            fill="none"
+            height="32px"
+            sx={
+              {
+                "height": "100%",
+                "maxWidth": "100%",
+                "position": "absolute",
+                "right": 0,
+                "top": 0,
+                "visibility": "visible",
+              }
+            }
+            viewBox="0 0 16 16"
+            width="32px"
+          >
+            <circle
+              cx="8"
+              cy="8"
+              r="7"
+              stroke="currentColor"
+              strokeOpacity="0.25"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+            <path
+              d="M15 8a7.002 7.002 0 00-7-7"
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+          </svg>
+          <div
+            className="c7"
+          >
+            Loading
+          </div>
+        </div>
+      </div>
+    </span>
+  </span>,
+  .c2 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  position: relative;
+}
+
+.c3 {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+}
+
+.c7 {
+  visibility: visible;
+}
+
+.c5:not(:focus):not(:active):not(:focus-within) {
+  -webkit-clip-path: inset(50%);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
+.c4 {
+  -webkit-animation: rotate-keyframes 1s linear infinite;
+  animation: rotate-keyframes 1s linear infinite;
+  visibility: visible;
+}
+
+.c8 {
+  -webkit-animation: rotate-keyframes 1s linear infinite;
+  animation: rotate-keyframes 1s linear infinite;
+  position: absolute;
+  top: 0;
+  height: 100%;
+  max-width: 100%;
+  visibility: hidden;
+  right: 0;
+}
+
+.c0 {
+  font-size: 14px;
+  line-height: 20px;
+  color: #1F2328;
+  vertical-align: middle;
+  background-color: #ffffff;
+  border: 1px solid var(--control-borderColor-rest,#d0d7de);
+  border-radius: 6px;
+  outline: none;
+  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: stretch;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  min-height: 32px;
+  overflow: hidden;
+}
+
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
+}
+
+.c0::-webkit-input-placeholder {
+  color: #6e7781;
+}
+
+.c0::-moz-placeholder {
+  color: #6e7781;
+}
+
+.c0:-ms-input-placeholder {
+  color: #6e7781;
+}
+
+.c0::placeholder {
+  color: #6e7781;
+}
+
+.c0:focus-within {
+  border-color: #0969da;
+  outline: 2px solid #0969da;
+  outline-offset: -1px;
+}
+
+.c0 > textarea {
+  padding: 12px;
+}
+
+.c1 {
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  padding-left: 12px;
+  padding-right: 12px;
+}
+
+.c1 > :not(:last-child) {
+  margin-right: 8px;
+}
+
+.c1 .TextInput-icon,
+.c1 .TextInput-action {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  color: #656d76;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+}
+
+.c1 > input,
+.c1 > select {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.c6 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c6:focus {
+  outline: 0;
+}
+
+@media (min-width:768px) {
+  .c0 {
+    font-size: 14px;
+  }
+}
+
+@media (min-width:768px) {
+
+}
+
+@media (min-width:768px) {
+
+}
+
+<span
+    aria-busy={true}
+    className="c0 c1 TextInput-wrapper"
+    onClick={[Function]}
+  >
+    <span
+      className="TextInput-icon"
+    >
+      <div
+        className="c2"
+        display="flex"
+      >
+        <div
+          className="c3"
+          role="status"
+        >
+          <svg
+            aria-hidden={true}
+            className="c4"
+            fill="none"
+            height="16px"
+            sx={
+              {
+                "visibility": "visible",
+              }
+            }
+            viewBox="0 0 16 16"
+            width="16px"
+          >
+            <circle
+              cx="8"
+              cy="8"
+              r="7"
+              stroke="currentColor"
+              strokeOpacity="0.25"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+            <path
+              d="M15 8a7.002 7.002 0 00-7-7"
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+          </svg>
+          <div
+            className="c5"
+          >
+            Loading
+          </div>
+        </div>
+      </div>
+    </span>
+    <input
+      className="c6"
+      data-component="input"
+      onBlur={[Function]}
+      onFocus={[Function]}
+      type="text"
+    />
+    <span
+      className="TextInput-icon"
+    >
+      <div
+        className="c2"
+        display="flex"
+      >
+        <div
+          className="c7"
+        >
+          <svg
+            aria-hidden="true"
+            className="octicon octicon-search"
+            fill="currentColor"
+            focusable="false"
+            height={16}
+            role="img"
+            style={
+              {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
+                "verticalAlign": "text-bottom",
+              }
+            }
+            viewBox="0 0 16 16"
+            width={16}
+          >
+            <path
+              d="M10.68 11.74a6 6 0 0 1-7.922-8.982 6 6 0 0 1 8.982 7.922l3.04 3.04a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215ZM11.5 7a4.499 4.499 0 1 0-8.997 0A4.499 4.499 0 0 0 11.5 7Z"
+            />
+          </svg>
+        </div>
+        <div
+          className="c3"
+          role="status"
+        >
+          <svg
+            aria-hidden={true}
+            className="c8"
+            fill="none"
+            height="32px"
+            sx={
+              {
+                "height": "100%",
+                "maxWidth": "100%",
+                "position": "absolute",
+                "right": 0,
+                "top": 0,
+                "visibility": "hidden",
+              }
+            }
+            viewBox="0 0 16 16"
+            width="32px"
+          >
+            <circle
+              cx="8"
+              cy="8"
+              r="7"
+              stroke="currentColor"
+              strokeOpacity="0.25"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+            <path
+              d="M15 8a7.002 7.002 0 00-7-7"
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+          </svg>
+          <div
+            className="c5"
+          >
+            Loading
+          </div>
+        </div>
+      </div>
+    </span>
+  </span>,
+  .c3 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  position: relative;
+}
+
+.c5 {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+}
+
+.c4 {
+  visibility: hidden;
+}
+
+.c7:not(:focus):not(:active):not(:focus-within) {
+  -webkit-clip-path: inset(50%);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
+.c6 {
+  -webkit-animation: rotate-keyframes 1s linear infinite;
+  animation: rotate-keyframes 1s linear infinite;
+  position: absolute;
+  top: 0;
+  height: 100%;
+  max-width: 100%;
+  visibility: visible;
+  right: 0;
+}
+
+.c0 {
+  font-size: 14px;
+  line-height: 20px;
+  color: #1F2328;
+  vertical-align: middle;
+  background-color: #ffffff;
+  border: 1px solid var(--control-borderColor-rest,#d0d7de);
+  border-radius: 6px;
+  outline: none;
+  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: stretch;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  min-height: 32px;
+  overflow: hidden;
+}
+
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
+}
+
+.c0::-webkit-input-placeholder {
+  color: #6e7781;
+}
+
+.c0::-moz-placeholder {
+  color: #6e7781;
+}
+
+.c0:-ms-input-placeholder {
+  color: #6e7781;
+}
+
+.c0::placeholder {
+  color: #6e7781;
+}
+
+.c0:focus-within {
+  border-color: #0969da;
+  outline: 2px solid #0969da;
+  outline-offset: -1px;
+}
+
+.c0 > textarea {
+  padding: 12px;
+}
+
+.c1 {
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  padding-left: 0;
+  padding-right: 12px;
+}
+
+.c1 > :not(:last-child) {
+  margin-right: 8px;
+}
+
+.c1 .TextInput-icon,
+.c1 .TextInput-action {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  color: #656d76;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+}
+
+.c1 > input,
+.c1 > select {
+  padding-left: 12px;
+  padding-right: 0;
+}
+
+.c2 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c2:focus {
+  outline: 0;
+}
+
+@media (min-width:768px) {
+  .c0 {
+    font-size: 14px;
+  }
+}
+
+@media (min-width:768px) {
+
+}
+
+@media (min-width:768px) {
+
+}
+
+<span
+    aria-busy={true}
+    className="c0 c1 TextInput-wrapper"
+    onClick={[Function]}
+  >
+    <input
+      className="c2"
+      data-component="input"
+      onBlur={[Function]}
+      onFocus={[Function]}
+      type="text"
+    />
+    <span
+      className="TextInput-icon"
+    >
+      <div
+        className="c3"
+        display="flex"
+      >
+        <div
+          className="c4"
+        >
+          <svg
+            aria-hidden="true"
+            className="octicon octicon-search"
+            fill="currentColor"
+            focusable="false"
+            height={16}
+            role="img"
+            style={
+              {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
+                "verticalAlign": "text-bottom",
+              }
+            }
+            viewBox="0 0 16 16"
+            width={16}
+          >
+            <path
+              d="M10.68 11.74a6 6 0 0 1-7.922-8.982 6 6 0 0 1 8.982 7.922l3.04 3.04a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215ZM11.5 7a4.499 4.499 0 1 0-8.997 0A4.499 4.499 0 0 0 11.5 7Z"
+            />
+          </svg>
+        </div>
+        <div
+          className="c5"
+          role="status"
+        >
+          <svg
+            aria-hidden={true}
+            className="c6"
+            fill="none"
+            height="32px"
+            sx={
+              {
+                "height": "100%",
+                "maxWidth": "100%",
+                "position": "absolute",
+                "right": 0,
+                "top": 0,
+                "visibility": "visible",
+              }
+            }
+            viewBox="0 0 16 16"
+            width="32px"
+          >
+            <circle
+              cx="8"
+              cy="8"
+              r="7"
+              stroke="currentColor"
+              strokeOpacity="0.25"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+            <path
+              d="M15 8a7.002 7.002 0 00-7-7"
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+          </svg>
+          <div
+            className="c7"
+          >
+            Loading
+          </div>
+        </div>
+      </div>
+    </span>
+  </span>,
+  .c2 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  position: relative;
+}
+
+.c4 {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+}
+
+.c3 {
+  visibility: hidden;
+}
+
+.c8 {
+  visibility: visible;
+}
+
+.c6:not(:focus):not(:active):not(:focus-within) {
+  -webkit-clip-path: inset(50%);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
+.c5 {
+  -webkit-animation: rotate-keyframes 1s linear infinite;
+  animation: rotate-keyframes 1s linear infinite;
+  position: absolute;
+  top: 0;
+  height: 100%;
+  max-width: 100%;
+  visibility: visible;
+  left: 0;
+}
+
+.c9 {
   -webkit-animation: rotate-keyframes 1s linear infinite;
   animation: rotate-keyframes 1s linear infinite;
   position: absolute;
@@ -6412,7 +6496,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   padding-right: 0;
 }
 
-.c6 {
+.c7 {
   border: 0;
   font-size: inherit;
   font-family: inherit;
@@ -6422,7 +6506,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   width: 100%;
 }
 
-.c6:focus {
+.c7:focus {
   outline: 0;
 }
 
@@ -6479,12 +6563,13 @@ exports[`TextInput renders with a loading indicator 1`] = `
             />
           </svg>
         </div>
-        <span
+        <div
+          className="c4"
           role="status"
         >
           <svg
             aria-hidden={true}
-            className="c4"
+            className="c5"
             fill="none"
             height="32px"
             sx={
@@ -6518,15 +6603,15 @@ exports[`TextInput renders with a loading indicator 1`] = `
             />
           </svg>
           <div
-            className="c5"
+            className="c6"
           >
             Loading
           </div>
-        </span>
+        </div>
       </div>
     </span>
     <input
-      className="c6"
+      className="c7"
       data-component="input"
       onBlur={[Function]}
       onFocus={[Function]}
@@ -6540,7 +6625,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
         display="flex"
       >
         <div
-          className="c7"
+          className="c8"
         >
           <svg
             aria-hidden="true"
@@ -6565,12 +6650,13 @@ exports[`TextInput renders with a loading indicator 1`] = `
             />
           </svg>
         </div>
-        <span
+        <div
+          className="c4"
           role="status"
         >
           <svg
             aria-hidden={true}
-            className="c8"
+            className="c9"
             fill="none"
             height="32px"
             sx={
@@ -6604,11 +6690,11 @@ exports[`TextInput renders with a loading indicator 1`] = `
             />
           </svg>
           <div
-            className="c5"
+            className="c6"
           >
             Loading
           </div>
-        </span>
+        </div>
       </div>
     </span>
   </span>,
@@ -6620,15 +6706,22 @@ exports[`TextInput renders with a loading indicator 1`] = `
   position: relative;
 }
 
+.c4 {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+}
+
 .c3 {
   visibility: hidden;
 }
 
-.c7 {
+.c8 {
   visibility: visible;
 }
 
-.c5:not(:focus):not(:active):not(:focus-within) {
+.c6:not(:focus):not(:active):not(:focus-within) {
   -webkit-clip-path: inset(50%);
   clip-path: inset(50%);
   height: 1px;
@@ -6638,7 +6731,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   width: 1px;
 }
 
-.c4 {
+.c5 {
   -webkit-animation: rotate-keyframes 1s linear infinite;
   animation: rotate-keyframes 1s linear infinite;
   position: absolute;
@@ -6649,7 +6742,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   left: 0;
 }
 
-.c8 {
+.c9 {
   -webkit-animation: rotate-keyframes 1s linear infinite;
   animation: rotate-keyframes 1s linear infinite;
   position: absolute;
@@ -6745,7 +6838,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   padding-right: 0;
 }
 
-.c6 {
+.c7 {
   border: 0;
   font-size: inherit;
   font-family: inherit;
@@ -6755,7 +6848,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   width: 100%;
 }
 
-.c6:focus {
+.c7:focus {
   outline: 0;
 }
 
@@ -6811,12 +6904,13 @@ exports[`TextInput renders with a loading indicator 1`] = `
             />
           </svg>
         </div>
-        <span
+        <div
+          className="c4"
           role="status"
         >
           <svg
             aria-hidden={true}
-            className="c4"
+            className="c5"
             fill="none"
             height="32px"
             sx={
@@ -6850,15 +6944,15 @@ exports[`TextInput renders with a loading indicator 1`] = `
             />
           </svg>
           <div
-            className="c5"
+            className="c6"
           >
             Loading
           </div>
-        </span>
+        </div>
       </div>
     </span>
     <input
-      className="c6"
+      className="c7"
       data-component="input"
       onBlur={[Function]}
       onFocus={[Function]}
@@ -6872,7 +6966,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
         display="flex"
       >
         <div
-          className="c7"
+          className="c8"
         >
           <svg
             aria-hidden="true"
@@ -6897,12 +6991,13 @@ exports[`TextInput renders with a loading indicator 1`] = `
             />
           </svg>
         </div>
-        <span
+        <div
+          className="c4"
           role="status"
         >
           <svg
             aria-hidden={true}
-            className="c8"
+            className="c9"
             fill="none"
             height="32px"
             sx={
@@ -6936,11 +7031,11 @@ exports[`TextInput renders with a loading indicator 1`] = `
             />
           </svg>
           <div
-            className="c5"
+            className="c6"
           >
             Loading
           </div>
-        </span>
+        </div>
       </div>
     </span>
   </span>,
@@ -6952,7 +7047,14 @@ exports[`TextInput renders with a loading indicator 1`] = `
   position: relative;
 }
 
-.c7 {
+.c4 {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+}
+
+.c8 {
   visibility: hidden;
 }
 
@@ -6960,7 +7062,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   visibility: visible;
 }
 
-.c5:not(:focus):not(:active):not(:focus-within) {
+.c6:not(:focus):not(:active):not(:focus-within) {
   -webkit-clip-path: inset(50%);
   clip-path: inset(50%);
   height: 1px;
@@ -6970,7 +7072,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   width: 1px;
 }
 
-.c4 {
+.c5 {
   -webkit-animation: rotate-keyframes 1s linear infinite;
   animation: rotate-keyframes 1s linear infinite;
   position: absolute;
@@ -6981,7 +7083,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   left: 0;
 }
 
-.c8 {
+.c9 {
   -webkit-animation: rotate-keyframes 1s linear infinite;
   animation: rotate-keyframes 1s linear infinite;
   position: absolute;
@@ -7083,7 +7185,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   padding-right: 0;
 }
 
-.c6 {
+.c7 {
   border: 0;
   font-size: inherit;
   font-family: inherit;
@@ -7093,7 +7195,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   width: 100%;
 }
 
-.c6:focus {
+.c7:focus {
   outline: 0;
 }
 
@@ -7150,12 +7252,13 @@ exports[`TextInput renders with a loading indicator 1`] = `
             />
           </svg>
         </div>
-        <span
+        <div
+          className="c4"
           role="status"
         >
           <svg
             aria-hidden={true}
-            className="c4"
+            className="c5"
             fill="none"
             height="32px"
             sx={
@@ -7189,15 +7292,15 @@ exports[`TextInput renders with a loading indicator 1`] = `
             />
           </svg>
           <div
-            className="c5"
+            className="c6"
           >
             Loading
           </div>
-        </span>
+        </div>
       </div>
     </span>
     <input
-      className="c6"
+      className="c7"
       data-component="input"
       onBlur={[Function]}
       onFocus={[Function]}
@@ -7211,7 +7314,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
         display="flex"
       >
         <div
-          className="c7"
+          className="c8"
         >
           <svg
             aria-hidden="true"
@@ -7236,12 +7339,13 @@ exports[`TextInput renders with a loading indicator 1`] = `
             />
           </svg>
         </div>
-        <span
+        <div
+          className="c4"
           role="status"
         >
           <svg
             aria-hidden={true}
-            className="c8"
+            className="c9"
             fill="none"
             height="32px"
             sx={
@@ -7275,11 +7379,11 @@ exports[`TextInput renders with a loading indicator 1`] = `
             />
           </svg>
           <div
-            className="c5"
+            className="c6"
           >
             Loading
           </div>
-        </span>
+        </div>
       </div>
     </span>
   </span>,

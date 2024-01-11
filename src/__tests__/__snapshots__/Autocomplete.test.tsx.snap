@@ -311,6 +311,13 @@ exports[`snapshots renders a loading state 1`] = `
   justify-content: center;
 }
 
+.c2 {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+}
+
 .c0 {
   position: absolute;
   width: 1px;
@@ -324,7 +331,7 @@ exports[`snapshots renders a loading state 1`] = `
   border-width: 0;
 }
 
-.c3:not(:focus):not(:active):not(:focus-within) {
+.c4:not(:focus):not(:active):not(:focus-within) {
   -webkit-clip-path: inset(50%);
   clip-path: inset(50%);
   height: 1px;
@@ -334,7 +341,7 @@ exports[`snapshots renders a loading state 1`] = `
   width: 1px;
 }
 
-.c2 {
+.c3 {
   -webkit-animation: rotate-keyframes 1s linear infinite;
   animation: rotate-keyframes 1s linear infinite;
 }
@@ -350,12 +357,13 @@ exports[`snapshots renders a loading state 1`] = `
       className="c1"
       display="flex"
     >
-      <span
+      <div
+        className="c2"
         role="status"
       >
         <svg
           aria-hidden={true}
-          className="c2"
+          className="c3"
           fill="none"
           height="32px"
           viewBox="0 0 16 16"
@@ -379,11 +387,11 @@ exports[`snapshots renders a loading state 1`] = `
           />
         </svg>
         <div
-          className="c3"
+          className="c4"
         >
           Loading
         </div>
-      </span>
+      </div>
     </div>
   </span>,
 ]

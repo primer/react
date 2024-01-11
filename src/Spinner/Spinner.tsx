@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import sx, {SxProp} from '../sx'
 import {VisuallyHidden} from '../internal/components/VisuallyHidden'
 import {HTMLDataAttributes} from '../internal/internal-types'
+import {Box} from '../'
 
 const sizeMap = {
   small: '16px',
@@ -25,7 +26,8 @@ function Spinner({size: sizeKey = 'medium', srText = 'Loading', 'aria-label': ar
   const hasSrAnnouncement = Boolean(srText || ariaLabel)
 
   return (
-    <span role={hasSrAnnouncement ? 'status' : undefined}>
+    /* inline-flex removes the extra line height */
+    <Box sx={{display: 'inline-flex'}} role={hasSrAnnouncement ? 'status' : undefined}>
       <svg height={size} width={size} viewBox="0 0 16 16" fill="none" aria-hidden {...props}>
         <circle
           cx="8"
@@ -45,7 +47,7 @@ function Spinner({size: sizeKey = 'medium', srText = 'Loading', 'aria-label': ar
         />
       </svg>
       {hasSrAnnouncement ? <VisuallyHidden>{srText || ariaLabel}</VisuallyHidden> : null}
-    </span>
+    </Box>
   )
 }
 
