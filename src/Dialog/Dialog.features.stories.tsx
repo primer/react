@@ -1,7 +1,7 @@
 import React, {useState, useRef, useCallback} from 'react'
 import {Meta} from '@storybook/react'
 
-import {BaseStyles, ThemeProvider, Box, TextInput} from '..'
+import {BaseStyles, ThemeProvider, Box, TextInput, Truncate} from '..'
 import {Button} from '../Button'
 import Text from '../Text'
 import {Dialog, DialogProps} from './Dialog'
@@ -119,7 +119,7 @@ export const WithCustomRenderers = () => {
 }
 
 export const StressTest = () => {
-  const [isOpen, setIsOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(true)
   const [secondOpen, setSecondOpen] = useState(false)
   const buttonRef = useRef<HTMLButtonElement>(null)
   const onDialogClose = useCallback(() => setIsOpen(false), [])
@@ -128,7 +128,7 @@ export const StressTest = () => {
   const manyButtons = new Array(10).fill(undefined).map((_, i) => ({content: `Button ${i}`}))
   return (
     <>
-      <Button ref={buttonRef} onClick={() => setIsOpen(!isOpen)}>
+      <Button ref={buttonRef} onClick={() => setIsOpen(false)}>
         Show dialog
       </Button>
       {isOpen && (
@@ -155,84 +155,133 @@ export const StressTest = () => {
 }
 
 export const NonDeclaritive = () => {
+  const [isOpen, setIsOpen] = useState(true)
+
   return (
-    <Dialog width="small" title="This dialog has no buttons (non declaritive)." onClose={() => {}}>
-      <Text sx={{fontSize: 1}}>
-        It&apos;s a common scenario, to show a dialog that&apos;s just informational and therefore doesn&apos;t have
-        footers in the button
-      </Text>
-    </Dialog>
+    <>
+      <Button onClick={() => setIsOpen(true)}>Trigger dialog</Button>
+      {isOpen && (
+        <Dialog width="small" title="This dialog has no buttons (non declaritive)." onClose={() => setIsOpen(false)}>
+          <Text sx={{fontSize: 1}}>
+            It&apos;s a common scenario, to show a dialog that&apos;s just informational and therefore doesn&apos;t have
+            footers in the button
+          </Text>
+        </Dialog>
+      )}
+    </>
   )
 }
 
 export const SizeSmallDialog = () => {
+  const [isOpen, setIsOpen] = useState(true)
+
   return (
-    <Dialog width="small" height="small" title="This is a small dialog." onClose={() => {}}>
-      {lipsum}
-    </Dialog>
+    <>
+      <Button onClick={() => setIsOpen(true)}>Show dialog</Button>
+      {isOpen && (
+        <Dialog width="small" height="small" title="This is a small dialog." onClose={() => setIsOpen(false)}>
+          {lipsum}
+        </Dialog>
+      )}
+    </>
   )
 }
 
 export const SizeXLargeDialog = () => {
+  const [isOpen, setIsOpen] = useState(true)
+
   return (
-    <Dialog width="xlarge" height="auto" title="This is a xlarge dialog." onClose={() => {}}>
-      {lipsum}
-    </Dialog>
+    <>
+      <Button onClick={() => setIsOpen(true)}>Show dialog</Button>
+      {isOpen && (
+        <Dialog width="xlarge" height="auto" title="This is a xlarge dialog." onClose={() => setIsOpen(false)}>
+          {lipsum}
+        </Dialog>
+      )}
+    </>
   )
 }
 
 export const SizeLargeDialog = () => {
+  const [isOpen, setIsOpen] = useState(true)
+
   return (
-    <Dialog width="large" height="auto" title="This is a large dialog." onClose={() => {}}>
-      {lipsum}
-    </Dialog>
+    <>
+      <Button onClick={() => setIsOpen(true)}>Show dialog</Button>
+      {isOpen && (
+        <Dialog width="large" height="auto" title="This is a large dialog." onClose={() => setIsOpen(false)}>
+          {lipsum}
+        </Dialog>
+      )}
+    </>
   )
 }
 
 export const Responsive = () => {
+  const [isOpen, setIsOpen] = useState(true)
+
   return (
-    <Dialog
-      title="Your title"
-      onClose={() => {}}
-      type={{narrow: 'full-screen', regular: 'default', wide: 'default'}}
-      footerButtons={[
-        {buttonType: 'normal', content: 'Cancel', onClick: () => {}},
-        {buttonType: 'primary', content: 'Submit', autoFocus: true},
-      ]}
-    >
-      {lipsum}
-    </Dialog>
+    <>
+      <Button onClick={() => setIsOpen(true)}>Show dialog</Button>
+      {isOpen && (
+        <Dialog
+          title="Your title"
+          onClose={() => {}}
+          type={{narrow: 'full-screen', regular: 'default', wide: 'default'}}
+          footerButtons={[
+            {buttonType: 'normal', content: 'Cancel', onClick: () => {}},
+            {buttonType: 'primary', content: 'Submit', autoFocus: true},
+          ]}
+        >
+          {lipsum}
+        </Dialog>
+      )}
+    </>
   )
 }
 
 export const FullScreen = () => {
+  const [isOpen, setIsOpen] = useState(true)
+
   return (
-    <Dialog
-      title="Your title"
-      onClose={() => {}}
-      type="full-screen"
-      footerButtons={[
-        {buttonType: 'normal', content: 'Cancel', onClick: () => {}},
-        {buttonType: 'primary', content: 'Submit', autoFocus: true},
-      ]}
-    >
-      {lipsum}
-    </Dialog>
+    <>
+      <Button onClick={() => setIsOpen(true)}>Show dialog</Button>
+      {isOpen && (
+        <Dialog
+          title="Your title"
+          onClose={() => setIsOpen(false)}
+          type="full-screen"
+          footerButtons={[
+            {buttonType: 'normal', content: 'Cancel', onClick: () => {}},
+            {buttonType: 'primary', content: 'Submit', autoFocus: true},
+          ]}
+        >
+          {lipsum}
+        </Dialog>
+      )}
+    </>
   )
 }
 
 export const BottomSheet = () => {
+  const [isOpen, setIsOpen] = useState(true)
+
   return (
-    <Dialog title="Your title" type="bottom-sheet" onClose={() => {}}>
-      {lipsum}
-    </Dialog>
+    <>
+      <Button onClick={() => setIsOpen(true)}>Show dialog</Button>
+      {isOpen && (
+        <Dialog title="Your title" type="bottom-sheet" onClose={() => setIsOpen(false)}>
+          {lipsum}
+        </Dialog>
+      )}
+    </>
   )
 }
 
 // repro for https://github.com/github/primer/issues/2480
 export const ReproMultistepDialogWithConditionalFooter = () => {
-  const [isOpen, setIsOpen] = useState(false)
   const onDialogClose = useCallback(() => setIsOpen(false), [])
+  const [isOpen, setIsOpen] = useState(true)
   const [step, setStep] = React.useState(1)
 
   const renderFooterConditionally = () => {
@@ -247,7 +296,7 @@ export const ReproMultistepDialogWithConditionalFooter = () => {
 
   return (
     <>
-      <Button onClick={() => setIsOpen(!isOpen)}>Show dialog</Button>
+      <Button onClick={() => setIsOpen(true)}>Show dialog</Button>
       {isOpen && (
         <Dialog
           title={`Step ${step}`}
