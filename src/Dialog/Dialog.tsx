@@ -108,7 +108,7 @@ export interface DialogProps extends SxProp {
    * used to close the dialog.
    */
 
-  onClose: (gesture: 'close-button' | 'escape' | 'drag' | 'overlay') => void
+  onClose: (gesture: 'close-button' | 'escape') => void
 
   /**
    * Default: "dialog". The ARIA role to assign to this dialog.
@@ -315,7 +315,7 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
         <DialogBottomSheet
           ref={dialogRef}
           role={role}
-          onClose={onClose}
+          onClose={() => onClose('close-button')}
           ariaLabelledby={dialogLabelId}
           ariaDescribedby={dialogDescriptionId}
           ariaModal

@@ -16,7 +16,7 @@ export interface DialogBottomSheetProps extends SxProp {
   /**
    * This method is invoked when a gesture to close the dialog is used
    */
-  onClose: (gesture: 'close-button' | 'escape' | 'drag' | 'overlay') => void
+  onClose: () => void
 
   /**
    * Content that appears in the draggable header area.
@@ -53,9 +53,7 @@ export default React.forwardRef<HTMLDivElement, PropsWithChildren<DialogBottomSh
 
   const [open, setIsOpen] = useState<boolean>(false)
   const [snappedHeight, setSnappedHeight] = useState<number>(HALF_HEIGHT)
-  const [fireDelayedOnClose, setFireDelayedOnClose] = useState<
-    'close-button' | 'escape' | 'drag' | 'overlay' | undefined
-  >()
+  const [fireDelayedOnClose, setFireDelayedOnClose] = useState<boolean>(false)
 
   // 📎 REFERENCES
 
@@ -77,12 +75,12 @@ export default React.forwardRef<HTMLDivElement, PropsWithChildren<DialogBottomSh
     updateSheetHeight(HALF_HEIGHT)
   }
 
-  const hideBottomSheet = async (gesture: 'close-button' | 'escape' | 'drag' | 'overlay') => {
+  const hideBottomSheet = async () => {
     setIsOpen(false)
     if (isReduced) {
-      onClose(gesture)
+      onClose()
     } else {
-      setFireDelayedOnClose(gesture)
+      setFireDelayedOnClose(true)
     }
   }
 
@@ -104,7 +102,7 @@ export default React.forwardRef<HTMLDivElement, PropsWithChildren<DialogBottomSh
 
     dialogRef.current.style.transition = isReduced ? 'none' : '0.3s ease'
 
-    if (sheetHeight < 10) return hideBottomSheet('drag')
+    if (sheetHeight < 10) return hideBottomSheet()
     if (sheetHeight > 75) return updateSheetHeight(FULL_HEIGHT)
 
     updateSheetHeight(HALF_HEIGHT)
@@ -161,7 +159,7 @@ export default React.forwardRef<HTMLDivElement, PropsWithChildren<DialogBottomSh
     if (!fireDelayedOnClose) return
     setIsOpen(false)
     const timer = setTimeout(() => {
-      onClose(fireDelayedOnClose)
+      onClose()
     }, ANIMATION_DURATION)
     return () => clearTimeout(timer)
   }, [fireDelayedOnClose, onClose])
@@ -182,7 +180,7 @@ export default React.forwardRef<HTMLDivElement, PropsWithChildren<DialogBottomSh
       onTouchEnd={dragStop}
       onTouchMove={dragging}
     >
-      <Overlay onClick={() => hideBottomSheet('overlay')}></Overlay>
+      <Overlay onClick={() => hideBottomSheet()}></Overlay>
       <Content
         ref={dialogRef}
         role={role}
