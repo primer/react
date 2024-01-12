@@ -182,17 +182,19 @@ the container.
 <details>
 <summary>When the changes to the public types for `props` do not overlap due to the change in element</summary>
 
-```tsx
-/* Before */
+**Before**
 
+```tsx
 type Props = React.ComponentPropsWithoutRef<'input'>
 
 function Component(props: Props) {
   return <input {...props} />
 }
+```
 
-/* After */
+**After**
 
+```tsx
 // This type does not fully overlap with the previous type and is a breaking
 // change
 type Props = React.ComponentPropsWithoutRef<'div'>
@@ -211,26 +213,28 @@ function Component(props: Props) {
 <details>
 <summary>When the values provided as `props` may contribute to layout</summary>
 
-```tsx
-/* Before */
+**Before**
 
+```tsx
 type Props = {
   /* ... */
 }
 
-function Component(props) {
+function Component(props: Props) {
   return <svg {...props} />
 }
+```
 
-/* After */
+**After**
 
+```tsx
 type Props = {
   /* ... */
 }
 
 // When adding the new container element, values that may have influenced layout
 // will no longer apply as the `<svg>` element is within the container element.
-function Component(props) {
+function Component(props: Props) {
   return (
     <div>
       <svg {...props} />
