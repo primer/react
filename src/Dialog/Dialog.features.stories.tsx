@@ -179,7 +179,7 @@ export const NonDeclaritive = () => {
   )
 }
 
-export const SizeSmallDialog = () => {
+export const SizeSmall = () => {
   const [isOpen, setIsOpen] = useState(true)
 
   return (
@@ -194,7 +194,7 @@ export const SizeSmallDialog = () => {
   )
 }
 
-export const SizeXLargeDialog = () => {
+export const SizeXLarge = () => {
   const [isOpen, setIsOpen] = useState(true)
 
   return (
@@ -209,7 +209,7 @@ export const SizeXLargeDialog = () => {
   )
 }
 
-export const SizeLargeDialog = () => {
+export const SizeLarge = () => {
   const [isOpen, setIsOpen] = useState(true)
 
   return (
