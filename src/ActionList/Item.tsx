@@ -98,14 +98,23 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       : listSelectionVariant
 
     /** Infer item role based on the container */
-    let itemRole: ActionListItemProps['role']
+    let inferredItemRole: ActionListItemProps['role']
     if (container === 'ActionMenu') {
-      if (selectionVariant === 'single') itemRole = 'menuitemradio'
-      else if (selectionVariant === 'multiple') itemRole = 'menuitemcheckbox'
-      else itemRole = 'menuitem'
+      if (selectionVariant === 'single') inferredItemRole = 'menuitemradio'
+      else if (selectionVariant === 'multiple') inferredItemRole = 'menuitemcheckbox'
+      else inferredItemRole = 'menuitem'
     } else if (container === 'SelectPanel' && listRole === 'listbox') {
-      if (selectionVariant !== undefined) itemRole = 'option'
+      if (selectionVariant !== undefined) inferredItemRole = 'option'
     }
+
+    const itemRole = role || inferredItemRole
+
+    /** Infer the proper selection attribute based on the item's role */
+    let inferredSelectionAttribute: 'aria-selected' | 'aria-checked' | undefined
+    if (itemRole === 'menuitemradio' || itemRole === 'menuitemcheckbox') inferredSelectionAttribute = 'aria-checked'
+    else if (itemRole === 'option') inferredSelectionAttribute = 'aria-selected'
+
+    const itemSelectionAttribute = selectionAttribute || inferredSelectionAttribute
 
     const {theme} = useTheme()
 
@@ -234,6 +243,10 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
 
     const ItemWrapper = _PrivateItemWrapper || React.Fragment
 
+    // only apply aria-selected and aria-checked to selectable items
+    const selectableRoles = ['menuitemradio', 'menuitemcheckbox', 'option']
+    const includeSelectionAttribute = itemSelectionAttribute && itemRole && selectableRoles.includes(itemRole)
+
     const menuItemProps = {
       onClick: clickHandler,
       onKeyPress: keyPressHandler,
@@ -244,12 +257,12 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       'aria-describedby': slots.blockDescription
         ? [blockDescriptionId, inactiveWarningId].join(' ')
         : inactiveWarningId,
-      ...(selectionAttribute && {[selectionAttribute]: selected}),
-      role: role || itemRole,
+      ...(includeSelectionAttribute && {[itemSelectionAttribute]: selected}),
+      role: itemRole,
       id: itemId,
     }
 
-    const containerProps = _PrivateItemWrapper ? {role: role || itemRole ? 'none' : undefined} : menuItemProps
+    const containerProps = _PrivateItemWrapper ? {role: itemRole ? 'none' : undefined} : menuItemProps
 
     const wrapperProps = _PrivateItemWrapper ? menuItemProps : {}
 

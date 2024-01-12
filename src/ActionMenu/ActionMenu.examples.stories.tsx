@@ -31,12 +31,13 @@ export const GroupsAndDescriptions = () => {
     {name: 'FY23 - Q2', due: 'December 30, 2022', progress: 0},
   ]
 
-  const [selectedMilestone, setSelectedMilestone] = React.useState<(typeof milestones)[0] | undefined>()
+  const [selectedMilestone, setSelectedMilestone] = React.useState<(typeof milestones)[0] | undefined>(milestones[2])
 
   return (
     <ActionMenu open>
-      <ActionMenu.Button variant="default" trailingVisual={GearIcon}>
-        Milestone
+      <ActionMenu.Button variant="default">
+        <Box sx={{display: 'inline-block', color: 'fg.muted'}}>Milestone:</Box>{' '}
+        {selectedMilestone?.name || 'Make a selection'}
       </ActionMenu.Button>
       <ActionMenu.Overlay width="medium">
         <ActionList selectionVariant="single" showDividers>
@@ -241,7 +242,7 @@ export const MixedSelection = () => {
 export const MultipleSections = () => {
   const items = [{name: 'Show code folding buttons'}, {name: 'Wrap lines'}, {name: 'Center content'}]
 
-  const [selectedMilestone, setSelectedMilestone] = React.useState<(typeof items)[0] | undefined>()
+  const [selectedMilestone, setSelectedMilestone] = React.useState<(typeof items)[0] | undefined>(items[0])
 
   return (
     <ActionMenu open>
@@ -250,7 +251,7 @@ export const MultipleSections = () => {
       </ActionMenu.Anchor>
       <ActionMenu.Overlay width="small">
         <ActionList>
-          <ActionList.Group title="Raw file content">
+          <ActionList.Group title="Raw file content" selectionVariant="multiple">
             <ActionList.Item onSelect={() => alert('Workflows clicked')}>Download</ActionList.Item>
             <ActionList.Divider />
             <ActionList.Item onSelect={() => alert('Workflows clicked')}>Jump to line</ActionList.Item>
@@ -272,9 +273,11 @@ export const MultipleSections = () => {
             ))}
           </ActionList.Group>
           <ActionList.Divider />
-          <ActionList.Item onSelect={() => alert('Delete file')} variant="danger">
-            Delete file
-          </ActionList.Item>
+          <ActionList.Group title="View options" selectionVariant="multiple">
+            <ActionList.Item onSelect={() => alert('Delete file')} variant="danger">
+              Delete file
+            </ActionList.Item>
+          </ActionList.Group>
         </ActionList>
       </ActionMenu.Overlay>
     </ActionMenu>

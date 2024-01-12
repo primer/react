@@ -15,8 +15,8 @@ import {
   Text,
   ActionListProps,
   Octicon,
-} from '../../../src/index'
-import {ActionListContainerContext} from '../../../src/ActionList/ActionListContainerContext'
+} from '../../index'
+import {ActionListContainerContext} from '../../ActionList/ActionListContainerContext'
 import {useSlots} from '../../hooks/useSlots'
 import {useProvidedRefOrCreate, useId, useAnchoredPosition} from '../../hooks'
 import {useFocusZone} from '../../hooks/useFocusZone'
@@ -58,7 +58,7 @@ export type SelectPanelProps = {
 
   // TODO: move these to SelectPanel.Overlay or overlayProps
   width?: OverlayProps['width']
-  height?: OverlayProps['height']
+  height?: OverlayProps['height'] | 'fit-content'
 
   children: React.ReactNode
 }
@@ -190,7 +190,7 @@ const Panel: React.FC<SelectPanelProps> = ({
   return (
     <>
       {Anchor}
-
+      {/* @ts-ignore TODO: StyledOverlay does not like height:fit-content */}
       <StyledOverlay
         as="dialog"
         ref={dialogRef}
