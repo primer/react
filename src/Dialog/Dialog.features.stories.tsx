@@ -70,6 +70,8 @@ const lipsum = (
 )
 
 export const WithCustomRenderers = () => {
+  const [isOpen, setIsOpen] = useState(true)
+
   const CustomHeader = ({
     title,
     subtitle,
@@ -101,20 +103,25 @@ export const WithCustomRenderers = () => {
   )
 
   return (
-    <Dialog
-      title="My Dialog"
-      subtitle="This is a subtitle!"
-      renderHeader={CustomHeader}
-      renderBody={CustomBody}
-      renderFooter={CustomFooter}
-      onClose={() => {}}
-      footerButtons={[
-        {buttonType: 'danger', content: 'Delete the universe'},
-        {buttonType: 'primary', content: 'Proceed'},
-      ]}
-    >
-      {lipsum}
-    </Dialog>
+    <>
+      <Button onClick={() => setIsOpen(true)}>Show dialog</Button>
+      {isOpen && (
+        <Dialog
+          title="My Dialog"
+          subtitle="This is a subtitle!"
+          renderHeader={CustomHeader}
+          renderBody={CustomBody}
+          renderFooter={CustomFooter}
+          onClose={() => setIsOpen(false)}
+          footerButtons={[
+            {buttonType: 'danger', content: 'Delete the universe'},
+            {buttonType: 'primary', content: 'Proceed'},
+          ]}
+        >
+          {lipsum}
+        </Dialog>
+      )}
+    </>
   )
 }
 
@@ -128,7 +135,7 @@ export const StressTest = () => {
   const manyButtons = new Array(10).fill(undefined).map((_, i) => ({content: `Button ${i}`}))
   return (
     <>
-      <Button ref={buttonRef} onClick={() => setIsOpen(false)}>
+      <Button ref={buttonRef} onClick={() => setIsOpen(true)}>
         Show dialog
       </Button>
       {isOpen && (

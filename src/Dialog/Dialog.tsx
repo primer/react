@@ -209,7 +209,7 @@ const DefaultHeader: React.FC<React.PropsWithChildren<DialogHeaderProps>> = ({
           sx={{
             zIndex: 2,
             right: 0,
-            mr: get('space.2'),
+            pr: get('space.2'),
             position: 'absolute',
             pointerEvents: 'auto', // Allows clicks to pass through the header in bottom sheets
           }}

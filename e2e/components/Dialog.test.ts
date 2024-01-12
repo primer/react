@@ -42,7 +42,6 @@ test.describe('Dialog', () => {
               colorScheme: theme,
             },
           })
-
           expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(`Dialog.Stress Test.${theme}.png`)
         })
 
