@@ -444,8 +444,6 @@ export const OpenFromMenu = () => {
           setMenuOpen(false)
         }}
         onCancel={() => {
-          console.log('bug: onCancel is called on submit!')
-          console.log('bug: onCancel is called twice on cancel!')
           setSelectedCustomEvents(initialCustomEvents)
           setSelectPanelOpen(false)
           setMenuOpen(true)
