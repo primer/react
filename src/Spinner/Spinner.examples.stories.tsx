@@ -28,6 +28,10 @@ export const FullLifecycle = () => {
   }
 
   const initiateLoading = async () => {
+    if (state === 'done') {
+      return
+    }
+
     setIsLoading(true)
     await wait(1000)
     setLoadedContent('Some content that had to be loaded.')
@@ -36,7 +40,9 @@ export const FullLifecycle = () => {
 
   return (
     <>
-      {state === 'initial' && <Button onClick={initiateLoading}>Load content</Button>}
+      <Button onClick={initiateLoading} sx={{mb: '1em'}}>
+        Load content
+      </Button>
       {state === 'loading' && <Spinner />}
       <p>{loadedContent}</p>
       <VisuallyHidden role="status">{state === 'done' && 'Content finished loading'}</VisuallyHidden>
@@ -57,6 +63,10 @@ export const FullLifecycleVisibleLoadingText = () => {
   }
 
   const initiateLoading = async () => {
+    if (state === 'done') {
+      return
+    }
+
     setIsLoading(true)
     await wait(1000)
     setLoadedContent('Some content that had to be loaded.')
@@ -64,16 +74,18 @@ export const FullLifecycleVisibleLoadingText = () => {
   }
 
   return (
-    <>
-      {state === 'initial' && <Button onClick={initiateLoading}>Load content</Button>}
-      {state === 'loading' && (
+    <Box sx={{display: 'flex', alignItems: 'flex-start', flexDirection: 'column', gap: '0.5em'}}>
+      <Button onClick={initiateLoading} sx={{mb: '1em'}}>
+        Load content
+      </Button>
+      {state !== 'done' && (
         <Box sx={{alignItems: 'center', display: 'flex', gap: '0.25rem'}}>
-          <Spinner size="small" srText={null} />
-          <span role="status">Content is loading...</span>
+          {state === 'loading' && <Spinner size="small" srText={null} />}
+          <span role="status">{state === 'loading' ? 'Content is loading...' : ''}</span>
         </Box>
       )}
       <p>{loadedContent}</p>
       <VisuallyHidden role="status">{state === 'done' && 'Content finished loading'}</VisuallyHidden>
-    </>
+    </Box>
   )
 }
