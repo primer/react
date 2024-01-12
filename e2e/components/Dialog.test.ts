@@ -43,7 +43,6 @@ test.describe('Dialog', () => {
             },
           })
 
-          await page.getByRole('button', {name: 'Show dialog'}).click()
           expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(`Dialog.Stress Test.${theme}.png`)
         })
 
@@ -71,7 +70,6 @@ test.describe('Dialog', () => {
             },
           })
 
-          await page.getByRole('button', {name: 'Show dialog'}).click()
           expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
             `Dialog.With Custom Renderers.${theme}.png`,
           )
