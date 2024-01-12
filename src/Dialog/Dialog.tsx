@@ -205,9 +205,7 @@ const DefaultHeader: React.FC<React.PropsWithChildren<DialogHeaderProps>> = ({
           <Dialog.Title id={dialogLabelId}>{title ?? 'Dialog'}</Dialog.Title>
           {subtitle && <Dialog.Subtitle id={dialogDescriptionId}>{subtitle}</Dialog.Subtitle>}
         </Box>
-        <Dialog.CloseButton
-          onClose={onCloseClick}
-          ref={closeButtonRef}
+        <Box
           sx={{
             zIndex: 2,
             right: 0,
@@ -215,7 +213,9 @@ const DefaultHeader: React.FC<React.PropsWithChildren<DialogHeaderProps>> = ({
             position: 'absolute',
             pointerEvents: 'auto', // Allows clicks to pass through the header in bottom sheets
           }}
-        />
+        >
+          <Dialog.CloseButton onClose={onCloseClick} ref={closeButtonRef} />
+        </Box>
       </Box>
     </Dialog.Header>
   )
@@ -535,9 +535,8 @@ export interface CloseButtonProps extends SxProp {
 }
 
 const CloseButton = React.forwardRef<HTMLButtonElement, CloseButtonProps>((props, ref) => {
-  const {onClose, ...rest} = props
   return (
-    <DialogCloseButton ref={ref} aria-label="Close" {...rest}>
+    <DialogCloseButton ref={ref} aria-label="Close" {...props}>
       <Octicon icon={XIcon} />
     </DialogCloseButton>
   )
