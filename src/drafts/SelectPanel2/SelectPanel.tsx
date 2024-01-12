@@ -121,7 +121,6 @@ const Panel: React.FC<SelectPanelProps> = ({
   }
 
   const onInternalSubmit = (event?: React.FormEvent<HTMLFormElement>) => {
-    // TODO: do we still need prevent with <dialog>?
     event?.preventDefault() // there is no event with selectionVariant=instant
     if (propsOpen === undefined) setInternalOpen(false)
     if (typeof propsOnSubmit === 'function') propsOnSubmit(event)
@@ -154,12 +153,9 @@ const Panel: React.FC<SelectPanelProps> = ({
   /* Dialog */
   const dialogRef = React.useRef<HTMLDialogElement>(null)
   if (internalOpen) dialogRef.current?.showModal()
-  // Continue here: TODO/BUG: we have an event listener for close,
-  // which calls onInternalCancel -> propsOnCancel even on submit
   else dialogRef.current?.close()
 
   // dialog handles Esc automatically, so we have to sync internal state
-  // TODO: Bug! if it is submit event, calling onInternalClose calls propsOnCancel!
   React.useEffect(() => {
     const dialog = dialogRef.current
     dialog?.addEventListener('close', onInternalClose)
