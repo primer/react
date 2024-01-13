@@ -18,6 +18,7 @@ import {
   Link,
   LinkProps,
   Checkbox,
+  CheckboxProps,
 } from '../../index'
 import {ActionListContainerContext} from '../../ActionList/ActionListContainerContext'
 import {useSlots} from '../../hooks/useSlots'
@@ -394,6 +395,7 @@ const SelectPanelSearchInput: React.FC<TextInputProps> = ({onChange: propsOnChan
   )
 }
 
+const FooterContext = React.createContext(false)
 const SelectPanelFooter = ({...props}) => {
   const {onCancel, selectionVariant} = React.useContext(SelectPanelContext)
 
@@ -406,38 +408,40 @@ const SelectPanelFooter = ({...props}) => {
   }
 
   return (
-    <Box
-      sx={{
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        padding: hidePrimaryActions ? 2 : 3,
-        minHeight: '44px',
-        borderTop: '1px solid',
-        borderColor: 'border.default',
-      }}
-    >
-      <Box sx={{flexGrow: hidePrimaryActions ? 1 : 0}}>{props.children}</Box>
+    <FooterContext.Provider value={true}>
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          padding: hidePrimaryActions ? 2 : 3,
+          minHeight: '44px',
+          borderTop: '1px solid',
+          borderColor: 'border.default',
+        }}
+      >
+        <Box sx={{flexGrow: hidePrimaryActions ? 1 : 0}}>{props.children}</Box>
 
-      {hidePrimaryActions ? null : (
-        <Box data-selectpanel-primary-actions sx={{display: 'flex', gap: 2}}>
-          <Button size="small" type="button" onClick={() => onCancel()}>
-            Cancel
-          </Button>
-          <Button size="small" type="submit" variant="primary">
-            Save
-          </Button>
-        </Box>
-      )}
-    </Box>
+        {hidePrimaryActions ? null : (
+          <Box data-selectpanel-primary-actions sx={{display: 'flex', gap: 2}}>
+            <Button size="small" type="button" onClick={() => onCancel()}>
+              Cancel
+            </Button>
+            <Button size="small" type="submit" variant="primary">
+              Save
+            </Button>
+          </Box>
+        )}
+      </Box>
+    </FooterContext.Provider>
   )
 }
 
-const SelectPanelSecondaryButton: React.FC<ButtonProps> = props => {
+const SecondaryButton: React.FC<ButtonProps> = props => {
   return <Button type="button" size="small" block {...props} />
 }
 
-const SelectPanelSecondaryLink: React.FC<LinkProps> = props => {
+const SecondaryLink: React.FC<LinkProps> = props => {
   return (
     // @ts-ignore TODO: is as prop is not recognised by button?
     <Button as={Link} size="small" variant="invisible" block {...props} sx={{fontSize: 0}}>
@@ -446,24 +450,43 @@ const SelectPanelSecondaryLink: React.FC<LinkProps> = props => {
   )
 }
 
-const SelectPanelSecondaryCheckbox: React.FC<{children: string; id?: string}> = props => {
-  const id = useId(props.id)
+const SecondaryCheckbox: React.FC<CheckboxProps> = ({id, children, ...props}) => {
+  const checkboxId = useId(id)
   const {selectionVariant} = React.useContext(SelectPanelContext)
 
   // Checkbox should not be used with instant selection
   invariant(
     selectionVariant !== 'instant',
-    'Sorry! Secondary action with checkbox is not allowed with selectionVariant="instant"',
+    'Sorry! SelectPanel.SecondaryAction with variant="checkbox" is not allowed inside selectionVariant="instant"',
   )
 
   return (
     <Box sx={{display: 'flex', alignItems: 'center', gap: 2}}>
-      <Checkbox id={id} sx={{marginTop: 0}} />
-      <InputLabel htmlFor={id} sx={{fontSize: 0}}>
-        {props.children}
+      <Checkbox id={checkboxId} sx={{marginTop: 0}} {...props} />
+      <InputLabel htmlFor={checkboxId} sx={{fontSize: 0}}>
+        {children}
       </InputLabel>
     </Box>
   )
+}
+
+type SelectPanelSecondaryActionProps = {children: React.ReactNode} & (
+  | ({variant: 'button'} & Partial<Omit<ButtonProps, 'variant'>>)
+  | ({variant: 'link'} & Partial<LinkProps>)
+  | ({variant: 'checkbox'; id?: string} & CheckboxProps)
+)
+
+const SelectPanelSecondaryAction: React.FC<SelectPanelSecondaryActionProps> = ({variant, ...props}) => {
+  const insideFooter = React.useContext(FooterContext)
+  invariant(insideFooter, 'SelectPanel.SecondaryAction is only allowed inside SelectPanel.Footer')
+
+  // @ts-ignore TODO
+  if (variant === 'button') return <SecondaryButton {...props} />
+  // @ts-ignore TODO
+  else if (variant === 'link') return <SecondaryLink {...props} />
+  // @ts-ignore TODO
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+  else if (variant === 'checkbox') return <SecondaryCheckbox {...props} />
 }
 
 const SelectPanelLoading: React.FC<{children: string}> = ({children = 'Fetching items...'}) => {
@@ -570,7 +593,5 @@ export const SelectPanel = Object.assign(Panel, {
   Footer: SelectPanelFooter,
   Loading: SelectPanelLoading,
   Message: SelectPanelMessage,
-  SecondaryButton: SelectPanelSecondaryButton,
-  SecondaryLink: SelectPanelSecondaryLink,
-  SecondaryCheckbox: SelectPanelSecondaryCheckbox,
+  SecondaryAction: SelectPanelSecondaryAction,
 })

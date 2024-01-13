@@ -38,7 +38,7 @@ export const InstantSelectionVariant = () => {
           ))}
         </ActionList>
         <SelectPanel.Footer>
-          <SelectPanel.SecondaryButton>Edit tags</SelectPanel.SecondaryButton>
+          <SelectPanel.SecondaryAction variant="button">Edit tags</SelectPanel.SecondaryAction>
         </SelectPanel.Footer>
       </SelectPanel>
     </>

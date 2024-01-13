@@ -205,7 +205,9 @@ export const AsyncWithSuspendedList = () => {
         <React.Suspense fallback={<SelectPanel.Loading>Fetching labels...</SelectPanel.Loading>}>
           <SuspendedActionList query={query} />
           <SelectPanel.Footer>
-            <SelectPanel.SecondaryButton>Edit labels</SelectPanel.SecondaryButton>
+            <SelectPanel.SecondaryAction variant="link" href="/settings">
+              Edit labels
+            </SelectPanel.SecondaryAction>
           </SelectPanel.Footer>
         </React.Suspense>
       </SelectPanel>
@@ -589,7 +591,9 @@ export const WithFilterButtons = () => {
         )}
 
         <SelectPanel.Footer>
-          <SelectPanel.SecondaryLink href={`/${selectedFilter}`}>View all {selectedFilter}</SelectPanel.SecondaryLink>
+          <SelectPanel.SecondaryAction variant="link" href={`/${selectedFilter}`}>
+            View all {selectedFilter}
+          </SelectPanel.SecondaryAction>
         </SelectPanel.Footer>
       </SelectPanel>
     </>
