@@ -368,6 +368,7 @@ const SelectPanelSearchInput: React.FC<TextInputProps> = ({onChange: propsOnChan
           aria-label="Clear"
           tooltipDirection="w"
           sx={{color: 'fg.subtle', bg: 'none'}}
+          data-clear-action
           onClick={() => {
             if (inputRef.current) inputRef.current.value = ''
             if (typeof propsOnChange === 'function') {
@@ -377,12 +378,10 @@ const SelectPanelSearchInput: React.FC<TextInputProps> = ({onChange: propsOnChan
           }}
         />
       }
-      sx={
-        {
-          /* TODO: uncommenting this breaks keyboard navigation, that's odd */
-          // '& input:empty + .TextInput-action': {display: 'none'},
-        }
-      }
+      sx={{
+        // TODO: absorb this into TextInput
+        '&:has(input:placeholder-shown) [data-clear-action]': {display: 'none'},
+      }}
       onChange={internalOnChange}
       {...props}
     />
