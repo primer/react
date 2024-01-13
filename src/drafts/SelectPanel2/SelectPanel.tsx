@@ -15,12 +15,17 @@ import {
   Text,
   ActionListProps,
   Octicon,
+  Link,
+  LinkProps,
+  Checkbox,
 } from '../../index'
 import {ActionListContainerContext} from '../../ActionList/ActionListContainerContext'
 import {useSlots} from '../../hooks/useSlots'
 import {useProvidedRefOrCreate, useId, useAnchoredPosition} from '../../hooks'
 import {useFocusZone} from '../../hooks/useFocusZone'
 import {StyledOverlay, OverlayProps} from '../../Overlay/Overlay'
+import InputLabel from '../../internal/components/InputLabel'
+import {invariant} from '../../utils/invariant'
 
 const SelectPanelContext = React.createContext<{
   title: string
@@ -405,7 +410,9 @@ const SelectPanelFooter = ({...props}) => {
       sx={{
         display: 'flex',
         justifyContent: 'space-between',
-        padding: 3,
+        alignItems: 'center',
+        padding: hidePrimaryActions ? 2 : 3,
+        minHeight: '44px',
         borderTop: '1px solid',
         borderColor: 'border.default',
       }}
@@ -426,13 +433,38 @@ const SelectPanelFooter = ({...props}) => {
   )
 }
 
-// TODO: is this the right way to add button props?
 const SelectPanelSecondaryButton: React.FC<ButtonProps> = props => {
   return <Button type="button" size="small" block {...props} />
 }
-// SelectPanel.SecondaryLink = props => {
-//   return <a {...props}>{props.children}</a>
-// }
+
+const SelectPanelSecondaryLink: React.FC<LinkProps> = props => {
+  return (
+    // @ts-ignore TODO: is as prop is not recognised by button?
+    <Button as={Link} size="small" variant="invisible" block {...props} sx={{fontSize: 0}}>
+      {props.children}
+    </Button>
+  )
+}
+
+const SelectPanelSecondaryCheckbox: React.FC<{children: string; id?: string}> = props => {
+  const id = useId(props.id)
+  const {selectionVariant} = React.useContext(SelectPanelContext)
+
+  // Checkbox should not be used with instant selection
+  invariant(
+    selectionVariant !== 'instant',
+    'Sorry! Secondary action with checkbox is not allowed with selectionVariant="instant"',
+  )
+
+  return (
+    <Box sx={{display: 'flex', alignItems: 'center', gap: 2}}>
+      <Checkbox id={id} sx={{marginTop: 0}} />
+      <InputLabel htmlFor={id} sx={{fontSize: 0}}>
+        {props.children}
+      </InputLabel>
+    </Box>
+  )
+}
 
 const SelectPanelLoading: React.FC<{children: string}> = ({children = 'Fetching items...'}) => {
   return (
@@ -536,7 +568,9 @@ export const SelectPanel = Object.assign(Panel, {
   Header: SelectPanelHeader,
   SearchInput: SelectPanelSearchInput,
   Footer: SelectPanelFooter,
-  SecondaryButton: SelectPanelSecondaryButton,
   Loading: SelectPanelLoading,
   Message: SelectPanelMessage,
+  SecondaryButton: SelectPanelSecondaryButton,
+  SecondaryLink: SelectPanelSecondaryLink,
+  SecondaryCheckbox: SelectPanelSecondaryCheckbox,
 })

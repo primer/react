@@ -574,7 +574,7 @@ export const WithFilterButtons = () => {
             Try a different search term
           </SelectPanel.Message>
         ) : (
-          <ActionList selectionVariant="single">
+          <ActionList>
             {itemsToShow.map(item => (
               <ActionList.Item
                 key={item.id}
@@ -589,10 +589,7 @@ export const WithFilterButtons = () => {
         )}
 
         <SelectPanel.Footer>
-          {/* @ts-ignore TODO as prop is not identified by button? */}
-          <SelectPanel.SecondaryButton as="a" href={`/${selectedFilter}`}>
-            View all {selectedFilter}
-          </SelectPanel.SecondaryButton>
+          <SelectPanel.SecondaryLink href={`/${selectedFilter}`}>View all {selectedFilter}</SelectPanel.SecondaryLink>
         </SelectPanel.Footer>
       </SelectPanel>
     </>
