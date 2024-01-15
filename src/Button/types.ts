@@ -15,9 +15,24 @@ export type Size = 'small' | 'medium' | 'large'
 export type AlignContent = 'start' | 'center'
 
 type ButtonA11yProps = (
-  | {'aria-label': string; label?: undefined; 'aria-labelledby'?: undefined}
-  | {'aria-label'?: undefined; label: string; 'aria-labelledby'?: undefined}
-  | {'aria-label'?: undefined; label?: undefined; 'aria-labelledby': string}
+  | {
+      // @deprecated use label prop instead
+      'aria-label': string
+      label?: undefined
+      'aria-labelledby'?: undefined
+    }
+  | {
+      // @deprecated use label prop instead
+      'aria-label'?: undefined
+      label: string
+      'aria-labelledby'?: undefined
+    }
+  | {
+      // @deprecated use label prop instead
+      'aria-label'?: undefined
+      label?: undefined
+      'aria-labelledby': string
+    }
 ) & {
   description?: string
 }

@@ -167,19 +167,16 @@ const positionToDirection: Record<string, TooltipDirection> = {
 }
 
 // The list is from GitHub's custom-axe-rules https://github.com/github/github/blob/master/app/assets/modules/github/axe-custom-rules.ts#L3
-const interactiveElements = [
-  'a[href]',
-  'button:not(:disabled)',
-  'summary',
-  'select',
-  'input:not([type=hidden])',
-  'textarea',
-]
+const interactiveElements = ['a[href]', 'button', 'summary', 'select', 'input:not([type=hidden])', 'textarea']
 
 const isInteractive = (element: HTMLElement) => {
   return (
-    interactiveElements.some(selector => element.matches(selector)) ||
-    (element.hasAttribute('role') && element.getAttribute('role') === 'button')
+    interactiveElements.some(selector => {
+      if (element.tagName === 'BUTTON') {
+        return !element.hasAttribute('disabled')
+      } else return element.matches(selector)
+    }) ||
+    (element.hasAttribute('role') && element.getAttribute('role') === 'button' && !element.hasAttribute('disabled'))
   )
 }
 export const TooltipContext = React.createContext<{tooltipId?: string}>({})

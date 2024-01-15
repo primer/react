@@ -3,7 +3,8 @@ import {Tooltip, TooltipProps} from '../Tooltip'
 import {checkStoriesForAxeViolations} from '../../../utils/testing'
 import {render as HTMLRender} from '@testing-library/react'
 import theme from '../../../theme'
-import {Button, ActionMenu, ActionList, ThemeProvider, SSRProvider, BaseStyles} from '../../../'
+import {Button, ActionMenu, ActionList, ThemeProvider, SSRProvider, BaseStyles, IconButton} from '../../../'
+import {HeartIcon} from '@primer/octicons-react'
 
 const TooltipComponent = (props: Omit<TooltipProps, 'text'> & {text?: string}) => (
   <Tooltip text="Tooltip text" {...props}>
@@ -90,5 +91,35 @@ describe('Tooltip', () => {
     const tooltip = getByText('Additional context about the menu button')
     expect(menuButton).toHaveAttribute('aria-describedby', tooltip.id)
     expect(menuButton).toHaveAttribute('aria-haspopup', 'true')
+  })
+  it('should throw an error when the tooltip is used on a disabled button', () => {
+    const consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation(() => {})
+    expect(() => {
+      HTMLRender(
+        <Tooltip text="Tooltip text">
+          <Button size="large" icon={HeartIcon} disabled>
+            Button
+          </Button>
+        </Tooltip>,
+      )
+    }).toThrow(
+      'The `Tooltip` component expects a single React element that contains interactive content. Consider using a `<button>` or equivalent interactive element instead.',
+    )
+    consoleErrorSpy.mockRestore()
+  })
+  it('renders tooltip as default on an icon button', () => {
+    const {getByRole, getByText} = HTMLRender(<IconButton size="large" icon={HeartIcon} label="Heart" />)
+    const triggerEL = getByRole('button')
+    const tooltipEl = getByText('Heart')
+    expect(triggerEL).toHaveAttribute('aria-labelledby', tooltipEl.id)
+  })
+  it('renders description type tooltip as default on an icon button', () => {
+    const {getByRole, getByText} = HTMLRender(
+      <IconButton size="large" icon={HeartIcon} label="Heart" description="Love is all around" />,
+    )
+    const triggerEL = getByRole('button')
+    expect(triggerEL).toHaveAttribute('aria-label', 'Heart')
+    const tooltipEl = getByText('Love is all around')
+    expect(triggerEL).toHaveAttribute('aria-describedby', tooltipEl.id)
   })
 })
