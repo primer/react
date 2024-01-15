@@ -10,6 +10,7 @@ import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/po
 type StyledLinkProps = {
   hoverColor?: string
   muted?: boolean
+  /** @deprecated use `inline` to specify the type of link instead */
   underline?: boolean
   // Link inside a text block
   inline?: boolean

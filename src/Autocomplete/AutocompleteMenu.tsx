@@ -58,7 +58,7 @@ export type AutocompleteMenuInternalProps<T extends AutocompleteItemProps> = {
   /**
    * The text that appears in the menu when there are no options in the array passed to the `items` prop.
    */
-  emptyStateText?: React.ReactNode | false
+  emptyStateText?: React.ReactNode | false | null
 
   /**
    * A custom function used to filter the options in the array passed to the `items` prop.
@@ -363,9 +363,9 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
                 )
               })}
             </ActionList>
-          ) : (
+          ) : emptyStateText !== false && emptyStateText !== null ? (
             <Box p={3}>{emptyStateText}</Box>
-          )}
+          ) : null}
         </div>
       )}
     </VisuallyHidden>

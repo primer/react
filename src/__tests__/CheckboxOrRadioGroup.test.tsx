@@ -1,5 +1,4 @@
 import React from 'react'
-import '@testing-library/jest-dom/extend-expect'
 import {render, within} from '@testing-library/react'
 import {Checkbox, FormControl, Radio, SSRProvider, TextInput} from '..'
 import {behavesAsComponent, checkExports} from '../utils/testing'

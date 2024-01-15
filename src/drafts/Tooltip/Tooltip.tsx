@@ -144,25 +144,25 @@ export type TriggerPropsType = {
 
 // map tooltip direction to anchoredPosition props
 const directionToPosition: Record<TooltipDirection, {side: AnchorSide; align: AnchorAlignment}> = {
-  nw: {side: 'outside-top', align: 'start'},
+  nw: {side: 'outside-top', align: 'end'},
   n: {side: 'outside-top', align: 'center'},
-  ne: {side: 'outside-top', align: 'end'},
+  ne: {side: 'outside-top', align: 'start'},
   e: {side: 'outside-right', align: 'center'},
-  se: {side: 'outside-bottom', align: 'end'},
+  se: {side: 'outside-bottom', align: 'start'},
   s: {side: 'outside-bottom', align: 'center'},
-  sw: {side: 'outside-bottom', align: 'start'},
+  sw: {side: 'outside-bottom', align: 'end'},
   w: {side: 'outside-left', align: 'center'},
 }
 
 // map anchoredPosition props to tooltip direction
 const positionToDirection: Record<string, TooltipDirection> = {
-  'outside-top-start': 'nw',
+  'outside-top-end': 'nw',
   'outside-top-center': 'n',
-  'outside-top-end': 'ne',
+  'outside-top-start': 'ne',
   'outside-right-center': 'e',
-  'outside-bottom-end': 'se',
+  'outside-bottom-start': 'se',
   'outside-bottom-center': 's',
-  'outside-bottom-start': 'sw',
+  'outside-bottom-end': 'sw',
   'outside-left-center': 'w',
 }
 
