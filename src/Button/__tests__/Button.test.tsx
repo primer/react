@@ -4,7 +4,9 @@ import {axe} from 'jest-axe'
 import React from 'react'
 import {IconButton, Button} from '../../Button'
 import {behavesAsComponent} from '../../utils/testing'
-
+import {ActionMenu, theme, ActionList, BaseStyles, ThemeProvider, SSRProvider} from '../..'
+import userEvent from '@testing-library/user-event'
+// import theme from '../../'
 describe('Button', () => {
   behavesAsComponent({Component: Button, options: {skipSx: true}})
 
@@ -112,5 +114,33 @@ describe('Button', () => {
 
     const position = screen.getByText('content').compareDocumentPosition(screen.getByTestId('trailingVisual'))
     expect(position).toBe(Node.DOCUMENT_POSITION_FOLLOWING)
+  })
+  it.only('should render the anchor icon button and correctly name the menu', async () => {
+    render(
+      <ThemeProvider theme={theme}>
+        <SSRProvider>
+          <BaseStyles>
+            <ActionMenu>
+              <ActionMenu.Anchor>
+                <IconButton icon={SearchIcon} label="More actions" />
+              </ActionMenu.Anchor>
+
+              <ActionMenu.Overlay width="medium">
+                <ActionList>
+                  <ActionList.Item onSelect={() => alert('Copy link clicked')}>
+                    Copy link
+                    <ActionList.TrailingVisual>⌘C</ActionList.TrailingVisual>
+                  </ActionList.Item>
+                </ActionList>
+              </ActionMenu.Overlay>
+            </ActionMenu>
+          </BaseStyles>
+        </SSRProvider>
+      </ThemeProvider>,
+    )
+
+    const toggleButton = screen.getByRole('button', {name: 'More actions'})
+    await userEvent.click(toggleButton)
+    expect(screen.getByRole('menu', {name: 'More actions'})).toBeInTheDocument()
   })
 })
