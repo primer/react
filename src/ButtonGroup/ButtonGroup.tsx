@@ -8,26 +8,24 @@ const ButtonGroup = styled.div`
   vertical-align: middle;
   isolation: isolate;
 
-  && > * {
-    & > button {
-      margin-inline-end: -1px;
-      position: relative;
-      border-radius: 0;
+  && > button {
+    margin-inline-end: -1px;
+    position: relative;
+    border-radius: 0;
 
-      :focus,
-      :active,
-      :hover {
-        z-index: 1;
-      }
-    }
-
-    &:first-child > button {
+    :first-of-type {
       border-top-left-radius: ${get('radii.2')};
       border-bottom-left-radius: ${get('radii.2')};
     }
-    &:last-child > button {
+
+    :last-of-type {
       border-top-right-radius: ${get('radii.2')};
       border-bottom-right-radius: ${get('radii.2')};
+    }
+    :focus,
+    :active,
+    :hover {
+      z-index: 1;
     }
   }
 
