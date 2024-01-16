@@ -1,5 +1,5 @@
 import {KeyPaths} from './utils/types/KeyPaths'
-import {colors} from './legacy-theme/js/colors'
+import {colors} from './legacy-theme/ts/colors'
 import {partitionColors, fontStack, omitScale} from './utils/theme'
 
 // const {lineHeight: lineHeights} = primitives.typography
