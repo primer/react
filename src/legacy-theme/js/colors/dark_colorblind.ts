@@ -326,6 +326,10 @@ const colors = {
       disabledCounterFg: 'rgba(212,118,22,0.5)',
       hoverCounterFg: '#ffffff',
     },
+    inactive: {
+      bg: '#30363d',
+      text: '#8b949e',
+    },
   },
   underlinenav: {
     icon: '#6e7681',
