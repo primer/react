@@ -8,7 +8,7 @@ export const StyledButton = styled.button<SxProp>`
   ${sx};
 `
 
-export type VariantType = 'default' | 'primary' | 'invisible' | 'danger' | 'outline'
+export type VariantType = 'default' | 'primary' | 'invisible' | 'danger'
 
 export type Size = 'small' | 'medium' | 'large'
 
@@ -35,10 +35,20 @@ export type ButtonBaseProps = {
    * Allow button width to fill its container.
    */
   block?: boolean
+  /**
+   * Whether the button looks visually disabled, but can still accept all the same
+   * interactions as an enabled button.
+   */
+  inactive?: boolean
 } & SxProp &
   React.ButtonHTMLAttributes<HTMLButtonElement>
 
 export type ButtonProps = {
+  /**
+   * Content alignment for when visuals are present
+   */
+  alignContent?: AlignContent
+
   /**
    * The icon for the IconButton
    */
@@ -48,16 +58,6 @@ export type ButtonProps = {
    * The leading visual which comes before the button content
    */
   leadingVisual?: React.ElementType | null
-
-  /**
-   * The leading icon comes before button content
-   */
-  leadingIcon?: React.ElementType | null
-
-  /**
-   * The trailing icon comes after button content
-   */
-  trailingIcon?: React.ElementType | null
 
   /**
    * The trailing visual which comes after the button content
@@ -71,10 +71,7 @@ export type ButtonProps = {
 
   children?: React.ReactNode
 
-  /**
-   * Content alignment for when visuals are present
-   */
-  alignContent?: AlignContent
+  count?: number
 } & ButtonBaseProps
 
 export type IconButtonProps = ButtonA11yProps & {

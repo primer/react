@@ -62,7 +62,7 @@
           "name": "onSelect",
           "type": "(event: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement>) => void",
           "defaultValue": "",
-          "description": "Callback that is called when the item is selected using either the mouse or keyboard. `event.preventDefault()` will prevent a menu from closing when within an `<ActionMenu />`"
+          "description": "Callback that is called when the item is selected using either the mouse or keyboard. `event.preventDefault()` will prevent a menu from closing when within an `<ActionMenu />`. This is not called for disabled or inactive items."
         },
         {
           "name": "selected",
@@ -81,6 +81,12 @@
           "type": "boolean",
           "defaultValue": "false",
           "description": "Items that are disabled can not be clicked, selected, or navigated to."
+        },
+        {
+          "name": "inactiveText",
+          "type": "string",
+          "defaultValue": "",
+          "description": "Text describing why the item is inactive. This may be used when an item's usual functionality is unavailable due to a system error such as a database outage. \nIf there is a leading visual, the alert icon will replace the leading visual. \n If there is a trailing visual, it will replace the trailing visual.\n If there is no visual passed, it will be shown in the trailing visual slot to preserve left alignment of item content. \nText will appear in a tooltip triggered by the alert icon in ActionList items, but text will appear below the description or title on ActionMenu items."
         },
         {
           "name": "role",
@@ -176,6 +182,35 @@
           "type": "'inline' | 'block'",
           "defaultValue": "'inline'",
           "description": "`inline` descriptions are positioned beside primary text. `block` descriptions are positioned below primary text."
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ]
+    },
+    {
+      "name": "ActionList.GroupHeading",
+      "props": [
+        {
+          "name": "children",
+          "type": "React.ReactNode",
+          "defaultValue": "",
+          "required": true,
+          "description": "Use to give a heading to the groups"
+        },
+        {
+          "name": "variant",
+          "type": "'filled' | 'subtle'",
+          "defaultValue": "'subtle'",
+          "description": "`filled` style has a background color and top and bottom borders. Subtle style has no background or borders."
+        },
+        {
+          "name": "as",
+          "type": "h1 | h2 | h3 | h4 | h5 | h6",
+          "defaultValue": "h3",
+          "required": false,
+          "description": "The level of the heading and it is only required (enforce by runtime warning) for lists. (i.e. not required for ActionMenu or listbox roles)"
         },
         {
           "name": "sx",

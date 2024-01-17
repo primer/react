@@ -11,7 +11,7 @@ import {Column, CellAlignment} from './column'
 import {UniqueRow} from './row'
 import {SortDirection} from './sorting'
 import {useTableLayout} from './useTable'
-import {useOverflow} from '../internal/hooks/useOverflow'
+import {ScrollableRegion} from '../internal/components/ScrollableRegion'
 
 // ----------------------------------------------------------------------------
 // Table
@@ -66,7 +66,10 @@ const StyledTable = styled.table<React.ComponentPropsWithoutRef<'table'>>`
   .TableHeader,
   .TableCell {
     text-align: start;
+    display: flex;
+    align-items: center;
     border-bottom: 1px solid ${get('colors.border.default')};
+    padding: var(--table-cell-padding);
   }
 
   .TableHeader[data-cell-align='end'],
@@ -100,12 +103,6 @@ const StyledTable = styled.table<React.ComponentPropsWithoutRef<'table'>>`
 
   .TableOverflowWrapper:last-child & .TableBody .TableRow:last-of-type .TableCell:last-child {
     border-bottom-right-radius: var(--table-border-radius);
-  }
-
-  /* TableHeader, TableCell */
-  .TableCell,
-  .TableHeader {
-    padding: var(--table-cell-padding);
   }
 
   /**
@@ -160,6 +157,8 @@ const StyledTable = styled.table<React.ComponentPropsWithoutRef<'table'>>`
 
   /* TableCell */
   .TableCell[scope='row'] {
+    align-items: center;
+    display: flex;
     color: ${get('colors.fg.default')};
     font-weight: 600;
   }
@@ -172,6 +171,7 @@ const StyledTable = styled.table<React.ComponentPropsWithoutRef<'table'>>`
   .TableCellSkeletonItems {
     display: flex;
     flex-direction: column;
+    width: 100%;
   }
 
   .TableCellSkeletonItem {
@@ -661,29 +661,6 @@ const Button = styled.button`
     border: 0;
   }
 `
-
-type ScrollableRegionProps = React.PropsWithChildren<{
-  'aria-labelledby'?: string
-  className?: string
-}>
-
-function ScrollableRegion({'aria-labelledby': labelledby, children, ...rest}: ScrollableRegionProps) {
-  const ref = React.useRef(null)
-  const hasOverflow = useOverflow(ref)
-  const regionProps = hasOverflow
-    ? {
-        'aria-labelledby': labelledby,
-        role: 'region',
-        tabIndex: 0,
-      }
-    : {}
-
-  return (
-    <Box {...rest} {...regionProps} ref={ref} sx={{overflow: 'auto'}}>
-      {children}
-    </Box>
-  )
-}
 
 export {
   TableContainer,

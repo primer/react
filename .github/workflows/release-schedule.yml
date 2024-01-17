@@ -6,7 +6,7 @@ on:
         type: boolean
         description: 'Run in dry mode. This option will disable creating and closing issues'
   schedule:
-    - cron: '30 13 * * MON'
+    - cron: '30 16 * * MON'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -28,13 +28,13 @@ jobs:
           schedule-id: 'P3IIVC4'
           token: ${{ secrets.PAGERDUTY_API_KEY_SID }}
       - name: Set up Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: 20
       - name: Install packages for github-script
         run: npm i date-fns
       - name: Create Release Issue
-        uses: actions/github-script@v6
+        uses: actions/github-script@v7
         env:
           RELEASE_CONDUCTOR: ${{ steps.pagerduty.outputs.user }}
           SCHEDULE_START: ${{ steps.pagerduty.outputs.start }}

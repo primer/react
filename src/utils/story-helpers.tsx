@@ -97,7 +97,7 @@ export const withThemeProvider = (Story: React.FC<React.PropsWithChildren<StoryC
   }
 
   return (
-    <ThemeProvider colorMode="day" dayScheme={colorScheme}>
+    <ThemeProvider colorMode="day" dayScheme={colorScheme} nightScheme={colorScheme}>
       <GlobalStyle />
       <BaseStyles>
         <div id="html-addon-root">{Story(context)}</div>
@@ -153,7 +153,7 @@ export const inputWrapperArgTypes: ArgTypes = {
   },
   validationStatus: {
     defaultValue: undefined,
-    options: ['error', 'success', 'warning', undefined],
+    options: ['error', 'success', undefined],
     control: {type: 'radio'},
   },
 }
@@ -308,7 +308,7 @@ export const formControlArgTypes: ArgTypes = {
     control: {
       type: 'radio',
     },
-    options: ['error', 'success', 'warning'],
+    options: ['error', 'success'],
     table: {
       category: 'FormControl.Validation',
     },

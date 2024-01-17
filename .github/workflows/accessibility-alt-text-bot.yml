@@ -21,4 +21,4 @@ jobs:
     if: ${{ github.event.issue || github.event.pull_request || github.event.discussion  }}
     steps:
       - name: Get action 'github/accessibility-alt-text-bot'
-        uses: github/accessibility-alt-text-bot@v1.3.0
+        uses: github/accessibility-alt-text-bot@v1.4.0

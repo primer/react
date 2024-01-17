@@ -1,4 +1,4 @@
-import {SearchIcon} from '@primer/octicons-react'
+import {SearchIcon, TriangleDownIcon} from '@primer/octicons-react'
 import React, {useCallback, useMemo} from 'react'
 import {AnchoredOverlay, AnchoredOverlayProps} from '../AnchoredOverlay'
 import {AnchoredOverlayWrapperAnchorProps} from '../AnchoredOverlay/AnchoredOverlay'
@@ -9,7 +9,7 @@ import {OverlayProps} from '../Overlay'
 import {TextInputProps} from '../TextInput'
 import {ItemProps} from '../deprecated/ActionList'
 import {ItemInput} from '../deprecated/ActionList/List'
-import {DropdownButton} from '../deprecated/DropdownMenu'
+import {Button} from '../Button'
 import {useProvidedRefOrCreate} from '../hooks'
 import {FocusZoneHookSettings} from '../hooks/useFocusZone'
 import {useId} from '../hooks/useId'
@@ -60,7 +60,14 @@ const focusZoneSettings: Partial<FocusZoneHookSettings> = {
 export function SelectPanel({
   open,
   onOpenChange,
-  renderAnchor = props => <DropdownButton {...props} />,
+  renderAnchor = props => {
+    const {children, ...rest} = props
+    return (
+      <Button trailingAction={TriangleDownIcon} {...rest}>
+        {children}
+      </Button>
+    )
+  },
   anchorRef: externalAnchorRef,
   placeholder,
   placeholderText = 'Filter items',

@@ -124,6 +124,9 @@ export const StickyPane: Story = args => (
             </Box>
           )
         })}
+        <Box as="p">
+          Donec sit amet massa purus. <a href="#foo">Plura de lorem Ispum.</a>
+        </Box>
       </Box>
     </PageLayout.Pane>
     <PageLayout.Footer padding="normal" divider="line">
@@ -347,6 +350,26 @@ export const CustomPaneWidths: Story = () => (
       <Placeholder height={64} label="Header" />
     </PageLayout.Header>
     <PageLayout.Pane resizable width={{min: '200px', default: '300px', max: '400px'}}>
+      <Placeholder height={320} label="Pane" />
+    </PageLayout.Pane>
+    <PageLayout.Content>
+      <Placeholder height={640} label="Content" />
+    </PageLayout.Content>
+    <PageLayout.Footer>
+      <Placeholder height={64} label="Footer" />
+    </PageLayout.Footer>
+  </PageLayout>
+)
+
+export const WithCustomPaneHeading: Story = () => (
+  <PageLayout containerWidth="full">
+    <PageLayout.Header>
+      <Placeholder height={64} label="Header" />
+    </PageLayout.Header>
+    <PageLayout.Pane resizable position="start">
+      <Heading as="h2" sx={{fontSize: 3}} id="pane-heading">
+        Pane Heading
+      </Heading>
       <Placeholder height={320} label="Pane" />
     </PageLayout.Pane>
     <PageLayout.Content>

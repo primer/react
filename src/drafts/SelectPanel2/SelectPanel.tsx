@@ -1,102 +1,172 @@
 import React from 'react'
-import {SearchIcon, XCircleFillIcon, XIcon} from '@primer/octicons-react'
+import {SearchIcon, XCircleFillIcon, XIcon, FilterRemoveIcon, AlertIcon} from '@primer/octicons-react'
 import {FocusKeys} from '@primer/behaviors'
 
 import {
   Button,
+  ButtonProps,
   IconButton,
   Heading,
   Box,
   AnchoredOverlay,
+  AnchoredOverlayProps,
   Tooltip,
   TextInput,
-  AnchoredOverlayProps,
+  TextInputProps,
   Spinner,
   Text,
+  ActionListProps,
+  Octicon,
 } from '../../../src/index'
 import {ActionListContainerContext} from '../../../src/ActionList/ActionListContainerContext'
 import {useSlots} from '../../hooks/useSlots'
-import {ClearIcon} from './tmp-ClearIcon'
-import {useProvidedRefOrCreate} from '../../hooks'
+import {useProvidedRefOrCreate, useId} from '../../hooks'
+import {useFocusZone} from '../../hooks/useFocusZone'
 
 const SelectPanelContext = React.createContext<{
   title: string
+  description?: string
+  panelId: string
   onCancel: () => void
   onClearSelection: undefined | (() => void)
   searchQuery: string
-  setSearchQuery: () => void
+  setSearchQuery: React.Dispatch<React.SetStateAction<string>>
+  selectionVariant: ActionListProps['selectionVariant'] | 'instant'
 }>({
   title: '',
+  description: undefined,
+  panelId: '',
   onCancel: () => {},
   onClearSelection: undefined,
   searchQuery: '',
   setSearchQuery: () => {},
+  selectionVariant: 'multiple',
 })
 
-// @ts-ignore todo
-const SelectPanel = props => {
-  const anchorRef = useProvidedRefOrCreate(props.anchorRef)
+export type SelectPanelProps = {
+  title: string
+  description?: string
+  selectionVariant?: ActionListProps['selectionVariant'] | 'instant'
+  id?: string
+
+  defaultOpen?: boolean
+  open?: boolean
+  anchorRef?: React.RefObject<HTMLButtonElement>
+
+  onCancel?: () => void
+  onClearSelection?: undefined | (() => void)
+  onSubmit?: (event?: React.FormEvent<HTMLFormElement>) => void
+
+  // TODO: move these to SelectPanel.Overlay or overlayProps
+  width?: AnchoredOverlayProps['width']
+  height?: AnchoredOverlayProps['height']
+
+  children: React.ReactNode
+}
+
+const Panel: React.FC<SelectPanelProps> = ({
+  title,
+  description,
+  selectionVariant = 'multiple',
+  id,
+
+  defaultOpen = false,
+  open: propsOpen,
+  anchorRef: providedAnchorRef,
+
+  onCancel: propsOnCancel,
+  onClearSelection: propsOnClearSelection,
+  onSubmit: propsOnSubmit,
+
+  width = 'medium',
+  height = 'large',
+  ...props
+}) => {
+  const anchorRef = useProvidedRefOrCreate(providedAnchorRef)
 
   // 🚨 Hack for good API!
   // we strip out Anchor from children and pass it to AnchoredOverlay to render
   // with additional props for accessibility
   let renderAnchor: AnchoredOverlayProps['renderAnchor'] = null
   const contents = React.Children.map(props.children, child => {
-    if (child.type === SelectPanelButton) {
+    if (React.isValidElement(child) && child.type === SelectPanelButton) {
       renderAnchor = anchorProps => React.cloneElement(child, anchorProps)
       return null
     }
     return child
   })
 
-  const [internalOpen, setInternalOpen] = React.useState(props.defaultOpen)
+  const [internalOpen, setInternalOpen] = React.useState(defaultOpen)
   // sync open state
-  React.useEffect(() => setInternalOpen(props.open), [props.open])
+  if (propsOpen !== undefined && internalOpen !== propsOpen) setInternalOpen(propsOpen)
 
   const onInternalClose = () => {
-    if (props.open === undefined) setInternalOpen(false)
-    if (typeof props.onCancel === 'function') props.onCancel()
+    if (propsOpen === undefined) setInternalOpen(false)
+    if (typeof propsOnCancel === 'function') propsOnCancel()
   }
-  // @ts-ignore todo
-  const onInternalSubmit = event => {
-    event.preventDefault()
-    if (props.open === undefined) setInternalOpen(false)
-    if (typeof props.onSubmit === 'function') props.onSubmit(event)
+
+  const onInternalSubmit = (event?: React.FormEvent<HTMLFormElement>) => {
+    event?.preventDefault() // there is no event with selectionVariant=instant
+    if (propsOpen === undefined) setInternalOpen(false)
+    if (typeof propsOnSubmit === 'function') propsOnSubmit(event)
   }
 
   const onInternalClearSelection = () => {
-    if (typeof props.onSubmit === 'function') props.onClearSelection()
+    if (typeof propsOnClearSelection === 'function') propsOnClearSelection()
+  }
+
+  const internalAfterSelect = () => {
+    if (selectionVariant === 'instant') onInternalSubmit()
   }
 
   /* Search/Filter */
-  const [searchQuery, setSearchQuery] = React.useState('')
+  const [searchQuery, setSearchQuery] = React.useState<string>('')
 
+  /* Panel plumbing */
+  const panelId = useId(id)
   const [slots, childrenInBody] = useSlots(contents, {header: SelectPanelHeader, footer: SelectPanelFooter})
+
+  /* Arrow keys navigation for list items */
+  const {containerRef: listContainerRef} = useFocusZone(
+    {
+      bindKeys: FocusKeys.ArrowVertical | FocusKeys.HomeAndEnd | FocusKeys.PageUpDown,
+      focusableElementFilter: element => element.tagName === 'LI',
+    },
+    [internalOpen],
+  )
 
   return (
     <>
       <AnchoredOverlay
-        // @ts-ignore todo
         anchorRef={anchorRef}
         renderAnchor={renderAnchor}
         open={internalOpen}
         onOpen={() => setInternalOpen(true)}
         onClose={onInternalClose}
-        width={props.width || 'medium'}
-        height={props.height || 'large'}
-        focusZoneSettings={{bindKeys: FocusKeys.Tab}}
+        width={width}
+        height={height}
+        focusZoneSettings={{
+          // we only want focus trap from the overlay,
+          // we don't want focus zone on the whole overlay because
+          // we have a focus zone on the list
+          disabled: true,
+        }}
+        overlayProps={{
+          role: 'dialog',
+          'aria-labelledby': `${panelId}--title`,
+          'aria-describedby': description ? `${panelId}--description` : undefined,
+        }}
       >
-        {/* TODO: Keyboard navigation of actionlist should be arrow keys
-            with tabs to enter and escape
-        */}
         <SelectPanelContext.Provider
           value={{
-            title: props.title,
+            panelId,
+            title,
+            description,
             onCancel: onInternalClose,
-            onClearSelection: props.onClearSelection ? onInternalClearSelection : undefined,
+            onClearSelection: propsOnClearSelection ? onInternalClearSelection : undefined,
             searchQuery,
-            // @ts-ignore todo
             setSearchQuery,
+            selectionVariant,
           }}
         >
           <Box
@@ -109,8 +179,10 @@ const SelectPanel = props => {
             }}
           >
             {/* render default header as fallback */}
-            {slots.header || <SelectPanel.Header />}
+            {slots.header ?? <SelectPanelHeader />}
             <Box
+              as="div"
+              ref={listContainerRef as React.RefObject<HTMLDivElement>}
               sx={{
                 flexShrink: 1,
                 flexGrow: 1,
@@ -127,7 +199,8 @@ const SelectPanel = props => {
                   container: 'SelectPanel',
                   listRole: 'listbox',
                   selectionAttribute: 'aria-selected',
-                  selectionVariant: props.selectionVariant || 'multiple',
+                  selectionVariant: selectionVariant === 'instant' ? 'single' : selectionVariant,
+                  afterSelect: internalAfterSelect,
                 }}
               >
                 {childrenInBody}
@@ -141,44 +214,56 @@ const SelectPanel = props => {
   )
 }
 
-const SelectPanelButton = React.forwardRef((props, anchorRef) => {
-  // @ts-ignore todo
+const SelectPanelButton = React.forwardRef<HTMLButtonElement, ButtonProps>((props, anchorRef) => {
   return <Button ref={anchorRef} {...props} />
 })
-SelectPanel.Button = SelectPanelButton
 
 const SelectPanelHeader: React.FC<React.PropsWithChildren> = ({children, ...props}) => {
   const [slots, childrenWithoutSlots] = useSlots(children, {
     searchInput: SelectPanelSearchInput,
   })
 
-  const {title, onCancel, onClearSelection} = React.useContext(SelectPanelContext)
+  const {title, description, panelId, onCancel, onClearSelection} = React.useContext(SelectPanelContext)
 
   return (
     <Box
       sx={{
         display: 'flex',
         flexDirection: 'column',
-        gap: 2,
+        // gap: 2,
         padding: 2,
         borderBottom: '1px solid',
         borderColor: 'border.default',
       }}
       {...props}
     >
-      <Box sx={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
-        {/* heading element is intentionally hardcoded to h1, it is not customisable 
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: description ? 'start' : 'center',
+          marginBottom: slots.searchInput ? 2 : 0,
+        }}
+      >
+        <Box sx={{marginLeft: 2, marginTop: description ? '2px' : 0}}>
+          {/* heading element is intentionally hardcoded to h1, it is not customisable 
             see https://github.com/github/primer/issues/2578 for context
-        */}
+          */}
+          <Heading as="h1" id={`${panelId}--title`} sx={{fontSize: 14, fontWeight: 600}}>
+            {title}
+          </Heading>
+          {description ? (
+            <Text id={`${panelId}--description`} sx={{fontSize: 0, color: 'fg.muted', display: 'block'}}>
+              {description}
+            </Text>
+          ) : null}
+        </Box>
 
-        <Heading as="h1" sx={{fontSize: 14, fontWeight: 600, marginLeft: 2}} {...props}>
-          {title}
-        </Heading>
         <Box>
           {/* Will not need tooltip after https://github.com/primer/react/issues/2008 */}
           {onClearSelection ? (
             <Tooltip text="Clear selection" direction="s" onClick={onClearSelection}>
-              <IconButton type="button" variant="invisible" icon={ClearIcon} aria-label="Clear selection" />
+              <IconButton type="button" variant="invisible" icon={FilterRemoveIcon} aria-label="Clear selection" />
             </Tooltip>
           ) : null}
           <Tooltip text="Close" direction="s">
@@ -186,25 +271,22 @@ const SelectPanelHeader: React.FC<React.PropsWithChildren> = ({children, ...prop
           </Tooltip>
         </Box>
       </Box>
+
       {slots.searchInput}
       {childrenWithoutSlots}
     </Box>
   )
 }
-SelectPanel.Header = SelectPanelHeader
 
-// @ts-ignore todo
-const SelectPanelSearchInput = props => {
+const SelectPanelSearchInput: React.FC<TextInputProps> = ({onChange: propsOnChange, ...props}) => {
   const inputRef = React.createRef<HTMLInputElement>()
 
   const {setSearchQuery} = React.useContext(SelectPanelContext)
 
-  // @ts-ignore todo
-  const internalOnChange = event => {
+  const internalOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     // If props.onChange is given, the application controls search,
     // otherwise the component does
-    if (typeof props.onChange === 'function') props(props.onChange)
-    // @ts-ignore todo
+    if (typeof propsOnChange === 'function') propsOnChange(event)
     else setSearchQuery(event.target.value)
   }
 
@@ -224,8 +306,9 @@ const SelectPanelSearchInput = props => {
           sx={{color: 'fg.subtle', bg: 'none'}}
           onClick={() => {
             if (inputRef.current) inputRef.current.value = ''
-            if (typeof props.onChange === 'function') {
-              props.onChange({target: inputRef.current, currentTarget: inputRef.current})
+            if (typeof propsOnChange === 'function') {
+              // @ts-ignore TODO this is a hacky solution to clear
+              propsOnChange({target: inputRef.current, currentTarget: inputRef.current})
             }
           }}
         />
@@ -241,10 +324,17 @@ const SelectPanelSearchInput = props => {
     />
   )
 }
-SelectPanel.SearchInput = SelectPanelSearchInput
 
 const SelectPanelFooter = ({...props}) => {
-  const {onCancel} = React.useContext(SelectPanelContext)
+  const {onCancel, selectionVariant} = React.useContext(SelectPanelContext)
+
+  const hidePrimaryActions = selectionVariant === 'instant'
+
+  if (hidePrimaryActions && !props.children) {
+    // nothing to render
+    // todo: we can inform them the developer footer will render nothing
+    return null
+  }
 
   return (
     <Box
@@ -256,23 +346,25 @@ const SelectPanelFooter = ({...props}) => {
         borderColor: 'border.default',
       }}
     >
-      <div>{props.children}</div>
-      <Box sx={{display: 'flex', gap: 2}}>
-        <Button size="small" type="button" onClick={() => onCancel()}>
-          Cancel
-        </Button>
-        <Button size="small" type="submit" variant="primary">
-          Save
-        </Button>
-      </Box>
+      <Box sx={{flexGrow: hidePrimaryActions ? 1 : 0}}>{props.children}</Box>
+
+      {hidePrimaryActions ? null : (
+        <Box sx={{display: 'flex', gap: 2}}>
+          <Button size="small" type="button" onClick={() => onCancel()}>
+            Cancel
+          </Button>
+          <Button size="small" type="submit" variant="primary">
+            Save
+          </Button>
+        </Box>
+      )}
     </Box>
   )
 }
-SelectPanel.Footer = SelectPanelFooter
 
-// @ts-ignore todo
-SelectPanel.SecondaryButton = props => {
-  return <Button {...props} size="small" type="button" />
+// TODO: is this the right way to add button props?
+const SelectPanelSecondaryButton: React.FC<ButtonProps> = props => {
+  return <Button type="button" size="small" block {...props} />
 }
 // SelectPanel.SecondaryLink = props => {
 //   return <a {...props}>{props.children}</a>
@@ -296,46 +388,91 @@ const SelectPanelLoading: React.FC<{children: string}> = ({children = 'Fetching 
   )
 }
 
-SelectPanel.Loading = SelectPanelLoading
+type SelectPanelMessageProps = {children: React.ReactNode} & (
+  | {
+      size?: 'full'
+      title: string // title is required with size:full
+      variant: 'warning' | 'error' | 'empty' // default: warning
+    }
+  | {
+      size?: 'inline'
+      title?: never // title is invalid with size:inline
+      variant: 'warning' | 'error' // variant:empty + size:inline = invalid combination
+    }
+)
 
-const SelectPanelEmptyMessage: React.FC<{children: string | React.ReactNode}> = ({children = 'No items found...'}) => {
-  return (
-    <Box
-      sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-        flexGrow: 1,
-        height: '100%',
-        gap: 2,
-      }}
-    >
-      <Text sx={{fontSize: 1}}>{children}</Text>
-      <Text sx={{fontSize: 0, color: 'fg.muted'}}>Try a different search term</Text>
-    </Box>
-  )
+const SelectPanelMessage: React.FC<SelectPanelMessageProps> = ({
+  variant = 'warning',
+  size = variant === 'empty' ? 'full' : 'inline',
+  title,
+  children,
+}) => {
+  if (size === 'full') {
+    return (
+      <Box
+        aria-live={variant === 'empty' ? undefined : 'polite'}
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+          flexGrow: 1,
+          height: '100%',
+          gap: 1,
+          paddingX: 4,
+          textAlign: 'center',
+          a: {color: 'inherit', textDecoration: 'underline'},
+        }}
+      >
+        {variant !== 'empty' ? (
+          <Octicon icon={AlertIcon} sx={{color: variant === 'error' ? 'danger.fg' : 'attention.fg', marginBottom: 2}} />
+        ) : null}
+        <Text sx={{fontSize: 1, fontWeight: 'semibold'}}>{title}</Text>
+        <Text sx={{fontSize: 1, color: 'fg.muted'}}>{children}</Text>
+      </Box>
+    )
+  } else {
+    const inlineVariantStyles = {
+      empty: {},
+      warning: {
+        backgroundColor: 'attention.subtle',
+        color: 'attention.fg',
+        borderBottomColor: 'attention.muted',
+      },
+      error: {
+        backgroundColor: 'danger.subtle',
+        color: 'danger.fg',
+        borderColor: 'danger.muted',
+      },
+    }
+
+    return (
+      <Box
+        aria-live={variant === 'empty' ? undefined : 'polite'}
+        sx={{
+          display: 'flex',
+          gap: 2,
+          paddingX: 3,
+          paddingY: '12px',
+          fontSize: 0,
+          borderBottom: '1px solid',
+          a: {color: 'inherit', textDecoration: 'underline'},
+          ...inlineVariantStyles[variant],
+        }}
+      >
+        <AlertIcon size={16} />
+        <Box>{children}</Box>
+      </Box>
+    )
+  }
 }
 
-SelectPanel.EmptyMessage = SelectPanelEmptyMessage
-
-export {SelectPanel}
-
-// This is probably a horrible idea and we would not ship this...
-// const deriveItemsFromActionList = (actionListItems: React.ReactNode[]) => {
-//   return React.Children.toArray(actionListItems).map(actionListItemNode => {
-//     const itemProps = actionListItemNode.props
-
-//     const [slots, childrenWithoutSlots] = useSlots(itemProps.children, {
-//       leadingVisual: ActionList.LeadingVisual,
-//       trailingVisual: ActionList.TrailingVisual,
-//       description: ActionList.Description,
-//     })
-
-//     return {
-//       description: slots.description?.props.children,
-//       name: childrenWithoutSlots[0],
-//       selected: itemProps.selected,
-//     }
-//   })
-// }
+export const SelectPanel = Object.assign(Panel, {
+  Button: SelectPanelButton,
+  Header: SelectPanelHeader,
+  SearchInput: SelectPanelSearchInput,
+  Footer: SelectPanelFooter,
+  SecondaryButton: SelectPanelSecondaryButton,
+  Loading: SelectPanelLoading,
+  Message: SelectPanelMessage,
+})

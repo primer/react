@@ -122,19 +122,6 @@
           "description": "Id of an element that acts as a label for the pane. Required if the pane overflows and doesn't have aria-label."
         },
         {
-          "name": "position",
-          "type": "| 'start' | 'end' | { narrow?: | 'start' | 'end' regular?: | 'start' | 'end' wide?: | 'start' | 'end' }",
-          "defaultValue": "'end'",
-          "description": ""
-        },
-        {
-          "name": "positionWhenNarrow",
-          "type": "| 'inherit' | 'start' | 'end'",
-          "defaultValue": "'inherit'",
-          "deprecated": true,
-          "description": "Use the position prop with a responsive value instead."
-        },
-        {
           "name": "width",
           "type": "| 'small' | 'medium' | 'large' | { min: string max: string default: string }",
           "defaultValue": "'medium'",

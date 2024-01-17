@@ -18,6 +18,8 @@ import TextInput from '../TextInput'
 import Spinner from '../Spinner'
 import Box from '../Box'
 import Text from '../Text'
+import VisuallyHidden from '../_VisuallyHidden'
+import FormControl from '../FormControl'
 
 const meta: Meta = {
   title: 'Components/ActionList/Examples',
@@ -32,9 +34,12 @@ export default meta
 
 type ReactRouterLikeLinkProps = {to: string; children: React.ReactNode}
 const ReactRouterLikeLink = forwardRef<HTMLAnchorElement, ReactRouterLikeLinkProps>(
-  ({to, ...props}: {to: string; children: React.ReactNode}, ref) => {
-    // eslint-disable-next-line jsx-a11y/anchor-has-content
-    return <a ref={ref} href={to} {...props} />
+  ({to, children, ...props}: {to: string; children: React.ReactNode}, ref) => {
+    return (
+      <a ref={ref} href={to} {...props}>
+        {children}
+      </a>
+    )
   },
 )
 
@@ -187,10 +192,18 @@ export function AsyncListWithSpinner(): JSX.Element {
         filter. This pattern can be found in branch selection menus via the SelectPanel component.
       </p>
 
-      <TextInput onChange={filter} placeholder="Search branches" sx={{m: 2, mb: 0, width: 'calc(100% - 16px)'}} />
-      {results.length === 0 ? (
-        <Text sx={{display: 'block', fontSize: 1, m: 2}}>No branches match that query</Text>
-      ) : null}
+      <FormControl sx={{m: 2, mb: 0, width: 'calc(100% - 16px)'}}>
+        <FormControl.Label>Search branches</FormControl.Label>
+        <TextInput onChange={filter} block />
+      </FormControl>
+      <div role="status">
+        {results.length === 0 ? (
+          <Text sx={{display: 'block', fontSize: 1, m: 2}}>No branches match that query</Text>
+        ) : (
+          <VisuallyHidden>{results.length} branches match that query</VisuallyHidden>
+        )}
+      </div>
+
       <ActionList selectionVariant="single" role="listbox" aria-label="Branch" sx={{height: 208, overflow: 'auto'}}>
         {loading ? (
           <Box sx={{display: 'flex', justifyContent: 'center', pt: 2}}>
@@ -434,6 +447,43 @@ export function AllCombinations(): JSX.Element {
             </ActionList.TrailingVisual>
           </ActionList.Item>
           <ActionList.Item disabled>
+            I + B + T<ActionList.Description variant="inline">inline description</ActionList.Description>
+            <ActionList.Description variant="block">Block description</ActionList.Description>
+            <ActionList.TrailingVisual>
+              <StarIcon />
+            </ActionList.TrailingVisual>
+          </ActionList.Item>
+          <ActionList.Item inactiveText="Unavailable due to an outage">
+            L + B + T<ActionList.Description variant="block">Block description</ActionList.Description>
+          </ActionList.Item>
+          <ActionList.Item inactiveText="Unavailable due to an outage">
+            L + B + T<ActionList.Description variant="inline">Inline description</ActionList.Description>
+          </ActionList.Item>
+          <ActionList.Item inactiveText="Unavailable due to an outage">
+            <ActionList.LeadingVisual>
+              <StarIcon />
+            </ActionList.LeadingVisual>
+            L + I + T<ActionList.Description variant="inline">inline description</ActionList.Description>
+            <ActionList.TrailingVisual>
+              <StarIcon />
+            </ActionList.TrailingVisual>
+          </ActionList.Item>
+          <ActionList.Item inactiveText="Unavailable due to an outage">
+            <ActionList.LeadingVisual>
+              <StarIcon />
+            </ActionList.LeadingVisual>
+            L + B + T<ActionList.Description variant="block">Block description</ActionList.Description>
+            <ActionList.TrailingVisual>
+              <StarIcon />
+            </ActionList.TrailingVisual>
+          </ActionList.Item>
+          <ActionList.Item inactiveText="Unavailable due to an outage">
+            L + B + T<ActionList.Description variant="block">Block description</ActionList.Description>
+            <ActionList.TrailingVisual>
+              <StarIcon />
+            </ActionList.TrailingVisual>
+          </ActionList.Item>
+          <ActionList.Item inactiveText="Unavailable due to an outage">
             I + B + T<ActionList.Description variant="inline">inline description</ActionList.Description>
             <ActionList.Description variant="block">Block description</ActionList.Description>
             <ActionList.TrailingVisual>

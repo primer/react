@@ -1,6 +1,6 @@
 import React from 'react'
 import {Meta} from '@storybook/react'
-import {IconButton, Breadcrumbs, Text, Link, Button, Box, Label, UnderlineNav2} from '..'
+import {IconButton, Breadcrumbs, Text, Link, Button, Box, Label, UnderlineNav} from '..'
 import {
   PencilIcon,
   SidebarExpandIcon,
@@ -71,14 +71,16 @@ export const WithComponentAsATitle = () => (
     <PageHeader>
       <PageHeader.TitleArea>
         <Breadcrumbs>
-          <Breadcrumbs.Item href="#">...</Breadcrumbs.Item>
-          <Breadcrumbs.Item href="#">primer</Breadcrumbs.Item>
-          <Breadcrumbs.Item href="#">react</Breadcrumbs.Item>
-          <Breadcrumbs.Item href="#">src</Breadcrumbs.Item>
-          <Breadcrumbs.Item href="#">PageHeader</Breadcrumbs.Item>
-          <Breadcrumbs.Item href="#">PageHeader.tsx</Breadcrumbs.Item>
+          <Breadcrumbs.Item href="https://github.com/primer/react/tree/main">react</Breadcrumbs.Item>
+          <Breadcrumbs.Item href="https://github.com/primer/react/tree/main/src">src</Breadcrumbs.Item>
+          <Breadcrumbs.Item href="https://github.com/primer/react/tree/main/src/PageHeader">
+            PageHeader
+          </Breadcrumbs.Item>
+          <Breadcrumbs.Item href="https://github.com/primer/react/blob/main/src/PageHeader/PageHeader.tsx">
+            PageHeader.tsx
+          </Breadcrumbs.Item>
         </Breadcrumbs>
-        <VisuallyHidden as="h2">Visually Hidden Title</VisuallyHidden>
+        <VisuallyHidden as="h2">PageHeader.tsx</VisuallyHidden>
       </PageHeader.TitleArea>
     </PageHeader>
   </Box>
@@ -114,7 +116,7 @@ export const WithActions = () => (
         <PageHeader.Actions>
           <IconButton aria-label="Workflows" icon={WorkflowIcon} />
           <IconButton aria-label="Insights" icon={GraphIcon} />
-          <Button variant="primary" trailingIcon={TriangleDownIcon}>
+          <Button variant="primary" trailingVisual={TriangleDownIcon}>
             Add Item
           </Button>
           <IconButton aria-label="Settings" icon={GearIcon} />
@@ -131,7 +133,7 @@ export const WithDescriptionSlot = () => (
     </PageHeader.TitleArea>
     <PageHeader.Description>
       <Text sx={{fontSize: 1, color: 'fg.muted'}}>
-        <Link href="#" muted sx={{fontWeight: 'bold'}}>
+        <Link href="https://github.com/broccolinisoup" sx={{fontWeight: 'bold'}}>
           broccolinisoup
         </Link>{' '}
         created this branch 5 days ago · 14 commits · updated today
@@ -147,20 +149,20 @@ export const WithNavigationSlot = () => (
         <PageHeader.Title>Pull request title</PageHeader.Title>
       </PageHeader.TitleArea>
       <PageHeader.Navigation>
-        <UnderlineNav2 aria-label="Pull Request">
-          <UnderlineNav2.Item icon={CommentDiscussionIcon} counter="12" aria-current="page">
+        <UnderlineNav aria-label="Pull Request">
+          <UnderlineNav.Item icon={CommentDiscussionIcon} counter="12" aria-current="page">
             Conversation
-          </UnderlineNav2.Item>
-          <UnderlineNav2.Item counter={3} icon={CommitIcon}>
+          </UnderlineNav.Item>
+          <UnderlineNav.Item counter={3} icon={CommitIcon}>
             Commits
-          </UnderlineNav2.Item>
-          <UnderlineNav2.Item counter={7} icon={ChecklistIcon}>
+          </UnderlineNav.Item>
+          <UnderlineNav.Item counter={7} icon={ChecklistIcon}>
             Checks
-          </UnderlineNav2.Item>
-          <UnderlineNav2.Item counter={4} icon={FileDiffIcon}>
+          </UnderlineNav.Item>
+          <UnderlineNav.Item counter={4} icon={FileDiffIcon}>
             Files Changes
-          </UnderlineNav2.Item>
-        </UnderlineNav2>
+          </UnderlineNav.Item>
+        </UnderlineNav>
       </PageHeader.Navigation>
     </PageHeader>
   </Box>
@@ -175,12 +177,12 @@ export const WithCustomNavigation = () => (
       <PageHeader.Navigation as="nav" aria-label="Item list">
         <Box as="ul" sx={{display: 'flex', gap: '8px', listStyle: 'none', paddingY: 0, paddingX: 3}} role="list">
           <li>
-            <Link href="#" aria-current="page">
+            <Link href="https://github.com/primer/react" aria-current="page">
               Item 1
             </Link>
           </li>
           <li>
-            <Link href="#">Item 2</Link>
+            <Link href="https://github.com/primer/react/pulls">Item 2</Link>
           </li>
         </Box>
       </PageHeader.Navigation>
@@ -211,8 +213,8 @@ export const WithParentLinkAndActionsOfContextArea = () => (
         <PageHeader.ParentLink href="http://github.com">Parent Link</PageHeader.ParentLink>
 
         <PageHeader.ContextAreaActions>
-          <Button size="small" leadingIcon={GitBranchIcon}>
-            Main
+          <Button size="small" trailingAction={TriangleDownIcon}>
+            Add File
           </Button>
           <IconButton size="small" aria-label="More Options" icon={KebabHorizontalIcon} />
         </PageHeader.ContextAreaActions>
@@ -236,17 +238,18 @@ export const WithContextBarAndActionsOfContextArea = () => (
       <PageHeader.ContextArea>
         <PageHeader.ContextBar>
           <Breadcrumbs>
-            <Breadcrumbs.Item href="#">...</Breadcrumbs.Item>
-            <Breadcrumbs.Item href="#">primer</Breadcrumbs.Item>
-            <Breadcrumbs.Item href="#">react</Breadcrumbs.Item>
-            <Breadcrumbs.Item href="#">src</Breadcrumbs.Item>
-            <Breadcrumbs.Item href="#">PageHeader</Breadcrumbs.Item>
-            <Breadcrumbs.Item href="#">PageHeader.tsx</Breadcrumbs.Item>
+            <Breadcrumbs.Item href="https://github.com/primer/react/tree/main">react</Breadcrumbs.Item>
+            <Breadcrumbs.Item href="https://github.com/primer/react/tree/main/src">src</Breadcrumbs.Item>
+            <Breadcrumbs.Item href="https://github.com/primer/react/tree/main/src/PageHeader">
+              PageHeader
+            </Breadcrumbs.Item>
+            <Breadcrumbs.Item href="https://github.com/primer/react/blob/main/src/PageHeader/PageHeader.tsx">
+              PageHeader.tsx
+            </Breadcrumbs.Item>
           </Breadcrumbs>
         </PageHeader.ContextBar>
-
         <PageHeader.ContextAreaActions>
-          <Button size="small" leadingIcon={GitBranchIcon}>
+          <Button size="small" leadingVisual={GitBranchIcon}>
             Main
           </Button>
           <IconButton size="small" aria-label="More Options" icon={KebabHorizontalIcon} />

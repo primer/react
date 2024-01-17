@@ -5,7 +5,7 @@ import {BaseStyles, Box, Textarea, ThemeProvider, FormControl} from '../..'
 import InlineAutocomplete, {ShowSuggestionsEvent, Suggestions} from '.'
 
 export default {
-  title: 'Components/Forms/InlineAutocomplete',
+  title: 'Deprecated/Components/InlineAutocomplete',
   component: InlineAutocomplete,
   decorators: [
     Story => {

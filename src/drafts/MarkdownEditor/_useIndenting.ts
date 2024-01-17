@@ -29,7 +29,7 @@ export const useIndenting = ({emitChange}: UseIndentingSettings): UseIndentingRe
       const [start, end] = getSelectedLineRange(textarea)
       const updatedLines = textarea.value
         .slice(start, end)
-        .split('\n')
+        .split(/\r?\n/)
         .map(line => (event.shiftKey ? dedent(line) : indent(line)))
         .join('\n')
 

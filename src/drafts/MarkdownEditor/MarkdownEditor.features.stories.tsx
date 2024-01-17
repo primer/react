@@ -5,7 +5,7 @@ import Box from '../../Box'
 import MarkdownEditor, {Emoji, Mentionable, Reference, SavedReply} from '.'
 
 const meta: Meta = {
-  title: 'Drafts/Components/MarkdownEditor/Features',
+  title: 'Deprecated/Components/MarkdownEditor/Features',
   parameters: {
     controls: {
       include: [
@@ -286,7 +286,7 @@ export const CustomFooter = ({
           <MarkdownEditor.FooterButton
             variant="invisible"
             onClick={onFooterClick}
-            leadingIcon={PlusIcon}
+            leadingVisual={PlusIcon}
             sx={{borderRadius: '14px', color: 'fg.muted', borderColor: 'border.muted'}}
           >
             Add Button

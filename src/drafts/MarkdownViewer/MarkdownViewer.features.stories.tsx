@@ -8,7 +8,7 @@ import {useSafeAsyncCallback} from '../hooks/useSafeAsyncCallback'
 import MarkdownViewer from './MarkdownViewer'
 
 const meta: Meta = {
-  title: 'Drafts/Components/MarkdownViewer/Features',
+  title: 'Deprecated/Components/MarkdownViewer/Features',
   decorators: [
     Story => {
       return (
