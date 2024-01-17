@@ -121,7 +121,7 @@ module.exports = {
             argsIgnorePattern: '^_',
           },
         ],
-        '@typscript-eslint/no-shadow': 'off',
+        '@typescript-eslint/no-shadow': 'off',
         '@typescript-eslint/no-empty-function': 'off',
         '@typescript-eslint/ban-ts-comment': [
           'error',
