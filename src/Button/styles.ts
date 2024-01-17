@@ -254,7 +254,7 @@ export const getBaseStyles = (theme?: Theme) => ({
     minHeight: 'var(--control-small-size, 28px)',
     gap: '4px',
     fontSize: '0',
-    paddingInline: 'var(----control-small-paddingInline-condensed, 0.5rem)',
+    paddingInline: 'var(--control-small-paddingInline-condensed, 0.5rem)',
 
     '[data-component="buttonContent"]': {
       // calc explained: sets block padding to the correct size, minus 2px for border
