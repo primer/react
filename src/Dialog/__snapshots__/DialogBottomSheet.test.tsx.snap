@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Dialog renders \`when\` prop as expected 1`] = `
+@media (forced-colors:active) {
+
+}
+
+<div />
+`;
