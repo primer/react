@@ -26,11 +26,12 @@ jobs:
       - name: Create a tarball for the package
         run: npm pack --pack-destination consumer-test --json > ../../consumer-test/pack.json
         working-directory: packages/react
+        working-directory: packages/react
       - name: Clean package directory
         run: npm run clean:all
       - name: Test
         id: test
-        working-directory: consumer-test
+        working-directory: examples/consumer-test
         run: |
           # Read the filename for the tarball from `pack.json`
           npm install $(jq -r '.[0].filename' pack.json)
@@ -39,4 +40,4 @@ jobs:
       - name: Add annotation
         if: failure() && steps.test.conclusion == 'failure'
         run: |
-          echo "::error file=tsconfig.build.json::Test package could not build. See https://github.com/primer/react/blob/main/consumer-test"
+          echo "::error file=tsconfig.build.json::Test package could not build. See https://github.com/primer/react/blob/main/examples/consumer-test"
