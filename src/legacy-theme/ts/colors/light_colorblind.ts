@@ -327,7 +327,7 @@ const colors = {
       disabledCounterFg: 'rgba(179,89,0,0.5)',
     },
     inactive: {
-      bg: '#d0d7de',
+      bg: '#eaeef2',
       text: '#57606a',
     },
   },

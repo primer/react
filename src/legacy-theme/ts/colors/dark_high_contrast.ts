@@ -328,7 +328,7 @@ const colors = {
     },
     inactive: {
       bg: '#272b33',
-      text: '#f0f3f6',
+      text: '#bdc4cc',
     },
   },
   underlinenav: {
