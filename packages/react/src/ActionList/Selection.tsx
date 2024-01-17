@@ -8,7 +8,7 @@ import Box from '../Box'
 
 type SelectionProps = Pick<ActionListItemProps, 'selected'>
 export const Selection: React.FC<React.PropsWithChildren<SelectionProps>> = ({selected}) => {
-  const {selectionVariant: listSelectionVariant} = React.useContext(ListContext)
+  const {selectionVariant: listSelectionVariant, role: listRole} = React.useContext(ListContext)
   const {selectionVariant: groupSelectionVariant} = React.useContext(GroupContext)
 
   /** selectionVariant in Group can override the selectionVariant in List root */
@@ -29,7 +29,7 @@ export const Selection: React.FC<React.PropsWithChildren<SelectionProps>> = ({se
     }
   }
 
-  if (selectionVariant === 'single') {
+  if (selectionVariant === 'single' || listRole === 'menu') {
     return <LeadingVisualContainer>{selected && <CheckIcon />}</LeadingVisualContainer>
   }
 

@@ -27,7 +27,7 @@
       "name": "underline",
       "type": "boolean",
       "defaultValue": "false",
-      "description": "Adds underline to the Link",
+      "description": "Use `inline` instead.",
       "deprecated": true
     },
     {
