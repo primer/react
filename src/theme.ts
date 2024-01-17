@@ -2,7 +2,6 @@ import {KeyPaths} from './utils/types/KeyPaths'
 import {colors} from './legacy-theme/ts/colors'
 import {partitionColors, fontStack, omitScale} from './utils/theme'
 
-// const {lineHeight: lineHeights} = primitives.typography
 
 const animation = {
   easeOutCubic: 'cubic-bezier(0.33, 1, 0.68, 1)',
