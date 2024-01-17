@@ -327,7 +327,7 @@ const colors = {
       hoverCounterFg: '#ffffff',
     },
     inactive: {
-      bg: '#30363d',
+      bg: '#21262d',
       text: '#8b949e',
     },
   },
