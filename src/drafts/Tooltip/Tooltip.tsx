@@ -217,16 +217,17 @@ export const Tooltip = React.forwardRef(
         'The `Tooltip` component expects a single React element that contains interactive content. Consider using a `<button>` or equivalent interactive element instead.',
       )
       // If the tooltip is used for labelling the interactive element, the trigger element or any of its children should not have aria-label
-      if (type === 'label') {
-        const hasAriaLabel = triggerRef.current.hasAttribute('aria-label')
-        const hasAriaLabelInChildren = Array.from(triggerRef.current.childNodes).some(
-          child => child instanceof HTMLElement && child.hasAttribute('aria-label'),
-        )
-        warning(
-          hasAriaLabel || hasAriaLabelInChildren,
-          'The label type `Tooltip` is going to be used here to label the trigger element. Please remove the aria-label from the trigger element.',
-        )
-      }
+      // Commenting out for now to test the icon button. We expect that the aria-labelledby will take precedence over the aria-label
+      // if (type === 'label') {
+      //   const hasAriaLabel = triggerRef.current.hasAttribute('aria-label')
+      //   const hasAriaLabelInChildren = Array.from(triggerRef.current.childNodes).some(
+      //     child => child instanceof HTMLElement && child.hasAttribute('aria-label'),
+      //   )
+      //   warning(
+      //     hasAriaLabel || hasAriaLabelInChildren,
+      //     'The label type `Tooltip` is going to be used here to label the trigger element. Please remove the aria-label from the trigger element.',
+      //   )
+      // }
 
       // SSR safe polyfill apply
       if (typeof window !== 'undefined') {
