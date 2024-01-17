@@ -6,19 +6,6 @@ exports[`Tooltip renders consistently 1`] = `
   display: inline-block;
 }
 
-.c0::before {
-  position: absolute;
-  z-index: 1000001;
-  display: none;
-  width: 0px;
-  height: 0px;
-  color: #24292f;
-  pointer-events: none;
-  content: '';
-  border: 6px solid transparent;
-  opacity: 0;
-}
-
 .c0::after {
   position: absolute;
   z-index: 1000000;
@@ -41,14 +28,10 @@ exports[`Tooltip renders consistently 1`] = `
   pointer-events: none;
   content: attr(aria-label);
   background: #24292f;
-  border-radius: 3px;
+  border-radius: 6px;
   opacity: 0;
 }
 
-.c0:hover::before,
-.c0:active::before,
-.c0:focus::before,
-.c0:focus-within::before,
 .c0:hover::after,
 .c0:active::after,
 .c0:focus::after,
@@ -68,10 +51,6 @@ exports[`Tooltip renders consistently 1`] = `
   animation-delay: 0.4s;
 }
 
-.c0.tooltipped-no-delay:hover::before,
-.c0.tooltipped-no-delay:active::before,
-.c0.tooltipped-no-delay:focus::before,
-.c0.tooltipped-no-delay:focus-within::before,
 .c0.tooltipped-no-delay:hover::after,
 .c0.tooltipped-no-delay:active::after,
 .c0.tooltipped-no-delay:focus::after,
@@ -95,16 +74,6 @@ exports[`Tooltip renders consistently 1`] = `
   margin-top: 6px;
 }
 
-.c0.tooltipped-s::before,
-.c0.tooltipped-se::before,
-.c0.tooltipped-sw::before {
-  top: auto;
-  right: 50%;
-  bottom: -7px;
-  margin-right: -6px;
-  border-bottom-color: #24292f;
-}
-
 .c0.tooltipped-se::after {
   right: auto;
   left: 50%;
@@ -121,16 +90,6 @@ exports[`Tooltip renders consistently 1`] = `
   right: 50%;
   bottom: 100%;
   margin-bottom: 6px;
-}
-
-.c0.tooltipped-n::before,
-.c0.tooltipped-ne::before,
-.c0.tooltipped-nw::before {
-  top: -7px;
-  right: 50%;
-  bottom: auto;
-  margin-right: -6px;
-  border-top-color: #24292f;
 }
 
 .c0.tooltipped-ne::after {
@@ -159,14 +118,6 @@ exports[`Tooltip renders consistently 1`] = `
   transform: translateY(50%);
 }
 
-.c0.tooltipped-w::before {
-  top: 50%;
-  bottom: 50%;
-  left: -7px;
-  margin-top: -6px;
-  border-left-color: #24292f;
-}
-
 .c0.tooltipped-e::after {
   bottom: 50%;
   left: 100%;
@@ -174,14 +125,6 @@ exports[`Tooltip renders consistently 1`] = `
   -webkit-transform: translateY(50%);
   -ms-transform: translateY(50%);
   transform: translateY(50%);
-}
-
-.c0.tooltipped-e::before {
-  top: 50%;
-  right: -7px;
-  bottom: 50%;
-  margin-top: -6px;
-  border-right-color: #24292f;
 }
 
 .c0.tooltipped-multiline::after {
@@ -213,17 +156,9 @@ exports[`Tooltip renders consistently 1`] = `
   margin-right: 0;
 }
 
-.c0.tooltipped-align-right-2::before {
-  right: 15px;
-}
-
 .c0.tooltipped-align-left-2::after {
   left: 0;
   margin-left: 0;
-}
-
-.c0.tooltipped-align-left-2::before {
-  left: 10px;
 }
 
 <span
