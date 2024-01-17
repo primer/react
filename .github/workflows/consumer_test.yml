@@ -16,10 +16,12 @@ jobs:
         with:
           node-version: 20
           cache: npm
+      - name: Remove "prepare" script
+        run: npm pkg delete scripts.prepare
       - name: Install dependencies
         run: npm ci
-      - name: Build
-        run: npm run build
+      - name: Build @primer/react
+        run: npm run build -w @primer/react
       # Output the artifact as a tarball in `consumer-test`. Write the
       # information for this package in `consumer-test/pack.json` so we can read
       # from it later to install the package
