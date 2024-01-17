@@ -1,4 +1,4 @@
-import {InboxIcon, HeartIcon} from '@primer/octicons-react'
+import {InboxIcon, HeartIcon, ChevronDownIcon} from '@primer/octicons-react'
 import React from 'react'
 import {IconButton} from '.'
 import {Tooltip} from '../drafts/Tooltip'
@@ -23,7 +23,7 @@ export const ExternalTooltip = () => (
 export const AsMenuAnchor = () => (
   <ActionMenu>
     <ActionMenu.Anchor>
-      <IconButton icon={HeartIcon} label="HeartIcon" />
+      <IconButton icon={ChevronDownIcon} label="Open Menu" />
     </ActionMenu.Anchor>
 
     <ActionMenu.Overlay width="medium">

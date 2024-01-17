@@ -186,6 +186,7 @@ export const Tooltip = React.forwardRef(
     const tooltipId = useId()
     const child = Children.only(children)
     const triggerRef = useProvidedRefOrCreate(forwardedRef as React.RefObject<HTMLElement>)
+    const [iconBtnAnchor, setIconBtnAnchor] = useState(false)
     const tooltipElRef = useRef<HTMLDivElement>(null)
 
     const [calculatedDirection, setCalculatedDirection] = useState<TooltipDirection>(direction)
@@ -217,14 +218,16 @@ export const Tooltip = React.forwardRef(
         'The `Tooltip` component expects a single React element that contains interactive content. Consider using a `<button>` or equivalent interactive element instead.',
       )
       // If the tooltip is used for labelling the interactive element, the trigger element or any of its children should not have aria-label
-      // Commenting out for now to test the icon button. We expect that the aria-labelledby will take precedence over the aria-label
+      const isIconBtnAnchor = triggerRef.current.getAttribute('data-anchor') === 'true'
+      setIconBtnAnchor(isIconBtnAnchor)
+      // commenting out for tests
       // if (type === 'label') {
       //   const hasAriaLabel = triggerRef.current.hasAttribute('aria-label')
       //   const hasAriaLabelInChildren = Array.from(triggerRef.current.childNodes).some(
       //     child => child instanceof HTMLElement && child.hasAttribute('aria-label'),
       //   )
       //   warning(
-      //     hasAriaLabel || hasAriaLabelInChildren,
+      //     (hasAriaLabel || hasAriaLabelInChildren) && !isIconBtnAnchor,
       //     'The label type `Tooltip` is going to be used here to label the trigger element. Please remove the aria-label from the trigger element.',
       //   )
       // }
@@ -262,7 +265,7 @@ export const Tooltip = React.forwardRef(
       return () => {
         tooltip.removeEventListener('toggle', positionSet)
       }
-    }, [tooltipElRef, triggerRef, direction, type])
+    }, [tooltipElRef, triggerRef, direction, type, iconBtnAnchor])
 
     return (
       <TooltipContext.Provider value={{tooltipId}}>
@@ -271,9 +274,9 @@ export const Tooltip = React.forwardRef(
             React.cloneElement(child as React.ReactElement<TriggerPropsType>, {
               ref: triggerRef,
               // If it is a type description, we use tooltip to describe the trigger
-              'aria-describedby': type === 'description' ? `tooltip-${tooltipId}` : child.props['aria-describedby'],
+              'aria-describedby': type === 'description' ? tooltipId : child.props['aria-describedby'],
               // If it is a label type, we use tooltip to label the trigger
-              'aria-labelledby': type === 'label' ? `tooltip-${tooltipId}` : child.props['aria-labelledby'],
+              'aria-labelledby': type === 'label' && !iconBtnAnchor ? tooltipId : child.props['aria-labelledby'],
               onBlur: (event: React.FocusEvent) => {
                 closeTooltip()
                 child.props.onBlur?.(event)
@@ -299,7 +302,7 @@ export const Tooltip = React.forwardRef(
             role={type === 'description' ? 'tooltip' : undefined}
             // stop AT from announcing the tooltip twice when it is a label type because it will be announced with "aria-labelledby"
             aria-hidden={type === 'label' ? true : undefined}
-            id={`tooltip-${tooltipId}`}
+            id={tooltipId}
             // mouse leave and enter on the tooltip itself is needed to keep the tooltip open when the mouse is over the tooltip
             onMouseEnter={openTooltip}
             onMouseLeave={closeTooltip}

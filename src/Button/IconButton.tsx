@@ -6,6 +6,7 @@ import {defaultSxProp} from '../utils/defaultSxProp'
 import {generateCustomSxProp} from './Button'
 import {Tooltip, TooltipContext} from '../drafts/Tooltip/Tooltip'
 import {TooltipContext as TooltipV1Context} from '../Tooltip/Tooltip'
+import {MenuContext} from '../ActionMenu/ActionMenu'
 
 const IconButton = forwardRef(
   (
@@ -22,10 +23,12 @@ const IconButton = forwardRef(
     // If the icon button is already wrapped in a tooltip, do not add one.
     const {tooltipId} = React.useContext(TooltipContext) // Tooltip v2
     const {container} = React.useContext(TooltipV1Context) // Tooltip v1
+    const {anchorRef, anchorId} = React.useContext(MenuContext)
 
+    // we need to know if the icon button is used as a menu anchor to render the tooltip and aria properties correctly.
+    const isIconButtonAnchor = anchorRef !== undefined && anchorId !== undefined
     // aria-label is going to be deprecated in favor of label but for now we are supporting both.
     const iconButtonLabel = label ?? ariaLabel
-
     if (!tooltipId && container !== 'Tooltip' && !disabled) {
       return (
         // if description exists, we use tooltip for adding description to the icon button. Otherwise, we use tooltip for labelling the icon button.
@@ -34,12 +37,13 @@ const IconButton = forwardRef(
           <ButtonBase
             icon={Icon}
             data-component="IconButton"
+            data-anchor={isIconButtonAnchor ? 'true' : undefined}
             sx={sxStyles}
             type="button"
             {...props}
-            // (TODO: to be confirm): aria-label will be present to make sure that the menu is properly labelled when icon button is used as an anchor. In other standalone icon button cases, the button will be labelled by the tooltip via aria-labelledby. This is fine because both values are the same and aria-labelledby takes precedence over aria-label.
             // If description exists, aria-label will be used to label the icon button whereas tooltip will be used to describe the button.
-            aria-label={iconButtonLabel}
+            // Is icon button is used as a menu anchor, aria-label will be used to label the icon button and the menu.)
+            aria-label={description || isIconButtonAnchor ? iconButtonLabel : undefined}
           />
         </Tooltip>
       )
@@ -49,6 +53,7 @@ const IconButton = forwardRef(
         <ButtonBase
           icon={Icon}
           data-component="IconButton"
+          data-anchor={isIconButtonAnchor ? 'true' : undefined}
           sx={sxStyles}
           disabled={disabled}
           type="button"
