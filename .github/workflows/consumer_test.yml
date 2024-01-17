@@ -26,7 +26,6 @@ jobs:
       - name: Create a tarball for the package
         run: npm pack --pack-destination consumer-test --json > ../../consumer-test/pack.json
         working-directory: packages/react
-        working-directory: packages/react
       - name: Clean package directory
         run: npm run clean:all
       - name: Test
