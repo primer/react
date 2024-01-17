@@ -106,7 +106,7 @@ export const VisualOrIndicator: React.FC<
   }
 
   return inactiveText ? (
-    <Tooltip text={inactiveText}>
+    <Tooltip text={inactiveText} type="label">
       <Box
         as="button"
         sx={{
@@ -117,7 +117,7 @@ export const VisualOrIndicator: React.FC<
           font: 'inherit',
           cursor: 'pointer',
         }}
-        aria-labelledby={labelId}
+        aria-describedby={labelId}
       >
         <VisualComponent>
           <AlertIcon />

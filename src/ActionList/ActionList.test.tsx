@@ -202,9 +202,7 @@ describe('ActionList', () => {
 
   it('should focus the button around the leading visual when tabbing to an inactive item', async () => {
     const component = HTMLRender(<SingleSelectListStory />)
-    const inactiveOptionButton = await waitFor(() =>
-      component.getByRole('button', {description: projects[3].inactiveText}),
-    )
+    const inactiveOptionButton = await waitFor(() => component.getByRole('button', {name: projects[3].inactiveText}))
     const inactiveIndex = projects.findIndex(project => project.inactiveText === projects[3].inactiveText)
 
     for (let i = 0; i < inactiveIndex; i++) {
@@ -216,9 +214,7 @@ describe('ActionList', () => {
 
   it('should behave as inactive if both inactiveText and loading props are passed', async () => {
     const component = HTMLRender(<SingleSelectListStory />)
-    const inactiveOptionButton = await waitFor(() =>
-      component.getByRole('button', {description: projects[5].inactiveText}),
-    )
+    const inactiveOptionButton = await waitFor(() => component.getByRole('button', {name: projects[5].inactiveText}))
     const inactiveIndex = projects.findIndex(project => project.inactiveText === projects[5].inactiveText)
 
     for (let i = 0; i < inactiveIndex; i++) {
