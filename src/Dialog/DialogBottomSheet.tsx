@@ -294,7 +294,7 @@ const DraggableRegion = styled.input`
     appearance: none;
   }
 `
-const Content = styled.div<
+const Content = styled.dialog<
   {
     open: boolean
   } & SxProp
