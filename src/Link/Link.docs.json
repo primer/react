@@ -15,25 +15,26 @@
       "name": "muted",
       "type": "boolean",
       "defaultValue": "false",
-      "description": "Uses a less prominent shade for Link color, and the default link shade on hover"
+      "description": "Uses a less prominent shade for Link color, and the default link shade on hover."
     },
     {
       "name": "inline",
       "type": "boolean",
       "defaultValue": "false",
-      "description": "Tag link inside a text block"
+      "description": "Set to true for links adjacent to text, underlining them for clear visibility and improved accessibility."
     },
     {
       "name": "underline",
       "type": "boolean",
       "defaultValue": "false",
-      "description": "Adds underline to the Link"
+      "description": "Use `inline` instead.",
+      "deprecated": true
     },
     {
       "name": "hoverColor",
       "type": "string",
       "defaultValue": "",
-      "description": "Color used when hovering over link"
+      "description": "Color used when hovering over the link."
     },
     {
       "name": "ref",

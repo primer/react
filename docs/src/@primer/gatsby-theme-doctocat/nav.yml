@@ -90,6 +90,8 @@
       url: /Link
     - title: NavList
       url: /NavList
+    - title: Octicon
+      url: /Octicon
     - title: Overlay
       url: /Overlay
     - title: Pagehead
@@ -124,8 +126,6 @@
       url: /SplitPageLayout
     - title: StateLabel
       url: /StateLabel
-    - title: Octicon
-      url: /Octicon
     - title: SubNav
       url: /SubNav
     - title: ToggleSwitch

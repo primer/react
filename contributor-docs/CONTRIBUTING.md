@@ -23,7 +23,7 @@
 
 ## Roadmap
 
-If you're looking for ways to contribute, a great place to start is our issues labeled [good first issue](https://github.com/primer/react/issues?q=is%3Aissue+is%3Aclosed+label%3A%22good+first+issue%22)! If you've got a feature that you'd like to implement, be sure to check out our [Primer Roadmap](https://github.com/orgs/github/projects/2759) (GitHub staff only) to make sure it hasn't already been started on.
+If you're looking for ways to contribute, a great place to start is our issues labeled [good first issue](https://github.com/primer/react/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22)! If you've got a feature that you'd like to implement, be sure to check out our [Primer Roadmap](https://github.com/orgs/github/projects/2759) (GitHub staff only) to make sure it hasn't already been started on.
 
 ## Before Getting Started
 
