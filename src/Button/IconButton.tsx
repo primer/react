@@ -37,8 +37,9 @@ const IconButton = forwardRef(
             sx={sxStyles}
             type="button"
             {...props}
-            // If description exists, we need to explicitly set aria-label to the button for an accessible name
-            aria-label={description ? iconButtonLabel : undefined}
+            // (TODO: to be confirm): aria-label will be present to make sure that the menu is properly labelled when icon button is used as an anchor. In other standalone icon button cases, the button will be labelled by the tooltip via aria-labelledby. This is fine because both values are the same and aria-labelledby takes precedence over aria-label.
+            // If description exists, aria-label will be used to label the icon button whereas tooltip will be used to describe the button.
+            aria-label={iconButtonLabel}
           />
         </Tooltip>
       )
