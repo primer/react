@@ -240,7 +240,8 @@ const Panel: React.FC<SelectPanelProps> = ({
             sx={{
               display: 'flex',
               flexDirection: 'column',
-              height: '100%',
+              height: 'initial',
+              minHeight: '100%',
             }}
           >
             {slots.header ?? /* render default header as fallback */ <SelectPanelHeader />}
