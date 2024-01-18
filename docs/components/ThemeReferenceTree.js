@@ -12,9 +12,7 @@ export default function ThemeReferenceTree({themeData}) {
 }
 
 const isColor = strColor => {
-  const s = new Option().style
-  s.color = strColor
-  return s.color !== ''
+  return /^#[a-fA-F0-9]{3,6}$/.test(strColor)
 }
 
 const getLeadingVisual = property => {
