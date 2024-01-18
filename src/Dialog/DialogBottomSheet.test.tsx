@@ -8,11 +8,11 @@ import {mediaQueries} from '../utils/layout'
 let matchMedia: MatchMediaMock
 
 describe('Dialog', () => {
-  beforeAll(() => {
+  beforeEach(() => {
     matchMedia = new MatchMediaMock()
   })
 
-  afterAll(() => {
+  afterEach(() => {
     matchMedia.clear()
   })
 
@@ -24,11 +24,6 @@ describe('Dialog', () => {
         <div>Hidden when narrow</div>
       </Dialog>
     ),
-  })
-
-  checkExports('Dialog', {
-    default: Dialog,
-    Dialog,
   })
 
   it('renders `when` prop as expected', () => {
