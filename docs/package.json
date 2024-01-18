@@ -1,5 +1,6 @@
 {
   "name": "docs",
+  "private": true,
   "repository": "primer/react",
   "version": "1.0.0",
   "scripts": {
