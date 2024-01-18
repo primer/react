@@ -425,7 +425,7 @@ const Backdrop = styled('div')`
   }
 `
 
-const NormalDialog = styled.div<StyledDialogProps>`
+const NormalDialog = styled.dialog<StyledDialogProps>`
   display: flex;
   flex-direction: column;
   background-color: ${get('colors.canvas.overlay')};
@@ -453,7 +453,7 @@ const NormalDialog = styled.div<StyledDialogProps>`
   ${sx};
 `
 
-const FullScreenDialog = styled.div<StyledDialogProps>`
+const FullScreenDialog = styled.dialog<StyledDialogProps>`
   display: flex;
   flex-direction: column;
   background-color: ${get('colors.canvas.overlay')};

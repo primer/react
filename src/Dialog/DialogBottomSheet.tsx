@@ -47,7 +47,7 @@ export interface DialogBottomSheetProps extends SxProp {
   ariaModal: boolean
 }
 
-export default React.forwardRef<HTMLDivElement, PropsWithChildren<DialogBottomSheetProps>>((props, forwardedRef) => {
+export default React.forwardRef<HTMLDialogElement, PropsWithChildren<DialogBottomSheetProps>>((props, forwardedRef) => {
   const {onClose, children, role, ariaLabelledby, ariaDescribedby, ariaModal, header, sx} = props
 
   // 🔄 STATES
@@ -58,12 +58,12 @@ export default React.forwardRef<HTMLDivElement, PropsWithChildren<DialogBottomSh
 
   // 📎 REFERENCES
 
-  const dialogRef = useRef<HTMLDivElement>(null)
+  const dialogRef = useRef<HTMLDialogElement>(null)
   const startY = useRef(0)
   const startHeight = useRef(0)
   const isDragging = useRef(false)
 
-  useRefObjectAsForwardedRef(forwardedRef, dialogRef)
+  useRefObjectAsForwardedRef<HTMLDialogElement>(forwardedRef, dialogRef)
 
   // 🧑‍🦽 ACCESSIBILITY
 
