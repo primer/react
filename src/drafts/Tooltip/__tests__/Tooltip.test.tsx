@@ -108,14 +108,14 @@ describe('Tooltip', () => {
     consoleErrorSpy.mockRestore()
   })
   it('renders tooltip as default on an icon button', () => {
-    const {getByRole, getByText} = HTMLRender(<IconButton size="large" icon={HeartIcon} name="Heart" />)
+    const {getByRole, getByText} = HTMLRender(<IconButton size="large" icon={HeartIcon} aria-label="Heart" />)
     const triggerEL = getByRole('button')
     const tooltipEl = getByText('Heart')
     expect(triggerEL).toHaveAttribute('aria-labelledby', tooltipEl.id)
   })
   it('renders description type tooltip as default on an icon button', () => {
     const {getByRole, getByText} = HTMLRender(
-      <IconButton size="large" icon={HeartIcon} name="Heart" description="Love is all around" />,
+      <IconButton size="large" icon={HeartIcon} aria-label="Heart" description="Love is all around" />,
     )
     const triggerEL = getByRole('button')
     expect(triggerEL).toHaveAttribute('aria-label', 'Heart')

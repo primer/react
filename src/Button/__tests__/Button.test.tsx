@@ -122,7 +122,7 @@ describe('Button', () => {
           <BaseStyles>
             <ActionMenu>
               <ActionMenu.Anchor>
-                <IconButton icon={SearchIcon} name="More actions" />
+                <IconButton icon={SearchIcon} aria-label="More actions" />
               </ActionMenu.Anchor>
 
               <ActionMenu.Overlay width="medium">
