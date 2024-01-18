@@ -6,7 +6,7 @@ import Box from '../Box'
 import {get} from '../constants'
 import {useMedia} from '../hooks/useMedia'
 
-const ANIMATION_DURATION = 300
+export const ANIMATION_DURATION = 300
 const FULL_HEIGHT = 95
 const HALF_HEIGHT = 50
 

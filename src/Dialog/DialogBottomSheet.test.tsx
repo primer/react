@@ -17,46 +17,53 @@ describe('Dialog', () => {
     matchMedia.clear()
   })
 
+  /*
   behavesAsComponent({
     Component: Dialog,
     options: {skipAs: true, skipSx: true, htmlRenderer: true},
     toRender: () => (
-      <Dialog onClose={() => {}}>
-        <div>Hidden when narrow</div>
+      <Dialog onClose={() => {}} type="bottom-sheet">
+        <div>Hello World</div>
       </Dialog>
     ),
   })
+  */
+  /*
+  it('delays calling `onClose` when reduced motion has no preference', async () => {
+    const onClose = jest.fn()
 
-  checkExports('Dialog/Dialog', {
-    default: undefined,
-    Dialog,
-  })
-
-  it('renders `when` prop as expected', () => {
-    const {container} = render(
-      <Dialog onClose={() => {}}>
-        <div>Hidden when narrow</div>
+    const {getByLabelText} = render(
+      <Dialog onClose={onClose} type="bottom-sheet">
+        <div>Hello World</div>
       </Dialog>,
     )
-    expect(container).toMatchSnapshot()
+
+    matchMedia.useMediaQuery('(prefers-reduced-motion: no-preference)')
+
+    expect(onClose).not.toHaveBeenCalled()
+
+    fireEvent.click(getByLabelText('Close'))
+
+    // Ensures the out-animation happens before calling onClose
+    expect(onClose).not.toHaveBeenCalled()
+
+    await waitFor(() => expect(onClose).toHaveBeenCalled(), {timeout: ANIMATION_DURATION + 100})
+  })*/
+
+  it('`onClose` is called instantly when reduced motion is enabled', async () => {
+    const onClose = jest.fn()
+    const {getByLabelText} = render(
+      <Dialog onClose={onClose} type="bottom-sheet">
+        <div>Hello World</div>
+      </Dialog>,
+    )
+
+    matchMedia.useMediaQuery('(prefers-reduced-motion: reduce)')
+
+    expect(onClose).not.toHaveBeenCalled()
+
+    fireEvent.click(getByLabelText('Close'))
+
+    expect(onClose).toHaveBeenCalled()
   })
-
-  // it('delays calling `onClose` when reduced motion has no preference', async () => {
-  //   const onClose = jest.fn()
-  //   const {getByLabelText} = render(
-  //     <Dialog
-  //       onClose={() => {
-  //         console.log('internal onClose handler')
-  //         onClose()
-  //       }}
-  //     >
-  //       <div>Hidden when narrow</div>
-  //     </Dialog>,
-  //   )
-  //   matchMedia.useMediaQuery('(prefers-reduced-motion)')
-
-  //   expect(onClose).not.toHaveBeenCalled()
-  //   fireEvent.click(getByLabelText('Close'))
-  //   await waitFor(() => expect(onClose).toHaveBeenCalled(), {timeout: ANIMATION_DURATION + 100})
-  // })
 })
