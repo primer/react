@@ -9,8 +9,7 @@ on:
 jobs:
   release:
     concurrency: npm-canary
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-      - run: echo 'TODO'
+    uses: primer/.github/.github/workflows/release_canary.yml@main
+    secrets:
+      gh_token: ${{ secrets.GITHUB_TOKEN }}
+      npm_token: ${{ secrets.NPM_AUTH_TOKEN_SHARED }}
