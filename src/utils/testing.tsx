@@ -190,6 +190,7 @@ export function unloadCSS(path: string) {
 interface Options {
   skipAs?: boolean
   skipSx?: boolean
+  htmlRenderer?: boolean
 }
 
 interface BehavesAsComponent {
@@ -223,7 +224,11 @@ export function behavesAsComponent({Component, toRender, options}: BehavesAsComp
   })
 
   it('renders consistently', () => {
-    expect(render(getElement())).toMatchSnapshot()
+    if (options?.htmlRenderer) {
+      expect(HTMLRender(getElement())).toMatchSnapshot()
+    } else {
+      expect(render(getElement())).toMatchSnapshot()
+    }
   })
 }
 
