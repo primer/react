@@ -8,7 +8,7 @@ The Side Nav is a vertical list of navigational links, typically used on the lef
 
 ## Deprecation
 
-Use [NavList](/NavList) instead.
+Use [NavList](/components/nav-list/react/latest) instead.
 
 ### Before
 
