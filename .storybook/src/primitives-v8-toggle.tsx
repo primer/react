@@ -13,6 +13,8 @@ export const TOOL_ID = `${ADDON_ID}/tool`
 // condtionally import the index?
 // inject into the dom?
 
+// @primer/primitives/tokens-next-private/css/functional/themes/light.css
+
 export const Tool = () => {
   const [{showSurroundingElements, colorScheme}, updateGlobals] = useGlobals()
 

@@ -9,7 +9,7 @@ import {Icon} from '@primer/octicons-react'
 // we don't import StoryContext from storybook because of exports that conflict
 // with primer/react more: https://github.com/primer/react/runs/6129115026?check_suite_focus=true
 type StoryContext = Record<string, unknown> & {
-  globals: {colorScheme: string; showSurroundingElements?: boolean}
+  globals: {colorScheme: string; showSurroundingElements?: boolean; primitivesVersion: string}
   parameters: Record<string, unknown>
 }
 
@@ -60,6 +60,7 @@ export const withThemeProvider = (Story: React.FC<React.PropsWithChildren<StoryC
   if (context.parameters.disableThemeDecorator) return Story(context)
 
   const {colorScheme} = context.globals
+  const {primitivesVersion} = context.globals
 
   if (colorScheme === 'all') {
     return (
@@ -96,6 +97,55 @@ export const withThemeProvider = (Story: React.FC<React.PropsWithChildren<StoryC
     )
   }
 
+  // if (primitivesVersion === 'v8') {
+  //   var link = document.createElement('link')
+  //   link.rel = 'stylesheet'
+  //   link.href = 'https://example.com/stylesheet.css' // replace with your stylesheet URL
+  //   document.head.appendChild(link)
+  // } else if (primitivesVersion === 'Legacy') {
+  //   var link = document.createElement('link')
+  //   link.rel = 'stylesheet'
+  //   link.href = 'https://example.com/stylesheet.css' // replace with your stylesheet URL
+  //   document.head.appendChild(link)
+  // } else do nothing
+
+  // Define a variable to hold the current stylesheet link element
+  let currentStylesheet
+
+  if (primitivesVersion === 'v8') {
+    // Remove the existing stylesheet, if any
+    if (currentStylesheet) {
+      document.head.removeChild(currentStylesheet)
+    }
+
+    var link = document.createElement('link')
+    link.rel = 'stylesheet'
+    link.href = 'https://example.com/stylesheet1.css' // replace with your stylesheet URL
+    document.head.appendChild(link)
+
+    // Update the current stylesheet
+    currentStylesheet = link
+  } else if (primitivesVersion === 'Legacy') {
+    // Remove the existing stylesheet, if any
+    if (currentStylesheet) {
+      document.head.removeChild(currentStylesheet)
+    }
+
+    var link = document.createElement('link')
+    link.rel = 'stylesheet'
+    link.href = 'https://example.com/stylesheet2.css' // replace with your stylesheet URL
+    document.head.appendChild(link)
+
+    // Update the current stylesheet
+    currentStylesheet = link
+  } else {
+    // Remove the existing stylesheet, if any
+    if (currentStylesheet) {
+      document.head.removeChild(currentStylesheet)
+      currentStylesheet = null
+    }
+  }
+
   return (
     <ThemeProvider colorMode="day" dayScheme={colorScheme}>
       <GlobalStyle />
@@ -115,6 +165,17 @@ export const toolbarTypes = {
       icon: 'photo',
       items: [...Object.keys(theme.colorSchemes), 'all'],
       title: 'Color scheme',
+    },
+    showSurroundingElements: {},
+  },
+  primitivesVersion: {
+    name: 'Primitives',
+    description: 'Switch primitives version',
+    defaultValue: 'None',
+    toolbar: {
+      icon: 'photo',
+      items: ['None', 'Legacy', 'v8'],
+      title: 'Primitives',
     },
     showSurroundingElements: {},
   },
