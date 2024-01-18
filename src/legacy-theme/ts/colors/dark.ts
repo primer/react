@@ -24,7 +24,7 @@ const colors = {
       numBg: 'var(--diffBlob-hunk-bgColor-num, var(--color-diff-blob-hunk-num-bg, rgba(56,139,253,0.4)))',
     },
     expander: {
-      icon: 'var(--diffBlob-expander-iconColor, var(--color-diff-blob-expander-icon, #848d97))',
+      icon: 'var(--diffBlob-expander-iconColor, var(--color-diff-blob-expander-icon, #7d8590))',
     },
     selectedLineHighlightMixBlendMode: 'var(--color-diff-blob-selected-line-highlight-mix-blend-mode, screen)',
   },
