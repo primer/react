@@ -63,7 +63,7 @@ export default React.forwardRef<HTMLDivElement, PropsWithChildren<DialogBottomSh
   const startHeight = useRef(0)
   const isDragging = useRef(false)
 
-  useRefObjectAsForwardedRef(forwardedRef, dialogRef)
+  useRefObjectAsForwardedRef<HTMLDivElement>(forwardedRef, dialogRef)
 
   // 🧑‍🦽 ACCESSIBILITY
 
@@ -294,7 +294,7 @@ const DraggableRegion = styled.input`
     appearance: none;
   }
 `
-const Content = styled.dialog<
+const Content = styled.div<
   {
     open: boolean
   } & SxProp
