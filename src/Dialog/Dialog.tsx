@@ -259,6 +259,7 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
       footerButton.ref = autoFocusedFooterButtonRef
     }
   }
+
   const defaultedProps = {...props, title, subtitle, role, dialogLabelId, dialogDescriptionId, closeButtonRef}
   const responsiveType = useResponsiveValue(type, 'default')
 
@@ -535,8 +536,9 @@ export interface CloseButtonProps extends SxProp {
 }
 
 const CloseButton = React.forwardRef<HTMLButtonElement, CloseButtonProps>((props, ref) => {
+  const {onClose} = props
   return (
-    <DialogCloseButton ref={ref} aria-label="Close" {...props}>
+    <DialogCloseButton ref={ref} aria-label="Close" onClick={onClose} {...props}>
       <Octicon icon={XIcon} />
     </DialogCloseButton>
   )
