@@ -1,0 +1,1 @@
+`legacy-theme` is a copy of the colors `dist` from `primer/primitives` and is intended to serve as a stopgap until we migrate JS variables to CSS variables. This excludes the build logic from Primitives, so each value is a raw hex. Refrain from making changes to these colors unless absolutely necessary.
