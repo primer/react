@@ -1,24 +1,20 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Dialog renders \`when\` prop as expected 1`] = `
-@media (forced-colors:active) {
-
-}
-
-<div />
-`;
-
 exports[`Dialog renders consistently 1`] = `
 {
   "asFragment": [Function],
   "baseElement": .c3 {
+  position: relative;
+}
+
+.c7 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
 }
 
-.c4 {
+.c8 {
   padding-left: 8px;
   padding-right: 8px;
   padding-top: 6px;
@@ -36,7 +32,7 @@ exports[`Dialog renders consistently 1`] = `
   flex-grow: 1;
 }
 
-.c6 {
+.c10 {
   z-index: 2;
   right: 0;
   padding-right: 8px;
@@ -44,18 +40,21 @@ exports[`Dialog renders consistently 1`] = `
   pointer-events: auto;
 }
 
-.c9 {
+.c13 {
   -webkit-box-pack: center;
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
 }
 
-.c10 {
+.c14 {
   overflow: auto;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
 }
 
-.c7 {
+.c11 {
   border-radius: 2;
   border: 1px solid;
   border-color: var(--button-default-borderColor-rest,undefined);
@@ -100,63 +99,63 @@ exports[`Dialog renders consistently 1`] = `
   box-shadow: undefined,undefined;
 }
 
-.c7:focus:not(:disabled) {
+.c11:focus:not(:disabled) {
   box-shadow: none;
   outline: 2px solid;
   outline-offset: -2px;
 }
 
-.c7:focus:not(:disabled):not(:focus-visible) {
+.c11:focus:not(:disabled):not(:focus-visible) {
   outline: solid 1px transparent;
 }
 
-.c7:focus-visible:not(:disabled) {
+.c11:focus-visible:not(:disabled) {
   box-shadow: none;
   outline: 2px solid;
   outline-offset: -2px;
 }
 
-.c7[href] {
+.c11[href] {
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
   display: inline-flex;
 }
 
-.c7[href]:hover {
+.c11[href]:hover {
   -webkit-text-decoration: none;
   text-decoration: none;
 }
 
-.c7:hover {
+.c11:hover {
   -webkit-transition-duration: 80ms;
   transition-duration: 80ms;
 }
 
-.c7:active {
+.c11:active {
   -webkit-transition: none;
   transition: none;
 }
 
-.c7[data-inactive] {
+.c11[data-inactive] {
   cursor: auto;
 }
 
-.c7:disabled {
+.c11:disabled {
   cursor: not-allowed;
   box-shadow: none;
   color: primer.fg.disabled;
 }
 
-.c7:disabled [data-component=ButtonCounter] {
+.c11:disabled [data-component=ButtonCounter] {
   color: inherit;
 }
 
-.c7 [data-component=ButtonCounter] {
+.c11 [data-component=ButtonCounter] {
   font-size: 12px;
 }
 
-.c7[data-component=IconButton] {
+.c11[data-component=IconButton] {
   display: inline-grid;
   padding: unset;
   place-content: center;
@@ -164,78 +163,78 @@ exports[`Dialog renders consistently 1`] = `
   min-width: unset;
 }
 
-.c7[data-size="small"] {
+.c11[data-size="small"] {
   padding: 0 8px;
   height: 28px;
   gap: 4px;
   font-size: 12px;
 }
 
-.c7[data-size="small"] [data-component="text"] {
+.c11[data-size="small"] [data-component="text"] {
   line-height: calc(20 / 12);
 }
 
-.c7[data-size="small"] [data-component=ButtonCounter] {
+.c11[data-size="small"] [data-component=ButtonCounter] {
   font-size: 12px;
 }
 
-.c7[data-size="small"] [data-component="buttonContent"] > :not(:last-child) {
+.c11[data-size="small"] [data-component="buttonContent"] > :not(:last-child) {
   margin-right: 4px;
 }
 
-.c7[data-size="small"][data-component=IconButton] {
+.c11[data-size="small"][data-component=IconButton] {
   width: 28px;
   padding: unset;
 }
 
-.c7[data-size="large"] {
+.c11[data-size="large"] {
   padding: 0 16px;
   height: 40px;
   gap: 8px;
 }
 
-.c7[data-size="large"] [data-component="buttonContent"] > :not(:last-child) {
+.c11[data-size="large"] [data-component="buttonContent"] > :not(:last-child) {
   margin-right: 8px;
 }
 
-.c7[data-size="large"][data-component=IconButton] {
+.c11[data-size="large"][data-component=IconButton] {
   width: 40px;
   padding: unset;
 }
 
-.c7[data-block="block"] {
+.c11[data-block="block"] {
   width: 100%;
 }
 
-.c7[data-inactive]:not([disabled]) {
+.c11[data-inactive]:not([disabled]) {
   background-color: var(--button-inactive-bgColor,undefined);
   border-color: var(--button-inactive-bgColor,undefined);
   color: var(--button-inactive-fgColor,undefined);
 }
 
-.c7[data-inactive]:not([disabled]):focus-visible {
+.c11[data-inactive]:not([disabled]):focus-visible {
   box-shadow: none;
 }
 
-.c7 [data-component="leadingVisual"] {
+.c11 [data-component="leadingVisual"] {
   grid-area: leadingVisual;
 }
 
-.c7 [data-component="text"] {
+.c11 [data-component="text"] {
   grid-area: text;
   line-height: calc(20/14);
   white-space: nowrap;
 }
 
-.c7 [data-component="trailingVisual"] {
+.c11 [data-component="trailingVisual"] {
   grid-area: trailingVisual;
 }
 
-.c7 [data-component="trailingAction"] {
+.c11 [data-component="trailingAction"] {
   margin-right: -4px;
 }
 
-.c7 [data-component="buttonContent"] {
+.c11 [data-component="buttonContent"] {
   -webkit-flex: 1 0 auto;
   -ms-flex: 1 0 auto;
   flex: 1 0 auto;
@@ -251,28 +250,28 @@ exports[`Dialog renders consistently 1`] = `
   align-content: center;
 }
 
-.c7 [data-component="buttonContent"] > :not(:last-child) {
+.c11 [data-component="buttonContent"] > :not(:last-child) {
   margin-right: 8px;
 }
 
-.c7:hover:not([disabled]):not([data-inactive]) {
+.c11:hover:not([disabled]):not([data-inactive]) {
   background-color: btn.hoverBg;
   border-color: var(--button-default-borderColor-hover,undefined);
 }
 
-.c7:active:not([disabled]):not([data-inactive]) {
+.c11:active:not([disabled]):not([data-inactive]) {
   background-color: btn.activeBg;
   border-color: var(--button-default-borderColor-active,undefined);
 }
 
-.c7[aria-expanded=true] {
+.c11[aria-expanded=true] {
   background-color: btn.activeBg;
   border-color: var(--button-default-borderColor-active,undefined);
 }
 
-.c7 [data-component="leadingVisual"],
-.c7 [data-component="trailingVisual"],
-.c7 [data-component="trailingAction"] {
+.c11 [data-component="leadingVisual"],
+.c11 [data-component="trailingVisual"],
+.c11 [data-component="trailingAction"] {
   color: var(--button-color,undefined);
 }
 
@@ -280,25 +279,101 @@ exports[`Dialog renders consistently 1`] = `
   position: fixed;
   top: 0;
   left: 0;
-  bottom: 0;
-  right: 0;
+  width: 100%;
+  height: 100%;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
+  opacity: 1;
+  pointerevents: auto;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-pack: end;
+  -webkit-justify-content: flex-end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
+  -webkit-transition: 100ms linear;
+  transition: 100ms linear;
+}
+
+.c1 {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+}
+
+.c5 {
+  height: 6px;
+  width: 70px;
+  display: block;
+  border-radius: 3px;
+  top: 8px;
+  position: absolute;
+  pointer-events: none;
+  left: 50%;
+  margin-left: -35px;
+}
+
+.c4 {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
-  -webkit-animation: dialog-backdrop-appear 200ms cubic-bezier(0.33,1,0.68,1);
-  animation: dialog-backdrop-appear 200ms cubic-bezier(0.33,1,0.68,1);
+  border: none;
+  position: absolute;
+  background: transparent;
+  top: 0;
+  width: 100%;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  padding-top: 8px;
+  padding-bottom: 4px;
+  cursor: -webkit-grab;
+  cursor: -moz-grab;
+  cursor: grab;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  min-height: 50px;
 }
 
-.c1 {
+.c4:focus {
+  outline: none;
+  opacity: 0;
+}
+
+.c4::-moz-range-thumb {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  visibility: hidden;
+}
+
+.c4::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+.c2 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -306,18 +381,25 @@ exports[`Dialog renders consistently 1`] = `
   -webkit-flex-direction: column;
   -ms-flex-direction: column;
   flex-direction: column;
-  min-width: 296px;
-  max-width: calc(100vw - 64px);
-  max-height: calc(100vh - 64px);
-  width: 640px;
-  height: auto;
-  border-radius: 12px;
-  opacity: 1;
-  -webkit-animation: overlay--dialog-appear 200ms cubic-bezier(0.33,1,0.68,1);
-  animation: overlay--dialog-appear 200ms cubic-bezier(0.33,1,0.68,1);
+  width: 100vw;
+  max-width: 100dvh;
+  max-width: 480px;
+  border-radius: 12px 12px 0 0;
+  position: relative;
+  height: 50vh;
+  height: 50dvh;
+  max-height: 100vh;
+  max-height: 100dvh;
+  overflow-x: hidden;
+  overflow-y: auto;
+  -webkit-transform: translateY(0%);
+  -ms-transform: translateY(0%);
+  transform: translateY(0%);
+  -webkit-transition: 300ms ease;
+  transition: 300ms ease;
 }
 
-.c2 {
+.c6 {
   box-shadow: 0 1px 0;
   padding: 8px;
   z-index: 1;
@@ -328,14 +410,14 @@ exports[`Dialog renders consistently 1`] = `
   position: relative;
 }
 
-.c5 {
+.c9 {
   font-size: 14px;
   font-weight: 600;
   margin: 0;
   width: calc(100% - 24px);
 }
 
-.c11 {
+.c15 {
   -webkit-box-flex: 1;
   -webkit-flex-grow: 1;
   -ms-flex-positive: 1;
@@ -344,7 +426,7 @@ exports[`Dialog renders consistently 1`] = `
   padding: 16px;
 }
 
-.c8 {
+.c12 {
   border-radius: 4px;
   background: transparent;
   border: 0;
@@ -358,8 +440,19 @@ exports[`Dialog renders consistently 1`] = `
 }
 
 @media (forced-colors:active) {
-  .c7:focus {
+  .c11:focus {
     outline: solid 1px transparent;
+  }
+}
+
+@media (prefers-reduced-motion) {
+
+}
+
+@media (prefers-reduced-motion) {
+  .c0 {
+    -webkit-transition: none;
+    transition: none;
   }
 }
 
@@ -376,16 +469,19 @@ exports[`Dialog renders consistently 1`] = `
       >
         <div
           class="c0"
+          open=""
         >
+          <div
+            class="c1"
+          />
           <div
             aria-describedby=":r1:"
             aria-labelledby=":r0:"
             aria-modal="true"
-            class="c1"
+            class="c2"
             data-focus-trap="active"
-            height="auto"
+            open=""
             role="dialog"
-            width="xlarge"
           >
             <span
               aria-hidden="true"
@@ -393,69 +489,90 @@ exports[`Dialog renders consistently 1`] = `
               tabindex="0"
             />
             <div
-              class="c2"
+              class="c3"
             >
+              <input
+                aria-label="Draggable dialog height resizer"
+                aria-valuemax="2"
+                aria-valuemin="1"
+                aria-valuenow="1"
+                aria-valuetext="Dialog height 50% of the screen"
+                class="c4"
+                max="2"
+                min="1"
+                role="slider"
+                tabindex="0"
+                type="range"
+                value="1"
+              />
               <div
-                class="c3"
-                display="flex"
+                class="c5"
+              />
+              <div
+                class="c6"
               >
                 <div
-                  class="c4"
+                  class="c7"
                   display="flex"
                 >
-                  <h1
-                    class="c5"
-                    id=":r0:"
+                  <div
+                    class="c8"
+                    display="flex"
                   >
-                    Dialog
-                  </h1>
-                </div>
-                <div
-                  class="c6"
-                >
-                  <button
-                    aria-label="Close"
-                    class="c7 c8 focus-visible"
-                    data-focus-visible-added=""
-                    data-no-visuals="true"
-                    type="button"
-                  >
-                    <span
+                    <h1
                       class="c9"
-                      data-component="buttonContent"
+                      id=":r0:"
+                    >
+                      Dialog
+                    </h1>
+                  </div>
+                  <div
+                    class="c10"
+                  >
+                    <button
+                      aria-label="Close"
+                      class="c11 c12 focus-visible"
+                      data-focus-visible-added=""
+                      data-no-visuals="true"
+                      type="button"
                     >
                       <span
-                        data-component="text"
+                        class="c13"
+                        data-component="buttonContent"
                       >
-                        <svg
-                          aria-hidden="true"
-                          class=""
-                          fill="currentColor"
-                          focusable="false"
-                          height="16"
-                          role="img"
-                          style="display: inline-block; user-select: none; vertical-align: text-bottom; overflow: visible;"
-                          viewBox="0 0 16 16"
-                          width="16"
+                        <span
+                          data-component="text"
                         >
-                          <path
-                            d="M3.72 3.72a.75.75 0 0 1 1.06 0L8 6.94l3.22-3.22a.749.749 0 0 1 1.275.326.749.749 0 0 1-.215.734L9.06 8l3.22 3.22a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215L8 9.06l-3.22 3.22a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042L6.94 8 3.72 4.78a.75.75 0 0 1 0-1.06Z"
-                          />
-                        </svg>
+                          <svg
+                            aria-hidden="true"
+                            class=""
+                            fill="currentColor"
+                            focusable="false"
+                            height="16"
+                            role="img"
+                            style="display: inline-block; user-select: none; vertical-align: text-bottom; overflow: visible;"
+                            viewBox="0 0 16 16"
+                            width="16"
+                          >
+                            <path
+                              d="M3.72 3.72a.75.75 0 0 1 1.06 0L8 6.94l3.22-3.22a.749.749 0 0 1 1.275.326.749.749 0 0 1-.215.734L9.06 8l3.22 3.22a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215L8 9.06l-3.22 3.22a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042L6.94 8 3.72 4.78a.75.75 0 0 1 0-1.06Z"
+                            />
+                          </svg>
+                        </span>
                       </span>
-                    </span>
-                  </button>
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
             <div
-              class="c10 DialogOverflowWrapper"
+              class="c14 DialogOverflowWrapper"
             >
               <div
-                class="c11"
+                class="c15"
               >
                 <div>
-                  Hidden when narrow
+                  Hello World
                 </div>
               </div>
             </div>
@@ -470,6 +587,14 @@ exports[`Dialog renders consistently 1`] = `
     </div>
   </body>,
   "container": @media (forced-colors:active) {
+
+}
+
+@media (prefers-reduced-motion) {
+
+}
+
+@media (prefers-reduced-motion) {
 
 }
 

@@ -17,7 +17,6 @@ describe('Dialog', () => {
     matchMedia.clear()
   })
 
-  /*
   behavesAsComponent({
     Component: Dialog,
     options: {skipAs: true, skipSx: true, htmlRenderer: true},
@@ -27,7 +26,7 @@ describe('Dialog', () => {
       </Dialog>
     ),
   })
-  */
+
   /*
   it('delays calling `onClose` when reduced motion has no preference', async () => {
     const onClose = jest.fn()
