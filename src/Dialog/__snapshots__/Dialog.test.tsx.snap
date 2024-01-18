@@ -1,0 +1,505 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Dialog renders consistently 1`] = `
+{
+  "asFragment": [Function],
+  "baseElement": .c3 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.c4 {
+  padding-left: 8px;
+  padding-right: 8px;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+}
+
+.c8 {
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+.c9 {
+  overflow: auto;
+}
+
+.c6 {
+  border-radius: 2;
+  border: 1px solid;
+  border-color: var(--button-default-borderColor-rest,undefined);
+  font-family: inherit;
+  font-weight: semibold;
+  font-size: 14px;
+  cursor: pointer;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  text-align: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  height: 32px;
+  padding: 0 12px;
+  gap: 8px;
+  min-width: -webkit-max-content;
+  min-width: -moz-max-content;
+  min-width: max-content;
+  -webkit-transition: 80ms cubic-bezier(0.65,0,0.35,1);
+  transition: 80ms cubic-bezier(0.65,0,0.35,1);
+  -webkit-transition-property: color,fill,background-color,border-color;
+  transition-property: color,fill,background-color,border-color;
+  color: btn.text;
+  background-color: btn.bg;
+  box-shadow: undefined,undefined;
+}
+
+.c6:focus:not(:disabled) {
+  box-shadow: none;
+  outline: 2px solid;
+  outline-offset: -2px;
+}
+
+.c6:focus:not(:disabled):not(:focus-visible) {
+  outline: solid 1px transparent;
+}
+
+.c6:focus-visible:not(:disabled) {
+  box-shadow: none;
+  outline: 2px solid;
+  outline-offset: -2px;
+}
+
+.c6[href] {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+}
+
+.c6[href]:hover {
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c6:hover {
+  -webkit-transition-duration: 80ms;
+  transition-duration: 80ms;
+}
+
+.c6:active {
+  -webkit-transition: none;
+  transition: none;
+}
+
+.c6[data-inactive] {
+  cursor: auto;
+}
+
+.c6:disabled {
+  cursor: not-allowed;
+  box-shadow: none;
+  color: primer.fg.disabled;
+}
+
+.c6:disabled [data-component=ButtonCounter] {
+  color: inherit;
+}
+
+.c6 [data-component=ButtonCounter] {
+  font-size: 12px;
+}
+
+.c6[data-component=IconButton] {
+  display: inline-grid;
+  padding: unset;
+  place-content: center;
+  width: 32px;
+  min-width: unset;
+}
+
+.c6[data-size="small"] {
+  padding: 0 8px;
+  height: 28px;
+  gap: 4px;
+  font-size: 12px;
+}
+
+.c6[data-size="small"] [data-component="text"] {
+  line-height: calc(20 / 12);
+}
+
+.c6[data-size="small"] [data-component=ButtonCounter] {
+  font-size: 12px;
+}
+
+.c6[data-size="small"] [data-component="buttonContent"] > :not(:last-child) {
+  margin-right: 4px;
+}
+
+.c6[data-size="small"][data-component=IconButton] {
+  width: 28px;
+  padding: unset;
+}
+
+.c6[data-size="large"] {
+  padding: 0 16px;
+  height: 40px;
+  gap: 8px;
+}
+
+.c6[data-size="large"] [data-component="buttonContent"] > :not(:last-child) {
+  margin-right: 8px;
+}
+
+.c6[data-size="large"][data-component=IconButton] {
+  width: 40px;
+  padding: unset;
+}
+
+.c6[data-block="block"] {
+  width: 100%;
+}
+
+.c6[data-inactive]:not([disabled]) {
+  background-color: var(--button-inactive-bgColor,undefined);
+  border-color: var(--button-inactive-bgColor,undefined);
+  color: var(--button-inactive-fgColor,undefined);
+}
+
+.c6[data-inactive]:not([disabled]):focus-visible {
+  box-shadow: none;
+}
+
+.c6 [data-component="leadingVisual"] {
+  grid-area: leadingVisual;
+}
+
+.c6 [data-component="text"] {
+  grid-area: text;
+  line-height: calc(20/14);
+  white-space: nowrap;
+}
+
+.c6 [data-component="trailingVisual"] {
+  grid-area: trailingVisual;
+}
+
+.c6 [data-component="trailingAction"] {
+  margin-right: -4px;
+}
+
+.c6 [data-component="buttonContent"] {
+  -webkit-flex: 1 0 auto;
+  -ms-flex: 1 0 auto;
+  flex: 1 0 auto;
+  display: grid;
+  grid-template-areas: "leadingVisual text trailingVisual";
+  grid-template-columns: min-content minmax(0,auto) min-content;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-align-content: center;
+  -ms-flex-line-pack: center;
+  align-content: center;
+}
+
+.c6 [data-component="buttonContent"] > :not(:last-child) {
+  margin-right: 8px;
+}
+
+.c6:hover:not([disabled]):not([data-inactive]) {
+  background-color: btn.hoverBg;
+  border-color: var(--button-default-borderColor-hover,undefined);
+}
+
+.c6:active:not([disabled]):not([data-inactive]) {
+  background-color: btn.activeBg;
+  border-color: var(--button-default-borderColor-active,undefined);
+}
+
+.c6[aria-expanded=true] {
+  background-color: btn.activeBg;
+  border-color: var(--button-default-borderColor-active,undefined);
+}
+
+.c6 [data-component="leadingVisual"],
+.c6 [data-component="trailingVisual"],
+.c6 [data-component="trailingAction"] {
+  color: var(--button-color,undefined);
+}
+
+.c0 {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-animation: dialog-backdrop-appear 200ms cubic-bezier(0.33,1,0.68,1);
+  animation: dialog-backdrop-appear 200ms cubic-bezier(0.33,1,0.68,1);
+}
+
+.c1 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  min-width: 296px;
+  max-width: calc(100vw - 64px);
+  max-height: calc(100vh - 64px);
+  width: 640px;
+  height: auto;
+  border-radius: 12px;
+  opacity: 1;
+  -webkit-animation: overlay--dialog-appear 200ms cubic-bezier(0.33,1,0.68,1);
+  animation: overlay--dialog-appear 200ms cubic-bezier(0.33,1,0.68,1);
+}
+
+.c2 {
+  box-shadow: 0 1px 0;
+  padding: 8px;
+  z-index: 1;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+}
+
+.c5 {
+  font-size: 14px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.c10 {
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  overflow: auto;
+  padding: 16px;
+}
+
+.c7 {
+  border-radius: 4px;
+  background: transparent;
+  border: 0;
+  vertical-align: middle;
+  padding: 8px;
+  -webkit-align-self: flex-start;
+  -ms-flex-item-align: start;
+  align-self: flex-start;
+  line-height: normal;
+  box-shadow: none;
+}
+
+@media (forced-colors:active) {
+  .c6:focus {
+    outline: solid 1px transparent;
+  }
+}
+
+<body
+    style="overflow: hidden;"
+  >
+    <div />
+    <div
+      id="__primerPortalRoot__"
+      style="position: absolute; top: 0px; left: 0px;"
+    >
+      <div
+        style="position: relative; z-index: 1;"
+      >
+        <div
+          class="c0"
+        >
+          <div
+            aria-describedby=":r1:"
+            aria-labelledby=":r0:"
+            aria-modal="true"
+            class="c1"
+            data-focus-trap="active"
+            height="auto"
+            role="dialog"
+            width="xlarge"
+          >
+            <span
+              aria-hidden="true"
+              class="sentinel"
+              tabindex="0"
+            />
+            <div
+              class="c2"
+            >
+              <div
+                class="c3"
+                display="flex"
+              >
+                <div
+                  class="c4"
+                  display="flex"
+                >
+                  <h1
+                    class="c5"
+                    id=":r0:"
+                  >
+                    Dialog
+                  </h1>
+                </div>
+                <button
+                  aria-label="Close"
+                  class="c6 c7"
+                  data-no-visuals="true"
+                  type="button"
+                >
+                  <span
+                    class="c8"
+                    data-component="buttonContent"
+                  >
+                    <span
+                      data-component="text"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        class=""
+                        fill="currentColor"
+                        focusable="false"
+                        height="16"
+                        role="img"
+                        style="display: inline-block; user-select: none; vertical-align: text-bottom; overflow: visible;"
+                        viewBox="0 0 16 16"
+                        width="16"
+                      >
+                        <path
+                          d="M3.72 3.72a.75.75 0 0 1 1.06 0L8 6.94l3.22-3.22a.749.749 0 0 1 1.275.326.749.749 0 0 1-.215.734L9.06 8l3.22 3.22a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215L8 9.06l-3.22 3.22a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042L6.94 8 3.72 4.78a.75.75 0 0 1 0-1.06Z"
+                        />
+                      </svg>
+                    </span>
+                  </span>
+                </button>
+              </div>
+            </div>
+            <div
+              class="c9 DialogOverflowWrapper"
+            >
+              <div
+                class="c10"
+              >
+                <div>
+                  Hidden when narrow
+                </div>
+              </div>
+            </div>
+            <span
+              aria-hidden="true"
+              class="sentinel"
+              tabindex="0"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>,
+  "container": @media (forced-colors:active) {
+
+}
+
+<div />,
+  "debug": [Function],
+  "findAllByAltText": [Function],
+  "findAllByDisplayValue": [Function],
+  "findAllByLabelText": [Function],
+  "findAllByPlaceholderText": [Function],
+  "findAllByRole": [Function],
+  "findAllByTestId": [Function],
+  "findAllByText": [Function],
+  "findAllByTitle": [Function],
+  "findByAltText": [Function],
+  "findByDisplayValue": [Function],
+  "findByLabelText": [Function],
+  "findByPlaceholderText": [Function],
+  "findByRole": [Function],
+  "findByTestId": [Function],
+  "findByText": [Function],
+  "findByTitle": [Function],
+  "getAllByAltText": [Function],
+  "getAllByDisplayValue": [Function],
+  "getAllByLabelText": [Function],
+  "getAllByPlaceholderText": [Function],
+  "getAllByRole": [Function],
+  "getAllByTestId": [Function],
+  "getAllByText": [Function],
+  "getAllByTitle": [Function],
+  "getByAltText": [Function],
+  "getByDisplayValue": [Function],
+  "getByLabelText": [Function],
+  "getByPlaceholderText": [Function],
+  "getByRole": [Function],
+  "getByTestId": [Function],
+  "getByText": [Function],
+  "getByTitle": [Function],
+  "queryAllByAltText": [Function],
+  "queryAllByDisplayValue": [Function],
+  "queryAllByLabelText": [Function],
+  "queryAllByPlaceholderText": [Function],
+  "queryAllByRole": [Function],
+  "queryAllByTestId": [Function],
+  "queryAllByText": [Function],
+  "queryAllByTitle": [Function],
+  "queryByAltText": [Function],
+  "queryByDisplayValue": [Function],
+  "queryByLabelText": [Function],
+  "queryByPlaceholderText": [Function],
+  "queryByRole": [Function],
+  "queryByTestId": [Function],
+  "queryByText": [Function],
+  "queryByTitle": [Function],
+  "rerender": [Function],
+  "unmount": [Function],
+}
+`;
