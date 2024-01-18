@@ -502,7 +502,7 @@ exports[`Dialog renders consistently 1`] = `
     tabIndex={-1}
   >
     <button
-      aria-labelledby="tooltip-:r0:"
+      aria-labelledby=":r0:"
       className="c1"
       data-block={null}
       data-component="IconButton"
@@ -541,7 +541,7 @@ exports[`Dialog renders consistently 1`] = `
       aria-hidden={true}
       className="c2"
       data-direction="s"
-      id="tooltip-:r0:"
+      id=":r0:"
       onMouseEnter={[Function]}
       onMouseLeave={[Function]}
     >

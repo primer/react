@@ -10,7 +10,7 @@ import {MenuContext} from '../ActionMenu/ActionMenu'
 
 const IconButton = forwardRef(
   (
-    {sx: sxProp = defaultSxProp, icon: Icon, disabled, 'aria-label': ariaLabel, label, description, ...props},
+    {sx: sxProp = defaultSxProp, icon: Icon, disabled, 'aria-label': ariaLabel, name, description, ...props},
     forwardedRef,
   ): JSX.Element => {
     let sxStyles = sxProp
@@ -28,7 +28,7 @@ const IconButton = forwardRef(
     // we need to know if the icon button is used as a menu anchor to render the tooltip and aria properties correctly.
     const isIconButtonAnchor = anchorRef !== undefined && anchorId !== undefined
     // aria-label is going to be deprecated in favor of label but for now we are supporting both.
-    const iconButtonLabel = label ?? ariaLabel
+    const iconButtonLabel = name ?? ariaLabel
     if (!tooltipId && container !== 'Tooltip' && !disabled) {
       return (
         // if description exists, we use tooltip for adding description to the icon button. Otherwise, we use tooltip for labelling the icon button.

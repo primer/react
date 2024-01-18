@@ -115,14 +115,14 @@ describe('Button', () => {
     const position = screen.getByText('content').compareDocumentPosition(screen.getByTestId('trailingVisual'))
     expect(position).toBe(Node.DOCUMENT_POSITION_FOLLOWING)
   })
-  it.only('should render the anchor icon button and correctly name the menu', async () => {
+  it('should render the anchor icon button and correctly name the menu', async () => {
     render(
       <ThemeProvider theme={theme}>
         <SSRProvider>
           <BaseStyles>
             <ActionMenu>
               <ActionMenu.Anchor>
-                <IconButton icon={SearchIcon} label="More actions" />
+                <IconButton icon={SearchIcon} name="More actions" />
               </ActionMenu.Anchor>
 
               <ActionMenu.Overlay width="medium">

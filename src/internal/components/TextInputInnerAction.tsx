@@ -94,6 +94,7 @@ const TextInputAction = forwardRef<HTMLButtonElement, TextInputActionProps>(
       <Box as="span" className="TextInput-action" marginLeft={1} marginRight={1} lineHeight="0">
         {icon && !children ? (
           <Tooltip direction={tooltipDirection} aria-label={ariaLabel}>
+            {/* @ts-ignore for now */}
             <IconButton
               variant={variant}
               type="button"

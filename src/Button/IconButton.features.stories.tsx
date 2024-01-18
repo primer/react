@@ -8,22 +8,22 @@ export default {
   title: 'Components/IconButton/Features',
 }
 
-export const Primary = () => <IconButton icon={HeartIcon} variant="primary" label="Primary" />
+export const Primary = () => <IconButton icon={HeartIcon} variant="primary" name="Primary" />
 
 export const WithDescription = () => (
-  <IconButton icon={InboxIcon} label="Notifications" description="You have no unread notifications." />
+  <IconButton icon={InboxIcon} name="Notifications" description="You have no unread notifications." />
 )
 
 export const ExternalTooltip = () => (
   <Tooltip text="this is a supportive description for icon button" direction="se">
-    <IconButton icon={HeartIcon} label="HeartIcon" />
+    <IconButton icon={HeartIcon} name="HeartIcon" />
   </Tooltip>
 )
 
 export const AsMenuAnchor = () => (
   <ActionMenu>
     <ActionMenu.Anchor>
-      <IconButton icon={ChevronDownIcon} label="Open Menu" />
+      <IconButton icon={ChevronDownIcon} name="Open Menu" />
     </ActionMenu.Anchor>
 
     <ActionMenu.Overlay width="medium">

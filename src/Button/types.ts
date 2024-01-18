@@ -18,19 +18,19 @@ type ButtonA11yProps = (
   | {
       // @deprecated use label prop instead
       'aria-label': string
-      label?: undefined
+      name?: undefined
       'aria-labelledby'?: undefined
     }
   | {
       // @deprecated use label prop instead
       'aria-label'?: undefined
-      label: string
+      name: string
       'aria-labelledby'?: undefined
     }
   | {
       // @deprecated use label prop instead
       'aria-label'?: undefined
-      label?: undefined
+      name?: undefined
       'aria-labelledby': string
     }
 ) & {
