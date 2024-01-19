@@ -50,6 +50,21 @@ export const AsMenuAnchor = () => (
   </ActionMenu>
 )
 
+export const HasExternalTooltip = () => (
+  <Tooltip
+    text="Notifications"
+    direction="e"
+    className="custom-class"
+    sx={
+      {
+        /* custom styling */
+      }
+    }
+  >
+    <IconButton icon={InboxIcon} aria-label="Notifications" />
+  </Tooltip>
+)
+
 export const Danger = () => <IconButton icon={HeartIcon} variant="danger" aria-label="Danger" />
 
 export const Invisible = () => <IconButton icon={HeartIcon} variant="invisible" aria-label="Invisible" />
