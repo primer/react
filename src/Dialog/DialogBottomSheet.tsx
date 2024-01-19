@@ -7,8 +7,8 @@ import {get} from '../constants'
 import {useMedia} from '../hooks/useMedia'
 
 export const ANIMATION_DURATION = 300
-const FULL_HEIGHT = 95
-const HALF_HEIGHT = 50
+export const FULL_HEIGHT = 95
+export const HALF_HEIGHT = 50
 
 /**
  * Props to customize the rendering of the Dialog.
