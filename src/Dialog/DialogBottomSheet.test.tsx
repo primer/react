@@ -1,5 +1,6 @@
 import React from 'react'
-import {fireEvent, render, waitFor} from '@testing-library/react'
+import {fireEvent, getByRole, render, waitFor} from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import {Dialog} from './Dialog'
 import MatchMediaMock from 'jest-matchmedia-mock'
 import {behavesAsComponent, checkExports, renderStyles, checkStoriesForAxeViolations} from '../utils/testing'
@@ -27,7 +28,27 @@ describe('Dialog', () => {
     ),
   })
 
-  /*
+  it('expands dialog when pressing arrow up', async () => {
+    const onClose = jest.fn()
+
+    const {getByRole} = render(
+      <Dialog onClose={onClose} type="bottom-sheet">
+        <div>Hello World</div>
+      </Dialog>,
+    )
+
+    const slider = getByRole('slider')
+    slider.focus()
+
+    expect(slider).toHaveFocus()
+
+    fireEvent.keyDown(slider, {key: 'ArrowUp', code: 38, ctrlKey: false})
+
+    await userEvent.keyboard('[ArrowUp]')
+
+    await waitFor(() => expect(slider).toHaveValue(2), {timeout: ANIMATION_DURATION + 100})
+  })
+
   it('delays calling `onClose` when reduced motion has no preference', async () => {
     const onClose = jest.fn()
 
@@ -47,7 +68,7 @@ describe('Dialog', () => {
     expect(onClose).not.toHaveBeenCalled()
 
     await waitFor(() => expect(onClose).toHaveBeenCalled(), {timeout: ANIMATION_DURATION + 100})
-  })*/
+  })
 
   it('`onClose` is called instantly when reduced motion is enabled', async () => {
     const onClose = jest.fn()
