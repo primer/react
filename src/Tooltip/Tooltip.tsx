@@ -55,7 +55,7 @@ const TooltipBase = styled.span<SxProp>`
       animation-duration: 0.1s;
       animation-fill-mode: forwards;
       animation-timing-function: ease-in;
-      animation-delay: 0.4s;
+      animation-delay: 0s;
     }
   }
 
