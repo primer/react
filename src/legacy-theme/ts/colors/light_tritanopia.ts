@@ -263,7 +263,7 @@ const colors = {
   btn: {
     text: 'var(--button-default-fgColor-rest, var(--color-btn-text, #24292f))',
     bg: 'var(--button-default-bgColor-rest, var(--color-btn-bg, #f6f8fa))',
-    border: 'var(--button-default-borderColor-rest var(--color-btn-border, rgba(27,31,36,0.15)))',
+    border: 'var(--button-default-borderColor-rest, var(--color-btn-border, rgba(27,31,36,0.15)))',
     shadow: 'var(--button-default-shadow-resting, var(--color-btn-shadow, 0 1px 0 rgba(27,31,36,0.04)))',
     insetShadow:
       'var(--button-default-shadow-inset, var(--color-btn-inset-shadow, inset 0 1px 0 rgba(255,255,255,0.25)))',
