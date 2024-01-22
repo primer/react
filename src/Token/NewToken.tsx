@@ -6,7 +6,7 @@ import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/po
 import RemoveTokenButton from './_RemoveTokenButton'
 import TokenTextContainer from './_TokenTextContainer'
 import {getColorsFromHex} from './getColorsFromHex'
-import './presentationalColors.css'
+import './componentTokens.css'
 import TokenBase, {defaultTokenSize, isTokenInteractive, TokenBaseProps} from './TokenBase'
 export type TokenVariants =
   | 'pink'
@@ -54,11 +54,10 @@ export type variantColor = {
   backgroundColorPressed?: string
 }
 
-const variantColors = (variant: TokenVariants, colorScheme: colorSchemes): variantColor => ({
-  backgroundColor: `var(--color-presentational-${variant}-0)`,
-  backgroundColorHover: `var(--color-presentational-${variant}-1)`,
-  textColor: `var(--color-presentational-${variant}-7)`,
-  borderColor: colorScheme.endsWith('high_contrast') ? `var(--color-presentational-${variant}-5)` : undefined,
+const variantColors = (variant: TokenVariants): variantColor => ({
+  backgroundColor: `var(--label-bgColor-${variant})`,
+  backgroundColorHover: `var(--label-bgColor-${variant}-hover)`,
+  textColor: `var(--label-fgColor-${variant})`,
 })
 
 const getLabelColors = (
@@ -69,14 +68,14 @@ const getLabelColors = (
 ): variantColor => {
   // valid variant
   if (variant) {
-    return variantColors(variant, resolvedColorScheme as colorSchemes)
+    return variantColors(variant)
   }
   // valid hex string
   if (fillColor && isHex(fillColor)) {
     return getColorsFromHex(fillColor, resolvedColorScheme as colorSchemes, false, bgColor)
   }
   // if invalid variant and invalid hex string, return default
-  return variantColors('gray', resolvedColorScheme as colorSchemes)
+  return variantColors('gray')
 }
 
 const NewToken = forwardRef((props, forwardedRef) => {

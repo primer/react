@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import NewToken, {TokenVariants} from './NewToken'
+import IssueLabelToken from './IssueLabelToken'
 import Box from '../Box'
 import {TokenSizeKeys} from './TokenBase'
 import {action} from '@storybook/addon-actions'
@@ -35,19 +36,29 @@ const getRandomLabels = (amount: number, size: TokenSizeKeys, asVariant = true):
     text: string
   }[] = [
     {
-      variant: 'coral',
-      hex: '#ff8b31',
-      text: 'deep dive 🐙',
-    },
-    {
       variant: 'red',
       hex: '#ff1212',
       text: '🐛 bug',
     },
     {
+      variant: 'coral',
+      hex: '#ff8b31',
+      text: 'deep dive 🐙',
+    },
+    {
+      variant: 'orange',
+      hex: '#5a5939',
+      text: 'figma',
+    },
+    {
       variant: 'amber',
       hex: '#ffa411',
       text: '🔥 hot',
+    },
+    {
+      variant: 'yellow',
+      hex: '#ff8600',
+      text: 'question',
     },
     {
       variant: 'brown',
@@ -85,11 +96,6 @@ const getRandomLabels = (amount: number, size: TokenSizeKeys, asVariant = true):
       text: '📥 Inbox',
     },
     {
-      variant: 'yellow',
-      hex: '#ff8600',
-      text: 'question',
-    },
-    {
       variant: 'pine',
       hex: '#518c5c',
       text: 'documentation',
@@ -103,11 +109,6 @@ const getRandomLabels = (amount: number, size: TokenSizeKeys, asVariant = true):
       variant: 'green',
       hex: '#aaf88a',
       text: 'enhancement',
-    },
-    {
-      variant: 'orange',
-      hex: '#5a5939',
-      text: 'figma',
     },
     {
       variant: 'lemon',
@@ -157,7 +158,7 @@ const getRandomLabels = (amount: number, size: TokenSizeKeys, asVariant = true):
 }
 
 export default {
-  title: 'Components/NewToken',
+  title: 'Components/Token/IssueLabelToken',
   component: NewToken,
   args: {
     text: 'Token',
