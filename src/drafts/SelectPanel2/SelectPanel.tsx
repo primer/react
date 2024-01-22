@@ -45,6 +45,7 @@ const SelectPanelContext = React.createContext<{
 export type SelectPanelProps = {
   title: string
   description?: string
+  variant?: 'anchored' | 'modal'
   selectionVariant?: ActionListProps['selectionVariant'] | 'instant'
   id?: string
 
@@ -66,6 +67,7 @@ export type SelectPanelProps = {
 const Panel: React.FC<SelectPanelProps> = ({
   title,
   description,
+  variant = 'anchored',
   selectionVariant = 'multiple',
   id,
 
@@ -154,7 +156,11 @@ const Panel: React.FC<SelectPanelProps> = ({
   else dialogRef.current?.close()
 
   // dialog handles Esc automatically, so we have to sync internal state
-  React.useEffect(() => dialogRef.current?.addEventListener('close', onInternalClose))
+  React.useEffect(() => {
+    const dialog = dialogRef.current
+    dialog?.addEventListener('close', onInternalClose)
+    return () => dialog?.removeEventListener('close', onInternalClose)
+  })
 
   // React doesn't support autoFocus for dialog: https://github.com/facebook/react/issues/23301
   // tl;dr: react takes over autofocus instead of letting the browser handle it,
@@ -199,12 +205,12 @@ const Panel: React.FC<SelectPanelProps> = ({
         width={width}
         height={height}
         sx={{
-          ...position,
           // reset dialog default styles
           border: 'none',
           padding: 0,
-          margin: 0,
-          '::backdrop': {background: 'transparent'},
+
+          ...(variant === 'anchored' ? {margin: 0, top: position?.top, left: position?.left} : {}),
+          '::backdrop': {backgroundColor: variant === 'anchored' ? 'transparent' : 'primer.canvas.backdrop'},
 
           '& [data-selectpanel-primary-actions]': {
             animation: footerAnimationEnabled ? 'selectpanel-gelatine 350ms linear' : 'none',

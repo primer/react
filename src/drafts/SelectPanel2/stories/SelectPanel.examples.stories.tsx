@@ -1,7 +1,7 @@
 import React from 'react'
 import {SelectPanel} from '../SelectPanel'
-import {ActionList, ActionMenu, Avatar, Box, Button, Flash} from '../../../index'
-import {ArrowRightIcon, AlertIcon, EyeIcon, GitBranchIcon, TriangleDownIcon, GearIcon} from '@primer/octicons-react'
+import {ActionList, ActionMenu, Avatar, Box, Button} from '../../../index'
+import {ArrowRightIcon, EyeIcon, GitBranchIcon, TriangleDownIcon, GearIcon} from '@primer/octicons-react'
 import data from './mock-data'
 
 export default {
@@ -370,56 +370,27 @@ export const OpenFromMenu = () => {
   /* Open state */
   const [menuOpen, setMenuOpen] = React.useState(false)
   const [selectPanelOpen, setSelectPanelOpen] = React.useState(false)
-  const buttonRef = React.useRef<HTMLButtonElement>(null)
 
   /* Selection */
   const [selectedSetting, setSelectedSetting] = React.useState<string>('All activity')
-  const [selectedEvents, setSelectedEvents] = React.useState<string[]>([])
+  const initialCustomEvents: string[] = []
+  const [selectedCustomEvents, setSelectedCustomEvents] = React.useState<string[]>(initialCustomEvents)
 
   const onEventSelect = (event: string) => {
-    if (!selectedEvents.includes(event)) setSelectedEvents([...selectedEvents, event])
-    else setSelectedEvents(selectedEvents.filter(name => name !== event))
-  }
-
-  const onSelectPanelSubmit = () => {
-    setSelectedSetting('Custom')
+    if (!selectedCustomEvents.includes(event)) setSelectedCustomEvents([...selectedCustomEvents, event])
+    else setSelectedCustomEvents(selectedCustomEvents.filter(name => name !== event))
   }
 
   const itemsToShow = ['Issues', 'Pull requests', 'Releases', 'Discussions', 'Security alerts']
 
   return (
     <>
-      <h1>Open from ActionMenu</h1>
-      <Flash variant="danger">
-        <AlertIcon />
-        This implementation will most likely change.{' '}
-        <a href="https://github.com/github/primer/discussions/2614#discussioncomment-6879407">
-          See decision log for more details.
-        </a>
-      </Flash>
-      <p>
-        To open SelectPanel from a menu, you would need to use an external anchor and pass `anchorRef` to `SelectPanel`.
-        You would also need to control the `open` state for both ActionMenu and SelectPanel.
-        <br />
-        <br />
-        Important: Pass the same `anchorRef` to both ActionMenu and SelectPanel
-      </p>
+      <h1>Open in modal from ActionMenu</h1>
 
-      <Button
-        ref={buttonRef}
-        leadingVisual={EyeIcon}
-        trailingAction={TriangleDownIcon}
-        aria-haspopup
-        aria-expanded={menuOpen || selectPanelOpen ? true : undefined}
-        onClick={() => {
-          if (menuOpen) setMenuOpen(false)
-          else if (selectPanelOpen) setSelectPanelOpen(false)
-          else setMenuOpen(true)
-        }}
-      >
-        {selectedSetting === 'Ignore' ? 'Watch' : 'Unwatch'}
-      </Button>
-      <ActionMenu anchorRef={buttonRef} open={menuOpen} onOpenChange={value => setMenuOpen(value)}>
+      <ActionMenu open={menuOpen} onOpenChange={value => setMenuOpen(value)}>
+        <ActionMenu.Button leadingVisual={EyeIcon}>
+          {selectedSetting === 'Ignore' ? 'Watch' : 'Unwatch'}
+        </ActionMenu.Button>
         <ActionMenu.Overlay width="medium">
           <ActionList selectionVariant="single">
             <ActionList.Item
@@ -444,7 +415,13 @@ export const OpenFromMenu = () => {
               Ignore
               <ActionList.Description variant="block">Never be notified.</ActionList.Description>
             </ActionList.Item>
-            <ActionList.Item selected={selectedSetting === 'Custom'} onSelect={() => setSelectPanelOpen(true)}>
+            <ActionList.Item
+              selected={selectedSetting === 'Custom'}
+              onSelect={() => {
+                setMenuOpen(false)
+                setSelectPanelOpen(true)
+              }}
+            >
               Custom
               <ActionList.TrailingVisual>
                 <ArrowRightIcon />
@@ -456,24 +433,29 @@ export const OpenFromMenu = () => {
           </ActionList>
         </ActionMenu.Overlay>
       </ActionMenu>
-
       <SelectPanel
+        variant="modal"
         title="Custom"
         open={selectPanelOpen}
-        anchorRef={buttonRef}
+        height="medium"
         onSubmit={() => {
+          setSelectedSetting('Custom')
           setSelectPanelOpen(false)
-          onSelectPanelSubmit()
+          setMenuOpen(false)
         }}
         onCancel={() => {
+          setSelectedCustomEvents(initialCustomEvents)
           setSelectPanelOpen(false)
           setMenuOpen(true)
         }}
-        height="medium"
       >
         <ActionList>
           {itemsToShow.map(item => (
-            <ActionList.Item key={item} onSelect={() => onEventSelect(item)} selected={selectedEvents.includes(item)}>
+            <ActionList.Item
+              key={item}
+              onSelect={() => onEventSelect(item)}
+              selected={selectedCustomEvents.includes(item)}
+            >
               {item}
             </ActionList.Item>
           ))}
