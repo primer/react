@@ -327,11 +327,11 @@ const SelectPanelHeader: React.FC<React.PropsWithChildren> = ({children, ...prop
         <Box>
           {/* Will not need tooltip after https://github.com/primer/react/issues/2008 */}
           {onClearSelection ? (
-            <Tooltip text="Clear selection" direction="s" onClick={onClearSelection}>
-              <IconButton type="button" variant="invisible" icon={FilterRemoveIcon} aria-label="Clear selection" />
+            <Tooltip text="Clear selection" type="label">
+              <IconButton type="button" variant="invisible" icon={FilterRemoveIcon} aria-label="Clear selection" onClick={onClearSelection} />
             </Tooltip>
           ) : null}
-          <Tooltip text="Close" direction="s">
+          <Tooltip text="Close" type="label">
             <IconButton type="button" variant="invisible" icon={XIcon} aria-label="Close" onClick={() => onCancel()} />
           </Tooltip>
         </Box>
