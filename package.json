@@ -150,7 +150,7 @@
     "@rollup/plugin-typescript": "11.1.5",
     "@rollup/plugin-virtual": "3.0.2",
     "@size-limit/preset-big-lib": "8.2.6",
-    "@storybook/addon-a11y": "7.6.2",
+    "@storybook/addon-a11y": "7.6.10",
     "@storybook/addon-actions": "7.6.8",
     "@storybook/addon-essentials": "7.6.2",
     "@storybook/addon-interactions": "7.6.4",
