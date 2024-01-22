@@ -25,78 +25,19 @@ jobs:
           schedule-id: 'P3IIVC4'
           token: ${{ secrets.PAGERDUTY_API_KEY_SID }}
       - run: echo ${{ steps.pagerduty.outputs.user }} is release conductor
-      - name: Add user as assignee and reviewer
-        uses: actions/github-script@v7
+      - name: Remove previous conductor
         env:
-          PR_NUMBER: ${{ github.event.inputs.pull-request || github.event.pull_request.number }}
-          RELEASE_CONDUCTOR: ${{ steps.pagerduty.outputs.user }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR: ${{ github.event.inputs.pull-request || github.event.pull_request.number }}
           PREV_RELEASE_CONDUCTOR: ${{ steps.pagerduty.outputs.previous-schedule-user }}
-        with:
-          script: |
-            const { PR_NUMBER, RELEASE_CONDUCTOR, PREV_RELEASE_CONDUCTOR } = process.env;
-
-            const { data: pull } = await github.rest.pulls.get({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              pull_number: PR_NUMBER,
-            });
-
-            // If the previous release conductor was added as an assignee, remove them
-            const hasPreviousAssignee = pull.assignees.find((assignee) => {
-              return assignee.login === PREV_RELEASE_CONDUCTOR;
-            });
-
-            if (hasPreviousAssignee) {
-              await github.rest.issues.removeAssignees({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                issue_number: PR_NUMBER,
-                assignees: [PREV_RELEASE_CONDUCTOR],
-              });
-            }
-
-            // If the previous release conductor was added as a reviewer, remove them
-            const { data: requestedReviewers } = await github.rest.pulls.listRequestedReviewers({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              pull_number: PR_NUMBER,
-            });
-            const hasPreviousReviewer = requestedReviewers.users.find((user) => {
-              return user.login === PREV_RELEASE_CONDUCTOR;
-            });
-
-            if (hasPreviousReviewer) {
-              await github.rest.pulls.removeRequestedReviewers({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                pull_number: PR_NUMBER,
-                reviewers: [PREV_RELEASE_CONDUCTOR],
-              });
-            }
-
-            // Add the current release conductor as an assignee if they are not currently assigned
-            const hasAssignee = pull.assignees.find((assignee) => {
-              return assignee.login === RELEASE_CONDUCTOR;
-            });
-            if (!hasAssignee) {
-              await github.rest.issues.addAssignees({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                issue_number: PR_NUMBER,
-                assignees: [RELEASE_CONDUCTOR]
-              })
-            }
-
-            // Request the current release conductor as a reviewer if they are not currently requested
-            const hasReviewer = requestedReviewers.users.find((user) => {
-              return user.login === RELEASE_CONDUCTOR;
-            });
-
-            if (!hasReviewer) {
-              await github.rest.pulls.requestReviewers({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                pull_number: PR_NUMBER,
-                reviewers: [RELEASE_CONDUCTOR]
-              })
-            }
+        run: |
+          gh pr edit $PR --remove-assignee $PREV_RELEASE_CONDUCTOR
+          gh pr edit $PR --remove-reviewer $PREV_RELEASE_CONDUCTOR
+      - name: Add current conductor as assignee and reviewer
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR: ${{ github.event.inputs.pull-request || github.event.pull_request.number }}
+          RELEASE_CONDUCTOR: ${{ steps.pagerduty.outputs.user }}
+        run: |
+          gh pr edit $PR --add-assignee $RELEASE_CONDUCTOR
+          gh pr edit $PR --add-reviewer $RELEASE_CONDUCTOR
