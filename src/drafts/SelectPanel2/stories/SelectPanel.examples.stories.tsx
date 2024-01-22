@@ -582,12 +582,19 @@ export const WithFilterButtons = () => {
 }
 
 export const ShortSelectPanel = () => {
-  const [channels, setChannels] = React.useState({GitHub: true, Email: false})
+  const [channels, setChannels] = React.useState({GitHub: false, Email: false})
+  const [onlyFailures, setOnlyFailures] = React.useState(false)
 
   const onSubmit = () => {
     // eslint-disable-next-line no-console
     console.log('form submitted')
   }
+
+  const toggleChannel = (channel: keyof typeof channels) => {
+    setChannels({...channels, [channel]: !channels[channel]})
+  }
+
+  const channelsEnabled = channels.GitHub || channels.Email
 
   return (
     <>
@@ -601,21 +608,30 @@ export const ShortSelectPanel = () => {
           {Object.keys(channels)
             .filter(channel => channels[channel as keyof typeof channels])
             .join(', ') || 'Never'}
+          {onlyFailures && channelsEnabled && ' (Failed workflows only)'}
         </SelectPanel.Button>
 
         <ActionList>
-          <ActionList.Item
-            selected={channels.GitHub}
-            onSelect={() => setChannels({...channels, GitHub: !channels.GitHub})}
-          >
+          <ActionList.Item selected={channels.GitHub} onSelect={() => toggleChannel('GitHub')}>
             On GitHub
           </ActionList.Item>
-          <ActionList.Item
-            selected={channels.Email}
-            onSelect={() => setChannels({...channels, Email: !channels.Email})}
-          >
+          <ActionList.Item selected={channels.Email} onSelect={() => toggleChannel('Email')}>
             Email
           </ActionList.Item>
+          <Box
+            role="none"
+            sx={{
+              transition: 'max-height 100ms ease-out, opacity 100ms ease-out',
+              opacity: channelsEnabled ? 1 : 0,
+              maxHeight: channelsEnabled ? '100px' : 0,
+              overflow: channelsEnabled ? 'visible' : 'hidden',
+            }}
+          >
+            <ActionList.Divider />
+            <ActionList.Item selected={onlyFailures} onSelect={() => setOnlyFailures(!onlyFailures)}>
+              Only notify for failed workflows
+            </ActionList.Item>
+          </Box>
         </ActionList>
         <SelectPanel.Footer />
       </SelectPanel>
