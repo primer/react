@@ -1,3 +1,5 @@
+<!-- markdownlint-disable MD036 -->
+
 # Versioning
 
 <!-- prettier-ignore-start -->
