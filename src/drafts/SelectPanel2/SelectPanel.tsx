@@ -80,7 +80,7 @@ const Panel: React.FC<SelectPanelProps> = ({
   onSubmit: propsOnSubmit,
 
   width = 'medium',
-  height = 'large',
+  height = 'fit-content',
   ...props
 }) => {
   const [internalOpen, setInternalOpen] = React.useState(defaultOpen)
@@ -246,8 +246,6 @@ const Panel: React.FC<SelectPanelProps> = ({
             sx={{
               display: 'flex',
               flexDirection: 'column',
-              height: 'initial',
-              minHeight: '100%',
             }}
           >
             {slots.header ?? /* render default header as fallback */ <SelectPanelHeader />}
