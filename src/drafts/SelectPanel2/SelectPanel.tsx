@@ -113,10 +113,10 @@ const Panel: React.FC<SelectPanelProps> = ({
     return child
   })
 
-  const onInternalClose = () => {
+  const onInternalClose = React.useCallback(() => {
     if (internalOpen === false) return // nothing to do here
     if (propsOpen === undefined) setInternalOpen(false)
-  }
+  }, [internalOpen, propsOpen])
 
   const onInternalCancel = () => {
     onInternalClose()
@@ -168,7 +168,7 @@ const Panel: React.FC<SelectPanelProps> = ({
     const dialogEl = dialogRef.current
     dialogEl?.addEventListener('close', onInternalClose)
     return () => dialogEl?.removeEventListener('close', onInternalClose)
-  })
+  }, [onInternalClose])
 
   // Esc handler
   React.useEffect(() => {
