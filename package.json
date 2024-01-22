@@ -129,7 +129,7 @@
     "@babel/cli": "7.22.10",
     "@babel/core": "7.23.7",
     "@babel/eslint-parser": "7.23.3",
-    "@babel/parser": "7.23.0",
+    "@babel/parser": "7.23.6",
     "@babel/plugin-proposal-nullish-coalescing-operator": "7.18.6",
     "@babel/plugin-proposal-optional-chaining": "7.21.0",
     "@babel/plugin-transform-modules-commonjs": "7.23.3",
