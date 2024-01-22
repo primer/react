@@ -156,6 +156,7 @@ async function confirm(themeProps: ThemeProviderProps, options: ConfirmOptions):
     const root = createRoot(hostElement)
     const onClose: ConfirmationDialogProps['onClose'] = gesture => {
       root.unmount()
+
       if (gesture === 'confirm') {
         resolve(true)
       } else {
