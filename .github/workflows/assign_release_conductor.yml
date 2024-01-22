@@ -11,7 +11,7 @@ on:
 
 jobs:
   assign-release-conductor:
-    if: github.head_ref == 'changeset-release/main'
+    if: ${{ github.head_ref == 'changeset-release/main' || github.event_name == 'workflow_dispatch' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
