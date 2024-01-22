@@ -2,13 +2,13 @@
 
 exports[`PointerBox applies the background color via "bg" prop for backwards compatibility 1`] = `
 .c0 {
-  background-color: #cf222e;
+  background-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
   border-width: 1px;
   border-style: solid;
-  border-color: #d0d7de;
+  border-color: var(--borderColor-default,var(--color-border-default,#d0d7de));
   border-radius: 6px;
-  --custom-bg: #cf222e;
-  background-image: linear-gradient(var(--custom-bg),var(--custom-bg)),linear-gradient(#ffffff,#ffffff);
+  --custom-bg: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+  background-image: linear-gradient(var(--custom-bg),var(--custom-bg)),linear-gradient(var(--bgColor-default,var(--color-canvas-default,#ffffff)),var(--bgColor-default,var(--color-canvas-default,#ffffff)));
   position: relative;
 }
 
@@ -34,16 +34,16 @@ exports[`PointerBox applies the background color via "bg" prop for backwards com
     >
       <path
         d="M-8,0L0,8L8,0L-8,0Z"
-        fill="#ffffff"
+        fill="var(--bgColor-default, var(--color-canvas-default, #ffffff))"
       />
       <path
         d="M-8,0L0,8L8,0L-8,0Z"
-        fill="#cf222e"
+        fill="var(--borderColor-danger-emphasis, var(--color-danger-emphasis, #cf222e))"
       />
       <path
         d="M-8,0L0,8L8,0"
         fill="none"
-        stroke="#d0d7de"
+        stroke="var(--borderColor-default, var(--color-border-default, #d0d7de))"
         strokeWidth="1px"
       />
     </g>
@@ -55,10 +55,10 @@ exports[`PointerBox applies the background color via sx prop 1`] = `
 .c0 {
   border-width: 1px;
   border-style: solid;
-  border-color: #d0d7de;
+  border-color: var(--borderColor-default,var(--color-border-default,#d0d7de));
   border-radius: 6px;
-  --custom-bg: #cf222e;
-  background-image: linear-gradient(var(--custom-bg),var(--custom-bg)),linear-gradient(#ffffff,#ffffff);
+  --custom-bg: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+  background-image: linear-gradient(var(--custom-bg),var(--custom-bg)),linear-gradient(var(--bgColor-default,var(--color-canvas-default,#ffffff)),var(--bgColor-default,var(--color-canvas-default,#ffffff)));
   position: relative;
 }
 
@@ -84,16 +84,16 @@ exports[`PointerBox applies the background color via sx prop 1`] = `
     >
       <path
         d="M-8,0L0,8L8,0L-8,0Z"
-        fill="#ffffff"
+        fill="var(--bgColor-default, var(--color-canvas-default, #ffffff))"
       />
       <path
         d="M-8,0L0,8L8,0L-8,0Z"
-        fill="#cf222e"
+        fill="var(--borderColor-danger-emphasis, var(--color-danger-emphasis, #cf222e))"
       />
       <path
         d="M-8,0L0,8L8,0"
         fill="none"
-        stroke="#d0d7de"
+        stroke="var(--borderColor-default, var(--color-border-default, #d0d7de))"
         strokeWidth="1px"
       />
     </g>
@@ -105,7 +105,7 @@ exports[`PointerBox applies the border color via "borderColor" prop for backward
 .c0 {
   border-width: 1px;
   border-style: solid;
-  border-color: #cf222e;
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
   border-radius: 6px;
   position: relative;
 }
@@ -132,16 +132,16 @@ exports[`PointerBox applies the border color via "borderColor" prop for backward
     >
       <path
         d="M-8,0L0,8L8,0L-8,0Z"
-        fill="#ffffff"
+        fill="var(--bgColor-default, var(--color-canvas-default, #ffffff))"
       />
       <path
         d="M-8,0L0,8L8,0L-8,0Z"
-        fill="#ffffff"
+        fill="var(--bgColor-default, var(--color-canvas-default, #ffffff))"
       />
       <path
         d="M-8,0L0,8L8,0"
         fill="none"
-        stroke="#cf222e"
+        stroke="var(--borderColor-danger-emphasis, var(--color-danger-emphasis, #cf222e))"
         strokeWidth="1px"
       />
     </g>
@@ -153,9 +153,9 @@ exports[`PointerBox applies the border color via sx prop 1`] = `
 .c0 {
   border-width: 1px;
   border-style: solid;
-  border-color: #d0d7de;
+  border-color: var(--borderColor-default,var(--color-border-default,#d0d7de));
   border-radius: 6px;
-  border-color: #cf222e;
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
   position: relative;
 }
 
@@ -181,16 +181,16 @@ exports[`PointerBox applies the border color via sx prop 1`] = `
     >
       <path
         d="M-8,0L0,8L8,0L-8,0Z"
-        fill="#ffffff"
+        fill="var(--bgColor-default, var(--color-canvas-default, #ffffff))"
       />
       <path
         d="M-8,0L0,8L8,0L-8,0Z"
-        fill="#ffffff"
+        fill="var(--bgColor-default, var(--color-canvas-default, #ffffff))"
       />
       <path
         d="M-8,0L0,8L8,0"
         fill="none"
-        stroke="#cf222e"
+        stroke="var(--borderColor-danger-emphasis, var(--color-danger-emphasis, #cf222e))"
         strokeWidth="1px"
       />
     </g>
@@ -202,7 +202,7 @@ exports[`PointerBox renders a <Caret> in <Box> with relative positioning 1`] = `
 .c0 {
   border-width: 1px;
   border-style: solid;
-  border-color: #d0d7de;
+  border-color: var(--borderColor-default,var(--color-border-default,#d0d7de));
   border-radius: 6px;
   position: relative;
 }
@@ -229,16 +229,16 @@ exports[`PointerBox renders a <Caret> in <Box> with relative positioning 1`] = `
     >
       <path
         d="M-8,0L0,8L8,0L-8,0Z"
-        fill="#ffffff"
+        fill="var(--bgColor-default, var(--color-canvas-default, #ffffff))"
       />
       <path
         d="M-8,0L0,8L8,0L-8,0Z"
-        fill="#ffffff"
+        fill="var(--bgColor-default, var(--color-canvas-default, #ffffff))"
       />
       <path
         d="M-8,0L0,8L8,0"
         fill="none"
-        stroke="#d0d7de"
+        stroke="var(--borderColor-default, var(--color-border-default, #d0d7de))"
         strokeWidth="1px"
       />
     </g>
@@ -250,7 +250,7 @@ exports[`PointerBox renders consistently 1`] = `
 .c0 {
   border-width: 1px;
   border-style: solid;
-  border-color: #d0d7de;
+  border-color: var(--borderColor-default,var(--color-border-default,#d0d7de));
   border-radius: 6px;
   position: relative;
 }
@@ -277,16 +277,16 @@ exports[`PointerBox renders consistently 1`] = `
     >
       <path
         d="M-8,0L0,8L8,0L-8,0Z"
-        fill="#ffffff"
+        fill="var(--bgColor-default, var(--color-canvas-default, #ffffff))"
       />
       <path
         d="M-8,0L0,8L8,0L-8,0Z"
-        fill="#ffffff"
+        fill="var(--bgColor-default, var(--color-canvas-default, #ffffff))"
       />
       <path
         d="M-8,0L0,8L8,0"
         fill="none"
-        stroke="#d0d7de"
+        stroke="var(--borderColor-default, var(--color-border-default, #d0d7de))"
         strokeWidth="1px"
       />
     </g>

@@ -45,9 +45,9 @@ exports[`CircleBadge renders consistently 1`] = `
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
-  background-color: #ffffff;
+  background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
   border-radius: 50%;
-  box-shadow: 0 3px 6px rgba(140,149,159,0.15);
+  box-shadow: var(--shadow-resting-medium,var(--color-shadow-medium,0 3px 6px rgba(140,149,159,0.15)));
   width: 96px;
   height: 96px;
 }
@@ -76,9 +76,9 @@ exports[`CircleBadge respects the inline prop 1`] = `
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
-  background-color: #ffffff;
+  background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
   border-radius: 50%;
-  box-shadow: 0 3px 6px rgba(140,149,159,0.15);
+  box-shadow: var(--shadow-resting-medium,var(--color-shadow-medium,0 3px 6px rgba(140,149,159,0.15)));
   width: 96px;
   height: 96px;
 }
@@ -102,9 +102,9 @@ exports[`CircleBadge respects the variant prop 1`] = `
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
-  background-color: #ffffff;
+  background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
   border-radius: 50%;
-  box-shadow: 0 3px 6px rgba(140,149,159,0.15);
+  box-shadow: var(--shadow-resting-medium,var(--color-shadow-medium,0 3px 6px rgba(140,149,159,0.15)));
   width: 128px;
   height: 128px;
 }
@@ -128,9 +128,9 @@ exports[`CircleBadge uses the size prop to override the variant prop 1`] = `
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
-  background-color: #ffffff;
+  background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
   border-radius: 50%;
-  box-shadow: 0 3px 6px rgba(140,149,159,0.15);
+  box-shadow: var(--shadow-resting-medium,var(--color-shadow-medium,0 3px 6px rgba(140,149,159,0.15)));
   width: 20px;
   height: 20px;
 }

@@ -7,7 +7,7 @@ exports[`Avatar renders consistently 1`] = `
   line-height: 1;
   vertical-align: middle;
   border-radius: 50%;
-  box-shadow: 0 0 0 1px rgba(31,35,40,0.15);
+  box-shadow: 0 0 0 1px var(--avatar-borderColor,var(--color-avatar-border,rgba(31,35,40,0.15)));
   height: var(--avatar-size);
   width: var(--avatar-size);
   --avatar-size: 20px;

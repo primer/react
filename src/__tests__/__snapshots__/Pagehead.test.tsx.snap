@@ -6,7 +6,7 @@ exports[`Pagehead renders consistently 1`] = `
   padding-top: 24px;
   padding-bottom: 24px;
   margin-bottom: 24px;
-  border-bottom: 1px solid #d0d7de;
+  border-bottom: 1px solid var(--borderColor-default,var(--color-border-default,#d0d7de));
 }
 
 <div

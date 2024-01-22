@@ -4,7 +4,7 @@ exports[`ActionMenu renders consistently 1`] = `
 .c0 {
   font-family: -apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
   line-height: 1.5;
-  color: #1F2328;
+  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
 }
 
 .c2 {
@@ -25,7 +25,7 @@ exports[`ActionMenu renders consistently 1`] = `
 .c1 {
   border-radius: 6px;
   border: 1px solid;
-  border-color: var(--button-default-borderColor-rest,rgba(31,35,40,0.15));
+  border-color: var(--button-default-borderColor-rest,var(--button-default-borderColor-rest,var(--color-btn-border,rgba(31,35,40,0.15))));
   font-family: inherit;
   font-weight: 500;
   font-size: 14px;
@@ -62,14 +62,14 @@ exports[`ActionMenu renders consistently 1`] = `
   transition: 80ms cubic-bezier(0.65,0,0.35,1);
   -webkit-transition-property: color,fill,background-color,border-color;
   transition-property: color,fill,background-color,border-color;
-  color: #24292f;
-  background-color: #f6f8fa;
-  box-shadow: 0 1px 0 rgba(31,35,40,0.04),inset 0 1px 0 rgba(255,255,255,0.25);
+  color: var(--button-default-fgColor-rest,var(--color-btn-text,#24292f));
+  background-color: var(--button-default-bgColor-rest,var(--color-btn-bg,#f6f8fa));
+  box-shadow: var(--button-default-shadow-resting,var(--color-btn-shadow,0 1px 0 rgba(31,35,40,0.04))),var(--button-default-shadow-inset,var(--color-btn-inset-shadow,inset 0 1px 0 rgba(255,255,255,0.25)));
 }
 
 .c1:focus:not(:disabled) {
   box-shadow: none;
-  outline: 2px solid #0969da;
+  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline-offset: -2px;
 }
 
@@ -79,7 +79,7 @@ exports[`ActionMenu renders consistently 1`] = `
 
 .c1:focus-visible:not(:disabled) {
   box-shadow: none;
-  outline: 2px solid #0969da;
+  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline-offset: -2px;
 }
 
@@ -112,7 +112,7 @@ exports[`ActionMenu renders consistently 1`] = `
 .c1:disabled {
   cursor: not-allowed;
   box-shadow: none;
-  color: #8c959f;
+  color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
 }
 
 .c1:disabled [data-component=ButtonCounter] {
@@ -175,9 +175,9 @@ exports[`ActionMenu renders consistently 1`] = `
 }
 
 .c1[data-inactive]:not([disabled]) {
-  background-color: var(--button-inactive-bgColor,#eaeef2);
-  border-color: var(--button-inactive-bgColor,#eaeef2);
-  color: var(--button-inactive-fgColor,#57606a);
+  background-color: var(--button-inactive-bgColor,var(--button-inactive-bgColor-rest,var(--color-btn-inactive-bg,#eaeef2)));
+  border-color: var(--button-inactive-bgColor,var(--button-inactive-bgColor-rest,var(--color-btn-inactive-bg,#eaeef2)));
+  color: var(--button-inactive-fgColor,var(--button-inactive-fgColor-rest,var(--color-btn-inactive-text,#57606a)));
 }
 
 .c1[data-inactive]:not([disabled]):focus-visible {
@@ -223,24 +223,24 @@ exports[`ActionMenu renders consistently 1`] = `
 }
 
 .c1:hover:not([disabled]):not([data-inactive]) {
-  background-color: #f3f4f6;
-  border-color: var(--button-default-borderColor-hover,rgba(31,35,40,0.15));
+  background-color: var(--button-default-bgColor-hover,var(--color-btn-hover-bg,#f3f4f6));
+  border-color: var(--button-default-borderColor-hover,var(--button-default-borderColor-hover,var(--color-btn-hover-border,rgba(31,35,40,0.15))));
 }
 
 .c1:active:not([disabled]):not([data-inactive]) {
-  background-color: hsla(220,14%,93%,1);
-  border-color: var(--button-default-borderColor-active,rgba(31,35,40,0.15));
+  background-color: var(--button-default-bgColor-active,var(--color-btn-active-bg,hsla(220,14%,93%,1)));
+  border-color: var(--button-default-borderColor-active,var(--button-default-borderColor-active,var(--color-btn-active-border,rgba(31,35,40,0.15))));
 }
 
 .c1[aria-expanded=true] {
-  background-color: hsla(220,14%,93%,1);
-  border-color: var(--button-default-borderColor-active,rgba(31,35,40,0.15));
+  background-color: var(--button-default-bgColor-active,var(--color-btn-active-bg,hsla(220,14%,93%,1)));
+  border-color: var(--button-default-borderColor-active,var(--button-default-borderColor-active,var(--color-btn-active-border,rgba(31,35,40,0.15))));
 }
 
 .c1 [data-component="leadingVisual"],
 .c1 [data-component="trailingVisual"],
 .c1 [data-component="trailingAction"] {
-  color: var(--button-color,#656d76);
+  color: var(--button-color,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
 @media (forced-colors:active) {
