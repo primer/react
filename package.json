@@ -114,7 +114,6 @@
     "clsx": "^1.2.1",
     "color2k": "^2.0.3",
     "deepmerge": "^4.2.2",
-    "focus-visible": "^5.2.0",
     "fzy.js": "^0.4.1",
     "history": "^5.0.0",
     "lodash.isempty": "^4.4.0",

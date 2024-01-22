@@ -4,26 +4,23 @@ import {COMMON, SystemCommonProps, SystemTypographyProps, TYPOGRAPHY} from './co
 import {useTheme} from './ThemeProvider'
 import {ComponentProps} from './utils/types'
 
-// load polyfill for :focus-visible
-import 'focus-visible'
-
 const GlobalStyle = createGlobalStyle<{colorScheme?: 'light' | 'dark'}>`
   * { box-sizing: border-box; }
   body { margin: 0; }
   table { border-collapse: collapse; }
   input { color-scheme: ${props => props.colorScheme}; }
 
-  [role="button"]:focus:not(:focus-visible):not(.focus-visible),
-  [role="tabpanel"][tabindex="0"]:focus:not(:focus-visible):not(.focus-visible),
-  button:focus:not(:focus-visible):not(.focus-visible),
-  summary:focus:not(:focus-visible):not(.focus-visible),
-  a:focus:not(:focus-visible):not(.focus-visible) {
+  [role="button"]:focus:not(:focus-visible)
+  [role="tabpanel"][tabindex="0"]:focus:not(:focus-visible)
+  button:focus:not(:focus-visible),
+  summary:focus:not(:focus-visible),
+  a:focus:not(:focus-visible) {
     outline: none;
     box-shadow: none;
   }
 
-  [tabindex="0"]:focus:not(:focus-visible):not(.focus-visible),
-  details-dialog:focus:not(:focus-visible):not(.focus-visible) {
+  [tabindex="0"]:focus:not(:focus-visible),
+  details-dialog:focus:not(:focus-visible) {
     outline: none;
   }
 `
