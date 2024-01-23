@@ -18,3 +18,22 @@ global.CSS = {
 }
 
 global.TextEncoder = TextEncoder
+
+/**
+ * Required for internal usage of dialog in primer/react
+ * this is not implemented in JSDOM, and until it is we'll need to polyfill
+ * https://github.com/jsdom/jsdom/issues/3294
+ * https://jestjs.io/docs/manual-mocks#mocking-methods-which-are-not-implemented-in-jsdom
+ * bonus: we only want to mock browser globals in DOM (or js-dom) environments – not in SSR / node
+ */
+if (typeof document !== 'undefined') {
+  global.HTMLDialogElement.prototype.showModal = jest.fn(function mock(this: HTMLDialogElement) {
+    // eslint-disable-next-line no-invalid-this
+    this.open = true
+  })
+
+  global.HTMLDialogElement.prototype.close = jest.fn(function mock(this: HTMLDialogElement) {
+    // eslint-disable-next-line no-invalid-this
+    this.open = false
+  })
+}
