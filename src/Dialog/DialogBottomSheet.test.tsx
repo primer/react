@@ -1,9 +1,9 @@
 import React from 'react'
-import {fireEvent, render, waitFor, act} from '@testing-library/react'
+import {fireEvent, render, waitFor} from '@testing-library/react'
 import {Dialog} from './Dialog'
 import MatchMediaMock from 'jest-matchmedia-mock'
 import {behavesAsComponent} from '../utils/testing'
-import {ANIMATION_DURATION, FULL_HEIGHT, HALF_HEIGHT} from './DialogBottomSheet'
+import {FULL_HEIGHT, HALF_HEIGHT} from './DialogBottomSheet'
 import {axe} from 'jest-axe'
 
 let matchMedia: MatchMediaMock
@@ -90,52 +90,6 @@ describe('Dialog', () => {
     const results = await axe(container)
     expect(results).toHaveNoViolations()
   })
-
-  /*
-  it('calls `onClose` when dragging down', async () => {
-    const onClose = jest.fn()
-
-    act(() => {
-      matchMedia.useMediaQuery('(prefers-reduced-motion: no-preference)')
-    })
-
-    const {getByRole} = render(
-      <Dialog onClose={onClose} type="bottom-sheet">
-        <div>Hello World</div>
-      </Dialog>,
-    )
-
-    expect(onClose).not.toHaveBeenCalled()
-
-    const dialog = getByRole('dialog')
-    const slider = getByRole('slider')
-
-    const initialPosition = dialog.style.transform
-    expect(initialPosition).toBeFalsy()
-
-    const handle = getByRole('slider')
-    const handleHeight = handle.getBoundingClientRect().height
-    const initialHeight = dialog.style.height
-
-    // Simulate dragging
-    fireEvent.mouseDown(handle, {clientX: 10, clientY: 10})
-
-    console.log('LOCATION')
-    console.log(handle.getBoundingClientRect())
-    fireEvent.mouseMove(handle, {clientX: 10, clientY: -100})
-    fireEvent.mouseUp(handle)
-    const newPosition = dialog.style.height
-    console.log(dialog.style)
-    console.log(newPosition)
-    console.log(slider.style)
-    expect(newPosition).toBeTruthy()
-
-    const newHeight = dialog.style.height
-    expect(newHeight).not.toBe(initialHeight)
-
-    await waitFor(() => expect(onClose).toHaveBeenCalled(), {timeout: ANIMATION_DURATION + 100})
-  })
-  */
 
   it('opens the bottom sheet on mount', () => {
     const {getByRole} = render(
