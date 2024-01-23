@@ -9,7 +9,7 @@ const sizeMap = {
   large: '64px',
 }
 
-type SpinnerProps = React.PropsWithChildren<{
+export type SpinnerProps = React.PropsWithChildren<{
   /**
    * Provide a message to be announced to screen readers while the current
    * context is loading
