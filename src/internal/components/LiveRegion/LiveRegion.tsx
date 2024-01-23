@@ -1,4 +1,4 @@
-import * as React from 'react'
+import {useState} from 'react'
 import './live-region-element/define'
 import {LiveRegionElement, templateContent} from './live-region-element'
 import {OutletContext, useOutlet} from './OutletContext'
@@ -19,7 +19,7 @@ type LiveRegionProps = React.PropsWithChildren
 // region or the `useLiveRegion()` hook may be used to find, or create, a
 // corresponding live region.
 function LiveRegion({children}: LiveRegionProps) {
-  const [liveRegion, setLiveRegion] = React.useState<LiveRegionElement | null>(null)
+  const [liveRegion, setLiveRegion] = useState<LiveRegionElement | null>(null)
 
   return (
     <LiveRegionContext.Provider value={liveRegion}>

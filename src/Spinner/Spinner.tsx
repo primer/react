@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import sx, {SxProp} from '../sx'
 import {Status} from '../internal/components/LiveRegion'

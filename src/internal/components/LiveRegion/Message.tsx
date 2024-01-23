@@ -1,30 +1,30 @@
-import * as React from 'react'
+import {useEffect, useRef} from 'react'
 import {useLiveRegion} from './useLiveRegion'
 
 export function Message({value}: {value: string}) {
   const liveRegion = useLiveRegion()
-  const savedLiveRegion = React.useRef(liveRegion)
-  const committedRef = React.useRef(false)
+  const savedLiveRegion = useRef(liveRegion)
+  const committedRef = useRef(false)
 
-  React.useEffect(() => {
+  useEffect(() => {
     savedLiveRegion.current = liveRegion
   }, [liveRegion])
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (committedRef.current !== true) {
       return
     }
 
-    const cancel = savedLiveRegion.current?.announce(value, {
+    const cancel = savedLiveRegion.current.announce(value, {
       delayMs: 750,
     })
 
     return () => {
-      cancel?.()
+      cancel()
     }
   }, [value])
 
-  React.useEffect(() => {
+  useEffect(() => {
     committedRef.current = true
     return () => {
       committedRef.current = false

@@ -1,8 +1,8 @@
-import * as React from 'react'
+import {createContext, useContext} from 'react'
 import {LiveRegionElement} from './live-region-element'
 
 type OutletContext = React.Dispatch<React.SetStateAction<LiveRegionElement | null>>
-export const OutletContext = React.createContext<OutletContext | null>(null)
+export const OutletContext = createContext<OutletContext | null>(null)
 
 /**
  * The `useOutlet` hook provides access to a function which is used to set a
@@ -10,7 +10,7 @@ export const OutletContext = React.createContext<OutletContext | null>(null)
  * messages.
  */
 export function useOutlet(): OutletContext {
-  const context = React.useContext(OutletContext)
+  const context = useContext(OutletContext)
   if (context) {
     return context
   }
