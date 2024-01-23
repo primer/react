@@ -33,10 +33,12 @@ export type AnnounceOptions = {
 
 export type Cancelable = () => void
 
+const DEFAULT_FLUSH_DELAY_MS = 150
+
 class LiveRegionElement extends HTMLElement {
   #pending: boolean
   #queue: Array<{
-    data: readonly [message: string, AnnounceOptions]
+    data: readonly [string, AnnounceOptions]
     cancel: Cancelable
   }>
 
@@ -54,7 +56,16 @@ class LiveRegionElement extends HTMLElement {
   }
 
   connectedCallback() {
-    this.#processQueue()
+    if (this.#queue.length > 0) {
+      for (const item of this.#queue) {
+        const [_message, options] = item.data
+        // Add a default delayMs when flushing the queue if none exists
+        if (options.delayMs === undefined) {
+          options.delayMs = DEFAULT_FLUSH_DELAY_MS
+        }
+      }
+      this.#processQueue()
+    }
   }
 
   #processQueue() {
