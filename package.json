@@ -6,22 +6,48 @@
   "module": "lib-esm/index.js",
   "exports": {
     ".": {
+      "node": {
+        "import": "./lib-esm/node/index.js",
+        "require": "./lib/node/index.js"
+      },
       "import": "./lib-esm/index.js",
       "require": "./lib/index.js"
     },
     "./experimental": {
+      "node": {
+        "import": "./lib-esm/node/experimental/index.js",
+        "require": "./lib/node/experimental/index.js"
+      },
       "import": "./lib-esm/experimental/index.js",
       "require": "./lib/experimental/index.js"
     },
     "./drafts": {
+      "node": {
+        "import": "./lib-esm/node/drafts/index.js",
+        "require": "./lib/node/drafts/index.js"
+      },
       "import": "./lib-esm/drafts/index.js",
       "require": "./lib/drafts/index.js"
     },
     "./deprecated": {
+      "node": {
+        "import": "./lib-esm/node/deprecated/index.js",
+        "require": "./lib/node/deprecated/index.js"
+      },
       "import": "./lib-esm/deprecated/index.js",
       "require": "./lib/deprecated/index.js"
     },
     "./lib-esm/*": {
+      "node": {
+        "import": [
+          "./lib-esm/node/*.js",
+          "./lib-esm/node/*/index.js"
+        ],
+        "require": [
+          "./lib/node/*.js",
+          "./lib/node/*/index.js"
+        ]
+      },
       "import": [
         "./lib-esm/*.js",
         "./lib-esm/*/index.js"
@@ -37,7 +63,9 @@
   "sideEffects": [
     "./src/internal/components/LiveRegion/live-region-element/define.ts",
     "./lib-esm/internal/components/LiveRegion/live-region-element/define.js",
-    "./lib/internal/components/LiveRegion/live-region-element/define.js"
+    "./lib-esm/node/internal/components/LiveRegion/live-region-element/define.js",
+    "./lib/internal/components/LiveRegion/live-region-element/define.js",
+    "./lib/node/internal/components/LiveRegion/live-region-element/define.js"
   ],
   "scripts": {
     "setup": "./script/setup",
@@ -103,6 +131,7 @@
     "@github/paste-markdown": "^1.4.0",
     "@github/relative-time-element": "^4.1.2",
     "@lit-labs/react": "^1.1.1",
+    "@lit-labs/ssr-dom-shim": "1.1.2",
     "@oddbird/popover-polyfill": "^0.3.1",
     "@primer/behaviors": "^1.5.1",
     "@primer/octicons-react": "^19.8.0",
@@ -148,6 +177,7 @@
     "@primer/css": "^21.0.1",
     "@rollup/plugin-babel": "6.0.4",
     "@rollup/plugin-commonjs": "25.0.4",
+    "@rollup/plugin-inject": "5.0.5",
     "@rollup/plugin-node-resolve": "15.1.0",
     "@rollup/plugin-replace": "5.0.2",
     "@rollup/plugin-terser": "0.4.3",

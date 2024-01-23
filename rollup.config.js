@@ -8,6 +8,7 @@ import {visualizer} from 'rollup-plugin-visualizer'
 import postcss from 'rollup-plugin-postcss'
 import MagicString from 'magic-string'
 import packageJson from './package.json'
+import inject from '@rollup/plugin-inject'
 
 const input = new Set([
   // "exports"
@@ -236,6 +237,34 @@ export default [
       preserveModulesRoot: 'src',
     },
   },
+  // ESM + Node.js
+  {
+    ...baseConfig,
+    external: dependencies.map(createPackageRegex),
+    plugins: [
+      ...baseConfig.plugins,
+      // Reference:
+      // https://github.com/lit/lit/blob/5c8b142552542ffa775b74074b8bd16f427a00fa/rollup-common.js#L260-L276
+      inject({
+        HTMLElement: ['@lit-labs/ssr-dom-shim', 'HTMLElement'],
+        customElements: ['@lit-labs/ssr-dom-shim', 'customElements'],
+      }),
+      replace({
+        'process.env.NODE_ENV': JSON.stringify('production'),
+        preventAssignment: true,
+        values: {
+          'extends HTMLElement': 'extends (globalThis.HTMLElement ?? HTMLElement)',
+        },
+      }),
+    ],
+    output: {
+      interop: 'auto',
+      dir: 'lib-esm/node',
+      format: 'esm',
+      preserveModules: true,
+      preserveModulesRoot: 'src',
+    },
+  },
 
   // CommonJS
   {
@@ -244,6 +273,35 @@ export default [
     output: {
       interop: 'auto',
       dir: 'lib',
+      format: 'commonjs',
+      preserveModules: true,
+      preserveModulesRoot: 'src',
+      exports: 'auto',
+    },
+  },
+  // CommonJS + Node.js
+  {
+    ...baseConfig,
+    external: dependencies.filter(name => !ESM_ONLY.has(name)).map(createPackageRegex),
+    plugins: [
+      ...baseConfig.plugins,
+      // Reference:
+      // https://github.com/lit/lit/blob/5c8b142552542ffa775b74074b8bd16f427a00fa/rollup-common.js#L260-L276
+      inject({
+        HTMLElement: ['@lit-labs/ssr-dom-shim', 'HTMLElement'],
+        customElements: ['@lit-labs/ssr-dom-shim', 'customElements'],
+      }),
+      replace({
+        'process.env.NODE_ENV': JSON.stringify('production'),
+        preventAssignment: true,
+        values: {
+          'extends HTMLElement': 'extends (globalThis.HTMLElement ?? HTMLElement)',
+        },
+      }),
+    ],
+    output: {
+      interop: 'auto',
+      dir: 'lib/node',
       format: 'commonjs',
       preserveModules: true,
       preserveModulesRoot: 'src',
