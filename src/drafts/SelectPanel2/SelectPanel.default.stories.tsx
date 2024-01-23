@@ -1,56 +1,29 @@
 import React from 'react'
-import {Meta, StoryFn} from '@storybook/react'
-import {SelectPanel, SelectPanelProps} from '../SelectPanel'
-import {ActionList, Box} from '../../../index'
-import data from './mock-data'
+import {SelectPanel} from './SelectPanel'
+import {ActionList, Box} from '../../index'
+import data from './mock-story-data'
 
 export default {
-  title: 'Drafts/Components/SelectPanel/Playground',
+  title: 'Drafts/Components/SelectPanel',
   component: SelectPanel,
+}
 
-  args: {
-    title: 'Select labels',
-    selectionVariant: 'multiple',
-    secondaryActionVariant: 'button',
-  },
-  argTypes: {
-    secondaryActionVariant: {
-      name: 'Secondary action variant',
-      type: 'enum',
-      options: ['button', 'link', 'checkbox'],
-    },
-    secondaryActionText: {
-      name: 'Secondary action text',
-      type: 'string',
-    },
-  },
-} as Meta<typeof SelectPanel>
-
-export const Playground: StoryFn = args => {
-  const initialSelectedLabels = [data.issue.labelIds[0]] // mock initial state: has selected labels
+export const Default = () => {
+  const initialSelectedLabels = data.issue.labelIds // mock initial state: has selected labels
   const [selectedLabelIds, setSelectedLabelIds] = React.useState<string[]>(initialSelectedLabels)
 
   /* Selection */
   const onLabelSelect = (labelId: string) => {
-    if (args.selectionVariant === 'single' || args.selectionVariant === 'instant') {
-      setSelectedLabelIds([labelId])
-    } else {
-      if (!selectedLabelIds.includes(labelId)) setSelectedLabelIds([...selectedLabelIds, labelId])
-      else setSelectedLabelIds(selectedLabelIds.filter(id => id !== labelId))
-    }
+    if (!selectedLabelIds.includes(labelId)) setSelectedLabelIds([...selectedLabelIds, labelId])
+    else setSelectedLabelIds(selectedLabelIds.filter(id => id !== labelId))
   }
-
   const onClearSelection = () => {
     setSelectedLabelIds([])
-    args.onClearSelection() // call storybook action
   }
 
-  const onSubmit: SelectPanelProps['onSubmit'] = event => {
+  const onSubmit = () => {
     data.issue.labelIds = selectedLabelIds // pretending to persist changes
-    args.onSubmit(event) // call storybook action
   }
-
-  const onCancel = () => args.onCancel() // call storybook action
 
   /* Filtering */
   const [filteredLabels, setFilteredLabels] = React.useState(data.labels)
@@ -62,7 +35,6 @@ export const Playground: StoryFn = args => {
 
     if (query === '') setFilteredLabels(data.labels)
     else {
-      // Note: in the future, we should probably add a highlight for matching text
       setFilteredLabels(
         data.labels
           .map(label => {
@@ -90,14 +62,14 @@ export const Playground: StoryFn = args => {
   return (
     <>
       <SelectPanel
-        title={args.title}
-        description={args.description}
-        selectionVariant={args.selectionVariant}
+        title="Select labels"
         onSubmit={onSubmit}
-        onCancel={onCancel}
+        onCancel={() => {
+          /* optional callback, for example: for multi-step overlay or to fire sync actions */
+          // eslint-disable-next-line no-console
+          console.log('panel was closed')
+        }}
         onClearSelection={onClearSelection}
-        width={args.width}
-        height={args.height}
       >
         <SelectPanel.Button>Assign label</SelectPanel.Button>
 
@@ -131,11 +103,7 @@ export const Playground: StoryFn = args => {
         )}
 
         <SelectPanel.Footer>
-          {args.secondaryActionText ? (
-            <SelectPanel.SecondaryAction variant={args.secondaryActionVariant}>
-              {args.secondaryActionText}
-            </SelectPanel.SecondaryAction>
-          ) : null}
+          <SelectPanel.SecondaryAction variant="button">Edit labels</SelectPanel.SecondaryAction>
         </SelectPanel.Footer>
       </SelectPanel>
     </>
