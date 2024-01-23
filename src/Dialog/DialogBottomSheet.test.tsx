@@ -177,6 +177,17 @@ describe('Dialog', () => {
     expect(onClose).toHaveBeenCalled()
   })
 
+  it('is dialog and has the aria-model attribute', () => {
+    const {getByRole} = render(
+      <Dialog onClose={() => {}} type="bottom-sheet">
+        My dialog content
+      </Dialog>,
+    )
+
+    const dialog = getByRole('dialog')
+    expect(dialog).toHaveAttribute('aria-modal', 'true')
+  })
+
   it('`onClose` is called when clicking the overlay', async () => {
     const mockOnClose = jest.fn()
 
