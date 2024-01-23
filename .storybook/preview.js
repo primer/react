@@ -170,7 +170,7 @@ const primerThemes = [
 ]
 
 export const globalTypes = {
-  theme: {
+  colorScheme: {
     name: 'Theme',
     description: 'Switch themes',
     defaultValue: 'light',
@@ -186,36 +186,36 @@ export const globalTypes = {
 
 export const decorators = [
   (Story, context) => {
-    document.body.setAttribute('data-color-mode', context.globals.theme.startsWith('light') ? 'light' : 'dark')
+    document.body.setAttribute('data-color-mode', context.globals.colorScheme.startsWith('light') ? 'light' : 'dark')
     document.body.setAttribute(
       'data-light-theme',
-      context.globals.theme.startsWith('light') ? context.globals.theme : undefined,
+      context.globals.colorScheme.startsWith('light') ? context.globals.colorScheme : undefined,
     )
     document.body.setAttribute(
       'data-dark-theme',
-      context.globals.theme.startsWith('dark') ? context.globals.theme : undefined,
+      context.globals.colorScheme.startsWith('dark') ? context.globals.colorScheme : undefined,
     )
     const showSurroundingElements =
       context.globals.showSurroundingElements ?? window.localStorage.getItem('showSurroundingElements') === 'true'
     return (
       <ThemeProvider
-        colorMode={context.globals.theme}
-        dayScheme={context.globals.theme}
-        nightScheme={context.globals.theme}
+        colorMode={context.globals.colorScheme}
+        dayScheme={context.globals.colorScheme}
+        nightScheme={context.globals.colorScheme}
       >
-        {context.globals.theme === 'all' ? (
+        {context.globals.colorScheme === 'all' ? (
           primerThemes.map(({value: theme}) => (
             <div
               key={theme}
               id="story"
-              className={clsx(context.globals.theme === 'all' && 'story-wrap-grid', 'story-wrap')}
+              className={clsx(context.globals.colorScheme === 'all' && 'story-wrap-grid', 'story-wrap')}
               data-color-mode={theme.startsWith('dark') ? 'dark' : 'light'}
               data-light-theme={theme.startsWith('light') ? theme : undefined}
               data-dark-theme={theme.startsWith('dark') ? theme : undefined}
             >
               <BaseStyles>
                 <Story {...context} />
-                {context.globals.theme === 'all' && <p className="theme-name">{theme}</p>}
+                {context.globals.colorScheme === 'all' && <p className="theme-name">{theme}</p>}
               </BaseStyles>
             </div>
           ))
