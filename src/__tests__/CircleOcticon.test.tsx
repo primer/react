@@ -37,7 +37,7 @@ describe('CircleOcticon', () => {
   it('respects the bg prop', () => {
     expect(render(<CircleOcticon icon={CheckIcon} bg="danger.subtle" />)).toHaveStyleRule(
       'background-color',
-      theme.colorSchemes.light.colors.danger?.subtle,
+      'var(--bgColor-danger-muted,var(--color-danger-subtle,#ffebe9))',
     )
   })
 
