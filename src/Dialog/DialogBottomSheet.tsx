@@ -310,6 +310,7 @@ const Content = styled.div<
   position: relative;
   height: 50vh;
   height: 50dvh;
+  box-shadow: ${get('shadows.overlay.shadow')};
   max-height: 100vh;
   max-height: 100dvh;
   overflow-x: hidden;
