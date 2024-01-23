@@ -103,7 +103,7 @@ export const Default = () => {
         )}
 
         <SelectPanel.Footer>
-          <SelectPanel.SecondaryButton>Edit labels</SelectPanel.SecondaryButton>
+          <SelectPanel.SecondaryAction variant="button">Edit labels</SelectPanel.SecondaryAction>
         </SelectPanel.Footer>
       </SelectPanel>
     </>

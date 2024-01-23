@@ -1,6 +1,6 @@
 import React from 'react'
 import {SelectPanel} from '../SelectPanel'
-import {ActionList, ActionMenu, Avatar, Box, Button} from '../../../index'
+import {ActionList, ActionMenu, Avatar, Box, Button, Text} from '../../../index'
 import {ArrowRightIcon, EyeIcon, GitBranchIcon, TriangleDownIcon, GearIcon} from '@primer/octicons-react'
 import data from './mock-data'
 
@@ -205,7 +205,9 @@ export const AsyncWithSuspendedList = () => {
         <React.Suspense fallback={<SelectPanel.Loading>Fetching labels...</SelectPanel.Loading>}>
           <SuspendedActionList query={query} />
           <SelectPanel.Footer>
-            <SelectPanel.SecondaryButton>Edit labels</SelectPanel.SecondaryButton>
+            <SelectPanel.SecondaryAction variant="link" href="/settings">
+              Edit labels
+            </SelectPanel.SecondaryAction>
           </SelectPanel.Footer>
         </React.Suspense>
       </SelectPanel>
@@ -556,7 +558,7 @@ export const WithFilterButtons = () => {
             Try a different search term
           </SelectPanel.Message>
         ) : (
-          <ActionList selectionVariant="single">
+          <ActionList>
             {itemsToShow.map(item => (
               <ActionList.Item
                 key={item.id}
@@ -571,64 +573,66 @@ export const WithFilterButtons = () => {
         )}
 
         <SelectPanel.Footer>
-          {/* @ts-ignore TODO as prop is not identified by button? */}
-          <SelectPanel.SecondaryButton as="a" href={`/${selectedFilter}`}>
+          <SelectPanel.SecondaryAction variant="link" href={`/${selectedFilter}`}>
             View all {selectedFilter}
-          </SelectPanel.SecondaryButton>
+          </SelectPanel.SecondaryAction>
         </SelectPanel.Footer>
       </SelectPanel>
     </>
   )
 }
 
-export const CustomHeight = () => {
-  const initialSelectedLabels = data.issue.labelIds // mock initial state: has selected labels
-  const [selectedLabelIds, setSelectedLabelIds] = React.useState<string[]>(initialSelectedLabels)
-
-  /* Selection */
-  const onLabelSelect = (labelId: string) => {
-    if (!selectedLabelIds.includes(labelId)) setSelectedLabelIds([...selectedLabelIds, labelId])
-    else setSelectedLabelIds(selectedLabelIds.filter(id => id !== labelId))
-  }
+export const ShortSelectPanel = () => {
+  const [channels, setChannels] = React.useState({GitHub: false, Email: false})
+  const [onlyFailures, setOnlyFailures] = React.useState(false)
 
   const onSubmit = () => {
-    data.issue.labelIds = selectedLabelIds // pretending to persist changes
-
     // eslint-disable-next-line no-console
     console.log('form submitted')
   }
 
-  const sortingFn = (itemA: {id: string}, itemB: {id: string}) => {
-    const initialSelectedIds = data.issue.labelIds
-    if (initialSelectedIds.includes(itemA.id) && initialSelectedIds.includes(itemB.id)) return 1
-    else if (initialSelectedIds.includes(itemA.id)) return -1
-    else if (initialSelectedIds.includes(itemB.id)) return 1
-    else return 1
+  const toggleChannel = (channel: keyof typeof channels) => {
+    setChannels({...channels, [channel]: !channels[channel]})
   }
 
-  const itemsToShow = data.labels.sort(sortingFn)
+  const channelsEnabled = channels.GitHub || channels.Email
 
   return (
     <>
-      <h1>Custom height SelectPanel</h1>
+      <h1>Short SelectPanel</h1>
       <p>
-        Uses <code>height: fit-content</code> to display the full height of the dialog
+        Use <code>height=fit-content</code> to match height of contents
       </p>
-      <SelectPanel title="Select labels" onSubmit={onSubmit} height="fit-content">
-        <SelectPanel.Button>Assign label</SelectPanel.Button>
+      <SelectPanel title="Select notification channels" height="fit-content" onSubmit={onSubmit}>
+        <SelectPanel.Button>
+          <Text sx={{color: 'fg.muted'}}>Notify me:</Text>{' '}
+          {Object.keys(channels)
+            .filter(channel => channels[channel as keyof typeof channels])
+            .join(', ') || 'Never'}
+          {onlyFailures && channelsEnabled && ' (Failed workflows only)'}
+        </SelectPanel.Button>
 
         <ActionList>
-          {itemsToShow.slice(0, 10).map(label => (
-            <ActionList.Item
-              key={label.id}
-              onSelect={() => onLabelSelect(label.id)}
-              selected={selectedLabelIds.includes(label.id)}
-            >
-              <ActionList.LeadingVisual>{getCircle(label.color)}</ActionList.LeadingVisual>
-              {label.name}
-              <ActionList.Description variant="block">{label.description}</ActionList.Description>
+          <ActionList.Item selected={channels.GitHub} onSelect={() => toggleChannel('GitHub')}>
+            On GitHub
+          </ActionList.Item>
+          <ActionList.Item selected={channels.Email} onSelect={() => toggleChannel('Email')}>
+            Email
+          </ActionList.Item>
+          <Box
+            role="none"
+            sx={{
+              transition: 'max-height 100ms ease-out, opacity 100ms ease-out',
+              opacity: channelsEnabled ? 1 : 0,
+              maxHeight: channelsEnabled ? '100px' : 0,
+              overflow: channelsEnabled ? 'visible' : 'hidden',
+            }}
+          >
+            <ActionList.Divider />
+            <ActionList.Item selected={onlyFailures} onSelect={() => setOnlyFailures(!onlyFailures)}>
+              Only notify for failed workflows
             </ActionList.Item>
-          ))}
+          </Box>
         </ActionList>
         <SelectPanel.Footer />
       </SelectPanel>
