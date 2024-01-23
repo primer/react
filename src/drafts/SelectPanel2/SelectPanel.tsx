@@ -406,12 +406,7 @@ const SelectPanelSearchInput: React.FC<TextInputProps> = ({onChange: propsOnChan
           }}
         />
       }
-      sx={
-        {
-          /* TODO: uncommenting this breaks keyboard navigation, that's odd */
-          // '& input:empty + .TextInput-action': {display: 'none'},
-        }
-      }
+      sx={{'&:has(input:placeholder-shown) .TextInput-action': {display: 'none'}}}
       onChange={internalOnChange}
       {...props}
     />
