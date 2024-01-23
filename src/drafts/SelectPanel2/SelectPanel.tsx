@@ -222,7 +222,7 @@ const Panel: React.FC<SelectPanelProps> = ({
   return (
     <>
       {Anchor}
-      {/* @ts-ignore TODO: StyledOverlay does not like height:fit-content */}
+
       <StyledOverlay
         as="dialog"
         ref={dialogRef}
@@ -234,6 +234,7 @@ const Panel: React.FC<SelectPanelProps> = ({
           // reset dialog default styles
           border: 'none',
           padding: 0,
+          '&[open]': {display: 'flex'}, // to fit children
 
           ...(variant === 'anchored' ? {margin: 0, top: position?.top, left: position?.left} : {}),
           '::backdrop': {backgroundColor: variant === 'anchored' ? 'transparent' : 'primer.canvas.backdrop'},
@@ -269,12 +270,7 @@ const Panel: React.FC<SelectPanelProps> = ({
             as="form"
             method="dialog"
             onSubmit={onInternalSubmit}
-            sx={{
-              display: 'flex',
-              flexDirection: 'column',
-              height: 'initial',
-              minHeight: '100%',
-            }}
+            sx={{display: 'flex', flexDirection: 'column', width: '100%'}}
           >
             {slots.header ?? /* render default header as fallback */ <SelectPanelHeader />}
 
