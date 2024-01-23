@@ -4,8 +4,15 @@
   "status": "draft",
   "a11yReviewed": false,
   "stories": [
+    {"id": "drafts-components-selectpanel-examples--minimal"},
+    {"id": "drafts-components-selectpanel-examples--short-select-panel"},
     {"id": "drafts-components-selectpanel-features--instant-selection-variant"},
-    {"id": "drafts-components-selectpanel-features--with-warning"}
+    {"id": "drafts-components-selectpanel-features--with-warning"},
+    {"id": "drafts-components-selectpanel-examples--open-from-menu"},
+    {"id": "drafts-components-selectpanel-examples--with-groups"},
+    {"id": "drafts-components-selectpanel-examples--async-search-with-use-transition"},
+    {"id": "drafts-components-selectpanel-examples--async-with-suspended-list"},
+    {"id": "drafts-components-selectpanel-examples--with-filter-buttons"}
   ],
   "props": [
     {

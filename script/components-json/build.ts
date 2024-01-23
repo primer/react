@@ -1,7 +1,7 @@
 import generate from '@babel/generator'
 import {parse} from '@babel/parser'
 import traverse from '@babel/traverse'
-import {ArrowFunctionExpression, Identifier, VariableDeclaration} from '@babel/types'
+import {ArrowFunctionExpression, Identifier, FunctionDeclaration} from '@babel/types'
 import Ajv from 'ajv'
 import {pascalCase} from 'change-case'
 import glob from 'fast-glob'
@@ -56,17 +56,19 @@ const components = docsFiles.map(docsFilepath => {
   // Get path to feature story file
   // Example: src/components/Box/Box.docs.json -> src/components/Box/Box.features.stories.tsx
   const featureStoryFilepath = docsFilepath.replace(/\.docs\.json$/, '.features.stories.tsx')
+  const exampleStoryFilepath = docsFilepath.replace(/\.docs\.json$/, '.examples.stories.tsx')
 
   // Get source code for each feature story
   const featureStorySourceCode = getStorySourceCode(featureStoryFilepath)
+  const exampleStorySourceCode = getStorySourceCode(exampleStoryFilepath)
 
   // Populate source code for each feature story
-  const featureStories = docs.stories
+  const stories = docs.stories
     // Filter out the default story
     .filter(({id}) => id !== defaultStoryId)
     .map(({id}) => {
       const storyName = getStoryName(id)
-      const code = featureStorySourceCode[storyName]
+      const code = id.includes('-features--') ? featureStorySourceCode[storyName] : exampleStorySourceCode[storyName]
 
       if (!code) {
         throw new Error(
@@ -78,7 +80,7 @@ const components = docsFiles.map(docsFilepath => {
     })
 
   // Replace the stories array with the new array that includes source code
-  docs.stories = featureStories
+  docs.stories = stories
 
   // Add default story to the beginning of the array
   if (defaultStoryCode) {
@@ -142,10 +144,22 @@ function getStorySourceCode(filepath: string) {
 
   traverse(ast, {
     ExportNamedDeclaration(path) {
-      const varDecloration = path.node.declaration as VariableDeclaration
-      const id = varDecloration.declarations[0].id as Identifier
-      const name = id.name
-      const func = varDecloration.declarations[0].init as ArrowFunctionExpression
+      const varDeclaration = path.node.declaration
+
+      let id: Identifier
+      let func: ArrowFunctionExpression | FunctionDeclaration
+
+      if (varDeclaration?.type === 'VariableDeclaration') {
+        id = varDeclaration.declarations[0].id as Identifier
+        const init = varDeclaration.declarations[0].init
+        if (init?.type === 'ArrowFunctionExpression') func = init
+        else return // not a function = not story
+      } else if (varDeclaration?.type === 'FunctionDeclaration') {
+        id = varDeclaration.id as Identifier
+        func = varDeclaration
+      } else {
+        return // not a function = not story
+      }
 
       const code = prettier
         .format(generate(func).code, {
@@ -158,6 +172,7 @@ function getStorySourceCode(filepath: string) {
         .replace(/;$/, '')
         .replace(/^;/, '')
 
+      const name = id.name
       stories[name] = code
     },
   })
