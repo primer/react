@@ -1,6 +1,5 @@
 import React from 'react'
 import {CheckIcon} from '@primer/octicons-react'
-import theme from '../theme'
 import {CircleOcticon} from '..'
 import {render, behavesAsComponent, checkExports} from '../utils/testing'
 import {render as HTMLRender} from '@testing-library/react'
