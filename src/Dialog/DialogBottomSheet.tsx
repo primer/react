@@ -135,7 +135,6 @@ export default React.forwardRef<HTMLDivElement, PropsWithChildren<DialogBottomSh
       pageY = e.touches[0].pageY
     } else if ('clientX' in e) {
       pageY = e.pageY
-    } else {
     }
 
     const delta = startY.current - (pageY || 0)
