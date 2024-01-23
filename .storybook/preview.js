@@ -6,7 +6,7 @@ import {PrimerBreakpoints} from '../src/utils/layout'
 import './primitives-v8.css'
 // primitives v7 for fallback, commented out by default
 // uncomment it for testing
-// import './primitives-v7.css'
+import './primitives-v7.css'
 
 export const globalTypes = toolbarTypes
 export const decorators = [withThemeProvider, withSurroundingElements]
