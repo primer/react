@@ -1,3 +1,5 @@
+<!-- markdownlint-disable MD036 -->
+
 # Versioning
 
 <!-- prettier-ignore-start -->
@@ -5,14 +7,15 @@
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 ## Table of Contents
 
-* [Overview](#overview)
-* [Changes](#changes)
-* [Reference](#reference)
-  * [The type of a prop is broadened](#the-type-of-a-prop-is-broadened)
-  * [The type of a prop is narrowed](#the-type-of-a-prop-is-narrowed)
-  * [The `display` property used for the container of `children` is changed](#the-display-property-used-for-the-container-of-children-is-changed)
-  * [A component includes a landmark role](#a-component-includes-a-landmark-role)
-  * [A component no longer includes a landmark role](#a-component-no-longer-includes-a-landmark-role)
+- [Overview](#overview)
+- [Changes](#changes)
+- [Reference](#reference)
+  - [The type of a prop is broadened](#the-type-of-a-prop-is-broadened)
+  - [The type of a prop is narrowed](#the-type-of-a-prop-is-narrowed)
+  - [The `display` property used for the container of `children` is changed](#the-display-property-used-for-the-container-of-children-is-changed)
+  - [A component includes a landmark role](#a-component-includes-a-landmark-role)
+  - [A component no longer includes a landmark role](#a-component-no-longer-includes-a-landmark-role)
+  - [The element onto which props are spread is changed](#the-element-onto-which-props-are-spread-is-changed)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 <!-- prettier-ignore-end -->
@@ -52,6 +55,7 @@ For a full list of releases, visit our [releases](https://github.com/primer/reac
 |               | [The type of a prop is narrowed](#the-type-of-a-prop-is-narrowed)                                                                             | `major`             |
 |               | A prop is deprecated                                                                                                                          | `minor`             |
 |               | A prop is removed                                                                                                                             | `major`             |
+|               | [The element onto which props are spread is changed](#the-element-onto-which-props-are-spread-is-changed)                                     | potentially `major` |
 | Package       | A dependency is added                                                                                                                         | `minor`             |
 |               | A dependency is removed and it does not affect the public API of the package                                                                  | `minor`             |
 |               | A dependency is removed and it does affect the public API of the package                                                                      | `major`             |
@@ -163,3 +167,82 @@ of products and should be treated carefully. In certain situations, it may
 be possible to remove a landmark role that is superfluous in a `minor` release.
 However, most cases should treat this as a breaking change and should draft a
 migration plan accordingly for product teams.
+
+### The element onto which props are spread is changed
+
+semver bump: potentially **major**
+
+This situation has a couple of scenarios where it may be considered a breaking change:
+
+- When the changes to the public types for `props` do not overlap due to the change in element
+- When the values provided as `props` may contribute to layout
+
+These scenarios can occur when either adding a new container element or when
+moving `props` that are spread from a container to an element contained within
+the container.
+
+<details>
+<summary>When the changes to the public types for `props` do not overlap due to the change in element</summary>
+
+**Before**
+
+```tsx
+type Props = React.ComponentPropsWithoutRef<'input'>
+
+function Component(props: Props) {
+  return <input {...props} />
+}
+```
+
+**After**
+
+```tsx
+// This type does not fully overlap with the previous type and is a breaking
+// change
+type Props = React.ComponentPropsWithoutRef<'div'>
+
+function Component(props: Props) {
+  return (
+    <div {...props}>
+      <input />
+    </div>
+  )
+}
+```
+
+</details>
+
+<details>
+<summary>When the values provided as `props` may contribute to layout</summary>
+
+**Before**
+
+```tsx
+type Props = {
+  /* ... */
+}
+
+function Component(props: Props) {
+  return <svg {...props} />
+}
+```
+
+**After**
+
+```tsx
+type Props = {
+  /* ... */
+}
+
+// When adding the new container element, values that may have influenced layout
+// will no longer apply as the `<svg>` element is within the container element.
+function Component(props: Props) {
+  return (
+    <div>
+      <svg {...props} />
+    </div>
+  )
+}
+```
+
+</details>
