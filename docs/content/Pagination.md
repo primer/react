@@ -12,7 +12,7 @@ import data from '../../src/Pagination/Pagination.docs.json'
 import State from '../components/State'
 import DeprecationBanner from '../components/DeprecationBanner'
 
-<DeprecationBanner replacementUrl={'/design/components/pagination/react'} />
+<DeprecationBanner replacementUrl={'/components/pagination/react/latest'} />
 
 ```js
 import {Pagination} from '@primer/react'

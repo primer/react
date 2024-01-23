@@ -9,7 +9,7 @@ source: https://github.com/primer/react/blob/main/src/Popover
 import data from '../../src/Popover/Popover.docs.json'
 import DeprecationBanner from '../components/DeprecationBanner'
 
-<DeprecationBanner replacementUrl={'/design/components/popover/react'} />
+<DeprecationBanner replacementUrl={'/components/popover/react/latest'} />
 
 ```js
 import {Popover} from '@primer/react'
