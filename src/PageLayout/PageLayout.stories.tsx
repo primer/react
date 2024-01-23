@@ -344,7 +344,7 @@ const meta: Meta = {
   },
 }
 
-const Template: Story = args => (
+export const Default: Story = args => (
   <PageLayout
     containerWidth={args.containerWidth}
     padding={args.padding}
@@ -426,5 +426,4 @@ const Template: Story = args => (
   </PageLayout>
 )
 
-export const Default = Template.bind({})
 export default meta
