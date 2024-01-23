@@ -15,6 +15,24 @@ describe('Spinner', () => {
     default: Spinner,
   })
 
+  it('should render an ARIA live region with default loading text', async () => {
+    const {getByRole} = HTMLRender(<Spinner />)
+
+    expect(getByRole('status').textContent).toBe('Loading')
+  })
+
+  it('should render an ARIA live region with custom loading text', async () => {
+    const {getByRole} = HTMLRender(<Spinner srText="Custom loading text" />)
+
+    expect(getByRole('status').textContent).toBe('Custom loading text')
+  })
+
+  it('should not render an ARIA live region with loading text when `srText` is set to `null`', async () => {
+    const {queryByRole} = HTMLRender(<Spinner srText={null} />)
+
+    expect(queryByRole('status')).not.toBeInTheDocument()
+  })
+
   it('should have no axe violations', async () => {
     const {container} = HTMLRender(<Spinner />)
     const results = await axe(container)
