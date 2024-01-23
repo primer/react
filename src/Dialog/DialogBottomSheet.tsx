@@ -135,6 +135,7 @@ export default React.forwardRef<HTMLDivElement, PropsWithChildren<DialogBottomSh
       pageY = e.touches[0].pageY
     } else if ('clientX' in e) {
       pageY = e.pageY
+    } else {
     }
 
     const delta = startY.current - (pageY || 0)
@@ -181,7 +182,7 @@ export default React.forwardRef<HTMLDivElement, PropsWithChildren<DialogBottomSh
       onTouchEnd={dragStop}
       onTouchMove={dragging}
     >
-      <Overlay onClick={() => hideBottomSheet()}></Overlay>
+      <Overlay data-testid="overlay" onClick={() => hideBottomSheet()}></Overlay>
       <Content
         ref={dialogRef}
         role={role}

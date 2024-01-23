@@ -1,5 +1,5 @@
 import React from 'react'
-import {fireEvent, render, waitFor} from '@testing-library/react'
+import {fireEvent, render, waitFor, act} from '@testing-library/react'
 import {Dialog} from './Dialog'
 import MatchMediaMock from 'jest-matchmedia-mock'
 import {behavesAsComponent} from '../utils/testing'
@@ -92,28 +92,60 @@ describe('Dialog', () => {
   })
 
   /*
-  it('delays calling `onClose` when reduced motion has no preference', async () => {
+  it('calls `onClose` when dragging down', async () => {
     const onClose = jest.fn()
 
-    const {getByLabelText} = render(
+    act(() => {
+      matchMedia.useMediaQuery('(prefers-reduced-motion: no-preference)')
+    })
+
+    const {getByRole} = render(
       <Dialog onClose={onClose} type="bottom-sheet">
         <div>Hello World</div>
       </Dialog>,
     )
 
-    matchMedia.useMediaQuery('(prefers-reduced-motion: no-preference)')
-
-    console.log(matchMedia)
     expect(onClose).not.toHaveBeenCalled()
 
-    fireEvent.click(getByLabelText('Close'))
+    const dialog = getByRole('dialog')
+    const slider = getByRole('slider')
 
-    // Ensures the out-animation happens before calling onClose
-    expect(onClose).not.toHaveBeenCalled()
+    const initialPosition = dialog.style.transform
+    expect(initialPosition).toBeFalsy()
+
+    const handle = getByRole('slider')
+    const handleHeight = handle.getBoundingClientRect().height
+    const initialHeight = dialog.style.height
+
+    // Simulate dragging
+    fireEvent.mouseDown(handle, {clientX: 10, clientY: 10})
+
+    console.log('LOCATION')
+    console.log(handle.getBoundingClientRect())
+    fireEvent.mouseMove(handle, {clientX: 10, clientY: -100})
+    fireEvent.mouseUp(handle)
+    const newPosition = dialog.style.height
+    console.log(dialog.style)
+    console.log(newPosition)
+    console.log(slider.style)
+    expect(newPosition).toBeTruthy()
+
+    const newHeight = dialog.style.height
+    expect(newHeight).not.toBe(initialHeight)
 
     await waitFor(() => expect(onClose).toHaveBeenCalled(), {timeout: ANIMATION_DURATION + 100})
   })
   */
+
+  it('opens the bottom sheet on mount', () => {
+    const {getByRole} = render(
+      <Dialog onClose={() => {}} type="bottom-sheet">
+        My dialog content
+      </Dialog>,
+    )
+
+    expect(getByRole('dialog')).toHaveStyle(`height: ${HALF_HEIGHT}dvh)`)
+  })
 
   it('calls `onClose` when keying "Escape"', () => {
     const onClose = jest.fn()
@@ -130,7 +162,7 @@ describe('Dialog', () => {
     expect(onClose).toHaveBeenCalled()
   })
 
-  it('`onClose` is called instantly when reduced motion is enabled', async () => {
+  it('`onClose` is called when clicking close', async () => {
     const onClose = jest.fn()
     const {getByLabelText} = render(
       <Dialog onClose={onClose} type="bottom-sheet">
@@ -138,12 +170,23 @@ describe('Dialog', () => {
       </Dialog>,
     )
 
-    matchMedia.useMediaQuery('(prefers-reduced-motion: reduce)')
-
     expect(onClose).not.toHaveBeenCalled()
 
     fireEvent.click(getByLabelText('Close'))
 
     expect(onClose).toHaveBeenCalled()
+  })
+
+  it('`onClose` is called when clicking the overlay', async () => {
+    const mockOnClose = jest.fn()
+
+    const {getByTestId} = render(
+      <Dialog onClose={mockOnClose} type="bottom-sheet">
+        My dialog content
+      </Dialog>,
+    )
+    expect(mockOnClose).not.toHaveBeenCalled()
+    fireEvent.click(getByTestId('overlay'))
+    expect(mockOnClose).toHaveBeenCalled()
   })
 })

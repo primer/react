@@ -473,6 +473,7 @@ exports[`Dialog renders consistently 1`] = `
         >
           <div
             class="c1"
+            data-testid="overlay"
           />
           <div
             aria-describedby=":r1:"
