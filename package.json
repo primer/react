@@ -34,7 +34,11 @@
     "./lib-esm/internal/*": null
   },
   "typings": "lib/index.d.ts",
-  "sideEffects": false,
+  "sideEffects": [
+    "./src/internal/components/LiveRegion/live-region-element/define.ts",
+    "./lib-esm/internal/components/LiveRegion/live-region-element/define.js",
+    "./lib/internal/components/LiveRegion/live-region-element/define.js"
+  ],
   "scripts": {
     "setup": "./script/setup",
     "build": "./script/build",
