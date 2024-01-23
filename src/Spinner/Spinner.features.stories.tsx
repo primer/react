@@ -16,8 +16,8 @@ export const Large = () => <Spinner size="large" />
 export const WithLoadingMessage = () => {
   const [loading, setLoading] = React.useState(false)
   const buttonRef = React.useRef<HTMLButtonElement>(null)
+  const timeoutId = React.useRef<number | null>(null)
   const announce = useAnnounce()
-  let timeoutId = React.useRef<number | null>(null)
 
   React.useEffect(() => {
     return () => {
