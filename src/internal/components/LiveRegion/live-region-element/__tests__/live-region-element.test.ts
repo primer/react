@@ -1,7 +1,7 @@
 import '../define'
 import {LiveRegionElement} from '../element'
 
-describe('<live-region>', () => {
+describe('LiveRegionElement', () => {
   let liveRegion: LiveRegionElement
 
   beforeEach(() => {

@@ -1,4 +1,4 @@
-import {useState} from 'react'
+import React, {useState} from 'react'
 import './live-region-element/define'
 import {LiveRegionElement, templateContent} from './live-region-element'
 import {OutletContext, useOutlet} from './OutletContext'
@@ -45,6 +45,7 @@ function LiveRegionOutlet() {
       {canUseDOM ? null : (
         <template
           // @ts-expect-error shadowrootmode does exist on `template`
+          // eslint-disable-next-line react/no-unknown-property
           shadowrootmode="open"
           dangerouslySetInnerHTML={innerHTML}
         />

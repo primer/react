@@ -1,10 +1,10 @@
 import {LiveRegionElement} from './element'
-import * as React from 'react'
+import type {DetailedHTMLProps, HTMLAttributes} from 'react'
 
 declare global {
   namespace JSX {
     interface IntrinsicElements {
-      'live-region': React.DetailedHTMLProps<React.HTMLAttributes<LiveRegionElement>, LiveRegionElement>
+      'live-region': DetailedHTMLProps<HTMLAttributes<LiveRegionElement>, LiveRegionElement>
     }
   }
 }

@@ -1,4 +1,4 @@
-import * as React from 'react'
+import {useEffect, useRef} from 'react'
 import {useAnnounce} from './useAnnounce'
 import type {AnnounceOptions, LiveRegionElement} from './live-region-element'
 
@@ -11,7 +11,7 @@ export function Status({delayMs, message, politeness}: StatusProps) {
   // Note: the goal of `Status` is not to announce the given string each time it
   // changes but instead to announce the _first_ message. As a result, we use a
   // ref to store the initial value which we then call in the useEffect() below.
-  const messageToAnnounce = React.useRef<Parameters<LiveRegionElement['announce']> | null>(null)
+  const messageToAnnounce = useRef<Parameters<LiveRegionElement['announce']> | null>(null)
 
   if (messageToAnnounce.current === null) {
     messageToAnnounce.current = [
@@ -23,7 +23,7 @@ export function Status({delayMs, message, politeness}: StatusProps) {
     ]
   }
 
-  React.useEffect(() => {
+  useEffect(() => {
     const {current: announcement} = messageToAnnounce
     if (announcement === null) {
       return
@@ -33,7 +33,7 @@ export function Status({delayMs, message, politeness}: StatusProps) {
     return () => {
       cancel()
     }
-  }, [])
+  }, [announce])
 
   return null
 }

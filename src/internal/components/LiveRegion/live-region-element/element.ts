@@ -58,7 +58,7 @@ class LiveRegionElement extends HTMLElement {
   connectedCallback() {
     if (this.#queue.length > 0) {
       for (const item of this.#queue) {
-        const [_message, options] = item.data
+        const [, options] = item.data
         // Add a default delayMs when flushing the queue if none exists
         if (options.delayMs === undefined) {
           options.delayMs = DEFAULT_FLUSH_DELAY_MS

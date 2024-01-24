@@ -1,4 +1,4 @@
-import * as React from 'react'
+import {useCallback, useEffect, useRef} from 'react'
 import {useLiveRegion} from './useLiveRegion'
 import type {LiveRegionElement} from './live-region-element'
 
@@ -9,16 +9,13 @@ import type {LiveRegionElement} from './live-region-element'
  */
 export function useAnnounce() {
   const liveRegion = useLiveRegion()
-  const savedLiveRegion = React.useRef(liveRegion)
+  const savedLiveRegion = useRef(liveRegion)
 
-  React.useEffect(() => {
+  useEffect(() => {
     savedLiveRegion.current = liveRegion
   }, [liveRegion])
 
-  return React.useCallback((...args: Parameters<LiveRegionElement['announce']>) => {
-    if (savedLiveRegion.current !== null) {
-      return savedLiveRegion.current.announce(...args)
-    }
-    return () => {}
+  return useCallback((...args: Parameters<LiveRegionElement['announce']>) => {
+    return savedLiveRegion.current.announce(...args)
   }, [])
 }
