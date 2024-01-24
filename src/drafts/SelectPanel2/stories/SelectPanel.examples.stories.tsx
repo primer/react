@@ -817,7 +817,7 @@ const CreateNewLabelDialog = ({
     const {name, color, description} = Object.fromEntries(formData) as Record<string, string>
 
     // pretending to persist changes
-    const id = `new-${name}`
+    const id = Math.random().toString(26).slice(6)
     data.labels.unshift({id, name, color, description})
     onSave(id)
   }
@@ -828,7 +828,7 @@ const CreateNewLabelDialog = ({
       onClose={onCancel}
       width="medium"
       footerButtons={[
-        {buttonType: 'default', content: 'Cancel', onClick: () => setDialogOpen(false)},
+        {buttonType: 'default', content: 'Cancel', onClick: onCancel},
         {type: 'submit', buttonType: 'primary', content: 'Save', onClick: () => formSubmitRef.current?.click()},
       ]}
     >
