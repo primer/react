@@ -718,6 +718,12 @@ export const CreateNewRow = () => {
     onLabelSelect(id) // select newly created label
 
     setPanelOpen(true)
+
+    // focus newly created label once it renders
+    window.requestAnimationFrame(() => {
+      const newLabelElement = document.querySelector(`[data-id=${id}]`) as HTMLLIElement
+      newLabelElement.focus()
+    })
   }
 
   return (
@@ -754,6 +760,7 @@ export const CreateNewRow = () => {
                   key={label.id}
                   onSelect={() => onLabelSelect(label.id)}
                   selected={selectedLabelIds.includes(label.id)}
+                  data-id={label.id}
                 >
                   <ActionList.LeadingVisual>
                     <Box
