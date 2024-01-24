@@ -156,7 +156,7 @@ const Panel: React.FC<SelectPanelProps> = ({
   const {containerRef: listContainerRef} = useFocusZone(
     {
       bindKeys: FocusKeys.ArrowVertical | FocusKeys.HomeAndEnd | FocusKeys.PageUpDown,
-      focusableElementFilter: element => element.tagName === 'LI',
+      focusableElementFilter: element => element.tagName === 'LI' || element.tagName === 'BUTTON',
     },
     [internalOpen],
   )
