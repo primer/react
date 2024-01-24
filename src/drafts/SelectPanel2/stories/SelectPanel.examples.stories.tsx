@@ -1,6 +1,6 @@
 import React, {FormEvent} from 'react'
 import {SelectPanel} from '../SelectPanel'
-import {ActionList, ActionMenu, Avatar, Box, Button, Flash, FormControl, Text, TextInput} from '../../../index'
+import {ActionList, ActionMenu, Avatar, Box, Button, FormControl, Text, TextInput} from '../../../index'
 import {Dialog} from '../../../drafts'
 import {
   ArrowRightIcon,
@@ -699,43 +699,27 @@ export const CreateNewRow = () => {
 
   const itemsToShow = query ? filteredLabels : data.labels.sort(sortingFn)
 
-  /* 
-    Controlled state + Create new label Dialog 
-    We only have to do this until https://github.com/primer/react/pull/3840 is merged
-  */
-  const [panelOpen, setPanelOpen] = React.useState(false)
+  /* Create new label Dialog */
   const [newLabelDialogOpen, setNewLabelDialogOpen] = React.useState(false)
 
-  const openCreateLabelDialog = () => {
-    setPanelOpen(false)
-    setNewLabelDialogOpen(true)
-  }
-
+  const openCreateLabelDialog = () => setNewLabelDialogOpen(true)
   const onNewLabelDialogSave = (id: string) => {
-    setNewLabelDialogOpen(false)
-
     setQuery('') // clear search input
     onLabelSelect(id) // select newly created label
 
-    setPanelOpen(true)
+    // focus newly created label once it renders
+    window.requestAnimationFrame(() => {
+      const newLabelElement = document.querySelector(`[data-id=${id}]`) as HTMLLIElement
+      newLabelElement.focus()
+    })
   }
 
   return (
     <>
       <h1>Create new item from panel</h1>
-      <Flash sx={{marginBottom: 2}} variant="warning">
-        Note this example is not yet ready, do not copy it. It is blocked by{' '}
-        <a href="https://github.com/primer/react/pull/3840">primer/react/pull/3840</a>
-      </Flash>
 
-      <SelectPanel
-        title="Select labels"
-        open={panelOpen}
-        onSubmit={onSubmit}
-        onCancel={() => setPanelOpen(false)}
-        onClearSelection={onClearSelection}
-      >
-        <SelectPanel.Button onClick={() => setPanelOpen(true)}>Assign label</SelectPanel.Button>
+      <SelectPanel title="Select labels" onSubmit={onSubmit} onClearSelection={onClearSelection}>
+        <SelectPanel.Button>Assign label</SelectPanel.Button>
 
         <SelectPanel.Header>
           <SelectPanel.SearchInput value={query} onChange={onSearchInputChange} />
@@ -754,6 +738,7 @@ export const CreateNewRow = () => {
                   key={label.id}
                   onSelect={() => onLabelSelect(label.id)}
                   selected={selectedLabelIds.includes(label.id)}
+                  data-id={label.id}
                 >
                   <ActionList.LeadingVisual>
                     <Box
@@ -791,7 +776,10 @@ export const CreateNewRow = () => {
       {newLabelDialogOpen && (
         <CreateNewLabelDialog
           initialValue={query}
-          onSave={onNewLabelDialogSave}
+          onSave={id => {
+            setNewLabelDialogOpen(false)
+            onNewLabelDialogSave(id)
+          }}
           onCancel={() => setNewLabelDialogOpen(false)}
         />
       )}
@@ -829,13 +817,17 @@ const CreateNewLabelDialog = ({
       width="medium"
       footerButtons={[
         {buttonType: 'default', content: 'Cancel', onClick: onCancel},
-        {type: 'submit', buttonType: 'primary', content: 'Save', onClick: () => formSubmitRef.current?.click()},
+        {
+          type: 'submit',
+          buttonType: 'primary',
+          content: 'Save',
+          onClick: () => {
+            formSubmitRef.current?.click() // footer buttons are rendered outside the form :(
+          },
+        },
       ]}
     >
-      <Flash sx={{marginBottom: 2}} variant="warning">
-        Note this Dialog is not accessible. Do not copy this.
-      </Flash>
-      <form onSubmit={onSubmit}>
+      <form onSubmit={onSubmit} method="dialog">
         <FormControl sx={{marginBottom: 2}}>
           <FormControl.Label>Name</FormControl.Label>
           <TextInput name="name" block defaultValue={initialValue} autoFocus />
