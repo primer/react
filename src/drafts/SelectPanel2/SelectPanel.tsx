@@ -429,6 +429,7 @@ const SelectPanelFooter = ({...props}) => {
     <FooterContext.Provider value={true}>
       <Box
         sx={{
+          flexShrink: 0,
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
