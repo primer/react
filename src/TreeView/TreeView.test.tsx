@@ -6,22 +6,6 @@ import {SubTreeState, TreeView} from './TreeView'
 
 jest.useFakeTimers()
 
-// The TreeView.ErrorDialog uses `matchMedia` because the ConfirmationDialog uses it to determine whether or not to reduce motion.
-
-Object.defineProperty(window, 'matchMedia', {
-  writable: true,
-  value: jest.fn().mockImplementation(query => ({
-    matches: false,
-    media: query,
-    onchange: null,
-    addListener: jest.fn(), // deprecated
-    removeListener: jest.fn(), // deprecated
-    addEventListener: jest.fn(),
-    removeEventListener: jest.fn(),
-    dispatchEvent: jest.fn(),
-  })),
-})
-
 // TODO: Move this function into a shared location
 function renderWithTheme(
   ui: Parameters<typeof render>[0],
