@@ -1,8 +1,9 @@
 import React, {useState, useRef, useCallback} from 'react'
 import {Meta} from '@storybook/react'
+
 import {BaseStyles, ThemeProvider} from '..'
 import {Button} from '../Button'
-import {Dialog, DialogWidth, DialogHeight, DialogType} from './Dialog'
+import {Dialog, DialogWidth, DialogHeight} from './Dialog'
 
 /* Dialog Version 2 */
 
@@ -70,7 +71,6 @@ interface DialogStoryProps {
   width: DialogWidth
   height: DialogHeight
   subtitle: boolean
-  type: DialogType
 }
 export const Default = () => {
   const [isOpen, setIsOpen] = useState(false)
@@ -106,7 +106,7 @@ export const Default = () => {
   )
 }
 
-export const Playground = ({width, height, subtitle, type}: DialogStoryProps) => {
+export const Playground = ({width, height, subtitle}: DialogStoryProps) => {
   const [isOpen, setIsOpen] = useState(false)
   const [secondOpen, setSecondOpen] = useState(false)
   const buttonRef = useRef<HTMLButtonElement>(null)
@@ -123,7 +123,6 @@ export const Playground = ({width, height, subtitle, type}: DialogStoryProps) =>
           title="My Dialog"
           subtitle={subtitle ? 'This is a subtitle!' : undefined}
           onClose={onDialogClose}
-          type={type}
           width={width}
           height={height}
           footerButtons={[
@@ -147,15 +146,8 @@ Playground.args = {
   width: 'xlarge',
   height: 'auto',
   subtitle: true,
-  type: 'default',
 }
 Playground.argTypes = {
-  type: {
-    control: {
-      type: 'radio',
-    },
-    options: ['default', 'full-screen', 'bottom-sheet'],
-  },
   width: {
     control: {
       type: 'radio',
