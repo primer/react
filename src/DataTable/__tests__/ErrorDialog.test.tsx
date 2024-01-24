@@ -3,6 +3,22 @@ import {render, screen} from '@testing-library/react'
 import React from 'react'
 import {ErrorDialog} from '../ErrorDialog'
 
+// The ErrorDialog uses `matchMedia` because the ConfirmationDialog uses it to determine whether or not to reduce motion.
+
+Object.defineProperty(window, 'matchMedia', {
+  writable: true,
+  value: jest.fn().mockImplementation(query => ({
+    matches: false,
+    media: query,
+    onchange: null,
+    addListener: jest.fn(), // deprecated
+    removeListener: jest.fn(), // deprecated
+    addEventListener: jest.fn(),
+    removeEventListener: jest.fn(),
+    dispatchEvent: jest.fn(),
+  })),
+})
+
 describe('Table.ErrorDialog', () => {
   it('should use a default title of "Error" if `title` is not provided', () => {
     render(<ErrorDialog />)

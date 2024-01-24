@@ -37,13 +37,18 @@
     },
     {
       "name": "onClose",
-      "type": "(gesture: 'close-button' | 'escape') => void",
-      "description": "This method is invoked when a gesture to close the dialog is used (either an Escape key press or clicking the 'X' in the top-right corner). The gesture argument indicates the gesture that was used to close the dialog (either 'close-button' or 'escape')."
+      "type": "(gesture: 'close-button' | 'escape' | 'drag' | 'overlay') => void",
+      "description": "This method is invoked when a gesture to close the dialog is used (either an Escape key press, clicking/tapping on the backdrop, clicking/tapping the 'X' in the top-right corner or dragging away a bottom sheet). The gesture argument indicates the gesture that was used to close the dialog."
     },
     {
       "name": "role",
       "type": "'dialog' | 'alertdialog'",
       "description": "The ARIA role to assign to this dialog."
+    },
+    {
+      "name": "type",
+      "type": "'default' | 'full-screen' | 'bottom-sheet'",
+      "description": "The type of dialog to render. 'default' renders a dialog in the center of the screen. 'full-screen' renders the dialog full screen and ignored the width and height. 'full-screen' is often used for mobile breakpoints."
     },
     {
       "name": "width",

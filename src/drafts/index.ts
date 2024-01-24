@@ -6,6 +6,8 @@
  * example: import {ActionList} from '@primer/react/drafts
  */
 
+'use client'
+
 export {Blankslate} from '../Blankslate'
 export type {BlankslateProps} from '../Blankslate'
 
