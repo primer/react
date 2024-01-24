@@ -3,7 +3,7 @@ import React, {useCallback, useState} from 'react'
 import styled from 'styled-components'
 import {get} from '../constants'
 import {Button} from '../internal/components/ButtonReset'
-import {LiveRegion, LiveRegionOutlet, Message} from '../internal/components/LiveRegion'
+import {LiveRegionProvider, LiveRegion, Message} from '../internal/components/LiveRegion'
 import {VisuallyHidden} from '../internal/components/VisuallyHidden'
 import {warning} from '../utils/warning'
 import {ResponsiveValue, viewportRanges} from '../hooks/useResponsiveValue'
@@ -211,8 +211,8 @@ export function Pagination({
   }, [showPages])
 
   return (
-    <LiveRegion>
-      <LiveRegionOutlet />
+    <LiveRegionProvider>
+      <LiveRegion />
       <StyledPagination aria-label={label} className="TablePagination" id={id}>
         <Range pageStart={pageStart} pageEnd={pageEnd} totalCount={totalCount} />
         <ol className="TablePaginationSteps" data-hidden-viewport-ranges={getViewportRangesToHidePages().join(' ')}>
@@ -323,7 +323,7 @@ export function Pagination({
           </Step>
         </ol>
       </StyledPagination>
-    </LiveRegion>
+    </LiveRegionProvider>
   )
 }
 

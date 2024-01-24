@@ -18,7 +18,7 @@ type LiveRegionProps = React.PropsWithChildren
 // This component can be used standalone within a component for a dedicated live
 // region or the `useLiveRegion()` hook may be used to find, or create, a
 // corresponding live region.
-function LiveRegion({children}: LiveRegionProps) {
+function LiveRegionProvider({children}: LiveRegionProps) {
   const [liveRegion, setLiveRegion] = useState<LiveRegionElement | null>(null)
 
   return (
@@ -38,7 +38,7 @@ const innerHTML = {
 //
 // If possible, we use a declarative shadow dom for `live-region` during
 // server-side rendering
-function LiveRegionOutlet() {
+function LiveRegion() {
   const setLiveRegion = useOutlet()
   return (
     <live-region ref={setLiveRegion} suppressHydrationWarning>
@@ -54,4 +54,4 @@ function LiveRegionOutlet() {
   )
 }
 
-export {LiveRegion, LiveRegionOutlet}
+export {LiveRegionProvider, LiveRegion}
