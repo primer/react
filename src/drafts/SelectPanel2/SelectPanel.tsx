@@ -112,7 +112,7 @@ const Panel: React.FC<SelectPanelProps> = ({
       Anchor = React.cloneElement(child, {
         // @ts-ignore TODO
         ref: anchorRef,
-        onClick: onAnchorClick,
+        onClick: child.props.onClick || onAnchorClick,
         'aria-haspopup': true,
         'aria-expanded': internalOpen,
       })

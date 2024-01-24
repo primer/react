@@ -1,6 +1,7 @@
-import React from 'react'
+import React, {FormEvent} from 'react'
 import {SelectPanel} from '../SelectPanel'
-import {ActionList, ActionMenu, Avatar, Box, Button, Text} from '../../../index'
+import {ActionList, ActionMenu, Avatar, Box, Button, Flash, FormControl, Text, TextInput} from '../../../index'
+import {Dialog} from '../../../drafts'
 import {
   ArrowRightIcon,
   EyeIcon,
@@ -698,29 +699,53 @@ export const CreateNewRow = () => {
 
   const itemsToShow = query ? filteredLabels : data.labels.sort(sortingFn)
 
-  const createNewLabel = (name: string) => {
-    const id = `new-${name}`
+  /* 
+    Controlled state + Create new label Dialog 
+    We only have to do this until https://github.com/primer/react/pull/3840 is merged
+  */
+  const [panelOpen, setPanelOpen] = React.useState(false)
+  const [dialogOpen, setDialogOpen] = React.useState(false)
+
+  const openCreateLabelDialog = () => {
+    setPanelOpen(false)
+    setDialogOpen(true)
+  }
+
+  const onDialogSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+
+    const formData = new FormData(event.target as HTMLFormElement)
+    const {name, color, description} = Object.fromEntries(formData) as Record<string, string>
 
     // pretending to persist changes
-    data.labels.unshift({id, name, color: 'fcba03'})
+    const id = `new-${name}`
+    data.labels.unshift({id, name, color, description})
+
+    setDialogOpen(false)
+    setPanelOpen(true)
 
     setQuery('') // clear search input
     onLabelSelect(id) // select newly created label
   }
 
+  const formSubmitRef = React.useRef<HTMLButtonElement>(null)
+
   return (
     <>
+      <h1>Create new item from panel</h1>
+      <Flash sx={{marginBottom: 2}} variant="warning">
+        Note this example is not yet ready, do not copy it. It is blocked by{' '}
+        <a href="https://github.com/primer/react/pull/3840">primer/react/pull/3840</a>
+      </Flash>
+
       <SelectPanel
         title="Select labels"
+        open={panelOpen}
         onSubmit={onSubmit}
-        onCancel={() => {
-          /* optional callback, for example: for multi-step overlay or to fire sync actions */
-          // eslint-disable-next-line no-console
-          console.log('panel was closed')
-        }}
+        onCancel={() => setPanelOpen(false)}
         onClearSelection={onClearSelection}
       >
-        <SelectPanel.Button>Assign label</SelectPanel.Button>
+        <SelectPanel.Button onClick={() => setPanelOpen(true)}>Assign label</SelectPanel.Button>
 
         <SelectPanel.Header>
           <SelectPanel.SearchInput value={query} onChange={onSearchInputChange} />
@@ -729,7 +754,7 @@ export const CreateNewRow = () => {
         {itemsToShow.length === 0 ? (
           <SelectPanel.Message variant="empty" title={`No labels found for "${query}"`}>
             <Text>Select the button below to create this label</Text>
-            <Button onClick={() => createNewLabel(query)}>Create &quot;{query}&quot;</Button>
+            <Button onClick={openCreateLabelDialog}>Create &quot;{query}&quot;</Button>
           </SelectPanel.Message>
         ) : (
           <>
@@ -757,8 +782,9 @@ export const CreateNewRow = () => {
                   variant="invisible"
                   leadingVisual={PlusCircleIcon}
                   block
-                  sx={{'[data-component="buttonContent"]': {justifyContent: 'start', fontWeight: 'normal'}}}
-                  onClick={() => createNewLabel(query)}
+                  alignContent="start"
+                  sx={{'[data-component=text]': {fontWeight: 'normal'}}}
+                  onClick={openCreateLabelDialog}
                 >
                   Create new label &quot;{query}&quot;...
                 </Button>
@@ -771,6 +797,37 @@ export const CreateNewRow = () => {
           <SelectPanel.SecondaryAction variant="button">Edit labels</SelectPanel.SecondaryAction>
         </SelectPanel.Footer>
       </SelectPanel>
+
+      {dialogOpen && (
+        <Dialog
+          title="Create new Label"
+          onClose={() => setDialogOpen(false)}
+          width="medium"
+          footerButtons={[
+            {buttonType: 'default', content: 'Cancel', onClick: () => setDialogOpen(false)},
+            {type: 'submit', buttonType: 'primary', content: 'Save', onClick: () => formSubmitRef.current?.click()},
+          ]}
+        >
+          <Flash sx={{marginBottom: 2}} variant="warning">
+            Note this Dialog is not accessible. Do not copy this.
+          </Flash>
+          <form onSubmit={onDialogSubmit}>
+            <FormControl sx={{marginBottom: 2}}>
+              <FormControl.Label>Name</FormControl.Label>
+              <TextInput name="name" block defaultValue={query} autoFocus />
+            </FormControl>
+            <FormControl sx={{marginBottom: 2}}>
+              <FormControl.Label>Color</FormControl.Label>
+              <TextInput name="color" block defaultValue="fae17d" leadingVisual="#" />
+            </FormControl>
+            <FormControl>
+              <FormControl.Label>Description</FormControl.Label>
+              <TextInput name="description" block placeholder="Good first issues" />
+            </FormControl>
+            <button type="submit" hidden ref={formSubmitRef}></button>
+          </form>
+        </Dialog>
+      )}
     </>
   )
 }
