@@ -6,7 +6,7 @@ import {axe, toHaveNoViolations} from 'jest-axe'
 import {behavesAsComponent, checkExports} from '../utils/testing'
 expect.extend(toHaveNoViolations)
 
-/* Dialog Version 2 */
+/* Dialog Version 1 */
 
 const comp = (
   <Dialog isOpen onDismiss={() => null} aria-labelledby="header">
