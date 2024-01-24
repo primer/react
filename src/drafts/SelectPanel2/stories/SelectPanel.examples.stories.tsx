@@ -704,31 +704,21 @@ export const CreateNewRow = () => {
     We only have to do this until https://github.com/primer/react/pull/3840 is merged
   */
   const [panelOpen, setPanelOpen] = React.useState(false)
-  const [dialogOpen, setDialogOpen] = React.useState(false)
+  const [newLabelDialogOpen, setNewLabelDialogOpen] = React.useState(false)
 
   const openCreateLabelDialog = () => {
     setPanelOpen(false)
-    setDialogOpen(true)
+    setNewLabelDialogOpen(true)
   }
 
-  const onDialogSubmit = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
-
-    const formData = new FormData(event.target as HTMLFormElement)
-    const {name, color, description} = Object.fromEntries(formData) as Record<string, string>
-
-    // pretending to persist changes
-    const id = `new-${name}`
-    data.labels.unshift({id, name, color, description})
-
-    setDialogOpen(false)
-    setPanelOpen(true)
+  const onNewLabelDialogSave = (id: string) => {
+    setNewLabelDialogOpen(false)
 
     setQuery('') // clear search input
     onLabelSelect(id) // select newly created label
-  }
 
-  const formSubmitRef = React.useRef<HTMLButtonElement>(null)
+    setPanelOpen(true)
+  }
 
   return (
     <>
@@ -798,37 +788,69 @@ export const CreateNewRow = () => {
         </SelectPanel.Footer>
       </SelectPanel>
 
-      {dialogOpen && (
-        <Dialog
-          title="Create new Label"
-          onClose={() => setDialogOpen(false)}
-          width="medium"
-          footerButtons={[
-            {buttonType: 'default', content: 'Cancel', onClick: () => setDialogOpen(false)},
-            {type: 'submit', buttonType: 'primary', content: 'Save', onClick: () => formSubmitRef.current?.click()},
-          ]}
-        >
-          <Flash sx={{marginBottom: 2}} variant="warning">
-            Note this Dialog is not accessible. Do not copy this.
-          </Flash>
-          <form onSubmit={onDialogSubmit}>
-            <FormControl sx={{marginBottom: 2}}>
-              <FormControl.Label>Name</FormControl.Label>
-              <TextInput name="name" block defaultValue={query} autoFocus />
-            </FormControl>
-            <FormControl sx={{marginBottom: 2}}>
-              <FormControl.Label>Color</FormControl.Label>
-              <TextInput name="color" block defaultValue="fae17d" leadingVisual="#" />
-            </FormControl>
-            <FormControl>
-              <FormControl.Label>Description</FormControl.Label>
-              <TextInput name="description" block placeholder="Good first issues" />
-            </FormControl>
-            <button type="submit" hidden ref={formSubmitRef}></button>
-          </form>
-        </Dialog>
+      {newLabelDialogOpen && (
+        <CreateNewLabelDialog
+          initialValue={query}
+          onSave={onNewLabelDialogSave}
+          onCancel={() => setNewLabelDialogOpen(false)}
+        />
       )}
     </>
+  )
+}
+
+const CreateNewLabelDialog = ({
+  initialValue,
+  onSave,
+  onCancel,
+}: {
+  initialValue: string
+  onSave: (id: string) => void
+  onCancel: () => void
+}) => {
+  const formSubmitRef = React.useRef<HTMLButtonElement>(null)
+
+  const onSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+
+    const formData = new FormData(event.target as HTMLFormElement)
+    const {name, color, description} = Object.fromEntries(formData) as Record<string, string>
+
+    // pretending to persist changes
+    const id = `new-${name}`
+    data.labels.unshift({id, name, color, description})
+    onSave(id)
+  }
+
+  return (
+    <Dialog
+      title="Create new Label"
+      onClose={onCancel}
+      width="medium"
+      footerButtons={[
+        {buttonType: 'default', content: 'Cancel', onClick: () => setDialogOpen(false)},
+        {type: 'submit', buttonType: 'primary', content: 'Save', onClick: () => formSubmitRef.current?.click()},
+      ]}
+    >
+      <Flash sx={{marginBottom: 2}} variant="warning">
+        Note this Dialog is not accessible. Do not copy this.
+      </Flash>
+      <form onSubmit={onSubmit}>
+        <FormControl sx={{marginBottom: 2}}>
+          <FormControl.Label>Name</FormControl.Label>
+          <TextInput name="name" block defaultValue={initialValue} autoFocus />
+        </FormControl>
+        <FormControl sx={{marginBottom: 2}}>
+          <FormControl.Label>Color</FormControl.Label>
+          <TextInput name="color" block defaultValue="fae17d" leadingVisual="#" />
+        </FormControl>
+        <FormControl>
+          <FormControl.Label>Description</FormControl.Label>
+          <TextInput name="description" block placeholder="Good first issues" />
+        </FormControl>
+        <button type="submit" hidden ref={formSubmitRef}></button>
+      </form>
+    </Dialog>
   )
 }
 
