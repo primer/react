@@ -1,5 +1,5 @@
 import {PrimerBreakpoints} from '../src/utils/layout'
-import {ThemeProvider, BaseStyles} from '../src'
+import {ThemeProvider, BaseStyles, theme} from '../src'
 import clsx from 'clsx'
 
 import './storybook.css'
@@ -197,37 +197,33 @@ export const decorators = [
     )
     const showSurroundingElements =
       context.globals.showSurroundingElements ?? window.localStorage.getItem('showSurroundingElements') === 'true'
-    return (
-      <ThemeProvider
-        colorMode={context.globals.colorScheme}
-        dayScheme={context.globals.colorScheme}
-        nightScheme={context.globals.colorScheme}
-      >
-        {context.globals.colorScheme === 'all' ? (
-          primerThemes.map(({value: theme}) => (
-            <div
-              key={theme}
-              id="story"
-              className={clsx(context.globals.colorScheme === 'all' && 'story-wrap-grid', 'story-wrap')}
-              data-color-mode={theme.startsWith('dark') ? 'dark' : 'light'}
-              data-light-theme={theme.startsWith('light') ? theme : undefined}
-              data-dark-theme={theme.startsWith('dark') ? theme : undefined}
-            >
-              <BaseStyles>
-                <Story {...context} />
-                {context.globals.colorScheme === 'all' && <p className="theme-name">{theme}</p>}
-              </BaseStyles>
-            </div>
-          ))
-        ) : (
-          <div className={clsx('story-wrap')}>
+    return context.globals.colorScheme === 'all' ? (
+      primerThemes.map(({value: theme}) => (
+        <ThemeProvider dayScheme={theme} nightScheme={theme} colorMode="day">
+          <div
+            key={theme}
+            id="story"
+            className={clsx(context.globals.colorScheme === 'all' && 'story-wrap-grid', 'story-wrap')}
+            data-color-mode={theme.startsWith('dark') ? 'dark' : 'light'}
+            data-light-theme={theme.startsWith('light') ? theme : undefined}
+            data-dark-theme={theme.startsWith('dark') ? theme : undefined}
+          >
             <BaseStyles>
-              {showSurroundingElements ? <a href="https://github.com/primer/react">Primer documentation</a> : ''}
               <Story {...context} />
-              {showSurroundingElements ? <a href="https://github.com/primer/react">Primer documentation</a> : ''}
+              {context.globals.colorScheme === 'all' && <p className="theme-name">{theme}</p>}
             </BaseStyles>
           </div>
-        )}
+        </ThemeProvider>
+      ))
+    ) : (
+      <ThemeProvider dayScheme={context.globals.colorScheme} nightScheme={context.globals.colorScheme} colorMode="day">
+        <div className={clsx('story-wrap')}>
+          <BaseStyles>
+            {showSurroundingElements ? <a href="https://github.com/primer/react">Primer documentation</a> : ''}
+            <Story {...context} />
+            {showSurroundingElements ? <a href="https://github.com/primer/react">Primer documentation</a> : ''}
+          </BaseStyles>
+        </div>
       </ThemeProvider>
     )
   },
