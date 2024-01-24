@@ -4125,35 +4125,37 @@ exports[`TextInput renders with a loading indicator 1`] = `
         className="c3"
         display="flex"
       >
-        <svg
-          className="c4"
-          fill="none"
-          height="16px"
-          sx={
-            {
-              "visibility": "visible",
+        <div>
+          <svg
+            className="c4"
+            fill="none"
+            height="16px"
+            sx={
+              {
+                "visibility": "visible",
+              }
             }
-          }
-          viewBox="0 0 16 16"
-          width="16px"
-        >
-          <circle
-            cx="8"
-            cy="8"
-            r="7"
-            stroke="currentColor"
-            strokeOpacity="0.25"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-          <path
-            d="M15 8a7.002 7.002 0 00-7-7"
-            stroke="currentColor"
-            strokeLinecap="round"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-        </svg>
+            viewBox="0 0 16 16"
+            width="16px"
+          >
+            <circle
+              cx="8"
+              cy="8"
+              r="7"
+              stroke="currentColor"
+              strokeOpacity="0.25"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+            <path
+              d="M15 8a7.002 7.002 0 00-7-7"
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+          </svg>
+        </div>
       </div>
     </span>
   </span>,
@@ -4302,35 +4304,37 @@ exports[`TextInput renders with a loading indicator 1`] = `
         className="c2"
         display="flex"
       >
-        <svg
-          className="c3"
-          fill="none"
-          height="16px"
-          sx={
-            {
-              "visibility": "visible",
+        <div>
+          <svg
+            className="c3"
+            fill="none"
+            height="16px"
+            sx={
+              {
+                "visibility": "visible",
+              }
             }
-          }
-          viewBox="0 0 16 16"
-          width="16px"
-        >
-          <circle
-            cx="8"
-            cy="8"
-            r="7"
-            stroke="currentColor"
-            strokeOpacity="0.25"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-          <path
-            d="M15 8a7.002 7.002 0 00-7-7"
-            stroke="currentColor"
-            strokeLinecap="round"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-        </svg>
+            viewBox="0 0 16 16"
+            width="16px"
+          >
+            <circle
+              cx="8"
+              cy="8"
+              r="7"
+              stroke="currentColor"
+              strokeOpacity="0.25"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+            <path
+              d="M15 8a7.002 7.002 0 00-7-7"
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+          </svg>
+        </div>
       </div>
     </span>
     <input
@@ -4347,35 +4351,37 @@ exports[`TextInput renders with a loading indicator 1`] = `
         className="c2"
         display="flex"
       >
-        <svg
-          className="c5"
-          fill="none"
-          height="16px"
-          sx={
-            {
-              "visibility": "hidden",
+        <div>
+          <svg
+            className="c5"
+            fill="none"
+            height="16px"
+            sx={
+              {
+                "visibility": "hidden",
+              }
             }
-          }
-          viewBox="0 0 16 16"
-          width="16px"
-        >
-          <circle
-            cx="8"
-            cy="8"
-            r="7"
-            stroke="currentColor"
-            strokeOpacity="0.25"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-          <path
-            d="M15 8a7.002 7.002 0 00-7-7"
-            stroke="currentColor"
-            strokeLinecap="round"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-        </svg>
+            viewBox="0 0 16 16"
+            width="16px"
+          >
+            <circle
+              cx="8"
+              cy="8"
+              r="7"
+              stroke="currentColor"
+              strokeOpacity="0.25"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+            <path
+              d="M15 8a7.002 7.002 0 00-7-7"
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+          </svg>
+        </div>
       </div>
     </span>
   </span>,
@@ -4525,35 +4531,37 @@ exports[`TextInput renders with a loading indicator 1`] = `
         className="c3"
         display="flex"
       >
-        <svg
-          className="c4"
-          fill="none"
-          height="16px"
-          sx={
-            {
-              "visibility": "visible",
+        <div>
+          <svg
+            className="c4"
+            fill="none"
+            height="16px"
+            sx={
+              {
+                "visibility": "visible",
+              }
             }
-          }
-          viewBox="0 0 16 16"
-          width="16px"
-        >
-          <circle
-            cx="8"
-            cy="8"
-            r="7"
-            stroke="currentColor"
-            strokeOpacity="0.25"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-          <path
-            d="M15 8a7.002 7.002 0 00-7-7"
-            stroke="currentColor"
-            strokeLinecap="round"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-        </svg>
+            viewBox="0 0 16 16"
+            width="16px"
+          >
+            <circle
+              cx="8"
+              cy="8"
+              r="7"
+              stroke="currentColor"
+              strokeOpacity="0.25"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+            <path
+              d="M15 8a7.002 7.002 0 00-7-7"
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+          </svg>
+        </div>
       </div>
     </span>
   </span>,
@@ -4737,40 +4745,42 @@ exports[`TextInput renders with a loading indicator 1`] = `
             />
           </svg>
         </div>
-        <svg
-          className="c4"
-          fill="none"
-          height="32px"
-          sx={
-            {
-              "height": "100%",
-              "left": 0,
-              "maxWidth": "100%",
-              "position": "absolute",
-              "top": 0,
-              "visibility": "visible",
+        <div>
+          <svg
+            className="c4"
+            fill="none"
+            height="32px"
+            sx={
+              {
+                "height": "100%",
+                "left": 0,
+                "maxWidth": "100%",
+                "position": "absolute",
+                "top": 0,
+                "visibility": "visible",
+              }
             }
-          }
-          viewBox="0 0 16 16"
-          width="32px"
-        >
-          <circle
-            cx="8"
-            cy="8"
-            r="7"
-            stroke="currentColor"
-            strokeOpacity="0.25"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-          <path
-            d="M15 8a7.002 7.002 0 00-7-7"
-            stroke="currentColor"
-            strokeLinecap="round"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-        </svg>
+            viewBox="0 0 16 16"
+            width="32px"
+          >
+            <circle
+              cx="8"
+              cy="8"
+              r="7"
+              stroke="currentColor"
+              strokeOpacity="0.25"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+            <path
+              d="M15 8a7.002 7.002 0 00-7-7"
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+          </svg>
+        </div>
       </div>
     </span>
     <input
@@ -4787,35 +4797,37 @@ exports[`TextInput renders with a loading indicator 1`] = `
         className="c2"
         display="flex"
       >
-        <svg
-          className="c6"
-          fill="none"
-          height="16px"
-          sx={
-            {
-              "visibility": "hidden",
+        <div>
+          <svg
+            className="c6"
+            fill="none"
+            height="16px"
+            sx={
+              {
+                "visibility": "hidden",
+              }
             }
-          }
-          viewBox="0 0 16 16"
-          width="16px"
-        >
-          <circle
-            cx="8"
-            cy="8"
-            r="7"
-            stroke="currentColor"
-            strokeOpacity="0.25"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-          <path
-            d="M15 8a7.002 7.002 0 00-7-7"
-            stroke="currentColor"
-            strokeLinecap="round"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-        </svg>
+            viewBox="0 0 16 16"
+            width="16px"
+          >
+            <circle
+              cx="8"
+              cy="8"
+              r="7"
+              stroke="currentColor"
+              strokeOpacity="0.25"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+            <path
+              d="M15 8a7.002 7.002 0 00-7-7"
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+          </svg>
+        </div>
       </div>
     </span>
   </span>,
@@ -4999,40 +5011,42 @@ exports[`TextInput renders with a loading indicator 1`] = `
             />
           </svg>
         </div>
-        <svg
-          className="c4"
-          fill="none"
-          height="32px"
-          sx={
-            {
-              "height": "100%",
-              "left": 0,
-              "maxWidth": "100%",
-              "position": "absolute",
-              "top": 0,
-              "visibility": "visible",
+        <div>
+          <svg
+            className="c4"
+            fill="none"
+            height="32px"
+            sx={
+              {
+                "height": "100%",
+                "left": 0,
+                "maxWidth": "100%",
+                "position": "absolute",
+                "top": 0,
+                "visibility": "visible",
+              }
             }
-          }
-          viewBox="0 0 16 16"
-          width="32px"
-        >
-          <circle
-            cx="8"
-            cy="8"
-            r="7"
-            stroke="currentColor"
-            strokeOpacity="0.25"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-          <path
-            d="M15 8a7.002 7.002 0 00-7-7"
-            stroke="currentColor"
-            strokeLinecap="round"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-        </svg>
+            viewBox="0 0 16 16"
+            width="32px"
+          >
+            <circle
+              cx="8"
+              cy="8"
+              r="7"
+              stroke="currentColor"
+              strokeOpacity="0.25"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+            <path
+              d="M15 8a7.002 7.002 0 00-7-7"
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+          </svg>
+        </div>
       </div>
     </span>
     <input
@@ -5049,35 +5063,37 @@ exports[`TextInput renders with a loading indicator 1`] = `
         className="c2"
         display="flex"
       >
-        <svg
-          className="c6"
-          fill="none"
-          height="16px"
-          sx={
-            {
-              "visibility": "hidden",
+        <div>
+          <svg
+            className="c6"
+            fill="none"
+            height="16px"
+            sx={
+              {
+                "visibility": "hidden",
+              }
             }
-          }
-          viewBox="0 0 16 16"
-          width="16px"
-        >
-          <circle
-            cx="8"
-            cy="8"
-            r="7"
-            stroke="currentColor"
-            strokeOpacity="0.25"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-          <path
-            d="M15 8a7.002 7.002 0 00-7-7"
-            stroke="currentColor"
-            strokeLinecap="round"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-        </svg>
+            viewBox="0 0 16 16"
+            width="16px"
+          >
+            <circle
+              cx="8"
+              cy="8"
+              r="7"
+              stroke="currentColor"
+              strokeOpacity="0.25"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+            <path
+              d="M15 8a7.002 7.002 0 00-7-7"
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+          </svg>
+        </div>
       </div>
     </span>
   </span>,
@@ -5261,40 +5277,42 @@ exports[`TextInput renders with a loading indicator 1`] = `
             />
           </svg>
         </div>
-        <svg
-          className="c4"
-          fill="none"
-          height="32px"
-          sx={
-            {
-              "height": "100%",
-              "left": 0,
-              "maxWidth": "100%",
-              "position": "absolute",
-              "top": 0,
-              "visibility": "hidden",
+        <div>
+          <svg
+            className="c4"
+            fill="none"
+            height="32px"
+            sx={
+              {
+                "height": "100%",
+                "left": 0,
+                "maxWidth": "100%",
+                "position": "absolute",
+                "top": 0,
+                "visibility": "hidden",
+              }
             }
-          }
-          viewBox="0 0 16 16"
-          width="32px"
-        >
-          <circle
-            cx="8"
-            cy="8"
-            r="7"
-            stroke="currentColor"
-            strokeOpacity="0.25"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-          <path
-            d="M15 8a7.002 7.002 0 00-7-7"
-            stroke="currentColor"
-            strokeLinecap="round"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-        </svg>
+            viewBox="0 0 16 16"
+            width="32px"
+          >
+            <circle
+              cx="8"
+              cy="8"
+              r="7"
+              stroke="currentColor"
+              strokeOpacity="0.25"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+            <path
+              d="M15 8a7.002 7.002 0 00-7-7"
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+          </svg>
+        </div>
       </div>
     </span>
     <input
@@ -5311,35 +5329,37 @@ exports[`TextInput renders with a loading indicator 1`] = `
         className="c2"
         display="flex"
       >
-        <svg
-          className="c6"
-          fill="none"
-          height="16px"
-          sx={
-            {
-              "visibility": "visible",
+        <div>
+          <svg
+            className="c6"
+            fill="none"
+            height="16px"
+            sx={
+              {
+                "visibility": "visible",
+              }
             }
-          }
-          viewBox="0 0 16 16"
-          width="16px"
-        >
-          <circle
-            cx="8"
-            cy="8"
-            r="7"
-            stroke="currentColor"
-            strokeOpacity="0.25"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-          <path
-            d="M15 8a7.002 7.002 0 00-7-7"
-            stroke="currentColor"
-            strokeLinecap="round"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-        </svg>
+            viewBox="0 0 16 16"
+            width="16px"
+          >
+            <circle
+              cx="8"
+              cy="8"
+              r="7"
+              stroke="currentColor"
+              strokeOpacity="0.25"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+            <path
+              d="M15 8a7.002 7.002 0 00-7-7"
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+          </svg>
+        </div>
       </div>
     </span>
   </span>,
@@ -5524,40 +5544,42 @@ exports[`TextInput renders with a loading indicator 1`] = `
             />
           </svg>
         </div>
-        <svg
-          className="c5"
-          fill="none"
-          height="32px"
-          sx={
-            {
-              "height": "100%",
-              "maxWidth": "100%",
-              "position": "absolute",
-              "right": 0,
-              "top": 0,
-              "visibility": "visible",
+        <div>
+          <svg
+            className="c5"
+            fill="none"
+            height="32px"
+            sx={
+              {
+                "height": "100%",
+                "maxWidth": "100%",
+                "position": "absolute",
+                "right": 0,
+                "top": 0,
+                "visibility": "visible",
+              }
             }
-          }
-          viewBox="0 0 16 16"
-          width="32px"
-        >
-          <circle
-            cx="8"
-            cy="8"
-            r="7"
-            stroke="currentColor"
-            strokeOpacity="0.25"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-          <path
-            d="M15 8a7.002 7.002 0 00-7-7"
-            stroke="currentColor"
-            strokeLinecap="round"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-        </svg>
+            viewBox="0 0 16 16"
+            width="32px"
+          >
+            <circle
+              cx="8"
+              cy="8"
+              r="7"
+              stroke="currentColor"
+              strokeOpacity="0.25"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+            <path
+              d="M15 8a7.002 7.002 0 00-7-7"
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+          </svg>
+        </div>
       </div>
     </span>
   </span>,
@@ -5715,35 +5737,37 @@ exports[`TextInput renders with a loading indicator 1`] = `
         className="c2"
         display="flex"
       >
-        <svg
-          className="c3"
-          fill="none"
-          height="16px"
-          sx={
-            {
-              "visibility": "visible",
+        <div>
+          <svg
+            className="c3"
+            fill="none"
+            height="16px"
+            sx={
+              {
+                "visibility": "visible",
+              }
             }
-          }
-          viewBox="0 0 16 16"
-          width="16px"
-        >
-          <circle
-            cx="8"
-            cy="8"
-            r="7"
-            stroke="currentColor"
-            strokeOpacity="0.25"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-          <path
-            d="M15 8a7.002 7.002 0 00-7-7"
-            stroke="currentColor"
-            strokeLinecap="round"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-        </svg>
+            viewBox="0 0 16 16"
+            width="16px"
+          >
+            <circle
+              cx="8"
+              cy="8"
+              r="7"
+              stroke="currentColor"
+              strokeOpacity="0.25"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+            <path
+              d="M15 8a7.002 7.002 0 00-7-7"
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+          </svg>
+        </div>
       </div>
     </span>
     <input
@@ -5786,40 +5810,42 @@ exports[`TextInput renders with a loading indicator 1`] = `
             />
           </svg>
         </div>
-        <svg
-          className="c6"
-          fill="none"
-          height="32px"
-          sx={
-            {
-              "height": "100%",
-              "maxWidth": "100%",
-              "position": "absolute",
-              "right": 0,
-              "top": 0,
-              "visibility": "hidden",
+        <div>
+          <svg
+            className="c6"
+            fill="none"
+            height="32px"
+            sx={
+              {
+                "height": "100%",
+                "maxWidth": "100%",
+                "position": "absolute",
+                "right": 0,
+                "top": 0,
+                "visibility": "hidden",
+              }
             }
-          }
-          viewBox="0 0 16 16"
-          width="32px"
-        >
-          <circle
-            cx="8"
-            cy="8"
-            r="7"
-            stroke="currentColor"
-            strokeOpacity="0.25"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-          <path
-            d="M15 8a7.002 7.002 0 00-7-7"
-            stroke="currentColor"
-            strokeLinecap="round"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-        </svg>
+            viewBox="0 0 16 16"
+            width="32px"
+          >
+            <circle
+              cx="8"
+              cy="8"
+              r="7"
+              stroke="currentColor"
+              strokeOpacity="0.25"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+            <path
+              d="M15 8a7.002 7.002 0 00-7-7"
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+          </svg>
+        </div>
       </div>
     </span>
   </span>,
@@ -6004,40 +6030,42 @@ exports[`TextInput renders with a loading indicator 1`] = `
             />
           </svg>
         </div>
-        <svg
-          className="c5"
-          fill="none"
-          height="32px"
-          sx={
-            {
-              "height": "100%",
-              "maxWidth": "100%",
-              "position": "absolute",
-              "right": 0,
-              "top": 0,
-              "visibility": "visible",
+        <div>
+          <svg
+            className="c5"
+            fill="none"
+            height="32px"
+            sx={
+              {
+                "height": "100%",
+                "maxWidth": "100%",
+                "position": "absolute",
+                "right": 0,
+                "top": 0,
+                "visibility": "visible",
+              }
             }
-          }
-          viewBox="0 0 16 16"
-          width="32px"
-        >
-          <circle
-            cx="8"
-            cy="8"
-            r="7"
-            stroke="currentColor"
-            strokeOpacity="0.25"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-          <path
-            d="M15 8a7.002 7.002 0 00-7-7"
-            stroke="currentColor"
-            strokeLinecap="round"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-        </svg>
+            viewBox="0 0 16 16"
+            width="32px"
+          >
+            <circle
+              cx="8"
+              cy="8"
+              r="7"
+              stroke="currentColor"
+              strokeOpacity="0.25"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+            <path
+              d="M15 8a7.002 7.002 0 00-7-7"
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+          </svg>
+        </div>
       </div>
     </span>
   </span>,
@@ -6239,40 +6267,42 @@ exports[`TextInput renders with a loading indicator 1`] = `
             />
           </svg>
         </div>
-        <svg
-          className="c4"
-          fill="none"
-          height="32px"
-          sx={
-            {
-              "height": "100%",
-              "left": 0,
-              "maxWidth": "100%",
-              "position": "absolute",
-              "top": 0,
-              "visibility": "visible",
+        <div>
+          <svg
+            className="c4"
+            fill="none"
+            height="32px"
+            sx={
+              {
+                "height": "100%",
+                "left": 0,
+                "maxWidth": "100%",
+                "position": "absolute",
+                "top": 0,
+                "visibility": "visible",
+              }
             }
-          }
-          viewBox="0 0 16 16"
-          width="32px"
-        >
-          <circle
-            cx="8"
-            cy="8"
-            r="7"
-            stroke="currentColor"
-            strokeOpacity="0.25"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-          <path
-            d="M15 8a7.002 7.002 0 00-7-7"
-            stroke="currentColor"
-            strokeLinecap="round"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-        </svg>
+            viewBox="0 0 16 16"
+            width="32px"
+          >
+            <circle
+              cx="8"
+              cy="8"
+              r="7"
+              stroke="currentColor"
+              strokeOpacity="0.25"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+            <path
+              d="M15 8a7.002 7.002 0 00-7-7"
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+          </svg>
+        </div>
       </div>
     </span>
     <input
@@ -6315,40 +6345,42 @@ exports[`TextInput renders with a loading indicator 1`] = `
             />
           </svg>
         </div>
-        <svg
-          className="c7"
-          fill="none"
-          height="32px"
-          sx={
-            {
-              "height": "100%",
-              "maxWidth": "100%",
-              "position": "absolute",
-              "right": 0,
-              "top": 0,
-              "visibility": "hidden",
+        <div>
+          <svg
+            className="c7"
+            fill="none"
+            height="32px"
+            sx={
+              {
+                "height": "100%",
+                "maxWidth": "100%",
+                "position": "absolute",
+                "right": 0,
+                "top": 0,
+                "visibility": "hidden",
+              }
             }
-          }
-          viewBox="0 0 16 16"
-          width="32px"
-        >
-          <circle
-            cx="8"
-            cy="8"
-            r="7"
-            stroke="currentColor"
-            strokeOpacity="0.25"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-          <path
-            d="M15 8a7.002 7.002 0 00-7-7"
-            stroke="currentColor"
-            strokeLinecap="round"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-        </svg>
+            viewBox="0 0 16 16"
+            width="32px"
+          >
+            <circle
+              cx="8"
+              cy="8"
+              r="7"
+              stroke="currentColor"
+              strokeOpacity="0.25"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+            <path
+              d="M15 8a7.002 7.002 0 00-7-7"
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+          </svg>
+        </div>
       </div>
     </span>
   </span>,
@@ -6541,40 +6573,42 @@ exports[`TextInput renders with a loading indicator 1`] = `
             />
           </svg>
         </div>
-        <svg
-          className="c4"
-          fill="none"
-          height="32px"
-          sx={
-            {
-              "height": "100%",
-              "left": 0,
-              "maxWidth": "100%",
-              "position": "absolute",
-              "top": 0,
-              "visibility": "visible",
+        <div>
+          <svg
+            className="c4"
+            fill="none"
+            height="32px"
+            sx={
+              {
+                "height": "100%",
+                "left": 0,
+                "maxWidth": "100%",
+                "position": "absolute",
+                "top": 0,
+                "visibility": "visible",
+              }
             }
-          }
-          viewBox="0 0 16 16"
-          width="32px"
-        >
-          <circle
-            cx="8"
-            cy="8"
-            r="7"
-            stroke="currentColor"
-            strokeOpacity="0.25"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-          <path
-            d="M15 8a7.002 7.002 0 00-7-7"
-            stroke="currentColor"
-            strokeLinecap="round"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-        </svg>
+            viewBox="0 0 16 16"
+            width="32px"
+          >
+            <circle
+              cx="8"
+              cy="8"
+              r="7"
+              stroke="currentColor"
+              strokeOpacity="0.25"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+            <path
+              d="M15 8a7.002 7.002 0 00-7-7"
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+          </svg>
+        </div>
       </div>
     </span>
     <input
@@ -6617,40 +6651,42 @@ exports[`TextInput renders with a loading indicator 1`] = `
             />
           </svg>
         </div>
-        <svg
-          className="c7"
-          fill="none"
-          height="32px"
-          sx={
-            {
-              "height": "100%",
-              "maxWidth": "100%",
-              "position": "absolute",
-              "right": 0,
-              "top": 0,
-              "visibility": "hidden",
+        <div>
+          <svg
+            className="c7"
+            fill="none"
+            height="32px"
+            sx={
+              {
+                "height": "100%",
+                "maxWidth": "100%",
+                "position": "absolute",
+                "right": 0,
+                "top": 0,
+                "visibility": "hidden",
+              }
             }
-          }
-          viewBox="0 0 16 16"
-          width="32px"
-        >
-          <circle
-            cx="8"
-            cy="8"
-            r="7"
-            stroke="currentColor"
-            strokeOpacity="0.25"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-          <path
-            d="M15 8a7.002 7.002 0 00-7-7"
-            stroke="currentColor"
-            strokeLinecap="round"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-        </svg>
+            viewBox="0 0 16 16"
+            width="32px"
+          >
+            <circle
+              cx="8"
+              cy="8"
+              r="7"
+              stroke="currentColor"
+              strokeOpacity="0.25"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+            <path
+              d="M15 8a7.002 7.002 0 00-7-7"
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+          </svg>
+        </div>
       </div>
     </span>
   </span>,
@@ -6850,40 +6886,42 @@ exports[`TextInput renders with a loading indicator 1`] = `
             />
           </svg>
         </div>
-        <svg
-          className="c4"
-          fill="none"
-          height="32px"
-          sx={
-            {
-              "height": "100%",
-              "left": 0,
-              "maxWidth": "100%",
-              "position": "absolute",
-              "top": 0,
-              "visibility": "hidden",
+        <div>
+          <svg
+            className="c4"
+            fill="none"
+            height="32px"
+            sx={
+              {
+                "height": "100%",
+                "left": 0,
+                "maxWidth": "100%",
+                "position": "absolute",
+                "top": 0,
+                "visibility": "hidden",
+              }
             }
-          }
-          viewBox="0 0 16 16"
-          width="32px"
-        >
-          <circle
-            cx="8"
-            cy="8"
-            r="7"
-            stroke="currentColor"
-            strokeOpacity="0.25"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-          <path
-            d="M15 8a7.002 7.002 0 00-7-7"
-            stroke="currentColor"
-            strokeLinecap="round"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-        </svg>
+            viewBox="0 0 16 16"
+            width="32px"
+          >
+            <circle
+              cx="8"
+              cy="8"
+              r="7"
+              stroke="currentColor"
+              strokeOpacity="0.25"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+            <path
+              d="M15 8a7.002 7.002 0 00-7-7"
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+          </svg>
+        </div>
       </div>
     </span>
     <input
@@ -6926,40 +6964,42 @@ exports[`TextInput renders with a loading indicator 1`] = `
             />
           </svg>
         </div>
-        <svg
-          className="c7"
-          fill="none"
-          height="32px"
-          sx={
-            {
-              "height": "100%",
-              "maxWidth": "100%",
-              "position": "absolute",
-              "right": 0,
-              "top": 0,
-              "visibility": "visible",
+        <div>
+          <svg
+            className="c7"
+            fill="none"
+            height="32px"
+            sx={
+              {
+                "height": "100%",
+                "maxWidth": "100%",
+                "position": "absolute",
+                "right": 0,
+                "top": 0,
+                "visibility": "visible",
+              }
             }
-          }
-          viewBox="0 0 16 16"
-          width="32px"
-        >
-          <circle
-            cx="8"
-            cy="8"
-            r="7"
-            stroke="currentColor"
-            strokeOpacity="0.25"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-          <path
-            d="M15 8a7.002 7.002 0 00-7-7"
-            stroke="currentColor"
-            strokeLinecap="round"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-        </svg>
+            viewBox="0 0 16 16"
+            width="32px"
+          >
+            <circle
+              cx="8"
+              cy="8"
+              r="7"
+              stroke="currentColor"
+              strokeOpacity="0.25"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+            <path
+              d="M15 8a7.002 7.002 0 00-7-7"
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+          </svg>
+        </div>
       </div>
     </span>
   </span>,
