@@ -1,8 +1,6 @@
 import React, {ButtonHTMLAttributes} from 'react'
 import {IconProps} from '@primer/octicons-react'
-import styled from 'styled-components'
-import sx, {merge, SxProp} from '../sx'
-import {getSegmentedControlButtonStyles, getSegmentedControlListItemStyles} from './getSegmentedControlStyles'
+import {SxProp} from '../sx'
 import Box from '../Box'
 import {defaultSxProp} from '../utils/defaultSxProp'
 
@@ -17,10 +15,6 @@ export type SegmentedControlIconButtonProps = {
 } & SxProp &
   ButtonHTMLAttributes<HTMLButtonElement | HTMLLIElement>
 
-const SegmentedControlIconButtonStyled = styled.button`
-  ${sx};
-`
-
 // TODO: update this component to be accessible when we update the Tooltip component
 // - we wouldn't render tooltip content inside a pseudoelement
 // - users can pass custom tooltip text in addition to `ariaLabel`
@@ -34,27 +28,14 @@ export const SegmentedControlIconButton: React.FC<React.PropsWithChildren<Segmen
   sx: sxProp = defaultSxProp,
   ...rest
 }) => {
-  const mergedSx = merge(
-    {
-      width: '32px', // TODO: use primitive `control.medium.size` when it is available
-      ...getSegmentedControlListItemStyles(),
-    },
-    sxProp as SxProp,
-  )
-
   return (
-    <Box as="li" sx={mergedSx}>
+    <Box as="li" data-component="SegmentedControlItem" data-selected={selected} sx={sxProp}>
       {/* TODO: Once the tooltip remediations are resolved (especially https://github.com/github/primer/issues/1909) - bring it back */}
-      <SegmentedControlIconButtonStyled
-        aria-label={ariaLabel}
-        aria-current={selected}
-        sx={getSegmentedControlButtonStyles({selected, isIconOnly: true})}
-        {...rest}
-      >
+      <button aria-label={ariaLabel} aria-current={selected} data-component="SegmentedControlButton" {...rest}>
         <span className="segmentedControl-content">
           <Icon />
         </span>
-      </SegmentedControlIconButtonStyled>
+      </button>
     </Box>
   )
 }

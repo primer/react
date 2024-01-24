@@ -1,9 +1,7 @@
 import React, {ButtonHTMLAttributes} from 'react'
 import {IconProps} from '@primer/octicons-react'
-import styled from 'styled-components'
 import Box from '../Box'
-import sx, {merge, SxProp} from '../sx'
-import {getSegmentedControlButtonStyles, getSegmentedControlListItemStyles} from './getSegmentedControlStyles'
+import {SxProp} from '../sx'
 import {defaultSxProp} from '../utils/defaultSxProp'
 
 export type SegmentedControlButtonProps = {
@@ -18,10 +16,6 @@ export type SegmentedControlButtonProps = {
 } & SxProp &
   ButtonHTMLAttributes<HTMLButtonElement | HTMLLIElement>
 
-const SegmentedControlButtonStyled = styled.button`
-  ${sx};
-`
-
 const SegmentedControlButton: React.FC<React.PropsWithChildren<SegmentedControlButtonProps>> = ({
   children,
   leadingIcon: LeadingIcon,
@@ -29,24 +23,20 @@ const SegmentedControlButton: React.FC<React.PropsWithChildren<SegmentedControlB
   sx: sxProp = defaultSxProp,
   ...rest
 }) => {
-  const mergedSx = merge(getSegmentedControlListItemStyles(), sxProp as SxProp)
-
   return (
-    <Box as="li" sx={mergedSx}>
-      <SegmentedControlButtonStyled
-        aria-current={selected}
-        sx={getSegmentedControlButtonStyles({selected, children})}
-        {...rest}
-      >
-        <span className="segmentedControl-content">
+    <Box as="li" data-component="SegmentedControlItem" data-selected={selected} sx={sxProp}>
+      <button aria-current={selected} data-component="SegmentedControlButton" {...rest}>
+        <span data-component="SegmentedControlButtonContent">
           {LeadingIcon && (
-            <Box mr={1}>
+            <Box data-component="SegmentedControlLeadingVisual">
               <LeadingIcon />
             </Box>
           )}
-          <Box className="segmentedControl-text">{children}</Box>
+          <Box data-component="SegmentedControlLabel" data-content={children}>
+            {children}
+          </Box>
         </span>
-      </SegmentedControlButtonStyled>
+      </button>
     </Box>
   )
 }
