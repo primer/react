@@ -1,7 +1,8 @@
-import {LiveRegion, LiveRegionOutlet} from './LiveRegion'
+import {LiveRegionProvider, LiveRegion} from './LiveRegion'
 import {Message} from './Message'
+import {Alert} from './Alert'
 import {Status} from './Status'
 import {useAnnounce} from './useAnnounce'
 import {useLiveRegion} from './useLiveRegion'
 
-export {LiveRegion, LiveRegionOutlet, Message, Status, useLiveRegion, useAnnounce}
+export {LiveRegionProvider, LiveRegion, Message, Alert, Status, useLiveRegion, useAnnounce}

@@ -14,7 +14,7 @@ import {useProvidedRefOrCreate} from '../hooks'
 import {FocusZoneHookSettings} from '../hooks/useFocusZone'
 import {useId} from '../hooks/useId'
 import {useProvidedStateOrCreate} from '../hooks/useProvidedStateOrCreate'
-import {LiveRegion, LiveRegionOutlet, Message} from '../internal/components/LiveRegion'
+import {LiveRegionProvider, LiveRegion, Message} from '../internal/components/LiveRegion'
 
 interface SelectPanelSingleSelection {
   selected: ItemInput | undefined
@@ -171,7 +171,7 @@ export function SelectPanel({
   }, [inputLabel, textInputProps])
 
   return (
-    <LiveRegion>
+    <LiveRegionProvider>
       <AnchoredOverlay
         renderAnchor={renderMenuAnchor}
         anchorRef={anchorRef}
@@ -187,7 +187,7 @@ export function SelectPanel({
         focusTrapSettings={focusTrapSettings}
         focusZoneSettings={focusZoneSettings}
       >
-        <LiveRegionOutlet />
+        <LiveRegion />
         <Message
           value={
             filterValue === ''
@@ -225,7 +225,7 @@ export function SelectPanel({
           />
         </Box>
       </AnchoredOverlay>
-    </LiveRegion>
+    </LiveRegionProvider>
   )
 }
 

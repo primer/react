@@ -5,7 +5,7 @@ import {OutletContext, useOutlet} from './OutletContext'
 import {LiveRegionContext} from './LiveRegionContext'
 import {canUseDOM} from '../../../utils/environment'
 
-type LiveRegionProps = React.PropsWithChildren
+type LiveRegionProviderProps = React.PropsWithChildren
 
 // The LiveRegion component leverages two different context providers in order
 // to coordinate finding a live-region and providing it for context consumers to
@@ -18,7 +18,7 @@ type LiveRegionProps = React.PropsWithChildren
 // This component can be used standalone within a component for a dedicated live
 // region or the `useLiveRegion()` hook may be used to find, or create, a
 // corresponding live region.
-function LiveRegionProvider({children}: LiveRegionProps) {
+function LiveRegionProvider({children}: LiveRegionProviderProps) {
   const [liveRegion, setLiveRegion] = useState<LiveRegionElement | null>(null)
 
   return (

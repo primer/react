@@ -3,14 +3,14 @@ import {useLiveRegion} from './useLiveRegion'
 import {useEffectOnce} from '../../hooks/useEffectOnce'
 import type {AnnounceOptions} from './live-region-element'
 
-type StatusProps = React.PropsWithChildren<Pick<AnnounceOptions, 'delayMs'> & React.ComponentPropsWithoutRef<'div'>>
+type AlertProps = React.PropsWithChildren<Pick<AnnounceOptions, 'delayMs'> & React.ComponentPropsWithoutRef<'div'>>
 
 /**
- * The `Status` component announces the text content of the `children` provided
- * using a live region using a 'polite' politeness setting. It is analagous to
- * the `status` role.
+ * The `Alert` component announces the text content of the `children` provided
+ * using a live region with an 'assertive' politeness setting. It is analagous
+ * to the `alert` role.
  */
-export function Status({children, delayMs, ...rest}: StatusProps) {
+export function Alert({children, delayMs, ...rest}: AlertProps) {
   const liveRegion = useLiveRegion()
   const ref = useRef<HTMLDivElement>(null)
 
@@ -18,7 +18,7 @@ export function Status({children, delayMs, ...rest}: StatusProps) {
     if (ref.current) {
       return liveRegion.announceFromElement(ref.current, {
         delayMs,
-        politeness: 'polite',
+        politeness: 'assertive',
       })
     }
   })

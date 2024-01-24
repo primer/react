@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import sx, {SxProp} from '../sx'
 import {Status} from '../internal/components/LiveRegion'
+import {VisuallyHidden} from '../internal/components/VisuallyHidden'
 
 const sizeMap = {
   small: '16px',
@@ -24,8 +25,8 @@ function Spinner({loadingMessage, size: sizeKey = 'medium', ...props}: SpinnerPr
   const size = sizeMap[sizeKey]
 
   return (
-    <>
-      {loadingMessage !== undefined ? <Status message={loadingMessage} /> : null}
+    <Status>
+      {loadingMessage ? <VisuallyHidden>{loadingMessage}</VisuallyHidden> : null}
       <svg height={size} width={size} viewBox="0 0 16 16" fill="none" {...props}>
         <circle
           cx="8"
@@ -44,7 +45,7 @@ function Spinner({loadingMessage, size: sizeKey = 'medium', ...props}: SpinnerPr
           vectorEffect="non-scaling-stroke"
         />
       </svg>
-    </>
+    </Status>
   )
 }
 
