@@ -60,6 +60,10 @@ exports[`Checkbox renders consistently 1`] = `
   animation: checkmarkIn 80ms cubic-bezier(0.65,0,0.35,1) forwards 80ms;
 }
 
+.c0:disabled {
+  cursor: not-allowed;
+}
+
 .c0:checked {
   -webkit-transition: background-color,border-color 80ms cubic-bezier(0.32,0,0.67,0) 0ms;
   transition: background-color,border-color 80ms cubic-bezier(0.32,0,0.67,0) 0ms;
@@ -72,7 +76,6 @@ exports[`Checkbox renders consistently 1`] = `
 }
 
 .c0:checked:disabled {
-  cursor: not-allowed;
   background-color: #656d76;
   border-color: #656d76;
   opacity: 1;
