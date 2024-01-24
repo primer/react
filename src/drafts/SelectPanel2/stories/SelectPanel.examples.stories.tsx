@@ -709,7 +709,7 @@ export const CreateNewRow = () => {
 
     // focus newly created label once it renders
     window.requestAnimationFrame(() => {
-      const newLabelElement = document.querySelector(`[data-id=${id}]`) as HTMLLIElement
+      const newLabelElement = document.querySelector(`[data-id="${id}"]`) as HTMLLIElement
       newLabelElement.focus()
     })
   }
