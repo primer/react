@@ -557,7 +557,7 @@ const SelectPanelMessage: React.FC<SelectPanelMessageProps> = ({
           flexGrow: 1,
           height: '100%',
           gap: 1,
-          paddingX: 4,
+          paddingX: 3,
           textAlign: 'center',
           a: {color: 'inherit', textDecoration: 'underline'},
         }}
@@ -566,7 +566,11 @@ const SelectPanelMessage: React.FC<SelectPanelMessageProps> = ({
           <Octicon icon={AlertIcon} sx={{color: variant === 'error' ? 'danger.fg' : 'attention.fg', marginBottom: 2}} />
         ) : null}
         <Text sx={{fontSize: 1, fontWeight: 'semibold'}}>{title}</Text>
-        <Text sx={{fontSize: 1, color: 'fg.muted'}}>{children}</Text>
+        <Text
+          sx={{fontSize: 1, color: 'fg.muted', display: 'flex', flexDirection: 'column', gap: 2, alignItems: 'center'}}
+        >
+          {children}
+        </Text>
       </Box>
     )
   } else {
