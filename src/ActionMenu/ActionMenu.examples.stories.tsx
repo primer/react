@@ -162,6 +162,65 @@ export const ControlledMenu = () => {
   )
 }
 
+export const ShortcutMenu = () => {
+  React.useEffect(() => {
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.shiftKey && (event.key === 'c' || event.key === 'C')) {
+        setOpen(true)
+      }
+    }
+    window.addEventListener('keydown', onKeyDown)
+    return () => window.removeEventListener('keydown', onKeyDown)
+  }, [])
+
+  const [open, setOpen] = React.useState(false)
+  const triggerRef = React.useRef<HTMLButtonElement>(null)
+
+  return (
+    <>
+      <h1>Shortcut Menu</h1>
+      <h2>External Open State: {open ? 'Open' : 'Closed'}</h2>
+      <h2>Press Shift+C to open the menu</h2>
+      <br />
+
+      {/**
+       * Even though the state is controlled externally,
+       * we can pass an Anchor for the menu to "anchor to"
+       */}
+      <ActionMenu open={open} onOpenChange={setOpen}>
+        <ActionMenu.Button sx={{visibility: 'hidden'}}>Anchor</ActionMenu.Button>
+        <ActionMenu.Overlay
+          ignoreClickRefs={[
+            // Because the component is controlled from outside, but the anchor is still internal,
+            // clicking the external button should not be counted as "clicking outside"
+            triggerRef,
+          ]}
+        >
+          <ActionList>
+            <ActionList.Item>
+              Copy link
+              <ActionList.TrailingVisual>⌘C</ActionList.TrailingVisual>
+            </ActionList.Item>
+            <ActionList.Item>
+              Quote reply
+              <ActionList.TrailingVisual>⌘Q</ActionList.TrailingVisual>
+            </ActionList.Item>
+            <ActionList.Item>
+              Edit comment
+              <ActionList.TrailingVisual>⌘E</ActionList.TrailingVisual>
+            </ActionList.Item>
+            <ActionList.Divider />
+            <ActionList.Item variant="danger">
+              Delete file
+              <ActionList.TrailingVisual>⌘D</ActionList.TrailingVisual>
+            </ActionList.Item>
+          </ActionList>
+        </ActionMenu.Overlay>
+      </ActionMenu>
+    </>
+  )
+}
+
 export const CustomAnchor = () => (
   <ActionMenu>
     <ActionMenu.Anchor>
