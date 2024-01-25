@@ -186,15 +186,21 @@ export const globalTypes = {
 
 export const decorators = [
   (Story, context) => {
-    document.body.setAttribute('data-color-mode', context.globals.colorScheme.startsWith('light') ? 'light' : 'dark')
-    document.body.setAttribute(
-      'data-light-theme',
-      context.globals.colorScheme.startsWith('light') ? context.globals.colorScheme : undefined,
-    )
-    document.body.setAttribute(
-      'data-dark-theme',
-      context.globals.colorScheme.startsWith('dark') ? context.globals.colorScheme : undefined,
-    )
+    const { colorScheme } = context.globals;
+    
+    useEffect(() => {
+      const colorMode = colorScheme.startsWith('light') ? 'light' : 'dark'
+      document.body.setAttribute('data-color-mode', colorMode)
+      
+      const lightTheme = colorScheme.startsWith('light') ? colorScheme : undefined
+      document.body.setAttribute('data-light-theme', lightTheme)
+      
+      const darkTheme = colorScheme.startsWith('dark') ? colorScheme : undefined
+      document.body.setAttribute('data-dark-theme', darkTheme)
+    }, [colorScheme]);
+   
+    
+    
     const showSurroundingElements =
       context.globals.showSurroundingElements ?? window.localStorage.getItem('showSurroundingElements') === 'true'
     return context.globals.colorScheme === 'all' ? (
