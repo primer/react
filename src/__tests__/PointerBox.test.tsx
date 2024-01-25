@@ -2,9 +2,7 @@ import React from 'react'
 import {PointerBox} from '..'
 import {render, behavesAsComponent, checkExports, renderStyles} from '../utils/testing'
 import {render as HTMLRender} from '@testing-library/react'
-import {axe, toHaveNoViolations} from 'jest-axe'
-
-expect.extend(toHaveNoViolations)
+import {axe} from 'jest-axe'
 
 describe('PointerBox', () => {
   behavesAsComponent({Component: PointerBox})
