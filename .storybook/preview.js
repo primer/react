@@ -199,9 +199,9 @@ export const decorators = [
       context.globals.showSurroundingElements ?? window.localStorage.getItem('showSurroundingElements') === 'true'
     return context.globals.colorScheme === 'all' ? (
       primerThemes.map(({value: theme}) => (
-        <ThemeProvider dayScheme={theme} nightScheme={theme} colorMode="day">
+        <ThemeProvider key={theme} dayScheme={theme} nightScheme={theme} colorMode="day">
           <div
-            key={theme}
+            
             id="story"
             className={clsx(context.globals.colorScheme === 'all' && 'story-wrap-grid', 'story-wrap')}
             data-color-mode={theme.startsWith('dark') ? 'dark' : 'light'}
