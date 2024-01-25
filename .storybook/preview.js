@@ -186,28 +186,25 @@ export const globalTypes = {
 
 export const decorators = [
   (Story, context) => {
-    const { colorScheme } = context.globals;
-    
+    const {colorScheme} = context.globals
+
     useEffect(() => {
       const colorMode = colorScheme.startsWith('light') ? 'light' : 'dark'
       document.body.setAttribute('data-color-mode', colorMode)
-      
+
       const lightTheme = colorScheme.startsWith('light') ? colorScheme : undefined
       document.body.setAttribute('data-light-theme', lightTheme)
-      
+
       const darkTheme = colorScheme.startsWith('dark') ? colorScheme : undefined
       document.body.setAttribute('data-dark-theme', darkTheme)
-    }, [colorScheme]);
-   
-    
-    
+    }, [colorScheme])
+
     const showSurroundingElements =
       context.globals.showSurroundingElements ?? window.localStorage.getItem('showSurroundingElements') === 'true'
     return context.globals.colorScheme === 'all' ? (
       primerThemes.map(({value: theme}) => (
         <ThemeProvider key={theme} dayScheme={theme} nightScheme={theme} colorMode="day">
           <div
-            
             id="story"
             className={clsx(context.globals.colorScheme === 'all' && 'story-wrap-grid', 'story-wrap')}
             data-color-mode={theme.startsWith('dark') ? 'dark' : 'light'}
