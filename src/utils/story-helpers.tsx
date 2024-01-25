@@ -1,17 +1,9 @@
 import React from 'react'
-import {Box, ThemeProvider, theme, themeGet, BaseStyles, CheckboxGroup, FormControl} from '../index'
-import {createGlobalStyle} from 'styled-components'
+import {CheckboxGroup, FormControl} from '../index'
 import {ComponentProps} from './types'
 import {ArgTypes} from '@storybook/react'
 import {InputType} from '@storybook/csf'
 import {Icon} from '@primer/octicons-react'
-
-// we don't import StoryContext from storybook because of exports that conflict
-// with primer/react more: https://github.com/primer/react/runs/6129115026?check_suite_focus=true
-type StoryContext = Record<string, unknown> & {
-  globals: {colorScheme: string; showSurroundingElements?: boolean}
-  parameters: Record<string, unknown>
-}
 
 type CheckboxOrRadioGroupWrapperArgs = ComponentProps<typeof CheckboxGroup>
 type CheckboxOrRadioGroupLabelArgs = ComponentProps<typeof CheckboxGroup.Label> & {
@@ -39,86 +31,6 @@ export type FormControlArgs<TInputProps = unknown> = FormControlParentArgs &
   FormControlCaptionArgs &
   Partial<FormControlValidationMessageArgs> & // partial because we don't pass use validation for checkbox or radio
   TInputProps
-
-// set global theme styles for each story
-const GlobalStyle = createGlobalStyle`
-  body {
-    background-color: ${themeGet('colors.canvas.default')};
-    color: ${themeGet('colors.fg.default')};
-  }
-`
-
-// only remove padding for multi-theme view grid
-const GlobalStyleMultiTheme = createGlobalStyle`
-  body {
-    padding: 0 !important;
-  }
-`
-
-export const withThemeProvider = (Story: React.FC<React.PropsWithChildren<StoryContext>>, context: StoryContext) => {
-  // used for testing ThemeProvider.stories.tsx
-  if (context.parameters.disableThemeDecorator) return Story(context)
-
-  const {colorScheme} = context.globals
-
-  if (colorScheme === 'all') {
-    return (
-      <Box
-        sx={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(0, 1fr))',
-          height: '100vh',
-        }}
-      >
-        <GlobalStyleMultiTheme />
-        {Object.keys(theme.colorSchemes).map(scheme => (
-          <ThemeProvider
-            key={scheme}
-            colorMode={scheme.includes('dark') ? 'dark' : 'light'}
-            dayScheme={scheme}
-            nightScheme={scheme}
-          >
-            <BaseStyles>
-              <Box
-                sx={{
-                  padding: '1rem',
-                  height: '100%',
-                  backgroundColor: 'canvas.default',
-                  color: 'fg.default',
-                }}
-              >
-                <div id={`html-addon-root-${scheme}`}>{Story(context)}</div>
-              </Box>
-            </BaseStyles>
-          </ThemeProvider>
-        ))}
-      </Box>
-    )
-  }
-
-  return (
-    <ThemeProvider colorMode="day" dayScheme={colorScheme} nightScheme={colorScheme}>
-      <GlobalStyle />
-      <BaseStyles>
-        <div id="html-addon-root">{Story(context)}</div>
-      </BaseStyles>
-    </ThemeProvider>
-  )
-}
-
-export const toolbarTypes = {
-  colorScheme: {
-    name: 'Color scheme',
-    description: 'Switch color scheme',
-    defaultValue: 'light',
-    toolbar: {
-      icon: 'photo',
-      items: [...Object.keys(theme.colorSchemes), 'all'],
-      title: 'Color scheme',
-    },
-    showSurroundingElements: {},
-  },
-}
 
 export const inputWrapperArgTypes: ArgTypes = {
   block: {
@@ -355,20 +267,4 @@ export const OcticonArgType = (iconList: Icon[]) => {
     },
     mapping: icons,
   }
-}
-
-export const withSurroundingElements = (
-  Story: React.FC<React.PropsWithChildren<StoryContext>>,
-  context: StoryContext,
-) => {
-  const showSurroundingElements =
-    context.globals.showSurroundingElements ?? window.localStorage.getItem('showSurroundingElements') === 'true'
-
-  return (
-    <>
-      {showSurroundingElements ? <a href="https://github.com/primer/react">Primer documentation</a> : ''}
-      {Story(context)}
-      {showSurroundingElements ? <a href="https://github.com/primer/react">Primer documentation</a> : ''}
-    </>
-  )
 }
