@@ -27,7 +27,7 @@ exports[`Header Header.Item renders consistently 1`] = `
 exports[`Header Header.Link renders consistently 1`] = `
 .c0 {
   font-weight: 600;
-  color: #ffffff;
+  color: var(--header-fgColor-logo,var(--color-header-logo,#ffffff));
   white-space: nowrap;
   cursor: pointer;
   -webkit-text-decoration: none;
@@ -44,7 +44,7 @@ exports[`Header Header.Link renders consistently 1`] = `
 
 .c0:hover,
 .c0:focus {
-  color: rgba(255,255,255,0.7);
+  color: var(--header-fgColor-default,var(--color-header-text,rgba(255,255,255,0.7)));
 }
 
 <a
@@ -62,8 +62,8 @@ exports[`Header renders consistently 1`] = `
   padding: 16px;
   font-size: 14px;
   line-height: 1.5;
-  color: rgba(255,255,255,0.7);
-  background-color: #24292f;
+  color: var(--header-fgColor-default,var(--color-header-text,rgba(255,255,255,0.7)));
+  background-color: var(--header-bgColor,var(--color-header-bg,#24292f));
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;

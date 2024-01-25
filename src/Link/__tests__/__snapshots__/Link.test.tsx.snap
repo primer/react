@@ -2,7 +2,7 @@
 
 exports[`Link applies button styles when rendering a button element 1`] = `
 .c1 {
-  color: #0969da;
+  color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
   -webkit-text-decoration: none;
   text-decoration: none;
 }
@@ -41,7 +41,7 @@ exports[`Link applies button styles when rendering a button element 1`] = `
 
 exports[`Link passes href down to link element 1`] = `
 .c1 {
-  color: #0969da;
+  color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
   -webkit-text-decoration: none;
   text-decoration: none;
 }
@@ -81,7 +81,7 @@ exports[`Link passes href down to link element 1`] = `
 
 exports[`Link renders consistently 1`] = `
 .c1 {
-  color: #0969da;
+  color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
   -webkit-text-decoration: none;
   text-decoration: none;
 }
@@ -120,7 +120,7 @@ exports[`Link renders consistently 1`] = `
 
 exports[`Link respects hoverColor prop 1`] = `
 .c1 {
-  color: #0969da;
+  color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
   -webkit-text-decoration: none;
   text-decoration: none;
 }
@@ -133,7 +133,7 @@ exports[`Link respects hoverColor prop 1`] = `
 .c1:hover {
   -webkit-text-decoration: underline;
   text-decoration: underline;
-  color: #0969da;
+  color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
 }
 
 .c1:is(button) {
@@ -160,10 +160,10 @@ exports[`Link respects hoverColor prop 1`] = `
 
 exports[`Link respects the  "sx" prop when "muted" prop is also passed 1`] = `
 .c1 {
-  color: #656d76;
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
   -webkit-text-decoration: none;
   text-decoration: none;
-  color: #ffffff;
+  color: var(--fgColor-onEmphasis,var(--color-fg-on-emphasis,#ffffff));
 }
 
 [data-a11y-link-underlines='true'] .c0[data-inline='true'] {
@@ -174,7 +174,7 @@ exports[`Link respects the  "sx" prop when "muted" prop is also passed 1`] = `
 .c1:hover {
   -webkit-text-decoration: none;
   text-decoration: none;
-  color: #0969da;
+  color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
 }
 
 .c1:is(button) {
@@ -202,7 +202,7 @@ exports[`Link respects the  "sx" prop when "muted" prop is also passed 1`] = `
 
 exports[`Link respects the "muted" prop 1`] = `
 .c1 {
-  color: #656d76;
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
   -webkit-text-decoration: none;
   text-decoration: none;
 }
@@ -215,7 +215,7 @@ exports[`Link respects the "muted" prop 1`] = `
 .c1:hover {
   -webkit-text-decoration: none;
   text-decoration: none;
-  color: #0969da;
+  color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
 }
 
 .c1:is(button) {

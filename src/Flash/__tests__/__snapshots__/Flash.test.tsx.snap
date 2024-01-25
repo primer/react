@@ -3,15 +3,15 @@
 exports[`Flash renders consistently 1`] = `
 .c0 {
   position: relative;
-  color: #1F2328;
+  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   padding: 16px;
   border-style: solid;
   border-width: 1px;
   border-radius: 6px;
   margin-top: 0;
-  color: #1F2328;
-  background-color: #ddf4ff;
-  border-color: rgba(84,174,255,0.4);
+  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
+  background-color: var(--bgColor-accent-muted,var(--color-accent-subtle,#ddf4ff));
+  border-color: var(--borderColor-accent-muted,var(--color-accent-muted,rgba(84,174,255,0.4)));
 }
 
 .c0 p:last-child {
@@ -23,7 +23,7 @@ exports[`Flash renders consistently 1`] = `
 }
 
 .c0 svg {
-  color: #0969da;
+  color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
 }
 
 <div

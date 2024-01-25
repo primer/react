@@ -12,7 +12,7 @@ exports[`Tooltip renders consistently 1`] = `
   display: none;
   width: 0px;
   height: 0px;
-  color: #24292f;
+  color: var(--bgColor-emphasis,var(--color-neutral-emphasis-plus,#24292f));
   pointer-events: none;
   content: '';
   border: 6px solid transparent;
@@ -26,7 +26,7 @@ exports[`Tooltip renders consistently 1`] = `
   padding: 0.5em 0.75em;
   font: normal normal 11px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
   -webkit-font-smoothing: subpixel-antialiased;
-  color: #ffffff;
+  color: var(--fgColor-onEmphasis,var(--color-fg-on-emphasis,#ffffff));
   text-align: center;
   -webkit-text-decoration: none;
   text-decoration: none;
@@ -40,7 +40,7 @@ exports[`Tooltip renders consistently 1`] = `
   white-space: pre;
   pointer-events: none;
   content: attr(aria-label);
-  background: #24292f;
+  background: var(--bgColor-emphasis,var(--color-neutral-emphasis-plus,#24292f));
   border-radius: 3px;
   opacity: 0;
 }
@@ -102,7 +102,7 @@ exports[`Tooltip renders consistently 1`] = `
   right: 50%;
   bottom: -7px;
   margin-right: -6px;
-  border-bottom-color: #24292f;
+  border-bottom-color: var(--bgColor-emphasis,var(--color-neutral-emphasis-plus,#24292f));
 }
 
 .c0.tooltipped-se::after {
@@ -130,7 +130,7 @@ exports[`Tooltip renders consistently 1`] = `
   right: 50%;
   bottom: auto;
   margin-right: -6px;
-  border-top-color: #24292f;
+  border-top-color: var(--bgColor-emphasis,var(--color-neutral-emphasis-plus,#24292f));
 }
 
 .c0.tooltipped-ne::after {
@@ -164,7 +164,7 @@ exports[`Tooltip renders consistently 1`] = `
   bottom: 50%;
   left: -7px;
   margin-top: -6px;
-  border-left-color: #24292f;
+  border-left-color: var(--bgColor-emphasis,var(--color-neutral-emphasis-plus,#24292f));
 }
 
 .c0.tooltipped-e::after {
@@ -181,7 +181,7 @@ exports[`Tooltip renders consistently 1`] = `
   right: -7px;
   bottom: 50%;
   margin-top: -6px;
-  border-right-color: #24292f;
+  border-right-color: var(--bgColor-emphasis,var(--color-neutral-emphasis-plus,#24292f));
 }
 
 .c0.tooltipped-multiline::after {

@@ -5,7 +5,7 @@ exports[`Radio renders consistently 1`] = `
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
-  border-color: #6e7781;
+  border-color: var(--bgColor-neutral-emphasis,var(--color-neutral-emphasis,#6e7781));
   border-style: solid;
   border-width: 1px;
   cursor: pointer;
@@ -23,22 +23,22 @@ exports[`Radio renders consistently 1`] = `
 
 .c0:disabled {
   background-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
-  border-color: #d0d7de;
+  border-color: var(--borderColor-default,var(--color-border-default,#d0d7de));
 }
 
 .c0:checked {
-  border-color: #0969da;
+  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
   border-width: var(--base-size-4,4px);
 }
 
 .c0:checked:disabled {
   cursor: not-allowed;
-  border-color: #656d76;
+  border-color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
 }
 
 .c0:focus:not(:disabled) {
   box-shadow: none;
-  outline: 2px solid #0969da;
+  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline-offset: 2px;
 }
 
@@ -48,7 +48,7 @@ exports[`Radio renders consistently 1`] = `
 
 .c0:focus-visible:not(:disabled) {
   box-shadow: none;
-  outline: 2px solid #0969da;
+  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline-offset: 2px;
 }
 
