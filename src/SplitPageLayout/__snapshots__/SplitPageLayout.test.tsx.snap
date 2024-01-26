@@ -32,7 +32,7 @@ exports[`SplitPageLayout renders default layout 1`] = `
   margin-right: 0;
   display: block;
   height: 1px;
-  background-color: #d0d7de;
+  background-color: var(--borderColor-default,var(--color-border-default,#d0d7de));
   margin-top: 0;
 }
 
@@ -138,7 +138,7 @@ exports[`SplitPageLayout renders default layout 1`] = `
   margin-right: 0;
   display: block;
   height: 1px;
-  background-color: #d0d7de;
+  background-color: var(--borderColor-default,var(--color-border-default,#d0d7de));
   margin-bottom: 0;
 }
 

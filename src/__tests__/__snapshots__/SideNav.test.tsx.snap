@@ -2,7 +2,7 @@
 
 exports[`SideNav SideNav.Link renders consistently 1`] = `
 .c1 {
-  color: #0969da;
+  color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
   -webkit-text-decoration: none;
   text-decoration: none;
 }
@@ -51,12 +51,12 @@ exports[`SideNav renders consistently 1`] = `
 .c0 {
   border-width: 0;
   border-style: solid;
-  border-color: #d0d7de;
+  border-color: var(--borderColor-default,var(--color-border-default,#d0d7de));
   border-radius: 6px;
 }
 
 .c1 {
-  background-color: #f6f8fa;
+  background-color: var(--bgColor-muted,var(--color-canvas-subtle,#f6f8fa));
 }
 
 <nav

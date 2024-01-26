@@ -5,7 +5,7 @@ exports[`TabNav TabNav.Link renders consistently 1`] = `
   padding: 8px 12px;
   font-size: 14px;
   line-height: 20px;
-  color: #1F2328;
+  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   -webkit-text-decoration: none;
   text-decoration: none;
   background-color: transparent;
@@ -15,7 +15,7 @@ exports[`TabNav TabNav.Link renders consistently 1`] = `
 
 .c0:focus:not(:disabled) {
   box-shadow: none;
-  outline: 2px solid #0969da;
+  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline-offset: -6px;
 }
 
@@ -25,23 +25,23 @@ exports[`TabNav TabNav.Link renders consistently 1`] = `
 
 .c0:focus-visible:not(:disabled) {
   box-shadow: none;
-  outline: 2px solid #0969da;
+  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline-offset: -6px;
 }
 
 .c0:hover,
 .c0:focus {
-  color: #1F2328;
+  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   -webkit-text-decoration: none;
   text-decoration: none;
 }
 
 .c0.selected {
-  color: #1F2328;
-  border-color: #d0d7de;
+  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
+  border-color: var(--borderColor-default,var(--color-border-default,#d0d7de));
   border-top-right-radius: 6px;
   border-top-left-radius: 6px;
-  background-color: #ffffff;
+  background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
 }
 
 <a
@@ -64,7 +64,7 @@ exports[`TabNav renders consistently 1`] = `
 
 .c0 {
   margin-top: 0;
-  border-bottom: 1px solid #d0d7de;
+  border-bottom: 1px solid var(--borderColor-default,var(--color-border-default,#d0d7de));
 }
 
 <div

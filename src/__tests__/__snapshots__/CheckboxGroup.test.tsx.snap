@@ -44,7 +44,7 @@ exports[`CheckboxGroup renders consistently 1`] = `
   font-weight: 600;
   font-size: 14px;
   display: block;
-  color: #1F2328;
+  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   cursor: pointer;
   -webkit-align-self: flex-start;
   -ms-flex-item-align: start;
@@ -72,7 +72,7 @@ exports[`CheckboxGroup renders consistently 1`] = `
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
-  border-color: #6e7781;
+  border-color: var(--bgColor-neutral-emphasis,var(--color-neutral-emphasis,#6e7781));
   border-style: solid;
   border-width: 1px;
   cursor: pointer;
@@ -90,7 +90,7 @@ exports[`CheckboxGroup renders consistently 1`] = `
 
 .c6:disabled {
   background-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
-  border-color: #d0d7de;
+  border-color: var(--borderColor-default,var(--color-border-default,#d0d7de));
 }
 
 .c6::before {
@@ -98,7 +98,7 @@ exports[`CheckboxGroup renders consistently 1`] = `
   height: var(--base-size-16,16px);
   visibility: hidden;
   content: '';
-  background-color: #ffffff;
+  background-color: var(--fgColor-onEmphasis,var(--color-fg-on-emphasis,#ffffff));
   -webkit-transition: visibility 0s linear 230ms;
   transition: visibility 0s linear 230ms;
   -webkit-clip-path: inset(var(--base-size-16,16px) 0 0 0);
@@ -117,8 +117,8 @@ exports[`CheckboxGroup renders consistently 1`] = `
 
 .c6:checked,
 .c6:indeterminate {
-  background: #0969da;
-  border-color: #0969da;
+  background: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
 }
 
 .c6:checked::before,
@@ -140,17 +140,17 @@ exports[`CheckboxGroup renders consistently 1`] = `
 
 .c6:checked:disabled {
   cursor: not-allowed;
-  background-color: #656d76;
-  border-color: #656d76;
+  background-color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
+  border-color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
   opacity: 1;
 }
 
 .c6:checked:disabled::before {
-  background-color: #ffffff;
+  background-color: var(--fgColor-onEmphasis,var(--color-fg-on-emphasis,#ffffff));
 }
 
 .c6:indeterminate {
-  background: #0969da;
+  background: var(--fgColor-accent,var(--color-accent-fg,#0969da));
 }
 
 .c6:indeterminate::before {
@@ -161,7 +161,7 @@ exports[`CheckboxGroup renders consistently 1`] = `
 
 .c6:focus:not(:disabled) {
   box-shadow: none;
-  outline: 2px solid #0969da;
+  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline-offset: 2px;
 }
 
@@ -171,7 +171,7 @@ exports[`CheckboxGroup renders consistently 1`] = `
 
 .c6:focus-visible:not(:disabled) {
   box-shadow: none;
-  outline: 2px solid #0969da;
+  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline-offset: 2px;
 }
 

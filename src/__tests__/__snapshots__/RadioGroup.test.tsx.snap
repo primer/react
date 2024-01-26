@@ -44,7 +44,7 @@ exports[`RadioGroup renders consistently 1`] = `
   font-weight: 600;
   font-size: 14px;
   display: block;
-  color: #1F2328;
+  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   cursor: pointer;
   -webkit-align-self: flex-start;
   -ms-flex-item-align: start;
@@ -72,7 +72,7 @@ exports[`RadioGroup renders consistently 1`] = `
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
-  border-color: #6e7781;
+  border-color: var(--bgColor-neutral-emphasis,var(--color-neutral-emphasis,#6e7781));
   border-style: solid;
   border-width: 1px;
   cursor: pointer;
@@ -90,22 +90,22 @@ exports[`RadioGroup renders consistently 1`] = `
 
 .c6:disabled {
   background-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
-  border-color: #d0d7de;
+  border-color: var(--borderColor-default,var(--color-border-default,#d0d7de));
 }
 
 .c6:checked {
-  border-color: #0969da;
+  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
   border-width: var(--base-size-4,4px);
 }
 
 .c6:checked:disabled {
   cursor: not-allowed;
-  border-color: #656d76;
+  border-color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
 }
 
 .c6:focus:not(:disabled) {
   box-shadow: none;
-  outline: 2px solid #0969da;
+  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline-offset: 2px;
 }
 
@@ -115,7 +115,7 @@ exports[`RadioGroup renders consistently 1`] = `
 
 .c6:focus-visible:not(:disabled) {
   box-shadow: none;
-  outline: 2px solid #0969da;
+  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline-offset: 2px;
 }
 

@@ -21,6 +21,7 @@ function isColorValue(value) {
   if (value.startsWith('#')) return true // #hex
   if (value.startsWith('rgb')) return true // rgb, rgba
   if (value.startsWith('hsl')) return true // hsl, hsla
+  if (value.startsWith('var')) return true // var(--color)
   return false
 }
 
