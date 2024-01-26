@@ -205,17 +205,7 @@ const DefaultHeader: React.FC<React.PropsWithChildren<DialogHeaderProps>> = ({
           <Dialog.Title id={dialogLabelId}>{title ?? 'Dialog'}</Dialog.Title>
           {subtitle && <Dialog.Subtitle id={dialogDescriptionId}>{subtitle}</Dialog.Subtitle>}
         </Box>
-        <Box
-          sx={{
-            zIndex: 2,
-            right: 0,
-            pr: get('space.2'),
-            position: 'absolute',
-            pointerEvents: 'auto', // Allows clicks to pass through the header in bottom sheets
-          }}
-        >
-          <Dialog.CloseButton onClose={onCloseClick} ref={closeButtonRef} />
-        </Box>
+        <Dialog.CloseButton onClose={onCloseClick} ref={closeButtonRef} />
       </Box>
     </Dialog.Header>
   )
@@ -480,6 +470,16 @@ const Header = styled.div<SxProp>`
   pointer-events: none ${/* Allows clicks to pass through the header in bottom sheets */ ''};
   flex-shrink: 0;
   position: relative;
+
+  a[href],
+  button,
+  input,
+  textarea,
+  select,
+  details,
+  [tabindex]:not([tabindex='-1']) {
+    pointer-events: auto;
+  }
 `
 
 const Title = styled.h1<SxProp>`

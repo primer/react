@@ -128,6 +128,7 @@ export default React.forwardRef<HTMLDivElement, PropsWithChildren<DialogBottomSh
   const dragging = (e: MouseEvent | TouchEvent) => {
     if (!dialogRef.current || !isDragging.current) return
 
+    e.stopPropagation()
     e.preventDefault()
 
     let pageY
