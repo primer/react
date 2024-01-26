@@ -9,8 +9,8 @@ exports[`CounterLabel renders consistently 1`] = `
   font-weight: 600;
   line-height: 1;
   border-radius: 20px;
-  background-color: rgba(175,184,193,0.2);
-  color: #1F2328;
+  background-color: var(--borderColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
+  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
 }
 
 .c0:empty {

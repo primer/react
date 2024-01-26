@@ -30,7 +30,7 @@ exports[`Avatar renders consistently 1`] = `
   flex-shrink: 0;
   height: var(--avatar-stack-size);
   width: var(--avatar-stack-size);
-  box-shadow: 0 0 0 var(--avatar-border-width) #ffffff;
+  box-shadow: 0 0 0 var(--avatar-border-width) var(--bgColor-default,var(--color-canvas-default,#ffffff));
   position: relative;
   overflow: hidden;
 }
@@ -201,7 +201,7 @@ exports[`Avatar respects alignRight props 1`] = `
   flex-shrink: 0;
   height: var(--avatar-stack-size);
   width: var(--avatar-stack-size);
-  box-shadow: 0 0 0 var(--avatar-border-width) #ffffff;
+  box-shadow: 0 0 0 var(--avatar-border-width) var(--bgColor-default,var(--color-canvas-default,#ffffff));
   position: relative;
   overflow: hidden;
 }

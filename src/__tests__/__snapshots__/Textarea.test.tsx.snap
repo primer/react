@@ -4,13 +4,13 @@ exports[`Textarea renders consistently 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #1F2328;
+  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
-  background-color: #ffffff;
-  border: 1px solid var(--control-borderColor-rest,#d0d7de);
+  background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
+  border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
   border-radius: 6px;
   outline: none;
-  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
+  box-shadow: var(--shadow-inset,var(--color-primer-shadow-inset,inset 0 1px 0 rgba(208,215,222,0.2)));
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -33,24 +33,24 @@ exports[`Textarea renders consistently 1`] = `
 }
 
 .c0::-webkit-input-placeholder {
-  color: #6e7781;
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
 }
 
 .c0::-moz-placeholder {
-  color: #6e7781;
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
 }
 
 .c0:-ms-input-placeholder {
-  color: #6e7781;
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
 }
 
 .c0::placeholder {
-  color: #6e7781;
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
 }
 
 .c0:focus-within {
-  border-color: #0969da;
-  outline: 2px solid #0969da;
+  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline-offset: -1px;
 }
 
