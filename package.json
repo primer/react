@@ -94,9 +94,6 @@
     "npm": ">=7"
   },
   "dependencies": {
-    "@github/combobox-nav": "^2.1.5",
-    "@github/markdown-toolbar-element": "^2.1.0",
-    "@github/paste-markdown": "^1.4.0",
     "@github/relative-time-element": "^4.1.2",
     "@lit-labs/react": "^1.1.1",
     "@oddbird/popover-polyfill": "^0.3.1",
