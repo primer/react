@@ -193,7 +193,7 @@ const colors = {
   },
   control: {
     borderColor: {
-      emphasis: 'var(--color-control-border-color-emphasis, #20252c)',
+      emphasis: 'var(--control-borderColor-emphasis, var(--color-control-border-color-emphasis, #20252c))',
     },
   },
   avatar: {
