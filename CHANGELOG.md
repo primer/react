@@ -1,5 +1,16 @@
 # @primer/components
 
+## 36.7.0
+
+### Minor Changes
+
+- [#4157](https://github.com/primer/react/pull/4157) [`aafa257e1`](https://github.com/primer/react/commit/aafa257e1df4e0d73bb328edbfca2f23976d4756) Thanks [@langermank](https://github.com/langermank)! - - Adds CSS variable color values to the legacy Primitive design tokens.
+  - Three values include: the new v8 color CSS variable, a fallback of the old color CSS variable, and the raw value.
+
+### Patch Changes
+
+- [#4193](https://github.com/primer/react/pull/4193) [`c4193d680`](https://github.com/primer/react/commit/c4193d680b9b392bd1e60b1db1dd3efe0119af2d) Thanks [@langermank](https://github.com/langermank)! - Add missing CSS vars to legacy-theme
+
 ## 36.6.0
 
 ### Minor Changes
