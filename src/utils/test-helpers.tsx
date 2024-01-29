@@ -37,3 +37,10 @@ if (typeof document !== 'undefined') {
     this.open = false
   })
 }
+
+// Add a fallback for scrollIntoView if it does not exist in the test
+// environment.
+// eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+if (global.Element.prototype.scrollIntoView === undefined) {
+  global.Element.prototype.scrollIntoView = jest.fn()
+}
