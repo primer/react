@@ -65,6 +65,12 @@
       "type": "'start' | 'end'",
       "defaultValue": "'start'",
       "description": "<div>Whether the \"on\" and \"off\" labels should appear before or after the switch.</div> <div> <Text fontWeight=\"bold\">This should only be changed when the switch's alignment needs to be adjusted.</Text> For example: It needs to be left-aligned because the label appears above it and the caption appears below it. </div>"
+    },
+    {
+      "name": "loadingLabelDelay",
+      "type": "number",
+      "defaultValue": "2000",
+      "description": "When the switch is in the loading state, this value controls the amount of delay in milliseconds before the word \"Loading\" is announced to screen readers."
     }
   ],
   "subcomponents": []
