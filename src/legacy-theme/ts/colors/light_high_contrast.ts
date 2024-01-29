@@ -1,6 +1,6 @@
 const colors = {
   canvasDefaultTransparent: 'var(--bgColor-transparent, var(--color-canvas-default-transparent, rgba(255,255,255,0)))',
-  pageHeaderBg: '#ffffff',
+  pageHeaderBg: 'var(--page-header-bgColor, var(--color-page-header-bg, #ffffff))',
   marketingIcon: {
     primary: 'var(--color-marketing-icon-primary, #1168e3)',
     secondary: 'var(--color-marketing-icon-secondary, #368cf9)',
@@ -8,20 +8,20 @@ const colors = {
   diffBlob: {
     addition: {
       numText: 'var(--diffBlob-addition-fgColor-num, var(--color-diff-blob-addition-num-text, #0e1116))',
-      fg: '#ffffff',
+      fg: 'var(--diffBlob-addition-fgColor-text, var(--color-diff-blob-addition-fg, #ffffff))',
       numBg: 'var(--diffBlob-addition-bgColor-num, var(--color-diff-blob-addition-num-bg, #ccffd8))',
       lineBg: 'var(--diffBlob-addition-bgColor-line, var(--color-diff-blob-addition-line-bg, #e6ffec))',
-      wordBg: '#055d20',
+      wordBg: 'var(--diffBlob-addition-bgColor-word, var(--color-diff-blob-addition-word-bg, #055d20))',
     },
     deletion: {
       numText: 'var(--diffBlob-deletion-fgColor-num, var(--color-diff-blob-deletion-num-text, #0e1116))',
-      fg: '#ffffff',
+      fg: 'var(--diffBlob-deletion-fgColor-text, var(--color-diff-blob-deletion-fg, #ffffff))',
       numBg: 'var(--diffBlob-deletion-bgColor-num, var(--color-diff-blob-deletion-num-bg, #ffd7d5))',
       lineBg: 'var(--diffBlob-deletion-bgColor-line, var(--color-diff-blob-deletion-line-bg, #fff0ee))',
-      wordBg: '#a0111f',
+      wordBg: 'var(--diffBlob-deletion-bgColor-word, var(--color-diff-blob-deletion-word-bg, #a0111f))',
     },
     hunk: {
-      numBg: '#9cd7ff',
+      numBg: 'var(--diffBlob-hunk-bgColor-num, var(--color-diff-blob-hunk-num-bg, #9cd7ff))',
     },
     expander: {
       icon: 'var(--diffBlob-expander-iconColor, var(--color-diff-blob-expander-icon, #0e1116))',
@@ -193,7 +193,7 @@ const colors = {
   },
   control: {
     borderColor: {
-      emphasis: '#20252c',
+      emphasis: 'var(--control-borderColor-emphasis, var(--color-control-border-color-emphasis, #20252c))',
     },
   },
   avatar: {
@@ -204,10 +204,10 @@ const colors = {
     childShadow: 'var(--avatar-shadow, var(--color-avatar-child-shadow, 0 0 0 2px rgba(255,255,255,0.8)))',
   },
   topicTag: {
-    border: '#0349b4',
+    border: 'var(--topicTag-borderColor, var(--color-topic-tag-border, #0349b4))',
   },
   counter: {
-    border: '#20252c',
+    border: 'var(--counter-borderColor, var(--color-counter-border, #20252c))',
   },
   selectMenu: {
     backdropBorder: 'var(--selectMenu-borderColor, var(--color-select-menu-backdrop-border, transparent))',
@@ -222,7 +222,7 @@ const colors = {
   header: {
     text: 'var(--header-fgColor-default, var(--color-header-text, rgba(255,255,255,0.7)))',
     bg: 'var(--header-bgColor, var(--color-header-bg, #0e1116))',
-    divider: '#acb6c0',
+    divider: 'var(--header-borderColor-divider, var(--color-header-divider, #acb6c0))',
     logo: 'var(--header-fgColor-logo, var(--color-header-logo, #ffffff))',
   },
   headerSearch: {
@@ -262,26 +262,26 @@ const colors = {
   },
   btn: {
     text: 'var(--button-default-fgColor-rest, var(--color-btn-text, #0e1116))',
-    bg: '#e7ecf0',
-    border: 'rgba(1,4,9,0.8)',
+    bg: 'var(--button-default-bgColor-rest, var(--color-btn-bg, #e7ecf0))',
+    border: 'var(--button-default-borderColor-rest, var(--color-btn-border, rgba(1,4,9,0.8)))',
     shadow: 'var(--button-default-shadow-resting, var(--color-btn-shadow, 0 1px 0 rgba(1,4,9,0.04)))',
     insetShadow:
       'var(--button-default-shadow-inset, var(--color-btn-inset-shadow, inset 0 1px 0 rgba(255,255,255,0.25)))',
-    hoverBg: '#ced5dc',
+    hoverBg: 'var(--button-default-bgColor-hover, var(--color-btn-hover-bg, #ced5dc))',
     hoverBorder: 'var(--button-default-borderColor-hover, var(--color-btn-hover-border, rgba(1,4,9,0.8)))',
-    activeBg: '#acb6c0',
+    activeBg: 'var(--button-default-bgColor-active, var(--color-btn-active-bg, #acb6c0))',
     activeBorder: 'var(--button-default-borderColor-active, var(--color-btn-active-border, rgba(1,4,9,0.8)))',
-    selectedBg: '#acb6c0',
+    selectedBg: 'var(--button-default-bgColor-selected, var(--color-btn-selected-bg, #acb6c0))',
     counterBg: 'var(--buttonCounter-default-bgColor-rest, var(--color-btn-counter-bg, rgba(1,4,9,0.08)))',
     primary: {
       text: 'var(--button-primary-fgColor-rest, var(--color-btn-primary-text, #ffffff))',
-      bg: '#055d20',
-      border: '#013d14',
+      bg: 'var(--button-primary-bgColor-rest, var(--color-btn-primary-bg, #055d20))',
+      border: 'var(--button-primary-borderColor-rest, var(--color-btn-primary-border, #013d14))',
       shadow: 'var(--shadow-resting-small, var(--color-btn-primary-shadow, 0 1px 0 rgba(1,4,9,0.1)))',
       insetShadow:
         'var(--shadow-highlight, var(--color-btn-primary-inset-shadow, inset 0 1px 0 rgba(255,255,255,0.03)))',
-      hoverBg: '#024c1a',
-      hoverBorder: '#013d14',
+      hoverBg: 'var(--button-primary-bgColor-hover, var(--color-btn-primary-hover-bg, #024c1a))',
+      hoverBorder: 'var(--button-primary-borderColor-hover, var(--color-btn-primary-hover-border, #013d14))',
       selectedBg: 'var(--button-primary-bgColor-active, var(--color-btn-primary-selected-bg, hsla(139,95%,13%,1)))',
       selectedShadow:
         'var(--button-primary-shadow-selected, var(--color-btn-primary-selected-shadow, inset 0 1px 0 rgba(0,35,11,0.2)))',
@@ -294,22 +294,23 @@ const colors = {
       counterBg: 'var(--buttonCounter-primary-bgColor-rest, var(--color-btn-primary-counter-bg, rgba(0,35,11,0.2)))',
     },
     outline: {
-      text: '#023b95',
+      text: 'var(--button-outline-fgColor-rest, var(--color-btn-outline-text, #023b95))',
       hoverText: 'var(--button-outline-fgColor-hover, var(--color-btn-outline-hover-text, #ffffff))',
-      hoverBg: '#0349b4',
-      hoverBorder: '#022f7a',
+      hoverBg: 'var(--button-outline-bgColor-hover, var(--color-btn-outline-hover-bg, #0349b4))',
+      hoverBorder: 'var(--button-outline-borderColor-hover, var(--color-btn-outline-hover-border, #022f7a))',
       hoverShadow: 'var(--shadow-resting-small, var(--color-btn-outline-hover-shadow, 0 1px 0 rgba(1,4,9,0.1)))',
       hoverInsetShadow:
         'var(--shadow-highlight, var(--color-btn-outline-hover-inset-shadow, inset 0 1px 0 rgba(255,255,255,0.03)))',
       hoverCounterBg:
         'var(--buttonCounter-outline-bgColor-hover, var(--color-btn-outline-hover-counter-bg, rgba(255,255,255,0.2)))',
       selectedText: 'var(--button-outline-fgColor-active, var(--color-btn-outline-selected-text, #ffffff))',
-      selectedBg: '#022f7a',
-      selectedBorder: '#022f7a',
+      selectedBg: 'var(--button-outline-bgColor-active, var(--color-btn-outline-selected-bg, #022f7a))',
+      selectedBorder: 'var(--button-outline-borderColor-active, var(--color-btn-outline-selected-border, #022f7a))',
       selectedShadow:
         'var(--button-outline-shadow-selected, var(--color-btn-outline-selected-shadow, inset 0 1px 0 rgba(2,26,74,0.2)))',
-      disabledText: 'rgba(3,73,180,0.5)',
-      disabledBg: '#e7ecf0',
+      disabledText:
+        'var(--button-outline-fgColor-disabled, var(--color-btn-outline-disabled-text, rgba(3,73,180,0.5)))',
+      disabledBg: 'var(--button-outline-bgColor-disabled, var(--color-btn-outline-disabled-bg, #e7ecf0))',
       disabledCounterBg:
         'var(--buttonCounter-outline-bgColor-disabled, var(--color-btn-outline-disabled-counter-bg, rgba(3,73,180,0.05)))',
       counterBg: 'var(--buttonCounter-outline-bgColor-rest, var(--color-btn-outline-counter-bg, #0969da1a))',
@@ -319,26 +320,26 @@ const colors = {
         'var(--buttonCounter-outline-fgColor-disabled, var(--color-btn-outline-disabled-counter-fg, rgba(3,73,180,0.5)))',
     },
     danger: {
-      text: '#86061d',
+      text: 'var(--button-danger-fgColor-rest, var(--color-btn-danger-text, #86061d))',
       hoverText: 'var(--button-danger-fgColor-hover, var(--color-btn-danger-hover-text, #ffffff))',
-      hoverBg: '#a0111f',
-      hoverBorder: '#6e011a',
+      hoverBg: 'var(--button-danger-bgColor-hover, var(--color-btn-danger-hover-bg, #a0111f))',
+      hoverBorder: 'var(--button-danger-borderColor-hover, var(--color-btn-danger-hover-border, #6e011a))',
       hoverShadow: 'var(--shadow-resting-small, var(--color-btn-danger-hover-shadow, 0 1px 0 rgba(1,4,9,0.1)))',
       hoverInsetShadow:
         'var(--shadow-highlight, var(--color-btn-danger-hover-inset-shadow, inset 0 1px 0 rgba(255,255,255,0.03)))',
       hoverCounterBg:
         'var(--buttonCounter-danger-bgColor-hover, var(--color-btn-danger-hover-counter-bg, rgba(255,255,255,0.2)))',
       selectedText: 'var(--button-danger-fgColor-active, var(--color-btn-danger-selected-text, #ffffff))',
-      selectedBg: '#6e011a',
-      selectedBorder: '#6e011a',
+      selectedBg: 'var(--button-danger-bgColor-active, var(--color-btn-danger-selected-bg, #6e011a))',
+      selectedBorder: 'var(--button-danger-borderColor-active, var(--color-btn-danger-selected-border, #6e011a))',
       selectedShadow:
         'var(--button-danger-shadow-selected, var(--color-btn-danger-selected-shadow, inset 0 1px 0 rgba(67,0,17,0.2)))',
       disabledText: 'var(--button-danger-fgColor-disabled, var(--color-btn-danger-disabled-text, rgba(160,17,31,0.5)))',
-      disabledBg: '#e7ecf0',
+      disabledBg: 'var(--button-danger-bgColor-disabled, var(--color-btn-danger-disabled-bg, #e7ecf0))',
       disabledCounterBg:
         'var(--buttonCounter-danger-bgColor-disabled, var(--color-btn-danger-disabled-counter-bg, rgba(160,17,31,0.05)))',
       counterBg: 'var(--buttonCounter-danger-bgColor-rest, var(--color-btn-danger-counter-bg, rgba(160,17,31,0.1)))',
-      icon: '#86061d',
+      icon: 'var(--button-danger-iconColor-rest, var(--color-btn-danger-icon, #86061d))',
       hoverIcon: 'var(--button-danger-iconColor-hover, var(--color-btn-danger-hover-icon, #ffffff))',
       counterFg: 'var(--buttonCounter-danger-fgColor-rest, var(--color-btn-danger-counter-fg, #86061d))',
       hoverCounterFg: 'var(--buttonCounter-danger-fgColor-hover, var(--color-btn-danger-hover-counter-fg, #ffffff))',
@@ -355,33 +356,36 @@ const colors = {
     borderHover: 'var(--underlineNav-borderColor-hover, var(--color-underlinenav-border-hover, rgba(172,182,192,0.2)))',
   },
   actionListItem: {
-    inlineDivider: '#88929d',
+    inlineDivider: 'var(--borderColor-muted, var(--color-action-list-item-inline-divider, #88929d))',
     default: {
-      hoverBg: '#e7ecf0',
-      hoverBorder: '#88929d',
-      activeBg: '#ced5dc',
-      activeBorder: '#20252c',
-      selectedBg: '#ced5dc',
+      hoverBg: 'var(--control-transparent-bgColor-hover, var(--color-action-list-item-default-hover-bg, #e7ecf0))',
+      hoverBorder:
+        'var(--control-transparent-borderColor-hover, var(--color-action-list-item-default-hover-border, #88929d))',
+      activeBg: 'var(--control-transparent-bgColor-active, var(--color-action-list-item-default-active-bg, #ced5dc))',
+      activeBorder:
+        'var(--control-transparent-borderColor-active, var(--color-action-list-item-default-active-border, #20252c))',
+      selectedBg:
+        'var(--control-transparent-bgColor-selected, var(--color-action-list-item-default-selected-bg, #ced5dc))',
     },
     danger: {
-      hoverBg: '#a0111f',
-      activeBg: '#6e011a',
-      hoverText: '#ffffff',
+      hoverBg: 'var(--control-danger-bgColor-hover, var(--color-action-list-item-danger-hover-bg, #a0111f))',
+      activeBg: 'var(--control-danger-bgColor-active, var(--color-action-list-item-danger-active-bg, #6e011a))',
+      hoverText: 'var(--control-danger-fgColor-hover, var(--color-action-list-item-danger-hover-text, #ffffff))',
     },
   },
   switchTrack: {
-    bg: '#66707b',
-    hoverBg: 'hsla(211,9%,47%,1)',
-    activeBg: 'hsla(211,9%,49%,1)',
+    bg: 'var(--controlTrack-bgColor-rest, var(--color-switch-track-bg, #66707b))',
+    hoverBg: 'var(--controlTrack-bgColor-hover, var(--color-switch-track-hover-bg, hsla(211,9%,47%,1)))',
+    activeBg: 'var(--controlTrack-bgColor-active, var(--color-switch-track-active-bg, hsla(211,9%,49%,1)))',
     disabledBg: 'var(--controlTrack-bgColor-disabled, var(--color-switch-track-disabled-bg, #88929d))',
-    fg: '#ffffff',
-    disabledFg: '#ffffff',
+    fg: 'var(--controlTrack-fgColor-rest, var(--color-switch-track-fg, #ffffff))',
+    disabledFg: 'var(--controlTrack-fgColor-disabled, var(--color-switch-track-disabled-fg, #ffffff))',
     border: 'var(--controlTrack-borderColor-rest, var(--color-switch-track-border, transparent))',
     checked: {
       bg: 'var(--control-checked-bgColor-rest, var(--color-switch-track-checked-bg, #0349b4))',
       hoverBg: 'var(--control-checked-bgColor-hover, var(--color-switch-track-checked-hover-bg, #0860CA))',
       activeBg: 'var(--control-checked-bgColor-active, var(--color-switch-track-checked-active-bg, #0757BA))',
-      fg: '#ffffff',
+      fg: 'var(--control-checked-fgColor-rest, var(--color-switch-track-checked-fg, #ffffff))',
       disabledFg: 'var(--control-checked-fgColor-disabled, var(--color-switch-track-checked-disabled-fg, #ffffff))',
       border: 'var(--borderColor-transparent, var(--color-switch-track-checked-border, transparent))',
     },
@@ -389,11 +393,11 @@ const colors = {
   switchKnob: {
     bg: 'var(--controlKnob-bgColor-rest, var(--color-switch-knob-bg, #ffffff))',
     disabledBg: 'var(--controlKnob-bgColor-disabled, var(--color-switch-knob-disabled-bg, #e7ecf0))',
-    border: '#20252c',
+    border: 'var(--controlKnob-borderColor-rest, var(--color-switch-knob-border, #20252c))',
     checked: {
       bg: 'var(--controlKnob-bgColor-checked, var(--color-switch-knob-checked-bg, #ffffff))',
       disabledBg: 'var(--controlKnob-bgColor-disabled, var(--color-switch-knob-checked-disabled-bg, #e7ecf0))',
-      border: '#0349b4',
+      border: 'var(--controlKnob-borderColor-checked, var(--color-switch-knob-checked-border, #0349b4))',
     },
   },
   segmentedControl: {
@@ -414,28 +418,28 @@ const colors = {
   },
   treeViewItem: {
     chevron: {
-      hoverBg: '#ced5dc',
+      hoverBg: 'var(--control-transparent-bgColor-hover, var(--color-tree-view-item-chevron-hover-bg, #ced5dc))',
     },
     directory: {
       fill: 'var(--treeViewItem-leadingVisual-bgColor-rest, var(--color-tree-view-item-chevron-directory-fill, #368cf9))',
     },
   },
   fg: {
-    default: '#0e1116',
-    muted: '#0e1116',
+    default: 'var(--fgColor-default, var(--color-fg-default, #0e1116))',
+    muted: 'var(--fgColor-muted, var(--color-fg-muted, #0e1116))',
     subtle: 'var(--fgColor-muted, var(--color-fg-subtle, #66707b))',
     onEmphasis: 'var(--fgColor-onEmphasis, var(--color-fg-on-emphasis, #ffffff))',
   },
   canvas: {
     default: 'var(--bgColor-default, var(--color-canvas-default, #ffffff))',
     overlay: 'var(--overlay-bgColor, var(--color-canvas-overlay, #ffffff))',
-    inset: '#ffffff',
-    subtle: '#e7ecf0',
+    inset: 'var(--bgColor-inset, var(--color-canvas-inset, #ffffff))',
+    subtle: 'var(--bgColor-muted, var(--color-canvas-subtle, #e7ecf0))',
   },
   border: {
-    default: '#20252c',
-    muted: '#88929d',
-    subtle: 'rgba(1,4,9,0.8)',
+    default: 'var(--borderColor-default, var(--color-border-default, #20252c))',
+    muted: 'var(--borderColor-muted, var(--color-border-muted, #88929d))',
+    subtle: 'var(--borderColor-muted, var(--color-border-subtle, rgba(1,4,9,0.8)))',
   },
   shadow: {
     small: 'var(--shadow-resting-small, var(--color-shadow-small, 0 1px 0 rgba(1,4,9,0.04)))',
@@ -447,36 +451,36 @@ const colors = {
     emphasisPlus: 'var(--bgColor-emphasis, var(--color-neutral-emphasis-plus, #0e1116))',
     emphasis: 'var(--bgColor-neutral-emphasis, var(--color-neutral-emphasis, #66707b))',
     muted: 'var(--borderColor-neutral-muted, var(--color-neutral-muted, rgba(172,182,192,0.2)))',
-    subtle: '#e7ecf0',
+    subtle: 'var(--bgColor-neutral-muted, var(--color-neutral-subtle, #e7ecf0))',
   },
   accent: {
     fg: 'var(--fgColor-accent, var(--color-accent-fg, #0349b4))',
     emphasis: 'var(--bgColor-accent-emphasis, var(--color-accent-emphasis, #0349b4))',
-    muted: '#368cf9',
+    muted: 'var(--borderColor-accent-muted, var(--color-accent-muted, #368cf9))',
     subtle: 'var(--bgColor-accent-muted, var(--color-accent-subtle, #dff7ff))',
   },
   success: {
     fg: 'var(--fgColor-success, var(--color-success-fg, #055d20))',
-    emphasis: '#055d20',
-    muted: '#26a148',
+    emphasis: 'var(--bgColor-success-emphasis, var(--color-success-emphasis, #055d20))',
+    muted: 'var(--borderColor-success-muted, var(--color-success-muted, #26a148))',
     subtle: 'var(--bgColor-success-muted, var(--color-success-subtle, #d2fedb))',
   },
   attention: {
     fg: 'var(--fgColor-attention, var(--color-attention-fg, #744500))',
-    emphasis: '#744500',
-    muted: '#b58407',
+    emphasis: 'var(--bgColor-attention-emphasis, var(--color-attention-emphasis, #744500))',
+    muted: 'var(--borderColor-attention-muted, var(--color-attention-muted, #b58407))',
     subtle: 'var(--bgColor-attention-muted, var(--color-attention-subtle, #fcf7be))',
   },
   severe: {
     fg: 'var(--fgColor-severe, var(--color-severe-fg, #873800))',
     emphasis: 'var(--bgColor-severe-emphasis, var(--color-severe-emphasis, #873800))',
-    muted: '#dc6d1a',
+    muted: 'var(--borderColor-severe-muted, var(--color-severe-muted, #dc6d1a))',
     subtle: 'var(--bgColor-severe-muted, var(--color-severe-subtle, #fff2d5))',
   },
   danger: {
     fg: 'var(--fgColor-danger, var(--color-danger-fg, #d1242f))',
     emphasis: 'var(--borderColor-danger-emphasis, var(--color-danger-emphasis, #a0111f))',
-    muted: '#ee5a5d',
+    muted: 'var(--borderColor-danger-muted, var(--color-danger-muted, #ee5a5d))',
     subtle: 'var(--bgColor-danger-muted, var(--color-danger-subtle, #fff0ee))',
   },
   open: {
@@ -494,13 +498,13 @@ const colors = {
   done: {
     fg: 'var(--fgColor-done, var(--color-done-fg, #622cbc))',
     emphasis: 'var(--bgColor-done-emphasis, var(--color-done-emphasis, #622cbc))',
-    muted: '#a371f7',
+    muted: 'var(--borderColor-done-muted, var(--color-done-muted, #a371f7))',
     subtle: 'var(--bgColor-done-muted, var(--color-done-subtle, #faf0fe))',
   },
   sponsors: {
     fg: 'var(--fgColor-sponsors, var(--color-sponsors-fg, #971368))',
     emphasis: 'var(--bgColor-sponsors-emphasis, var(--color-sponsors-emphasis, #971368))',
-    muted: '#ed4baf',
+    muted: 'var(--borderColor-sponsors-muted, var(--color-sponsors-muted, #ed4baf))',
     subtle: 'var(--bgColor-sponsors-muted, var(--color-sponsors-subtle, #feeff7))',
   },
   primer: {

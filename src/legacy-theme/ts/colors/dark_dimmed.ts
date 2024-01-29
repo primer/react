@@ -193,7 +193,7 @@ const colors = {
   },
   control: {
     borderColor: {
-      emphasis: 'var(--color-control-border-color-emphasis, #606771)',
+      emphasis: 'var(--control-borderColor-emphasis, var(--color-control-border-color-emphasis, #606771))',
     },
   },
   avatar: {
@@ -430,8 +430,8 @@ const colors = {
     },
   },
   fg: {
-    default: '#adbac7',
-    muted: '#768390',
+    default: 'var(--fgColor-default, var(--color-fg-default, #adbac7))',
+    muted: 'var(--fgColor-muted, var(--color-fg-muted, #768390))',
     subtle: 'var(--fgColor-muted, var(--color-fg-subtle, #636e7b))',
     onEmphasis: 'var(--fgColor-onEmphasis, var(--color-fg-on-emphasis, #cdd9e5))',
   },
@@ -459,7 +459,7 @@ const colors = {
     subtle: 'var(--bgColor-neutral-muted, var(--color-neutral-subtle, rgba(99,110,123,0.1)))',
   },
   accent: {
-    fg: '#539bf5',
+    fg: 'var(--fgColor-acccent, var(--color-accent-fg, #539bf5))',
     emphasis: 'var(--bgColor-accent-emphasis, var(--color-accent-emphasis, #316dca))',
     muted: 'var(--borderColor-accent-muted, var(--color-accent-muted, rgba(65,132,228,0.4)))',
     subtle: 'var(--bgColor-accent-muted, var(--color-accent-subtle, rgba(65,132,228,0.1)))',
