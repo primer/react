@@ -48,7 +48,7 @@ exports[`SegmentedControl renders consistently 1`] = `
   flex-grow: 1;
   margin-top: -1px;
   margin-bottom: -1px;
-  --separator-color: #d0d7de;
+  --separator-color: var(--borderColor-default,var(--color-border-default,#d0d7de));
 }
 
 .c3:not(:last-child) {
@@ -100,8 +100,8 @@ exports[`SegmentedControl renders consistently 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  background-color: #ffffff;
-  border-color: #8c959f;
+  background-color: var(--controlKnob-bgColor-rest,var(--color-segmented-control-button-bg,#ffffff));
+  border-color: var(--controlKnob-borderColor-rest,var(--color-segmented-control-button-hover-active-selected-border,#8c959f));
   border-style: solid;
   border-width: 1px;
   border-radius: var(--segmented-control-outer-radius);
@@ -119,7 +119,7 @@ exports[`SegmentedControl renders consistently 1`] = `
 }
 
 .c2 svg {
-  fill: #656d76;
+  fill: var(--fgColor-muted,var(--color-fg-muted,#656d76));
 }
 
 .c2:focus:focus-visible:not(:last-child):after {
@@ -182,15 +182,15 @@ exports[`SegmentedControl renders consistently 1`] = `
 }
 
 .c4 svg {
-  fill: #656d76;
+  fill: var(--fgColor-muted,var(--color-fg-muted,#656d76));
 }
 
 .c4:hover .segmentedControl-content {
-  background-color: rgba(175,184,193,0.2);
+  background-color: var(--controlTrack-bgColor-hover,var(--color-segmented-control-button-hover-bg,rgba(175,184,193,0.2)));
 }
 
 .c4:active .segmentedControl-content {
-  background-color: rgba(175,184,193,0.4);
+  background-color: var(--controlTrack-bgColor-active,var(--color-segmented-control-button-hover-active-bg,rgba(175,184,193,0.4)));
 }
 
 .c4:focus:focus-visible:not(:last-child):after {
@@ -253,15 +253,15 @@ exports[`SegmentedControl renders consistently 1`] = `
 }
 
 .c5 svg {
-  fill: #656d76;
+  fill: var(--fgColor-muted,var(--color-fg-muted,#656d76));
 }
 
 .c5:hover .segmentedControl-content {
-  background-color: rgba(175,184,193,0.2);
+  background-color: var(--controlTrack-bgColor-hover,var(--color-segmented-control-button-hover-bg,rgba(175,184,193,0.2)));
 }
 
 .c5:active .segmentedControl-content {
-  background-color: rgba(175,184,193,0.4);
+  background-color: var(--controlTrack-bgColor-active,var(--color-segmented-control-button-hover-active-bg,rgba(175,184,193,0.4)));
 }
 
 .c5:focus:focus-visible:not(:last-child):after {
@@ -283,7 +283,7 @@ exports[`SegmentedControl renders consistently 1`] = `
 }
 
 .c0 {
-  background-color: #eaeef2;
+  background-color: var(--controlTrack-bgColor-rest,var(--color-segmented-control-bg,#eaeef2));
   border-radius: 6px;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;

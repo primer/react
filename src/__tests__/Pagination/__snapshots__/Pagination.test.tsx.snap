@@ -12,7 +12,7 @@ exports[`Pagination renders consistently 1`] = `
   padding: 0.5rem calc((2rem - 1.25rem) / 2);
   font-style: normal;
   line-height: 1;
-  color: #1F2328;
+  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   text-align: center;
   white-space: nowrap;
   vertical-align: middle;
@@ -38,7 +38,7 @@ exports[`Pagination renders consistently 1`] = `
 .c2:focus {
   -webkit-text-decoration: none;
   text-decoration: none;
-  background-color: rgba(208,215,222,0.32);
+  background-color: var(--control-transparent-bgColor-hover,var(--color-action-list-item-default-hover-bg,rgba(208,215,222,0.32)));
   outline: 0;
   -webkit-transition-duration: 0.1s;
   transition-duration: 0.1s;
@@ -46,7 +46,7 @@ exports[`Pagination renders consistently 1`] = `
 
 .c2:focus:not(:disabled) {
   box-shadow: none;
-  outline: 2px solid #0969da;
+  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline-offset: 0;
 }
 
@@ -56,29 +56,29 @@ exports[`Pagination renders consistently 1`] = `
 
 .c2:focus-visible:not(:disabled) {
   box-shadow: none;
-  outline: 2px solid #0969da;
+  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline-offset: 0;
 }
 
 .c2:active {
-  border-color: hsla(210,18%,87%,1);
+  border-color: var(--borderColor-muted,var(--color-border-muted,hsla(210,18%,87%,1)));
 }
 
 .c2[rel='prev'],
 .c2[rel='next'] {
-  color: #0969da;
+  color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
 }
 
 .c2[aria-current],
 .c2[aria-current]:hover {
-  color: #ffffff;
-  background-color: #0969da;
+  color: var(--fgColor-onEmphasis,var(--color-fg-on-emphasis,#ffffff));
+  background-color: var(--bgColor-accent-emphasis,var(--color-accent-emphasis,#0969da));
   border-color: transparent;
 }
 
 .c2[aria-disabled],
 .c2[aria-disabled]:hover {
-  color: #8c959f;
+  color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
   cursor: default;
   background-color: transparent;
   border-color: transparent;
@@ -92,7 +92,7 @@ exports[`Pagination renders consistently 1`] = `
 .c2[aria-disabled]:hover,
 .c2[role='presentation'],
 .c2[role='presentation']:hover {
-  color: #8c959f;
+  color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
   cursor: default;
   background-color: transparent;
 }
