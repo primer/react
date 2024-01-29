@@ -233,7 +233,7 @@ export const Responsive = () => {
       {isOpen && (
         <Dialog
           title="Your title"
-          onClose={() => {}}
+          onClose={() => setIsOpen(false)}
           type={{narrow: 'full-screen', regular: 'default', wide: 'default'}}
           footerButtons={[
             {buttonType: 'normal', content: 'Cancel', onClick: () => {}},
