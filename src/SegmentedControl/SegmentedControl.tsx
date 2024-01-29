@@ -4,14 +4,186 @@ import SegmentedControlIconButton, {SegmentedControlIconButtonProps} from './Seg
 import {ActionList} from '../ActionList'
 import {ActionMenu} from '../ActionMenu'
 import {useTheme} from '../ThemeProvider'
-import sx, {merge, SxProp} from '../sx'
+import sx, {SxProp} from '../sx'
 import {ResponsiveValue, useResponsiveValue} from '../hooks/useResponsiveValue'
 import {WidthOnlyViewportRangeKeys} from '../utils/types/ViewportRangeKeys'
 import styled from 'styled-components'
 import {defaultSxProp} from '../utils/defaultSxProp'
+import {get} from '../constants'
 
-// Needed because passing a ref to `Box` causes a type error
-const SegmentedControlList = styled.ul`
+const StyledSegmentedControlList = styled.ul`
+  --segmentedControl-item-padding: var(--control-small-paddingBlock);
+
+  background-color: var(--controlTrack-bgColor-rest, ${get('colors.segmentedControl.bg')});
+  border-radius: var(--borderRadius-medium);
+  display: inline-flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-width: 100%;
+
+  &[data-icon-only='true'] {
+    [data-component='SegmentedControlButton'] {
+      width: 100%;
+      padding-inline: 0 !important;
+    }
+  }
+
+  /* sizes */
+
+  &[data-size='small'] {
+    --segmentedControl-item-padding: var(--control-xsmall-paddingBlock);
+    height: var(--control-small-size);
+
+    [data-component='SegmentedControlItem'] [data-component='SegmentedControlButton'] {
+      padding-inline: calc(var(--control-xsmall-paddingInline-normal) - var(--segmentedControl-item-padding));
+    }
+
+    &[data-icon-only='true'] [data-component='SegmentedControlItem'] {
+      width: var(--control-small-size);
+    }
+
+    [data-component='SegmentedControlLeadingVisual'] {
+      margin-right: var(--control-small-gap, 0.25rem);
+    }
+  }
+
+  &[data-size='medium'] {
+    height: var(--control-medium-size);
+
+    &[data-icon-only='true'] [data-component='SegmentedControlItem'] {
+      width: var(--control-medium-size);
+    }
+
+    [data-component='SegmentedControlLeadingVisual'] {
+      margin-right: var(--control-medium-gap, 0.5rem);
+    }
+  }
+
+  /* item */
+
+  [data-component='SegmentedControlItem'] {
+    position: relative;
+    display: inline-flex;
+    justify-content: center;
+    border: var(--borderWidth-thin) solid transparent;
+    border-radius: var(--borderRadius-medium);
+    padding: var(--segmentedControl-item-padding);
+    flex: 0 1 auto;
+    min-width: 0;
+
+    /* button color overrides */
+    [data-component='SegmentedControlButton'] {
+      &:hover:not(:disabled) {
+        background-color: var(--controlTrack-bgColor-hover, ${get('colors.segmentedControl.button.hover.bg')});
+      }
+
+      &:active:not(:disabled) {
+        background-color: var(--controlTrack-bgColor-active, ${get('colors.segmentedControl.button.active.bg')});
+      }
+    }
+
+    /* Selected ---------------------------------------- */
+    &[data-selected='true'] {
+      background-color: var(--controlKnob-bgColor-rest, ${get('colors.segmentedControl.button.bg')});
+      border-color: var(--controlKnob-borderColor-rest, ${get('colors.segmentedControl.button.selected.border')});
+
+      [data-component='SegmentedControlButton'] {
+        font-weight: var(--base-text-weight-semibold);
+
+        &:hover:not(:disabled) {
+          background-color: transparent;
+        }
+      }
+
+      &::before {
+        border-color: transparent !important;
+      }
+
+      & + [data-component='SegmentedControlItem']::before {
+        border-color: transparent;
+      }
+    }
+
+    /* renders a visibly hidden "copy" of the text in bold, reserving box space for when text becomes bold on selected */
+    [data-component='SegmentedControlLabel'][data-content]::before {
+      display: block;
+      height: 0;
+      font-weight: var(--base-text-weight-semibold);
+      visibility: hidden;
+      content: attr(data-content);
+    }
+
+    /* Separator lines */
+    &:not(:first-child) {
+      &::before {
+        position: absolute;
+        inset: 0 0 0 -1px;
+        margin-top: var(--control-medium-paddingBlock);
+        margin-bottom: var(--control-medium-paddingBlock);
+        content: '';
+        border-left: var(--borderWidth-thin) solid var(--borderColor-default, ${get('colors.border.default')});
+      }
+    }
+
+    /* Button ----------------------------------------- */
+    [data-component='SegmentedControlButton'] {
+      background-color: transparent;
+      min-height: 100%;
+      min-width: 100%;
+      border: 0;
+      font-weight: var(--base-text-weight-normal);
+      border-radius: calc(var(--borderRadius-medium) - var(--segmentedControl-item-padding) / 2);
+      padding-inline: calc(var(--control-medium-paddingInline-normal) - var(--segmentedControl-item-padding));
+      cursor: pointer;
+      z-index: 1;
+
+      &:focus-visible {
+        outline-offset: calc(var(--segmentedControl-item-padding) - var(--borderWidth-thin));
+        border-radius: calc(var(--borderRadius-medium) - var(--segmentedControl-item-padding) / 1);
+      }
+
+      svg {
+        fill: var(--fgColor-muted, ${get('colors.fg.muted')});
+      }
+
+      &:hover:not(:disabled) {
+        background-color: var(--controlTrack-bgColor-hover, ${get('colors.segmentedControl.button.hover.bg')});
+
+        svg {
+          fill: var(--fgColor-default, ${get('colors.fg.default')});
+        }
+      }
+    }
+
+    [data-component='SegmentedControlButtonContent'] {
+      align-items: center;
+      display: flex;
+    }
+
+    [data-component='SegmentedControlLabel'] {
+      color: var(--button-default-fgColor-rest, ${get('colors.btn.text')});
+      /* use ellipsis with the assumption that icon only variant will be used when not enough space is available */
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+
+  /* fullWidth */
+  &[data-full-width='true'] {
+    display: flex;
+
+    [data-component='SegmentedControlItem'] {
+      flex: 1;
+      justify-content: center;
+    }
+
+    [data-component='SegmentedControlButtonContent'] {
+      justify-content: center;
+    }
+  }
+
   ${sx};
 `
 
@@ -29,25 +201,14 @@ type SegmentedControlProps = {
   variant?: 'default' | Partial<Record<WidthOnlyViewportRangeKeys, 'hideLabels' | 'dropdown' | 'default'>>
 } & SxProp
 
-const getSegmentedControlStyles = (props: {isFullWidth?: boolean; size?: SegmentedControlProps['size']}) => ({
-  backgroundColor: 'segmentedControl.bg',
-  borderRadius: 2,
-  display: props.isFullWidth ? 'flex' : 'inline-flex',
-  fontSize: props.size === 'small' ? 0 : 1,
-  height: props.size === 'small' ? '28px' : '32px', // TODO: use primitive `control.{small|medium}.size` when it is available
-  margin: 0,
-  padding: 0,
-  width: props.isFullWidth ? '100%' : undefined,
-})
-
 const Root: React.FC<React.PropsWithChildren<SegmentedControlProps>> = ({
   'aria-label': ariaLabel,
   'aria-labelledby': ariaLabelledby,
   children,
   fullWidth,
   onChange,
-  size,
-  sx: sxProp = defaultSxProp,
+  size = 'medium',
+  sx: listSxProp = defaultSxProp,
   variant = 'default',
   ...rest
 }) => {
@@ -92,7 +253,9 @@ const Root: React.FC<React.PropsWithChildren<SegmentedControlProps>> = ({
 
     return React.isValidElement<SegmentedControlIconButtonProps>(childArg) ? childArg.props['aria-label'] : null
   }
-  const listSx = merge(getSegmentedControlStyles({isFullWidth, size}), sxProp as SxProp)
+  const onlyIconButtonChildren = React.Children.toArray(children).every(
+    child => React.isValidElement<SegmentedControlIconButtonProps>(child) && child.type === SegmentedControlIconButton,
+  )
 
   if (!ariaLabel && !ariaLabelledby) {
     // eslint-disable-next-line no-console
@@ -141,11 +304,14 @@ const Root: React.FC<React.PropsWithChildren<SegmentedControlProps>> = ({
     </>
   ) : (
     // Render a segmented control
-    <SegmentedControlList
-      sx={listSx}
+    <StyledSegmentedControlList
+      sx={listSxProp}
       aria-label={ariaLabel}
       aria-labelledby={ariaLabelledby}
       ref={segmentedControlContainerRef}
+      data-icon-only={onlyIconButtonChildren || responsiveVariant === 'hideLabels'}
+      data-size={size}
+      data-full-width={isFullWidth}
       {...rest}
     >
       {React.Children.map(children, (child, index) => {
@@ -184,7 +350,7 @@ const Root: React.FC<React.PropsWithChildren<SegmentedControlProps>> = ({
             children: childPropsChildren,
             ...restChildProps
           } = child.props
-          const {sx: sharedSxProp, ...restSharedChildProps} = sharedChildProps
+
           if (!leadingIcon) {
             // eslint-disable-next-line no-console
             console.warn('A `leadingIcon` prop is required when hiding visible labels')
@@ -193,14 +359,8 @@ const Root: React.FC<React.PropsWithChildren<SegmentedControlProps>> = ({
               <SegmentedControlIconButton
                 aria-label={childAriaLabel || childPropsChildren}
                 icon={leadingIcon}
-                sx={
-                  {
-                    ...sharedSxProp,
-                    // setting width here avoids having to pass `isFullWidth` directly to child components
-                    width: !isFullWidth ? '32px' : '100%', // TODO: use primitive `control.medium.size` when it is available instead of '32px'
-                  } as React.CSSProperties
-                }
-                {...restSharedChildProps}
+                data-component="SegmentedControlButton"
+                {...sharedChildProps}
                 {...restChildProps}
               />
             )
@@ -210,7 +370,7 @@ const Root: React.FC<React.PropsWithChildren<SegmentedControlProps>> = ({
         // Render the children as-is and add the shared child props
         return React.cloneElement(child, sharedChildProps)
       })}
-    </SegmentedControlList>
+    </StyledSegmentedControlList>
   )
 }
 
