@@ -275,7 +275,7 @@ const colors = {
     primary: {
       text: 'var(--button-primary-fgColor-rest, var(--color-btn-primary-text, #0a0c10))',
       bg: 'var(--button-primary-bgColor-rest, var(--color-btn-primary-bg, #09b43a))',
-      border: 'var(--button-primary-borderColor-rest, var(--color-btn-primary-border, #4ae168',
+      border: 'var(--button-primary-borderColor-rest, var(--color-btn-primary-border, #4ae168))',
       shadow: 'var(--shadow-resting-small, var(--color-btn-primary-shadow, 0 0 transparent))',
       insetShadow: 'var(--shadow-highlight, var(--color-btn-primary-inset-shadow, 0 0 transparent))',
       hoverBg: 'var(--button-primary-bgColor-hover, var(--color-btn-primary-hover-bg, #26cd4d))',
