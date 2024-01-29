@@ -193,7 +193,7 @@ const colors = {
   },
   control: {
     borderColor: {
-      emphasis: 'var(--color-control-border-color-emphasis, #606771)',
+      emphasis: 'var(--control-borderColor-emphasis, var(--color-control-border-color-emphasis, #606771))',
     },
   },
   avatar: {
@@ -298,10 +298,9 @@ const colors = {
       hoverBg: 'var(--button-outline-bgColor-hover, var(--color-btn-outline-hover-bg, #30363d))',
       hoverBorder:
         'var(--button-outline-borderColor-hover, var(--color-btn-outline-hover-border, rgba(240,246,252,0.1)))',
-      hoverShadow:
-        'var(--shadow-resting-small, var(--color-btn-outline-hover-shadow, 0 1px 0 rgba(1,4,9,0.1)))// HI_KATIE: no matches',
+      hoverShadow: 'var(--shadow-resting-small, var(--color-btn-outline-hover-shadow, 0 1px 0 rgba(1,4,9,0.1)))',
       hoverInsetShadow:
-        'var(--shadow-highlight, var(--color-btn-outline-hover-inset-shadow, inset 0 1px 0 rgba(255,255,255,0.03)))// HI_KATIE: no matches',
+        'var(--shadow-highlight, var(--color-btn-outline-hover-inset-shadow, inset 0 1px 0 rgba(255,255,255,0.03)))',
       hoverCounterBg:
         'var(--buttonCounter-outline-bgColor-hover, var(--color-btn-outline-hover-counter-bg, rgba(5,29,77,0.2)))',
       selectedText: 'var(--button-outline-fgColor-active, var(--color-btn-outline-selected-text, #ffffff))',

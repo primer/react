@@ -8,29 +8,29 @@ const colors = {
   diffBlob: {
     addition: {
       numText: 'var(--diffBlob-addition-fgColor-num, var(--color-diff-blob-addition-num-text, #f0f3f6))',
-      fg: '#0a0c10',
+      fg: 'var(--diffBlob-addition-fgColor-text, var(--color-diff-blob-addition-fg, #0a0c10))',
       numBg: 'var(--diffBlob-addition-bgColor-num, var(--color-diff-blob-addition-num-bg, rgba(38,205,77,0.3)))',
       lineBg: 'var(--diffBlob-addition-bgColor-line, var(--color-diff-blob-addition-line-bg, rgba(9,180,58,0.15)))',
       wordBg: 'var(--diffBlob-addition-bgColor-word, var(--color-diff-blob-addition-word-bg, #09b43a))',
     },
     deletion: {
       numText: 'var(--diffBlob-deletion-fgColor-num, var(--color-diff-blob-deletion-num-text, #f0f3f6))',
-      fg: '#0a0c10',
+      fg: 'var(--diffBlob-deletion-fgColor-text, var(--color-diff-blob-deletion-fg, #0a0c10))',
       numBg: 'var(--diffBlob-deletion-bgColor-num, var(--color-diff-blob-deletion-num-bg, rgba(255,106,105,0.3)))',
       lineBg: 'var(--diffBlob-deletion-bgColor-line, var(--color-diff-blob-deletion-line-bg, rgba(255,106,105,0.1)))',
       wordBg: 'var(--diffBlob-deletion-bgColor-word, var(--color-diff-blob-deletion-word-bg, #ff6a69))',
     },
     hunk: {
-      numBg: 'rgba(64,158,255,0.4)',
+      numBg: 'var(--diffBlob-hunk-bgColor-num, var(--color-diff-blob-hunk-num-bg, rgba(64,158,255,0.4)))',
     },
     expander: {
-      icon: '#f0f3f6',
+      icon: 'var(--diffBlob-expander-iconColor, var(--color-diff-blob-expander-icon, #f0f3f6))',
     },
     selectedLineHighlightMixBlendMode: 'var(--color-diff-blob-selected-line-highlight-mix-blend-mode, screen)',
   },
   diffstat: {
-    deletionBorder: '#ffb1af',
-    additionBorder: '#4ae168',
+    deletionBorder: 'var(--color-diffstat-deletion-border, #ffb1af)',
+    additionBorder: 'var(--color-diffstat-addition-border, #4ae168)',
     additionBg: 'var(--diffStat-addition-bgColor, var(--color-diffstat-addition-bg, #26cd4d))',
   },
   searchKeyword: {
@@ -80,7 +80,7 @@ const colors = {
       'var(--codeMirror-gutterMarker-fgColor-muted, var(--color-codemirror-guttermarker-subtle-text, #9ea7b3))',
     linenumberText: 'var(--codeMirror-lineNumber-fgColor, var(--color-codemirror-linenumber-text, #f0f3f6))',
     cursor: 'var(--codeMirror-cursor-fgColor, var(--color-codemirror-cursor, #f0f3f6))',
-    selectionBg: 'rgba(64,158,255,0.4)',
+    selectionBg: 'var(--codeMirror-selection-bgColor, var(--color-codemirror-selection-bg, rgba(64,158,255,0.4)))',
     activelineBg: 'var(--codeMirror-activeline-bgColor, var(--color-codemirror-activeline-bg, rgba(158,167,179,0.1)))',
     matchingbracketText:
       'var(--codeMirror-matchingBracket-fgColor, var(--color-codemirror-matchingbracket-text, #f0f3f6))',
@@ -193,18 +193,18 @@ const colors = {
   },
   control: {
     borderColor: {
-      emphasis: '#9ea7b3',
+      emphasis: 'var(--control-borderColor-emphasis, var(--color-control-border-color-emphasis, #9ea7b3))',
     },
   },
   avatar: {
     bg: 'var(--avatar-bgColor, var(--color-avatar-bg, rgba(255,255,255,0.1)))',
-    border: 'rgba(255,255,255,0.9)',
+    border: 'var(--avatar-borderColor, var(--color-avatar-border, rgba(255,255,255,0.9)))',
     stackFade: 'var(--avatarStack-fade-bgColor-default, var(--color-avatar-stack-fade, #525964))',
     stackFadeMore: 'var(--avatarStack-fade-bgColor-muted, var(--color-avatar-stack-fade-more, #272b33))',
     childShadow: 'var(--avatar-shadow, var(--color-avatar-child-shadow, 0 0 0 2px #0a0c10))',
   },
   topicTag: {
-    border: '#409eff',
+    border: 'var(--topicTag-borderColor, var(--color-topic-tag-border, #409eff))',
   },
   counter: {
     border: 'var(--counter-borderColor, var(--color-counter-border, transparent))',
@@ -270,24 +270,26 @@ const colors = {
     hoverBorder: 'var(--button-default-borderColor-hover, var(--color-btn-hover-border, #bdc4cc))',
     activeBg: 'var(--button-default-bgColor-active, var(--color-btn-active-bg, hsla(217,10%,33%,1)))',
     activeBorder: 'var(--button-default-borderColor-active, var(--color-btn-active-border, #9ea7b3))',
-    selectedBg: 'rgba(82,89,100,0.9)',
+    selectedBg: 'var(--button-default-bgColor-selected, var(--color-btn-selected-bg, rgba(82,89,100,0.9)))',
     counterBg: 'var(--buttonCounter-default-bgColor-rest, var(--color-btn-counter-bg, #525964))',
     primary: {
-      text: '#0a0c10',
+      text: 'var(--button-primary-fgColor-rest, var(--color-btn-primary-text, #0a0c10))',
       bg: 'var(--button-primary-bgColor-rest, var(--color-btn-primary-bg, #09b43a))',
-      border: '#4ae168',
+      border: 'var(--button-primary-borderColor-rest, var(--color-btn-primary-border, #4ae168))',
       shadow: 'var(--shadow-resting-small, var(--color-btn-primary-shadow, 0 0 transparent))',
       insetShadow: 'var(--shadow-highlight, var(--color-btn-primary-inset-shadow, 0 0 transparent))',
-      hoverBg: '#26cd4d',
-      hoverBorder: '#4ae168',
+      hoverBg: 'var(--button-primary-bgColor-hover, var(--color-btn-primary-hover-bg, #26cd4d))',
+      hoverBorder: 'var(--button-primary-borderColor-hover, var(--color-btn-primary-hover-border, #4ae168))',
       selectedBg: 'var(--button-primary-bgColor-active, var(--color-btn-primary-selected-bg, #09b43a))',
       selectedShadow:
         'var(--button-primary-shadow-selected, var(--color-btn-primary-selected-shadow, 0 0 transparent))',
-      disabledText: 'rgba(10,12,16,0.5)',
-      disabledBg: 'rgba(9,180,58,0.6)',
-      disabledBorder: 'rgba(74,225,104,0.4)',
-      icon: '#0a0c10',
-      counterBg: 'rgba(1,4,9,0.15)',
+      disabledText:
+        'var(--button-primary-fgColor-disabled, var(--color-btn-primary-disabled-text, rgba(10,12,16,0.5)))',
+      disabledBg: 'var(--button-primary-bgColor-disabled, var(--color-btn-primary-disabled-bg, rgba(9,180,58,0.6)))',
+      disabledBorder:
+        'var(--button-primary-borderColor-disabled, var(--color-btn-primary-disabled-border, rgba(74,225,104,0.4)))',
+      icon: 'var(--button-primary-iconColor-rest, var(--color-btn-primary-icon, #0a0c10))',
+      counterBg: 'var(--buttonCounter-primary-bgColor-rest, var(--color-btn-primary-counter-bg, rgba(1,4,9,0.15)))',
     },
     outline: {
       text: 'var(--button-outline-fgColor-rest, var(--color-btn-outline-text, #409eff))',
@@ -324,7 +326,8 @@ const colors = {
       hoverShadow: 'var(--shadow-resting-small, var(--color-btn-danger-hover-shadow, 0 0 transparent))',
       hoverInsetShadow: 'var(--shadow-highlight, var(--color-btn-danger-hover-inset-shadow, 0 0 transparent))',
       hoverIcon: 'var(--button-danger-iconColor-hover, var(--color-btn-danger-hover-icon, #0a0c10))',
-      hoverCounterBg: 'rgba(1,4,9,0.15)',
+      hoverCounterBg:
+        'var(--buttonCounter-danger-bgColor-hover, var(--color-btn-danger-hover-counter-bg, rgba(1,4,9,0.15)))',
       selectedText: 'var(--button-danger-fgColor-active, var(--color-btn-danger-selected-text, #ffffff))',
       selectedBg: 'var(--button-danger-bgColor-active, var(--color-btn-danger-selected-bg, #ff4445))',
       selectedBorder: 'var(--button-danger-borderColor-active, var(--color-btn-danger-selected-border, #ff9492))',
@@ -334,7 +337,7 @@ const colors = {
       disabledBg: 'var(--button-danger-bgColor-disabled, var(--color-btn-danger-disabled-bg, #0a0c10))',
       disabledCounterBg:
         'var(--buttonCounter-danger-bgColor-disabled, var(--color-btn-danger-disabled-counter-bg, rgba(255,106,105,0.05)))',
-      counterBg: 'rgba(1,4,9,0.15)',
+      counterBg: 'var(--buttonCounter-danger-bgColor-rest, var(--color-btn-danger-counter-bg, rgba(1,4,9,0.15)))',
       icon: 'var(--button-danger-iconColor-rest, var(--color-btn-danger-icon, #ff6a69))',
       counterFg: 'var(--buttonCounter-danger-fgColor-rest, var(--color-btn-danger-counter-fg, #ff6a69))',
       disabledCounterFg:
@@ -347,34 +350,37 @@ const colors = {
     },
   },
   underlinenav: {
-    icon: '#f0f3f6',
-    borderHover: '#bdc4cc',
+    icon: 'var(--underlineNav-iconColor-rest, var(--color-underlinenav-icon, #f0f3f6))',
+    borderHover: 'var(--underlineNav-borderColor-hover, var(--color-underlinenav-border-hover, #bdc4cc))',
   },
   actionListItem: {
-    inlineDivider: '#7a828e',
+    inlineDivider: 'var(--borderColor-muted, var(--color-action-list-item-inline-divider, #7a828e))',
     default: {
-      hoverBg: '#272b33',
-      hoverBorder: '#7a828e',
-      activeBg: '#525964',
-      activeBorder: '#9ea7b3',
-      selectedBg: '#525964',
+      hoverBg: 'var(--control-transparent-bgColor-hover, var(--color-action-list-item-default-hover-bg, #272b33))',
+      hoverBorder:
+        'var(--control-transparent-borderColor-hover, var(--color-action-list-item-default-hover-border, #7a828e))',
+      activeBg: 'var(--control-transparent-bgColor-active, var(--color-action-list-item-default-active-bg, #525964))',
+      activeBorder:
+        'var(--control-transparent-borderColor-active, var(--color-action-list-item-default-active-border, #9ea7b3))',
+      selectedBg:
+        'var(--control-transparent-bgColor-selected, var(--color-action-list-item-default-selected-bg, #525964))',
     },
     danger: {
-      hoverBg: '#ff6a69',
-      activeBg: '#ff4445',
-      hoverText: '#0a0c10',
+      hoverBg: 'var(--control-danger-bgColor-hover, var(--color-action-list-item-danger-hover-bg, #ff6a69))',
+      activeBg: 'var(--control-danger-bgColor-active, var(--color-action-list-item-danger-active-bg, #ff4445))',
+      hoverText: 'var(--control-danger-fgColor-hover, var(--color-action-list-item-danger-hover-text, #0a0c10))',
     },
   },
   switchTrack: {
-    bg: '#9ea7b3',
-    hoverBg: 'hsla(214,12%,61%,1)',
-    activeBg: 'hsla(214,12%,58%,1)',
+    bg: 'var(--controlTrack-bgColor-rest, var(--color-switch-track-bg, #9ea7b3))',
+    hoverBg: 'var(--controlTrack-bgColor-hover, var(--color-switch-track-hover-bg, hsla(214,12%,61%,1)))',
+    activeBg: 'var(--controlTrack-bgColor-active, var(--color-switch-track-active-bg, hsla(214,12%,58%,1)))',
     disabledBg: 'var(--controlTrack-bgColor-disabled, var(--color-switch-track-disabled-bg, #272b33))',
-    fg: '#0a0c10',
+    fg: 'var(--controlTrack-fgColor-rest, var(--color-switch-track-fg, #0a0c10))',
     disabledFg: 'var(--controlTrack-fgColor-disabled, var(--color-switch-track-disabled-fg, #010409))',
     border: 'var(--controlTrack-borderColor-rest, var(--color-switch-track-border, transparent))',
     checked: {
-      bg: '#409eff',
+      bg: 'var(--control-checked-bgColor-rest, var(--color-switch-track-checked-bg, #409eff))',
       hoverBg: 'var(--control-checked-bgColor-hover, var(--color-switch-track-checked-hover-bg, rgba(64,158,255,0.5)))',
       activeBg:
         'var(--control-checked-bgColor-active, var(--color-switch-track-checked-active-bg, rgba(64,158,255,0.65)))',
@@ -385,12 +391,12 @@ const colors = {
   },
   switchKnob: {
     bg: 'var(--controlKnob-bgColor-rest, var(--color-switch-knob-bg, #0a0c10))',
-    border: '#9ea7b3',
+    border: 'var(--controlKnob-borderColor-rest, var(--color-switch-knob-border, #9ea7b3))',
     disabledBg: 'var(--controlKnob-bgColor-disabled, var(--color-switch-knob-disabled-bg, #272b33))',
     checked: {
       bg: 'var(--controlKnob-bgColor-checked, var(--color-switch-knob-checked-bg, #0a0c10))',
       disabledBg: 'var(--controlKnob-bgColor-disabled, var(--color-switch-knob-checked-disabled-bg, #272b33))',
-      border: '#409eff',
+      border: 'var(--controlKnob-borderColor-checked, var(--color-switch-knob-checked-border, #409eff))',
     },
   },
   segmentedControl: {
@@ -410,17 +416,17 @@ const colors = {
   },
   treeViewItem: {
     chevron: {
-      hoverBg: '#525964',
+      hoverBg: 'var(--control-transparent-bgColor-hover, var(--color-tree-view-item-chevron-hover-bg, #525964))',
     },
     directory: {
       fill: 'var(--treeViewItem-leadingVisual-bgColor-rest, var(--color-tree-view-item-directory-fill, #f0f3f6))',
     },
   },
   fg: {
-    default: '#f0f3f6',
-    muted: '#f0f3f6',
+    default: 'var(--fgColor-default, var(--color-fg-default, #f0f3f6))',
+    muted: 'var(--fgColor-muted, var(--color-fg-muted, #f0f3f6))',
     subtle: 'var(--fgColor-muted, var(--color-fg-subtle, #9ea7b3))',
-    onEmphasis: '#0a0c10',
+    onEmphasis: 'var(--fgColor-onEmphasis, var(--color-fg-on-emphasis, #0a0c10))',
   },
   canvas: {
     default: 'var(--bgColor-default, var(--color-canvas-default, #0a0c10))',
@@ -429,9 +435,9 @@ const colors = {
     subtle: 'var(--bgColor-muted, var(--color-canvas-subtle, #272b33))',
   },
   border: {
-    default: '#7a828e',
-    muted: '#7a828e',
-    subtle: '#7a828e',
+    default: 'var(--borderColor-default, var(--color-border-default, #7a828e))',
+    muted: 'var(--borderColor-muted, var(--color-border-muted, #7a828e))',
+    subtle: 'var(--borderColor-muted, var(--color-border-subtle, #7a828e))',
   },
   shadow: {
     small: 'var(--shadow-resting-small, var(--color-shadow-small, 0 0 transparent))',
@@ -440,39 +446,39 @@ const colors = {
     extraLarge: 'var(--shadow-floating-xlarge, var(--color-shadow-extra-large, 0 12px 48px #010409))',
   },
   neutral: {
-    emphasisPlus: '#ffffff',
-    emphasis: '#9ea7b3',
+    emphasisPlus: 'var(--bgColor-emphasis, var(--color-neutral-emphasis-plus, #ffffff))',
+    emphasis: 'var(--bgColor-neutral-emphasis, var(--color-neutral-emphasis, #9ea7b3))',
     muted: 'var(--borderColor-neutral-muted, var(--color-neutral-muted, rgba(158,167,179,0.4)))',
     subtle: 'var(--bgColor-neutral-muted, var(--color-neutral-subtle, rgba(158,167,179,0.1)))',
   },
   accent: {
-    fg: '#71b7ff',
+    fg: 'var(--fgColor-accent, var(--color-accent-fg, #71b7ff))',
     emphasis: 'var(--bgColor-accent-emphasis, var(--color-accent-emphasis, #409eff))',
-    muted: '#409eff',
+    muted: 'var(--borderColor-accent-muted, var(--color-accent-muted, #409eff))',
     subtle: 'var(--bgColor-accent-muted, var(--color-accent-subtle, rgba(64,158,255,0.1)))',
   },
   success: {
     fg: 'var(--fgColor-success, var(--color-success-fg, #26cd4d))',
     emphasis: 'var(--bgColor-success-emphasis, var(--color-success-emphasis, #09b43a))',
-    muted: '#09b43a',
+    muted: 'var(--borderColor-success-muted, var(--color-success-muted, #09b43a))',
     subtle: 'var(--bgColor-success-muted, var(--color-success-subtle, rgba(9,180,58,0.15)))',
   },
   attention: {
     fg: 'var(--fgColor-attention, var(--color-attention-fg, #f0b72f))',
     emphasis: 'var(--bgColor-attention-emphasis, var(--color-attention-emphasis, #e09b13))',
-    muted: '#e09b13',
+    muted: 'var(--borderColor-attention-muted, var(--color-attention-muted, #e09b13))',
     subtle: 'var(--bgColor-attention-muted, var(--color-attention-subtle, rgba(224,155,19,0.15)))',
   },
   severe: {
     fg: 'var(--fgColor-severe, var(--color-severe-fg, #e7811d))',
     emphasis: 'var(--bgColor-severe-emphasis, var(--color-severe-emphasis, #e7811d))',
-    muted: '#e7811d',
+    muted: 'var(--borderColor-severe-muted, var(--color-severe-muted, #e7811d))',
     subtle: 'var(--bgColor-severe-muted, var(--color-severe-subtle, rgba(231,129,29,0.1)))',
   },
   danger: {
     fg: 'var(--fgColor-danger, var(--color-danger-fg, #ff6a69))',
     emphasis: 'var(--borderColor-danger-emphasis, var(--color-danger-emphasis, #ff6a69))',
-    muted: '#ff6a69',
+    muted: 'var(--borderColor-danger-muted, var(--color-danger-muted, #ff6a69))',
     subtle: 'var(--bgColor-danger-muted, var(--color-danger-subtle, rgba(255,106,105,0.1)))',
   },
   open: {
@@ -490,13 +496,13 @@ const colors = {
   done: {
     fg: 'var(--fgColor-done, var(--color-done-fg, #b780ff))',
     emphasis: 'var(--bgColor-done-emphasis, var(--color-done-emphasis, #b87fff))',
-    muted: '#b780ff',
+    muted: 'var(--borderColor-done-muted, var(--color-done-muted, #b780ff))',
     subtle: 'var(--bgColor-done-muted, var(--color-done-subtle, rgba(183,128,255,0.1)))',
   },
   sponsors: {
     fg: 'var(--fgColor-sponsors, var(--color-sponsors-fg, #ef6eb1))',
     emphasis: 'var(--bgColor-sponsors-emphasis, var(--color-sponsors-emphasis, #ef6eb1))',
-    muted: '#ef6eb1',
+    muted: 'var(--borderColor-sponsors-muted, var(--color-sponsors-muted, #ef6eb1))',
     subtle: 'var(--bgColor-sponsors-muted, var(--color-sponsors-subtle, rgba(239,110,177,0.1)))',
   },
   primer: {
