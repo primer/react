@@ -37,3 +37,9 @@ if (typeof document !== 'undefined') {
     this.open = false
   })
 }
+
+// Add a fallback for scrollIntoView if it does not exist in the test
+// environment
+if (global.Element.prototype.scrollIntoView === undefined) {
+  global.Element.prototype.scrollIntoView = jest.fn()
+}
