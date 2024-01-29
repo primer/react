@@ -93,7 +93,7 @@ export default React.forwardRef<HTMLDivElement, PropsWithChildren<DialogBottomSh
 
   // 🎪 EVENTS
 
-  const dragStop = (e: MouseEvent | TouchEvent) => {
+  const dragStop = () => {
     if (!dialogRef.current) return
 
     isDragging.current = false
