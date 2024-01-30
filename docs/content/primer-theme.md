@@ -10,7 +10,7 @@ Many of our theme keys correspond to system props on our components. For example
 
 In the background, [styled-system](https://github.com/styled-system/styled-system) does the work of finding the `medium` value from `maxWidth` key in the theme file and applying the corresponding CSS.
 
-Learn more about [our full theme](https://github.com/primer/react/blob/main/src/theme.js).
+Learn more about [our full theme](https://github.com/primer/react/blob/main/src/theme.ts).
 
 ### Custom Theming
 
