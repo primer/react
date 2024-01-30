@@ -1,6 +1,6 @@
 import {render as HTMLRender, waitFor} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import {axe, toHaveNoViolations} from 'jest-axe'
+import {axe} from 'jest-axe'
 import React from 'react'
 import theme from '../theme'
 import {ActionMenu, ActionList, BaseStyles, ThemeProvider, SSRProvider, Tooltip, Button} from '..'
@@ -8,7 +8,6 @@ import {Tooltip as TooltipV2} from '../drafts/Tooltip/Tooltip'
 import {behavesAsComponent, checkExports} from '../utils/testing'
 import {SingleSelect} from '../ActionMenu/ActionMenu.features.stories'
 import {MixedSelection} from '../ActionMenu/ActionMenu.examples.stories'
-expect.extend(toHaveNoViolations)
 
 function Example(): JSX.Element {
   return (

@@ -2,9 +2,7 @@ import React from 'react'
 import {ProgressBar} from '..'
 import {render, behavesAsComponent, checkExports} from '../utils/testing'
 import {render as HTMLRender} from '@testing-library/react'
-import {axe, toHaveNoViolations} from 'jest-axe'
-
-expect.extend(toHaveNoViolations)
+import {axe} from 'jest-axe'
 
 describe('ProgressBar', () => {
   behavesAsComponent({Component: ProgressBar})
