@@ -24,7 +24,7 @@ export interface AnchoredPositionHookSettings extends Partial<PositionSettings> 
 export function useAnchoredPosition(
   settings?: AnchoredPositionHookSettings,
   dependencies: React.DependencyList = [],
-  observe?: boolean
+  observe?: boolean,
 ): {
   floatingElementRef: React.RefObject<Element>
   anchorElementRef: React.RefObject<Element>
@@ -55,7 +55,7 @@ export function useAnchoredPosition(
     elementRef: anchorElementRef,
     // performance optimisation: only update position if floatingRect is also visible (example: menu is open)
     condition: observe === true && floatingElementRef.current instanceof Element,
-    callback: updatePosition
+    callback: updatePosition,
   })
 
   return {

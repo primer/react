@@ -146,7 +146,7 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
       anchorOffset,
     },
     [overlayRef.current],
-    true // observe
+    true, // observe
   )
 
   useEffect(() => {
