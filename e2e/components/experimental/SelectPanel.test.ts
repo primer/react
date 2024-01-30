@@ -16,7 +16,7 @@ test.describe('SelectPanel', () => {
 
           // Default state
           await page.getByText('Assign label').click()
-          expect(await page.screenshot()).toMatchSnapshot(`SelectPanel.Default.${theme}.png`)
+          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(`SelectPanel.Default.${theme}.png`)
         })
 
         test('axe @aat', async ({page}) => {
