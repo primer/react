@@ -193,7 +193,7 @@ const colors = {
   },
   control: {
     borderColor: {
-      emphasis: 'var(--color-control-border-color-emphasis, #606771)',
+      emphasis: 'var(--control-borderColor-emphasis, var(--color-control-border-color-emphasis, #606771))',
     },
   },
   avatar: {
@@ -430,8 +430,8 @@ const colors = {
     },
   },
   fg: {
-    default: '#c9d1d9',
-    muted: '#8b949e',
+    default: 'var(--fgColor-default, var(--color-fg-default, #c9d1d9))',
+    muted: 'var(--fgColor-muted, var(--color-fg-muted, #8b949e))',
     subtle: 'var(--fgColor-muted, var(--color-fg-subtle, #6e7681))',
     onEmphasis: 'var(--fgColor-onEmphasis, var(--color-fg-on-emphasis, #ffffff))',
   },
@@ -459,7 +459,7 @@ const colors = {
     subtle: 'var(--bgColor-neutral-muted, var(--color-neutral-subtle, rgba(110,118,129,0.1)))',
   },
   accent: {
-    fg: '#58a6ff',
+    fg: 'var(--fgColor-accent, var(--color-accent-fg, #58a6ff))',
     emphasis: 'var(--bgColor-accent-emphasis, var(--color-accent-emphasis, #1f6feb))',
     muted: 'var(--borderColor-accent-muted, var(--color-accent-muted, rgba(56,139,253,0.4)))',
     subtle: 'var(--bgColor-accent-muted, var(--color-accent-subtle, rgba(56,139,253,0.1)))',
@@ -489,16 +489,16 @@ const colors = {
     subtle: 'var(--bgColor-danger-muted, var(--color-danger-subtle, rgba(248,81,73,0.1)))',
   },
   open: {
-    fg: '#ff7b72',
-    emphasis: '#da3633',
-    muted: 'rgba(248,81,73,0.4)',
-    subtle: 'rgba(248,81,73,0.15)',
+    fg: 'var(--fgColor-open, var(--color-open-fg, #ff7b72))',
+    emphasis: 'var(--bgColor-open-emphasis, var(--color-open-emphasis, #da3633))',
+    muted: 'var(--borderColor-open-muted, var(--color-open-muted, rgba(248,81,73,0.4)))',
+    subtle: 'var(--bgColor-open-muted, var(--color-open-subtle, rgba(248,81,73,0.15)))',
   },
   closed: {
-    fg: '#8b949e',
-    emphasis: '#6e7681',
-    muted: 'rgba(110,118,129,0.4)',
-    subtle: 'rgba(110,118,129,0.1)',
+    fg: 'var(--fgColor-closed, var(--color-closed-fg, #8b949e))',
+    emphasis: 'var(--bgColor-closed-emphasis, var(--color-closed-emphasis, #6e7681))',
+    muted: 'var(--borderColor-closed-muted, var(--color-closed-muted, rgba(110,118,129,0.4)))',
+    subtle: 'var(--bgColor-closed-muted, var(--color-closed-subtle, rgba(110,118,129,0.1)))',
   },
   done: {
     fg: 'var(--fgColor-done, var(--color-done-fg, #a371f7))',

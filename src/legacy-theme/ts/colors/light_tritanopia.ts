@@ -9,16 +9,16 @@ const colors = {
     addition: {
       numText: 'var(--diffBlob-addition-fgColor-num, var(--color-diff-blob-addition-num-text, #24292f))',
       fg: 'var(--diffBlob-addition-fgColor-text, var(--color-diff-blob-addition-fg, #24292f))',
-      numBg: 'rgba(84,174,255,0.4)',
-      lineBg: 'rgba(221,244,255,0.5)',
-      wordBg: 'rgba(84,174,255,0.4)',
+      numBg: 'var(--diffBlob-addition-bgColor-num, var(--color-diff-blob-addition-num-bg, rgba(84,174,255,0.4)))',
+      lineBg: 'var(--diffBlob-addition-bgColor-line, var(--color-diff-blob-addition-line-bg, rgba(221,244,255,0.5)))',
+      wordBg: 'var(--diffBlob-addition-bgColor-word, var(--color-diff-blob-addition-word-bg, rgba(84,174,255,0.4)))',
     },
     deletion: {
       numText: 'var(--diffBlob-deletion-fgColor-num, var(--color-diff-blob-deletion-num-text, #24292f))',
       fg: 'var(--diffBlob-deletion-fgColor-text, var(--color-diff-blob-deletion-fg, #24292f))',
-      numBg: 'rgba(255,129,130,0.4)',
-      lineBg: 'rgba(255,235,233,0.5)',
-      wordBg: 'rgba(255,171,168,0.5)',
+      numBg: 'var(--diffBlob-deletion-bgColor-num, var(--color-diff-blob-deletion-num-bg, rgba(255,129,130,0.4)))',
+      lineBg: 'var(--diffBlob-deletion-bgColor-line, var(--color-diff-blob-deletion-line-bg, rgba(255,235,233,0.5)))',
+      wordBg: 'var(--diffBlob-deletion-bgColor-word, var(--color-diff-blob-deletion-word-bg, rgba(255,171,168,0.5)))',
     },
     hunk: {
       numBg: 'var(--diffBlob-hunk-bgColor-num, var(--color-diff-blob-hunk-num-bg, rgba(84,174,255,0.4)))',
@@ -193,7 +193,7 @@ const colors = {
   },
   control: {
     borderColor: {
-      emphasis: 'var(var(--color-control-border-color-emphasis, #858F99)',
+      emphasis: 'var(--control-borderColor-emphasis, var(--color-control-border-color-emphasis, #858F99))',
     },
   },
   avatar: {
@@ -280,7 +280,7 @@ const colors = {
       shadow: 'var(--shadow-resting-small, var(--color-btn-primary-shadow, 0 1px 0 rgba(27,31,36,0.1)))',
       insetShadow:
         'var(--shadow-highlight, var(--color-btn-primary-inset-shadow, inset 0 1px 0 rgba(255,255,255,0.03)))',
-      hoverBg: '#0969da',
+      hoverBg: 'var(--button-primary-bgColor-hover, var(--color-btn-primary-hover-bg, #0969da))',
       hoverBorder:
         'var(--button-primary-borderColor-hover, var(--color-btn-primary-hover-border, rgba(27,31,36,0.15)))',
       selectedBg: 'var(--button-primary-bgColor-active, var(--color-btn-primary-selected-bg, hsla(212,92%,43%,1)))',
@@ -288,7 +288,7 @@ const colors = {
         'var(--button-primary-shadow-selected, var(--color-btn-primary-selected-shadow, inset 0 1px 0 rgba(0,33,85,0.2)))',
       disabledText:
         'var(--button-primary-fgColor-disabled, var(--color-btn-primary-disabled-text, rgba(255,255,255,0.8)))',
-      disabledBg: '#80ccff',
+      disabledBg: 'var(--button-primary-bgColor-disabled, var(--color-btn-primary-disabled-bg, #80ccff))',
       disabledBorder:
         'var(--button-primary-borderColor-disabled, var(--color-btn-primary-disabled-border, rgba(27,31,36,0.15)))',
       icon: 'var(--button-primary-iconColor-rest, var(--color-btn-primary-icon, rgba(255,255,255,0.8)))',
@@ -434,8 +434,8 @@ const colors = {
     },
   },
   fg: {
-    default: '#24292f',
-    muted: '#57606a',
+    default: 'var(--fgColor-default, var(--color-fg-default, #24292f))',
+    muted: 'var(--fgColor-muted, var(--color-fg-muted, #57606a))',
     subtle: 'var(--fgColor-muted, var(--color-fg-subtle, #6e7781))',
     onEmphasis: 'var(--fgColor-onEmphasis, var(--color-fg-on-emphasis, #ffffff))',
   },
@@ -470,7 +470,7 @@ const colors = {
   },
   success: {
     fg: 'var(--fgColor-success, var(--color-success-fg, #0969da))',
-    emphasis: '#0969da',
+    emphasis: 'var(--bgColor-success-emphasis, var(--color-success-emphasis, #0969da))',
     muted: 'var(--borderColor-success-muted, var(--color-success-muted, rgba(84,174,255,0.4)))',
     subtle: 'var(--bgColor-success-muted, var(--color-success-subtle, #ddf4ff))',
   },
@@ -487,22 +487,22 @@ const colors = {
     subtle: 'var(--bgColor-severe-muted, var(--color-severe-subtle, #ffebe9))',
   },
   danger: {
-    fg: '#cf222e',
+    fg: 'var(--fgColor-danger, var(--color-danger-fg, #cf222e))',
     emphasis: 'var(--borderColor-danger-emphasis, var(--color-danger-emphasis, #cf222e))',
     muted: 'var(--borderColor-danger-muted, var(--color-danger-muted, rgba(255,129,130,0.4)))',
     subtle: 'var(--bgColor-danger-muted, var(--color-danger-subtle, #ffebe9))',
   },
   open: {
-    fg: '#cf222e',
-    emphasis: '#fa4549',
-    muted: 'rgba(255,129,130,0.4)',
-    subtle: '#ffebe9',
+    fg: 'var(--fgColor-open, var(--color-open-fg, #cf222e))',
+    emphasis: 'var(--bgColor-open-emphasis, var(--color-open-emphasis, #fa4549))',
+    muted: 'var(--borderColor-open-muted, var(--color-open-muted, rgba(255,129,130,0.4)))',
+    subtle: 'var(--bgColor-open-muted, var(--color-open-subtle, #ffebe9))',
   },
   closed: {
-    fg: '#6e7781',
-    emphasis: '#6e7781',
-    muted: 'rgba(175,184,193,0.4)',
-    subtle: '#f6f8fa',
+    fg: 'var(--fgColor-closed, var(--color-closed-fg, #6e7781))',
+    emphasis: 'var(--bgColor-closed-emphasis, var(--color-closed-emphasis, #6e7781))',
+    muted: 'var(--borderColor-closed-muted, var(--color-closed-muted, rgba(175,184,193,0.4)))',
+    subtle: 'var(--bgColor-closed-muted, var(--color-closed-subtle, #f6f8fa))',
   },
   done: {
     fg: 'var(--fgColor-done, var(--color-done-fg, #8250df))',
