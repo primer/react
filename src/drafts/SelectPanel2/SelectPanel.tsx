@@ -250,6 +250,7 @@ const Panel: React.FC<SelectPanelProps> = ({
             '100%': {transform: 'scale(1, 1)'},
           },
         }}
+        {...props}
         onClick={event => {
           if (event.target === event.currentTarget) onClickOutside()
         }}
