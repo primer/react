@@ -36,6 +36,12 @@
       "description": "provide an octicon. It will be placed in the center of the button"
     },
     {
+      "name": "aria-label",
+      "type": "string",
+      "defaultValue": "",
+      "description": "Use an aria label to describe the functionality of the button. Please refer to [our guidance on alt text](https://primer.style/guides/accessibility/alternative-text-for-images) for tips on writing good alternative text."
+    },
+    {
       "name": "sx",
       "type": "SystemStyleObject"
     }

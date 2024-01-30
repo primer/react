@@ -45,7 +45,7 @@ exports[`Timeline.Item renders with condensed prop 1`] = `
   display: block;
   width: 2px;
   content: '';
-  background-color: hsla(210,18%,87%,1);
+  background-color: var(--borderColor-muted,var(--color-border-muted,hsla(210,18%,87%,1)));
 }
 
 .c0:last-child {
@@ -56,8 +56,8 @@ exports[`Timeline.Item renders with condensed prop 1`] = `
   height: 16px;
   margin-top: 8px;
   margin-bottom: 8px;
-  color: #656d76;
-  background-color: #ffffff;
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
+  background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
   border: 0;
 }
 

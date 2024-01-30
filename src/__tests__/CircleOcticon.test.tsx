@@ -1,6 +1,5 @@
 import React from 'react'
 import {CheckIcon} from '@primer/octicons-react'
-import theme from '../theme'
 import {CircleOcticon} from '..'
 import {render, behavesAsComponent, checkExports} from '../utils/testing'
 import {render as HTMLRender} from '@testing-library/react'
@@ -37,7 +36,7 @@ describe('CircleOcticon', () => {
   it('respects the bg prop', () => {
     expect(render(<CircleOcticon icon={CheckIcon} bg="danger.subtle" />)).toHaveStyleRule(
       'background-color',
-      theme.colorSchemes.light.colors.danger?.subtle,
+      'var(--bgColor-danger-muted,var(--color-danger-subtle,#ffebe9))',
     )
   })
 
