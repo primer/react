@@ -1101,6 +1101,38 @@ const components = new Map([
     },
   ],
   [
+    'SelectPanel2',
+    {
+      stories: [
+        {
+          id: 'drafts-components-selectpanel--default',
+          name: 'Default',
+        },
+        // Features
+        {
+          id: 'drafts-components-selectpanel-features--as-modal',
+          name: 'As modal',
+        },
+        {
+          id: 'drafts-components-selectpanel-features--instant-selection-variant',
+          name: 'Instant selection variant',
+        },
+        {
+          id: 'drafts-components-selectpanel-examples--short-select-panel',
+          name: 'Short select panel',
+        },
+        {
+          id: 'drafts-components-selectpanel-examples--with-filter-buttons',
+          name: 'With filter buttons',
+        },
+        {
+          id: 'drafts-components-selectpanel-examples--with-groups',
+          name: 'With groups',
+        },
+      ],
+    },
+  ],
+  [
     'StateLabel',
     {
       stories: [
