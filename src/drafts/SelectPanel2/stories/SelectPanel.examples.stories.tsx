@@ -657,7 +657,7 @@ const fetchData = async (delay: number) => {
 
 const queryUsers = ({query = '', delay = 500}: {query: string; delay?: number}) => {
   const key = `users-${query}`
-  if (!cache.has(key)) cache.set(key, fetchUsers(query, delay))
+  if (!cache.has(key)) cache.set(key, fetchUsers(query, 2500))
   return cache.get(key)
 }
 const fetchUsers = async (query: string, delay: number) => {
