@@ -8,6 +8,8 @@ import {defaultSxProp} from '../utils/defaultSxProp'
 import {useSlots} from '../hooks/useSlots'
 import {Heading} from './Heading'
 import {useId} from '../hooks/useId'
+import {useFocusZone, FocusKeys} from '../hooks/useFocusZone'
+import {useProvidedRefOrCreate} from '../hooks'
 
 export type ActionListProps = React.PropsWithChildren<{
   /**
@@ -59,9 +61,17 @@ export const List = React.forwardRef<HTMLUListElement, ActionListProps>(
       listRole,
       listLabelledBy,
       selectionVariant: containerSelectionVariant, // TODO: Remove after DropdownMenu2 deprecation
+      enableFocusZone,
     } = React.useContext(ActionListContainerContext)
 
     const ariaLabelledBy = slots.heading ? slots.heading.props.id ?? headingId : listLabelledBy
+
+    const listRef = useProvidedRefOrCreate(forwardedRef as React.RefObject<HTMLUListElement>)
+    useFocusZone({
+      disabled: !enableFocusZone,
+      containerRef: listRef,
+      bindKeys: FocusKeys.ArrowVertical | FocusKeys.HomeAndEnd | FocusKeys.PageUpDown,
+    })
 
     return (
       <ListContext.Provider
@@ -79,7 +89,7 @@ export const List = React.forwardRef<HTMLUListElement, ActionListProps>(
           role={role || listRole}
           aria-labelledby={ariaLabelledBy}
           {...props}
-          ref={forwardedRef}
+          ref={listRef}
         >
           {childrenWithoutSlots}
         </ListBox>

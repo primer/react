@@ -1,6 +1,5 @@
 import React from 'react'
 import {SearchIcon, XCircleFillIcon, XIcon, FilterRemoveIcon, AlertIcon} from '@primer/octicons-react'
-import {FocusKeys} from '@primer/behaviors'
 
 import {
   Button,
@@ -23,7 +22,6 @@ import {
 import {ActionListContainerContext} from '../../ActionList/ActionListContainerContext'
 import {useSlots} from '../../hooks/useSlots'
 import {useProvidedRefOrCreate, useId, useAnchoredPosition} from '../../hooks'
-import {useFocusZone} from '../../hooks/useFocusZone'
 import {StyledOverlay, OverlayProps} from '../../Overlay/Overlay'
 import InputLabel from '../../internal/components/InputLabel'
 import {invariant} from '../../utils/invariant'
@@ -152,15 +150,6 @@ const Panel: React.FC<SelectPanelProps> = ({
   const panelId = useId(id)
   const [slots, childrenInBody] = useSlots(contents, {header: SelectPanelHeader, footer: SelectPanelFooter})
 
-  /* Arrow keys navigation for list items */
-  const {containerRef: listContainerRef} = useFocusZone(
-    {
-      bindKeys: FocusKeys.ArrowVertical | FocusKeys.HomeAndEnd | FocusKeys.PageUpDown,
-      focusableElementFilter: element => element.tagName === 'LI' || element.tagName === 'BUTTON',
-    },
-    [internalOpen],
-  )
-
   /* Dialog */
   const dialogRef = React.useRef<HTMLDialogElement>(null)
 
@@ -276,7 +265,6 @@ const Panel: React.FC<SelectPanelProps> = ({
 
             <Box
               as="div"
-              ref={listContainerRef as React.RefObject<HTMLDivElement>}
               sx={{
                 flexShrink: 1,
                 flexGrow: 1,
@@ -292,6 +280,7 @@ const Panel: React.FC<SelectPanelProps> = ({
                 value={{
                   container: 'SelectPanel',
                   listRole: 'listbox',
+                  enableFocusZone: true, // Arrow keys navigation for list items
                   selectionAttribute: 'aria-selected',
                   selectionVariant: selectionVariant === 'instant' ? 'single' : selectionVariant,
                   afterSelect: internalAfterSelect,
