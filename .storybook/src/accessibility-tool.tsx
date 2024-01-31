@@ -6,7 +6,7 @@ export const ADDON_ID = 'show-surrounding-links'
 export const TOOL_ID = `${ADDON_ID}/tool`
 
 export const Tool = () => {
-  const [{showSurroundingElements, colorScheme}, updateGlobals] = useGlobals()
+  const [{showSurroundingElements}, updateGlobals] = useGlobals()
 
   const toggleMyTool = useCallback(() => {
     const currentValue = showSurroundingElements ?? window?.localStorage.getItem('showSurroundingElements') === 'true'

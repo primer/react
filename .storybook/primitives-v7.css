@@ -1,2 +1,1 @@
-@import '@primer/css/dist/primitives.css';
-@import '@primer/css/dist/color-modes.css';
+@import 'https://unpkg.com/@primer/css@latest/dist/color-modes.css';

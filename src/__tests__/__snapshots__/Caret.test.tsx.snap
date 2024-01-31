@@ -20,16 +20,16 @@ exports[`Caret renders cardinal directions 1`] = `
   >
     <path
       d="M-8,0L0,8L8,0L-8,0Z"
-      fill="#ffffff"
+      fill="var(--bgColor-default, var(--color-canvas-default, #ffffff))"
     />
     <path
       d="M-8,0L0,8L8,0L-8,0Z"
-      fill="#ffffff"
+      fill="var(--bgColor-default, var(--color-canvas-default, #ffffff))"
     />
     <path
       d="M-8,0L0,8L8,0"
       fill="none"
-      stroke="#d0d7de"
+      stroke="var(--borderColor-default, var(--color-border-default, #d0d7de))"
       strokeWidth="1px"
     />
   </g>
@@ -56,16 +56,16 @@ exports[`Caret renders cardinal directions 2`] = `
   >
     <path
       d="M-8,0L0,8L8,0L-8,0Z"
-      fill="#ffffff"
+      fill="var(--bgColor-default, var(--color-canvas-default, #ffffff))"
     />
     <path
       d="M-8,0L0,8L8,0L-8,0Z"
-      fill="#ffffff"
+      fill="var(--bgColor-default, var(--color-canvas-default, #ffffff))"
     />
     <path
       d="M-8,0L0,8L8,0"
       fill="none"
-      stroke="#d0d7de"
+      stroke="var(--borderColor-default, var(--color-border-default, #d0d7de))"
       strokeWidth="1px"
     />
   </g>
@@ -92,16 +92,16 @@ exports[`Caret renders cardinal directions 3`] = `
   >
     <path
       d="M-8,0L0,8L8,0L-8,0Z"
-      fill="#ffffff"
+      fill="var(--bgColor-default, var(--color-canvas-default, #ffffff))"
     />
     <path
       d="M-8,0L0,8L8,0L-8,0Z"
-      fill="#ffffff"
+      fill="var(--bgColor-default, var(--color-canvas-default, #ffffff))"
     />
     <path
       d="M-8,0L0,8L8,0"
       fill="none"
-      stroke="#d0d7de"
+      stroke="var(--borderColor-default, var(--color-border-default, #d0d7de))"
       strokeWidth="1px"
     />
   </g>
@@ -128,16 +128,16 @@ exports[`Caret renders cardinal directions 4`] = `
   >
     <path
       d="M-8,0L0,8L8,0L-8,0Z"
-      fill="#ffffff"
+      fill="var(--bgColor-default, var(--color-canvas-default, #ffffff))"
     />
     <path
       d="M-8,0L0,8L8,0L-8,0Z"
-      fill="#ffffff"
+      fill="var(--bgColor-default, var(--color-canvas-default, #ffffff))"
     />
     <path
       d="M-8,0L0,8L8,0"
       fill="none"
-      stroke="#d0d7de"
+      stroke="var(--borderColor-default, var(--color-border-default, #d0d7de))"
       strokeWidth="1px"
     />
   </g>
@@ -164,16 +164,16 @@ exports[`Caret renders cardinal directions 5`] = `
   >
     <path
       d="M-8,0L0,8L8,0L-8,0Z"
-      fill="#ffffff"
+      fill="var(--bgColor-default, var(--color-canvas-default, #ffffff))"
     />
     <path
       d="M-8,0L0,8L8,0L-8,0Z"
-      fill="#ffffff"
+      fill="var(--bgColor-default, var(--color-canvas-default, #ffffff))"
     />
     <path
       d="M-8,0L0,8L8,0"
       fill="none"
-      stroke="#d0d7de"
+      stroke="var(--borderColor-default, var(--color-border-default, #d0d7de))"
       strokeWidth="1px"
     />
   </g>
@@ -200,16 +200,16 @@ exports[`Caret renders cardinal directions 6`] = `
   >
     <path
       d="M-8,0L0,8L8,0L-8,0Z"
-      fill="#ffffff"
+      fill="var(--bgColor-default, var(--color-canvas-default, #ffffff))"
     />
     <path
       d="M-8,0L0,8L8,0L-8,0Z"
-      fill="#ffffff"
+      fill="var(--bgColor-default, var(--color-canvas-default, #ffffff))"
     />
     <path
       d="M-8,0L0,8L8,0"
       fill="none"
-      stroke="#d0d7de"
+      stroke="var(--borderColor-default, var(--color-border-default, #d0d7de))"
       strokeWidth="1px"
     />
   </g>
@@ -236,16 +236,16 @@ exports[`Caret renders cardinal directions 7`] = `
   >
     <path
       d="M-8,0L0,8L8,0L-8,0Z"
-      fill="#ffffff"
+      fill="var(--bgColor-default, var(--color-canvas-default, #ffffff))"
     />
     <path
       d="M-8,0L0,8L8,0L-8,0Z"
-      fill="#ffffff"
+      fill="var(--bgColor-default, var(--color-canvas-default, #ffffff))"
     />
     <path
       d="M-8,0L0,8L8,0"
       fill="none"
-      stroke="#d0d7de"
+      stroke="var(--borderColor-default, var(--color-border-default, #d0d7de))"
       strokeWidth="1px"
     />
   </g>
@@ -272,16 +272,16 @@ exports[`Caret renders cardinal directions 8`] = `
   >
     <path
       d="M-8,0L0,8L8,0L-8,0Z"
-      fill="#ffffff"
+      fill="var(--bgColor-default, var(--color-canvas-default, #ffffff))"
     />
     <path
       d="M-8,0L0,8L8,0L-8,0Z"
-      fill="#ffffff"
+      fill="var(--bgColor-default, var(--color-canvas-default, #ffffff))"
     />
     <path
       d="M-8,0L0,8L8,0"
       fill="none"
-      stroke="#d0d7de"
+      stroke="var(--borderColor-default, var(--color-border-default, #d0d7de))"
       strokeWidth="1px"
     />
   </g>
@@ -308,16 +308,16 @@ exports[`Caret renders cardinal directions 9`] = `
   >
     <path
       d="M-8,0L0,8L8,0L-8,0Z"
-      fill="#ffffff"
+      fill="var(--bgColor-default, var(--color-canvas-default, #ffffff))"
     />
     <path
       d="M-8,0L0,8L8,0L-8,0Z"
-      fill="#ffffff"
+      fill="var(--bgColor-default, var(--color-canvas-default, #ffffff))"
     />
     <path
       d="M-8,0L0,8L8,0"
       fill="none"
-      stroke="#d0d7de"
+      stroke="var(--borderColor-default, var(--color-border-default, #d0d7de))"
       strokeWidth="1px"
     />
   </g>
@@ -344,16 +344,16 @@ exports[`Caret renders cardinal directions 10`] = `
   >
     <path
       d="M-8,0L0,8L8,0L-8,0Z"
-      fill="#ffffff"
+      fill="var(--bgColor-default, var(--color-canvas-default, #ffffff))"
     />
     <path
       d="M-8,0L0,8L8,0L-8,0Z"
-      fill="#ffffff"
+      fill="var(--bgColor-default, var(--color-canvas-default, #ffffff))"
     />
     <path
       d="M-8,0L0,8L8,0"
       fill="none"
-      stroke="#d0d7de"
+      stroke="var(--borderColor-default, var(--color-border-default, #d0d7de))"
       strokeWidth="1px"
     />
   </g>
@@ -380,16 +380,16 @@ exports[`Caret renders cardinal directions 11`] = `
   >
     <path
       d="M-8,0L0,8L8,0L-8,0Z"
-      fill="#ffffff"
+      fill="var(--bgColor-default, var(--color-canvas-default, #ffffff))"
     />
     <path
       d="M-8,0L0,8L8,0L-8,0Z"
-      fill="#ffffff"
+      fill="var(--bgColor-default, var(--color-canvas-default, #ffffff))"
     />
     <path
       d="M-8,0L0,8L8,0"
       fill="none"
-      stroke="#d0d7de"
+      stroke="var(--borderColor-default, var(--color-border-default, #d0d7de))"
       strokeWidth="1px"
     />
   </g>
@@ -416,16 +416,16 @@ exports[`Caret renders cardinal directions 12`] = `
   >
     <path
       d="M-8,0L0,8L8,0L-8,0Z"
-      fill="#ffffff"
+      fill="var(--bgColor-default, var(--color-canvas-default, #ffffff))"
     />
     <path
       d="M-8,0L0,8L8,0L-8,0Z"
-      fill="#ffffff"
+      fill="var(--bgColor-default, var(--color-canvas-default, #ffffff))"
     />
     <path
       d="M-8,0L0,8L8,0"
       fill="none"
-      stroke="#d0d7de"
+      stroke="var(--borderColor-default, var(--color-border-default, #d0d7de))"
       strokeWidth="1px"
     />
   </g>

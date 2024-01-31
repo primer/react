@@ -1,9 +1,6 @@
 import React from 'react'
 import {Select} from '..'
 import {render} from '@testing-library/react'
-import {toHaveNoViolations} from 'jest-axe'
-
-expect.extend(toHaveNoViolations)
 
 describe('Select', () => {
   it('renders a select input', () => {

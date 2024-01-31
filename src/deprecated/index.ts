@@ -6,6 +6,8 @@
  *  example: import {FormGroup} from '@primer/react/deprecated
  */
 
+'use client'
+
 // Deprecated in v35.0.0 on March 9, 2022
 // TODO: We can remove these 6 months after release: September 10, 2022
 export {ActionList} from './ActionList'

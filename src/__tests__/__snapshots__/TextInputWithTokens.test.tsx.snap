@@ -55,13 +55,13 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #1F2328;
+  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
-  background-color: #ffffff;
-  border: 1px solid var(--control-borderColor-rest,#d0d7de);
+  background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
+  border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
   border-radius: 6px;
   outline: none;
-  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
+  box-shadow: var(--shadow-inset,var(--color-primer-shadow-inset,inset 0 1px 0 rgba(208,215,222,0.2)));
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -88,24 +88,24 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
 }
 
 .c0::-webkit-input-placeholder {
-  color: #6e7781;
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
 }
 
 .c0::-moz-placeholder {
-  color: #6e7781;
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
 }
 
 .c0:-ms-input-placeholder {
-  color: #6e7781;
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
 }
 
 .c0::placeholder {
-  color: #6e7781;
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
 }
 
 .c0:focus-within {
-  border-color: #0969da;
-  outline: 2px solid #0969da;
+  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline-offset: -1px;
 }
 
@@ -132,7 +132,7 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #656d76;
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -183,19 +183,19 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
   padding-right: 16px;
   padding-top: 0;
   padding-bottom: 0;
-  background-color: rgba(234,238,242,0.5);
-  border-color: rgba(31,35,40,0.15);
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
+  border-color: var(--borderColor-muted,var(--color-border-subtle,rgba(31,35,40,0.15)));
   border-style: solid;
   border-width: 1px;
-  color: #656d76;
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
   max-width: 100%;
   padding-right: 0;
 }
 
 .c5:hover {
-  background-color: rgba(175,184,193,0.2);
-  box-shadow: 0 3px 6px rgba(140,149,159,0.15);
-  color: #1F2328;
+  background-color: var(--borderColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
+  box-shadow: var(--shadow-resting-medium,var(--color-shadow-medium,0 3px 6px rgba(140,149,159,0.15)));
+  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
 }
 
 .c8 {
@@ -240,11 +240,11 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
 
 .c8:hover,
 .c8:focus {
-  background-color: rgba(175,184,193,0.2);
+  background-color: var(--borderColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
 }
 
 .c8:active {
-  background-color: rgba(234,238,242,0.5);
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
 }
 
 .c6 {
@@ -830,19 +830,19 @@ exports[`TextInputWithTokens renders a truncated set of tokens 1`] = `
 
 .c9 {
   font-size: 16px;
-  color: #656d76;
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
 }
 
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #1F2328;
+  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
-  background-color: #ffffff;
-  border: 1px solid var(--control-borderColor-rest,#d0d7de);
+  background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
+  border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
   border-radius: 6px;
   outline: none;
-  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
+  box-shadow: var(--shadow-inset,var(--color-primer-shadow-inset,inset 0 1px 0 rgba(208,215,222,0.2)));
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -869,24 +869,24 @@ exports[`TextInputWithTokens renders a truncated set of tokens 1`] = `
 }
 
 .c0::-webkit-input-placeholder {
-  color: #6e7781;
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
 }
 
 .c0::-moz-placeholder {
-  color: #6e7781;
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
 }
 
 .c0:-ms-input-placeholder {
-  color: #6e7781;
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
 }
 
 .c0::placeholder {
-  color: #6e7781;
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
 }
 
 .c0:focus-within {
-  border-color: #0969da;
-  outline: 2px solid #0969da;
+  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline-offset: -1px;
 }
 
@@ -913,7 +913,7 @@ exports[`TextInputWithTokens renders a truncated set of tokens 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #656d76;
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -964,19 +964,19 @@ exports[`TextInputWithTokens renders a truncated set of tokens 1`] = `
   padding-right: 16px;
   padding-top: 0;
   padding-bottom: 0;
-  background-color: rgba(234,238,242,0.5);
-  border-color: rgba(31,35,40,0.15);
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
+  border-color: var(--borderColor-muted,var(--color-border-subtle,rgba(31,35,40,0.15)));
   border-style: solid;
   border-width: 1px;
-  color: #656d76;
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
   max-width: 100%;
   padding-right: 0;
 }
 
 .c5:hover {
-  background-color: rgba(175,184,193,0.2);
-  box-shadow: 0 3px 6px rgba(140,149,159,0.15);
-  color: #1F2328;
+  background-color: var(--borderColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
+  box-shadow: var(--shadow-resting-medium,var(--color-shadow-medium,0 3px 6px rgba(140,149,159,0.15)));
+  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
 }
 
 .c8 {
@@ -1021,11 +1021,11 @@ exports[`TextInputWithTokens renders a truncated set of tokens 1`] = `
 
 .c8:hover,
 .c8:focus {
-  background-color: rgba(175,184,193,0.2);
+  background-color: var(--borderColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
 }
 
 .c8:active {
-  background-color: rgba(234,238,242,0.5);
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
 }
 
 .c6 {
@@ -1249,13 +1249,13 @@ exports[`TextInputWithTokens renders as block layout 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #1F2328;
+  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
-  background-color: #ffffff;
-  border: 1px solid var(--control-borderColor-rest,#d0d7de);
+  background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
+  border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
   border-radius: 6px;
   outline: none;
-  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
+  box-shadow: var(--shadow-inset,var(--color-primer-shadow-inset,inset 0 1px 0 rgba(208,215,222,0.2)));
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -1295,24 +1295,24 @@ exports[`TextInputWithTokens renders as block layout 1`] = `
 }
 
 .c0::-webkit-input-placeholder {
-  color: #6e7781;
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
 }
 
 .c0::-moz-placeholder {
-  color: #6e7781;
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
 }
 
 .c0:-ms-input-placeholder {
-  color: #6e7781;
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
 }
 
 .c0::placeholder {
-  color: #6e7781;
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
 }
 
 .c0:focus-within {
-  border-color: #0969da;
-  outline: 2px solid #0969da;
+  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline-offset: -1px;
 }
 
@@ -1344,7 +1344,7 @@ exports[`TextInputWithTokens renders as block layout 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #656d76;
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -1457,13 +1457,13 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #1F2328;
+  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
-  background-color: #ffffff;
-  border: 1px solid var(--control-borderColor-rest,#d0d7de);
+  background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
+  border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
   border-radius: 6px;
   outline: none;
-  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
+  box-shadow: var(--shadow-inset,var(--color-primer-shadow-inset,inset 0 1px 0 rgba(208,215,222,0.2)));
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -1492,24 +1492,24 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
 }
 
 .c0::-webkit-input-placeholder {
-  color: #6e7781;
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
 }
 
 .c0::-moz-placeholder {
-  color: #6e7781;
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
 }
 
 .c0:-ms-input-placeholder {
-  color: #6e7781;
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
 }
 
 .c0::placeholder {
-  color: #6e7781;
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
 }
 
 .c0:focus-within {
-  border-color: #0969da;
-  outline: 2px solid #0969da;
+  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline-offset: -1px;
 }
 
@@ -1538,7 +1538,7 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #656d76;
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -1589,19 +1589,19 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
   padding-right: 16px;
   padding-top: 0;
   padding-bottom: 0;
-  background-color: rgba(234,238,242,0.5);
-  border-color: rgba(31,35,40,0.15);
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
+  border-color: var(--borderColor-muted,var(--color-border-subtle,rgba(31,35,40,0.15)));
   border-style: solid;
   border-width: 1px;
-  color: #656d76;
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
   max-width: 100%;
   padding-right: 0;
 }
 
 .c5:hover {
-  background-color: rgba(175,184,193,0.2);
-  box-shadow: 0 3px 6px rgba(140,149,159,0.15);
-  color: #1F2328;
+  background-color: var(--borderColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
+  box-shadow: var(--shadow-resting-medium,var(--color-shadow-medium,0 3px 6px rgba(140,149,159,0.15)));
+  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
 }
 
 .c8 {
@@ -1646,11 +1646,11 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
 
 .c8:hover,
 .c8:focus {
-  background-color: rgba(175,184,193,0.2);
+  background-color: var(--borderColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
 }
 
 .c8:active {
-  background-color: rgba(234,238,242,0.5);
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
 }
 
 .c6 {
@@ -2185,13 +2185,13 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #1F2328;
+  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
-  background-color: #ffffff;
-  border: 1px solid var(--control-borderColor-rest,#d0d7de);
+  background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
+  border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
   border-radius: 6px;
   outline: none;
-  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
+  box-shadow: var(--shadow-inset,var(--color-primer-shadow-inset,inset 0 1px 0 rgba(208,215,222,0.2)));
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -2225,24 +2225,24 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
 }
 
 .c0::-webkit-input-placeholder {
-  color: #6e7781;
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
 }
 
 .c0::-moz-placeholder {
-  color: #6e7781;
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
 }
 
 .c0:-ms-input-placeholder {
-  color: #6e7781;
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
 }
 
 .c0::placeholder {
-  color: #6e7781;
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
 }
 
 .c0:focus-within {
-  border-color: #0969da;
-  outline: 2px solid #0969da;
+  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline-offset: -1px;
 }
 
@@ -2269,7 +2269,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #656d76;
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -2318,19 +2318,19 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
   line-height: 16px;
   padding-left: 4px;
   padding-right: 4px;
-  background-color: rgba(234,238,242,0.5);
-  border-color: rgba(31,35,40,0.15);
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
+  border-color: var(--borderColor-muted,var(--color-border-subtle,rgba(31,35,40,0.15)));
   border-style: solid;
   border-width: 1px;
-  color: #656d76;
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
   max-width: 100%;
   padding-right: 0;
 }
 
 .c5:hover {
-  background-color: rgba(175,184,193,0.2);
-  box-shadow: 0 3px 6px rgba(140,149,159,0.15);
-  color: #1F2328;
+  background-color: var(--borderColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
+  box-shadow: var(--shadow-resting-medium,var(--color-shadow-medium,0 3px 6px rgba(140,149,159,0.15)));
+  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
 }
 
 .c8 {
@@ -2375,11 +2375,11 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
 
 .c8:hover,
 .c8:focus {
-  background-color: rgba(175,184,193,0.2);
+  background-color: var(--borderColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
 }
 
 .c8:active {
-  background-color: rgba(234,238,242,0.5);
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
 }
 
 .c6 {
@@ -2914,13 +2914,13 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #1F2328;
+  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
-  background-color: #ffffff;
-  border: 1px solid var(--control-borderColor-rest,#d0d7de);
+  background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
+  border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
   border-radius: 6px;
   outline: none;
-  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
+  box-shadow: var(--shadow-inset,var(--color-primer-shadow-inset,inset 0 1px 0 rgba(208,215,222,0.2)));
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -2954,24 +2954,24 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
 }
 
 .c0::-webkit-input-placeholder {
-  color: #6e7781;
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
 }
 
 .c0::-moz-placeholder {
-  color: #6e7781;
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
 }
 
 .c0:-ms-input-placeholder {
-  color: #6e7781;
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
 }
 
 .c0::placeholder {
-  color: #6e7781;
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
 }
 
 .c0:focus-within {
-  border-color: #0969da;
-  outline: 2px solid #0969da;
+  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline-offset: -1px;
 }
 
@@ -2998,7 +2998,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #656d76;
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -3047,19 +3047,19 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
   line-height: 20px;
   padding-left: 8px;
   padding-right: 8px;
-  background-color: rgba(234,238,242,0.5);
-  border-color: rgba(31,35,40,0.15);
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
+  border-color: var(--borderColor-muted,var(--color-border-subtle,rgba(31,35,40,0.15)));
   border-style: solid;
   border-width: 1px;
-  color: #656d76;
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
   max-width: 100%;
   padding-right: 0;
 }
 
 .c5:hover {
-  background-color: rgba(175,184,193,0.2);
-  box-shadow: 0 3px 6px rgba(140,149,159,0.15);
-  color: #1F2328;
+  background-color: var(--borderColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
+  box-shadow: var(--shadow-resting-medium,var(--color-shadow-medium,0 3px 6px rgba(140,149,159,0.15)));
+  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
 }
 
 .c8 {
@@ -3104,11 +3104,11 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
 
 .c8:hover,
 .c8:focus {
-  background-color: rgba(175,184,193,0.2);
+  background-color: var(--borderColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
 }
 
 .c8:active {
-  background-color: rgba(234,238,242,0.5);
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
 }
 
 .c6 {
@@ -3643,13 +3643,13 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #1F2328;
+  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
-  background-color: #ffffff;
-  border: 1px solid var(--control-borderColor-rest,#d0d7de);
+  background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
+  border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
   border-radius: 6px;
   outline: none;
-  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
+  box-shadow: var(--shadow-inset,var(--color-primer-shadow-inset,inset 0 1px 0 rgba(208,215,222,0.2)));
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -3676,24 +3676,24 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
 }
 
 .c0::-webkit-input-placeholder {
-  color: #6e7781;
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
 }
 
 .c0::-moz-placeholder {
-  color: #6e7781;
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
 }
 
 .c0:-ms-input-placeholder {
-  color: #6e7781;
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
 }
 
 .c0::placeholder {
-  color: #6e7781;
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
 }
 
 .c0:focus-within {
-  border-color: #0969da;
-  outline: 2px solid #0969da;
+  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline-offset: -1px;
 }
 
@@ -3720,7 +3720,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #656d76;
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -3769,19 +3769,19 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
   line-height: 24px;
   padding-left: 8px;
   padding-right: 8px;
-  background-color: rgba(234,238,242,0.5);
-  border-color: rgba(31,35,40,0.15);
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
+  border-color: var(--borderColor-muted,var(--color-border-subtle,rgba(31,35,40,0.15)));
   border-style: solid;
   border-width: 1px;
-  color: #656d76;
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
   max-width: 100%;
   padding-right: 0;
 }
 
 .c5:hover {
-  background-color: rgba(175,184,193,0.2);
-  box-shadow: 0 3px 6px rgba(140,149,159,0.15);
-  color: #1F2328;
+  background-color: var(--borderColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
+  box-shadow: var(--shadow-resting-medium,var(--color-shadow-medium,0 3px 6px rgba(140,149,159,0.15)));
+  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
 }
 
 .c8 {
@@ -3826,11 +3826,11 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
 
 .c8:hover,
 .c8:focus {
-  background-color: rgba(175,184,193,0.2);
+  background-color: var(--borderColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
 }
 
 .c8:active {
-  background-color: rgba(234,238,242,0.5);
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
 }
 
 .c6 {
@@ -4369,13 +4369,13 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #1F2328;
+  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
-  background-color: #ffffff;
-  border: 1px solid var(--control-borderColor-rest,#d0d7de);
+  background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
+  border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
   border-radius: 6px;
   outline: none;
-  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
+  box-shadow: var(--shadow-inset,var(--color-primer-shadow-inset,inset 0 1px 0 rgba(208,215,222,0.2)));
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -4402,24 +4402,24 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
 }
 
 .c0::-webkit-input-placeholder {
-  color: #6e7781;
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
 }
 
 .c0::-moz-placeholder {
-  color: #6e7781;
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
 }
 
 .c0:-ms-input-placeholder {
-  color: #6e7781;
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
 }
 
 .c0::placeholder {
-  color: #6e7781;
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
 }
 
 .c0:focus-within {
-  border-color: #0969da;
-  outline: 2px solid #0969da;
+  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline-offset: -1px;
 }
 
@@ -4446,7 +4446,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #656d76;
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -4497,19 +4497,19 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
   padding-right: 16px;
   padding-top: 0;
   padding-bottom: 0;
-  background-color: rgba(234,238,242,0.5);
-  border-color: rgba(31,35,40,0.15);
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
+  border-color: var(--borderColor-muted,var(--color-border-subtle,rgba(31,35,40,0.15)));
   border-style: solid;
   border-width: 1px;
-  color: #656d76;
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
   max-width: 100%;
   padding-right: 0;
 }
 
 .c5:hover {
-  background-color: rgba(175,184,193,0.2);
-  box-shadow: 0 3px 6px rgba(140,149,159,0.15);
-  color: #1F2328;
+  background-color: var(--borderColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
+  box-shadow: var(--shadow-resting-medium,var(--color-shadow-medium,0 3px 6px rgba(140,149,159,0.15)));
+  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
 }
 
 .c8 {
@@ -4554,11 +4554,11 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
 
 .c8:hover,
 .c8:focus {
-  background-color: rgba(175,184,193,0.2);
+  background-color: var(--borderColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
 }
 
 .c8:active {
-  background-color: rgba(234,238,242,0.5);
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
 }
 
 .c6 {
@@ -5097,13 +5097,13 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #1F2328;
+  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
-  background-color: #ffffff;
-  border: 1px solid var(--control-borderColor-rest,#d0d7de);
+  background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
+  border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
   border-radius: 6px;
   outline: none;
-  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
+  box-shadow: var(--shadow-inset,var(--color-primer-shadow-inset,inset 0 1px 0 rgba(208,215,222,0.2)));
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -5131,24 +5131,24 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
 }
 
 .c0::-webkit-input-placeholder {
-  color: #6e7781;
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
 }
 
 .c0::-moz-placeholder {
-  color: #6e7781;
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
 }
 
 .c0:-ms-input-placeholder {
-  color: #6e7781;
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
 }
 
 .c0::placeholder {
-  color: #6e7781;
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
 }
 
 .c0:focus-within {
-  border-color: #0969da;
-  outline: 2px solid #0969da;
+  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline-offset: -1px;
 }
 
@@ -5176,7 +5176,7 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #656d76;
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -5227,19 +5227,19 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
   padding-right: 16px;
   padding-top: 0;
   padding-bottom: 0;
-  background-color: rgba(234,238,242,0.5);
-  border-color: rgba(31,35,40,0.15);
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
+  border-color: var(--borderColor-muted,var(--color-border-subtle,rgba(31,35,40,0.15)));
   border-style: solid;
   border-width: 1px;
-  color: #656d76;
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
   max-width: 100%;
   padding-right: 0;
 }
 
 .c5:hover {
-  background-color: rgba(175,184,193,0.2);
-  box-shadow: 0 3px 6px rgba(140,149,159,0.15);
-  color: #1F2328;
+  background-color: var(--borderColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
+  box-shadow: var(--shadow-resting-medium,var(--color-shadow-medium,0 3px 6px rgba(140,149,159,0.15)));
+  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
 }
 
 .c8 {
@@ -5284,11 +5284,11 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
 
 .c8:hover,
 .c8:focus {
-  background-color: rgba(175,184,193,0.2);
+  background-color: var(--borderColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
 }
 
 .c8:active {
-  background-color: rgba(234,238,242,0.5);
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
 }
 
 .c6 {
@@ -5823,13 +5823,13 @@ exports[`TextInputWithTokens renders tokens without a remove button when specifi
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #1F2328;
+  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
-  background-color: #ffffff;
-  border: 1px solid var(--control-borderColor-rest,#d0d7de);
+  background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
+  border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
   border-radius: 6px;
   outline: none;
-  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
+  box-shadow: var(--shadow-inset,var(--color-primer-shadow-inset,inset 0 1px 0 rgba(208,215,222,0.2)));
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -5856,24 +5856,24 @@ exports[`TextInputWithTokens renders tokens without a remove button when specifi
 }
 
 .c0::-webkit-input-placeholder {
-  color: #6e7781;
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
 }
 
 .c0::-moz-placeholder {
-  color: #6e7781;
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
 }
 
 .c0:-ms-input-placeholder {
-  color: #6e7781;
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
 }
 
 .c0::placeholder {
-  color: #6e7781;
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
 }
 
 .c0:focus-within {
-  border-color: #0969da;
-  outline: 2px solid #0969da;
+  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline-offset: -1px;
 }
 
@@ -5900,7 +5900,7 @@ exports[`TextInputWithTokens renders tokens without a remove button when specifi
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #656d76;
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -5951,18 +5951,18 @@ exports[`TextInputWithTokens renders tokens without a remove button when specifi
   padding-right: 16px;
   padding-top: 0;
   padding-bottom: 0;
-  background-color: rgba(234,238,242,0.5);
-  border-color: rgba(31,35,40,0.15);
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
+  border-color: var(--borderColor-muted,var(--color-border-subtle,rgba(31,35,40,0.15)));
   border-style: solid;
   border-width: 1px;
-  color: #656d76;
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
   max-width: 100%;
 }
 
 .c5:hover {
-  background-color: rgba(175,184,193,0.2);
-  box-shadow: 0 3px 6px rgba(140,149,159,0.15);
-  color: #1F2328;
+  background-color: var(--borderColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
+  box-shadow: var(--shadow-resting-medium,var(--color-shadow-medium,0 3px 6px rgba(140,149,159,0.15)));
+  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
 }
 
 .c6 {
@@ -6272,13 +6272,13 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #1F2328;
+  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
-  background-color: #ffffff;
-  border: 1px solid var(--control-borderColor-rest,#d0d7de);
+  background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
+  border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
   border-radius: 6px;
   outline: none;
-  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
+  box-shadow: var(--shadow-inset,var(--color-primer-shadow-inset,inset 0 1px 0 rgba(208,215,222,0.2)));
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -6305,24 +6305,24 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 }
 
 .c0::-webkit-input-placeholder {
-  color: #6e7781;
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
 }
 
 .c0::-moz-placeholder {
-  color: #6e7781;
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
 }
 
 .c0:-ms-input-placeholder {
-  color: #6e7781;
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
 }
 
 .c0::placeholder {
-  color: #6e7781;
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
 }
 
 .c0:focus-within {
-  border-color: #0969da;
-  outline: 2px solid #0969da;
+  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline-offset: -1px;
 }
 
@@ -6349,7 +6349,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #656d76;
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -6400,19 +6400,19 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   padding-right: 16px;
   padding-top: 0;
   padding-bottom: 0;
-  background-color: rgba(234,238,242,0.5);
-  border-color: rgba(31,35,40,0.15);
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
+  border-color: var(--borderColor-muted,var(--color-border-subtle,rgba(31,35,40,0.15)));
   border-style: solid;
   border-width: 1px;
-  color: #656d76;
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
   max-width: 100%;
   padding-right: 0;
 }
 
 .c5:hover {
-  background-color: rgba(175,184,193,0.2);
-  box-shadow: 0 3px 6px rgba(140,149,159,0.15);
-  color: #1F2328;
+  background-color: var(--borderColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
+  box-shadow: var(--shadow-resting-medium,var(--color-shadow-medium,0 3px 6px rgba(140,149,159,0.15)));
+  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
 }
 
 .c8 {
@@ -6457,11 +6457,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 .c8:hover,
 .c8:focus {
-  background-color: rgba(175,184,193,0.2);
+  background-color: var(--borderColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
 }
 
 .c8:active {
-  background-color: rgba(234,238,242,0.5);
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
 }
 
 .c6 {
@@ -7055,13 +7055,13 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #1F2328;
+  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
-  background-color: #ffffff;
-  border: 1px solid var(--control-borderColor-rest,#d0d7de);
+  background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
+  border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
   border-radius: 6px;
   outline: none;
-  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
+  box-shadow: var(--shadow-inset,var(--color-primer-shadow-inset,inset 0 1px 0 rgba(208,215,222,0.2)));
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -7088,24 +7088,24 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 }
 
 .c0::-webkit-input-placeholder {
-  color: #6e7781;
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
 }
 
 .c0::-moz-placeholder {
-  color: #6e7781;
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
 }
 
 .c0:-ms-input-placeholder {
-  color: #6e7781;
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
 }
 
 .c0::placeholder {
-  color: #6e7781;
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
 }
 
 .c0:focus-within {
-  border-color: #0969da;
-  outline: 2px solid #0969da;
+  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline-offset: -1px;
 }
 
@@ -7132,7 +7132,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #656d76;
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -7183,19 +7183,19 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   padding-right: 16px;
   padding-top: 0;
   padding-bottom: 0;
-  background-color: rgba(234,238,242,0.5);
-  border-color: rgba(31,35,40,0.15);
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
+  border-color: var(--borderColor-muted,var(--color-border-subtle,rgba(31,35,40,0.15)));
   border-style: solid;
   border-width: 1px;
-  color: #656d76;
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
   max-width: 100%;
   padding-right: 0;
 }
 
 .c7:hover {
-  background-color: rgba(175,184,193,0.2);
-  box-shadow: 0 3px 6px rgba(140,149,159,0.15);
-  color: #1F2328;
+  background-color: var(--borderColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
+  box-shadow: var(--shadow-resting-medium,var(--color-shadow-medium,0 3px 6px rgba(140,149,159,0.15)));
+  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
 }
 
 .c10 {
@@ -7240,11 +7240,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 .c10:hover,
 .c10:focus {
-  background-color: rgba(175,184,193,0.2);
+  background-color: var(--borderColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
 }
 
 .c10:active {
-  background-color: rgba(234,238,242,0.5);
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
 }
 
 .c8 {
@@ -7870,13 +7870,13 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #1F2328;
+  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
-  background-color: #ffffff;
-  border: 1px solid var(--control-borderColor-rest,#d0d7de);
+  background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
+  border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
   border-radius: 6px;
   outline: none;
-  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
+  box-shadow: var(--shadow-inset,var(--color-primer-shadow-inset,inset 0 1px 0 rgba(208,215,222,0.2)));
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -7903,24 +7903,24 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 }
 
 .c0::-webkit-input-placeholder {
-  color: #6e7781;
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
 }
 
 .c0::-moz-placeholder {
-  color: #6e7781;
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
 }
 
 .c0:-ms-input-placeholder {
-  color: #6e7781;
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
 }
 
 .c0::placeholder {
-  color: #6e7781;
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
 }
 
 .c0:focus-within {
-  border-color: #0969da;
-  outline: 2px solid #0969da;
+  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline-offset: -1px;
 }
 
@@ -7947,7 +7947,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #656d76;
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -7998,19 +7998,19 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   padding-right: 16px;
   padding-top: 0;
   padding-bottom: 0;
-  background-color: rgba(234,238,242,0.5);
-  border-color: rgba(31,35,40,0.15);
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
+  border-color: var(--borderColor-muted,var(--color-border-subtle,rgba(31,35,40,0.15)));
   border-style: solid;
   border-width: 1px;
-  color: #656d76;
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
   max-width: 100%;
   padding-right: 0;
 }
 
 .c5:hover {
-  background-color: rgba(175,184,193,0.2);
-  box-shadow: 0 3px 6px rgba(140,149,159,0.15);
-  color: #1F2328;
+  background-color: var(--borderColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
+  box-shadow: var(--shadow-resting-medium,var(--color-shadow-medium,0 3px 6px rgba(140,149,159,0.15)));
+  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
 }
 
 .c8 {
@@ -8055,11 +8055,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 .c8:hover,
 .c8:focus {
-  background-color: rgba(175,184,193,0.2);
+  background-color: var(--borderColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
 }
 
 .c8:active {
-  background-color: rgba(234,238,242,0.5);
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
 }
 
 .c6 {
@@ -8662,13 +8662,13 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #1F2328;
+  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
-  background-color: #ffffff;
-  border: 1px solid var(--control-borderColor-rest,#d0d7de);
+  background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
+  border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
   border-radius: 6px;
   outline: none;
-  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
+  box-shadow: var(--shadow-inset,var(--color-primer-shadow-inset,inset 0 1px 0 rgba(208,215,222,0.2)));
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -8695,24 +8695,24 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 }
 
 .c0::-webkit-input-placeholder {
-  color: #6e7781;
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
 }
 
 .c0::-moz-placeholder {
-  color: #6e7781;
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
 }
 
 .c0:-ms-input-placeholder {
-  color: #6e7781;
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
 }
 
 .c0::placeholder {
-  color: #6e7781;
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
 }
 
 .c0:focus-within {
-  border-color: #0969da;
-  outline: 2px solid #0969da;
+  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline-offset: -1px;
 }
 
@@ -8739,7 +8739,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #656d76;
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -8790,19 +8790,19 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   padding-right: 16px;
   padding-top: 0;
   padding-bottom: 0;
-  background-color: rgba(234,238,242,0.5);
-  border-color: rgba(31,35,40,0.15);
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
+  border-color: var(--borderColor-muted,var(--color-border-subtle,rgba(31,35,40,0.15)));
   border-style: solid;
   border-width: 1px;
-  color: #656d76;
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
   max-width: 100%;
   padding-right: 0;
 }
 
 .c8:hover {
-  background-color: rgba(175,184,193,0.2);
-  box-shadow: 0 3px 6px rgba(140,149,159,0.15);
-  color: #1F2328;
+  background-color: var(--borderColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
+  box-shadow: var(--shadow-resting-medium,var(--color-shadow-medium,0 3px 6px rgba(140,149,159,0.15)));
+  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
 }
 
 .c11 {
@@ -8847,11 +8847,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 .c11:hover,
 .c11:focus {
-  background-color: rgba(175,184,193,0.2);
+  background-color: var(--borderColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
 }
 
 .c11:active {
-  background-color: rgba(234,238,242,0.5);
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
 }
 
 .c9 {
@@ -9523,13 +9523,13 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #1F2328;
+  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
-  background-color: #ffffff;
-  border: 1px solid var(--control-borderColor-rest,#d0d7de);
+  background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
+  border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
   border-radius: 6px;
   outline: none;
-  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
+  box-shadow: var(--shadow-inset,var(--color-primer-shadow-inset,inset 0 1px 0 rgba(208,215,222,0.2)));
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -9556,24 +9556,24 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 }
 
 .c0::-webkit-input-placeholder {
-  color: #6e7781;
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
 }
 
 .c0::-moz-placeholder {
-  color: #6e7781;
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
 }
 
 .c0:-ms-input-placeholder {
-  color: #6e7781;
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
 }
 
 .c0::placeholder {
-  color: #6e7781;
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
 }
 
 .c0:focus-within {
-  border-color: #0969da;
-  outline: 2px solid #0969da;
+  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline-offset: -1px;
 }
 
@@ -9600,7 +9600,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #656d76;
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -9651,19 +9651,19 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   padding-right: 16px;
   padding-top: 0;
   padding-bottom: 0;
-  background-color: rgba(234,238,242,0.5);
-  border-color: rgba(31,35,40,0.15);
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
+  border-color: var(--borderColor-muted,var(--color-border-subtle,rgba(31,35,40,0.15)));
   border-style: solid;
   border-width: 1px;
-  color: #656d76;
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
   max-width: 100%;
   padding-right: 0;
 }
 
 .c8:hover {
-  background-color: rgba(175,184,193,0.2);
-  box-shadow: 0 3px 6px rgba(140,149,159,0.15);
-  color: #1F2328;
+  background-color: var(--borderColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
+  box-shadow: var(--shadow-resting-medium,var(--color-shadow-medium,0 3px 6px rgba(140,149,159,0.15)));
+  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
 }
 
 .c11 {
@@ -9708,11 +9708,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 .c11:hover,
 .c11:focus {
-  background-color: rgba(175,184,193,0.2);
+  background-color: var(--borderColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
 }
 
 .c11:active {
-  background-color: rgba(234,238,242,0.5);
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
 }
 
 .c9 {
@@ -10384,13 +10384,13 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #1F2328;
+  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
-  background-color: #ffffff;
-  border: 1px solid var(--control-borderColor-rest,#d0d7de);
+  background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
+  border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
   border-radius: 6px;
   outline: none;
-  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
+  box-shadow: var(--shadow-inset,var(--color-primer-shadow-inset,inset 0 1px 0 rgba(208,215,222,0.2)));
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -10417,24 +10417,24 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 }
 
 .c0::-webkit-input-placeholder {
-  color: #6e7781;
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
 }
 
 .c0::-moz-placeholder {
-  color: #6e7781;
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
 }
 
 .c0:-ms-input-placeholder {
-  color: #6e7781;
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
 }
 
 .c0::placeholder {
-  color: #6e7781;
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
 }
 
 .c0:focus-within {
-  border-color: #0969da;
-  outline: 2px solid #0969da;
+  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline-offset: -1px;
 }
 
@@ -10461,7 +10461,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #656d76;
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -10512,19 +10512,19 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   padding-right: 16px;
   padding-top: 0;
   padding-bottom: 0;
-  background-color: rgba(234,238,242,0.5);
-  border-color: rgba(31,35,40,0.15);
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
+  border-color: var(--borderColor-muted,var(--color-border-subtle,rgba(31,35,40,0.15)));
   border-style: solid;
   border-width: 1px;
-  color: #656d76;
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
   max-width: 100%;
   padding-right: 0;
 }
 
 .c8:hover {
-  background-color: rgba(175,184,193,0.2);
-  box-shadow: 0 3px 6px rgba(140,149,159,0.15);
-  color: #1F2328;
+  background-color: var(--borderColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
+  box-shadow: var(--shadow-resting-medium,var(--color-shadow-medium,0 3px 6px rgba(140,149,159,0.15)));
+  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
 }
 
 .c11 {
@@ -10569,11 +10569,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 .c11:hover,
 .c11:focus {
-  background-color: rgba(175,184,193,0.2);
+  background-color: var(--borderColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
 }
 
 .c11:active {
-  background-color: rgba(234,238,242,0.5);
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
 }
 
 .c9 {
@@ -11239,13 +11239,13 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #1F2328;
+  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
-  background-color: #ffffff;
-  border: 1px solid var(--control-borderColor-rest,#d0d7de);
+  background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
+  border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
   border-radius: 6px;
   outline: none;
-  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
+  box-shadow: var(--shadow-inset,var(--color-primer-shadow-inset,inset 0 1px 0 rgba(208,215,222,0.2)));
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -11272,24 +11272,24 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 }
 
 .c0::-webkit-input-placeholder {
-  color: #6e7781;
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
 }
 
 .c0::-moz-placeholder {
-  color: #6e7781;
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
 }
 
 .c0:-ms-input-placeholder {
-  color: #6e7781;
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
 }
 
 .c0::placeholder {
-  color: #6e7781;
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
 }
 
 .c0:focus-within {
-  border-color: #0969da;
-  outline: 2px solid #0969da;
+  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline-offset: -1px;
 }
 
@@ -11316,7 +11316,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #656d76;
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -11367,19 +11367,19 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   padding-right: 16px;
   padding-top: 0;
   padding-bottom: 0;
-  background-color: rgba(234,238,242,0.5);
-  border-color: rgba(31,35,40,0.15);
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
+  border-color: var(--borderColor-muted,var(--color-border-subtle,rgba(31,35,40,0.15)));
   border-style: solid;
   border-width: 1px;
-  color: #656d76;
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
   max-width: 100%;
   padding-right: 0;
 }
 
 .c5:hover {
-  background-color: rgba(175,184,193,0.2);
-  box-shadow: 0 3px 6px rgba(140,149,159,0.15);
-  color: #1F2328;
+  background-color: var(--borderColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
+  box-shadow: var(--shadow-resting-medium,var(--color-shadow-medium,0 3px 6px rgba(140,149,159,0.15)));
+  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
 }
 
 .c8 {
@@ -11424,11 +11424,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 .c8:hover,
 .c8:focus {
-  background-color: rgba(175,184,193,0.2);
+  background-color: var(--borderColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
 }
 
 .c8:active {
-  background-color: rgba(234,238,242,0.5);
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
 }
 
 .c6 {
@@ -12062,13 +12062,13 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #1F2328;
+  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
-  background-color: #ffffff;
-  border: 1px solid var(--control-borderColor-rest,#d0d7de);
+  background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
+  border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
   border-radius: 6px;
   outline: none;
-  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
+  box-shadow: var(--shadow-inset,var(--color-primer-shadow-inset,inset 0 1px 0 rgba(208,215,222,0.2)));
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -12095,24 +12095,24 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 }
 
 .c0::-webkit-input-placeholder {
-  color: #6e7781;
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
 }
 
 .c0::-moz-placeholder {
-  color: #6e7781;
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
 }
 
 .c0:-ms-input-placeholder {
-  color: #6e7781;
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
 }
 
 .c0::placeholder {
-  color: #6e7781;
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
 }
 
 .c0:focus-within {
-  border-color: #0969da;
-  outline: 2px solid #0969da;
+  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline-offset: -1px;
 }
 
@@ -12139,7 +12139,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #656d76;
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -12190,19 +12190,19 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   padding-right: 16px;
   padding-top: 0;
   padding-bottom: 0;
-  background-color: rgba(234,238,242,0.5);
-  border-color: rgba(31,35,40,0.15);
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
+  border-color: var(--borderColor-muted,var(--color-border-subtle,rgba(31,35,40,0.15)));
   border-style: solid;
   border-width: 1px;
-  color: #656d76;
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
   max-width: 100%;
   padding-right: 0;
 }
 
 .c7:hover {
-  background-color: rgba(175,184,193,0.2);
-  box-shadow: 0 3px 6px rgba(140,149,159,0.15);
-  color: #1F2328;
+  background-color: var(--borderColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
+  box-shadow: var(--shadow-resting-medium,var(--color-shadow-medium,0 3px 6px rgba(140,149,159,0.15)));
+  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
 }
 
 .c10 {
@@ -12247,11 +12247,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 .c10:hover,
 .c10:focus {
-  background-color: rgba(175,184,193,0.2);
+  background-color: var(--borderColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
 }
 
 .c10:active {
-  background-color: rgba(234,238,242,0.5);
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
 }
 
 .c8 {
@@ -12917,13 +12917,13 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #1F2328;
+  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
-  background-color: #ffffff;
-  border: 1px solid var(--control-borderColor-rest,#d0d7de);
+  background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
+  border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
   border-radius: 6px;
   outline: none;
-  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
+  box-shadow: var(--shadow-inset,var(--color-primer-shadow-inset,inset 0 1px 0 rgba(208,215,222,0.2)));
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -12950,24 +12950,24 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 }
 
 .c0::-webkit-input-placeholder {
-  color: #6e7781;
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
 }
 
 .c0::-moz-placeholder {
-  color: #6e7781;
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
 }
 
 .c0:-ms-input-placeholder {
-  color: #6e7781;
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
 }
 
 .c0::placeholder {
-  color: #6e7781;
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
 }
 
 .c0:focus-within {
-  border-color: #0969da;
-  outline: 2px solid #0969da;
+  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline-offset: -1px;
 }
 
@@ -12994,7 +12994,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #656d76;
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -13045,19 +13045,19 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   padding-right: 16px;
   padding-top: 0;
   padding-bottom: 0;
-  background-color: rgba(234,238,242,0.5);
-  border-color: rgba(31,35,40,0.15);
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
+  border-color: var(--borderColor-muted,var(--color-border-subtle,rgba(31,35,40,0.15)));
   border-style: solid;
   border-width: 1px;
-  color: #656d76;
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
   max-width: 100%;
   padding-right: 0;
 }
 
 .c5:hover {
-  background-color: rgba(175,184,193,0.2);
-  box-shadow: 0 3px 6px rgba(140,149,159,0.15);
-  color: #1F2328;
+  background-color: var(--borderColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
+  box-shadow: var(--shadow-resting-medium,var(--color-shadow-medium,0 3px 6px rgba(140,149,159,0.15)));
+  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
 }
 
 .c8 {
@@ -13102,11 +13102,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 .c8:hover,
 .c8:focus {
-  background-color: rgba(175,184,193,0.2);
+  background-color: var(--borderColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
 }
 
 .c8:active {
-  background-color: rgba(234,238,242,0.5);
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
 }
 
 .c6 {
@@ -13749,13 +13749,13 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #1F2328;
+  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
-  background-color: #ffffff;
-  border: 1px solid var(--control-borderColor-rest,#d0d7de);
+  background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
+  border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
   border-radius: 6px;
   outline: none;
-  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
+  box-shadow: var(--shadow-inset,var(--color-primer-shadow-inset,inset 0 1px 0 rgba(208,215,222,0.2)));
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -13789,24 +13789,24 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 }
 
 .c0::-webkit-input-placeholder {
-  color: #6e7781;
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
 }
 
 .c0::-moz-placeholder {
-  color: #6e7781;
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
 }
 
 .c0:-ms-input-placeholder {
-  color: #6e7781;
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
 }
 
 .c0::placeholder {
-  color: #6e7781;
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
 }
 
 .c0:focus-within {
-  border-color: #0969da;
-  outline: 2px solid #0969da;
+  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline-offset: -1px;
 }
 
@@ -13833,7 +13833,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #656d76;
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -13882,19 +13882,19 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   line-height: 16px;
   padding-left: 4px;
   padding-right: 4px;
-  background-color: rgba(234,238,242,0.5);
-  border-color: rgba(31,35,40,0.15);
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
+  border-color: var(--borderColor-muted,var(--color-border-subtle,rgba(31,35,40,0.15)));
   border-style: solid;
   border-width: 1px;
-  color: #656d76;
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
   max-width: 100%;
   padding-right: 0;
 }
 
 .c8:hover {
-  background-color: rgba(175,184,193,0.2);
-  box-shadow: 0 3px 6px rgba(140,149,159,0.15);
-  color: #1F2328;
+  background-color: var(--borderColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
+  box-shadow: var(--shadow-resting-medium,var(--color-shadow-medium,0 3px 6px rgba(140,149,159,0.15)));
+  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
 }
 
 .c11 {
@@ -13939,11 +13939,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 .c11:hover,
 .c11:focus {
-  background-color: rgba(175,184,193,0.2);
+  background-color: var(--borderColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
 }
 
 .c11:active {
-  background-color: rgba(234,238,242,0.5);
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
 }
 
 .c9 {
@@ -14655,13 +14655,13 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #1F2328;
+  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
-  background-color: #ffffff;
-  border: 1px solid var(--control-borderColor-rest,#d0d7de);
+  background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
+  border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
   border-radius: 6px;
   outline: none;
-  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
+  box-shadow: var(--shadow-inset,var(--color-primer-shadow-inset,inset 0 1px 0 rgba(208,215,222,0.2)));
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -14688,24 +14688,24 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 }
 
 .c0::-webkit-input-placeholder {
-  color: #6e7781;
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
 }
 
 .c0::-moz-placeholder {
-  color: #6e7781;
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
 }
 
 .c0:-ms-input-placeholder {
-  color: #6e7781;
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
 }
 
 .c0::placeholder {
-  color: #6e7781;
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
 }
 
 .c0:focus-within {
-  border-color: #0969da;
-  outline: 2px solid #0969da;
+  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline-offset: -1px;
 }
 
@@ -14732,7 +14732,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #656d76;
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -14783,19 +14783,19 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   padding-right: 16px;
   padding-top: 0;
   padding-bottom: 0;
-  background-color: rgba(234,238,242,0.5);
-  border-color: rgba(31,35,40,0.15);
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
+  border-color: var(--borderColor-muted,var(--color-border-subtle,rgba(31,35,40,0.15)));
   border-style: solid;
   border-width: 1px;
-  color: #656d76;
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
   max-width: 100%;
   padding-right: 0;
 }
 
 .c8:hover {
-  background-color: rgba(175,184,193,0.2);
-  box-shadow: 0 3px 6px rgba(140,149,159,0.15);
-  color: #1F2328;
+  background-color: var(--borderColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
+  box-shadow: var(--shadow-resting-medium,var(--color-shadow-medium,0 3px 6px rgba(140,149,159,0.15)));
+  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
 }
 
 .c11 {
@@ -14840,11 +14840,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 .c11:hover,
 .c11:focus {
-  background-color: rgba(175,184,193,0.2);
+  background-color: var(--borderColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
 }
 
 .c11:active {
-  background-color: rgba(234,238,242,0.5);
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
 }
 
 .c9 {
@@ -15556,13 +15556,13 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #1F2328;
+  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
-  background-color: #ffffff;
-  border: 1px solid var(--control-borderColor-rest,#d0d7de);
+  background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
+  border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
   border-radius: 6px;
   outline: none;
-  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
+  box-shadow: var(--shadow-inset,var(--color-primer-shadow-inset,inset 0 1px 0 rgba(208,215,222,0.2)));
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -15589,24 +15589,24 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 }
 
 .c0::-webkit-input-placeholder {
-  color: #6e7781;
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
 }
 
 .c0::-moz-placeholder {
-  color: #6e7781;
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
 }
 
 .c0:-ms-input-placeholder {
-  color: #6e7781;
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
 }
 
 .c0::placeholder {
-  color: #6e7781;
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
 }
 
 .c0:focus-within {
-  border-color: #0969da;
-  outline: 2px solid #0969da;
+  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline-offset: -1px;
 }
 
@@ -15633,7 +15633,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #656d76;
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -15682,19 +15682,19 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   line-height: 24px;
   padding-left: 8px;
   padding-right: 8px;
-  background-color: rgba(234,238,242,0.5);
-  border-color: rgba(31,35,40,0.15);
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
+  border-color: var(--borderColor-muted,var(--color-border-subtle,rgba(31,35,40,0.15)));
   border-style: solid;
   border-width: 1px;
-  color: #656d76;
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
   max-width: 100%;
   padding-right: 0;
 }
 
 .c8:hover {
-  background-color: rgba(175,184,193,0.2);
-  box-shadow: 0 3px 6px rgba(140,149,159,0.15);
-  color: #1F2328;
+  background-color: var(--borderColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
+  box-shadow: var(--shadow-resting-medium,var(--color-shadow-medium,0 3px 6px rgba(140,149,159,0.15)));
+  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
 }
 
 .c11 {
@@ -15739,11 +15739,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 .c11:hover,
 .c11:focus {
-  background-color: rgba(175,184,193,0.2);
+  background-color: var(--borderColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
 }
 
 .c11:active {
-  background-color: rgba(234,238,242,0.5);
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
 }
 
 .c9 {
@@ -16421,13 +16421,13 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #1F2328;
+  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
-  background-color: #ffffff;
-  border: 1px solid var(--control-borderColor-rest,#d0d7de);
+  background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
+  border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
   border-radius: 6px;
   outline: none;
-  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
+  box-shadow: var(--shadow-inset,var(--color-primer-shadow-inset,inset 0 1px 0 rgba(208,215,222,0.2)));
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -16454,24 +16454,24 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
 }
 
 .c0::-webkit-input-placeholder {
-  color: #6e7781;
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
 }
 
 .c0::-moz-placeholder {
-  color: #6e7781;
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
 }
 
 .c0:-ms-input-placeholder {
-  color: #6e7781;
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
 }
 
 .c0::placeholder {
-  color: #6e7781;
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
 }
 
 .c0:focus-within {
-  border-color: #0969da;
-  outline: 2px solid #0969da;
+  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline-offset: -1px;
 }
 
@@ -16498,7 +16498,7 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #656d76;
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -16549,19 +16549,19 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
   padding-right: 16px;
   padding-top: 0;
   padding-bottom: 0;
-  background-color: rgba(234,238,242,0.5);
-  border-color: rgba(31,35,40,0.15);
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
+  border-color: var(--borderColor-muted,var(--color-border-subtle,rgba(31,35,40,0.15)));
   border-style: solid;
   border-width: 1px;
-  color: #656d76;
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
   max-width: 100%;
   padding-right: 0;
 }
 
 .c5:hover {
-  background-color: rgba(175,184,193,0.2);
-  box-shadow: 0 3px 6px rgba(140,149,159,0.15);
-  color: #1F2328;
+  background-color: var(--borderColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
+  box-shadow: var(--shadow-resting-medium,var(--color-shadow-medium,0 3px 6px rgba(140,149,159,0.15)));
+  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
 }
 
 .c8 {
@@ -16606,11 +16606,11 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
 
 .c8:hover,
 .c8:focus {
-  background-color: rgba(175,184,193,0.2);
+  background-color: var(--borderColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
 }
 
 .c8:active {
-  background-color: rgba(234,238,242,0.5);
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
 }
 
 .c6 {
@@ -17132,13 +17132,13 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #1F2328;
+  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
-  background-color: #ffffff;
-  border: 1px solid var(--control-borderColor-rest,#d0d7de);
+  background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
+  border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
   border-radius: 6px;
   outline: none;
-  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
+  box-shadow: var(--shadow-inset,var(--color-primer-shadow-inset,inset 0 1px 0 rgba(208,215,222,0.2)));
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -17165,24 +17165,24 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
 }
 
 .c0::-webkit-input-placeholder {
-  color: #6e7781;
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
 }
 
 .c0::-moz-placeholder {
-  color: #6e7781;
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
 }
 
 .c0:-ms-input-placeholder {
-  color: #6e7781;
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
 }
 
 .c0::placeholder {
-  color: #6e7781;
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
 }
 
 .c0:focus-within {
-  border-color: #0969da;
-  outline: 2px solid #0969da;
+  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline-offset: -1px;
 }
 
@@ -17209,7 +17209,7 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #656d76;
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -17282,7 +17282,7 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
 
 .c5:hover {
   background-image: linear-gradient(rgba(0,0,0,0.15),rgba(0,0,0,0.15)),linear-gradient(rgb(var(--label-r),var(--label-g),var(--label-b)),rgb(var(--label-r),var(--label-g),var(--label-b)));
-  box-shadow: 0 3px 6px rgba(140,149,159,0.15);
+  box-shadow: var(--shadow-resting-medium,var(--color-shadow-medium,0 3px 6px rgba(140,149,159,0.15)));
 }
 
 .c7 {
@@ -17329,11 +17329,11 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
 
 .c7:hover,
 .c7:focus {
-  background-color: rgba(175,184,193,0.2);
+  background-color: var(--borderColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
 }
 
 .c7:active {
-  background-color: rgba(234,238,242,0.5);
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
 }
 
 .c6 {
@@ -17815,13 +17815,13 @@ exports[`TextInputWithTokens renders without tokens 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #1F2328;
+  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
-  background-color: #ffffff;
-  border: 1px solid var(--control-borderColor-rest,#d0d7de);
+  background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
+  border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
   border-radius: 6px;
   outline: none;
-  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
+  box-shadow: var(--shadow-inset,var(--color-primer-shadow-inset,inset 0 1px 0 rgba(208,215,222,0.2)));
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -17848,24 +17848,24 @@ exports[`TextInputWithTokens renders without tokens 1`] = `
 }
 
 .c0::-webkit-input-placeholder {
-  color: #6e7781;
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
 }
 
 .c0::-moz-placeholder {
-  color: #6e7781;
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
 }
 
 .c0:-ms-input-placeholder {
-  color: #6e7781;
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
 }
 
 .c0::placeholder {
-  color: #6e7781;
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
 }
 
 .c0:focus-within {
-  border-color: #0969da;
-  outline: 2px solid #0969da;
+  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline-offset: -1px;
 }
 
@@ -17892,7 +17892,7 @@ exports[`TextInputWithTokens renders without tokens 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #656d76;
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;

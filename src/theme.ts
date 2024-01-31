@@ -1,8 +1,6 @@
 import {KeyPaths} from './utils/types/KeyPaths'
-import primitives from '@primer/primitives'
+import {colors} from './legacy-theme/ts/colors'
 import {partitionColors, fontStack, omitScale} from './utils/theme'
-
-const {lineHeight: lineHeights} = primitives.typography.normal
 
 const animation = {
   easeOutCubic: 'cubic-bezier(0.33, 1, 0.68, 1)',
@@ -33,6 +31,12 @@ const fonts = {
   ]),
 }
 
+const lineHeights = {
+  condensedUltra: 1,
+  condensed: 1.25,
+  default: 1.5,
+}
+
 const fontWeights = {
   light: 300,
   normal: 400,
@@ -55,10 +59,10 @@ const fontSizes = ['12px', '14px', '16px', '20px', '24px', '32px', '40px', '48px
 
 const space = ['0', '4px', '8px', '16px', '24px', '32px', '40px', '48px', '64px', '80px', '96px', '112px', '128px']
 
-type Scheme = keyof typeof primitives.colors
-type SchemeValue = Record<'colors' | 'shadows', Partial<typeof primitives.colors.light>>
+type Scheme = keyof typeof colors
+type SchemeValue = Record<'colors' | 'shadows', Partial<typeof colors.light>>
 
-const colorSchemes: Record<Scheme, SchemeValue> = Object.entries(primitives.colors).reduce(
+const colorSchemes: Record<Scheme, SchemeValue> = Object.entries(colors).reduce(
   (acc, [name, variables]) => {
     const {colors, shadows} = partitionColors(variables)
     return {
