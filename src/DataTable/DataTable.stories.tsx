@@ -9,7 +9,7 @@ import {UniqueRow} from './row'
 import {getColumnWidthArgTypes, ColWidthArgTypes} from './storyHelpers'
 
 export default {
-  title: 'Drafts/Components/DataTable',
+  title: 'Experimental/Components/DataTable',
   component: DataTable,
 } as Meta<typeof DataTable>
 

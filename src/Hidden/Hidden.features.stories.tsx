@@ -4,7 +4,7 @@ import {Hidden} from './Hidden'
 import {Box, Button} from '..'
 
 export default {
-  title: 'Drafts/Components/Hidden/Features',
+  title: 'Experimental/Components/Hidden/Features',
   component: Hidden,
 } as ComponentMeta<typeof Hidden>
 

@@ -9,7 +9,7 @@ test.describe('Hidden', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-hidden--default',
+            id: 'experimental-components-hidden--default',
             globals: {
               colorScheme: theme,
             },
@@ -37,7 +37,7 @@ test.describe('Hidden', () => {
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-hidden--default',
+            id: 'experimental-components-hidden--default',
             globals: {
               colorScheme: theme,
             },

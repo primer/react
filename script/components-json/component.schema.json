@@ -63,7 +63,7 @@
     "status": {
       "type": "string",
       "description": "The status of the component.",
-      "enum": ["draft", "alpha", "beta", "stable", "deprecated"]
+      "enum": ["experimental", "alpha", "beta", "stable", "deprecated"]
     },
     "a11yReviewed": {
       "type": "boolean",

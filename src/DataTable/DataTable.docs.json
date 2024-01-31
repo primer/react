@@ -1,44 +1,44 @@
 {
   "id": "data_table",
   "name": "DataTable",
-  "status": "draft",
+  "status": "experimental",
   "a11yReviewed": false,
   "stories": [
     {
-      "id": "drafts-components-datatable-features--with-title"
+      "id": "experimental-components-datatable-features--with-title"
     },
     {
-      "id": "drafts-components-datatable-features--with-title-and-subtitle"
+      "id": "experimental-components-datatable-features--with-title-and-subtitle"
     },
     {
-      "id": "drafts-components-datatable-features--with-sorting"
+      "id": "experimental-components-datatable-features--with-sorting"
     },
     {
-      "id": "drafts-components-datatable-features--with-actions"
+      "id": "experimental-components-datatable-features--with-actions"
     },
     {
-      "id": "drafts-components-datatable-features--with-action"
+      "id": "experimental-components-datatable-features--with-action"
     },
     {
-      "id": "drafts-components-datatable-features--with-row-action"
+      "id": "experimental-components-datatable-features--with-row-action"
     },
     {
-      "id": "drafts-components-datatable-features--with-row-actions"
+      "id": "experimental-components-datatable-features--with-row-actions"
     },
     {
-      "id": "drafts-components-datatable-features--with-row-action-menu"
+      "id": "experimental-components-datatable-features--with-row-action-menu"
     },
     {
-      "id": "drafts-components-datatable-features--with-custom-heading"
+      "id": "experimental-components-datatable-features--with-custom-heading"
     },
     {
-      "id": "drafts-components-datatable-features--with-no-content"
+      "id": "experimental-components-datatable-features--with-no-content"
     },
     {
-      "id": "drafts-components-datatable-features--with-loading"
+      "id": "experimental-components-datatable-features--with-loading"
     },
     {
-      "id": "drafts-components-datatable-features--with-pagination"
+      "id": "experimental-components-datatable-features--with-pagination"
     }
   ],
   "props": [

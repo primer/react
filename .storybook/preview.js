@@ -48,7 +48,7 @@ const preview = {
           'Behaviors',
           'Hooks',
           'Deprecated',
-          'Drafts',
+          'Experimental',
           'Private',
           '*',
         ]

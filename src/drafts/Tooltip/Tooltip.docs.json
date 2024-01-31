@@ -1,7 +1,7 @@
 {
   "id": "tooltip_v2",
   "name": "Tooltip",
-  "status": "draft",
+  "status": "experimental",
   "a11yReviewed": true,
   "stories": [],
   "props": [

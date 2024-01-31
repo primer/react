@@ -9,7 +9,7 @@ test.describe('PageHeader', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-pageheader-examples--files-page',
+            id: 'experimental-components-pageheader-examples--files-page',
             globals: {
               colorScheme: theme,
             },
@@ -21,7 +21,7 @@ test.describe('PageHeader', () => {
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-pageheader-examples--files-page',
+            id: 'experimental-components-pageheader-examples--files-page',
             globals: {
               colorScheme: theme,
             },
@@ -43,7 +43,7 @@ test.describe('PageHeader', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-pageheader-examples--files-page-on-narrow-viewport',
+            id: 'experimental-components-pageheader-examples--files-page-on-narrow-viewport',
             globals: {
               colorScheme: theme,
             },
@@ -55,7 +55,7 @@ test.describe('PageHeader', () => {
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-pageheader-examples--files-page-on-narrow-viewport',
+            id: 'experimental-components-pageheader-examples--files-page-on-narrow-viewport',
             globals: {
               colorScheme: theme,
             },
@@ -77,7 +77,7 @@ test.describe('PageHeader', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-pageheader-examples--pull-request-page',
+            id: 'experimental-components-pageheader-examples--pull-request-page',
             globals: {
               colorScheme: theme,
             },
@@ -89,7 +89,7 @@ test.describe('PageHeader', () => {
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-pageheader-examples--pull-request-page',
+            id: 'experimental-components-pageheader-examples--pull-request-page',
             globals: {
               colorScheme: theme,
             },
@@ -116,7 +116,7 @@ test.describe('PageHeader', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-pageheader-examples--pull-request-page-on-narrow-viewport',
+            id: 'experimental-components-pageheader-examples--pull-request-page-on-narrow-viewport',
             globals: {
               colorScheme: theme,
             },
@@ -130,7 +130,7 @@ test.describe('PageHeader', () => {
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-pageheader-examples--pull-request-page-on-narrow-viewport',
+            id: 'experimental-components-pageheader-examples--pull-request-page-on-narrow-viewport',
             globals: {
               colorScheme: theme,
             },
@@ -157,7 +157,7 @@ test.describe('PageHeader', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-pageheader-examples--webhooks',
+            id: 'experimental-components-pageheader-examples--webhooks',
             globals: {
               colorScheme: theme,
             },
@@ -169,7 +169,7 @@ test.describe('PageHeader', () => {
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-pageheader-examples--webhooks',
+            id: 'experimental-components-pageheader-examples--webhooks',
             globals: {
               colorScheme: theme,
             },
@@ -191,7 +191,7 @@ test.describe('PageHeader', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-pageheader-examples--webhooks-on-narrow-viewport',
+            id: 'experimental-components-pageheader-examples--webhooks-on-narrow-viewport',
             globals: {
               colorScheme: theme,
             },
@@ -203,7 +203,7 @@ test.describe('PageHeader', () => {
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-pageheader-examples--webhooks-on-narrow-viewport',
+            id: 'experimental-components-pageheader-examples--webhooks-on-narrow-viewport',
             globals: {
               colorScheme: theme,
             },
@@ -225,7 +225,7 @@ test.describe('PageHeader', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-pageheader-examples--with-page-layout',
+            id: 'experimental-components-pageheader-examples--with-page-layout',
             globals: {
               colorScheme: theme,
             },
@@ -237,7 +237,7 @@ test.describe('PageHeader', () => {
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-pageheader-examples--with-page-layout',
+            id: 'experimental-components-pageheader-examples--with-page-layout',
             globals: {
               colorScheme: theme,
             },
@@ -263,7 +263,7 @@ test.describe('PageHeader', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-pageheader-features--has-large-title',
+            id: 'experimental-components-pageheader-features--has-large-title',
             globals: {
               colorScheme: theme,
             },
@@ -275,7 +275,7 @@ test.describe('PageHeader', () => {
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-pageheader-features--has-large-title',
+            id: 'experimental-components-pageheader-features--has-large-title',
             globals: {
               colorScheme: theme,
             },
@@ -297,7 +297,7 @@ test.describe('PageHeader', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-pageheader-features--has-title-only',
+            id: 'experimental-components-pageheader-features--has-title-only',
             globals: {
               colorScheme: theme,
             },
@@ -309,7 +309,7 @@ test.describe('PageHeader', () => {
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-pageheader-features--has-title-only',
+            id: 'experimental-components-pageheader-features--has-title-only',
             globals: {
               colorScheme: theme,
             },
@@ -331,7 +331,7 @@ test.describe('PageHeader', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-pageheader-features--with-actions',
+            id: 'experimental-components-pageheader-features--with-actions',
             globals: {
               colorScheme: theme,
             },
@@ -343,7 +343,7 @@ test.describe('PageHeader', () => {
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-pageheader-features--with-actions',
+            id: 'experimental-components-pageheader-features--with-actions',
             globals: {
               colorScheme: theme,
             },
@@ -365,7 +365,7 @@ test.describe('PageHeader', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-pageheader-features--with-actions-that-have-responsive-content',
+            id: 'experimental-components-pageheader-features--with-actions-that-have-responsive-content',
             globals: {
               colorScheme: theme,
             },
@@ -379,7 +379,7 @@ test.describe('PageHeader', () => {
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-pageheader-features--with-actions-that-have-responsive-content',
+            id: 'experimental-components-pageheader-features--with-actions-that-have-responsive-content',
             globals: {
               colorScheme: theme,
             },
@@ -401,7 +401,7 @@ test.describe('PageHeader', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-pageheader-features--with-context-bar-and-actions-of-context-area',
+            id: 'experimental-components-pageheader-features--with-context-bar-and-actions-of-context-area',
             globals: {
               colorScheme: theme,
             },
@@ -415,7 +415,7 @@ test.describe('PageHeader', () => {
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-pageheader-features--with-context-bar-and-actions-of-context-area',
+            id: 'experimental-components-pageheader-features--with-context-bar-and-actions-of-context-area',
             globals: {
               colorScheme: theme,
             },
@@ -437,7 +437,7 @@ test.describe('PageHeader', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-pageheader-features--with-custom-navigation',
+            id: 'experimental-components-pageheader-features--with-custom-navigation',
             globals: {
               colorScheme: theme,
             },
@@ -449,7 +449,7 @@ test.describe('PageHeader', () => {
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-pageheader-features--with-custom-navigation',
+            id: 'experimental-components-pageheader-features--with-custom-navigation',
             globals: {
               colorScheme: theme,
             },
@@ -471,7 +471,7 @@ test.describe('PageHeader', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-pageheader-features--with-description-slot',
+            id: 'experimental-components-pageheader-features--with-description-slot',
             globals: {
               colorScheme: theme,
             },
@@ -483,7 +483,7 @@ test.describe('PageHeader', () => {
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-pageheader-features--with-description-slot',
+            id: 'experimental-components-pageheader-features--with-description-slot',
             globals: {
               colorScheme: theme,
             },
@@ -505,7 +505,7 @@ test.describe('PageHeader', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-pageheader-features--with-leading-and-trailing-actions',
+            id: 'experimental-components-pageheader-features--with-leading-and-trailing-actions',
             globals: {
               colorScheme: theme,
             },
@@ -517,7 +517,7 @@ test.describe('PageHeader', () => {
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-pageheader-features--with-leading-and-trailing-actions',
+            id: 'experimental-components-pageheader-features--with-leading-and-trailing-actions',
             globals: {
               colorScheme: theme,
             },
@@ -539,7 +539,7 @@ test.describe('PageHeader', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-pageheader-features--with-leading-and-trailing-visuals',
+            id: 'experimental-components-pageheader-features--with-leading-and-trailing-visuals',
             globals: {
               colorScheme: theme,
             },
@@ -551,7 +551,7 @@ test.describe('PageHeader', () => {
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-pageheader-features--with-leading-and-trailing-visuals',
+            id: 'experimental-components-pageheader-features--with-leading-and-trailing-visuals',
             globals: {
               colorScheme: theme,
             },
@@ -573,7 +573,7 @@ test.describe('PageHeader', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-pageheader-features--with-leading-visual-hidden-on-regular-viewport',
+            id: 'experimental-components-pageheader-features--with-leading-visual-hidden-on-regular-viewport',
             globals: {
               colorScheme: theme,
             },
@@ -587,7 +587,7 @@ test.describe('PageHeader', () => {
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-pageheader-features--with-leading-visual-hidden-on-regular-viewport',
+            id: 'experimental-components-pageheader-features--with-leading-visual-hidden-on-regular-viewport',
             globals: {
               colorScheme: theme,
             },
@@ -609,7 +609,7 @@ test.describe('PageHeader', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-pageheader-features--with-navigation-slot',
+            id: 'experimental-components-pageheader-features--with-navigation-slot',
             globals: {
               colorScheme: theme,
             },
@@ -621,7 +621,7 @@ test.describe('PageHeader', () => {
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-pageheader-features--with-navigation-slot',
+            id: 'experimental-components-pageheader-features--with-navigation-slot',
             globals: {
               colorScheme: theme,
             },
@@ -643,7 +643,7 @@ test.describe('PageHeader', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-pageheader-features--with-parent-link-and-actions-of-context-area',
+            id: 'experimental-components-pageheader-features--with-parent-link-and-actions-of-context-area',
             globals: {
               colorScheme: theme,
             },
@@ -657,7 +657,7 @@ test.describe('PageHeader', () => {
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-pageheader-features--with-parent-link-and-actions-of-context-area',
+            id: 'experimental-components-pageheader-features--with-parent-link-and-actions-of-context-area',
             globals: {
               colorScheme: theme,
             },

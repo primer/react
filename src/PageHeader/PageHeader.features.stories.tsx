@@ -22,7 +22,7 @@ import {PageHeader} from './PageHeader'
 import {Hidden} from '../Hidden'
 
 const meta: Meta = {
-  title: 'Drafts/Components/PageHeader/Features',
+  title: 'Experimental/Components/PageHeader/Features',
   parameters: {
     layout: 'fullscreen',
     controls: {expanded: true},

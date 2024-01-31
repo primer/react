@@ -5,7 +5,7 @@ import Hidden from '.'
 import Text from '../Text'
 
 export default {
-  title: 'Drafts/Components/Hidden',
+  title: 'Experimental/Components/Hidden',
   parameters: {
     controls: {
       expanded: true,

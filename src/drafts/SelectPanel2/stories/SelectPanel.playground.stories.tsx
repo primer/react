@@ -5,7 +5,7 @@ import {ActionList, Box} from '../../../index'
 import data from './mock-data'
 
 export default {
-  title: 'Drafts/Components/SelectPanel/Playground',
+  title: 'Experimental/Components/SelectPanel/Playground',
   component: SelectPanel,
 
   args: {

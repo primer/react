@@ -14,7 +14,7 @@ import outputSchema from './output.schema.json'
 // Only includes fields we use in this script
 type Component = {
   name: string
-  status: 'draft' | 'experimental' | 'alpha' | 'beta' | 'stable' | 'deprecated'
+  status: 'experimental' | 'alpha' | 'beta' | 'stable' | 'deprecated'
   stories: Array<{id: string; code?: string}>
 }
 
@@ -40,7 +40,6 @@ const components = docsFiles.map(docsFilepath => {
 
   // Get the story name prefix for the default story id
   const storyPrefix = {
-    draft: 'drafts-',
     experimental: 'experimental-',
     deprecated: 'deprecated-',
     alpha: '',

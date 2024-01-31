@@ -3,7 +3,7 @@ import {Meta} from '@storybook/react'
 import {Component} from '.'
 
 export default {
-  title: 'Drafts/Components/CSSComponent',
+  title: 'Experimental/Components/CSSComponent',
 } as Meta<typeof Component>
 
 export const Default = () => <Component>Default</Component>

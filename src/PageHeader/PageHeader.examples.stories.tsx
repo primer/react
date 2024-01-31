@@ -22,7 +22,7 @@ import {ActionList} from '../ActionList'
 import VisuallyHidden from '../_VisuallyHidden'
 
 const meta: Meta = {
-  title: 'Drafts/Components/PageHeader/Examples',
+  title: 'Experimental/Components/PageHeader/Examples',
   parameters: {
     layout: 'fullscreen',
     controls: {expanded: true},

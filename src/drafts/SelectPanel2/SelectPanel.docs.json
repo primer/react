@@ -1,7 +1,7 @@
 {
   "id": "selectpanel_v2",
   "name": "SelectPanel v2",
-  "status": "draft",
+  "status": "experimental",
   "a11yReviewed": false,
   "stories": [],
   "props": [

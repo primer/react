@@ -8,7 +8,7 @@ test.describe('Tooltip--experimental', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-tooltip--default',
+            id: 'experimental-components-tooltip--default',
             globals: {
               colorScheme: theme,
             },
@@ -26,7 +26,7 @@ test.describe('Tooltip--experimental', () => {
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-tooltip--default',
+            id: 'experimental-components-tooltip--default',
             globals: {
               colorScheme: theme,
             },
@@ -42,7 +42,7 @@ test.describe('Tooltip--experimental', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-tooltip-features--anchor-has-margin',
+            id: 'experimental-components-tooltip-features--anchor-has-margin',
             globals: {
               colorScheme: theme,
             },
@@ -60,7 +60,7 @@ test.describe('Tooltip--experimental', () => {
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-tooltip-features--anchor-has-margin',
+            id: 'experimental-components-tooltip-features--anchor-has-margin',
             globals: {
               colorScheme: theme,
             },
@@ -76,7 +76,7 @@ test.describe('Tooltip--experimental', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-tooltip-features--calculated-direction',
+            id: 'experimental-components-tooltip-features--calculated-direction',
             globals: {
               colorScheme: theme,
             },
@@ -94,7 +94,7 @@ test.describe('Tooltip--experimental', () => {
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-tooltip-features--calculated-direction',
+            id: 'experimental-components-tooltip-features--calculated-direction',
             globals: {
               colorScheme: theme,
             },
@@ -110,7 +110,7 @@ test.describe('Tooltip--experimental', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-tooltip-features--icon-button-with-description',
+            id: 'experimental-components-tooltip-features--icon-button-with-description',
             globals: {
               colorScheme: theme,
             },
@@ -128,7 +128,7 @@ test.describe('Tooltip--experimental', () => {
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-tooltip-features--icon-button-with-description',
+            id: 'experimental-components-tooltip-features--icon-button-with-description',
             globals: {
               colorScheme: theme,
             },
@@ -144,7 +144,7 @@ test.describe('Tooltip--experimental', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-tooltip-features--label-type',
+            id: 'experimental-components-tooltip-features--label-type',
             globals: {
               colorScheme: theme,
             },
@@ -162,7 +162,7 @@ test.describe('Tooltip--experimental', () => {
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-tooltip-features--label-type',
+            id: 'experimental-components-tooltip-features--label-type',
             globals: {
               colorScheme: theme,
             },

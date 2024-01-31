@@ -4,7 +4,7 @@ import {Tooltip} from './Tooltip'
 import {SearchIcon, BookIcon, CheckIcon, TriangleDownIcon, GitBranchIcon} from '@primer/octicons-react'
 
 export default {
-  title: 'Drafts/Components/Tooltip/Features',
+  title: 'Experimental/Components/Tooltip/Features',
   component: Tooltip,
 }
 

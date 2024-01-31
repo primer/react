@@ -23,7 +23,7 @@ import {PageHeader} from './PageHeader'
 import Hidden from '../Hidden'
 
 export default {
-  title: 'Drafts/Components/PageHeader',
+  title: 'Experimental/Components/PageHeader',
   parameters: {
     layout: 'fullscreen',
     controls: {expanded: true},

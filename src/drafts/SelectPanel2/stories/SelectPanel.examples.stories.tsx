@@ -5,7 +5,7 @@ import {ArrowRightIcon, EyeIcon, GitBranchIcon, TriangleDownIcon, GearIcon} from
 import data from './mock-data'
 
 export default {
-  title: 'Drafts/Components/SelectPanel/Examples',
+  title: 'Experimental/Components/SelectPanel/Examples',
   component: SelectPanel,
 }
 
