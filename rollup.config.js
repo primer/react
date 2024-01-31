@@ -234,6 +234,7 @@ export default [
       format: 'esm',
       preserveModules: true,
       preserveModulesRoot: 'src',
+      entryFileNames: '[name].mjs',
     },
   },
 
@@ -248,6 +249,7 @@ export default [
       preserveModules: true,
       preserveModulesRoot: 'src',
       exports: 'auto',
+      entryFileNames: '[name].js',
     },
   },
 
@@ -265,17 +267,19 @@ export default [
       terser(),
       visualizer({sourcemap: true}),
     ],
-    output: ['esm', 'umd'].map(format => ({
-      interop: 'auto',
-      file: `dist/browser.${format}.js`,
-      format,
-      sourcemap: true,
-      name: 'primer',
-      globals: {
-        react: 'React',
-        'react-dom': 'ReactDOM',
-        'styled-components': 'styled',
-      },
-    })),
+    output: ['esm', 'umd'].map(format => {
+      return {
+        interop: 'auto',
+        file: `dist/browser.${format}.js`,
+        format,
+        sourcemap: true,
+        name: 'primer',
+        globals: {
+          react: 'React',
+          'react-dom': 'ReactDOM',
+          'styled-components': 'styled',
+        },
+      }
+    }),
   },
 ]
