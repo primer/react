@@ -15,12 +15,12 @@ export function Message({value}: {value: string}) {
       return
     }
 
-    const cancel = savedLiveRegion.current.announce(value, {
+    const cancel = savedLiveRegion.current?.announce(value, {
       delayMs: 750,
     })
 
     return () => {
-      cancel()
+      cancel?.()
     }
   }, [value])
 

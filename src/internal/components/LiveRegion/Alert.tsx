@@ -16,7 +16,7 @@ export function Alert({children, delayMs, ...rest}: AlertProps) {
 
   useEffectOnce(() => {
     if (ref.current) {
-      return liveRegion.announceFromElement(ref.current, {
+      return liveRegion?.announceFromElement(ref.current, {
         delayMs,
         politeness: 'assertive',
       })

@@ -16,6 +16,6 @@ export function useAnnounce() {
   }, [liveRegion])
 
   return useCallback((...args: Parameters<LiveRegionElement['announce']>) => {
-    return savedLiveRegion.current.announce(...args)
+    return savedLiveRegion.current?.announce(...args)
   }, [])
 }

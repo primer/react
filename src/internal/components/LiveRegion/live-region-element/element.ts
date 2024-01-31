@@ -33,20 +33,20 @@ export type AnnounceOptions = {
 
 export type Cancelable = () => void
 
-const DEFAULT_FLUSH_DELAY_MS = 150
-
 class LiveRegionElement extends HTMLElement {
   #pending: boolean
   #queue: Array<{
     data: readonly [string, AnnounceOptions]
     cancel: Cancelable
   }>
+  #timeoutId: number | null
 
   constructor() {
     super()
 
     this.#pending = false
     this.#queue = []
+    this.#timeoutId = null
 
     if (!this.shadowRoot) {
       const template = getTemplate()
@@ -56,16 +56,7 @@ class LiveRegionElement extends HTMLElement {
   }
 
   connectedCallback() {
-    if (this.#queue.length > 0) {
-      for (const item of this.#queue) {
-        const [, options] = item.data
-        // Add a default delayMs when flushing the queue if none exists
-        if (options.delayMs === undefined) {
-          options.delayMs = DEFAULT_FLUSH_DELAY_MS
-        }
-      }
-      this.#processQueue()
-    }
+    this.#processQueue()
   }
 
   #processQueue() {
@@ -98,23 +89,24 @@ class LiveRegionElement extends HTMLElement {
       return
     }
 
-    let timeoutId: number | null
-
     item.cancel = () => {
-      if (timeoutId !== null) {
-        clearTimeout(timeoutId)
+      if (this.#timeoutId !== null) {
+        clearTimeout(this.#timeoutId)
       }
     }
 
-    timeoutId = window.setTimeout(() => {
-      timeoutId = null
-
+    this.#timeoutId = window.setTimeout(() => {
+      this.#timeoutId = null
       this.setMessage(message, politeness)
       this.#pending = false
       this.#processQueue()
     }, delayMs)
   }
 
+  /**
+   * Announce a message with the given politeness level through a corresponding
+   * live region
+   */
   announce(message: string, options: AnnounceOptions = {}): Cancelable {
     const item = {
       data: [message, options] as const,
@@ -132,6 +124,10 @@ class LiveRegionElement extends HTMLElement {
     }
   }
 
+  /**
+   * Announce a message with the given politeness level from the contents of an
+   * element
+   */
   announceFromElement(element: HTMLElement, options: AnnounceOptions = {}): Cancelable {
     if (element.textContent) {
       return this.announce(element.textContent, options)
@@ -147,7 +143,7 @@ class LiveRegionElement extends HTMLElement {
     return container.textContent
   }
 
-  setMessage(message: string, politeness: Politeness = 'polite') {
+  setMessage = throttle((message: string, politeness: Politeness = 'polite') => {
     const container = this.shadowRoot?.getElementById(politeness)
     if (!container) {
       throw new Error('Unable to find container for message')
@@ -158,7 +154,59 @@ class LiveRegionElement extends HTMLElement {
     } else {
       container.textContent = message
     }
+  })
+
+  /**
+   * Clear all pending messages, preventing them from being announced
+   */
+  clear() {
+    if (this.#timeoutId !== null) {
+      clearTimeout(this.#timeoutId)
+      this.#timeoutId = null
+    }
+
+    this.#queue.length = 0
+    this.#pending = false
+    this.setMessage.clear()
   }
+}
+
+function throttle<F extends (...args: Array<any>) => void>(callback: F, delayMs: number = 250) {
+  const calls: Array<Parameters<F>> = []
+  let timeoutId: number | null = null
+
+  function loop() {
+    if (timeoutId !== null) {
+      return
+    }
+
+    if (calls.length === 0) {
+      return
+    }
+
+    const args = calls.shift()!
+    callback(...args)
+
+    timeoutId = window.setTimeout(() => {
+      timeoutId = null
+      loop()
+    }, delayMs)
+  }
+
+  function throttled(...args: Parameters<F>) {
+    calls.push(args)
+    loop()
+  }
+
+  throttled.clear = () => {
+    if (timeoutId !== null) {
+      clearTimeout(timeoutId)
+      timeoutId = null
+    }
+    calls.length = 0
+  }
+
+  return throttled
 }
 
 export {LiveRegionElement, templateContent}

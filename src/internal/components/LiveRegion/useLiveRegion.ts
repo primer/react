@@ -8,14 +8,10 @@ import {LiveRegionElement} from './live-region-element'
  * done through context when the calling component is a child of `LiveRegion` or
  * through finding or creating a `live-region` element when one is not available
  */
-export function useLiveRegion(): LiveRegionElement {
+export function useLiveRegion(): LiveRegionElement | null {
+  console.log('useLiveRegion()')
   const context = useContext(LiveRegionContext)
-  const [liveRegion, setLiveRegion] = useState<LiveRegionElement>(() => {
-    if (context !== null) {
-      return context
-    }
-    return findOrCreateLiveRegion()
-  })
+  const [liveRegion, setLiveRegion] = useState<LiveRegionElement | null>(context)
   const [prevContext, setPrevContext] = useState(context)
 
   // Keep track of changes to context, when it changes we should check to see if
@@ -29,27 +25,23 @@ export function useLiveRegion(): LiveRegionElement {
   }
 
   useEffect(() => {
-    if (!liveRegion.isConnected) {
-      document.documentElement.appendChild(liveRegion)
+    if (liveRegion !== null) {
+      return
+    }
+
+    const existingLiveRegion = document.querySelector('live-region')
+    if (existingLiveRegion !== null) {
+      setLiveRegion(existingLiveRegion as LiveRegionElement)
+      return
+    }
+
+    const newLiveRegion = document.createElement('live-region') as LiveRegionElement
+    document.documentElement.appendChild(newLiveRegion)
+    setLiveRegion(newLiveRegion)
+    return () => {
+      newLiveRegion.parentElement?.removeChild(newLiveRegion)
     }
   }, [liveRegion])
-
-  return liveRegion
-}
-
-let liveRegion: LiveRegionElement | null = null
-
-function findOrCreateLiveRegion(): LiveRegionElement {
-  if (liveRegion !== null) {
-    return liveRegion
-  }
-
-  liveRegion = document.querySelector('live-region')
-  if (liveRegion !== null) {
-    return liveRegion as LiveRegionElement
-  }
-
-  liveRegion = document.createElement('live-region') as LiveRegionElement
 
   return liveRegion
 }

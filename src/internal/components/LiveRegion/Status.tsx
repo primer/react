@@ -16,7 +16,7 @@ export function Status({children, delayMs, ...rest}: StatusProps) {
 
   useEffectOnce(() => {
     if (ref.current) {
-      return liveRegion.announceFromElement(ref.current, {
+      return liveRegion?.announceFromElement(ref.current, {
         delayMs,
         politeness: 'polite',
       })
