@@ -2,9 +2,7 @@ import React from 'react'
 import {CounterLabel} from '..'
 import {behavesAsComponent, checkExports} from '../utils/testing'
 import {render as HTMLRender} from '@testing-library/react'
-import {axe, toHaveNoViolations} from 'jest-axe'
-
-expect.extend(toHaveNoViolations)
+import {axe} from 'jest-axe'
 
 describe('CounterLabel', () => {
   behavesAsComponent({Component: CounterLabel, options: {skipAs: true, skipSx: true}})

@@ -1,7 +1,7 @@
 import React from 'react'
 import {render} from '@testing-library/react'
 import {renderHook} from '@testing-library/react-hooks'
-import {axe, toHaveNoViolations} from 'jest-axe'
+import {axe} from 'jest-axe'
 import {
   Autocomplete,
   Checkbox,
@@ -14,7 +14,6 @@ import {
   useFormControlForwardedProps,
 } from '..'
 import {MarkGithubIcon} from '@primer/octicons-react'
-expect.extend(toHaveNoViolations)
 
 const LABEL_TEXT = 'Form control'
 const CAPTION_TEXT = 'Hint text'

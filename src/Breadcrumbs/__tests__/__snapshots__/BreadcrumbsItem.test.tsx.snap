@@ -1,30 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Breadcrumbs.Item renders consistently 1`] = `
-.c0 {
-  color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  display: inline-block;
-  font-size: 14px;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-}
-
-.c0:hover {
-  -webkit-text-decoration: underline;
-  text-decoration: underline;
-}
-
-.c0.selected {
-  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
-  pointer-events: none;
-}
-
-<a
-  aria-current={null}
-  className="c0"
-/>
-`;
-
 exports[`Breadcrumbs.Item respects the "selected" prop 1`] = `
 .c0 {
   color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
