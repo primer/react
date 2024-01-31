@@ -1,10 +1,9 @@
 import {render as HTMLRender} from '@testing-library/react'
-import {axe, toHaveNoViolations} from 'jest-axe'
+import {axe} from 'jest-axe'
 import React from 'react'
 import {Box} from '..'
 import theme from '../theme'
 import {behavesAsComponent, checkExports, render} from '../utils/testing'
-expect.extend(toHaveNoViolations)
 
 describe('Box', () => {
   behavesAsComponent({Component: Box})

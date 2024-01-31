@@ -1,21 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Timeline renders consistently 1`] = `
-.c0 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
-  flex-direction: column;
-}
-
-<div
-  className="c0"
-/>
-`;
-
 exports[`Timeline renders with clipSidebar prop 1`] = `
 .c0 {
   display: -webkit-box;
@@ -37,82 +21,6 @@ exports[`Timeline renders with clipSidebar prop 1`] = `
 
 <div
   className="c0"
-/>
-`;
-
-exports[`Timeline.Badge renders consistently 1`] = `
-.c0 {
-  position: relative;
-  z-index: 1;
-}
-
-.c1 {
-  margin-right: 8px;
-  margin-left: -15px;
-  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
-  background-color: var(--timelineBadge-bgColor,var(--color-timeline-badge-bg,#eaeef2));
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  overflow: hidden;
-  width: 32px;
-  height: 32px;
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  border-radius: 50%;
-  border-width: 2px;
-  border-style: solid;
-  border-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
-}
-
-<div
-  className="c0"
->
-  <div
-    className="c1 TimelineItem-Badge"
-    color="fg.muted"
-    display="flex"
-    height="32px"
-    overflow="hidden"
-    width="32px"
-  />
-</div>
-`;
-
-exports[`Timeline.Item renders consistently 1`] = `
-.c0 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  position: relative;
-  padding: 16px 0;
-  margin-left: 16px;
-}
-
-.c0::before {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  display: block;
-  width: 2px;
-  content: '';
-  background-color: var(--borderColor-muted,var(--color-border-muted,hsla(210,18%,87%,1)));
-}
-
-<div
-  className="c0 Timeline-Item"
 />
 `;
 

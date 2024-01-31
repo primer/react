@@ -1,9 +1,8 @@
 import React from 'react'
 import {render} from '@testing-library/react'
-import {axe, toHaveNoViolations} from 'jest-axe'
+import {axe} from 'jest-axe'
 import Label, {variants, LabelColorOptions} from '../Label'
 import {renderStyles} from '../utils/testing'
-expect.extend(toHaveNoViolations)
 
 describe('Label', () => {
   it('renders text node child', () => {

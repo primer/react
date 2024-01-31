@@ -2,10 +2,7 @@ import React from 'react'
 import {Checkbox} from '..'
 import {behavesAsComponent, checkExports} from '../utils/testing'
 import {render} from '@testing-library/react'
-import {toHaveNoViolations} from 'jest-axe'
 import userEvent from '@testing-library/user-event'
-
-expect.extend(toHaveNoViolations)
 
 describe('Checkbox', () => {
   beforeEach(() => {
