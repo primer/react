@@ -87,6 +87,8 @@ export type ButtonProps = {
 
 export type IconButtonProps = ButtonA11yProps & {
   icon: React.ElementType
+  // default to true until the major version bump
+  hideTooltip?: boolean
 } & Omit<ButtonBaseProps, 'aria-label' | 'aria-labelledby'>
 
 // adopted from React.AnchorHTMLAttributes
