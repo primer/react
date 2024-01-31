@@ -1,5 +1,5 @@
 import {LiveRegionElement} from './element'
+import {customElements} from './ssr-dom-shim'
 
 // Note: this call is replaced in "node" entrypoints
-// eslint-disable-next-line ssr-friendly/no-dom-globals-in-module-scope
 customElements.define('live-region', LiveRegionElement)

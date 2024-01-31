@@ -1,3 +1,5 @@
+import {HTMLElement} from './ssr-dom-shim'
+
 let template: HTMLTemplateElement | null = null
 
 const templateContent = `
@@ -171,7 +173,8 @@ class LiveRegionElement extends HTMLElement {
   }
 }
 
-function throttle<F extends (...args: Array<any>) => void>(callback: F, delayMs: number = 250) {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function throttle<F extends (...args: Array<any>) => void>(callback: F, delayMs = 250) {
   const calls: Array<Parameters<F>> = []
   let timeoutId: number | null = null
 
@@ -184,6 +187,9 @@ function throttle<F extends (...args: Array<any>) => void>(callback: F, delayMs:
       return
     }
 
+    // We check the length of `calls` above before using `.shift()` to ensure
+    // that there is an element in the array.
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const args = calls.shift()!
     callback(...args)
 

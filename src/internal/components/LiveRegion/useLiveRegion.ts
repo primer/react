@@ -9,7 +9,6 @@ import {LiveRegionElement} from './live-region-element'
  * through finding or creating a `live-region` element when one is not available
  */
 export function useLiveRegion(): LiveRegionElement | null {
-  console.log('useLiveRegion()')
   const context = useContext(LiveRegionContext)
   const [liveRegion, setLiveRegion] = useState<LiveRegionElement | null>(context)
   const [prevContext, setPrevContext] = useState(context)
