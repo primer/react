@@ -1,5 +1,6 @@
 import React from 'react'
-import {fireEvent, render, waitFor} from '@testing-library/react'
+import {render, waitFor} from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import {Dialog} from './Dialog'
 import MatchMediaMock from 'jest-matchmedia-mock'
 import {behavesAsComponent, checkExports} from '../utils/testing'
@@ -56,24 +57,26 @@ describe('Dialog', () => {
     await waitFor(() => expect(getByRole('button', {name: 'Footer button'})).toHaveFocus())
   })
 
-  it('calls `onClose` when clicking the close button', () => {
+  it('calls `onClose` when clicking the close button', async () => {
+    const user = userEvent.setup()
     const onClose = jest.fn()
     const {getByLabelText} = render(<Dialog onClose={onClose}>Pay attention to me</Dialog>)
 
     expect(onClose).not.toHaveBeenCalled()
 
-    fireEvent.click(getByLabelText('Close'))
+    await user.click(getByLabelText('Close'))
 
     expect(onClose).toHaveBeenCalled()
   })
 
-  it('calls `onClose` when keying "Escape"', () => {
+  it('calls `onClose` when keying "Escape"', async () => {
+    const user = userEvent.setup()
     const onClose = jest.fn()
     const {container} = render(<Dialog onClose={onClose}>Pay attention to me</Dialog>)
 
     expect(onClose).not.toHaveBeenCalled()
 
-    fireEvent.keyDown(container, {key: 'Escape'})
+    await user.keyboard('{Escape}')
 
     expect(onClose).toHaveBeenCalled()
   })
