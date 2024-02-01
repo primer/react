@@ -36,7 +36,7 @@ export function useAnchoredPosition(
 
   const updatePosition = React.useCallback(
     () => {
-      if (floatingElementRef.current instanceof Element && anchorElementRef.current instanceof Element) {
+      if (floatingElementRef.current && anchorElementRef.current) {
         setPosition(getAnchoredPosition(floatingElementRef.current, anchorElementRef.current, settings))
       } else {
         setPosition(undefined)
@@ -54,7 +54,7 @@ export function useAnchoredPosition(
   useElementObserver({
     elementRef: anchorElementRef,
     // performance optimisation: only update position if floatingRect is also visible (example: menu is open)
-    condition: observe === true && floatingElementRef.current instanceof Element,
+    condition: floatingElementRef.current !== null && observe === true,
     callback: updatePosition,
   })
 

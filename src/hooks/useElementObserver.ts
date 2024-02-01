@@ -15,7 +15,7 @@ export const useElementObserver = ({elementRef, condition = true, callback}: Ele
   const debouncedCallback = debounce(callback, 16, {maxWait: 16 * 2})
 
   React.useLayoutEffect(() => {
-    if (condition === true && elementRef.current instanceof Element) {
+    if (condition === true && elementRef.current) {
       const rectObserver = observeRect(elementRef.current, elementRect => debouncedCallback(elementRect))
       rectObserver.observe()
       return () => rectObserver.unobserve()
