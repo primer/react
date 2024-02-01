@@ -262,8 +262,10 @@ export const ReproMultistepDialogWithConditionalFooter = ({width, height}: Dialo
 
 export const NoSectionBorders = () => {
   const [isOpen, setIsOpen] = useState(false)
+  const [itemsCount, setItemsCount] = useState(5)
   const buttonRef = useRef<HTMLButtonElement>(null)
   const onDialogClose = useCallback(() => setIsOpen(false), [])
+  const onAddItems = useCallback(() => setItemsCount(itemsCount + 5), [itemsCount])
   return (
     <>
       <Button ref={buttonRef} onClick={() => setIsOpen(!isOpen)}>
@@ -276,12 +278,15 @@ export const NoSectionBorders = () => {
           onClose={onDialogClose}
           showSectionsBorder={false}
           footerButtons={[
+            {content: 'Add 5 items', onClick: onAddItems},
             {buttonType: 'danger', content: 'Cancel', onClick: onDialogClose},
             {buttonType: 'primary', content: 'Proceed', onClick: onDialogClose, autoFocus: true},
           ]}
         >
           <Box sx={{borderWidth: 1, borderColor: 'lightgray', borderStyle: 'solid', borderRadius: 12, p: 4}}>
-            A list of things
+            {Array.from(Array(itemsCount)).map((_, index) => (
+              <Box key={index}>Item {index + 1}</Box>
+            ))}
           </Box>
         </Dialog>
       )}
