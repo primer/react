@@ -230,7 +230,7 @@ const DefaultHeader: React.FC<React.PropsWithChildren<DialogHeaderProps>> = ({
   onClose,
   showSectionsBorder = true,
 }) => {
-  const headerSx = showSectionsBorder ? undefined : {boxShadow: 'none', pb: 0}
+  const headerSx = showSectionsBorder ? undefined : {boxShadow: 'none'}
   const onCloseClick = useCallback(() => {
     onClose('close-button')
   }, [onClose])
@@ -246,11 +246,12 @@ const DefaultHeader: React.FC<React.PropsWithChildren<DialogHeaderProps>> = ({
     </Dialog.Header>
   )
 }
-const DefaultBody: React.FC<React.PropsWithChildren<DialogProps>> = ({children}) => {
-  return <Dialog.Body>{children}</Dialog.Body>
+const DefaultBody: React.FC<React.PropsWithChildren<DialogProps>> = ({children, showSectionsBorder = true}) => {
+  const bodySx = showSectionsBorder ? undefined : {py: 0}
+  return <Dialog.Body sx={bodySx}>{children}</Dialog.Body>
 }
 const DefaultFooter: React.FC<React.PropsWithChildren<DialogProps>> = ({footerButtons, showSectionsBorder = true}) => {
-  const footerSx = showSectionsBorder ? undefined : {boxShadow: 'none', pt: 0}
+  const footerSx = showSectionsBorder ? undefined : {boxShadow: 'none'}
   const {containerRef: footerRef} = useFocusZone({
     bindKeys: FocusKeys.ArrowHorizontal | FocusKeys.Tab,
     focusInStrategy: 'closest',

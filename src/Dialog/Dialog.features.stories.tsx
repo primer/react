@@ -264,7 +264,10 @@ export const NoSectionBorders = () => {
   const [isOpen, setIsOpen] = useState(false)
   const [itemsCount, setItemsCount] = useState(5)
   const buttonRef = useRef<HTMLButtonElement>(null)
-  const onDialogClose = useCallback(() => setIsOpen(false), [])
+  const onDialogClose = useCallback(() => {
+    setIsOpen(false)
+    setItemsCount(5)
+  }, [])
   const onAddItems = useCallback(() => setItemsCount(itemsCount + 5), [itemsCount])
   return (
     <>
@@ -283,9 +286,11 @@ export const NoSectionBorders = () => {
             {buttonType: 'primary', content: 'Proceed', onClick: onDialogClose, autoFocus: true},
           ]}
         >
-          <Box sx={{borderWidth: 1, borderColor: 'lightgray', borderStyle: 'solid', borderRadius: 12, p: 4}}>
+          <Box sx={{borderWidth: 1, borderColor: 'lightgray', borderStyle: 'solid', borderRadius: 12, pb: 4}}>
             {Array.from(Array(itemsCount)).map((_, index) => (
-              <Box key={index}>Item {index + 1}</Box>
+              <Box key={index} sx={{px: 4, pt: 4}}>
+                Item {index + 1}
+              </Box>
             ))}
           </Box>
         </Dialog>
