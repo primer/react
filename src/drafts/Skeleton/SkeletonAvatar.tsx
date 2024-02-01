@@ -1,7 +1,7 @@
 import React from 'react'
 import {AvatarProps} from '../../Avatar'
 import {DEFAULT_AVATAR_SIZE} from '../../Avatar/Avatar'
-import {BaseSkeletonBone} from './_BaseSkeletonBone'
+import {BaseSkeletonBox} from './_BaseSkeletonBox'
 import {isResponsiveValue} from '../../hooks/useResponsiveValue'
 import {BetterCssProperties, BetterSystemStyleObject, SxProp, merge} from '../../sx'
 import {getBreakpointDeclarations} from '../../utils/getBreakpointDeclarations'
@@ -26,7 +26,7 @@ export const SkeletonAvatar: React.FC<SkeletonAvatarProps> = ({
     : merge({'--avatar-size': `${size}px`} as React.CSSProperties, sxProp as SxProp)
 
   return (
-    <BaseSkeletonBone
+    <BaseSkeletonBox
       data-component="SkeletonAvatar"
       data-avatar-shape={square ? 'square' : undefined}
       sx={avatarSx}

@@ -3,7 +3,7 @@ import styled, {keyframes} from 'styled-components'
 import sx, {SxProp} from '../../sx'
 import {get} from '../../constants'
 
-type BaseSkeletonBoneProps = {
+type BaseSkeletonBoxProps = {
   height?: React.CSSProperties['height']
   width?: React.CSSProperties['width']
 } & SxProp
@@ -13,7 +13,7 @@ const shimmer = keyframes`
   to { mask-position: 0%; }
 `
 
-export const BaseSkeletonBone = styled.div<BaseSkeletonBoneProps>`
+export const BaseSkeletonBox = styled.div<BaseSkeletonBoxProps>`
   animation: ${shimmer};
   display: block;
   background-color: var(--bgColor-muted, ${get('colors.canvas.subtle')});

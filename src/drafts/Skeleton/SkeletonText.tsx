@@ -1,6 +1,6 @@
 import React from 'react'
 import {SxProp, merge} from '../../sx'
-import {BaseSkeletonBone} from './_BaseSkeletonBone'
+import {BaseSkeletonBox} from './_BaseSkeletonBox'
 import Box from '../../Box'
 
 type SkeletonTextProps = {
@@ -20,7 +20,7 @@ export const SkeletonText: React.FC<SkeletonTextProps & SxProp> = ({
   ...rest
 }) => {
   return lines < 2 ? (
-    <BaseSkeletonBone
+    <BaseSkeletonBox
       data-component="SkeletonText"
       data-text-skeleton-size={size}
       width="100%"
@@ -42,7 +42,7 @@ export const SkeletonText: React.FC<SkeletonTextProps & SxProp> = ({
       )}
     >
       {Array.from({length: lines}, (_, index) => (
-        <BaseSkeletonBone
+        <BaseSkeletonBox
           key={index}
           data-component="SkeletonText"
           data-in-multiline="true"

@@ -217,26 +217,26 @@ test.describe('Skeleton', () => {
   })
 
   //
-  // SkeletonBone
+  // SkeletonBox
   //
-  test.describe('SkeletonBone - Default', () => {
+  test.describe('SkeletonBox - Default', () => {
     for (const theme of themes) {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-skeleton-skeletonbone--default',
+            id: 'drafts-components-skeleton-SkeletonBox--default',
             globals: {
               colorScheme: theme,
             },
           })
 
           // Default state
-          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(`SkeletonBone.Default.${theme}.png`)
+          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(`SkeletonBox.Default.${theme}.png`)
         })
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-skeleton-skeletonbone--default',
+            id: 'drafts-components-skeleton-SkeletonBox--default',
             globals: {
               colorScheme: theme,
             },
@@ -253,24 +253,24 @@ test.describe('Skeleton', () => {
     }
   })
 
-  test.describe('SkeletonBone - Height', () => {
+  test.describe('SkeletonBox - Height', () => {
     for (const theme of themes) {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-skeleton-skeletonbone-features--custom-height',
+            id: 'drafts-components-skeleton-SkeletonBox-features--custom-height',
             globals: {
               colorScheme: theme,
             },
           })
 
           // Default state
-          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(`SkeletonBone.Height.${theme}.png`)
+          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(`SkeletonBox.Height.${theme}.png`)
         })
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-skeleton-skeletonbone-features--custom-height',
+            id: 'drafts-components-skeleton-SkeletonBox-features--custom-height',
             globals: {
               colorScheme: theme,
             },
@@ -287,24 +287,24 @@ test.describe('Skeleton', () => {
     }
   })
 
-  test.describe('SkeletonBone - Width', () => {
+  test.describe('SkeletonBox - Width', () => {
     for (const theme of themes) {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-skeleton-skeletonbone-features--custom-width',
+            id: 'drafts-components-skeleton-SkeletonBox-features--custom-width',
             globals: {
               colorScheme: theme,
             },
           })
 
           // Default state
-          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(`SkeletonBone.Width.${theme}.png`)
+          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(`SkeletonBox.Width.${theme}.png`)
         })
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-skeleton-skeletonbone-features--custom-width',
+            id: 'drafts-components-skeleton-SkeletonBox-features--custom-width',
             globals: {
               colorScheme: theme,
             },

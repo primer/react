@@ -1,6 +1,6 @@
 {
-    "id": "skeleton_bone",
-    "name": "SkeletonBone",
+    "id": "skeleton_box",
+    "name": "SkeletonBox",
     "status": "draft",
     "a11yReviewed": false,
     "stories": [],
@@ -8,13 +8,13 @@
       {
         "name": "width",
         "type": "string",
-        "description": "Width of the skeleton 'bone'. Accepts any valid CSS `width` value."
+        "description": "Width of the skeleton box. Accepts any valid CSS `width` value."
       },
       {
         "name": "height",
         "defaultValue": "1rem",
         "type": "string",
-        "description": "Height of the skeleton 'bone'. Accepts any valid CSS `height` value."
+        "description": "Height of the skeleton box. Accepts any valid CSS `height` value."
       },
       {
         "name": "sx",
