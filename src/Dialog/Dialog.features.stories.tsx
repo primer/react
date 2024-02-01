@@ -259,3 +259,32 @@ export const ReproMultistepDialogWithConditionalFooter = ({width, height}: Dialo
     </>
   )
 }
+
+export const NoSectionBorders = () => {
+  const [isOpen, setIsOpen] = useState(false)
+  const buttonRef = useRef<HTMLButtonElement>(null)
+  const onDialogClose = useCallback(() => setIsOpen(false), [])
+  return (
+    <>
+      <Button ref={buttonRef} onClick={() => setIsOpen(!isOpen)}>
+        Show dialog
+      </Button>
+      {isOpen && (
+        <Dialog
+          title="My borderless dialog"
+          subtitle="No borders on header and footer"
+          onClose={onDialogClose}
+          showSectionsBorder={false}
+          footerButtons={[
+            {buttonType: 'danger', content: 'Cancel', onClick: onDialogClose},
+            {buttonType: 'primary', content: 'Proceed', onClick: onDialogClose, autoFocus: true},
+          ]}
+        >
+          <Box sx={{borderWidth: 1, borderColor: 'lightgray', borderStyle: 'solid', borderRadius: 12, p: 4}}>
+            A list of things
+          </Box>
+        </Dialog>
+      )}
+    </>
+  )
+}

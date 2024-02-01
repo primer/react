@@ -96,6 +96,12 @@ export interface DialogProps extends SxProp {
   footerButtons?: DialogButtonProps[]
 
   /**
+   * Whether or not to show the separator border between header and footer sections
+   * and the main body. Defaults to true.
+   */
+  showSectionsBorder?: boolean
+
+  /**
    * This method is invoked when a gesture to close the dialog is used (either
    * an Escape key press or clicking the "X" in the top-right corner). The
    * gesture argument indicates the gesture that was used to close the dialog
@@ -222,12 +228,14 @@ const DefaultHeader: React.FC<React.PropsWithChildren<DialogHeaderProps>> = ({
   subtitle,
   dialogDescriptionId,
   onClose,
+  showSectionsBorder = true,
 }) => {
+  const headerSx = showSectionsBorder ? undefined : {boxShadow: 'none', pb: 0}
   const onCloseClick = useCallback(() => {
     onClose('close-button')
   }, [onClose])
   return (
-    <Dialog.Header>
+    <Dialog.Header sx={headerSx}>
       <Box display="flex">
         <Box display="flex" px={2} py="6px" flexDirection="column" flexGrow={1}>
           <Dialog.Title id={dialogLabelId}>{title ?? 'Dialog'}</Dialog.Title>
@@ -241,13 +249,14 @@ const DefaultHeader: React.FC<React.PropsWithChildren<DialogHeaderProps>> = ({
 const DefaultBody: React.FC<React.PropsWithChildren<DialogProps>> = ({children}) => {
   return <Dialog.Body>{children}</Dialog.Body>
 }
-const DefaultFooter: React.FC<React.PropsWithChildren<DialogProps>> = ({footerButtons}) => {
+const DefaultFooter: React.FC<React.PropsWithChildren<DialogProps>> = ({footerButtons, showSectionsBorder = true}) => {
+  const footerSx = showSectionsBorder ? undefined : {boxShadow: 'none', pt: 0}
   const {containerRef: footerRef} = useFocusZone({
     bindKeys: FocusKeys.ArrowHorizontal | FocusKeys.Tab,
     focusInStrategy: 'closest',
   })
   return footerButtons ? (
-    <Dialog.Footer ref={footerRef as React.RefObject<HTMLDivElement>}>
+    <Dialog.Footer ref={footerRef as React.RefObject<HTMLDivElement>} sx={footerSx}>
       <Dialog.Buttons buttons={footerButtons} />
     </Dialog.Footer>
   ) : null
@@ -342,6 +351,7 @@ const Header = styled.div<SxProp>`
   padding: ${get('space.2')};
   z-index: 1;
   flex-shrink: 0;
+  ${sx}
 `
 
 const Title = styled.h1<SxProp>`
