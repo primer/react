@@ -152,26 +152,26 @@
       url: /Truncate
     - title: UnderlineNav
       url: /UnderlineNav
-- title: Drafts
+- title: Experimental
   children:
     - title: DataTable
-      url: /drafts/DataTable
+      url: /experimental/DataTable
     - title: Dialog v2
-      url: /drafts/Dialog
+      url: /experimental/Dialog
     - title: Hidden
-      url: /drafts/Hidden
+      url: /experimental/Hidden
     - title: InlineAutocomplete
-      url: /drafts/InlineAutocomplete
+      url: /experimental/InlineAutocomplete
     - title: MarkdownEditor
-      url: /drafts/MarkdownEditor
+      url: /experimental/MarkdownEditor
     - title: MarkdownViewer
-      url: /drafts/MarkdownViewer
+      url: /experimental/MarkdownViewer
     - title: PageHeader
-      url: /drafts/PageHeader
+      url: /experimental/PageHeader
     - title: SelectPanel v2
-      url: /drafts/SelectPanel
+      url: /experimental/SelectPanel
     - title: Tooltip v2
-      url: /drafts/Tooltip
+      url: /experimental/Tooltip
 - title: Deprecated
   children:
     - title: ActionList (legacy)
