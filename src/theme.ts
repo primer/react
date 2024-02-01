@@ -20,15 +20,14 @@ const fonts = {
     'Apple Color Emoji',
     'Segoe UI Emoji',
   ]),
-  mono: fontStack([
-    'var(--fontStack-monospace)',
+  mono: `var(--fontStack-monospace, ${fontStack([
     'SFMono-Regular',
     'Consolas',
     'Liberation Mono',
     'Menlo',
     'Courier',
     'monospace',
-  ]),
+  ])})`,
 }
 
 const lineHeights = {
