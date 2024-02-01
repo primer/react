@@ -2,9 +2,8 @@ import React, {useState, useRef} from 'react'
 import {Dialog, Box, Text} from '..'
 import {Button} from '../deprecated'
 import {render as HTMLRender, fireEvent} from '@testing-library/react'
-import {axe, toHaveNoViolations} from 'jest-axe'
+import {axe} from 'jest-axe'
 import {behavesAsComponent, checkExports} from '../utils/testing'
-expect.extend(toHaveNoViolations)
 
 /* Dialog Version 2 */
 

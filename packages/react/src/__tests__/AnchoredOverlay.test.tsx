@@ -2,13 +2,12 @@ import React, {useCallback, useState} from 'react'
 import {AnchoredOverlay} from '../AnchoredOverlay'
 import {behavesAsComponent, checkExports} from '../utils/testing'
 import {render as HTMLRender, fireEvent} from '@testing-library/react'
-import {axe, toHaveNoViolations} from 'jest-axe'
+import {axe} from 'jest-axe'
 import {SSRProvider} from '../index'
 import {Button} from '../deprecated'
 import theme from '../theme'
 import BaseStyles from '../BaseStyles'
 import {ThemeProvider} from '../ThemeProvider'
-expect.extend(toHaveNoViolations)
 
 type TestComponentSettings = {
   initiallyOpen?: boolean

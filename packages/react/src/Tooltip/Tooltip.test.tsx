@@ -2,11 +2,9 @@ import React from 'react'
 import Tooltip, {TooltipProps} from './Tooltip'
 import {render, renderClasses, rendersClass, behavesAsComponent, checkExports} from '../utils/testing'
 import {render as HTMLRender} from '@testing-library/react'
-import {axe, toHaveNoViolations} from 'jest-axe'
+import {axe} from 'jest-axe'
 
 /* Tooltip v1 */
-
-expect.extend(toHaveNoViolations)
 
 describe('Tooltip', () => {
   behavesAsComponent({Component: Tooltip})

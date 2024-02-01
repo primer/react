@@ -11,10 +11,16 @@ export default {
   args: {
     title: 'Select labels',
     selectionVariant: 'multiple',
+    secondaryActionVariant: 'button',
   },
   argTypes: {
-    secondaryButtonText: {
-      name: 'Secondary button text',
+    secondaryActionVariant: {
+      name: 'Secondary action variant',
+      type: 'enum',
+      options: ['button', 'link', 'checkbox'],
+    },
+    secondaryActionText: {
+      name: 'Secondary action text',
       type: 'string',
     },
   },
@@ -125,8 +131,10 @@ export const Playground: StoryFn = args => {
         )}
 
         <SelectPanel.Footer>
-          {args.secondaryButtonText ? (
-            <SelectPanel.SecondaryButton>{args.secondaryButtonText}</SelectPanel.SecondaryButton>
+          {args.secondaryActionText ? (
+            <SelectPanel.SecondaryAction variant={args.secondaryActionVariant}>
+              {args.secondaryActionText}
+            </SelectPanel.SecondaryAction>
           ) : null}
         </SelectPanel.Footer>
       </SelectPanel>

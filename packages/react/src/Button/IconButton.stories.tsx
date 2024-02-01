@@ -41,8 +41,8 @@ Playground.args = {
   disabled: false,
   inactive: false,
   variant: 'default',
-  'aria-label': 'Icon button description',
-  icon: XIcon,
+  'aria-label': 'Favorite',
+  icon: HeartIcon,
 }
 
-export const Default = () => <IconButton icon={HeartIcon} aria-label="Default" />
+export const Default = () => <IconButton icon={HeartIcon} aria-label="Favorite" />

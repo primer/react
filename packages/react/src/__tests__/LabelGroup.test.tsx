@@ -1,12 +1,10 @@
 import React from 'react'
 import {render as HTMLRender, waitFor} from '@testing-library/react'
-import {axe, toHaveNoViolations} from 'jest-axe'
+import {axe} from 'jest-axe'
 import {LabelGroup, Label, ThemeProvider, BaseStyles} from '..'
 import {behavesAsComponent, checkExports} from '../utils/testing'
 import theme from '../theme'
 import userEvent from '@testing-library/user-event'
-
-expect.extend(toHaveNoViolations)
 
 const ThemeAndStyleContainer: React.FC<React.PropsWithChildren> = ({children}) => (
   <ThemeProvider theme={theme}>
