@@ -2,9 +2,7 @@ import React from 'react'
 import {PointerBox} from '..'
 import {render, behavesAsComponent, checkExports, renderStyles} from '../utils/testing'
 import {render as HTMLRender} from '@testing-library/react'
-import {axe, toHaveNoViolations} from 'jest-axe'
-
-expect.extend(toHaveNoViolations)
+import {axe} from 'jest-axe'
 
 describe('PointerBox', () => {
   behavesAsComponent({Component: PointerBox})
@@ -45,12 +43,14 @@ describe('PointerBox', () => {
     const viaSxProp = renderStyles(<PointerBox sx={{bg: mockBg}} />)
     expect(viaStyledSystem).toEqual(
       expect.objectContaining({
-        'background-image': 'linear-gradient(var(--custom-bg),var(--custom-bg)),linear-gradient(#ffffff,#ffffff)',
+        'background-image':
+          'linear-gradient(var(--custom-bg),var(--custom-bg)),linear-gradient(var(--bgColor-default,var(--color-canvas-default,#ffffff)),var(--bgColor-default,var(--color-canvas-default,#ffffff)))',
       }),
     )
     expect(viaSxProp).toEqual(
       expect.objectContaining({
-        'background-image': 'linear-gradient(var(--custom-bg),var(--custom-bg)),linear-gradient(#ffffff,#ffffff)',
+        'background-image':
+          'linear-gradient(var(--custom-bg),var(--custom-bg)),linear-gradient(var(--bgColor-default,var(--color-canvas-default,#ffffff)),var(--bgColor-default,var(--color-canvas-default,#ffffff)))',
       }),
     )
   })

@@ -1,13 +1,11 @@
 import {render as HTMLRender} from '@testing-library/react'
-import {axe, toHaveNoViolations} from 'jest-axe'
+import {axe} from 'jest-axe'
 import React from 'react'
 import theme from '../theme'
 import {SelectPanel} from '../SelectPanel'
 import {behavesAsComponent, checkExports} from '../utils/testing'
 import {BaseStyles, SSRProvider, ThemeProvider} from '..'
 import {ItemInput} from '../deprecated/ActionList/List'
-
-expect.extend(toHaveNoViolations)
 
 const items = [{text: 'Foo'}, {text: 'Bar'}, {text: 'Baz'}, {text: 'Bon'}] as ItemInput[]
 

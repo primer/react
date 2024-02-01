@@ -29,6 +29,7 @@ const heightMap = {
   xlarge: '600px',
   auto: 'auto',
   initial: 'auto', // Passing 'initial' initially applies 'auto'
+  'fit-content': 'fit-content',
 }
 
 const widthMap = {

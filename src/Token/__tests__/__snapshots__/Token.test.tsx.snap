@@ -28,7 +28,7 @@ exports[`Token components AvatarToken renders all sizes 1`] = `
   line-height: 1;
   vertical-align: middle;
   border-radius: 50%;
-  box-shadow: 0 0 0 1px rgba(31,35,40,0.15);
+  box-shadow: 0 0 0 1px var(--avatar-borderColor,var(--color-avatar-border,rgba(31,35,40,0.15)));
   height: var(--avatar-size);
   width: var(--avatar-size);
   --avatar-size: 16px;
@@ -58,11 +58,11 @@ exports[`Token components AvatarToken renders all sizes 1`] = `
   line-height: 16px;
   padding-left: 4px;
   padding-right: 4px;
-  background-color: rgba(234,238,242,0.5);
-  border-color: rgba(31,35,40,0.15);
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
+  border-color: var(--borderColor-muted,var(--color-border-subtle,rgba(31,35,40,0.15)));
   border-style: solid;
   border-width: 1px;
-  color: #656d76;
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
   max-width: 100%;
   padding-right: 0;
   padding-left: 4px;
@@ -110,11 +110,11 @@ exports[`Token components AvatarToken renders all sizes 1`] = `
 
 .c6:hover,
 .c6:focus {
-  background-color: rgba(175,184,193,0.2);
+  background-color: var(--borderColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
 }
 
 .c6:active {
-  background-color: rgba(234,238,242,0.5);
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
 }
 
 .c4 {
@@ -254,7 +254,7 @@ exports[`Token components AvatarToken renders all sizes 2`] = `
   line-height: 1;
   vertical-align: middle;
   border-radius: 50%;
-  box-shadow: 0 0 0 1px rgba(31,35,40,0.15);
+  box-shadow: 0 0 0 1px var(--avatar-borderColor,var(--color-avatar-border,rgba(31,35,40,0.15)));
   height: var(--avatar-size);
   width: var(--avatar-size);
   --avatar-size: 20px;
@@ -284,11 +284,11 @@ exports[`Token components AvatarToken renders all sizes 2`] = `
   line-height: 20px;
   padding-left: 8px;
   padding-right: 8px;
-  background-color: rgba(234,238,242,0.5);
-  border-color: rgba(31,35,40,0.15);
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
+  border-color: var(--borderColor-muted,var(--color-border-subtle,rgba(31,35,40,0.15)));
   border-style: solid;
   border-width: 1px;
-  color: #656d76;
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
   max-width: 100%;
   padding-right: 0;
   padding-left: 4px;
@@ -336,11 +336,11 @@ exports[`Token components AvatarToken renders all sizes 2`] = `
 
 .c6:hover,
 .c6:focus {
-  background-color: rgba(175,184,193,0.2);
+  background-color: var(--borderColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
 }
 
 .c6:active {
-  background-color: rgba(234,238,242,0.5);
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
 }
 
 .c4 {
@@ -480,7 +480,7 @@ exports[`Token components AvatarToken renders all sizes 3`] = `
   line-height: 1;
   vertical-align: middle;
   border-radius: 50%;
-  box-shadow: 0 0 0 1px rgba(31,35,40,0.15);
+  box-shadow: 0 0 0 1px var(--avatar-borderColor,var(--color-avatar-border,rgba(31,35,40,0.15)));
   height: var(--avatar-size);
   width: var(--avatar-size);
   --avatar-size: 24px;
@@ -510,11 +510,11 @@ exports[`Token components AvatarToken renders all sizes 3`] = `
   line-height: 24px;
   padding-left: 8px;
   padding-right: 8px;
-  background-color: rgba(234,238,242,0.5);
-  border-color: rgba(31,35,40,0.15);
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
+  border-color: var(--borderColor-muted,var(--color-border-subtle,rgba(31,35,40,0.15)));
   border-style: solid;
   border-width: 1px;
-  color: #656d76;
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
   max-width: 100%;
   padding-right: 0;
   padding-left: 4px;
@@ -562,11 +562,11 @@ exports[`Token components AvatarToken renders all sizes 3`] = `
 
 .c6:hover,
 .c6:focus {
-  background-color: rgba(175,184,193,0.2);
+  background-color: var(--borderColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
 }
 
 .c6:active {
-  background-color: rgba(234,238,242,0.5);
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
 }
 
 .c4 {
@@ -706,7 +706,7 @@ exports[`Token components AvatarToken renders all sizes 4`] = `
   line-height: 1;
   vertical-align: middle;
   border-radius: 50%;
-  box-shadow: 0 0 0 1px rgba(31,35,40,0.15);
+  box-shadow: 0 0 0 1px var(--avatar-borderColor,var(--color-avatar-border,rgba(31,35,40,0.15)));
   height: var(--avatar-size);
   width: var(--avatar-size);
   --avatar-size: 32px;
@@ -738,11 +738,11 @@ exports[`Token components AvatarToken renders all sizes 4`] = `
   padding-right: 16px;
   padding-top: 0;
   padding-bottom: 0;
-  background-color: rgba(234,238,242,0.5);
-  border-color: rgba(31,35,40,0.15);
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
+  border-color: var(--borderColor-muted,var(--color-border-subtle,rgba(31,35,40,0.15)));
   border-style: solid;
   border-width: 1px;
-  color: #656d76;
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
   max-width: 100%;
   padding-right: 0;
   padding-left: 4px;
@@ -790,11 +790,11 @@ exports[`Token components AvatarToken renders all sizes 4`] = `
 
 .c6:hover,
 .c6:focus {
-  background-color: rgba(175,184,193,0.2);
+  background-color: var(--borderColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
 }
 
 .c6:active {
-  background-color: rgba(234,238,242,0.5);
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
 }
 
 .c4 {
@@ -906,86 +906,6 @@ exports[`Token components AvatarToken renders all sizes 4`] = `
 </span>
 `;
 
-exports[`Token components AvatarToken renders consistently 1`] = `
-.c0 {
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  border-radius: 999px;
-  cursor: auto;
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  font-weight: 600;
-  font-family: inherit;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  position: relative;
-  white-space: nowrap;
-  font-size: 12px;
-  height: 20px;
-  line-height: 20px;
-  padding-left: 8px;
-  padding-right: 8px;
-  background-color: rgba(234,238,242,0.5);
-  border-color: rgba(31,35,40,0.15);
-  border-style: solid;
-  border-width: 1px;
-  color: #656d76;
-  max-width: 100%;
-}
-
-.c1 {
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
-  min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  background: transparent;
-  border: none;
-  color: inherit;
-  font: inherit;
-  margin: 0;
-  padding: 0;
-  width: auto;
-  -webkit-font-smoothing: inherit;
-  -moz-osx-font-smoothing: inherit;
-  -webkit-appearance: none;
-  line-height: normal;
-  color: currentColor;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-}
-
-.c1:is(a,button,[tabIndex='0']) {
-  cursor: pointer;
-}
-
-.c1:is(a,button,[tabIndex='0']):after {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  right: 0;
-  bottom: 0;
-}
-
-<span
-  className="c0"
-  onKeyDown={[Function]}
-  size="medium"
->
-  <span
-    className="c1"
-  />
-</span>
-`;
-
 exports[`Token components AvatarToken renders isSelected 1`] = `
 .c1 {
   -webkit-flex-shrink: 0;
@@ -1001,7 +921,7 @@ exports[`Token components AvatarToken renders isSelected 1`] = `
   line-height: 1;
   vertical-align: middle;
   border-radius: 50%;
-  box-shadow: 0 0 0 1px rgba(31,35,40,0.15);
+  box-shadow: 0 0 0 1px var(--avatar-borderColor,var(--color-avatar-border,rgba(31,35,40,0.15)));
   height: var(--avatar-size);
   width: var(--avatar-size);
   --avatar-size: 20px;
@@ -1031,11 +951,11 @@ exports[`Token components AvatarToken renders isSelected 1`] = `
   line-height: 20px;
   padding-left: 8px;
   padding-right: 8px;
-  background-color: rgba(234,238,242,0.5);
-  border-color: #1F2328;
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
+  border-color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   border-style: solid;
   border-width: 1px;
-  color: #1F2328;
+  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   max-width: 100%;
   padding-left: 4px;
 }
@@ -1142,7 +1062,7 @@ exports[`Token components AvatarToken renders with a remove button 1`] = `
   line-height: 1;
   vertical-align: middle;
   border-radius: 50%;
-  box-shadow: 0 0 0 1px rgba(31,35,40,0.15);
+  box-shadow: 0 0 0 1px var(--avatar-borderColor,var(--color-avatar-border,rgba(31,35,40,0.15)));
   height: var(--avatar-size);
   width: var(--avatar-size);
   --avatar-size: 20px;
@@ -1172,11 +1092,11 @@ exports[`Token components AvatarToken renders with a remove button 1`] = `
   line-height: 20px;
   padding-left: 8px;
   padding-right: 8px;
-  background-color: rgba(234,238,242,0.5);
-  border-color: rgba(31,35,40,0.15);
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
+  border-color: var(--borderColor-muted,var(--color-border-subtle,rgba(31,35,40,0.15)));
   border-style: solid;
   border-width: 1px;
-  color: #656d76;
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
   max-width: 100%;
   padding-right: 0;
   padding-left: 4px;
@@ -1224,11 +1144,11 @@ exports[`Token components AvatarToken renders with a remove button 1`] = `
 
 .c6:hover,
 .c6:focus {
-  background-color: rgba(175,184,193,0.2);
+  background-color: var(--borderColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
 }
 
 .c6:active {
-  background-color: rgba(234,238,242,0.5);
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
 }
 
 .c4 {
@@ -1425,11 +1345,11 @@ exports[`Token components IssueLabelToken renders all sizes 1`] = `
 
 .c2:hover,
 .c2:focus {
-  background-color: rgba(175,184,193,0.2);
+  background-color: var(--borderColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
 }
 
 .c2:active {
-  background-color: rgba(234,238,242,0.5);
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
 }
 
 .c1 {
@@ -1598,11 +1518,11 @@ exports[`Token components IssueLabelToken renders all sizes 2`] = `
 
 .c2:hover,
 .c2:focus {
-  background-color: rgba(175,184,193,0.2);
+  background-color: var(--borderColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
 }
 
 .c2:active {
-  background-color: rgba(234,238,242,0.5);
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
 }
 
 .c1 {
@@ -1771,11 +1691,11 @@ exports[`Token components IssueLabelToken renders all sizes 3`] = `
 
 .c2:hover,
 .c2:focus {
-  background-color: rgba(175,184,193,0.2);
+  background-color: var(--borderColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
 }
 
 .c2:active {
-  background-color: rgba(234,238,242,0.5);
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
 }
 
 .c1 {
@@ -1946,11 +1866,11 @@ exports[`Token components IssueLabelToken renders all sizes 4`] = `
 
 .c2:hover,
 .c2:focus {
-  background-color: rgba(175,184,193,0.2);
+  background-color: var(--borderColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
 }
 
 .c2:active {
-  background-color: rgba(234,238,242,0.5);
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
 }
 
 .c1 {
@@ -2031,86 +1951,6 @@ exports[`Token components IssueLabelToken renders all sizes 4`] = `
       />
     </svg>
   </button>
-</span>
-`;
-
-exports[`Token components IssueLabelToken renders consistently 1`] = `
-.c0 {
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  border-radius: 999px;
-  cursor: auto;
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  font-weight: 600;
-  font-family: inherit;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  position: relative;
-  white-space: nowrap;
-  font-size: 12px;
-  height: 20px;
-  line-height: 20px;
-  padding-left: 8px;
-  padding-right: 8px;
-  background-color: rgba(234,238,242,0.5);
-  border-color: rgba(31,35,40,0.15);
-  border-style: solid;
-  border-width: 1px;
-  color: #656d76;
-  max-width: 100%;
-}
-
-.c1 {
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
-  min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  background: transparent;
-  border: none;
-  color: inherit;
-  font: inherit;
-  margin: 0;
-  padding: 0;
-  width: auto;
-  -webkit-font-smoothing: inherit;
-  -moz-osx-font-smoothing: inherit;
-  -webkit-appearance: none;
-  line-height: normal;
-  color: currentColor;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-}
-
-.c1:is(a,button,[tabIndex='0']) {
-  cursor: pointer;
-}
-
-.c1:is(a,button,[tabIndex='0']):after {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  right: 0;
-  bottom: 0;
-}
-
-<span
-  className="c0"
-  onKeyDown={[Function]}
-  size="medium"
->
-  <span
-    className="c1"
-  />
 </span>
 `;
 
@@ -2199,11 +2039,11 @@ exports[`Token components IssueLabelToken renders custom fill color 1`] = `
 
 .c2:hover,
 .c2:focus {
-  background-color: rgba(175,184,193,0.2);
+  background-color: var(--borderColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
 }
 
 .c2:active {
-  background-color: rgba(234,238,242,0.5);
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
 }
 
 .c1 {
@@ -2372,11 +2212,11 @@ exports[`Token components IssueLabelToken renders default fill color 1`] = `
 
 .c2:hover,
 .c2:focus {
-  background-color: rgba(175,184,193,0.2);
+  background-color: var(--borderColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
 }
 
 .c2:active {
-  background-color: rgba(234,238,242,0.5);
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
 }
 
 .c1 {
@@ -2656,11 +2496,11 @@ exports[`Token components IssueLabelToken renders with a remove button 1`] = `
 
 .c2:hover,
 .c2:focus {
-  background-color: rgba(175,184,193,0.2);
+  background-color: var(--borderColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
 }
 
 .c2:active {
-  background-color: rgba(234,238,242,0.5);
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
 }
 
 .c1 {
@@ -2780,11 +2620,11 @@ exports[`Token components Token renders all sizes 1`] = `
   line-height: 16px;
   padding-left: 4px;
   padding-right: 4px;
-  background-color: rgba(234,238,242,0.5);
-  border-color: rgba(31,35,40,0.15);
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
+  border-color: var(--borderColor-muted,var(--color-border-subtle,rgba(31,35,40,0.15)));
   border-style: solid;
   border-width: 1px;
-  color: #656d76;
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
   max-width: 100%;
   padding-right: 0;
 }
@@ -2831,11 +2671,11 @@ exports[`Token components Token renders all sizes 1`] = `
 
 .c3:hover,
 .c3:focus {
-  background-color: rgba(175,184,193,0.2);
+  background-color: var(--borderColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
 }
 
 .c3:active {
-  background-color: rgba(234,238,242,0.5);
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
 }
 
 .c1 {
@@ -2960,11 +2800,11 @@ exports[`Token components Token renders all sizes 2`] = `
   line-height: 20px;
   padding-left: 8px;
   padding-right: 8px;
-  background-color: rgba(234,238,242,0.5);
-  border-color: rgba(31,35,40,0.15);
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
+  border-color: var(--borderColor-muted,var(--color-border-subtle,rgba(31,35,40,0.15)));
   border-style: solid;
   border-width: 1px;
-  color: #656d76;
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
   max-width: 100%;
   padding-right: 0;
 }
@@ -3011,11 +2851,11 @@ exports[`Token components Token renders all sizes 2`] = `
 
 .c3:hover,
 .c3:focus {
-  background-color: rgba(175,184,193,0.2);
+  background-color: var(--borderColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
 }
 
 .c3:active {
-  background-color: rgba(234,238,242,0.5);
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
 }
 
 .c1 {
@@ -3140,11 +2980,11 @@ exports[`Token components Token renders all sizes 3`] = `
   line-height: 24px;
   padding-left: 8px;
   padding-right: 8px;
-  background-color: rgba(234,238,242,0.5);
-  border-color: rgba(31,35,40,0.15);
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
+  border-color: var(--borderColor-muted,var(--color-border-subtle,rgba(31,35,40,0.15)));
   border-style: solid;
   border-width: 1px;
-  color: #656d76;
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
   max-width: 100%;
   padding-right: 0;
 }
@@ -3191,11 +3031,11 @@ exports[`Token components Token renders all sizes 3`] = `
 
 .c3:hover,
 .c3:focus {
-  background-color: rgba(175,184,193,0.2);
+  background-color: var(--borderColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
 }
 
 .c3:active {
-  background-color: rgba(234,238,242,0.5);
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
 }
 
 .c1 {
@@ -3322,11 +3162,11 @@ exports[`Token components Token renders all sizes 4`] = `
   padding-right: 16px;
   padding-top: 0;
   padding-bottom: 0;
-  background-color: rgba(234,238,242,0.5);
-  border-color: rgba(31,35,40,0.15);
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
+  border-color: var(--borderColor-muted,var(--color-border-subtle,rgba(31,35,40,0.15)));
   border-style: solid;
   border-width: 1px;
-  color: #656d76;
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
   max-width: 100%;
   padding-right: 0;
 }
@@ -3373,11 +3213,11 @@ exports[`Token components Token renders all sizes 4`] = `
 
 .c3:hover,
 .c3:focus {
-  background-color: rgba(175,184,193,0.2);
+  background-color: var(--borderColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
 }
 
 .c3:active {
-  background-color: rgba(234,238,242,0.5);
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
 }
 
 .c1 {
@@ -3466,86 +3306,6 @@ exports[`Token components Token renders all sizes 4`] = `
 </span>
 `;
 
-exports[`Token components Token renders consistently 1`] = `
-.c0 {
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  border-radius: 999px;
-  cursor: auto;
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  font-weight: 600;
-  font-family: inherit;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  position: relative;
-  white-space: nowrap;
-  font-size: 12px;
-  height: 20px;
-  line-height: 20px;
-  padding-left: 8px;
-  padding-right: 8px;
-  background-color: rgba(234,238,242,0.5);
-  border-color: rgba(31,35,40,0.15);
-  border-style: solid;
-  border-width: 1px;
-  color: #656d76;
-  max-width: 100%;
-}
-
-.c1 {
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
-  min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  background: transparent;
-  border: none;
-  color: inherit;
-  font: inherit;
-  margin: 0;
-  padding: 0;
-  width: auto;
-  -webkit-font-smoothing: inherit;
-  -moz-osx-font-smoothing: inherit;
-  -webkit-appearance: none;
-  line-height: normal;
-  color: currentColor;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-}
-
-.c1:is(a,button,[tabIndex='0']) {
-  cursor: pointer;
-}
-
-.c1:is(a,button,[tabIndex='0']):after {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  right: 0;
-  bottom: 0;
-}
-
-<span
-  className="c0"
-  onKeyDown={[Function]}
-  size="medium"
->
-  <span
-    className="c1"
-  />
-</span>
-`;
-
 exports[`Token components Token renders isSelected 1`] = `
 .c0 {
   -webkit-align-items: center;
@@ -3569,11 +3329,11 @@ exports[`Token components Token renders isSelected 1`] = `
   line-height: 20px;
   padding-left: 8px;
   padding-right: 8px;
-  background-color: rgba(234,238,242,0.5);
-  border-color: #1F2328;
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
+  border-color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   border-style: solid;
   border-width: 1px;
-  color: #1F2328;
+  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   max-width: 100%;
 }
 
@@ -3659,11 +3419,11 @@ exports[`Token components Token renders with a leadingVisual 1`] = `
   line-height: 20px;
   padding-left: 8px;
   padding-right: 8px;
-  background-color: rgba(234,238,242,0.5);
-  border-color: rgba(31,35,40,0.15);
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
+  border-color: var(--borderColor-muted,var(--color-border-subtle,rgba(31,35,40,0.15)));
   border-style: solid;
   border-width: 1px;
-  color: #656d76;
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
   max-width: 100%;
 }
 
@@ -3765,11 +3525,11 @@ exports[`Token components Token renders with a remove button 1`] = `
   line-height: 20px;
   padding-left: 8px;
   padding-right: 8px;
-  background-color: rgba(234,238,242,0.5);
-  border-color: rgba(31,35,40,0.15);
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
+  border-color: var(--borderColor-muted,var(--color-border-subtle,rgba(31,35,40,0.15)));
   border-style: solid;
   border-width: 1px;
-  color: #656d76;
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
   max-width: 100%;
   padding-right: 0;
 }
@@ -3816,11 +3576,11 @@ exports[`Token components Token renders with a remove button 1`] = `
 
 .c3:hover,
 .c3:focus {
-  background-color: rgba(175,184,193,0.2);
+  background-color: var(--borderColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
 }
 
 .c3:active {
-  background-color: rgba(234,238,242,0.5);
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
 }
 
 .c1 {
