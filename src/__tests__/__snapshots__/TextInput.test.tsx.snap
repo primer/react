@@ -1212,7 +1212,7 @@ exports[`TextInput renders monospace 1`] = `
   align-items: stretch;
   min-height: 32px;
   overflow: hidden;
-  font-family: var(--fontStack-monospace),SFMono-Regular,Consolas,"Liberation Mono",Menlo,Courier,monospace;
+  font-family: var(--fontStack-monospace,SFMono-Regular,Consolas,"Liberation Mono",Menlo,Courier,monospace);
 }
 
 .c0 input,
