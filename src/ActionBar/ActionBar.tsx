@@ -35,9 +35,14 @@ export type ActionBarIconButtonProps = IconButtonProps
 
 export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = props => {
   const {size = 'medium', children} = props
+  const sx = {
+    display: 'inline-flex',
+    alignItems: 'center',
+    height: size === 'small' ? '28px' : size === 'medium' ? '32px' : '40px',
+  }
   return (
     <ActionBarContext.Provider value={{size}}>
-      <Box>{children}</Box>
+      <Box sx={sx}>{children}</Box>
     </ActionBarContext.Provider>
   )
 }
