@@ -1929,8 +1929,8 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   white-space: pre;
   pointer-events: none;
   content: attr(aria-label);
-  background: #24292f;
-  border-radius: 3px;
+  background: var(--bgColor-emphasis,var(--color-neutral-emphasis-plus,#24292f));
+  border-radius: 6px;
   opacity: 0;
 }
 
@@ -1949,8 +1949,8 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   animation-fill-mode: forwards;
   -webkit-animation-timing-function: ease-in;
   animation-timing-function: ease-in;
-  -webkit-animation-delay: 0.4s;
-  animation-delay: 0.4s;
+  -webkit-animation-delay: 0s;
+  animation-delay: 0s;
 }
 
 .c4.tooltipped-no-delay:hover::after,
@@ -1976,16 +1976,6 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   margin-top: 6px;
 }
 
-.c4.tooltipped-s::before,
-.c4.tooltipped-se::before,
-.c4.tooltipped-sw::before {
-  top: auto;
-  right: 50%;
-  bottom: -7px;
-  margin-right: -6px;
-  border-bottom-color: #24292f;
-}
-
 .c4.tooltipped-se::after {
   right: auto;
   left: 50%;
@@ -2002,16 +1992,6 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   right: 50%;
   bottom: 100%;
   margin-bottom: 6px;
-}
-
-.c4.tooltipped-n::before,
-.c4.tooltipped-ne::before,
-.c4.tooltipped-nw::before {
-  top: -7px;
-  right: 50%;
-  bottom: auto;
-  margin-right: -6px;
-  border-top-color: #24292f;
 }
 
 .c4.tooltipped-ne::after {
@@ -2040,14 +2020,6 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   transform: translateY(50%);
 }
 
-.c4.tooltipped-w::before {
-  top: 50%;
-  bottom: 50%;
-  left: -7px;
-  margin-top: -6px;
-  border-left-color: #24292f;
-}
-
 .c4.tooltipped-e::after {
   bottom: 50%;
   left: 100%;
@@ -2055,14 +2027,6 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   -webkit-transform: translateY(50%);
   -ms-transform: translateY(50%);
   transform: translateY(50%);
-}
-
-.c4.tooltipped-e::before {
-  top: 50%;
-  right: -7px;
-  bottom: 50%;
-  margin-top: -6px;
-  border-right-color: #24292f;
 }
 
 .c4.tooltipped-multiline::after {
@@ -2963,19 +2927,6 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   display: inline-block;
 }
 
-.c4::before {
-  position: absolute;
-  z-index: 1000001;
-  display: none;
-  width: 0px;
-  height: 0px;
-  color: #24292f;
-  pointer-events: none;
-  content: '';
-  border: 6px solid transparent;
-  opacity: 0;
-}
-
 .c4::after {
   position: absolute;
   z-index: 1000000;
@@ -2997,8 +2948,8 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   white-space: pre;
   pointer-events: none;
   content: attr(aria-label);
-  background: #24292f;
-  border-radius: 3px;
+  background: var(--bgColor-emphasis,var(--color-neutral-emphasis-plus,#24292f));
+  border-radius: 6px;
   opacity: 0;
 }
 
@@ -3017,8 +2968,8 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   animation-fill-mode: forwards;
   -webkit-animation-timing-function: ease-in;
   animation-timing-function: ease-in;
-  -webkit-animation-delay: 0.4s;
-  animation-delay: 0.4s;
+  -webkit-animation-delay: 0s;
+  animation-delay: 0s;
 }
 
 .c4.tooltipped-no-delay:hover::after,
@@ -3044,16 +2995,6 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   margin-top: 6px;
 }
 
-.c4.tooltipped-s::before,
-.c4.tooltipped-se::before,
-.c4.tooltipped-sw::before {
-  top: auto;
-  right: 50%;
-  bottom: -7px;
-  margin-right: -6px;
-  border-bottom-color: #24292f;
-}
-
 .c4.tooltipped-se::after {
   right: auto;
   left: 50%;
@@ -3070,16 +3011,6 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   right: 50%;
   bottom: 100%;
   margin-bottom: 6px;
-}
-
-.c4.tooltipped-n::before,
-.c4.tooltipped-ne::before,
-.c4.tooltipped-nw::before {
-  top: -7px;
-  right: 50%;
-  bottom: auto;
-  margin-right: -6px;
-  border-top-color: #24292f;
 }
 
 .c4.tooltipped-ne::after {
@@ -3108,14 +3039,6 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   transform: translateY(50%);
 }
 
-.c4.tooltipped-w::before {
-  top: 50%;
-  bottom: 50%;
-  left: -7px;
-  margin-top: -6px;
-  border-left-color: #24292f;
-}
-
 .c4.tooltipped-e::after {
   bottom: 50%;
   left: 100%;
@@ -3123,14 +3046,6 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   -webkit-transform: translateY(50%);
   -ms-transform: translateY(50%);
   transform: translateY(50%);
-}
-
-.c4.tooltipped-e::before {
-  top: 50%;
-  right: -7px;
-  bottom: 50%;
-  margin-top: -6px;
-  border-right-color: #24292f;
 }
 
 .c4.tooltipped-multiline::after {
