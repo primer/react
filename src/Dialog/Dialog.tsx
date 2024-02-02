@@ -175,6 +175,10 @@ const Backdrop = styled('div')`
     justify-content: flex-end;
   }
 
+  .DialogOverflowWrapper {
+    flex-grow: 1;
+  }
+
   @media (max-width: 767px) {
     &[data-position-narrow='center'] {
       align-items: center;
