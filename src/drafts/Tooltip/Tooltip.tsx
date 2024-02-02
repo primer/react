@@ -185,8 +185,8 @@ const isInteractive = (element: HTMLElement) => {
 export const TooltipContext = React.createContext<{tooltipId?: string}>({})
 
 export const Tooltip = React.forwardRef(
-  ({direction = 's', text, type = 'description', children, ...rest}: TooltipProps, forwardedRef) => {
-    const tooltipId = useId(rest.id)
+  ({direction = 's', text, type = 'description', children, id, ...rest}: TooltipProps, forwardedRef) => {
+    const tooltipId = useId(id)
     const child = Children.only(children)
     const triggerRef = useProvidedRefOrCreate(forwardedRef as React.RefObject<HTMLElement>)
     const tooltipElRef = useRef<HTMLDivElement>(null)

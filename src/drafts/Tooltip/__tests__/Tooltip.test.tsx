@@ -3,7 +3,8 @@ import {Tooltip, TooltipProps} from '../Tooltip'
 import {checkStoriesForAxeViolations} from '../../../utils/testing'
 import {render as HTMLRender} from '@testing-library/react'
 import theme from '../../../theme'
-import {Button, ActionMenu, ActionList, ThemeProvider, SSRProvider, BaseStyles} from '../../../'
+import {Button, IconButton, ActionMenu, ActionList, ThemeProvider, SSRProvider, BaseStyles} from '../../../'
+import {XIcon} from '@primer/octicons-react'
 
 const TooltipComponent = (props: Omit<TooltipProps, 'text'> & {text?: string}) => (
   <Tooltip text="Tooltip text" {...props}>
@@ -90,5 +91,23 @@ describe('Tooltip', () => {
     const tooltip = getByText('Additional context about the menu button')
     expect(menuButton).toHaveAttribute('aria-describedby', tooltip.id)
     expect(menuButton).toHaveAttribute('aria-haspopup', 'true')
+  })
+  it('should use the custom tooltip id (if present) to label the trigger element', () => {
+    const {getByRole} = HTMLRender(
+      <Tooltip id="custom-tooltip-id" text="Close feedback form" direction="nw" type="label">
+        <IconButton aria-labelledby="custom-tooltip-id" icon={XIcon} variant="invisible" onClick={() => {}} />
+      </Tooltip>,
+    )
+    const triggerEL = getByRole('button')
+    expect(triggerEL).toHaveAttribute('aria-labelledby', 'custom-tooltip-id')
+  })
+  it('should use the custom tooltip id (if present) to described the trigger element', () => {
+    const {getByRole} = HTMLRender(
+      <Tooltip text="This operation cannot be reverted" id="custom-tooltip-id">
+        <Button>Delete</Button>
+      </Tooltip>,
+    )
+    const triggerEL = getByRole('button')
+    expect(triggerEL).toHaveAttribute('aria-describedby', 'custom-tooltip-id')
   })
 })
