@@ -1,6 +1,5 @@
 import React from 'react'
 import Flash from '..'
-import theme from '../../theme'
 import {render, behavesAsComponent, checkExports} from '../../utils/testing'
 import {render as HTMLRender} from '@testing-library/react'
 import {axe} from 'jest-axe'
@@ -27,16 +26,19 @@ describe('Flash', () => {
   it('respects the "variant" prop', () => {
     expect(render(<Flash variant="warning" />)).toHaveStyleRule(
       'background-color',
-      theme.colorSchemes.light.colors.attention?.subtle,
+      'var(--bgColor-attention-muted,var(--color-attention-subtle,#fff8c5))',
     )
     expect(render(<Flash variant="danger" />)).toHaveStyleRule(
       'background-color',
-      theme.colorSchemes.light.colors.danger?.subtle,
+      'var(--bgColor-danger-muted,var(--color-danger-subtle,#ffebe9))',
     )
     expect(render(<Flash variant="success" />)).toHaveStyleRule(
       'background-color',
-      theme.colorSchemes.light.colors.success?.subtle,
+      'var(--bgColor-success-muted,var(--color-success-subtle,#dafbe1))',
     )
-    expect(render(<Flash />)).toHaveStyleRule('background-color', theme.colorSchemes.light.colors.accent?.subtle)
+    expect(render(<Flash />)).toHaveStyleRule(
+      'background-color',
+      'var(--bgColor-accent-muted,var(--color-accent-subtle,#ddf4ff))',
+    )
   })
 })

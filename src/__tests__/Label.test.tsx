@@ -1,9 +1,8 @@
 import React from 'react'
 import {render} from '@testing-library/react'
-import {axe, toHaveNoViolations} from 'jest-axe'
+import {axe} from 'jest-axe'
 import Label, {variants, LabelColorOptions} from '../Label'
 import {renderStyles} from '../utils/testing'
-expect.extend(toHaveNoViolations)
 
 describe('Label', () => {
   it('renders text node child', () => {
@@ -22,7 +21,7 @@ describe('Label', () => {
   })
   it('default variant is rendered as "default"', () => {
     const expectedStyles = {
-      ['border-color']: '#d0d7de',
+      ['border-color']: 'var(--borderColor-default,var(--color-border-default,#d0d7de))',
     }
     const defaultStyles = renderStyles(<Label />)
 
