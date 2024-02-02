@@ -8,17 +8,17 @@ const ButtonGroup = styled.div`
   vertical-align: middle;
   isolation: isolate;
 
-  && > * {
+  && > button {
     margin-inline-end: -1px;
     position: relative;
     border-radius: 0;
 
-    :first-child {
+    :first-of-type {
       border-top-left-radius: ${get('radii.2')};
       border-bottom-left-radius: ${get('radii.2')};
     }
 
-    :last-child {
+    :last-of-type {
       border-top-right-radius: ${get('radii.2')};
       border-bottom-right-radius: ${get('radii.2')};
     }
@@ -27,6 +27,30 @@ const ButtonGroup = styled.div`
     :active,
     :hover {
       z-index: 1;
+    }
+  }
+
+  && > span {
+    & > button {
+      margin-inline-end: -1px;
+      position: relative;
+      border-radius: 0;
+
+      :focus,
+      :active,
+      :hover {
+        z-index: 1;
+      }
+    }
+
+    :first-of-type > button {
+      border-top-left-radius: ${get('radii.2')};
+      border-bottom-left-radius: ${get('radii.2')};
+    }
+
+    :last-of-type > button {
+      border-top-right-radius: ${get('radii.2')};
+      border-bottom-right-radius: ${get('radii.2')};
     }
   }
 

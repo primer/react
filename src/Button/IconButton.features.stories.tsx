@@ -1,6 +1,7 @@
 import {HeartIcon} from '@primer/octicons-react'
 import React from 'react'
 import {IconButton} from '.'
+import {Tooltip} from '../drafts'
 
 export default {
   title: 'Components/IconButton/Features',
