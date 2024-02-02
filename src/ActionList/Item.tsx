@@ -229,7 +229,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       (event: React.KeyboardEvent<HTMLLIElement>) => {
         if (disabled || inactive || event.repeat) return
 
-        if ([' ', 'Enter'].includes(event.key)) {
+        if (['Space', 'Enter'].includes(event.code)) {
           onSelect(event, afterSelect)
         }
       },
