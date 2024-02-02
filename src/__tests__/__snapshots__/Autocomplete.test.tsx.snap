@@ -5,13 +5,13 @@ exports[`snapshots renders a custom empty state message 1`] = `
   .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #1F2328;
+  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
-  background-color: #ffffff;
-  border: 1px solid var(--control-borderColor-rest,#d0d7de);
+  background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
+  border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
   border-radius: 6px;
   outline: none;
-  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
+  box-shadow: var(--shadow-inset,var(--color-primer-shadow-inset,inset 0 1px 0 rgba(208,215,222,0.2)));
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -34,24 +34,24 @@ exports[`snapshots renders a custom empty state message 1`] = `
 }
 
 .c0::-webkit-input-placeholder {
-  color: #6e7781;
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
 }
 
 .c0::-moz-placeholder {
-  color: #6e7781;
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
 }
 
 .c0:-ms-input-placeholder {
-  color: #6e7781;
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
 }
 
 .c0::placeholder {
-  color: #6e7781;
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
 }
 
 .c0:focus-within {
-  border-color: #0969da;
-  outline: 2px solid #0969da;
+  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline-offset: -1px;
 }
 
@@ -75,7 +75,7 @@ exports[`snapshots renders a custom empty state message 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #656d76;
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -172,13 +172,13 @@ exports[`snapshots renders a loading state 1`] = `
   .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #1F2328;
+  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
-  background-color: #ffffff;
-  border: 1px solid var(--control-borderColor-rest,#d0d7de);
+  background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
+  border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
   border-radius: 6px;
   outline: none;
-  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
+  box-shadow: var(--shadow-inset,var(--color-primer-shadow-inset,inset 0 1px 0 rgba(208,215,222,0.2)));
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -201,24 +201,24 @@ exports[`snapshots renders a loading state 1`] = `
 }
 
 .c0::-webkit-input-placeholder {
-  color: #6e7781;
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
 }
 
 .c0::-moz-placeholder {
-  color: #6e7781;
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
 }
 
 .c0:-ms-input-placeholder {
-  color: #6e7781;
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
 }
 
 .c0::placeholder {
-  color: #6e7781;
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
 }
 
 .c0:focus-within {
-  border-color: #0969da;
-  outline: 2px solid #0969da;
+  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline-offset: -1px;
 }
 
@@ -242,7 +242,7 @@ exports[`snapshots renders a loading state 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #656d76;
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -374,13 +374,13 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
   .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #1F2328;
+  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
-  background-color: #ffffff;
-  border: 1px solid var(--control-borderColor-rest,#d0d7de);
+  background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
+  border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
   border-radius: 6px;
   outline: none;
-  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
+  box-shadow: var(--shadow-inset,var(--color-primer-shadow-inset,inset 0 1px 0 rgba(208,215,222,0.2)));
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -403,24 +403,24 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
 }
 
 .c0::-webkit-input-placeholder {
-  color: #6e7781;
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
 }
 
 .c0::-moz-placeholder {
-  color: #6e7781;
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
 }
 
 .c0:-ms-input-placeholder {
-  color: #6e7781;
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
 }
 
 .c0::placeholder {
-  color: #6e7781;
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
 }
 
 .c0:focus-within {
-  border-color: #0969da;
-  outline: 2px solid #0969da;
+  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline-offset: -1px;
 }
 
@@ -444,7 +444,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #656d76;
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -540,7 +540,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
 }
 
 .c6 {
-  border-color: #6e7781;
+  border-color: var(--bgColor-neutral-emphasis,var(--color-neutral-emphasis,#6e7781));
   border-style: solid;
   border-width: 1px;
   border-radius: 3px;
@@ -550,7 +550,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
   margin: 0;
   place-content: center;
   width: var(--base-size-16,16px);
-  background-color: #ffffff;
+  background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
   -webkit-transition: background-color,border-color 80ms cubic-bezier(0.32,0,0.67,0) 0ms;
   transition: background-color,border-color 80ms cubic-bezier(0.32,0,0.67,0) 0ms;
 }
@@ -560,7 +560,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
   height: var(--base-size-16,16px);
   visibility: hidden;
   content: "";
-  background-color: #ffffff;
+  background-color: var(--fgColor-onEmphasis,var(--color-fg-on-emphasis,#ffffff));
   -webkit-transition: visibility 0s linear 230ms;
   transition: visibility 0s linear 230ms;
   -webkit-clip-path: inset(var(--base-size-16,16px) 0 0 0);
@@ -620,7 +620,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
   -ms-flex-negative: 0;
   flex-shrink: 0;
   margin-right: 8px;
-  color: #656d76;
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
 }
 
 .c9 svg {
@@ -629,7 +629,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
 
 [data-variant="danger"]:hover .c4,
 [data-variant="danger"]:active .c9 {
-  color: #1F2328;
+  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
 }
 
 .c0 {
@@ -670,7 +670,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
   border-radius: 6px;
   -webkit-transition: background 33.333ms linear;
   transition: background 33.333ms linear;
-  color: #1F2328;
+  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   cursor: pointer;
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -712,7 +712,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
 }
 
 .c3:not(:first-of-type) {
-  --divider-color: rgba(208,215,222,0.48);
+  --divider-color: var(--borderColor-muted,var(--color-action-list-item-inline-divider,rgba(208,215,222,0.48)));
 }
 
 [data-component="ActionList.Divider"] + .c2 {
@@ -741,21 +741,21 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
 
 @media (hover:hover) and (pointer:fine) {
   .c3:hover:not([aria-disabled]):not([data-inactive]) {
-    background-color: rgba(208,215,222,0.32);
-    color: #1F2328;
-    box-shadow: inset 0 0 0 max(1px,0.0625rem) rgba(0,0,0,0);
+    background-color: var(--control-transparent-bgColor-hover,var(--color-action-list-item-default-hover-bg,rgba(208,215,222,0.32)));
+    color: var(--fgColor-default,var(--color-fg-default,#1F2328));
+    box-shadow: inset 0 0 0 max(1px,0.0625rem) var(--control-transparent-borderColor-active,var(--color-action-list-item-default-active-border,transparent));
   }
 
   .c3:focus-visible,
   .c3 > a:focus-visible {
     outline: none;
     border: 2 solid;
-    box-shadow: 0 0 0 2px #0969da;
+    box-shadow: 0 0 0 2px var(--bgColor-accent-emphasis,var(--color-accent-emphasis,#0969da));
   }
 
   .c3:active:not([aria-disabled]):not([data-inactive]) {
-    background-color: rgba(208,215,222,0.48);
-    color: #1F2328;
+    background-color: var(--control-transparent-bgColor-active,var(--color-action-list-item-default-active-bg,rgba(208,215,222,0.48)));
+    color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   }
 }
 
@@ -789,6 +789,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
       >
         <li
           aria-labelledby="0--label "
+          aria-selected={false}
           className="c2 c3"
           data-id="0"
           id="0"
@@ -819,6 +820,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
         </li>
         <li
           aria-labelledby="1--label "
+          aria-selected={false}
           className="c2 c3"
           data-id="1"
           id="1"
@@ -849,6 +851,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
         </li>
         <li
           aria-labelledby="2--label "
+          aria-selected={false}
           className="c2 c3"
           data-id="2"
           id="2"
@@ -879,6 +882,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
         </li>
         <li
           aria-labelledby="3--label "
+          aria-selected={false}
           className="c2 c3"
           data-id="3"
           id="3"
@@ -909,6 +913,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
         </li>
         <li
           aria-labelledby="4--label "
+          aria-selected={false}
           className="c2 c3"
           data-id="4"
           id="4"
@@ -939,6 +944,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
         </li>
         <li
           aria-labelledby="5--label "
+          aria-selected={false}
           className="c2 c3"
           data-id="5"
           id="5"
@@ -969,6 +975,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
         </li>
         <li
           aria-labelledby="6--label "
+          aria-selected={false}
           className="c2 c3"
           data-id="6"
           id="6"
@@ -999,6 +1006,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
         </li>
         <li
           aria-labelledby="7--label "
+          aria-selected={false}
           className="c2 c3"
           data-id="7"
           id="7"
@@ -1029,6 +1037,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
         </li>
         <li
           aria-labelledby="20--label "
+          aria-selected={false}
           className="c2 c3"
           data-id="20"
           id="20"
@@ -1059,6 +1068,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
         </li>
         <li
           aria-labelledby="21--label "
+          aria-selected={false}
           className="c2 c3"
           data-id="21"
           id="21"
@@ -1089,6 +1099,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
         </li>
         <li
           aria-labelledby="add-new-item--label "
+          aria-selected={false}
           className="c2 c3"
           data-id="add-new-item"
           id="add-new-item"
@@ -1154,13 +1165,13 @@ exports[`snapshots renders a multiselect input 1`] = `
   .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #1F2328;
+  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
-  background-color: #ffffff;
-  border: 1px solid var(--control-borderColor-rest,#d0d7de);
+  background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
+  border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
   border-radius: 6px;
   outline: none;
-  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
+  box-shadow: var(--shadow-inset,var(--color-primer-shadow-inset,inset 0 1px 0 rgba(208,215,222,0.2)));
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -1183,24 +1194,24 @@ exports[`snapshots renders a multiselect input 1`] = `
 }
 
 .c0::-webkit-input-placeholder {
-  color: #6e7781;
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
 }
 
 .c0::-moz-placeholder {
-  color: #6e7781;
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
 }
 
 .c0:-ms-input-placeholder {
-  color: #6e7781;
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
 }
 
 .c0::placeholder {
-  color: #6e7781;
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
 }
 
 .c0:focus-within {
-  border-color: #0969da;
-  outline: 2px solid #0969da;
+  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline-offset: -1px;
 }
 
@@ -1224,7 +1235,7 @@ exports[`snapshots renders a multiselect input 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #656d76;
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -1312,7 +1323,7 @@ exports[`snapshots renders a multiselect input 1`] = `
 }
 
 .c5 {
-  border-color: #6e7781;
+  border-color: var(--bgColor-neutral-emphasis,var(--color-neutral-emphasis,#6e7781));
   border-style: solid;
   border-width: 1px;
   border-radius: 3px;
@@ -1322,7 +1333,7 @@ exports[`snapshots renders a multiselect input 1`] = `
   margin: 0;
   place-content: center;
   width: var(--base-size-16,16px);
-  background-color: #ffffff;
+  background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
   -webkit-transition: background-color,border-color 80ms cubic-bezier(0.32,0,0.67,0) 0ms;
   transition: background-color,border-color 80ms cubic-bezier(0.32,0,0.67,0) 0ms;
 }
@@ -1332,7 +1343,7 @@ exports[`snapshots renders a multiselect input 1`] = `
   height: var(--base-size-16,16px);
   visibility: hidden;
   content: "";
-  background-color: #ffffff;
+  background-color: var(--fgColor-onEmphasis,var(--color-fg-on-emphasis,#ffffff));
   -webkit-transition: visibility 0s linear 230ms;
   transition: visibility 0s linear 230ms;
   -webkit-clip-path: inset(var(--base-size-16,16px) 0 0 0);
@@ -1410,7 +1421,7 @@ exports[`snapshots renders a multiselect input 1`] = `
   border-radius: 6px;
   -webkit-transition: background 33.333ms linear;
   transition: background 33.333ms linear;
-  color: #1F2328;
+  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   cursor: pointer;
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -1452,7 +1463,7 @@ exports[`snapshots renders a multiselect input 1`] = `
 }
 
 .c3:not(:first-of-type) {
-  --divider-color: rgba(208,215,222,0.48);
+  --divider-color: var(--borderColor-muted,var(--color-action-list-item-inline-divider,rgba(208,215,222,0.48)));
 }
 
 [data-component="ActionList.Divider"] + .c2 {
@@ -1472,21 +1483,21 @@ exports[`snapshots renders a multiselect input 1`] = `
 
 @media (hover:hover) and (pointer:fine) {
   .c3:hover:not([aria-disabled]):not([data-inactive]) {
-    background-color: rgba(208,215,222,0.32);
-    color: #1F2328;
-    box-shadow: inset 0 0 0 max(1px,0.0625rem) rgba(0,0,0,0);
+    background-color: var(--control-transparent-bgColor-hover,var(--color-action-list-item-default-hover-bg,rgba(208,215,222,0.32)));
+    color: var(--fgColor-default,var(--color-fg-default,#1F2328));
+    box-shadow: inset 0 0 0 max(1px,0.0625rem) var(--control-transparent-borderColor-active,var(--color-action-list-item-default-active-border,transparent));
   }
 
   .c3:focus-visible,
   .c3 > a:focus-visible {
     outline: none;
     border: 2 solid;
-    box-shadow: 0 0 0 2px #0969da;
+    box-shadow: 0 0 0 2px var(--bgColor-accent-emphasis,var(--color-accent-emphasis,#0969da));
   }
 
   .c3:active:not([aria-disabled]):not([data-inactive]) {
-    background-color: rgba(208,215,222,0.48);
-    color: #1F2328;
+    background-color: var(--control-transparent-bgColor-active,var(--color-action-list-item-default-active-bg,rgba(208,215,222,0.48)));
+    color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   }
 }
 
@@ -1512,6 +1523,7 @@ exports[`snapshots renders a multiselect input 1`] = `
       >
         <li
           aria-labelledby="0--label "
+          aria-selected={false}
           className="c2 c3"
           data-id="0"
           id="0"
@@ -1542,6 +1554,7 @@ exports[`snapshots renders a multiselect input 1`] = `
         </li>
         <li
           aria-labelledby="1--label "
+          aria-selected={false}
           className="c2 c3"
           data-id="1"
           id="1"
@@ -1572,6 +1585,7 @@ exports[`snapshots renders a multiselect input 1`] = `
         </li>
         <li
           aria-labelledby="2--label "
+          aria-selected={false}
           className="c2 c3"
           data-id="2"
           id="2"
@@ -1602,6 +1616,7 @@ exports[`snapshots renders a multiselect input 1`] = `
         </li>
         <li
           aria-labelledby="3--label "
+          aria-selected={false}
           className="c2 c3"
           data-id="3"
           id="3"
@@ -1632,6 +1647,7 @@ exports[`snapshots renders a multiselect input 1`] = `
         </li>
         <li
           aria-labelledby="4--label "
+          aria-selected={false}
           className="c2 c3"
           data-id="4"
           id="4"
@@ -1662,6 +1678,7 @@ exports[`snapshots renders a multiselect input 1`] = `
         </li>
         <li
           aria-labelledby="5--label "
+          aria-selected={false}
           className="c2 c3"
           data-id="5"
           id="5"
@@ -1692,6 +1709,7 @@ exports[`snapshots renders a multiselect input 1`] = `
         </li>
         <li
           aria-labelledby="6--label "
+          aria-selected={false}
           className="c2 c3"
           data-id="6"
           id="6"
@@ -1722,6 +1740,7 @@ exports[`snapshots renders a multiselect input 1`] = `
         </li>
         <li
           aria-labelledby="7--label "
+          aria-selected={false}
           className="c2 c3"
           data-id="7"
           id="7"
@@ -1752,6 +1771,7 @@ exports[`snapshots renders a multiselect input 1`] = `
         </li>
         <li
           aria-labelledby="20--label "
+          aria-selected={false}
           className="c2 c3"
           data-id="20"
           id="20"
@@ -1782,6 +1802,7 @@ exports[`snapshots renders a multiselect input 1`] = `
         </li>
         <li
           aria-labelledby="21--label "
+          aria-selected={false}
           className="c2 c3"
           data-id="21"
           id="21"
@@ -1821,13 +1842,13 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
   .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #1F2328;
+  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
-  background-color: #ffffff;
-  border: 1px solid var(--control-borderColor-rest,#d0d7de);
+  background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
+  border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
   border-radius: 6px;
   outline: none;
-  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
+  box-shadow: var(--shadow-inset,var(--color-primer-shadow-inset,inset 0 1px 0 rgba(208,215,222,0.2)));
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -1850,24 +1871,24 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
 }
 
 .c0::-webkit-input-placeholder {
-  color: #6e7781;
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
 }
 
 .c0::-moz-placeholder {
-  color: #6e7781;
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
 }
 
 .c0:-ms-input-placeholder {
-  color: #6e7781;
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
 }
 
 .c0::placeholder {
-  color: #6e7781;
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
 }
 
 .c0:focus-within {
-  border-color: #0969da;
-  outline: 2px solid #0969da;
+  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline-offset: -1px;
 }
 
@@ -1891,7 +1912,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #656d76;
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -1987,7 +2008,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
 }
 
 .c5 {
-  border-color: #0969da;
+  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
   border-style: solid;
   border-width: 1px;
   border-radius: 3px;
@@ -1997,7 +2018,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
   margin: 0;
   place-content: center;
   width: var(--base-size-16,16px);
-  background-color: #0969da;
+  background-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
   -webkit-transition: background-color,border-color 80ms cubic-bezier(0.33,1,0.68,1);
   transition: background-color,border-color 80ms cubic-bezier(0.33,1,0.68,1);
 }
@@ -2007,7 +2028,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
   height: var(--base-size-16,16px);
   visibility: visible;
   content: "";
-  background-color: #ffffff;
+  background-color: var(--fgColor-onEmphasis,var(--color-fg-on-emphasis,#ffffff));
   -webkit-transition: visibility 0s linear 0s;
   transition: visibility 0s linear 0s;
   -webkit-clip-path: inset(var(--base-size-16,16px) 0 0 0);
@@ -2048,7 +2069,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
 }
 
 .c9 {
-  border-color: #6e7781;
+  border-color: var(--bgColor-neutral-emphasis,var(--color-neutral-emphasis,#6e7781));
   border-style: solid;
   border-width: 1px;
   border-radius: 3px;
@@ -2058,7 +2079,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
   margin: 0;
   place-content: center;
   width: var(--base-size-16,16px);
-  background-color: #ffffff;
+  background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
   -webkit-transition: background-color,border-color 80ms cubic-bezier(0.32,0,0.67,0) 0ms;
   transition: background-color,border-color 80ms cubic-bezier(0.32,0,0.67,0) 0ms;
 }
@@ -2068,7 +2089,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
   height: var(--base-size-16,16px);
   visibility: hidden;
   content: "";
-  background-color: #ffffff;
+  background-color: var(--fgColor-onEmphasis,var(--color-fg-on-emphasis,#ffffff));
   -webkit-transition: visibility 0s linear 230ms;
   transition: visibility 0s linear 230ms;
   -webkit-clip-path: inset(var(--base-size-16,16px) 0 0 0);
@@ -2123,7 +2144,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
   border-radius: 6px;
   -webkit-transition: background 33.333ms linear;
   transition: background 33.333ms linear;
-  color: #1F2328;
+  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   cursor: pointer;
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -2145,8 +2166,8 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
 .c3[aria-disabled] [data-component="ActionList.Checkbox"],
 .c3[data-inactive] [data-component="ActionList.Checkbox"] {
   cursor: not-allowed;
-  background-color: #656d76;
-  border-color: #656d76;
+  background-color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
+  border-color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
 }
 
 .c3 [data-component="ActionList.Item--DividerContainer"] {
@@ -2165,7 +2186,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
 }
 
 .c3:not(:first-of-type) {
-  --divider-color: rgba(208,215,222,0.48);
+  --divider-color: var(--borderColor-muted,var(--color-action-list-item-inline-divider,rgba(208,215,222,0.48)));
 }
 
 [data-component="ActionList.Divider"] + .c2 {
@@ -2201,7 +2222,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
   border-radius: 6px;
   -webkit-transition: background 33.333ms linear;
   transition: background 33.333ms linear;
-  color: #1F2328;
+  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   cursor: pointer;
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -2243,7 +2264,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
 }
 
 .c8:not(:first-of-type) {
-  --divider-color: rgba(208,215,222,0.48);
+  --divider-color: var(--borderColor-muted,var(--color-action-list-item-inline-divider,rgba(208,215,222,0.48)));
 }
 
 [data-component="ActionList.Divider"] + .c2 {
@@ -2263,21 +2284,21 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
 
 @media (hover:hover) and (pointer:fine) {
   .c3:hover:not([aria-disabled]):not([data-inactive]) {
-    background-color: rgba(208,215,222,0.32);
-    color: #1F2328;
-    box-shadow: inset 0 0 0 max(1px,0.0625rem) rgba(0,0,0,0);
+    background-color: var(--control-transparent-bgColor-hover,var(--color-action-list-item-default-hover-bg,rgba(208,215,222,0.32)));
+    color: var(--fgColor-default,var(--color-fg-default,#1F2328));
+    box-shadow: inset 0 0 0 max(1px,0.0625rem) var(--control-transparent-borderColor-active,var(--color-action-list-item-default-active-border,transparent));
   }
 
   .c3:focus-visible,
   .c3 > a:focus-visible {
     outline: none;
     border: 2 solid;
-    box-shadow: 0 0 0 2px #0969da;
+    box-shadow: 0 0 0 2px var(--bgColor-accent-emphasis,var(--color-accent-emphasis,#0969da));
   }
 
   .c3:active:not([aria-disabled]):not([data-inactive]) {
-    background-color: rgba(208,215,222,0.48);
-    color: #1F2328;
+    background-color: var(--control-transparent-bgColor-active,var(--color-action-list-item-default-active-bg,rgba(208,215,222,0.48)));
+    color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   }
 }
 
@@ -2289,21 +2310,21 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
 
 @media (hover:hover) and (pointer:fine) {
   .c8:hover:not([aria-disabled]):not([data-inactive]) {
-    background-color: rgba(208,215,222,0.32);
-    color: #1F2328;
-    box-shadow: inset 0 0 0 max(1px,0.0625rem) rgba(0,0,0,0);
+    background-color: var(--control-transparent-bgColor-hover,var(--color-action-list-item-default-hover-bg,rgba(208,215,222,0.32)));
+    color: var(--fgColor-default,var(--color-fg-default,#1F2328));
+    box-shadow: inset 0 0 0 max(1px,0.0625rem) var(--control-transparent-borderColor-active,var(--color-action-list-item-default-active-border,transparent));
   }
 
   .c8:focus-visible,
   .c8 > a:focus-visible {
     outline: none;
     border: 2 solid;
-    box-shadow: 0 0 0 2px #0969da;
+    box-shadow: 0 0 0 2px var(--bgColor-accent-emphasis,var(--color-accent-emphasis,#0969da));
   }
 
   .c8:active:not([aria-disabled]):not([data-inactive]) {
-    background-color: rgba(208,215,222,0.48);
-    color: #1F2328;
+    background-color: var(--control-transparent-bgColor-active,var(--color-action-list-item-default-active-bg,rgba(208,215,222,0.48)));
+    color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   }
 }
 
@@ -2329,6 +2350,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
       >
         <li
           aria-labelledby="0--label "
+          aria-selected={true}
           className="c2 c3"
           data-id="0"
           id="0"
@@ -2359,6 +2381,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
         </li>
         <li
           aria-labelledby="1--label "
+          aria-selected={true}
           className="c2 c3"
           data-id="1"
           id="1"
@@ -2389,6 +2412,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
         </li>
         <li
           aria-labelledby="2--label "
+          aria-selected={true}
           className="c2 c3"
           data-id="2"
           id="2"
@@ -2419,6 +2443,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
         </li>
         <li
           aria-labelledby="3--label "
+          aria-selected={false}
           className="c2 c8"
           data-id="3"
           id="3"
@@ -2449,6 +2474,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
         </li>
         <li
           aria-labelledby="4--label "
+          aria-selected={false}
           className="c2 c8"
           data-id="4"
           id="4"
@@ -2479,6 +2505,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
         </li>
         <li
           aria-labelledby="5--label "
+          aria-selected={false}
           className="c2 c8"
           data-id="5"
           id="5"
@@ -2509,6 +2536,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
         </li>
         <li
           aria-labelledby="6--label "
+          aria-selected={false}
           className="c2 c8"
           data-id="6"
           id="6"
@@ -2539,6 +2567,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
         </li>
         <li
           aria-labelledby="7--label "
+          aria-selected={false}
           className="c2 c8"
           data-id="7"
           id="7"
@@ -2569,6 +2598,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
         </li>
         <li
           aria-labelledby="20--label "
+          aria-selected={false}
           className="c2 c8"
           data-id="20"
           id="20"
@@ -2599,6 +2629,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
         </li>
         <li
           aria-labelledby="21--label "
+          aria-selected={false}
           className="c2 c8"
           data-id="21"
           id="21"
@@ -2638,13 +2669,13 @@ exports[`snapshots renders a single select input 1`] = `
   .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #1F2328;
+  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
-  background-color: #ffffff;
-  border: 1px solid var(--control-borderColor-rest,#d0d7de);
+  background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
+  border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
   border-radius: 6px;
   outline: none;
-  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
+  box-shadow: var(--shadow-inset,var(--color-primer-shadow-inset,inset 0 1px 0 rgba(208,215,222,0.2)));
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -2667,24 +2698,24 @@ exports[`snapshots renders a single select input 1`] = `
 }
 
 .c0::-webkit-input-placeholder {
-  color: #6e7781;
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
 }
 
 .c0::-moz-placeholder {
-  color: #6e7781;
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
 }
 
 .c0:-ms-input-placeholder {
-  color: #6e7781;
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
 }
 
 .c0::placeholder {
-  color: #6e7781;
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
 }
 
 .c0:focus-within {
-  border-color: #0969da;
-  outline: 2px solid #0969da;
+  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline-offset: -1px;
 }
 
@@ -2708,7 +2739,7 @@ exports[`snapshots renders a single select input 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #656d76;
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -2856,7 +2887,7 @@ exports[`snapshots renders a single select input 1`] = `
   border-radius: 6px;
   -webkit-transition: background 33.333ms linear;
   transition: background 33.333ms linear;
-  color: #1F2328;
+  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   cursor: pointer;
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -2898,7 +2929,7 @@ exports[`snapshots renders a single select input 1`] = `
 }
 
 .c3:not(:first-of-type) {
-  --divider-color: rgba(208,215,222,0.48);
+  --divider-color: var(--borderColor-muted,var(--color-action-list-item-inline-divider,rgba(208,215,222,0.48)));
 }
 
 [data-component="ActionList.Divider"] + .c2 {
@@ -2918,21 +2949,21 @@ exports[`snapshots renders a single select input 1`] = `
 
 @media (hover:hover) and (pointer:fine) {
   .c3:hover:not([aria-disabled]):not([data-inactive]) {
-    background-color: rgba(208,215,222,0.32);
-    color: #1F2328;
-    box-shadow: inset 0 0 0 max(1px,0.0625rem) rgba(0,0,0,0);
+    background-color: var(--control-transparent-bgColor-hover,var(--color-action-list-item-default-hover-bg,rgba(208,215,222,0.32)));
+    color: var(--fgColor-default,var(--color-fg-default,#1F2328));
+    box-shadow: inset 0 0 0 max(1px,0.0625rem) var(--control-transparent-borderColor-active,var(--color-action-list-item-default-active-border,transparent));
   }
 
   .c3:focus-visible,
   .c3 > a:focus-visible {
     outline: none;
     border: 2 solid;
-    box-shadow: 0 0 0 2px #0969da;
+    box-shadow: 0 0 0 2px var(--bgColor-accent-emphasis,var(--color-accent-emphasis,#0969da));
   }
 
   .c3:active:not([aria-disabled]):not([data-inactive]) {
-    background-color: rgba(208,215,222,0.48);
-    color: #1F2328;
+    background-color: var(--control-transparent-bgColor-active,var(--color-action-list-item-default-active-bg,rgba(208,215,222,0.48)));
+    color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   }
 }
 
@@ -3309,7 +3340,7 @@ exports[`snapshots renders with a custom text input component 1`] = `
   border-radius: 6px;
   -webkit-transition: background 33.333ms linear;
   transition: background 33.333ms linear;
-  color: #1F2328;
+  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   cursor: pointer;
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -3351,7 +3382,7 @@ exports[`snapshots renders with a custom text input component 1`] = `
 }
 
 .c3:not(:first-of-type) {
-  --divider-color: rgba(208,215,222,0.48);
+  --divider-color: var(--borderColor-muted,var(--color-action-list-item-inline-divider,rgba(208,215,222,0.48)));
 }
 
 [data-component="ActionList.Divider"] + .c2 {
@@ -3371,21 +3402,21 @@ exports[`snapshots renders with a custom text input component 1`] = `
 
 @media (hover:hover) and (pointer:fine) {
   .c3:hover:not([aria-disabled]):not([data-inactive]) {
-    background-color: rgba(208,215,222,0.32);
-    color: #1F2328;
-    box-shadow: inset 0 0 0 max(1px,0.0625rem) rgba(0,0,0,0);
+    background-color: var(--control-transparent-bgColor-hover,var(--color-action-list-item-default-hover-bg,rgba(208,215,222,0.32)));
+    color: var(--fgColor-default,var(--color-fg-default,#1F2328));
+    box-shadow: inset 0 0 0 max(1px,0.0625rem) var(--control-transparent-borderColor-active,var(--color-action-list-item-default-active-border,transparent));
   }
 
   .c3:focus-visible,
   .c3 > a:focus-visible {
     outline: none;
     border: 2 solid;
-    box-shadow: 0 0 0 2px #0969da;
+    box-shadow: 0 0 0 2px var(--bgColor-accent-emphasis,var(--color-accent-emphasis,#0969da));
   }
 
   .c3:active:not([aria-disabled]):not([data-inactive]) {
-    background-color: rgba(208,215,222,0.48);
-    color: #1F2328;
+    background-color: var(--control-transparent-bgColor-active,var(--color-action-list-item-default-active-bg,rgba(208,215,222,0.48)));
+    color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   }
 }
 
@@ -3666,13 +3697,13 @@ exports[`snapshots renders with an input value 1`] = `
   .c0 {
   font-size: 14px;
   line-height: 20px;
-  color: #1F2328;
+  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
-  background-color: #ffffff;
-  border: 1px solid var(--control-borderColor-rest,#d0d7de);
+  background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
+  border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
   border-radius: 6px;
   outline: none;
-  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
+  box-shadow: var(--shadow-inset,var(--color-primer-shadow-inset,inset 0 1px 0 rgba(208,215,222,0.2)));
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -3695,24 +3726,24 @@ exports[`snapshots renders with an input value 1`] = `
 }
 
 .c0::-webkit-input-placeholder {
-  color: #6e7781;
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
 }
 
 .c0::-moz-placeholder {
-  color: #6e7781;
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
 }
 
 .c0:-ms-input-placeholder {
-  color: #6e7781;
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
 }
 
 .c0::placeholder {
-  color: #6e7781;
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
 }
 
 .c0:focus-within {
-  border-color: #0969da;
-  outline: 2px solid #0969da;
+  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline-offset: -1px;
 }
 
@@ -3736,7 +3767,7 @@ exports[`snapshots renders with an input value 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: #656d76;
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;

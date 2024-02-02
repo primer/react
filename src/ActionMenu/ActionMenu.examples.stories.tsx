@@ -31,12 +31,13 @@ export const GroupsAndDescriptions = () => {
     {name: 'FY23 - Q2', due: 'December 30, 2022', progress: 0},
   ]
 
-  const [selectedMilestone, setSelectedMilestone] = React.useState<(typeof milestones)[0] | undefined>()
+  const [selectedMilestone, setSelectedMilestone] = React.useState<(typeof milestones)[0] | undefined>(milestones[2])
 
   return (
     <ActionMenu open>
-      <ActionMenu.Button variant="default" trailingVisual={GearIcon}>
-        Milestone
+      <ActionMenu.Button variant="default">
+        <Box sx={{display: 'inline-block', color: 'fg.muted'}}>Milestone:</Box>{' '}
+        {selectedMilestone?.name || 'Make a selection'}
       </ActionMenu.Button>
       <ActionMenu.Overlay width="medium">
         <ActionList selectionVariant="single" showDividers>
@@ -161,6 +162,65 @@ export const ControlledMenu = () => {
   )
 }
 
+export const ShortcutMenu = () => {
+  React.useEffect(() => {
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.shiftKey && (event.key === 'c' || event.key === 'C')) {
+        setOpen(true)
+      }
+    }
+    window.addEventListener('keydown', onKeyDown)
+    return () => window.removeEventListener('keydown', onKeyDown)
+  }, [])
+
+  const [open, setOpen] = React.useState(false)
+  const triggerRef = React.useRef<HTMLButtonElement>(null)
+
+  return (
+    <>
+      <h1>Shortcut Menu</h1>
+      <h2>External Open State: {open ? 'Open' : 'Closed'}</h2>
+      <h2>Press Shift+C to open the menu</h2>
+      <br />
+
+      {/**
+       * Even though the state is controlled externally,
+       * we can pass an Anchor for the menu to "anchor to"
+       */}
+      <ActionMenu open={open} onOpenChange={setOpen}>
+        <ActionMenu.Button sx={{visibility: 'hidden'}}>Anchor</ActionMenu.Button>
+        <ActionMenu.Overlay
+          ignoreClickRefs={[
+            // Because the component is controlled from outside, but the anchor is still internal,
+            // clicking the external button should not be counted as "clicking outside"
+            triggerRef,
+          ]}
+        >
+          <ActionList>
+            <ActionList.Item>
+              Copy link
+              <ActionList.TrailingVisual>⌘C</ActionList.TrailingVisual>
+            </ActionList.Item>
+            <ActionList.Item>
+              Quote reply
+              <ActionList.TrailingVisual>⌘Q</ActionList.TrailingVisual>
+            </ActionList.Item>
+            <ActionList.Item>
+              Edit comment
+              <ActionList.TrailingVisual>⌘E</ActionList.TrailingVisual>
+            </ActionList.Item>
+            <ActionList.Divider />
+            <ActionList.Item variant="danger">
+              Delete file
+              <ActionList.TrailingVisual>⌘D</ActionList.TrailingVisual>
+            </ActionList.Item>
+          </ActionList>
+        </ActionMenu.Overlay>
+      </ActionMenu>
+    </>
+  )
+}
+
 export const CustomAnchor = () => (
   <ActionMenu>
     <ActionMenu.Anchor>
@@ -241,7 +301,7 @@ export const MixedSelection = () => {
 export const MultipleSections = () => {
   const items = [{name: 'Show code folding buttons'}, {name: 'Wrap lines'}, {name: 'Center content'}]
 
-  const [selectedMilestone, setSelectedMilestone] = React.useState<(typeof items)[0] | undefined>()
+  const [selectedMilestone, setSelectedMilestone] = React.useState<(typeof items)[0] | undefined>(items[0])
 
   return (
     <ActionMenu open>
@@ -250,7 +310,7 @@ export const MultipleSections = () => {
       </ActionMenu.Anchor>
       <ActionMenu.Overlay width="small">
         <ActionList>
-          <ActionList.Group title="Raw file content">
+          <ActionList.Group title="Raw file content" selectionVariant="multiple">
             <ActionList.Item onSelect={() => alert('Workflows clicked')}>Download</ActionList.Item>
             <ActionList.Divider />
             <ActionList.Item onSelect={() => alert('Workflows clicked')}>Jump to line</ActionList.Item>
@@ -272,9 +332,11 @@ export const MultipleSections = () => {
             ))}
           </ActionList.Group>
           <ActionList.Divider />
-          <ActionList.Item onSelect={() => alert('Delete file')} variant="danger">
-            Delete file
-          </ActionList.Item>
+          <ActionList.Group title="View options" selectionVariant="multiple">
+            <ActionList.Item onSelect={() => alert('Delete file')} variant="danger">
+              Delete file
+            </ActionList.Item>
+          </ActionList.Group>
         </ActionList>
       </ActionMenu.Overlay>
     </ActionMenu>
@@ -339,6 +401,23 @@ export const OnRightSide = () => (
     </ActionMenu.Overlay>
   </ActionMenu>
 )
+
+export const SettingMaxHeight = () => {
+  return (
+    <ActionMenu>
+      <ActionMenu.Button>Open menu</ActionMenu.Button>
+      <ActionMenu.Overlay width="auto" maxHeight="large" overflow="auto">
+        <ActionList>
+          {Array.from({length: 100}, (_, i) => (
+            <ActionList.Item key={`item-${i}`} onSelect={() => alert(`Item ${i + 1} clicked`)}>
+              Item {i + 1}
+            </ActionList.Item>
+          ))}
+        </ActionList>
+      </ActionMenu.Overlay>
+    </ActionMenu>
+  )
+}
 
 export const OnlyInactiveItems = () => (
   <ActionMenu>

@@ -2,9 +2,7 @@ import React from 'react'
 import {FilterList} from '../../deprecated'
 import {render, behavesAsComponent} from '../../utils/testing'
 import {render as HTMLRender} from '@testing-library/react'
-import {axe, toHaveNoViolations} from 'jest-axe'
-
-expect.extend(toHaveNoViolations)
+import {axe} from 'jest-axe'
 
 describe('FilterList.Item', () => {
   behavesAsComponent({Component: FilterList.Item})

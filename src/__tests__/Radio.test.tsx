@@ -2,9 +2,6 @@ import React from 'react'
 import {Radio} from '..'
 import {behavesAsComponent, checkExports} from '../utils/testing'
 import {render, fireEvent} from '@testing-library/react'
-import {toHaveNoViolations} from 'jest-axe'
-
-expect.extend(toHaveNoViolations)
 
 describe('Radio', () => {
   const defaultProps = {

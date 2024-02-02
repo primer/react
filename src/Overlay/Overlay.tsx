@@ -17,6 +17,7 @@ type StyledOverlayProps = {
   maxHeight?: keyof Omit<typeof heightMap, 'auto' | 'initial'>
   maxWidth?: keyof Omit<typeof widthMap, 'auto'>
   visibility?: 'visible' | 'hidden'
+  overflow?: 'auto' | 'hidden' | 'scroll' | 'visible'
   anchorSide?: AnchorSide
 } & SxProp
 
@@ -28,6 +29,7 @@ const heightMap = {
   xlarge: '600px',
   auto: 'auto',
   initial: 'auto', // Passing 'initial' initially applies 'auto'
+  'fit-content': 'fit-content',
 }
 
 const widthMap = {
@@ -54,7 +56,7 @@ function getSlideAnimationStartingVector(anchorSide?: AnchorSide): {x: number; y
   return {x: 0, y: 0}
 }
 
-const StyledOverlay = styled.div<StyledOverlayProps>`
+export const StyledOverlay = styled.div<StyledOverlayProps>`
   background-color: ${get('colors.canvas.overlay')};
   box-shadow: ${get('shadows.overlay.shadow')};
   position: absolute;
@@ -64,7 +66,7 @@ const StyledOverlay = styled.div<StyledOverlayProps>`
   max-height: ${props => props.maxHeight && heightMap[props.maxHeight]};
   width: ${props => widthMap[props.width || 'auto']};
   border-radius: 12px;
-  overflow: hidden;
+  overflow: ${props => (props.overflow ? props.overflow : 'hidden')};
   animation: overlay-appear ${animationDuration}ms ${get('animation.easeOutCubic')};
 
   @keyframes overlay-appear {

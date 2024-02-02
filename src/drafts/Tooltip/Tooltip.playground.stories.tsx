@@ -12,6 +12,16 @@ export default {
     direction: 's',
     type: 'description',
   },
+  argTypes: {
+    text: {control: {type: 'text'}},
+    direction: {
+      control: {type: 'radio'},
+      options: ['n', 'ne', 'e', 'se', 's', 'sw', 'w', 'nw'],
+    },
+    type: {
+      control: false,
+    },
+  },
 } as Meta<typeof Tooltip>
 
 // Description type, north direction by default
