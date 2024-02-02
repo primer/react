@@ -3,7 +3,7 @@ import {Meta} from '@storybook/react'
 
 import {BaseStyles, ThemeProvider} from '..'
 import {Button} from '../Button'
-import {Dialog, DialogWidth, DialogHeight, DialogProps} from './Dialog'
+import {Dialog, DialogProps} from './Dialog'
 
 /* Dialog Version 2 */
 
@@ -67,11 +67,6 @@ const lipsum = (
     </p>
   </div>
 )
-interface DialogStoryProps {
-  width: DialogWidth
-  height: DialogHeight
-  subtitle: boolean
-}
 export const Default = () => {
   const [isOpen, setIsOpen] = useState(false)
   const [secondOpen, setSecondOpen] = useState(false)
@@ -106,79 +101,14 @@ export const Default = () => {
   )
 }
 
-export const Playground = ({width, height, subtitle}: DialogStoryProps) => {
-  const [isOpen, setIsOpen] = useState(false)
-  const [secondOpen, setSecondOpen] = useState(false)
-  const buttonRef = useRef<HTMLButtonElement>(null)
-  const onDialogClose = useCallback(() => setIsOpen(false), [])
-  const onSecondDialogClose = useCallback(() => setSecondOpen(false), [])
-  const openSecondDialog = useCallback(() => setSecondOpen(true), [])
-  return (
-    <>
-      <Button ref={buttonRef} onClick={() => setIsOpen(!isOpen)}>
-        Show dialog
-      </Button>
-      {isOpen && (
-        <Dialog
-          title="My Dialog"
-          subtitle={subtitle ? 'This is a subtitle!' : undefined}
-          onClose={onDialogClose}
-          width={width}
-          height={height}
-          footerButtons={[
-            {buttonType: 'default', content: 'Open Second Dialog', onClick: openSecondDialog},
-            {buttonType: 'danger', content: 'Delete the universe', onClick: onDialogClose},
-            {buttonType: 'primary', content: 'Proceed', onClick: openSecondDialog, autoFocus: true},
-          ]}
-        >
-          {lipsum}
-          {secondOpen && (
-            <Dialog title="Inner dialog!" onClose={onSecondDialogClose} width="small">
-              Hello world
-            </Dialog>
-          )}
-        </Dialog>
-      )}
-    </>
-  )
-}
-Playground.args = {
-  width: 'xlarge',
-  height: 'auto',
-  subtitle: true,
-}
-Playground.argTypes = {
-  width: {
-    control: {
-      type: 'radio',
-    },
-    options: ['small', 'medium', 'large', 'xlarge'],
-  },
-  height: {
-    control: {
-      type: 'radio',
-    },
-    options: ['small', 'large', 'auto'],
-  },
-  subtitle: {
-    name: 'show subtitle',
-    control: {
-      type: 'boolean',
-    },
-  },
-  title: {table: {disable: true}},
+type Positions = 'center' | 'left' | 'right'
 
-  renderHeader: {table: {disable: true}},
-  renderBody: {table: {disable: true}},
-  renderFooter: {table: {disable: true}},
-  onClose: {table: {disable: true}},
-  role: {table: {disable: true}},
-  ref: {table: {disable: true}},
-  key: {table: {disable: true}},
-  footerButtons: {table: {disable: true}},
-}
-
-export const Playground2 = (args: DialogProps) => {
+export const Playground = (
+  args: Omit<DialogProps, 'position'> & {
+    positionNarrow: Positions
+    positionRegular: Positions
+  },
+) => {
   const [isOpen, setIsOpen] = useState(false)
   const [secondOpen, setSecondOpen] = useState(false)
   const buttonRef = useRef<HTMLButtonElement>(null)
@@ -212,13 +142,15 @@ export const Playground2 = (args: DialogProps) => {
     </>
   )
 }
-Playground2.args = {
+Playground.args = {
   width: 'xlarge',
   height: 'auto',
   subtitle: 'Subtitle',
   title: 'Dialog heading',
+  positionNarrow: 'center',
+  positionRegular: 'center',
 }
-Playground2.argTypes = {
+Playground.argTypes = {
   width: {
     control: {
       type: 'radio',

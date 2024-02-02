@@ -129,7 +129,7 @@ export interface DialogProps extends SxProp {
   /**
    * The position of the dialog
    */
-  position?: 'center' | 'left' | 'right' | ResponsiveValue<'left' | 'right' | 'bottom' | 'fullscreen'>
+  position?: 'center' | 'left' | 'right' | ResponsiveValue<'left' | 'right' | 'bottom' | 'fullscreen' | 'center'>
 }
 
 /**
@@ -400,10 +400,13 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
   const header = (renderHeader ?? DefaultHeader)(defaultedProps)
   const body = (renderBody ?? DefaultBody)(defaultedProps)
   const footer = (renderFooter ?? DefaultFooter)(defaultedProps)
-  const positionDataAttributes = Object.entries(position).reduce((acc: {[key: string]: string}, [key, value]) => {
-    acc[`data-position-${key}`] = value
-    return acc
-  }, {})
+  const positionDataAttributes =
+    typeof position === 'string'
+      ? {'data-position-regular': position}
+      : Object.entries(position).reduce((acc: {[key: string]: string}, [key, value]) => {
+          acc[`data-position-${key}`] = value
+          return acc
+        }, {})
 
   return (
     <>
@@ -417,7 +420,6 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
             aria-labelledby={dialogLabelId}
             aria-describedby={dialogDescriptionId}
             aria-modal
-            // data-dialog
             {...positionDataAttributes}
             sx={sx}
           >
