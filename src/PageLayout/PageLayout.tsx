@@ -130,15 +130,14 @@ type DividerProps = {
 
 const horizontalDividerVariants = {
   none: {
-    display: 'none',
+    height: 1,
+    backgroundColor: 'transparent',
   },
   line: {
-    display: 'block',
     height: 1,
     backgroundColor: 'border.default',
   },
   filled: {
-    display: 'block',
     height: 8,
     backgroundColor: 'canvas.inset',
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -181,15 +180,14 @@ const HorizontalDivider: React.FC<React.PropsWithChildren<DividerProps>> = ({var
 
 const verticalDividerVariants = {
   none: {
-    display: 'none',
+    width: 1,
+    backgroundColor: 'transparent',
   },
   line: {
-    display: 'block',
     width: 1,
     backgroundColor: 'border.default',
   },
   filled: {
-    display: 'block',
     width: 8,
     backgroundColor: 'canvas.inset',
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
