@@ -30,7 +30,8 @@ exports[`PageLayout renders condensed layout 1`] = `
 .c4 {
   margin-left: -16px;
   margin-right: -16px;
-  display: none;
+  height: 1px;
+  background-color: transparent;
   margin-top: 16px;
 }
 
@@ -104,7 +105,8 @@ exports[`PageLayout renders condensed layout 1`] = `
 .c9 {
   margin-left: -16px;
   margin-right: -16px;
-  display: none;
+  height: 1px;
+  background-color: transparent;
   margin-bottom: 16px;
 }
 
@@ -119,7 +121,8 @@ exports[`PageLayout renders condensed layout 1`] = `
 .c11 {
   height: 100%;
   position: relative;
-  display: none;
+  width: 1px;
+  background-color: transparent;
   margin-right: 16px;
 }
 
@@ -282,7 +285,8 @@ exports[`PageLayout renders default layout 1`] = `
 .c4 {
   margin-left: -16px;
   margin-right: -16px;
-  display: none;
+  height: 1px;
+  background-color: transparent;
   margin-top: 16px;
 }
 
@@ -356,7 +360,8 @@ exports[`PageLayout renders default layout 1`] = `
 .c9 {
   margin-left: -16px;
   margin-right: -16px;
-  display: none;
+  height: 1px;
+  background-color: transparent;
   margin-bottom: 16px;
 }
 
@@ -371,7 +376,8 @@ exports[`PageLayout renders default layout 1`] = `
 .c11 {
   height: 100%;
   position: relative;
-  display: none;
+  width: 1px;
+  background-color: transparent;
   margin-right: 16px;
 }
 
@@ -624,7 +630,8 @@ exports[`PageLayout renders pane in different position when narrow 1`] = `
 .c4 {
   margin-left: -16px;
   margin-right: -16px;
-  display: none;
+  height: 1px;
+  background-color: transparent;
   margin-top: 16px;
 }
 
@@ -698,7 +705,8 @@ exports[`PageLayout renders pane in different position when narrow 1`] = `
 .c9 {
   margin-left: -16px;
   margin-right: -16px;
-  display: none;
+  height: 1px;
+  background-color: transparent;
   margin-bottom: 16px;
 }
 
@@ -713,7 +721,8 @@ exports[`PageLayout renders pane in different position when narrow 1`] = `
 .c11 {
   height: 100%;
   position: relative;
-  display: none;
+  width: 1px;
+  background-color: transparent;
   margin-right: 16px;
 }
 
@@ -966,7 +975,8 @@ exports[`PageLayout renders with dividers 1`] = `
 .c4 {
   margin-left: -16px;
   margin-right: -16px;
-  display: none;
+  height: 1px;
+  background-color: transparent;
   margin-top: 16px;
 }
 
@@ -1048,7 +1058,8 @@ exports[`PageLayout renders with dividers 1`] = `
 .c10 {
   height: 100%;
   position: relative;
-  display: none;
+  width: 1px;
+  background-color: transparent;
   margin-left: 16px;
 }
 
@@ -1063,7 +1074,8 @@ exports[`PageLayout renders with dividers 1`] = `
 .c12 {
   margin-left: -16px;
   margin-right: -16px;
-  display: none;
+  height: 1px;
+  background-color: transparent;
   margin-bottom: 16px;
 }
 

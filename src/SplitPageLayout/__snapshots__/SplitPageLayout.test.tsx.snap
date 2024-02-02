@@ -30,7 +30,6 @@ exports[`SplitPageLayout renders default layout 1`] = `
 .c4 {
   margin-left: 0;
   margin-right: 0;
-  display: block;
   height: 1px;
   background-color: var(--borderColor-default,var(--color-border-default,#d0d7de));
   margin-top: 0;
@@ -106,7 +105,8 @@ exports[`SplitPageLayout renders default layout 1`] = `
 .c9 {
   margin-left: 0;
   margin-right: 0;
-  display: none;
+  height: 1px;
+  background-color: transparent;
   margin-top: 0;
 }
 
@@ -121,7 +121,8 @@ exports[`SplitPageLayout renders default layout 1`] = `
 .c11 {
   height: 100%;
   position: relative;
-  display: none;
+  width: 1px;
+  background-color: transparent;
   margin-left: 0;
 }
 
@@ -136,7 +137,6 @@ exports[`SplitPageLayout renders default layout 1`] = `
 .c13 {
   margin-left: 0;
   margin-right: 0;
-  display: block;
   height: 1px;
   background-color: var(--borderColor-default,var(--color-border-default,#d0d7de));
   margin-bottom: 0;
