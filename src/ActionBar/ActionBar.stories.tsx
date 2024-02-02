@@ -19,3 +19,15 @@ export const Default = () => (
     <ActionBar.IconButton icon={SearchIcon} aria-label="Default"></ActionBar.IconButton>
   </ActionBar>
 )
+
+export const SmallActionBar = () => (
+  <ActionBar size="small">
+    <ActionBar.IconButton icon={BoldIcon} aria-label="Default"></ActionBar.IconButton>
+    <ActionBar.IconButton icon={ItalicIcon} aria-label="Default"></ActionBar.IconButton>
+    <ActionBar.IconButton icon={CodeIcon} aria-label="Default"></ActionBar.IconButton>
+    <ActionBar.IconButton icon={LinkIcon} aria-label="Default"></ActionBar.IconButton>
+    <ActionBar.Divider />
+    <ActionBar.IconButton icon={FileAddedIcon} aria-label="Default"></ActionBar.IconButton>
+    <ActionBar.IconButton icon={SearchIcon} aria-label="Default"></ActionBar.IconButton>
+  </ActionBar>
+)

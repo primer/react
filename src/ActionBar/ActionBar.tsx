@@ -19,31 +19,51 @@ import Box from '../Box'
 // import {getBreakpointDeclarations} from '../utils/getBreakpointDeclarations'
 // import {defaultSxProp} from '../utils/defaultSxProp'
 
+const ActionBarContext = React.createContext<{size: Size}>({size: 'medium'})
+
+/*
+small (28px), medium (32px), large (40px)
+*/
+type Size = 'small' | 'medium' | 'large'
+
 export type ActionBarProps = {
+  size?: Size
   children: any
 }
 
 export type ActionBarIconButtonProps = IconButtonProps
 
-export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = ({children}) => {
-  return <Box>{children}</Box>
+export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = props => {
+  const {size = 'medium', children} = props
+  return (
+    <ActionBarContext.Provider value={{size}}>
+      <Box>{children}</Box>
+    </ActionBarContext.Provider>
+  )
 }
 
 export const ActionBarIconButton = (props: ActionBarIconButtonProps) => {
-  //height should be based on actionbar size
-  return <IconButton {...props} variant="invisible" />
+  const {size} = React.useContext(ActionBarContext)
+  return <IconButton data-component="ActionBar.IconButton" size={size} {...props} variant="invisible" />
 }
 
+const sizeToHeight = {
+  small: '24px',
+  medium: '28px',
+  large: '32px',
+}
 export const VerticalDivider = () => {
-  //height should be based on actionbar size
+  const {size} = React.useContext(ActionBarContext)
+
   return (
     <Box
+      data-component="ActionBar.VerticalDivider"
       aria-hidden="true"
       sx={{
         display: 'inline-block',
         borderLeft: '1px solid',
         borderColor: 'actionListItem.inlineDivider',
-        height: '24px',
+        height: sizeToHeight[size],
         mx: 2,
       }}
     />
