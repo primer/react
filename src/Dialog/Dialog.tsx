@@ -14,10 +14,9 @@ import Portal from '../Portal'
 import {useRefObjectAsForwardedRef} from '../hooks/useRefObjectAsForwardedRef'
 import {useId} from '../hooks/useId'
 import {ScrollableRegion} from '../internal/components/ScrollableRegion'
+import {ResponsiveValue} from '../hooks/useResponsiveValue'
 
 /* Dialog Version 2 */
-
-const ANIMATION_DURATION = '200ms'
 
 /**
  * Props that characterize a button to be rendered into the footer of
@@ -126,6 +125,11 @@ export interface DialogProps extends SxProp {
    * auto: variable based on contents
    */
   height?: DialogHeight
+
+  /**
+   * The position of the dialog
+   */
+  position?: 'center' | 'left' | 'right' | ResponsiveValue<'left' | 'right' | 'bottom' | 'fullscreen'>
 }
 
 /**
@@ -155,14 +159,31 @@ const Backdrop = styled('div')`
   align-items: center;
   justify-content: center;
   background-color: ${get('colors.primer.canvas.backdrop')};
-  animation: dialog-backdrop-appear ${ANIMATION_DURATION} ${get('animation.easeOutCubic')};
 
-  @keyframes dialog-backdrop-appear {
-    0% {
-      opacity: 0;
+  &[data-position-regular='center'] {
+    align-items: center;
+    justify-content: center;
+  }
+
+  &[data-position-regular='left'] {
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  &[data-position-regular='right'] {
+    align-items: center;
+    justify-content: flex-end;
+  }
+
+  @media (max-width: 767px) {
+    &[data-position-narrow='center'] {
+      align-items: center;
+      justify-content: center;
     }
-    100% {
-      opacity: 1;
+
+    &[data-position-narrow='bottom'] {
+      align-items: end;
+      justify-content: center;
     }
   }
 `
@@ -193,16 +214,67 @@ const StyledDialog = styled.div<StyledDialogProps>`
   flex-direction: column;
   background-color: ${get('colors.canvas.overlay')};
   box-shadow: ${get('shadows.overlay.shadow')};
+  width: ${props => widthMap[props.width ?? ('xlarge' as const)]};
+  height: ${props => heightMap[props.height ?? ('auto' as const)]};
   min-width: 296px;
   max-width: calc(100vw - 64px);
   max-height: calc(100vh - 64px);
-  width: ${props => widthMap[props.width ?? ('xlarge' as const)]};
-  height: ${props => heightMap[props.height ?? ('auto' as const)]};
   border-radius: 12px;
   opacity: 1;
-  animation: overlay--dialog-appear ${ANIMATION_DURATION} ${get('animation.easeOutCubic')};
+  animation: Overlay--motion-scaleFade 0.2s cubic-bezier(0.33, 1, 0.68, 1) 0s 1 normal none running;
 
-  @keyframes overlay--dialog-appear {
+  &[data-position-regular='center'] {
+    border-radius: var(--borderRadius-large, 0.75rem);
+    animation-name: Overlay--motion-scaleFade;
+  }
+
+  &[data-position-regular='left'] {
+    height: 100vh;
+    max-height: unset;
+    border-radius: var(--borderRadius-large, 0.75rem);
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    animation: Overlay--motion-slideInRight 0.25s cubic-bezier(0.33, 1, 0.68, 1) 0s 1 normal none running;
+  }
+
+  &[data-position-regular='right'] {
+    height: 100vh;
+    max-height: unset;
+    border-radius: var(--borderRadius-large, 0.75rem);
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    animation: Overlay--motion-slideInLeft 0.25s cubic-bezier(0.33, 1, 0.68, 1) 0s 1 normal none running;
+  }
+
+  @media (max-width: 767px) {
+    &[data-position-narrow='center'] {
+      border-radius: var(--borderRadius-large, 0.75rem);
+      width: ${props => widthMap[props.width ?? ('xlarge' as const)]};
+      height: ${props => heightMap[props.height ?? ('auto' as const)]};
+    }
+
+    &[data-position-narrow='bottom'] {
+      width: 100vw;
+      height: auto;
+      max-width: 100vw;
+      border-radius: var(--borderRadius-large, 0.75rem);
+      border-bottom-right-radius: 0;
+      border-bottom-left-radius: 0;
+      animation: Overlay--motion-slideUp 0.25s cubic-bezier(0.33, 1, 0.68, 1) 0s 1 normal none running;
+    }
+
+    &[data-position-narrow='fullscreen'] {
+      width: 100%;
+      max-width: 100vw;
+      height: 100%;
+      max-height: 100vh;
+      border-radius: unset !important;
+      flex-grow: 1;
+      animation: Overlay--motion-scaleFade 0.2s cubic-bezier(0.33, 1, 0.68, 1) 0s 1 normal none running;
+    }
+  }
+
+  @keyframes Overlay--motion-scaleFade {
     0% {
       opacity: 0;
       transform: scale(0.5);
@@ -210,6 +282,24 @@ const StyledDialog = styled.div<StyledDialogProps>`
     100% {
       opacity: 1;
       transform: scale(1);
+    }
+  }
+
+  @keyframes Overlay--motion-slideUp {
+    from {
+      transform: translateY(100%);
+    }
+  }
+
+  @keyframes Overlay--motion-slideInRight {
+    from {
+      transform: translateX(-100%);
+    }
+  }
+
+  @keyframes Overlay--motion-slideInLeft {
+    from {
+      transform: translateX(100%);
     }
   }
 
@@ -265,6 +355,7 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
     width = 'xlarge',
     height = 'auto',
     footerButtons = [],
+    position = {narrow: 'center', regular: 'center'},
     sx,
   } = props
   const dialogLabelId = useId()
@@ -309,11 +400,15 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
   const header = (renderHeader ?? DefaultHeader)(defaultedProps)
   const body = (renderBody ?? DefaultBody)(defaultedProps)
   const footer = (renderFooter ?? DefaultFooter)(defaultedProps)
+  const positionDataAttributes = Object.entries(position).reduce((acc: {[key: string]: string}, [key, value]) => {
+    acc[`data-position-${key}`] = value
+    return acc
+  }, {})
 
   return (
     <>
       <Portal>
-        <Backdrop ref={backdropRef}>
+        <Backdrop ref={backdropRef} {...positionDataAttributes}>
           <StyledDialog
             width={width}
             height={height}
@@ -322,6 +417,8 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
             aria-labelledby={dialogLabelId}
             aria-describedby={dialogDescriptionId}
             aria-modal
+            // data-dialog
+            {...positionDataAttributes}
             sx={sx}
           >
             {header}

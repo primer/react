@@ -3,7 +3,7 @@ import {Meta} from '@storybook/react'
 
 import {BaseStyles, ThemeProvider} from '..'
 import {Button} from '../Button'
-import {Dialog, DialogWidth, DialogHeight} from './Dialog'
+import {Dialog, DialogWidth, DialogHeight, DialogProps} from './Dialog'
 
 /* Dialog Version 2 */
 
@@ -168,6 +168,95 @@ Playground.argTypes = {
   },
   title: {table: {disable: true}},
 
+  renderHeader: {table: {disable: true}},
+  renderBody: {table: {disable: true}},
+  renderFooter: {table: {disable: true}},
+  onClose: {table: {disable: true}},
+  role: {table: {disable: true}},
+  ref: {table: {disable: true}},
+  key: {table: {disable: true}},
+  footerButtons: {table: {disable: true}},
+}
+
+export const Playground2 = (args: DialogProps) => {
+  const [isOpen, setIsOpen] = useState(false)
+  const [secondOpen, setSecondOpen] = useState(false)
+  const buttonRef = useRef<HTMLButtonElement>(null)
+  const onDialogClose = useCallback(() => setIsOpen(false), [])
+  const onSecondDialogClose = useCallback(() => setSecondOpen(false), [])
+  const openSecondDialog = useCallback(() => setSecondOpen(true), [])
+  return (
+    <>
+      <Button ref={buttonRef} onClick={() => setIsOpen(!isOpen)}>
+        Show dialog
+      </Button>
+      {isOpen && (
+        <Dialog
+          {...args}
+          position={{narrow: args.positionNarrow, regular: args.positionRegular}}
+          onClose={onDialogClose}
+          footerButtons={[
+            {buttonType: 'default', content: 'Open Second Dialog', onClick: openSecondDialog},
+            {buttonType: 'danger', content: 'Delete the universe', onClick: onDialogClose},
+            {buttonType: 'primary', content: 'Proceed', onClick: openSecondDialog, autoFocus: true},
+          ]}
+        >
+          {lipsum}
+          {secondOpen && (
+            <Dialog title="Inner dialog!" onClose={onSecondDialogClose} width="small">
+              Hello world
+            </Dialog>
+          )}
+        </Dialog>
+      )}
+    </>
+  )
+}
+Playground2.args = {
+  width: 'xlarge',
+  height: 'auto',
+  subtitle: 'Subtitle',
+  title: 'Dialog heading',
+}
+Playground2.argTypes = {
+  width: {
+    control: {
+      type: 'radio',
+    },
+    options: ['small', 'medium', 'large', 'xlarge'],
+  },
+  height: {
+    control: {
+      type: 'radio',
+    },
+    options: ['small', 'large', 'auto'],
+  },
+  subtitle: {
+    name: 'subtitle',
+    control: {
+      type: 'text',
+    },
+  },
+  positionNarrow: {
+    name: 'position narrow',
+    control: {
+      type: 'radio',
+    },
+    options: ['center', 'bottom', 'fullscreen'],
+  },
+  positionRegular: {
+    name: 'position regular',
+    control: {
+      type: 'radio',
+    },
+    options: ['center', 'left', 'right'],
+  },
+  title: {
+    name: 'title',
+    control: {
+      type: 'text',
+    },
+  },
   renderHeader: {table: {disable: true}},
   renderBody: {table: {disable: true}},
   renderFooter: {table: {disable: true}},
