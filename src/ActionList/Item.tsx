@@ -225,14 +225,15 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       [onSelect, disabled, inactive, afterSelect],
     )
 
-    const keyPressHandler = React.useCallback(
+    const keyDownHandler = React.useCallback(
       (event: React.KeyboardEvent<HTMLLIElement>) => {
-        if (disabled || inactive) return
+        if (disabled || inactive || event.repeat) return
+
         if ([' ', 'Enter'].includes(event.key)) {
           onSelect(event, afterSelect)
         }
       },
-      [onSelect, disabled, inactive, afterSelect],
+      [disabled, inactive, onSelect, afterSelect],
     )
 
     const itemId = useId(id)
@@ -249,7 +250,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
 
     const menuItemProps = {
       onClick: clickHandler,
-      onKeyPress: keyPressHandler,
+      onKeyDown: keyDownHandler,
       'aria-disabled': disabled ? true : undefined,
       'data-inactive': inactive ? true : undefined,
       tabIndex: disabled || showInactiveIndicator ? undefined : 0,

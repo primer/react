@@ -96,12 +96,36 @@ describe('ActionList', () => {
 
     // We pass keycode here to navigate a implementation detail in react-testing-library
     // https://github.com/testing-library/react-testing-library/issues/269#issuecomment-455854112
-    fireEvent.keyPress(options[0], {key: 'Enter', charCode: 13})
+    fireEvent.keyDown(options[0], {key: 'Enter', charCode: 13, code: 'Enter'})
 
     expect(options[0]).toHaveAttribute('aria-selected', 'true')
     expect(options[1]).toHaveAttribute('aria-selected', 'false')
 
-    fireEvent.keyPress(options[1], {key: ' ', charCode: 32})
+    fireEvent.keyDown(options[1], {key: ' ', charCode: 32, code: 'Space'})
+
+    expect(options[0]).toHaveAttribute('aria-selected', 'false')
+    expect(options[1]).toHaveAttribute('aria-selected', 'true')
+  })
+
+  it('should fire onSelect on click and keypress with modifier', async () => {
+    const component = HTMLRender(<SingleSelectListStory />)
+    const options = await waitFor(() => component.getAllByRole('option'))
+
+    expect(options[0]).toHaveAttribute('aria-selected', 'true')
+    expect(options[1]).toHaveAttribute('aria-selected', 'false')
+
+    fireEvent.click(options[1])
+
+    expect(options[0]).toHaveAttribute('aria-selected', 'false')
+    expect(options[1]).toHaveAttribute('aria-selected', 'true')
+
+    fireEvent.keyDown(options[0], {key: 'Enter', charCode: 13, code: 'Enter'})
+
+    expect(options[0]).toHaveAttribute('aria-selected', 'true')
+    expect(options[1]).toHaveAttribute('aria-selected', 'false')
+
+    // Option+Space results in a non-breaking space character value on macOS
+    fireEvent.keyDown(options[1], {key: '\xa0', charCode: 32, code: 'Space'})
 
     expect(options[0]).toHaveAttribute('aria-selected', 'false')
     expect(options[1]).toHaveAttribute('aria-selected', 'true')
@@ -119,7 +143,7 @@ describe('ActionList', () => {
     expect(options[0]).toHaveAttribute('aria-selected', 'true')
     expect(options[2]).toHaveAttribute('aria-selected', 'false')
 
-    fireEvent.keyPress(options[2], {key: 'Enter', charCode: 13})
+    fireEvent.keyDown(options[2], {key: 'Enter', charCode: 13})
 
     expect(options[0]).toHaveAttribute('aria-selected', 'true')
     expect(options[2]).toHaveAttribute('aria-selected', 'false')

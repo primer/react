@@ -8,6 +8,7 @@ import {Divider} from './Divider'
 import {Description} from './Description'
 import Avatar from '../Avatar'
 import Box from '../Box'
+import Text from '../Text'
 import Label from '../Label'
 import Heading from '../Heading'
 import {AnchoredOverlay} from '../AnchoredOverlay'
@@ -26,6 +27,7 @@ import {
   FileDirectoryIcon,
   PlusCircleIcon,
 } from '@primer/octicons-react'
+import {Button} from '../Button'
 
 export default {
   title: 'Components/ActionList/Features',
@@ -316,6 +318,62 @@ export const MultiSelect = () => {
         </ActionList.Item>
       ))}
     </ActionList>
+  )
+}
+
+export const MultiSelectWithModifier = () => {
+  const [selectedIndices, setSelectedIndices] = React.useState<number[]>([0])
+  const [localProjects, setLocalProjects] = React.useState(projects)
+  const handleSelect = (
+    event: React.MouseEvent<HTMLLIElement, MouseEvent> | React.KeyboardEvent<HTMLLIElement>,
+    index: number,
+  ) => {
+    if (event.altKey) {
+      setLocalProjects(localProjects.filter(project => project.name !== localProjects[index].name))
+      return
+    }
+
+    if (selectedIndices.includes(index)) {
+      setSelectedIndices(selectedIndices.filter(i => i !== index))
+    } else {
+      setSelectedIndices([...selectedIndices, index])
+    }
+  }
+
+  const handleReset = () => {
+    setLocalProjects(projects)
+    setSelectedIndices([0])
+  }
+  return (
+    <>
+      <Box sx={{display: 'flex', alignItems: 'center', gap: 2}}>
+        <Text fontSize="1">
+          Hold <kbd>Alt</kbd> to remove item from list
+        </Text>
+        <Button onClick={handleReset} size="small">
+          Reset List
+        </Button>
+      </Box>
+
+      <ActionList selectionVariant="multiple" showDividers role="menu" aria-label="Project">
+        {localProjects.map((project, index) => (
+          <ActionList.Item
+            key={index}
+            role="menuitemcheckbox"
+            selected={selectedIndices.includes(index)}
+            aria-checked={selectedIndices.includes(index)}
+            onSelect={event => handleSelect(event, index)}
+            disabled={index === 3 ? true : undefined}
+          >
+            <ActionList.LeadingVisual>
+              <TableIcon />
+            </ActionList.LeadingVisual>
+            {project.name}
+            <ActionList.Description variant="block">{project.scope}</ActionList.Description>
+          </ActionList.Item>
+        ))}
+      </ActionList>
+    </>
   )
 }
 
