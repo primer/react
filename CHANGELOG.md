@@ -1,5 +1,15 @@
 # @primer/components
 
+## 36.7.1
+
+### Patch Changes
+
+- [#4198](https://github.com/primer/react/pull/4198) [`65bde2763`](https://github.com/primer/react/commit/65bde2763b9e2eb2dbe5845e009a88ad2c4972b2) Thanks [@siddharthkp](https://github.com/siddharthkp)! - experimental/SelectPanel: Pass props from SelectPanel root to dialog element
+
+- [#4208](https://github.com/primer/react/pull/4208) [`2217cef45`](https://github.com/primer/react/commit/2217cef4506b94ea8955fb785a8fad41c8647cb6) Thanks [@joshblack](https://github.com/joshblack)! - Update mono font in theme to use font stack as fallback to custom property
+
+- [#4176](https://github.com/primer/react/pull/4176) [`b8b090be2`](https://github.com/primer/react/commit/b8b090be2f146a8d8854028f8a88110e1ed1e4bd) Thanks [@siddharthkp](https://github.com/siddharthkp)! - Checkbox: Add `not-allowed` cursor to unchecked disabled state
+
 ## 36.7.0
 
 ### Minor Changes
