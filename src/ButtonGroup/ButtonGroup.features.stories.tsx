@@ -39,6 +39,21 @@ export const ButtonGroupWithTooltip = () => (
   </ButtonGroup>
 )
 
+export const LinksWithTooltip = () => (
+  <ButtonGroup>
+    <Tooltip text="Add" direction="s">
+      <Button as="a" href="https://primer.style">
+        Add
+      </Button>
+    </Tooltip>
+    <Tooltip text="Subtract" direction="s">
+      <Button as="a" href="https://primer.style">
+        Subtract
+      </Button>
+    </Tooltip>
+  </ButtonGroup>
+)
+
 export const IconButtonsWithTooltip2 = () => (
   <ButtonGroup>
     <TooltipV2 text="Add" type="label">
@@ -46,6 +61,17 @@ export const IconButtonsWithTooltip2 = () => (
     </TooltipV2>
     <TooltipV2 text="Subtract" type="label">
       <IconButton icon={DashIcon} aria-label="Subtract" />
+    </TooltipV2>
+  </ButtonGroup>
+)
+
+export const LinksWithTooltip2 = () => (
+  <ButtonGroup>
+    <TooltipV2 text="Add" type="label">
+      <IconButton as="a" icon={PlusIcon} aria-label="Add" href="https://primer.style" />
+    </TooltipV2>
+    <TooltipV2 text="Subtract" type="label">
+      <IconButton as="a" icon={DashIcon} aria-label="Subtract" href="https://primer.style" />
     </TooltipV2>
   </ButtonGroup>
 )

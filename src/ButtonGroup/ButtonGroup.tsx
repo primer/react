@@ -8,9 +8,9 @@ const ButtonGroup = styled.div`
   vertical-align: middle;
   isolation: isolate;
 
-  && > button,
+  && > [type='button'],
   /* this specific selection is required to cover for tooltip. Because the buttons are wrapped with the tooltip span */
-  && > span > button {
+  && > span[role='tooltip'] > [type='button'] {
     margin-inline-end: -1px;
     position: relative;
     border-radius: 0;
@@ -22,14 +22,14 @@ const ButtonGroup = styled.div`
     }
   }
 
-  && > button:first-of-type,
-  && > span:first-of-type > button {
+  && > [type='button']:first-child,
+  && > span[role='tooltip']:first-of-type > [type='button'] {
     border-top-left-radius: ${get('radii.2')};
     border-bottom-left-radius: ${get('radii.2')};
   }
 
-  && > button:last-of-type,
-  && > span:last-of-type > button {
+  && > [type='button']:last-of-type,
+  && > span[role='tooltip']:last-of-type > [type='button'] {
     border-top-right-radius: ${get('radii.2')};
     border-bottom-right-radius: ${get('radii.2')};
   }
