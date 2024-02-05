@@ -71,6 +71,10 @@ const StyledCheckbox = styled.input`
     }
   }
 
+  &:disabled {
+    cursor: not-allowed;
+  }
+
   &:checked {
     transition:
       background-color,
@@ -82,7 +86,6 @@ const StyledCheckbox = styled.input`
     }
 
     &:disabled {
-      cursor: not-allowed;
       background-color: ${get('colors.fg.muted')};
       border-color: ${get('colors.fg.muted')};
       opacity: 1;

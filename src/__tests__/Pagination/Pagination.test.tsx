@@ -2,9 +2,7 @@ import React from 'react'
 import Pagination from '../../Pagination'
 import {behavesAsComponent} from '../../utils/testing'
 import {render as HTMLRender} from '@testing-library/react'
-import {axe, toHaveNoViolations} from 'jest-axe'
-
-expect.extend(toHaveNoViolations)
+import {axe} from 'jest-axe'
 
 const reqProps = {pageCount: 10, currentPage: 1}
 const comp = <Pagination {...reqProps} />

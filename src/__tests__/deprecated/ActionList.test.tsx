@@ -1,11 +1,10 @@
 import {render as HTMLRender} from '@testing-library/react'
-import {axe, toHaveNoViolations} from 'jest-axe'
+import {axe} from 'jest-axe'
 import React from 'react'
 import theme from '../../theme'
 import {ActionList} from '../../deprecated/ActionList'
 import {behavesAsComponent, checkExports} from '../../utils/testing'
 import {BaseStyles, ThemeProvider} from '../..'
-expect.extend(toHaveNoViolations)
 
 function SimpleActionList(): JSX.Element {
   return (
