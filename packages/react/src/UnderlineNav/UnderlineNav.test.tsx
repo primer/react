@@ -14,7 +14,7 @@ import {
 
 import {UnderlineNav} from '.'
 import {checkExports, checkStoriesForAxeViolations} from '../utils/testing'
-
+import {menuStyles} from './styles'
 // window.matchMedia() is not implemented by JSDOM so we have to create a mock:
 // https://jestjs.io/docs/manual-mocks#mocking-methods-which-are-not-implemented-in-jsdom
 Object.defineProperty(window, 'matchMedia', {
@@ -76,6 +76,7 @@ describe('UnderlineNav', () => {
     default: undefined,
     UnderlineNav,
   })
+
   it('renders aria-current attribute to be pages when an item is selected', () => {
     const {getByRole} = render(<ResponsiveUnderlineNav />)
     const selectedNavLink = getByRole('link', {name: 'Code'})
@@ -169,6 +170,30 @@ describe('UnderlineNav', () => {
     expect(spy).toHaveBeenCalled()
     spy.mockRestore()
   })
+
+  it.each`
+    expectedStyle | screenWidth
+    ${{left: 0}}  | ${319}
+    ${{}}         | ${500}
+  `(
+    'respects the getAnchoredPosition (left-position), if the screen size is $screenWidth',
+    ({expectedStyle, screenWidth}) => {
+      // GIVEN
+      // Mock the refs.
+      const containerRef = document.createElement('div')
+      const moreMenuRef = document.createElement('div')
+      const listRef = document.createElement('div')
+      // Set the clientWidth on the mock element
+      Object.defineProperty(listRef, 'clientWidth', {value: screenWidth})
+
+      // WHEN
+      const results = menuStyles(containerRef, moreMenuRef, listRef)
+
+      // THEN
+      // We are expecting a left value back, that way we know the `getAnchoredPosition` ran.
+      expect(results).toEqual(expect.objectContaining(expectedStyle))
+    },
+  )
 })
 
 describe('Keyboard Navigation', () => {
@@ -184,7 +209,5 @@ describe('Keyboard Navigation', () => {
     expect(nextItem).toHaveFocus()
   })
 })
-
-describe('')
 
 checkStoriesForAxeViolations('UnderlineNav.examples', '../UnderlineNav/')

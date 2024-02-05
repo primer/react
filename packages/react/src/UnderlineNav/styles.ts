@@ -1,5 +1,6 @@
 import {Theme} from '../ThemeProvider'
 import {getAnchoredPosition} from '@primer/behaviors'
+import {BetterSystemStyleObject} from '../sx'
 
 // The gap between the list items. It is a constant because the gap is used to calculate the possible number of items that can fit in the container.
 export const GAP = 8
@@ -143,7 +144,11 @@ export const menuItemStyles = {
  * @param listRef The Underline Nav Bottom.
  * @description This is the styles for our popover menu for the underline nav.
  */
-export const menuStyles = (containerRef: Element | null, moreMenuRef: Element | null, listRef: Element | null) => {
+export const menuStyles = (
+  containerRef: Element | null,
+  moreMenuRef: Element | null,
+  listRef: Element | null,
+): BetterSystemStyleObject => {
   const minStyleWidth = 192
 
   const baseRules = {
