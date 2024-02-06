@@ -33,4 +33,25 @@ describe('Spinner', () => {
     expectSize('medium', '32px')
     expectSize('large', '64px')
   })
+
+  it('should respect label argument', () => {
+    const {container} = HTMLRender(<Spinner label="test label" />)
+    const svg = container.querySelector('svg')!
+    expect(svg.getAttribute('aria-label')).toEqual('test label')
+    expect(svg.getAttribute('aria-hidden')).toEqual('false')
+  })
+
+  it('should show default label when not provided', () => {
+    const {container} = HTMLRender(<Spinner />)
+    const svg = container.querySelector('svg')!
+    expect(svg.getAttribute('aria-label')).toEqual('Loading')
+    expect(svg.getAttribute('aria-hidden')).toEqual('false')
+  })
+
+  it('should hide label when empty string is provided', () => {
+    const {container} = HTMLRender(<Spinner label="" />)
+    const svg = container.querySelector('svg')!
+    expect(svg.getAttribute('aria-label')).toEqual('')
+    expect(svg.getAttribute('aria-hidden')).toEqual('true')
+  })
 })

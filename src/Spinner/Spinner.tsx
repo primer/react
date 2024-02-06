@@ -12,13 +12,23 @@ const sizeMap = {
 export interface SpinnerInternalProps {
   /** Sets the width and height of the spinner. */
   size?: keyof typeof sizeMap
+  label?: string
 }
 
-function Spinner({size: sizeKey = 'medium', ...props}: SpinnerInternalProps) {
+function Spinner({size: sizeKey = 'medium', label = 'Loading', ...props}: SpinnerInternalProps) {
   const size = sizeMap[sizeKey]
 
   return (
-    <svg height={size} width={size} viewBox="0 0 16 16" fill="none" {...props}>
+    <svg
+      height={size}
+      width={size}
+      viewBox="0 0 16 16"
+      fill="none"
+      role="img"
+      aria-label={label}
+      aria-hidden={label ? 'false' : 'true'}
+      {...props}
+    >
       <circle
         cx="8"
         cy="8"

@@ -10,3 +10,7 @@ export default {
 export const Small = () => <Spinner size="small" />
 
 export const Large = () => <Spinner size="large" />
+
+export const Label = () => <Spinner label="Please wait" />
+
+export const NoLabel = () => <Spinner label="" />

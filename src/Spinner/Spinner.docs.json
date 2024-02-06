@@ -9,6 +9,11 @@
       "name": "size",
       "type": "'small' | 'medium' | 'large'",
       "description": "Sets the width and height of the spinner."
+    },
+    {
+      "name": "label",
+      "type": "string",
+      "description": "Sets the accessible label of the spinner, use an empty string if loading state also is communicated in a different form."
     }
   ],
   "subcomponents": []

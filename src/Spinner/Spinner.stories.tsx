@@ -13,6 +13,7 @@ export const Playground: ComponentStory<typeof Spinner> = args => <Spinner {...a
 
 Playground.args = {
   size: 'medium',
+  label: 'Loading',
 }
 
 Playground.argTypes = {
@@ -21,5 +22,10 @@ Playground.argTypes = {
       type: 'radio',
     },
     options: ['small', 'medium', 'large'],
+  },
+  label: {
+    control: {
+      type: 'text',
+    },
   },
 }
