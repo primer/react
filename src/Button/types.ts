@@ -76,6 +76,8 @@ export type ButtonProps = {
 
 export type IconButtonProps = ButtonA11yProps & {
   icon: React.ElementType
+  _enableTooltip_?: boolean
+  description?: string
 } & Omit<ButtonBaseProps, 'aria-label' | 'aria-labelledby'>
 
 // adopted from React.AnchorHTMLAttributes

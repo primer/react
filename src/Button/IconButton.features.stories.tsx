@@ -1,4 +1,4 @@
-import {HeartIcon} from '@primer/octicons-react'
+import {HeartIcon, InboxIcon} from '@primer/octicons-react'
 import React from 'react'
 import {IconButton} from '.'
 
@@ -19,3 +19,16 @@ export const Small = () => <IconButton size="small" icon={HeartIcon} aria-label=
 export const Medium = () => <IconButton size="medium" icon={HeartIcon} aria-label="Favorite" />
 
 export const Large = () => <IconButton size="large" icon={HeartIcon} aria-label="Favorite" />
+
+export const TooltipEnabled = () => (
+  <IconButton _enableTooltip_={true} icon={HeartIcon} variant="primary" aria-label="Favorite" />
+)
+
+export const WithDescription = () => (
+  <IconButton
+    _enableTooltip_={true}
+    icon={InboxIcon}
+    aria-label="Notifications"
+    description="You have no unread notifications."
+  />
+)
