@@ -329,7 +329,7 @@ export const UnderlineNav = forwardRef(
                       </>
                     ) : (
                       <>
-                        More<VisuallyHidden as="span">&nbsp;{`${ariaLabel} items`}</VisuallyHidden>
+                        More2<VisuallyHidden as="span">&nbsp;{`${ariaLabel} items`}</VisuallyHidden>
                       </>
                     )}
                   </Box>
@@ -338,7 +338,7 @@ export const UnderlineNav = forwardRef(
                   selectionVariant="single"
                   ref={containerRef}
                   id={disclosureWidgetId}
-                  sx={menuStyles(containerRef.current, moreMenuRef.current, listRef.current)}
+                  sx={menuStyles(containerRef.current, listRef.current)}
                   style={{display: isWidgetOpen ? 'block' : 'none'}}
                 >
                   {menuItems.map((menuItem, index) => {
