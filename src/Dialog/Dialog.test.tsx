@@ -72,7 +72,8 @@ describe('Dialog', () => {
   it('calls `onClose` when keying "Escape"', async () => {
     const user = userEvent.setup()
     const onClose = jest.fn()
-    const {container} = render(<Dialog onClose={onClose}>Pay attention to me</Dialog>)
+
+    render(<Dialog onClose={onClose}>Pay attention to me</Dialog>)
 
     expect(onClose).not.toHaveBeenCalled()
 
