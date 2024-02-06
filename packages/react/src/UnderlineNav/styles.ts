@@ -139,45 +139,32 @@ export const menuItemStyles = {
 }
 /**
  *
- * @param containerRef The Menu List Reference.
- * @param moreMenuRef The generated button "more".
- * @param listRef The Underline Nav Bottom.
+ * @param containerRef The Menu List Container Reference.
+ * @param listRef The Underline Nav Container Reference.
  * @description This is the styles for our popover menu for the underline nav.
  */
-export const menuStyles = (
-  containerRef: Element | null,
-  moreMenuRef: Element | null,
-  listRef: Element | null,
-): BetterSystemStyleObject => {
+export const menuStyles = (containerRef: Element | null, listRef: Element | null): BetterSystemStyleObject => {
   const minStyleWidth = 192
 
   const baseRules = {
     position: 'absolute',
     zIndex: 1,
     top: '90%',
-    right: '0',
     boxShadow: '0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24)',
     borderRadius: '12px',
     backgroundColor: 'canvas.overlay',
     listStyle: 'none',
     // Values are from ActionMenu
-    minWidth: `${String(minStyleWidth)}px`,
+    minWidth: `${minStyleWidth}px`,
     maxWidth: '640px',
   }
 
-  /** Is the width above 320px? If so, disregard the calculation below, as we need the minWidth to make the menu look pretty. **/
-  if (listRef && listRef.clientWidth > 320) {
-    return baseRules
-  }
-
-  /**
-   * We're dealing with very small screens, below 320px width. Here, we need to make sure that the menu is centered, or at least in view.
-   * Therefor, we use getAnchoredPosition to get the absolute position of the element. We set left to a px from the start and outside-bottom.
-   */
-  if (containerRef && moreMenuRef) {
-    const {left} = getAnchoredPosition(containerRef, moreMenuRef, {align: 'start', side: 'outside-bottom'})
+  // Do we have less room in the UnderlineNav container then what we have reserved with our minWidth?
+  // If so, do not position the element using right, as it will overflow. Let's use `getAnchoredPosition` instead.
+  if (containerRef && listRef && listRef.clientWidth < minStyleWidth) {
+    const {left} = getAnchoredPosition(containerRef, listRef, {align: 'center', side: 'outside-left'})
     return {...baseRules, left}
   }
 
-  return baseRules
+  return {...baseRules, right: '0'}
 }

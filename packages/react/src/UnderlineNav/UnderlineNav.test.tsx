@@ -172,22 +172,21 @@ describe('UnderlineNav', () => {
   })
 
   it.each`
-    expectedStyle | screenWidth
-    ${{left: 0}}  | ${319}
-    ${{}}         | ${500}
+    expectedStyle   | underlineNavWidth
+    ${{right: '0'}} | ${222 /* Normal path, there are more px's available in the container then our min-width */}
+    ${{left: 0}}    | ${191 /* Our min-width for the menu is 192 - So we should set to left, instead of right using getAnchoredPosition  */}
   `(
-    'respects the getAnchoredPosition (left-position), if the screen size is $screenWidth',
-    ({expectedStyle, screenWidth}) => {
+    'menuStyles should set the menu to $expectedStyle, if the container size is $underlineNavWidth',
+    ({expectedStyle, underlineNavWidth}) => {
       // GIVEN
       // Mock the refs.
       const containerRef = document.createElement('div')
-      const moreMenuRef = document.createElement('div')
       const listRef = document.createElement('div')
       // Set the clientWidth on the mock element
-      Object.defineProperty(listRef, 'clientWidth', {value: screenWidth})
+      Object.defineProperty(listRef, 'clientWidth', {value: underlineNavWidth})
 
       // WHEN
-      const results = menuStyles(containerRef, moreMenuRef, listRef)
+      const results = menuStyles(containerRef, listRef)
 
       // THEN
       // We are expecting a left value back, that way we know the `getAnchoredPosition` ran.
