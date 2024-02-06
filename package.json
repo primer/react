@@ -21,6 +21,10 @@
       "import": "./lib-esm/deprecated/index.js",
       "require": "./lib/deprecated/index.js"
     },
+    "./next": {
+      "import": "./lib-esm/next/index.js",
+      "require": "./lib/next/index.js"
+    },
     "./lib-esm/*": {
       "import": [
         "./lib-esm/*.js",

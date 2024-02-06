@@ -1415,39 +1415,39 @@ const components = new Map([
     },
   ],
   [
-    'Tooltip--experimental',
+    'Tooltip--next',
     {
       stories: [
         {
-          id: 'drafts-components-tooltip--default',
+          id: 'next-components-tooltip--default',
           name: 'Default',
         },
         {
-          id: 'drafts-components-tooltip-features--anchor-has-margin',
+          id: 'next-components-tooltip-features--anchor-has-margin',
           name: 'Anchor Has Margin',
         },
         {
-          id: 'drafts-components-tooltip-features--calculated-direction',
+          id: 'next-components-tooltip-features--calculated-direction',
           name: 'Calculated Direction',
         },
         {
-          id: 'drafts-components-tooltip-features--icon-button-with-description',
+          id: 'next-components-tooltip-features--icon-button-with-description',
           name: 'Icon Button With Description',
         },
         {
-          id: 'drafts-components-tooltip-features--label-type',
+          id: 'next-components-tooltip-features--label-type',
           name: 'Label Type',
         },
         {
-          id: 'drafts-components-tooltip-features--multiline-text',
+          id: 'next-components-tooltip-features--multiline-text',
           name: 'Multiline Text',
         },
         {
-          id: 'drafts-components-tooltip-features--on-action-menu-anchor',
+          id: 'next-components-tooltip-features--on-action-menu-anchor',
           name: 'On Action Menu Anchor',
         },
         {
-          id: 'drafts-components-tooltip-examples--files-page',
+          id: 'next-components-tooltip-examples--files-page',
           name: 'Files Page Example',
         },
       ],

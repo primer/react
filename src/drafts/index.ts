@@ -61,4 +61,5 @@ export type {
   NavListDividerProps,
 } from '../NavList'
 export * from './SelectPanel2'
-export * from './Tooltip'
+//  We will need to remove this in the next major release
+export * from '../next/Tooltip'

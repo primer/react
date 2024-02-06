@@ -4,7 +4,7 @@ import {Tooltip} from './Tooltip'
 import {Meta, StoryFn} from '@storybook/react'
 
 export default {
-  title: 'Drafts/Components/Tooltip/Playground',
+  title: 'Next/Components/Tooltip/Playground',
   component: Tooltip,
 
   args: {

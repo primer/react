@@ -3,7 +3,7 @@ import {Tooltip, TooltipProps} from '../Tooltip'
 import {checkStoriesForAxeViolations} from '../../../utils/testing'
 import {render as HTMLRender} from '@testing-library/react'
 import theme from '../../../theme'
-import {Button, IconButton, ActionMenu, ActionList, ThemeProvider, SSRProvider, BaseStyles} from '../../../'
+import {Button, IconButton, ActionMenu, ActionList, ThemeProvider, SSRProvider, BaseStyles} from '../../..'
 import {XIcon} from '@primer/octicons-react'
 
 const TooltipComponent = (props: Omit<TooltipProps, 'text'> & {text?: string}) => (

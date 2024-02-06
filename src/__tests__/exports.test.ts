@@ -70,6 +70,20 @@ describe('@primer/react/deprecated', () => {
   })
 })
 
+describe('@primer/react/next', () => {
+  it('should not update exports without a semver change', async () => {
+    const exports = project.getEntrypointExports(path.join(ROOT_DIR, 'src', 'next', 'index.ts'))
+    expect(
+      exports.map(exportInfo => {
+        if (exportInfo.type === 'type') {
+          return `type ${exportInfo.identifier}`
+        }
+        return exportInfo.identifier
+      }),
+    ).toMatchSnapshot()
+  })
+})
+
 interface Project {
   getEntrypointExports(filepath: string): Array<EntrypointExport>
 }

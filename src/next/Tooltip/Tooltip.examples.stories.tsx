@@ -16,7 +16,7 @@ import {
 import {default as VisuallyHidden} from '../../_VisuallyHidden'
 
 export default {
-  title: 'Drafts/Components/Tooltip/Examples',
+  title: 'Next/Components/Tooltip/Examples',
   component: Tooltip,
 }
 
