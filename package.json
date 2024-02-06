@@ -73,9 +73,12 @@
     "markdownlint-cli2": "^0.11.0",
     "markdownlint-cli2-formatter-pretty": "0.0.3",
     "prettier": "3.0.3",
-    "size-limit": "11.0.2",
     "rimraf": "5.0.5",
+    "size-limit": "11.0.2",
     "typescript": "5.3.3"
+  },
+  "optionalDependencies": {
+    "@rollup/rollup-linux-x64-gnu": "^4.9.6"
   },
   "prettier": "@github/prettier-config",
   "size-limit": [
