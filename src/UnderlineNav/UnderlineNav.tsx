@@ -329,7 +329,7 @@ export const UnderlineNav = forwardRef(
                       </>
                     ) : (
                       <>
-                        More2<VisuallyHidden as="span">&nbsp;{`${ariaLabel} items`}</VisuallyHidden>
+                        More<VisuallyHidden as="span">&nbsp;{`${ariaLabel} items`}</VisuallyHidden>
                       </>
                     )}
                   </Box>
