@@ -1,1 +1,1 @@
-export {SelectPanel} from './SelectPanel'
+export * from './SelectPanel'
