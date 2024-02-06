@@ -1943,7 +1943,7 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   pointer-events: none;
   content: attr(aria-label);
   background: var(--bgColor-emphasis,var(--color-neutral-emphasis-plus,#24292f));
-  border-radius: 3px;
+  border-radius: 6px;
   opacity: 0;
 }
 
@@ -3027,7 +3027,7 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   pointer-events: none;
   content: attr(aria-label);
   background: var(--bgColor-emphasis,var(--color-neutral-emphasis-plus,#24292f));
-  border-radius: 3px;
+  border-radius: 6px;
   opacity: 0;
 }
 

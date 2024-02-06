@@ -42,7 +42,7 @@ const TooltipBase = styled.span<SxProp>`
     pointer-events: none;
     content: attr(aria-label);
     background: ${get('colors.neutral.emphasisPlus')};
-    border-radius: ${get('radii.1')};
+    border-radius: ${get('radii.2')};
     opacity: 0;
   }
 
