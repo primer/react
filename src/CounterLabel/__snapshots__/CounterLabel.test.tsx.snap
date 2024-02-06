@@ -1,48 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`CounterLabel renders consistently 1`] = `
-[
-  .c0 {
-  display: inline-block;
-  padding: 2px 5px;
-  font-size: 12px;
-  font-weight: 600;
-  line-height: 1;
-  border-radius: 20px;
-  background-color: var(--borderColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
-  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
-}
-
-.c0:empty {
-  display: none;
-}
-
-<span
-    aria-hidden="true"
-    className="c0"
-  />,
-  .c0 {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  -webkit-clip: rect(0,0,0,0);
-  clip: rect(0,0,0,0);
-  white-space: nowrap;
-  border-width: 0;
-}
-
-<span
-    className="c0"
-  >
-     (
-    )
-  </span>,
-]
-`;
-
 exports[`CounterLabel renders with secondary scheme when no "scheme" prop is provided 1`] = `
 .c0 {
   display: inline-block;

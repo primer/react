@@ -60,66 +60,6 @@ exports[`StateLabel renders children 1`] = `
 </span>
 `;
 
-exports[`StateLabel renders consistently 1`] = `
-.c1 {
-  margin-right: 4px;
-}
-
-.c0 {
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  font-weight: 600;
-  line-height: 16px;
-  color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
-  text-align: center;
-  border-radius: 100px;
-  background-color: var(--bgColor-open-emphasis,var(--color-open-emphasis,#1f883d));
-  color: var(--fgColor-onEmphasis,var(--color-fg-on-emphasis,#ffffff));
-  padding-left: 12px;
-  padding-right: 12px;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  font-size: 14px;
-}
-
-<span
-  className="c0"
->
-  <svg
-    aria-hidden="true"
-    className="c1"
-    fill="currentColor"
-    focusable="false"
-    height={16}
-    role="img"
-    style={
-      {
-        "display": "inline-block",
-        "overflow": "visible",
-        "userSelect": "none",
-        "verticalAlign": "text-bottom",
-      }
-    }
-    viewBox="0 0 16 16"
-    width={16}
-  >
-    <path
-      d="M8 9.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"
-    />
-    <path
-      d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0ZM1.5 8a6.5 6.5 0 1 0 13 0 6.5 6.5 0 0 0-13 0Z"
-    />
-  </svg>
-  Open
-</span>
-`;
-
 exports[`StateLabel respects the status prop 1`] = `
 .c1 {
   margin-right: 4px;

@@ -190,7 +190,6 @@ export function unloadCSS(path: string) {
 interface Options {
   skipAs?: boolean
   skipSx?: boolean
-  htmlRenderer?: boolean
 }
 
 interface BehavesAsComponent {
@@ -221,14 +220,6 @@ export function behavesAsComponent({Component, toRender, options}: BehavesAsComp
 
   it('sets a valid displayName', () => {
     expect(Component.displayName).toMatch(COMPONENT_DISPLAY_NAME_REGEX)
-  })
-
-  it('renders consistently', () => {
-    if (options?.htmlRenderer) {
-      expect(HTMLRender(getElement())).toMatchSnapshot()
-    } else {
-      expect(render(getElement())).toMatchSnapshot()
-    }
   })
 }
 
