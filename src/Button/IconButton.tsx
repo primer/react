@@ -14,6 +14,7 @@ const IconButton = forwardRef(
       'aria-label': ariaLabel,
       description,
       disabled,
+      // This is a temporary prop to incrementally introduce tooltips to the IconButton component.
       _enableTooltip_ = false,
       ...props
     },
