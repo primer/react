@@ -221,13 +221,13 @@ const bodyContent = (
 )
 
 export const BottomSheetNarrow = () => {
-  const [isOpen, setIsOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(true)
   const buttonRef = useRef<HTMLButtonElement>(null)
   const onDialogClose = useCallback(() => setIsOpen(false), [])
 
   return (
     <>
-      <Button ref={buttonRef} onClick={() => setIsOpen(!isOpen)}>
+      <Button ref={buttonRef} onClick={() => setIsOpen(true)}>
         Show dialog
       </Button>
       {isOpen && (
@@ -241,13 +241,13 @@ export const BottomSheetNarrow = () => {
 BottomSheetNarrow.storyName = '[Position] Bottom sheet (narrow)'
 
 export const FullScreenNarrow = () => {
-  const [isOpen, setIsOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(true)
   const buttonRef = useRef<HTMLButtonElement>(null)
   const onDialogClose = useCallback(() => setIsOpen(false), [])
 
   return (
     <>
-      <Button ref={buttonRef} onClick={() => setIsOpen(!isOpen)}>
+      <Button ref={buttonRef} onClick={() => setIsOpen(true)}>
         Show dialog
       </Button>
       {isOpen && (
@@ -261,13 +261,13 @@ export const FullScreenNarrow = () => {
 FullScreenNarrow.storyName = '[Position] Fullscreen (narrow)'
 
 export const SideSheet = () => {
-  const [isOpen, setIsOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(true)
   const buttonRef = useRef<HTMLButtonElement>(null)
   const onDialogClose = useCallback(() => setIsOpen(false), [])
 
   return (
     <>
-      <Button ref={buttonRef} onClick={() => setIsOpen(!isOpen)}>
+      <Button ref={buttonRef} onClick={() => setIsOpen(true)}>
         Show dialog
       </Button>
       {isOpen && (

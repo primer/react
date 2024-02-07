@@ -447,7 +447,6 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
           }),
         )
 
-
   return (
     <>
       <Portal>
