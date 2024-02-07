@@ -19,7 +19,7 @@ describe('Dialog', () => {
 
   behavesAsComponent({
     Component: Dialog,
-    options: {skipAs: true, skipSx: true, htmlRenderer: true},
+    options: {skipAs: true, skipSx: true},
     toRender: () => (
       <Dialog onClose={() => {}}>
         <div>Hidden when narrow</div>
