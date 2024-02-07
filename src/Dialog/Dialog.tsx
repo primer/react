@@ -441,10 +441,12 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
   const positionDataAttributes =
     typeof position === 'string'
       ? {'data-position-regular': position}
-      : Object.entries(position).reduce((acc: {[key: string]: string}, [key, value]) => {
-          acc[`data-position-${key}`] = value
-          return acc
-        }, {})
+      : Object.fromEntries(
+          Object.entries(position).map(([key, value]) => {
+            return [`data-position-${key}`, value]
+          }),
+        )
+
 
   return (
     <>
