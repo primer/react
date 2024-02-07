@@ -2,10 +2,9 @@
 set -e
 
 if [ -n "$1" ]; then
-  cd docs && npm run build:preview && cd ../ && npm run build:storybook preview
+  npm run build:preview -w docs
+  npm run build:storybook preview
 else
-  cd docs && npm run build && cd ../ && npm run build:storybook
+  npm run build -w docs
+  npm run build:storybook
 fi
-
-
-

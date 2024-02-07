@@ -132,10 +132,10 @@ async function setup(): Promise<Project> {
     path.join(ROOT_DIR, 'src', 'index.ts'),
 
     // deprecated
-    path.join(process.cwd(), 'src', 'deprecated', 'index.ts'),
+    path.join(ROOT_DIR, 'src', 'deprecated', 'index.ts'),
 
     // experimental
-    path.join(process.cwd(), 'src', 'experimental', 'index.ts'),
+    path.join(ROOT_DIR, 'src', 'experimental', 'index.ts'),
   ]
   const BareModule = {
     create(specifier: string): BareModule {
