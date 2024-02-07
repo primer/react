@@ -11,6 +11,7 @@ import {
   SmileyIcon,
   EyeIcon,
   CommentIcon,
+  XIcon,
 } from '@primer/octicons-react'
 import {default as VisuallyHidden} from '../../_VisuallyHidden'
 
@@ -18,6 +19,12 @@ export default {
   title: 'Drafts/Components/Tooltip/Examples',
   component: Tooltip,
 }
+
+export const CustomId = () => (
+  <Tooltip id="tooltip-custom-id" text="Close feedback form" direction="nw" type="label">
+    <IconButton aria-labelledby="tooltip-custom-id" icon={XIcon} variant="invisible" onClick={() => {}} />
+  </Tooltip>
+)
 
 export const FilesPage = () => (
   <PageHeader>
