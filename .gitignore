@@ -34,3 +34,6 @@ coverage/
 # Playwright
 stats.html
 blob-report
+
+# TypeScript
+*.tsbuildinfo
