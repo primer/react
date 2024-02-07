@@ -22,7 +22,7 @@
     "@styled-system/prop-types": "^5.1.0",
     "@styled-system/theme-get": "^5.1.0",
     "deepmerge": "4.2.2",
-    "gatsby": "3.15.0",
+    "gatsby": "4.25.7",
     "gatsby-plugin-alias-imports": "^1.0.5",
     "gatsby-plugin-mdx": "1.10.1",
     "gatsby-plugin-typescript": "3.15.0",
