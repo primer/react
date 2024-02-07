@@ -159,6 +159,7 @@ const Backdrop = styled('div')`
   align-items: center;
   justify-content: center;
   background-color: ${get('colors.primer.canvas.backdrop')};
+  animation: dialog-backdrop-appear 200ms ${get('animation.easeOutCubic')};
 
   &[data-position-regular='center'] {
     align-items: center;
@@ -188,6 +189,15 @@ const Backdrop = styled('div')`
     &[data-position-narrow='bottom'] {
       align-items: end;
       justify-content: center;
+    }
+  }
+
+  @keyframes dialog-backdrop-appear {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
     }
   }
 `
@@ -225,11 +235,17 @@ const StyledDialog = styled.div<StyledDialogProps>`
   max-height: calc(100vh - 64px);
   border-radius: 12px;
   opacity: 1;
-  animation: Overlay--motion-scaleFade 0.2s cubic-bezier(0.33, 1, 0.68, 1) 0s 1 normal none running;
+
+  @media screen and (prefers-reduced-motion: no-preference) {
+    animation: Overlay--motion-scaleFade 0.2s cubic-bezier(0.33, 1, 0.68, 1) 0s 1 normal none running;
+  }
 
   &[data-position-regular='center'] {
     border-radius: var(--borderRadius-large, 0.75rem);
-    animation-name: Overlay--motion-scaleFade;
+
+    @media screen and (prefers-reduced-motion: no-preference) {
+      animation: Overlay--motion-scaleFade 0.2s cubic-bezier(0.33, 1, 0.68, 1) 0s 1 normal none running;
+    }
   }
 
   &[data-position-regular='left'] {
@@ -238,7 +254,10 @@ const StyledDialog = styled.div<StyledDialogProps>`
     border-radius: var(--borderRadius-large, 0.75rem);
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
-    animation: Overlay--motion-slideInRight 0.25s cubic-bezier(0.33, 1, 0.68, 1) 0s 1 normal none running;
+
+    @media screen and (prefers-reduced-motion: no-preference) {
+      animation: Overlay--motion-slideInRight 0.25s cubic-bezier(0.33, 1, 0.68, 1) 0s 1 normal none running;
+    }
   }
 
   &[data-position-regular='right'] {
@@ -247,7 +266,10 @@ const StyledDialog = styled.div<StyledDialogProps>`
     border-radius: var(--borderRadius-large, 0.75rem);
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
-    animation: Overlay--motion-slideInLeft 0.25s cubic-bezier(0.33, 1, 0.68, 1) 0s 1 normal none running;
+
+    @media screen and (prefers-reduced-motion: no-preference) {
+      animation: Overlay--motion-slideInLeft 0.25s cubic-bezier(0.33, 1, 0.68, 1) 0s 1 normal none running;
+    }
   }
 
   @media (max-width: 767px) {
@@ -261,10 +283,14 @@ const StyledDialog = styled.div<StyledDialogProps>`
       width: 100vw;
       height: auto;
       max-width: 100vw;
+      max-height: calc(100vh - 64px);
       border-radius: var(--borderRadius-large, 0.75rem);
       border-bottom-right-radius: 0;
       border-bottom-left-radius: 0;
-      animation: Overlay--motion-slideUp 0.25s cubic-bezier(0.33, 1, 0.68, 1) 0s 1 normal none running;
+
+      @media screen and (prefers-reduced-motion: no-preference) {
+        animation: Overlay--motion-slideUp 0.25s cubic-bezier(0.33, 1, 0.68, 1) 0s 1 normal none running;
+      }
     }
 
     &[data-position-narrow='fullscreen'] {
@@ -274,7 +300,10 @@ const StyledDialog = styled.div<StyledDialogProps>`
       max-height: 100vh;
       border-radius: unset !important;
       flex-grow: 1;
-      animation: Overlay--motion-scaleFade 0.2s cubic-bezier(0.33, 1, 0.68, 1) 0s 1 normal none running;
+
+      @media screen and (prefers-reduced-motion: no-preference) {
+        animation: Overlay--motion-scaleFade 0.2s cubic-bezier(0.33, 1, 0.68, 1) 0s 1 normal none running;
+      }
     }
   }
 
@@ -347,6 +376,11 @@ const DefaultFooter: React.FC<React.PropsWithChildren<DialogProps>> = ({footerBu
   ) : null
 }
 
+const defaultPosition = {
+  narrow: 'center',
+  regular: 'center',
+}
+
 const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogProps>>((props, forwardedRef) => {
   const {
     title = 'Dialog',
@@ -359,7 +393,7 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
     width = 'xlarge',
     height = 'auto',
     footerButtons = [],
-    position = {narrow: 'center', regular: 'center'},
+    position = defaultPosition,
     sx,
   } = props
   const dialogLabelId = useId()
