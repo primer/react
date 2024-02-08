@@ -104,8 +104,8 @@ Here's an example of a basic component written in the style of Primer react comp
 ```tsx
 import React from 'react'
 import Box from '../Box'
-import type {BetterSystemStyleObject, SxProp} from '../sx';
-import { merge} from '../sx'
+import type {BetterSystemStyleObject, SxProp} from '../sx'
+import {merge} from '../sx'
 
 export type ComponentProps = {
   prop?: 'value1' | 'value2'
@@ -157,7 +157,7 @@ Each component should accept a prop called `sx` that allows for setting theme-aw
 To add the `sx` prop to your component: import the default export from the `sx` module, add it to your style definition, and add the appropriate prop types. **The `sx` prop should go at the _very end_ of your style definition.**
 
 ```tsx
-import type {SxProp} from './sx';
+import type {SxProp} from './sx'
 import sx from './sx'
 
 const Component = styled.div<SxProp>`
