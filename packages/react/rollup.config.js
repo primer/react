@@ -219,6 +219,10 @@ const baseConfig = {
       return
     }
 
+    if (warning.code === 'CIRCULAR_DEPENDENCY') {
+      throw warning
+    }
+
     defaultHandler(warning)
   },
 }
