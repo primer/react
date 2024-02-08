@@ -20,9 +20,6 @@ jobs:
           cache: 'npm'
       - name: Install dependencies
         run: npm ci
-      - name: Install docs dependencies
-        run: npm ci --legacy-peer-deps
-        working-directory: docs
       - name: Build docs preview
         run: npm run build:docs:preview
       - uses: actions/upload-pages-artifact@v3
