@@ -16,22 +16,23 @@ jobs:
         with:
           node-version: 20
           cache: npm
+      - name: Remove "prepare" script
+        run: npm pkg delete scripts.prepare
       - name: Install dependencies
         run: npm ci
-      - name: Build
-        run: npm run build
+      - name: Build @primer/react
+        run: npm run build -w @primer/react
       # Output the artifact as a tarball in `consumer-test`. Write the
       # information for this package in `consumer-test/pack.json` so we can read
       # from it later to install the package
       - name: Create a tarball for the package
-        run: npm pack --pack-destination consumer-test --json > consumer-test/pack.json
+        run: npm pack --pack-destination ../../examples/consumer-test --json > ../../examples/consumer-test/pack.json
+        working-directory: packages/react
       - name: Clean package directory
-        run: |
-          npm run clean
-          rm -rf node_modules
+        run: npm run clean:all
       - name: Test
         id: test
-        working-directory: consumer-test
+        working-directory: examples/consumer-test
         run: |
           # Read the filename for the tarball from `pack.json`
           npm install $(jq -r '.[0].filename' pack.json)
@@ -40,4 +41,4 @@ jobs:
       - name: Add annotation
         if: failure() && steps.test.conclusion == 'failure'
         run: |
-          echo "::error file=tsconfig.build.json::Test package could not build. See https://github.com/primer/react/blob/main/consumer-test"
+          echo "::error file=tsconfig.build.json::Test package could not build. See https://github.com/primer/react/blob/main/examples/consumer-test"

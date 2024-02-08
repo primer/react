@@ -90,33 +90,22 @@ jobs:
         run: npm ci
 
       - name: Type check
-        run: npm run test:type-check
+        run: npm run type-check
 
   examples:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: 'npm'
-
       - name: Install dependencies
         run: npm ci
-
       - name: Build
-        run: npm run build
-
-      - name: Install examples dependencies
-        working-directory: examples/nextjs
-        run: npm ci
-
-      - name: Build examples
-        working-directory: examples/nextjs
-        run: npm run build
+        run: npm run build -ws --if-present
 
   vrt-runner:
     runs-on: ubuntu-latest-8-cores
@@ -135,8 +124,10 @@ jobs:
         run: npm ci
       - name: Build storybook
         run: npx storybook build
+        working-directory: packages/react
       - name: Run storybook
         id: storybook
+        working-directory: packages/react
         run: |
           npx serve -l 6006 storybook-static &
           pid=$!
@@ -203,8 +194,10 @@ jobs:
         run: npm ci
       - name: Build storybook
         run: npx storybook build
+        working-directory: packages/react
       - name: Run storybook
         id: storybook
+        working-directory: packages/react
         run: |
           npx serve -l 6006 storybook-static &
           pid=$!
@@ -284,4 +277,4 @@ jobs:
       - name: Build
         run: npm run build
       - name: Get export sizes
-        run: node script/get-export-sizes.js
+        run: node packages/react/script/get-export-sizes.js

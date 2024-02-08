@@ -185,8 +185,8 @@ const isInteractive = (element: HTMLElement) => {
 export const TooltipContext = React.createContext<{tooltipId?: string}>({})
 
 export const Tooltip = React.forwardRef(
-  ({direction = 's', text, type = 'description', children, ...rest}: TooltipProps, forwardedRef) => {
-    const tooltipId = useId()
+  ({direction = 's', text, type = 'description', children, id, ...rest}: TooltipProps, forwardedRef) => {
+    const tooltipId = useId(id)
     const child = Children.only(children)
     const triggerRef = useProvidedRefOrCreate(forwardedRef as React.RefObject<HTMLElement>)
     const tooltipElRef = useRef<HTMLDivElement>(null)
@@ -273,9 +273,9 @@ export const Tooltip = React.forwardRef(
             React.cloneElement(child as React.ReactElement<TriggerPropsType>, {
               ref: triggerRef,
               // If it is a type description, we use tooltip to describe the trigger
-              'aria-describedby': type === 'description' ? `tooltip-${tooltipId}` : child.props['aria-describedby'],
+              'aria-describedby': type === 'description' ? tooltipId : child.props['aria-describedby'],
               // If it is a label type, we use tooltip to label the trigger
-              'aria-labelledby': type === 'label' ? `tooltip-${tooltipId}` : child.props['aria-labelledby'],
+              'aria-labelledby': type === 'label' ? tooltipId : child.props['aria-labelledby'],
               onBlur: (event: React.FocusEvent) => {
                 closeTooltip()
                 child.props.onBlur?.(event)
@@ -301,7 +301,7 @@ export const Tooltip = React.forwardRef(
             role={type === 'description' ? 'tooltip' : undefined}
             // stop AT from announcing the tooltip twice when it is a label type because it will be announced with "aria-labelledby"
             aria-hidden={type === 'label' ? true : undefined}
-            id={`tooltip-${tooltipId}`}
+            id={tooltipId}
             // mouse leave and enter on the tooltip itself is needed to keep the tooltip open when the mouse is over the tooltip
             onMouseEnter={openTooltip}
             onMouseLeave={closeTooltip}

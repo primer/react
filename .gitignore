@@ -1,10 +1,9 @@
 # Build folders
 dist/
 lib/
-!codemods/lib/
+!packages/react/codemods/lib/
 lib-esm/
 css/
-/generated
 
 # Editor
 .DS_Store
@@ -35,3 +34,6 @@ coverage/
 # Playwright
 stats.html
 blob-report
+
+# TypeScript
+*.tsbuildinfo
