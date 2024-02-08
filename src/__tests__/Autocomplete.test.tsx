@@ -113,22 +113,6 @@ describe('Autocomplete', () => {
       expect(onKeyUpMock).toHaveBeenCalled()
     })
 
-    it('calls onKeyPress', async () => {
-      const user = userEvent.setup()
-      const onKeyPressMock = jest.fn()
-      const {getByLabelText} = HTMLRender(
-        <LabelledAutocomplete
-          inputProps={{onKeyPress: onKeyPressMock}}
-          menuProps={{items: [], selectedItemIds: [], ['aria-labelledby']: 'autocompleteLabel'}}
-        />,
-      )
-      const inputNode = getByLabelText(AUTOCOMPLETE_LABEL)
-
-      expect(onKeyPressMock).not.toHaveBeenCalled()
-      await user.type(inputNode, '{enter}')
-      expect(onKeyPressMock).toHaveBeenCalled()
-    })
-
     it('opens the menu when the input is focused', () => {
       const {getByLabelText} = HTMLRender(
         <LabelledAutocomplete menuProps={{items: [], selectedItemIds: [], ['aria-labelledby']: 'autocompleteLabel'}} />,

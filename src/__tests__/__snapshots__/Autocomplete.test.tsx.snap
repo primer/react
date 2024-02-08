@@ -126,7 +126,6 @@ exports[`snapshots renders a custom empty state message 1`] = `
       onChange={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
-      onKeyPress={[Function]}
       onKeyUp={[Function]}
       role="combobox"
       type="text"
@@ -293,7 +292,6 @@ exports[`snapshots renders a loading state 1`] = `
       onChange={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
-      onKeyPress={[Function]}
       onKeyUp={[Function]}
       role="combobox"
       type="text"
@@ -511,7 +509,6 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
       onChange={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
-      onKeyPress={[Function]}
       onKeyUp={[Function]}
       role="combobox"
       type="text"
@@ -794,7 +791,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
           data-id="0"
           id="0"
           onClick={[Function]}
-          onKeyPress={[Function]}
+          onKeyDown={[Function]}
           role="option"
           tabIndex={0}
         >
@@ -825,7 +822,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
           data-id="1"
           id="1"
           onClick={[Function]}
-          onKeyPress={[Function]}
+          onKeyDown={[Function]}
           role="option"
           tabIndex={0}
         >
@@ -856,7 +853,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
           data-id="2"
           id="2"
           onClick={[Function]}
-          onKeyPress={[Function]}
+          onKeyDown={[Function]}
           role="option"
           tabIndex={0}
         >
@@ -887,7 +884,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
           data-id="3"
           id="3"
           onClick={[Function]}
-          onKeyPress={[Function]}
+          onKeyDown={[Function]}
           role="option"
           tabIndex={0}
         >
@@ -918,7 +915,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
           data-id="4"
           id="4"
           onClick={[Function]}
-          onKeyPress={[Function]}
+          onKeyDown={[Function]}
           role="option"
           tabIndex={0}
         >
@@ -949,7 +946,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
           data-id="5"
           id="5"
           onClick={[Function]}
-          onKeyPress={[Function]}
+          onKeyDown={[Function]}
           role="option"
           tabIndex={0}
         >
@@ -980,7 +977,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
           data-id="6"
           id="6"
           onClick={[Function]}
-          onKeyPress={[Function]}
+          onKeyDown={[Function]}
           role="option"
           tabIndex={0}
         >
@@ -1011,7 +1008,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
           data-id="7"
           id="7"
           onClick={[Function]}
-          onKeyPress={[Function]}
+          onKeyDown={[Function]}
           role="option"
           tabIndex={0}
         >
@@ -1042,7 +1039,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
           data-id="20"
           id="20"
           onClick={[Function]}
-          onKeyPress={[Function]}
+          onKeyDown={[Function]}
           role="option"
           tabIndex={0}
         >
@@ -1073,7 +1070,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
           data-id="21"
           id="21"
           onClick={[Function]}
-          onKeyPress={[Function]}
+          onKeyDown={[Function]}
           role="option"
           tabIndex={0}
         >
@@ -1104,7 +1101,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
           data-id="add-new-item"
           id="add-new-item"
           onClick={[Function]}
-          onKeyPress={[Function]}
+          onKeyDown={[Function]}
           role="option"
           tabIndex={0}
         >
@@ -1294,7 +1291,6 @@ exports[`snapshots renders a multiselect input 1`] = `
       onChange={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
-      onKeyPress={[Function]}
       onKeyUp={[Function]}
       role="combobox"
       type="text"
@@ -1528,7 +1524,7 @@ exports[`snapshots renders a multiselect input 1`] = `
           data-id="0"
           id="0"
           onClick={[Function]}
-          onKeyPress={[Function]}
+          onKeyDown={[Function]}
           role="option"
           tabIndex={0}
         >
@@ -1559,7 +1555,7 @@ exports[`snapshots renders a multiselect input 1`] = `
           data-id="1"
           id="1"
           onClick={[Function]}
-          onKeyPress={[Function]}
+          onKeyDown={[Function]}
           role="option"
           tabIndex={0}
         >
@@ -1590,7 +1586,7 @@ exports[`snapshots renders a multiselect input 1`] = `
           data-id="2"
           id="2"
           onClick={[Function]}
-          onKeyPress={[Function]}
+          onKeyDown={[Function]}
           role="option"
           tabIndex={0}
         >
@@ -1621,7 +1617,7 @@ exports[`snapshots renders a multiselect input 1`] = `
           data-id="3"
           id="3"
           onClick={[Function]}
-          onKeyPress={[Function]}
+          onKeyDown={[Function]}
           role="option"
           tabIndex={0}
         >
@@ -1652,7 +1648,7 @@ exports[`snapshots renders a multiselect input 1`] = `
           data-id="4"
           id="4"
           onClick={[Function]}
-          onKeyPress={[Function]}
+          onKeyDown={[Function]}
           role="option"
           tabIndex={0}
         >
@@ -1683,7 +1679,7 @@ exports[`snapshots renders a multiselect input 1`] = `
           data-id="5"
           id="5"
           onClick={[Function]}
-          onKeyPress={[Function]}
+          onKeyDown={[Function]}
           role="option"
           tabIndex={0}
         >
@@ -1714,7 +1710,7 @@ exports[`snapshots renders a multiselect input 1`] = `
           data-id="6"
           id="6"
           onClick={[Function]}
-          onKeyPress={[Function]}
+          onKeyDown={[Function]}
           role="option"
           tabIndex={0}
         >
@@ -1745,7 +1741,7 @@ exports[`snapshots renders a multiselect input 1`] = `
           data-id="7"
           id="7"
           onClick={[Function]}
-          onKeyPress={[Function]}
+          onKeyDown={[Function]}
           role="option"
           tabIndex={0}
         >
@@ -1776,7 +1772,7 @@ exports[`snapshots renders a multiselect input 1`] = `
           data-id="20"
           id="20"
           onClick={[Function]}
-          onKeyPress={[Function]}
+          onKeyDown={[Function]}
           role="option"
           tabIndex={0}
         >
@@ -1807,7 +1803,7 @@ exports[`snapshots renders a multiselect input 1`] = `
           data-id="21"
           id="21"
           onClick={[Function]}
-          onKeyPress={[Function]}
+          onKeyDown={[Function]}
           role="option"
           tabIndex={0}
         >
@@ -1979,7 +1975,6 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
       onChange={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
-      onKeyPress={[Function]}
       onKeyUp={[Function]}
       role="combobox"
       type="text"
@@ -2355,7 +2350,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
           data-id="0"
           id="0"
           onClick={[Function]}
-          onKeyPress={[Function]}
+          onKeyDown={[Function]}
           role="option"
           tabIndex={0}
         >
@@ -2386,7 +2381,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
           data-id="1"
           id="1"
           onClick={[Function]}
-          onKeyPress={[Function]}
+          onKeyDown={[Function]}
           role="option"
           tabIndex={0}
         >
@@ -2417,7 +2412,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
           data-id="2"
           id="2"
           onClick={[Function]}
-          onKeyPress={[Function]}
+          onKeyDown={[Function]}
           role="option"
           tabIndex={0}
         >
@@ -2448,7 +2443,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
           data-id="3"
           id="3"
           onClick={[Function]}
-          onKeyPress={[Function]}
+          onKeyDown={[Function]}
           role="option"
           tabIndex={0}
         >
@@ -2479,7 +2474,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
           data-id="4"
           id="4"
           onClick={[Function]}
-          onKeyPress={[Function]}
+          onKeyDown={[Function]}
           role="option"
           tabIndex={0}
         >
@@ -2510,7 +2505,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
           data-id="5"
           id="5"
           onClick={[Function]}
-          onKeyPress={[Function]}
+          onKeyDown={[Function]}
           role="option"
           tabIndex={0}
         >
@@ -2541,7 +2536,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
           data-id="6"
           id="6"
           onClick={[Function]}
-          onKeyPress={[Function]}
+          onKeyDown={[Function]}
           role="option"
           tabIndex={0}
         >
@@ -2572,7 +2567,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
           data-id="7"
           id="7"
           onClick={[Function]}
-          onKeyPress={[Function]}
+          onKeyDown={[Function]}
           role="option"
           tabIndex={0}
         >
@@ -2603,7 +2598,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
           data-id="20"
           id="20"
           onClick={[Function]}
-          onKeyPress={[Function]}
+          onKeyDown={[Function]}
           role="option"
           tabIndex={0}
         >
@@ -2634,7 +2629,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
           data-id="21"
           id="21"
           onClick={[Function]}
-          onKeyPress={[Function]}
+          onKeyDown={[Function]}
           role="option"
           tabIndex={0}
         >
@@ -2798,7 +2793,6 @@ exports[`snapshots renders a single select input 1`] = `
       onChange={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
-      onKeyPress={[Function]}
       onKeyUp={[Function]}
       role="combobox"
       type="text"
@@ -2993,7 +2987,7 @@ exports[`snapshots renders a single select input 1`] = `
           data-id="0"
           id="0"
           onClick={[Function]}
-          onKeyPress={[Function]}
+          onKeyDown={[Function]}
           role="option"
           tabIndex={0}
         >
@@ -3018,7 +3012,7 @@ exports[`snapshots renders a single select input 1`] = `
           data-id="1"
           id="1"
           onClick={[Function]}
-          onKeyPress={[Function]}
+          onKeyDown={[Function]}
           role="option"
           tabIndex={0}
         >
@@ -3043,7 +3037,7 @@ exports[`snapshots renders a single select input 1`] = `
           data-id="2"
           id="2"
           onClick={[Function]}
-          onKeyPress={[Function]}
+          onKeyDown={[Function]}
           role="option"
           tabIndex={0}
         >
@@ -3068,7 +3062,7 @@ exports[`snapshots renders a single select input 1`] = `
           data-id="3"
           id="3"
           onClick={[Function]}
-          onKeyPress={[Function]}
+          onKeyDown={[Function]}
           role="option"
           tabIndex={0}
         >
@@ -3093,7 +3087,7 @@ exports[`snapshots renders a single select input 1`] = `
           data-id="4"
           id="4"
           onClick={[Function]}
-          onKeyPress={[Function]}
+          onKeyDown={[Function]}
           role="option"
           tabIndex={0}
         >
@@ -3118,7 +3112,7 @@ exports[`snapshots renders a single select input 1`] = `
           data-id="5"
           id="5"
           onClick={[Function]}
-          onKeyPress={[Function]}
+          onKeyDown={[Function]}
           role="option"
           tabIndex={0}
         >
@@ -3143,7 +3137,7 @@ exports[`snapshots renders a single select input 1`] = `
           data-id="6"
           id="6"
           onClick={[Function]}
-          onKeyPress={[Function]}
+          onKeyDown={[Function]}
           role="option"
           tabIndex={0}
         >
@@ -3168,7 +3162,7 @@ exports[`snapshots renders a single select input 1`] = `
           data-id="7"
           id="7"
           onClick={[Function]}
-          onKeyPress={[Function]}
+          onKeyDown={[Function]}
           role="option"
           tabIndex={0}
         >
@@ -3193,7 +3187,7 @@ exports[`snapshots renders a single select input 1`] = `
           data-id="20"
           id="20"
           onClick={[Function]}
-          onKeyPress={[Function]}
+          onKeyDown={[Function]}
           role="option"
           tabIndex={0}
         >
@@ -3218,7 +3212,7 @@ exports[`snapshots renders a single select input 1`] = `
           data-id="21"
           id="21"
           onClick={[Function]}
-          onKeyPress={[Function]}
+          onKeyDown={[Function]}
           role="option"
           tabIndex={0}
         >
@@ -3442,7 +3436,7 @@ exports[`snapshots renders with a custom text input component 1`] = `
           data-id="0"
           id="0"
           onClick={[Function]}
-          onKeyPress={[Function]}
+          onKeyDown={[Function]}
           role="option"
           tabIndex={0}
         >
@@ -3467,7 +3461,7 @@ exports[`snapshots renders with a custom text input component 1`] = `
           data-id="1"
           id="1"
           onClick={[Function]}
-          onKeyPress={[Function]}
+          onKeyDown={[Function]}
           role="option"
           tabIndex={0}
         >
@@ -3492,7 +3486,7 @@ exports[`snapshots renders with a custom text input component 1`] = `
           data-id="2"
           id="2"
           onClick={[Function]}
-          onKeyPress={[Function]}
+          onKeyDown={[Function]}
           role="option"
           tabIndex={0}
         >
@@ -3517,7 +3511,7 @@ exports[`snapshots renders with a custom text input component 1`] = `
           data-id="3"
           id="3"
           onClick={[Function]}
-          onKeyPress={[Function]}
+          onKeyDown={[Function]}
           role="option"
           tabIndex={0}
         >
@@ -3542,7 +3536,7 @@ exports[`snapshots renders with a custom text input component 1`] = `
           data-id="4"
           id="4"
           onClick={[Function]}
-          onKeyPress={[Function]}
+          onKeyDown={[Function]}
           role="option"
           tabIndex={0}
         >
@@ -3567,7 +3561,7 @@ exports[`snapshots renders with a custom text input component 1`] = `
           data-id="5"
           id="5"
           onClick={[Function]}
-          onKeyPress={[Function]}
+          onKeyDown={[Function]}
           role="option"
           tabIndex={0}
         >
@@ -3592,7 +3586,7 @@ exports[`snapshots renders with a custom text input component 1`] = `
           data-id="6"
           id="6"
           onClick={[Function]}
-          onKeyPress={[Function]}
+          onKeyDown={[Function]}
           role="option"
           tabIndex={0}
         >
@@ -3617,7 +3611,7 @@ exports[`snapshots renders with a custom text input component 1`] = `
           data-id="7"
           id="7"
           onClick={[Function]}
-          onKeyPress={[Function]}
+          onKeyDown={[Function]}
           role="option"
           tabIndex={0}
         >
@@ -3642,7 +3636,7 @@ exports[`snapshots renders with a custom text input component 1`] = `
           data-id="20"
           id="20"
           onClick={[Function]}
-          onKeyPress={[Function]}
+          onKeyDown={[Function]}
           role="option"
           tabIndex={0}
         >
@@ -3667,7 +3661,7 @@ exports[`snapshots renders with a custom text input component 1`] = `
           data-id="21"
           id="21"
           onClick={[Function]}
-          onKeyPress={[Function]}
+          onKeyDown={[Function]}
           role="option"
           tabIndex={0}
         >
@@ -3826,7 +3820,6 @@ exports[`snapshots renders with an input value 1`] = `
       onChange={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
-      onKeyPress={[Function]}
       onKeyUp={[Function]}
       role="combobox"
       type="text"

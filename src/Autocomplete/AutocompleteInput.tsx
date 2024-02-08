@@ -20,10 +20,7 @@ type InternalAutocompleteInputProps = {
 }
 
 const AutocompleteInput = React.forwardRef(
-  (
-    {as: Component = TextInput, onFocus, onBlur, onChange, onKeyDown, onKeyUp, onKeyPress, value, ...props},
-    forwardedRef,
-  ) => {
+  ({as: Component = TextInput, onFocus, onBlur, onChange, onKeyDown, onKeyUp, value, ...props}, forwardedRef) => {
     const autocompleteContext = useContext(AutocompleteContext)
     if (autocompleteContext === null) {
       throw new Error('AutocompleteContext returned null values')
@@ -105,9 +102,9 @@ const AutocompleteInput = React.forwardRef(
       [setHighlightRemainingText, onKeyUp],
     )
 
-    const onInputKeyPress: KeyboardEventHandler<HTMLInputElement> = useCallback(
+    const onInputKeyDown: KeyboardEventHandler<HTMLInputElement> = useCallback(
       event => {
-        onKeyPress && onKeyPress(event)
+        handleInputKeyDown(event)
 
         if (showMenu && event.key === 'Enter' && activeDescendantRef.current) {
           event.preventDefault()
@@ -118,7 +115,7 @@ const AutocompleteInput = React.forwardRef(
           activeDescendantRef.current.dispatchEvent(activeDescendantEvent)
         }
       },
-      [activeDescendantRef, showMenu, onKeyPress],
+      [handleInputKeyDown, showMenu, activeDescendantRef],
     )
 
     useEffect(() => {
@@ -155,8 +152,7 @@ const AutocompleteInput = React.forwardRef(
         onFocus={handleInputFocus}
         onBlur={handleInputBlur}
         onChange={handleInputChange}
-        onKeyDown={handleInputKeyDown}
-        onKeyPress={onInputKeyPress}
+        onKeyDown={onInputKeyDown}
         onKeyUp={handleInputKeyUp}
         ref={inputRef}
         aria-controls={`${id}-listbox`}
