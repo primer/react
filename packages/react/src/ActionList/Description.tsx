@@ -1,7 +1,8 @@
 import React from 'react'
 import Box from '../Box'
 import Truncate from '../Truncate'
-import {SxProp, merge} from '../sx'
+import type {SxProp} from '../sx'
+import {merge} from '../sx'
 import {ItemContext} from './shared'
 
 export type ActionListDescriptionProps = {

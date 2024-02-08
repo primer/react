@@ -1,6 +1,8 @@
-import React, {HTMLAttributes, forwardRef} from 'react'
+import type {HTMLAttributes} from 'react'
+import React, {forwardRef} from 'react'
 import Box from '../Box'
-import {BetterSystemStyleObject, SxProp, merge} from '../sx'
+import type {BetterSystemStyleObject, SxProp} from '../sx'
+import {merge} from '../sx'
 import VisuallyHidden from '../_VisuallyHidden'
 import {defaultSxProp} from '../utils/defaultSxProp'
 

@@ -5,7 +5,7 @@ import theme from '../../theme'
 import {ActionMenu} from '../../deprecated'
 import {behavesAsComponent, checkExports} from '../../utils/testing'
 import {BaseStyles, SSRProvider, ThemeProvider} from '../..'
-import {ItemProps} from '../../deprecated/ActionList/Item'
+import type {ItemProps} from '../../deprecated/ActionList/Item'
 
 const items = [
   {text: 'New file'},

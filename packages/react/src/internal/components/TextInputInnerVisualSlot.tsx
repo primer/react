@@ -1,7 +1,7 @@
 import React from 'react'
 import Box from '../../Box'
 import Spinner from '../../Spinner'
-import {TextInputNonPassthroughProps} from '../../TextInput'
+import type {TextInputNonPassthroughProps} from '../../TextInput'
 
 const TextInputInnerVisualSlot: React.FC<
   React.PropsWithChildren<{

@@ -1,5 +1,5 @@
 import React from 'react'
-import {Meta} from '@storybook/react'
+import type {Meta} from '@storybook/react'
 import {Button, IconButton, Breadcrumbs, Link, Text, StateLabel, BranchName, Box, PageLayout} from '..'
 import {
   KebabHorizontalIcon,

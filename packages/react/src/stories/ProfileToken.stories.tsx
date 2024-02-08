@@ -1,11 +1,12 @@
 import React from 'react'
-import {Meta} from '@storybook/react'
+import type {Meta} from '@storybook/react'
 import {action} from '@storybook/addon-actions'
 
 import {get} from '../constants'
 import {BaseStyles, ThemeProvider} from '..'
 import Box from '../Box'
-import AvatarToken, {AvatarTokenProps} from '../Token/AvatarToken'
+import type {AvatarTokenProps} from '../Token/AvatarToken'
+import AvatarToken from '../Token/AvatarToken'
 import Text from '../Text'
 
 export default {

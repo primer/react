@@ -1,5 +1,6 @@
 import React from 'react'
-import Caret, {CaretProps} from '../Caret'
+import type {CaretProps} from '../Caret'
+import Caret from '../Caret'
 import {render, checkExports} from '../utils/testing'
 import {render as HTMLRender} from '@testing-library/react'
 import {axe} from 'jest-axe'

@@ -1,4 +1,4 @@
-import {KeyPaths} from './utils/types/KeyPaths'
+import type {KeyPaths} from './utils/types/KeyPaths'
 import {colors} from './legacy-theme/ts/colors'
 import {partitionColors, fontStack, omitScale} from './utils/theme'
 

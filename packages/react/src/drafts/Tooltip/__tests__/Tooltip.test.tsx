@@ -1,5 +1,6 @@
 import React from 'react'
-import {Tooltip, TooltipProps} from '../Tooltip'
+import type {TooltipProps} from '../Tooltip'
+import {Tooltip} from '../Tooltip'
 import {checkStoriesForAxeViolations} from '../../../utils/testing'
 import {render as HTMLRender} from '@testing-library/react'
 import theme from '../../../theme'

@@ -1,7 +1,7 @@
 import React from 'react'
 import InputValidation from '../InputValidation'
-import {SxProp} from '../../../sx'
-import {FormValidationStatus} from '../../../utils/types/FormValidationStatus'
+import type {SxProp} from '../../../sx'
+import type {FormValidationStatus} from '../../../utils/types/FormValidationStatus'
 import CheckboxOrRadioGroupContext from './CheckboxOrRadioGroupContext'
 
 export type CheckboxOrRadioGroupValidationProps = {

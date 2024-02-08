@@ -1,6 +1,7 @@
 import {act, render} from '@testing-library/react'
 import MatchMediaMock from 'jest-matchmedia-mock'
-import {ResponsiveValue, useResponsiveValue, viewportRanges} from '../../hooks/useResponsiveValue'
+import type {ResponsiveValue} from '../../hooks/useResponsiveValue'
+import {useResponsiveValue, viewportRanges} from '../../hooks/useResponsiveValue'
 import React from 'react'
 
 let matchMedia: MatchMediaMock
