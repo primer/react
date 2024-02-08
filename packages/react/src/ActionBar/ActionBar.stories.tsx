@@ -1,6 +1,6 @@
 import React from 'react'
 import {Meta} from '@storybook/react'
-import ActionBar from './'
+import ActionBar from '.'
 import {BoldIcon, CodeIcon, ItalicIcon, SearchIcon, LinkIcon, FileAddedIcon} from '@primer/octicons-react'
 
 export default {

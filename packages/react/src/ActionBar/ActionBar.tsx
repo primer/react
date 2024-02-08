@@ -13,7 +13,7 @@ import React, {useState, useCallback, useRef, forwardRef, RefObject, MutableRefO
 import VisuallyHidden from '../_VisuallyHidden'
 import {ActionList} from '../ActionList'
 import useIsomorphicLayoutEffect from '../utils/useIsomorphicLayoutEffect'
-import {getValidChildren, MORE_BTN_WIDTH, NavigationList, MoreMenuListItem} from '../UnderlineNav/UnderlineNav'
+import {MORE_BTN_WIDTH, NavigationList, MoreMenuListItem} from '../UnderlineNav/UnderlineNav'
 import {ulStyles, moreBtnStyles, menuStyles, menuItemStyles} from '../UnderlineNav/styles'
 import {useOnEscapePress} from '../hooks/useOnEscapePress'
 import {useResizeObserver, ResizeObserverEntry} from '../hooks/useResizeObserver'
@@ -56,16 +56,24 @@ export type ActionBarProps = {
   children: React.ReactNode
 }
 
-export type ActionBarIconButtonProps = IconButtonProps & {label: string}
+export type ActionBarIconButtonProps = IconButtonProps
 
 const GAP = 8
+
+const getValidChildren = (children: React.ReactNode) => {
+  return React.Children.toArray(children).filter(child => {
+    console.log({child})
+    // only icon buttons for now. Expand to other buttons later
+    return React.isValidElement(child) && child.props.icon ? true : false
+  }) as React.ReactElement[]
+}
 
 const calculatePossibleItems = (childWidthArray: ChildWidthArray, navWidth: number, moreMenuWidth = 0) => {
   const widthToFit = navWidth - moreMenuWidth
   let breakpoint = childWidthArray.length // assume all items will fit
   let sumsOfChildWidth = 0
   for (const [index, childWidth] of childWidthArray.entries()) {
-    sumsOfChildWidth = sumsOfChildWidth + childWidth.width + GAP
+    sumsOfChildWidth = sumsOfChildWidth + childWidth.width // + GAP
     if (sumsOfChildWidth > widthToFit) {
       breakpoint = index
       break
@@ -87,47 +95,47 @@ const overflowEffect = (
     updateListAndMenu({items: childArray, menuItems: []})
   }
   const numberOfItemsPossible = calculatePossibleItems(childWidthArray, navWidth)
+
   const numberOfItemsPossibleWithMoreMenu = calculatePossibleItems(
     childWidthArray,
     navWidth,
     moreMenuWidth || MORE_BTN_WIDTH,
   )
+  console.log({numberOfItemsPossible, childArray, numberOfItemsPossibleWithMoreMenu})
   const items: Array<React.ReactElement> = []
   const menuItems: Array<React.ReactElement> = []
 
   // First, we check if we can fit all the items with their icons
-  if (childArray.length <= numberOfItemsPossible) {
-    items.push(...childArray)
-  }
-
-  /* Below is an accessibility requirement. Never show only one item in the overflow menu.
-   * If there is only one item left to display in the overflow menu according to the calculation,
-   * we need to pull another item from the list into the overflow menu.
-   */
-  const numberOfItemsInMenu = childArray.length - numberOfItemsPossibleWithMoreMenu
-  const numberOfListItems =
-    numberOfItemsInMenu === 1 ? numberOfItemsPossibleWithMoreMenu - 1 : numberOfItemsPossibleWithMoreMenu
-  for (const [index, child] of childArray.entries()) {
-    if (index < numberOfListItems) {
-      items.push(child)
-    } else {
-      const ariaCurrent = child.props['aria-current']
-      const isCurrent = Boolean(ariaCurrent) && ariaCurrent !== 'false'
-      // We need to make sure to keep the selected item always visible.
-      // To do that, we swap the selected item with the last item in the list to make it visible. (When there is at least 1 item in the list to swap.)
-      if (isCurrent && numberOfListItems > 0) {
-        // If selected item couldn't make in to the list, we swap it with the last item in the list.
-        const indexToReplaceAt = numberOfListItems - 1 // because we are replacing the last item in the list
-        // splice method modifies the array by removing 1 item here at the given index and replace it with the "child" element then returns the removed item.
-        const propsectiveAction = items.splice(indexToReplaceAt, 1, child)[0]
-        menuItems.push(propsectiveAction)
+  if (childArray.length >= numberOfItemsPossible) {
+    /* Below is an accessibility requirement. Never show only one item in the overflow menu.
+     * If there is only one item left to display in the overflow menu according to the calculation,
+     * we need to pull another item from the list into the overflow menu.
+     */
+    const numberOfItemsInMenu = childArray.length - numberOfItemsPossibleWithMoreMenu
+    const numberOfListItems =
+      numberOfItemsInMenu === 1 ? numberOfItemsPossibleWithMoreMenu - 1 : numberOfItemsPossibleWithMoreMenu
+    for (const [index, child] of childArray.entries()) {
+      if (index < numberOfListItems) {
+        items.push(child)
       } else {
-        menuItems.push(child)
+        const ariaCurrent = child.props['aria-current']
+        const isCurrent = Boolean(ariaCurrent) && ariaCurrent !== 'false'
+        // We need to make sure to keep the selected item always visible.
+        // To do that, we swap the selected item with the last item in the list to make it visible. (When there is at least 1 item in the list to swap.)
+        if (isCurrent && numberOfListItems > 0) {
+          // If selected item couldn't make in to the list, we swap it with the last item in the list.
+          const indexToReplaceAt = numberOfListItems - 1 // because we are replacing the last item in the list
+          // splice method modifies the array by removing 1 item here at the given index and replace it with the "child" element then returns the removed item.
+          const propsectiveAction = items.splice(indexToReplaceAt, 1, child)[0]
+          menuItems.push(propsectiveAction)
+        } else {
+          menuItems.push(child)
+        }
       }
     }
-  }
 
-  updateListAndMenu({items, menuItems})
+    updateListAndMenu({items, menuItems})
+  }
 }
 
 export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = props => {
@@ -144,7 +152,7 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
     alignItems: 'center',
     height: size === 'small' ? '28px' : size === 'medium' ? '32px' : '40px',
   }
-  const navRef = useRef<HTMLElement>(null)
+  const navRef = useRef<HTMLElement>(null) as MutableRefObject<HTMLElement>
   const listRef = useRef<HTMLUListElement>(null)
   const moreMenuRef = useRef<HTMLLIElement>(null)
   const moreMenuBtnRef = useRef<HTMLButtonElement>(null)
@@ -219,6 +227,7 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
   useResizeObserver((resizeObserverEntries: ResizeObserverEntry[]) => {
     const navWidth = resizeObserverEntries[0].contentRect.width
     const moreMenuWidth = moreMenuRef.current?.getBoundingClientRect().width ?? 0
+    console.log({resizeObserverEntries, navWidth})
     navWidth !== 0 && overflowEffect(navWidth, moreMenuWidth, validChildren, childWidthArray, updateListAndMenu)
   }, navRef as RefObject<HTMLElement>)
 
@@ -254,7 +263,7 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
 
   return (
     <ActionBarContext.Provider value={{size, setChildrenWidth}}>
-      <Box sx={sx} aria-label={ariaLabel} ref={navRef as MutableRefObject<HTMLElement>}>
+      <Box ref={navRef} sx={sx}>
         <NavigationList sx={ulStyles} ref={listRef} role="list">
           {listItems}
           {menuItems.length > 0 && (
