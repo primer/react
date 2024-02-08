@@ -1,5 +1,55 @@
 # @primer/components
 
+## 36.7.1
+
+### Patch Changes
+
+- [#4198](https://github.com/primer/react/pull/4198) [`65bde2763`](https://github.com/primer/react/commit/65bde2763b9e2eb2dbe5845e009a88ad2c4972b2) Thanks [@siddharthkp](https://github.com/siddharthkp)! - experimental/SelectPanel: Pass props from SelectPanel root to dialog element
+
+- [#4208](https://github.com/primer/react/pull/4208) [`2217cef45`](https://github.com/primer/react/commit/2217cef4506b94ea8955fb785a8fad41c8647cb6) Thanks [@joshblack](https://github.com/joshblack)! - Update mono font in theme to use font stack as fallback to custom property
+
+- [#4176](https://github.com/primer/react/pull/4176) [`b8b090be2`](https://github.com/primer/react/commit/b8b090be2f146a8d8854028f8a88110e1ed1e4bd) Thanks [@siddharthkp](https://github.com/siddharthkp)! - Checkbox: Add `not-allowed` cursor to unchecked disabled state
+
+## 36.7.0
+
+### Minor Changes
+
+- [#4157](https://github.com/primer/react/pull/4157) [`aafa257e1`](https://github.com/primer/react/commit/aafa257e1df4e0d73bb328edbfca2f23976d4756) Thanks [@langermank](https://github.com/langermank)! - - Adds CSS variable color values to the legacy Primitive design tokens.
+  - Three values include: the new v8 color CSS variable, a fallback of the old color CSS variable, and the raw value.
+
+### Patch Changes
+
+- [#4193](https://github.com/primer/react/pull/4193) [`c4193d680`](https://github.com/primer/react/commit/c4193d680b9b392bd1e60b1db1dd3efe0119af2d) Thanks [@langermank](https://github.com/langermank)! - Add missing CSS vars to legacy-theme
+
+## 36.6.0
+
+### Minor Changes
+
+- [#3787](https://github.com/primer/react/pull/3787) [`c9d74219d`](https://github.com/primer/react/commit/c9d74219de81378cabd9df7b3bb379b30322148e) Thanks [@langermank](https://github.com/langermank)! - - Moves legacy color primitives from `primer/primitives` directly into Primer React
+
+  - Cleans up unused dependencies on primitives other than color
+  - Preparing for the upgrade to CSS variables (Primitives v8)
+
+- [#3994](https://github.com/primer/react/pull/3994) [`c40f76562`](https://github.com/primer/react/commit/c40f76562ceb5d4c4d54610871487ab1b5481288) Thanks [@maximedegreve](https://github.com/maximedegreve)! - ActionMenu: Only use checkmarks in menus instead of checkboxes
+
+- [#4135](https://github.com/primer/react/pull/4135) [`c2b069cfd`](https://github.com/primer/react/commit/c2b069cfd49491109d9eec2c895f6ddc5eb939bc) Thanks [@dipree](https://github.com/dipree)! - Deprecate the `underline` property of the Link component in favor of the new `inline` property to better handle link visibility and accessibility when adjacent to text.
+
+- [#4145](https://github.com/primer/react/pull/4145) [`996475f7b`](https://github.com/primer/react/commit/996475f7b6a70d8bd0109758368d61d46eacb638) Thanks [@siddharthkp](https://github.com/siddharthkp)! - experimental/SelectPanel: Add SelectPanel.SecondaryAction
+
+- [#4128](https://github.com/primer/react/pull/4128) [`359213b29`](https://github.com/primer/react/commit/359213b294bbc38c384d3db382fa8803453a6dfe) Thanks [@joshblack](https://github.com/joshblack)! - Add "use client" to package entrypoints to support React Server Components
+
+### Patch Changes
+
+- [#4146](https://github.com/primer/react/pull/4146) [`4e7404c37`](https://github.com/primer/react/commit/4e7404c3743140d19a36c3818c68357968afdc9b) Thanks [@siddharthkp](https://github.com/siddharthkp)! - experimental/SelectPanel: Clear action in search input is only visible when there is text to clear
+
+- [#4120](https://github.com/primer/react/pull/4120) [`cbdd98a83`](https://github.com/primer/react/commit/cbdd98a838e5d1fd9cc1a97016466c3b6ecbf14e) Thanks [@siddharthkp](https://github.com/siddharthkp)! - experimental/SelectPanel: Add `modal` variant
+
+- [#4131](https://github.com/primer/react/pull/4131) [`91a899ea2`](https://github.com/primer/react/commit/91a899ea267c74f2935bd7ec433fca1607cffd1c) Thanks [@siddharthkp](https://github.com/siddharthkp)! - experimental/SelectPanel: Fix bug where onSubmit also called onCancel!
+
+- [#4098](https://github.com/primer/react/pull/4098) [`dc97a9b3f`](https://github.com/primer/react/commit/dc97a9b3fd754409b46c7de996a7d44c07a9c1f9) Thanks [@broccolinisoup](https://github.com/broccolinisoup)! - Tooltip2: Fix the anchor position mapping to reflect the directions correctly
+
+- [#4170](https://github.com/primer/react/pull/4170) [`18d16092d`](https://github.com/primer/react/commit/18d16092d59cab7331e65cb81a3810c5ea466acb) Thanks [@siddharthkp](https://github.com/siddharthkp)! - experimental/SelectPanel: Fix height for `fit-content` in Safari
+
 ## 36.5.0
 
 ### Minor Changes
