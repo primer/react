@@ -1,4 +1,6 @@
 import {Theme} from '../ThemeProvider'
+import {BetterSystemStyleObject} from '../sx'
+import {getAnchoredPosition} from '@primer/behaviors'
 
 // The gap between the list items. It is a constant because the gap is used to calculate the possible number of items that can fit in the container.
 export const GAP = 8
@@ -135,17 +137,34 @@ export const menuItemStyles = {
   // To reset the style when the menu items are rendered as react router links
   textDecoration: 'none',
 }
+/**
+ *
+ * @param containerRef The Menu List Container Reference.
+ * @param listRef The Underline Nav Container Reference.
+ * @description This is the styles for our popover menu for the underline nav.
+ */
+export const menuStyles = (containerRef: Element | null, listRef: Element | null): BetterSystemStyleObject => {
+  const minStyleWidth = 192
 
-export const menuStyles = {
-  position: 'absolute',
-  zIndex: 1,
-  top: '90%',
-  right: '0',
-  boxShadow: '0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24)',
-  borderRadius: '12px',
-  backgroundColor: 'canvas.overlay',
-  listStyle: 'none',
-  // Values are from ActionMenu
-  minWidth: '192px',
-  maxWidth: '640px',
+  const baseRules = {
+    position: 'absolute',
+    zIndex: 1,
+    top: '90%',
+    boxShadow: '0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24)',
+    borderRadius: '12px',
+    backgroundColor: 'canvas.overlay',
+    listStyle: 'none',
+    // Values are from ActionMenu
+    minWidth: `${minStyleWidth}px`,
+    maxWidth: '640px',
+  }
+
+  // Do we have less room in the UnderlineNav container then what we have reserved with our minWidth?
+  // If so, do not position the element using right, as it will overflow. Let's use `getAnchoredPosition` instead.
+  if (containerRef && listRef && listRef.clientWidth < minStyleWidth) {
+    const {left} = getAnchoredPosition(containerRef, listRef, {align: 'center', side: 'outside-left'})
+    return {...baseRules, left}
+  }
+
+  return {...baseRules, right: '0'}
 }

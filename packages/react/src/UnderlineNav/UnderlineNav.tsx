@@ -338,7 +338,7 @@ export const UnderlineNav = forwardRef(
                   selectionVariant="single"
                   ref={containerRef}
                   id={disclosureWidgetId}
-                  sx={menuStyles}
+                  sx={menuStyles(containerRef.current, listRef.current)}
                   style={{display: isWidgetOpen ? 'block' : 'none'}}
                 >
                   {menuItems.map((menuItem, index) => {
