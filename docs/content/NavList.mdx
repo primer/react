@@ -7,10 +7,10 @@ source: https://github.com/primer/react/tree/main/src/NavList
 storybook: '/react/storybook/?path=/story/components-navlist--simple'
 ---
 
-import data from '../../src/NavList/NavList.docs.json'
+import data from '../../packages/react/src/NavList/NavList.docs.json'
 import DeprecationBanner from '../components/DeprecationBanner'
 
-<DeprecationBanner replacementUrl={'/design/components/nav-list/react'} />
+<DeprecationBanner replacementUrl={'/components/nav-list/react/latest'} />
 
 ```js
 import {NavList} from '@primer/react'
@@ -97,7 +97,7 @@ import {NavList} from '@primer/react'
 
 ```jsx live drafts
 <>
-  <Heading as="h3" id="workflows-heading" sx={{fontSize: 2}}>
+  <Heading as="h3" id="workflows-heading" sx={{fontSize: 2, ml: 3}}>
     Workflows
   </Heading>
   <NavList aria-labelledby="workflows-heading">

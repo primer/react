@@ -44,7 +44,7 @@ module.exports = {
     'contributor-docs/adrs/*',
     'examples/nextjs/**',
     // Note: this file is inlined from an external dependency
-    'src/utils/polymorphic.ts',
+    'packages/react/src/utils/polymorphic.ts',
     'storybook-static',
     'CHANGELOG.md',
   ],
@@ -107,7 +107,7 @@ module.exports = {
     // rules which apply only to TS
     {
       parserOptions: {
-        project: 'tsconfig.json',
+        project: ['./tsconfig.json', './packages/**/tsconfig.json', './examples/**/tsconfig.json'],
       },
       files: ['**/*.{ts,tsx}'],
       extends: ['plugin:@typescript-eslint/recommended'],
@@ -121,7 +121,7 @@ module.exports = {
             argsIgnorePattern: '^_',
           },
         ],
-        '@typscript-eslint/no-shadow': 'off',
+        '@typescript-eslint/no-shadow': 'off',
         '@typescript-eslint/no-empty-function': 'off',
         '@typescript-eslint/ban-ts-comment': [
           'error',
@@ -159,7 +159,7 @@ module.exports = {
 
     // Tests
     {
-      files: ['src/**/*.test.{ts,tsx}'],
+      files: ['**/*.test.{ts,tsx}'],
       extends: ['plugin:jest/recommended', 'plugin:testing-library/react'],
       rules: {
         '@typescript-eslint/no-non-null-assertion': 'off',
