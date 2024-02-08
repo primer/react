@@ -7,7 +7,7 @@ storybook: '/react/storybook?path=/story/components-pagination-features--hide-pa
 status: Alpha
 ---
 
-import data from '../../src/Pagination/Pagination.docs.json'
+import data from '../../packages/react/src/Pagination/Pagination.docs.json'
 
 import State from '../components/State'
 import DeprecationBanner from '../components/DeprecationBanner'
