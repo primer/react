@@ -342,6 +342,7 @@ const Header = styled.div<SxProp>`
   padding: ${get('space.2')};
   z-index: 1;
   flex-shrink: 0;
+  ${sx};
 `
 
 const Title = styled.h1<SxProp>`

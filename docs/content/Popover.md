@@ -6,7 +6,7 @@ status: Alpha
 source: https://github.com/primer/react/blob/main/src/Popover
 ---
 
-import data from '../../src/Popover/Popover.docs.json'
+import data from '../../packages/react/src/Popover/Popover.docs.json'
 import DeprecationBanner from '../components/DeprecationBanner'
 
 <DeprecationBanner replacementUrl={'/components/popover/react/latest'} />

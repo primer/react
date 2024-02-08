@@ -250,6 +250,7 @@ const Panel: React.FC<SelectPanelProps> = ({
             '100%': {transform: 'scale(1, 1)'},
           },
         }}
+        {...props}
         onClick={event => {
           if (event.target === event.currentTarget) onClickOutside()
         }}
@@ -488,7 +489,7 @@ const SecondaryCheckbox: React.FC<CheckboxProps> = ({id, children, ...props}) =>
   )
 }
 
-type SelectPanelSecondaryActionProps = {children: React.ReactNode} & (
+export type SelectPanelSecondaryActionProps = {children: React.ReactNode} & (
   | ({variant: 'button'} & Partial<Omit<ButtonProps, 'variant'>>)
   | ({variant: 'link'} & Partial<LinkProps>)
   | ({variant: 'checkbox'; id?: string} & CheckboxProps)
@@ -525,7 +526,7 @@ const SelectPanelLoading: React.FC<{children: string}> = ({children = 'Fetching 
   )
 }
 
-type SelectPanelMessageProps = {children: React.ReactNode} & (
+export type SelectPanelMessageProps = {children: React.ReactNode} & (
   | {
       size?: 'full'
       title: string // title is required with size:full
