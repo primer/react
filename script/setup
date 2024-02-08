@@ -5,13 +5,3 @@ npm install
 
 # Build
 npm run build
-
-# Install docs dependencies
-pushd docs
-npm install --legacy-peer-deps
-popd
-
-# Install examples dependencies
-pushd examples/nextjs
-npm install --legacy-peer-deps
-popd

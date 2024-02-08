@@ -5,7 +5,7 @@ status: Draft
 source: https://github.com/primer/react/blob/main/src/drafts/Tooltip.tsx
 ---
 
-import data from '../../../src/drafts/Tooltip/Tooltip.docs.json'
+import data from '../../../packages/react/src/drafts/Tooltip/Tooltip.docs.json'
 
 The Tooltip component is used to add context to interactive elements on the page.
 
@@ -36,7 +36,7 @@ Tooltip can be used to label interactive controls that has no visible text label
 ```jsx live
 <Tooltip text="Contribution Documentation for 'Primer React'" type="label">
   <Link href="https://github.com/primer/react/contributor-docs/CONTRIBUTING.md" sx={{ml: 1, color: 'fg.muted'}}>
-    <StyledOcticon icon={BookIcon} sx={{color: 'fg.muted'}} />
+    <Octicon icon={BookIcon} sx={{color: 'fg.muted'}} />
   </Link>
 </Tooltip>
 ```

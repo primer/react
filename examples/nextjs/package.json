@@ -5,14 +5,15 @@
   "scripts": {
     "build": "next build",
     "develop": "next",
-    "start": "next start"
+    "start": "next start",
+    "type-check": "tsc --noEmit"
   },
   "dependencies": {
     "@primer/octicons-react": "^18.2.0",
-    "@primer/react": "file:../../",
+    "@primer/react": "^36.7.1",
     "next": "^13.5.4",
-    "react": "file:../../node_modules/react",
-    "react-dom": "file:../../node_modules/react-dom",
-    "styled-components": "4.4.1"
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "styled-components": "^4.4.1"
   }
 }

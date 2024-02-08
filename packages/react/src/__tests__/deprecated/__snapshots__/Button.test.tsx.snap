@@ -1,0 +1,367 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Button respects the "disabled" prop 1`] = `
+.c0 {
+  position: relative;
+  display: inline-block;
+  padding: 6px 16px;
+  font-family: inherit;
+  font-weight: 600;
+  line-height: 20px;
+  white-space: nowrap;
+  vertical-align: middle;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  border-radius: 6px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  text-align: center;
+  font-size: 14px;
+}
+
+.c0:hover {
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c0:focus {
+  outline: none;
+}
+
+.c0:disabled {
+  cursor: default;
+}
+
+.c0:disabled svg {
+  opacity: 0.6;
+}
+
+.c1 {
+  color: var(--button-default-fgColor-rest,var(--color-btn-text,#24292f));
+  background-color: var(--button-default-bgColor-rest,var(--color-btn-bg,#f6f8fa));
+  border: 1px solid var(--button-default-borderColor-rest,var(--color-btn-border,rgba(31,35,40,0.15)));
+  box-shadow: var(--button-default-shadow-resting,var(--color-btn-shadow,0 1px 0 rgba(31,35,40,0.04))),var(--button-default-shadow-inset,var(--color-btn-inset-shadow,inset 0 1px 0 rgba(255,255,255,0.25)));
+}
+
+.c1:hover {
+  background-color: var(--button-default-bgColor-hover,var(--color-btn-hover-bg,#f3f4f6));
+  border-color: var(--button-default-borderColor-hover,var(--color-btn-hover-border,rgba(31,35,40,0.15)));
+}
+
+.c1:focus {
+  outline: solid 2px var(--fgColor-accent,var(--color-accent-fg,#0969da));
+}
+
+.c1:active {
+  background-color: var(--button-default-bgColor-selected,var(--color-btn-selected-bg,hsla(220,14%,94%,1)));
+}
+
+.c1:disabled {
+  color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
+  background-color: var(--button-default-bgColor-rest,var(--color-btn-bg,#f6f8fa));
+  border-color: var(--button-default-borderColor-rest,var(--color-btn-border,rgba(31,35,40,0.15)));
+}
+
+<button
+  className="c0 c1"
+  disabled={true}
+/>
+`;
+
+exports[`ButtonDanger renders correct disabled styles 1`] = `
+.c0 {
+  position: relative;
+  display: inline-block;
+  padding: 6px 16px;
+  font-family: inherit;
+  font-weight: 600;
+  line-height: 20px;
+  white-space: nowrap;
+  vertical-align: middle;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  border-radius: 6px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  text-align: center;
+  font-size: 14px;
+}
+
+.c0:hover {
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c0:focus {
+  outline: none;
+}
+
+.c0:disabled {
+  cursor: default;
+}
+
+.c0:disabled svg {
+  opacity: 0.6;
+}
+
+.c1 {
+  color: var(--button-danger-fgColor-rest,var(--color-btn-danger-text,#cf222e));
+  border: 1px solid var(--button-default-borderColor-rest,var(--color-btn-border,rgba(31,35,40,0.15)));
+  background-color: var(--button-default-bgColor-rest,var(--color-btn-bg,#f6f8fa));
+  box-shadow: var(--button-default-shadow-resting,var(--color-btn-shadow,0 1px 0 rgba(31,35,40,0.04)));
+}
+
+.c1:hover {
+  color: var(--button-danger-fgColor-hover,var(--color-btn-danger-hover-text,#ffffff));
+  background-color: var(--button-danger-bgColor-hover,var(--color-btn-danger-hover-bg,#a40e26));
+  border-color: var(--button-danger-borderColor-hover,var(--color-btn-danger-hover-border,rgba(31,35,40,0.15)));
+  box-shadow: var(--shadow-resting-small,var(--color-btn-danger-hover-shadow,0 1px 0 rgba(31,35,40,0.1)));
+}
+
+.c1:active {
+  color: var(--button-danger-fgColor-active,var(--color-btn-danger-selected-text,#ffffff));
+  background-color: var(--button-danger-bgColor-active,var(--color-btn-danger-selected-bg,hsla(356,72%,44%,1)));
+  box-shadow: var(--button-danger-shadow-selected,var(--color-btn-danger-selected-shadow,inset 0 1px 0 rgba(76,0,20,0.2)));
+  border-color: var(--button-danger-borderColor-active,var(--color-btn-danger-selected-border,rgba(31,35,40,0.15)));
+}
+
+.c1:disabled {
+  color: var(--button-danger-fgColor-disabled,var(--color-btn-danger-disabled-text,rgba(207,34,46,0.5)));
+  background-color: var(--button-danger-bgColor-disabled,var(--color-btn-danger-disabled-bg,#f6f8fa));
+}
+
+<button
+  className="c0 c1"
+  disabled={true}
+/>
+`;
+
+exports[`ButtonInvisible renders correct disabled styles 1`] = `
+.c0 {
+  position: relative;
+  display: inline-block;
+  padding: 6px 16px;
+  font-family: inherit;
+  font-weight: 600;
+  line-height: 20px;
+  white-space: nowrap;
+  vertical-align: middle;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  border-radius: 6px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  text-align: center;
+  font-size: 14px;
+}
+
+.c0:hover {
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c0:focus {
+  outline: none;
+}
+
+.c0:disabled {
+  cursor: default;
+}
+
+.c0:disabled svg {
+  opacity: 0.6;
+}
+
+.c1 {
+  color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  background-color: transparent;
+  border: 0;
+  border-radius: 6px;
+  box-shadow: none;
+}
+
+.c1:disabled {
+  color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
+}
+
+.c1:focus {
+  outline: solid 2px var(--fgColor-accent,var(--color-accent-fg,#0969da));
+}
+
+.c1:hover {
+  background-color: var(--button-default-bgColor-hover,var(--color-btn-hover-bg,#f3f4f6));
+}
+
+.c1:active {
+  background-color: var(--button-default-bgColor-selected,var(--color-btn-selected-bg,hsla(220,14%,94%,1)));
+}
+
+<button
+  className="c0 c1"
+  disabled={true}
+/>
+`;
+
+exports[`ButtonOutline renders correct disabled styles 1`] = `
+.c0 {
+  position: relative;
+  display: inline-block;
+  padding: 6px 16px;
+  font-family: inherit;
+  font-weight: 600;
+  line-height: 20px;
+  white-space: nowrap;
+  vertical-align: middle;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  border-radius: 6px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  text-align: center;
+  font-size: 14px;
+}
+
+.c0:hover {
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c0:focus {
+  outline: none;
+}
+
+.c0:disabled {
+  cursor: default;
+}
+
+.c0:disabled svg {
+  opacity: 0.6;
+}
+
+.c1 {
+  color: var(--button-outline-fgColor-rest,var(--color-btn-outline-text,#0969da));
+  border: 1px solid var(--button-default-borderColor-rest,var(--color-btn-border,rgba(31,35,40,0.15)));
+  background-color: var(--button-default-bgColor-rest,var(--color-btn-bg,#f6f8fa));
+  box-shadow: var(--button-default-shadow-resting,var(--color-btn-shadow,0 1px 0 rgba(31,35,40,0.04)));
+}
+
+.c1:hover {
+  color: var(--button-outline-fgColor-hover,var(--color-btn-outline-hover-text,#ffffff));
+  background-color: var(--button-outline-bgColor-hover,var(--color-btn-outline-hover-bg,#0969da));
+  border-color: var(--button-outline-borderColor-hover,var(--color-btn-outline-hover-border,rgba(31,35,40,0.15)));
+  box-shadow: var(--shadow-resting-small,var(--color-btn-outline-hover-shadow,0 1px 0 rgba(31,35,40,0.1)));
+}
+
+.c1:active {
+  color: var(--button-outline-fgColor-active,var(--color-btn-outline-selected-text,#ffffff));
+  background-color: var(--button-outline-bgColor-active,var(--color-btn-outline-selected-bg,hsla(212,92%,42%,1)));
+  box-shadow: var(--button-outline-shadow-selected,var(--color-btn-outline-selected-shadow,inset 0 1px 0 rgba(0,33,85,0.2)));
+  border-color: var(--button-outline-borderColor-active,var(--color-btn-outline-selected-border,rgba(31,35,40,0.15)));
+}
+
+.c1:disabled {
+  color: var(--button-outline-fgColor-disabled,var(--color-btn-outline-disabled-text,rgba(9,105,218,0.5)));
+  background-color: var(--button-outline-bgColor-disabled,var(--color-btn-outline-disabled-bg,#f6f8fa));
+  border-color: var(--button-default-borderColor-rest,var(--color-btn-border,rgba(31,35,40,0.15)));
+}
+
+<button
+  className="c0 c1"
+  disabled={true}
+/>
+`;
+
+exports[`ButtonPrimary renders correct disabled styles 1`] = `
+.c0 {
+  position: relative;
+  display: inline-block;
+  padding: 6px 16px;
+  font-family: inherit;
+  font-weight: 600;
+  line-height: 20px;
+  white-space: nowrap;
+  vertical-align: middle;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  border-radius: 6px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  text-align: center;
+  font-size: 14px;
+}
+
+.c0:hover {
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c0:focus {
+  outline: none;
+}
+
+.c0:disabled {
+  cursor: default;
+}
+
+.c0:disabled svg {
+  opacity: 0.6;
+}
+
+.c1 {
+  color: var(--button-primary-fgColor-rest,var(--color-btn-primary-text,#ffffff));
+  border: 1px solid var(--button-primary-borderColor-rest,var(--color-btn-primary-border,rgba(31,35,40,0.15)));
+  background-color: var(--button-primary-bgColor-rest,var(--color-btn-primary-bg,#1f883d));
+  box-shadow: var(--shadow-resting-small,var(--color-btn-primary-shadow,0 1px 0 rgba(31,35,40,0.1)));
+}
+
+.c1:hover {
+  background-color: var(--button-primary-bgColor-hover,var(--color-btn-primary-hover-bg,#1a7f37));
+  border-color: var(--button-primary-borderColor-hover,var(--color-btn-primary-hover-border,rgba(31,35,40,0.15)));
+}
+
+.c1:active {
+  background-color: var(--button-primary-bgColor-active,var(--color-btn-primary-selected-bg,hsla(137,66%,28%,1)));
+  box-shadow: var(--button-primary-shadow-selected,var(--color-btn-primary-selected-shadow,inset 0 1px 0 rgba(0,45,17,0.2)));
+}
+
+.c1:disabled {
+  color: var(--button-primary-fgColor-disabled,var(--color-btn-primary-disabled-text,rgba(255,255,255,0.8)));
+  background-color: var(--button-primary-bgColor-disabled,var(--color-btn-primary-disabled-bg,#94d3a2));
+  border-color: var(--button-primary-borderColor-disabled,var(--color-btn-primary-disabled-border,rgba(31,35,40,0.15)));
+}
+
+<button
+  className="c0 c1"
+  disabled={true}
+/>
+`;
