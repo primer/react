@@ -19,6 +19,7 @@ import Box from '../../Box'
 import {useFocusZone} from '../../hooks/useFocusZone'
 import {MarkdownEditorContext} from './_MarkdownEditorContext'
 import {SavedRepliesButton} from './_SavedReplies'
+import {ToolbarButton} from './_ToolbarButton'
 
 const Divider = () => {
   return (
@@ -151,4 +152,4 @@ export const CoreToolbar = ({children}: {children?: React.ReactNode}) => {
 export const Toolbar = ({children}: {children?: React.ReactNode}) => <CoreToolbar>{children}</CoreToolbar>
 Toolbar.displayName = 'MarkdownEditor.Toolbar'
 
-export {ToolbarButton} from './_ToolbarButton'
+export {ToolbarButton}
