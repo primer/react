@@ -13,7 +13,7 @@
     },
     "develop": {
       "name": "develop",
-      "command": "npm run dev -- --host 3000",
+      "command": "npm run dev -- --port 3000",
       "runAtStart": true,
       "preview": {
         "port": 3000
