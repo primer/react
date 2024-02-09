@@ -66,6 +66,8 @@ export type SelectPanelProps = {
   // TODO: move these to SelectPanel.Overlay or overlayProps
   width?: OverlayProps['width']
   height?: OverlayProps['height'] | 'fit-content'
+  height?: 'fit-content' // not used, keeping it around temporary for backward compatibility
+  maxHeight?: Exclude<OverlayProps['maxHeight'], 'xsmall'>
 
   children: React.ReactNode
 }
@@ -86,7 +88,7 @@ const Panel: React.FC<SelectPanelProps> = ({
   onSubmit: propsOnSubmit,
 
   width = 'medium',
-  height = 'large',
+  maxHeight = 'large',
   ...props
 }) => {
   const [internalOpen, setInternalOpen] = React.useState(defaultOpen)
@@ -230,6 +232,8 @@ const Panel: React.FC<SelectPanelProps> = ({
         aria-describedby={description ? `${panelId}--description` : undefined}
         width={width}
         height={height}
+        height="fit-content"
+        maxHeight={maxHeight}
         sx={{
           // reset dialog default styles
           border: 'none',
@@ -433,6 +437,7 @@ const SelectPanelFooter = ({...props}) => {
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
+          flexShrink: 0,
           padding: hidePrimaryActions ? 2 : 3,
           minHeight: '44px',
           borderTop: '1px solid',
