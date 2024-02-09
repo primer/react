@@ -72,8 +72,8 @@ export const WithComponentAsATitle = () => (
       <PageHeader.TitleArea>
         <Breadcrumbs>
           <Breadcrumbs.Item href="https://github.com/primer/react/tree/main">react</Breadcrumbs.Item>
-          <Breadcrumbs.Item href="https://github.com/primer/react/tree/main/src">src</Breadcrumbs.Item>
-          <Breadcrumbs.Item href="https://github.com/primer/react/tree/main/src/PageHeader">
+          <Breadcrumbs.Item href="https://github.com/primer/react/tree/main/packages/react/src">src</Breadcrumbs.Item>
+          <Breadcrumbs.Item href="https://github.com/primer/react/tree/main/packages/react/src/PageHeader">
             PageHeader
           </Breadcrumbs.Item>
           <Breadcrumbs.Item href="https://github.com/primer/react/blob/main/src/PageHeader/PageHeader.tsx">
@@ -239,8 +239,8 @@ export const WithContextBarAndActionsOfContextArea = () => (
         <PageHeader.ContextBar>
           <Breadcrumbs>
             <Breadcrumbs.Item href="https://github.com/primer/react/tree/main">react</Breadcrumbs.Item>
-            <Breadcrumbs.Item href="https://github.com/primer/react/tree/main/src">src</Breadcrumbs.Item>
-            <Breadcrumbs.Item href="https://github.com/primer/react/tree/main/src/PageHeader">
+            <Breadcrumbs.Item href="https://github.com/primer/react/tree/main/packages/react/src">src</Breadcrumbs.Item>
+            <Breadcrumbs.Item href="https://github.com/primer/react/tree/main/packages/react/src/PageHeader">
               PageHeader
             </Breadcrumbs.Item>
             <Breadcrumbs.Item href="https://github.com/primer/react/blob/main/src/PageHeader/PageHeader.tsx">
