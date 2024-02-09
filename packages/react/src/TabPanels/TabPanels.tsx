@@ -60,7 +60,7 @@ export type TabPanelsTabProps = {
 
 function Tab({children, selected}: TabPanelsTabProps) {
   return (
-    <button role="tab" aria-selected={String(selected)}>
+    <button role="tab" aria-selected={selected ? true : false}>
       {children}
     </button>
   )
