@@ -114,15 +114,15 @@ describe('Button', () => {
     expect(position).toBe(Node.DOCUMENT_POSITION_FOLLOWING)
   })
 
-  it('should render tooltip on an icon button when the _enableTooltip_ prop is passed true', () => {
-    const {getByRole, getByText} = render(<IconButton icon={HeartIcon} aria-label="Heart" _enableTooltip_={true} />)
+  it('should render tooltip on an icon button when the hideTooltip prop is passed true', () => {
+    const {getByRole, getByText} = render(<IconButton icon={HeartIcon} aria-label="Heart" hideTooltip={true} />)
     const triggerEL = getByRole('button')
     const tooltipEl = getByText('Heart')
     expect(triggerEL).toHaveAttribute('aria-labelledby', tooltipEl.id)
   })
-  it('should render description type tooltip on an icon button when the description prop is provided and the _enableTooltip_ prop is passed true', () => {
+  it('should render description type tooltip on an icon button when the description prop is provided and the hideTooltip prop is passed true', () => {
     const {getByRole, getByText} = render(
-      <IconButton icon={HeartIcon} aria-label="Heart" description="Love is all around" _enableTooltip_={true} />,
+      <IconButton icon={HeartIcon} aria-label="Heart" description="Love is all around" hideTooltip={true} />,
     )
     const triggerEL = getByRole('button')
     expect(triggerEL).toHaveAttribute('aria-label', 'Heart')

@@ -2,4 +2,4 @@
 '@primer/react': minor
 ---
 
-IconButton: introduce tooltip behavior behind the prop `_enableTooltip_`
+IconButton: introduce tooltip behavior behind the prop `hideTooltip`

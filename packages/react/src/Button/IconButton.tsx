@@ -14,8 +14,8 @@ const IconButton = forwardRef(
       'aria-label': ariaLabel,
       description,
       disabled,
-      // This is a temporary prop to incrementally introduce tooltips to the IconButton component.
-      _enableTooltip_ = false,
+      // This is planned to be a temporary prop until the default tooltip on icon buttons are fully rolled out.
+      hideTooltip = false,
       ...props
     },
     forwardedRef,
@@ -28,7 +28,7 @@ const IconButton = forwardRef(
       sxStyles = generateCustomSxProp({size}, sxProp)
     }
 
-    const displayTooltip = _enableTooltip_ && !disabled && ariaLabel
+    const displayTooltip = hideTooltip && !disabled && ariaLabel
 
     if (displayTooltip) {
       return (
