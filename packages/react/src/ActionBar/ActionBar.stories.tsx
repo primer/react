@@ -17,6 +17,12 @@ export const Default = () => (
     <ActionBar.Divider />
     <ActionBar.IconButton icon={FileAddedIcon} aria-label="Default"></ActionBar.IconButton>
     <ActionBar.IconButton icon={SearchIcon} aria-label="Default"></ActionBar.IconButton>
+    <ActionBar.IconButton icon={FileAddedIcon} aria-label="Default"></ActionBar.IconButton>
+    <ActionBar.IconButton icon={SearchIcon} aria-label="Default"></ActionBar.IconButton>
+    <ActionBar.IconButton icon={FileAddedIcon} aria-label="Default"></ActionBar.IconButton>
+    <ActionBar.IconButton icon={SearchIcon} aria-label="Default"></ActionBar.IconButton>
+    <ActionBar.IconButton icon={FileAddedIcon} aria-label="Default"></ActionBar.IconButton>
+    <ActionBar.IconButton icon={SearchIcon} aria-label="Default"></ActionBar.IconButton>
   </ActionBar>
 )
 

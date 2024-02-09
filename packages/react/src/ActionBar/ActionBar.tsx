@@ -2,11 +2,10 @@
 TODO
 - Decide props for ActionBar
 - Add api docs
-- Add proper types
-- Size should be based on actionbar size - done
-- Change size API?
+- Add proper types\
+Bugs
+- Nothing in More items
 - Divider is loopy
-- Add more functionality with responsiveness
 */
 
 import React, {useState, useCallback, useRef, forwardRef, RefObject, MutableRefObject} from 'react'
@@ -58,11 +57,17 @@ export type ActionBarProps = {
 
 export type ActionBarIconButtonProps = IconButtonProps
 
-const GAP = 8
+const getNavStyles = () => ({
+  display: 'flex',
+  paddingX: 3,
+  justifyContent: 'flex-start',
+  align: 'row',
+  alignItems: 'center',
+  minHeight: '48px',
+})
 
 const getValidChildren = (children: React.ReactNode) => {
   return React.Children.toArray(children).filter(child => {
-    console.log({child})
     // only icon buttons for now. Expand to other buttons later
     return React.isValidElement(child) && child.props.icon ? true : false
   }) as React.ReactElement[]
@@ -101,12 +106,11 @@ const overflowEffect = (
     navWidth,
     moreMenuWidth || MORE_BTN_WIDTH,
   )
-  console.log({numberOfItemsPossible, childArray, numberOfItemsPossibleWithMoreMenu})
   const items: Array<React.ReactElement> = []
   const menuItems: Array<React.ReactElement> = []
 
   // First, we check if we can fit all the items with their icons
-  if (childArray.length >= numberOfItemsPossible) {
+  if (childArray.length > numberOfItemsPossible) {
     /* Below is an accessibility requirement. Never show only one item in the overflow menu.
      * If there is only one item left to display in the overflow menu according to the calculation,
      * we need to pull another item from the list into the overflow menu.
@@ -147,11 +151,7 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
       return newArr
     })
   }, [])
-  const sx = {
-    display: 'inline-flex',
-    alignItems: 'center',
-    height: size === 'small' ? '28px' : size === 'medium' ? '32px' : '40px',
-  }
+
   const navRef = useRef<HTMLElement>(null) as MutableRefObject<HTMLElement>
   const listRef = useRef<HTMLUListElement>(null)
   const moreMenuRef = useRef<HTMLLIElement>(null)
@@ -227,7 +227,6 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
   useResizeObserver((resizeObserverEntries: ResizeObserverEntry[]) => {
     const navWidth = resizeObserverEntries[0].contentRect.width
     const moreMenuWidth = moreMenuRef.current?.getBoundingClientRect().width ?? 0
-    console.log({resizeObserverEntries, navWidth})
     navWidth !== 0 && overflowEffect(navWidth, moreMenuWidth, validChildren, childWidthArray, updateListAndMenu)
   }, navRef as RefObject<HTMLElement>)
 
@@ -263,7 +262,7 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
 
   return (
     <ActionBarContext.Provider value={{size, setChildrenWidth}}>
-      <Box ref={navRef} sx={sx}>
+      <Box ref={navRef} sx={getNavStyles()}>
         <NavigationList sx={ulStyles} ref={listRef} role="list">
           {listItems}
           {menuItems.length > 0 && (
