@@ -223,7 +223,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
     }
 
     const clickHandler = React.useCallback(
-      (event: React.MouseEvent<HTMLLIElement>) => {
+      (event: React.MouseEvent<HTMLButtonElement>) => {
         if (disabled || inactive) return
         onSelect(event, afterSelect)
       },
@@ -231,7 +231,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
     )
 
     const keyPressHandler = React.useCallback(
-      (event: React.KeyboardEvent<HTMLLIElement>) => {
+      (event: React.KeyboardEvent<HTMLButtonElement>) => {
         if (disabled || inactive) return
         if ([' ', 'Enter'].includes(event.key)) {
           onSelect(event, afterSelect)
@@ -269,7 +269,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       onKeyPress: keyPressHandler,
       'aria-disabled': disabled ? true : undefined,
       'data-inactive': inactive ? true : undefined,
-      tabIndex: disabled || showInactiveIndicator ? undefined : 0,
+      tabIndex: disabled || showInactiveIndicator ? -1 : undefined,
       'aria-labelledby': `${labelId} ${slots.inlineDescription ? inlineDescriptionId : ''}`,
       'aria-describedby': slots.blockDescription
         ? [blockDescriptionId, inactiveWarningId].join(' ')
@@ -280,9 +280,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       styles,
     }
 
-    const containerProps = _PrivateItemWrapper ? {role: itemRole ? 'none' : undefined} : menuItemProps
-
-    // const wrapperProps = _PrivateItemWrapper ? menuItemProps : {}
+    const containerProps = {role: itemRole ? 'none' : undefined}
 
     return (
       <ItemContext.Provider
