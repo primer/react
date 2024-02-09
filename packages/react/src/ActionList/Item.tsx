@@ -12,7 +12,7 @@ import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/po
 import {ActionListContainerContext} from './ActionListContainerContext'
 import {Description} from './Description'
 import {GroupContext} from './Group'
-import {ActionListProps, ListContext} from './List'
+import {type ActionListProps, ListContext} from './shared'
 import {Selection} from './Selection'
 import {ActionListItemProps, getVariantStyles, ItemContext, TEXT_ROW_HEIGHT} from './shared'
 import {LeadingVisual, TrailingVisual, VisualProps} from './Visuals'

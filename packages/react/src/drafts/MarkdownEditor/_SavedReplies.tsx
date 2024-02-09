@@ -9,7 +9,7 @@ import React, {
   useState,
 } from 'react'
 import {SelectPanel, SelectPanelProps} from '../../SelectPanel'
-import {ToolbarButton} from './Toolbar'
+import {ToolbarButton} from './_ToolbarButton'
 
 export type SavedReply = {
   name: string
