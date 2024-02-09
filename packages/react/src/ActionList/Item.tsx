@@ -76,6 +76,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       showDividers,
       selectionVariant: listSelectionVariant,
     } = React.useContext(ListContext)
+
     const {selectionVariant: groupSelectionVariant} = React.useContext(GroupContext)
     const {container, afterSelect, selectionAttribute} = React.useContext(ActionListContainerContext)
     const inactive = Boolean(inactiveText)
@@ -83,7 +84,9 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
 
     const onSelect = React.useCallback(
       (
-        event: React.MouseEvent<HTMLButtonElement> | React.KeyboardEvent<HTMLButtonElement>,
+        event:
+          | React.MouseEvent<HTMLButtonElement | HTMLLIElement>
+          | React.KeyboardEvent<HTMLButtonElement | HTMLLIElement>,
         // eslint-disable-next-line @typescript-eslint/ban-types
         afterSelect?: Function,
       ) => {
@@ -245,6 +248,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
     const inlineDescriptionId = `${itemId}--inline-description`
     const blockDescriptionId = `${itemId}--block-description`
     const inactiveWarningId = inactive && !showInactiveIndicator ? `${itemId}--warning-message` : undefined
+    const validAriaRole = listRole === 'listbox' || listRole === 'menu'
 
     type ActionListDefaultItemProps = ActionListItemProps & React.ButtonHTMLAttributes<HTMLButtonElement>
 
@@ -262,14 +266,14 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       },
     ) as PolymorphicForwardRefComponent<'button', ActionListDefaultItemProps>
 
-    const ItemWrapper = _PrivateItemWrapper ?? DefaultItemWrapper
+    const ItemWrapper = _PrivateItemWrapper || (validAriaRole ? React.Fragment : DefaultItemWrapper)
 
     const menuItemProps = {
       onClick: clickHandler,
       onKeyPress: keyPressHandler,
       'aria-disabled': disabled ? true : undefined,
       'data-inactive': inactive ? true : undefined,
-      tabIndex: disabled || showInactiveIndicator ? -1 : undefined,
+      tabIndex: disabled || showInactiveIndicator ? undefined : 0, // 5, 51
       'aria-labelledby': `${labelId} ${slots.inlineDescription ? inlineDescriptionId : ''}`,
       'aria-describedby': slots.blockDescription
         ? [blockDescriptionId, inactiveWarningId].join(' ')
@@ -280,19 +284,20 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       styles,
     }
 
-    const containerProps = {role: itemRole ? 'none' : undefined}
+    const containerProps = _PrivateItemWrapper ? {role: itemRole ? 'none' : undefined} : validAriaRole && menuItemProps
+    const wrapperProps = _PrivateItemWrapper ? menuItemProps : !validAriaRole && menuItemProps
 
     return (
       <ItemContext.Provider
         value={{variant, disabled, inactive: Boolean(inactiveText), inlineDescriptionId, blockDescriptionId}}
       >
         <LiBox
-          sx={merge<BetterSystemStyleObject>(listItemStyles, sxProp)}
+          sx={merge<BetterSystemStyleObject>(validAriaRole ? styles : listItemStyles, sxProp)}
           data-variant={variant === 'danger' ? variant : undefined}
           {...containerProps}
         >
           {/* @ts-ignore I don't know what is the best type for event params */}
-          <ItemWrapper {...menuItemProps} ref={forwardedRef} {...rest}>
+          <ItemWrapper {...wrapperProps} ref={forwardedRef} {...rest}>
             <Selection selected={selected} />
             {
               // If we're showing an inactive indicator and a leading visual has been passed,
