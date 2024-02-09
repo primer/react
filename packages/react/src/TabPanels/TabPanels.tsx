@@ -55,7 +55,7 @@ function TabPanels({children}: TabPanelsProps) {
 
 export type TabPanelsTabProps = {
   children: React.ReactNode
-  selected: bool
+  selected?: boolean
 } & SxProp
 
 function Tab({children, selected}: TabPanelsTabProps) {
@@ -70,7 +70,7 @@ Tab.displayName = 'TabPanels.Tab'
 
 export type TabPanelsPanelProps = {
   children: React.ReactNode
-  selected: bool
+  selected?: boolean
 } & SxProp
 
 function Panel({children, selected}: TabPanelsPanelProps) {
