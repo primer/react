@@ -101,9 +101,7 @@ test.describe('Dialog', () => {
             },
           })
 
-          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
-            `Dialog.With Custom Renderers.${theme}.png`,
-          )
+          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(`Dialog.Position bottom.${theme}.png`)
         })
 
         test('axe @aat', async ({page}) => {
@@ -131,7 +129,7 @@ test.describe('Dialog', () => {
           })
 
           expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
-            `Dialog.With Custom Renderers.${theme}.png`,
+            `Dialog.Position fullscreen.${theme}.png`,
           )
         })
 
@@ -160,7 +158,7 @@ test.describe('Dialog', () => {
           })
 
           expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
-            `Dialog.With Custom Renderers.${theme}.png`,
+            `Dialog.Position sidesheet.${theme}.png`,
           )
         })
 
