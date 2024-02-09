@@ -1824,6 +1824,111 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   height: var(--inner-action-size);
 }
 
+.c6 {
+  display: none;
+}
+
+.c6[popover] {
+  padding: 0.5em 0.75em;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+  margin: auto;
+  -webkit-clip: auto;
+  clip: auto;
+  white-space: normal;
+  font: normal normal 11px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
+  -webkit-font-smoothing: subpixel-antialiased;
+  color: var(--fgColor-onEmphasis,var(--color-fg-on-emphasis,#ffffff));
+  text-align: center;
+  word-wrap: break-word;
+  background: var(--bgColor-emphasis,var(--color-neutral-emphasis-plus,#24292f));
+  border-radius: 6px;
+  border: 0;
+  opacity: 0;
+  max-width: 250px;
+  inset: auto;
+  overflow: visible;
+}
+
+.c6[popover]:popover-open {
+  display: block;
+}
+
+.c6[popover].\\:popover-open {
+  display: block;
+}
+
+.c6::after {
+  position: absolute;
+  display: block;
+  right: 0;
+  left: 0;
+  height: 8px;
+  content: '';
+}
+
+.c6[data-direction='n']::after,
+.c6[data-direction='ne']::after,
+.c6[data-direction='nw']::after {
+  top: 100%;
+}
+
+.c6[data-direction='s']::after,
+.c6[data-direction='se']::after,
+.c6[data-direction='sw']::after {
+  bottom: 100%;
+}
+
+.c6[data-direction='w']::after {
+  position: absolute;
+  display: block;
+  height: 100%;
+  width: 8px;
+  content: '';
+  bottom: 0;
+  left: 100%;
+}
+
+.c6[data-direction='e']::after {
+  position: absolute;
+  display: block;
+  height: 100%;
+  width: 8px;
+  content: '';
+  bottom: 0;
+  right: 100%;
+  margin-left: -8px;
+}
+
+.c6:popover-open,
+.c6:popover-open::before {
+  -webkit-animation-name: tooltip-appear;
+  animation-name: tooltip-appear;
+  -webkit-animation-duration: 0.1s;
+  animation-duration: 0.1s;
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+  -webkit-animation-timing-function: ease-in;
+  animation-timing-function: ease-in;
+  -webkit-animation-delay: 0s;
+  animation-delay: 0s;
+}
+
+.c6.\\:popover-open,
+.c6.\\:popover-open::before {
+  -webkit-animation-name: tooltip-appear;
+  animation-name: tooltip-appear;
+  -webkit-animation-duration: 0.1s;
+  animation-duration: 0.1s;
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+  -webkit-animation-timing-function: ease-in;
+  animation-timing-function: ease-in;
+  -webkit-animation-delay: 0s;
+  animation-delay: 0s;
+}
+
 .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -2162,6 +2267,12 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   }
 }
 
+@media (forced-colors:active) {
+  .c6 {
+    outline: 1px solid transparent;
+  }
+}
+
 @media (min-width:768px) {
   .c0 {
     font-size: 14px;
@@ -2191,13 +2302,17 @@ exports[`TextInput renders trailingAction icon button 1`] = `
       role="tooltip"
     >
       <button
-        aria-label="Icon label"
+        aria-labelledby=":r0:"
         className="c5"
         data-block={null}
         data-component="IconButton"
         data-no-visuals={true}
         data-size="small"
+        onBlur={[Function]}
         onClick={[MockFunction]}
+        onFocus={[Function]}
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
         type="button"
       >
         <svg
@@ -2223,6 +2338,16 @@ exports[`TextInput renders trailingAction icon button 1`] = `
           />
         </svg>
       </button>
+      <div
+        aria-hidden={true}
+        className="c6"
+        data-direction="s"
+        id=":r0:"
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+      >
+        Icon label
+      </div>
     </span>
   </span>
 </span>

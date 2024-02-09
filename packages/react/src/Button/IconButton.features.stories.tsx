@@ -20,15 +20,10 @@ export const Medium = () => <IconButton size="medium" icon={HeartIcon} aria-labe
 
 export const Large = () => <IconButton size="large" icon={HeartIcon} aria-label="Favorite" />
 
-export const TooltipEnabled = () => (
-  <IconButton hideTooltip={true} icon={HeartIcon} variant="primary" aria-label="Favorite" />
+export const DisabledTooltip = () => (
+  <IconButton disableTooltip={true} icon={HeartIcon} variant="primary" aria-label="Favorite" />
 )
 
 export const WithDescription = () => (
-  <IconButton
-    hideTooltip={true}
-    icon={InboxIcon}
-    aria-label="Notifications"
-    description="You have no unread notifications."
-  />
+  <IconButton icon={InboxIcon} aria-label="Notifications" description="You have no unread notifications." />
 )
