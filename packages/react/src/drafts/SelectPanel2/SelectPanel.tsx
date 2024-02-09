@@ -24,7 +24,7 @@ import {ActionListContainerContext} from '../../ActionList/ActionListContainerCo
 import {useSlots} from '../../hooks/useSlots'
 import {useProvidedRefOrCreate, useId, useAnchoredPosition} from '../../hooks'
 import {useFocusZone} from '../../hooks/useFocusZone'
-import {StyledOverlay, OverlayProps} from '../../Overlay/Overlay'
+import {StyledOverlay, OverlayProps, heightMap} from '../../Overlay/Overlay'
 import InputLabel from '../../internal/components/InputLabel'
 import {invariant} from '../../utils/invariant'
 
@@ -65,7 +65,6 @@ export type SelectPanelProps = {
 
   // TODO: move these to SelectPanel.Overlay or overlayProps
   width?: OverlayProps['width']
-  height?: OverlayProps['height'] | 'fit-content'
   height?: 'fit-content' // not used, keeping it around temporary for backward compatibility
   maxHeight?: Exclude<OverlayProps['maxHeight'], 'xsmall'>
 
@@ -231,10 +230,10 @@ const Panel: React.FC<SelectPanelProps> = ({
         aria-labelledby={`${panelId}--title`}
         aria-describedby={description ? `${panelId}--description` : undefined}
         width={width}
-        height={height}
         height="fit-content"
         maxHeight={maxHeight}
         sx={{
+          '--max-height': heightMap[maxHeight],
           // reset dialog default styles
           border: 'none',
           padding: 0,
@@ -523,6 +522,8 @@ const SelectPanelLoading: React.FC<{children: string}> = ({children = 'Fetching 
         alignItems: 'center',
         height: '100%',
         gap: 3,
+        minHeight: 'min(calc(var(--max-height) - 150px), 324px)',
+        //                 maxHeight of dialog - (header & footer)
       }}
     >
       <Spinner size="medium" />
@@ -565,6 +566,8 @@ const SelectPanelMessage: React.FC<SelectPanelMessageProps> = ({
           paddingX: 4,
           textAlign: 'center',
           a: {color: 'inherit', textDecoration: 'underline'},
+          minHeight: 'min(calc(var(--max-height) - 150px), 324px)',
+          //                 maxHeight of dialog - (header & footer)
         }}
       >
         {variant !== 'empty' ? (
