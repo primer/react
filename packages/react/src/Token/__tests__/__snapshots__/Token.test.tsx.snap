@@ -1274,31 +1274,13 @@ exports[`Token components IssueLabelToken renders all sizes 1`] = `
   position: relative;
   white-space: nowrap;
   font-size: 12px;
-  height: 16px;
-  line-height: 16px;
-  padding-left: 4px;
-  padding-right: 4px;
-  --label-r: 153;
-  --label-g: 153;
-  --label-b: 153;
-  --label-h: 0;
-  --label-s: 0;
-  --label-l: 60;
-  --perceived-lightness: calc(((var(--label-r) * 0.2126) + (var(--label-g) * 0.7152) + (var(--label-b) * 0.0722)) / 255);
-  --lightness-switch: max(0,min(calc((var(--perceived-lightness) - var(--lightness-threshold)) * -1000),1));
-  padding-right: 0;
-  position: relative;
-  --lightness-threshold: 0.453;
-  --border-threshold: 0.96;
-  --border-alpha: max(0,min(calc((var(--perceived-lightness) - var(--border-threshold)) * 100),1));
-  background: rgb(var(--label-r),var(--label-g),var(--label-b));
-  color: hsl(0,0%,calc(var(--lightness-switch) * 100%));
-  border-width: 1px;
-  border-style: solid;
-  border-color: hsla(var(--label-h),calc(var(--label-s) * 1%),calc((var(--label-l) - 25) * 1%),var(--border-alpha));
+  height: 20px;
+  line-height: 20px;
+  padding-left: 8px;
+  padding-right: 8px;
 }
 
-.c2 {
+.c3 {
   background-color: transparent;
   font-family: inherit;
   color: currentColor;
@@ -1325,29 +1307,31 @@ exports[`Token components IssueLabelToken renders all sizes 1`] = `
   -webkit-text-decoration: none;
   text-decoration: none;
   padding: 0;
-  -webkit-transform: translate(1px,-1px);
-  -ms-transform: translate(1px,-1px);
-  transform: translate(1px,-1px);
+  -webkit-transform: translate(undefinedpx,-undefinedpx);
+  -ms-transform: translate(undefinedpx,-undefinedpx);
+  transform: translate(undefinedpx,-undefinedpx);
   -webkit-align-self: baseline;
   -ms-flex-item-align: baseline;
   align-self: baseline;
   border: 0;
   border-radius: 999px;
   margin-left: 4px;
-  height: 16px;
-  width: 16px;
+  height: 20px;
+  width: 20px;
+  position: relative;
+  z-index: 1;
 }
 
-.c2:hover,
-.c2:focus {
+.c3:hover,
+.c3:focus {
   background-color: var(--bgColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
 }
 
-.c2:active {
+.c3:active {
   background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
 }
 
-.c1 {
+.c2 {
   -webkit-box-flex: 1;
   -webkit-flex-grow: 1;
   -ms-flex-positive: 1;
@@ -1372,11 +1356,11 @@ exports[`Token components IssueLabelToken renders all sizes 1`] = `
   text-decoration: none;
 }
 
-.c1:is(a,button,[tabIndex='0']) {
+.c2:is(a,button,[tabIndex='0']) {
   cursor: pointer;
 }
 
-.c1:is(a,button,[tabIndex='0']):after {
+.c2:is(a,button,[tabIndex='0']):after {
   content: '';
   position: absolute;
   left: 0;
@@ -1385,29 +1369,58 @@ exports[`Token components IssueLabelToken renders all sizes 1`] = `
   bottom: 0;
 }
 
+.c1 {
+  background-color: var(--label-bgColor-rest);
+  color: var(--label-fgColor);
+  padding-right: 0;
+  position: relative;
+  border: none;
+}
+
+.c1[data-interactive='true']:hover {
+  background-color: var(--label-bgColor-hover);
+  color: var(--label-fgColor-hover);
+}
+
+.c1[data-interactive='true']:active {
+  background-color: var(--label-bgColor-active);
+  color: var(--label-fgColor-active);
+}
+
 <span
-  className="c0"
+  className="c0 c1"
+  data-interactive={false}
   onKeyDown={[Function]}
-  size="small"
+  size="medium"
+  style={
+    {
+      "--label-bgColor-active": "var(--label-gray-bgColor-active)",
+      "--label-bgColor-hover": "var(--label-gray-bgColor-hover)",
+      "--label-bgColor-rest": "var(--label-gray-bgColor-rest)",
+      "--label-fgColor": "var(--label-gray-fgColor-rest)",
+      "--label-fgColor-active": "var(--label-gray-fgColor-active)",
+      "--label-fgColor-hover": "var(--label-gray-fgColor-hover)",
+    }
+  }
 >
   <span
-    className="c1"
+    className="c2"
   >
     token
   </span>
   <button
     aria-hidden="false"
     aria-label="Remove token"
-    className="c2"
+    className="c3"
     onClick={[Function]}
-    size="small"
+    size="medium"
   >
     <svg
       aria-hidden="true"
       className="octicon octicon-x"
       fill="currentColor"
       focusable="false"
-      height={12}
+      height={15}
       style={
         {
           "display": "inline-block",
@@ -1417,7 +1430,7 @@ exports[`Token components IssueLabelToken renders all sizes 1`] = `
         }
       }
       viewBox="0 0 12 12"
-      width={12}
+      width={15}
     >
       <path
         d="M2.22 2.22a.749.749 0 0 1 1.06 0L6 4.939 8.72 2.22a.749.749 0 1 1 1.06 1.06L7.061 6 9.78 8.72a.749.749 0 1 1-1.06 1.06L6 7.061 3.28 9.78a.749.749 0 1 1-1.06-1.06L4.939 6 2.22 3.28a.749.749 0 0 1 0-1.06Z"
@@ -1450,27 +1463,9 @@ exports[`Token components IssueLabelToken renders all sizes 2`] = `
   line-height: 20px;
   padding-left: 8px;
   padding-right: 8px;
-  --label-r: 153;
-  --label-g: 153;
-  --label-b: 153;
-  --label-h: 0;
-  --label-s: 0;
-  --label-l: 60;
-  --perceived-lightness: calc(((var(--label-r) * 0.2126) + (var(--label-g) * 0.7152) + (var(--label-b) * 0.0722)) / 255);
-  --lightness-switch: max(0,min(calc((var(--perceived-lightness) - var(--lightness-threshold)) * -1000),1));
-  padding-right: 0;
-  position: relative;
-  --lightness-threshold: 0.453;
-  --border-threshold: 0.96;
-  --border-alpha: max(0,min(calc((var(--perceived-lightness) - var(--border-threshold)) * 100),1));
-  background: rgb(var(--label-r),var(--label-g),var(--label-b));
-  color: hsl(0,0%,calc(var(--lightness-switch) * 100%));
-  border-width: 1px;
-  border-style: solid;
-  border-color: hsla(var(--label-h),calc(var(--label-s) * 1%),calc((var(--label-l) - 25) * 1%),var(--border-alpha));
 }
 
-.c2 {
+.c3 {
   background-color: transparent;
   font-family: inherit;
   color: currentColor;
@@ -1497,9 +1492,9 @@ exports[`Token components IssueLabelToken renders all sizes 2`] = `
   -webkit-text-decoration: none;
   text-decoration: none;
   padding: 0;
-  -webkit-transform: translate(1px,-1px);
-  -ms-transform: translate(1px,-1px);
-  transform: translate(1px,-1px);
+  -webkit-transform: translate(undefinedpx,-undefinedpx);
+  -ms-transform: translate(undefinedpx,-undefinedpx);
+  transform: translate(undefinedpx,-undefinedpx);
   -webkit-align-self: baseline;
   -ms-flex-item-align: baseline;
   align-self: baseline;
@@ -1508,18 +1503,20 @@ exports[`Token components IssueLabelToken renders all sizes 2`] = `
   margin-left: 4px;
   height: 20px;
   width: 20px;
+  position: relative;
+  z-index: 1;
 }
 
-.c2:hover,
-.c2:focus {
+.c3:hover,
+.c3:focus {
   background-color: var(--bgColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
 }
 
-.c2:active {
+.c3:active {
   background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
 }
 
-.c1 {
+.c2 {
   -webkit-box-flex: 1;
   -webkit-flex-grow: 1;
   -ms-flex-positive: 1;
@@ -1544,11 +1541,11 @@ exports[`Token components IssueLabelToken renders all sizes 2`] = `
   text-decoration: none;
 }
 
-.c1:is(a,button,[tabIndex='0']) {
+.c2:is(a,button,[tabIndex='0']) {
   cursor: pointer;
 }
 
-.c1:is(a,button,[tabIndex='0']):after {
+.c2:is(a,button,[tabIndex='0']):after {
   content: '';
   position: absolute;
   left: 0;
@@ -1557,20 +1554,49 @@ exports[`Token components IssueLabelToken renders all sizes 2`] = `
   bottom: 0;
 }
 
+.c1 {
+  background-color: var(--label-bgColor-rest);
+  color: var(--label-fgColor);
+  padding-right: 0;
+  position: relative;
+  border: none;
+}
+
+.c1[data-interactive='true']:hover {
+  background-color: var(--label-bgColor-hover);
+  color: var(--label-fgColor-hover);
+}
+
+.c1[data-interactive='true']:active {
+  background-color: var(--label-bgColor-active);
+  color: var(--label-fgColor-active);
+}
+
 <span
-  className="c0"
+  className="c0 c1"
+  data-interactive={false}
   onKeyDown={[Function]}
   size="medium"
+  style={
+    {
+      "--label-bgColor-active": "var(--label-gray-bgColor-active)",
+      "--label-bgColor-hover": "var(--label-gray-bgColor-hover)",
+      "--label-bgColor-rest": "var(--label-gray-bgColor-rest)",
+      "--label-fgColor": "var(--label-gray-fgColor-rest)",
+      "--label-fgColor-active": "var(--label-gray-fgColor-active)",
+      "--label-fgColor-hover": "var(--label-gray-fgColor-hover)",
+    }
+  }
 >
   <span
-    className="c1"
+    className="c2"
   >
     token
   </span>
   <button
     aria-hidden="false"
     aria-label="Remove token"
-    className="c2"
+    className="c3"
     onClick={[Function]}
     size="medium"
   >
@@ -1618,31 +1644,13 @@ exports[`Token components IssueLabelToken renders all sizes 3`] = `
   position: relative;
   white-space: nowrap;
   font-size: 12px;
-  height: 24px;
-  line-height: 24px;
+  height: 20px;
+  line-height: 20px;
   padding-left: 8px;
   padding-right: 8px;
-  --label-r: 153;
-  --label-g: 153;
-  --label-b: 153;
-  --label-h: 0;
-  --label-s: 0;
-  --label-l: 60;
-  --perceived-lightness: calc(((var(--label-r) * 0.2126) + (var(--label-g) * 0.7152) + (var(--label-b) * 0.0722)) / 255);
-  --lightness-switch: max(0,min(calc((var(--perceived-lightness) - var(--lightness-threshold)) * -1000),1));
-  padding-right: 0;
-  position: relative;
-  --lightness-threshold: 0.453;
-  --border-threshold: 0.96;
-  --border-alpha: max(0,min(calc((var(--perceived-lightness) - var(--border-threshold)) * 100),1));
-  background: rgb(var(--label-r),var(--label-g),var(--label-b));
-  color: hsl(0,0%,calc(var(--lightness-switch) * 100%));
-  border-width: 1px;
-  border-style: solid;
-  border-color: hsla(var(--label-h),calc(var(--label-s) * 1%),calc((var(--label-l) - 25) * 1%),var(--border-alpha));
 }
 
-.c2 {
+.c3 {
   background-color: transparent;
   font-family: inherit;
   color: currentColor;
@@ -1669,29 +1677,31 @@ exports[`Token components IssueLabelToken renders all sizes 3`] = `
   -webkit-text-decoration: none;
   text-decoration: none;
   padding: 0;
-  -webkit-transform: translate(1px,-1px);
-  -ms-transform: translate(1px,-1px);
-  transform: translate(1px,-1px);
+  -webkit-transform: translate(undefinedpx,-undefinedpx);
+  -ms-transform: translate(undefinedpx,-undefinedpx);
+  transform: translate(undefinedpx,-undefinedpx);
   -webkit-align-self: baseline;
   -ms-flex-item-align: baseline;
   align-self: baseline;
   border: 0;
   border-radius: 999px;
-  margin-left: 8px;
-  height: 24px;
-  width: 24px;
+  margin-left: 4px;
+  height: 20px;
+  width: 20px;
+  position: relative;
+  z-index: 1;
 }
 
-.c2:hover,
-.c2:focus {
+.c3:hover,
+.c3:focus {
   background-color: var(--bgColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
 }
 
-.c2:active {
+.c3:active {
   background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
 }
 
-.c1 {
+.c2 {
   -webkit-box-flex: 1;
   -webkit-flex-grow: 1;
   -ms-flex-positive: 1;
@@ -1716,11 +1726,11 @@ exports[`Token components IssueLabelToken renders all sizes 3`] = `
   text-decoration: none;
 }
 
-.c1:is(a,button,[tabIndex='0']) {
+.c2:is(a,button,[tabIndex='0']) {
   cursor: pointer;
 }
 
-.c1:is(a,button,[tabIndex='0']):after {
+.c2:is(a,button,[tabIndex='0']):after {
   content: '';
   position: absolute;
   left: 0;
@@ -1729,29 +1739,58 @@ exports[`Token components IssueLabelToken renders all sizes 3`] = `
   bottom: 0;
 }
 
+.c1 {
+  background-color: var(--label-bgColor-rest);
+  color: var(--label-fgColor);
+  padding-right: 0;
+  position: relative;
+  border: none;
+}
+
+.c1[data-interactive='true']:hover {
+  background-color: var(--label-bgColor-hover);
+  color: var(--label-fgColor-hover);
+}
+
+.c1[data-interactive='true']:active {
+  background-color: var(--label-bgColor-active);
+  color: var(--label-fgColor-active);
+}
+
 <span
-  className="c0"
+  className="c0 c1"
+  data-interactive={false}
   onKeyDown={[Function]}
-  size="large"
+  size="medium"
+  style={
+    {
+      "--label-bgColor-active": "var(--label-gray-bgColor-active)",
+      "--label-bgColor-hover": "var(--label-gray-bgColor-hover)",
+      "--label-bgColor-rest": "var(--label-gray-bgColor-rest)",
+      "--label-fgColor": "var(--label-gray-fgColor-rest)",
+      "--label-fgColor-active": "var(--label-gray-fgColor-active)",
+      "--label-fgColor-hover": "var(--label-gray-fgColor-hover)",
+    }
+  }
 >
   <span
-    className="c1"
+    className="c2"
   >
     token
   </span>
   <button
     aria-hidden="false"
     aria-label="Remove token"
-    className="c2"
+    className="c3"
     onClick={[Function]}
-    size="large"
+    size="medium"
   >
     <svg
       aria-hidden="true"
       className="octicon octicon-x"
       fill="currentColor"
       focusable="false"
-      height={18}
+      height={15}
       style={
         {
           "display": "inline-block",
@@ -1760,11 +1799,11 @@ exports[`Token components IssueLabelToken renders all sizes 3`] = `
           "verticalAlign": "text-bottom",
         }
       }
-      viewBox="0 0 16 16"
-      width={18}
+      viewBox="0 0 12 12"
+      width={15}
     >
       <path
-        d="M3.72 3.72a.75.75 0 0 1 1.06 0L8 6.94l3.22-3.22a.749.749 0 0 1 1.275.326.749.749 0 0 1-.215.734L9.06 8l3.22 3.22a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215L8 9.06l-3.22 3.22a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042L6.94 8 3.72 4.78a.75.75 0 0 1 0-1.06Z"
+        d="M2.22 2.22a.749.749 0 0 1 1.06 0L6 4.939 8.72 2.22a.749.749 0 1 1 1.06 1.06L7.061 6 9.78 8.72a.749.749 0 1 1-1.06 1.06L6 7.061 3.28 9.78a.749.749 0 1 1-1.06-1.06L4.939 6 2.22 3.28a.749.749 0 0 1 0-1.06Z"
       />
     </svg>
   </button>
@@ -1789,34 +1828,14 @@ exports[`Token components IssueLabelToken renders all sizes 4`] = `
   text-decoration: none;
   position: relative;
   white-space: nowrap;
-  font-size: 14px;
-  height: 32px;
-  line-height: 32px;
-  padding-left: 16px;
-  padding-right: 16px;
-  padding-top: 0;
-  padding-bottom: 0;
-  --label-r: 153;
-  --label-g: 153;
-  --label-b: 153;
-  --label-h: 0;
-  --label-s: 0;
-  --label-l: 60;
-  --perceived-lightness: calc(((var(--label-r) * 0.2126) + (var(--label-g) * 0.7152) + (var(--label-b) * 0.0722)) / 255);
-  --lightness-switch: max(0,min(calc((var(--perceived-lightness) - var(--lightness-threshold)) * -1000),1));
-  padding-right: 0;
-  position: relative;
-  --lightness-threshold: 0.453;
-  --border-threshold: 0.96;
-  --border-alpha: max(0,min(calc((var(--perceived-lightness) - var(--border-threshold)) * 100),1));
-  background: rgb(var(--label-r),var(--label-g),var(--label-b));
-  color: hsl(0,0%,calc(var(--lightness-switch) * 100%));
-  border-width: 1px;
-  border-style: solid;
-  border-color: hsla(var(--label-h),calc(var(--label-s) * 1%),calc((var(--label-l) - 25) * 1%),var(--border-alpha));
+  font-size: 12px;
+  height: 20px;
+  line-height: 20px;
+  padding-left: 8px;
+  padding-right: 8px;
 }
 
-.c2 {
+.c3 {
   background-color: transparent;
   font-family: inherit;
   color: currentColor;
@@ -1843,29 +1862,31 @@ exports[`Token components IssueLabelToken renders all sizes 4`] = `
   -webkit-text-decoration: none;
   text-decoration: none;
   padding: 0;
-  -webkit-transform: translate(1px,-1px);
-  -ms-transform: translate(1px,-1px);
-  transform: translate(1px,-1px);
+  -webkit-transform: translate(undefinedpx,-undefinedpx);
+  -ms-transform: translate(undefinedpx,-undefinedpx);
+  transform: translate(undefinedpx,-undefinedpx);
   -webkit-align-self: baseline;
   -ms-flex-item-align: baseline;
   align-self: baseline;
   border: 0;
   border-radius: 999px;
-  margin-left: 8px;
-  height: 32px;
-  width: 32px;
+  margin-left: 4px;
+  height: 20px;
+  width: 20px;
+  position: relative;
+  z-index: 1;
 }
 
-.c2:hover,
-.c2:focus {
+.c3:hover,
+.c3:focus {
   background-color: var(--bgColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
 }
 
-.c2:active {
+.c3:active {
   background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
 }
 
-.c1 {
+.c2 {
   -webkit-box-flex: 1;
   -webkit-flex-grow: 1;
   -ms-flex-positive: 1;
@@ -1890,11 +1911,11 @@ exports[`Token components IssueLabelToken renders all sizes 4`] = `
   text-decoration: none;
 }
 
-.c1:is(a,button,[tabIndex='0']) {
+.c2:is(a,button,[tabIndex='0']) {
   cursor: pointer;
 }
 
-.c1:is(a,button,[tabIndex='0']):after {
+.c2:is(a,button,[tabIndex='0']):after {
   content: '';
   position: absolute;
   left: 0;
@@ -1903,29 +1924,58 @@ exports[`Token components IssueLabelToken renders all sizes 4`] = `
   bottom: 0;
 }
 
+.c1 {
+  background-color: var(--label-bgColor-rest);
+  color: var(--label-fgColor);
+  padding-right: 0;
+  position: relative;
+  border: none;
+}
+
+.c1[data-interactive='true']:hover {
+  background-color: var(--label-bgColor-hover);
+  color: var(--label-fgColor-hover);
+}
+
+.c1[data-interactive='true']:active {
+  background-color: var(--label-bgColor-active);
+  color: var(--label-fgColor-active);
+}
+
 <span
-  className="c0"
+  className="c0 c1"
+  data-interactive={false}
   onKeyDown={[Function]}
-  size="xlarge"
+  size="medium"
+  style={
+    {
+      "--label-bgColor-active": "var(--label-gray-bgColor-active)",
+      "--label-bgColor-hover": "var(--label-gray-bgColor-hover)",
+      "--label-bgColor-rest": "var(--label-gray-bgColor-rest)",
+      "--label-fgColor": "var(--label-gray-fgColor-rest)",
+      "--label-fgColor-active": "var(--label-gray-fgColor-active)",
+      "--label-fgColor-hover": "var(--label-gray-fgColor-hover)",
+    }
+  }
 >
   <span
-    className="c1"
+    className="c2"
   >
     token
   </span>
   <button
     aria-hidden="false"
     aria-label="Remove token"
-    className="c2"
+    className="c3"
     onClick={[Function]}
-    size="xlarge"
+    size="medium"
   >
     <svg
       aria-hidden="true"
       className="octicon octicon-x"
       fill="currentColor"
       focusable="false"
-      height={24}
+      height={15}
       style={
         {
           "display": "inline-block",
@@ -1934,11 +1984,11 @@ exports[`Token components IssueLabelToken renders all sizes 4`] = `
           "verticalAlign": "text-bottom",
         }
       }
-      viewBox="0 0 24 24"
-      width={24}
+      viewBox="0 0 12 12"
+      width={15}
     >
       <path
-        d="M5.72 5.72a.75.75 0 0 1 1.06 0L12 10.94l5.22-5.22a.749.749 0 0 1 1.275.326.749.749 0 0 1-.215.734L13.06 12l5.22 5.22a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215L12 13.06l-5.22 5.22a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042L10.94 12 5.72 6.78a.75.75 0 0 1 0-1.06Z"
+        d="M2.22 2.22a.749.749 0 0 1 1.06 0L6 4.939 8.72 2.22a.749.749 0 1 1 1.06 1.06L7.061 6 9.78 8.72a.749.749 0 1 1-1.06 1.06L6 7.061 3.28 9.78a.749.749 0 1 1-1.06-1.06L4.939 6 2.22 3.28a.749.749 0 0 1 0-1.06Z"
       />
     </svg>
   </button>
@@ -1968,27 +2018,9 @@ exports[`Token components IssueLabelToken renders custom fill color 1`] = `
   line-height: 20px;
   padding-left: 8px;
   padding-right: 8px;
-  --label-r: 3;
-  --label-g: 102;
-  --label-b: 214;
-  --label-h: 212;
-  --label-s: 97;
-  --label-l: 43;
-  --perceived-lightness: calc(((var(--label-r) * 0.2126) + (var(--label-g) * 0.7152) + (var(--label-b) * 0.0722)) / 255);
-  --lightness-switch: max(0,min(calc((var(--perceived-lightness) - var(--lightness-threshold)) * -1000),1));
-  padding-right: 0;
-  position: relative;
-  --lightness-threshold: 0.453;
-  --border-threshold: 0.96;
-  --border-alpha: max(0,min(calc((var(--perceived-lightness) - var(--border-threshold)) * 100),1));
-  background: rgb(var(--label-r),var(--label-g),var(--label-b));
-  color: hsl(0,0%,calc(var(--lightness-switch) * 100%));
-  border-width: 1px;
-  border-style: solid;
-  border-color: hsla(var(--label-h),calc(var(--label-s) * 1%),calc((var(--label-l) - 25) * 1%),var(--border-alpha));
 }
 
-.c2 {
+.c3 {
   background-color: transparent;
   font-family: inherit;
   color: currentColor;
@@ -2015,9 +2047,9 @@ exports[`Token components IssueLabelToken renders custom fill color 1`] = `
   -webkit-text-decoration: none;
   text-decoration: none;
   padding: 0;
-  -webkit-transform: translate(1px,-1px);
-  -ms-transform: translate(1px,-1px);
-  transform: translate(1px,-1px);
+  -webkit-transform: translate(undefinedpx,-undefinedpx);
+  -ms-transform: translate(undefinedpx,-undefinedpx);
+  transform: translate(undefinedpx,-undefinedpx);
   -webkit-align-self: baseline;
   -ms-flex-item-align: baseline;
   align-self: baseline;
@@ -2026,18 +2058,20 @@ exports[`Token components IssueLabelToken renders custom fill color 1`] = `
   margin-left: 4px;
   height: 20px;
   width: 20px;
+  position: relative;
+  z-index: 1;
 }
 
-.c2:hover,
-.c2:focus {
+.c3:hover,
+.c3:focus {
   background-color: var(--bgColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
 }
 
-.c2:active {
+.c3:active {
   background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
 }
 
-.c1 {
+.c2 {
   -webkit-box-flex: 1;
   -webkit-flex-grow: 1;
   -ms-flex-positive: 1;
@@ -2062,11 +2096,11 @@ exports[`Token components IssueLabelToken renders custom fill color 1`] = `
   text-decoration: none;
 }
 
-.c1:is(a,button,[tabIndex='0']) {
+.c2:is(a,button,[tabIndex='0']) {
   cursor: pointer;
 }
 
-.c1:is(a,button,[tabIndex='0']):after {
+.c2:is(a,button,[tabIndex='0']):after {
   content: '';
   position: absolute;
   left: 0;
@@ -2075,20 +2109,49 @@ exports[`Token components IssueLabelToken renders custom fill color 1`] = `
   bottom: 0;
 }
 
+.c1 {
+  background-color: var(--label-bgColor-rest);
+  color: var(--label-fgColor);
+  padding-right: 0;
+  position: relative;
+  border: none;
+}
+
+.c1[data-interactive='true']:hover {
+  background-color: var(--label-bgColor-hover);
+  color: var(--label-fgColor-hover);
+}
+
+.c1[data-interactive='true']:active {
+  background-color: var(--label-bgColor-active);
+  color: var(--label-fgColor-active);
+}
+
 <span
-  className="c0"
+  className="c0 c1"
+  data-interactive={false}
   onKeyDown={[Function]}
   size="medium"
+  style={
+    {
+      "--label-bgColor-active": undefined,
+      "--label-bgColor-hover": "#d4dcf8",
+      "--label-bgColor-rest": "#e1e7ff",
+      "--label-fgColor": "#3765bc",
+      "--label-fgColor-active": undefined,
+      "--label-fgColor-hover": undefined,
+    }
+  }
 >
   <span
-    className="c1"
+    className="c2"
   >
     token
   </span>
   <button
     aria-hidden="false"
     aria-label="Remove token"
-    className="c2"
+    className="c3"
     onClick={[Function]}
     size="medium"
   >
@@ -2140,27 +2203,9 @@ exports[`Token components IssueLabelToken renders default fill color 1`] = `
   line-height: 20px;
   padding-left: 8px;
   padding-right: 8px;
-  --label-r: 153;
-  --label-g: 153;
-  --label-b: 153;
-  --label-h: 0;
-  --label-s: 0;
-  --label-l: 60;
-  --perceived-lightness: calc(((var(--label-r) * 0.2126) + (var(--label-g) * 0.7152) + (var(--label-b) * 0.0722)) / 255);
-  --lightness-switch: max(0,min(calc((var(--perceived-lightness) - var(--lightness-threshold)) * -1000),1));
-  padding-right: 0;
-  position: relative;
-  --lightness-threshold: 0.453;
-  --border-threshold: 0.96;
-  --border-alpha: max(0,min(calc((var(--perceived-lightness) - var(--border-threshold)) * 100),1));
-  background: rgb(var(--label-r),var(--label-g),var(--label-b));
-  color: hsl(0,0%,calc(var(--lightness-switch) * 100%));
-  border-width: 1px;
-  border-style: solid;
-  border-color: hsla(var(--label-h),calc(var(--label-s) * 1%),calc((var(--label-l) - 25) * 1%),var(--border-alpha));
 }
 
-.c2 {
+.c3 {
   background-color: transparent;
   font-family: inherit;
   color: currentColor;
@@ -2187,9 +2232,9 @@ exports[`Token components IssueLabelToken renders default fill color 1`] = `
   -webkit-text-decoration: none;
   text-decoration: none;
   padding: 0;
-  -webkit-transform: translate(1px,-1px);
-  -ms-transform: translate(1px,-1px);
-  transform: translate(1px,-1px);
+  -webkit-transform: translate(undefinedpx,-undefinedpx);
+  -ms-transform: translate(undefinedpx,-undefinedpx);
+  transform: translate(undefinedpx,-undefinedpx);
   -webkit-align-self: baseline;
   -ms-flex-item-align: baseline;
   align-self: baseline;
@@ -2198,18 +2243,20 @@ exports[`Token components IssueLabelToken renders default fill color 1`] = `
   margin-left: 4px;
   height: 20px;
   width: 20px;
+  position: relative;
+  z-index: 1;
 }
 
-.c2:hover,
-.c2:focus {
+.c3:hover,
+.c3:focus {
   background-color: var(--bgColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
 }
 
-.c2:active {
+.c3:active {
   background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
 }
 
-.c1 {
+.c2 {
   -webkit-box-flex: 1;
   -webkit-flex-grow: 1;
   -ms-flex-positive: 1;
@@ -2234,11 +2281,11 @@ exports[`Token components IssueLabelToken renders default fill color 1`] = `
   text-decoration: none;
 }
 
-.c1:is(a,button,[tabIndex='0']) {
+.c2:is(a,button,[tabIndex='0']) {
   cursor: pointer;
 }
 
-.c1:is(a,button,[tabIndex='0']):after {
+.c2:is(a,button,[tabIndex='0']):after {
   content: '';
   position: absolute;
   left: 0;
@@ -2247,20 +2294,49 @@ exports[`Token components IssueLabelToken renders default fill color 1`] = `
   bottom: 0;
 }
 
+.c1 {
+  background-color: var(--label-bgColor-rest);
+  color: var(--label-fgColor);
+  padding-right: 0;
+  position: relative;
+  border: none;
+}
+
+.c1[data-interactive='true']:hover {
+  background-color: var(--label-bgColor-hover);
+  color: var(--label-fgColor-hover);
+}
+
+.c1[data-interactive='true']:active {
+  background-color: var(--label-bgColor-active);
+  color: var(--label-fgColor-active);
+}
+
 <span
-  className="c0"
+  className="c0 c1"
+  data-interactive={false}
   onKeyDown={[Function]}
   size="medium"
+  style={
+    {
+      "--label-bgColor-active": "var(--label-gray-bgColor-active)",
+      "--label-bgColor-hover": "var(--label-gray-bgColor-hover)",
+      "--label-bgColor-rest": "var(--label-gray-bgColor-rest)",
+      "--label-fgColor": "var(--label-gray-fgColor-rest)",
+      "--label-fgColor-active": "var(--label-gray-fgColor-active)",
+      "--label-fgColor-hover": "var(--label-gray-fgColor-hover)",
+    }
+  }
 >
   <span
-    className="c1"
+    className="c2"
   >
     token
   </span>
   <button
     aria-hidden="false"
     aria-label="Remove token"
-    className="c2"
+    className="c3"
     onClick={[Function]}
     size="medium"
   >
@@ -2312,44 +2388,9 @@ exports[`Token components IssueLabelToken renders isSelected 1`] = `
   line-height: 20px;
   padding-left: 8px;
   padding-right: 8px;
-  --label-r: 153;
-  --label-g: 153;
-  --label-b: 153;
-  --label-h: 0;
-  --label-s: 0;
-  --label-l: 60;
-  --perceived-lightness: calc(((var(--label-r) * 0.2126) + (var(--label-g) * 0.7152) + (var(--label-b) * 0.0722)) / 255);
-  --lightness-switch: max(0,min(calc((var(--perceived-lightness) - var(--lightness-threshold)) * -1000),1));
-  position: relative;
-  --lightness-threshold: 0.453;
-  --border-threshold: 0.96;
-  --border-alpha: max(0,min(calc((var(--perceived-lightness) - var(--border-threshold)) * 100),1));
-  background: hsl(var(--label-h),calc(var(--label-s) * 1%),calc((var(--label-l) - 5) * 1%));
-  color: hsl(0,0%,calc(var(--lightness-switch) * 100%));
-  border-width: 1px;
-  border-style: solid;
-  border-color: hsla(var(--label-h),calc(var(--label-s) * 1%),calc((var(--label-l) - 25) * 1%),var(--border-alpha));
 }
 
-.c0:focus {
-  outline: none;
-}
-
-.c0:after {
-  content: "";
-  position: absolute;
-  z-index: 1;
-  top: -2px;
-  right: -2px;
-  bottom: -2px;
-  left: -2px;
-  display: block;
-  pointer-events: none;
-  box-shadow: 0 0 0 2px rgb(var(--label-r),var(--label-g),var(--label-b));
-  border-radius: 999px;
-}
-
-.c1 {
+.c2 {
   -webkit-box-flex: 1;
   -webkit-flex-grow: 1;
   -ms-flex-positive: 1;
@@ -2374,11 +2415,11 @@ exports[`Token components IssueLabelToken renders isSelected 1`] = `
   text-decoration: none;
 }
 
-.c1:is(a,button,[tabIndex='0']) {
+.c2:is(a,button,[tabIndex='0']) {
   cursor: pointer;
 }
 
-.c1:is(a,button,[tabIndex='0']):after {
+.c2:is(a,button,[tabIndex='0']):after {
   content: '';
   position: absolute;
   left: 0;
@@ -2387,13 +2428,41 @@ exports[`Token components IssueLabelToken renders isSelected 1`] = `
   bottom: 0;
 }
 
+.c1 {
+  background-color: var(--label-bgColor-rest);
+  color: var(--label-fgColor);
+  position: relative;
+  border: none;
+}
+
+.c1[data-interactive='true']:hover {
+  background-color: var(--label-bgColor-hover);
+  color: var(--label-fgColor-hover);
+}
+
+.c1[data-interactive='true']:active {
+  background-color: var(--label-bgColor-active);
+  color: var(--label-fgColor-active);
+}
+
 <span
-  className="c0"
+  className="c0 c1"
+  data-interactive={false}
   onKeyDown={[Function]}
   size="medium"
+  style={
+    {
+      "--label-bgColor-active": "var(--label-gray-bgColor-active)",
+      "--label-bgColor-hover": "var(--label-gray-bgColor-hover)",
+      "--label-bgColor-rest": "var(--label-gray-bgColor-rest)",
+      "--label-fgColor": "var(--label-gray-fgColor-rest)",
+      "--label-fgColor-active": "var(--label-gray-fgColor-active)",
+      "--label-fgColor-hover": "var(--label-gray-fgColor-hover)",
+    }
+  }
 >
   <span
-    className="c1"
+    className="c2"
   >
     token
   </span>
@@ -2423,27 +2492,9 @@ exports[`Token components IssueLabelToken renders with a remove button 1`] = `
   line-height: 20px;
   padding-left: 8px;
   padding-right: 8px;
-  --label-r: 153;
-  --label-g: 153;
-  --label-b: 153;
-  --label-h: 0;
-  --label-s: 0;
-  --label-l: 60;
-  --perceived-lightness: calc(((var(--label-r) * 0.2126) + (var(--label-g) * 0.7152) + (var(--label-b) * 0.0722)) / 255);
-  --lightness-switch: max(0,min(calc((var(--perceived-lightness) - var(--lightness-threshold)) * -1000),1));
-  padding-right: 0;
-  position: relative;
-  --lightness-threshold: 0.453;
-  --border-threshold: 0.96;
-  --border-alpha: max(0,min(calc((var(--perceived-lightness) - var(--border-threshold)) * 100),1));
-  background: rgb(var(--label-r),var(--label-g),var(--label-b));
-  color: hsl(0,0%,calc(var(--lightness-switch) * 100%));
-  border-width: 1px;
-  border-style: solid;
-  border-color: hsla(var(--label-h),calc(var(--label-s) * 1%),calc((var(--label-l) - 25) * 1%),var(--border-alpha));
 }
 
-.c2 {
+.c3 {
   background-color: transparent;
   font-family: inherit;
   color: currentColor;
@@ -2470,9 +2521,9 @@ exports[`Token components IssueLabelToken renders with a remove button 1`] = `
   -webkit-text-decoration: none;
   text-decoration: none;
   padding: 0;
-  -webkit-transform: translate(1px,-1px);
-  -ms-transform: translate(1px,-1px);
-  transform: translate(1px,-1px);
+  -webkit-transform: translate(undefinedpx,-undefinedpx);
+  -ms-transform: translate(undefinedpx,-undefinedpx);
+  transform: translate(undefinedpx,-undefinedpx);
   -webkit-align-self: baseline;
   -ms-flex-item-align: baseline;
   align-self: baseline;
@@ -2481,18 +2532,20 @@ exports[`Token components IssueLabelToken renders with a remove button 1`] = `
   margin-left: 4px;
   height: 20px;
   width: 20px;
+  position: relative;
+  z-index: 1;
 }
 
-.c2:hover,
-.c2:focus {
+.c3:hover,
+.c3:focus {
   background-color: var(--bgColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
 }
 
-.c2:active {
+.c3:active {
   background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
 }
 
-.c1 {
+.c2 {
   -webkit-box-flex: 1;
   -webkit-flex-grow: 1;
   -ms-flex-positive: 1;
@@ -2517,11 +2570,11 @@ exports[`Token components IssueLabelToken renders with a remove button 1`] = `
   text-decoration: none;
 }
 
-.c1:is(a,button,[tabIndex='0']) {
+.c2:is(a,button,[tabIndex='0']) {
   cursor: pointer;
 }
 
-.c1:is(a,button,[tabIndex='0']):after {
+.c2:is(a,button,[tabIndex='0']):after {
   content: '';
   position: absolute;
   left: 0;
@@ -2530,20 +2583,49 @@ exports[`Token components IssueLabelToken renders with a remove button 1`] = `
   bottom: 0;
 }
 
+.c1 {
+  background-color: var(--label-bgColor-rest);
+  color: var(--label-fgColor);
+  padding-right: 0;
+  position: relative;
+  border: none;
+}
+
+.c1[data-interactive='true']:hover {
+  background-color: var(--label-bgColor-hover);
+  color: var(--label-fgColor-hover);
+}
+
+.c1[data-interactive='true']:active {
+  background-color: var(--label-bgColor-active);
+  color: var(--label-fgColor-active);
+}
+
 <span
-  className="c0"
+  className="c0 c1"
+  data-interactive={false}
   onKeyDown={[Function]}
   size="medium"
+  style={
+    {
+      "--label-bgColor-active": "var(--label-gray-bgColor-active)",
+      "--label-bgColor-hover": "var(--label-gray-bgColor-hover)",
+      "--label-bgColor-rest": "var(--label-gray-bgColor-rest)",
+      "--label-fgColor": "var(--label-gray-fgColor-rest)",
+      "--label-fgColor-active": "var(--label-gray-fgColor-active)",
+      "--label-fgColor-hover": "var(--label-gray-fgColor-hover)",
+    }
+  }
 >
   <span
-    className="c1"
+    className="c2"
   >
     token
   </span>
   <button
     aria-hidden="false"
     aria-label="Remove token"
-    className="c2"
+    className="c3"
     onClick={[Function]}
     size="medium"
   >

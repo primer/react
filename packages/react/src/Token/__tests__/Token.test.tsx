@@ -27,22 +27,6 @@ const testTokenComponent = (Component: React.ComponentType<React.PropsWithChildr
     expect(render(<Component text="token" onRemove={onRemoveMock} />)).toMatchSnapshot()
   })
 
-  it('renders button inside the token when the token also has a remove button', () => {
-    const onRemoveMock = jest.fn()
-    const {getByText} = HTMLRender(<Component as="button" text="token" onRemove={onRemoveMock} />)
-
-    expect(render(<Component as="button" text="token" onRemove={onRemoveMock} />).type).not.toEqual('button')
-    expect(getByText('token').tagName.toLowerCase()).toEqual('button')
-  })
-
-  it('renders anchor inside the token when the token also has a remove button', () => {
-    const onRemoveMock = jest.fn()
-    const {getByText} = HTMLRender(<Component as="a" text="token" onRemove={onRemoveMock} />)
-
-    expect(render(<Component as="a" text="token" onRemove={onRemoveMock} />).type).not.toEqual('a')
-    expect(getByText('token').tagName.toLowerCase()).toEqual('a')
-  })
-
   it('renders isSelected', () => {
     expect(render(<Component text="token" isSelected />)).toMatchSnapshot()
   })
@@ -93,6 +77,22 @@ describe('Token components', () => {
         render(<Token text="token" leadingVisual={() => <div style={{backgroundColor: 'blue'}} />} />),
       ).toMatchSnapshot()
     })
+
+    it('renders button inside the token when the token also has a remove button', () => {
+      const onRemoveMock = jest.fn()
+      const {getByText} = HTMLRender(<Token as="button" text="token" onRemove={onRemoveMock} />)
+
+      expect(render(<Token as="button" text="token" onRemove={onRemoveMock} />).type).not.toEqual('button')
+      expect(getByText('token').tagName.toLowerCase()).toEqual('button')
+    })
+
+    it('renders anchor inside the token when the token also has a remove button', () => {
+      const onRemoveMock = jest.fn()
+      const {getByText} = HTMLRender(<Token as="a" text="token" onRemove={onRemoveMock} />)
+
+      expect(render(<Token as="a" text="token" onRemove={onRemoveMock} />).type).not.toEqual('a')
+      expect(getByText('token').tagName.toLowerCase()).toEqual('a')
+    })
   })
 
   describe('IssueLabelToken', () => {
@@ -113,8 +113,28 @@ describe('Token components', () => {
     const AvatarTokenWithDefaultAvatar = ({
       avatarSrc = 'https://avatars.githubusercontent.com/mperrotti',
       ...rest
-    }: Omit<AvatarTokenProps, 'ref'>) => <AvatarToken avatarSrc={avatarSrc} {...rest} />
+    }: Omit<AvatarTokenProps, 'ref' | 'avatarSrc'> & {avatarSrc?: string}) => (
+      <AvatarToken avatarSrc={avatarSrc} {...rest} />
+    )
 
     testTokenComponent(AvatarTokenWithDefaultAvatar)
+
+    it('renders button inside the token when the token also has a remove button', () => {
+      const onRemoveMock = jest.fn()
+      const {getByText} = HTMLRender(<AvatarTokenWithDefaultAvatar as="button" text="token" onRemove={onRemoveMock} />)
+
+      expect(
+        render(<AvatarTokenWithDefaultAvatar as="button" text="token" onRemove={onRemoveMock} />).type,
+      ).not.toEqual('button')
+      expect(getByText('token').tagName.toLowerCase()).toEqual('button')
+    })
+
+    it('renders anchor inside the token when the token also has a remove button', () => {
+      const onRemoveMock = jest.fn()
+      const {getByText} = HTMLRender(<AvatarTokenWithDefaultAvatar as="a" text="token" onRemove={onRemoveMock} />)
+
+      expect(render(<AvatarTokenWithDefaultAvatar as="a" text="token" onRemove={onRemoveMock} />).type).not.toEqual('a')
+      expect(getByText('token').tagName.toLowerCase()).toEqual('a')
+    })
   })
 })
