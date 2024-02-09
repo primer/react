@@ -8,4 +8,11 @@ export default {
   component: TabPanels,
 } as Meta<ComponentProps<typeof TabPanels>>
 
-export const Selected = () => <TabPanels aria-label="Main"></TabPanels>
+export const Selected = () => (<TabPanels aria-label="Main">
+    <TabPanels.Tab>One</TabPanels.Tab>
+    <TabPanels.Tab selected>Two</TabPanels.Tab>
+    <TabPanels.Tab>Three</TabPanels.Tab>
+    <TabPanels.Panel>One</TabPanels.Panel>
+    <TabPanels.Panel>Two</TabPanels.Panel>
+    <TabPanels.Panel>Three</TabPanels.Panel>
+  </TabPanels>)

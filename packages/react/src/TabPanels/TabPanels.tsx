@@ -15,27 +15,32 @@ function TabPanels({children}: TabPanelsProps) {
   let selectedTabIndex = -1
   let tabIndex = -1
 
-  childrenArray.some(child => {
-    if (React.isValidElement<Tab>(child) && child.type === Tab) {
+  for (const child of childrenArray) {
+    if (React.isValidElement<TabPanelsTabProps>(child) && child.type === Tab) {
       tabIndex += 1
-      if (child.selected) {
+      if (child.props.selected === true) {
         selectedTabIndex = tabIndex
-        return true
+        break
       }
     }
-  })
+  }
+
+  if (tabIndex === -1) {
+    throw new Error('TabPanels must have at least one Tab')
+  }
+
   selectedTabIndex = Math.max(selectedTabIndex, 0)
   tabIndex = -1
   let panelIndex = -1
 
-  const tabs: Tab = []
-  const panels: Panel = []
+  const tabs: JSX.Element[] = []
+  const panels: JSX.Element[] = []
   for (const child of childrenArray) {
-    if (React.isValidElement<Tab>(child) && child.type === Tab) {
+    if (React.isValidElement<TabPanelsTabProps>(child) && child.type === Tab) {
       tabIndex += 1
       tabs.push(React.cloneElement(child, {selected: tabIndex === selectedTabIndex}))
     }
-    if (React.isValidElement<Panel>(child) && child.type === Panel) {
+    if (React.isValidElement<TabPanelsPanelProps>(child) && child.type === Panel) {
       panelIndex += 1
       panels.push(React.cloneElement(child, {selected: panelIndex === selectedTabIndex}))
     }
