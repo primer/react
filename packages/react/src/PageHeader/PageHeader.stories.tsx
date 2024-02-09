@@ -198,7 +198,7 @@ export const Playground: Story = args => (
             <Breadcrumbs.Item href="https://github.com/primer/react/tree/main/packages/react/src/PageHeader">
               PageHeader
             </Breadcrumbs.Item>
-            <Breadcrumbs.Item href="https://github.com/primer/react/blob/main/src/PageHeader/PageHeader.tsx">
+            <Breadcrumbs.Item href="https://github.com/primer/react/tree/main/packages/react/src/PageHeader/PageHeader.tsx">
               PageHeader.tsx
             </Breadcrumbs.Item>
           </Breadcrumbs>
