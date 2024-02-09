@@ -357,6 +357,7 @@ const Subtitle = styled.h2<SxProp>`
   color: ${get('colors.fg.muted')};
   margin: 0; /* override default margin */
   margin-top: ${get('space.1')};
+  font-weight: normal; // added font-weight: normal
 
   ${sx};
 `
