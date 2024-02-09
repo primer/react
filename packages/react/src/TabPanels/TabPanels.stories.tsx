@@ -8,10 +8,7 @@ export default {
   component: TabPanels,
 } as Meta<ComponentProps<typeof TabPanels>>
 
-export const Playground: Story<ComponentProps<typeof TabPanels>> = args => (
-  <TabPanels {...args}>
-  </TabPanels>
-)
+export const Playground: Story<ComponentProps<typeof TabPanels>> = args => <TabPanels {...args}></TabPanels>
 
 Playground.args = {
   'aria-label': 'Navigation',
