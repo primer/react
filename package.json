@@ -95,5 +95,8 @@
   ],
   "lint-staged": {
     "**/*.{js,ts,tsx,md,mdx}": "npm run lint"
+  },
+  "dependencies": {
+    "@github/tab-container-element": "3.3.0"
   }
 }
