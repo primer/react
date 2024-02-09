@@ -1,0 +1,83 @@
+import {render, screen} from '@testing-library/react'
+import React from 'react'
+import {Stack} from '../Stack'
+
+describe('Stack', () => {
+  it('should support rendering content through `children`', () => {
+    render(
+      <Stack>
+        <span data-testid="children" />
+      </Stack>,
+    )
+    expect(screen.getByTestId('children')).toBeInTheDocument()
+  })
+
+  it('should render a custom component with the `as` prop', () => {
+    const {container, rerender} = render(<Stack as="section" />)
+
+    expect(container.firstChild?.nodeName).toBe('SECTION')
+
+    const CustomComponent = jest.fn(({children}: React.PropsWithChildren) => {
+      return <div data-testid="custom-component">{children}</div>
+    })
+    rerender(<Stack as={CustomComponent}></Stack>)
+
+    expect(CustomComponent).toHaveBeenCalled()
+    expect(screen.getByTestId('custom-component')).toBeInTheDocument()
+  })
+
+  it('should set the default gap to `normal`', () => {
+    render(<Stack data-testid="stack" />)
+    expect(screen.getByTestId('stack')).toHaveStyle('--stack-gap: var(--stack-gap-normal,1rem);')
+  })
+
+  it('should support specifying the stack gap with the `gap` prop', () => {
+    render(
+      <>
+        <Stack data-testid="condensed" gap="condensed" />
+        <Stack data-testid="normal" gap="normal" />
+        <Stack data-testid="spacious" gap="spacious" />
+      </>,
+    )
+    expect(screen.getByTestId('condensed')).toHaveStyle('--stack-gap: var(--stack-gap-condensed,0.5rem);')
+    expect(screen.getByTestId('normal')).toHaveStyle('--stack-gap: var(--stack-gap-normal,1rem);')
+    expect(screen.getByTestId('spacious')).toHaveStyle('--stack-gap: var(--stack-gap-spacious,1.5rem);')
+  })
+
+  it('should set the default padding to `normal`', () => {
+    render(<Stack data-testid="stack" />)
+    expect(screen.getByTestId('stack')).toHaveStyle('--stack-padding: var(--stack-padding-normal,1rem);')
+  })
+
+  it('should support specifying the stack padding with the `padding` prop', () => {
+    render(
+      <>
+        <Stack data-testid="condensed" padding="condensed" />
+        <Stack data-testid="normal" padding="normal" />
+        <Stack data-testid="spacious" padding="spacious" />
+      </>,
+    )
+    expect(screen.getByTestId('condensed')).toHaveStyle('--stack-padding: var(--stack-padding-condensed,0.5rem);')
+    expect(screen.getByTestId('normal')).toHaveStyle('--stack-padding: var(--stack-padding-normal,1rem);')
+    expect(screen.getByTestId('spacious')).toHaveStyle('--stack-padding: var(--stack-padding-spacious,1.5rem);')
+  })
+
+  it('should set the default orientation to `vertical`', () => {
+    render(<Stack data-testid="stack" />)
+    expect(screen.getByTestId('stack')).toHaveAttribute('data-orientation', 'vertical')
+  })
+
+  it('should support changing the stack direction with the `orientation` prop', () => {
+    render(
+      <>
+        <Stack data-testid="vertical" orientation="vertical" />
+        <Stack data-testid="horizontal" orientation="horizontal" />
+      </>,
+    )
+    expect(screen.getByTestId('vertical')).toHaveAttribute('data-orientation', 'vertical')
+    expect(screen.getByTestId('horizontal')).toHaveAttribute('data-orientation', 'horizontal')
+  })
+
+  // todo extra props
+  // todo responsive values
+})
