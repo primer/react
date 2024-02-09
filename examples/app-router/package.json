@@ -1,19 +1,21 @@
 {
-  "name": "example-nextjs",
+  "name": "example-app-router",
   "private": true,
-  "version": "0.0.0",
   "scripts": {
-    "build": "next build",
+    "clean": "rimraf .next",
     "develop": "next",
-    "start": "next start",
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
-    "@primer/octicons-react": "^18.2.0",
     "@primer/react": "36.x",
     "next": "^14.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "styled-components": "5.x"
+    "styled-components": "5.x",
+    "typescript": "^5.3.3"
+  },
+  "devDependencies": {
+    "@next/eslint-plugin-next": "14.1.0",
+    "rimraf": "^5.0.5"
   }
 }
