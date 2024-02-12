@@ -21,7 +21,7 @@ jobs:
       number: ${{ steps.pr.outputs.number }}
     steps:
       - name: 'Get Pull Request'
-        uses: actions/github-script@v7
+        uses: actions/github-script@v7.0.1
         with:
           script: |
             const fs = require('fs');
@@ -43,7 +43,7 @@ jobs:
       - run: |
           mkdir PR
           unzip PR.zip -d PR
-      - uses: actions/github-script@v7
+      - uses: actions/github-script@v7.0.1
         id: pr
         with:
           script: |
@@ -75,7 +75,7 @@ jobs:
           ref: ${{ github.event.workflow_run.head_branch }}
           token: ${{ steps.generate_token.outputs.token }}
       - name: 'Download artifact'
-        uses: actions/github-script@v7
+        uses: actions/github-script@v7.0.1
         with:
           script: |
             const fs = require('fs');
@@ -122,7 +122,7 @@ jobs:
       pull-requests: write
     steps:
       - name: Remove label
-        uses: actions/github-script@v7
+        uses: actions/github-script@v7.0.1
         with:
           script: |
             const fs = require('fs');
