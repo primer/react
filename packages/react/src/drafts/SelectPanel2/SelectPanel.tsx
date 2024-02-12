@@ -165,7 +165,9 @@ const Panel: React.FC<SelectPanelProps> = ({
 
   // used in SelectPanel.SearchInput
   const moveFocusToList = () => {
-    const firstListElement = dialogRef.current?.querySelector('ul[role=listbox] li') as HTMLLIElement | undefined
+    const selector = 'ul[role=listbox] li:not([role=none])'
+    // being specific about roles because there can be another ul (tabs in header) and an ActionList.Group (li[role=none])
+    const firstListElement = dialogRef.current?.querySelector(selector) as HTMLLIElement | undefined
     firstListElement?.focus()
   }
 
