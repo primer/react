@@ -14,10 +14,9 @@ import Portal from '../Portal'
 import {useRefObjectAsForwardedRef} from '../hooks/useRefObjectAsForwardedRef'
 import {useId} from '../hooks/useId'
 import {ScrollableRegion} from '../internal/components/ScrollableRegion'
+import {ResponsiveValue} from '../hooks/useResponsiveValue'
 
 /* Dialog Version 2 */
-
-const ANIMATION_DURATION = '200ms'
 
 /**
  * Props that characterize a button to be rendered into the footer of
@@ -126,6 +125,11 @@ export interface DialogProps extends SxProp {
    * auto: variable based on contents
    */
   height?: DialogHeight
+
+  /**
+   * The position of the dialog
+   */
+  position?: 'center' | 'left' | 'right' | ResponsiveValue<'left' | 'right' | 'bottom' | 'fullscreen' | 'center'>
 }
 
 /**
@@ -155,7 +159,38 @@ const Backdrop = styled('div')`
   align-items: center;
   justify-content: center;
   background-color: ${get('colors.primer.canvas.backdrop')};
-  animation: dialog-backdrop-appear ${ANIMATION_DURATION} ${get('animation.easeOutCubic')};
+  animation: dialog-backdrop-appear 200ms ${get('animation.easeOutCubic')};
+
+  &[data-position-regular='center'] {
+    align-items: center;
+    justify-content: center;
+  }
+
+  &[data-position-regular='left'] {
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  &[data-position-regular='right'] {
+    align-items: center;
+    justify-content: flex-end;
+  }
+
+  .DialogOverflowWrapper {
+    flex-grow: 1;
+  }
+
+  @media (max-width: 767px) {
+    &[data-position-narrow='center'] {
+      align-items: center;
+      justify-content: center;
+    }
+
+    &[data-position-narrow='bottom'] {
+      align-items: end;
+      justify-content: center;
+    }
+  }
 
   @keyframes dialog-backdrop-appear {
     0% {
@@ -193,16 +228,86 @@ const StyledDialog = styled.div<StyledDialogProps>`
   flex-direction: column;
   background-color: ${get('colors.canvas.overlay')};
   box-shadow: ${get('shadows.overlay.shadow')};
+  width: ${props => widthMap[props.width ?? ('xlarge' as const)]};
+  height: ${props => heightMap[props.height ?? ('auto' as const)]};
   min-width: 296px;
   max-width: calc(100vw - 64px);
   max-height: calc(100vh - 64px);
-  width: ${props => widthMap[props.width ?? ('xlarge' as const)]};
-  height: ${props => heightMap[props.height ?? ('auto' as const)]};
   border-radius: 12px;
   opacity: 1;
-  animation: overlay--dialog-appear ${ANIMATION_DURATION} ${get('animation.easeOutCubic')};
 
-  @keyframes overlay--dialog-appear {
+  @media screen and (prefers-reduced-motion: no-preference) {
+    animation: Overlay--motion-scaleFade 0.2s cubic-bezier(0.33, 1, 0.68, 1) 0s 1 normal none running;
+  }
+
+  &[data-position-regular='center'] {
+    border-radius: var(--borderRadius-large, 0.75rem);
+
+    @media screen and (prefers-reduced-motion: no-preference) {
+      animation: Overlay--motion-scaleFade 0.2s cubic-bezier(0.33, 1, 0.68, 1) 0s 1 normal none running;
+    }
+  }
+
+  &[data-position-regular='left'] {
+    height: 100vh;
+    max-height: unset;
+    border-radius: var(--borderRadius-large, 0.75rem);
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+
+    @media screen and (prefers-reduced-motion: no-preference) {
+      animation: Overlay--motion-slideInRight 0.25s cubic-bezier(0.33, 1, 0.68, 1) 0s 1 normal none running;
+    }
+  }
+
+  &[data-position-regular='right'] {
+    height: 100vh;
+    max-height: unset;
+    border-radius: var(--borderRadius-large, 0.75rem);
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+
+    @media screen and (prefers-reduced-motion: no-preference) {
+      animation: Overlay--motion-slideInLeft 0.25s cubic-bezier(0.33, 1, 0.68, 1) 0s 1 normal none running;
+    }
+  }
+
+  @media (max-width: 767px) {
+    &[data-position-narrow='center'] {
+      border-radius: var(--borderRadius-large, 0.75rem);
+      width: ${props => widthMap[props.width ?? ('xlarge' as const)]};
+      height: ${props => heightMap[props.height ?? ('auto' as const)]};
+    }
+
+    &[data-position-narrow='bottom'] {
+      width: 100vw;
+      height: auto;
+      max-width: 100vw;
+      max-height: calc(100vh - 64px);
+      border-radius: var(--borderRadius-large, 0.75rem);
+      border-bottom-right-radius: 0;
+      border-bottom-left-radius: 0;
+
+      @media screen and (prefers-reduced-motion: no-preference) {
+        animation: Overlay--motion-slideUp 0.25s cubic-bezier(0.33, 1, 0.68, 1) 0s 1 normal none running;
+      }
+    }
+
+    &[data-position-narrow='fullscreen'] {
+      width: 100%;
+      max-width: 100vw;
+      height: 100%;
+      max-height: 100vh;
+      border-radius: unset !important;
+      flex-grow: 1;
+
+      @media screen and (prefers-reduced-motion: no-preference) {
+        animation: Overlay--motion-scaleFade 0.2s cubic-bezier(0.33, 1, 0.68, 1) 0s 1 normal none running;
+      }
+    }
+  }
+
+  @keyframes Overlay--motion-scaleFade {
     0% {
       opacity: 0;
       transform: scale(0.5);
@@ -210,6 +315,24 @@ const StyledDialog = styled.div<StyledDialogProps>`
     100% {
       opacity: 1;
       transform: scale(1);
+    }
+  }
+
+  @keyframes Overlay--motion-slideUp {
+    from {
+      transform: translateY(100%);
+    }
+  }
+
+  @keyframes Overlay--motion-slideInRight {
+    from {
+      transform: translateX(-100%);
+    }
+  }
+
+  @keyframes Overlay--motion-slideInLeft {
+    from {
+      transform: translateX(100%);
     }
   }
 
@@ -253,6 +376,11 @@ const DefaultFooter: React.FC<React.PropsWithChildren<DialogProps>> = ({footerBu
   ) : null
 }
 
+const defaultPosition = {
+  narrow: 'center',
+  regular: 'center',
+}
+
 const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogProps>>((props, forwardedRef) => {
   const {
     title = 'Dialog',
@@ -265,6 +393,7 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
     width = 'xlarge',
     height = 'auto',
     footerButtons = [],
+    position = defaultPosition,
     sx,
   } = props
   const dialogLabelId = useId()
@@ -309,11 +438,19 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
   const header = (renderHeader ?? DefaultHeader)(defaultedProps)
   const body = (renderBody ?? DefaultBody)(defaultedProps)
   const footer = (renderFooter ?? DefaultFooter)(defaultedProps)
+  const positionDataAttributes =
+    typeof position === 'string'
+      ? {'data-position-regular': position}
+      : Object.fromEntries(
+          Object.entries(position).map(([key, value]) => {
+            return [`data-position-${key}`, value]
+          }),
+        )
 
   return (
     <>
       <Portal>
-        <Backdrop ref={backdropRef}>
+        <Backdrop ref={backdropRef} {...positionDataAttributes}>
           <StyledDialog
             width={width}
             height={height}
@@ -322,6 +459,7 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
             aria-labelledby={dialogLabelId}
             aria-describedby={dialogDescriptionId}
             aria-modal
+            {...positionDataAttributes}
             sx={sx}
           >
             {header}

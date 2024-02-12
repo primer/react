@@ -127,7 +127,7 @@
     "@rollup/plugin-terser": "0.4.3",
     "@rollup/plugin-typescript": "11.1.5",
     "@rollup/plugin-virtual": "3.0.2",
-    "@storybook/addon-a11y": "7.6.10",
+    "@storybook/addon-a11y": "7.6.14",
     "@storybook/addon-actions": "7.6.8",
     "@storybook/addon-essentials": "7.6.10",
     "@storybook/addon-interactions": "7.6.4",

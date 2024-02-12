@@ -273,31 +273,6 @@ const components = new Map([
           id: 'components-buttongroup-features--icon-buttons',
           name: 'Icon Buttons',
         },
-        {
-          id: 'components-buttongroup-features--button-group-with-tooltip',
-          name: 'Button Group With Tooltip',
-        },
-
-        {
-          id: 'components-buttongroup-features--button-group-with-tooltip-2',
-          name: 'Button Group With Tooltip 2',
-        },
-        {
-          id: 'components-buttongroup-features--icon-buttons-with-tooltip',
-          name: 'Icon Buttons With Tooltip',
-        },
-        {
-          id: 'components-buttongroup-features--icon-buttons-with-tooltip-2',
-          name: 'Icon Buttons With Tooltip 2',
-        },
-        {
-          id: 'components-buttongroup-features--links-with-tooltip',
-          name: 'Links With Tooltip',
-        },
-        {
-          id: 'components-buttongroup-features--links-with-tooltip-2',
-          name: 'Links With Tooltip 2',
-        },
       ],
     },
   ],

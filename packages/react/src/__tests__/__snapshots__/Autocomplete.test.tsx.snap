@@ -747,7 +747,8 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
   }
 
   .c3:focus-visible,
-  .c3 > a:focus-visible {
+  .c3 > a:focus-visible,
+  .c3:focus.focus-visible {
     outline: none;
     border: 2 solid;
     box-shadow: 0 0 0 2px var(--bgColor-accent-emphasis,var(--color-accent-emphasis,#0969da));
@@ -1489,7 +1490,8 @@ exports[`snapshots renders a multiselect input 1`] = `
   }
 
   .c3:focus-visible,
-  .c3 > a:focus-visible {
+  .c3 > a:focus-visible,
+  .c3:focus.focus-visible {
     outline: none;
     border: 2 solid;
     box-shadow: 0 0 0 2px var(--bgColor-accent-emphasis,var(--color-accent-emphasis,#0969da));
@@ -2290,7 +2292,8 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
   }
 
   .c3:focus-visible,
-  .c3 > a:focus-visible {
+  .c3 > a:focus-visible,
+  .c3:focus.focus-visible {
     outline: none;
     border: 2 solid;
     box-shadow: 0 0 0 2px var(--bgColor-accent-emphasis,var(--color-accent-emphasis,#0969da));
@@ -2316,7 +2319,8 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
   }
 
   .c8:focus-visible,
-  .c8 > a:focus-visible {
+  .c8 > a:focus-visible,
+  .c8:focus.focus-visible {
     outline: none;
     border: 2 solid;
     box-shadow: 0 0 0 2px var(--bgColor-accent-emphasis,var(--color-accent-emphasis,#0969da));
@@ -2955,7 +2959,8 @@ exports[`snapshots renders a single select input 1`] = `
   }
 
   .c3:focus-visible,
-  .c3 > a:focus-visible {
+  .c3 > a:focus-visible,
+  .c3:focus.focus-visible {
     outline: none;
     border: 2 solid;
     box-shadow: 0 0 0 2px var(--bgColor-accent-emphasis,var(--color-accent-emphasis,#0969da));
@@ -3408,7 +3413,8 @@ exports[`snapshots renders with a custom text input component 1`] = `
   }
 
   .c3:focus-visible,
-  .c3 > a:focus-visible {
+  .c3 > a:focus-visible,
+  .c3:focus.focus-visible {
     outline: none;
     border: 2 solid;
     box-shadow: 0 0 0 2px var(--bgColor-accent-emphasis,var(--color-accent-emphasis,#0969da));
