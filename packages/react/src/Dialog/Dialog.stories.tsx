@@ -1,33 +1,23 @@
 import React, {useState, useRef, useCallback} from 'react'
-import {Meta} from '@storybook/react'
-
-import {BaseStyles, ThemeProvider} from '..'
-import {Button} from '../Button'
-import {Dialog, DialogWidth, DialogHeight} from './Dialog'
+import type {Meta} from '@storybook/react'
+import {Button, Text} from '..'
+import {Dialog, DialogProps} from './Dialog'
 
 /* Dialog Version 2 */
 
-export default {
+const meta: Meta<typeof Dialog> = {
   title: 'Components/Dialog',
   component: Dialog,
-  decorators: [
-    Story => {
-      // Since portal roots are registered globally, we need this line so that each storybook
-      // story works in isolation.
-      return (
-        <ThemeProvider>
-          <BaseStyles>
-            <Story />
-          </BaseStyles>
-        </ThemeProvider>
-      )
-    },
-  ],
-} as Meta
+  parameters: {
+    controls: {expanded: true},
+  },
+} as Meta<typeof Dialog>
+
+export default meta
 
 const lipsum = (
-  <div style={{fontSize: '14px'}}>
-    <p style={{marginBlockStart: 0}}>
+  <>
+    <Text sx={{fontSize: 1, marginBlockStart: 0}} as="p">
       Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque sollicitudin mauris maximus elit sagittis, nec
       lobortis ligula elementum. Nam iaculis, urna nec lobortis posuere, eros urna venenatis eros, vel accumsan turpis
       nunc vitae enim. Maecenas et lorem lectus. Vivamus iaculis tortor eget ante placerat, nec posuere nisl tincidunt.
@@ -35,43 +25,38 @@ const lipsum = (
       amet, consectetur adipiscing elit. Ut consequat nunc id quam tempus, id tincidunt neque venenatis. Mauris
       fringilla tempor est, vitae fermentum enim elementum vitae. Nullam eleifend odio ut porta efficitur. Phasellus
       luctus tempus posuere.
-    </p>
+    </Text>
 
-    <p>
+    <Text sx={{fontSize: 1, marginBlockStart: 0}} as="p">
       Curabitur scelerisque bibendum faucibus. Duis rhoncus nunc est, at pharetra eros tristique a. Nam sodales turpis
       lectus, quis faucibus felis fermentum in. Curabitur vel velit vel eros laoreet pharetra. Aenean in facilisis
       sapien, eu porttitor ex. Donec ultrices ac arcu ut lobortis. Pellentesque vitae rutrum orci. Etiam pretium et enim
       sit amet scelerisque. Nulla sed odio nec lorem dapibus condimentum at sagittis quam. Sed in ornare ex, sed luctus
       sem. Mauris a est tellus.
-    </p>
+    </Text>
 
-    <p>
+    <Text sx={{fontSize: 1, marginBlockStart: 0}} as="p">
       Sed fringilla est ac urna aliquet, eget condimentum felis vulputate. Sed sagittis eros non mauris sodales
       molestie. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Nullam ante leo,
       condimentum sed lectus non, rutrum octopodes urna. Mauris neque ante, interdum molestie tellus pharetra, eleifend
       dapibus justo. Sed at diam ligula. Donec dapibus ipsum quis elit euismod, sed suscipit eros euismod. Aliquam
       pretium felis quis risus luctus fringilla. Ut purus lacus, mattis a turpis eget, sollicitudin pellentesque neque.
-    </p>
+    </Text>
 
-    <p>
+    <Text sx={{fontSize: 1, marginBlockStart: 0}} as="p">
       Nunc sodales quis ante quis porttitor. Vestibulum ornare lacinia ante. Donec a nisi nec arcu aliquam pretium in
       nec nunc. Donec fringilla erat vitae viverra feugiat. Sed non odio vel ipsum porttitor maximus. Donec id eleifend
       lectus. Proin varius felis sit amet neque eleifend, vitae porttitor ligula commodo.
-    </p>
+    </Text>
 
-    <p>
+    <Text sx={{fontSize: 1, marginBlockStart: 0}} as="p">
       Vivamus felis quam, porttitor a justo sit amet, placerat ultricies nisl. Suspendisse potenti. Maecenas non
       consequat lorem, eu porta ante. Pellentesque elementum diam sapien, nec ultrices risus convallis eget. Nam
       pharetra dolor at dictum tempor. Quisque ut est a ligula hendrerit sodales. Curabitur ornare a nulla in laoreet.
       Maecenas semper mi egestas, dignissim nisi et, elementum neque.
-    </p>
-  </div>
+    </Text>
+  </>
 )
-interface DialogStoryProps {
-  width: DialogWidth
-  height: DialogHeight
-  subtitle: boolean
-}
 export const Default = () => {
   const [isOpen, setIsOpen] = useState(false)
   const [secondOpen, setSecondOpen] = useState(false)
@@ -106,7 +91,14 @@ export const Default = () => {
   )
 }
 
-export const Playground = ({width, height, subtitle}: DialogStoryProps) => {
+type Positions = 'center' | 'left' | 'right'
+
+export const Playground = (
+  args: Omit<DialogProps, 'position'> & {
+    positionNarrow: Positions
+    positionRegular: Positions
+  },
+) => {
   const [isOpen, setIsOpen] = useState(false)
   const [secondOpen, setSecondOpen] = useState(false)
   const buttonRef = useRef<HTMLButtonElement>(null)
@@ -120,11 +112,9 @@ export const Playground = ({width, height, subtitle}: DialogStoryProps) => {
       </Button>
       {isOpen && (
         <Dialog
-          title="My Dialog"
-          subtitle={subtitle ? 'This is a subtitle!' : undefined}
+          {...args}
+          position={{narrow: args.positionNarrow, regular: args.positionRegular}}
           onClose={onDialogClose}
-          width={width}
-          height={height}
           footerButtons={[
             {buttonType: 'default', content: 'Open Second Dialog', onClick: openSecondDialog},
             {buttonType: 'danger', content: 'Delete the universe', onClick: onDialogClose},
@@ -145,7 +135,9 @@ export const Playground = ({width, height, subtitle}: DialogStoryProps) => {
 Playground.args = {
   width: 'xlarge',
   height: 'auto',
-  subtitle: true,
+  subtitle: 'Subtitle',
+  title: 'Dialog heading',
+  position: 'center',
 }
 Playground.argTypes = {
   width: {
@@ -161,13 +153,51 @@ Playground.argTypes = {
     options: ['small', 'large', 'auto'],
   },
   subtitle: {
-    name: 'show subtitle',
+    name: 'subtitle',
     control: {
-      type: 'boolean',
+      type: 'text',
     },
   },
-  title: {table: {disable: true}},
-
+  position: {
+    name: 'position',
+    description: 'Sets the Dialog position for all viewports',
+    defaultValue: {summary: 'center'},
+    if: {arg: 'positionNarrow', truthy: false},
+    control: {
+      type: 'radio',
+    },
+    options: ['center', 'left', 'right'],
+  },
+  positionNarrow: {
+    name: 'position.narrow',
+    description:
+      'See <a href="https://github.com/primer/react/blob/main/src/hooks/useResponsiveValue.ts">useResponsiveValue</a> for details.',
+    control: {
+      type: 'radio',
+    },
+    options: ['center', 'bottom', 'fullscreen', 'inherit'],
+    table: {
+      category: 'Responsive props',
+    },
+  },
+  positionRegular: {
+    name: 'position.regular',
+    description:
+      'See <a href="https://github.com/primer/react/blob/main/src/hooks/useResponsiveValue.ts">useResponsiveValue</a> for details.',
+    control: {
+      type: 'radio',
+    },
+    options: ['center', 'left', 'right'],
+    table: {
+      category: 'Responsive props',
+    },
+  },
+  title: {
+    name: 'title',
+    control: {
+      type: 'text',
+    },
+  },
   renderHeader: {table: {disable: true}},
   renderBody: {table: {disable: true}},
   renderFooter: {table: {disable: true}},
