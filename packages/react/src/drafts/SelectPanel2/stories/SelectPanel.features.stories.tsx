@@ -27,7 +27,7 @@ export const InstantSelectionVariant = () => {
     <>
       <h1>Instant selection variant</h1>
 
-      <SelectPanel title="Choose a tag" selectionVariant="instant" onSubmit={onSubmit} height="medium">
+      <SelectPanel title="Choose a tag" selectionVariant="instant" onSubmit={onSubmit}>
         <SelectPanel.Button leadingVisual={TagIcon}>{selectedTag || 'Choose a tag'}</SelectPanel.Button>
 
         <ActionList>
