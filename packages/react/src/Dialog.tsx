@@ -57,7 +57,7 @@ export type DialogHeaderProps = ComponentProps<typeof DialogHeaderBase>
 function DialogHeader({theme, children, backgroundColor = 'canvas.subtle', ...rest}: DialogHeaderProps) {
   if (React.Children.toArray(children).every(ch => typeof ch === 'string')) {
     children = (
-      <Text theme={theme} color="fg.default" fontSize={1} fontWeight="bold" fontFamily="sans-serif">
+      <Text fontSize={1} fontWeight="bold">
         {children}
       </Text>
     )
