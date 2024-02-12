@@ -14,7 +14,7 @@ import {
 
 import {UnderlineNav} from '.'
 import {checkExports, checkStoriesForAxeViolations} from '../utils/testing'
-import {menuStyles} from './styles'
+import {baseMenuMinWidth, menuStyles} from './styles'
 
 // window.matchMedia() is not implemented by JSDOM so we have to create a mock:
 // https://jestjs.io/docs/manual-mocks#mocking-methods-which-are-not-implemented-in-jsdom
@@ -171,28 +171,21 @@ describe('UnderlineNav', () => {
     spy.mockRestore()
   })
 
-  it.each`
-    expectedStyle   | underlineNavWidth
-    ${{right: '0'}} | ${222 /* Normal path, there are more px's available in the container then our min-width */}
-    ${{left: 0}}    | ${191 /* Our min-width for the menu is 192 - So we should set to left, instead of right using getAnchoredPosition  */}
-  `(
-    'menuStyles should set the menu to $expectedStyle, if the container size is $underlineNavWidth',
-    ({expectedStyle, underlineNavWidth}) => {
-      // GIVEN
-      // Mock the refs.
-      const containerRef = document.createElement('div')
-      const listRef = document.createElement('div')
-      // Set the clientWidth on the mock element
-      Object.defineProperty(listRef, 'clientWidth', {value: underlineNavWidth})
+  it(`menuStyles should set the menu position, if the container size is below ${baseMenuMinWidth} px`, () => {
+    // GIVEN
+    // Mock the refs.
+    const containerRef = document.createElement('div')
+    const listRef = document.createElement('div')
+    // Set the clientWidth on the mock element
+    Object.defineProperty(listRef, 'clientWidth', {value: baseMenuMinWidth - 1})
 
-      // WHEN
-      const results = menuStyles(containerRef, listRef)
+    // WHEN
+    const results = menuStyles(containerRef, listRef)
 
-      // THEN
-      // We are expecting a left value back, that way we know the `getAnchoredPosition` ran.
-      expect(results).toEqual(expect.objectContaining(expectedStyle))
-    },
-  )
+    // THEN
+    // We are expecting a left value back, that way we know the `getAnchoredPosition` ran.
+    expect(results).toEqual(expect.objectContaining({left: 0}))
+  })
 })
 
 describe('Keyboard Navigation', () => {

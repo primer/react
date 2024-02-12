@@ -6,7 +6,17 @@ import {useResizeObserver, ResizeObserverEntry} from '../hooks/useResizeObserver
 import {useTheme} from '../ThemeProvider'
 import {ChildWidthArray, ResponsiveProps, ChildSize} from './types'
 import VisuallyHidden from '../_VisuallyHidden'
-import {moreBtnStyles, getDividerStyle, getNavStyles, ulStyles, menuStyles, menuItemStyles, GAP} from './styles'
+import {
+  moreBtnStyles,
+  getDividerStyle,
+  getNavStyles,
+  ulStyles,
+  menuStyles,
+  menuItemStyles,
+  GAP,
+  baseMenuStyles,
+  baseMenuMinWidth,
+} from './styles'
 import styled from 'styled-components'
 import {Button} from '../Button'
 import {TriangleDownIcon} from '@primer/octicons-react'
@@ -338,7 +348,11 @@ export const UnderlineNav = forwardRef(
                   selectionVariant="single"
                   ref={containerRef}
                   id={disclosureWidgetId}
-                  sx={menuStyles(containerRef.current, listRef.current)}
+                  sx={
+                    listRef.current?.clientWidth && listRef.current.clientWidth >= baseMenuMinWidth
+                      ? baseMenuStyles
+                      : menuStyles(containerRef.current, listRef.current)
+                  }
                   style={{display: isWidgetOpen ? 'block' : 'none'}}
                 >
                   {menuItems.map((menuItem, index) => {
