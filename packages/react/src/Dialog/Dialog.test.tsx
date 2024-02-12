@@ -103,4 +103,25 @@ describe('Dialog', () => {
     const results = await axe(container)
     expect(results).toHaveNoViolations()
   })
+
+  it('renders with data-position-regular="left" when position="left"', () => {
+    const {getByRole} = render(<Dialog onClose={() => {}} position="left" />)
+    expect(getByRole('dialog')).toHaveAttribute('data-position-regular', 'left')
+  })
+
+  it('renders with data-position-regular="right" when position="right"', () => {
+    const {getByRole} = render(<Dialog onClose={() => {}} position="right" />)
+    expect(getByRole('dialog')).toHaveAttribute('data-position-regular', 'right')
+  })
+
+  it('renders with data-position-narrow="fullscreen" when narrow position is fullscreen', () => {
+    const {getByRole} = render(<Dialog onClose={() => {}} position={{narrow: 'fullscreen'}} />)
+    expect(getByRole('dialog')).toHaveAttribute('data-position-narrow', 'fullscreen')
+  })
+
+  it('renders with data-position-narrow="bottom" when narrow position is bottom and data-position-regular="center" when regular is center', () => {
+    const {getByRole} = render(<Dialog onClose={() => {}} position={{narrow: 'bottom', regular: 'center'}} />)
+    expect(getByRole('dialog')).toHaveAttribute('data-position-narrow', 'bottom')
+    expect(getByRole('dialog')).toHaveAttribute('data-position-regular', 'center')
+  })
 })
