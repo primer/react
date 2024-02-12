@@ -9,17 +9,17 @@ Bugs
 */
 
 import React, {useState, useCallback, useRef, forwardRef, RefObject, MutableRefObject} from 'react'
-import VisuallyHidden from '../_VisuallyHidden'
+import {KebabHorizontalIcon} from '@primer/octicons-react'
 import {ActionList} from '../ActionList'
 import useIsomorphicLayoutEffect from '../utils/useIsomorphicLayoutEffect'
 import {MORE_BTN_WIDTH, NavigationList, MoreMenuListItem} from '../UnderlineNav/UnderlineNav'
-import {ulStyles, moreBtnStyles, menuStyles, menuItemStyles} from '../UnderlineNav/styles'
+import {ulStyles, menuStyles} from '../UnderlineNav/styles'
 import {useOnEscapePress} from '../hooks/useOnEscapePress'
 import {useResizeObserver, ResizeObserverEntry} from '../hooks/useResizeObserver'
-import {TriangleDownIcon} from '@primer/octicons-react'
+
 import {useOnOutsideClick} from '../hooks/useOnOutsideClick'
 //import styled from 'styled-components'
-import {IconButton, IconButtonProps, Button} from '../Button'
+import {IconButton, IconButtonProps} from '../Button'
 import Box from '../Box'
 
 // import {get} from '../constants'
@@ -65,6 +65,26 @@ const getNavStyles = () => ({
   alignItems: 'center',
   minHeight: '48px',
 })
+
+const menuItemStyles = {
+  // This is needed to hide the selected check icon on the menu item. https://github.com/primer/react/blob/main/src/ActionList/Selection.tsx#L32
+  // '& > span': {
+  //   display: 'none',
+  // },
+  // To reset the style when the menu items are rendered as react router links
+  textDecoration: 'none',
+}
+
+const moreBtnStyles = {
+  //set margin 0 here because safari puts extra margin around the button, rest is to reset style to make it look like a list element
+  margin: 0,
+  border: 0,
+  background: 'transparent',
+  fontWeight: 'normal',
+  boxShadow: 'none',
+  paddingY: 1,
+  paddingX: 2,
+}
 
 const getValidChildren = (children: React.ReactNode) => {
   return React.Children.toArray(children).filter(child => {
@@ -267,18 +287,15 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
           {listItems}
           {menuItems.length > 0 && (
             <MoreMenuListItem ref={moreMenuRef}>
-              <Button
+              <IconButton
                 ref={moreMenuBtnRef}
                 sx={moreBtnStyles}
                 aria-controls={disclosureWidgetId}
                 aria-expanded={isWidgetOpen}
                 onClick={onAnchorClick}
-                trailingAction={TriangleDownIcon}
-              >
-                <Box as="span">
-                  More<VisuallyHidden as="span">&nbsp;{`${ariaLabel} items`}</VisuallyHidden>
-                </Box>
-              </Button>
+                aria-label={`More ${ariaLabel} items`}
+                icon={KebabHorizontalIcon}
+              />
               <ActionList
                 selectionVariant="single"
                 ref={containerRef}
@@ -291,9 +308,9 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
                     children: menuItemChildren,
                     //'aria-current': ariaCurrent,
                     onSelect,
-                    ...menuItemProps
+                    icon: Icon,
+                    'aria-label': ariaLabel,
                   } = menuItem.props
-
                   return (
                     <ActionList.LinkItem
                       key={menuItemChildren}
@@ -302,14 +319,20 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
                         event: React.MouseEvent<HTMLAnchorElement> | React.KeyboardEvent<HTMLAnchorElement>,
                       ) => {
                         // When there are no items in the list, do not run the swap function as we want to keep everything in the menu.
-                        swapMenuItemWithListItem(menuItem, index, event, updateListAndMenu)
+                        // Do we need to swap? swapMenuItemWithListItem(menuItem, index, event, updateListAndMenu)
                         closeOverlay()
                         focusOnMoreMenuBtn()
                         // fire onSelect event that comes from the UnderlineNav.Item (if it is defined)
                         typeof onSelect === 'function' && onSelect(event)
                       }}
-                      {...menuItemProps}
-                    ></ActionList.LinkItem>
+                    >
+                      {Icon ? (
+                        <ActionList.LeadingVisual>
+                          <Icon />
+                        </ActionList.LeadingVisual>
+                      ) : null}
+                      {ariaLabel}
+                    </ActionList.LinkItem>
                   )
                 })}
               </ActionList>
@@ -326,20 +349,11 @@ export const ActionBarIconButton = forwardRef((props: ActionBarIconButtonProps, 
   const ref = (forwardedRef ?? backupRef) as RefObject<HTMLAnchorElement>
   const {size, setChildrenWidth} = React.useContext(ActionBarContext)
   useIsomorphicLayoutEffect(() => {
-    const text = props.label
+    const text = props['aria-label'] ? props['aria-label'] : ''
     const domRect = (ref as MutableRefObject<HTMLElement>).current.getBoundingClientRect()
     setChildrenWidth({text, width: domRect.width})
   }, [ref, setChildrenWidth])
-  return (
-    <IconButton
-      ref={ref}
-      //ariaLabel={props.label}
-      data-component="ActionBar.IconButton"
-      size={size}
-      {...props}
-      variant="invisible"
-    />
-  )
+  return <IconButton ref={ref} size={size} {...props} variant="invisible" />
 })
 
 const sizeToHeight = {
