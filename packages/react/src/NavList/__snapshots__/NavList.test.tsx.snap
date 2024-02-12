@@ -261,7 +261,8 @@ exports[`NavList renders a simple list 1`] = `
   }
 
   .c2:focus-visible,
-  .c2 > a:focus-visible {
+  .c2 > a:focus-visible,
+  .c2:focus.focus-visible {
     outline: none;
     border: 2 solid;
     box-shadow: 0 0 0 2px var(--bgColor-accent-emphasis,var(--color-accent-emphasis,#0969da));
@@ -287,7 +288,8 @@ exports[`NavList renders a simple list 1`] = `
   }
 
   .c7:focus-visible,
-  .c7 > a:focus-visible {
+  .c7 > a:focus-visible,
+  .c7:focus.focus-visible {
     outline: none;
     border: 2 solid;
     box-shadow: 0 0 0 2px var(--bgColor-accent-emphasis,var(--color-accent-emphasis,#0969da));
@@ -685,7 +687,8 @@ exports[`NavList renders with groups 1`] = `
   }
 
   .c6:focus-visible,
-  .c6 > a:focus-visible {
+  .c6 > a:focus-visible,
+  .c6:focus.focus-visible {
     outline: none;
     border: 2 solid;
     box-shadow: 0 0 0 2px var(--bgColor-accent-emphasis,var(--color-accent-emphasis,#0969da));
@@ -711,7 +714,8 @@ exports[`NavList renders with groups 1`] = `
   }
 
   .c11:focus-visible,
-  .c11 > a:focus-visible {
+  .c11 > a:focus-visible,
+  .c11:focus.focus-visible {
     outline: none;
     border: 2 solid;
     box-shadow: 0 0 0 2px var(--bgColor-accent-emphasis,var(--color-accent-emphasis,#0969da));
@@ -1150,7 +1154,8 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   }
 
   .c11:focus-visible,
-  .c11 > a:focus-visible {
+  .c11 > a:focus-visible,
+  .c11:focus.focus-visible {
     outline: none;
     border: 2 solid;
     box-shadow: 0 0 0 2px var(--bgColor-accent-emphasis,var(--color-accent-emphasis,#0969da));
@@ -1176,7 +1181,8 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   }
 
   .c4:focus-visible,
-  .c4 > a:focus-visible {
+  .c4 > a:focus-visible,
+  .c4:focus.focus-visible {
     outline: none;
     border: 2 solid;
     box-shadow: 0 0 0 2px var(--bgColor-accent-emphasis,var(--color-accent-emphasis,#0969da));
@@ -1629,7 +1635,8 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   }
 
   .c11:focus-visible,
-  .c11 > a:focus-visible {
+  .c11 > a:focus-visible,
+  .c11:focus.focus-visible {
     outline: none;
     border: 2 solid;
     box-shadow: 0 0 0 2px var(--bgColor-accent-emphasis,var(--color-accent-emphasis,#0969da));
@@ -1663,7 +1670,8 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   }
 
   .c4:focus-visible,
-  .c4 > a:focus-visible {
+  .c4 > a:focus-visible,
+  .c4:focus.focus-visible {
     outline: none;
     border: 2 solid;
     box-shadow: 0 0 0 2px var(--bgColor-accent-emphasis,var(--color-accent-emphasis,#0969da));
