@@ -12,7 +12,7 @@ import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/po
 import {ActionListContainerContext} from './ActionListContainerContext'
 import {Description} from './Description'
 import {GroupContext} from './Group'
-import {ActionListProps, ListContext} from './List'
+import {type ActionListProps, ListContext} from './shared'
 import {Selection} from './Selection'
 import {ActionListItemProps, getVariantStyles, ItemContext, TEXT_ROW_HEIGHT} from './shared'
 import {LeadingVisual, TrailingVisual, VisualProps} from './Visuals'
@@ -170,7 +170,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
           color: getVariantStyles(variant, disabled, inactive).hoverColor,
           boxShadow: `inset 0 0 0 max(1px, 0.0625rem) ${theme?.colors.actionListItem.default.activeBorder}`,
         },
-        '&:focus-visible, > a:focus-visible': {
+        '&:focus-visible, > a:focus-visible, &:focus.focus-visible': {
           outline: 'none',
           border: `2 solid`,
           boxShadow: `0 0 0 2px ${theme?.colors.accent.emphasis}`,

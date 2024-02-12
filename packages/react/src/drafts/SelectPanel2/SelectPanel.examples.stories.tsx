@@ -439,7 +439,6 @@ export const OpenFromMenu = () => {
         variant="modal"
         title="Custom"
         open={selectPanelOpen}
-        height="medium"
         onSubmit={() => {
           setSelectedSetting('Custom')
           setSelectPanelOpen(false)
@@ -603,7 +602,7 @@ export const ShortSelectPanel = () => {
       <p>
         Use <code>height=fit-content</code> to match height of contents
       </p>
-      <SelectPanel title="Select notification channels" height="fit-content" onSubmit={onSubmit}>
+      <SelectPanel title="Select notification channels" onSubmit={onSubmit}>
         <SelectPanel.Button>
           <Text sx={{color: 'fg.muted'}}>Notify me:</Text>{' '}
           {Object.keys(channels)
