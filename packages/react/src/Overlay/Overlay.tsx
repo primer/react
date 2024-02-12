@@ -21,7 +21,7 @@ type StyledOverlayProps = {
   anchorSide?: AnchorSide
 } & SxProp
 
-const heightMap = {
+export const heightMap = {
   xsmall: '192px',
   small: '256px',
   medium: '320px',
