@@ -10,7 +10,6 @@ import {ComponentProps} from '../utils/types'
 import getGlobalFocusStyles from '../internal/utils/getGlobalFocusStyles'
 
 const TAB_CLASS = 'TabPanel-tab'
-const SELECTED_CLASS = 'selected'
 
 const TabContainer = styled(createComponent(React, 'tab-container', TabContainerElement))(sx)
 
@@ -70,7 +69,9 @@ function TabPanels({children, 'aria-label': ariaLabel}: TabPanelsProps) {
   return (
     <TabContainer>
       <TabListWrapper>
-        <TabList aria-label={ariaLabel} role="tablist">{tabs}</TabList>
+        <TabList aria-label={ariaLabel} role="tablist">
+          {tabs}
+        </TabList>
       </TabListWrapper>
       {panels}
     </TabContainer>
@@ -101,7 +102,7 @@ const Tab = styled.button.attrs<TabPanelsTabProps>(props => ({
 
   &:hover,
   &:focus {
-    color: ${get('colors.fg.default')}; 
+    color: ${get('colors.fg.default')};
     text-decoration: none;
   }
 
@@ -110,7 +111,7 @@ const Tab = styled.button.attrs<TabPanelsTabProps>(props => ({
     transition-property: color;
   }
 
-  &[aria-selected=true] {
+  &[aria-selected='true'] {
     color: ${get('colors.fg.default')};
     border-color: ${get('colors.border.default')};
     border-top-right-radius: ${get('radii.2')};
