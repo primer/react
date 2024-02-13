@@ -11,9 +11,6 @@ jobs:
     if: github.ref_name == 'changeset-release/main'
     name: Candidate (@next)
     runs-on: ubuntu-latest
-    secrets:
-      gh_token: ${{ secrets.GITHUB_TOKEN }}
-      npm_token: ${{ secrets.NPM_AUTH_TOKEN_SHARED }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -40,7 +37,7 @@ jobs:
             $registry:_authToken=$NPM_TOKEN
           EOF
         env:
-          NPM_TOKEN: ${{ secrets.npm_token }}
+          NPM_TOKEN: ${{ secrets.NPM_AUTH_TOKEN_SHARED }}
 
       - name: Publish release candidate
         run: |
@@ -49,7 +46,7 @@ jobs:
           echo "$( jq ".version = \"$(echo $version)-rc.$(git rev-parse --short HEAD)\"" $pkg_json_path )" > $pkg_json_path
           npx changeset publish --tag next
         env:
-          GITHUB_TOKEN: ${{ secrets.gh_token }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Output candidate version
         uses: actions/github-script@v4.0.2
