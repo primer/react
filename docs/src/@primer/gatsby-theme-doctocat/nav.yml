@@ -132,6 +132,8 @@
       url: /ToggleSwitch
     - title: TabNav
       url: /TabNav
+    - title: TabPanels
+      url: /TabPanels
     - title: Textarea
       url: /Textarea
     - title: Text
