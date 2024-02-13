@@ -6,6 +6,7 @@ import {get} from '../constants'
 import {TabContainerElement} from '@github/tab-container-element'
 import {createComponent} from '@lit-labs/react'
 import sx, {SxProp} from '../sx'
+import {ComponentProps} from '../utils/types'
 import getGlobalFocusStyles from '../internal/utils/getGlobalFocusStyles'
 
 const TAB_CLASS = 'TabPanel-tab'
@@ -24,11 +25,9 @@ const TabListWrapper = styled.div`
   border-bottom: 1px solid ${get('colors.border.default')};
 `
 
-export type TabPanelsProps = {
-  children: React.ReactNode
-} & SxProp
+export type TabPanelsProps = ComponentProps<typeof TabContainer>
 
-function TabPanels({children}: TabPanelsProps) {
+function TabPanels({children, 'aria-label': ariaLabel}: TabPanelsProps) {
   const childrenArray = React.Children.toArray(children)
   let selectedTabIndex = -1
   let tabIndex = -1
@@ -71,7 +70,7 @@ function TabPanels({children}: TabPanelsProps) {
   return (
     <TabContainer>
       <TabListWrapper>
-        <TabList role="tablist">{tabs}</TabList>
+        <TabList aria-label={ariaLabel} role="tablist">{tabs}</TabList>
       </TabListWrapper>
       {panels}
     </TabContainer>
