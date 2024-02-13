@@ -73,7 +73,6 @@ function TabPanels({children, 'aria-label': ariaLabel}: TabPanelsProps) {
 }
 
 export type TabPanelsTabProps = React.DetailedHTMLProps<React.HTMLAttributes<HTMLButtonElement>, HTMLButtonElement> & {
-  children: React.ReactNode
   selected?: boolean
 } & SxProp
 

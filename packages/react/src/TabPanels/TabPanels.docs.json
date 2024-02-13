@@ -1,0 +1,51 @@
+{
+  "id": "tab_panels",
+  "name": "TabPanels",
+  "status": "alpha",
+  "a11yReviewed": false,
+  "stories": [],
+  "props": [
+    {
+      "name": "aria-label",
+      "type": "string",
+      "description": "Used to set the `aria-label` on the `role=\"tablist\"` element."
+    },
+    {
+      "name": "sx",
+      "type": "SystemStyleObject"
+    }
+  ],
+  "subcomponents": [
+    {
+      "name": "TabPanels.Tab",
+      "props": [
+        {
+          "name": "selected",
+          "type": "boolean"
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ]
+    },
+    {
+      "name": "TabPanels.Panel",
+      "props": [
+        {
+          "name": "children",
+          "type": "React.ReactNode",
+          "description": "The content of the panel."
+        },
+        {
+          "name": "selected",
+          "type": "boolean"
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ]
+    }
+  ]
+}
