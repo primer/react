@@ -21,9 +21,11 @@ Playground.argTypes = {
 
 export const Default = () => (
   <TabPanels aria-label="Main">
-    <TabPanels.Tab>One</TabPanels.Tab>
-    <TabPanels.Tab>Two</TabPanels.Tab>
-    <TabPanels.Panel>One</TabPanels.Panel>
-    <TabPanels.Panel>Two</TabPanels.Panel>
+    <TabPanels.Tab>Tab 1</TabPanels.Tab>
+    <TabPanels.Tab>Tab 2</TabPanels.Tab>
+    <TabPanels.Tab>Tab 3</TabPanels.Tab>
+    <TabPanels.Panel>Panel 1</TabPanels.Panel>
+    <TabPanels.Panel>Panel 2</TabPanels.Panel>
+    <TabPanels.Panel>Panel 3</TabPanels.Panel>
   </TabPanels>
 )
