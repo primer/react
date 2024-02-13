@@ -16,10 +16,6 @@ const TabContainer = styled(createComponent(React, 'tab-container', TabContainer
 const TabList = styled.div`
   display: flex;
   margin-bottom: -1px;
-  overflow: auto;
-`
-
-const TabListWrapper = styled.div`
   margin-top: 0;
   border-bottom: 1px solid ${get('colors.border.default')};
 `
@@ -68,11 +64,9 @@ function TabPanels({children, 'aria-label': ariaLabel}: TabPanelsProps) {
 
   return (
     <TabContainer>
-      <TabListWrapper>
-        <TabList aria-label={ariaLabel} role="tablist">
-          {tabs}
-        </TabList>
-      </TabListWrapper>
+      <TabList aria-label={ariaLabel} role="tablist">
+        {tabs}
+      </TabList>
       {panels}
     </TabContainer>
   )
@@ -96,6 +90,7 @@ const Tab = styled.button.attrs<TabPanelsTabProps>(props => ({
   background-color: transparent;
   border: 1px solid transparent;
   border-bottom: 0;
+  margin-bottom: -1px;
   cursor: pointer;
 
   ${getGlobalFocusStyles('-6px')};

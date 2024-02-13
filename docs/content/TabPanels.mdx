@@ -1,0 +1,30 @@
+---
+componentId: tab_panels
+title: TabPanels
+status: Alpha
+source: https://github.com/primer/react/blob/main/src/TabPanels
+---
+
+import data from '../../packages/react/src/TabPanels/TabPanels.docs.json'
+import DeprecationBanner from '../components/DeprecationBanner'
+
+<DeprecationBanner replacementUrl={'/components/tab-panels/react/latest'} />
+
+**Attention:** Make sure to properly label your `TabPanels` with an `aria-label` to provide context about the subject of your `TabPanels`.
+
+## Examples
+
+```jsx live
+  <TabPanels aria-label="Select a tab">
+    <TabPanels.Tab>Tab 1</TabPanels.Tab>
+    <TabPanels.Tab>Tab 2</TabPanels.Tab>
+    <TabPanels.Tab>Tab 3</TabPanels.Tab>
+    <TabPanels.Panel>Panel 1</TabPanels.Panel>
+    <TabPanels.Panel>Panel 2</TabPanels.Panel>
+    <TabPanels.Panel>Panel 3</TabPanels.Panel>
+  </TabPanels>
+```
+
+## Props
+
+<ComponentProps data={data} />
