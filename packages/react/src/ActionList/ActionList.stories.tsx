@@ -141,6 +141,11 @@ ItemPlayground.argTypes = {
     },
     options: icons,
   },
+  loading: {
+    control: {
+      type: 'boolean',
+    },
+  },
   trailingVisual: {
     control: {
       type: 'select',
@@ -165,6 +170,7 @@ ItemPlayground.args = {
   role: 'listitem',
   id: 'item-1',
   leadingVisual: null,
+  loading: false,
   trailingVisual: null,
   selectionVariant: 'single',
 }
@@ -218,6 +224,7 @@ LinkItemPlayground.args = {
   id: 'item-1',
   inactiveText: '',
   leadingVisual: null,
+  loading: false,
   trailingVisual: null,
 }
 LinkItemPlayground.argTypes = {
@@ -242,6 +249,11 @@ LinkItemPlayground.argTypes = {
       type: 'select',
     },
     options: icons,
+  },
+  loading: {
+    control: {
+      type: 'boolean',
+    },
   },
   trailingVisual: {
     control: {
