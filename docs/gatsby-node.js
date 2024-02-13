@@ -1,4 +1,4 @@
-const defines = require('../babel-defines')
+const defines = require('../packages/react/babel-defines')
 const docgen = require('react-docgen-typescript')
 const globby = require('globby')
 
@@ -42,7 +42,7 @@ exports.sourceNodes = ({actions, createNodeId, createContentDigest}) => {
   const {createNode} = actions
 
   // Extract component metadata from source files
-  const files = globby.sync(['../src/**/*.tsx'], {absolute: true})
+  const files = globby.sync(['../packages/react/src/**/*.tsx'], {absolute: true})
   const data = docgen.parse(files, {
     savePropValueAsString: true,
     propFilter: prop => {
