@@ -229,7 +229,11 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       (event: React.KeyboardEvent<HTMLLIElement>) => {
         if (disabled || inactive) return
         if ([' ', 'Enter'].includes(event.key)) {
-          if (event.key === ' ') event.preventDefault() // prevent scroll on space
+          if (event.key === ' ') {
+            event.preventDefault() // prevent scroll on space
+            // immediately reset defaultPrevented to not disturb control flow!
+            event.defaultPrevented = false
+          }
           onSelect(event, afterSelect)
         }
       },
