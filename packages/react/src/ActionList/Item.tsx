@@ -88,7 +88,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       ) => {
         if (typeof onSelectUser === 'function') onSelectUser(event)
         if (event.defaultPrevented) return
-        if (typeof afterSelect === 'function') afterSelect()
+        if (typeof afterSelect === 'function') afterSelect(event)
       },
       [onSelectUser],
     )

@@ -142,8 +142,12 @@ const Panel: React.FC<SelectPanelProps> = ({
     if (typeof propsOnClearSelection === 'function') propsOnClearSelection()
   }
 
-  const internalAfterSelect = () => {
+  const internalAfterSelect = (event: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement>) => {
     if (selectionVariant === 'instant') onInternalSubmit()
+
+    if (event.type === 'keypress') {
+      if ((event as React.KeyboardEvent<HTMLLIElement>).key === 'Enter') onInternalSubmit()
+    }
   }
 
   /* Search/Filter */
