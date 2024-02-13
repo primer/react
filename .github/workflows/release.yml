@@ -10,14 +10,37 @@ jobs:
   release-main:
     if: github.ref_name == 'main'
     name: Main
-    uses: primer/.github/.github/workflows/release_with_app.yml@main
-    secrets:
-      npm_token: ${{ secrets.NPM_AUTH_TOKEN_SHARED }}
-      app-id: ${{ vars.PRIMER_APP_ID_SHARED }}
-      private-key: ${{ secrets.PRIMER_APP_PRIVATE_KEY_SHARED }}
-      client-id: ${{ vars.PRIMER_APP_CLIENT_ID_SHARED }}
-      client-secret: ${{ secrets.PRIMER_APP_CLIENT_SECRET_SHARED }}
-      installation-id: ${{ vars.PRIMER_APP_INSTALLATION_ID_SHARED }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          # This makes Actions fetch all Git history so that Changesets can generate changelogs with the correct commits
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Create release pull request or publish to npm
+        id: changesets
+        # Uses SHA for security hardening
+        # Currently pointing at a commit for the v1.4.1 tag
+        # Please keep this up-to-date if you're changing the SHA below
+        uses: changesets/action@f13b1baaa620fde937751f5d2c3572b9da32af23
+        with:
+          title: Release tracking
+          # This expects you to have a script called release which does a build for your packages and calls changeset publish
+          publish: npm run release
+        env:
+          GITHUB_TOKEN: ${{ secrets.gh_token }}
+          NPM_TOKEN: ${{ secrets.npm_token }}
 
   release-next-major:
     if: github.ref_name == 'next-major'
