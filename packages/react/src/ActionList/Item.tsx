@@ -230,8 +230,9 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
         if (disabled || inactive) return
         if ([' ', 'Enter'].includes(event.key)) {
           if (event.key === ' ') {
-            event.preventDefault() // prevent scroll on space
-            // immediately reset defaultPrevented to not disturb control flow!
+            event.preventDefault() // prevent scrolling on Space
+            // immediately reset defaultPrevented once it's job is done
+            // so as to not disturb the functions that use that event after this
             event.defaultPrevented = false
           }
           onSelect(event, afterSelect)
