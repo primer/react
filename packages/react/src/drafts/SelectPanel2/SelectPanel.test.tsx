@@ -1,9 +1,12 @@
 import React from 'react'
 import {ThemeProvider, ActionList} from '../../'
-import {render, RenderResult} from '@testing-library/react'
-import userEvent, {UserEvent} from '@testing-library/user-event'
+import type {RenderResult} from '@testing-library/react'
+import {render} from '@testing-library/react'
+import type {UserEvent} from '@testing-library/user-event'
+import userEvent from '@testing-library/user-event'
 import data from './mock-story-data'
-import {SelectPanel, SelectPanelProps} from './SelectPanel'
+import type {SelectPanelProps} from './SelectPanel'
+import {SelectPanel} from './SelectPanel'
 
 const Fixture = ({onSubmit, onCancel}: Pick<SelectPanelProps, 'onSubmit' | 'onCancel'>) => {
   const initialSelectedLabels = data.issue.labelIds // mock initial state: has selected labels

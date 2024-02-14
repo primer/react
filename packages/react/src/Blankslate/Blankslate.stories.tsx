@@ -1,8 +1,8 @@
 import {BookIcon} from '@primer/octicons-react'
-import {Meta, Story} from '@storybook/react'
+import type {Meta, Story} from '@storybook/react'
 import React from 'react'
 import {Blankslate} from '../Blankslate'
-import {ComponentProps} from '../utils/types'
+import type {ComponentProps} from '../utils/types'
 
 export default {
   title: 'Drafts/Components/Blankslate',

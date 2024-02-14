@@ -5,7 +5,7 @@ import theme from '../theme'
 import {SelectPanel} from '../SelectPanel'
 import {behavesAsComponent, checkExports} from '../utils/testing'
 import {BaseStyles, SSRProvider, ThemeProvider} from '..'
-import {ItemInput} from '../deprecated/ActionList/List'
+import type {ItemInput} from '../deprecated/ActionList/List'
 
 const items = [{text: 'Foo'}, {text: 'Bar'}, {text: 'Baz'}, {text: 'Bon'}] as ItemInput[]
 

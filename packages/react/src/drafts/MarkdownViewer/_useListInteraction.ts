@@ -1,6 +1,7 @@
 import {useCallback, useEffect, useRef, useState} from 'react'
 import useIsomorphicLayoutEffect from '../../utils/useIsomorphicLayoutEffect'
-import {ListItem, listItemToString, parseListItem} from '../MarkdownEditor/_useListEditing'
+import type {ListItem} from '../MarkdownEditor/_useListEditing'
+import {listItemToString, parseListItem} from '../MarkdownEditor/_useListEditing'
 
 type TaskListItem = ListItem & {taskBox: '[ ]' | '[x]'}
 

@@ -1,5 +1,5 @@
 import React from 'react'
-import {ComponentStory, Meta} from '@storybook/react'
+import type {ComponentStory, Meta} from '@storybook/react'
 
 import {Box, Button, Heading, Text} from '..'
 import {NavList} from '../NavList'

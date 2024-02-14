@@ -1,5 +1,5 @@
-import {Union} from 'ts-toolbelt'
-import {KeyPaths} from '../utils/types/KeyPaths'
+import type {Union} from 'ts-toolbelt'
+import type {KeyPaths} from '../utils/types/KeyPaths'
 
 type NestedObject = {
   a: string

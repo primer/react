@@ -1,7 +1,8 @@
 import styled from 'styled-components'
 import {get} from '../constants'
-import sx, {SxProp} from '../sx'
-import {ComponentProps} from '../utils/types'
+import type {SxProp} from '../sx'
+import sx from '../sx'
+import type {ComponentProps} from '../utils/types'
 
 const BranchName = styled.a<SxProp>`
   display: inline-block;

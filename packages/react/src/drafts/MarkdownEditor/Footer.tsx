@@ -2,7 +2,8 @@ import React, {memo, forwardRef, useContext} from 'react'
 import {PaperclipIcon} from '@primer/octicons-react'
 
 import {Spinner, Box, Text} from '../..'
-import {Button, ButtonProps} from '../../Button'
+import type {ButtonProps} from '../../Button'
+import {Button} from '../../Button'
 import {MarkdownEditorContext} from './_MarkdownEditorContext'
 import {useSlots} from '../../hooks/useSlots'
 

@@ -1,14 +1,14 @@
 import React, {useCallback, useState} from 'react'
-import {Meta} from '@storybook/react'
+import type {Meta} from '@storybook/react'
 
 import {BaseStyles, Box, ThemeProvider} from '..'
 
 import Autocomplete from './Autocomplete'
 import FormControl from '../FormControl'
 
-import {ComponentProps} from '../utils/types'
+import type {ComponentProps} from '../utils/types'
+import type {FormControlArgs} from '../utils/story-helpers'
 import {
-  FormControlArgs,
   formControlArgs,
   formControlArgTypes,
   getFormControlArgsByChildComponent,
