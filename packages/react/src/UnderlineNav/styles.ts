@@ -128,7 +128,7 @@ export const getLinkStyles = (theme?: Theme, ariaCurrent?: string | boolean) => 
 })
 
 export const menuItemStyles = {
-  // This is needed to hide the selected check icon on the menu item. https://github.com/primer/react/blob/main/src/ActionList/Selection.tsx#L32
+  // This is needed to hide the selected check icon on the menu item. https://github.com/primer/react/tree/main/packages/react/src/ActionList/Selection.tsx#L32
   '& > span': {
     display: 'none',
   },

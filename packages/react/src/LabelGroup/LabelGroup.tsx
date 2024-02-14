@@ -4,9 +4,11 @@ import {XIcon} from '@primer/octicons-react'
 import {getFocusableChild} from '@primer/behaviors/utils'
 import {get} from '../constants'
 import VisuallyHidden from '../_VisuallyHidden'
-import {AnchoredOverlay, Box, Button, IconButton, useTheme} from '..'
-import type {SxProp} from '../sx'
-import sx from '../sx'
+import {AnchoredOverlay} from '../AnchoredOverlay'
+import Box from '../Box'
+import {Button, IconButton} from '../Button'
+import {useTheme} from '../ThemeProvider'
+import sx, {SxProp} from '../sx'
 
 export type LabelGroupProps = {
   /** How hidden tokens should be shown. `'inline'` shows the hidden tokens after the visible tokens. `'overlay'` shows all tokens in an overlay that appears on top of the visible tokens. */
