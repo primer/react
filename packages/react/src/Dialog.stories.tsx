@@ -28,7 +28,7 @@ export const Default = () => {
         <div data-testid="inner">
           <Dialog.Header id="header">Title</Dialog.Header>
           <Box p={3}>
-            <Text fontFamily="sans-serif">Some content</Text>
+            <Text>Some content</Text>
           </Box>
         </div>
       </Dialog>

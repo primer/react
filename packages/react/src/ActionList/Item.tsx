@@ -12,7 +12,7 @@ import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/po
 import {ActionListContainerContext} from './ActionListContainerContext'
 import {Description} from './Description'
 import {GroupContext} from './Group'
-import {ActionListProps, ListContext} from './List'
+import {type ActionListProps, ListContext} from './shared'
 import {Selection} from './Selection'
 import {ActionListItemProps, getVariantStyles, ItemContext, TEXT_ROW_HEIGHT} from './shared'
 import {LeadingVisual, TrailingVisual, VisualProps} from './Visuals'
@@ -88,7 +88,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       ) => {
         if (typeof onSelectUser === 'function') onSelectUser(event)
         if (event.defaultPrevented) return
-        if (typeof afterSelect === 'function') afterSelect()
+        if (typeof afterSelect === 'function') afterSelect(event)
       },
       [onSelectUser],
     )
@@ -170,7 +170,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
           color: getVariantStyles(variant, disabled, inactive).hoverColor,
           boxShadow: `inset 0 0 0 max(1px, 0.0625rem) ${theme?.colors.actionListItem.default.activeBorder}`,
         },
-        '&:focus-visible, > a:focus-visible': {
+        '&:focus-visible, > a:focus-visible, &:focus.focus-visible': {
           outline: 'none',
           border: `2 solid`,
           boxShadow: `0 0 0 2px ${theme?.colors.accent.emphasis}`,
@@ -229,6 +229,12 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       (event: React.KeyboardEvent<HTMLLIElement>) => {
         if (disabled || inactive) return
         if ([' ', 'Enter'].includes(event.key)) {
+          if (event.key === ' ') {
+            event.preventDefault() // prevent scrolling on Space
+            // immediately reset defaultPrevented once it's job is done
+            // so as to not disturb the functions that use that event after this
+            event.defaultPrevented = false
+          }
           onSelect(event, afterSelect)
         }
       },

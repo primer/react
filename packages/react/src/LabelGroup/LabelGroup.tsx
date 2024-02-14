@@ -4,7 +4,10 @@ import {XIcon} from '@primer/octicons-react'
 import {getFocusableChild} from '@primer/behaviors/utils'
 import {get} from '../constants'
 import VisuallyHidden from '../_VisuallyHidden'
-import {AnchoredOverlay, Box, Button, IconButton, useTheme} from '..'
+import {AnchoredOverlay} from '../AnchoredOverlay'
+import Box from '../Box'
+import {Button, IconButton} from '../Button'
+import {useTheme} from '../ThemeProvider'
 import sx, {SxProp} from '../sx'
 
 export type LabelGroupProps = {
