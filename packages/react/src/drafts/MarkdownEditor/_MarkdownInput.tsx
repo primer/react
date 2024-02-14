@@ -89,8 +89,6 @@ export const MarkdownInput = forwardRef<HTMLTextAreaElement, MarkdownInputProps>
         return
       }
 
-      // (prettier vs. eslint conflict)
-      // eslint-disable-next-line @typescript-eslint/no-extra-semi
       ;(async function () {
         lastEventRef.current = event
         setSuggestions('loading')
