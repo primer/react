@@ -1,7 +1,17 @@
 import React from 'react'
 import {SelectPanel} from './SelectPanel'
-import {ActionList, Avatar, Box, Button, Link, SegmentedControl, Text, ToggleSwitch} from '../../index'
-import {TagIcon, GearIcon} from '@primer/octicons-react'
+import {
+  ActionList,
+  Avatar,
+  Box,
+  Button,
+  Link,
+  SegmentedControl,
+  Text,
+  ToggleSwitch,
+  useResponsiveValue,
+} from '../../index'
+import {TagIcon, GearIcon, ArrowBothIcon} from '@primer/octicons-react'
 import data from './mock-story-data'
 
 export default {
@@ -543,10 +553,19 @@ const useResponsiveControlsForStory = () => {
     {regular: 'anchored', narrow: 'full-screen'},
   )
 
+  const isNarrow = useResponsiveValue({narrow: true}, false)
+
   const Controls = (
     <Box sx={{display: 'flex', flexDirection: 'column', gap: 2, marginBottom: 4, maxWidth: 480, fontSize: 1}}>
-      <Box sx={{display: 'flex'}}>
-        <Text sx={{display: 'block', flexGrow: 1}}>Regular variant</Text>
+      <Box sx={{display: 'flex', minHeight: 42}}>
+        <Box sx={{flexGrow: 1}}>
+          <Text sx={{display: 'block'}}>Regular variant</Text>
+          {isNarrow ? (
+            <Text sx={{color: 'attention.fg'}}>
+              <ArrowBothIcon size={16} /> Resize screen to see regular variant
+            </Text>
+          ) : null}
+        </Box>
         <SegmentedControl aria-label="Regular variant" size="small">
           <SegmentedControl.Button
             selected={variant.regular === 'anchored'}
@@ -562,10 +581,14 @@ const useResponsiveControlsForStory = () => {
           </SegmentedControl.Button>
         </SegmentedControl>
       </Box>
-      <Box sx={{display: 'flex', alignItems: 'center'}}>
+      <Box sx={{display: 'flex', minHeight: 42}}>
         <Box sx={{flexGrow: 1}}>
           <Text sx={{display: 'block'}}>Narrow variant</Text>
-          <Text sx={{color: 'fg.subtle'}}>Resize screen to see narrow variant</Text>
+          {isNarrow ? null : (
+            <Text sx={{color: 'attention.fg'}}>
+              <ArrowBothIcon size={16} /> Resize screen to see narrow variant
+            </Text>
+          )}
         </Box>
         <SegmentedControl aria-label="Narrow variant" size="small">
           <SegmentedControl.Button
