@@ -297,13 +297,12 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
                 icon={KebabHorizontalIcon}
               />
               <ActionList
-                selectionVariant="single"
                 ref={containerRef}
                 id={disclosureWidgetId}
                 sx={menuStyles}
                 style={{display: isWidgetOpen ? 'block' : 'none'}}
               >
-                {menuItems.map((menuItem, index) => {
+                {menuItems.map(menuItem => {
                   const {
                     children: menuItemChildren,
                     //'aria-current': ariaCurrent,
