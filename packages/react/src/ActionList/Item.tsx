@@ -15,7 +15,7 @@ import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../uti
 import {ActionListContainerContext} from './ActionListContainerContext'
 import {Description} from './Description'
 import {GroupContext} from './Group'
-import type {ActionListItemProps, type ActionListProps} from './shared'
+import type {ActionListItemProps, ActionListProps} from './shared'
 import {Selection} from './Selection'
 import {getVariantStyles, ItemContext, TEXT_ROW_HEIGHT, ListContext} from './shared'
 import type {VisualProps} from './Visuals'
