@@ -266,6 +266,19 @@ const Panel: React.FC<SelectPanelProps> = ({
             '75%': {transform: 'scale(0.95, 1.05)'},
             '100%': {transform: 'scale(1, 1)'},
           },
+
+          // always full screen on narrow screen
+          '@media (max-width: 768px)': {
+            margin: 0,
+            top: 0,
+            left: 0,
+            width: '100%',
+            maxWidth: '100vw',
+            height: '100%',
+            maxHeight: '100vh',
+            '--max-height': '100vh',
+            borderRadius: 'unset',
+          },
         }}
         {...props}
         onClick={event => {
