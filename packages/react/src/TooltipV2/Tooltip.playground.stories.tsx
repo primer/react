@@ -1,5 +1,5 @@
 import React from 'react'
-import {Button, Box} from '../..'
+import {Button, Box} from '..'
 import {Tooltip} from './Tooltip'
 import {Meta, StoryFn} from '@storybook/react'
 

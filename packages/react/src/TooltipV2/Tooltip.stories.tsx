@@ -1,9 +1,9 @@
 import React from 'react'
-import {Button, Box} from '../..'
+import {Button, Box} from '..'
 import {Tooltip} from './Tooltip'
 
 export default {
-  title: 'Components/TooltipV2',
+  title: 'Components/Tooltip v2',
   component: Tooltip,
 }
 
