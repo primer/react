@@ -296,8 +296,6 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
               // Inactive items without a leading visual place the inactive indicator in the
               // trailing visual slot. This preserves the left alignment of item text.
               showInactiveIndicator && slots.leadingVisual ? (
-                // using a non-null assertion for `inactiveText` since we check for it in `showInactiveIndicator`
-
                 <InactiveIndicator labelId={labelId} text={inactiveText!} visualComponent={LeadingVisual} />
               ) : (
                 // If it's not inactive, just render the leading visual slot
@@ -335,8 +333,6 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
                   //
                   // This preserves the left alignment of item text.
                   showInactiveIndicator && !slots.leadingVisual ? (
-                    // using a non-null assertion for `inactiveText` since we check for it in `showInactiveIndicator`
-
                     <InactiveIndicator labelId={labelId} text={inactiveText!} visualComponent={TrailingVisual} />
                   ) : (
                     // If it's not inactive, or it has a leading visual that can be replaced,

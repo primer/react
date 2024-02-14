@@ -94,8 +94,6 @@ export const MarkdownInput = forwardRef<HTMLTextAreaElement, MarkdownInputProps>
         return
       }
 
-      // (prettier vs. eslint conflict)
-
       ;(async function () {
         lastEventRef.current = event
         setSuggestions('loading')
