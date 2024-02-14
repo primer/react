@@ -52,11 +52,12 @@ const SelectPanelContext = React.createContext<{
 })
 
 const responsiveButtonSizes: ResponsiveValue<'small' | 'medium'> = {narrow: 'medium', regular: 'small'}
+type ResponsiveVariant = ResponsiveValue<'anchored' | 'modal', 'full-screen' | 'bottom-sheet'>
 
 export type SelectPanelProps = {
   title: string
   description?: string
-  variant?: 'anchored' | 'modal'
+  variant?: 'anchored' | 'modal' | ResponsiveVariant
   selectionVariant?: ActionListProps['selectionVariant'] | 'instant'
   id?: string
 
@@ -79,7 +80,7 @@ export type SelectPanelProps = {
 const Panel: React.FC<SelectPanelProps> = ({
   title,
   description,
-  variant = 'anchored',
+  variant: propsVariant,
   selectionVariant = 'multiple',
   id,
 
@@ -96,6 +97,12 @@ const Panel: React.FC<SelectPanelProps> = ({
   ...props
 }) => {
   const [internalOpen, setInternalOpen] = React.useState(defaultOpen)
+
+  const responsiveVariants = Object.assign(
+    {regular: 'anchored', narrow: 'full-screen'}, // defaults
+    typeof propsVariant === 'object' ? propsVariant : {regular: propsVariant},
+  )
+  const currentVariant = useResponsiveValue(responsiveVariants, 'anchored')
 
   // sync open state with props
   if (propsOpen !== undefined && internalOpen !== propsOpen) setInternalOpen(propsOpen)
@@ -249,15 +256,13 @@ const Panel: React.FC<SelectPanelProps> = ({
         width={width}
         height="fit-content"
         maxHeight={maxHeight}
+        data-variant={currentVariant}
         sx={{
           '--max-height': heightMap[maxHeight],
           // reset dialog default styles
           border: 'none',
           padding: 0,
           '&[open]': {display: 'flex'}, // to fit children
-
-          ...(variant === 'anchored' ? {margin: 0, top: position?.top, left: position?.left} : {}),
-          '::backdrop': {backgroundColor: variant === 'anchored' ? 'transparent' : 'primer.canvas.backdrop'},
 
           '& [data-selectpanel-primary-actions]': {
             animation: footerAnimationEnabled ? 'selectpanel-gelatine 350ms linear' : 'none',
@@ -270,8 +275,16 @@ const Panel: React.FC<SelectPanelProps> = ({
             '100%': {transform: 'scale(1, 1)'},
           },
 
-          // always full screen on narrow screen
-          '@media (max-width: 768px)': {
+          '&[data-variant=anchored], &[data-variant="full-screen"]': {
+            margin: 0,
+            top: position?.top,
+            left: position?.left,
+            '::backdrop': {backgroundColor: 'transparent'},
+          },
+          '&[data-variant=modal]': {
+            '::backdrop': {backgroundColor: 'primer.canvas.backdrop'},
+          },
+          '&[data-variant="full-screen"]': {
             margin: 0,
             top: 0,
             left: 0,
