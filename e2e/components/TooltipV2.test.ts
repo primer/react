@@ -23,7 +23,7 @@ test.describe('TooltipV2', () => {
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-tooltip--default',
+            id: 'components-tooltipv2--default',
             globals: {
               colorScheme: theme,
             },

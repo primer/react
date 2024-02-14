@@ -32,7 +32,7 @@ function ExampleWithActionMenu(actionMenuTrigger: React.ReactElement): JSX.Eleme
 }
 
 describe('Tooltip', () => {
-  checkStoriesForAxeViolations('Tooltip.features', '../drafts/Tooltip/')
+  checkStoriesForAxeViolations('Tooltip.features', '../TooltipV2/')
 
   it('renders `data-direction="s"` by default', () => {
     const {getByText} = HTMLRender(<TooltipComponent />)
