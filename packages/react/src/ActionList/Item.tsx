@@ -133,6 +133,12 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       },
     }
 
+    const listItemStyles = {
+      display: 'flex',
+      // show between 2 items
+      ':not(:first-of-type)': {'--divider-color': theme?.colors.actionListItem.inlineDivider},
+    }
+
     const styles = {
       position: 'relative',
       display: 'flex',
@@ -246,8 +252,22 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
     const inlineDescriptionId = `${itemId}--inline-description`
     const blockDescriptionId = `${itemId}--block-description`
     const inactiveWarningId = inactive && !showInactiveIndicator ? `${itemId}--warning-message` : undefined
+    const validAriaRole = listRole === 'listbox' || listRole === 'menu'
 
-    const ItemWrapper = _PrivateItemWrapper || React.Fragment
+    const ButtonItemWrapper = React.forwardRef(({as: Component = 'button', children, ...props}, forwardedRef) => {
+      return (
+        <Box
+          as={Component as React.ElementType}
+          sx={merge<BetterSystemStyleObject>(styles, sxProp)}
+          ref={forwardedRef}
+          {...props}
+        >
+          {children}
+        </Box>
+      )
+    }) as PolymorphicForwardRefComponent<HTMLButtonElement, ActionListItemProps>
+
+    const ItemWrapper = _PrivateItemWrapper || (validAriaRole ? React.Fragment : ButtonItemWrapper)
 
     // only apply aria-selected and aria-checked to selectable items
     const selectableRoles = ['menuitemradio', 'menuitemcheckbox', 'option']
@@ -268,9 +288,13 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       id: itemId,
     }
 
-    const containerProps = _PrivateItemWrapper ? {role: itemRole ? 'none' : undefined} : menuItemProps
+    const containerProps = _PrivateItemWrapper
+      ? {role: itemRole ? 'none' : undefined, ...props}
+      : (validAriaRole && {...menuItemProps, ...props}) || {}
 
-    const wrapperProps = _PrivateItemWrapper ? menuItemProps : {}
+    const wrapperProps = _PrivateItemWrapper
+      ? menuItemProps
+      : !validAriaRole && {...menuItemProps, styles: merge<BetterSystemStyleObject>(styles, sxProp), ...props}
 
     return (
       <ItemContext.Provider
@@ -278,10 +302,12 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       >
         <LiBox
           ref={forwardedRef}
-          sx={merge<BetterSystemStyleObject>(styles, sxProp)}
+          sx={merge<BetterSystemStyleObject>(
+            validAriaRole || _PrivateItemWrapper ? styles : listItemStyles,
+            validAriaRole || _PrivateItemWrapper ? sxProp : {},
+          )}
           data-variant={variant === 'danger' ? variant : undefined}
           {...containerProps}
-          {...props}
         >
           <ItemWrapper {...wrapperProps}>
             <Selection selected={selected} />

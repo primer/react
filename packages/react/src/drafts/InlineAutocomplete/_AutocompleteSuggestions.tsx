@@ -131,7 +131,7 @@ const AutocompleteSuggestions = ({
       left={triggerCharCoords.left}
       ref={overlayRef}
     >
-      <ActionList ref={setList}>
+      <ActionList ref={setList} role="listbox">
         {suggestions === 'loading' ? (
           <LoadingIndicator />
         ) : (
