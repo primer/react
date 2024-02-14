@@ -27,6 +27,7 @@ import {useFocusZone} from '../../hooks/useFocusZone'
 import {StyledOverlay, OverlayProps, heightMap} from '../../Overlay/Overlay'
 import InputLabel from '../../internal/components/InputLabel'
 import {invariant} from '../../utils/invariant'
+import {ResponsiveValue, useResponsiveValue} from '../../hooks/useResponsiveValue'
 
 const SelectPanelContext = React.createContext<{
   title: string
@@ -49,6 +50,8 @@ const SelectPanelContext = React.createContext<{
   selectionVariant: 'multiple',
   moveFocusToList: () => {},
 })
+
+const responsiveButtonSizes: ResponsiveValue<'small' | 'medium'> = {narrow: 'medium', regular: 'small'}
 
 export type SelectPanelProps = {
   title: string
@@ -464,6 +467,7 @@ const SelectPanelFooter = ({...props}) => {
   const {onCancel, selectionVariant} = React.useContext(SelectPanelContext)
 
   const hidePrimaryActions = selectionVariant === 'instant'
+  const buttonSize = useResponsiveValue(responsiveButtonSizes, 'small')
 
   if (hidePrimaryActions && !props.children) {
     // nothing to render
@@ -489,10 +493,10 @@ const SelectPanelFooter = ({...props}) => {
 
         {hidePrimaryActions ? null : (
           <Box data-selectpanel-primary-actions sx={{display: 'flex', gap: 2}}>
-            <Button size="small" type="button" onClick={() => onCancel()}>
+            <Button type="button" size={buttonSize} onClick={() => onCancel()}>
               Cancel
             </Button>
-            <Button size="small" type="submit" variant="primary">
+            <Button type="submit" size={buttonSize} variant="primary">
               Save
             </Button>
           </Box>
@@ -503,13 +507,15 @@ const SelectPanelFooter = ({...props}) => {
 }
 
 const SecondaryButton: React.FC<ButtonProps> = props => {
-  return <Button type="button" size="small" block {...props} />
+  const size = useResponsiveValue(responsiveButtonSizes, 'small')
+  return <Button type="button" size={size} block {...props} />
 }
 
 const SecondaryLink: React.FC<LinkProps> = props => {
+  const size = useResponsiveValue(responsiveButtonSizes, 'small')
   return (
     // @ts-ignore TODO: is as prop is not recognised by button?
-    <Button as={Link} size="small" variant="invisible" block {...props} sx={{fontSize: 0}}>
+    <Button as={Link} size={size} variant="invisible" block {...props} sx={{fontSize: 0}}>
       {props.children}
     </Button>
   )
