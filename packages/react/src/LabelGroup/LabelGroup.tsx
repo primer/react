@@ -55,7 +55,7 @@ const getOverlayWidth = (
   buttonClientRect: DOMRect,
   containerRef: React.RefObject<HTMLDivElement>,
   overlayPaddingPx: number,
-) => overlayPaddingPx + buttonClientRect.right - (containerRef.current?.getBoundingClientRect()?.left || 0)
+) => overlayPaddingPx + buttonClientRect.right - (containerRef.current?.getBoundingClientRect().left || 0)
 
 const InlineToggle: React.FC<{
   collapseButtonRef: React.RefObject<HTMLButtonElement>
