@@ -8,7 +8,8 @@ import {ActionListContainerContext} from '../../ActionList/ActionListContainerCo
 import {useSlots} from '../../hooks/useSlots'
 import {useProvidedRefOrCreate, useId, useAnchoredPosition} from '../../hooks'
 import {useFocusZone} from '../../hooks/useFocusZone'
-import {StyledOverlay, OverlayProps, heightMap} from '../../Overlay/Overlay'
+import type {OverlayProps} from '../../Overlay/Overlay'
+import {StyledOverlay, heightMap} from '../../Overlay/Overlay'
 import InputLabel from '../../internal/components/InputLabel'
 import {invariant} from '../../utils/invariant'
 

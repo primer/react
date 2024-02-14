@@ -16,7 +16,7 @@ import Portal from '../Portal'
 import {useRefObjectAsForwardedRef} from '../hooks/useRefObjectAsForwardedRef'
 import {useId} from '../hooks/useId'
 import {ScrollableRegion} from '../internal/components/ScrollableRegion'
-import {ResponsiveValue} from '../hooks/useResponsiveValue'
+import type {ResponsiveValue} from '../hooks/useResponsiveValue'
 
 /* Dialog Version 2 */
 

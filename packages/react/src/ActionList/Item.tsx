@@ -15,10 +15,9 @@ import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../uti
 import {ActionListContainerContext} from './ActionListContainerContext'
 import {Description} from './Description'
 import {GroupContext} from './Group'
-import {type ActionListProps, ListContext} from './shared'
+import type {ActionListItemProps, type ActionListProps} from './shared'
 import {Selection} from './Selection'
-import type {ActionListItemProps} from './shared'
-import {getVariantStyles, ItemContext, TEXT_ROW_HEIGHT} from './shared'
+import {getVariantStyles, ItemContext, TEXT_ROW_HEIGHT, ListContext} from './shared'
 import type {VisualProps} from './Visuals'
 import {LeadingVisual, TrailingVisual} from './Visuals'
 
@@ -298,7 +297,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
               // trailing visual slot. This preserves the left alignment of item text.
               showInactiveIndicator && slots.leadingVisual ? (
                 // using a non-null assertion for `inactiveText` since we check for it in `showInactiveIndicator`
-                // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
                 <InactiveIndicator labelId={labelId} text={inactiveText!} visualComponent={LeadingVisual} />
               ) : (
                 // If it's not inactive, just render the leading visual slot
@@ -337,7 +336,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
                   // This preserves the left alignment of item text.
                   showInactiveIndicator && !slots.leadingVisual ? (
                     // using a non-null assertion for `inactiveText` since we check for it in `showInactiveIndicator`
-                    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
                     <InactiveIndicator labelId={labelId} text={inactiveText!} visualComponent={TrailingVisual} />
                   ) : (
                     // If it's not inactive, or it has a leading visual that can be replaced,

@@ -1,6 +1,7 @@
 import React, {useState, useRef, useCallback} from 'react'
 import {Box, TextInput, Text, Button} from '..'
-import {Dialog, DialogProps, DialogWidth, DialogHeight} from './Dialog'
+import type {DialogProps, DialogWidth, DialogHeight} from './Dialog'
+import {Dialog} from './Dialog'
 
 /* Dialog Version 2 */
 

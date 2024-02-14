@@ -4,7 +4,7 @@ import Link from '../Link'
 import type {SxProp} from '../sx'
 import {merge} from '../sx'
 import {Item} from './Item'
-import {ActionListItemProps} from './shared'
+import type {ActionListItemProps} from './shared'
 import Box from '../Box'
 
 // adopted from React.AnchorHTMLAttributes
