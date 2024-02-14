@@ -5,7 +5,6 @@ import {ComponentProps} from '../utils/types'
 
 export default {
   title: 'Components/PointerBox',
-  component: PointerBox,
 } as Meta<typeof PointerBox>
 
 export const Default = () => <PointerBox>Pointer box content</PointerBox>
