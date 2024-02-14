@@ -599,9 +599,7 @@ export const ShortSelectPanel = () => {
   return (
     <>
       <h1>Short SelectPanel</h1>
-      <p>
-        Use <code>height=fit-content</code> to match height of contents
-      </p>
+
       <SelectPanel title="Select notification channels" onSubmit={onSubmit}>
         <SelectPanel.Button>
           <Text sx={{color: 'fg.muted'}}>Notify me:</Text>{' '}
