@@ -4,34 +4,23 @@ import type {ButtonProps} from '../Button'
 import {Button} from '../Button'
 import Box from '../Box'
 import {get} from '../constants'
-import {useOnEscapePress, useProvidedRefOrCreate} from '../hooks'
 import {useFocusTrap} from '../hooks/useFocusTrap'
 import type {SxProp} from '../sx'
 import sx from '../sx'
-import Octicon from '../Octicon'
 import {XIcon} from '@primer/octicons-react'
 import {useFocusZone} from '../hooks/useFocusZone'
 import {FocusKeys} from '@primer/behaviors'
-import {XIcon} from '@primer/octicons-react'
-
 import {useOnEscapePress, useProvidedRefOrCreate} from '../hooks'
 import {useRefObjectAsForwardedRef} from '../hooks/useRefObjectAsForwardedRef'
-import {ResponsiveValue, useResponsiveValue} from '../hooks/useResponsiveValue'
-import {useFocusZone} from '../hooks/useFocusZone'
-import {useFocusTrap} from '../hooks/useFocusTrap'
+import {useResponsiveValue} from '../hooks/useResponsiveValue'
 import {useId} from '../hooks/useId'
 
 import {ScrollableRegion} from '../internal/components/ScrollableRegion'
-import sx, {SxProp} from '../sx'
-import {get} from '../constants'
-import {Button, ButtonProps} from '../Button'
-import Box from '../Box'
 import Portal from '../Portal'
 import Octicon from '../Octicon'
 
 import DialogBottomSheet from './DialogBottomSheet'
 import type {ResponsiveValue} from '../hooks/useResponsiveValue'
-
 
 /* Dialog Version 2 */
 
