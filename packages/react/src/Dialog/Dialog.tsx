@@ -289,14 +289,6 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
   const header = (renderHeader ?? DefaultHeader)(defaultedProps)
   const body = (renderBody ?? DefaultBody)(defaultedProps)
   const footer = (renderFooter ?? DefaultFooter)(defaultedProps)
-  const positionDataAttributes =
-    typeof position === 'string'
-      ? {'data-position-regular': position}
-      : Object.fromEntries(
-          Object.entries(position).map(([key, value]) => {
-            return [`data-position-${key}`, value]
-          }),
-        )
 
   if (responsivePosition === 'bottom') {
     return (
@@ -319,6 +311,15 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
       </Portal>
     )
   }
+
+  const positionDataAttributes =
+    typeof position === 'string'
+      ? {'data-position-regular': position}
+      : Object.fromEntries(
+          Object.entries(position).map(([key, value]) => {
+            return [`data-position-${key}`, value]
+          }),
+        )
 
   return (
     <Portal>
@@ -346,13 +347,6 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
 })
 _Dialog.displayName = 'Dialog'
 
-const Title = styled.h1<SxProp>`
-  font-size: ${get('fontSizes.1')};
-  font-weight: ${get('fontWeights.bold')};
-  margin: 0; /* override default margin */
-  width: calc(100% - ${get('space.4')});
-  ${sx};
-`
 const Buttons: React.FC<React.PropsWithChildren<{buttons: DialogButtonProps[]}>> = ({buttons}) => {
   const autoFocusRef = useProvidedRefOrCreate<HTMLButtonElement>(buttons.find(button => button.autoFocus)?.ref)
   let autoFocusCount = 0
@@ -557,6 +551,13 @@ const Header = styled.div<SxProp>`
   [tabindex]:not([tabindex='-1']) {
     pointer-events: auto;
   }
+`
+const Title = styled.h1<SxProp>`
+  font-size: ${get('fontSizes.1')};
+  font-weight: ${get('fontWeights.bold')};
+  margin: 0; /* override default margin */
+  width: calc(100% - ${get('space.4')});
+  ${sx};
 `
 
 const Subtitle = styled.h2<SxProp>`
