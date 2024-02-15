@@ -45,7 +45,7 @@ const InactiveIndicator: React.FC<{
   </Tooltip>
 )
 
-export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
+export const Item = React.forwardRef<HTMLButtonElement, ActionListItemProps>(
   (
     {
       variant = 'default',
@@ -82,7 +82,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
 
     const onSelect = React.useCallback(
       (
-        event: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement>,
+        event: React.MouseEvent<HTMLButtonElement> | React.KeyboardEvent<HTMLButtonElement>,
         // eslint-disable-next-line @typescript-eslint/ban-types
         afterSelect?: Function,
       ) => {
@@ -224,7 +224,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
     }
 
     const clickHandler = React.useCallback(
-      (event: React.MouseEvent<HTMLLIElement>) => {
+      (event: React.MouseEvent<HTMLButtonElement>) => {
         if (disabled || inactive) return
         onSelect(event, afterSelect)
       },
@@ -232,7 +232,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
     )
 
     const keyPressHandler = React.useCallback(
-      (event: React.KeyboardEvent<HTMLLIElement>) => {
+      (event: React.KeyboardEvent<HTMLButtonElement>) => {
         if (disabled || inactive) return
         if ([' ', 'Enter'].includes(event.key)) {
           if (event.key === ' ') {
@@ -265,7 +265,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
           {children}
         </Box>
       )
-    }) as PolymorphicForwardRefComponent<HTMLButtonElement, ActionListItemProps>
+    }) as PolymorphicForwardRefComponent<'button', ActionListItemProps>
 
     const ItemWrapper = _PrivateItemWrapper || (validAriaRole ? React.Fragment : ButtonItemWrapper)
 
@@ -290,7 +290,8 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
 
     const containerProps = _PrivateItemWrapper
       ? {role: itemRole ? 'none' : undefined, ...props}
-      : (validAriaRole && {...menuItemProps, ...props}) || {}
+      : // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+        (validAriaRole && {...menuItemProps, ...props}) || {}
 
     const wrapperProps = _PrivateItemWrapper
       ? menuItemProps
@@ -301,7 +302,6 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
         value={{variant, disabled, inactive: Boolean(inactiveText), inlineDescriptionId, blockDescriptionId}}
       >
         <LiBox
-          ref={forwardedRef}
           sx={merge<BetterSystemStyleObject>(
             validAriaRole || _PrivateItemWrapper ? styles : listItemStyles,
             validAriaRole || _PrivateItemWrapper ? sxProp : {},
@@ -309,7 +309,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
           data-variant={variant === 'danger' ? variant : undefined}
           {...containerProps}
         >
-          <ItemWrapper {...wrapperProps}>
+          <ItemWrapper {...wrapperProps} ref={forwardedRef}>
             <Selection selected={selected} />
             {
               // If we're showing an inactive indicator and a leading visual has been passed,
@@ -391,7 +391,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       </ItemContext.Provider>
     )
   },
-) as PolymorphicForwardRefComponent<'li', ActionListItemProps>
+) as PolymorphicForwardRefComponent<'button', ActionListItemProps>
 
 Item.displayName = 'ActionList.Item'
 
