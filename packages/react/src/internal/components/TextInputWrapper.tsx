@@ -137,7 +137,8 @@ export const TextInputBaseWrapper = styled.span<StyledBaseWrapperProps>`
     css`
       color: ${get('colors.primer.fg.disabled')};
       background-color: ${get('colors.input.disabledBg')};
-      border-color: ${get('colors.border.default')};
+      box-shadow: none;
+      border-color: var(--control-borderColor-disabled, ${get('colors.border.default')});
 
       input,
       textarea,
