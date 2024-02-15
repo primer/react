@@ -8,18 +8,21 @@ Bugs
 - Divider is loopy
 */
 
-import React, {useState, useCallback, useRef, forwardRef, RefObject, MutableRefObject} from 'react'
+import type {RefObject, MutableRefObject} from 'react'
+import React, {useState, useCallback, useRef, forwardRef} from 'react'
 import {KebabHorizontalIcon} from '@primer/octicons-react'
 import {ActionList} from '../ActionList'
 import useIsomorphicLayoutEffect from '../utils/useIsomorphicLayoutEffect'
 import {MORE_BTN_WIDTH, NavigationList, MoreMenuListItem} from '../UnderlineNav/UnderlineNav'
 import {ulStyles, menuStyles} from '../UnderlineNav/styles'
 import {useOnEscapePress} from '../hooks/useOnEscapePress'
-import {useResizeObserver, ResizeObserverEntry} from '../hooks/useResizeObserver'
+import type {ResizeObserverEntry} from '../hooks/useResizeObserver'
+import {useResizeObserver} from '../hooks/useResizeObserver'
 
 import {useOnOutsideClick} from '../hooks/useOnOutsideClick'
 //import styled from 'styled-components'
-import {IconButton, IconButtonProps} from '../Button'
+import type {IconButtonProps} from '../Button'
+import {IconButton} from '../Button'
 import Box from '../Box'
 
 // import {get} from '../constants'
@@ -60,10 +63,10 @@ export type ActionBarIconButtonProps = IconButtonProps
 const getNavStyles = () => ({
   display: 'flex',
   paddingX: 3,
-  justifyContent: 'flex-start',
+  justifyContent: 'flex-end',
   align: 'row',
   alignItems: 'center',
-  minHeight: '48px',
+  maxHeight: '32px',
 })
 
 const menuItemStyles = {
@@ -172,7 +175,7 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
     })
   }, [])
 
-  const navRef = useRef<HTMLElement>(null) as MutableRefObject<HTMLElement>
+  const navRef = useRef<HTMLDivElement>(null)
   const listRef = useRef<HTMLUListElement>(null)
   const moreMenuRef = useRef<HTMLLIElement>(null)
   const moreMenuBtnRef = useRef<HTMLButtonElement>(null)
@@ -196,49 +199,49 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
     return validChildren.find(child => child.key === menuItem.key) ?? menuItem
   })
 
-  function getItemsWidth(itemText: string): number {
-    return childWidthArray.find(item => item.text === itemText)?.width ?? 0
-  }
+  // function getItemsWidth(itemText: string): number {
+  //   return childWidthArray.find(item => item.text === itemText)?.width ?? 0
+  // }
 
-  const swapMenuItemWithListItem = (
-    prospectiveListItem: React.ReactElement,
-    indexOfProspectiveListItem: number,
-    event: React.MouseEvent<HTMLAnchorElement> | React.KeyboardEvent<HTMLAnchorElement>,
-    callback: (props: ResponsiveProps, displayIcons: boolean) => void,
-  ) => {
-    // get the selected menu item's width
-    const widthToFitIntoList = getItemsWidth(prospectiveListItem.props.children)
-    // Check if there is any empty space on the right side of the list
-    const availableSpace =
-      navRef.current.getBoundingClientRect().width - (listRef.current?.getBoundingClientRect().width ?? 0)
+  // const swapMenuItemWithListItem = (
+  //   prospectiveListItem: React.ReactElement,
+  //   indexOfProspectiveListItem: number,
+  //   event: React.MouseEvent<HTMLAnchorElement> | React.KeyboardEvent<HTMLAnchorElement>,
+  //   callback: (props: ResponsiveProps, displayIcons: boolean) => void,
+  // ) => {
+  //   // get the selected menu item's width
+  //   const widthToFitIntoList = getItemsWidth(prospectiveListItem.props.children)
+  //   // Check if there is any empty space on the right side of the list
+  //   const availableSpace =
+  //     navRef && navRef.current.getBoundingClientRect().width - (listRef.current?.getBoundingClientRect().width ?? 0)
 
-    // Calculate how many items need to be pulled in to the menu to make room for the selected menu item
-    // I.e. if we need to pull 2 items in (index 0 and index 1), breakpoint (index) will return 1.
-    const index = getBreakpointForItemSwapping(widthToFitIntoList, availableSpace)
-    const indexToSliceAt = responsiveProps.items.length - 1 - index
-    // Form the new list of items
-    const itemsLeftInList = [...responsiveProps.items].slice(0, indexToSliceAt)
-    const updatedItemList = [...itemsLeftInList, prospectiveListItem]
-    // Form the new menu items
-    const itemsToAddToMenu = [...responsiveProps.items].slice(indexToSliceAt)
-    const updatedMenuItems = [...menuItems]
-    // Add itemsToAddToMenu array's items to the menu at the index of the prospectiveListItem and remove 1 count of items (prospectiveListItem)
-    updatedMenuItems.splice(indexOfProspectiveListItem, 1, ...itemsToAddToMenu)
-    callback({items: updatedItemList, menuItems: updatedMenuItems}, false)
-  }
+  //   // Calculate how many items need to be pulled in to the menu to make room for the selected menu item
+  //   // I.e. if we need to pull 2 items in (index 0 and index 1), breakpoint (index) will return 1.
+  //   const index = getBreakpointForItemSwapping(widthToFitIntoList, availableSpace)
+  //   const indexToSliceAt = responsiveProps.items.length - 1 - index
+  //   // Form the new list of items
+  //   const itemsLeftInList = [...responsiveProps.items].slice(0, indexToSliceAt)
+  //   const updatedItemList = [...itemsLeftInList, prospectiveListItem]
+  //   // Form the new menu items
+  //   const itemsToAddToMenu = [...responsiveProps.items].slice(indexToSliceAt)
+  //   const updatedMenuItems = [...menuItems]
+  //   // Add itemsToAddToMenu array's items to the menu at the index of the prospectiveListItem and remove 1 count of items (prospectiveListItem)
+  //   updatedMenuItems.splice(indexOfProspectiveListItem, 1, ...itemsToAddToMenu)
+  //   callback({items: updatedItemList, menuItems: updatedMenuItems}, false)
+  // }
   // How many items do we need to pull in to the menu to make room for the selected menu item.
-  function getBreakpointForItemSwapping(widthToFitIntoList: number, availableSpace: number) {
-    let widthToSwap = 0
-    let breakpoint = 0
-    for (const [index, item] of [...responsiveProps.items].reverse().entries()) {
-      widthToSwap += getItemsWidth(item.props.children)
-      if (widthToFitIntoList < widthToSwap + availableSpace) {
-        breakpoint = index
-        break
-      }
-    }
-    return breakpoint
-  }
+  // function getBreakpointForItemSwapping(widthToFitIntoList: number, availableSpace: number) {
+  //   let widthToSwap = 0
+  //   let breakpoint = 0
+  //   for (const [index, item] of [...responsiveProps.items].reverse().entries()) {
+  //     widthToSwap += getItemsWidth(item.props.children)
+  //     if (widthToFitIntoList < widthToSwap + availableSpace) {
+  //       breakpoint = index
+  //       break
+  //     }
+  //   }
+  //   return breakpoint
+  // }
 
   const updateListAndMenu = useCallback((props: ResponsiveProps) => {
     setResponsiveProps(props)
