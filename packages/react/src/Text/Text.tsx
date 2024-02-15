@@ -1,7 +1,9 @@
 import styled from 'styled-components'
-import {COMMON, SystemCommonProps, SystemTypographyProps, TYPOGRAPHY} from '../constants'
-import sx, {SxProp} from '../sx'
-import {ComponentProps} from '../utils/types'
+import type {SystemCommonProps, SystemTypographyProps} from '../constants'
+import {COMMON, TYPOGRAPHY} from '../constants'
+import type {SxProp} from '../sx'
+import sx from '../sx'
+import type {ComponentProps} from '../utils/types'
 
 const Text = styled.span<SystemTypographyProps & SystemCommonProps & SxProp>`
   ${TYPOGRAPHY};

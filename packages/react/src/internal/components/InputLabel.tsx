@@ -1,6 +1,6 @@
 import React from 'react'
 import Box from '../../Box'
-import {SxProp} from '../../sx'
+import type {SxProp} from '../../sx'
 import VisuallyHidden from '../../_VisuallyHidden'
 
 type BaseProps = SxProp & {

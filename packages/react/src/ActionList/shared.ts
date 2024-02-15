@@ -1,6 +1,6 @@
 import React from 'react'
-import {SxProp} from '../sx'
-import {AriaRole} from '../utils/types'
+import type {SxProp} from '../sx'
+import type {AriaRole} from '../utils/types'
 
 export type ActionListItemProps = {
   /**

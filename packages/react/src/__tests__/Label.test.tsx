@@ -1,7 +1,8 @@
 import React from 'react'
 import {render} from '@testing-library/react'
 import {axe} from 'jest-axe'
-import Label, {variants, LabelColorOptions} from '../Label'
+import type {LabelColorOptions} from '../Label'
+import Label, {variants} from '../Label'
 import {renderStyles} from '../utils/testing'
 
 describe('Label', () => {

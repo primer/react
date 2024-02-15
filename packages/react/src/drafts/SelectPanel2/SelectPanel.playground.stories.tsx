@@ -1,6 +1,7 @@
 import React from 'react'
-import {Meta, StoryFn} from '@storybook/react'
-import {SelectPanel, SelectPanelProps} from './SelectPanel'
+import type {Meta, StoryFn} from '@storybook/react'
+import type {SelectPanelProps} from './SelectPanel'
+import {SelectPanel} from './SelectPanel'
 import {ActionList, Box} from '../../index'
 import data from './mock-story-data'
 

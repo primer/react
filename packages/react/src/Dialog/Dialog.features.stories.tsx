@@ -1,8 +1,10 @@
 import React, {useState, useRef, useCallback} from 'react'
 import {Meta} from '@storybook/react'
-
 import {BaseStyles, ThemeProvider, Box, TextInput, Text, Button} from '..'
 import {Dialog, DialogProps} from './Dialog'
+import {Box, TextInput, Text, Button} from '..'
+import type {DialogProps, DialogWidth, DialogHeight} from './Dialog'
+import {Dialog} from './Dialog'
 
 /* Dialog Version 2 */
 

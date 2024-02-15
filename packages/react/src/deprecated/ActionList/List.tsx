@@ -1,13 +1,16 @@
-import React, {Key} from 'react'
+import type {Key} from 'react'
+import React from 'react'
 import type {AriaRole} from '../../utils/types'
-import {Group, GroupProps} from './Group'
-import {Item, ItemProps} from './Item'
+import type {GroupProps} from './Group'
+import {Group} from './Group'
+import type {ItemProps} from './Item'
+import {Item} from './Item'
 import {Divider} from './Divider'
 import styled from 'styled-components'
 import {get} from '../../constants'
-import {SystemCssProperties} from '@styled-system/css'
+import type {SystemCssProperties} from '@styled-system/css'
 import {hasActiveDescendantAttribute} from '@primer/behaviors'
-import {Merge} from '../../utils/types/Merge'
+import type {Merge} from '../../utils/types/Merge'
 
 type RenderItemFn = (props: ItemProps) => React.ReactElement
 

@@ -1,5 +1,5 @@
 import React from 'react'
-import {ResponsiveValue} from '../hooks/useResponsiveValue'
+import type {ResponsiveValue} from '../hooks/useResponsiveValue'
 import {getBreakpointDeclarations} from '../utils/getBreakpointDeclarations'
 import Box from '../Box'
 

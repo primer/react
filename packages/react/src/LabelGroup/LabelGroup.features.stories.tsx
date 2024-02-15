@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import LabelGroup from './LabelGroup'
-import {Meta, Story} from '@storybook/react'
+import type {Meta, Story} from '@storybook/react'
 import Token from '../Token/Token'
 import Label from '../Label/Label'
 

@@ -1,7 +1,7 @@
 import generate from '@babel/generator'
 import {parse} from '@babel/parser'
 import traverse from '@babel/traverse'
-import {ArrowFunctionExpression, Identifier, FunctionDeclaration} from '@babel/types'
+import type {ArrowFunctionExpression, Identifier, FunctionDeclaration} from '@babel/types'
 import Ajv from 'ajv'
 import {pascalCase} from 'change-case'
 import glob from 'fast-glob'
