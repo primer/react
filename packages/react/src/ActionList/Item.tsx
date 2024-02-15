@@ -252,7 +252,7 @@ export const Item = React.forwardRef<HTMLButtonElement, ActionListItemProps>(
     const inlineDescriptionId = `${itemId}--inline-description`
     const blockDescriptionId = `${itemId}--block-description`
     const inactiveWarningId = inactive && !showInactiveIndicator ? `${itemId}--warning-message` : undefined
-    const validAriaRole = listRole === 'listbox' || listRole === 'menu'
+    const validRole = listRole === 'listbox' || listRole === 'menu' || inactive
 
     const ButtonItemWrapper = React.forwardRef(({as: Component = 'button', children, ...props}, forwardedRef) => {
       return (
@@ -267,7 +267,7 @@ export const Item = React.forwardRef<HTMLButtonElement, ActionListItemProps>(
       )
     }) as PolymorphicForwardRefComponent<'button', ActionListItemProps>
 
-    const ItemWrapper = _PrivateItemWrapper || (validAriaRole ? React.Fragment : ButtonItemWrapper)
+    const ItemWrapper = _PrivateItemWrapper || (validRole ? React.Fragment : ButtonItemWrapper)
 
     // only apply aria-selected and aria-checked to selectable items
     const selectableRoles = ['menuitemradio', 'menuitemcheckbox', 'option']
@@ -291,11 +291,11 @@ export const Item = React.forwardRef<HTMLButtonElement, ActionListItemProps>(
     const containerProps = _PrivateItemWrapper
       ? {role: itemRole ? 'none' : undefined, ...props}
       : // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-        (validAriaRole && {...menuItemProps, ...props}) || {}
+        (validRole && {...menuItemProps, ...props}) || {}
 
     const wrapperProps = _PrivateItemWrapper
       ? menuItemProps
-      : !validAriaRole && {...menuItemProps, styles: merge<BetterSystemStyleObject>(styles, sxProp), ...props}
+      : !validRole && {...menuItemProps, styles: merge<BetterSystemStyleObject>(styles, sxProp), ...props}
 
     return (
       <ItemContext.Provider
@@ -303,8 +303,8 @@ export const Item = React.forwardRef<HTMLButtonElement, ActionListItemProps>(
       >
         <LiBox
           sx={merge<BetterSystemStyleObject>(
-            validAriaRole || _PrivateItemWrapper ? styles : listItemStyles,
-            validAriaRole || _PrivateItemWrapper ? sxProp : {},
+            validRole || _PrivateItemWrapper ? styles : listItemStyles,
+            validRole || _PrivateItemWrapper ? sxProp : {},
           )}
           data-variant={variant === 'danger' ? variant : undefined}
           {...containerProps}
