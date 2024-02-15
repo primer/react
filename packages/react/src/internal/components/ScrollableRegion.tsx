@@ -1,7 +1,7 @@
 import React from 'react'
 import Box from '../../Box'
 import {useOverflow} from '../hooks/useOverflow'
-import {SxProp} from '../../sx'
+import type {SxProp} from '../../sx'
 
 type ScrollableRegionProps = React.PropsWithChildren<{
   'aria-labelledby'?: string

@@ -1,6 +1,8 @@
-import React, {useEffect, useRef, useState, PropsWithChildren, MouseEvent, TouchEvent, ChangeEvent} from 'react'
+import React, {useEffect, useRef, useState} from 'react'
+import type {PropsWithChildren, MouseEvent, TouchEvent, ChangeEvent} from 'react'
+
 import styled from 'styled-components'
-import {SxProp} from '../sx'
+import type {SxProp} from '../sx'
 import {useRefObjectAsForwardedRef} from '../hooks/useRefObjectAsForwardedRef'
 import Box from '../Box'
 import {get} from '../constants'
