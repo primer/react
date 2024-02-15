@@ -234,50 +234,12 @@ export const Responsive = () => {
         <Dialog
           title="Your title"
           onClose={() => setIsOpen(false)}
-          type={{narrow: 'full-screen', regular: 'default', wide: 'default'}}
+          position={{narrow: 'fullscreen', regular: 'center', wide: 'center'}}
           footerButtons={[
             {buttonType: 'normal', content: 'Cancel', onClick: () => {}},
             {buttonType: 'primary', content: 'Submit', autoFocus: true},
           ]}
         >
-          {lipsum}
-        </Dialog>
-      )}
-    </>
-  )
-}
-
-export const FullScreen = () => {
-  const [isOpen, setIsOpen] = useState(true)
-
-  return (
-    <>
-      <Button onClick={() => setIsOpen(true)}>Show dialog</Button>
-      {isOpen && (
-        <Dialog
-          title="Your title"
-          onClose={() => setIsOpen(false)}
-          type="full-screen"
-          footerButtons={[
-            {buttonType: 'normal', content: 'Cancel', onClick: () => {}},
-            {buttonType: 'primary', content: 'Submit', autoFocus: true},
-          ]}
-        >
-          {lipsum}
-        </Dialog>
-      )}
-    </>
-  )
-}
-
-export const BottomSheet = () => {
-  const [isOpen, setIsOpen] = useState(true)
-
-  return (
-    <>
-      <Button onClick={() => setIsOpen(true)}>Show dialog</Button>
-      {isOpen && (
-        <Dialog title="Your title" type="bottom-sheet" onClose={() => setIsOpen(false)}>
           {lipsum}
         </Dialog>
       )}
@@ -364,6 +326,7 @@ export const BottomSheetNarrow = () => {
     </>
   )
 }
+
 BottomSheetNarrow.storyName = '[Position] Bottom sheet (narrow)'
 
 export const FullScreenNarrow = () => {

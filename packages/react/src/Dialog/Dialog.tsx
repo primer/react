@@ -118,14 +118,6 @@ export interface DialogProps extends SxProp {
   role?: 'dialog' | 'alertdialog'
 
   /**
-   * Normally a dialog is display in the center of a viewport but sometimes
-   * it is useful to display this full screen or as an bottom sheet on mobile viewports
-   * to allow for more space for content. When full-screen or bottom sheet the width
-   * and height is ignored.
-   */
-  type?: DialogType | ResponsiveValue<DialogType>
-
-  /**
    * The width of the dialog.
    * small: 296px
    * medium: 320px
@@ -246,7 +238,6 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
     role = 'dialog',
     width = 'xlarge',
     height = 'auto',
-    type = 'default',
     footerButtons = [],
     position = defaultPosition,
     sx,
@@ -262,7 +253,7 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
   }
 
   const defaultedProps = {...props, title, subtitle, role, dialogLabelId, dialogDescriptionId, closeButtonRef}
-  const responsiveType = useResponsiveValue(type, 'default')
+  const responsivePosition = useResponsiveValue(position, 'center')
 
   const dialogRef = useRef<HTMLDivElement>(null)
   useRefObjectAsForwardedRef(forwardedRef, dialogRef)
@@ -308,33 +299,7 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
           }),
         )
 
-  if (responsiveType === 'full-screen') {
-    return (
-      <Portal>
-        <Backdrop {...positionDataAttributes}>
-          <StyledDialog
-            width={width}
-            height={height}
-            ref={dialogRef}
-            role={role}
-            aria-labelledby={dialogLabelId}
-            aria-describedby={dialogDescriptionId}
-            aria-modal
-            {...positionDataAttributes}
-            sx={sx}
-          >
-            {header}
-            <ScrollableRegion aria-labelledby={dialogLabelId} className="DialogOverflowWrapper">
-              {body}
-            </ScrollableRegion>
-            {footer}
-          </StyledDialog>
-        </Backdrop>
-      </Portal>
-    )
-  }
-
-  if (responsiveType === 'bottom-sheet') {
+  if (responsivePosition === 'bottom-sheet') {
     return (
       <Portal>
         <DialogBottomSheet
