@@ -323,7 +323,7 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
 
   return (
     <Portal>
-      <Backdrop>
+      <Backdrop {...positionDataAttributes}>
         <StyledDialog
           width={width}
           height={height}
@@ -332,6 +332,7 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
           aria-labelledby={dialogLabelId}
           aria-describedby={dialogDescriptionId}
           aria-modal
+          {...positionDataAttributes}
           sx={sx}
         >
           {header}
