@@ -177,7 +177,6 @@ const widthMap = {
 
 export type DialogWidth = keyof typeof widthMap
 export type DialogHeight = keyof typeof heightMap
-export type DialogType = 'default' | 'full-screen' | 'bottom-sheet'
 
 type StyledDialogProps = {
   width?: DialogWidth
@@ -299,7 +298,7 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
           }),
         )
 
-  if (responsivePosition === 'bottom-sheet') {
+  if (responsivePosition === 'bottom') {
     return (
       <Portal>
         <DialogBottomSheet
@@ -427,11 +426,6 @@ const Backdrop = styled('div')`
       align-items: center;
       justify-content: center;
     }
-
-    &[data-position-narrow='bottom'] {
-      align-items: end;
-      justify-content: center;
-    }
   }
 
   @keyframes dialog-backdrop-appear {
@@ -498,20 +492,6 @@ const StyledDialog = styled.div<StyledDialogProps>`
       border-radius: var(--borderRadius-large, 0.75rem);
       width: ${props => widthMap[props.width ?? ('xlarge' as const)]};
       height: ${props => heightMap[props.height ?? ('auto' as const)]};
-    }
-
-    &[data-position-narrow='bottom'] {
-      width: 100vw;
-      height: auto;
-      max-width: 100vw;
-      max-height: calc(100vh - 64px);
-      border-radius: var(--borderRadius-large, 0.75rem);
-      border-bottom-right-radius: 0;
-      border-bottom-left-radius: 0;
-
-      @media screen and (prefers-reduced-motion: no-preference) {
-        animation: Overlay--motion-slideUp 0.25s cubic-bezier(0.33, 1, 0.68, 1) 0s 1 normal none running;
-      }
     }
 
     &[data-position-narrow='fullscreen'] {
