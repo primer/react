@@ -22,6 +22,7 @@ const StyledTooltip = styled.div`
   /* Overriding the default popover styles */
   display: none;
   &[popover] {
+    position: absolute;
     padding: 0.5em 0.75em;
     width: max-content;
     margin: auto;
