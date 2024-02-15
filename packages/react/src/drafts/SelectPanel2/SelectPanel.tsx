@@ -2,29 +2,14 @@ import React from 'react'
 import {SearchIcon, XCircleFillIcon, XIcon, FilterRemoveIcon, AlertIcon} from '@primer/octicons-react'
 import {FocusKeys} from '@primer/behaviors'
 
-import {
-  Button,
-  ButtonProps,
-  IconButton,
-  Heading,
-  Box,
-  Tooltip,
-  TextInput,
-  TextInputProps,
-  Spinner,
-  Text,
-  ActionListProps,
-  Octicon,
-  Link,
-  LinkProps,
-  Checkbox,
-  CheckboxProps,
-} from '../../index'
+import type {ButtonProps, TextInputProps, ActionListProps, LinkProps, CheckboxProps} from '../../index'
+import {Button, IconButton, Heading, Box, Tooltip, TextInput, Spinner, Text, Octicon, Link, Checkbox} from '../../index'
 import {ActionListContainerContext} from '../../ActionList/ActionListContainerContext'
 import {useSlots} from '../../hooks/useSlots'
 import {useProvidedRefOrCreate, useId, useAnchoredPosition} from '../../hooks'
 import {useFocusZone} from '../../hooks/useFocusZone'
-import {StyledOverlay, OverlayProps, heightMap} from '../../Overlay/Overlay'
+import type {OverlayProps} from '../../Overlay/Overlay'
+import {StyledOverlay, heightMap} from '../../Overlay/Overlay'
 import InputLabel from '../../internal/components/InputLabel'
 import {invariant} from '../../utils/invariant'
 
@@ -37,6 +22,7 @@ const SelectPanelContext = React.createContext<{
   searchQuery: string
   setSearchQuery: React.Dispatch<React.SetStateAction<string>>
   selectionVariant: ActionListProps['selectionVariant'] | 'instant'
+  moveFocusToList: () => void
 }>({
   title: '',
   description: undefined,
@@ -46,6 +32,7 @@ const SelectPanelContext = React.createContext<{
   searchQuery: '',
   setSearchQuery: () => {},
   selectionVariant: 'multiple',
+  moveFocusToList: () => {},
 })
 
 export type SelectPanelProps = {
@@ -142,8 +129,12 @@ const Panel: React.FC<SelectPanelProps> = ({
     if (typeof propsOnClearSelection === 'function') propsOnClearSelection()
   }
 
-  const internalAfterSelect = () => {
+  const internalAfterSelect = (event: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement>) => {
     if (selectionVariant === 'instant') onInternalSubmit()
+
+    if (event.type === 'keypress') {
+      if ((event as React.KeyboardEvent<HTMLLIElement>).key === 'Enter') onInternalSubmit()
+    }
   }
 
   /* Search/Filter */
@@ -161,6 +152,14 @@ const Panel: React.FC<SelectPanelProps> = ({
     },
     [internalOpen],
   )
+
+  // used in SelectPanel.SearchInput
+  const moveFocusToList = () => {
+    const selector = 'ul[role=listbox] li:not([role=none])'
+    // being specific about roles because there can be another ul (tabs in header) and an ActionList.Group (li[role=none])
+    const firstListElement = dialogRef.current?.querySelector(selector) as HTMLLIElement | undefined
+    firstListElement?.focus()
+  }
 
   /* Dialog */
   const dialogRef = React.useRef<HTMLDialogElement>(null)
@@ -268,6 +267,7 @@ const Panel: React.FC<SelectPanelProps> = ({
             searchQuery,
             setSearchQuery,
             selectionVariant,
+            moveFocusToList,
           }}
         >
           <Box
@@ -376,17 +376,30 @@ const SelectPanelHeader: React.FC<React.PropsWithChildren> = ({children, ...prop
   )
 }
 
-const SelectPanelSearchInput: React.FC<TextInputProps> = ({onChange: propsOnChange, ...props}) => {
+const SelectPanelSearchInput: React.FC<TextInputProps> = ({
+  onChange: propsOnChange,
+  onKeyDown: propsOnKeyDown,
+  ...props
+}) => {
   // TODO: use forwardedRef
   const inputRef = React.createRef<HTMLInputElement>()
 
-  const {setSearchQuery} = React.useContext(SelectPanelContext)
+  const {setSearchQuery, moveFocusToList} = React.useContext(SelectPanelContext)
 
   const internalOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     // If props.onChange is given, the application controls search,
     // otherwise the component does
     if (typeof propsOnChange === 'function') propsOnChange(event)
     else setSearchQuery(event.target.value)
+  }
+
+  const internalKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'ArrowDown') {
+      event.preventDefault() // prevent scroll
+      moveFocusToList()
+    }
+
+    if (typeof propsOnKeyDown === 'function') propsOnKeyDown(event)
   }
 
   return (
@@ -412,6 +425,7 @@ const SelectPanelSearchInput: React.FC<TextInputProps> = ({onChange: propsOnChan
       }
       sx={{'&:has(input:placeholder-shown) .TextInput-action': {display: 'none'}}}
       onChange={internalOnChange}
+      onKeyDown={internalKeyDown}
       {...props}
     />
   )

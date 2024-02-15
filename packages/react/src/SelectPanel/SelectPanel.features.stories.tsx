@@ -1,9 +1,9 @@
 import React, {useState, useRef} from 'react'
-import {ComponentMeta} from '@storybook/react'
+import type {ComponentMeta} from '@storybook/react'
 
 import Box from '../Box'
 import {Button} from '../Button'
-import {ItemInput} from '../deprecated/ActionList/List'
+import type {ItemInput} from '../deprecated/ActionList/List'
 import {SelectPanel} from './SelectPanel'
 import {TriangleDownIcon} from '@primer/octicons-react'
 import type {OverlayProps} from '../Overlay'

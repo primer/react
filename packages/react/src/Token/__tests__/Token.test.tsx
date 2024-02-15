@@ -4,9 +4,10 @@ import React from 'react'
 import Token from '../Token'
 import {render, behavesAsComponent} from '../../utils/testing'
 import {axe} from 'jest-axe'
-import {TokenSizeKeys, tokenSizes} from '../TokenBase'
+import type {TokenSizeKeys} from '../TokenBase'
+import {tokenSizes} from '../TokenBase'
 import {IssueLabelToken, AvatarToken} from '..'
-import {AvatarTokenProps} from '../AvatarToken'
+import type {AvatarTokenProps} from '../AvatarToken'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const testTokenComponent = (Component: React.ComponentType<React.PropsWithChildren<any>>) => {

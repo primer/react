@@ -1,6 +1,6 @@
 import React from 'react'
 import Text from '../../Text'
-import {SxProp} from '../../sx'
+import type {SxProp} from '../../sx'
 
 type Props = {
   /**

@@ -1,5 +1,5 @@
 import React, {useState, useRef, useCallback} from 'react'
-import {Meta} from '@storybook/react'
+import type {Meta} from '@storybook/react'
 import {TriangleDownIcon, PlusIcon, IssueDraftIcon} from '@primer/octicons-react'
 import {
   Overlay,

@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect} from 'react'
-import {Meta} from '@storybook/react'
+import type {Meta} from '@storybook/react'
 import styled, {createGlobalStyle} from 'styled-components'
 
 import {BaseStyles, Box, Button, Flash, Text, ThemeProvider} from '..'

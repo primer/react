@@ -1,21 +1,25 @@
 import React from 'react'
 import styled from 'styled-components'
 import {AlertIcon} from '@primer/octicons-react'
-import Box, {BoxProps} from '../Box'
-import {Tooltip, TooltipProps} from '../TooltipV2/Tooltip'
+import type {BoxProps} from '../Box'
+import Box from '../Box'
+import type {TooltipProps} from '../TooltipV2/Tooltip'
+import {Tooltip} from '../TooltipV2/Tooltip'
 import {useId} from '../hooks/useId'
 import {useSlots} from '../hooks/useSlots'
-import sx, {BetterSystemStyleObject, merge, SxProp} from '../sx'
+import type {BetterSystemStyleObject, SxProp} from '../sx'
+import sx, {merge} from '../sx'
 import {useTheme} from '../ThemeProvider'
 import {defaultSxProp} from '../utils/defaultSxProp'
-import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
+import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import {ActionListContainerContext} from './ActionListContainerContext'
 import {Description} from './Description'
 import {GroupContext} from './Group'
-import {type ActionListProps, ListContext} from './shared'
+import type {ActionListItemProps, ActionListProps} from './shared'
 import {Selection} from './Selection'
-import {ActionListItemProps, getVariantStyles, ItemContext, TEXT_ROW_HEIGHT} from './shared'
-import {LeadingVisual, TrailingVisual, VisualProps} from './Visuals'
+import {getVariantStyles, ItemContext, TEXT_ROW_HEIGHT, ListContext} from './shared'
+import type {VisualProps} from './Visuals'
+import {LeadingVisual, TrailingVisual} from './Visuals'
 
 const LiBox = styled.li<SxProp>(sx)
 
@@ -88,7 +92,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       ) => {
         if (typeof onSelectUser === 'function') onSelectUser(event)
         if (event.defaultPrevented) return
-        if (typeof afterSelect === 'function') afterSelect()
+        if (typeof afterSelect === 'function') afterSelect(event)
       },
       [onSelectUser],
     )
@@ -229,6 +233,12 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       (event: React.KeyboardEvent<HTMLLIElement>) => {
         if (disabled || inactive) return
         if ([' ', 'Enter'].includes(event.key)) {
+          if (event.key === ' ') {
+            event.preventDefault() // prevent scrolling on Space
+            // immediately reset defaultPrevented once it's job is done
+            // so as to not disturb the functions that use that event after this
+            event.defaultPrevented = false
+          }
           onSelect(event, afterSelect)
         }
       },
@@ -286,8 +296,6 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
               // Inactive items without a leading visual place the inactive indicator in the
               // trailing visual slot. This preserves the left alignment of item text.
               showInactiveIndicator && slots.leadingVisual ? (
-                // using a non-null assertion for `inactiveText` since we check for it in `showInactiveIndicator`
-                // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
                 <InactiveIndicator labelId={labelId} text={inactiveText!} visualComponent={LeadingVisual} />
               ) : (
                 // If it's not inactive, just render the leading visual slot
@@ -325,8 +333,6 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
                   //
                   // This preserves the left alignment of item text.
                   showInactiveIndicator && !slots.leadingVisual ? (
-                    // using a non-null assertion for `inactiveText` since we check for it in `showInactiveIndicator`
-                    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
                     <InactiveIndicator labelId={labelId} text={inactiveText!} visualComponent={TrailingVisual} />
                   ) : (
                     // If it's not inactive, or it has a leading visual that can be replaced,

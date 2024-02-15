@@ -1,15 +1,18 @@
 import styled from 'styled-components'
-import React, {ComponentPropsWithRef, ReactElement, useEffect, useRef} from 'react'
+import type {ComponentPropsWithRef, ReactElement} from 'react'
+import React, {useEffect, useRef} from 'react'
 import useLayoutEffect from '../utils/useIsomorphicLayoutEffect'
 import {get} from '../constants'
-import {AriaRole, Merge} from '../utils/types'
-import {useOverlay, TouchOrMouseEvent} from '../hooks'
+import type {AriaRole, Merge} from '../utils/types'
+import type {TouchOrMouseEvent} from '../hooks'
+import {useOverlay} from '../hooks'
 import Portal from '../Portal'
-import sx, {SxProp} from '../sx'
+import type {SxProp} from '../sx'
+import sx from '../sx'
 import {useRefObjectAsForwardedRef} from '../hooks/useRefObjectAsForwardedRef'
 import type {AnchorSide} from '@primer/behaviors'
 import {useTheme} from '../ThemeProvider'
-import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
+import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 
 type StyledOverlayProps = {
   width?: keyof typeof widthMap

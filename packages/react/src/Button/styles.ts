@@ -1,5 +1,5 @@
-import {VariantType, AlignContent} from './types'
-import {Theme} from '../ThemeProvider'
+import type {VariantType, AlignContent} from './types'
+import type {Theme} from '../ThemeProvider'
 
 export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme) => {
   const style = {
