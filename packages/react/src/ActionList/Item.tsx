@@ -82,11 +82,11 @@ export const Item = React.forwardRef<HTMLButtonElement, ActionListItemProps>(
 
     const onSelect = React.useCallback(
       (
-        event: React.MouseEvent<HTMLButtonElement> | React.KeyboardEvent<HTMLButtonElement>,
+        event: React.MouseEvent | React.KeyboardEvent,
         // eslint-disable-next-line @typescript-eslint/ban-types
         afterSelect?: Function,
       ) => {
-        if (typeof onSelectUser === 'function') onSelectUser(event)
+        if (typeof onSelectUser === 'function') onSelectUser(event as React.MouseEvent<HTMLButtonElement, MouseEvent>)
         if (event.defaultPrevented) return
         if (typeof afterSelect === 'function') afterSelect(event)
       },
@@ -224,7 +224,7 @@ export const Item = React.forwardRef<HTMLButtonElement, ActionListItemProps>(
     }
 
     const clickHandler = React.useCallback(
-      (event: React.MouseEvent<HTMLButtonElement>) => {
+      (event: React.MouseEvent) => {
         if (disabled || inactive) return
         onSelect(event, afterSelect)
       },
@@ -232,7 +232,7 @@ export const Item = React.forwardRef<HTMLButtonElement, ActionListItemProps>(
     )
 
     const keyPressHandler = React.useCallback(
-      (event: React.KeyboardEvent<HTMLButtonElement>) => {
+      (event: React.KeyboardEvent) => {
         if (disabled || inactive) return
         if ([' ', 'Enter'].includes(event.key)) {
           if (event.key === ' ') {

@@ -51,8 +51,8 @@ export type ActionListItemProps = {
 } & SxProp
 
 type MenuItemProps = {
-  onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void
-  onKeyPress?: (event: React.KeyboardEvent<HTMLButtonElement>) => void
+  onClick?: (event: React.MouseEvent) => void
+  onKeyPress?: (event: React.KeyboardEvent) => void
   'aria-disabled'?: boolean
   tabIndex?: number
   'aria-labelledby'?: string
