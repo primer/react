@@ -101,9 +101,6 @@ test.describe('ButtonGroup', () => {
           await page.keyboard.press('Tab')
           expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
             `ButtonGroup.Button Group With Tooltip.${theme}.png`,
-            {
-              threshold: 0.1,
-            },
           )
         })
 
@@ -135,9 +132,6 @@ test.describe('ButtonGroup', () => {
           await page.keyboard.press('Tab')
           expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
             `ButtonGroup.Button Group With Tooltip 2.${theme}.png`,
-            {
-              threshold: 0.1,
-            },
           )
         })
 
@@ -169,9 +163,6 @@ test.describe('ButtonGroup', () => {
           await page.keyboard.press('Tab')
           expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
             `ButtonGroup.Icon Buttons With Tooltip.${theme}.png`,
-            {
-              threshold: 0.1,
-            },
           )
         })
 
@@ -203,9 +194,6 @@ test.describe('ButtonGroup', () => {
           await page.keyboard.press('Tab')
           expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
             `ButtonGroup.Icon Buttons With Tooltip 2.${theme}.png`,
-            {
-              threshold: 0.1,
-            },
           )
         })
 
@@ -237,9 +225,6 @@ test.describe('ButtonGroup', () => {
           await page.keyboard.press('Tab')
           expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
             `ButtonGroup.Links With Tooltip.${theme}.png`,
-            {
-              threshold: 0.1,
-            },
           )
         })
 
@@ -271,9 +256,6 @@ test.describe('ButtonGroup', () => {
           await page.keyboard.press('Tab')
           expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
             `ButtonGroup.Links With Tooltip 2.${theme}.png`,
-            {
-              threshold: 0.1,
-            },
           )
         })
 
