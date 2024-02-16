@@ -299,6 +299,7 @@ const Panel: React.FC<SelectPanelProps> = ({
                   selectionAttribute: 'aria-selected',
                   selectionVariant: selectionVariant === 'instant' ? 'single' : selectionVariant,
                   afterSelect: internalAfterSelect,
+                  listLabelledBy: `${panelId}--title`,
                 }}
               >
                 {childrenInBody}
