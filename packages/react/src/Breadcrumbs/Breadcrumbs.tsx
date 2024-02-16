@@ -1,11 +1,12 @@
 import clsx from 'clsx'
-import {To} from 'history'
+import type {To} from 'history'
 import React from 'react'
 import styled from 'styled-components'
 import Box from '../Box'
 import {get} from '../constants'
-import sx, {SxProp} from '../sx'
-import {ComponentProps} from '../utils/types'
+import type {SxProp} from '../sx'
+import sx from '../sx'
+import type {ComponentProps} from '../utils/types'
 
 const SELECTED_CLASS = 'selected'
 

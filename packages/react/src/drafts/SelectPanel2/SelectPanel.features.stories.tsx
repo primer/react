@@ -1,8 +1,8 @@
 import React from 'react'
-import {SelectPanel} from '../SelectPanel'
-import {ActionList, Avatar, Box, Button, Link, Text, ToggleSwitch} from '../../../index'
+import {SelectPanel} from './SelectPanel'
+import {ActionList, Avatar, Box, Button, Link, Text, ToggleSwitch} from '../../index'
 import {TagIcon, GearIcon} from '@primer/octicons-react'
-import data from './mock-data'
+import data from './mock-story-data'
 
 export default {
   title: 'Drafts/Components/SelectPanel/Features',
@@ -27,7 +27,7 @@ export const InstantSelectionVariant = () => {
     <>
       <h1>Instant selection variant</h1>
 
-      <SelectPanel title="Choose a tag" selectionVariant="instant" onSubmit={onSubmit} height="medium">
+      <SelectPanel title="Choose a tag" selectionVariant="instant" onSubmit={onSubmit}>
         <SelectPanel.Button leadingVisual={TagIcon}>{selectedTag || 'Choose a tag'}</SelectPanel.Button>
 
         <ActionList>

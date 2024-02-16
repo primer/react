@@ -1,5 +1,6 @@
 import React from 'react'
-import {Spinner, SpinnerProps} from '..'
+import type {SpinnerProps} from '..'
+import {Spinner} from '..'
 import {behavesAsComponent, checkExports} from '../utils/testing'
 import {render as HTMLRender} from '@testing-library/react'
 import {axe} from 'jest-axe'

@@ -1,12 +1,10 @@
 import React from 'react'
-import {Meta} from '@storybook/react'
-import {Box, Checkbox, CheckboxProps} from '..'
+import type {Meta} from '@storybook/react'
+import type {CheckboxProps} from '..'
+import {Box, Checkbox} from '..'
 import FormControl from '../FormControl'
-import {
-  FormControlArgs,
-  formControlArgTypesWithoutValidation,
-  getFormControlArgsByChildComponent,
-} from '../utils/form-story-helpers'
+import type {FormControlArgs} from '../utils/form-story-helpers'
+import {formControlArgTypesWithoutValidation, getFormControlArgsByChildComponent} from '../utils/form-story-helpers'
 
 const excludedControlKeys = ['required', 'value', 'validationStatus', 'sx']
 

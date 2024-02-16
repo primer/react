@@ -1,9 +1,19 @@
 {
   "id": "selectpanel_v2",
-  "name": "SelectPanel v2",
+  "name": "SelectPanel",
   "status": "draft",
   "a11yReviewed": false,
-  "stories": [],
+  "stories": [
+    {"id": "drafts-components-selectpanel-examples--minimal"},
+    {"id": "drafts-components-selectpanel-examples--short-select-panel"},
+    {"id": "drafts-components-selectpanel-features--instant-selection-variant"},
+    {"id": "drafts-components-selectpanel-features--with-warning"},
+    {"id": "drafts-components-selectpanel-examples--open-from-menu"},
+    {"id": "drafts-components-selectpanel-examples--with-groups"},
+    {"id": "drafts-components-selectpanel-examples--async-search-with-use-transition"},
+    {"id": "drafts-components-selectpanel-examples--async-with-suspended-list"},
+    {"id": "drafts-components-selectpanel-examples--with-filter-buttons"}
+  ],
   "props": [
     {
       "name": "title",
@@ -15,6 +25,11 @@
       "name": "description",
       "type": "string",
       "description": "When provided, a description is displayed below the title"
+    },
+    {
+      "name": "variant",
+      "type": "'anchored' | 'modal'",
+      "defaultValue": "anchored"
     },
     {
       "name": "selectionVariant",
@@ -51,6 +66,18 @@
       "name": "children",
       "type": "React.ReactNode[]",
       "description": "Recommended: `SelectPanel.Button`, `SelectPanel.Header`, `ActionList`, `SelectPanel.Loading`, `SelectPanel.Message`, `SelectPanel.Footer`"
+    },
+    {
+      "name": "width",
+      "type": "| 'small' | 'medium' | 'large' | 'xlarge' | 'xxlarge' | 'auto'",
+      "defaultValue": "'medium'",
+      "description": "Sets the width of the Dialog, pick from our set list of widths, or pass `auto` to automatically set the width based on the contents. `small` corresponds to `256px`, `medium` corresponds to `320px`, `large` corresponds to `480px`, `xlarge` corresponds to `640px`, `xxlarge` corresponds to `960px`."
+    },
+    {
+      "name": "height",
+      "type": "| 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge' | 'fit-content'",
+      "defaultValue": "'large'",
+      "description": "Sets the height of the `Dialog`, pick from our set list of heights, or pass `fit-content` to set the height based on the contents. `xsmall` corresponds to `192px`, `small` corresponds to `256px`, `medium` corresponds to `320px`, `large` corresponds to `432px`, `xlarge` corresponds to `600px`."
     }
   ],
   "subcomponents": [
@@ -105,6 +132,15 @@
           "name": "children",
           "type": "React.ReactNode",
           "description": "Optional: `<SelectPanel.SecondaryButton>`"
+        }
+      ]
+    },
+    {
+      "name": "SelectPanel.SecondaryAction",
+      "props": [
+        {
+          "name": "variant",
+          "type": "'button' | 'link' | 'checkbox'"
         }
       ]
     },

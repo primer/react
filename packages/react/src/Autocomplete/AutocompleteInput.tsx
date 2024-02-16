@@ -1,17 +1,10 @@
-import React, {
-  ChangeEventHandler,
-  FocusEventHandler,
-  KeyboardEventHandler,
-  useCallback,
-  useContext,
-  useEffect,
-  useState,
-} from 'react'
-import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
+import type {ChangeEventHandler, FocusEventHandler, KeyboardEventHandler} from 'react'
+import React, {useCallback, useContext, useEffect, useState} from 'react'
+import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import {AutocompleteContext} from './AutocompleteContext'
 import TextInput from '../TextInput'
 import {useRefObjectAsForwardedRef} from '../hooks/useRefObjectAsForwardedRef'
-import {ComponentProps} from '../utils/types'
+import type {ComponentProps} from '../utils/types'
 import useSafeTimeout from '../hooks/useSafeTimeout'
 
 type InternalAutocompleteInputProps = {

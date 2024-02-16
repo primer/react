@@ -1,6 +1,7 @@
 import React from 'react'
 import {CheckIcon} from '@primer/octicons-react'
-import {GroupContext, ActionListGroupProps} from './Group'
+import type {ActionListGroupProps} from './Group'
+import {GroupContext} from './Group'
 import {type ActionListProps, type ActionListItemProps, ListContext} from './shared'
 import {LeadingVisualContainer} from './Visuals'
 import Box from '../Box'

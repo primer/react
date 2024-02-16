@@ -8,7 +8,8 @@ import {AnchoredOverlay} from '../AnchoredOverlay'
 import Box from '../Box'
 import {Button, IconButton} from '../Button'
 import {useTheme} from '../ThemeProvider'
-import sx, {SxProp} from '../sx'
+import type {SxProp} from '../sx'
+import sx from '../sx'
 
 export type LabelGroupProps = {
   /** How hidden tokens should be shown. `'inline'` shows the hidden tokens after the visible tokens. `'overlay'` shows all tokens in an overlay that appears on top of the visible tokens. */
@@ -55,7 +56,7 @@ const getOverlayWidth = (
   buttonClientRect: DOMRect,
   containerRef: React.RefObject<HTMLDivElement>,
   overlayPaddingPx: number,
-) => overlayPaddingPx + buttonClientRect.right - (containerRef.current?.getBoundingClientRect()?.left || 0)
+) => overlayPaddingPx + buttonClientRect.right - (containerRef.current?.getBoundingClientRect().left || 0)
 
 const InlineToggle: React.FC<{
   collapseButtonRef: React.RefObject<HTMLButtonElement>

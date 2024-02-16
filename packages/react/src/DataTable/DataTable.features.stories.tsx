@@ -8,7 +8,7 @@ import {
   TrashIcon,
 } from '@primer/octicons-react'
 import {action} from '@storybook/addon-actions'
-import {Meta} from '@storybook/react'
+import type {Meta} from '@storybook/react'
 import React from 'react'
 import {ActionList} from '../ActionList'
 import {ActionMenu} from '../ActionMenu'

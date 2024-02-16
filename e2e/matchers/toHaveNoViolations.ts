@@ -1,5 +1,7 @@
-import {Page, expect, test} from '@playwright/test'
-import {AxeResults, source} from 'axe-core'
+import type {Page} from '@playwright/test'
+import {expect, test} from '@playwright/test'
+import type {AxeResults} from 'axe-core'
+import {source} from 'axe-core'
 import path from 'node:path'
 import fs from 'node:fs'
 

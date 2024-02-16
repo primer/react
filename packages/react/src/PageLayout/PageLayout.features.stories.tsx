@@ -1,5 +1,5 @@
 import React from 'react'
-import {ComponentMeta, Story} from '@storybook/react'
+import type {ComponentMeta, Story} from '@storybook/react'
 import {PageLayout} from './PageLayout'
 import {Placeholder} from '../Placeholder'
 import {Box, BranchName, Heading, Link, StateLabel, TabNav, Text} from '..'

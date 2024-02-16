@@ -1,8 +1,10 @@
 import styled from 'styled-components'
 import {get} from '../../constants'
-import sx, {SxProp} from '../../sx'
-import {ComponentProps} from '../../utils/types'
-import ButtonBase, {ButtonBaseProps} from './ButtonBase'
+import type {SxProp} from '../../sx'
+import sx from '../../sx'
+import type {ComponentProps} from '../../utils/types'
+import type {ButtonBaseProps} from './ButtonBase'
+import ButtonBase from './ButtonBase'
 
 /** @deprecated Use the new Label instead. See https://primer.style/react/Button for more details. */
 const Button = styled(ButtonBase)<ButtonBaseProps & SxProp>`

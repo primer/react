@@ -1,5 +1,5 @@
 import React, {useCallback, useReducer, useRef} from 'react'
-import {ComponentProps} from '../utils/types'
+import type {ComponentProps} from '../utils/types'
 import {AutocompleteContext} from './AutocompleteContext'
 import AutocompleteInput from './AutocompleteInput'
 import AutocompleteMenu from './AutocompleteMenu'
