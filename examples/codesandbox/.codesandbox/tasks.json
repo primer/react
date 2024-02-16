@@ -1,0 +1,33 @@
+{
+  "setupTasks": [
+    {
+      "name": "Install Dependencies",
+      "command": "npm install"
+    }
+  ],
+  "tasks": {
+    "build": {
+      "name": "build",
+      "command": "npm run build",
+      "runAtStart": false
+    },
+    "develop": {
+      "name": "develop",
+      "command": "npm run dev -- --port 3000",
+      "runAtStart": true,
+      "preview": {
+        "port": 3000
+      }
+    },
+    "lint": {
+      "name": "lint",
+      "command": "npm run lint",
+      "runAtStart": false
+    },
+    "type-check": {
+      "name": "type-check",
+      "command": "npm run type-check",
+      "runAtStart": false
+    }
+  }
+}
