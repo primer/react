@@ -1,7 +1,7 @@
 import React from 'react'
 import {Button, Box} from '../..'
 import {Tooltip} from './Tooltip'
-import {Meta, StoryFn} from '@storybook/react'
+import type {Meta, StoryFn} from '@storybook/react'
 
 export default {
   title: 'Drafts/Components/Tooltip/Playground',

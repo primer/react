@@ -1,4 +1,4 @@
-import {Merge} from '../utils/types/Merge'
+import type {Merge} from '../utils/types/Merge'
 
 type AString = {
   a: string

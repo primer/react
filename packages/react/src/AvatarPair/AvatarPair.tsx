@@ -1,8 +1,10 @@
 import React from 'react'
 import styled from 'styled-components'
-import Avatar, {AvatarProps} from '../Avatar'
+import type {AvatarProps} from '../Avatar'
+import Avatar from '../Avatar'
 import {get} from '../constants'
-import Box, {BoxProps} from '../Box'
+import type {BoxProps} from '../Box'
+import Box from '../Box'
 
 const ChildAvatar = styled(Avatar)`
   position: absolute;

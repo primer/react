@@ -10,7 +10,7 @@ import CheckboxOrRadioGroupValidation from './CheckboxOrRadioGroupValidation'
 import CheckboxOrRadioGroupContext from './CheckboxOrRadioGroupContext'
 import VisuallyHidden from '../../../_VisuallyHidden'
 import {useSlots} from '../../../hooks/useSlots'
-import {SxProp} from '../../../sx'
+import type {SxProp} from '../../../sx'
 
 export type CheckboxOrRadioGroupProps = {
   /**

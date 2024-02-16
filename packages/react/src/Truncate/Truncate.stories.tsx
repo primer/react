@@ -1,6 +1,7 @@
 import React from 'react'
-import {ComponentMeta} from '@storybook/react'
-import Truncate, {TruncateProps} from './Truncate'
+import type {ComponentMeta} from '@storybook/react'
+import type {TruncateProps} from './Truncate'
+import Truncate from './Truncate'
 
 export default {
   title: 'Components/Truncate',

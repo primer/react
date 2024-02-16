@@ -1,9 +1,9 @@
 import React from 'react'
-import {Meta} from '@storybook/react'
+import type {Meta} from '@storybook/react'
 
 import {Button, ButtonClose, ButtonDanger, ButtonInvisible, ButtonPrimary, ButtonTableList} from '../../deprecated'
-import {ButtonStyleProps} from 'styled-system'
-import {ButtonBaseProps} from '../../deprecated/Button/ButtonBase'
+import type {ButtonStyleProps} from 'styled-system'
+import type {ButtonBaseProps} from '../../deprecated/Button/ButtonBase'
 type StrictButtonStyleProps = ButtonStyleProps & {variant: ButtonBaseProps['variant']}
 
 export default {

@@ -1,11 +1,11 @@
 import {TriangleDownIcon} from '@primer/octicons-react'
-import {ComponentMeta} from '@storybook/react'
+import type {ComponentMeta} from '@storybook/react'
 import React, {useState} from 'react'
 
 import Box from '../Box'
 import {Button} from '../Button'
 import {SelectPanel} from '../SelectPanel'
-import {ItemInput} from '../deprecated/ActionList/List'
+import type {ItemInput} from '../deprecated/ActionList/List'
 
 export default {
   title: 'Components/SelectPanel',

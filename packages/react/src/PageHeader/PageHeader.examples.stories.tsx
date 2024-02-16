@@ -1,5 +1,5 @@
 import React from 'react'
-import {Meta} from '@storybook/react'
+import type {Meta} from '@storybook/react'
 import {Button, IconButton, Breadcrumbs, Link, Text, StateLabel, BranchName, Box, PageLayout} from '..'
 import {
   KebabHorizontalIcon,
@@ -212,11 +212,11 @@ export const FilesPage = () => (
       <PageHeader.TitleArea>
         <Breadcrumbs>
           <Breadcrumbs.Item href="https://github.com/primer/react/tree/main">react</Breadcrumbs.Item>
-          <Breadcrumbs.Item href="https://github.com/primer/react/tree/main/src">src</Breadcrumbs.Item>
-          <Breadcrumbs.Item href="https://github.com/primer/react/tree/main/src/PageHeader">
+          <Breadcrumbs.Item href="https://github.com/primer/react/tree/main/packages/react/src">src</Breadcrumbs.Item>
+          <Breadcrumbs.Item href="https://github.com/primer/react/tree/main/packages/react/src/PageHeader">
             PageHeader
           </Breadcrumbs.Item>
-          <Breadcrumbs.Item href="https://github.com/primer/react/blob/main/src/PageHeader/PageHeader.tsx">
+          <Breadcrumbs.Item href="https://github.com/primer/react/tree/main/packages/react/src/PageHeader/PageHeader.tsx">
             PageHeader.tsx
           </Breadcrumbs.Item>
         </Breadcrumbs>

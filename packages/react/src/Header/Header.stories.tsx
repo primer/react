@@ -1,5 +1,5 @@
 import React from 'react'
-import {ComponentMeta, ComponentStory} from '@storybook/react'
+import type {ComponentMeta, ComponentStory} from '@storybook/react'
 import {MarkGithubIcon} from '@primer/octicons-react'
 
 import Header from './Header'
