@@ -1,12 +1,12 @@
 import React, {Children, useEffect, useRef, useState} from 'react'
-import type {SxProp} from '../../sx'
-import sx from '../../sx'
-import {useId, useProvidedRefOrCreate} from '../../hooks'
-import {invariant} from '../../utils/invariant'
-import {warning} from '../../utils/warning'
+import type {SxProp} from '../sx'
+import sx from '../sx'
+import {useId, useProvidedRefOrCreate} from '../hooks'
+import {invariant} from '../utils/invariant'
+import {warning} from '../utils/warning'
 import styled from 'styled-components'
-import {get} from '../../constants'
-import type {ComponentProps} from '../../utils/types'
+import {get} from '../constants'
+import type {ComponentProps} from '../utils/types'
 import {getAnchoredPosition} from '@primer/behaviors'
 import type {AnchorSide, AnchorAlignment} from '@primer/behaviors'
 import {isSupported, apply} from '@oddbird/popover-polyfill/fn'
@@ -23,6 +23,7 @@ const StyledTooltip = styled.div`
   /* Overriding the default popover styles */
   display: none;
   &[popover] {
+    position: absolute;
     padding: 0.5em 0.75em;
     width: max-content;
     margin: auto;

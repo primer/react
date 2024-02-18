@@ -1,11 +1,19 @@
 ---
 componentId: tooltip_v2
 title: Tooltip v2
-status: Draft
-source: https://github.com/primer/react/tree/main/packages/react/src/drafts/Tooltip.tsx
+status: Beta
+a11yReviewed: true
+source: https://github.com/primer/react/tree/main/packages/react/src/TooltipV2/Tooltip.tsx
 ---
 
-import data from '../../../packages/react/src/drafts/Tooltip/Tooltip.docs.json'
+import data from '../../packages/react/src/TooltipV2/Tooltip.docs.json'
+
+```js
+//👇 Notice the new bundle, `next`👇
+import {Tooltip} from '@primer/react/next'
+```
+
+## Usage
 
 The Tooltip component is used to add context to interactive elements on the page.
 
@@ -23,7 +31,7 @@ Tooltip should only be used on an element that is interactive such as a button o
 
 Default tooltip is suitable for interactive controls that require additional context.
 
-```jsx live
+```jsx live next
 <Tooltip text="This change cannot be undone.">
   <Button>Delete</Button>
 </Tooltip>
@@ -33,7 +41,7 @@ Default tooltip is suitable for interactive controls that require additional con
 
 Tooltip can be used to label interactive controls that has no visible text label such as interactive icon links.
 
-```jsx live
+```jsx live next
 <Tooltip text="Contribution Documentation for 'Primer React'" type="label">
   <Link href="https://github.com/primer/react/contributor-docs/CONTRIBUTING.md" sx={{ml: 1, color: 'fg.muted'}}>
     <Octicon icon={BookIcon} sx={{color: 'fg.muted'}} />
@@ -43,7 +51,7 @@ Tooltip can be used to label interactive controls that has no visible text label
 
 ### With direction
 
-```jsx live
+```jsx live next
 <Box sx={{padding: 5, display: 'flex', gap: '8px'}}>
   <Tooltip direction="n" text="Supplementary text">
     <Button>North</Button>

@@ -1,6 +1,6 @@
 import React from 'react'
-import {Button, IconButton, Breadcrumbs, ActionMenu, ActionList, NavList} from '../..'
-import {PageHeader} from '../../PageHeader'
+import {Button, IconButton, Breadcrumbs, ActionMenu, ActionList, NavList} from '..'
+import {PageHeader} from '../PageHeader'
 import {Tooltip} from './Tooltip'
 import {
   GitBranchIcon,
@@ -13,10 +13,10 @@ import {
   CommentIcon,
   XIcon,
 } from '@primer/octicons-react'
-import {default as VisuallyHidden} from '../../_VisuallyHidden'
+import {default as VisuallyHidden} from '../_VisuallyHidden'
 
 export default {
-  title: 'Drafts/Components/Tooltip/Examples',
+  title: 'Components/TooltipV2/Examples',
   component: Tooltip,
 }
 

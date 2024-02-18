@@ -1,10 +1,10 @@
 import React from 'react'
 import type {TooltipProps} from '../Tooltip'
 import {Tooltip} from '../Tooltip'
-import {checkStoriesForAxeViolations} from '../../../utils/testing'
+import {checkStoriesForAxeViolations} from '../../utils/testing'
 import {render as HTMLRender} from '@testing-library/react'
-import theme from '../../../theme'
-import {Button, IconButton, ActionMenu, ActionList, ThemeProvider, SSRProvider, BaseStyles} from '../../../'
+import theme from '../../theme'
+import {Button, IconButton, ActionMenu, ActionList, ThemeProvider, SSRProvider, BaseStyles} from '../..'
 import {XIcon} from '@primer/octicons-react'
 
 const TooltipComponent = (props: Omit<TooltipProps, 'text'> & {text?: string}) => (
@@ -33,7 +33,7 @@ function ExampleWithActionMenu(actionMenuTrigger: React.ReactElement): JSX.Eleme
 }
 
 describe('Tooltip', () => {
-  checkStoriesForAxeViolations('Tooltip.features', '../drafts/Tooltip/')
+  checkStoriesForAxeViolations('Tooltip.features', '../TooltipV2/')
 
   it('renders `data-direction="s"` by default', () => {
     const {getByText} = HTMLRender(<TooltipComponent />)
