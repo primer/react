@@ -2,7 +2,7 @@ import React from 'react'
 import type {ComponentMeta} from '@storybook/react'
 import ButtonGroup from './ButtonGroup'
 import {Button, IconButton} from '../Button'
-import {PlusIcon, DashIcon} from '@primer/octicons-react'
+import {PlusIcon, DashIcon, CopilotIcon} from '@primer/octicons-react'
 import {Tooltip as TooltipV2} from '../drafts'
 import {Tooltip} from '..'
 export default {
@@ -83,6 +83,17 @@ export const ButtonGroupWithTooltip2 = () => (
     </TooltipV2>
     <TooltipV2 text="Subtract">
       <Button>Subtract</Button>
+    </TooltipV2>
+  </ButtonGroup>
+)
+
+export const ButtonGroupWithLinkAndButton = () => (
+  <ButtonGroup sx={{pl: 2}}>
+    <Button as="a" href="https://primer.style">
+      Raw
+    </Button>
+    <TooltipV2 text="Open GitHub Copilot chat">
+      <IconButton icon={CopilotIcon} aria-label="Open GitHub Copilot chat" />
     </TooltipV2>
   </ButtonGroup>
 )
