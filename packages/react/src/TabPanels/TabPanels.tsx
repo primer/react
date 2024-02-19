@@ -23,51 +23,9 @@ const TabList = styled.div`
 export type TabPanelsProps = ComponentProps<typeof TabContainer>
 
 function TabPanels({children, 'aria-label': ariaLabel}: TabPanelsProps) {
-  const childrenArray = React.Children.toArray(children)
-  let selectedTabIndex = -1
-  let tabIndex = -1
-
-  for (const child of childrenArray) {
-    if (React.isValidElement<TabPanelsTabProps>(child) && child.type === Tab) {
-      tabIndex += 1
-      if (child.props.selected === true) {
-        selectedTabIndex = tabIndex
-        break
-      }
-    }
-  }
-
-  if (tabIndex === -1) {
-    throw new Error('TabPanels must have at least one Tab')
-  }
-
-  selectedTabIndex = Math.max(selectedTabIndex, 0)
-  tabIndex = -1
-  let panelIndex = -1
-
-  const tabs: JSX.Element[] = []
-  const panels: JSX.Element[] = []
-  for (const child of childrenArray) {
-    if (React.isValidElement<TabPanelsTabProps>(child) && child.type === Tab) {
-      tabIndex += 1
-      tabs.push(React.cloneElement(child, {selected: tabIndex === selectedTabIndex}))
-    }
-    if (React.isValidElement<TabPanelsPanelProps>(child) && child.type === Panel) {
-      panelIndex += 1
-      panels.push(React.cloneElement(child, {selected: panelIndex === selectedTabIndex}))
-    }
-  }
-
-  if (tabIndex !== panelIndex) {
-    throw new Error('TabPanels must have equal Panels and Tabs')
-  }
-
   return (
-    <TabContainer>
-      <TabList aria-label={ariaLabel} role="tablist">
-        {tabs}
-      </TabList>
-      {panels}
+    <TabContainer aria-label={ariaLabel}>
+      {children}
     </TabContainer>
   )
 }
@@ -125,7 +83,7 @@ export type TabPanelsPanelProps = {
 
 function Panel({children, selected}: TabPanelsPanelProps) {
   return (
-    <div role="tabpanel" hidden={!selected}>
+    <div role="tabpanel">
       {children}
     </div>
   )
