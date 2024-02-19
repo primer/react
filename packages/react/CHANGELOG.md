@@ -1,8 +1,10 @@
 # @primer/react
 
-## 36.8.0
+## 36.9.0
 
 ### Minor Changes
+
+- [#4250](https://github.com/primer/react/pull/4250) [`f064534bf6f15261a3b381ce1f7b3828daf98c84`](https://github.com/primer/react/commit/f064534bf6f15261a3b381ce1f7b3828daf98c84) Thanks [@broccolinisoup](https://github.com/broccolinisoup)! - Add a new entry point 'next' and export the Tooltip v2 from it with an updated documentation
 
 - [#4214](https://github.com/primer/react/pull/4214) [`3dd498e6a7c28a1ec39b56912f76579f6674e022`](https://github.com/primer/react/commit/3dd498e6a7c28a1ec39b56912f76579f6674e022) Thanks [@langermank](https://github.com/langermank)! - Dialog component: add new `position` prop to support fullscreen and bottom sheets on narrow screens
 
