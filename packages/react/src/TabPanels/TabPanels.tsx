@@ -11,20 +11,22 @@ import getGlobalFocusStyles from '../internal/utils/getGlobalFocusStyles'
 
 const TAB_CLASS = 'TabPanel-tab'
 
-const TabContainer = styled(createComponent(React, 'tab-container', TabContainerElement))(sx)
+const TabContainer = styled(createComponent(React, 'tab-container', TabContainerElement))`
+  &::part(tablist), &::part(before-tabs), &::part(after-tabs) {
+    display: flex;
+    margin-bottom: -1px;
+    margin-top: 0;
+    border-bottom: 1px solid ${get('colors.border.default')};
+  }
 
-const TabList = styled.div`
-  display: flex;
-  margin-bottom: -1px;
-  margin-top: 0;
-  border-bottom: 1px solid ${get('colors.border.default')};
+  ${sx};
 `
 
 export type TabPanelsProps = ComponentProps<typeof TabContainer>
 
-function TabPanels({children, 'aria-label': ariaLabel}: TabPanelsProps) {
+function TabPanels({children, 'aria-label': ariaLabel, onTabContainerChange, onTabContainerChanged}: TabPanelsProps) {
   return (
-    <TabContainer aria-label={ariaLabel}>
+    <TabContainer aria-label={ariaLabel} onTabContainerChange={onTabContainerChange} onTabContainerChanged={onTabContainerChanged}>
       {children}
     </TabContainer>
   )
