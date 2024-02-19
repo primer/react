@@ -1,5 +1,5 @@
 import type {Theme} from '../ThemeProvider'
-import {BetterSystemStyleObject} from '../sx'
+import type {BetterSystemStyleObject} from '../sx'
 import {getAnchoredPosition} from '@primer/behaviors'
 
 // The gap between the list items. It is a constant because the gap is used to calculate the possible number of items that can fit in the container.
