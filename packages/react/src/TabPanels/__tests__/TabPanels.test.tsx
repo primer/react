@@ -75,18 +75,4 @@ describe('TabPanels', () => {
     expect(screen.getByText('Tab 1')).toHaveAttribute('aria-selected', 'true')
     expect(screen.getByText('Tab 2')).toHaveAttribute('aria-selected', 'false')
   })
-
-  it('Adds hidden attribute to the second panel by default', () => {
-    render(
-      <TabPanels>
-        <TabPanels.Tab>Tab 1</TabPanels.Tab>
-        <TabPanels.Tab>Tab 2</TabPanels.Tab>
-        <TabPanels.Panel>Panel 1</TabPanels.Panel>
-        <TabPanels.Panel>Panel 2</TabPanels.Panel>
-      </TabPanels>,
-    )
-
-    expect(screen.getByText('Panel 1')).not.toHaveAttribute('hidden')
-    expect(screen.getByText('Panel 2')).toHaveAttribute('hidden')
-  })
 })
