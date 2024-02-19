@@ -1,12 +1,12 @@
 import React from 'react'
-import {SxProp} from '..'
-import {
-  PageLayout,
+import type {SxProp} from '..'
+import type {
   PageLayoutContentProps,
   PageLayoutFooterProps,
   PageLayoutHeaderProps,
   PageLayoutPaneProps,
 } from '../PageLayout'
+import {PageLayout} from '../PageLayout'
 
 // ----------------------------------------------------------------------------
 // SplitPageLayout

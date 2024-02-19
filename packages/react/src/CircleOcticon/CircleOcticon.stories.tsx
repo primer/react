@@ -1,5 +1,5 @@
 import React from 'react'
-import {Meta, ComponentStory} from '@storybook/react'
+import type {Meta, ComponentStory} from '@storybook/react'
 import CircleOcticon from './CircleOcticon'
 import {CheckIcon} from '@primer/octicons-react'
 

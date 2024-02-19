@@ -1,6 +1,6 @@
 import React from 'react'
-import {Meta, Story} from '@storybook/react'
-import {ComponentProps} from '../utils/types'
+import type {Meta, Story} from '@storybook/react'
+import type {ComponentProps} from '../utils/types'
 import Label from './Label'
 
 export default {

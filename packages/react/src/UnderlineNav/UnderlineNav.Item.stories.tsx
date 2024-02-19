@@ -1,5 +1,5 @@
 import React from 'react'
-import {Meta, Story} from '@storybook/react'
+import type {Meta, Story} from '@storybook/react'
 import {UnderlineNav} from './index'
 import {UnderlineNavItem} from './UnderlineNavItem'
 import {CodeIcon, GitPullRequestIcon, PeopleIcon} from '@primer/octicons-react'

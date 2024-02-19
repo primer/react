@@ -1,7 +1,7 @@
 import React from 'react'
-import {Meta} from '@storybook/react'
+import type {Meta} from '@storybook/react'
 import {Checkbox, CheckboxGroup, FormControl} from '..'
-import {CheckboxOrRadioGroupArgs} from '../utils/form-story-helpers'
+import type {CheckboxOrRadioGroupArgs} from '../utils/form-story-helpers'
 
 export default {
   title: 'Components/CheckboxGroup',

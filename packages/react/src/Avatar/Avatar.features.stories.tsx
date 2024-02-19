@@ -1,5 +1,5 @@
 import React from 'react'
-import {ComponentMeta} from '@storybook/react'
+import type {ComponentMeta} from '@storybook/react'
 import Avatar from './Avatar'
 
 export default {

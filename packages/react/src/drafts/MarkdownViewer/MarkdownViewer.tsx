@@ -1,4 +1,5 @@
-import React, {DOMAttributes, useCallback} from 'react'
+import type {DOMAttributes} from 'react'
+import React, {useCallback} from 'react'
 import {Box, Spinner} from '../..'
 
 import {useLinkInterception} from './_useLinkInterception'

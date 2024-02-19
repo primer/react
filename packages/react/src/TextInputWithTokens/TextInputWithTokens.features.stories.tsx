@@ -1,9 +1,11 @@
 import React, {useState} from 'react'
 import {CheckIcon, NumberIcon} from '@primer/octicons-react'
 import {Box, FormControl} from '..'
-import TextInputWithTokens, {TextInputWithTokensProps} from '../TextInputWithTokens'
+import type {TextInputWithTokensProps} from '../TextInputWithTokens'
+import TextInputWithTokens from '../TextInputWithTokens'
 import IssueLabelToken from '../Token/IssueLabelToken'
-import {FormControlArgs, formControlArgTypes, textInputExcludedControlKeys} from '../utils/story-helpers'
+import type {FormControlArgs} from '../utils/story-helpers'
+import {formControlArgTypes, textInputExcludedControlKeys} from '../utils/story-helpers'
 
 const excludedControls = ['tokens', 'onTokenRemove', 'tokenComponent', ...textInputExcludedControlKeys]
 

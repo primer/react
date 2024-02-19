@@ -2,9 +2,10 @@ import {CheckIcon} from '@primer/octicons-react'
 import React, {useCallback} from 'react'
 import {isValidElementType} from 'react-is'
 import {get} from '../../constants'
-import sx, {SxProp} from '../../sx'
+import type {SxProp} from '../../sx'
+import sx from '../../sx'
 import Truncate from '../../Truncate'
-import {ItemInput} from './List'
+import type {ItemInput} from './List'
 import styled from 'styled-components'
 import {StyledHeader} from './Header'
 import {StyledDivider} from './Divider'
@@ -15,8 +16,8 @@ import {
   isActiveDescendantAttribute,
 } from '@primer/behaviors'
 import {useId} from '../../hooks/useId'
-import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../../utils/polymorphic'
-import {AriaRole} from '../../utils/types'
+import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../../utils/polymorphic'
+import type {AriaRole} from '../../utils/types'
 
 /**
  * Contract for props passed to the `Item` component.

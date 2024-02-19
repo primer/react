@@ -1,5 +1,6 @@
 import React from 'react'
-import {ResponsiveValue, useResponsiveValue} from '../../hooks/useResponsiveValue'
+import type {ResponsiveValue} from '../../hooks/useResponsiveValue'
+import {useResponsiveValue} from '../../hooks/useResponsiveValue'
 
 export function ShouldAcceptNonResponsiveValues() {
   const value: string = useResponsiveValue('test', 'fallback')

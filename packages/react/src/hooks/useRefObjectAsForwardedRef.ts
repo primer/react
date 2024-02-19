@@ -1,4 +1,5 @@
-import {ForwardedRef, RefObject, useImperativeHandle} from 'react'
+import type {ForwardedRef, RefObject} from 'react'
+import {useImperativeHandle} from 'react'
 
 /**
  * Use a ref object as the imperative handle for a forwarded ref. This can be used to
