@@ -2,13 +2,13 @@ import {test, expect} from '@playwright/test'
 import {visit} from '../test-helpers/storybook'
 import {themes} from '../test-helpers/themes'
 
-test.describe('Tooltip--experimental', () => {
+test.describe('TooltipV2', () => {
   test.describe('Default', () => {
     for (const theme of themes) {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-tooltip--default',
+            id: 'components-tooltipv2--default',
             globals: {
               colorScheme: theme,
             },
@@ -16,17 +16,14 @@ test.describe('Tooltip--experimental', () => {
 
           // Default state
           await page.keyboard.press('Tab')
-          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
-            `Tooltip--experimental.Default.${theme}.png`,
-            {
-              threshold: 0.1,
-            },
-          )
+          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(`TooltipV2.Default.${theme}.png`, {
+            threshold: 0.1,
+          })
         })
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-tooltip--default',
+            id: 'components-tooltipv2--default',
             globals: {
               colorScheme: theme,
             },
@@ -42,7 +39,7 @@ test.describe('Tooltip--experimental', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-tooltip-features--anchor-has-margin',
+            id: 'components-tooltipv2-features--anchor-has-margin',
             globals: {
               colorScheme: theme,
             },
@@ -51,7 +48,7 @@ test.describe('Tooltip--experimental', () => {
           // Default state
           await page.keyboard.press('Tab')
           expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
-            `Tooltip--experimental.Anchor Has Margin.${theme}.png`,
+            `TooltipV2.Anchor Has Margin.${theme}.png`,
             {
               threshold: 0.1,
             },
@@ -60,7 +57,7 @@ test.describe('Tooltip--experimental', () => {
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-tooltip-features--anchor-has-margin',
+            id: 'components-tooltipv2-features--anchor-has-margin',
             globals: {
               colorScheme: theme,
             },
@@ -76,7 +73,7 @@ test.describe('Tooltip--experimental', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-tooltip-features--calculated-direction',
+            id: 'components-tooltipv2-features--calculated-direction',
             globals: {
               colorScheme: theme,
             },
@@ -85,7 +82,7 @@ test.describe('Tooltip--experimental', () => {
           // Default state
           await page.keyboard.press('Tab')
           expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
-            `Tooltip--experimental.Calculated Direction.${theme}.png`,
+            `TooltipV2.Calculated Direction.${theme}.png`,
             {
               threshold: 0.1,
             },
@@ -94,7 +91,7 @@ test.describe('Tooltip--experimental', () => {
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-tooltip-features--calculated-direction',
+            id: 'components-tooltipv2-features--calculated-direction',
             globals: {
               colorScheme: theme,
             },
@@ -110,7 +107,7 @@ test.describe('Tooltip--experimental', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-tooltip-features--icon-button-with-description',
+            id: 'components-tooltipv2-features--icon-button-with-description',
             globals: {
               colorScheme: theme,
             },
@@ -119,7 +116,7 @@ test.describe('Tooltip--experimental', () => {
           // Default state
           await page.keyboard.press('Tab')
           expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
-            `Tooltip--experimental.Icon Button With Description.${theme}.png`,
+            `TooltipV2.Icon Button With Description.${theme}.png`,
             {
               threshold: 0.1,
             },
@@ -128,7 +125,7 @@ test.describe('Tooltip--experimental', () => {
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-tooltip-features--icon-button-with-description',
+            id: 'components-tooltipv2-features--icon-button-with-description',
             globals: {
               colorScheme: theme,
             },
@@ -144,7 +141,7 @@ test.describe('Tooltip--experimental', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-tooltip-features--label-type',
+            id: 'components-tooltipv2-features--label-type',
             globals: {
               colorScheme: theme,
             },
@@ -152,17 +149,14 @@ test.describe('Tooltip--experimental', () => {
 
           // Default state
           await page.keyboard.press('Tab')
-          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
-            `Tooltip--experimental.Label Type.${theme}.png`,
-            {
-              threshold: 0.1,
-            },
-          )
+          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(`TooltipV2.Label Type.${theme}.png`, {
+            threshold: 0.1,
+          })
         })
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-tooltip-features--label-type',
+            id: 'components-tooltipv2-features--label-type',
             globals: {
               colorScheme: theme,
             },

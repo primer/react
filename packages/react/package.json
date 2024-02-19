@@ -1,6 +1,6 @@
 {
   "name": "@primer/react",
-  "version": "36.8.0",
+  "version": "36.9.0",
   "description": "An implementation of GitHub's Primer Design System using React",
   "main": "lib/index.js",
   "module": "lib-esm/index.js",
@@ -20,6 +20,10 @@
     "./deprecated": {
       "import": "./lib-esm/deprecated/index.js",
       "require": "./lib/deprecated/index.js"
+    },
+    "./next": {
+      "import": "./lib-esm/next/index.js",
+      "require": "./lib/next/index.js"
     },
     "./lib-esm/*": {
       "import": [
@@ -204,7 +208,7 @@
     "rollup-plugin-postcss": "4.0.2",
     "rollup-plugin-visualizer": "5.9.2",
     "semver": "7.5.4",
-    "storybook": "7.6.2",
+    "storybook": "7.6.16",
     "storybook-addon-turbo-build": "2.0.1",
     "styled-components": "5.3.11",
     "terser": "5.27.0",

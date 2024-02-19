@@ -23,6 +23,9 @@ const input = new Set([
   // "./deprecated"
   'src/deprecated/index.ts',
 
+  // "./next"
+  'src/next/index.ts',
+
   // Make sure all members are exported
   'src/constants.ts',
 

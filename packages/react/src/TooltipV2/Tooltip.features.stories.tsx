@@ -1,10 +1,10 @@
 import React from 'react'
-import {IconButton, Button, Box, Link, Octicon, ActionMenu, ActionList} from '../..'
+import {IconButton, Button, Box, Link, Octicon, ActionMenu, ActionList} from '..'
 import {Tooltip} from './Tooltip'
 import {SearchIcon, BookIcon, CheckIcon, TriangleDownIcon, GitBranchIcon} from '@primer/octicons-react'
 
 export default {
-  title: 'Drafts/Components/Tooltip/Features',
+  title: 'Components/TooltipV2/Features',
   component: Tooltip,
 }
 
