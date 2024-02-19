@@ -14,7 +14,7 @@
     "npm": ">=7"
   },
   "dependencies": {
-    "@mdx-js/mdx": "1.6.22",
+    "@mdx-js/mdx": "3.0.1",
     "@mdx-js/react": "1.6.22",
     "@primer/gatsby-theme-doctocat": "0.0.0-2023930155223",
     "@primer/octicons-react": "^17.7.0",
