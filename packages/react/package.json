@@ -208,7 +208,7 @@
     "rollup-plugin-postcss": "4.0.2",
     "rollup-plugin-visualizer": "5.9.2",
     "semver": "7.5.4",
-    "storybook": "7.6.2",
+    "storybook": "7.6.16",
     "storybook-addon-turbo-build": "2.0.1",
     "styled-components": "5.3.11",
     "terser": "5.27.0",
