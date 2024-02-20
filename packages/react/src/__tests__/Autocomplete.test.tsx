@@ -65,8 +65,8 @@ describe('Autocomplete', () => {
       )
       const inputNode = container.querySelector('#autocompleteInput')
       expect(onChangeMock).not.toHaveBeenCalled()
-      inputNode && (await user.type(inputNode, 'z'))
-      expect(onChangeMock).toHaveBeenCalled()
+      inputNode && (await user.type(inputNode, mockItems[0].text))
+      expect(onChangeMock).toHaveBeenCalledTimes(mockItems[0].text.length)
     })
 
     it('calls onFocus', () => {
