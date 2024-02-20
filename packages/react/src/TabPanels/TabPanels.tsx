@@ -13,7 +13,7 @@ const TAB_CLASS = 'TabPanel-tab'
 
 const TabContainer = styled(createComponent(React, 'tab-container', TabContainerElement))`
   &::part(tablist), &::part(before-tabs), &::part(after-tabs) {
-    display: flex;
+    display: block;
     margin-bottom: -1px;
     margin-top: 0;
     border-bottom: 1px solid ${get('colors.border.default')};
@@ -41,7 +41,7 @@ const Tab = styled.button.attrs<TabPanelsTabProps>(props => ({
   role: 'tab',
   'aria-selected': !!props.selected,
 }))<TabPanelsTabProps>`
-  padding: 8px 16px;
+  padding: 8px 16px 9px 16px;
   font-size: ${get('fontSizes.1')};
   line-height: 23px;
   color: ${get('colors.fg.muted')};
@@ -83,13 +83,12 @@ export type TabPanelsPanelProps = {
   selected?: boolean
 } & SxProp
 
-function Panel({children, selected}: TabPanelsPanelProps) {
-  return (
-    <div role="tabpanel">
-      {children}
-    </div>
-  )
-}
+const Panel = styled.div.attrs<TabPanelsPanelProps>(props => ({
+  role: 'tabpanel'
+}))<TabPanelsPanelProps>`
+  margin-top: 16px;
+  ${sx};
+`
 
 Panel.displayName = 'TabPanels.Panel'
 
