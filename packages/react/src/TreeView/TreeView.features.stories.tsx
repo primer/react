@@ -1,10 +1,11 @@
 import {DiffAddedIcon, DiffModifiedIcon, DiffRemovedIcon, DiffRenamedIcon, FileIcon} from '@primer/octicons-react'
-import {Meta, Story} from '@storybook/react'
+import type {Meta, Story} from '@storybook/react'
 import React from 'react'
 import Box from '../Box'
 import {Button} from '../Button'
 import Octicon from '../Octicon'
-import {SubTreeState, TreeView} from './TreeView'
+import type {SubTreeState} from './TreeView'
+import {TreeView} from './TreeView'
 
 const meta: Meta = {
   title: 'Components/TreeView/Features',

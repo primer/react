@@ -1,8 +1,8 @@
 import React from 'react'
 import {render} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
+import type {IconProps} from '@primer/octicons-react'
 import {
-  IconProps,
   CodeIcon,
   IssueOpenedIcon,
   GitPullRequestIcon,

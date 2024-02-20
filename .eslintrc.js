@@ -43,6 +43,7 @@ module.exports = {
     'consumer-test/**/*',
     'contributor-docs/adrs/*',
     'examples/nextjs/**',
+    'examples/codesandbox/**',
     // Note: this file is inlined from an external dependency
     'packages/react/src/utils/polymorphic.ts',
     'storybook-static',
@@ -112,8 +113,9 @@ module.exports = {
       files: ['**/*.{ts,tsx}'],
       extends: ['plugin:@typescript-eslint/recommended'],
       rules: {
-        '@typescript-eslint/no-explicit-any': 2,
-        '@typescript-eslint/no-unnecessary-condition': 2,
+        '@typescript-eslint/consistent-type-imports': 'error',
+        '@typescript-eslint/no-explicit-any': 'error',
+        '@typescript-eslint/no-unnecessary-condition': 'error',
         '@typescript-eslint/explicit-module-boundary-types': 'off',
         '@typescript-eslint/no-unused-vars': [
           'error',

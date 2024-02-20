@@ -1,5 +1,6 @@
 import React, {forwardRef, useContext} from 'react'
-import {IconButton, IconButtonProps} from '../../Button'
+import type {IconButtonProps} from '../../Button'
+import {IconButton} from '../../Button'
 import {MarkdownEditorContext} from './_MarkdownEditorContext'
 
 export const ToolbarButton = forwardRef<HTMLButtonElement, IconButtonProps>((props, ref) => {

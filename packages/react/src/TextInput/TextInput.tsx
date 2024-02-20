@@ -1,12 +1,14 @@
-import React, {MouseEventHandler, useCallback, useState} from 'react'
+import type {MouseEventHandler} from 'react'
+import React, {useCallback, useState} from 'react'
 import {isValidElementType} from 'react-is'
-import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
+import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import clsx from 'clsx'
 
 import TextInputInnerVisualSlot from '../internal/components/TextInputInnerVisualSlot'
 import {useProvidedRefOrCreate} from '../hooks'
-import {Merge} from '../utils/types'
-import TextInputWrapper, {StyledWrapperProps} from '../internal/components/TextInputWrapper'
+import type {Merge} from '../utils/types'
+import type {StyledWrapperProps} from '../internal/components/TextInputWrapper'
+import TextInputWrapper from '../internal/components/TextInputWrapper'
 import TextInputAction from '../internal/components/TextInputInnerAction'
 import UnstyledTextInput from '../internal/components/UnstyledTextInput'
 

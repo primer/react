@@ -1,5 +1,5 @@
 import React from 'react'
-import {ComponentMeta} from '@storybook/react'
+import type {ComponentMeta} from '@storybook/react'
 import ButtonGroup from './ButtonGroup'
 import {IconButton} from '../Button'
 import {PlusIcon, DashIcon} from '@primer/octicons-react'

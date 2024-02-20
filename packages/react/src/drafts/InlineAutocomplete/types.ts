@@ -1,4 +1,4 @@
-import {ActionListItemProps} from '../../ActionList'
+import type {ActionListItemProps} from '../../ActionList'
 
 export type Trigger = {
   /** A single character that can cause the suggestion list to open. */

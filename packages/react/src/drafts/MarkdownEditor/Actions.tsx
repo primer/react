@@ -1,5 +1,6 @@
 import React, {forwardRef, useContext} from 'react'
-import {Button, ButtonProps} from '../../Button'
+import type {ButtonProps} from '../../Button'
+import {Button} from '../../Button'
 import {MarkdownEditorContext} from './_MarkdownEditorContext'
 
 export const Actions = ({children}: {children?: React.ReactNode}) => <>{children}</>
