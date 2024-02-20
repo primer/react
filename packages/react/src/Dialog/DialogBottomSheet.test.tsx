@@ -21,7 +21,7 @@ describe('Dialog', () => {
     Component: Dialog,
     options: {skipAs: true, skipSx: true, htmlRenderer: true},
     toRender: () => (
-      <Dialog onClose={() => {}} type="bottom-sheet">
+      <Dialog onClose={() => {}} position={{narrow: 'bottom', regular: 'bottom'}}>
         <div>Hello World</div>
       </Dialog>
     ),
@@ -34,7 +34,7 @@ describe('Dialog', () => {
     const onClose = jest.fn()
 
     const {getByRole} = render(
-      <Dialog onClose={onClose} type="bottom-sheet">
+      <Dialog onClose={onClose} position={{narrow: 'bottom', regular: 'bottom'}}>
         <div>Hello World</div>
       </Dialog>,
     )
@@ -60,7 +60,7 @@ describe('Dialog', () => {
       <Dialog
         onClose={() => {}}
         footerButtons={[{buttonType: 'primary', content: 'Footer button', autoFocus: true}]}
-        type={'bottom-sheet'}
+        position={{narrow: 'bottom', regular: 'bottom'}}
       >
         Pay attention to me
       </Dialog>,
@@ -73,7 +73,7 @@ describe('Dialog', () => {
     document.body.style.overflow = 'scroll'
 
     const {container} = render(
-      <Dialog onClose={() => {}} type="bottom-sheet">
+      <Dialog onClose={() => {}} position={{narrow: 'bottom', regular: 'bottom'}}>
         Pay attention to me
       </Dialog>,
     )
@@ -83,7 +83,7 @@ describe('Dialog', () => {
 
   it('should have no axe violations', async () => {
     const {container} = render(
-      <Dialog type="bottom-sheet" onClose={() => {}}>
+      <Dialog position={{narrow: 'bottom', regular: 'bottom'}} onClose={() => {}}>
         Pay attention to me
       </Dialog>,
     )
@@ -93,7 +93,7 @@ describe('Dialog', () => {
 
   it('opens the bottom sheet on mount', () => {
     const {getByRole} = render(
-      <Dialog onClose={() => {}} type="bottom-sheet">
+      <Dialog onClose={() => {}} position={{narrow: 'bottom', regular: 'bottom'}}>
         My dialog content
       </Dialog>,
     )
@@ -104,7 +104,7 @@ describe('Dialog', () => {
   it('calls `onClose` when keying "Escape"', () => {
     const onClose = jest.fn()
     const {container} = render(
-      <Dialog onClose={onClose} type="bottom-sheet">
+      <Dialog onClose={onClose} position={{narrow: 'bottom', regular: 'bottom'}}>
         Pay attention to me
       </Dialog>,
     )
@@ -119,7 +119,7 @@ describe('Dialog', () => {
   it('`onClose` is called when clicking close', async () => {
     const onClose = jest.fn()
     const {getByLabelText} = render(
-      <Dialog onClose={onClose} type="bottom-sheet">
+      <Dialog onClose={onClose} position={{narrow: 'bottom', regular: 'bottom'}}>
         <div>Hello World</div>
       </Dialog>,
     )
@@ -133,7 +133,7 @@ describe('Dialog', () => {
 
   it('is dialog and has the aria-model attribute', () => {
     const {getByRole} = render(
-      <Dialog onClose={() => {}} type="bottom-sheet">
+      <Dialog onClose={() => {}} position={{narrow: 'bottom', regular: 'bottom'}}>
         My dialog content
       </Dialog>,
     )
@@ -146,7 +146,7 @@ describe('Dialog', () => {
     const mockOnClose = jest.fn()
 
     const {getByTestId} = render(
-      <Dialog onClose={mockOnClose} type="bottom-sheet">
+      <Dialog onClose={mockOnClose} position={{narrow: 'bottom', regular: 'bottom'}}>
         My dialog content
       </Dialog>,
     )

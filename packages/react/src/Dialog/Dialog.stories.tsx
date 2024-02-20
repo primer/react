@@ -58,12 +58,6 @@ const lipsum = (
     </Text>
   </>
 )
-interface DialogStoryProps {
-  width: DialogWidth
-  height: DialogHeight
-  subtitle: boolean
-  type: DialogType
-}
 
 export const Default = () => {
   const [isOpen, setIsOpen] = useState(false)
