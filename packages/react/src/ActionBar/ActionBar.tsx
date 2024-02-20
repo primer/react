@@ -13,24 +13,16 @@ import React, {useState, useCallback, useRef, forwardRef} from 'react'
 import {KebabHorizontalIcon} from '@primer/octicons-react'
 import {ActionList} from '../ActionList'
 import useIsomorphicLayoutEffect from '../utils/useIsomorphicLayoutEffect'
-import {MORE_BTN_WIDTH, NavigationList, MoreMenuListItem} from '../UnderlineNav/UnderlineNav'
-import {ulStyles, menuStyles} from '../UnderlineNav/styles'
+import styled from 'styled-components'
+import sx from '../sx'
 import {useOnEscapePress} from '../hooks/useOnEscapePress'
 import type {ResizeObserverEntry} from '../hooks/useResizeObserver'
 import {useResizeObserver} from '../hooks/useResizeObserver'
 
 import {useOnOutsideClick} from '../hooks/useOnOutsideClick'
-//import styled from 'styled-components'
 import type {IconButtonProps} from '../Button'
 import {IconButton} from '../Button'
 import Box from '../Box'
-
-// import {get} from '../constants'
-//import sx, {BetterCssProperties, BetterSystemStyleObject, SxProp, merge} from '../sx'
-// import {ComponentProps} from '../utils/types'
-// import {ResponsiveValue, isResponsiveValue} from '../hooks/useResponsiveValue'
-// import {getBreakpointDeclarations} from '../utils/getBreakpointDeclarations'
-// import {defaultSxProp} from '../utils/defaultSxProp'
 
 type ChildSize = {
   text: string
@@ -60,6 +52,46 @@ export type ActionBarProps = {
 
 export type ActionBarIconButtonProps = IconButtonProps
 
+const NavigationList = styled.ul`
+  ${sx};
+`
+
+const MORE_BTN_HEIGHT = 45
+const GAP = 8
+const MoreMenuListItem = styled.li`
+  display: flex;
+  align-items: center;
+  height: ${MORE_BTN_HEIGHT}px;
+`
+
+const ulStyles = {
+  display: 'flex',
+  listStyle: 'none',
+  whiteSpace: 'nowrap',
+  paddingY: 0,
+  paddingX: 0,
+  margin: 0,
+  marginBottom: '-1px',
+  alignItems: 'center',
+  gap: `${GAP}px`,
+  position: 'relative',
+}
+
+const menuStyles = {
+  position: 'absolute',
+  zIndex: 1,
+  top: '90%',
+  right: '0',
+  boxShadow: '0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24)',
+  borderRadius: '12px',
+  backgroundColor: 'canvas.overlay',
+  listStyle: 'none',
+  // Values are from ActionMenu
+  minWidth: '192px',
+  maxWidth: '640px',
+}
+
+const MORE_BTN_WIDTH = 86
 const getNavStyles = () => ({
   display: 'flex',
   paddingX: 3,
@@ -70,11 +102,6 @@ const getNavStyles = () => ({
 })
 
 const menuItemStyles = {
-  // This is needed to hide the selected check icon on the menu item. https://github.com/primer/react/blob/main/src/ActionList/Selection.tsx#L32
-  // '& > span': {
-  //   display: 'none',
-  // },
-  // To reset the style when the menu items are rendered as react router links
   textDecoration: 'none',
 }
 
@@ -91,8 +118,7 @@ const moreBtnStyles = {
 
 const getValidChildren = (children: React.ReactNode) => {
   return React.Children.toArray(children).filter(child => {
-    // only icon buttons for now. Expand to other buttons later
-    return React.isValidElement(child) && child.props.icon ? true : false
+    return React.isValidElement(child)
   }) as React.ReactElement[]
 }
 
@@ -144,20 +170,16 @@ const overflowEffect = (
     for (const [index, child] of childArray.entries()) {
       if (index < numberOfListItems) {
         items.push(child)
-      } else {
-        const ariaCurrent = child.props['aria-current']
-        const isCurrent = Boolean(ariaCurrent) && ariaCurrent !== 'false'
-        // We need to make sure to keep the selected item always visible.
-        // To do that, we swap the selected item with the last item in the list to make it visible. (When there is at least 1 item in the list to swap.)
-        if (isCurrent && numberOfListItems > 0) {
-          // If selected item couldn't make in to the list, we swap it with the last item in the list.
-          const indexToReplaceAt = numberOfListItems - 1 // because we are replacing the last item in the list
-          // splice method modifies the array by removing 1 item here at the given index and replace it with the "child" element then returns the removed item.
-          const propsectiveAction = items.splice(indexToReplaceAt, 1, child)[0]
-          menuItems.push(propsectiveAction)
+        //if the last item is a divider
+      } else if (childWidthArray[index].text === 'divider') {
+        if (index === numberOfListItems - 1 || index === numberOfListItems) {
+          continue
         } else {
-          menuItems.push(child)
+          const divider = React.createElement(ActionList.Divider, {key: index})
+          menuItems.push(divider)
         }
+      } else {
+        menuItems.push(child)
       }
     }
 
@@ -198,50 +220,6 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
   const menuItems = responsiveProps.menuItems.map(menuItem => {
     return validChildren.find(child => child.key === menuItem.key) ?? menuItem
   })
-
-  // function getItemsWidth(itemText: string): number {
-  //   return childWidthArray.find(item => item.text === itemText)?.width ?? 0
-  // }
-
-  // const swapMenuItemWithListItem = (
-  //   prospectiveListItem: React.ReactElement,
-  //   indexOfProspectiveListItem: number,
-  //   event: React.MouseEvent<HTMLAnchorElement> | React.KeyboardEvent<HTMLAnchorElement>,
-  //   callback: (props: ResponsiveProps, displayIcons: boolean) => void,
-  // ) => {
-  //   // get the selected menu item's width
-  //   const widthToFitIntoList = getItemsWidth(prospectiveListItem.props.children)
-  //   // Check if there is any empty space on the right side of the list
-  //   const availableSpace =
-  //     navRef && navRef.current.getBoundingClientRect().width - (listRef.current?.getBoundingClientRect().width ?? 0)
-
-  //   // Calculate how many items need to be pulled in to the menu to make room for the selected menu item
-  //   // I.e. if we need to pull 2 items in (index 0 and index 1), breakpoint (index) will return 1.
-  //   const index = getBreakpointForItemSwapping(widthToFitIntoList, availableSpace)
-  //   const indexToSliceAt = responsiveProps.items.length - 1 - index
-  //   // Form the new list of items
-  //   const itemsLeftInList = [...responsiveProps.items].slice(0, indexToSliceAt)
-  //   const updatedItemList = [...itemsLeftInList, prospectiveListItem]
-  //   // Form the new menu items
-  //   const itemsToAddToMenu = [...responsiveProps.items].slice(indexToSliceAt)
-  //   const updatedMenuItems = [...menuItems]
-  //   // Add itemsToAddToMenu array's items to the menu at the index of the prospectiveListItem and remove 1 count of items (prospectiveListItem)
-  //   updatedMenuItems.splice(indexOfProspectiveListItem, 1, ...itemsToAddToMenu)
-  //   callback({items: updatedItemList, menuItems: updatedMenuItems}, false)
-  // }
-  // How many items do we need to pull in to the menu to make room for the selected menu item.
-  // function getBreakpointForItemSwapping(widthToFitIntoList: number, availableSpace: number) {
-  //   let widthToSwap = 0
-  //   let breakpoint = 0
-  //   for (const [index, item] of [...responsiveProps.items].reverse().entries()) {
-  //     widthToSwap += getItemsWidth(item.props.children)
-  //     if (widthToFitIntoList < widthToSwap + availableSpace) {
-  //       breakpoint = index
-  //       break
-  //     }
-  //   }
-  //   return breakpoint
-  // }
 
   const updateListAndMenu = useCallback((props: ResponsiveProps) => {
     setResponsiveProps(props)
@@ -305,37 +283,38 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
                 sx={menuStyles}
                 style={{display: isWidgetOpen ? 'block' : 'none'}}
               >
-                {menuItems.map(menuItem => {
-                  const {
-                    children: menuItemChildren,
-                    //'aria-current': ariaCurrent,
-                    onSelect,
-                    icon: Icon,
-                    'aria-label': ariaLabel,
-                  } = menuItem.props
-                  return (
-                    <ActionList.LinkItem
-                      key={menuItemChildren}
-                      sx={menuItemStyles}
-                      onClick={(
-                        event: React.MouseEvent<HTMLAnchorElement> | React.KeyboardEvent<HTMLAnchorElement>,
-                      ) => {
-                        // When there are no items in the list, do not run the swap function as we want to keep everything in the menu.
-                        // Do we need to swap? swapMenuItemWithListItem(menuItem, index, event, updateListAndMenu)
-                        closeOverlay()
-                        focusOnMoreMenuBtn()
-                        // fire onSelect event that comes from the UnderlineNav.Item (if it is defined)
-                        typeof onSelect === 'function' && onSelect(event)
-                      }}
-                    >
-                      {Icon ? (
-                        <ActionList.LeadingVisual>
-                          <Icon />
-                        </ActionList.LeadingVisual>
-                      ) : null}
-                      {ariaLabel}
-                    </ActionList.LinkItem>
-                  )
+                {menuItems.map((menuItem, index) => {
+                  if (menuItem.type === ActionList.Divider) {
+                    return <ActionList.Divider key={index} />
+                  } else {
+                    const {
+                      children: menuItemChildren,
+                      //'aria-current': ariaCurrent,
+                      onSelect,
+                      icon: Icon,
+                      'aria-label': ariaLabel,
+                    } = menuItem.props
+                    return (
+                      <ActionList.LinkItem
+                        key={menuItemChildren}
+                        sx={menuItemStyles}
+                        onClick={(
+                          event: React.MouseEvent<HTMLAnchorElement> | React.KeyboardEvent<HTMLAnchorElement>,
+                        ) => {
+                          closeOverlay()
+                          focusOnMoreMenuBtn()
+                          typeof onSelect === 'function' && onSelect(event)
+                        }}
+                      >
+                        {Icon ? (
+                          <ActionList.LeadingVisual>
+                            <Icon />
+                          </ActionList.LeadingVisual>
+                        ) : null}
+                        {ariaLabel}
+                      </ActionList.LinkItem>
+                    )
+                  }
                 })}
               </ActionList>
             </MoreMenuListItem>
@@ -364,10 +343,16 @@ const sizeToHeight = {
   large: '32px',
 }
 export const VerticalDivider = () => {
-  const {size} = React.useContext(ActionBarContext)
-
+  const ref = useRef<HTMLDivElement>(null)
+  const {size, setChildrenWidth} = React.useContext(ActionBarContext)
+  useIsomorphicLayoutEffect(() => {
+    const text = 'divider'
+    const domRect = (ref as MutableRefObject<HTMLElement>).current.getBoundingClientRect()
+    setChildrenWidth({text, width: domRect.width})
+  }, [ref, setChildrenWidth])
   return (
     <Box
+      ref={ref}
       data-component="ActionBar.VerticalDivider"
       aria-hidden="true"
       sx={{
