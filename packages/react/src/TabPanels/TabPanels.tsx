@@ -25,7 +25,11 @@ export type TabPanelsProps = ComponentProps<typeof TabContainer>
 
 function TabPanels({children, 'aria-label': ariaLabel, onTabContainerChange, onTabContainerChanged}: TabPanelsProps) {
   return (
-    <TabContainer aria-label={ariaLabel} onTabContainerChange={onTabContainerChange} onTabContainerChanged={onTabContainerChanged}>
+    <TabContainer
+      aria-label={ariaLabel}
+      onTabContainerChange={onTabContainerChange}
+      onTabContainerChanged={onTabContainerChanged}
+    >
       {children}
     </TabContainer>
   )
@@ -82,7 +86,7 @@ export type TabPanelsPanelProps = {
 } & SxProp
 
 const Panel = styled.div.attrs<TabPanelsPanelProps>(() => ({
-  role: 'tabpanel'
+  role: 'tabpanel',
 }))<TabPanelsPanelProps>`
   ${sx};
 `
