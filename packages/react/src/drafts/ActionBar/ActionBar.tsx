@@ -1,28 +1,18 @@
-/*
-TODO
-- Decide props for ActionBar
-- Add api docs
-- Add proper types\
-Bugs
-- Nothing in More items
-- Divider is loopy
-*/
-
 import type {RefObject, MutableRefObject} from 'react'
 import React, {useState, useCallback, useRef, forwardRef} from 'react'
 import {KebabHorizontalIcon} from '@primer/octicons-react'
-import {ActionList} from '../ActionList'
-import useIsomorphicLayoutEffect from '../utils/useIsomorphicLayoutEffect'
+import {ActionList} from '../../ActionList'
+import useIsomorphicLayoutEffect from '../../utils/useIsomorphicLayoutEffect'
 import styled from 'styled-components'
-import sx from '../sx'
-import {useOnEscapePress} from '../hooks/useOnEscapePress'
-import type {ResizeObserverEntry} from '../hooks/useResizeObserver'
-import {useResizeObserver} from '../hooks/useResizeObserver'
+import sx from '../../sx'
+import {useOnEscapePress} from '../../hooks/useOnEscapePress'
+import type {ResizeObserverEntry} from '../../hooks/useResizeObserver'
+import {useResizeObserver} from '../../hooks/useResizeObserver'
 
-import {useOnOutsideClick} from '../hooks/useOnOutsideClick'
-import type {IconButtonProps} from '../Button'
-import {IconButton} from '../Button'
-import Box from '../Box'
+import {useOnOutsideClick} from '../../hooks/useOnOutsideClick'
+import type {IconButtonProps} from '../../Button'
+import {IconButton} from '../../Button'
+import Box from '../../Box'
 
 type ChildSize = {
   text: string

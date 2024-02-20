@@ -1,5 +1,5 @@
 import React from 'react'
-import {Meta} from '@storybook/react'
+import type {Meta} from '@storybook/react'
 import ActionBar from '.'
 import {
   BoldIcon,
@@ -14,9 +14,10 @@ import {
   ListOrderedIcon,
   TasklistIcon,
 } from '@primer/octicons-react'
-import {MarkdownInput} from '../drafts/MarkdownEditor/_MarkdownInput'
-import {ViewSwitch, type MarkdownViewMode} from '../drafts/MarkdownEditor/_ViewSwitch'
-import {Box} from '..'
+import {MarkdownInput} from '../MarkdownEditor/_MarkdownInput'
+import {ViewSwitch} from '../MarkdownEditor/_ViewSwitch'
+import type {MarkdownViewMode} from '../MarkdownEditor/_ViewSwitch'
+import {Box} from '../..'
 
 export default {
   title: 'Components/ActionBar',
