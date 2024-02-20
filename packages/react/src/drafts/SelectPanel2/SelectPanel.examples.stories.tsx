@@ -1,7 +1,16 @@
 import React from 'react'
 import {SelectPanel} from './SelectPanel'
-import {ActionList, ActionMenu, Avatar, Box, Button, Text} from '../../index'
-import {ArrowRightIcon, EyeIcon, GitBranchIcon, TriangleDownIcon, GearIcon} from '@primer/octicons-react'
+import {ActionList, ActionMenu, Avatar, Box, Button, Octicon, Text} from '../../index'
+import {
+  ArrowRightIcon,
+  EyeIcon,
+  GitBranchIcon,
+  TriangleDownIcon,
+  GearIcon,
+  GitPullRequestIcon,
+  GitMergeIcon,
+  GitPullRequestDraftIcon,
+} from '@primer/octicons-react'
 import data from './mock-story-data'
 
 export default {
@@ -435,8 +444,8 @@ export const OpenFromMenu = () => {
           </ActionList>
         </ActionMenu.Overlay>
       </ActionMenu>
+
       <SelectPanel
-        variant="modal"
         title="Custom"
         open={selectPanelOpen}
         onSubmit={() => {
@@ -450,6 +459,13 @@ export const OpenFromMenu = () => {
           setMenuOpen(true)
         }}
       >
+        <SelectPanel.Header
+          onBack={() => {
+            setSelectedCustomEvents(initialCustomEvents)
+            setSelectPanelOpen(false)
+            setMenuOpen(true)
+          }}
+        />
         <ActionList>
           {itemsToShow.map(item => (
             <ActionList.Item
@@ -633,6 +649,111 @@ export const ShortSelectPanel = () => {
             </ActionList.Item>
           </Box>
         </ActionList>
+        <SelectPanel.Footer />
+      </SelectPanel>
+    </>
+  )
+}
+
+export const NestedSelection = () => {
+  const [panelToShow, setPanelToShow] = React.useState<null | 'repos' | 'pull_requests'>(null)
+
+  const anchorRef = React.useRef<HTMLButtonElement>(null)
+
+  /* First level: Repo selection */
+  const [selectedRepo, setSelectedRepo] = React.useState<string>('')
+
+  const reposToShow = data.repos
+
+  /* Second level: Pull request selection */
+  const iconMap = {
+    open: <Octicon icon={GitPullRequestIcon} sx={{color: 'open.emphasis'}} />,
+    merged: <Octicon icon={GitMergeIcon} sx={{color: 'done.emphasis'}} />,
+    draft: <Octicon icon={GitPullRequestDraftIcon} />,
+  }
+
+  const [selectedPullRequestIds, setSelectedPullRequestIds] = React.useState<string[]>([])
+  /* Selection */
+  const onPullRequestSelect = (pullId: string) => {
+    if (!selectedPullRequestIds.includes(pullId)) setSelectedPullRequestIds([...selectedPullRequestIds, pullId])
+    else setSelectedPullRequestIds(selectedPullRequestIds.filter(id => id !== pullId))
+  }
+
+  return (
+    <>
+      <h1>Nested selection</h1>
+
+      <Button
+        ref={anchorRef}
+        onClick={() => setPanelToShow('repos')}
+        variant="invisible"
+        trailingAction={GearIcon}
+        sx={{width: '200px', '[data-component=buttonContent]': {justifyContent: 'start'}}}
+      >
+        Reviewers
+      </Button>
+
+      <SelectPanel
+        open={panelToShow === 'repos'}
+        anchorRef={anchorRef}
+        title="Link a pull request or branch"
+        description="Select a repository first to search for pull requests orbranches."
+        selectionVariant="instant"
+        onSubmit={() => setPanelToShow('pull_requests')}
+      >
+        <SelectPanel.Header>
+          <SelectPanel.SearchInput placeholder="Search (not implemented in demo)" />
+        </SelectPanel.Header>
+
+        <ActionList>
+          {reposToShow.map(repo => (
+            <ActionList.Item
+              key={repo.name}
+              selected={selectedRepo === `${repo.org}/${repo.name}`}
+              onSelect={() => setSelectedRepo(`${repo.org}/${repo.name}`)}
+            >
+              <ActionList.LeadingVisual>
+                <Avatar src={`https://github.com/${repo.org}.png`} />
+              </ActionList.LeadingVisual>
+              {repo.org}/{repo.name}
+              <ActionList.Description>{repo.description}</ActionList.Description>
+              <ActionList.TrailingVisual>
+                <ArrowRightIcon />
+              </ActionList.TrailingVisual>
+            </ActionList.Item>
+          ))}
+        </ActionList>
+
+        <SelectPanel.Footer />
+      </SelectPanel>
+
+      <SelectPanel
+        open={panelToShow === 'pull_requests'}
+        anchorRef={anchorRef}
+        title={selectedRepo}
+        description="Link a branch or pull request"
+        selectionVariant="multiple"
+        onSubmit={() => {}}
+      >
+        <SelectPanel.Header onBack={() => setPanelToShow('repos')}>
+          <SelectPanel.SearchInput placeholder="Search (not implemented in demo)" />
+        </SelectPanel.Header>
+
+        <ActionList>
+          {data.pulls.map(pull => (
+            <ActionList.Item
+              key={pull.name}
+              selected={selectedPullRequestIds.includes(pull.id)}
+              onSelect={() => onPullRequestSelect(pull.id)}
+            >
+              <ActionList.LeadingVisual>{iconMap[pull.status as keyof typeof iconMap]}</ActionList.LeadingVisual>
+              {pull.name}
+              <ActionList.Description variant="inline">#{pull.id}</ActionList.Description>
+              <ActionList.Description variant="block">{pull.description}</ActionList.Description>
+            </ActionList.Item>
+          ))}
+        </ActionList>
+
         <SelectPanel.Footer />
       </SelectPanel>
     </>
