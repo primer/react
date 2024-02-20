@@ -83,8 +83,21 @@ const AutocompleteInput = React.forwardRef(
           setInputValue('')
           inputRef.current.value = ''
         }
+        // Issue: Change events and useEffects aren't triggered when the input value matches autoCompleteSuggestion after an input.
+        // This is because the current inputRef value always matches autoCompleteSuggestion between keystrokes (for highlighting), so no actual change is detected.
+        // Fix: Intercept the keydown event and check if the user's input will match the suggestion. If it does, prevent the default behavior and fire the input event manually.
+        if (inputValue + event.key === autocompleteSuggestion && inputRef.current?.value === autocompleteSuggestion) {
+          event.preventDefault()
+          // @ts-ignore - _valueTracker is a private property, responsible for tracking input value changes. React relies on this to track changes.
+          const reactValueTracker = inputRef.current._valueTracker
+          if (!reactValueTracker) {
+            return
+          }
+          reactValueTracker.setValue()
+          inputRef.current.dispatchEvent(new Event('input', {bubbles: true}))
+        }
       },
-      [inputRef, setInputValue, setHighlightRemainingText, onKeyDown],
+      [onKeyDown, inputRef, inputValue, autocompleteSuggestion, setInputValue],
     )
 
     const handleInputKeyUp: KeyboardEventHandler<HTMLInputElement> = useCallback(
@@ -123,10 +136,6 @@ const AutocompleteInput = React.forwardRef(
       if (!autocompleteSuggestion) {
         inputRef.current.value = inputValue
       }
-
-      // TODO: fix bug where this function prevents `onChange` from being triggered if the highlighted item text
-      //       is the same as what I'm typing
-      //       e.g.: typing 'tw' highlights 'two', but when I 'two', the text input change does not get triggered
       if (highlightRemainingText && autocompleteSuggestion && (inputValue || isMenuDirectlyActivated)) {
         inputRef.current.value = autocompleteSuggestion
 
