@@ -11,6 +11,21 @@
       "description": "Used to set the `aria-label` on the `role=\"tablist\"` element."
     },
     {
+      "name": "children",
+      "type": "React.ReactNode",
+      "description": "The content of the component, can contain Tabs, Panels but also content before and after Tabs and after the Panels."
+    },
+    {
+      "name": "onTabContainerChange",
+      "type": "function",
+      "description": "Callback fired when the tab container changes (bubbles, cancelable): fired on `<tab-container>` before a new tab is selected and visibility is updated. `event.tab` is the tab that will be focused and `tab.panel` is the panel that will be shown if the event isn't cancelled."
+    },
+    {
+      "name": "onTabContainerChanged",
+      "type": "function",
+      "description": "Callback fired when the tab container changes (bubbles): fired on `<tab-container>` after a new tab is selected and visibility is updated. `event.tab` is the tab that is now active (and will be focused right after this event) and `event.panel` is the newly visible tab panel."
+    },
+    {
       "name": "sx",
       "type": "SystemStyleObject"
     }
@@ -36,10 +51,6 @@
           "name": "children",
           "type": "React.ReactNode",
           "description": "The content of the panel."
-        },
-        {
-          "name": "selected",
-          "type": "boolean"
         },
         {
           "name": "sx",
