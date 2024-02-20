@@ -700,6 +700,7 @@ export const NestedSelection = () => {
         description="Select a repository first to search for pull requests orbranches."
         selectionVariant="instant"
         onSubmit={() => setPanelToShow('pull_requests')}
+        onCancel={() => setPanelToShow(null)}
       >
         <SelectPanel.Header>
           <SelectPanel.SearchInput placeholder="Search (not implemented in demo)" />
