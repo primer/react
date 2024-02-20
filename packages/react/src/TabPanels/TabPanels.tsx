@@ -12,10 +12,9 @@ import getGlobalFocusStyles from '../internal/utils/getGlobalFocusStyles'
 const TAB_CLASS = 'TabPanel-tab'
 
 const TabContainer = styled(createComponent(React, 'tab-container', TabContainerElement))`
-  &::part(tablist), &::part(before-tabs), &::part(after-tabs) {
-    display: block;
-    margin-bottom: -1px;
+  &::part(tablist-wrapper) {
     margin-top: 0;
+    margin-bottom: 16px;
     border-bottom: 1px solid ${get('colors.border.default')};
   }
 
@@ -80,13 +79,11 @@ Tab.displayName = 'TabPanels.Tab'
 
 export type TabPanelsPanelProps = {
   children: React.ReactNode
-  selected?: boolean
 } & SxProp
 
-const Panel = styled.div.attrs<TabPanelsPanelProps>(props => ({
+const Panel = styled.div.attrs<TabPanelsPanelProps>(() => ({
   role: 'tabpanel'
 }))<TabPanelsPanelProps>`
-  margin-top: 16px;
   ${sx};
 `
 
