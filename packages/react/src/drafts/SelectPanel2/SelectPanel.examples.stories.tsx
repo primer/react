@@ -731,9 +731,13 @@ export const NestedSelection = () => {
         open={panelToShow === 'pull_requests'}
         anchorRef={anchorRef}
         title={selectedRepo}
-        description="Link a branch or pull request"
+        description="Link a pull request"
         selectionVariant="multiple"
-        onSubmit={() => {}}
+        onSubmit={() => setPanelToShow(null)}
+        onCancel={() => {
+          setSelectedPullRequestIds([])
+          setPanelToShow('repos')
+        }}
       >
         <SelectPanel.Header onBack={() => setPanelToShow('repos')}>
           <SelectPanel.SearchInput placeholder="Search (not implemented in demo)" />
