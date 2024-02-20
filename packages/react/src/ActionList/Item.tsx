@@ -295,11 +295,16 @@ export const Item = React.forwardRef<HTMLButtonElement, ActionListItemProps>(
     const containerProps = _PrivateItemWrapper
       ? {role: itemRole ? 'none' : undefined, ...props}
       : // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-        (validRole && {...menuItemProps, ...props}) || {}
+        (validRole && {...menuItemProps, ...props, ref: forwardedRef}) || {}
 
     const wrapperProps = _PrivateItemWrapper
       ? menuItemProps
-      : !validRole && {...menuItemProps, styles: merge<BetterSystemStyleObject>(styles, sxProp), ...props}
+      : !validRole && {
+          ...menuItemProps,
+          ...props,
+          styles: merge<BetterSystemStyleObject>(styles, sxProp),
+          ref: forwardedRef,
+        }
 
     return (
       <ItemContext.Provider
@@ -313,7 +318,7 @@ export const Item = React.forwardRef<HTMLButtonElement, ActionListItemProps>(
           data-variant={variant === 'danger' ? variant : undefined}
           {...containerProps}
         >
-          <ItemWrapper {...wrapperProps} ref={forwardedRef}>
+          <ItemWrapper {...wrapperProps}>
             <Selection selected={selected} />
             {
               // If we're showing an inactive indicator and a leading visual has been passed,
