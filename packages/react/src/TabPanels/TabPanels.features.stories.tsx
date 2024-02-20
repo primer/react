@@ -15,7 +15,7 @@ export const Selected = () => (
     <TabPanels.Tab selected>Two</TabPanels.Tab>
     <TabPanels.Tab>Three</TabPanels.Tab>
     <TabPanels.Panel>One</TabPanels.Panel>
-    <TabPanels.Panel selected>Two</TabPanels.Panel>
+    <TabPanels.Panel>Two</TabPanels.Panel>
     <TabPanels.Panel>Three</TabPanels.Panel>
   </TabPanels>
 )
