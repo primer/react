@@ -672,7 +672,8 @@ export const NestedSelection = () => {
     draft: <Octicon icon={GitPullRequestDraftIcon} />,
   }
 
-  const [selectedPullRequestIds, setSelectedPullRequestIds] = React.useState<string[]>([])
+  const initialSelectedPullRequestIds = ['4278']
+  const [selectedPullRequestIds, setSelectedPullRequestIds] = React.useState<string[]>(initialSelectedPullRequestIds)
   /* Selection */
   const onPullRequestSelect = (pullId: string) => {
     if (!selectedPullRequestIds.includes(pullId)) setSelectedPullRequestIds([...selectedPullRequestIds, pullId])
@@ -690,8 +691,21 @@ export const NestedSelection = () => {
         trailingAction={GearIcon}
         sx={{width: '200px', '[data-component=buttonContent]': {justifyContent: 'start'}}}
       >
-        Reviewers
+        Development
       </Button>
+
+      <ActionList>
+        {data.pulls
+          .filter(pull => selectedPullRequestIds.includes(pull.id))
+          .map(pull => (
+            <ActionList.Item key={pull.name}>
+              <ActionList.LeadingVisual>{iconMap[pull.status as keyof typeof iconMap]}</ActionList.LeadingVisual>
+              {pull.name}
+              <ActionList.Description variant="inline">#{pull.id}</ActionList.Description>
+              <ActionList.Description variant="block">{pull.description}</ActionList.Description>
+            </ActionList.Item>
+          ))}
+      </ActionList>
 
       <SelectPanel
         open={panelToShow === 'repos'}
@@ -736,7 +750,7 @@ export const NestedSelection = () => {
         selectionVariant="multiple"
         onSubmit={() => setPanelToShow(null)}
         onCancel={() => {
-          setSelectedPullRequestIds([])
+          setSelectedPullRequestIds(initialSelectedPullRequestIds)
           setPanelToShow('repos')
         }}
       >
