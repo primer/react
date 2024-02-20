@@ -1,9 +1,9 @@
 import React from 'react'
-import {Column} from './column'
+import type {Column} from './column'
 import {useTable} from './useTable'
-import {SortDirection} from './sorting'
-import {UniqueRow} from './row'
-import {ObjectPaths} from './utils'
+import type {SortDirection} from './sorting'
+import type {UniqueRow} from './row'
+import type {ObjectPaths} from './utils'
 import {Table, TableHead, TableBody, TableRow, TableHeader, TableSortHeader, TableCell} from './Table'
 
 // ----------------------------------------------------------------------------

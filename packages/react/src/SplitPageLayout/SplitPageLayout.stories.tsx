@@ -1,5 +1,5 @@
 import React from 'react'
-import {Meta, Story} from '@storybook/react'
+import type {Meta, Story} from '@storybook/react'
 import {Placeholder} from '../Placeholder'
 import {SplitPageLayout} from '../SplitPageLayout'
 

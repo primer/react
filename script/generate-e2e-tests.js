@@ -273,31 +273,6 @@ const components = new Map([
           id: 'components-buttongroup-features--icon-buttons',
           name: 'Icon Buttons',
         },
-        {
-          id: 'components-buttongroup-features--button-group-with-tooltip',
-          name: 'Button Group With Tooltip',
-        },
-
-        {
-          id: 'components-buttongroup-features--button-group-with-tooltip-2',
-          name: 'Button Group With Tooltip 2',
-        },
-        {
-          id: 'components-buttongroup-features--icon-buttons-with-tooltip',
-          name: 'Icon Buttons With Tooltip',
-        },
-        {
-          id: 'components-buttongroup-features--icon-buttons-with-tooltip-2',
-          name: 'Icon Buttons With Tooltip 2',
-        },
-        {
-          id: 'components-buttongroup-features--links-with-tooltip',
-          name: 'Links With Tooltip',
-        },
-        {
-          id: 'components-buttongroup-features--links-with-tooltip-2',
-          name: 'Links With Tooltip 2',
-        },
       ],
     },
   ],
@@ -1451,39 +1426,39 @@ const components = new Map([
     },
   ],
   [
-    'Tooltip--experimental',
+    'Tooltip V2',
     {
       stories: [
         {
-          id: 'drafts-components-tooltip--default',
+          id: 'components-tooltipv2--default',
           name: 'Default',
         },
         {
-          id: 'drafts-components-tooltip-features--anchor-has-margin',
+          id: 'components-tooltipv2-features--anchor-has-margin',
           name: 'Anchor Has Margin',
         },
         {
-          id: 'drafts-components-tooltip-features--calculated-direction',
+          id: 'components-tooltipv2-features--calculated-direction',
           name: 'Calculated Direction',
         },
         {
-          id: 'drafts-components-tooltip-features--icon-button-with-description',
+          id: 'components-tooltipv2-features--icon-button-with-description',
           name: 'Icon Button With Description',
         },
         {
-          id: 'drafts-components-tooltip-features--label-type',
+          id: 'components-tooltipv2-features--label-type',
           name: 'Label Type',
         },
         {
-          id: 'drafts-components-tooltip-features--multiline-text',
+          id: 'components-tooltipv2-features--multiline-text',
           name: 'Multiline Text',
         },
         {
-          id: 'drafts-components-tooltip-features--on-action-menu-anchor',
+          id: 'components-tooltipv2-features--on-action-menu-anchor',
           name: 'On Action Menu Anchor',
         },
         {
-          id: 'drafts-components-tooltip-examples--files-page',
+          id: 'components-tooltipv2-examples--files-page',
           name: 'Files Page Example',
         },
       ],

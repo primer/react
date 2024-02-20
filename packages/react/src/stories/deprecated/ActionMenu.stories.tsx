@@ -11,13 +11,15 @@ import {
   ArrowRightIcon,
   TriangleDownIcon,
 } from '@primer/octicons-react'
-import {Meta} from '@storybook/react'
+import type {Meta} from '@storybook/react'
 import React, {useCallback, useState, useRef} from 'react'
 import styled from 'styled-components'
 import {ThemeProvider} from '../..'
-import Link, {LinkProps} from '../../Link'
-import {ActionMenu, ActionMenuProps, ActionList, Button} from '../../deprecated'
-import {ItemProps} from '../../deprecated/ActionList'
+import type {LinkProps} from '../../Link'
+import Link from '../../Link'
+import type {ActionMenuProps} from '../../deprecated'
+import {ActionMenu, ActionList, Button} from '../../deprecated'
+import type {ItemProps} from '../../deprecated/ActionList'
 import BaseStyles from '../../BaseStyles'
 // We can remove the as as DropdownButton, after updating the deprecated Button usages
 import {Button as DropdownButton} from '../../Button'

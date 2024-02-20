@@ -1,5 +1,5 @@
 import React from 'react'
-import {Meta, Story} from '@storybook/react'
+import type {Meta, Story} from '@storybook/react'
 import {Placeholder} from '../Placeholder'
 import {PageLayout} from './PageLayout'
 
@@ -344,7 +344,7 @@ const meta: Meta = {
   },
 }
 
-const Template: Story = args => (
+export const Default: Story = args => (
   <PageLayout
     containerWidth={args.containerWidth}
     padding={args.padding}
@@ -426,5 +426,4 @@ const Template: Story = args => (
   </PageLayout>
 )
 
-export const Default = Template.bind({})
 export default meta

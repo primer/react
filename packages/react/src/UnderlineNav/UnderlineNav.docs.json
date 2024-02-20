@@ -1,7 +1,7 @@
 {
-  "id": "drafts_underline_nav2",
+  "id": "underline_nav",
   "name": "UnderlineNav",
-  "status": "draft",
+  "status": "beta",
   "a11yReviewed": true,
   "stories": [],
   "props": [

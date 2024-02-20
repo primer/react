@@ -1,7 +1,9 @@
 import React from 'react'
 import styled from 'styled-components'
-import sx, {SxProp} from '../../sx'
-import {Header, HeaderProps} from './Header'
+import type {SxProp} from '../../sx'
+import sx from '../../sx'
+import type {HeaderProps} from './Header'
+import {Header} from './Header'
 
 /**
  * Contract for props passed to the `Group` component.

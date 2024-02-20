@@ -2,7 +2,7 @@ import React from 'react'
 import {iterateFocusableElements} from '@primer/behaviors/utils'
 import {useMenuInitialFocus} from './useMenuInitialFocus'
 import {useMnemonics} from './useMnemonics'
-import {MenuContextProps} from '../ActionMenu'
+import type {MenuContextProps} from '../ActionMenu'
 
 /**
  * Keyboard navigation is a mix of 4 hooks

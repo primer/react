@@ -1,9 +1,9 @@
-import React from 'react'
-import {CheckboxGroup, FormControl} from '../index'
-import {ComponentProps} from './types'
-import {ArgTypes} from '@storybook/react'
-import {InputType} from '@storybook/csf'
-import {Icon} from '@primer/octicons-react'
+import type React from 'react'
+import type {CheckboxGroup, FormControl} from '../index'
+import type {ComponentProps} from './types'
+import type {ArgTypes} from '@storybook/react'
+import type {InputType} from '@storybook/csf'
+import type {Icon} from '@primer/octicons-react'
 
 type CheckboxOrRadioGroupWrapperArgs = ComponentProps<typeof CheckboxGroup>
 type CheckboxOrRadioGroupLabelArgs = ComponentProps<typeof CheckboxGroup.Label> & {
