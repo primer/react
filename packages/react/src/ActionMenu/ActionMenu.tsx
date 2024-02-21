@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import {TriangleDownIcon} from '@primer/octicons-react'
 import type {AnchoredOverlayProps} from '../AnchoredOverlay'
 import {AnchoredOverlay} from '../AnchoredOverlay'
@@ -147,6 +147,17 @@ const Overlay: React.FC<React.PropsWithChildren<MenuOverlayProps>> = ({
   const containerRef = React.useRef<HTMLDivElement>(null)
   useMenuKeyboardNavigation(open, onClose, containerRef, anchorRef)
 
+  // If the menu anchor is an icon button, we need to label the menu by tooltip that also labelled the anchor.
+  const [tooltipId, setTooltipId] = useState<null | string>(null)
+  useEffect(() => {
+    if (anchorRef.current) {
+      const anchorAriaLabelledby = anchorRef.current.getAttribute('aria-labelledby')
+      if (anchorAriaLabelledby) {
+        setTooltipId(anchorAriaLabelledby)
+      }
+    }
+  }, [anchorRef])
+
   return (
     <AnchoredOverlay
       anchorRef={anchorRef}
@@ -165,7 +176,8 @@ const Overlay: React.FC<React.PropsWithChildren<MenuOverlayProps>> = ({
           value={{
             container: 'ActionMenu',
             listRole: 'menu',
-            listLabelledBy: ariaLabelledby || anchorId,
+            // If there is a custom aria-labelledby, use that. Otherwise, use the tooltipId if exist. If not, use anchor id.
+            listLabelledBy: ariaLabelledby || tooltipId || anchorId,
             selectionAttribute: 'aria-checked', // Should this be here?
             afterSelect: onClose,
           }}

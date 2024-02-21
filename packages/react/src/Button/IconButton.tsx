@@ -4,7 +4,8 @@ import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../uti
 import {ButtonBase} from './ButtonBase'
 import {defaultSxProp} from '../utils/defaultSxProp'
 import {generateCustomSxProp} from './Button'
-import {Tooltip} from '../drafts/Tooltip/Tooltip'
+import {TooltipContext, Tooltip} from '../TooltipV2/Tooltip'
+import {TooltipContext as TooltipContextV1} from '../Tooltip/Tooltip'
 
 const IconButton = forwardRef(
   (
@@ -14,6 +15,7 @@ const IconButton = forwardRef(
       'aria-label': ariaLabel,
       description,
       disabled,
+      tooltipDirection,
       // This is planned to be a temporary prop until the default tooltip on icon buttons are fully rolled out.
       disableTooltip = false,
       ...props
@@ -28,7 +30,13 @@ const IconButton = forwardRef(
       sxStyles = generateCustomSxProp({size}, sxProp)
     }
 
-    const withoutTooltip = disableTooltip || disabled || ariaLabel === undefined || ariaLabel === ''
+    // If the icon button is already wrapped in a tooltip, do not add one.
+    const {tooltipId} = React.useContext(TooltipContext) // Tooltip v2
+    const {tooltipId: tooltipIdV1} = React.useContext(TooltipContextV1) // Tooltip v1
+
+    const hasExternalTooltip = tooltipId || tooltipIdV1
+    const withoutTooltip =
+      disableTooltip || disabled || ariaLabel === undefined || ariaLabel === '' || hasExternalTooltip
 
     if (withoutTooltip) {
       return (
@@ -46,7 +54,12 @@ const IconButton = forwardRef(
       )
     } else {
       return (
-        <Tooltip ref={forwardedRef} text={description ?? ariaLabel} type={description ? undefined : 'label'}>
+        <Tooltip
+          ref={forwardedRef}
+          text={description ?? ariaLabel}
+          type={description ? undefined : 'label'}
+          direction={tooltipDirection}
+        >
           <ButtonBase
             icon={Icon}
             data-component="IconButton"

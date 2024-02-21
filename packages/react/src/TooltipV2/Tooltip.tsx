@@ -123,7 +123,7 @@ const StyledTooltip = styled.div`
   ${sx};
 `
 
-type TooltipDirection = 'nw' | 'n' | 'ne' | 'e' | 'se' | 's' | 'sw' | 'w'
+export type TooltipDirection = 'nw' | 'n' | 'ne' | 'e' | 'se' | 's' | 'sw' | 'w'
 export type TooltipProps = React.PropsWithChildren<
   {
     direction?: TooltipDirection
