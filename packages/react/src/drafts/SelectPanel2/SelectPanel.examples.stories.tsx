@@ -694,7 +694,7 @@ export const NestedSelection = () => {
         Development
       </Button>
 
-      <ActionList showDividers>
+      <ActionList>
         {data.pulls
           .filter(pull => selectedPullRequestIds.includes(pull.id))
           .map(pull => (
@@ -726,6 +726,7 @@ export const NestedSelection = () => {
               key={repo.name}
               selected={selectedRepo === `${repo.org}/${repo.name}`}
               onSelect={() => setSelectedRepo(`${repo.org}/${repo.name}`)}
+              sx={{'[data-component="ActionList.Selection"]': {display: 'none'}}}
             >
               <ActionList.LeadingVisual>
                 <Avatar src={`https://github.com/${repo.org}.png`} />
@@ -758,7 +759,7 @@ export const NestedSelection = () => {
           <SelectPanel.SearchInput placeholder="Search (not implemented in demo)" />
         </SelectPanel.Header>
 
-        <ActionList>
+        <ActionList showDividers>
           {data.pulls.map(pull => (
             <ActionList.Item
               key={pull.name}
