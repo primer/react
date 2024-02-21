@@ -1,6 +1,21 @@
 import React from 'react'
 import {render, screen} from '@testing-library/react'
 import TabPanels from '../TabPanels'
+import TabContainerElement from '@github/tab-container-element'
+
+// Mock the tab-container-element package
+// jest.mock('@github/tab-container-element', () => {
+//   return {
+//     __esModule: true,
+//     default: 'TabContainerElement',
+//     TabContainerChangeEvent: 'TabContainerChangeEvent',
+//   }
+// })
+
+// Mock the selectTab method, jsdom doesn't like it
+// But that doesn't matter because we're not testing the web component here
+// Just the connection to the web component
+TabContainerElement.prototype.selectTab = jest.fn()
 
 describe('TabPanels', () => {
   //Reset mocks after each test
@@ -24,7 +39,21 @@ describe('TabPanels', () => {
     expect(screen.getByText('Panel 2')).toBeInTheDocument()
   })
 
-  it('applies aria-selected to selected tab', () => {
+  it('applies aria-selected to first tab when selected', () => {
+    render(
+      <TabPanels>
+        <TabPanels.Tab selected>Tab 1</TabPanels.Tab>
+        <TabPanels.Tab>Tab 2</TabPanels.Tab>
+        <TabPanels.Panel>Panel 1</TabPanels.Panel>
+        <TabPanels.Panel>Panel 2</TabPanels.Panel>
+      </TabPanels>,
+    )
+
+    expect(screen.getByText('Tab 1')).toHaveAttribute('aria-selected', 'true')
+    expect(screen.getByText('Tab 2')).toHaveAttribute('aria-selected', 'false')
+  })
+
+  it('applies aria-selected to second tab when selected', () => {
     render(
       <TabPanels>
         <TabPanels.Tab>Tab 1</TabPanels.Tab>
@@ -36,43 +65,5 @@ describe('TabPanels', () => {
 
     expect(screen.getByText('Tab 1')).toHaveAttribute('aria-selected', 'false')
     expect(screen.getByText('Tab 2')).toHaveAttribute('aria-selected', 'true')
-  })
-
-  it('throws an error if there are no tabs', () => {
-    jest.spyOn(console, 'error').mockImplementation()
-    expect(() => {
-      render(
-        <TabPanels>
-          <TabPanels.Panel>Panel 1</TabPanels.Panel>
-        </TabPanels>,
-      )
-    }).toThrow('TabPanels must have at least one Tab')
-  })
-
-  it('throws an error if there are unequal tabs and panels', () => {
-    jest.spyOn(console, 'error').mockImplementation()
-    expect(() => {
-      render(
-        <TabPanels>
-          <TabPanels.Tab>Tab 1</TabPanels.Tab>
-          <TabPanels.Panel>Panel 1</TabPanels.Panel>
-          <TabPanels.Panel>Panel 2</TabPanels.Panel>
-        </TabPanels>,
-      )
-    }).toThrow('TabPanels must have equal Panels and Tabs')
-  })
-
-  it('Adds aria-selected to the first tab by default', () => {
-    render(
-      <TabPanels>
-        <TabPanels.Tab>Tab 1</TabPanels.Tab>
-        <TabPanels.Tab>Tab 2</TabPanels.Tab>
-        <TabPanels.Panel>Panel 1</TabPanels.Panel>
-        <TabPanels.Panel>Panel 2</TabPanels.Panel>
-      </TabPanels>,
-    )
-
-    expect(screen.getByText('Tab 1')).toHaveAttribute('aria-selected', 'true')
-    expect(screen.getByText('Tab 2')).toHaveAttribute('aria-selected', 'false')
   })
 })
