@@ -1,6 +1,7 @@
-import React from 'react'
+import type React from 'react'
 import styled from 'styled-components'
-import sx, {SxProp} from '../sx'
+import type {SxProp} from '../sx'
+import sx from '../sx'
 import getGlobalFocusStyles from '../internal/utils/getGlobalFocusStyles'
 
 export const StyledButton = styled.button<SxProp>`

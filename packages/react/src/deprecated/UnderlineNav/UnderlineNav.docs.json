@@ -1,7 +1,7 @@
 {
-  "id": "underline_nav",
+  "id": "legacy_underline_nav",
   "name": "UnderlineNav",
-  "status": "alpha",
+  "status": "deprecated",
   "a11yReviewed": false,
   "stories": [],
   "props": [

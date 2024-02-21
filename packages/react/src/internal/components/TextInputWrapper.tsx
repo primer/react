@@ -1,8 +1,10 @@
 import styled, {css} from 'styled-components'
-import {maxWidth, MaxWidthProps, minWidth, MinWidthProps, variant, width, WidthProps} from 'styled-system'
+import type {MaxWidthProps, MinWidthProps, WidthProps} from 'styled-system'
+import {maxWidth, minWidth, variant, width} from 'styled-system'
 import {get} from '../../constants'
-import sx, {SxProp} from '../../sx'
-import {FormValidationStatus} from '../../utils/types/FormValidationStatus'
+import type {SxProp} from '../../sx'
+import sx from '../../sx'
+import type {FormValidationStatus} from '../../utils/types/FormValidationStatus'
 
 export type TextInputSizes = 'small' | 'medium' | 'large'
 
@@ -135,7 +137,8 @@ export const TextInputBaseWrapper = styled.span<StyledBaseWrapperProps>`
     css`
       color: ${get('colors.primer.fg.disabled')};
       background-color: ${get('colors.input.disabledBg')};
-      border-color: ${get('colors.border.default')};
+      box-shadow: none;
+      border-color: var(--control-borderColor-disabled, ${get('colors.border.default')});
 
       input,
       textarea,

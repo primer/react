@@ -1,4 +1,4 @@
-import {Theme} from '../ThemeProvider'
+import type {Theme} from '../ThemeProvider'
 
 // The gap between the list items. It is a constant because the gap is used to calculate the possible number of items that can fit in the container.
 export const GAP = 8

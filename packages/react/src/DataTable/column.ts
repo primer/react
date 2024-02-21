@@ -1,6 +1,6 @@
-import {ObjectPaths} from './utils'
-import {UniqueRow} from './row'
-import {SortStrategy, CustomSortStrategy} from './sorting'
+import type {ObjectPaths} from './utils'
+import type {UniqueRow} from './row'
+import type {SortStrategy, CustomSortStrategy} from './sorting'
 
 export type ColumnWidth = 'grow' | 'growCollapse' | 'auto' | React.CSSProperties['width']
 export type CellAlignment = 'start' | 'end' | undefined

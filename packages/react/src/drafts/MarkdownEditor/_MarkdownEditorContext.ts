@@ -1,6 +1,7 @@
-import {createContext, RefObject} from 'react'
-import {FormattingTools} from './_FormattingTools'
-import {ButtonProps} from '../../Button'
+import type {RefObject} from 'react'
+import {createContext} from 'react'
+import type {FormattingTools} from './_FormattingTools'
+import type {ButtonProps} from '../../Button'
 
 // For performance, the properties in context MUST NOT be values that change often - every time
 // any of the properties change, all components including memoized ones will be re-rendered

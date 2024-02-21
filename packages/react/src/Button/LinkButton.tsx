@@ -1,7 +1,8 @@
 import React, {forwardRef} from 'react'
-import {LinkButtonProps} from './types'
-import {ButtonBase, ButtonBaseProps} from './ButtonBase'
-import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
+import type {LinkButtonProps} from './types'
+import type {ButtonBaseProps} from './ButtonBase'
+import {ButtonBase} from './ButtonBase'
+import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import {defaultSxProp} from '../utils/defaultSxProp'
 
 type MyProps = LinkButtonProps & ButtonBaseProps

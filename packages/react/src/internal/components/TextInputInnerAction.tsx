@@ -1,9 +1,11 @@
 import React, {forwardRef} from 'react'
-import {IconProps} from '@primer/octicons-react'
+import type {IconProps} from '@primer/octicons-react'
 import Box from '../../Box'
-import {Button, IconButton, ButtonProps} from '../../Button'
+import type {ButtonProps} from '../../Button'
+import {Button, IconButton} from '../../Button'
 import Tooltip from '../../Tooltip/Tooltip'
-import {BetterSystemStyleObject, merge, SxProp} from '../../sx'
+import type {BetterSystemStyleObject, SxProp} from '../../sx'
+import {merge} from '../../sx'
 
 type TextInputActionProps = Omit<
   React.ButtonHTMLAttributes<HTMLButtonElement>,
