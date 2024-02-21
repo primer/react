@@ -694,7 +694,7 @@ export const NestedSelection = () => {
         Development
       </Button>
 
-      <ActionList>
+      <ActionList showDividers>
         {data.pulls
           .filter(pull => selectedPullRequestIds.includes(pull.id))
           .map(pull => (
@@ -720,7 +720,7 @@ export const NestedSelection = () => {
           <SelectPanel.SearchInput placeholder="Search (not implemented in demo)" />
         </SelectPanel.Header>
 
-        <ActionList>
+        <ActionList showDividers>
           {reposToShow.map(repo => (
             <ActionList.Item
               key={repo.name}
