@@ -208,7 +208,7 @@ const Panel: React.FC<SelectPanelProps> = ({
 
   /* 
     We want to cancel and close the panel when user clicks outside.
-    TODO: link to comment in decision log
+    See decision log: https://github.com/github/primer/discussions/2614#discussioncomment-8544561
   */
   const onClickOutside = onInternalCancel
 
