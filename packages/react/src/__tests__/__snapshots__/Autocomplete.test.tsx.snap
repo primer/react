@@ -801,6 +801,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
         >
           <span
             className="c4 c5"
+            data-component="ActionList.Selection"
           >
             <div
               className="c4 c6"
@@ -832,6 +833,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
         >
           <span
             className="c4 c5"
+            data-component="ActionList.Selection"
           >
             <div
               className="c4 c6"
@@ -863,6 +865,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
         >
           <span
             className="c4 c5"
+            data-component="ActionList.Selection"
           >
             <div
               className="c4 c6"
@@ -894,6 +897,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
         >
           <span
             className="c4 c5"
+            data-component="ActionList.Selection"
           >
             <div
               className="c4 c6"
@@ -925,6 +929,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
         >
           <span
             className="c4 c5"
+            data-component="ActionList.Selection"
           >
             <div
               className="c4 c6"
@@ -956,6 +961,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
         >
           <span
             className="c4 c5"
+            data-component="ActionList.Selection"
           >
             <div
               className="c4 c6"
@@ -987,6 +993,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
         >
           <span
             className="c4 c5"
+            data-component="ActionList.Selection"
           >
             <div
               className="c4 c6"
@@ -1018,6 +1025,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
         >
           <span
             className="c4 c5"
+            data-component="ActionList.Selection"
           >
             <div
               className="c4 c6"
@@ -1049,6 +1057,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
         >
           <span
             className="c4 c5"
+            data-component="ActionList.Selection"
           >
             <div
               className="c4 c6"
@@ -1080,6 +1089,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
         >
           <span
             className="c4 c5"
+            data-component="ActionList.Selection"
           >
             <div
               className="c4 c6"
@@ -1111,6 +1121,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
         >
           <span
             className="c4 c5"
+            data-component="ActionList.Selection"
           >
             <div
               className="c4 c6"
@@ -1536,6 +1547,7 @@ exports[`snapshots renders a multiselect input 1`] = `
         >
           <span
             className="c4"
+            data-component="ActionList.Selection"
           >
             <div
               className="c5"
@@ -1567,6 +1579,7 @@ exports[`snapshots renders a multiselect input 1`] = `
         >
           <span
             className="c4"
+            data-component="ActionList.Selection"
           >
             <div
               className="c5"
@@ -1598,6 +1611,7 @@ exports[`snapshots renders a multiselect input 1`] = `
         >
           <span
             className="c4"
+            data-component="ActionList.Selection"
           >
             <div
               className="c5"
@@ -1629,6 +1643,7 @@ exports[`snapshots renders a multiselect input 1`] = `
         >
           <span
             className="c4"
+            data-component="ActionList.Selection"
           >
             <div
               className="c5"
@@ -1660,6 +1675,7 @@ exports[`snapshots renders a multiselect input 1`] = `
         >
           <span
             className="c4"
+            data-component="ActionList.Selection"
           >
             <div
               className="c5"
@@ -1691,6 +1707,7 @@ exports[`snapshots renders a multiselect input 1`] = `
         >
           <span
             className="c4"
+            data-component="ActionList.Selection"
           >
             <div
               className="c5"
@@ -1722,6 +1739,7 @@ exports[`snapshots renders a multiselect input 1`] = `
         >
           <span
             className="c4"
+            data-component="ActionList.Selection"
           >
             <div
               className="c5"
@@ -1753,6 +1771,7 @@ exports[`snapshots renders a multiselect input 1`] = `
         >
           <span
             className="c4"
+            data-component="ActionList.Selection"
           >
             <div
               className="c5"
@@ -1784,6 +1803,7 @@ exports[`snapshots renders a multiselect input 1`] = `
         >
           <span
             className="c4"
+            data-component="ActionList.Selection"
           >
             <div
               className="c5"
@@ -1815,6 +1835,7 @@ exports[`snapshots renders a multiselect input 1`] = `
         >
           <span
             className="c4"
+            data-component="ActionList.Selection"
           >
             <div
               className="c5"
@@ -2365,6 +2386,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
         >
           <span
             className="c4"
+            data-component="ActionList.Selection"
           >
             <div
               className="c5"
@@ -2396,6 +2418,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
         >
           <span
             className="c4"
+            data-component="ActionList.Selection"
           >
             <div
               className="c5"
@@ -2427,6 +2450,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
         >
           <span
             className="c4"
+            data-component="ActionList.Selection"
           >
             <div
               className="c5"
@@ -2458,6 +2482,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
         >
           <span
             className="c4"
+            data-component="ActionList.Selection"
           >
             <div
               className="c9"
@@ -2489,6 +2514,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
         >
           <span
             className="c4"
+            data-component="ActionList.Selection"
           >
             <div
               className="c9"
@@ -2520,6 +2546,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
         >
           <span
             className="c4"
+            data-component="ActionList.Selection"
           >
             <div
               className="c9"
@@ -2551,6 +2578,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
         >
           <span
             className="c4"
+            data-component="ActionList.Selection"
           >
             <div
               className="c9"
@@ -2582,6 +2610,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
         >
           <span
             className="c4"
+            data-component="ActionList.Selection"
           >
             <div
               className="c9"
@@ -2613,6 +2642,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
         >
           <span
             className="c4"
+            data-component="ActionList.Selection"
           >
             <div
               className="c9"
@@ -2644,6 +2674,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
         >
           <span
             className="c4"
+            data-component="ActionList.Selection"
           >
             <div
               className="c9"
@@ -3004,6 +3035,7 @@ exports[`snapshots renders a single select input 1`] = `
         >
           <span
             className="c4"
+            data-component="ActionList.Selection"
           />
           <div
             className="c5"
@@ -3029,6 +3061,7 @@ exports[`snapshots renders a single select input 1`] = `
         >
           <span
             className="c4"
+            data-component="ActionList.Selection"
           />
           <div
             className="c5"
@@ -3054,6 +3087,7 @@ exports[`snapshots renders a single select input 1`] = `
         >
           <span
             className="c4"
+            data-component="ActionList.Selection"
           />
           <div
             className="c5"
@@ -3079,6 +3113,7 @@ exports[`snapshots renders a single select input 1`] = `
         >
           <span
             className="c4"
+            data-component="ActionList.Selection"
           />
           <div
             className="c5"
@@ -3104,6 +3139,7 @@ exports[`snapshots renders a single select input 1`] = `
         >
           <span
             className="c4"
+            data-component="ActionList.Selection"
           />
           <div
             className="c5"
@@ -3129,6 +3165,7 @@ exports[`snapshots renders a single select input 1`] = `
         >
           <span
             className="c4"
+            data-component="ActionList.Selection"
           />
           <div
             className="c5"
@@ -3154,6 +3191,7 @@ exports[`snapshots renders a single select input 1`] = `
         >
           <span
             className="c4"
+            data-component="ActionList.Selection"
           />
           <div
             className="c5"
@@ -3179,6 +3217,7 @@ exports[`snapshots renders a single select input 1`] = `
         >
           <span
             className="c4"
+            data-component="ActionList.Selection"
           />
           <div
             className="c5"
@@ -3204,6 +3243,7 @@ exports[`snapshots renders a single select input 1`] = `
         >
           <span
             className="c4"
+            data-component="ActionList.Selection"
           />
           <div
             className="c5"
@@ -3229,6 +3269,7 @@ exports[`snapshots renders a single select input 1`] = `
         >
           <span
             className="c4"
+            data-component="ActionList.Selection"
           />
           <div
             className="c5"
@@ -3454,6 +3495,7 @@ exports[`snapshots renders with a custom text input component 1`] = `
         >
           <span
             className="c4"
+            data-component="ActionList.Selection"
           />
           <div
             className="c5"
@@ -3479,6 +3521,7 @@ exports[`snapshots renders with a custom text input component 1`] = `
         >
           <span
             className="c4"
+            data-component="ActionList.Selection"
           />
           <div
             className="c5"
@@ -3504,6 +3547,7 @@ exports[`snapshots renders with a custom text input component 1`] = `
         >
           <span
             className="c4"
+            data-component="ActionList.Selection"
           />
           <div
             className="c5"
@@ -3529,6 +3573,7 @@ exports[`snapshots renders with a custom text input component 1`] = `
         >
           <span
             className="c4"
+            data-component="ActionList.Selection"
           />
           <div
             className="c5"
@@ -3554,6 +3599,7 @@ exports[`snapshots renders with a custom text input component 1`] = `
         >
           <span
             className="c4"
+            data-component="ActionList.Selection"
           />
           <div
             className="c5"
@@ -3579,6 +3625,7 @@ exports[`snapshots renders with a custom text input component 1`] = `
         >
           <span
             className="c4"
+            data-component="ActionList.Selection"
           />
           <div
             className="c5"
@@ -3604,6 +3651,7 @@ exports[`snapshots renders with a custom text input component 1`] = `
         >
           <span
             className="c4"
+            data-component="ActionList.Selection"
           />
           <div
             className="c5"
@@ -3629,6 +3677,7 @@ exports[`snapshots renders with a custom text input component 1`] = `
         >
           <span
             className="c4"
+            data-component="ActionList.Selection"
           />
           <div
             className="c5"
@@ -3654,6 +3703,7 @@ exports[`snapshots renders with a custom text input component 1`] = `
         >
           <span
             className="c4"
+            data-component="ActionList.Selection"
           />
           <div
             className="c5"
@@ -3679,6 +3729,7 @@ exports[`snapshots renders with a custom text input component 1`] = `
         >
           <span
             className="c4"
+            data-component="ActionList.Selection"
           />
           <div
             className="c5"
