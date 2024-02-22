@@ -3,11 +3,7 @@
   "name": "ActionBar",
   "status": "draft",
   "a11yReviewed": false,
-  "stories": [
-    {"id": "drafts-components-actionbar--default"},
-    {"id": "drafts-components-actionbar--small-action-bar"},
-    {"id": "drafts-components-actionbar--comment-box"}
-  ],
+  "stories": [],
   "props": [
     {
       "name": "size",
