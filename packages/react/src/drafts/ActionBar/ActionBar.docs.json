@@ -56,7 +56,8 @@
       ]
     },
     {
-      "name": "ActionBar.Divider"
+      "name": "ActionBar.Divider",
+      "props": []
     }
   ]
 }
