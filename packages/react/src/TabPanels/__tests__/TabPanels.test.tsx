@@ -42,7 +42,9 @@ describe('TabPanels', () => {
   it('applies aria-selected to first tab when selected', () => {
     render(
       <TabPanels>
-        <TabPanels.Tab id="tab-1" selected>Tab 1</TabPanels.Tab>
+        <TabPanels.Tab id="tab-1" selected>
+          Tab 1
+        </TabPanels.Tab>
         <TabPanels.Tab id="tab-2">Tab 2</TabPanels.Tab>
         <TabPanels.Panel aria-labelledby="tab-1">Panel 1</TabPanels.Panel>
         <TabPanels.Panel aria-labelledby="tab-2">Panel 2</TabPanels.Panel>
@@ -57,7 +59,9 @@ describe('TabPanels', () => {
     render(
       <TabPanels>
         <TabPanels.Tab id="tab-1">Tab 1</TabPanels.Tab>
-        <TabPanels.Tab id="tab-2" selected>Tab 2</TabPanels.Tab>
+        <TabPanels.Tab id="tab-2" selected>
+          Tab 2
+        </TabPanels.Tab>
         <TabPanels.Panel aria-labelledby="tab-1">Panel 1</TabPanels.Panel>
         <TabPanels.Panel aria-labelledby="tab-2">Panel 2</TabPanels.Panel>
       </TabPanels>,
