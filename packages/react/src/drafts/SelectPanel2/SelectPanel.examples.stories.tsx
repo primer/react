@@ -84,7 +84,7 @@ export const WithGroups = () => {
     data.issue.assigneeIds = selectedAssigneeIds // pretending to persist changes
   }
   const onCancel = () => {
-    selectedAssigneeIds(initialAssigneeIds)
+    setSelectedAssigneeIds(initialAssigneeIds)
   }
 
   /* Filtering */
