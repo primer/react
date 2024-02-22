@@ -24,13 +24,29 @@ const TabContainer = styled(createComponent(React, 'tab-container', TabContainer
 export type TabPanelsProps = ComponentProps<typeof TabContainer>
 
 function TabPanels({children, 'aria-label': ariaLabel, onTabContainerChange, onTabContainerChanged}: TabPanelsProps) {
+  // Find all of the tabs, create a map of their IDs to their selected state
+  const tabMap = new Map<string, boolean>()
+  React.Children.forEach(children, child => {
+    if (React.isValidElement(child) && child.type === Tab) {
+      tabMap.set(child.props.id, !!child.props.selected)
+    }
+  })
+  
+  // Update children to set hidden on the panels which do not correspond to the selected tab
+  const updatedChildren = React.Children.map(children, child => {
+    if (React.isValidElement(child) && child.type === Panel) {
+      return React.cloneElement(child, {hidden: !child.props['aria-labelledby'] || !tabMap.get(child.props['aria-labelledby'])})
+    }
+    return child
+  })
+  
   return (
     <TabContainer
       aria-label={ariaLabel}
       onTabContainerChange={onTabContainerChange}
       onTabContainerChanged={onTabContainerChanged}
     >
-      {children}
+      {updatedChildren}
     </TabContainer>
   )
 }
@@ -85,11 +101,13 @@ Tab.displayName = 'TabPanels.Tab'
 
 export type TabPanelsPanelProps = {
   'aria-labelledby': string
+  hidden?: boolean
   children: React.ReactNode
 } & SxProp
 
 const Panel = styled.div.attrs<TabPanelsPanelProps>(props => ({
   'aria-labelledby': props['aria-labelledby'],
+  hidden: !!props.hidden,
   role: 'tabpanel',
 }))<TabPanelsPanelProps>`
   ${sx};
