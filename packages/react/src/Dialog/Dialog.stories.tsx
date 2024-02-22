@@ -1,7 +1,7 @@
 import React, {useState, useRef, useCallback} from 'react'
 import type {Meta} from '@storybook/react'
-import {Button, Text} from '..'
 import type {DialogProps} from './Dialog'
+import {Button, Text} from '..'
 import {Dialog} from './Dialog'
 
 /* Dialog Version 2 */
@@ -58,6 +58,7 @@ const lipsum = (
     </Text>
   </>
 )
+
 export const Default = () => {
   const [isOpen, setIsOpen] = useState(false)
   const [secondOpen, setSecondOpen] = useState(false)
@@ -140,7 +141,14 @@ Playground.args = {
   title: 'Dialog heading',
   position: 'center',
 }
+
 Playground.argTypes = {
+  type: {
+    control: {
+      type: 'radio',
+    },
+    options: ['default', 'full-screen', 'bottom-sheet'],
+  },
   width: {
     control: {
       type: 'radio',

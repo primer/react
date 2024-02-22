@@ -4,18 +4,22 @@ import type {ButtonProps} from '../Button'
 import {Button} from '../Button'
 import Box from '../Box'
 import {get} from '../constants'
-import {useOnEscapePress, useProvidedRefOrCreate} from '../hooks'
 import {useFocusTrap} from '../hooks/useFocusTrap'
 import type {SxProp} from '../sx'
 import sx from '../sx'
-import Octicon from '../Octicon'
 import {XIcon} from '@primer/octicons-react'
 import {useFocusZone} from '../hooks/useFocusZone'
 import {FocusKeys} from '@primer/behaviors'
-import Portal from '../Portal'
+import {useOnEscapePress, useProvidedRefOrCreate} from '../hooks'
 import {useRefObjectAsForwardedRef} from '../hooks/useRefObjectAsForwardedRef'
+import {useResponsiveValue} from '../hooks/useResponsiveValue'
 import {useId} from '../hooks/useId'
+
 import {ScrollableRegion} from '../internal/components/ScrollableRegion'
+import Portal from '../Portal'
+import Octicon from '../Octicon'
+
+import DialogBottomSheet from './DialogBottomSheet'
 import type {ResponsiveValue} from '../hooks/useResponsiveValue'
 
 /* Dialog Version 2 */
@@ -97,11 +101,13 @@ export interface DialogProps extends SxProp {
   footerButtons?: DialogButtonProps[]
 
   /**
-   * This method is invoked when a gesture to close the dialog is used (either
-   * an Escape key press or clicking the "X" in the top-right corner). The
-   * gesture argument indicates the gesture that was used to close the dialog
-   * (either 'close-button' or 'escape').
+   * This method is invoked when a gesture to close the dialog is used
+   * (either an Escape key press, clicking/tapping on the backdrop,
+   * clicking/tapping the 'X' in the top-right corner or dragging away a
+   * bottom sheet). The gesture argument indicates the gesture that was
+   * used to close the dialog.
    */
+
   onClose: (gesture: 'close-button' | 'escape') => void
 
   /**
@@ -149,7 +155,234 @@ export interface DialogHeaderProps extends DialogProps {
    * dialog. This ID should be set to the element that renders the dialog's subtitle.
    */
   dialogDescriptionId: string
+
+  /**
+   * A reference to the close button  DOM node
+   */
+  closeButtonRef?: React.RefObject<HTMLButtonElement>
 }
+
+const heightMap = {
+  small: '480px',
+  large: '640px',
+  auto: 'auto',
+} as const
+
+const widthMap = {
+  small: '296px',
+  medium: '320px',
+  large: '480px',
+  xlarge: '640px',
+} as const
+
+export type DialogWidth = keyof typeof widthMap
+export type DialogHeight = keyof typeof heightMap
+
+type StyledDialogProps = {
+  width?: DialogWidth
+  height?: DialogHeight
+} & SxProp
+
+const DefaultHeader: React.FC<React.PropsWithChildren<DialogHeaderProps>> = ({
+  dialogLabelId,
+  title,
+  subtitle,
+  dialogDescriptionId,
+  onClose,
+  closeButtonRef,
+}) => {
+  const onCloseClick = useCallback(() => {
+    onClose('close-button')
+  }, [onClose])
+  return (
+    <Dialog.Header>
+      <Box display="flex">
+        <Box display="flex" px={2} py="6px" flexDirection="column" flexGrow={1}>
+          <Dialog.Title id={dialogLabelId}>{title ?? 'Dialog'}</Dialog.Title>
+          {subtitle && <Dialog.Subtitle id={dialogDescriptionId}>{subtitle}</Dialog.Subtitle>}
+        </Box>
+        <Dialog.CloseButton onClose={onCloseClick} ref={closeButtonRef} />
+      </Box>
+    </Dialog.Header>
+  )
+}
+const DefaultBody: React.FC<React.PropsWithChildren<DialogProps>> = ({children}) => {
+  return <Dialog.Body>{children}</Dialog.Body>
+}
+const DefaultFooter: React.FC<React.PropsWithChildren<DialogProps>> = ({footerButtons}) => {
+  const {containerRef: footerRef} = useFocusZone({
+    bindKeys: FocusKeys.ArrowHorizontal | FocusKeys.Tab,
+    focusInStrategy: 'closest',
+  })
+  return footerButtons ? (
+    <Dialog.Footer ref={footerRef as React.RefObject<HTMLDivElement>}>
+      <Dialog.Buttons buttons={footerButtons} />
+    </Dialog.Footer>
+  ) : null
+}
+
+const defaultPosition = {
+  narrow: 'center',
+  regular: 'center',
+}
+
+const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogProps>>((props, forwardedRef) => {
+  const {
+    title = 'Dialog',
+    subtitle = '',
+    renderHeader,
+    renderBody,
+    renderFooter,
+    onClose,
+    role = 'dialog',
+    width = 'xlarge',
+    height = 'auto',
+    footerButtons = [],
+    position = defaultPosition,
+    sx,
+  } = props
+  const dialogLabelId = useId()
+  const dialogDescriptionId = useId()
+  const autoFocusedFooterButtonRef = useRef<HTMLButtonElement>(null)
+  const closeButtonRef = useRef<HTMLButtonElement>(null)
+  for (const footerButton of footerButtons) {
+    if (footerButton.autoFocus) {
+      footerButton.ref = autoFocusedFooterButtonRef
+    }
+  }
+
+  const defaultedProps = {...props, title, subtitle, role, dialogLabelId, dialogDescriptionId, closeButtonRef}
+  const responsivePosition = useResponsiveValue(position, 'center')
+
+  const dialogRef = useRef<HTMLDivElement>(null)
+  useRefObjectAsForwardedRef(forwardedRef, dialogRef)
+  useFocusTrap({
+    containerRef: dialogRef,
+    restoreFocusOnCleanUp: true,
+    initialFocusRef: footerButtons.length > 0 ? autoFocusedFooterButtonRef : closeButtonRef,
+  })
+
+  useOnEscapePress(
+    (event: KeyboardEvent) => {
+      onClose('escape')
+      event.preventDefault()
+    },
+    [onClose],
+  )
+
+  React.useEffect(() => {
+    const bodyOverflowStyle = document.body.style.overflow || ''
+    // If the body is already set to overflow: hidden, it likely means
+    // that there is already a modal open. In that case, we should bail
+    // so we don't re-enable scroll after the second dialog is closed.
+    if (bodyOverflowStyle === 'hidden') {
+      return
+    }
+
+    document.body.style.overflow = 'hidden'
+
+    return () => {
+      document.body.style.overflow = bodyOverflowStyle
+    }
+  }, [])
+
+  const header = (renderHeader ?? DefaultHeader)(defaultedProps)
+  const body = (renderBody ?? DefaultBody)(defaultedProps)
+  const footer = (renderFooter ?? DefaultFooter)(defaultedProps)
+
+  if (responsivePosition === 'bottom') {
+    return (
+      <Portal>
+        <DialogBottomSheet
+          ref={dialogRef}
+          role={role}
+          onClose={() => onClose('close-button')}
+          ariaLabelledby={dialogLabelId}
+          ariaDescribedby={dialogDescriptionId}
+          ariaModal
+          header={header}
+          sx={sx}
+        >
+          <ScrollableRegion aria-labelledby={dialogLabelId} className="DialogOverflowWrapper" sx={{flex: 1}}>
+            {body}
+          </ScrollableRegion>
+          {footer}
+        </DialogBottomSheet>
+      </Portal>
+    )
+  }
+
+  const positionDataAttributes =
+    typeof position === 'string'
+      ? {'data-position-regular': position}
+      : Object.fromEntries(
+          Object.entries(position).map(([key, value]) => {
+            return [`data-position-${key}`, value]
+          }),
+        )
+
+  return (
+    <Portal>
+      <Backdrop {...positionDataAttributes}>
+        <StyledDialog
+          width={width}
+          height={height}
+          ref={dialogRef}
+          role={role}
+          aria-labelledby={dialogLabelId}
+          aria-describedby={dialogDescriptionId}
+          aria-modal
+          {...positionDataAttributes}
+          sx={sx}
+        >
+          {header}
+          <ScrollableRegion aria-labelledby={dialogLabelId} className="DialogOverflowWrapper">
+            {body}
+          </ScrollableRegion>
+          {footer}
+        </StyledDialog>
+      </Backdrop>
+    </Portal>
+  )
+})
+_Dialog.displayName = 'Dialog'
+
+const Buttons: React.FC<React.PropsWithChildren<{buttons: DialogButtonProps[]}>> = ({buttons}) => {
+  const autoFocusRef = useProvidedRefOrCreate<HTMLButtonElement>(buttons.find(button => button.autoFocus)?.ref)
+  let autoFocusCount = 0
+  const [hasRendered, setHasRendered] = useState(0)
+  useEffect(() => {
+    // hack to work around dialogs originating from other focus traps.
+    if (hasRendered === 1) {
+      autoFocusRef.current?.focus()
+    } else {
+      setHasRendered(hasRendered + 1)
+    }
+  }, [autoFocusRef, hasRendered])
+
+  return (
+    <>
+      {buttons.map((dialogButtonProps, index) => {
+        const {content, buttonType = 'default', autoFocus = false, ...buttonProps} = dialogButtonProps
+        return (
+          <Button
+            key={index}
+            {...buttonProps}
+            // 'normal' value is equivalent to 'default', this is used for backwards compatibility
+            variant={buttonType === 'normal' ? 'default' : buttonType}
+            ref={autoFocus && autoFocusCount === 0 ? (autoFocusCount++, autoFocusRef) : null}
+          >
+            {content}
+          </Button>
+        )
+      })}
+    </>
+  )
+}
+
+/**
+ * Styled wrappers
+ */
 
 const Backdrop = styled('div')`
   position: fixed;
@@ -187,11 +420,6 @@ const Backdrop = styled('div')`
       align-items: center;
       justify-content: center;
     }
-
-    &[data-position-narrow='bottom'] {
-      align-items: end;
-      justify-content: center;
-    }
   }
 
   @keyframes dialog-backdrop-appear {
@@ -203,27 +431,6 @@ const Backdrop = styled('div')`
     }
   }
 `
-
-const heightMap = {
-  small: '480px',
-  large: '640px',
-  auto: 'auto',
-} as const
-
-const widthMap = {
-  small: '296px',
-  medium: '320px',
-  large: '480px',
-  xlarge: '640px',
-} as const
-
-export type DialogWidth = keyof typeof widthMap
-export type DialogHeight = keyof typeof heightMap
-
-type StyledDialogProps = {
-  width?: DialogWidth
-  height?: DialogHeight
-} & SxProp
 
 const StyledDialog = styled.div<StyledDialogProps>`
   display: flex;
@@ -281,20 +488,6 @@ const StyledDialog = styled.div<StyledDialogProps>`
       height: ${props => heightMap[props.height ?? ('auto' as const)]};
     }
 
-    &[data-position-narrow='bottom'] {
-      width: 100vw;
-      height: auto;
-      max-width: 100vw;
-      max-height: calc(100vh - 64px);
-      border-radius: var(--borderRadius-large, 0.75rem);
-      border-bottom-right-radius: 0;
-      border-bottom-left-radius: 0;
-
-      @media screen and (prefers-reduced-motion: no-preference) {
-        animation: Overlay--motion-slideUp 0.25s cubic-bezier(0.33, 1, 0.68, 1) 0s 1 normal none running;
-      }
-    }
-
     &[data-position-narrow='fullscreen'] {
       width: 100%;
       max-width: 100vw;
@@ -341,163 +534,39 @@ const StyledDialog = styled.div<StyledDialogProps>`
   ${sx};
 `
 
-const DefaultHeader: React.FC<React.PropsWithChildren<DialogHeaderProps>> = ({
-  dialogLabelId,
-  title,
-  subtitle,
-  dialogDescriptionId,
-  onClose,
-}) => {
-  const onCloseClick = useCallback(() => {
-    onClose('close-button')
-  }, [onClose])
-  return (
-    <Dialog.Header>
-      <Box display="flex">
-        <Box display="flex" px={2} py="6px" flexDirection="column" flexGrow={1}>
-          <Dialog.Title id={dialogLabelId}>{title ?? 'Dialog'}</Dialog.Title>
-          {subtitle && <Dialog.Subtitle id={dialogDescriptionId}>{subtitle}</Dialog.Subtitle>}
-        </Box>
-        <Dialog.CloseButton onClose={onCloseClick} />
-      </Box>
-    </Dialog.Header>
-  )
-}
-const DefaultBody: React.FC<React.PropsWithChildren<DialogProps>> = ({children}) => {
-  return <Dialog.Body>{children}</Dialog.Body>
-}
-const DefaultFooter: React.FC<React.PropsWithChildren<DialogProps>> = ({footerButtons}) => {
-  const {containerRef: footerRef} = useFocusZone({
-    bindKeys: FocusKeys.ArrowHorizontal | FocusKeys.Tab,
-    focusInStrategy: 'closest',
-  })
-  return footerButtons ? (
-    <Dialog.Footer ref={footerRef as React.RefObject<HTMLDivElement>}>
-      <Dialog.Buttons buttons={footerButtons} />
-    </Dialog.Footer>
-  ) : null
-}
-
-const defaultPosition = {
-  narrow: 'center',
-  regular: 'center',
-}
-
-const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogProps>>((props, forwardedRef) => {
-  const {
-    title = 'Dialog',
-    subtitle = '',
-    renderHeader,
-    renderBody,
-    renderFooter,
-    onClose,
-    role = 'dialog',
-    width = 'xlarge',
-    height = 'auto',
-    footerButtons = [],
-    position = defaultPosition,
-    sx,
-  } = props
-  const dialogLabelId = useId()
-  const dialogDescriptionId = useId()
-  const autoFocusedFooterButtonRef = useRef<HTMLButtonElement>(null)
-  for (const footerButton of footerButtons) {
-    if (footerButton.autoFocus) {
-      footerButton.ref = autoFocusedFooterButtonRef
-    }
-  }
-  const defaultedProps = {...props, title, subtitle, role, dialogLabelId, dialogDescriptionId}
-
-  const dialogRef = useRef<HTMLDivElement>(null)
-  useRefObjectAsForwardedRef(forwardedRef, dialogRef)
-  const backdropRef = useRef<HTMLDivElement>(null)
-  useFocusTrap({containerRef: dialogRef, restoreFocusOnCleanUp: true, initialFocusRef: autoFocusedFooterButtonRef})
-
-  useOnEscapePress(
-    (event: KeyboardEvent) => {
-      onClose('escape')
-      event.preventDefault()
-    },
-    [onClose],
-  )
-
-  React.useEffect(() => {
-    const bodyOverflowStyle = document.body.style.overflow || ''
-    // If the body is already set to overflow: hidden, it likely means
-    // that there is already a modal open. In that case, we should bail
-    // so we don't re-enable scroll after the second dialog is closed.
-    if (bodyOverflowStyle === 'hidden') {
-      return
-    }
-
-    document.body.style.overflow = 'hidden'
-
-    return () => {
-      document.body.style.overflow = bodyOverflowStyle
-    }
-  }, [])
-
-  const header = (renderHeader ?? DefaultHeader)(defaultedProps)
-  const body = (renderBody ?? DefaultBody)(defaultedProps)
-  const footer = (renderFooter ?? DefaultFooter)(defaultedProps)
-  const positionDataAttributes =
-    typeof position === 'string'
-      ? {'data-position-regular': position}
-      : Object.fromEntries(
-          Object.entries(position).map(([key, value]) => {
-            return [`data-position-${key}`, value]
-          }),
-        )
-
-  return (
-    <>
-      <Portal>
-        <Backdrop ref={backdropRef} {...positionDataAttributes}>
-          <StyledDialog
-            width={width}
-            height={height}
-            ref={dialogRef}
-            role={role}
-            aria-labelledby={dialogLabelId}
-            aria-describedby={dialogDescriptionId}
-            aria-modal
-            {...positionDataAttributes}
-            sx={sx}
-          >
-            {header}
-            <ScrollableRegion aria-labelledby={dialogLabelId} className="DialogOverflowWrapper">
-              {body}
-            </ScrollableRegion>
-            {footer}
-          </StyledDialog>
-        </Backdrop>
-      </Portal>
-    </>
-  )
-})
-_Dialog.displayName = 'Dialog'
-
 const Header = styled.div<SxProp>`
   box-shadow: 0 1px 0 ${get('colors.border.default')};
   padding: ${get('space.2')};
   z-index: 1;
+  pointer-events: none ${/* Allows clicks to pass through the header in bottom sheets */ ''};
   flex-shrink: 0;
-  ${sx};
-`
+  position: relative;
 
+  a[href],
+  button,
+  input,
+  textarea,
+  select,
+  details,
+  [tabindex]:not([tabindex='-1']) {
+    pointer-events: auto;
+  }
+`
 const Title = styled.h1<SxProp>`
   font-size: ${get('fontSizes.1')};
   font-weight: ${get('fontWeights.bold')};
   margin: 0; /* override default margin */
+  width: calc(100% - ${get('space.4')});
   ${sx};
 `
 
 const Subtitle = styled.h2<SxProp>`
   font-size: ${get('fontSizes.0')};
+  font-weight: ${get('fontWeights.normal')};
   color: ${get('colors.fg.muted')};
   margin: 0; /* override default margin */
   margin-top: ${get('space.1')};
-
+  width: fit-content;
   ${sx};
 `
 
@@ -505,7 +574,6 @@ const Body = styled.div<SxProp>`
   flex-grow: 1;
   overflow: auto;
   padding: ${get('space.3')};
-
   ${sx};
 `
 
@@ -522,38 +590,6 @@ const Footer = styled.div<SxProp>`
   ${sx};
 `
 
-const Buttons: React.FC<React.PropsWithChildren<{buttons: DialogButtonProps[]}>> = ({buttons}) => {
-  const autoFocusRef = useProvidedRefOrCreate<HTMLButtonElement>(buttons.find(button => button.autoFocus)?.ref)
-  let autoFocusCount = 0
-  const [hasRendered, setHasRendered] = useState(0)
-  useEffect(() => {
-    // hack to work around dialogs originating from other focus traps.
-    if (hasRendered === 1) {
-      autoFocusRef.current?.focus()
-    } else {
-      setHasRendered(hasRendered + 1)
-    }
-  }, [autoFocusRef, hasRendered])
-
-  return (
-    <>
-      {buttons.map((dialogButtonProps, index) => {
-        const {content, buttonType = 'default', autoFocus = false, ...buttonProps} = dialogButtonProps
-        return (
-          <Button
-            key={index}
-            {...buttonProps}
-            // 'normal' value is equivalent to 'default', this is used for backwards compatibility
-            variant={buttonType === 'normal' ? 'default' : buttonType}
-            ref={autoFocus && autoFocusCount === 0 ? (autoFocusCount++, autoFocusRef) : null}
-          >
-            {content}
-          </Button>
-        )
-      })}
-    </>
-  )
-}
 const DialogCloseButton = styled(Button)`
   border-radius: 4px;
   background: transparent;
@@ -565,13 +601,19 @@ const DialogCloseButton = styled(Button)`
   line-height: normal;
   box-shadow: none;
 `
-const CloseButton: React.FC<React.PropsWithChildren<{onClose: () => void}>> = ({onClose}) => {
+
+export interface CloseButtonProps extends SxProp {
+  onClose: () => void
+}
+
+const CloseButton = React.forwardRef<HTMLButtonElement, CloseButtonProps>((props, ref) => {
+  const {onClose} = props
   return (
-    <DialogCloseButton aria-label="Close" onClick={onClose}>
+    <DialogCloseButton ref={ref} aria-label="Close" onClick={onClose} {...props}>
       <Octicon icon={XIcon} />
     </DialogCloseButton>
   )
-}
+})
 
 /**
  * A dialog is a type of overlay that can be used for confirming actions, asking

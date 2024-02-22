@@ -1,13 +1,30 @@
 import React, {useState, useRef, useCallback} from 'react'
-import {Box, TextInput, Text, Button} from '..'
-import type {DialogProps, DialogWidth, DialogHeight} from './Dialog'
+import type {Meta} from '@storybook/react'
+import {BaseStyles, ThemeProvider, Box, TextInput, Text, Button} from '..'
+import type {DialogProps} from './Dialog'
 import {Dialog} from './Dialog'
 
 /* Dialog Version 2 */
 
-export default {
+const meta: Meta<typeof Dialog> = {
   title: 'Components/Dialog/Features',
-}
+  component: Dialog,
+  decorators: [
+    Story => {
+      // Since portal roots are registered globally, we need this line so that each storybook
+      // story works in isolation.
+      return (
+        <ThemeProvider>
+          <BaseStyles>
+            <Story />
+          </BaseStyles>
+        </ThemeProvider>
+      )
+    },
+  ],
+} as Meta<typeof Dialog>
+
+export default meta
 
 const lipsum = (
   <>
@@ -51,61 +68,53 @@ const lipsum = (
     </Text>
   </>
 )
-interface DialogStoryProps {
-  width: DialogWidth
-  height: DialogHeight
-  subtitle: boolean
-}
 
-function CustomHeader({
-  title,
-  subtitle,
-  dialogLabelId,
-  dialogDescriptionId,
-  onClose,
-}: React.PropsWithChildren<DialogProps & {dialogLabelId: string; dialogDescriptionId: string}>) {
-  const onCloseClick = useCallback(() => {
-    onClose('close-button')
-  }, [onClose])
-  if (typeof title === 'string' && typeof subtitle === 'string') {
-    return (
-      <Box bg="accent.subtle">
-        <h1 id={dialogLabelId}>{title.toUpperCase()}</h1>
-        <h2 id={dialogDescriptionId}>{subtitle.toLowerCase()}</h2>
-        <Dialog.CloseButton onClose={onCloseClick} />
-      </Box>
-    )
+export const WithCustomRenderers = () => {
+  const [isOpen, setIsOpen] = useState(true)
+
+  const CustomHeader = ({
+    title,
+    subtitle,
+    dialogLabelId,
+    dialogDescriptionId,
+    onClose,
+  }: React.PropsWithChildren<DialogProps & {dialogLabelId: string; dialogDescriptionId: string}>) => {
+    const onCloseClick = useCallback(() => {
+      onClose('close-button')
+    }, [onClose])
+    if (typeof title === 'string' && typeof subtitle === 'string') {
+      return (
+        <Box bg="accent.subtle">
+          <h1 id={dialogLabelId}>{title.toUpperCase()}</h1>
+          <h2 id={dialogDescriptionId}>{subtitle.toLowerCase()}</h2>
+          <Dialog.CloseButton onClose={onCloseClick} />
+        </Box>
+      )
+    }
+    return null
   }
-  return null
-}
-function CustomBody({children}: React.PropsWithChildren<DialogProps>) {
-  return <Dialog.Body sx={{bg: 'danger.subtle'}}>{children}</Dialog.Body>
-}
-function CustomFooter({footerButtons}: React.PropsWithChildren<DialogProps>) {
-  return (
+
+  const CustomBody = () => <Dialog.Body sx={{bg: 'danger.subtle'}}>{lipsum}</Dialog.Body>
+
+  const CustomFooter = ({footerButtons}: React.PropsWithChildren<DialogProps>) => (
     <Dialog.Footer sx={{bg: 'attention.subtle'}}>
       {footerButtons ? <Dialog.Buttons buttons={footerButtons} /> : null}
     </Dialog.Footer>
   )
-}
-export const WithCustomRenderers = ({width, height, subtitle}: DialogStoryProps) => {
-  const [isOpen, setIsOpen] = useState(false)
-  const onDialogClose = useCallback(() => setIsOpen(false), [])
+
   return (
     <>
-      <Button onClick={() => setIsOpen(!isOpen)}>Show dialog</Button>
+      <Button onClick={() => setIsOpen(true)}>Show dialog</Button>
       {isOpen && (
         <Dialog
           title="My Dialog"
-          subtitle={subtitle ? 'This is a subtitle!' : undefined}
-          width={width}
-          height={height}
+          subtitle="This is a subtitle!"
           renderHeader={CustomHeader}
           renderBody={CustomBody}
           renderFooter={CustomFooter}
-          onClose={onDialogClose}
+          onClose={() => setIsOpen(false)}
           footerButtons={[
-            {buttonType: 'danger', content: 'Delete the universe', onClick: onDialogClose},
+            {buttonType: 'danger', content: 'Delete the universe'},
             {buttonType: 'primary', content: 'Proceed'},
           ]}
         >
@@ -116,8 +125,8 @@ export const WithCustomRenderers = ({width, height, subtitle}: DialogStoryProps)
   )
 }
 
-export const StressTest = ({width, height, subtitle}: DialogStoryProps) => {
-  const [isOpen, setIsOpen] = useState(false)
+export const StressTest = () => {
+  const [isOpen, setIsOpen] = useState(true)
   const [secondOpen, setSecondOpen] = useState(false)
   const buttonRef = useRef<HTMLButtonElement>(null)
   const onDialogClose = useCallback(() => setIsOpen(false), [])
@@ -126,20 +135,14 @@ export const StressTest = ({width, height, subtitle}: DialogStoryProps) => {
   const manyButtons = new Array(10).fill(undefined).map((_, i) => ({content: `Button ${i}`}))
   return (
     <>
-      <Button ref={buttonRef} onClick={() => setIsOpen(!isOpen)}>
+      <Button ref={buttonRef} onClick={() => setIsOpen(true)}>
         Show dialog
       </Button>
       {isOpen && (
         <Dialog
           title="This dialog has a really long title. So long, in fact, that it should cause wrapping, going to multiple lines!."
-          subtitle={
-            subtitle
-              ? "It's not a common scenario, sure, but what if the subtitle is generated from a really long value? Do we just break the dialog? Or do we handle it because we are pros?"
-              : undefined
-          }
+          subtitle="It's not a common scenario, sure, but what if the subtitle is generated from a really long value? Do we just break the dialog? Or do we handle it because we are pros?"
           onClose={onDialogClose}
-          width={width}
-          height={height}
           footerButtons={[
             ...manyButtons,
             {buttonType: 'danger', content: 'Delete the universe', onClick: onDialogClose},
@@ -158,10 +161,96 @@ export const StressTest = ({width, height, subtitle}: DialogStoryProps) => {
   )
 }
 
+export const NonDeclaritive = () => {
+  const [isOpen, setIsOpen] = useState(true)
+
+  return (
+    <>
+      <Button onClick={() => setIsOpen(true)}>Trigger dialog</Button>
+      {isOpen && (
+        <Dialog width="small" title="This dialog has no buttons (non declaritive)." onClose={() => setIsOpen(false)}>
+          <Text sx={{fontSize: 1}}>
+            It&apos;s a common scenario, to show a dialog that&apos;s just informational and therefore doesn&apos;t have
+            footers in the button
+          </Text>
+        </Dialog>
+      )}
+    </>
+  )
+}
+
+export const SizeSmall = () => {
+  const [isOpen, setIsOpen] = useState(true)
+
+  return (
+    <>
+      <Button onClick={() => setIsOpen(true)}>Show dialog</Button>
+      {isOpen && (
+        <Dialog width="small" height="small" title="This is a small dialog." onClose={() => setIsOpen(false)}>
+          {lipsum}
+        </Dialog>
+      )}
+    </>
+  )
+}
+
+export const SizeXLarge = () => {
+  const [isOpen, setIsOpen] = useState(true)
+
+  return (
+    <>
+      <Button onClick={() => setIsOpen(true)}>Show dialog</Button>
+      {isOpen && (
+        <Dialog width="xlarge" height="auto" title="This is a xlarge dialog." onClose={() => setIsOpen(false)}>
+          {lipsum}
+        </Dialog>
+      )}
+    </>
+  )
+}
+
+export const SizeLarge = () => {
+  const [isOpen, setIsOpen] = useState(true)
+
+  return (
+    <>
+      <Button onClick={() => setIsOpen(true)}>Show dialog</Button>
+      {isOpen && (
+        <Dialog width="large" height="auto" title="This is a large dialog." onClose={() => setIsOpen(false)}>
+          {lipsum}
+        </Dialog>
+      )}
+    </>
+  )
+}
+
+export const Responsive = () => {
+  const [isOpen, setIsOpen] = useState(true)
+
+  return (
+    <>
+      <Button onClick={() => setIsOpen(true)}>Show dialog</Button>
+      {isOpen && (
+        <Dialog
+          title="Your title"
+          onClose={() => setIsOpen(false)}
+          position={{narrow: 'fullscreen', regular: 'center', wide: 'center'}}
+          footerButtons={[
+            {buttonType: 'normal', content: 'Cancel', onClick: () => {}},
+            {buttonType: 'primary', content: 'Submit', autoFocus: true},
+          ]}
+        >
+          {lipsum}
+        </Dialog>
+      )}
+    </>
+  )
+}
+
 // repro for https://github.com/github/primer/issues/2480
-export const ReproMultistepDialogWithConditionalFooter = ({width, height}: DialogStoryProps) => {
-  const [isOpen, setIsOpen] = useState(false)
+export const ReproMultistepDialogWithConditionalFooter = () => {
   const onDialogClose = useCallback(() => setIsOpen(false), [])
+  const [isOpen, setIsOpen] = useState(true)
   const [step, setStep] = React.useState(1)
 
   const renderFooterConditionally = () => {
@@ -176,12 +265,10 @@ export const ReproMultistepDialogWithConditionalFooter = ({width, height}: Dialo
 
   return (
     <>
-      <Button onClick={() => setIsOpen(!isOpen)}>Show dialog</Button>
+      <Button onClick={() => setIsOpen(true)}>Show dialog</Button>
       {isOpen && (
         <Dialog
           title={`Step ${step}`}
-          width={width}
-          height={height}
           renderFooter={renderFooterConditionally}
           onClose={onDialogClose}
           footerButtons={[{buttonType: 'primary', content: 'Proceed'}]}
@@ -239,6 +326,7 @@ export const BottomSheetNarrow = () => {
     </>
   )
 }
+
 BottomSheetNarrow.storyName = '[Position] Bottom sheet (narrow)'
 
 export const FullScreenNarrow = () => {
