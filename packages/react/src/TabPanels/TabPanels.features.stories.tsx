@@ -12,7 +12,9 @@ export default {
 export const Selected = () => (
   <TabPanels aria-label="Main">
     <TabPanels.Tab id="tab-1">One</TabPanels.Tab>
-    <TabPanels.Tab id="tab-2" selected>Two</TabPanels.Tab>
+    <TabPanels.Tab id="tab-2" selected>
+      Two
+    </TabPanels.Tab>
     <TabPanels.Tab id="tab-3">Three</TabPanels.Tab>
     <TabPanels.Panel aria-labelledby="tab-1">One</TabPanels.Panel>
     <TabPanels.Panel aria-labelledby="tab-2">Two</TabPanels.Panel>

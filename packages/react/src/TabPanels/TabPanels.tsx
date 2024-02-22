@@ -36,7 +36,7 @@ function TabPanels({children, 'aria-label': ariaLabel, onTabContainerChange, onT
 }
 
 export type TabPanelsTabProps = React.DetailedHTMLProps<React.HTMLAttributes<HTMLButtonElement>, HTMLButtonElement> & {
-  id: string,
+  id: string
   selected?: boolean
 } & SxProp
 
@@ -84,7 +84,7 @@ const Tab = styled.button.attrs<TabPanelsTabProps>(props => ({
 Tab.displayName = 'TabPanels.Tab'
 
 export type TabPanelsPanelProps = {
-  'aria-labelledby': string,
+  'aria-labelledby': string
   children: React.ReactNode
 } & SxProp
 
