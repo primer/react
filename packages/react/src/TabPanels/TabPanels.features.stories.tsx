@@ -11,24 +11,24 @@ export default {
 
 export const Selected = () => (
   <TabPanels aria-label="Main">
-    <TabPanels.Tab>One</TabPanels.Tab>
-    <TabPanels.Tab selected>Two</TabPanels.Tab>
-    <TabPanels.Tab>Three</TabPanels.Tab>
-    <TabPanels.Panel>One</TabPanels.Panel>
-    <TabPanels.Panel>Two</TabPanels.Panel>
-    <TabPanels.Panel>Three</TabPanels.Panel>
+    <TabPanels.Tab id="tab-1">One</TabPanels.Tab>
+    <TabPanels.Tab id="tab-2" selected>Two</TabPanels.Tab>
+    <TabPanels.Tab id="tab-3">Three</TabPanels.Tab>
+    <TabPanels.Panel aria-labelledby="tab-1">One</TabPanels.Panel>
+    <TabPanels.Panel aria-labelledby="tab-2">Two</TabPanels.Panel>
+    <TabPanels.Panel aria-labelledby="tab-3">Three</TabPanels.Panel>
   </TabPanels>
 )
 
 export const AdditionalContent = () => (
   <TabPanels aria-label="Main">
-    <TabPanels.Tab>One</TabPanels.Tab>
-    <TabPanels.Tab>Two</TabPanels.Tab>
-    <TabPanels.Tab>Three</TabPanels.Tab>
+    <TabPanels.Tab id="tab-1">One</TabPanels.Tab>
+    <TabPanels.Tab id="tab-2">Two</TabPanels.Tab>
+    <TabPanels.Tab id="tab-3">Three</TabPanels.Tab>
     <Button>Non-tab content</Button>
-    <TabPanels.Panel>One</TabPanels.Panel>
-    <TabPanels.Panel>Two</TabPanels.Panel>
-    <TabPanels.Panel>Three</TabPanels.Panel>
+    <TabPanels.Panel aria-labelledby="tab-1">One</TabPanels.Panel>
+    <TabPanels.Panel aria-labelledby="tab-2">Two</TabPanels.Panel>
+    <TabPanels.Panel aria-labelledby="tab-3">Three</TabPanels.Panel>
     <div>Additional content after the panels</div>
   </TabPanels>
 )
