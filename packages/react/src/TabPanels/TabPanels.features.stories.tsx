@@ -48,7 +48,9 @@ export const ManyTabs = () => (
     <TabPanels.Tab id="tab-8">Eight</TabPanels.Tab>
     <TabPanels.Tab id="tab-9">Nine</TabPanels.Tab>
     <TabPanels.Tab id="tab-10">Ten</TabPanels.Tab>
-    <TabPanels.Tab id="tab-11" selected>Eleven</TabPanels.Tab>
+    <TabPanels.Tab id="tab-11" selected>
+      Eleven
+    </TabPanels.Tab>
     <TabPanels.Panel aria-labelledby="tab-1">One</TabPanels.Panel>
     <TabPanels.Panel aria-labelledby="tab-2">Two</TabPanels.Panel>
     <TabPanels.Panel aria-labelledby="tab-3">Three</TabPanels.Panel>

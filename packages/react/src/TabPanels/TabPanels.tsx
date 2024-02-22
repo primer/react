@@ -12,7 +12,7 @@ import getGlobalFocusStyles from '../internal/utils/getGlobalFocusStyles'
 const TAB_CLASS = 'TabPanel-tab'
 
 const TabContainer = styled(createComponent(React, 'tab-container', TabContainerElement))`
-  & > :not([role=tabpanel]) {
+  & > :not([role='tabpanel']) {
     display: inline-block;
   }
 
@@ -22,36 +22,36 @@ const TabContainer = styled(createComponent(React, 'tab-container', TabContainer
     border-bottom: 1px solid ${get('colors.border.default')};
   }
 
-  &:not(:defined) [role=tabpanel] {
+  &:not(:defined) [role='tabpanel'] {
     margin-top: 17px;
     display: none;
   }
 
-  &:not(:defined) [role=tab]:nth-of-type(1)[aria-selected=true] ~ [role=tabpanel]:nth-of-type(1),
-  &:not(:defined) [role=tab]:nth-of-type(2)[aria-selected=true] ~ [role=tabpanel]:nth-of-type(2), 
-  &:not(:defined) [role=tab]:nth-of-type(3)[aria-selected=true] ~ [role=tabpanel]:nth-of-type(3),
-  &:not(:defined) [role=tab]:nth-of-type(4)[aria-selected=true] ~ [role=tabpanel]:nth-of-type(4),
-  &:not(:defined) [role=tab]:nth-of-type(5)[aria-selected=true] ~ [role=tabpanel]:nth-of-type(5),
-  &:not(:defined) [role=tab]:nth-of-type(6)[aria-selected=true] ~ [role=tabpanel]:nth-of-type(6),
-  &:not(:defined) [role=tab]:nth-of-type(7)[aria-selected=true] ~ [role=tabpanel]:nth-of-type(7),
-  &:not(:defined) [role=tab]:nth-of-type(8)[aria-selected=true] ~ [role=tabpanel]:nth-of-type(8),
-  &:not(:defined) [role=tab]:nth-of-type(9)[aria-selected=true] ~ [role=tabpanel]:nth-of-type(9),
-  &:not(:defined) [role=tab]:nth-of-type(10)[aria-selected=true] ~ [role=tabpanel]:nth-of-type(10) {
-    display: block
+  &:not(:defined) [role='tab']:nth-of-type(1)[aria-selected='true'] ~ [role='tabpanel']:nth-of-type(1),
+  &:not(:defined) [role='tab']:nth-of-type(2)[aria-selected='true'] ~ [role='tabpanel']:nth-of-type(2),
+  &:not(:defined) [role='tab']:nth-of-type(3)[aria-selected='true'] ~ [role='tabpanel']:nth-of-type(3),
+  &:not(:defined) [role='tab']:nth-of-type(4)[aria-selected='true'] ~ [role='tabpanel']:nth-of-type(4),
+  &:not(:defined) [role='tab']:nth-of-type(5)[aria-selected='true'] ~ [role='tabpanel']:nth-of-type(5),
+  &:not(:defined) [role='tab']:nth-of-type(6)[aria-selected='true'] ~ [role='tabpanel']:nth-of-type(6),
+  &:not(:defined) [role='tab']:nth-of-type(7)[aria-selected='true'] ~ [role='tabpanel']:nth-of-type(7),
+  &:not(:defined) [role='tab']:nth-of-type(8)[aria-selected='true'] ~ [role='tabpanel']:nth-of-type(8),
+  &:not(:defined) [role='tab']:nth-of-type(9)[aria-selected='true'] ~ [role='tabpanel']:nth-of-type(9),
+  &:not(:defined) [role='tab']:nth-of-type(10)[aria-selected='true'] ~ [role='tabpanel']:nth-of-type(10) {
+    display: block;
   }
 
-  &:not(:defined):not(:has([aria-selected=true])) [role=tabpanel]:first-of-type {
-    display: block
+  &:not(:defined):not(:has([aria-selected='true'])) [role='tabpanel']:first-of-type {
+    display: block;
   }
 
-  &:not(:has([aria-selected=true])) [role=tab] ~ [role=tab] {
+  &:not(:has([aria-selected='true'])) [role='tab'] ~ [role='tab'] {
     color: ${get('colors.fg.muted')};
     background-color: transparent;
     border: 1px solid transparent;
   }
 
-  &:not(:has([aria-selected=true])) [role=tab],
-  & [role=tab][aria-selected=true] {
+  &:not(:has([aria-selected='true'])) [role='tab'],
+  & [role='tab'][aria-selected='true'] {
     color: ${get('colors.fg.default')};
     border-color: ${get('colors.border.default')};
     border-top-right-radius: ${get('radii.2')};
@@ -59,20 +59,20 @@ const TabContainer = styled(createComponent(React, 'tab-container', TabContainer
     background-color: ${get('colors.canvas.default')};
   }
 
-  &:not(:defined):not(:has([aria-selected=true])) [role=tab] ~ [role=tab],
-  &:not(:defined):has([aria-selected=true]) [role=tab]:not([aria-selected=true]) {
+  &:not(:defined):not(:has([aria-selected='true'])) [role='tab'] ~ [role='tab'],
+  &:not(:defined):has([aria-selected='true']) [role='tab']:not([aria-selected='true']) {
     padding: 8px 16px;
     border-bottom: 1px solid ${get('colors.border.default')};
   }
 
-  &:not(:defined) :not([role=tabpanel]) {
+  &:not(:defined) :not([role='tabpanel']) {
     vertical-align: top;
   }
 
   ${sx};
 `
 
-//  
+//
 
 export type TabPanelsProps = ComponentProps<typeof TabContainer>
 
@@ -95,11 +95,7 @@ function TabPanels({children, ...props}: TabPanelsProps) {
   //   return child
   // })
 
-  return (
-    <TabContainer {...props}>
-      {children}
-    </TabContainer>
-  )
+  return <TabContainer {...props}>{children}</TabContainer>
 }
 
 export type TabPanelsTabProps = React.DetailedHTMLProps<React.HTMLAttributes<HTMLButtonElement>, HTMLButtonElement> & {
