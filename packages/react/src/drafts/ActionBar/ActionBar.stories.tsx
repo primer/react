@@ -20,7 +20,7 @@ import type {MarkdownViewMode} from '../MarkdownEditor/_ViewSwitch'
 import {Box} from '../..'
 
 export default {
-  title: 'Components/ActionBar',
+  title: 'Drafts/Components/ActionBar',
 } as Meta<typeof ActionBar>
 
 export const Default = () => (

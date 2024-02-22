@@ -4,9 +4,9 @@
   "status": "draft",
   "a11yReviewed": false,
   "stories": [
-    {"id": "components-actionbar--default"},
-    {"id": "components-actionbar--small-action-bar"},
-    {"id": "components-actionbar--comment-box"}
+    {"id": "drafts-components-actionbar--default"},
+    {"id": "drafts-components-actionbar--small-action-bar"},
+    {"id": "drafts-components-actionbar--comment-box"}
   ],
   "props": [
     {
