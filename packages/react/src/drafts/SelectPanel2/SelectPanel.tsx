@@ -207,17 +207,10 @@ const Panel: React.FC<SelectPanelProps> = ({
   )
 
   /* 
-    We don't close the panel when clicking outside.
-    For many years, we used to save changes and closed the dialog (for label picker)
-    which isn't accessible, clicking outside should discard changes and close the dialog
-    Fixing this a11y bug would confuse users, so as a middle ground,
-    we don't close the menu and nudge the user towards the footer actions
+    We want to cancel and close the panel when user clicks outside.
+    See decision log: https://github.com/github/primer/discussions/2614#discussioncomment-8544561
   */
-  const [footerAnimationEnabled, setFooterAnimationEnabled] = React.useState(false)
-  const onClickOutside = () => {
-    setFooterAnimationEnabled(true)
-    window.setTimeout(() => setFooterAnimationEnabled(false), 350)
-  }
+  const onClickOutside = onInternalCancel
 
   return (
     <>
@@ -241,9 +234,6 @@ const Panel: React.FC<SelectPanelProps> = ({
           ...(variant === 'anchored' ? {margin: 0, top: position?.top, left: position?.left} : {}),
           '::backdrop': {backgroundColor: variant === 'anchored' ? 'transparent' : 'primer.canvas.backdrop'},
 
-          '& [data-selectpanel-primary-actions]': {
-            animation: footerAnimationEnabled ? 'selectpanel-gelatine 350ms linear' : 'none',
-          },
           '@keyframes selectpanel-gelatine': {
             '0%': {transform: 'scale(1, 1)'},
             '25%': {transform: 'scale(0.9, 1.1)'},
@@ -461,7 +451,7 @@ const SelectPanelFooter = ({...props}) => {
         <Box sx={{flexGrow: hidePrimaryActions ? 1 : 0}}>{props.children}</Box>
 
         {hidePrimaryActions ? null : (
-          <Box data-selectpanel-primary-actions sx={{display: 'flex', gap: 2}}>
+          <Box sx={{display: 'flex', gap: 2}}>
             <Button size="small" type="button" onClick={() => onCancel()}>
               Cancel
             </Button>

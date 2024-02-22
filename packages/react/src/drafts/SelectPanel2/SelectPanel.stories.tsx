@@ -25,6 +25,10 @@ export const Default = () => {
     data.issue.labelIds = selectedLabelIds // pretending to persist changes
   }
 
+  const onCancel = () => {
+    setSelectedLabelIds(initialSelectedLabels)
+  }
+
   /* Filtering */
   const [filteredLabels, setFilteredLabels] = React.useState(data.labels)
   const [query, setQuery] = React.useState('')
@@ -61,16 +65,7 @@ export const Default = () => {
 
   return (
     <>
-      <SelectPanel
-        title="Select labels"
-        onSubmit={onSubmit}
-        onCancel={() => {
-          /* optional callback, for example: for multi-step overlay or to fire sync actions */
-          // eslint-disable-next-line no-console
-          console.log('panel was closed')
-        }}
-        onClearSelection={onClearSelection}
-      >
+      <SelectPanel title="Select labels" onSubmit={onSubmit} onCancel={onCancel} onClearSelection={onClearSelection}>
         <SelectPanel.Button>Assign label</SelectPanel.Button>
 
         <SelectPanel.Header>
