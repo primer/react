@@ -77,25 +77,11 @@ const TabContainer = styled(createComponent(React, 'tab-container', TabContainer
 export type TabPanelsProps = ComponentProps<typeof TabContainer>
 
 function TabPanels({children, ...props}: TabPanelsProps) {
-  // // Find all of the tabs, create a map of their IDs to their selected state
-  // const tabMap = new Map<string, boolean>()
-  // for (const child of React.Children.toArray(children)) {
-  //   if (React.isValidElement(child) && child.type === Tab) {
-  //     tabMap.set(child.props.id, !!child.props.selected)
-  //   }
-  // }
-
-  // // Update children to set hidden on the panels which do not correspond to the selected tab
-  // const updatedChildren = React.Children.map(children, child => {
-  //   if (React.isValidElement(child) && child.type === Panel) {
-  //     return React.cloneElement(child, {
-  //       hidden: !child.props['aria-labelledby'] || !tabMap.get(child.props['aria-labelledby']),
-  //     })
-  //   }
-  //   return child
-  // })
-
-  return <TabContainer {...props}>{children}</TabContainer>
+  return (
+    <TabContainer {...props} suppressHydrationWarning>
+      {children}
+    </TabContainer>
+  )
 }
 
 export type TabPanelsTabProps = React.DetailedHTMLProps<React.HTMLAttributes<HTMLButtonElement>, HTMLButtonElement> & {
@@ -108,6 +94,7 @@ const Tab = styled.button.attrs<TabPanelsTabProps>(props => ({
   className: clsx(TAB_CLASS, props.className),
   role: 'tab',
   'aria-selected': !!props.selected,
+  suppressHydrationWarning: true,
 }))<TabPanelsTabProps>`
   padding: 8px 16px 9px 16px;
   font-size: ${get('fontSizes.1')};
@@ -140,14 +127,13 @@ Tab.displayName = 'TabPanels.Tab'
 
 export type TabPanelsPanelProps = {
   'aria-labelledby': string
-  hidden?: boolean
   children: React.ReactNode
 } & SxProp
 
 const Panel = styled.div.attrs<TabPanelsPanelProps>(props => ({
   'aria-labelledby': props['aria-labelledby'],
-  hidden: !!props.hidden,
   role: 'tabpanel',
+  suppressHydrationWarning: true,
 }))<TabPanelsPanelProps>`
   ${sx};
 `
