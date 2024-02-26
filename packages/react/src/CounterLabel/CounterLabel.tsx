@@ -27,6 +27,8 @@ const CounterLabel = forwardRef<HTMLSpanElement, CounterLabelProps>(
               lineHeight: 'condensedUltra',
               borderRadius: '20px',
               backgroundColor: scheme === 'primary' ? 'neutral.emphasis' : 'neutral.muted',
+              border:
+                'var(--borderWidth-thin,max(1px, 0.0625rem)) solid var(--counter-borderColor,var(--color-counter-border))',
               color: scheme === 'primary' ? 'fg.onEmphasis' : 'fg.default',
               '&:empty': {
                 display: 'none',

@@ -35,7 +35,7 @@
   },
   "devDependencies": {
     "cross-env": "7.0.2",
-    "eslint": "7.29.0",
+    "eslint": "8.56.0",
     "eslint-config-react-app": "7.0.1",
     "globby": "^11.0.4",
     "minipass": "^2.9.0",
