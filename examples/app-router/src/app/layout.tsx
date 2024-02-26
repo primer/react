@@ -8,7 +8,9 @@ export const metadata = {
 
 export default function RootLayout({children}: {children: React.ReactNode}) {
   return (
-    <html lang="en">
+    // Note: the `ThemeProvider` component will set attributes on `html` once
+    // they load on the client that will cause a hydration mismatch
+    <html lang="en" suppressHydrationWarning>
       <body>
         <StyledComponentsRegistry>
           <ThemeProvider>
