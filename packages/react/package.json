@@ -156,7 +156,7 @@
     "@types/lodash.isempty": "4.4.9",
     "@types/lodash.isobject": "3.0.9",
     "@types/lodash.keyby": "4.6.7",
-    "@types/node": "20.11.16",
+    "@types/node": "20.11.20",
     "@types/react": "18.2.45",
     "@types/react-dom": "18.2.6",
     "@types/semver": "7.5.3",
