@@ -34,16 +34,16 @@ export type UnderlineNavProps = {
 }
 // When page is loaded, we don't have ref for the more button as it is not on the DOM yet.
 // However, we need to calculate number of possible items when the more button present as well. So using the width of the more button as a constant.
-const MORE_BTN_WIDTH = 86
+export const MORE_BTN_WIDTH = 86
 // The height is needed to make sure we don't have a layout shift when the more button is the only item in the nav.
 const MORE_BTN_HEIGHT = 45
 
 // Needed this because passing a ref using HTMLULListElement to `Box` causes a type error
-const NavigationList = styled.ul`
+export const NavigationList = styled.ul`
   ${sx};
 `
 
-const MoreMenuListItem = styled.li`
+export const MoreMenuListItem = styled.li`
   display: flex;
   align-items: center;
   height: ${MORE_BTN_HEIGHT}px;
@@ -113,7 +113,7 @@ const overflowEffect = (
   updateListAndMenu({items, menuItems}, iconsVisible)
 }
 
-const getValidChildren = (children: React.ReactNode) => {
+export const getValidChildren = (children: React.ReactNode) => {
   return React.Children.toArray(children).filter(child => React.isValidElement(child)) as React.ReactElement[]
 }
 

@@ -148,7 +148,7 @@ We consider a component SSR-compatible if it...
 
 We use [`eslint-plugin-ssr-friendly`](https://github.com/kopiro/eslint-plugin-ssr-friendly) to prevent misuse of DOM globals. If you see an error from this plugin, please fix it before merging your PR.
 
-If your component doesn't use DOM globals, it likely won't cause layout shift during hydration. However, if you suspect that your component might cause layout shift, you can use the example Next.js app (`examples/nextjs`) to debug. Import and render your component in `examples/nextjs/pages/index.js` then run the example app with `cd examples/nextjs && npm run develop`.
+If your component doesn't use DOM globals, it likely won't cause layout shift during hydration. However, if you suspect that your component might cause layout shift, you can use the example Next.js app (`examples/nextjs`) to debug. Import and render your component in `examples/nextjs/src/pages/index.js` then run the example app with `cd examples/nextjs && npm run develop`.
 
 ### Adding the `sx` prop
 
