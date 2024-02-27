@@ -2,6 +2,9 @@ import React from 'react'
 import observeRect from '@reach/observe-rect'
 import {debounce} from 'lodash'
 
+const ElementConst = globalThis.Element || (null as unknown as (typeof window)['Element'])
+type Element = typeof ElementConst.prototype
+
 type ElementObserverArguments = {
   /** Element to observe */
   elementRef: React.RefObject<Element>
@@ -16,7 +19,7 @@ export const useElementObserver = ({elementRef, condition = true, callback}: Ele
 
   React.useLayoutEffect(() => {
     if (condition === true && elementRef.current) {
-      const rectObserver = observeRect(elementRef.current, elementRect => debouncedCallback(elementRect))
+      const rectObserver = observeRect(elementRef.current, (elementRect: DOMRect) => debouncedCallback(elementRect))
       rectObserver.observe()
       return () => rectObserver.unobserve()
     }
