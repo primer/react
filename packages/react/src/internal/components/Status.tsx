@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 import {Announce, type AnnounceProps} from './Announce'
 
 export type StatusProps = AnnounceProps
