@@ -6,7 +6,7 @@ import {useResizeObserver} from './useResizeObserver'
 import useLayoutEffect from '../utils/useIsomorphicLayoutEffect'
 import {useElementObserver} from '../hooks/useElementObserver'
 
-const ElementConst = globalThis.Element || (null as unknown as (typeof window)['Element'])
+const ElementConst = globalThis.Element
 type Element = typeof ElementConst.prototype
 
 export interface AnchoredPositionHookSettings extends Partial<PositionSettings> {

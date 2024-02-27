@@ -2,7 +2,7 @@ import React from 'react'
 import observeRect from '@reach/observe-rect'
 import {debounce} from 'lodash'
 
-const ElementConst = globalThis.Element || (null as unknown as (typeof window)['Element'])
+const ElementConst = globalThis.Element
 type Element = typeof ElementConst.prototype
 
 type ElementObserverArguments = {
