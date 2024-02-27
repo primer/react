@@ -15,11 +15,14 @@ const Wrapper = styled.li`
   white-space: nowrap;
   list-style: none;
   &::after {
-    padding-right: 0.5em;
-    padding-left: 0.5em;
-    color: ${get('colors.fg.muted')};
     font-size: ${get('fontSizes.1')};
-    content: '/';
+    content: '';
+    display: inline-block;
+    height: 0.8em;
+    margin: 0 0.5em;
+    border-right: 0.1em solid;
+    border-color: ${get('colors.fg.muted')};
+    transform: rotate(15deg) translateY(0.0625em);
   }
   &:first-child {
     margin-left: 0;
