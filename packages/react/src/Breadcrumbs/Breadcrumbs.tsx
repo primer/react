@@ -70,12 +70,16 @@ const BreadcrumbsItem = styled.a.attrs<StyledBreadcrumbsItemProps>(props => ({
   display: inline-block;
   font-size: ${get('fontSizes.1')};
   text-decoration: none;
-  &:hover {
+  &:hover,
+  &:focus {
     text-decoration: underline;
   }
   &.selected {
     color: ${get('colors.fg.default')};
     pointer-events: none;
+  }
+  &.selected:focus {
+    text-decoration: none;
   }
   ${sx};
 `
