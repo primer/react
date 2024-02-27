@@ -237,6 +237,7 @@ exports[`@primer/react/deprecated should not update exports without a semver cha
 
 exports[`@primer/react/drafts should not update exports without a semver change 1`] = `
 [
+  "type ActionBarProps",
   "Blankslate",
   "type BlankslateProps",
   "callbackCancelledResult",
@@ -247,6 +248,7 @@ exports[`@primer/react/drafts should not update exports without a semver change 
   "createColumnHelper",
   "DataTable",
   "type DataTableProps",
+  "default",
   "default",
   "default",
   "Dialog",
@@ -320,6 +322,7 @@ exports[`@primer/react/drafts should not update exports without a semver change 
 
 exports[`@primer/react/experimental should not update exports without a semver change 1`] = `
 [
+  "type ActionBarProps",
   "Blankslate",
   "type BlankslateProps",
   "callbackCancelledResult",
@@ -330,6 +333,7 @@ exports[`@primer/react/experimental should not update exports without a semver c
   "createColumnHelper",
   "DataTable",
   "type DataTableProps",
+  "default",
   "default",
   "default",
   "Dialog",

@@ -87,20 +87,28 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
   cursor: pointer;
 }
 
-.c0::-webkit-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-webkit-input-placeholder,
+.c0 textarea::-webkit-input-placeholder,
+.c0 select::-webkit-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::-moz-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-moz-placeholder,
+.c0 textarea::-moz-placeholder,
+.c0 select::-moz-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:-ms-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input:-ms-input-placeholder,
+.c0 textarea:-ms-input-placeholder,
+.c0 select:-ms-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::placeholder,
+.c0 textarea::placeholder,
+.c0 select::placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
 .c0:focus-within {
@@ -868,20 +876,28 @@ exports[`TextInputWithTokens renders a truncated set of tokens 1`] = `
   cursor: pointer;
 }
 
-.c0::-webkit-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-webkit-input-placeholder,
+.c0 textarea::-webkit-input-placeholder,
+.c0 select::-webkit-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::-moz-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-moz-placeholder,
+.c0 textarea::-moz-placeholder,
+.c0 select::-moz-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:-ms-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input:-ms-input-placeholder,
+.c0 textarea:-ms-input-placeholder,
+.c0 select:-ms-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::placeholder,
+.c0 textarea::placeholder,
+.c0 select::placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
 .c0:focus-within {
@@ -1294,20 +1310,28 @@ exports[`TextInputWithTokens renders as block layout 1`] = `
   cursor: pointer;
 }
 
-.c0::-webkit-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-webkit-input-placeholder,
+.c0 textarea::-webkit-input-placeholder,
+.c0 select::-webkit-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::-moz-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-moz-placeholder,
+.c0 textarea::-moz-placeholder,
+.c0 select::-moz-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:-ms-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input:-ms-input-placeholder,
+.c0 textarea:-ms-input-placeholder,
+.c0 select:-ms-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::placeholder,
+.c0 textarea::placeholder,
+.c0 select::placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
 .c0:focus-within {
@@ -1491,20 +1515,28 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
   cursor: pointer;
 }
 
-.c0::-webkit-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-webkit-input-placeholder,
+.c0 textarea::-webkit-input-placeholder,
+.c0 select::-webkit-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::-moz-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-moz-placeholder,
+.c0 textarea::-moz-placeholder,
+.c0 select::-moz-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:-ms-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input:-ms-input-placeholder,
+.c0 textarea:-ms-input-placeholder,
+.c0 select:-ms-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::placeholder,
+.c0 textarea::placeholder,
+.c0 select::placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
 .c0:focus-within {
@@ -2224,20 +2256,28 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
   cursor: pointer;
 }
 
-.c0::-webkit-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-webkit-input-placeholder,
+.c0 textarea::-webkit-input-placeholder,
+.c0 select::-webkit-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::-moz-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-moz-placeholder,
+.c0 textarea::-moz-placeholder,
+.c0 select::-moz-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:-ms-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input:-ms-input-placeholder,
+.c0 textarea:-ms-input-placeholder,
+.c0 select:-ms-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::placeholder,
+.c0 textarea::placeholder,
+.c0 select::placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
 .c0:focus-within {
@@ -2953,20 +2993,28 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
   cursor: pointer;
 }
 
-.c0::-webkit-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-webkit-input-placeholder,
+.c0 textarea::-webkit-input-placeholder,
+.c0 select::-webkit-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::-moz-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-moz-placeholder,
+.c0 textarea::-moz-placeholder,
+.c0 select::-moz-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:-ms-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input:-ms-input-placeholder,
+.c0 textarea:-ms-input-placeholder,
+.c0 select:-ms-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::placeholder,
+.c0 textarea::placeholder,
+.c0 select::placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
 .c0:focus-within {
@@ -3675,20 +3723,28 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
   cursor: pointer;
 }
 
-.c0::-webkit-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-webkit-input-placeholder,
+.c0 textarea::-webkit-input-placeholder,
+.c0 select::-webkit-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::-moz-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-moz-placeholder,
+.c0 textarea::-moz-placeholder,
+.c0 select::-moz-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:-ms-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input:-ms-input-placeholder,
+.c0 textarea:-ms-input-placeholder,
+.c0 select:-ms-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::placeholder,
+.c0 textarea::placeholder,
+.c0 select::placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
 .c0:focus-within {
@@ -4401,20 +4457,28 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
   cursor: pointer;
 }
 
-.c0::-webkit-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-webkit-input-placeholder,
+.c0 textarea::-webkit-input-placeholder,
+.c0 select::-webkit-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::-moz-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-moz-placeholder,
+.c0 textarea::-moz-placeholder,
+.c0 select::-moz-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:-ms-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input:-ms-input-placeholder,
+.c0 textarea:-ms-input-placeholder,
+.c0 select:-ms-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::placeholder,
+.c0 textarea::placeholder,
+.c0 select::placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
 .c0:focus-within {
@@ -5130,20 +5194,28 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
   cursor: pointer;
 }
 
-.c0::-webkit-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-webkit-input-placeholder,
+.c0 textarea::-webkit-input-placeholder,
+.c0 select::-webkit-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::-moz-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-moz-placeholder,
+.c0 textarea::-moz-placeholder,
+.c0 select::-moz-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:-ms-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input:-ms-input-placeholder,
+.c0 textarea:-ms-input-placeholder,
+.c0 select:-ms-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::placeholder,
+.c0 textarea::placeholder,
+.c0 select::placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
 .c0:focus-within {
@@ -5855,20 +5927,28 @@ exports[`TextInputWithTokens renders tokens without a remove button when specifi
   cursor: pointer;
 }
 
-.c0::-webkit-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-webkit-input-placeholder,
+.c0 textarea::-webkit-input-placeholder,
+.c0 select::-webkit-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::-moz-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-moz-placeholder,
+.c0 textarea::-moz-placeholder,
+.c0 select::-moz-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:-ms-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input:-ms-input-placeholder,
+.c0 textarea:-ms-input-placeholder,
+.c0 select:-ms-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::placeholder,
+.c0 textarea::placeholder,
+.c0 select::placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
 .c0:focus-within {
@@ -6304,20 +6384,28 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   cursor: pointer;
 }
 
-.c0::-webkit-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-webkit-input-placeholder,
+.c0 textarea::-webkit-input-placeholder,
+.c0 select::-webkit-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::-moz-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-moz-placeholder,
+.c0 textarea::-moz-placeholder,
+.c0 select::-moz-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:-ms-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input:-ms-input-placeholder,
+.c0 textarea:-ms-input-placeholder,
+.c0 select:-ms-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::placeholder,
+.c0 textarea::placeholder,
+.c0 select::placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
 .c0:focus-within {
@@ -7087,20 +7175,28 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   cursor: pointer;
 }
 
-.c0::-webkit-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-webkit-input-placeholder,
+.c0 textarea::-webkit-input-placeholder,
+.c0 select::-webkit-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::-moz-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-moz-placeholder,
+.c0 textarea::-moz-placeholder,
+.c0 select::-moz-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:-ms-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input:-ms-input-placeholder,
+.c0 textarea:-ms-input-placeholder,
+.c0 select:-ms-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::placeholder,
+.c0 textarea::placeholder,
+.c0 select::placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
 .c0:focus-within {
@@ -7902,20 +7998,28 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   cursor: pointer;
 }
 
-.c0::-webkit-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-webkit-input-placeholder,
+.c0 textarea::-webkit-input-placeholder,
+.c0 select::-webkit-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::-moz-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-moz-placeholder,
+.c0 textarea::-moz-placeholder,
+.c0 select::-moz-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:-ms-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input:-ms-input-placeholder,
+.c0 textarea:-ms-input-placeholder,
+.c0 select:-ms-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::placeholder,
+.c0 textarea::placeholder,
+.c0 select::placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
 .c0:focus-within {
@@ -8694,20 +8798,28 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   cursor: pointer;
 }
 
-.c0::-webkit-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-webkit-input-placeholder,
+.c0 textarea::-webkit-input-placeholder,
+.c0 select::-webkit-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::-moz-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-moz-placeholder,
+.c0 textarea::-moz-placeholder,
+.c0 select::-moz-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:-ms-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input:-ms-input-placeholder,
+.c0 textarea:-ms-input-placeholder,
+.c0 select:-ms-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::placeholder,
+.c0 textarea::placeholder,
+.c0 select::placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
 .c0:focus-within {
@@ -9555,20 +9667,28 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   cursor: pointer;
 }
 
-.c0::-webkit-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-webkit-input-placeholder,
+.c0 textarea::-webkit-input-placeholder,
+.c0 select::-webkit-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::-moz-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-moz-placeholder,
+.c0 textarea::-moz-placeholder,
+.c0 select::-moz-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:-ms-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input:-ms-input-placeholder,
+.c0 textarea:-ms-input-placeholder,
+.c0 select:-ms-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::placeholder,
+.c0 textarea::placeholder,
+.c0 select::placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
 .c0:focus-within {
@@ -10416,20 +10536,28 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   cursor: pointer;
 }
 
-.c0::-webkit-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-webkit-input-placeholder,
+.c0 textarea::-webkit-input-placeholder,
+.c0 select::-webkit-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::-moz-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-moz-placeholder,
+.c0 textarea::-moz-placeholder,
+.c0 select::-moz-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:-ms-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input:-ms-input-placeholder,
+.c0 textarea:-ms-input-placeholder,
+.c0 select:-ms-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::placeholder,
+.c0 textarea::placeholder,
+.c0 select::placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
 .c0:focus-within {
@@ -11271,20 +11399,28 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   cursor: pointer;
 }
 
-.c0::-webkit-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-webkit-input-placeholder,
+.c0 textarea::-webkit-input-placeholder,
+.c0 select::-webkit-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::-moz-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-moz-placeholder,
+.c0 textarea::-moz-placeholder,
+.c0 select::-moz-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:-ms-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input:-ms-input-placeholder,
+.c0 textarea:-ms-input-placeholder,
+.c0 select:-ms-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::placeholder,
+.c0 textarea::placeholder,
+.c0 select::placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
 .c0:focus-within {
@@ -12094,20 +12230,28 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   cursor: pointer;
 }
 
-.c0::-webkit-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-webkit-input-placeholder,
+.c0 textarea::-webkit-input-placeholder,
+.c0 select::-webkit-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::-moz-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-moz-placeholder,
+.c0 textarea::-moz-placeholder,
+.c0 select::-moz-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:-ms-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input:-ms-input-placeholder,
+.c0 textarea:-ms-input-placeholder,
+.c0 select:-ms-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::placeholder,
+.c0 textarea::placeholder,
+.c0 select::placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
 .c0:focus-within {
@@ -12949,20 +13093,28 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   cursor: pointer;
 }
 
-.c0::-webkit-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-webkit-input-placeholder,
+.c0 textarea::-webkit-input-placeholder,
+.c0 select::-webkit-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::-moz-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-moz-placeholder,
+.c0 textarea::-moz-placeholder,
+.c0 select::-moz-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:-ms-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input:-ms-input-placeholder,
+.c0 textarea:-ms-input-placeholder,
+.c0 select:-ms-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::placeholder,
+.c0 textarea::placeholder,
+.c0 select::placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
 .c0:focus-within {
@@ -13788,20 +13940,28 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   cursor: pointer;
 }
 
-.c0::-webkit-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-webkit-input-placeholder,
+.c0 textarea::-webkit-input-placeholder,
+.c0 select::-webkit-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::-moz-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-moz-placeholder,
+.c0 textarea::-moz-placeholder,
+.c0 select::-moz-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:-ms-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input:-ms-input-placeholder,
+.c0 textarea:-ms-input-placeholder,
+.c0 select:-ms-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::placeholder,
+.c0 textarea::placeholder,
+.c0 select::placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
 .c0:focus-within {
@@ -14687,20 +14847,28 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   cursor: pointer;
 }
 
-.c0::-webkit-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-webkit-input-placeholder,
+.c0 textarea::-webkit-input-placeholder,
+.c0 select::-webkit-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::-moz-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-moz-placeholder,
+.c0 textarea::-moz-placeholder,
+.c0 select::-moz-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:-ms-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input:-ms-input-placeholder,
+.c0 textarea:-ms-input-placeholder,
+.c0 select:-ms-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::placeholder,
+.c0 textarea::placeholder,
+.c0 select::placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
 .c0:focus-within {
@@ -15588,20 +15756,28 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   cursor: pointer;
 }
 
-.c0::-webkit-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-webkit-input-placeholder,
+.c0 textarea::-webkit-input-placeholder,
+.c0 select::-webkit-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::-moz-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-moz-placeholder,
+.c0 textarea::-moz-placeholder,
+.c0 select::-moz-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:-ms-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input:-ms-input-placeholder,
+.c0 textarea:-ms-input-placeholder,
+.c0 select:-ms-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::placeholder,
+.c0 textarea::placeholder,
+.c0 select::placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
 .c0:focus-within {
@@ -16453,20 +16629,28 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
   cursor: pointer;
 }
 
-.c0::-webkit-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-webkit-input-placeholder,
+.c0 textarea::-webkit-input-placeholder,
+.c0 select::-webkit-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::-moz-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-moz-placeholder,
+.c0 textarea::-moz-placeholder,
+.c0 select::-moz-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:-ms-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input:-ms-input-placeholder,
+.c0 textarea:-ms-input-placeholder,
+.c0 select:-ms-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::placeholder,
+.c0 textarea::placeholder,
+.c0 select::placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
 .c0:focus-within {
@@ -17164,20 +17348,28 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
   cursor: pointer;
 }
 
-.c0::-webkit-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-webkit-input-placeholder,
+.c0 textarea::-webkit-input-placeholder,
+.c0 select::-webkit-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::-moz-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-moz-placeholder,
+.c0 textarea::-moz-placeholder,
+.c0 select::-moz-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:-ms-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input:-ms-input-placeholder,
+.c0 textarea:-ms-input-placeholder,
+.c0 select:-ms-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::placeholder,
+.c0 textarea::placeholder,
+.c0 select::placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
 .c0:focus-within {
@@ -17847,20 +18039,28 @@ exports[`TextInputWithTokens renders without tokens 1`] = `
   cursor: pointer;
 }
 
-.c0::-webkit-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-webkit-input-placeholder,
+.c0 textarea::-webkit-input-placeholder,
+.c0 select::-webkit-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::-moz-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-moz-placeholder,
+.c0 textarea::-moz-placeholder,
+.c0 select::-moz-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:-ms-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input:-ms-input-placeholder,
+.c0 textarea:-ms-input-placeholder,
+.c0 select:-ms-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::placeholder,
+.c0 textarea::placeholder,
+.c0 select::placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
 .c0:focus-within {
