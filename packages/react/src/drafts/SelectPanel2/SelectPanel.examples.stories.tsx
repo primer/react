@@ -720,7 +720,7 @@ export const NestedSelection = () => {
           <SelectPanel.SearchInput placeholder="Search (not implemented in demo)" />
         </SelectPanel.Header>
 
-        <ActionList showDividers>
+        <ActionList showDividers role="list">
           {reposToShow.map(repo => (
             <ActionList.Item
               key={repo.name}
