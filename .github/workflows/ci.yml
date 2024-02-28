@@ -26,12 +26,11 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'npm'
-      - run: npm i -g npm@9.x
+          cache: 'yarn'
       - name: Install dependencies
-        run: npm ci
+        run: yarn install --immutable
       - name: Check for unformatted files
-        run: npm run format:diff
+        run: yarn format:diff
 
   lint:
     runs-on: ubuntu-latest
@@ -43,17 +42,16 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'npm'
-      - run: npm i -g npm@9.x
+          cache: 'yarn'
 
       - name: Install dependencies
-        run: npm ci
+        run: yarn install --immutable
 
       - name: Lint JavaScript
-        run: npm run lint
+        run: yarn lint
 
       - name: Lint markdown
-        run: npm run lint:md
+        run: yarn lint:md
 
   test:
     runs-on: ubuntu-latest
@@ -65,17 +63,16 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'npm'
-      - run: npm i -g npm@9.x
+          cache: 'yarn'
 
       - name: Install dependencies
-        run: npm ci
+        run: yarn install --immutable
 
       - name: Build
-        run: npm run build
+        run: yarn build
 
       - name: Test
-        run: npm run test -- --coverage
+        run: yarn test -- --coverage
 
   type-check:
     runs-on: ubuntu-latest
@@ -87,17 +84,16 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'npm'
-      - run: npm i -g npm@9.x
+          cache: 'yarn'
 
       - name: Install dependencies
-        run: npm ci
+        run: yarn install --immutable
 
       - name: Build project
-        run: npm run build
+        run: yarn build
 
       - name: Type check
-        run: npm run type-check
+        run: yarn type-check
 
   examples:
     runs-on: ubuntu-latest
@@ -108,12 +104,12 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'npm'
-      - run: npm i -g npm@9.x
+          cache: 'yarn'
+
       - name: Install dependencies
-        run: npm ci
+        run: yarn install --immutable
       - name: Build
-        run: npm run build -ws --if-present
+        run: yarn build -ws --if-present
 
   vrt-runner:
     runs-on: ubuntu-latest-8-cores
@@ -127,10 +123,10 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'npm'
-      - run: npm i -g npm@9.x
+          cache: 'yarn'
+
       - name: Install dependencies
-        run: npm ci
+        run: yarn install --immutable
       - name: Build storybook
         run: npx storybook build
         working-directory: packages/react
@@ -167,10 +163,10 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'npm'
-      - run: npm i -g npm@9.x
+          cache: 'yarn'
+
       - name: install dependencies
-        run: npm ci
+        run: yarn install --immutable
       - name: download all reports
         uses: actions/download-artifact@v3
         with:
@@ -199,10 +195,10 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'npm'
-      - run: npm i -g npm@9.x
+          cache: 'yarn'
+
       - name: Install dependencies
-        run: npm ci
+        run: yarn install --immutable
       - name: Build storybook
         run: npx storybook build
         working-directory: packages/react
@@ -239,10 +235,10 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'npm'
-      - run: npm i -g npm@9.x
+          cache: 'yarn'
+
       - name: install dependencies
-        run: npm ci
+        run: yarn install --immutable
       - name: download all reports
         uses: actions/download-artifact@v3
         with:
@@ -268,12 +264,12 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'npm'
-      - run: npm i -g npm@9.x
+          cache: 'yarn'
+
       - name: Install dependencies
-        run: npm ci
+        run: yarn install --immutable
       - name: Build components.json
-        run: npm run build:components.json
+        run: yarn build:components.json
 
   sizes:
     runs-on: ubuntu-latest
@@ -284,11 +280,11 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'npm'
-      - run: npm i -g npm@9.x
+          cache: 'yarn'
+
       - name: Install dependencies
-        run: npm ci
+        run: yarn install --immutable
       - name: Build
-        run: npm run build
+        run: yarn build
       - name: Get export sizes
         run: node packages/react/script/get-export-sizes.js
