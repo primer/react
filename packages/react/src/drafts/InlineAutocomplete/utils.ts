@@ -1,6 +1,7 @@
-import {Children, EventHandler, SyntheticEvent} from 'react'
+import type {EventHandler, SyntheticEvent} from 'react'
+import {Children} from 'react'
 
-import {ShowSuggestionsEvent, Suggestion, TextInputCompatibleChild, Trigger} from './types'
+import type {ShowSuggestionsEvent, Suggestion, TextInputCompatibleChild, Trigger} from './types'
 
 const singleWordTriggerTerminators = new Set([' ', '\n'])
 const multiWordTriggerTerminators = new Set(['.', '\n'])

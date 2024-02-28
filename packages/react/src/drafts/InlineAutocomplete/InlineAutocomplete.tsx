@@ -1,11 +1,11 @@
 import React, {cloneElement, useRef} from 'react'
 import Box from '../../Box'
 import Portal from '../../Portal'
-import {BetterSystemStyleObject} from '../../sx'
+import type {BetterSystemStyleObject} from '../../sx'
 import {useSyntheticChange} from '../hooks/useSyntheticChange'
 import {getAbsoluteCharacterCoordinates} from '../utils/character-coordinates'
 
-import {
+import type {
   SelectSuggestionsEvent,
   ShowSuggestionsEvent,
   Suggestions,

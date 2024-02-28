@@ -1,7 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
-import sx, {SxProp} from '../sx'
-import {ComponentProps} from '../utils/types'
+import type {SxProp} from '../sx'
+import sx from '../sx'
+import type {ComponentProps} from '../utils/types'
 
 const sizeMap = {
   small: '16px',

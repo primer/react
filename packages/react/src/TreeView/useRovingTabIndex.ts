@@ -1,4 +1,4 @@
-import React from 'react'
+import type React from 'react'
 import {FocusKeys, useFocusZone} from '../hooks/useFocusZone'
 import {getScrollContainer} from '../utils/scroll'
 

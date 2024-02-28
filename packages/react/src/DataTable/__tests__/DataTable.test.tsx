@@ -2,7 +2,8 @@ import userEvent from '@testing-library/user-event'
 import {render, screen, getByRole, queryByRole, queryAllByRole} from '@testing-library/react'
 import React from 'react'
 import {DataTable, Table} from '../../DataTable'
-import {Column, createColumnHelper} from '../column'
+import type {Column} from '../column'
+import {createColumnHelper} from '../column'
 import {getGridTemplateFromColumns} from '../useTable'
 
 describe('DataTable', () => {

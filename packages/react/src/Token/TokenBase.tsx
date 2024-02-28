@@ -1,9 +1,11 @@
-import React, {ComponentProps, KeyboardEvent} from 'react'
+import type {ComponentProps, KeyboardEvent} from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import {variant} from 'styled-system'
 import {get} from '../constants'
-import sx, {SxProp} from '../sx'
-import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
+import type {SxProp} from '../sx'
+import sx from '../sx'
+import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 
 export type TokenSizeKeys = 'small' | 'medium' | 'large' | 'xlarge'
 

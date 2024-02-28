@@ -1,4 +1,4 @@
-import {Meta, Story} from '@storybook/react'
+import type {Meta, Story} from '@storybook/react'
 import React from 'react'
 import {PageLayout} from '../PageLayout'
 import {NavList} from './NavList'

@@ -3,9 +3,10 @@ import styled from 'styled-components'
 import {system} from 'styled-system'
 import {get} from '../constants'
 import {useRefObjectAsForwardedRef} from '../hooks'
-import sx, {SxProp} from '../sx'
-import {ComponentProps} from '../utils/types'
-import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
+import type {SxProp} from '../sx'
+import sx from '../sx'
+import type {ComponentProps} from '../utils/types'
+import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 
 type StyledLinkProps = {
   hoverColor?: string

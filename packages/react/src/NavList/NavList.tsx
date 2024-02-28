@@ -1,16 +1,13 @@
 import {ChevronDownIcon} from '@primer/octicons-react'
-import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
+import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import React, {isValidElement} from 'react'
 import styled from 'styled-components'
-import {
-  ActionList,
-  ActionListDividerProps,
-  ActionListLeadingVisualProps,
-  ActionListTrailingVisualProps,
-} from '../ActionList'
+import type {ActionListDividerProps, ActionListLeadingVisualProps, ActionListTrailingVisualProps} from '../ActionList'
+import {ActionList} from '../ActionList'
 import Box from '../Box'
 import Octicon from '../Octicon'
-import sx, {merge, SxProp} from '../sx'
+import type {SxProp} from '../sx'
+import sx, {merge} from '../sx'
 import {defaultSxProp} from '../utils/defaultSxProp'
 import {useId} from '../hooks/useId'
 import useIsomorphicLayoutEffect from '../utils/useIsomorphicLayoutEffect'

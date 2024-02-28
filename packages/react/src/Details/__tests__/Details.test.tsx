@@ -3,7 +3,7 @@ import userEvent from '@testing-library/user-event'
 import React from 'react'
 import {Details, useDetails, Box} from '../..'
 import {Button, ButtonPrimary} from '../../deprecated'
-import {ButtonProps} from '../../deprecated/Button/Button'
+import type {ButtonProps} from '../../deprecated/Button/Button'
 import {behavesAsComponent, checkExports} from '../../utils/testing'
 import {axe} from 'jest-axe'
 

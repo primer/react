@@ -1,5 +1,5 @@
 import React from 'react'
-import {ComponentMeta} from '@storybook/react'
+import type {ComponentMeta} from '@storybook/react'
 import Flash from './Flash'
 import Octicon from '../Octicon'
 import {InfoIcon, XIcon} from '@primer/octicons-react'
