@@ -44,12 +44,10 @@ const StyledTooltip = styled.div`
   }
   /* class name in chrome is :popover-open */
   &[popover]:popover-open {
-    position: absolute;
     display: block;
   }
   /* class name in firefox and safari is \:popover-open */
   &[popover].\\:popover-open {
-    position: absolute;
     display: block;
   }
 
