@@ -23,7 +23,6 @@ const StyledTooltip = styled.div`
   /* Overriding the default popover styles */
   display: none;
   &[popover] {
-    position: absolute;
     padding: 0.5em 0.75em;
     width: max-content;
     margin: auto;
@@ -45,10 +44,12 @@ const StyledTooltip = styled.div`
   }
   /* class name in chrome is :popover-open */
   &[popover]:popover-open {
+    position: absolute;
     display: block;
   }
   /* class name in firefox and safari is \:popover-open */
   &[popover].\\:popover-open {
+    position: absolute;
     display: block;
   }
 
