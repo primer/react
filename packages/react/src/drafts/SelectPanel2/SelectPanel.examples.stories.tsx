@@ -1,6 +1,6 @@
 import React from 'react'
 import {SelectPanel} from './SelectPanel'
-import {ActionList, ActionMenu, Avatar, Box, Button, Octicon, Text} from '../../index'
+import {ActionList, ActionMenu, Avatar, Box, Button, Flash, Octicon, Text} from '../../index'
 import {
   ArrowRightIcon,
   EyeIcon,
@@ -683,6 +683,10 @@ export const NestedSelection = () => {
   return (
     <>
       <h1>Nested selection</h1>
+
+      <Flash variant="warning" sx={{mb: 2}}>
+        This story is not fully accesible, do not copy it without review!
+      </Flash>
 
       <Button
         ref={anchorRef}
