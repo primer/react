@@ -1,11 +1,6 @@
 {
   "name": "primer",
   "private": true,
-  "workspaces": [
-    "packages/*",
-    "docs",
-    "examples/*"
-  ],
   "scripts": {
     "setup": "./script/setup",
     "build": "npm run build -w @primer/react",
