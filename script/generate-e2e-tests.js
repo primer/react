@@ -464,7 +464,7 @@ const components = new Map([
     },
   ],
   [
-    'Dialog v1',
+    'Dialog V1',
     {
       stories: [
         {
