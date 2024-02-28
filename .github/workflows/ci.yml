@@ -25,9 +25,8 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 21
           cache: 'npm'
-      - run: npm i -g npm@9.x
       - name: Install dependencies
         run: npm ci
       - name: Check for unformatted files
@@ -38,13 +37,11 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 21
           cache: 'npm'
-      - run: npm i -g npm@9.x
 
       - name: Install dependencies
         run: npm ci
@@ -64,9 +61,8 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 21
           cache: 'npm'
-      - run: npm i -g npm@9.x
 
       - name: Install dependencies
         run: npm ci
@@ -86,9 +82,8 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 21
           cache: 'npm'
-      - run: npm i -g npm@9.x
 
       - name: Install dependencies
         run: npm ci
@@ -107,9 +102,8 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 21
           cache: 'npm'
-      - run: npm i -g npm@9.x
       - name: Install dependencies
         run: npm ci
       - name: Build
@@ -126,9 +120,8 @@ jobs:
       - name: Use Node.js 20.x
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 21
           cache: 'npm'
-      - run: npm i -g npm@9.x
       - name: Install dependencies
         run: npm ci
       - name: Build storybook
@@ -166,9 +159,8 @@ jobs:
       - name: Use Node.js 20.x
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 21
           cache: 'npm'
-      - run: npm i -g npm@9.x
       - name: install dependencies
         run: npm ci
       - name: download all reports
@@ -198,9 +190,8 @@ jobs:
       - name: Use Node.js 20.x
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 21
           cache: 'npm'
-      - run: npm i -g npm@9.x
       - name: Install dependencies
         run: npm ci
       - name: Build storybook
@@ -238,9 +229,8 @@ jobs:
       - name: Use Node.js 20.x
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 21
           cache: 'npm'
-      - run: npm i -g npm@9.x
       - name: install dependencies
         run: npm ci
       - name: download all reports
@@ -267,9 +257,8 @@ jobs:
       - name: Use Node.js 20.x
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 21
           cache: 'npm'
-      - run: npm i -g npm@9.x
       - name: Install dependencies
         run: npm ci
       - name: Build components.json
@@ -283,9 +272,8 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 21
           cache: 'npm'
-      - run: npm i -g npm@9.x
       - name: Install dependencies
         run: npm ci
       - name: Build

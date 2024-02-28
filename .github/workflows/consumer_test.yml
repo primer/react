@@ -14,11 +14,10 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 21
           cache: npm
       - name: Remove "prepare" script
         run: npm pkg delete scripts.prepare
-      - run: npm i -g npm@9.x
       - name: Install dependencies
         run: npm ci
       - name: Build @primer/react

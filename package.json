@@ -36,8 +36,8 @@
   "author": "GitHub, Inc.",
   "license": "MIT",
   "engines": {
-    "node": ">=12",
-    "npm": ">=7"
+    "node": ">=21",
+    "npm": ">=10"
   },
   "devDependencies": {
     "@babel/eslint-parser": "7.23.3",

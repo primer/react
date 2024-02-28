@@ -19,8 +19,7 @@ jobs:
       - name: Set up Node
         uses: actions/setup-node@v4
         with:
-          node_version: ${{ inputs.node_version }}
-      - run: npm i -g npm@9.x
+          node_version: 21
       - name: Install dependencies
         run: npm ci
       - name: Build

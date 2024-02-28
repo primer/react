@@ -17,8 +17,8 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
-      - run: npm i -g npm@9.x
+          node-version: 21
+          cache: 'npm'
       - run: npm ci
       - uses: ./.github/actions/pagerduty
         id: pagerduty
