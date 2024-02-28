@@ -3,7 +3,9 @@
   "private": true,
   "scripts": {
     "clean": "rimraf .next",
+    "build": "next build",
     "develop": "next",
+    "start": "next start",
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
