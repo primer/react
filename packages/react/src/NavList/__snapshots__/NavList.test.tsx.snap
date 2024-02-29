@@ -275,7 +275,9 @@ exports[`NavList renders a simple list 1`] = `
 }
 
 @media (forced-colors:active) {
-  .c2:focus {
+  .c2:focus,
+  .c2:focus-visible,
+  .c2 > a:focus-visible {
     outline: solid 1px transparent !important;
   }
 }
@@ -302,7 +304,9 @@ exports[`NavList renders a simple list 1`] = `
 }
 
 @media (forced-colors:active) {
-  .c7:focus {
+  .c7:focus,
+  .c7:focus-visible,
+  .c7 > a:focus-visible {
     outline: solid 1px transparent !important;
   }
 }
@@ -699,7 +703,9 @@ exports[`NavList renders with groups 1`] = `
 }
 
 @media (forced-colors:active) {
-  .c6:focus {
+  .c6:focus,
+  .c6:focus-visible,
+  .c6 > a:focus-visible {
     outline: solid 1px transparent !important;
   }
 }
@@ -726,7 +732,9 @@ exports[`NavList renders with groups 1`] = `
 }
 
 @media (forced-colors:active) {
-  .c11:focus {
+  .c11:focus,
+  .c11:focus-visible,
+  .c11 > a:focus-visible {
     outline: solid 1px transparent !important;
   }
 }
@@ -1181,7 +1189,9 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
 }
 
 @media (forced-colors:active) {
-  .c11:focus {
+  .c11:focus,
+  .c11:focus-visible,
+  .c11 > a:focus-visible {
     outline: solid 1px transparent !important;
   }
 }
@@ -1208,7 +1218,9 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
 }
 
 @media (forced-colors:active) {
-  .c4:focus {
+  .c4:focus,
+  .c4:focus-visible,
+  .c4 > a:focus-visible {
     outline: solid 1px transparent !important;
   }
 }
@@ -1663,7 +1675,9 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
 }
 
 @media (forced-colors:active) {
-  .c11:focus {
+  .c11:focus,
+  .c11:focus-visible,
+  .c11 > a:focus-visible {
     outline: solid 1px transparent !important;
   }
 }
@@ -1698,7 +1712,9 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
 }
 
 @media (forced-colors:active) {
-  .c4:focus {
+  .c4:focus,
+  .c4:focus-visible,
+  .c4 > a:focus-visible {
     outline: solid 1px transparent !important;
   }
 }
