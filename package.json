@@ -22,7 +22,7 @@
     "build:components.json": "npm run build:components.json -w @primer/react",
     "lint": "eslint '**/*.{js,ts,tsx,md,mdx}' --max-warnings=0",
     "lint:fix": "npm run lint -- --fix",
-    "lint:md": "markdownlint-cli2 \"**/*.{md,mdx}\" \"!.github\" \"!.changeset\" \"!**/node_modules/**\" \"!CHANGELOG.md\"",
+    "lint:md": "markdownlint-cli2 \"**/*.{md,mdx}\" \"!.github\" \"!.changeset\" \"!**/node_modules/**\" \"!**/CHANGELOG.md\"",
     "test": "jest",
     "test:update": "npm run test -- --updateSnapshot",
     "test:watch": "npm run test -- --watch",
