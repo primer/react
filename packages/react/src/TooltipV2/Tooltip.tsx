@@ -23,6 +23,7 @@ const StyledTooltip = styled.div`
   /* Overriding the default popover styles */
   display: none;
   &[popover] {
+    position: absolute;
     padding: 0.5em 0.75em;
     width: max-content;
     margin: auto;
@@ -251,13 +252,17 @@ export const Tooltip = React.forwardRef(
       }
 
       const positionSet = () => {
-        const {top, left, anchorAlign, anchorSide} = getAnchoredPosition(tooltip, trigger, settings)
+        if (tooltip.style.top && tooltip.style.left) {
+          return
+        } else {
+          const {top, left, anchorAlign, anchorSide} = getAnchoredPosition(tooltip, trigger, settings)
 
-        tooltip.style.top = `${top}px`
-        tooltip.style.left = `${left}px`
-        // This is required to make sure the popover is positioned correctly i.e. when there is not enough space on the specified direction, we set a new direction to position the ::after
-        const calculatedDirection = positionToDirection[`${anchorSide}-${anchorAlign}` as string]
-        setCalculatedDirection(calculatedDirection)
+          tooltip.style.top = `${top}px`
+          tooltip.style.left = `${left}px`
+          // This is required to make sure the popover is positioned correctly i.e. when there is not enough space on the specified direction, we set a new direction to position the ::after
+          const calculatedDirection = positionToDirection[`${anchorSide}-${anchorAlign}` as string]
+          setCalculatedDirection(calculatedDirection)
+        }
       }
 
       tooltip.addEventListener('toggle', positionSet)
