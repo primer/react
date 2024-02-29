@@ -252,17 +252,16 @@ export const Tooltip = React.forwardRef(
       }
 
       const positionSet = () => {
-        if (tooltip.style.top && tooltip.style.left) {
-          return
-        } else {
-          const {top, left, anchorAlign, anchorSide} = getAnchoredPosition(tooltip, trigger, settings)
+        console.log('top', tooltip.style.top)
+        console.log('left', tooltip.style.left)
 
-          tooltip.style.top = `${top}px`
-          tooltip.style.left = `${left}px`
-          // This is required to make sure the popover is positioned correctly i.e. when there is not enough space on the specified direction, we set a new direction to position the ::after
-          const calculatedDirection = positionToDirection[`${anchorSide}-${anchorAlign}` as string]
-          setCalculatedDirection(calculatedDirection)
-        }
+        const {top, left, anchorAlign, anchorSide} = getAnchoredPosition(tooltip, trigger, settings)
+
+        tooltip.style.top = `${top}px`
+        tooltip.style.left = `${left}px`
+        // This is required to make sure the popover is positioned correctly i.e. when there is not enough space on the specified direction, we set a new direction to position the ::after
+        const calculatedDirection = positionToDirection[`${anchorSide}-${anchorAlign}` as string]
+        setCalculatedDirection(calculatedDirection)
       }
 
       tooltip.addEventListener('toggle', positionSet)
