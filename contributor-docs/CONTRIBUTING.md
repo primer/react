@@ -23,7 +23,7 @@
 
 ## Roadmap
 
-If you're looking for ways to contribute, a great place to start is our issues labeled [good first issue](https://github.com/primer/react/issues?q=is%3Aissue+is%3Aclosed+label%3A%22good+first+issue%22)! If you've got a feature that you'd like to implement, be sure to check out our [Primer Roadmap](https://github.com/orgs/github/projects/2759) (GitHub staff only) to make sure it hasn't already been started on.
+If you're looking for ways to contribute, a great place to start is our issues labeled [good first issue](https://github.com/primer/react/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22)! If you've got a feature that you'd like to implement, be sure to check out our [Primer Roadmap](https://github.com/orgs/github/projects/2759) (GitHub staff only) to make sure it hasn't already been started on.
 
 ## Before Getting Started
 
@@ -104,7 +104,8 @@ Here's an example of a basic component written in the style of Primer react comp
 ```tsx
 import React from 'react'
 import Box from '../Box'
-import {BetterSystemStyleObject, SxProp, merge} from '../sx'
+import type {BetterSystemStyleObject, SxProp} from '../sx'
+import {merge} from '../sx'
 
 export type ComponentProps = {
   prop?: 'value1' | 'value2'
@@ -147,16 +148,17 @@ We consider a component SSR-compatible if it...
 
 We use [`eslint-plugin-ssr-friendly`](https://github.com/kopiro/eslint-plugin-ssr-friendly) to prevent misuse of DOM globals. If you see an error from this plugin, please fix it before merging your PR.
 
-If your component doesn't use DOM globals, it likely won't cause layout shift during hydration. However, if you suspect that your component might cause layout shift, you can use the example Next.js app (`examples/nextjs`) to debug. Import and render your component in `examples/nextjs/pages/index.js` then run the example app with `cd examples/nextjs && npm run develop`.
+If your component doesn't use DOM globals, it likely won't cause layout shift during hydration. However, if you suspect that your component might cause layout shift, you can use the example Next.js app (`examples/nextjs`) to debug. Import and render your component in `examples/nextjs/src/pages/index.js` then run the example app with `cd examples/nextjs && npm run develop`.
 
 ### Adding the `sx` prop
 
-Each component should accept a prop called `sx` that allows for setting theme-aware ad-hoc styles. See the [overriding styles](https://primer.style/components/overriding-styles) doc for more information on using the prop.
+Each component should accept a prop called `sx` that allows for setting theme-aware ad-hoc styles. See the [overriding styles](https://primer.style/react/overriding-styles) doc for more information on using the prop.
 
 To add the `sx` prop to your component: import the default export from the `sx` module, add it to your style definition, and add the appropriate prop types. **The `sx` prop should go at the _very end_ of your style definition.**
 
 ```tsx
-import sx, {SxProp} from './sx'
+import type {SxProp} from './sx'
+import sx from './sx'
 
 const Component = styled.div<SxProp>`
   // additional styles here

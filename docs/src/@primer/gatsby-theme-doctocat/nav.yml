@@ -90,6 +90,8 @@
       url: /Link
     - title: NavList
       url: /NavList
+    - title: Octicon
+      url: /Octicon
     - title: Overlay
       url: /Overlay
     - title: Pagehead
@@ -124,8 +126,6 @@
       url: /SplitPageLayout
     - title: StateLabel
       url: /StateLabel
-    - title: Octicon
-      url: /Octicon
     - title: SubNav
       url: /SubNav
     - title: ToggleSwitch
@@ -146,6 +146,8 @@
       url: /Token
     - title: Tooltip
       url: /Tooltip
+    - title: Tooltip v2
+      url: /TooltipV2
     - title: TreeView
       url: /TreeView
     - title: Truncate
@@ -168,8 +170,8 @@
       url: /drafts/MarkdownViewer
     - title: PageHeader
       url: /drafts/PageHeader
-    - title: Tooltip v2
-      url: /drafts/Tooltip
+    - title: SelectPanel v2
+      url: /drafts/SelectPanel
 - title: Deprecated
   children:
     - title: ActionList (legacy)
