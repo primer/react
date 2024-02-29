@@ -8,7 +8,9 @@ export const metadata = {
 
 export default function RootLayout({children}: {children: React.ReactNode}) {
   return (
-    <html lang="en">
+    // Note: the focus-visible polyfill adds additional attributes to `html`
+    // that cause hydration mismatch errors
+    <html lang="en" suppressHydrationWarning>
       <body>
         <StyledComponentsRegistry>
           <ThemeProvider>
