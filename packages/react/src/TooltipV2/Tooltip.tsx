@@ -264,10 +264,18 @@ export const Tooltip = React.forwardRef(
         setCalculatedDirection(calculatedDirection)
       }
 
-      tooltip.addEventListener('toggle', positionSet)
+      tooltip.addEventListener('toggle', event => {
+        // @ts-ignore for now
+        if (event.newState === 'open') {
+          positionSet()
+          console.log('Popover has been shown')
+        } else {
+          console.log('Popover has been hidden')
+        }
+      })
 
       return () => {
-        tooltip.removeEventListener('toggle', positionSet)
+        tooltip.removeEventListener('toggle', positionSet(e))
       }
     }, [tooltipElRef, triggerRef, direction, type])
 
