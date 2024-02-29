@@ -197,23 +197,17 @@ export const Tooltip = React.forwardRef(
 
     const openTooltip = () => {
       if (tooltipElRef.current && triggerRef.current && !tooltipElRef.current.matches(':popover-open')) {
-        //  can I set the position here?
-
-        console.log('SET POSITION')
         /*
          * TOOLTIP POSITIONING
          */
         const tooltip = tooltipElRef.current
         const trigger = triggerRef.current
         tooltip.setAttribute('popover', 'auto')
+        tooltip.showPopover()
         const settings = {
           side: directionToPosition[direction].side,
           align: directionToPosition[direction].align,
         }
-
-        // there is some race conditioning happening here between showing the popover and listening the toggle event
-        tooltipElRef.current.showPopover()
-        console.log('OPEN TOOLTIP', tooltipElRef.current.matches(':popover-open'))
         const {top, left, anchorAlign, anchorSide} = getAnchoredPosition(tooltip, trigger, settings)
         // This is required to make sure the popover is positioned correctly i.e. when there is not enough space on the specified direction, we set a new direction to position the ::after
         const calculatedDirection = positionToDirection[`${anchorSide}-${anchorAlign}` as string]
@@ -261,56 +255,6 @@ export const Tooltip = React.forwardRef(
           apply()
         }
       }
-
-      // /*
-      //  * TOOLTIP POSITIONING
-      //  */
-      // const tooltip = tooltipElRef.current
-      // const trigger = triggerRef.current
-      // tooltip.setAttribute('popover', 'auto')
-      // const settings = {
-      //   side: directionToPosition[direction].side,
-      //   align: directionToPosition[direction].align,
-      // }
-
-      // const positionSet = () => {
-
-      // const {top, left, anchorAlign, anchorSide} = getAnchoredPosition(tooltip, trigger, settings)
-      // setTooltipPosition([top, left])
-      // console.log('top', top)
-      // console.log('left', left)
-
-      // // tooltip.style.top = `${top}px`
-      // // tooltip.style.left = `${left}px`
-
-      // // console.log('top', tooltip.style.top)
-      // // console.log('left', tooltip.style.left)
-      // // This is required to make sure the popover is positioned correctly i.e. when there is not enough space on the specified direction, we set a new direction to position the ::after
-      // const calculatedDirection = positionToDirection[`${anchorSide}-${anchorAlign}` as string]
-      // setCalculatedDirection(calculatedDirection)
-      // }
-
-      // tooltip.addEventListener('toggle', event => {
-      //   // @ts-ignore for now
-      //   if (event.newState === 'open') {
-      //     positionSet()
-      //     console.log('Popover has been shown')
-      //   } else {
-      //     console.log('Popover has been hidden')
-      //   }
-      // })
-
-      // return () => {
-      //   tooltip.removeEventListener('toggle', event => {
-      //     // @ts-ignore for now
-      //     if (event.newState === 'open') {
-      //       positionSet()
-      //       console.log('Popover has been shown')
-      //     } else {
-      //       console.log('Popover has been hidden')
-      //     }
-      //   })
-      // }
     }, [tooltipElRef, triggerRef, direction, type])
 
     return (
