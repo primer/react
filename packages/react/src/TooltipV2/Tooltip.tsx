@@ -211,17 +211,15 @@ export const Tooltip = React.forwardRef(
           align: directionToPosition[direction].align,
         }
 
+        // there is some race conditioning happening here between showing the popover and listening the toggle event
+        tooltipElRef.current.showPopover()
+        console.log('OPEN TOOLTIP', tooltipElRef.current.matches(':popover-open'))
         const {top, left, anchorAlign, anchorSide} = getAnchoredPosition(tooltip, trigger, settings)
-
-        tooltip.style.top = `${top}px`
-        tooltip.style.left = `${left}px`
-
         // This is required to make sure the popover is positioned correctly i.e. when there is not enough space on the specified direction, we set a new direction to position the ::after
         const calculatedDirection = positionToDirection[`${anchorSide}-${anchorAlign}` as string]
         setCalculatedDirection(calculatedDirection)
-
-        console.log('OPEN TOOLTIP')
-        tooltipElRef.current.showPopover()
+        tooltip.style.top = `${top}px`
+        tooltip.style.left = `${left}px`
       }
     }
     const closeTooltip = () => {
