@@ -11,7 +11,7 @@ import {Button} from '../Button'
 import {useId} from '../hooks/useId'
 import type {MandateProps} from '../utils/types'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
-import {Tooltip} from '../drafts/Tooltip/Tooltip'
+import {Tooltip} from '../TooltipV2/Tooltip'
 
 export type MenuContextProps = Pick<
   AnchoredOverlayProps,

@@ -1,6 +1,6 @@
 {
   "name": "@primer/react",
-  "version": "36.7.1",
+  "version": "36.10.0",
   "description": "An implementation of GitHub's Primer Design System using React",
   "main": "lib/index.js",
   "module": "lib-esm/index.js",
@@ -20,6 +20,10 @@
     "./deprecated": {
       "import": "./lib-esm/deprecated/index.js",
       "require": "./lib/deprecated/index.js"
+    },
+    "./next": {
+      "import": "./lib-esm/next/index.js",
+      "require": "./lib/next/index.js"
     },
     "./lib-esm/*": {
       "import": [
@@ -118,7 +122,7 @@
     "@babel/plugin-proposal-optional-chaining": "7.21.0",
     "@babel/plugin-transform-modules-commonjs": "7.23.3",
     "@babel/preset-react": "7.23.3",
-    "@babel/preset-typescript": "7.22.15",
+    "@babel/preset-typescript": "7.23.3",
     "@primer/css": "^21.0.1",
     "@rollup/plugin-babel": "6.0.4",
     "@rollup/plugin-commonjs": "25.0.4",
@@ -129,7 +133,7 @@
     "@rollup/plugin-virtual": "3.0.2",
     "@storybook/addon-a11y": "7.6.14",
     "@storybook/addon-actions": "7.6.8",
-    "@storybook/addon-essentials": "7.6.10",
+    "@storybook/addon-essentials": "7.6.17",
     "@storybook/addon-interactions": "7.6.4",
     "@storybook/addon-links": "7.6.2",
     "@storybook/addon-storysource": "7.6.14",
@@ -152,13 +156,13 @@
     "@types/lodash.isempty": "4.4.9",
     "@types/lodash.isobject": "3.0.9",
     "@types/lodash.keyby": "4.6.7",
-    "@types/node": "20.11.16",
+    "@types/node": "20.11.20",
     "@types/react": "18.2.45",
     "@types/react-dom": "18.2.6",
     "@types/semver": "7.5.3",
     "@types/styled-components": "^5.1.26",
     "ajv": "8.12.0",
-    "axe-core": "4.7.0",
+    "axe-core": "4.8.4",
     "babel-core": "7.0.0-bridge.0",
     "babel-loader": "^9.1.0",
     "babel-plugin-add-react-displayname": "0.0.5",
@@ -172,7 +176,7 @@
     "concurrently": "8.0.1",
     "copyfiles": "2.4.1",
     "cross-env": "7.0.3",
-    "fast-glob": "3.3.1",
+    "fast-glob": "3.3.2",
     "filesize": "10.1.0",
     "front-matter": "4.0.2",
     "gzip-size": "6.0.0",
@@ -204,7 +208,7 @@
     "rollup-plugin-postcss": "4.0.2",
     "rollup-plugin-visualizer": "5.9.2",
     "semver": "7.5.4",
-    "storybook": "7.6.2",
+    "storybook": "7.6.16",
     "storybook-addon-turbo-build": "2.0.1",
     "styled-components": "5.3.11",
     "terser": "5.27.0",

@@ -116,8 +116,12 @@ export const TextInputBaseWrapper = styled.span<StyledBaseWrapperProps>`
     cursor: pointer;
   }
 
-  &::placeholder {
-    color: ${get('colors.fg.subtle')};
+  input,
+  textarea,
+  select {
+    &::placeholder {
+      color: var(---control-fgColor-placeholder, ${get('colors.fg.muted')});
+    }
   }
 
   ${props => renderFocusStyles(Boolean(props.hasTrailingAction), Boolean(props.isInputFocused))}
@@ -137,7 +141,8 @@ export const TextInputBaseWrapper = styled.span<StyledBaseWrapperProps>`
     css`
       color: ${get('colors.primer.fg.disabled')};
       background-color: ${get('colors.input.disabledBg')};
-      border-color: ${get('colors.border.default')};
+      box-shadow: none;
+      border-color: var(--control-borderColor-disabled, ${get('colors.border.default')});
 
       input,
       textarea,

@@ -63,6 +63,9 @@ export const WithWarning = () => {
   const onSubmit = () => {
     data.issue.assigneeIds = selectedAssigneeIds // pretending to persist changes
   }
+  const onCancel = () => {
+    setSelectedAssigneeIds(initialAssigneeIds)
+  }
 
   /* Filtering */
   const [filteredUsers, setFilteredUsers] = React.useState(data.collaborators)
@@ -107,6 +110,7 @@ export const WithWarning = () => {
         title="Set assignees"
         description={`Select up to ${MAX_LIMIT} people`}
         onSubmit={onSubmit}
+        onCancel={onCancel}
         onClearSelection={onClearSelection}
       >
         <SelectPanel.Button
@@ -172,6 +176,9 @@ export const WithErrors = () => {
   const onClearSelection = () => setSelectedAssigneeIds([])
   const onSubmit = () => {
     data.issue.assigneeIds = selectedAssigneeIds // pretending to persist changes
+  }
+  const onCancel = () => {
+    setSelectedAssigneeIds(initialAssigneeIds)
   }
 
   /* Filtering */
@@ -254,7 +261,7 @@ export const WithErrors = () => {
         />
       </Box>
 
-      <SelectPanel title="Set assignees" onSubmit={onSubmit} onClearSelection={onClearSelection}>
+      <SelectPanel title="Set assignees" onSubmit={onSubmit} onCancel={onCancel} onClearSelection={onClearSelection}>
         <SelectPanel.Button
           variant="invisible"
           trailingAction={GearIcon}
@@ -325,6 +332,10 @@ export const ExternalAnchor = () => {
     console.log('form submitted')
   }
 
+  const onCancel = () => {
+    setSelectedLabelIds(initialSelectedLabels)
+  }
+
   const sortingFn = (itemA: {id: string}, itemB: {id: string}) => {
     const initialSelectedIds = data.issue.labelIds
     if (initialSelectedIds.includes(itemA.id) && initialSelectedIds.includes(itemB.id)) return 1
@@ -364,7 +375,10 @@ export const ExternalAnchor = () => {
           setOpen(false) // close on submit
           onSubmit()
         }}
-        onCancel={() => setOpen(false)} // close on cancel
+        onCancel={() => {
+          onCancel()
+          setOpen(false) // close on cancel
+        }}
       >
         <ActionList>
           {itemsToShow.map(label => (
@@ -402,6 +416,10 @@ export const AsModal = () => {
     console.log('form submitted')
   }
 
+  const onCancel = () => {
+    setSelectedLabelIds(initialSelectedLabels)
+  }
+
   const sortingFn = (itemA: {id: string}, itemB: {id: string}) => {
     const initialSelectedIds = data.issue.labelIds
     if (initialSelectedIds.includes(itemA.id) && initialSelectedIds.includes(itemB.id)) return 1
@@ -416,7 +434,7 @@ export const AsModal = () => {
     <>
       <h1>SelectPanel as Modal</h1>
 
-      <SelectPanel variant="modal" title="Select labels" onSubmit={onSubmit}>
+      <SelectPanel variant="modal" title="Select labels" onSubmit={onSubmit} onCancel={onCancel}>
         <SelectPanel.Button>Assign label</SelectPanel.Button>
 
         <ActionList>

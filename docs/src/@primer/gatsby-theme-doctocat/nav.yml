@@ -146,6 +146,8 @@
       url: /Token
     - title: Tooltip
       url: /Tooltip
+    - title: Tooltip v2
+      url: /TooltipV2
     - title: TreeView
       url: /TreeView
     - title: Truncate
@@ -170,8 +172,6 @@
       url: /drafts/PageHeader
     - title: SelectPanel v2
       url: /drafts/SelectPanel
-    - title: Tooltip v2
-      url: /drafts/Tooltip
 - title: Deprecated
   children:
     - title: ActionList (legacy)

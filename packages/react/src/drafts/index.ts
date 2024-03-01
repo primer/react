@@ -61,4 +61,5 @@ export type {
   NavListDividerProps,
 } from '../NavList'
 export * from './SelectPanel2'
-export * from './Tooltip'
+export * from '../TooltipV2'
+export * from './ActionBar'
