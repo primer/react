@@ -12,9 +12,7 @@ export default {
 export const Selected = () => (
   <TabPanels aria-label="TabPanels example" id="tab-panels">
     <TabPanels.Tab>One</TabPanels.Tab>
-    <TabPanels.Tab selected>
-      Two
-    </TabPanels.Tab>
+    <TabPanels.Tab selected>Two</TabPanels.Tab>
     <TabPanels.Tab>Three</TabPanels.Tab>
     <TabPanels.Panel>One</TabPanels.Panel>
     <TabPanels.Panel>Two</TabPanels.Panel>
@@ -48,9 +46,7 @@ export const ManyTabs = () => (
     <TabPanels.Tab>Eight</TabPanels.Tab>
     <TabPanels.Tab>Nine</TabPanels.Tab>
     <TabPanels.Tab>Ten</TabPanels.Tab>
-    <TabPanels.Tab selected>
-      Eleven
-    </TabPanels.Tab>
+    <TabPanels.Tab selected>Eleven</TabPanels.Tab>
     <TabPanels.Panel>One</TabPanels.Panel>
     <TabPanels.Panel>Two</TabPanels.Panel>
     <TabPanels.Panel>Three</TabPanels.Panel>
