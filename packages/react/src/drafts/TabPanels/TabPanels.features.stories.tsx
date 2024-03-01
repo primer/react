@@ -5,7 +5,7 @@ import type {ComponentProps} from '../../utils/types'
 import {Button} from '../../Button'
 
 export default {
-  title: 'Components/TabPanels/Features',
+  title: 'Drafts/Components/TabPanels/Features',
   component: TabPanels,
 } as Meta<ComponentProps<typeof TabPanels>>
 
