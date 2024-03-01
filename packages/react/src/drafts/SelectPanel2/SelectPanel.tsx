@@ -203,7 +203,7 @@ const Panel: React.FC<SelectPanelProps> = ({
       side: 'outside-bottom',
       align: 'start',
     },
-    [anchorRef.current, dialogRef.current],
+    [internalOpen, anchorRef.current, dialogRef.current],
   )
 
   /* 
