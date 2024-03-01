@@ -73,7 +73,7 @@ semver bump: **minor**
 
 When a type is broadened, it is now possible for that type to include both the
 existing value and additional values. As a result, this maintains backwards
-compatability while providing new functionality to the library.
+compatibility while providing new functionality to the library.
 
 ```diff
 // v0.1.0
@@ -82,7 +82,7 @@ compatability while providing new functionality to the library.
 // v0.2.0
 + export type Example = number | string;
 
-// Maintains compatability across versions
+// Maintains compatibility across versions
 const t1: Example = 1;
 ```
 
@@ -102,7 +102,7 @@ work.
 // v0.2.0
 + export type Example = 'a' | 'b' | 'c';
 
-// Does not maintain compatability across versions, the change must be a major
+// Does not maintain compatibility across versions, the change must be a major
 // change
 const t1: Example = 'd';
 ```

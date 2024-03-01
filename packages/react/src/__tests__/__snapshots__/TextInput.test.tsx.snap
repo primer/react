@@ -32,20 +32,28 @@ exports[`TextInput renders 1`] = `
   cursor: pointer;
 }
 
-.c0::-webkit-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-webkit-input-placeholder,
+.c0 textarea::-webkit-input-placeholder,
+.c0 select::-webkit-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::-moz-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-moz-placeholder,
+.c0 textarea::-moz-placeholder,
+.c0 select::-moz-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:-ms-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input:-ms-input-placeholder,
+.c0 textarea:-ms-input-placeholder,
+.c0 select:-ms-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::placeholder,
+.c0 textarea::placeholder,
+.c0 select::placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
 .c0:focus-within {
@@ -162,20 +170,28 @@ exports[`TextInput renders block 1`] = `
   cursor: pointer;
 }
 
-.c0::-webkit-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-webkit-input-placeholder,
+.c0 textarea::-webkit-input-placeholder,
+.c0 select::-webkit-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::-moz-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-moz-placeholder,
+.c0 textarea::-moz-placeholder,
+.c0 select::-moz-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:-ms-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input:-ms-input-placeholder,
+.c0 textarea:-ms-input-placeholder,
+.c0 select:-ms-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::placeholder,
+.c0 textarea::placeholder,
+.c0 select::placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
 .c0:focus-within {
@@ -285,20 +301,28 @@ exports[`TextInput renders contrast 1`] = `
   cursor: pointer;
 }
 
-.c0::-webkit-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-webkit-input-placeholder,
+.c0 textarea::-webkit-input-placeholder,
+.c0 select::-webkit-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::-moz-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-moz-placeholder,
+.c0 textarea::-moz-placeholder,
+.c0 select::-moz-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:-ms-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input:-ms-input-placeholder,
+.c0 textarea:-ms-input-placeholder,
+.c0 select:-ms-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::placeholder,
+.c0 textarea::placeholder,
+.c0 select::placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
 .c0:focus-within {
@@ -408,20 +432,28 @@ exports[`TextInput renders error 1`] = `
   cursor: pointer;
 }
 
-.c0::-webkit-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-webkit-input-placeholder,
+.c0 textarea::-webkit-input-placeholder,
+.c0 select::-webkit-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::-moz-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-moz-placeholder,
+.c0 textarea::-moz-placeholder,
+.c0 select::-moz-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:-ms-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input:-ms-input-placeholder,
+.c0 textarea:-ms-input-placeholder,
+.c0 select:-ms-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::placeholder,
+.c0 textarea::placeholder,
+.c0 select::placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
 .c0:focus-within {
@@ -542,20 +574,28 @@ exports[`TextInput renders large 1`] = `
   cursor: pointer;
 }
 
-.c0::-webkit-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-webkit-input-placeholder,
+.c0 textarea::-webkit-input-placeholder,
+.c0 select::-webkit-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::-moz-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-moz-placeholder,
+.c0 textarea::-moz-placeholder,
+.c0 select::-moz-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:-ms-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input:-ms-input-placeholder,
+.c0 textarea:-ms-input-placeholder,
+.c0 select:-ms-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::placeholder,
+.c0 textarea::placeholder,
+.c0 select::placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
 .c0:focus-within {
@@ -665,20 +705,28 @@ exports[`TextInput renders leadingVisual 1`] = `
   cursor: pointer;
 }
 
-.c0::-webkit-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-webkit-input-placeholder,
+.c0 textarea::-webkit-input-placeholder,
+.c0 select::-webkit-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::-moz-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-moz-placeholder,
+.c0 textarea::-moz-placeholder,
+.c0 select::-moz-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:-ms-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input:-ms-input-placeholder,
+.c0 textarea:-ms-input-placeholder,
+.c0 select:-ms-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::placeholder,
+.c0 textarea::placeholder,
+.c0 select::placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
 .c0:focus-within {
@@ -814,20 +862,28 @@ exports[`TextInput renders leadingVisual 2`] = `
   cursor: pointer;
 }
 
-.c0::-webkit-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-webkit-input-placeholder,
+.c0 textarea::-webkit-input-placeholder,
+.c0 select::-webkit-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::-moz-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-moz-placeholder,
+.c0 textarea::-moz-placeholder,
+.c0 select::-moz-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:-ms-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input:-ms-input-placeholder,
+.c0 textarea:-ms-input-placeholder,
+.c0 select:-ms-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::placeholder,
+.c0 textarea::placeholder,
+.c0 select::placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
 .c0:focus-within {
@@ -963,20 +1019,28 @@ exports[`TextInput renders leadingVisual 3`] = `
   cursor: pointer;
 }
 
-.c0::-webkit-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-webkit-input-placeholder,
+.c0 textarea::-webkit-input-placeholder,
+.c0 select::-webkit-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::-moz-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-moz-placeholder,
+.c0 textarea::-moz-placeholder,
+.c0 select::-moz-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:-ms-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input:-ms-input-placeholder,
+.c0 textarea:-ms-input-placeholder,
+.c0 select:-ms-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::placeholder,
+.c0 textarea::placeholder,
+.c0 select::placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
 .c0:focus-within {
@@ -1093,20 +1157,28 @@ exports[`TextInput renders leadingVisual 4`] = `
   cursor: pointer;
 }
 
-.c0::-webkit-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-webkit-input-placeholder,
+.c0 textarea::-webkit-input-placeholder,
+.c0 select::-webkit-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::-moz-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-moz-placeholder,
+.c0 textarea::-moz-placeholder,
+.c0 select::-moz-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:-ms-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input:-ms-input-placeholder,
+.c0 textarea:-ms-input-placeholder,
+.c0 select:-ms-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::placeholder,
+.c0 textarea::placeholder,
+.c0 select::placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
 .c0:focus-within {
@@ -1224,20 +1296,28 @@ exports[`TextInput renders monospace 1`] = `
   cursor: pointer;
 }
 
-.c0::-webkit-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-webkit-input-placeholder,
+.c0 textarea::-webkit-input-placeholder,
+.c0 select::-webkit-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::-moz-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-moz-placeholder,
+.c0 textarea::-moz-placeholder,
+.c0 select::-moz-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:-ms-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input:-ms-input-placeholder,
+.c0 textarea:-ms-input-placeholder,
+.c0 select:-ms-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::placeholder,
+.c0 textarea::placeholder,
+.c0 select::placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
 .c0:focus-within {
@@ -1346,20 +1426,28 @@ exports[`TextInput renders placeholder 1`] = `
   cursor: pointer;
 }
 
-.c0::-webkit-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-webkit-input-placeholder,
+.c0 textarea::-webkit-input-placeholder,
+.c0 select::-webkit-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::-moz-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-moz-placeholder,
+.c0 textarea::-moz-placeholder,
+.c0 select::-moz-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:-ms-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input:-ms-input-placeholder,
+.c0 textarea:-ms-input-placeholder,
+.c0 select:-ms-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::placeholder,
+.c0 textarea::placeholder,
+.c0 select::placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
 .c0:focus-within {
@@ -1477,20 +1565,28 @@ exports[`TextInput renders small 1`] = `
   cursor: pointer;
 }
 
-.c0::-webkit-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-webkit-input-placeholder,
+.c0 textarea::-webkit-input-placeholder,
+.c0 select::-webkit-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::-moz-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-moz-placeholder,
+.c0 textarea::-moz-placeholder,
+.c0 select::-moz-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:-ms-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input:-ms-input-placeholder,
+.c0 textarea:-ms-input-placeholder,
+.c0 select:-ms-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::placeholder,
+.c0 textarea::placeholder,
+.c0 select::placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
 .c0:focus-within {
@@ -1822,6 +1918,93 @@ exports[`TextInput renders trailingAction icon button 1`] = `
 .c5[data-size="small"][data-no-visuals][data-component="IconButton"] {
   width: var(--inner-action-size);
   height: var(--inner-action-size);
+}
+
+.c0 {
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
+  vertical-align: middle;
+  background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
+  border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
+  border-radius: 6px;
+  outline: none;
+  box-shadow: var(--shadow-inset,var(--color-primer-shadow-inset,inset 0 1px 0 rgba(208,215,222,0.2)));
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: stretch;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  min-height: 32px;
+  overflow: hidden;
+}
+
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
+}
+
+.c0 input::-webkit-input-placeholder,
+.c0 textarea::-webkit-input-placeholder,
+.c0 select::-webkit-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
+}
+
+.c0 input::-moz-placeholder,
+.c0 textarea::-moz-placeholder,
+.c0 select::-moz-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
+}
+
+.c0 input:-ms-input-placeholder,
+.c0 textarea:-ms-input-placeholder,
+.c0 select:-ms-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
+}
+
+.c0 input::placeholder,
+.c0 textarea::placeholder,
+.c0 select::placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
+}
+
+.c0 > textarea {
+  padding: 12px;
+}
+
+.c1 {
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.c1 > :not(:last-child) {
+  margin-right: 8px;
+}
+
+.c1 .TextInput-icon,
+.c1 .TextInput-action {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+}
+
+.c1 > input,
+.c1 > select {
+  padding-left: 12px;
+  padding-right: 0;
 }
 
 .c4 {
@@ -2519,20 +2702,28 @@ exports[`TextInput renders trailingAction text button 1`] = `
   cursor: pointer;
 }
 
-.c0::-webkit-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-webkit-input-placeholder,
+.c0 textarea::-webkit-input-placeholder,
+.c0 select::-webkit-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::-moz-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-moz-placeholder,
+.c0 textarea::-moz-placeholder,
+.c0 select::-moz-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:-ms-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input:-ms-input-placeholder,
+.c0 textarea:-ms-input-placeholder,
+.c0 select:-ms-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::placeholder,
+.c0 textarea::placeholder,
+.c0 select::placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
 .c0 > textarea {
@@ -2905,6 +3096,93 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
 
 .c5:disabled[data-no-visuals] [data-component=ButtonCounter] {
   color: inherit;
+}
+
+.c0 {
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
+  vertical-align: middle;
+  background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
+  border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
+  border-radius: 6px;
+  outline: none;
+  box-shadow: var(--shadow-inset,var(--color-primer-shadow-inset,inset 0 1px 0 rgba(208,215,222,0.2)));
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: stretch;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  min-height: 32px;
+  overflow: hidden;
+}
+
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
+}
+
+.c0 input::-webkit-input-placeholder,
+.c0 textarea::-webkit-input-placeholder,
+.c0 select::-webkit-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
+}
+
+.c0 input::-moz-placeholder,
+.c0 textarea::-moz-placeholder,
+.c0 select::-moz-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
+}
+
+.c0 input:-ms-input-placeholder,
+.c0 textarea:-ms-input-placeholder,
+.c0 select:-ms-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
+}
+
+.c0 input::placeholder,
+.c0 textarea::placeholder,
+.c0 select::placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
+}
+
+.c0 > textarea {
+  padding: 12px;
+}
+
+.c1 {
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.c1 > :not(:last-child) {
+  margin-right: 8px;
+}
+
+.c1 .TextInput-icon,
+.c1 .TextInput-action {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+}
+
+.c1 > input,
+.c1 > select {
+  padding-left: 12px;
+  padding-right: 0;
 }
 
 .c4 {
@@ -3330,20 +3608,28 @@ exports[`TextInput renders trailingVisual 1`] = `
   cursor: pointer;
 }
 
-.c0::-webkit-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-webkit-input-placeholder,
+.c0 textarea::-webkit-input-placeholder,
+.c0 select::-webkit-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::-moz-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-moz-placeholder,
+.c0 textarea::-moz-placeholder,
+.c0 select::-moz-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:-ms-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input:-ms-input-placeholder,
+.c0 textarea:-ms-input-placeholder,
+.c0 select:-ms-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::placeholder,
+.c0 textarea::placeholder,
+.c0 select::placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
 .c0:focus-within {
@@ -3479,20 +3765,28 @@ exports[`TextInput renders trailingVisual 2`] = `
   cursor: pointer;
 }
 
-.c0::-webkit-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-webkit-input-placeholder,
+.c0 textarea::-webkit-input-placeholder,
+.c0 select::-webkit-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::-moz-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-moz-placeholder,
+.c0 textarea::-moz-placeholder,
+.c0 select::-moz-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:-ms-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input:-ms-input-placeholder,
+.c0 textarea:-ms-input-placeholder,
+.c0 select:-ms-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::placeholder,
+.c0 textarea::placeholder,
+.c0 select::placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
 .c0:focus-within {
@@ -3628,20 +3922,28 @@ exports[`TextInput renders trailingVisual 3`] = `
   cursor: pointer;
 }
 
-.c0::-webkit-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-webkit-input-placeholder,
+.c0 textarea::-webkit-input-placeholder,
+.c0 select::-webkit-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::-moz-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-moz-placeholder,
+.c0 textarea::-moz-placeholder,
+.c0 select::-moz-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:-ms-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input:-ms-input-placeholder,
+.c0 textarea:-ms-input-placeholder,
+.c0 select:-ms-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::placeholder,
+.c0 textarea::placeholder,
+.c0 select::placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
 .c0:focus-within {
@@ -3758,20 +4060,28 @@ exports[`TextInput renders trailingVisual 4`] = `
   cursor: pointer;
 }
 
-.c0::-webkit-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-webkit-input-placeholder,
+.c0 textarea::-webkit-input-placeholder,
+.c0 select::-webkit-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::-moz-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-moz-placeholder,
+.c0 textarea::-moz-placeholder,
+.c0 select::-moz-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:-ms-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input:-ms-input-placeholder,
+.c0 textarea:-ms-input-placeholder,
+.c0 select:-ms-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::placeholder,
+.c0 textarea::placeholder,
+.c0 select::placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
 .c0:focus-within {
@@ -3903,20 +4213,28 @@ exports[`TextInput renders with a loading indicator 1`] = `
   cursor: pointer;
 }
 
-.c0::-webkit-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-webkit-input-placeholder,
+.c0 textarea::-webkit-input-placeholder,
+.c0 select::-webkit-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::-moz-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-moz-placeholder,
+.c0 textarea::-moz-placeholder,
+.c0 select::-moz-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:-ms-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input:-ms-input-placeholder,
+.c0 textarea:-ms-input-placeholder,
+.c0 select:-ms-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::placeholder,
+.c0 textarea::placeholder,
+.c0 select::placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
 .c0:focus-within {
@@ -4087,20 +4405,28 @@ exports[`TextInput renders with a loading indicator 1`] = `
   cursor: pointer;
 }
 
-.c0::-webkit-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-webkit-input-placeholder,
+.c0 textarea::-webkit-input-placeholder,
+.c0 select::-webkit-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::-moz-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-moz-placeholder,
+.c0 textarea::-moz-placeholder,
+.c0 select::-moz-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:-ms-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input:-ms-input-placeholder,
+.c0 textarea:-ms-input-placeholder,
+.c0 select:-ms-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::placeholder,
+.c0 textarea::placeholder,
+.c0 select::placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
 .c0:focus-within {
@@ -4303,20 +4629,28 @@ exports[`TextInput renders with a loading indicator 1`] = `
   cursor: pointer;
 }
 
-.c0::-webkit-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-webkit-input-placeholder,
+.c0 textarea::-webkit-input-placeholder,
+.c0 select::-webkit-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::-moz-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-moz-placeholder,
+.c0 textarea::-moz-placeholder,
+.c0 select::-moz-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:-ms-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input:-ms-input-placeholder,
+.c0 textarea:-ms-input-placeholder,
+.c0 select:-ms-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::placeholder,
+.c0 textarea::placeholder,
+.c0 select::placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
 .c0:focus-within {
@@ -4496,20 +4830,28 @@ exports[`TextInput renders with a loading indicator 1`] = `
   cursor: pointer;
 }
 
-.c0::-webkit-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-webkit-input-placeholder,
+.c0 textarea::-webkit-input-placeholder,
+.c0 select::-webkit-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::-moz-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-moz-placeholder,
+.c0 textarea::-moz-placeholder,
+.c0 select::-moz-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:-ms-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input:-ms-input-placeholder,
+.c0 textarea:-ms-input-placeholder,
+.c0 select:-ms-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::placeholder,
+.c0 textarea::placeholder,
+.c0 select::placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
 .c0:focus-within {
@@ -4758,20 +5100,28 @@ exports[`TextInput renders with a loading indicator 1`] = `
   cursor: pointer;
 }
 
-.c0::-webkit-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-webkit-input-placeholder,
+.c0 textarea::-webkit-input-placeholder,
+.c0 select::-webkit-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::-moz-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-moz-placeholder,
+.c0 textarea::-moz-placeholder,
+.c0 select::-moz-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:-ms-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input:-ms-input-placeholder,
+.c0 textarea:-ms-input-placeholder,
+.c0 select:-ms-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::placeholder,
+.c0 textarea::placeholder,
+.c0 select::placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
 .c0:focus-within {
@@ -5020,20 +5370,28 @@ exports[`TextInput renders with a loading indicator 1`] = `
   cursor: pointer;
 }
 
-.c0::-webkit-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-webkit-input-placeholder,
+.c0 textarea::-webkit-input-placeholder,
+.c0 select::-webkit-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::-moz-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-moz-placeholder,
+.c0 textarea::-moz-placeholder,
+.c0 select::-moz-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:-ms-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input:-ms-input-placeholder,
+.c0 textarea:-ms-input-placeholder,
+.c0 select:-ms-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::placeholder,
+.c0 textarea::placeholder,
+.c0 select::placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
 .c0:focus-within {
@@ -5276,20 +5634,28 @@ exports[`TextInput renders with a loading indicator 1`] = `
   cursor: pointer;
 }
 
-.c0::-webkit-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-webkit-input-placeholder,
+.c0 textarea::-webkit-input-placeholder,
+.c0 select::-webkit-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::-moz-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-moz-placeholder,
+.c0 textarea::-moz-placeholder,
+.c0 select::-moz-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:-ms-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input:-ms-input-placeholder,
+.c0 textarea:-ms-input-placeholder,
+.c0 select:-ms-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::placeholder,
+.c0 textarea::placeholder,
+.c0 select::placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
 .c0:focus-within {
@@ -5500,20 +5866,28 @@ exports[`TextInput renders with a loading indicator 1`] = `
   cursor: pointer;
 }
 
-.c0::-webkit-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-webkit-input-placeholder,
+.c0 textarea::-webkit-input-placeholder,
+.c0 select::-webkit-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::-moz-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-moz-placeholder,
+.c0 textarea::-moz-placeholder,
+.c0 select::-moz-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:-ms-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input:-ms-input-placeholder,
+.c0 textarea:-ms-input-placeholder,
+.c0 select:-ms-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::placeholder,
+.c0 textarea::placeholder,
+.c0 select::placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
 .c0:focus-within {
@@ -5756,20 +6130,28 @@ exports[`TextInput renders with a loading indicator 1`] = `
   cursor: pointer;
 }
 
-.c0::-webkit-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-webkit-input-placeholder,
+.c0 textarea::-webkit-input-placeholder,
+.c0 select::-webkit-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::-moz-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-moz-placeholder,
+.c0 textarea::-moz-placeholder,
+.c0 select::-moz-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:-ms-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input:-ms-input-placeholder,
+.c0 textarea:-ms-input-placeholder,
+.c0 select:-ms-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::placeholder,
+.c0 textarea::placeholder,
+.c0 select::placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
 .c0:focus-within {
@@ -5997,20 +6379,28 @@ exports[`TextInput renders with a loading indicator 1`] = `
   cursor: pointer;
 }
 
-.c0::-webkit-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-webkit-input-placeholder,
+.c0 textarea::-webkit-input-placeholder,
+.c0 select::-webkit-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::-moz-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-moz-placeholder,
+.c0 textarea::-moz-placeholder,
+.c0 select::-moz-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:-ms-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input:-ms-input-placeholder,
+.c0 textarea:-ms-input-placeholder,
+.c0 select:-ms-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::placeholder,
+.c0 textarea::placeholder,
+.c0 select::placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
 .c0:focus-within {
@@ -6300,20 +6690,28 @@ exports[`TextInput renders with a loading indicator 1`] = `
   cursor: pointer;
 }
 
-.c0::-webkit-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-webkit-input-placeholder,
+.c0 textarea::-webkit-input-placeholder,
+.c0 select::-webkit-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::-moz-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-moz-placeholder,
+.c0 textarea::-moz-placeholder,
+.c0 select::-moz-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:-ms-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input:-ms-input-placeholder,
+.c0 textarea:-ms-input-placeholder,
+.c0 select:-ms-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::placeholder,
+.c0 textarea::placeholder,
+.c0 select::placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
 .c0:focus-within {
@@ -6608,20 +7006,28 @@ exports[`TextInput renders with a loading indicator 1`] = `
   cursor: pointer;
 }
 
-.c0::-webkit-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-webkit-input-placeholder,
+.c0 textarea::-webkit-input-placeholder,
+.c0 select::-webkit-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::-moz-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-moz-placeholder,
+.c0 textarea::-moz-placeholder,
+.c0 select::-moz-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:-ms-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input:-ms-input-placeholder,
+.c0 textarea:-ms-input-placeholder,
+.c0 select:-ms-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::placeholder,
+.c0 textarea::placeholder,
+.c0 select::placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
 .c0:focus-within {
@@ -6877,20 +7283,28 @@ exports[`TextInput should render a password input 1`] = `
   cursor: pointer;
 }
 
-.c0::-webkit-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-webkit-input-placeholder,
+.c0 textarea::-webkit-input-placeholder,
+.c0 select::-webkit-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::-moz-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-moz-placeholder,
+.c0 textarea::-moz-placeholder,
+.c0 select::-moz-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:-ms-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input:-ms-input-placeholder,
+.c0 textarea:-ms-input-placeholder,
+.c0 select:-ms-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::placeholder,
+.c0 textarea::placeholder,
+.c0 select::placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
 .c0:focus-within {

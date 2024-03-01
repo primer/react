@@ -464,7 +464,7 @@ const components = new Map([
     },
   ],
   [
-    'Dialog v1',
+    'DialogV1',
     {
       stories: [
         {
@@ -1415,7 +1415,7 @@ const components = new Map([
     },
   ],
   [
-    'Tooltip V2',
+    'TooltipV2',
     {
       stories: [
         {
