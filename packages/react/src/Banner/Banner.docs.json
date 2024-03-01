@@ -1,0 +1,47 @@
+{
+  "id": "banner",
+  "name": "Banner",
+  "status": "draft",
+  "a11yReviewed": false,
+  "stories": [],
+  "props": [
+    {
+      "name": "onDismiss",
+      "type": "() => void",
+      "description": ""
+    },
+    {
+      "name": "icon",
+      "type": "",
+      "description": ""
+    },
+    {
+      "name": "title",
+      "type": "",
+      "description": ""
+    },
+    {
+      "name": "variant",
+      "type": "",
+      "description": ""
+    }
+  ],
+  "subcomponents": [
+    {
+      "name": "Banner.Description",
+      "props": []
+    },
+    {
+      "name": "Banner.Actions",
+      "props": []
+    },
+    {
+      "name": "Banner.PrimaryAction",
+      "props": []
+    },
+    {
+      "name": "Banner.SecondaryAction",
+      "props": []
+    }
+  ]
+}
