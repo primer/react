@@ -4,6 +4,7 @@ import {IconButton} from '.'
 import {ActionMenu} from '../ActionMenu'
 import {ActionList} from '../ActionList'
 import {Tooltip} from '../TooltipV2'
+import {default as TooltipV1} from '../Tooltip'
 
 export default {
   title: 'Components/IconButton/Features',
@@ -37,10 +38,16 @@ export const ExternalTooltip = () => (
   </Tooltip>
 )
 
+export const ExternalTooltipVersion1 = () => (
+  <TooltipV1 text="this is a supportive description for icon button" direction="se">
+    <IconButton icon={HeartIcon} aria-label="HeartIcon" />
+  </TooltipV1>
+)
+
 export const AsAMenuAnchor = () => (
   <ActionMenu>
     <ActionMenu.Anchor>
-      <IconButton icon={ChevronDownIcon} aria-label="Open Menu" />
+      <IconButton icon={ChevronDownIcon} aria-label="Something" />
     </ActionMenu.Anchor>
 
     <ActionMenu.Overlay width="medium">

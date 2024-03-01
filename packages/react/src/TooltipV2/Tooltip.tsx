@@ -1,4 +1,4 @@
-import React, {Children, useEffect, useRef, useState} from 'react'
+import React, {Children, useEffect, useRef, useState, useMemo} from 'react'
 import type {SxProp} from '../sx'
 import sx from '../sx'
 import {useId, useProvidedRefOrCreate} from '../hooks'
@@ -205,6 +205,9 @@ export const Tooltip = React.forwardRef(
       }
     }
 
+    // context value
+    const value = useMemo(() => ({tooltipId}), [tooltipId])
+
     useEffect(() => {
       if (!tooltipElRef.current || !triggerRef.current) return
       /*
@@ -268,7 +271,7 @@ export const Tooltip = React.forwardRef(
     }, [tooltipElRef, triggerRef, direction, type])
 
     return (
-      <TooltipContext.Provider value={{tooltipId}}>
+      <TooltipContext.Provider value={value}>
         <>
           {React.isValidElement(child) &&
             React.cloneElement(child as React.ReactElement<TriggerPropsType>, {

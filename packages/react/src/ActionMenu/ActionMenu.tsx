@@ -148,12 +148,12 @@ const Overlay: React.FC<React.PropsWithChildren<MenuOverlayProps>> = ({
   useMenuKeyboardNavigation(open, onClose, containerRef, anchorRef)
 
   // If the menu anchor is an icon button, we need to label the menu by tooltip that also labelled the anchor.
-  const [tooltipId, setTooltipId] = useState<null | string>(null)
+  const [anchorAriaLabelledby, setAnchorAriaLabelledby] = useState<null | string>(null)
   useEffect(() => {
     if (anchorRef.current) {
-      const anchorAriaLabelledby = anchorRef.current.getAttribute('aria-labelledby')
-      if (anchorAriaLabelledby) {
-        setTooltipId(anchorAriaLabelledby)
+      const ariaLabelledby = anchorRef.current.getAttribute('aria-labelledby')
+      if (ariaLabelledby) {
+        setAnchorAriaLabelledby(ariaLabelledby)
       }
     }
   }, [anchorRef])
@@ -176,8 +176,8 @@ const Overlay: React.FC<React.PropsWithChildren<MenuOverlayProps>> = ({
           value={{
             container: 'ActionMenu',
             listRole: 'menu',
-            // If there is a custom aria-labelledby, use that. Otherwise, use the tooltipId if exist. If not, use anchor id.
-            listLabelledBy: ariaLabelledby || tooltipId || anchorId,
+            // If there is a custom aria-labelledby, use that. Otherwise, if exists, use the id that labels the anchor such as tooltip. If none of them exist, use anchor id.
+            listLabelledBy: ariaLabelledby || anchorAriaLabelledby || anchorId,
             selectionAttribute: 'aria-checked', // Should this be here?
             afterSelect: onClose,
           }}

@@ -1,5 +1,5 @@
 import clsx from 'clsx'
-import React from 'react'
+import React, {useMemo} from 'react'
 import styled from 'styled-components'
 import {get} from '../constants'
 import type {SxProp} from '../sx'
@@ -259,9 +259,11 @@ function Tooltip({direction = 'n', children, className, text, noDelay, align, wr
     noDelay && 'tooltipped-no-delay',
     wrap && 'tooltipped-multiline',
   )
+
+  const value = useMemo(() => ({tooltipId}), [tooltipId])
   return (
     // This provider is used to check if an icon button is wrapped with tooltip or not.
-    <TooltipContext.Provider value={{tooltipId}}>
+    <TooltipContext.Provider value={value}>
       <TooltipBase role="tooltip" aria-label={text} {...rest} className={classes}>
         {children}
       </TooltipBase>
