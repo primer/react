@@ -76,16 +76,30 @@ const TabContainer = styled(createComponent(React, 'tab-container', TabContainer
 
 export type TabPanelsProps = ComponentProps<typeof TabContainer>
 
-function TabPanels({children, ...props}: TabPanelsProps) {
+function TabPanels({children, id, ...props}: TabPanelsProps) {
+  // Loop through the chidren, if it's a tab, then add id="{id}-tab-{index}"
+  // If it's a panel, then add aria-labelledby="{id}-tab-{index}"
+  let tabIndex = 0
+  let panelIndex = 0
+  const childrenWithProps = React.Children.map(children, (child) => {
+    if (React.isValidElement<TabPanelsTabProps>(child) && child.type === Tab && !child.props.id) {
+      return React.cloneElement(child, {id: `${id}-tab-${tabIndex++}`})
+    }
+    if (React.isValidElement<TabPanelsPanelProps>(child) && child.type === Panel && !child.props['aria-labelledby']) {
+      return React.cloneElement(child, {'aria-labelledby': `${id}-tab-${panelIndex++}`})
+    }
+    return child
+  })
+
   return (
-    <TabContainer {...props} suppressHydrationWarning>
-      {children}
+    <TabContainer {...props} id={id} suppressHydrationWarning>
+      {childrenWithProps}
     </TabContainer>
   )
 }
 
 export type TabPanelsTabProps = React.DetailedHTMLProps<React.HTMLAttributes<HTMLButtonElement>, HTMLButtonElement> & {
-  id: string
+  id?: string
   selected?: boolean
 } & SxProp
 
@@ -126,7 +140,7 @@ const Tab = styled.button.attrs<TabPanelsTabProps>(props => ({
 Tab.displayName = 'TabPanels.Tab'
 
 export type TabPanelsPanelProps = {
-  'aria-labelledby': string
+  'aria-labelledby'?: string
   children: React.ReactNode
 } & SxProp
 

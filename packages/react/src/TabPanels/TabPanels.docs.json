@@ -16,6 +16,11 @@
       "description": "The content of the component, can contain Tabs, Panels but also content before and after Tabs and after the Panels."
     },
     {
+      "name": "id",
+      "type": "string",
+      "description": "The id of the tab container, used to generate child ids."
+    },
+    {
       "name": "onTabContainerChange",
       "type": "function",
       "description": "Callback fired when the tab container changes (bubbles, cancelable): fired on `<tab-container>` before a new tab is selected and visibility is updated. `event.tab` is the tab that will be focused and `tab.panel` is the panel that will be shown if the event isn't cancelled."
