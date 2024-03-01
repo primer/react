@@ -1,0 +1,28 @@
+---
+componentId: markdown_toolbar
+title: MarkdownToolbar
+status: Draft
+source: https://github.com/primer/react/blob/main/src/MarkdownToolbar
+---
+
+import data from '../../../packages/react/src/drafts/MarkdownToolbar/MarkdownToolbar.docs.json'
+
+```js
+import {MarkdownToolbar} from '@primer/react/drafts'
+```
+
+## Examples
+
+```jsx live drafts
+<>
+  <MarkdownToolbar for="the-text-area">
+    <MarkdownToolbar.BoldButton />
+    <MarkdownToolbar.DefaultButtons></MarkdownToolbar.DefaultButtons>
+  </MarkdownToolbar>
+  <textarea id="the-text-area" />
+</>
+```
+
+## Props
+
+<ComponentProps data={data} />
