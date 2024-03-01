@@ -1,7 +1,7 @@
 import React from 'react'
 import type {Meta, Story} from '@storybook/react'
 import TabPanels from './TabPanels'
-import type {ComponentProps} from '../utils/types'
+import type {ComponentProps} from '../../utils/types'
 
 export default {
   title: 'Components/TabPanels',

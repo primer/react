@@ -1,13 +1,13 @@
-import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
+import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../../utils/polymorphic'
 import clsx from 'clsx'
 import React from 'react'
 import styled from 'styled-components'
-import {get} from '../constants'
+import {get} from '../../constants'
 import {TabContainerElement} from '@github/tab-container-element'
 import {createComponent} from '@lit-labs/react'
-import sx, {type SxProp} from '../sx'
-import type {ComponentProps} from '../utils/types'
-import getGlobalFocusStyles from '../internal/utils/getGlobalFocusStyles'
+import sx, {type SxProp} from '../../sx'
+import type {ComponentProps} from '../../utils/types'
+import getGlobalFocusStyles from '../../internal/utils/getGlobalFocusStyles'
 
 const TAB_CLASS = 'TabPanel-tab'
 
