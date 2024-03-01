@@ -81,8 +81,13 @@ function TabPanels({children, id, ...props}: TabPanelsProps) {
   // If it's a panel, then add aria-labelledby="{id}-tab-{index}"
   let tabIndex = 0
   let panelIndex = 0
+  let defaultTab = props['default-tab'] ? props['default-tab'] : 0
   const childrenWithProps = React.Children.map(children, child => {
     if (React.isValidElement<TabPanelsTabProps>(child) && child.type === Tab && !child.props.id) {
+      if (tabIndex === defaultTab) {
+        return React.cloneElement(child, {id: `${id}-tab-${tabIndex++}`, selected: true})
+      }
+
       return React.cloneElement(child, {id: `${id}-tab-${tabIndex++}`})
     }
     if (React.isValidElement<TabPanelsPanelProps>(child) && child.type === Panel && !child.props['aria-labelledby']) {
@@ -92,7 +97,7 @@ function TabPanels({children, id, ...props}: TabPanelsProps) {
   })
 
   return (
-    <TabContainer {...props} id={id} suppressHydrationWarning>
+    <TabContainer {...props} id={id} default-tab={defaultTab} suppressHydrationWarning>
       {childrenWithProps}
     </TabContainer>
   )

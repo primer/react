@@ -5,16 +5,17 @@ status: Draft
 source: https://github.com/primer/react/blob/main/src/TabPanels
 ---
 
-import data from '../../packages/react/src/drafts/TabPanels/TabPanels.docs.json'
-import DeprecationBanner from '../components/DeprecationBanner'
+import data from '../../../packages/react/src/drafts/TabPanels/TabPanels.docs.json'
 
-<DeprecationBanner replacementUrl={'/components/tab-panels/react/latest'} />
+```js
+import {TabPanels} from '@primer/react/drafts'
+```
 
 **Attention:** Make sure to properly label your `TabPanels` with an `aria-label` to provide context about the subject of your `TabPanels`.
 
 ## Examples
 
-```jsx live
+```jsx live drafts
 <TabPanels aria-label="Select a tab" id="tab-panels">
   <TabPanels.Tab>Tab 1</TabPanels.Tab>
   <TabPanels.Tab>Tab 2</TabPanels.Tab>
