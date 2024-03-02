@@ -17,6 +17,15 @@ export const IconButtons = () => (
   </ButtonGroup>
 )
 
+export const Links = () => (
+  <ButtonGroup>
+    <Button>BUTTO</Button>
+    <Button as="a" href="https://primer.style">
+      Link
+    </Button>
+  </ButtonGroup>
+)
+
 export const IconButtonsWithTooltip = () => (
   <ButtonGroup>
     <Tooltip text="Add" direction="s">
@@ -89,11 +98,52 @@ export const ButtonGroupWithTooltip2 = () => (
 
 export const ButtonGroupWithLinkAndButton = () => (
   <ButtonGroup sx={{pl: 2}}>
-    <Button as="a" href="https://primer.style">
-      Raw
-    </Button>
-    <TooltipV2 text="Open GitHub Copilot chat">
+    <Tooltip text="Open GitHub Copilot chat">
+      <Button as="a" href="https://primer.style">
+        Link
+      </Button>
+    </Tooltip>
+    <Tooltip text="Open GitHub Copilot chat">
       <IconButton icon={CopilotIcon} aria-label="Open GitHub Copilot chat" />
+    </Tooltip>
+  </ButtonGroup>
+)
+
+export const ButtonGroupWithLinkAndButtonOtherWayAround = () => (
+  <ButtonGroup sx={{pl: 2}}>
+    <Tooltip text="Open GitHub Copilot chat">
+      <IconButton icon={CopilotIcon} aria-label="Open GitHub Copilot chat" />
+    </Tooltip>
+    <Tooltip text="Open GitHub Copilot chat">
+      <Button as="a" href="https://primer.style">
+        Link
+      </Button>
+    </Tooltip>
+  </ButtonGroup>
+)
+
+export const ButtonGroupWithLinkAndButton2 = () => (
+  <ButtonGroup sx={{pl: 2}}>
+    <TooltipV2 text="Open GitHub Copilot chat">
+      <Button>Button</Button>
+    </TooltipV2>
+    <TooltipV2 text="Open GitHub Copilot chat">
+      <Button as="a" href="https://primer.style">
+        Link w/ tooltip
+      </Button>
+    </TooltipV2>
+  </ButtonGroup>
+)
+
+export const ButtonGroupWithLinkAndButton2OtherWayAround = () => (
+  <ButtonGroup sx={{pl: 2}}>
+    <TooltipV2 text="Open GitHub Copilot chat">
+      <Button as="a" href="https://primer.style">
+        Link w/ tooltip
+      </Button>
+    </TooltipV2>
+    <TooltipV2 text="Open GitHub Copilot chat">
+      <Button>Button</Button>
     </TooltipV2>
   </ButtonGroup>
 )
