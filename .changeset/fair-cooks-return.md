@@ -2,4 +2,4 @@
 "@primer/react": patch
 ---
 
-experimental/SelectPanel: Only render dialog in the dom when it is open
+experimental/SelectPanel: Do not render closed `<dialog>` in the dom
