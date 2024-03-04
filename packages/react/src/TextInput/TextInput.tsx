@@ -149,6 +149,7 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
           aria-required={required}
           {...inputProps}
           data-component="input"
+          aria-invalid={validationStatus === 'error' ? 'true' : undefined}
         />
         <TextInputInnerVisualSlot
           visualPosition="trailing"
