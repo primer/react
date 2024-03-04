@@ -1,7 +1,8 @@
 import React from 'react'
 import Box from '../Box'
 import {get} from '../constants'
-import {SxProp, merge} from '../sx'
+import type {SxProp} from '../sx'
+import {merge} from '../sx'
 import {ItemContext, TEXT_ROW_HEIGHT, getVariantStyles} from './shared'
 
 export type VisualProps = SxProp & React.HTMLAttributes<HTMLSpanElement>

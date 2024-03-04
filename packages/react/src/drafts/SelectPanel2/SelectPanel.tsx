@@ -2,32 +2,18 @@ import React from 'react'
 import {SearchIcon, XCircleFillIcon, XIcon, FilterRemoveIcon, AlertIcon} from '@primer/octicons-react'
 import {FocusKeys} from '@primer/behaviors'
 
-import {
-  Button,
-  ButtonProps,
-  IconButton,
-  Heading,
-  Box,
-  Tooltip,
-  TextInput,
-  TextInputProps,
-  Spinner,
-  Text,
-  ActionListProps,
-  Octicon,
-  Link,
-  LinkProps,
-  Checkbox,
-  CheckboxProps,
-} from '../../index'
+import type {ButtonProps, TextInputProps, ActionListProps, LinkProps, CheckboxProps} from '../../index'
+import {Button, IconButton, Heading, Box, Tooltip, TextInput, Spinner, Text, Octicon, Link, Checkbox} from '../../index'
 import {ActionListContainerContext} from '../../ActionList/ActionListContainerContext'
 import {useSlots} from '../../hooks/useSlots'
 import {useProvidedRefOrCreate, useId, useAnchoredPosition} from '../../hooks'
 import {useFocusZone} from '../../hooks/useFocusZone'
-import {StyledOverlay, OverlayProps, heightMap} from '../../Overlay/Overlay'
+import type {OverlayProps} from '../../Overlay/Overlay'
+import {StyledOverlay, heightMap} from '../../Overlay/Overlay'
 import InputLabel from '../../internal/components/InputLabel'
 import {invariant} from '../../utils/invariant'
-import {ResponsiveValue, useResponsiveValue} from '../../hooks/useResponsiveValue'
+import {useResponsiveValue} from '../../hooks/useResponsiveValue'
+import type {ResponsiveValue} from '../../hooks/useResponsiveValue'
 
 const SelectPanelContext = React.createContext<{
   title: string
@@ -227,21 +213,14 @@ const Panel: React.FC<SelectPanelProps> = ({
       side: 'outside-bottom',
       align: 'start',
     },
-    [anchorRef.current, dialogRef.current],
+    [internalOpen, anchorRef.current, dialogRef.current],
   )
 
   /* 
-    We don't close the panel when clicking outside.
-    For many years, we used to save changes and closed the dialog (for label picker)
-    which isn't accessible, clicking outside should discard changes and close the dialog
-    Fixing this a11y bug would confuse users, so as a middle ground,
-    we don't close the menu and nudge the user towards the footer actions
+    We want to cancel and close the panel when user clicks outside.
+    See decision log: https://github.com/github/primer/discussions/2614#discussioncomment-8544561
   */
-  const [footerAnimationEnabled, setFooterAnimationEnabled] = React.useState(false)
-  const onClickOutside = () => {
-    setFooterAnimationEnabled(true)
-    window.setTimeout(() => setFooterAnimationEnabled(false), 350)
-  }
+  const onClickOutside = onInternalCancel
 
   return (
     <>
@@ -262,17 +241,6 @@ const Panel: React.FC<SelectPanelProps> = ({
           border: 'none',
           padding: 0,
           '&[open]': {display: 'flex'}, // to fit children
-
-          '& [data-selectpanel-primary-actions]': {
-            animation: footerAnimationEnabled ? 'selectpanel-gelatine 350ms linear' : 'none',
-          },
-          '@keyframes selectpanel-gelatine': {
-            '0%': {transform: 'scale(1, 1)'},
-            '25%': {transform: 'scale(0.9, 1.1)'},
-            '50%': {transform: 'scale(1.1, 0.9)'},
-            '75%': {transform: 'scale(0.95, 1.05)'},
-            '100%': {transform: 'scale(1, 1)'},
-          },
 
           '&[data-variant="anchored"], &[data-variant="full-screen"]': {
             margin: 0,
@@ -354,6 +322,7 @@ const Panel: React.FC<SelectPanelProps> = ({
                   selectionAttribute: 'aria-selected',
                   selectionVariant: selectionVariant === 'instant' ? 'single' : selectionVariant,
                   afterSelect: internalAfterSelect,
+                  listLabelledBy: `${panelId}--title`,
                 }}
               >
                 {childrenInBody}
@@ -516,7 +485,7 @@ const SelectPanelFooter = ({...props}) => {
         <Box sx={{flexGrow: hidePrimaryActions ? 1 : 0}}>{props.children}</Box>
 
         {hidePrimaryActions ? null : (
-          <Box data-selectpanel-primary-actions sx={{display: 'flex', gap: 2}}>
+          <Box sx={{display: 'flex', gap: 2}}>
             <Button type="button" size={buttonSize} onClick={() => onCancel()}>
               Cancel
             </Button>

@@ -1,5 +1,5 @@
 import React, {useState, useCallback} from 'react'
-import {ComponentMeta} from '@storybook/react'
+import type {ComponentMeta} from '@storybook/react'
 import {Box, useTheme} from '..'
 import {Button} from '../Button'
 import {ActionMenu} from '../ActionMenu'

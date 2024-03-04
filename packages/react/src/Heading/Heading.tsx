@@ -2,9 +2,10 @@ import React, {forwardRef, useEffect} from 'react'
 import styled from 'styled-components'
 import {get} from '../constants'
 import {useRefObjectAsForwardedRef} from '../hooks'
-import sx, {SxProp} from '../sx'
-import {ComponentProps} from '../utils/types'
-import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
+import type {SxProp} from '../sx'
+import sx from '../sx'
+import type {ComponentProps} from '../utils/types'
+import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 
 type StyledHeadingProps = {
   as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'

@@ -1,6 +1,7 @@
 import React from 'react'
-import {ComponentMeta, Story} from '@storybook/react'
-import Avatar, {AvatarProps, DEFAULT_AVATAR_SIZE} from './Avatar'
+import type {ComponentMeta, Story} from '@storybook/react'
+import type {AvatarProps} from './Avatar'
+import Avatar, {DEFAULT_AVATAR_SIZE} from './Avatar'
 import {parseSizeFromArgs} from './storyHelpers'
 
 export default {

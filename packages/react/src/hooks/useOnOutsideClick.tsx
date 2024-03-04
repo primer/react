@@ -1,4 +1,5 @@
-import React, {useEffect, useCallback, useMemo} from 'react'
+import type React from 'react'
+import {useEffect, useCallback, useMemo} from 'react'
 
 export type TouchOrMouseEvent = MouseEvent | TouchEvent
 type TouchOrMouseEventCallback = (event: TouchOrMouseEvent) => boolean | undefined

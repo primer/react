@@ -11,7 +11,7 @@ import {CheckboxOrRadioGroupContext} from '../internal/components/CheckboxOrRadi
 import ValidationAnimationContainer from '../internal/components/ValidationAnimationContainer'
 import {get} from '../constants'
 import {useSlots} from '../hooks/useSlots'
-import {SxProp} from '../sx'
+import type {SxProp} from '../sx'
 import {useId} from '../hooks/useId'
 import FormControlCaption from './_FormControlCaption'
 import FormControlLabel from './_FormControlLabel'

@@ -1,12 +1,15 @@
 import React from 'react'
 import {Box} from '..'
-import {useResponsiveValue, ResponsiveValue} from '../hooks/useResponsiveValue'
-import {SxProp, merge, BetterSystemStyleObject} from '../sx'
+import type {ResponsiveValue} from '../hooks/useResponsiveValue'
+import {useResponsiveValue} from '../hooks/useResponsiveValue'
+import type {SxProp, BetterSystemStyleObject} from '../sx'
+import {merge} from '../sx'
 import Heading from '../Heading'
 import {ArrowLeftIcon} from '@primer/octicons-react'
-import Link, {LinkProps as BaseLinkProps} from '../Link'
+import type {LinkProps as BaseLinkProps} from '../Link'
+import Link from '../Link'
 
-import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
+import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import {getBreakpointDeclarations} from '../utils/getBreakpointDeclarations'
 const REGION_ORDER = {
   ContextArea: 0,

@@ -1,7 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
-import LabelGroup, {LabelGroupProps} from './LabelGroup'
-import {Meta, Story} from '@storybook/react'
+import type {LabelGroupProps} from './LabelGroup'
+import LabelGroup from './LabelGroup'
+import type {Meta, Story} from '@storybook/react'
 import Label from '../Label/Label'
 
 const meta: Meta = {

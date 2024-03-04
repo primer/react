@@ -1,12 +1,14 @@
-import {Meta} from '@storybook/react'
+import type {Meta} from '@storybook/react'
 import React from 'react'
-import {DataTable, DataTableProps, Table} from '../DataTable'
+import type {DataTableProps} from '../DataTable'
+import {DataTable, Table} from '../DataTable'
 import Label from '../Label'
 import LabelGroup from '../LabelGroup'
 import RelativeTime from '../RelativeTime'
-import {CellAlignment} from './column'
-import {UniqueRow} from './row'
-import {getColumnWidthArgTypes, ColWidthArgTypes} from './storyHelpers'
+import type {CellAlignment} from './column'
+import type {UniqueRow} from './row'
+import type {ColWidthArgTypes} from './storyHelpers'
+import {getColumnWidthArgTypes} from './storyHelpers'
 
 export default {
   title: 'Drafts/Components/DataTable',

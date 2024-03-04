@@ -1,7 +1,8 @@
 import React from 'react'
 import {SelectPanel} from './SelectPanel'
 import {ActionList, ActionMenu, Avatar, Box, Button, Text} from '../../index'
-import {ArrowRightIcon, EyeIcon, GitBranchIcon, TriangleDownIcon, GearIcon} from '@primer/octicons-react'
+import {Dialog} from '../../drafts'
+import {ArrowRightIcon, EyeIcon, GitBranchIcon, TriangleDownIcon, GearIcon, TagIcon} from '@primer/octicons-react'
 import data from './mock-story-data'
 
 export default {
@@ -29,6 +30,9 @@ export const Minimal = () => {
     // eslint-disable-next-line no-console
     console.log('form submitted')
   }
+  const onCancel = () => {
+    setSelectedLabelIds(initialSelectedLabels)
+  }
 
   const sortingFn = (itemA: {id: string}, itemB: {id: string}) => {
     const initialSelectedIds = data.issue.labelIds
@@ -44,7 +48,7 @@ export const Minimal = () => {
     <>
       <h1>Minimal SelectPanel</h1>
 
-      <SelectPanel title="Select labels" onSubmit={onSubmit}>
+      <SelectPanel title="Select labels" onSubmit={onSubmit} onCancel={onCancel}>
         <SelectPanel.Button>Assign label</SelectPanel.Button>
 
         <ActionList>
@@ -79,6 +83,9 @@ export const WithGroups = () => {
   const onClearSelection = () => setSelectedAssigneeIds([])
   const onSubmit = () => {
     data.issue.assigneeIds = selectedAssigneeIds // pretending to persist changes
+  }
+  const onCancel = () => {
+    setSelectedAssigneeIds(initialAssigneeIds)
   }
 
   /* Filtering */
@@ -120,7 +127,12 @@ export const WithGroups = () => {
     <>
       <h1>SelectPanel with groups</h1>
 
-      <SelectPanel title="Request up to 100 reviewers" onSubmit={onSubmit} onClearSelection={onClearSelection}>
+      <SelectPanel
+        title="Request up to 100 reviewers"
+        onSubmit={onSubmit}
+        onCancel={onCancel}
+        onClearSelection={onClearSelection}
+      >
         <SelectPanel.Button
           variant="invisible"
           trailingAction={GearIcon}
@@ -194,7 +206,12 @@ export const AsyncWithSuspendedList = () => {
   return (
     <>
       <h1>Async: Suspended list</h1>
-      <p>Fetching items once when the panel is opened (like repo labels)</p>
+      <p>
+        Fetching items once when the panel is opened (like repo labels)
+        <br />
+        Note: Save and Cancel is not implemented in this demo
+      </p>
+
       <SelectPanel title="Select labels">
         <SelectPanel.Button>Assign label</SelectPanel.Button>
 
@@ -344,13 +361,16 @@ export const AsyncSearchWithUseTransition = () => {
     // eslint-disable-next-line no-console
     console.log('form submitted')
   }
+  const onCancel = () => {
+    setSelectedUserIds(initialAssigneeIds)
+  }
 
   return (
     <>
       <h1>Async: search with useTransition</h1>
       <p>Fetching items on every keystroke search (like github users)</p>
 
-      <SelectPanel title="Select collaborators" onSubmit={onSubmit}>
+      <SelectPanel title="Select collaborators" onSubmit={onSubmit} onCancel={onCancel}>
         <SelectPanel.Button>Select assignees</SelectPanel.Button>
         <SelectPanel.Header>
           <SelectPanel.SearchInput loading={isPending} onChange={onSearchInputChange} />
@@ -481,6 +501,9 @@ export const WithFilterButtons = () => {
     // eslint-disable-next-line no-console
     console.log('form submitted')
   }
+  const onCancel = () => {
+    setSelectedRef(savedInitialRef)
+  }
 
   /* Filter */
   const [query, setQuery] = React.useState('')
@@ -522,9 +545,9 @@ export const WithFilterButtons = () => {
 
   return (
     <>
-      <h1>With Filter Buttons</h1>
+      <h1>With Filter Buttons {savedInitialRef}</h1>
 
-      <SelectPanel title="Switch branches/tags" onSubmit={onSubmit}>
+      <SelectPanel title="Switch branches/tags" onSubmit={onSubmit} onCancel={onCancel}>
         <SelectPanel.Button leadingVisual={GitBranchIcon} trailingVisual={TriangleDownIcon}>
           {savedInitialRef}
         </SelectPanel.Button>
@@ -582,12 +605,16 @@ export const WithFilterButtons = () => {
 }
 
 export const ShortSelectPanel = () => {
-  const [channels, setChannels] = React.useState({GitHub: false, Email: false})
+  const initialChannels = {GitHub: false, Email: false}
+  const [channels, setChannels] = React.useState(initialChannels)
   const [onlyFailures, setOnlyFailures] = React.useState(false)
 
   const onSubmit = () => {
     // eslint-disable-next-line no-console
     console.log('form submitted')
+  }
+  const onCancel = () => {
+    setChannels(initialChannels)
   }
 
   const toggleChannel = (channel: keyof typeof channels) => {
@@ -599,8 +626,10 @@ export const ShortSelectPanel = () => {
   return (
     <>
       <h1>Short SelectPanel</h1>
-
-      <SelectPanel title="Select notification channels" onSubmit={onSubmit}>
+      <p>
+        Use <code>height=fit-content</code> to match height of contents
+      </p>
+      <SelectPanel title="Select notification channels" onSubmit={onSubmit} onCancel={onCancel}>
         <SelectPanel.Button>
           <Text sx={{color: 'fg.muted'}}>Notify me:</Text>{' '}
           {Object.keys(channels)
@@ -633,6 +662,47 @@ export const ShortSelectPanel = () => {
         </ActionList>
         <SelectPanel.Footer />
       </SelectPanel>
+    </>
+  )
+}
+
+export const InsideSidebar = () => {
+  const [selectedTag, setSelectedTag] = React.useState<string>()
+  const [sidebarOpen, setSidebarOpen] = React.useState(false)
+
+  return (
+    <>
+      <h1>Opening SelectPanel inside a sidebar</h1>
+
+      <Button onClick={() => setSidebarOpen(true)}>Open sidebar</Button>
+      {sidebarOpen && (
+        <Dialog position="right" title="Sidebar" onClose={() => setSidebarOpen(false)}>
+          <Box p={3}>
+            <SelectPanel
+              title="Choose a tag"
+              selectionVariant="instant"
+              onSubmit={() => {
+                if (!selectedTag) return
+                data.ref = selectedTag // pretending to persist changes
+              }}
+            >
+              <SelectPanel.Button leadingVisual={TagIcon}>{selectedTag || 'Choose a tag'}</SelectPanel.Button>
+
+              <ActionList>
+                {data.tags.map(tag => (
+                  <ActionList.Item
+                    key={tag.id}
+                    onSelect={() => setSelectedTag(tag.id)}
+                    selected={selectedTag === tag.id}
+                  >
+                    {tag.name}
+                  </ActionList.Item>
+                ))}
+              </ActionList>
+            </SelectPanel>
+          </Box>
+        </Dialog>
+      )}
     </>
   )
 }
