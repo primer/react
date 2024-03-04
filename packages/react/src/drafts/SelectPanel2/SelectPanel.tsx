@@ -216,89 +216,91 @@ const Panel: React.FC<SelectPanelProps> = ({
     <>
       {Anchor}
 
-      <StyledOverlay
-        as="dialog"
-        ref={dialogRef}
-        aria-labelledby={`${panelId}--title`}
-        aria-describedby={description ? `${panelId}--description` : undefined}
-        width={width}
-        height="fit-content"
-        maxHeight={maxHeight}
-        sx={{
-          '--max-height': heightMap[maxHeight],
-          // reset dialog default styles
-          border: 'none',
-          padding: 0,
-          '&[open]': {display: 'flex'}, // to fit children
+      {internalOpen && (
+        <StyledOverlay
+          as="dialog"
+          ref={dialogRef}
+          aria-labelledby={`${panelId}--title`}
+          aria-describedby={description ? `${panelId}--description` : undefined}
+          width={width}
+          height="fit-content"
+          maxHeight={maxHeight}
+          sx={{
+            '--max-height': heightMap[maxHeight],
+            // reset dialog default styles
+            border: 'none',
+            padding: 0,
+            '&[open]': {display: 'flex'}, // to fit children
 
-          ...(variant === 'anchored' ? {margin: 0, top: position?.top, left: position?.left} : {}),
-          '::backdrop': {backgroundColor: variant === 'anchored' ? 'transparent' : 'primer.canvas.backdrop'},
+            ...(variant === 'anchored' ? {margin: 0, top: position?.top, left: position?.left} : {}),
+            '::backdrop': {backgroundColor: variant === 'anchored' ? 'transparent' : 'primer.canvas.backdrop'},
 
-          '@keyframes selectpanel-gelatine': {
-            '0%': {transform: 'scale(1, 1)'},
-            '25%': {transform: 'scale(0.9, 1.1)'},
-            '50%': {transform: 'scale(1.1, 0.9)'},
-            '75%': {transform: 'scale(0.95, 1.05)'},
-            '100%': {transform: 'scale(1, 1)'},
-          },
-        }}
-        {...props}
-        onClick={event => {
-          if (event.target === event.currentTarget) onClickOutside()
-        }}
-      >
-        <SelectPanelContext.Provider
-          value={{
-            panelId,
-            title,
-            description,
-            onCancel: onInternalCancel,
-            onClearSelection: propsOnClearSelection ? onInternalClearSelection : undefined,
-            searchQuery,
-            setSearchQuery,
-            selectionVariant,
-            moveFocusToList,
+            '@keyframes selectpanel-gelatine': {
+              '0%': {transform: 'scale(1, 1)'},
+              '25%': {transform: 'scale(0.9, 1.1)'},
+              '50%': {transform: 'scale(1.1, 0.9)'},
+              '75%': {transform: 'scale(0.95, 1.05)'},
+              '100%': {transform: 'scale(1, 1)'},
+            },
+          }}
+          {...props}
+          onClick={event => {
+            if (event.target === event.currentTarget) onClickOutside()
           }}
         >
-          <Box
-            as="form"
-            method="dialog"
-            onSubmit={onInternalSubmit}
-            sx={{display: 'flex', flexDirection: 'column', width: '100%'}}
+          <SelectPanelContext.Provider
+            value={{
+              panelId,
+              title,
+              description,
+              onCancel: onInternalCancel,
+              onClearSelection: propsOnClearSelection ? onInternalClearSelection : undefined,
+              searchQuery,
+              setSearchQuery,
+              selectionVariant,
+              moveFocusToList,
+            }}
           >
-            {slots.header ?? /* render default header as fallback */ <SelectPanelHeader />}
-
             <Box
-              as="div"
-              ref={listContainerRef as React.RefObject<HTMLDivElement>}
-              sx={{
-                flexShrink: 1,
-                flexGrow: 1,
-                overflow: 'hidden',
-
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'space-between',
-                ul: {overflowY: 'auto', flexGrow: 1},
-              }}
+              as="form"
+              method="dialog"
+              onSubmit={onInternalSubmit}
+              sx={{display: 'flex', flexDirection: 'column', width: '100%'}}
             >
-              <ActionListContainerContext.Provider
-                value={{
-                  container: 'SelectPanel',
-                  listRole: 'listbox',
-                  selectionAttribute: 'aria-selected',
-                  selectionVariant: selectionVariant === 'instant' ? 'single' : selectionVariant,
-                  afterSelect: internalAfterSelect,
-                  listLabelledBy: `${panelId}--title`,
+              {slots.header ?? /* render default header as fallback */ <SelectPanelHeader />}
+
+              <Box
+                as="div"
+                ref={listContainerRef as React.RefObject<HTMLDivElement>}
+                sx={{
+                  flexShrink: 1,
+                  flexGrow: 1,
+                  overflow: 'hidden',
+
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'space-between',
+                  ul: {overflowY: 'auto', flexGrow: 1},
                 }}
               >
-                {childrenInBody}
-              </ActionListContainerContext.Provider>
+                <ActionListContainerContext.Provider
+                  value={{
+                    container: 'SelectPanel',
+                    listRole: 'listbox',
+                    selectionAttribute: 'aria-selected',
+                    selectionVariant: selectionVariant === 'instant' ? 'single' : selectionVariant,
+                    afterSelect: internalAfterSelect,
+                    listLabelledBy: `${panelId}--title`,
+                  }}
+                >
+                  {childrenInBody}
+                </ActionListContainerContext.Provider>
+              </Box>
+              {slots.footer}
             </Box>
-            {slots.footer}
-          </Box>
-        </SelectPanelContext.Provider>
-      </StyledOverlay>
+          </SelectPanelContext.Provider>
+        </StyledOverlay>
+      )}
     </>
   )
 }
