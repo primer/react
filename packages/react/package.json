@@ -203,7 +203,7 @@
     "react-dom": "18.2.0",
     "react-test-renderer": "18.2.0",
     "recast": "0.22.0",
-    "rimraf": "4.1.2",
+    "rimraf": "5.0.5",
     "rollup": "4.9.6",
     "rollup-plugin-postcss": "4.0.2",
     "rollup-plugin-visualizer": "5.9.2",
