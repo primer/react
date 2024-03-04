@@ -186,7 +186,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       },
 
       '@media (forced-colors: active)': {
-        ':focus': {
+        ':focus, &:focus-visible, > a:focus-visible': {
           // Support for Windows high contrast https://sarahmhigley.com/writing/whcm-quick-tips
           outline: 'solid 1px transparent !important',
         },
