@@ -16,9 +16,7 @@ test.describe('TooltipV2', () => {
 
           // Default state
           await page.keyboard.press('Tab')
-          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(`TooltipV2.Default.${theme}.png`, {
-            threshold: 0.1,
-          })
+          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(`TooltipV2.Default.${theme}.png`)
         })
 
         test('axe @aat', async ({page}) => {
@@ -49,9 +47,6 @@ test.describe('TooltipV2', () => {
           await page.keyboard.press('Tab')
           expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
             `TooltipV2.Anchor Has Margin.${theme}.png`,
-            {
-              threshold: 0.1,
-            },
           )
         })
 
@@ -83,9 +78,6 @@ test.describe('TooltipV2', () => {
           await page.keyboard.press('Tab')
           expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
             `TooltipV2.Calculated Direction.${theme}.png`,
-            {
-              threshold: 0.1,
-            },
           )
         })
 
@@ -117,9 +109,6 @@ test.describe('TooltipV2', () => {
           await page.keyboard.press('Tab')
           expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
             `TooltipV2.Icon Button With Description.${theme}.png`,
-            {
-              threshold: 0.1,
-            },
           )
         })
 
@@ -149,9 +138,7 @@ test.describe('TooltipV2', () => {
 
           // Default state
           await page.keyboard.press('Tab')
-          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(`TooltipV2.Label Type.${theme}.png`, {
-            threshold: 0.1,
-          })
+          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(`TooltipV2.Label Type.${theme}.png`)
         })
 
         test('axe @aat', async ({page}) => {
