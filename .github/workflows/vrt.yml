@@ -39,14 +39,16 @@ jobs:
         with:
           node-version: 20
           cache: 'npm'
+      - run: npm i -g npm@9.x
       - name: Install dependencies
         run: npm ci
       - name: Build storybook
         run: npx storybook build
+        working-directory: packages/react
       - name: Run storybook
         id: storybook
         run: |
-          npx serve -l 6006 storybook-static &
+          npx serve -l 6006 packages/react/storybook-static &
           pid=$!
           echo "pid=$pid" >> $GITHUB_OUTPUT
           sleep 5

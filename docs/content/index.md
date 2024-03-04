@@ -20,7 +20,7 @@ Primer React is a React implementation of GitHub's [Primer Design System](https:
 
 ## Getting started
 
-Check out [our getting started guide](https://primer.style/guides/development/react#getting-started) for everything you need to know about installing and using Primer React.
+Check out [our getting started guide](/react/getting-started) for everything you need to know about installing and using Primer React.
 
 ## Local development
 

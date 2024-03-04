@@ -23,6 +23,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
+      - run: npm i -g npm@9.x
       - name: Install node deps
         run: npm ci
       - name: Install ruby deps
