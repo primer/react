@@ -266,36 +266,39 @@ const components = new Map([
           name: 'Default',
         },
         {
-          id: 'components-buttongroup--playground',
-          name: 'Playground',
-        },
-        {
           id: 'components-buttongroup-features--icon-buttons',
           name: 'Icon Buttons',
         },
         {
-          id: 'components-buttongroup-features--button-group-with-tooltip',
-          name: 'Button Group With Tooltip',
-        },
-
-        {
-          id: 'components-buttongroup-features--button-group-with-tooltip-2',
-          name: 'Button Group With Tooltip 2',
+          id: 'components-buttongroup-features--button-and-link',
+          name: 'Button And Link',
         },
         {
-          id: 'components-buttongroup-features--icon-buttons-with-tooltip',
-          name: 'Icon Buttons With Tooltip',
+          id: 'components-buttongroup-devonly--button-and-link-with-tooltip-1',
+          name: 'Button And Link With Tooltip 1',
         },
         {
-          id: 'components-buttongroup-features--icon-buttons-with-tooltip-2',
-          name: 'Icon Buttons With Tooltip 2',
+          id: 'components-buttongroup-devonly--button-and-link-with-tooltip-2',
+          name: 'Button And Link With Tooltip 2',
         },
         {
-          id: 'components-buttongroup-features--links-with-tooltip',
-          name: 'Links With Tooltip',
+          id: 'components-buttongroup-devonly--icon-buttons-with-tooltip-1',
+          name: 'Icon Buttons With Tooltip 1',
         },
         {
-          id: 'components-buttongroup-features--links-with-tooltip-2',
+          id: 'components-buttongroup-devonly--link-and-button-with-tooltip-1',
+          name: 'Link And Button With Tooltip 1',
+        },
+        {
+          id: 'components-buttongroup-devonly--link-and-button-with-tooltip-2',
+          name: 'Link And Button With Tooltip 2',
+        },
+        {
+          id: 'components-buttongroup-devonly--links-with-tooltip-1',
+          name: 'Links With Tooltip 1',
+        },
+        {
+          id: 'components-buttongroup-devonly--links-with-tooltip-2',
           name: 'Links With Tooltip 2',
         },
       ],

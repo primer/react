@@ -1,14 +1,29 @@
 import React from 'react'
-import type {ComponentMeta} from '@storybook/react'
+import type {Meta} from '@storybook/react'
 import ButtonGroup from './ButtonGroup'
 import {Button, IconButton} from '../Button'
-import {PlusIcon, DashIcon, CopilotIcon} from '@primer/octicons-react'
-import {Tooltip as TooltipV2} from '../drafts'
-import {Tooltip} from '..'
-export default {
+import {PlusIcon, DashIcon} from '@primer/octicons-react'
+import {Tooltip} from '../next'
+import {Box, ThemeProvider, BaseStyles} from '..'
+
+const meta: Meta<typeof ButtonGroup> = {
   title: 'Components/ButtonGroup/Features',
   component: ButtonGroup,
-} as ComponentMeta<typeof ButtonGroup>
+  decorators: [
+    Story => {
+      // Add some padding to the wrapper box to make sure tooltip v1 is always in the viewport
+      return (
+        <ThemeProvider>
+          <BaseStyles>
+            <Box padding={5}>{Story()}</Box>
+          </BaseStyles>
+        </ThemeProvider>
+      )
+    },
+  ],
+}
+
+export default meta
 
 export const IconButtons = () => (
   <ButtonGroup>
@@ -17,133 +32,21 @@ export const IconButtons = () => (
   </ButtonGroup>
 )
 
-export const Links = () => (
+export const IconButtonsWithTooltip = () => (
   <ButtonGroup>
-    <Button>BUTTO</Button>
+    <Tooltip text="Add" type="label">
+      <IconButton icon={PlusIcon} aria-label="Add" />
+    </Tooltip>
+    <Tooltip text="Subtract" type="label">
+      <IconButton icon={DashIcon} aria-label="Subtract" />
+    </Tooltip>
+  </ButtonGroup>
+)
+export const ButtonAndLink = () => (
+  <ButtonGroup>
+    <Button>Button</Button>
     <Button as="a" href="https://primer.style">
       Link
     </Button>
-  </ButtonGroup>
-)
-
-export const IconButtonsWithTooltip = () => (
-  <ButtonGroup>
-    <Tooltip text="Add" direction="s">
-      <IconButton icon={PlusIcon} aria-label="Add" />
-    </Tooltip>
-    <Tooltip text="Subtract" direction="s">
-      <IconButton icon={DashIcon} aria-label="Subtract" />
-    </Tooltip>
-  </ButtonGroup>
-)
-
-export const ButtonGroupWithTooltip = () => (
-  <ButtonGroup>
-    <Tooltip text="Add" direction="s">
-      <Button>Add</Button>
-    </Tooltip>
-    <Tooltip text="Subtract" direction="s">
-      <Button>Subtract</Button>
-    </Tooltip>
-  </ButtonGroup>
-)
-
-export const LinksWithTooltip = () => (
-  <ButtonGroup>
-    <Tooltip text="Add" direction="s">
-      <Button as="a" href="https://primer.style">
-        Add
-      </Button>
-    </Tooltip>
-    <Tooltip text="Subtract" direction="s">
-      <Button as="a" href="https://primer.style">
-        Subtract
-      </Button>
-    </Tooltip>
-  </ButtonGroup>
-)
-
-export const IconButtonsWithTooltip2 = () => (
-  <ButtonGroup>
-    <TooltipV2 text="Add" type="label">
-      <IconButton icon={PlusIcon} aria-label="Add" />
-    </TooltipV2>
-    <TooltipV2 text="Subtract" type="label">
-      <IconButton icon={DashIcon} aria-label="Subtract" />
-    </TooltipV2>
-  </ButtonGroup>
-)
-
-export const LinksWithTooltip2 = () => (
-  <ButtonGroup>
-    <TooltipV2 text="Add" type="label">
-      <IconButton as="a" icon={PlusIcon} aria-label="Add" href="https://primer.style" />
-    </TooltipV2>
-    <TooltipV2 text="Subtract" type="label">
-      <IconButton as="a" icon={DashIcon} aria-label="Subtract" href="https://primer.style" />
-    </TooltipV2>
-  </ButtonGroup>
-)
-
-export const ButtonGroupWithTooltip2 = () => (
-  <ButtonGroup>
-    <TooltipV2 text="Add">
-      <Button>Add</Button>
-    </TooltipV2>
-    <TooltipV2 text="Subtract">
-      <Button>Subtract</Button>
-    </TooltipV2>
-  </ButtonGroup>
-)
-
-export const ButtonGroupWithLinkAndButton = () => (
-  <ButtonGroup sx={{pl: 2}}>
-    <Tooltip text="Open GitHub Copilot chat">
-      <Button as="a" href="https://primer.style">
-        Link
-      </Button>
-    </Tooltip>
-    <Tooltip text="Open GitHub Copilot chat">
-      <IconButton icon={CopilotIcon} aria-label="Open GitHub Copilot chat" />
-    </Tooltip>
-  </ButtonGroup>
-)
-
-export const ButtonGroupWithLinkAndButtonOtherWayAround = () => (
-  <ButtonGroup sx={{pl: 2}}>
-    <Tooltip text="Open GitHub Copilot chat">
-      <IconButton icon={CopilotIcon} aria-label="Open GitHub Copilot chat" />
-    </Tooltip>
-    <Tooltip text="Open GitHub Copilot chat">
-      <Button as="a" href="https://primer.style">
-        Link
-      </Button>
-    </Tooltip>
-  </ButtonGroup>
-)
-
-export const ButtonGroupWithLinkAndButton2 = () => (
-  <ButtonGroup sx={{pl: 2}}>
-    <TooltipV2 text="Open GitHub Copilot chat">
-      <Button>Button</Button>
-    </TooltipV2>
-    <TooltipV2 text="Open GitHub Copilot chat">
-      <Button as="a" href="https://primer.style">
-        Link w/ tooltip
-      </Button>
-    </TooltipV2>
-  </ButtonGroup>
-)
-
-export const ButtonGroupWithLinkAndButton2OtherWayAround = () => (
-  <ButtonGroup sx={{pl: 2}}>
-    <TooltipV2 text="Open GitHub Copilot chat">
-      <Button as="a" href="https://primer.style">
-        Link w/ tooltip
-      </Button>
-    </TooltipV2>
-    <TooltipV2 text="Open GitHub Copilot chat">
-      <Button>Button</Button>
-    </TooltipV2>
   </ButtonGroup>
 )
