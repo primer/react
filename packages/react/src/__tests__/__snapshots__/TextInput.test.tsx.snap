@@ -1671,7 +1671,7 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   line-height: 0;
 }
 
-.c5 {
+.c4 {
   border-radius: 6px;
   border: 1px solid;
   border-color: transparent;
@@ -1716,65 +1716,65 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   box-shadow: none;
 }
 
-.c5:focus:not(:disabled) {
+.c4:focus:not(:disabled) {
   box-shadow: none;
   outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline-offset: -2px;
 }
 
-.c5:focus:not(:disabled):not(:focus-visible) {
+.c4:focus:not(:disabled):not(:focus-visible) {
   outline: solid 1px transparent;
 }
 
-.c5:focus-visible:not(:disabled) {
+.c4:focus-visible:not(:disabled) {
   box-shadow: none;
   outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline-offset: -2px;
 }
 
-.c5[href] {
+.c4[href] {
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
   display: inline-flex;
 }
 
-.c5[href]:hover {
+.c4[href]:hover {
   -webkit-text-decoration: none;
   text-decoration: none;
 }
 
-.c5:hover {
+.c4:hover {
   -webkit-transition-duration: 80ms;
   transition-duration: 80ms;
 }
 
-.c5:active {
+.c4:active {
   -webkit-transition: none;
   transition: none;
 }
 
-.c5[data-inactive] {
+.c4[data-inactive] {
   cursor: auto;
 }
 
-.c5:disabled {
+.c4:disabled {
   cursor: not-allowed;
   box-shadow: none;
   color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
 }
 
-.c5:disabled [data-component=ButtonCounter],
-.c5:disabled [data-component="leadingVisual"],
-.c5:disabled [data-component="trailingAction"] {
+.c4:disabled [data-component=ButtonCounter],
+.c4:disabled [data-component="leadingVisual"],
+.c4:disabled [data-component="trailingAction"] {
   color: inherit;
 }
 
-.c5 [data-component=ButtonCounter] {
+.c4 [data-component=ButtonCounter] {
   font-size: 12px;
 }
 
-.c5[data-component=IconButton] {
+.c4[data-component=IconButton] {
   display: inline-grid;
   padding: unset;
   place-content: center;
@@ -1782,80 +1782,80 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   min-width: unset;
 }
 
-.c5[data-size="small"] {
+.c4[data-size="small"] {
   padding: 0 8px;
   height: 28px;
   gap: 4px;
   font-size: 12px;
 }
 
-.c5[data-size="small"] [data-component="text"] {
+.c4[data-size="small"] [data-component="text"] {
   line-height: calc(20 / 12);
 }
 
-.c5[data-size="small"] [data-component=ButtonCounter] {
+.c4[data-size="small"] [data-component=ButtonCounter] {
   font-size: 12px;
 }
 
-.c5[data-size="small"] [data-component="buttonContent"] > :not(:last-child) {
+.c4[data-size="small"] [data-component="buttonContent"] > :not(:last-child) {
   margin-right: 4px;
 }
 
-.c5[data-size="small"][data-component=IconButton] {
+.c4[data-size="small"][data-component=IconButton] {
   width: 28px;
   padding: unset;
 }
 
-.c5[data-size="large"] {
+.c4[data-size="large"] {
   padding: 0 16px;
   height: 40px;
   gap: 8px;
 }
 
-.c5[data-size="large"] [data-component="buttonContent"] > :not(:last-child) {
+.c4[data-size="large"] [data-component="buttonContent"] > :not(:last-child) {
   margin-right: 8px;
 }
 
-.c5[data-size="large"][data-component=IconButton] {
+.c4[data-size="large"][data-component=IconButton] {
   width: 40px;
   padding: unset;
 }
 
-.c5[data-block="block"] {
+.c4[data-block="block"] {
   width: 100%;
 }
 
-.c5[data-inactive]:not([disabled]) {
+.c4[data-inactive]:not([disabled]) {
   background-color: var(--button-inactive-bgColor,var(--button-inactive-bgColor-rest,var(--color-btn-inactive-bg,#eaeef2)));
   border-color: var(--button-inactive-bgColor,var(--button-inactive-bgColor-rest,var(--color-btn-inactive-bg,#eaeef2)));
   color: var(--button-inactive-fgColor,var(--button-inactive-fgColor-rest,var(--color-btn-inactive-text,#57606a)));
 }
 
-.c5[data-inactive]:not([disabled]):focus-visible {
+.c4[data-inactive]:not([disabled]):focus-visible {
   box-shadow: none;
 }
 
-.c5 [data-component="leadingVisual"] {
+.c4 [data-component="leadingVisual"] {
   grid-area: leadingVisual;
   color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
 }
 
-.c5 [data-component="text"] {
+.c4 [data-component="text"] {
   grid-area: text;
   line-height: calc(20/14);
   white-space: nowrap;
 }
 
-.c5 [data-component="trailingVisual"] {
+.c4 [data-component="trailingVisual"] {
   grid-area: trailingVisual;
 }
 
-.c5 [data-component="trailingAction"] {
+.c4 [data-component="trailingAction"] {
   margin-right: -4px;
   color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
 }
 
-.c5 [data-component="buttonContent"] {
+.c4 [data-component="buttonContent"] {
   -webkit-flex: 1 0 auto;
   -ms-flex: 1 0 auto;
   flex: 1 0 auto;
@@ -1871,43 +1871,43 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   align-content: center;
 }
 
-.c5 [data-component="buttonContent"] > :not(:last-child) {
+.c4 [data-component="buttonContent"] > :not(:last-child) {
   margin-right: 8px;
 }
 
-.c5:hover:not([disabled]) {
+.c4:hover:not([disabled]) {
   background-color: var(--control-transparent-bgColor-hover,var(--color-action-list-item-default-hover-bg,rgba(208,215,222,0.32)));
 }
 
-.c5:active:not([disabled]) {
+.c4:active:not([disabled]) {
   background-color: var(--control-transparent-bgColor-active,var(--color-action-list-item-default-active-bg,rgba(208,215,222,0.48)));
 }
 
-.c5[aria-expanded=true] {
+.c4[aria-expanded=true] {
   background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
 }
 
-.c5[data-component="IconButton"][data-no-visuals] {
+.c4[data-component="IconButton"][data-no-visuals] {
   color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
 }
 
-.c5[data-no-visuals] {
+.c4[data-no-visuals] {
   color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
 }
 
-.c5:has([data-component="ButtonCounter"]) {
+.c4:has([data-component="ButtonCounter"]) {
   color: var(--button-default-fgColor-rest,var(--color-btn-text,#24292f));
 }
 
-.c5:disabled[data-no-visuals] {
+.c4:disabled[data-no-visuals] {
   color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
 }
 
-.c5:disabled[data-no-visuals] [data-component=ButtonCounter] {
+.c4:disabled[data-no-visuals] [data-component=ButtonCounter] {
   color: inherit;
 }
 
-.c5[data-size="small"][data-no-visuals] {
+.c4[data-size="small"][data-no-visuals] {
   padding-top: 2px;
   padding-right: 4px;
   padding-bottom: 2px;
@@ -1915,9 +1915,114 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   position: relative;
 }
 
-.c5[data-size="small"][data-no-visuals][data-component="IconButton"] {
+.c4[data-size="small"][data-no-visuals][data-component="IconButton"] {
   width: var(--inner-action-size);
   height: var(--inner-action-size);
+}
+
+.c5 {
+  display: none;
+}
+
+.c5[popover] {
+  padding: 0.5em 0.75em;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+  margin: auto;
+  -webkit-clip: auto;
+  clip: auto;
+  white-space: normal;
+  font: normal normal 11px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
+  -webkit-font-smoothing: subpixel-antialiased;
+  color: var(--fgColor-onEmphasis,var(--color-fg-on-emphasis,#ffffff));
+  text-align: center;
+  word-wrap: break-word;
+  background: var(--bgColor-emphasis,var(--color-neutral-emphasis-plus,#24292f));
+  border-radius: 6px;
+  border: 0;
+  opacity: 0;
+  max-width: 250px;
+  inset: auto;
+  overflow: visible;
+}
+
+.c5[popover]:popover-open {
+  display: block;
+}
+
+.c5[popover].\\:popover-open {
+  display: block;
+}
+
+.c5::after {
+  position: absolute;
+  display: block;
+  right: 0;
+  left: 0;
+  height: 8px;
+  content: '';
+}
+
+.c5[data-direction='n']::after,
+.c5[data-direction='ne']::after,
+.c5[data-direction='nw']::after {
+  top: 100%;
+}
+
+.c5[data-direction='s']::after,
+.c5[data-direction='se']::after,
+.c5[data-direction='sw']::after {
+  bottom: 100%;
+}
+
+.c5[data-direction='w']::after {
+  position: absolute;
+  display: block;
+  height: 100%;
+  width: 8px;
+  content: '';
+  bottom: 0;
+  left: 100%;
+}
+
+.c5[data-direction='e']::after {
+  position: absolute;
+  display: block;
+  height: 100%;
+  width: 8px;
+  content: '';
+  bottom: 0;
+  right: 100%;
+  margin-left: -8px;
+}
+
+.c5:popover-open,
+.c5:popover-open::before {
+  -webkit-animation-name: tooltip-appear;
+  animation-name: tooltip-appear;
+  -webkit-animation-duration: 0.1s;
+  animation-duration: 0.1s;
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+  -webkit-animation-timing-function: ease-in;
+  animation-timing-function: ease-in;
+  -webkit-animation-delay: 0s;
+  animation-delay: 0s;
+}
+
+.c5.\\:popover-open,
+.c5.\\:popover-open::before {
+  -webkit-animation-name: tooltip-appear;
+  animation-name: tooltip-appear;
+  -webkit-animation-duration: 0.1s;
+  animation-duration: 0.1s;
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+  -webkit-animation-timing-function: ease-in;
+  animation-timing-function: ease-in;
+  -webkit-animation-delay: 0s;
+  animation-delay: 0s;
 }
 
 .c0 {
@@ -2007,166 +2112,6 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   padding-right: 0;
 }
 
-.c4 {
-  position: relative;
-  display: inline-block;
-}
-
-.c4::after {
-  position: absolute;
-  z-index: 1000000;
-  display: none;
-  padding: 0.5em 0.75em;
-  font: normal normal 11px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
-  -webkit-font-smoothing: subpixel-antialiased;
-  color: var(--fgColor-onEmphasis,var(--color-fg-on-emphasis,#ffffff));
-  text-align: center;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  text-shadow: none;
-  text-transform: none;
-  -webkit-letter-spacing: normal;
-  -moz-letter-spacing: normal;
-  -ms-letter-spacing: normal;
-  letter-spacing: normal;
-  word-wrap: break-word;
-  white-space: pre;
-  pointer-events: none;
-  content: attr(aria-label);
-  background: var(--bgColor-emphasis,var(--color-neutral-emphasis-plus,#24292f));
-  border-radius: 6px;
-  opacity: 0;
-}
-
-.c4:hover::after,
-.c4:active::after,
-.c4:focus::after,
-.c4:focus-within::after {
-  display: inline-block;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  -webkit-animation-name: tooltip-appear;
-  animation-name: tooltip-appear;
-  -webkit-animation-duration: 0.1s;
-  animation-duration: 0.1s;
-  -webkit-animation-fill-mode: forwards;
-  animation-fill-mode: forwards;
-  -webkit-animation-timing-function: ease-in;
-  animation-timing-function: ease-in;
-  -webkit-animation-delay: 0s;
-  animation-delay: 0s;
-}
-
-.c4.tooltipped-no-delay:hover::after,
-.c4.tooltipped-no-delay:active::after,
-.c4.tooltipped-no-delay:focus::after,
-.c4.tooltipped-no-delay:focus-within::after {
-  -webkit-animation-delay: 0s;
-  animation-delay: 0s;
-}
-
-.c4.tooltipped-multiline:hover::after,
-.c4.tooltipped-multiline:active::after,
-.c4.tooltipped-multiline:focus::after,
-.c4.tooltipped-multiline:focus-within::after {
-  display: table-cell;
-}
-
-.c4.tooltipped-s::after,
-.c4.tooltipped-se::after,
-.c4.tooltipped-sw::after {
-  top: 100%;
-  right: 50%;
-  margin-top: 6px;
-}
-
-.c4.tooltipped-se::after {
-  right: auto;
-  left: 50%;
-  margin-left: -16px;
-}
-
-.c4.tooltipped-sw::after {
-  margin-right: -16px;
-}
-
-.c4.tooltipped-n::after,
-.c4.tooltipped-ne::after,
-.c4.tooltipped-nw::after {
-  right: 50%;
-  bottom: 100%;
-  margin-bottom: 6px;
-}
-
-.c4.tooltipped-ne::after {
-  right: auto;
-  left: 50%;
-  margin-left: -16px;
-}
-
-.c4.tooltipped-nw::after {
-  margin-right: -16px;
-}
-
-.c4.tooltipped-s::after,
-.c4.tooltipped-n::after {
-  -webkit-transform: translateX(50%);
-  -ms-transform: translateX(50%);
-  transform: translateX(50%);
-}
-
-.c4.tooltipped-w::after {
-  right: 100%;
-  bottom: 50%;
-  margin-right: 6px;
-  -webkit-transform: translateY(50%);
-  -ms-transform: translateY(50%);
-  transform: translateY(50%);
-}
-
-.c4.tooltipped-e::after {
-  bottom: 50%;
-  left: 100%;
-  margin-left: 6px;
-  -webkit-transform: translateY(50%);
-  -ms-transform: translateY(50%);
-  transform: translateY(50%);
-}
-
-.c4.tooltipped-multiline::after {
-  width: -webkit-max-content;
-  width: -moz-max-content;
-  width: max-content;
-  max-width: 250px;
-  word-wrap: break-word;
-  white-space: pre-line;
-  border-collapse: separate;
-}
-
-.c4.tooltipped-multiline.tooltipped-s::after,
-.c4.tooltipped-multiline.tooltipped-n::after {
-  right: auto;
-  left: 50%;
-  -webkit-transform: translateX(-50%);
-  -ms-transform: translateX(-50%);
-  transform: translateX(-50%);
-}
-
-.c4.tooltipped-multiline.tooltipped-w::after,
-.c4.tooltipped-multiline.tooltipped-e::after {
-  right: 100%;
-}
-
-.c4.tooltipped-align-right-2::after {
-  right: 0;
-  margin-right: 0;
-}
-
-.c4.tooltipped-align-left-2::after {
-  left: 0;
-  margin-left: 0;
-}
-
 .c2 {
   border: 0;
   font-size: inherit;
@@ -2182,13 +2127,13 @@ exports[`TextInput renders trailingAction icon button 1`] = `
 }
 
 @media (forced-colors:active) {
-  .c5:focus {
+  .c4:focus {
     outline: solid 1px transparent;
   }
 }
 
 @media (pointer:coarse) {
-  .c5[data-size="small"][data-no-visuals]:after {
+  .c4[data-size="small"][data-no-visuals]:after {
     content: "";
     position: absolute;
     left: 0;
@@ -2198,6 +2143,12 @@ exports[`TextInput renders trailingAction icon button 1`] = `
     transform: translateY(-50%);
     top: 50%;
     min-height: 44px;
+  }
+}
+
+@media (forced-colors:active) {
+  .c5 {
+    outline: 1px solid transparent;
   }
 }
 
@@ -2224,45 +2175,54 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   <span
     className="c3 TextInput-action"
   >
-    <span
+    <button
       aria-label="Icon label"
-      className="c4 tooltipped-n"
-      role="tooltip"
+      aria-labelledby=":r1:"
+      className="c4"
+      data-block={null}
+      data-component="IconButton"
+      data-no-visuals={true}
+      data-size="small"
+      onBlur={[Function]}
+      onClick={[MockFunction]}
+      onFocus={[Function]}
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      type="button"
     >
-      <button
-        aria-label="Icon label"
-        className="c5"
-        data-block={null}
-        data-component="IconButton"
-        data-no-visuals={true}
-        data-size="small"
-        onClick={[MockFunction]}
-        type="button"
-      >
-        <svg
-          aria-hidden="true"
-          className="octicon octicon-search"
-          fill="currentColor"
-          focusable="false"
-          height={16}
-          role="img"
-          style={
-            {
-              "display": "inline-block",
-              "overflow": "visible",
-              "userSelect": "none",
-              "verticalAlign": "text-bottom",
-            }
+      <svg
+        aria-hidden="true"
+        className="octicon octicon-search"
+        fill="currentColor"
+        focusable="false"
+        height={16}
+        role="img"
+        style={
+          {
+            "display": "inline-block",
+            "overflow": "visible",
+            "userSelect": "none",
+            "verticalAlign": "text-bottom",
           }
-          viewBox="0 0 16 16"
-          width={16}
-        >
-          <path
-            d="M10.68 11.74a6 6 0 0 1-7.922-8.982 6 6 0 0 1 8.982 7.922l3.04 3.04a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215ZM11.5 7a4.499 4.499 0 1 0-8.997 0A4.499 4.499 0 0 0 11.5 7Z"
-          />
-        </svg>
-      </button>
-    </span>
+        }
+        viewBox="0 0 16 16"
+        width={16}
+      >
+        <path
+          d="M10.68 11.74a6 6 0 0 1-7.922-8.982 6 6 0 0 1 8.982 7.922l3.04 3.04a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215ZM11.5 7a4.499 4.499 0 1 0-8.997 0A4.499 4.499 0 0 0 11.5 7Z"
+        />
+      </svg>
+    </button>
+    <div
+      aria-hidden={true}
+      className="c5"
+      data-direction="s"
+      id=":r1:"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+    >
+      Icon label
+    </div>
   </span>
 </span>
 `;
@@ -2701,14 +2661,14 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   line-height: 0;
 }
 
-.c6 {
+.c5 {
   -webkit-box-pack: center;
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
 }
 
-.c5 {
+.c4 {
   border-radius: 6px;
   border: 1px solid;
   border-color: transparent;
@@ -2753,65 +2713,65 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   box-shadow: none;
 }
 
-.c5:focus:not(:disabled) {
+.c4:focus:not(:disabled) {
   box-shadow: none;
   outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline-offset: -2px;
 }
 
-.c5:focus:not(:disabled):not(:focus-visible) {
+.c4:focus:not(:disabled):not(:focus-visible) {
   outline: solid 1px transparent;
 }
 
-.c5:focus-visible:not(:disabled) {
+.c4:focus-visible:not(:disabled) {
   box-shadow: none;
   outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline-offset: -2px;
 }
 
-.c5[href] {
+.c4[href] {
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
   display: inline-flex;
 }
 
-.c5[href]:hover {
+.c4[href]:hover {
   -webkit-text-decoration: none;
   text-decoration: none;
 }
 
-.c5:hover {
+.c4:hover {
   -webkit-transition-duration: 80ms;
   transition-duration: 80ms;
 }
 
-.c5:active {
+.c4:active {
   -webkit-transition: none;
   transition: none;
 }
 
-.c5[data-inactive] {
+.c4[data-inactive] {
   cursor: auto;
 }
 
-.c5:disabled {
+.c4:disabled {
   cursor: not-allowed;
   box-shadow: none;
   color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
 }
 
-.c5:disabled [data-component=ButtonCounter],
-.c5:disabled [data-component="leadingVisual"],
-.c5:disabled [data-component="trailingAction"] {
+.c4:disabled [data-component=ButtonCounter],
+.c4:disabled [data-component="leadingVisual"],
+.c4:disabled [data-component="trailingAction"] {
   color: inherit;
 }
 
-.c5 [data-component=ButtonCounter] {
+.c4 [data-component=ButtonCounter] {
   font-size: 12px;
 }
 
-.c5[data-component=IconButton] {
+.c4[data-component=IconButton] {
   display: inline-grid;
   padding: unset;
   place-content: center;
@@ -2819,80 +2779,80 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   min-width: unset;
 }
 
-.c5[data-size="small"] {
+.c4[data-size="small"] {
   padding: 0 8px;
   height: 28px;
   gap: 4px;
   font-size: 12px;
 }
 
-.c5[data-size="small"] [data-component="text"] {
+.c4[data-size="small"] [data-component="text"] {
   line-height: calc(20 / 12);
 }
 
-.c5[data-size="small"] [data-component=ButtonCounter] {
+.c4[data-size="small"] [data-component=ButtonCounter] {
   font-size: 12px;
 }
 
-.c5[data-size="small"] [data-component="buttonContent"] > :not(:last-child) {
+.c4[data-size="small"] [data-component="buttonContent"] > :not(:last-child) {
   margin-right: 4px;
 }
 
-.c5[data-size="small"][data-component=IconButton] {
+.c4[data-size="small"][data-component=IconButton] {
   width: 28px;
   padding: unset;
 }
 
-.c5[data-size="large"] {
+.c4[data-size="large"] {
   padding: 0 16px;
   height: 40px;
   gap: 8px;
 }
 
-.c5[data-size="large"] [data-component="buttonContent"] > :not(:last-child) {
+.c4[data-size="large"] [data-component="buttonContent"] > :not(:last-child) {
   margin-right: 8px;
 }
 
-.c5[data-size="large"][data-component=IconButton] {
+.c4[data-size="large"][data-component=IconButton] {
   width: 40px;
   padding: unset;
 }
 
-.c5[data-block="block"] {
+.c4[data-block="block"] {
   width: 100%;
 }
 
-.c5[data-inactive]:not([disabled]) {
+.c4[data-inactive]:not([disabled]) {
   background-color: var(--button-inactive-bgColor,var(--button-inactive-bgColor-rest,var(--color-btn-inactive-bg,#eaeef2)));
   border-color: var(--button-inactive-bgColor,var(--button-inactive-bgColor-rest,var(--color-btn-inactive-bg,#eaeef2)));
   color: var(--button-inactive-fgColor,var(--button-inactive-fgColor-rest,var(--color-btn-inactive-text,#57606a)));
 }
 
-.c5[data-inactive]:not([disabled]):focus-visible {
+.c4[data-inactive]:not([disabled]):focus-visible {
   box-shadow: none;
 }
 
-.c5 [data-component="leadingVisual"] {
+.c4 [data-component="leadingVisual"] {
   grid-area: leadingVisual;
   color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
 }
 
-.c5 [data-component="text"] {
+.c4 [data-component="text"] {
   grid-area: text;
   line-height: calc(20/14);
   white-space: nowrap;
 }
 
-.c5 [data-component="trailingVisual"] {
+.c4 [data-component="trailingVisual"] {
   grid-area: trailingVisual;
 }
 
-.c5 [data-component="trailingAction"] {
+.c4 [data-component="trailingAction"] {
   margin-right: -4px;
   color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
 }
 
-.c5 [data-component="buttonContent"] {
+.c4 [data-component="buttonContent"] {
   -webkit-flex: 1 0 auto;
   -ms-flex: 1 0 auto;
   flex: 1 0 auto;
@@ -2908,27 +2868,27 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   align-content: center;
 }
 
-.c5 [data-component="buttonContent"] > :not(:last-child) {
+.c4 [data-component="buttonContent"] > :not(:last-child) {
   margin-right: 8px;
 }
 
-.c5:hover:not([disabled]) {
+.c4:hover:not([disabled]) {
   background-color: var(--control-transparent-bgColor-hover,var(--color-action-list-item-default-hover-bg,rgba(208,215,222,0.32)));
 }
 
-.c5:active:not([disabled]) {
+.c4:active:not([disabled]) {
   background-color: var(--control-transparent-bgColor-active,var(--color-action-list-item-default-active-bg,rgba(208,215,222,0.48)));
 }
 
-.c5[aria-expanded=true] {
+.c4[aria-expanded=true] {
   background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
 }
 
-.c5[data-component="IconButton"][data-no-visuals] {
+.c4[data-component="IconButton"][data-no-visuals] {
   color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
 }
 
-.c5[data-no-visuals] {
+.c4[data-no-visuals] {
   color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
   padding-top: 2px;
   padding-right: 4px;
@@ -2937,21 +2897,127 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   position: relative;
 }
 
-.c5[data-no-visuals][data-component="IconButton"] {
+.c4[data-no-visuals][data-component="IconButton"] {
   width: var(--inner-action-size);
   height: var(--inner-action-size);
 }
 
-.c5:has([data-component="ButtonCounter"]) {
+.c4:has([data-component="ButtonCounter"]) {
   color: var(--button-default-fgColor-rest,var(--color-btn-text,#24292f));
 }
 
-.c5:disabled[data-no-visuals] {
+.c4:disabled[data-no-visuals] {
   color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
 }
 
-.c5:disabled[data-no-visuals] [data-component=ButtonCounter] {
+.c4:disabled[data-no-visuals] [data-component=ButtonCounter] {
   color: inherit;
+}
+
+.c6 {
+  display: none;
+  display: inline-block;
+}
+
+.c6[popover] {
+  padding: 0.5em 0.75em;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+  margin: auto;
+  -webkit-clip: auto;
+  clip: auto;
+  white-space: normal;
+  font: normal normal 11px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
+  -webkit-font-smoothing: subpixel-antialiased;
+  color: var(--fgColor-onEmphasis,var(--color-fg-on-emphasis,#ffffff));
+  text-align: center;
+  word-wrap: break-word;
+  background: var(--bgColor-emphasis,var(--color-neutral-emphasis-plus,#24292f));
+  border-radius: 6px;
+  border: 0;
+  opacity: 0;
+  max-width: 250px;
+  inset: auto;
+  overflow: visible;
+}
+
+.c6[popover]:popover-open {
+  display: block;
+}
+
+.c6[popover].\\:popover-open {
+  display: block;
+}
+
+.c6::after {
+  position: absolute;
+  display: block;
+  right: 0;
+  left: 0;
+  height: 8px;
+  content: '';
+}
+
+.c6[data-direction='n']::after,
+.c6[data-direction='ne']::after,
+.c6[data-direction='nw']::after {
+  top: 100%;
+}
+
+.c6[data-direction='s']::after,
+.c6[data-direction='se']::after,
+.c6[data-direction='sw']::after {
+  bottom: 100%;
+}
+
+.c6[data-direction='w']::after {
+  position: absolute;
+  display: block;
+  height: 100%;
+  width: 8px;
+  content: '';
+  bottom: 0;
+  left: 100%;
+}
+
+.c6[data-direction='e']::after {
+  position: absolute;
+  display: block;
+  height: 100%;
+  width: 8px;
+  content: '';
+  bottom: 0;
+  right: 100%;
+  margin-left: -8px;
+}
+
+.c6:popover-open,
+.c6:popover-open::before {
+  -webkit-animation-name: tooltip-appear;
+  animation-name: tooltip-appear;
+  -webkit-animation-duration: 0.1s;
+  animation-duration: 0.1s;
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+  -webkit-animation-timing-function: ease-in;
+  animation-timing-function: ease-in;
+  -webkit-animation-delay: 0s;
+  animation-delay: 0s;
+}
+
+.c6.\\:popover-open,
+.c6.\\:popover-open::before {
+  -webkit-animation-name: tooltip-appear;
+  animation-name: tooltip-appear;
+  -webkit-animation-duration: 0.1s;
+  animation-duration: 0.1s;
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+  -webkit-animation-timing-function: ease-in;
+  animation-timing-function: ease-in;
+  -webkit-animation-delay: 0s;
+  animation-delay: 0s;
 }
 
 .c0 {
@@ -3041,167 +3107,6 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   padding-right: 0;
 }
 
-.c4 {
-  position: relative;
-  display: inline-block;
-  display: inline-block;
-}
-
-.c4::after {
-  position: absolute;
-  z-index: 1000000;
-  display: none;
-  padding: 0.5em 0.75em;
-  font: normal normal 11px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
-  -webkit-font-smoothing: subpixel-antialiased;
-  color: var(--fgColor-onEmphasis,var(--color-fg-on-emphasis,#ffffff));
-  text-align: center;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  text-shadow: none;
-  text-transform: none;
-  -webkit-letter-spacing: normal;
-  -moz-letter-spacing: normal;
-  -ms-letter-spacing: normal;
-  letter-spacing: normal;
-  word-wrap: break-word;
-  white-space: pre;
-  pointer-events: none;
-  content: attr(aria-label);
-  background: var(--bgColor-emphasis,var(--color-neutral-emphasis-plus,#24292f));
-  border-radius: 6px;
-  opacity: 0;
-}
-
-.c4:hover::after,
-.c4:active::after,
-.c4:focus::after,
-.c4:focus-within::after {
-  display: inline-block;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  -webkit-animation-name: tooltip-appear;
-  animation-name: tooltip-appear;
-  -webkit-animation-duration: 0.1s;
-  animation-duration: 0.1s;
-  -webkit-animation-fill-mode: forwards;
-  animation-fill-mode: forwards;
-  -webkit-animation-timing-function: ease-in;
-  animation-timing-function: ease-in;
-  -webkit-animation-delay: 0s;
-  animation-delay: 0s;
-}
-
-.c4.tooltipped-no-delay:hover::after,
-.c4.tooltipped-no-delay:active::after,
-.c4.tooltipped-no-delay:focus::after,
-.c4.tooltipped-no-delay:focus-within::after {
-  -webkit-animation-delay: 0s;
-  animation-delay: 0s;
-}
-
-.c4.tooltipped-multiline:hover::after,
-.c4.tooltipped-multiline:active::after,
-.c4.tooltipped-multiline:focus::after,
-.c4.tooltipped-multiline:focus-within::after {
-  display: table-cell;
-}
-
-.c4.tooltipped-s::after,
-.c4.tooltipped-se::after,
-.c4.tooltipped-sw::after {
-  top: 100%;
-  right: 50%;
-  margin-top: 6px;
-}
-
-.c4.tooltipped-se::after {
-  right: auto;
-  left: 50%;
-  margin-left: -16px;
-}
-
-.c4.tooltipped-sw::after {
-  margin-right: -16px;
-}
-
-.c4.tooltipped-n::after,
-.c4.tooltipped-ne::after,
-.c4.tooltipped-nw::after {
-  right: 50%;
-  bottom: 100%;
-  margin-bottom: 6px;
-}
-
-.c4.tooltipped-ne::after {
-  right: auto;
-  left: 50%;
-  margin-left: -16px;
-}
-
-.c4.tooltipped-nw::after {
-  margin-right: -16px;
-}
-
-.c4.tooltipped-s::after,
-.c4.tooltipped-n::after {
-  -webkit-transform: translateX(50%);
-  -ms-transform: translateX(50%);
-  transform: translateX(50%);
-}
-
-.c4.tooltipped-w::after {
-  right: 100%;
-  bottom: 50%;
-  margin-right: 6px;
-  -webkit-transform: translateY(50%);
-  -ms-transform: translateY(50%);
-  transform: translateY(50%);
-}
-
-.c4.tooltipped-e::after {
-  bottom: 50%;
-  left: 100%;
-  margin-left: 6px;
-  -webkit-transform: translateY(50%);
-  -ms-transform: translateY(50%);
-  transform: translateY(50%);
-}
-
-.c4.tooltipped-multiline::after {
-  width: -webkit-max-content;
-  width: -moz-max-content;
-  width: max-content;
-  max-width: 250px;
-  word-wrap: break-word;
-  white-space: pre-line;
-  border-collapse: separate;
-}
-
-.c4.tooltipped-multiline.tooltipped-s::after,
-.c4.tooltipped-multiline.tooltipped-n::after {
-  right: auto;
-  left: 50%;
-  -webkit-transform: translateX(-50%);
-  -ms-transform: translateX(-50%);
-  transform: translateX(-50%);
-}
-
-.c4.tooltipped-multiline.tooltipped-w::after,
-.c4.tooltipped-multiline.tooltipped-e::after {
-  right: 100%;
-}
-
-.c4.tooltipped-align-right-2::after {
-  right: 0;
-  margin-right: 0;
-}
-
-.c4.tooltipped-align-left-2::after {
-  left: 0;
-  margin-left: 0;
-}
-
 .c2 {
   border: 0;
   font-size: inherit;
@@ -3217,13 +3122,13 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
 }
 
 @media (forced-colors:active) {
-  .c5:focus {
+  .c4:focus {
     outline: solid 1px transparent;
   }
 }
 
 @media (pointer:coarse) {
-  .c5[data-no-visuals]:after {
+  .c4[data-no-visuals]:after {
     content: "";
     position: absolute;
     left: 0;
@@ -3233,6 +3138,12 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
     transform: translateY(-50%);
     top: 50%;
     min-height: 44px;
+  }
+}
+
+@media (forced-colors:active) {
+  .c6 {
+    outline: 1px solid transparent;
   }
 }
 
@@ -3259,31 +3170,40 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   <span
     className="c3 TextInput-action"
   >
-    <span
-      aria-label="Clear input"
-      className="c4 tooltipped-n"
-      role="tooltip"
+    <button
+      aria-describedby=":r0:"
+      className="c4"
+      data-block={null}
+      data-no-visuals={true}
+      onBlur={[Function]}
+      onClick={[MockFunction]}
+      onFocus={[Function]}
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      style={{}}
+      type="button"
     >
-      <button
+      <span
         className="c5"
-        data-block={null}
-        data-no-visuals={true}
-        onClick={[MockFunction]}
-        style={{}}
-        type="button"
+        data-component="buttonContent"
       >
         <span
-          className="c6"
-          data-component="buttonContent"
+          data-component="text"
         >
-          <span
-            data-component="text"
-          >
-            Clear
-          </span>
+          Clear
         </span>
-      </button>
-    </span>
+      </span>
+    </button>
+    <div
+      className="c6"
+      data-direction="s"
+      id=":r0:"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      role="tooltip"
+    >
+      Clear input
+    </div>
   </span>
 </span>
 `;

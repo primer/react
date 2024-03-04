@@ -128,7 +128,7 @@
         {
           "name": "tooltipDirection",
           "type": "'n' | 'ne' | 'e' | 'se' | 's' | 'sw' | 'w' | 'nw'",
-          "defaultValue": "n",
+          "defaultValue": "s",
           "description": "Sets where the tooltip renders in relation to the target."
         },
         {
