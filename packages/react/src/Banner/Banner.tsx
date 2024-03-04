@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useId} from 'react'
 import styled from 'styled-components'
 import {AlertIcon, InfoIcon, StopIcon, CheckCircleIcon, XIcon} from '@primer/octicons-react'
 import {Button as ButtonReset} from '../internal/components/ButtonReset'
@@ -7,7 +7,7 @@ import {get} from '../constants'
 
 type BannerVariant = 'critical' | 'info' | 'success' | 'upsell' | 'warning'
 
-export type BannerProps = React.ComponentPropsWithoutRef<'div'> & {
+export type BannerProps = React.ComponentPropsWithoutRef<'section'> & {
   /**
    * Optionally provide a handler to be called when the banner is dismissed.
    * Providing this prop will show a dismiss button.
@@ -42,17 +42,30 @@ const iconForVariant: Record<BannerVariant, React.ReactNode> = {
 }
 
 export function Banner({children, onDismiss, title, variant = 'info', ...rest}: BannerProps) {
+  const titleId = useId()
   const icon = iconForVariant[variant]
   const dismissible = variant !== 'critical' && onDismiss
+
   return (
-    <StyledBanner {...rest} data-variant={variant} data-title-only={children === undefined ? true : undefined}>
+    <StyledBanner
+      aria-labelledby={title ? titleId : undefined}
+      as="section"
+      {...rest}
+      data-variant={variant}
+      data-title-only={children === undefined ? true : undefined}
+      tabIndex={-1}
+    >
       <div className="BannerIcon">{icon}</div>
       <div className="BannerContent">
-        {title ? <div className="BannerTitle">{title}</div> : null}
+        {title ? (
+          <h2 className="BannerTitle" id={titleId}>
+            {title}
+          </h2>
+        ) : null}
         {children}
       </div>
       {dismissible ? (
-        <ButtonReset aria-label="Close" onClick={onDismiss} className="BannerDismiss">
+        <ButtonReset aria-label="Dismiss banner" onClick={onDismiss} className="BannerDismiss">
           <XIcon />
         </ButtonReset>
       ) : null}
@@ -121,7 +134,7 @@ const StyledBanner = styled.div`
   .BannerContent {
     display: grid;
     row-gap: 0.25rem;
-    padding: 0.5rem 0.5rem 0;
+    padding: 0.5rem 0;
     font-size: 0.875rem;
     line-height: calc(20 / 14);
     // column-gap: 0.5rem;
@@ -130,6 +143,8 @@ const StyledBanner = styled.div`
   }
 
   .BannerTitle {
+    margin: 0;
+    font-size: inherit;
     // display: grid;
     // align-items: center;
     /* grid-area: title; */
@@ -156,15 +171,15 @@ const StyledBanner = styled.div`
   /* BannerDismiss ---------------------------------------------------------- */
 
   .BannerDismiss {
-    /* margin-block-start: 0.25rem; */
-    // display: grid;
-    // place-items: center;
+    display: grid;
+    place-items: center;
     padding: 0.5rem;
+    width: 2rem;
+    height: 2.25rem;
   }
 
   .BannerDismiss svg {
     fill: var(--banner-icon-bgColor);
-    height: 1.25rem;
   }
 `
 
