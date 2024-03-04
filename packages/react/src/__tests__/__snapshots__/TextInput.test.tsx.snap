@@ -526,6 +526,7 @@ exports[`TextInput renders error 1`] = `
   onClick={[Function]}
 >
   <input
+    aria-invalid="true"
     className="c2"
     data-component="input"
     name="zipcode"
