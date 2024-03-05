@@ -2,6 +2,7 @@ import {Banner} from '../Banner'
 import {action} from '@storybook/addon-actions'
 import Link from '../Link'
 import type {Meta} from '@storybook/react'
+import {VisuallyHidden} from '../internal/components/VisuallyHidden'
 
 const meta = {
   title: 'Drafts/Components/Banner/Features',
@@ -13,13 +14,16 @@ export default meta
 export const Critical = () => {
   return (
     <Banner variant="critical">
-      <Banner.Description>
-        GitHub users are{' '}
-        <Link inline underline href="#">
-          now required
-        </Link>{' '}
-        to enable two-factor authentication as an additional security measure.
-      </Banner.Description>
+      <Banner.Content>
+        <Banner.Title>Critical</Banner.Title>
+        <Banner.Description>
+          GitHub users are{' '}
+          <Link inline underline href="#">
+            now required
+          </Link>{' '}
+          to enable two-factor authentication as an additional security measure.
+        </Banner.Description>
+      </Banner.Content>
     </Banner>
   )
 }
@@ -27,13 +31,16 @@ export const Critical = () => {
 export const Info = () => {
   return (
     <Banner onDismiss={action('onDismiss')} variant="info">
-      <Banner.Description>
-        GitHub users are{' '}
-        <Link inline underline href="#">
-          now required
-        </Link>{' '}
-        to enable two-factor authentication as an additional security measure.
-      </Banner.Description>
+      <Banner.Content>
+        <Banner.Title>Info</Banner.Title>
+        <Banner.Description>
+          GitHub users are{' '}
+          <Link inline underline href="#">
+            now required
+          </Link>{' '}
+          to enable two-factor authentication as an additional security measure.
+        </Banner.Description>
+      </Banner.Content>
     </Banner>
   )
 }
@@ -41,13 +48,16 @@ export const Info = () => {
 export const Success = () => {
   return (
     <Banner onDismiss={action('onDismiss')} variant="success">
-      <Banner.Description>
-        GitHub users are{' '}
-        <Link inline underline href="#">
-          now required
-        </Link>{' '}
-        to enable two-factor authentication as an additional security measure.
-      </Banner.Description>
+      <Banner.Content>
+        <Banner.Title>Success</Banner.Title>
+        <Banner.Description>
+          GitHub users are{' '}
+          <Link inline underline href="#">
+            now required
+          </Link>{' '}
+          to enable two-factor authentication as an additional security measure.
+        </Banner.Description>
+      </Banner.Content>
     </Banner>
   )
 }
@@ -55,13 +65,16 @@ export const Success = () => {
 export const Upsell = () => {
   return (
     <Banner onDismiss={action('onDismiss')} variant="upsell">
-      <Banner.Description>
-        GitHub users are{' '}
-        <Link inline underline href="#">
-          now required
-        </Link>{' '}
-        to enable two-factor authentication as an additional security measure.
-      </Banner.Description>
+      <Banner.Content>
+        <Banner.Title>Upsell</Banner.Title>
+        <Banner.Description>
+          GitHub users are{' '}
+          <Link inline underline href="#">
+            now required
+          </Link>{' '}
+          to enable two-factor authentication as an additional security measure.
+        </Banner.Description>
+      </Banner.Content>
     </Banner>
   )
 }
@@ -69,13 +82,16 @@ export const Upsell = () => {
 export const Warning = () => {
   return (
     <Banner onDismiss={action('onDismiss')} variant="warning">
-      <Banner.Description>
-        GitHub users are{' '}
-        <Link inline underline href="#">
-          now required
-        </Link>{' '}
-        to enable two-factor authentication as an additional security measure.
-      </Banner.Description>
+      <Banner.Content>
+        <Banner.Title>Warning</Banner.Title>
+        <Banner.Description>
+          GitHub users are{' '}
+          <Link inline underline href="#">
+            now required
+          </Link>{' '}
+          to enable two-factor authentication as an additional security measure.
+        </Banner.Description>
+      </Banner.Content>
     </Banner>
   )
 }
@@ -83,62 +99,56 @@ export const Warning = () => {
 export const Dismiss = () => {
   return (
     <Banner onDismiss={action('onDismiss')}>
-      <Banner.Description>
-        GitHub users are{' '}
-        <Link inline underline href="#">
-          now required
-        </Link>{' '}
-        to enable two-factor authentication as an additional security measure.
-      </Banner.Description>
-    </Banner>
-  )
-}
-
-export const TitleOnly = () => {
-  return (
-    <Banner
-      title={
-        <>
+      <Banner.Content>
+        <Banner.Title>Notice</Banner.Title>
+        <Banner.Description>
           GitHub users are{' '}
           <Link inline underline href="#">
             now required
           </Link>{' '}
           to enable two-factor authentication as an additional security measure.
-        </>
-      }
-      variant="warning"
-    />
+        </Banner.Description>
+      </Banner.Content>
+    </Banner>
   )
 }
 
-export const WithTitle = () => {
+export const WithNoTitle = () => {
   return (
-    <Banner title="This is a title" variant="warning">
-      <Banner.Description>
-        GitHub users are{' '}
-        <Link inline underline href="#">
-          now required
-        </Link>{' '}
-        to enable two-factor authentication as an additional security measure.
-      </Banner.Description>
+    <Banner variant="warning">
+      <Banner.Content>
+        <VisuallyHidden>
+          <Banner.Title>Warning</Banner.Title>
+        </VisuallyHidden>
+        <Banner.Description>
+          GitHub users are{' '}
+          <Link inline underline href="#">
+            now required
+          </Link>{' '}
+          to enable two-factor authentication as an additional security measure.
+        </Banner.Description>
+      </Banner.Content>
     </Banner>
   )
 }
 
 export const WithActions = () => {
   return (
-    <Banner title="This is a title" variant="warning">
-      <Banner.Description>
-        GitHub users are{' '}
-        <Link inline underline href="#">
-          now required
-        </Link>{' '}
-        to enable two-factor authentication as an additional security measure.
-      </Banner.Description>
-      <Banner.Actions>
-        <Banner.PrimaryAction>Button</Banner.PrimaryAction>
-        <Banner.SecondaryAction>Button</Banner.SecondaryAction>
-      </Banner.Actions>
+    <Banner variant="warning">
+      <Banner.Content>
+        <Banner.Title>Warning</Banner.Title>
+        <Banner.Description>
+          GitHub users are{' '}
+          <Link inline underline href="#">
+            now required
+          </Link>{' '}
+          to enable two-factor authentication as an additional security measure.
+        </Banner.Description>
+      </Banner.Content>
+      <Banner.Actions
+        primaryAction={<Banner.PrimaryAction>Button</Banner.PrimaryAction>}
+        secondaryAction={<Banner.SecondaryAction>Button</Banner.SecondaryAction>}
+      />
     </Banner>
   )
 }

@@ -1,5 +1,7 @@
 import {
   Banner as BannerImpl,
+  BannerContent,
+  BannerTitle,
   BannerActions,
   BannerDescription,
   BannerPrimaryAction,
@@ -7,6 +9,8 @@ import {
 } from './Banner'
 import type {
   BannerProps,
+  BannerContentProps,
+  BannerTitleProps,
   BannerActionsProps,
   BannerDescriptionProps,
   BannerPrimaryActionProps,
@@ -14,7 +18,9 @@ import type {
 } from './Banner'
 
 export const Banner = Object.assign(BannerImpl, {
+  Content: BannerContent,
   Actions: BannerActions,
+  Title: BannerTitle,
   Description: BannerDescription,
   PrimaryAction: BannerPrimaryAction,
   SecondaryAction: BannerSecondaryAction,
@@ -22,6 +28,8 @@ export const Banner = Object.assign(BannerImpl, {
 
 export type {
   BannerProps,
+  BannerContentProps,
+  BannerTitleProps,
   BannerActionsProps,
   BannerDescriptionProps,
   BannerPrimaryActionProps,

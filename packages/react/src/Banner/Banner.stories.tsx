@@ -1,6 +1,5 @@
 import type {Meta, StoryObj} from '@storybook/react'
 import React from 'react'
-import {Button} from '../Button'
 import Link from '../Link'
 import {Banner} from '../Banner'
 import {action} from '@storybook/addon-actions'
@@ -14,31 +13,9 @@ export default meta
 
 export const Default = () => {
   return (
-    <Banner title="This is a title" onDismiss={action('onDismiss')}>
-      <Banner.Description>
-        GitHub users are{' '}
-        <Link inline href="#">
-          now required
-        </Link>{' '}
-        to enable two-factor authentication as an additional security measure.
-      </Banner.Description>
-      <Banner.Actions>
-        <Button>Button</Button>
-        <Button variant="invisible">Button</Button>
-      </Banner.Actions>
-    </Banner>
-  )
-}
-
-export const Playground: StoryObj<typeof Banner> = {
-  render: ({onDismiss, variant, ...rest}) => {
-    return (
-      <Banner
-        {...rest}
-        title="This is the title"
-        onDismiss={onDismiss ? action('onDismiss') : undefined}
-        variant={variant}
-      >
+    <Banner onDismiss={action('onDismiss')}>
+      <Banner.Content>
+        <Banner.Title>Info</Banner.Title>
         <Banner.Description>
           GitHub users are{' '}
           <Link inline underline href="#">
@@ -46,6 +23,29 @@ export const Playground: StoryObj<typeof Banner> = {
           </Link>{' '}
           to enable two-factor authentication as an additional security measure.
         </Banner.Description>
+      </Banner.Content>
+      <Banner.Actions
+        primaryAction={<Banner.PrimaryAction>Button</Banner.PrimaryAction>}
+        secondaryAction={<Banner.SecondaryAction>Button</Banner.SecondaryAction>}
+      />
+    </Banner>
+  )
+}
+
+export const Playground: StoryObj<typeof Banner> = {
+  render: ({onDismiss, variant, ...rest}) => {
+    return (
+      <Banner {...rest} onDismiss={onDismiss ? action('onDismiss') : undefined} variant={variant}>
+        <Banner.Content>
+          <Banner.Title>Banner title</Banner.Title>
+          <Banner.Description>
+            GitHub users are{' '}
+            <Link inline underline href="#">
+              now required
+            </Link>{' '}
+            to enable two-factor authentication as an additional security measure.
+          </Banner.Description>
+        </Banner.Content>
       </Banner>
     )
   },

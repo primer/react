@@ -3,10 +3,10 @@ import {visit} from '../test-helpers/storybook'
 import {themes} from '../test-helpers/themes'
 
 const stories = [
-  // {
-  // title: 'Default',
-  // id: 'drafts-components-banner--default',
-  // },
+  {
+    title: 'Default',
+    id: 'drafts-components-banner--default',
+  },
   {
     title: 'Critical',
     id: 'drafts-components-banner-features--critical',
@@ -32,12 +32,8 @@ const stories = [
     id: 'drafts-components-banner-features--dismiss',
   },
   {
-    title: 'TitleOnly',
-    id: 'drafts-components-banner-features--title-only',
-  },
-  {
-    title: 'WithTitle',
-    id: 'drafts-components-banner-features--with-title',
+    title: 'WithNoTitle',
+    id: 'drafts-components-banner-features--with-no-title',
   },
   {
     title: 'WithActions',

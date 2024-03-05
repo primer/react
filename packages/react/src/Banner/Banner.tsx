@@ -1,8 +1,8 @@
-import React, {useId} from 'react'
+import cx from 'clsx'
+import React, {createContext, useContext, useId, useMemo} from 'react'
 import styled from 'styled-components'
 import {AlertIcon, InfoIcon, StopIcon, CheckCircleIcon, XIcon} from '@primer/octicons-react'
-import {Button as ButtonReset} from '../internal/components/ButtonReset'
-import {Button} from '../Button'
+import {Button, IconButton} from '../Button'
 import {get} from '../constants'
 
 type BannerVariant = 'critical' | 'info' | 'success' | 'upsell' | 'warning'
@@ -43,33 +43,30 @@ const iconForVariant: Record<BannerVariant, React.ReactNode> = {
 
 export function Banner({children, onDismiss, title, variant = 'info', ...rest}: BannerProps) {
   const titleId = useId()
+  const value = useMemo(() => {
+    return {
+      titleId,
+    }
+  }, [titleId])
   const icon = iconForVariant[variant]
   const dismissible = variant !== 'critical' && onDismiss
 
   return (
-    <StyledBanner
-      aria-labelledby={title ? titleId : undefined}
-      as="section"
-      {...rest}
-      data-variant={variant}
-      data-title-only={children === undefined ? true : undefined}
-      tabIndex={-1}
-    >
-      <div className="BannerIcon">{icon}</div>
-      <div className="BannerContent">
-        {title ? (
-          <h2 className="BannerTitle" id={titleId}>
-            {title}
-          </h2>
+    <BannerContext.Provider value={value}>
+      <StyledBanner aria-labelledby={titleId} as="section" {...rest} data-variant={variant} tabIndex={-1}>
+        <div className="BannerIcon">{icon}</div>
+        <div className="BannerContainer">{children}</div>
+        {dismissible ? (
+          <IconButton
+            aria-label="Dismiss banner"
+            onClick={onDismiss}
+            className="BannerDismiss"
+            icon={XIcon}
+            variant="invisible"
+          />
         ) : null}
-        {children}
-      </div>
-      {dismissible ? (
-        <ButtonReset aria-label="Dismiss banner" onClick={onDismiss} className="BannerDismiss">
-          <XIcon />
-        </ButtonReset>
-      ) : null}
-    </StyledBanner>
+      </StyledBanner>
+    </BannerContext.Provider>
   )
 }
 
@@ -81,7 +78,7 @@ export function Banner({children, onDismiss, title, variant = 'info', ...rest}: 
  */
 const StyledBanner = styled.div`
   display: grid;
-  grid-template-columns: auto 1fr auto;
+  grid-template-columns: auto minmax(0, 1fr) auto;
   align-items: start;
   background-color: var(--banner-bgColor);
   border: 1px solid var(--banner-borderColor);
@@ -126,46 +123,65 @@ const StyledBanner = styled.div`
   }
 
   .BannerIcon svg {
+    color: var(--banner-icon-bgColor);
     fill: var(--banner-icon-bgColor);
     height: 1.25rem;
   }
 
-  /* BannerContent----------------------------------------------------------- */
+  /* BannerContainer -------------------------------------------------------- */
+  .BannerContainer {
+    display: grid;
+    font-size: 0.875rem;
+    align-items: start;
+    line-height: calc(20 / 14);
+    row-gap: 0.25rem;
+    column-gap: 0.25rem;
+  }
+
+  /* BannerContent ---------------------------------------------------------- */
   .BannerContent {
     display: grid;
     row-gap: 0.25rem;
-    padding: 0.5rem 0;
-    font-size: 0.875rem;
-    line-height: calc(20 / 14);
-    // column-gap: 0.5rem;
-    // align-items: center;
-    /* grid-template-areas: 'title' 'description' 'actions'; */
+    grid-column-start: 1;
+    margin-block: 0.5rem;
   }
 
   .BannerTitle {
     margin: 0;
     font-size: inherit;
-    // display: grid;
-    // align-items: center;
-    /* grid-area: title; */
-  }
-
-  &:not([data-title-only]) .BannerTitle {
-    font-weight: ${get('fontWeights.bold')};
-  }
-
-  .BannerDescription {
-    /* grid-area: description; */
+    font-weight: 600;
   }
 
   /* BannerActions ---------------------------------------------------------- */
 
-  .BannerActions {
+  .BannerActionsContainer {
     display: flex;
     column-gap: 0.5rem;
     align-items: center;
-    padding-block: 0.5rem;
-    /* grid-area: actions; */
+    /* padding-block: 0.5rem; */
+  }
+
+  .BannerActions [data-hide-on-sm] {
+    display: none;
+  }
+
+  @media screen and (min-width: 544px) {
+    .BannerActionsContainer {
+      column-gap: 0.25rem;
+    }
+
+    .BannerActions {
+      grid-column-start: 2;
+      grid-row-start: 1;
+    }
+
+    .BannerActions [data-hide-on-sm] {
+      display: flex;
+    }
+
+    .BannerActions [data-hide-on-md] {
+      display: none;
+    }
   }
 
   /* BannerDismiss ---------------------------------------------------------- */
@@ -175,13 +191,37 @@ const StyledBanner = styled.div`
     place-items: center;
     padding: 0.5rem;
     width: 2rem;
-    height: 2.25rem;
+    height: 2rem;
+    margin-inline-start: 0.25rem;
   }
 
   .BannerDismiss svg {
-    fill: var(--banner-icon-bgColor);
+    color: var(--banner-icon-bgColor);
   }
 `
+
+export type BannerContentProps = React.PropsWithChildren
+
+export function BannerContent({children}: BannerContentProps) {
+  return <div className="BannerContent">{children}</div>
+}
+
+type HeadingElement = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
+
+export type BannerTitleProps<As extends HeadingElement> = {
+  as?: As
+} & React.ComponentPropsWithoutRef<As extends 'h2' ? 'h2' : As>
+
+export function BannerTitle<As extends HeadingElement>(props: BannerTitleProps<As>) {
+  const {as: Heading = 'h2', className, children, ...rest} = props
+  const banner = useBanner()
+
+  return (
+    <Heading {...rest} id={banner.titleId} className={cx('BannerTitle', className)}>
+      {children}
+    </Heading>
+  )
+}
 
 export type BannerDescriptionProps = React.PropsWithChildren<{}>
 
@@ -189,15 +229,29 @@ export function BannerDescription({children}: BannerDescriptionProps) {
   return <div className="BannerDescription">{children}</div>
 }
 
-export type BannerActionsProps = React.PropsWithChildren<{}>
+export type BannerActionsProps = {
+  primaryAction?: React.ReactNode
+  secondaryAction?: React.ReactNode
+}
 
-export function BannerActions({children}: BannerActionsProps) {
-  return <div className="BannerActions">{children}</div>
+export function BannerActions({primaryAction, secondaryAction}: BannerActionsProps) {
+  return (
+    <div className="BannerActions">
+      <div className="BannerActionsContainer" data-hide-on-sm="">
+        {secondaryAction ?? null}
+        {primaryAction ?? null}
+      </div>
+      <div className="BannerActionsContainer" data-hide-on-md="">
+        {primaryAction ?? null}
+        {secondaryAction ?? null}
+      </div>
+    </div>
+  )
 }
 
 export type BannerPrimaryActionProps = Omit<React.ComponentPropsWithoutRef<typeof Button>, 'variant'>
 
-export function BannerPrimaryAction({children, ...rest}: BannerActionsProps) {
+export function BannerPrimaryAction({children, ...rest}: BannerPrimaryActionProps) {
   return (
     <Button {...rest} className="BannerPrimaryAction" variant="default">
       {children}
@@ -213,4 +267,15 @@ export function BannerSecondaryAction({children, ...rest}: BannerSecondaryAction
       {children}
     </Button>
   )
+}
+
+type BannerContextValue = {titleId: string}
+const BannerContext = createContext<BannerContextValue | null>(null)
+
+function useBanner(): BannerContextValue {
+  const value = useContext(BannerContext)
+  if (value) {
+    return value
+  }
+  throw new Error('Component must be used within a <Banner> component')
 }
