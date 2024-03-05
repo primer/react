@@ -87,7 +87,7 @@
     "@github/markdown-toolbar-element": "^2.1.0",
     "@github/paste-markdown": "^1.4.0",
     "@github/relative-time-element": "^4.1.2",
-    "@lit-labs/react": "^1.1.1",
+    "@lit-labs/react": "1.2.1",
     "@oddbird/popover-polyfill": "^0.3.1",
     "@primer/behaviors": "^1.5.1",
     "@primer/live-region-element": "^0.2.0",
