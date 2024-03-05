@@ -2177,7 +2177,6 @@ exports[`TextInput renders trailingAction icon button 1`] = `
     className="c3 TextInput-action"
   >
     <button
-      aria-label="Icon label"
       aria-labelledby=":r1:"
       className="c4"
       data-block={null}
