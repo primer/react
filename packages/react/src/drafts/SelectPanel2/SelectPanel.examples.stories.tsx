@@ -1,7 +1,8 @@
 import React from 'react'
 import {SelectPanel} from './SelectPanel'
 import {ActionList, ActionMenu, Avatar, Box, Button, Text} from '../../index'
-import {ArrowRightIcon, EyeIcon, GitBranchIcon, TriangleDownIcon, GearIcon} from '@primer/octicons-react'
+import {Dialog} from '../../drafts'
+import {ArrowRightIcon, EyeIcon, GitBranchIcon, TriangleDownIcon, GearIcon, TagIcon} from '@primer/octicons-react'
 import data from './mock-story-data'
 
 export default {
@@ -661,6 +662,47 @@ export const ShortSelectPanel = () => {
         </ActionList>
         <SelectPanel.Footer />
       </SelectPanel>
+    </>
+  )
+}
+
+export const InsideSidebar = () => {
+  const [selectedTag, setSelectedTag] = React.useState<string>()
+  const [sidebarOpen, setSidebarOpen] = React.useState(false)
+
+  return (
+    <>
+      <h1>Opening SelectPanel inside a sidebar</h1>
+
+      <Button onClick={() => setSidebarOpen(true)}>Open sidebar</Button>
+      {sidebarOpen && (
+        <Dialog position="right" title="Sidebar" onClose={() => setSidebarOpen(false)}>
+          <Box p={3}>
+            <SelectPanel
+              title="Choose a tag"
+              selectionVariant="instant"
+              onSubmit={() => {
+                if (!selectedTag) return
+                data.ref = selectedTag // pretending to persist changes
+              }}
+            >
+              <SelectPanel.Button leadingVisual={TagIcon}>{selectedTag || 'Choose a tag'}</SelectPanel.Button>
+
+              <ActionList>
+                {data.tags.map(tag => (
+                  <ActionList.Item
+                    key={tag.id}
+                    onSelect={() => setSelectedTag(tag.id)}
+                    selected={selectedTag === tag.id}
+                  >
+                    {tag.name}
+                  </ActionList.Item>
+                ))}
+              </ActionList>
+            </SelectPanel>
+          </Box>
+        </Dialog>
+      )}
     </>
   )
 }

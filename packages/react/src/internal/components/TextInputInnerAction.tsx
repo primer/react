@@ -1,9 +1,9 @@
 import React, {forwardRef} from 'react'
 import type {IconProps} from '@primer/octicons-react'
 import Box from '../../Box'
-import type {ButtonProps} from '../../Button'
 import {Button, IconButton} from '../../Button'
-import Tooltip from '../../Tooltip/Tooltip'
+import {Tooltip} from '../../TooltipV2'
+import type {ButtonProps} from '../../Button'
 import type {BetterSystemStyleObject, SxProp} from '../../sx'
 import {merge} from '../../sx'
 
@@ -61,7 +61,7 @@ const ConditionalTooltip: React.FC<
   <>
     {ariaLabel ? (
       <Tooltip
-        aria-label={ariaLabel}
+        text={ariaLabel}
         direction={tooltipDirection}
         sx={{
           /* inline-block is used to ensure the tooltip dimensions don't
@@ -95,7 +95,7 @@ const TextInputAction = forwardRef<HTMLButtonElement, TextInputActionProps>(
     return (
       <Box as="span" className="TextInput-action" marginLeft={1} marginRight={1} lineHeight="0">
         {icon && !children ? (
-          <Tooltip direction={tooltipDirection} aria-label={ariaLabel}>
+          <Tooltip direction={tooltipDirection ?? 's'} text={ariaLabel ?? ''} type="label">
             <IconButton
               variant={variant}
               type="button"
