@@ -40,6 +40,7 @@ interface SelectPanelBaseProps {
   // TODO: Make `inputLabel` required in next major version
   inputLabel?: string
   overlayProps?: Partial<OverlayProps>
+  footer?: string | React.ReactElement
 }
 
 export type SelectPanelProps = SelectPanelBaseProps &
@@ -81,6 +82,7 @@ export function SelectPanel({
   filterValue: externalFilterValue,
   onFilterChange: externalOnFilterChange,
   items,
+  footer,
   textInputProps,
   overlayProps,
   sx,
@@ -225,6 +227,20 @@ export function SelectPanel({
             // than the Overlay (which would break scrolling the items)
             sx={{...sx, height: 'inherit', maxHeight: 'inherit'}}
           />
+          {footer && (
+            <Box
+              sx={{
+                position: 'sticky',
+                bottom: 0,
+                fontSize: 0,
+                color: 'fg.muted',
+                borderTop: '1px solid',
+                borderColor: 'border.default',
+              }}
+            >
+              {footer}
+            </Box>
+          )}
         </Box>
       </AnchoredOverlay>
     </LiveRegion>

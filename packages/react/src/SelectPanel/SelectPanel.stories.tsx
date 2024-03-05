@@ -71,7 +71,12 @@ export const Default = () => {
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
         showItemDividers={true}
-        overlayProps={{width: 'small', height: 'xsmall'}}
+        overlayProps={{width: 'small', height: 'medium'}}
+        footer={
+          <Button sx={{width: '100%', color: 'fg.muted'}} onClick={() => setOpen(false)} variant="invisible">
+            Close panel
+          </Button>
+        }
       />
     </>
   )
