@@ -6,6 +6,10 @@
     background: var(--bgColor-default);
   }
 
+  [data-color-mode] {
+    background-color: var(--bgColor-default);
+  }
+
   #storybook-preview-wrapper {
     background-color: var(--bgColor-default) !important;
     width: 100% !important;
