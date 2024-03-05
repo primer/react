@@ -1,7 +1,8 @@
-import React from 'react'
+import React, {useState, useCallback, useRef} from 'react'
 import {Button, IconButton, Breadcrumbs, ActionMenu, ActionList, NavList} from '..'
 import {PageHeader} from '../PageHeader'
 import {Tooltip} from './Tooltip'
+import {Dialog} from '../drafts'
 import {
   GitBranchIcon,
   KebabHorizontalIcon,
@@ -186,3 +187,37 @@ export const Hyperlist = () => (
     </NavList.Item>
   </NavList>
 )
+
+export const DialogTrigger = () => {
+  const [isOpen, setIsOpen] = useState(false)
+  const [secondOpen, setSecondOpen] = useState(false)
+  const buttonRef = useRef<HTMLButtonElement>(null)
+  const onDialogClose = useCallback(() => setIsOpen(false), [])
+  const onSecondDialogClose = useCallback(() => setSecondOpen(false), [])
+  const openSecondDialog = useCallback(() => setSecondOpen(true), [])
+  return (
+    <>
+      <Tooltip text="Ready to merge">
+        <IconButton ref={buttonRef} onClick={() => setIsOpen(!isOpen)} icon={CheckIcon} aria-label="Check mark" />
+      </Tooltip>
+      {isOpen && (
+        <Dialog
+          title="My Dialog"
+          onClose={onDialogClose}
+          footerButtons={[
+            {buttonType: 'default', content: 'Open Second Dialog', onClick: openSecondDialog},
+            {buttonType: 'danger', content: 'Delete the universe', onClick: onDialogClose},
+            {buttonType: 'primary', content: 'Proceed', onClick: openSecondDialog, autoFocus: true},
+          ]}
+        >
+          Dialog content
+          {secondOpen && (
+            <Dialog title="Inner dialog!" onClose={onSecondDialogClose} width="small">
+              Hello world
+            </Dialog>
+          )}
+        </Dialog>
+      )}
+    </>
+  )
+}
