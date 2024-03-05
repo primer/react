@@ -1,6 +1,6 @@
 import {render, screen} from '@testing-library/react'
 import React from 'react'
-import {LiveRegionElement} from '@primer/live-region-element'
+import type {LiveRegionElement} from '@primer/live-region-element'
 import {Alert} from '../Alert'
 
 function getLiveRegion(): LiveRegionElement {
