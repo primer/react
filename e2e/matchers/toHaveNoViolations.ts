@@ -171,6 +171,7 @@ expect.extend({
     if (result.violations.length === 0) {
       return {
         pass: true,
+        message: () => 'No axe violations',
       }
     }
 

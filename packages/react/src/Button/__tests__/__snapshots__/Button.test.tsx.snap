@@ -99,6 +99,7 @@ exports[`Button respects block prop 1`] = `
   cursor: not-allowed;
   box-shadow: none;
   color: primer.fg.disabled;
+  border-color: var(--button-default-borderColor-disabled,undefined);
 }
 
 .c0:disabled [data-component=ButtonCounter] {
@@ -107,6 +108,7 @@ exports[`Button respects block prop 1`] = `
 
 .c0 [data-component=ButtonCounter] {
   font-size: 12px;
+  background-color: btn.counterBg;
 }
 
 .c0[data-component=IconButton] {
@@ -353,6 +355,7 @@ exports[`Button respects the alignContent prop 1`] = `
   cursor: not-allowed;
   box-shadow: none;
   color: primer.fg.disabled;
+  border-color: var(--button-default-borderColor-disabled,undefined);
 }
 
 .c0:disabled [data-component=ButtonCounter] {
@@ -361,6 +364,7 @@ exports[`Button respects the alignContent prop 1`] = `
 
 .c0 [data-component=ButtonCounter] {
   font-size: 12px;
+  background-color: btn.counterBg;
 }
 
 .c0[data-component=IconButton] {
@@ -606,6 +610,7 @@ exports[`Button respects the large size prop 1`] = `
   cursor: not-allowed;
   box-shadow: none;
   color: primer.fg.disabled;
+  border-color: var(--button-default-borderColor-disabled,undefined);
 }
 
 .c0:disabled [data-component=ButtonCounter] {
@@ -614,6 +619,7 @@ exports[`Button respects the large size prop 1`] = `
 
 .c0 [data-component=ButtonCounter] {
   font-size: 12px;
+  background-color: btn.counterBg;
 }
 
 .c0[data-component=IconButton] {
@@ -860,6 +866,7 @@ exports[`Button respects the small size prop 1`] = `
   cursor: not-allowed;
   box-shadow: none;
   color: primer.fg.disabled;
+  border-color: var(--button-default-borderColor-disabled,undefined);
 }
 
 .c0:disabled [data-component=ButtonCounter] {
@@ -868,6 +875,7 @@ exports[`Button respects the small size prop 1`] = `
 
 .c0 [data-component=ButtonCounter] {
   font-size: 12px;
+  background-color: btn.counterBg;
 }
 
 .c0[data-component=IconButton] {
@@ -1115,7 +1123,7 @@ exports[`Button styles danger button appropriately 1`] = `
   box-shadow: none;
   color: btn.danger.disabledText;
   background-color: btn.danger.disabledBg;
-  border-color: btn.danger.disabledBorder;
+  border-color: var(--button-default-borderColor-disabled,undefined);
 }
 
 .c0:disabled [data-component=ButtonCounter] {
@@ -1646,6 +1654,7 @@ exports[`Button styles primary button appropriately 1`] = `
   box-shadow: none;
   color: btn.primary.disabledText;
   background-color: btn.primary.disabledBg;
+  border-color: btn.primary.disabledBorder;
 }
 
 .c0:disabled [data-component=ButtonCounter] {

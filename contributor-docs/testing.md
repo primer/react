@@ -27,9 +27,9 @@
 
 ## Strategy
 
-We aim to follow the behavioral testing paradigm as our testing strategy where we focus on testing the interface of the component with the given input and expected output rather than implementation details. This approach helps us think the possible ways of how an end-user would interact with, or use, the component therefore help us cover both happy and unhappy paths.
+We aim to follow the behavioral testing paradigm as our testing strategy where we focus on testing the interface of the component with the given input and expected output rather than implementation details. This approach helps us think of the possible ways of how an end-user would interact with, or use, the component therefore help us cover both happy and unhappy paths.
 
-As we heavily rely on the behavioral testing paradigm to test our components, the traditional percentage-base testing coverage is not always helpful for us to use as a metric. To measure the level of our testing coverage or in other words, the definition of "Tested" for us is more like a checklist than a number. Below are some examples can be used as a starting point to help measure the test coverage:
+As we heavily rely on the behavioral testing paradigm to test our components, the traditional percentage-base testing coverage is not always helpful for us to use as a metric. To measure the level of our testing coverage or in other words, the definition of "Tested" for us is more like a checklist than a number. Below are some examples that can be used as a starting point to help measure the test coverage:
 
 - Variants of the component (I.e. default, primary, success, error)
 - The states of the component (I.e. open/closed, selected, disabled)
@@ -92,13 +92,13 @@ We are slowly moving away from using `Jest` snapshots as a way to test visual ch
 
 ### As A Part Of Unit Tests
 
-We write our unit tests from a user perspective rather than focusing on implementation details. Simulating events to test user interations is a core part of our testing practise.
+We write our unit tests from a user perspective rather than focusing on implementation details. Simulating events to test user interactions is a core part of our testing practise.
 
 We write user interaction tests leveraging [@testing-library/react](https://testing-library.com/docs/react-testing-library/intro/)’s [userEvent](<[userEvent](https://testing-library.com/docs/user-event/intro/)>) testing helper.
 
 ### Storybook Interaction Tests
 
-We use [Storybook interactions tests](https://storybook.js.org/docs/react/writing-tests/interaction-testing) to simulate and test some complex user interactions. They are particularly useful for cases where writing unit tests are not practical due the limitation of the mock browser functionalities of JSDOM. For example testing out a component's overflow behaviour whose responsiveness is managed by its own dynamic width.
+We use [Storybook interactions tests](https://storybook.js.org/docs/react/writing-tests/interaction-testing) to simulate and test some complex user interactions. They are particularly useful for cases where writing unit tests are not practical due to the limitation of the mock browser functionalities of JSDOM. For example testing out a component's overflow behaviour whose responsiveness is managed by its own dynamic width.
 
 Storybook tests are authored within the components's source directory with the file name of `interactions.stories.tsx`
 
