@@ -38,11 +38,7 @@
     "./lib-esm/internal/*": null
   },
   "typings": "lib/index.d.ts",
-  "sideEffects": [
-    "src/internal/components/Announce.tsx",
-    "lib/internal/components/Announce.js",
-    "lib-esm/internal/components/Announce.js"
-  ],
+  "sideEffects": false,
   "scripts": {
     "build": "./script/build",
     "clean": "rimraf dist lib lib-esm css",
@@ -94,7 +90,7 @@
     "@lit-labs/react": "^1.1.1",
     "@oddbird/popover-polyfill": "^0.3.1",
     "@primer/behaviors": "^1.5.1",
-    "@primer/live-region-element": "0.1.1",
+    "@primer/live-region-element": "^0.2.0",
     "@primer/octicons-react": "^19.8.0",
     "@primer/primitives": "7.15.3",
     "@react-aria/ssr": "^3.5.0",

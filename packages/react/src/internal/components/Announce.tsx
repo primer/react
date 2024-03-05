@@ -1,4 +1,3 @@
-import '@primer/live-region-element/define'
 import {announceFromElement} from '@primer/live-region-element'
 import React, {useEffect, useRef, type ElementRef} from 'react'
 import Box from '../../Box'
