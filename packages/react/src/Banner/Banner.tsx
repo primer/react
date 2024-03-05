@@ -116,6 +116,7 @@ const StyledBanner = styled.div`
   }
 
   /* BannerIcon ------------------------------------------------------------- */
+
   .BannerIcon {
     display: grid;
     place-items: center;
@@ -129,6 +130,7 @@ const StyledBanner = styled.div`
   }
 
   /* BannerContainer -------------------------------------------------------- */
+
   .BannerContainer {
     display: grid;
     font-size: 0.875rem;
@@ -139,6 +141,7 @@ const StyledBanner = styled.div`
   }
 
   /* BannerContent ---------------------------------------------------------- */
+
   .BannerContent {
     display: grid;
     row-gap: 0.25rem;
@@ -154,11 +157,14 @@ const StyledBanner = styled.div`
 
   /* BannerActions ---------------------------------------------------------- */
 
+  .BannerActions {
+    justify-self: end;
+  }
+
   .BannerActionsContainer {
     display: flex;
     column-gap: 0.5rem;
     align-items: center;
-    /* padding-block: 0.5rem; */
   }
 
   .BannerActions [data-hide-on-sm] {
