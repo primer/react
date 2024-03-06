@@ -1,11 +1,8 @@
-import React from 'react'
-import styled from 'styled-components'
 import {RelativeTimeElement} from '@github/relative-time-element'
-import {createComponent} from '@lit-labs/react'
 import type {ComponentProps} from '../utils/types'
-import sx from '../sx'
+import {createComponent} from '../utils/custom-element'
 
-const RelativeTime = styled(createComponent(React, 'relative-time', RelativeTimeElement))(sx)
+const RelativeTime = createComponent(RelativeTimeElement, 'relative-time')
 
 export type RelativeTimeProps = ComponentProps<typeof RelativeTime>
 export default RelativeTime
