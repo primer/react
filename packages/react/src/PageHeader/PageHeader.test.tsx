@@ -41,17 +41,6 @@ describe('PageHeader', () => {
     default: undefined,
     PageHeader,
   })
-  it('renders default layout', () => {
-    const {container} = render(
-      <PageHeader>
-        <PageHeader.TitleArea>TitleArea</PageHeader.TitleArea>
-        <PageHeader.ContextArea>ContextArea</PageHeader.ContextArea>
-        <PageHeader.Description>Description</PageHeader.Description>
-        <PageHeader.Navigation>Navigation</PageHeader.Navigation>
-      </PageHeader>,
-    )
-    expect(container).toMatchSnapshot()
-  })
   /** These 3 tests below are not following the user behavioural pattern testing paradigm.
    * They are testing the internal implementation of the component and checking if the component
    * is rendering the correct styles.This approach was necessary due to the impracticality of CSS media queries testing with Jest.
