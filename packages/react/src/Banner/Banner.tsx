@@ -22,10 +22,6 @@ export type BannerProps = React.ComponentPropsWithoutRef<'section'> & {
    */
   icon?: React.ReactNode
 
-  /**
-   * Optionally provide a title for the banner
-   */
-  title?: React.ReactNode
 
   /**
    * Specify the type of the Banner
