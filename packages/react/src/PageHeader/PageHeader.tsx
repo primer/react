@@ -18,6 +18,7 @@ import {useProvidedRefOrCreate} from '../hooks'
 const GRID_ROW_ORDER = {
   ContextArea: 1,
   LeadingAction: 2,
+  Breadcrumbs: 2,
   TitleArea: 2,
   TrailingAction: 2,
   Actions: 2,
@@ -70,13 +71,13 @@ const Root = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageHeader
   ({children, sx = {}, as = 'div'}, forwardedRef) => {
     const rootStyles = {
       display: 'grid',
-      // We have max 4 columns.
-      gridTemplateColumns: 'auto auto auto 1fr',
+      // We have max 5 columns.
+      gridTemplateColumns: 'auto auto auto auto 1fr',
       gridTemplateAreas: `
-      'context-area context-area context-area context-area'
-      'leading-action title-area trailing-action actions'
-      'description description description description'
-      'navigation navigation navigation navigation'
+      'context-area context-area context-area context-area context-area'
+      'leading-action  breadcrumbs title-area trailing-action actions'
+      'description description description description description'
+      'navigation navigation navigation navigation navigation'
     `,
       //  --custom-height is a custom property (passed by sx) that can be used to override the set height.
       // We don't want these values to be overriden but still want to allow consumers to override them if needed.
@@ -377,6 +378,30 @@ const LeadingAction: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
   )
 }
 
+// This is reserved for only breadcrumbs.
+const Breadcrumbs: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({children, sx = {}, hidden = false}) => {
+  return (
+    <Box
+      data-component="PH_Breadcrumbs"
+      sx={merge<BetterSystemStyleObject>(
+        {
+          gridRow: GRID_ROW_ORDER.Breadcrumbs,
+          gridArea: 'breadcrumbs',
+          paddingRight: '0.5rem',
+          display: 'flex',
+          ...getBreakpointDeclarations(hidden, 'display', value => {
+            return value ? 'none' : 'flex'
+          }),
+          alignItems: 'center',
+        },
+        sx,
+      )}
+    >
+      {children}
+    </Box>
+  )
+}
+
 // PageHeader.LeadingVisual and PageHeader.TrailingVisual should remain visible on narrow viewports.
 const LeadingVisual: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({children, sx = {}, hidden = false}) => {
   const style: CSSCustomProperties = {}
@@ -607,6 +632,7 @@ export const PageHeader = Object.assign(Root, {
   TitleArea,
   ContextAreaActions,
   LeadingAction,
+  Breadcrumbs,
   LeadingVisual,
   Title,
   TrailingVisual,

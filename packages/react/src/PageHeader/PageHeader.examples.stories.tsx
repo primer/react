@@ -217,8 +217,7 @@ export const FilesPage = () => (
           </ActionMenu>
         </PageHeader.ContextAreaActions>
       </PageHeader.ContextArea>
-      {/* This is a hack for now. Breadcrumbs are not leading visuals but for now we are displaying them as leading action until we find a better solution. */}
-      <PageHeader.LeadingAction hidden={false}>
+      <PageHeader.Breadcrumbs>
         <Breadcrumbs>
           <Breadcrumbs.Item href="https://github.com/primer/react/tree/main">react</Breadcrumbs.Item>
           <Breadcrumbs.Item href="https://github.com/primer/react/tree/main/src">src</Breadcrumbs.Item>
@@ -228,7 +227,7 @@ export const FilesPage = () => (
           {/* The last item of the breadcrumb is usually has "selected" prop and it renders as a plain text. We are not leveraging this here because the title
           (last item of the breacdrumb component) is a heading and it is should be the first dom element in the page to avoid any interactive content before the heading (A11y feedback.) */}
         </Breadcrumbs>
-      </PageHeader.LeadingAction>
+      </PageHeader.Breadcrumbs>
       <PageHeader.TrailingAction>
         <IconButton size="small" variant="invisible" aria-label="Copy to clipboard" icon={CopyIcon} />
       </PageHeader.TrailingAction>
