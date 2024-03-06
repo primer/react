@@ -5,14 +5,14 @@ import styled from 'styled-components'
 import {get} from '../../constants'
 import type {TabContainerChangeEvent} from '@github/tab-container-element'
 import {TabContainerElement} from '@github/tab-container-element'
-import {createComponent} from '@lit-labs/react'
+import {createComponent} from '../../utils/custom-element'
 import sx, {type SxProp} from '../../sx'
 import type {ComponentProps} from '../../utils/types'
 import getGlobalFocusStyles from '../../internal/utils/getGlobalFocusStyles'
 
 const TAB_CLASS = 'TabPanel-tab'
 
-const TabContainer = styled(createComponent(React, 'tab-container', TabContainerElement))`
+const TabContainer = styled(createComponent(TabContainerElement, 'tab-container'))`
   & > :not([role='tabpanel']) {
     display: inline-block;
   }
