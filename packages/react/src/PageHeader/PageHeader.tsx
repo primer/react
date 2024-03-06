@@ -2,7 +2,7 @@ import React from 'react'
 import {Box} from '..'
 import type {ResponsiveValue} from '../hooks/useResponsiveValue'
 import {useResponsiveValue} from '../hooks/useResponsiveValue'
-import type {SxProp, BetterSystemStyleObject} from '../sx'
+import type {SxProp, BetterSystemStyleObject, CSSCustomProperties} from '../sx'
 import {merge} from '../sx'
 import Heading from '../Heading'
 import {ArrowLeftIcon} from '@primer/octicons-react'
@@ -11,11 +11,24 @@ import Link from '../Link'
 
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import {getBreakpointDeclarations} from '../utils/getBreakpointDeclarations'
-const REGION_ORDER = {
-  ContextArea: 0,
-  TitleArea: 1,
-  Description: 2,
-  Navigation: 3,
+import {invariant} from '../utils/invariant'
+import {warning} from '../utils/warning'
+import {useProvidedRefOrCreate} from '../hooks'
+
+const GRID_ROW_ORDER = {
+  ContextArea: 1,
+  LeadingAction: 2,
+  TitleArea: 2,
+  TrailingAction: 2,
+  Actions: 2,
+  Description: 3,
+  Navigation: 4,
+}
+
+const TITLE_AREA_REGION_ORDER = {
+  LeadingVisual: 0,
+  Title: 1,
+  TrailingVisual: 2,
 }
 
 const CONTEXT_AREA_REGION_ORDER = {
@@ -24,14 +37,8 @@ const CONTEXT_AREA_REGION_ORDER = {
   ContextAreaActions: 2,
 }
 
-const TITLE_AREA_REGION_ORDER = {
-  LeadingAction: 0,
-  LeadingVisual: 1,
-  Title: 2,
-  TrailingVisual: 3,
-  TrailingAction: 4,
-  Actions: 5,
-}
+const MEDIUM_TITLE_HEIGHT = '2rem'
+const LARGE_TITLE_HEIGHT = '3rem'
 
 // Types that are shared between PageHeader children components
 export type ChildrenPropTypes = {
@@ -59,19 +66,103 @@ export type PageHeaderProps = {
   as?: React.ElementType | 'header' | 'div'
 } & SxProp
 
-const Root: React.FC<React.PropsWithChildren<PageHeaderProps>> = ({children, sx = {}, as = 'div'}) => {
-  const rootStyles = {
-    display: 'flex',
-    flexDirection: 'column',
-    // TODO: We used hard-coded values for the spacing and font size in this component. Update them to use new design tokens when they are ready to use.
-    gap: '0.5rem',
-  }
-  return (
-    <Box as={as} sx={merge<BetterSystemStyleObject>(rootStyles, sx)}>
-      {children}
-    </Box>
-  )
-}
+const Root = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageHeaderProps>>(
+  ({children, sx = {}, as = 'div'}, forwardedRef) => {
+    const rootStyles = {
+      display: 'grid',
+      // We have max 4 columns.
+      gridTemplateColumns: 'auto auto auto 1fr',
+      gridTemplateAreas: `
+      'context-area context-area context-area context-area'
+      'leading-action title-area trailing-action actions'
+      'description description description description'
+      'navigation navigation navigation navigation'
+    `,
+      //  --custom-height is a custom property (passed by sx) that can be used to override the set height.
+      // We don't want these values to be overriden but still want to allow consumers to override them if needed.
+      '&[data-size-variant="large"]': {
+        '[data-component="PH_LeadingAction"], [data-component="PH_TrailingAction"],[data-component="PH_Actions"], [data-component="PH_LeadingVisual"], [data-component="PH_TrailingVisual"]':
+          {
+            height: `var(--custom-height, ${LARGE_TITLE_HEIGHT})`,
+          },
+      },
+      '&[data-size-variant="medium"]': {
+        '[data-component="PH_LeadingAction"], [data-component="PH_TrailingAction"],[data-component="PH_Actions"], [data-component="PH_LeadingVisual"], [data-component="PH_TrailingVisual"]':
+          {
+            height: `var(--custom-height, ${MEDIUM_TITLE_HEIGHT})`,
+          },
+      },
+      '&[data-size-variant="subtitle"]': {
+        '[data-component="PH_LeadingAction"], [data-component="PH_TrailingAction"],[data-component="PH_Actions"], [data-component="PH_LeadingVisual"], [data-component="PH_TrailingVisual"]':
+          {
+            height: `var(--custom-height, ${MEDIUM_TITLE_HEIGHT})`,
+          },
+      },
+    }
+
+    const rootRef = useProvidedRefOrCreate<HTMLDivElement>(forwardedRef as React.RefObject<HTMLDivElement>)
+
+    const isInteractive = (element: HTMLElement) => {
+      return (
+        ['a', 'button'].some(selector => element.matches(selector)) ||
+        (element.hasAttribute('role') && element.getAttribute('role') === 'button') ||
+        (element.hasAttribute('link') && element.getAttribute('role') === 'link') ||
+        element.hasAttribute('tabindex')
+      )
+    }
+
+    const [hasContextArea, setHasContextArea] = React.useState(false)
+    const [hasLeadingAction, setHasLeadingAction] = React.useState(false)
+    const [titleVariant, setTitleVariant] = React.useState<string | undefined>('')
+
+    React.useEffect(() => {
+      if (!rootRef.current || rootRef.current.children.length <= 0) return
+      const titleArea = Array.from(rootRef.current.children as HTMLCollection).find(child => {
+        return child instanceof HTMLElement && child.getAttribute('data-component') === 'TitleArea'
+      })
+
+      // It is very unlikely to have a PageHeader without a TitleArea, but we still want to make sure we don't break the page if that happens.
+      if (!titleArea) return
+
+      // // grab the data-size-variant attribute from the titleArea
+      const sizeVariant = titleArea.getAttribute('data-size-variant')
+      setTitleVariant(sizeVariant as string)
+
+      for (const child of React.Children.toArray(children)) {
+        if (React.isValidElement(child) && child.type === ContextArea) {
+          setHasContextArea(true)
+        }
+        if (React.isValidElement(child) && child.type === LeadingAction) {
+          setHasLeadingAction(true)
+        }
+      }
+      // Check if TitleArea has any interactive children or grandchildren.
+      const hasInteractiveContent = Array.from(titleArea.childNodes).some(child => {
+        return (
+          (child instanceof HTMLElement && isInteractive(child)) ||
+          Array.from(child.childNodes).some(child => {
+            return child instanceof HTMLElement && isInteractive(child)
+          })
+        )
+      })
+
+      // PageHeader.TitleArea should be the first element in the DOM if ContextArea or LeadingAction is present.
+      // Motivation behind this rule to make sure context area and leading action are always rendered after the title (a heading tag)
+      // so that screen reader users who are navigating via heading menu won't miss these actions.
+      if (hasContextArea || hasLeadingAction) {
+        invariant(
+          !hasInteractiveContent,
+          'When PageHeader.ContextArea or PageHeader.LeadingAction is present, PageHeader.TitleArea cannot include interactive elements to make sure the focus order is intact.',
+        )
+      }
+    }, [children, rootRef, hasContextArea, hasLeadingAction])
+    return (
+      <Box ref={rootRef} as={as} sx={merge<BetterSystemStyleObject>(rootStyles, sx)} data-size-variant={titleVariant}>
+        {children}
+      </Box>
+    )
+  },
+) as PolymorphicForwardRefComponent<'div', PageHeaderProps>
 
 // PageHeader.ContextArea : Only visible on narrow viewports by default to provide user context of where they are at their journey. `hidden` prop available
 // to manage their custom visibility but consumers should be careful if they choose to hide this on narrow viewports.
@@ -83,11 +174,14 @@ const ContextArea: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
   sx = {},
 }) => {
   const contentNavStyles = {
+    gridRow: GRID_ROW_ORDER.ContextArea,
+    gridArea: 'context-area',
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
+    paddingBottom: '0.5rem',
     gap: '0.5rem',
-    order: REGION_ORDER.ContextArea,
+
     ...getBreakpointDeclarations(hidden, 'display', value => {
       return value ? 'none' : 'flex'
     }),
@@ -192,23 +286,12 @@ const ContextAreaActions: React.FC<React.PropsWithChildren<ChildrenPropTypes>> =
   )
 }
 
-const MEDIUM_TITLE_HEIGHT = '2rem'
-const LARGE_TITLE_HEIGHT = '3rem'
-
-const TitleAreaContext = React.createContext<{
-  titleVariant: 'subtitle' | 'medium' | 'large'
-  titleAreaHeight?: string | number
-}>({
-  titleVariant: 'medium',
-  titleAreaHeight: MEDIUM_TITLE_HEIGHT,
-})
-
 type TitleAreaProps = {
   variant?: 'subtitle' | 'medium' | 'large' | ResponsiveValue<'subtitle' | 'medium' | 'large'>
 } & ChildrenPropTypes
 // PageHeader.TitleArea: The main title area of the page. Visible on all viewports.
-// PageHeader.TitleArea Sub Components: PageHeader.LeadingAction, PageHeader.LeadingVisual,
-// PageHeader.Title, PageTitle.TrailingVisual, PageHeader.TrailingAction, PageHeader.Actions
+// PageHeader.TitleArea Sub Components: PageHeader.LeadingVisual,
+// PageHeader.Title, PageTitle.TrailingVisual
 // ---------------------------------------------------------------------
 
 const TitleArea: React.FC<React.PropsWithChildren<TitleAreaProps>> = ({
@@ -218,27 +301,45 @@ const TitleArea: React.FC<React.PropsWithChildren<TitleAreaProps>> = ({
   variant = 'medium',
 }) => {
   const currentVariant = useResponsiveValue(variant, 'medium')
-  const height = currentVariant === 'large' ? LARGE_TITLE_HEIGHT : MEDIUM_TITLE_HEIGHT
   return (
-    <TitleAreaContext.Provider value={{titleVariant: currentVariant, titleAreaHeight: height}}>
-      <Box
-        sx={merge<BetterSystemStyleObject>(
-          {
-            display: 'flex',
-            gap: '0.5rem',
-            order: REGION_ORDER.TitleArea,
-            ...getBreakpointDeclarations(hidden, 'display', value => {
-              return value ? 'none' : 'flex'
-            }),
-            flexDirection: 'row',
-            alignItems: 'flex-start',
+    <Box
+      data-component="TitleArea"
+      data-size-variant={currentVariant}
+      sx={merge<BetterSystemStyleObject>(
+        {
+          gridRow: GRID_ROW_ORDER.TitleArea,
+          gridArea: 'title-area',
+          display: 'flex',
+          gap: '0.5rem',
+          ...getBreakpointDeclarations(hidden, 'display', value => {
+            return value ? 'none' : 'flex'
+          }),
+          flexDirection: 'row',
+          alignItems: 'flex-start',
+          // line-height is calculated with calc(height/font-size) and the below numbers are from @primer/primitives
+          //  --custom-font-size, --custom-line-height, --custom-font-weight are custom properties (passed by sx) that can be used to override the below values
+          // We don't want these values to be overriden but still want to allow consumers to override them if needed.
+          '&[data-size-variant="large"] [data-component="PH_Title"]': {
+            fontSize: 'var(--custom-font-size, var(--text-title-size-large, 2rem))',
+            lineHeight: 'var(--custom-line-height, var(--text-title-lineHeight-large, 1.5))', // calc(48/32)
+            fontWeight: 'var(--custom-font-weight, var(--base-text-weight-normal, 400))',
           },
-          sx,
-        )}
-      >
-        {children}
-      </Box>
-    </TitleAreaContext.Provider>
+          '&[data-size-variant="medium"] [data-component="PH_Title"]': {
+            fontSize: 'var(--custom-font-size, var(--text-title-size-medium, 1.25rem))',
+            lineHeight: 'var(--custom-line-height, var(--text-title-lineHeight-medium, 1.6))', // calc(32/20)
+            fontWeight: 'var(--custom-font-weight, var(--base-text-weight-semibold, 600))',
+          },
+          '&[data-size-variant="subtitle"] [data-component="PH_Title"]': {
+            fontSize: 'var(--custom-font-size, var(--text-title-size-medium, 1.25rem))',
+            lineHeight: 'var(--custom-line-height, var(--text-title-lineHeight-medium, 1.6))', // calc(32/20)
+            fontWeight: 'var(--custom-font-weight, var(--base-text-weight-normal, 400))',
+          },
+        },
+        sx,
+      )}
+    >
+      {children}
+    </Box>
   )
 }
 
@@ -249,22 +350,27 @@ const LeadingAction: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
   sx = {},
   hidden = hiddenOnNarrow,
 }) => {
-  const {titleAreaHeight} = React.useContext(TitleAreaContext)
-
+  const style: CSSCustomProperties = {}
+  // @ts-ignore sx has height attribute
+  const {height} = sx
+  if (height) style['--custom-height'] = height
   return (
     <Box
+      data-component="PH_LeadingAction"
       sx={merge<BetterSystemStyleObject>(
         {
+          gridRow: GRID_ROW_ORDER.LeadingAction,
+          gridArea: 'leading-action',
+          paddingRight: '0.5rem',
           display: 'flex',
-          order: TITLE_AREA_REGION_ORDER.LeadingAction,
           ...getBreakpointDeclarations(hidden, 'display', value => {
             return value ? 'none' : 'flex'
           }),
           alignItems: 'center',
-          height: titleAreaHeight,
         },
         sx,
       )}
+      style={style}
     >
       {children}
     </Box>
@@ -273,21 +379,26 @@ const LeadingAction: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
 
 // PageHeader.LeadingVisual and PageHeader.TrailingVisual should remain visible on narrow viewports.
 const LeadingVisual: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({children, sx = {}, hidden = false}) => {
-  const {titleAreaHeight} = React.useContext(TitleAreaContext)
+  const style: CSSCustomProperties = {}
+  // @ts-ignore sx has height attribute
+  const {height} = sx
+  if (height) style['--custom-height'] = height
   return (
     <Box
+      data-component="PH_LeadingVisual"
       sx={merge<BetterSystemStyleObject>(
         {
+          // using flex and order to display the leading visual in the title area.
           display: 'flex',
           order: TITLE_AREA_REGION_ORDER.LeadingVisual,
           ...getBreakpointDeclarations(hidden, 'display', value => {
             return value ? 'none' : 'flex'
           }),
           alignItems: 'center',
-          height: titleAreaHeight,
         },
         sx,
       )}
+      style={style}
     >
       {children}
     </Box>
@@ -299,32 +410,25 @@ export type TitleProps = {
 } & ChildrenPropTypes
 
 const Title: React.FC<React.PropsWithChildren<TitleProps>> = ({children, sx = {}, hidden = false, as = 'h2'}) => {
-  const {titleVariant} = React.useContext(TitleAreaContext)
+  const style: CSSCustomProperties = {}
+  // @ts-ignore sxProp can have color attribute
+  const {fontSize, lineHeight, fontWeight} = sx
+  if (fontSize) style['--custom-font-size'] = fontSize
+  if (lineHeight) style['--custom-line-height'] = lineHeight
+  if (fontWeight) style['--custom-font-weight'] = fontWeight
+
   return (
     <Heading
+      data-component="PH_Title"
       as={as}
+      style={style}
       sx={merge<BetterSystemStyleObject>(
         {
-          fontSize: {
-            large: '2rem',
-            medium: '1.25rem',
-            subtitle: '1.25rem',
-          }[titleVariant],
-          // line-height is calculated with calc(height/font-size) and the below numbers are from @primer/primitives
-          lineHeight: {
-            large: 1.5, // calc(48/32)
-            medium: 1.6, // calc(32/20)
-            subtitle: 1.6, // calc(32/20)
-          }[titleVariant],
-          fontWeight: {
-            large: '400',
-            medium: '600',
-            subtitle: '400',
-          }[titleVariant],
+          // using flex and order to display the title in the title area.
           display: 'flex',
           order: TITLE_AREA_REGION_ORDER.Title,
           ...getBreakpointDeclarations(hidden, 'display', value => {
-            return value ? 'none' : 'flex'
+            return value ? 'none' : 'block'
           }),
         },
         sx,
@@ -337,22 +441,26 @@ const Title: React.FC<React.PropsWithChildren<TitleProps>> = ({children, sx = {}
 
 // PageHeader.LeadingVisual and PageHeader.TrailingVisual should remain visible on narrow viewports.
 const TrailingVisual: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({children, sx = {}, hidden = false}) => {
-  const {titleAreaHeight} = React.useContext(TitleAreaContext)
-
+  const style: CSSCustomProperties = {}
+  // @ts-ignore sx has height attribute
+  const {height} = sx
+  if (height) style['--custom-height'] = height
   return (
     <Box
+      data-component="PH_TrailingVisual"
       sx={merge<BetterSystemStyleObject>(
         {
+          // using flex and order to display the trailing visual in the title area.
           display: 'flex',
           order: TITLE_AREA_REGION_ORDER.TrailingVisual,
           ...getBreakpointDeclarations(hidden, 'display', value => {
             return value ? 'none' : 'flex'
           }),
           alignItems: 'center',
-          height: titleAreaHeight,
         },
         sx,
       )}
+      style={style}
     >
       {children}
     </Box>
@@ -364,22 +472,27 @@ const TrailingAction: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
   sx = {},
   hidden = hiddenOnNarrow,
 }) => {
-  const {titleAreaHeight} = React.useContext(TitleAreaContext)
-
+  const style: CSSCustomProperties = {}
+  // @ts-ignore sx has height attribute
+  const {height} = sx
+  if (height) style['--custom-height'] = height
   return (
     <Box
+      data-component="PH_TrailingAction"
       sx={merge<BetterSystemStyleObject>(
         {
+          gridRow: GRID_ROW_ORDER.TrailingAction,
+          gridArea: 'trailing-action',
+          paddingLeft: '0.5rem',
           display: 'flex',
-          order: TITLE_AREA_REGION_ORDER.TrailingAction,
           ...getBreakpointDeclarations(hidden, 'display', value => {
             return value ? 'none' : 'flex'
           }),
           alignItems: 'center',
-          height: titleAreaHeight,
         },
         sx,
       )}
+      style={style}
     >
       {children}
     </Box>
@@ -387,25 +500,31 @@ const TrailingAction: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
 }
 
 const Actions: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({children, sx = {}, hidden = false}) => {
-  const {titleAreaHeight} = React.useContext(TitleAreaContext)
+  const style: CSSCustomProperties = {}
+  // @ts-ignore sx has height attribute
+  const {height} = sx
+  if (height) style['--custom-height'] = height
   return (
     <Box
+      data-component="PH_Actions"
       sx={merge<BetterSystemStyleObject>(
         {
+          gridRow: GRID_ROW_ORDER.Actions,
+          gridArea: 'actions',
           display: 'flex',
-          order: TITLE_AREA_REGION_ORDER.Actions,
           ...getBreakpointDeclarations(hidden, 'display', value => {
             return value ? 'none' : 'flex'
           }),
           flexDirection: 'row',
+          paddingLeft: '0.5rem',
           gap: '0.5rem',
           flexGrow: '1',
           justifyContent: 'right',
-          height: titleAreaHeight,
           alignItems: 'center',
         },
         sx,
       )}
+      style={style}
     >
       {children}
     </Box>
@@ -418,13 +537,15 @@ const Description: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({chil
     <Box
       sx={merge<BetterSystemStyleObject>(
         {
+          gridRow: GRID_ROW_ORDER.Description,
+          gridArea: 'description',
           display: 'flex',
-          order: REGION_ORDER.Description,
           ...getBreakpointDeclarations(hidden, 'display', value => {
             return value ? 'none' : 'flex'
           }),
           flexDirection: 'row',
           alignItems: 'center',
+          paddingTop: '0.5rem',
           gap: '0.5rem',
         },
         sx,
@@ -450,15 +571,11 @@ const Navigation: React.FC<React.PropsWithChildren<NavigationProps>> = ({
   'aria-label': ariaLabel,
   'aria-labelledby': ariaLabelledBy,
 }) => {
-  // TODO: use warning utility function when it is merged https://github.com/primer/react/pull/2901/
-  if (__DEV__) {
-    if (as === 'nav' && !ariaLabel && !ariaLabelledBy) {
-      // eslint-disable-next-line no-console
-      console.warn(
-        'Use `aria-label` or `aria-labelledby` prop to provide an accessible label to the `nav` landmark for assistive technology',
-      )
-    }
-  }
+  warning(
+    as === 'nav' && !ariaLabel && !ariaLabelledBy,
+    'Use `aria-label` or `aria-labelledby` prop to provide an accessible label to the `nav` landmark for assistive technology',
+  )
+
   return (
     <Box
       as={as}
@@ -467,8 +584,10 @@ const Navigation: React.FC<React.PropsWithChildren<NavigationProps>> = ({
       aria-labelledby={as === 'nav' ? ariaLabelledBy : undefined}
       sx={merge<BetterSystemStyleObject>(
         {
+          gridRow: GRID_ROW_ORDER.Navigation,
+          gridArea: 'navigation',
+          paddingTop: '0.5rem',
           display: 'flex',
-          order: REGION_ORDER.Navigation,
           ...getBreakpointDeclarations(hidden, 'display', value => {
             return value ? 'none' : 'block'
           }),
@@ -485,8 +604,8 @@ export const PageHeader = Object.assign(Root, {
   ContextArea,
   ParentLink,
   ContextBar,
-  ContextAreaActions,
   TitleArea,
+  ContextAreaActions,
   LeadingAction,
   LeadingVisual,
   Title,
@@ -496,3 +615,5 @@ export const PageHeader = Object.assign(Root, {
   Description,
   Navigation,
 })
+
+PageHeader.displayName = 'PageHeader'

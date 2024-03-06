@@ -12,6 +12,7 @@ import {
   ArrowRightIcon,
   TriangleDownIcon,
   CheckIcon,
+  CopyIcon,
 } from '@primer/octicons-react'
 
 import {PageHeader} from './PageHeader'
@@ -19,7 +20,6 @@ import {Hidden} from '../Hidden'
 import {UnderlineNav} from '../UnderlineNav'
 import {ActionMenu} from '../ActionMenu'
 import {ActionList} from '../ActionList'
-import VisuallyHidden from '../_VisuallyHidden'
 
 const meta: Meta = {
   title: 'Drafts/Components/PageHeader/Examples',
@@ -38,22 +38,24 @@ const setViewportParamToNarrow = {
 export const Webhooks = () => (
   <Box sx={{padding: 3}}>
     <PageHeader>
-      <PageHeader.ContextArea>
-        <PageHeader.ParentLink href="http://github.com">Repository settings</PageHeader.ParentLink>
-      </PageHeader.ContextArea>
       <PageHeader.TitleArea>
         <PageHeader.Title as="h2">Webhooks</PageHeader.Title>
-
-        <PageHeader.Actions>
-          <Hidden when={['narrow']}>
-            <Button variant="primary">New webhook</Button>
-          </Hidden>
-
-          <Hidden when={['regular', 'wide']}>
-            <Button variant="primary">New</Button>
-          </Hidden>
-        </PageHeader.Actions>
       </PageHeader.TitleArea>
+      <PageHeader.ContextArea>
+        <PageHeader.ParentLink href="http://github.com">Repository settings</PageHeader.ParentLink>
+        <PageHeader.ContextBar>context bar</PageHeader.ContextBar>
+        <PageHeader.ContextAreaActions>
+          <Button>Context action</Button>
+        </PageHeader.ContextAreaActions>
+      </PageHeader.ContextArea>
+      <PageHeader.Actions>
+        <Hidden when={['narrow']}>
+          <Button variant="primary">New webhook</Button>
+        </Hidden>
+        <Hidden when={['regular', 'wide']}>
+          <Button variant="primary">New</Button>
+        </Hidden>
+      </PageHeader.Actions>
     </PageHeader>
   </Box>
 )
@@ -67,36 +69,35 @@ WebhooksOnNarrowViewport.parameters = setViewportParamToNarrow
 export const PullRequestPage = () => (
   <Box sx={{padding: 3}}>
     <PageHeader>
-      <PageHeader.ContextArea>
-        <PageHeader.ParentLink href="http://github.com">Pull requests</PageHeader.ParentLink>
-      </PageHeader.ContextArea>
       <PageHeader.TitleArea>
         <PageHeader.Title as="h1">
           PageHeader component initial layout explorations extra long pull request title
         </PageHeader.Title>
-        <PageHeader.Actions>
-          <Hidden when={['regular', 'wide']}>
-            <ActionMenu>
-              <ActionMenu.Anchor>
-                <IconButton aria-label="More pull request actions" icon={KebabHorizontalIcon} />
-              </ActionMenu.Anchor>
-              <ActionMenu.Overlay width="small">
-                <ActionList>
-                  <ActionList.Item onSelect={() => alert('Edit button action')}>Edit</ActionList.Item>
-                  <ActionList.Item onSelect={() => alert('Code button action')}>Code</ActionList.Item>
-                </ActionList>
-              </ActionMenu.Overlay>
-            </ActionMenu>
-          </Hidden>
-
-          <Hidden when={['narrow']}>
-            <Box sx={{display: 'flex'}}>
-              <Button>Edit</Button>
-              <Button leadingVisual={CodeIcon}>Code</Button>
-            </Box>
-          </Hidden>
-        </PageHeader.Actions>
       </PageHeader.TitleArea>
+      <PageHeader.ContextArea>
+        <PageHeader.ParentLink href="http://github.com">Pull requests</PageHeader.ParentLink>
+      </PageHeader.ContextArea>
+      <PageHeader.Actions>
+        <Hidden when={['regular', 'wide']}>
+          <ActionMenu>
+            <ActionMenu.Anchor>
+              <IconButton aria-label="More pull request actions" icon={KebabHorizontalIcon} />
+            </ActionMenu.Anchor>
+            <ActionMenu.Overlay width="small">
+              <ActionList>
+                <ActionList.Item onSelect={() => alert('Edit button action')}>Edit</ActionList.Item>
+                <ActionList.Item onSelect={() => alert('Code button action')}>Code</ActionList.Item>
+              </ActionList>
+            </ActionMenu.Overlay>
+          </ActionMenu>
+        </Hidden>
+        <Hidden when={['narrow']}>
+          <Box sx={{display: 'flex', gap: '0.5rem'}}>
+            <Button>Edit</Button>
+            <Button leadingVisual={CodeIcon}>Code</Button>
+          </Box>
+        </Hidden>
+      </PageHeader.Actions>
       <PageHeader.Description>
         <StateLabel status="pullOpened">Open</StateLabel>
         <Hidden when={['narrow']}>
@@ -145,8 +146,15 @@ PullRequestPageOnNarrowViewport.parameters = setViewportParamToNarrow
 export const FilesPage = () => (
   <Box sx={{padding: 3}}>
     <PageHeader>
+      <PageHeader.TitleArea sx={{alignItems: 'center'}}>
+        <Text sx={{color: 'rgb(101, 109, 118)', fontSize: '14px'}}>/</Text>
+        <PageHeader.Title as="h1" sx={{fontSize: '14px', height: '21px'}}>
+          PageHeader.tsx
+        </PageHeader.Title>
+      </PageHeader.TitleArea>
+
       <PageHeader.ContextArea>
-        <PageHeader.ParentLink>Files</PageHeader.ParentLink>
+        <PageHeader.ParentLink href="/">Files</PageHeader.ParentLink>
         <PageHeader.ContextAreaActions>
           <ActionMenu>
             <ActionMenu.Anchor>
@@ -209,60 +217,63 @@ export const FilesPage = () => (
           </ActionMenu>
         </PageHeader.ContextAreaActions>
       </PageHeader.ContextArea>
-      <PageHeader.TitleArea>
+      {/* This is a hack for now. Breadcrumbs are not leading visuals but for now we are displaying them as leading action until we find a better solution. */}
+      <PageHeader.LeadingAction hidden={false}>
         <Breadcrumbs>
           <Breadcrumbs.Item href="https://github.com/primer/react/tree/main">react</Breadcrumbs.Item>
-          <Breadcrumbs.Item href="https://github.com/primer/react/tree/main/packages/react/src">src</Breadcrumbs.Item>
-          <Breadcrumbs.Item href="https://github.com/primer/react/tree/main/packages/react/src/PageHeader">
+          <Breadcrumbs.Item href="https://github.com/primer/react/tree/main/src">src</Breadcrumbs.Item>
+          <Breadcrumbs.Item href="https://github.com/primer/react/tree/main/src/PageHeader">
             PageHeader
           </Breadcrumbs.Item>
-          <Breadcrumbs.Item href="https://github.com/primer/react/tree/main/packages/react/src/PageHeader/PageHeader.tsx">
-            PageHeader.tsx
-          </Breadcrumbs.Item>
+          {/* The last item of the breadcrumb is usually has "selected" prop and it renders as a plain text. We are not leveraging this here because the title
+          (last item of the breacdrumb component) is a heading and it is should be the first dom element in the page to avoid any interactive content before the heading (A11y feedback.) */}
         </Breadcrumbs>
-        <VisuallyHidden as="h2">PageHeader.tsx</VisuallyHidden>
-        <PageHeader.Actions hidden={{narrow: true}}>
-          <ActionMenu>
-            <ActionMenu.Anchor>
-              <IconButton size="small" aria-label="More file actions" icon={KebabHorizontalIcon} />
-            </ActionMenu.Anchor>
-            <ActionMenu.Overlay width="medium">
-              <ActionList>
-                <ActionList.Group title="Raw file content">
-                  <ActionList.Item onSelect={() => alert('Download')}>Download</ActionList.Item>
-                </ActionList.Group>
-                <ActionList.Divider />
-                <ActionList.Item onSelect={() => alert('Jump to line')}>
-                  Jump to line
-                  <ActionList.TrailingVisual>L</ActionList.TrailingVisual>
+      </PageHeader.LeadingAction>
+      <PageHeader.TrailingAction>
+        <IconButton size="small" variant="invisible" aria-label="Copy to clipboard" icon={CopyIcon} />
+      </PageHeader.TrailingAction>
+
+      <PageHeader.Actions>
+        <ActionMenu>
+          <ActionMenu.Anchor>
+            <IconButton size="small" aria-label="More file actions" icon={KebabHorizontalIcon} />
+          </ActionMenu.Anchor>
+          <ActionMenu.Overlay width="medium">
+            <ActionList>
+              <ActionList.Group title="Raw file content">
+                <ActionList.Item onSelect={() => alert('Download')}>Download</ActionList.Item>
+              </ActionList.Group>
+              <ActionList.Divider />
+              <ActionList.Item onSelect={() => alert('Jump to line')}>
+                Jump to line
+                <ActionList.TrailingVisual>L</ActionList.TrailingVisual>
+              </ActionList.Item>
+              <ActionList.Divider />
+              <ActionList.Item onSelect={() => alert('Copy path')}>
+                Copy path
+                <ActionList.TrailingVisual>⌘⇧.</ActionList.TrailingVisual>
+              </ActionList.Item>
+              <ActionList.Item onSelect={() => alert('Copy permalink')}>
+                Copy permalink
+                <ActionList.TrailingVisual>⌘⇧,</ActionList.TrailingVisual>
+              </ActionList.Item>
+              <ActionList.Divider />
+              <ActionList.Group title="View Options">
+                <ActionList.Item onSelect={() => alert('Show code folding buttons')}>
+                  Show code folding buttons
                 </ActionList.Item>
-                <ActionList.Divider />
-                <ActionList.Item onSelect={() => alert('Copy path')}>
-                  Copy path
-                  <ActionList.TrailingVisual>⌘⇧.</ActionList.TrailingVisual>
-                </ActionList.Item>
-                <ActionList.Item onSelect={() => alert('Copy permalink')}>
-                  Copy permalink
-                  <ActionList.TrailingVisual>⌘⇧,</ActionList.TrailingVisual>
-                </ActionList.Item>
-                <ActionList.Divider />
-                <ActionList.Group title="View Options">
-                  <ActionList.Item onSelect={() => alert('Show code folding buttons')}>
-                    Show code folding buttons
-                  </ActionList.Item>
-                  <ActionList.Item onSelect={() => alert('Wrap lines')}>Wrap lines</ActionList.Item>
-                  <ActionList.Item onSelect={() => alert('Center content')}>Center content</ActionList.Item>
-                </ActionList.Group>
-                <ActionList.Divider />
-                <ActionList.Item variant="danger" onSelect={() => alert('Delete file clicked')}>
-                  Delete file
-                  <ActionList.TrailingVisual>⌘D</ActionList.TrailingVisual>
-                </ActionList.Item>
-              </ActionList>
-            </ActionMenu.Overlay>
-          </ActionMenu>
-        </PageHeader.Actions>
-      </PageHeader.TitleArea>
+                <ActionList.Item onSelect={() => alert('Wrap lines')}>Wrap lines</ActionList.Item>
+                <ActionList.Item onSelect={() => alert('Center content')}>Center content</ActionList.Item>
+              </ActionList.Group>
+              <ActionList.Divider />
+              <ActionList.Item variant="danger" onSelect={() => alert('Delete file clicked')}>
+                Delete file
+                <ActionList.TrailingVisual>⌘D</ActionList.TrailingVisual>
+              </ActionList.Item>
+            </ActionList>
+          </ActionMenu.Overlay>
+        </ActionMenu>
+      </PageHeader.Actions>
     </PageHeader>
   </Box>
 )
@@ -276,38 +287,38 @@ export const WithPageLayout = () => {
     <PageLayout>
       <PageLayout.Header>
         <PageHeader>
-          <PageHeader.ContextArea>
-            <PageHeader.ParentLink href="http://github.com">Pull requests</PageHeader.ParentLink>
-          </PageHeader.ContextArea>
           <PageHeader.TitleArea>
             <PageHeader.Title as="h1">
               PageHeader component initial layout explorations extra long pull request title &nbsp;
               <Text sx={{color: 'fg.muted', fontWeight: 'light'}}>#1831</Text>
             </PageHeader.Title>
-            <PageHeader.Actions>
-              <Hidden when={['regular', 'wide']}>
-                {/* Pop up actions */}
-                <ActionMenu>
-                  <ActionMenu.Anchor>
-                    <IconButton aria-label="More pull request actions" icon={KebabHorizontalIcon} />
-                  </ActionMenu.Anchor>
-                  <ActionMenu.Overlay width="small">
-                    <ActionList>
-                      <ActionList.Item onSelect={() => alert('Edit button action')}>Edit</ActionList.Item>
-                      <ActionList.Item onSelect={() => alert('Code button action')}>Code</ActionList.Item>
-                    </ActionList>
-                  </ActionMenu.Overlay>
-                </ActionMenu>
-              </Hidden>
-
-              <Hidden when={['narrow']}>
-                <Box sx={{display: 'flex'}}>
-                  <Button>Edit</Button>
-                  <Button leadingVisual={CodeIcon}>Code</Button>
-                </Box>
-              </Hidden>
-            </PageHeader.Actions>
           </PageHeader.TitleArea>
+          <PageHeader.ContextArea>
+            <PageHeader.ParentLink href="http://github.com">Pull requests</PageHeader.ParentLink>
+          </PageHeader.ContextArea>
+          <PageHeader.Actions>
+            <Hidden when={['regular', 'wide']}>
+              {/* Pop up actions */}
+              <ActionMenu>
+                <ActionMenu.Anchor>
+                  <IconButton aria-label="More pull request actions" icon={KebabHorizontalIcon} />
+                </ActionMenu.Anchor>
+                <ActionMenu.Overlay width="small">
+                  <ActionList>
+                    <ActionList.Item onSelect={() => alert('Edit button action')}>Edit</ActionList.Item>
+                    <ActionList.Item onSelect={() => alert('Code button action')}>Code</ActionList.Item>
+                  </ActionList>
+                </ActionMenu.Overlay>
+              </ActionMenu>
+            </Hidden>
+
+            <Hidden when={['narrow']}>
+              <Box sx={{display: 'flex', gap: '0.5rem'}}>
+                <Button>Edit</Button>
+                <Button leadingVisual={CodeIcon}>Code</Button>
+              </Box>
+            </Hidden>
+          </PageHeader.Actions>
           <PageHeader.Description>
             <StateLabel status="pullOpened">Open</StateLabel>
             <Hidden when={['narrow']}>
@@ -354,6 +365,7 @@ export const WithPageLayout = () => {
         <Box sx={{display: 'flex', flexDirection: 'column', gap: 3}}>
           <Box>
             <Text sx={{fontSize: 0, fontWeight: 'bold', display: 'block', color: 'fg.muted'}}>Assignees</Text>
+
             <Text sx={{fontSize: 0, color: 'fg.muted', lineHeight: 'condensed', display: 'flex', alignItems: 'center'}}>
               No one —
               <Button
