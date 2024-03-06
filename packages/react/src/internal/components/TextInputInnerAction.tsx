@@ -96,17 +96,8 @@ const TextInputAction = forwardRef<HTMLButtonElement, TextInputActionProps>(
       <Box as="span" className="TextInput-action" marginLeft={1} marginRight={1} lineHeight="0">
         {icon && !children ? (
           <Tooltip direction={tooltipDirection ?? 's'} text={ariaLabel ?? ''} type="label">
-            <IconButton
-              variant={variant}
-              type="button"
-              icon={icon}
-              size="small"
-              sx={sx}
-              {...rest}
-              aria-label={ariaLabel as unknown as string}
-              aria-labelledby={undefined}
-              ref={forwardedRef}
-            />
+            {/* @ts-ignore we intentionally do add aria-label to IconButton because Tooltip v2 adds an aria-labelledby instead. */}
+            <IconButton variant={variant} type="button" icon={icon} size="small" sx={sx} {...rest} ref={forwardedRef} />
           </Tooltip>
         ) : (
           <ConditionalTooltip aria-label={ariaLabel}>
