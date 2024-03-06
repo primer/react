@@ -199,7 +199,6 @@ export const Tooltip = React.forwardRef(
       if (tooltipElRef.current && triggerRef.current && !tooltipElRef.current.matches(':popover-open')) {
         const tooltip = tooltipElRef.current
         const trigger = triggerRef.current
-        tooltip.setAttribute('popover', 'auto')
         tooltip.showPopover()
         /*
          * TOOLTIP POSITIONING
@@ -255,6 +254,9 @@ export const Tooltip = React.forwardRef(
           apply()
         }
       }
+
+      const tooltip = tooltipElRef.current
+      tooltip.setAttribute('popover', 'auto')
     }, [tooltipElRef, triggerRef, direction, type])
 
     return (
