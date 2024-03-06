@@ -3,6 +3,7 @@ import clsx from 'clsx'
 import React from 'react'
 import styled from 'styled-components'
 import {get} from '../../constants'
+import type {TabContainerChangeEvent} from '@github/tab-container-element'
 import {TabContainerElement} from '@github/tab-container-element'
 import {createComponent} from '@lit-labs/react'
 import sx, {type SxProp} from '../../sx'
@@ -77,14 +78,20 @@ const TabContainer = styled(createComponent(React, 'tab-container', TabContainer
 export type TabPanelsProps = ComponentProps<typeof TabContainer>
 
 function TabPanels({children, id, ...props}: TabPanelsProps) {
+  let initialTabId = `${id}-tab-0`
+  if (props.selectedTab) {
+    initialTabId = `${id}-tab-${props.selectedTab}`
+  }
+  const [tabId, setSelectedTab] = React.useState(initialTabId)
+
   // Loop through the chidren, if it's a tab, then add id="{id}-tab-{index}"
   // If it's a panel, then add aria-labelledby="{id}-tab-{index}"
   let tabIndex = 0
   let panelIndex = 0
-  let defaultTab = props['default-tab'] ? props['default-tab'] : 0
+
   const childrenWithProps = React.Children.map(children, child => {
     if (React.isValidElement<TabPanelsTabProps>(child) && child.type === Tab && !child.props.id) {
-      if (tabIndex === defaultTab) {
+      if (tabId === `${id}-tab-${tabIndex}`) {
         return React.cloneElement(child, {id: `${id}-tab-${tabIndex++}`, selected: true})
       }
 
@@ -96,8 +103,14 @@ function TabPanels({children, id, ...props}: TabPanelsProps) {
     return child
   })
 
+  const handleTabChange = (event: TabContainerChangeEvent) => {
+    if (tabId !== event.tab?.id) {
+      setSelectedTab(event.tab?.id)
+    }
+  }
+
   return (
-    <TabContainer {...props} id={id} default-tab={defaultTab} suppressHydrationWarning>
+    <TabContainer {...props} id={id} onTabContainerChanged={handleTabChange} suppressHydrationWarning>
       {childrenWithProps}
     </TabContainer>
   )
