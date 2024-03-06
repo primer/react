@@ -1,5 +1,5 @@
 import React from 'react'
-import {Box, ActionMenu, ActionList, Button, IconButton} from '../'
+import {Box, ActionMenu, ActionList, Button, IconButton, FormControl, TextInput} from '../'
 import {
   GearIcon,
   MilestoneIcon,
@@ -184,6 +184,15 @@ export const ShortcutMenu = () => {
       <br />
 
       {/**
+       * This is used to demonstrate mouse/keyboard modality
+       * and how it might affect `:focus-visible` styles in the menu.
+       */}
+      <FormControl>
+        <FormControl.Label>Default label</FormControl.Label>
+        <TextInput />
+      </FormControl>
+
+      {/**
        * Even though the state is controlled externally,
        * we can pass an Anchor for the menu to "anchor to"
        */}
@@ -209,6 +218,7 @@ export const ShortcutMenu = () => {
               Edit comment
               <ActionList.TrailingVisual>⌘E</ActionList.TrailingVisual>
             </ActionList.Item>
+            <ActionList.LinkItem href="#">View file</ActionList.LinkItem>
             <ActionList.Divider />
             <ActionList.Item variant="danger">
               Delete file
