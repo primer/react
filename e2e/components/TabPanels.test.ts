@@ -8,7 +8,7 @@ test.describe('TabPanels', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'components-tabpanels--default',
+            id: 'drafts-components-tabpanels--default',
             globals: {
               colorScheme: theme,
             },
@@ -20,7 +20,7 @@ test.describe('TabPanels', () => {
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'components-tabpanels--default',
+            id: 'drafts-components-tabpanels--default',
             globals: {
               colorScheme: theme,
             },
