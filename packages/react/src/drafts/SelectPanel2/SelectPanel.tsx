@@ -191,12 +191,16 @@ const Panel: React.FC<SelectPanelProps> = ({
   // Autofocus hack: React doesn't support autoFocus for dialog: https://github.com/facebook/react/issues/23301
   // tl;dr: react takes over autofocus instead of letting the browser handle it,
   // but not for dialogs, so we have to do it
-  React.useEffect(() => {
-    if (internalOpen) {
-      const searchInput = document.querySelector('dialog[open] input') as HTMLInputElement | undefined
-      searchInput?.focus()
-    }
-  }, [internalOpen])
+  React.useEffect(
+    function intialFocus() {
+      if (internalOpen) {
+        const searchInput = document.querySelector('dialog[open] input') as HTMLInputElement | undefined
+        if (searchInput) searchInput.focus()
+        else moveFocusToList()
+      }
+    },
+    [internalOpen],
+  )
 
   /* Anchored */
   const {position} = useAnchoredPosition(
