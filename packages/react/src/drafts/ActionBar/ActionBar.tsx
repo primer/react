@@ -40,7 +40,7 @@ export type ActionBarProps = {
   children: React.ReactNode
 }
 
-export type ActionBarIconButtonProps = IconButtonProps
+export type ActionBarIconButtonProps = IconButtonProps & {isMenu: boolean}
 
 const NavigationList = styled.ul`
   ${sx};
@@ -281,9 +281,34 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
                       children: menuItemChildren,
                       //'aria-current': ariaCurrent,
                       onClick,
+                      isMenu,
                       icon: Icon,
                       'aria-label': ariaLabel,
+                      ref,
                     } = menuItem.props
+                    if (isMenu) {
+                      return (
+                        <ActionList.Item
+                          key={menuItemChildren}
+                          sx={menuItemStyles}
+                          onFocus={(event: React.FocusEvent<HTMLAnchorElement>) => {
+                            typeof onClick === 'function' && onClick(event)
+                          }}
+                          onClick={() => {
+                            closeOverlay()
+                            focusOnMoreMenuBtn()
+                          }}
+                          ref={ref}
+                        >
+                          {Icon ? (
+                            <ActionList.LeadingVisual>
+                              <Icon />
+                            </ActionList.LeadingVisual>
+                          ) : null}
+                          {ariaLabel}
+                        </ActionList.Item>
+                      )
+                    }
                     return (
                       <ActionList.LinkItem
                         key={menuItemChildren}
@@ -295,6 +320,7 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
                           focusOnMoreMenuBtn()
                           typeof onClick === 'function' && onClick(event)
                         }}
+                        ref={ref}
                       >
                         {Icon ? (
                           <ActionList.LeadingVisual>

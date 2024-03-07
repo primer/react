@@ -1,6 +1,15 @@
 import React from 'react'
-import {ActionMenu, ActionList, Box} from '../'
-import {WorkflowIcon, ArchiveIcon, GearIcon, CopyIcon, RocketIcon, CommentIcon, BookIcon} from '@primer/octicons-react'
+import {ActionMenu, ActionList, Box, IconButton} from '../'
+import {
+  WorkflowIcon,
+  ArchiveIcon,
+  GearIcon,
+  CopyIcon,
+  RocketIcon,
+  CommentIcon,
+  BookIcon,
+  ThreeBarsIcon,
+} from '@primer/octicons-react'
 
 export default {
   title: 'Components/ActionMenu/Features',
@@ -179,3 +188,22 @@ export const InactiveItems = () => (
     </ActionMenu.Overlay>
   </ActionMenu>
 )
+
+export const ExternalAnchor = () => {
+  const anchorRef = React.useRef(null)
+  const [open, setOpen] = React.useState(false)
+  return (
+    <Box>
+      <IconButton onClick={() => setOpen(true)} icon={ThreeBarsIcon} aria-label="External Anchor" ref={anchorRef} />
+      <ActionMenu anchorRef={anchorRef} open={open}>
+        <ActionMenu.Overlay onClickOutside={() => setOpen(false)} onEscape={() => setOpen(false)}>
+          <ActionList>
+            <ActionList.Item>Copy</ActionList.Item>
+            <ActionList.Item>Paste</ActionList.Item>
+            <ActionList.Item>Delete</ActionList.Item>
+          </ActionList>
+        </ActionMenu.Overlay>
+      </ActionMenu>
+    </Box>
+  )
+}

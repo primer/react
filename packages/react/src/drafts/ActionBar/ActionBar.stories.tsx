@@ -14,11 +14,12 @@ import {
   ListOrderedIcon,
   TasklistIcon,
   ReplyIcon,
+  ThreeBarsIcon,
 } from '@primer/octicons-react'
 import {MarkdownInput} from '../MarkdownEditor/_MarkdownInput'
 import {ViewSwitch} from '../MarkdownEditor/_ViewSwitch'
 import type {MarkdownViewMode} from '../MarkdownEditor/_ViewSwitch'
-import {Box, Dialog, Button} from '../..'
+import {Box, Dialog, Button, ActionMenu, ActionList} from '../..'
 import {Divider} from '../../deprecated/ActionList/Divider'
 
 export default {
@@ -63,6 +64,12 @@ export const CommentBox = () => {
   const [value, setValue] = React.useState('')
   const [isOpen, setIsOpen] = React.useState(false)
   const buttonRef = React.useRef(null)
+
+  const [menuActionFired, fireMenuAction] = React.useState('')
+  const onSelect = (name: string) => fireMenuAction(name)
+
+  const [openMenu, setOpenMenu] = React.useState(false)
+  const triggerMenuRef = React.useRef<HTMLButtonElement>(null)
   return (
     <Box
       sx={{
@@ -116,6 +123,13 @@ export const CommentBox = () => {
               icon={ReplyIcon}
               aria-label="Saved Replies"
             ></ActionBar.IconButton>
+            <ActionBar.IconButton
+              icon={ThreeBarsIcon}
+              aria-label="Open Rendom Menu"
+              ref={triggerMenuRef}
+              isMenu
+              onClick={() => setOpenMenu(!openMenu)}
+            ></ActionBar.IconButton>
           </ActionBar>
         </Box>
       </Box>
@@ -138,6 +152,29 @@ export const CommentBox = () => {
         <Divider />
         <Button variant="invisible">Create your own saved reply</Button>
       </Dialog>
+      <ActionMenu open={openMenu} onOpenChange={setOpenMenu} anchorRef={triggerMenuRef}>
+        <ActionMenu.Overlay>
+          <ActionList>
+            <ActionList.Item onSelect={() => onSelect('Copy link')}>
+              Copy link
+              <ActionList.TrailingVisual>⌘C</ActionList.TrailingVisual>
+            </ActionList.Item>
+            <ActionList.Item onSelect={() => onSelect('Quote reply')}>
+              Quote reply
+              <ActionList.TrailingVisual>⌘Q</ActionList.TrailingVisual>
+            </ActionList.Item>
+            <ActionList.Item onSelect={() => onSelect('Edit comment')}>
+              Edit comment
+              <ActionList.TrailingVisual>⌘E</ActionList.TrailingVisual>
+            </ActionList.Item>
+            <ActionList.Divider />
+            <ActionList.Item variant="danger" onSelect={() => onSelect('Delete file')}>
+              Delete file
+              <ActionList.TrailingVisual>⌘D</ActionList.TrailingVisual>
+            </ActionList.Item>
+          </ActionList>
+        </ActionMenu.Overlay>
+      </ActionMenu>
     </Box>
   )
 }
