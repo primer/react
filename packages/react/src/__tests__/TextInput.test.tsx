@@ -1,6 +1,6 @@
 import {SearchIcon} from '@primer/octicons-react'
 import userEvent from '@testing-library/user-event'
-import {render as HTMLRender, fireEvent} from '@testing-library/react'
+import {render as HTMLRender, fireEvent, screen} from '@testing-library/react'
 import {axe} from 'jest-axe'
 import React from 'react'
 import {TextInput} from '..'
@@ -37,6 +37,11 @@ describe('TextInput', () => {
 
   it('renders error', () => {
     expect(render(<TextInput name="zipcode" validationStatus="error" />)).toMatchSnapshot()
+  })
+
+  it('renders sets aria-invalid="true" on error', () => {
+    HTMLRender(<TextInput name="zipcode" validationStatus="error" data-testid="zipcodeInput" />)
+    expect(screen.getByTestId('zipcodeInput')).toHaveAttribute('aria-invalid', 'true')
   })
 
   it('renders contrast', () => {

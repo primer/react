@@ -17,6 +17,7 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
       },
       '&:disabled': {
         color: 'primer.fg.disabled',
+        borderColor: `var(--button-default-borderColor-disabled, ${theme?.colors.btn.border})`,
         '[data-component=ButtonCounter]': {
           color: 'inherit',
         },
@@ -27,6 +28,9 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
       },
       '[data-component="leadingVisual"], [data-component="trailingVisual"], [data-component="trailingAction"]': {
         color: `var(--button-color, ${theme?.colors.fg.muted})`,
+      },
+      '[data-component=ButtonCounter]': {
+        backgroundColor: 'btn.counterBg',
       },
     },
     primary: {
@@ -51,6 +55,7 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
       '&:disabled': {
         color: 'btn.primary.disabledText',
         backgroundColor: 'btn.primary.disabledBg',
+        borderColor: 'btn.primary.disabledBorder',
         '[data-component=ButtonCounter]': {
           color: 'inherit',
         },
@@ -87,7 +92,7 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
       '&:disabled': {
         color: 'btn.danger.disabledText',
         backgroundColor: 'btn.danger.disabledBg',
-        borderColor: 'btn.danger.disabledBorder',
+        borderColor: `var(--button-default-borderColor-disabled, ${theme?.colors.btn.border})`,
         '[data-component=ButtonCounter]': {
           color: 'btn.danger.disabledCounterFg',
           backgroundColor: 'btn.danger.disabledCounterBg',
