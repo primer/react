@@ -10,7 +10,7 @@ export default {
 } as Meta<ComponentProps<typeof TabPanels>>
 
 export const Selected = () => (
-  <TabPanels aria-label="TabPanels example" id="tab-panels" selectedTab={1}>
+  <TabPanels aria-label="TabPanels example" id="tab-panels" selectedTabIndex={1}>
     <TabPanels.Tab>One</TabPanels.Tab>
     <TabPanels.Tab>Two</TabPanels.Tab>
     <TabPanels.Tab>Three</TabPanels.Tab>
@@ -35,7 +35,7 @@ export const AdditionalContent = () => (
 )
 
 export const ManyTabs = () => (
-  <TabPanels aria-label="TabPanels example" id="tab-panels" selectedTab={10}>
+  <TabPanels aria-label="TabPanels example" id="tab-panels" selectedTabIndex={10}>
     <TabPanels.Tab>One</TabPanels.Tab>
     <TabPanels.Tab>Two</TabPanels.Tab>
     <TabPanels.Tab>Three</TabPanels.Tab>

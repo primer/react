@@ -12,78 +12,71 @@ import getGlobalFocusStyles from '../../internal/utils/getGlobalFocusStyles'
 
 const TAB_CLASS = 'TabPanel-tab'
 
-const TabContainer = styled(createComponent(TabContainerElement, 'tab-container'))`
-  & > :not([role='tabpanel']) {
-    display: inline-block;
-  }
+const TabContainer = createComponent(TabContainerElement, 'tab-container')
+const StyledTabContainer = styled(TabContainer)`
+& > :not([role='tabpanel']) {
+  display: inline-block;
+}
 
-  &::part(tablist-wrapper) {
-    margin-top: 0;
-    margin-bottom: 16px;
-    border-bottom: 1px solid ${get('colors.border.default')};
-  }
+&::part(tablist-wrapper) {
+  margin-top: 0;
+  margin-bottom: 16px;
+  border-bottom: 1px solid ${get('colors.border.default')};
+}
 
-  &:not(:defined) [role='tabpanel'] {
-    margin-top: 17px;
-    display: none;
-  }
+&:not(:defined) [role='tabpanel'] {
+  margin-top: 17px;
+  display: none;
+}
 
-  &:not(:defined) [role='tab']:nth-of-type(1)[aria-selected='true'] ~ [role='tabpanel']:nth-of-type(1),
-  &:not(:defined) [role='tab']:nth-of-type(2)[aria-selected='true'] ~ [role='tabpanel']:nth-of-type(2),
-  &:not(:defined) [role='tab']:nth-of-type(3)[aria-selected='true'] ~ [role='tabpanel']:nth-of-type(3),
-  &:not(:defined) [role='tab']:nth-of-type(4)[aria-selected='true'] ~ [role='tabpanel']:nth-of-type(4),
-  &:not(:defined) [role='tab']:nth-of-type(5)[aria-selected='true'] ~ [role='tabpanel']:nth-of-type(5),
-  &:not(:defined) [role='tab']:nth-of-type(6)[aria-selected='true'] ~ [role='tabpanel']:nth-of-type(6),
-  &:not(:defined) [role='tab']:nth-of-type(7)[aria-selected='true'] ~ [role='tabpanel']:nth-of-type(7),
-  &:not(:defined) [role='tab']:nth-of-type(8)[aria-selected='true'] ~ [role='tabpanel']:nth-of-type(8),
-  &:not(:defined) [role='tab']:nth-of-type(9)[aria-selected='true'] ~ [role='tabpanel']:nth-of-type(9),
-  &:not(:defined) [role='tab']:nth-of-type(10)[aria-selected='true'] ~ [role='tabpanel']:nth-of-type(10) {
-    display: block;
-  }
+&:not(:defined) [role='tab']:nth-of-type(1)[aria-selected='true'] ~ [role='tabpanel']:nth-of-type(1),
+&:not(:defined) [role='tab']:nth-of-type(2)[aria-selected='true'] ~ [role='tabpanel']:nth-of-type(2),
+&:not(:defined) [role='tab']:nth-of-type(3)[aria-selected='true'] ~ [role='tabpanel']:nth-of-type(3),
+&:not(:defined) [role='tab']:nth-of-type(4)[aria-selected='true'] ~ [role='tabpanel']:nth-of-type(4),
+&:not(:defined) [role='tab']:nth-of-type(5)[aria-selected='true'] ~ [role='tabpanel']:nth-of-type(5),
+&:not(:defined) [role='tab']:nth-of-type(6)[aria-selected='true'] ~ [role='tabpanel']:nth-of-type(6),
+&:not(:defined) [role='tab']:nth-of-type(7)[aria-selected='true'] ~ [role='tabpanel']:nth-of-type(7),
+&:not(:defined) [role='tab']:nth-of-type(8)[aria-selected='true'] ~ [role='tabpanel']:nth-of-type(8),
+&:not(:defined) [role='tab']:nth-of-type(9)[aria-selected='true'] ~ [role='tabpanel']:nth-of-type(9),
+&:not(:defined) [role='tab']:nth-of-type(10)[aria-selected='true'] ~ [role='tabpanel']:nth-of-type(10) {
+  display: block;
+}
 
-  &:not(:defined):not(:has([aria-selected='true'])) [role='tabpanel']:first-of-type {
-    display: block;
-  }
+&:not(:defined):not(:has([aria-selected='true'])) [role='tabpanel']:first-of-type {
+  display: block;
+}
 
-  &:not(:has([aria-selected='true'])) [role='tab'] ~ [role='tab'] {
-    color: ${get('colors.fg.muted')};
-    background-color: transparent;
-    border: 1px solid transparent;
-  }
+&:not(:has([aria-selected='true'])) [role='tab'] ~ [role='tab'] {
+  color: ${get('colors.fg.muted')};
+  background-color: transparent;
+  border: 1px solid transparent;
+}
 
-  &:not(:has([aria-selected='true'])) [role='tab'],
-  & [role='tab'][aria-selected='true'] {
-    color: ${get('colors.fg.default')};
-    border-color: ${get('colors.border.default')};
-    border-top-right-radius: ${get('radii.2')};
-    border-top-left-radius: ${get('radii.2')};
-    background-color: ${get('colors.canvas.default')};
-  }
+&:not(:has([aria-selected='true'])) [role='tab'],
+& [role='tab'][aria-selected='true'] {
+  color: ${get('colors.fg.default')};
+  border-color: ${get('colors.border.default')};
+  border-top-right-radius: ${get('radii.2')};
+  border-top-left-radius: ${get('radii.2')};
+  background-color: ${get('colors.canvas.default')};
+}
 
-  &:not(:defined):not(:has([aria-selected='true'])) [role='tab'] ~ [role='tab'],
-  &:not(:defined):has([aria-selected='true']) [role='tab']:not([aria-selected='true']) {
-    padding: 8px 16px;
-    border-bottom: 1px solid ${get('colors.border.default')};
-  }
+&:not(:defined):not(:has([aria-selected='true'])) [role='tab'] ~ [role='tab'],
+&:not(:defined):has([aria-selected='true']) [role='tab']:not([aria-selected='true']) {
+  padding: 8px 16px;
+  border-bottom: 1px solid ${get('colors.border.default')};
+}
 
-  &:not(:defined) :not([role='tabpanel']) {
-    vertical-align: top;
-  }
+&:not(:defined) :not([role='tabpanel']) {
+  vertical-align: top;
+}
 
-  ${sx};
+${sx};
 `
-
-//
 
 export type TabPanelsProps = ComponentProps<typeof TabContainer>
 
 function TabPanels({children, id, ...props}: TabPanelsProps) {
-  let initialTabId = `${id}-tab-0`
-  if (props.selectedTab) {
-    initialTabId = `${id}-tab-${props.selectedTab}`
-  }
-  const [tabId, setSelectedTab] = React.useState(initialTabId)
-
   // Loop through the chidren, if it's a tab, then add id="{id}-tab-{index}"
   // If it's a panel, then add aria-labelledby="{id}-tab-{index}"
   let tabIndex = 0
@@ -91,7 +84,7 @@ function TabPanels({children, id, ...props}: TabPanelsProps) {
 
   const childrenWithProps = React.Children.map(children, child => {
     if (React.isValidElement<TabPanelsTabProps>(child) && child.type === Tab && !child.props.id) {
-      if (tabId === `${id}-tab-${tabIndex}`) {
+      if (props.selectedTabIndex === tabIndex) {
         return React.cloneElement(child, {id: `${id}-tab-${tabIndex++}`, selected: true})
       }
 
@@ -103,16 +96,10 @@ function TabPanels({children, id, ...props}: TabPanelsProps) {
     return child
   })
 
-  const handleTabChange = (event: TabContainerChangeEvent) => {
-    if (tabId !== event.tab?.id) {
-      setSelectedTab(event.tab?.id)
-    }
-  }
-
   return (
-    <TabContainer {...props} id={id} onTabContainerChanged={handleTabChange} suppressHydrationWarning>
+    <StyledTabContainer {...props} id={id}>
       {childrenWithProps}
-    </TabContainer>
+    </StyledTabContainer>
   )
 }
 
