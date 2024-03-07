@@ -2,4 +2,4 @@
 "@primer/react": patch
 ---
 
-experimental/SelectPanel: Do not render closed `<dialog>` in the dom
+experimental/SelectPanel: Do not render children of `<dialog>` when closed
