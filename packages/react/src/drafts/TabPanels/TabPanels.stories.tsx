@@ -21,17 +21,17 @@ export const Playground: Story<ComponentProps<typeof TabPanels>> = args => (
 
 Playground.args = {
   'aria-label': 'Select a tab',
-  'selectedTabIndex': 0,
-  'id': 'tab-panels',
+  selectedTabIndex: 0,
+  id: 'tab-panels',
 }
 Playground.argTypes = {
   'aria-label': {
     type: 'string',
   },
-  'selectedTabIndex': {
+  selectedTabIndex: {
     type: 'number',
   },
-  'id': {
+  id: {
     type: 'string',
   },
 }
