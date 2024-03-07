@@ -25,14 +25,7 @@ test.describe('TabPanels', () => {
               colorScheme: theme,
             },
           })
-          // axe doesn't play nicely with the way we're using Shadow DOM because we're using slots to project content
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'aria-required-parent': {
-                enabled: false,
-              },
-            },
-          })
+          await expect(page).toHaveNoViolations()
         })
       })
     }
