@@ -72,6 +72,7 @@ module.exports = {
       },
     ],
     'primer-react/no-deprecated-colors': ['warn', {checkAllStrings: true}],
+    'primer-react/no-system-props': ['warn', {skipImportCheck: true}],
 
     // Overrides from updating plugin:github
     'filenames/match-regex': 'off',
