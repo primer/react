@@ -232,7 +232,8 @@ describe('TextInput', () => {
   })
 
   it('should not override prop aria-invalid', () => {
-    const {getByRole} = HTMLRender(<TextInput aria-invalid="true" value="" />)
-    expect(getByRole('textinput')).toHaveAttribute('aria-invalid', 'true')
+    const onChange = jest.fn()
+    const {getByRole} = HTMLRender(<TextInput onChange={onChange} aria-invalid="true" value="" />)
+    expect(getByRole('textbox')).toHaveAttribute('aria-invalid', 'true')
   })
 })
