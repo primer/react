@@ -254,57 +254,61 @@ const Panel: React.FC<SelectPanelProps> = ({
           if (event.target === event.currentTarget) onClickOutside()
         }}
       >
-        <SelectPanelContext.Provider
-          value={{
-            panelId,
-            title,
-            description,
-            onCancel: onInternalCancel,
-            onClearSelection: propsOnClearSelection ? onInternalClearSelection : undefined,
-            searchQuery,
-            setSearchQuery,
-            selectionVariant,
-            moveFocusToList,
-          }}
-        >
-          <Box
-            as="form"
-            method="dialog"
-            onSubmit={onInternalSubmit}
-            sx={{display: 'flex', flexDirection: 'column', width: '100%'}}
-          >
-            {slots.header ?? /* render default header as fallback */ <SelectPanelHeader />}
-
-            <Box
-              as="div"
-              ref={listContainerRef as React.RefObject<HTMLDivElement>}
-              sx={{
-                flexShrink: 1,
-                flexGrow: 1,
-                overflow: 'hidden',
-
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'space-between',
-                ul: {overflowY: 'auto', flexGrow: 1},
+        {internalOpen && (
+          <>
+            <SelectPanelContext.Provider
+              value={{
+                panelId,
+                title,
+                description,
+                onCancel: onInternalCancel,
+                onClearSelection: propsOnClearSelection ? onInternalClearSelection : undefined,
+                searchQuery,
+                setSearchQuery,
+                selectionVariant,
+                moveFocusToList,
               }}
             >
-              <ActionListContainerContext.Provider
-                value={{
-                  container: 'SelectPanel',
-                  listRole: 'listbox',
-                  selectionAttribute: 'aria-selected',
-                  selectionVariant: selectionVariant === 'instant' ? 'single' : selectionVariant,
-                  afterSelect: internalAfterSelect,
-                  listLabelledBy: `${panelId}--title`,
-                }}
+              <Box
+                as="form"
+                method="dialog"
+                onSubmit={onInternalSubmit}
+                sx={{display: 'flex', flexDirection: 'column', width: '100%'}}
               >
-                {childrenInBody}
-              </ActionListContainerContext.Provider>
-            </Box>
-            {slots.footer}
-          </Box>
-        </SelectPanelContext.Provider>
+                {slots.header ?? /* render default header as fallback */ <SelectPanelHeader />}
+
+                <Box
+                  as="div"
+                  ref={listContainerRef as React.RefObject<HTMLDivElement>}
+                  sx={{
+                    flexShrink: 1,
+                    flexGrow: 1,
+                    overflow: 'hidden',
+
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'space-between',
+                    ul: {overflowY: 'auto', flexGrow: 1},
+                  }}
+                >
+                  <ActionListContainerContext.Provider
+                    value={{
+                      container: 'SelectPanel',
+                      listRole: 'listbox',
+                      selectionAttribute: 'aria-selected',
+                      selectionVariant: selectionVariant === 'instant' ? 'single' : selectionVariant,
+                      afterSelect: internalAfterSelect,
+                      listLabelledBy: `${panelId}--title`,
+                    }}
+                  >
+                    {childrenInBody}
+                  </ActionListContainerContext.Provider>
+                </Box>
+                {slots.footer}
+              </Box>
+            </SelectPanelContext.Provider>
+          </>
+        )}
       </StyledOverlay>
     </>
   )
