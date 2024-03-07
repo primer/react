@@ -19,11 +19,10 @@ const animationStyles = `
   animation-delay: 0s;
 `
 
-const StyledTooltip = styled.div`
+const StyledTooltip = styled.span`
   /* Overriding the default popover styles */
   display: none;
   &[popover] {
-    position: absolute;
     padding: 0.5em 0.75em;
     width: max-content;
     margin: auto;
