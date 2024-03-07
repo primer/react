@@ -230,4 +230,9 @@ describe('TextInput', () => {
   it('should render a password input', () => {
     expect(render(<TextInput name="password" type="password" />)).toMatchSnapshot()
   })
+
+  it('should not override prop aria-invalid', () => {
+    const {getByRole} = HTMLRender(<TextInput aria-invalid="true" value="" />)
+    expect(getByRole('textinput')).toHaveAttribute('aria-invalid', 'true')
+  })
 })
