@@ -26,7 +26,7 @@ export const createComponent = <I extends HTMLElement, E extends EventNames = {}
     },
   )
 
-  return output as React.ComponentType<React.ComponentProps<typeof output> & {sx?: any}>
+  return output as React.ComponentType<React.ComponentProps<typeof output> & {sx?: unknown}>
 }
 
 export default createComponent
