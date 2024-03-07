@@ -2213,7 +2213,7 @@ exports[`TextInput renders trailingAction icon button 1`] = `
         />
       </svg>
     </button>
-    <div
+    <span
       aria-hidden={true}
       className="c5"
       data-direction="s"
@@ -2222,7 +2222,7 @@ exports[`TextInput renders trailingAction icon button 1`] = `
       onMouseLeave={[Function]}
     >
       Icon label
-    </div>
+    </span>
   </span>
 </span>
 `;
@@ -3194,7 +3194,7 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
         </span>
       </span>
     </button>
-    <div
+    <span
       className="c6"
       data-direction="s"
       id=":r0:"
@@ -3203,7 +3203,7 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
       role="tooltip"
     >
       Clear input
-    </div>
+    </span>
   </span>
 </span>
 `;
