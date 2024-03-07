@@ -230,10 +230,7 @@ export function SelectPanel({
           {footer && (
             <Box
               sx={{
-                position: 'sticky',
-                bottom: 0,
-                fontSize: 0,
-                color: 'fg.muted',
+                display: 'flex',
                 borderTop: '1px solid',
                 borderColor: 'border.default',
               }}
