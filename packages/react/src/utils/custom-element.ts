@@ -1,6 +1,6 @@
 import React from 'react'
-import styled, {type StyledComponentBase, type ThemedStyledFunction} from 'styled-components'
-import type {EventName, ReactWebComponent} from '@lit-labs/react'
+import styled from 'styled-components'
+import type {EventName} from '@lit-labs/react'
 import {createComponent as create} from '@lit-labs/react'
 import sx from '../sx'
 
@@ -11,8 +11,8 @@ export const createComponent = <I extends HTMLElement, E extends EventNames = {}
   elementClass: new () => I,
   tagName: string,
   events: E | undefined = undefined,
-) =>
-  Object.assign(
+) => {
+  const output = Object.assign(
     styled(
       create<I, E>({
         tagName,
@@ -24,6 +24,9 @@ export const createComponent = <I extends HTMLElement, E extends EventNames = {}
     {
       displayName: rename(tagName),
     },
-  ) as StyledComponentBase<ThemedStyledFunction<ReactWebComponent<I, E>, object>, NonNullable<unknown>>
+  )
+
+  return output as React.ComponentType<React.ComponentProps<typeof output> & {sx?: any}>
+}
 
 export default createComponent
