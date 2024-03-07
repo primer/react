@@ -3,15 +3,6 @@ import {render, screen} from '@testing-library/react'
 import TabPanels from '../TabPanels'
 import TabContainerElement from '@github/tab-container-element'
 
-// Mock the tab-container-element package
-// jest.mock('@github/tab-container-element', () => {
-//   return {
-//     __esModule: true,
-//     default: 'TabContainerElement',
-//     TabContainerChangeEvent: 'TabContainerChangeEvent',
-//   }
-// })
-
 // Mock the selectTab method, jsdom doesn't like it
 // But that doesn't matter because we're not testing the web component here
 // Just the connection to the web component
