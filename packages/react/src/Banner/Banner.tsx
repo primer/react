@@ -22,7 +22,6 @@ export type BannerProps = React.ComponentPropsWithoutRef<'section'> & {
    */
   icon?: React.ReactNode
 
-
   /**
    * Specify the type of the Banner
    */
@@ -37,7 +36,10 @@ const iconForVariant: Record<BannerVariant, React.ReactNode> = {
   warning: <AlertIcon />,
 }
 
-export function Banner({children, onDismiss, title, variant = 'info', ...rest}: BannerProps) {
+export const Banner = React.forwardRef<HTMLElement, BannerProps>(function Banner(
+  {children, onDismiss, title, variant = 'info', ...rest},
+  ref,
+) {
   const titleId = useId()
   const value = useMemo(() => {
     return {
@@ -49,7 +51,7 @@ export function Banner({children, onDismiss, title, variant = 'info', ...rest}: 
 
   return (
     <BannerContext.Provider value={value}>
-      <StyledBanner aria-labelledby={titleId} as="section" {...rest} data-variant={variant} tabIndex={-1}>
+      <StyledBanner aria-labelledby={titleId} as="section" {...rest} data-variant={variant} tabIndex={-1} ref={ref}>
         <div className="BannerIcon">{icon}</div>
         <div className="BannerContainer">{children}</div>
         {dismissible ? (
@@ -64,7 +66,7 @@ export function Banner({children, onDismiss, title, variant = 'info', ...rest}: 
       </StyledBanner>
     </BannerContext.Provider>
   )
-}
+})
 
 /**
  * For styling, it's important that the icons and the text have the same height
