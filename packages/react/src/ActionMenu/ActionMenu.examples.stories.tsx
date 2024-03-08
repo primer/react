@@ -231,34 +231,47 @@ export const ShortcutMenu = () => {
   )
 }
 
-export const CustomAnchor = () => (
-  <ActionMenu>
-    <ActionMenu.Anchor>
-      <IconButton icon={KebabHorizontalIcon} aria-label="Open menu" />
-    </ActionMenu.Anchor>
-    <ActionMenu.Overlay width="medium">
-      <ActionList>
-        <ActionList.Item onSelect={() => alert('Copy link clicked')}>
-          Copy link
-          <ActionList.TrailingVisual>⌘C</ActionList.TrailingVisual>
-        </ActionList.Item>
-        <ActionList.Item onSelect={() => alert('Quote reply clicked')}>
-          Quote reply
-          <ActionList.TrailingVisual>⌘Q</ActionList.TrailingVisual>
-        </ActionList.Item>
-        <ActionList.Item onSelect={() => alert('Edit comment clicked')}>
-          Edit comment
-          <ActionList.TrailingVisual>⌘E</ActionList.TrailingVisual>
-        </ActionList.Item>
-        <ActionList.Divider />
-        <ActionList.Item variant="danger" onSelect={() => alert('Delete file clicked')}>
-          Delete file
-          <ActionList.TrailingVisual>⌘D</ActionList.TrailingVisual>
-        </ActionList.Item>
-      </ActionList>
-    </ActionMenu.Overlay>
-  </ActionMenu>
-)
+export const CustomAnchor = () => {
+  const buttonRef = React.useRef<HTMLButtonElement>(null)
+  const menuButtonRef = React.useRef<HTMLButtonElement>(null)
+  const logRefs = React.useCallback(() => {
+    console.log('buttonRef.current', buttonRef.current)
+    console.log('menuButtonRef.current', menuButtonRef.current)
+  }, [buttonRef, menuButtonRef])
+  return (
+    <>
+      <Button ref={buttonRef} onClick={logRefs}>
+        Log refs
+      </Button>
+      <ActionMenu>
+        <ActionMenu.Anchor>
+          <IconButton ref={menuButtonRef} icon={KebabHorizontalIcon} aria-label="Open menu" />
+        </ActionMenu.Anchor>
+        <ActionMenu.Overlay width="medium">
+          <ActionList>
+            <ActionList.Item onSelect={() => alert('Copy link clicked')}>
+              Copy link
+              <ActionList.TrailingVisual>⌘C</ActionList.TrailingVisual>
+            </ActionList.Item>
+            <ActionList.Item onSelect={() => alert('Quote reply clicked')}>
+              Quote reply
+              <ActionList.TrailingVisual>⌘Q</ActionList.TrailingVisual>
+            </ActionList.Item>
+            <ActionList.Item onSelect={() => alert('Edit comment clicked')}>
+              Edit comment
+              <ActionList.TrailingVisual>⌘E</ActionList.TrailingVisual>
+            </ActionList.Item>
+            <ActionList.Divider />
+            <ActionList.Item variant="danger" onSelect={() => alert('Delete file clicked')}>
+              Delete file
+              <ActionList.TrailingVisual>⌘D</ActionList.TrailingVisual>
+            </ActionList.Item>
+          </ActionList>
+        </ActionMenu.Overlay>
+      </ActionMenu>
+    </>
+  )
+}
 
 export const MixedSelection = () => {
   const [selectedIndex, setSelectedIndex] = React.useState<number | null>(1)
