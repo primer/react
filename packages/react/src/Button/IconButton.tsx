@@ -17,7 +17,7 @@ const IconButton = forwardRef(
       disabled,
       tooltipDirection,
       // This is planned to be a temporary prop until the default tooltip on icon buttons are fully rolled out.
-      disableTooltip = false,
+      unsafeDisableTooltip = true,
       ...props
     },
     forwardedRef,
@@ -36,7 +36,7 @@ const IconButton = forwardRef(
 
     const hasExternalTooltip = tooltipId || tooltipIdV1
     const withoutTooltip =
-      disableTooltip || disabled || ariaLabel === undefined || ariaLabel === '' || hasExternalTooltip
+      unsafeDisableTooltip || disabled || ariaLabel === undefined || ariaLabel === '' || hasExternalTooltip
 
     if (withoutTooltip) {
       return (

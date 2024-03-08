@@ -2,6 +2,6 @@
 '@primer/react': minor
 ---
 
-IconButton: introduce tooltips on icon buttons by default with an option to disable with `disableTooltip` prop when necessary.
+IconButton: introduce tooltips on icon buttons behind the `unsafeDisableTooltip` prop for an incremental rollout.
 
-This change is considered potentially breaking due to introducing a new behaviour by default. Please upgrade with caution.
+In the next release, we plan to update the default value of `unsafeDisableTooltip` to `false` so that the tooltip behaviour becomes the default. 

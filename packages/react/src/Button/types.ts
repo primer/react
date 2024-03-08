@@ -78,7 +78,7 @@ export type ButtonProps = {
 
 export type IconButtonProps = ButtonA11yProps & {
   icon: React.ElementType
-  disableTooltip?: boolean
+  unsafeDisableTooltip?: boolean
   description?: string
   tooltipDirection?: TooltipDirection
 } & Omit<ButtonBaseProps, 'aria-label' | 'aria-labelledby'>

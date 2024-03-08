@@ -14,7 +14,7 @@ export const ToolbarButton = forwardRef<HTMLButtonElement, IconButtonProps>((pro
       disabled={disabled}
       // Prevent focus leaving input:
       onMouseDown={(e: React.MouseEvent) => e.preventDefault()}
-      disableTooltip={true}
+      unsafeDisableTooltip={true}
       {...props}
       sx={{color: 'fg.muted', ...props.sx}}
     />
