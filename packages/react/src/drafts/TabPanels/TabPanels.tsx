@@ -79,23 +79,26 @@ function TabPanels({children, id, ...props}: TabPanelsProps) {
   // If it's a panel, then add aria-labelledby="{id}-tab-{index}"
   let tabIndex = 0
   let panelIndex = 0
+  const parentId = id ?? React.useId()
 
   const childrenWithProps = React.Children.map(children, child => {
     if (React.isValidElement<TabPanelsTabProps>(child) && child.type === Tab && !child.props.id) {
       if (props.selectedTabIndex === tabIndex) {
-        return React.cloneElement(child, {id: `${id}-tab-${tabIndex++}`, selected: true})
+        return React.cloneElement(child, {id: `${parentId}-tab-${tabIndex++}`, selected: true})
       }
 
-      return React.cloneElement(child, {id: `${id}-tab-${tabIndex++}`})
+      return React.cloneElement(child, {id: `${parentId}-tab-${tabIndex++}`})
     }
     if (React.isValidElement<TabPanelsPanelProps>(child) && child.type === Panel && !child.props['aria-labelledby']) {
-      return React.cloneElement(child, {'aria-labelledby': `${id}-tab-${panelIndex++}`})
+      return React.cloneElement(child, {'aria-labelledby': `${parentId}-tab-${panelIndex++}`})
     }
     return child
   })
 
+  // 
+
   return (
-    <TabContainer {...props} id={id}>
+    <TabContainer {...props} id={parentId}>
       {childrenWithProps}
     </TabContainer>
   )

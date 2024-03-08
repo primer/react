@@ -30,6 +30,22 @@ describe('TabPanels', () => {
     expect(screen.getByText('Panel 2')).toBeInTheDocument()
   })
 
+  it('auto generates parent id correctly', () => {
+    render(
+      <TabPanels>
+        <TabPanels.Tab>Tab 1</TabPanels.Tab>
+        <TabPanels.Tab>Tab 2</TabPanels.Tab>
+        <TabPanels.Panel>Panel 1</TabPanels.Panel>
+        <TabPanels.Panel>Panel 2</TabPanels.Panel>
+      </TabPanels>,
+    )
+
+    const incorrectId = 'undefined-tab-0'
+
+    expect(screen.getByText('Tab 1').id).not.toBe(incorrectId)
+  })
+
+
   it('applies aria-selected to first tab when selected', () => {
     render(
       <TabPanels id="tabs" selectedTabIndex={0}>
