@@ -49,7 +49,7 @@ const InactiveIndicator: React.FC<{
   </Tooltip>
 )
 
-export const Item = React.forwardRef<HTMLButtonElement, ActionListItemProps>(
+export const Item = React.forwardRef<HTMLLIElement | HTMLButtonElement, ActionListItemProps>(
   (
     {
       variant = 'default',
@@ -90,7 +90,7 @@ export const Item = React.forwardRef<HTMLButtonElement, ActionListItemProps>(
         // eslint-disable-next-line @typescript-eslint/ban-types
         afterSelect?: Function,
       ) => {
-        if (typeof onSelectUser === 'function') onSelectUser(event as React.MouseEvent<HTMLButtonElement, MouseEvent>)
+        if (typeof onSelectUser === 'function') onSelectUser(event)
         if (event.defaultPrevented) return
         if (typeof afterSelect === 'function') afterSelect(event)
       },
@@ -269,7 +269,7 @@ export const Item = React.forwardRef<HTMLButtonElement, ActionListItemProps>(
           {children}
         </Box>
       )
-    }) as PolymorphicForwardRefComponent<'button', ActionListItemProps>
+    }) as PolymorphicForwardRefComponent<React.ElementType, ActionListItemProps>
 
     const ItemWrapper = _PrivateItemWrapper || (validRole ? React.Fragment : ButtonItemWrapper)
 
@@ -396,7 +396,7 @@ export const Item = React.forwardRef<HTMLButtonElement, ActionListItemProps>(
       </ItemContext.Provider>
     )
   },
-) as PolymorphicForwardRefComponent<'button', ActionListItemProps>
+) as PolymorphicForwardRefComponent<'li' | 'button', ActionListItemProps>
 
 Item.displayName = 'ActionList.Item'
 
