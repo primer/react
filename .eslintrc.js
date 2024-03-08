@@ -72,7 +72,6 @@ module.exports = {
       },
     ],
     'primer-react/no-deprecated-colors': ['warn', {checkAllStrings: true}],
-    'primer-react/no-system-props': ['warn', {skipImportCheck: true}],
 
     // Overrides from updating plugin:github
     'filenames/match-regex': 'off',
@@ -208,6 +207,7 @@ module.exports = {
         'prettier/prettier': 'off',
         'react/jsx-no-undef': 'off',
         'primer-react/direct-slot-children': 'off',
+        'primer-react/no-system-props': ['warn', {skipImportCheck: true}],
       },
     },
 
@@ -238,6 +238,7 @@ module.exports = {
         '@typescript-eslint/no-unnecessary-condition': 'off',
         '@typescript-eslint/no-unused-vars': 'off',
         'primer-react/no-deprecated-colors': ['error', {skipImportCheck: true}],
+        'primer-react/no-system-props': ['warn', {skipImportCheck: true}],
         'no-redeclare': 'off',
         'ssr-friendly/no-dom-globals-in-module-scope': 'off',
         'ssr-friendly/no-dom-globals-in-react-fc': 'off',

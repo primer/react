@@ -37,7 +37,7 @@ Use [NavList](/components/nav-list/react/latest) instead.
 ## Default example
 
 ```jsx live
-<SideNav bordered maxWidth={360} aria-label="Main">
+<SideNav bordered aria-label="Main" sx={{maxWidth: 360}}>
   <SideNav.Link href="#account">
     <Text>Account</Text>
   </SideNav.Link>
@@ -60,12 +60,12 @@ Different kinds of content can be added inside a SideNav item. Use system props 
 Add the `variant='full'` prop to a `SideNav.Link` to spread child elements across the link, which is useful for status icons, labels, and the like.
 
 ```jsx live
-<SideNav bordered maxWidth={360} aria-label="Main">
+<SideNav bordered aria-label="Main" sx={{maxWidth: 360}}>
   <SideNav.Link href="#url">
     <Text>Text Only</Text>
   </SideNav.Link>
   <SideNav.Link href="#url">
-    <Avatar size={16} mr={2} src="https://avatars.githubusercontent.com/hubot?s=32" />
+    <Avatar size={16} src="https://avatars.githubusercontent.com/hubot?s=32" sx={{mr: 2}} />
     <Text>With an avatar</Text>
   </SideNav.Link>
   <SideNav.Link href="#url">
@@ -74,7 +74,7 @@ Add the `variant='full'` prop to a `SideNav.Link` to spread child elements acros
   </SideNav.Link>
   <SideNav.Link href="#url" variant="full" selected>
     <Text>With a status icon</Text>
-    <Octicon sx={{mr: 2}} size={16} icon={DotIcon} color="success.fg" />
+    <Octicon sx={{mr: 2, color: 'success.fg'}} size={16} icon={DotIcon} />
   </SideNav.Link>
   <SideNav.Link href="#url" variant="full">
     <Text>With a label</Text>
@@ -116,7 +116,7 @@ Add the `variant="lightweight"` prop to `SideNav` to render an alternative, more
     mb={2}
     pb={1}
   >
-    <Heading as="h5" fontSize={1} color="fg.muted">
+    <Heading as="h5" sx={{fontSize: 1, color: 'fg.muted'}}>
       Menu
     </Heading>
   </Box>
@@ -140,17 +140,17 @@ Add the `variant="lightweight"` prop to `SideNav` to render an alternative, more
 It can also appear nested, as a sub navigation. Use margin/padding [System Props](/system-props) to add indentation.
 
 ```jsx live
-<SideNav bordered maxWidth={360}>
+<SideNav bordered sx={{maxWidth: 360}}>
   <SideNav.Link href="#url">
     <Octicon size={16} icon={PersonIcon} />
     <Text>Account</Text>
   </SideNav.Link>
   <SideNav.Link href="#url" selected>
-    <Octicon mr={2} size={16} icon={SmileyIcon} />
+    <Octicon size={16} icon={SmileyIcon} sx={{mr: 2}} />
     <Text>Profile</Text>
   </SideNav.Link>
 
-  <SideNav bordered variant="lightweight" py={3} pl={6} backgroundColor="sidenav.selectedBg">
+  <SideNav bordered variant="lightweight" sx={{py: 3, pl: 6, backgroundColor: 'sidenav.selectedBg'}}>
     <SideNav.Link href="#url" selected>
       <Text>Sub item 1</Text>
     </SideNav.Link>
@@ -163,7 +163,7 @@ It can also appear nested, as a sub navigation. Use margin/padding [System Props
   </SideNav>
 
   <SideNav.Link href="#url">
-    <Octicon mr={2} size={16} icon={MailIcon} />
+    <Octicon size={16} icon={MailIcon} sx={{mr: 2}} />
     <Text>Emails</Text>
   </SideNav.Link>
 </SideNav>

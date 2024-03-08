@@ -14,7 +14,7 @@ import DeprecationBanner from '../components/DeprecationBanner'
 ## Examples
 
 ```jsx live
-<PointerBox minHeight={100} sx={{m: 4, p: 2, bg: 'success.subtle', borderColor: 'success.emphasis'}}>
+<PointerBox sx={{m: 4, p: 2, bg: 'success.subtle', borderColor: 'success.emphasis', minHeight: 100}}>
   PointerBox
 </PointerBox>
 ```
@@ -33,9 +33,8 @@ function PointerBoxDemo(props) {
       <CaretSelector current={pos} onChange={setPos} />
       <Box position="relative">
         <PointerBox
-          minHeight={100}
           caret={pos}
-          sx={{m: 4, p: 2, bg: 'success.subtle', borderColor: 'success.emphasis'}}
+          sx={{m: 4, p: 2, bg: 'success.subtle', borderColor: 'success.emphasis', minHeight: 100}}
         >
           Content
         </PointerBox>
