@@ -45,7 +45,6 @@ describe('TabPanels', () => {
     expect(screen.getByText('Tab 1').id).not.toBe(incorrectId)
   })
 
-
   it('applies aria-selected to first tab when selected', () => {
     render(
       <TabPanels id="tabs" aria-label="Tab panel example" selectedTabIndex={0}>

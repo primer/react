@@ -73,21 +73,25 @@ const TabContainer = styled(createComponent(TabContainerElement, 'tab-container'
 `
 
 export type TabPanelsProps = ComponentProps<typeof TabContainer> & {
-  id?: string,
-  'aria-label'?: string,
-  'aria-labelledby'?: string,
+  id?: string
+  'aria-label'?: string
+  'aria-labelledby'?: string
 }
 
 function TabPanels({children, ...props}: TabPanelsProps) {
-  // Loop through the chidren, if it's a tab, then add id="{id}-tab-{index}"
-  // If it's a panel, then add aria-labelledby="{id}-tab-{index}"
-  let tabIndex = 0
-  let panelIndex = 0
-  const parentId = props.id ?? React.useId()
+  // We need to always call React.useId() because
+  // React Hooks must be called in the exact same order in every component render
+  const defaultId = React.useId()
+  const parentId = props.id ?? defaultId
 
   if (!props['aria-label'] && !props['aria-labelledby']) {
     throw new Error('TabPanels: either `aria-label` or `aria-labelledby` should be provided')
   }
+
+  // Loop through the chidren, if it's a tab, then add id="{id}-tab-{index}"
+  // If it's a panel, then add aria-labelledby="{id}-tab-{index}"
+  let tabIndex = 0
+  let panelIndex = 0
 
   const childrenWithProps = React.Children.map(children, child => {
     if (React.isValidElement<TabPanelsTabProps>(child) && child.type === Tab && !child.props.id) {
@@ -103,7 +107,7 @@ function TabPanels({children, ...props}: TabPanelsProps) {
     return child
   })
 
-  // 
+  //
 
   return (
     <TabContainer {...props} id={parentId}>
