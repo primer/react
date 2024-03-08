@@ -4,10 +4,11 @@ import {type SxProp} from '../sx'
 import React from 'react'
 import Box from '../Box'
 import {defaultSxProp} from '../utils/defaultSxProp'
+import type {ComponentProps} from '../utils/types'
 
-export type ButtonGroupProps = SxProp & React.ComponentPropsWithoutRef<'div'>
+export type ButtonGroupProps = React.PropsWithChildren<SxProp & ComponentProps<typeof StyledButtonGroup>>
 
-function ButtonGroup({children, sx = defaultSxProp, ...rest}: React.PropsWithChildren<ButtonGroupProps>) {
+function ButtonGroup({children, sx = defaultSxProp, ...rest}: ButtonGroupProps) {
   const buttons = React.Children.map(children, (child, index) => (
     <Box key={index} {...rest}>
       {child}
@@ -17,7 +18,7 @@ function ButtonGroup({children, sx = defaultSxProp, ...rest}: React.PropsWithChi
   return <StyledButtonGroup sx={sx}>{buttons}</StyledButtonGroup>
 }
 
-const StyledButtonGroup = styled.div`
+const StyledButtonGroup = styled.div<SxProp>`
   display: inline-flex;
   vertical-align: middle;
   isolation: isolate;
