@@ -72,14 +72,22 @@ const TabContainer = styled(createComponent(TabContainerElement, 'tab-container'
   ${sx};
 `
 
-export type TabPanelsProps = ComponentProps<typeof TabContainer>
+export type TabPanelsProps = ComponentProps<typeof TabContainer> & {
+  id?: string,
+  'aria-label'?: string,
+  'aria-labelledby'?: string,
+}
 
-function TabPanels({children, id, ...props}: TabPanelsProps) {
+function TabPanels({children, ...props}: TabPanelsProps) {
   // Loop through the chidren, if it's a tab, then add id="{id}-tab-{index}"
   // If it's a panel, then add aria-labelledby="{id}-tab-{index}"
   let tabIndex = 0
   let panelIndex = 0
-  const parentId = id ?? React.useId()
+  const parentId = props.id ?? React.useId()
+
+  if (!props['aria-label'] && !props['aria-labelledby']) {
+    throw new Error('TabPanels: either `aria-label` or `aria-labelledby` should be provided')
+  }
 
   const childrenWithProps = React.Children.map(children, child => {
     if (React.isValidElement<TabPanelsTabProps>(child) && child.type === Tab && !child.props.id) {
