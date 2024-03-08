@@ -12,6 +12,7 @@ import {useId} from '../hooks/useId'
 import type {MandateProps} from '../utils/types'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import {Tooltip} from '../TooltipV2/Tooltip'
+import {useFormControlForwardedProps} from '../FormControl'
 
 export type MenuContextProps = Pick<
   AnchoredOverlayProps,
@@ -116,9 +117,11 @@ export type ActionMenuButtonProps = Omit<ButtonProps, 'children'> & {
   children: React.ReactNode
 }
 const MenuButton = React.forwardRef(({...props}, anchorRef) => {
+  const buttonProps = useFormControlForwardedProps(props)
+
   return (
     <Anchor ref={anchorRef}>
-      <Button type="button" trailingAction={TriangleDownIcon} {...props} />
+      <Button type="button" trailingAction={TriangleDownIcon} {...buttonProps} />
     </Anchor>
   )
 }) as PolymorphicForwardRefComponent<'button', ActionMenuButtonProps>
