@@ -182,7 +182,9 @@ module.exports = {
     {
       files: ['**/*.stories.{ts,tsx}'],
       extends: ['plugin:storybook/recommended'],
-      rules: {},
+      rules: {
+        'primer-react/no-system-props': ['warn', {skipImportCheck: true, ignoreNames: ['Placeholder']}],
+      },
     },
 
     // e2e tests

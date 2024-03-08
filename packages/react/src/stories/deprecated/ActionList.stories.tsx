@@ -327,6 +327,7 @@ export function SizeStressTestingStory(): JSX.Element {
   return (
     <>
       <h1>Size Stress Testing</h1>
+      {/* eslint-disable-next-line primer-react/no-system-props */}
       <ErsatzOverlay maxWidth="300px">
         <ActionList
           items={[

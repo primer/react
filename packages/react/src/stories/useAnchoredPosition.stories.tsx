@@ -315,9 +315,7 @@ export const WithPortal = () => {
               <Float
                 ref={floatingElementRef as React.RefObject<HTMLDivElement>}
                 style={{top: `${position?.top ?? 0}px`, left: `${position?.left ?? 0}px`}}
-                width={250}
-                height={400}
-                sx={{visibility: position ? 'visible' : 'hidden'}}
+                sx={{visibility: position ? 'visible' : 'hidden', width: 250, height: 400}}
               >
                 An un-constrained overlay!
               </Float>
