@@ -346,7 +346,7 @@ export const MultipleSections = () => {
 export const DelayedMenuClose = () => {
   const [open, setOpen] = React.useState(false)
   const [copyLinkSuccess, setCopyLinkSuccess] = React.useState(false)
-  const onSelect = (event: React.MouseEvent<HTMLButtonElement> | React.KeyboardEvent<HTMLButtonElement>) => {
+  const onSelect = (event: React.MouseEvent | React.KeyboardEvent) => {
     event.preventDefault()
 
     setCopyLinkSuccess(true)
