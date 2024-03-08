@@ -26,12 +26,12 @@
       "description": "The 0-based index of the tab that is selected."
     },
     {
-      "name": "onTabContainerChange",
+      "name": "onChange",
       "type": "function",
       "description": "Callback fired when the tab container changes (bubbles, cancelable): fired on `<tab-container>` before a new tab is selected and visibility is updated. `event.tab` is the tab that will be focused and `tab.panel` is the panel that will be shown if the event isn't cancelled."
     },
     {
-      "name": "onTabContainerChanged",
+      "name": "onChanged",
       "type": "function",
       "description": "Callback fired when the tab container changes (bubbles): fired on `<tab-container>` after a new tab is selected and visibility is updated. `event.tab` is the tab that is now active (and will be focused right after this event) and `event.panel` is the newly visible tab panel."
     },
