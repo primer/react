@@ -117,20 +117,19 @@ export const UseAnchoredPosition = (args: any) => {
   return (
     <Box position="relative" m={2}>
       <Anchor
-        top={args.anchorY ?? 0}
-        left={args.anchorX ?? 0}
-        width={args.anchorWidth}
-        height={args.anchorHeight}
         ref={anchorElementRef as React.RefObject<HTMLDivElement>}
+        sx={{top: args.anchorY ?? 0, left: args.anchorX ?? 0, width: args.anchorWidth, height: args.anchorHeight}}
       >
         Anchor Element
       </Anchor>
       <Float
-        top={position?.top ?? 0}
-        left={position?.left ?? 0}
-        width={args.floatWidth ?? 150}
-        height={args.floatHeight ?? 150}
         ref={floatingElementRef as React.RefObject<HTMLDivElement>}
+        sx={{
+          top: position?.top ?? 0,
+          left: position?.left ?? 0,
+          width: args.floatWidth ?? 150,
+          height: args.floatHeight ?? 150,
+        }}
       >
         Floating element
       </Float>
@@ -154,8 +153,7 @@ export const CenteredOnScreen = () => {
     >
       <Float
         ref={floatingElementRef as React.RefObject<HTMLDivElement>}
-        top={position?.top ?? 0}
-        left={position?.left ?? 0}
+        sx={{top: position?.top ?? 0, left: position?.left ?? 0}}
       >
         <p>Screen-Centered Floating Element </p>
         <p>
@@ -208,11 +206,8 @@ export const ComplexAncestry = () => {
             Floating element container. Position=static and overflow=hidden to show that overflow-hidden on a
             statically-positioned element will not have any effect.
             <Float
-              top={position?.top ?? 0}
-              left={position?.left ?? 0}
-              width={150}
-              height={220}
               ref={floatingElementRef as React.RefObject<HTMLDivElement>}
+              sx={{top: position?.top ?? 0, left: position?.left ?? 0, width: 150, height: 220}}
             >
               Floating element
             </Float>

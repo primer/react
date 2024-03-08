@@ -98,7 +98,7 @@ export const Playground: StoryFn = args => {
         onCancel={onCancel}
         onClearSelection={onClearSelection}
         width={args.width}
-        height={args.height}
+        maxHeight={args.maxHeight}
       >
         <SelectPanel.Button>Assign label</SelectPanel.Button>
 
