@@ -28,6 +28,7 @@ const Divider = () => {
         display: 'inline-grid',
         margin: '0 var(--controlStack-medium-gap-condensed, 8px)',
         height: 'calc(var(--control-medium-size, 32px)/2)',
+        // eslint-disable-next-line primer-react/new-color-css-vars-have-fallback
         borderLeft: 'var(--borderWidth-thin, 1px) solid var(--borderColor-muted)',
       }}
     />
