@@ -526,6 +526,7 @@ exports[`TextInput renders error 1`] = `
   onClick={[Function]}
 >
   <input
+    aria-invalid="true"
     className="c2"
     data-component="input"
     name="zipcode"
@@ -2176,7 +2177,6 @@ exports[`TextInput renders trailingAction icon button 1`] = `
     className="c3 TextInput-action"
   >
     <button
-      aria-label="Icon label"
       aria-labelledby=":r1:"
       className="c4"
       data-block={null}
@@ -2213,7 +2213,7 @@ exports[`TextInput renders trailingAction icon button 1`] = `
         />
       </svg>
     </button>
-    <div
+    <span
       aria-hidden={true}
       className="c5"
       data-direction="s"
@@ -2222,7 +2222,7 @@ exports[`TextInput renders trailingAction icon button 1`] = `
       onMouseLeave={[Function]}
     >
       Icon label
-    </div>
+    </span>
   </span>
 </span>
 `;
@@ -3194,7 +3194,7 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
         </span>
       </span>
     </button>
-    <div
+    <span
       className="c6"
       data-direction="s"
       id=":r0:"
@@ -3203,7 +3203,7 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
       role="tooltip"
     >
       Clear input
-    </div>
+    </span>
   </span>
 </span>
 `;

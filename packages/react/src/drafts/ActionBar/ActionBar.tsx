@@ -280,7 +280,7 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
                     const {
                       children: menuItemChildren,
                       //'aria-current': ariaCurrent,
-                      onSelect,
+                      onClick,
                       icon: Icon,
                       'aria-label': ariaLabel,
                     } = menuItem.props
@@ -293,7 +293,7 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
                         ) => {
                           closeOverlay()
                           focusOnMoreMenuBtn()
-                          typeof onSelect === 'function' && onSelect(event)
+                          typeof onClick === 'function' && onClick(event)
                         }}
                       >
                         {Icon ? (
