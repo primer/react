@@ -403,7 +403,7 @@ describe('ActionMenu', () => {
           <BaseStyles>
             <ActionMenu>
               <ActionMenu.Anchor>
-                <IconButton icon={SearchIcon} aria-label="More actions" />
+                <IconButton icon={SearchIcon} aria-label="More actions" unsafeDisableTooltip={false} />
               </ActionMenu.Anchor>
 
               <ActionMenu.Overlay width="medium">
@@ -422,6 +422,7 @@ describe('ActionMenu', () => {
 
     const toggleButton = component.getByRole('button', {name: 'More actions'})
     await userEvent.click(toggleButton)
-    expect(component.getByRole('menu', {name: 'More actions'})).toBeInTheDocument()
+    expect(toggleButton).toHaveAttribute('aria-labelledby')
+    expect(component.getByRole('menu')).toHaveAttribute('aria-labelledby', toggleButton.getAttribute('aria-labelledby'))
   })
 })

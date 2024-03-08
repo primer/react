@@ -210,7 +210,9 @@ export const DialogTrigger = () => {
             {buttonType: 'primary', content: 'Proceed', onClick: openSecondDialog, autoFocus: true},
           ]}
         >
-          Dialog content
+          The icon button that triggers the dialog, takes the focus back when the dialog is closed however the the
+          tooltip is not shown again if the dialog is closed with a mouse. Because the tooltip is shown only on
+          focus-visible.
           {secondOpen && (
             <Dialog title="Inner dialog!" onClose={onSecondDialogClose} width="small">
               Hello world
