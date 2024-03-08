@@ -238,7 +238,7 @@ module.exports = {
         '@typescript-eslint/no-unnecessary-condition': 'off',
         '@typescript-eslint/no-unused-vars': 'off',
         'primer-react/no-deprecated-colors': ['error', {skipImportCheck: true}],
-        'primer-react/no-system-props': ['warn', {skipImportCheck: true}],
+        'primer-react/no-system-props': ['warn', {skipImportCheck: true, ignoreNames: ['Placeholder']}],
         'no-redeclare': 'off',
         'ssr-friendly/no-dom-globals-in-module-scope': 'off',
         'ssr-friendly/no-dom-globals-in-react-fc': 'off',
