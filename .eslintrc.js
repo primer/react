@@ -192,7 +192,7 @@ module.exports = {
         project: 'tsconfig.json',
       },
       extends: ['plugin:playwright/jest-playwright'],
-      rules: {},
+      rules: {'primer-react/no-system-props': ['warn', {skipImportCheck: true}]},
     },
 
     // rules which apply only to Markdown
