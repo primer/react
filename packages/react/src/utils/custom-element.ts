@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import type {EventName} from '@lit-labs/react'
 import {createComponent as create} from '@lit-labs/react'
-import sx from '../sx'
+import sx, { type SxProp } from '../sx'
 
 type EventNames = Record<string, EventName | string>
 const rename = (str: string): string => str[0].toUpperCase() + str.slice(1).replace(/(-\w)/g, s => s[1].toUpperCase())
@@ -26,7 +26,7 @@ export const createComponent = <I extends HTMLElement, E extends EventNames = {}
     },
   )
 
-  return output as React.ComponentType<React.ComponentProps<typeof output> & {sx?: unknown}>
+  return output as React.ComponentType<React.ComponentProps<typeof output> & SxProp>
 }
 
 export default createComponent
