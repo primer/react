@@ -391,6 +391,7 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
       (event: React.KeyboardEvent<HTMLElement>) => {
         switch (event.key) {
           case 'Enter':
+          case 'Space':
             if (onSelect) {
               onSelect(event)
             } else {
