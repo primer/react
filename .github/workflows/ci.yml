@@ -27,7 +27,6 @@ jobs:
         with:
           node-version: 20
           cache: 'npm'
-      - run: npm i -g npm@9.x
       - name: Install dependencies
         run: npm ci
       - name: Check for unformatted files
@@ -44,7 +43,6 @@ jobs:
         with:
           node-version: 20
           cache: 'npm'
-      - run: npm i -g npm@9.x
 
       - name: Install dependencies
         run: npm ci
@@ -66,7 +64,6 @@ jobs:
         with:
           node-version: 20
           cache: 'npm'
-      - run: npm i -g npm@9.x
 
       - name: Install dependencies
         run: npm ci
@@ -88,7 +85,6 @@ jobs:
         with:
           node-version: 20
           cache: 'npm'
-      - run: npm i -g npm@9.x
 
       - name: Install dependencies
         run: npm ci
@@ -109,7 +105,6 @@ jobs:
         with:
           node-version: 20
           cache: 'npm'
-      - run: npm i -g npm@9.x
       - name: Install dependencies
         run: npm ci
       - name: Build
@@ -128,7 +123,6 @@ jobs:
         with:
           node-version: 20
           cache: 'npm'
-      - run: npm i -g npm@9.x
       - name: Install dependencies
         run: npm ci
       - name: Build storybook
@@ -168,7 +162,6 @@ jobs:
         with:
           node-version: 20
           cache: 'npm'
-      - run: npm i -g npm@9.x
       - name: install dependencies
         run: npm ci
       - name: download all reports
@@ -200,7 +193,6 @@ jobs:
         with:
           node-version: 20
           cache: 'npm'
-      - run: npm i -g npm@9.x
       - name: Install dependencies
         run: npm ci
       - name: Build storybook
@@ -240,7 +232,6 @@ jobs:
         with:
           node-version: 20
           cache: 'npm'
-      - run: npm i -g npm@9.x
       - name: install dependencies
         run: npm ci
       - name: download all reports
@@ -269,7 +260,6 @@ jobs:
         with:
           node-version: 20
           cache: 'npm'
-      - run: npm i -g npm@9.x
       - name: Install dependencies
         run: npm ci
       - name: Build components.json
@@ -285,7 +275,6 @@ jobs:
         with:
           node-version: 20
           cache: 'npm'
-      - run: npm i -g npm@9.x
       - name: Install dependencies
         run: npm ci
       - name: Build
