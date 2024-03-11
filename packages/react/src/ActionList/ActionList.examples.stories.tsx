@@ -327,7 +327,7 @@ const SortableItem: React.FC<React.PropsWithChildren<SortableItemProps>> = ({opt
   return (
     <ActionList.Item
       role={role}
-      ref={element => dragRef(element) && dropRef(element)} // merge refs
+      ref={(element: HTMLLIElement) => dragRef(element) && dropRef(element)} // merge refs
       selected={option.selected}
       onSelect={onSelect}
       sx={{
