@@ -78,11 +78,16 @@ export type TabPanelsProps = ComponentProps<typeof TabContainer> & {
   'aria-labelledby'?: string
 }
 
-function TabPanels({children, ...props}: TabPanelsProps) {
+function TabPanels({children, defaultTabIndex, ...props}: TabPanelsProps) {
   // We need to always call React.useId() because
   // React Hooks must be called in the exact same order in every component render
   const defaultId = React.useId()
   const parentId = props.id ?? defaultId
+
+  if (defaultTabIndex !== undefined) {
+    // Add 'dafault-tab' to props
+    props['default-tab'] = defaultTabIndex
+  }
 
   if (!props['aria-label'] && !props['aria-labelledby']) {
     throw new Error('TabPanels: either `aria-label` or `aria-labelledby` should be provided')

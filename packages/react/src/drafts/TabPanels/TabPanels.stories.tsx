@@ -21,7 +21,7 @@ export const Playground: Story<ComponentProps<typeof TabPanels>> = args => (
 
 Playground.args = {
   'aria-label': 'Select a tab',
-  selectedTabIndex: 0,
+  defaultTabIndex: 0,
   id: 'tab-panels',
 }
 Playground.argTypes = {
@@ -31,13 +31,16 @@ Playground.argTypes = {
   selectedTabIndex: {
     type: 'number',
   },
+  defaultTabIndex: {
+    type: 'number',
+  },
   id: {
     type: 'string',
   },
 }
 
 export const Default = () => (
-  <TabPanels aria-label="Select a tab" id="tab-panels" selectedTabIndex={0}>
+  <TabPanels aria-label="Select a tab" id="tab-panels" defaultTabIndex={0}>
     <TabPanels.Tab>Tab 1</TabPanels.Tab>
     <TabPanels.Tab>Tab 2</TabPanels.Tab>
     <TabPanels.Tab>Tab 3</TabPanels.Tab>

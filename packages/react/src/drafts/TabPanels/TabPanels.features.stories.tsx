@@ -9,7 +9,18 @@ export default {
   component: TabPanels,
 } as Meta<ComponentProps<typeof TabPanels>>
 
-export const Selected = () => (
+export const DefaultTab = () => (
+  <TabPanels aria-label="TabPanels example" id="tab-panels" defaultTabIndex={1}>
+    <TabPanels.Tab>One</TabPanels.Tab>
+    <TabPanels.Tab>Two</TabPanels.Tab>
+    <TabPanels.Tab>Three</TabPanels.Tab>
+    <TabPanels.Panel>One</TabPanels.Panel>
+    <TabPanels.Panel>Two</TabPanels.Panel>
+    <TabPanels.Panel>Three</TabPanels.Panel>
+  </TabPanels>
+)
+
+export const SelectedTab = () => (
   <TabPanels aria-label="TabPanels example" id="tab-panels" selectedTabIndex={1}>
     <TabPanels.Tab>One</TabPanels.Tab>
     <TabPanels.Tab>Two</TabPanels.Tab>
@@ -35,7 +46,7 @@ export const AdditionalContent = () => (
 )
 
 export const ManyTabs = () => (
-  <TabPanels aria-label="TabPanels example" id="tab-panels" selectedTabIndex={10}>
+  <TabPanels aria-label="TabPanels example" id="tab-panels" defaultTabIndex={10}>
     <TabPanels.Tab>One</TabPanels.Tab>
     <TabPanels.Tab>Two</TabPanels.Tab>
     <TabPanels.Tab>Three</TabPanels.Tab>
@@ -58,5 +69,16 @@ export const ManyTabs = () => (
     <TabPanels.Panel>Nine</TabPanels.Panel>
     <TabPanels.Panel>Ten</TabPanels.Panel>
     <TabPanels.Panel>Eleven</TabPanels.Panel>
+  </TabPanels>
+)
+
+export const AlternativeStructure = () => (
+  <TabPanels aria-label="TabPanels example" id="tab-panels">
+    <TabPanels.Tab>One</TabPanels.Tab>
+    <TabPanels.Panel>One</TabPanels.Panel>
+    <TabPanels.Tab>Two</TabPanels.Tab>
+    <TabPanels.Panel>Two</TabPanels.Panel>
+    <TabPanels.Tab>Three</TabPanels.Tab>
+    <TabPanels.Panel>Three</TabPanels.Panel>
   </TabPanels>
 )

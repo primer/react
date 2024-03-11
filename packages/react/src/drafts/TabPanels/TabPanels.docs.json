@@ -26,6 +26,11 @@
       "description": "The id of the tab container, used to generate child ids."
     },
     {
+      "name": "defaultTabIndex",
+      "type": "number",
+      "description": "The 0-based index of the tab that is selected by default when the component is loaded."
+    },
+    {
       "name": "selectedTabIndex",
       "type": "number",
       "description": "The 0-based index of the tab that is selected."
