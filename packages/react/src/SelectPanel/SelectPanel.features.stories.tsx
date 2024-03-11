@@ -128,7 +128,11 @@ export const WithFooterStory = () => {
         onFilterChange={setFilter}
         showItemDividers={true}
         overlayProps={{width: 'small', height: 'medium'}}
-        footer={<Button sx={{flexGrow: 1, m: 2}}>Edit labels</Button>}
+        footer={
+          <Button size="small" block>
+            Edit labels
+          </Button>
+        }
       />
     </>
   )
@@ -161,7 +165,11 @@ export const MultiSelectWithFooterStory = () => {
         onFilterChange={setFilter}
         showItemDividers={true}
         overlayProps={{width: 'small', height: 'medium'}}
-        footer={<Button sx={{flexGrow: 1, m: 2}}>Edit labels</Button>}
+        footer={
+          <Button size="small" block>
+            Edit labels
+          </Button>
+        }
       />
     </>
   )

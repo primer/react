@@ -233,6 +233,7 @@ export function SelectPanel({
                 display: 'flex',
                 borderTop: '1px solid',
                 borderColor: 'border.default',
+                padding: 2,
               }}
             >
               {footer}
