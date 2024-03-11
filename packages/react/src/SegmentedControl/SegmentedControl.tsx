@@ -132,7 +132,7 @@ const Root: React.FC<React.PropsWithChildren<SegmentedControlProps>> = ({
                   onSelect={(event: React.MouseEvent | React.KeyboardEvent) => {
                     isUncontrolled && setSelectedIndexInternalState(index)
                     onChange && onChange(index)
-                    child.props.onClick && child.props.onClick(event as React.MouseEvent<HTMLButtonElement>)
+                    child.props.onClick && child.props.onClick(event as React.MouseEvent<HTMLLIElement>)
                   }}
                 >
                   {ChildIcon && <ChildIcon />} {getChildText(child)}
