@@ -230,4 +230,10 @@ describe('TextInput', () => {
   it('should render a password input', () => {
     expect(render(<TextInput name="password" type="password" />)).toMatchSnapshot()
   })
+
+  it('should not override prop aria-invalid', () => {
+    const onChange = jest.fn()
+    const {getByRole} = HTMLRender(<TextInput onChange={onChange} aria-invalid="true" value="" />)
+    expect(getByRole('textbox')).toHaveAttribute('aria-invalid', 'true')
+  })
 })
