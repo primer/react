@@ -100,7 +100,7 @@ const Panel: React.FC<SelectPanelProps> = ({
       Anchor = React.cloneElement(child, {
         // @ts-ignore TODO
         ref: anchorRef,
-        onClick: onAnchorClick,
+        onClick: child.props.onClick || onAnchorClick,
         'aria-haspopup': true,
         'aria-expanded': internalOpen,
       })
@@ -604,7 +604,11 @@ const SelectPanelMessage: React.FC<SelectPanelMessageProps> = ({
           <Octicon icon={AlertIcon} sx={{color: variant === 'error' ? 'danger.fg' : 'attention.fg', marginBottom: 2}} />
         ) : null}
         <Text sx={{fontSize: 1, fontWeight: 'semibold'}}>{title}</Text>
-        <Text sx={{fontSize: 1, color: 'fg.muted'}}>{children}</Text>
+        <Text
+          sx={{fontSize: 1, color: 'fg.muted', display: 'flex', flexDirection: 'column', gap: 2, alignItems: 'center'}}
+        >
+          {children}
+        </Text>
       </Box>
     )
   } else {
