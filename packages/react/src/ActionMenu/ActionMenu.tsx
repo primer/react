@@ -44,10 +44,12 @@ const Menu: React.FC<React.PropsWithChildren<ActionMenuProps>> = ({
   open,
   onOpenChange,
   children,
+  ...externalInputProps
 }: ActionMenuProps) => {
   const [combinedOpenState, setCombinedOpenState] = useProvidedStateOrCreate(open, onOpenChange, false)
   const onOpen = React.useCallback(() => setCombinedOpenState(true), [setCombinedOpenState])
   const onClose = React.useCallback(() => setCombinedOpenState(false), [setCombinedOpenState])
+  const inputProps = useFormControlForwardedProps(externalInputProps)
 
   const menuButtonChild = React.Children.toArray(children).find(
     child => React.isValidElement<ActionMenuButtonProps>(child) && (child.type === MenuButton || child.type === Anchor),
@@ -70,7 +72,7 @@ const Menu: React.FC<React.PropsWithChildren<ActionMenuProps>> = ({
         renderAnchor = anchorProps => {
           // We need to attach the anchor props to the tooltip trigger (ActionMenu.Button's grandchild) not the tooltip itself.
           const triggerButton = React.cloneElement(anchorChildren, {...anchorProps})
-          return React.cloneElement(child, {children: triggerButton, ref: anchorRef})
+          return React.cloneElement(child, {...inputProps, children: triggerButton, ref: anchorRef})
         }
       }
       return null
@@ -85,18 +87,18 @@ const Menu: React.FC<React.PropsWithChildren<ActionMenuProps>> = ({
             // We need to attach the anchor props to the tooltip trigger not the tooltip itself.
             const tooltipTriggerEl = React.cloneElement(tooltipTrigger, {...anchorProps})
             const tooltip = React.cloneElement(anchorChildren, {children: tooltipTriggerEl})
-            return React.cloneElement(child, {children: tooltip, ref: anchorRef})
+            return React.cloneElement(child, {...inputProps, children: tooltip, ref: anchorRef})
           }
         }
       } else {
-        renderAnchor = anchorProps => React.cloneElement(child, anchorProps)
+        renderAnchor = anchorProps => React.cloneElement(child, {...inputProps, anchorProps})
       }
       return null
     } else if (child.type === MenuButton) {
-      renderAnchor = anchorProps => React.cloneElement(child, anchorProps)
+      renderAnchor = anchorProps => React.cloneElement(child, {...inputProps, anchorProps})
       return null
     } else {
-      return child
+      return React.cloneElement(child, {...inputProps})
     }
   })
 
@@ -117,11 +119,9 @@ export type ActionMenuButtonProps = Omit<ButtonProps, 'children'> & {
   children: React.ReactNode
 }
 const MenuButton = React.forwardRef(({...props}, anchorRef) => {
-  const buttonProps = useFormControlForwardedProps(props)
-
   return (
     <Anchor ref={anchorRef}>
-      <Button type="button" trailingAction={TriangleDownIcon} {...buttonProps} />
+      <Button type="button" trailingAction={TriangleDownIcon} {...props} />
     </Anchor>
   )
 }) as PolymorphicForwardRefComponent<'button', ActionMenuButtonProps>
