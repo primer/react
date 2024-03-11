@@ -3,7 +3,7 @@ import userEvent from '@testing-library/user-event'
 import {axe} from 'jest-axe'
 import React from 'react'
 import theme from '../theme'
-import {ActionMenu, ActionList, BaseStyles, ThemeProvider, SSRProvider, Tooltip, Button} from '..'
+import {ActionMenu, ActionList, BaseStyles, ThemeProvider, SSRProvider, Tooltip, Button, FormControl} from '..'
 import {Tooltip as TooltipV2} from '../TooltipV2/Tooltip'
 import {behavesAsComponent, checkExports} from '../utils/testing'
 import {SingleSelect} from '../ActionMenu/ActionMenu.features.stories'
@@ -74,6 +74,24 @@ function ExampleWithTooltipV2(actionMenuTrigger: React.ReactElement): JSX.Elemen
         </BaseStyles>
       </SSRProvider>
     </ThemeProvider>
+  )
+}
+
+function ExampleWithForm(): JSX.Element {
+  return (
+    <FormControl>
+      <FormControl.Label>Action Menu Label</FormControl.Label>
+      <Example />
+    </FormControl>
+  )
+}
+
+function ExampleWithTooltipWithForm(): JSX.Element {
+  return (
+    <FormControl>
+      <FormControl.Label>Action Menu Label</FormControl.Label>
+      <ExampleWithTooltip />
+    </FormControl>
   )
 }
 
@@ -394,5 +412,21 @@ describe('ActionMenu', () => {
     const button = component.getByRole('button')
 
     expect(button.id).toBe(buttonId)
+  })
+
+  it('MenuButton within FormControl should be labelled by FormControl.Label', async () => {
+    const component = HTMLRender(<ExampleWithForm />)
+    const button = component.getByLabelText('Action Menu Label')
+    expect(button).toBeVisible()
+    const buttonByRole = component.getByRole('button')
+    expect(button.id).toBe(buttonByRole.id)
+  })
+
+  it('MenuButton wrapped by Tooltip within FormControl should be labelled by FormControl.Label', async () => {
+    const component = HTMLRender(<ExampleWithTooltipWithForm />)
+    const button = component.getByLabelText('Action Menu Label')
+    expect(button).toBeVisible()
+    const buttonByRole = component.getByRole('button')
+    expect(button.id).toBe(buttonByRole.id)
   })
 })

@@ -483,3 +483,20 @@ export const OnlyInactiveItems = () => (
     </ActionMenu.Overlay>
   </ActionMenu>
 )
+
+export const WithinForm = () => (
+  <FormControl>
+    <FormControl.Label>Action Menu within FormControl</FormControl.Label>
+    <ActionMenu>
+      <ActionMenu.Button>Open menu</ActionMenu.Button>
+      <ActionMenu.Overlay width="medium">
+        <ActionList>
+          <ActionList.Item onSelect={() => alert('Copy link clicked')}>
+            Copy link
+            <ActionList.TrailingVisual>⌘C</ActionList.TrailingVisual>
+          </ActionList.Item>
+        </ActionList>
+      </ActionMenu.Overlay>
+    </ActionMenu>
+  </FormControl>
+)
