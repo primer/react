@@ -30,7 +30,9 @@ export const Selection: React.FC<React.PropsWithChildren<SelectionProps>> = ({se
   }
 
   if (selectionVariant === 'single' || listRole === 'menu') {
-    return <LeadingVisualContainer>{selected && <CheckIcon />}</LeadingVisualContainer>
+    return (
+      <LeadingVisualContainer data-component="ActionList.Selection">{selected && <CheckIcon />}</LeadingVisualContainer>
+    )
   }
 
   /**
@@ -59,7 +61,7 @@ export const Selection: React.FC<React.PropsWithChildren<SelectionProps>> = ({se
   }
 
   return (
-    <LeadingVisualContainer>
+    <LeadingVisualContainer data-component="ActionList.Selection">
       <Box
         sx={{
           borderColor: selected ? 'accent.fg' : 'neutral.emphasis',
