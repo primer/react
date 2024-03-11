@@ -1,13 +1,11 @@
 import React from 'react'
 import {SearchIcon, XCircleFillIcon, XIcon, FilterRemoveIcon, AlertIcon, ArrowLeftIcon} from '@primer/octicons-react'
-import {FocusKeys} from '@primer/behaviors'
 
 import type {ButtonProps, TextInputProps, ActionListProps, LinkProps, CheckboxProps} from '../../index'
 import {Button, IconButton, Heading, Box, Tooltip, TextInput, Spinner, Text, Octicon, Link, Checkbox} from '../../index'
 import {ActionListContainerContext} from '../../ActionList/ActionListContainerContext'
 import {useSlots} from '../../hooks/useSlots'
 import {useProvidedRefOrCreate, useId, useAnchoredPosition} from '../../hooks'
-import {useFocusZone} from '../../hooks/useFocusZone'
 import type {OverlayProps} from '../../Overlay/Overlay'
 import {StyledOverlay, heightMap} from '../../Overlay/Overlay'
 import InputLabel from '../../internal/components/InputLabel'
@@ -144,15 +142,6 @@ const Panel: React.FC<SelectPanelProps> = ({
   const panelId = useId(id)
   const [slots, childrenInBody] = useSlots(contents, {header: SelectPanelHeader, footer: SelectPanelFooter})
 
-  /* Arrow keys navigation for list items */
-  const {containerRef: listContainerRef} = useFocusZone(
-    {
-      bindKeys: FocusKeys.ArrowVertical | FocusKeys.HomeAndEnd | FocusKeys.PageUpDown,
-      focusableElementFilter: element => element.tagName === 'LI',
-    },
-    [internalOpen],
-  )
-
   // used in SelectPanel.SearchInput
   const moveFocusToList = () => {
     const selector = 'ul[role=listbox] li:not([role=none])'
@@ -279,12 +268,10 @@ const Panel: React.FC<SelectPanelProps> = ({
 
                 <Box
                   as="div"
-                  ref={listContainerRef as React.RefObject<HTMLDivElement>}
                   sx={{
                     flexShrink: 1,
                     flexGrow: 1,
                     overflow: 'hidden',
-
                     display: 'flex',
                     flexDirection: 'column',
                     justifyContent: 'space-between',
@@ -299,6 +286,7 @@ const Panel: React.FC<SelectPanelProps> = ({
                       selectionVariant: selectionVariant === 'instant' ? 'single' : selectionVariant,
                       afterSelect: internalAfterSelect,
                       listLabelledBy: `${panelId}--title`,
+                      enableFocusZone: true, // Arrow keys navigation for list items
                     }}
                   >
                     {childrenInBody}
