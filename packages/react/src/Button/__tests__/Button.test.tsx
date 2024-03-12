@@ -2,7 +2,8 @@ import {SearchIcon} from '@primer/octicons-react'
 import {render, screen, fireEvent} from '@testing-library/react'
 import {axe} from 'jest-axe'
 import React from 'react'
-import {IconButton, Button, ButtonProps} from '../../Button'
+import {IconButton, Button} from '../../Button'
+import type {ButtonProps} from '../../Button'
 import {behavesAsComponent} from '../../utils/testing'
 
 type StatefulLoadingButtonProps = {
