@@ -20,6 +20,7 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
         borderColor: `var(--button-default-borderColor-disabled, ${theme?.colors.btn.border})`,
         '[data-component=ButtonCounter]': {
           color: 'inherit',
+          backgroundColor: `var(--button-default-bgColor-disabled, ${theme?.colors.input.disabledBg})`,
         },
       },
       '&[aria-expanded=true]': {
