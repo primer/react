@@ -1,44 +1,168 @@
 {
-  "id": "drafts_markdown_viewer",
-  "name": "MarkdownViewer",
+  "id": "drafts_markdown_toolbar",
+  "name": "MarkdownToolbar",
   "status": "draft",
   "a11yReviewed": false,
   "stories": [],
   "props": [
     {
-      "name": "markdownValue",
+      "name": "for",
+      "required": true,
       "type": "string",
-      "description": "The markdown the HTML was rendered from. This is not used for viewing, only as a source for change events."
+      "description": "An IDREF pointing to the textarea this toolbar applies to."
     },
     {
-      "name": "dangerousRenderHTML",
-      "type": "{ __html: string }",
-      "description": "Set the rendered HTML of the viewer. To prevent XSS, ensure that the source of this HTML is trusted!"
-    },
-    {
-      "name": "loading",
-      "type": "boolean",
-      "description": "Show a loading spinner instead of content."
-    },
-    {
-      "name": "onLinkClick",
-      "type": "(event: MouseEvent) => void",
-      "description": "Called when the user clicks a link element. This can be used to intercept the click and provide custom routing. Note that this is a native HTML `MouseEvent` and not a `React.ClickEvent`."
-    },
-    {
-      "name": "openLinksInNewTab",
-      "type": "boolean"
-    },
-    {
-      "name": "onChange",
-      "type": "(markdown: string) => void | Promise<void>",
-      "description": "Called when the user interacts and updates the Markdown. The rendered Markdown is updated eagerly - if the request fails, a rejected Promise should be returned by this handler. In that case, the viewer will revert the visual change. If the change is handled by an async API request (as it typically will be in production code), the viewer should be `disabled` while the request is pending to avoid conflicts. To allow users to check multiple boxes rapidly, the API request should be debounced (an ideal debounce duration is about 1 second)."
-    },
-    {
-      "name": "disabled",
-      "type": "boolean",
-      "description": "Control whether interaction is disabled."
+      "name": "sx",
+      "type": "SystemStyleObject"
     }
   ],
-  "subcomponents": []
+  "subcomponents": [
+    {
+      "name": "MarkdownToolbar.Header1Button",
+      "props": [
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ]
+    },
+    {
+      "name": "MarkdownToolbar.Header2Button",
+      "props": [
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ]
+    },
+    {
+      "name": "MarkdownToolbar.Header3Button",
+      "props": [
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ]
+    },
+    {
+      "name": "MarkdownToolbar.BoldButton",
+      "props": [
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ]
+    },
+    {
+      "name": "MarkdownToolbar.ItalicButton",
+      "props": [
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ]
+    },
+    {
+      "name": "MarkdownToolbar.QuoteButton",
+      "props": [
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ]
+    },
+    {
+      "name": "MarkdownToolbar.CodeButton",
+      "props": [
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ]
+    },
+    {
+      "name": "MarkdownToolbar.LinkButton",
+      "props": [
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ]
+    },
+    {
+      "name": "MarkdownToolbar.ImageButton",
+      "props": [
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ]
+    },
+    {
+      "name": "MarkdownToolbar.UnorderedListButton",
+      "props": [
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ]
+    },
+    {
+      "name": "MarkdownToolbar.OrderedListButton",
+      "props": [
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ]
+    },
+    {
+      "name": "MarkdownToolbar.TaskListButton",
+      "props": [
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ]
+    },
+    {
+      "name": "MarkdownToolbar.MentionButton",
+      "props": [
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ]
+    },
+    {
+      "name": "MarkdownToolbar.ReferenceButton",
+      "props": [
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ]
+    },
+    {
+      "name": "MarkdownToolbar.StrikethroughButton",
+      "props": [
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ]
+    },
+    {
+      "name": "MarkdownToolbar.DefaultButtons",
+      "props": []
+    },
+    {
+      "name": "MarkdownToolbar.InlineFormattingButtons",
+      "props": []
+    },
+    {
+      "name": "MarkdownToolbar.ListButtons",
+      "props": []
+    }
+  ]
 }
