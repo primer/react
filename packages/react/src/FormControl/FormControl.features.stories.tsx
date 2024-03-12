@@ -284,3 +284,25 @@ export const WithLeadingVisual = () => (
     </FormControl>
   </Box>
 )
+
+export const DisabledInputs = () => (
+  <Box sx={{display: 'flex', flexDirection: 'column', gap: '1rem'}}>
+    <FormControl disabled>
+      <FormControl.Label>Disabled checkbox</FormControl.Label>
+      <Checkbox />
+    </FormControl>
+    <FormControl disabled>
+      <FormControl.Label>Disabled input</FormControl.Label>
+      <TextInput />
+    </FormControl>
+    <FormControl disabled>
+      <FormControl.Label>Disabled select</FormControl.Label>
+      <Select>
+        <Select.Option value="figma">Figma</Select.Option>
+        <Select.Option value="css">Primer CSS</Select.Option>
+        <Select.Option value="prc">Primer React components</Select.Option>
+        <Select.Option value="pvc">Primer ViewComponents</Select.Option>
+      </Select>
+    </FormControl>
+  </Box>
+)

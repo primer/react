@@ -100,6 +100,7 @@ exports[`Button respects block prop 1`] = `
   box-shadow: none;
   color: primer.fg.disabled;
   border-color: var(--button-default-borderColor-disabled,undefined);
+  background-color: var(--button-default-bgColor-disabled,undefined);
 }
 
 .c0:disabled [data-component=ButtonCounter] {
@@ -360,6 +361,7 @@ exports[`Button respects the alignContent prop 1`] = `
   box-shadow: none;
   color: primer.fg.disabled;
   border-color: var(--button-default-borderColor-disabled,undefined);
+  background-color: var(--button-default-bgColor-disabled,undefined);
 }
 
 .c0:disabled [data-component=ButtonCounter] {
@@ -619,6 +621,7 @@ exports[`Button respects the large size prop 1`] = `
   box-shadow: none;
   color: primer.fg.disabled;
   border-color: var(--button-default-borderColor-disabled,undefined);
+  background-color: var(--button-default-bgColor-disabled,undefined);
 }
 
 .c0:disabled [data-component=ButtonCounter] {
@@ -879,6 +882,7 @@ exports[`Button respects the small size prop 1`] = `
   box-shadow: none;
   color: primer.fg.disabled;
   border-color: var(--button-default-borderColor-disabled,undefined);
+  background-color: var(--button-default-bgColor-disabled,undefined);
 }
 
 .c0:disabled [data-component=ButtonCounter] {
