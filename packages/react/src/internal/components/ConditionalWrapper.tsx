@@ -1,5 +1,6 @@
 import React from 'react'
-import Box, {BoxProps} from '../../Box/Box'
+import Box from '../../Box/Box'
+import type {BoxProps} from '../../Box/Box'
 
 export const ConditionalWrapper: React.FC<React.PropsWithChildren<{if: boolean} & BoxProps>> = props => {
   const {if: condition, ...rest} = props
