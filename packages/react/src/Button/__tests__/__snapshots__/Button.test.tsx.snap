@@ -231,6 +231,10 @@ exports[`Button respects block prop 1`] = `
   color: var(--button-color,undefined);
 }
 
+.c0[data-component="IconButton"][data-no-visuals] {
+  color: fg.muted;
+}
+
 @media (forced-colors:active) {
   .c0:focus {
     outline: solid 1px transparent;
@@ -485,6 +489,10 @@ exports[`Button respects the alignContent prop 1`] = `
 .c0 [data-component="trailingVisual"],
 .c0 [data-component="trailingAction"] {
   color: var(--button-color,undefined);
+}
+
+.c0[data-component="IconButton"][data-no-visuals] {
+  color: fg.muted;
 }
 
 @media (forced-colors:active) {
@@ -742,6 +750,10 @@ exports[`Button respects the large size prop 1`] = `
   color: var(--button-color,undefined);
 }
 
+.c0[data-component="IconButton"][data-no-visuals] {
+  color: fg.muted;
+}
+
 @media (forced-colors:active) {
   .c0:focus {
     outline: solid 1px transparent;
@@ -996,6 +1008,10 @@ exports[`Button respects the small size prop 1`] = `
 .c0 [data-component="trailingVisual"],
 .c0 [data-component="trailingAction"] {
   color: var(--button-color,undefined);
+}
+
+.c0[data-component="IconButton"][data-no-visuals] {
+  color: fg.muted;
 }
 
 @media (forced-colors:active) {

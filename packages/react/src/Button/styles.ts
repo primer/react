@@ -32,6 +32,9 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
       '[data-component=ButtonCounter]': {
         backgroundColor: 'btn.counterBg',
       },
+      '&[data-component="IconButton"][data-no-visuals]': {
+        color: 'fg.muted',
+      },
     },
     primary: {
       color: 'btn.primary.text',
