@@ -102,6 +102,80 @@ export const ExternalAnchorStory = () => {
 }
 ExternalAnchorStory.storyName = 'With External Anchor'
 
+export const WithFooterStory = () => {
+  const [selected, setSelected] = React.useState<ItemInput | undefined>(items[0])
+  const [filter, setFilter] = React.useState('')
+  const filteredItems = items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
+  const [open, setOpen] = useState(false)
+  const buttonRef = useRef<HTMLButtonElement>(null)
+
+  return (
+    <>
+      <h1>Select Panel With Footer</h1>
+      <SelectPanel
+        renderAnchor={({children, 'aria-labelledby': ariaLabelledBy, ...anchorProps}) => (
+          <Button trailingAction={TriangleDownIcon} aria-labelledby={` ${ariaLabelledBy}`} {...anchorProps}>
+            {children ?? 'Select Labels'}
+          </Button>
+        )}
+        anchorRef={buttonRef}
+        placeholderText="Filter Labels"
+        open={open}
+        onOpenChange={setOpen}
+        items={filteredItems}
+        selected={selected}
+        onSelectedChange={setSelected}
+        onFilterChange={setFilter}
+        showItemDividers={true}
+        overlayProps={{width: 'small', height: 'medium'}}
+        footer={
+          <Button size="small" block>
+            Edit labels
+          </Button>
+        }
+      />
+    </>
+  )
+}
+WithFooterStory.storyName = 'With Footer'
+
+export const MultiSelectWithFooterStory = () => {
+  const [selected, setSelected] = React.useState<ItemInput[]>([items[0], items[1]])
+  const [filter, setFilter] = React.useState('')
+  const filteredItems = items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
+  const [open, setOpen] = useState(false)
+  const buttonRef = useRef<HTMLButtonElement>(null)
+
+  return (
+    <>
+      <h1>Multi Select Panel With Footer</h1>
+      <SelectPanel
+        renderAnchor={({children, 'aria-labelledby': ariaLabelledBy, ...anchorProps}) => (
+          <Button trailingAction={TriangleDownIcon} aria-labelledby={` ${ariaLabelledBy}`} {...anchorProps}>
+            {children ?? 'Select Labels'}
+          </Button>
+        )}
+        anchorRef={buttonRef}
+        placeholderText="Filter Labels"
+        open={open}
+        onOpenChange={setOpen}
+        items={filteredItems}
+        selected={selected}
+        onSelectedChange={setSelected}
+        onFilterChange={setFilter}
+        showItemDividers={true}
+        overlayProps={{width: 'small', height: 'medium'}}
+        footer={
+          <Button size="small" block>
+            Edit labels
+          </Button>
+        }
+      />
+    </>
+  )
+}
+MultiSelectWithFooterStory.storyName = 'With Footer (Multi Select)'
+
 export const SelectPanelHeightInitialWithOverflowingItemsStory = () => {
   const [selected, setSelected] = React.useState<ItemInput | undefined>(items[0])
   const [filter, setFilter] = React.useState('')
