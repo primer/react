@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Hidden renders \`when\` prop as expected 1`] = `
+@media screen and (max-width:calc(768px - 0.02px)) {
+  .c0 {
+    display: none;
+  }
+}
+
+<div>
+  <div
+    class="c0"
+  >
+    <div>
+      Hidden when narrow
+    </div>
+  </div>
+</div>
+`;

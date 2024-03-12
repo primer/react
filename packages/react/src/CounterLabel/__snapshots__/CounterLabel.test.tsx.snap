@@ -1,0 +1,95 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CounterLabel renders with secondary scheme when no "scheme" prop is provided 1`] = `
+.c0 {
+  display: inline-block;
+  padding: 2px 5px;
+  font-size: 12px;
+  font-weight: bold;
+  line-height: condensedUltra;
+  border-radius: 20px;
+  background-color: neutral.muted;
+  border: var(--borderWidth-thin,max(1px,0.0625rem)) solid var(--counter-borderColor,var(--color-counter-border));
+  color: fg.default;
+}
+
+.c0:empty {
+  display: none;
+}
+
+.c1 {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  -webkit-clip: rect(0,0,0,0);
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+<div>
+  <span
+    aria-hidden="true"
+    class="c0"
+  >
+    1234
+  </span>
+  <span
+    class="c1"
+  >
+     (
+    1234
+    )
+  </span>
+</div>
+`;
+
+exports[`CounterLabel respects the primary "scheme" prop 1`] = `
+.c0 {
+  display: inline-block;
+  padding: 2px 5px;
+  font-size: 12px;
+  font-weight: bold;
+  line-height: condensedUltra;
+  border-radius: 20px;
+  background-color: neutral.emphasis;
+  border: var(--borderWidth-thin,max(1px,0.0625rem)) solid var(--counter-borderColor,var(--color-counter-border));
+  color: fg.onEmphasis;
+}
+
+.c0:empty {
+  display: none;
+}
+
+.c1 {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  -webkit-clip: rect(0,0,0,0);
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+<div>
+  <span
+    aria-hidden="true"
+    class="c0"
+  >
+    1234
+  </span>
+  <span
+    class="c1"
+  >
+     (
+    1234
+    )
+  </span>
+</div>
+`;

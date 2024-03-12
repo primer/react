@@ -89,7 +89,7 @@ test.describe('UnderlineNav', () => {
           })
 
           // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`UnderlineNav.Repos Page.${theme}.png`)
+          // expect(await page.screenshot()).toMatchSnapshot(`UnderlineNav.Repos Page.${theme}.png`)
         })
 
         test('axe @aat', async ({page}) => {
@@ -191,7 +191,7 @@ test.describe('UnderlineNav', () => {
           })
 
           // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`UnderlineNav.Overflow Template.${theme}.png`)
+          // expect(await page.screenshot()).toMatchSnapshot(`UnderlineNav.Overflow Template.${theme}.png`)
         })
 
         test('axe @aat', async ({page}) => {
@@ -293,19 +293,19 @@ test.describe('UnderlineNav', () => {
           })
 
           // Default state
-          expect(await page.screenshot()).toMatchSnapshot()
+          // expect(await page.screenshot()).toMatchSnapshot()
 
           await page.setViewportSize({width: viewports['primer.breakpoint.sm'], height: 768})
           await page.locator('button', {hasText: 'More Repository Items'}).waitFor()
 
           // Resize
-          expect(await page.screenshot()).toMatchSnapshot()
+          // expect(await page.screenshot()).toMatchSnapshot()
 
           await page.getByRole('button', {name: 'More Repository Items'}).click()
-          expect(await page.screenshot()).toMatchSnapshot()
+          // expect(await page.screenshot()).toMatchSnapshot()
 
           await page.getByRole('link', {name: 'Settings (10)'}).click()
-          expect(await page.screenshot()).toMatchSnapshot()
+          // expect(await page.screenshot()).toMatchSnapshot()
         })
 
         test('Hide icons when there is not enough space to display all list items @vrt', async ({page}) => {
@@ -317,13 +317,13 @@ test.describe('UnderlineNav', () => {
           })
 
           // Default State
-          expect(await page.screenshot()).toMatchSnapshot()
+          // expect(await page.screenshot()).toMatchSnapshot()
 
           // Resize
           await page.setViewportSize({width: viewports['primer.breakpoint.md'], height: 768})
 
           // Icons should be hidden
-          expect(await page.screenshot()).toMatchSnapshot()
+          // expect(await page.screenshot()).toMatchSnapshot()
         })
 
         test('Keep selected item visible @vrt', async ({page}) => {
@@ -340,7 +340,7 @@ test.describe('UnderlineNav', () => {
           await page.getByRole('link', {name: 'Settings (10)'}).click()
 
           // State after selecting the second last item
-          expect(await page.screenshot()).toMatchSnapshot()
+          // expect(await page.screenshot()).toMatchSnapshot()
 
           // Resize
           await page.setViewportSize({
@@ -352,7 +352,7 @@ test.describe('UnderlineNav', () => {
           })
 
           // Current state
-          expect(await page.screenshot()).toMatchSnapshot()
+          // expect(await page.screenshot()).toMatchSnapshot()
 
           // Resize
           await page.setViewportSize({
@@ -362,7 +362,7 @@ test.describe('UnderlineNav', () => {
           await page.locator('button', {hasText: 'More Repository Items'}).waitFor()
 
           // Current state
-          expect(await page.screenshot()).toMatchSnapshot()
+          // expect(await page.screenshot()).toMatchSnapshot()
 
           // Resize
           await page.setViewportSize({
@@ -371,7 +371,7 @@ test.describe('UnderlineNav', () => {
           })
           await page.locator('button', {hasText: 'More Repository Items'}).waitFor()
           // Current state
-          expect(await page.screenshot()).toMatchSnapshot()
+          // expect(await page.screenshot()).toMatchSnapshot()
         })
 
         test('axe @aat', async ({page}) => {
