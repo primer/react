@@ -18,9 +18,9 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
       '&:disabled': {
         color: 'primer.fg.disabled',
         borderColor: `var(--button-default-borderColor-disabled, ${theme?.colors.btn.border})`,
+        backgroundColor: `var(--button-default-bgColor-disabled, ${theme?.colors.input.disabledBg})`,
         '[data-component=ButtonCounter]': {
           color: 'inherit',
-          backgroundColor: `var(--button-default-bgColor-disabled, ${theme?.colors.input.disabledBg})`,
         },
       },
       '&[aria-expanded=true]': {
