@@ -15,6 +15,7 @@ import Spinner from '../Spinner'
 import CounterLabel from '../CounterLabel'
 import {useId} from '../hooks'
 import {ConditionalWrapper} from '../internal/components/ConditionalWrapper'
+import {Status} from '../internal/components/Status'
 
 const iconWrapStyles = {
   display: 'flex',
@@ -137,9 +138,7 @@ const ButtonBase = forwardRef(
         </StyledButton>
         {loading && (
           <VisuallyHidden>
-            <span aria-live="polite" id={loadingAnnouncementID}>
-              {loadingAnnouncement}
-            </span>
+            <Status id={loadingAnnouncementID}>{loadingAnnouncement}</Status>
           </VisuallyHidden>
         )}
       </ConditionalWrapper>
