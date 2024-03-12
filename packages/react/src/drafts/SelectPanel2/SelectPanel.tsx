@@ -1,5 +1,5 @@
 import React from 'react'
-import {SearchIcon, XCircleFillIcon, XIcon, FilterRemoveIcon, AlertIcon} from '@primer/octicons-react'
+import {SearchIcon, XCircleFillIcon, XIcon, FilterRemoveIcon, AlertIcon, ArrowLeftIcon} from '@primer/octicons-react'
 import {FocusKeys} from '@primer/behaviors'
 
 import type {ButtonProps, TextInputProps, ActionListProps, LinkProps, CheckboxProps} from '../../index'
@@ -201,9 +201,16 @@ const Panel: React.FC<SelectPanelProps> = ({
   // Autofocus hack: React doesn't support autoFocus for dialog: https://github.com/facebook/react/issues/23301
   // tl;dr: react takes over autofocus instead of letting the browser handle it,
   // but not for dialogs, so we have to do it
-  React.useEffect(() => {
-    if (internalOpen) document.querySelector('input')?.focus()
-  }, [internalOpen])
+  React.useEffect(
+    function intialFocus() {
+      if (internalOpen) {
+        const searchInput = document.querySelector('dialog[open] input') as HTMLInputElement | undefined
+        if (searchInput) searchInput.focus()
+        else moveFocusToList()
+      }
+    },
+    [internalOpen],
+  )
 
   /* Anchored */
   const {position} = useAnchoredPosition(
@@ -280,57 +287,61 @@ const Panel: React.FC<SelectPanelProps> = ({
           if (event.target === event.currentTarget) onClickOutside()
         }}
       >
-        <SelectPanelContext.Provider
-          value={{
-            panelId,
-            title,
-            description,
-            onCancel: onInternalCancel,
-            onClearSelection: propsOnClearSelection ? onInternalClearSelection : undefined,
-            searchQuery,
-            setSearchQuery,
-            selectionVariant,
-            moveFocusToList,
-          }}
-        >
-          <Box
-            as="form"
-            method="dialog"
-            onSubmit={onInternalSubmit}
-            sx={{display: 'flex', flexDirection: 'column', width: '100%'}}
-          >
-            {slots.header ?? /* render default header as fallback */ <SelectPanelHeader />}
-
-            <Box
-              as="div"
-              ref={listContainerRef as React.RefObject<HTMLDivElement>}
-              sx={{
-                flexShrink: 1,
-                flexGrow: 1,
-                overflow: 'hidden',
-
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'space-between',
-                ul: {overflowY: 'auto', flexGrow: 1},
+        {internalOpen && (
+          <>
+            <SelectPanelContext.Provider
+              value={{
+                panelId,
+                title,
+                description,
+                onCancel: onInternalCancel,
+                onClearSelection: propsOnClearSelection ? onInternalClearSelection : undefined,
+                searchQuery,
+                setSearchQuery,
+                selectionVariant,
+                moveFocusToList,
               }}
             >
-              <ActionListContainerContext.Provider
-                value={{
-                  container: 'SelectPanel',
-                  listRole: 'listbox',
-                  selectionAttribute: 'aria-selected',
-                  selectionVariant: selectionVariant === 'instant' ? 'single' : selectionVariant,
-                  afterSelect: internalAfterSelect,
-                  listLabelledBy: `${panelId}--title`,
-                }}
+              <Box
+                as="form"
+                method="dialog"
+                onSubmit={onInternalSubmit}
+                sx={{display: 'flex', flexDirection: 'column', width: '100%'}}
               >
-                {childrenInBody}
-              </ActionListContainerContext.Provider>
-            </Box>
-            {slots.footer}
-          </Box>
-        </SelectPanelContext.Provider>
+                {slots.header ?? /* render default header as fallback */ <SelectPanelHeader />}
+
+                <Box
+                  as="div"
+                  ref={listContainerRef as React.RefObject<HTMLDivElement>}
+                  sx={{
+                    flexShrink: 1,
+                    flexGrow: 1,
+                    overflow: 'hidden',
+
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'space-between',
+                    ul: {overflowY: 'auto', flexGrow: 1},
+                  }}
+                >
+                  <ActionListContainerContext.Provider
+                    value={{
+                      container: 'SelectPanel',
+                      listRole: 'listbox',
+                      selectionAttribute: 'aria-selected',
+                      selectionVariant: selectionVariant === 'instant' ? 'single' : selectionVariant,
+                      afterSelect: internalAfterSelect,
+                      listLabelledBy: `${panelId}--title`,
+                    }}
+                  >
+                    {childrenInBody}
+                  </ActionListContainerContext.Provider>
+                </Box>
+                {slots.footer}
+              </Box>
+            </SelectPanelContext.Provider>
+          </>
+        )}
       </StyledOverlay>
     </>
   )
@@ -340,7 +351,7 @@ const SelectPanelButton = React.forwardRef<HTMLButtonElement, ButtonProps>((prop
   return <Button ref={anchorRef} {...props} />
 })
 
-const SelectPanelHeader: React.FC<React.PropsWithChildren> = ({children, ...props}) => {
+const SelectPanelHeader: React.FC<React.PropsWithChildren & {onBack?: () => void}> = ({children, onBack, ...props}) => {
   const [slots, childrenWithoutSlots] = useSlots(children, {
     searchInput: SelectPanelSearchInput,
   })
@@ -367,18 +378,32 @@ const SelectPanelHeader: React.FC<React.PropsWithChildren> = ({children, ...prop
           marginBottom: slots.searchInput ? 2 : 0,
         }}
       >
-        <Box sx={{marginLeft: 2, marginTop: description ? '2px' : 0}}>
-          {/* heading element is intentionally hardcoded to h1, it is not customisable 
+        <Box sx={{display: 'flex'}}>
+          {onBack ? (
+            <Tooltip text="Back" direction="s">
+              <IconButton
+                type="button"
+                variant="invisible"
+                icon={ArrowLeftIcon}
+                aria-label="Back"
+                onClick={() => onBack()}
+              />
+            </Tooltip>
+          ) : null}
+
+          <Box sx={{marginLeft: onBack ? 1 : 2, marginTop: description ? '2px' : 0}}>
+            {/* heading element is intentionally hardcoded to h1, it is not customisable 
             see https://github.com/github/primer/issues/2578 for context
           */}
-          <Heading as="h1" id={`${panelId}--title`} sx={{fontSize: 14, fontWeight: 600}}>
-            {title}
-          </Heading>
-          {description ? (
-            <Text id={`${panelId}--description`} sx={{fontSize: 0, color: 'fg.muted', display: 'block'}}>
-              {description}
-            </Text>
-          ) : null}
+            <Heading as="h1" id={`${panelId}--title`} sx={{fontSize: 14, fontWeight: 600}}>
+              {title}
+            </Heading>
+            {description ? (
+              <Text id={`${panelId}--description`} sx={{fontSize: 0, color: 'fg.muted', display: 'block'}}>
+                {description}
+              </Text>
+            ) : null}
+          </Box>
         </Box>
 
         <Box>
