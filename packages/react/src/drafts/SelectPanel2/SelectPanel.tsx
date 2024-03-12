@@ -439,7 +439,10 @@ const SelectPanelSearchInput: React.FC<TextInputProps> = ({
           }}
         />
       }
-      sx={{'&:has(input:placeholder-shown) .TextInput-action': {display: 'none'}}}
+      sx={{
+        paddingLeft: 2, // align with list checkboxes
+        '&:has(input:placeholder-shown) .TextInput-action': {display: 'none'},
+      }}
       onChange={internalOnChange}
       onKeyDown={internalKeyDown}
       {...props}
