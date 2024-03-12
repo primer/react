@@ -1,5 +1,7 @@
 import {SearchIcon} from '@primer/octicons-react'
-import {render, screen, fireEvent} from '@testing-library/react'
+import {render, screen} from '@testing-library/react'
+import type {LiveRegionElement} from '@primer/live-region-element'
+import userEvent from '@testing-library/user-event'
 import {axe} from 'jest-axe'
 import React from 'react'
 import {IconButton, Button} from '../../Button'
@@ -11,6 +13,15 @@ type StatefulLoadingButtonProps = {
   id?: string
   ['aria-describedby']?: string
   loadingAnnouncement?: string
+}
+
+function getLiveRegion(): LiveRegionElement | undefined {
+  const liveRegion = document.querySelector('live-region')
+  if (liveRegion) {
+    return liveRegion as LiveRegionElement
+  }
+
+  return undefined
 }
 
 const TestButton = (props: ButtonProps) => <Button id="test-button" {...props} />
@@ -25,6 +36,15 @@ const StatefulLoadingButton = (props: StatefulLoadingButtonProps) => {
 }
 
 describe('Button', () => {
+  afterEach(() => {
+    // Reset the live-region after each test so that we do not have overlapping
+    // messages from previous tests
+    const liveRegion = getLiveRegion()
+    if (liveRegion) {
+      document.body.removeChild(liveRegion)
+    }
+  })
+
   behavesAsComponent({
     Component: TestButton,
     options: {skipSx: true, skipAs: true},
@@ -42,11 +62,12 @@ describe('Button', () => {
     expect(results).toHaveNoViolations()
   })
 
-  it('preserves "onClick" prop', () => {
+  it('preserves "onClick" prop', async () => {
+    const user = userEvent.setup()
     const onClick = jest.fn()
     const container = render(<Button onClick={onClick}>Noop</Button>)
     const button = container.getByRole('button')
-    fireEvent.click(button)
+    await user.click(button)
     expect(onClick).toHaveBeenCalledTimes(1)
   })
 
@@ -60,7 +81,8 @@ describe('Button', () => {
     expect(button).toMatchSnapshot()
   })
 
-  it('respects the "disabled" prop', () => {
+  it('respects the "disabled" prop', async () => {
+    const user = userEvent.setup()
     const onClick = jest.fn()
     const container = render(
       <Button onClick={onClick} disabled>
@@ -69,7 +91,7 @@ describe('Button', () => {
     )
     const button = container.getByRole('button')
     expect(button.hasAttribute('disabled')).toEqual(true)
-    fireEvent.click(button)
+    await user.click(button)
     expect(onClick).toHaveBeenCalledTimes(0)
   })
 
@@ -164,7 +186,8 @@ describe('Button', () => {
     expect(position).toBe(Node.DOCUMENT_POSITION_FOLLOWING)
   })
 
-  it('should describe the button with a default loading announcement, and only when the button is in a loading state', () => {
+  it('should describe the button with a default loading announcement, and only when the button is in a loading state', async () => {
+    const user = userEvent.setup()
     const buttonId = 'loading-button'
     const container = render(
       <StatefulLoadingButton id={buttonId}>
@@ -173,19 +196,16 @@ describe('Button', () => {
     )
     const buttonNode = container.getByRole('button')
 
-    expect(buttonNode.getAttribute('aria-describedby')).toBe(`${buttonId}-loading-announcement`)
+    await user.click(buttonNode)
 
-    expect(buttonNode).not.toHaveAccessibleDescription('Loading')
+    const liveRegion = getLiveRegion()
 
-    fireEvent.click(buttonNode)
-
-    // not sure why, but we need to wait a tick for the the loading state to actually be set
-    setTimeout(() => {
-      expect(buttonNode).toHaveAccessibleDescription('Loading')
-    }, 0)
+    expect(liveRegion).toBeDefined()
+    expect(liveRegion?.getMessage('polite')).toBe('Loading')
   })
 
-  it('should render a custom loading announcement, and only when the button is in a loading state', () => {
+  it('should render a custom loading announcement, and only when the button is in a loading state', async () => {
+    const user = userEvent.setup()
     const buttonId = 'loading-button'
     const container = render(
       <StatefulLoadingButton id={buttonId} loadingAnnouncement="Action loading">
@@ -194,32 +214,12 @@ describe('Button', () => {
     )
     const buttonNode = container.getByRole('button')
 
-    expect(buttonNode.getAttribute('aria-describedby')).toBe(`${buttonId}-loading-announcement`)
+    await user.click(buttonNode)
 
-    expect(buttonNode).not.toHaveAccessibleDescription('Action loading')
+    const liveRegion = getLiveRegion()
 
-    fireEvent.click(buttonNode)
-
-    // not sure why, but we need to wait a tick for the the loading state to actually be set
-    setTimeout(() => {
-      expect(buttonNode).toHaveAccessibleDescription('Action loading')
-    }, 0)
-  })
-
-  it('should be described by loading announcement AND whatever is passed to aria-describedby', () => {
-    const buttonDescriptionId = 'button-description'
-    const buttonId = 'loading-button'
-    const container = render(
-      <StatefulLoadingButton id={buttonId} aria-describedby={buttonDescriptionId}>
-        <span>content</span>
-      </StatefulLoadingButton>,
-    )
-    const buttonDescribedBy = container.getByRole('button').getAttribute('aria-describedby')
-    const loadingAnnouncementId = `${buttonId}-loading-announcement`
-
-    expect(buttonDescribedBy).toContain(loadingAnnouncementId)
-
-    expect(buttonDescribedBy).toContain(buttonDescriptionId)
+    expect(liveRegion).toBeDefined()
+    expect(liveRegion?.getMessage('polite')).toBe('Action loading')
   })
 
   it('should only set aria-disabled to "true" when the button is in a loading state', () => {

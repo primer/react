@@ -109,6 +109,6 @@ describe('Tooltip', () => {
       </Tooltip>,
     )
     const triggerEL = getByRole('button')
-    expect(triggerEL.getAttribute('aria-describedby')).toContain('custom-tooltip-id')
+    expect(triggerEL).toHaveAttribute('aria-describedby', 'custom-tooltip-id')
   })
 })

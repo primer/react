@@ -2202,7 +2202,6 @@ exports[`TextInput renders trailingAction icon button 1`] = `
     className="c3 TextInput-action"
   >
     <button
-      aria-describedby=":r4:-loading-announcement"
       aria-labelledby=":r3:"
       className="c4"
       data-block={null}
@@ -2683,7 +2682,6 @@ exports[`TextInput renders trailingAction text button 1`] = `
     className="c3 TextInput-action"
   >
     <button
-      aria-describedby=":r0:-loading-announcement"
       aria-labelledby=":r0:-label"
       className="c4"
       data-block={null}
@@ -3251,7 +3249,7 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
     className="c3 TextInput-action"
   >
     <button
-      aria-describedby=":r2:-loading-announcement :r1:"
+      aria-describedby=":r1:"
       aria-labelledby=":r2:-label"
       className="c4"
       data-block={null}
