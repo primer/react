@@ -99,20 +99,18 @@ function TabPanels({children, defaultTabIndex, ...props}: TabPanelsProps) {
   let panelIndex = 0
 
   const childrenWithProps = React.Children.map(children, child => {
-    if (React.isValidElement<TabPanelsTabProps>(child) && child.type === Tab && !child.props.id) {
+    if (React.isValidElement<TabPanelsTabProps>(child) && child.type === Tab) {
       if (props.selectedTabIndex === tabIndex) {
         return React.cloneElement(child, {id: `${parentId}-tab-${tabIndex++}`, selected: true})
       }
 
       return React.cloneElement(child, {id: `${parentId}-tab-${tabIndex++}`})
     }
-    if (React.isValidElement<TabPanelsPanelProps>(child) && child.type === Panel && !child.props['aria-labelledby']) {
+    if (React.isValidElement<TabPanelsPanelProps>(child) && child.type === Panel) {
       return React.cloneElement(child, {'aria-labelledby': `${parentId}-tab-${panelIndex++}`})
     }
     return child
   })
-
-  //
 
   return (
     <TabContainer {...props} id={parentId}>
@@ -122,12 +120,10 @@ function TabPanels({children, defaultTabIndex, ...props}: TabPanelsProps) {
 }
 
 export type TabPanelsTabProps = React.DetailedHTMLProps<React.HTMLAttributes<HTMLButtonElement>, HTMLButtonElement> & {
-  id?: string
   selected?: boolean
 } & SxProp
 
 const Tab = styled.button.attrs<TabPanelsTabProps>(props => ({
-  id: props.id,
   className: clsx(TAB_CLASS, props.className),
   role: 'tab',
   'aria-selected': !!props.selected,
@@ -163,12 +159,10 @@ const Tab = styled.button.attrs<TabPanelsTabProps>(props => ({
 Tab.displayName = 'TabPanels.Tab'
 
 export type TabPanelsPanelProps = React.HTMLAttributes<HTMLDivElement> & {
-  'aria-labelledby'?: string
   children: React.ReactNode
 } & SxProp
 
 const Panel = styled.div.attrs<TabPanelsPanelProps>(props => ({
-  'aria-labelledby': props['aria-labelledby'],
   role: 'tabpanel',
   suppressHydrationWarning: true,
 }))<TabPanelsPanelProps>`
