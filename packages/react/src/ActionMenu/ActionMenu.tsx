@@ -19,13 +19,16 @@ import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../uti
 import {Tooltip} from '../TooltipV2/Tooltip'
 import {ActionList, type ActionListItemProps} from '../ActionList'
 
-type MenuCloseHandler = (gesture: 'anchor-click' | 'click-outside' | 'escape' | 'tab' | 'item-select') => void
+export type MenuCloseHandler = (
+  gesture: 'anchor-click' | 'click-outside' | 'escape' | 'tab' | 'item-select' | 'arrow-left',
+) => void
 
 export type MenuContextProps = Pick<
   AnchoredOverlayProps,
   'anchorRef' | 'renderAnchor' | 'open' | 'onOpen' | 'anchorId'
 > & {
   onClose?: MenuCloseHandler
+  isSubmenu?: boolean
 }
 const MenuContext = React.createContext<MenuContextProps>({renderAnchor: null, open: false})
 
@@ -60,7 +63,7 @@ const Menu: React.FC<React.PropsWithChildren<ActionMenuProps>> = ({
     gesture => {
       setCombinedOpenState(false)
 
-      // Only close the parent stack when an item is selected or the user tabs out of the menu entirely
+      // Close the parent stack when an item is selected or the user tabs out of the menu entirely
       switch (gesture) {
         case 'tab':
         case 'item-select':
@@ -122,7 +125,18 @@ const Menu: React.FC<React.PropsWithChildren<ActionMenuProps>> = ({
   })
 
   return (
-    <MenuContext.Provider value={{anchorRef, renderAnchor, anchorId, open: combinedOpenState, onOpen, onClose}}>
+    <MenuContext.Provider
+      value={{
+        anchorRef,
+        renderAnchor,
+        anchorId,
+        open: combinedOpenState,
+        onOpen,
+        onClose,
+        // will be undefined for the outermost level, then false for the top menu, then true inside that
+        isSubmenu: parentMenuContext.isSubmenu !== undefined,
+      }}
+    >
       {contents}
     </MenuContext.Provider>
   )
@@ -186,13 +200,18 @@ const Overlay: React.FC<React.PropsWithChildren<MenuOverlayProps>> = ({
 }) => {
   // we typecast anchorRef as required instead of optional
   // because we know that we're setting it in context in Menu
-  const {anchorRef, renderAnchor, anchorId, open, onOpen, onClose} = React.useContext(MenuContext) as MandateProps<
-    MenuContextProps,
-    'anchorRef'
-  >
+  const {
+    anchorRef,
+    renderAnchor,
+    anchorId,
+    open,
+    onOpen,
+    onClose,
+    isSubmenu = false,
+  } = React.useContext(MenuContext) as MandateProps<MenuContextProps, 'anchorRef'>
 
   const containerRef = React.useRef<HTMLDivElement>(null)
-  useMenuKeyboardNavigation(open, onClose, containerRef, anchorRef)
+  useMenuKeyboardNavigation(open, onClose, containerRef, anchorRef, isSubmenu)
 
   return (
     <AnchoredOverlay
