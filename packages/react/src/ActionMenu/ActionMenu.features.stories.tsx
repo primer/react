@@ -179,3 +179,36 @@ export const InactiveItems = () => (
     </ActionMenu.Overlay>
   </ActionMenu>
 )
+
+export const Submenus = () => (
+  <ActionMenu>
+    <ActionMenu.Button>Edit</ActionMenu.Button>
+    <ActionMenu.Overlay>
+      <ActionList>
+        <ActionList.Item>Cut</ActionList.Item>
+        <ActionList.Item>Copy</ActionList.Item>
+        <ActionList.Item>Paste</ActionList.Item>
+        <ActionMenu>
+          <ActionMenu.MenuItemAnchor>Paste special</ActionMenu.MenuItemAnchor>
+          <ActionMenu.Overlay>
+            <ActionList>
+              <ActionList.Item>Paste plain text</ActionList.Item>
+              <ActionList.Item>Paste formulas</ActionList.Item>
+              <ActionList.Item>Paste with formatting</ActionList.Item>
+              <ActionMenu>
+                <ActionMenu.MenuItemAnchor>Paste from</ActionMenu.MenuItemAnchor>
+                <ActionMenu.Overlay>
+                  <ActionList>
+                    <ActionList.Item>Current clipboard</ActionList.Item>
+                    <ActionList.Item>History</ActionList.Item>
+                    <ActionList.Item>Another device</ActionList.Item>
+                  </ActionList>
+                </ActionMenu.Overlay>
+              </ActionMenu>
+            </ActionList>
+          </ActionMenu.Overlay>
+        </ActionMenu>
+      </ActionList>
+    </ActionMenu.Overlay>
+  </ActionMenu>
+)
