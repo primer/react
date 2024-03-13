@@ -72,11 +72,21 @@ const TabContainer = styled(createComponent(TabContainerElement, 'tab-container'
   ${sx};
 `
 
+type Label = {
+  'aria-label': string;
+  'aria-labelledby'?: never;
+}
+
+type Labelledby = {
+  'aria-label'?: never;
+  'aria-labelledby': string;
+}
+
+type Labelled = Label | Labelledby;
+
 export type TabPanelsProps = ComponentProps<typeof TabContainer> & {
   id?: string
-  'aria-label'?: string
-  'aria-labelledby'?: string
-}
+} & Labelled
 
 function TabPanels({children, defaultTabIndex, ...props}: TabPanelsProps) {
   // We need to always call React.useId() because
@@ -87,10 +97,6 @@ function TabPanels({children, defaultTabIndex, ...props}: TabPanelsProps) {
   if (defaultTabIndex !== undefined) {
     // Add 'dafault-tab' to props
     props['default-tab'] = defaultTabIndex
-  }
-
-  if (!props['aria-label'] && !props['aria-labelledby']) {
-    throw new Error('TabPanels: either `aria-label` or `aria-labelledby` should be provided')
   }
 
   // Loop through the chidren, if it's a tab, then add id="{id}-tab-{index}"

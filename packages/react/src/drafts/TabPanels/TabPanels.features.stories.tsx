@@ -31,6 +31,20 @@ export const SelectedTab = () => (
   </TabPanels>
 )
 
+export const LabelledBy = () => (
+  <>
+    <h1 id="my-heading">TabPanels example</h1>
+    <TabPanels aria-labelledby="my-heading" id="tab-panels">
+      <TabPanels.Tab>One</TabPanels.Tab>
+      <TabPanels.Tab>Two</TabPanels.Tab>
+      <TabPanels.Tab>Three</TabPanels.Tab>
+      <TabPanels.Panel>One</TabPanels.Panel>
+      <TabPanels.Panel>Two</TabPanels.Panel>
+      <TabPanels.Panel>Three</TabPanels.Panel>
+    </TabPanels>
+  </>
+)
+
 export const AdditionalContent = () => (
   <TabPanels aria-label="TabPanels example" id="tab-panels">
     <Button>Non-tab content (before tabs)</Button>
