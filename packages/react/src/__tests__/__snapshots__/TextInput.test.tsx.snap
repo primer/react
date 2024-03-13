@@ -1926,6 +1926,7 @@ exports[`TextInput renders trailingAction icon button 1`] = `
 }
 
 .c5[popover] {
+  position: absolute;
   padding: 0.5em 0.75em;
   width: -webkit-max-content;
   width: -moz-max-content;
@@ -2920,6 +2921,7 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
 }
 
 .c6[popover] {
+  position: absolute;
   padding: 0.5em 0.75em;
   width: -webkit-max-content;
   width: -moz-max-content;

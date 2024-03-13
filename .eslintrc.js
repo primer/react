@@ -206,6 +206,7 @@ module.exports = {
         'no-unused-vars': 'off',
         'prettier/prettier': 'off',
         'react/jsx-no-undef': 'off',
+        'react/no-unescaped-entities': 'off',
         'primer-react/direct-slot-children': 'off',
       },
     },
