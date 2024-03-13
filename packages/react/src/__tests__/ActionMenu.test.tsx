@@ -1,4 +1,4 @@
-import {render as HTMLRender, waitFor} from '@testing-library/react'
+import {render as HTMLRender, waitFor, act} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import {axe} from 'jest-axe'
 import React from 'react'
@@ -360,7 +360,10 @@ describe('ActionMenu', () => {
       ),
     )
     const button = component.getByRole('button')
-    button.focus()
+    act(() => {
+      button.focus()
+    })
+
     expect(component.getByRole('tooltip')).toBeInTheDocument()
   })
 
