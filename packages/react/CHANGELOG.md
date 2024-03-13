@@ -1,5 +1,39 @@
 # @primer/react
 
+## 36.11.0
+
+### Minor Changes
+
+- [#4353](https://github.com/primer/react/pull/4353) [`2c0086e6da3ae3a360c12952399256c98941982e`](https://github.com/primer/react/commit/2c0086e6da3ae3a360c12952399256c98941982e) Thanks [@anleac](https://github.com/anleac)! - SelectPanel: Added `footer` prop that renders a sticky footer at the bottom of the item list.
+
+- [#4288](https://github.com/primer/react/pull/4288) [`200fb18839053f669d30d86e4dd88b399b06a44b`](https://github.com/primer/react/commit/200fb18839053f669d30d86e4dd88b399b06a44b) Thanks [@siddharthkp](https://github.com/siddharthkp)! - experimental/SelectPanel: Add back button
+
+- [#4097](https://github.com/primer/react/pull/4097) [`9c535e835a364bce5d01b28f4029d2bf4d5bdfaf`](https://github.com/primer/react/commit/9c535e835a364bce5d01b28f4029d2bf4d5bdfaf) Thanks [@broccolinisoup](https://github.com/broccolinisoup)! - TextInput: Update TextInput.Action internal component to use Tooltip v2
+
+### Patch Changes
+
+- [#4359](https://github.com/primer/react/pull/4359) [`937dbdea2a0b2f79b60f68440f5d8c24df344401`](https://github.com/primer/react/commit/937dbdea2a0b2f79b60f68440f5d8c24df344401) Thanks [@pksjce](https://github.com/pksjce)! - ActionBar: Overflow menu items should be able to trigger dialogs
+
+- [#4327](https://github.com/primer/react/pull/4327) [`f08f85b5a90e532c7a8795f7bea5af80765283d4`](https://github.com/primer/react/commit/f08f85b5a90e532c7a8795f7bea5af80765283d4) Thanks [@broccolinisoup](https://github.com/broccolinisoup)! - Tooltip v2: Set the tooltip position when popover-open attribute is added to the tooltip element not the toggle event is triggered
+
+- [#4348](https://github.com/primer/react/pull/4348) [`c64e5b25698885eeeeee5bc95c47582248011a39`](https://github.com/primer/react/commit/c64e5b25698885eeeeee5bc95c47582248011a39) Thanks [@siddharthkp](https://github.com/siddharthkp)! - experimental/SelectPanel: Do not render children of `<dialog>` when closed
+
+- [#4308](https://github.com/primer/react/pull/4308) [`32b0cf77fcb4112f00da6ffb93a52875d23b9370`](https://github.com/primer/react/commit/32b0cf77fcb4112f00da6ffb93a52875d23b9370) Thanks [@tbenning](https://github.com/tbenning)! - Unify Breadcrumbs + fix a11y issue
+
+- [#4334](https://github.com/primer/react/pull/4334) [`f685d521dd52d0a9601e0021189895e1adca3b0b`](https://github.com/primer/react/commit/f685d521dd52d0a9601e0021189895e1adca3b0b) Thanks [@TylerJDev](https://github.com/TylerJDev)! - Switches focus styles to target `a.focus-visible` instead of `a:focus-visible`.
+
+- [#4349](https://github.com/primer/react/pull/4349) [`15c078dda93ae8579a858efcce3b6a2f97204373`](https://github.com/primer/react/commit/15c078dda93ae8579a858efcce3b6a2f97204373) Thanks [@jonrohan](https://github.com/jonrohan)! - Adding aria-invalid="true" to TextInput when error.
+
+- [#4365](https://github.com/primer/react/pull/4365) [`fe9f8baae473019e3605fae8895ba63f88fae074`](https://github.com/primer/react/commit/fe9f8baae473019e3605fae8895ba63f88fae074) Thanks [@pksjce](https://github.com/pksjce)! - Bugfix: `aria-invalid` is overriden in TextInput
+
+- [#4354](https://github.com/primer/react/pull/4354) [`4b823ff237235564900aeadb81713e984676c5ad`](https://github.com/primer/react/commit/4b823ff237235564900aeadb81713e984676c5ad) Thanks [@siddharthkp](https://github.com/siddharthkp)! - TextInput: Remove redundant `aria-label` attribute from `TextInput.Action` when it already has an `aria-labelledby`.
+
+- [#4320](https://github.com/primer/react/pull/4320) [`7cb3464a50a49efc59e9a29baa2dd543147b0bee`](https://github.com/primer/react/commit/7cb3464a50a49efc59e9a29baa2dd543147b0bee) Thanks [@siddharthkp](https://github.com/siddharthkp)! - experimental/SelectPanel: Move focus to first item if there is no filter input
+
+- [#4337](https://github.com/primer/react/pull/4337) [`69f4489a3a6e928c5c387c8aa42668f5f3b0d92c`](https://github.com/primer/react/commit/69f4489a3a6e928c5c387c8aa42668f5f3b0d92c) Thanks [@manuelpuyol](https://github.com/manuelpuyol)! - Add precompile step for colorSchemes
+
+- [#4360](https://github.com/primer/react/pull/4360) [`5baf73660f86fa4850f7c705d5d3ab1c599fe461`](https://github.com/primer/react/commit/5baf73660f86fa4850f7c705d5d3ab1c599fe461) Thanks [@broccolinisoup](https://github.com/broccolinisoup)! - Tooltip2: Render tooltip element as `span` instead of `div`
+
 ## 36.10.0
 
 ### Minor Changes
