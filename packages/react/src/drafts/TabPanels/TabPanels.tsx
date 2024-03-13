@@ -99,14 +99,14 @@ function TabPanels({children, defaultTabIndex, ...props}: TabPanelsProps) {
   let panelIndex = 0
 
   const childrenWithProps = React.Children.map(children, child => {
-    if (React.isValidElement<TabPanelsTabProps>(child) && child.props.role === 'tab' && !child.props.id) {
+    if (React.isValidElement<TabPanelsTabProps>(child) && child.type === Tab && !child.props.id) {
       if (props.selectedTabIndex === tabIndex) {
         return React.cloneElement(child, {id: `${parentId}-tab-${tabIndex++}`, selected: true})
       }
 
       return React.cloneElement(child, {id: `${parentId}-tab-${tabIndex++}`})
     }
-    if (React.isValidElement<TabPanelsPanelProps>(child) && child.props.role === 'tabpanel' && !child.props['aria-labelledby']) {
+    if (React.isValidElement<TabPanelsPanelProps>(child) && child.type === Panel && !child.props['aria-labelledby']) {
       return React.cloneElement(child, {'aria-labelledby': `${parentId}-tab-${panelIndex++}`})
     }
     return child
