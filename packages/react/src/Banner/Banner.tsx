@@ -1,5 +1,5 @@
 import cx from 'clsx'
-import React, {createContext, useContext, useId, useMemo} from 'react'
+import React, {createContext, useContext, useEffect, useId, useMemo} from 'react'
 import styled from 'styled-components'
 import {AlertIcon, InfoIcon, StopIcon, CheckCircleIcon, XIcon} from '@primer/octicons-react'
 import {Button, IconButton} from '../Button'
@@ -9,6 +9,18 @@ type BannerVariant = 'critical' | 'info' | 'success' | 'upsell' | 'warning'
 
 export type BannerProps = React.ComponentPropsWithoutRef<'section'> & {
   /**
+   * Provide an optional description for the Banner. This should provide
+   * supplemental information about the Banner
+   */
+  description?: React.ReactNode
+
+  /**
+   * Provide an icon for the banner.
+   * Note: Only `variant="info"` banners should use custom icons
+   */
+  icon?: React.ReactNode
+
+  /**
    * Optionally provide a handler to be called when the banner is dismissed.
    * Providing this prop will show a dismiss button.
    *
@@ -17,10 +29,20 @@ export type BannerProps = React.ComponentPropsWithoutRef<'section'> & {
   onDismiss?: () => void
 
   /**
-   * Provide an icon for the banner.
-   * Note: Only `variant="info"` banners should use custom icons
+   * Provide an optional primary action for the Banner.
    */
-  icon?: React.ReactNode
+  primaryAction?: React.ReactNode
+
+  /**
+   * Provide an optional secondary action for the Banner
+   */
+  secondaryAction?: React.ReactNode
+
+  /**
+   * The title for the Banner. This will be used as the accessible name and is
+   * required unless `Banner.Title` is used as a child.
+   */
+  title?: React.ReactNode
 
   /**
    * Specify the type of the Banner
@@ -37,7 +59,7 @@ const iconForVariant: Record<BannerVariant, React.ReactNode> = {
 }
 
 export const Banner = React.forwardRef<HTMLElement, BannerProps>(function Banner(
-  {children, onDismiss, title, variant = 'info', ...rest},
+  {children, description, icon, onDismiss, primaryAction, secondaryAction, title, variant = 'info', ...rest},
   ref,
 ) {
   const titleId = useId()
@@ -46,14 +68,35 @@ export const Banner = React.forwardRef<HTMLElement, BannerProps>(function Banner
       titleId,
     }
   }, [titleId])
-  const icon = iconForVariant[variant]
   const dismissible = variant !== 'critical' && onDismiss
+  const hasActions = primaryAction || secondaryAction
+
+  if (__DEV__) {
+    // Note: __DEV__ will make it so that this hook is consistently called, or
+    // not called, depending on environment
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    useEffect(() => {
+      const title = document.getElementById(titleId)
+      if (!title) {
+        throw new Error(
+          'The Banner component requires a title to be provided as the `title` prop or through `Banner.Title`',
+        )
+      }
+    }, [titleId])
+  }
 
   return (
     <BannerContext.Provider value={value}>
-      <StyledBanner aria-labelledby={titleId} as="section" {...rest} data-variant={variant} tabIndex={-1} ref={ref}>
-        <div className="BannerIcon">{icon}</div>
-        <div className="BannerContainer">{children}</div>
+      <StyledBanner {...rest} aria-labelledby={titleId} as="section" data-variant={variant} tabIndex={-1} ref={ref}>
+        <div className="BannerIcon">{icon ?? iconForVariant[variant]}</div>
+        <div className="BannerContainer">
+          <div className="BannerContent">
+            {title ? <BannerTitle>{title}</BannerTitle> : null}
+            {description ? <BannerDescription>{description}</BannerDescription> : null}
+            {children}
+          </div>
+          {hasActions ? <BannerActions primaryAction={primaryAction} secondaryAction={secondaryAction} /> : null}
+        </div>
         {dismissible ? (
           <IconButton
             aria-label="Dismiss banner"
@@ -204,13 +247,7 @@ const StyledBanner = styled.div`
   }
 `
 
-export type BannerContentProps = React.PropsWithChildren
-
-export function BannerContent({children}: BannerContentProps) {
-  return <div className="BannerContent">{children}</div>
-}
-
-type HeadingElement = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
+type HeadingElement = 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
 
 export type BannerTitleProps<As extends HeadingElement> = {
   as?: As
@@ -227,10 +264,14 @@ export function BannerTitle<As extends HeadingElement>(props: BannerTitleProps<A
   )
 }
 
-export type BannerDescriptionProps = React.PropsWithChildren<{}>
+export type BannerDescriptionProps = React.ComponentPropsWithoutRef<'div'>
 
-export function BannerDescription({children}: BannerDescriptionProps) {
-  return <div className="BannerDescription">{children}</div>
+export function BannerDescription({children, className, ...rest}: BannerDescriptionProps) {
+  return (
+    <div {...rest} className={cx('BannerDescription', className)}>
+      {children}
+    </div>
+  )
 }
 
 export type BannerActionsProps = {
@@ -255,9 +296,9 @@ export function BannerActions({primaryAction, secondaryAction}: BannerActionsPro
 
 export type BannerPrimaryActionProps = Omit<React.ComponentPropsWithoutRef<typeof Button>, 'variant'>
 
-export function BannerPrimaryAction({children, ...rest}: BannerPrimaryActionProps) {
+export function BannerPrimaryAction({children, className, ...rest}: BannerPrimaryActionProps) {
   return (
-    <Button {...rest} className="BannerPrimaryAction" variant="default">
+    <Button className={cx('BannerPrimaryAction', className)} variant="default" {...rest}>
       {children}
     </Button>
   )
@@ -265,9 +306,9 @@ export function BannerPrimaryAction({children, ...rest}: BannerPrimaryActionProp
 
 export type BannerSecondaryActionProps = Omit<React.ComponentPropsWithoutRef<typeof Button>, 'variant'>
 
-export function BannerSecondaryAction({children, ...rest}: BannerSecondaryActionProps) {
+export function BannerSecondaryAction({children, className, ...rest}: BannerSecondaryActionProps) {
   return (
-    <Button {...rest} className="BannerPrimaryAction" variant="invisible">
+    <Button className={cx('BannerPrimaryAction', className)} variant="invisible" {...rest}>
       {children}
     </Button>
   )

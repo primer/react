@@ -33,4 +33,12 @@ describe('Banner', () => {
   test('if only title is set', () => {
     //
   })
+
+  test('title is required', () => {
+    //
+  })
+
+  test('custom icon', () => {
+    //
+  });
 })

@@ -26,14 +26,12 @@ export const WithUserAction = () => {
   return (
     <>
       {hasError ? (
-        <Banner ref={bannerRef} variant="critical">
-          <Banner.Content>
-            <Banner.Title>Error</Banner.Title>
-            <Banner.Description>
-              <Alert>Something went wrong. Please try again later.</Alert>
-            </Banner.Description>
-          </Banner.Content>
-        </Banner>
+        <Banner
+          ref={bannerRef}
+          title="Error"
+          description={<Alert>Something went wrong. Please try again later.</Alert>}
+          variant="critical"
+        />
       ) : null}
       <Button
         type="button"
@@ -59,18 +57,13 @@ export const WithDynamicContent = () => {
 
   return (
     <>
-      <Banner onDismiss={action('onDismiss')}>
-        <Banner.Content>
-          <Banner.Title>Info</Banner.Title>
-          <Banner.Description>
-            <Status>{messages.get(selected)}</Status>
-          </Banner.Description>
-        </Banner.Content>
-        <Banner.Actions
-          primaryAction={<Banner.PrimaryAction>Button</Banner.PrimaryAction>}
-          secondaryAction={<Banner.SecondaryAction>Button</Banner.SecondaryAction>}
-        />
-      </Banner>
+      <Banner
+        title="Info"
+        description={<Status>{messages.get(selected)}</Status>}
+        onDismiss={action('onDismiss')}
+        primaryAction={<Banner.PrimaryAction>Button</Banner.PrimaryAction>}
+        secondaryAction={<Banner.SecondaryAction>Button</Banner.SecondaryAction>}
+      />
       <RadioGroup
         sx={{marginTop: 4}}
         name="options"
@@ -98,21 +91,19 @@ export const WithDynamicContent = () => {
 
 export const WithCustomHeading = () => {
   return (
-    <Banner onDismiss={action('onDismiss')}>
-      <Banner.Content>
-        <Banner.Title as="h3">Info</Banner.Title>
-        <Banner.Description>
-          GitHub users are{' '}
-          <Link inline underline href="#">
-            now required
-          </Link>{' '}
-          to enable two-factor authentication as an additional security measure.
-        </Banner.Description>
-      </Banner.Content>
-      <Banner.Actions
-        primaryAction={<Banner.PrimaryAction>Button</Banner.PrimaryAction>}
-        secondaryAction={<Banner.SecondaryAction>Button</Banner.SecondaryAction>}
-      />
+    <Banner
+      onDismiss={action('onDismiss')}
+      primaryAction={<Banner.PrimaryAction>Button</Banner.PrimaryAction>}
+      secondaryAction={<Banner.SecondaryAction>Button</Banner.SecondaryAction>}
+    >
+      <Banner.Title as="h3">Info</Banner.Title>
+      <Banner.Description>
+        GitHub users are{' '}
+        <Link inline underline href="#">
+          now required
+        </Link>{' '}
+        to enable two-factor authentication as an additional security measure.
+      </Banner.Description>
     </Banner>
   )
 }
