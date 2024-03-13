@@ -3,7 +3,20 @@ import {SearchIcon, XCircleFillIcon, XIcon, FilterRemoveIcon, AlertIcon, ArrowLe
 import {FocusKeys} from '@primer/behaviors'
 
 import type {ButtonProps, TextInputProps, ActionListProps, LinkProps, CheckboxProps} from '../../index'
-import {Button, IconButton, Heading, Box, Tooltip, TextInput, Spinner, Text, Octicon, Link, Checkbox} from '../../index'
+import {
+  Button,
+  IconButton,
+  Heading,
+  Box,
+  Tooltip,
+  TextInput,
+  Spinner,
+  Text,
+  Octicon,
+  Link,
+  Checkbox,
+  useFormControlForwardedProps,
+} from '../../index'
 import {ActionListContainerContext} from '../../ActionList/ActionListContainerContext'
 import {useSlots} from '../../hooks/useSlots'
 import {useProvidedRefOrCreate, useId, useAnchoredPosition} from '../../hooks'
@@ -315,7 +328,8 @@ const Panel: React.FC<SelectPanelProps> = ({
 }
 
 const SelectPanelButton = React.forwardRef<HTMLButtonElement, ButtonProps>((props, anchorRef) => {
-  return <Button ref={anchorRef} {...props} />
+  const inputProps = useFormControlForwardedProps(props)
+  return <Button ref={anchorRef} {...inputProps} />
 })
 
 const SelectPanelHeader: React.FC<React.PropsWithChildren & {onBack?: () => void}> = ({children, onBack, ...props}) => {

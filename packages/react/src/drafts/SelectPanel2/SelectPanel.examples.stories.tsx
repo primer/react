@@ -1,6 +1,6 @@
 import React from 'react'
 import {SelectPanel} from './SelectPanel'
-import {ActionList, ActionMenu, Avatar, Box, Button, Text, Octicon, Flash} from '../../index'
+import {ActionList, ActionMenu, Avatar, Box, Button, Text, Octicon, Flash, FormControl} from '../../index'
 import {Dialog} from '../../drafts'
 import {
   ArrowRightIcon,
@@ -842,6 +842,38 @@ export const NestedSelection = () => {
 
         <SelectPanel.Footer />
       </SelectPanel>
+    </>
+  )
+}
+
+export const WithinForm = () => {
+  const [selectedTag, setSelectedTag] = React.useState<string>()
+
+  const onSubmit = () => {
+    if (!selectedTag) return
+    data.ref = selectedTag // pretending to persist changes
+  }
+
+  const itemsToShow = data.tags
+
+  return (
+    <>
+      <h1>Within Form</h1>
+
+      <FormControl>
+        <FormControl.Label>SelectPanel within FormControl</FormControl.Label>
+        <SelectPanel title="Choose a tag" selectionVariant="instant" onSubmit={onSubmit}>
+          <SelectPanel.Button leadingVisual={TagIcon}>{selectedTag || 'Choose a tag'}</SelectPanel.Button>
+
+          <ActionList>
+            {itemsToShow.map(tag => (
+              <ActionList.Item key={tag.id} onSelect={() => setSelectedTag(tag.id)} selected={selectedTag === tag.id}>
+                {tag.name}
+              </ActionList.Item>
+            ))}
+          </ActionList>
+        </SelectPanel>
+      </FormControl>
     </>
   )
 }

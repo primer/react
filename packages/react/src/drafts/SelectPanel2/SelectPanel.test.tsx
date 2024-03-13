@@ -1,5 +1,5 @@
 import React from 'react'
-import {ThemeProvider, ActionList} from '../../'
+import {ThemeProvider, ActionList, FormControl} from '../../'
 import type {RenderResult} from '@testing-library/react'
 import {render} from '@testing-library/react'
 import type {UserEvent} from '@testing-library/user-event'
@@ -40,6 +40,15 @@ const Fixture = ({onSubmit, onCancel}: Pick<SelectPanelProps, 'onSubmit' | 'onCa
         <SelectPanel.Footer />
       </SelectPanel>
     </ThemeProvider>
+  )
+}
+
+function SelectPanelWithForm(): JSX.Element {
+  return (
+    <FormControl>
+      <FormControl.Label>Select Panel Label</FormControl.Label>
+      <Fixture />
+    </FormControl>
   )
 }
 
@@ -131,5 +140,13 @@ describe('SelectPanel', () => {
     expect(container.queryByRole('dialog')).toBeNull()
     expect(mockOnCancel).toHaveBeenCalledTimes(1)
     expect(mockOnSubmit).toHaveBeenCalledTimes(0)
+  })
+
+  it('SelectPanel within FormControl should be labelled by FormControl.Label', async () => {
+    const component = render(<SelectPanelWithForm />)
+    const button = component.getByLabelText('Select Panel Label')
+    expect(button).toBeVisible()
+    const buttonByRole = component.getByRole('button')
+    expect(button.id).toBe(buttonByRole.id)
   })
 })
