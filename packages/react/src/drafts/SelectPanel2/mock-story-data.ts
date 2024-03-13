@@ -936,6 +936,65 @@ const data = {
     {id: 'v35.0.0', name: 'v35.0.0'},
     {id: 'v34.0.0', name: 'v34.0.0'},
   ],
+  repos: [
+    {
+      org: 'github',
+      name: 'primer',
+      description: "The internal hub for GitHub's open-source design system",
+    },
+    {
+      org: 'github',
+      name: 'github',
+      description: 'You’re lookin’ at it.',
+    },
+    {
+      org: 'primer',
+      name: 'react',
+      description: "An implementation of GitHub's Primer Design System using React",
+    },
+    {
+      org: 'primer',
+      name: 'primitives',
+      description: 'Color, typography, and spacing primitives in json',
+    },
+    {
+      org: 'primer',
+      name: 'brand',
+      description: 'React components and Primitives for GitHub marketing websites',
+    },
+    {
+      org: 'facebook',
+      name: 'react',
+      description: 'The library for web and native user interfaces',
+    },
+    {
+      org: 'primer',
+      name: 'view_components',
+      description: 'ViewComponents for the Primer Design System',
+    },
+  ],
+  pulls: [
+    {
+      id: '4286',
+      name: 'chore(deps): bump @mdx-js/mdx from 1.6.22 to 3.0.1',
+      description: 'Opened 14 hours ago',
+      status: 'open',
+    },
+    {id: '4278', name: 'Address a few v8 color bugs', description: 'Opened 4 days ago', status: 'open'},
+    {id: '4277', name: 'SelectPanel2: Responsive variants', description: 'Opened 4 days ago', status: 'draft'},
+    {
+      name: 'SelectPanel2: Submit panel when an item is selected with Enter',
+      id: '4265',
+      description: 'Merged last week',
+      status: 'merged',
+    },
+    {
+      name: 'test(e2e): add e2e test for SelectPanel2 default story',
+      id: '4279',
+      description: 'Opened 3 days ago',
+      status: 'open',
+    },
+  ],
 }
 
 export default data
