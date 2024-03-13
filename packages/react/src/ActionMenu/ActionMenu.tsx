@@ -1,9 +1,14 @@
 import React, {useContext} from 'react'
-import {TriangleDownIcon} from '@primer/octicons-react'
+import {TriangleDownIcon, ChevronRightIcon} from '@primer/octicons-react'
 import type {AnchoredOverlayProps} from '../AnchoredOverlay'
 import {AnchoredOverlay} from '../AnchoredOverlay'
 import type {OverlayProps} from '../Overlay'
-import {useProvidedRefOrCreate, useProvidedStateOrCreate, useMenuKeyboardNavigation} from '../hooks'
+import {
+  useProvidedRefOrCreate,
+  useProvidedStateOrCreate,
+  useMenuKeyboardNavigation,
+  useRefObjectAsForwardedRef,
+} from '../hooks'
 import {Divider} from '../ActionList/Divider'
 import {ActionListContainerContext} from '../ActionList/ActionListContainerContext'
 import type {ButtonProps} from '../Button'
@@ -12,6 +17,7 @@ import {useId} from '../hooks/useId'
 import type {MandateProps} from '../utils/types'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import {Tooltip} from '../TooltipV2/Tooltip'
+import {ActionList, type ActionListItemProps} from '../ActionList'
 
 type MenuCloseHandler = (gesture: 'anchor-click' | 'click-outside' | 'escape' | 'tab' | 'item-select') => void
 
@@ -139,6 +145,31 @@ const MenuButton = React.forwardRef(({...props}, anchorRef) => {
   )
 }) as PolymorphicForwardRefComponent<'button', ActionMenuButtonProps>
 
+export type MenuItemAnchorProps = ActionListItemProps
+const MenuItemAnchor = React.forwardRef(({children, onKeyDown: externalOnKeyDown, ...props}, forwardedRef) => {
+  const anchorRef = React.useRef<HTMLLIElement>(null)
+  useRefObjectAsForwardedRef(forwardedRef, anchorRef)
+
+  /** Treat right arrow key press as click. */
+  const onKeyDown: React.KeyboardEventHandler<HTMLLIElement> = event => {
+    externalOnKeyDown?.(event)
+    if (event.key === 'ArrowRight' && !event.defaultPrevented) anchorRef.current?.click()
+  }
+
+  return (
+    <Anchor ref={anchorRef}>
+      <ActionList.Item {...props} onKeyDown={onKeyDown}>
+        {/* Slots will grab the first TrailingVisual encountered. so by putting children first we allow the consumer
+        to override the chevron icon. */}
+        {children}
+        <ActionList.TrailingVisual>
+          <ChevronRightIcon />
+        </ActionList.TrailingVisual>
+      </ActionList.Item>
+    </Anchor>
+  )
+}) as PolymorphicForwardRefComponent<'li', MenuItemAnchorProps>
+
 type MenuOverlayProps = Partial<OverlayProps> &
   Pick<AnchoredOverlayProps, 'align' | 'side'> & {
     /**
@@ -194,4 +225,4 @@ const Overlay: React.FC<React.PropsWithChildren<MenuOverlayProps>> = ({
 }
 
 Menu.displayName = 'ActionMenu'
-export const ActionMenu = Object.assign(Menu, {Button: MenuButton, Anchor, Overlay, Divider})
+export const ActionMenu = Object.assign(Menu, {Button: MenuButton, MenuItemAnchor, Anchor, Overlay, Divider})
