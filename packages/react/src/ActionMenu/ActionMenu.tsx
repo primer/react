@@ -116,7 +116,7 @@ const Menu: React.FC<React.PropsWithChildren<ActionMenuProps>> = ({
         renderAnchor = anchorProps => React.cloneElement(child, anchorProps)
       }
       return null
-    } else if (child.type === MenuButton) {
+    } else if (child.type === MenuButton || child.type === MenuItemAnchor) {
       renderAnchor = anchorProps => React.cloneElement(child, anchorProps)
       return null
     } else {
@@ -164,10 +164,12 @@ const MenuItemAnchor = React.forwardRef(({children, onKeyDown: externalOnKeyDown
   const anchorRef = React.useRef<HTMLLIElement>(null)
   useRefObjectAsForwardedRef(forwardedRef, anchorRef)
 
+  const {onOpen} = React.useContext(MenuContext)
+
   /** Treat right arrow key press as click. */
   const onKeyDown: React.KeyboardEventHandler<HTMLLIElement> = event => {
     externalOnKeyDown?.(event)
-    if (event.key === 'ArrowRight' && !event.defaultPrevented) anchorRef.current?.click()
+    if (event.key === 'ArrowRight' && !event.defaultPrevented) onOpen?.('anchor-key-press')
   }
 
   return (
