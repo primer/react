@@ -49,7 +49,7 @@ const InactiveIndicator: React.FC<{
   </Tooltip>
 )
 
-export const Item = React.forwardRef<HTMLLIElement | HTMLButtonElement, ActionListItemProps>(
+export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
   (
     {
       variant = 'default',
@@ -396,7 +396,7 @@ export const Item = React.forwardRef<HTMLLIElement | HTMLButtonElement, ActionLi
       </ItemContext.Provider>
     )
   },
-) as PolymorphicForwardRefComponent<'li' | 'button', ActionListItemProps>
+) as PolymorphicForwardRefComponent<'li', ActionListItemProps>
 
 Item.displayName = 'ActionList.Item'
 
