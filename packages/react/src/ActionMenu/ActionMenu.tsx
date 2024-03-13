@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import {TriangleDownIcon} from '@primer/octicons-react'
 import type {AnchoredOverlayProps} from '../AnchoredOverlay'
 import {AnchoredOverlay} from '../AnchoredOverlay'
@@ -13,11 +13,13 @@ import type {MandateProps} from '../utils/types'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import {Tooltip} from '../TooltipV2/Tooltip'
 
+type MenuCloseHandler = (gesture: 'anchor-click' | 'click-outside' | 'escape' | 'tab' | 'item-select') => void
+
 export type MenuContextProps = Pick<
   AnchoredOverlayProps,
   'anchorRef' | 'renderAnchor' | 'open' | 'onOpen' | 'anchorId'
 > & {
-  onClose?: (gesture: 'anchor-click' | 'click-outside' | 'escape' | 'tab') => void
+  onClose?: MenuCloseHandler
 }
 const MenuContext = React.createContext<MenuContextProps>({renderAnchor: null, open: false})
 
@@ -44,9 +46,23 @@ const Menu: React.FC<React.PropsWithChildren<ActionMenuProps>> = ({
   onOpenChange,
   children,
 }: ActionMenuProps) => {
+  const parentMenuContext = useContext(MenuContext)
+
   const [combinedOpenState, setCombinedOpenState] = useProvidedStateOrCreate(open, onOpenChange, false)
   const onOpen = React.useCallback(() => setCombinedOpenState(true), [setCombinedOpenState])
-  const onClose = React.useCallback(() => setCombinedOpenState(false), [setCombinedOpenState])
+  const onClose: MenuCloseHandler = React.useCallback(
+    gesture => {
+      setCombinedOpenState(false)
+
+      // Only close the parent stack when an item is selected or the user tabs out of the menu entirely
+      switch (gesture) {
+        case 'tab':
+        case 'item-select':
+          parentMenuContext.onClose?.(gesture)
+      }
+    },
+    [setCombinedOpenState, parentMenuContext],
+  )
 
   const menuButtonChild = React.Children.toArray(children).find(
     child => React.isValidElement<ActionMenuButtonProps>(child) && (child.type === MenuButton || child.type === Anchor),
@@ -167,7 +183,7 @@ const Overlay: React.FC<React.PropsWithChildren<MenuOverlayProps>> = ({
             listRole: 'menu',
             listLabelledBy: ariaLabelledby || anchorId,
             selectionAttribute: 'aria-checked', // Should this be here?
-            afterSelect: onClose,
+            afterSelect: () => onClose?.('item-select'),
           }}
         >
           {children}
