@@ -483,3 +483,38 @@ export const OnlyInactiveItems = () => (
     </ActionMenu.Overlay>
   </ActionMenu>
 )
+
+export const WithSubmenus = () => (
+  <ActionMenu>
+    <ActionMenu.Button>Edit</ActionMenu.Button>
+    <ActionMenu.Overlay width="medium" side="outside-right">
+      <ActionList>
+        <ActionList.Item onSelect={() => alert('Copy link clicked')}>
+          Copy
+          <ActionList.TrailingVisual>⌘C</ActionList.TrailingVisual>
+        </ActionList.Item>
+        <ActionList.Item onSelect={() => alert('Quote reply clicked')}>
+          Paste
+          <ActionList.TrailingVisual>⌘V</ActionList.TrailingVisual>
+        </ActionList.Item>
+
+        <ActionMenu>
+          <ActionMenu.MenuItemAnchor>Paste as</ActionMenu.MenuItemAnchor>
+
+          <ActionMenu.Overlay>
+            <ActionList>
+              <ActionList.Item onSelect={() => alert('Paste as plain text clicked')}>
+                Plain text
+                <ActionList.TrailingVisual>⌘V</ActionList.TrailingVisual>
+              </ActionList.Item>
+              <ActionList.Item onSelect={() => alert('Paste as rich text clicked')}>
+                Rich text
+                <ActionList.TrailingVisual>⌘V</ActionList.TrailingVisual>
+              </ActionList.Item>
+            </ActionList>
+          </ActionMenu.Overlay>
+        </ActionMenu>
+      </ActionList>
+    </ActionMenu.Overlay>
+  </ActionMenu>
+)
