@@ -194,7 +194,7 @@ type MenuOverlayProps = Partial<OverlayProps> &
 const Overlay: React.FC<React.PropsWithChildren<MenuOverlayProps>> = ({
   children,
   align = 'start',
-  side = 'outside-bottom',
+  side,
   'aria-labelledby': ariaLabelledby,
   ...overlayProps
 }) => {
@@ -222,7 +222,7 @@ const Overlay: React.FC<React.PropsWithChildren<MenuOverlayProps>> = ({
       onOpen={onOpen}
       onClose={onClose}
       align={align}
-      side={side}
+      side={side ?? (isSubmenu ? 'outside-right' : 'outside-bottom')}
       overlayProps={overlayProps}
       focusZoneSettings={{focusOutBehavior: 'wrap'}}
     >
