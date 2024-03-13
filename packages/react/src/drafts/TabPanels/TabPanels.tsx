@@ -73,16 +73,16 @@ const TabContainer = styled(createComponent(TabContainerElement, 'tab-container'
 `
 
 type Label = {
-  'aria-label': string;
-  'aria-labelledby'?: never;
+  'aria-label': string
+  'aria-labelledby'?: never
 }
 
 type Labelledby = {
-  'aria-label'?: never;
-  'aria-labelledby': string;
+  'aria-label'?: never
+  'aria-labelledby': string
 }
 
-type Labelled = Label | Labelledby;
+type Labelled = Label | Labelledby
 
 export type TabPanelsProps = ComponentProps<typeof TabContainer> & {
   id?: string
@@ -168,7 +168,7 @@ export type TabPanelsPanelProps = React.HTMLAttributes<HTMLDivElement> & {
   children: React.ReactNode
 } & SxProp
 
-const Panel = styled.div.attrs<TabPanelsPanelProps>(props => ({
+const Panel = styled.div.attrs<TabPanelsPanelProps>(() => ({
   role: 'tabpanel',
   suppressHydrationWarning: true,
 }))<TabPanelsPanelProps>`
