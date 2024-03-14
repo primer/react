@@ -188,7 +188,7 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
   }, [])
 
   const navRef = useRef<HTMLDivElement>(null)
-  const listRef = useRef<HTMLUListElement>(null)
+  const listRef = useRef<HTMLElement>(null)
   const moreMenuRef = useRef<HTMLLIElement>(null)
   const moreMenuBtnRef = useRef<HTMLButtonElement>(null)
   const containerRef = React.useRef<HTMLUListElement>(null)
