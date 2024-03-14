@@ -61,12 +61,34 @@ export const TrailingAction = () => <Button trailingAction={TriangleDownIcon}>Tr
 
 export const Block = () => <Button block>Default</Button>
 
-export const Disabled = () => <Button disabled>Default</Button>
+export const Disabled = () => (
+  <div style={{display: 'flex', flexDirection: 'row', gap: '1rem'}}>
+    <Button disabled>Default</Button>
+    <Button variant="primary" disabled>
+      Primary
+    </Button>
+    <Button variant="danger" disabled>
+      Danger
+    </Button>
+    <Button variant="invisible" disabled>
+      Invisible
+    </Button>
+  </div>
+)
 
 export const Inactive = () => (
-  <Button variant="primary" inactive>
-    Default
-  </Button>
+  <div style={{display: 'flex', flexDirection: 'row', gap: '1rem'}}>
+    <Button inactive>Default</Button>
+    <Button variant="primary" inactive>
+      Primary
+    </Button>
+    <Button variant="danger" inactive>
+      Danger
+    </Button>
+    <Button variant="invisible" inactive>
+      Invisible
+    </Button>
+  </div>
 )
 
 export const Small = () => <Button size="small">Default</Button>
