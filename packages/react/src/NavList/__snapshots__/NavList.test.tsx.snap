@@ -261,7 +261,7 @@ exports[`NavList renders a simple list 1`] = `
   }
 
   .c2:focus-visible,
-  .c2 > a:focus-visible,
+  .c2 > a.focus-visible,
   .c2:focus.focus-visible {
     outline: none;
     border: 2 solid;
@@ -277,7 +277,7 @@ exports[`NavList renders a simple list 1`] = `
 @media (forced-colors:active) {
   .c2:focus,
   .c2:focus-visible,
-  .c2 > a:focus-visible {
+  .c2 > a.focus-visible {
     outline: solid 1px transparent !important;
   }
 }
@@ -290,7 +290,7 @@ exports[`NavList renders a simple list 1`] = `
   }
 
   .c7:focus-visible,
-  .c7 > a:focus-visible,
+  .c7 > a.focus-visible,
   .c7:focus.focus-visible {
     outline: none;
     border: 2 solid;
@@ -306,7 +306,7 @@ exports[`NavList renders a simple list 1`] = `
 @media (forced-colors:active) {
   .c7:focus,
   .c7:focus-visible,
-  .c7 > a:focus-visible {
+  .c7 > a.focus-visible {
     outline: solid 1px transparent !important;
   }
 }
@@ -689,7 +689,7 @@ exports[`NavList renders with groups 1`] = `
   }
 
   .c6:focus-visible,
-  .c6 > a:focus-visible,
+  .c6 > a.focus-visible,
   .c6:focus.focus-visible {
     outline: none;
     border: 2 solid;
@@ -705,7 +705,7 @@ exports[`NavList renders with groups 1`] = `
 @media (forced-colors:active) {
   .c6:focus,
   .c6:focus-visible,
-  .c6 > a:focus-visible {
+  .c6 > a.focus-visible {
     outline: solid 1px transparent !important;
   }
 }
@@ -718,7 +718,7 @@ exports[`NavList renders with groups 1`] = `
   }
 
   .c11:focus-visible,
-  .c11 > a:focus-visible,
+  .c11 > a.focus-visible,
   .c11:focus.focus-visible {
     outline: none;
     border: 2 solid;
@@ -734,7 +734,7 @@ exports[`NavList renders with groups 1`] = `
 @media (forced-colors:active) {
   .c11:focus,
   .c11:focus-visible,
-  .c11 > a:focus-visible {
+  .c11 > a.focus-visible {
     outline: solid 1px transparent !important;
   }
 }
@@ -1175,7 +1175,7 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   }
 
   .c11:focus-visible,
-  .c11 > a:focus-visible,
+  .c11 > a.focus-visible,
   .c11:focus.focus-visible {
     outline: none;
     border: 2 solid;
@@ -1191,7 +1191,7 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
 @media (forced-colors:active) {
   .c11:focus,
   .c11:focus-visible,
-  .c11 > a:focus-visible {
+  .c11 > a.focus-visible {
     outline: solid 1px transparent !important;
   }
 }
@@ -1204,7 +1204,7 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   }
 
   .c4:focus-visible,
-  .c4 > a:focus-visible,
+  .c4 > a.focus-visible,
   .c4:focus.focus-visible {
     outline: none;
     border: 2 solid;
@@ -1220,7 +1220,7 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
 @media (forced-colors:active) {
   .c4:focus,
   .c4:focus-visible,
-  .c4 > a:focus-visible {
+  .c4 > a.focus-visible {
     outline: solid 1px transparent !important;
   }
 }
@@ -1661,7 +1661,7 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   }
 
   .c11:focus-visible,
-  .c11 > a:focus-visible,
+  .c11 > a.focus-visible,
   .c11:focus.focus-visible {
     outline: none;
     border: 2 solid;
@@ -1677,7 +1677,7 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
 @media (forced-colors:active) {
   .c11:focus,
   .c11:focus-visible,
-  .c11 > a:focus-visible {
+  .c11 > a.focus-visible {
     outline: solid 1px transparent !important;
   }
 }
@@ -1698,7 +1698,7 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   }
 
   .c4:focus-visible,
-  .c4 > a:focus-visible,
+  .c4 > a.focus-visible,
   .c4:focus.focus-visible {
     outline: none;
     border: 2 solid;
@@ -1714,7 +1714,7 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
 @media (forced-colors:active) {
   .c4:focus,
   .c4:focus-visible,
-  .c4 > a:focus-visible {
+  .c4 > a.focus-visible {
     outline: solid 1px transparent !important;
   }
 }
