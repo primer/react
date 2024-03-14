@@ -11,7 +11,8 @@ import getGlobalFocusStyles from '../../internal/utils/getGlobalFocusStyles'
 
 const TAB_CLASS = 'TabPanel-tab'
 
-const TabContainer = styled(createComponent(TabContainerElement, 'tab-container'))`
+const tabContainerComponent = createComponent(TabContainerElement, 'tab-container')
+const TabContainer = styled(tabContainerComponent)`
   & > :not([role='tabpanel']) {
     display: inline-block;
   }
