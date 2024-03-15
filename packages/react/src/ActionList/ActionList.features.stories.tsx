@@ -46,7 +46,8 @@ export const SimpleList = () => (
 export const WithVisualListHeading = () => (
   <ActionList>
     <ActionList.Heading as="h2">Filter by</ActionList.Heading>
-    <ActionList.Group title="Path">
+    <ActionList.Group>
+      <ActionList.GroupHeading as="h4">Repositories</ActionList.GroupHeading>
       <ActionList.Item onClick={() => {}}>
         <ActionList.LeadingVisual>
           <FileDirectoryIcon />
@@ -73,7 +74,8 @@ export const WithVisualListHeading = () => (
       </ActionList.Item>
     </ActionList.Group>
 
-    <ActionList.Group title="Advanced">
+    <ActionList.Group>
+      <ActionList.GroupHeading as="h4">Advanced</ActionList.GroupHeading>
       <ActionList.Item onClick={() => {}}>
         <ActionList.LeadingVisual>
           <PlusCircleIcon />
