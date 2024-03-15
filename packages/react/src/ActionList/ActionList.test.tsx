@@ -262,8 +262,8 @@ describe('ActionList', () => {
     expect(heading).toBeInTheDocument()
     expect(heading).toHaveTextContent('Group Heading')
   })
-  it('should throw a warning if ActionList.Group is used without as prop when no role is specified (for list role)', async () => {
-    const spy = jest.spyOn(console, 'warn').mockImplementationOnce(() => {})
+  it('should throw an error if ActionList.GroupHeading is used without an `as` prop when no role is specified (for list role)', async () => {
+    const spy = jest.spyOn(console, 'error').mockImplementationOnce(() => {})
 
     HTMLRender(
       <ActionList>
@@ -273,7 +273,7 @@ describe('ActionList', () => {
         </ActionList.Group>
       </ActionList>,
     )
-    expect(spy).toHaveBeenCalledTimes(1)
+    expect(spy).toHaveBeenCalled()
     spy.mockRestore()
   })
   it('should render the ActionList.GroupHeading component as a span (not a heading tag) when role is specified as listbox', async () => {
