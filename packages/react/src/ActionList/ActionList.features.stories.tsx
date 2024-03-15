@@ -26,7 +26,6 @@ import {
   FileDirectoryIcon,
   PlusCircleIcon,
 } from '@primer/octicons-react'
-import {Action} from 'history'
 
 export default {
   title: 'Components/ActionList/Features',

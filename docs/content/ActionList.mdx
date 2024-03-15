@@ -201,13 +201,13 @@ const SelectFields = () => {
   return (
     <ActionList selectionVariant="multiple">
       <ActionList.Group>
-      <ActionList.GroupHeading>Visible fields</ActionList.GroupHeading>
+        <ActionList.GroupHeading>Visible fields</ActionList.GroupHeading>
         {visibleOptions.map(option => (
           <ActionList.Item key={option.text} selected={true} onSelect={() => toggle(option.text)}>
             {option.text}
           </ActionList.Item>
         ))}
-      </ActionList.GroupH>
+      </ActionList.Group>
       <ActionList.Group
         selectionVariant={
           /** selectionVariant override on Group: disable selection if there are no options */
@@ -261,4 +261,4 @@ render(<SelectFields />)
 ## Related components
 
 - [ActionMenu](/ActionMenu)
-- [SelectPanel](/SelectPanel)import { GroupHeading } from '@primer/react/lib/ActionList/Group'
+- [SelectPanel](/SelectPanel)
