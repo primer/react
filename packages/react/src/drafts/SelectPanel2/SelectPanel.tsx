@@ -243,7 +243,7 @@ const Panel: React.FC<SelectPanelProps> = ({
         sx={{
           // to avoid a visible position shift, we delay the overlay animating-in
           // to wait until the correct position is set (see useAnchoredPosition above for more)
-          animationDelay: '8ms',
+          animationDelay: '16ms',
 
           '--max-height': heightMap[maxHeight],
           // reset dialog default styles
