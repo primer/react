@@ -37,7 +37,7 @@ export const LinksAndActions = () => (
         </ActionList.Item>
         <ActionList.Divider />
         <ActionList.Group>
-          <ActionList.GroupHeading>Github projects</ActionList.GroupHeading>
+          <ActionList.GroupHeading>GitHub projects</ActionList.GroupHeading>
           <ActionList.LinkItem href="/">
             What&apos;s new
             <ActionList.LeadingVisual>
