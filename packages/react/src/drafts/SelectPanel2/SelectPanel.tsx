@@ -164,11 +164,31 @@ const Panel: React.FC<SelectPanelProps> = ({
   /* Dialog */
   const dialogRef = React.useRef<HTMLDialogElement>(null)
 
+  /* Anchored position */
+  const {position, updatePosition} = useAnchoredPosition(
+    {
+      anchorElementRef: anchorRef,
+      floatingElementRef: dialogRef,
+      side: 'outside-bottom',
+      align: 'start',
+    },
+    [
+      /* 
+        Because we call dialog.showModal() to open the dialog, 
+        we need to wait until the browser opens the dialog (giving it dimensions)
+        before updating position. (it is 0px by 0px until opened)
+        This is why we explicitly call updatePosition instead of using dependencies.
+      */
+    ],
+  )
+
   // sync dialog open state (imperative) with internal component state
   React.useEffect(() => {
-    if (internalOpen) dialogRef.current?.showModal()
-    else if (dialogRef.current?.open) dialogRef.current.close()
-  }, [internalOpen])
+    if (internalOpen) {
+      dialogRef.current?.showModal()
+      updatePosition() // update the position once the dialog is open
+    } else if (dialogRef.current?.open) dialogRef.current.close()
+  }, [internalOpen, updatePosition])
 
   // dialog handles Esc automatically, so we have to sync internal state
   // but it doesn't call onCancel, so have another effect for that!
@@ -202,17 +222,6 @@ const Panel: React.FC<SelectPanelProps> = ({
     [internalOpen],
   )
 
-  /* Anchored */
-  const {position} = useAnchoredPosition(
-    {
-      anchorElementRef: anchorRef,
-      floatingElementRef: dialogRef,
-      side: 'outside-bottom',
-      align: 'start',
-    },
-    [internalOpen, anchorRef.current, dialogRef.current],
-  )
-
   /* 
     We want to cancel and close the panel when user clicks outside.
     See decision log: https://github.com/github/primer/discussions/2614#discussioncomment-8544561
@@ -232,6 +241,10 @@ const Panel: React.FC<SelectPanelProps> = ({
         height="fit-content"
         maxHeight={maxHeight}
         sx={{
+          // to avoid a visible position shift, we delay the overlay animating-in
+          // to wait until the correct position is set (see useAnchoredPosition above for more)
+          animationDelay: '8ms',
+
           '--max-height': heightMap[maxHeight],
           // reset dialog default styles
           border: 'none',
