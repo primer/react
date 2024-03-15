@@ -846,6 +846,37 @@ export const NestedSelection = () => {
   )
 }
 
+export const ReproAtTheEdge = () => {
+  const [selectedTag, setSelectedTag] = React.useState<string>()
+
+  const onSubmit = () => {
+    if (!selectedTag) return
+    data.ref = selectedTag // pretending to persist changes
+  }
+
+  const itemsToShow = data.tags
+
+  return (
+    <>
+      <h1>SelectPanel at the edge</h1>
+
+      <Box sx={{display: 'flex', justifyContent: 'right'}}>
+        <SelectPanel title="Choose a tag" selectionVariant="instant" onSubmit={onSubmit}>
+          <SelectPanel.Button leadingVisual={TagIcon}>{selectedTag || 'Choose a tag'}</SelectPanel.Button>
+
+          <ActionList>
+            {itemsToShow.map(tag => (
+              <ActionList.Item key={tag.id} onSelect={() => setSelectedTag(tag.id)} selected={selectedTag === tag.id}>
+                {tag.name}
+              </ActionList.Item>
+            ))}
+          </ActionList>
+        </SelectPanel>
+      </Box>
+    </>
+  )
+}
+
 // ----- Suspense implementation details ----
 
 const cache = new Map()
