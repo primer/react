@@ -40,7 +40,7 @@ yarn add @primer/react
 
 ## Template
 
-The fastest way to try or make a prototype with Primer React without setting up a new project is by using our [react template](https://github.com/primer/react-template).
+The fastest way make a prototype or try Primer React without setting up a new project is by using our [react template](https://github.com/primer/react-template).
 
 ## Roadmap
 
