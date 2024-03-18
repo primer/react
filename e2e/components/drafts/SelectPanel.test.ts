@@ -2,6 +2,12 @@ import {test, expect} from '@playwright/test'
 import {visit} from '../../test-helpers/storybook'
 import {themes} from '../../test-helpers/themes'
 
+const stories = await Promise.all([
+  import('../../../packages/react/src/drafts/SelectPanel2/SelectPanel.stories.tsx'),
+  import('../../../packages/react/src/drafts/SelectPanel2/SelectPanel.features.stories.tsx'),
+  import('../../../packages/react/src/drafts/SelectPanel2/SelectPanel.examples.stories.tsx'),
+])
+
 test.describe('SelectPanel', () => {
   test.describe('Default', () => {
     for (const theme of themes) {
