@@ -46,4 +46,4 @@ Playground.args = {
   icon: HeartIcon,
 }
 
-export const Default = () => <IconButton icon={HeartIcon} aria-label="Favorite" />
+export const Default = () => <IconButton icon={HeartIcon} aria-label="Favorite" unsafeDisableTooltip={false} />

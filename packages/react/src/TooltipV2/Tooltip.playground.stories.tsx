@@ -3,7 +3,7 @@ import {Button, Box} from '..'
 import {Tooltip} from './Tooltip'
 import type {Meta, StoryFn} from '@storybook/react'
 
-export default {
+const meta: Meta<typeof Tooltip> = {
   title: 'Components/TooltipV2/Playground',
   component: Tooltip,
 
@@ -22,7 +22,9 @@ export default {
       control: false,
     },
   },
-} as Meta<typeof Tooltip>
+}
+
+export default meta
 
 // Description type, north direction by default
 export const Playground: StoryFn = args => {

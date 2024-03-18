@@ -1,4 +1,4 @@
-import {SearchIcon} from '@primer/octicons-react'
+import {SearchIcon, HeartIcon} from '@primer/octicons-react'
 import {render, screen, fireEvent} from '@testing-library/react'
 import {axe} from 'jest-axe'
 import React from 'react'
@@ -112,5 +112,29 @@ describe('Button', () => {
 
     const position = screen.getByText('content').compareDocumentPosition(screen.getByTestId('trailingVisual'))
     expect(position).toBe(Node.DOCUMENT_POSITION_FOLLOWING)
+  })
+
+  it('should render tooltip on an icon button when unsafeDisableTooltip prop is passed as false', () => {
+    const {getByRole, getByText} = render(
+      <IconButton icon={HeartIcon} aria-label="Heart" unsafeDisableTooltip={false} />,
+    )
+    const triggerEL = getByRole('button')
+    const tooltipEl = getByText('Heart')
+    expect(triggerEL).toHaveAttribute('aria-labelledby', tooltipEl.id)
+  })
+  it('should render description type tooltip on an icon button when unsafeDisableTooltip prop is passed as false', () => {
+    const {getByRole, getByText} = render(
+      <IconButton icon={HeartIcon} aria-label="Heart" description="Love is all around" unsafeDisableTooltip={false} />,
+    )
+    const triggerEL = getByRole('button')
+    expect(triggerEL).toHaveAttribute('aria-label', 'Heart')
+    const tooltipEl = getByText('Love is all around')
+    expect(triggerEL).toHaveAttribute('aria-describedby', tooltipEl.id)
+  })
+  it('should not render tooltip on an icon button by default', () => {
+    const {getByRole} = render(<IconButton icon={HeartIcon} aria-label="Heart" />)
+    const triggerEl = getByRole('button')
+    expect(triggerEl).not.toHaveAttribute('aria-labelledby')
+    expect(triggerEl).toHaveAttribute('aria-label', 'Heart')
   })
 })
