@@ -20,11 +20,11 @@ export const createComponent = <I extends HTMLElement, E extends EventNames = {}
         react: React,
         events,
       }),
-    )(sx),
+    ),
     {
       displayName: rename(tagName),
     },
-  )
+  )(sx)
 
   return output
 }
