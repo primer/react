@@ -12,6 +12,7 @@ import type {OverlayProps} from '../../Overlay/Overlay'
 import {StyledOverlay, heightMap} from '../../Overlay/Overlay'
 import InputLabel from '../../internal/components/InputLabel'
 import {invariant} from '../../utils/invariant'
+import {Status} from '../../internal/components/Status'
 
 const SelectPanelContext = React.createContext<{
   title: string
@@ -566,14 +567,34 @@ export type SelectPanelMessageProps = {children: React.ReactNode} & (
   | {
       size?: 'full'
       title: string // title is required with size:full
-      variant: 'warning' | 'error' | 'empty' // default: warning
+      /**
+       * @default warning
+       */
+      variant?: 'warning' | 'error' | 'empty'
     }
   | {
       size?: 'inline'
       title?: never // title is invalid with size:inline
-      variant: 'warning' | 'error' // variant:empty + size:inline = invalid combination
+      /**
+       * @default warning
+       */
+      variant?: 'warning' | 'error' // variant:empty + size:inline = invalid combination
     }
 )
+
+const inlineVariantStyles = {
+  empty: {},
+  warning: {
+    backgroundColor: 'attention.subtle',
+    color: 'attention.fg',
+    borderBottomColor: 'attention.muted',
+  },
+  error: {
+    backgroundColor: 'danger.subtle',
+    color: 'danger.fg',
+    borderColor: 'danger.muted',
+  },
+}
 
 const SelectPanelMessage: React.FC<SelectPanelMessageProps> = ({
   variant = 'warning',
@@ -583,8 +604,7 @@ const SelectPanelMessage: React.FC<SelectPanelMessageProps> = ({
 }) => {
   if (size === 'full') {
     return (
-      <Box
-        aria-live={variant === 'empty' ? undefined : 'polite'}
+      <Status
         sx={{
           display: 'flex',
           flexDirection: 'column',
@@ -603,44 +623,29 @@ const SelectPanelMessage: React.FC<SelectPanelMessageProps> = ({
         {variant !== 'empty' ? (
           <Octicon icon={AlertIcon} sx={{color: variant === 'error' ? 'danger.fg' : 'attention.fg', marginBottom: 2}} />
         ) : null}
-        <Text sx={{fontSize: 1, fontWeight: 'semibold'}}>{title}</Text>
+        <Text sx={{fontSize: 1, fontWeight: 'semibold'}}>{title} </Text>
         <Text sx={{fontSize: 1, color: 'fg.muted'}}>{children}</Text>
-      </Box>
-    )
-  } else {
-    const inlineVariantStyles = {
-      empty: {},
-      warning: {
-        backgroundColor: 'attention.subtle',
-        color: 'attention.fg',
-        borderBottomColor: 'attention.muted',
-      },
-      error: {
-        backgroundColor: 'danger.subtle',
-        color: 'danger.fg',
-        borderColor: 'danger.muted',
-      },
-    }
-
-    return (
-      <Box
-        aria-live={variant === 'empty' ? undefined : 'polite'}
-        sx={{
-          display: 'flex',
-          gap: 2,
-          paddingX: 3,
-          paddingY: '12px',
-          fontSize: 0,
-          borderBottom: '1px solid',
-          a: {color: 'inherit', textDecoration: 'underline'},
-          ...inlineVariantStyles[variant],
-        }}
-      >
-        <AlertIcon size={16} />
-        <Box>{children}</Box>
-      </Box>
+      </Status>
     )
   }
+
+  return (
+    <Box
+      sx={{
+        display: 'flex',
+        gap: 2,
+        paddingX: 3,
+        paddingY: '12px',
+        fontSize: 0,
+        borderBottom: '1px solid',
+        a: {color: 'inherit', textDecoration: 'underline'},
+        ...inlineVariantStyles[variant],
+      }}
+    >
+      <AlertIcon size={16} />
+      <Status>{children}</Status>
+    </Box>
+  )
 }
 
 export const SelectPanel = Object.assign(Panel, {
