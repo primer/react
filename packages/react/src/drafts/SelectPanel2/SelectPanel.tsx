@@ -448,12 +448,18 @@ const SelectPanelSearchInput: React.FC<TextInputProps> = ({
 }
 
 const FooterContext = React.createContext<boolean>(false)
-const SelectPanelFooter = ({...props}) => {
+
+type SelectPanelFooterProps = React.PropsWithChildren<{
+  cancelLabel?: React.ReactNode
+  confirmLabel?: React.ReactNode
+}>
+
+const SelectPanelFooter = ({ children, cancelLabel = 'Cancel', confirmLabel = 'Save' }: SelectPanelFooterProps) => {
   const {onCancel, selectionVariant} = React.useContext(SelectPanelContext)
 
   const hidePrimaryActions = selectionVariant === 'instant'
 
-  if (hidePrimaryActions && !props.children) {
+  if (hidePrimaryActions && !children) {
     // nothing to render
     // todo: we can inform them the developer footer will render nothing
     return null
@@ -473,15 +479,15 @@ const SelectPanelFooter = ({...props}) => {
           borderColor: 'border.default',
         }}
       >
-        <Box sx={{flexGrow: hidePrimaryActions ? 1 : 0}}>{props.children}</Box>
+        <Box sx={{flexGrow: hidePrimaryActions ? 1 : 0}}>{children}</Box>
 
         {hidePrimaryActions ? null : (
           <Box sx={{display: 'flex', gap: 2}}>
             <Button size="small" type="button" onClick={() => onCancel()}>
-              Cancel
+              {cancelLabel}
             </Button>
             <Button size="small" type="submit" variant="primary">
-              Save
+              {confirmLabel}
             </Button>
           </Box>
         )}
