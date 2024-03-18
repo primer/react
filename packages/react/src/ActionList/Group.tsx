@@ -20,7 +20,7 @@ export type ActionListGroupProps = {
    */
   variant?: 'subtle' | 'filled'
   /**
-   * Primary text which names a `Group`.
+   * @deprecated (Use `ActionList.GroupHeading` instead. i.e. <ActionList.Group title="Group title"> → <ActionList.GroupHeading>Group title</ActionList.GroupHeading>)
    */
   title?: string
   /**
