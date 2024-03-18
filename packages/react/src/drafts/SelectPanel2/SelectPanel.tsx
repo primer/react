@@ -12,7 +12,7 @@ import type {OverlayProps} from '../../Overlay/Overlay'
 import {StyledOverlay, heightMap} from '../../Overlay/Overlay'
 import InputLabel from '../../internal/components/InputLabel'
 import {invariant} from '../../utils/invariant'
-import { Status } from '../../internal/components/Status'
+import {Status} from '../../internal/components/Status'
 
 const SelectPanelContext = React.createContext<{
   title: string
