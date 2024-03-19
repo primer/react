@@ -2,4 +2,4 @@
 '@primer/react': minor
 ---
 
-Add support for announcements to SelectPanel.Loading
+experimental/SelectPanel: Add support for announcements to SelectPanel.Loading
