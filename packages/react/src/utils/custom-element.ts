@@ -13,13 +13,18 @@ export const createComponent = <I extends HTMLElement, E extends EventNames = {}
   events: E | undefined = undefined,
 ) => {
   const output = Object.assign(
-    styled(
-      create<I, E>({
-        tagName,
-        elementClass,
-        react: React,
-        events,
-      }),
+    Object.assign(
+      styled(
+        create<I, E>({
+          tagName,
+          elementClass,
+          react: React,
+          events,
+        }),
+      ),
+      {
+        displayName: rename(tagName),
+      },
     )(sx),
     {
       displayName: rename(tagName),
