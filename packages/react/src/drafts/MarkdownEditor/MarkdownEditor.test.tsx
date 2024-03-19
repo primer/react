@@ -782,6 +782,23 @@ describe('MarkdownEditor', () => {
       expect(getViewSwitch()).not.toBeDisabled()
     })
 
+    it('does not trigger form submit event', async () => {
+      const onSubmit = jest.fn(e => e.preventDefault())
+
+      const {getViewSwitch} = await render(
+        <form onSubmit={onSubmit}>
+          <UncontrolledEditor />
+        </form>,
+      )
+
+      fireEvent.click(getViewSwitch())
+      await act(async () => {
+        await new Promise(process.nextTick)
+      })
+
+      expect(onSubmit).not.toHaveBeenCalled()
+    })
+
     describe('fetching', () => {
       it('prefetches the preview when the view switch is focused', async () => {
         const renderPreviewMock = jest.fn()
