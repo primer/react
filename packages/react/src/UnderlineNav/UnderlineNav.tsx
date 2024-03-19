@@ -4,6 +4,7 @@ import Box from '../Box'
 import type {BetterSystemStyleObject, SxProp} from '../sx'
 import sx, {merge} from '../sx'
 import {UnderlineNavContext} from './UnderlineNavContext'
+import {useAnchoredPosition, useOnEscapePress, useOnOutsideClick, useId} from '../hooks'
 import type {ResizeObserverEntry} from '../hooks/useResizeObserver'
 import {useResizeObserver} from '../hooks/useResizeObserver'
 import {useTheme} from '../ThemeProvider'
@@ -13,9 +14,6 @@ import {moreBtnStyles, getDividerStyle, getNavStyles, ulStyles, menuStyles, menu
 import styled from 'styled-components'
 import {Button} from '../Button'
 import {TriangleDownIcon} from '@primer/octicons-react'
-import {useOnEscapePress} from '../hooks/useOnEscapePress'
-import {useOnOutsideClick} from '../hooks/useOnOutsideClick'
-import {useId} from '../hooks/useId'
 import {ActionList} from '../ActionList'
 import {defaultSxProp} from '../utils/defaultSxProp'
 import CounterLabel from '../CounterLabel'
@@ -295,6 +293,11 @@ export const UnderlineNav = forwardRef(
         )
     }, navRef as RefObject<HTMLElement>)
 
+    const {position: overflowMenuPosition} = useAnchoredPosition(
+      {anchorElementRef: moreMenuBtnRef, floatingElementRef: containerRef, align: 'end'},
+      [menuItems.length > 0, isWidgetOpen],
+    )
+
     return (
       <UnderlineNavContext.Provider
         value={{
@@ -342,7 +345,7 @@ export const UnderlineNav = forwardRef(
                   ref={containerRef}
                   id={disclosureWidgetId}
                   sx={menuStyles}
-                  style={{display: isWidgetOpen ? 'block' : 'none'}}
+                  style={{display: isWidgetOpen ? 'block' : 'none', ...overflowMenuPosition}}
                 >
                   {menuItems.map((menuItem, index) => {
                     const {
