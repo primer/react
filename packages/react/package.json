@@ -147,7 +147,7 @@
     "@storybook/source-loader": "7.6.10",
     "@storybook/test-runner": "0.16.0",
     "@storybook/testing-library": "0.2.2",
-    "@storybook/theming": "7.6.4",
+    "@storybook/theming": "8.0.1",
     "@testing-library/dom": "9.3.4",
     "@testing-library/jest-dom": "6.2.0",
     "@testing-library/react": "14.2.1",
