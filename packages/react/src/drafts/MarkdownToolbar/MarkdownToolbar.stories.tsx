@@ -17,7 +17,7 @@ export const Playground: Story<ComponentProps<typeof MarkdownToolbar>> = () => {
       <MarkdownToolbar for={id} sx={{display: 'block'}}>
         <MarkdownToolbar.DefaultButtons />
       </MarkdownToolbar>
-      <textarea id={id} aria-label="Markdown value"/>
+      <textarea id={id} aria-label="Markdown value" />
     </>
   )
 }
@@ -55,7 +55,7 @@ export const CommentBox = () => {
           <MarkdownToolbar.DefaultButtons />
         </MarkdownToolbar>
       </Box>
-      <textarea id={id} aria-label="Markdown value"/>
+      <textarea id={id} aria-label="Markdown value" />
     </Box>
   )
 }
