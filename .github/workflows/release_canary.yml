@@ -8,7 +8,9 @@ on:
 
 jobs:
   release:
-    concurrency: npm-canary
+    concurrency:
+      group: npm-canary
+      cancel-in-progress: false
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
