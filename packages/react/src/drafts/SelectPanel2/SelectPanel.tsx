@@ -25,6 +25,7 @@ import type {OverlayProps} from '../../Overlay/Overlay'
 import {StyledOverlay, heightMap} from '../../Overlay/Overlay'
 import InputLabel from '../../internal/components/InputLabel'
 import {invariant} from '../../utils/invariant'
+import VisuallyHidden from '../../_VisuallyHidden'
 
 const SelectPanelContext = React.createContext<{
   title: string
@@ -329,7 +330,18 @@ const Panel: React.FC<SelectPanelProps> = ({
 
 const SelectPanelButton = React.forwardRef<HTMLButtonElement, ButtonProps>((props, anchorRef) => {
   const inputProps = useFormControlForwardedProps(props)
-  return <Button ref={anchorRef} {...inputProps} />
+  return (
+    <>
+      {inputProps.id && (
+        <VisuallyHidden id={`${inputProps.id}--select-panel-button-children`}>{inputProps.children}</VisuallyHidden>
+      )}
+      <Button
+        ref={anchorRef}
+        {...inputProps}
+        aria-labelledby={`${inputProps.id} ${inputProps.id}--select-panel-button-children`}
+      />
+    </>
+  )
 })
 
 const SelectPanelHeader: React.FC<React.PropsWithChildren & {onBack?: () => void}> = ({children, onBack, ...props}) => {
